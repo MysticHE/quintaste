@@ -10,9 +10,9 @@ require.extensions['.ts'] = (module, filename) => module._compile(ts.transpileMo
   compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022, esModuleInterop: true }, fileName: filename,
 }).outputText, filename);
 const catalogue = require('../data/menus/catalogue-index.json');
-const { recipes } = require('../src/data/recipes.ts');
+const { bundledRecipes } = require('../src/data/recipes.ts');
 const { publishedMenuDetail } = require('../src/server/menu-delivery.ts');
-const baseline = { venues: catalogue.venues, recipes: recipes.map(({ id, name }) => ({ id, name })) };
+const baseline = { venues: catalogue.venues, recipes: bundledRecipes(true).map(({ id, name }) => ({ id, name })) };
 const menus = catalogue.venues.map(venue => {
   const menu = publishedMenuDetail(venue.id, 0)?.venues[0];
   if (!menu) throw Error('Missing menu ' + venue.id);
