@@ -161,3 +161,38 @@ research/reporter locks and a new recoverable backup. Restore code/roles without
 overwriting newer state or owner actions. VPS rollback folders:
 `operator-tests/menu-coverage-20261017` and `operator-tests/menu-coverage-v2-20261017`
 under `/opt/data/qt-team`.
+
+## Overnight check, 18 October 2026, about 2 am SGT
+
+The owner asked why the Greendot Plus Jewel report said 0/53. **This is not a
+counting bug.** The live state is `research-greendot-jewel-changi-airport`:
+53 dishes, 53 held, Manager approved the audit. Explorer held every dish because
+its only recorded source, `orders.greendot.sg/?StoreID=...`, was captured as
+1,564 bytes of promotions. Greendot Westgate shows the same pattern (50 held,
+6 conflicting).
+
+The ordering site ignores `StoreID` in server-rendered HTML. Jewel and Westgate
+URLs return the identical default-store menu: same text and the same 78 product
+IDs. Verifying from that page would have produced wrong-branch prices, so
+holding was correct. `www.greendot.sg` rejects automated fetches (ModSecurity
+406). That was not bypassed. Verification is tied to each section's recorded
+`sourceUrl`, so Greendot branches need an editorial change to a branch-specific
+source. More Explorer retries won't fix this.
+
+No app data changed overnight. All runs from 17:00Z had 0 production writes.
+The latest publication is still the 17 October 19:02 SGT seven-venue patch.
+Events rechecked both live listings as unchanged. Cooker failed twice with
+`Invalid duration`. That was a real bug: the normaliser rejected `rest`/`estimated`
+timing keys, and its daily failure breaker then stopped Cooker for 18 October.
+
+Local fixes in the bot workspace (101 checks pass):
+
+- Cooker timing accepts `rest` and a boolean `estimated` label (source split kept).
+- A capture whose bytes match another query variant of the same page (an ignored
+  branch parameter) downgrades a verified dish to held with an explicit reason.
+- Menu review captions say audit-only/no app change, group hold reasons with
+  counts and give the recheck date, instead of listing two dish names.
+- Coverage/status/run reports show assessed vs fully verified locations and
+  verified/held/pending dish totals, replacing the bare `0/174`.
+
+Deployment status: `deploy_report_fixes.py` is pending owner confirmation.

@@ -3,12 +3,15 @@ import { useEffect, useState } from "react";
 import { View } from "react-native";
 import { useEditorial } from "../../hooks/useEditorial";
 import type { EditorialPage, ExternalEvent } from "../../services/editorial";
-import { DateTile, ListGroup, ListItem, StatusPill } from "../GroupedList";
+import { DateTile, ListGroup, ListItem } from "../GroupedList";
 import { Button, T } from "../ui";
 import { sgDateTile, formatSgShort } from "../../utils/sg-datetime";
 import { usePreferences } from "../../state/Preferences";
 import { useDebounced } from "../../hooks/useDebounced";
 
+/** Organiser titles written in capitals ("VEGETARIAN COOKING CLASS") read as shouting; show them in title case. */
+const readableTitle = (title: string) => title === title.toUpperCase() && /[A-Z]{4}/.test(title)
+  ? title.toLowerCase().replace(/(^|[\s(/-])([a-z])/g, (_, gap: string, letter: string) => gap + letter.toUpperCase()) : title;
 export function ExternalEvents({ query }: { query: string }) {
   const q = useDebounced(query), base = "/events?q=" + encodeURIComponent(q.trim());
   const [page, setPage] = useState<{ base: string; cursor: string | null; prior: ExternalEvent[] }>({ base, cursor: null, prior: [] });
@@ -25,8 +28,10 @@ export function ExternalEvents({ query }: { query: string }) {
     {remote.error && <><T muted>{remote.error}</T><Button label="Retry Events" variant="link" onPress={remote.refresh} /></>}
     {!!rows.length && <ListGroup>{rows.map(event => {
       const localTime = event.startsAt.slice(0, 16).replace("T", " "), tile = sgDateTile(localTime), expanded = selected === event.id;
-      return <View key={event.id}><ListItem title={event.title} leading={tile ? <DateTile day={tile.day} month={tile.month} /> : undefined}
-        subtitle={formatSgShort(localTime) + " · " + event.organiser} detail={event.location} badge={<StatusPill label="External event" tone="muted" />}
+      // Every row here is an external event, so no badge; the venue line is skipped when it repeats the organiser.
+      const sameVenue = event.location.toLowerCase().includes(event.organiser.toLowerCase());
+      return <View key={event.id}><ListItem title={readableTitle(event.title)} leading={tile ? <DateTile day={tile.day} month={tile.month} /> : undefined}
+        subtitle={formatSgShort(localTime) + " · " + event.organiser} detail={sameVenue ? undefined : event.location}
         onPress={() => setSelected(expanded ? null : event.id)} />
         {expanded && <View style={{ padding: 16, gap: 8 }}><T>{event.address}</T><T variant="small">{event.dietEvidence}</T>
           <T variant="small">{event.feeAmount !== null && event.currency === "SGD" ? "S$" + event.feeAmount : "Check organiser for fees"}</T>

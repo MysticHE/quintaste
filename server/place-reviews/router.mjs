@@ -1,15 +1,12 @@
-import fs from 'node:fs';
 import { Buffer } from 'node:buffer';
-import path from 'node:path';
 import { pool } from '../config.mjs';
 import { operationsEnabled } from '../operations.mjs';
 import { communityRouter, CommunityError, errors, member, requireId, text, throttle, transaction, uuid } from '../community/http.mjs';
 import { fileReport, notBlocked, notRestricted } from '../community/router.mjs';
 import { photoPath, reviewPhotos } from './photos.mjs';
+import { catalogueVenues, placeAliases } from '../catalogue-places.mjs';
 
-const catalogue = JSON.parse(fs.readFileSync(path.resolve('server-assets/editorial-baseline.json'), 'utf8')).venues;
-// The approved alias identifies the same named branch and unit; keep one rating per member across both URLs.
-const aliases = new Map([['research-150-green-bukit-batok', 'research-ur08-150-green']]);
+const catalogue = catalogueVenues, aliases = placeAliases;
 const sorts = { newest: 'pr.created_at DESC,pr.id DESC', highest: 'pr.rating DESC,pr.created_at DESC,pr.id DESC', lowest: 'pr.rating ASC,pr.created_at DESC,pr.id DESC' };
 const reasons = ['Spam', 'Not about this place', 'Offensive content', 'Conflict of interest', 'Other'];
 const fields = `pr.id,pr.rating,pr.body,pr.created_at AS "createdAt",pr.updated_at AS "updatedAt",left(coalesce(nullif(u.name,''),'Member'),50) AS name,

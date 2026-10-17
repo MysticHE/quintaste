@@ -29,6 +29,6 @@ export function AskStallScreen() {
     </Card>)}
     <InfoBox title="If Staff Are Unsure" text="Keep the fit as Unknown. Do not turn an uncertain answer into a confirmation. If you have an allergy, explain it directly and ask about cross-contact." />
     <PrivateNote key={kind + ":" + id} noteKey={kind + ":" + id} />
-    <Button label="Draft A Correction" variant="secondary" onPress={() => router.push({ pathname: "/contribute", params: { target: name ?? id, kind: "correction" } })} />
+    {__DEV__ && <Button label="Draft A Correction" variant="secondary" onPress={() => router.push({ pathname: "/contribute", params: { target: name ?? id, kind: "correction" } })} />}
   </Screen>;
 }

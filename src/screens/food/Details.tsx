@@ -35,7 +35,7 @@ export function VenueDetailScreen() {
     {dishes.filter(dish => dish.venueId === id).map(dish => <FoodCard key={dish.id} kind="dish" id={dish.id} onOpen={() => router.push("/dish/" + dish.id as never)} />)}
     <PrivateNote key={"place:" + id} noteKey={"place:" + id} />
     <Button label="Ask The Stall" variant="secondary" icon="chatbubble-outline" onPress={() => router.push({ pathname: "/ask/[id]", params: { id, kind: "place" } } as never)} />
-    <Button label="Suggest A Correction" variant="link" onPress={() => router.push({ pathname: "/contribute", params: { target: venue.name, kind: "correction" } })} />
+    {__DEV__ && <Button label="Suggest A Correction" variant="link" onPress={() => router.push({ pathname: "/contribute", params: { target: venue.name, kind: "correction" } })} />}
   </Screen>;
 }
 export function DishDetailScreen() {
@@ -58,7 +58,7 @@ export function DishDetailScreen() {
     </InfoBox>}
     <PrivateNote key={"dish:" + id} noteKey={"dish:" + id} />
     <Button label="View Place" variant="link" onPress={() => router.push("/place/" + venue.id as never)} />
-    <Button label="Suggest A Correction" variant="link" onPress={() => router.push({ pathname: "/contribute", params: { target: dish.name, kind: "correction" } })} />
-    <Button label="Report A Concern" variant="link" onPress={() => router.push({ pathname: "/contribute", params: { target: dish.name, kind: "report" } })} />
+    {__DEV__ && <Button label="Suggest A Correction" variant="link" onPress={() => router.push({ pathname: "/contribute", params: { target: dish.name, kind: "correction" } })} />}
+    {__DEV__ && <Button label="Report A Concern" variant="link" onPress={() => router.push({ pathname: "/contribute", params: { target: dish.name, kind: "report" } })} />}
   </Screen>;
 }

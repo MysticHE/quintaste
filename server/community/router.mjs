@@ -1,5 +1,6 @@
 import { pool, logger } from '../config.mjs';
 import { CommunityError, communityRouter, errors, requireUser, text, throttle, transaction } from './http.mjs';
+import { publishedPlaceId } from '../catalogue-places.mjs';
 
 /** Blocking is mutual for visibility: neither side sees or contacts the other. */
 export async function blockedBetween(a, b, db = pool) {
@@ -50,11 +51,15 @@ community.delete('/blocks/:id', async (req, res) => {
   res.json({ blocked: false });
 });
 community.post('/reports', async (req, res) => {
-  const me = res.locals.user.id, kind = req.body?.kind, target = requireUser(req.body?.targetId);
+  const me = res.locals.user.id, kind = req.body?.kind;
+  if (!['person', 'listing', 'place'].includes(kind)) throw new CommunityError(400, 'Choose what you are reporting.');
+  // Place reports (wrong hours, menu, location, closure or diet) go to the same staff case queue as other reports.
+  const target = kind === 'place' ? publishedPlaceId(req.body?.targetId) : requireUser(req.body?.targetId);
+  if (!target) throw new CommunityError(404, 'That place is unavailable.');
   const reason = text(req.body?.reason, 60), details = text(req.body?.details, 1000);
-  if (!['person', 'listing'].includes(kind)) throw new CommunityError(400, 'Choose what you are reporting.');
-  const reference = await fileReport(me, { subject: (kind === 'listing' ? 'market:listing:' : 'community:user:') + target,
-    title: (kind === 'listing' ? 'Market listing report' : 'Member report') + (reason ? ' · ' + reason : ''),
+  const subject = { listing: 'market:listing:', person: 'community:user:', place: 'place:catalogue:' }[kind] + target;
+  const reference = await fileReport(me, { subject,
+    title: { listing: 'Market listing report', person: 'Member report', place: 'Place update' }[kind] + (reason ? ' · ' + reason : ''),
     description: [reason && 'Reason: ' + reason, details || 'No details given.'].filter(Boolean).join('\n\n') });
   if (req.body?.block === true && kind === 'person' && target !== me) {
     await transaction(async db => {

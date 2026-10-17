@@ -64,7 +64,7 @@ export function ConnectedAuthScreen({ signup = false }: { signup?: boolean }) {
   return <Screen title={signup ? 'Create Account' : 'Sign In'}>
     {!(signup && passwordVisible) && <GoogleSignIn disabled={busy} returnTo={returnTo} onBusy={setGoogleBusy} />}
     {!googleBusy && <>
-    <Button label={passwordVisible ? (signup ? 'Other sign-up options' : 'Hide password sign-in') : (signup ? 'Create with username' : 'Use username and password')}
+    <Button label={passwordVisible ? (signup ? 'Other Sign-Up Options' : 'Hide Password Sign-In') : (signup ? 'Create With Username' : 'Use Username And Password')}
       variant="link" disabled={busy} onPress={() => { setPasswordVisible(value => !value); setDateOfBirth(''); setPassword(''); setError(''); }} />
     {passwordVisible && <>
     {signup && <><Field label="Display Name" value={name} onChangeText={setName} maxLength={50} />

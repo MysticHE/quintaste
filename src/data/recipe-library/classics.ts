@@ -75,7 +75,7 @@ export const classics: Recipe[] = [
     ],
   },
   {
-    ...laksa, id: "gentle-laksa", name: "Ginger coconut laksa", adaptationId: undefined, dishId: undefined,
+    ...laksa, id: "gentle-laksa", name: "Ginger coconut laksa", photo: undefined, adaptationId: undefined, dishId: undefined,
     description: "A separate no-allium editorial variation with extra ginger and an allium-free stock.",
     adaptationNote: "Editorial sample variation: onion and garlic are omitted; ginger is increased. Use stock explicitly free of all seven alliums. This recipe cannot confirm a stall's dish.",
     dietary: vegan(["Root vegetables"], "2026-10-12"),

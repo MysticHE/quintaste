@@ -1,19 +1,32 @@
 import { router } from "expo-router";
+import { useState } from "react";
 import { Pressable, StyleSheet, View } from "react-native";
 import { usePreferences } from "../../state/Preferences";
 import { Icon, T } from "../ui";
+import { ensureMember, useMember } from "../CommunityGate";
+import { ReportSheet } from "../ReportSheet";
 
+type Action = { key: string; label: string; accessible: string; icon: "create-outline" | "flag-outline"; onPress: () => void };
+/**
+ * Production: one "Report A Problem" action that files to the staff case queue (signed-in members only).
+ * Development also keeps the local review service's correction and concern drafts.
+ */
 export function PlaceFeedbackActions({ name, placeId, menuId }: { name: string; placeId: string; menuId?: string }) {
-  const { theme } = usePreferences();
+  const { theme } = usePreferences(), member = useMember(), [open, setOpen] = useState(false);
+  const local = (kind: "correction" | "report") => router.push({ pathname: "/contribute", params: { target: name, kind, placeId,
+    ...(kind === "correction" && menuId ? { menuId } : {}) } });
+  const actions: Action[] = __DEV__
+    ? [{ key: "correction", label: "Correction", accessible: "Suggest a correction", icon: "create-outline", onPress: () => local("correction") },
+      { key: "report", label: "Report concern", accessible: "Report a concern", icon: "flag-outline", onPress: () => local("report") }]
+    : menuId ? [{ key: "problem", label: "Report A Problem", accessible: "Report a problem with " + name, icon: "flag-outline",
+      onPress: () => { if (ensureMember(member, "/place/catalogue-" + menuId)) setOpen(true); } }] : [];
+  if (!actions.length) return null;
   return <View style={s.actions}>
-    {([{ kind: "correction", label: "Correction", accessible: "Suggest a correction", icon: "create-outline" },
-      { kind: "report", label: "Report concern", accessible: "Report a concern", icon: "flag-outline" }] as const).map(action =>
-      <Pressable key={action.kind} accessibilityRole="button" accessibilityLabel={action.accessible}
-        onPress={() => router.push({ pathname: "/contribute", params: { target: name, kind: action.kind, placeId,
-          ...(action.kind === "correction" && menuId ? { menuId } : {}) } })}
-        style={({ pressed }) => [s.action, { backgroundColor: pressed ? theme.accentSoft : theme.card, borderColor: theme.border }]}>
-        <Icon name={action.icon} size={19} color={theme.accent} /><T variant="small" style={s.label}>{action.label}</T>
-      </Pressable>)}
+    {actions.map(action => <Pressable key={action.key} accessibilityRole="button" accessibilityLabel={action.accessible} onPress={action.onPress}
+      style={({ pressed }) => [s.action, { backgroundColor: pressed ? theme.accentSoft : theme.card, borderColor: theme.border }]}>
+      <Icon name={action.icon} size={19} color={theme.accent} /><T variant="small" style={s.label}>{action.label}</T>
+    </Pressable>)}
+    {!__DEV__ && menuId && <ReportSheet kind="place" targetId={menuId} name={name} visible={open} onClose={() => setOpen(false)} />}
   </View>;
 }
 const s = StyleSheet.create({

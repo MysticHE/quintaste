@@ -35,6 +35,8 @@ export function AccountScreen() {
       <View style={common.flex}>
         <T variant="subtitle">{user?.name || (preview ? draft.displayName : "Your Space")}</T>
         {!user && <T variant="small" muted>{preview ? "Local Preview" : "Guest"}</T>}
+        {!user && !preview && enabled && <Button label="Sign In Or Create Account" icon="log-in-outline" variant="link"
+          onPress={() => router.push({ pathname: "/login", params: { returnTo: "/account" } })} />}
         {(preview || user?.adultConfirmed) && <Button label="Edit Profile" icon="create-outline" variant="link" onPress={() => router.push("/profile")} />}
         {user && !user.adultConfirmed && <Button label="Complete Account Setup" variant="link" onPress={() => router.push('/account-eligibility')} />}
       </View>
@@ -42,8 +44,8 @@ export function AccountScreen() {
     <Card style={s.group}>
       <SettingsRow label="Saved" leading={<QuinTasteIcon name="saved" color={theme.accent} size={26} />} value={String(doc.saves.length)} onPress={() => router.push("/saved")} />
       <SettingsRow label="Food Choices" icon="leaf-outline" value={draft.diet === "Plant-based" ? "Plant-Based" : draft.diet} onPress={() => router.push("/exclusions")} />
-      <SettingsRow label="Location" icon="location-outline" onPress={() => router.push("/private-places")} />
-      <SettingsRow label="My Cases" icon="file-tray-outline" last onPress={() => router.push("/cases")} />
+      <SettingsRow label="Location" icon="location-outline" last={!__DEV__} onPress={() => router.push("/private-places")} />
+      {__DEV__ && <SettingsRow label="My Cases" icon="file-tray-outline" last onPress={() => router.push("/cases")} />}
     </Card>
     <Card style={s.group}>
       <SettingsRow label="Appearance" icon="color-palette-outline" onPress={() => router.push("/settings")} />
@@ -55,10 +57,10 @@ export function AccountScreen() {
       <SettingsRow label="Help" icon="help-circle-outline" last={!user} onPress={() => router.push("/help")} />
       {user && <SettingsRow label="Import Guest Data" icon="download-outline" last onPress={() => router.push('/merge-saves')} />}
     </Card>
-    <Button label={user ? "Sign Out" : preview ? "Return To Guest Collection" : enabled ? "Sign In" : "View Profile Options"} icon={user || preview ? "log-out-outline" : "log-in-outline"} variant="link" loading={switching} onPress={() => {
+    {(user || preview || !enabled) && <Button label={user ? "Sign Out" : preview ? "Return To Guest Collection" : "View Profile Options"} icon={user || preview ? "log-out-outline" : "log-in-outline"} variant="link" loading={switching} onPress={() => {
       if (preview) void leave();
       else router.push({ pathname: "/login", params: { returnTo: "/account" } });
-    }} />
+    }} />}
     <MarketModal visible={unsaved} onClose={() => setUnsaved(false)} label="Sign Out Anyway?">
       <T>Some changes on this device have not saved yet. Signing out now discards them.</T>
       <Action label="Sign Out Anyway" run={() => leave(true)} />
