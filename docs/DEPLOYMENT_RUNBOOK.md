@@ -1,3 +1,15 @@
+<!-- ci-deployment-20261017 -->
+## Continuous deployment (since 17 October 2026)
+
+Source lives in the private GitHub repo `MysticHE/quintaste` (push as the `MysticHE` gh account). **Every push to `main`** runs `.github/workflows/deploy.yml`: `npm ci`, TypeScript, lint, server type check, production web export (`EXPO_NO_DOTENV=1`, accounts on, production API URL, `--clear`), `scripts/package-release.py`, then sends the archive over SSH. Pushes that only touch `docs/`, Markdown, `.impeccable/` or `.claude/` do not deploy. Use **Run workflow** to redeploy manually.
+
+The `production` environment holds `VPS_DEPLOY_KEY` (dedicated ed25519 key, comment `quintaste-ci-deploy`) and `VPS_KNOWN_HOSTS`. On the VPS that key is limited by `restrict,command="/docker/quintaste/bin/ci-deploy.sh"`: it cannot open a shell or run anything else. To revoke, delete that line from `/root/.ssh/authorized_keys` (backup `authorized_keys.pre-ci`).
+
+`/docker/quintaste/bin/ci-deploy.sh` (source `deploy/ci-deploy.sh`) verifies the archive digest, takes a lock, and **stops without changes** when database schema files (`server/**/*.sql`, `admin/db/*.sql`) or Compose files differ from the live release. Those still follow sections 4 and 5 manually: apply after backup, then deploy. Otherwise it builds app and preview (and admin only when `admin/` changed), runs the backup, waits for avatar jobs, saves `deployment-backups/<release>`, promotes, checks `/healthz`, `/api/menus` and the web entry bundle, and **rolls back automatically** if any check fails. Finally `/docker/quintaste/bin/prune-releases.sh --apply 3` keeps the three newest releases plus anything running or needed for rollback, so disk use stays flat. Release ids look like `YYYYMMDD-ci<run>-<sha7>`. Logs: `releases/<release>-{app,preview,prune}.log` and the Actions run.
+
+Manual releases with the steps below remain valid for schema or Compose changes; after one, push to `main` again so CI continues from the new live release. Do not run a manual promotion while a workflow run is deploying (the script holds `/docker/quintaste/.ci-deploy.lock`).
+<!-- end-ci-deployment-20261017 -->
+
 <!-- qt-full-menu-audit-20261017 -->
 QT bot whole-menu fix deployed and live-tested **17 Oct, 19:29 SGT**. Zhen Xiang
 still has all **68 dishes**: 66 source-backed findings accepted by Manager,

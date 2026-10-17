@@ -1,0 +1,79 @@
+name: Deploy
+
+# Every push to main is checked, exported, packaged and deployed to the VPS through the restricted deploy key.
+# The VPS script refuses schema/Compose changes (manual runbook), rolls back on failed live checks and prunes old releases.
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - "docs/**"
+      - "**/*.md"
+      - ".impeccable/**"
+      - ".claude/**"
+  workflow_dispatch:
+
+concurrency:
+  group: production-deploy
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+
+      - name: Typecheck app
+        run: npx tsc --noEmit
+
+      - name: Lint
+        run: npx expo lint
+
+      - name: Typecheck server
+        run: npm run typecheck:server
+
+      - name: Export web
+        env:
+          EXPO_NO_DOTENV: "1"
+          EXPO_PUBLIC_AUTH_ENABLED: "true"
+          EXPO_PUBLIC_API_URL: https://quintaste.srv1902914.hstgr.cloud
+          CI: "1"
+          NODE_OPTIONS: --max-old-space-size=6144
+        run: npx expo export --platform web --clear --max-workers 2
+
+      - name: Package release
+        id: package
+        run: |
+          release="$(date -u +%Y%m%d)-ci${GITHUB_RUN_NUMBER}-${GITHUB_SHA::7}"
+          python3 scripts/package-release.py "$release"
+          echo "release=$release" >> "$GITHUB_OUTPUT"
+          echo "sha=$(sha256sum ".local/releases/$release.tgz" | cut -d' ' -f1)" >> "$GITHUB_OUTPUT"
+
+      - name: Deploy to VPS
+        env:
+          DEPLOY_KEY: ${{ secrets.VPS_DEPLOY_KEY }}
+          KNOWN_HOSTS: ${{ secrets.VPS_KNOWN_HOSTS }}
+          RELEASE: ${{ steps.package.outputs.release }}
+          SHA: ${{ steps.package.outputs.sha }}
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$DEPLOY_KEY" > ~/.ssh/deploy_key && chmod 600 ~/.ssh/deploy_key
+          printf '%s\n' "$KNOWN_HOSTS" > ~/.ssh/known_hosts
+          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=yes -o ServerAliveInterval=30 -o ServerAliveCountMax=20 \
+            root@srv1902914.hstgr.cloud "deploy $RELEASE $SHA" < ".local/releases/$RELEASE.tgz"
+
+      - name: Remove key
+        if: always()
+        run: rm -f ~/.ssh/deploy_key
