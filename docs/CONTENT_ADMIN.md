@@ -1,5 +1,7 @@
 # Staff content console (18 October 2026)
 
+Live since release **20261018-content-admin1** (app, preview and admin). See the deployment runbook entry for verification and rollback.
+
 The admin console's **Content** section (`/console/content`) replaces the old Editorial review page. Staff can open every post members see, edit QuinTaste-owned content and hide or restore anything. Owner, operator and reviewer roles hold the `content` capability. Every change needs a reason (at least 10 characters), a security-key check within the last 5 minutes, and is written to `staff.audit` as `content.<kind>.<action>` with target `<kind>:<id>`.
 
 ## What staff can do
