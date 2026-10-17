@@ -27,7 +27,9 @@ head -c 1073741824 > "releases/$RELEASE.tgz"
 actual=$(sha256sum "releases/$RELEASE.tgz" | cut -d' ' -f1)
 [[ "$actual" == "$SHA" ]] || { rm -f "releases/$RELEASE.tgz"; fail "Archive digest mismatch" 2; }
 mkdir "releases/$RELEASE"
-tar -xzf "releases/$RELEASE.tgz" -C "releases/$RELEASE"
+# Image files must stay readable by the unprivileged node user, so extract with the normal umask.
+(umask 022; tar -xzf "releases/$RELEASE.tgz" -C "releases/$RELEASE")
+chmod 755 "releases/$RELEASE"
 RECEIVED=true
 log "Received $RELEASE"
 
@@ -99,6 +101,9 @@ rollback() {
   log "Rolling back to $LIVE"
   for name in .env compose.yml admin.compose.yml avatar.compose.yml; do cp -p "deployment-backups/$RELEASE/$name" "$name"; done
   compose up -d --no-deps --wait --wait-timeout 240 $SERVICES < /dev/null || true
+  # The failed release never served traffic: drop it so pruning keeps only real releases.
+  for s in $SERVICES; do docker rmi "quintaste-$s:$RELEASE" > /dev/null 2>&1 || true; done
+  rm -rf "releases/$RELEASE" "releases/$RELEASE.tgz" "deployment-backups/$RELEASE"
 }
 
 # 6. Promote and verify; any failure restores the previous images.
