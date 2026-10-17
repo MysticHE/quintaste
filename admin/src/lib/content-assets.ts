@@ -4,7 +4,7 @@ import sharp, { type OutputInfo } from 'sharp';
 import { query, transaction } from './db';
 import { audit } from './audit';
 import { authorize, lockPermission, type Session } from './session';
-import { HttpError, trustedWrite } from './http';
+import { HttpError, text, trustedWrite } from './http';
 
 const types = new Set(['image/jpeg', 'image/png', 'image/webp']), limit = 8 * 1024 * 1024;
 async function readImage(request: Request) {
@@ -23,6 +23,9 @@ async function readImage(request: Request) {
 /** Re-encodes an uploaded photo (strips location and camera metadata), stores it by SHA-256 and returns its public path. */
 export async function uploadPhoto(member: Session, request: Request) {
   authorize(member, 'content', true);
+  let reason: string;
+  try { reason = text(decodeURIComponent(request.headers.get('x-quintaste-reason') ?? ''), 'reason for this photo', 1000, 10); }
+  catch { throw new HttpError(400, 'Give a reason of at least 10 characters for this photo.'); }
   const input = await readImage(request);
   let output: { data: Buffer; info: OutputInfo };
   try {
@@ -38,7 +41,7 @@ export async function uploadPhoto(member: Session, request: Request) {
     await lockPermission(db, member, 'content', true);
     await db.query('INSERT INTO content.asset(sha256,bytes,width,height,created_by) VALUES($1,$2,$3,$4,$5) ON CONFLICT DO NOTHING',
       [sha, output.data, output.info.width, output.info.height, member.id]);
-    await audit(db, member.id, 'content.photo.upload', 'asset:' + sha, 'Uploaded a content photo', { bytes: output.data.length });
+    await audit(db, member.id, 'content.photo.upload', 'asset:' + sha, reason, { bytes: output.data.length });
   });
   return { path: `/api/catalogue-photos/${sha}.jpg`, width: output.info.width, height: output.info.height };
 }

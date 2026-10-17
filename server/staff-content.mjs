@@ -1,30 +1,12 @@
-import { createHash } from 'node:crypto';
 import { logger, pool } from './config.mjs';
 import { operationsEnabled } from './operations.mjs';
+import { emptyStaffContent, staffContentLoader, staffContentQuery } from './staff-content-core.mjs';
 
-// Express-side reader of content.item (src/server/staff-content.ts serves the Expo routes). Staff edits win over
-// packaged and bot content until staff clear them. Re-read at most every 10 seconds; a failed read reuses the last
-// copy for 5 minutes, then fails closed so hidden content never reappears.
-const empty = { revision: '0'.repeat(64), items: new Map() };
-let cached, pending;
-export async function staffContent() {
-  if (!operationsEnabled) return empty;
-  const prior = cached;
-  if (prior && Date.now() - prior.at < 10000) return prior.value;
-  pending ??= pool.query(`SELECT kind,id,origin,hidden,data,version,to_char(updated_at AT TIME ZONE 'UTC', 'YYYY-MM-DD"T"HH24:MI:SS.MS"Z"') AS updated_at
-      FROM content.item ORDER BY kind,id`)
-    .then(({ rows }) => {
-      const revision = createHash('sha256').update(JSON.stringify(rows.map(r => [r.kind, r.id, r.version, r.hidden, r.updated_at]))).digest('hex');
-      const value = { revision, items: new Map(rows.map(row => [row.kind + ':' + row.id, row])) };
-      cached = { at: Date.now(), value }; return value;
-    })
-    .catch(error => {
-      if (prior && Date.now() - prior.at < 300000) { logger.warn({ event: 'staff_content_stale' }); return prior.value; }
-      throw error;
-    })
-    .finally(() => { pending = undefined; });
-  return pending;
-}
+// Staff edits win over packaged and bot content until staff clear them. The Expo API routes in this process use the
+// same loader (src/server/staff-content.ts), so Express and Expo always agree about what is hidden.
+const load = staffContentLoader(() => pool.query(staffContentQuery), event => logger.warn({ event }));
+export const staffContent = () => operationsEnabled ? load() : Promise.resolve(emptyStaffContent);
+globalThis.quintasteStaffContent = staffContent;
 /** The record a member sees: null when staff hid it, the staff version when staff edited it, otherwise the original. */
 export function staffRecord(staff, kind, id, data) {
   const item = staff.items.get(kind + ':' + id);

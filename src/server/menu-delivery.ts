@@ -43,7 +43,9 @@ const summaries: MenuSummary[] = published.map(menu => menuSummary({ menu, finge
 const revisions = new Map(summaries.map(menu => [menu.id, menu.fingerprint]));
 
 type Applied = { menu: PublishedMenu; fingerprint: string };
-const noStaff: StaffContent = { revision: "0".repeat(64), items: new Map() };
+const noStaff: StaffContent = { revision: "0".repeat(64), catalogueRevision: "0".repeat(64), items: new Map() };
+// Applied staff menus are computed once per staff and bot revision, not on every search or index request.
+let applied: { key: string; menus: Map<string, Applied | undefined> } = { key: "", menus: new Map() };
 const staffSection = "quintaste-additions";
 
 /** The packaged menu with bot price updates, before staff changes. */
@@ -53,6 +55,12 @@ export function baseMenu(id: string, content = editorialContent()): Applied | un
 }
 /** Staff changes win over packaged and bot content: hidden dishes leave, edited fields replace, added dishes form one section. */
 export function staffMenu(id: string, staff: StaffContent, content = editorialContent()): Applied | undefined {
+  const key = staff.catalogueRevision + ":" + content.revision;
+  if (applied.key !== key) applied = { key, menus: new Map() };
+  if (!applied.menus.has(id)) applied.menus.set(id, applyStaff(id, staff, content));
+  return applied.menus.get(id);
+}
+function applyStaff(id: string, staff: StaffContent, content: ReturnType<typeof editorialContent>): Applied | undefined {
   const place = staff.items.get("place:" + id), edit = staff.items.get("menu:" + id);
   if (place?.hidden || edit?.hidden) return undefined;
   const created = place?.origin === "staff", base = created ? undefined : baseMenu(id, content);

@@ -1,4 +1,5 @@
 import path from 'node:path';
+import { createHash } from 'node:crypto';
 import { createRequire } from 'node:module';
 import express from 'express';
 import helmet from 'helmet';
@@ -107,7 +108,16 @@ app.use((err, _req, res, _next) => {
 const server = app.listen(Number(process.env.PORT || 3000), '0.0.0.0', () => logger.info({ event: 'server_ready' }));
 // The staff console reads packaged and bot content before staff changes on this port. Traefik routes only to PORT.
 const internalPort = Number(process.env.CONTENT_INTERNAL_PORT || (process.env.NODE_ENV === 'production' ? 3001 : 0));
-const internal = internalPort ? express().disable('x-powered-by').get('/api/staff-base', createRequestHandler({ build: path.resolve('dist/server') }))
+// The console proves itself with a short-lived token it stored in content.access, so other containers cannot read it.
+async function staffToken(req, res, next) {
+  try {
+    const token = req.get('x-quintaste-content-token') ?? '';
+    if (!/^[A-Za-z0-9_-]{43}$/.test(token)) return res.sendStatus(401);
+    const found = await pool.query('SELECT 1 FROM content.access WHERE hash=$1 AND expires_at>now()', [createHash('sha256').update(token).digest('hex')]);
+    return found.rowCount ? next() : res.sendStatus(401);
+  } catch { res.sendStatus(503); }
+}
+const internal = internalPort ? express().disable('x-powered-by').get('/api/staff-base', staffToken, createRequestHandler({ build: path.resolve('dist/server') }))
   .use((_req, res) => res.sendStatus(404)).listen(internalPort, '0.0.0.0') : null;
 server.requestTimeout = 30000;
 server.headersTimeout = 15000;

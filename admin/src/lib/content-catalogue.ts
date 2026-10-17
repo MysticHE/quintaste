@@ -30,14 +30,17 @@ export async function placeList(member: Session) {
 export async function placeDetail(member: Session, raw: string) {
   authorize(member, 'content');
   const id = contentId(raw, 'place');
-  const [places, place, menuRow, menu, trail, reports] = await Promise.all([packagedPlaces(), staffRow('place', id), staffRow('menu', id), packagedMenu(id),
-    history('place', id), query(`SELECT id,title,status,created_at FROM ops.case_record WHERE kind='report' AND split_part(subject_id,'|',1)=$1 ORDER BY created_at DESC LIMIT 20`, ['place:catalogue:' + id])]);
+  const [places, place, menuRow, menu, trail, menuTrail, decisions, reports] = await Promise.all([packagedPlaces(), staffRow('place', id), staffRow('menu', id), packagedMenu(id),
+    history('place', id), history('menu', id),
+    // Decisions recorded by the earlier Editorial review page stay visible in the place history.
+    query(`SELECT d.created_at AS occurred_at, 'editorial.' || d.decision AS action, d.reason, m.email AS actor FROM ops.content_decision d
+      LEFT JOIN staff.member m ON m.id=d.reviewer_id WHERE d.content_id=$1 ORDER BY d.created_at DESC LIMIT 20`, [id]),
+    query(`SELECT id,title,status,created_at FROM ops.case_record WHERE kind='report' AND split_part(subject_id,'|',1)=$1 ORDER BY created_at DESC LIMIT 20`, ['place:catalogue:' + id])]);
   const base = places.find(p => p.data.id === id) ?? null;
   if (!base && place?.origin !== 'staff') throw new HttpError(404, 'Place not found.');
-  const menuTrail = await history('menu', id);
   return { id, app: process.env.CUSTOMER_APP_URL ?? null, base: base?.data ?? null, staff: place && { ...staffState(place), data: place.data }, newer: newerBelow(place, base?.hash),
     menu: { base: menu?.data ?? null, staff: menuRow && { ...staffState(menuRow), data: menuRow.data }, newer: newerBelow(menuRow, menu?.hash) },
-    history: [...trail, ...menuTrail].sort((a, b) => String(b.occurred_at).localeCompare(String(a.occurred_at))).slice(0, 30), reports: reports.rows };
+    history: [...trail, ...menuTrail, ...decisions.rows].sort((a, b) => new Date(b.occurred_at).getTime() - new Date(a.occurred_at).getTime()).slice(0, 30), reports: reports.rows };
 }
 
 async function placeFields(input: Record<string, unknown>, base: Place | null) {
@@ -107,6 +110,9 @@ export async function menuAction(member: Session, input: Record<string, unknown>
       if (index < 0) throw new HttpError(404, 'Dish not found. Refresh the menu.');
       if (act === 'remove-added') added.splice(index, 1); else added[index] = menuItem(input.item, dish);
     }
+    // Explore lists a place only while it has a dish, so the last dish cannot be hidden or removed here.
+    const visible = (base?.data.sections ?? []).reduce((n, s) => n + s.items.filter(item => !items[s.id + '/' + item.id]?.hidden).length, 0) + added.length;
+    if (!visible && act !== 'restore') throw new HttpError(409, 'This is the last dish. Hide the place instead, or add another dish first.');
     const next = { ...data, items, added, ...(base ? { base: base.hash } : {}) };
     return Object.keys(items).length || added.length || row?.hidden ? { origin: 'edit', hidden: !!row?.hidden, data: next } : null;
   }, { dish: key || input.dishId || null });

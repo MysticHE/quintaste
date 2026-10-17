@@ -26,8 +26,13 @@ CREATE TABLE IF NOT EXISTS content.asset (
   created_by uuid REFERENCES staff.member(id) ON DELETE SET NULL,
   created_at timestamptz NOT NULL DEFAULT now()
 );
+-- Short-lived tokens the staff console presents to the app's internal content port (stored as SHA-256 only).
+CREATE TABLE IF NOT EXISTS content.access (
+  hash text PRIMARY KEY CHECK (hash ~ '^[a-f0-9]{64}$'),
+  expires_at timestamptz NOT NULL
+);
 GRANT USAGE ON SCHEMA content TO quintaste_app;
-GRANT SELECT ON content.item, content.asset TO quintaste_app;
+GRANT SELECT ON content.item, content.asset, content.access TO quintaste_app;
 
 -- Places withdrawn through the earlier editorial review become hidden staff items, so they can be restored.
 INSERT INTO content.item(kind, id, origin, hidden)
@@ -48,6 +53,7 @@ BEGIN
     GRANT USAGE ON SCHEMA content TO quintaste_admin;
     GRANT SELECT, INSERT, UPDATE, DELETE ON content.item TO quintaste_admin;
     GRANT SELECT, INSERT ON content.asset TO quintaste_admin;
+    GRANT SELECT, INSERT, DELETE ON content.access TO quintaste_admin;
     GRANT USAGE ON SCHEMA community TO quintaste_admin;
     GRANT SELECT ON community.place_review, community.place_review_photo TO quintaste_admin;
     GRANT UPDATE (hidden_at, hidden_reason) ON community.place_review TO quintaste_admin;

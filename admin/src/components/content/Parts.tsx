@@ -49,19 +49,21 @@ export function ActionBar({ resource, actions, payload, onDone, children }: {
 export const photoSrc = (path?: string | null) => path && /\/([a-f0-9]{64})\.jpg$/.test(path) ? '/api/content/photo?id=' + path.match(/\/([a-f0-9]{64})\.jpg$/)![1] : '';
 /** Uploads a photo (the server re-encodes it and strips metadata) and returns its public path and size. */
 export function PhotoUpload({ onUploaded, label = 'Upload photo' }: { onUploaded: (photo: Photo) => void; label?: string }) {
-  const [busy, setBusy] = useState(false), [error, setError] = useState('');
+  const [busy, setBusy] = useState(false), [error, setError] = useState(''), [reason, setReason] = useState('');
   async function upload(file: File | undefined) {
     if (!file) return;
+    if (reason.trim().length < 10) return setError('Give a reason of at least 10 characters for this photo first.');
     setBusy(true); setError('');
     try {
-      const response = await fetch('/api/content/upload', { method: 'POST', credentials: 'same-origin', body: file, headers: { 'Content-Type': file.type, 'x-quintaste-admin': '1' } });
+      const response = await fetch('/api/content/upload', { method: 'POST', credentials: 'same-origin', body: file, headers: { 'Content-Type': file.type, 'x-quintaste-admin': '1', 'x-quintaste-reason': encodeURIComponent(reason.trim()) } });
       const value = await response.json().catch(() => ({}));
       if (!response.ok) throw new Error(response.status === 428 ? 'Verify your security key again (Security keys page), then upload.' : value.error || 'Upload failed.');
       onUploaded(value as Photo);
     } catch (problem) { setError(problem instanceof Error ? problem.message : 'Upload failed.'); }
     finally { setBusy(false); }
   }
-  return <div className="stack compact"><label className="upload">{busy ? 'Uploading…' : label}
+  return <div className="stack compact"><label>Reason for this photo<input value={reason} maxLength={1000} onChange={e => setReason(e.target.value)} placeholder="Where the photo comes from and why it is used"/></label>
+    <label className="upload">{busy ? 'Uploading…' : label}
     <input type="file" accept="image/jpeg,image/png,image/webp" disabled={busy} onChange={e => { void upload(e.target.files?.[0]); e.target.value = ''; }}/></label>
     {error && <div className="notice error" role="alert">{error}</div>}</div>;
 }

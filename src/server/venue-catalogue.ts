@@ -18,7 +18,7 @@ const hiddenAliases = new Map(aliases.entries.filter(alias => {
   return old?.name === alias.name && next?.name === alias.name && old?.address === alias.address && next?.address === alias.address;
 }).map(alias => [alias.aliasId, alias.canonicalId]));
 
-const noStaff: StaffContent = { revision: "0".repeat(64), items: new Map() };
+const noStaff: StaffContent = { revision: "0".repeat(64), catalogueRevision: "0".repeat(64), items: new Map() };
 const packagedIds = new Set(catalogue.map(venue => venue.id));
 
 /** Applies a staff place edit, or builds a staff-created place, with counts from the staff-applied menu. Undefined when hidden or without dishes. */
@@ -46,7 +46,7 @@ export function searchCatalogue(search: DiscoverySearch, cursor: string | null, 
   const query = words(search.query), area = words(search.area);
   const known = areas.find(item => words(item.name) === area);
   const center = search.center ?? search.origin ?? (known?.lat && known.lng ? { latitude: known.lat, longitude: known.lng } : undefined);
-  const searchRevision = hash({ revision, editorialRevision: content.revision, staffRevision: staff.revision, aliases: [...hiddenAliases], search: { ...search, origin: search.origin
+  const searchRevision = hash({ revision, editorialRevision: content.revision, staffRevision: staff.catalogueRevision, aliases: [...hiddenAliases], search: { ...search, origin: search.origin
     ? { latitude: search.origin.latitude, longitude: search.origin.longitude } : undefined }, withdrawn: [...withdrawn].sort() });
   let offset = 0;
   if (cursor) {

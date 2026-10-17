@@ -24,7 +24,7 @@ export default function PlacePanel({ id, onChanged }: { id: string; onChanged: (
   const creating = id === 'new', resource = useResource<Detail>(creating ? null : '/api/content/places?id=' + encodeURIComponent(id));
   if (creating) return <PlaceForm detail={null} onSaved={onChanged}/>;
   const d = resource.data;
-  return <><Feedback {...resource} retry={resource.reload}/>{d && <PlaceForm key={(d.staff?.version ?? 0) + ':' + (d.menu.staff?.version ?? 0)} detail={d} onSaved={next => { resource.reload(); onChanged(next); }}/>}</>;
+  return <><Feedback {...resource} retry={resource.reload}/>{d && <PlaceForm key={d.staff?.version ?? 0} detail={d} onSaved={next => { resource.reload(); onChanged(next); }}/>}</>;
 }
 function PlaceForm({ detail, onSaved }: { detail: Detail | null; onSaved: (id?: string) => void }) {
   const start = detail ? current(detail) : blank, base = detail?.base, staffMade = !detail || detail.staff?.origin === 'staff';

@@ -87,8 +87,9 @@ export function recipeFields(value: unknown) {
   const used = new Set<string>();
   const ingredients = asList(v.ingredients, 'ingredients', 30).map((raw, index) => {
     const i = asRecord(raw, 'an ingredient'), name = text(i.name, 'ingredient name', 160);
-    let id = typeof i.id === 'string' && /^[a-z0-9][a-z0-9-]{0,59}$/.test(i.id) ? i.id : name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 40) || 'item';
-    if (used.has(id)) id = id + '-' + (index + 1);
+    const wanted = typeof i.id === 'string' && /^[a-z0-9][a-z0-9-]{0,49}$/.test(i.id) ? i.id : name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 40) || 'item';
+    let id = wanted;
+    for (let n = index + 2; used.has(id); n++) id = wanted + '-' + n;
     used.add(id);
     const quantity = amount(i.amount, 'ingredient amount');
     return { id, name, amount: quantity === 0 ? null : quantity, unit: text(i.unit ?? '', 'ingredient unit', 30, 0) };
