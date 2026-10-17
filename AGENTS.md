@@ -6,6 +6,9 @@ do not mistake completed deployment for complete catalogue verification.
 <!-- end-qt-next-session-gaps-20261017 -->
 
 <!-- qt-full-menu-audit-20261017 -->
+QT bot report fixes deployed **18 Oct, 2:20 am SGT**: Greendot "0/53" was genuine
+(storefront ignores StoreID); Cooker rest/estimated timing bug fixed; audit-only captions,
+grouped hold reasons and dish-level coverage. See the 18 Oct section of the gaps doc.
 QT bot whole-menu fix deployed and live-tested **17 Oct, 19:29 SGT**. Zhen Xiang
 still has all **68 dishes**: 66 source-backed findings accepted by Manager,
 two held, none unprocessed or removed. Full-menu context no longer truncates at
@@ -20,6 +23,8 @@ untouched. See `docs/research/qt-full-menu-audit-2026-10-17.md` (repository-root
 
 <!-- filter-cleanup-20261017 -->
 Current verified app/preview **20261017-filter-cleanup1**, based on app **20261017-qt-publication4** and preview **20261017-browse-controls2**. Older release entries below are historical.
+
+**Staff content console, 18 October 2026:** Live as app/preview/admin **20261018-content-admin1**. Admin **Content** lets owner/operator/reviewer view every place, menu, recipe, event, place review, gathering and Market item, edit QuinTaste content (full recipe editing, new places/dishes/recipes/events, photo upload) and hide/restore anything; member posts are hidden, never rewritten. Staff edits win over packaged and bot content until cleared (`content.item`, shared loader `server/staff-content-core.mjs`). Contract and limits: `docs/CONTENT_ADMIN.md`. The editorial store and Hermes are untouched.
 
 **Place reports and mobile review, 18 October 2026:** "Suggest an update" on catalogue places and the Menu flag now file to the existing staff case queue (`POST /api/community/reports`, kind `place`, published catalogue ids only via `server/catalogue-places.mjs`, signed-in members, 3 reports per 24 h). The local correction/case service, My Cases, `/contribute`, `/cases` and `/explore-case` exist only in development builds (`__DEV__`). Also: Events rows drop the redundant External event pill and repeated venue and title-case all-caps titles; Me puts guest sign-in in the profile card; sign-in labels use Title Case; the Ginger coconut laksa variation uses its category tile instead of reusing the laksa photo.
 

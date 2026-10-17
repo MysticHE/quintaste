@@ -1,0 +1,584 @@
+{
+  "version": 1,
+  "checkedAt": "2026-10-18T02:45:00+08:00",
+  "scope": "Greendot branches in the live QuinTaste catalogue (13 venues, 25 sections); proposal only, no data changed",
+  "liveRevision": "aadde24d8ea94d2c13eb94bf48e0edd9ce39cdd2bed47520ab5c987f74997548",
+  "findings": {
+    "storeIdIgnoredByServer": "orders.greendot.sg returns the same default-outlet page (Greendot @ Star Vista, 78 products, outlet suffix clone.34) for every StoreID; a real browser also redirected the Jewel StoreID link to the Star Vista StoreID.",
+    "outletSwitching": "Outlet selection uses /Home/ChooseOutlet and other /Home/ endpoints; robots.txt disallows /Home/ for all agents (crawl-delay 300).",
+    "merchantOutletList": "All 13 recorded StoreIDs appear in the merchant outlet list with pickup enabled; Asia Square and J8 have delivery disabled.",
+    "productIdsEncodeOutlet": "Recorded item IDs end in -clone-N matching each outlet; the default page matches only Star Vista (63/64 exact ID and price), every other branch 0.",
+    "greendotPlus": "Official Greendot Plus x Lotus menu PDFs are image-only (no extractable text); www.greendot.sg rejects plain automated requests (ModSecurity 406), not bypassed.",
+    "officialMenuPages": "www.greendot.sg/food-menu lists dish names without prices.",
+    "patisserie": "patisserie.greendot.sg is the same platform; 17 Oct Manager review found the Westgate patisserie capture showed Paya Lebar Square pickup, so non-default patisserie sections need the same operator capture (not independently re-tested here)."
+  },
+  "requests": {
+    "orders.greendot.sg": "4 plain GETs to robots-allowed pages (/ and /Category) plus robots.txt, and 1 browser page load; no /Home/ or /Product/ calls",
+    "foodpanda.sg": "robots.txt plus 1 GET (403 CAPTCHA, stopped)",
+    "food.grab.com": "robots.txt plus 1 GET",
+    "www.greendot.sg": "1 GET (406 ModSecurity, stopped); content read from the bots' existing 17 Oct cache",
+    "quintaste /api/menus": "13 read-only GETs of the live app menus"
+  },
+  "branches": [
+    {
+      "venueId": "research-greendot-asia-square",
+      "branch": "Asia Square",
+      "address": "8 Marina View, Tower 1, #02-02, 018960, Singapore",
+      "sections": [
+        {
+          "sectionId": "greendot-asia-square-ordering",
+          "scope": "branch-ordering",
+          "items": 51,
+          "recordedSourceUrl": "https://orders.greendot.sg/?StoreID=47a71ad4-01ef-487c-be94-f66c9f8e0ba3&Service=PickUp&lang=EN",
+          "storeId": "47a71ad4-01ef-487c-be94-f66c9f8e0ba3",
+          "productOutletSuffix": [
+            "15"
+          ]
+        },
+        {
+          "sectionId": "greendot-asia-square-patisserie-ordering",
+          "scope": "branch-dine-in",
+          "items": 6,
+          "recordedSourceUrl": "https://patisserie.greendot.sg/Category?StoreID=7aafa924-c582-49c7-8fe5-5fd6e23617d7&Service=PickUp&lang=EN",
+          "storeId": "7aafa924-c582-49c7-8fe5-5fd6e23617d7",
+          "productOutletSuffix": [
+            "13"
+          ]
+        }
+      ],
+      "officialOrdering": {
+        "storeIdListedByMerchant": true,
+        "pickupEnabled": true,
+        "deliveryEnabled": false,
+        "automatedCaptureIsBranchSpecific": false,
+        "exactIdPriceMatchesOnDefaultOutletPage": "0/51",
+        "recommendation": "Keep recorded source; needs a monthly operator capture with this outlet selected in the site UI (automated outlet switching uses robots-disallowed /Home/ endpoints)."
+      },
+      "alternatives": []
+    },
+    {
+      "venueId": "research-greendot-bedok-mall",
+      "branch": "Bedok Mall",
+      "address": "311 New Upper Changi Road B2-31, Bedok Mall, 467360, Singapore",
+      "sections": [
+        {
+          "sectionId": "greendot-bedok-mall-ordering",
+          "scope": "branch-ordering",
+          "items": 51,
+          "recordedSourceUrl": "https://orders.greendot.sg/?StoreID=b33dedbe-40e7-40c8-a110-b4bb4239c938&Service=PickUp&lang=EN",
+          "storeId": "b33dedbe-40e7-40c8-a110-b4bb4239c938",
+          "productOutletSuffix": [
+            "9"
+          ]
+        },
+        {
+          "sectionId": "greendot-bedok-mall-patisserie-ordering",
+          "scope": "branch-dine-in",
+          "items": 6,
+          "recordedSourceUrl": "https://patisserie.greendot.sg/Category?StoreID=45d330c9-0acb-4a6d-bf96-485df349b6bb&Service=PickUp&lang=EN",
+          "storeId": "45d330c9-0acb-4a6d-bf96-485df349b6bb",
+          "productOutletSuffix": [
+            "7"
+          ]
+        }
+      ],
+      "officialOrdering": {
+        "storeIdListedByMerchant": true,
+        "pickupEnabled": true,
+        "deliveryEnabled": true,
+        "automatedCaptureIsBranchSpecific": false,
+        "exactIdPriceMatchesOnDefaultOutletPage": "0/51",
+        "recommendation": "Keep recorded source; needs a monthly operator capture with this outlet selected in the site UI (automated outlet switching uses robots-disallowed /Home/ endpoints)."
+      },
+      "alternatives": [
+        {
+          "platform": "foodpanda",
+          "url": "https://www.foodpanda.sg/restaurant/s7de/greendot-bedok",
+          "channel": "branch-delivery",
+          "automatedFetch": "blocked (PerimeterX CAPTCHA, HTTP 403); not bypassed",
+          "dishIdCoverage": "not measured; platform IDs differ, name-only mapping; delivery prices may differ from pickup"
+        }
+      ]
+    },
+    {
+      "venueId": "research-greendot-bukit-panjang-plaza",
+      "branch": "Bukit Panjang Plaza",
+      "address": "1 Jelebu Rd, Bukit Panjang Plaza, 677743, Singapore",
+      "sections": [
+        {
+          "sectionId": "greendot-bukit-panjang-plaza-ordering",
+          "scope": "branch-ordering",
+          "items": 64,
+          "recordedSourceUrl": "https://orders.greendot.sg/?StoreID=e651dea9-726c-4921-bbe0-e1cbb9abaf6d&Service=PickUp&lang=EN",
+          "storeId": "e651dea9-726c-4921-bbe0-e1cbb9abaf6d",
+          "productOutletSuffix": [
+            "32"
+          ]
+        },
+        {
+          "sectionId": "greendot-bukit-panjang-plaza-patisserie-ordering",
+          "scope": "branch-dine-in",
+          "items": 8,
+          "recordedSourceUrl": "https://patisserie.greendot.sg/Category?StoreID=777962cc-8243-4f5d-818a-6526cec8990c&Service=PickUp&lang=EN",
+          "storeId": "777962cc-8243-4f5d-818a-6526cec8990c",
+          "productOutletSuffix": [
+            "26"
+          ]
+        }
+      ],
+      "officialOrdering": {
+        "storeIdListedByMerchant": true,
+        "pickupEnabled": true,
+        "deliveryEnabled": true,
+        "automatedCaptureIsBranchSpecific": false,
+        "exactIdPriceMatchesOnDefaultOutletPage": "0/64",
+        "recommendation": "Keep recorded source; needs a monthly operator capture with this outlet selected in the site UI (automated outlet switching uses robots-disallowed /Home/ endpoints)."
+      },
+      "alternatives": [
+        {
+          "platform": "foodpanda",
+          "url": "https://www.foodpanda.sg/restaurant/yyug/greendot-bukit-panjang-plaza",
+          "channel": "branch-delivery",
+          "automatedFetch": "blocked (PerimeterX CAPTCHA, HTTP 403); not bypassed",
+          "dishIdCoverage": "not measured; platform IDs differ, name-only mapping; delivery prices may differ from pickup"
+        }
+      ]
+    },
+    {
+      "venueId": "research-greendot-j8",
+      "branch": "J8",
+      "address": "9 Bishan Pl, #B1-24 24A, 579837, Singapore",
+      "sections": [
+        {
+          "sectionId": "greendot-j8-ordering",
+          "scope": "branch-ordering",
+          "items": 50,
+          "recordedSourceUrl": "https://orders.greendot.sg/?StoreID=3d67bdd1-f091-4960-b693-5af3a1f2ab5b&Service=PickUp&lang=EN",
+          "storeId": "3d67bdd1-f091-4960-b693-5af3a1f2ab5b",
+          "productOutletSuffix": [
+            "6"
+          ]
+        },
+        {
+          "sectionId": "greendot-j8-patisserie-ordering",
+          "scope": "branch-dine-in",
+          "items": 6,
+          "recordedSourceUrl": "https://patisserie.greendot.sg/Category?StoreID=96bd89c8-5999-4b5c-9860-69020cf09969&Service=PickUp&lang=EN",
+          "storeId": "96bd89c8-5999-4b5c-9860-69020cf09969",
+          "productOutletSuffix": [
+            "4"
+          ]
+        }
+      ],
+      "officialOrdering": {
+        "storeIdListedByMerchant": true,
+        "pickupEnabled": true,
+        "deliveryEnabled": false,
+        "automatedCaptureIsBranchSpecific": false,
+        "exactIdPriceMatchesOnDefaultOutletPage": "0/50",
+        "recommendation": "Keep recorded source; needs a monthly operator capture with this outlet selected in the site UI (automated outlet switching uses robots-disallowed /Home/ endpoints)."
+      },
+      "alternatives": [
+        {
+          "platform": "foodpanda",
+          "url": "https://www.foodpanda.sg/restaurant/y9dy/greendot-junction-8",
+          "channel": "branch-delivery",
+          "automatedFetch": "blocked (PerimeterX CAPTCHA, HTTP 403); not bypassed",
+          "dishIdCoverage": "not measured; platform IDs differ, name-only mapping; delivery prices may differ from pickup"
+        }
+      ]
+    },
+    {
+      "venueId": "research-greendot-jewel-changi-airport",
+      "branch": "Jewel Changi Airport",
+      "address": "78 Aiport Blvd, #B1-297 Jewel Changi Airport, 819666, Singapore",
+      "sections": [
+        {
+          "sectionId": "greendot-jewel-changi-airport-ordering",
+          "scope": "branch-ordering",
+          "items": 53,
+          "recordedSourceUrl": "https://orders.greendot.sg/?StoreID=b9879453-a847-4f5b-ac90-8b2d5e439533&Service=PickUp&lang=EN",
+          "storeId": "b9879453-a847-4f5b-ac90-8b2d5e439533",
+          "productOutletSuffix": [
+            "16"
+          ]
+        }
+      ],
+      "officialOrdering": {
+        "storeIdListedByMerchant": true,
+        "pickupEnabled": true,
+        "deliveryEnabled": true,
+        "automatedCaptureIsBranchSpecific": false,
+        "exactIdPriceMatchesOnDefaultOutletPage": "0/53",
+        "recommendation": "Keep recorded source; needs a monthly operator capture with this outlet selected in the site UI (automated outlet switching uses robots-disallowed /Home/ endpoints)."
+      },
+      "alternatives": []
+    },
+    {
+      "venueId": "research-greendot-jurong-point",
+      "branch": "Jurong Point",
+      "address": "1 Jurong West Central 2 Jurong Point JP 1 #01-43/44/45, 648886, Singapore",
+      "sections": [
+        {
+          "sectionId": "greendot-jurong-point-ordering",
+          "scope": "branch-ordering",
+          "items": 50,
+          "recordedSourceUrl": "https://orders.greendot.sg/?StoreID=5252756f-953c-4270-90c7-05ce23f97896&Service=PickUp&lang=EN",
+          "storeId": "5252756f-953c-4270-90c7-05ce23f97896",
+          "productOutletSuffix": [
+            "11"
+          ]
+        },
+        {
+          "sectionId": "greendot-jurong-point-patisserie-ordering",
+          "scope": "branch-dine-in",
+          "items": 6,
+          "recordedSourceUrl": "https://patisserie.greendot.sg/Category?StoreID=447691ba-2390-4826-a376-76302d340d1f&Service=PickUp&lang=EN",
+          "storeId": "447691ba-2390-4826-a376-76302d340d1f",
+          "productOutletSuffix": [
+            "9"
+          ]
+        }
+      ],
+      "officialOrdering": {
+        "storeIdListedByMerchant": true,
+        "pickupEnabled": true,
+        "deliveryEnabled": true,
+        "automatedCaptureIsBranchSpecific": false,
+        "exactIdPriceMatchesOnDefaultOutletPage": "0/50",
+        "recommendation": "Keep recorded source; needs a monthly operator capture with this outlet selected in the site UI (automated outlet switching uses robots-disallowed /Home/ endpoints)."
+      },
+      "alternatives": [
+        {
+          "platform": "foodpanda",
+          "url": "https://www.foodpanda.sg/restaurant/u5su/greendot-jurong-point",
+          "channel": "branch-delivery",
+          "automatedFetch": "blocked (PerimeterX CAPTCHA, HTTP 403); not bypassed",
+          "dishIdCoverage": "not measured; platform IDs differ, name-only mapping; delivery prices may differ from pickup"
+        }
+      ]
+    },
+    {
+      "venueId": "research-greendot-northpoint",
+      "branch": "Northpoint",
+      "address": "930 Yishun Ave 2, Northpoint City  North Wing, #B2-09/11, 769098, Singapore",
+      "sections": [
+        {
+          "sectionId": "greendot-northpoint-ordering",
+          "scope": "branch-ordering",
+          "items": 50,
+          "recordedSourceUrl": "https://orders.greendot.sg/?StoreID=f8e46fd5-d7a7-4173-b102-20e44d859073&Service=PickUp&lang=EN",
+          "storeId": "f8e46fd5-d7a7-4173-b102-20e44d859073",
+          "productOutletSuffix": [
+            "7"
+          ]
+        },
+        {
+          "sectionId": "greendot-northpoint-patisserie-ordering",
+          "scope": "branch-dine-in",
+          "items": 6,
+          "recordedSourceUrl": "https://patisserie.greendot.sg/Category?StoreID=844bfa93-ee56-433d-af3c-874e8ab73afa&Service=PickUp&lang=EN",
+          "storeId": "844bfa93-ee56-433d-af3c-874e8ab73afa",
+          "productOutletSuffix": [
+            "5"
+          ]
+        }
+      ],
+      "officialOrdering": {
+        "storeIdListedByMerchant": true,
+        "pickupEnabled": true,
+        "deliveryEnabled": true,
+        "automatedCaptureIsBranchSpecific": false,
+        "exactIdPriceMatchesOnDefaultOutletPage": "0/50",
+        "recommendation": "Keep recorded source; needs a monthly operator capture with this outlet selected in the site UI (automated outlet switching uses robots-disallowed /Home/ endpoints)."
+      },
+      "alternatives": [
+        {
+          "platform": "foodpanda",
+          "url": "https://www.foodpanda.sg/restaurant/v0ej/greendot-northpoint",
+          "channel": "branch-delivery",
+          "automatedFetch": "blocked (PerimeterX CAPTCHA, HTTP 403); not bypassed",
+          "dishIdCoverage": "not measured; platform IDs differ, name-only mapping; delivery prices may differ from pickup"
+        }
+      ]
+    },
+    {
+      "venueId": "research-greendot-one-raffles-place",
+      "branch": "One Raffles Place",
+      "address": "1 Raffles Place, #03-23/24, 048616, Singapore",
+      "sections": [
+        {
+          "sectionId": "greendot-one-raffles-place-ordering",
+          "scope": "branch-ordering",
+          "items": 50,
+          "recordedSourceUrl": "https://orders.greendot.sg/?StoreID=3b911bfd-162a-4736-9f4c-00292770f8b4&Service=PickUp&lang=EN",
+          "storeId": "3b911bfd-162a-4736-9f4c-00292770f8b4",
+          "productOutletSuffix": [
+            "10"
+          ]
+        },
+        {
+          "sectionId": "greendot-one-raffles-place-patisserie-ordering",
+          "scope": "branch-dine-in",
+          "items": 6,
+          "recordedSourceUrl": "https://patisserie.greendot.sg/Category?StoreID=61f488e1-0eed-4dbe-820c-3d76774f3784&Service=PickUp&lang=EN",
+          "storeId": "61f488e1-0eed-4dbe-820c-3d76774f3784",
+          "productOutletSuffix": [
+            "8"
+          ]
+        }
+      ],
+      "officialOrdering": {
+        "storeIdListedByMerchant": true,
+        "pickupEnabled": true,
+        "deliveryEnabled": true,
+        "automatedCaptureIsBranchSpecific": false,
+        "exactIdPriceMatchesOnDefaultOutletPage": "0/50",
+        "recommendation": "Keep recorded source; needs a monthly operator capture with this outlet selected in the site UI (automated outlet switching uses robots-disallowed /Home/ endpoints)."
+      },
+      "alternatives": [
+        {
+          "platform": "foodpanda",
+          "url": "https://www.foodpanda.sg/restaurant/s5zu/greendot-one-raffles-place",
+          "channel": "branch-delivery",
+          "automatedFetch": "blocked (PerimeterX CAPTCHA, HTTP 403); not bypassed",
+          "dishIdCoverage": "not measured; platform IDs differ, name-only mapping; delivery prices may differ from pickup"
+        },
+        {
+          "platform": "GrabFood",
+          "url": "https://food.grab.com/sg/en/restaurant/greendot-raffles-place-delivery/SGDD05316",
+          "channel": "branch-delivery",
+          "automatedFetch": "HTTP 200 but menu loads client-side; not in page HTML",
+          "dishIdCoverage": "not measured; name-only mapping; delivery prices may differ"
+        }
+      ]
+    },
+    {
+      "venueId": "research-greendot-paya-lebar-square",
+      "branch": "Paya Lebar Square",
+      "address": "60 Paya Lebar Road Paya Lebar Square #02-15/16/17, 409051, Singapore",
+      "sections": [
+        {
+          "sectionId": "greendot-paya-lebar-square-ordering",
+          "scope": "branch-ordering",
+          "items": 63,
+          "recordedSourceUrl": "https://orders.greendot.sg/?StoreID=e116e7c4-3ea8-46c0-a794-077e09797d97&Service=PickUp&lang=EN",
+          "storeId": "e116e7c4-3ea8-46c0-a794-077e09797d97",
+          "productOutletSuffix": [
+            "2"
+          ]
+        },
+        {
+          "sectionId": "greendot-paya-lebar-square-patisserie-ordering",
+          "scope": "branch-dine-in",
+          "items": 22,
+          "recordedSourceUrl": "https://patisserie.greendot.sg/Category?StoreID=8009e2c6-df3b-40b3-a9eb-80e17daa59c9&Service=PickUp&lang=EN",
+          "storeId": "8009e2c6-df3b-40b3-a9eb-80e17daa59c9",
+          "productOutletSuffix": [
+            "28"
+          ]
+        }
+      ],
+      "officialOrdering": {
+        "storeIdListedByMerchant": true,
+        "pickupEnabled": true,
+        "deliveryEnabled": true,
+        "automatedCaptureIsBranchSpecific": false,
+        "exactIdPriceMatchesOnDefaultOutletPage": "0/63",
+        "recommendation": "Keep recorded source; needs a monthly operator capture with this outlet selected in the site UI (automated outlet switching uses robots-disallowed /Home/ endpoints)."
+      },
+      "alternatives": [
+        {
+          "platform": "foodpanda",
+          "url": "https://www.foodpanda.sg/restaurant/s9cw/greendot-paya-lebar",
+          "channel": "branch-delivery",
+          "automatedFetch": "blocked (PerimeterX CAPTCHA, HTTP 403); not bypassed",
+          "dishIdCoverage": "not measured; platform IDs differ, name-only mapping; delivery prices may differ from pickup"
+        },
+        {
+          "platform": "GrabFood",
+          "url": "https://food.grab.com/sg/en/restaurant/greendot-paya-lebar-02-15-16-delivery/SGDD05305",
+          "channel": "branch-delivery",
+          "automatedFetch": "HTTP 200 but menu loads client-side; not in page HTML",
+          "dishIdCoverage": "not measured; name-only mapping; delivery prices may differ"
+        }
+      ]
+    },
+    {
+      "venueId": "research-greendot-seletar-mall",
+      "branch": "The Seletar Mall",
+      "address": "33 Sengkang West Avenue #B1-01 The Seletar Mall, 797653, Singapore",
+      "sections": [
+        {
+          "sectionId": "greendot-seletar-mall-ordering",
+          "scope": "branch-ordering",
+          "items": 18,
+          "recordedSourceUrl": "https://orders.greendot.sg/?StoreID=191ae5df-d765-4e6d-8261-b35209534a04&Service=PickUp&lang=EN",
+          "storeId": "191ae5df-d765-4e6d-8261-b35209534a04",
+          "productOutletSuffix": [
+            "33"
+          ]
+        },
+        {
+          "sectionId": "greendot-seletar-mall-patisserie-ordering",
+          "scope": "branch-dine-in",
+          "items": 8,
+          "recordedSourceUrl": "https://patisserie.greendot.sg/Category?StoreID=ea4b6adc-d0cf-4758-b2e5-f8220b4e62d8&Service=PickUp&lang=EN",
+          "storeId": "ea4b6adc-d0cf-4758-b2e5-f8220b4e62d8",
+          "productOutletSuffix": [
+            "27"
+          ]
+        }
+      ],
+      "officialOrdering": {
+        "storeIdListedByMerchant": true,
+        "pickupEnabled": true,
+        "deliveryEnabled": true,
+        "automatedCaptureIsBranchSpecific": false,
+        "exactIdPriceMatchesOnDefaultOutletPage": "0/18",
+        "recommendation": "Keep recorded source; needs a monthly operator capture with this outlet selected in the site UI (automated outlet switching uses robots-disallowed /Home/ endpoints)."
+      },
+      "alternatives": [
+        {
+          "platform": "foodpanda",
+          "url": "https://www.foodpanda.sg/restaurant/av68/greendot-the-seletar-mall",
+          "channel": "branch-delivery",
+          "automatedFetch": "blocked (PerimeterX CAPTCHA, HTTP 403); not bypassed",
+          "dishIdCoverage": "not measured; platform IDs differ, name-only mapping; delivery prices may differ from pickup"
+        }
+      ]
+    },
+    {
+      "venueId": "research-greendot-star-vista",
+      "branch": "Star Vista",
+      "address": "1 Vista Exchange Green, #02-04, The Star Vista 138617, Singapore",
+      "sections": [
+        {
+          "sectionId": "greendot-star-vista-ordering",
+          "scope": "branch-ordering",
+          "items": 64,
+          "recordedSourceUrl": "https://orders.greendot.sg/?StoreID=f39c03dc-5939-438d-b91e-df0677037d8c&Service=PickUp&lang=EN",
+          "storeId": "f39c03dc-5939-438d-b91e-df0677037d8c",
+          "productOutletSuffix": [
+            "34"
+          ]
+        },
+        {
+          "sectionId": "greendot-star-vista-patisserie-ordering",
+          "scope": "branch-dine-in",
+          "items": 8,
+          "recordedSourceUrl": "https://patisserie.greendot.sg/Category?StoreID=9f976cf1-c830-4927-8498-73fb9279861c&Service=PickUp&lang=EN",
+          "storeId": "9f976cf1-c830-4927-8498-73fb9279861c",
+          "productOutletSuffix": [
+            "29"
+          ]
+        }
+      ],
+      "officialOrdering": {
+        "storeIdListedByMerchant": true,
+        "pickupEnabled": true,
+        "deliveryEnabled": true,
+        "automatedCaptureIsBranchSpecific": true,
+        "exactIdPriceMatchesOnDefaultOutletPage": "63/64 (missing: Char Siew Wanton Noodles)",
+        "recommendation": "Keep recorded source; automated capture is already this outlet. Guard exception needs outlet-identity evidence."
+      },
+      "alternatives": [
+        {
+          "platform": "foodpanda",
+          "url": "https://www.foodpanda.sg/restaurant/s4ib/greendot-the-star-vista",
+          "channel": "branch-delivery",
+          "automatedFetch": "blocked (PerimeterX CAPTCHA, HTTP 403); not bypassed",
+          "dishIdCoverage": "not measured; platform IDs differ, name-only mapping; delivery prices may differ from pickup"
+        }
+      ]
+    },
+    {
+      "venueId": "research-greendot-tampines-1",
+      "branch": "Tampines 1",
+      "address": "10 Tampines Central 1, Tampines 1, #B1-K8, 529536, Singapore",
+      "sections": [
+        {
+          "sectionId": "greendot-tampines-1-ordering",
+          "scope": "branch-ordering",
+          "items": 50,
+          "recordedSourceUrl": "https://orders.greendot.sg/?StoreID=aab91d55-dec1-4f37-b3d9-679099c43136&Service=PickUp&lang=EN",
+          "storeId": "aab91d55-dec1-4f37-b3d9-679099c43136",
+          "productOutletSuffix": [
+            "17"
+          ]
+        },
+        {
+          "sectionId": "greendot-tampines-1-patisserie-ordering",
+          "scope": "branch-dine-in",
+          "items": 8,
+          "recordedSourceUrl": "https://patisserie.greendot.sg/Category?StoreID=2668dcec-9bbe-4f30-8e9c-0884f1c361b2&Service=PickUp&lang=EN",
+          "storeId": "2668dcec-9bbe-4f30-8e9c-0884f1c361b2",
+          "productOutletSuffix": [
+            "25"
+          ]
+        }
+      ],
+      "officialOrdering": {
+        "storeIdListedByMerchant": true,
+        "pickupEnabled": true,
+        "deliveryEnabled": true,
+        "automatedCaptureIsBranchSpecific": false,
+        "exactIdPriceMatchesOnDefaultOutletPage": "0/50",
+        "recommendation": "Keep recorded source; needs a monthly operator capture with this outlet selected in the site UI (automated outlet switching uses robots-disallowed /Home/ endpoints)."
+      },
+      "alternatives": [
+        {
+          "platform": "foodpanda",
+          "url": "https://www.foodpanda.sg/restaurant/ugho/greendot-tampines-1",
+          "channel": "branch-delivery",
+          "automatedFetch": "blocked (PerimeterX CAPTCHA, HTTP 403); not bypassed",
+          "dishIdCoverage": "not measured; platform IDs differ, name-only mapping; delivery prices may differ from pickup"
+        }
+      ]
+    },
+    {
+      "venueId": "research-greendot-westgate",
+      "branch": "Westgate",
+      "address": "3 Gateway Dr, #01-06 Westgate, 608532, Singapore",
+      "sections": [
+        {
+          "sectionId": "greendot-westgate-ordering",
+          "scope": "branch-ordering",
+          "items": 50,
+          "recordedSourceUrl": "https://orders.greendot.sg/?StoreID=4b9717ab-a5dc-432c-8cd5-20627535147a&Service=PickUp&lang=EN",
+          "storeId": "4b9717ab-a5dc-432c-8cd5-20627535147a",
+          "productOutletSuffix": [
+            "14"
+          ]
+        },
+        {
+          "sectionId": "greendot-westgate-patisserie-ordering",
+          "scope": "branch-dine-in",
+          "items": 6,
+          "recordedSourceUrl": "https://patisserie.greendot.sg/Category?StoreID=e27abe73-7887-4989-b1ee-3b6d1405a583&Service=PickUp&lang=EN",
+          "storeId": "e27abe73-7887-4989-b1ee-3b6d1405a583",
+          "productOutletSuffix": [
+            "12"
+          ]
+        }
+      ],
+      "officialOrdering": {
+        "storeIdListedByMerchant": true,
+        "pickupEnabled": true,
+        "deliveryEnabled": true,
+        "automatedCaptureIsBranchSpecific": false,
+        "exactIdPriceMatchesOnDefaultOutletPage": "0/50",
+        "recommendation": "Keep recorded source; needs a monthly operator capture with this outlet selected in the site UI (automated outlet switching uses robots-disallowed /Home/ endpoints)."
+      },
+      "alternatives": [
+        {
+          "platform": "foodpanda",
+          "url": "https://www.foodpanda.sg/restaurant/v3du/greendot-westgate",
+          "channel": "branch-delivery",
+          "automatedFetch": "blocked (PerimeterX CAPTCHA, HTTP 403); not bypassed",
+          "dishIdCoverage": "not measured; platform IDs differ, name-only mapping; delivery prices may differ from pickup"
+        }
+      ]
+    }
+  ]
+}

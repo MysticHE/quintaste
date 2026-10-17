@@ -195,4 +195,81 @@ Local fixes in the bot workspace (101 checks pass):
 - Coverage/status/run reports show assessed vs fully verified locations and
   verified/held/pending dish totals, replacing the bare `0/174`.
 
-Deployment status: `deploy_report_fixes.py` is pending owner confirmation.
+Deployed at 18:20 UTC (2:20 am SGT, 18 Oct), with owner approval, between nightly ticks
+using `deploy_report_fixes.py`. It held the run/reporter locks, checked release hashes and
+created backup `/opt/data/qt-team/operator-tests/report-fixes-20261018`. 101 tests passed
+on the VPS. Policy, baseline, usage, checkpoint and latest publication were hash-unchanged.
+Live files match local and `night-release.json`; the listener is active. The first attempt
+at 18:15Z stopped on the busy run lock before any change. Cooker's failure breaker for
+18 October was not reset, so the timing fix takes effect from the 19 October 1 am window.
+Live coverage at deployment: 3/174 menus fully assessed, 0 fully verified; dishes 66
+verified, 191 held, 167 not yet checked across 5 started menus.
+
+Follow-ups, not done:
+- Greendot sources were researched on 18 Oct: see `docs/research/greendot-branch-sources-2026-10-18.md`.
+  Keep the recorded official StoreID sources. Twelve branches need a monthly operator capture with
+  the outlet selected, because automated outlet switching hits robots-disallowed `/Home/`. Star Vista
+  is the default outlet (63/64 exact). Jewel needs a manual capture or transcription.
+- The 18:15Z Explorer packet (old code) was rejected whole because one dish claimed
+  "verified" without matching evidence. That cost one call and one of Explorer's two
+  nightly failures. Consider downgrading unsupported claims to held instead of rejecting
+  the whole chunk; this changes a deliberate strict rule, so it needs owner agreement.
+
+## Browser and Greendot outlet capture, 18 October 2026, about 7 am SGT
+
+Owner-approved, including the known robots.txt `/Home/` conflict on orders.greendot.sg. The browser
+setup, egress guard and reinstall timer are documented in
+`companion-api/ops/hermes-desktop/README.md`.
+
+- **Outlet capture** (`qt-team/outlet_capture.py`): the workflow, not a model, drives Chromium on
+  `orders.greendot.sg` and `patisserie.greendot.sg` only.
+  - It selects the outlet with the site's own picker and caches the page only after proof:
+    StoreID in the URL, the outlet name shown, and at least 95% of products carrying the outlet suffix.
+  - Limits: one capture per host every 5 minutes, 24-hour reuse, and a 7-day host back-off after
+    any block or challenge page.
+- **Live test, 22:56 UTC:** Westgate was captured (Greendot @ Westgate, 60/60 products with
+  suffix 14). 47/50 ordering dishes match exact name and SGD price. The other 3 stay held: one
+  isn't listed, and two are stored ranges whose upper price isn't shown. The capture is in the live
+  evidence cache, and the shared-page guard doesn't flag it.
+- **Deployed at 22:59 UTC on 17 Oct (6:59 am SGT, 18 Oct)** with `deploy_browser_bots.py`, owner-approved:
+  - Bot runs use `-t web,browser`, and all four roles and SOULs carry read-only browsing rules.
+  - The workflow captures allowlisted storefronts before Explorer runs.
+  - 110 checks passed on the VPS. Protected files are unchanged.
+  - Backup: `operator-tests/browser-bots-20261018`. Live files, the release marker and the SOULs
+    match local copies.
+- All four QT profiles' `platform_toolsets` now include `browser` (backups
+  `config.yaml.before-browser-20261018`). `hermes tools list` shows Browser Automation enabled.
+- Still unverified: a full overnight Explorer run on a Greendot branch with the capture, Manager
+  approval and the resulting verified counts. The first chance is the 19 Oct 1:00 am window.
+  The other 11 Greendot ordering pages and 12 patisserie pages have not been captured yet. The
+  capture logic hasn't been exercised on the patisserie site.
+- A model-driven browser costs turns within the existing per-run limits; budgets are unchanged.
+
+### Code-review fixes, deployed 23:17 UTC on 17 Oct (7:17 am SGT, 18 Oct)
+
+Deployed with `deploy_review_fixes.py`: 112 checks passed on the VPS, protected files unchanged,
+backup `operator-tests/review-fixes-20261018`.
+
+- Dishes on `orders.greendot.sg` and `patisserie.greendot.sg` now verify only from a capture
+  carrying browser outlet proof (`qtCapture.method=browser-outlet-selected` with a matching StoreID).
+  Otherwise they are held with `OUTLET_REASON`. A Firecrawl default-outlet page can no longer verify
+  another branch.
+- The shared-page check flags only variants that carry *different values* for the same query key.
+  Parameter order, extra keys and tracking tags (utm_, fbclid, gclid, ref, source) no longer cause
+  false holds. It reads only each cache file's head.
+- Capture back-off:
+  - A navigation refusal, or a challenge page with no products, backs the host off for 7 days.
+  - Three consecutive failures rest the host for 24 hours.
+  - Challenge phrases are narrowed and ignored when the page proves the outlet.
+- Outlet detection now uses the rendered product suffixes, not the URL, because the site redirects
+  client-side.
+- The capture requires `/usr/bin/chromium`; there is no headless-shell fallback.
+- A Manager decline keeps Explorer's reason after a prefix.
+- The unrequested `test_browser_guard.py` was removed locally, on the VPS and from the release marker.
+- `browser.engine: chrome` is pinned in all four QT profiles, and `AGENT_BROWSER_ENGINE=chrome`
+  is in `/opt/data/.env`.
+- Live check with the new code: Star Vista was captured in 17 s via the "already showing" path, and
+  61/64 dishes pass `validate_record`.
+- **Residual risk:** the image's bundled `chrome-headless-shell` ignores managed policies (it opened
+  `file://` and reached 172.17.0.1 in a test). Nothing selects it, but never set the browser path
+  to it.
