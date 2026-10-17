@@ -1,0 +1,75 @@
+'use client';
+import { useState, type ReactNode } from 'react';
+import { date, useResource } from '../client';
+import { Feedback } from '../Primitives';
+import { Badges, ListTools, matches } from './Parts';
+import PlacePanel from './PlacePanel';
+import RecipePanel from './RecipePanel';
+import EventPanel from './EventPanel';
+import { Gatherings, Market, Reviews } from './MemberContent';
+
+const tabs = [['places', 'Places & menus'], ['recipes', 'Recipes'], ['events', 'Events'], ['reviews', 'Place reviews'], ['gatherings', 'Gatherings'], ['market', 'Market']] as const;
+type Tab = typeof tabs[number][0];
+type Row = { id: string; hidden: boolean; edited: boolean; newer?: boolean; updatedAt: string | null; reports?: number; [key: string]: unknown };
+
+/** Staff view of everything members see: open any post, edit QuinTaste content, hide or restore anything. */
+export default function ContentConsole() {
+  // The console renders only after the client confirms the staff session, so the address bar is available here.
+  const initial = typeof window === 'undefined' ? null : new URLSearchParams(window.location.search);
+  const [tab, setTab] = useState<Tab>(() => tabs.find(([id]) => id === initial?.get('tab'))?.[0] ?? 'places');
+  const [selected, setSelected] = useState<string | null>(() => initial?.get('id') ?? null);
+  function go(next: Tab, id: string | null) {
+    setTab(next); setSelected(id);
+    const url = new URL(window.location.href); url.searchParams.set('tab', next);
+    if (id) url.searchParams.set('id', id); else url.searchParams.delete('id');
+    window.history.replaceState(null, '', url);
+  }
+  const select = (id: string | null) => go(tab, id);
+  return <>
+    <div className="tabs" role="tablist" aria-label="Content type">{tabs.map(([id, label]) =>
+      <button key={id} role="tab" aria-selected={tab === id} onClick={() => go(id, null)}>{label}</button>)}</div>
+    {tab === 'places' && <ContentList key="places" path="/api/content/places" noun="places" selected={selected} select={select} add="Add place"
+      filters={[['all', 'All'], ['edited', 'Edited'], ['hidden', 'Hidden'], ['staff', 'Added by staff'], ['newer', 'Newer data below'], ['reported', 'Reported']]}
+      describe={r => ({ title: String(r.name ?? r.id), meta: [r.branch, `${r.dishes} ${r.dishes === 1 ? 'dish' : 'dishes'}`].filter(Boolean).join(' · '), search: [r.name, r.branch, r.address], staff: r.origin === 'staff' })}
+      detail={(id, changed) => <PlacePanel key={id} id={id} onChanged={changed}/>}/>}
+    {tab === 'recipes' && <ContentList key="recipes" path="/api/content/recipes" noun="recipes" selected={selected} select={select} add="Add recipe"
+      filters={[['all', 'All'], ['bundled', 'In the app'], ['bot', 'From QT Manager'], ['staff', 'Added by staff'], ['edited', 'Edited'], ['hidden', 'Hidden'], ['newer', 'Newer data below']]}
+      describe={r => ({ title: String(r.title), meta: [sourceLabel(r.source), (r.categories as string[]).join(', '), r.withdrawn ? 'Withdrawn by QT Manager' : ''].filter(Boolean).join(' · '), search: [r.title, r.categories], staff: r.source === 'staff' })}
+      detail={(id, changed) => <RecipePanel key={id} id={id} onChanged={changed}/>}/>}
+    {tab === 'events' && <ContentList key="events" path="/api/content/events" noun="events" selected={selected} select={select} add="Add event"
+      filters={[['all', 'All'], ['upcoming', 'Upcoming'], ['bot', 'From QT Manager'], ['staff', 'Added by staff'], ['edited', 'Edited'], ['hidden', 'Hidden']]}
+      describe={r => ({ title: String(r.title), meta: [r.startsAt ? date(r.startsAt) : '', sourceLabel(r.source), r.status !== 'scheduled' ? r.status : ''].filter(Boolean).join(' · '), search: [r.title], staff: r.source === 'staff' })}
+      detail={(id, changed) => <EventPanel key={id} id={id} onChanged={changed}/>}/>}
+    {tab === 'reviews' && <Reviews/>}
+    {tab === 'gatherings' && <Gatherings/>}
+    {tab === 'market' && <Market/>}
+  </>;
+}
+const sourceLabel = (source: unknown) => ({ bundled: 'In the app', bot: 'QT Manager', staff: 'Staff' } as Record<string, string>)[String(source)] ?? '';
+const passes = (filter: string, row: Row) => ({ all: true, edited: row.edited, hidden: row.hidden, newer: !!row.newer, reported: (row.reports ?? 0) > 0,
+  staff: row.origin === 'staff' || row.source === 'staff', bundled: row.source === 'bundled', bot: row.source === 'bot',
+  upcoming: typeof row.startsAt === 'string' && Date.parse(row.startsAt) > Date.now() } as Record<string, boolean>)[filter] ?? true;
+
+function ContentList({ path, noun, filters, describe, detail, selected, select, add }: {
+  path: string; noun: string; filters: [string, string][]; selected: string | null; select: (id: string | null) => void; add: string;
+  describe: (row: Row) => { title: string; meta: string; search: unknown[]; staff: boolean };
+  detail: (id: string, changed: (id?: string) => void) => ReactNode;
+}) {
+  const resource = useResource<Row[]>(path), [query, setQuery] = useState(''), [filter, setFilter] = useState('all');
+  const rows = (resource.data ?? []).filter(row => passes(filter, row) && matches(query, row.id, ...describe(row).search));
+  const changed = (id?: string) => { resource.reload(); if (id) select(id); };
+  return <div className={'content-split' + (selected ? ' has-selection' : '')}>
+    <section className="panel content-list" aria-label={'All ' + noun}>
+      <ListTools query={query} setQuery={setQuery} filters={filters} filter={filter} setFilter={setFilter}><button className="primary" onClick={() => select('new')}>{add}</button></ListTools>
+      <Feedback {...resource} retry={resource.reload}/>
+      {resource.data && <p className="muted" aria-live="polite">{rows.length} {noun}</p>}
+      <ul className="items">{rows.slice(0, 400).map(row => { const d = describe(row);
+        return <li key={row.id}><button className="item" aria-current={selected === row.id ? 'true' : undefined} onClick={() => select(row.id)}>
+          <strong>{d.title}</strong><span className="muted">{d.meta}</span>
+          <Badges hidden={row.hidden} edited={row.edited} staff={d.staff} newer={!!row.newer} reports={row.reports ?? 0}/></button></li>; })}</ul>
+      {rows.length > 400 && <p className="muted">Showing 400. Search to narrow the list.</p>}
+    </section>
+    <div className="content-detail">{selected ? <><button className="back" onClick={() => select(null)}>← Back to {noun}</button>{detail(selected, changed)}</>
+      : <div className="panel empty">Choose one of the {noun} to view, edit, hide or restore it.</div>}</div>
+  </div>;
+}

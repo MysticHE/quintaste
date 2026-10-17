@@ -5,6 +5,7 @@ import path from 'node:path';
 import { createHmac, timingSafeEqual } from 'node:crypto';
 import { readSnapshot, publish, recordState, removeRecord, revertRecord } from './store.mjs';
 import { hash } from './validation.mjs';
+import { staffContent, staffCreated, staffEdited, staffRecord } from '../staff-content.mjs';
 
 export const editorial = express.Router();
 const root = process.env.QT_EDITORIAL_ROOT || path.resolve('.local/editorial');
@@ -63,21 +64,37 @@ editorial.get('/status', async (req, res, next) => {
   try { const s = await readSnapshot(root); conditional(req, res, { revision: s.revision, publishedAt: s.publishedAt ?? null, counts: Object.values(s.records).reduce((n, r) => ({ ...n, [r.kind]: (n[r.kind] ?? 0) + 1 }), {}) }); } catch (e) { next(e); }
 });
 editorial.get('/recipes/:id', async (req, res, next) => {
-  try { const row = (await readSnapshot(root)).records['recipe:' + req.params.id]; if (!row) return res.sendStatus(404); conditional(req, res, row.data); } catch (e) { next(e); }
+  try {
+    const [snapshot, staff] = await Promise.all([readSnapshot(root), staffContent()]), id = req.params.id;
+    const item = staff.items.get('recipe:' + id), row = snapshot.records['recipe:' + id];
+    const recipe = row || item?.origin === 'staff' ? staffRecord(staff, 'recipe', id, row?.data ?? null) : null;
+    recipe ? conditional(req, res, recipe) : res.sendStatus(404);
+  } catch (e) { next(e); }
+});
+/** Staff edits and hides of the recipes bundled in the app (bot and staff-created recipes come through /recipes). */
+editorial.get('/staff-recipes', async (req, res, next) => {
+  try {
+    const [snapshot, staff] = await Promise.all([readSnapshot(root), staffContent()]);
+    const items = [...staff.items.values()].filter(item => item.kind === 'recipe');
+    conditional(req, res, { revision: staff.revision, hidden: items.filter(item => item.hidden).map(item => item.id),
+      recipes: items.filter(item => !item.hidden && item.origin === 'edit' && staffEdited(item) && !snapshot.records['recipe:' + item.id]).map(item => staffRecord(staff, 'recipe', item.id, null)) });
+  } catch (e) { next(e); }
 });
 for (const kind of ['recipe', 'event']) editorial.get('/' + kind + 's', async (req, res, next) => {
   try {
-    const snapshot = await readSnapshot(root), q = String(req.query.q ?? '').trim().toLowerCase().slice(0, 160), category = String(req.query.category ?? '').slice(0, 40);
+    const [snapshot, staff] = await Promise.all([readSnapshot(root), staffContent()]), revision = hash(snapshot.revision + staff.revision), q = String(req.query.q ?? '').trim().toLowerCase().slice(0, 160), category = String(req.query.category ?? '').slice(0, 40);
     let offset = 0;
     if (req.query.cursor) {
-      try { const cursor = JSON.parse(Buffer.from(String(req.query.cursor).slice(0, 300), 'base64url').toString()); if (cursor.revision !== snapshot.revision || cursor.q !== q || cursor.category !== category || !Number.isInteger(cursor.offset) || cursor.offset < 0 || cursor.offset > 2000 || cursor.offset % 20) throw Error(); offset = cursor.offset; }
+      try { const cursor = JSON.parse(Buffer.from(String(req.query.cursor).slice(0, 300), 'base64url').toString()); if (cursor.revision !== revision || cursor.q !== q || cursor.category !== category || !Number.isInteger(cursor.offset) || cursor.offset < 0 || cursor.offset > 2000 || cursor.offset % 20) throw Error(); offset = cursor.offset; }
       catch { return res.status(409).json({ error: 'Results changed. Refresh the list.' }); }
     }
-    const rows = Object.values(snapshot.records).filter(r => r.kind === kind).map(r => r.data).filter(r => kind === 'recipe' ? !r.withdrawal && (!category || r.categories.includes(category)) && (!q || (r.name + ' ' + r.ingredients.map(i => i.name).join(' ')).toLowerCase().includes(q)) : r.status !== 'cancelled' && Date.parse(r.startsAt) > Date.now() && (!q || (r.title + ' ' + r.organiser + ' ' + r.address).toLowerCase().includes(q)))
+    // Staff edits replace bot records, staff hides remove them, and staff-created records join them.
+    const records = [...Object.values(snapshot.records).filter(r => r.kind === kind).map(r => staffRecord(staff, kind, r.id, r.data)), ...staffCreated(staff, kind)];
+    const rows = records.filter(Boolean).filter(r => kind === 'recipe' ? !r.withdrawal && (!category || r.categories.includes(category)) && (!q || (r.name + ' ' + r.ingredients.map(i => i.name).join(' ')).toLowerCase().includes(q)) : r.status !== 'cancelled' && Date.parse(r.startsAt) > Date.now() && (!q || (r.title + ' ' + r.organiser + ' ' + r.address).toLowerCase().includes(q)))
       .sort((a, b) => kind === 'event' ? a.startsAt.localeCompare(b.startsAt) : a.name.localeCompare(b.name));
     // Only the requested page is returned. Full recipe steps load at detail time.
     const items = rows.slice(offset, offset + 20).map(r => kind === 'event' ? r : { ...Object.fromEntries(Object.entries(r).filter(([key]) => !['ingredients', 'steps', 'adaptationNote'].includes(key))), ingredientNames: r.ingredients.map(i => i.name) });
-    conditional(req, res, { revision: snapshot.revision, items, total: rows.length, nextCursor: offset + 20 < rows.length ? Buffer.from(JSON.stringify({ revision: snapshot.revision, offset: offset + 20, q, category })).toString('base64url') : null });
+    conditional(req, res, { revision, items, total: rows.length, nextCursor: offset + 20 < rows.length ? Buffer.from(JSON.stringify({ revision, offset: offset + 20, q, category })).toString('base64url') : null });
   } catch (e) { next(e); }
 });
 export const editorialAssetRoot = path.join(root, 'assets');

@@ -35,7 +35,15 @@ app.use('/api/catalogue-photos', (req, res, next) => {
   res.set('Cross-Origin-Resource-Policy', 'cross-origin');
   next();
 }, express.static(editorialAssetRoot, { maxAge: '1y', immutable: true, index: false }),
-express.static(path.resolve('server-assets/catalogue'), { maxAge: '1y', immutable: true, fallthrough: false, index: false }),
+express.static(path.resolve('server-assets/catalogue'), { maxAge: '1y', immutable: true, index: false }),
+// Photos staff upload in the console live in content.asset, addressed by their SHA-256.
+async (req, res) => {
+  try {
+    const row = (await pool.query('SELECT bytes FROM content.asset WHERE sha256=$1', [req.path.slice(1, 65)])).rows[0];
+    if (!row) return res.sendStatus(404);
+    res.set({ 'Content-Type': 'image/jpeg', 'Cache-Control': 'public, max-age=31536000, immutable', 'X-Content-Type-Options': 'nosniff' }).send(row.bytes);
+  } catch { res.sendStatus(404); }
+},
 (_error, _req, res, _next) => res.sendStatus(404));
 // Local development only: lets an Expo web dev server on another port call this API with the session cookie.
 if (devWebOrigin) app.use('/api', (req, res, next) => {
@@ -87,6 +95,7 @@ app.use('/api/market', featureGate('market'), market);
 app.use('/api/social', featureGate('social'), social);
 app.use('/api/areas', featureGate('areas'), areas);
 app.use('/api/local-explore', (_req, res) => res.status(503).json({ error: 'Local development services are unavailable on this deployment.' }));
+app.use('/api/staff-base', (_req, res) => res.sendStatus(404));
 app.use(express.static(path.resolve('dist/client'), { maxAge: '1h', extensions: ['html'], index: false }));
 app.all('/{*all}', createRequestHandler({ build: path.resolve('dist/server') }));
 app.use((err, _req, res, _next) => {
@@ -96,6 +105,10 @@ app.use((err, _req, res, _next) => {
   if (!res.headersSent) res.status(client ? status : 500).json({ error: client ? 'Invalid request.' : 'Request could not be completed.' });
 });
 const server = app.listen(Number(process.env.PORT || 3000), '0.0.0.0', () => logger.info({ event: 'server_ready' }));
+// The staff console reads packaged and bot content before staff changes on this port. Traefik routes only to PORT.
+const internalPort = Number(process.env.CONTENT_INTERNAL_PORT || (process.env.NODE_ENV === 'production' ? 3001 : 0));
+const internal = internalPort ? express().disable('x-powered-by').get('/api/staff-base', createRequestHandler({ build: path.resolve('dist/server') }))
+  .use((_req, res) => res.sendStatus(404)).listen(internalPort, '0.0.0.0') : null;
 server.requestTimeout = 30000;
 server.headersTimeout = 15000;
 const stopAvatars = process.env.AVATAR_WORKER_ENABLED === 'true' ? startAvatarWorker() : () => {};
@@ -112,6 +125,7 @@ async function stop() {
   clearInterval(purgeTimer);
   stopAreaSnapshots();
   const timer = setTimeout(() => process.exit(1), 15000).unref();
+  internal?.close();
   server.close(async () => { await pool.end(); clearTimeout(timer); process.exit(0); });
 }
 process.on('SIGTERM', stop);

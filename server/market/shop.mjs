@@ -81,7 +81,7 @@ shop.get('/shops/:id', async (req, res) => {
   if (!seller) throw new CommunityError(404, 'This shop is unavailable.');
   const [items, reviews] = await Promise.all([
     pool.query(`SELECT ${cardColumns} FROM ${fromListings} WHERE l.seller_id=$1 AND ${visible} ORDER BY l.updated_at DESC LIMIT 60`, [id]),
-    seller.rating === null ? { rows: [] } : pool.query(`SELECT rating, review, diet_matched AS "dietMatched", completed_at AS at FROM market."order"
+    seller.rating === null ? { rows: [] } : pool.query(`SELECT rating, CASE WHEN review_hidden THEN '' ELSE review END AS review, diet_matched AS "dietMatched", completed_at AS at FROM market."order"
       WHERE seller_id=$1 AND rating > 0 ORDER BY completed_at DESC LIMIT 20`, [id]),
   ]);
   res.json({ ...seller, own: viewer === id, items: items.rows.map(row => card(row)), reviews: reviews.rows, slots: await bookable(id) });

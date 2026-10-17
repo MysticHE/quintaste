@@ -58,6 +58,14 @@ async function cancelOpen(db: PoolClient, sellerId: string, reason: string, list
   await db.query(`UPDATE market."order" o SET status='cancelled', status_reason=$2, updated_at=now() WHERE o.seller_id=$1 AND o.status IN ('requested','confirmed','ready')
     ${listingId ? 'AND EXISTS (SELECT 1 FROM market.order_item i WHERE i.order_id=o.id AND i.listing_id=$3)' : ''}`, listingId ? [sellerId, reason, listingId] : [sellerId, reason]);
 }
+/** Takes an item out of the Market, cancels open orders that include it and tells those buyers. Returns how many were told. */
+export async function removeListing(db: PoolClient, sellerId: string, listingId: string, note: string) {
+  const result = await db.query("UPDATE market.listing SET status='removed', removed_reason=$3, updated_at=now() WHERE id=$1 AND seller_id=$2 AND status<>'removed'", [listingId, sellerId, note]);
+  if (!result.rowCount) throw new HttpError(404, 'Item not found or already removed.');
+  const notified = await notifyBuyers(db, sellerId, 'Safety notice: an item from this shop was removed by QuinTaste. Open orders with it are cancelled. Do not eat it if you still have it; contact the seller about a refund.', listingId);
+  await cancelOpen(db, sellerId, 'QuinTaste removed an item in this order.', listingId);
+  return notified;
+}
 /** Suspension and removal take the shop out of browsing and cancel its open orders; buyers are told first. */
 async function decide(db: PoolClient, seller: Record<string, unknown>, action: typeof decisions[number], note: string) {
   const id = seller.user_id as string;
@@ -83,13 +91,8 @@ export async function sellerAction(member: Session, input: Record<string, unknow
     const seller = (await db.query('SELECT user_id, status FROM market.seller WHERE user_id=$1 FOR UPDATE', [id])).rows[0];
     if (!seller) throw new HttpError(404, 'Seller not found.');
     let notified: number;
-    if (action === 'remove_listing') {
-      const listing = uuid(input.listingId, 'item');
-      const result = await db.query("UPDATE market.listing SET status='removed', removed_reason=$3, updated_at=now() WHERE id=$1 AND seller_id=$2", [listing, id, text(input.note, 'reason shown to the seller', 300, 5)]);
-      if (!result.rowCount) throw new HttpError(404, 'Item not found.');
-      notified = await notifyBuyers(db, id, 'Safety notice: an item from this shop was removed by QuinTaste. Open orders with it are cancelled. Do not eat it if you still have it; contact the seller about a refund.', listing);
-      await cancelOpen(db, id, 'QuinTaste removed an item in this order.', listing);
-    } else notified = await decide(db, seller, action, note);
+    if (action === 'remove_listing') notified = await removeListing(db, id, uuid(input.listingId, 'item'), text(input.note, 'reason shown to the seller', 300, 5));
+    else notified = await decide(db, seller, action, note);
     await audit(db, member.id, 'seller.' + action, id, reason, { note, listing: input.listingId, notified });
     return { saved: true, note: notified ? `${notified} buyer conversation(s) notified.` : undefined };
   });

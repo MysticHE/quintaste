@@ -5,7 +5,7 @@ import { Button, Card, T, common } from "../../components/ui";
 import { Chip, EmptyState, IconButton } from "../../components/food/Controls";
 import { BrowseActions, BrowseHeader } from "../../components/BrowseControls";
 import { RecipeRow } from "../../components/recipes/RecipeRow";
-import { recipes } from "../../data/recipes";
+import { bundledRecipes } from "../../data/recipes";
 import { cookingRecipeById } from "../../utils/private-recipes";
 import { useFood } from "../../state/Food";
 import { usePreferences } from "../../state/Preferences";
@@ -17,7 +17,7 @@ export function CookScreen() {
   const { doc, isSaved, cookSearch: query, setCookSearch: setQuery, cookBrowse: browse, setCookBrowse } = useFood();
   const { draft } = usePreferences();
   const published = usePublishedRecipes();
-  const visible = browseRecipes([...published.recipes, ...recipes], browse, query, { diet: draft.diet, excluded: draft.excluded, isSaved: id => isSaved("recipe", id), cooked: doc.recipes.cooked });
+  const visible = browseRecipes([...published.recipes, ...bundledRecipes()], browse, query, { diet: draft.diet, excluded: draft.excluded, isSaved: id => isSaved("recipe", id), cooked: doc.recipes.cooked });
   const resume = doc.cooking && cookingRecipeById(doc.cooking.recipeId, doc.recipes);
   const filters = activeFilterCount(browse) + Number(browse.category !== "All"), toGet = doc.recipes.shopping.filter(note => !note.checked).length;
   const narrowed = filters > 0 || browse.category !== "All";

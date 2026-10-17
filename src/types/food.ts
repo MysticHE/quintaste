@@ -44,7 +44,7 @@ export type RecipeStep = {
 };
 export type Recipe = {
   image?: { path: string; width: number; height: number; credit: string };
-  provenance?: { sources: string[]; checkedAt: string; kitchenTested: false; reviewedBy: "QT Manager" };
+  provenance?: { sources: string[]; checkedAt: string; kitchenTested: false; reviewedBy: "QT Manager" | "QuinTaste team" };
   id: string; name: string; description: string; photo?: PhotoKey;
   minutes: number; servings: number; cuisine: string; dietary: Dietary;
   categories: RecipeCategory[]; onePot?: boolean;

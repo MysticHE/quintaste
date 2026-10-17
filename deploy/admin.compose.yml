@@ -33,6 +33,15 @@ services:
       traefik.http.middlewares.quintaste-admin-rate.ratelimit.average: '30'
       traefik.http.middlewares.quintaste-admin-rate.ratelimit.burst: '60'
       traefik.http.services.quintaste-admin.loadbalancer.server.port: '3100'
+      # Content editing and photo uploads (re-encoded by the console) need a larger body than other staff requests.
+      traefik.http.routers.quintaste-admin-content.rule: Host(`${ADMIN_HOST}`) && PathPrefix(`/api/content`)
+      traefik.http.routers.quintaste-admin-content.priority: '110'
+      traefik.http.routers.quintaste-admin-content.entrypoints: websecure
+      traefik.http.routers.quintaste-admin-content.tls.certresolver: letsencrypt
+      traefik.http.routers.quintaste-admin-content.service: quintaste-admin
+      traefik.http.routers.quintaste-admin-content.middlewares: quintaste-admin-content-body,quintaste-admin-rate
+      traefik.http.middlewares.quintaste-admin-content-body.buffering.maxRequestBodyBytes: '8650752'
+      traefik.http.middlewares.quintaste-admin-content-body.buffering.memRequestBodyBytes: '8650752'
     logging:
       driver: json-file
       options: { max-size: 10m, max-file: '3' }

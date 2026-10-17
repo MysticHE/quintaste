@@ -8,7 +8,8 @@ import type { StaffSession } from './Verification';
 import Overview from './Overview';
 import Accounts from './Accounts';
 import Cases from './Cases';
-import { Content, Controls } from './Operations';
+import { Controls } from './Operations';
+import ContentConsole from './content/ContentConsole';
 import Sellers from './Sellers';
 import { Audit, Integrations, Staff } from './Administration';
 
@@ -16,7 +17,7 @@ const sections: { id:string;title:string;description:string;icon:string;capabili
   { id:'overview',title:'Overview',description:'A clear view of the community and the work that needs attention.',icon:'◈' },
   { id:'accounts',title:'Customer accounts',description:'Find customers, manage access and sign out devices.',icon:'♙',capability:'accounts' },
   { id:'cases',title:'Review cases',description:'Reports, harm notices, corrections, privacy requests and incidents.',icon:'▤',capability:'cases' },
-  { id:'content',title:'Editorial review',description:'Record source decisions and withdraw unsafe menu content.',icon:'✎',capability:'content' },
+  { id:'content',title:'Content',description:'View every place, menu, recipe, event, review, gathering and Market item members see. Edit QuinTaste content; hide or restore anything.',icon:'✎',capability:'content' },
   { id:'sellers',title:'Market sellers',description:'Review reported shops and take down items or shops that break Market rules.',icon:'⌂',capability:'sellers' },
   { id:'controls',title:'Feature controls',description:'Pause affected services and record the operational decision.',icon:'⊙',capability:'operations' },
   { id:'integrations',title:'Integrations',description:'Check provider connections without viewing upstream secrets.',icon:'⇄',capability:'integrations' },
@@ -42,7 +43,7 @@ export default function Console({ section }: { section:string }) {
     <header className="heading"><div><div className="eyebrow">QuinTaste operations</div><h1>{current?.title||'Page unavailable'}</h1><p>{current?.description}</p></div><button onClick={signOut}>Sign out</button></header>
     {logoutError && <div className="notice error" role="alert">{logoutError}</div>}
     {!allowed ? <div className="notice">This page is unavailable for your staff role.</div> : <>
-      {section==='overview'&&<Overview/>}{section==='accounts'&&<Accounts/>}{section==='cases'&&<Cases canAssign={can(member.role as Role,'operations')}/>}{section==='content'&&<Content/>}{section==='sellers'&&<Sellers/>}{section==='controls'&&<Controls/>}{section==='integrations'&&<Integrations/>}{section==='staff'&&<Staff/>}{section==='audit'&&<Audit/>}
+      {section==='overview'&&<Overview/>}{section==='accounts'&&<Accounts/>}{section==='cases'&&<Cases canAssign={can(member.role as Role,'operations')}/>}{section==='content'&&<ContentConsole/>}{section==='sellers'&&<Sellers/>}{section==='controls'&&<Controls/>}{section==='integrations'&&<Integrations/>}{section==='staff'&&<Staff/>}{section==='audit'&&<Audit/>}
       {section==='identity'&&<div className="panel"><h2>Identity intake is not enabled</h2><p>This later-phase workflow requires private evidence storage, case-scoped access and verified automatic deletion before it can accept documents.</p><p className="muted">No identity images can be uploaded or viewed here. Track readiness and operational issues in Review cases.</p><Link className="button" href="/console/cases">Open review cases</Link></div>}
     </>}
   </main></div>;

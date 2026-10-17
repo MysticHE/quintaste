@@ -6,7 +6,6 @@ import { overview } from '../../../../lib/overview';
 import { accounts, accountAction, changeControl, staffList, changeStaff } from '../../../../lib/management';
 import { caseList, caseDetails, createCase, updateCase } from '../../../../lib/cases';
 import { gatewayStatus, checkGateway } from '../../../../lib/gateway';
-import { contentList, decideContent, catalog } from '../../../../lib/content';
 import { sellerAction, sellerDetail, sellerList } from '../../../../lib/sellers';
 
 type Context = { params: Promise<{ resource: string }> };
@@ -18,9 +17,7 @@ export function GET(request: Request, context: Context) { return route(async () 
   if (resource === 'overview') return json(await overview(member));
   if (resource === 'accounts') return json(await accounts(member, params.get('q') || ''));
   if (resource === 'cases') return json(params.has('id') ? await caseDetails(member, text(params.get('id'),'case id',36)) : await caseList(member, params.get('status') || ''));
-  if (resource === 'content') return json(await contentList(member));
   if (resource === 'sellers') return json(params.has('id') ? await sellerDetail(member, text(params.get('id'),'seller id',64)) : await sellerList(member, params.get('status') || ''));
-  if (resource === 'catalog') return json(await catalog(member));
   if (resource === 'integrations') return json(await gatewayStatus(member));
   if (resource === 'staff') return json(await staffList(member));
   if (resource === 'assignees') {
@@ -44,7 +41,6 @@ export function POST(request: Request, context: Context) { return route(async ()
   const reason = text(input.reason, 'reason for this change', 1000, 10);
   if (resource === 'accounts') return json(await accountAction(member,input,reason));
   if (resource === 'cases') return json(input.id ? await updateCase(member,input,reason) : await createCase(member,input,reason));
-  if (resource === 'content') return json(await decideContent(member,input,reason));
   if (resource === 'sellers') return json(await sellerAction(member,input,reason));
   if (resource === 'controls') return json(await changeControl(member,input,reason));
   if (resource === 'staff') return json(await changeStaff(member,input,reason));

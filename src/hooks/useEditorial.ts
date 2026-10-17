@@ -1,8 +1,8 @@
 import { useCallback, useRef, useState } from "react";
 import { AppState } from "react-native";
 import { useFocusEffect } from "expo-router";
-import { editorialRequest } from "../services/editorial";
-import { recipeById } from "../data/recipes";
+import { editorialRequest, type StaffRecipes } from "../services/editorial";
+import { bundledRecipeIds, recipeById } from "../data/recipes";
 import type { Recipe } from "../types/food";
 
 export function useEditorial<T>(path: string | null): { data?: T; error?: string; loading: boolean; refresh: () => void } {
@@ -23,7 +23,10 @@ export function useEditorial<T>(path: string | null): { data?: T; error?: string
   return { ...(state?.path === path ? state : { loading: !!path }), refresh };
 }
 export function usePublishedRecipe(id: string | null) {
+  // Bundled recipes come with the app; staff edits and hides of them arrive in one small list, never per recipe.
+  const bundled = !!id && bundledRecipeIds.has(id), staff = useEditorial<StaffRecipes>(bundled ? "/staff-recipes" : null);
   const existing = id ? recipeById(id) : undefined;
-  const remote = useEditorial<Recipe>(id && (!existing || existing.provenance) && !id.startsWith("private-") ? "/recipes/" + encodeURIComponent(id) : null);
+  const remote = useEditorial<Recipe>(id && !bundled && (!existing || existing.provenance) && !id.startsWith("private-") ? "/recipes/" + encodeURIComponent(id) : null);
+  if (bundled) return { loading: staff.loading && !existing, error: undefined as string | undefined, refresh: staff.refresh, recipe: existing };
   return { ...remote, recipe: remote.data ?? existing };
 }

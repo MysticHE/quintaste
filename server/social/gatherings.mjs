@@ -26,21 +26,21 @@ gatherings.get('/gatherings', async (req, res) => {
   const search = q ? `AND (g.title || ' ' || g.area || ' ' || g.venue) ILIKE $2` : '';
   if (q) params.push('%' + q.replace(/[\\%_]/g, '\\$&') + '%');
   const rows = (await pool.query(`SELECT ${columns}, EXISTS (SELECT 1 FROM social.attendee a WHERE a.gathering_id=g.id AND a.user_id=$1) AS joined, g.organiser_id=$1 AS mine
-    FROM social.gathering g WHERE g.state='posted' AND g.starts > now() AND ${notRestricted('g.organiser_id')} AND ${notBlocked('g.organiser_id', '$1')} ${search}
+    FROM social.gathering g WHERE g.state='posted' AND g.hidden_at IS NULL AND g.starts > now() AND ${notRestricted('g.organiser_id')} AND ${notBlocked('g.organiser_id', '$1')} ${search}
     ORDER BY g.starts LIMIT 60`, params)).rows;
   res.json({ items: rows });
 });
 gatherings.get('/gatherings/mine', async (_req, res) => {
   const me = res.locals.user.id;
   const rows = (await pool.query(`SELECT ${columns}, EXISTS (SELECT 1 FROM social.attendee a WHERE a.gathering_id=g.id AND a.user_id=$1) AS joined, g.organiser_id=$1 AS mine
-    FROM social.gathering g WHERE g.organiser_id=$1 OR EXISTS (SELECT 1 FROM social.attendee a WHERE a.gathering_id=g.id AND a.user_id=$1)
+    FROM social.gathering g WHERE g.organiser_id=$1 OR g.hidden_at IS NULL AND EXISTS (SELECT 1 FROM social.attendee a WHERE a.gathering_id=g.id AND a.user_id=$1)
     ORDER BY g.starts NULLS FIRST LIMIT 100`, [me])).rows;
   res.json({ items: rows });
 });
 gatherings.get('/gatherings/:id', async (req, res) => {
   const me = res.locals.user.id, id = requireId(req.params.id);
   const row = (await pool.query(`SELECT ${columns}, EXISTS (SELECT 1 FROM social.attendee a WHERE a.gathering_id=g.id AND a.user_id=$1) AS joined, g.organiser_id=$1 AS mine
-    FROM social.gathering g WHERE g.id=$2 AND ${notBlocked('g.organiser_id', '$1')} AND (g.organiser_id=$1 OR g.state<>'draft')`, [me, id])).rows[0];
+    FROM social.gathering g WHERE g.id=$2 AND ${notBlocked('g.organiser_id', '$1')} AND (g.organiser_id=$1 OR g.state<>'draft' AND g.hidden_at IS NULL)`, [me, id])).rows[0];
   if (!row) throw new CommunityError(404, 'This gathering is unavailable.');
   const people = row.mine || row.joined ? (await pool.query(`SELECT u.id, ${nameOf} AS name FROM social.attendee a JOIN public."user" u ON u.id=a.user_id
     LEFT JOIN social.profile p ON p.user_id=u.id WHERE a.gathering_id=$1 ORDER BY a.joined_at`, [id])).rows : [];
@@ -90,7 +90,7 @@ gatherings.post('/gatherings/:id/join', async (req, res) => {
   await throttle('social-join:' + me, 30, 3600);
   await transaction(async db => {
     await requireProfile(db, me);
-    const g = (await db.query(`SELECT organiser_id, seats FROM social.gathering g WHERE id=$1 AND state='posted' AND starts > now()
+    const g = (await db.query(`SELECT organiser_id, seats FROM social.gathering g WHERE id=$1 AND state='posted' AND hidden_at IS NULL AND starts > now()
       AND ${notRestricted('g.organiser_id')} AND ${notBlocked('g.organiser_id', '$2')} FOR UPDATE`, [id, me])).rows[0];
     if (!g || g.organiser_id === me) throw new CommunityError(404, 'This gathering is unavailable.');
     // Blocking is mutual across Social: never seat someone with a person they blocked or were blocked by.

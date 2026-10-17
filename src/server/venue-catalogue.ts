@@ -6,6 +6,8 @@ import type { CataloguePage, CatalogueVenue } from "../types/catalogue";
 import type { DiscoverySearch } from "../types/discovery";
 import { distanceKm } from "../utils/discovery-search";
 import { editorialContent, editorialVenue } from "./editorial-content";
+import { menuSummary, staffMenu, staffPlaceIds } from "./menu-delivery";
+import type { StaffContent, StaffPlaceData } from "../types/staff-content";
 
 const hash = (value: unknown) => createHash("sha256").update(JSON.stringify(value)).digest("hex");
 const words = (value: string) => value.normalize("NFKD").toLowerCase().replace(/[^\p{L}\p{N}]+/gu, " ").trim();
@@ -16,17 +18,35 @@ const hiddenAliases = new Map(aliases.entries.filter(alias => {
   return old?.name === alias.name && next?.name === alias.name && old?.address === alias.address && next?.address === alias.address;
 }).map(alias => [alias.aliasId, alias.canonicalId]));
 
-export function catalogueVenue(id: string, withdrawn: ReadonlySet<string>): CatalogueVenue | undefined {
-  const venue = withdrawn.has(id) || withdrawn.has(hiddenAliases.get(id) ?? id) ? undefined : catalogue.find(venue => venue.id === id);
-  return venue ? editorialVenue(venue, true) : undefined;
+const noStaff: StaffContent = { revision: "0".repeat(64), items: new Map() };
+const packagedIds = new Set(catalogue.map(venue => venue.id));
+
+/** Applies a staff place edit, or builds a staff-created place, with counts from the staff-applied menu. Undefined when hidden or without dishes. */
+function staffVenue(id: string, base: CatalogueVenue | undefined, staff: StaffContent, content = editorialContent()): CatalogueVenue | undefined {
+  const place = staff.items.get("place:" + id);
+  if (!place && !staff.items.has("menu:" + id)) return base;
+  if (place?.hidden || !base && place?.origin !== "staff") return undefined;
+  const applied = staffMenu(id, staff, content);
+  if (!applied) return undefined;
+  const { base: _base, sourceUrl: _sourceUrl, photo, hours, ...fields } = (place?.data ?? {}) as StaffPlaceData;
+  const venue = { ...(base ?? { point: null, venueDiet: "Vegetarian", alliumFreeClaim: false }), ...fields, ...menuSummary(applied) } as CatalogueVenue;
+  if (photo === null) delete venue.photo; else if (photo) venue.photo = photo;
+  if (hours === null) delete venue.hours; else if (hours) venue.hours = hours;
+  return venue;
 }
 
-export function searchCatalogue(search: DiscoverySearch, cursor: string | null, withdrawn: ReadonlySet<string>): CataloguePage {
+export function catalogueVenue(id: string, withdrawn: ReadonlySet<string>, staff = noStaff): CatalogueVenue | undefined {
+  if (withdrawn.has(id) || withdrawn.has(hiddenAliases.get(id) ?? id)) return undefined;
+  const venue = catalogue.find(venue => venue.id === id);
+  return staffVenue(id, venue ? editorialVenue(venue, true) : undefined, staff);
+}
+
+export function searchCatalogue(search: DiscoverySearch, cursor: string | null, withdrawn: ReadonlySet<string>, staff = noStaff): CataloguePage {
   const content = editorialContent();
   const query = words(search.query), area = words(search.area);
   const known = areas.find(item => words(item.name) === area);
   const center = search.center ?? search.origin ?? (known?.lat && known.lng ? { latitude: known.lat, longitude: known.lng } : undefined);
-  const searchRevision = hash({ revision, editorialRevision: content.revision, aliases: [...hiddenAliases], search: { ...search, origin: search.origin
+  const searchRevision = hash({ revision, editorialRevision: content.revision, staffRevision: staff.revision, aliases: [...hiddenAliases], search: { ...search, origin: search.origin
     ? { latitude: search.origin.latitude, longitude: search.origin.longitude } : undefined }, withdrawn: [...withdrawn].sort() });
   let offset = 0;
   if (cursor) {
@@ -35,11 +55,13 @@ export function searchCatalogue(search: DiscoverySearch, cursor: string | null, 
     try { value = JSON.parse(Buffer.from(cursor, "base64url").toString()); } catch { throw new Error("Invalid page"); }
     const page = value as { revision?: string; offset?: number };
     if (!page || page.revision !== searchRevision || !Number.isSafeInteger(page.offset) || page.offset! < 0
-      || page.offset! > catalogue.length || page.offset! % 20 !== 0) throw new Error("Search changed. Refresh results.");
+      || page.offset! > catalogue.length + 2000 || page.offset! % 20 !== 0) throw new Error("Search changed. Refresh results.");
     offset = page.offset!;
   }
   let locationGaps = 0;
-  const venues = catalogue.map(venue => editorialVenue(venue, false, content)).flatMap(venue => {
+  const sources = [...catalogue.map(venue => staffVenue(venue.id, editorialVenue(venue, false, content), staff, content)),
+    ...staffPlaceIds(staff).filter(id => !packagedIds.has(id)).map(id => staffVenue(id, undefined, staff, content))];
+  const venues = sources.flatMap(venue => venue ? [venue] : []).flatMap(venue => {
     if (hiddenAliases.has(venue.id)) return [];
     const savedAlias = search.savedIds && [...hiddenAliases].some(([alias, id]) => id === venue.id && search.savedIds!.includes("catalogue-" + alias));
     if (search.savedIds && !search.savedIds.includes("catalogue-" + venue.id)

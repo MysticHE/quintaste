@@ -1,12 +1,10 @@
 import { Buffer } from 'node:buffer';
 import { pool } from '../config.mjs';
-import { operationsEnabled } from '../operations.mjs';
 import { communityRouter, CommunityError, errors, member, requireId, text, throttle, transaction, uuid } from '../community/http.mjs';
 import { fileReport, notBlocked, notRestricted } from '../community/router.mjs';
 import { photoPath, reviewPhotos } from './photos.mjs';
-import { catalogueVenues, placeAliases } from '../catalogue-places.mjs';
+import { catalogueVenues, publishedPlaceIds } from '../catalogue-places.mjs';
 
-const catalogue = catalogueVenues, aliases = placeAliases;
 const sorts = { newest: 'pr.created_at DESC,pr.id DESC', highest: 'pr.rating DESC,pr.created_at DESC,pr.id DESC', lowest: 'pr.rating ASC,pr.created_at DESC,pr.id DESC' };
 const reasons = ['Spam', 'Not about this place', 'Offensive content', 'Conflict of interest', 'Other'];
 const fields = `pr.id,pr.rating,pr.body,pr.created_at AS "createdAt",pr.updated_at AS "updatedAt",left(coalesce(nullif(u.name,''),'Member'),50) AS name,
@@ -19,20 +17,19 @@ export const placeReviews = communityRouter({ guests: true, bodyLimit: '64kb', p
 // One bounded aggregate query for the gallery; never one request per card.
 placeReviews.get('/summaries', async (req, res) => {
   const ids = typeof req.query.ids === 'string' ? [...new Set(req.query.ids.split(','))] : [];
-  if (!ids.length || ids.length > 160 || ids.some(id => !/^[a-z0-9][a-z0-9-]{2,119}$/.test(id) || !catalogue.some(v => v.id === (aliases.get(id) ?? id)))) throw new CommunityError(400, 'Choose published places.');
-  const canonical = [...new Set(ids.map(id => aliases.get(id) ?? id))], viewer = res.locals.user?.id ?? null;
+  if (!ids.length || ids.length > 160) throw new CommunityError(400, 'Choose published places.');
+  // Hidden or unknown places count zero, so one stale card never empties a whole page of ratings.
+  const published = await publishedPlaceIds(ids), canonical = [...new Set(published.filter(Boolean))], viewer = res.locals.user?.id ?? null;
   const rows = (await pool.query(`SELECT pr.place_id AS id,count(*)::int AS count,round(avg(pr.rating),1)::float AS rating
-    FROM community.place_review pr WHERE pr.place_id=ANY($1) AND ${notRestricted('pr.user_id')} AND ${notBlocked('pr.user_id', '$2')}
-    AND NOT EXISTS(SELECT 1 FROM ops.content_decision d WHERE d.content_id=pr.place_id AND d.decision='withdrawn') GROUP BY pr.place_id`, [canonical, viewer])).rows;
-  res.json({ items: ids.map(id => { const row = rows.find(r => r.id === (aliases.get(id) ?? id)); return { id, count: row?.count ?? 0, rating: row?.rating ?? null }; }) });
+    FROM community.place_review pr WHERE pr.place_id=ANY($1) AND pr.hidden_at IS NULL AND ${notRestricted('pr.user_id')} AND ${notBlocked('pr.user_id', '$2')}
+    GROUP BY pr.place_id`, [canonical, viewer])).rows;
+  res.json({ items: ids.map((id, i) => { const row = rows.find(r => r.id === published[i]); return { id, count: row?.count ?? 0, rating: row?.rating ?? null }; }) });
 });
 placeReviews.param('placeId', async (req, res, next, raw) => {
   try {
-    if (!/^[a-z0-9][a-z0-9-]{2,119}$/.test(raw)) throw new CommunityError(404, 'Place unavailable.');
-    const id = aliases.get(raw) ?? raw, venue = catalogue.find(v => v.id === id);
-    if (!venue) throw new CommunityError(404, 'Place unavailable.');
-    if (operationsEnabled && (await pool.query("SELECT 1 FROM ops.content_decision WHERE content_id=$1 AND decision='withdrawn' LIMIT 1", [id])).rowCount) throw new CommunityError(404, 'Place unavailable.');
-    res.locals.place = venue; next();
+    const [id] = await publishedPlaceIds([raw]);
+    if (!id) throw new CommunityError(404, 'Place unavailable.');
+    res.locals.place = { id, name: catalogueVenues.find(v => v.id === id)?.name ?? id }; next();
   } catch (error) { next(error); }
 });
 
@@ -48,7 +45,7 @@ placeReviews.get('/:placeId', async (req, res) => {
       if (cursor.sort !== sort || cursor.place !== place || !uuid(cursor.id) || !Number.isInteger(cursor.rating) || cursor.rating < 1 || cursor.rating > 5 || typeof cursor.at !== 'string' || !Number.isFinite(Date.parse(cursor.at))) throw Error();
     } catch { throw new CommunityError(400, 'Refresh the reviews.'); }
   }
-  const visible = `pr.place_id=$1 AND ${notRestricted('pr.user_id')} AND ${notBlocked('pr.user_id', '$2')}`;
+  const visible = `pr.place_id=$1 AND pr.hidden_at IS NULL AND ${notRestricted('pr.user_id')} AND ${notBlocked('pr.user_id', '$2')}`;
   const params = [place, viewer];
   let after = '';
   if (cursor) {
@@ -102,7 +99,7 @@ placeReviews.put('/:placeId/me', member, async (req, res) => {
 });
 placeReviews.get('/:placeId/photos/:photoId', async (req, res) => {
   const row = (await pool.query(`SELECT p.bytes FROM community.place_review_photo p JOIN community.place_review pr ON pr.id=p.review_id
-    WHERE p.id=$1 AND pr.place_id=$2 AND ${notRestricted('pr.user_id')} AND ${notBlocked('pr.user_id', '$3')}`,
+    WHERE p.id=$1 AND pr.place_id=$2 AND (pr.hidden_at IS NULL OR pr.user_id=$3) AND ${notRestricted('pr.user_id')} AND ${notBlocked('pr.user_id', '$3')}`,
   [requireId(req.params.photoId), res.locals.place.id, res.locals.user?.id ?? null])).rows[0];
   if (!row) throw new CommunityError(404, 'Photo unavailable.');
   res.set({ 'Content-Type': 'image/jpeg', 'Cache-Control': 'private, no-store', 'X-Content-Type-Options': 'nosniff', 'Cross-Origin-Resource-Policy': 'cross-origin' }).send(row.bytes);
@@ -116,11 +113,11 @@ placeReviews.post('/:placeId/:reviewId/report', member, async (req, res) => {
   const id = requireId(req.params.reviewId), reason = req.body?.reason;
   if (!reasons.includes(reason)) throw new CommunityError(400, 'Choose a report reason.');
   const details = text(req.body?.details, 1000, { field: 'Details' });
-  const row = (await pool.query(`SELECT pr.user_id,pr.rating,pr.body FROM community.place_review pr WHERE pr.id=$1 AND pr.place_id=$2 AND ${notRestricted('pr.user_id')} AND ${notBlocked('pr.user_id', '$3')}`, [id, res.locals.place.id, res.locals.user.id])).rows[0];
+  const row = (await pool.query(`SELECT pr.user_id,pr.rating,pr.body FROM community.place_review pr WHERE pr.id=$1 AND pr.place_id=$2 AND pr.hidden_at IS NULL AND ${notRestricted('pr.user_id')} AND ${notBlocked('pr.user_id', '$3')}`, [id, res.locals.place.id, res.locals.user.id])).rows[0];
   if (!row) throw new CommunityError(404, 'Review unavailable.');
   if (row.user_id === res.locals.user.id) throw new CommunityError(400, 'You can edit or delete your own review.');
   const reference = await fileReport(res.locals.user.id, { subject: 'place:review:' + id,
-    title: 'Place review report Â· ' + reason,
+    title: 'Place review report · ' + reason,
     description: `Place: ${res.locals.place.name} (${res.locals.place.id})\nReview: ${id}\nAuthor account: ${row.user_id}\nRating: ${row.rating}\nReview text: ${row.body}\n\nReason: ${reason}\n${details}` });
   res.status(201).json({ reference });
 });

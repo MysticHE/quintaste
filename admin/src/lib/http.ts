@@ -36,7 +36,7 @@ export async function body(request: Request, limit = 16384): Promise<Record<stri
   finally { await reader.cancel().catch(() => {}); reader.releaseLock(); }
 }
 export function text(value: unknown, name: string, maximum = 500, minimum = 1) {
-  if (typeof value !== 'string' || value.trim().length < minimum || value.trim().length > maximum || /[\u0000-\u0008\u000b\u000c\u000e-\u001f]/.test(value)) {
+  if (typeof value !== 'string' || value.trim().length < minimum || value.trim().length > maximum || /[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/.test(value)) {
     throw new HttpError(400, `Check ${name}.`);
   }
   return value.trim();

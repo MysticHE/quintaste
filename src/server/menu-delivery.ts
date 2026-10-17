@@ -7,6 +7,7 @@ import { readMenuCatalogue } from "../utils/menu-catalogue";
 import { publishedMenus } from "./published-menus";
 import { researchMenuPackets } from "./research-menu-packets";
 import { editorialContent, editorialMenu } from "./editorial-content";
+import type { StaffContent, StaffMenuData, StaffPlaceData } from "../types/staff-content";
 
 type Entry = { dataset: string; branchId: string; fingerprint: string; menu: PublishedMenu };
 const fingerprint = (value: unknown) => createHash("sha256").update(JSON.stringify(value)).digest("hex");
@@ -38,21 +39,65 @@ const published = [...publishedMenus().venues, ...researchMenus()].map(menu => (
   })) })),
 }));
 const details = new Map(published.map(menu => [menu.id, menu]));
-const summaries: MenuSummary[] = published.map(menu => {
-  const { sections, ...identity } = menu;
-  return { ...identity, fingerprint: fingerprint(menu), checkedAt: sections.map(section => section.checkedAt).sort()[0],
-    itemCount: sections.reduce((sum, section) => sum + section.items.length, 0), sectionCount: sections.length };
-});
+const summaries: MenuSummary[] = published.map(menu => menuSummary({ menu, fingerprint: fingerprint(menu) }));
 const revisions = new Map(summaries.map(menu => [menu.id, menu.fingerprint]));
 
-export function publishedMenuIndex(now = Date.now(), withdrawn: ReadonlySet<string> = new Set()): MenuIndex {
+type Applied = { menu: PublishedMenu; fingerprint: string };
+const noStaff: StaffContent = { revision: "0".repeat(64), items: new Map() };
+const staffSection = "quintaste-additions";
+
+/** The packaged menu with bot price updates, before staff changes. */
+export function baseMenu(id: string, content = editorialContent()): Applied | undefined {
+  const menu = details.get(id);
+  return menu ? editorialMenu(menu, revisions.get(id)!, content) : undefined;
+}
+/** Staff changes win over packaged and bot content: hidden dishes leave, edited fields replace, added dishes form one section. */
+export function staffMenu(id: string, staff: StaffContent, content = editorialContent()): Applied | undefined {
+  const place = staff.items.get("place:" + id), edit = staff.items.get("menu:" + id);
+  if (place?.hidden || edit?.hidden) return undefined;
+  const created = place?.origin === "staff", base = created ? undefined : baseMenu(id, content);
+  if (!place && !edit || !base && !created) return base;
+  const p = (place?.data ?? {}) as StaffPlaceData, m = (edit?.data ?? {}) as StaffMenuData;
+  const sections = (base?.menu.sections ?? []).map(section => ({ ...section, items: section.items.flatMap(item => {
+    const change = m.items?.[section.id + "/" + item.id];
+    if (!change) return [item];
+    if (change.hidden) return [];
+    return [{ ...item, ...(change.name ? { name: change.name } : {}), ...(change.category !== undefined ? { category: change.category || undefined } : {}),
+      ...(change.price ? { price: change.price } : {}) }];
+  }) })).filter(section => section.items.length);
+  const sourceUrl = m.sourceUrl ?? p.sourceUrl ?? base?.menu.sections[0]?.sourceUrl;
+  if (m.added?.length && sourceUrl && edit) sections.push({ id: staffSection, title: "Added by QuinTaste", scope: "branch-dine-in", coverage: "partial",
+    checkedAt: edit.updated_at, sourceUrl, sourceLabel: "QuinTaste team", notice: "", charges: "", items: m.added });
+  if (!sections.length) return undefined;
+  const identity = base?.menu ?? { id, name: "", branch: "", address: "", postalCode: "", aliases: [], googlePlaceId: null };
+  const menu: PublishedMenu = { id, name: p.name ?? identity.name, branch: p.branch ?? identity.branch, address: p.address ?? identity.address,
+    postalCode: p.postalCode ?? identity.postalCode, aliases: p.aliases ?? identity.aliases, googlePlaceId: identity.googlePlaceId, sections };
+  return { menu, fingerprint: fingerprint({ base: base?.fingerprint ?? null, menu }) };
+}
+export function menuSummary({ menu, fingerprint }: Applied): MenuSummary {
+  const { sections, ...identity } = menu;
+  return { ...identity, fingerprint, checkedAt: sections.map(section => section.checkedAt).sort()[0],
+    itemCount: sections.reduce((sum, section) => sum + section.items.length, 0), sectionCount: sections.length };
+}
+const touched = (id: string, staff: StaffContent) => staff.items.has("place:" + id) || staff.items.has("menu:" + id);
+/** Staff-created places, published once they have at least one dish. */
+export const staffPlaceIds = (staff: StaffContent) => [...staff.items.values()].filter(item => item.kind === "place" && item.origin === "staff").map(item => item.id);
+
+export function publishedMenuIndex(now = Date.now(), withdrawn: ReadonlySet<string> = new Set(), staff = noStaff): MenuIndex {
   const content = editorialContent();
-  return { version: 2, generatedAt: now, venues: summaries.filter(menu => !withdrawn.has(menu.id)).map(summary => ({ ...summary,
-    fingerprint: editorialMenu(details.get(summary.id)!, summary.fingerprint, content).fingerprint })) };
+  const packaged = summaries.filter(menu => !withdrawn.has(menu.id)).flatMap(summary => {
+    if (!touched(summary.id, staff)) return [{ ...summary, fingerprint: editorialMenu(details.get(summary.id)!, summary.fingerprint, content).fingerprint }];
+    const applied = staffMenu(summary.id, staff, content);
+    return applied ? [menuSummary(applied)] : [];
+  });
+  const created = staffPlaceIds(staff).filter(id => !withdrawn.has(id) && !details.has(id)).flatMap(id => {
+    const applied = staffMenu(id, staff, content);
+    return applied ? [menuSummary(applied)] : [];
+  });
+  return { version: 2, generatedAt: now, venues: [...packaged, ...created] };
 }
 
-export function publishedMenuDetail(id: string, now = Date.now(), withdrawn: ReadonlySet<string> = new Set()): MenuDetail | undefined {
-  const menu = withdrawn.has(id) ? undefined : details.get(id);
-  const current = menu ? editorialMenu(menu, revisions.get(id)!) : undefined;
+export function publishedMenuDetail(id: string, now = Date.now(), withdrawn: ReadonlySet<string> = new Set(), staff = noStaff): MenuDetail | undefined {
+  const current = withdrawn.has(id) ? undefined : staffMenu(id, staff);
   return current ? { version: 1, generatedAt: now, fingerprint: current.fingerprint, venues: [current.menu] } : undefined;
 }

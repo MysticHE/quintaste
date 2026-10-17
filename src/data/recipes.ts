@@ -4,7 +4,17 @@ import { classics } from "./recipe-library/classics";
 import { dishesSoups } from "./recipe-library/dishes-soups";
 import { noodlesRice } from "./recipe-library/noodles-rice";
 
-export const recipes: Recipe[] = [...classics, ...breakfastSnacks, ...noodlesRice, ...dishesSoups];
+const bundled: Recipe[] = [...classics, ...breakfastSnacks, ...noodlesRice, ...dishesSoups];
+export const bundledRecipeIds: ReadonlySet<string> = new Set(bundled.map(recipe => recipe.id));
+// Staff edits and hides of bundled recipes, from /api/editorial/staff-recipes. Bot and staff-created recipes arrive as published recipes.
+let staff = { hidden: new Set<string>(), edited: new Map<string, Recipe>() };
+export function applyStaffRecipes(hidden: string[], edited: Recipe[]) {
+  staff = { hidden: new Set(hidden), edited: new Map(edited.filter(recipe => bundledRecipeIds.has(recipe.id)).map(recipe => [recipe.id, recipe])) };
+}
+/** Bundled recipes as staff left them; `original` returns the packaged versions. */
+export function bundledRecipes(original = false) {
+  return original ? bundled : bundled.filter(recipe => !staff.hidden.has(recipe.id)).map(recipe => staff.edited.get(recipe.id) ?? recipe);
+}
 const published = new Map<string, { recipe: Recipe; at: number }>();
 export function rememberPublishedRecipe(recipe: Recipe, at = Date.now()) {
   published.delete(recipe.id); published.set(recipe.id, { recipe, at });
@@ -13,5 +23,6 @@ export function rememberPublishedRecipe(recipe: Recipe, at = Date.now()) {
 export function forgetPublishedRecipe(id: string) { published.delete(id); }
 export function recipeById(id: string) {
   const entry = published.get(id);
-  return recipes.find(recipe => recipe.id === id) ?? (entry && Date.now() - entry.at < 86400000 ? entry.recipe : undefined);
+  if (bundledRecipeIds.has(id)) return staff.hidden.has(id) ? undefined : staff.edited.get(id) ?? bundled.find(recipe => recipe.id === id);
+  return entry && Date.now() - entry.at < 86400000 ? entry.recipe : undefined;
 }

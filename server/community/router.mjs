@@ -54,7 +54,7 @@ community.post('/reports', async (req, res) => {
   const me = res.locals.user.id, kind = req.body?.kind;
   if (!['person', 'listing', 'place'].includes(kind)) throw new CommunityError(400, 'Choose what you are reporting.');
   // Place reports (wrong hours, menu, location, closure or diet) go to the same staff case queue as other reports.
-  const target = kind === 'place' ? publishedPlaceId(req.body?.targetId) : requireUser(req.body?.targetId);
+  const target = kind === 'place' ? await publishedPlaceId(req.body?.targetId) : requireUser(req.body?.targetId);
   if (!target) throw new CommunityError(404, 'That place is unavailable.');
   const reason = text(req.body?.reason, 60), details = text(req.body?.details, 1000);
   const subject = { listing: 'market:listing:', person: 'community:user:', place: 'place:catalogue:' }[kind] + target;

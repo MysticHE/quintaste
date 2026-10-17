@@ -6,13 +6,16 @@ export function navigateFresh(path: string) {
   window.location.assign(new URL(path, window.location.origin).href);
 }
 
-export async function api<T>(path: string, input?: unknown, signal?: AbortSignal): Promise<T> {
+/** Thrown instead of leaving the page when a write needs the security key again, so unsaved edits survive. */
+export class VerifyAgain extends Error {}
+export async function api<T>(path: string, input?: unknown, signal?: AbortSignal, stay = false): Promise<T> {
   const response = await fetch(path, { method: input === undefined ? 'GET' : 'POST', credentials: 'same-origin', cache: 'no-store', signal,
     headers: input === undefined ? {} : { 'Content-Type': 'application/json', 'x-quintaste-admin': '1' },
     body: input === undefined ? undefined : JSON.stringify(input) });
   const value = response.status === 204 ? {} : await response.json();
   if (!response.ok) {
     if (response.status === 401) navigateFresh('/');
+    if (response.status === 428 && stay) throw new VerifyAgain(value.error || 'Verify your security key again.');
     if (response.status === 428) navigateFresh('/verify');
     throw new Error(value.error || 'Request failed. Try again.');
   }
