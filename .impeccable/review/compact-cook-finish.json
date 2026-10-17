@@ -1,0 +1,26 @@
+﻿{
+  "disposition": "ship",
+  "scope": "Ship covers only the scored compact Cook fixes: loaded recipe media, enlarged-text row wrapping and restored Me portrait. This is not whole-surface, native or production acceptance.",
+  "reviewer": "Fresh delegated finish reviewer; final scoring-only pass",
+  "verdict": [
+    {
+      "id": "F01",
+      "item": "Me header visual",
+      "status": "resolved",
+      "evidence": "Re-read the same compact-cook-large-home.png. The chef portrait is visibly restored inside the circular Me control, with no intrinsic-size crop hiding the subject."
+    },
+    {
+      "item": "Prior compact Cook corrections",
+      "status": "resolved",
+      "evidence": "The same recapture retains loaded food photographs and complete-word recipe titles at 320px enlarged text."
+    }
+  ],
+  "remaining": [],
+  "regressions": [],
+  "regression_note": "No visible fix-introduced regression in the supplied same-path recapture.",
+  "inspected": { "user_before_images": 2, "main_captures": 23, "recovery_captures": 4, "final_scoring_capture": ".impeccable/review/compact-cook-large-home.png" },
+  "unread": "Unrelated PRODUCT.md and DESIGN.md sections were not fully reviewed; prior broad documentation output was truncated. Final pass inspected only F01 and fix-introduced regressions as requested.",
+  "native": "Latest manifest/bundle success is transport evidence only; native appearance, platform accessibility and timer delivery remain unaccepted.",
+  "repository_gates": "This visual verdict does not assert a whole-repository typecheck or lint pass.",
+  "detector": "No detector ran."
+}

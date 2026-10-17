@@ -1,0 +1,401 @@
+{
+  "checkedAt": "2026-10-17",
+  "deployedRelease": "20261017-product-assets27",
+  "goalStatus": "active",
+  "fullCoverageComplete": false,
+  "coverage": {
+    "browseVenues": 174,
+    "menuIds": 175,
+    "covers": 162,
+    "hours": 94,
+    "uniqueAssets": 129,
+    "assetBytes": 17906062,
+    "coverGaps": 12,
+    "hoursGaps": 80,
+    "allThreeAvailable": 93,
+    "catalogueIndexBytes": 199163
+  },
+  "newPhotos": [
+    {
+      "venueId": "research-ur03-99-pioneer-mall",
+      "address": "638A Jurong West Street 61 #01-22 Stall 10, Pioneer Mall, Singapore 641638",
+      "photo": {
+        "path": "/api/catalogue-photos/90029609c22059e47ba98befc9e4ee89466df7cc380ca4f0dc3bd67b8d40659f.jpg",
+        "width": 960,
+        "height": 720,
+        "author": "99 Vegetarian",
+        "sourceUrl": "https://www.foodpanda.sg/restaurant/rj1o/99-vegetarian-pioneer-mall",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "90029609c22059e47ba98befc9e4ee89466df7cc380ca4f0dc3bd67b8d40659f",
+      "bytes": 81793,
+      "originalSha256": "ff4e69cd6d9956d9dc306dce2a0865714231f7c3acbf05ef4dabb652dde72629",
+      "sourcePageCheckedAt": "2026-10-16T01:26:23.676Z",
+      "sourceImageUrl": "https://foodpanda.dhmedia.io/image/fd-sg/Products/68468331.jpg",
+      "identityEvidence": "Saved exact merchant branch page explicitly publishes productimage68468331with corresponding product label. Full source file/hash/check date and sized URL retained. Size query removed for same public image asset; no menu/price extraction. Alternative to held header, not approval of that header.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance this merchant product reference photograph for a polished landscape restaurant gallery cover. Preserve the exact food arrangement: an oval white ceramic casserole with two short brown-tipped handles, holding the same golden tofu rectangles, cauliflower, broccoli, orange carrot slices, dark folded mushrooms, pale cabbage and light glossy sauce. Plain white seamless background, same elevated three-quarter view, keep casserole centered and large. Improve clean natural lighting, texture detail, gentle contrast and photographic clarity. Keep the same contents and recognizable shapes, without adding ingredients, garnish, table props, utensils, text, logos, banners or restaurant scenery. Do not infer dietary or ingredient certifications. Landscape4:3, conservative reference-led enhancement.",
+        "review": "Same white handled casserole, tofu/vegetable arrangement and white background; no new dishes or ingredient certification."
+      }
+    },
+    {
+      "venueId": "research-ur04-peace-vegetarian",
+      "address": "18 Tai Seng Street #B1-02, Singapore 539775",
+      "photo": {
+        "path": "/api/catalogue-photos/121f16d7b08123023ae2582924c9bfd8eba58db8889dbd35c1272532087ad927.jpg",
+        "width": 960,
+        "height": 720,
+        "author": "Peace Vegetarian",
+        "sourceUrl": "https://www.foodpanda.sg/restaurant/zi6a/peace-vegetarian-tai-seng-st-18",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "121f16d7b08123023ae2582924c9bfd8eba58db8889dbd35c1272532087ad927",
+      "bytes": 143590,
+      "originalSha256": "fd0fcffc9ad445b6d57d841b8ec44c00b4129503024ac4cec2e1ce46c47c33f9",
+      "sourcePageCheckedAt": "2026-10-16T04:34:37.150Z",
+      "sourceImageUrl": "https://foodpanda.dhmedia.io/image/fd-sg/products/69702549.jpg",
+      "identityEvidence": "Saved exact merchant branch page explicitly publishes productimage69702549with corresponding product label. Full source file/hash/check date and sized URL retained. Size query removed for same public image asset; no menu/price extraction. Alternative to held header, not approval of that header.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance this exact Peace Vegetarian merchant food photograph into a clean, appealing landscape gallery cover. Preserve the composition and every serving type: large white rounded rectangular plate at left, white rice dome in its center, seven small separate piles of finely chopped cooked green vegetables and pale chopped topping around it, small pile of peanuts at right; separate red round bowl at upper right with smooth green tea soup; same simple pale beige lightly patterned tabletop. Keep the same angle, servings, shapes and arrangement; improve natural light, white balance and realistic fine texture, reducing yellow cast. No new garnishes, ingredients, dishes, spoons, props, words, logos or restaurant interior. Do not turn the rice into brown rice or combine toppings. Keep the green soup in its separate red bowl. Landscape4:3, reference-led photographic enhancement.",
+        "review": "Same white rice dome, separate green vegetable piles/peanuts and red bowl of green tea soup on pale tabletop; recognizable original arrangement."
+      }
+    },
+    {
+      "venueId": "research-ur04-mani-iyer",
+      "address": "215 Ang Mo Kio Avenue 1, Singapore 560215",
+      "photo": {
+        "path": "/api/catalogue-photos/202a0ab842669c0cf828bb6b9dd0e26b621b33f730055f427ca373e2d962d5a8.jpg",
+        "width": 960,
+        "height": 720,
+        "author": "Mani Iyer Vegetarian Cuisine",
+        "sourceUrl": "https://www.foodpanda.sg/restaurant/xsya/mani-iyer-food-pte-ltd-xsya",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "202a0ab842669c0cf828bb6b9dd0e26b621b33f730055f427ca373e2d962d5a8",
+      "bytes": 115137,
+      "originalSha256": "8a9b331a9a00d476ffe4f1ecba2e4a16047b3820020acbbd4c4c454e922b9112",
+      "sourcePageCheckedAt": "2026-10-16T04:34:08.026Z",
+      "sourceImageUrl": "https://images.deliveryhero.io/image/global-menu-service/FP_SG/vendor/xsya/product/95160057/97220603-2968-4932-9fa7-7f42b6bb30ea.jpg",
+      "identityEvidence": "Saved exact merchant branch page explicitly publishes productimage95160057with corresponding product label. Full source file/hash/check date and sized URL retained. Size query removed for same public image asset; no menu/price extraction. Alternative to held header, not approval of that header.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance this Mani Iyer merchant mini-tiffin reference photograph for a restaurant gallery cover. Preserve the same overhead serving arrangement on one large round white plate: a porous small pancake/dosa at lower-left with its existing small green garnish and brown powder, one white round domed idli in center with its existing dark seeds and green leaves, one golden ring-shaped vadai at bottom, one small white bowl at right with round orange sweet and two cashew halves/red threads, three small white bowls along top containing the same brown-orange vegetable stew, pale chutney with dark seeds and leaves, and thick orange-brown side. Keep white tabletop, angle, contents, portion count and positions unchanged. Improve natural diffuse lighting, food texture, sharpness, colour balance and polish. No added ingredients, dishes, utensils, text, logos, leaves or props. Landscape4:3, recognizably the same reference meal; no dietary certification or ingredient claims.",
+        "review": "Same overhead white plate, porous pancake, central idli, ring vadai, orange sweet and three small side bowls; no new dish or ingredient certification."
+      }
+    },
+    {
+      "venueId": "research-ur08-vege-bear-bidadari",
+      "address": "212 Bidadari Park Drive #03-01, Singapore 360212",
+      "photo": {
+        "path": "/api/catalogue-photos/1f27bdb7242cc7bdd34cf946e0b8043fdcbe9c6f5d57caedf5bee1e552579444.jpg",
+        "width": 960,
+        "height": 720,
+        "author": "Vege Bear Vegetarian",
+        "sourceUrl": "https://www.foodpanda.sg/restaurant/oecy/vege-bear-vegetarian-su-xiong-bidadari-oecy",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of a merchant-supplied product reference; original photographic capture is not independently established. Fine details may differ. No branch interior or ingredient certification claimed. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "1f27bdb7242cc7bdd34cf946e0b8043fdcbe9c6f5d57caedf5bee1e552579444",
+      "bytes": 181240,
+      "originalSha256": "e7d106a733e58a287ad05c9610cd8cf839f494ffc61dbfd26afe0e4d002bad65",
+      "sourcePageCheckedAt": "2026-10-16T05:41:00.705Z",
+      "sourceImageUrl": "https://images.deliveryhero.io/image/global-menu-service/FP_SG/vendor/oecy/product/e9868fc6-da02-4ce1-af43-3066c410b152.jpg",
+      "identityEvidence": "Saved exact merchant branch page explicitly publishes productimagee9868fc6-da02-4ce1-af43-3066c410b152with corresponding product label. Full source file/hash/check date and sized URL retained. Size query removed for same public image asset; no menu/price extraction. Alternative to held header, not approval of that header.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Enhance this exact Vege Bear merchant product reference, preserving its composition and contents. Close landscape view of the same shallow dark-edged woven tray at lower right containing glossy stir-fried vegetables: green pods/okra and green bean shapes, purple eggplant wedges, red chilli strips, bright green broad beans and golden-brown cubes. Preserve the white rice dome in white bowl at upper left, iced amber drink on round woven coaster at top, beige cloth at upper right, pale wood tabletop and small existing green leaves at lower left. Improve natural food photography light, clarity, appetizing colour and refined texture while staying faithful to reference forms. No additional food, meat, garnish, props, text, logos or imagined restaurant interior. Keep exact objects and arrangement; do not add serving utensils. Landscape4:3. This is reference-led imagery, not a claim about actual ingredients or interior.",
+        "review": "Same woven tray of vegetables, white rice bowl, amber drink/coaster, cloth and wood tabletop; enhanced merchant reference, not independently verified site photography or ingredient proof."
+      }
+    },
+    {
+      "venueId": "research-ur15-xinghua-somerset",
+      "address": "111 Somerset Road #01-K3 to K4, Singapore 238164",
+      "photo": {
+        "path": "/api/catalogue-photos/011e62977ebe20b62f1aa19ffb97593ff3010e60432c124f9419abbd95340a2d.jpg",
+        "width": 960,
+        "height": 1280,
+        "author": "Xing Hua Vegetarian",
+        "sourceUrl": "https://www.foodpanda.sg/restaurant/bhke/xing-hua-vegetarian-restaurant-tripleone-somerset",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "Shared product reference independently published in this exact branch menu, AI-enhanced from the matching Fortune Centre reference. Not a branch interior or ingredient-certification claim. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "011e62977ebe20b62f1aa19ffb97593ff3010e60432c124f9419abbd95340a2d",
+      "bytes": 190998,
+      "originalSha256": "262be3a93c4b1a2fdb4dff3e284092fb749f0c636f6a5f01740741b00d78a1a0",
+      "sourcePageCheckedAt": "2026-10-16T09:11:16.042Z",
+      "sourceImageUrl": "https://s3-ap-southeast-1.amazonaws.com/v3-live.image.oddle.me/product/YamRing2488fa.jpg",
+      "identityEvidence": "Both exact merchant menus independently publish the same YamRing product photograph. Savedbhkepage names111Somerset#01-K3toK4 and includes productlabel佛砵飘香YamRing with this same recognizable photograph. Reuse selected enhancement; no assumption of common ownership or branch interior. Compare separate highres branch reference with original193x200Oddle reference; same arrangement, food and scene.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance and upscale this original merchant product photograph of Xing Hua Vegetarian's Yam Ring, keeping its visual contents and composition fixed. Preserve the same single golden cylindrical fried yam ring with open top and rough crisp sides, on the same rectangular white plate. Preserve the same visible fillings as abstract faithful food shapes: pale beige chunks, small round grey-brown pieces, red and green pepper pieces, yellow tapered pieces and a small light brown rectangular piece across the top. Keep the surrounding white fine noodle nest and scattered small brown nuts, green lettuce at the plate edge, pale pink/white background and the same elevated three-quarter angle. Improve the photographic clarity, lighting, colour balance, edges and crisp surface texture. Do not invent extra fillings, props, dishes, utensils, decorations, text, logos or restaurant scenery. Do not change the number or general placement of visible pieces. Do not turn it into a banquet spread. Conservative photographic enhancement, recognizably the exact source dish, portrait 3:4 with a close crop of the existing subject. No text overlay.",
+        "review": "Compared source and output: same cylindrical golden yam ring, plate/noodle nest, pale/yellow wedge, round brown pieces, red/green/yellow forms and casual angle. Source is193x200; enhancement adds fine texture but is not independent ingredient evidence. The pale/yellow wedge already exists in reference; do not infer egg-free, vegan or allergen status. Source attribution/rights retained."
+      },
+      "branchAssociationSourceUrl": "https://www.foodpanda.sg/restaurant/bhke/xing-hua-vegetarian-restaurant-tripleone-somerset",
+      "branchAssociationCheckedAt": "2026-10-17",
+      "branchAssociationImageUrl": "https://foodpanda.dhmedia.io/image/fd-sg/Products/78321242.jpg",
+      "branchAssociationImageSha256": "c8125a6fc939556e7a29a872736975fe49addd6cd8b4baa5989d4554822de24c",
+      "enhancementSourcePageUrl": "https://xinghuavegetarian.oddle.me/en_SG"
+    }
+  ],
+  "newHours": [],
+  "googleLedger": {
+    "bytes": 1045377,
+    "sha256": "c7321dafaad0473583139494ca899501578892c5b71105429d3cd4dceb4f311a",
+    "requests": 2419,
+    "limit": 2500,
+    "remaining": 81
+  },
+  "sourceRights": "Source attribution and rights retained. User-requested enhancement does not establish an independent licence.",
+  "unresolved": "2,527 food holds,109zero-food research branches,1,828unnamed candidate IDs,3coordinate holds preserved; exact MakanVegan/SoonLai screenshot images unrecovered.",
+  "releaseEvidence": ".local/coverage-2026-10-17x/release.json",
+  "hoursReview": {
+    "checkedAt": "2026-10-17",
+    "imageHolds": [
+      {
+        "venueId": "research-ur02-amk-green-harmony-vegetarian",
+        "sourceUrl": "https://www.foodpanda.sg/restaurant/hgnz/green-harmony-vegetarian-ang-mo-kio",
+        "checkedAt": "2026-10-17",
+        "reason": "Explicit Imagebyfoodpanda.Forreferenceonly banner. Provider-created illustrative artwork; no merchant actual-product photographic provenance/reuse permission established. Not generated or promoted. Earlier bone-like header remainsheld."
+      }
+    ],
+    "sourceBoundary": "Header-image holds preserved. Four distinct merchant product references enhanced once. Same independently published product image matched atSomerset and existing asset reused. Food/prices/hours/coordinates unchanged."
+  },
+  "remainingCoordinateHolds": [
+    {
+      "venueId": "research-ananda-syed-alwi",
+      "reason": "Operator address95SyedAlwiRoad conflicts with OneMap postal207670 at94SyedAlwiRoad. Do not shift the venue across the road by inference.",
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=207670&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "sourceCheckedAt": "2026-10-16T10:32:56.853754+00:00",
+      "reviewedAt": "2026-10-17"
+    },
+    {
+      "venueId": "research-tofu-g-amoy-street",
+      "reason": "Operator97AmoyStreet conflicts with OneMap postal069916 at96AmoyStreet. Hold until correct operator postal/point is established.",
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=069916&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "sourceCheckedAt": "2026-10-16T10:37:47.423991+00:00",
+      "reviewedAt": "2026-10-17"
+    },
+    {
+      "venueId": "research-ur11-crowded-sp",
+      "reason": "OneMap139651 returns many campus buildings and an incomplete7-page response with authentication notice; no exactFoodCourt2row. Merchant address says139651 but separatepostcode field says138671. Do not choose an admin building or generic campus point.",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/w9sh/the-crowded-bowl-dover-road",
+      "sourceCheckedAt": "2026-10-16T07:05:17.736Z",
+      "reviewedAt": "2026-10-17"
+    }
+  ],
+  "hoursQualification": "94 source-backed records; Original Sin Monday remains explicitly unconfirmed. Full coverage remains incomplete.",
+  "verificationSupplement": {
+    "checkedAt": "2026-10-17",
+    "typescript": {
+      "command": "npx tsc --noEmit",
+      "cwd": ".local/coverage-2026-10-17x/source",
+      "exitCode": 0
+    },
+    "lint": {
+      "command": "EXPO_NO_DOTENV=1 CI=1 npx expo lint --no-cache",
+      "cwd": ".",
+      "exitCode": 0,
+      "basis": "Canonical uncached Expo lint passed in immediately precedingbatchv; allsource/configurationbytes unchanged inw."
+    },
+    "sourcePreserved": true,
+    "changes": "Four reviewedJPEGassets, five newphoto associations, generatedcatalogueJSON. Fresh isolatedTypeScript passed; source/configbyte-preserved fromliveW. Canonical uncachedlint passed inVforidentical source."
+  },
+  "photoProductEvidence": [
+    {
+      "id": "99-beancurd",
+      "venueId": "research-ur03-99-pioneer-mall",
+      "sourcePageUrl": "https://www.foodpanda.sg/restaurant/rj1o/99-vegetarian-pioneer-mall",
+      "sourceImageUrl": "https://foodpanda.dhmedia.io/image/fd-sg/Products/68468331.jpg",
+      "checkedAt": "2026-10-17",
+      "sourcePageCheckedAt": "2026-10-16T01:26:23.676Z",
+      "status": "enhanced-selected",
+      "httpStatus": 200,
+      "finalUrl": "https://foodpanda.dhmedia.io/image/fd-sg/Products/68468331.jpg",
+      "contentType": "image/jpeg; width=1440; height=1053",
+      "bytes": 100606,
+      "sha256": "ff4e69cd6d9956d9dc306dce2a0865714231f7c3acbf05ef4dabb652dde72629",
+      "sourceFile": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresearched-03\\99-foodpanda.html",
+      "sourceSha256": "8d2a8d5234511475598e6a05d665fa40f898c41530d7f37c1f1adc4256872a53",
+      "sourceImageUrlInHtml": "https://foodpanda.dhmedia.io/image/fd-sg/Products/68468331.jpg?width=150&height=150",
+      "sizeQueryRemoved": true,
+      "productLabelForAssociationOnly": "Braised Bean Curd",
+      "reviewBoundary": "Photo-only inventory from saved exact merchant HTML. Existing food records/prices/holds unchanged; no repeated food extraction.",
+      "reviewedAt": "2026-10-17",
+      "identityEvidence": "Saved exact merchant branch page explicitly publishes productimage68468331with corresponding product label. Full source file/hash/check date and sized URL retained. Size query removed for same public image asset; no menu/price extraction. Alternative to held header, not approval of that header."
+    },
+    {
+      "id": "peace-lei-cha",
+      "venueId": "research-ur04-peace-vegetarian",
+      "sourcePageUrl": "https://www.foodpanda.sg/restaurant/zi6a/peace-vegetarian-tai-seng-st-18",
+      "sourceImageUrl": "https://foodpanda.dhmedia.io/image/fd-sg/products/69702549.jpg",
+      "checkedAt": "2026-10-17",
+      "sourcePageCheckedAt": "2026-10-16T04:34:37.150Z",
+      "status": "enhanced-selected",
+      "httpStatus": 200,
+      "finalUrl": "https://foodpanda.dhmedia.io/image/fd-sg/products/69702549.jpg",
+      "contentType": "image/jpeg; width=1440; height=1056",
+      "bytes": 204839,
+      "sha256": "fd0fcffc9ad445b6d57d841b8ec44c00b4129503024ac4cec2e1ce46c47c33f9",
+      "sourceFile": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresolved-04\\peace-vegetarian.html",
+      "sourceSha256": "fda1d20b477f2d5ba3f069d8a9b4e5ce522b79276f5cba54b62f6e62283d4743",
+      "sourceImageUrlInHtml": "https://foodpanda.dhmedia.io/image/fd-sg/products/69702549.jpg?width=220&height=220",
+      "sizeQueryRemoved": true,
+      "productLabelForAssociationOnly": "???????",
+      "reviewBoundary": "Photo-only inventory from saved exact merchant HTML. Existing food records/prices/holds unchanged; no repeated food extraction.",
+      "reviewedAt": "2026-10-17",
+      "identityEvidence": "Saved exact merchant branch page explicitly publishes productimage69702549with corresponding product label. Full source file/hash/check date and sized URL retained. Size query removed for same public image asset; no menu/price extraction. Alternative to held header, not approval of that header."
+    },
+    {
+      "id": "mani-mini-tiffin",
+      "venueId": "research-ur04-mani-iyer",
+      "sourcePageUrl": "https://www.foodpanda.sg/restaurant/xsya/mani-iyer-food-pte-ltd-xsya",
+      "sourceImageUrl": "https://images.deliveryhero.io/image/global-menu-service/FP_SG/vendor/xsya/product/95160057/97220603-2968-4932-9fa7-7f42b6bb30ea.jpg",
+      "checkedAt": "2026-10-17",
+      "sourcePageCheckedAt": "2026-10-16T04:34:08.026Z",
+      "status": "enhanced-selected",
+      "httpStatus": 200,
+      "finalUrl": "https://images.deliveryhero.io/image/global-menu-service/FP_SG/vendor/xsya/product/95160057/97220603-2968-4932-9fa7-7f42b6bb30ea.jpg",
+      "contentType": "image/jpeg; width=949; height=714",
+      "bytes": 108971,
+      "sha256": "8a9b331a9a00d476ffe4f1ecba2e4a16047b3820020acbbd4c4c454e922b9112",
+      "sourceFile": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresolved-04\\mani-iyer.html",
+      "sourceSha256": "e020253aa6609d4ea61042e07b2215aeb68f065a53fc5937e3433d728813e3ca",
+      "sourceImageUrlInHtml": "https://images.deliveryhero.io/image/global-menu-service/FP_SG/vendor/xsya/product/95160057/97220603-2968-4932-9fa7-7f42b6bb30ea.jpg?width=150&height=150",
+      "sizeQueryRemoved": true,
+      "productLabelForAssociationOnly": "Mini Tiffin with Dosa Vadai",
+      "reviewBoundary": "Photo-only inventory from saved exact merchant HTML. Existing food records/prices/holds unchanged; no repeated food extraction.",
+      "reviewedAt": "2026-10-17",
+      "identityEvidence": "Saved exact merchant branch page explicitly publishes productimage95160057with corresponding product label. Full source file/hash/check date and sized URL retained. Size query removed for same public image asset; no menu/price extraction. Alternative to held header, not approval of that header."
+    },
+    {
+      "id": "vegebear-fourkings",
+      "venueId": "research-ur08-vege-bear-bidadari",
+      "sourcePageUrl": "https://www.foodpanda.sg/restaurant/oecy/vege-bear-vegetarian-su-xiong-bidadari-oecy",
+      "sourceImageUrl": "https://images.deliveryhero.io/image/global-menu-service/FP_SG/vendor/oecy/product/e9868fc6-da02-4ce1-af43-3066c410b152.jpg",
+      "checkedAt": "2026-10-17",
+      "sourcePageCheckedAt": "2026-10-16T05:41:00.705Z",
+      "status": "enhanced-selected",
+      "httpStatus": 200,
+      "finalUrl": "https://images.deliveryhero.io/image/global-menu-service/FP_SG/vendor/oecy/product/e9868fc6-da02-4ce1-af43-3066c410b152.jpg",
+      "contentType": "image/jpeg; width=1254; height=942",
+      "bytes": 264358,
+      "sha256": "e7d106a733e58a287ad05c9610cd8cf839f494ffc61dbfd26afe0e4d002bad65",
+      "sourceFile": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresolved-08\\vege-bear-bidadari.html",
+      "sourceSha256": "f7806aeb7dc8852d75fd1e956d84600a4d5ea7c646e094d0357b6e1787543650",
+      "sourceImageUrlInHtml": "https://images.deliveryhero.io/image/global-menu-service/FP_SG/vendor/oecy/product/e9868fc6-da02-4ce1-af43-3066c410b152.jpg?width=128&height=128",
+      "sizeQueryRemoved": true,
+      "productLabelForAssociationOnly": "Four Heavenly Kings Rice Set 四大天王套餐",
+      "reviewedAt": "2026-10-17",
+      "identityEvidence": "Saved exact merchant branch page explicitly publishes productimagee9868fc6-da02-4ce1-af43-3066c410b152with corresponding product label. Full source file/hash/check date and sized URL retained. Size query removed for same public image asset; no menu/price extraction. Alternative to held header, not approval of that header."
+    },
+    {
+      "id": "xinghua-somerset-yam",
+      "venueId": "research-ur15-xinghua-somerset",
+      "sourcePageUrl": "https://www.foodpanda.sg/restaurant/bhke/xing-hua-vegetarian-restaurant-tripleone-somerset",
+      "sourceImageUrl": "https://foodpanda.dhmedia.io/image/fd-sg/Products/78321242.jpg",
+      "checkedAt": "2026-10-17",
+      "sourcePageCheckedAt": "2026-10-16T09:11:16.042Z",
+      "status": "matched-existing-enhancement-reused",
+      "httpStatus": 200,
+      "finalUrl": "https://foodpanda.dhmedia.io/image/fd-sg/Products/78321242.jpg",
+      "contentType": "image/jpeg; width=1440; height=1056",
+      "bytes": 197010,
+      "sha256": "c8125a6fc939556e7a29a872736975fe49addd6cd8b4baa5989d4554822de24c",
+      "sourceFile": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresolved-15\\xinghua-somerset.html",
+      "sourceSha256": "508cd2b33fd4f74a93698348455c015790163f8a62337a06645cbabfa5faec7c",
+      "sourceImageUrlInHtml": "https://foodpanda.dhmedia.io/image/fd-sg/Products/78321242.jpg?width=150&height=150",
+      "sizeQueryRemoved": true,
+      "productLabelForAssociationOnly": "佛砵飘香 Yam Ring",
+      "reviewedAt": "2026-10-17",
+      "review": "Same exact YamRing source photograph visually matched to FortuneCentre merchant reference. Independent publication in111Somerset branch menu permits branch product association; existing enhanced asset reused without new generation."
+    }
+  ],
+  "retainedReferenceHolds": {
+    "research-ur03-99-pioneer-mall": [
+      {
+        "id": "fp-rj1o",
+        "sourcePageUrl": "https://www.foodpanda.sg/restaurant/rj1o/99-vegetarian-pioneer-mall",
+        "sourceImageUrl": "https://images.deliveryhero.io/image/fd-sg/LH/rj1o-listing.jpg",
+        "sourcePageCheckedAt": "2026-10-16T01:26:23.676Z",
+        "checkedAt": "2026-10-17",
+        "status": "held-source-image-unclear",
+        "holdReason": "Generic laksa image includes apparent prawns/chicken; actual vegetarian dish correspondence unresolved."
+      }
+    ],
+    "research-ur04-peace-vegetarian": [
+      {
+        "id": "fp-zi6a",
+        "sourcePageUrl": "https://www.foodpanda.sg/restaurant/zi6a/peace-vegetarian-tai-seng-st-18",
+        "sourceImageUrl": "https://foodpanda.dhmedia.io/image/fd-sg/LH/zi6a-listing.jpg",
+        "sourcePageCheckedAt": "2026-10-16T04:34:37.150Z",
+        "checkedAt": "2026-10-17",
+        "status": "held-source-image-unclear",
+        "holdReason": "Generic rice/omelette image with chicken-like serving; actual vegetarian product correspondence unresolved."
+      }
+    ],
+    "research-ur04-mani-iyer": [
+      {
+        "id": "fp-xsya",
+        "sourcePageUrl": "https://www.foodpanda.sg/restaurant/xsya/mani-iyer-food-pte-ltd-xsya",
+        "sourceImageUrl": "https://foodpanda.dhmedia.io/image/fd-sg/LH/xsya-listing.png",
+        "sourcePageCheckedAt": "2026-10-16T04:34:08.026Z",
+        "checkedAt": "2026-10-17",
+        "status": "held-source-image-unclear",
+        "holdReason": "Polished banana-leaf thali presentation has unclear photographic provenance; actual product photo not established."
+      }
+    ],
+    "research-ur08-vege-bear-bidadari": [
+      {
+        "id": "fp-oecy",
+        "sourcePageUrl": "https://www.foodpanda.sg/restaurant/oecy/vege-bear-vegetarian-su-xiong-bidadari-oecy",
+        "sourceImageUrl": "https://foodpanda.dhmedia.io/image/fd-sg/LH/oecy-listing.jpg",
+        "sourcePageCheckedAt": "2026-10-16T05:41:00.705Z",
+        "checkedAt": "2026-10-17",
+        "status": "held-source-image-unclear",
+        "holdReason": "Branded promotional composite; actual product photography and ingredient fidelity not established."
+      }
+    ],
+    "research-ur15-xinghua-somerset": [
+      {
+        "id": "fp-bhke",
+        "sourcePageUrl": "https://www.foodpanda.sg/restaurant/bhke/xing-hua-vegetarian-restaurant-tripleone-somerset",
+        "sourceImageUrl": "https://images.deliveryhero.io/image/fd-sg/LH/bhke-listing.jpg",
+        "sourcePageCheckedAt": "2026-10-16T09:11:16.042Z",
+        "checkedAt": "2026-10-17",
+        "status": "held-source-image-unclear",
+        "holdReason": "Generic fried-rice image includes apparent prawns; actual vegetarian dish correspondence unresolved."
+      }
+    ]
+  },
+  "sourceQualification": "Four named merchant product references enhanced once; exact same YamRing photograph independently published by Somerset branch supports reuse of existing enhancement. No ownership assumption or branch-interior claim. GreenHarmony provider illustration remains held."
+}

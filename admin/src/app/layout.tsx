@@ -1,0 +1,9 @@
+import type { Metadata } from 'next';
+import './tokens.css';
+import './globals.css';
+
+export const metadata: Metadata = { title: 'QuinTaste · Staff console', robots: { index: false, follow: false } };
+export const dynamic = 'force-dynamic';
+export default function Layout({ children }: { children: React.ReactNode }) {
+  return <html lang="en"><body><a className="skip-link" href="#main">Skip to main content</a>{children}</body></html>;
+}

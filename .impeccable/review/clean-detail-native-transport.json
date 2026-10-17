@@ -1,0 +1,11 @@
+{
+  "manifestStatus": 200,
+  "bundleStatus": 200,
+  "bytes": 8832488,
+  "gallery": true,
+  "feedback": true,
+  "divider": true,
+  "serverSnapshotCode": false,
+  "privateGoogleKey": false,
+  "nativeDeviceAppearanceVerified": false
+}

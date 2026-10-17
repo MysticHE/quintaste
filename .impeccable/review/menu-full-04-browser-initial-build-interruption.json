@@ -1,0 +1,80 @@
+{
+  "startedAt": "2026-10-16T04:46:46.925Z",
+  "url": "http://127.0.0.1:8083",
+  "checks": [
+    {
+      "name": "mani-iyer",
+      "status": "failed"
+    },
+    {
+      "name": "peace-vegetarian",
+      "status": "failed"
+    },
+    {
+      "name": "bao-su-zhai",
+      "status": "failed"
+    },
+    {
+      "name": "kunthaville",
+      "status": "failed"
+    },
+    {
+      "name": "gan-taste",
+      "status": "failed"
+    }
+  ],
+  "screenshots": [],
+  "errors": [
+    {
+      "name": "mani-iyer",
+      "error": "locator.waitFor: Target page, context or browser has been closed\nCall log:\n\u001b[2m  - waiting for getByRole('heading', { name: 'Mani Iyer Vegetarian Cuisine', exact: true }) to be visible\u001b[22m\n\n    at main (C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-04-qa.cjs:64:142)"
+    },
+    {
+      "name": "peace-vegetarian",
+      "error": "page.goto: Target page, context or browser has been closed\n    at main (C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-04-qa.cjs:64:16)"
+    },
+    {
+      "name": "bao-su-zhai",
+      "error": "page.goto: Target page, context or browser has been closed\n    at main (C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-04-qa.cjs:64:16)"
+    },
+    {
+      "name": "kunthaville",
+      "error": "page.goto: Target page, context or browser has been closed\n    at main (C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-04-qa.cjs:64:16)"
+    },
+    {
+      "name": "gan-taste",
+      "error": "page.goto: Target page, context or browser has been closed\n    at main (C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-04-qa.cjs:64:16)"
+    }
+  ],
+  "pageErrors": [],
+  "unexpectedConsoleErrors": [
+    "Failed to load resource: the server responded with a status of 500 (Internal Server Error)"
+  ],
+  "blockedApiRequests": [],
+  "blockedExternalRequests": [],
+  "apiRequests": [],
+  "a11y": [],
+  "forwardedProviderCalls": 0,
+  "installedChromeUsed": false,
+  "browserVersion": "156.0.8078.4",
+  "catalogue": {
+    "locations": 151,
+    "sourceMenus": 196,
+    "foodOccurrences": 11019
+  },
+  "finishedAt": "2026-10-16T04:48:21.457Z",
+  "passed": false,
+  "visualReview": {
+    "status": "pending",
+    "inspectedScreenshots": []
+  },
+  "googleLedgerUnchanged": true,
+  "interruption": {
+    "reason": "CI preview file-map started before concurrently added AvatarReport.tsx existed; Metro reported unresolved module although the file is now present. Browser interrupted after observing the bundle error; no app logic changed.",
+    "serverProcess": 18960,
+    "serverSession": 91612,
+    "newFileObserved": "src/components/avatar/AvatarReport.tsx",
+    "fileTimestampLocal": "2026-10-16T12:45:31",
+    "recovery": "Restart only exact task-owned CI preview to rescan files; rerun all five cases. API audit remains a separate passing result."
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "checks": [
+    "Compact root has one navigation group and no size/profile button rows",
+    "People search and automatic filters preserve preferences without Apply",
+    "Navigation supports arrow keys, Home/End and a single tab stop",
+    "Events categories are contextual, and application Back restores category",
+    "Guest profile switch retains My plans and isolates private content",
+    "Personal routes, Inbox and creating events remain reachable in one tap",
+    "Event search and category state persist across tabs and detail Back",
+    "Legacy My plans route opens the consolidated view"
+  ],
+  "screenshots": [
+    "social-distill-people-375.png",
+    "social-distill-filters-375.png",
+    "social-distill-event-filters-375.png",
+    "social-distill-plans-375.png",
+    "social-distill-events-375.png",
+    "social-distill-people-320.png",
+    "social-distill-people-768.png",
+    "social-distill-people-1440.png",
+    "social-distill-people-dark.png",
+    "social-distill-people-large-320.png",
+    "social-distill-filters-large-320.png"
+  ],
+  "errors": [],
+  "axe": [
+    {
+      "name": "plans",
+      "violations": []
+    },
+    {
+      "name": "people",
+      "violations": []
+    },
+    {
+      "name": "dark",
+      "violations": []
+    },
+    {
+      "name": "large",
+      "violations": []
+    }
+  ],
+  "measurements": [
+    {
+      "viewport": 375,
+      "firstPersonTop": 178,
+      "previousTop": 316
+    }
+  ],
+  "scope": "Social browser preview; physical native interaction not verified",
+  "passed": true
+}

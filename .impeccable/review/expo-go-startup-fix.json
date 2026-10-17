@@ -1,0 +1,14 @@
+{
+    "ManifestStatus":  200,
+    "BundleStatus":  200,
+    "RemoteTopicModulePresent":  false,
+    "LocalShimPresent":  true,
+    "TimerAlertsPresent":  true,
+    "NativeRouteErrorsAfterRestart":  0,
+    "ConnectedDevice":  "OnePlus CPH2747",
+    "TypecheckExitCode":  0,
+    "EslintExitCode":  0,
+    "SourceReviews":  "General and TypeScript approved",
+    "RuntimeEvidence":  "Connected phone requested menus, location search, live places, photos and place details after rebuilt bundle; no recurring startup/route errors",
+    "Limitations":  "CDP Runtime.enable timed out; no full UI or audible-background acceptance. One non-fatal native Blob performance warning remains."
+}

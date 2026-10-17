@@ -1,0 +1,74 @@
+{
+  "disposition": "fix",
+  "persistence": {
+    "reviewer": "Fresh substituted finish reviewer; the named impeccable_finish_reviewer role is not exposed in this harness.",
+    "method": "Opened every required screenshot with view_image before reading craft-floor, PRODUCT.md, DESIGN.md, the incumbent discovery contract and the six supplied primary UI files. Review is from these files only; no browser, render, capture, server, Chrome, tree hunt or design edit was performed.",
+    "evidence_valid": true,
+    "captures_inspected": [
+      "pilot-catalogue-mobile-320.png",
+      "pilot-catalogue-mobile-375.png",
+      "pilot-catalogue-tablet-768.png",
+      "pilot-catalogue-desktop-1440.png",
+      "pilot-catalogue-mobile-entry.png",
+      "pilot-catalogue-mobile-menu-missing.png",
+      "pilot-catalogue-mobile-pending-candidates.png",
+      "pilot-catalogue-mobile-sources.png",
+      "pilot-catalogue-mobile-review-form.png",
+      "pilot-catalogue-dark-375.png",
+      "pilot-catalogue-larger-text-320.png"
+    ],
+    "capture_reading": "Top captures show the app viewport top. Detail/source/form/candidate captures intentionally show scrolled ScrollView states; their cut edges do not invalidate the evidence. Larger-text coverage enlarges branch text only.",
+    "drift": "PRODUCT.md and .impeccable/surfaces/discovery.md still say pilot data has not been imported and crawling is deferred. Reconcile those statements after the continuing ingest and preserve initial-batch counts as historical evidence."
+  },
+  "fidelity": {
+    "TYPE": "Nunito, compact 12/13-unit supporting copy, clear heavy 21-unit section/name headings and 20-unit action labels preserve the incumbent native hierarchy. The enlarged branch/address capture wraps without horizontal loss.",
+    "MATERIAL": "Opaque near-white perimeter cards, rounded controls, warm Coral/Peach ground and corresponding dark surfaces inherit the approved system. Flat menu/source/review sections avoid nested decorative cards, accent rails and unnecessary imagery. The raw black internal search outline is the single visible material mismatch.",
+    "GROUND": "The narrow centered app frame remains coherent at 768 and 1440; at 320 and 375, 48-unit chips wrap in a readable order and branch cards fit the available width. Long source narratives and addresses use natural flow. No new responsive composition or visual identity is warranted.",
+    "salient_ui": "The first viewport exposes the development boundary, Cases/Pilot catalogue switch, counts, search, area/status controls and leading exact branch. Expanded entries distinguish menu channel, price/charge/date uncertainty, merchant claims, unresolved gaps, sources and local review history. Missing-menu and unverified-candidate states are explicit. Inspect/close and source actions have contextual accessible names in source."
+  },
+  "ceiling": {
+    "assessment": "A coherent bounded extension of the existing local review console. A rebuild would add no value; correct the two material items below and retain the current direction.",
+    "proof": "Supplied API evidence passes eight grouped checks, including validation, development authorization, stale-editor handling, review history and canonical-fact preservation. Supplied browser evidence passes six grouped journeys, seven layout bounds checks and five scoped accessibility scans with no reported violations or page errors; minimum measured control height is 48 and no horizontal overflow is reported.",
+    "scope": "Local web review only. No HTML/CSS detector ran. Initial captures show six exact branches and twenty menu items, not an exhaustive catalogue. Further research is continuing independently.",
+    "limits": "Native physical appearance, native touch/keyboard/assistive behavior, full-app accessibility, Core Web Vitals and production acceptance are unverified. No merchant contact, publication, ingredient confirmation or menu media import is approved by this review."
+  },
+  "material_fixes": [
+    {
+      "order": 1,
+      "id": "F01",
+      "severity": "medium",
+      "finding": "Focused search shows a black rectangular browser outline around only the text-input segment, inside the rounded themed outer border.",
+      "evidence": [
+        ".impeccable/review/pilot-catalogue-mobile-320.png",
+        ".impeccable/review/pilot-catalogue-mobile-375.png",
+        ".impeccable/review/pilot-catalogue-tablet-768.png",
+        ".impeccable/review/pilot-catalogue-desktop-1440.png"
+      ],
+      "target": "PilotCataloguePanel SearchField usage and the existing shared SearchField web focus treatment.",
+      "impact": "The doubled focus shape cuts into the approved rounded control and looks like an unfinished browser default on the main search action.",
+      "action": "Use one semantic themed full-field rounded focus perimeter. Suppress the inner browser outline only after the outer control provides an equally visible keyboard-focus indicator. Preserve input contrast and icon/text spacing.",
+      "acceptance": "At the supplied light widths and in dark mode, focused search has one clear rounded themed perimeter covering the complete field, with no black internal rectangle and no loss of keyboard focus visibility."
+    },
+    {
+      "order": 2,
+      "id": "F02",
+      "severity": "medium",
+      "finding": "Persisted product/surface scope still describes pilot import as future work despite the implemented protected local catalogue.",
+      "evidence": [
+        "PRODUCT.md current local Explore service override",
+        ".impeccable/surfaces/discovery.md current local Explore service override",
+        ".impeccable/review/pilot-catalogue-review-packet.json"
+      ],
+      "impact": "A later continuation could follow obsolete scope or mistake initial UI counts for final catalogue coverage.",
+      "action": "After the continuing data ingest, reconcile PRODUCT.md and the discovery surface contract with the implemented local catalogue, source-review semantics, continuing coverage and evidence paths. Keep production publication, full ingredients and native acceptance explicitly unverified.",
+      "acceptance": "The final persisted scope matches the current local implementation and catalogue counts, while these eleven screenshots remain identified as evidence of the initial six-branch/twenty-item UI batch."
+    }
+  ],
+  "keep": [
+    "Keep the incumbent Nunito, semantic palette families, narrow app frame, rounded perimeter controls and 48-unit targets.",
+    "Keep exact-branch identity, menu channel/currency/charge/date uncertainty and source provenance separate from dietary and ingredient confirmation.",
+    "Keep missing menus, unresolved candidate branches, review reasons and short chronological history visible.",
+    "Keep menu/source/review details flat and progressively disclosed; no new imagery, comp, seed, card concept or visual identity is needed.",
+    "Keep this review bounded to supplied web/source evidence; no further screenshot hunt is requested by the reviewer."
+  ]
+}

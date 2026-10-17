@@ -1,0 +1,434 @@
+{
+  "additions": {
+    "version": 1,
+    "mode": "local-research",
+    "checkedAt": "2026-10-15T05:36:25Z",
+    "rights": {
+      "content": "facts-and-links-only",
+      "artworkCopied": false,
+      "photosCopied": false,
+      "merchantConsent": "not-requested"
+    },
+    "sources": [
+      {
+        "id": "living-wholesome-fortune-centre-official",
+        "url": "https://livingwholesome.sg/",
+        "title": "Living Wholesome Vegetarian - Thunder Tea Rice, Singapore",
+        "publisher": "Living Wholesome Vegetarian",
+        "kind": "merchant-menu",
+        "checkedAt": "2026-10-15T05:35:21Z",
+        "publishedAt": null,
+        "notes": "Official site identifies Fortune Centre #01-23 and the four sampled menu options. It describes food as fully plant-based and suitable for vegetarians. Two locations share the published menu; no prices or effective date shown."
+      },
+      {
+        "id": "bodhi-deli-fortune-centre-ordering",
+        "url": "https://take.app/bodhideli",
+        "title": "Bodhi Deli - Take App",
+        "publisher": "Bodhi Deli via Take App",
+        "kind": "merchant-ordering",
+        "checkedAt": "2026-10-15T05:36:25Z",
+        "publishedAt": null,
+        "notes": "Self-published storefront reports vegetarian, allium-free, eggless and suitable-for-vegan positioning. Public page HTML explicitly identifies enabled pickup at 190 Middle Road, Fortune Centre #03-26, 188979, and currency SGD. Displayed prices include takeaway charges. Store metadata timestamps are not menu publication dates."
+      },
+      {
+        "id": "bodhi-deli-fortune-centre-directory",
+        "url": "https://fortunecentre.sg/directory/business/bodhi-deli/",
+        "title": "Bodhi Deli - Fortune Centre directory",
+        "publisher": "FortuneCentre.sg independent directory",
+        "kind": "directory",
+        "checkedAt": "2026-10-15T05:33:14Z",
+        "publishedAt": null,
+        "notes": "Independent guide lists #03-26/03-27 and links the Bodhi Deli Instagram profile. Its footer explicitly says it is not affiliated with building management. Current menu address uses the storefront's narrower #03-26 pickup label."
+      },
+      {
+        "id": "cookie-coffee-fortune-centre-official",
+        "url": "https://cookiecoffee.com.sg/",
+        "title": "Cookie Coffee Cafe Bar",
+        "publisher": "Cookie Coffee / Sereneya Food & Beverage Pte Ltd",
+        "kind": "merchant",
+        "checkedAt": "2026-10-15T05:32:18Z",
+        "publishedAt": null,
+        "notes": "Official site describes a vegetarian cafe and vegan dim sum offering. Main address states #01-28B Fortune Centre; contact footer states #01-28. Exact unit and current operating status remain unresolved."
+      },
+      {
+        "id": "cookie-coffee-fortune-centre-menu",
+        "url": "https://cookiecoffee.com.sg/menu/",
+        "title": "C&C menu",
+        "publisher": "Cookie Coffee",
+        "kind": "merchant-menu",
+        "checkedAt": "2026-10-15T05:35:21Z",
+        "publishedAt": null,
+        "notes": "Official navigation links readable beverage/ice-cream menu. Numeric and dollar prices do not identify currency; serving variants and menu effective date are unspecified. Dim sum/rice links failed to fetch. No dishes imported pending exact unit resolution."
+      },
+      {
+        "id": "teng-bespoke-sunshine-plaza-domain-recheck",
+        "url": "https://www.tengbespoke.com.sg/",
+        "title": "Reported Teng Bespoke website - unavailable",
+        "publisher": "Current domain ownership unverified",
+        "kind": "unverified",
+        "checkedAt": "2026-10-15T05:32:18Z",
+        "publishedAt": null,
+        "notes": "Recheck returned 502. No current merchant menu, branch operating status or dietary content obtained. Failure does not establish permanent venue closure."
+      }
+    ],
+    "venues": [
+      {
+        "id": "living-wholesome-fortune-centre",
+        "name": "Living Wholesome Vegetarian",
+        "branch": "Fortune Centre",
+        "clusterId": "rochor-bugis",
+        "areaId": "rochor",
+        "address": "190 Middle Road #01-23, Fortune Centre, Singapore 188979",
+        "postalCode": "188979",
+        "googlePlaceId": null,
+        "sourceIds": [
+          "living-wholesome-fortune-centre-official"
+        ],
+        "claims": [
+          {
+            "kind": "vegetarian",
+            "scope": "brand",
+            "sourceId": "living-wholesome-fortune-centre-official",
+            "note": "Merchant explicitly states suitability for vegetarians; individual ingredients remain unconfirmed."
+          }
+        ],
+        "gaps": [
+          "Published brand menu is linked to the Fortune Centre location; branch-specific stock is unconfirmed.",
+          "No displayed prices, charge basis or effective menu date.",
+          "No complete ingredients, allium or cross-contact verification."
+        ],
+        "sourceCheck": "source-checked"
+      },
+      {
+        "id": "bodhi-deli-fortune-centre",
+        "name": "Bodhi Deli",
+        "branch": "Fortune Centre",
+        "clusterId": "rochor-bugis",
+        "areaId": "rochor",
+        "address": "190 Middle Road #03-26, Fortune Centre, Singapore 188979",
+        "postalCode": "188979",
+        "googlePlaceId": null,
+        "sourceIds": [
+          "bodhi-deli-fortune-centre-ordering",
+          "bodhi-deli-fortune-centre-directory"
+        ],
+        "claims": [
+          {
+            "kind": "vegetarian",
+            "scope": "branch",
+            "sourceId": "bodhi-deli-fortune-centre-ordering",
+            "note": "Merchant storefront reports vegetarian local food."
+          },
+          {
+            "kind": "no-onion-garlic",
+            "scope": "branch",
+            "sourceId": "bodhi-deli-fortune-centre-ordering",
+            "note": "Merchant storefront reports allium-free preparation; no independent ingredient verification."
+          },
+          {
+            "kind": "vegan",
+            "scope": "branch",
+            "sourceId": "bodhi-deli-fortune-centre-ordering",
+            "note": "Merchant reports suitability for vegan diners. Exclusively vegan operation, specials and drinks were not established."
+          }
+        ],
+        "gaps": [
+          "Exact address comes from the storefront's enabled #03-26 pickup label; independent directory also lists #03-27.",
+          "Menu effective date, present stock and dine-in price equivalence are unknown.",
+          "GST/service treatment is not established; page states takeaway charges included.",
+          "Dietary statements are merchant-reported; ingredients and cross-contact remain unconfirmed."
+        ],
+        "sourceCheck": "source-checked"
+      }
+    ],
+    "menus": [
+      {
+        "id": "living-wholesome-fortune-centre-brand-menu",
+        "venueId": "living-wholesome-fortune-centre",
+        "sourceId": "living-wholesome-fortune-centre-official",
+        "scope": "brand-menu",
+        "effectiveDate": null,
+        "notes": "Selected research sample from official menu, not a complete menu or confirmation of current availability. Shared two-location menu; branch availability and prices unconfirmed.",
+        "charges": {
+          "gst": "unknown",
+          "servicePercent": null,
+          "gstPercent": null,
+          "sourceId": null
+        }
+      },
+      {
+        "id": "bodhi-deli-fortune-centre-ordering-menu",
+        "venueId": "bodhi-deli-fortune-centre",
+        "sourceId": "bodhi-deli-fortune-centre-ordering",
+        "scope": "branch-ordering",
+        "effectiveDate": null,
+        "notes": "Selected research sample from exact-pickup storefront, not a complete menu or confirmation of current availability. SGD ordering prices include takeaway charges; dine-in and GST/service treatment unconfirmed.",
+        "charges": {
+          "gst": "unknown",
+          "servicePercent": null,
+          "gstPercent": null,
+          "sourceId": null
+        }
+      }
+    ],
+    "dishes": [
+      {
+        "id": "living-wholesome-fortune-centre-thunder-tea-brown-rice",
+        "venueId": "living-wholesome-fortune-centre",
+        "menuId": "living-wholesome-fortune-centre-brand-menu",
+        "name": "Thunder Tea Brown Rice",
+        "price": {
+          "amount": null,
+          "currency": "unknown",
+          "type": "displayed"
+        },
+        "sourceIds": [
+          "living-wholesome-fortune-centre-official"
+        ],
+        "suitability": "unconfirmed",
+        "ingredientsComplete": false,
+        "note": "No price displayed. Menu option name only; complete ingredients unavailable."
+      },
+      {
+        "id": "living-wholesome-fortune-centre-thunder-tea-with-bee-hoon",
+        "venueId": "living-wholesome-fortune-centre",
+        "menuId": "living-wholesome-fortune-centre-brand-menu",
+        "name": "Thunder Tea with Bee Hoon",
+        "price": {
+          "amount": null,
+          "currency": "unknown",
+          "type": "displayed"
+        },
+        "sourceIds": [
+          "living-wholesome-fortune-centre-official"
+        ],
+        "suitability": "unconfirmed",
+        "ingredientsComplete": false,
+        "note": "No price displayed. Menu option name only; complete ingredients unavailable."
+      },
+      {
+        "id": "living-wholesome-fortune-centre-kosong-no-carbs",
+        "venueId": "living-wholesome-fortune-centre",
+        "menuId": "living-wholesome-fortune-centre-brand-menu",
+        "name": "Kosong (No Carbs)",
+        "price": {
+          "amount": null,
+          "currency": "unknown",
+          "type": "displayed"
+        },
+        "sourceIds": [
+          "living-wholesome-fortune-centre-official"
+        ],
+        "suitability": "unconfirmed",
+        "ingredientsComplete": false,
+        "note": "No price displayed. Menu option name only; complete ingredients unavailable."
+      },
+      {
+        "id": "living-wholesome-fortune-centre-yuan-yang",
+        "venueId": "living-wholesome-fortune-centre",
+        "menuId": "living-wholesome-fortune-centre-brand-menu",
+        "name": "Yuan Yang",
+        "price": {
+          "amount": null,
+          "currency": "unknown",
+          "type": "displayed"
+        },
+        "sourceIds": [
+          "living-wholesome-fortune-centre-official"
+        ],
+        "suitability": "unconfirmed",
+        "ingredientsComplete": false,
+        "note": "No price displayed. Menu option name only; complete ingredients unavailable."
+      },
+      {
+        "id": "bodhi-deli-fortune-centre-mee-siam",
+        "venueId": "bodhi-deli-fortune-centre",
+        "menuId": "bodhi-deli-fortune-centre-ordering-menu",
+        "name": "Mee Siam",
+        "price": {
+          "amount": 5.1,
+          "currency": "SGD",
+          "type": "displayed"
+        },
+        "sourceIds": [
+          "bodhi-deli-fortune-centre-ordering"
+        ],
+        "suitability": "unconfirmed",
+        "ingredientsComplete": false,
+        "note": "Ordering-channel display price; preparation and full ingredients unconfirmed."
+      },
+      {
+        "id": "bodhi-deli-fortune-centre-laksa",
+        "venueId": "bodhi-deli-fortune-centre",
+        "menuId": "bodhi-deli-fortune-centre-ordering-menu",
+        "name": "Laksa",
+        "price": {
+          "amount": 5.1,
+          "currency": "SGD",
+          "type": "displayed"
+        },
+        "sourceIds": [
+          "bodhi-deli-fortune-centre-ordering"
+        ],
+        "suitability": "unconfirmed",
+        "ingredientsComplete": false,
+        "note": "Ordering-channel display price; preparation and full ingredients unconfirmed."
+      },
+      {
+        "id": "bodhi-deli-fortune-centre-pumpkin-porridge",
+        "venueId": "bodhi-deli-fortune-centre",
+        "menuId": "bodhi-deli-fortune-centre-ordering-menu",
+        "name": "Pumpkin Porridge",
+        "price": {
+          "amount": 4.8,
+          "currency": "SGD",
+          "type": "displayed"
+        },
+        "sourceIds": [
+          "bodhi-deli-fortune-centre-ordering"
+        ],
+        "suitability": "unconfirmed",
+        "ingredientsComplete": false,
+        "note": "Ordering-channel display price; preparation and full ingredients unconfirmed."
+      },
+      {
+        "id": "bodhi-deli-fortune-centre-lor-mee",
+        "venueId": "bodhi-deli-fortune-centre",
+        "menuId": "bodhi-deli-fortune-centre-ordering-menu",
+        "name": "Lor Mee",
+        "price": {
+          "amount": 5.3,
+          "currency": "SGD",
+          "type": "displayed"
+        },
+        "sourceIds": [
+          "bodhi-deli-fortune-centre-ordering"
+        ],
+        "suitability": "unconfirmed",
+        "ingredientsComplete": false,
+        "note": "Ordering-channel display price; preparation and full ingredients unconfirmed."
+      },
+      {
+        "id": "bodhi-deli-fortune-centre-abc-soup",
+        "venueId": "bodhi-deli-fortune-centre",
+        "menuId": "bodhi-deli-fortune-centre-ordering-menu",
+        "name": "ABC Soup",
+        "price": {
+          "amount": 6.1,
+          "currency": "SGD",
+          "type": "displayed"
+        },
+        "sourceIds": [
+          "bodhi-deli-fortune-centre-ordering"
+        ],
+        "suitability": "unconfirmed",
+        "ingredientsComplete": false,
+        "note": "Ordering-channel display price; preparation and full ingredients unconfirmed."
+      },
+      {
+        "id": "bodhi-deli-fortune-centre-old-cucumber-soup",
+        "venueId": "bodhi-deli-fortune-centre",
+        "menuId": "bodhi-deli-fortune-centre-ordering-menu",
+        "name": "Old Cucumber Soup",
+        "price": {
+          "amount": 6.1,
+          "currency": "SGD",
+          "type": "displayed"
+        },
+        "sourceIds": [
+          "bodhi-deli-fortune-centre-ordering"
+        ],
+        "suitability": "unconfirmed",
+        "ingredientsComplete": false,
+        "note": "Ordering-channel display price; preparation and full ingredients unconfirmed."
+      },
+      {
+        "id": "bodhi-deli-fortune-centre-watercress-soup",
+        "venueId": "bodhi-deli-fortune-centre",
+        "menuId": "bodhi-deli-fortune-centre-ordering-menu",
+        "name": "Watercress Soup",
+        "price": {
+          "amount": 6.1,
+          "currency": "SGD",
+          "type": "displayed"
+        },
+        "sourceIds": [
+          "bodhi-deli-fortune-centre-ordering"
+        ],
+        "suitability": "unconfirmed",
+        "ingredientsComplete": false,
+        "note": "Ordering-channel display price; preparation and full ingredients unconfirmed."
+      },
+      {
+        "id": "bodhi-deli-fortune-centre-wanton-noodle",
+        "venueId": "bodhi-deli-fortune-centre",
+        "menuId": "bodhi-deli-fortune-centre-ordering-menu",
+        "name": "Wanton Noodle",
+        "price": {
+          "amount": 5.5,
+          "currency": "SGD",
+          "type": "displayed"
+        },
+        "sourceIds": [
+          "bodhi-deli-fortune-centre-ordering"
+        ],
+        "suitability": "unconfirmed",
+        "ingredientsComplete": false,
+        "note": "Ordering-channel display price; preparation and full ingredients unconfirmed."
+      }
+    ],
+    "candidates": [
+      {
+        "id": "cookie-coffee-fortune-centre-candidate",
+        "name": "Cookie Coffee Cafe Bar - Fortune Centre",
+        "clusterId": "rochor-bugis",
+        "sourceIds": [
+          "cookie-coffee-fortune-centre-official",
+          "cookie-coffee-fortune-centre-menu"
+        ],
+        "reason": "Official vegetarian cafe site links a menu but conflicts between #01-28B and #01-28. Resolve exact unit and menu/branch currency before importing dishes; no dish suitability inferred from vegan category labels."
+      }
+    ]
+  },
+  "proposedUpdates": [
+    {
+      "entity": "source",
+      "id": "herbivore-home",
+      "set": {
+        "checkedAt": "2026-10-15T05:32:18Z",
+        "notes": "Official site still publishes pure-vegetarian positioning, Fortune Centre address and daily lunch/dinner hours. No dated menu or independently confirmed present operation established."
+      }
+    },
+    {
+      "entity": "source",
+      "id": "herbivore-gallery",
+      "set": {
+        "checkedAt": "2026-10-15T05:34:59Z",
+        "notes": "Rechecked with bundled Playwright Chromium, headless and isolated. Gallery iframe exposes images with empty captions/alt text; no readable factual dish names or prices established. No media saved."
+      }
+    },
+    {
+      "entity": "venue",
+      "id": "herbivore-fortune-centre",
+      "set": {
+        "sourceCheck": "needs-information"
+      },
+      "appendGaps": [
+        "Official gallery was rendered in isolated bundled Chromium; menu gap remains."
+      ]
+    },
+    {
+      "entity": "venue",
+      "id": "teng-bespoke-sunshine-plaza",
+      "set": {
+        "sourceCheck": "needs-information"
+      },
+      "addSourceIds": [
+        "teng-bespoke-sunshine-plaza-domain-recheck"
+      ],
+      "appendGaps": [
+        "Reported official domain recheck failed with 502; no primary menu or operation upgrade."
+      ]
+    }
+  ]
+}

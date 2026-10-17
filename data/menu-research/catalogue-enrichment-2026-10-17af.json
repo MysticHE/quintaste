@@ -1,0 +1,117 @@
+{
+  "checkedAt": "2026-10-17",
+  "deployedRelease": "20261017-account-native35",
+  "firstDeployedRelease": "20261017-account-limits34",
+  "coverage": {
+    "browseLocations": 174,
+    "menuIds": 175,
+    "covers": 173,
+    "hours": 120,
+    "allThreeAvailable": 120,
+    "coverGaps": 1,
+    "hoursGaps": 54,
+    "uniqueAssets": 140,
+    "imageBytes": 19477212,
+    "largestImageBytes": 299725,
+    "firstPageBytes": 23997,
+    "firstPageMilliseconds": 20.1,
+    "locatedBrowseLocations": 171,
+    "coordinateHolds": 3,
+    "explicitUnconfirmedWeekdaysWithinPublishedSchedules": 2,
+    "weekdayQualifiedPosterRecords": 9
+  },
+  "existingHoursNotesUpdated": [
+    {
+      "venueId": "research-greenland-upper-serangoon",
+      "address": "789 & 791 Upper Serangoon Road, Singapore 534659",
+      "hours": {
+        "summary": "Regular 11:30–21:30 · dated exception",
+        "schedule": [
+          "Daily: 11:30–21:30",
+          "17 October 2026: private event from 17:00; regular evening service overridden"
+        ],
+        "notes": "Merchant notice checked17October2026 announces a private event on17October from17:00. Regular hours may not apply that evening. Regular weekly profile hours and their original check date are retained; other special closures may differ.",
+        "sourceUrl": "https://www.facebook.com/greenland791/",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "sourcePageCheckedAt": "2026-10-17T02:11:35.777Z",
+      "sourceSha256": "bfb2bdb43b669226bbb4641b7b83000c5d40357e79efe67a61f73fa892992849",
+      "review": "Exact existing branch matched to merchant public bio/address plus visible expanded regular-hours control or own printed post text. Transient Open/Closed/Opening soon labels are not persisted. Source update-age qualifications retained.",
+      "supplementalSources": [
+        {
+          "url": "https://www.facebook.com/zizaiveg/posts/pfbid02bMr3Xi6gGBhjmnobVdgqHXNr4dnGcYuJudoYtFAKodoxyTukjo15v6irDruSiMqfl",
+          "checkedAt": "2026-10-17T02:57:43.900Z",
+          "kind": "operator-dated-private-event",
+          "sourceSha256": "c14565ec7b1f5d016c279a9989a959601092e13fb0c05be62e3acdbb245f6f6a",
+          "imageSha256": "9adabdb1ebe2ee976e3d4367bf9a782ba7c1ead5216353e36c3a746734a30c20",
+          "printedDate": "17 October, 5pm",
+          "eventDate": "2026-10-17",
+          "dateBasis": "Poster explicitly prints17October/5pm; caption says tomorrow and visible relative age is15hours at17October2026Singapore capture. Year inferred from capture context, not printed on poster.",
+          "identityEvidence": "Exact789&791UpperSerangoon/534659 in the operator caption, matching existing Greenland record.",
+          "review": "Visually read original merchant poster. No inference about normal weekly hours or other ZiZai outlets."
+        }
+      ]
+    }
+  ],
+  "newHoursRecords": 0,
+  "newFoods": 0,
+  "newCovers": 0,
+  "imageGenerations": 0,
+  "googleCalls": 0,
+  "sourceOutcomes": [
+    {
+      "sourceUrl": "https://www.facebook.com/DlifeSignature/",
+      "checkedAt": "2026-10-17T02:50:24.475Z",
+      "capture": "dlife-posts-public-hours.json",
+      "status": 200,
+      "sourceSha256": "1d3965e9456ac003e4538697f32a91d640de385e79f3768ee2cb3cf48cc0b47a",
+      "outcome": "public-hours-control-expanded"
+    },
+    {
+      "sourceUrl": "https://facebook.com/zizaiveg",
+      "checkedAt": "2026-10-17T02:51:34.514Z",
+      "capture": "zizai-hours-public-hours.json",
+      "status": 200,
+      "sourceSha256": "f5f4b3dd13a4a106937c91f8fe590792fa5eb32311f80b1ce6f666dfb96baa3c",
+      "outcome": "no-public-hours-control"
+    },
+    {
+      "sourceUrl": "https://www.facebook.com/zizaiveg/posts/pfbid02bMr3Xi6gGBhjmnobVdgqHXNr4dnGcYuJudoYtFAKodoxyTukjo15v6irDruSiMqfl",
+      "checkedAt": "2026-10-17T02:57:43.900Z",
+      "capture": "zizai-notice-1.json",
+      "status": 200,
+      "sourceSha256": "c14565ec7b1f5d016c279a9989a959601092e13fb0c05be62e3acdbb245f6f6a",
+      "outcome": "Accepted exact-premise dated private-event exception; regular weekly source date preserved."
+    },
+    {
+      "sourceUrl": "https://www.facebook.com/zizaiveg/posts/pfbid02GPfTA2u5sHLLXVyWrGTJJPGVVvrx72hTUNQMkRRUYNEsSWNFYdcFX2HGXUSqXtD7l",
+      "checkedAt": "2026-10-17T02:57:43.873Z",
+      "capture": "zizai-notice-2.json",
+      "status": 200,
+      "sourceSha256": "371380f59a860d76aa832142bb6f7ea18915934a150d9b2cea8ab262c20c95f9",
+      "outcome": "Dated promotion adds no opening hours; no duplicate food extraction."
+    },
+    {
+      "sourceUrl": "https://facebook.com/zizaiveg",
+      "checkedAt": "2026-10-17T02:49:42.151Z",
+      "capture": "zizai-posts-public-hours.json",
+      "status": 200,
+      "sourceSha256": null,
+      "outcome": "held-public-read-failed"
+    }
+  ],
+  "qualifications": [
+    "Private event poster prints17October/5pm, without year.2026inferred from17OctoberSingapore capture and15hour relative age/caption tomorrow.",
+    "DLife regular hours apply toSquare2; no transfer toChinatown/Jurong/Tengah. ZiZai public profile provided no additional weekly hours.",
+    "No menu occurrence, source-register food observation, identity approval, original source date or unresolved hold changed."
+  ],
+  "googleLedger": {
+    "bytes": 1045377,
+    "sha256": "c7321dafaad0473583139494ca899501578892c5b71105429d3cd4dceb4f311a",
+    "requests": 2419,
+    "limit": 2500,
+    "remaining": 81
+  },
+  "releaseEvidence": ".local/account-native-limits-2026-10-17/release.json"
+}

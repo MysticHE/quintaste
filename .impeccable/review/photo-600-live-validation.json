@@ -1,0 +1,47 @@
+{
+  "checks": [
+    "Repeated live photo returns identical saved bytes without another reservation",
+    "Three actual Google venue photos decode in the cards",
+    "Reloading the cards reuses saved development photos with zero extra Google reservations",
+    "Live saved files exist under ignored local development storage"
+  ],
+  "images": [
+    {
+      "status": 200,
+      "type": "image/jpeg",
+      "bytes": 165962,
+      "sha256": "0e1decfd5ce70186bfc09f490f24366358a2abb4fdad4540d98ab470b4ed8395"
+    }
+  ],
+  "errors": [],
+  "quota": [
+    {
+      "stage": "before",
+      "count": 507
+    },
+    {
+      "stage": "afterFirstPhoto",
+      "count": 508
+    },
+    {
+      "stage": "afterRepeatedPhoto",
+      "count": 508
+    },
+    {
+      "stage": "afterThreeVisible",
+      "count": 510
+    },
+    {
+      "stage": "afterReload",
+      "count": 510
+    }
+  ],
+  "limits": [
+    "Live development-only photo storage requested by user.",
+    "Three live photos only; no bulk download.",
+    "Native device appearance not verified."
+  ],
+  "screenshot": "C:/Users/huien/QT/quintaste/.impeccable/review/photo-600-live-375.png",
+  "savedPhotos": 10,
+  "status": "pass"
+}

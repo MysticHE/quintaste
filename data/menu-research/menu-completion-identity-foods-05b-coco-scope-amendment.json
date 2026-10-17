@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "amendmentsOnly": true,
+  "checkedAt": "2026-10-16T01:03:01Z",
+  "targetDataset": "data/menu-research/menu-ascend-coco-moonchay-sproutz.json",
+  "targetBranchId": "coco-marina-square",
+  "targetMenuIds": [
+    "coco-oddle-foods"
+  ],
+  "candidatePlaceId": "ChIJTz74JQ0Z2jER4TOc1RrAgzQ",
+  "publicationRecommendation": "withhold-old-unit-menu-pending-affiliation-and-current-source-review",
+  "identityStatus": "current-primary-unit-conflict",
+  "eligibility": "vegetarian-confirmed",
+  "sourceObservations": [
+    {
+      "url": "https://www.marinasquare.com.sg/stores/337",
+      "publisher": "Marina Square",
+      "kind": "landlord-primary",
+      "retrievedAt": "2026-10-16T01:03:01Z",
+      "status": "readable",
+      "name": "Coco Veggie Nyonya Cuisine",
+      "address": "6 Raffles Boulevard #03-122 Marina Square, Singapore 039594",
+      "unit": "#03-122",
+      "dietaryEvidence": "Landlord explicitly describes vegetarian Nyonya dishes."
+    },
+    {
+      "url": "https://cocoveggienyonyacuisine.oddle.me/en_SG/stores",
+      "publisher": "CoCo Veggie Nyonya Cuisine",
+      "kind": "merchant-ordering-primary",
+      "retrievedAt": "2026-10-16T01:03:01Z",
+      "status": "readable",
+      "name": "CoCo Veggie Nyonya Cuisine",
+      "address": "6 Raffles Boulevard #03-130A Marina Square, Singapore 039594",
+      "unit": "#03-130A"
+    },
+    {
+      "url": "https://cocoveggienyonyacuisine.oddle.me/en_SG",
+      "publisher": "CoCo Veggie Nyonya Cuisine",
+      "kind": "merchant-ordering-primary",
+      "retrievedAt": "2026-10-16T01:03:01Z",
+      "status": "landing-readable-food-stock-not-reconfirmed",
+      "dietaryEvidence": "Current landing page explicitly says vegetarian Nyonya dishes; web read exposes landing text rather than all product stock states."
+    }
+  ],
+  "priorUnavailableObservation": {
+    "dataset": "data/menu-research/menu-ascend-coco-moonchay-sproutz.json",
+    "branchId": "coco-marina-square",
+    "menuId": "coco-oddle-foods",
+    "sourceId": "coco-order",
+    "sourceUrl": "https://cocoveggienyonyacuisine.oddle.me/en_SG",
+    "checkedAt": "2026-10-15T10:48:55.616874+00:00",
+    "foodRows": 41,
+    "sourceStatus": "All 41 rendered food products Out of stock.",
+    "limitation": "This is the prior source-observation timestamp, not a fresh live-stock assertion. Current landing read alone does not reconfirm stock."
+  },
+  "reason": "Two currently accessible primary sources give different exact shop units. The existing reviewed branch/menu belongs to the merchant ordering source at #03-130A; landlord currently lists #03-122. Same brand/address building does not establish continuity, affiliation, relocation or present orderability. Withhold old-unit consumer publication until the relationship is resolved.",
+  "nextAction": "Root withholds old-unit branch/menu publication, retains all source facts and unavailable notices, and verifies merchant/landlord affiliation and current exact unit before any identity or menu transfer. Do not infer moved, closed or permanently unavailable.",
+  "newFoodRows": 0
+}

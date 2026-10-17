@@ -1,0 +1,38 @@
+{
+  "date": "2026-10-14",
+  "scope": "Local Expo design preview; native visual acceptance pending",
+  "checks": {
+    "typescript": "passed",
+    "eslint": "passed",
+    "domain": "passed: quantities/deadlines/stale-withdrawn-conflict evidence/merge deduplication/invalid storage",
+    "browser": [
+      "search and current-evidence sorting",
+      "save/private note persistence",
+      "privacy-safe public share preview",
+      "English and Chinese question cards",
+      "3-serving scaling",
+      "two independent timers",
+      "cooking step + paused/running timer survival across reload",
+      "Saved dish category and undo removal",
+      "contextual profile return and explicit merge choice",
+      "guest/profile isolation"
+    ],
+    "typescriptReview": "all five material findings resolved after two bounded fix passes"
+  },
+  "unverified": [
+    "native iOS/Android phone/tablet captures",
+    "actual location and photo permission prompts",
+    "system share delivery",
+    "physical-device sleep/keep-awake behavior",
+    "storage failure runtime fault injection"
+  ],
+  "integrationLimits": [
+    "fictional preview venues/dishes, illustrative photos",
+    "maps, live enrichment/hours, real auth/sync, moderation delivery, native background timer alarms not connected"
+  ],
+  "nativeLaunchBlock": "Automatic approval review previously rejected Expo Android device launch; sandbox approvals disabled. No workaround attempted.",
+  "captures": [
+    "browser-features-explore-mobile.png",
+    "browser-features-cooking-mobile.png"
+  ]
+}

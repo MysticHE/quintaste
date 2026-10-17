@@ -1,0 +1,58 @@
+{
+  "scope": "Isolated local Explore backend and schema scenarios",
+  "checks": [
+    {
+      "name": "development gate and cross-origin protection",
+      "passed": true
+    },
+    {
+      "name": "opaque scoped sessions and no-store responses",
+      "passed": true
+    },
+    {
+      "name": "validation rejects bad topics dates photos and oversized bodies",
+      "passed": true
+    },
+    {
+      "name": "idempotent case receipt and owner-only photo access",
+      "passed": true
+    },
+    {
+      "name": "needs-information reply review reason and stale revision guards",
+      "passed": true
+    },
+    {
+      "name": "urgent food safety and closure queue priority",
+      "passed": true
+    },
+    {
+      "name": "separate explicit coarse participation and suppressed public counts",
+      "passed": true
+    },
+    {
+      "name": "crash-stale lock recovery and active writer exclusion",
+      "passed": true
+    },
+    {
+      "name": "concurrent atomic mutations and failed write preservation",
+      "passed": true
+    },
+    {
+      "name": "draft capacity merge preserves unsent work and owner participation",
+      "passed": true
+    },
+    {
+      "name": "collection deletion revokes capability cases and both layers",
+      "passed": true
+    },
+    {
+      "name": "production service disabled without writing records",
+      "passed": true
+    }
+  ],
+  "passed": 12,
+  "paidGoogleRequests": 0,
+  "productionAccountService": false,
+  "publicCountsExposed": false,
+  "fixture": "isolated disposable workspace"
+}

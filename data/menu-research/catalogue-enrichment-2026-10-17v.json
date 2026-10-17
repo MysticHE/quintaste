@@ -1,0 +1,497 @@
+{
+  "checkedAt": "2026-10-17",
+  "deployedRelease": "20261017-evidence25",
+  "goalStatus": "active",
+  "fullCoverageComplete": false,
+  "coverage": {
+    "browseVenues": 174,
+    "menuIds": 175,
+    "covers": 156,
+    "hours": 94,
+    "uniqueAssets": 124,
+    "assetBytes": 17193304,
+    "coverGaps": 18,
+    "hoursGaps": 80,
+    "allThreeAvailable": 93,
+    "catalogueIndexBytes": 195932
+  },
+  "newPhotos": [
+    {
+      "venueId": "research-renyi-tampines820",
+      "address": "Block 820 Tampines Street 81, Singapore 520820",
+      "photo": {
+        "path": "/api/catalogue-photos/b6523e8db7526cd9c865eff9eb962d907d8d12e189335dac0556f22b83bc7cb6.jpg",
+        "width": 960,
+        "height": 540,
+        "author": "Ren Yi Vegetarian / GrabFood",
+        "sourceUrl": "https://www.grab.com/sg/articles/food/vegetarian-food-singapore/",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "b6523e8db7526cd9c865eff9eb962d907d8d12e189335dac0556f22b83bc7cb6",
+      "bytes": 128883,
+      "originalSha256": "48d3916417ebd55454fe3fba8e448f9b93176b275d765ddc45f575b78f8b42ca",
+      "sourcePageCheckedAt": "2026-10-16T23:34:03.555727+00:00",
+      "sourceImageUrl": "https://huawei-food-cms.grab.com/Merchants/4-C6WUKBWHGUM2N6/photos/d1a938c1-4026-40a0-98f3-c0da2c040ddb__store_cover__2025__08__10__12__49__11.jpeg",
+      "identityEvidence": "Grab-owned article explicitly links this merchant store cover to Ren Yi Vegetarian,820TampinesStreet81#01-506/520820. Same actual multi-dish food collage enhanced; no branch interior, current stock or ingredient certification claimed.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Enhance the provided exact-venue reference collage into a clean photographic gallery cover, landscape 16:9. This is Ren Yi Vegetarian's actual merchant food collage. Preserve the same four large white-bowl/tray dishes in the four corners/top-center layout and the same small central food thumbnails: upper-left orange curry noodle bowl with golden tofu cubes and green leaves; upper-middle red divided bento with rice, a visible round topping, greens, tofu and brown rectangular braised pieces; upper-right brown noodle soup bowl with bean sprouts, green leaves and tan strips; bottom-left pale noodle soup with leafy greens and tofu; bottom-right dark braised soup with mushrooms and tan pieces. Faithfully preserve visible serving arrangements, bowl proportions and white background. Improve white balance, gentle natural lighting, clarity, edges and photographic presentation while keeping recognizable contents. Do not invent any additional dishes, ingredients, garnishes, tables, interiors, people, text, logos or badges. Keep any illegible tiny original bowl marks unobtrusive and do not invent legible words. No banners or text overlays. Remain recognizably an enhancement of this reference, not an imaginary food spread.",
+        "review": "Compared original exact-branch merchant collage and enhanced output: same white-background multi-dish arrangement, red bento, orange curry bowl, two noodle soups and dark braised bowl; no branch interior or ingredient certification claimed. Tiny contents may differ."
+      }
+    },
+    {
+      "venueId": "research-ur13-sangeetha-rangoon",
+      "address": "79 Rangoon Road, Singapore218366",
+      "photo": {
+        "path": "/api/catalogue-photos/0976503603cd64c29a625aae38fb0b27258c978be3c6109f9752afa998154c9f.jpg",
+        "width": 960,
+        "height": 1280,
+        "author": "Sangeetha Bhavan",
+        "sourceUrl": "https://www.sangeethabhavan.com/",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "0976503603cd64c29a625aae38fb0b27258c978be3c6109f9752afa998154c9f",
+      "bytes": 264919,
+      "originalSha256": "4da1b9a46841fc5b2f28d69b5d3896938a594d293d96b06f2111fbb2e2e02c2b",
+      "sourcePageCheckedAt": "2026-10-16T23:35:40.932172+00:00",
+      "sourceImageUrl": "https://www.sangeethabhavan.com/images/1.jpeg",
+      "identityEvidence": "Merchant homepage explicitly identifies79RangoonRoad/218366, pure vegetarian scope, phone63925785 and same About photograph images/1.jpeg. Direct source retrieval200 on17October; not the unavailable contact or old uppercase Menu path.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance this exact Sangeetha Bhavan merchant photograph for a polished restaurant gallery cover. Preserve the original portrait composition: close view of a round shallow stainless steel bowl on a horizontally striped light bamboo placemat; the same golden irregular rectangular vegetarian food pieces in glossy reddish-brown sauce, visible green pepper and pale browned onion segments; same fresh leafy coriander stems across the middle and right. Preserve the same contents, portions, casual real food styling, reflective bowl and approximate camera angle. Improve natural warm daylight, crisp food texture, balanced colour and gentle contrast. Keep it recognizably the same dish and setting. Do not add any ingredient, garnish, dishes, utensils, lettering, logos, background objects or interior scene. No claims about ingredients or venue appearance. Portrait 3:4 composition, food-led photograph, no graphic overlays.",
+        "review": "Source/output compared: same portrait steel bowl, striped placemat, golden sauced pieces, pepper/onion forms and coriander. No ingredient or branch-interior claim; details may differ."
+      }
+    }
+  ],
+  "newHours": [
+    {
+      "venueId": "research-ur02-vegetarian-express-hougang",
+      "address": "205 Hougang Street 21, #02-22, Singapore 530205",
+      "hours": {
+        "summary": "Daily 11:00–21:00",
+        "schedule": [
+          "Daily: 11:00–21:00"
+        ],
+        "notes": "Holiday hours may differ.",
+        "sourceUrl": "https://heartlandmall.com.sg/vegetarian-express/",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Exact landlord tenant entry says Monday–Sunday11am–9pm and#02-22, same name and phone63835672. This is tenant opening hours, not generic mall hours. Older third-party unit#02-04 not transferred."
+    },
+    {
+      "venueId": "research-ur13-sangeetha-rangoon",
+      "address": "79 Rangoon Road, Singapore218366",
+      "hours": {
+        "summary": "Daily 11:30–22:15",
+        "schedule": [
+          "Daily: 11:30–22:15"
+        ],
+        "notes": "Holiday hours may differ.",
+        "sourceUrl": "https://www.sangeethabhavan.com/",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Readable merchant homepage explicitly labels Opening Hours for Monday–Friday/Saturday/Sunday11.30AM–10.15PM, with79RangoonRoad/218366 and63925785. Operator venue schedule takes precedence over different delivery/pickup windows, secondary22:30 and old uppercase Menu404. Contact retrieval failure retained; no refetch of failed path."
+    },
+    {
+      "venueId": "research-ur06-original-sin",
+      "address": "43 Jalan Merah Saga #01-62, Singapore278115",
+      "hours": {
+        "summary": "Tue–Sun 11:30–16:15 · 17:00–22:30",
+        "schedule": [
+          "Tue–Sun: 11:30–16:15 and 17:00–22:30",
+          "Monday: hours unconfirmed"
+        ],
+        "notes": "Operator homepage structured schedule. Monday is not published and remains unconfirmed; holiday hours may differ.",
+        "sourceUrl": "https://www.originalsin.sg/",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Fresh17October direct merchant homepage200 publishes exact43JalanMerahSaga/278115 Restaurant JSON-LD with12explicit intervals forTue–Sun. Visible homepage names#01-62. Monday is absent: preserve as unconfirmed, never infer closed. Historic2020article hours are not used. The embedded schedule was missed by visible-text-only earlier reviews.",
+      "unconfirmedDays": [
+        "Monday"
+      ]
+    }
+  ],
+  "googleLedger": {
+    "bytes": 1045377,
+    "sha256": "c7321dafaad0473583139494ca899501578892c5b71105429d3cd4dceb4f311a",
+    "requests": 2419,
+    "limit": 2500,
+    "remaining": 81
+  },
+  "sourceRights": "Source attribution and rights retained. User-requested enhancement does not establish an independent licence.",
+  "unresolved": "2,527 food holds,109zero-food research branches,1,828unnamed candidate IDs,3coordinate holds preserved; exact MakanVegan/SoonLai screenshot images unrecovered.",
+  "releaseEvidence": ".local/coverage-2026-10-17v/release.json",
+  "hoursReview": {
+    "checkedAt": "2026-10-17",
+    "newHours": 3,
+    "holds": [
+      {
+        "venueId": "research-tian-yuan-fortune-centre-01-16",
+        "sources": [
+          "https://fortunecentre.sg/tian-yuan-vegetarian-fortune-centre/",
+          "https://fortunecentre.sg/directory/business/tian-yuan-healthy-vegetarian-food-paradise/"
+        ],
+        "checkedAt": "2026-10-17",
+        "status": "held-independent-photo-provenance",
+        "reason": "Both pages explicitly disclose independent directory, not affiliated with building management. Photo origin/author/reuse basis unestablished. Linked merchant Facebook throttled in web tool. No claimed primary hours or image approval."
+      },
+      {
+        "venueId": "dlife-signature-chinatown-point",
+        "sources": [
+          "https://chinatownpoint.com.sg/stores_lists/dlife-signature/",
+          "https://sg.openrice.com/en/singapore/r-dlife-signature-chinatown-point-chinatown-singaporean-chinese-dim-sum-r215897"
+        ],
+        "checkedAt": "2026-10-17",
+        "status": "held-no-primary-schedule",
+        "reason": "Landlord identity page connection failure retained; indexed page only name/address, no hours. Third-party11:00–21:30 conflicts other21:00; no promotion."
+      },
+      {
+        "venueId": "research-mother-earth-classic-balestier",
+        "sources": [
+          "https://nourii.app/restaurants/singapore/mother-earth-classic-vegetarian-balestier-vtwaxcfs",
+          "https://thegirl.co/sg/food/best-vegetarian-buffet/"
+        ],
+        "checkedAt": "2026-10-17",
+        "status": "held-secondary-conflict",
+        "reason": "Unclaimed secondary Nourii saysMonclosed/TueSun split hours; another secondary saysTueclosed/WedMon10:30–21:30. No operator confirmation. Existing Getz ordering channel not venue schedule."
+      },
+      {
+        "venueId": "research-zzv-jalan-mas-puteh",
+        "sources": [
+          "https://zizaivegetarianclementi.oddle.me/en_SG/stores"
+        ],
+        "checkedAt": "2026-10-17",
+        "status": "held-address-and-channel",
+        "reason": "Indexed Oddle explicitly pickup/delivery at7JalanMasPuteh128613, while canonical branch9JalanMasPuteh128615. Do not transfer address or service windows."
+      },
+      {
+        "venueId": "research-sufood-raffles-city",
+        "sources": [
+          "https://www.capitaland.com/sg/en/lease/engagement/yourworkplacecommunity/oct-2021/good-vegetarian-food.html"
+        ],
+        "checkedAt": "2026-10-17",
+        "status": "held-historical-property-article",
+        "reason": "October2021 property article is historical; no new current explicit tenant schedule established. Do not treat recent crawl as recent publication."
+      },
+      {
+        "venueId": "teng-bespoke-sunshine-plaza",
+        "sources": [
+          "https://www.novacircle.com/spots/asia/singapore/central-region/singapore-municipality/singapore/teng-bespoke-42c5ce/opening-hours",
+          "https://apac-cdn.menuweb.menu/storage/media/companies_menu_pdf/93890736/teng-bespoke-vegetarian-teng-central-singapore-menu.pdf"
+        ],
+        "checkedAt": "2026-10-17",
+        "status": "held-secondary-conflict",
+        "reason": "Secondary schedules disagree11:30–14:30/17–21 versus11:30–15/17–21:30. No new primary schedule; no duplicate PDF download."
+      },
+      {
+        "venueId": "research-ur01-kale-adelphi",
+        "sources": [
+          "https://burpple.com/kale-by-kangsu-the-adelphi",
+          "https://wherecrowded.sg/at/foodplace/kale-by-kangsu"
+        ],
+        "checkedAt": "2026-10-17",
+        "status": "held-secondary-incomplete",
+        "reason": "Exact Adelphi secondary showsMonSat10:30–20 but no Sunday. Other schedule belongs220Orchard, with secondary closure reportAug2026. No transfer to ColemanStreet."
+      }
+    ],
+    "boundary": "New exact branch primary facts only; prior source/food holds preserved; no repeated extraction or Google calls.",
+    "structuredHoursFinding": {
+      "venueId": "research-ur06-original-sin",
+      "status": "approved-six-days-monday-unconfirmed",
+      "review": "Fresh17October direct merchant homepage200 publishes exact43JalanMerahSaga/278115 Restaurant JSON-LD with12explicit intervals forTue–Sun. Visible homepage names#01-62. Monday is absent: preserve as unconfirmed, never infer closed. Historic2020article hours are not used. The embedded schedule was missed by visible-text-only earlier reviews."
+    }
+  },
+  "primaryHoursEvidence": [
+    {
+      "venueId": "research-ur02-vegetarian-express-hougang",
+      "sourceUrl": "https://heartlandmall.com.sg/vegetarian-express/",
+      "sourceCheckedAt": "2026-10-16T23:34:18.774838+00:00",
+      "httpStatus": 200,
+      "sourceSha256": "3ec8520d40b7c1078e4d89ba6fb848f295f84e660180e7c8fd1bb2be3df85636",
+      "review": "Exact landlord tenant entry says Monday–Sunday11am–9pm and#02-22, same name and phone63835672. This is tenant opening hours, not generic mall hours. Older third-party unit#02-04 not transferred."
+    },
+    {
+      "venueId": "research-ur13-sangeetha-rangoon",
+      "sourceUrl": "https://www.sangeethabhavan.com/",
+      "sourceCheckedAt": "2026-10-16T23:35:40.932172+00:00",
+      "httpStatus": 200,
+      "sourceSha256": "4df41f538c0e696848677d973062f054d0eba1c3e2954229e6d363d79a0adf9c",
+      "review": "Readable merchant homepage explicitly labels Opening Hours for Monday–Friday/Saturday/Sunday11.30AM–10.15PM, with79RangoonRoad/218366 and63925785. Operator venue schedule takes precedence over different delivery/pickup windows, secondary22:30 and old uppercase Menu404. Contact retrieval failure retained; no refetch of failed path."
+    },
+    {
+      "venueId": "research-ur06-original-sin",
+      "sourceUrl": "https://www.originalsin.sg/",
+      "sourceCheckedAt": "2026-10-16T23:41:56.038628+00:00",
+      "sourceSha256": "24cd42dd59324fb0ea61c5f1ea6a87e0fc3cfce52bb1f045a5004595c8764950",
+      "jsonLd": {
+        "@context": "https://schema.org/",
+        "@type": "Restaurant",
+        "name": "Original Sin Mediterranean Restaurant",
+        "image": "https://static.wixstatic.com/media/43ffc9_1482ecf445a144549d2bab7b1a8507d1~mv2.jpg",
+        "address": {
+          "@type": "PostalAddress",
+          "addressCountry": "SG",
+          "addressLocality": "Singapore",
+          "postalCode": "278115",
+          "streetAddress": "Blk 43 Jalan Merah Saga"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": "1.311228",
+          "longitude": "103.796542"
+        },
+        "url": "https://www.originalsin.sg",
+        "telephone": "6475 5605",
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": "Sunday",
+            "opens": "11:30",
+            "closes": "16:15"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": "Sunday",
+            "opens": "17:00",
+            "closes": "22:30"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": "Tuesday",
+            "opens": "11:30",
+            "closes": "16:15"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": "Tuesday",
+            "opens": "17:00",
+            "closes": "22:30"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": "Wednesday",
+            "opens": "11:30",
+            "closes": "16:15"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": "Wednesday",
+            "opens": "17:00",
+            "closes": "22:30"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": "Thursday",
+            "opens": "11:30",
+            "closes": "16:15"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": "Thursday",
+            "opens": "17:00",
+            "closes": "22:30"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": "Friday",
+            "opens": "11:30",
+            "closes": "16:15"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": "Friday",
+            "opens": "17:00",
+            "closes": "22:30"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": "Saturday",
+            "opens": "11:30",
+            "closes": "16:15"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": "Saturday",
+            "opens": "17:00",
+            "closes": "22:30"
+          }
+        ],
+        "acceptsReservations": "True"
+      },
+      "review": "Fresh17October direct merchant homepage200 publishes exact43JalanMerahSaga/278115 Restaurant JSON-LD with12explicit intervals forTue–Sun. Visible homepage names#01-62. Monday is absent: preserve as unconfirmed, never infer closed. Historic2020article hours are not used. The embedded schedule was missed by visible-text-only earlier reviews."
+    }
+  ],
+  "savedEmbeddedHoursReview": {
+    "checkedAt": "2026-10-17",
+    "savedPages": 64,
+    "result": "14 candidate pages reviewed:1merchant six-day schedule approved withMondayunknown;13non-approvals.64savedpages scanned. No food extraction or network calls in this scan.",
+    "reviews": [
+      {
+        "venueId": "bodhi-deli-fortune-centre",
+        "sourceUrl": "https://take.app/bodhideli",
+        "sourceFile": ".local/cover-hours/sources/44b0dff322f12c7ab372.html",
+        "sha256": "d231539f2a7688b89035cf7f87329a2de425147f05f49bb7251365f227512c46",
+        "status": "held-empty-merchant-hours",
+        "review": "Merchant openingHours objects are empty; no hours inferred from active ordering status."
+      },
+      {
+        "venueId": "bodhi-deli-fortune-centre",
+        "sourceUrl": "https://take.app/bodhideli/c/clh83f5fa01v90flc5vwpcqwa",
+        "sourceFile": ".local/cover-hours/sources/435d8b2e09e552564026.html",
+        "sha256": "497a4bbb072e8b25058bea020a38ad6ac607c1604354f93669615955bfdf6af2",
+        "status": "held-empty-merchant-hours",
+        "review": "Merchant openingHours objects are empty; no hours inferred from active ordering status."
+      },
+      {
+        "venueId": "shu-woodlands-avenue-1",
+        "sourceUrl": "https://www.foodgrove.sg/listing/shu-vegetarian/",
+        "sourceFile": ".local/coverage-2026-10-17/sources/b86bce9d5c8cb1ae50d3.html",
+        "sha256": "c7fd9f0e6214e2e1549df2acb5d55aeab9f55629a48634b9634fbbf0df46063f",
+        "status": "held-third-party-schedule",
+        "review": "Community listing retains existing unconfirmed status; no operator confirmation."
+      },
+      {
+        "venueId": "research-baomaker-ang-mo-kio-447",
+        "sourceUrl": "https://baomaker.com/",
+        "sourceFile": ".local/cover-hours/sources/263097906f14da56b04a.html",
+        "sha256": "8463f4ea0542bc4cae32b6c6720f22ae87c26e0e72f68ce19dafab1d37e6c8ba",
+        "status": "held-empty-merchant-hours",
+        "review": "Merchant openingHours objects are empty; no hours inferred from active ordering status."
+      },
+      {
+        "venueId": "research-baomaker-ang-mo-kio-447",
+        "sourceUrl": "https://baomaker.com/pages/about",
+        "sourceFile": ".local/cover-hours/sources/ac0c2a083a7f5a235cbf.html",
+        "sha256": "9ea523ed8c599f7315e56eadedb39229e99093572e9e6fd09ea8d7d8ded2f030",
+        "status": "held-empty-merchant-hours",
+        "review": "Merchant openingHours objects are empty; no hours inferred from active ordering status."
+      },
+      {
+        "venueId": "research-ur01-kind-sprout-sengkang",
+        "sourceUrl": "https://take.app/kindsproutsg",
+        "sourceFile": ".local/cover-hours/sources/1633d3e6b0cbe37c7558.html",
+        "sha256": "90599e44314c1c800bee4f66954c20998c1d21722382e09b1d21f90f3008cbef",
+        "status": "held-empty-merchant-hours",
+        "review": "Merchant openingHours objects are empty; no hours inferred from active ordering status."
+      },
+      {
+        "venueId": "research-ur01-new-green-pasture-fortune",
+        "sourceUrl": "https://take.app/newgreenpasture",
+        "sourceFile": ".local/cover-hours/sources/abb5a915bb39d806d408.html",
+        "sha256": "9d89673f4a4a2f49f1d23341a9d19e2a4be63b7ab65bfabee67aab2842c71a7e",
+        "status": "held-empty-merchant-hours",
+        "review": "Merchant openingHours objects are empty; no hours inferred from active ordering status."
+      },
+      {
+        "venueId": "research-ur03-99-pioneer-mall",
+        "sourceUrl": "https://www.onehungryhippo.com/restaurants/99-vegetarian",
+        "sourceFile": ".local/cover-hours/sources/430cf91b53b61da032d3.html",
+        "sha256": "745c9ccb93568f6c53170f9a7e896ee2846a8a3bd75cc798b62de482b8269e8d",
+        "status": "held-third-party-schedule",
+        "review": "Independent directory JSON-LD does not establish merchant verification or current venue schedule."
+      },
+      {
+        "venueId": "research-ur03-eco-sen-toa-payoh66",
+        "sourceUrl": "https://www.onehungryhippo.com/restaurants/eco-sen-vegetarian-food",
+        "sourceFile": ".local/cover-hours/sources/18a7f6157db8372ff61f.html",
+        "sha256": "59d0f99aa5e94e3ebf63bfcce4e40984f4a1cac9e2db06d69cb556cbff5485ae",
+        "status": "held-third-party-schedule",
+        "review": "Independent directory JSON-LD does not establish merchant verification or current venue schedule."
+      },
+      {
+        "venueId": "research-sl08-fire-flies",
+        "sourceUrl": "https://sethlui.com/fire-flies-singapore/",
+        "sourceFile": ".local/cover-hours/sources/8416fb84fef76e44202c.html",
+        "sha256": "6723231f30a05181c3e655abab7d49a54eb5976c3f14b44ab48c3d94bf24caaf",
+        "status": "held-editorial-schedule",
+        "review": "Editorial article metadata, not new operator or tenant business schedule; existing hold preserved."
+      },
+      {
+        "venueId": "research-ur03-gan-taste-vegetarian",
+        "sourceUrl": "https://www.onehungryhippo.com/restaurants/gan-taste-vegetarian",
+        "sourceFile": ".local/cover-hours/sources/bb4e2289a0eb86e9a98f.html",
+        "sha256": "1aab00ac0baaded8415619e81ac574937f44712878fb708cac7a8f31ec5324a6",
+        "status": "held-third-party-schedule",
+        "review": "Independent directory JSON-LD does not establish merchant verification or current venue schedule."
+      },
+      {
+        "venueId": "research-ur03-gan-taste-vegetarian",
+        "sourceUrl": "https://sethlui.com/prime-court-closure-toa-payoh-singapore-may-2025/",
+        "sourceFile": ".local/cover-hours/sources/29b616dc5c9482976493.html",
+        "sha256": "6024fd9f54f7b26c791f058da4fd7b7453f1ee7394a00e832b93027dd28a24ed",
+        "status": "held-no-schedule",
+        "review": "Empty opening_hours field in historical closure article; not a current schedule."
+      },
+      {
+        "venueId": "research-ur06-original-sin",
+        "sourceUrl": "https://www.originalsin.sg/",
+        "sourceFile": ".local/cover-hours/sources/32c9c67c6aab38d5762d.html",
+        "sha256": "24cd42dd59324fb0ea61c5f1ea6a87e0fc3cfce52bb1f045a5004595c8764950",
+        "status": "approved-six-days-monday-unconfirmed",
+        "review": "Fresh17October homepage JSON-LD matches12TueSun intervals and exact branch; Monday missing and remains explicit unknown. See primary-hours-evidence.json."
+      },
+      {
+        "venueId": "research-ur10-ju-fu-yuan-eunos",
+        "sourceUrl": "https://www.havehalalwilltravel.com/halal-restaurants/detail/ju-fu-yuan-vegetarian-delight-%E8%81%9A%E7%A6%8F%E7%BC%98",
+        "sourceFile": ".local/cover-hours/sources/510b279aba195868841b.html",
+        "sha256": "4b4014a68736dbb88807bcb376373eae2faa2cdb17ef5189822de34aaace6603",
+        "status": "held-historic-unclaimed-third-party",
+        "review": "Embedded Google data datedJune2025, statusunclaimed, provenancepending-verification. Not new merchant evidence; no provider request."
+      }
+    ]
+  },
+  "remainingCoordinateHolds": [
+    {
+      "venueId": "research-ananda-syed-alwi",
+      "reason": "Operator address95SyedAlwiRoad conflicts with OneMap postal207670 at94SyedAlwiRoad. Do not shift the venue across the road by inference.",
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=207670&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "sourceCheckedAt": "2026-10-16T10:32:56.853754+00:00",
+      "reviewedAt": "2026-10-17"
+    },
+    {
+      "venueId": "research-tofu-g-amoy-street",
+      "reason": "Operator97AmoyStreet conflicts with OneMap postal069916 at96AmoyStreet. Hold until correct operator postal/point is established.",
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=069916&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "sourceCheckedAt": "2026-10-16T10:37:47.423991+00:00",
+      "reviewedAt": "2026-10-17"
+    },
+    {
+      "venueId": "research-ur11-crowded-sp",
+      "reason": "OneMap139651 returns many campus buildings and an incomplete7-page response with authentication notice; no exactFoodCourt2row. Merchant address says139651 but separatepostcode field says138671. Do not choose an admin building or generic campus point.",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/w9sh/the-crowded-bowl-dover-road",
+      "sourceCheckedAt": "2026-10-16T07:05:17.736Z",
+      "reviewedAt": "2026-10-17"
+    }
+  ],
+  "verificationSupplement": {
+    "checkedAt": "2026-10-17",
+    "typescript": {
+      "command": "npx tsc --noEmit",
+      "cwd": ".local/coverage-2026-10-17v/source",
+      "exitCode": 0
+    },
+    "lint": {
+      "command": "EXPO_NO_DOTENV=1 CI=1 npx expo lint --no-cache",
+      "cwd": ".",
+      "exitCode": 0
+    },
+    "sourcePreserved": true,
+    "changes": "Reviewed catalogue JSON and2JPEGassets only; all16API functions exported together. Initial overly broad eslint . traversal stopped; canonical Expo src lint passed."
+  },
+  "hoursQualification": "94source-backed records; OriginalSin explicitly coversTueSun withMondayunconfirmed. Available fields do not mean complete7day schedules."
+}

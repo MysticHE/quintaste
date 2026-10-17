@@ -1,0 +1,357 @@
+{
+  "version": 1,
+  "reviewedAt": "2026-10-15T09:03:14.506Z",
+  "reviewer": "/root/menu_workflow_code_review",
+  "status": "approved",
+  "scope": [
+    "scripts/menu-research-types.ts",
+    "scripts/menu-research-files.ts",
+    "scripts/match-menu-locations.ts",
+    "scripts/build-menu-coverage.ts",
+    "src/components/ui.tsx: web Field outline and focus treatment"
+  ],
+  "dependenciesInspected": [
+    "scripts/places-client.ts",
+    "existing proper-lockfile usage"
+  ],
+  "findings": [],
+  "resolvedFindings": [
+    {
+      "id": "F01",
+      "severity": "HIGH",
+      "issue": "A direct place ID plus arbitrary evidence URL could falsely confirm branch identity.",
+      "resolution": "All direct IDs remain identity-candidate; candidate names and addresses are explicitly separate from confirmed identity."
+    },
+    {
+      "id": "F02",
+      "severity": "MEDIUM",
+      "issue": "Coverage consumed stale or insufficiently validated match receipts.",
+      "resolution": "Shared receipt parser validates exact field mask, date, unique IDs, current-directory intersection, status and duplicate lead/query pairs; coverage consumes only the current name/address query."
+    },
+    {
+      "id": "F03",
+      "severity": "MEDIUM",
+      "issue": "An interrupted matcher left a permanent exclusive file lock.",
+      "resolution": "Existing proper-lockfile now supplies heartbeat, stale recovery and finally release."
+    },
+    {
+      "id": "F04",
+      "severity": "MEDIUM",
+      "issue": "Removing the web input outline removed the visible focus treatment on fields with errors.",
+      "resolution": "The rounded outer Card receives an accent focus outline independently of the error border; the inner default outline remains removed only on web."
+    },
+    {
+      "id": "F05",
+      "severity": "MEDIUM",
+      "issue": "Missing inventory collectedAt could produce invalid coverage JSON.",
+      "resolution": "Coverage validates inventory version, country and collectedAt before any writes."
+    }
+  ],
+  "checks": [
+    {
+      "name": "Current local inputs",
+      "method": "Independent read-only parser execution",
+      "result": "pass",
+      "inventoryIds": 2322,
+      "leadRecords": 1105,
+      "pilotMatchReceipts": 12
+    },
+    {
+      "name": "Receipt validation",
+      "method": "In-memory malformed fixtures",
+      "result": "pass",
+      "cases": [
+        "wrong field mask",
+        "invalid date",
+        "result/directory mismatch",
+        "non-string status",
+        "duplicate lead/query"
+      ]
+    },
+    {
+      "name": "Identity boundary",
+      "method": "Actual coverage script evaluated with mocked file reads and in-memory writes",
+      "result": "pass",
+      "cases": [
+        "direct ID with unrelated URL stays identity-candidate",
+        "no confirmed name is assigned",
+        "old query receipt is ignored"
+      ]
+    },
+    {
+      "name": "Inventory validation",
+      "method": "Actual coverage script evaluated in memory",
+      "result": "pass",
+      "cases": [
+        "missing collectedAt rejected before output"
+      ]
+    },
+    {
+      "name": "CSV escaping",
+      "method": "Actual csvCell function evaluated in memory",
+      "result": "pass",
+      "cases": [
+        "equals",
+        "plus",
+        "minus",
+        "at",
+        "tab",
+        "carriage return"
+      ]
+    },
+    {
+      "name": "Outbound cost boundary",
+      "method": "Existing searchIds evaluated with mocked fetch and fake key",
+      "result": "pass",
+      "fieldMask": "places.id,nextPageToken",
+      "paidNameAddressPhotoFieldsRequested": false
+    },
+    {
+      "name": "Concurrency and resumption",
+      "method": "Source inspection",
+      "result": "pass",
+      "cases": [
+        "same-target exclusive lease",
+        "receipt read inside lease",
+        "60000 ms stale recovery",
+        "10000 ms heartbeat",
+        "atomic per-receipt output",
+        "1–1000 invocation request bound"
+      ]
+    },
+    {
+      "name": "Field focus",
+      "method": "Source inspection",
+      "result": "pass",
+      "cases": [
+        "web-only inner outline removal",
+        "outer rounded focus treatment remains visible with an error",
+        "native focus styling unaffected"
+      ]
+    }
+  ],
+  "costVerification": {
+    "verifiedAt": "2026-10-15",
+    "sku": "Text Search Essentials (IDs Only)",
+    "freeUsage": "Unlimited no-charge tier in Google's current global pricing table",
+    "urls": [
+      "https://developers.google.com/maps/billing-and-pricing/pricing",
+      "https://developers.google.com/maps/billing-and-pricing/sku-details",
+      "https://developers.google.com/maps/documentation/places/web-service/text-search"
+    ]
+  },
+  "actualGoogleCalls": 0,
+  "quotaOrPhotoCapChanges": false,
+  "publicBranchAssignments": false,
+  "limits": [
+    "Approval covers source tooling and mocked behavior, not the factual correctness or completeness of individual research leads.",
+    "Candidate matches do not confirm a branch or establish menu availability.",
+    "Crash recovery was inspected in source; no process-kill or real API batch was run by this reviewer.",
+    "CSV cell escaping was checked in memory; spreadsheet application behavior was not exercised.",
+    "Browser focus appearance and physical native acceptance remain separate validation."
+  ],
+  "summary": {
+    "CRITICAL": 0,
+    "HIGH": 0,
+    "MEDIUM": 0,
+    "LOW": 0,
+    "verdict": "APPROVE"
+  },
+  "updatedAt": "2026-10-15T10:01:24.606Z",
+  "deltaReview": {
+    "reviewedAt": "2026-10-15T09:29:03.634Z",
+    "status": "approved",
+    "scope": [
+      "scripts/menu-research-files.ts: bounded atomic rename retry",
+      "src/components/ui.tsx: explicit solid zero-width inner outline and rounded outer focus",
+      "../tmp/qa/menu-resolve-links.cjs: stopped private public-link research"
+    ],
+    "findings": [],
+    "checks": [
+      {
+        "name": "Windows atomic rename retry",
+        "method": "Actual function evaluated with in-memory filesystem/timer mocks",
+        "result": "pass",
+        "cases": [
+          "EPERM/EACCES/EBUSY retry",
+          "8 total attempts",
+          "50 ms exponential backoff capped at 1000 ms",
+          "previous valid file retained on exhaustion",
+          "temporary cleanup",
+          "other errors fail immediately"
+        ]
+      },
+      {
+        "name": "Focus styling",
+        "method": "Source inspection and supplied report inspection",
+        "result": "pass",
+        "report": ".impeccable/review/menu-expansion-focus-confirmation.json",
+        "captureCount": 5,
+        "reportedPageErrors": 0,
+        "notes": "Inner outline explicitly solid/0; outer focus 2 with semantic accent and zero offset remains independent of error border. Root performed visual image inspection."
+      },
+      {
+        "name": "Existing browser evidence",
+        "method": "Supplied report inspection",
+        "result": "pass",
+        "report": ".impeccable/review/menu-expansion-browser.json",
+        "groups": 5,
+        "captures": 18,
+        "reportedPageErrors": 0,
+        "reportedActualGoogleCalls": 0
+      },
+      {
+        "name": "Saved matching receipts",
+        "method": "Read-only current file inspection",
+        "result": "pass",
+        "total": 1043,
+        "candidate": 631,
+        "ambiguous": 353,
+        "noMatch": 59
+      },
+      {
+        "name": "Public-link research boundary",
+        "method": "Source/state inspection and git check-ignore",
+        "result": "pass",
+        "status": "human-verification",
+        "readableEntries": 208,
+        "gitIgnored": true,
+        "notes": "Managed headless Chromium; no project API key or environment credential read; private temporary identity research requires merchant-source confirmation."
+      },
+      {
+        "name": "Human-verification resume guard",
+        "method": "Actual scratch script evaluated with mocked file reads and browser launch",
+        "result": "pass",
+        "browserLaunches": 0,
+        "notes": "Stored human-verification state exits before browser launch."
+      }
+    ],
+    "actualGoogleCalls": 0,
+    "appEditsByReviewer": false,
+    "limits": [
+      "Review does not validate individual identity facts or menu completeness.",
+      "Stored candidates and public-link identities are not approved public catalogue facts.",
+      "The 2,322-ID inventory remains incomplete.",
+      "No real Google or browser navigation was performed by this reviewer."
+    ]
+  },
+  "researchIndexReview": {
+    "reviewedAt": "2026-10-15T10:01:24.606Z",
+    "status": "approved",
+    "scope": [
+      "scripts/build-menu-research-index.ts",
+      "data/menu-research/menu-independent-stalls.json",
+      "docs/research/menu-independent-stalls.md"
+    ],
+    "findings": [],
+    "resolvedFindings": [
+      {
+        "id": "I01",
+        "severity": "MEDIUM",
+        "issue": "Duplicate branch menu references counted a source menu twice.",
+        "resolution": "references() rejects duplicate branch.menuIds and menu.branchIds."
+      },
+      {
+        "id": "I02",
+        "severity": "MEDIUM",
+        "issue": "A branch could inherit an unrelated local or pilot menu because menu ownership was dropped.",
+        "resolution": "Menu branchIds are preserved, the pilot adapter supplies venueId ownership, and packetRows rejects incompatible branch references."
+      },
+      {
+        "id": "I03",
+        "severity": "MEDIUM",
+        "issue": "CSV escaping omitted leading LF and full-width formula starters.",
+        "resolution": "CSV guard now escapes LF/CR/tab and whitespace/BOM before ASCII or full-width formula starters."
+      }
+    ],
+    "checks": [
+      {
+        "name": "Actual index build",
+        "method": "Actual script evaluated with real read-only input and in-memory output writes",
+        "result": "pass",
+        "datasetCount": 17,
+        "branchRecords": 99,
+        "sourceMenus": 121,
+        "nonuniqueSourceFoodRows": 6915,
+        "complete": false
+      },
+      {
+        "name": "Reference graph",
+        "method": "In-memory fixtures",
+        "result": "pass",
+        "cases": [
+          "duplicate branch menu references rejected",
+          "incompatible local menu branch rejected",
+          "incompatible pilot fallback branch rejected",
+          "valid one-item menu counted once"
+        ]
+      },
+      {
+        "name": "Path containment",
+        "method": "Actual collect() evaluated on outside-root relative path",
+        "result": "pass"
+      },
+      {
+        "name": "CSV escaping",
+        "method": "Actual cell() evaluated in memory",
+        "result": "pass",
+        "cases": [
+          "ASCII formula prefixes",
+          "LF/CR/tab",
+          "leading whitespace",
+          "BOM",
+          "full-width equals/plus/minus/at"
+        ]
+      },
+      {
+        "name": "Independent stall packet and notes",
+        "method": "Full packet/document inspection plus actual index projection",
+        "result": "pass",
+        "branches": 5,
+        "foodRows": 60,
+        "deliveryRows": 51,
+        "heldSecondaryRows": 9,
+        "perBranchRows": [
+          17,
+          34,
+          9,
+          0,
+          0
+        ],
+        "perBranchCoverage": [
+          "partial",
+          "partial",
+          "held",
+          "menu-unavailable",
+          "menu-unavailable"
+        ],
+        "notes": "Source references and branch separation are consistent; source-unavailable explicitly remains an evidence gap, not proof of no menu or permanent closure. No beverages or inferred ingredient certification were found in this packet."
+      },
+      {
+        "name": "Previously approved rename retry and Field outline",
+        "method": "Current source inspection",
+        "result": "pass",
+        "notes": "Previously reviewed bounded rename retry and explicit solid/0 inner outline with semantic outer focus remain intact."
+      }
+    ],
+    "references": [
+      "https://community.owasp.org/attacks/CSV_Injection"
+    ],
+    "actualGoogleCalls": 0,
+    "outputFilesWrittenByReviewer": [],
+    "limits": [
+      "Approval covers the index code and independent-stall packet/document consistency, not current real-world merchant availability or exact Google ID identity.",
+      "No new source pages were fetched for stall fact verification.",
+      "Other research owners remain responsible for their concurrently changing packets.",
+      "Index branch records, source menus and food rows can overlap and are not unique-location or unique-dish counts.",
+      "Research data is separate from app API/publication; complete remains false."
+    ],
+    "summary": {
+      "CRITICAL": 0,
+      "HIGH": 0,
+      "MEDIUM": 0,
+      "LOW": 0,
+      "verdict": "APPROVE"
+    }
+  }
+}

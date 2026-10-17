@@ -1,0 +1,1236 @@
+{
+  "version": 1,
+  "checkedAt": "2026-10-16T07:40:32.273912+00:00",
+  "status": "reviewed-with-unresolved-holds",
+  "googleRequestsMade": 0,
+  "sources": [
+    {
+      "id": "ur12-jufu-hougang-fp",
+      "url": "https://www.foodpanda.sg/restaurant/spha/ju-fu-yuan-vegetarian-food-hougang",
+      "publisher": "Foodpanda / public merchant catalogue",
+      "title": "Ju Fu Yuan Hougang current delivery catalogue",
+      "checkedAt": "2026-10-16T07:35:46.773Z",
+      "accessStatus": "normal-public-fetch200-browser403",
+      "notes": "Current 22 unique food parents reconcile IDs, names, categories and SGD list prices with visible DOM from the same response; no Popular repeats. Indexed 26-item English and 16-item Chinese versions are not merged. Six customizers unread after normal browser403. AI-labelled generic pork belly, prawns/fish cakes, mutton, drumsticks and goose descriptions conflict with vegetarian positioning; they neither prove actual meat service nor establish mock ingredients. Separate exact-premise whole-venue statement unavailable; all 22 observations held. Raw15% promotion stays separate from list price."
+    },
+    {
+      "id": "ur12-kale-midpoint-fp",
+      "url": "https://www.foodpanda.sg/restaurant/ndwv/kale-by-kang-su-kang-su-midpoint-orchard",
+      "publisher": "Foodpanda / merchant URL",
+      "title": "Kale Midpoint unavailable delivery URL",
+      "checkedAt": "2026-10-16T07:35:49.347Z",
+      "accessStatus": "normal200-redirect-city-no-merchant-menu",
+      "notes": "Exact Midpoint URL redirects to Singapore city homepage. Indexed dishes/prices are stale source versions, not current readable merchant menu; no extraction, language/reviews retry or workaround."
+    },
+    {
+      "id": "ur12-kale-midpoint-social",
+      "url": "https://www.facebook.com/p/KALE-by-KangSu-61555173835603/",
+      "publisher": "Kale by KangSu / Facebook",
+      "title": "Linked merchant social page",
+      "checkedAt": "2026-10-16T07:40:32.273912+00:00",
+      "accessStatus": "normal-web-temporarily-blocked",
+      "notes": "Directory-linked merchant page shows temporarily blocked. No authentication or alternate-origin workaround. No current primary closure/reopening statement recovered."
+    },
+    {
+      "id": "ur12-kale-midpoint-secondary",
+      "url": "https://www.happycow.net/reviews/kale-by-kangsu-central-singapore-396827/2122989",
+      "publisher": "HappyCow / independent listing",
+      "title": "Midpoint Orchard reported-closure context",
+      "checkedAt": "2026-10-16T07:40:32.273912+00:00",
+      "accessStatus": "readable-secondary-qualified",
+      "notes": "Independent listing last updated5October2026 marks220Orchard#01-09 closed. This is not current primary permanent-closure proof. Historical food claims and cow-milk context remain qualified; Adelphi and other KangSu menus are not transferred."
+    },
+    {
+      "id": "ur12-evergreen-geylang-fp",
+      "url": "https://www.foodpanda.sg/restaurant/gnch/evergreen-veggie-rice-chang-su-shu-cai-fan-lorong-25a-geylang",
+      "publisher": "Foodpanda / public merchant page",
+      "title": "Evergreen Geylang current page without food items",
+      "checkedAt": "2026-10-16T07:29:31.478Z",
+      "accessStatus": "normal200-no-food-tiles-or-product-cache",
+      "notes": "Normal200 exact merchant page at88/90Lor25AGeylang/388264 contains zero food tiles and no food-product cache. No indexed menu extraction, Google reviews or other Evergreen/DailyGreen branch menu transfer. BroadChicken platform tag alone is not meat-service evidence."
+    },
+    {
+      "id": "ur12-evergreen-secondary",
+      "url": "https://wheretoeat.com.sg/vegetarian-food-in-geylang/",
+      "publisher": "WhereToEat / independent editorial",
+      "title": "September2026 Evergreen vegetarian guide context",
+      "checkedAt": "2026-10-16T07:40:32.273912+00:00",
+      "accessStatus": "readable-secondary-qualified",
+      "notes": "Independent guide dated12September2026 describes vegetarian economy-rice/noodle context. Not an exact current merchant food catalogue, ingredient certification or operator statement."
+    }
+  ],
+  "branches": [
+    {
+      "id": "ur12-jufu-hougang",
+      "name": "Ju Fu Yuan Vegetarian Food — Hougang",
+      "address": "106 Hougang Avenue 1 #01-1239, Singapore 530106",
+      "postalCode": "530106",
+      "unit": "#01-1239",
+      "googlePlaceId": null,
+      "sourceIds": [
+        "ur12-jufu-hougang-fp"
+      ],
+      "menuIds": [
+        "ur12-jufu-hougang-foods"
+      ],
+      "eligibility": "unresolved",
+      "identityStatus": "independent-source-premise-no-google-assignment",
+      "venueEligibility": {
+        "status": "unresolved",
+        "checkedAt": "2026-10-16T07:40:32.273912+00:00",
+        "sourceIds": [
+          "ur12-jufu-hougang-fp"
+        ],
+        "reason": "Current merchant title and mock-meat sets indicate vegetarian positioning, but AI generic meat descriptions and absent separate exact-premise whole-venue proof leave scope unresolved. No Eunos, AMK, Bedok or Serangoon menu transfer."
+      },
+      "gaps": [
+        "Current merchant title and mock-meat sets indicate vegetarian positioning, but AI generic meat descriptions and absent separate exact-premise whole-venue proof leave scope unresolved. No Eunos, AMK, Bedok or Serangoon menu transfer.",
+        "Current operation, complete ingredients, vegan/allium/allergen suitability and stock unconfirmed.",
+        "All22 foods held pending exact-premise whole-venue review; six source customizers unread after normal browser403.",
+        "Current22 versus indexed26/16 product inventories remain separate; no stale extraction or presumed stock."
+      ]
+    },
+    {
+      "id": "ur12-kale-midpoint",
+      "name": "Kale by KangSu — Midpoint Orchard source gap",
+      "address": "220 Orchard Road #01-09 Midpoint Orchard, Singapore 238852",
+      "postalCode": "238852",
+      "unit": "#01-09",
+      "googlePlaceId": null,
+      "sourceIds": [
+        "ur12-kale-midpoint-fp",
+        "ur12-kale-midpoint-social",
+        "ur12-kale-midpoint-secondary"
+      ],
+      "menuIds": [
+        "ur12-kale-midpoint-menu-gap"
+      ],
+      "eligibility": "unresolved",
+      "identityStatus": "independent-source-premise-no-google-assignment",
+      "venueEligibility": {
+        "status": "unresolved",
+        "checkedAt": "2026-10-16T07:40:32.273912+00:00",
+        "sourceIds": [
+          "ur12-kale-midpoint-fp",
+          "ur12-kale-midpoint-social",
+          "ur12-kale-midpoint-secondary"
+        ],
+        "reason": "Current exact merchant URL redirects; own social channel blocked; independent5October2026closure report lacks current primary confirmation. Current operation and named menu remain unresolved. No permanent closure inference."
+      },
+      "gaps": [
+        "Current exact merchant URL redirects; own social channel blocked; independent5October2026closure report lacks current primary confirmation. Current operation and named menu remain unresolved. No permanent closure inference.",
+        "Current operation, complete ingredients, vegan/allium/allergen suitability and stock unconfirmed."
+      ]
+    },
+    {
+      "id": "ur12-evergreen-geylang",
+      "name": "Evergreen Veggie Rice — Lorong25A Geylang",
+      "address": "88/90 Lorong25A Geylang, Singapore 388264",
+      "postalCode": "388264",
+      "unit": null,
+      "googlePlaceId": null,
+      "sourceIds": [
+        "ur12-evergreen-geylang-fp",
+        "ur12-evergreen-secondary"
+      ],
+      "menuIds": [
+        "ur12-evergreen-geylang-menu-gap"
+      ],
+      "eligibility": "unresolved",
+      "identityStatus": "independent-source-premise-no-google-assignment",
+      "venueEligibility": {
+        "status": "unresolved",
+        "checkedAt": "2026-10-16T07:40:32.273912+00:00",
+        "sourceIds": [
+          "ur12-evergreen-geylang-fp",
+          "ur12-evergreen-secondary"
+        ],
+        "reason": "Current exact delivery merchant page has no food products. Separate primary whole-venue positioning and current named menu unavailable; secondary vegetarian account remains qualified."
+      },
+      "gaps": [
+        "Current exact delivery merchant page has no food products. Separate primary whole-venue positioning and current named menu unavailable; secondary vegetarian account remains qualified.",
+        "Current operation, complete ingredients, vegan/allium/allergen suitability and stock unconfirmed."
+      ]
+    }
+  ],
+  "menus": [
+    {
+      "id": "ur12-jufu-hougang-foods",
+      "name": "Hougang delivery observations held",
+      "scope": "branch-delivery",
+      "branchIds": [
+        "ur12-jufu-hougang"
+      ],
+      "sourceIds": [
+        "ur12-jufu-hougang-fp"
+      ],
+      "coverage": "partial",
+      "publicationStatus": "hold-whole-venue-scope-unresolved",
+      "notice": "Current merchant title and mock-meat sets indicate vegetarian positioning, but AI generic meat descriptions and absent separate exact-premise whole-venue proof leave scope unresolved. No Eunos, AMK, Bedok or Serangoon menu transfer.",
+      "items": [
+        {
+          "id": "ur12-jufu-hougang-96996392",
+          "sourceProductId": "96996392",
+          "name": "Mee Hoon Sets",
+          "category": "Value Meals Sets 经济套餐",
+          "sourceIds": [
+            "ur12-jufu-hougang-fp"
+          ],
+          "sourceDescription": "Contains cabbage, char siew, crispy beancurd",
+          "price": {
+            "amount": 6,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "sourcePriceAttributes": {
+            "__typename": "PriceAttributes",
+            "originalPrice": 6,
+            "discountedPrice": 5.1,
+            "displayFromTag": false,
+            "containerPrice": null
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-whole-venue-scope-unresolved",
+          "holdReason": "Current merchant title and mock-meat sets indicate vegetarian positioning, but AI generic meat descriptions and absent separate exact-premise whole-venue proof leave scope unresolved. No Eunos, AMK, Bedok or Serangoon menu transfer.",
+          "qualifier": "Research only: printed menu wording and list price, not ingredient or whole-venue certification.",
+          "verification": {
+            "checkedAt": "2026-10-16T07:40:32.273912+00:00",
+            "sourceIds": [
+              "ur12-jufu-hougang-fp"
+            ],
+            "verifiedFields": [
+              "printed merchant premise",
+              "current source product ID/name/category",
+              "printed SGD list price reconciled with visible DOM",
+              "description as printed"
+            ],
+            "unverifiedFields": [
+              "whole-venue vegetarian scope",
+              "actual meat versus mock ingredients",
+              "complete composition/allergens",
+              "options/defaults/portions",
+              "current stock",
+              "final checkout price"
+            ]
+          }
+        },
+        {
+          "id": "ur12-jufu-hougang-96996395",
+          "sourceProductId": "96996395",
+          "name": "Main + 1 Mock Meat + 2 Vegetables",
+          "category": "Diy Meals Set Diy 套餐",
+          "sourceIds": [
+            "ur12-jufu-hougang-fp"
+          ],
+          "sourceDescription": "(AI) Design your customized meal with one main, one flavorful mock meat, and two fresh vegetable selections",
+          "price": {
+            "amount": 6.5,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "sourcePriceAttributes": {
+            "__typename": "PriceAttributes",
+            "originalPrice": 6.5,
+            "discountedPrice": 5.525,
+            "displayFromTag": true,
+            "containerPrice": null
+          },
+          "hasUnreadChoices": true,
+          "publicationStatus": "hold-whole-venue-scope-unresolved",
+          "holdReason": "Current merchant title and mock-meat sets indicate vegetarian positioning, but AI generic meat descriptions and absent separate exact-premise whole-venue proof leave scope unresolved. No Eunos, AMK, Bedok or Serangoon menu transfer.",
+          "qualifier": "Research only: printed menu wording and list price, not ingredient or whole-venue certification.",
+          "verification": {
+            "checkedAt": "2026-10-16T07:40:32.273912+00:00",
+            "sourceIds": [
+              "ur12-jufu-hougang-fp"
+            ],
+            "verifiedFields": [
+              "printed merchant premise",
+              "current source product ID/name/category",
+              "printed SGD list price reconciled with visible DOM",
+              "description as printed"
+            ],
+            "unverifiedFields": [
+              "whole-venue vegetarian scope",
+              "actual meat versus mock ingredients",
+              "complete composition/allergens",
+              "options/defaults/portions",
+              "current stock",
+              "final checkout price"
+            ]
+          },
+          "configurationNotice": "Source flags choices; details, selection limits, defaults, portions and surcharges unread after ordinary browser403."
+        },
+        {
+          "id": "ur12-jufu-hougang-96996396",
+          "sourceProductId": "96996396",
+          "name": "Main + 2 Mock Meats + 1 Vegetables",
+          "category": "Diy Meals Set Diy 套餐",
+          "sourceIds": [
+            "ur12-jufu-hougang-fp"
+          ],
+          "sourceDescription": "(AI) A hearty diy meal featuring your choice of main, two savory mock meats, and one fresh vegetable side",
+          "price": {
+            "amount": 7,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "sourcePriceAttributes": {
+            "__typename": "PriceAttributes",
+            "originalPrice": 7,
+            "discountedPrice": 5.95,
+            "displayFromTag": true,
+            "containerPrice": null
+          },
+          "hasUnreadChoices": true,
+          "publicationStatus": "hold-whole-venue-scope-unresolved",
+          "holdReason": "Current merchant title and mock-meat sets indicate vegetarian positioning, but AI generic meat descriptions and absent separate exact-premise whole-venue proof leave scope unresolved. No Eunos, AMK, Bedok or Serangoon menu transfer.",
+          "qualifier": "Research only: printed menu wording and list price, not ingredient or whole-venue certification.",
+          "verification": {
+            "checkedAt": "2026-10-16T07:40:32.273912+00:00",
+            "sourceIds": [
+              "ur12-jufu-hougang-fp"
+            ],
+            "verifiedFields": [
+              "printed merchant premise",
+              "current source product ID/name/category",
+              "printed SGD list price reconciled with visible DOM",
+              "description as printed"
+            ],
+            "unverifiedFields": [
+              "whole-venue vegetarian scope",
+              "actual meat versus mock ingredients",
+              "complete composition/allergens",
+              "options/defaults/portions",
+              "current stock",
+              "final checkout price"
+            ]
+          },
+          "configurationNotice": "Source flags choices; details, selection limits, defaults, portions and surcharges unread after ordinary browser403."
+        },
+        {
+          "id": "ur12-jufu-hougang-96996397",
+          "sourceProductId": "96996397",
+          "name": "Main + 3 Vegetables",
+          "category": "Diy Meals Set Diy 套餐",
+          "sourceIds": [
+            "ur12-jufu-hougang-fp"
+          ],
+          "sourceDescription": "(AI) Create your balanced meal with a choice of main and three fresh, seasonal vegetable sides",
+          "price": {
+            "amount": 6,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "sourcePriceAttributes": {
+            "__typename": "PriceAttributes",
+            "originalPrice": 6,
+            "discountedPrice": 5.1,
+            "displayFromTag": true,
+            "containerPrice": null
+          },
+          "hasUnreadChoices": true,
+          "publicationStatus": "hold-whole-venue-scope-unresolved",
+          "holdReason": "Current merchant title and mock-meat sets indicate vegetarian positioning, but AI generic meat descriptions and absent separate exact-premise whole-venue proof leave scope unresolved. No Eunos, AMK, Bedok or Serangoon menu transfer.",
+          "qualifier": "Research only: printed menu wording and list price, not ingredient or whole-venue certification.",
+          "verification": {
+            "checkedAt": "2026-10-16T07:40:32.273912+00:00",
+            "sourceIds": [
+              "ur12-jufu-hougang-fp"
+            ],
+            "verifiedFields": [
+              "printed merchant premise",
+              "current source product ID/name/category",
+              "printed SGD list price reconciled with visible DOM",
+              "description as printed"
+            ],
+            "unverifiedFields": [
+              "whole-venue vegetarian scope",
+              "actual meat versus mock ingredients",
+              "complete composition/allergens",
+              "options/defaults/portions",
+              "current stock",
+              "final checkout price"
+            ]
+          },
+          "configurationNotice": "Source flags choices; details, selection limits, defaults, portions and surcharges unread after ordinary browser403."
+        },
+        {
+          "id": "ur12-jufu-hougang-96996398",
+          "sourceProductId": "96996398",
+          "name": "Main + 3 Mock Meats",
+          "category": "Diy Meals Set Diy 套餐",
+          "sourceIds": [
+            "ur12-jufu-hougang-fp"
+          ],
+          "sourceDescription": "(AI) Build your substantial meal with a main course and three selections of rich, plant-based mock meats",
+          "price": {
+            "amount": 7.5,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "sourcePriceAttributes": {
+            "__typename": "PriceAttributes",
+            "originalPrice": 7.5,
+            "discountedPrice": 6.375,
+            "displayFromTag": true,
+            "containerPrice": null
+          },
+          "hasUnreadChoices": true,
+          "publicationStatus": "hold-whole-venue-scope-unresolved",
+          "holdReason": "Current merchant title and mock-meat sets indicate vegetarian positioning, but AI generic meat descriptions and absent separate exact-premise whole-venue proof leave scope unresolved. No Eunos, AMK, Bedok or Serangoon menu transfer.",
+          "qualifier": "Research only: printed menu wording and list price, not ingredient or whole-venue certification.",
+          "verification": {
+            "checkedAt": "2026-10-16T07:40:32.273912+00:00",
+            "sourceIds": [
+              "ur12-jufu-hougang-fp"
+            ],
+            "verifiedFields": [
+              "printed merchant premise",
+              "current source product ID/name/category",
+              "printed SGD list price reconciled with visible DOM",
+              "description as printed"
+            ],
+            "unverifiedFields": [
+              "whole-venue vegetarian scope",
+              "actual meat versus mock ingredients",
+              "complete composition/allergens",
+              "options/defaults/portions",
+              "current stock",
+              "final checkout price"
+            ]
+          },
+          "configurationNotice": "Source flags choices; details, selection limits, defaults, portions and surcharges unread after ordinary browser403."
+        },
+        {
+          "id": "ur12-jufu-hougang-96996399",
+          "sourceProductId": "96996399",
+          "name": "Kway Chap",
+          "category": "Local Meal 小吃",
+          "sourceIds": [
+            "ur12-jufu-hougang-fp"
+          ],
+          "sourceDescription": "(AI) Broad rice sheets served in a savory herbal broth, accompanied by a variety of braised ingredients like pork belly, tau pok, and hard-boiled eggs",
+          "price": {
+            "amount": 7,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "sourcePriceAttributes": {
+            "__typename": "PriceAttributes",
+            "originalPrice": 7,
+            "discountedPrice": 5.95,
+            "displayFromTag": false,
+            "containerPrice": null
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-whole-venue-scope-unresolved",
+          "holdReason": "Current merchant title and mock-meat sets indicate vegetarian positioning, but AI generic meat descriptions and absent separate exact-premise whole-venue proof leave scope unresolved. No Eunos, AMK, Bedok or Serangoon menu transfer.",
+          "qualifier": "Research only: printed menu wording and list price, not ingredient or whole-venue certification.",
+          "verification": {
+            "checkedAt": "2026-10-16T07:40:32.273912+00:00",
+            "sourceIds": [
+              "ur12-jufu-hougang-fp"
+            ],
+            "verifiedFields": [
+              "printed merchant premise",
+              "current source product ID/name/category",
+              "printed SGD list price reconciled with visible DOM",
+              "description as printed"
+            ],
+            "unverifiedFields": [
+              "whole-venue vegetarian scope",
+              "actual meat versus mock ingredients",
+              "complete composition/allergens",
+              "options/defaults/portions",
+              "current stock",
+              "final checkout price"
+            ]
+          },
+          "foodConflict": "AI-labelled generic meat/seafood wording remains unresolved; do not silently replace with mock ingredients or classify venue mixed solely from this description."
+        },
+        {
+          "id": "ur12-jufu-hougang-96996401",
+          "sourceProductId": "96996401",
+          "name": "Lontong",
+          "category": "Local Meal 小吃",
+          "sourceIds": [
+            "ur12-jufu-hougang-fp"
+          ],
+          "sourceDescription": "(AI) A traditional local dish, lontong features compressed rice cakes served in a rich and flavorful coconut milk-based vegetable curry",
+          "price": {
+            "amount": 6,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "sourcePriceAttributes": {
+            "__typename": "PriceAttributes",
+            "originalPrice": 6,
+            "discountedPrice": 5.1,
+            "displayFromTag": false,
+            "containerPrice": null
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-whole-venue-scope-unresolved",
+          "holdReason": "Current merchant title and mock-meat sets indicate vegetarian positioning, but AI generic meat descriptions and absent separate exact-premise whole-venue proof leave scope unresolved. No Eunos, AMK, Bedok or Serangoon menu transfer.",
+          "qualifier": "Research only: printed menu wording and list price, not ingredient or whole-venue certification.",
+          "verification": {
+            "checkedAt": "2026-10-16T07:40:32.273912+00:00",
+            "sourceIds": [
+              "ur12-jufu-hougang-fp"
+            ],
+            "verifiedFields": [
+              "printed merchant premise",
+              "current source product ID/name/category",
+              "printed SGD list price reconciled with visible DOM",
+              "description as printed"
+            ],
+            "unverifiedFields": [
+              "whole-venue vegetarian scope",
+              "actual meat versus mock ingredients",
+              "complete composition/allergens",
+              "options/defaults/portions",
+              "current stock",
+              "final checkout price"
+            ]
+          }
+        },
+        {
+          "id": "ur12-jufu-hougang-96996402",
+          "sourceProductId": "96996402",
+          "name": "Laksa",
+          "category": "Local Meal 小吃",
+          "sourceIds": [
+            "ur12-jufu-hougang-fp"
+          ],
+          "sourceDescription": "(AI) A vibrant noodle dish with a spicy coconut milk-based broth, typically featuring prawns, fish cakes, and bean sprouts",
+          "price": {
+            "amount": 6.5,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "sourcePriceAttributes": {
+            "__typename": "PriceAttributes",
+            "originalPrice": 6.5,
+            "discountedPrice": 5.525,
+            "displayFromTag": false,
+            "containerPrice": null
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-whole-venue-scope-unresolved",
+          "holdReason": "Current merchant title and mock-meat sets indicate vegetarian positioning, but AI generic meat descriptions and absent separate exact-premise whole-venue proof leave scope unresolved. No Eunos, AMK, Bedok or Serangoon menu transfer.",
+          "qualifier": "Research only: printed menu wording and list price, not ingredient or whole-venue certification.",
+          "verification": {
+            "checkedAt": "2026-10-16T07:40:32.273912+00:00",
+            "sourceIds": [
+              "ur12-jufu-hougang-fp"
+            ],
+            "verifiedFields": [
+              "printed merchant premise",
+              "current source product ID/name/category",
+              "printed SGD list price reconciled with visible DOM",
+              "description as printed"
+            ],
+            "unverifiedFields": [
+              "whole-venue vegetarian scope",
+              "actual meat versus mock ingredients",
+              "complete composition/allergens",
+              "options/defaults/portions",
+              "current stock",
+              "final checkout price"
+            ]
+          },
+          "foodConflict": "AI-labelled generic meat/seafood wording remains unresolved; do not silently replace with mock ingredients or classify venue mixed solely from this description."
+        },
+        {
+          "id": "ur12-jufu-hougang-96996405",
+          "sourceProductId": "96996405",
+          "name": "Sweet & Sour Potatoes",
+          "category": "Ala Carte 单点",
+          "sourceIds": [
+            "ur12-jufu-hougang-fp"
+          ],
+          "sourceDescription": "(AI) Golden fried potato pieces tossed in a tangy and sweet sauce, creating a delightful balance of flavors",
+          "price": {
+            "amount": 6.8,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "sourcePriceAttributes": {
+            "__typename": "PriceAttributes",
+            "originalPrice": 6.8,
+            "discountedPrice": 5.779999999999999,
+            "displayFromTag": false,
+            "containerPrice": null
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-whole-venue-scope-unresolved",
+          "holdReason": "Current merchant title and mock-meat sets indicate vegetarian positioning, but AI generic meat descriptions and absent separate exact-premise whole-venue proof leave scope unresolved. No Eunos, AMK, Bedok or Serangoon menu transfer.",
+          "qualifier": "Research only: printed menu wording and list price, not ingredient or whole-venue certification.",
+          "verification": {
+            "checkedAt": "2026-10-16T07:40:32.273912+00:00",
+            "sourceIds": [
+              "ur12-jufu-hougang-fp"
+            ],
+            "verifiedFields": [
+              "printed merchant premise",
+              "current source product ID/name/category",
+              "printed SGD list price reconciled with visible DOM",
+              "description as printed"
+            ],
+            "unverifiedFields": [
+              "whole-venue vegetarian scope",
+              "actual meat versus mock ingredients",
+              "complete composition/allergens",
+              "options/defaults/portions",
+              "current stock",
+              "final checkout price"
+            ]
+          }
+        },
+        {
+          "id": "ur12-jufu-hougang-96996406",
+          "sourceProductId": "96996406",
+          "name": "Seaweed Roll",
+          "category": "Ala Carte 单点",
+          "sourceIds": [
+            "ur12-jufu-hougang-fp"
+          ],
+          "sourceDescription": "(AI) Savory seaweed wrapped around a delightful filling, offering a taste of the ocean with every bite",
+          "price": {
+            "amount": 3,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "sourcePriceAttributes": {
+            "__typename": "PriceAttributes",
+            "originalPrice": 3,
+            "discountedPrice": 2.55,
+            "displayFromTag": false,
+            "containerPrice": null
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-whole-venue-scope-unresolved",
+          "holdReason": "Current merchant title and mock-meat sets indicate vegetarian positioning, but AI generic meat descriptions and absent separate exact-premise whole-venue proof leave scope unresolved. No Eunos, AMK, Bedok or Serangoon menu transfer.",
+          "qualifier": "Research only: printed menu wording and list price, not ingredient or whole-venue certification.",
+          "verification": {
+            "checkedAt": "2026-10-16T07:40:32.273912+00:00",
+            "sourceIds": [
+              "ur12-jufu-hougang-fp"
+            ],
+            "verifiedFields": [
+              "printed merchant premise",
+              "current source product ID/name/category",
+              "printed SGD list price reconciled with visible DOM",
+              "description as printed"
+            ],
+            "unverifiedFields": [
+              "whole-venue vegetarian scope",
+              "actual meat versus mock ingredients",
+              "complete composition/allergens",
+              "options/defaults/portions",
+              "current stock",
+              "final checkout price"
+            ]
+          }
+        },
+        {
+          "id": "ur12-jufu-hougang-96996407",
+          "sourceProductId": "96996407",
+          "name": "Braised Toufu",
+          "category": "Ala Carte 单点",
+          "sourceIds": [
+            "ur12-jufu-hougang-fp"
+          ],
+          "sourceDescription": "(AI) Silken toufu gently braised in a savory sauce, absorbing rich flavors and offering a comforting dish",
+          "price": {
+            "amount": 6.8,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "sourcePriceAttributes": {
+            "__typename": "PriceAttributes",
+            "originalPrice": 6.8,
+            "discountedPrice": 5.779999999999999,
+            "displayFromTag": false,
+            "containerPrice": null
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-whole-venue-scope-unresolved",
+          "holdReason": "Current merchant title and mock-meat sets indicate vegetarian positioning, but AI generic meat descriptions and absent separate exact-premise whole-venue proof leave scope unresolved. No Eunos, AMK, Bedok or Serangoon menu transfer.",
+          "qualifier": "Research only: printed menu wording and list price, not ingredient or whole-venue certification.",
+          "verification": {
+            "checkedAt": "2026-10-16T07:40:32.273912+00:00",
+            "sourceIds": [
+              "ur12-jufu-hougang-fp"
+            ],
+            "verifiedFields": [
+              "printed merchant premise",
+              "current source product ID/name/category",
+              "printed SGD list price reconciled with visible DOM",
+              "description as printed"
+            ],
+            "unverifiedFields": [
+              "whole-venue vegetarian scope",
+              "actual meat versus mock ingredients",
+              "complete composition/allergens",
+              "options/defaults/portions",
+              "current stock",
+              "final checkout price"
+            ]
+          }
+        },
+        {
+          "id": "ur12-jufu-hougang-96996409",
+          "sourceProductId": "96996409",
+          "name": "Curry Vegetables",
+          "category": "Ala Carte 单点",
+          "sourceIds": [
+            "ur12-jufu-hougang-fp"
+          ],
+          "sourceDescription": "(AI) A medley of fresh vegetables simmered in a rich, aromatic curry sauce, offering a harmonious blend of flavors and textures",
+          "price": {
+            "amount": 6.8,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "sourcePriceAttributes": {
+            "__typename": "PriceAttributes",
+            "originalPrice": 6.8,
+            "discountedPrice": 5.779999999999999,
+            "displayFromTag": true,
+            "containerPrice": null
+          },
+          "hasUnreadChoices": true,
+          "publicationStatus": "hold-whole-venue-scope-unresolved",
+          "holdReason": "Current merchant title and mock-meat sets indicate vegetarian positioning, but AI generic meat descriptions and absent separate exact-premise whole-venue proof leave scope unresolved. No Eunos, AMK, Bedok or Serangoon menu transfer.",
+          "qualifier": "Research only: printed menu wording and list price, not ingredient or whole-venue certification.",
+          "verification": {
+            "checkedAt": "2026-10-16T07:40:32.273912+00:00",
+            "sourceIds": [
+              "ur12-jufu-hougang-fp"
+            ],
+            "verifiedFields": [
+              "printed merchant premise",
+              "current source product ID/name/category",
+              "printed SGD list price reconciled with visible DOM",
+              "description as printed"
+            ],
+            "unverifiedFields": [
+              "whole-venue vegetarian scope",
+              "actual meat versus mock ingredients",
+              "complete composition/allergens",
+              "options/defaults/portions",
+              "current stock",
+              "final checkout price"
+            ]
+          },
+          "configurationNotice": "Source flags choices; details, selection limits, defaults, portions and surcharges unread after ordinary browser403."
+        },
+        {
+          "id": "ur12-jufu-hougang-96996413",
+          "sourceProductId": "96996413",
+          "name": "Yam Roll",
+          "category": "Ala Carte 单点",
+          "sourceIds": [
+            "ur12-jufu-hougang-fp"
+          ],
+          "sourceDescription": "(AI) Savory and earthy yam filling wrapped in a delicate pastry and fried to a golden crisp",
+          "price": {
+            "amount": 2,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "sourcePriceAttributes": {
+            "__typename": "PriceAttributes",
+            "originalPrice": 2,
+            "discountedPrice": 1.7,
+            "displayFromTag": false,
+            "containerPrice": null
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-whole-venue-scope-unresolved",
+          "holdReason": "Current merchant title and mock-meat sets indicate vegetarian positioning, but AI generic meat descriptions and absent separate exact-premise whole-venue proof leave scope unresolved. No Eunos, AMK, Bedok or Serangoon menu transfer.",
+          "qualifier": "Research only: printed menu wording and list price, not ingredient or whole-venue certification.",
+          "verification": {
+            "checkedAt": "2026-10-16T07:40:32.273912+00:00",
+            "sourceIds": [
+              "ur12-jufu-hougang-fp"
+            ],
+            "verifiedFields": [
+              "printed merchant premise",
+              "current source product ID/name/category",
+              "printed SGD list price reconciled with visible DOM",
+              "description as printed"
+            ],
+            "unverifiedFields": [
+              "whole-venue vegetarian scope",
+              "actual meat versus mock ingredients",
+              "complete composition/allergens",
+              "options/defaults/portions",
+              "current stock",
+              "final checkout price"
+            ]
+          }
+        },
+        {
+          "id": "ur12-jufu-hougang-96996415",
+          "sourceProductId": "96996415",
+          "name": "Rice",
+          "category": "Ala Carte 单点",
+          "sourceIds": [
+            "ur12-jufu-hougang-fp"
+          ],
+          "sourceDescription": "(AI) Fluffy steamed white rice, a simple and essential accompaniment to any meal",
+          "price": {
+            "amount": 1.8,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "sourcePriceAttributes": {
+            "__typename": "PriceAttributes",
+            "originalPrice": 1.8,
+            "discountedPrice": 1.53,
+            "displayFromTag": false,
+            "containerPrice": null
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-whole-venue-scope-unresolved",
+          "holdReason": "Current merchant title and mock-meat sets indicate vegetarian positioning, but AI generic meat descriptions and absent separate exact-premise whole-venue proof leave scope unresolved. No Eunos, AMK, Bedok or Serangoon menu transfer.",
+          "qualifier": "Research only: printed menu wording and list price, not ingredient or whole-venue certification.",
+          "verification": {
+            "checkedAt": "2026-10-16T07:40:32.273912+00:00",
+            "sourceIds": [
+              "ur12-jufu-hougang-fp"
+            ],
+            "verifiedFields": [
+              "printed merchant premise",
+              "current source product ID/name/category",
+              "printed SGD list price reconciled with visible DOM",
+              "description as printed"
+            ],
+            "unverifiedFields": [
+              "whole-venue vegetarian scope",
+              "actual meat versus mock ingredients",
+              "complete composition/allergens",
+              "options/defaults/portions",
+              "current stock",
+              "final checkout price"
+            ]
+          }
+        },
+        {
+          "id": "ur12-jufu-hougang-96996416",
+          "sourceProductId": "96996416",
+          "name": "Curry Mutton",
+          "category": "Ala Carte 单点",
+          "sourceIds": [
+            "ur12-jufu-hougang-fp"
+          ],
+          "sourceDescription": "(AI) Tender mutton slow-cooked in a vibrant curry sauce with fragrant spices, creating a comforting and flavorful dish",
+          "price": {
+            "amount": 6.8,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "sourcePriceAttributes": {
+            "__typename": "PriceAttributes",
+            "originalPrice": 6.8,
+            "discountedPrice": 5.779999999999999,
+            "displayFromTag": true,
+            "containerPrice": null
+          },
+          "hasUnreadChoices": true,
+          "publicationStatus": "hold-whole-venue-scope-unresolved",
+          "holdReason": "Current merchant title and mock-meat sets indicate vegetarian positioning, but AI generic meat descriptions and absent separate exact-premise whole-venue proof leave scope unresolved. No Eunos, AMK, Bedok or Serangoon menu transfer.",
+          "qualifier": "Research only: printed menu wording and list price, not ingredient or whole-venue certification.",
+          "verification": {
+            "checkedAt": "2026-10-16T07:40:32.273912+00:00",
+            "sourceIds": [
+              "ur12-jufu-hougang-fp"
+            ],
+            "verifiedFields": [
+              "printed merchant premise",
+              "current source product ID/name/category",
+              "printed SGD list price reconciled with visible DOM",
+              "description as printed"
+            ],
+            "unverifiedFields": [
+              "whole-venue vegetarian scope",
+              "actual meat versus mock ingredients",
+              "complete composition/allergens",
+              "options/defaults/portions",
+              "current stock",
+              "final checkout price"
+            ]
+          },
+          "foodConflict": "AI-labelled generic meat/seafood wording remains unresolved; do not silently replace with mock ingredients or classify venue mixed solely from this description.",
+          "configurationNotice": "Source flags choices; details, selection limits, defaults, portions and surcharges unread after ordinary browser403."
+        },
+        {
+          "id": "ur12-jufu-hougang-96996419",
+          "sourceProductId": "96996419",
+          "name": "Mee Hoon",
+          "category": "Ala Carte 单点",
+          "sourceIds": [
+            "ur12-jufu-hougang-fp"
+          ],
+          "sourceDescription": "(AI) Delicate thin rice vermicelli, often stir-fried or served in a light broth, a versatile noodle option",
+          "price": {
+            "amount": 1.8,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "sourcePriceAttributes": {
+            "__typename": "PriceAttributes",
+            "originalPrice": 1.8,
+            "discountedPrice": 1.53,
+            "displayFromTag": false,
+            "containerPrice": null
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-whole-venue-scope-unresolved",
+          "holdReason": "Current merchant title and mock-meat sets indicate vegetarian positioning, but AI generic meat descriptions and absent separate exact-premise whole-venue proof leave scope unresolved. No Eunos, AMK, Bedok or Serangoon menu transfer.",
+          "qualifier": "Research only: printed menu wording and list price, not ingredient or whole-venue certification.",
+          "verification": {
+            "checkedAt": "2026-10-16T07:40:32.273912+00:00",
+            "sourceIds": [
+              "ur12-jufu-hougang-fp"
+            ],
+            "verifiedFields": [
+              "printed merchant premise",
+              "current source product ID/name/category",
+              "printed SGD list price reconciled with visible DOM",
+              "description as printed"
+            ],
+            "unverifiedFields": [
+              "whole-venue vegetarian scope",
+              "actual meat versus mock ingredients",
+              "complete composition/allergens",
+              "options/defaults/portions",
+              "current stock",
+              "final checkout price"
+            ]
+          }
+        },
+        {
+          "id": "ur12-jufu-hougang-96996420",
+          "sourceProductId": "96996420",
+          "name": "Fried Tou Fu",
+          "category": "Ala Carte 单点",
+          "sourceIds": [
+            "ur12-jufu-hougang-fp"
+          ],
+          "sourceDescription": "(AI) Lightly fried tofu, crispy on the outside and soft on the inside, a simple yet satisfying side dish",
+          "price": {
+            "amount": 2,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "sourcePriceAttributes": {
+            "__typename": "PriceAttributes",
+            "originalPrice": 2,
+            "discountedPrice": 1.7,
+            "displayFromTag": false,
+            "containerPrice": null
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-whole-venue-scope-unresolved",
+          "holdReason": "Current merchant title and mock-meat sets indicate vegetarian positioning, but AI generic meat descriptions and absent separate exact-premise whole-venue proof leave scope unresolved. No Eunos, AMK, Bedok or Serangoon menu transfer.",
+          "qualifier": "Research only: printed menu wording and list price, not ingredient or whole-venue certification.",
+          "verification": {
+            "checkedAt": "2026-10-16T07:40:32.273912+00:00",
+            "sourceIds": [
+              "ur12-jufu-hougang-fp"
+            ],
+            "verifiedFields": [
+              "printed merchant premise",
+              "current source product ID/name/category",
+              "printed SGD list price reconciled with visible DOM",
+              "description as printed"
+            ],
+            "unverifiedFields": [
+              "whole-venue vegetarian scope",
+              "actual meat versus mock ingredients",
+              "complete composition/allergens",
+              "options/defaults/portions",
+              "current stock",
+              "final checkout price"
+            ]
+          }
+        },
+        {
+          "id": "ur12-jufu-hougang-96996421",
+          "sourceProductId": "96996421",
+          "name": "Vegetarian Smoked Duck",
+          "category": "Ala Carte 单点",
+          "sourceIds": [
+            "ur12-jufu-hougang-fp"
+          ],
+          "sourceDescription": "(AI) Smoky plant-based duck alternative, offering rich, savory notes and a tender texture, suitable for vegetarians",
+          "price": {
+            "amount": 6.8,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "sourcePriceAttributes": {
+            "__typename": "PriceAttributes",
+            "originalPrice": 6.8,
+            "discountedPrice": 5.779999999999999,
+            "displayFromTag": false,
+            "containerPrice": null
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-whole-venue-scope-unresolved",
+          "holdReason": "Current merchant title and mock-meat sets indicate vegetarian positioning, but AI generic meat descriptions and absent separate exact-premise whole-venue proof leave scope unresolved. No Eunos, AMK, Bedok or Serangoon menu transfer.",
+          "qualifier": "Research only: printed menu wording and list price, not ingredient or whole-venue certification.",
+          "verification": {
+            "checkedAt": "2026-10-16T07:40:32.273912+00:00",
+            "sourceIds": [
+              "ur12-jufu-hougang-fp"
+            ],
+            "verifiedFields": [
+              "printed merchant premise",
+              "current source product ID/name/category",
+              "printed SGD list price reconciled with visible DOM",
+              "description as printed"
+            ],
+            "unverifiedFields": [
+              "whole-venue vegetarian scope",
+              "actual meat versus mock ingredients",
+              "complete composition/allergens",
+              "options/defaults/portions",
+              "current stock",
+              "final checkout price"
+            ]
+          }
+        },
+        {
+          "id": "ur12-jufu-hougang-96996422",
+          "sourceProductId": "96996422",
+          "name": "Brown Rice",
+          "category": "Ala Carte 单点",
+          "sourceIds": [
+            "ur12-jufu-hougang-fp"
+          ],
+          "sourceDescription": "(AI) Wholesome brown rice, steamed to a tender texture, offering a nutty flavor and added fiber",
+          "price": {
+            "amount": 2.2,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "sourcePriceAttributes": {
+            "__typename": "PriceAttributes",
+            "originalPrice": 2.2,
+            "discountedPrice": 1.87,
+            "displayFromTag": false,
+            "containerPrice": null
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-whole-venue-scope-unresolved",
+          "holdReason": "Current merchant title and mock-meat sets indicate vegetarian positioning, but AI generic meat descriptions and absent separate exact-premise whole-venue proof leave scope unresolved. No Eunos, AMK, Bedok or Serangoon menu transfer.",
+          "qualifier": "Research only: printed menu wording and list price, not ingredient or whole-venue certification.",
+          "verification": {
+            "checkedAt": "2026-10-16T07:40:32.273912+00:00",
+            "sourceIds": [
+              "ur12-jufu-hougang-fp"
+            ],
+            "verifiedFields": [
+              "printed merchant premise",
+              "current source product ID/name/category",
+              "printed SGD list price reconciled with visible DOM",
+              "description as printed"
+            ],
+            "unverifiedFields": [
+              "whole-venue vegetarian scope",
+              "actual meat versus mock ingredients",
+              "complete composition/allergens",
+              "options/defaults/portions",
+              "current stock",
+              "final checkout price"
+            ]
+          }
+        },
+        {
+          "id": "ur12-jufu-hougang-96996423",
+          "sourceProductId": "96996423",
+          "name": "Drumsticks",
+          "category": "Ala Carte 单点",
+          "sourceIds": [
+            "ur12-jufu-hougang-fp"
+          ],
+          "sourceDescription": "(AI) Tender and juicy drumsticks, seasoned and cooked to a savory finish",
+          "price": {
+            "amount": 3,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "sourcePriceAttributes": {
+            "__typename": "PriceAttributes",
+            "originalPrice": 3,
+            "discountedPrice": 2.55,
+            "displayFromTag": false,
+            "containerPrice": null
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-whole-venue-scope-unresolved",
+          "holdReason": "Current merchant title and mock-meat sets indicate vegetarian positioning, but AI generic meat descriptions and absent separate exact-premise whole-venue proof leave scope unresolved. No Eunos, AMK, Bedok or Serangoon menu transfer.",
+          "qualifier": "Research only: printed menu wording and list price, not ingredient or whole-venue certification.",
+          "verification": {
+            "checkedAt": "2026-10-16T07:40:32.273912+00:00",
+            "sourceIds": [
+              "ur12-jufu-hougang-fp"
+            ],
+            "verifiedFields": [
+              "printed merchant premise",
+              "current source product ID/name/category",
+              "printed SGD list price reconciled with visible DOM",
+              "description as printed"
+            ],
+            "unverifiedFields": [
+              "whole-venue vegetarian scope",
+              "actual meat versus mock ingredients",
+              "complete composition/allergens",
+              "options/defaults/portions",
+              "current stock",
+              "final checkout price"
+            ]
+          },
+          "foodConflict": "AI-labelled generic meat/seafood wording remains unresolved; do not silently replace with mock ingredients or classify venue mixed solely from this description."
+        },
+        {
+          "id": "ur12-jufu-hougang-96996425",
+          "sourceProductId": "96996425",
+          "name": "Dry Skin Goose Box",
+          "category": "Ala Carte 单点",
+          "sourceIds": [
+            "ur12-jufu-hougang-fp"
+          ],
+          "sourceDescription": "(AI) Crispy-skinned goose, prepared with a savory seasoning and served in a convenient box",
+          "price": {
+            "amount": 6.8,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "sourcePriceAttributes": {
+            "__typename": "PriceAttributes",
+            "originalPrice": 6.8,
+            "discountedPrice": 5.779999999999999,
+            "displayFromTag": false,
+            "containerPrice": null
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-whole-venue-scope-unresolved",
+          "holdReason": "Current merchant title and mock-meat sets indicate vegetarian positioning, but AI generic meat descriptions and absent separate exact-premise whole-venue proof leave scope unresolved. No Eunos, AMK, Bedok or Serangoon menu transfer.",
+          "qualifier": "Research only: printed menu wording and list price, not ingredient or whole-venue certification.",
+          "verification": {
+            "checkedAt": "2026-10-16T07:40:32.273912+00:00",
+            "sourceIds": [
+              "ur12-jufu-hougang-fp"
+            ],
+            "verifiedFields": [
+              "printed merchant premise",
+              "current source product ID/name/category",
+              "printed SGD list price reconciled with visible DOM",
+              "description as printed"
+            ],
+            "unverifiedFields": [
+              "whole-venue vegetarian scope",
+              "actual meat versus mock ingredients",
+              "complete composition/allergens",
+              "options/defaults/portions",
+              "current stock",
+              "final checkout price"
+            ]
+          },
+          "foodConflict": "AI-labelled generic meat/seafood wording remains unresolved; do not silently replace with mock ingredients or classify venue mixed solely from this description."
+        },
+        {
+          "id": "ur12-jufu-hougang-96996426",
+          "sourceProductId": "96996426",
+          "name": "Spring Roll",
+          "category": "Ala Carte 单点",
+          "sourceIds": [
+            "ur12-jufu-hougang-fp"
+          ],
+          "sourceDescription": "(AI) Crispy fried rolls filled with finely shredded vegetables and glass noodles, served with a tangy dipping sauce",
+          "price": {
+            "amount": 2,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "sourcePriceAttributes": {
+            "__typename": "PriceAttributes",
+            "originalPrice": 2,
+            "discountedPrice": 1.7,
+            "displayFromTag": false,
+            "containerPrice": null
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-whole-venue-scope-unresolved",
+          "holdReason": "Current merchant title and mock-meat sets indicate vegetarian positioning, but AI generic meat descriptions and absent separate exact-premise whole-venue proof leave scope unresolved. No Eunos, AMK, Bedok or Serangoon menu transfer.",
+          "qualifier": "Research only: printed menu wording and list price, not ingredient or whole-venue certification.",
+          "verification": {
+            "checkedAt": "2026-10-16T07:40:32.273912+00:00",
+            "sourceIds": [
+              "ur12-jufu-hougang-fp"
+            ],
+            "verifiedFields": [
+              "printed merchant premise",
+              "current source product ID/name/category",
+              "printed SGD list price reconciled with visible DOM",
+              "description as printed"
+            ],
+            "unverifiedFields": [
+              "whole-venue vegetarian scope",
+              "actual meat versus mock ingredients",
+              "complete composition/allergens",
+              "options/defaults/portions",
+              "current stock",
+              "final checkout price"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "ur12-kale-midpoint-menu-gap",
+      "name": "Current exact-branch menu unavailable",
+      "scope": "branch-delivery",
+      "branchIds": [
+        "ur12-kale-midpoint"
+      ],
+      "sourceIds": [
+        "ur12-kale-midpoint-fp"
+      ],
+      "coverage": "unavailable",
+      "publicationStatus": "hold-whole-venue-scope-unresolved",
+      "notice": "Current exact merchant URL redirects; own social channel blocked; independent5October2026closure report lacks current primary confirmation. Current operation and named menu remain unresolved. No permanent closure inference.",
+      "items": []
+    },
+    {
+      "id": "ur12-evergreen-geylang-menu-gap",
+      "name": "Current exact-branch menu unavailable",
+      "scope": "branch-delivery",
+      "branchIds": [
+        "ur12-evergreen-geylang"
+      ],
+      "sourceIds": [
+        "ur12-evergreen-geylang-fp"
+      ],
+      "coverage": "unavailable",
+      "publicationStatus": "hold-whole-venue-scope-unresolved",
+      "notice": "Current exact delivery merchant page has no food products. Separate primary whole-venue positioning and current named menu unavailable; secondary vegetarian account remains qualified.",
+      "items": []
+    }
+  ],
+  "summary": {
+    "branches": 3,
+    "menus": 3,
+    "foodRows": 22,
+    "approvedFoodRows": 0,
+    "heldFoodRows": 22,
+    "zeroFoodBranches": 2,
+    "unreadCustomizers": 6
+  }
+}

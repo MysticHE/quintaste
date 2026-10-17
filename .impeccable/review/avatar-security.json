@@ -1,0 +1,14 @@
+{
+  "checks": [
+    "Fail closed: no key, disabled, invalid model, production, CSRF, missing/wrong owner and non-TLS LAN",
+    "Uploads reject SVG, URL, bad base64, broken images, oversized bodies, missing consent and pixel bombs; strip metadata",
+    "Concurrent submissions reserve once, fixed four-frame recipe, owner-only recovery, no photo persistence",
+    "Provider errors are sanitized, never retried, and never publish partial frames",
+    "Cancellation before upload and during a provider call stops remaining frames",
+    "Durable per-owner and global daily ceilings, replay after process loss, corrupt ledger fail closed",
+    "Deleting a collection revokes capability and cancels pending frames"
+  ],
+  "paidNetworkCalls": 0,
+  "liveProviderTested": false,
+  "passed": true
+}

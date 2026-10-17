@@ -1,0 +1,59 @@
+{
+  "date": "2026-10-15",
+  "status": "complete",
+  "scope": "Targeted existing-world Cook documentation; no source edits or unrelated avatar changes.",
+  "writtenPaths": [
+    "DESIGN.md",
+    "PRODUCT.md",
+    "AGENTS.md",
+    "docs/COOK_READINESS.md",
+    "docs/PRD_COVERAGE.md",
+    ".impeccable/surfaces/cook.md",
+    ".impeccable/design/quintaste.json",
+    ".impeccable/review/compact-cook-documentation.json"
+  ],
+  "recorded": [
+    "Cook-scoped type/control density and48-unit targets",
+    "88x100 default /56x80 narrow enlarged-text recipe browse rows with visible evidence and independent Save",
+    "Active-only resume and one-tap final-step completion",
+    "Matching-version legacy cleanup preserves timers/notes and mismatched-revision guard",
+    "Mounted secondary disclosures preserve draft input; ingredients/evidence and total minutes visible",
+    "Current compact browser/state/native/gates evidence and local/publication boundaries",
+    "Explicit shared AvatarPortrait image dimensions prevent intrinsic-image clipping in compact header; finish ships bounded scored corrections. RecipeRow targeted lint clean; existing AvatarPortrait animation-ref errors remain, none in two image-size styles."
+  ],
+  "evidence": {
+    "browserPassed": true,
+    "flowGroups": 5,
+    "captures": 23,
+    "axeScans": 4,
+    "axeViolations": 0,
+    "runtimeErrors": 0,
+    "primaryHeight": 48,
+    "stateChecks": 4,
+    "nativeAppearanceVerified": false,
+    "nativeAlertAcceptance": false,
+    "wholeRepositoryGate": "TypeScript passes; global lint blocked by unrelated concurrent avatar implementation errors/warnings. Earlier typecheck failures retained in gate history.",
+    "recoveryGroups": 3,
+    "recoveryCaptures": 4,
+    "totalCaptures": 27,
+    "finalRecapture": {
+      "path": ".impeccable/review/compact-cook-recapture.json",
+      "passed": true,
+      "allVisibleImagesLoaded": true,
+      "thumbnailWidth": 56,
+      "viewport": 320,
+      "textSize": "larger",
+      "nativeFontScaleIncluded": true
+    },
+    "finish": {
+      "path": ".impeccable/review/compact-cook-finish.json",
+      "disposition": "ship for scored corrections only"
+    }
+  },
+  "notCanonized": "No new visual identity or whole-app compact override; transport is not native appearance/alert evidence.",
+  "verification": {
+    "jsonParsed": true,
+    "diffCheck": "passed",
+    "newLocalLinks": "verified"
+  }
+}

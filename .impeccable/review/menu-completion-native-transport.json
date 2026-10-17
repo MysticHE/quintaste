@@ -1,0 +1,15 @@
+{
+  "checkedAt": "2026-10-16T01:25:26.595Z",
+  "status": "passed",
+  "manifestStatus": 200,
+  "bundleStatus": 200,
+  "bytes": 9838684,
+  "sha256": "600eb4a0ed070fe6457fafce8ddd8fd59f38de3f40e5360313857920854a1852",
+  "privateKeysBundled": false,
+  "privateReviewerKeyBundled": false,
+  "rawResearchBundled": false,
+  "publicMenuCachePresent": true,
+  "physicalDeviceAppearanceVerified": false,
+  "physicalDevicePerformanceVerified": false,
+  "productionDeploymentVerified": false
+}

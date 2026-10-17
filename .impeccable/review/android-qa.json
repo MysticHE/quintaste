@@ -1,0 +1,14 @@
+{
+  "status": "passed",
+  "checks": [
+    "Startup to sign-in navigation",
+    "Empty form feedback",
+    "Preview profile opens with example inputs",
+    "Settings and diet changes",
+    "Independent Garlic and Onion exclusions",
+    "Visible save confirmation",
+    "Android hardware Back to settings"
+  ],
+  "device": "Android API 36.1 headless phone emulator, Expo Go 57.0.9",
+  "note": "The initial automation could not tap a header that had scrolled off-screen; hardware Back completed the return."
+}

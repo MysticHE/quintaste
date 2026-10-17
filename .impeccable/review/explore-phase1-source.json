@@ -1,0 +1,20 @@
+{
+  "status": "pass",
+  "checks": [
+    "Raw device/permission/timeout messages map to controlled recovery labels",
+    "Cuisine/price/Saved persist, invalid and removed legacy settings normalize",
+    "Server input validates supported cuisine and numeric price bands",
+    "Cuisine and price changes invalidate accepted result context",
+    "Price and cuisine use supported Text Search while retaining strict diet and location",
+    "Google price enums normalize; unknown price remains unknown",
+    "Saved-only and explicit price filter actual cards; unknowns remain in Any",
+    "Disabled services stop before foreground permission or GPS",
+    "Denied permission never starts position lookup",
+    "Cancellation after permission/cache discards late work before GPS",
+    "Fresh coarse cached position is reused",
+    "Balanced foreground GPS disables native settings popup"
+  ],
+  "actualGoogleRequests": 0,
+  "scope": "Source utilities/provider request construction; injected Expo location implementation",
+  "timestamp": "2026-10-15T03:24:01.310Z"
+}

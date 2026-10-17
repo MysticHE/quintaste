@@ -1,0 +1,129 @@
+name: quintaste-staging
+services:
+  db:
+    image: postgres:17-bookworm
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: quintaste
+      POSTGRES_DB: quintaste
+      POSTGRES_PASSWORD: ${DB_PASSWORD:?Set DB_PASSWORD}
+      APP_DB_PASSWORD: ${APP_DB_PASSWORD:?Set APP_DB_PASSWORD}
+    volumes:
+      - ./postgres:/var/lib/postgresql/data
+      - ./init-db.sh:/docker-entrypoint-initdb.d/10-quintaste-roles.sh:ro
+    networks: [private]
+    mem_limit: 512m
+    cpus: 0.5
+    security_opt: [no-new-privileges:true]
+    healthcheck:
+      test: [CMD-SHELL, 'pg_isready -U quintaste -d quintaste']
+      interval: 10s
+      timeout: 3s
+      retries: 10
+    logging: &logging
+      driver: json-file
+      options: { max-size: 10m, max-file: '3' }
+  app:
+    image: ${APP_IMAGE:?Set APP_IMAGE}
+    restart: unless-stopped
+    env_file: [./runtime.env]
+    environment: { NODE_ENV: production, PORT: '3000' }
+    depends_on:
+      db: { condition: service_healthy }
+    volumes:
+      - ./state:/app/.local
+    networks: [private, edge]
+    mem_limit: 768m
+    cpus: 0.75
+    pids_limit: 160
+    read_only: true
+    tmpfs: [/tmp:size=64m]
+    security_opt: [no-new-privileges:true]
+    cap_drop: [ALL]
+    healthcheck:
+      test: [CMD, node, -e, "fetch('http://127.0.0.1:3000/healthz').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+    labels:
+      traefik.enable: 'true'
+      traefik.docker.network: quintaste-edge
+      traefik.http.routers.quintaste.rule: Host(`${APP_HOST}`)
+      traefik.http.routers.quintaste.entrypoints: websecure
+      traefik.http.routers.quintaste.tls.certresolver: letsencrypt
+      traefik.http.routers.quintaste.middlewares: quintaste-body
+      traefik.http.middlewares.quintaste-body.buffering.maxRequestBodyBytes: '16384'
+      traefik.http.services.quintaste.loadbalancer.server.port: '3000'
+      traefik.http.routers.quintaste-editorial.rule: Host(`${APP_HOST}`) && Path(`/api/editorial/control/publish`)
+      traefik.http.routers.quintaste-editorial.priority: '110'
+      traefik.http.routers.quintaste-editorial.entrypoints: websecure
+      traefik.http.routers.quintaste-editorial.tls.certresolver: letsencrypt
+      traefik.http.routers.quintaste-editorial.service: quintaste
+      traefik.http.routers.quintaste-editorial.middlewares: quintaste-editorial-body,quintaste-editorial-rate
+      traefik.http.middlewares.quintaste-editorial-body.buffering.maxRequestBodyBytes: '2000000'
+      traefik.http.middlewares.quintaste-editorial-body.buffering.memRequestBodyBytes: '2000000'
+      traefik.http.middlewares.quintaste-editorial-rate.ratelimit.average: '1'
+      traefik.http.middlewares.quintaste-editorial-rate.ratelimit.burst: '3'
+      traefik.http.routers.quintaste-reviews.rule: Host(`${APP_HOST}`) && PathPrefix(`/api/place-reviews/`)
+      traefik.http.routers.quintaste-reviews.priority: '105'
+      traefik.http.routers.quintaste-reviews.entrypoints: websecure
+      traefik.http.routers.quintaste-reviews.tls.certresolver: letsencrypt
+      traefik.http.routers.quintaste-reviews.service: quintaste
+      traefik.http.routers.quintaste-reviews.middlewares: quintaste-reviews-body,quintaste-reviews-rate
+      traefik.http.middlewares.quintaste-reviews-body.buffering.maxRequestBodyBytes: '4300000'
+      traefik.http.middlewares.quintaste-reviews-body.buffering.memRequestBodyBytes: '4300000'
+      traefik.http.middlewares.quintaste-reviews-rate.ratelimit.average: '30'
+      traefik.http.middlewares.quintaste-reviews-rate.ratelimit.burst: '40'
+      traefik.http.routers.quintaste-market-uploads.rule: Host(`${APP_HOST}`) && (Method(`POST`) && Path(`/api/market/seller/listings`) || Method(`PUT`) && PathRegexp(`^/api/market/seller/listings/[0-9a-f-]{36}$`))
+      traefik.http.routers.quintaste-market-uploads.priority: '106'
+      traefik.http.routers.quintaste-market-uploads.entrypoints: websecure
+      traefik.http.routers.quintaste-market-uploads.tls.certresolver: letsencrypt
+      traefik.http.routers.quintaste-market-uploads.service: quintaste
+      traefik.http.routers.quintaste-market-uploads.middlewares: quintaste-market-uploads-body,quintaste-market-uploads-rate
+      traefik.http.middlewares.quintaste-market-uploads-body.buffering.maxRequestBodyBytes: '6291456'
+      traefik.http.middlewares.quintaste-market-uploads-body.buffering.memRequestBodyBytes: '6291456'
+      traefik.http.middlewares.quintaste-market-uploads-rate.ratelimit.average: '10'
+      traefik.http.middlewares.quintaste-market-uploads-rate.ratelimit.burst: '15'
+    logging: *logging
+  preview:
+    image: ${PREVIEW_IMAGE:?Set PREVIEW_IMAGE}
+    restart: unless-stopped
+    environment:
+      EXPO_PUBLIC_API_URL: https://${APP_HOST}
+      EXPO_PUBLIC_AUTH_ENABLED: 'true'
+      EXPO_PACKAGER_PROXY_URL: https://${PREVIEW_HOST}
+      PREVIEW_HOST: ${PREVIEW_HOST}
+      NODE_OPTIONS: --max-old-space-size=1400
+      EXPO_NO_DOTENV: '1'
+      EXPO_TELEMETRY_DISABLED: '1'
+      CI: '1'
+    networks: [edge]
+    volumes:
+      - ./preview-expo-state:/home/node/.expo
+    mem_limit: 1800m
+    cpus: 0.75
+    pids_limit: 180
+    read_only: false
+    tmpfs:
+      - /tmp:size=256m
+      - /app/.expo:uid=1000,gid=1000,size=128m
+    security_opt: [no-new-privileges:true]
+    cap_drop: [ALL]
+    healthcheck:
+      test: [CMD, node, -e, "fetch('http://127.0.0.1:8080/status').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 90s
+    labels:
+      traefik.enable: 'true'
+      traefik.docker.network: quintaste-edge
+      traefik.http.routers.quintaste-preview.rule: Host(`${PREVIEW_HOST}`)
+      traefik.http.routers.quintaste-preview.entrypoints: websecure
+      traefik.http.routers.quintaste-preview.tls.certresolver: letsencrypt
+      traefik.http.services.quintaste-preview.loadbalancer.server.port: '8080'
+    logging: *logging
+networks:
+  private: { internal: true }
+  edge: { name: quintaste-edge }

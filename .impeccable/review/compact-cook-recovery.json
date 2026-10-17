@@ -1,0 +1,15 @@
+{
+  "checks": [
+    "Failed finish save has visible Retry, retry clears persisted session",
+    "320px larger text Cook, guided cooking and editor have no horizontal overflow",
+    "Loaded cooking step works offline"
+  ],
+  "captures": [
+    "compact-cook-large-cooking.png",
+    "compact-cook-finish-save-error.png",
+    "compact-cook-large-home.png",
+    "compact-cook-large-editor.png"
+  ],
+  "errors": [],
+  "passed": true
+}

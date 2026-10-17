@@ -1,0 +1,103 @@
+{
+  "startedAt": "2026-10-16T10:10:34.562Z",
+  "url": "http://127.0.0.1:8083",
+  "checks": [
+    {
+      "name": "swaad-shenton3",
+      "status": "passed",
+      "foods": 8,
+      "menuGap404": false,
+      "publicFingerprint": "59be93d5575dd934565a6705de6ff0091d35f39f7d83796c2d9c1fc0be9abeeb"
+    },
+    {
+      "name": "mod-cafe-kuo-chuan",
+      "status": "passed",
+      "foods": 27,
+      "menuGap404": false,
+      "publicFingerprint": "45e51d36508ce5002ce4a142ecca37b7a26de1b152cca5f6657337656f5d6118"
+    },
+    {
+      "name": "origanics-woodleigh-lead",
+      "status": "passed",
+      "foods": 0,
+      "menuGap404": true,
+      "publicFingerprint": null
+    },
+    {
+      "name": "origanics-buangkok-lead",
+      "status": "passed",
+      "foods": 0,
+      "menuGap404": true,
+      "publicFingerprint": null
+    }
+  ],
+  "screenshots": [
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-18-browser\\swaad-shenton3-320.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-18-browser\\swaad-shenton3-768.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-18-browser\\swaad-shenton3-1440.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-18-browser\\mod-cafe-kuo-chuan-320.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-18-browser\\mod-cafe-kuo-chuan-768.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-18-browser\\mod-cafe-kuo-chuan-1440.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-18-browser\\origanics-woodleigh-lead-320.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-18-browser\\origanics-woodleigh-lead-768.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-18-browser\\origanics-woodleigh-lead-1440.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-18-browser\\origanics-buangkok-lead-320.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-18-browser\\origanics-buangkok-lead-768.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-18-browser\\origanics-buangkok-lead-1440.png"
+  ],
+  "errors": [],
+  "pageErrors": [],
+  "unexpectedConsoleErrors": [],
+  "blockedApiRequests": [],
+  "blockedExternalRequests": [],
+  "apiRequests": [],
+  "a11y": [
+    {
+      "label": "swaad-shenton3",
+      "violations": []
+    },
+    {
+      "label": "mod-cafe-kuo-chuan",
+      "violations": []
+    },
+    {
+      "label": "origanics-woodleigh-lead",
+      "violations": []
+    },
+    {
+      "label": "origanics-buangkok-lead",
+      "violations": []
+    }
+  ],
+  "forwardedProviderCalls": 0,
+  "installedChromeUsed": false,
+  "catalogue": {
+    "locations": 175,
+    "sourceMenus": 223,
+    "foodOccurrences": 12084
+  },
+  "unchangedMenuEvidence": {
+    "path": "menu-full-16-browser.json",
+    "basis": "Original dates retained for unchanged Co+Nut+Ink/Fennel and prior functional checks."
+  },
+  "finishedAt": "2026-10-16T10:12:33.485Z",
+  "passed": true,
+  "visualReview": {
+    "status": "passed",
+    "reviewedAt": "2026-10-16T10:14:49.637837+00:00",
+    "capturesInspected": 12,
+    "widths": [
+      320,
+      768,
+      1440
+    ],
+    "contactSheets": [
+      "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-18-browser\\swaad-shenton3-contact.png",
+      "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-18-browser\\mod-cafe-kuo-chuan-contact.png",
+      "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-18-browser\\origanics-woodleigh-lead-contact.png",
+      "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-18-browser\\origanics-buangkok-lead-contact.png"
+    ],
+    "findings": "All12 current captures visually inspected. Source options, unknown currency and unpublished gap screens retained; zero scoped axe violations/overflow. This is not native/production acceptance."
+  },
+  "googleLedgerUnchanged": true
+}

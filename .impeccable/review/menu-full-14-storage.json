@@ -1,0 +1,13 @@
+{
+  "checkedAt": "2026-10-16T08:35:48.946183+00:00",
+  "units": "logical bytes; overlapping categories are not additive database size",
+  "compiledMenuJsonBytes": 5738063,
+  "compiledResearchBytes": 5530726,
+  "sourceRegisterBytes": 13887628,
+  "researchJsonBytesIncludingArchivesAndRegister": 48195204,
+  "privateQaBytes": 2609518850,
+  "freeDiskBytes": 636035366912,
+  "googleLedgerBytes": 1045377,
+  "googleLedgerSha256": "c7321dafaad0473583139494ca899501578892c5b71105429d3cd4dceb4f311a",
+  "googleRequestsMade": 0
+}

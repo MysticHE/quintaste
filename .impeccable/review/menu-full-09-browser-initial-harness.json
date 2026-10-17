@@ -1,0 +1,24 @@
+{
+  "startedAt": "2026-10-16T06:37:49.048Z",
+  "url": "http://127.0.0.1:8083",
+  "checks": [],
+  "screenshots": [],
+  "errors": [
+    "AssertionError [ERR_ASSERTION]: The input did not match the regular expression /9 pieces/. Input:\n\n'Steamed Dumplings (9pcs) 蒸饺（9颗）\\n' +\n  'Dated merchant menu observation. Source dollar amounts do not state a currency code. Complete ingredients, dietary suitability, current stock and final charges unconfirmed. · Merchant base price; option additions and final charges may apply. Dollar currency is unstated.\\n' +\n  '9.00 · currency unstated'\n\n    at main (C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-09-qa.cjs:61:168)"
+  ],
+  "pageErrors": [],
+  "unexpectedConsoleErrors": [],
+  "blockedApiRequests": [],
+  "blockedExternalRequests": [],
+  "apiRequests": [],
+  "a11y": [],
+  "forwardedProviderCalls": 0,
+  "installedChromeUsed": false,
+  "finishedAt": "2026-10-16T06:38:04.645Z",
+  "passed": false,
+  "visualReview": {
+    "status": "pending",
+    "inspectedScreenshots": []
+  },
+  "googleLedgerUnchanged": true
+}

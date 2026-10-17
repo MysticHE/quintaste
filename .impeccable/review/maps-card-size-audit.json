@@ -1,0 +1,13 @@
+{
+  "files": 17,
+  "maxFile": {
+    "file": "src\\components\\Screen.tsx",
+    "lines": 164
+  },
+  "maxFunction": {
+    "file": "src\\screens\\food\\Explore.tsx",
+    "line": 20,
+    "lines": 49
+  },
+  "violations": []
+}

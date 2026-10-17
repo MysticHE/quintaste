@@ -1,0 +1,18 @@
+{
+  "checkedAt": "2026-10-16T06:49:06.161326+00:00",
+  "passed": true,
+  "commands": [
+    {
+      "command": "npx tsc --noEmit",
+      "exitCode": 0,
+      "result": "Observed silent successful completion in session62321."
+    },
+    {
+      "command": "npx expo lint",
+      "exitCode": 0,
+      "result": "Observed successful completion in session2907."
+    }
+  ],
+  "publicationChecks": ".impeccable/review/menu-full-09-publication.json",
+  "googleRequestsMade": 0
+}

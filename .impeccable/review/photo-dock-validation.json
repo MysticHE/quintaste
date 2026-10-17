@@ -1,0 +1,192 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-14T14:24:00.964Z",
+  "scope": "Final lighter photo-only blur from the measured place-name midpoint, white photo text, narrow mobile insets and icon-only glass dock",
+  "source": {
+    "expoSdk": 57,
+    "expoBlur": "~57.0.3",
+    "reactNativeSvg": "15.15.4",
+    "files": {
+      "AGENTS.md": {
+        "sha256": "f4e19034e4a2f7d7610121591569f784abe1f0133bba1ca8bf7f71f25ce76f8f",
+        "lines": 62
+      },
+      "package.json": {
+        "sha256": "6a4dc2a640c69bdc764f10e5de41b806634f6c90e874265fa6d1bca5b2764048",
+        "lines": 61
+      },
+      "package-lock.json": {
+        "sha256": "a650ffbbdf4ed45c09b813f2be9edcd10bfdb512a3cc7add03a69cab6ce66380",
+        "lines": 12359
+      },
+      "src/screens/food/Explore.tsx": {
+        "sha256": "881cdfa06473d47a6eeb06035b19ac286d547d2155dd636f9fcc3989528873db",
+        "lines": 64
+      },
+      "src/state/Discovery.tsx": {
+        "sha256": "77da53960f1a1cacc4aa4e6f7abfff409c327805de6deb8c43cc6811fa89aa7d",
+        "lines": 67
+      },
+      "src/components/food/Controls.tsx": {
+        "sha256": "572f9979d141bbe02f10c64caf3f19d9065923e2e3bf46cc0dde57b80be0f66e",
+        "lines": 102
+      },
+      "src/components/food/AreaHeading.tsx": {
+        "sha256": "af07772ba561cf39e367b6cef3aa32e903199af01504fc23d162d99a22231c94",
+        "lines": 23
+      },
+      "src/components/discovery/LivePlaceCard.tsx": {
+        "sha256": "f29d94e47cc63734fbe1945a1eb1156d0d14eebadd199fd778e9b495543c264f",
+        "lines": 90
+      },
+      "src/components/discovery/GooglePhoto.tsx": {
+        "sha256": "f27c9287565d6cc45e032737fad141f2c4d35deae2173325256240891533aea9",
+        "lines": 60
+      },
+      "src/components/discovery/GooglePhotoViewer.tsx": {
+        "sha256": "c200be15498f8b2a6f5b2137b631cf3d64e923ac98abc7ef216ae40596426a48",
+        "lines": 33
+      },
+      "src/components/navigation/TabDock.tsx": {
+        "sha256": "cf7b31c769cfd38cba7df3d432bbc3b6c57cbe67b287c51a2f43a90cf2b1640c",
+        "lines": 80
+      },
+      "src/components/navigation/GlassNavigation.tsx": {
+        "sha256": "19d22f39fcacac5c0759691f77b4b172814ec5be68fe4f17ba7d451448cb5648",
+        "lines": 41
+      },
+      "src/components/navigation/QuinTasteIcon.tsx": {
+        "sha256": "4a67db65fbec8fe36c6c6c78e9014c3e1afb48cce94cf1cc569011bf7dc324cc",
+        "lines": 33
+      },
+      "src/components/Screen.tsx": {
+        "sha256": "3c36e275f3efee95bc2e5ddf784b6beeae519b1b799889575757f48c572ba177",
+        "lines": 161
+      },
+      "src/app/(tabs)/_layout.tsx": {
+        "sha256": "6eab6445a770a6be329049edc500b5e3bac7f65d7972c7055b20eb5ac505ac77",
+        "lines": 18
+      },
+      "src/theme/tokens.ts": {
+        "sha256": "8e572fbb876e4a30ff91f06825b3fe509deeb5fa34df31591d5f0a1d86dd20ba",
+        "lines": 154
+      },
+      "src/components/discovery/GooglePhotoBackdrop.tsx": {
+        "sha256": "50639da34a27fc4f41629fa8ea6d088f1fbdcc850834b43d49c4e0fad9c24f90",
+        "lines": 34
+      },
+      "src/components/discovery/PhotoBlend.tsx": {
+        "sha256": "7425b5d7197b66cd1ba5eadaa148a47cb97f05eee7d318b1ea0a27b030f26277",
+        "lines": 11
+      },
+      "src/components/discovery/PhotoBlend.native.tsx": {
+        "sha256": "944c592b8b681a445e06ade1ae6e13361e1e5c10a40bf5361e44e1b0922483c1",
+        "lines": 15
+      },
+      "src/hooks/usePhotoData.ts": {
+        "sha256": "dea973cd7fc6e89fb6e7bdcf0498e394b77a4b7407d5b07bcb997873a8663164",
+        "lines": 68
+      }
+    },
+    "removed": [
+      "src/components/navigation/TabGlow.tsx"
+    ],
+    "maskedView": "0.3.2",
+    "expoImage": "~57.0.5",
+    "qaScript": {
+      "path": "C:/Users/huien/QT/tmp/qa/photo-dock-playwright.cjs",
+      "sha256": "887d4d078663fa46a2850c7c0aa2018984cfc7b3b0c243c17b504fcb54b19aa6"
+    }
+  },
+  "design": {
+    "header": "Location inside Search places; Filters and Map alongside; no Explore profile or descriptive footer",
+    "photoCards": "Rounded22; clear upper half; measured lower-half white Nunito names18/metadata12; blurRadius2 starts at measured name midpoint and feathers12px; no pale backing. Semantic dark fade has32px lead-in and .62/.64 opacity.",
+    "photoRetention": "One no-store proxy fetch shared by aligned clear/blur raster layers; memory-only data URI; none image cache; maximum original5min lifetime,20s timeout, guarded FileReader cancellation/Blob release and unmount cleanup.",
+    "navigation": "Focused-scene blur70 and translucent family glass .22light/.64dark; full width/bottom,top corners24,transparent host; icon-only48dp interaction row,52px web dock,62x40 selection/hover lens with inset highlight; accessible labels retained",
+    "compactHorizontalPadding": 8,
+    "removedCopy": [
+      "Ingredient evidence listing row",
+      "Dedicated source/photo author footer",
+      "Refresh business information prompt",
+      "Browse more in Google Maps action",
+      "Explore descriptive/footer copy"
+    ]
+  },
+  "verification": {
+    "typecheck": {
+      "command": "npx tsc --noEmit",
+      "exitCode": 0
+    },
+    "lint": {
+      "command": "npx expo lint",
+      "exitCode": 0,
+      "warnings": 0
+    },
+    "playwright": {
+      "report": ".impeccable/review/photo-dock-playwright.json",
+      "verdict": "passed",
+      "checks": 23,
+      "viewports": [
+        "375x812light",
+        "768x1024light",
+        "1440x900light",
+        "375x812dark"
+      ],
+      "screenshots": [
+        "C:/Users/huien/QT/quintaste/.impeccable/review/photo-dock-web-375.png",
+        "C:/Users/huien/QT/quintaste/.impeccable/review/photo-dock-web-hover.png",
+        "C:/Users/huien/QT/quintaste/.impeccable/review/photo-dock-web-photo-viewer.png",
+        "C:/Users/huien/QT/quintaste/.impeccable/review/photo-dock-web-768.png",
+        "C:/Users/huien/QT/quintaste/.impeccable/review/photo-dock-web-1440.png",
+        "C:/Users/huien/QT/quintaste/.impeccable/review/photo-dock-web-375-dark.png"
+      ],
+      "rootVisuallyInspected": true,
+      "runtimeErrors": 0,
+      "consoleErrors": 0,
+      "networkFailures": 0,
+      "initialPhotoCards": 3,
+      "initialPhotoRequests": 3,
+      "pressedOpacityPreserved": true,
+      "requestBehavior": "Entry1,return0extra,five-minute expiry1new,unchanged search tools0extra",
+      "axeScope": "Search/navigation/live listing A/AA rules;zero violations;contrast and label/name incompletes remain;no WCAG compliance claim"
+    },
+    "sourceReview": {
+      "status": "pass",
+      "reviewer": "/root/photo_dock_code_review",
+      "remainingMaterialFindings": 0,
+      "includesExternalQaAdditions": true
+    },
+    "contrastBounds": {
+      "whiteMinimum": 4.816,
+      "amberStarMinimum": 3.344,
+      "method": "Source-token worst-white photo at .62 minimum fade; text/shade opacity1 retained on press;not native screenshot acceptance"
+    }
+  },
+  "nativeTransport": {
+    "manifestStatus": 200,
+    "bundleStatus": 200,
+    "bundleBytes": 8635670,
+    "launchHost": "192.168.1.5",
+    "hasPhotoRaster": true,
+    "hasPhotoFeather": true,
+    "hasMemoryCancellation": true,
+    "hasIconOnlyLens": true,
+    "privateSecretAbsent": true,
+    "privateVariableNameAbsent": true,
+    "status": "packager-status:running",
+    "serverSession": 5816,
+    "expoGoUrl": "exp://192.168.1.5:8083",
+    "qr": "C:/Users/huien/QT/tmp/qa/discovery/expo-go-lan-8083-current.png",
+    "qrDecodeVerified": true
+  },
+  "nativeVisualAcceptance": {
+    "status": "recapture",
+    "reason": "Current Android/iOS phone/tablet native screenshots unavailable. Web screenshots and successful bundle transport do not establish device blur,mask/crop alignment,touch,text scaling or accessibility."
+  },
+  "limits": [
+    "No full PRD completion claim",
+    "No live Google catalogue persistence",
+    "No generated replacement provider photos",
+    "No native fidelity or full accessibility acceptance"
+  ]
+}

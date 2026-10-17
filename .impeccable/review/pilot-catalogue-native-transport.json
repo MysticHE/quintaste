@@ -1,0 +1,11 @@
+{
+  "manifestStatus": 200,
+  "bundleStatus": 200,
+  "bytes": 9265950,
+  "reviewScreenIncluded": true,
+  "privateGoogleKey": false,
+  "privateReviewerKey": false,
+  "serverStoreBundled": false,
+  "researchDataBundled": false,
+  "nativeDeviceAppearanceVerified": false
+}

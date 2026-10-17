@@ -1,0 +1,217 @@
+{
+  "version": 1,
+  "checkedAt": "2026-10-16T09:32:32.453970+00:00",
+  "status": "reviewed-canonical-amendments-with-holds",
+  "googleRequestsMade": 0,
+  "sources": [
+    {
+      "id": "ur16-conut-haji",
+      "url": "https://www.foodpanda.sg/restaurant/ufu1/co-nut-ink-2-haji-lane",
+      "publisher": "Foodpanda / merchant listing",
+      "title": "conut-haji current delivery catalogue",
+      "checkedAt": "2026-10-16T09:25:07.263Z",
+      "accessStatus": "normal-http-200",
+      "notes": "All current unique productIDs/names/categories/SGD list prices reconcile with same-response visible DOM, harmless surrounding whitespace normalized. Normal browser403 preserved without workaround; customization inventories/defaults/surcharges unread. Popular repeats not extracted. Current delivery ordering status is not permanent closure proof."
+    },
+    {
+      "id": "ur16-conut-tang",
+      "url": "https://www.foodpanda.sg/restaurant/y6ha/co-nut-ink-tang-plaza",
+      "publisher": "Foodpanda / merchant listing",
+      "title": "conut-tang current delivery catalogue",
+      "checkedAt": "2026-10-16T09:25:09.418Z",
+      "accessStatus": "normal-http-200",
+      "notes": "All current unique productIDs/names/categories/SGD list prices reconcile with same-response visible DOM, harmless surrounding whitespace normalized. Normal browser403 preserved without workaround; customization inventories/defaults/surcharges unread. Popular repeats not extracted. Current delivery ordering status is not permanent closure proof."
+    },
+    {
+      "id": "ur16-conut-esplanade",
+      "url": "https://www.foodpanda.sg/zh/restaurant/w4jq/co-nut-ink-esplanade",
+      "publisher": "Foodpanda / merchant listing",
+      "title": "conut-esplanade current delivery catalogue",
+      "checkedAt": "2026-10-16T09:25:11.142Z",
+      "accessStatus": "normal-http-200",
+      "notes": "All current unique productIDs/names/categories/SGD list prices reconcile with same-response visible DOM, harmless surrounding whitespace normalized. Normal browser403 preserved without workaround; customization inventories/defaults/surcharges unread. Popular repeats not extracted. Current delivery ordering status is not permanent closure proof."
+    },
+    {
+      "id": "ur16-fennel-fp",
+      "url": "https://www.foodpanda.sg/restaurant/raxd/fennel-by-komala-vilas-river-valley-road-islandwide",
+      "publisher": "Foodpanda / merchant listing",
+      "title": "fennel-fp current delivery catalogue",
+      "checkedAt": "2026-10-16T09:25:14.514Z",
+      "accessStatus": "normal-http-200",
+      "notes": "All current unique productIDs/names/categories/SGD list prices reconcile with same-response visible DOM, harmless surrounding whitespace normalized. Normal browser403 preserved without workaround; customization inventories/defaults/surcharges unread. Popular repeats not extracted. Current delivery ordering status is not permanent closure proof."
+    },
+    {
+      "id": "ur16-fennel-owner",
+      "url": "https://www.fennel.com.sg/",
+      "publisher": "Fennel operator",
+      "title": "Linked Fennel site unavailable",
+      "checkedAt": "2026-10-16T09:25:15.918Z",
+      "accessStatus": "normal-fetch-failed",
+      "notes": "Normal connection failed; primary parent contact and institutional history used separately. No bypass or other branch menu transfer."
+    },
+    {
+      "id": "ur16-herbivore-owner",
+      "url": "https://www.herbivore.sg/",
+      "publisher": "Merchant operator",
+      "title": "Herbivore current pure-vegetarian premise",
+      "checkedAt": "2026-10-16T09:25:12.788Z",
+      "accessStatus": "normal-http-200",
+      "notes": "Normal200current operator explicitly pure vegetarian at190Middle#01-13/14. Hero/gallery photographs explicitly illustrative, not current dish menu/prices."
+    },
+    {
+      "id": "ur16-herbivore-bento",
+      "url": "https://www.herbivore.sg/bento-set",
+      "publisher": "Merchant operator",
+      "title": "Herbivore Gallery recheck",
+      "checkedAt": "2026-10-16T09:25:13.898Z",
+      "accessStatus": "normal-http-200",
+      "notes": "Normal200old bento-set URL currently titledGallery, no named food menu in readable text. Browser200shows lazy/unloaded photo grid; do not interpret as zero restaurant dishes or repeat prior50image extraction."
+    },
+    {
+      "id": "ur16-pinetree-current",
+      "url": "https://pinetreecafe.getz.co/Category",
+      "publisher": "Merchant operator",
+      "title": "Pine Tree current test-outlet mismatch",
+      "checkedAt": "2026-10-16T09:25:17.264Z",
+      "accessStatus": "normal-http-200",
+      "notes": "Normal200and browser200explicit GetzSupportTestOutlet2,345TestCenter/123456. Large readable sample food catalogue cannot establish FortuneCentre#02-13menu, price or service."
+    },
+    {
+      "id": "ur16-annalakshmi-restaurant",
+      "url": "https://www.annalakshmi.sg/restaurant",
+      "publisher": "Merchant operator",
+      "title": "Annalakshmi current restaurant buffet context",
+      "checkedAt": "2026-10-16T09:25:16.568Z",
+      "accessStatus": "normal-http-200",
+      "notes": "Normal200and browser200exactDowntownGallery#01-03vegetarian buffet/give-as-you-wish; groups8+require unspecified fixed per-person contribution. Current hours effective15Aug2026supersede old duplicated hours. No daily named dish inventory, no cafe#03-26menu transfer."
+    },
+    {
+      "id": "ur16-komala-contact",
+      "url": "https://komalavilas.com.sg/contact/",
+      "publisher": "Komala Vilas operator",
+      "title": "Current Fennel sister outlet at413RiverValley",
+      "checkedAt": "2026-10-16",
+      "accessStatus": "targeted-public-web-readable-qualified",
+      "notes": "Current parent operator identifies Fennel sister outlet413RiverValley/248311. Current own vegetarian heritage and coherent labelled mock-menu corroborate concept; no Serangoon/Dickson menu transfer."
+    },
+    {
+      "id": "ur16-fennel-institution",
+      "url": "https://www.nhb.gov.sg/-/media/nhb/files/media/releases/2022/media-release--experience-the-character-and-charms-of-little-india-through-nhbs-showcase-of-heritage-businessesfinal-version.pdf",
+      "publisher": "National Heritage Board",
+      "title": "2022 heritage account identifies Fennel vegetarian restaurant",
+      "checkedAt": "2026-10-16",
+      "accessStatus": "targeted-public-web-readable-qualified",
+      "notes": "Historical2022primary institutional account explicitly identifies modern Indian vegetarian Fennel413RiverValley. Historical concept context, not current prices/stock."
+    },
+    {
+      "id": "ur16-conut-brand-comparator",
+      "url": "https://conutink.com/browse-all-products/",
+      "publisher": "Co+Nut+Ink operator",
+      "title": "Brand topping comparator",
+      "checkedAt": "2026-10-16T08:37:23.374Z",
+      "accessStatus": "saved-normal-http-200-with-current-web-comparison",
+      "notes": "Original normal200brand catalogue checked2026-10-16T08:37:23.374Z reused, targeted current web comparison also checked16Oct. SignatureClassicHusk describes peanuts, PremiumDessertHusk redruby. DeliveryClassicdescribesredruby, Haji/TangPremiumDessertdescribespeanuts; conflicts not silently corrected. Coconut husk is reusable container, not edible ingredient."
+    }
+  ],
+  "canonicalAmendments": [
+    {
+      "dataset": "data/menu-research/menu-completion-unresolved-15-2026-10-16.json",
+      "branchId": "ur15-conut-haji",
+      "menuId": "ur15-conut-haji-delivery-20261016",
+      "foodRowsCreated": 9,
+      "approvedFoodRows": 7,
+      "heldFoodRows": 2,
+      "sourceIds": [
+        "ur16-conut-haji",
+        "ur16-conut-brand-comparator"
+      ],
+      "reason": "Current exact delivery premise matches own vegan brand locator. Own entire-range vegan statement remains a source claim, not ingredient/allergen/stock certification."
+    },
+    {
+      "dataset": "data/menu-research/menu-completion-unresolved-15-2026-10-16.json",
+      "branchId": "ur15-conut-marriott",
+      "menuId": "ur15-conut-marriott-delivery-20261016",
+      "foodRowsCreated": 9,
+      "approvedFoodRows": 7,
+      "heldFoodRows": 2,
+      "sourceIds": [
+        "ur16-conut-tang",
+        "ur16-conut-brand-comparator"
+      ],
+      "reason": "Current exact delivery premise matches own vegan brand locator. Own entire-range vegan statement remains a source claim, not ingredient/allergen/stock certification."
+    },
+    {
+      "dataset": "data/menu-research/menu-completion-unresolved-15-2026-10-16.json",
+      "branchId": "ur15-conut-esplanade",
+      "menuId": "ur15-conut-esplanade-delivery-20261016",
+      "foodRowsCreated": 9,
+      "approvedFoodRows": 0,
+      "heldFoodRows": 9,
+      "sourceIds": [
+        "ur16-conut-esplanade",
+        "ur16-conut-brand-comparator"
+      ],
+      "reason": "Delivery premise#01-K7 differs from operator locator#01-K5 at1EsplanadeDrive; exact branch/menu association unresolved. No unit correction by assumption."
+    },
+    {
+      "dataset": "data/menu-research/menu-realfood-indian.json",
+      "branchId": "fennel-river-valley",
+      "menuId": "fennel-river-valley-delivery-20261016",
+      "foodRowsCreated": 78,
+      "approvedFoodRows": 75,
+      "heldFoodRows": 3,
+      "sourceIds": [
+        "ur16-fennel-fp",
+        "ur16-komala-contact",
+        "ur16-fennel-institution"
+      ],
+      "reason": "Current parent operator identifies exact Fennel sister premise413RiverValley; primary institutional account explicitly vegetarian concept and current coherent mock-labelled branch delivery menu corroborate scope. Two naan generic chicken descriptions remain food-specific holds. Dairy/allium present, no blanket vegan claim."
+    },
+    {
+      "dataset": "data/pilot/catalogue.json",
+      "branchId": "herbivore-fortune-centre",
+      "foodRowsCreated": 0,
+      "sourceIds": [
+        "ur16-herbivore-owner",
+        "ur16-herbivore-bento"
+      ],
+      "reason": "Normal200current operator explicitly pure vegetarian at190Middle#01-13/14. Hero/gallery photographs explicitly illustrative, not current dish menu/prices. Normal200old bento-set URL currently titledGallery, no named food menu in readable text. Browser200shows lazy/unloaded photo grid; do not interpret as zero restaurant dishes or repeat prior50image extraction."
+    },
+    {
+      "dataset": "data/menu-research/menu-mother-earth-pinetree.json",
+      "branchId": "pine-tree-fortune-centre",
+      "foodRowsCreated": 0,
+      "sourceIds": [
+        "ur16-pinetree-current"
+      ],
+      "reason": "Normal200and browser200explicit GetzSupportTestOutlet2,345TestCenter/123456. Large readable sample food catalogue cannot establish FortuneCentre#02-13menu, price or service."
+    },
+    {
+      "dataset": "data/menu-research/nalan-annalakshmi-kailash/annalakshmi.json",
+      "branchId": "annalakshmi-restaurant-downtown",
+      "foodRowsCreated": 0,
+      "sourceIds": [
+        "ur16-annalakshmi-restaurant"
+      ],
+      "reason": "Normal200and browser200exactDowntownGallery#01-03vegetarian buffet/give-as-you-wish; groups8+require unspecified fixed per-person contribution. Current hours effective15Aug2026supersede old duplicated hours. No daily named dish inventory, no cafe#03-26menu transfer."
+    }
+  ],
+  "evidenceBoundary": "Amendment audit only, not another branch/menu extraction dataset. Exact food rows live in referenced existing canonical packets. Original sources, dates and holds preserved except explicitly documented newly reviewed records.",
+  "summary": {
+    "existingBranchRecordsAmended": 7,
+    "foodRowsCreated": 105,
+    "approvedFoodRows": 89,
+    "heldFoodRows": 16,
+    "conutFoods": 27,
+    "conutPublishedFoods": 14,
+    "conutHeldFoods": 13,
+    "fennelFoods": 78,
+    "fennelPublishedFoods": 75,
+    "fennelHeldFoods": 3,
+    "drinksExcluded": 38,
+    "packagingPreferenceExcluded": 1,
+    "zeroFoodContextsRechecked": 3,
+    "newBranchRecords": 0,
+    "googleRequestsMade": 0
+  }
+}

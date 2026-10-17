@@ -1,0 +1,61 @@
+{
+  "startedAt": "2026-10-16T11:13:36.296Z",
+  "base": "https://quintaste.srv1902914.hstgr.cloud",
+  "checks": [
+    "Default first page20; no entire menu index or provider request",
+    "Explicit next page appends20 without duplicates",
+    "Filters/back preserve40 results with zero fresh requests",
+    "Explicit unchanged POST refresh uses204",
+    "Catalogue bookmark persists through existing save queue",
+    "Saved default Home scopes first request; no address text transmitted",
+    "Home/Work switch scopes results and reuses prior Home page without a request"
+  ],
+  "requests": [
+    {
+      "url": "https://quintaste.srv1902914.hstgr.cloud/api/catalogue",
+      "status": 200,
+      "bytes": 10389,
+      "body": "{\"search\":{\"area\":\"Singapore\",\"query\":\"\",\"vegan\":false,\"alliumFree\":false,\"cuisine\":\"All\",\"radius\":5000},\"cursor\":null}"
+    },
+    {
+      "url": "https://quintaste.srv1902914.hstgr.cloud/api/catalogue",
+      "status": 200,
+      "bytes": 10795,
+      "body": "{\"search\":{\"area\":\"Singapore\",\"query\":\"\",\"vegan\":false,\"alliumFree\":false,\"cuisine\":\"All\",\"radius\":5000},\"cursor\":\"eyJyZXZpc2lvbiI6ImJkMmQ2Zjk3YzljY2IwN2NkZjZjMWI0ZjliY2EyODhiY2QzMjg0MTI1YmQ1NjdkNzdmZjM1Y2FiYTZmNzVjZmEiLCJvZmZzZXQiOjIwfQ\"}"
+    },
+    {
+      "url": "https://quintaste.srv1902914.hstgr.cloud/api/catalogue",
+      "status": 204,
+      "bytes": 0,
+      "body": "{\"search\":{\"area\":\"Singapore\",\"query\":\"\",\"vegan\":false,\"alliumFree\":false,\"cuisine\":\"All\",\"radius\":5000},\"cursor\":null}"
+    },
+    {
+      "url": "https://quintaste.srv1902914.hstgr.cloud/api/catalogue",
+      "status": 200,
+      "bytes": 10928,
+      "body": "{\"search\":{\"area\":\"Singapore\",\"query\":\"\",\"vegan\":false,\"alliumFree\":false,\"cuisine\":\"All\",\"center\":{\"latitude\":1.27725,\"longitude\":103.84466},\"radius\":5000},\"cursor\":null}"
+    },
+    {
+      "url": "https://quintaste.srv1902914.hstgr.cloud/api/catalogue",
+      "status": 200,
+      "bytes": 10771,
+      "body": "{\"search\":{\"area\":\"Singapore\",\"query\":\"\",\"vegan\":false,\"alliumFree\":false,\"cuisine\":\"All\",\"center\":{\"latitude\":1.35,\"longitude\":103.848},\"radius\":5000},\"cursor\":null}"
+    }
+  ],
+  "providerAttempts": [],
+  "pageErrors": [],
+  "captures": [
+    "C:\\Users\\huien\\qt\\tmp\\qa\\catalogue-browser\\catalogue-320.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\catalogue-browser\\catalogue-768.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\catalogue-browser\\catalogue-1440.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\catalogue-browser\\default-home.png"
+  ],
+  "axe": [],
+  "passed": true,
+  "finishedAt": "2026-10-16T11:13:45.558Z",
+  "visualReview": {
+    "checkedAt": "2026-10-16T11:20:25.116172+00:00",
+    "method": "Every listed capture opened with view_image",
+    "passed": true
+  }
+}

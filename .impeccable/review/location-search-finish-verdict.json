@@ -1,0 +1,68 @@
+{
+  "request": "Replace the location choices with a single free-text field and typeahead dropdown for location names and postal codes.",
+  "disposition": "approved",
+  "scope": "Web location field and dropdown, plus Android development bundle transport; native device visual and full-app acceptance remain unverified.",
+  "reviewers": {
+    "code": "typescript-reviewer",
+    "finish": "code-reviewer (substitute for the unavailable shipped Impeccable finish-reviewer)"
+  },
+  "evidence": {
+    "browser": "location-search-validation.json",
+    "functionalChecks": 16,
+    "runtimeErrors": 0,
+    "scopedAxeViolations": 0,
+    "axeIncompletes": [
+      "color-contrast",
+      "label-content-name-mismatch"
+    ],
+    "typecheck": {
+      "command": "npx tsc --noEmit",
+      "exitCode": 0
+    },
+    "lint": {
+      "command": "npx eslint src",
+      "exitCode": 0
+    },
+    "catalogReview": {
+      "command": "21st review (5 changed UI files)",
+      "findings": 0
+    },
+    "nativeTransport": "location-search-native-transport.json",
+    "nativeBundleBytes": 8659881,
+    "liveLocationCases": [
+      "018956",
+      "Singapore 018956",
+      "Marina Bay Sands",
+      "Bugis MRT"
+    ],
+    "liveGoogleNearby": {
+      "status": 200,
+      "count": 20
+    },
+    "screenshots": [
+      "location-search-mobile-names.png",
+      "location-search-mobile-postal.png",
+      "location-search-320.png",
+      "location-search-768.png",
+      "location-search-1440.png"
+    ],
+    "keyboardConfirmation": "../../../tmp/qa/location-review-keyboard-confirmed.png",
+    "stateValidation": "location-search-state-validation.json",
+    "stateChecks": 4
+  },
+  "resolved": [
+    "Cancel unresolved submits on route blur and external text changes.",
+    "Keep the displayed search, selected location and accepted keyword query together per owner in memory.",
+    "Merge a changed location mode into Filters on return from location search.",
+    "Scroll every keyboard-highlighted row into view.",
+    "Expose explicit web aria-selected on suggestions and guard active descendant targets.",
+    "Include a whitespace separator between suggestion name and address in the DOM.",
+    "Synchronize the single field with geographic filter modes while retaining selection and non-geographic drafts."
+  ],
+  "limits": [
+    "No native device capture or full-app approval.",
+    "Scoped axe incompletes remain; no complete WCAG conformance claim.",
+    "No deployment or git commit/push was performed."
+  ],
+  "generatedAt": "2026-10-14T23:27:05.028Z"
+}

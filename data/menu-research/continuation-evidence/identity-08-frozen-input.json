@@ -1,0 +1,2267 @@
+{
+  "version": 1,
+  "batch": "08",
+  "frozenAt": "2026-10-16T03:58:45.139423+00:00",
+  "googleCallsAllowed": 0,
+  "selectedCount": 69,
+  "selection": [
+    {
+      "sequence": 1,
+      "placeId": "ChIJubHqMT8Q2jERRaViPeUbHAY",
+      "leads": [
+        {
+          "id": "source-link-94fefc37fe896f7280145fd7",
+          "name": "Almond Bakery 杏仁烘培坊",
+          "sourceIds": [
+            "source-link-94fefc37fe896f7280145fd7"
+          ],
+          "status": "lead",
+          "address": "630 Bukit Batok Central, #01-150, Singapore 650630",
+          "postalCode": "650630",
+          "unit": "#01-150",
+          "merchantUrl": "http://www.facebook.com/AlmondBakery",
+          "notes": "Source-provided direct map link resolves to this saved place ID. Display facts are copied from the separately saved independent directory lead, not the redirect. Candidate association only; current branch identity and menu require source review.",
+          "placeId": "ChIJubHqMT8Q2jERRaViPeUbHAY",
+          "placeIdEvidenceUrl": "https://maps.app.goo.gl/gRSoooi6GYeYJKRK7",
+          "independentLeadId": "hippo-almond-bakery-vegetarian",
+          "independentLeadFile": "data/menu-research/directory-leads.json",
+          "identityLinkCheckedAt": "2026-10-16T00:22:19.019Z"
+        }
+      ],
+      "sourceObservations": [
+        {
+          "id": "source-link-94fefc37fe896f7280145fd7",
+          "url": "https://www.onehungryhippo.com/restaurants/almond-bakery-vegetarian",
+          "publisher": "OneHungryHippo",
+          "title": "Independent directory branch lead",
+          "checkedAt": "2026-10-15",
+          "status": "directory-lead-requires-merchant-confirmation"
+        }
+      ]
+    },
+    {
+      "sequence": 2,
+      "placeId": "ChIJtzdVFMQP2jERLeuciZrqeZE",
+      "leads": [
+        {
+          "id": "source-link-1291ec29967b605345ba5e38",
+          "name": "Bai Jia Le (Jurong Point) 百家乐擂茶",
+          "sourceIds": [
+            "source-link-1291ec29967b605345ba5e38"
+          ],
+          "status": "lead",
+          "address": "63 Jurong West Central 3, #03-28, Singapore 648331",
+          "postalCode": "648331",
+          "unit": "#03-28",
+          "notes": "Source-provided direct map link resolves to this saved place ID. Display facts are copied from the separately saved independent directory lead, not the redirect. Candidate association only; current branch identity and menu require source review.",
+          "placeId": "ChIJtzdVFMQP2jERLeuciZrqeZE",
+          "placeIdEvidenceUrl": "https://maps.app.goo.gl/JFT9uFGtma1tdMsn8",
+          "independentLeadId": "hippo-bai-jia-le",
+          "independentLeadFile": "data/menu-research/directory-leads.json",
+          "identityLinkCheckedAt": "2026-10-16T00:22:22.326Z"
+        }
+      ],
+      "sourceObservations": [
+        {
+          "id": "source-link-1291ec29967b605345ba5e38",
+          "url": "https://www.onehungryhippo.com/restaurants/bai-jia-le",
+          "publisher": "OneHungryHippo",
+          "title": "Independent directory branch lead",
+          "checkedAt": "2026-10-15",
+          "status": "directory-lead-requires-merchant-confirmation"
+        }
+      ]
+    },
+    {
+      "sequence": 3,
+      "placeId": "ChIJyZxTRrMi2jERBSEOqP8Dcck",
+      "leads": [
+        {
+          "id": "source-link-53507476a26cf610edf62867",
+          "name": "Bao Bao Vegetarian Food 寶寶素食",
+          "sourceIds": [
+            "source-link-53507476a26cf610edf62867"
+          ],
+          "status": "lead",
+          "address": "58 New Upper Changi Rd, #01-148, Singapore 461058",
+          "postalCode": "461058",
+          "unit": "#01-148",
+          "notes": "Source-provided direct map link resolves to this saved place ID. Display facts are copied from the separately saved independent directory lead, not the redirect. Candidate association only; current branch identity and menu require source review.",
+          "placeId": "ChIJyZxTRrMi2jERBSEOqP8Dcck",
+          "placeIdEvidenceUrl": "https://maps.app.goo.gl/S5KgcqoWLyiQ35h79",
+          "independentLeadId": "hippo-bao-bao-vegetarian-food",
+          "independentLeadFile": "data/menu-research/directory-leads.json",
+          "identityLinkCheckedAt": "2026-10-16T00:22:24.053Z"
+        }
+      ],
+      "sourceObservations": [
+        {
+          "id": "source-link-53507476a26cf610edf62867",
+          "url": "https://www.onehungryhippo.com/restaurants/bao-bao-vegetarian-food",
+          "publisher": "OneHungryHippo",
+          "title": "Independent directory branch lead",
+          "checkedAt": "2026-10-15",
+          "status": "directory-lead-requires-merchant-confirmation"
+        }
+      ]
+    },
+    {
+      "sequence": 4,
+      "placeId": "ChIJacfEin8j2jERnI28hLqCPI4",
+      "leads": [
+        {
+          "id": "source-link-ed95c9a42b63d281917d36e2",
+          "name": "Bao Sheng Vegetarian 宝昇素食",
+          "sourceIds": [
+            "source-link-ed95c9a42b63d281917d36e2"
+          ],
+          "status": "lead",
+          "address": "18 Bedok South Road, Block 18, Singapore 460018",
+          "postalCode": "460018",
+          "notes": "Source-provided direct map link resolves to this saved place ID. Display facts are copied from the separately saved independent directory lead, not the redirect. Candidate association only; current branch identity and menu require source review.",
+          "placeId": "ChIJacfEin8j2jERnI28hLqCPI4",
+          "placeIdEvidenceUrl": "https://maps.app.goo.gl/7DyjcUL87M9zcF49A",
+          "independentLeadId": "hippo-bao-sheng-vegetarian",
+          "independentLeadFile": "data/menu-research/directory-leads.json",
+          "identityLinkCheckedAt": "2026-10-16T00:22:24.960Z"
+        }
+      ],
+      "sourceObservations": [
+        {
+          "id": "source-link-ed95c9a42b63d281917d36e2",
+          "url": "https://www.onehungryhippo.com/restaurants/bao-sheng-vegetarian",
+          "publisher": "OneHungryHippo",
+          "title": "Independent directory branch lead",
+          "checkedAt": "2026-10-15",
+          "status": "directory-lead-requires-merchant-confirmation"
+        }
+      ]
+    },
+    {
+      "sequence": 5,
+      "placeId": "ChIJNQ1gM6sR2jERvgZQdzaBSeY",
+      "leads": [
+        {
+          "id": "source-link-c7d7d6b6464b56ca215e0800",
+          "name": "Beng Shun Vegetarian Food 民顺素食",
+          "sourceIds": [
+            "source-link-c7d7d6b6464b56ca215e0800"
+          ],
+          "status": "lead",
+          "address": "51 Bukit Batok Cres, #02-01/02, Singapore 658077",
+          "postalCode": "658077",
+          "unit": "#02-01/02",
+          "notes": "Source-provided direct map link resolves to this saved place ID. Display facts are copied from the separately saved independent directory lead, not the redirect. Candidate association only; current branch identity and menu require source review.",
+          "placeId": "ChIJNQ1gM6sR2jERvgZQdzaBSeY",
+          "placeIdEvidenceUrl": "https://maps.app.goo.gl/1fAQ1SrW5wKpoog28",
+          "independentLeadId": "hippo-beng-shun-vegetarian-food",
+          "independentLeadFile": "data/menu-research/directory-leads.json",
+          "identityLinkCheckedAt": "2026-10-16T00:22:26.645Z"
+        }
+      ],
+      "sourceObservations": [
+        {
+          "id": "source-link-c7d7d6b6464b56ca215e0800",
+          "url": "https://www.onehungryhippo.com/restaurants/beng-shun-vegetarian-food",
+          "publisher": "OneHungryHippo",
+          "title": "Independent directory branch lead",
+          "checkedAt": "2026-10-15",
+          "status": "directory-lead-requires-merchant-confirmation"
+        }
+      ]
+    },
+    {
+      "sequence": 6,
+      "placeId": "ChIJn1vJTooX2jERRnzXW2Py-C4",
+      "leads": [
+        {
+          "id": "source-link-4c7dc9014297ce3f4ca252cc",
+          "name": "Choo Zai Zhai Vegetarian 自在齋素食",
+          "sourceIds": [
+            "source-link-4c7dc9014297ce3f4ca252cc"
+          ],
+          "status": "lead",
+          "address": "79A Circuit Road, #01-89, Singapore 371079",
+          "postalCode": "371079",
+          "unit": "#01-89",
+          "notes": "Source-provided direct map link resolves to this saved place ID. Display facts are copied from the separately saved independent directory lead, not the redirect. Candidate association only; current branch identity and menu require source review.",
+          "placeId": "ChIJn1vJTooX2jERRnzXW2Py-C4",
+          "placeIdEvidenceUrl": "https://maps.app.goo.gl/kopmqCG5szcNk8PZA",
+          "independentLeadId": "hippo-choo-zai-zhai-vegetarian",
+          "independentLeadFile": "data/menu-research/directory-leads.json",
+          "identityLinkCheckedAt": "2026-10-16T00:22:29.994Z"
+        }
+      ],
+      "sourceObservations": [
+        {
+          "id": "source-link-4c7dc9014297ce3f4ca252cc",
+          "url": "https://www.onehungryhippo.com/restaurants/choo-zai-zhai-vegetarian",
+          "publisher": "OneHungryHippo",
+          "title": "Independent directory branch lead",
+          "checkedAt": "2026-10-15",
+          "status": "directory-lead-requires-merchant-confirmation"
+        }
+      ]
+    },
+    {
+      "sequence": 7,
+      "placeId": "ChIJpY7sPQAX2jER2PYSU0lOwN0",
+      "leads": [
+        {
+          "id": "source-link-76f5f7ba538f85b839294fb3",
+          "name": "Ci Wen Vegetarian Food 慈雲素食",
+          "sourceIds": [
+            "source-link-76f5f7ba538f85b839294fb3"
+          ],
+          "status": "lead",
+          "address": "226H Ang Mo Kio Street 22, #01-19 Kebun Baru Food Centre, Singapore 568226",
+          "postalCode": "568226",
+          "unit": "#01-19",
+          "notes": "Source-provided direct map link resolves to this saved place ID. Display facts are copied from the separately saved independent directory lead, not the redirect. Candidate association only; current branch identity and menu require source review.",
+          "placeId": "ChIJpY7sPQAX2jER2PYSU0lOwN0",
+          "placeIdEvidenceUrl": "https://maps.app.goo.gl/8WCd5nKN7QHHCHR77",
+          "independentLeadId": "hippo-ci-wen-vegetarian-food",
+          "independentLeadFile": "data/menu-research/directory-leads.json",
+          "identityLinkCheckedAt": "2026-10-16T00:22:30.816Z"
+        }
+      ],
+      "sourceObservations": [
+        {
+          "id": "source-link-76f5f7ba538f85b839294fb3",
+          "url": "https://www.onehungryhippo.com/restaurants/ci-wen-vegetarian-food",
+          "publisher": "OneHungryHippo",
+          "title": "Independent directory branch lead",
+          "checkedAt": "2026-10-15",
+          "status": "directory-lead-requires-merchant-confirmation"
+        }
+      ]
+    },
+    {
+      "sequence": 8,
+      "placeId": "ChIJ5XZkbg4X2jERtLZi_YvRQJ4",
+      "leads": [
+        {
+          "id": "source-link-9bd6568f503f7993c1466693",
+          "name": "Daily Green (AMK) 吉祥素",
+          "sourceIds": [
+            "source-link-9bd6568f503f7993c1466693"
+          ],
+          "status": "lead",
+          "address": "721 Ang Mo Kio Ave 8, #01-2811, Singapore 560721",
+          "postalCode": "560721",
+          "unit": "#01-2811",
+          "merchantUrl": "https://www.dailygreen.sg/",
+          "notes": "Source-provided direct map link resolves to this saved place ID. Display facts are copied from the separately saved independent directory lead, not the redirect. Candidate association only; current branch identity and menu require source review.",
+          "placeId": "ChIJ5XZkbg4X2jERtLZi_YvRQJ4",
+          "placeIdEvidenceUrl": "https://maps.app.goo.gl/tYbsWuUDZZwfUJh6A",
+          "independentLeadId": "hippo-daily-green-amk",
+          "independentLeadFile": "data/menu-research/directory-leads.json",
+          "identityLinkCheckedAt": "2026-10-16T00:22:36.746Z"
+        }
+      ],
+      "sourceObservations": [
+        {
+          "id": "source-link-9bd6568f503f7993c1466693",
+          "url": "https://www.onehungryhippo.com/restaurants/daily-green-amk",
+          "publisher": "OneHungryHippo",
+          "title": "Independent directory branch lead",
+          "checkedAt": "2026-10-15",
+          "status": "directory-lead-requires-merchant-confirmation"
+        }
+      ]
+    },
+    {
+      "sequence": 9,
+      "placeId": "ChIJYa9uyo4Z2jERkOqTvVuvZVk",
+      "leads": [
+        {
+          "id": "source-link-034ddd32dc5eb590d89ba32a",
+          "name": "Daily Green (Shaw Plaza) 吉祥素",
+          "sourceIds": [
+            "source-link-034ddd32dc5eb590d89ba32a"
+          ],
+          "status": "lead",
+          "address": "360 Balestier Rd, #01-23 Shaw Plaza, Singapore 329783",
+          "postalCode": "329783",
+          "unit": "#01-23",
+          "merchantUrl": "https://www.facebook.com/DailyGreenJXS/",
+          "notes": "Source-provided direct map link resolves to this saved place ID. Display facts are copied from the separately saved independent directory lead, not the redirect. Candidate association only; current branch identity and menu require source review.",
+          "placeId": "ChIJYa9uyo4Z2jERkOqTvVuvZVk",
+          "placeIdEvidenceUrl": "https://maps.app.goo.gl/45aHe39G1SyPNSkE7",
+          "independentLeadId": "hippo-daily-green-shaw-plaza",
+          "independentLeadFile": "data/menu-research/directory-leads.json",
+          "identityLinkCheckedAt": "2026-10-16T00:22:40.932Z"
+        }
+      ],
+      "sourceObservations": [
+        {
+          "id": "source-link-034ddd32dc5eb590d89ba32a",
+          "url": "https://www.onehungryhippo.com/restaurants/daily-green-shaw-plaza",
+          "publisher": "OneHungryHippo",
+          "title": "Independent directory branch lead",
+          "checkedAt": "2026-10-15",
+          "status": "directory-lead-requires-merchant-confirmation"
+        }
+      ]
+    },
+    {
+      "sequence": 10,
+      "placeId": "ChIJ9waWLwkX2jERR24p8Q9aL-A",
+      "leads": [
+        {
+          "id": "source-link-3b55766d6128b1788394453a",
+          "name": "Daily Green (Ubi) 吉祥素",
+          "sourceIds": [
+            "source-link-3b55766d6128b1788394453a"
+          ],
+          "status": "lead",
+          "address": "3014B Ubi Rd 1, Singapore 408722",
+          "postalCode": "408722",
+          "merchantUrl": "http://www.dailygreen.sg/",
+          "notes": "Source-provided direct map link resolves to this saved place ID. Display facts are copied from the separately saved independent directory lead, not the redirect. Candidate association only; current branch identity and menu require source review.",
+          "placeId": "ChIJ9waWLwkX2jERR24p8Q9aL-A",
+          "placeIdEvidenceUrl": "https://maps.app.goo.gl/oPgG7kfDCxxhwKpC7",
+          "independentLeadId": "hippo-daily-green-ubi",
+          "independentLeadFile": "data/menu-research/directory-leads.json",
+          "identityLinkCheckedAt": "2026-10-16T00:22:41.900Z"
+        }
+      ],
+      "sourceObservations": [
+        {
+          "id": "source-link-3b55766d6128b1788394453a",
+          "url": "https://www.onehungryhippo.com/restaurants/daily-green-ubi",
+          "publisher": "OneHungryHippo",
+          "title": "Independent directory branch lead",
+          "checkedAt": "2026-10-15",
+          "status": "directory-lead-requires-merchant-confirmation"
+        }
+      ]
+    },
+    {
+      "sequence": 11,
+      "placeId": "ChIJq6bvoqgT2jERGt3nTcK1Hjs",
+      "leads": [
+        {
+          "id": "source-link-cc83a1853197aa9c7b5a8d4b",
+          "name": "Dough Culture (Causeway Point)",
+          "sourceIds": [
+            "source-link-cc83a1853197aa9c7b5a8d4b"
+          ],
+          "status": "lead",
+          "address": "1 Woodlands Square, #01-K08, Singapore 738099",
+          "postalCode": "738099",
+          "unit": "#01-K08",
+          "merchantUrl": "https://www.doughculture.com",
+          "notes": "Source-provided direct map link resolves to this saved place ID. Display facts are copied from the separately saved independent directory lead, not the redirect. Candidate association only; current branch identity and menu require source review.",
+          "placeId": "ChIJq6bvoqgT2jERGt3nTcK1Hjs",
+          "placeIdEvidenceUrl": "https://www.google.com/maps/place/Dough+Culture/@1.4362945,103.786248,916m/data=!3m2!1e3!4b1!4m6!3m5!1s0x31da13a8a2efa6ab:0x3b1eb5c24de7dd1a!8m2!3d1.4362945!4d103.786248!16s%2Fg%2F11b6dm42rb",
+          "independentLeadId": "hippo-dough-culture-causeway-point",
+          "independentLeadFile": "data/menu-research/directory-leads.json",
+          "identityLinkCheckedAt": "2026-10-16T00:22:44.346Z"
+        }
+      ],
+      "sourceObservations": [
+        {
+          "id": "source-link-cc83a1853197aa9c7b5a8d4b",
+          "url": "https://www.onehungryhippo.com/restaurants/dough-culture-causeway-point",
+          "publisher": "OneHungryHippo",
+          "title": "Independent directory branch lead",
+          "checkedAt": "2026-10-15",
+          "status": "directory-lead-requires-merchant-confirmation"
+        }
+      ]
+    },
+    {
+      "sequence": 12,
+      "placeId": "ChIJlZEjfQA92jER1jnuhji5JRI",
+      "leads": [
+        {
+          "id": "source-link-304948fc568375c44f62490c",
+          "name": "Econ Vegetarian Delight 益康斋素食苑",
+          "sourceIds": [
+            "source-link-304948fc568375c44f62490c"
+          ],
+          "status": "lead",
+          "address": "144 Tampines Street 12, Singapore 521144",
+          "postalCode": "521144",
+          "notes": "Source-provided direct map link resolves to this saved place ID. Display facts are copied from the separately saved independent directory lead, not the redirect. Candidate association only; current branch identity and menu require source review.",
+          "placeId": "ChIJlZEjfQA92jER1jnuhji5JRI",
+          "placeIdEvidenceUrl": "https://maps.app.goo.gl/sampC75xpA33PgsH8",
+          "independentLeadId": "hippo-econ-vegetarian-delight",
+          "independentLeadFile": "data/menu-research/directory-leads.json",
+          "identityLinkCheckedAt": "2026-10-16T00:22:46.054Z"
+        }
+      ],
+      "sourceObservations": [
+        {
+          "id": "source-link-304948fc568375c44f62490c",
+          "url": "https://www.onehungryhippo.com/restaurants/econ-vegetarian-delight",
+          "publisher": "OneHungryHippo",
+          "title": "Independent directory branch lead",
+          "checkedAt": "2026-10-15",
+          "status": "directory-lead-requires-merchant-confirmation"
+        }
+      ]
+    },
+    {
+      "sequence": 13,
+      "placeId": "ChIJoy-YZqQT2jER2c3gPPpftaQ",
+      "leads": [
+        {
+          "id": "source-link-f8735c90fdae4c9ce1b9fdb9",
+          "name": "Eight Immortals Vegetarian 八仙素食园",
+          "sourceIds": [
+            "source-link-f8735c90fdae4c9ce1b9fdb9"
+          ],
+          "status": "lead",
+          "address": "678A Woodlands Ave 6, level 2, Singapore 731678",
+          "postalCode": "731678",
+          "notes": "Source-provided direct map link resolves to this saved place ID. Display facts are copied from the separately saved independent directory lead, not the redirect. Candidate association only; current branch identity and menu require source review.",
+          "placeId": "ChIJoy-YZqQT2jER2c3gPPpftaQ",
+          "placeIdEvidenceUrl": "https://maps.app.goo.gl/SPwNSrJqKaEdVu8X6",
+          "independentLeadId": "hippo-eight-immortals-vegetarian-woodlands",
+          "independentLeadFile": "data/menu-research/directory-leads.json",
+          "identityLinkCheckedAt": "2026-10-16T00:22:47.766Z"
+        }
+      ],
+      "sourceObservations": [
+        {
+          "id": "source-link-f8735c90fdae4c9ce1b9fdb9",
+          "url": "https://www.onehungryhippo.com/restaurants/eight-immortals-vegetarian-woodlands",
+          "publisher": "OneHungryHippo",
+          "title": "Independent directory branch lead",
+          "checkedAt": "2026-10-15",
+          "status": "directory-lead-requires-merchant-confirmation"
+        }
+      ]
+    },
+    {
+      "sequence": 14,
+      "placeId": "ChIJi0YEJGsT2jERmVBfzUZJPig",
+      "leads": [
+        {
+          "id": "source-link-811d49a4bda1ea2429f24067",
+          "name": "Fire Flies Vegetarian (Chinatown) 客家擂茶",
+          "sourceIds": [
+            "source-link-811d49a4bda1ea2429f24067"
+          ],
+          "status": "lead",
+          "address": "101 Upper Cross St, B1-06 Stall 10 People Park Centre, Singapore 058357",
+          "postalCode": "058357",
+          "notes": "Source-provided direct map link resolves to this saved place ID. Display facts are copied from the separately saved independent directory lead, not the redirect. Candidate association only; current branch identity and menu require source review.",
+          "placeId": "ChIJi0YEJGsT2jERmVBfzUZJPig",
+          "placeIdEvidenceUrl": "https://maps.app.goo.gl/T1PPZ8ZArNa4NEFt7",
+          "independentLeadId": "hippo-fire-flies-vegetarian-chinatown",
+          "independentLeadFile": "data/menu-research/directory-leads.json",
+          "identityLinkCheckedAt": "2026-10-16T00:22:53.821Z"
+        }
+      ],
+      "sourceObservations": [
+        {
+          "id": "source-link-811d49a4bda1ea2429f24067",
+          "url": "https://www.onehungryhippo.com/restaurants/fire-flies-vegetarian-chinatown",
+          "publisher": "OneHungryHippo",
+          "title": "Independent directory branch lead",
+          "checkedAt": "2026-10-15",
+          "status": "directory-lead-requires-merchant-confirmation"
+        }
+      ]
+    },
+    {
+      "sequence": 15,
+      "placeId": "ChIJR6K5NZsV2jER1l_P_mT3nJc",
+      "leads": [
+        {
+          "id": "source-link-b3d6871b434e5ecd21bd90ac",
+          "name": "Fu Kang Vegetarian (Yishun) 富康素食轩",
+          "sourceIds": [
+            "source-link-b3d6871b434e5ecd21bd90ac"
+          ],
+          "status": "lead",
+          "address": "848 Yishun Street 81, #01-136, Singapore 760848",
+          "postalCode": "760848",
+          "unit": "#01-136",
+          "notes": "Source-provided direct map link resolves to this saved place ID. Display facts are copied from the separately saved independent directory lead, not the redirect. Candidate association only; current branch identity and menu require source review.",
+          "placeId": "ChIJR6K5NZsV2jER1l_P_mT3nJc",
+          "placeIdEvidenceUrl": "https://maps.app.goo.gl/yg2UHzJ2RBDzydLB8",
+          "independentLeadId": "hippo-fu-kang-vegetarian-yishun",
+          "independentLeadFile": "data/menu-research/directory-leads.json",
+          "identityLinkCheckedAt": "2026-10-16T00:22:57.996Z"
+        }
+      ],
+      "sourceObservations": [
+        {
+          "id": "source-link-b3d6871b434e5ecd21bd90ac",
+          "url": "https://www.onehungryhippo.com/restaurants/fu-kang-vegetarian-yishun",
+          "publisher": "OneHungryHippo",
+          "title": "Independent directory branch lead",
+          "checkedAt": "2026-10-15",
+          "status": "directory-lead-requires-merchant-confirmation"
+        }
+      ]
+    },
+    {
+      "sequence": 16,
+      "placeId": "ChIJw4XOJEU92jERBZayVGgW73U",
+      "leads": [
+        {
+          "id": "source-link-96e653a78da5384fd464af13",
+          "name": "FZ Vegetarian 风竹素食",
+          "sourceIds": [
+            "source-link-96e653a78da5384fd464af13"
+          ],
+          "status": "lead",
+          "address": "216 Bedok Central St 1, #01-26 Market, Singapore",
+          "unit": "#01-26",
+          "notes": "Source-provided direct map link resolves to this saved place ID. Display facts are copied from the separately saved independent directory lead, not the redirect. Candidate association only; current branch identity and menu require source review.",
+          "placeId": "ChIJw4XOJEU92jERBZayVGgW73U",
+          "placeIdEvidenceUrl": "https://maps.app.goo.gl/LGmPZ8322JoYk1cE9",
+          "independentLeadId": "hippo-fz-vegetarian",
+          "independentLeadFile": "data/menu-research/directory-leads.json",
+          "identityLinkCheckedAt": "2026-10-16T00:23:00.595Z"
+        }
+      ],
+      "sourceObservations": [
+        {
+          "id": "source-link-96e653a78da5384fd464af13",
+          "url": "https://www.onehungryhippo.com/restaurants/fz-vegetarian",
+          "publisher": "OneHungryHippo",
+          "title": "Independent directory branch lead",
+          "checkedAt": "2026-10-15",
+          "status": "directory-lead-requires-merchant-confirmation"
+        }
+      ]
+    },
+    {
+      "sequence": 17,
+      "placeId": "ChIJQdFZAuUP2jERIYlr7bqMkBo",
+      "leads": [
+        {
+          "id": "source-link-440c8cd6b11fba661df1acfe",
+          "name": "Ginga Vegetarian Food",
+          "sourceIds": [
+            "source-link-440c8cd6b11fba661df1acfe"
+          ],
+          "status": "lead",
+          "address": "493 Jurong West Street 41, #01-02/03, Singapore 640493",
+          "postalCode": "640493",
+          "unit": "#01-02/03",
+          "merchantUrl": "https://www.facebook.com/GingaVeggie/",
+          "notes": "Source-provided direct map link resolves to this saved place ID. Display facts are copied from the separately saved independent directory lead, not the redirect. Candidate association only; current branch identity and menu require source review.",
+          "placeId": "ChIJQdFZAuUP2jERIYlr7bqMkBo",
+          "placeIdEvidenceUrl": "https://maps.app.goo.gl/ygyqWU3fgDUqvaX87",
+          "independentLeadId": "hippo-493-ginga-vegetarian-food",
+          "independentLeadFile": "data/menu-research/directory-leads.json",
+          "identityLinkCheckedAt": "2026-10-16T00:23:02.211Z"
+        }
+      ],
+      "sourceObservations": [
+        {
+          "id": "source-link-440c8cd6b11fba661df1acfe",
+          "url": "https://www.onehungryhippo.com/restaurants/493-ginga-vegetarian-food",
+          "publisher": "OneHungryHippo",
+          "title": "Independent directory branch lead",
+          "checkedAt": "2026-10-15",
+          "status": "directory-lead-requires-merchant-confirmation"
+        }
+      ]
+    },
+    {
+      "sequence": 18,
+      "placeId": "ChIJEX3C3JEX2jERwuK4zFISqCM",
+      "leads": [
+        {
+          "id": "source-link-3456237769db4112486b943b",
+          "name": "Green Leaf Cuisine",
+          "sourceIds": [
+            "source-link-3456237769db4112486b943b"
+          ],
+          "status": "lead",
+          "address": "10 Sengkang Square, #01-12 Kopitiam Square, Singapore 544829",
+          "postalCode": "544829",
+          "unit": "#01-12",
+          "notes": "Source-provided direct map link resolves to this saved place ID. Display facts are copied from the separately saved independent directory lead, not the redirect. Candidate association only; current branch identity and menu require source review.",
+          "placeId": "ChIJEX3C3JEX2jERwuK4zFISqCM",
+          "placeIdEvidenceUrl": "https://maps.app.goo.gl/U3ys9bjMCJhAQmgZ9",
+          "independentLeadId": "hippo-green-leaf-cuisine",
+          "independentLeadFile": "data/menu-research/directory-leads.json",
+          "identityLinkCheckedAt": "2026-10-16T00:23:04.890Z"
+        }
+      ],
+      "sourceObservations": [
+        {
+          "id": "source-link-3456237769db4112486b943b",
+          "url": "https://www.onehungryhippo.com/restaurants/green-leaf-cuisine",
+          "publisher": "OneHungryHippo",
+          "title": "Independent directory branch lead",
+          "checkedAt": "2026-10-15",
+          "status": "directory-lead-requires-merchant-confirmation"
+        }
+      ]
+    },
+    {
+      "sequence": 19,
+      "placeId": "ChIJf3Csdk0X2jERyUlctwj8RP0",
+      "leads": [
+        {
+          "id": "source-link-436987345c61ff601591ab9e",
+          "name": "Guang Yuan Vegetarian 广缘素食",
+          "sourceIds": [
+            "source-link-436987345c61ff601591ab9e"
+          ],
+          "status": "lead",
+          "address": "10 Sengkang Square, #01-33 Kopitiam Square, Singapore 544829",
+          "postalCode": "544829",
+          "unit": "#01-33",
+          "notes": "Source-provided direct map link resolves to this saved place ID. Display facts are copied from the separately saved independent directory lead, not the redirect. Candidate association only; current branch identity and menu require source review.",
+          "placeId": "ChIJf3Csdk0X2jERyUlctwj8RP0",
+          "placeIdEvidenceUrl": "https://maps.app.goo.gl/zWALDswgoXBtpxvcA",
+          "independentLeadId": "hippo-guang-yuan-vegetarian-sengkang",
+          "independentLeadFile": "data/menu-research/directory-leads.json",
+          "identityLinkCheckedAt": "2026-10-16T00:23:06.561Z"
+        }
+      ],
+      "sourceObservations": [
+        {
+          "id": "source-link-436987345c61ff601591ab9e",
+          "url": "https://www.onehungryhippo.com/restaurants/guang-yuan-vegetarian-sengkang",
+          "publisher": "OneHungryHippo",
+          "title": "Independent directory branch lead",
+          "checkedAt": "2026-10-15",
+          "status": "directory-lead-requires-merchant-confirmation"
+        }
+      ]
+    },
+    {
+      "sequence": 20,
+      "placeId": "ChIJKSubRgAX2jERTRha6r88Bfg",
+      "leads": [
+        {
+          "id": "source-link-22f78e3e3bb028b74f529da9",
+          "name": "Guang Yuan Vegetarian 广缘素食 (Hougang)",
+          "sourceIds": [
+            "source-link-22f78e3e3bb028b74f529da9"
+          ],
+          "status": "lead",
+          "address": "681 Hougang Ave 8, Yi Huat Cafe & Eating House, Singapore 530681",
+          "postalCode": "530681",
+          "notes": "Source-provided direct map link resolves to this saved place ID. Display facts are copied from the separately saved independent directory lead, not the redirect. Candidate association only; current branch identity and menu require source review.",
+          "placeId": "ChIJKSubRgAX2jERTRha6r88Bfg",
+          "placeIdEvidenceUrl": "https://maps.app.goo.gl/Yv9G2EMJi5cV65nt6",
+          "independentLeadId": "hippo-guang-yuan-vegetarian-hougang",
+          "independentLeadFile": "data/menu-research/directory-leads.json",
+          "identityLinkCheckedAt": "2026-10-16T00:23:07.355Z"
+        }
+      ],
+      "sourceObservations": [
+        {
+          "id": "source-link-22f78e3e3bb028b74f529da9",
+          "url": "https://www.onehungryhippo.com/restaurants/guang-yuan-vegetarian-hougang",
+          "publisher": "OneHungryHippo",
+          "title": "Independent directory branch lead",
+          "checkedAt": "2026-10-15",
+          "status": "directory-lead-requires-merchant-confirmation"
+        }
+      ]
+    },
+    {
+      "sequence": 21,
+      "placeId": "ChIJldEH4HIZ2jERd5RBpKhXaS0",
+      "leads": [
+        {
+          "id": "source-link-4991f14a9a4c10b5cc1ea588",
+          "name": "Hao Xiang Ju Cooked Food 好香居素食",
+          "sourceIds": [
+            "source-link-4991f14a9a4c10b5cc1ea588"
+          ],
+          "status": "lead",
+          "address": "335 Smith St, #02-142, Singapore 050335",
+          "postalCode": "050335",
+          "unit": "#02-142",
+          "notes": "Source-provided direct map link resolves to this saved place ID. Display facts are copied from the separately saved independent directory lead, not the redirect. Candidate association only; current branch identity and menu require source review.",
+          "placeId": "ChIJldEH4HIZ2jERd5RBpKhXaS0",
+          "placeIdEvidenceUrl": "https://maps.app.goo.gl/CRqtEizdNmD7TBBT6",
+          "independentLeadId": "hippo-hao-xiang-ju-cooked-food",
+          "independentLeadFile": "data/menu-research/directory-leads.json",
+          "identityLinkCheckedAt": "2026-10-16T00:23:08.259Z"
+        }
+      ],
+      "sourceObservations": [
+        {
+          "id": "source-link-4991f14a9a4c10b5cc1ea588",
+          "url": "https://www.onehungryhippo.com/restaurants/hao-xiang-ju-cooked-food",
+          "publisher": "OneHungryHippo",
+          "title": "Independent directory branch lead",
+          "checkedAt": "2026-10-15",
+          "status": "directory-lead-requires-merchant-confirmation"
+        }
+      ]
+    },
+    {
+      "sequence": 22,
+      "placeId": "ChIJx46HetMF2jEROF_4KBTbA1A",
+      "leads": [
+        {
+          "id": "source-link-7324a537739c18fadb39e9a0",
+          "name": "Ji Xiang Vegetarian (Boon Lay) 吉祥素食",
+          "sourceIds": [
+            "source-link-7324a537739c18fadb39e9a0"
+          ],
+          "status": "lead",
+          "address": "1-3 Third Lok Yang Rd, Singapore 627998",
+          "postalCode": "627998",
+          "notes": "Source-provided direct map link resolves to this saved place ID. Display facts are copied from the separately saved independent directory lead, not the redirect. Candidate association only; current branch identity and menu require source review.",
+          "placeId": "ChIJx46HetMF2jEROF_4KBTbA1A",
+          "placeIdEvidenceUrl": "https://maps.app.goo.gl/tD6ikd1EQxHAAy6N7",
+          "independentLeadId": "hippo-ji-xiang-vegetarian-boon-lay",
+          "independentLeadFile": "data/menu-research/directory-leads.json",
+          "identityLinkCheckedAt": "2026-10-16T00:23:17.477Z"
+        }
+      ],
+      "sourceObservations": [
+        {
+          "id": "source-link-7324a537739c18fadb39e9a0",
+          "url": "https://www.onehungryhippo.com/restaurants/ji-xiang-vegetarian-boon-lay",
+          "publisher": "OneHungryHippo",
+          "title": "Independent directory branch lead",
+          "checkedAt": "2026-10-15",
+          "status": "directory-lead-requires-merchant-confirmation"
+        }
+      ]
+    },
+    {
+      "sequence": 23,
+      "placeId": "ChIJyRdkWz0Q2jERuVYqi_aL6Ms",
+      "leads": [
+        {
+          "id": "source-link-cca2bd4dd703ce8a4fc9caa1",
+          "name": "Ji Xiang Vegetarian (Bukit Batok) 吉祥素食",
+          "sourceIds": [
+            "source-link-cca2bd4dd703ce8a4fc9caa1"
+          ],
+          "status": "lead",
+          "address": "Bukit Batok West Ave. 8, Block 177, Singapore 650177",
+          "postalCode": "650177",
+          "notes": "Source-provided direct map link resolves to this saved place ID. Display facts are copied from the separately saved independent directory lead, not the redirect. Candidate association only; current branch identity and menu require source review.",
+          "placeId": "ChIJyRdkWz0Q2jERuVYqi_aL6Ms",
+          "placeIdEvidenceUrl": "https://maps.app.goo.gl/9aB3QizStib7SeRw9",
+          "independentLeadId": "hippo-ji-xiang-vegetarian-bukit-batok",
+          "independentLeadFile": "data/menu-research/directory-leads.json",
+          "identityLinkCheckedAt": "2026-10-16T00:23:18.352Z"
+        }
+      ],
+      "sourceObservations": [
+        {
+          "id": "source-link-cca2bd4dd703ce8a4fc9caa1",
+          "url": "https://www.onehungryhippo.com/restaurants/ji-xiang-vegetarian-bukit-batok",
+          "publisher": "OneHungryHippo",
+          "title": "Independent directory branch lead",
+          "checkedAt": "2026-10-15",
+          "status": "directory-lead-requires-merchant-confirmation"
+        }
+      ]
+    },
+    {
+      "sequence": 24,
+      "placeId": "ChIJ67LSAp8R2jERbamXJvCafUs",
+      "leads": [
+        {
+          "id": "source-link-bfefce53c14c23b5a2af10cf",
+          "name": "Ji Xiang Vegetarian (Jurong East) 吉祥素食",
+          "sourceIds": [
+            "source-link-bfefce53c14c23b5a2af10cf"
+          ],
+          "status": "lead",
+          "address": "221 Jurong East Street 21, #01-875, Singapore 600221",
+          "postalCode": "600221",
+          "unit": "#01-875",
+          "notes": "Source-provided direct map link resolves to this saved place ID. Display facts are copied from the separately saved independent directory lead, not the redirect. Candidate association only; current branch identity and menu require source review.",
+          "placeId": "ChIJ67LSAp8R2jERbamXJvCafUs",
+          "placeIdEvidenceUrl": "https://maps.app.goo.gl/7yiQ8AP7TzWo9gnQ7",
+          "independentLeadId": "hippo-ji-xiang-vegetarian-jurong-east",
+          "independentLeadFile": "data/menu-research/directory-leads.json",
+          "identityLinkCheckedAt": "2026-10-16T00:23:19.195Z"
+        }
+      ],
+      "sourceObservations": [
+        {
+          "id": "source-link-bfefce53c14c23b5a2af10cf",
+          "url": "https://www.onehungryhippo.com/restaurants/ji-xiang-vegetarian-jurong-east",
+          "publisher": "OneHungryHippo",
+          "title": "Independent directory branch lead",
+          "checkedAt": "2026-10-15",
+          "status": "directory-lead-requires-merchant-confirmation"
+        }
+      ]
+    },
+    {
+      "sequence": 25,
+      "placeId": "ChIJYX7QOwAX2jERTjvioAA1ycM",
+      "leads": [
+        {
+          "id": "source-link-be55f9621e9947009dbf75bf",
+          "name": "Jia Jia Vegetarian (AMK) 佳佳素食",
+          "sourceIds": [
+            "source-link-be55f9621e9947009dbf75bf"
+          ],
+          "status": "lead",
+          "address": "408 Ang Mo Kio Ave 10, Singapore 560408",
+          "postalCode": "560408",
+          "notes": "Source-provided direct map link resolves to this saved place ID. Display facts are copied from the separately saved independent directory lead, not the redirect. Candidate association only; current branch identity and menu require source review.",
+          "placeId": "ChIJYX7QOwAX2jERTjvioAA1ycM",
+          "placeIdEvidenceUrl": "https://maps.app.goo.gl/XSemkTuSBtA23U5q8",
+          "independentLeadId": "hippo-jia-jia-vegetarian-amk",
+          "independentLeadFile": "data/menu-research/directory-leads.json",
+          "identityLinkCheckedAt": "2026-10-16T00:23:20.862Z"
+        }
+      ],
+      "sourceObservations": [
+        {
+          "id": "source-link-be55f9621e9947009dbf75bf",
+          "url": "https://www.onehungryhippo.com/restaurants/jia-jia-vegetarian-amk",
+          "publisher": "OneHungryHippo",
+          "title": "Independent directory branch lead",
+          "checkedAt": "2026-10-15",
+          "status": "directory-lead-requires-merchant-confirmation"
+        }
+      ]
+    },
+    {
+      "sequence": 26,
+      "placeId": "ChIJucjD4T8Q2jERheh5IAu3yv0",
+      "leads": [
+        {
+          "id": "source-link-c6c320158fdc7fd150e8472c",
+          "name": "Jin You Yuan",
+          "sourceIds": [
+            "source-link-c6c320158fdc7fd150e8472c"
+          ],
+          "status": "lead",
+          "address": "166 Jln Besar, #02-35 Berseh Food Centre, Singapore 208877",
+          "postalCode": "208877",
+          "unit": "#02-35",
+          "notes": "Source-provided direct map link resolves to this saved place ID. Display facts are copied from the separately saved independent directory lead, not the redirect. Candidate association only; current branch identity and menu require source review.",
+          "placeId": "ChIJucjD4T8Q2jERheh5IAu3yv0",
+          "placeIdEvidenceUrl": "https://maps.app.goo.gl/JgQNSLhGKr5WgzSc8",
+          "independentLeadId": "hippo-jin-you-yuan",
+          "independentLeadFile": "data/menu-research/directory-leads.json",
+          "identityLinkCheckedAt": "2026-10-16T00:23:25.862Z"
+        }
+      ],
+      "sourceObservations": [
+        {
+          "id": "source-link-c6c320158fdc7fd150e8472c",
+          "url": "https://www.onehungryhippo.com/restaurants/jin-you-yuan",
+          "publisher": "OneHungryHippo",
+          "title": "Independent directory branch lead",
+          "checkedAt": "2026-10-15",
+          "status": "directory-lead-requires-merchant-confirmation"
+        }
+      ]
+    },
+    {
+      "sequence": 27,
+      "placeId": "ChIJLe7MKwAT2jERYmoCCA0AKXg",
+      "leads": [
+        {
+          "id": "source-link-e097b15d3d9649f2f6bdcaa9",
+          "name": "Joyful Veggies",
+          "sourceIds": [
+            "source-link-e097b15d3d9649f2f6bdcaa9"
+          ],
+          "status": "lead",
+          "address": "Woodlands Polaris",
+          "notes": "Source-provided direct map link resolves to this saved place ID. Display facts are copied from the separately saved independent directory lead, not the redirect. Candidate association only; current branch identity and menu require source review.",
+          "placeId": "ChIJLe7MKwAT2jERYmoCCA0AKXg",
+          "placeIdEvidenceUrl": "https://maps.app.goo.gl/Cw8WqTbpH2NUT6Gs5",
+          "independentLeadId": "hippo-joyful-veggies",
+          "independentLeadFile": "data/menu-research/directory-leads.json",
+          "identityLinkCheckedAt": "2026-10-16T00:23:27.562Z"
+        }
+      ],
+      "sourceObservations": [
+        {
+          "id": "source-link-e097b15d3d9649f2f6bdcaa9",
+          "url": "https://www.onehungryhippo.com/restaurants/joyful-veggies",
+          "publisher": "OneHungryHippo",
+          "title": "Independent directory branch lead",
+          "checkedAt": "2026-10-15",
+          "status": "directory-lead-requires-merchant-confirmation"
+        }
+      ]
+    },
+    {
+      "sequence": 28,
+      "placeId": "ChIJBd7Qp8QW2jERL-lv-THRlyc",
+      "leads": [
+        {
+          "id": "source-link-b8c6eb4ded2e494c137cc3ad",
+          "name": "Ju Fu Yuan Vegetarian Delight 聚福缘",
+          "sourceIds": [
+            "source-link-b8c6eb4ded2e494c137cc3ad"
+          ],
+          "status": "lead",
+          "address": "162 Ang Mo Kio Ave 4, #01-15, Singapore 560162",
+          "postalCode": "560162",
+          "unit": "#01-15",
+          "notes": "Source-provided direct map link resolves to this saved place ID. Display facts are copied from the separately saved independent directory lead, not the redirect. Candidate association only; current branch identity and menu require source review.",
+          "placeId": "ChIJBd7Qp8QW2jERL-lv-THRlyc",
+          "placeIdEvidenceUrl": "https://maps.app.goo.gl/7BtrhSbyx1XYSX777",
+          "independentLeadId": "hippo-ju-fu-yuan-vegetarian-delight-ang-mo-kio",
+          "independentLeadFile": "data/menu-research/directory-leads.json",
+          "identityLinkCheckedAt": "2026-10-16T00:23:29.215Z"
+        }
+      ],
+      "sourceObservations": [
+        {
+          "id": "source-link-b8c6eb4ded2e494c137cc3ad",
+          "url": "https://www.onehungryhippo.com/restaurants/ju-fu-yuan-vegetarian-delight-ang-mo-kio",
+          "publisher": "OneHungryHippo",
+          "title": "Independent directory branch lead",
+          "checkedAt": "2026-10-15",
+          "status": "directory-lead-requires-merchant-confirmation"
+        }
+      ]
+    },
+    {
+      "sequence": 29,
+      "placeId": "ChIJGU02RwA92jERq_ZaIN1eR8U",
+      "leads": [
+        {
+          "id": "source-link-703c98805d46176f965d34f8",
+          "name": "Ju Fu Yuan Vegetarian 聚福缘",
+          "sourceIds": [
+            "source-link-703c98805d46176f965d34f8"
+          ],
+          "status": "lead",
+          "address": "Blk 631 Bedok Reservoir Rd, Singapore 470631",
+          "postalCode": "470631",
+          "notes": "Source-provided direct map link resolves to this saved place ID. Display facts are copied from the separately saved independent directory lead, not the redirect. Candidate association only; current branch identity and menu require source review.",
+          "placeId": "ChIJGU02RwA92jERq_ZaIN1eR8U",
+          "placeIdEvidenceUrl": "https://maps.app.goo.gl/jmi973CdoTTx5gnQ9",
+          "independentLeadId": "hippo-ju-fu-yuan-vegetarian",
+          "independentLeadFile": "data/menu-research/directory-leads.json",
+          "identityLinkCheckedAt": "2026-10-16T00:23:30.147Z"
+        }
+      ],
+      "sourceObservations": [
+        {
+          "id": "source-link-703c98805d46176f965d34f8",
+          "url": "https://www.onehungryhippo.com/restaurants/ju-fu-yuan-vegetarian",
+          "publisher": "OneHungryHippo",
+          "title": "Independent directory branch lead",
+          "checkedAt": "2026-10-15",
+          "status": "directory-lead-requires-merchant-confirmation"
+        }
+      ]
+    },
+    {
+      "sequence": 30,
+      "placeId": "ChIJL_ex76Q92jER5AMt5PlsTQM",
+      "leads": [
+        {
+          "id": "source-link-51954ec7af984aa40ae4f442",
+          "name": "Just Greens Vegetarian (Simei) 绿清清素食",
+          "sourceIds": [
+            "source-link-51954ec7af984aa40ae4f442"
+          ],
+          "status": "lead",
+          "address": "248 Simei St 3, #01-100, Singapore 520248",
+          "postalCode": "520248",
+          "unit": "#01-100",
+          "notes": "Source-provided direct map link resolves to this saved place ID. Display facts are copied from the separately saved independent directory lead, not the redirect. Candidate association only; current branch identity and menu require source review.",
+          "placeId": "ChIJL_ex76Q92jER5AMt5PlsTQM",
+          "placeIdEvidenceUrl": "https://maps.app.goo.gl/B3xTaK7vj29HbCDn9",
+          "independentLeadId": "hippo-just-greens-vegetarian-simei",
+          "independentLeadFile": "data/menu-research/directory-leads.json",
+          "identityLinkCheckedAt": "2026-10-16T00:23:32.560Z"
+        }
+      ],
+      "sourceObservations": [
+        {
+          "id": "source-link-51954ec7af984aa40ae4f442",
+          "url": "https://www.onehungryhippo.com/restaurants/just-greens-vegetarian-simei",
+          "publisher": "OneHungryHippo",
+          "title": "Independent directory branch lead",
+          "checkedAt": "2026-10-15",
+          "status": "directory-lead-requires-merchant-confirmation"
+        }
+      ]
+    },
+    {
+      "sequence": 31,
+      "placeId": "ChIJBRNFl0EU2jERYrg5OJ55kuE",
+      "leads": [
+        {
+          "id": "source-link-36ec1c919a43877d9e838cca",
+          "name": "Just Greens Vegetarian (Yishun) 绿清清素食",
+          "sourceIds": [
+            "source-link-36ec1c919a43877d9e838cca"
+          ],
+          "status": "lead",
+          "address": "418 Yishun Ave 11, Singapore 760418",
+          "postalCode": "760418",
+          "notes": "Source-provided direct map link resolves to this saved place ID. Display facts are copied from the separately saved independent directory lead, not the redirect. Candidate association only; current branch identity and menu require source review.",
+          "placeId": "ChIJBRNFl0EU2jERYrg5OJ55kuE",
+          "placeIdEvidenceUrl": "https://maps.app.goo.gl/CcGvfFxCGD4qn2fw5",
+          "independentLeadId": "hippo-just-greens-vegetarian-yishun",
+          "independentLeadFile": "data/menu-research/directory-leads.json",
+          "identityLinkCheckedAt": "2026-10-16T00:23:33.510Z"
+        }
+      ],
+      "sourceObservations": [
+        {
+          "id": "source-link-36ec1c919a43877d9e838cca",
+          "url": "https://www.onehungryhippo.com/restaurants/just-greens-vegetarian-yishun",
+          "publisher": "OneHungryHippo",
+          "title": "Independent directory branch lead",
+          "checkedAt": "2026-10-15",
+          "status": "directory-lead-requires-merchant-confirmation"
+        }
+      ]
+    },
+    {
+      "sequence": 32,
+      "placeId": "ChIJzbgJZegZ2jER0hmfTQKNHCM",
+      "leads": [
+        {
+          "id": "source-link-2b4020edbded66f1ff65f27c",
+          "name": "Kale by Kang Su (The Adelphi)",
+          "sourceIds": [
+            "source-link-2b4020edbded66f1ff65f27c"
+          ],
+          "status": "lead",
+          "address": "1 Coleman St, #02-20 The Adelphi, Singapore 179803",
+          "postalCode": "179803",
+          "unit": "#02-20",
+          "merchantUrl": "https://www.facebook.com/profile.php?id=61555173835603&sfnsn=wa&mibextid=RUbZ1f",
+          "notes": "Source-provided direct map link resolves to this saved place ID. Display facts are copied from the separately saved independent directory lead, not the redirect. Candidate association only; current branch identity and menu require source review.",
+          "placeId": "ChIJzbgJZegZ2jER0hmfTQKNHCM",
+          "placeIdEvidenceUrl": "https://maps.app.goo.gl/7J1w6sYQ9wfQ6dUs7",
+          "independentLeadId": "hippo-kale-by-kang-su-the-adelphi",
+          "independentLeadFile": "data/menu-research/directory-leads.json",
+          "identityLinkCheckedAt": "2026-10-16T00:23:34.256Z"
+        }
+      ],
+      "sourceObservations": [
+        {
+          "id": "source-link-2b4020edbded66f1ff65f27c",
+          "url": "https://www.onehungryhippo.com/restaurants/kale-by-kang-su-the-adelphi",
+          "publisher": "OneHungryHippo",
+          "title": "Independent directory branch lead",
+          "checkedAt": "2026-10-15",
+          "status": "directory-lead-requires-merchant-confirmation"
+        }
+      ]
+    },
+    {
+      "sequence": 33,
+      "placeId": "ChIJ4RzK658Z2jERwNyDzOSlwK0",
+      "leads": [
+        {
+          "id": "source-link-1d00360e9b01f2c777958650",
+          "name": "Kang Su Vegetarian (Sims Drive) 康素",
+          "sourceIds": [
+            "source-link-1d00360e9b01f2c777958650"
+          ],
+          "status": "lead",
+          "address": "Sims Dr, #01-180, Singapore 380045",
+          "postalCode": "380045",
+          "unit": "#01-180",
+          "merchantUrl": "https://www.facebook.com/Kangsuvegetarian?mibextid=LQQJ4d",
+          "notes": "Source-provided direct map link resolves to this saved place ID. Display facts are copied from the separately saved independent directory lead, not the redirect. Candidate association only; current branch identity and menu require source review.",
+          "placeId": "ChIJ4RzK658Z2jERwNyDzOSlwK0",
+          "placeIdEvidenceUrl": "https://maps.app.goo.gl/YgmA6q1CjXNEvnde6",
+          "independentLeadId": "hippo-kang-su-vegetarian-sims-drive",
+          "independentLeadFile": "data/menu-research/directory-leads.json",
+          "identityLinkCheckedAt": "2026-10-16T00:23:35.222Z"
+        }
+      ],
+      "sourceObservations": [
+        {
+          "id": "source-link-1d00360e9b01f2c777958650",
+          "url": "https://www.onehungryhippo.com/restaurants/kang-su-vegetarian-sims-drive",
+          "publisher": "OneHungryHippo",
+          "title": "Independent directory branch lead",
+          "checkedAt": "2026-10-15",
+          "status": "directory-lead-requires-merchant-confirmation"
+        }
+      ]
+    },
+    {
+      "sequence": 34,
+      "placeId": "ChIJK4X6Pz8Q2jER-pUFcxUA_ok",
+      "leads": [
+        {
+          "id": "source-link-6cadbf3a2997a7d7357a7d3a",
+          "name": "Lan Xiang Yuan Vegetarian 兰香园",
+          "sourceIds": [
+            "source-link-6cadbf3a2997a7d7357a7d3a"
+          ],
+          "status": "lead",
+          "address": "632 Bukit Batok Central, Singapore 650632",
+          "postalCode": "650632",
+          "notes": "Source-provided direct map link resolves to this saved place ID. Display facts are copied from the separately saved independent directory lead, not the redirect. Candidate association only; current branch identity and menu require source review.",
+          "placeId": "ChIJK4X6Pz8Q2jER-pUFcxUA_ok",
+          "placeIdEvidenceUrl": "https://maps.app.goo.gl/35zyhbQoM6EezVPw6",
+          "independentLeadId": "hippo-lan-xiang-yuan-vegetarian",
+          "independentLeadFile": "data/menu-research/directory-leads.json",
+          "identityLinkCheckedAt": "2026-10-16T00:23:40.195Z"
+        }
+      ],
+      "sourceObservations": [
+        {
+          "id": "source-link-6cadbf3a2997a7d7357a7d3a",
+          "url": "https://www.onehungryhippo.com/restaurants/lan-xiang-yuan-vegetarian",
+          "publisher": "OneHungryHippo",
+          "title": "Independent directory branch lead",
+          "checkedAt": "2026-10-15",
+          "status": "directory-lead-requires-merchant-confirmation"
+        }
+      ]
+    },
+    {
+      "sequence": 35,
+      "placeId": "ChIJMQxEodkT2jERLyi1HxYq3y4",
+      "leads": [
+        {
+          "id": "source-link-b357b0a4bfa559838e312ccc",
+          "name": "Makan Vegan Catering 斋这里",
+          "sourceIds": [
+            "source-link-b357b0a4bfa559838e312ccc"
+          ],
+          "status": "lead",
+          "address": "7 Mandai Estate, Singapore 729904",
+          "postalCode": "729904",
+          "merchantUrl": "https://www.makanvegan.com/order",
+          "notes": "Source-provided direct map link resolves to this saved place ID. Display facts are copied from the separately saved independent directory lead, not the redirect. Candidate association only; current branch identity and menu require source review.",
+          "placeId": "ChIJMQxEodkT2jERLyi1HxYq3y4",
+          "placeIdEvidenceUrl": "https://maps.app.goo.gl/teMHGR2a9L7jq6go6",
+          "independentLeadId": "hippo-makan-vegan-catering",
+          "independentLeadFile": "data/menu-research/directory-leads.json",
+          "identityLinkCheckedAt": "2026-10-16T00:23:45.778Z"
+        }
+      ],
+      "sourceObservations": [
+        {
+          "id": "source-link-b357b0a4bfa559838e312ccc",
+          "url": "https://www.onehungryhippo.com/restaurants/makan-vegan-catering",
+          "publisher": "OneHungryHippo",
+          "title": "Independent directory branch lead",
+          "checkedAt": "2026-10-15",
+          "status": "directory-lead-requires-merchant-confirmation"
+        }
+      ]
+    },
+    {
+      "sequence": 36,
+      "placeId": "ChIJmTHXaAAR2jERYwnVXvRFfm8",
+      "leads": [
+        {
+          "id": "source-link-a9fe53746f68950729e0da4a",
+          "name": "Miao Xin Vegetarian Food 妙心素食",
+          "sourceIds": [
+            "source-link-a9fe53746f68950729e0da4a"
+          ],
+          "status": "lead",
+          "address": "Blk 254 Jurong East St 24, #01-40 Yuhua Village Market and Food Centre, Singapore 600254",
+          "postalCode": "600254",
+          "unit": "#01-40",
+          "notes": "Source-provided direct map link resolves to this saved place ID. Display facts are copied from the separately saved independent directory lead, not the redirect. Candidate association only; current branch identity and menu require source review.",
+          "placeId": "ChIJmTHXaAAR2jERYwnVXvRFfm8",
+          "placeIdEvidenceUrl": "https://maps.app.goo.gl/YHQS5voAmiBHwxTMA",
+          "independentLeadId": "hippo-miao-xin-vegetarian-food",
+          "independentLeadFile": "data/menu-research/directory-leads.json",
+          "identityLinkCheckedAt": "2026-10-16T00:23:49.251Z"
+        }
+      ],
+      "sourceObservations": [
+        {
+          "id": "source-link-a9fe53746f68950729e0da4a",
+          "url": "https://www.onehungryhippo.com/restaurants/miao-xin-vegetarian-food",
+          "publisher": "OneHungryHippo",
+          "title": "Independent directory branch lead",
+          "checkedAt": "2026-10-15",
+          "status": "directory-lead-requires-merchant-confirmation"
+        }
+      ]
+    },
+    {
+      "sequence": 37,
+      "placeId": "ChIJO17dKx4X2jERtWFng59_5kc",
+      "leads": [
+        {
+          "id": "source-link-fce6945dc6d9b7152917d656",
+          "name": "Ming Ri Vegetarian",
+          "sourceIds": [
+            "source-link-fce6945dc6d9b7152917d656"
+          ],
+          "status": "lead",
+          "address": "341 Ang Mo Kio Ave 1, #01-05, Singapore 560341",
+          "postalCode": "560341",
+          "unit": "#01-05",
+          "notes": "Source-provided direct map link resolves to this saved place ID. Display facts are copied from the separately saved independent directory lead, not the redirect. Candidate association only; current branch identity and menu require source review.",
+          "placeId": "ChIJO17dKx4X2jERtWFng59_5kc",
+          "placeIdEvidenceUrl": "https://maps.app.goo.gl/KqVBTnKFhcw7RBvx9",
+          "independentLeadId": "hippo-ming-ri-vegetarian",
+          "independentLeadFile": "data/menu-research/directory-leads.json",
+          "identityLinkCheckedAt": "2026-10-16T00:23:49.938Z"
+        }
+      ],
+      "sourceObservations": [
+        {
+          "id": "source-link-fce6945dc6d9b7152917d656",
+          "url": "https://www.onehungryhippo.com/restaurants/ming-ri-vegetarian",
+          "publisher": "OneHungryHippo",
+          "title": "Independent directory branch lead",
+          "checkedAt": "2026-10-15",
+          "status": "directory-lead-requires-merchant-confirmation"
+        }
+      ]
+    },
+    {
+      "sequence": 38,
+      "placeId": "ChIJf8BpdgAX2jER5p1W1zkoAGQ",
+      "leads": [
+        {
+          "id": "source-link-cfee79cf0a8117545c9e8e40",
+          "name": "Mini Green Lok Lok",
+          "sourceIds": [
+            "source-link-cfee79cf0a8117545c9e8e40"
+          ],
+          "status": "lead",
+          "address": "210 Lorong 8 Toa Payoh",
+          "merchantUrl": "https://www.instagram.com/minigreensg",
+          "notes": "Source-provided direct map link resolves to this saved place ID. Display facts are copied from the separately saved independent directory lead, not the redirect. Candidate association only; current branch identity and menu require source review.",
+          "placeId": "ChIJf8BpdgAX2jER5p1W1zkoAGQ",
+          "placeIdEvidenceUrl": "https://maps.app.goo.gl/FsvjHC2zeVRDafrb6",
+          "independentLeadId": "hippo-vegetarian-food-stall-01-74",
+          "independentLeadFile": "data/menu-research/directory-leads.json",
+          "identityLinkCheckedAt": "2026-10-16T00:23:51.387Z"
+        }
+      ],
+      "sourceObservations": [
+        {
+          "id": "source-link-cfee79cf0a8117545c9e8e40",
+          "url": "https://www.onehungryhippo.com/restaurants/vegetarian-food-stall-01-74",
+          "publisher": "OneHungryHippo",
+          "title": "Independent directory branch lead",
+          "checkedAt": "2026-10-15",
+          "status": "directory-lead-requires-merchant-confirmation"
+        }
+      ]
+    },
+    {
+      "sequence": 39,
+      "placeId": "ChIJ5anU-cMZ2jERBqEBp7taKoU",
+      "leads": [
+        {
+          "id": "source-link-0f70ff0737bd157b2982bf85",
+          "name": "Mitu Rice 米兔饭团",
+          "sourceIds": [
+            "source-link-0f70ff0737bd157b2982bf85"
+          ],
+          "status": "lead",
+          "address": "3 Shenton Wy, #02-11 Shenton House, Singapore 068805",
+          "postalCode": "068805",
+          "unit": "#02-11",
+          "merchantUrl": "http://miturice.com/",
+          "notes": "Source-provided direct map link resolves to this saved place ID. Display facts are copied from the separately saved independent directory lead, not the redirect. Candidate association only; current branch identity and menu require source review.",
+          "placeId": "ChIJ5anU-cMZ2jERBqEBp7taKoU",
+          "placeIdEvidenceUrl": "https://maps.app.goo.gl/mFyatQ4hSyL4A8n8A",
+          "independentLeadId": "hippo-mitu-rice",
+          "independentLeadFile": "data/menu-research/directory-leads.json",
+          "identityLinkCheckedAt": "2026-10-16T00:23:52.089Z"
+        }
+      ],
+      "sourceObservations": [
+        {
+          "id": "source-link-0f70ff0737bd157b2982bf85",
+          "url": "https://www.onehungryhippo.com/restaurants/mitu-rice",
+          "publisher": "OneHungryHippo",
+          "title": "Independent directory branch lead",
+          "checkedAt": "2026-10-15",
+          "status": "directory-lead-requires-merchant-confirmation"
+        }
+      ]
+    },
+    {
+      "sequence": 40,
+      "placeId": "ChIJJxQI_AsZ2jERK6HpK5kZjAs",
+      "leads": [
+        {
+          "id": "source-link-5261e6e89bfa16c8fd5ac86b",
+          "name": "NomVNom",
+          "sourceIds": [
+            "source-link-5261e6e89bfa16c8fd5ac86b"
+          ],
+          "status": "lead",
+          "address": "6 Eu Tong Sen Street, #03-105/106/107, Clarke Quay Central",
+          "unit": "#03-105/106/107",
+          "merchantUrl": "http://www.nomvnom.com/",
+          "notes": "Source-provided direct map link resolves to this saved place ID. Display facts are copied from the separately saved independent directory lead, not the redirect. Candidate association only; current branch identity and menu require source review.",
+          "placeId": "ChIJJxQI_AsZ2jERK6HpK5kZjAs",
+          "placeIdEvidenceUrl": "https://maps.app.goo.gl/DrfxHSr7qKMzoDJh9",
+          "independentLeadId": "hippo-nomvnom",
+          "independentLeadFile": "data/menu-research/directory-leads.json",
+          "identityLinkCheckedAt": "2026-10-16T00:23:53.471Z"
+        }
+      ],
+      "sourceObservations": [
+        {
+          "id": "source-link-5261e6e89bfa16c8fd5ac86b",
+          "url": "https://www.onehungryhippo.com/restaurants/nomvnom",
+          "publisher": "OneHungryHippo",
+          "title": "Independent directory branch lead",
+          "checkedAt": "2026-10-15",
+          "status": "directory-lead-requires-merchant-confirmation"
+        }
+      ]
+    },
+    {
+      "sequence": 41,
+      "placeId": "ChIJSVrVFBY92jERC58DYu_it90",
+      "leads": [
+        {
+          "id": "source-link-522815b7121254021dca9f15",
+          "name": "Pu Ti Vegetarian",
+          "sourceIds": [
+            "source-link-522815b7121254021dca9f15"
+          ],
+          "status": "lead",
+          "address": "137 Tampines Street 11",
+          "notes": "Source-provided direct map link resolves to this saved place ID. Display facts are copied from the separately saved independent directory lead, not the redirect. Candidate association only; current branch identity and menu require source review.",
+          "placeId": "ChIJSVrVFBY92jERC58DYu_it90",
+          "placeIdEvidenceUrl": "https://maps.app.goo.gl/BYSic8JGWGV7NFPd8",
+          "independentLeadId": "hippo-vegetarian-2",
+          "independentLeadFile": "data/menu-research/directory-leads.json",
+          "identityLinkCheckedAt": "2026-10-16T00:24:03.966Z"
+        }
+      ],
+      "sourceObservations": [
+        {
+          "id": "source-link-522815b7121254021dca9f15",
+          "url": "https://www.onehungryhippo.com/restaurants/vegetarian-2",
+          "publisher": "OneHungryHippo",
+          "title": "Independent directory branch lead",
+          "checkedAt": "2026-10-15",
+          "status": "directory-lead-requires-merchant-confirmation"
+        }
+      ]
+    },
+    {
+      "sequence": 42,
+      "placeId": "ChIJJ7wOPwAZ2jERqe2p7y_7SIo",
+      "leads": [
+        {
+          "id": "source-link-1c72ba81d4cc7ebe9416c104",
+          "name": "Qiu Yuan 秋源 Vegetarian Food",
+          "sourceIds": [
+            "source-link-1c72ba81d4cc7ebe9416c104"
+          ],
+          "status": "lead",
+          "address": "10 Hospital Blvd, #02-03 SingHealth Tower, Singapore 168582",
+          "postalCode": "168582",
+          "unit": "#02-03",
+          "notes": "Source-provided direct map link resolves to this saved place ID. Display facts are copied from the separately saved independent directory lead, not the redirect. Candidate association only; current branch identity and menu require source review.",
+          "placeId": "ChIJJ7wOPwAZ2jERqe2p7y_7SIo",
+          "placeIdEvidenceUrl": "https://maps.app.goo.gl/whPHvDqPdYpChVF39",
+          "independentLeadId": "hippo-qiu-yuan-vegetarian-food",
+          "independentLeadFile": "data/menu-research/directory-leads.json",
+          "identityLinkCheckedAt": "2026-10-16T00:24:05.339Z"
+        }
+      ],
+      "sourceObservations": [
+        {
+          "id": "source-link-1c72ba81d4cc7ebe9416c104",
+          "url": "https://www.onehungryhippo.com/restaurants/qiu-yuan-vegetarian-food",
+          "publisher": "OneHungryHippo",
+          "title": "Independent directory branch lead",
+          "checkedAt": "2026-10-15",
+          "status": "directory-lead-requires-merchant-confirmation"
+        }
+      ]
+    },
+    {
+      "sequence": 43,
+      "placeId": "ChIJ76ikgYMR2jERR0qwF8CumiQ",
+      "leads": [
+        {
+          "id": "source-link-9238aa1b3ef2d65ff106546d",
+          "name": "Red Apple Vegetarian (Bukit Batok) 红苹果",
+          "sourceIds": [
+            "source-link-9238aa1b3ef2d65ff106546d"
+          ],
+          "status": "lead",
+          "address": "Blk 150 Bukit Batok Street 11, #01-246, Singapore 650150",
+          "postalCode": "650150",
+          "unit": "#01-246",
+          "notes": "Source-provided direct map link resolves to this saved place ID. Display facts are copied from the separately saved independent directory lead, not the redirect. Candidate association only; current branch identity and menu require source review.",
+          "placeId": "ChIJ76ikgYMR2jERR0qwF8CumiQ",
+          "placeIdEvidenceUrl": "https://maps.app.goo.gl/43NZHfDwrUScQ34VA",
+          "independentLeadId": "hippo-red-apple-vegetarian-bukit-batok",
+          "independentLeadFile": "data/menu-research/directory-leads.json",
+          "identityLinkCheckedAt": "2026-10-16T00:24:07.417Z"
+        }
+      ],
+      "sourceObservations": [
+        {
+          "id": "source-link-9238aa1b3ef2d65ff106546d",
+          "url": "https://www.onehungryhippo.com/restaurants/red-apple-vegetarian-bukit-batok",
+          "publisher": "OneHungryHippo",
+          "title": "Independent directory branch lead",
+          "checkedAt": "2026-10-15",
+          "status": "directory-lead-requires-merchant-confirmation"
+        }
+      ]
+    },
+    {
+      "sequence": 44,
+      "placeId": "ChIJJXeeRgAT2jERZKwV2en0q_E",
+      "leads": [
+        {
+          "id": "source-link-8aa6696166dc9b7c4373a485",
+          "name": "Red Apple Vegetarian (Woodlands) 红苹果",
+          "sourceIds": [
+            "source-link-8aa6696166dc9b7c4373a485"
+          ],
+          "status": "lead",
+          "address": "Blk 166 Woodlands Street 13, #01-553, Singapore 730166",
+          "postalCode": "730166",
+          "unit": "#01-553",
+          "notes": "Source-provided direct map link resolves to this saved place ID. Display facts are copied from the separately saved independent directory lead, not the redirect. Candidate association only; current branch identity and menu require source review.",
+          "placeId": "ChIJJXeeRgAT2jERZKwV2en0q_E",
+          "placeIdEvidenceUrl": "https://maps.app.goo.gl/YRSKC4ApNS72XQJu9",
+          "independentLeadId": "hippo-red-apple-vegetarian-woodlands",
+          "independentLeadFile": "data/menu-research/directory-leads.json",
+          "identityLinkCheckedAt": "2026-10-16T00:24:08.086Z"
+        }
+      ],
+      "sourceObservations": [
+        {
+          "id": "source-link-8aa6696166dc9b7c4373a485",
+          "url": "https://www.onehungryhippo.com/restaurants/red-apple-vegetarian-woodlands",
+          "publisher": "OneHungryHippo",
+          "title": "Independent directory branch lead",
+          "checkedAt": "2026-10-15",
+          "status": "directory-lead-requires-merchant-confirmation"
+        }
+      ]
+    },
+    {
+      "sequence": 45,
+      "placeId": "ChIJ13950d4W2jERLFfMfXs9fDQ",
+      "leads": [
+        {
+          "id": "source-link-87a91c1f2f257e105742b751",
+          "name": "Ru Lai Vegetarian Food (AMK) 茹莱斋",
+          "sourceIds": [
+            "source-link-87a91c1f2f257e105742b751"
+          ],
+          "status": "lead",
+          "address": "226D Ang Mo Kio Ave 1, Singapore 564226",
+          "postalCode": "564226",
+          "notes": "Source-provided direct map link resolves to this saved place ID. Display facts are copied from the separately saved independent directory lead, not the redirect. Candidate association only; current branch identity and menu require source review.",
+          "placeId": "ChIJ13950d4W2jERLFfMfXs9fDQ",
+          "placeIdEvidenceUrl": "https://maps.app.goo.gl/mWTECwXP3L2zSHX67",
+          "independentLeadId": "hippo-ru-lai-vegetarian-food-amk",
+          "independentLeadFile": "data/menu-research/directory-leads.json",
+          "identityLinkCheckedAt": "2026-10-16T00:24:12.268Z"
+        }
+      ],
+      "sourceObservations": [
+        {
+          "id": "source-link-87a91c1f2f257e105742b751",
+          "url": "https://www.onehungryhippo.com/restaurants/ru-lai-vegetarian-food-amk",
+          "publisher": "OneHungryHippo",
+          "title": "Independent directory branch lead",
+          "checkedAt": "2026-10-15",
+          "status": "directory-lead-requires-merchant-confirmation"
+        }
+      ]
+    },
+    {
+      "sequence": 46,
+      "placeId": "ChIJd7HBOHgb2jERqtwyBQ3u0kk",
+      "leads": [
+        {
+          "id": "source-link-f8779de76b607e83128e712c",
+          "name": "Ru Yi Vegetarian (Bukit Merah) 如意素食",
+          "sourceIds": [
+            "source-link-f8779de76b607e83128e712c"
+          ],
+          "status": "lead",
+          "address": "11 Telok Blangah Cres, #01-92, Singapore 090011",
+          "postalCode": "090011",
+          "unit": "#01-92",
+          "notes": "Source-provided direct map link resolves to this saved place ID. Display facts are copied from the separately saved independent directory lead, not the redirect. Candidate association only; current branch identity and menu require source review.",
+          "placeId": "ChIJd7HBOHgb2jERqtwyBQ3u0kk",
+          "placeIdEvidenceUrl": "https://maps.app.goo.gl/XejzsCrd1YkvWqENA",
+          "independentLeadId": "hippo-ru-yi-vegetarian-bukit-merah",
+          "independentLeadFile": "data/menu-research/directory-leads.json",
+          "identityLinkCheckedAt": "2026-10-16T00:24:12.954Z"
+        }
+      ],
+      "sourceObservations": [
+        {
+          "id": "source-link-f8779de76b607e83128e712c",
+          "url": "https://www.onehungryhippo.com/restaurants/ru-yi-vegetarian-bukit-merah",
+          "publisher": "OneHungryHippo",
+          "title": "Independent directory branch lead",
+          "checkedAt": "2026-10-15",
+          "status": "directory-lead-requires-merchant-confirmation"
+        }
+      ]
+    },
+    {
+      "sequence": 47,
+      "placeId": "ChIJb6Z093kZ2jERAv7wu9OLF7U",
+      "leads": [
+        {
+          "id": "source-link-f836778d2ba6c22cc7a6f0c3",
+          "name": "Ru Yi Vegetarian (Tiong Bahru) 如意素食",
+          "sourceIds": [
+            "source-link-f836778d2ba6c22cc7a6f0c3"
+          ],
+          "status": "lead",
+          "address": "30 Seng Poh Rd, #02-26, Singapore 168898",
+          "postalCode": "168898",
+          "unit": "#02-26",
+          "notes": "Source-provided direct map link resolves to this saved place ID. Display facts are copied from the separately saved independent directory lead, not the redirect. Candidate association only; current branch identity and menu require source review.",
+          "placeId": "ChIJb6Z093kZ2jERAv7wu9OLF7U",
+          "placeIdEvidenceUrl": "https://maps.app.goo.gl/yMFnM2cbJ24sqxye8",
+          "independentLeadId": "hippo-ru-yi-vegetarian-tiong-bahru",
+          "independentLeadFile": "data/menu-research/directory-leads.json",
+          "identityLinkCheckedAt": "2026-10-16T00:24:13.645Z"
+        }
+      ],
+      "sourceObservations": [
+        {
+          "id": "source-link-f836778d2ba6c22cc7a6f0c3",
+          "url": "https://www.onehungryhippo.com/restaurants/ru-yi-vegetarian-tiong-bahru",
+          "publisher": "OneHungryHippo",
+          "title": "Independent directory branch lead",
+          "checkedAt": "2026-10-15",
+          "status": "directory-lead-requires-merchant-confirmation"
+        }
+      ]
+    },
+    {
+      "sequence": 48,
+      "placeId": "ChIJvZJIER4X2jERDJa7Lq2jcXw",
+      "leads": [
+        {
+          "id": "source-link-a3a66397af22442416ddb36b",
+          "name": "Ru Yi Yuan (AMK) 如意园",
+          "sourceIds": [
+            "source-link-a3a66397af22442416ddb36b"
+          ],
+          "status": "lead",
+          "address": "340 Ang Mo Kio Avenue 1, #01-1679 Teck Ghee Court",
+          "unit": "#01-1679",
+          "notes": "Source-provided direct map link resolves to this saved place ID. Display facts are copied from the separately saved independent directory lead, not the redirect. Candidate association only; current branch identity and menu require source review.",
+          "placeId": "ChIJvZJIER4X2jERDJa7Lq2jcXw",
+          "placeIdEvidenceUrl": "https://maps.app.goo.gl/YGBjPs1gxmiSyX2PA",
+          "independentLeadId": "hippo-ruyi-yuan-vegetarian-food",
+          "independentLeadFile": "data/menu-research/directory-leads.json",
+          "identityLinkCheckedAt": "2026-10-16T00:24:15.011Z"
+        }
+      ],
+      "sourceObservations": [
+        {
+          "id": "source-link-a3a66397af22442416ddb36b",
+          "url": "https://www.onehungryhippo.com/restaurants/ruyi-yuan-vegetarian-food",
+          "publisher": "OneHungryHippo",
+          "title": "Independent directory branch lead",
+          "checkedAt": "2026-10-15",
+          "status": "directory-lead-requires-merchant-confirmation"
+        }
+      ]
+    },
+    {
+      "sequence": 49,
+      "placeId": "ChIJf_JSOgAZ2jERK6BXhOUwYCM",
+      "leads": [
+        {
+          "id": "source-link-fe39773e3a47d3062ef75fab",
+          "name": "San De Vegetarian (Bukit Timah) 三德",
+          "sourceIds": [
+            "source-link-fe39773e3a47d3062ef75fab"
+          ],
+          "status": "lead",
+          "address": "100 Bukit Timah Rd, Singapore 229899",
+          "postalCode": "229899",
+          "notes": "Source-provided direct map link resolves to this saved place ID. Display facts are copied from the separately saved independent directory lead, not the redirect. Candidate association only; current branch identity and menu require source review.",
+          "placeId": "ChIJf_JSOgAZ2jERK6BXhOUwYCM",
+          "placeIdEvidenceUrl": "https://maps.app.goo.gl/tQ1UNQZcBqXozRYn7",
+          "independentLeadId": "hippo-san-de-vegetarian-bukit-timah",
+          "independentLeadFile": "data/menu-research/directory-leads.json",
+          "identityLinkCheckedAt": "2026-10-16T00:24:17.797Z"
+        }
+      ],
+      "sourceObservations": [
+        {
+          "id": "source-link-fe39773e3a47d3062ef75fab",
+          "url": "https://www.onehungryhippo.com/restaurants/san-de-vegetarian-bukit-timah",
+          "publisher": "OneHungryHippo",
+          "title": "Independent directory branch lead",
+          "checkedAt": "2026-10-15",
+          "status": "directory-lead-requires-merchant-confirmation"
+        }
+      ]
+    },
+    {
+      "sequence": 50,
+      "placeId": "ChIJg698wWMT2jERhPmjLkt8AYs",
+      "leads": [
+        {
+          "id": "source-link-5d4b73e06d09b9106a740b23",
+          "name": "San De Vegetarian (Sembawang) 三德",
+          "sourceIds": [
+            "source-link-5d4b73e06d09b9106a740b23"
+          ],
+          "status": "lead",
+          "address": "Sembawang Dr, Block 401, Singapore 750401",
+          "postalCode": "750401",
+          "notes": "Source-provided direct map link resolves to this saved place ID. Display facts are copied from the separately saved independent directory lead, not the redirect. Candidate association only; current branch identity and menu require source review.",
+          "placeId": "ChIJg698wWMT2jERhPmjLkt8AYs",
+          "placeIdEvidenceUrl": "https://maps.app.goo.gl/6ViJ7nPgZWMEqDGk7",
+          "independentLeadId": "hippo-san-de-vegetarian-sembawang",
+          "independentLeadFile": "data/menu-research/directory-leads.json",
+          "identityLinkCheckedAt": "2026-10-16T00:24:18.498Z"
+        }
+      ],
+      "sourceObservations": [
+        {
+          "id": "source-link-5d4b73e06d09b9106a740b23",
+          "url": "https://www.onehungryhippo.com/restaurants/san-de-vegetarian-sembawang",
+          "publisher": "OneHungryHippo",
+          "title": "Independent directory branch lead",
+          "checkedAt": "2026-10-15",
+          "status": "directory-lead-requires-merchant-confirmation"
+        }
+      ]
+    },
+    {
+      "sequence": 51,
+      "placeId": "ChIJHbFMrmYU2jERE2yYcp5gWBM",
+      "leads": [
+        {
+          "id": "source-link-46b9a19d4e56e9634b7f9fca",
+          "name": "San De Vegetarian (Yishun) 三德",
+          "sourceIds": [
+            "source-link-46b9a19d4e56e9634b7f9fca"
+          ],
+          "status": "lead",
+          "address": "747 Yishun Ring Rd, Singapore 760747",
+          "postalCode": "760747",
+          "notes": "Source-provided direct map link resolves to this saved place ID. Display facts are copied from the separately saved independent directory lead, not the redirect. Candidate association only; current branch identity and menu require source review.",
+          "placeId": "ChIJHbFMrmYU2jERE2yYcp5gWBM",
+          "placeIdEvidenceUrl": "https://maps.app.goo.gl/zN6EKxfK7Esud94g9",
+          "independentLeadId": "hippo-san-de-vegetarian-yishun",
+          "independentLeadFile": "data/menu-research/directory-leads.json",
+          "identityLinkCheckedAt": "2026-10-16T00:24:19.184Z"
+        }
+      ],
+      "sourceObservations": [
+        {
+          "id": "source-link-46b9a19d4e56e9634b7f9fca",
+          "url": "https://www.onehungryhippo.com/restaurants/san-de-vegetarian-yishun",
+          "publisher": "OneHungryHippo",
+          "title": "Independent directory branch lead",
+          "checkedAt": "2026-10-15",
+          "status": "directory-lead-requires-merchant-confirmation"
+        }
+      ]
+    },
+    {
+      "sequence": 52,
+      "placeId": "ChIJUX-ESRAZ2jERtoPLIj3OktA",
+      "leads": [
+        {
+          "id": "source-link-bf3038ef4588355acda73493",
+          "name": "Shu Vegetarian Hawker Stall 典蔬素食",
+          "sourceIds": [
+            "source-link-bf3038ef4588355acda73493"
+          ],
+          "status": "lead",
+          "address": "86 Market St, #03-05",
+          "unit": "#03-05",
+          "notes": "Source-provided direct map link resolves to this saved place ID. Display facts are copied from the separately saved independent directory lead, not the redirect. Candidate association only; current branch identity and menu require source review.",
+          "placeId": "ChIJUX-ESRAZ2jERtoPLIj3OktA",
+          "placeIdEvidenceUrl": "https://maps.app.goo.gl/geFedDU2jWyJSksq7",
+          "independentLeadId": "hippo-shu-vegetarian-hawker-stall",
+          "independentLeadFile": "data/menu-research/directory-leads.json",
+          "identityLinkCheckedAt": "2026-10-16T00:24:24.857Z"
+        }
+      ],
+      "sourceObservations": [
+        {
+          "id": "source-link-bf3038ef4588355acda73493",
+          "url": "https://www.onehungryhippo.com/restaurants/shu-vegetarian-hawker-stall",
+          "publisher": "OneHungryHippo",
+          "title": "Independent directory branch lead",
+          "checkedAt": "2026-10-15",
+          "status": "directory-lead-requires-merchant-confirmation"
+        }
+      ]
+    },
+    {
+      "sequence": 53,
+      "placeId": "ChIJC5hi8RcX2jERqC4jqrINCwI",
+      "leads": [
+        {
+          "id": "source-link-e0c226e128d5018dc79d2def",
+          "name": "Su Man Yuan Vegetarian (素滿園)",
+          "sourceIds": [
+            "source-link-e0c226e128d5018dc79d2def"
+          ],
+          "status": "lead",
+          "address": "10 Sengkang Square, Kopitiam Square, Singapore 544829",
+          "postalCode": "544829",
+          "notes": "Source-provided direct map link resolves to this saved place ID. Display facts are copied from the separately saved independent directory lead, not the redirect. Candidate association only; current branch identity and menu require source review.",
+          "placeId": "ChIJC5hi8RcX2jERqC4jqrINCwI",
+          "placeIdEvidenceUrl": "https://maps.app.goo.gl/3jUQpxGxTRbA6FNh7",
+          "independentLeadId": "hippo-su-man-yuan-vegetarian-sengkang",
+          "independentLeadFile": "data/menu-research/directory-leads.json",
+          "identityLinkCheckedAt": "2026-10-16T00:24:28.305Z"
+        }
+      ],
+      "sourceObservations": [
+        {
+          "id": "source-link-e0c226e128d5018dc79d2def",
+          "url": "https://www.onehungryhippo.com/restaurants/su-man-yuan-vegetarian-sengkang",
+          "publisher": "OneHungryHippo",
+          "title": "Independent directory branch lead",
+          "checkedAt": "2026-10-15",
+          "status": "directory-lead-requires-merchant-confirmation"
+        }
+      ]
+    },
+    {
+      "sequence": 54,
+      "placeId": "ChIJ210yOfoR2jER7vv1Qb10Ni0",
+      "leads": [
+        {
+          "id": "source-link-a678ba0f2c9208aff58600eb",
+          "name": "Su Miao Yuan Fo Vegetarian 素妙缘佛",
+          "sourceIds": [
+            "source-link-a678ba0f2c9208aff58600eb"
+          ],
+          "status": "lead",
+          "address": "254 Jurong East St 24, #01-18 Yuhua Village Market and Food Centre, Singapore 600254",
+          "postalCode": "600254",
+          "unit": "#01-18",
+          "notes": "Source-provided direct map link resolves to this saved place ID. Display facts are copied from the separately saved independent directory lead, not the redirect. Candidate association only; current branch identity and menu require source review.",
+          "placeId": "ChIJ210yOfoR2jER7vv1Qb10Ni0",
+          "placeIdEvidenceUrl": "https://maps.app.goo.gl/br1GBYZbCRuGHNpn7",
+          "independentLeadId": "hippo-su-miao-yuan-fo-vegetarian",
+          "independentLeadFile": "data/menu-research/directory-leads.json",
+          "identityLinkCheckedAt": "2026-10-16T00:24:28.994Z"
+        }
+      ],
+      "sourceObservations": [
+        {
+          "id": "source-link-a678ba0f2c9208aff58600eb",
+          "url": "https://www.onehungryhippo.com/restaurants/su-miao-yuan-fo-vegetarian",
+          "publisher": "OneHungryHippo",
+          "title": "Independent directory branch lead",
+          "checkedAt": "2026-10-15",
+          "status": "directory-lead-requires-merchant-confirmation"
+        }
+      ]
+    },
+    {
+      "sequence": 55,
+      "placeId": "ChIJ_bDjEt8Z2jER-JHiRIB2M4Y",
+      "leads": [
+        {
+          "id": "source-link-cc4ec5f2e8aa7df70d61e5c5",
+          "name": "Su Xing Tang Vegetarian Cuisine 素兴堂",
+          "sourceIds": [
+            "source-link-cc4ec5f2e8aa7df70d61e5c5"
+          ],
+          "status": "lead",
+          "address": "1 Hospital Crescent, SGH Block 6, Singapore 169608",
+          "postalCode": "169608",
+          "notes": "Source-provided direct map link resolves to this saved place ID. Display facts are copied from the separately saved independent directory lead, not the redirect. Candidate association only; current branch identity and menu require source review.",
+          "placeId": "ChIJ_bDjEt8Z2jER-JHiRIB2M4Y",
+          "placeIdEvidenceUrl": "https://maps.app.goo.gl/MVbouSPbkde51RnX6",
+          "independentLeadId": "hippo-su-xing-tang-vegetarian-cuisine",
+          "independentLeadFile": "data/menu-research/directory-leads.json",
+          "identityLinkCheckedAt": "2026-10-16T00:24:31.783Z"
+        }
+      ],
+      "sourceObservations": [
+        {
+          "id": "source-link-cc4ec5f2e8aa7df70d61e5c5",
+          "url": "https://www.onehungryhippo.com/restaurants/su-xing-tang-vegetarian-cuisine",
+          "publisher": "OneHungryHippo",
+          "title": "Independent directory branch lead",
+          "checkedAt": "2026-10-15",
+          "status": "directory-lead-requires-merchant-confirmation"
+        }
+      ]
+    },
+    {
+      "sequence": 56,
+      "placeId": "ChIJgXX1EoUR2jER3_Pn-OsV9Uc",
+      "leads": [
+        {
+          "id": "source-link-25a209c4a580598bf8b7e30b",
+          "name": "Tanaka Vegetarian (Bukit Batok) 田中素食",
+          "sourceIds": [
+            "source-link-25a209c4a580598bf8b7e30b"
+          ],
+          "status": "lead",
+          "address": "Bukit Batok Street 34, #01-252 Block 347, Singapore 650347",
+          "postalCode": "650347",
+          "unit": "#01-252",
+          "notes": "Source-provided direct map link resolves to this saved place ID. Display facts are copied from the separately saved independent directory lead, not the redirect. Candidate association only; current branch identity and menu require source review.",
+          "placeId": "ChIJgXX1EoUR2jER3_Pn-OsV9Uc",
+          "placeIdEvidenceUrl": "https://maps.app.goo.gl/Mrn5xFUhAKBtHEmr9",
+          "independentLeadId": "hippo-tanaka-vegetarian-bukit-batok",
+          "independentLeadFile": "data/menu-research/directory-leads.json",
+          "identityLinkCheckedAt": "2026-10-16T00:24:34.624Z"
+        }
+      ],
+      "sourceObservations": [
+        {
+          "id": "source-link-25a209c4a580598bf8b7e30b",
+          "url": "https://www.onehungryhippo.com/restaurants/tanaka-vegetarian-bukit-batok",
+          "publisher": "OneHungryHippo",
+          "title": "Independent directory branch lead",
+          "checkedAt": "2026-10-15",
+          "status": "directory-lead-requires-merchant-confirmation"
+        }
+      ]
+    },
+    {
+      "sequence": 57,
+      "placeId": "ChIJFTGOVk0S2jERICc7Xclvp90",
+      "leads": [
+        {
+          "id": "source-link-10150565bed9a155c093fe16",
+          "name": "Tanaka Vegetarian (Woodlands) 田中素食",
+          "sourceIds": [
+            "source-link-10150565bed9a155c093fe16"
+          ],
+          "status": "lead",
+          "address": "306 Woodlands Street 31, Singapore 730306",
+          "postalCode": "730306",
+          "notes": "Source-provided direct map link resolves to this saved place ID. Display facts are copied from the separately saved independent directory lead, not the redirect. Candidate association only; current branch identity and menu require source review.",
+          "placeId": "ChIJFTGOVk0S2jERICc7Xclvp90",
+          "placeIdEvidenceUrl": "https://maps.app.goo.gl/3FrzaHU3R8H2EzxKA",
+          "independentLeadId": "hippo-tanaka-vegetarian-woodlands",
+          "independentLeadFile": "data/menu-research/directory-leads.json",
+          "identityLinkCheckedAt": "2026-10-16T00:24:35.325Z"
+        }
+      ],
+      "sourceObservations": [
+        {
+          "id": "source-link-10150565bed9a155c093fe16",
+          "url": "https://www.onehungryhippo.com/restaurants/tanaka-vegetarian-woodlands",
+          "publisher": "OneHungryHippo",
+          "title": "Independent directory branch lead",
+          "checkedAt": "2026-10-15",
+          "status": "directory-lead-requires-merchant-confirmation"
+        }
+      ]
+    },
+    {
+      "sequence": 58,
+      "placeId": "ChIJyz98eq8Z2jERWDhUJDeXH_c",
+      "leads": [
+        {
+          "id": "source-link-441b278cb495c6fe8327932b",
+          "name": "Vegetarian Cooked Food 益生齋素食",
+          "sourceIds": [
+            "source-link-441b278cb495c6fe8327932b"
+          ],
+          "status": "lead",
+          "address": "17 Old Airport Rd, Singapore 397972",
+          "postalCode": "397972",
+          "notes": "Source-provided direct map link resolves to this saved place ID. Display facts are copied from the separately saved independent directory lead, not the redirect. Candidate association only; current branch identity and menu require source review.",
+          "placeId": "ChIJyz98eq8Z2jERWDhUJDeXH_c",
+          "placeIdEvidenceUrl": "https://maps.app.goo.gl/2yfCs1qaw1gB8uwg8",
+          "independentLeadId": "hippo-vegetarian-cooked-food-geylang",
+          "independentLeadFile": "data/menu-research/directory-leads.json",
+          "identityLinkCheckedAt": "2026-10-16T00:24:52.032Z"
+        }
+      ],
+      "sourceObservations": [
+        {
+          "id": "source-link-441b278cb495c6fe8327932b",
+          "url": "https://www.onehungryhippo.com/restaurants/vegetarian-cooked-food-geylang",
+          "publisher": "OneHungryHippo",
+          "title": "Independent directory branch lead",
+          "checkedAt": "2026-10-15",
+          "status": "directory-lead-requires-merchant-confirmation"
+        }
+      ]
+    },
+    {
+      "sequence": 59,
+      "placeId": "ChIJUR9c-XcZ2jERN9Le4BzNEmg",
+      "leads": [
+        {
+          "id": "source-link-6532fce3be9221e116eac92d",
+          "name": "Vegetarian Stall (Geylang Bahru Market & Food Centre)",
+          "sourceIds": [
+            "source-link-6532fce3be9221e116eac92d"
+          ],
+          "status": "lead",
+          "address": "69 Geylang Bahru, #01-78, Singapore 330069",
+          "postalCode": "330069",
+          "unit": "#01-78",
+          "notes": "Source-provided direct map link resolves to this saved place ID. Display facts are copied from the separately saved independent directory lead, not the redirect. Candidate association only; current branch identity and menu require source review.",
+          "placeId": "ChIJUR9c-XcZ2jERN9Le4BzNEmg",
+          "placeIdEvidenceUrl": "https://maps.app.goo.gl/tQfsDGRC97j77G2C6",
+          "independentLeadId": "hippo-vegetarian-stall-geylang-bahru-market-food-centre",
+          "independentLeadFile": "data/menu-research/directory-leads.json",
+          "identityLinkCheckedAt": "2026-10-16T00:24:54.178Z"
+        }
+      ],
+      "sourceObservations": [
+        {
+          "id": "source-link-6532fce3be9221e116eac92d",
+          "url": "https://www.onehungryhippo.com/restaurants/vegetarian-stall-geylang-bahru-market-food-centre",
+          "publisher": "OneHungryHippo",
+          "title": "Independent directory branch lead",
+          "checkedAt": "2026-10-15",
+          "status": "directory-lead-requires-merchant-confirmation"
+        }
+      ]
+    },
+    {
+      "sequence": 60,
+      "placeId": "ChIJY6gn4nUZ2jERvXicXSPnFLQ",
+      "leads": [
+        {
+          "id": "source-link-8aa51974511e941206c51f75",
+          "name": "Vegetarian Stall (Peninsula Plaza)",
+          "sourceIds": [
+            "source-link-8aa51974511e941206c51f75"
+          ],
+          "status": "lead",
+          "address": "111 North Bridge Rd, B1 Basement Foodcourt, Singapore 179098",
+          "postalCode": "179098",
+          "notes": "Source-provided direct map link resolves to this saved place ID. Display facts are copied from the separately saved independent directory lead, not the redirect. Candidate association only; current branch identity and menu require source review.",
+          "placeId": "ChIJY6gn4nUZ2jERvXicXSPnFLQ",
+          "placeIdEvidenceUrl": "https://maps.app.goo.gl/kyNxxmEapqs1RKQZ8",
+          "independentLeadId": "hippo-vegetarian-stall-peninsula-plaza",
+          "independentLeadFile": "data/menu-research/directory-leads.json",
+          "identityLinkCheckedAt": "2026-10-16T00:24:54.916Z"
+        }
+      ],
+      "sourceObservations": [
+        {
+          "id": "source-link-8aa51974511e941206c51f75",
+          "url": "https://www.onehungryhippo.com/restaurants/vegetarian-stall-peninsula-plaza",
+          "publisher": "OneHungryHippo",
+          "title": "Independent directory branch lead",
+          "checkedAt": "2026-10-15",
+          "status": "directory-lead-requires-merchant-confirmation"
+        }
+      ]
+    },
+    {
+      "sequence": 61,
+      "placeId": "ChIJj8abTwAZ2jERNRgHE3MEXl4",
+      "leads": [
+        {
+          "id": "source-link-dce01c4279803e49e90beb46",
+          "name": "Vegetarian Stall (Sims Vista Food Centre)",
+          "sourceIds": [
+            "source-link-dce01c4279803e49e90beb46"
+          ],
+          "status": "lead",
+          "address": "49 Sims Pl, #01-45, Singapore 380049",
+          "postalCode": "380049",
+          "unit": "#01-45",
+          "notes": "Source-provided direct map link resolves to this saved place ID. Display facts are copied from the separately saved independent directory lead, not the redirect. Candidate association only; current branch identity and menu require source review.",
+          "placeId": "ChIJj8abTwAZ2jERNRgHE3MEXl4",
+          "placeIdEvidenceUrl": "https://maps.app.goo.gl/yPEphVVaL4iu3RAN7",
+          "independentLeadId": "hippo-vegetarian-stall-sims-vista-food-centre",
+          "independentLeadFile": "data/menu-research/directory-leads.json",
+          "identityLinkCheckedAt": "2026-10-16T00:24:55.615Z"
+        }
+      ],
+      "sourceObservations": [
+        {
+          "id": "source-link-dce01c4279803e49e90beb46",
+          "url": "https://www.onehungryhippo.com/restaurants/vegetarian-stall-sims-vista-food-centre",
+          "publisher": "OneHungryHippo",
+          "title": "Independent directory branch lead",
+          "checkedAt": "2026-10-15",
+          "status": "directory-lead-requires-merchant-confirmation"
+        }
+      ]
+    },
+    {
+      "sequence": 62,
+      "placeId": "ChIJrdwWzmcT2jERbXKecHCdDLk",
+      "leads": [
+        {
+          "id": "source-link-e7e1256219bfcc88a7d3b697",
+          "name": "Wan Yuan Vegetarian Stall",
+          "sourceIds": [
+            "source-link-e7e1256219bfcc88a7d3b697"
+          ],
+          "status": "lead",
+          "address": "2 Woodlands Sector 1, 201-211 Woodlands Avenue 9, Woodlands Spectrum 1, Singapore 738068",
+          "postalCode": "738068",
+          "notes": "Source-provided direct map link resolves to this saved place ID. Display facts are copied from the separately saved independent directory lead, not the redirect. Candidate association only; current branch identity and menu require source review.",
+          "placeId": "ChIJrdwWzmcT2jERbXKecHCdDLk",
+          "placeIdEvidenceUrl": "https://maps.app.goo.gl/UTcD6ijzu7aCyMKG9",
+          "independentLeadId": "hippo-wan-yuan-vegetarian-stall",
+          "independentLeadFile": "data/menu-research/directory-leads.json",
+          "identityLinkCheckedAt": "2026-10-16T00:25:02.004Z"
+        }
+      ],
+      "sourceObservations": [
+        {
+          "id": "source-link-e7e1256219bfcc88a7d3b697",
+          "url": "https://www.onehungryhippo.com/restaurants/wan-yuan-vegetarian-stall",
+          "publisher": "OneHungryHippo",
+          "title": "Independent directory branch lead",
+          "checkedAt": "2026-10-15",
+          "status": "directory-lead-requires-merchant-confirmation"
+        }
+      ]
+    },
+    {
+      "sequence": 63,
+      "placeId": "ChIJh-vnOX8Z2jERUnCz5USFEiA",
+      "leads": [
+        {
+          "id": "source-link-d1cd6c46dbcd55c025724ee3",
+          "name": "Xi Shi Fu Vegetarian 惜施福素食閣",
+          "sourceIds": [
+            "source-link-d1cd6c46dbcd55c025724ee3"
+          ],
+          "status": "lead",
+          "address": "115 Bukit Merah Vw, #01-25, Singapore 151115",
+          "postalCode": "151115",
+          "unit": "#01-25",
+          "notes": "Source-provided direct map link resolves to this saved place ID. Display facts are copied from the separately saved independent directory lead, not the redirect. Candidate association only; current branch identity and menu require source review.",
+          "placeId": "ChIJh-vnOX8Z2jERUnCz5USFEiA",
+          "placeIdEvidenceUrl": "https://maps.app.goo.gl/7qQxB2jaGTvTfaDU6",
+          "independentLeadId": "hippo-xi-shi-fu-vegetarian-bukit-merah",
+          "independentLeadFile": "data/menu-research/directory-leads.json",
+          "identityLinkCheckedAt": "2026-10-16T00:25:04.058Z"
+        }
+      ],
+      "sourceObservations": [
+        {
+          "id": "source-link-d1cd6c46dbcd55c025724ee3",
+          "url": "https://www.onehungryhippo.com/restaurants/xi-shi-fu-vegetarian-bukit-merah",
+          "publisher": "OneHungryHippo",
+          "title": "Independent directory branch lead",
+          "checkedAt": "2026-10-15",
+          "status": "directory-lead-requires-merchant-confirmation"
+        }
+      ]
+    },
+    {
+      "sequence": 64,
+      "placeId": "ChIJXwv_l2cP2jERZ7Yqw5mhboY",
+      "leads": [
+        {
+          "id": "source-link-2b1cc2da601ac8d190e0ba30",
+          "name": "Xiang Yang Vegetarian 向陽素食",
+          "sourceIds": [
+            "source-link-2b1cc2da601ac8d190e0ba30"
+          ],
+          "status": "lead",
+          "address": "45 Quality Rd, #01-14, Singapore 618824",
+          "postalCode": "618824",
+          "unit": "#01-14",
+          "notes": "Source-provided direct map link resolves to this saved place ID. Display facts are copied from the separately saved independent directory lead, not the redirect. Candidate association only; current branch identity and menu require source review.",
+          "placeId": "ChIJXwv_l2cP2jERZ7Yqw5mhboY",
+          "placeIdEvidenceUrl": "https://maps.app.goo.gl/uH7nh71ogxpBgP8s9",
+          "independentLeadId": "hippo-xiang-yang-vegetarian",
+          "independentLeadFile": "data/menu-research/directory-leads.json",
+          "identityLinkCheckedAt": "2026-10-16T00:25:06.135Z"
+        }
+      ],
+      "sourceObservations": [
+        {
+          "id": "source-link-2b1cc2da601ac8d190e0ba30",
+          "url": "https://www.onehungryhippo.com/restaurants/xiang-yang-vegetarian",
+          "publisher": "OneHungryHippo",
+          "title": "Independent directory branch lead",
+          "checkedAt": "2026-10-15",
+          "status": "directory-lead-requires-merchant-confirmation"
+        }
+      ]
+    },
+    {
+      "sequence": 65,
+      "placeId": "ChIJMddReGs92jERBKhfnBWhqEo",
+      "leads": [
+        {
+          "id": "source-link-1ef63597600aec2bf139725a",
+          "name": "Xie Bi An Vegetarian 谢必安素食",
+          "sourceIds": [
+            "source-link-1ef63597600aec2bf139725a"
+          ],
+          "status": "lead",
+          "address": "824 Tampines Street 81, #01-38, Singapore 520824",
+          "postalCode": "520824",
+          "unit": "#01-38",
+          "merchantUrl": "https://www.facebook.com/xiebianvege?mibextid=LQQJ4d",
+          "notes": "Source-provided direct map link resolves to this saved place ID. Display facts are copied from the separately saved independent directory lead, not the redirect. Candidate association only; current branch identity and menu require source review.",
+          "placeId": "ChIJMddReGs92jERBKhfnBWhqEo",
+          "placeIdEvidenceUrl": "https://maps.app.goo.gl/Tg6dvY5HkTGvUKip7",
+          "independentLeadId": "hippo-xie-bi-an-vegetarian",
+          "independentLeadFile": "data/menu-research/directory-leads.json",
+          "identityLinkCheckedAt": "2026-10-16T00:25:07.551Z"
+        }
+      ],
+      "sourceObservations": [
+        {
+          "id": "source-link-1ef63597600aec2bf139725a",
+          "url": "https://www.onehungryhippo.com/restaurants/xie-bi-an-vegetarian",
+          "publisher": "OneHungryHippo",
+          "title": "Independent directory branch lead",
+          "checkedAt": "2026-10-15",
+          "status": "directory-lead-requires-merchant-confirmation"
+        }
+      ]
+    },
+    {
+      "sequence": 66,
+      "placeId": "ChIJcwe3VwAj2jERGXBNwcAd2EQ",
+      "leads": [
+        {
+          "id": "source-link-0a3f074fdb6bdb474443591c",
+          "name": "Xin Ci Ming Vegetarian",
+          "sourceIds": [
+            "source-link-0a3f074fdb6bdb474443591c"
+          ],
+          "status": "lead",
+          "address": "216 Bedok North Street 1, #01-61, Singapore 460216",
+          "postalCode": "460216",
+          "unit": "#01-61",
+          "notes": "Source-provided direct map link resolves to this saved place ID. Display facts are copied from the separately saved independent directory lead, not the redirect. Candidate association only; current branch identity and menu require source review.",
+          "placeId": "ChIJcwe3VwAj2jERGXBNwcAd2EQ",
+          "placeIdEvidenceUrl": "https://maps.app.goo.gl/NqaMbu6pXvhis2Yg6",
+          "independentLeadId": "hippo-xin-ci-ming-vegetarian",
+          "independentLeadFile": "data/menu-research/directory-leads.json",
+          "identityLinkCheckedAt": "2026-10-16T00:25:08.240Z"
+        }
+      ],
+      "sourceObservations": [
+        {
+          "id": "source-link-0a3f074fdb6bdb474443591c",
+          "url": "https://www.onehungryhippo.com/restaurants/xin-ci-ming-vegetarian",
+          "publisher": "OneHungryHippo",
+          "title": "Independent directory branch lead",
+          "checkedAt": "2026-10-15",
+          "status": "directory-lead-requires-merchant-confirmation"
+        }
+      ]
+    },
+    {
+      "sequence": 67,
+      "placeId": "ChIJadxkPhQZ2jER8iA6aEBD3DA",
+      "leads": [
+        {
+          "id": "source-link-378b0ec46967c64e92591bbd",
+          "name": "Yi Xiang Vegetarian 異香素食",
+          "sourceIds": [
+            "source-link-378b0ec46967c64e92591bbd"
+          ],
+          "status": "lead",
+          "address": "89 Circuit Rd, #01-107, Singapore 370089",
+          "postalCode": "370089",
+          "unit": "#01-107",
+          "notes": "Source-provided direct map link resolves to this saved place ID. Display facts are copied from the separately saved independent directory lead, not the redirect. Candidate association only; current branch identity and menu require source review.",
+          "placeId": "ChIJadxkPhQZ2jER8iA6aEBD3DA",
+          "placeIdEvidenceUrl": "https://maps.app.goo.gl/HmCGDE64LKC8edR87",
+          "independentLeadId": "hippo-yi-xiang-vegetarian",
+          "independentLeadFile": "data/menu-research/directory-leads.json",
+          "identityLinkCheckedAt": "2026-10-16T00:25:13.859Z"
+        }
+      ],
+      "sourceObservations": [
+        {
+          "id": "source-link-378b0ec46967c64e92591bbd",
+          "url": "https://www.onehungryhippo.com/restaurants/yi-xiang-vegetarian",
+          "publisher": "OneHungryHippo",
+          "title": "Independent directory branch lead",
+          "checkedAt": "2026-10-15",
+          "status": "directory-lead-requires-merchant-confirmation"
+        }
+      ]
+    },
+    {
+      "sequence": 68,
+      "placeId": "ChIJu10y6lE92jER4nOtKy0_uXg",
+      "leads": [
+        {
+          "id": "source-link-28995b4ece4127eeab6a5ca2",
+          "name": "Zhong Mei Cooked Food 中美熟食",
+          "sourceIds": [
+            "source-link-28995b4ece4127eeab6a5ca2"
+          ],
+          "status": "lead",
+          "address": "538 Bedok North Street 3, #01-91 Bedok 538 Market & Food Centre, Singapore 460538",
+          "postalCode": "460538",
+          "unit": "#01-91",
+          "notes": "Source-provided direct map link resolves to this saved place ID. Display facts are copied from the separately saved independent directory lead, not the redirect. Candidate association only; current branch identity and menu require source review.",
+          "placeId": "ChIJu10y6lE92jER4nOtKy0_uXg",
+          "placeIdEvidenceUrl": "https://maps.app.goo.gl/9YibKNFc8GQaY5oi7",
+          "independentLeadId": "hippo-zhong-mei-cooked-food",
+          "independentLeadFile": "data/menu-research/directory-leads.json",
+          "identityLinkCheckedAt": "2026-10-16T00:25:18.098Z"
+        }
+      ],
+      "sourceObservations": [
+        {
+          "id": "source-link-28995b4ece4127eeab6a5ca2",
+          "url": "https://www.onehungryhippo.com/restaurants/zhong-mei-cooked-food",
+          "publisher": "OneHungryHippo",
+          "title": "Independent directory branch lead",
+          "checkedAt": "2026-10-15",
+          "status": "directory-lead-requires-merchant-confirmation"
+        }
+      ]
+    },
+    {
+      "sequence": 69,
+      "placeId": "ChIJSb2S7n8Z2jERCQSO5cfXCJk",
+      "leads": [
+        {
+          "id": "source-link-de0ab34dd3a7c68df25b1c97",
+          "name": "Zuya Vegetarian",
+          "sourceIds": [
+            "source-link-de0ab34dd3a7c68df25b1c97"
+          ],
+          "status": "lead",
+          "address": "302 Tiong Bahru Rd, #02-111A Tiong Bahru Plaza, Singapore 168732",
+          "postalCode": "168732",
+          "unit": "#02-111A",
+          "notes": "Source-provided direct map link resolves to this saved place ID. Display facts are copied from the separately saved independent directory lead, not the redirect. Candidate association only; current branch identity and menu require source review.",
+          "placeId": "ChIJSb2S7n8Z2jERCQSO5cfXCJk",
+          "placeIdEvidenceUrl": "https://maps.app.goo.gl/3vg2MPwBxSvdSJe38",
+          "independentLeadId": "hippo-zuya-vegetarian",
+          "independentLeadFile": "data/menu-research/directory-leads.json",
+          "identityLinkCheckedAt": "2026-10-16T00:25:19.502Z"
+        }
+      ],
+      "sourceObservations": [
+        {
+          "id": "source-link-de0ab34dd3a7c68df25b1c97",
+          "url": "https://www.onehungryhippo.com/restaurants/zuya-vegetarian",
+          "publisher": "OneHungryHippo",
+          "title": "Independent directory branch lead",
+          "checkedAt": "2026-10-15",
+          "status": "directory-lead-requires-merchant-confirmation"
+        }
+      ]
+    }
+  ],
+  "ledgerBeforeSha256": "c7321dafaad0473583139494ca899501578892c5b71105429d3cd4dceb4f311a"
+}

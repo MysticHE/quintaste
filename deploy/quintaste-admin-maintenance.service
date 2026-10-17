@@ -1,0 +1,9 @@
+[Unit]
+Description=QuinTaste staff authentication cleanup
+After=docker.service
+Requires=docker.service
+
+[Service]
+Type=oneshot
+WorkingDirectory=/docker/quintaste
+ExecStart=/usr/bin/docker compose -f compose.yml -f admin.compose.yml exec -T admin node db/maintenance.mjs

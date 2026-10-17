@@ -1,0 +1,25 @@
+{
+  "checkedAt": "2026-10-16T00:41:41.235Z",
+  "status": "pass",
+  "groups": [
+    {
+      "id": "tofu-toppings-320",
+      "status": "pass",
+      "foodRows": 10,
+      "sharedOfferAndTwelveChoices": true
+    },
+    {
+      "id": "cookie-source-selection-320",
+      "status": "pass",
+      "riceFoodRows": 16
+    },
+    {
+      "id": "kind-available-variant-price-375",
+      "status": "pass",
+      "bananaStartingPrice": 18.5
+    }
+  ],
+  "pageErrors": [],
+  "providerRequestsIntercepted": 0,
+  "googleIdentityLedgerUnchanged": true
+}

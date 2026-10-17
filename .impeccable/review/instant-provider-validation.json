@@ -1,0 +1,18 @@
+[
+  {
+    "diet": "Vegetarian",
+    "status": 200,
+    "count": 20,
+    "capped": true,
+    "fresh": true,
+    "error": null
+  },
+  {
+    "diet": "Vegan",
+    "status": 200,
+    "count": 20,
+    "capped": true,
+    "fresh": true,
+    "error": null
+  }
+]

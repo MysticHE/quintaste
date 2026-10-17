@@ -1,0 +1,49 @@
+{
+  "checkedAt": "2026-10-16T01:41:57.560Z",
+  "ledgerBeforeSha256": "c7321dafaad0473583139494ca899501578892c5b71105429d3cd4dceb4f311a",
+  "ledgerAfterSha256": "c7321dafaad0473583139494ca899501578892c5b71105429d3cd4dceb4f311a",
+  "googleCalls": 0,
+  "remainingGoogleRequests": 81,
+  "batch07": {
+    "reviewed": 30,
+    "eligibilityCounts": {
+      "unresolved": 22,
+      "vegetarian-confirmed": 8
+    },
+    "newFoodRows": 0,
+    "automaticIdentityApprovals": 0
+  },
+  "unit03": {
+    "frozenLeadsReviewed": 20,
+    "foodObservations": 179,
+    "approvedFoodRows": 39,
+    "complete": false,
+    "boundary": "Outcome review completed for all20; full current menu/venue verification is incomplete. All existing holds and checkpoint originals preserved."
+  },
+  "lotus": {
+    "checkedAt": "2026-10-16T01:41:57.560Z",
+    "sourceCapturedAt": "2026-10-16T01:27:00Z",
+    "captureDateBasis": "Saved batch07 checkpoint approximate capture time; not a fresh download.",
+    "sourceUrl": "https://lotusvegetarian.oddle.me/en_SG",
+    "dataset": "data/menu-research/menu-lotus-lingzhi-yesnatural-victor.json",
+    "menuId": "lotus-oddle-menu",
+    "rawHydratedOffers": 95,
+    "uniqueProductIds": 95,
+    "existingCanonicalOffers": 95,
+    "newFoods": 0,
+    "nameStatusOrPriceDifferences": [],
+    "checkpointCorrection": "About100 refers to JSON-LD observations; authoritative hydration has95 unique products already stored, plus40 existing unpriced choice records. No duplicate menu or rows created.",
+    "boundary": "Existing options, statuses, date/day windows and holds preserved. No fresh stock assertion or new identity attachment.",
+    "comparisonBasis": "All95product IDs, whitespace-normalized names, status codes and every printed portion variant amount match canonical records. Two preliminary amount differences were comparison-harness omissions of existing portionOptions; a name difference was whitespace only. No canonical change needed."
+  },
+  "reviewedPublication": {
+    "branches": [
+      "ur03-eco-sen-toa-payoh66",
+      "ur03-99-pioneer-mall"
+    ],
+    "newFoodRows": 39,
+    "newGoogleIdAttachments": 0,
+    "heldFoodObservations": 140,
+    "newCurrentPriceClaimsFromUndatedSources": 0
+  }
+}

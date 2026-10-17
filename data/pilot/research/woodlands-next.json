@@ -1,0 +1,390 @@
+{
+  "checkedAt": "2026-10-15T05:35:27Z",
+  "sources": [
+    {
+      "id": "zhen-xiang-woodlands-street-32-directory",
+      "url": "https://threebestrated.sg/vegan-restaurants/zhen-xiang-vegetarian-woodlands-199669917",
+      "title": "Zhen Xiang Vegetarian in Woodlands",
+      "publisher": "ThreeBestRated.sg",
+      "kind": "directory",
+      "checkedAt": "2026-10-15T05:35:27Z",
+      "publishedAt": null,
+      "notes": "Corroborates 325 Woodlands Street 32 #01-131, Singapore 730325 and links the exact branch foodpanda page. Directory classification and reviews are not merchant dietary evidence."
+    },
+    {
+      "id": "zhen-xiang-woodlands-street-32-delivery-source",
+      "url": "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32",
+      "title": "Zhen Xiang Vegetarian — 325 Woodlands St 32 delivery menu",
+      "publisher": "foodpanda",
+      "kind": "delivery-platform",
+      "checkedAt": "2026-10-15T05:35:27Z",
+      "publishedAt": null,
+      "notes": "Exact branch address, four sampled names and printed S$ prices observed. Merchant control and official merchant linkage unconfirmed. Ingredient descriptions excluded; dine-in equivalence, tax treatment and availability unknown."
+    },
+    {
+      "id": "shu-woodlands-avenue-1-directory",
+      "url": "https://www.foodgrove.sg/listing/shu-vegetarian/",
+      "title": "Shu Vegetarian — Woodlands Avenue 1 directory entry",
+      "publisher": "Foodgrove",
+      "kind": "directory",
+      "checkedAt": "2026-10-15T05:35:27Z",
+      "publishedAt": null,
+      "notes": "Corroborates merchant name and 354A Woodlands Avenue 1, Singapore 731354. Directory classification is not merchant dietary authority."
+    },
+    {
+      "id": "shu-woodlands-avenue-1-delivery-source",
+      "url": "https://www.foodpanda.sg/restaurant/x3kk/shu-vegetarian-shu-fang-zhai-woodlands-avenue-1",
+      "title": "SHU Vegetarian — Woodlands Avenue 1 delivery menu",
+      "publisher": "foodpanda",
+      "kind": "delivery-platform",
+      "checkedAt": "2026-10-15T05:35:27Z",
+      "publishedAt": null,
+      "notes": "Identifies Blk 354A Woodlands Avenue 1 #01-01. Four sampled names and S$ prices observed; Mala Hotpot Set starts at S$18.24. Merchant control unverified. Generic ingredient descriptions excluded."
+    },
+    {
+      "id": "shu-woodlands-avenue-1-excluded-oddle",
+      "url": "https://shuvegetarian.oddle.me/en_SG/stores",
+      "title": "SHU Vegetarian ordering store information",
+      "publisher": "SHU Vegetarian via Oddle",
+      "kind": "merchant-ordering",
+      "checkedAt": "2026-10-15T05:35:27Z",
+      "publishedAt": null,
+      "notes": "Store information identifies 259 Jalan Kayu, Singapore 799488 only. Its menu and dietary claims are excluded from the Woodlands branch."
+    },
+    {
+      "id": "dough-culture-admiralty-place-locations",
+      "url": "https://www.doughculture.com/gallery/locate-us",
+      "title": "Dough Culture — Locate Us",
+      "publisher": "Dough Culture",
+      "kind": "merchant",
+      "checkedAt": "2026-10-15T05:35:27Z",
+      "publishedAt": null,
+      "notes": "Official branch page lists Admiralty Place at 678A Woodlands Avenue 6, Singapore 731678. Identity only; no vegetarian venue/menu claim established."
+    },
+    {
+      "id": "dough-culture-admiralty-place-parent-locations",
+      "url": "https://www.koufu.com.sg/our-brands/concept-stores/dough-culture/",
+      "title": "Dough Culture outlets",
+      "publisher": "Koufu",
+      "kind": "merchant",
+      "checkedAt": "2026-10-15T05:35:27Z",
+      "publishedAt": null,
+      "notes": "Parent company branch list specifies Admiralty Place, 678A Woodlands Avenue 6 #01-09, Singapore 731678."
+    },
+    {
+      "id": "dough-culture-admiralty-place-brand-products",
+      "url": "https://www.doughculture.com/product",
+      "title": "Dough Culture — Products",
+      "publisher": "Dough Culture",
+      "kind": "merchant-menu",
+      "checkedAt": "2026-10-15T05:35:27Z",
+      "publishedAt": null,
+      "notes": "Official brand catalogue includes You Tiao, Butterfly Bun, Salted Bun and Red Bean Bun. Prices, branch availability and a meaningful current merchant vegetarian-menu/venue claim not established. No dish records imported."
+    },
+    {
+      "id": "daily-green-woodlands-street-31-live-menus",
+      "url": "https://www.dailygreen.sg/menus",
+      "title": "Menus — Daily Green",
+      "publisher": "Daily Green",
+      "kind": "merchant",
+      "checkedAt": "2026-10-15T05:35:27Z",
+      "publishedAt": null,
+      "notes": "Live recheck still finds an empty menus folder. Current home/Promotions HTML only linked Menus, without former Woodlands PDF navigation. Existing freshness caveat remains."
+    },
+    {
+      "id": "daily-green-woodlands-street-31-pdf-recheck",
+      "url": "https://www.dailygreen.sg/s/VEGETARIAN-KITCHEN-MENU-A3-FA-V2.pdf",
+      "title": "Vegetarian Kitchen menu — accessibility recheck",
+      "publisher": "Daily Green",
+      "kind": "merchant-menu",
+      "checkedAt": "2026-10-15T05:35:27Z",
+      "publishedAt": null,
+      "notes": "Direct GET returned HTTP 200 application/pdf. Accessibility only; current branch linkage, effective date, currency and price validity remain unknown."
+    },
+    {
+      "id": "vege-story-woodlands-drive-50-links-directory",
+      "url": "https://www.happycow.net/reviews/vege-story-north-singapore-202072",
+      "title": "Vege Story — Woodlands directory links",
+      "publisher": "HappyCow",
+      "kind": "directory",
+      "checkedAt": "2026-10-15T05:35:27Z",
+      "publishedAt": null,
+      "notes": "Directory associates Woodlands Drive 50 with wufu.co/vege-story and facebook.com/vegestory. These are unverified ownership/menu leads. Reviews and dietary descriptions excluded."
+    },
+    {
+      "id": "vege-story-woodlands-drive-50-site-unresolved",
+      "url": "https://wufu.co/vege-story",
+      "title": "Vege Story directory-linked website candidate",
+      "publisher": "Unverified directory-linked publisher",
+      "kind": "unverified",
+      "checkedAt": "2026-10-15T05:35:27Z",
+      "publishedAt": null,
+      "notes": "Public extraction unavailable; direct HTTPS failed during TLS negotiation. Merchant identity, branch menu and dietary claims unverified. Failure is not evidence of closure."
+    },
+    {
+      "id": "vege-story-woodlands-drive-50-social-unresolved",
+      "url": "https://www.facebook.com/vegestory",
+      "title": "Vege Story directory-linked social candidate",
+      "publisher": "Unverified directory-linked account",
+      "kind": "unverified",
+      "checkedAt": "2026-10-15T05:35:27Z",
+      "publishedAt": null,
+      "notes": "Directory-linked account could not be opened through public extraction. No current merchant-controlled menu or branch confirmation established."
+    }
+  ],
+  "venues": [
+    {
+      "id": "zhen-xiang-woodlands-street-32",
+      "name": "Zhen Xiang Vegetarian",
+      "branch": "325 Woodlands Street 32",
+      "clusterId": "woodlands",
+      "areaId": "woodlands",
+      "address": "325 Woodlands Street 32 #01-131, Singapore 730325",
+      "postalCode": "730325",
+      "googlePlaceId": null,
+      "sourceIds": [
+        "zhen-xiang-woodlands-street-32-directory",
+        "zhen-xiang-woodlands-street-32-delivery-source"
+      ],
+      "claims": [],
+      "sourceCheck": "needs-information",
+      "gaps": [
+        "Branch identity is supported by directory and exact delivery listing; current merchant branch page unverified.",
+        "Merchant control of delivery menu unconfirmed.",
+        "Platform vegetarian classification is not a merchant claim.",
+        "Diet, alliums, complete ingredients, allergens and cross-contact unconfirmed.",
+        "Dine-in prices, charges, effective date and current availability unknown."
+      ]
+    },
+    {
+      "id": "shu-woodlands-avenue-1",
+      "name": "SHU Vegetarian",
+      "branch": "354A Woodlands Avenue 1",
+      "clusterId": "woodlands",
+      "areaId": "woodlands",
+      "address": "354A Woodlands Avenue 1 #01-01, Singapore 731354",
+      "postalCode": "731354",
+      "googlePlaceId": null,
+      "sourceIds": [
+        "shu-woodlands-avenue-1-directory",
+        "shu-woodlands-avenue-1-delivery-source",
+        "shu-woodlands-avenue-1-excluded-oddle"
+      ],
+      "claims": [],
+      "sourceCheck": "needs-information",
+      "gaps": [
+        "Exact-branch delivery menu observed; merchant control unconfirmed.",
+        "Jalan Kayu ordering menu and no-onion/no-garlic claims excluded.",
+        "No merchant dietary statement verified for this branch.",
+        "Generic platform ingredient descriptions excluded.",
+        "Dine-in equivalence, charges, effective date and current availability unknown."
+      ]
+    }
+  ],
+  "menus": [
+    {
+      "id": "zhen-xiang-woodlands-street-32-delivery-sample",
+      "venueId": "zhen-xiang-woodlands-street-32",
+      "sourceId": "zhen-xiang-woodlands-street-32-delivery-source",
+      "scope": "branch-delivery",
+      "effectiveDate": null,
+      "notes": "Selected research sample of four names/prices, not the complete menu or confirmation of availability. Exact-branch delivery platform data; merchant control and dine-in equivalence unverified.",
+      "charges": {
+        "gst": "unknown",
+        "servicePercent": null,
+        "gstPercent": null,
+        "sourceId": null
+      }
+    },
+    {
+      "id": "shu-woodlands-avenue-1-delivery-sample",
+      "venueId": "shu-woodlands-avenue-1",
+      "sourceId": "shu-woodlands-avenue-1-delivery-source",
+      "scope": "branch-delivery",
+      "effectiveDate": null,
+      "notes": "Selected research sample of four names/prices, not the complete menu or confirmation of availability. Exact-branch delivery platform data; merchant control and dine-in equivalence unverified.",
+      "charges": {
+        "gst": "unknown",
+        "servicePercent": null,
+        "gstPercent": null,
+        "sourceId": null
+      }
+    }
+  ],
+  "dishes": [
+    {
+      "id": "zhen-xiang-woodlands-street-32-vegetarian-dumpling-soup",
+      "venueId": "zhen-xiang-woodlands-street-32",
+      "menuId": "zhen-xiang-woodlands-street-32-delivery-sample",
+      "name": "Vegetarian Dumpling Soup",
+      "price": {
+        "amount": 8.5,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "sourceIds": [
+        "zhen-xiang-woodlands-street-32-delivery-source"
+      ],
+      "suitability": "unconfirmed",
+      "ingredientsComplete": false,
+      "note": "Platform name and price only."
+    },
+    {
+      "id": "zhen-xiang-woodlands-street-32-luo-han-zhai",
+      "venueId": "zhen-xiang-woodlands-street-32",
+      "menuId": "zhen-xiang-woodlands-street-32-delivery-sample",
+      "name": "Luo Han Zhai",
+      "price": {
+        "amount": 12,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "sourceIds": [
+        "zhen-xiang-woodlands-street-32-delivery-source"
+      ],
+      "suitability": "unconfirmed",
+      "ingredientsComplete": false,
+      "note": "Platform name and price only."
+    },
+    {
+      "id": "zhen-xiang-woodlands-street-32-broccoli-hericium-rice",
+      "venueId": "zhen-xiang-woodlands-street-32",
+      "menuId": "zhen-xiang-woodlands-street-32-delivery-sample",
+      "name": "Broccoli With Hericium Rice",
+      "price": {
+        "amount": 8.5,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "sourceIds": [
+        "zhen-xiang-woodlands-street-32-delivery-source"
+      ],
+      "suitability": "unconfirmed",
+      "ingredientsComplete": false,
+      "note": "Platform name and price only."
+    },
+    {
+      "id": "zhen-xiang-woodlands-street-32-sambal-petai-rice-set",
+      "venueId": "zhen-xiang-woodlands-street-32",
+      "menuId": "zhen-xiang-woodlands-street-32-delivery-sample",
+      "name": "Sambal Petai Rice Set",
+      "price": {
+        "amount": 8.5,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "sourceIds": [
+        "zhen-xiang-woodlands-street-32-delivery-source"
+      ],
+      "suitability": "unconfirmed",
+      "ingredientsComplete": false,
+      "note": "Platform name and price only."
+    },
+    {
+      "id": "shu-woodlands-avenue-1-sambal-fried-rice",
+      "venueId": "shu-woodlands-avenue-1",
+      "menuId": "shu-woodlands-avenue-1-delivery-sample",
+      "name": "Sambal Fried Rice",
+      "price": {
+        "amount": 7.45,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "sourceIds": [
+        "shu-woodlands-avenue-1-delivery-source"
+      ],
+      "suitability": "unconfirmed",
+      "ingredientsComplete": false,
+      "note": "Platform name and price only."
+    },
+    {
+      "id": "shu-woodlands-avenue-1-fried-mala-noodle",
+      "venueId": "shu-woodlands-avenue-1",
+      "menuId": "shu-woodlands-avenue-1-delivery-sample",
+      "name": "Fried Mala Noodle",
+      "price": {
+        "amount": 7.45,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "sourceIds": [
+        "shu-woodlands-avenue-1-delivery-source"
+      ],
+      "suitability": "unconfirmed",
+      "ingredientsComplete": false,
+      "note": "Platform name and price only."
+    },
+    {
+      "id": "shu-woodlands-avenue-1-claypot-beancurd",
+      "venueId": "shu-woodlands-avenue-1",
+      "menuId": "shu-woodlands-avenue-1-delivery-sample",
+      "name": "Claypot Beancurd",
+      "price": {
+        "amount": 10.7,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "sourceIds": [
+        "shu-woodlands-avenue-1-delivery-source"
+      ],
+      "suitability": "unconfirmed",
+      "ingredientsComplete": false,
+      "note": "Platform name and price only."
+    },
+    {
+      "id": "shu-woodlands-avenue-1-mala-hotpot-set",
+      "venueId": "shu-woodlands-avenue-1",
+      "menuId": "shu-woodlands-avenue-1-delivery-sample",
+      "name": "Mala Hotpot Set",
+      "price": {
+        "amount": 18.24,
+        "currency": "SGD",
+        "type": "from"
+      },
+      "sourceIds": [
+        "shu-woodlands-avenue-1-delivery-source"
+      ],
+      "suitability": "unconfirmed",
+      "ingredientsComplete": false,
+      "note": "Platform category displays a starting price."
+    }
+  ],
+  "candidates": [
+    {
+      "id": "dough-culture-admiralty-place",
+      "name": "Dough Culture — Admiralty Place",
+      "clusterId": "woodlands",
+      "sourceIds": [
+        "dough-culture-admiralty-place-locations",
+        "dough-culture-admiralty-place-parent-locations",
+        "dough-culture-admiralty-place-brand-products"
+      ],
+      "reason": "Primary sources confirm 678A Woodlands Avenue 6 #01-09, Singapore 731678 and brand products. A meaningful current merchant vegetarian-menu/venue claim and branch product availability were not established. Selected snacks do not establish vegetarian status. No menu or dishes imported."
+    }
+  ],
+  "proposedUpdates": {
+    "venues": [
+      {
+        "id": "daily-green-woodlands-street-31",
+        "appendSourceIds": [
+          "daily-green-woodlands-street-31-live-menus",
+          "daily-green-woodlands-street-31-pdf-recheck"
+        ],
+        "appendGaps": [
+          "Current live navigation has no verified Woodlands PDF menu link. The older accessible PDF does not establish current prices or branch applicability."
+        ]
+      }
+    ],
+    "candidates": [
+      {
+        "id": "vege-story-woodlands-drive-50",
+        "appendSourceIds": [
+          "vege-story-woodlands-drive-50-links-directory",
+          "vege-story-woodlands-drive-50-site-unresolved",
+          "vege-story-woodlands-drive-50-social-unresolved"
+        ],
+        "reason": "Directory-only Woodlands Drive 50 candidate. Directory-linked website failed HTTPS retrieval and social account was unavailable. Merchant ownership, current branch operation, menu and dietary claims remain unverified. No dishes imported."
+      }
+    ]
+  }
+}

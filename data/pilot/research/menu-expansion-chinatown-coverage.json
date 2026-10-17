@@ -1,0 +1,276 @@
+{
+  "checkedAt": "2026-10-15T08:24:01.435Z",
+  "scope": "Current linked public sources; no merchant-stock guarantee",
+  "venues": [
+    {
+      "venueId": "whole-earth-peck-seah",
+      "name": "Whole Earth — Peck Seah Street",
+      "sourceUrls": [
+        "https://wholeearth.com.sg/menu.php",
+        "https://wholeearth.com.sg/menu2026/00a-About-WE.webp",
+        "https://wholeearth.com.sg/menu2026/00b-Specials_1.webp",
+        "https://wholeearth.com.sg/menu2026/00b-Specials_2.webp",
+        "https://wholeearth.com.sg/menu2026/02-Peranakan_Culture.webp",
+        "https://wholeearth.com.sg/menu2026/02-Peranakan_Dishes1.webp",
+        "https://wholeearth.com.sg/menu2026/02-Peranakan_Dishes2.webp",
+        "https://wholeearth.com.sg/menu2026/03-Thai-Flavours.webp",
+        "https://wholeearth.com.sg/menu2026/04a-Monkeyhead_Intro.webp",
+        "https://wholeearth.com.sg/menu2026/04b-Monkeyhead_Dishes.webp",
+        "https://wholeearth.com.sg/menu2026/05-ChefCreations.webp",
+        "https://wholeearth.com.sg/menu2026/06-Rice-Noodles.webp",
+        "https://wholeearth.com.sg/menu2026/07-Tofu.webp",
+        "https://wholeearth.com.sg/menu2026/08-Vegetables.webp",
+        "https://wholeearth.com.sg/menu2026/09-Soups.webp",
+        "https://wholeearth.com.sg/menu2026/10-Drinks_Desserts.webp",
+        "https://wholeearth.com.sg/menu2026/11-Classic-SetMenus_2pax.webp",
+        "https://wholeearth.com.sg/menu2026/11-Classic-SetMenus_4pax.webp",
+        "https://wholeearth.com.sg/menu2026/11-Classic-SetMenus_6pax.webp",
+        "https://wholeearth.com.sg/menu2026/11-Classic-SetMenus_8_10pax.webp",
+        "https://wholeearth.com.sg/menu2026/12-Menu-Legend.webp"
+      ],
+      "totalFoodItems": 89,
+      "importedFoodItems": 89,
+      "distinctNamedFoodOffers": 70,
+      "excludedBeverages": 18,
+      "categories": [
+        {
+          "name": "Specials",
+          "items": 8
+        },
+        {
+          "name": "Peranakan Cuisine",
+          "items": 8
+        },
+        {
+          "name": "Thai Flavours",
+          "items": 5
+        },
+        {
+          "name": "Monkeyhead Mushrooms",
+          "items": 4
+        },
+        {
+          "name": "Chef's Handmade Creations",
+          "items": 5
+        },
+        {
+          "name": "Rice & Noodles",
+          "items": 20
+        },
+        {
+          "name": "Tofu Delights",
+          "items": 5
+        },
+        {
+          "name": "Vegetables",
+          "items": 13
+        },
+        {
+          "name": "Heartwarming Soups",
+          "items": 9
+        },
+        {
+          "name": "House-made Dessert",
+          "items": 7
+        },
+        {
+          "name": "Classics Set Menu",
+          "items": 5
+        }
+      ],
+      "status": "source-covered",
+      "remainingGaps": [
+        "Price currency is not explicit; no effective date; current availability unconfirmed.",
+        "Count expands source rice/size/cooking and ice-cream variants and five set meal offers; two condiment-only offers excluded."
+      ]
+    },
+    {
+      "venueId": "nomvnom-clarke-quay-central",
+      "name": "nomVnom Bistro — Clarke Quay Central",
+      "sourceUrls": [
+        "https://www.nomvnom.com/home",
+        "https://nomvnombistro.oddle.me/en_SG"
+      ],
+      "totalFoodItems": 74,
+      "importedFoodItems": 74,
+      "excludedBeverages": 17,
+      "excludedNonFood": 16,
+      "categories": [
+        {
+          "name": "Seasonal Specials",
+          "items": 7
+        },
+        {
+          "name": "Burger",
+          "items": 19
+        },
+        {
+          "name": "Pizza (9\" round crust)",
+          "items": 5
+        },
+        {
+          "name": "Pasta",
+          "items": 5
+        },
+        {
+          "name": "Rice",
+          "items": 5
+        },
+        {
+          "name": "Udon / Pho",
+          "items": 7
+        },
+        {
+          "name": "Sides",
+          "items": 13
+        },
+        {
+          "name": "Soups",
+          "items": 4
+        },
+        {
+          "name": "Salads",
+          "items": 2
+        },
+        {
+          "name": "Waffle",
+          "items": 2
+        },
+        {
+          "name": "Desserts",
+          "items": 5
+        }
+      ],
+      "status": "source-covered",
+      "remainingGaps": [
+        "Ordering offers do not establish dine-in equivalence, tax treatment, menu effective date or current checkout availability.",
+        "Best Sellers duplicates and repeated Sides Platter deduplicated; food-sized variants retain their source names."
+      ]
+    },
+    {
+      "venueId": "dlife-signature-chinatown-point",
+      "name": "D'Life Signature — Chinatown Point",
+      "sourceUrls": [
+        "https://www.foodpanda.sg/restaurant/l29d/dlife-signature-chinatown-point"
+      ],
+      "totalFoodItems": 113,
+      "importedFoodItems": 113,
+      "observedUnlabelledVariationPriceRecords": 246,
+      "excludedBeverages": 22,
+      "categories": [
+        {
+          "name": "Chef Recommend",
+          "items": 18
+        },
+        {
+          "name": "C-Food",
+          "items": 9
+        },
+        {
+          "name": "Greens",
+          "items": 12
+        },
+        {
+          "name": "Mushrooms",
+          "items": 15
+        },
+        {
+          "name": "Tofu",
+          "items": 10
+        },
+        {
+          "name": "Sides",
+          "items": 3
+        },
+        {
+          "name": "Rice",
+          "items": 20
+        },
+        {
+          "name": "Noodles",
+          "items": 14
+        },
+        {
+          "name": "Soups",
+          "items": 7
+        },
+        {
+          "name": "Congee",
+          "items": 5
+        }
+      ],
+      "status": "partial",
+      "remainingGaps": [
+        "All 113 food listings captured. Public state has 246 numeric variation price records without labels; prices are not mapped to invented sizes/options.",
+        "Browser human-verification screen blocked item-option labels; no bypass attempted.",
+        "Merchant control, tax treatment, dine-in equivalence and effective date unconfirmed.",
+        "Novena first-party Getz menu is not this branch and is excluded."
+      ]
+    },
+    {
+      "venueId": "lian-xin-buddha-tooth-relic-temple",
+      "name": "Lian Xin — Buddha Tooth Relic Temple basement",
+      "sourceUrls": [
+        "https://www.buddhatoothrelictemple.org.sg/lianxin/menu",
+        "https://images-ap-prod.cms.commerce.dynamics.com/cms/api/pqrtphqsbt/imageFileData/MF2J5W?ver=1ca0",
+        "https://images-ap-prod.cms.commerce.dynamics.com/cms/api/pqrtphqsbt/imageFileData/MF2Tvi?ver=e9fc",
+        "https://images-ap-prod.cms.commerce.dynamics.com/cms/api/pqrtphqsbt/imageFileData/MF49xL?ver=2b12",
+        "https://images-ap-prod.cms.commerce.dynamics.com/cms/api/pqrtphqsbt/imageFileData/MF2OiC?ver=5d37",
+        "https://images-ap-prod.cms.commerce.dynamics.com/cms/api/pqrtphqsbt/imageFileData/MF2J5Z?ver=4969",
+        "https://images-ap-prod.cms.commerce.dynamics.com/cms/api/pqrtphqsbt/imageFileData/MF2Tvf?ver=2e3e",
+        "https://images-ap-prod.cms.commerce.dynamics.com/cms/api/pqrtphqsbt/imageFileData/MF2QTU?ver=37f6"
+      ],
+      "totalFoodItems": null,
+      "importedFoodItems": 41,
+      "namedSourceFoodItems": 41,
+      "excludedBeverages": 11,
+      "categories": [
+        {
+          "name": "Daily Delights",
+          "items": 1
+        },
+        {
+          "name": "Noodles",
+          "items": 6
+        },
+        {
+          "name": "Western",
+          "items": 5
+        },
+        {
+          "name": "Dim Sum",
+          "items": 21
+        },
+        {
+          "name": "Desserts",
+          "items": 8
+        }
+      ],
+      "status": "partial",
+      "remainingGaps": [
+        "Five official food tabs fully inspected; daily-changing unnamed counter side dishes prevent a full-menu denominator.",
+        "Drinks tab includes pictured unnamed pastries; no names/prices inferred from imagery.",
+        "All inspected food images omit prices/currency; noodle weekday schedules retained."
+      ]
+    },
+    {
+      "venueId": "eight-treasures-chinatown",
+      "name": "Eight Treasures — South Bridge Road (held)",
+      "sourceUrls": [
+        "https://chinatown.sg/dine/8-treasures-vegetarian/",
+        "https://www.8treasuresgroup.sg/",
+        "https://eighttreasuresrestaurant.getz.co/"
+      ],
+      "totalFoodItems": null,
+      "importedFoodItems": 0,
+      "excludedBeverages": null,
+      "categories": [],
+      "status": "unavailable",
+      "remainingGaps": [
+        "Need a current branch menu or merchant-linked ordering source identifying 282A South Bridge Road, Singapore 058831.",
+        "Merchant site under construction; Getz exact-branch/merchant linkage remains unverified.",
+        "2014 merchant PDF and third-party price reposts are not current branch evidence."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,112 @@
+{
+  "amendmentsOnly": true,
+  "checkedAt": "2026-10-16T00:26:00Z",
+  "notice": "Root review only. If Kueh/Wakamama packets are merged into existing cafe dataset, change their dataset field to that canonical file before manifest insertion; retain same branch/menu/itemIDs and all exclusions. No automatic publication performed.",
+  "publicationProposals": [
+    {
+      "dataset": "data/menu-research/menu-directory-continuation-cafes-2026-10-16.json",
+      "branchId": "tofu-g-mandarin-gallery",
+      "menuIds": [
+        "tofu-g-mandarin-gallery-merchant-food-20261016"
+      ],
+      "excludedItemIds": [],
+      "reason": "Reviewed current exact-branch merchant webpage; gelato single-scoop cup, dessert flavours, four-piece butter tteok and printed topping facts retained. Currency/taxes/date/stock/ingredients remain qualified; undisclosed marshmallow gelatin excluded.",
+      "sourceUrls": [
+        "https://www.tofug.sg/mandaringallery"
+      ]
+    },
+    {
+      "dataset": "data/menu-research/menu-directory-continuation-cafes-2026-10-16.json",
+      "branchId": "tofu-g-ngee-ann-city",
+      "menuIds": [
+        "tofu-g-ngee-ann-city-merchant-food-20261016"
+      ],
+      "excludedItemIds": [],
+      "reason": "Reviewed current exact-branch merchant webpage; gelato single-scoop cup, dessert flavours, four-piece butter tteok and printed topping facts retained. Currency/taxes/date/stock/ingredients remain qualified; undisclosed marshmallow gelatin excluded.",
+      "sourceUrls": [
+        "https://www.tofug.sg/takashimaya"
+      ]
+    },
+    {
+      "dataset": "data/menu-research/menu-directory-continuation-cafes-2026-10-16.json",
+      "branchId": "tofu-g-amoy-street",
+      "menuIds": [
+        "tofu-g-amoy-street-merchant-food-20261016"
+      ],
+      "excludedItemIds": [],
+      "reason": "Reviewed current exact-branch merchant webpage; gelato single-scoop cup, dessert flavours, four-piece butter tteok and printed topping facts retained. Currency/taxes/date/stock/ingredients remain qualified; undisclosed marshmallow gelatin excluded.",
+      "sourceUrls": [
+        "https://www.tofug.sg/97amoy"
+      ]
+    },
+    {
+      "dataset": "data/menu-research/menu-directory-continuation-cafes-2026-10-16.json",
+      "branchId": "tofu-g-ue-square",
+      "menuIds": [
+        "tofu-g-ue-square-merchant-food-20261016"
+      ],
+      "excludedItemIds": [],
+      "reason": "Reviewed current exact-branch merchant webpage; gelato single-scoop cup, dessert flavours, four-piece butter tteok and printed topping facts retained. Currency/taxes/date/stock/ingredients remain qualified; undisclosed marshmallow gelatin excluded.",
+      "sourceUrls": [
+        "https://www.tofug.sg/uesquare"
+      ]
+    },
+    {
+      "dataset": "data/menu-research/menu-directory-continuation-cafes-2026-10-16.json",
+      "branchId": "tofu-g-waterway-point",
+      "menuIds": [
+        "tofu-g-waterway-point-merchant-food-20261016"
+      ],
+      "excludedItemIds": [
+        "tofu-g-waterway-point-merchant-food-20261016-015"
+      ],
+      "reason": "Reviewed current exact-branch merchant webpage; gelato single-scoop cup, dessert flavours, four-piece butter tteok and printed topping facts retained. Currency/taxes/date/stock/ingredients remain qualified; undisclosed marshmallow gelatin excluded.",
+      "sourceUrls": [
+        "https://www.tofug.sg/waterwaypoint"
+      ]
+    },
+    {
+      "dataset": "data/menu-research/menu-directory-continuation-cafes-2026-10-16.json",
+      "branchId": "tofu-g-suntec-city",
+      "menuIds": [
+        "tofu-g-suntec-city-merchant-food-20261016"
+      ],
+      "excludedItemIds": [
+        "tofu-g-suntec-city-merchant-food-20261016-015"
+      ],
+      "reason": "Reviewed current exact-branch merchant webpage; gelato single-scoop cup, dessert flavours, four-piece butter tteok and printed topping facts retained. Currency/taxes/date/stock/ingredients remain qualified; undisclosed marshmallow gelatin excluded.",
+      "sourceUrls": [
+        "https://www.tofug.sg/suntec"
+      ]
+    },
+    {
+      "dataset": "data/menu-research/menu-completion-gaps-kueh-2026-10-16.json",
+      "branchId": "kueh-ho-jiak-tanjong-pagar",
+      "menuIds": [
+        "kueh-ho-jiak-tanjong-pagar-online-food-20261016"
+      ],
+      "excludedItemIds": [
+        "kueh-completion-huaty-kueh-tower",
+        "kueh-completion-nostalgic-fried-platter-specials",
+        "kueh-completion-yam-cake-tray-festive"
+      ],
+      "reason": "Reviewed full99-product source accounting;62eligible prepared-food facts with exact merchant-published Tanjong Pagar pickup and matching visible/structured SGD prices. Three mixed-option rows held; nonvegetarian foods, beverages, accessories and bottled condiment excluded. Two prior mix-match rows amended separately, remain held. No transfer to AMK.",
+      "sourceUrls": [
+        "https://kuehhojiak.com/shop-now/",
+        "https://kuehhojiak.com/kueh-delivery-singapore/"
+      ]
+    },
+    {
+      "dataset": "data/menu-research/menu-completion-gaps-wakamama-2026-10-16.json",
+      "branchId": "wakamama-pasir-panjang",
+      "menuIds": [
+        "wakamama-completion-cantabile-tiers-20261016"
+      ],
+      "excludedItemIds": [],
+      "reason": "Two independently scoped Cantabile food tasting tiers from current HTTP200 merchant page at exact Pasir Panjang unit. First-week/month reservation and5/8course constraints retained; currency code/fees/date unknown.19unpriced course/repertoire observations and previous51conflicting brunch/PDF/omakase rows excluded.",
+      "sourceUrls": [
+        "https://www.wakamama.sg/cantabile"
+      ]
+    }
+  ]
+}

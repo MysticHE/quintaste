@@ -1,0 +1,298 @@
+{
+  "checks": [
+    "Compact6px divider gap/8px bottom inset,2px blur and single-line rows at 320",
+    "Compact6px divider gap/8px bottom inset,2px blur and single-line rows at 375",
+    "Compact6px divider gap/8px bottom inset,2px blur and single-line rows at 414",
+    "Compact6px divider gap/8px bottom inset,2px blur and single-line rows at 768",
+    "Compact6px divider gap/8px bottom inset,2px blur and single-line rows at 1440",
+    "Compact6px divider gap/8px bottom inset,2px blur and single-line rows at 375",
+    "Compact Google Maps link remains keyboard-focusable and opens its source independently",
+    "Corner Save still works independently",
+    "Card body still opens place details",
+    "Details have no photo author/source row, standalone Google Maps label or long review link wording",
+    "Gallery pagination is24px with no leftover author-row whitespace",
+    "Gallery keyboard and horizontal scrolling still select photos",
+    "Photo expansion and existing full-view credits remain functional",
+    "Removed rows stay absent and feedback remains side by side at320/375/768/1440",
+    "Short View review label still opens the intended source"
+  ],
+  "layouts": [
+    {
+      "width": 320,
+      "card": {
+        "x": 4,
+        "y": 120,
+        "width": 312,
+        "height": 223
+      },
+      "title": {
+        "x": 14,
+        "y": 246,
+        "width": 292,
+        "height": 24
+      },
+      "blur": {
+        "x": 6,
+        "y": 258,
+        "width": 308,
+        "height": 83
+      },
+      "divider": {
+        "x": 14,
+        "y": 312,
+        "width": 292,
+        "height": 1
+      },
+      "hours": {
+        "x": 32,
+        "y": 319,
+        "width": 116.859375,
+        "height": 16
+      },
+      "source": {
+        "x": 156.859375,
+        "y": 315,
+        "width": 86.4375,
+        "height": 24
+      },
+      "lineToHours": 6,
+      "bottomInset": 8,
+      "blurFilter": "blur(2px)"
+    },
+    {
+      "width": 375,
+      "card": {
+        "x": 4,
+        "y": 120,
+        "width": 367,
+        "height": 223
+      },
+      "title": {
+        "x": 14,
+        "y": 246,
+        "width": 347,
+        "height": 24
+      },
+      "blur": {
+        "x": 6,
+        "y": 258,
+        "width": 363,
+        "height": 83
+      },
+      "divider": {
+        "x": 14,
+        "y": 312,
+        "width": 347,
+        "height": 1
+      },
+      "hours": {
+        "x": 32,
+        "y": 319,
+        "width": 116.859375,
+        "height": 16
+      },
+      "source": {
+        "x": 156.859375,
+        "y": 315,
+        "width": 86.4375,
+        "height": 24
+      },
+      "lineToHours": 6,
+      "bottomInset": 8,
+      "blurFilter": "blur(2px)"
+    },
+    {
+      "width": 414,
+      "card": {
+        "x": 4,
+        "y": 120,
+        "width": 406,
+        "height": 223
+      },
+      "title": {
+        "x": 14,
+        "y": 246,
+        "width": 386,
+        "height": 24
+      },
+      "blur": {
+        "x": 6,
+        "y": 258,
+        "width": 402,
+        "height": 83
+      },
+      "divider": {
+        "x": 14,
+        "y": 312,
+        "width": 386,
+        "height": 1
+      },
+      "hours": {
+        "x": 32,
+        "y": 319,
+        "width": 116.859375,
+        "height": 16
+      },
+      "source": {
+        "x": 156.859375,
+        "y": 315,
+        "width": 86.4375,
+        "height": 24
+      },
+      "lineToHours": 6,
+      "bottomInset": 8,
+      "blurFilter": "blur(2px)"
+    },
+    {
+      "width": 768,
+      "card": {
+        "x": 11,
+        "y": 125,
+        "width": 746,
+        "height": 223
+      },
+      "title": {
+        "x": 21,
+        "y": 251,
+        "width": 726,
+        "height": 24
+      },
+      "blur": {
+        "x": 13,
+        "y": 263,
+        "width": 742,
+        "height": 83
+      },
+      "divider": {
+        "x": 21,
+        "y": 317,
+        "width": 726,
+        "height": 1
+      },
+      "hours": {
+        "x": 39,
+        "y": 324,
+        "width": 116.859375,
+        "height": 16
+      },
+      "source": {
+        "x": 163.859375,
+        "y": 320,
+        "width": 86.4375,
+        "height": 24
+      },
+      "lineToHours": 6,
+      "bottomInset": 8,
+      "blurFilter": "blur(2px)"
+    },
+    {
+      "width": 1440,
+      "card": {
+        "x": 345,
+        "y": 125,
+        "width": 750,
+        "height": 223
+      },
+      "title": {
+        "x": 355,
+        "y": 251,
+        "width": 730,
+        "height": 24
+      },
+      "blur": {
+        "x": 347,
+        "y": 263,
+        "width": 746,
+        "height": 83
+      },
+      "divider": {
+        "x": 355,
+        "y": 317,
+        "width": 730,
+        "height": 1
+      },
+      "hours": {
+        "x": 373,
+        "y": 324,
+        "width": 116.859375,
+        "height": 16
+      },
+      "source": {
+        "x": 497.859375,
+        "y": 320,
+        "width": 86.4375,
+        "height": 24
+      },
+      "lineToHours": 6,
+      "bottomInset": 8,
+      "blurFilter": "blur(2px)"
+    },
+    {
+      "width": 375,
+      "card": {
+        "x": 4,
+        "y": 120,
+        "width": 367,
+        "height": 223
+      },
+      "title": {
+        "x": 14,
+        "y": 246,
+        "width": 347,
+        "height": 24
+      },
+      "blur": {
+        "x": 6,
+        "y": 258,
+        "width": 363,
+        "height": 83
+      },
+      "divider": {
+        "x": 14,
+        "y": 312,
+        "width": 347,
+        "height": 1
+      },
+      "hours": {
+        "x": 32,
+        "y": 319,
+        "width": 116.859375,
+        "height": 16
+      },
+      "source": {
+        "x": 156.859375,
+        "y": 315,
+        "width": 86.4375,
+        "height": 24
+      },
+      "lineToHours": 6,
+      "bottomInset": 8,
+      "blurFilter": "blur(2px)"
+    }
+  ],
+  "screenshots": [
+    "C:/Users/huien/QT/quintaste/.impeccable/review/card-spacing-explore-320.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/card-spacing-explore-375.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/card-spacing-explore-768.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/card-spacing-explore-1440.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/card-spacing-explore-375-dark.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/card-spacing-details-320.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/card-spacing-feedback-320.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/card-spacing-details-375.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/card-spacing-feedback-375.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/card-spacing-details-768.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/card-spacing-feedback-768.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/card-spacing-details-1440.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/card-spacing-feedback-1440.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/card-spacing-details-375-dark.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/card-spacing-feedback-375-dark.png"
+  ],
+  "errors": [],
+  "actualGoogleRequests": 0,
+  "limits": [
+    "Controlled venue/photo responses.",
+    "Native device visuals and physical touch targets not verified.",
+    "Mechanical layout scanner could not launch in the restricted Windows sandbox."
+  ],
+  "status": "pass"
+}

@@ -1,0 +1,25 @@
+{
+  "checks": [
+    "Unconfigured service stays disabled; sample previews without saving or paid requests",
+    "Save, Undo, reload and Me use the selected private avatar",
+    "Consent gates upload; completed generation stays a draft until Save; source preview clears",
+    "Lost upload response recovers by polling without another paid POST",
+    "Cancel sends deletion even if response was lost; no automatic generation retry",
+    "Failed device write has explicit retry and preserves an Undo path",
+    "Animation preloads all frames; Pause and Reduce Motion hold the base frame"
+  ],
+  "captures": [
+    "avatar-mobile.png",
+    "avatar-me.png",
+    "avatar-consent.png",
+    "avatar-dark-large.png",
+    "avatar-width-320.png",
+    "avatar-width-768.png",
+    "avatar-desktop.png"
+  ],
+  "errors": [],
+  "axe": [],
+  "scope": "Managed Chromium web; mocked image API, no live provider/native visual acceptance",
+  "passed": true,
+  "generationPosts": 3
+}

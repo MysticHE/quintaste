@@ -1,0 +1,4067 @@
+{
+  "version": 1,
+  "status": "reviewed-partial-with-unresolved-holds",
+  "checkedAt": "2026-10-16T04:12:00.536Z",
+  "scope": "Vegetarian/vegan venues only for publication. Scope-unverified candidate observations are wholly held. Food rows are source observations, not unique dishes or live stock.",
+  "googleRequestsMade": 0,
+  "sources": [
+    {
+      "id": "sl08-bai-jia-le-ordering",
+      "url": "https://www.foodpanda.sg/restaurant/dbb8/hakka-bai-jia-le-thunder-tea-jurong-point",
+      "title": "Bai Jia Le (Jurong Point) 百家乐擂茶 public ordering menu",
+      "publisher": "foodpanda merchant-managed listing",
+      "checkedAt": "2026-10-16T04:02:00.275Z",
+      "accessStatus": "readable-public-html",
+      "notes": "Fresh normal unauthenticated page retrieval, visible DOM and embedded product facts reconciled. Popular repeats excluded. No checkout, auth, provider API or images copied."
+    },
+    {
+      "id": "sl08-fire-flies-ordering",
+      "url": "https://www.foodpanda.sg/restaurant/h97o/fire-flies-vegetarian-upper-cross-street",
+      "title": "Fire Flies Vegetarian (Chinatown) 客家擂茶 public ordering menu",
+      "publisher": "foodpanda merchant-managed listing",
+      "checkedAt": "2026-10-16T04:01:56.744Z",
+      "accessStatus": "readable-public-html",
+      "notes": "Fresh normal unauthenticated page retrieval, visible DOM and embedded product facts reconciled. Popular repeats excluded. No checkout, auth, provider API or images copied."
+    },
+    {
+      "id": "sl08-fire-flies-review-0",
+      "url": "https://elle.com.sg/life-culture/celebrity-make-up-artist-clarence-lee-vegan-guide-eating-green-singapore/",
+      "publisher": "Independent corroboration / discovery context",
+      "title": "fire-flies scope and premise review",
+      "checkedAt": "2026-10-16",
+      "accessStatus": "search-or-page-review-qualified",
+      "notes": "Merchant-managed Fire Flies menu names 18 unique foods at exact Upper Cross Street stall. Vegetarian title/category and coherent food descriptions corroborated by dated independent vegan guide. Publish dated vegetarian venue facts, without ingredient certification."
+    },
+    {
+      "id": "sl08-fire-flies-review-1",
+      "url": "https://sethlui.com/fire-flies-singapore/",
+      "publisher": "Independent corroboration / discovery context",
+      "title": "fire-flies scope and premise review",
+      "checkedAt": "2026-10-16",
+      "accessStatus": "search-or-page-review-qualified",
+      "notes": "Merchant-managed Fire Flies menu names 18 unique foods at exact Upper Cross Street stall. Vegetarian title/category and coherent food descriptions corroborated by dated independent vegan guide. Publish dated vegetarian venue facts, without ingredient certification."
+    },
+    {
+      "id": "sl08-ju-fu-yuan-amk-ordering",
+      "url": "https://www.foodpanda.sg/restaurant/ozx5/ju-fu-yuan-vegetarian-delight-ang-mo-kio-islandwide",
+      "title": "Ju Fu Yuan Vegetarian Delight 聚福缘 public ordering menu",
+      "publisher": "foodpanda merchant-managed listing",
+      "checkedAt": "2026-10-16T04:01:56.876Z",
+      "accessStatus": "readable-public-html",
+      "notes": "Fresh normal unauthenticated page retrieval, visible DOM and embedded product facts reconciled. Popular repeats excluded. No checkout, auth, provider API or images copied."
+    },
+    {
+      "id": "sl08-ju-fu-yuan-amk-review-0",
+      "url": "https://www.foodpanda.sg/restaurant/y5gs/ju-fu-yuan-vegetarian-delight-ang-mo-kio",
+      "publisher": "Independent corroboration / discovery context",
+      "title": "ju-fu-yuan-amk scope and premise review",
+      "checkedAt": "2026-10-16",
+      "accessStatus": "search-or-page-review-qualified",
+      "notes": "Current Ju Fu Yuan merchant-managed ordering pages establish 162 AMK #01-14 and two mock-meat sets. Frozen lead says #01-15. Publish independently sourced #01-14 branch with null Google ID; retain candidate association conflict and unread configuration choices. CLOSED is channel state, not permanent closure proof."
+    },
+    {
+      "id": "sl08-xi-shi-fu-ordering",
+      "url": "https://www.foodpanda.sg/restaurant/b8pv/xi-shi-fu-vegetarian-xi-shi-fu-su-shi-ge-bukit-merah",
+      "title": "Xi Shi Fu Vegetarian 惜施福素食閣 public ordering menu",
+      "publisher": "foodpanda merchant-managed listing",
+      "checkedAt": "2026-10-16T04:04:29.833Z",
+      "accessStatus": "readable-public-html",
+      "notes": "Fresh normal unauthenticated page retrieval, visible DOM and embedded product facts reconciled. Popular repeats excluded. No checkout, auth, provider API or images copied."
+    },
+    {
+      "id": "sl08-xi-shi-fu-review-0",
+      "url": "https://www.asiaone.com/lifestyle/i-want-promote-vegetarian-food-more-people-bukit-batok-stall-owner-offers-180-meals-over",
+      "publisher": "Independent corroboration / discovery context",
+      "title": "xi-shi-fu scope and premise review",
+      "checkedAt": "2026-10-16",
+      "accessStatus": "search-or-page-review-qualified",
+      "notes": "Current Xi Shi Fu ordering page identifies exact Bukit Merah #01-25 and 12 foods. Owner interview corroborates vegetarian stall group; historical HPB corroborates premise only. Eight coherent records publish; Crispy Zai Er, Fried Wu Xiang and Chicken Drumstick generic animal descriptions and Yam Roll identity mismatch stay held. No actual meat service inferred."
+    },
+    {
+      "id": "sl08-xi-shi-fu-review-1",
+      "url": "https://ch-api.healthhub.sg/api/public/content/fc3315e24c644da5b89ff80dafdbc2ad?v=3cc3dc45",
+      "publisher": "Independent corroboration / discovery context",
+      "title": "xi-shi-fu scope and premise review",
+      "checkedAt": "2026-10-16",
+      "accessStatus": "search-or-page-review-qualified",
+      "notes": "Current Xi Shi Fu ordering page identifies exact Bukit Merah #01-25 and 12 foods. Owner interview corroborates vegetarian stall group; historical HPB corroborates premise only. Eight coherent records publish; Crispy Zai Er, Fried Wu Xiang and Chicken Drumstick generic animal descriptions and Yam Roll identity mismatch stay held. No actual meat service inferred."
+    },
+    {
+      "id": "sl08-zuya-ordering",
+      "url": "https://www.foodpanda.sg/restaurant/b0ju/zuya-vegetarian-tiong-bahru-road",
+      "title": "Zuya Vegetarian public ordering menu",
+      "publisher": "foodpanda merchant-managed listing",
+      "checkedAt": "2026-10-16T04:01:56.878Z",
+      "accessStatus": "readable-public-html",
+      "notes": "Fresh normal unauthenticated page retrieval, visible DOM and embedded product facts reconciled. Popular repeats excluded. No checkout, auth, provider API or images copied."
+    },
+    {
+      "id": "sl08-zuya-review-0",
+      "url": "https://www.chope.co/singapore-restaurants/restaurant/zuya-vegetarian-tiong-bahru-plaza",
+      "publisher": "Independent corroboration / discovery context",
+      "title": "zuya scope and premise review",
+      "checkedAt": "2026-10-16",
+      "accessStatus": "search-or-page-review-qualified",
+      "notes": "Zuya current Foodpanda has 28 unique foods at 298 Tiong Bahru #02-111A, versus saved/secondary 302. Several generic animal descriptions conflict with vegetarian context. All 28 held pending current merchant/landlord premise confirmation and item clarification. Separate older 21/27-row web snapshots not unioned. Guessed domain failed and is not verified official; independently linked kazuyasg.com timed out."
+    },
+    {
+      "id": "sl08-zuya-review-1",
+      "url": "https://www.happycow.net/reviews/zuya-vegetarian-cuisines-central-singapore-264245",
+      "publisher": "Independent corroboration / discovery context",
+      "title": "zuya scope and premise review",
+      "checkedAt": "2026-10-16",
+      "accessStatus": "search-or-page-review-qualified",
+      "notes": "Zuya current Foodpanda has 28 unique foods at 298 Tiong Bahru #02-111A, versus saved/secondary 302. Several generic animal descriptions conflict with vegetarian context. All 28 held pending current merchant/landlord premise confirmation and item clarification. Separate older 21/27-row web snapshots not unioned. Guessed domain failed and is not verified official; independently linked kazuyasg.com timed out."
+    },
+    {
+      "id": "sl08-zuya-review-2",
+      "url": "https://www.kazuyasg.com/",
+      "publisher": "Independent corroboration / discovery context",
+      "title": "zuya scope and premise review",
+      "checkedAt": "2026-10-16",
+      "accessStatus": "search-or-page-review-qualified",
+      "notes": "Zuya current Foodpanda has 28 unique foods at 298 Tiong Bahru #02-111A, versus saved/secondary 302. Several generic animal descriptions conflict with vegetarian context. All 28 held pending current merchant/landlord premise confirmation and item clarification. Separate older 21/27-row web snapshots not unioned. Guessed domain failed and is not verified official; independently linked kazuyasg.com timed out."
+    }
+  ],
+  "branches": [
+    {
+      "id": "sl08-bai-jia-le",
+      "name": "Bai Jia Le — Jurong Point",
+      "address": "63 Jurong West Central 3, #03-28, Singapore 648331",
+      "postalCode": "648331",
+      "directoryLeadIds": [
+        "bai-jia-le"
+      ],
+      "sourceIds": [
+        "sl08-bai-jia-le-ordering"
+      ],
+      "menuIds": [
+        "sl08-bai-jia-le-foodpanda"
+      ],
+      "googlePlaceId": null,
+      "eligibility": "uncertain-hold",
+      "identityStatus": "current-branch-review-pending",
+      "addressProvenance": "Exact current public ordering premise, with frozen discrepancy separately retained. Unrelated vendor support notes omitted.",
+      "frozenLeadAddress": "63 Jurong West Central 3, #03-28, Singapore 648331",
+      "venueEligibility": {
+        "status": "uncertain-hold",
+        "checkedAt": "2026-10-16T04:12:00.536Z",
+        "sourceIds": [
+          "sl08-bai-jia-le-ordering"
+        ],
+        "reason": "Ordering page has seven products at Jurong Point, but no whole-venue vegetarian statement. Yong tau foo fillings unknown. Customer pork reports are not primary proof of meat service. All seven held."
+      },
+      "gaps": [
+        "Ordering page has seven products at Jurong Point, but no whole-venue vegetarian statement. Yong tau foo fillings unknown. Customer pork reports are not primary proof of meat service. All seven held.",
+        "Stock, complete ingredients, vegan/allium-free applicability and checkout charges unconfirmed."
+      ]
+    },
+    {
+      "id": "sl08-fire-flies",
+      "name": "Fire Flies Vegetarian",
+      "address": "101 Upper Cross Street B1-06 Stall 10, People's Park Centre, Singapore 058357",
+      "postalCode": "058357",
+      "directoryLeadIds": [
+        "fire-flies-vegetarian-chinatown"
+      ],
+      "sourceIds": [
+        "sl08-fire-flies-ordering",
+        "sl08-fire-flies-review-0",
+        "sl08-fire-flies-review-1"
+      ],
+      "menuIds": [
+        "sl08-fire-flies-foodpanda"
+      ],
+      "googlePlaceId": null,
+      "eligibility": "vegetarian-confirmed",
+      "identityStatus": "independent-source-branch",
+      "addressProvenance": "Exact current public ordering premise, with frozen discrepancy separately retained. Unrelated vendor support notes omitted.",
+      "frozenLeadAddress": "101 Upper Cross St, B1-06 Stall 10 People Park Centre, Singapore 058357",
+      "venueEligibility": {
+        "status": "vegetarian-confirmed",
+        "checkedAt": "2026-10-16T04:12:00.536Z",
+        "sourceIds": [
+          "sl08-fire-flies-ordering",
+          "sl08-fire-flies-review-0",
+          "sl08-fire-flies-review-1"
+        ],
+        "reason": "Merchant-managed Fire Flies menu names 18 unique foods at exact Upper Cross Street stall. Vegetarian title/category and coherent food descriptions corroborated by dated independent vegan guide. Publish dated vegetarian venue facts, without ingredient certification."
+      },
+      "gaps": [
+        "Merchant-managed Fire Flies menu names 18 unique foods at exact Upper Cross Street stall. Vegetarian title/category and coherent food descriptions corroborated by dated independent vegan guide. Publish dated vegetarian venue facts, without ingredient certification.",
+        "Stock, complete ingredients, vegan/allium-free applicability and checkout charges unconfirmed."
+      ]
+    },
+    {
+      "id": "sl08-ju-fu-yuan-amk",
+      "name": "Ju Fu Yuan Vegetarian Delight — Ang Mo Kio",
+      "address": "162 Ang Mo Kio Avenue 4 #01-14, Singapore 560162",
+      "postalCode": "560162",
+      "directoryLeadIds": [
+        "ju-fu-yuan-vegetarian-delight-ang-mo-kio"
+      ],
+      "sourceIds": [
+        "sl08-ju-fu-yuan-amk-ordering",
+        "sl08-ju-fu-yuan-amk-review-0"
+      ],
+      "menuIds": [
+        "sl08-ju-fu-yuan-amk-foodpanda"
+      ],
+      "googlePlaceId": null,
+      "eligibility": "vegetarian-confirmed",
+      "identityStatus": "independent-source-branch",
+      "addressProvenance": "Exact current public ordering premise, with frozen discrepancy separately retained. Unrelated vendor support notes omitted.",
+      "frozenLeadAddress": "162 Ang Mo Kio Ave 4, #01-15, Singapore 560162",
+      "venueEligibility": {
+        "status": "vegetarian-confirmed",
+        "checkedAt": "2026-10-16T04:12:00.536Z",
+        "sourceIds": [
+          "sl08-ju-fu-yuan-amk-ordering",
+          "sl08-ju-fu-yuan-amk-review-0"
+        ],
+        "reason": "Current Ju Fu Yuan merchant-managed ordering pages establish 162 AMK #01-14 and two mock-meat sets. Frozen lead says #01-15. Publish independently sourced #01-14 branch with null Google ID; retain candidate association conflict and unread configuration choices. CLOSED is channel state, not permanent closure proof."
+      },
+      "gaps": [
+        "Current Ju Fu Yuan merchant-managed ordering pages establish 162 AMK #01-14 and two mock-meat sets. Frozen lead says #01-15. Publish independently sourced #01-14 branch with null Google ID; retain candidate association conflict and unread configuration choices. CLOSED is channel state, not permanent closure proof.",
+        "Stock, complete ingredients, vegan/allium-free applicability and checkout charges unconfirmed."
+      ]
+    },
+    {
+      "id": "sl08-xi-shi-fu",
+      "name": "Xi Shi Fu Vegetarian — Bukit Merah",
+      "address": "115 Bukit Merah View #01-25, Singapore 151115",
+      "postalCode": "151115",
+      "directoryLeadIds": [
+        "xi-shi-fu-vegetarian-bukit-merah"
+      ],
+      "sourceIds": [
+        "sl08-xi-shi-fu-ordering",
+        "sl08-xi-shi-fu-review-0",
+        "sl08-xi-shi-fu-review-1"
+      ],
+      "menuIds": [
+        "sl08-xi-shi-fu-foodpanda"
+      ],
+      "googlePlaceId": null,
+      "eligibility": "vegetarian-confirmed",
+      "identityStatus": "independent-source-branch",
+      "addressProvenance": "Exact current public ordering premise, with frozen discrepancy separately retained. Unrelated vendor support notes omitted.",
+      "frozenLeadAddress": "115 Bukit Merah Vw, #01-25, Singapore 151115",
+      "venueEligibility": {
+        "status": "vegetarian-confirmed",
+        "checkedAt": "2026-10-16T04:12:00.536Z",
+        "sourceIds": [
+          "sl08-xi-shi-fu-ordering",
+          "sl08-xi-shi-fu-review-0",
+          "sl08-xi-shi-fu-review-1"
+        ],
+        "reason": "Current Xi Shi Fu ordering page identifies exact Bukit Merah #01-25 and 12 foods. Owner interview corroborates vegetarian stall group; historical HPB corroborates premise only. Eight coherent records publish; Crispy Zai Er, Fried Wu Xiang and Chicken Drumstick generic animal descriptions and Yam Roll identity mismatch stay held. No actual meat service inferred."
+      },
+      "gaps": [
+        "Current Xi Shi Fu ordering page identifies exact Bukit Merah #01-25 and 12 foods. Owner interview corroborates vegetarian stall group; historical HPB corroborates premise only. Eight coherent records publish; Crispy Zai Er, Fried Wu Xiang and Chicken Drumstick generic animal descriptions and Yam Roll identity mismatch stay held. No actual meat service inferred.",
+        "Stock, complete ingredients, vegan/allium-free applicability and checkout charges unconfirmed."
+      ]
+    },
+    {
+      "id": "sl08-zuya",
+      "name": "Zuya Vegetarian — Tiong Bahru",
+      "address": "298 Tiong Bahru Road #02-111A, Singapore 168732",
+      "postalCode": "168732",
+      "directoryLeadIds": [
+        "zuya-vegetarian"
+      ],
+      "sourceIds": [
+        "sl08-zuya-ordering",
+        "sl08-zuya-review-0",
+        "sl08-zuya-review-1",
+        "sl08-zuya-review-2"
+      ],
+      "menuIds": [
+        "sl08-zuya-foodpanda"
+      ],
+      "googlePlaceId": null,
+      "eligibility": "uncertain-hold",
+      "identityStatus": "current-branch-review-pending",
+      "addressProvenance": "Exact current public ordering premise, with frozen discrepancy separately retained. Unrelated vendor support notes omitted.",
+      "frozenLeadAddress": "302 Tiong Bahru Rd, #02-111A Tiong Bahru Plaza, Singapore 168732",
+      "venueEligibility": {
+        "status": "uncertain-hold",
+        "checkedAt": "2026-10-16T04:12:00.536Z",
+        "sourceIds": [
+          "sl08-zuya-ordering",
+          "sl08-zuya-review-0",
+          "sl08-zuya-review-1",
+          "sl08-zuya-review-2"
+        ],
+        "reason": "Zuya current Foodpanda has 28 unique foods at 298 Tiong Bahru #02-111A, versus saved/secondary 302. Several generic animal descriptions conflict with vegetarian context. All 28 held pending current merchant/landlord premise confirmation and item clarification. Separate older 21/27-row web snapshots not unioned. Guessed domain failed and is not verified official; independently linked kazuyasg.com timed out."
+      },
+      "gaps": [
+        "Zuya current Foodpanda has 28 unique foods at 298 Tiong Bahru #02-111A, versus saved/secondary 302. Several generic animal descriptions conflict with vegetarian context. All 28 held pending current merchant/landlord premise confirmation and item clarification. Separate older 21/27-row web snapshots not unioned. Guessed domain failed and is not verified official; independently linked kazuyasg.com timed out.",
+        "Stock, complete ingredients, vegan/allium-free applicability and checkout charges unconfirmed."
+      ]
+    }
+  ],
+  "menus": [
+    {
+      "id": "sl08-bai-jia-le-foodpanda",
+      "name": "Bai Jia Le — Jurong Point — foodpanda delivery",
+      "scope": "branch-delivery",
+      "branchIds": [
+        "sl08-bai-jia-le"
+      ],
+      "sourceIds": [
+        "sl08-bai-jia-le-ordering"
+      ],
+      "coverage": "partial",
+      "publicationStatus": "hold-scope-or-premise",
+      "notice": "Dated delivery-channel menu observation. Prices may differ from dine-in and checkout. Stock, ingredients and final charges unconfirmed. Some ordering choices were not exposed.",
+      "items": [
+        {
+          "id": "sl08-bai-jia-le-91684228",
+          "sourceProductId": "91684228",
+          "name": "Set A Thunder Tea Rice & Yong Tau Foo",
+          "category": "Mains",
+          "sourceIds": [
+            "sl08-bai-jia-le-ordering"
+          ],
+          "sourceDescription": "1 Pc. A healthy grain bowl with a mix of vegetables, nuts serve with fragrant thunder tea paste & Hakka yong tau foo",
+          "price": {
+            "amount": 11.5,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "priceObservationBasis": "Current delivery-channel printed list price; not dine-in price, checkout total or a guaranteed current quote.",
+          "sourcePriceTexts": [
+            [
+              "from ",
+              "11.50"
+            ]
+          ],
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:02:00.275Z",
+            "soldOutFlag": false,
+            "customizableFlag": true,
+            "containerPrice": null,
+            "discountedPrice": null
+          },
+          "publicationStatus": "hold-scope-or-premise",
+          "verification": {
+            "checkedAt": "2026-10-16T04:12:00.536Z",
+            "sourceIds": [
+              "sl08-bai-jia-le-ordering"
+            ],
+            "reason": "Ordering page has seven products at Jurong Point, but no whole-venue vegetarian statement. Yong tau foo fillings unknown. Customer pork reports are not primary proof of meat service. All seven held.",
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed-channel-price",
+              "SGD"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan suitability",
+              "stock",
+              "checkout charges"
+            ]
+          },
+          "qualifier": "Delivery menu snapshot. Ingredients and current stock unconfirmed.",
+          "configurationNotice": "Ordering page flags customization; choice names, limits, defaults and surcharges were not exposed. No option inferred.",
+          "holdReason": "Ordering page has seven products at Jurong Point, but no whole-venue vegetarian statement. Yong tau foo fillings unknown. Customer pork reports are not primary proof of meat service. All seven held."
+        },
+        {
+          "id": "sl08-bai-jia-le-91684229",
+          "sourceProductId": "91684229",
+          "name": "Set B Thunder Tea Rice & Yong Tau Foo",
+          "category": "Mains",
+          "sourceIds": [
+            "sl08-bai-jia-le-ordering"
+          ],
+          "sourceDescription": "2 Pcs. A healthy grain bowl with a mix of vegetables, nuts serve with fragrant thunder tea paste & Hakka yong tau foo",
+          "price": {
+            "amount": 13.5,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "priceObservationBasis": "Current delivery-channel printed list price; not dine-in price, checkout total or a guaranteed current quote.",
+          "sourcePriceTexts": [
+            [
+              "from ",
+              "13.50"
+            ]
+          ],
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:02:00.275Z",
+            "soldOutFlag": false,
+            "customizableFlag": true,
+            "containerPrice": null,
+            "discountedPrice": null
+          },
+          "publicationStatus": "hold-scope-or-premise",
+          "verification": {
+            "checkedAt": "2026-10-16T04:12:00.536Z",
+            "sourceIds": [
+              "sl08-bai-jia-le-ordering"
+            ],
+            "reason": "Ordering page has seven products at Jurong Point, but no whole-venue vegetarian statement. Yong tau foo fillings unknown. Customer pork reports are not primary proof of meat service. All seven held.",
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed-channel-price",
+              "SGD"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan suitability",
+              "stock",
+              "checkout charges"
+            ]
+          },
+          "qualifier": "Delivery menu snapshot. Ingredients and current stock unconfirmed.",
+          "configurationNotice": "Ordering page flags customization; choice names, limits, defaults and surcharges were not exposed. No option inferred.",
+          "holdReason": "Ordering page has seven products at Jurong Point, but no whole-venue vegetarian statement. Yong tau foo fillings unknown. Customer pork reports are not primary proof of meat service. All seven held."
+        },
+        {
+          "id": "sl08-bai-jia-le-91684230",
+          "sourceProductId": "91684230",
+          "name": "Hakka Handmade Yong Tau Foo",
+          "category": "Mains",
+          "sourceIds": [
+            "sl08-bai-jia-le-ordering"
+          ],
+          "sourceDescription": "Homemade authentic Hakka yong tau foo",
+          "price": {
+            "amount": 1.9,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "priceObservationBasis": "Current delivery-channel printed list price; not dine-in price, checkout total or a guaranteed current quote.",
+          "sourcePriceTexts": [
+            [
+              "from ",
+              "1.90"
+            ]
+          ],
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:02:00.275Z",
+            "soldOutFlag": false,
+            "customizableFlag": true,
+            "containerPrice": null,
+            "discountedPrice": null
+          },
+          "publicationStatus": "hold-scope-or-premise",
+          "verification": {
+            "checkedAt": "2026-10-16T04:12:00.536Z",
+            "sourceIds": [
+              "sl08-bai-jia-le-ordering"
+            ],
+            "reason": "Ordering page has seven products at Jurong Point, but no whole-venue vegetarian statement. Yong tau foo fillings unknown. Customer pork reports are not primary proof of meat service. All seven held.",
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed-channel-price",
+              "SGD"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan suitability",
+              "stock",
+              "checkout charges"
+            ]
+          },
+          "qualifier": "Delivery menu snapshot. Ingredients and current stock unconfirmed.",
+          "configurationNotice": "Ordering page flags customization; choice names, limits, defaults and surcharges were not exposed. No option inferred.",
+          "holdReason": "Ordering page has seven products at Jurong Point, but no whole-venue vegetarian statement. Yong tau foo fillings unknown. Customer pork reports are not primary proof of meat service. All seven held."
+        },
+        {
+          "id": "sl08-bai-jia-le-91684231",
+          "sourceProductId": "91684231",
+          "name": "Thunder Tea Rice White Rice",
+          "category": "Mains",
+          "sourceIds": [
+            "sl08-bai-jia-le-ordering"
+          ],
+          "sourceDescription": "For 1 pax",
+          "price": {
+            "amount": 9.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceObservationBasis": "Current delivery-channel printed list price; not dine-in price, checkout total or a guaranteed current quote.",
+          "sourcePriceTexts": [
+            [
+              "",
+              "9.50"
+            ]
+          ],
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:02:00.275Z",
+            "soldOutFlag": false,
+            "customizableFlag": false,
+            "containerPrice": null,
+            "discountedPrice": null
+          },
+          "publicationStatus": "hold-scope-or-premise",
+          "verification": {
+            "checkedAt": "2026-10-16T04:12:00.536Z",
+            "sourceIds": [
+              "sl08-bai-jia-le-ordering"
+            ],
+            "reason": "Ordering page has seven products at Jurong Point, but no whole-venue vegetarian statement. Yong tau foo fillings unknown. Customer pork reports are not primary proof of meat service. All seven held.",
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed-channel-price",
+              "SGD"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan suitability",
+              "stock",
+              "checkout charges"
+            ]
+          },
+          "qualifier": "Delivery menu snapshot. Ingredients and current stock unconfirmed.",
+          "holdReason": "Ordering page has seven products at Jurong Point, but no whole-venue vegetarian statement. Yong tau foo fillings unknown. Customer pork reports are not primary proof of meat service. All seven held."
+        },
+        {
+          "id": "sl08-bai-jia-le-91684232",
+          "sourceProductId": "91684232",
+          "name": "Thunder Tea Rice Brown Rice",
+          "category": "Mains",
+          "sourceIds": [
+            "sl08-bai-jia-le-ordering"
+          ],
+          "sourceDescription": "For 1 pax",
+          "price": {
+            "amount": 10,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceObservationBasis": "Current delivery-channel printed list price; not dine-in price, checkout total or a guaranteed current quote.",
+          "sourcePriceTexts": [
+            [
+              "",
+              "10"
+            ]
+          ],
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:02:00.275Z",
+            "soldOutFlag": false,
+            "customizableFlag": false,
+            "containerPrice": null,
+            "discountedPrice": null
+          },
+          "publicationStatus": "hold-scope-or-premise",
+          "verification": {
+            "checkedAt": "2026-10-16T04:12:00.536Z",
+            "sourceIds": [
+              "sl08-bai-jia-le-ordering"
+            ],
+            "reason": "Ordering page has seven products at Jurong Point, but no whole-venue vegetarian statement. Yong tau foo fillings unknown. Customer pork reports are not primary proof of meat service. All seven held.",
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed-channel-price",
+              "SGD"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan suitability",
+              "stock",
+              "checkout charges"
+            ]
+          },
+          "qualifier": "Delivery menu snapshot. Ingredients and current stock unconfirmed.",
+          "holdReason": "Ordering page has seven products at Jurong Point, but no whole-venue vegetarian statement. Yong tau foo fillings unknown. Customer pork reports are not primary proof of meat service. All seven held."
+        },
+        {
+          "id": "sl08-bai-jia-le-91684233",
+          "sourceProductId": "91684233",
+          "name": "White Rice",
+          "category": "Ala Carte",
+          "sourceIds": [
+            "sl08-bai-jia-le-ordering"
+          ],
+          "sourceDescription": "",
+          "price": {
+            "amount": 1.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceObservationBasis": "Current delivery-channel printed list price; not dine-in price, checkout total or a guaranteed current quote.",
+          "sourcePriceTexts": [
+            [
+              "",
+              "1.50"
+            ]
+          ],
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:02:00.275Z",
+            "soldOutFlag": false,
+            "customizableFlag": false,
+            "containerPrice": null,
+            "discountedPrice": null
+          },
+          "publicationStatus": "hold-scope-or-premise",
+          "verification": {
+            "checkedAt": "2026-10-16T04:12:00.536Z",
+            "sourceIds": [
+              "sl08-bai-jia-le-ordering"
+            ],
+            "reason": "Ordering page has seven products at Jurong Point, but no whole-venue vegetarian statement. Yong tau foo fillings unknown. Customer pork reports are not primary proof of meat service. All seven held.",
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed-channel-price",
+              "SGD"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan suitability",
+              "stock",
+              "checkout charges"
+            ]
+          },
+          "qualifier": "Delivery menu snapshot. Ingredients and current stock unconfirmed.",
+          "holdReason": "Ordering page has seven products at Jurong Point, but no whole-venue vegetarian statement. Yong tau foo fillings unknown. Customer pork reports are not primary proof of meat service. All seven held."
+        },
+        {
+          "id": "sl08-bai-jia-le-91684234",
+          "sourceProductId": "91684234",
+          "name": "Brown Rice",
+          "category": "Ala Carte",
+          "sourceIds": [
+            "sl08-bai-jia-le-ordering"
+          ],
+          "sourceDescription": "",
+          "price": {
+            "amount": 1.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceObservationBasis": "Current delivery-channel printed list price; not dine-in price, checkout total or a guaranteed current quote.",
+          "sourcePriceTexts": [
+            [
+              "",
+              "1.50"
+            ]
+          ],
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:02:00.275Z",
+            "soldOutFlag": false,
+            "customizableFlag": false,
+            "containerPrice": null,
+            "discountedPrice": null
+          },
+          "publicationStatus": "hold-scope-or-premise",
+          "verification": {
+            "checkedAt": "2026-10-16T04:12:00.536Z",
+            "sourceIds": [
+              "sl08-bai-jia-le-ordering"
+            ],
+            "reason": "Ordering page has seven products at Jurong Point, but no whole-venue vegetarian statement. Yong tau foo fillings unknown. Customer pork reports are not primary proof of meat service. All seven held.",
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed-channel-price",
+              "SGD"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan suitability",
+              "stock",
+              "checkout charges"
+            ]
+          },
+          "qualifier": "Delivery menu snapshot. Ingredients and current stock unconfirmed.",
+          "holdReason": "Ordering page has seven products at Jurong Point, but no whole-venue vegetarian statement. Yong tau foo fillings unknown. Customer pork reports are not primary proof of meat service. All seven held."
+        }
+      ]
+    },
+    {
+      "id": "sl08-fire-flies-foodpanda",
+      "name": "Fire Flies Vegetarian — foodpanda delivery",
+      "scope": "branch-delivery",
+      "branchIds": [
+        "sl08-fire-flies"
+      ],
+      "sourceIds": [
+        "sl08-fire-flies-ordering"
+      ],
+      "coverage": "partial",
+      "publicationStatus": "reviewed-source-facts",
+      "notice": "Dated delivery-channel menu observation. Prices may differ from dine-in and checkout. Stock, ingredients and final charges unconfirmed. Some ordering choices were not exposed.",
+      "items": [
+        {
+          "id": "sl08-fire-flies-73635909",
+          "sourceProductId": "73635909",
+          "name": "Lei Cha Kolomee 擂茶哥罗面",
+          "category": "Mains  主食",
+          "sourceIds": [
+            "sl08-fire-flies-ordering"
+          ],
+          "sourceDescription": "Freshly made in house",
+          "price": {
+            "amount": 10.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceObservationBasis": "Current delivery-channel printed list price; not dine-in price, checkout total or a guaranteed current quote.",
+          "sourcePriceTexts": [
+            [
+              "",
+              "10.80"
+            ]
+          ],
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:01:56.744Z",
+            "soldOutFlag": false,
+            "customizableFlag": true,
+            "containerPrice": null,
+            "discountedPrice": null
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "verification": {
+            "checkedAt": "2026-10-16T04:12:00.536Z",
+            "sourceIds": [
+              "sl08-fire-flies-ordering"
+            ],
+            "reason": "Name, category and SGD list price directly reconciled between current DOM and product snapshot; ingredients and current stock unconfirmed.",
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed-channel-price",
+              "SGD"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan suitability",
+              "stock",
+              "checkout charges"
+            ]
+          },
+          "qualifier": "Delivery menu snapshot. Ingredients and current stock unconfirmed.",
+          "configurationNotice": "Ordering page flags customization; choice names, limits, defaults and surcharges were not exposed. No option inferred."
+        },
+        {
+          "id": "sl08-fire-flies-73635907",
+          "sourceProductId": "73635907",
+          "name": "Lei Cha Rice 擂茶饭",
+          "category": "Mains  主食",
+          "sourceIds": [
+            "sl08-fire-flies-ordering"
+          ],
+          "sourceDescription": "Freshly made in house",
+          "price": {
+            "amount": 10.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceObservationBasis": "Current delivery-channel printed list price; not dine-in price, checkout total or a guaranteed current quote.",
+          "sourcePriceTexts": [
+            [
+              "",
+              "10.80"
+            ]
+          ],
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:01:56.744Z",
+            "soldOutFlag": false,
+            "customizableFlag": true,
+            "containerPrice": null,
+            "discountedPrice": null
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "verification": {
+            "checkedAt": "2026-10-16T04:12:00.536Z",
+            "sourceIds": [
+              "sl08-fire-flies-ordering"
+            ],
+            "reason": "Name, category and SGD list price directly reconciled between current DOM and product snapshot; ingredients and current stock unconfirmed.",
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed-channel-price",
+              "SGD"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan suitability",
+              "stock",
+              "checkout charges"
+            ]
+          },
+          "qualifier": "Delivery menu snapshot. Ingredients and current stock unconfirmed.",
+          "configurationNotice": "Ordering page flags customization; choice names, limits, defaults and surcharges were not exposed. No option inferred."
+        },
+        {
+          "id": "sl08-fire-flies-73635914",
+          "sourceProductId": "73635914",
+          "name": "Yong Tau Foo with Angelica Sauce 2 Pcs 自制当归酿豆腐",
+          "category": "Sides 小菜",
+          "sourceIds": [
+            "sl08-fire-flies-ordering"
+          ],
+          "sourceDescription": "Freshly made in house",
+          "price": {
+            "amount": 6,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceObservationBasis": "Current delivery-channel printed list price; not dine-in price, checkout total or a guaranteed current quote.",
+          "sourcePriceTexts": [
+            [
+              "",
+              "6"
+            ]
+          ],
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:01:56.744Z",
+            "soldOutFlag": false,
+            "customizableFlag": false,
+            "containerPrice": null,
+            "discountedPrice": null
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "verification": {
+            "checkedAt": "2026-10-16T04:12:00.536Z",
+            "sourceIds": [
+              "sl08-fire-flies-ordering"
+            ],
+            "reason": "Name, category and SGD list price directly reconciled between current DOM and product snapshot; ingredients and current stock unconfirmed.",
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed-channel-price",
+              "SGD"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan suitability",
+              "stock",
+              "checkout charges"
+            ]
+          },
+          "qualifier": "Delivery menu snapshot. Ingredients and current stock unconfirmed."
+        },
+        {
+          "id": "sl08-fire-flies-73635910",
+          "sourceProductId": "73635910",
+          "name": "Signature Chili Kolomee 辣椒哥罗面",
+          "category": "Mains  主食",
+          "sourceIds": [
+            "sl08-fire-flies-ordering"
+          ],
+          "sourceDescription": "Freshly made in house",
+          "price": {
+            "amount": 7.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceObservationBasis": "Current delivery-channel printed list price; not dine-in price, checkout total or a guaranteed current quote.",
+          "sourcePriceTexts": [
+            [
+              "",
+              "7.80"
+            ]
+          ],
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:01:56.744Z",
+            "soldOutFlag": false,
+            "customizableFlag": true,
+            "containerPrice": null,
+            "discountedPrice": null
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "verification": {
+            "checkedAt": "2026-10-16T04:12:00.536Z",
+            "sourceIds": [
+              "sl08-fire-flies-ordering"
+            ],
+            "reason": "Name, category and SGD list price directly reconciled between current DOM and product snapshot; ingredients and current stock unconfirmed.",
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed-channel-price",
+              "SGD"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan suitability",
+              "stock",
+              "checkout charges"
+            ]
+          },
+          "qualifier": "Delivery menu snapshot. Ingredients and current stock unconfirmed.",
+          "configurationNotice": "Ordering page flags customization; choice names, limits, defaults and surcharges were not exposed. No option inferred."
+        },
+        {
+          "id": "sl08-fire-flies-73635908",
+          "sourceProductId": "73635908",
+          "name": "Braised Tofu Brown Rice with Mushrooms 卤豆腐香菇糙米饭",
+          "category": "Mains  主食",
+          "sourceIds": [
+            "sl08-fire-flies-ordering"
+          ],
+          "sourceDescription": "Freshly made in house",
+          "price": {
+            "amount": 10.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceObservationBasis": "Current delivery-channel printed list price; not dine-in price, checkout total or a guaranteed current quote.",
+          "sourcePriceTexts": [
+            [
+              "",
+              "10.80"
+            ]
+          ],
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:01:56.744Z",
+            "soldOutFlag": false,
+            "customizableFlag": true,
+            "containerPrice": null,
+            "discountedPrice": null
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "verification": {
+            "checkedAt": "2026-10-16T04:12:00.536Z",
+            "sourceIds": [
+              "sl08-fire-flies-ordering"
+            ],
+            "reason": "Name, category and SGD list price directly reconciled between current DOM and product snapshot; ingredients and current stock unconfirmed.",
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed-channel-price",
+              "SGD"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan suitability",
+              "stock",
+              "checkout charges"
+            ]
+          },
+          "qualifier": "Delivery menu snapshot. Ingredients and current stock unconfirmed.",
+          "configurationNotice": "Ordering page flags customization; choice names, limits, defaults and surcharges were not exposed. No option inferred."
+        },
+        {
+          "id": "sl08-fire-flies-73635913",
+          "sourceProductId": "73635913",
+          "name": "Ka Ka Kolomee 咔滋咔滋哥罗面",
+          "category": "Mains  主食",
+          "sourceIds": [
+            "sl08-fire-flies-ordering"
+          ],
+          "sourceDescription": "Freshly made in house",
+          "price": {
+            "amount": 9.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceObservationBasis": "Current delivery-channel printed list price; not dine-in price, checkout total or a guaranteed current quote.",
+          "sourcePriceTexts": [
+            [
+              "",
+              "9.80"
+            ]
+          ],
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:01:56.744Z",
+            "soldOutFlag": false,
+            "customizableFlag": true,
+            "containerPrice": null,
+            "discountedPrice": null
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "verification": {
+            "checkedAt": "2026-10-16T04:12:00.536Z",
+            "sourceIds": [
+              "sl08-fire-flies-ordering"
+            ],
+            "reason": "Name, category and SGD list price directly reconciled between current DOM and product snapshot; ingredients and current stock unconfirmed.",
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed-channel-price",
+              "SGD"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan suitability",
+              "stock",
+              "checkout charges"
+            ]
+          },
+          "qualifier": "Delivery menu snapshot. Ingredients and current stock unconfirmed.",
+          "configurationNotice": "Ordering page flags customization; choice names, limits, defaults and surcharges were not exposed. No option inferred."
+        },
+        {
+          "id": "sl08-fire-flies-73635918",
+          "sourceProductId": "73635918",
+          "name": "1 Bowl Brown Rice 1碗糙米饭",
+          "category": "Add on 附加",
+          "sourceIds": [
+            "sl08-fire-flies-ordering"
+          ],
+          "sourceDescription": "Freshly made in house",
+          "price": {
+            "amount": 3,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceObservationBasis": "Current delivery-channel printed list price; not dine-in price, checkout total or a guaranteed current quote.",
+          "sourcePriceTexts": [
+            [
+              "",
+              "3"
+            ]
+          ],
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:01:56.744Z",
+            "soldOutFlag": false,
+            "customizableFlag": false,
+            "containerPrice": null,
+            "discountedPrice": null
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "verification": {
+            "checkedAt": "2026-10-16T04:12:00.536Z",
+            "sourceIds": [
+              "sl08-fire-flies-ordering"
+            ],
+            "reason": "Name, category and SGD list price directly reconciled between current DOM and product snapshot; ingredients and current stock unconfirmed.",
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed-channel-price",
+              "SGD"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan suitability",
+              "stock",
+              "checkout charges"
+            ]
+          },
+          "qualifier": "Delivery menu snapshot. Ingredients and current stock unconfirmed. Add-on portion, not a complete meal.",
+          "role": "add-on"
+        },
+        {
+          "id": "sl08-fire-flies-73635919",
+          "sourceProductId": "73635919",
+          "name": "1 Bowl Kolomee 1碗哥罗面",
+          "category": "Add on 附加",
+          "sourceIds": [
+            "sl08-fire-flies-ordering"
+          ],
+          "sourceDescription": "Freshly made in house",
+          "price": {
+            "amount": 3,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceObservationBasis": "Current delivery-channel printed list price; not dine-in price, checkout total or a guaranteed current quote.",
+          "sourcePriceTexts": [
+            [
+              "",
+              "3"
+            ]
+          ],
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:01:56.744Z",
+            "soldOutFlag": false,
+            "customizableFlag": false,
+            "containerPrice": null,
+            "discountedPrice": null
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "verification": {
+            "checkedAt": "2026-10-16T04:12:00.536Z",
+            "sourceIds": [
+              "sl08-fire-flies-ordering"
+            ],
+            "reason": "Name, category and SGD list price directly reconciled between current DOM and product snapshot; ingredients and current stock unconfirmed.",
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed-channel-price",
+              "SGD"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan suitability",
+              "stock",
+              "checkout charges"
+            ]
+          },
+          "qualifier": "Delivery menu snapshot. Ingredients and current stock unconfirmed. Add-on portion, not a complete meal.",
+          "role": "add-on"
+        },
+        {
+          "id": "sl08-fire-flies-73635920",
+          "sourceProductId": "73635920",
+          "name": "Mushroom 香菇",
+          "category": "Add on 附加",
+          "sourceIds": [
+            "sl08-fire-flies-ordering"
+          ],
+          "sourceDescription": "Freshly made in house",
+          "price": {
+            "amount": 3,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceObservationBasis": "Current delivery-channel printed list price; not dine-in price, checkout total or a guaranteed current quote.",
+          "sourcePriceTexts": [
+            [
+              "",
+              "3"
+            ]
+          ],
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:01:56.744Z",
+            "soldOutFlag": false,
+            "customizableFlag": false,
+            "containerPrice": null,
+            "discountedPrice": null
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "verification": {
+            "checkedAt": "2026-10-16T04:12:00.536Z",
+            "sourceIds": [
+              "sl08-fire-flies-ordering"
+            ],
+            "reason": "Name, category and SGD list price directly reconciled between current DOM and product snapshot; ingredients and current stock unconfirmed.",
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed-channel-price",
+              "SGD"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan suitability",
+              "stock",
+              "checkout charges"
+            ]
+          },
+          "qualifier": "Delivery menu snapshot. Ingredients and current stock unconfirmed. Add-on portion, not a complete meal.",
+          "role": "add-on"
+        },
+        {
+          "id": "sl08-fire-flies-73635921",
+          "sourceProductId": "73635921",
+          "name": "Bunashimeiji Mushroom 鸿喜菇",
+          "category": "Add on 附加",
+          "sourceIds": [
+            "sl08-fire-flies-ordering"
+          ],
+          "sourceDescription": "Freshly made in house",
+          "price": {
+            "amount": 3,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceObservationBasis": "Current delivery-channel printed list price; not dine-in price, checkout total or a guaranteed current quote.",
+          "sourcePriceTexts": [
+            [
+              "",
+              "3"
+            ]
+          ],
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:01:56.744Z",
+            "soldOutFlag": false,
+            "customizableFlag": false,
+            "containerPrice": null,
+            "discountedPrice": null
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "verification": {
+            "checkedAt": "2026-10-16T04:12:00.536Z",
+            "sourceIds": [
+              "sl08-fire-flies-ordering"
+            ],
+            "reason": "Name, category and SGD list price directly reconciled between current DOM and product snapshot; ingredients and current stock unconfirmed.",
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed-channel-price",
+              "SGD"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan suitability",
+              "stock",
+              "checkout charges"
+            ]
+          },
+          "qualifier": "Delivery menu snapshot. Ingredients and current stock unconfirmed. Add-on portion, not a complete meal.",
+          "role": "add-on"
+        },
+        {
+          "id": "sl08-fire-flies-73635922",
+          "sourceProductId": "73635922",
+          "name": "King Oyster Mushroom 杏鲍菇",
+          "category": "Add on 附加",
+          "sourceIds": [
+            "sl08-fire-flies-ordering"
+          ],
+          "sourceDescription": "Freshly made in house",
+          "price": {
+            "amount": 3,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceObservationBasis": "Current delivery-channel printed list price; not dine-in price, checkout total or a guaranteed current quote.",
+          "sourcePriceTexts": [
+            [
+              "",
+              "3"
+            ]
+          ],
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:01:56.744Z",
+            "soldOutFlag": false,
+            "customizableFlag": false,
+            "containerPrice": null,
+            "discountedPrice": null
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "verification": {
+            "checkedAt": "2026-10-16T04:12:00.536Z",
+            "sourceIds": [
+              "sl08-fire-flies-ordering"
+            ],
+            "reason": "Name, category and SGD list price directly reconciled between current DOM and product snapshot; ingredients and current stock unconfirmed.",
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed-channel-price",
+              "SGD"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan suitability",
+              "stock",
+              "checkout charges"
+            ]
+          },
+          "qualifier": "Delivery menu snapshot. Ingredients and current stock unconfirmed. Add-on portion, not a complete meal.",
+          "role": "add-on"
+        },
+        {
+          "id": "sl08-fire-flies-73635923",
+          "sourceProductId": "73635923",
+          "name": "Vegetables 青菜",
+          "category": "Add on 附加",
+          "sourceIds": [
+            "sl08-fire-flies-ordering"
+          ],
+          "sourceDescription": "Freshly made in house",
+          "price": {
+            "amount": 3,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceObservationBasis": "Current delivery-channel printed list price; not dine-in price, checkout total or a guaranteed current quote.",
+          "sourcePriceTexts": [
+            [
+              "",
+              "3"
+            ]
+          ],
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:01:56.744Z",
+            "soldOutFlag": false,
+            "customizableFlag": false,
+            "containerPrice": null,
+            "discountedPrice": null
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "verification": {
+            "checkedAt": "2026-10-16T04:12:00.536Z",
+            "sourceIds": [
+              "sl08-fire-flies-ordering"
+            ],
+            "reason": "Name, category and SGD list price directly reconciled between current DOM and product snapshot; ingredients and current stock unconfirmed.",
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed-channel-price",
+              "SGD"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan suitability",
+              "stock",
+              "checkout charges"
+            ]
+          },
+          "qualifier": "Delivery menu snapshot. Ingredients and current stock unconfirmed. Add-on portion, not a complete meal.",
+          "role": "add-on"
+        },
+        {
+          "id": "sl08-fire-flies-73635924",
+          "sourceProductId": "73635924",
+          "name": "Tofu 豆腐",
+          "category": "Add on 附加",
+          "sourceIds": [
+            "sl08-fire-flies-ordering"
+          ],
+          "sourceDescription": "Freshly made in house",
+          "price": {
+            "amount": 3,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceObservationBasis": "Current delivery-channel printed list price; not dine-in price, checkout total or a guaranteed current quote.",
+          "sourcePriceTexts": [
+            [
+              "",
+              "3"
+            ]
+          ],
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:01:56.744Z",
+            "soldOutFlag": false,
+            "customizableFlag": false,
+            "containerPrice": null,
+            "discountedPrice": null
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "verification": {
+            "checkedAt": "2026-10-16T04:12:00.536Z",
+            "sourceIds": [
+              "sl08-fire-flies-ordering"
+            ],
+            "reason": "Name, category and SGD list price directly reconciled between current DOM and product snapshot; ingredients and current stock unconfirmed.",
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed-channel-price",
+              "SGD"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan suitability",
+              "stock",
+              "checkout charges"
+            ]
+          },
+          "qualifier": "Delivery menu snapshot. Ingredients and current stock unconfirmed. Add-on portion, not a complete meal.",
+          "role": "add-on"
+        },
+        {
+          "id": "sl08-fire-flies-73635911",
+          "sourceProductId": "73635911",
+          "name": "Mushroom Kolomee 香菇哥罗面",
+          "category": "Mains  主食",
+          "sourceIds": [
+            "sl08-fire-flies-ordering"
+          ],
+          "sourceDescription": "Freshly made in house",
+          "price": {
+            "amount": 7.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceObservationBasis": "Current delivery-channel printed list price; not dine-in price, checkout total or a guaranteed current quote.",
+          "sourcePriceTexts": [
+            [
+              "",
+              "7.80"
+            ]
+          ],
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:01:56.744Z",
+            "soldOutFlag": false,
+            "customizableFlag": true,
+            "containerPrice": null,
+            "discountedPrice": null
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "verification": {
+            "checkedAt": "2026-10-16T04:12:00.536Z",
+            "sourceIds": [
+              "sl08-fire-flies-ordering"
+            ],
+            "reason": "Name, category and SGD list price directly reconciled between current DOM and product snapshot; ingredients and current stock unconfirmed.",
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed-channel-price",
+              "SGD"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan suitability",
+              "stock",
+              "checkout charges"
+            ]
+          },
+          "qualifier": "Delivery menu snapshot. Ingredients and current stock unconfirmed.",
+          "configurationNotice": "Ordering page flags customization; choice names, limits, defaults and surcharges were not exposed. No option inferred."
+        },
+        {
+          "id": "sl08-fire-flies-73635912",
+          "sourceProductId": "73635912",
+          "name": "King Oyster Mushroom Kolomee 杏鲍菇哥罗面",
+          "category": "Mains  主食",
+          "sourceIds": [
+            "sl08-fire-flies-ordering"
+          ],
+          "sourceDescription": "Freshly made in house",
+          "price": {
+            "amount": 9.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceObservationBasis": "Current delivery-channel printed list price; not dine-in price, checkout total or a guaranteed current quote.",
+          "sourcePriceTexts": [
+            [
+              "",
+              "9.80"
+            ]
+          ],
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:01:56.744Z",
+            "soldOutFlag": false,
+            "customizableFlag": true,
+            "containerPrice": null,
+            "discountedPrice": null
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "verification": {
+            "checkedAt": "2026-10-16T04:12:00.536Z",
+            "sourceIds": [
+              "sl08-fire-flies-ordering"
+            ],
+            "reason": "Name, category and SGD list price directly reconciled between current DOM and product snapshot; ingredients and current stock unconfirmed.",
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed-channel-price",
+              "SGD"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan suitability",
+              "stock",
+              "checkout charges"
+            ]
+          },
+          "qualifier": "Delivery menu snapshot. Ingredients and current stock unconfirmed.",
+          "configurationNotice": "Ordering page flags customization; choice names, limits, defaults and surcharges were not exposed. No option inferred."
+        },
+        {
+          "id": "sl08-fire-flies-73635915",
+          "sourceProductId": "73635915",
+          "name": "Wantons 3 Pcs 云吞",
+          "category": "Sides 小菜",
+          "sourceIds": [
+            "sl08-fire-flies-ordering"
+          ],
+          "sourceDescription": "Freshly made in house",
+          "price": {
+            "amount": 3,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceObservationBasis": "Current delivery-channel printed list price; not dine-in price, checkout total or a guaranteed current quote.",
+          "sourcePriceTexts": [
+            [
+              "",
+              "3"
+            ]
+          ],
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:01:56.744Z",
+            "soldOutFlag": false,
+            "customizableFlag": false,
+            "containerPrice": null,
+            "discountedPrice": null
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "verification": {
+            "checkedAt": "2026-10-16T04:12:00.536Z",
+            "sourceIds": [
+              "sl08-fire-flies-ordering"
+            ],
+            "reason": "Name, category and SGD list price directly reconciled between current DOM and product snapshot; ingredients and current stock unconfirmed.",
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed-channel-price",
+              "SGD"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan suitability",
+              "stock",
+              "checkout charges"
+            ]
+          },
+          "qualifier": "Delivery menu snapshot. Ingredients and current stock unconfirmed."
+        },
+        {
+          "id": "sl08-fire-flies-73635916",
+          "sourceProductId": "73635916",
+          "name": "Braised Tofu 卤豆腐",
+          "category": "Sides 小菜",
+          "sourceIds": [
+            "sl08-fire-flies-ordering"
+          ],
+          "sourceDescription": "Freshly made in house",
+          "price": {
+            "amount": 6,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceObservationBasis": "Current delivery-channel printed list price; not dine-in price, checkout total or a guaranteed current quote.",
+          "sourcePriceTexts": [
+            [
+              "",
+              "6"
+            ]
+          ],
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:01:56.744Z",
+            "soldOutFlag": false,
+            "customizableFlag": false,
+            "containerPrice": null,
+            "discountedPrice": null
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "verification": {
+            "checkedAt": "2026-10-16T04:12:00.536Z",
+            "sourceIds": [
+              "sl08-fire-flies-ordering"
+            ],
+            "reason": "Name, category and SGD list price directly reconciled between current DOM and product snapshot; ingredients and current stock unconfirmed.",
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed-channel-price",
+              "SGD"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan suitability",
+              "stock",
+              "checkout charges"
+            ]
+          },
+          "qualifier": "Delivery menu snapshot. Ingredients and current stock unconfirmed."
+        },
+        {
+          "id": "sl08-fire-flies-73635917",
+          "sourceProductId": "73635917",
+          "name": "Lei Cha Paste 1 Serving 擂茶酱1人份",
+          "category": "Sides 小菜",
+          "sourceIds": [
+            "sl08-fire-flies-ordering"
+          ],
+          "sourceDescription": "Freshly made in house",
+          "price": {
+            "amount": 3,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceObservationBasis": "Current delivery-channel printed list price; not dine-in price, checkout total or a guaranteed current quote.",
+          "sourcePriceTexts": [
+            [
+              "",
+              "3"
+            ]
+          ],
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:01:56.744Z",
+            "soldOutFlag": false,
+            "customizableFlag": false,
+            "containerPrice": null,
+            "discountedPrice": null
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "verification": {
+            "checkedAt": "2026-10-16T04:12:00.536Z",
+            "sourceIds": [
+              "sl08-fire-flies-ordering"
+            ],
+            "reason": "Name, category and SGD list price directly reconciled between current DOM and product snapshot; ingredients and current stock unconfirmed.",
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed-channel-price",
+              "SGD"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan suitability",
+              "stock",
+              "checkout charges"
+            ]
+          },
+          "qualifier": "Delivery menu snapshot. Ingredients and current stock unconfirmed."
+        }
+      ]
+    },
+    {
+      "id": "sl08-ju-fu-yuan-amk-foodpanda",
+      "name": "Ju Fu Yuan Vegetarian Delight — Ang Mo Kio — foodpanda delivery",
+      "scope": "branch-delivery",
+      "branchIds": [
+        "sl08-ju-fu-yuan-amk"
+      ],
+      "sourceIds": [
+        "sl08-ju-fu-yuan-amk-ordering"
+      ],
+      "coverage": "partial",
+      "publicationStatus": "reviewed-source-facts",
+      "notice": "Dated delivery-channel menu observation. Prices may differ from dine-in and checkout. Stock, ingredients and final charges unconfirmed. Some ordering choices were not exposed.",
+      "items": [
+        {
+          "id": "sl08-ju-fu-yuan-amk-20494758",
+          "sourceProductId": "20494758",
+          "name": "Main + 2 Mock Meats + 1 Vegetables 2斋料主食菜",
+          "category": "Vegetable Mixed Rice",
+          "sourceIds": [
+            "sl08-ju-fu-yuan-amk-ordering"
+          ],
+          "sourceDescription": "A flavorful dish featuring mock meats, vegetables, and a hearty base for a satisfying meal.",
+          "price": {
+            "amount": 6,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceObservationBasis": "Current delivery-channel printed list price; not dine-in price, checkout total or a guaranteed current quote.",
+          "sourcePriceTexts": [
+            [
+              "",
+              "6"
+            ]
+          ],
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:01:56.876Z",
+            "soldOutFlag": false,
+            "customizableFlag": true,
+            "containerPrice": null,
+            "discountedPrice": null
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "verification": {
+            "checkedAt": "2026-10-16T04:12:00.536Z",
+            "sourceIds": [
+              "sl08-ju-fu-yuan-amk-ordering"
+            ],
+            "reason": "Name, category and SGD list price directly reconciled between current DOM and product snapshot; ingredients and current stock unconfirmed.",
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed-channel-price",
+              "SGD"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan suitability",
+              "stock",
+              "checkout charges"
+            ]
+          },
+          "qualifier": "Delivery menu snapshot. Ingredients and current stock unconfirmed.",
+          "configurationNotice": "Ordering page flags customization; choice names, limits, defaults and surcharges were not exposed. No option inferred.",
+          "setComponentsText": "Main + two mock meats + one vegetable"
+        },
+        {
+          "id": "sl08-ju-fu-yuan-amk-20494759",
+          "sourceProductId": "20494759",
+          "name": "Main＋3 Mock Meats 3 斋料主食",
+          "category": "Vegetable Mixed Rice",
+          "sourceIds": [
+            "sl08-ju-fu-yuan-amk-ordering"
+          ],
+          "sourceDescription": "A flavorful dish featuring three types of mock meats served with a hearty staple.",
+          "price": {
+            "amount": 6.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceObservationBasis": "Current delivery-channel printed list price; not dine-in price, checkout total or a guaranteed current quote.",
+          "sourcePriceTexts": [
+            [
+              "",
+              "6.50"
+            ]
+          ],
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:01:56.876Z",
+            "soldOutFlag": false,
+            "customizableFlag": true,
+            "containerPrice": null,
+            "discountedPrice": null
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "verification": {
+            "checkedAt": "2026-10-16T04:12:00.536Z",
+            "sourceIds": [
+              "sl08-ju-fu-yuan-amk-ordering"
+            ],
+            "reason": "Name, category and SGD list price directly reconciled between current DOM and product snapshot; ingredients and current stock unconfirmed.",
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed-channel-price",
+              "SGD"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan suitability",
+              "stock",
+              "checkout charges"
+            ]
+          },
+          "qualifier": "Delivery menu snapshot. Ingredients and current stock unconfirmed.",
+          "configurationNotice": "Ordering page flags customization; choice names, limits, defaults and surcharges were not exposed. No option inferred.",
+          "setComponentsText": "Main + three mock meats"
+        }
+      ]
+    },
+    {
+      "id": "sl08-xi-shi-fu-foodpanda",
+      "name": "Xi Shi Fu Vegetarian — Bukit Merah — foodpanda delivery",
+      "scope": "branch-delivery",
+      "branchIds": [
+        "sl08-xi-shi-fu"
+      ],
+      "sourceIds": [
+        "sl08-xi-shi-fu-ordering"
+      ],
+      "coverage": "partial",
+      "publicationStatus": "reviewed-partial-source-facts",
+      "notice": "Dated delivery-channel menu observation. Prices may differ from dine-in and checkout. Stock, ingredients and final charges unconfirmed.  Four conflicting item records remain excluded pending clarification.",
+      "items": [
+        {
+          "id": "sl08-xi-shi-fu-4890345",
+          "sourceProductId": "4890345",
+          "name": "Vegetarian Chicken Rice",
+          "category": "Mains",
+          "sourceIds": [
+            "sl08-xi-shi-fu-ordering"
+          ],
+          "sourceDescription": "Savory rice served with seasoned vegetarian protein and fresh vegetables, garnished with herbs.",
+          "price": {
+            "amount": 4,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceObservationBasis": "Current delivery-channel printed list price; not dine-in price, checkout total or a guaranteed current quote.",
+          "sourcePriceTexts": [
+            [
+              "",
+              "4"
+            ]
+          ],
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:04:29.833Z",
+            "soldOutFlag": false,
+            "customizableFlag": false,
+            "containerPrice": null,
+            "discountedPrice": null
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "verification": {
+            "checkedAt": "2026-10-16T04:12:00.536Z",
+            "sourceIds": [
+              "sl08-xi-shi-fu-ordering"
+            ],
+            "reason": "Name, category and SGD list price directly reconciled between current DOM and product snapshot; ingredients and current stock unconfirmed.",
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed-channel-price",
+              "SGD"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan suitability",
+              "stock",
+              "checkout charges"
+            ]
+          },
+          "qualifier": "Delivery menu snapshot. Ingredients and current stock unconfirmed."
+        },
+        {
+          "id": "sl08-xi-shi-fu-4890357",
+          "sourceProductId": "4890357",
+          "name": "Economic Vegetarian Bee Hoon /Noodles/Kuotiao经济米粉，面,果",
+          "category": "Mains",
+          "sourceIds": [
+            "sl08-xi-shi-fu-ordering"
+          ],
+          "sourceDescription": "Charsiew, mock duck, cabbage & crispy soya skin",
+          "price": {
+            "amount": 2.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceObservationBasis": "Current delivery-channel printed list price; not dine-in price, checkout total or a guaranteed current quote.",
+          "sourcePriceTexts": [
+            [
+              "",
+              "2.80"
+            ]
+          ],
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:04:29.833Z",
+            "soldOutFlag": false,
+            "customizableFlag": false,
+            "containerPrice": null,
+            "discountedPrice": null
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "verification": {
+            "checkedAt": "2026-10-16T04:12:00.536Z",
+            "sourceIds": [
+              "sl08-xi-shi-fu-ordering"
+            ],
+            "reason": "Name, category and SGD list price directly reconciled between current DOM and product snapshot; ingredients and current stock unconfirmed.",
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed-channel-price",
+              "SGD"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan suitability",
+              "stock",
+              "checkout charges"
+            ]
+          },
+          "qualifier": "Delivery menu snapshot. Ingredients and current stock unconfirmed."
+        },
+        {
+          "id": "sl08-xi-shi-fu-4890360",
+          "sourceProductId": "4890360",
+          "name": "Fried Popiah 春卷",
+          "category": "Side Orders",
+          "sourceIds": [
+            "sl08-xi-shi-fu-ordering"
+          ],
+          "sourceDescription": "Thin flour skin wrapped around cooked vegetables, egg, lettuce and an assortment of garnishes and deep fried",
+          "price": {
+            "amount": 1.3,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceObservationBasis": "Current delivery-channel printed list price; not dine-in price, checkout total or a guaranteed current quote.",
+          "sourcePriceTexts": [
+            [
+              "",
+              "1.30"
+            ]
+          ],
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:04:29.833Z",
+            "soldOutFlag": false,
+            "customizableFlag": false,
+            "containerPrice": null,
+            "discountedPrice": null
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "verification": {
+            "checkedAt": "2026-10-16T04:12:00.536Z",
+            "sourceIds": [
+              "sl08-xi-shi-fu-ordering"
+            ],
+            "reason": "Name, category and SGD list price directly reconciled between current DOM and product snapshot; ingredients and current stock unconfirmed.",
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed-channel-price",
+              "SGD"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan suitability",
+              "stock",
+              "checkout charges"
+            ]
+          },
+          "qualifier": "Delivery menu snapshot. Ingredients and current stock unconfirmed. Source description explicitly includes egg; no vegan inference."
+        },
+        {
+          "id": "sl08-xi-shi-fu-4890361",
+          "sourceProductId": "4890361",
+          "name": "Crispy Zai Er 斋鹅",
+          "category": "Side Orders",
+          "sourceIds": [
+            "sl08-xi-shi-fu-ordering"
+          ],
+          "sourceDescription": "A traditional Chinese snack made from crispy fried duck or goose meat.",
+          "price": {
+            "amount": 2.3,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceObservationBasis": "Current delivery-channel printed list price; not dine-in price, checkout total or a guaranteed current quote.",
+          "sourcePriceTexts": [
+            [
+              "",
+              "2.30"
+            ]
+          ],
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:04:29.833Z",
+            "soldOutFlag": false,
+            "customizableFlag": false,
+            "containerPrice": null,
+            "discountedPrice": null
+          },
+          "publicationStatus": "hold-description-or-item-identity",
+          "verification": {
+            "checkedAt": "2026-10-16T04:12:00.536Z",
+            "sourceIds": [
+              "sl08-xi-shi-fu-ordering"
+            ],
+            "reason": "Generic animal description conflicts with vegetarian context; actual meat not inferred.",
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed-channel-price",
+              "SGD"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan suitability",
+              "stock",
+              "checkout charges"
+            ]
+          },
+          "qualifier": "Delivery menu snapshot. Ingredients and current stock unconfirmed.",
+          "holdReason": "Generic animal description conflicts with vegetarian context; actual meat not inferred."
+        },
+        {
+          "id": "sl08-xi-shi-fu-4890362",
+          "sourceProductId": "4890362",
+          "name": "Fried Wu Xiang 五香",
+          "category": "Side Orders",
+          "sourceIds": [
+            "sl08-xi-shi-fu-ordering"
+          ],
+          "sourceDescription": "A traditional Chinese dish made with a variety of fried meats and vegetables.",
+          "price": {
+            "amount": 2.1,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceObservationBasis": "Current delivery-channel printed list price; not dine-in price, checkout total or a guaranteed current quote.",
+          "sourcePriceTexts": [
+            [
+              "",
+              "2.10"
+            ]
+          ],
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:04:29.833Z",
+            "soldOutFlag": false,
+            "customizableFlag": false,
+            "containerPrice": null,
+            "discountedPrice": null
+          },
+          "publicationStatus": "hold-description-or-item-identity",
+          "verification": {
+            "checkedAt": "2026-10-16T04:12:00.536Z",
+            "sourceIds": [
+              "sl08-xi-shi-fu-ordering"
+            ],
+            "reason": "Generic animal description conflicts with vegetarian context; actual meat not inferred.",
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed-channel-price",
+              "SGD"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan suitability",
+              "stock",
+              "checkout charges"
+            ]
+          },
+          "qualifier": "Delivery menu snapshot. Ingredients and current stock unconfirmed.",
+          "holdReason": "Generic animal description conflicts with vegetarian context; actual meat not inferred."
+        },
+        {
+          "id": "sl08-xi-shi-fu-4890363",
+          "sourceProductId": "4890363",
+          "name": "Chicken Drumstick 素鸡腿",
+          "category": "Side Orders",
+          "sourceIds": [
+            "sl08-xi-shi-fu-ordering"
+          ],
+          "sourceDescription": "A savory and juicy chicken drumstick, perfect for a delicious meal.",
+          "price": {
+            "amount": 2.1,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceObservationBasis": "Current delivery-channel printed list price; not dine-in price, checkout total or a guaranteed current quote.",
+          "sourcePriceTexts": [
+            [
+              "",
+              "2.10"
+            ]
+          ],
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:04:29.833Z",
+            "soldOutFlag": false,
+            "customizableFlag": false,
+            "containerPrice": null,
+            "discountedPrice": null
+          },
+          "publicationStatus": "hold-description-or-item-identity",
+          "verification": {
+            "checkedAt": "2026-10-16T04:12:00.536Z",
+            "sourceIds": [
+              "sl08-xi-shi-fu-ordering"
+            ],
+            "reason": "Generic animal description conflicts with vegetarian context; actual meat not inferred.",
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed-channel-price",
+              "SGD"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan suitability",
+              "stock",
+              "checkout charges"
+            ]
+          },
+          "qualifier": "Delivery menu snapshot. Ingredients and current stock unconfirmed.",
+          "holdReason": "Generic animal description conflicts with vegetarian context; actual meat not inferred."
+        },
+        {
+          "id": "sl08-xi-shi-fu-5122951",
+          "sourceProductId": "5122951",
+          "name": "Vegetarian Sotong/鱿鱼圈",
+          "category": "Side Orders",
+          "sourceIds": [
+            "sl08-xi-shi-fu-ordering"
+          ],
+          "sourceDescription": "A vegetarian alternative to squid rings, made with plant-based ingredients.",
+          "price": {
+            "amount": 0.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceObservationBasis": "Current delivery-channel printed list price; not dine-in price, checkout total or a guaranteed current quote.",
+          "sourcePriceTexts": [
+            [
+              "",
+              "0.90"
+            ]
+          ],
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:04:29.833Z",
+            "soldOutFlag": false,
+            "customizableFlag": false,
+            "containerPrice": null,
+            "discountedPrice": null
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "verification": {
+            "checkedAt": "2026-10-16T04:12:00.536Z",
+            "sourceIds": [
+              "sl08-xi-shi-fu-ordering"
+            ],
+            "reason": "Name, category and SGD list price directly reconciled between current DOM and product snapshot; ingredients and current stock unconfirmed.",
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed-channel-price",
+              "SGD"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan suitability",
+              "stock",
+              "checkout charges"
+            ]
+          },
+          "qualifier": "Delivery menu snapshot. Ingredients and current stock unconfirmed."
+        },
+        {
+          "id": "sl08-xi-shi-fu-37495893",
+          "sourceProductId": "37495893",
+          "name": "Seaweed Roll紫菜卷",
+          "category": "Side Orders",
+          "sourceIds": [
+            "sl08-xi-shi-fu-ordering"
+          ],
+          "sourceDescription": "Delicious and crispy seaweed wrapped around a savory filling, perfect for snacking or as a side.",
+          "price": {
+            "amount": 2,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceObservationBasis": "Current delivery-channel printed list price; not dine-in price, checkout total or a guaranteed current quote.",
+          "sourcePriceTexts": [
+            [
+              "",
+              "2"
+            ]
+          ],
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:04:29.833Z",
+            "soldOutFlag": false,
+            "customizableFlag": false,
+            "containerPrice": null,
+            "discountedPrice": null
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "verification": {
+            "checkedAt": "2026-10-16T04:12:00.536Z",
+            "sourceIds": [
+              "sl08-xi-shi-fu-ordering"
+            ],
+            "reason": "Name, category and SGD list price directly reconciled between current DOM and product snapshot; ingredients and current stock unconfirmed.",
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed-channel-price",
+              "SGD"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan suitability",
+              "stock",
+              "checkout charges"
+            ]
+          },
+          "qualifier": "Delivery menu snapshot. Ingredients and current stock unconfirmed."
+        },
+        {
+          "id": "sl08-xi-shi-fu-37495894",
+          "sourceProductId": "37495894",
+          "name": "Yam Roll竽头卷",
+          "category": "Side Orders",
+          "sourceIds": [
+            "sl08-xi-shi-fu-ordering"
+          ],
+          "sourceDescription": "A sushi roll filled with yam and other ingredients, wrapped in seaweed and rice.",
+          "price": {
+            "amount": 2,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceObservationBasis": "Current delivery-channel printed list price; not dine-in price, checkout total or a guaranteed current quote.",
+          "sourcePriceTexts": [
+            [
+              "",
+              "2"
+            ]
+          ],
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:04:29.833Z",
+            "soldOutFlag": false,
+            "customizableFlag": false,
+            "containerPrice": null,
+            "discountedPrice": null
+          },
+          "publicationStatus": "hold-description-or-item-identity",
+          "verification": {
+            "checkedAt": "2026-10-16T04:12:00.536Z",
+            "sourceIds": [
+              "sl08-xi-shi-fu-ordering"
+            ],
+            "reason": "Yam Roll description calls it a sushi roll; exact item identity unresolved.",
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed-channel-price",
+              "SGD"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan suitability",
+              "stock",
+              "checkout charges"
+            ]
+          },
+          "qualifier": "Delivery menu snapshot. Ingredients and current stock unconfirmed.",
+          "holdReason": "Yam Roll description calls it a sushi roll; exact item identity unresolved."
+        },
+        {
+          "id": "sl08-xi-shi-fu-37495895",
+          "sourceProductId": "37495895",
+          "name": "Mushroom 香菇",
+          "category": "Side Orders",
+          "sourceIds": [
+            "sl08-xi-shi-fu-ordering"
+          ],
+          "sourceDescription": "Savory, earthy, umami-rich fungus commonly used in Asian cuisine for its unique flavor profile.",
+          "price": {
+            "amount": 2,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceObservationBasis": "Current delivery-channel printed list price; not dine-in price, checkout total or a guaranteed current quote.",
+          "sourcePriceTexts": [
+            [
+              "",
+              "2"
+            ]
+          ],
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:04:29.833Z",
+            "soldOutFlag": false,
+            "customizableFlag": false,
+            "containerPrice": null,
+            "discountedPrice": null
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "verification": {
+            "checkedAt": "2026-10-16T04:12:00.536Z",
+            "sourceIds": [
+              "sl08-xi-shi-fu-ordering"
+            ],
+            "reason": "Name, category and SGD list price directly reconciled between current DOM and product snapshot; ingredients and current stock unconfirmed.",
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed-channel-price",
+              "SGD"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan suitability",
+              "stock",
+              "checkout charges"
+            ]
+          },
+          "qualifier": "Delivery menu snapshot. Ingredients and current stock unconfirmed."
+        },
+        {
+          "id": "sl08-xi-shi-fu-37495896",
+          "sourceProductId": "37495896",
+          "name": "Balck Fungus (Soft)黑木耳",
+          "category": "Side Orders",
+          "sourceIds": [
+            "sl08-xi-shi-fu-ordering"
+          ],
+          "sourceDescription": "A type of edible fungus with a soft texture, commonly used in Asian cuisine.",
+          "price": {
+            "amount": 1.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceObservationBasis": "Current delivery-channel printed list price; not dine-in price, checkout total or a guaranteed current quote.",
+          "sourcePriceTexts": [
+            [
+              "",
+              "1.50"
+            ]
+          ],
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:04:29.833Z",
+            "soldOutFlag": false,
+            "customizableFlag": false,
+            "containerPrice": null,
+            "discountedPrice": null
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "verification": {
+            "checkedAt": "2026-10-16T04:12:00.536Z",
+            "sourceIds": [
+              "sl08-xi-shi-fu-ordering"
+            ],
+            "reason": "Name, category and SGD list price directly reconciled between current DOM and product snapshot; ingredients and current stock unconfirmed.",
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed-channel-price",
+              "SGD"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan suitability",
+              "stock",
+              "checkout charges"
+            ]
+          },
+          "qualifier": "Delivery menu snapshot. Ingredients and current stock unconfirmed."
+        },
+        {
+          "id": "sl08-xi-shi-fu-37495897",
+          "sourceProductId": "37495897",
+          "name": "Veg Kidney 素腰子",
+          "category": "Side Orders",
+          "sourceIds": [
+            "sl08-xi-shi-fu-ordering"
+          ],
+          "sourceDescription": "Vegetarian kidney made from plant-based ingredients, a delicious and nutritious meat alternative.",
+          "price": {
+            "amount": 1.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceObservationBasis": "Current delivery-channel printed list price; not dine-in price, checkout total or a guaranteed current quote.",
+          "sourcePriceTexts": [
+            [
+              "",
+              "1.50"
+            ]
+          ],
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:04:29.833Z",
+            "soldOutFlag": false,
+            "customizableFlag": false,
+            "containerPrice": null,
+            "discountedPrice": null
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "verification": {
+            "checkedAt": "2026-10-16T04:12:00.536Z",
+            "sourceIds": [
+              "sl08-xi-shi-fu-ordering"
+            ],
+            "reason": "Name, category and SGD list price directly reconciled between current DOM and product snapshot; ingredients and current stock unconfirmed.",
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed-channel-price",
+              "SGD"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan suitability",
+              "stock",
+              "checkout charges"
+            ]
+          },
+          "qualifier": "Delivery menu snapshot. Ingredients and current stock unconfirmed."
+        }
+      ]
+    },
+    {
+      "id": "sl08-zuya-foodpanda",
+      "name": "Zuya Vegetarian — Tiong Bahru — foodpanda delivery",
+      "scope": "branch-delivery",
+      "branchIds": [
+        "sl08-zuya"
+      ],
+      "sourceIds": [
+        "sl08-zuya-ordering"
+      ],
+      "coverage": "partial",
+      "publicationStatus": "hold-scope-or-premise",
+      "notice": "Dated delivery-channel menu observation. Prices may differ from dine-in and checkout. Stock, ingredients and final charges unconfirmed. Some ordering choices were not exposed.",
+      "items": [
+        {
+          "id": "sl08-zuya-96425532",
+          "sourceProductId": "96425532",
+          "name": "Yam Ring Set Meal",
+          "category": "Classic Set Meal (Include Black Bean Soup)",
+          "sourceIds": [
+            "sl08-zuya-ordering"
+          ],
+          "sourceDescription": "A delightful set meal featuring a golden yam ring with crispy exterior and fluffy interior served with your choice of protein and fresh vegetables Two bowls of white rice and signature black bean soup included",
+          "price": {
+            "amount": 33.9,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "priceObservationBasis": "Current delivery-channel printed list price; not dine-in price, checkout total or a guaranteed current quote.",
+          "sourcePriceTexts": [
+            [
+              "from ",
+              "27.12"
+            ],
+            [
+              "",
+              "33.90"
+            ]
+          ],
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:01:56.878Z",
+            "soldOutFlag": false,
+            "customizableFlag": true,
+            "containerPrice": null,
+            "discountedPrice": 27.119999999999997
+          },
+          "publicationStatus": "hold-scope-or-premise",
+          "verification": {
+            "checkedAt": "2026-10-16T04:12:00.536Z",
+            "sourceIds": [
+              "sl08-zuya-ordering"
+            ],
+            "reason": "Zuya current Foodpanda has 28 unique foods at 298 Tiong Bahru #02-111A, versus saved/secondary 302. Several generic animal descriptions conflict with vegetarian context. All 28 held pending current merchant/landlord premise confirmation and item clarification. Separate older 21/27-row web snapshots not unioned. Guessed domain failed and is not verified official; independently linked kazuyasg.com timed out.",
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed-channel-price",
+              "SGD"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan suitability",
+              "stock",
+              "checkout charges"
+            ]
+          },
+          "qualifier": "Delivery menu snapshot. Ingredients and current stock unconfirmed.",
+          "configurationNotice": "Ordering page flags customization; choice names, limits, defaults and surcharges were not exposed. No option inferred.",
+          "holdReason": "Zuya current Foodpanda has 28 unique foods at 298 Tiong Bahru #02-111A, versus saved/secondary 302. Several generic animal descriptions conflict with vegetarian context. All 28 held pending current merchant/landlord premise confirmation and item clarification. Separate older 21/27-row web snapshots not unioned. Guessed domain failed and is not verified official; independently linked kazuyasg.com timed out."
+        },
+        {
+          "id": "sl08-zuya-96236530",
+          "sourceProductId": "96236530",
+          "name": "Mala Xiang Guo Set Meal (Contains Garlic)",
+          "category": "Classic Set Meal (Include Black Bean Soup)",
+          "sourceIds": [
+            "sl08-zuya-ordering"
+          ],
+          "sourceDescription": "A fiery and aromatic Sichuan stir-fry loaded with your choice of fresh proteins and vegetables coated in numbing Sichuan peppercorns and chili oil creating an unforgettable tingling sensation on your palate matched with fragrant white rice and popular black bean soup",
+          "price": {
+            "amount": 15.9,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "priceObservationBasis": "Current delivery-channel printed list price; not dine-in price, checkout total or a guaranteed current quote.",
+          "sourcePriceTexts": [
+            [
+              "from ",
+              "12.72"
+            ],
+            [
+              "",
+              "15.90"
+            ]
+          ],
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:01:56.878Z",
+            "soldOutFlag": false,
+            "customizableFlag": true,
+            "containerPrice": null,
+            "discountedPrice": 12.72
+          },
+          "publicationStatus": "hold-scope-or-premise",
+          "verification": {
+            "checkedAt": "2026-10-16T04:12:00.536Z",
+            "sourceIds": [
+              "sl08-zuya-ordering"
+            ],
+            "reason": "Zuya current Foodpanda has 28 unique foods at 298 Tiong Bahru #02-111A, versus saved/secondary 302. Several generic animal descriptions conflict with vegetarian context. All 28 held pending current merchant/landlord premise confirmation and item clarification. Separate older 21/27-row web snapshots not unioned. Guessed domain failed and is not verified official; independently linked kazuyasg.com timed out.",
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed-channel-price",
+              "SGD"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan suitability",
+              "stock",
+              "checkout charges"
+            ]
+          },
+          "qualifier": "Delivery menu snapshot. Ingredients and current stock unconfirmed.",
+          "configurationNotice": "Ordering page flags customization; choice names, limits, defaults and surcharges were not exposed. No option inferred.",
+          "holdReason": "Zuya current Foodpanda has 28 unique foods at 298 Tiong Bahru #02-111A, versus saved/secondary 302. Several generic animal descriptions conflict with vegetarian context. All 28 held pending current merchant/landlord premise confirmation and item clarification. Separate older 21/27-row web snapshots not unioned. Guessed domain failed and is not verified official; independently linked kazuyasg.com timed out."
+        },
+        {
+          "id": "sl08-zuya-96243252",
+          "sourceProductId": "96243252",
+          "name": "Mapo Tofu Set Meal",
+          "category": "Classic Set Meal (Include Black Bean Soup)",
+          "sourceIds": [
+            "sl08-zuya-ordering"
+          ],
+          "sourceDescription": "Silky tofu cubes in a fiery numbing sauce with minced meat and aromatic spices served with steamed rice and fragrant black bean soup",
+          "price": {
+            "amount": 14.9,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "priceObservationBasis": "Current delivery-channel printed list price; not dine-in price, checkout total or a guaranteed current quote.",
+          "sourcePriceTexts": [
+            [
+              "from ",
+              "11.92"
+            ],
+            [
+              "",
+              "14.90"
+            ]
+          ],
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:01:56.878Z",
+            "soldOutFlag": false,
+            "customizableFlag": true,
+            "containerPrice": null,
+            "discountedPrice": 11.92
+          },
+          "publicationStatus": "hold-scope-or-premise",
+          "verification": {
+            "checkedAt": "2026-10-16T04:12:00.536Z",
+            "sourceIds": [
+              "sl08-zuya-ordering"
+            ],
+            "reason": "Zuya current Foodpanda has 28 unique foods at 298 Tiong Bahru #02-111A, versus saved/secondary 302. Several generic animal descriptions conflict with vegetarian context. All 28 held pending current merchant/landlord premise confirmation and item clarification. Separate older 21/27-row web snapshots not unioned. Guessed domain failed and is not verified official; independently linked kazuyasg.com timed out.",
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed-channel-price",
+              "SGD"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan suitability",
+              "stock",
+              "checkout charges"
+            ]
+          },
+          "qualifier": "Delivery menu snapshot. Ingredients and current stock unconfirmed.",
+          "configurationNotice": "Ordering page flags customization; choice names, limits, defaults and surcharges were not exposed. No option inferred.",
+          "holdReason": "Zuya current Foodpanda has 28 unique foods at 298 Tiong Bahru #02-111A, versus saved/secondary 302. Several generic animal descriptions conflict with vegetarian context. All 28 held pending current merchant/landlord premise confirmation and item clarification. Separate older 21/27-row web snapshots not unioned. Guessed domain failed and is not verified official; independently linked kazuyasg.com timed out."
+        },
+        {
+          "id": "sl08-zuya-96243253",
+          "sourceProductId": "96243253",
+          "name": "Gong Pao Vegan Meat Set Meal",
+          "category": "Classic Set Meal (Include Black Bean Soup)",
+          "sourceIds": [
+            "sl08-zuya-ordering"
+          ],
+          "sourceDescription": "Savory Gong Pao vegan meat stir-fried with roasted peanuts dried chilies and aromatic spices served with fluffy steamed rice and black bean soup",
+          "price": {
+            "amount": 14.9,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "priceObservationBasis": "Current delivery-channel printed list price; not dine-in price, checkout total or a guaranteed current quote.",
+          "sourcePriceTexts": [
+            [
+              "from ",
+              "11.92"
+            ],
+            [
+              "",
+              "14.90"
+            ]
+          ],
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:01:56.878Z",
+            "soldOutFlag": false,
+            "customizableFlag": true,
+            "containerPrice": null,
+            "discountedPrice": 11.92
+          },
+          "publicationStatus": "hold-scope-or-premise",
+          "verification": {
+            "checkedAt": "2026-10-16T04:12:00.536Z",
+            "sourceIds": [
+              "sl08-zuya-ordering"
+            ],
+            "reason": "Zuya current Foodpanda has 28 unique foods at 298 Tiong Bahru #02-111A, versus saved/secondary 302. Several generic animal descriptions conflict with vegetarian context. All 28 held pending current merchant/landlord premise confirmation and item clarification. Separate older 21/27-row web snapshots not unioned. Guessed domain failed and is not verified official; independently linked kazuyasg.com timed out.",
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed-channel-price",
+              "SGD"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan suitability",
+              "stock",
+              "checkout charges"
+            ]
+          },
+          "qualifier": "Delivery menu snapshot. Ingredients and current stock unconfirmed.",
+          "configurationNotice": "Ordering page flags customization; choice names, limits, defaults and surcharges were not exposed. No option inferred.",
+          "holdReason": "Zuya current Foodpanda has 28 unique foods at 298 Tiong Bahru #02-111A, versus saved/secondary 302. Several generic animal descriptions conflict with vegetarian context. All 28 held pending current merchant/landlord premise confirmation and item clarification. Separate older 21/27-row web snapshots not unioned. Guessed domain failed and is not verified official; independently linked kazuyasg.com timed out."
+        },
+        {
+          "id": "sl08-zuya-96304705",
+          "sourceProductId": "96304705",
+          "name": "Sweet Sour Vegan Meat Set Meal",
+          "category": "Classic Set Meal (Include Black Bean Soup)",
+          "sourceIds": [
+            "sl08-zuya-ordering"
+          ],
+          "sourceDescription": "Savory plant-based meat in a tangy sweet and sour sauce served with steamed rice and black bean soup. A satisfying and flavourful meal perfect for those seeking delicious vegan options.",
+          "price": {
+            "amount": 14.9,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "priceObservationBasis": "Current delivery-channel printed list price; not dine-in price, checkout total or a guaranteed current quote.",
+          "sourcePriceTexts": [
+            [
+              "from ",
+              "11.92"
+            ],
+            [
+              "",
+              "14.90"
+            ]
+          ],
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:01:56.878Z",
+            "soldOutFlag": false,
+            "customizableFlag": true,
+            "containerPrice": null,
+            "discountedPrice": 11.92
+          },
+          "publicationStatus": "hold-scope-or-premise",
+          "verification": {
+            "checkedAt": "2026-10-16T04:12:00.536Z",
+            "sourceIds": [
+              "sl08-zuya-ordering"
+            ],
+            "reason": "Zuya current Foodpanda has 28 unique foods at 298 Tiong Bahru #02-111A, versus saved/secondary 302. Several generic animal descriptions conflict with vegetarian context. All 28 held pending current merchant/landlord premise confirmation and item clarification. Separate older 21/27-row web snapshots not unioned. Guessed domain failed and is not verified official; independently linked kazuyasg.com timed out.",
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed-channel-price",
+              "SGD"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan suitability",
+              "stock",
+              "checkout charges"
+            ]
+          },
+          "qualifier": "Delivery menu snapshot. Ingredients and current stock unconfirmed.",
+          "configurationNotice": "Ordering page flags customization; choice names, limits, defaults and surcharges were not exposed. No option inferred.",
+          "holdReason": "Zuya current Foodpanda has 28 unique foods at 298 Tiong Bahru #02-111A, versus saved/secondary 302. Several generic animal descriptions conflict with vegetarian context. All 28 held pending current merchant/landlord premise confirmation and item clarification. Separate older 21/27-row web snapshots not unioned. Guessed domain failed and is not verified official; independently linked kazuyasg.com timed out."
+        },
+        {
+          "id": "sl08-zuya-96322074",
+          "sourceProductId": "96322074",
+          "name": "Wok Fried Mixed Vegetable Set Meal",
+          "category": "Classic Set Meal (Include Black Bean Soup)",
+          "sourceIds": [
+            "sl08-zuya-ordering"
+          ],
+          "sourceDescription": "A vibrant medley of fresh vegetables expertly wok-fried with aromatic spices and savory seasonings. Served with steamed rice and black bean soup for a wholesome and satisfying meal.",
+          "price": {
+            "amount": 14.9,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "priceObservationBasis": "Current delivery-channel printed list price; not dine-in price, checkout total or a guaranteed current quote.",
+          "sourcePriceTexts": [
+            [
+              "from ",
+              "11.92"
+            ],
+            [
+              "",
+              "14.90"
+            ]
+          ],
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:01:56.878Z",
+            "soldOutFlag": false,
+            "customizableFlag": true,
+            "containerPrice": null,
+            "discountedPrice": 11.92
+          },
+          "publicationStatus": "hold-scope-or-premise",
+          "verification": {
+            "checkedAt": "2026-10-16T04:12:00.536Z",
+            "sourceIds": [
+              "sl08-zuya-ordering"
+            ],
+            "reason": "Zuya current Foodpanda has 28 unique foods at 298 Tiong Bahru #02-111A, versus saved/secondary 302. Several generic animal descriptions conflict with vegetarian context. All 28 held pending current merchant/landlord premise confirmation and item clarification. Separate older 21/27-row web snapshots not unioned. Guessed domain failed and is not verified official; independently linked kazuyasg.com timed out.",
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed-channel-price",
+              "SGD"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan suitability",
+              "stock",
+              "checkout charges"
+            ]
+          },
+          "qualifier": "Delivery menu snapshot. Ingredients and current stock unconfirmed.",
+          "configurationNotice": "Ordering page flags customization; choice names, limits, defaults and surcharges were not exposed. No option inferred.",
+          "holdReason": "Zuya current Foodpanda has 28 unique foods at 298 Tiong Bahru #02-111A, versus saved/secondary 302. Several generic animal descriptions conflict with vegetarian context. All 28 held pending current merchant/landlord premise confirmation and item clarification. Separate older 21/27-row web snapshots not unioned. Guessed domain failed and is not verified official; independently linked kazuyasg.com timed out."
+        },
+        {
+          "id": "sl08-zuya-96322141",
+          "sourceProductId": "96322141",
+          "name": "Braised Tofu Set Meal",
+          "category": "Classic Set Meal (Include Black Bean Soup)",
+          "sourceIds": [
+            "sl08-zuya-ordering"
+          ],
+          "sourceDescription": "Tender tofu braised in a rich savory sauce with aromatic spices and vegetables served with steamed rice and a side of fresh greens",
+          "price": {
+            "amount": 14.9,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "priceObservationBasis": "Current delivery-channel printed list price; not dine-in price, checkout total or a guaranteed current quote.",
+          "sourcePriceTexts": [
+            [
+              "from ",
+              "11.92"
+            ],
+            [
+              "",
+              "14.90"
+            ]
+          ],
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:01:56.878Z",
+            "soldOutFlag": false,
+            "customizableFlag": true,
+            "containerPrice": null,
+            "discountedPrice": 11.92
+          },
+          "publicationStatus": "hold-scope-or-premise",
+          "verification": {
+            "checkedAt": "2026-10-16T04:12:00.536Z",
+            "sourceIds": [
+              "sl08-zuya-ordering"
+            ],
+            "reason": "Zuya current Foodpanda has 28 unique foods at 298 Tiong Bahru #02-111A, versus saved/secondary 302. Several generic animal descriptions conflict with vegetarian context. All 28 held pending current merchant/landlord premise confirmation and item clarification. Separate older 21/27-row web snapshots not unioned. Guessed domain failed and is not verified official; independently linked kazuyasg.com timed out.",
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed-channel-price",
+              "SGD"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan suitability",
+              "stock",
+              "checkout charges"
+            ]
+          },
+          "qualifier": "Delivery menu snapshot. Ingredients and current stock unconfirmed.",
+          "configurationNotice": "Ordering page flags customization; choice names, limits, defaults and surcharges were not exposed. No option inferred.",
+          "holdReason": "Zuya current Foodpanda has 28 unique foods at 298 Tiong Bahru #02-111A, versus saved/secondary 302. Several generic animal descriptions conflict with vegetarian context. All 28 held pending current merchant/landlord premise confirmation and item clarification. Separate older 21/27-row web snapshots not unioned. Guessed domain failed and is not verified official; independently linked kazuyasg.com timed out."
+        },
+        {
+          "id": "sl08-zuya-96364817",
+          "sourceProductId": "96364817",
+          "name": "Rendang Rice Set Meal",
+          "category": "Classic Set Meal (Include Black Bean Soup)",
+          "sourceIds": [
+            "sl08-zuya-ordering"
+          ],
+          "sourceDescription": "Fragrant steamed rice paired with tender rendang meat slow-cooked in rich coconut and spice sauce. Served with traditional black bean soup",
+          "price": {
+            "amount": 13.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceObservationBasis": "Current delivery-channel printed list price; not dine-in price, checkout total or a guaranteed current quote.",
+          "sourcePriceTexts": [
+            [
+              "",
+              "11.12"
+            ],
+            [
+              "",
+              "13.90"
+            ]
+          ],
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:01:56.878Z",
+            "soldOutFlag": false,
+            "customizableFlag": false,
+            "containerPrice": null,
+            "discountedPrice": 11.120000000000001
+          },
+          "publicationStatus": "hold-scope-or-premise",
+          "verification": {
+            "checkedAt": "2026-10-16T04:12:00.536Z",
+            "sourceIds": [
+              "sl08-zuya-ordering"
+            ],
+            "reason": "Zuya current Foodpanda has 28 unique foods at 298 Tiong Bahru #02-111A, versus saved/secondary 302. Several generic animal descriptions conflict with vegetarian context. All 28 held pending current merchant/landlord premise confirmation and item clarification. Separate older 21/27-row web snapshots not unioned. Guessed domain failed and is not verified official; independently linked kazuyasg.com timed out.",
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed-channel-price",
+              "SGD"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan suitability",
+              "stock",
+              "checkout charges"
+            ]
+          },
+          "qualifier": "Delivery menu snapshot. Ingredients and current stock unconfirmed.",
+          "holdReason": "Zuya current Foodpanda has 28 unique foods at 298 Tiong Bahru #02-111A, versus saved/secondary 302. Several generic animal descriptions conflict with vegetarian context. All 28 held pending current merchant/landlord premise confirmation and item clarification. Separate older 21/27-row web snapshots not unioned. Guessed domain failed and is not verified official; independently linked kazuyasg.com timed out."
+        },
+        {
+          "id": "sl08-zuya-96364834",
+          "sourceProductId": "96364834",
+          "name": "Thai Style Cutlet Rice Set Meal",
+          "category": "Classic Set Meal (Include Black Bean Soup)",
+          "sourceIds": [
+            "sl08-zuya-ordering"
+          ],
+          "sourceDescription": "Crispy golden cutlet prepared Thai style served over fluffy jasmine rice with tangy tamarind sauce fresh lime and aromatic herbs Accompanied by traditional black bean soup for a satisfying and flavourful meal",
+          "price": {
+            "amount": 13.9,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "priceObservationBasis": "Current delivery-channel printed list price; not dine-in price, checkout total or a guaranteed current quote.",
+          "sourcePriceTexts": [
+            [
+              "from ",
+              "11.12"
+            ],
+            [
+              "",
+              "13.90"
+            ]
+          ],
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:01:56.878Z",
+            "soldOutFlag": false,
+            "customizableFlag": true,
+            "containerPrice": null,
+            "discountedPrice": 11.120000000000001
+          },
+          "publicationStatus": "hold-scope-or-premise",
+          "verification": {
+            "checkedAt": "2026-10-16T04:12:00.536Z",
+            "sourceIds": [
+              "sl08-zuya-ordering"
+            ],
+            "reason": "Zuya current Foodpanda has 28 unique foods at 298 Tiong Bahru #02-111A, versus saved/secondary 302. Several generic animal descriptions conflict with vegetarian context. All 28 held pending current merchant/landlord premise confirmation and item clarification. Separate older 21/27-row web snapshots not unioned. Guessed domain failed and is not verified official; independently linked kazuyasg.com timed out.",
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed-channel-price",
+              "SGD"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan suitability",
+              "stock",
+              "checkout charges"
+            ]
+          },
+          "qualifier": "Delivery menu snapshot. Ingredients and current stock unconfirmed.",
+          "configurationNotice": "Ordering page flags customization; choice names, limits, defaults and surcharges were not exposed. No option inferred.",
+          "holdReason": "Zuya current Foodpanda has 28 unique foods at 298 Tiong Bahru #02-111A, versus saved/secondary 302. Several generic animal descriptions conflict with vegetarian context. All 28 held pending current merchant/landlord premise confirmation and item clarification. Separate older 21/27-row web snapshots not unioned. Guessed domain failed and is not verified official; independently linked kazuyasg.com timed out."
+        },
+        {
+          "id": "sl08-zuya-96372139",
+          "sourceProductId": "96372139",
+          "name": "Black Pepper Sauce Rice Set Meal",
+          "category": "Classic Set Meal (Include Black Bean Soup)",
+          "sourceIds": [
+            "sl08-zuya-ordering"
+          ],
+          "sourceDescription": "Fragrant steamed rice topped with tender meat in a rich black pepper sauce finished with traditional black bean soup",
+          "price": {
+            "amount": 13.9,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "priceObservationBasis": "Current delivery-channel printed list price; not dine-in price, checkout total or a guaranteed current quote.",
+          "sourcePriceTexts": [
+            [
+              "from ",
+              "11.12"
+            ],
+            [
+              "",
+              "13.90"
+            ]
+          ],
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:01:56.878Z",
+            "soldOutFlag": false,
+            "customizableFlag": true,
+            "containerPrice": null,
+            "discountedPrice": 11.120000000000001
+          },
+          "publicationStatus": "hold-scope-or-premise",
+          "verification": {
+            "checkedAt": "2026-10-16T04:12:00.536Z",
+            "sourceIds": [
+              "sl08-zuya-ordering"
+            ],
+            "reason": "Zuya current Foodpanda has 28 unique foods at 298 Tiong Bahru #02-111A, versus saved/secondary 302. Several generic animal descriptions conflict with vegetarian context. All 28 held pending current merchant/landlord premise confirmation and item clarification. Separate older 21/27-row web snapshots not unioned. Guessed domain failed and is not verified official; independently linked kazuyasg.com timed out.",
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed-channel-price",
+              "SGD"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan suitability",
+              "stock",
+              "checkout charges"
+            ]
+          },
+          "qualifier": "Delivery menu snapshot. Ingredients and current stock unconfirmed.",
+          "configurationNotice": "Ordering page flags customization; choice names, limits, defaults and surcharges were not exposed. No option inferred.",
+          "holdReason": "Zuya current Foodpanda has 28 unique foods at 298 Tiong Bahru #02-111A, versus saved/secondary 302. Several generic animal descriptions conflict with vegetarian context. All 28 held pending current merchant/landlord premise confirmation and item clarification. Separate older 21/27-row web snapshots not unioned. Guessed domain failed and is not verified official; independently linked kazuyasg.com timed out."
+        },
+        {
+          "id": "sl08-zuya-96379450",
+          "sourceProductId": "96379450",
+          "name": "Sweet Lemon Sauce Cutlet Rice Meal",
+          "category": "Classic Set Meal (Include Black Bean Soup)",
+          "sourceIds": [
+            "sl08-zuya-ordering"
+          ],
+          "sourceDescription": "Crispy golden cutlet topped with a tangy sweet lemon sauce served over fluffy steamed rice with traditional black bean soup",
+          "price": {
+            "amount": 13.9,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "priceObservationBasis": "Current delivery-channel printed list price; not dine-in price, checkout total or a guaranteed current quote.",
+          "sourcePriceTexts": [
+            [
+              "from ",
+              "11.12"
+            ],
+            [
+              "",
+              "13.90"
+            ]
+          ],
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:01:56.878Z",
+            "soldOutFlag": false,
+            "customizableFlag": true,
+            "containerPrice": null,
+            "discountedPrice": 11.120000000000001
+          },
+          "publicationStatus": "hold-scope-or-premise",
+          "verification": {
+            "checkedAt": "2026-10-16T04:12:00.536Z",
+            "sourceIds": [
+              "sl08-zuya-ordering"
+            ],
+            "reason": "Zuya current Foodpanda has 28 unique foods at 298 Tiong Bahru #02-111A, versus saved/secondary 302. Several generic animal descriptions conflict with vegetarian context. All 28 held pending current merchant/landlord premise confirmation and item clarification. Separate older 21/27-row web snapshots not unioned. Guessed domain failed and is not verified official; independently linked kazuyasg.com timed out.",
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed-channel-price",
+              "SGD"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan suitability",
+              "stock",
+              "checkout charges"
+            ]
+          },
+          "qualifier": "Delivery menu snapshot. Ingredients and current stock unconfirmed.",
+          "configurationNotice": "Ordering page flags customization; choice names, limits, defaults and surcharges were not exposed. No option inferred.",
+          "holdReason": "Zuya current Foodpanda has 28 unique foods at 298 Tiong Bahru #02-111A, versus saved/secondary 302. Several generic animal descriptions conflict with vegetarian context. All 28 held pending current merchant/landlord premise confirmation and item clarification. Separate older 21/27-row web snapshots not unioned. Guessed domain failed and is not verified official; independently linked kazuyasg.com timed out."
+        },
+        {
+          "id": "sl08-zuya-96349021",
+          "sourceProductId": "96349021",
+          "name": "Traditional Rendang Rice",
+          "category": "Signature Rice & Noodles",
+          "sourceIds": [
+            "sl08-zuya-ordering"
+          ],
+          "sourceDescription": "Fragrant jasmine rice infused with rich rendang spices and tender monkey mushroom cooked in a velvety coconut sauce with aromatic herbs and spices",
+          "price": {
+            "amount": 11.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceObservationBasis": "Current delivery-channel printed list price; not dine-in price, checkout total or a guaranteed current quote.",
+          "sourcePriceTexts": [
+            [
+              "",
+              "9.52"
+            ],
+            [
+              "",
+              "11.90"
+            ]
+          ],
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:01:56.878Z",
+            "soldOutFlag": false,
+            "customizableFlag": false,
+            "containerPrice": null,
+            "discountedPrice": 9.52
+          },
+          "publicationStatus": "hold-scope-or-premise",
+          "verification": {
+            "checkedAt": "2026-10-16T04:12:00.536Z",
+            "sourceIds": [
+              "sl08-zuya-ordering"
+            ],
+            "reason": "Zuya current Foodpanda has 28 unique foods at 298 Tiong Bahru #02-111A, versus saved/secondary 302. Several generic animal descriptions conflict with vegetarian context. All 28 held pending current merchant/landlord premise confirmation and item clarification. Separate older 21/27-row web snapshots not unioned. Guessed domain failed and is not verified official; independently linked kazuyasg.com timed out.",
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed-channel-price",
+              "SGD"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan suitability",
+              "stock",
+              "checkout charges"
+            ]
+          },
+          "qualifier": "Delivery menu snapshot. Ingredients and current stock unconfirmed.",
+          "holdReason": "Zuya current Foodpanda has 28 unique foods at 298 Tiong Bahru #02-111A, versus saved/secondary 302. Several generic animal descriptions conflict with vegetarian context. All 28 held pending current merchant/landlord premise confirmation and item clarification. Separate older 21/27-row web snapshots not unioned. Guessed domain failed and is not verified official; independently linked kazuyasg.com timed out."
+        },
+        {
+          "id": "sl08-zuya-96349101",
+          "sourceProductId": "96349101",
+          "name": "Thai Style Cutlet Rice",
+          "category": "Signature Rice & Noodles",
+          "sourceIds": [
+            "sl08-zuya-ordering"
+          ],
+          "sourceDescription": "Fragrant jasmine rice topped with a crispy golden cutlet infused with Thai spices and aromatics. Served with fresh lime wedge and a drizzle of savory Thai sauce for authentic flavors.",
+          "price": {
+            "amount": 11.9,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "priceObservationBasis": "Current delivery-channel printed list price; not dine-in price, checkout total or a guaranteed current quote.",
+          "sourcePriceTexts": [
+            [
+              "from ",
+              "9.52"
+            ],
+            [
+              "",
+              "11.90"
+            ]
+          ],
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:01:56.878Z",
+            "soldOutFlag": false,
+            "customizableFlag": true,
+            "containerPrice": null,
+            "discountedPrice": 9.52
+          },
+          "publicationStatus": "hold-scope-or-premise",
+          "verification": {
+            "checkedAt": "2026-10-16T04:12:00.536Z",
+            "sourceIds": [
+              "sl08-zuya-ordering"
+            ],
+            "reason": "Zuya current Foodpanda has 28 unique foods at 298 Tiong Bahru #02-111A, versus saved/secondary 302. Several generic animal descriptions conflict with vegetarian context. All 28 held pending current merchant/landlord premise confirmation and item clarification. Separate older 21/27-row web snapshots not unioned. Guessed domain failed and is not verified official; independently linked kazuyasg.com timed out.",
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed-channel-price",
+              "SGD"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan suitability",
+              "stock",
+              "checkout charges"
+            ]
+          },
+          "qualifier": "Delivery menu snapshot. Ingredients and current stock unconfirmed.",
+          "configurationNotice": "Ordering page flags customization; choice names, limits, defaults and surcharges were not exposed. No option inferred.",
+          "holdReason": "Zuya current Foodpanda has 28 unique foods at 298 Tiong Bahru #02-111A, versus saved/secondary 302. Several generic animal descriptions conflict with vegetarian context. All 28 held pending current merchant/landlord premise confirmation and item clarification. Separate older 21/27-row web snapshots not unioned. Guessed domain failed and is not verified official; independently linked kazuyasg.com timed out."
+        },
+        {
+          "id": "sl08-zuya-96383889",
+          "sourceProductId": "96383889",
+          "name": "Black Pepper Sauce Cutlet Rice",
+          "category": "Signature Rice & Noodles",
+          "sourceIds": [
+            "sl08-zuya-ordering"
+          ],
+          "sourceDescription": "Crispy golden cutlet served over fluffy steamed rice and smothered in a rich aromatic black pepper sauce with a perfect balance of heat and savory depth",
+          "price": {
+            "amount": 11.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceObservationBasis": "Current delivery-channel printed list price; not dine-in price, checkout total or a guaranteed current quote.",
+          "sourcePriceTexts": [
+            [
+              "",
+              "9.52"
+            ],
+            [
+              "",
+              "11.90"
+            ]
+          ],
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:01:56.878Z",
+            "soldOutFlag": false,
+            "customizableFlag": false,
+            "containerPrice": null,
+            "discountedPrice": 9.52
+          },
+          "publicationStatus": "hold-scope-or-premise",
+          "verification": {
+            "checkedAt": "2026-10-16T04:12:00.536Z",
+            "sourceIds": [
+              "sl08-zuya-ordering"
+            ],
+            "reason": "Zuya current Foodpanda has 28 unique foods at 298 Tiong Bahru #02-111A, versus saved/secondary 302. Several generic animal descriptions conflict with vegetarian context. All 28 held pending current merchant/landlord premise confirmation and item clarification. Separate older 21/27-row web snapshots not unioned. Guessed domain failed and is not verified official; independently linked kazuyasg.com timed out.",
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed-channel-price",
+              "SGD"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan suitability",
+              "stock",
+              "checkout charges"
+            ]
+          },
+          "qualifier": "Delivery menu snapshot. Ingredients and current stock unconfirmed.",
+          "holdReason": "Zuya current Foodpanda has 28 unique foods at 298 Tiong Bahru #02-111A, versus saved/secondary 302. Several generic animal descriptions conflict with vegetarian context. All 28 held pending current merchant/landlord premise confirmation and item clarification. Separate older 21/27-row web snapshots not unioned. Guessed domain failed and is not verified official; independently linked kazuyasg.com timed out."
+        },
+        {
+          "id": "sl08-zuya-96425590",
+          "sourceProductId": "96425590",
+          "name": "Fragrant Curry Rice",
+          "category": "Signature Rice & Noodles",
+          "sourceIds": [
+            "sl08-zuya-ordering"
+          ],
+          "sourceDescription": "Fragrant Japanese curry rice with tender chicken or vegetables cooked in aromatic spices and served with a perfectly cooked egg on top",
+          "price": {
+            "amount": 11.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceObservationBasis": "Current delivery-channel printed list price; not dine-in price, checkout total or a guaranteed current quote.",
+          "sourcePriceTexts": [
+            [
+              "",
+              "9.52"
+            ],
+            [
+              "",
+              "11.90"
+            ]
+          ],
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:01:56.878Z",
+            "soldOutFlag": false,
+            "customizableFlag": false,
+            "containerPrice": null,
+            "discountedPrice": 9.52
+          },
+          "publicationStatus": "hold-scope-or-premise",
+          "verification": {
+            "checkedAt": "2026-10-16T04:12:00.536Z",
+            "sourceIds": [
+              "sl08-zuya-ordering"
+            ],
+            "reason": "Zuya current Foodpanda has 28 unique foods at 298 Tiong Bahru #02-111A, versus saved/secondary 302. Several generic animal descriptions conflict with vegetarian context. All 28 held pending current merchant/landlord premise confirmation and item clarification. Separate older 21/27-row web snapshots not unioned. Guessed domain failed and is not verified official; independently linked kazuyasg.com timed out.",
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed-channel-price",
+              "SGD"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan suitability",
+              "stock",
+              "checkout charges"
+            ]
+          },
+          "qualifier": "Delivery menu snapshot. Ingredients and current stock unconfirmed.",
+          "holdReason": "Zuya current Foodpanda has 28 unique foods at 298 Tiong Bahru #02-111A, versus saved/secondary 302. Several generic animal descriptions conflict with vegetarian context. All 28 held pending current merchant/landlord premise confirmation and item clarification. Separate older 21/27-row web snapshots not unioned. Guessed domain failed and is not verified official; independently linked kazuyasg.com timed out."
+        },
+        {
+          "id": "sl08-zuya-96372136",
+          "sourceProductId": "96372136",
+          "name": "Stir Fry Udon Noodle",
+          "category": "Signature Rice & Noodles",
+          "sourceIds": [
+            "sl08-zuya-ordering"
+          ],
+          "sourceDescription": "Chewy udon noodles tossed in a savory stir fry with fresh vegetables and your choice of protein creating a satisfying and flavourful dish",
+          "price": {
+            "amount": 11.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceObservationBasis": "Current delivery-channel printed list price; not dine-in price, checkout total or a guaranteed current quote.",
+          "sourcePriceTexts": [
+            [
+              "",
+              "9.52"
+            ],
+            [
+              "",
+              "11.90"
+            ]
+          ],
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:01:56.878Z",
+            "soldOutFlag": false,
+            "customizableFlag": false,
+            "containerPrice": null,
+            "discountedPrice": 9.52
+          },
+          "publicationStatus": "hold-scope-or-premise",
+          "verification": {
+            "checkedAt": "2026-10-16T04:12:00.536Z",
+            "sourceIds": [
+              "sl08-zuya-ordering"
+            ],
+            "reason": "Zuya current Foodpanda has 28 unique foods at 298 Tiong Bahru #02-111A, versus saved/secondary 302. Several generic animal descriptions conflict with vegetarian context. All 28 held pending current merchant/landlord premise confirmation and item clarification. Separate older 21/27-row web snapshots not unioned. Guessed domain failed and is not verified official; independently linked kazuyasg.com timed out.",
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed-channel-price",
+              "SGD"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan suitability",
+              "stock",
+              "checkout charges"
+            ]
+          },
+          "qualifier": "Delivery menu snapshot. Ingredients and current stock unconfirmed.",
+          "holdReason": "Zuya current Foodpanda has 28 unique foods at 298 Tiong Bahru #02-111A, versus saved/secondary 302. Several generic animal descriptions conflict with vegetarian context. All 28 held pending current merchant/landlord premise confirmation and item clarification. Separate older 21/27-row web snapshots not unioned. Guessed domain failed and is not verified official; independently linked kazuyasg.com timed out."
+        },
+        {
+          "id": "sl08-zuya-96353215",
+          "sourceProductId": "96353215",
+          "name": "Signature Laksa",
+          "category": "Signature Rice & Noodles",
+          "sourceIds": [
+            "sl08-zuya-ordering"
+          ],
+          "sourceDescription": "Aromatic laksa with silky rice noodles in a rich coconut curry broth infused with spices and fresh herbs topped with succulent prawns boiled eggs and crispy bean sprouts",
+          "price": {
+            "amount": 10.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceObservationBasis": "Current delivery-channel printed list price; not dine-in price, checkout total or a guaranteed current quote.",
+          "sourcePriceTexts": [
+            [
+              "",
+              "8.72"
+            ],
+            [
+              "",
+              "10.90"
+            ]
+          ],
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:01:56.878Z",
+            "soldOutFlag": false,
+            "customizableFlag": false,
+            "containerPrice": null,
+            "discountedPrice": 8.72
+          },
+          "publicationStatus": "hold-scope-or-premise",
+          "verification": {
+            "checkedAt": "2026-10-16T04:12:00.536Z",
+            "sourceIds": [
+              "sl08-zuya-ordering"
+            ],
+            "reason": "Zuya current Foodpanda has 28 unique foods at 298 Tiong Bahru #02-111A, versus saved/secondary 302. Several generic animal descriptions conflict with vegetarian context. All 28 held pending current merchant/landlord premise confirmation and item clarification. Separate older 21/27-row web snapshots not unioned. Guessed domain failed and is not verified official; independently linked kazuyasg.com timed out.",
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed-channel-price",
+              "SGD"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan suitability",
+              "stock",
+              "checkout charges"
+            ]
+          },
+          "qualifier": "Delivery menu snapshot. Ingredients and current stock unconfirmed.",
+          "holdReason": "Zuya current Foodpanda has 28 unique foods at 298 Tiong Bahru #02-111A, versus saved/secondary 302. Several generic animal descriptions conflict with vegetarian context. All 28 held pending current merchant/landlord premise confirmation and item clarification. Separate older 21/27-row web snapshots not unioned. Guessed domain failed and is not verified official; independently linked kazuyasg.com timed out."
+        },
+        {
+          "id": "sl08-zuya-96353216",
+          "sourceProductId": "96353216",
+          "name": "Stir-Fried Hor Fun",
+          "category": "Signature Rice & Noodles",
+          "sourceIds": [
+            "sl08-zuya-ordering"
+          ],
+          "sourceDescription": "Silky smooth rice noodles tossed with tender shrimp bean sprouts and Chinese chives in a savory soy-based sauce served piping hot",
+          "price": {
+            "amount": 10.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceObservationBasis": "Current delivery-channel printed list price; not dine-in price, checkout total or a guaranteed current quote.",
+          "sourcePriceTexts": [
+            [
+              "",
+              "8.72"
+            ],
+            [
+              "",
+              "10.90"
+            ]
+          ],
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:01:56.878Z",
+            "soldOutFlag": false,
+            "customizableFlag": false,
+            "containerPrice": null,
+            "discountedPrice": 8.72
+          },
+          "publicationStatus": "hold-scope-or-premise",
+          "verification": {
+            "checkedAt": "2026-10-16T04:12:00.536Z",
+            "sourceIds": [
+              "sl08-zuya-ordering"
+            ],
+            "reason": "Zuya current Foodpanda has 28 unique foods at 298 Tiong Bahru #02-111A, versus saved/secondary 302. Several generic animal descriptions conflict with vegetarian context. All 28 held pending current merchant/landlord premise confirmation and item clarification. Separate older 21/27-row web snapshots not unioned. Guessed domain failed and is not verified official; independently linked kazuyasg.com timed out.",
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed-channel-price",
+              "SGD"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan suitability",
+              "stock",
+              "checkout charges"
+            ]
+          },
+          "qualifier": "Delivery menu snapshot. Ingredients and current stock unconfirmed.",
+          "holdReason": "Zuya current Foodpanda has 28 unique foods at 298 Tiong Bahru #02-111A, versus saved/secondary 302. Several generic animal descriptions conflict with vegetarian context. All 28 held pending current merchant/landlord premise confirmation and item clarification. Separate older 21/27-row web snapshots not unioned. Guessed domain failed and is not verified official; independently linked kazuyasg.com timed out."
+        },
+        {
+          "id": "sl08-zuya-96425589",
+          "sourceProductId": "96425589",
+          "name": "Fragrance White Rice",
+          "category": "Chef Recommended",
+          "sourceIds": [
+            "sl08-zuya-ordering"
+          ],
+          "sourceDescription": "Premium fragrant white rice with a delicate aroma and fluffy texture. Each grain is carefully selected and perfectly cooked to complement any dish.",
+          "price": {
+            "amount": 1.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceObservationBasis": "Current delivery-channel printed list price; not dine-in price, checkout total or a guaranteed current quote.",
+          "sourcePriceTexts": [
+            [
+              "",
+              "1.20"
+            ],
+            [
+              "",
+              "1.50"
+            ]
+          ],
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:01:56.878Z",
+            "soldOutFlag": false,
+            "customizableFlag": false,
+            "containerPrice": null,
+            "discountedPrice": 1.2
+          },
+          "publicationStatus": "hold-scope-or-premise",
+          "verification": {
+            "checkedAt": "2026-10-16T04:12:00.536Z",
+            "sourceIds": [
+              "sl08-zuya-ordering"
+            ],
+            "reason": "Zuya current Foodpanda has 28 unique foods at 298 Tiong Bahru #02-111A, versus saved/secondary 302. Several generic animal descriptions conflict with vegetarian context. All 28 held pending current merchant/landlord premise confirmation and item clarification. Separate older 21/27-row web snapshots not unioned. Guessed domain failed and is not verified official; independently linked kazuyasg.com timed out.",
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed-channel-price",
+              "SGD"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan suitability",
+              "stock",
+              "checkout charges"
+            ]
+          },
+          "qualifier": "Delivery menu snapshot. Ingredients and current stock unconfirmed.",
+          "holdReason": "Zuya current Foodpanda has 28 unique foods at 298 Tiong Bahru #02-111A, versus saved/secondary 302. Several generic animal descriptions conflict with vegetarian context. All 28 held pending current merchant/landlord premise confirmation and item clarification. Separate older 21/27-row web snapshots not unioned. Guessed domain failed and is not verified official; independently linked kazuyasg.com timed out."
+        },
+        {
+          "id": "sl08-zuya-96425588",
+          "sourceProductId": "96425588",
+          "name": "Sunny Side Up Egg",
+          "category": "Chef Recommended",
+          "sourceIds": [
+            "sl08-zuya-ordering"
+          ],
+          "sourceDescription": "A perfectly cooked sunny side up egg with a runny golden yolk and crispy edges served hot on the plate",
+          "price": {
+            "amount": 2,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceObservationBasis": "Current delivery-channel printed list price; not dine-in price, checkout total or a guaranteed current quote.",
+          "sourcePriceTexts": [
+            [
+              "",
+              "1.60"
+            ],
+            [
+              "",
+              "2"
+            ]
+          ],
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:01:56.878Z",
+            "soldOutFlag": false,
+            "customizableFlag": false,
+            "containerPrice": null,
+            "discountedPrice": 1.6
+          },
+          "publicationStatus": "hold-scope-or-premise",
+          "verification": {
+            "checkedAt": "2026-10-16T04:12:00.536Z",
+            "sourceIds": [
+              "sl08-zuya-ordering"
+            ],
+            "reason": "Zuya current Foodpanda has 28 unique foods at 298 Tiong Bahru #02-111A, versus saved/secondary 302. Several generic animal descriptions conflict with vegetarian context. All 28 held pending current merchant/landlord premise confirmation and item clarification. Separate older 21/27-row web snapshots not unioned. Guessed domain failed and is not verified official; independently linked kazuyasg.com timed out.",
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed-channel-price",
+              "SGD"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan suitability",
+              "stock",
+              "checkout charges"
+            ]
+          },
+          "qualifier": "Delivery menu snapshot. Ingredients and current stock unconfirmed.",
+          "holdReason": "Zuya current Foodpanda has 28 unique foods at 298 Tiong Bahru #02-111A, versus saved/secondary 302. Several generic animal descriptions conflict with vegetarian context. All 28 held pending current merchant/landlord premise confirmation and item clarification. Separate older 21/27-row web snapshots not unioned. Guessed domain failed and is not verified official; independently linked kazuyasg.com timed out."
+        },
+        {
+          "id": "sl08-zuya-96432194",
+          "sourceProductId": "96432194",
+          "name": "Black Bean Soup",
+          "category": "Chef Recommended",
+          "sourceIds": [
+            "sl08-zuya-ordering"
+          ],
+          "sourceDescription": "Rich and hearty black bean soup simmered with aromatic spices and fresh vegetables. A comforting classic that delivers deep savory flavors in every spoonful.",
+          "price": {
+            "amount": 8.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceObservationBasis": "Current delivery-channel printed list price; not dine-in price, checkout total or a guaranteed current quote.",
+          "sourcePriceTexts": [
+            [
+              "",
+              "7.12"
+            ],
+            [
+              "",
+              "8.90"
+            ]
+          ],
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:01:56.878Z",
+            "soldOutFlag": false,
+            "customizableFlag": false,
+            "containerPrice": null,
+            "discountedPrice": 7.12
+          },
+          "publicationStatus": "hold-scope-or-premise",
+          "verification": {
+            "checkedAt": "2026-10-16T04:12:00.536Z",
+            "sourceIds": [
+              "sl08-zuya-ordering"
+            ],
+            "reason": "Zuya current Foodpanda has 28 unique foods at 298 Tiong Bahru #02-111A, versus saved/secondary 302. Several generic animal descriptions conflict with vegetarian context. All 28 held pending current merchant/landlord premise confirmation and item clarification. Separate older 21/27-row web snapshots not unioned. Guessed domain failed and is not verified official; independently linked kazuyasg.com timed out.",
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed-channel-price",
+              "SGD"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan suitability",
+              "stock",
+              "checkout charges"
+            ]
+          },
+          "qualifier": "Delivery menu snapshot. Ingredients and current stock unconfirmed.",
+          "holdReason": "Zuya current Foodpanda has 28 unique foods at 298 Tiong Bahru #02-111A, versus saved/secondary 302. Several generic animal descriptions conflict with vegetarian context. All 28 held pending current merchant/landlord premise confirmation and item clarification. Separate older 21/27-row web snapshots not unioned. Guessed domain failed and is not verified official; independently linked kazuyasg.com timed out."
+        },
+        {
+          "id": "sl08-zuya-96390933",
+          "sourceProductId": "96390933",
+          "name": "Signature Yam Ring",
+          "category": "Chef Recommended",
+          "sourceIds": [
+            "sl08-zuya-ordering"
+          ],
+          "sourceDescription": "A stunning golden yam ring featuring creamy yam paste with a delicate crispy exterior. This chef-recommended signature dish showcases the natural sweetness of premium yams, perfectly complemented by subtle spices and served as an elegant centrepiece.",
+          "price": {
+            "amount": 23.9,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "priceObservationBasis": "Current delivery-channel printed list price; not dine-in price, checkout total or a guaranteed current quote.",
+          "sourcePriceTexts": [
+            [
+              "from ",
+              "19.12"
+            ],
+            [
+              "",
+              "23.90"
+            ]
+          ],
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:01:56.878Z",
+            "soldOutFlag": false,
+            "customizableFlag": true,
+            "containerPrice": null,
+            "discountedPrice": 19.119999999999997
+          },
+          "publicationStatus": "hold-scope-or-premise",
+          "verification": {
+            "checkedAt": "2026-10-16T04:12:00.536Z",
+            "sourceIds": [
+              "sl08-zuya-ordering"
+            ],
+            "reason": "Zuya current Foodpanda has 28 unique foods at 298 Tiong Bahru #02-111A, versus saved/secondary 302. Several generic animal descriptions conflict with vegetarian context. All 28 held pending current merchant/landlord premise confirmation and item clarification. Separate older 21/27-row web snapshots not unioned. Guessed domain failed and is not verified official; independently linked kazuyasg.com timed out.",
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed-channel-price",
+              "SGD"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan suitability",
+              "stock",
+              "checkout charges"
+            ]
+          },
+          "qualifier": "Delivery menu snapshot. Ingredients and current stock unconfirmed.",
+          "configurationNotice": "Ordering page flags customization; choice names, limits, defaults and surcharges were not exposed. No option inferred.",
+          "holdReason": "Zuya current Foodpanda has 28 unique foods at 298 Tiong Bahru #02-111A, versus saved/secondary 302. Several generic animal descriptions conflict with vegetarian context. All 28 held pending current merchant/landlord premise confirmation and item clarification. Separate older 21/27-row web snapshots not unioned. Guessed domain failed and is not verified official; independently linked kazuyasg.com timed out."
+        },
+        {
+          "id": "sl08-zuya-96425580",
+          "sourceProductId": "96425580",
+          "name": "Black Vinegar Monkey Mushroom",
+          "category": "Chef Recommended",
+          "sourceIds": [
+            "sl08-zuya-ordering"
+          ],
+          "sourceDescription": "Delicate monkey head mushrooms braised in aged black vinegar with aromatic spices creating a rich umami depth This chef recommended dish balances earthy mushroom flavors with the complex tang of traditional black vinegar",
+          "price": {
+            "amount": 16.9,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "priceObservationBasis": "Current delivery-channel printed list price; not dine-in price, checkout total or a guaranteed current quote.",
+          "sourcePriceTexts": [
+            [
+              "from ",
+              "13.52"
+            ],
+            [
+              "",
+              "16.90"
+            ]
+          ],
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:01:56.878Z",
+            "soldOutFlag": false,
+            "customizableFlag": true,
+            "containerPrice": null,
+            "discountedPrice": 13.52
+          },
+          "publicationStatus": "hold-scope-or-premise",
+          "verification": {
+            "checkedAt": "2026-10-16T04:12:00.536Z",
+            "sourceIds": [
+              "sl08-zuya-ordering"
+            ],
+            "reason": "Zuya current Foodpanda has 28 unique foods at 298 Tiong Bahru #02-111A, versus saved/secondary 302. Several generic animal descriptions conflict with vegetarian context. All 28 held pending current merchant/landlord premise confirmation and item clarification. Separate older 21/27-row web snapshots not unioned. Guessed domain failed and is not verified official; independently linked kazuyasg.com timed out.",
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed-channel-price",
+              "SGD"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan suitability",
+              "stock",
+              "checkout charges"
+            ]
+          },
+          "qualifier": "Delivery menu snapshot. Ingredients and current stock unconfirmed.",
+          "configurationNotice": "Ordering page flags customization; choice names, limits, defaults and surcharges were not exposed. No option inferred.",
+          "holdReason": "Zuya current Foodpanda has 28 unique foods at 298 Tiong Bahru #02-111A, versus saved/secondary 302. Several generic animal descriptions conflict with vegetarian context. All 28 held pending current merchant/landlord premise confirmation and item clarification. Separate older 21/27-row web snapshots not unioned. Guessed domain failed and is not verified official; independently linked kazuyasg.com timed out."
+        },
+        {
+          "id": "sl08-zuya-96425587",
+          "sourceProductId": "96425587",
+          "name": "Mushroom Mixed Vegetables",
+          "category": "Chef Recommended",
+          "sourceIds": [
+            "sl08-zuya-ordering"
+          ],
+          "sourceDescription": "A vibrant medley of fresh mushrooms and seasonal vegetables stir-fried to perfection with aromatic garlic and ginger. Tender and flavourful, this chef-recommended dish delivers a delightful balance of textures and wholesome goodness",
+          "price": {
+            "amount": 16.9,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "priceObservationBasis": "Current delivery-channel printed list price; not dine-in price, checkout total or a guaranteed current quote.",
+          "sourcePriceTexts": [
+            [
+              "from ",
+              "13.52"
+            ],
+            [
+              "",
+              "16.90"
+            ]
+          ],
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:01:56.878Z",
+            "soldOutFlag": false,
+            "customizableFlag": true,
+            "containerPrice": null,
+            "discountedPrice": 13.52
+          },
+          "publicationStatus": "hold-scope-or-premise",
+          "verification": {
+            "checkedAt": "2026-10-16T04:12:00.536Z",
+            "sourceIds": [
+              "sl08-zuya-ordering"
+            ],
+            "reason": "Zuya current Foodpanda has 28 unique foods at 298 Tiong Bahru #02-111A, versus saved/secondary 302. Several generic animal descriptions conflict with vegetarian context. All 28 held pending current merchant/landlord premise confirmation and item clarification. Separate older 21/27-row web snapshots not unioned. Guessed domain failed and is not verified official; independently linked kazuyasg.com timed out.",
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed-channel-price",
+              "SGD"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan suitability",
+              "stock",
+              "checkout charges"
+            ]
+          },
+          "qualifier": "Delivery menu snapshot. Ingredients and current stock unconfirmed.",
+          "configurationNotice": "Ordering page flags customization; choice names, limits, defaults and surcharges were not exposed. No option inferred.",
+          "holdReason": "Zuya current Foodpanda has 28 unique foods at 298 Tiong Bahru #02-111A, versus saved/secondary 302. Several generic animal descriptions conflict with vegetarian context. All 28 held pending current merchant/landlord premise confirmation and item clarification. Separate older 21/27-row web snapshots not unioned. Guessed domain failed and is not verified official; independently linked kazuyasg.com timed out."
+        },
+        {
+          "id": "sl08-zuya-96425530",
+          "sourceProductId": "96425530",
+          "name": "Thai Style Vegan Fish",
+          "category": "Chef Recommended",
+          "sourceIds": [
+            "sl08-zuya-ordering"
+          ],
+          "sourceDescription": "Plant-based vegan fish crafted with authentic Thai flavors aromatic herbs and spices delivering a delightful seafood experience without compromise",
+          "price": {
+            "amount": 15.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceObservationBasis": "Current delivery-channel printed list price; not dine-in price, checkout total or a guaranteed current quote.",
+          "sourcePriceTexts": [
+            [
+              "",
+              "12.72"
+            ],
+            [
+              "",
+              "15.90"
+            ]
+          ],
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:01:56.878Z",
+            "soldOutFlag": false,
+            "customizableFlag": false,
+            "containerPrice": null,
+            "discountedPrice": 12.72
+          },
+          "publicationStatus": "hold-scope-or-premise",
+          "verification": {
+            "checkedAt": "2026-10-16T04:12:00.536Z",
+            "sourceIds": [
+              "sl08-zuya-ordering"
+            ],
+            "reason": "Zuya current Foodpanda has 28 unique foods at 298 Tiong Bahru #02-111A, versus saved/secondary 302. Several generic animal descriptions conflict with vegetarian context. All 28 held pending current merchant/landlord premise confirmation and item clarification. Separate older 21/27-row web snapshots not unioned. Guessed domain failed and is not verified official; independently linked kazuyasg.com timed out.",
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed-channel-price",
+              "SGD"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan suitability",
+              "stock",
+              "checkout charges"
+            ]
+          },
+          "qualifier": "Delivery menu snapshot. Ingredients and current stock unconfirmed.",
+          "holdReason": "Zuya current Foodpanda has 28 unique foods at 298 Tiong Bahru #02-111A, versus saved/secondary 302. Several generic animal descriptions conflict with vegetarian context. All 28 held pending current merchant/landlord premise confirmation and item clarification. Separate older 21/27-row web snapshots not unioned. Guessed domain failed and is not verified official; independently linked kazuyasg.com timed out."
+        },
+        {
+          "id": "sl08-zuya-96425531",
+          "sourceProductId": "96425531",
+          "name": "Gong Pao Vegan Meat",
+          "category": "Chef Recommended",
+          "sourceIds": [
+            "sl08-zuya-ordering"
+          ],
+          "sourceDescription": "A chef-recommended dish featuring tender vegan meat tossed with roasted peanuts dried chilies and aromatic spices in a savory sauce with a perfect balance of heat and umami flavors",
+          "price": {
+            "amount": 15.9,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "priceObservationBasis": "Current delivery-channel printed list price; not dine-in price, checkout total or a guaranteed current quote.",
+          "sourcePriceTexts": [
+            [
+              "from ",
+              "12.72"
+            ],
+            [
+              "",
+              "15.90"
+            ]
+          ],
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:01:56.878Z",
+            "soldOutFlag": false,
+            "customizableFlag": true,
+            "containerPrice": null,
+            "discountedPrice": 12.72
+          },
+          "publicationStatus": "hold-scope-or-premise",
+          "verification": {
+            "checkedAt": "2026-10-16T04:12:00.536Z",
+            "sourceIds": [
+              "sl08-zuya-ordering"
+            ],
+            "reason": "Zuya current Foodpanda has 28 unique foods at 298 Tiong Bahru #02-111A, versus saved/secondary 302. Several generic animal descriptions conflict with vegetarian context. All 28 held pending current merchant/landlord premise confirmation and item clarification. Separate older 21/27-row web snapshots not unioned. Guessed domain failed and is not verified official; independently linked kazuyasg.com timed out.",
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed-channel-price",
+              "SGD"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan suitability",
+              "stock",
+              "checkout charges"
+            ]
+          },
+          "qualifier": "Delivery menu snapshot. Ingredients and current stock unconfirmed.",
+          "configurationNotice": "Ordering page flags customization; choice names, limits, defaults and surcharges were not exposed. No option inferred.",
+          "holdReason": "Zuya current Foodpanda has 28 unique foods at 298 Tiong Bahru #02-111A, versus saved/secondary 302. Several generic animal descriptions conflict with vegetarian context. All 28 held pending current merchant/landlord premise confirmation and item clarification. Separate older 21/27-row web snapshots not unioned. Guessed domain failed and is not verified official; independently linked kazuyasg.com timed out."
+        },
+        {
+          "id": "sl08-zuya-96425581",
+          "sourceProductId": "96425581",
+          "name": "Silky Braised Tofu",
+          "category": "Chef Recommended",
+          "sourceIds": [
+            "sl08-zuya-ordering"
+          ],
+          "sourceDescription": "Silky braised tofu infused with aromatic spices and savory sauce creating a tender and flavorful dish that melts in your mouth",
+          "price": {
+            "amount": 13.9,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "priceObservationBasis": "Current delivery-channel printed list price; not dine-in price, checkout total or a guaranteed current quote.",
+          "sourcePriceTexts": [
+            [
+              "from ",
+              "11.12"
+            ],
+            [
+              "",
+              "13.90"
+            ]
+          ],
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:01:56.878Z",
+            "soldOutFlag": false,
+            "customizableFlag": true,
+            "containerPrice": null,
+            "discountedPrice": 11.120000000000001
+          },
+          "publicationStatus": "hold-scope-or-premise",
+          "verification": {
+            "checkedAt": "2026-10-16T04:12:00.536Z",
+            "sourceIds": [
+              "sl08-zuya-ordering"
+            ],
+            "reason": "Zuya current Foodpanda has 28 unique foods at 298 Tiong Bahru #02-111A, versus saved/secondary 302. Several generic animal descriptions conflict with vegetarian context. All 28 held pending current merchant/landlord premise confirmation and item clarification. Separate older 21/27-row web snapshots not unioned. Guessed domain failed and is not verified official; independently linked kazuyasg.com timed out.",
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed-channel-price",
+              "SGD"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan suitability",
+              "stock",
+              "checkout charges"
+            ]
+          },
+          "qualifier": "Delivery menu snapshot. Ingredients and current stock unconfirmed.",
+          "configurationNotice": "Ordering page flags customization; choice names, limits, defaults and surcharges were not exposed. No option inferred.",
+          "holdReason": "Zuya current Foodpanda has 28 unique foods at 298 Tiong Bahru #02-111A, versus saved/secondary 302. Several generic animal descriptions conflict with vegetarian context. All 28 held pending current merchant/landlord premise confirmation and item clarification. Separate older 21/27-row web snapshots not unioned. Guessed domain failed and is not verified official; independently linked kazuyasg.com timed out."
+        },
+        {
+          "id": "sl08-zuya-98263302",
+          "sourceProductId": "98263302",
+          "name": "Signature Monkey Mushroom Rendang",
+          "category": "Chef Recommended",
+          "sourceIds": [
+            "sl08-zuya-ordering"
+          ],
+          "sourceDescription": "Tender monkey head mushrooms slow-cooked in a rich aromatic rendang paste infused with coconut milk galangal and traditional spices A signature dish that captures the essence of Southeast Asian cuisine",
+          "price": {
+            "amount": 16.9,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "priceObservationBasis": "Current delivery-channel printed list price; not dine-in price, checkout total or a guaranteed current quote.",
+          "sourcePriceTexts": [
+            [
+              "from ",
+              "13.52"
+            ],
+            [
+              "",
+              "16.90"
+            ]
+          ],
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:01:56.878Z",
+            "soldOutFlag": false,
+            "customizableFlag": true,
+            "containerPrice": null,
+            "discountedPrice": 13.52
+          },
+          "publicationStatus": "hold-scope-or-premise",
+          "verification": {
+            "checkedAt": "2026-10-16T04:12:00.536Z",
+            "sourceIds": [
+              "sl08-zuya-ordering"
+            ],
+            "reason": "Zuya current Foodpanda has 28 unique foods at 298 Tiong Bahru #02-111A, versus saved/secondary 302. Several generic animal descriptions conflict with vegetarian context. All 28 held pending current merchant/landlord premise confirmation and item clarification. Separate older 21/27-row web snapshots not unioned. Guessed domain failed and is not verified official; independently linked kazuyasg.com timed out.",
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed-channel-price",
+              "SGD"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan suitability",
+              "stock",
+              "checkout charges"
+            ]
+          },
+          "qualifier": "Delivery menu snapshot. Ingredients and current stock unconfirmed.",
+          "configurationNotice": "Ordering page flags customization; choice names, limits, defaults and surcharges were not exposed. No option inferred.",
+          "holdReason": "Zuya current Foodpanda has 28 unique foods at 298 Tiong Bahru #02-111A, versus saved/secondary 302. Several generic animal descriptions conflict with vegetarian context. All 28 held pending current merchant/landlord premise confirmation and item clarification. Separate older 21/27-row web snapshots not unioned. Guessed domain failed and is not verified official; independently linked kazuyasg.com timed out."
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "newBranchRecords": 5,
+    "sourceMenus": 5,
+    "foodObservations": 67,
+    "approvedFoodRows": 28,
+    "heldFoodRows": 39,
+    "complete": false
+  }
+}

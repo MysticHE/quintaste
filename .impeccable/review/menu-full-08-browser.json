@@ -1,0 +1,100 @@
+{
+  "startedAt": "2026-10-16T05:53:41.538Z",
+  "url": "http://127.0.0.1:8083",
+  "checks": [
+    {
+      "name": "150-green",
+      "status": "passed",
+      "foods": 15,
+      "heldAbsent": 8,
+      "publicFingerprint": "003cb1e49558617bfa400efe399144f9a79ae6309929a1c5a6b66b6d2ad40834",
+      "carriedForwardFrom": "menu-full-08-browser-before-wholevenue-review.json",
+      "publicFingerprintUnchanged": true
+    },
+    {
+      "name": "vege-bear-bidadari",
+      "status": "passed",
+      "foods": 41,
+      "heldAbsent": 0,
+      "publicFingerprint": "43a17e958861fdb41d4296787b3c25e0cb58a978db4946b0ec2b319471b1a1af",
+      "carriedForwardFrom": "menu-full-08-browser-before-wholevenue-review.json",
+      "publicFingerprintUnchanged": true
+    },
+    {
+      "name": "ascend-cross",
+      "status": "passed",
+      "foods": 1,
+      "heldAbsent": 0,
+      "publicFingerprint": "ce6d13400aa9018cd05ec82a95fa7f598c8c59b7923e8ae67e331e13ce690283",
+      "carriedForwardFrom": "menu-full-08-browser-before-wholevenue-review.json",
+      "publicFingerprintUnchanged": true
+    },
+    {
+      "name": "k-veggie-held",
+      "status": "passed",
+      "foods": 0,
+      "wholeVenue404": true,
+      "heldFoods": 7
+    }
+  ],
+  "screenshots": [
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-08-browser\\150-green-320.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-08-browser\\150-green-768.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-08-browser\\150-green-1440.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-08-browser\\vege-bear-bidadari-320.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-08-browser\\vege-bear-bidadari-768.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-08-browser\\vege-bear-bidadari-1440.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-08-browser\\ascend-cross-320.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-08-browser\\ascend-cross-768.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-08-browser\\ascend-cross-1440.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-08-browser\\k-veggie-held-320.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-08-browser\\k-veggie-held-768.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-08-browser\\k-veggie-held-1440.png"
+  ],
+  "errors": [],
+  "pageErrors": [],
+  "unexpectedConsoleErrors": [],
+  "blockedApiRequests": [],
+  "blockedExternalRequests": [],
+  "apiRequests": [],
+  "a11y": [
+    {
+      "label": "150-green",
+      "violations": []
+    },
+    {
+      "label": "vege-bear-bidadari",
+      "violations": []
+    },
+    {
+      "label": "ascend-cross",
+      "violations": []
+    },
+    {
+      "label": "k-veggie-held",
+      "violations": []
+    }
+  ],
+  "forwardedProviderCalls": 0,
+  "installedChromeUsed": false,
+  "catalogue": {
+    "locations": 161,
+    "sourceMenus": 207,
+    "foodOccurrences": 11442
+  },
+  "passed": true,
+  "finishedAt": "2026-10-16T05:53:59.278Z",
+  "googleLedgerUnchanged": true,
+  "visualReview": {
+    "status": "passed",
+    "passed": true,
+    "reviewedAt": "2026-10-16T06:10:53.845791+00:00",
+    "capturesInspected": 12,
+    "widths": [
+      320,
+      768,
+      1440
+    ],
+    "findings": "Nine unchanged visible-menu captures inspected and carried forward after public fingerprint equality checks; three new K.Veggie unavailable-state captures inspected. No overflow or visual defect observed. Earlier K.Veggie public captures are historical and not publication acceptance."
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "scope": "documentation only; no app tests, browser sessions, screenshots or source edits by documenter",
+  "checkedAt": "2026-10-15T05:53:10.121Z",
+  "files": [
+    "docs/PILOT_CATALOGUE.md",
+    "README.md",
+    "PRODUCT.md",
+    "AGENTS.md",
+    "docs/EXPLORE_PHASE1.md",
+    "docs/PRD_COVERAGE.md",
+    ".impeccable/surfaces/discovery.md"
+  ],
+  "authoritativeData": "data/pilot/catalogue.json",
+  "counts": {
+    "branches": 12,
+    "menus": 11,
+    "dishes": 48,
+    "sources": 56,
+    "heldCandidates": 4
+  },
+  "documentIndexes": {
+    "branchAnchors": 12,
+    "sourceAnchors": 56,
+    "selectedDishRows": 48
+  },
+  "currentLocalLinksChecked": 221,
+  "missing": [],
+  "staleCurrentClaims": [],
+  "claims": [
+    {
+      "file": "docs/PILOT_CATALOGUE.md",
+      "scoringOnly": true,
+      "noProductionAcceptance": true,
+      "consumerUnchanged": true
+    },
+    {
+      "file": "README.md",
+      "scoringOnly": true,
+      "noProductionAcceptance": true,
+      "consumerUnchanged": true
+    },
+    {
+      "file": "PRODUCT.md",
+      "scoringOnly": true,
+      "noProductionAcceptance": true,
+      "consumerUnchanged": true
+    },
+    {
+      "file": "AGENTS.md",
+      "scoringOnly": true,
+      "noProductionAcceptance": true,
+      "consumerUnchanged": true
+    },
+    {
+      "file": "docs/EXPLORE_PHASE1.md",
+      "scoringOnly": true,
+      "noProductionAcceptance": true,
+      "consumerUnchanged": true
+    },
+    {
+      "file": "docs/PRD_COVERAGE.md",
+      "scoringOnly": true,
+      "noProductionAcceptance": true,
+      "consumerUnchanged": true
+    },
+    {
+      "file": ".impeccable/surfaces/discovery.md",
+      "scoringOnly": true,
+      "noProductionAcceptance": true,
+      "consumerUnchanged": true
+    }
+  ],
+  "proofJsonsParsed": 8,
+  "aggregateGatesLinked": false,
+  "finish": {
+    "file": ".impeccable/review/pilot-catalogue-finish-verdict.json",
+    "F01": "resolved",
+    "F02": "resolved",
+    "recapturesInspected": 11,
+    "fixIntroducedRegressions": 0,
+    "remainingWithinScoredScope": 0,
+    "disposition": "ship",
+    "scope": "scoring-only local web",
+    "fullSurfaceApproved": false,
+    "nativeAppearanceVerified": false,
+    "productionApproved": false
+  },
+  "status": "passed"
+}

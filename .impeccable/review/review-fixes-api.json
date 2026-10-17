@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "checks": [
+    "Disabled service: device-only deletion creates no session or store",
+    "Disabled service: credentials and server-record evidence fail closed",
+    "Empty deletion still validates origin, client and owner",
+    "Missing capability cannot delete known server records",
+    "Web owner deletion is scoped and retryable with lost response or device-write failure",
+    "Native owner deletion is scoped and retryable with lost response or device-write failure",
+    "Production does not enable the local service or bypass it"
+  ],
+  "isolatedStore": true
+}

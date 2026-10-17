@@ -1,0 +1,4536 @@
+{
+  "version": 1,
+  "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+  "sources": [
+    {
+      "id": "ascend-home",
+      "url": "https://ascendvegetarian.com/",
+      "title": "Ascend Vegetarian — official address and food photographs",
+      "publisher": "Ascend Vegetarian",
+      "kind": "official-website",
+      "status": "readable",
+      "checkedAt": "2026-10-15T10:48:55.616874+00:00"
+    },
+    {
+      "id": "ascend-grab",
+      "url": "https://r.grab.com/g/6-20241110_135443_D7064443488344A79E991437CFA7E17E_MEXMPS-4-C6MEJJWKLFTGME",
+      "title": "Ascend Vegetarian — merchant-linked ordering",
+      "publisher": "Ascend Vegetarian",
+      "kind": "merchant-ordering",
+      "status": "Redirected to exact Grab merchant4-C6MEJJWKLFTGME, HTTP403. No bypass or menu capture.",
+      "checkedAt": "2026-10-15T10:48:55.616874+00:00"
+    },
+    {
+      "id": "ascend-cross-secondary",
+      "url": "https://www.onehungryhippo.com/restaurants/ascend-vegetarian-18-cross",
+      "title": "OneHungryHippo — Ascend 18 Cross secondary branch lead",
+      "publisher": "OneHungryHippo",
+      "kind": "secondary-directory",
+      "status": "readable",
+      "checkedAt": "2026-10-15T10:48:55.616874+00:00"
+    },
+    {
+      "id": "coco-order",
+      "url": "https://cocoveggienyonyacuisine.oddle.me/en_SG",
+      "title": "CoCo Veggie Nyonya Cuisine — published ordering foods",
+      "publisher": "CoCo Veggie Nyonya Cuisine",
+      "kind": "merchant-ordering",
+      "status": "All 41 food products rendered as Out of stock; current operation not established.",
+      "checkedAt": "2026-10-15T10:48:55.616874+00:00"
+    },
+    {
+      "id": "coco-stores",
+      "url": "https://cocoveggienyonyacuisine.oddle.me/en_SG/stores",
+      "title": "CoCo Veggie Nyonya Cuisine — exact Marina Square branch",
+      "publisher": "CoCo Veggie Nyonya Cuisine",
+      "kind": "merchant-ordering",
+      "status": "readable",
+      "checkedAt": "2026-10-15T10:48:55.616874+00:00"
+    },
+    {
+      "id": "moonchay-home",
+      "url": "https://moonchayvegetarian.com/",
+      "title": "Moon Chay — official29-food showcase and source links",
+      "publisher": "Moon Chay",
+      "kind": "official-website",
+      "status": "readable",
+      "checkedAt": "2026-10-15T10:48:55.616874+00:00"
+    },
+    {
+      "id": "moonchay-order",
+      "url": "https://moonchayvegetarian.oddle.me/en_SG/",
+      "title": "Moon Chay — merchant-linked ordering menu",
+      "publisher": "Moon Chay",
+      "kind": "merchant-ordering",
+      "status": "readable",
+      "checkedAt": "2026-10-15T10:48:55.616874+00:00"
+    },
+    {
+      "id": "moonchay-stores",
+      "url": "https://moonchayvegetarian.oddle.me/en_SG/stores",
+      "title": "Moon Chay — exact Fortune Centre branch",
+      "publisher": "Moon Chay",
+      "kind": "merchant-ordering",
+      "status": "readable",
+      "checkedAt": "2026-10-15T10:48:55.616874+00:00"
+    },
+    {
+      "id": "moonchay-pdf",
+      "url": "https://moonchayvegetarian.com/wp-content/uploads/2024/07/moon-chay-menu_compressed.pdf",
+      "title": "Moon Chay — currently linked16-page menu",
+      "publisher": "Moon Chay",
+      "kind": "official-menu-pdf",
+      "status": "readable",
+      "checkedAt": "2026-10-15T10:48:55.616874+00:00"
+    },
+    {
+      "id": "sproutz-home",
+      "url": "https://www.sproutzdowntown.com/",
+      "title": "Sproutz Downtown — current branch address",
+      "publisher": "Sproutz Downtown",
+      "kind": "official-website",
+      "status": "readable",
+      "checkedAt": "2026-10-15T10:48:55.616874+00:00"
+    },
+    {
+      "id": "sproutz-menu",
+      "url": "https://www.sproutzdowntown.com/menu",
+      "title": "Sproutz Downtown — current menu page and download link",
+      "publisher": "Sproutz Downtown",
+      "kind": "official-website",
+      "status": "readable",
+      "checkedAt": "2026-10-15T10:48:55.616874+00:00"
+    },
+    {
+      "id": "sproutz-pdf",
+      "url": "https://www.sproutzdowntown.com/_files/ugd/58d4dd_173e19f9e7a0458f83c058a255664338.pdf",
+      "title": "Sproutz Downtown — current two-page food/drinks PDF",
+      "publisher": "Sproutz Downtown",
+      "kind": "official-menu-pdf",
+      "status": "readable",
+      "checkedAt": "2026-10-15T10:48:55.616874+00:00"
+    },
+    {
+      "id": "sproutz-catering",
+      "url": "https://www.sproutzdowntown.com/catering",
+      "title": "Sproutz Downtown — catering enquiry form",
+      "publisher": "Sproutz Downtown",
+      "kind": "official-website",
+      "status": "Minimum 10 boxes; generic bento offer, no named dish composition. No enquiry sent.",
+      "checkedAt": "2026-10-15T10:48:55.616874+00:00"
+    },
+    {
+      "id": "coco-current-unit-conflict-20261016",
+      "url": "https://www.marinasquare.com.sg/stores/337",
+      "publisher": "Marina Square",
+      "kind": "landlord-primary",
+      "checkedAt": "2026-10-16T01:03:01Z",
+      "status": "readable",
+      "notes": "Current tenant unit#03-122 conflicts with current merchant ordering store#03-130A; no relocation or current-stock inference."
+    },
+    {
+      "id": "ur08-ascend-cross-landlord",
+      "url": "https://www.18cross.sg/ascend-signature",
+      "publisher": "18 Cross landlord tenant directory",
+      "title": "Ascend Signature exact Cross Street vegetarian soup concept",
+      "checkedAt": "2026-10-16T05:40:04.997Z",
+      "accessStatus": "normal-public-http-200",
+      "notes": "Landlord identifies18CrossStreet#B1-12,K4 and describes vegetarian mala soup plus herbal/tomato/mushroom soup bases, freshly prepared in-house. No current prices, ingredient weights, bowl quantities or complete menu. Exact primary tenant-premise context supersedes prior secondary-only scope gap; original weighted-price hold remains."
+    },
+    {
+      "id": "ad-ascend-cross-merchant-announcement",
+      "url": "https://www.facebook.com/photo/?fbid=1163870909934825&set=a.130187213303205",
+      "title": "Ascend merchant announcement — dish exclusive to18Cross",
+      "publisher": "Ascend Vegetarian",
+      "kind": "merchant-public-announcement",
+      "status": "readable-public-browser",
+      "checkedAt": "2026-10-17T02:15:55.482Z",
+      "publishedAt": null,
+      "notes": "Visible date says18hoursago at capture; exact publication timestamp not asserted. Merchant explicitly binds dish to18Cross. No price printed. Base described as vegan; optional egg is separately mentioned, with no surcharge/default stated. Not a complete menu or stock guarantee."
+    }
+  ],
+  "branches": [
+    {
+      "id": "ascend-esplanade",
+      "name": "Ascend Vegetarian — Esplanade Xchange",
+      "address": "90 Bras Basah Road #B1-12/12A, Singapore 189562",
+      "postalCode": "189562",
+      "sourceIds": [
+        "ascend-home",
+        "ascend-grab"
+      ],
+      "menuIds": [
+        "ascend-esplanade-current"
+      ],
+      "gaps": [
+        "Merchant website body listsB1-12 while embedded address label listsB1-12/12A; retain unit difference.",
+        "No readable merchant food names/prices; linked Grab403; no photo-based inference."
+      ]
+    },
+    {
+      "id": "ascend-cross-lead",
+      "name": "Ascend Vegetarian — 18 Cross Signature",
+      "address": "18 Cross Street #B1-12, K4, Singapore 048423",
+      "postalCode": "048423",
+      "sourceIds": [
+        "ascend-cross-secondary",
+        "ur08-ascend-cross-landlord",
+        "ad-ascend-cross-merchant-announcement"
+      ],
+      "menuIds": [
+        "ascend-cross-secondary-menu",
+        "ur08-ascend-cross-current-soup",
+        "ad-ascend-cross-smoky-rice"
+      ],
+      "gaps": [
+        "Exact current landlord premises and vegetarian soup concept confirmed; original secondary weighted-price observation remains held.",
+        "No current per100g/base fee, portion, option default/surcharge, complete menu or present stock proof. Existing independent postal048423 retained; landlord supplies street/unit. No Esplanade menu transfer.",
+        "17October merchant public announcement confirms one additional named dish exclusive to18Cross. No price/default/optional-egg surcharge or full-menu/current-stock confirmation."
+      ],
+      "googlePlaceId": null,
+      "directoryLeadIds": [
+        "hippo-ascend-vegetarian-18-cross"
+      ],
+      "eligibility": "vegetarian-confirmed",
+      "identityStatus": "independent-landlord-premise-no-google-assignment",
+      "venueEligibility": {
+        "status": "vegetarian-confirmed",
+        "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+        "sourceIds": [
+          "ur08-ascend-cross-landlord"
+        ],
+        "reason": "Current landlord tenant directory confirms exact18Cross#B1-12,K4 vegetarian soup concept."
+      },
+      "priorPremiseObservation": {
+        "name": "Ascend Vegetarian —18Cross lead",
+        "address": "18 Cross Street, Singapore 048423",
+        "checkedAt": "2026-10-15T10:48:55.616874+00:00",
+        "originalGaps": [
+          "Secondary identity only; merchant current Cross Street branch confirmation unavailable; no menu transfer from Esplanade."
+        ]
+      }
+    },
+    {
+      "id": "coco-marina-square",
+      "name": "CoCo Veggie Nyonya Cuisine — Marina Square",
+      "address": "6 Raffles Boulevard #03-130A Marina Square, Singapore 039594",
+      "postalCode": "039594",
+      "sourceIds": [
+        "coco-order",
+        "coco-stores",
+        "coco-current-unit-conflict-20261016"
+      ],
+      "menuIds": [
+        "coco-oddle-foods"
+      ],
+      "gaps": [
+        "All 41 source dishes Out of stock; current operation and stock not established; not classified permanently closed.",
+        "Two currently accessible primary sources give different exact shop units. The existing reviewed branch/menu belongs to the merchant ordering source at #03-130A; landlord currently lists #03-122. Same brand/address building does not establish continuity, affiliation, relocation or present orderability. Withhold old-unit consumer publication until the relationship is resolved."
+      ],
+      "publicationStatus": "hold-current-primary-unit-conflict",
+      "eligibility": "vegetarian-confirmed",
+      "identityStatus": "current-primary-unit-conflict"
+    },
+    {
+      "id": "moonchay-fortune",
+      "name": "Moon Chay Vegetarian — Fortune Centre",
+      "address": "190 Middle Road #02-27/28 Fortune Centre, Singapore 188979",
+      "postalCode": "188979",
+      "sourceIds": [
+        "moonchay-home",
+        "moonchay-stores"
+      ],
+      "menuIds": [
+        "moonchay-oddle-foods",
+        "moonchay-pdf-foods",
+        "moonchay-home-foods"
+      ],
+      "gaps": [
+        "PDF upload path2024 does not establish effective date; homepage/PDF/ordering prices differ, especially Chao Hotpot.",
+        "Source weekday schedule has no Tuesday rule; no current availability or ingredient certification."
+      ]
+    },
+    {
+      "id": "sproutz-downtown",
+      "name": "Sproutz Downtown",
+      "address": "15 Central Boulevard #B1-05 Downtown MRT Station, Singapore 018969",
+      "postalCode": "018969",
+      "sourceIds": [
+        "sproutz-home",
+        "sproutz-menu"
+      ],
+      "menuIds": [
+        "sproutz-pdf-foods"
+      ],
+      "gaps": [
+        "Around15 rotating counter dishes daily are unnamed; cannot invent a full counter catalogue.",
+        "Website/PDF dietary and MSG statements differ; none used as certification. Catering form has no named composition; no enquiry sent."
+      ]
+    }
+  ],
+  "menus": [
+    {
+      "id": "ascend-esplanade-current",
+      "branchIds": [
+        "ascend-esplanade"
+      ],
+      "name": "Ascend — current menu gap",
+      "scope": "branch",
+      "sourceIds": [
+        "ascend-home",
+        "ascend-grab"
+      ],
+      "coverage": "unavailable",
+      "items": [],
+      "notice": "Official page supplies photos, not names/prices; merchant-linked Grab HTTP403. No photo-based dish guesses."
+    },
+    {
+      "id": "ascend-cross-secondary-menu",
+      "branchIds": [
+        "ascend-cross-lead"
+      ],
+      "name": "Ascend 18 Cross — secondary weighted bowl",
+      "scope": "branch",
+      "sourceIds": [
+        "ascend-cross-secondary"
+      ],
+      "coverage": "held",
+      "items": [
+        {
+          "id": "ascend-cross-secondary-menu-bec20d5c42e18ab2",
+          "name": "Malatang (pick your ingredients)",
+          "category": "Weighted bowl",
+          "sourceIds": [
+            "ascend-cross-secondary"
+          ],
+          "publicationStatus": "held",
+          "weightPricing": {
+            "amountPer100g": 3.5,
+            "currency": "unknown"
+          },
+          "baseFee": {
+            "amount": 1,
+            "currency": "unknown"
+          },
+          "qualifier": "Secondary branch lead only; per 100g and base fee are not a fixed bowl price. Not assigned to Esplanade or confirmed current by merchant."
+        }
+      ],
+      "notice": "Secondary evidence, not exact current merchant branch/menu confirmation."
+    },
+    {
+      "id": "coco-oddle-foods",
+      "branchIds": [
+        "coco-marina-square"
+      ],
+      "name": "CoCo — published ordering food listing",
+      "scope": "branch",
+      "sourceIds": [
+        "coco-order",
+        "coco-stores"
+      ],
+      "coverage": "partial",
+      "items": [
+        {
+          "id": "coco-oddle-foods-3c5b647502e2af86",
+          "name": "Vegetarian Curry Monkey Head Mushrooms w White Rice 咖喱猴头菇饭",
+          "category": "SET MEALS 套餐 (SINGLE)",
+          "sourceIds": [
+            "coco-order"
+          ],
+          "sourceProductId": "8a818da67b055ac3017b06898da10436",
+          "sourceStatus": 1,
+          "sourceUnavailable": true,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 18.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 18.9,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "coco-oddle-foods-7070a2bcb1e45da4",
+          "name": "Vegetarian Rendang Monkey Head Mushrooms w Turmeric Rice 冷当猴头菇黄姜饭",
+          "category": "SET MEALS 套餐 (SINGLE)",
+          "sourceIds": [
+            "coco-order"
+          ],
+          "sourceProductId": "8a818e437b0648ca017b068939e4197f",
+          "sourceStatus": 1,
+          "sourceUnavailable": true,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 18.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 18.9,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "coco-oddle-foods-65c75a40e58db433",
+          "name": "Vegetarian Asam Fish w White Rice 亚参素鱼饭",
+          "category": "SET MEALS 套餐 (SINGLE)",
+          "sourceIds": [
+            "coco-order"
+          ],
+          "sourceProductId": "8a818e437b0648ca017b06893ff41985",
+          "sourceStatus": 1,
+          "sourceUnavailable": true,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 18.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 18.9,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "coco-oddle-foods-da8371fbb9f1f1e4",
+          "name": "Butterfly Pea Flower Coconut Rice 蝶豆花椰浆饭",
+          "category": "SET MEALS 套餐 (SINGLE)",
+          "sourceIds": [
+            "coco-order"
+          ],
+          "sourceProductId": "8a8195807b0558ec017b0689bc7e066f",
+          "sourceStatus": 1,
+          "sourceUnavailable": true,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 18.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 18.9,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "coco-oddle-foods-52a37654f5b0004f",
+          "name": "Vegetarian Monkey Head Mushroom w Fragrant Rice 猴头菇香积饭",
+          "category": "SET MEALS 套餐 (SINGLE)",
+          "sourceIds": [
+            "coco-order"
+          ],
+          "sourceProductId": "8a8194cc7b04d5b6017b0689d85052c7",
+          "sourceStatus": 1,
+          "sourceUnavailable": true,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 14.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 14.9,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "coco-oddle-foods-82521a92c62b5e43",
+          "name": "Vegetarian Lontong 素隆冬",
+          "category": "SET MEALS 套餐 (SINGLE)",
+          "sourceIds": [
+            "coco-order"
+          ],
+          "sourceProductId": "8a8194c07b061f96017b0689e3a92d08",
+          "sourceStatus": 1,
+          "sourceUnavailable": true,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 14.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 14.9,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "coco-oddle-foods-b40abcb1f0aabfbe",
+          "name": "Su Gu Cha 药材素古茶",
+          "category": "SET MEALS 套餐 (SINGLE)",
+          "sourceIds": [
+            "coco-order"
+          ],
+          "sourceProductId": "8a8191997b061dc8017b0689f1202d93",
+          "sourceStatus": 1,
+          "sourceUnavailable": true,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 18.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 18.9,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "coco-oddle-foods-ac5e9ef673f4d8d5",
+          "name": "Pineapple Fried Rice 黄梨炒饭",
+          "category": "FRIED RICE 炒饭",
+          "sourceIds": [
+            "coco-order"
+          ],
+          "sourceProductId": "8a8195807b0558ec017b068a4aa506a1",
+          "sourceStatus": 1,
+          "sourceUnavailable": true,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 10.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 10.9,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "coco-oddle-foods-fccf0da49921dc49",
+          "name": "Curry Fried Rice 咖喱炒饭",
+          "category": "FRIED RICE 炒饭",
+          "sourceIds": [
+            "coco-order"
+          ],
+          "sourceProductId": "8a818c857b05d036017b068a559b4d9d",
+          "sourceStatus": 1,
+          "sourceUnavailable": true,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 10.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 10.9,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "coco-oddle-foods-4462685ef4fa8818",
+          "name": "Sambal Sauce w Petai Fried Rice 参巴臭豆炒饭",
+          "category": "FRIED RICE 炒饭",
+          "sourceIds": [
+            "coco-order"
+          ],
+          "sourceProductId": "8a818e437b0648ca017b068a626819d8",
+          "sourceStatus": 1,
+          "sourceUnavailable": true,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 10.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 10.9,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "coco-oddle-foods-acc36d647f874ef8",
+          "name": "Mixed Mushroom Fried Rice 什锦菇炒饭",
+          "category": "FRIED RICE 炒饭",
+          "sourceIds": [
+            "coco-order"
+          ],
+          "sourceProductId": "8a818e437b0648ca017b068a6cd319dc",
+          "sourceStatus": 1,
+          "sourceUnavailable": true,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 10.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 10.9,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "coco-oddle-foods-7861e2309b943ba8",
+          "name": "Bitter Gourd Fried Rice 苦瓜炒饭",
+          "category": "FRIED RICE 炒饭",
+          "sourceIds": [
+            "coco-order"
+          ],
+          "sourceProductId": "8a8194cc7b04d5b6017b068a7ad35308",
+          "sourceStatus": 1,
+          "sourceUnavailable": true,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 10.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 10.9,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "coco-oddle-foods-2ea76775b9730313",
+          "name": "White Rice",
+          "category": "FRIED RICE 炒饭",
+          "sourceIds": [
+            "coco-order"
+          ],
+          "sourceProductId": "8a8194f67e5aef0d017e5b8cc3f347da",
+          "sourceStatus": 1,
+          "sourceUnavailable": true,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 1.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 1.8,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "coco-oddle-foods-12564d34303b2055",
+          "name": "Blue Pea Coconut Rice",
+          "category": "FRIED RICE 炒饭",
+          "sourceIds": [
+            "coco-order"
+          ],
+          "sourceProductId": "8a81956c7e5aef08017e5b8d6168459b",
+          "sourceStatus": 1,
+          "sourceUnavailable": true,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 2.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 2.5,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "coco-oddle-foods-58a2404a9e51e871",
+          "name": "Turmeric Rice",
+          "category": "FRIED RICE 炒饭",
+          "sourceIds": [
+            "coco-order"
+          ],
+          "sourceProductId": "8a8190677e567734017e5b8da7213ef1",
+          "sourceStatus": 1,
+          "sourceUnavailable": true,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 2.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 2.5,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "coco-oddle-foods-18fd4e3aff11a8d1",
+          "name": "Yuan Yang Rice",
+          "category": "FRIED RICE 炒饭",
+          "sourceIds": [
+            "coco-order"
+          ],
+          "sourceProductId": "8a81956c7e5aef08017e5b8e8732465e",
+          "sourceStatus": 1,
+          "sourceUnavailable": true,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 3,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 3,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "coco-oddle-foods-c3d1a74138301cac",
+          "name": "Vegetable Curry Ramen 咖喱菜拉面",
+          "category": "NOODLES 面类",
+          "sourceIds": [
+            "coco-order"
+          ],
+          "sourceProductId": "8a8194a17b0578e1017b068ac5b47daa",
+          "sourceStatus": 1,
+          "sourceUnavailable": true,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 14.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 14.9,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "coco-oddle-foods-d4a48e224a222f4d",
+          "name": "Superior Singapore Laksa 特制新加坡叻沙",
+          "category": "NOODLES 面类",
+          "sourceIds": [
+            "coco-order"
+          ],
+          "sourceProductId": "8a818c857b05d036017b068ad5d44df0",
+          "sourceStatus": 1,
+          "sourceUnavailable": true,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 14.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 14.9,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "coco-oddle-foods-4224039686e77672",
+          "name": "Vegetarian Satay Bee Hoon 素沙爹米粉",
+          "category": "NOODLES 面类",
+          "sourceIds": [
+            "coco-order"
+          ],
+          "sourceProductId": "8a8194a17b0578e1017b068ae1b37db1",
+          "sourceStatus": 1,
+          "sourceUnavailable": true,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 14.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 14.9,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "coco-oddle-foods-7017ab7ba33fb677",
+          "name": "Malay Style Bee Hoon 马来风味米粉",
+          "category": "NOODLES 面类",
+          "sourceIds": [
+            "coco-order"
+          ],
+          "sourceProductId": "8a8195807b0558ec017b068af01506ee",
+          "sourceStatus": 1,
+          "sourceUnavailable": true,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 12.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 12.9,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "coco-oddle-foods-3a350af68214a32a",
+          "name": "Superior Ramen 招牌拉面",
+          "category": "NOODLES 面类",
+          "sourceIds": [
+            "coco-order"
+          ],
+          "sourceProductId": "8a8191b57b05f508017b068afc413f01",
+          "sourceStatus": 1,
+          "sourceUnavailable": true,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 14.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 14.9,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "coco-oddle-foods-d80d30ffe4ba6ae8",
+          "name": "Fragrant Vegetable Ramen 罗汉素拉面",
+          "category": "NOODLES 面类",
+          "sourceIds": [
+            "coco-order"
+          ],
+          "sourceProductId": "8a818c957b05e159017b068b06fd48ec",
+          "sourceStatus": 1,
+          "sourceUnavailable": true,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 14.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 14.9,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "coco-oddle-foods-4f56a68496ef6937",
+          "name": "Vegetarian Fish Bee Hoon Soup 鱼片粗米粉汤",
+          "category": "NOODLES 面类",
+          "sourceIds": [
+            "coco-order"
+          ],
+          "sourceProductId": "8a8191b57b05f508017b068b134c3f0f",
+          "sourceStatus": 1,
+          "sourceUnavailable": true,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 14.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 14.9,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "coco-oddle-foods-453e854cd1310233",
+          "name": "Malay Sauce Deep Fried Tofu 马来式炸豆腐",
+          "category": "TOFU 豆腐",
+          "sourceIds": [
+            "coco-order"
+          ],
+          "sourceProductId": "8a8193837b05f50d017b068b7fdf3ebf",
+          "sourceStatus": 1,
+          "sourceUnavailable": true,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 10.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 10.9,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "coco-oddle-foods-93ea0eb6eff66997",
+          "name": "Satay Sauce Deep Fried Tofu 沙爹酱炸豆腐",
+          "category": "TOFU 豆腐",
+          "sourceIds": [
+            "coco-order"
+          ],
+          "sourceProductId": "8a818da67b055ac3017b068b8a3504ed",
+          "sourceStatus": 1,
+          "sourceUnavailable": true,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 10.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 10.9,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "coco-oddle-foods-9ba7c68ffac241db",
+          "name": "Xiang Chun Sauce Fried Tofu 香椿豆腐",
+          "category": "TOFU 豆腐",
+          "sourceIds": [
+            "coco-order"
+          ],
+          "sourceProductId": "8a8195807b0558ec017b068b9403073f",
+          "sourceStatus": 1,
+          "sourceUnavailable": true,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 10.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 10.9,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "coco-oddle-foods-0f8faff1b6aebb1e",
+          "name": "Ribbon Curd w Medlar 枸杞豆结",
+          "category": "TOFU 豆腐",
+          "sourceIds": [
+            "coco-order"
+          ],
+          "sourceProductId": "8a8194a17b0578e1017b068b9ec97df1",
+          "sourceStatus": 1,
+          "sourceUnavailable": true,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 14.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 14.9,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "coco-oddle-foods-51da77e57d5f6380",
+          "name": "Nyonya Lemongrass Veggie Chicken 特制娘惹香茅素鸡",
+          "category": "VEGETABLE 菜类",
+          "sourceIds": [
+            "coco-order"
+          ],
+          "sourceProductId": "8a8194a17b0578e1017b068be6fb7e1b",
+          "sourceStatus": 1,
+          "sourceUnavailable": true,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 18.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 18.9,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "coco-oddle-foods-75b138a62be0e22b",
+          "name": "Baked Nyonya Veggie Fish 特制娘惹素烤鱼",
+          "category": "VEGETABLE 菜类",
+          "sourceIds": [
+            "coco-order"
+          ],
+          "sourceProductId": "8a81971e7b05df95017b068bf20b49aa",
+          "sourceStatus": 1,
+          "sourceUnavailable": true,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 24.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 24.9,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "coco-oddle-foods-1b0e47d8d841fbe3",
+          "name": "Nyonya Kapitan Curry Veggie Chicken 特制娘惹甲必丹咖喱素鸡",
+          "category": "VEGETABLE 菜类",
+          "sourceIds": [
+            "coco-order"
+          ],
+          "sourceProductId": "8a818c857b05d036017b068bfc174e77",
+          "sourceStatus": 1,
+          "sourceUnavailable": true,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 18.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 18.9,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "coco-oddle-foods-cfbf5f7e093ab140",
+          "name": "Special Nyonya Pongteh Vegetarian Chicken 特制娘惹素豆酱鸡",
+          "category": "VEGETABLE 菜类",
+          "sourceIds": [
+            "coco-order"
+          ],
+          "sourceProductId": "8a818c857b05d036017b068c06e24e8a",
+          "sourceStatus": 1,
+          "sourceUnavailable": true,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 15.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 15.9,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "coco-oddle-foods-de8b7b46cef01b3f",
+          "name": "Mixed Vegetable Curry 咖喱蔬菜",
+          "category": "VEGETABLE 菜类",
+          "sourceIds": [
+            "coco-order"
+          ],
+          "sourceProductId": "8a8194a17b0578e1017b068c140c7e26",
+          "sourceStatus": 1,
+          "sourceUnavailable": true,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 18.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 18.9,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "coco-oddle-foods-dacc7d76fac663c9",
+          "name": "Nyonya Pineapple Sauce w Veggie Prawn 特制娘惹黄梨酱素虾",
+          "category": "VEGETABLE 菜类",
+          "sourceIds": [
+            "coco-order"
+          ],
+          "sourceProductId": "8a818c857b05d036017b068c1f3c4e93",
+          "sourceStatus": 1,
+          "sourceUnavailable": true,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 18.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 18.9,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "coco-oddle-foods-0d7476998eec899e",
+          "name": "Fried Monkey Head Mushroom w Butter 奶油猴头菇",
+          "category": "VEGETABLE 菜类",
+          "sourceIds": [
+            "coco-order"
+          ],
+          "sourceProductId": "8a8191b57b05f508017b068c2a2b3fa3",
+          "sourceStatus": 1,
+          "sourceUnavailable": true,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 18.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 18.9,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "coco-oddle-foods-2e77794f0a817f7d",
+          "name": "Stir Fried Mixed Vegetable w Sambal Sauce 参峇辣椒炒鲜蔬",
+          "category": "VEGETABLE 菜类",
+          "sourceIds": [
+            "coco-order"
+          ],
+          "sourceProductId": "8a818c857b05d036017b068c3b804e9f",
+          "sourceStatus": 1,
+          "sourceUnavailable": true,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 15.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 15.9,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "coco-oddle-foods-3898f86f18d8ce8e",
+          "name": "Five Flavour Brinjal 五味茄",
+          "category": "VEGETABLE 菜类",
+          "sourceIds": [
+            "coco-order"
+          ],
+          "sourceProductId": "8a8194c07b061f96017b068c47d02dd9",
+          "sourceStatus": 1,
+          "sourceUnavailable": true,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 13.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 13.9,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "coco-oddle-foods-1b05e51f84418551",
+          "name": "Nyonya Sambal Chili Okra 娘惹参峇羊角豆",
+          "category": "VEGETABLE 菜类",
+          "sourceIds": [
+            "coco-order"
+          ],
+          "sourceProductId": "8a818e437b0648ca017b068c550e1a81",
+          "sourceStatus": 1,
+          "sourceUnavailable": true,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 13.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 13.9,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "coco-oddle-foods-65e81214b9ace210",
+          "name": "Nyonya Yong Tau Fu 特制娘惹素酿豆腐",
+          "category": "VEGETABLE 菜类",
+          "sourceIds": [
+            "coco-order"
+          ],
+          "sourceProductId": "8a8194cc7b04d5b6017b068c5ed853ff",
+          "sourceStatus": 1,
+          "sourceUnavailable": true,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 18.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 18.9,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "coco-oddle-foods-e1882c1bd98046c6",
+          "name": "Vegetarian Dried Shrimp w Long Bean 素虾米炒长豆",
+          "category": "VEGETABLE 菜类",
+          "sourceIds": [
+            "coco-order"
+          ],
+          "sourceProductId": "8a8195807b0558ec017b068c73210784",
+          "sourceStatus": 1,
+          "sourceUnavailable": true,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 12.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 12.9,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "coco-oddle-foods-596a824e68d64c61",
+          "name": "Kang Kong Goreng Belacan 马来风光",
+          "category": "VEGETABLE 菜类",
+          "sourceIds": [
+            "coco-order"
+          ],
+          "sourceProductId": "8a8195807b0558ec017b068c8306078b",
+          "sourceStatus": 1,
+          "sourceUnavailable": true,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 12.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 12.9,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "coco-oddle-foods-f9b1524f54286280",
+          "name": "Spinach w Ginger Sauce 姜汁菠菜",
+          "category": "VEGETABLE 菜类",
+          "sourceIds": [
+            "coco-order"
+          ],
+          "sourceProductId": "8a818c857b05d036017b068c90a64ec5",
+          "sourceStatus": 1,
+          "sourceUnavailable": true,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 12.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 12.9,
+              "currency": "SGD"
+            }
+          ]
+        }
+      ],
+      "notice": "All 41 visible foods captured; every listing Out of stock. No proof of current operation or order availability. Two currently accessible primary sources give different exact shop units. The existing reviewed branch/menu belongs to the merchant ordering source at #03-130A; landlord currently lists #03-122. Same brand/address building does not establish continuity, affiliation, relocation or present orderability. Withhold old-unit consumer publication until the relationship is resolved.",
+      "publicationStatus": "hold-current-primary-unit-conflict"
+    },
+    {
+      "id": "moonchay-oddle-foods",
+      "branchIds": [
+        "moonchay-fortune"
+      ],
+      "name": "Moon Chay — ordering foods",
+      "scope": "branch",
+      "sourceIds": [
+        "moonchay-home",
+        "moonchay-order",
+        "moonchay-stores"
+      ],
+      "coverage": "source-covered",
+      "items": [
+        {
+          "id": "moonchay-oddle-foods-72a881be642641de",
+          "name": "R01. SIGNATURE BROKEN RICE W/ VEGAN RIBS & PORK PATTIES",
+          "category": "Main Dishes",
+          "sourceIds": [
+            "moonchay-order"
+          ],
+          "sourceProductId": "8aa600859ddbbe7b019ddd642b694dff",
+          "sourceStatus": 0,
+          "sourceUnavailable": false,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 13.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 13.8,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-oddle-foods-a5dead8a6d22269d",
+          "name": "R02. CRISPY FRIED RICE W/MUSHROOM",
+          "category": "Main Dishes",
+          "sourceIds": [
+            "moonchay-order"
+          ],
+          "sourceProductId": "8aa600859ddbbe7b019ddd642b6b4e05",
+          "sourceStatus": 0,
+          "sourceUnavailable": false,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 9.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 9.9,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-oddle-foods-dca587f70d9a83fe",
+          "name": "R03. PREMIUM CHICKEN FRIED RICE",
+          "category": "Main Dishes",
+          "sourceIds": [
+            "moonchay-order"
+          ],
+          "sourceProductId": "8aa600859ddbbe7b019ddd642b6b4e02",
+          "sourceStatus": 0,
+          "sourceUnavailable": false,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 12.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 12.8,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-oddle-foods-ee2758abb86eb544",
+          "name": "T25. BANANA BRAISED TOFU WITH RICE",
+          "category": "Main Dishes",
+          "sourceIds": [
+            "moonchay-order"
+          ],
+          "sourceProductId": "8aa600859ddbbe7b019ddd642b6c4e08",
+          "sourceStatus": 0,
+          "sourceUnavailable": false,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 13.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 13.8,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-oddle-foods-24f6e98ba416fed3",
+          "name": "V04. GREEN CURRY WITH RICE/NOODLES",
+          "category": "Main Dishes",
+          "sourceIds": [
+            "moonchay-order"
+          ],
+          "sourceProductId": "8aa600859ddbbe7b019ddd642b6c4e0b",
+          "sourceStatus": 0,
+          "sourceUnavailable": false,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 13.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 13.8,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-oddle-foods-d9995ffa8b4cec70",
+          "name": "S27. HEALTHY SOUR SOUP",
+          "category": "Main Dishes",
+          "sourceIds": [
+            "moonchay-order"
+          ],
+          "sourceProductId": "8aa600859ddbbe7b019ddd642b6d4e0e",
+          "sourceStatus": 0,
+          "sourceUnavailable": false,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 10.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 10.8,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-oddle-foods-bfdf597ab54ab088",
+          "name": "N06. SIGNATURE HUE VEGAN BEEF NOODLES",
+          "category": "Soup Noodles",
+          "sourceIds": [
+            "moonchay-order"
+          ],
+          "sourceProductId": "8aa600859ddbbe7b019ddd642b6e4e12",
+          "sourceStatus": 1,
+          "sourceUnavailable": false,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 13.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 13.9,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-oddle-foods-8ba775d1015217c6",
+          "name": "N08. SPEACIAL PHO",
+          "category": "Soup Noodles",
+          "sourceIds": [
+            "moonchay-order"
+          ],
+          "sourceProductId": "8aa600859ddbbe7b019ddd642b6e4e15",
+          "sourceStatus": 1,
+          "sourceUnavailable": false,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 13.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 13.9,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-oddle-foods-f829efb75b162be7",
+          "name": "N07.VEGAN CRAB NOODLES",
+          "category": "Soup Noodles",
+          "sourceIds": [
+            "moonchay-order"
+          ],
+          "sourceProductId": "8aa600859ddbbe7b019ddd642b6e4e18",
+          "sourceStatus": 0,
+          "sourceUnavailable": true,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 13.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 13.9,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-oddle-foods-f3f067ef26bb44cc",
+          "name": "N09. VEGAN FISH NOODLES",
+          "category": "Soup Noodles",
+          "sourceIds": [
+            "moonchay-order"
+          ],
+          "sourceProductId": "8aa600859ddbbe7b019ddd642b784e1b",
+          "sourceStatus": 0,
+          "sourceUnavailable": true,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 13.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 13.9,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-oddle-foods-60bfef94235a01a6",
+          "name": "N10. STIR-FRIED PHO",
+          "category": "Dry Noodles",
+          "sourceIds": [
+            "moonchay-order"
+          ],
+          "sourceProductId": "8aa600859ddbbe7b019ddd642b7a4e1f",
+          "sourceStatus": 0,
+          "sourceUnavailable": false,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 10.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 10.5,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-oddle-foods-43d65d4f402ca919",
+          "name": "N11. VEGAN GRILLED PORK NOODLES/BUN CHA HA NOI",
+          "category": "Dry Noodles",
+          "sourceIds": [
+            "moonchay-order"
+          ],
+          "sourceProductId": "8aa600859ddbbe7b019ddd642b7a4e22",
+          "sourceStatus": 0,
+          "sourceUnavailable": false,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 14.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 14.8,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-oddle-foods-38be6fb7642b73d5",
+          "name": "N12. SPRING ROLLS NOODLES",
+          "category": "Dry Noodles",
+          "sourceIds": [
+            "moonchay-order"
+          ],
+          "sourceProductId": "8aa600859ddbbe7b019ddd642b7b4e25",
+          "sourceStatus": 0,
+          "sourceUnavailable": false,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 10.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 10.5,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-oddle-foods-ba86485c09d9b865",
+          "name": "N13. VEGAN BBQ PORK NOODLES",
+          "category": "Dry Noodles",
+          "sourceIds": [
+            "moonchay-order"
+          ],
+          "sourceProductId": "8aa600859ddbbe7b019ddd642b7b4e28",
+          "sourceStatus": 0,
+          "sourceUnavailable": false,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 10.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 10.5,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-oddle-foods-3821573ffcb6ecdd",
+          "name": "M14. PREMIUM GRILLED PORK WRAP&ROLL",
+          "category": "Wrap & Roll",
+          "sourceIds": [
+            "moonchay-order"
+          ],
+          "sourceProductId": "8aa600859ddbbe7b019ddd642b7c4e2c",
+          "sourceStatus": 0,
+          "sourceUnavailable": false,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 24.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 24.8,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-oddle-foods-025dcc5eee22ff08",
+          "name": "M15.BANH XEO",
+          "category": "Wrap & Roll",
+          "sourceIds": [
+            "moonchay-order"
+          ],
+          "sourceProductId": "8aa600859ddbbe7b019ddd642b7c4e2f",
+          "sourceStatus": 0,
+          "sourceUnavailable": false,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 14.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 14.8,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-oddle-foods-de6ab31db6ef5901",
+          "name": "COMBO MOON CHAY BITES A",
+          "category": "Wrap & Roll",
+          "sourceIds": [
+            "moonchay-order"
+          ],
+          "sourceProductId": "8aa600859ddbbe7b019ddd642b7e4e32",
+          "sourceStatus": 0,
+          "sourceUnavailable": false,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 42.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 42.8,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-oddle-foods-9c3e76c0f1e98d2e",
+          "name": "COMBO MOON CHAY BITES B",
+          "category": "Wrap & Roll",
+          "sourceIds": [
+            "moonchay-order"
+          ],
+          "sourceProductId": "8aa600859ddbbe7b019ddd642b7e4e35",
+          "sourceStatus": 0,
+          "sourceUnavailable": false,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 25,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 25,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-oddle-foods-db5d126a8c51cad5",
+          "name": "B16.PA TE VIET HAM BANH MI",
+          "category": "Banh Mi",
+          "sourceIds": [
+            "moonchay-order"
+          ],
+          "sourceProductId": "8aa600859ddbbe7b019ddd642b7f4e39",
+          "sourceStatus": 0,
+          "sourceUnavailable": false,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 9.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 9.8,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-oddle-foods-ff15850e00613034",
+          "name": "B17. VEGAN BBQ PORK PATTIES BANH MI",
+          "category": "Banh Mi",
+          "sourceIds": [
+            "moonchay-order"
+          ],
+          "sourceProductId": "8aa600859ddbbe7b019ddd642b7f4e3c",
+          "sourceStatus": 0,
+          "sourceUnavailable": false,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 9.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 9.8,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-oddle-foods-63a7efded1d206ba",
+          "name": "B15. VEGAN EGG TOFU BANH MI",
+          "category": "Banh Mi",
+          "sourceIds": [
+            "moonchay-order"
+          ],
+          "sourceProductId": "8aa600859ddbbe7b019ddd642b7f4e3f",
+          "sourceStatus": 0,
+          "sourceUnavailable": false,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 9.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 9.8,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-oddle-foods-9f1d4f3639f12fea",
+          "name": "L23. PASSION FRUIT HOTPOT",
+          "category": "Hotpot & Vege",
+          "sourceIds": [
+            "moonchay-order"
+          ],
+          "sourceProductId": "8aa600859ddbbe7b019ddd642b804e43",
+          "sourceStatus": 0,
+          "sourceUnavailable": false,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 38.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 38.9,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-oddle-foods-04957b9a3a405c55",
+          "name": "L24. SINATURE CHAO HOTPOT",
+          "category": "Hotpot & Vege",
+          "sourceIds": [
+            "moonchay-order"
+          ],
+          "sourceProductId": "8aa600859ddbbe7b019ddd642b804e46",
+          "sourceStatus": 0,
+          "sourceUnavailable": false,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 38.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 38.9,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-oddle-foods-7a42cf6470f66ec4",
+          "name": "V07. STIR-FRIED MIXED VEGETABLES",
+          "category": "Hotpot & Vege",
+          "sourceIds": [
+            "moonchay-order"
+          ],
+          "sourceProductId": "8aa600859ddbbe7b019ddd642b814e49",
+          "sourceStatus": 0,
+          "sourceUnavailable": false,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 14.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 14.8,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-oddle-foods-27baba1c9493c36f",
+          "name": "V05. MANGO SALAD W/ VEGE CRAKER",
+          "category": "Hotpot & Vege",
+          "sourceIds": [
+            "moonchay-order"
+          ],
+          "sourceProductId": "8aa600859ddbbe7b019ddd642b814e4c",
+          "sourceStatus": 0,
+          "sourceUnavailable": false,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 14.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 14.8,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-oddle-foods-d0f972df53c1e236",
+          "name": "T31. MUSHROOM TOFU W/ RICE CRAKER",
+          "category": "Sides",
+          "sourceIds": [
+            "moonchay-order"
+          ],
+          "sourceProductId": "8aa600859ddbbe7b019ddd642b844e60",
+          "sourceStatus": 0,
+          "sourceUnavailable": false,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 12.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 12.9,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-oddle-foods-3e9d928824229d8f",
+          "name": "T33. TOFU W/ LEMONGRASS",
+          "category": "Sides",
+          "sourceIds": [
+            "moonchay-order"
+          ],
+          "sourceProductId": "8aa600859ddbbe7b019ddd642b854e66",
+          "sourceStatus": 0,
+          "sourceUnavailable": false,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 9.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 9.8,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-oddle-foods-1ade235556857533",
+          "name": "T34. DEEP FRIED TOFU",
+          "category": "Sides",
+          "sourceIds": [
+            "moonchay-order"
+          ],
+          "sourceProductId": "8aa600859ddbbe7b019ddd642b854e69",
+          "sourceStatus": 0,
+          "sourceUnavailable": false,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 6.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 6.8,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-oddle-foods-a9ceea058b54f6fc",
+          "name": "T35. FRESH SPRING ROLLS (4 PCS)",
+          "category": "Sides",
+          "sourceIds": [
+            "moonchay-order"
+          ],
+          "sourceProductId": "8aa600859ddbbe7b019ddd642b864e6c",
+          "sourceStatus": 0,
+          "sourceUnavailable": false,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 11.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 11.8,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-oddle-foods-a743a61026f8c191",
+          "name": "T36. GOLDEN GRISPY ROLLS (4 PCS)",
+          "category": "Sides",
+          "sourceIds": [
+            "moonchay-order"
+          ],
+          "sourceProductId": "8aa600859ddbbe7b019ddd642b864e6f",
+          "sourceStatus": 0,
+          "sourceUnavailable": false,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 11.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 11.8,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-oddle-foods-359a3538e3155a33",
+          "name": "T37 FRIENCH FRIES",
+          "category": "Sides",
+          "sourceIds": [
+            "moonchay-order"
+          ],
+          "sourceProductId": "8aa600859ddbbe7b019ddd642b864e72",
+          "sourceStatus": 0,
+          "sourceUnavailable": false,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 6.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 6.5,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-oddle-foods-20075e23022245de",
+          "name": "T38. HANDMADE DUCK W/ MANTOU",
+          "category": "Sides",
+          "sourceIds": [
+            "moonchay-order"
+          ],
+          "sourceProductId": "8aa600859ddbbe7b019ddd642b844e63",
+          "sourceStatus": 0,
+          "sourceUnavailable": false,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 15.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 15.9,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-oddle-foods-d14eafc9cf53b214",
+          "name": "GOLDEN BANANA BITES",
+          "category": "Sides",
+          "sourceIds": [
+            "moonchay-order"
+          ],
+          "sourceProductId": "8aa600859ddbbe7b019ddd642b874e75",
+          "sourceStatus": 0,
+          "sourceUnavailable": false,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 3.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 3.5,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-oddle-foods-82cc8785cc7f55b5",
+          "name": "BETAL LEAF PATTIES",
+          "category": "Sides",
+          "sourceIds": [
+            "moonchay-order"
+          ],
+          "sourceProductId": "8aa600859ddbbe7b019ddd642b874e78",
+          "sourceStatus": 0,
+          "sourceUnavailable": false,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 13.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 13.9,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-oddle-foods-f18742ef53bc1e77",
+          "name": "HOTDOG",
+          "category": "Sides",
+          "sourceIds": [
+            "moonchay-order"
+          ],
+          "sourceProductId": "8aa600859ddbbe7b019ddd642b884e7b",
+          "sourceStatus": 0,
+          "sourceUnavailable": false,
+          "qualifier": "Published source listing only. Stock, ingredients and equivalence to the separate dine-in/PDF menu unconfirmed.",
+          "price": {
+            "amount": 6.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 6.8,
+              "currency": "SGD"
+            }
+          ]
+        }
+      ],
+      "notice": "All 35 standalone food listings;15 drinks and4 beverage-inclusive lunch sets excluded. No modifier groups/multiple variants in retained source products."
+    },
+    {
+      "id": "moonchay-pdf-foods",
+      "branchIds": [
+        "moonchay-fortune"
+      ],
+      "name": "Moon Chay — linked PDF foods",
+      "scope": "branch",
+      "sourceIds": [
+        "moonchay-home",
+        "moonchay-pdf"
+      ],
+      "coverage": "source-covered",
+      "items": [
+        {
+          "id": "moonchay-pdf-foods-b65117a416e37a9c",
+          "name": "Signature Broken Rice with Vegan Ribs & Pork Patties",
+          "category": "Rice",
+          "sourceIds": [
+            "moonchay-pdf"
+          ],
+          "sourceCode": "R01",
+          "sourcePage": 1,
+          "qualifier": "Currently linked merchant PDF in July2024 upload path; effective/revision date and currency code unprinted. Separate from ordering and homepage prices; current stock and ingredients unconfirmed.",
+          "price": {
+            "amount": 11.8,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 11.8,
+              "currency": "unknown"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-pdf-foods-14a0571f1e1f213d",
+          "name": "Crispy Fried Rice with Chicken & Green Pepper",
+          "category": "Rice",
+          "sourceIds": [
+            "moonchay-pdf"
+          ],
+          "sourceCode": "R02",
+          "sourcePage": 1,
+          "qualifier": "Currently linked merchant PDF in July2024 upload path; effective/revision date and currency code unprinted. Separate from ordering and homepage prices; current stock and ingredients unconfirmed.",
+          "price": {
+            "amount": 8.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 8.9,
+              "currency": "unknown"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-pdf-foods-55ef40bf39d56289",
+          "name": "Primium Stone Bowl Rice",
+          "category": "Rice",
+          "sourceIds": [
+            "moonchay-pdf"
+          ],
+          "sourceCode": "R03",
+          "sourcePage": 1,
+          "qualifier": "Currently linked merchant PDF in July2024 upload path; effective/revision date and currency code unprinted. Separate from ordering and homepage prices; current stock and ingredients unconfirmed.",
+          "price": {
+            "amount": 11.8,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 11.8,
+              "currency": "unknown"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-pdf-foods-4c70a1176f9612b9",
+          "name": "White Rice",
+          "category": "Rice",
+          "sourceIds": [
+            "moonchay-pdf"
+          ],
+          "sourceCode": "R5",
+          "sourcePage": 1,
+          "qualifier": "Currently linked merchant PDF in July2024 upload path; effective/revision date and currency code unprinted. Separate from ordering and homepage prices; current stock and ingredients unconfirmed.",
+          "price": {
+            "amount": 1,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 1,
+              "currency": "unknown"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-pdf-foods-d6a441ed99f2a643",
+          "name": "Brown Rice",
+          "category": "Rice",
+          "sourceIds": [
+            "moonchay-pdf"
+          ],
+          "sourceCode": "R6",
+          "sourcePage": 1,
+          "qualifier": "Currently linked merchant PDF in July2024 upload path; effective/revision date and currency code unprinted. Separate from ordering and homepage prices; current stock and ingredients unconfirmed.",
+          "price": {
+            "amount": 1.5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 1.5,
+              "currency": "unknown"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-pdf-foods-66ba6dedeca3a2bc",
+          "name": "Signature Stone Bowl Hue Vegan Beef Noodle",
+          "category": "Soup Noodles",
+          "sourceIds": [
+            "moonchay-pdf"
+          ],
+          "sourceCode": "N06",
+          "sourcePage": 2,
+          "qualifier": "Currently linked merchant PDF in July2024 upload path; effective/revision date and currency code unprinted. Separate from ordering and homepage prices; current stock and ingredients unconfirmed. PDF alternate-day schedule gives no Tuesday rule; do not infer closure or replace ordering availability.",
+          "price": {
+            "amount": 12.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 12.9,
+              "currency": "unknown"
+            }
+          ],
+          "publishedSchedule": [
+            "Monday",
+            "Thursday",
+            "Saturday"
+          ]
+        },
+        {
+          "id": "moonchay-pdf-foods-e6958ae5f2e0f5d4",
+          "name": "Stone Bowl Special Phở",
+          "category": "Soup Noodles",
+          "sourceIds": [
+            "moonchay-pdf"
+          ],
+          "sourceCode": "N08",
+          "sourcePage": 2,
+          "qualifier": "Currently linked merchant PDF in July2024 upload path; effective/revision date and currency code unprinted. Separate from ordering and homepage prices; current stock and ingredients unconfirmed. PDF alternate-day schedule gives no Tuesday rule; do not infer closure or replace ordering availability.",
+          "price": {
+            "amount": 12.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 12.9,
+              "currency": "unknown"
+            }
+          ],
+          "publishedSchedule": [
+            "Monday",
+            "Thursday",
+            "Saturday"
+          ]
+        },
+        {
+          "id": "moonchay-pdf-foods-ea44ac0320294d6e",
+          "name": "Moon Chay Signature Vegan Crab Noodle",
+          "category": "Soup Noodles",
+          "sourceIds": [
+            "moonchay-pdf"
+          ],
+          "sourceCode": "N07",
+          "sourcePage": 2,
+          "qualifier": "Currently linked merchant PDF in July2024 upload path; effective/revision date and currency code unprinted. Separate from ordering and homepage prices; current stock and ingredients unconfirmed. PDF alternate-day schedule gives no Tuesday rule; do not infer closure or replace ordering availability.",
+          "price": {
+            "amount": 12.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 12.9,
+              "currency": "unknown"
+            }
+          ],
+          "publishedSchedule": [
+            "Wednesday",
+            "Friday",
+            "Sunday"
+          ]
+        },
+        {
+          "id": "moonchay-pdf-foods-9daa982a25b7af19",
+          "name": "Vegan Braised Beef Noodles",
+          "category": "Soup Noodles",
+          "sourceIds": [
+            "moonchay-pdf"
+          ],
+          "sourceCode": "N09",
+          "sourcePage": 2,
+          "qualifier": "Currently linked merchant PDF in July2024 upload path; effective/revision date and currency code unprinted. Separate from ordering and homepage prices; current stock and ingredients unconfirmed. PDF alternate-day schedule gives no Tuesday rule; do not infer closure or replace ordering availability.",
+          "price": {
+            "amount": 10.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 10.9,
+              "currency": "unknown"
+            }
+          ],
+          "publishedSchedule": [
+            "Wednesday",
+            "Friday",
+            "Sunday"
+          ]
+        },
+        {
+          "id": "moonchay-pdf-foods-bc8e4179e0d410aa",
+          "name": "Signature Ha Noi Grilled Pork w Noodle",
+          "category": "Dry Noodles",
+          "sourceIds": [
+            "moonchay-pdf"
+          ],
+          "sourceCode": "N10",
+          "sourcePage": 3,
+          "qualifier": "Currently linked merchant PDF in July2024 upload path; effective/revision date and currency code unprinted. Separate from ordering and homepage prices; current stock and ingredients unconfirmed.",
+          "price": {
+            "amount": 12.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 12.9,
+              "currency": "unknown"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-pdf-foods-9848515774c5e71b",
+          "name": "Spring Rolls with Vermicelli Noodle",
+          "category": "Dry Noodles",
+          "sourceIds": [
+            "moonchay-pdf"
+          ],
+          "sourceCode": "N11",
+          "sourcePage": 3,
+          "qualifier": "Currently linked merchant PDF in July2024 upload path; effective/revision date and currency code unprinted. Separate from ordering and homepage prices; current stock and ingredients unconfirmed.",
+          "price": {
+            "amount": 8.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 8.9,
+              "currency": "unknown"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-pdf-foods-2a86a9d70a879811",
+          "name": "Vegan Grilled Pork with Vermicelli Noodles",
+          "category": "Dry Noodles",
+          "sourceIds": [
+            "moonchay-pdf"
+          ],
+          "sourceCode": "N12",
+          "sourcePage": 3,
+          "qualifier": "Currently linked merchant PDF in July2024 upload path; effective/revision date and currency code unprinted. Separate from ordering and homepage prices; current stock and ingredients unconfirmed.",
+          "price": {
+            "amount": 8.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 8.9,
+              "currency": "unknown"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-pdf-foods-1e231378108ca852",
+          "name": "Signature Premium Grilled Pork Wrap & Roll",
+          "category": "Wrap And Roll",
+          "sourceIds": [
+            "moonchay-pdf"
+          ],
+          "sourceCode": "M14",
+          "sourcePage": 4,
+          "qualifier": "Currently linked merchant PDF in July2024 upload path; effective/revision date and currency code unprinted. Separate from ordering and homepage prices; current stock and ingredients unconfirmed.",
+          "price": {
+            "amount": 20.8,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 20.8,
+              "currency": "unknown"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-pdf-foods-f16264aee6c4909d",
+          "name": "Crispy Vietnamese Pancake",
+          "category": "Wrap And Roll",
+          "sourceIds": [
+            "moonchay-pdf"
+          ],
+          "sourceCode": "M15",
+          "sourcePage": 4,
+          "qualifier": "Currently linked merchant PDF in July2024 upload path; effective/revision date and currency code unprinted. Separate from ordering and homepage prices; current stock and ingredients unconfirmed.",
+          "price": {
+            "amount": 11.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 11.9,
+              "currency": "unknown"
+            }
+          ],
+          "publishedPreparationMinutes": 20
+        },
+        {
+          "id": "moonchay-pdf-foods-36146ca17254ace1",
+          "name": "Vietnamese Pâté Baguette",
+          "category": "Baguettes",
+          "sourceIds": [
+            "moonchay-pdf"
+          ],
+          "sourceCode": "B16",
+          "sourcePage": 5,
+          "qualifier": "Currently linked merchant PDF in July2024 upload path; effective/revision date and currency code unprinted. Separate from ordering and homepage prices; current stock and ingredients unconfirmed.",
+          "price": {
+            "amount": 8.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 8.9,
+              "currency": "unknown"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-pdf-foods-a946d88c93e96cbd",
+          "name": "Vegetarian Banh Mi",
+          "category": "Baguettes",
+          "sourceIds": [
+            "moonchay-pdf"
+          ],
+          "sourceCode": "B17",
+          "sourcePage": 5,
+          "qualifier": "Currently linked merchant PDF in July2024 upload path; effective/revision date and currency code unprinted. Separate from ordering and homepage prices; current stock and ingredients unconfirmed.",
+          "price": {
+            "amount": 8.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 8.9,
+              "currency": "unknown"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-pdf-foods-4f7a3c7525289a33",
+          "name": "Baguette with Vegan Beef Stew",
+          "category": "Baguettes",
+          "sourceIds": [
+            "moonchay-pdf"
+          ],
+          "sourceCode": "B18",
+          "sourcePage": 5,
+          "qualifier": "Currently linked merchant PDF in July2024 upload path; effective/revision date and currency code unprinted. Separate from ordering and homepage prices; current stock and ingredients unconfirmed.",
+          "price": {
+            "amount": 12.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 12.9,
+              "currency": "unknown"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-pdf-foods-e967dd0c84dfcc26",
+          "name": "Passion Fruit Hotpot Set",
+          "category": "Hotpot",
+          "sourceIds": [
+            "moonchay-pdf"
+          ],
+          "sourceCode": "L23",
+          "sourcePage": 6,
+          "qualifier": "Currently linked merchant PDF in July2024 upload path; effective/revision date and currency code unprinted. Separate from ordering and homepage prices; current stock and ingredients unconfirmed.",
+          "price": {
+            "amount": 14.8,
+            "currency": "unknown",
+            "kind": "from"
+          },
+          "priceVariants": [
+            {
+              "label": "S",
+              "amount": 14.8,
+              "currency": "unknown"
+            },
+            {
+              "label": "M",
+              "amount": 21.8,
+              "currency": "unknown"
+            },
+            {
+              "label": "L",
+              "amount": 31.8,
+              "currency": "unknown"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-pdf-foods-e16e729fd38177f0",
+          "name": "Signature Chao Hotpot Set",
+          "category": "Hotpot",
+          "sourceIds": [
+            "moonchay-pdf"
+          ],
+          "sourceCode": "L24",
+          "sourcePage": 6,
+          "qualifier": "Currently linked merchant PDF in July2024 upload path; effective/revision date and currency code unprinted. Separate from ordering and homepage prices; current stock and ingredients unconfirmed. Homepage shows S12.80/M20.80/L31.80, differing from PDF S14.80/M21.80/L31.80; prices remain source-specific.",
+          "price": {
+            "amount": 14.8,
+            "currency": "unknown",
+            "kind": "from"
+          },
+          "priceVariants": [
+            {
+              "label": "S",
+              "amount": 14.8,
+              "currency": "unknown"
+            },
+            {
+              "label": "M",
+              "amount": 21.8,
+              "currency": "unknown"
+            },
+            {
+              "label": "L",
+              "amount": 31.8,
+              "currency": "unknown"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-pdf-foods-cccf085425110a9f",
+          "name": "Banana Braised with Tofu",
+          "category": "Braised Dishes",
+          "sourceIds": [
+            "moonchay-pdf"
+          ],
+          "sourceCode": "T25",
+          "sourcePage": 7,
+          "qualifier": "Currently linked merchant PDF in July2024 upload path; effective/revision date and currency code unprinted. Separate from ordering and homepage prices; current stock and ingredients unconfirmed.",
+          "price": {
+            "amount": 11.8,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 11.8,
+              "currency": "unknown"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-pdf-foods-2749d02539ab1075",
+          "name": "Vietnam Ham Stewed with Mushroom",
+          "category": "Braised Dishes",
+          "sourceIds": [
+            "moonchay-pdf"
+          ],
+          "sourceCode": "T26",
+          "sourcePage": 7,
+          "qualifier": "Currently linked merchant PDF in July2024 upload path; effective/revision date and currency code unprinted. Separate from ordering and homepage prices; current stock and ingredients unconfirmed.",
+          "price": {
+            "amount": 11.8,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 11.8,
+              "currency": "unknown"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-pdf-foods-b0ac8605d43b7f79",
+          "name": "Healthy Sour Soup",
+          "category": "Braised Dishes",
+          "sourceIds": [
+            "moonchay-pdf"
+          ],
+          "sourceCode": "S27",
+          "sourcePage": 7,
+          "qualifier": "Currently linked merchant PDF in July2024 upload path; effective/revision date and currency code unprinted. Separate from ordering and homepage prices; current stock and ingredients unconfirmed.",
+          "price": {
+            "amount": 8.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 8.9,
+              "currency": "unknown"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-pdf-foods-831a5cbfd74d6bda",
+          "name": "Mushroom Tofu with Rice Cracker",
+          "category": "Sides",
+          "sourceIds": [
+            "moonchay-pdf"
+          ],
+          "sourceCode": "T31",
+          "sourcePage": 8,
+          "qualifier": "Currently linked merchant PDF in July2024 upload path; effective/revision date and currency code unprinted. Separate from ordering and homepage prices; current stock and ingredients unconfirmed.",
+          "price": {
+            "amount": 12.8,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 12.8,
+              "currency": "unknown"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-pdf-foods-6f344b06aeb2bf92",
+          "name": "Signature Moon Chay Handmade Duck w Mantou",
+          "category": "Sides",
+          "sourceIds": [
+            "moonchay-pdf"
+          ],
+          "sourceCode": "T38",
+          "sourcePage": 8,
+          "qualifier": "Currently linked merchant PDF in July2024 upload path; effective/revision date and currency code unprinted. Separate from ordering and homepage prices; current stock and ingredients unconfirmed.",
+          "price": {
+            "amount": 14.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 14.9,
+              "currency": "unknown"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-pdf-foods-b2f2c3a29781d943",
+          "name": "Tofu with Lemon Grass",
+          "category": "Sides",
+          "sourceIds": [
+            "moonchay-pdf"
+          ],
+          "sourceCode": "T33",
+          "sourcePage": 9,
+          "qualifier": "Currently linked merchant PDF in July2024 upload path; effective/revision date and currency code unprinted. Separate from ordering and homepage prices; current stock and ingredients unconfirmed.",
+          "price": {
+            "amount": 8.5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 8.5,
+              "currency": "unknown"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-pdf-foods-2b09a492b4ce4f1c",
+          "name": "Deep Fried Tofu",
+          "category": "Sides",
+          "sourceIds": [
+            "moonchay-pdf"
+          ],
+          "sourceCode": "T34",
+          "sourcePage": 9,
+          "qualifier": "Currently linked merchant PDF in July2024 upload path; effective/revision date and currency code unprinted. Separate from ordering and homepage prices; current stock and ingredients unconfirmed.",
+          "price": {
+            "amount": 6.5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 6.5,
+              "currency": "unknown"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-pdf-foods-8996024781d9b9d8",
+          "name": "Moon Chay Rolls",
+          "category": "Sides",
+          "sourceIds": [
+            "moonchay-pdf"
+          ],
+          "sourceCode": "T35",
+          "sourcePage": 10,
+          "qualifier": "Currently linked merchant PDF in July2024 upload path; effective/revision date and currency code unprinted. Separate from ordering and homepage prices; current stock and ingredients unconfirmed.",
+          "price": {
+            "amount": 5.5,
+            "currency": "unknown",
+            "kind": "from"
+          },
+          "priceVariants": [
+            {
+              "label": "2 pcs",
+              "amount": 5.5,
+              "currency": "unknown"
+            },
+            {
+              "label": "4 pcs",
+              "amount": 9.8,
+              "currency": "unknown"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-pdf-foods-815dcbab616aed71",
+          "name": "Dong Que Spring Rolls",
+          "category": "Sides",
+          "sourceIds": [
+            "moonchay-pdf"
+          ],
+          "sourceCode": "T36",
+          "sourcePage": 10,
+          "qualifier": "Currently linked merchant PDF in July2024 upload path; effective/revision date and currency code unprinted. Separate from ordering and homepage prices; current stock and ingredients unconfirmed.",
+          "price": {
+            "amount": 5.5,
+            "currency": "unknown",
+            "kind": "from"
+          },
+          "priceVariants": [
+            {
+              "label": "2 pcs",
+              "amount": 5.5,
+              "currency": "unknown"
+            },
+            {
+              "label": "4 pcs",
+              "amount": 9.8,
+              "currency": "unknown"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-pdf-foods-ed840a4d03ed22ec",
+          "name": "French Fried",
+          "category": "Sides",
+          "sourceIds": [
+            "moonchay-pdf"
+          ],
+          "sourceCode": "T37",
+          "sourcePage": 10,
+          "qualifier": "Currently linked merchant PDF in July2024 upload path; effective/revision date and currency code unprinted. Separate from ordering and homepage prices; current stock and ingredients unconfirmed.",
+          "price": {
+            "amount": 5.5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 5.5,
+              "currency": "unknown"
+            }
+          ]
+        }
+      ],
+      "notice": "All 29 foods on pages1–10,35 explicit portion prices. Pages11–15 drinks and page16 closing art excluded. Effective date/currency unknown; weekday/price differences remain source-specific."
+    },
+    {
+      "id": "moonchay-home-foods",
+      "branchIds": [
+        "moonchay-fortune"
+      ],
+      "name": "Moon Chay — official showcase",
+      "scope": "branch",
+      "sourceIds": [
+        "moonchay-home"
+      ],
+      "coverage": "source-covered",
+      "items": [
+        {
+          "id": "moonchay-home-foods-f18e9501c7532bc2",
+          "name": "Signature Broken Rice with Vegan Ribs & Pork Patties",
+          "category": "Merchant showcase",
+          "sourceIds": [
+            "moonchay-home"
+          ],
+          "sourcePriceText": "$11.80",
+          "qualifier": "Current merchant homepage display; no effective date/currency code/stock guarantee. Separate source from PDF/ordering prices; health claims and food descriptions not copied.",
+          "price": {
+            "amount": 11.8,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 11.8,
+              "currency": "unknown"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-home-foods-aa2bc488ff1ac93c",
+          "name": "Premium Stone Bowl Rice",
+          "category": "Merchant showcase",
+          "sourceIds": [
+            "moonchay-home"
+          ],
+          "sourcePriceText": "$11.80",
+          "qualifier": "Current merchant homepage display; no effective date/currency code/stock guarantee. Separate source from PDF/ordering prices; health claims and food descriptions not copied.",
+          "price": {
+            "amount": 11.8,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 11.8,
+              "currency": "unknown"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-home-foods-f42eababa9e85213",
+          "name": "Moon Chay Signature Vegan Crab Noodle",
+          "category": "Merchant showcase",
+          "sourceIds": [
+            "moonchay-home"
+          ],
+          "sourcePriceText": "$12.90",
+          "qualifier": "Current merchant homepage display; no effective date/currency code/stock guarantee. Separate source from PDF/ordering prices; health claims and food descriptions not copied.",
+          "price": {
+            "amount": 12.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 12.9,
+              "currency": "unknown"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-home-foods-1969520da08a72e4",
+          "name": "Spring Rolls with Vermicelli Noodle",
+          "category": "Merchant showcase",
+          "sourceIds": [
+            "moonchay-home"
+          ],
+          "sourcePriceText": "$8.90",
+          "qualifier": "Current merchant homepage display; no effective date/currency code/stock guarantee. Separate source from PDF/ordering prices; health claims and food descriptions not copied.",
+          "price": {
+            "amount": 8.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 8.9,
+              "currency": "unknown"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-home-foods-9c1ac648461b002f",
+          "name": "Signature Premium Grilled Pork Wrap & Roll",
+          "category": "Merchant showcase",
+          "sourceIds": [
+            "moonchay-home"
+          ],
+          "sourcePriceText": "$20.80",
+          "qualifier": "Current merchant homepage display; no effective date/currency code/stock guarantee. Separate source from PDF/ordering prices; health claims and food descriptions not copied.",
+          "price": {
+            "amount": 20.8,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 20.8,
+              "currency": "unknown"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-home-foods-28e68e70bce6d6cd",
+          "name": "Crispy Vietnamese Pancake",
+          "category": "Merchant showcase",
+          "sourceIds": [
+            "moonchay-home"
+          ],
+          "sourcePriceText": "$11.90",
+          "qualifier": "Current merchant homepage display; no effective date/currency code/stock guarantee. Separate source from PDF/ordering prices; health claims and food descriptions not copied.",
+          "price": {
+            "amount": 11.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 11.9,
+              "currency": "unknown"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-home-foods-40f43dd216c84911",
+          "name": "Baguette with Vegan Beef Stew",
+          "category": "Merchant showcase",
+          "sourceIds": [
+            "moonchay-home"
+          ],
+          "sourcePriceText": "$12.90",
+          "qualifier": "Current merchant homepage display; no effective date/currency code/stock guarantee. Separate source from PDF/ordering prices; health claims and food descriptions not copied.",
+          "price": {
+            "amount": 12.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 12.9,
+              "currency": "unknown"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-home-foods-5f6f5ffab46be1bd",
+          "name": "Mixed Fruit Salad",
+          "category": "Merchant showcase",
+          "sourceIds": [
+            "moonchay-home"
+          ],
+          "sourcePriceText": "$8.50",
+          "qualifier": "Current merchant homepage display; no effective date/currency code/stock guarantee. Separate source from PDF/ordering prices; health claims and food descriptions not copied.",
+          "price": {
+            "amount": 8.5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 8.5,
+              "currency": "unknown"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-home-foods-8f246d135a4d472b",
+          "name": "Mushroom Vege Soup",
+          "category": "Merchant showcase",
+          "sourceIds": [
+            "moonchay-home"
+          ],
+          "sourcePriceText": "$5.00",
+          "qualifier": "Current merchant homepage display; no effective date/currency code/stock guarantee. Separate source from PDF/ordering prices; health claims and food descriptions not copied.",
+          "price": {
+            "amount": 5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 5,
+              "currency": "unknown"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-home-foods-88db021f5866fd4f",
+          "name": "Banana Braised with Tofu",
+          "category": "Merchant showcase",
+          "sourceIds": [
+            "moonchay-home"
+          ],
+          "sourcePriceText": "$11.80",
+          "qualifier": "Current merchant homepage display; no effective date/currency code/stock guarantee. Separate source from PDF/ordering prices; health claims and food descriptions not copied.",
+          "price": {
+            "amount": 11.8,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 11.8,
+              "currency": "unknown"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-home-foods-9363d54525b9bc3f",
+          "name": "Vietnamese Fish Braised with Ginger & Lemongrass",
+          "category": "Merchant showcase",
+          "sourceIds": [
+            "moonchay-home"
+          ],
+          "sourcePriceText": "$11.80",
+          "qualifier": "Current merchant homepage display; no effective date/currency code/stock guarantee. Separate source from PDF/ordering prices; health claims and food descriptions not copied.",
+          "price": {
+            "amount": 11.8,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 11.8,
+              "currency": "unknown"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-home-foods-ecb7dbe59788cd02",
+          "name": "Triple Mushroom with Broccoli",
+          "category": "Merchant showcase",
+          "sourceIds": [
+            "moonchay-home"
+          ],
+          "sourcePriceText": "$8.90",
+          "qualifier": "Current merchant homepage display; no effective date/currency code/stock guarantee. Separate source from PDF/ordering prices; health claims and food descriptions not copied.",
+          "price": {
+            "amount": 8.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 8.9,
+              "currency": "unknown"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-home-foods-3159419c7db25102",
+          "name": "Mushroom Tofu with Rice Cracker",
+          "category": "Merchant showcase",
+          "sourceIds": [
+            "moonchay-home"
+          ],
+          "sourcePriceText": "$12.80",
+          "qualifier": "Current merchant homepage display; no effective date/currency code/stock guarantee. Separate source from PDF/ordering prices; health claims and food descriptions not copied.",
+          "price": {
+            "amount": 12.8,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 12.8,
+              "currency": "unknown"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-home-foods-1781c6ab03e36d71",
+          "name": "Tofu with Lemongrass",
+          "category": "Merchant showcase",
+          "sourceIds": [
+            "moonchay-home"
+          ],
+          "sourcePriceText": "$8.50",
+          "qualifier": "Current merchant homepage display; no effective date/currency code/stock guarantee. Separate source from PDF/ordering prices; health claims and food descriptions not copied.",
+          "price": {
+            "amount": 8.5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 8.5,
+              "currency": "unknown"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-home-foods-c5473c21ae0a72ec",
+          "name": "Deep Fried Tofu",
+          "category": "Merchant showcase",
+          "sourceIds": [
+            "moonchay-home"
+          ],
+          "sourcePriceText": "$6.50",
+          "qualifier": "Current merchant homepage display; no effective date/currency code/stock guarantee. Separate source from PDF/ordering prices; health claims and food descriptions not copied.",
+          "price": {
+            "amount": 6.5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 6.5,
+              "currency": "unknown"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-home-foods-cea2d95b9ec0a165",
+          "name": "Dong Que Spring Rolls",
+          "category": "Merchant showcase",
+          "sourceIds": [
+            "moonchay-home"
+          ],
+          "sourcePriceText": "$5.50 (2PCS) $9.80 (4PCS)",
+          "qualifier": "Current merchant homepage display; no effective date/currency code/stock guarantee. Separate source from PDF/ordering prices; health claims and food descriptions not copied.",
+          "price": {
+            "amount": 5.5,
+            "currency": "unknown",
+            "kind": "from"
+          },
+          "priceVariants": [
+            {
+              "label": "2PCS",
+              "amount": 5.5,
+              "currency": "unknown"
+            },
+            {
+              "label": "4PCS",
+              "amount": 9.8,
+              "currency": "unknown"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-home-foods-ef23af208407e5fd",
+          "name": "Crispy Fried Rice with Chicken & Green Pepper",
+          "category": "Merchant showcase",
+          "sourceIds": [
+            "moonchay-home"
+          ],
+          "sourcePriceText": "$8.90",
+          "qualifier": "Current merchant homepage display; no effective date/currency code/stock guarantee. Separate source from PDF/ordering prices; health claims and food descriptions not copied.",
+          "price": {
+            "amount": 8.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 8.9,
+              "currency": "unknown"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-home-foods-268ef253ceacdc84",
+          "name": "Signature Stone Bowl Hue Vegan Beef Noodle",
+          "category": "Merchant showcase",
+          "sourceIds": [
+            "moonchay-home"
+          ],
+          "sourcePriceText": "$12.90",
+          "qualifier": "Current merchant homepage display; no effective date/currency code/stock guarantee. Separate source from PDF/ordering prices; health claims and food descriptions not copied.",
+          "price": {
+            "amount": 12.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 12.9,
+              "currency": "unknown"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-home-foods-5a0ce2de1e2bebb9",
+          "name": "Stone Bowl Special Pho",
+          "category": "Merchant showcase",
+          "sourceIds": [
+            "moonchay-home"
+          ],
+          "sourcePriceText": "$12.90",
+          "qualifier": "Current merchant homepage display; no effective date/currency code/stock guarantee. Separate source from PDF/ordering prices; health claims and food descriptions not copied.",
+          "price": {
+            "amount": 12.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 12.9,
+              "currency": "unknown"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-home-foods-631b899263da1419",
+          "name": "Signature Ha Noi Grilled Pork with Noodle",
+          "category": "Merchant showcase",
+          "sourceIds": [
+            "moonchay-home"
+          ],
+          "sourcePriceText": "$12.90",
+          "qualifier": "Current merchant homepage display; no effective date/currency code/stock guarantee. Separate source from PDF/ordering prices; health claims and food descriptions not copied.",
+          "price": {
+            "amount": 12.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 12.9,
+              "currency": "unknown"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-home-foods-4ef1f766fb628c10",
+          "name": "Pad Thai Glass Noodle Salad",
+          "category": "Merchant showcase",
+          "sourceIds": [
+            "moonchay-home"
+          ],
+          "sourcePriceText": "$6.50",
+          "qualifier": "Current merchant homepage display; no effective date/currency code/stock guarantee. Separate source from PDF/ordering prices; health claims and food descriptions not copied.",
+          "price": {
+            "amount": 6.5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 6.5,
+              "currency": "unknown"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-home-foods-3c3f38c41242364a",
+          "name": "Vietnamese Vegan Pate Baguette",
+          "category": "Merchant showcase",
+          "sourceIds": [
+            "moonchay-home"
+          ],
+          "sourcePriceText": "$8.90",
+          "qualifier": "Current merchant homepage display; no effective date/currency code/stock guarantee. Separate source from PDF/ordering prices; health claims and food descriptions not copied.",
+          "price": {
+            "amount": 8.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 8.9,
+              "currency": "unknown"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-home-foods-3cb4a512be111c53",
+          "name": "Banana Blossom Salad",
+          "category": "Merchant showcase",
+          "sourceIds": [
+            "moonchay-home"
+          ],
+          "sourcePriceText": "$9.50",
+          "qualifier": "Current merchant homepage display; no effective date/currency code/stock guarantee. Separate source from PDF/ordering prices; health claims and food descriptions not copied.",
+          "price": {
+            "amount": 9.5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 9.5,
+              "currency": "unknown"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-home-foods-7fe734b3ba084b26",
+          "name": "Signature Chao Hotpot Set",
+          "category": "Merchant showcase",
+          "sourceIds": [
+            "moonchay-home"
+          ],
+          "sourcePriceText": "$12.80 (S) $20.80 (M) $31.80 (L)",
+          "qualifier": "Current merchant homepage display; no effective date/currency code/stock guarantee. Separate source from PDF/ordering prices; health claims and food descriptions not copied.",
+          "price": {
+            "amount": 12.8,
+            "currency": "unknown",
+            "kind": "from"
+          },
+          "priceVariants": [
+            {
+              "label": "S",
+              "amount": 12.8,
+              "currency": "unknown"
+            },
+            {
+              "label": "M",
+              "amount": 20.8,
+              "currency": "unknown"
+            },
+            {
+              "label": "L",
+              "amount": 31.8,
+              "currency": "unknown"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-home-foods-b291eae8ec6b3267",
+          "name": "Passion Fruit Hotpot Set",
+          "category": "Merchant showcase",
+          "sourceIds": [
+            "moonchay-home"
+          ],
+          "sourcePriceText": "$14.80 (S) $21.80 (M) $31.80 (L)",
+          "qualifier": "Current merchant homepage display; no effective date/currency code/stock guarantee. Separate source from PDF/ordering prices; health claims and food descriptions not copied.",
+          "price": {
+            "amount": 14.8,
+            "currency": "unknown",
+            "kind": "from"
+          },
+          "priceVariants": [
+            {
+              "label": "S",
+              "amount": 14.8,
+              "currency": "unknown"
+            },
+            {
+              "label": "M",
+              "amount": 21.8,
+              "currency": "unknown"
+            },
+            {
+              "label": "L",
+              "amount": 31.8,
+              "currency": "unknown"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-home-foods-006e80e7b9b0d420",
+          "name": "Vietnam Ham Stewed with Mushroom",
+          "category": "Merchant showcase",
+          "sourceIds": [
+            "moonchay-home"
+          ],
+          "sourcePriceText": "$11.80",
+          "qualifier": "Current merchant homepage display; no effective date/currency code/stock guarantee. Separate source from PDF/ordering prices; health claims and food descriptions not copied.",
+          "price": {
+            "amount": 11.8,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 11.8,
+              "currency": "unknown"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-home-foods-517b7ac5e0af0f3d",
+          "name": "5 Type of Season Vegetables with Kho Quet Sauce",
+          "category": "Merchant showcase",
+          "sourceIds": [
+            "moonchay-home"
+          ],
+          "sourcePriceText": "$12.80",
+          "qualifier": "Current merchant homepage display; no effective date/currency code/stock guarantee. Separate source from PDF/ordering prices; health claims and food descriptions not copied.",
+          "price": {
+            "amount": 12.8,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 12.8,
+              "currency": "unknown"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-home-foods-66563dac1c4c68b6",
+          "name": "Moon Chay Fruit Crispy Roll",
+          "category": "Merchant showcase",
+          "sourceIds": [
+            "moonchay-home"
+          ],
+          "sourcePriceText": "$6.00 (2PCS) $10.80 (4PCS)",
+          "qualifier": "Current merchant homepage display; no effective date/currency code/stock guarantee. Separate source from PDF/ordering prices; health claims and food descriptions not copied.",
+          "price": {
+            "amount": 6,
+            "currency": "unknown",
+            "kind": "from"
+          },
+          "priceVariants": [
+            {
+              "label": "2PCS",
+              "amount": 6,
+              "currency": "unknown"
+            },
+            {
+              "label": "4PCS",
+              "amount": 10.8,
+              "currency": "unknown"
+            }
+          ]
+        },
+        {
+          "id": "moonchay-home-foods-481049eebb71aa52",
+          "name": "Moon Chay Rolls",
+          "category": "Merchant showcase",
+          "sourceIds": [
+            "moonchay-home"
+          ],
+          "sourcePriceText": "$5.50 (2PCS) $9.80 (4PCS)",
+          "qualifier": "Current merchant homepage display; no effective date/currency code/stock guarantee. Separate source from PDF/ordering prices; health claims and food descriptions not copied.",
+          "price": {
+            "amount": 5.5,
+            "currency": "unknown",
+            "kind": "from"
+          },
+          "priceVariants": [
+            {
+              "label": "2PCS",
+              "amount": 5.5,
+              "currency": "unknown"
+            },
+            {
+              "label": "4PCS",
+              "amount": 9.8,
+              "currency": "unknown"
+            }
+          ]
+        }
+      ],
+      "notice": "All 29 priced food showcases; source differences retained, including Chao Hotpot sizes. No health claims copied."
+    },
+    {
+      "id": "sproutz-pdf-foods",
+      "branchIds": [
+        "sproutz-downtown"
+      ],
+      "name": "Sproutz Downtown — linked food menu",
+      "scope": "branch",
+      "sourceIds": [
+        "sproutz-home",
+        "sproutz-menu",
+        "sproutz-pdf"
+      ],
+      "coverage": "source-covered",
+      "items": [
+        {
+          "id": "sproutz-pdf-foods-1de95d848d2fa244",
+          "name": "Sesame Noodles",
+          "category": "All-Day Breakfast",
+          "sourceIds": [
+            "sproutz-pdf"
+          ],
+          "sourceCode": "A01",
+          "sourcePage": 1,
+          "qualifier": "Current merchant-linked PDF, effective date/currency code unstated. Dine-in 10% service charge separate; current stock and ingredient suitability unconfirmed.",
+          "price": {
+            "amount": 6.98,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 6.98,
+              "currency": "unknown"
+            }
+          ]
+        },
+        {
+          "id": "sproutz-pdf-foods-07a69958f98d1dd5",
+          "name": "Pumpkin/Red Date Millet Porridge",
+          "category": "All-Day Breakfast",
+          "sourceIds": [
+            "sproutz-pdf"
+          ],
+          "sourceCode": "A02",
+          "sourcePage": 1,
+          "qualifier": "Current merchant-linked PDF, effective date/currency code unstated. Dine-in 10% service charge separate; current stock and ingredient suitability unconfirmed.",
+          "price": {
+            "amount": 4.98,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 4.98,
+              "currency": "unknown"
+            }
+          ]
+        },
+        {
+          "id": "sproutz-pdf-foods-78d8a340f9784177",
+          "name": "“Cuttlefish” Quinoa Porridge",
+          "category": "All-Day Breakfast",
+          "sourceIds": [
+            "sproutz-pdf"
+          ],
+          "sourceCode": "A03",
+          "sourcePage": 1,
+          "qualifier": "Current merchant-linked PDF, effective date/currency code unstated. Dine-in 10% service charge separate; current stock and ingredient suitability unconfirmed.",
+          "price": {
+            "amount": 6.98,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 6.98,
+              "currency": "unknown"
+            }
+          ]
+        },
+        {
+          "id": "sproutz-pdf-foods-64d0b45fed301686",
+          "name": "“Bak” Chor Mee",
+          "category": "All-Day Breakfast",
+          "sourceIds": [
+            "sproutz-pdf"
+          ],
+          "sourceCode": "A04",
+          "sourcePage": 1,
+          "qualifier": "Current merchant-linked PDF, effective date/currency code unstated. Dine-in 10% service charge separate; current stock and ingredient suitability unconfirmed.",
+          "price": {
+            "amount": 9.98,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 9.98,
+              "currency": "unknown"
+            }
+          ]
+        },
+        {
+          "id": "sproutz-pdf-foods-fb6defd44dd6ce5d",
+          "name": "Wholesome Oatmeal",
+          "category": "All-Day Breakfast",
+          "sourceIds": [
+            "sproutz-pdf"
+          ],
+          "sourceCode": "A05",
+          "sourcePage": 1,
+          "qualifier": "Current merchant-linked PDF, effective date/currency code unstated. Dine-in 10% service charge separate; current stock and ingredient suitability unconfirmed.",
+          "price": {
+            "amount": 4.98,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 4.98,
+              "currency": "unknown"
+            }
+          ]
+        },
+        {
+          "id": "sproutz-pdf-foods-360b945774c1962a",
+          "name": "Mee Hoon Kueh",
+          "category": "All-Day Breakfast",
+          "sourceIds": [
+            "sproutz-pdf"
+          ],
+          "sourceCode": "A06",
+          "sourcePage": 1,
+          "qualifier": "Current merchant-linked PDF, effective date/currency code unstated. Dine-in 10% service charge separate; current stock and ingredient suitability unconfirmed.",
+          "price": {
+            "amount": 9.98,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 9.98,
+              "currency": "unknown"
+            }
+          ]
+        },
+        {
+          "id": "sproutz-pdf-foods-d0378a9c15783771",
+          "name": "Sandwich/Wrap",
+          "category": "All-Day Breakfast",
+          "sourceIds": [
+            "sproutz-pdf"
+          ],
+          "sourceCode": "A07",
+          "sourcePage": 1,
+          "qualifier": "Current merchant-linked PDF, effective date/currency code unstated. Dine-in 10% service charge separate; current stock and ingredient suitability unconfirmed.",
+          "price": {
+            "amount": 4.98,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 4.98,
+              "currency": "unknown"
+            }
+          ],
+          "modifierGroups": [
+            {
+              "name": "Top up",
+              "options": [
+                {
+                  "label": "Avocado",
+                  "amount": 3,
+                  "currency": "unknown"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "sproutz-pdf-foods-bc1a93354d4a129b",
+          "name": "Soup Ee Mee",
+          "category": "All-Day Breakfast",
+          "sourceIds": [
+            "sproutz-pdf"
+          ],
+          "sourceCode": "A08",
+          "sourcePage": 1,
+          "qualifier": "Current merchant-linked PDF, effective date/currency code unstated. Dine-in 10% service charge separate; current stock and ingredient suitability unconfirmed.",
+          "price": {
+            "amount": 9.98,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 9.98,
+              "currency": "unknown"
+            }
+          ]
+        },
+        {
+          "id": "sproutz-pdf-foods-329dced50aeb4ca6",
+          "name": "Weighted Lunch (pick your dishes!)",
+          "category": "Weighted Lunch Dishes",
+          "sourceIds": [
+            "sproutz-pdf"
+          ],
+          "sourceCode": "B01",
+          "sourcePage": 1,
+          "qualifier": "Current merchant-linked PDF, effective date/currency code unstated. Dine-in 10% service charge separate; current stock and ingredient suitability unconfirmed. Free carbs and soup included. Over 100 cuisines rotate, around 15 dishes daily, but those counter dishes are unnamed; do not invent 100 menu rows.",
+          "price": {
+            "amount": 9.95,
+            "currency": "unknown",
+            "kind": "minimum"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 9.95,
+              "currency": "unknown"
+            }
+          ],
+          "weightPricing": {
+            "amountPer100g": 3.98,
+            "minimumGrams": 250,
+            "minimumDisplayedPrice": 9.95,
+            "currency": "unknown"
+          }
+        },
+        {
+          "id": "sproutz-pdf-foods-ac7a26b8a4405395",
+          "name": "Sweet-and-Sour Set",
+          "category": "Lunch Bento food choice",
+          "sourceIds": [
+            "sproutz-pdf"
+          ],
+          "sourceCode": "B02",
+          "sourcePage": 1,
+          "qualifier": "Current merchant-linked PDF, effective date/currency code unstated. Dine-in 10% service charge separate; current stock and ingredient suitability unconfirmed. Food-choice name only; beverage-inclusive bento package and its 15.00 price excluded. No standalone food price inferred."
+        },
+        {
+          "id": "sproutz-pdf-foods-f99b1a74db3c819b",
+          "name": "Curry Set",
+          "category": "Lunch Bento food choice",
+          "sourceIds": [
+            "sproutz-pdf"
+          ],
+          "sourceCode": "B03",
+          "sourcePage": 1,
+          "qualifier": "Current merchant-linked PDF, effective date/currency code unstated. Dine-in 10% service charge separate; current stock and ingredient suitability unconfirmed. Food-choice name only; beverage-inclusive bento package and its 15.00 price excluded. No standalone food price inferred."
+        },
+        {
+          "id": "sproutz-pdf-foods-68d50e04759fa0e8",
+          "name": "Clear Tom Yum Set",
+          "category": "Lunch Bento food choice",
+          "sourceIds": [
+            "sproutz-pdf"
+          ],
+          "sourceCode": "B04",
+          "sourcePage": 1,
+          "qualifier": "Current merchant-linked PDF, effective date/currency code unstated. Dine-in 10% service charge separate; current stock and ingredient suitability unconfirmed. Food-choice name only; beverage-inclusive bento package and its 15.00 price excluded. No standalone food price inferred."
+        },
+        {
+          "id": "sproutz-pdf-foods-7867612d298d65e4",
+          "name": "Mala Set",
+          "category": "Lunch Bento food choice",
+          "sourceIds": [
+            "sproutz-pdf"
+          ],
+          "sourceCode": "B05",
+          "sourcePage": 1,
+          "qualifier": "Current merchant-linked PDF, effective date/currency code unstated. Dine-in 10% service charge separate; current stock and ingredient suitability unconfirmed. Food-choice name only; beverage-inclusive bento package and its 15.00 price excluded. No standalone food price inferred."
+        },
+        {
+          "id": "sproutz-pdf-foods-e442498710384819",
+          "name": "Ipoh Horfun",
+          "category": "Daily Specials",
+          "sourceIds": [
+            "sproutz-pdf"
+          ],
+          "sourceCode": "C01",
+          "sourcePage": 1,
+          "qualifier": "Current merchant-linked PDF, effective date/currency code unstated. Dine-in 10% service charge separate; current stock and ingredient suitability unconfirmed.",
+          "price": {
+            "amount": 9.98,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 9.98,
+              "currency": "unknown"
+            }
+          ],
+          "publishedSchedule": [
+            "Monday"
+          ]
+        },
+        {
+          "id": "sproutz-pdf-foods-696ef715693eb706",
+          "name": "Mixed Vege Beehoon",
+          "category": "Daily Specials",
+          "sourceIds": [
+            "sproutz-pdf"
+          ],
+          "sourceCode": "C02",
+          "sourcePage": 1,
+          "qualifier": "Current merchant-linked PDF, effective date/currency code unstated. Dine-in 10% service charge separate; current stock and ingredient suitability unconfirmed.",
+          "price": {
+            "amount": 9.98,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 9.98,
+              "currency": "unknown"
+            }
+          ],
+          "publishedSchedule": [
+            "Tuesday"
+          ]
+        },
+        {
+          "id": "sproutz-pdf-foods-b5d0b23d04ce132b",
+          "name": "Dry Laksa",
+          "category": "Daily Specials",
+          "sourceIds": [
+            "sproutz-pdf"
+          ],
+          "sourceCode": "C03",
+          "sourcePage": 1,
+          "qualifier": "Current merchant-linked PDF, effective date/currency code unstated. Dine-in 10% service charge separate; current stock and ingredient suitability unconfirmed.",
+          "price": {
+            "amount": 9.98,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 9.98,
+              "currency": "unknown"
+            }
+          ],
+          "publishedSchedule": [
+            "Wednesday"
+          ]
+        },
+        {
+          "id": "sproutz-pdf-foods-13a9496a76d8fcd5",
+          "name": "“Aglio Olio” Fusilli",
+          "category": "Daily Specials",
+          "sourceIds": [
+            "sproutz-pdf"
+          ],
+          "sourceCode": "C04",
+          "sourcePage": 1,
+          "qualifier": "Current merchant-linked PDF, effective date/currency code unstated. Dine-in 10% service charge separate; current stock and ingredient suitability unconfirmed.",
+          "price": {
+            "amount": 9.98,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 9.98,
+              "currency": "unknown"
+            }
+          ],
+          "publishedSchedule": [
+            "Thursday"
+          ]
+        },
+        {
+          "id": "sproutz-pdf-foods-645f564f201ee479",
+          "name": "Garden Salad",
+          "category": "Salads and Snacks",
+          "sourceIds": [
+            "sproutz-pdf"
+          ],
+          "sourceCode": "D01",
+          "sourcePage": 1,
+          "qualifier": "Current merchant-linked PDF, effective date/currency code unstated. Dine-in 10% service charge separate; current stock and ingredient suitability unconfirmed.",
+          "price": {
+            "amount": 6.98,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 6.98,
+              "currency": "unknown"
+            }
+          ]
+        },
+        {
+          "id": "sproutz-pdf-foods-b5c3a140a162b4a8",
+          "name": "Avocado Salad",
+          "category": "Salads and Snacks",
+          "sourceIds": [
+            "sproutz-pdf"
+          ],
+          "sourceCode": "D02",
+          "sourcePage": 1,
+          "qualifier": "Current merchant-linked PDF, effective date/currency code unstated. Dine-in 10% service charge separate; current stock and ingredient suitability unconfirmed.",
+          "price": {
+            "amount": 9.98,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 9.98,
+              "currency": "unknown"
+            }
+          ]
+        },
+        {
+          "id": "sproutz-pdf-foods-2ec98b8639aabc5d",
+          "name": "Cucumber/Avocado Maki",
+          "category": "Salads and Snacks",
+          "sourceIds": [
+            "sproutz-pdf"
+          ],
+          "sourceCode": "D03",
+          "sourcePage": 1,
+          "qualifier": "Current merchant-linked PDF, effective date/currency code unstated. Dine-in 10% service charge separate; current stock and ingredient suitability unconfirmed.",
+          "price": {
+            "amount": 6.98,
+            "currency": "unknown",
+            "kind": "from"
+          },
+          "priceVariants": [
+            {
+              "label": "Cucumber",
+              "amount": 6.98,
+              "currency": "unknown"
+            },
+            {
+              "label": "Avocado",
+              "amount": 9.98,
+              "currency": "unknown"
+            }
+          ]
+        },
+        {
+          "id": "sproutz-pdf-foods-fd254b6489cdcb51",
+          "name": "Nuggets + Fries/Hashbrown",
+          "category": "Salads and Snacks",
+          "sourceIds": [
+            "sproutz-pdf"
+          ],
+          "sourceCode": "D04",
+          "sourcePage": 1,
+          "qualifier": "Current merchant-linked PDF, effective date/currency code unstated. Dine-in 10% service charge separate; current stock and ingredient suitability unconfirmed.",
+          "price": {
+            "amount": 6.98,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 6.98,
+              "currency": "unknown"
+            }
+          ]
+        },
+        {
+          "id": "sproutz-pdf-foods-63b955514099a9c1",
+          "name": "Soup Dumplings/Gyoza",
+          "category": "Salads and Snacks",
+          "sourceIds": [
+            "sproutz-pdf"
+          ],
+          "sourceCode": "D05",
+          "sourcePage": 1,
+          "qualifier": "Current merchant-linked PDF, effective date/currency code unstated. Dine-in 10% service charge separate; current stock and ingredient suitability unconfirmed.",
+          "price": {
+            "amount": 9.98,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 9.98,
+              "currency": "unknown"
+            }
+          ]
+        },
+        {
+          "id": "sproutz-pdf-foods-eb5abef6639443bd",
+          "name": "Thai Coconut Jelly (mini)",
+          "category": "Desserts",
+          "sourceIds": [
+            "sproutz-pdf"
+          ],
+          "sourceCode": "E01",
+          "sourcePage": 1,
+          "qualifier": "Current merchant-linked PDF, effective date/currency code unstated. Dine-in 10% service charge separate; current stock and ingredient suitability unconfirmed.",
+          "price": {
+            "amount": 2.5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 2.5,
+              "currency": "unknown"
+            }
+          ],
+          "publishedTemperatureOptions": [
+            "Cold"
+          ]
+        },
+        {
+          "id": "sproutz-pdf-foods-8ef4cc1ac21451ab",
+          "name": "Pulut Hitam",
+          "category": "Desserts",
+          "sourceIds": [
+            "sproutz-pdf"
+          ],
+          "sourceCode": "E02",
+          "sourcePage": 1,
+          "qualifier": "Current merchant-linked PDF, effective date/currency code unstated. Dine-in 10% service charge separate; current stock and ingredient suitability unconfirmed.",
+          "price": {
+            "amount": 5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 5,
+              "currency": "unknown"
+            }
+          ],
+          "publishedTemperatureOptions": [
+            "Hot",
+            "Cold"
+          ]
+        },
+        {
+          "id": "sproutz-pdf-foods-ae6e0d411beb67ea",
+          "name": "Green Bean Sago",
+          "category": "Desserts",
+          "sourceIds": [
+            "sproutz-pdf"
+          ],
+          "sourceCode": "E03",
+          "sourcePage": 1,
+          "qualifier": "Current merchant-linked PDF, effective date/currency code unstated. Dine-in 10% service charge separate; current stock and ingredient suitability unconfirmed.",
+          "price": {
+            "amount": 4,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 4,
+              "currency": "unknown"
+            }
+          ],
+          "publishedTemperatureOptions": [
+            "Hot",
+            "Cold"
+          ]
+        },
+        {
+          "id": "sproutz-pdf-foods-4211766bdaa9cbb1",
+          "name": "Red Bean Lotus Seeds",
+          "category": "Desserts",
+          "sourceIds": [
+            "sproutz-pdf"
+          ],
+          "sourceCode": "E04",
+          "sourcePage": 1,
+          "qualifier": "Current merchant-linked PDF, effective date/currency code unstated. Dine-in 10% service charge separate; current stock and ingredient suitability unconfirmed.",
+          "price": {
+            "amount": 5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 5,
+              "currency": "unknown"
+            }
+          ],
+          "publishedTemperatureOptions": [
+            "Hot",
+            "Cold"
+          ]
+        },
+        {
+          "id": "sproutz-pdf-foods-869311365c779f69",
+          "name": "Mango/Watermelon Sago",
+          "category": "Desserts",
+          "sourceIds": [
+            "sproutz-pdf"
+          ],
+          "sourceCode": "E05",
+          "sourcePage": 1,
+          "qualifier": "Current merchant-linked PDF, effective date/currency code unstated. Dine-in 10% service charge separate; current stock and ingredient suitability unconfirmed.",
+          "price": {
+            "amount": 7.2,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 7.2,
+              "currency": "unknown"
+            }
+          ],
+          "publishedTemperatureOptions": [
+            "Cold"
+          ]
+        },
+        {
+          "id": "sproutz-pdf-foods-325d966c0b5bb1b8",
+          "name": "Rock Sugar Peach Gum",
+          "category": "Desserts",
+          "sourceIds": [
+            "sproutz-pdf"
+          ],
+          "sourceCode": "E06",
+          "sourcePage": 1,
+          "qualifier": "Current merchant-linked PDF, effective date/currency code unstated. Dine-in 10% service charge separate; current stock and ingredient suitability unconfirmed.",
+          "price": {
+            "amount": 5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 5,
+              "currency": "unknown"
+            }
+          ],
+          "publishedTemperatureOptions": [
+            "Hot",
+            "Cold"
+          ]
+        },
+        {
+          "id": "sproutz-pdf-foods-e1a1a39f40545602",
+          "name": "Pandan Barley Ginkgo Nut",
+          "category": "Desserts",
+          "sourceIds": [
+            "sproutz-pdf"
+          ],
+          "sourceCode": "E07",
+          "sourcePage": 1,
+          "qualifier": "Current merchant-linked PDF, effective date/currency code unstated. Dine-in 10% service charge separate; current stock and ingredient suitability unconfirmed.",
+          "price": {
+            "amount": 5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 5,
+              "currency": "unknown"
+            }
+          ],
+          "publishedTemperatureOptions": [
+            "Hot",
+            "Cold"
+          ]
+        },
+        {
+          "id": "sproutz-pdf-foods-c9e5f5abe179bd87",
+          "name": "Fruit Carnival",
+          "category": "Desserts",
+          "sourceIds": [
+            "sproutz-pdf"
+          ],
+          "sourceCode": "E08",
+          "sourcePage": 1,
+          "qualifier": "Current merchant-linked PDF, effective date/currency code unstated. Dine-in 10% service charge separate; current stock and ingredient suitability unconfirmed.",
+          "price": {
+            "amount": 8.5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 8.5,
+              "currency": "unknown"
+            }
+          ],
+          "publishedTemperatureOptions": [
+            "Cold"
+          ]
+        },
+        {
+          "id": "sproutz-pdf-foods-fbbc0912c676c6bf",
+          "name": "Osmanthus Coconut Jelly",
+          "category": "Desserts",
+          "sourceIds": [
+            "sproutz-pdf"
+          ],
+          "sourceCode": "E09",
+          "sourcePage": 1,
+          "qualifier": "Current merchant-linked PDF, effective date/currency code unstated. Dine-in 10% service charge separate; current stock and ingredient suitability unconfirmed.",
+          "price": {
+            "amount": 7.2,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 7.2,
+              "currency": "unknown"
+            }
+          ],
+          "publishedTemperatureOptions": [
+            "Hot",
+            "Cold"
+          ]
+        },
+        {
+          "id": "sproutz-pdf-foods-250df65f43421654",
+          "name": "Rosy Snow Fungus",
+          "category": "Desserts",
+          "sourceIds": [
+            "sproutz-pdf"
+          ],
+          "sourceCode": "E10",
+          "sourcePage": 1,
+          "qualifier": "Current merchant-linked PDF, effective date/currency code unstated. Dine-in 10% service charge separate; current stock and ingredient suitability unconfirmed.",
+          "price": {
+            "amount": 7.2,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 7.2,
+              "currency": "unknown"
+            }
+          ],
+          "publishedTemperatureOptions": [
+            "Hot",
+            "Cold"
+          ]
+        },
+        {
+          "id": "sproutz-pdf-foods-a4c811dc7b9955de",
+          "name": "Chinese Yam, Pear and Snow Fungus Paste",
+          "category": "Desserts",
+          "sourceIds": [
+            "sproutz-pdf"
+          ],
+          "sourceCode": "E11",
+          "sourcePage": 1,
+          "qualifier": "Current merchant-linked PDF, effective date/currency code unstated. Dine-in 10% service charge separate; current stock and ingredient suitability unconfirmed.",
+          "price": {
+            "amount": 7.2,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "priceVariants": [
+            {
+              "label": "",
+              "amount": 7.2,
+              "currency": "unknown"
+            }
+          ],
+          "publishedTemperatureOptions": [
+            "Hot",
+            "Cold"
+          ]
+        }
+      ],
+      "notice": "29 food offers plus4 unpriced set-food choices. No beverage rows or beverage-inclusive package prices. Actual rotating counter dishes unnamed."
+    },
+    {
+      "id": "ur08-ascend-cross-current-soup",
+      "name": "Ascend Signature — landlord-published soup offering",
+      "branchIds": [
+        "ascend-cross-lead"
+      ],
+      "sourceIds": [
+        "ur08-ascend-cross-landlord"
+      ],
+      "scope": "branch-ordering",
+      "coverage": "partial",
+      "publicationStatus": "reviewed-partial-source-facts",
+      "notice": "Landlord-published named soup offering; current price, bowl size, complete menu, ingredients and availability are unconfirmed.",
+      "items": [
+        {
+          "id": "ur08-ascend-cross-current-soup-vegetarian-mala-soup",
+          "name": "Vegetarian mala soup",
+          "category": "Soup offering",
+          "sourceIds": [
+            "ur08-ascend-cross-landlord"
+          ],
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Current landlord describes a vegetarian soup concept. Price, portion, full ingredients and current availability are not published.",
+          "foodChoiceGroups": [
+            {
+              "name": "Other printed soup bases",
+              "options": [
+                "herbal soup",
+                "tomato soup",
+                "mushroom soup"
+              ],
+              "default": "unstated",
+              "surcharge": "not published",
+              "minSelections": "unstated",
+              "maxSelections": "unstated"
+            }
+          ],
+          "verification": {
+            "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+            "sourceIds": [
+              "ur08-ascend-cross-landlord"
+            ],
+            "verifiedFields": [
+              "named soup offering",
+              "other named soup bases",
+              "exact tenant street/unit",
+              "vegetarian venue scope"
+            ],
+            "unverifiedFields": [
+              "price",
+              "currency",
+              "bowl quantity",
+              "complete ingredients",
+              "option rules",
+              "current stock",
+              "vegan/allium suitability"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "ad-ascend-cross-smoky-rice",
+      "name": "Ascend18Cross — merchant rice-dish announcement",
+      "branchIds": [
+        "ascend-cross-lead"
+      ],
+      "sourceIds": [
+        "ad-ascend-cross-merchant-announcement"
+      ],
+      "scope": "branch-dine-in",
+      "coverage": "partial",
+      "publicationStatus": "reviewed-partial-source-facts",
+      "notice": "One publicly announced dish, not a complete menu. Price, portion and current availability unconfirmed.",
+      "items": [
+        {
+          "id": "ad-ascend-cross-smoky-rice-dish",
+          "name": "Smoky Braised ‘Pork’ Rice with Preserved Mustard Green",
+          "category": "Rice dishes",
+          "sourceIds": [
+            "ad-ascend-cross-merchant-announcement"
+          ],
+          "publicationStatus": "approved-reviewed-source-fact",
+          "price": {
+            "amount": null,
+            "currency": "unknown"
+          },
+          "setComponents": [
+            "Mushroom soup, stated by merchant"
+          ],
+          "printedExtras": [
+            "Optional braised egg; price and default not stated"
+          ],
+          "merchantDietaryStatement": "Vegan base as described by merchant; optional egg changes suitability. Not independent ingredient/allergen certification.",
+          "verification": {
+            "checkedAt": "2026-10-17T02:15:55.482Z",
+            "sourceIds": [
+              "ad-ascend-cross-merchant-announcement"
+            ],
+            "verifiedFields": [
+              "printed dish name",
+              "exact18Cross applicability",
+              "merchant base-vegan statement",
+              "separate optional egg statement"
+            ],
+            "unverifiedFields": [
+              "price",
+              "currency",
+              "portion quantity",
+              "complete ingredients",
+              "allergens",
+              "current stock",
+              "optional-egg surcharge/default"
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "note": "Research only. Source foods overlap across menus; no canonical publication/app changes/paidGooglecalls. No beverages, health-claim descriptions or inferred rotating ingredients.",
+  "completionHistory": [
+    {
+      "checkedAt": "2026-10-16T01:04:59.525Z",
+      "action": "Root retained existing non-public Coco menu as an explicit unit-conflict hold;41source food facts preserved. No current publication or approved ID existed to withdraw; no moved/closed inference.",
+      "sourceAmendment": "data/menu-research/menu-completion-identity-foods-05b-coco-scope-amendment.json"
+    },
+    {
+      "checkedAt": "2026-10-17T02:15:55.482Z",
+      "action": "Added one new exact-branch merchant-announced dish and its source; original source dates, secondary weighted-bowl hold and other branch records unchanged. No Google ID assignment.",
+      "evidence": "data/menu-research/catalogue-enrichment-2026-10-17ad.json"
+    }
+  ]
+}

@@ -1,0 +1,408 @@
+{
+  "checkedAt": "2026-10-15T08:16:19Z",
+  "scope": "accessible food sources; no beverage entries or beverage-containing bundles",
+  "entries": [
+    {
+      "venueId": "elemen-woodlands-height",
+      "name": "elemen Woodlands Height / Academy",
+      "menuId": "elemen-wh-ordering",
+      "sourceUrls": [
+        "https://elemenwh.oddle.me/en_SG"
+      ],
+      "totalFoodItems": 30,
+      "importedFoodItems": 30,
+      "excludedBeverages": 4,
+      "categories": [
+        {
+          "name": "Healthy Bento",
+          "items": 5
+        },
+        {
+          "name": "STARTER",
+          "items": 3
+        },
+        {
+          "name": "SOUP",
+          "items": 4
+        },
+        {
+          "name": "HAWKER-LICIOUS",
+          "items": 6
+        },
+        {
+          "name": "MAIN",
+          "items": 9
+        },
+        {
+          "name": "DESSERT",
+          "items": 3
+        }
+      ],
+      "status": "source-covered",
+      "remainingGaps": [
+        "Coverage is all food offers in this ordering source; checkout availability and dine-in equivalence unconfirmed.",
+        "Undated merchant images contain additional/different dishes.",
+        "Full ingredients, vegan/allium suitability, allergens and cross-contact unconfirmed."
+      ]
+    },
+    {
+      "venueId": "zhen-xiang-woodlands-street-32",
+      "name": "Zhen Xiang Vegetarian - 325 Woodlands Street 32",
+      "menuId": "zhen-xiang-woodlands-street-32-delivery-sample",
+      "sourceUrls": [
+        "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32"
+      ],
+      "totalFoodItems": 68,
+      "importedFoodItems": 68,
+      "excludedBeverages": 0,
+      "categories": [
+        {
+          "name": "Sides 小吃",
+          "items": 3
+        },
+        {
+          "name": "A La Carte Dishes 单点菜",
+          "items": 22
+        },
+        {
+          "name": "Rice Set 套饭",
+          "items": 22
+        },
+        {
+          "name": "Noodles 面类",
+          "items": 8
+        },
+        {
+          "name": "Fried Rice 炒饭",
+          "items": 10
+        },
+        {
+          "name": "Mala Xiang Guo & Hotpot 麻辣香锅火锅",
+          "items": 3
+        }
+      ],
+      "status": "source-covered",
+      "remainingGaps": [
+        "Current source only; merchant control, dine-in equivalence, GST/service and checkout availability unverified.",
+        "Full ingredients, vegan/allium suitability and allergens unconfirmed."
+      ]
+    },
+    {
+      "venueId": "shu-woodlands-avenue-1",
+      "name": "SHU Vegetarian - 354A Woodlands Avenue 1",
+      "menuId": "shu-woodlands-avenue-1-delivery-sample",
+      "sourceUrls": [
+        "https://www.foodpanda.sg/restaurant/x3kk/shu-vegetarian-shu-fang-zhai-woodlands-avenue-1"
+      ],
+      "totalFoodItems": 55,
+      "importedFoodItems": 55,
+      "excludedBeverages": 0,
+      "categories": [
+        {
+          "name": "Fried Rice",
+          "items": 4
+        },
+        {
+          "name": "Mala Hotpot 麻辣香锅",
+          "items": 2
+        },
+        {
+          "name": "Rice Sets",
+          "items": 10
+        },
+        {
+          "name": "Vegetables",
+          "items": 9
+        },
+        {
+          "name": "Noodles 面",
+          "items": 5
+        },
+        {
+          "name": "Extra",
+          "items": 1
+        },
+        {
+          "name": "Eggs",
+          "items": 4
+        },
+        {
+          "name": "VEG MEAT",
+          "items": 4
+        },
+        {
+          "name": "A La Carte",
+          "items": 4
+        },
+        {
+          "name": "BEANCURD",
+          "items": 3
+        },
+        {
+          "name": "Soups",
+          "items": 4
+        },
+        {
+          "name": "VEG FISH",
+          "items": 3
+        },
+        {
+          "name": "VEG SEAFOOD",
+          "items": 2
+        }
+      ],
+      "status": "source-covered",
+      "remainingGaps": [
+        "Current source only; merchant control, dine-in equivalence, GST/service and checkout availability unverified.",
+        "Full ingredients, vegan/allium suitability and allergens unconfirmed.",
+        "Platform postal 730354 versus directory 731354 conflict; building 354A and unit #01-01 match."
+      ]
+    },
+    {
+      "venueId": "daily-green-woodlands-street-31",
+      "name": "Vegetarian Kitchen by Daily Green - 306 Woodlands",
+      "menuId": "daily-green-woodlands-street-31-delivery",
+      "sourceUrls": [
+        "https://www.foodpanda.sg/restaurant/i408/vegetarian-kitchen-ji-xiang-su-xiao-chu-woodlands-street-31"
+      ],
+      "totalFoodItems": 4,
+      "importedFoodItems": 4,
+      "excludedBeverages": 0,
+      "categories": [
+        {
+          "name": "Hotplate 铁板",
+          "items": 4
+        }
+      ],
+      "status": "partial",
+      "remainingGaps": [
+        "Current source only; merchant control, dine-in equivalence, GST/service and checkout availability unverified.",
+        "Full ingredients, vegan/allium suitability and allergens unconfirmed.",
+        "Listing CLOSED; only four Hotplate products available to inspect, not full branch coverage."
+      ]
+    },
+    {
+      "venueId": "daily-green-woodlands-street-31",
+      "name": "Vegetarian Kitchen by Daily Green - 306 Woodlands",
+      "menuId": "daily-green-published-menu",
+      "sourceUrls": [
+        "https://www.dailygreen.sg/s/VEGETARIAN-KITCHEN-MENU-A3-FA-V2.pdf",
+        "https://www.dailygreen.sg/menus"
+      ],
+      "totalFoodItems": 79,
+      "importedFoodItems": 79,
+      "excludedBeverages": 0,
+      "categories": [
+        {
+          "name": "Yong Tau Foo",
+          "items": 2
+        },
+        {
+          "name": "Noodles",
+          "items": 10
+        },
+        {
+          "name": "Rice",
+          "items": 9
+        },
+        {
+          "name": "Soups",
+          "items": 5
+        },
+        {
+          "name": "Traditional Flavours",
+          "items": 4
+        },
+        {
+          "name": "Vegetables",
+          "items": 5
+        },
+        {
+          "name": "Mushrooms",
+          "items": 5
+        },
+        {
+          "name": "Egg Dishes",
+          "items": 5
+        },
+        {
+          "name": "Claypots",
+          "items": 5
+        },
+        {
+          "name": "Hotplates",
+          "items": 5
+        },
+        {
+          "name": "Westerns",
+          "items": 8
+        },
+        {
+          "name": "Pizzas",
+          "items": 4
+        },
+        {
+          "name": "Snacks",
+          "items": 12
+        }
+      ],
+      "status": "historical",
+      "remainingGaps": [
+        "All 79 historical PDF rows captured; current branch applicability, effective date and prices remain unverified.",
+        "Printed $ currency unidentified; no SGD inference.",
+        "Current delivery source exposes only four Hotplate dishes and displays CLOSED."
+      ]
+    },
+    {
+      "venueId": "elemen-woodlands-height",
+      "name": "elemen Woodlands Height / Academy",
+      "menuId": "elemen-brand-published-menu",
+      "sourceUrls": [
+        "https://www.elemengroup.com.sg/menu",
+        "https://www.elemengroup.com.sg/menu-brands",
+        "https://images.squarespace-cdn.com/content/v1/609d2103ed36b46301aeb07d/fc4dfb24-ed80-4f14-bca7-d46e4fefa374/elemen+tv+Portrait.jpg"
+      ],
+      "totalFoodItems": 31,
+      "importedFoodItems": 31,
+      "excludedBeverages": 8,
+      "excludedBeverageBundles": 2,
+      "categories": [
+        {
+          "name": "Appetizers",
+          "items": 2
+        },
+        {
+          "name": "Starter",
+          "items": 4
+        },
+        {
+          "name": "Soups",
+          "items": 4
+        },
+        {
+          "name": "Hawker-licious",
+          "items": 6
+        },
+        {
+          "name": "Mains",
+          "items": 11
+        },
+        {
+          "name": "Desserts",
+          "items": 4
+        }
+      ],
+      "status": "brand-only",
+      "remainingGaps": [
+        "Undated image; effective date/current availability unconfirmed.",
+        "Printed $ currency unspecified; no SGD inference.",
+        "Merchant brand and Woodlands images differ from online ordering.",
+        "General brand menu does not establish every item offered at Woodlands."
+      ]
+    },
+    {
+      "venueId": "elemen-woodlands-height",
+      "name": "elemen Woodlands Height / Academy",
+      "menuId": "elemen-wh-published-menu",
+      "sourceUrls": [
+        "https://www.elemengroup.com.sg/menu",
+        "https://www.elemengroup.com.sg/menu-brands",
+        "https://images.squarespace-cdn.com/content/v1/609d2103ed36b46301aeb07d/e52d875f-c436-4f48-a43b-ce4859a78b37/WH_TV-1080x1920px.jpg"
+      ],
+      "totalFoodItems": 30,
+      "importedFoodItems": 30,
+      "excludedBeverages": 8,
+      "excludedBeverageBundles": 3,
+      "categories": [
+        {
+          "name": "Starter",
+          "items": 1
+        },
+        {
+          "name": "Bread",
+          "items": 1
+        },
+        {
+          "name": "Salads",
+          "items": 4
+        },
+        {
+          "name": "Soups",
+          "items": 4
+        },
+        {
+          "name": "Chef's Specials",
+          "items": 4
+        },
+        {
+          "name": "Mains",
+          "items": 12
+        },
+        {
+          "name": "Desserts",
+          "items": 4
+        }
+      ],
+      "status": "source-covered",
+      "remainingGaps": [
+        "Undated image; effective date/current availability unconfirmed.",
+        "Printed $ currency unspecified; no SGD inference.",
+        "Merchant brand and Woodlands images differ from online ordering."
+      ]
+    },
+    {
+      "venueId": "vege-story-woodlands-drive-50",
+      "name": "Vege Story - 892C Woodlands Drive 50",
+      "sourceUrls": [
+        "https://www.facebook.com/vegestory/",
+        "https://wufu.co/vege-story",
+        "https://www.happycow.net/reviews/vege-story-north-singapore-202072"
+      ],
+      "totalFoodItems": null,
+      "importedFoodItems": 0,
+      "excludedBeverages": null,
+      "categories": [],
+      "status": "unavailable",
+      "remainingGaps": [
+        "Social metadata supports stall identity; current menu items/prices not readable.",
+        "Website HTTPS TLS failure / HTTP 403; no exact branch delivery menu found.",
+        "Next source: merchant-provided current menu link or photo, with authority to collect menu facts."
+      ]
+    },
+    {
+      "venueId": "dough-culture-admiralty-place",
+      "name": "Dough Culture - Admiralty Place",
+      "sourceUrls": [
+        "https://www.foodpanda.sg/restaurant/onau/dough-culture-admiralty-place",
+        "https://www.doughculture.com.sg/product",
+        "https://www.doughculture.com.sg/product?page=2",
+        "https://www.koufu.com.sg/our-brands/concept-stores/dough-culture/"
+      ],
+      "totalFoodItems": 31,
+      "importedFoodItems": 0,
+      "excludedBeverages": 1,
+      "excludedBeverageBundles": 4,
+      "excludedConfigurators": 1,
+      "categories": [
+        {
+          "name": "MUST TRY NEW LAUNCH!",
+          "items": 8
+        },
+        {
+          "name": "FOOD",
+          "items": 19
+        },
+        {
+          "name": "CONGEE & DESSERTS",
+          "items": 4
+        }
+      ],
+      "status": "partial",
+      "remainingGaps": [
+        "Held: meaningful current merchant vegetarian-venue claim not verified; food facts not imported.",
+        "Brand catalogue of 24 items does not establish branch availability.",
+        "Public foodpanda menu is dynamic; only direct response denominator of 31 fixed food offers is used."
+      ]
+    }
+  ]
+}

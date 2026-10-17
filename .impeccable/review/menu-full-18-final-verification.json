@@ -1,0 +1,14 @@
+{
+  "checkedAt": "2026-10-16T10:16:12.283074+00:00",
+  "passed": true,
+  "independentLeadsReviewed": 1105,
+  "referenceRecords": 726,
+  "zeroFoodGapReviews": 109,
+  "sourceCheckDatesPreserved": true,
+  "newIdentityApprovals": 0,
+  "heldFoodObservations": 2527,
+  "googleLedgerUnchanged": true,
+  "frozenSelectionUnchanged": true,
+  "canonicalPreorderContextUnpublished": true,
+  "fullMenuCoverageComplete": false
+}

@@ -1,0 +1,855 @@
+{
+  "version": 1,
+  "checkedAt": "2026-10-16T00:51:30Z",
+  "identityReviewDataset": "data/menu-research/identity-completion-batch-02.json",
+  "notice": "Slow Bakes merchant preorder food catalogue. Property operator confirms tenant/premises and describes HYC food as meat-free/vegetarian. Vegan labels are item-specific. No beverages, ingredient-only spreads, artwork or Google identity assignment.",
+  "sources": [
+    {
+      "id": "icf3b-slow-order",
+      "url": "https://take.app/slowbakes",
+      "title": "Slow Bakes x Real Food - preorder catalogue",
+      "publisher": "Slow Bakes",
+      "kind": "merchant-ordering",
+      "status": "readable",
+      "checkedAt": "2026-10-16T00:51:30Z",
+      "publishedAt": null,
+      "notes": "23 bakery food products plus four ingredient-only spreads, excluded. Prices include 9% GST; minimum three days preorder. Limited production subject to confirmation."
+    },
+    {
+      "id": "icf3b-slow-premises",
+      "url": "https://hyc.tzuchi.org.sg/spaces/dining/",
+      "title": "HYC operator - Slow Bakes tenant and centre premises",
+      "publisher": "Tzu Chi Humanistic Youth Centre",
+      "kind": "property-operator",
+      "status": "readable",
+      "checkedAt": "2026-10-16T00:51:30Z",
+      "notes": "Current operator lists Slow Bakes and 30A Yishun Central 1, Singapore 768796; no exact shop unit published."
+    },
+    {
+      "id": "icf3b-slow-vegetarian",
+      "url": "https://hyc.tzuchi.org.sg/spotlight/my-experience-as-a-student-intern-at-hyc/",
+      "title": "HYC operator - meat-free and vegetarian food at centre",
+      "publisher": "Tzu Chi Humanistic Youth Centre",
+      "kind": "property-operator",
+      "status": "readable",
+      "checkedAt": "2026-10-16T00:51:30Z",
+      "notes": "Operator-hosted account explicitly describes food at HYC as meat-free/vegetarian and names Slow Bakes eggs and Real Food pizza. Current merchant ordering catalogue coherently lists vegan bakes and egg/dairy bakes; no meat/fish products shown."
+    },
+    {
+      "id": "icf3b-slow-detail-7",
+      "url": "https://take.app/slowbakes/p/247aa4b-6bd4-cebc-dfe3-8cced4f1b7f",
+      "title": "Country (V) - product detail",
+      "publisher": "Slow Bakes",
+      "kind": "merchant-ordering-product",
+      "status": "readable",
+      "checkedAt": "2026-10-16T00:51:30Z",
+      "publishedAt": null
+    },
+    {
+      "id": "icf3b-slow-detail-8",
+      "url": "https://take.app/slowbakes/p/a4d28e4-566e-d0e0-336a-07a73462f08a",
+      "title": "Seeded (V) - product detail",
+      "publisher": "Slow Bakes",
+      "kind": "merchant-ordering-product",
+      "status": "readable",
+      "checkedAt": "2026-10-16T00:51:30Z",
+      "publishedAt": null
+    },
+    {
+      "id": "icf3b-slow-detail-9",
+      "url": "https://take.app/slowbakes/p/1b2ca8b-a581-832c-b4be-4de03c0a4a3",
+      "title": "Sunflower Sesame (V) - product detail",
+      "publisher": "Slow Bakes",
+      "kind": "merchant-ordering-product",
+      "status": "readable",
+      "checkedAt": "2026-10-16T00:51:30Z",
+      "publishedAt": null
+    },
+    {
+      "id": "icf3b-slow-detail-10",
+      "url": "https://take.app/slowbakes/p/c2fa7-b436-b1f6-37ce-a8e56e580dd2",
+      "title": "Olive (V) - product detail",
+      "publisher": "Slow Bakes",
+      "kind": "merchant-ordering-product",
+      "status": "readable",
+      "checkedAt": "2026-10-16T00:51:30Z",
+      "publishedAt": null
+    },
+    {
+      "id": "icf3b-slow-detail-11",
+      "url": "https://take.app/slowbakes/p/c83220e-07f-3fc1-04a8-e560e58ab1",
+      "title": "Walnut Lavender (V) - product detail",
+      "publisher": "Slow Bakes",
+      "kind": "merchant-ordering-product",
+      "status": "readable",
+      "checkedAt": "2026-10-16T00:51:30Z",
+      "publishedAt": null
+    },
+    {
+      "id": "icf3b-slow-detail-12",
+      "url": "https://take.app/slowbakes/p/4a312ee-c7b-25ab-1331-2dfef50566",
+      "title": "Turmeric Cranberry (V) - product detail",
+      "publisher": "Slow Bakes",
+      "kind": "merchant-ordering-product",
+      "status": "readable",
+      "checkedAt": "2026-10-16T00:51:30Z",
+      "publishedAt": null
+    },
+    {
+      "id": "icf3b-slow-detail-13",
+      "url": "https://take.app/slowbakes/p/1c3a8f-e2fe-14f-6d66-35d4fbae03",
+      "title": "Cheddar Jalapeno - product detail",
+      "publisher": "Slow Bakes",
+      "kind": "merchant-ordering-product",
+      "status": "readable",
+      "checkedAt": "2026-10-16T00:51:30Z",
+      "publishedAt": null
+    },
+    {
+      "id": "icf3b-slow-detail-14",
+      "url": "https://take.app/slowbakes/p/ebaec18-e247-46e4-57c3-ecedcd8577e5",
+      "title": "Gluten-free Sourdough Plain (V) - product detail",
+      "publisher": "Slow Bakes",
+      "kind": "merchant-ordering-product",
+      "status": "readable",
+      "checkedAt": "2026-10-16T00:51:30Z",
+      "publishedAt": null
+    },
+    {
+      "id": "icf3b-slow-detail-15",
+      "url": "https://take.app/slowbakes/p/3a47f5-1faa-f53c-5b61-41f4777ba7",
+      "title": "Pumpkin (V) - product detail",
+      "publisher": "Slow Bakes",
+      "kind": "merchant-ordering-product",
+      "status": "readable",
+      "checkedAt": "2026-10-16T00:51:30Z",
+      "publishedAt": null
+    },
+    {
+      "id": "icf3b-slow-detail-16",
+      "url": "https://take.app/slowbakes/p/0364efb-228-8c0-f485-f1e2baec4017",
+      "title": "Chocolate (V) - product detail",
+      "publisher": "Slow Bakes",
+      "kind": "merchant-ordering-product",
+      "status": "readable",
+      "checkedAt": "2026-10-16T00:51:30Z",
+      "publishedAt": null
+    },
+    {
+      "id": "icf3b-slow-detail-17",
+      "url": "https://take.app/slowbakes/p/732da00-de00-e36-3632-f48ce7f5a730",
+      "title": "Matcha (V) - product detail",
+      "publisher": "Slow Bakes",
+      "kind": "merchant-ordering-product",
+      "status": "detail-unavailable",
+      "checkedAt": "2026-10-16T00:51:30Z",
+      "publishedAt": null
+    },
+    {
+      "id": "icf3b-slow-detail-18",
+      "url": "https://take.app/slowbakes/p/2e334d-220d-efcc-c688-bab3e76875b5",
+      "title": "Tumeric and Purple Sweet Potato Swirl (V) - product detail",
+      "publisher": "Slow Bakes",
+      "kind": "merchant-ordering-product",
+      "status": "readable",
+      "checkedAt": "2026-10-16T00:51:30Z",
+      "publishedAt": null
+    },
+    {
+      "id": "icf3b-slow-detail-19",
+      "url": "https://take.app/slowbakes/p/d881143-a8ad-6f74-b57e-df02f38d8a",
+      "title": "Banana Walnut - product detail",
+      "publisher": "Slow Bakes",
+      "kind": "merchant-ordering-product",
+      "status": "readable",
+      "checkedAt": "2026-10-16T00:51:30Z",
+      "publishedAt": null
+    },
+    {
+      "id": "icf3b-slow-detail-20",
+      "url": "https://take.app/slowbakes/p/ace8bf-7b35-0330-750b-48558e57f0c",
+      "title": "Adzuki (V) - product detail",
+      "publisher": "Slow Bakes",
+      "kind": "merchant-ordering-product",
+      "status": "readable",
+      "checkedAt": "2026-10-16T00:51:30Z",
+      "publishedAt": null
+    },
+    {
+      "id": "icf3b-slow-detail-21",
+      "url": "https://take.app/slowbakes/p/cb5766-1e45-34d6-8ee-cf88ccf20714",
+      "title": "Cheese Poro - product detail",
+      "publisher": "Slow Bakes",
+      "kind": "merchant-ordering-product",
+      "status": "readable",
+      "checkedAt": "2026-10-16T00:51:30Z",
+      "publishedAt": null
+    },
+    {
+      "id": "icf3b-slow-detail-22",
+      "url": "https://take.app/slowbakes/p/eb31b-23eb-b013-3748-cbc62a7083",
+      "title": "Chocolate Hazelnut (V) - product detail",
+      "publisher": "Slow Bakes",
+      "kind": "merchant-ordering-product",
+      "status": "detail-unavailable",
+      "checkedAt": "2026-10-16T00:51:30Z",
+      "publishedAt": null
+    },
+    {
+      "id": "icf3b-slow-detail-23",
+      "url": "https://take.app/slowbakes/p/238add8-60e-0a84-81a3-11fabb0a10",
+      "title": "Curry (V) - product detail",
+      "publisher": "Slow Bakes",
+      "kind": "merchant-ordering-product",
+      "status": "readable",
+      "checkedAt": "2026-10-16T00:51:30Z",
+      "publishedAt": null
+    },
+    {
+      "id": "icf3b-slow-detail-24",
+      "url": "https://take.app/slowbakes/p/7ef8e54-0d1c-7444-768f-63e5502852f",
+      "title": "Garlic Cheese - product detail",
+      "publisher": "Slow Bakes",
+      "kind": "merchant-ordering-product",
+      "status": "detail-unavailable",
+      "checkedAt": "2026-10-16T00:51:30Z",
+      "publishedAt": null
+    },
+    {
+      "id": "icf3b-slow-detail-25",
+      "url": "https://take.app/slowbakes/p/11cfa7-254-fffb-f7d-12a7f352882e",
+      "title": "Matcha Mochi Red Bean (V) - product detail",
+      "publisher": "Slow Bakes",
+      "kind": "merchant-ordering-product",
+      "status": "readable",
+      "checkedAt": "2026-10-16T00:51:30Z",
+      "publishedAt": null
+    },
+    {
+      "id": "icf3b-slow-detail-26",
+      "url": "https://take.app/slowbakes/p/8eb4b6-ef0-f74-acd-f7003afe0d52",
+      "title": "Mushroom Cheese - product detail",
+      "publisher": "Slow Bakes",
+      "kind": "merchant-ordering-product",
+      "status": "detail-unavailable",
+      "checkedAt": "2026-10-16T00:51:30Z",
+      "publishedAt": null
+    },
+    {
+      "id": "icf3b-slow-detail-27",
+      "url": "https://take.app/slowbakes/p/a684fa-a4fb-60d-03e8-5334e3f67e8",
+      "title": "Seeded (V) - product detail",
+      "publisher": "Slow Bakes",
+      "kind": "merchant-ordering-product",
+      "status": "readable",
+      "checkedAt": "2026-10-16T00:51:30Z",
+      "publishedAt": null
+    },
+    {
+      "id": "icf3b-slow-detail-28",
+      "url": "https://take.app/slowbakes/p/254802f-8157-2167-beea-7bb7d43451",
+      "title": "Berries Cream Cheese - product detail",
+      "publisher": "Slow Bakes",
+      "kind": "merchant-ordering-product",
+      "status": "detail-unavailable",
+      "checkedAt": "2026-10-16T00:51:30Z",
+      "publishedAt": null
+    },
+    {
+      "id": "icf3b-slow-detail-29",
+      "url": "https://take.app/slowbakes/p/d8b188f-a624-5c2-54a0-ae3537823a6a",
+      "title": "Cinnamon Roll (V) - product detail",
+      "publisher": "Slow Bakes",
+      "kind": "merchant-ordering-product",
+      "status": "readable",
+      "checkedAt": "2026-10-16T00:51:30Z",
+      "publishedAt": null
+    }
+  ],
+  "branches": [
+    {
+      "id": "slow-bakes-yishun-hyc",
+      "name": "Slow Bakes",
+      "address": "30A Yishun Central 1, Tzu Chi Humanistic Youth Centre, Singapore 768796",
+      "postalCode": "768796",
+      "unit": null,
+      "sourceIds": [
+        "icf3b-slow-order",
+        "icf3b-slow-premises",
+        "icf3b-slow-vegetarian"
+      ],
+      "menuIds": [
+        "icf3b-slow-preorder-foods"
+      ],
+      "candidatePlaceIds": [
+        "ChIJeVaLQcoV2jERMuPmS4m2PX4"
+      ],
+      "googlePlaceId": null,
+      "identityStatus": "operator-confirmed-premises",
+      "venueEligibility": {
+        "status": "vegetarian-confirmed",
+        "appScope": "vegetarian-vegan-venues-only",
+        "reason": "Current property operator identifies the tenant. Operator-hosted account calls HYC food meat-free/vegetarian; current complete ordering catalogue contains coherent vegan and egg/dairy bakery foods with no meat/fish contradictions."
+      },
+      "gaps": [
+        "No exact unit published by primary source; secondary #01-09 not assigned.",
+        "Shared preorder catalogue permits collection at Slow Bakes Yishun and named Real Food outlets; branch-specific daily counter range, toast breakfast sets and current cafe menu remain uncollected.",
+        "Five product-detail pages unavailable; catalogue prices captured without inferred portions/options."
+      ]
+    }
+  ],
+  "menus": [
+    {
+      "id": "icf3b-slow-preorder-foods",
+      "name": "Slow Bakes - shared preorder bakery foods",
+      "scope": "brand",
+      "branchIds": [
+        "slow-bakes-yishun-hyc"
+      ],
+      "sourceIds": [
+        "icf3b-slow-order"
+      ],
+      "coverage": "partial",
+      "publicationStatus": "review-proposed",
+      "notice": "All 23 bakery food product cards retained; four ingredient-only spreads excluded. Shared preorder/pickup source, not complete branch counter menu. Minimum three days advance notice, limited stock subject to confirmation. Prices include 9% GST. Five detail pages unavailable; details and portion options preserved only where readable.",
+      "sourceCoverage": {
+        "foodProducts": 23,
+        "pricedFoodProducts": 23,
+        "productDetailsReadable": 18,
+        "ingredientOnlyProductsExcluded": 4,
+        "beveragesExcluded": 0
+      },
+      "items": [
+        {
+          "id": "icf3b-slow-1",
+          "name": "Country (V)",
+          "category": "Sourdough",
+          "sourceIds": [
+            "icf3b-slow-order",
+            "icf3b-slow-detail-7"
+          ],
+          "price": {
+            "amount": 6,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "sourcePriceText": "$6.00",
+          "qualifier": "Merchant labels (V) as vegan; unlabelled products are not certified vegan. Online preorder shared pickup catalogue; not the complete Yishun cafe counter menu. At least three days advance order; limited quantities subject to confirmation. Prices include 9% GST. Delivery: Yishun orders of $40 or above free; other addresses $15. Pickup has no minimum spend. Catalogue currency symbol is $, Singapore channel; SGD used as source context, not an explicit ISO code. Effective menu date, current stock, full ingredient certification and final fulfillment unverified. Source portion choices: Half $6.00, Whole $12.00.",
+          "veganClaim": "merchant-labelled",
+          "priceVariants": [
+            {
+              "label": "Half",
+              "amount": 6,
+              "currency": "SGD"
+            },
+            {
+              "label": "Whole",
+              "amount": 12,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "icf3b-slow-2",
+          "name": "Seeded (V)",
+          "category": "Sourdough",
+          "sourceIds": [
+            "icf3b-slow-order",
+            "icf3b-slow-detail-8"
+          ],
+          "price": {
+            "amount": 7,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "sourcePriceText": "$7.00",
+          "qualifier": "Merchant labels (V) as vegan; unlabelled products are not certified vegan. Online preorder shared pickup catalogue; not the complete Yishun cafe counter menu. At least three days advance order; limited quantities subject to confirmation. Prices include 9% GST. Delivery: Yishun orders of $40 or above free; other addresses $15. Pickup has no minimum spend. Catalogue currency symbol is $, Singapore channel; SGD used as source context, not an explicit ISO code. Effective menu date, current stock, full ingredient certification and final fulfillment unverified. Source portion choices: Half $7.00, Whole $14.00.",
+          "veganClaim": "merchant-labelled",
+          "priceVariants": [
+            {
+              "label": "Half",
+              "amount": 7,
+              "currency": "SGD"
+            },
+            {
+              "label": "Whole",
+              "amount": 14,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "icf3b-slow-3",
+          "name": "Sunflower Sesame (V)",
+          "category": "Sourdough",
+          "sourceIds": [
+            "icf3b-slow-order",
+            "icf3b-slow-detail-9"
+          ],
+          "price": {
+            "amount": 7,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "sourcePriceText": "$7.00",
+          "qualifier": "Merchant labels (V) as vegan; unlabelled products are not certified vegan. Online preorder shared pickup catalogue; not the complete Yishun cafe counter menu. At least three days advance order; limited quantities subject to confirmation. Prices include 9% GST. Delivery: Yishun orders of $40 or above free; other addresses $15. Pickup has no minimum spend. Catalogue currency symbol is $, Singapore channel; SGD used as source context, not an explicit ISO code. Effective menu date, current stock, full ingredient certification and final fulfillment unverified. Source portion choices: Half $7.00, Whole $14.00.",
+          "veganClaim": "merchant-labelled",
+          "priceVariants": [
+            {
+              "label": "Half",
+              "amount": 7,
+              "currency": "SGD"
+            },
+            {
+              "label": "Whole",
+              "amount": 14,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "icf3b-slow-4",
+          "name": "Olive (V)",
+          "category": "Sourdough",
+          "sourceIds": [
+            "icf3b-slow-order",
+            "icf3b-slow-detail-10"
+          ],
+          "price": {
+            "amount": 7.5,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "sourcePriceText": "$7.50",
+          "qualifier": "Merchant labels (V) as vegan; unlabelled products are not certified vegan. Online preorder shared pickup catalogue; not the complete Yishun cafe counter menu. At least three days advance order; limited quantities subject to confirmation. Prices include 9% GST. Delivery: Yishun orders of $40 or above free; other addresses $15. Pickup has no minimum spend. Catalogue currency symbol is $, Singapore channel; SGD used as source context, not an explicit ISO code. Effective menu date, current stock, full ingredient certification and final fulfillment unverified. Source portion choices: Half $7.50, Whole $15.00.",
+          "veganClaim": "merchant-labelled",
+          "priceVariants": [
+            {
+              "label": "Half",
+              "amount": 7.5,
+              "currency": "SGD"
+            },
+            {
+              "label": "Whole",
+              "amount": 15,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "icf3b-slow-5",
+          "name": "Walnut Lavender (V)",
+          "category": "Sourdough",
+          "sourceIds": [
+            "icf3b-slow-order",
+            "icf3b-slow-detail-11"
+          ],
+          "price": {
+            "amount": 7.5,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "sourcePriceText": "$7.50",
+          "qualifier": "Merchant labels (V) as vegan; unlabelled products are not certified vegan. Online preorder shared pickup catalogue; not the complete Yishun cafe counter menu. At least three days advance order; limited quantities subject to confirmation. Prices include 9% GST. Delivery: Yishun orders of $40 or above free; other addresses $15. Pickup has no minimum spend. Catalogue currency symbol is $, Singapore channel; SGD used as source context, not an explicit ISO code. Effective menu date, current stock, full ingredient certification and final fulfillment unverified. Source portion choices: Half $7.50, Whole $15.00.",
+          "veganClaim": "merchant-labelled",
+          "priceVariants": [
+            {
+              "label": "Half",
+              "amount": 7.5,
+              "currency": "SGD"
+            },
+            {
+              "label": "Whole",
+              "amount": 15,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "icf3b-slow-6",
+          "name": "Turmeric Cranberry (V)",
+          "category": "Sourdough",
+          "sourceIds": [
+            "icf3b-slow-order",
+            "icf3b-slow-detail-12"
+          ],
+          "price": {
+            "amount": 7,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "$7.00",
+          "qualifier": "Merchant labels (V) as vegan; unlabelled products are not certified vegan. Online preorder shared pickup catalogue; not the complete Yishun cafe counter menu. At least three days advance order; limited quantities subject to confirmation. Prices include 9% GST. Delivery: Yishun orders of $40 or above free; other addresses $15. Pickup has no minimum spend. Catalogue currency symbol is $, Singapore channel; SGD used as source context, not an explicit ISO code. Effective menu date, current stock, full ingredient certification and final fulfillment unverified.",
+          "veganClaim": "merchant-labelled"
+        },
+        {
+          "id": "icf3b-slow-7",
+          "name": "Cheddar Jalapeno",
+          "category": "Sourdough",
+          "sourceIds": [
+            "icf3b-slow-order",
+            "icf3b-slow-detail-13"
+          ],
+          "price": {
+            "amount": 7.5,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "sourcePriceText": "$7.50",
+          "qualifier": "Merchant labels (V) as vegan; unlabelled products are not certified vegan. Online preorder shared pickup catalogue; not the complete Yishun cafe counter menu. At least three days advance order; limited quantities subject to confirmation. Prices include 9% GST. Delivery: Yishun orders of $40 or above free; other addresses $15. Pickup has no minimum spend. Catalogue currency symbol is $, Singapore channel; SGD used as source context, not an explicit ISO code. Effective menu date, current stock, full ingredient certification and final fulfillment unverified. Source portion choices: Half $7.50, Whole $15.00.",
+          "veganClaim": "not-certified",
+          "priceVariants": [
+            {
+              "label": "Half",
+              "amount": 7.5,
+              "currency": "SGD"
+            },
+            {
+              "label": "Whole",
+              "amount": 15,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "icf3b-slow-8",
+          "name": "Gluten-free Sourdough Plain (V)",
+          "category": "Gluten-free",
+          "sourceIds": [
+            "icf3b-slow-order",
+            "icf3b-slow-detail-14"
+          ],
+          "price": {
+            "amount": 9.25,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "sourcePriceText": "$9.25",
+          "qualifier": "Merchant labels (V) as vegan; unlabelled products are not certified vegan. Online preorder shared pickup catalogue; not the complete Yishun cafe counter menu. At least three days advance order; limited quantities subject to confirmation. Prices include 9% GST. Delivery: Yishun orders of $40 or above free; other addresses $15. Pickup has no minimum spend. Catalogue currency symbol is $, Singapore channel; SGD used as source context, not an explicit ISO code. Effective menu date, current stock, full ingredient certification and final fulfillment unverified. Source portion choices: Half $9.25, Whole $18.50.",
+          "veganClaim": "merchant-labelled",
+          "priceVariants": [
+            {
+              "label": "Half",
+              "amount": 9.25,
+              "currency": "SGD"
+            },
+            {
+              "label": "Whole",
+              "amount": 18.5,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "icf3b-slow-9",
+          "name": "Pumpkin (V)",
+          "category": "Soft loaves",
+          "sourceIds": [
+            "icf3b-slow-order",
+            "icf3b-slow-detail-15"
+          ],
+          "price": {
+            "amount": 4.75,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "sourcePriceText": "$4.75",
+          "qualifier": "Merchant labels (V) as vegan; unlabelled products are not certified vegan. Online preorder shared pickup catalogue; not the complete Yishun cafe counter menu. At least three days advance order; limited quantities subject to confirmation. Prices include 9% GST. Delivery: Yishun orders of $40 or above free; other addresses $15. Pickup has no minimum spend. Catalogue currency symbol is $, Singapore channel; SGD used as source context, not an explicit ISO code. Effective menu date, current stock, full ingredient certification and final fulfillment unverified. Source portion choices: Half $4.75, Whole $9.50.",
+          "veganClaim": "merchant-labelled",
+          "priceVariants": [
+            {
+              "label": "Half",
+              "amount": 4.75,
+              "currency": "SGD"
+            },
+            {
+              "label": "Whole",
+              "amount": 9.5,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "icf3b-slow-10",
+          "name": "Chocolate (V)",
+          "category": "Soft loaves",
+          "sourceIds": [
+            "icf3b-slow-order",
+            "icf3b-slow-detail-16"
+          ],
+          "price": {
+            "amount": 4.95,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "sourcePriceText": "$4.95",
+          "qualifier": "Merchant labels (V) as vegan; unlabelled products are not certified vegan. Online preorder shared pickup catalogue; not the complete Yishun cafe counter menu. At least three days advance order; limited quantities subject to confirmation. Prices include 9% GST. Delivery: Yishun orders of $40 or above free; other addresses $15. Pickup has no minimum spend. Catalogue currency symbol is $, Singapore channel; SGD used as source context, not an explicit ISO code. Effective menu date, current stock, full ingredient certification and final fulfillment unverified. Source portion choices: Half $4.95, Whole $9.90.",
+          "veganClaim": "merchant-labelled",
+          "priceVariants": [
+            {
+              "label": "Half",
+              "amount": 4.95,
+              "currency": "SGD"
+            },
+            {
+              "label": "Whole",
+              "amount": 9.9,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "icf3b-slow-11",
+          "name": "Matcha (V)",
+          "category": "Soft loaves",
+          "sourceIds": [
+            "icf3b-slow-order",
+            "icf3b-slow-detail-17"
+          ],
+          "price": {
+            "amount": 4.75,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "$4.75",
+          "qualifier": "Merchant labels (V) as vegan; unlabelled products are not certified vegan. Online preorder shared pickup catalogue; not the complete Yishun cafe counter menu. At least three days advance order; limited quantities subject to confirmation. Prices include 9% GST. Delivery: Yishun orders of $40 or above free; other addresses $15. Pickup has no minimum spend. Catalogue currency symbol is $, Singapore channel; SGD used as source context, not an explicit ISO code. Effective menu date, current stock, full ingredient certification and final fulfillment unverified. Product detail unavailable; retain catalogue price only and do not infer hidden portions/options.",
+          "veganClaim": "merchant-labelled"
+        },
+        {
+          "id": "icf3b-slow-12",
+          "name": "Tumeric and Purple Sweet Potato Swirl (V)",
+          "category": "Soft loaves",
+          "sourceIds": [
+            "icf3b-slow-order",
+            "icf3b-slow-detail-18"
+          ],
+          "price": {
+            "amount": 7.1,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "sourcePriceText": "$7.10",
+          "qualifier": "Merchant labels (V) as vegan; unlabelled products are not certified vegan. Online preorder shared pickup catalogue; not the complete Yishun cafe counter menu. At least three days advance order; limited quantities subject to confirmation. Prices include 9% GST. Delivery: Yishun orders of $40 or above free; other addresses $15. Pickup has no minimum spend. Catalogue currency symbol is $, Singapore channel; SGD used as source context, not an explicit ISO code. Effective menu date, current stock, full ingredient certification and final fulfillment unverified. Source portion choices: Half $7.10, Whole $14.20.",
+          "veganClaim": "merchant-labelled",
+          "priceVariants": [
+            {
+              "label": "Half",
+              "amount": 7.1,
+              "currency": "SGD"
+            },
+            {
+              "label": "Whole",
+              "amount": 14.2,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "icf3b-slow-13",
+          "name": "Banana Walnut",
+          "category": "Soft loaves",
+          "sourceIds": [
+            "icf3b-slow-order",
+            "icf3b-slow-detail-19"
+          ],
+          "price": {
+            "amount": 9.25,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "sourcePriceText": "$9.25",
+          "qualifier": "Merchant labels (V) as vegan; unlabelled products are not certified vegan. Online preorder shared pickup catalogue; not the complete Yishun cafe counter menu. At least three days advance order; limited quantities subject to confirmation. Prices include 9% GST. Delivery: Yishun orders of $40 or above free; other addresses $15. Pickup has no minimum spend. Catalogue currency symbol is $, Singapore channel; SGD used as source context, not an explicit ISO code. Effective menu date, current stock, full ingredient certification and final fulfillment unverified. Source portion choices: Half $9.25, Whole $18.50.",
+          "veganClaim": "not-certified",
+          "priceVariants": [
+            {
+              "label": "Half",
+              "amount": 9.25,
+              "currency": "SGD"
+            },
+            {
+              "label": "Whole",
+              "amount": 18.5,
+              "currency": "SGD"
+            }
+          ]
+        },
+        {
+          "id": "icf3b-slow-14",
+          "name": "Adzuki (V)",
+          "category": "Buns",
+          "sourceIds": [
+            "icf3b-slow-order",
+            "icf3b-slow-detail-20"
+          ],
+          "price": {
+            "amount": 3.25,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "$3.25",
+          "qualifier": "Merchant labels (V) as vegan; unlabelled products are not certified vegan. Online preorder shared pickup catalogue; not the complete Yishun cafe counter menu. At least three days advance order; limited quantities subject to confirmation. Prices include 9% GST. Delivery: Yishun orders of $40 or above free; other addresses $15. Pickup has no minimum spend. Catalogue currency symbol is $, Singapore channel; SGD used as source context, not an explicit ISO code. Effective menu date, current stock, full ingredient certification and final fulfillment unverified.",
+          "veganClaim": "merchant-labelled"
+        },
+        {
+          "id": "icf3b-slow-15",
+          "name": "Cheese Poro",
+          "category": "Buns",
+          "sourceIds": [
+            "icf3b-slow-order",
+            "icf3b-slow-detail-21"
+          ],
+          "price": {
+            "amount": 3.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "$3.50",
+          "qualifier": "Merchant labels (V) as vegan; unlabelled products are not certified vegan. Online preorder shared pickup catalogue; not the complete Yishun cafe counter menu. At least three days advance order; limited quantities subject to confirmation. Prices include 9% GST. Delivery: Yishun orders of $40 or above free; other addresses $15. Pickup has no minimum spend. Catalogue currency symbol is $, Singapore channel; SGD used as source context, not an explicit ISO code. Effective menu date, current stock, full ingredient certification and final fulfillment unverified.",
+          "veganClaim": "not-certified"
+        },
+        {
+          "id": "icf3b-slow-16",
+          "name": "Chocolate Hazelnut (V)",
+          "category": "Buns",
+          "sourceIds": [
+            "icf3b-slow-order",
+            "icf3b-slow-detail-22"
+          ],
+          "price": {
+            "amount": 3.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "$3.50",
+          "qualifier": "Merchant labels (V) as vegan; unlabelled products are not certified vegan. Online preorder shared pickup catalogue; not the complete Yishun cafe counter menu. At least three days advance order; limited quantities subject to confirmation. Prices include 9% GST. Delivery: Yishun orders of $40 or above free; other addresses $15. Pickup has no minimum spend. Catalogue currency symbol is $, Singapore channel; SGD used as source context, not an explicit ISO code. Effective menu date, current stock, full ingredient certification and final fulfillment unverified. Product detail unavailable; retain catalogue price only and do not infer hidden portions/options.",
+          "veganClaim": "merchant-labelled"
+        },
+        {
+          "id": "icf3b-slow-17",
+          "name": "Curry (V)",
+          "category": "Buns",
+          "sourceIds": [
+            "icf3b-slow-order",
+            "icf3b-slow-detail-23"
+          ],
+          "price": {
+            "amount": 3.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "$3.50",
+          "qualifier": "Merchant labels (V) as vegan; unlabelled products are not certified vegan. Online preorder shared pickup catalogue; not the complete Yishun cafe counter menu. At least three days advance order; limited quantities subject to confirmation. Prices include 9% GST. Delivery: Yishun orders of $40 or above free; other addresses $15. Pickup has no minimum spend. Catalogue currency symbol is $, Singapore channel; SGD used as source context, not an explicit ISO code. Effective menu date, current stock, full ingredient certification and final fulfillment unverified.",
+          "veganClaim": "merchant-labelled"
+        },
+        {
+          "id": "icf3b-slow-18",
+          "name": "Garlic Cheese",
+          "category": "Buns",
+          "sourceIds": [
+            "icf3b-slow-order",
+            "icf3b-slow-detail-24"
+          ],
+          "price": {
+            "amount": 4.4,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "$4.40",
+          "qualifier": "Merchant labels (V) as vegan; unlabelled products are not certified vegan. Online preorder shared pickup catalogue; not the complete Yishun cafe counter menu. At least three days advance order; limited quantities subject to confirmation. Prices include 9% GST. Delivery: Yishun orders of $40 or above free; other addresses $15. Pickup has no minimum spend. Catalogue currency symbol is $, Singapore channel; SGD used as source context, not an explicit ISO code. Effective menu date, current stock, full ingredient certification and final fulfillment unverified. Product detail unavailable; retain catalogue price only and do not infer hidden portions/options.",
+          "veganClaim": "not-certified"
+        },
+        {
+          "id": "icf3b-slow-19",
+          "name": "Matcha Mochi Red Bean (V)",
+          "category": "Buns",
+          "sourceIds": [
+            "icf3b-slow-order",
+            "icf3b-slow-detail-25"
+          ],
+          "price": {
+            "amount": 3.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "$3.90",
+          "qualifier": "Merchant labels (V) as vegan; unlabelled products are not certified vegan. Online preorder shared pickup catalogue; not the complete Yishun cafe counter menu. At least three days advance order; limited quantities subject to confirmation. Prices include 9% GST. Delivery: Yishun orders of $40 or above free; other addresses $15. Pickup has no minimum spend. Catalogue currency symbol is $, Singapore channel; SGD used as source context, not an explicit ISO code. Effective menu date, current stock, full ingredient certification and final fulfillment unverified.",
+          "veganClaim": "merchant-labelled"
+        },
+        {
+          "id": "icf3b-slow-20",
+          "name": "Mushroom Cheese",
+          "category": "Buns",
+          "sourceIds": [
+            "icf3b-slow-order",
+            "icf3b-slow-detail-26"
+          ],
+          "price": {
+            "amount": 3.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "$3.80",
+          "qualifier": "Merchant labels (V) as vegan; unlabelled products are not certified vegan. Online preorder shared pickup catalogue; not the complete Yishun cafe counter menu. At least three days advance order; limited quantities subject to confirmation. Prices include 9% GST. Delivery: Yishun orders of $40 or above free; other addresses $15. Pickup has no minimum spend. Catalogue currency symbol is $, Singapore channel; SGD used as source context, not an explicit ISO code. Effective menu date, current stock, full ingredient certification and final fulfillment unverified. Product detail unavailable; retain catalogue price only and do not infer hidden portions/options.",
+          "veganClaim": "not-certified"
+        },
+        {
+          "id": "icf3b-slow-21",
+          "name": "Seeded (V)",
+          "category": "Buns",
+          "sourceIds": [
+            "icf3b-slow-order",
+            "icf3b-slow-detail-27"
+          ],
+          "price": {
+            "amount": 2.4,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "$2.40",
+          "qualifier": "Merchant labels (V) as vegan; unlabelled products are not certified vegan. Online preorder shared pickup catalogue; not the complete Yishun cafe counter menu. At least three days advance order; limited quantities subject to confirmation. Prices include 9% GST. Delivery: Yishun orders of $40 or above free; other addresses $15. Pickup has no minimum spend. Catalogue currency symbol is $, Singapore channel; SGD used as source context, not an explicit ISO code. Effective menu date, current stock, full ingredient certification and final fulfillment unverified.",
+          "veganClaim": "merchant-labelled"
+        },
+        {
+          "id": "icf3b-slow-22",
+          "name": "Berries Cream Cheese",
+          "category": "Buns",
+          "sourceIds": [
+            "icf3b-slow-order",
+            "icf3b-slow-detail-28"
+          ],
+          "price": {
+            "amount": 3.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "$3.80",
+          "qualifier": "Merchant labels (V) as vegan; unlabelled products are not certified vegan. Online preorder shared pickup catalogue; not the complete Yishun cafe counter menu. At least three days advance order; limited quantities subject to confirmation. Prices include 9% GST. Delivery: Yishun orders of $40 or above free; other addresses $15. Pickup has no minimum spend. Catalogue currency symbol is $, Singapore channel; SGD used as source context, not an explicit ISO code. Effective menu date, current stock, full ingredient certification and final fulfillment unverified. Product detail unavailable; retain catalogue price only and do not infer hidden portions/options.",
+          "veganClaim": "not-certified"
+        },
+        {
+          "id": "icf3b-slow-23",
+          "name": "Cinnamon Roll (V)",
+          "category": "Buns",
+          "sourceIds": [
+            "icf3b-slow-order",
+            "icf3b-slow-detail-29"
+          ],
+          "price": {
+            "amount": 3.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "$3.50",
+          "qualifier": "Merchant labels (V) as vegan; unlabelled products are not certified vegan. Online preorder shared pickup catalogue; not the complete Yishun cafe counter menu. At least three days advance order; limited quantities subject to confirmation. Prices include 9% GST. Delivery: Yishun orders of $40 or above free; other addresses $15. Pickup has no minimum spend. Catalogue currency symbol is $, Singapore channel; SGD used as source context, not an explicit ISO code. Effective menu date, current stock, full ingredient certification and final fulfillment unverified.",
+          "veganClaim": "merchant-labelled"
+        }
+      ]
+    }
+  ],
+  "scope": {
+    "appScope": "vegetarian-vegan-venues-only",
+    "beverages": "excluded",
+    "ingredientOnlyFoods": "excluded",
+    "googleIdentityAssignment": "none"
+  }
+}

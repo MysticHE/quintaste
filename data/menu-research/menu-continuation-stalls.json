@@ -1,0 +1,1956 @@
+{
+  "version": 1,
+  "checkedAt": "2026-10-15T22:17:28.000Z",
+  "status": "research-continuation-held-source-representations",
+  "sources": [
+    {
+      "id": "cont-sushilou-fp",
+      "url": "https://www.foodpanda.sg/restaurant/c9tt/su-shi-lou-vegetarian-koufu-768-woodlands",
+      "title": "SU SHI LOU VEGETARIAN — Koufu 768 Woodlands — public ordering menu representation",
+      "publisher": "Su Shi Lou Vegetarian / foodpanda ordering channel",
+      "checkedAt": "2026-10-15T22:17:28.000Z",
+      "status": "Readable public web-source representation; direct ordinary request HTTP403; no retry or barrier bypass"
+    },
+    {
+      "id": "cont-renyi-fp",
+      "url": "https://www.foodpanda.sg/restaurant/xr8d/ren-yi-vegetarian-tampines-street-81",
+      "title": "Ren Yi Vegetarian — 820 Tampines Street 81 — public ordering menu representation",
+      "publisher": "Ren Yi Vegetarian / foodpanda ordering channel",
+      "checkedAt": "2026-10-15T22:17:28.000Z",
+      "status": "Readable public web-source representation; direct ordinary request HTTP403; no retry or barrier bypass"
+    },
+    {
+      "id": "cont-cheewei-potong-fp",
+      "url": "https://www.foodpanda.sg/restaurant/gwj6/chee-wei-vegetarian-potong-pasir",
+      "title": "Chee Wei Vegetarian — Potong Pasir — public ordering menu representation",
+      "publisher": "Chee Wei Vegetarian / foodpanda ordering channel",
+      "checkedAt": "2026-10-15T22:17:28.000Z",
+      "status": "Readable public web-source representation; direct ordinary request HTTP403; no retry or barrier bypass"
+    },
+    {
+      "id": "cont-cheewei-tampines-fp",
+      "url": "https://www.foodpanda.sg/restaurant/sl18/chee-wei-vegetarian-tampines-north",
+      "title": "Chee Wei Vegetarian — Tampines North — public ordering menu representation",
+      "publisher": "Chee Wei Vegetarian / foodpanda ordering channel",
+      "checkedAt": "2026-10-15T22:17:28.000Z",
+      "status": "Readable public web-source representation; live options/currentness not verified"
+    },
+    {
+      "id": "cont-minigreen-fp",
+      "url": "https://www.foodpanda.sg/restaurant/ed4x/mini-green-vegetarian-toa-payoh-lorong-8",
+      "title": "Mini Green Vegetarian — Toa Payoh Lorong 8 — public ordering menu representation",
+      "publisher": "Mini Green Vegetarian / foodpanda ordering channel",
+      "checkedAt": "2026-10-15T22:17:28.000Z",
+      "status": "Readable public web-source representation; direct ordinary request HTTP403; no retry or barrier bypass"
+    },
+    {
+      "id": "icf5-renyi-recheck-en",
+      "url": "https://www.foodpanda.sg/restaurant/xr8d/ren-yi-vegetarian-tampines-street-81",
+      "title": "Ren Yi Vegetarian - exact Tampines820 current public source recheck",
+      "kind": "merchant-partner",
+      "checkedAt": "2026-10-16T01:04:16.936875+00:00",
+      "status": "readable-public-web-text",
+      "publishedAt": null,
+      "notes": "All 28 food cards across five non-Popular sections visible. Explicit merchant Vegetarian trading name and coherent food menu; no ingredient contradiction established. Prior ordinary HTTP403 is not bypassed; current source options/live stock remain unconfirmed."
+    },
+    {
+      "id": "miv01-renyi-fp-en",
+      "url": "https://www.foodpanda.sg/restaurant/xr8d/ren-yi-vegetarian-tampines-street-81",
+      "title": "Ren Yi English food source",
+      "kind": "merchant-ordering",
+      "credibilityScoreOutOf5": 5,
+      "retrievedAt": "2026-10-16T01:19:40Z",
+      "publishedAt": null,
+      "status": "prior-current-read-this-pass-timeout",
+      "basis": "Batch05 English observation retained Kumming Soup Noodle at from S$5.95/originalS$7; this verification pass direct source timed out twice. No new current stock assertion."
+    },
+    {
+      "id": "miv01-renyi-fp-zh",
+      "url": "https://www.foodpanda.sg/zh/restaurant/xr8d/ren-yi-vegetarian-tampines-street-81/reviews",
+      "title": "Ren Yi alternate Chinese menu representation",
+      "kind": "merchant-ordering-differing-representation",
+      "credibilityScoreOutOf5": 4,
+      "retrievedAt": "2026-10-16T01:19:40Z",
+      "publishedAt": null,
+      "status": "inconsistent-cached-representations",
+      "basis": "Search representation names Fish Beehoon Soup with vegetarian-fish wording and same displayed prices, while direct open returns an older 740-line representation with materially different menu. Neither stable product ID nor version effective date established. No positional merge."
+    },
+    {
+      "id": "miv01-renyi-pickup",
+      "url": "https://www.foodpanda.sg/restaurant/xr8d/ren-yi-vegetarian-tampines-street-81?opening_type=pickup",
+      "title": "Ren Yi pickup page representation",
+      "kind": "merchant-ordering",
+      "credibilityScoreOutOf5": 4,
+      "retrievedAt": "2026-10-16T01:19:40Z",
+      "publishedAt": null,
+      "status": "readable-no-menu-body",
+      "basis": "Current fetch confirms exact 820/520820 but no menu products rendered. Query parameter does not prove pickup inventory."
+    },
+    {
+      "id": "miv01-renyi-grab-editorial",
+      "url": "https://www.grab.com/sg/articles/food/vegetarian-food-singapore/",
+      "title": "Grab vegetarian food editorial with exact Ren Yi branch",
+      "kind": "ordering-platform-editorial",
+      "credibilityScoreOutOf5": 4,
+      "retrievedAt": "2026-10-16T01:19:40Z",
+      "publishedAt": null,
+      "status": "readable-effective-date-unstated",
+      "basis": "Specifically describes vegetarian mutton/Kumming soup at 820 Tampines#01-506,520820 and links exact merchant channel. Supports Kumming as a separate vegetarian dish name, not equality with Fish Beehoon or current Foodpanda product identity. No price imported."
+    },
+    {
+      "id": "miv01-renyi-grab-menu",
+      "url": "https://food.grab.com/restaurant/ren-yi-vegetarian-tampines-polyview/4-C6WUKBWHGUM2N6",
+      "title": "Grab article-linked Ren Yi merchant menu",
+      "kind": "merchant-ordering",
+      "credibilityScoreOutOf5": 4,
+      "retrievedAt": "2026-10-16T01:19:40Z",
+      "publishedAt": null,
+      "status": "unavailable-through-web-tool",
+      "basis": "Observed exact destination from editorial order link; public tool could not fetch menu. No hidden product identity inferred."
+    }
+  ],
+  "branches": [
+    {
+      "id": "sushilou-woodlands768",
+      "name": "SU SHI LOU VEGETARIAN — Koufu 768 Woodlands",
+      "address": "768 Woodlands Avenue 6 #01-30/31, Singapore",
+      "sourceIds": [
+        "cont-sushilou-fp"
+      ],
+      "menuIds": [
+        "sushilou-woodlands768-foodpanda-observation"
+      ],
+      "gaps": [
+        "All twenty non-Popular Mains in the readable public ordering-source representation retained. Source descriptions contain generic conflicting meat/prawn-stock wording and are excluded; vegetarian trading name is not ingredient certification.",
+        "Direct ordinary public request returned HTTP403. Readable web-source representation is a channel observation, not verified current stock or dine-in pricing. Customization/size choices and current service require accessible merchant evidence."
+      ]
+    },
+    {
+      "id": "renyi-tampines820",
+      "name": "Ren Yi Vegetarian — 820 Tampines Street 81",
+      "address": "Block 820 Tampines Street 81, Singapore 520820",
+      "postalCode": "520820",
+      "sourceIds": [
+        "cont-renyi-fp",
+        "icf5-renyi-recheck-en"
+      ],
+      "menuIds": [
+        "renyi-tampines820-foodpanda-observation"
+      ],
+      "gaps": [
+        "Fresh current public delivery source revalidated27 existing foods by exact name/category and printed prices. One cross-language naming conflict stays held.",
+        "Hidden choices, current stock, final charges, menu effective date and dine-in equivalence remain unverified; no AMK/Ubi menu or premises transfer.",
+        "Online item cross-check16Oct2026 remains unresolved: Kumming Soup Noodle / alternate Fish Beehoon observation. See data/menu-research/menu-item-verification-01-ambiguous-foods.json for dated sources and next verification step."
+      ],
+      "eligibility": "vegetarian-confirmed",
+      "venueEligibility": {
+        "status": "vegetarian-confirmed",
+        "checkedAt": "2026-10-16T01:04:16.936875+00:00",
+        "reason": "All 28 food cards across five non-Popular sections visible. Explicit merchant Vegetarian trading name and coherent food menu; no ingredient contradiction established. Prior ordinary HTTP403 is not bypassed; current source options/live stock remain unconfirmed."
+      },
+      "completionHistory": [
+        {
+          "checkedAt": "2026-10-16T01:08:36.386Z",
+          "previousGaps": [
+            "Twenty-eight food cards across all five non-Popular categories retained. Printed discounted and original amounts preserved separately; no computed discount price or rounding substituted. Merchant-label spelling retained.",
+            "Direct ordinary public request returned HTTP403. Current rendered ordering/option state and stock unverified. Whole menu is channel-specific and must not be transferred to AMK Hub or the registered Ubi office. Secondary unit/postal 521820 disagreement is not promoted over source 520820."
+          ],
+          "sourceAmendment": "data/menu-research/menu-completion-identity-foods-05c-renyi-source-amendment.json",
+          "frozenAmendmentSha256": "df4a02d64933995265338e1b55d77fb82528357a9fddc82952ac38d3079961d6"
+        }
+      ]
+    },
+    {
+      "id": "cheewei-potongpasir147",
+      "name": "Chee Wei Vegetarian — Potong Pasir",
+      "address": "147 Potong Pasir Avenue 1 #01-93, Singapore 350147",
+      "postalCode": "350147",
+      "sourceIds": [
+        "cont-cheewei-potong-fp"
+      ],
+      "menuIds": [
+        "cheewei-potongpasir147-foodpanda-observation"
+      ],
+      "gaps": [
+        "All six non-Popular source foods retained with own branch prices. CLOSED source label is an ordering-state observation and does not establish permanent closure.",
+        "Direct ordinary public request returned HTTP403. Current rendering, customizations, stock, effective menu date and dine-in equivalence unverified. Tampines prices are separately recorded; no corporate-registration closure inference."
+      ]
+    },
+    {
+      "id": "cheewei-tampines610",
+      "name": "Chee Wei Vegetarian — Tampines North",
+      "address": "610 Tampines North Drive 1 #01-01, Singapore 520610",
+      "postalCode": "520610",
+      "sourceIds": [
+        "cont-cheewei-tampines-fp"
+      ],
+      "menuIds": [
+        "cheewei-tampines610-foodpanda-observation"
+      ],
+      "gaps": [
+        "All five listed source foods retained. Mee Rebus is from5.20 here and6.20 at Potong Pasir; no chain-wide price merge. CLOSED does not establish permanent closure.",
+        "Readable public web representation only; current browser/product customization/stock and effective menu date unverified. No direct request was added after the platform's four inspected branch URLs returned403."
+      ]
+    },
+    {
+      "id": "minigreen-toapayoh210",
+      "name": "Mini Green Vegetarian — Toa Payoh Lorong 8",
+      "address": "210 Lorong 8 Toa Payoh, Toa Payoh Lorong 8 Market & Hawker Centre, Singapore",
+      "sourceIds": [
+        "cont-minigreen-fp"
+      ],
+      "menuIds": [
+        "minigreen-toapayoh210-foodpanda-observation"
+      ],
+      "gaps": [
+        "Open-page representation yields24 foods in five categories and17 beverages excluded. Search result for the same URL yields a different31-food lok-lok menu (one set,25 standard skewers,three premium skewers,two staples). Neither is established as the current version; alternatives are not silently combined.",
+        "Direct ordinary public request returnedHTTP403. Publication held for source-version conflict/currentness. Food options, exact stall unit, stock and effective date unverified. Emoji ornaments omitted; Breakfast Set Chinese suffix contains unreadable replacement characters and is not reconstructed. Vegetarian/vegan source labels are not independent ingredient certification."
+      ]
+    }
+  ],
+  "menus": [
+    {
+      "id": "sushilou-woodlands768-foodpanda-observation",
+      "name": "SU SHI LOU VEGETARIAN — Koufu 768 Woodlands — held ordering-source food facts",
+      "scope": "branch",
+      "branchIds": [
+        "sushilou-woodlands768"
+      ],
+      "sourceIds": [
+        "cont-sushilou-fp"
+      ],
+      "coverage": "held",
+      "publicationStatus": "hold-current-rendering-unverified",
+      "sourceCategoryCounts": {
+        "Mains": 20
+      },
+      "items": [
+        {
+          "id": "sushilou-woodlands768-foodpanda-observation-001",
+          "category": "Mains",
+          "name": "Vegetarian Spaghetti",
+          "sourceIds": [
+            "cont-sushilou-fp"
+          ],
+          "price": {
+            "amount": 7.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "hold-current-rendering-unverified",
+          "qualifier": "Food name and printed channel price only. Current stock, available options, ingredient suitability and dine-in equivalence unverified."
+        },
+        {
+          "id": "sushilou-woodlands768-foodpanda-observation-002",
+          "category": "Mains",
+          "name": "Luo Han Zhai",
+          "sourceIds": [
+            "cont-sushilou-fp"
+          ],
+          "price": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "hold-current-rendering-unverified",
+          "qualifier": "Food name and printed channel price only. Current stock, available options, ingredient suitability and dine-in equivalence unverified."
+        },
+        {
+          "id": "sushilou-woodlands768-foodpanda-observation-003",
+          "category": "Mains",
+          "name": "Assorted Hor Fun",
+          "sourceIds": [
+            "cont-sushilou-fp"
+          ],
+          "price": {
+            "amount": 7,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "hold-current-rendering-unverified",
+          "qualifier": "Food name and printed channel price only. Current stock, available options, ingredient suitability and dine-in equivalence unverified."
+        },
+        {
+          "id": "sushilou-woodlands768-foodpanda-observation-004",
+          "category": "Mains",
+          "name": "Chai Sim Fried Rice",
+          "sourceIds": [
+            "cont-sushilou-fp"
+          ],
+          "price": {
+            "amount": 7,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "hold-current-rendering-unverified",
+          "qualifier": "Food name and printed channel price only. Current stock, available options, ingredient suitability and dine-in equivalence unverified."
+        },
+        {
+          "id": "sushilou-woodlands768-foodpanda-observation-005",
+          "category": "Mains",
+          "name": "Assorted Crispy Noodle",
+          "sourceIds": [
+            "cont-sushilou-fp"
+          ],
+          "price": {
+            "amount": 7,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "hold-current-rendering-unverified",
+          "qualifier": "Food name and printed channel price only. Current stock, available options, ingredient suitability and dine-in equivalence unverified."
+        },
+        {
+          "id": "sushilou-woodlands768-foodpanda-observation-006",
+          "category": "Mains",
+          "name": "Fried Udon",
+          "sourceIds": [
+            "cont-sushilou-fp"
+          ],
+          "price": {
+            "amount": 7.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "hold-current-rendering-unverified",
+          "qualifier": "Food name and printed channel price only. Current stock, available options, ingredient suitability and dine-in equivalence unverified."
+        },
+        {
+          "id": "sushilou-woodlands768-foodpanda-observation-007",
+          "category": "Mains",
+          "name": "Vegetarian Fish & Chips",
+          "sourceIds": [
+            "cont-sushilou-fp"
+          ],
+          "price": {
+            "amount": 8.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "hold-current-rendering-unverified",
+          "qualifier": "Food name and printed channel price only. Current stock, available options, ingredient suitability and dine-in equivalence unverified."
+        },
+        {
+          "id": "sushilou-woodlands768-foodpanda-observation-008",
+          "category": "Mains",
+          "name": "Hokkien Noodle",
+          "sourceIds": [
+            "cont-sushilou-fp"
+          ],
+          "price": {
+            "amount": 7,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "hold-current-rendering-unverified",
+          "qualifier": "Food name and printed channel price only. Current stock, available options, ingredient suitability and dine-in equivalence unverified."
+        },
+        {
+          "id": "sushilou-woodlands768-foodpanda-observation-009",
+          "category": "Mains",
+          "name": "Vegetarian Sliced Fish Bee Hoon Soup",
+          "sourceIds": [
+            "cont-sushilou-fp"
+          ],
+          "price": {
+            "amount": 7,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "hold-current-rendering-unverified",
+          "qualifier": "Food name and printed channel price only. Current stock, available options, ingredient suitability and dine-in equivalence unverified."
+        },
+        {
+          "id": "sushilou-woodlands768-foodpanda-observation-010",
+          "category": "Mains",
+          "name": "Pineapple Fried Rice",
+          "sourceIds": [
+            "cont-sushilou-fp"
+          ],
+          "price": {
+            "amount": 7.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "hold-current-rendering-unverified",
+          "qualifier": "Food name and printed channel price only. Current stock, available options, ingredient suitability and dine-in equivalence unverified."
+        },
+        {
+          "id": "sushilou-woodlands768-foodpanda-observation-011",
+          "category": "Mains",
+          "name": "Olive Fried Rice",
+          "sourceIds": [
+            "cont-sushilou-fp"
+          ],
+          "price": {
+            "amount": 7.5,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "hold-current-rendering-unverified",
+          "qualifier": "Food name and printed channel price only. Current stock, available options, ingredient suitability and dine-in equivalence unverified."
+        },
+        {
+          "id": "sushilou-woodlands768-foodpanda-observation-012",
+          "category": "Mains",
+          "name": "Sambal Petai Rice",
+          "sourceIds": [
+            "cont-sushilou-fp"
+          ],
+          "price": {
+            "amount": 8.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "hold-current-rendering-unverified",
+          "qualifier": "Food name and printed channel price only. Current stock, available options, ingredient suitability and dine-in equivalence unverified."
+        },
+        {
+          "id": "sushilou-woodlands768-foodpanda-observation-013",
+          "category": "Mains",
+          "name": "Assam Curry Fish Rice",
+          "sourceIds": [
+            "cont-sushilou-fp"
+          ],
+          "price": {
+            "amount": 8.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "hold-current-rendering-unverified",
+          "qualifier": "Food name and printed channel price only. Current stock, available options, ingredient suitability and dine-in equivalence unverified."
+        },
+        {
+          "id": "sushilou-woodlands768-foodpanda-observation-014",
+          "category": "Mains",
+          "name": "Braised Bean Curd Rice",
+          "sourceIds": [
+            "cont-sushilou-fp"
+          ],
+          "price": {
+            "amount": 8.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "hold-current-rendering-unverified",
+          "qualifier": "Food name and printed channel price only. Current stock, available options, ingredient suitability and dine-in equivalence unverified."
+        },
+        {
+          "id": "sushilou-woodlands768-foodpanda-observation-015",
+          "category": "Mains",
+          "name": "Cereal Prawn",
+          "sourceIds": [
+            "cont-sushilou-fp"
+          ],
+          "price": {
+            "amount": 14,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "hold-current-rendering-unverified",
+          "qualifier": "Food name and printed channel price only. Current stock, available options, ingredient suitability and dine-in equivalence unverified."
+        },
+        {
+          "id": "sushilou-woodlands768-foodpanda-observation-016",
+          "category": "Mains",
+          "name": "Salad Prawn",
+          "sourceIds": [
+            "cont-sushilou-fp"
+          ],
+          "price": {
+            "amount": 14,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "hold-current-rendering-unverified",
+          "qualifier": "Food name and printed channel price only. Current stock, available options, ingredient suitability and dine-in equivalence unverified."
+        },
+        {
+          "id": "sushilou-woodlands768-foodpanda-observation-017",
+          "category": "Mains",
+          "name": "Yam King",
+          "sourceIds": [
+            "cont-sushilou-fp"
+          ],
+          "price": {
+            "amount": 16,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "hold-current-rendering-unverified",
+          "qualifier": "Food name and printed channel price only. Current stock, available options, ingredient suitability and dine-in equivalence unverified."
+        },
+        {
+          "id": "sushilou-woodlands768-foodpanda-observation-018",
+          "category": "Mains",
+          "name": "Fried Bean Curd",
+          "sourceIds": [
+            "cont-sushilou-fp"
+          ],
+          "price": {
+            "amount": 7.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "hold-current-rendering-unverified",
+          "qualifier": "Food name and printed channel price only. Current stock, available options, ingredient suitability and dine-in equivalence unverified."
+        },
+        {
+          "id": "sushilou-woodlands768-foodpanda-observation-019",
+          "category": "Mains",
+          "name": "Fried Tomato Egg with Fungus & Rice",
+          "sourceIds": [
+            "cont-sushilou-fp"
+          ],
+          "price": {
+            "amount": 8.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "hold-current-rendering-unverified",
+          "qualifier": "Food name and printed channel price only. Current stock, available options, ingredient suitability and dine-in equivalence unverified."
+        },
+        {
+          "id": "sushilou-woodlands768-foodpanda-observation-020",
+          "category": "Mains",
+          "name": "Hericium with Broccoli & Rice",
+          "sourceIds": [
+            "cont-sushilou-fp"
+          ],
+          "price": {
+            "amount": 8.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "hold-current-rendering-unverified",
+          "qualifier": "Food name and printed channel price only. Current stock, available options, ingredient suitability and dine-in equivalence unverified."
+        }
+      ],
+      "notice": "All twenty non-Popular Mains in the readable public ordering-source representation retained. Source descriptions contain generic conflicting meat/prawn-stock wording and are excluded; vegetarian trading name is not ingredient certification. Direct ordinary public request returned HTTP403. Readable web-source representation is a channel observation, not verified current stock or dine-in pricing. Customization/size choices and current service require accessible merchant evidence."
+    },
+    {
+      "id": "renyi-tampines820-foodpanda-observation",
+      "name": "Ren Yi Vegetarian — 820 Tampines Street 81 — held ordering-source food facts",
+      "scope": "branch-delivery",
+      "branchIds": [
+        "renyi-tampines820"
+      ],
+      "sourceIds": [
+        "icf5-renyi-recheck-en"
+      ],
+      "coverage": "partial",
+      "publicationStatus": "review-proposed",
+      "sourceCategoryCounts": {
+        "现煮、烫面": 6,
+        "Main Dishes": 9,
+        "Snacks": 10,
+        "便当 Bento set": 2,
+        "米粉套餐Bee Hoon Set": 1
+      },
+      "items": [
+        {
+          "id": "renyi-tampines820-foodpanda-observation-001",
+          "category": "现煮、烫面",
+          "name": "羊肉面Kumming Soup Noodle",
+          "sourceIds": [
+            "cont-renyi-fp",
+            "miv01-renyi-fp-en",
+            "miv01-renyi-fp-zh",
+            "miv01-renyi-pickup",
+            "miv01-renyi-grab-editorial",
+            "miv01-renyi-grab-menu"
+          ],
+          "price": {
+            "amount": 5.95,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "originalPrice": {
+            "amount": 7,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "priceQualifier": "Observed ordering-channel15% promotion with no published end date in readable representation; original and discounted displayed amounts retained without recalculation.",
+          "publicationStatus": "hold-web-verification-unresolved",
+          "qualifier": "Food name and printed channel price only. Current stock, available options, ingredient suitability and dine-in equivalence unverified.",
+          "sourceNameConflict": {
+            "existingItemId": "renyi-tampines820-foodpanda-observation-001",
+            "existingName": "羊肉面Kumming Soup Noodle",
+            "currentEnglishName": "羊肉面Kumming Soup Noodle",
+            "conflictingChineseSourceName": "Fish Beehoon Soup",
+            "sourceUrl": "https://www.foodpanda.sg/zh/restaurant/xr8d/ren-yi-vegetarian-tampines-street-81/reviews",
+            "conflictingChineseNameRaw": "鱼片米粉Fish Beehoon Soup",
+            "reason": "English current source still matches existing Kumming Soup Noodle, while alternate Chinese representation names fish beehoon. Same category position/price does not establish same food. Preserve both observations and hold existing 001 pending source product identity clarification. No positional replacement."
+          },
+          "webVerification": {
+            "status": "web-checked-unresolved-retain-held",
+            "ingredientOrIdentityVerified": false,
+            "observations": [
+              "Batch05 English source observation names Kumming Soup Noodle at from S$5.95/original S$7. Alternate Chinese search representation names vegetarian Fish Beehoon at the same printed amounts. Equal price/category position is not stable identity proof.",
+              "Fresh direct Chinese open returns an older materially different menu representation; pickup query returns exact premises but no food body. Cached and current representations cannot establish one effective-date version.",
+              "Grab's own editorial explicitly calls the exact branch's Kumming soup vegetarian mutton noodles at 820 Tampines #01-506, 520820. This supports the dish name's existence and vegetarian analogue, not equality with fish beehoon or its current Foodpanda identity.",
+              "Observed exact Grab merchant destination is unavailable through public tool. No cross-platform price or product mapping inferred."
+            ],
+            "decision": "Retain existing001 and hold conflict. No positional rename, ingredient replacement or newly cloned row. Whole Ren Yi venue vegetarian positioning is supported independently.",
+            "nextAction": "Obtain stable current Foodpanda product ID and exact name, or merchant menu proving whether both soups are distinct offerings. Parent may use Grab premises corroboration separately from food identity.",
+            "checkedAt": "2026-10-16T01:20:59Z",
+            "sourceIds": [
+              "miv01-renyi-fp-en",
+              "miv01-renyi-fp-zh",
+              "miv01-renyi-pickup",
+              "miv01-renyi-grab-editorial",
+              "miv01-renyi-grab-menu"
+            ],
+            "amendmentDataset": "data/menu-research/menu-item-verification-01-ambiguous-foods.json"
+          }
+        },
+        {
+          "id": "renyi-tampines820-foodpanda-observation-002",
+          "category": "现煮、烫面",
+          "name": "干捞面卜Dry noodles",
+          "sourceIds": [
+            "cont-renyi-fp",
+            "icf5-renyi-recheck-en"
+          ],
+          "price": {
+            "amount": 5.95,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "originalPrice": {
+            "amount": 7,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "priceQualifier": "Observed ordering-channel15% promotion with no published end date in readable representation; original and discounted displayed amounts retained without recalculation.",
+          "publicationStatus": "review-proposed",
+          "qualifier": "Fresh public merchant-managed delivery source explicitly trades as Ren Yi Vegetarian at Block 820 Tampines Street 81, 520820. Published promotional and original prices remain separate; 15% all-items auto-applied offer shown. Options, exact portions, current stock, ingredients, fees and dine-in equivalence unverified. Promotion end date is not published.",
+          "listingPrice": {
+            "amount": 7,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "sourcePriceText": "from S$ 5.95 S$ 7"
+        },
+        {
+          "id": "renyi-tampines820-foodpanda-observation-003",
+          "category": "现煮、烫面",
+          "name": "卤面Lor Mee",
+          "sourceIds": [
+            "cont-renyi-fp",
+            "icf5-renyi-recheck-en"
+          ],
+          "price": {
+            "amount": 5.95,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "originalPrice": {
+            "amount": 7,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "priceQualifier": "Observed ordering-channel15% promotion with no published end date in readable representation; original and discounted displayed amounts retained without recalculation.",
+          "publicationStatus": "review-proposed",
+          "qualifier": "Fresh public merchant-managed delivery source explicitly trades as Ren Yi Vegetarian at Block 820 Tampines Street 81, 520820. Published promotional and original prices remain separate; 15% all-items auto-applied offer shown. Options, exact portions, current stock, ingredients, fees and dine-in equivalence unverified. Promotion end date is not published.",
+          "listingPrice": {
+            "amount": 7,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "sourcePriceText": "from S$ 5.95 S$ 7"
+        },
+        {
+          "id": "renyi-tampines820-foodpanda-observation-004",
+          "category": "现煮、烫面",
+          "name": "Vegetarian Chicken Chop Noodles 鸡扒面",
+          "sourceIds": [
+            "cont-renyi-fp",
+            "icf5-renyi-recheck-en"
+          ],
+          "price": {
+            "amount": 8.07,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "originalPrice": {
+            "amount": 9.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceQualifier": "Observed ordering-channel15% promotion with no published end date in readable representation; original and discounted displayed amounts retained without recalculation.",
+          "publicationStatus": "review-proposed",
+          "qualifier": "Fresh public merchant-managed delivery source explicitly trades as Ren Yi Vegetarian at Block 820 Tampines Street 81, 520820. Published promotional and original prices remain separate; 15% all-items auto-applied offer shown. Options, exact portions, current stock, ingredients, fees and dine-in equivalence unverified. Promotion end date is not published.",
+          "listingPrice": {
+            "amount": 9.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$ 8.07 S$ 9.50"
+        },
+        {
+          "id": "renyi-tampines820-foodpanda-observation-005",
+          "category": "现煮、烫面",
+          "name": "咖喱面Curry Noodles",
+          "sourceIds": [
+            "cont-renyi-fp",
+            "icf5-renyi-recheck-en"
+          ],
+          "price": {
+            "amount": 5.95,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "originalPrice": {
+            "amount": 7,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "priceQualifier": "Observed ordering-channel15% promotion with no published end date in readable representation; original and discounted displayed amounts retained without recalculation.",
+          "publicationStatus": "review-proposed",
+          "qualifier": "Fresh public merchant-managed delivery source explicitly trades as Ren Yi Vegetarian at Block 820 Tampines Street 81, 520820. Published promotional and original prices remain separate; 15% all-items auto-applied offer shown. Options, exact portions, current stock, ingredients, fees and dine-in equivalence unverified. Promotion end date is not published.",
+          "listingPrice": {
+            "amount": 7,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "sourcePriceText": "from S$ 5.95 S$ 7"
+        },
+        {
+          "id": "renyi-tampines820-foodpanda-observation-006",
+          "category": "现煮、烫面",
+          "name": "Kway chap",
+          "sourceIds": [
+            "cont-renyi-fp",
+            "icf5-renyi-recheck-en"
+          ],
+          "price": {
+            "amount": 5.95,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "originalPrice": {
+            "amount": 7,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "priceQualifier": "Observed ordering-channel15% promotion with no published end date in readable representation; original and discounted displayed amounts retained without recalculation.",
+          "publicationStatus": "review-proposed",
+          "qualifier": "Fresh public merchant-managed delivery source explicitly trades as Ren Yi Vegetarian at Block 820 Tampines Street 81, 520820. Published promotional and original prices remain separate; 15% all-items auto-applied offer shown. Options, exact portions, current stock, ingredients, fees and dine-in equivalence unverified. Promotion end date is not published.",
+          "listingPrice": {
+            "amount": 7,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "sourcePriceText": "from S$ 5.95 S$ 7"
+        },
+        {
+          "id": "renyi-tampines820-foodpanda-observation-007",
+          "category": "Main Dishes",
+          "name": "酸甜猴头菇 vs 素咕咾肉",
+          "sourceIds": [
+            "cont-renyi-fp",
+            "icf5-renyi-recheck-en"
+          ],
+          "price": {
+            "amount": 11.05,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "originalPrice": {
+            "amount": 13,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceQualifier": "Observed ordering-channel15% promotion with no published end date in readable representation; original and discounted displayed amounts retained without recalculation.",
+          "publicationStatus": "review-proposed",
+          "qualifier": "Fresh public merchant-managed delivery source explicitly trades as Ren Yi Vegetarian at Block 820 Tampines Street 81, 520820. Published promotional and original prices remain separate; 15% all-items auto-applied offer shown. Options, exact portions, current stock, ingredients, fees and dine-in equivalence unverified. Promotion end date is not published.",
+          "listingPrice": {
+            "amount": 13,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$ 11.05 S$ 13"
+        },
+        {
+          "id": "renyi-tampines820-foodpanda-observation-008",
+          "category": "Main Dishes",
+          "name": "番茄+金针菇炒蛋 （咸口味）",
+          "sourceIds": [
+            "cont-renyi-fp",
+            "icf5-renyi-recheck-en"
+          ],
+          "price": {
+            "amount": 8.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "originalPrice": {
+            "amount": 10,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceQualifier": "Observed ordering-channel15% promotion with no published end date in readable representation; original and discounted displayed amounts retained without recalculation.",
+          "publicationStatus": "review-proposed",
+          "qualifier": "Fresh public merchant-managed delivery source explicitly trades as Ren Yi Vegetarian at Block 820 Tampines Street 81, 520820. Published promotional and original prices remain separate; 15% all-items auto-applied offer shown. Options, exact portions, current stock, ingredients, fees and dine-in equivalence unverified. Egg food; not vegan. Promotion end date is not published.",
+          "listingPrice": {
+            "amount": 10,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$ 8.50 S$ 10"
+        },
+        {
+          "id": "renyi-tampines820-foodpanda-observation-009",
+          "category": "Main Dishes",
+          "name": "Vegetarian Salad Prawn 沙律虾",
+          "sourceIds": [
+            "cont-renyi-fp",
+            "icf5-renyi-recheck-en"
+          ],
+          "price": {
+            "amount": 8.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "originalPrice": {
+            "amount": 10,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceQualifier": "Observed ordering-channel15% promotion with no published end date in readable representation; original and discounted displayed amounts retained without recalculation.",
+          "publicationStatus": "review-proposed",
+          "qualifier": "Fresh public merchant-managed delivery source explicitly trades as Ren Yi Vegetarian at Block 820 Tampines Street 81, 520820. Published promotional and original prices remain separate; 15% all-items auto-applied offer shown. Options, exact portions, current stock, ingredients, fees and dine-in equivalence unverified. Promotion end date is not published.",
+          "listingPrice": {
+            "amount": 10,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$ 8.50 S$ 10"
+        },
+        {
+          "id": "renyi-tampines820-foodpanda-observation-010",
+          "category": "Main Dishes",
+          "name": "Thai Style Tofu",
+          "sourceIds": [
+            "cont-renyi-fp",
+            "icf5-renyi-recheck-en"
+          ],
+          "price": {
+            "amount": 8.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "originalPrice": {
+            "amount": 10,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceQualifier": "Observed ordering-channel15% promotion with no published end date in readable representation; original and discounted displayed amounts retained without recalculation.",
+          "publicationStatus": "review-proposed",
+          "qualifier": "Fresh public merchant-managed delivery source explicitly trades as Ren Yi Vegetarian at Block 820 Tampines Street 81, 520820. Published promotional and original prices remain separate; 15% all-items auto-applied offer shown. Options, exact portions, current stock, ingredients, fees and dine-in equivalence unverified. Promotion end date is not published.",
+          "listingPrice": {
+            "amount": 10,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$ 8.50 S$ 10"
+        },
+        {
+          "id": "renyi-tampines820-foodpanda-observation-011",
+          "category": "Main Dishes",
+          "name": "Bitter Gourd Fried Egg 苦瓜煎蛋",
+          "sourceIds": [
+            "cont-renyi-fp",
+            "icf5-renyi-recheck-en"
+          ],
+          "price": {
+            "amount": 8.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "originalPrice": {
+            "amount": 10,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceQualifier": "Observed ordering-channel15% promotion with no published end date in readable representation; original and discounted displayed amounts retained without recalculation.",
+          "publicationStatus": "review-proposed",
+          "qualifier": "Fresh public merchant-managed delivery source explicitly trades as Ren Yi Vegetarian at Block 820 Tampines Street 81, 520820. Published promotional and original prices remain separate; 15% all-items auto-applied offer shown. Options, exact portions, current stock, ingredients, fees and dine-in equivalence unverified. Egg food; not vegan. Promotion end date is not published.",
+          "listingPrice": {
+            "amount": 10,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$ 8.50 S$ 10"
+        },
+        {
+          "id": "renyi-tampines820-foodpanda-observation-012",
+          "category": "Main Dishes",
+          "name": "Buddhas Delight 罗汉斋",
+          "sourceIds": [
+            "cont-renyi-fp",
+            "icf5-renyi-recheck-en"
+          ],
+          "price": {
+            "amount": 8.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "originalPrice": {
+            "amount": 10,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceQualifier": "Observed ordering-channel15% promotion with no published end date in readable representation; original and discounted displayed amounts retained without recalculation.",
+          "publicationStatus": "review-proposed",
+          "qualifier": "Fresh public merchant-managed delivery source explicitly trades as Ren Yi Vegetarian at Block 820 Tampines Street 81, 520820. Published promotional and original prices remain separate; 15% all-items auto-applied offer shown. Options, exact portions, current stock, ingredients, fees and dine-in equivalence unverified. Promotion end date is not published.",
+          "listingPrice": {
+            "amount": 10,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$ 8.50 S$ 10"
+        },
+        {
+          "id": "renyi-tampines820-foodpanda-observation-013",
+          "category": "Main Dishes",
+          "name": "白饭White Rice",
+          "sourceIds": [
+            "cont-renyi-fp",
+            "icf5-renyi-recheck-en"
+          ],
+          "price": {
+            "amount": 1.27,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "originalPrice": {
+            "amount": 1.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceQualifier": "Observed ordering-channel15% promotion with no published end date in readable representation; original and discounted displayed amounts retained without recalculation.",
+          "publicationStatus": "review-proposed",
+          "qualifier": "Fresh public merchant-managed delivery source explicitly trades as Ren Yi Vegetarian at Block 820 Tampines Street 81, 520820. Published promotional and original prices remain separate; 15% all-items auto-applied offer shown. Options, exact portions, current stock, ingredients, fees and dine-in equivalence unverified. Promotion end date is not published.",
+          "listingPrice": {
+            "amount": 1.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$ 1.27 S$ 1.50"
+        },
+        {
+          "id": "renyi-tampines820-foodpanda-observation-014",
+          "category": "Main Dishes",
+          "name": "青炒生菜",
+          "sourceIds": [
+            "cont-renyi-fp",
+            "icf5-renyi-recheck-en"
+          ],
+          "price": {
+            "amount": 8.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "originalPrice": {
+            "amount": 10,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceQualifier": "Observed ordering-channel15% promotion with no published end date in readable representation; original and discounted displayed amounts retained without recalculation.",
+          "publicationStatus": "review-proposed",
+          "qualifier": "Fresh public merchant-managed delivery source explicitly trades as Ren Yi Vegetarian at Block 820 Tampines Street 81, 520820. Published promotional and original prices remain separate; 15% all-items auto-applied offer shown. Options, exact portions, current stock, ingredients, fees and dine-in equivalence unverified. Promotion end date is not published.",
+          "listingPrice": {
+            "amount": 10,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$ 8.50 S$ 10"
+        },
+        {
+          "id": "renyi-tampines820-foodpanda-observation-015",
+          "category": "Main Dishes",
+          "name": "Claypot Tofu 砂锅菌菇豆腐 粉丝",
+          "sourceIds": [
+            "cont-renyi-fp",
+            "icf5-renyi-recheck-en"
+          ],
+          "price": {
+            "amount": 11.05,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "originalPrice": {
+            "amount": 13,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceQualifier": "Observed ordering-channel15% promotion with no published end date in readable representation; original and discounted displayed amounts retained without recalculation.",
+          "publicationStatus": "review-proposed",
+          "qualifier": "Fresh public merchant-managed delivery source explicitly trades as Ren Yi Vegetarian at Block 820 Tampines Street 81, 520820. Published promotional and original prices remain separate; 15% all-items auto-applied offer shown. Options, exact portions, current stock, ingredients, fees and dine-in equivalence unverified. Promotion end date is not published.",
+          "listingPrice": {
+            "amount": 13,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$ 11.05 S$ 13"
+        },
+        {
+          "id": "renyi-tampines820-foodpanda-observation-016",
+          "category": "Snacks",
+          "name": "咖喱卜 土豆（1个）",
+          "sourceIds": [
+            "cont-renyi-fp",
+            "icf5-renyi-recheck-en"
+          ],
+          "price": {
+            "amount": 1.53,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "originalPrice": {
+            "amount": 1.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceQualifier": "Observed ordering-channel15% promotion with no published end date in readable representation; original and discounted displayed amounts retained without recalculation.",
+          "publicationStatus": "review-proposed",
+          "qualifier": "Fresh public merchant-managed delivery source explicitly trades as Ren Yi Vegetarian at Block 820 Tampines Street 81, 520820. Published promotional and original prices remain separate; 15% all-items auto-applied offer shown. Options, exact portions, current stock, ingredients, fees and dine-in equivalence unverified. Source named portion: 1 piece. Promotion end date is not published.",
+          "listingPrice": {
+            "amount": 1.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$ 1.53 S$ 1.80"
+        },
+        {
+          "id": "renyi-tampines820-foodpanda-observation-017",
+          "category": "Snacks",
+          "name": "卤蛋",
+          "sourceIds": [
+            "cont-renyi-fp",
+            "icf5-renyi-recheck-en"
+          ],
+          "price": {
+            "amount": 1.44,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "originalPrice": {
+            "amount": 1.7,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceQualifier": "Observed ordering-channel15% promotion with no published end date in readable representation; original and discounted displayed amounts retained without recalculation.",
+          "publicationStatus": "review-proposed",
+          "qualifier": "Fresh public merchant-managed delivery source explicitly trades as Ren Yi Vegetarian at Block 820 Tampines Street 81, 520820. Published promotional and original prices remain separate; 15% all-items auto-applied offer shown. Options, exact portions, current stock, ingredients, fees and dine-in equivalence unverified. Egg food; not vegan. Promotion end date is not published.",
+          "listingPrice": {
+            "amount": 1.7,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$ 1.44 S$ 1.70"
+        },
+        {
+          "id": "renyi-tampines820-foodpanda-observation-018",
+          "category": "Snacks",
+          "name": "笋粿 soon kueh (1 pieces)",
+          "sourceIds": [
+            "cont-renyi-fp",
+            "icf5-renyi-recheck-en"
+          ],
+          "price": {
+            "amount": 1.7,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "originalPrice": {
+            "amount": 2,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceQualifier": "Observed ordering-channel15% promotion with no published end date in readable representation; original and discounted displayed amounts retained without recalculation.",
+          "publicationStatus": "review-proposed",
+          "qualifier": "Fresh public merchant-managed delivery source explicitly trades as Ren Yi Vegetarian at Block 820 Tampines Street 81, 520820. Published promotional and original prices remain separate; 15% all-items auto-applied offer shown. Options, exact portions, current stock, ingredients, fees and dine-in equivalence unverified. Source named portion: 1 piece. Promotion end date is not published.",
+          "listingPrice": {
+            "amount": 2,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$ 1.70 S$ 2"
+        },
+        {
+          "id": "renyi-tampines820-foodpanda-observation-019",
+          "category": "Snacks",
+          "name": "饭粿 ricw kueh (1pieces)",
+          "sourceIds": [
+            "cont-renyi-fp",
+            "icf5-renyi-recheck-en"
+          ],
+          "price": {
+            "amount": 1.7,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "originalPrice": {
+            "amount": 2,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceQualifier": "Observed ordering-channel15% promotion with no published end date in readable representation; original and discounted displayed amounts retained without recalculation.",
+          "publicationStatus": "review-proposed",
+          "qualifier": "Fresh public merchant-managed delivery source explicitly trades as Ren Yi Vegetarian at Block 820 Tampines Street 81, 520820. Published promotional and original prices remain separate; 15% all-items auto-applied offer shown. Options, exact portions, current stock, ingredients, fees and dine-in equivalence unverified. Source named portion: 1 piece. Promotion end date is not published.",
+          "listingPrice": {
+            "amount": 2,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$ 1.70 S$ 2"
+        },
+        {
+          "id": "renyi-tampines820-foodpanda-observation-020",
+          "category": "Snacks",
+          "name": "Carrot cake 萝卜糕(1pieces)",
+          "sourceIds": [
+            "cont-renyi-fp",
+            "icf5-renyi-recheck-en"
+          ],
+          "price": {
+            "amount": 1.7,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "originalPrice": {
+            "amount": 2,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceQualifier": "Observed ordering-channel15% promotion with no published end date in readable representation; original and discounted displayed amounts retained without recalculation.",
+          "publicationStatus": "review-proposed",
+          "qualifier": "Fresh public merchant-managed delivery source explicitly trades as Ren Yi Vegetarian at Block 820 Tampines Street 81, 520820. Published promotional and original prices remain separate; 15% all-items auto-applied offer shown. Options, exact portions, current stock, ingredients, fees and dine-in equivalence unverified. Source named portion: 1 piece. Promotion end date is not published.",
+          "listingPrice": {
+            "amount": 2,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$ 1.70 S$ 2"
+        },
+        {
+          "id": "renyi-tampines820-foodpanda-observation-021",
+          "category": "Snacks",
+          "name": "娘惹粽Nonya Rice Dumpling (Nonya Zongzi)",
+          "sourceIds": [
+            "cont-renyi-fp",
+            "icf5-renyi-recheck-en"
+          ],
+          "price": {
+            "amount": 3.83,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "originalPrice": {
+            "amount": 4.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceQualifier": "Observed ordering-channel15% promotion with no published end date in readable representation; original and discounted displayed amounts retained without recalculation.",
+          "publicationStatus": "review-proposed",
+          "qualifier": "Fresh public merchant-managed delivery source explicitly trades as Ren Yi Vegetarian at Block 820 Tampines Street 81, 520820. Published promotional and original prices remain separate; 15% all-items auto-applied offer shown. Options, exact portions, current stock, ingredients, fees and dine-in equivalence unverified. Promotion end date is not published.",
+          "listingPrice": {
+            "amount": 4.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$ 3.83 S$ 4.50"
+        },
+        {
+          "id": "renyi-tampines820-foodpanda-observation-022",
+          "category": "Snacks",
+          "name": "素肉粽Vegetarian Rice Dumpling (Vegetarian Zongzi)",
+          "sourceIds": [
+            "cont-renyi-fp",
+            "icf5-renyi-recheck-en"
+          ],
+          "price": {
+            "amount": 3.83,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "originalPrice": {
+            "amount": 4.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceQualifier": "Observed ordering-channel15% promotion with no published end date in readable representation; original and discounted displayed amounts retained without recalculation.",
+          "publicationStatus": "review-proposed",
+          "qualifier": "Fresh public merchant-managed delivery source explicitly trades as Ren Yi Vegetarian at Block 820 Tampines Street 81, 520820. Published promotional and original prices remain separate; 15% all-items auto-applied offer shown. Options, exact portions, current stock, ingredients, fees and dine-in equivalence unverified. Promotion end date is not published.",
+          "listingPrice": {
+            "amount": 4.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$ 3.83 S$ 4.50"
+        },
+        {
+          "id": "renyi-tampines820-foodpanda-observation-023",
+          "category": "Snacks",
+          "name": "Fried Egg",
+          "sourceIds": [
+            "cont-renyi-fp",
+            "icf5-renyi-recheck-en"
+          ],
+          "price": {
+            "amount": 1.44,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "originalPrice": {
+            "amount": 1.7,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceQualifier": "Observed ordering-channel15% promotion with no published end date in readable representation; original and discounted displayed amounts retained without recalculation.",
+          "publicationStatus": "review-proposed",
+          "qualifier": "Fresh public merchant-managed delivery source explicitly trades as Ren Yi Vegetarian at Block 820 Tampines Street 81, 520820. Published promotional and original prices remain separate; 15% all-items auto-applied offer shown. Options, exact portions, current stock, ingredients, fees and dine-in equivalence unverified. Egg food; not vegan. Promotion end date is not published.",
+          "listingPrice": {
+            "amount": 1.7,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$ 1.44 S$ 1.70"
+        },
+        {
+          "id": "renyi-tampines820-foodpanda-observation-024",
+          "category": "Snacks",
+          "name": "Taro Cake 芋头粿 (1 Piece)",
+          "sourceIds": [
+            "cont-renyi-fp",
+            "icf5-renyi-recheck-en"
+          ],
+          "price": {
+            "amount": 1.7,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "originalPrice": {
+            "amount": 2,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceQualifier": "Observed ordering-channel15% promotion with no published end date in readable representation; original and discounted displayed amounts retained without recalculation.",
+          "publicationStatus": "review-proposed",
+          "qualifier": "Fresh public merchant-managed delivery source explicitly trades as Ren Yi Vegetarian at Block 820 Tampines Street 81, 520820. Published promotional and original prices remain separate; 15% all-items auto-applied offer shown. Options, exact portions, current stock, ingredients, fees and dine-in equivalence unverified. Source named portion: 1 piece. Promotion end date is not published.",
+          "listingPrice": {
+            "amount": 2,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$ 1.70 S$ 2"
+        },
+        {
+          "id": "renyi-tampines820-foodpanda-observation-025",
+          "category": "Snacks",
+          "name": "Taiwan Chicken Chop with Vegetables and Mushrooms",
+          "sourceIds": [
+            "cont-renyi-fp",
+            "icf5-renyi-recheck-en"
+          ],
+          "price": {
+            "amount": 2.98,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "originalPrice": {
+            "amount": 3.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceQualifier": "Observed ordering-channel15% promotion with no published end date in readable representation; original and discounted displayed amounts retained without recalculation.",
+          "publicationStatus": "review-proposed",
+          "qualifier": "Fresh public merchant-managed delivery source explicitly trades as Ren Yi Vegetarian at Block 820 Tampines Street 81, 520820. Published promotional and original prices remain separate; 15% all-items auto-applied offer shown. Options, exact portions, current stock, ingredients, fees and dine-in equivalence unverified. Promotion end date is not published.",
+          "listingPrice": {
+            "amount": 3.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$ 2.98 S$ 3.50"
+        },
+        {
+          "id": "renyi-tampines820-foodpanda-observation-026",
+          "category": "便当 Bento set",
+          "name": "日式照烧鳗鱼饭",
+          "sourceIds": [
+            "cont-renyi-fp",
+            "icf5-renyi-recheck-en"
+          ],
+          "price": {
+            "amount": 9.35,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "originalPrice": {
+            "amount": 11,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "priceQualifier": "Observed ordering-channel15% promotion with no published end date in readable representation; original and discounted displayed amounts retained without recalculation.",
+          "publicationStatus": "review-proposed",
+          "qualifier": "Fresh public merchant-managed delivery source explicitly trades as Ren Yi Vegetarian at Block 820 Tampines Street 81, 520820. Published promotional and original prices remain separate; 15% all-items auto-applied offer shown. Options, exact portions, current stock, ingredients, fees and dine-in equivalence unverified. Promotion end date is not published.",
+          "listingPrice": {
+            "amount": 11,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "sourcePriceText": "from S$ 9.35 S$ 11"
+        },
+        {
+          "id": "renyi-tampines820-foodpanda-observation-027",
+          "category": "便当 Bento set",
+          "name": "咖喱鸡扒饭",
+          "sourceIds": [
+            "cont-renyi-fp",
+            "icf5-renyi-recheck-en"
+          ],
+          "price": {
+            "amount": 8.42,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "originalPrice": {
+            "amount": 9.9,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "priceQualifier": "Observed ordering-channel15% promotion with no published end date in readable representation; original and discounted displayed amounts retained without recalculation.",
+          "publicationStatus": "review-proposed",
+          "qualifier": "Fresh public merchant-managed delivery source explicitly trades as Ren Yi Vegetarian at Block 820 Tampines Street 81, 520820. Published promotional and original prices remain separate; 15% all-items auto-applied offer shown. Options, exact portions, current stock, ingredients, fees and dine-in equivalence unverified. Promotion end date is not published.",
+          "listingPrice": {
+            "amount": 9.9,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "sourcePriceText": "from S$ 8.42 S$ 9.90"
+        },
+        {
+          "id": "renyi-tampines820-foodpanda-observation-028",
+          "category": "米粉套餐Bee Hoon Set",
+          "name": "米粉套餐",
+          "sourceIds": [
+            "cont-renyi-fp",
+            "icf5-renyi-recheck-en"
+          ],
+          "price": {
+            "amount": 4.42,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "originalPrice": {
+            "amount": 5.2,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "priceQualifier": "Observed ordering-channel15% promotion with no published end date in readable representation; original and discounted displayed amounts retained without recalculation.",
+          "publicationStatus": "review-proposed",
+          "qualifier": "Fresh public merchant-managed delivery source explicitly trades as Ren Yi Vegetarian at Block 820 Tampines Street 81, 520820. Published promotional and original prices remain separate; 15% all-items auto-applied offer shown. Options, exact portions, current stock, ingredients, fees and dine-in equivalence unverified. Promotion end date is not published.",
+          "listingPrice": {
+            "amount": 5.2,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "sourcePriceText": "from S$ 4.42 S$ 5.20"
+        }
+      ],
+      "notice": "27 exact-name/category/price matches rechecked against current English public merchant source. The first noodle remains held for cross-language naming conflict. Displayed 15% promotional and original amounts remain separate; from-price options/stock unverified."
+    },
+    {
+      "id": "cheewei-potongpasir147-foodpanda-observation",
+      "name": "Chee Wei Vegetarian — Potong Pasir — held ordering-source food facts",
+      "scope": "branch",
+      "branchIds": [
+        "cheewei-potongpasir147"
+      ],
+      "sourceIds": [
+        "cont-cheewei-potong-fp"
+      ],
+      "coverage": "held",
+      "publicationStatus": "hold-current-rendering-unverified",
+      "sourceCategoryCounts": {
+        "Rice 饭类": 3,
+        "Noodle 面类": 3
+      },
+      "items": [
+        {
+          "id": "cheewei-potongpasir147-foodpanda-observation-001",
+          "category": "Rice 饭类",
+          "name": "Vegetarian Chicken Rice 素鸡饭",
+          "sourceIds": [
+            "cont-cheewei-potong-fp"
+          ],
+          "price": {
+            "amount": 7.2,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "hold-current-rendering-unverified",
+          "qualifier": "Food name and printed channel price only. Current stock, available options, ingredient suitability and dine-in equivalence unverified."
+        },
+        {
+          "id": "cheewei-potongpasir147-foodpanda-observation-002",
+          "category": "Rice 饭类",
+          "name": "Turmeric Nasi Lemak 黄姜椰浆饭",
+          "sourceIds": [
+            "cont-cheewei-potong-fp"
+          ],
+          "price": {
+            "amount": 7.2,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "hold-current-rendering-unverified",
+          "qualifier": "Food name and printed channel price only. Current stock, available options, ingredient suitability and dine-in equivalence unverified."
+        },
+        {
+          "id": "cheewei-potongpasir147-foodpanda-observation-003",
+          "category": "Rice 饭类",
+          "name": "Katsu Cutlet Rice 金扒饭",
+          "sourceIds": [
+            "cont-cheewei-potong-fp"
+          ],
+          "price": {
+            "amount": 9.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "hold-current-rendering-unverified",
+          "qualifier": "Food name and printed channel price only. Current stock, available options, ingredient suitability and dine-in equivalence unverified."
+        },
+        {
+          "id": "cheewei-potongpasir147-foodpanda-observation-004",
+          "category": "Noodle 面类",
+          "name": "Mushroom Omni Minced Noodle 香菇肉脞面",
+          "sourceIds": [
+            "cont-cheewei-potong-fp"
+          ],
+          "price": {
+            "amount": 7.2,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "hold-current-rendering-unverified",
+          "qualifier": "Food name and printed channel price only. Current stock, available options, ingredient suitability and dine-in equivalence unverified."
+        },
+        {
+          "id": "cheewei-potongpasir147-foodpanda-observation-005",
+          "category": "Noodle 面类",
+          "name": "Mee Siam 米暹",
+          "sourceIds": [
+            "cont-cheewei-potong-fp"
+          ],
+          "price": {
+            "amount": 6.2,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "hold-current-rendering-unverified",
+          "qualifier": "Food name and printed channel price only. Current stock, available options, ingredient suitability and dine-in equivalence unverified."
+        },
+        {
+          "id": "cheewei-potongpasir147-foodpanda-observation-006",
+          "category": "Noodle 面类",
+          "name": "Mee Rebus 马来卤面",
+          "sourceIds": [
+            "cont-cheewei-potong-fp"
+          ],
+          "price": {
+            "amount": 6.2,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "hold-current-rendering-unverified",
+          "qualifier": "Food name and printed channel price only. Current stock, available options, ingredient suitability and dine-in equivalence unverified."
+        }
+      ],
+      "notice": "All six non-Popular source foods retained with own branch prices. CLOSED source label is an ordering-state observation and does not establish permanent closure. Direct ordinary public request returned HTTP403. Current rendering, customizations, stock, effective menu date and dine-in equivalence unverified. Tampines prices are separately recorded; no corporate-registration closure inference."
+    },
+    {
+      "id": "cheewei-tampines610-foodpanda-observation",
+      "name": "Chee Wei Vegetarian — Tampines North — held ordering-source food facts",
+      "scope": "branch",
+      "branchIds": [
+        "cheewei-tampines610"
+      ],
+      "sourceIds": [
+        "cont-cheewei-tampines-fp"
+      ],
+      "coverage": "held",
+      "publicationStatus": "hold-current-rendering-unverified",
+      "sourceCategoryCounts": {
+        "Rice 饭类": 2,
+        "Noodle 面类": 3
+      },
+      "items": [
+        {
+          "id": "cheewei-tampines610-foodpanda-observation-001",
+          "category": "Rice 饭类",
+          "name": "Vegetarian Chicken Rice 素鸡饭",
+          "sourceIds": [
+            "cont-cheewei-tampines-fp"
+          ],
+          "price": {
+            "amount": 7.2,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "hold-current-rendering-unverified",
+          "qualifier": "Food name and printed channel price only. Current stock, available options, ingredient suitability and dine-in equivalence unverified."
+        },
+        {
+          "id": "cheewei-tampines610-foodpanda-observation-002",
+          "category": "Rice 饭类",
+          "name": "Katsu Cutlet Rice 金扒饭",
+          "sourceIds": [
+            "cont-cheewei-tampines-fp"
+          ],
+          "price": {
+            "amount": 9.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "hold-current-rendering-unverified",
+          "qualifier": "Food name and printed channel price only. Current stock, available options, ingredient suitability and dine-in equivalence unverified."
+        },
+        {
+          "id": "cheewei-tampines610-foodpanda-observation-003",
+          "category": "Noodle 面类",
+          "name": "Mushroom Omni Minced Noodle 香菇肉脞面",
+          "sourceIds": [
+            "cont-cheewei-tampines-fp"
+          ],
+          "price": {
+            "amount": 7.2,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "hold-current-rendering-unverified",
+          "qualifier": "Food name and printed channel price only. Current stock, available options, ingredient suitability and dine-in equivalence unverified."
+        },
+        {
+          "id": "cheewei-tampines610-foodpanda-observation-004",
+          "category": "Noodle 面类",
+          "name": "Mee Siam 米暹",
+          "sourceIds": [
+            "cont-cheewei-tampines-fp"
+          ],
+          "price": {
+            "amount": 6.2,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "hold-current-rendering-unverified",
+          "qualifier": "Food name and printed channel price only. Current stock, available options, ingredient suitability and dine-in equivalence unverified."
+        },
+        {
+          "id": "cheewei-tampines610-foodpanda-observation-005",
+          "category": "Noodle 面类",
+          "name": "Mee Rebus 马来卤面",
+          "sourceIds": [
+            "cont-cheewei-tampines-fp"
+          ],
+          "price": {
+            "amount": 5.2,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "hold-current-rendering-unverified",
+          "qualifier": "Food name and printed channel price only. Current stock, available options, ingredient suitability and dine-in equivalence unverified."
+        }
+      ],
+      "notice": "All five listed source foods retained. Mee Rebus is from5.20 here and6.20 at Potong Pasir; no chain-wide price merge. CLOSED does not establish permanent closure. Readable public web representation only; current browser/product customization/stock and effective menu date unverified. No direct request was added after the platform's four inspected branch URLs returned403."
+    },
+    {
+      "id": "minigreen-toapayoh210-foodpanda-observation",
+      "name": "Mini Green Vegetarian — Toa Payoh Lorong 8 — held ordering-source food facts",
+      "scope": "branch",
+      "branchIds": [
+        "minigreen-toapayoh210"
+      ],
+      "sourceIds": [
+        "cont-minigreen-fp"
+      ],
+      "coverage": "held",
+      "publicationStatus": "hold-source-version-conflict-currentness",
+      "sourceCategoryCounts": {
+        "Curated Classics": 3,
+        "Scrumptious Sets": 7,
+        "Signature Specials": 6,
+        "Fried Favourites": 7,
+        "Limited Edition": 1
+      },
+      "items": [
+        {
+          "id": "minigreen-toapayoh210-foodpanda-observation-001",
+          "category": "Curated Classics",
+          "name": "炒米粉套餐 Fried Bee Hoon Set",
+          "sourceIds": [
+            "cont-minigreen-fp"
+          ],
+          "price": {
+            "amount": 5.5,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "hold-source-version-conflict-currentness",
+          "qualifier": "Food name and printed channel price only. Current stock, available options, ingredient suitability and dine-in equivalence unverified."
+        },
+        {
+          "id": "minigreen-toapayoh210-foodpanda-observation-002",
+          "category": "Curated Classics",
+          "name": "Breakfast Set",
+          "sourceIds": [
+            "cont-minigreen-fp"
+          ],
+          "price": {
+            "amount": 5,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "hold-source-version-conflict-currentness",
+          "qualifier": "Food name and printed channel price only. Current stock, available options, ingredient suitability and dine-in equivalence unverified."
+        },
+        {
+          "id": "minigreen-toapayoh210-foodpanda-observation-003",
+          "category": "Curated Classics",
+          "name": "双倍精彩 Doubly Blessed (2x Premium Dishes)",
+          "sourceIds": [
+            "cont-minigreen-fp"
+          ],
+          "price": {
+            "amount": 4.5,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "hold-source-version-conflict-currentness",
+          "qualifier": "Food name and printed channel price only. Current stock, available options, ingredient suitability and dine-in equivalence unverified."
+        },
+        {
+          "id": "minigreen-toapayoh210-foodpanda-observation-004",
+          "category": "Scrumptious Sets",
+          "name": "素大鸡腿套餐 v.Large Chicken Drumstick Set",
+          "sourceIds": [
+            "cont-minigreen-fp"
+          ],
+          "price": {
+            "amount": 6.9,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "hold-source-version-conflict-currentness",
+          "qualifier": "Food name and printed channel price only. Current stock, available options, ingredient suitability and dine-in equivalence unverified."
+        },
+        {
+          "id": "minigreen-toapayoh210-foodpanda-observation-005",
+          "category": "Scrumptious Sets",
+          "name": "五香鸭饭 Five Spice Fragrant Duck Rice",
+          "sourceIds": [
+            "cont-minigreen-fp"
+          ],
+          "price": {
+            "amount": 6.9,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "hold-source-version-conflict-currentness",
+          "qualifier": "Food name and printed channel price only. Current stock, available options, ingredient suitability and dine-in equivalence unverified."
+        },
+        {
+          "id": "minigreen-toapayoh210-foodpanda-observation-006",
+          "category": "Scrumptious Sets",
+          "name": "咖喱菜+菜豆 Curry Vegetables Set + Long Beans + (?)",
+          "sourceIds": [
+            "cont-minigreen-fp"
+          ],
+          "price": {
+            "amount": 5.5,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "hold-source-version-conflict-currentness",
+          "qualifier": "Food name and printed channel price only. Current stock, available options, ingredient suitability and dine-in equivalence unverified."
+        },
+        {
+          "id": "minigreen-toapayoh210-foodpanda-observation-007",
+          "category": "Scrumptious Sets",
+          "name": "柠檬莲藕 + 斋鹅 Lemon Lotus Set with Mini Crisps",
+          "sourceIds": [
+            "cont-minigreen-fp"
+          ],
+          "price": {
+            "amount": 5.5,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "hold-source-version-conflict-currentness",
+          "qualifier": "Food name and printed channel price only. Current stock, available options, ingredient suitability and dine-in equivalence unverified."
+        },
+        {
+          "id": "minigreen-toapayoh210-foodpanda-observation-008",
+          "category": "Scrumptious Sets",
+          "name": "咕噜肉套餐 Sweet & Sour Pork Set",
+          "sourceIds": [
+            "cont-minigreen-fp"
+          ],
+          "price": {
+            "amount": 5.9,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "hold-source-version-conflict-currentness",
+          "qualifier": "Food name and printed channel price only. Current stock, available options, ingredient suitability and dine-in equivalence unverified."
+        },
+        {
+          "id": "minigreen-toapayoh210-foodpanda-observation-009",
+          "category": "Scrumptious Sets",
+          "name": "素腰子套餐 Vegan Braised Kidneys Set",
+          "sourceIds": [
+            "cont-minigreen-fp"
+          ],
+          "price": {
+            "amount": 5.9,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "hold-source-version-conflict-currentness",
+          "qualifier": "Food name and printed channel price only. Current stock, available options, ingredient suitability and dine-in equivalence unverified."
+        },
+        {
+          "id": "minigreen-toapayoh210-foodpanda-observation-010",
+          "category": "Scrumptious Sets",
+          "name": "羊肉咖喱套餐 Mutton Potato Curry",
+          "sourceIds": [
+            "cont-minigreen-fp"
+          ],
+          "price": {
+            "amount": 5.9,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "hold-source-version-conflict-currentness",
+          "qualifier": "Food name and printed channel price only. Current stock, available options, ingredient suitability and dine-in equivalence unverified."
+        },
+        {
+          "id": "minigreen-toapayoh210-foodpanda-observation-011",
+          "category": "Signature Specials",
+          "name": "Crispy Noodles",
+          "sourceIds": [
+            "cont-minigreen-fp"
+          ],
+          "price": {
+            "amount": 7.5,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "hold-source-version-conflict-currentness",
+          "qualifier": "Food name and printed channel price only. Current stock, available options, ingredient suitability and dine-in equivalence unverified."
+        },
+        {
+          "id": "minigreen-toapayoh210-foodpanda-observation-012",
+          "category": "Signature Specials",
+          "name": "Hokkien Mee",
+          "sourceIds": [
+            "cont-minigreen-fp"
+          ],
+          "price": {
+            "amount": 7.5,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "hold-source-version-conflict-currentness",
+          "qualifier": "Food name and printed channel price only. Current stock, available options, ingredient suitability and dine-in equivalence unverified."
+        },
+        {
+          "id": "minigreen-toapayoh210-foodpanda-observation-013",
+          "category": "Signature Specials",
+          "name": "Mui Fan",
+          "sourceIds": [
+            "cont-minigreen-fp"
+          ],
+          "price": {
+            "amount": 7.5,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "hold-source-version-conflict-currentness",
+          "qualifier": "Food name and printed channel price only. Current stock, available options, ingredient suitability and dine-in equivalence unverified."
+        },
+        {
+          "id": "minigreen-toapayoh210-foodpanda-observation-014",
+          "category": "Signature Specials",
+          "name": "Fried Rice",
+          "sourceIds": [
+            "cont-minigreen-fp"
+          ],
+          "price": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "hold-source-version-conflict-currentness",
+          "qualifier": "Food name and printed channel price only. Current stock, available options, ingredient suitability and dine-in equivalence unverified."
+        },
+        {
+          "id": "minigreen-toapayoh210-foodpanda-observation-015",
+          "category": "Signature Specials",
+          "name": "Hor Fun",
+          "sourceIds": [
+            "cont-minigreen-fp"
+          ],
+          "price": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "hold-source-version-conflict-currentness",
+          "qualifier": "Food name and printed channel price only. Current stock, available options, ingredient suitability and dine-in equivalence unverified."
+        },
+        {
+          "id": "minigreen-toapayoh210-foodpanda-observation-016",
+          "category": "Signature Specials",
+          "name": "Mee Goreng",
+          "sourceIds": [
+            "cont-minigreen-fp"
+          ],
+          "price": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "hold-source-version-conflict-currentness",
+          "qualifier": "Food name and printed channel price only. Current stock, available options, ingredient suitability and dine-in equivalence unverified."
+        },
+        {
+          "id": "minigreen-toapayoh210-foodpanda-observation-017",
+          "category": "Fried Favourites",
+          "name": "斋鹅 Crispy Beancurd Skin",
+          "sourceIds": [
+            "cont-minigreen-fp"
+          ],
+          "price": {
+            "amount": 4.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "hold-source-version-conflict-currentness",
+          "qualifier": "Food name and printed channel price only. Current stock, available options, ingredient suitability and dine-in equivalence unverified."
+        },
+        {
+          "id": "minigreen-toapayoh210-foodpanda-observation-018",
+          "category": "Fried Favourites",
+          "name": "大春卷 Spring Roll (1 piece)",
+          "sourceIds": [
+            "cont-minigreen-fp"
+          ],
+          "price": {
+            "amount": 2.3,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "hold-source-version-conflict-currentness",
+          "qualifier": "Food name and printed channel price only. Current stock, available options, ingredient suitability and dine-in equivalence unverified."
+        },
+        {
+          "id": "minigreen-toapayoh210-foodpanda-observation-019",
+          "category": "Fried Favourites",
+          "name": "五香卷 Ngor Hiang Yam Roll (1 Piece)",
+          "sourceIds": [
+            "cont-minigreen-fp"
+          ],
+          "price": {
+            "amount": 2.3,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "hold-source-version-conflict-currentness",
+          "qualifier": "Food name and printed channel price only. Current stock, available options, ingredient suitability and dine-in equivalence unverified."
+        },
+        {
+          "id": "minigreen-toapayoh210-foodpanda-observation-020",
+          "category": "Fried Favourites",
+          "name": "野菜百页 100-Paged Wild Veg Tofu (3 pieces)",
+          "sourceIds": [
+            "cont-minigreen-fp"
+          ],
+          "price": {
+            "amount": 1.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "hold-source-version-conflict-currentness",
+          "qualifier": "Food name and printed channel price only. Current stock, available options, ingredient suitability and dine-in equivalence unverified."
+        },
+        {
+          "id": "minigreen-toapayoh210-foodpanda-observation-021",
+          "category": "Fried Favourites",
+          "name": "面线脆虾 Crispy Misua Prawn (1 piece）",
+          "sourceIds": [
+            "cont-minigreen-fp"
+          ],
+          "price": {
+            "amount": 1.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "hold-source-version-conflict-currentness",
+          "qualifier": "Food name and printed channel price only. Current stock, available options, ingredient suitability and dine-in equivalence unverified."
+        },
+        {
+          "id": "minigreen-toapayoh210-foodpanda-observation-022",
+          "category": "Fried Favourites",
+          "name": "海味卷 Veg Seafood Roll (1 Piece)",
+          "sourceIds": [
+            "cont-minigreen-fp"
+          ],
+          "price": {
+            "amount": 5.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "hold-source-version-conflict-currentness",
+          "qualifier": "Food name and printed channel price only. Current stock, available options, ingredient suitability and dine-in equivalence unverified."
+        },
+        {
+          "id": "minigreen-toapayoh210-foodpanda-observation-023",
+          "category": "Fried Favourites",
+          "name": "爽口水饺 Fried Dumplings (3 pieces)",
+          "sourceIds": [
+            "cont-minigreen-fp"
+          ],
+          "price": {
+            "amount": 1.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "hold-source-version-conflict-currentness",
+          "qualifier": "Food name and printed channel price only. Current stock, available options, ingredient suitability and dine-in equivalence unverified."
+        },
+        {
+          "id": "minigreen-toapayoh210-foodpanda-observation-024",
+          "category": "Limited Edition",
+          "name": "Penang Assam Pedas Noodles",
+          "sourceIds": [
+            "cont-minigreen-fp"
+          ],
+          "price": {
+            "amount": 5.9,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "hold-source-version-conflict-currentness",
+          "qualifier": "Food name and printed channel price only. Current stock, available options, ingredient suitability and dine-in equivalence unverified."
+        }
+      ],
+      "notice": "Open-page representation yields24 foods in five categories and17 beverages excluded. Search result for the same URL yields a different31-food lok-lok menu (one set,25 standard skewers,three premium skewers,two staples). Neither is established as the current version; alternatives are not silently combined. Direct ordinary public request returnedHTTP403. Publication held for source-version conflict/currentness. Food options, exact stall unit, stock and effective date unverified. Emoji ornaments omitted; Breakfast Set Chinese suffix contains unreadable replacement characters and is not reconstructed. Vegetarian/vegan source labels are not independent ingredient certification."
+    }
+  ],
+  "notice": "83 additional source-specific food facts from five exact-address ordering listings. All held for currentness/options; Mini Green additionally has conflicting same-URL versions. No app publication, Google calls, copied artwork or inferred diet/ingredients."
+}

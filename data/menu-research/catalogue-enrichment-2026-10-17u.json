@@ -1,0 +1,1330 @@
+{
+  "checkedAt": "2026-10-17",
+  "deployedRelease": "20261017-verified-gaps24",
+  "goalStatus": "active",
+  "fullCoverageComplete": false,
+  "coverage": {
+    "browseVenues": 174,
+    "menuIds": 175,
+    "covers": 154,
+    "hours": 91,
+    "uniqueAssets": 122,
+    "assetBytes": 16799502,
+    "coverGaps": 20,
+    "hoursGaps": 83,
+    "allThreeAvailable": 90,
+    "catalogueIndexBytes": 194173
+  },
+  "newPhotos": [
+    {
+      "venueId": "research-verimix-le-quest-01-17",
+      "address": "4 Bukit Batok Street 41 #01-17 Le Quest Mall, Singapore 657991",
+      "photo": {
+        "path": "/api/catalogue-photos/8489a5dca1592be9e6da39f3f2733973484fd24f981aa132a848d616bf7d9b2a.jpg",
+        "width": 960,
+        "height": 960,
+        "author": "Verimix Vegetarian",
+        "sourceUrl": "https://www.foodpanda.sg/restaurant/qzse/verimix-vegetarian-le-quest-mall",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "8489a5dca1592be9e6da39f3f2733973484fd24f981aa132a848d616bf7d9b2a",
+      "bytes": 170715,
+      "originalSha256": "232efa078839e784cd2b2d35c3dd6eba8b6ec661c09f6f7d1edcb4c0d6efb8f9",
+      "sourcePageCheckedAt": "2026-10-16T23:06:29.026033+00:00",
+      "sourceImageUrl": "https://images.deliveryhero.io/image/fd-sg/LH/qzse-listing.jpg",
+      "identityEvidence": "Exact merchant qzse page publishes this hero and4BukitBatokSt41#01-17/657991. Landlord confirms same unit and operator Facebook. Food bowl, not a current stock or ingredient claim.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance this exact Verimix Vegetarian merchant food photograph. Preserve the white bowl of brown rice, the three existing golden rectangular nori-topped vegetarian slices, the edamame, orange mushroom pieces, and golden battered pieces in the same arrangement. Retain the stainless food-counter trays with broccoli and orange vegetables behind. Improve natural lighting, white balance and realistic texture only. Crop closer around the complete bowl so the food dominates a square gallery cover. Do not add, remove or substitute ingredients, toppings, utensils, props, text or logos. No dietary or availability claims.",
+        "review": "Source and output visually compared. Same bowl, toppings, serving vessels and food counter retained with closer framing and improved lighting. Fine details may differ; no new ingredient or availability claim."
+      }
+    },
+    {
+      "venueId": "research-ur01-kind-sprout-sengkang",
+      "address": "Singapore 793461",
+      "photo": {
+        "path": "/api/catalogue-photos/71d078a5dfca0c2f3e3c5ee8f04cc14fb801208d3539f70e05f97269cb40acc9.jpg",
+        "width": 960,
+        "height": 960,
+        "author": "Kind Sprout SG",
+        "sourceUrl": "https://take.app/kindsproutsg",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "71d078a5dfca0c2f3e3c5ee8f04cc14fb801208d3539f70e05f97269cb40acc9",
+      "bytes": 197852,
+      "originalSha256": "021cff0108068c4ad13e56ce81a24d22fb45bc5aaea52dd26d757fe5ca230c85",
+      "sourcePageCheckedAt": "2026-10-16T12:43:50.212617+00:00",
+      "sourceImageUrl": "https://cdn3.take.app/media/cmuz47z5h000006qq2u7r4gwe.png?width=1080",
+      "identityEvidence": "Saved operator TakeApp page has public map linkSG793461 and address objectzip793461; same page publishes exact product-image tokencmuz47z5h000006qq2u7r4gwe. Earlier visible-text-only identity hold resolved from already-saved primary HTML, without menu re-extraction.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance this exact Kind Sprout operator product photograph. Preserve all twelve translucent crescent soon kueh in their existing radial arrangement around the small central plastic chilli-sauce cup. Keep the same red round platter with blue floral motifs, banana-leaf liner and pale tabletop. Improve soft natural lighting, white balance and realistic clarity only. Keep the whole platter dominant in a square composition. Do not add or remove dumplings, ingredients, garnish, utensils, text or props. No dietary, serving-size or availability claims.",
+        "review": "Reference and output visually compared. Same platter, twelve dumplings, leaf liner and central sauce cup retained. Lighting and clarity enhanced; no new ingredient or availability claim."
+      }
+    },
+    {
+      "venueId": "research-living-wholesome-bukit-timah",
+      "address": "2A Jalan Seh Chuan #01-060, Singapore 599213",
+      "photo": {
+        "path": "/api/catalogue-photos/d3aa38101e9782f613f1c848a06cc36d68b67a28f2dc3fd118cb5f98b7e47b54.jpg",
+        "width": 960,
+        "height": 703,
+        "author": "Living Wholesome Vegetarian",
+        "sourceUrl": "https://www.foodpanda.sg/restaurant/wd61/living-wholesome-vegetarian-food-fortune-centre",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "Shared Living Wholesome brand food imagery, AI-enhanced; not a photograph of this branch interior. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "d3aa38101e9782f613f1c848a06cc36d68b67a28f2dc3fd118cb5f98b7e47b54",
+      "bytes": 122778,
+      "originalSha256": "6966de82a4d8b66d34631d162bf5155907422d49d13469f257d8c39659a1340e",
+      "sourcePageCheckedAt": "2026-10-15T08:18:44.197Z",
+      "sourceImageUrl": "https://images.deliveryhero.io/image/fd-sg/LH/wd61-listing.jpg",
+      "identityEvidence": "Operator https://livingwholesome.sg/ explicitly identifies2AJalanSehChuan#01-060 and190MiddleRoad#01-23 as two locations with the same bowl. Existing selected brand rice-bowl image reused with explicit brand-food qualifier; no branch interior or current-stock claim.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance this Living Wholesome merchant food photograph. Reframe around the BOTTOM white rice bowl as the main subject, keeping that exact bowl's existing rice, greens, cut green beans, peanuts, tofu cubes, beans and scattered sesame in their original arrangement and quantities. Keep the marble tabletop. Crop the neighboring bowls at the edges rather than inventing new food. Improve natural light, realistic color and clarity, no extra garnishes, lettering, utensils or claims.",
+        "review": "Original and output visually compared. Existing food, serving vessels and tabletop retained with closer framing and enhanced lighting. No new ingredient or availability claim."
+      },
+      "branchAssociationSourceUrl": "https://livingwholesome.sg/",
+      "branchAssociationCheckedAt": "2026-10-17"
+    }
+  ],
+  "newHours": [
+    {
+      "venueId": "research-omg-donuts-margaret-market",
+      "address": "38 Margaret Drive #01-08 Margaret Market, Singapore 141038",
+      "hours": {
+        "summary": "Daily 10:00–22:00",
+        "schedule": [
+          "Daily: 10:00–22:00"
+        ],
+        "notes": "Margaret Market tenant directory schedule. Holiday hours may differ.",
+        "sourceUrl": "https://margaretmarket.sg/our-vendors/",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Exact named tenant OMG!DecadentDonuts in landlordLevel1F&B directory at38MargaretDrive. Own operatorcontact page confirms#01-08. Landlord explicitly listsMondaySunday10am10pm; not generic mall hours or delivery slots. Web tool reads259line primarypage; ordinaryHTTPfetch403 retained as separate retrieval outcome."
+    }
+  ],
+  "googleLedger": {
+    "bytes": 1045377,
+    "sha256": "c7321dafaad0473583139494ca899501578892c5b71105429d3cd4dceb4f311a",
+    "requests": 2419,
+    "limit": 2500,
+    "remaining": 81
+  },
+  "sourceRights": "Source attribution and rights retained. User-requested enhancement does not establish an independent licence.",
+  "unresolved": "2,527 food holds,109zero-food research branches,1,828unnamed candidate IDs,3coordinate holds preserved; exact MakanVegan/SoonLai screenshot images unrecovered.",
+  "releaseEvidence": ".local/coverage-2026-10-17u/release.json",
+  "hoursReview": {
+    "checkedAt": "2026-10-17",
+    "newHours": 1,
+    "resolvedHolds": [
+      "OMG exact-tenant landlord hours",
+      "KindSprout operator postal/photo association and approximate coordinate",
+      "LivingWholesome shared product association"
+    ],
+    "hoursHolds": [
+      {
+        "venueId": "research-verimix-le-quest-01-17",
+        "sourceUrl": "https://lequestmall.com.sg/directory/aayshas-cuisine-2/",
+        "checkedAt": "2026-10-17",
+        "reason": "Landlord lists exact#01-17 and brand but only mall footer hours10-22. Do not assign mall hours to merchant."
+      },
+      {
+        "venueId": "research-ur06-original-sin",
+        "sourceUrl": "https://www.originalsin.sg/contact-us-mediterraneanitalian-veg",
+        "checkedAt": "2026-10-17",
+        "reason": "Contact page confirmsaddress but no venue schedule. Operator-linked restaurants.sg form exposes booking placeholders, not business hours. Other OriginalSin.com.sg recipe site is unrelated."
+      },
+      {
+        "venueId": "research-su-xiang-lau-pa-sat-46",
+        "sourceUrl": "https://www.laupasat.sg/wp-content/uploads/2024/04/Eatbook_Lau-Pa-Sat-Food-Guide_-20-Must-Try-Stalls-_-Eatbook.sg-compressed.pdf",
+        "checkedAt": "2026-10-17",
+        "reason": "Historical third-party guide hosted by landlord lists46; anotherDFDguide callsstall47. No new current primary schedule; preserve hold."
+      }
+    ],
+    "imageHolds": [
+      {
+        "venueId": "research-yi-ding-xuan-tampines-201",
+        "reference": "yidingxuan-merchant-hero",
+        "reason": "Generic pineapple-rice photography; actual product correspondence/provenance not established."
+      },
+      {
+        "venueId": "research-living-wholesome-bukit-timah",
+        "sourceUrl": "https://danielfooddiary.com/2025/04/21/livingwholesome/",
+        "checkedAt": "2026-10-17",
+        "reason": "Exact-branch on-site article helps identity but publisher requires written permission for photo reuse. No DFD photo copied/generated; selected existing brand imagery instead."
+      }
+    ]
+  },
+  "newLocations": [
+    {
+      "id": "research-ur01-kind-sprout-sengkang",
+      "address": "Singapore 793461",
+      "postalCode": "793461",
+      "point": {
+        "latitude": 1.3941411,
+        "longitude": 103.8709515
+      },
+      "sourceUrl": "https://take.app/kindsproutsg",
+      "checkedAt": "2026-10-16T12:43:50.212617+00:00",
+      "status": "operator-public-postal-point",
+      "reviewedAt": "2026-10-17",
+      "matchedAddress": "SG793461, as published by the merchant",
+      "qualification": "Approximate operator-published postal/store point. Not surveyed entrance, apartment location or public walk-in permission. Canonical address remainsSingapore793461.",
+      "previousCoordinateHold": {
+        "id": "research-ur01-kind-sprout-sengkang",
+        "address": "Singapore 793461",
+        "postalCode": "793461",
+        "point": null,
+        "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=793461&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+        "checkedAt": "2026-10-16T10:40:32.822286+00:00",
+        "status": "unresolved-address-coordinate-match"
+      }
+    },
+    {
+      "id": "research-saute-flavours-funan",
+      "address": "107 North Bridge Road, #B1-30 Funan, Singapore 179105",
+      "postalCode": "179105",
+      "point": {
+        "latitude": 1.291347596977954,
+        "longitude": 103.8499897900843
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=179105&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:32:51.232852+00:00",
+      "status": "reviewed-named-building-match",
+      "reviewedAt": "2026-10-17",
+      "matchedAddress": "107 NORTH BRIDGE ROAD FUNAN SINGAPORE 179105",
+      "qualification": "Approximate named building/complex point, not stall entrance. Operator exact107NorthBridgeRoad#B1-30Funan; choose explicitly namedFUNAN mall overFUNANO1 office row. Exact road/block/postal all agree.",
+      "previousCoordinateHold": {
+        "id": "research-saute-flavours-funan",
+        "address": "107 North Bridge Road, #B1-30 Funan, Singapore 179105",
+        "postalCode": "179105",
+        "point": null,
+        "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=179105&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+        "checkedAt": "2026-10-16T10:32:51.232852+00:00",
+        "status": "unresolved-address-coordinate-match"
+      }
+    },
+    {
+      "id": "research-tofu-g-ngee-ann-city",
+      "address": "391 Orchard Road #B1-29, Ngee Ann City, Singapore 238873",
+      "postalCode": "238873",
+      "point": {
+        "latitude": 1.302424171894113,
+        "longitude": 103.8346761247222
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=238873&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:33:08.042702+00:00",
+      "status": "reviewed-named-building-match",
+      "reviewedAt": "2026-10-17",
+      "matchedAddress": "391A ORCHARD ROAD NGEE ANN CITY SINGAPORE 238873",
+      "qualification": "Approximate named building/complex point, not stall entrance. Operator namesNgeeAnnCity#B1-29andpostal238873. SLA explicitly namesNGEEANN CITY at391AOrchardRoad. Canonical operator391OrchardRoad retained; building suffix discrepancy recorded, approximate complex only.",
+      "previousCoordinateHold": {
+        "id": "research-tofu-g-ngee-ann-city",
+        "address": "391 Orchard Road #B1-29, Ngee Ann City, Singapore 238873",
+        "postalCode": "238873",
+        "point": null,
+        "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=238873&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+        "checkedAt": "2026-10-16T10:33:08.042702+00:00",
+        "status": "unresolved-address-coordinate-match"
+      }
+    },
+    {
+      "id": "research-living-wholesome-bukit-timah",
+      "address": "2A Jalan Seh Chuan #01-060, Singapore 599213",
+      "postalCode": "599213",
+      "point": {
+        "latitude": 1.340787915768959,
+        "longitude": 103.7752147143752
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=599213&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:40:02.524730+00:00",
+      "status": "reviewed-named-building-match",
+      "reviewedAt": "2026-10-17",
+      "matchedAddress": "2A JALAN SEH CHUAN BUKIT TIMAH INTERIM HAWKER CENTRE AND MARKET SINGAPORE 599213",
+      "qualification": "Approximate named building/complex point, not stall entrance. Operator identifiesfoodcentre2AJalanSehChuan#01-060,599213. Selectnamedmarket/hawker-centre record rather thanunnamedblock point; exactblock/road/postal agree.",
+      "previousCoordinateHold": {
+        "id": "research-living-wholesome-bukit-timah",
+        "address": "2A Jalan Seh Chuan #01-060, Singapore 599213",
+        "postalCode": "599213",
+        "point": null,
+        "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=599213&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+        "checkedAt": "2026-10-16T10:40:02.524730+00:00",
+        "status": "unresolved-address-coordinate-match"
+      }
+    },
+    {
+      "id": "research-ur02-vegetarian-food-stall-01-74",
+      "address": "210 Lorong 8 Toa Payoh, #01-74, Singapore 310210",
+      "postalCode": "310210",
+      "point": {
+        "latitude": 1.340261046188113,
+        "longitude": 103.8543957588659
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=310210&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:38:52.511121+00:00",
+      "status": "reviewed-named-building-match",
+      "reviewedAt": "2026-10-17",
+      "matchedAddress": "210 LORONG 8 TOA PAYOH MARKET & HAWKER CENTRE (BLK 210 TOA PAYOH LORONG 8) SINGAPORE 310210",
+      "qualification": "Approximate named building/complex point, not stall entrance. Previously reviewed operator/owner sourcebinds210Lorong8ToaPayoh#01-74,310210hawkerstall. Selectnamedmarket/hawker-centre record rather thanunnamedblock point; exactblock/road/postal agree.",
+      "previousCoordinateHold": {
+        "id": "research-ur02-vegetarian-food-stall-01-74",
+        "address": "210 Lorong 8 Toa Payoh, #01-74, Singapore 310210",
+        "postalCode": "310210",
+        "point": null,
+        "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=310210&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+        "checkedAt": "2026-10-16T10:38:52.511121+00:00",
+        "status": "unresolved-address-coordinate-match"
+      }
+    }
+  ],
+  "identityEvidence": {
+    "checkedAt": "2026-10-17",
+    "kindSprout": {
+      "sourceUrl": "https://take.app/kindsproutsg",
+      "sourceCheckedAt": "2026-10-16T12:43:50.212617+00:00",
+      "sourceFile": ".local/cover-hours/sources/1633d3e6b0cbe37c7558.html",
+      "sourceSha256": "90599e44314c1c800bee4f66954c20998c1d21722382e09b1d21f90f3008cbef",
+      "publicMapHref": "https://maps.google.com/?q=SG%20793461",
+      "postalCode": "793461",
+      "point": {
+        "latitude": 1.3941411,
+        "longitude": 103.8709515
+      },
+      "imageToken": "cmuz47z5h000006qq2u7r4gwe",
+      "qualification": "Operator-published approximate postal/store point; not an independently surveyed entrance, public walk-in permission, or apartment address."
+    },
+    "livingWholesome": {
+      "sourceUrl": "https://livingwholesome.sg/",
+      "sourceCheckedAt": "2026-10-16T23:04:02.263129+00:00",
+      "finding": "Operator lists both exact branches and explicitly markets two locations with the same bowl. Existing enhanced brand food image may be reused with shared-brand qualifier; no branch interior claim."
+    }
+  },
+  "namedCoordinateEvidence": [
+    {
+      "venueId": "research-saute-flavours-funan",
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=179105&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "sourceCheckedAt": "2026-10-16T10:32:51.232852+00:00",
+      "receiptFile": "tmp\\qa\\catalogue-geocodes\\179105.json",
+      "receiptSha256": "290604fd84dbcb9659b4c903356d5b808b9af5ef06a45ea2839eed2f825ec6ad",
+      "selectedRow": {
+        "SEARCHVAL": "FUNAN",
+        "BLK_NO": "107",
+        "ROAD_NAME": "NORTH BRIDGE ROAD",
+        "BUILDING": "FUNAN",
+        "ADDRESS": "107 NORTH BRIDGE ROAD FUNAN SINGAPORE 179105",
+        "POSTAL": "179105",
+        "X": "29855.36254223995",
+        "Y": "30416.18148621917",
+        "LATITUDE": "1.291347596977954",
+        "LONGITUDE": "103.8499897900843"
+      },
+      "identitySourceUrl": "https://www.saute.com.sg/flavours-menu",
+      "review": "Operator exact107NorthBridgeRoad#B1-30Funan; choose explicitly namedFUNAN mall overFUNANO1 office row. Exact road/block/postal all agree.",
+      "checkedAt": "2026-10-17"
+    },
+    {
+      "venueId": "research-tofu-g-ngee-ann-city",
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=238873&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "sourceCheckedAt": "2026-10-16T10:33:08.042702+00:00",
+      "receiptFile": "tmp\\qa\\catalogue-geocodes\\238873.json",
+      "receiptSha256": "966eaa044190f11686de0bcbbdc35792e143c8e4b80266d6bb68dd5c47ab092e",
+      "selectedRow": {
+        "SEARCHVAL": "NGEE ANN CITY",
+        "BLK_NO": "391A",
+        "ROAD_NAME": "ORCHARD ROAD",
+        "BUILDING": "NGEE ANN CITY",
+        "ADDRESS": "391A ORCHARD ROAD NGEE ANN CITY SINGAPORE 238873",
+        "POSTAL": "238873",
+        "X": "28151.08249404468",
+        "Y": "31640.96600372717",
+        "LATITUDE": "1.302424171894113",
+        "LONGITUDE": "103.8346761247222"
+      },
+      "identitySourceUrl": "https://www.tofug.sg/takashimaya",
+      "review": "Operator namesNgeeAnnCity#B1-29andpostal238873. SLA explicitly namesNGEEANN CITY at391AOrchardRoad. Canonical operator391OrchardRoad retained; building suffix discrepancy recorded, approximate complex only.",
+      "checkedAt": "2026-10-17"
+    },
+    {
+      "venueId": "research-living-wholesome-bukit-timah",
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=599213&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "sourceCheckedAt": "2026-10-16T10:40:02.524730+00:00",
+      "receiptFile": "tmp\\qa\\catalogue-geocodes\\599213.json",
+      "receiptSha256": "01696fbb704ef230b0ba0944aeff7d5c7a9911acf7b3e592564def087b383719",
+      "selectedRow": {
+        "SEARCHVAL": "BUKIT TIMAH INTERIM HAWKER CENTRE AND MARKET",
+        "BLK_NO": "2A",
+        "ROAD_NAME": "JALAN SEH CHUAN",
+        "BUILDING": "BUKIT TIMAH INTERIM HAWKER CENTRE AND MARKET",
+        "ADDRESS": "2A JALAN SEH CHUAN BUKIT TIMAH INTERIM HAWKER CENTRE AND MARKET SINGAPORE 599213",
+        "POSTAL": "599213",
+        "X": "21533.66534253862",
+        "Y": "35883.10858125612",
+        "LATITUDE": "1.340787915768959",
+        "LONGITUDE": "103.7752147143752"
+      },
+      "identitySourceUrl": "https://livingwholesome.sg/",
+      "review": "Operator identifiesfoodcentre2AJalanSehChuan#01-060,599213. Selectnamedmarket/hawker-centre record rather thanunnamedblock point; exactblock/road/postal agree.",
+      "checkedAt": "2026-10-17"
+    },
+    {
+      "venueId": "research-ur02-vegetarian-food-stall-01-74",
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=310210&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "sourceCheckedAt": "2026-10-16T10:38:52.511121+00:00",
+      "receiptFile": "tmp\\qa\\catalogue-geocodes\\310210.json",
+      "receiptSha256": "1932b21a98b6288b03f82e789b43b627ce95662eaafc025330f9cdbe537f352f",
+      "selectedRow": {
+        "SEARCHVAL": "MARKET & HAWKER CENTRE (BLK 210 TOA PAYOH LORONG 8)",
+        "BLK_NO": "210",
+        "ROAD_NAME": "LORONG 8 TOA PAYOH",
+        "BUILDING": "MARKET & HAWKER CENTRE (BLK 210 TOA PAYOH LORONG 8)",
+        "ADDRESS": "210 LORONG 8 TOA PAYOH MARKET & HAWKER CENTRE (BLK 210 TOA PAYOH LORONG 8) SINGAPORE 310210",
+        "POSTAL": "310210",
+        "X": "30345.66337989736",
+        "Y": "35824.7833570838",
+        "LATITUDE": "1.340261046188113",
+        "LONGITUDE": "103.8543957588659"
+      },
+      "identitySourceUrl": "https://www.instagram.com/minigreensg",
+      "review": "Previously reviewed operator/owner sourcebinds210Lorong8ToaPayoh#01-74,310210hawkerstall. Selectnamedmarket/hawker-centre record rather thanunnamedblock point; exactblock/road/postal agree.",
+      "checkedAt": "2026-10-17",
+      "additionalIdentitySourceUrl": "https://sethlui.com/mini-green-toa-payoh-singapore-mar-2026/"
+    }
+  ],
+  "primaryHoursEvidence": {
+    "checkedAt": "2026-10-17",
+    "sourceUrl": "https://margaretmarket.sg/our-vendors/",
+    "sourcePublisher": "Margaret Market",
+    "sourceAccess": "Web browsing tool returned primary page259lines, tenant section145–151; direct requests403 retained in source cache.",
+    "venueId": "research-omg-donuts-margaret-market",
+    "tenant": "OMG!DecadentDonuts",
+    "days": [
+      "Mon",
+      "Tue",
+      "Wed",
+      "Thu",
+      "Fri",
+      "Sat",
+      "Sun"
+    ],
+    "opens": "10:00",
+    "closes": "22:00",
+    "operatorAddressSource": "https://omgdonuts.sg/pages/contact",
+    "operatorSourceCheckedAt": "2026-10-16T12:47:17.095492+00:00"
+  },
+  "remainingCoordinateHolds": [
+    {
+      "venueId": "research-ananda-syed-alwi",
+      "reason": "Operator address95SyedAlwiRoad conflicts with OneMap postal207670 at94SyedAlwiRoad. Do not shift the venue across the road by inference.",
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=207670&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "sourceCheckedAt": "2026-10-16T10:32:56.853754+00:00",
+      "reviewedAt": "2026-10-17"
+    },
+    {
+      "venueId": "research-tofu-g-amoy-street",
+      "reason": "Operator97AmoyStreet conflicts with OneMap postal069916 at96AmoyStreet. Hold until correct operator postal/point is established.",
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=069916&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "sourceCheckedAt": "2026-10-16T10:37:47.423991+00:00",
+      "reviewedAt": "2026-10-17"
+    },
+    {
+      "venueId": "research-ur11-crowded-sp",
+      "reason": "OneMap139651 returns many campus buildings and an incomplete7-page response with authentication notice; no exactFoodCourt2row. Merchant address says139651 but separatepostcode field says138671. Do not choose an admin building or generic campus point.",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/w9sh/the-crowded-bowl-dover-road",
+      "sourceCheckedAt": "2026-10-16T07:05:17.736Z",
+      "reviewedAt": "2026-10-17"
+    }
+  ],
+  "savedDocumentHoursReview": {
+    "checkedAt": "2026-10-17",
+    "purpose": "Read saved operator PDFs for hours-only evidence; no food extraction, HTTP request or automatic approval.",
+    "uniqueDocuments": 43,
+    "documentsWithHoursCandidates": 9,
+    "rows": [
+      {
+        "file": "tmp\\qa\\menu-ascend-coco-moonchay-sproutz\\moonchay-menu.pdf",
+        "sha256": "59da6abbe690ed6b81ed4cb00e0f9ce6d9206f4c72a27170d367d7a065da9db1",
+        "hits": []
+      },
+      {
+        "file": "tmp\\qa\\menu-ascend-coco-moonchay-sproutz\\sproutz-menu.pdf",
+        "sha256": "763fd6569644867fff783d327008c1a62e727a77566d25e8959ab33ea7db14dc",
+        "hits": []
+      },
+      {
+        "file": "tmp\\qa\\menu-chain-expansion\\greendot-high-tea.pdf",
+        "sha256": "cbae03c9b2b0bb4ebc4528caa8f8d9c33260e0cfedbbdf451609e88563bd390a",
+        "hits": []
+      },
+      {
+        "file": "tmp\\qa\\menu-chain-expansion\\greendot-local.pdf",
+        "sha256": "45fc14dbb22417625cd1e6749eb3eb4b0fca880a5d0d06f6189dc2b72fa31730",
+        "hits": []
+      },
+      {
+        "file": "tmp\\qa\\menu-chain-expansion\\greendot-plus.pdf",
+        "sha256": "7a4cf0b04664791d3defa842549bf850451324821653a23c60428b6c7b3e16ed",
+        "hits": []
+      },
+      {
+        "file": "tmp\\qa\\menu-chain-expansion\\greendot-signatures.pdf",
+        "sha256": "dba0e5638cc068082ce9078fcdeab68266b8c76cc2277b3d1729aa46eda37e7b",
+        "hits": []
+      },
+      {
+        "file": "tmp\\qa\\menu-chain-expansion\\greendot-standard.pdf",
+        "sha256": "d5066da65f8ae43386a01d3467010c51a44f2dc2160d40fc94d59c82dc8c7dd9",
+        "hits": []
+      },
+      {
+        "file": "tmp\\qa\\menu-completion-unresearched-03\\acai-menu.pdf",
+        "sha256": "c761943af91b909bc73946ccb2b0d50beab98b9a68d2131226128b7c79b56da3",
+        "hits": []
+      },
+      {
+        "file": "tmp\\qa\\menu-completion-unresolved-09\\kms-happy-realm.pdf",
+        "sha256": "33a10bddb4ee68472271dd5262c90c87e5628eba00cd099916cd051807ec3677",
+        "hits": []
+      },
+      {
+        "file": "tmp\\qa\\menu-completion-unresolved-09\\kms-zen-cafe.pdf",
+        "sha256": "75fa6bae4d3369f2fe7d589560f7c9c7ad037a5263cd94c84936f264d65045a7",
+        "hits": [
+          {
+            "page": 1,
+            "context": "每日营业 I Open Daily 10am – 5pm 图像仅供参考。Images shown are for illustration purposes only. "
+          },
+          {
+            "page": 1,
+            "context": "每日营业 I Open Daily 10am – 5pm 图像仅供参考。Images shown are for illustration purposes only. "
+          }
+        ]
+      },
+      {
+        "file": "tmp\\qa\\menu-completion-unresolved-17\\mod-menu-pdf.pdf",
+        "sha256": "33d45855317f3b41e2898c421bdf2a82421475a091e6eb817aba9d700b896bcc",
+        "hits": []
+      },
+      {
+        "file": "tmp\\qa\\menu-directory-continuation\\wakamama.sg-079d51c023.pdf",
+        "sha256": "228d92d6ed0db0851a8902d4f65bc69029a65ee1c561dbc0dd19986c65c6ed86",
+        "hits": []
+      },
+      {
+        "file": "tmp\\qa\\menu-directory-continuation\\wakamama.sg-5574fabfe1.pdf",
+        "sha256": "93dfde92c14fb7b93c0c50916fd3a781878b085b5d24bb57abe422df24e734c0",
+        "hits": []
+      },
+      {
+        "file": "tmp\\qa\\menu-elemen-nomvnom\\legacy-mapletree-sep2023.pdf",
+        "sha256": "6bc714990b82b7944e7723faa5a8b8e4ed92cad0ee97564b4bd9709c5ab16897",
+        "hits": []
+      },
+      {
+        "file": "tmp\\qa\\menu-expansion-woodlands\\daily.pdf",
+        "sha256": "74356103bf93fc98666201d40e184cf5620b6fd666c819108cc63c583dab83f1",
+        "hits": []
+      },
+      {
+        "file": "tmp\\qa\\menu-lotus-lingzhi-yesnatural-victor\\lingzhi-alacarte.pdf",
+        "sha256": "5583596cf725abca49158e89d23ef76523de6ea57cd58614bacf85af69ac15b2",
+        "hits": []
+      },
+      {
+        "file": "tmp\\qa\\menu-lotus-lingzhi-yesnatural-victor\\lingzhi-promotion.pdf",
+        "sha256": "81fbc739524b12f4d7e3143e381e6d2664fa756f72cf3afb39962d9aaa9d2655",
+        "hits": []
+      },
+      {
+        "file": "tmp\\qa\\menu-lotus-lingzhi-yesnatural-victor\\lingzhi-sets.pdf",
+        "sha256": "6de3cbfa733cc65e6a9592538d68c0e02e450c082a1361a6f8756d69fd8f6e8d",
+        "hits": []
+      },
+      {
+        "file": "tmp\\qa\\menu-lovingnature-bode-vegan\\awaken-64.pdf",
+        "sha256": "8cd10475e934d387e279bda5844ee75b5eb5b00c965425af387fc8af9e2a7ba1",
+        "hits": [
+          {
+            "page": 6,
+            "context": "ay of simplicity and mindful cultivation. The day began at 9am with the Eight Precepts acceptance ceremony, when participants formally received the precepts."
+          },
+          {
+            "page": 48,
+            "context": "报名方式 欢迎游览 kmspks.org kmspks.org/activities/ 接待处 9am — 4pm ( 午休 : 11.30am — 12.30pm ) 普觉坊 11.30am — 6pm (Bras Basah Complex #03-39) 托钵暨供僧法会 1月1日 (农历十一月十"
+          },
+          {
+            "page": 48,
+            "context": "报名方式 欢迎游览 kmspks.org kmspks.org/activities/ 接待处 9am — 4pm ( 午休 : 11.30am — 12.30pm ) 普觉坊 11.30am — 6pm (Bras Basah Complex #03-39) 托钵暨供僧法会 1月1日 (农历十一月十三) 上午"
+          },
+          {
+            "page": 48,
+            "context": "欢迎游览 kmspks.org kmspks.org/activities/ 接待处 9am — 4pm ( 午休 : 11.30am — 12.30pm ) 普觉坊 11.30am — 6pm (Bras Basah Complex #03-39) 托钵暨供僧法会 1月1日 (农历十一月十三) 上午8时至中午12时 地点: 大"
+          },
+          {
+            "page": 48,
+            "context": "s.org kmspks.org/activities/ 接待处 9am — 4pm ( 午休 : 11.30am — 12.30pm ) 普觉坊 11.30am — 6pm (Bras Basah Complex #03-39) 托钵暨供僧法会 1月1日 (农历十一月十三) 上午8时至中午12时 地点: 大悲殿 吉祥斋天法会 "
+          },
+          {
+            "page": 48,
+            "context": "rg/activities/ 接待处 9am — 4pm ( 午休 : 11.30am — 12.30pm ) 普觉坊 11.30am — 6pm (Bras Basah Complex #03-39) 托钵暨供僧法会 1月1日 (农历十一月十三) 上午8时至中午12时 地点: 大悲殿 吉祥斋天法会 1月1日 (农历十一月十三)"
+          },
+          {
+            "page": 48,
+            "context": "ies/ 接待处 9am — 4pm ( 午休 : 11.30am — 12.30pm ) 普觉坊 11.30am — 6pm (Bras Basah Complex #03-39) 托钵暨供僧法会 1月1日 (农历十一月十三) 上午8时至中午12时 地点: 大悲殿 吉祥斋天法会 1月1日 (农历十一月十三) 上午6时"
+          },
+          {
+            "page": 50,
+            "context": "e kmspks.org kmspks.org/activities/ KMSPKS Reception Office 9am to 4pm (Lunch break: 11.30am to 12.30pm) Awareness Hub 11.30am to 6pm (Bras Basah Complex #03-39) A"
+          },
+          {
+            "page": 50,
+            "context": "s.org kmspks.org/activities/ KMSPKS Reception Office 9am to 4pm (Lunch break: 11.30am to 12.30pm) Awareness Hub 11.30am to 6pm (Bras Basah Complex #03-39) Alms and"
+          },
+          {
+            "page": 50,
+            "context": "ctivities/ KMSPKS Reception Office 9am to 4pm (Lunch break: 11.30am to 12.30pm) Awareness Hub 11.30am to 6pm (Bras Basah Complex #03-39) Alms and Sangha Offering 1 "
+          },
+          {
+            "page": 50,
+            "context": "KMSPKS Reception Office 9am to 4pm (Lunch break: 11.30am to 12.30pm) Awareness Hub 11.30am to 6pm (Bras Basah Complex #03-39) Alms and Sangha Offering 1 Jan | 8am t"
+          },
+          {
+            "page": 50,
+            "context": " 9am to 4pm (Lunch break: 11.30am to 12.30pm) Awareness Hub 11.30am to 6pm (Bras Basah Complex #03-39) Alms and Sangha Offering 1 Jan | 8am to noon Venue: Hall of G"
+          },
+          {
+            "page": 50,
+            "context": " (Lunch break: 11.30am to 12.30pm) Awareness Hub 11.30am to 6pm (Bras Basah Complex #03-39) Alms and Sangha Offering 1 Jan | 8am to noon Venue: Hall of Great Co"
+          },
+          {
+            "page": 50,
+            "context": "s Basah Complex #03-39) Alms and Sangha Offering 1 Jan | 8am to noon Venue: Hall of Great Compassion Offering to Buddha and Celestial Beings 1 Jan 6am t"
+          },
+          {
+            "page": 50,
+            "context": "ssion Offering to Buddha and Celestial Beings 1 Jan 6am to 8am Venue: Hall of Great Compassion Compound Puja Sponsorship: $10, $20, $50 Offering Items Spo"
+          },
+          {
+            "page": 50,
+            "context": " Offering to Buddha and Celestial Beings 1 Jan 6am to 8am Venue: Hall of Great Compassion Compound Puja Sponsorship: $10, $20, $50 Offering Items Sponsorshi"
+          },
+          {
+            "page": 50,
+            "context": "$10, $20, $50 Offering Items Sponsorship: $28, $38 25 Feb 7am to 9am Venue: Hall of Great Compassion Compound Offering Items Sponsorship: $88 The Great Diamond"
+          },
+          {
+            "page": 50,
+            "context": "0, $50 Offering Items Sponsorship: $28, $38 25 Feb 7am to 9am Venue: Hall of Great Compassion Compound Offering Items Sponsorship: $88 The Great Diamond Gem R"
+          },
+          {
+            "page": 50,
+            "context": "onsorship: $88 The Great Diamond Gem Repentance 1 Jan 1.30pm to 4.30pm Venue: Hall of Great Compassion The Great Diamond Gem Repentance "
+          },
+          {
+            "page": 50,
+            "context": " $88 The Great Diamond Gem Repentance 1 Jan 1.30pm to 4.30pm Venue: Hall of Great Compassion The Great Diamond Gem Repentance "
+          },
+          {
+            "page": 50,
+            "context": " 1 Jan 1.30pm to 4.30pm Venue: Hall of Great Compassion Lunar 27th Great Compassion Repentance Puja 15 Ja"
+          },
+          {
+            "page": 50,
+            "context": " 1 Jan 1.30pm to 4.30pm Venue: Hall of Great Compassion Lunar 27th Great Compassion Repentance Puja 15 Jan | 14 Feb"
+          },
+          {
+            "page": 50,
+            "context": "ion Repentance Puja 15 Jan | 14 Feb | 15 Mar | 14 Apr 10am to 11.30am Venue: Hall of Great Compassion Chinese New Year Bell Resonance 16 to 17 Feb 11.30"
+          },
+          {
+            "page": 50,
+            "context": "entance Puja 15 Jan | 14 Feb | 15 Mar | 14 Apr 10am to 11.30am Venue: Hall of Great Compassion Chinese New Year Bell Resonance 16 to 17 Feb 11.30pm to 1am V"
+          },
+          {
+            "page": 50,
+            "context": "ompassion Chinese New Year Bell Resonance 16 to 17 Feb 11.30pm to 1am Venue: Hall of Great Compassion Chinese New Year Wish-Fulfilling Lanterns Puja 28 Feb "
+          },
+          {
+            "page": 50,
+            "context": "hinese New Year Bell Resonance 16 to 17 Feb 11.30pm to 1am Venue: Hall of Great Compassion Chinese New Year Wish-Fulfilling Lanterns Puja 28 Feb 10am to"
+          },
+          {
+            "page": 50,
+            "context": " Chinese New Year Wish-Fulfilling Lanterns Puja 28 Feb 10am to 11am Venue: Hall of Great Compassion $68 per Lantern @ HOGC $368 per "
+          },
+          {
+            "page": 50,
+            "context": " New Year Wish-Fulfilling Lanterns Puja 28 Feb 10am to 11am Venue: Hall of Great Compassion $68 per Lantern @ HOGC $368 per Lantern "
+          },
+          {
+            "page": 50,
+            "context": " HOUB Lantern Lighting: 16 Feb to 3 Mar, 7pm to 10pm Chinese New Year Puja 消灾 1 Mar 10am to 11.10am Venue: Hall of Great Compassion 补运 3 Mar"
+          },
+          {
+            "page": 50,
+            "context": " Lantern Lighting: 16 Feb to 3 Mar, 7pm to 10pm Chinese New Year Puja 消灾 1 Mar 10am to 11.10am Venue: Hall of Great Compassion 补运 3 Mar 6.30am t"
+          },
+          {
+            "page": 50,
+            "context": " Feb to 3 Mar, 7pm to 10pm Chinese New Year Puja 消灾 1 Mar 10am to 11.10am Venue: Hall of Great Compassion 补运 3 Mar 6.30am to 2pm Venue: Hall of Great Strength "
+          },
+          {
+            "page": 50,
+            "context": "3 Mar, 7pm to 10pm Chinese New Year Puja 消灾 1 Mar 10am to 11.10am Venue: Hall of Great Compassion 补运 3 Mar 6.30am to 2pm Venue: Hall of Great Strength Online P"
+          },
+          {
+            "page": 50,
+            "context": " 10am to 11.10am Venue: Hall of Great Compassion 补运 3 Mar 6.30am to 2pm Venue: Hall of Great Strength Online Pledge of Avalokiteshvara Bodhisattva Name Chant "
+          },
+          {
+            "page": 50,
+            "context": "1.10am Venue: Hall of Great Compassion 补运 3 Mar 6.30am to 2pm Venue: Hall of Great Strength Online Pledge of Avalokiteshvara Bodhisattva Name Chant 19 Ma"
+          },
+          {
+            "page": 50,
+            "context": "a Bodhisattva — The Great Compassion Puja (TBC) 6 Apr 10am to 11.30am Venue: Hall of Great Compassion Buddhist Etiquette Class — Mandarin (TBC) 11 Apr | 9"
+          },
+          {
+            "page": 50,
+            "context": "sattva — The Great Compassion Puja (TBC) 6 Apr 10am to 11.30am Venue: Hall of Great Compassion Buddhist Etiquette Class — Mandarin (TBC) 11 Apr | 9am to 11am "
+          },
+          {
+            "page": 50,
+            "context": "ssion Buddhist Etiquette Class — Mandarin (TBC) 11 Apr | 9am to 11am Venue: Ju Yuan Fang 3 Refuge 5 Precepts Preparatory Class — Mandarin (TBC) 11 Apr | 1pm"
+          },
+          {
+            "page": 50,
+            "context": "uddhist Etiquette Class — Mandarin (TBC) 11 Apr | 9am to 11am Venue: Ju Yuan Fang 3 Refuge 5 Precepts Preparatory Class — Mandarin (TBC) 11 Apr | 1pm to 3pm "
+          },
+          {
+            "page": 50,
+            "context": " 5 Precepts Preparatory Class — Mandarin (TBC) 11 Apr | 1pm to 3pm Venue: Ju Yuan Fang 3 Refuge 5 Precepts Ceremony (TBC) 12 Apr | Noon to 2.30pm Venue: To"
+          },
+          {
+            "page": 50,
+            "context": "epts Preparatory Class — Mandarin (TBC) 11 Apr | 1pm to 3pm Venue: Ju Yuan Fang 3 Refuge 5 Precepts Ceremony (TBC) 12 Apr | Noon to 2.30pm Venue: To Be Con"
+          },
+          {
+            "page": 50,
+            "context": "ang 3 Refuge 5 Precepts Ceremony (TBC) 12 Apr | Noon to 2.30pm Venue: To Be Confirmed Temple Stay (3 to 14 days) Please visit kmspks.org for more information"
+          },
+          {
+            "page": 50,
+            "context": " information. Relaxation and Mindfulness Meditation (TBC) 2pm to 3.30pm 7.45pm to 9.15pm Venue: Prajna Meditation Hall Mindfulness Meditation Group Practice "
+          },
+          {
+            "page": 50,
+            "context": "ation. Relaxation and Mindfulness Meditation (TBC) 2pm to 3.30pm 7.45pm to 9.15pm Venue: Prajna Meditation Hall Mindfulness Meditation Group Practice (TBC) Venu"
+          },
+          {
+            "page": 50,
+            "context": "elaxation and Mindfulness Meditation (TBC) 2pm to 3.30pm 7.45pm to 9.15pm Venue: Prajna Meditation Hall Mindfulness Meditation Group Practice (TBC) Venue: Prajn"
+          },
+          {
+            "page": 50,
+            "context": "and Mindfulness Meditation (TBC) 2pm to 3.30pm 7.45pm to 9.15pm Venue: Prajna Meditation Hall Mindfulness Meditation Group Practice (TBC) Venue: Prajna Meditati"
+          },
+          {
+            "page": 50,
+            "context": "Meditation Hall General Blood Donation Drive 2026 1 Feb 9am to 3pm Venue: Ju Yuan Fang Contact: Singapore Red Cross at 6220 0183 or visit redcross.sg Ikebana "
+          },
+          {
+            "page": 50,
+            "context": "ion Hall General Blood Donation Drive 2026 1 Feb 9am to 3pm Venue: Ju Yuan Fang Contact: Singapore Red Cross at 6220 0183 or visit redcross.sg Ikebana Flower "
+          },
+          {
+            "page": 50,
+            "context": "83 or visit redcross.sg Ikebana Flower Arrangement 7 Mar 1.30pm to 4pm Venue: Pagoda of 10k Buddhas, Level 4 Classroom Fee: $68 Hair-for-Hope 19 Apr 10am to 1"
+          },
+          {
+            "page": 50,
+            "context": "t redcross.sg Ikebana Flower Arrangement 7 Mar 1.30pm to 4pm Venue: Pagoda of 10k Buddhas, Level 4 Classroom Fee: $68 Hair-for-Hope 19 Apr 10am to 1.30pm V"
+          },
+          {
+            "page": 50,
+            "context": "ddhas, Level 4 Classroom Fee: $68 Hair-for-Hope 19 Apr 10am to 1.30pm Venue: Hall of No Form 2026 English Buddhism Course (Year 1 & 2) 7.30pm to 9pm Venue"
+          },
+          {
+            "page": 50,
+            "context": "Level 4 Classroom Fee: $68 Hair-for-Hope 19 Apr 10am to 1.30pm Venue: Hall of No Form 2026 English Buddhism Course (Year 1 & 2) 7.30pm to 9pm Venue: Ven. Hon"
+          },
+          {
+            "page": 50,
+            "context": "all of No Form 2026 English Buddhism Course (Year 1 & 2) 7.30pm to 9pm Venue: Ven. Hong Choon Memorial Hall, Level 1 Classroom Fee: $120 (per year course) Ple"
+          },
+          {
+            "page": 50,
+            "context": "Form 2026 English Buddhism Course (Year 1 & 2) 7.30pm to 9pm Venue: Ven. Hong Choon Memorial Hall, Level 1 Classroom Fee: $120 (per year course) Please vis"
+          },
+          {
+            "page": 50,
+            "context": "n the Satipatthana Sutta 5 Mar to 12 Nov (every Thursday) 7.30pm to 9pm Venue: Ven. Hong Choon Memorial Hall, Level 1 Classroom Fee: $120 / CALENDAR MEDITATION C"
+          },
+          {
+            "page": 50,
+            "context": "patthana Sutta 5 Mar to 12 Nov (every Thursday) 7.30pm to 9pm Venue: Ven. Hong Choon Memorial Hall, Level 1 Classroom Fee: $120 / CALENDAR MEDITATION COMMUNIT"
+          },
+          {
+            "page": 51,
+            "context": "ulness for Kids — Dot B (Age 11-17) 11, 18, 25 Jan | 1 Feb 2pm to 3.30pm Fee: $125 per pax for 4 sessions Children’s Art Class 31 Jan to 18 Apr (every Saturday) 2"
+          },
+          {
+            "page": 51,
+            "context": "for Kids — Dot B (Age 11-17) 11, 18, 25 Jan | 1 Feb 2pm to 3.30pm Fee: $125 per pax for 4 sessions Children’s Art Class 31 Jan to 18 Apr (every Saturday) 25 Apr to 4"
+          },
+          {
+            "page": 51,
+            "context": "to 18 Apr (every Saturday) 25 Apr to 4 Jul (every Saturday) 2pm to 3.30pm Fee: $65 per pax for 10 sessions WELLNESS Senior Art and Crafts 7 Jan, 4 Feb, 4 Ma"
+          },
+          {
+            "page": 51,
+            "context": "pr (every Saturday) 25 Apr to 4 Jul (every Saturday) 2pm to 3.30pm Fee: $65 per pax for 10 sessions WELLNESS Senior Art and Crafts 7 Jan, 4 Feb, 4 Mar, 1 Apr 1"
+          },
+          {
+            "page": 51,
+            "context": "ESS Senior Art and Crafts 7 Jan, 4 Feb, 4 Mar, 1 Apr 1.30pm to 3pm Fee: $10 per session Mindfulness Foundation 9, 16, 23, 30 Jan 7pm to 9pm Fee: $164 per pa"
+          },
+          {
+            "page": 51,
+            "context": "r Art and Crafts 7 Jan, 4 Feb, 4 Mar, 1 Apr 1.30pm to 3pm Fee: $10 per session Mindfulness Foundation 9, 16, 23, 30 Jan 7pm to 9pm Fee: $164 per pax for 4"
+          },
+          {
+            "page": 51,
+            "context": " $10 per session Mindfulness Foundation 9, 16, 23, 30 Jan 7pm to 9pm Fee: $164 per pax for 4 sessions Understanding Stress and Anxiety through LEGO® SERIOUS PL"
+          },
+          {
+            "page": 51,
+            "context": "r session Mindfulness Foundation 9, 16, 23, 30 Jan 7pm to 9pm Fee: $164 per pax for 4 sessions Understanding Stress and Anxiety through LEGO® SERIOUS PLAY® 8,"
+          },
+          {
+            "page": 51,
+            "context": "gh LEGO® SERIOUS PLAY® 8, 15, 22, 29 Mar 5, 12, 19, 26 Apr 2pm to 3.30pm Fee: $350 per pax for 8 sessions Managing Digestive Health and Meal Planning (Bilingua"
+          },
+          {
+            "page": 51,
+            "context": "® SERIOUS PLAY® 8, 15, 22, 29 Mar 5, 12, 19, 26 Apr 2pm to 3.30pm Fee: $350 per pax for 8 sessions Managing Digestive Health and Meal Planning (Bilingual) 21 Mar"
+          },
+          {
+            "page": 51,
+            "context": "ng Digestive Health and Meal Planning (Bilingual) 21 Mar 2pm to 5pm Fee: $68 per pax Mental Exercises for a Healthy and Happy Brain 22, 29 Apr 1.30pm to 3.30"
+          },
+          {
+            "page": 51,
+            "context": "stive Health and Meal Planning (Bilingual) 21 Mar 2pm to 5pm Fee: $68 per pax Mental Exercises for a Healthy and Happy Brain 22, 29 Apr 1.30pm to 3.30pm Fee:"
+          },
+          {
+            "page": 51,
+            "context": " Mental Exercises for a Healthy and Happy Brain 22, 29 Apr 1.30pm to 3.30pm Fee: $60 per pax for 2 sessions YOGA Hatha Yoga Monday Class: 2 Mar to 4 May 6.45p"
+          },
+          {
+            "page": 51,
+            "context": "ercises for a Healthy and Happy Brain 22, 29 Apr 1.30pm to 3.30pm Fee: $60 per pax for 2 sessions YOGA Hatha Yoga Monday Class: 2 Mar to 4 May 6.45pm to 8.15p"
+          },
+          {
+            "page": 51,
+            "context": "essions YOGA Hatha Yoga Monday Class: 2 Mar to 4 May 6.45pm to 8.15pm Fee: $184 per pax for 10 sessions Walk in: $27 per session Gratitude Shop Mond"
+          },
+          {
+            "page": 51,
+            "context": "YOGA Hatha Yoga Monday Class: 2 Mar to 4 May 6.45pm to 8.15pm Fee: $184 per pax for 10 sessions Walk in: $27 per session Gratitude Shop Monday to Sund"
+          },
+          {
+            "page": 51,
+            "context": " Walk in: $27 per session Gratitude Shop Monday to Sunday 10am to 3pm Venue: Ven. Hong Choon Memorial Hall (outside Dining Hall) Mobile Kiosk Sale 15 Jan | 14 "
+          },
+          {
+            "page": 51,
+            "context": ": $27 per session Gratitude Shop Monday to Sunday 10am to 3pm Venue: Ven. Hong Choon Memorial Hall (outside Dining Hall) Mobile Kiosk Sale 15 Jan | 14 Feb | 1"
+          },
+          {
+            "page": 51,
+            "context": "all) Mobile Kiosk Sale 15 Jan | 14 Feb | 15 Mar | 14 Apr 9am to 1.30pm Venue: Ven. Hong Choon Memorial Hall, Level 2 Gratitude Corner Donation Items 9am to 4"
+          },
+          {
+            "page": 51,
+            "context": "obile Kiosk Sale 15 Jan | 14 Feb | 15 Mar | 14 Apr 9am to 1.30pm Venue: Ven. Hong Choon Memorial Hall, Level 2 Gratitude Corner Donation Items 9am to 4pm Venue: "
+          },
+          {
+            "page": 51,
+            "context": "n Memorial Hall, Level 2 Gratitude Corner Donation Items 9am to 4pm Venue: Ven. Hong Choon Memorial Hall, Level 1 Accepted items: Paper products (books, n"
+          },
+          {
+            "page": 51,
+            "context": "ial Hall, Level 2 Gratitude Corner Donation Items 9am to 4pm Venue: Ven. Hong Choon Memorial Hall, Level 1 Accepted items: Paper products (books, newspape"
+          },
+          {
+            "page": 51,
+            "context": "rmation. Wednesday Class: 4 Feb to 15 Apr 22 Apr to 1 Jul 6.30pm to 7.45pm 14 Jan to 25 Mar 1 Apr to 10 Jun 7.45pm to 9pm Fee: $174 per pax for 10 sessions "
+          },
+          {
+            "page": 51,
+            "context": "ednesday Class: 4 Feb to 15 Apr 22 Apr to 1 Jul 6.30pm to 7.45pm 14 Jan to 25 Mar 1 Apr to 10 Jun 7.45pm to 9pm Fee: $174 per pax for 10 sessions Walk in: "
+          },
+          {
+            "page": 51,
+            "context": " to 1 Jul 6.30pm to 7.45pm 14 Jan to 25 Mar 1 Apr to 10 Jun 7.45pm to 9pm Fee: $174 per pax for 10 sessions Walk in: $25 per session Friday Class: 30 Jan to"
+          },
+          {
+            "page": 51,
+            "context": "6.30pm to 7.45pm 14 Jan to 25 Mar 1 Apr to 10 Jun 7.45pm to 9pm Fee: $174 per pax for 10 sessions Walk in: $25 per session Friday Class: 30 Jan to 24 Apr"
+          },
+          {
+            "page": 51,
+            "context": " Walk in: $25 per session Friday Class: 30 Jan to 24 Apr 11am to 12.15pm Fee: $174 per pax for 10 sessions Walk in: $25 per session Saturday Class: 14"
+          },
+          {
+            "page": 51,
+            "context": "in: $25 per session Friday Class: 30 Jan to 24 Apr 11am to 12.15pm Fee: $174 per pax for 10 sessions Walk in: $25 per session Saturday Class: 14 Mar to 23 "
+          },
+          {
+            "page": 51,
+            "context": "lk in: $25 per session Saturday Class: 14 Mar to 23 May 9.30am to 11am Fee: $184 per pax for 10 sessions Walk in: $27 per session Hatha Gentle Yoga Tue"
+          },
+          {
+            "page": 51,
+            "context": " per session Saturday Class: 14 Mar to 23 May 9.30am to 11am Fee: $184 per pax for 10 sessions Walk in: $27 per session Hatha Gentle Yoga Tuesday Cla"
+          },
+          {
+            "page": 51,
+            "context": "a Tuesday Class: 6 Jan to 17 Mar 24 Mar to 26 May 2.30pm to 4pm Fee: $164 per pax for 10 sessions Walk in: $24 per session Friday Class: 23 Jan to"
+          },
+          {
+            "page": 51,
+            "context": " Class: 6 Jan to 17 Mar 24 Mar to 26 May 2.30pm to 4pm Fee: $164 per pax for 10 sessions Walk in: $24 per session Friday Class: 23 Jan to 17 Apr"
+          },
+          {
+            "page": 51,
+            "context": "r session Friday Class: 23 Jan to 17 Apr 24 Apr to 3 Jul 2.30pm to 4pm Fee: $164 per pax for 10 sessions Walk in: $24 per session Beginners Hatha Yoga Sat"
+          },
+          {
+            "page": 51,
+            "context": "Friday Class: 23 Jan to 17 Apr 24 Apr to 3 Jul 2.30pm to 4pm Fee: $164 per pax for 10 sessions Walk in: $24 per session Beginners Hatha Yoga Saturday C"
+          },
+          {
+            "page": 51,
+            "context": "ssion Beginners Hatha Yoga Saturday Class: 7 Feb to 25 Apr 6.30pm to 8pm Fee: $184 per pax for 10 sessions Walk in: $27 per session Yin Yoga Tuesday Class: "
+          },
+          {
+            "page": 51,
+            "context": "nners Hatha Yoga Saturday Class: 7 Feb to 25 Apr 6.30pm to 8pm Fee: $184 per pax for 10 sessions Walk in: $27 per session Yin Yoga Tuesday Class: 3 Mar "
+          },
+          {
+            "page": 51,
+            "context": "n: $27 per session Yin Yoga Tuesday Class: 3 Mar to 5 May 6.30pm to 7.45pm Fee: $174 per pax for 10 sessions Walk in: $25 per session Yoga for Seniors Thu"
+          },
+          {
+            "page": 51,
+            "context": " session Yin Yoga Tuesday Class: 3 Mar to 5 May 6.30pm to 7.45pm Fee: $174 per pax for 10 sessions Walk in: $25 per session Yoga for Seniors Thursday Clas"
+          },
+          {
+            "page": 51,
+            "context": "sion Yoga for Seniors Thursday Class: 26 Feb to 30 Apr 10.30am to 11.30am Fee: $124 per pax for 10 sessions Walk in: $17 per session Relax & Recharge Yog"
+          },
+          {
+            "page": 51,
+            "context": "or Seniors Thursday Class: 26 Feb to 30 Apr 10.30am to 11.30am Fee: $124 per pax for 10 sessions Walk in: $17 per session Relax & Recharge Yoga Tuesday "
+          },
+          {
+            "page": 51,
+            "context": "charge Yoga Tuesday Class: 6 Jan 17 Mar 24 Mar to 26 May 12.20pm to 1.20pm Fee: $164 per pax for 10 sessions Walk in: $24 per session awaken 普觉 I Issue 6"
+          },
+          {
+            "page": 51,
+            "context": " Tuesday Class: 6 Jan 17 Mar 24 Mar to 26 May 12.20pm to 1.20pm Fee: $164 per pax for 10 sessions Walk in: $24 per session awaken 普觉 I Issue 64 GREENISM"
+          },
+          {
+            "page": 52,
+            "context": "ift Birthday Gift Festive Gift hrdept@kmspks.org 6849 5347 (Mon – Fri, 9am – 11am & 2pm – 4pm) CAREER OPPORTUNITIES "
+          },
+          {
+            "page": 52,
+            "context": "y Gift Festive Gift hrdept@kmspks.org 6849 5347 (Mon – Fri, 9am – 11am & 2pm – 4pm) CAREER OPPORTUNITIES "
+          },
+          {
+            "page": 52,
+            "context": " Festive Gift hrdept@kmspks.org 6849 5347 (Mon – Fri, 9am – 11am & 2pm – 4pm) CAREER OPPORTUNITIES "
+          },
+          {
+            "page": 52,
+            "context": "e Gift hrdept@kmspks.org 6849 5347 (Mon – Fri, 9am – 11am & 2pm – 4pm) CAREER OPPORTUNITIES "
+          },
+          {
+            "page": 52,
+            "context": " hrdept@kmspks.org 6849 5347 (Mon – Fri, 9am – 11am & 2pm – 4pm) CAREER OPPORTUNITIES "
+          },
+          {
+            "page": 54,
+            "context": "it our Front Office to make cash donations. 可到访本寺的寺务处现款捐献。 Opening Hours 营业时间: 9am to 4.30pm You will be issued a receipt for the donation. 完成捐款后，我们将会签发正式收据。 Cashless 无现金"
+          },
+          {
+            "page": 54,
+            "context": "o make cash donations. 可到访本寺的寺务处现款捐献。 Opening Hours 营业时间: 9am to 4.30pm You will be issued a receipt for the donation. 完成捐款后，我们将会签发正式收据。 Cashless 无现金支付 无现金支付 To"
+          },
+          {
+            "page": 54,
+            "context": " cash donations. 可到访本寺的寺务处现款捐献。 Opening Hours 营业时间: 9am to 4.30pm You will be issued a receipt for the donation. 完成捐款后，我们将会签发正式收据。 Cashless 无现金支付 无现金支付 To make an o"
+          },
+          {
+            "page": 86,
+            "context": "10 Address: Blk 844 Sims Avenue, #01-700, Singapore 400844 Operating Hours: Friday to Sunday, 11.00am to 9.00pm J ust a short stroll from Eunos MRT station, Loving Nature "
+          },
+          {
+            "page": 86,
+            "context": "1-700, Singapore 400844 Operating Hours: Friday to Sunday, 11.00am to 9.00pm J ust a short stroll from Eunos MRT station, Loving Nature Fortunate Coffee Cafe is a"
+          },
+          {
+            "page": 86,
+            "context": "gapore 400844 Operating Hours: Friday to Sunday, 11.00am to 9.00pm J ust a short stroll from Eunos MRT station, Loving Nature Fortunate Coffee Cafe is a tranquil"
+          },
+          {
+            "page": 87,
+            "context": "affles Boulevard, #03-130A, Marina Square, Singapore 039594 Operating Hours: Daily: 11am to 3pm, 5pm to 9pm Vegetarian Assam Fish ($25.90). The dish is packed with vegetaria"
+          },
+          {
+            "page": 87,
+            "context": "0A, Marina Square, Singapore 039594 Operating Hours: Daily: 11am to 3pm, 5pm to 9pm Vegetarian Assam Fish ($25.90). The dish is packed with vegetarian fish slice"
+          },
+          {
+            "page": 87,
+            "context": "na Square, Singapore 039594 Operating Hours: Daily: 11am to 3pm, 5pm to 9pm Vegetarian Assam Fish ($25.90). The dish is packed with vegetarian fish slices, lady"
+          },
+          {
+            "page": 87,
+            "context": "uare, Singapore 039594 Operating Hours: Daily: 11am to 3pm, 5pm to 9pm Vegetarian Assam Fish ($25.90). The dish is packed with vegetarian fish slices, lady’s fi"
+          },
+          {
+            "page": 87,
+            "context": "ingapore 039594 Operating Hours: Daily: 11am to 3pm, 5pm to 9pm Vegetarian Assam Fish ($25.90). The dish is packed with vegetarian fish slices, lady’s finger, "
+          }
+        ]
+      },
+      {
+        "file": "tmp\\qa\\menu-nature\\nature-cafe-alexandra.pdf",
+        "sha256": "0235eefb0a2331601151762ea5461f184cfedfd4b5de4f111377b6a0f7237aa8",
+        "hits": []
+      },
+      {
+        "file": "tmp\\qa\\menu-nature\\nature-cafe-smu.pdf",
+        "sha256": "4e0a77251957ee1dba7b8f622224ec9330ee2e2458c58889436f14dce8273fa7",
+        "hits": []
+      },
+      {
+        "file": "tmp\\qa\\menu-nature\\nvd-bukit-batok.pdf",
+        "sha256": "cff9e5c37eaafa3214696bae3db01bce736fe0c32460b0ef4d63772e6056ea02",
+        "hits": [
+          {
+            "page": 2,
+            "context": "Kia w Yuba Roll 娘惹咖喱面仔 香菇肉挫面仔汤 NVD BUKIT BATOK EXCLUSIVE 7.30AM - 11AM NVD BUKIT BATOK EXCLUSIVE 7.30AM - 11AM NVD BUKIT BATOK EXCLUSIVE 7.30AM - 11AM H e a r t e "
+          },
+          {
+            "page": 2,
+            "context": "a Roll 娘惹咖喱面仔 香菇肉挫面仔汤 NVD BUKIT BATOK EXCLUSIVE 7.30AM - 11AM NVD BUKIT BATOK EXCLUSIVE 7.30AM - 11AM NVD BUKIT BATOK EXCLUSIVE 7.30AM - 11AM H e a r t e n i n g"
+          },
+          {
+            "page": 2,
+            "context": "KIT BATOK EXCLUSIVE 7.30AM - 11AM NVD BUKIT BATOK EXCLUSIVE 7.30AM - 11AM NVD BUKIT BATOK EXCLUSIVE 7.30AM - 11AM H e a r t e n i n g H e a r t e n i n g 开 心 暖 粥 C "
+          },
+          {
+            "page": 2,
+            "context": " EXCLUSIVE 7.30AM - 11AM NVD BUKIT BATOK EXCLUSIVE 7.30AM - 11AM NVD BUKIT BATOK EXCLUSIVE 7.30AM - 11AM H e a r t e n i n g H e a r t e n i n g 开 心 暖 粥 C n g e "
+          },
+          {
+            "page": 2,
+            "context": "KIT BATOK EXCLUSIVE 7.30AM - 11AM NVD BUKIT BATOK EXCLUSIVE 7.30AM - 11AM H e a r t e n i n g H e a r t e n i n g 开 心 暖 粥 C n g e e C n g e e 5.8 $ 219 Dry Toss"
+          },
+          {
+            "page": 2,
+            "context": " EXCLUSIVE 7.30AM - 11AM NVD BUKIT BATOK EXCLUSIVE 7.30AM - 11AM H e a r t e n i n g H e a r t e n i n g 开 心 暖 粥 C n g e e C n g e e 5.8 $ 219 Dry Toss Noodle"
+          },
+          {
+            "page": 3,
+            "context": " Curry Potato Bun (1 pc) 咖喱包 1.9 NVD BUKIT BATOK EXCLUSIVE 7.30AM - 11AM NVD BUKIT BATOK EXCLUSIVE 7.30AM - 11AM NVD BUKIT BATOK EXCLUSIVE 7.30AM - 11AM 2.5 BBQ Bake"
+          },
+          {
+            "page": 3,
+            "context": "tato Bun (1 pc) 咖喱包 1.9 NVD BUKIT BATOK EXCLUSIVE 7.30AM - 11AM NVD BUKIT BATOK EXCLUSIVE 7.30AM - 11AM NVD BUKIT BATOK EXCLUSIVE 7.30AM - 11AM 2.5 BBQ Baked Flake"
+          },
+          {
+            "page": 3,
+            "context": "KIT BATOK EXCLUSIVE 7.30AM - 11AM NVD BUKIT BATOK EXCLUSIVE 7.30AM - 11AM NVD BUKIT BATOK EXCLUSIVE 7.30AM - 11AM 2.5 BBQ Baked Flakey Bun (1 pc) BBQ Baked Flakey Bun"
+          },
+          {
+            "page": 3,
+            "context": " EXCLUSIVE 7.30AM - 11AM NVD BUKIT BATOK EXCLUSIVE 7.30AM - 11AM NVD BUKIT BATOK EXCLUSIVE 7.30AM - 11AM 2.5 BBQ Baked Flakey Bun (1 pc) BBQ Baked Flakey Bun (1 pc)"
+          },
+          {
+            "page": 3,
+            "context": "KIT BATOK EXCLUSIVE 7.30AM - 11AM NVD BUKIT BATOK EXCLUSIVE 7.30AM - 11AM 2.5 BBQ Baked Flakey Bun (1 pc) BBQ Baked Flakey Bun (1 pc) 素烧烤包 素烧烤包 BAKED/ FRIED DIM SUM S"
+          },
+          {
+            "page": 3,
+            "context": " EXCLUSIVE 7.30AM - 11AM NVD BUKIT BATOK EXCLUSIVE 7.30AM - 11AM 2.5 BBQ Baked Flakey Bun (1 pc) BBQ Baked Flakey Bun (1 pc) 素烧烤包 素烧烤包 BAKED/ FRIED DIM SUM STEAMED "
+          },
+          {
+            "page": 4,
+            "context": " I O C H E D I F F E R E N C E ! NVD BUKIT BATOK EXCLUSIVE 7.30AM - 11AM NVD BUKIT BATOK EXCLUSIVE 7.30AM - 11AM NVD BUKIT BATOK EXCLUSIVE 7.30AM - 11AM BBQ SMOKED B"
+          },
+          {
+            "page": 4,
+            "context": "E D I F F E R E N C E ! NVD BUKIT BATOK EXCLUSIVE 7.30AM - 11AM NVD BUKIT BATOK EXCLUSIVE 7.30AM - 11AM NVD BUKIT BATOK EXCLUSIVE 7.30AM - 11AM BBQ SMOKED BURDOCK "
+          },
+          {
+            "page": 4,
+            "context": "KIT BATOK EXCLUSIVE 7.30AM - 11AM NVD BUKIT BATOK EXCLUSIVE 7.30AM - 11AM NVD BUKIT BATOK EXCLUSIVE 7.30AM - 11AM BBQ SMOKED BURDOCK PATTY W MAYO BBQ SMOKED BURDOCK "
+          },
+          {
+            "page": 4,
+            "context": " EXCLUSIVE 7.30AM - 11AM NVD BUKIT BATOK EXCLUSIVE 7.30AM - 11AM NVD BUKIT BATOK EXCLUSIVE 7.30AM - 11AM BBQ SMOKED BURDOCK PATTY W MAYO BBQ SMOKED BURDOCK PATTY "
+          },
+          {
+            "page": 4,
+            "context": "KIT BATOK EXCLUSIVE 7.30AM - 11AM NVD BUKIT BATOK EXCLUSIVE 7.30AM - 11AM BBQ SMOKED BURDOCK PATTY W MAYO BBQ SMOKED BURDOCK PATTY W MAYO PLANT-BASED ‘FISH’ CUTLET "
+          },
+          {
+            "page": 4,
+            "context": " EXCLUSIVE 7.30AM - 11AM NVD BUKIT BATOK EXCLUSIVE 7.30AM - 11AM BBQ SMOKED BURDOCK PATTY W MAYO BBQ SMOKED BURDOCK PATTY W MAYO PLANT-BASED ‘FISH’ CUTLET W THAI"
+          },
+          {
+            "page": 6,
+            "context": "脆鸡丝沙拉酱煎饼卷 $4.2 油条罗惹 Youtiao Rojak $8 AVAILABLE TILL 3PM 销售至下午3点 214 256 Bukit Batok Specials 本店限定菜肴 AVAILABLE TILL 3PM 销售至下午3点 224 227 225 Vegan Spicy Chef"
+          },
+          {
+            "page": 6,
+            "context": " 销售至下午3点 214 256 Bukit Batok Specials 本店限定菜肴 AVAILABLE TILL 3PM 销售至下午3点 224 227 225 Vegan Spicy Chef Recommended Prices include GST. No Service Charge. "
+          },
+          {
+            "page": 22,
+            "context": " 207 Set Meal includes mushroom soup and toast (Avail. Till 3pm 销售至下午3点) Western Fusion 西餐 Mini Hotpot 单人小火锅 452 Herbal Mini Hotpot w Rice 小火锅 (药材汤) "
+          },
+          {
+            "page": 22,
+            "context": "ni Hotpot w Rice 小火锅 (药材汤) $9 Available until 6pm 销售至下午6点 (Contains milk 含奶) Vegan option available 451 Tom Yum Mini Hotpot w Rice 小火锅 (冬炎汤) "
+          }
+        ]
+      },
+      {
+        "file": "tmp\\qa\\menu-nature\\nvd-rivervale.pdf",
+        "sha256": "4dfc6c266929a533aae798b396d37eb0090672915c61efa82ab02159efa84f93",
+        "hits": [
+          {
+            "page": 2,
+            "context": "yo Shreds Wrap 香脆鸡丝沙拉酱煎饼卷 $4.2 AVAILABLE TILL 3PM 销售至下午3点 224 227 225 加麻 More Numbing $3.50/ 100g, min 最少 450g 麻辣香锅 | 麻辣烫 | 酸辣烫 DRY | SOUP | SPIC"
+          },
+          {
+            "page": 18,
+            "context": " 207 Set Meal includes mushroom soup and toast (Avail. Till 3pm 销售至下午3点) Western Fusion 西餐 Mini Hotpot 单人小火锅 452 Herbal Mini Hotpot w Rice 小火锅 (药材汤) "
+          },
+          {
+            "page": 18,
+            "context": "ni Hotpot w Rice 小火锅 (药材汤) $9 Available until 6pm 销售至下午6点 (Contains milk 含奶) Vegan option available 451 Tom Yum Mini Hotpot w Rice 小火锅 (冬炎汤) "
+          }
+        ]
+      },
+      {
+        "file": "tmp\\qa\\menu-realfood-indian\\gokul-menu.pdf",
+        "sha256": "397dd52956265dc30f8ad3c4b2d054bdd1dcf1b59377de8846871f10a3dff3db",
+        "hits": []
+      },
+      {
+        "file": "tmp\\qa\\menu-sufood-joie-genesis-lovinghut\\joie-festive.pdf",
+        "sha256": "a088013c14b774e35f8c6bb0340318e9d2fde1a905f2546335f1f75bf46cd535",
+        "hits": []
+      },
+      {
+        "file": "tmp\\qa\\menu-sufood-joie-genesis-lovinghut\\sufood-cny-2024.pdf",
+        "sha256": "179359dd4b66edabe97e26bde1461753f3a63231ffd7e9fe224a57c9215b4c78",
+        "hits": []
+      },
+      {
+        "file": "tmp\\qa\\menu-sufood-joie-genesis-lovinghut\\sufood-putien-pdf.pdf",
+        "sha256": "63742c240d2396d61c5c3c1b8dd0238d1d7339ea9f865b4cd49ed2e1767d5243",
+        "hits": [
+          {
+            "page": 9,
+            "context": "大利面 Spaghetti stir-fried with roasted wild vegetables and sun-dried tomatoes, a slightly tart dish with unique flavours. 香烤野蔬意大利面搭配油浸小番茄拌炒， 入口微酸，风味独特。 Wild Mus"
+          }
+        ]
+      },
+      {
+        "file": "tmp\\qa\\menu-supreme-vege\\01-SV-CNY-EVE-ALA-CARTE-MENU-202PDF.pdf",
+        "sha256": "f63fd27789544c6152b44ddbfac1a3c812ba17c08618983649ee863780b091a4",
+        "hits": []
+      },
+      {
+        "file": "tmp\\qa\\menu-supreme-vege\\02-Set-Meal-Dine-in-8-10pax-2025.pdf",
+        "sha256": "f5fe3bf38c6701c73de91cf72f3dc8435ee2d9f9ab69558d0d6e391f73b58252",
+        "hits": []
+      },
+      {
+        "file": "tmp\\qa\\menu-supreme-vege\\03-ALa-carte-Bf-Menu-2025-PDF.pdf",
+        "sha256": "787190f5cd85de9b43c97fcaf9d522ec36ceed48685bc43fb3faaf34d34d8cef",
+        "hits": [
+          {
+            "page": 1,
+            "context": "Freshly cooked to order please be patient 1 滋补养生百味菌汤 LUNCH 11:30am-2:30pm (2pm last order) DINNER 5:30pm-9:30pm (9pm last order) Assorted Mushrooms Nourishing Soup 最"
+          },
+          {
+            "page": 1,
+            "context": "cooked to order please be patient 1 滋补养生百味菌汤 LUNCH 11:30am-2:30pm (2pm last order) DINNER 5:30pm-9:30pm (9pm last order) Assorted Mushrooms Nourishing Soup 最少 4 位 "
+          },
+          {
+            "page": 1,
+            "context": "o order please be patient 1 滋补养生百味菌汤 LUNCH 11:30am-2:30pm (2pm last order) DINNER 5:30pm-9:30pm (9pm last order) Assorted Mushrooms Nourishing Soup 最少 4 位 星期一至"
+          },
+          {
+            "page": 1,
+            "context": "nt 1 滋补养生百味菌汤 LUNCH 11:30am-2:30pm (2pm last order) DINNER 5:30pm-9:30pm (9pm last order) Assorted Mushrooms Nourishing Soup 最少 4 位 星期一至星期四 MON - THU 星期五至星期日, 公共假"
+          },
+          {
+            "page": 1,
+            "context": "补养生百味菌汤 LUNCH 11:30am-2:30pm (2pm last order) DINNER 5:30pm-9:30pm (9pm last order) Assorted Mushrooms Nourishing Soup 最少 4 位 星期一至星期四 MON - THU 星期五至星期日, 公共假期, 农历初一"
+          },
+          {
+            "page": 1,
+            "context": "LUNCH 11:30am-2:30pm (2pm last order) DINNER 5:30pm-9:30pm (9pm last order) Assorted Mushrooms Nourishing Soup 最少 4 位 星期一至星期四 MON - THU 星期五至星期日, 公共假期, 农历初一十五 Mi"
+          },
+          {
+            "page": 1,
+            "context": "order) Assorted Mushrooms Nourishing Soup 最少 4 位 星期一至星期四 MON - THU 星期五至星期日, 公共假期, 农历初一十五 Minimum 4 pax Adult 2 佛钵飘香 午餐 Adult $25.80++ FRI-SUN, Public Holiday,1st"
+          },
+          {
+            "page": 1,
+            "context": " 公共假期, 农历初一十五 Minimum 4 pax Adult 2 佛钵飘香 午餐 Adult $25.80++ FRI-SUN, Public Holiday,1st & 15th Day of Lunar Calendar Yam Ring Filled with Wonders Child $16.80++ (4"
+          }
+        ]
+      },
+      {
+        "file": "tmp\\qa\\menu-supreme-vege\\04-Alacarte-special-price-2025-Updated-A.pdf",
+        "sha256": "2849c6f20a3707efcea368e0663788a545cd5d2badace2b4522e4cb1f7e76f76",
+        "hits": []
+      },
+      {
+        "file": "tmp\\qa\\menu-supreme-vege\\05-2026-SV-Standard-Buffet-Menu.pdf",
+        "sha256": "2a5534e2ef68a97aed7f3d6146e459dfe432a16a7572b5bb58c39ffc5c218edc",
+        "hits": []
+      },
+      {
+        "file": "tmp\\qa\\menu-supreme-vege\\06-2026-SV-Celebration-Bf-Menu.pdf",
+        "sha256": "1e57ada4448855c5d214b7925e398ca3c53c7c0b4936cc3b523b80e66bd6ac0b",
+        "hits": []
+      },
+      {
+        "file": "tmp\\qa\\menu-supreme-vege\\07-High-tea-menu-2025.pdf",
+        "sha256": "63e396e15f30c88f8e295a36e4b6a32ba2da042c41798509762136a58a058719",
+        "hits": []
+      },
+      {
+        "file": "tmp\\qa\\menu-supreme-vege\\08-BEnto-Set-2025a.pdf",
+        "sha256": "9db17e14175476af2f30949274f52906cdc5b52adbee7a87be3a1ae0e18249b6",
+        "hits": [
+          {
+            "page": 2,
+            "context": "ick up -Surcharge of $60 ($65.40 w/GST) for delivery before 10am. -Prices are subject to prevailing GST -Surcharge of $10 ( $10.90w/GST) is applicable for delivery "
+          }
+        ]
+      },
+      {
+        "file": "tmp\\qa\\menu-supreme-vege\\09-Funeral-Order-form-2025.pdf",
+        "sha256": "9ed26209eadbbf24f0179e4a2bf517371312e4f9fdac934ce648863d596123d0",
+        "hits": []
+      },
+      {
+        "file": "tmp\\qa\\menu-supreme-vege\\10-Wedding-Package-Menu-2025.pdf",
+        "sha256": "19b8181376b1489cf883767b9c736cc3afee765eddc25003d9397edcac1a487b",
+        "hits": []
+      },
+      {
+        "file": "tmp\\qa\\menu-supreme-vege\\11-Supreme-Vege-Wedding-Package-Includes-2025.pdf",
+        "sha256": "be0f431860d5893342561710ded57466cbedba91c39853cf7e2d442ef00b4c65",
+        "hits": []
+      },
+      {
+        "file": "tmp\\qa\\menu-supreme-vege\\12-Solemnization-Package-Menu-Inclusions-2025.pdf",
+        "sha256": "68ff1cb38d5326906afba22536f5fc4f75de4d36ca6f63628743c57079384c3f",
+        "hits": []
+      },
+      {
+        "file": "tmp\\qa\\menu-veganburg-ahimsa-cultivate\\cultivate-dessert-pdf.pdf",
+        "sha256": "fc0ef2ad6bd9141cda64a0ad351bedb0aa8cee987c8a7eaad0d9f5344350fa3f",
+        "hits": []
+      },
+      {
+        "file": "tmp\\qa\\menu-veganburg-ahimsa-cultivate\\cultivate-events-pdf.pdf",
+        "sha256": "320c19fbf312d999c9951d5ca6fbc31da00cc53ac12d467674501ddb0ee1e7c1",
+        "hits": []
+      },
+      {
+        "file": "tmp\\qa\\menu-veganburg-ahimsa-cultivate\\cultivate-food-pdf.pdf",
+        "sha256": "ea6528ebbac32a2bbb442069e440fe61c5896bf1d40cf965c709076d4d636e5c",
+        "hits": [
+          {
+            "page": 2,
+            "context": "GANIC SALADS 24 24 24 Energising Pickled Japanese cucumber, sun-dried tomato, basil and rocket pesto, Spanish onion, and artisanal vegan garlic herb cashew cheese. "
+          },
+          {
+            "page": 2,
+            "context": "ka cashew cheese. Refreshing Heirloom tomatoes with dukkah, sun-dried tomato pesto, Spanish onion, and artisanal sun-dried tomato and garlic herb cashew cheese. HOT"
+          },
+          {
+            "page": 2,
+            "context": "ukkah, sun-dried tomato pesto, Spanish onion, and artisanal sun-dried tomato and garlic herb cashew cheese. HOT SANDWICHES HOT SANDWICHES HOT SANDWICHES 24 24 24 So"
+          },
+          {
+            "page": 2,
+            "context": "hly grated lemon rind. 34 Whole Roasted Portobello Mushroom Sun-dried tomatoes, onion, and sumac, served with butter bean mash. 34 Gluten-Free Pizzetta Sun-dried to"
+          },
+          {
+            "page": 2,
+            "context": "umac, served with butter bean mash. 34 Gluten-Free Pizzetta Sun-dried tomato sauce, roasted heirloom tomatoes, cashew milk mozzarella, chili oil, and seasoned organ"
+          }
+        ]
+      },
+      {
+        "file": "tmp\\qa\\menu-veganburg-ahimsa-cultivate\\cultivate-set-pdf.pdf",
+        "sha256": "b625ad1b2b2fe59df710b7a572a89763c8aeef8ff4df35d70e0429e3f26599db",
+        "hits": [
+          {
+            "page": 2,
+            "context": "ns the dish. Whole Roasted Portobello Mushroom Served with sun-dried tomatoes, onions, and sumac spice over a creamy butterbean mash — a wholesome and deeply flavo"
+          }
+        ]
+      }
+    ],
+    "reviewConclusion": "43unique savedPDFs reviewed for hours-only text.9documents matched; no additional unconfirmed branch schedule can be approved. KMSZenCafealreadycovered; NVDmenuperiods are dish-service windows, SupremeVegealreadycovered, othermatches delivery/events or sun-dried ingredient text. No food extraction or network calls."
+  },
+  "verificationSupplement": {
+    "checkedAt": "2026-10-17",
+    "typescript": {
+      "command": "npx tsc --noEmit",
+      "cwd": ".local/coverage-2026-10-17u/source",
+      "exitCode": 0
+    },
+    "lint": {
+      "command": "EXPO_NO_DOTENV=1 CI=1 npx expo lint --no-cache",
+      "cwd": ".",
+      "exitCode": 0
+    },
+    "sourcePreserved": true,
+    "changes": "Reviewed catalogue JSON and image assets; source/configuration bytes preserved from deployed20261017-source-covers23. All16API functions rebuilt together."
+  },
+  "currentChecklist": "data/menu-research/current-catalogue-readiness-2026-10-17.json"
+}

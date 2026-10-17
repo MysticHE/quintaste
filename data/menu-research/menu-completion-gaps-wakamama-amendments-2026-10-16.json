@@ -1,0 +1,20 @@
+{
+  "amendmentsOnly": true,
+  "checkedAt": "2026-10-16T00:25:00Z",
+  "targetDataset": "data/menu-research/menu-directory-continuation-cafes-2026-10-16.json",
+  "targetBranchId": "wakamama-pasir-panjang",
+  "sourceRechecks": [
+    {
+      "id": "completion-waka-brunch-recheck",
+      "url": "https://www.wakamama.sg/vegan-brunch",
+      "publisher": "Wakamama",
+      "title": "Current brunch HTML and conflicting linked PDF versions",
+      "checkedAt": "2026-10-16T00:25:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Same15priced human food rows and same two PDF links as earlier frozen packet. HTMLSaturday/Sunday11–15 still disagrees with footerSunday9–15. No authoritative dated supersession found; existing holds retained."
+    }
+  ],
+  "recommendation": "Preserve all existing four held menus/51food rows; merge current branch outcome and append new independently scoped Cantabile tiers and held repertoire. Do not choose a brunch version or move a held PDF price onto current repertoire names.",
+  "resolvedGap": "Cantabile earlier429 is resolved by ordinary currentHTTP200 retrieval. Current printed five-course168/eight-course238 food tiers and all named course/repertoire foods captured.",
+  "remainingGap": "Brunch/PDF portions, prices and Saturday/Sunday hours remain contradictory. No dated supersession found."
+}

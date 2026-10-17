@@ -1,0 +1,102 @@
+{
+  "startedAt": "2026-10-16T06:46:06.891Z",
+  "url": "http://127.0.0.1:8083",
+  "checks": [
+    {
+      "name": "eco-harmony",
+      "status": "passed",
+      "foods": 50,
+      "heldAbsent": 1,
+      "sourceUrl": "https://erp.eco-harmony.net/cafe",
+      "publicFingerprint": "64673bd181bacb64ba6b4e539b1ed9479a45c9f1e64ea98580c55f3f26e19578",
+      "carriedForwardFrom": "menu-full-09-browser-before-source-title-fix.json",
+      "publicFingerprintUnchanged": true
+    },
+    {
+      "name": "zen-cafe",
+      "status": "passed",
+      "foods": 23,
+      "heldAbsent": 0,
+      "sourceUrl": "https://kmspks.org/wp-content/blogs.dir/1/files/ZenCafe_Digital-Menu.pdf",
+      "publicFingerprint": "fa6c64a5f783900aaa1e9bd4d03014ae45a203377ae835684131f3b7583da9d3",
+      "carriedForwardFrom": "menu-full-09-browser-before-source-title-fix.json",
+      "publicFingerprintUnchanged": true
+    },
+    {
+      "name": "happy-realm",
+      "status": "passed",
+      "foods": 50,
+      "heldAbsent": 0,
+      "sourceUrl": "https://kmspks.org/wp-content/blogs.dir/1/files/20260812-Happy-Realm-Online-Menu_hires.pdf",
+      "publicFingerprint": "785811e47f35c3aa29e1d2a201418fe12998dec55bc41532e65920f09f9b010a"
+    },
+    {
+      "name": "kms-regular",
+      "status": "passed",
+      "foods": 2,
+      "heldAbsent": 4,
+      "sourceUrl": "https://kmspks.org/services/vegetarian-food/",
+      "publicFingerprint": "785811e47f35c3aa29e1d2a201418fe12998dec55bc41532e65920f09f9b010a"
+    }
+  ],
+  "screenshots": [
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-09-browser\\eco-harmony-320.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-09-browser\\eco-harmony-768.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-09-browser\\eco-harmony-1440.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-09-browser\\zen-cafe-320.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-09-browser\\zen-cafe-768.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-09-browser\\zen-cafe-1440.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-09-browser\\happy-realm-320.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-09-browser\\happy-realm-768.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-09-browser\\happy-realm-1440.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-09-browser\\kms-regular-320.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-09-browser\\kms-regular-768.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-09-browser\\kms-regular-1440.png"
+  ],
+  "errors": [],
+  "pageErrors": [],
+  "unexpectedConsoleErrors": [],
+  "blockedApiRequests": [],
+  "blockedExternalRequests": [],
+  "apiRequests": [],
+  "a11y": [
+    {
+      "label": "eco-harmony",
+      "violations": []
+    },
+    {
+      "label": "zen-cafe",
+      "violations": []
+    },
+    {
+      "label": "happy-realm",
+      "violations": []
+    },
+    {
+      "label": "kms-regular",
+      "violations": []
+    }
+  ],
+  "forwardedProviderCalls": 0,
+  "installedChromeUsed": false,
+  "catalogue": {
+    "locations": 164,
+    "sourceMenus": 211,
+    "foodOccurrences": 11567
+  },
+  "browserVersion": "156.0.8078.4",
+  "finishedAt": "2026-10-16T06:46:48.601Z",
+  "passed": true,
+  "visualReview": {
+    "status": "passed",
+    "reviewedAt": "2026-10-16T06:49:06.161326+00:00",
+    "capturesInspected": 12,
+    "widths": [
+      320,
+      768,
+      1440
+    ],
+    "findings": "All12current captures inspected. Six unchanged Eco/Zen captures carried only after public fingerprint equality; six new DiningHall captures inspected after shortening source labels. Selected source text fits320px. Horizontal chip scrolling is intentional; no page overflow observed. Eco repeated qualifiers are readable but visually dense. Initial harness mistakenly searched the menu-item sibling for expanded details; corrected after inspecting MenuItemRow, no app logic change."
+  },
+  "googleLedgerUnchanged": true
+}

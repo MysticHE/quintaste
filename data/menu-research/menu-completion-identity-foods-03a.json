@@ -1,0 +1,1757 @@
+{
+  "version": 1,
+  "checkedAt": "2026-10-16T00:49:18Z",
+  "identityReviewDataset": "data/menu-research/identity-completion-batch-02.json",
+  "notice": "Factual branch-delivery food observations from public merchant-managed ordering listings. Vegetarian/vegan venues only; no beverages or copied artwork. Candidate place IDs are review proposals only; every Google identity remains null.",
+  "sources": [
+    {
+      "id": "icf3-fang-fp",
+      "url": "https://www.foodpanda.sg/restaurant/x5qg/fang-lin-vegetarian-jurong-west-street-41",
+      "title": "Fang Lin Vegetarian - public delivery listing",
+      "publisher": "Merchant / Foodpanda",
+      "kind": "merchant-partner",
+      "status": "readable-public-web-text",
+      "checkedAt": "2026-10-16T00:49:18Z",
+      "publishedAt": null,
+      "notes": "Source effective date not published. All visible non-beverage category cards reviewed; source options not exposed. No review-based facts imported."
+    },
+    {
+      "id": "icf3-sux-fp",
+      "url": "https://www.foodpanda.sg/restaurant/rnb4/su-xiang-vegetarian-kopitiam-at-lau-pa-sat",
+      "title": "Su Xiang Vegetarian - public delivery listing",
+      "publisher": "Merchant / Foodpanda",
+      "kind": "merchant-partner",
+      "status": "readable-public-web-text",
+      "checkedAt": "2026-10-16T00:49:18Z",
+      "publishedAt": null,
+      "notes": "Source effective date not published. All visible non-beverage category cards reviewed; source options not exposed. No review-based facts imported."
+    },
+    {
+      "id": "icf3-ydx-fp",
+      "url": "https://www.foodpanda.sg/restaurant/gxl8/yi-ding-xuan-vegetarian-yi-ding-xuan-su-shi-tampines",
+      "title": "Yi Ding Xuan Vegetarian - public delivery listing",
+      "publisher": "Merchant / Foodpanda",
+      "kind": "merchant-partner",
+      "status": "readable-public-web-text",
+      "checkedAt": "2026-10-16T00:49:18Z",
+      "publishedAt": null,
+      "notes": "Source effective date not published. All visible non-beverage category cards reviewed; source options not exposed. No review-based facts imported."
+    },
+    {
+      "id": "icf3-fang-address",
+      "url": "https://www.happycow.net/reviews/fang-lin-vegetarian-west-singapore-76134",
+      "title": "Fang Lin exact street, unit and postal corroboration",
+      "kind": "secondary-directory",
+      "status": "readable",
+      "checkedAt": "2026-10-16T00:49:18Z",
+      "notes": "Postal 640494; #01-138 agrees with current ordering. Stock not certified."
+    },
+    {
+      "id": "icf3-sux-address",
+      "url": "https://www.happycow.net/reviews/su-xiang-central-singapore-346380",
+      "title": "Su Xiang unit 46 and six-digit postal corroboration",
+      "kind": "secondary-directory",
+      "status": "readable",
+      "checkedAt": "2026-10-16T00:49:18Z",
+      "notes": "18 Raffles Quay unit 46, 048582; corroborates shortened ordering postal."
+    },
+    {
+      "id": "icf3-fang-scope-review",
+      "url": "https://www.onehungryhippo.com/guide/vegetarian-food-jurong-west",
+      "title": "Current independent Jurong West vegetarian guide",
+      "kind": "secondary-directory",
+      "status": "readable",
+      "checkedAt": "2026-10-16T00:50:45Z",
+      "notes": "Current directory corroborates Fang Lin among vegetarian stalls at the 493/494/498 cluster, but does not resolve the two exact ordering ingredient descriptions. HappyCow classification is historically maintained; no current merchant-specific clarification obtained."
+    },
+    {
+      "id": "miv01-fang-fp",
+      "url": "https://www.foodpanda.sg/restaurant/x5qg/fang-lin-vegetarian-jurong-west-street-41",
+      "title": "Fang Lin exact current merchant delivery menu",
+      "kind": "merchant-ordering",
+      "credibilityScoreOutOf5": 5,
+      "retrievedAt": "2026-10-16T01:19:40Z",
+      "publishedAt": null,
+      "status": "readable",
+      "basis": "494 Jurong West Street 41 #01-138. Ginger with Vinegar Fish S$15 generic description refers to fish; Zai Er from S$6 generic prose refers to meat. Explicit Vegetarian Lemon Sauce Chicken also gets literal chicken prose, showing that unqualified prose can coexist with explicit vegetarian item labels. Does not prove actual meat service."
+    },
+    {
+      "id": "miv01-fang-ginger-photo",
+      "url": "https://foodpanda.dhmedia.io/image/fd-sg/Products/3067241.jpg?height=150&width=150",
+      "title": "Fang Lin Ginger with Vinegar Fish ordering image",
+      "kind": "merchant-product-image",
+      "credibilityScoreOutOf5": 3,
+      "retrievedAt": "2026-10-16T01:20:59Z",
+      "publishedAt": null,
+      "status": "readable-image-inspected",
+      "basis": "Linked from the exact current target product. Picture shows sliced light pieces in dark sauce with ginger; image is illustrative and cannot identify actual fish versus mock composition. No ingredients certified visually."
+    },
+    {
+      "id": "miv01-fang-diners",
+      "url": "https://dcscc.com/dcscc/v2/pdf/diners-sg-pay/participating-merchants-coffeeshops.pdf",
+      "title": "Diners merchant participation list",
+      "kind": "payment-provider-merchant-list",
+      "credibilityScoreOutOf5": 4,
+      "retrievedAt": "2026-10-16T01:19:40Z",
+      "publishedAt": null,
+      "status": "search-text-readable-date-uncertain",
+      "basis": "Separately lists Fang Lin Vegetarian at MeetUp 494 #01-138,640494. Supports exact merchant identity, not ingredient declaration or current operation; no effective date asserted."
+    },
+    {
+      "id": "miv01-fang-diners-20210317",
+      "url": "https://dcscc.com/dcscc/pdf/card-services/diners-sg-pay/participating-merchants-coffeeshops-20210317.pdf",
+      "title": "Diners merchant list dated in filename 20210317",
+      "kind": "historical-payment-provider-list",
+      "credibilityScoreOutOf5": 4,
+      "retrievedAt": "2026-10-16T01:19:40Z",
+      "publishedAt": null,
+      "status": "search-text-readable",
+      "basis": "Historical same exact merchant name/premises supports vegetarian positioning at 494; dated filename does not certify current ingredients."
+    },
+    {
+      "id": "miv01-fang-burger",
+      "url": "https://www.burgerabroad.com/vegan-jurong-singapore/",
+      "title": "Independent on-site Jurong vegan food report",
+      "kind": "historical-independent-on-site-report",
+      "credibilityScoreOutOf5": 3,
+      "retrievedAt": "2026-10-16T01:19:40Z",
+      "publishedAt": null,
+      "status": "search-text-readable",
+      "basis": "Report explicitly places Fang Lin at 494 #01-138 and describes vegetarian food with mock meats. Historical report cannot resolve current two products or present ingredients."
+    },
+    {
+      "id": "miv01-fang-hawker",
+      "url": "https://www.burgerabroad.com/hawker-singapore/",
+      "title": "Independent hawker report and Fang Lin stall image",
+      "kind": "historical-independent-on-site-report",
+      "credibilityScoreOutOf5": 3,
+      "retrievedAt": "2026-10-16T01:19:40Z",
+      "publishedAt": null,
+      "status": "readable",
+      "basis": "Author describes own visits and vegetarian mock-meat food at Fang Lin; linked stall image could not be downloaded through ordinary HTTP403. No current exact Ginger Fish/Zai Er ingredient statement."
+    },
+    {
+      "id": "miv01-fang-stall-photo",
+      "url": "https://image.jimcdn.com/app/cms/image/transf/dimension%3D700x10000%3Aformat%3Djpg/path/s0ca27f7814ed51fd/image/ie2ca1d5ab726fbd9/version/1618018495/fang-lin-vegetarian-food-stall-jurong-west-singapore.jpg",
+      "title": "Fang Lin on-site report linked stall image",
+      "kind": "historical-independent-photo",
+      "credibilityScoreOutOf5": 2,
+      "retrievedAt": "2026-10-16T01:19:40Z",
+      "publishedAt": null,
+      "status": "HTTP403-not-inspected",
+      "basis": "Could not inspect signboard; no OCR or ingredient claim inferred. Stopped normal request after403."
+    },
+    {
+      "id": "miv01-fang-abillion",
+      "url": "https://www.abillion.com/restaurants/fang-lin-%E8%8A%B3%E6%9E%97-vegetarian-10651210",
+      "title": "Independent Fang Lin diner venue/dish report",
+      "kind": "secondary-community-on-site-report",
+      "credibilityScoreOutOf5": 3,
+      "retrievedAt": "2026-10-16T01:19:40Z",
+      "publishedAt": null,
+      "status": "search-text-readable",
+      "basis": "Report corrects directory's 493 to actual 494 MeetUp and describes vegetarian beehoon. Does not address target two foods; date currentness unclear."
+    },
+    {
+      "id": "miv01-fang-menuweb",
+      "url": "https://apac-cdn.menuweb.menu/storage/media/companies_menu_pdf/111390712/fang-lin-vegetarian-west-singapore-menu.pdf",
+      "title": "Aggregator Fang Lin menu PDF",
+      "kind": "derivative-menu-aggregator",
+      "credibilityScoreOutOf5": 1,
+      "retrievedAt": "2026-10-16T01:19:40Z",
+      "publishedAt": null,
+      "status": "search-text-readable",
+      "basis": "Mentions same two target names but materially different prices and average-price/generated layout. Not merchant PDF or independent ingredient proof; old prices not substituted."
+    },
+    {
+      "id": "miv01-fang-directory",
+      "url": "https://www.onehungryhippo.com/guide/vegetarian-food-jurong-west",
+      "title": "October 2026 independent vegetarian directory",
+      "kind": "secondary-directory",
+      "credibilityScoreOutOf5": 2,
+      "retrievedAt": "2026-10-16T01:19:40Z",
+      "publishedAt": null,
+      "status": "readable-search-representation",
+      "basis": "Current directory lists Fang Lin among vegetarian stalls around493/494. No specific target ingredients or current merchant clarification."
+    },
+    {
+      "id": "miv01-fang-happycow",
+      "url": "https://www.happycow.net/reviews/fang-lin-vegetarian-west-singapore-76134",
+      "title": "Fang Lin vegetarian directory",
+      "kind": "secondary-directory",
+      "credibilityScoreOutOf5": 2,
+      "retrievedAt": "2026-10-16T01:19:40Z",
+      "publishedAt": null,
+      "status": "traffic-verification-block-stopped",
+      "basis": "Direct public fetch requested reCaptcha. No bypass and no fresh ingredient fact obtained."
+    },
+    {
+      "id": "miv01-fang-zai-photo",
+      "url": "https://foodpanda.dhmedia.io/image/fd-sg/products/19756465.jpg?height=150&width=150",
+      "title": "Fang Lin Zai Er ordering image",
+      "kind": "merchant-product-image",
+      "credibilityScoreOutOf5": 3,
+      "retrievedAt": "2026-10-16T01:20:59Z",
+      "publishedAt": null,
+      "status": "readable-image-inspected",
+      "basis": "Linked from the exact current Zai Er card. Image shows thin golden sheets on skewers, with visible Zai text; this differs from generic tender-meat/sauce prose but does not certify composition or current served product."
+    }
+  ],
+  "branches": [
+    {
+      "id": "fang-lin-jurong-west-494",
+      "name": "Fang Lin Vegetarian",
+      "address": "494 Jurong West Street 41 #01-138, Singapore 640494",
+      "unit": "#01-138",
+      "postalCode": "640494",
+      "sourceIds": [
+        "icf3-fang-fp",
+        "icf3-fang-address",
+        "icf3-fang-scope-review"
+      ],
+      "menuIds": [
+        "icf3-fang-delivery"
+      ],
+      "candidatePlaceIds": [
+        "ChIJDfyVLHEP2jER1in-BFlpmXk"
+      ],
+      "googlePlaceId": null,
+      "identityStatus": "source-specific-ordering-premises",
+      "venueEligibility": {
+        "status": "unresolved",
+        "appScope": "vegetarian-vegan-venues-only",
+        "reason": "Ordering channel explicitly trades as Vegetarian, and independent directories support that positioning. Two generic item descriptions still explicitly refer to fish/meat without a mock label. Whole venue withheld pending clarification under strict scope; actual meat is not established."
+      },
+      "gaps": [
+        "Two ambiguous descriptions remain held. Foodpanda provides street/unit; six-digit postal corroborated by independent directory.",
+        "From-price Curry Vegetables and Zai Er options not exposed. Delivery minimum varied between S$10, S$25 and S$13 across public retrieval contexts; no fixed order minimum asserted.",
+        "Entire Fang Lin venue/menu withheld under strict venue-only scope until generic fish/meat description ambiguity is clarified. This is uncertainty, not a finding of actual meat service.",
+        "Online item cross-check16Oct2026 remains unresolved: Ginger with Vinegar Fish. See data/menu-research/menu-item-verification-01-ambiguous-foods.json for dated sources and next verification step.",
+        "Online item cross-check16Oct2026 remains unresolved: Zai Er. See data/menu-research/menu-item-verification-01-ambiguous-foods.json for dated sources and next verification step."
+      ],
+      "publicationStatus": "hold-whole-venue-description-conflict",
+      "eligibility": "unresolved"
+    },
+    {
+      "id": "su-xiang-lau-pa-sat-46",
+      "name": "Su Xiang Vegetarian",
+      "address": "18 Raffles Quay, Lau Pa Sat Stall 46, Singapore 048582",
+      "unit": "Stall 46",
+      "postalCode": "048582",
+      "sourceIds": [
+        "icf3-sux-fp",
+        "icf3-sux-address"
+      ],
+      "menuIds": [
+        "icf3-sux-delivery"
+      ],
+      "candidatePlaceIds": [
+        "ChIJiyb74A0Z2jER4TRtHJtVdDY"
+      ],
+      "googlePlaceId": null,
+      "identityStatus": "source-specific-ordering-premises",
+      "venueEligibility": {
+        "status": "vegetarian-confirmed",
+        "appScope": "vegetarian-vegan-venues-only",
+        "reason": "Merchant-managed channel trades explicitly as Vegetarian with a coherent vegetarian food catalogue. Item-level ambiguities are held."
+      },
+      "gaps": [
+        "Current ordering source explicitly says Stall 46; a 2024 property-hosted advertorial says Stall 47. Keep exact source-specific Stall 46; do not merge historical units.",
+        "Ordering source prints postal as 48582; valid six-digit 048582 corroborated by independent exact-branch directory.",
+        "Two sauerkraut soups list evaporated milk and are not vegan. No serving sizes or modifier groups exposed."
+      ],
+      "eligibility": "vegetarian-confirmed"
+    },
+    {
+      "id": "yi-ding-xuan-tampines-201",
+      "name": "Yi Ding Xuan Vegetarian",
+      "address": "201 Tampines Street 21 #01-201, Singapore 520201",
+      "unit": "#01-201",
+      "postalCode": "520201",
+      "sourceIds": [
+        "icf3-ydx-fp"
+      ],
+      "menuIds": [
+        "icf3-ydx-delivery"
+      ],
+      "candidatePlaceIds": [
+        "ChIJk50NDNY92jEROjysXWAkQ4A"
+      ],
+      "googlePlaceId": null,
+      "identityStatus": "source-specific-ordering-premises",
+      "venueEligibility": {
+        "status": "vegetarian-confirmed",
+        "appScope": "vegetarian-vegan-venues-only",
+        "reason": "Merchant-managed channel trades explicitly as Vegetarian with a coherent vegetarian food catalogue. Item-level ambiguities are held."
+      },
+      "gaps": [
+        "25 unique foods across all three food sections; six Popular duplicates omitted.",
+        "Foodpanda order minimum varied between S$10 and S$14 across retrieval contexts. Main/base and side-choice selection groups not exposed; no default main inferred.",
+        "Egg item retained as vegetarian, not vegan."
+      ],
+      "eligibility": "vegetarian-confirmed"
+    }
+  ],
+  "menus": [
+    {
+      "id": "icf3-fang-delivery",
+      "name": "Fang Lin Vegetarian - Foodpanda delivery foods",
+      "scope": "branch-delivery",
+      "branchIds": [
+        "fang-lin-jurong-west-494"
+      ],
+      "sourceIds": [
+        "icf3-fang-fp"
+      ],
+      "coverage": "held",
+      "publicationStatus": "held",
+      "notice": "Whole venue held for unresolved dietary description ambiguity; actual meat service is not proven. Two ambiguous descriptions remain held. Foodpanda provides street/unit; six-digit postal corroborated by independent directory. From-price Curry Vegetables and Zai Er options not exposed. Delivery minimum varied between S$10, S$25 and S$13 across public retrieval contexts; no fixed order minimum asserted. All visible food cards captured; options, stock, effective menu date, taxes/fees and dine-in equivalence remain unverified.",
+      "sourceCoverage": {
+        "foodProducts": 17,
+        "pricedFoodProducts": 17,
+        "visibleModifierGroups": 0,
+        "beveragesExcluded": 4
+      },
+      "items": [
+        {
+          "id": "icf3-fang-1",
+          "name": "Curry Vegetables",
+          "category": "Mains",
+          "price": {
+            "amount": 6,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "currency": "SGD",
+          "priceStatus": "from",
+          "priceBasis": "from",
+          "sourceIds": [
+            "icf3-fang-fp"
+          ],
+          "qualifier": "Public branch-delivery listing. Options and portions not exposed in the readable source; no portion or surcharge inferred. Current stock, effective menu date, ingredients and dine-in equivalence unverified.",
+          "sourcePriceText": "from S$ 6.00"
+        },
+        {
+          "id": "icf3-fang-2",
+          "name": "Vegetarian Chilli Chicken",
+          "category": "Mains",
+          "price": {
+            "amount": 15,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "currency": "SGD",
+          "priceStatus": "fixed",
+          "priceBasis": "fixed",
+          "sourceIds": [
+            "icf3-fang-fp"
+          ],
+          "qualifier": "Public branch-delivery listing. Options and portions not exposed in the readable source; no portion or surcharge inferred. Current stock, effective menu date, ingredients and dine-in equivalence unverified.",
+          "sourcePriceText": "S$ 15.00"
+        },
+        {
+          "id": "icf3-fang-3",
+          "name": "Vegetarian Lemon Sauce Chicken",
+          "category": "Mains",
+          "price": {
+            "amount": 15,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "currency": "SGD",
+          "priceStatus": "fixed",
+          "priceBasis": "fixed",
+          "sourceIds": [
+            "icf3-fang-fp"
+          ],
+          "qualifier": "Public branch-delivery listing. Options and portions not exposed in the readable source; no portion or surcharge inferred. Current stock, effective menu date, ingredients and dine-in equivalence unverified.",
+          "sourcePriceText": "S$ 15.00"
+        },
+        {
+          "id": "icf3-fang-4",
+          "name": "Vegetarian Fried Prawns",
+          "category": "Mains",
+          "price": {
+            "amount": 18,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "currency": "SGD",
+          "priceStatus": "fixed",
+          "priceBasis": "fixed",
+          "sourceIds": [
+            "icf3-fang-fp"
+          ],
+          "qualifier": "Public branch-delivery listing. Options and portions not exposed in the readable source; no portion or surcharge inferred. Current stock, effective menu date, ingredients and dine-in equivalence unverified.",
+          "sourcePriceText": "S$ 18.00"
+        },
+        {
+          "id": "icf3-fang-5",
+          "name": "Luo Han Vegetables",
+          "category": "Mains",
+          "price": {
+            "amount": 15,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "currency": "SGD",
+          "priceStatus": "fixed",
+          "priceBasis": "fixed",
+          "sourceIds": [
+            "icf3-fang-fp"
+          ],
+          "qualifier": "Public branch-delivery listing. Options and portions not exposed in the readable source; no portion or surcharge inferred. Current stock, effective menu date, ingredients and dine-in equivalence unverified.",
+          "sourcePriceText": "S$ 15.00"
+        },
+        {
+          "id": "icf3-fang-6",
+          "name": "Ginger with Vinegar Fish",
+          "category": "Mains",
+          "price": {
+            "amount": 15,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "currency": "SGD",
+          "priceStatus": "fixed",
+          "priceBasis": "fixed",
+          "sourceIds": [
+            "icf3-fang-fp",
+            "miv01-fang-fp",
+            "miv01-fang-ginger-photo",
+            "miv01-fang-diners",
+            "miv01-fang-diners-20210317",
+            "miv01-fang-burger",
+            "miv01-fang-hawker",
+            "miv01-fang-stall-photo",
+            "miv01-fang-abillion",
+            "miv01-fang-menuweb",
+            "miv01-fang-directory",
+            "miv01-fang-happycow"
+          ],
+          "qualifier": "Public branch-delivery listing. Options and portions not exposed in the readable source; no portion or surcharge inferred. Current stock, effective menu date, ingredients and dine-in equivalence unverified. Held: the item lacks an explicit mock/vegetarian label and its generic platform description refers to fish/meat; obtain merchant clarification before publication.",
+          "publicationStatus": "hold-web-verification-unresolved",
+          "status": "held-dietary-description-conflict",
+          "sourcePriceText": "S$ 15.00",
+          "webVerification": {
+            "status": "web-checked-unresolved-retain-held",
+            "ingredientOrIdentityVerified": false,
+            "observations": [
+              "Current exact merchant product remains fixed S$15 at 494 Jurong West Street 41 #01-138; generic prose names fish without a mock qualifier.",
+              "Payment-provider merchant list independently names Fang Lin Vegetarian at exact #01-138, 640494. Historical on-site reporting at the same premises explicitly describes mock meats.",
+              "Current source gives literal chicken prose even to an explicitly Vegetarian Lemon Sauce Chicken item, demonstrating a reason to treat generic prose cautiously.",
+              "Product image is illustrative; visible sliced pieces cannot prove composition. Derivative Menuweb prices differ and are not imported."
+            ],
+            "decision": "Vegetarian positioning has additional independent support, but no current exact Ginger Fish ingredient declaration obtained. Actual animal service is not proven; retain whole-venue and item holds.",
+            "nextAction": "Obtain current exact-item merchant wording or source-labelled menu/ingredient photograph; do not equate picture appearance with ingredient proof.",
+            "checkedAt": "2026-10-16T01:20:59Z",
+            "sourceIds": [
+              "miv01-fang-fp",
+              "miv01-fang-ginger-photo",
+              "miv01-fang-diners",
+              "miv01-fang-diners-20210317",
+              "miv01-fang-burger",
+              "miv01-fang-hawker",
+              "miv01-fang-stall-photo",
+              "miv01-fang-abillion",
+              "miv01-fang-menuweb",
+              "miv01-fang-directory",
+              "miv01-fang-happycow"
+            ],
+            "amendmentDataset": "data/menu-research/menu-item-verification-01-ambiguous-foods.json"
+          }
+        },
+        {
+          "id": "icf3-fang-7",
+          "name": "Mushroom Baby Kailan",
+          "category": "Mains",
+          "price": {
+            "amount": 13,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "currency": "SGD",
+          "priceStatus": "fixed",
+          "priceBasis": "fixed",
+          "sourceIds": [
+            "icf3-fang-fp"
+          ],
+          "qualifier": "Public branch-delivery listing. Options and portions not exposed in the readable source; no portion or surcharge inferred. Current stock, effective menu date, ingredients and dine-in equivalence unverified.",
+          "sourcePriceText": "S$ 13.00"
+        },
+        {
+          "id": "icf3-fang-8",
+          "name": "Vegetarian Hokklen Noodle",
+          "category": "Rice/Noodles",
+          "price": {
+            "amount": 8.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "currency": "SGD",
+          "priceStatus": "fixed",
+          "priceBasis": "fixed",
+          "sourceIds": [
+            "icf3-fang-fp"
+          ],
+          "qualifier": "Public branch-delivery listing. Options and portions not exposed in the readable source; no portion or surcharge inferred. Current stock, effective menu date, ingredients and dine-in equivalence unverified.",
+          "sourcePriceText": "S$ 8.50"
+        },
+        {
+          "id": "icf3-fang-9",
+          "name": "Vegetarian Bee Hoon Set",
+          "category": "Rice/Noodles",
+          "price": {
+            "amount": 6,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "currency": "SGD",
+          "priceStatus": "fixed",
+          "priceBasis": "fixed",
+          "sourceIds": [
+            "icf3-fang-fp"
+          ],
+          "qualifier": "Public branch-delivery listing. Options and portions not exposed in the readable source; no portion or surcharge inferred. Current stock, effective menu date, ingredients and dine-in equivalence unverified. Source lists vegetables and mock meat.",
+          "sourcePriceText": "S$ 6.00"
+        },
+        {
+          "id": "icf3-fang-10",
+          "name": "Vegetarian Rice Set",
+          "category": "Rice/Noodles",
+          "price": {
+            "amount": 6,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "currency": "SGD",
+          "priceStatus": "fixed",
+          "priceBasis": "fixed",
+          "sourceIds": [
+            "icf3-fang-fp"
+          ],
+          "qualifier": "Public branch-delivery listing. Options and portions not exposed in the readable source; no portion or surcharge inferred. Current stock, effective menu date, ingredients and dine-in equivalence unverified.",
+          "sourcePriceText": "S$ 6.00"
+        },
+        {
+          "id": "icf3-fang-11",
+          "name": "Vegetarian Hor Fun",
+          "category": "Rice/Noodles",
+          "price": {
+            "amount": 8.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "currency": "SGD",
+          "priceStatus": "fixed",
+          "priceBasis": "fixed",
+          "sourceIds": [
+            "icf3-fang-fp"
+          ],
+          "qualifier": "Public branch-delivery listing. Options and portions not exposed in the readable source; no portion or surcharge inferred. Current stock, effective menu date, ingredients and dine-in equivalence unverified.",
+          "sourcePriceText": "S$ 8.50"
+        },
+        {
+          "id": "icf3-fang-12",
+          "name": "Vegetarian Fried Rice",
+          "category": "Rice/Noodles",
+          "price": {
+            "amount": 8.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "currency": "SGD",
+          "priceStatus": "fixed",
+          "priceBasis": "fixed",
+          "sourceIds": [
+            "icf3-fang-fp"
+          ],
+          "qualifier": "Public branch-delivery listing. Options and portions not exposed in the readable source; no portion or surcharge inferred. Current stock, effective menu date, ingredients and dine-in equivalence unverified.",
+          "sourcePriceText": "S$ 8.50"
+        },
+        {
+          "id": "icf3-fang-13",
+          "name": "Spring Roll",
+          "category": "Sides",
+          "price": {
+            "amount": 2,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "currency": "SGD",
+          "priceStatus": "fixed",
+          "priceBasis": "fixed",
+          "sourceIds": [
+            "icf3-fang-fp"
+          ],
+          "qualifier": "Public branch-delivery listing. Options and portions not exposed in the readable source; no portion or surcharge inferred. Current stock, effective menu date, ingredients and dine-in equivalence unverified.",
+          "sourcePriceText": "S$ 2.00"
+        },
+        {
+          "id": "icf3-fang-14",
+          "name": "Vegetarian Fish Slices",
+          "category": "Sides",
+          "price": {
+            "amount": 1.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "currency": "SGD",
+          "priceStatus": "fixed",
+          "priceBasis": "fixed",
+          "sourceIds": [
+            "icf3-fang-fp"
+          ],
+          "qualifier": "Public branch-delivery listing. Options and portions not exposed in the readable source; no portion or surcharge inferred. Current stock, effective menu date, ingredients and dine-in equivalence unverified. Source portion: 1 slice.",
+          "sourcePriceText": "S$ 1.50"
+        },
+        {
+          "id": "icf3-fang-15",
+          "name": "Vegetarian Fried Drumstick",
+          "category": "Sides",
+          "price": {
+            "amount": 3,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "currency": "SGD",
+          "priceStatus": "fixed",
+          "priceBasis": "fixed",
+          "sourceIds": [
+            "icf3-fang-fp"
+          ],
+          "qualifier": "Public branch-delivery listing. Options and portions not exposed in the readable source; no portion or surcharge inferred. Current stock, effective menu date, ingredients and dine-in equivalence unverified.",
+          "sourcePriceText": "S$ 3.00"
+        },
+        {
+          "id": "icf3-fang-16",
+          "name": "Yam Roll",
+          "category": "Sides",
+          "price": {
+            "amount": 2,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "currency": "SGD",
+          "priceStatus": "fixed",
+          "priceBasis": "fixed",
+          "sourceIds": [
+            "icf3-fang-fp"
+          ],
+          "qualifier": "Public branch-delivery listing. Options and portions not exposed in the readable source; no portion or surcharge inferred. Current stock, effective menu date, ingredients and dine-in equivalence unverified.",
+          "sourcePriceText": "S$ 2.00"
+        },
+        {
+          "id": "icf3-fang-17",
+          "name": "Zai Er",
+          "category": "Sides",
+          "price": {
+            "amount": 6,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "currency": "SGD",
+          "priceStatus": "from",
+          "priceBasis": "from",
+          "sourceIds": [
+            "icf3-fang-fp",
+            "miv01-fang-fp",
+            "miv01-fang-zai-photo",
+            "miv01-fang-diners",
+            "miv01-fang-burger",
+            "miv01-fang-menuweb"
+          ],
+          "qualifier": "Public branch-delivery listing. Options and portions not exposed in the readable source; no portion or surcharge inferred. Current stock, effective menu date, ingredients and dine-in equivalence unverified. Held: the item lacks an explicit mock/vegetarian label and its generic platform description refers to fish/meat; obtain merchant clarification before publication.",
+          "publicationStatus": "hold-web-verification-unresolved",
+          "status": "held-dietary-description-conflict",
+          "sourcePriceText": "from S$ 6.00",
+          "webVerification": {
+            "status": "web-checked-unresolved-retain-held",
+            "ingredientOrIdentityVerified": false,
+            "observations": [
+              "Current exact Zai Er card remains from S$6 with unqualified generic meat/sauce prose; portions and option prices unexposed.",
+              "Linked product image depicts thin golden sheets on skewers, unlike prose about tender meat in sauce; this is a description/illustration mismatch, not a verified ingredient declaration.",
+              "Same-premises vegetarian positioning and mock-meat on-site reporting support the venue; no current merchant-specific tofu-skin ingredient statement for this card found."
+            ],
+            "decision": "No proof of actual meat. Zai Er composition not certified by name or illustration alone; retain current holds.",
+            "nextAction": "Find current exact product label/Chinese menu with ingredient or merchant description linking this Zai Er to tofu skin.",
+            "checkedAt": "2026-10-16T01:20:59Z",
+            "sourceIds": [
+              "miv01-fang-fp",
+              "miv01-fang-zai-photo",
+              "miv01-fang-diners",
+              "miv01-fang-burger",
+              "miv01-fang-menuweb"
+            ],
+            "amendmentDataset": "data/menu-research/menu-item-verification-01-ambiguous-foods.json"
+          }
+        }
+      ]
+    },
+    {
+      "id": "icf3-sux-delivery",
+      "name": "Su Xiang Vegetarian - Foodpanda delivery foods",
+      "scope": "branch-delivery",
+      "branchIds": [
+        "su-xiang-lau-pa-sat-46"
+      ],
+      "sourceIds": [
+        "icf3-sux-fp"
+      ],
+      "coverage": "partial",
+      "publicationStatus": "review-proposed",
+      "notice": "Current ordering source explicitly says Stall 46; a 2024 property-hosted advertorial says Stall 47. Keep exact source-specific Stall 46; do not merge historical units. Ordering source prints postal as 48582; valid six-digit 048582 corroborated by independent exact-branch directory. Two sauerkraut soups list evaporated milk and are not vegan. No serving sizes or modifier groups exposed. All visible food cards captured; options, stock, effective menu date, taxes/fees and dine-in equivalence remain unverified.",
+      "sourceCoverage": {
+        "foodProducts": 31,
+        "pricedFoodProducts": 31,
+        "visibleModifierGroups": 0,
+        "beveragesExcluded": 8
+      },
+      "items": [
+        {
+          "id": "icf3-sux-1",
+          "name": "Stir-fried & Shredded Cabbage 手撕包菜",
+          "category": "A La Carte Dishes 单点菜",
+          "price": {
+            "amount": 9.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "currency": "SGD",
+          "priceStatus": "fixed",
+          "priceBasis": "fixed",
+          "sourceIds": [
+            "icf3-sux-fp"
+          ],
+          "qualifier": "Public branch-delivery listing. Options and portions not exposed in the readable source; no portion or surcharge inferred. Current stock, effective menu date, ingredients and dine-in equivalence unverified.",
+          "sourcePriceText": "S$ 9.80"
+        },
+        {
+          "id": "icf3-sux-2",
+          "name": "Stir-fried Olive French Beans 橄榄四季豆",
+          "category": "A La Carte Dishes 单点菜",
+          "price": {
+            "amount": 9.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "currency": "SGD",
+          "priceStatus": "fixed",
+          "priceBasis": "fixed",
+          "sourceIds": [
+            "icf3-sux-fp"
+          ],
+          "qualifier": "Public branch-delivery listing. Options and portions not exposed in the readable source; no portion or surcharge inferred. Current stock, effective menu date, ingredients and dine-in equivalence unverified.",
+          "sourcePriceText": "S$ 9.80"
+        },
+        {
+          "id": "icf3-sux-3",
+          "name": "Mapo Tofu 麻婆豆腐",
+          "category": "A La Carte Dishes 单点菜",
+          "price": {
+            "amount": 10.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "currency": "SGD",
+          "priceStatus": "fixed",
+          "priceBasis": "fixed",
+          "sourceIds": [
+            "icf3-sux-fp"
+          ],
+          "qualifier": "Public branch-delivery listing. Options and portions not exposed in the readable source; no portion or surcharge inferred. Current stock, effective menu date, ingredients and dine-in equivalence unverified.",
+          "sourcePriceText": "S$ 10.80"
+        },
+        {
+          "id": "icf3-sux-4",
+          "name": "Thai-style Tofu 泰式豆腐",
+          "category": "A La Carte Dishes 单点菜",
+          "price": {
+            "amount": 10.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "currency": "SGD",
+          "priceStatus": "fixed",
+          "priceBasis": "fixed",
+          "sourceIds": [
+            "icf3-sux-fp"
+          ],
+          "qualifier": "Public branch-delivery listing. Options and portions not exposed in the readable source; no portion or surcharge inferred. Current stock, effective menu date, ingredients and dine-in equivalence unverified.",
+          "sourcePriceText": "S$ 10.80"
+        },
+        {
+          "id": "icf3-sux-5",
+          "name": "Assorted Vegetarian Mushrooms 素炒三菇",
+          "category": "A La Carte Dishes 单点菜",
+          "price": {
+            "amount": 10.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "currency": "SGD",
+          "priceStatus": "fixed",
+          "priceBasis": "fixed",
+          "sourceIds": [
+            "icf3-sux-fp"
+          ],
+          "qualifier": "Public branch-delivery listing. Options and portions not exposed in the readable source; no portion or surcharge inferred. Current stock, effective menu date, ingredients and dine-in equivalence unverified.",
+          "sourcePriceText": "S$ 10.80"
+        },
+        {
+          "id": "icf3-sux-6",
+          "name": "Braised Tofu in Soy Sauce 红烧豆腐",
+          "category": "A La Carte Dishes 单点菜",
+          "price": {
+            "amount": 11.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "currency": "SGD",
+          "priceStatus": "fixed",
+          "priceBasis": "fixed",
+          "sourceIds": [
+            "icf3-sux-fp"
+          ],
+          "qualifier": "Public branch-delivery listing. Options and portions not exposed in the readable source; no portion or surcharge inferred. Current stock, effective menu date, ingredients and dine-in equivalence unverified.",
+          "sourcePriceText": "S$ 11.80"
+        },
+        {
+          "id": "icf3-sux-7",
+          "name": "Black Pepper Chicken 黑胡椒素鸡肉",
+          "category": "A La Carte Dishes 单点菜",
+          "price": {
+            "amount": 14.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "currency": "SGD",
+          "priceStatus": "fixed",
+          "priceBasis": "fixed",
+          "sourceIds": [
+            "icf3-sux-fp"
+          ],
+          "qualifier": "Public branch-delivery listing. Options and portions not exposed in the readable source; no portion or surcharge inferred. Current stock, effective menu date, ingredients and dine-in equivalence unverified.",
+          "sourcePriceText": "S$ 14.80"
+        },
+        {
+          "id": "icf3-sux-8",
+          "name": "Spicy Diced Chicken 素辣子鸡",
+          "category": "A La Carte Dishes 单点菜",
+          "price": {
+            "amount": 16,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "currency": "SGD",
+          "priceStatus": "fixed",
+          "priceBasis": "fixed",
+          "sourceIds": [
+            "icf3-sux-fp"
+          ],
+          "qualifier": "Public branch-delivery listing. Options and portions not exposed in the readable source; no portion or surcharge inferred. Current stock, effective menu date, ingredients and dine-in equivalence unverified.",
+          "sourcePriceText": "S$ 16.00"
+        },
+        {
+          "id": "icf3-sux-9",
+          "name": "Kung Pao Chicken 素宫保鸡",
+          "category": "A La Carte Dishes 单点菜",
+          "price": {
+            "amount": 14.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "currency": "SGD",
+          "priceStatus": "fixed",
+          "priceBasis": "fixed",
+          "sourceIds": [
+            "icf3-sux-fp"
+          ],
+          "qualifier": "Public branch-delivery listing. Options and portions not exposed in the readable source; no portion or surcharge inferred. Current stock, effective menu date, ingredients and dine-in equivalence unverified.",
+          "sourcePriceText": "S$ 14.80"
+        },
+        {
+          "id": "icf3-sux-10",
+          "name": "Sweet & Sour Chicken 素酸甜鸡",
+          "category": "A La Carte Dishes 单点菜",
+          "price": {
+            "amount": 14.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "currency": "SGD",
+          "priceStatus": "fixed",
+          "priceBasis": "fixed",
+          "sourceIds": [
+            "icf3-sux-fp"
+          ],
+          "qualifier": "Public branch-delivery listing. Options and portions not exposed in the readable source; no portion or surcharge inferred. Current stock, effective menu date, ingredients and dine-in equivalence unverified.",
+          "sourcePriceText": "S$ 14.80"
+        },
+        {
+          "id": "icf3-sux-11",
+          "name": "Vegetable Sichuan Boiled Meat 素水煮肉",
+          "category": "A La Carte Dishes 单点菜",
+          "price": {
+            "amount": 16.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "currency": "SGD",
+          "priceStatus": "fixed",
+          "priceBasis": "fixed",
+          "sourceIds": [
+            "icf3-sux-fp"
+          ],
+          "qualifier": "Public branch-delivery listing. Options and portions not exposed in the readable source; no portion or surcharge inferred. Current stock, effective menu date, ingredients and dine-in equivalence unverified.",
+          "sourcePriceText": "S$ 16.80"
+        },
+        {
+          "id": "icf3-sux-12",
+          "name": "Sinchew Bee Hoon 素星洲米粉",
+          "category": "Fried Noodle Series 炒饭系列",
+          "price": {
+            "amount": 10.2,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "currency": "SGD",
+          "priceStatus": "fixed",
+          "priceBasis": "fixed",
+          "sourceIds": [
+            "icf3-sux-fp"
+          ],
+          "qualifier": "Public branch-delivery listing. Options and portions not exposed in the readable source; no portion or surcharge inferred. Current stock, effective menu date, ingredients and dine-in equivalence unverified.",
+          "sourcePriceText": "S$ 10.20"
+        },
+        {
+          "id": "icf3-sux-13",
+          "name": "Assorted Hor Fun 素什锦河粉",
+          "category": "Fried Noodle Series 炒饭系列",
+          "price": {
+            "amount": 7.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "currency": "SGD",
+          "priceStatus": "fixed",
+          "priceBasis": "fixed",
+          "sourceIds": [
+            "icf3-sux-fp"
+          ],
+          "qualifier": "Public branch-delivery listing. Options and portions not exposed in the readable source; no portion or surcharge inferred. Current stock, effective menu date, ingredients and dine-in equivalence unverified.",
+          "sourcePriceText": "S$ 7.80"
+        },
+        {
+          "id": "icf3-sux-14",
+          "name": "Stir-fried Hor Fun 素干炒河粉",
+          "category": "Fried Noodle Series 炒饭系列",
+          "price": {
+            "amount": 7.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "currency": "SGD",
+          "priceStatus": "fixed",
+          "priceBasis": "fixed",
+          "sourceIds": [
+            "icf3-sux-fp"
+          ],
+          "qualifier": "Public branch-delivery listing. Options and portions not exposed in the readable source; no portion or surcharge inferred. Current stock, effective menu date, ingredients and dine-in equivalence unverified.",
+          "sourcePriceText": "S$ 7.80"
+        },
+        {
+          "id": "icf3-sux-15",
+          "name": "Stir-fried Glass Noodle 素干炒冬粉",
+          "category": "Fried Noodle Series 炒饭系列",
+          "price": {
+            "amount": 8.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "currency": "SGD",
+          "priceStatus": "fixed",
+          "priceBasis": "fixed",
+          "sourceIds": [
+            "icf3-sux-fp"
+          ],
+          "qualifier": "Public branch-delivery listing. Options and portions not exposed in the readable source; no portion or surcharge inferred. Current stock, effective menu date, ingredients and dine-in equivalence unverified.",
+          "sourcePriceText": "S$ 8.80"
+        },
+        {
+          "id": "icf3-sux-16",
+          "name": "Stir-fried Vegetable Seafood Udon 素海鲜炒乌冬",
+          "category": "Fried Noodle Series 炒饭系列",
+          "price": {
+            "amount": 7.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "currency": "SGD",
+          "priceStatus": "fixed",
+          "priceBasis": "fixed",
+          "sourceIds": [
+            "icf3-sux-fp"
+          ],
+          "qualifier": "Public branch-delivery listing. Options and portions not exposed in the readable source; no portion or surcharge inferred. Current stock, effective menu date, ingredients and dine-in equivalence unverified.",
+          "sourcePriceText": "S$ 7.80"
+        },
+        {
+          "id": "icf3-sux-17",
+          "name": "Stir-fried Vegetable Seafood Hor Fun 素海鲜炒河粉",
+          "category": "Fried Noodle Series 炒饭系列",
+          "price": {
+            "amount": 8.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "currency": "SGD",
+          "priceStatus": "fixed",
+          "priceBasis": "fixed",
+          "sourceIds": [
+            "icf3-sux-fp"
+          ],
+          "qualifier": "Public branch-delivery listing. Options and portions not exposed in the readable source; no portion or surcharge inferred. Current stock, effective menu date, ingredients and dine-in equivalence unverified.",
+          "sourcePriceText": "S$ 8.80"
+        },
+        {
+          "id": "icf3-sux-18",
+          "name": "Chinese Sauerkraut Mock Fish Rice Noodle Soup 酸菜素鱼肉米线",
+          "category": "Fried Noodle Series 炒饭系列",
+          "price": {
+            "amount": 7.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "currency": "SGD",
+          "priceStatus": "fixed",
+          "priceBasis": "fixed",
+          "sourceIds": [
+            "icf3-sux-fp"
+          ],
+          "qualifier": "Public branch-delivery listing. Options and portions not exposed in the readable source; no portion or surcharge inferred. Current stock, effective menu date, ingredients and dine-in equivalence unverified. Source explicitly lists evaporated milk; do not label vegan.",
+          "sourcePriceText": "S$ 7.80"
+        },
+        {
+          "id": "icf3-sux-19",
+          "name": "Chinese Sauerkraut Mushroom Rice Noodle Soup 酸菜菌菇米线",
+          "category": "Fried Noodle Series 炒饭系列",
+          "price": {
+            "amount": 7.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "currency": "SGD",
+          "priceStatus": "fixed",
+          "priceBasis": "fixed",
+          "sourceIds": [
+            "icf3-sux-fp"
+          ],
+          "qualifier": "Public branch-delivery listing. Options and portions not exposed in the readable source; no portion or surcharge inferred. Current stock, effective menu date, ingredients and dine-in equivalence unverified. Source explicitly lists evaporated milk; do not label vegan.",
+          "sourcePriceText": "S$ 7.80"
+        },
+        {
+          "id": "icf3-sux-20",
+          "name": "Vegetable Fried Rice 素蔬菜炒饭",
+          "category": "Fried Rice Series 炒饭系列",
+          "price": {
+            "amount": 8.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "currency": "SGD",
+          "priceStatus": "fixed",
+          "priceBasis": "fixed",
+          "sourceIds": [
+            "icf3-sux-fp"
+          ],
+          "qualifier": "Public branch-delivery listing. Options and portions not exposed in the readable source; no portion or surcharge inferred. Current stock, effective menu date, ingredients and dine-in equivalence unverified.",
+          "sourcePriceText": "S$ 8.90"
+        },
+        {
+          "id": "icf3-sux-21",
+          "name": "Olive Fried Rice 素橄榄炒饭",
+          "category": "Fried Rice Series 炒饭系列",
+          "price": {
+            "amount": 8.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "currency": "SGD",
+          "priceStatus": "fixed",
+          "priceBasis": "fixed",
+          "sourceIds": [
+            "icf3-sux-fp"
+          ],
+          "qualifier": "Public branch-delivery listing. Options and portions not exposed in the readable source; no portion or surcharge inferred. Current stock, effective menu date, ingredients and dine-in equivalence unverified.",
+          "sourcePriceText": "S$ 8.90"
+        },
+        {
+          "id": "icf3-sux-22",
+          "name": "Tom Yum Fried Rice 素冬炎炒饭",
+          "category": "Fried Rice Series 炒饭系列",
+          "price": {
+            "amount": 8.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "currency": "SGD",
+          "priceStatus": "fixed",
+          "priceBasis": "fixed",
+          "sourceIds": [
+            "icf3-sux-fp"
+          ],
+          "qualifier": "Public branch-delivery listing. Options and portions not exposed in the readable source; no portion or surcharge inferred. Current stock, effective menu date, ingredients and dine-in equivalence unverified.",
+          "sourcePriceText": "S$ 8.90"
+        },
+        {
+          "id": "icf3-sux-23",
+          "name": "Pineapple Fried Rice 素黄梨炒饭",
+          "category": "Fried Rice Series 炒饭系列",
+          "price": {
+            "amount": 8.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "currency": "SGD",
+          "priceStatus": "fixed",
+          "priceBasis": "fixed",
+          "sourceIds": [
+            "icf3-sux-fp"
+          ],
+          "qualifier": "Public branch-delivery listing. Options and portions not exposed in the readable source; no portion or surcharge inferred. Current stock, effective menu date, ingredients and dine-in equivalence unverified.",
+          "sourcePriceText": "S$ 8.90"
+        },
+        {
+          "id": "icf3-sux-24",
+          "name": "Vegetable Char Siew Fried Rice 素叉烧炒饭",
+          "category": "Fried Rice Series 炒饭系列",
+          "price": {
+            "amount": 10.2,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "currency": "SGD",
+          "priceStatus": "fixed",
+          "priceBasis": "fixed",
+          "sourceIds": [
+            "icf3-sux-fp"
+          ],
+          "qualifier": "Public branch-delivery listing. Options and portions not exposed in the readable source; no portion or surcharge inferred. Current stock, effective menu date, ingredients and dine-in equivalence unverified.",
+          "sourcePriceText": "S$ 10.20"
+        },
+        {
+          "id": "icf3-sux-25",
+          "name": "Vegetable Chicken Fried Rice 素鸡肉炒饭",
+          "category": "Fried Rice Series 炒饭系列",
+          "price": {
+            "amount": 11.2,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "currency": "SGD",
+          "priceStatus": "fixed",
+          "priceBasis": "fixed",
+          "sourceIds": [
+            "icf3-sux-fp"
+          ],
+          "qualifier": "Public branch-delivery listing. Options and portions not exposed in the readable source; no portion or surcharge inferred. Current stock, effective menu date, ingredients and dine-in equivalence unverified.",
+          "sourcePriceText": "S$ 11.20"
+        },
+        {
+          "id": "icf3-sux-26",
+          "name": "Vegetable Seafood Fried Rice 素海鲜炒饭",
+          "category": "Fried Rice Series 炒饭系列",
+          "price": {
+            "amount": 11.2,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "currency": "SGD",
+          "priceStatus": "fixed",
+          "priceBasis": "fixed",
+          "sourceIds": [
+            "icf3-sux-fp"
+          ],
+          "qualifier": "Public branch-delivery listing. Options and portions not exposed in the readable source; no portion or surcharge inferred. Current stock, effective menu date, ingredients and dine-in equivalence unverified.",
+          "sourcePriceText": "S$ 11.20"
+        },
+        {
+          "id": "icf3-sux-27",
+          "name": "Crispy Bean Curd 斋鹅",
+          "category": "Snacks 配菜",
+          "price": {
+            "amount": 8.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "currency": "SGD",
+          "priceStatus": "fixed",
+          "priceBasis": "fixed",
+          "sourceIds": [
+            "icf3-sux-fp"
+          ],
+          "qualifier": "Public branch-delivery listing. Options and portions not exposed in the readable source; no portion or surcharge inferred. Current stock, effective menu date, ingredients and dine-in equivalence unverified.",
+          "sourcePriceText": "S$ 8.80"
+        },
+        {
+          "id": "icf3-sux-28",
+          "name": "Spring Roll 春卷",
+          "category": "Snacks 配菜",
+          "price": {
+            "amount": 8.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "currency": "SGD",
+          "priceStatus": "fixed",
+          "priceBasis": "fixed",
+          "sourceIds": [
+            "icf3-sux-fp"
+          ],
+          "qualifier": "Public branch-delivery listing. Options and portions not exposed in the readable source; no portion or surcharge inferred. Current stock, effective menu date, ingredients and dine-in equivalence unverified.",
+          "sourcePriceText": "S$ 8.80"
+        },
+        {
+          "id": "icf3-sux-29",
+          "name": "Flavoured Potato Slices 口味土豆片",
+          "category": "Snacks 配菜",
+          "price": {
+            "amount": 10.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "currency": "SGD",
+          "priceStatus": "fixed",
+          "priceBasis": "fixed",
+          "sourceIds": [
+            "icf3-sux-fp"
+          ],
+          "qualifier": "Public branch-delivery listing. Options and portions not exposed in the readable source; no portion or surcharge inferred. Current stock, effective menu date, ingredients and dine-in equivalence unverified.",
+          "sourcePriceText": "S$ 10.80"
+        },
+        {
+          "id": "icf3-sux-30",
+          "name": "Fried Mock Squid Rings 素鱿鱼圈",
+          "category": "Snacks 配菜",
+          "price": {
+            "amount": 10.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "currency": "SGD",
+          "priceStatus": "fixed",
+          "priceBasis": "fixed",
+          "sourceIds": [
+            "icf3-sux-fp"
+          ],
+          "qualifier": "Public branch-delivery listing. Options and portions not exposed in the readable source; no portion or surcharge inferred. Current stock, effective menu date, ingredients and dine-in equivalence unverified.",
+          "sourcePriceText": "S$ 10.80"
+        },
+        {
+          "id": "icf3-sux-31",
+          "name": "Crispy Mock Chicken Drumsticks 炸素鸡腿",
+          "category": "Snacks 配菜",
+          "price": {
+            "amount": 11.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "currency": "SGD",
+          "priceStatus": "fixed",
+          "priceBasis": "fixed",
+          "sourceIds": [
+            "icf3-sux-fp"
+          ],
+          "qualifier": "Public branch-delivery listing. Options and portions not exposed in the readable source; no portion or surcharge inferred. Current stock, effective menu date, ingredients and dine-in equivalence unverified.",
+          "sourcePriceText": "S$ 11.80"
+        }
+      ]
+    },
+    {
+      "id": "icf3-ydx-delivery",
+      "name": "Yi Ding Xuan Vegetarian - Foodpanda delivery foods",
+      "scope": "branch-delivery",
+      "branchIds": [
+        "yi-ding-xuan-tampines-201"
+      ],
+      "sourceIds": [
+        "icf3-ydx-fp"
+      ],
+      "coverage": "partial",
+      "publicationStatus": "review-proposed",
+      "notice": "25 unique foods across all three food sections; six Popular duplicates omitted. Foodpanda order minimum varied between S$10 and S$14 across retrieval contexts. Main/base and side-choice selection groups not exposed; no default main inferred. Egg item retained as vegetarian, not vegan. All visible food cards captured; options, stock, effective menu date, taxes/fees and dine-in equivalence remain unverified.",
+      "sourceCoverage": {
+        "foodProducts": 25,
+        "pricedFoodProducts": 25,
+        "visibleModifierGroups": 0,
+        "beveragesExcluded": 0
+      },
+      "items": [
+        {
+          "id": "icf3-ydx-1",
+          "name": "Zhai Ngor 斋鹅",
+          "category": "Extra",
+          "price": {
+            "amount": 5.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "currency": "SGD",
+          "priceStatus": "fixed",
+          "priceBasis": "fixed",
+          "sourceIds": [
+            "icf3-ydx-fp"
+          ],
+          "qualifier": "Public branch-delivery listing. Options and portions not exposed in the readable source; no portion or surcharge inferred. Current stock, effective menu date, ingredients and dine-in equivalence unverified. Source portion: box.",
+          "sourcePriceText": "S$ 5.80"
+        },
+        {
+          "id": "icf3-ydx-2",
+          "name": "Curry Vegetables 咖喱菜",
+          "category": "Extra",
+          "price": {
+            "amount": 10.2,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "currency": "SGD",
+          "priceStatus": "fixed",
+          "priceBasis": "fixed",
+          "sourceIds": [
+            "icf3-ydx-fp"
+          ],
+          "qualifier": "Public branch-delivery listing. Options and portions not exposed in the readable source; no portion or surcharge inferred. Current stock, effective menu date, ingredients and dine-in equivalence unverified.",
+          "sourcePriceText": "S$ 10.20"
+        },
+        {
+          "id": "icf3-ydx-3",
+          "name": "Poached Egg 荷包蛋",
+          "category": "Extra",
+          "price": {
+            "amount": 1.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "currency": "SGD",
+          "priceStatus": "fixed",
+          "priceBasis": "fixed",
+          "sourceIds": [
+            "icf3-ydx-fp"
+          ],
+          "qualifier": "Public branch-delivery listing. Options and portions not exposed in the readable source; no portion or surcharge inferred. Current stock, effective menu date, ingredients and dine-in equivalence unverified. Egg item; not vegan.",
+          "sourcePriceText": "S$ 1.80"
+        },
+        {
+          "id": "icf3-ydx-4",
+          "name": "Spring Roll 春卷",
+          "category": "Extra",
+          "price": {
+            "amount": 2.7,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "currency": "SGD",
+          "priceStatus": "fixed",
+          "priceBasis": "fixed",
+          "sourceIds": [
+            "icf3-ydx-fp"
+          ],
+          "qualifier": "Public branch-delivery listing. Options and portions not exposed in the readable source; no portion or surcharge inferred. Current stock, effective menu date, ingredients and dine-in equivalence unverified.",
+          "sourcePriceText": "S$ 2.70"
+        },
+        {
+          "id": "icf3-ydx-5",
+          "name": "Seaweed Fish 紫菜⻥",
+          "category": "Extra",
+          "price": {
+            "amount": 4,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "currency": "SGD",
+          "priceStatus": "fixed",
+          "priceBasis": "fixed",
+          "sourceIds": [
+            "icf3-ydx-fp"
+          ],
+          "qualifier": "Public branch-delivery listing. Options and portions not exposed in the readable source; no portion or surcharge inferred. Current stock, effective menu date, ingredients and dine-in equivalence unverified.",
+          "sourcePriceText": "S$ 4.00"
+        },
+        {
+          "id": "icf3-ydx-6",
+          "name": "Chestnut Roll ⻢蹄卷",
+          "category": "Extra",
+          "price": {
+            "amount": 3.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "currency": "SGD",
+          "priceStatus": "fixed",
+          "priceBasis": "fixed",
+          "sourceIds": [
+            "icf3-ydx-fp"
+          ],
+          "qualifier": "Public branch-delivery listing. Options and portions not exposed in the readable source; no portion or surcharge inferred. Current stock, effective menu date, ingredients and dine-in equivalence unverified.",
+          "sourcePriceText": "S$ 3.80"
+        },
+        {
+          "id": "icf3-ydx-7",
+          "name": "Yam Roll 芋头卷",
+          "category": "Extra",
+          "price": {
+            "amount": 3,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "currency": "SGD",
+          "priceStatus": "fixed",
+          "priceBasis": "fixed",
+          "sourceIds": [
+            "icf3-ydx-fp"
+          ],
+          "qualifier": "Public branch-delivery listing. Options and portions not exposed in the readable source; no portion or surcharge inferred. Current stock, effective menu date, ingredients and dine-in equivalence unverified.",
+          "sourcePriceText": "S$ 3.00"
+        },
+        {
+          "id": "icf3-ydx-8",
+          "name": "Vegetable Drumstick 鸡腿",
+          "category": "Extra",
+          "price": {
+            "amount": 4,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "currency": "SGD",
+          "priceStatus": "fixed",
+          "priceBasis": "fixed",
+          "sourceIds": [
+            "icf3-ydx-fp"
+          ],
+          "qualifier": "Public branch-delivery listing. Options and portions not exposed in the readable source; no portion or surcharge inferred. Current stock, effective menu date, ingredients and dine-in equivalence unverified.",
+          "sourcePriceText": "S$ 4.00"
+        },
+        {
+          "id": "icf3-ydx-9",
+          "name": "Fried Kuey Teow 干炒粿条",
+          "category": "Zi Char",
+          "price": {
+            "amount": 8.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "currency": "SGD",
+          "priceStatus": "fixed",
+          "priceBasis": "fixed",
+          "sourceIds": [
+            "icf3-ydx-fp"
+          ],
+          "qualifier": "Public branch-delivery listing. Options and portions not exposed in the readable source; no portion or surcharge inferred. Current stock, effective menu date, ingredients and dine-in equivalence unverified.",
+          "sourcePriceText": "S$ 8.50"
+        },
+        {
+          "id": "icf3-ydx-10",
+          "name": "Fried U-don 干炒乌冬面",
+          "category": "Zi Char",
+          "price": {
+            "amount": 8.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "currency": "SGD",
+          "priceStatus": "fixed",
+          "priceBasis": "fixed",
+          "sourceIds": [
+            "icf3-ydx-fp"
+          ],
+          "qualifier": "Public branch-delivery listing. Options and portions not exposed in the readable source; no portion or surcharge inferred. Current stock, effective menu date, ingredients and dine-in equivalence unverified.",
+          "sourcePriceText": "S$ 8.50"
+        },
+        {
+          "id": "icf3-ydx-11",
+          "name": "Mee Goreng ⻢来炒面",
+          "category": "Zi Char",
+          "price": {
+            "amount": 8.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "currency": "SGD",
+          "priceStatus": "fixed",
+          "priceBasis": "fixed",
+          "sourceIds": [
+            "icf3-ydx-fp"
+          ],
+          "qualifier": "Public branch-delivery listing. Options and portions not exposed in the readable source; no portion or surcharge inferred. Current stock, effective menu date, ingredients and dine-in equivalence unverified.",
+          "sourcePriceText": "S$ 8.50"
+        },
+        {
+          "id": "icf3-ydx-12",
+          "name": "Hokkien Mee 福建面",
+          "category": "Zi Char",
+          "price": {
+            "amount": 8.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "currency": "SGD",
+          "priceStatus": "fixed",
+          "priceBasis": "fixed",
+          "sourceIds": [
+            "icf3-ydx-fp"
+          ],
+          "qualifier": "Public branch-delivery listing. Options and portions not exposed in the readable source; no portion or surcharge inferred. Current stock, effective menu date, ingredients and dine-in equivalence unverified.",
+          "sourcePriceText": "S$ 8.50"
+        },
+        {
+          "id": "icf3-ydx-13",
+          "name": "Assorted Crispy Noodle 什锦生面",
+          "category": "Zi Char",
+          "price": {
+            "amount": 8.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "currency": "SGD",
+          "priceStatus": "fixed",
+          "priceBasis": "fixed",
+          "sourceIds": [
+            "icf3-ydx-fp"
+          ],
+          "qualifier": "Public branch-delivery listing. Options and portions not exposed in the readable source; no portion or surcharge inferred. Current stock, effective menu date, ingredients and dine-in equivalence unverified.",
+          "sourcePriceText": "S$ 8.50"
+        },
+        {
+          "id": "icf3-ydx-14",
+          "name": "Assorted Hor Fun 什锦河粉",
+          "category": "Zi Char",
+          "price": {
+            "amount": 8.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "currency": "SGD",
+          "priceStatus": "fixed",
+          "priceBasis": "fixed",
+          "sourceIds": [
+            "icf3-ydx-fp"
+          ],
+          "qualifier": "Public branch-delivery listing. Options and portions not exposed in the readable source; no portion or surcharge inferred. Current stock, effective menu date, ingredients and dine-in equivalence unverified.",
+          "sourcePriceText": "S$ 8.50"
+        },
+        {
+          "id": "icf3-ydx-15",
+          "name": "Olive Fried Rice 橄榄菜炒饭",
+          "category": "Zi Char",
+          "price": {
+            "amount": 8.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "currency": "SGD",
+          "priceStatus": "fixed",
+          "priceBasis": "fixed",
+          "sourceIds": [
+            "icf3-ydx-fp"
+          ],
+          "qualifier": "Public branch-delivery listing. Options and portions not exposed in the readable source; no portion or surcharge inferred. Current stock, effective menu date, ingredients and dine-in equivalence unverified.",
+          "sourcePriceText": "S$ 8.50"
+        },
+        {
+          "id": "icf3-ydx-16",
+          "name": "Signature Fried Rice 招牌炒饭",
+          "category": "Zi Char",
+          "price": {
+            "amount": 8.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "currency": "SGD",
+          "priceStatus": "fixed",
+          "priceBasis": "fixed",
+          "sourceIds": [
+            "icf3-ydx-fp"
+          ],
+          "qualifier": "Public branch-delivery listing. Options and portions not exposed in the readable source; no portion or surcharge inferred. Current stock, effective menu date, ingredients and dine-in equivalence unverified.",
+          "sourcePriceText": "S$ 8.50"
+        },
+        {
+          "id": "icf3-ydx-17",
+          "name": "Pineapple Fried Rice ⻩梨炒饭",
+          "category": "Zi Char",
+          "price": {
+            "amount": 8.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "currency": "SGD",
+          "priceStatus": "fixed",
+          "priceBasis": "fixed",
+          "sourceIds": [
+            "icf3-ydx-fp"
+          ],
+          "qualifier": "Public branch-delivery listing. Options and portions not exposed in the readable source; no portion or surcharge inferred. Current stock, effective menu date, ingredients and dine-in equivalence unverified.",
+          "sourcePriceText": "S$ 8.50"
+        },
+        {
+          "id": "icf3-ydx-18",
+          "name": "Tom Yam Fried Rice 冬炎炒饭",
+          "category": "Zi Char",
+          "price": {
+            "amount": 8.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "currency": "SGD",
+          "priceStatus": "fixed",
+          "priceBasis": "fixed",
+          "sourceIds": [
+            "icf3-ydx-fp"
+          ],
+          "qualifier": "Public branch-delivery listing. Options and portions not exposed in the readable source; no portion or surcharge inferred. Current stock, effective menu date, ingredients and dine-in equivalence unverified.",
+          "sourcePriceText": "S$ 8.50"
+        },
+        {
+          "id": "icf3-ydx-19",
+          "name": "Mee Hoon Set 米粉套餐",
+          "category": "Meals Set 套餐",
+          "price": {
+            "amount": 6.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "currency": "SGD",
+          "priceStatus": "fixed",
+          "priceBasis": "fixed",
+          "sourceIds": [
+            "icf3-ydx-fp"
+          ],
+          "qualifier": "Public branch-delivery listing. Options and portions not exposed in the readable source; no portion or surcharge inferred. Current stock, effective menu date, ingredients and dine-in equivalence unverified. Source set composition: selected noodles, cabbage, char siew and crispy bean curd. Vegetarian venue context; full ingredients not certified.",
+          "sourcePriceText": "S$ 6.50"
+        },
+        {
+          "id": "icf3-ydx-20",
+          "name": "Main + 3 Vegetables 主⻝+ 3菜",
+          "category": "Meals Set 套餐",
+          "price": {
+            "amount": 7.2,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "currency": "SGD",
+          "priceStatus": "fixed",
+          "priceBasis": "fixed",
+          "sourceIds": [
+            "icf3-ydx-fp"
+          ],
+          "qualifier": "Public branch-delivery listing. Options and portions not exposed in the readable source; no portion or surcharge inferred. Current stock, effective menu date, ingredients and dine-in equivalence unverified.",
+          "sourcePriceText": "S$ 7.20"
+        },
+        {
+          "id": "icf3-ydx-21",
+          "name": "Main + 2 Vegetables + 1 Mock Meat 主⻝+2菜+1斋料",
+          "category": "Meals Set 套餐",
+          "price": {
+            "amount": 7.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "currency": "SGD",
+          "priceStatus": "fixed",
+          "priceBasis": "fixed",
+          "sourceIds": [
+            "icf3-ydx-fp"
+          ],
+          "qualifier": "Public branch-delivery listing. Options and portions not exposed in the readable source; no portion or surcharge inferred. Current stock, effective menu date, ingredients and dine-in equivalence unverified.",
+          "sourcePriceText": "S$ 7.80"
+        },
+        {
+          "id": "icf3-ydx-22",
+          "name": "Main + 1 Vegetable + 2 Mock Meats 主⻝+1菜+ 2 斋料",
+          "category": "Meals Set 套餐",
+          "price": {
+            "amount": 8.2,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "currency": "SGD",
+          "priceStatus": "fixed",
+          "priceBasis": "fixed",
+          "sourceIds": [
+            "icf3-ydx-fp"
+          ],
+          "qualifier": "Public branch-delivery listing. Options and portions not exposed in the readable source; no portion or surcharge inferred. Current stock, effective menu date, ingredients and dine-in equivalence unverified.",
+          "sourcePriceText": "S$ 8.20"
+        },
+        {
+          "id": "icf3-ydx-23",
+          "name": "Main + 3 Mock Meats 主⻝+ 3斋料",
+          "category": "Meals Set 套餐",
+          "price": {
+            "amount": 8.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "currency": "SGD",
+          "priceStatus": "fixed",
+          "priceBasis": "fixed",
+          "sourceIds": [
+            "icf3-ydx-fp"
+          ],
+          "qualifier": "Public branch-delivery listing. Options and portions not exposed in the readable source; no portion or surcharge inferred. Current stock, effective menu date, ingredients and dine-in equivalence unverified.",
+          "sourcePriceText": "S$ 8.80"
+        },
+        {
+          "id": "icf3-ydx-24",
+          "name": "Noodle Set 面套餐",
+          "category": "Meals Set 套餐",
+          "price": {
+            "amount": 6.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "currency": "SGD",
+          "priceStatus": "fixed",
+          "priceBasis": "fixed",
+          "sourceIds": [
+            "icf3-ydx-fp"
+          ],
+          "qualifier": "Public branch-delivery listing. Options and portions not exposed in the readable source; no portion or surcharge inferred. Current stock, effective menu date, ingredients and dine-in equivalence unverified. Source set composition: selected noodles, cabbage, char siew and crispy bean curd. Vegetarian venue context; full ingredients not certified.",
+          "sourcePriceText": "S$ 6.50"
+        },
+        {
+          "id": "icf3-ydx-25",
+          "name": "Kuey Teow Set 粿条套餐",
+          "category": "Meals Set 套餐",
+          "price": {
+            "amount": 6.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "currency": "SGD",
+          "priceStatus": "fixed",
+          "priceBasis": "fixed",
+          "sourceIds": [
+            "icf3-ydx-fp"
+          ],
+          "qualifier": "Public branch-delivery listing. Options and portions not exposed in the readable source; no portion or surcharge inferred. Current stock, effective menu date, ingredients and dine-in equivalence unverified. Source set composition: selected noodles, cabbage, char siew and crispy bean curd. Vegetarian venue context; full ingredients not certified.",
+          "sourcePriceText": "S$ 6.50"
+        }
+      ]
+    }
+  ],
+  "scope": {
+    "appScope": "vegetarian-vegan-venues-only",
+    "beverages": "excluded",
+    "artwork": "not-copied",
+    "googleIdentityAssignment": "none"
+  },
+  "completionHistory": [
+    {
+      "checkedAt": "2026-10-16T00:51:33.935Z",
+      "frozenSourceSha256": "b0e9897b226cd1c3f886edd97f442339e38d9a6346a28c1f1b40a67d982cf44a",
+      "action": "Root approved56 delivery food facts across two exact branches. Fang Lin entire venue remains held for unresolved generic descriptions, without a finding of actual meat."
+    }
+  ]
+}

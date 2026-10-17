@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "venueId": "research-greendot-jewel-changi-airport",
+      "address": "78 Aiport Blvd, #B1-297 Jewel Changi Airport, 819666, Singapore",
+      "sha256": "61acafeba0b68a20f6b1d7a50d069cca1ae60638d7bff36da0323aab5c3614d1",
+      "status": "approved",
+      "rightsApprovalId": "cc-by-sa-4-jewel-20261016",
+      "identityEvidence": "Source caption identifies Greendot Plus restaurant, Jewel Changi, Singapore; dated 11 August 2023.",
+      "photo": {
+        "path": "/api/catalogue-photos/61acafeba0b68a20f6b1d7a50d069cca1ae60638d7bff36da0323aab5c3614d1.jpg",
+        "width": 960,
+        "height": 720,
+        "author": "Mike Peel (www.mikepeel.net)",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:At_Jewel_Changi,_Singapore_2023_78.jpg",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "capturedAt": "2023-08-11",
+        "checkedAt": "2026-10-16",
+        "changes": "AI-assisted photographic enhancement; resized and cropped for display. Enhanced image shared under CC BY-SA 4.0."
+      },
+      "checkedAt": "2026-10-17",
+      "note": "Existing reviewed derivative can be used as a reference under the retained CC BY-SA 4.0 licence. Keep its current cover unless a reviewed change is needed."
+    }
+  ]
+}

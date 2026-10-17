@@ -1,0 +1,110 @@
+{
+  "disposition": "ship",
+  "persistence": {
+    "status": "pass",
+    "world": "The established Operate world persists: Nunito, semantic Coral/Peach light and dark surfaces, rounded controls, compact photo cards and flat menu rows. This extension does not require a new concept seed or comp round.",
+    "documenterFollowUp": "Clear for F02: current product/discovery/PRD descriptions now use 11 branches, 15 source-specific menus and 732 food rows with overlap/variant/current-availability caveats. The pilot 48-item publication clause explicitly says 'At that stage'. DESIGN.md now records 16-unit outer/13-unit visible-label Menu radii and the web focus perimeter.",
+    "scoringPass": {
+      "scope": "Only prior F01/F02 and regressions attributable to their fixes were scored. No new full-surface review or concurrent avatar/Auth branding review was performed.",
+      "verdict": [
+        { "id": "F01", "status": "resolved", "evidence": "All four current correction captures and the added invalid-email capture were individually viewed: the inner black square outline is absent, a semantic rounded focus perimeter remains, and error messaging remains readable. Current shared Field source gates the inner solid/zero-width outline and outer two-unit focus treatment to web." },
+        { "id": "F02", "status": "resolved", "evidence": "The original document targets show 11 branches/15 source-specific menus/732 food rows and 16-unit outer/13-unit label radius. The final PRD launch-gap paragraph was re-read and uses those current counts with the non-unique caveat. The pilot baseline publication clause was re-read and explicitly says 'At that stage'. Broader collection remains in progress and private research is distinguished from the public projection." }
+      ],
+      "fixIntroducedRegressions": [],
+      "remaining": "clear",
+      "approval": "SHIP covers only the scored F01/F02 fixes and the absence of regressions attributable to them in the supplied captures/documents; it is not a new full-surface, native or production acceptance."
+    },
+    "evidence": {
+      "requiredCaptures": 18,
+      "individuallyViewed": 18,
+      "validCaptures": 18,
+      "captureAssessment": "The prior 17 captures were individually valid. This scoring pass individually re-viewed all four replaced focused correction captures and the added invalid-email capture; all five are valid form viewports with no full-page claim. The other 13 prior captures are retained unchanged and were not re-reviewed in this bounded pass.",
+      "captures": [
+        "menu-expansion-card-320.png",
+        "menu-expansion-card-375.png",
+        "menu-expansion-card-768.png",
+        "menu-expansion-card-1440.png",
+        "menu-expansion-menu-375.png",
+        "menu-expansion-correction-320.png",
+        "menu-expansion-correction-375.png",
+        "menu-expansion-correction-768.png",
+        "menu-expansion-correction-1440.png",
+        "menu-expansion-review-edit-375.png",
+        "menu-expansion-receipt-375.png",
+        "menu-expansion-offline-add-375.png",
+        "menu-expansion-remove-review-375.png",
+        "menu-expansion-expanded-menu-375.png",
+        "menu-expansion-historical-source-375.png",
+        "menu-expansion-correction-large320.png",
+        "menu-expansion-correction-dark320.png",
+        "menu-expansion-shared-field-error-375.png"
+      ],
+      "reportsRead": [
+        "menu-expansion-browser.json",
+        "menu-expansion-workflow.json",
+        "menu-expansion-data.json",
+        "menu-expansion-security.json",
+        "menu-expansion-focus-confirmation.json",
+        "menu-research-tooling-review.json"
+      ],
+      "reportedChecks": "The parent reports a full browser rerun with five groups/18 captures and zero page errors. The focus-confirmation report records five checks, zero inner outline width with explicit solid style, 24-unit outer radius, zero outline offset and no page errors. Independent source review approves the focus delta. Prior workflow/security scope and incomplete axe caveats persist; no design detector ran for the React Native source.",
+      "dataTruth": "The evidence reports 732 source-specific food rows across 11 published pilot branches and 15 source sections. These are not unique dishes or completion of the broader 2,322-ID collection. Partial, brand-only, historical, unknown-currency and ingredient-uncertainty distinctions remain explicit.",
+      "scope": "Fresh independent visual review of the supplied React Native Web captures and sampled source, using the provided finish-reviewer, craft-floor, Operate and Android context. The venue/photo fixture is controlled; menu data is the actual sanitized public projection and workflow evidence exercises real local case APIs. This is not physical-native appearance, full-application AA, production case delivery or deployment acceptance.",
+      "missingInputs": [],
+      "unread": "Unrelated historical portions of the long product/design documents and source outside the named feature samples and directly relevant shared Field/receipt implementations were not audited. The stale menu-expansion-failure.png artifact was excluded as instructed."
+    }
+  },
+  "fidelity": [
+    {
+      "element": "TYPE",
+      "state": "match",
+      "evidence": "Captures retain the established rounded Nunito character and clear title/body/label hierarchy; tokens and shared Field source retain the named Nunito weights. Large text wraps the correction title and topics without losing controls."
+    },
+    {
+      "element": "MATERIAL",
+      "state": "match",
+      "evidence": "The card remains photographic with softened metadata over the image; the Menu entry uses a crisp authored open-book SVG and restrained dark media surface. Forms and menus use honest flat surfaces, without simulated physical material. The supplied photo is an acknowledged fixture."
+    },
+    {
+      "element": "GROUND",
+      "state": "match",
+      "evidence": "Light captures retain the Coral/Peach field and warm white cards; the dark 320 capture retains the corresponding dark semantic surfaces and readable warm foreground. These agree with the established token family rather than an invented ground target."
+    },
+    {
+      "element": "Explore first viewport and card rhythm",
+      "state": "match",
+      "evidence": "All four widths show the titleless single search row, compact landscape venue card, one-line metadata and dock. Browser layout evidence measures the preserved divider-to-hours 6 and hours-to-bottom 8 at every width."
+    },
+    {
+      "element": "Menu shortcut geometry",
+      "state": "adaptation",
+      "evidence": "The user's request to improve the ugly Menu shortcut authorizes this incumbent-world refinement: a readable compact rounded rectangle, open-book icon and label, independently opening the menu. Source and layout evidence retain a 48-unit target and full-perimeter focus capability. The old documented 28-unit radius is obsolete documentation, not a new constraint on this authorized change."
+    },
+    {
+      "element": "Dish lookup and source truth",
+      "state": "match",
+      "evidence": "Menu captures show dish search, horizontally reachable category/source choices, flat name/price rows and qualifiers. D'Life explicitly uses Selected dishes and From prices; Daily Green explicitly shows Historical menu/Historical dishes and currency unstated. Source retains checked-date/source/notice footers and ingredient/availability uncertainty. Merchant category stars are source text, not substitutes for the app's icon system."
+    },
+    {
+      "element": "Correction, preview and receipt story",
+      "state": "match",
+      "evidence": "Add/edit/remove controls remain present at 320 and enlarged text; previews distinguish original and proposed menu facts, offline queue actions are explicit, and the receipt shows submission status and update history. The receipt spinner belongs to the Refresh case action's loading state, not a replacement for the receipt content. Workflow and security reports support owner-scoped local proposals without direct public-menu mutation."
+    },
+    {
+      "element": "Themed full-perimeter web field focus",
+      "state": "match",
+      "evidence": "F01 resolved: all four current correction captures show the semantic rounded outer focus perimeter without the inner black rectangle. The added shared-field error capture preserves visible focus and error text/border together. Shared source applies explicit solid/zero-width inner outline and the outer semantic two-unit outline only on web."
+    },
+    {
+      "element": "THESIS / OWN-WORLD / STORY / FIRST VIEWPORT / FORM",
+      "state": "match",
+      "evidence": "The prior matched task/world/first-viewport promises remain carried forward. F01's focused-field FORM defect is resolved in the current captures; no new world or seed was requested. This pass scores only the prior fixes."
+    }
+  ],
+  "ceiling": {
+    "assessment": "F01's web focus finish is resolved. No visual regression caused by that fix was found in the five current captures. The original Operate assessment is carried forward without a new full-surface hunt.",
+    "limits": "Static web captures do not establish native gesture behavior, platform insets, motion quality or physical-device appearance. Android context was used for target/font/theme expectations without treating browser screenshots as native captures."
+  },
+  "material_fixes": [],
+  "keep": "Preserve Nunito and the semantic palette families, the compact independent Menu entry and 48-unit targets, the existing blurRadius2/24-unit feather and 6/8 hours rhythm, flat readable dish rows, explicit source uncertainty, and owner-scoped local correction previews/receipts."
+}

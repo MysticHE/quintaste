@@ -1,0 +1,173 @@
+{
+  "checks": [
+    {
+      "name": "Real location API 018956",
+      "count": 1
+    },
+    {
+      "name": "Real location API Marina Bay Sands",
+      "count": 8
+    },
+    {
+      "name": "Real location API Bugis MRT",
+      "count": 1
+    },
+    {
+      "name": "Real location API Singapore 018956",
+      "count": 1
+    },
+    {
+      "name": "Invalid query and content type rejected"
+    },
+    {
+      "name": "Single text field; no choices before typing"
+    },
+    {
+      "name": "Debounce and keyboard selection"
+    },
+    {
+      "name": "Map/List preserve location and avoid restaurant keyword mixup"
+    },
+    {
+      "name": "Leading-zero postal choice uses coordinates; one venue request",
+      "center": {
+        "latitude": 1.282397137717063,
+        "longitude": 103.8584053916593
+      }
+    },
+    {
+      "name": "Real Google nearby restaurant search accepts postal center"
+    },
+    {
+      "name": "Clear resets geographic search and hides suggestions"
+    },
+    {
+      "name": "Provider failure and Retry recover suggestions"
+    },
+    {
+      "name": "Free-text restaurant search remains available"
+    },
+    {
+      "name": "Responsive 320",
+      "metric": {
+        "width": 320,
+        "scrollWidth": 320,
+        "field": {
+          "left": 8,
+          "right": 204
+        },
+        "popup": {
+          "left": 8,
+          "right": 204,
+          "top": 74,
+          "bottom": 240
+        }
+      }
+    },
+    {
+      "name": "Responsive 768",
+      "metric": {
+        "width": 768,
+        "scrollWidth": 768,
+        "field": {
+          "left": 15,
+          "right": 645
+        },
+        "popup": {
+          "left": 15,
+          "right": 645,
+          "top": 79,
+          "bottom": 179
+        }
+      }
+    },
+    {
+      "name": "Responsive 1440",
+      "metric": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "field": {
+          "left": 349,
+          "right": 983
+        },
+        "popup": {
+          "left": 349,
+          "right": 983,
+          "top": 79,
+          "bottom": 179
+        }
+      }
+    }
+  ],
+  "screenshots": [
+    "C:/Users/huien/QT/quintaste/.impeccable/review/location-search-mobile-names.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/location-search-mobile-postal.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/location-search-320.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/location-search-768.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/location-search-1440.png"
+  ],
+  "errors": [],
+  "searches": [
+    {
+      "area": "Tiong Bahru",
+      "query": "",
+      "vegan": false,
+      "radius": 5000
+    },
+    {
+      "area": "Bugis",
+      "query": "",
+      "vegan": false,
+      "radius": 5000
+    },
+    {
+      "area": "Bugis",
+      "query": "",
+      "vegan": false,
+      "radius": 5000
+    },
+    {
+      "area": "Singapore",
+      "query": "",
+      "vegan": false,
+      "center": {
+        "latitude": 1.282397137717063,
+        "longitude": 103.8584053916593
+      },
+      "radius": 5000
+    },
+    {
+      "area": "Singapore",
+      "query": "",
+      "vegan": false,
+      "radius": 5000
+    },
+    {
+      "area": "Singapore",
+      "query": "zzunknown999",
+      "vegan": false,
+      "radius": 5000
+    }
+  ],
+  "locationRequests": [
+    "Marina Bay Sands",
+    "Bugis",
+    "018956",
+    "networkfail",
+    "networkfail",
+    "zzunknown999",
+    "zzunknown999",
+    "018956"
+  ],
+  "accessibility": {
+    "violations": [],
+    "incomplete": [
+      "color-contrast",
+      "label-content-name-mismatch"
+    ]
+  },
+  "liveGoogle": {
+    "status": 200,
+    "count": 20
+  }
+}

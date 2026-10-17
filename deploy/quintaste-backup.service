@@ -1,0 +1,10 @@
+[Unit]
+Description=QuinTaste staging database backup
+After=docker.service
+Requires=docker.service
+
+[Service]
+Type=oneshot
+WorkingDirectory=/docker/quintaste
+ExecStart=/bin/bash /docker/quintaste/backup.sh
+UMask=0077

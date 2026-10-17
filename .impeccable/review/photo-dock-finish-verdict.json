@@ -1,0 +1,41 @@
+{
+  "recordedAt": "2026-10-14T14:24:00.972Z",
+  "disposition": "recapture",
+  "reviewer": "Substitute code-reviewer /root/photo_dock_finish_review",
+  "contract": "C:/Users/huien/.agents/skills/impeccable/reference/degraded/finish-reviewer.md",
+  "reason": "Four required current native captures are missing. No partial native finish review or fidelity matrix is granted.",
+  "requiredNativeCaptures": [
+    "photo-dock-phone-android.png",
+    "photo-dock-phone-ios.png",
+    "photo-dock-tablet-android.png",
+    "photo-dock-tablet-ios.png"
+  ],
+  "webEvidence": [
+    "C:/Users/huien/QT/quintaste/.impeccable/review/photo-dock-web-375.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/photo-dock-web-hover.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/photo-dock-web-photo-viewer.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/photo-dock-web-768.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/photo-dock-web-1440.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/photo-dock-web-375-dark.png"
+  ],
+  "webPlaywright": "passed;23checks;6captures;automated web and bounded source proof only",
+  "verificationRecord": ".impeccable/review/photo-dock-validation.json",
+  "nativeTransport": {
+    "manifestStatus": 200,
+    "bundleStatus": 200,
+    "bundleBytes": 8635670,
+    "launchHost": "192.168.1.5",
+    "hasPhotoRaster": true,
+    "hasPhotoFeather": true,
+    "hasMemoryCancellation": true,
+    "hasIconOnlyLens": true,
+    "privateSecretAbsent": true,
+    "privateVariableNameAbsent": true,
+    "status": "packager-status:running",
+    "serverSession": 5816,
+    "expoGoUrl": "exp://192.168.1.5:8083",
+    "qr": "C:/Users/huien/QT/tmp/qa/discovery/expo-go-lan-8083-current.png",
+    "qrDecodeVerified": true
+  },
+  "sourceFinal": true
+}

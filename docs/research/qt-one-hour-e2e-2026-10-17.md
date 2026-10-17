@@ -1,0 +1,173 @@
+<!-- qt-publication-recovery-20261017 -->
+Current app **20261017-qt-publication4**; preview remains **20261017-browse-controls2**.
+The seven blocked venue patches published at **19:02 SGT on 17 October**; all
+seven live Telegram screenshots delivered with exact-item Revert controls.
+These are source/evidence updates: the hours and SGD7.80 price already existed.
+Preserve per-record concurrency checks, retained-reference qualifications,
+owner revert/removal suppression, durable per-item reporting and unchanged UI.
+See `docs/research/qt-publication-recovery-2026-10-17.md` (repository-root-relative).
+Older seven-pending/fresh-review statements below are historical and superseded.
+<!-- end-qt-publication-recovery-20261017 -->
+
+<!-- qt-one-hour-final-20261017 -->
+## Final one-hour result, 17 October 2026, 6:39 pm SGT
+
+The 5:39-6:39 pm live test is complete. Independent postflight checks passed:
+all four roles completed fresh real provider runs, app health/private controls,
+owned data, conditional caching and all 174 unique paginated venue identities
+passed. 33 research records were checked; Explore review coverage rose from
+2 to 22/174. 17 agent invocations were used, bringing October to 26/2,000.
+Google remained disabled and its ledger unchanged. No new images were generated:
+the separate three-attempt monthly image allowance was already exhausted.
+
+Two recipes were published during the test, then removed under the owner's
+updated rule/direct tap; the older tomato-and-egg recipe was removed too.
+Current bot content: zero recipes, two organisation events. All three removals
+retain suppression/audit records. Seven venue updates are preserved for fresh
+Manager review, following the owner's intervening deletion. Their new prices/
+hours have **not** been published. Existing catalogue coverage remains 173 covers
+and 120 schedules; 1 cover/54 hours/3,387 prices and food-evidence holds remain.
+
+The raw run retains needs-review status and four historical publisher failures:
+two invalid calendar dates and two parent-revision conflicts. Both causes were
+corrected, with 81 checks passing; the stale real batch was archived without
+rebasing or writes. Raw protectedUnchanged is false because documented fixes
+were deployed; postflight separately verifies unchanged policy, baseline and
+schedule, plus the approved workflow hash. Historical errors were not erased.
+The final pass verifies current delivery/safety, not completion of all research
+or a successful new publication of the seven held venue updates.
+
+Measured from the VPS: the first catalogue page was 24,041 bytes / 71.18 ms;
+the recipe page was 118 bytes / 15.97 ms. Conditional recipe requests returned
+304, and catalogue pages remained at most 20 rows. Free bot-host disk was
+16,206,090,240 bytes. These are single-run measurements, not load-test capacity.
+
+Telegram: live changed-item screenshots with Delete controls; one text-only
+run-end summary; no periodic status/digest spam or repeated summary screenshots.
+Owner-only fast listener, 80%/100% budget alerts and manual commands remain.
+App/preview event-discovery2 is deployed: 24 local + 24 live browser checks,
+TypeScript, uncached lint and both native preview transports pass. Physical-device
+appearance and the first full 1-5 am overnight window remain unverified.
+Machine evidence: `data/menu-research/qt-one-hour-e2e-final-2026-10-17.json`.
+<!-- end-qt-one-hour-final-20261017 -->
+
+# One-hour live QT acceptance run
+
+Owner-authorised window: **17 October 2026, 17:39:20–18:39:20 SGT**.
+Test ID: `e2e-20261017T093920Z`. **In progress**, not a completed acceptance claim.
+This is an operator-only window; the daily 01:00–05:00 schedule is unchanged.
+
+`supervised_e2e.py` launches the existing workflow sequentially with a process-local
+window override, existing exclusive research lock and durable checkpoints. New
+research stops at 18:24:20; the supervisor terminates its worker process tree at
+the deadline. No budgets, source baseline or Google ledger were reset. Existing
+2,000 monthly agent-invocation, three monthly image-attempt, per-role daily and
+retry limits remain. Google stays disabled. Image generation remains deferred
+because all three October attempts were already used.
+
+`e2e_postflight.py` runs independently on the VPS. After the window it checks
+fresh provider receipts for all four roles, policy/budget preservation, signed
+versus public publication state, bounded pagination, recipe detail delivery,
+conditional 304s, all 174 unique catalogue identities and app health. It writes
+`postflight.json` and queues a useful Singapore-time Telegram summary. It does
+not modify app content or launch model calls. Receipt collection and this
+document must be updated after the run before claiming final acceptance.
+
+## Verified during the first 13 minutes
+
+- Event completed real primary-source research: the two existing events remain
+  unchanged; closed-registration, conflicting-schedule and unrelated leads stay
+  held/excluded. The fixed publisher made no redundant event publication.
+- Cooker completed fresh research after the recovery correction below.
+- Manager reviewed the fresh recipes and the final exact payloads. Two recipes
+  were atomically published at **17:49:21 SGT**:
+  `garlic-chive-eggs` and `sweet-potato-ginger-pandan-soup`.
+  Revision: `ee9a550c109af45bf1a04774545da09674639eb00e0264b1d03dac05db16ff2e`.
+- Explorer started the next four unreviewed venues at 17:49:51. Its first batch
+  was still running at the 17:52:18 checkpoint; do not claim it completed yet.
+- 68 Python checks passed locally and on the VPS. Earlier baseline app checks:
+  10 live API checks and six browser checks passed.
+- Both new recipes were independently opened in the live browser, with source
+  attribution, ingredients, steps, honest missing-photo covers and Save/reload
+  persistence checked. No page errors or Google/research provider browser calls.
+- Original source pages were independently checked on 17 October:
+  [The Woks of Life](https://thewoksoflife.com/chinese-chives-eggs/) and
+  [Daily Cooking Quest](https://dailycookingquest.com/sweet-potatoes-in-ginger-pandan-soup.html).
+  These remain disclosed adaptations, not kitchen-tested results.
+- VPS capture of the existing place, recipe and event views passed with three
+  actual screenshots and zero blocked external hosts. New recipe publication and
+  its real screenshot reached the paired Telegram chat.
+- Monthly model ledger advanced from **9 to 15/2,000** at this checkpoint.
+  This counts agent invocations, not individual turns/tokens.
+- Learning now has eight Manager-approved bounded procedures and two pending;
+  statistical quality improvement is still not established.
+
+## Bugs found and fixed on Hermes
+
+1. **Cooker stale recovery consumed the daily slot.** A same-day legacy response
+   rejected by the old timing contract could be reused despite already-known
+   recipe identities or a previous recovery. The worker now skips known IDs/names,
+   checks previous recovery receipts and records successful consumption. A failing
+   regression reproduced all three cases; the fixed suite passes. The single
+   `cookDay` consumed by this test's stale response was cleared under the research
+   lock, with a full checkpoint backup; Event, names, evidence and budgets remained.
+2. **Telegram screenshot waited for removed UI text.** The place capture now
+   waits for the current `Sources & credits` control instead of `Source Updates`.
+   Actual VPS Chromium capture verified place, recipe and event surfaces.
+3. **Manager duplicate-review context was stale.** Research and final publication
+   review now obtain current owned-app recipe identities, including suppression
+   identities, instead of using only the bundled baseline. The fixed deterministic
+   publisher already blocked duplicates; no duplicate publication occurred.
+
+Changes were applied between batches under the research lock, or under the
+reporter lock for its independent selector. Exact source hashes and private
+rollback copies are in the test folder. No app image, PostgreSQL schema,
+authentication profile or regular schedule was changed.
+
+## Follow-up and evidence
+
+The app's existing `src/utils/food-format.ts` rounds a source-backed **1/8 tsp
+(0.125)** to **0.1 tsp**. The stored new recipe retains the exact amount; the
+browser screenshot exposes the presentation issue. This app formatter has not
+been changed or deployed during the bot test. Track it as a remaining UI finding.
+New image generation and full overnight operation have not been validated by
+this image-budget-exhausted daytime run.
+
+Local evidence: `evidence/2026-10-17/one-hour-e2e/` (`in-progress.json`,
+`new-recipes-browser.json`, two new-recipe screenshots and three VPS captures).
+Live folder: `/opt/data/qt-team/operator-tests/e2e-20261017T093920Z/`.
+Inspect `result.json`, `postflight.json`, `progress.json`, the three `*-fix.json`
+receipts and regression logs after 18:39 SGT. Worker research and source receipts
+remain in the existing `/opt/data/qt-team/runs/` and source cache, with historical
+fetch times preserved separately from review dates. Do not repeat extraction.
+
+The immutable Google ledger still hashes to
+`c7321dafaad0473583139494ca899501578892c5b71105429d3cd4dceb4f311a`.
+Earlier 174 venues / 173 covers / 120 hours and unresolved holds remain the
+baseline; a started review is not evidence that a source gap has been resolved.
+
+
+## Owner recipe correction and Telegram controls, 17 October, 6:16 pm SGT
+
+The garlic-chive recipe recorded above as published was subsequently removed,
+along with the older garlic-containing tomato-and-egg recipe, under the owner's
+five-pungent rule. Cooker, Manager, image selection and final publication now
+enforce this rule. Recipe/event screenshots have one-click owner-only Delete
+controls; real Telegram delivery and two authorised production removals were
+verified. 77 checks pass. See the owner-rule deployment report for scope,
+cache timing and receipts. The one-hour acceptance result is still pending.
+
+
+## Current reporting preference and app follow-up
+
+The owner now receives changed-item screenshots live with Delete controls, and
+one text-only completion summary. Periodic status/digest messages and duplicate
+summary screenshots are disabled. The fast listener handled the owner's real
+/status request and delivered its response in 0.71 seconds after processing.
+The owner's real screenshot tap removed the soup, so all three bot recipes are
+now suppressed; the two organisation events remain. App/preview release
+20261017-event-discovery2 makes Local events the default with visible categories.
+81 bot checks, 24 local + 24 live browser checks, TypeScript, lint and both native
+preview transports pass. Seven venue updates remain queued for fresh review
+after the owner's deletion changed their publication baseline. See the separate
+qt-live-controls-events-2026-10-17 report for exact evidence.

@@ -1,0 +1,7 @@
+{
+  "status": "validation-blocked-then-corrected",
+  "initialError": "ur04-bao-su-zhai: Invalid catalogue text",
+  "cause": "Postal code was unknown/empty; public identity schema requires six digits.",
+  "resolution": "Read current Compass One landlord homepage, which confirms1 Sengkang Square545078; retain5 Sengkang Square frozen discrepancy. No validation weakened.",
+  "initialRegisterAfterFailedCompile": "Intermediate register temporarily omitted changed unit03 projections; rebuilt after successful compiler. No preview restart or complete sync claimed from the failed attempt."
+}

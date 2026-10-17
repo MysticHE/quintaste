@@ -1,0 +1,470 @@
+{
+  "checkedAt": "2026-10-17",
+  "deployedRelease": "20261017-merchant-covers19",
+  "goalStatus": "active",
+  "fullCoverageComplete": false,
+  "coverage": {
+    "browseVenues": 174,
+    "menuIds": 175,
+    "covers": 120,
+    "hours": 90,
+    "uniqueAssets": 95,
+    "assetBytes": 12583566,
+    "coverGaps": 54,
+    "hoursGaps": 84,
+    "allThreeAvailable": 76,
+    "catalogueIndexBytes": 176879
+  },
+  "newPhotos": [
+    {
+      "venueId": "living-wholesome-fortune-centre",
+      "address": "190 Middle Road #01-23, Fortune Centre, Singapore 188979",
+      "photo": {
+        "path": "/api/catalogue-photos/d3aa38101e9782f613f1c848a06cc36d68b67a28f2dc3fd118cb5f98b7e47b54.jpg",
+        "width": 960,
+        "height": 703,
+        "author": "Living Wholesome Vegetarian",
+        "sourceUrl": "https://www.foodpanda.sg/restaurant/wd61/living-wholesome-vegetarian-food-fortune-centre",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "d3aa38101e9782f613f1c848a06cc36d68b67a28f2dc3fd118cb5f98b7e47b54",
+      "bytes": 122778,
+      "originalSha256": "6966de82a4d8b66d34631d162bf5155907422d49d13469f257d8c39659a1340e",
+      "sourcePageCheckedAt": "2026-10-15T08:18:44.197Z",
+      "sourceImageUrl": "https://images.deliveryhero.io/image/fd-sg/LH/wd61-listing.jpg",
+      "identityEvidence": "Exact saved merchant vendor code, name, street/unit and postal code match the published catalogue branch. Hero food imagery only; no branch interior or current-stock claim. Vendor wd61: 190 Middle Rd #01-23; registered source https://www.foodpanda.sg/restaurant/wd61/living-wholesome-vegetarian-food-fortune-centre.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance this Living Wholesome merchant food photograph. Reframe around the BOTTOM white rice bowl as the main subject, keeping that exact bowl's existing rice, greens, cut green beans, peanuts, tofu cubes, beans and scattered sesame in their original arrangement and quantities. Keep the marble tabletop. Crop the neighboring bowls at the edges rather than inventing new food. Improve natural light, realistic color and clarity, no extra garnishes, lettering, utensils or claims.",
+        "review": "Original and output visually compared. Existing food, serving vessels and tabletop retained with closer framing and enhanced lighting. No new ingredient or availability claim."
+      }
+    },
+    {
+      "venueId": "teng-bespoke-sunshine-plaza",
+      "address": "91 Bencoolen Street #01-50, Sunshine Plaza, Singapore 189652",
+      "photo": {
+        "path": "/api/catalogue-photos/c6dd02a6e751036cae02dbfb21a76f44ae2dde3458242d90503d5b21304ef014.jpg",
+        "width": 960,
+        "height": 703,
+        "author": "Teng Bespoke",
+        "sourceUrl": "https://www.foodpanda.sg/restaurant/l8ul/teng-bespoke-vegetarian-japanese-dining-sunshine-plaza",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "c6dd02a6e751036cae02dbfb21a76f44ae2dde3458242d90503d5b21304ef014",
+      "bytes": 165099,
+      "originalSha256": "f62a66538a1312e04e9a676756def8e9c1c2a3b686a1f81a1642b9972c6e60d3",
+      "sourcePageCheckedAt": "2026-10-15T08:18:44.197Z",
+      "sourceImageUrl": "https://images.deliveryhero.io/image/fd-sg/LH/l8ul-listing.jpg",
+      "identityEvidence": "Exact saved merchant vendor code, name, street/unit and postal code match the published catalogue branch. Hero food imagery only; no branch interior or current-stock claim. Vendor l8ul: 91 Bencoolen Street, Sunshine Plaza, #01-50; registered source https://www.foodpanda.sg/restaurant/l8ul/teng-bespoke-vegetarian-japanese-dining-sunshine-plaza.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance this Teng Bespoke merchant food photograph, reframing closer to the CENTRAL RED BENTO BOX on the wooden table. Preserve the exact compartment layout, photographed grilled pieces with mushroom sauce, potato wedges and red dipping sauce, small pickled vegetable portion, lower sushi row and cucumber-radish salad. Keep the same food and serving quantities. Crop surrounding plates naturally at the edges; do not invent dishes or ingredients. Improve soft natural lighting and realistic texture, no text or added props.",
+        "review": "Original and output visually compared. Existing food, serving vessels and tabletop retained with closer framing and enhanced lighting. No new ingredient or availability claim."
+      }
+    },
+    {
+      "venueId": "research-dlife-tengah",
+      "address": "126B TENGAH DRIVE #01-319, PLANTATION VILLAGE S(692126)",
+      "photo": {
+        "path": "/api/catalogue-photos/5d2ebe7878ae1b4089d20dad82d21de3a18d5dbdab3f15842eb39b30fbec50f0.jpg",
+        "width": 960,
+        "height": 703,
+        "author": "D'Life",
+        "sourceUrl": "https://www.foodpanda.sg/restaurant/xyhv/dlife-tengah-drive",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "5d2ebe7878ae1b4089d20dad82d21de3a18d5dbdab3f15842eb39b30fbec50f0",
+      "bytes": 160714,
+      "originalSha256": "1a6072e4470de0a2cb0e8e5ae0092152a7386db1dc58dd8ff5274d8a407947a2",
+      "sourcePageCheckedAt": "2026-10-15T10:29:58Z",
+      "sourceImageUrl": "https://images.deliveryhero.io/image/fd-sg/LH/xyhv-listing.jpg",
+      "identityEvidence": "Exact saved merchant vendor code, name, street/unit and postal code match the published catalogue branch. Hero food imagery only; no branch interior or current-stock claim. Vendor xyhv: 126B TENGAH DRIVE #01-319, PLANTATION VILLAGE S(692126); registered source https://www.foodpanda.sg/restaurant/xyhv/dlife-tengah-drive.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance this D'Life merchant food photograph, framing the CENTRAL WHITE PLATE prominently. Keep the exact photographed round stacked vegetarian dish in brown sauce with its original small herb garnish and detached crispy piece, same proportions and arrangement. Retain the original wooden tabletop and naturally cropped surrounding plates. Improve gentle natural light, true colors and clarity only. No invented fillings, extra ingredients, lettering or props.",
+        "review": "Original and output visually compared. Existing food, serving vessels and tabletop retained with closer framing and enhanced lighting. No new ingredient or availability claim."
+      }
+    },
+    {
+      "venueId": "research-sl08-fire-flies",
+      "address": "101 Upper Cross Street B1-06 Stall 10, People's Park Centre, Singapore 058357",
+      "photo": {
+        "path": "/api/catalogue-photos/321ffde72d88a01c5ea184ce2dd77038a5715e23789c6250f97475360d88629b.jpg",
+        "width": 960,
+        "height": 703,
+        "author": "Fire Flies Vegetarian",
+        "sourceUrl": "https://www.foodpanda.sg/restaurant/h97o/fire-flies-vegetarian-upper-cross-street",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "321ffde72d88a01c5ea184ce2dd77038a5715e23789c6250f97475360d88629b",
+      "bytes": 153814,
+      "originalSha256": "5970309ae3b75874f221627dcf9cbc5550b79d4f622697ea59e7a36a40c0cf57",
+      "sourcePageCheckedAt": "2026-10-16T04:01:56.744Z",
+      "sourceImageUrl": "https://images.deliveryhero.io/image/fd-sg/LH/h97o-listing.jpg",
+      "identityEvidence": "Exact saved merchant vendor code, name, street/unit and postal code match the published catalogue branch. Hero food imagery only; no branch interior or current-stock claim. Vendor h97o: 101 Upper Cross St, B1-06 Stall 10 People's Park Centre, Singapore 058357; registered source https://www.foodpanda.sg/restaurant/h97o/fire-flies-vegetarian-upper-cross-street.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance this exact Fire Flies Vegetarian merchant photograph. Reframe around the blue-rimmed rice-and-vegetable bowl in the TOP ROW, SECOND FROM LEFT. Preserve that actual bowl, its blue brush decoration, rice, peanuts, beans and greens exactly as photographed, same quantities and arrangement. The dark slatted table remains; surrounding dishes may be naturally cropped at the edges. Improve soft natural lighting and clarity. No extra garnishes, new ingredients, props, lettering or changes to the bowl's food.",
+        "review": "Original and output visually compared. Existing food, serving vessels and setting retained with enhanced lighting and clarity. No new ingredient or availability claim."
+      }
+    },
+    {
+      "venueId": "research-sl08-ju-fu-yuan-amk",
+      "address": "162 Ang Mo Kio Avenue 4 #01-14, Singapore 560162",
+      "photo": {
+        "path": "/api/catalogue-photos/ba5ec4398d476adfcc7deb724334a85372f44f21ff419fa4bd8820c70e03e13b.jpg",
+        "width": 960,
+        "height": 703,
+        "author": "Ju Fu Yuan Vegetarian Delight",
+        "sourceUrl": "https://www.foodpanda.sg/restaurant/ozx5/ju-fu-yuan-vegetarian-delight-ang-mo-kio-islandwide",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "ba5ec4398d476adfcc7deb724334a85372f44f21ff419fa4bd8820c70e03e13b",
+      "bytes": 204271,
+      "originalSha256": "69b6940c29845e386131316a62ceb2fd18193300e5457917d35166696f10540c",
+      "sourcePageCheckedAt": "2026-10-16T04:01:56.876Z",
+      "sourceImageUrl": "https://images.deliveryhero.io/image/fd-sg/LH/ozx5-listing.jpg",
+      "identityEvidence": "Exact saved merchant vendor code, name, street/unit and postal code match the published catalogue branch. Hero food imagery only; no branch interior or current-stock claim. Vendor ozx5: 162 Ang Mo Kio Avenue 4  #01-14; registered source https://www.foodpanda.sg/restaurant/ozx5/ju-fu-yuan-vegetarian-delight-ang-mo-kio-islandwide.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance this exact Ju Fu Yuan Ang Mo Kio vegetarian stall display photograph. Preserve the stainless-steel food trays, their existing arrangement and all photographed food as is: front curry trays, broccoli at center, cabbage left and green beans right. Improve exposure, white balance, clarity and natural appetizing texture while keeping the real stall counter setting. No invented dishes, garnish, signage, people, utensils or new tray contents. Do not depict present availability or add text.",
+        "review": "Original and output visually compared. Existing food, serving vessels and setting retained with enhanced lighting and clarity. No new ingredient or availability claim."
+      }
+    },
+    {
+      "venueId": "research-sl08-xi-shi-fu",
+      "address": "115 Bukit Merah View #01-25, Singapore 151115",
+      "photo": {
+        "path": "/api/catalogue-photos/e3c5f7f497633980ce3d9a5a03b88d210784cd3645e5ea5b3842f90ebaaa18f2.jpg",
+        "width": 960,
+        "height": 703,
+        "author": "Xi Shi Fu Vegetarian",
+        "sourceUrl": "https://www.foodpanda.sg/restaurant/b8pv/xi-shi-fu-vegetarian-xi-shi-fu-su-shi-ge-bukit-merah",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "e3c5f7f497633980ce3d9a5a03b88d210784cd3645e5ea5b3842f90ebaaa18f2",
+      "bytes": 161723,
+      "originalSha256": "04691f0110cd4fdc9106c750b163102ce02fcd4dba832be6abbac40a3a18ca9e",
+      "sourcePageCheckedAt": "2026-10-16T04:04:29.833Z",
+      "sourceImageUrl": "https://images.deliveryhero.io/image/fd-sg/LH/b8pv-listing.jpg",
+      "identityEvidence": "Exact saved merchant vendor code, name, street/unit and postal code match the published catalogue branch. Hero food imagery only; no branch interior or current-stock claim. Vendor b8pv: 115 BUKIT MERAH VIEW, #01-25 CENTRAL, SINGAPORE 151115; registered source https://www.foodpanda.sg/restaurant/b8pv/xi-shi-fu-vegetarian-xi-shi-fu-su-shi-ge-bukit-merah.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance this Xi Shi Fu vegetarian merchant photograph, framing the CENTRAL YELLOW RICE PLATE as the main subject. Preserve the yellow plate with the same yellow rice, small bowl of reddish curry, cucumber slices, cooked cabbage and single visible cashew in their original arrangement and quantities. Keep the gray tabletop, crop neighboring plates naturally at the edges. Improve soft natural light, realistic color and texture, without adding ingredients, claims, props or text.",
+        "review": "Original and output visually compared: same photographed meal, plate and visible ingredients retained. Framing/light/clarity enhanced; no added ingredient or availability claim."
+      }
+    },
+    {
+      "venueId": "research-ur01-kale-adelphi",
+      "address": "1 Coleman Street #02-20 The Adelphi, Singapore 179803",
+      "photo": {
+        "path": "/api/catalogue-photos/08bb50680fa6ba8722f0cce67ff00ae0b0c403c2cb15aaae1d305fc8133940fe.jpg",
+        "width": 960,
+        "height": 703,
+        "author": "Kale by Kang Su",
+        "sourceUrl": "https://www.foodpanda.sg/restaurant/vqzj/kale-by-kangsu-the-adelphi",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "08bb50680fa6ba8722f0cce67ff00ae0b0c403c2cb15aaae1d305fc8133940fe",
+      "bytes": 100172,
+      "originalSha256": "7e1b392aaffd4433ce5307aafeaa3e6cf63559215b532818ab32deff7fd8440f",
+      "sourcePageCheckedAt": "2026-10-16T01:00:44.681Z",
+      "sourceImageUrl": "https://images.deliveryhero.io/image/fd-sg/LH/vqzj-listing.jpg",
+      "identityEvidence": "Exact saved merchant vendor code, name, street/unit and postal code match the published catalogue branch. Hero food imagery only; no branch interior or current-stock claim. Vendor vqzj: 1 Coleman St, #02-20 The Adelphi, Singapore 179803; registered source https://www.foodpanda.sg/restaurant/vqzj/kale-by-kangsu-the-adelphi.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance this Kale by Kang Su merchant photograph, preserving the exact photographed food, serving vessels and arrangement. Improve natural soft lighting, clarity, balanced realistic color and texture. Keep the original tabletop and setting, no invented ingredients, props, extra garnishes or text. Keep the main photographed meal prominent with natural framing.",
+        "review": "Original and output visually compared: same photographed meal, plate and visible ingredients retained. Framing/light/clarity enhanced; no added ingredient or availability claim."
+      }
+    },
+    {
+      "venueId": "research-ur01-new-green-pasture-fortune",
+      "address": "190 Middle Road #04-22 Fortune Centre, Singapore 188979",
+      "photo": {
+        "path": "/api/catalogue-photos/0c01c7a99d415239cab6cb35746536ea005790694c976f6439289e28eab72b62.jpg",
+        "width": 960,
+        "height": 703,
+        "author": "New Green Pasture Cafe",
+        "sourceUrl": "https://www.foodpanda.sg/restaurant/f1n1/new-green-pasture-cafe-fortune-centre",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "0c01c7a99d415239cab6cb35746536ea005790694c976f6439289e28eab72b62",
+      "bytes": 121491,
+      "originalSha256": "1c4e47a5b05d690d1749040180533d3ec8c6c36b4ff20a24258fa7d0c517643d",
+      "sourcePageCheckedAt": "2026-10-16T01:00:44.681Z",
+      "sourceImageUrl": "https://images.deliveryhero.io/image/fd-sg/LH/f1n1-listing.jpg",
+      "identityEvidence": "Exact saved merchant vendor code, name, street/unit and postal code match the published catalogue branch. Hero food imagery only; no branch interior or current-stock claim. Vendor f1n1: 190 Middle Road, Fortune Centre #04-22, Singapore 188979; registered source https://www.foodpanda.sg/restaurant/f1n1/new-green-pasture-cafe-fortune-centre.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance this New Green Pasture Cafe merchant food photograph. Preserve the exact original photographed food, serving vessels, arrangement and quantities. Improve gentle natural lighting and realistic clarity and color. Reframe around the main meal without changing its ingredients or adding garnish, props, lettering or claims. Keep its original setting.",
+        "review": "Original and output visually compared: same photographed meal, vessels, sides and visible ingredients retained. Natural light/clarity enhanced. No new ingredient or availability claim."
+      }
+    },
+    {
+      "venueId": "research-ur01-tracy-fortune",
+      "address": "190 Middle Road #01-34 Fortune Centre, Singapore 188979",
+      "photo": {
+        "path": "/api/catalogue-photos/abf4a9d526b1db386fb4255e706758e68a0e39617f915cec9fdb72d3e131082e.jpg",
+        "width": 960,
+        "height": 703,
+        "author": "Tracy Juice Culture",
+        "sourceUrl": "https://www.foodpanda.sg/restaurant/on93/tracy-juice-culture-fortune-centre",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "abf4a9d526b1db386fb4255e706758e68a0e39617f915cec9fdb72d3e131082e",
+      "bytes": 135103,
+      "originalSha256": "e72db6a8be93a4d7f656c2c067b26d39d1d0b169470fb1976e682dd70c85c5e2",
+      "sourcePageCheckedAt": "2026-10-16T01:00:44.681Z",
+      "sourceImageUrl": "https://images.deliveryhero.io/image/fd-sg/LH/on93-listing.jpg",
+      "identityEvidence": "Exact saved merchant vendor code, name, street/unit and postal code match the published catalogue branch. Hero food imagery only; no branch interior or current-stock claim. Vendor on93: 190 middle road, fortune centre, #01-34; registered source https://www.foodpanda.sg/restaurant/on93/tracy-juice-culture-fortune-centre.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance this Tracy Juice Culture merchant photograph. Preserve the exact original photographed food and drinks, vessels and arrangement. Improve natural lighting, balanced true colors and clarity without inventing any ingredients, additional props, garnish, text or claims. Keep the original setting and make the photographed meal prominent.",
+        "review": "Original and output visually compared: same photographed meal, vessels, sides and visible ingredients retained. Natural light/clarity enhanced. No new ingredient or availability claim."
+      }
+    }
+  ],
+  "newHours": [],
+  "googleLedger": {
+    "bytes": 1045377,
+    "sha256": "c7321dafaad0473583139494ca899501578892c5b71105429d3cd4dceb4f311a",
+    "requests": 2419,
+    "limit": 2500,
+    "remaining": 81
+  },
+  "sourceRights": "Source attribution and rights retained. User-requested enhancement does not establish an independent licence.",
+  "unresolved": "2,527 food holds,109zero-food research branches,1,828unnamed candidate IDs,8coordinate holds preserved; exact MakanVegan/SoonLai screenshot images unrecovered.",
+  "releaseEvidence": ".local/coverage-2026-10-17p/release.json",
+  "hoursReview": {
+    "checkedAt": "2026-10-17",
+    "acceptedVenueIds": [],
+    "finding": "Merchant delivery schedules are not general dine-in opening hours; all existing verified schedules and source holds retained.",
+    "photoIdentityEvidence": [
+      {
+        "code": "wd61",
+        "name": "Living Wholesome Vegetarian Food (Fortune Centre)",
+        "url_key": "living-wholesome-vegetarian-food-fortune-centre",
+        "address": "190 Middle Rd #01-23",
+        "post_code": "188979",
+        "hero_image": "https://images.deliveryhero.io/image/fd-sg/LH/wd61-listing.jpg",
+        "logo": "https://images.deliveryhero.io/image/fd-sg/LH/wd61-hero.jpg",
+        "savedState": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-bugis\\living-foodpanda.html",
+        "stateSha256": "1458598fe89bae303d6c6ab092e37265277ffe503ddb98074f4eee3cd80a9419",
+        "sourcePageUrl": "https://www.foodpanda.sg/restaurant/wd61/living-wholesome-vegetarian-food-fortune-centre",
+        "reference": "fp-wd61",
+        "venueId": "living-wholesome-fortune-centre",
+        "sourcePageCheckedAt": "2026-10-15T08:18:44.197Z",
+        "registeredSourceRefs": [
+          "36a4dce0cda7b3069120f4a4"
+        ],
+        "identityEvidence": "Exact saved merchant vendor code, name, street/unit and postal code match the published catalogue branch. Hero food imagery only; no branch interior or current-stock claim."
+      },
+      {
+        "code": "l8ul",
+        "name": "Teng Bespoke Vegetarian Japanese Dining (Sunshine Plaza)",
+        "url_key": "teng-bespoke-vegetarian-japanese-dining-sunshine-plaza",
+        "address": "91 Bencoolen Street, Sunshine Plaza, #01-50",
+        "post_code": "189652",
+        "hero_image": "https://images.deliveryhero.io/image/fd-sg/LH/l8ul-listing.jpg",
+        "logo": "https://images.deliveryhero.io/image/fd-sg/LH/l8ul-hero.jpg",
+        "savedState": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-bugis\\teng.html",
+        "stateSha256": "826a7d504daa23cfd6a872d5cbfc427f54f72a10d1b71123cf2562f01e807f20",
+        "sourcePageUrl": "https://www.foodpanda.sg/restaurant/l8ul/teng-bespoke-vegetarian-japanese-dining-sunshine-plaza",
+        "reference": "fp-l8ul",
+        "venueId": "teng-bespoke-sunshine-plaza",
+        "sourcePageCheckedAt": "2026-10-15T08:18:44.197Z",
+        "registeredSourceRefs": [
+          "f126fa6e9a106bc279dce805"
+        ],
+        "identityEvidence": "Exact saved merchant vendor code, name, street/unit and postal code match the published catalogue branch. Hero food imagery only; no branch interior or current-stock claim."
+      },
+      {
+        "code": "xyhv",
+        "name": "D'Life (Tengah Drive)",
+        "url_key": "dlife-tengah-drive",
+        "address": "126B TENGAH DRIVE #01-319, PLANTATION VILLAGE S(692126)",
+        "post_code": "692126",
+        "hero_image": "https://images.deliveryhero.io/image/fd-sg/LH/xyhv-listing.jpg",
+        "logo": "https://images.deliveryhero.io/image/fd-sg/LH/xyhv-hero.jpg",
+        "savedState": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-chain-expansion\\dlife-tengah-node.html",
+        "stateSha256": "a9033b8b96dd55832a34423bc91eeb73e11b4c7ed6ed34419a3a5e931ccbc31e",
+        "sourcePageUrl": "https://www.foodpanda.sg/restaurant/xyhv/dlife-tengah-drive",
+        "reference": "fp-xyhv",
+        "venueId": "research-dlife-tengah",
+        "sourcePageCheckedAt": "2026-10-15T10:29:58Z",
+        "registeredSourceRefs": [
+          "2d4fb679cb27996a469f2de9"
+        ],
+        "identityEvidence": "Exact saved merchant vendor code, name, street/unit and postal code match the published catalogue branch. Hero food imagery only; no branch interior or current-stock claim."
+      },
+      {
+        "code": "h97o",
+        "name": "Fire Flies Vegetarian (Upper Cross Street)",
+        "url_key": "fire-flies-vegetarian-upper-cross-street",
+        "address": "101 Upper Cross St, B1-06 Stall 10 People's Park Centre, Singapore 058357",
+        "post_code": "058357",
+        "hero_image": "https://images.deliveryhero.io/image/fd-sg/LH/h97o-listing.jpg",
+        "logo": "https://images.deliveryhero.io/image/fd-sg/LH/h97o-hero.jpg",
+        "savedState": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-identity-08\\fire-flies.html",
+        "stateSha256": "d901ef242dcf31072e8b15452f8d0a6fda6481ac0d845b45feed36c58849d694",
+        "sourcePageUrl": "https://www.foodpanda.sg/restaurant/h97o/fire-flies-vegetarian-upper-cross-street",
+        "reference": "fp-h97o",
+        "venueId": "research-sl08-fire-flies",
+        "sourcePageCheckedAt": "2026-10-16T04:01:56.744Z",
+        "registeredSourceRefs": [
+          "64074bb4fe3356fa5ed9de4d"
+        ],
+        "identityEvidence": "Exact saved merchant vendor code, name, street/unit and postal code match the published catalogue branch. Hero food imagery only; no branch interior or current-stock claim."
+      },
+      {
+        "code": "ozx5",
+        "name": "Ju Fu Yuan Vegetarian Delight (Ang Mo Kio) - Islandwide",
+        "url_key": "ju-fu-yuan-vegetarian-delight-ang-mo-kio-islandwide",
+        "address": "162 Ang Mo Kio Avenue 4  #01-14",
+        "post_code": "560162",
+        "hero_image": "https://images.deliveryhero.io/image/fd-sg/LH/ozx5-listing.jpg",
+        "logo": "https://images.deliveryhero.io/image/fd-sg/LH/ozx5-hero.jpg",
+        "savedState": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-identity-08\\ju-fu-yuan-amk.html",
+        "stateSha256": "44784237f930c69d6e89b08326a18a6fe711d282cda4d1076dacc123e4d357f3",
+        "sourcePageUrl": "https://www.foodpanda.sg/restaurant/ozx5/ju-fu-yuan-vegetarian-delight-ang-mo-kio-islandwide",
+        "reference": "fp-ozx5",
+        "venueId": "research-sl08-ju-fu-yuan-amk",
+        "sourcePageCheckedAt": "2026-10-16T04:01:56.876Z",
+        "registeredSourceRefs": [
+          "088b216029f14ebb0259900f"
+        ],
+        "identityEvidence": "Exact saved merchant vendor code, name, street/unit and postal code match the published catalogue branch. Hero food imagery only; no branch interior or current-stock claim."
+      },
+      {
+        "code": "b8pv",
+        "name": "Xi Shi Fu Vegetarian 惜施福素食阁 (Bukit Merah)",
+        "url_key": "xi-shi-fu-vegetarian-xi-shi-fu-su-shi-ge-bukit-merah",
+        "address": "115 BUKIT MERAH VIEW, #01-25 CENTRAL, SINGAPORE 151115",
+        "post_code": "151115",
+        "hero_image": "https://images.deliveryhero.io/image/fd-sg/LH/b8pv-listing.jpg",
+        "logo": "https://images.deliveryhero.io/image/fd-sg/LH/b8pv-hero.jpg",
+        "savedState": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-identity-08\\xi-shi-fu.html",
+        "stateSha256": "22fbde74c1fcd5b4bcba19cc068439906be7eaaa56f096a4a26dfff234931530",
+        "sourcePageUrl": "https://www.foodpanda.sg/restaurant/b8pv/xi-shi-fu-vegetarian-xi-shi-fu-su-shi-ge-bukit-merah",
+        "reference": "fp-b8pv",
+        "venueId": "research-sl08-xi-shi-fu",
+        "sourcePageCheckedAt": "2026-10-16T04:04:29.833Z",
+        "registeredSourceRefs": [
+          "c8336552d06d38f887e35dbf"
+        ],
+        "identityEvidence": "Exact saved merchant vendor code, name, street/unit and postal code match the published catalogue branch. Hero food imagery only; no branch interior or current-stock claim."
+      },
+      {
+        "code": "vqzj",
+        "name": "Kale by KangSu (The Adelphi)",
+        "url_key": "kale-by-kangsu-the-adelphi",
+        "address": "1 Coleman St, #02-20 The Adelphi, Singapore 179803",
+        "post_code": "179803",
+        "hero_image": "https://images.deliveryhero.io/image/fd-sg/LH/vqzj-listing.jpg",
+        "logo": "https://images.deliveryhero.io/image/fd-sg/LH/vqzj-hero.jpg",
+        "savedState": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresearched-01\\kale-foodpanda.html",
+        "stateSha256": "e42e2b69c4f8f658da4a7422d8795eb408a015d7db2d63d3e46dba590f777dc3",
+        "sourcePageUrl": "https://www.foodpanda.sg/restaurant/vqzj/kale-by-kangsu-the-adelphi",
+        "reference": "fp-vqzj",
+        "venueId": "research-ur01-kale-adelphi",
+        "sourcePageCheckedAt": "2026-10-16T01:00:44.681Z",
+        "registeredSourceRefs": [
+          "f27e702aee4ebac8d3807466"
+        ],
+        "identityEvidence": "Exact saved merchant vendor code, name, street/unit and postal code match the published catalogue branch. Hero food imagery only; no branch interior or current-stock claim."
+      },
+      {
+        "code": "f1n1",
+        "name": "New Green Pasture Cafe (Fortune Centre)",
+        "url_key": "new-green-pasture-cafe-fortune-centre",
+        "address": "190 Middle Road, Fortune Centre #04-22, Singapore 188979",
+        "post_code": "188979",
+        "hero_image": "https://images.deliveryhero.io/image/fd-sg/LH/f1n1-listing.jpg",
+        "logo": "https://images.deliveryhero.io/image/fd-sg/LH/f1n1-hero.jpg",
+        "savedState": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresearched-01\\new-green-foodpanda.html",
+        "stateSha256": "d39d76f0ac22d938697b200dc602a54144e25b76af4c849d698a5d84ef605c4e",
+        "sourcePageUrl": "https://www.foodpanda.sg/restaurant/f1n1/new-green-pasture-cafe-fortune-centre",
+        "reference": "fp-f1n1",
+        "venueId": "research-ur01-new-green-pasture-fortune",
+        "sourcePageCheckedAt": "2026-10-16T01:00:44.681Z",
+        "registeredSourceRefs": [
+          "7d0cf0f264fd81a7f569a643"
+        ],
+        "identityEvidence": "Exact saved merchant vendor code, name, street/unit and postal code match the published catalogue branch. Hero food imagery only; no branch interior or current-stock claim."
+      },
+      {
+        "code": "on93",
+        "name": "Tracy Juice Culture (Fortune Centre)",
+        "url_key": "tracy-juice-culture-fortune-centre",
+        "address": "190 middle road, fortune centre, #01-34",
+        "post_code": "188979",
+        "hero_image": "https://images.deliveryhero.io/image/fd-sg/LH/on93-listing.jpg",
+        "logo": "https://images.deliveryhero.io/image/fd-sg/LH/on93-hero.jpg",
+        "savedState": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresearched-01\\tracy-foodpanda.html",
+        "stateSha256": "481cbd6c85247cf1267bb4976ff56b392ba702dd5b47567cca33e12554cfb4f3",
+        "sourcePageUrl": "https://www.foodpanda.sg/restaurant/on93/tracy-juice-culture-fortune-centre",
+        "reference": "fp-on93",
+        "venueId": "research-ur01-tracy-fortune",
+        "sourcePageCheckedAt": "2026-10-16T01:00:44.681Z",
+        "registeredSourceRefs": [
+          "26090c12ae841b58c574865a"
+        ],
+        "identityEvidence": "Exact saved merchant vendor code, name, street/unit and postal code match the published catalogue branch. Hero food imagery only; no branch interior or current-stock claim."
+      }
+    ]
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "version": 1,
+  "checkedAt": "2026-10-15T10:29:58Z",
+  "status": "source-pass-complete",
+  "shards": [
+    "greendot/menus.json",
+    "shu/menus.json",
+    "dlife/menus.json"
+  ],
+  "totals": {
+    "greendot": {
+      "sources": 37,
+      "branches": 16,
+      "menus": 32,
+      "foodRecords": 910,
+      "coverage": {
+        "source-covered": 28,
+        "partial": 1,
+        "unavailable": 3
+      }
+    },
+    "shu": {
+      "sources": 16,
+      "branches": 16,
+      "menus": 17,
+      "foodRecords": 621,
+      "coverage": {
+        "partial": 9,
+        "source-covered": 1,
+        "unavailable": 7
+      }
+    },
+    "dlife": {
+      "sources": 11,
+      "branches": 7,
+      "menus": 7,
+      "foodRecords": 923,
+      "coverage": {
+        "source-covered": 4,
+        "partial": 3
+      }
+    }
+  },
+  "sources": [],
+  "branches": [],
+  "menus": [],
+  "notice": "Research candidates only. The accessible source pass is complete, with explicit partial/unavailable records. Source-covered does not certify current in-store completeness, ingredients or Google ID matching."
+}

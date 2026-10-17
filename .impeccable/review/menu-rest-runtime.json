@@ -1,0 +1,23 @@
+{
+  "checkedAt": "2026-10-16T04:18:43.021714+00:00",
+  "currentPreview": {
+    "port": 8083,
+    "session": 67897,
+    "nodePid": 3952
+  },
+  "workingSetObservationsBytes": [
+    729481216,
+    623955968,
+    685309952
+  ],
+  "privateMemoryObservationsBytes": [
+    850280448,
+    744624128,
+    806952960
+  ],
+  "workload": "Fresh preview index and three focused browser routes plus two affected-case reruns; no broad HTTP sweep. Samples were after initial browser activity and after rerun, not a controlled baseline.",
+  "status": "Scoped preview healthy; previous development-host OOM remains unresolved.",
+  "priorFailureEvidence": "menu-resume-runtime.json",
+  "interpretation": "Working set/private committed bytes are not JS heap or proof of leak/no leak. No production-host requirement inferred.",
+  "remaining": "Controlled development heap/retention profiling, full HTTP transport load acceptance, production-host and physical-device performance."
+}

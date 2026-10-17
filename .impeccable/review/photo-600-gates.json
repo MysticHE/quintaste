@@ -1,0 +1,107 @@
+{
+  "status": "verified-local-web-and-server",
+  "checkedAt": "2026-10-15T02:33:31.118Z",
+  "source": {
+    "status": "pass",
+    "checks": 22,
+    "actualGoogleRequests": 0,
+    "proof": "photo-600-source-validation.json"
+  },
+  "live": {
+    "status": "pass",
+    "checks": 3,
+    "quota": [
+      {
+        "stage": "before",
+        "count": 523
+      },
+      {
+        "stage": "afterFirstThree",
+        "count": 524
+      },
+      {
+        "stage": "afterFreshMetadataAndPhotos",
+        "count": 524
+      },
+      {
+        "stage": "afterBrowserAndReload",
+        "count": 524
+      }
+    ],
+    "savedPhotos": 23,
+    "proof": "photo-600-fresh-snapshot-validation.json"
+  },
+  "ui": {
+    "status": "pass",
+    "checks": 20,
+    "screenshots": 15,
+    "pageErrors": 0,
+    "widths": [
+      320,
+      375,
+      768,
+      1440
+    ],
+    "themes": [
+      "light",
+      "dark"
+    ],
+    "cardAxe": {
+      "violations": [],
+      "incomplete": [
+        "color-contrast",
+        "label-content-name-mismatch"
+      ]
+    },
+    "galleryAxe": {
+      "violations": [],
+      "incomplete": [
+        "color-contrast"
+      ]
+    },
+    "proof": "clean-detail-validation.json"
+  },
+  "typeScript": {
+    "command": "npx tsc --noEmit",
+    "exitCode": 0
+  },
+  "lint": {
+    "command": "npx eslint src",
+    "exitCode": 0
+  },
+  "codeReview": {
+    "status": "approved",
+    "materialOpenFindings": 0,
+    "resolved": [
+      "Actual orphan temporary filename matcher",
+      "Independent card and Google Maps accessibility targets",
+      "Only active gallery slide exposed to accessibility"
+    ]
+  },
+  "native": {
+    "manifestStatus": 200,
+    "bundleStatus": 200,
+    "bytes": 8832488,
+    "gallery": true,
+    "feedback": true,
+    "divider": true,
+    "serverSnapshotCode": false,
+    "privateGoogleKey": false,
+    "nativeDeviceAppearanceVerified": false,
+    "proof": "clean-detail-native-transport.json"
+  },
+  "development": {
+    "photoLimit": 600,
+    "enabled": true,
+    "currentUsage": 524,
+    "savedPhotos": 23,
+    "productionDisabled": true,
+    "ledgerReset": false
+  },
+  "limits": [
+    "Google Places photo caching restrictions still apply; the user requested development-local storage and no development licensing exemption is claimed.",
+    "Native device appearance, physical swipe gestures and screen-reader operation are not verified.",
+    "Targeted axe scans have color-contrast/label-name incompletes; full-app WCAG AA is not claimed.",
+    "No production deployment or bulk photo download."
+  ]
+}

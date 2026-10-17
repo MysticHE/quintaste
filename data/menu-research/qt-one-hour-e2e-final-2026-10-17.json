@@ -1,0 +1,232 @@
+{
+  "result": {
+    "id": "e2e-20261017T093920Z",
+    "startedAt": "2026-10-17T09:39:20.926668+00:00",
+    "completedAt": "2026-10-17T10:39:15.916475+00:00",
+    "rounds": [
+      {
+        "endedAt": "2026-10-17T09:45:20.910006+00:00",
+        "exitCode": 0,
+        "timedOut": false,
+        "runId": "20261017T093921Z"
+      },
+      {
+        "endedAt": "2026-10-17T09:49:21.919376+00:00",
+        "exitCode": 0,
+        "timedOut": false,
+        "runId": "20261017T094550Z"
+      },
+      {
+        "endedAt": "2026-10-17T09:56:02.763365+00:00",
+        "exitCode": 0,
+        "timedOut": false,
+        "runId": "20261017T094951Z"
+      },
+      {
+        "endedAt": "2026-10-17T10:02:02.028683+00:00",
+        "exitCode": 1,
+        "timedOut": false,
+        "runId": "20261017T095632Z"
+      },
+      {
+        "endedAt": "2026-10-17T10:11:25.440654+00:00",
+        "exitCode": 1,
+        "timedOut": false,
+        "runId": "20261017T100232Z"
+      },
+      {
+        "endedAt": "2026-10-17T10:19:38.011213+00:00",
+        "exitCode": 1,
+        "timedOut": false,
+        "runId": "20261017T101155Z"
+      },
+      {
+        "endedAt": "2026-10-17T10:28:15.492216+00:00",
+        "exitCode": 1,
+        "timedOut": false,
+        "runId": "20261017T102008Z"
+      },
+      {
+        "endedAt": "2026-10-17T10:28:45.708077+00:00",
+        "exitCode": 0,
+        "timedOut": false,
+        "runId": "20261017T102845Z"
+      },
+      {
+        "endedAt": "2026-10-17T10:29:15.925772+00:00",
+        "exitCode": 0,
+        "timedOut": false,
+        "runId": "20261017T102915Z"
+      },
+      {
+        "endedAt": "2026-10-17T10:29:46.142509+00:00",
+        "exitCode": 0,
+        "timedOut": false,
+        "runId": "20261017T102945Z"
+      },
+      {
+        "endedAt": "2026-10-17T10:30:16.359105+00:00",
+        "exitCode": 0,
+        "timedOut": false,
+        "runId": "20261017T103016Z"
+      },
+      {
+        "endedAt": "2026-10-17T10:30:46.575330+00:00",
+        "exitCode": 0,
+        "timedOut": false,
+        "runId": "20261017T103046Z"
+      },
+      {
+        "endedAt": "2026-10-17T10:31:16.793425+00:00",
+        "exitCode": 0,
+        "timedOut": false,
+        "runId": "20261017T103116Z"
+      },
+      {
+        "endedAt": "2026-10-17T10:31:47.009381+00:00",
+        "exitCode": 0,
+        "timedOut": false,
+        "runId": "20261017T103146Z"
+      },
+      {
+        "endedAt": "2026-10-17T10:32:17.276249+00:00",
+        "exitCode": 0,
+        "timedOut": false,
+        "runId": "20261017T103217Z"
+      },
+      {
+        "endedAt": "2026-10-17T10:32:47.545136+00:00",
+        "exitCode": 0,
+        "timedOut": false,
+        "runId": "20261017T103247Z"
+      },
+      {
+        "endedAt": "2026-10-17T10:33:17.761855+00:00",
+        "exitCode": 0,
+        "timedOut": false,
+        "runId": "20261017T103317Z"
+      },
+      {
+        "endedAt": "2026-10-17T10:33:47.982388+00:00",
+        "exitCode": 0,
+        "timedOut": false,
+        "runId": "20261017T103347Z"
+      },
+      {
+        "endedAt": "2026-10-17T10:34:18.199033+00:00",
+        "exitCode": 0,
+        "timedOut": false,
+        "runId": "20261017T103418Z"
+      },
+      {
+        "endedAt": "2026-10-17T10:34:48.415999+00:00",
+        "exitCode": 0,
+        "timedOut": false,
+        "runId": "20261017T103448Z"
+      }
+    ],
+    "agentRunsUsed": 17,
+    "workerRolesCompleted": [
+      "qt-cooker",
+      "qt-event",
+      "qt-explorer"
+    ],
+    "recordsChecked": 33,
+    "recordsPublished": 2,
+    "exploreBefore": 2,
+    "exploreAfter": 22,
+    "errors": [
+      {
+        "role": "publisher",
+        "error": "HTTP Error 422: Unprocessable Entity",
+        "at": "2026-10-17T10:02:01.938819+00:00"
+      },
+      {
+        "role": "publisher",
+        "error": "HTTP Error 422: Unprocessable Entity",
+        "at": "2026-10-17T10:11:25.400206+00:00"
+      },
+      {
+        "role": "publisher",
+        "error": "HTTP Error 409: Conflict",
+        "at": "2026-10-17T10:19:37.962695+00:00"
+      },
+      {
+        "role": "publisher",
+        "error": "HTTP Error 409: Conflict",
+        "at": "2026-10-17T10:28:15.436646+00:00"
+      }
+    ],
+    "protectedUnchanged": false,
+    "health": {
+      "url": "https://quintaste.srv1902914.hstgr.cloud/healthz",
+      "status": 200,
+      "checkedAt": "2026-10-17T10:39:15.908250+00:00"
+    },
+    "revision": "f54d64f7bdd42d6361bb06e7182af4aba6ffabbdaf050cbe1fd7b3395be076b8",
+    "status": "needs-review"
+  },
+  "postflight": {
+    "checkedAt": "2026-10-17T10:39:21.680782+00:00",
+    "status": "passed",
+    "checks": [
+      "All four roles completed real provider runs",
+      "Shared AI budget retained; no reported Google calls",
+      "Only documented fixes changed workflow code; schedule and policy retained",
+      "Exhausted image allowance respected",
+      "All live bot-added recipes satisfy the owner five-pungent rule",
+      "Signed live state and public publication revision agree",
+      "Published recipe details and event lists match signed data; pages bounded and unique",
+      "Conditional recipe revalidation returns 304",
+      "All 174 catalogue identities remain reachable through bounded unique pages",
+      "App healthy and control state remains private"
+    ],
+    "metrics": {
+      "recipePage": {
+        "bytes": 118,
+        "milliseconds": 15.97
+      },
+      "catalogueFirstPage": {
+        "bytes": 24041,
+        "milliseconds": 71.18
+      },
+      "recipes": 0,
+      "events": 2,
+      "covers": 173,
+      "hours": 120,
+      "freeDiskBytes": 16206090240,
+      "ownerRemovals": 3,
+      "venueUpdatesAwaitingReview": 7
+    },
+    "freshRoles": [
+      "qt-cooker",
+      "qt-event",
+      "qt-explorer",
+      "qt-manager"
+    ],
+    "freshInvocationReceipts": 17,
+    "recoveredReceipts": 1,
+    "encounteredWorkflowErrors": [
+      {
+        "role": "publisher",
+        "error": "HTTP Error 422: Unprocessable Entity",
+        "at": "2026-10-17T10:02:01.938819+00:00"
+      },
+      {
+        "role": "publisher",
+        "error": "HTTP Error 422: Unprocessable Entity",
+        "at": "2026-10-17T10:11:25.400206+00:00"
+      },
+      {
+        "role": "publisher",
+        "error": "HTTP Error 409: Conflict",
+        "at": "2026-10-17T10:19:37.962695+00:00"
+      },
+      {
+        "role": "publisher",
+        "error": "HTTP Error 409: Conflict",
+        "at": "2026-10-17T10:28:15.436646+00:00"
+      }
+    ]
+  }
+}

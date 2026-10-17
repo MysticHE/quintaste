@@ -1,0 +1,11 @@
+{
+  "checks": 13,
+  "regularNearbyUnchanged": true,
+  "alliumUsesGoogleText": true,
+  "coordinateTextHasNoExplicitLocation": true,
+  "veganAndRadiusPreserved": true,
+  "areaAndBoundsRestricted": true,
+  "optionalBooleanValidated": true,
+  "contextSeparatesAllium": true,
+  "noPrivateAddressSent": true
+}

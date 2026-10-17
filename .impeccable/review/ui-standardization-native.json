@@ -1,0 +1,13 @@
+{
+  "manifestStatus": 200,
+  "bundleStatus": 200,
+  "bytes": 9922424,
+  "platform": "android",
+  "markers": {
+    "autosave": true,
+    "newReport": true,
+    "privatePlace": true
+  },
+  "nativeDeviceConnected": false,
+  "limitation": "Bundle transport only; native appearance and interaction remain unverified."
+}

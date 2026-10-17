@@ -1,0 +1,1588 @@
+{
+  "version": 1,
+  "checkedAt": "2026-10-16T00:40:17Z",
+  "scope": "Vegetarian/vegan venues only; mixed restaurants excluded entirely.",
+  "notice": "Source-specific menu facts and dated photographic observations. No Google identities assigned. Historical, conflicting or currentness-unconfirmed source rows retain explicit holds; no artwork or marketing prose copied.",
+  "sources": [
+    {
+      "id": "icf2-egg-direct",
+      "url": "https://www.foodpanda.sg/zh/restaurant/io9s/egg-plant-marina-bay-link-mall-io9s",
+      "title": "egg.plant direct readable delivery snapshot",
+      "publisher": "foodpanda / egg.plant merchant channel",
+      "kind": "delivery-menu",
+      "checkedAt": "2026-10-16T00:40:17Z",
+      "publishedAt": null,
+      "status": "readable",
+      "notes": "Latest direct source has 5 Signature Bowls+1 Build Your Own food,6 Popular repeats and 3 beverages excluded. Explicit heading says Vegetarian Bowls with Zhi Char Flavours. From prices and 15% discounts/list prices separate. Exact#B2-33 address. Full option detail inaccessible."
+    },
+    {
+      "id": "icf2-egg-index",
+      "url": "https://www.foodpanda.sg/zh/restaurant/io9s/egg-plant-marina-bay-link-mall-io9s",
+      "title": "egg.plant older indexed delivery assortment",
+      "publisher": "foodpanda / egg.plant merchant channel",
+      "kind": "indexed-delivery-menu",
+      "checkedAt": "2026-10-16T00:40:17Z",
+      "publishedAt": null,
+      "status": "indexed-snapshot-differs-from-direct",
+      "notes": "Separately observed indexed snapshot:3 Side Dishes+5 Zhi Char Bowls,3 Popular repeats and 3 beverages excluded. Assortment/prices differ from direct 6-bowl snapshot; all 8 held pending source-currentness reconciliation."
+    },
+    {
+      "id": "icf2-egg-blog",
+      "url": "https://jiaksimipng.wordpress.com/2025/10/18/egg-plant-marina-bay-link-mall/",
+      "title": "egg.plant on-site visit 18October2025",
+      "publisher": "jiaksimipng",
+      "kind": "on-site-report",
+      "checkedAt": "2026-10-16T00:40:17Z",
+      "publishedAt": "2025-10-18",
+      "status": "readable",
+      "notes": "Dated visit explicitly reports 100% vegetarian/allium-free positioning, one base+four sides and $9.90. Current delivery price/assortment differs; historical bowl fact held. Public photo host returned 429; no bypass."
+    },
+    {
+      "id": "icf2-crowded-report",
+      "url": "https://sethlui.com/crowded-bowl-singapore/",
+      "title": "Crowded Bowl on-site report 17October2024",
+      "publisher": "SETHLUI.com",
+      "kind": "on-site-report",
+      "checkedAt": "2026-10-16T00:40:17Z",
+      "publishedAt": "2024-10-17",
+      "status": "readable",
+      "notes": "Article states Regular S$5.50 and Large S$15; Large wording differs from the photographed sign. Explicit vegetarian/plant-based bowl discussion also mentions eggs, so no vegan claim."
+    },
+    {
+      "id": "icf2-crowded-sign",
+      "url": "https://sethlui.com/wp-content/uploads/2024/10/photo_6_2024-10-15_11-35-19-jpg.webp",
+      "title": "Crowded Bowl photographed menu",
+      "publisher": "Crowded Bowl sign photographed by SETHLUI.com",
+      "kind": "photographed-merchant-menu",
+      "checkedAt": "2026-10-16T00:40:17Z",
+      "publishedAt": null,
+      "status": "readable",
+      "notes": "Visually checked:Regular $5.50,Large $13,ala-carte Scrambled Egg $4. Large sharing 2-4 pax,dine-in-only. Add-on Scrambled Egg $1.30,Spring Roll $1.30,generic Sides/Mains $1. Unassigned generic ala-carte Sides/Mains $3.50 is not a named food row. Exact photo date/effective date unverified; parent report 17October2024."
+    },
+    {
+      "id": "icf2-thunder-report",
+      "url": "https://danielfooddiary.com/2024/08/02/thethunderteastory/",
+      "title": "Thunder Tea Story food/add-on observations 2August2024",
+      "publisher": "Daniel Food Diary.com",
+      "kind": "on-site-report",
+      "checkedAt": "2026-10-16T00:40:17Z",
+      "publishedAt": "2024-08-02",
+      "status": "readable",
+      "notes": "Two rice sets and three food add-ons explicitly priced. Shared tea soup is meal context, not a beverage row. No current complete merchant menu or present venue claim verified."
+    },
+    {
+      "id": "icf2-ming-report",
+      "url": "https://sethlui.com/yishun-park-hawker-centre-stalls-singapore/",
+      "title": "Ming Su food source in Yishun Park guide",
+      "publisher": "SETHLUI.com",
+      "kind": "on-site-report",
+      "checkedAt": "2026-10-16T00:40:17Z",
+      "publishedAt": "2025-10-13T08:00:24Z",
+      "status": "readable",
+      "notes": "Article metadata published/modified 13October2025. Ming Su section only:two economical noodle sets S$3.80, Kway Chap S$5. Photographed board prices differ and photo upload path 2017 is not an effective menu date."
+    },
+    {
+      "id": "icf2-ming-sign",
+      "url": "https://sethlui.com/wp-content/uploads/2017/11/Yishun-Park-Food-Guide-Ming-Su-Vegetarian.jpg",
+      "title": "Ming Su photographed stall/price poster",
+      "publisher": "Ming Su sign photographed by SETHLUI.com",
+      "kind": "photographed-merchant-menu",
+      "checkedAt": "2026-10-16T00:40:17Z",
+      "publishedAt": null,
+      "status": "readable",
+      "notes": "Sign visibly says Ming Su Vegetarian and unit 01-02. Large Kway Chap poster reads $4.00, different from 2025 article S$5. Small full menu board is too blurred/occluded for reliable full transcription. Current date of photo/menu unverified."
+    },
+    {
+      "id": "icf2-fei-report",
+      "url": "https://the.fat.guide/singapore/eat/fei-cui-vegetarian-food/",
+      "title": "Fei Cui on-site report 23December2025",
+      "publisher": "the.fat.guide",
+      "kind": "on-site-report",
+      "checkedAt": "2026-10-16T00:40:17Z",
+      "publishedAt": "2025-12-23T23:00:00+08:00",
+      "status": "readable",
+      "notes": "Metadata 23December2025. Author paid SGD 5.10 for observed friedmeehoon plate with vegetarian char-siew,crispy goose,potato and extra spring roll; not a current menu price. Source unit B1-95/101 differs from owned B1-99/101 lead."
+    },
+    {
+      "id": "icf2-fei-sign",
+      "url": "https://r2-the.fat.guide/singapore/eat/Fei%20Cui%20Vegetarian%20Food/Fei%20Cui%20Vegetarian%20Food%20Lucky%20Plaza.webp",
+      "title": "Fei Cui three-food merchant sign",
+      "publisher": "Fei Cui sign photographed by the.fat.guide",
+      "kind": "photographed-merchant-menu",
+      "checkedAt": "2026-10-16T00:40:17Z",
+      "publishedAt": null,
+      "status": "readable",
+      "notes": "Visually read Vegetarian Fried Rice $4.00,Vegetarian Mixed Veg Rice $3.80,Vegetarian Bee Hoon $3.80. Vegetarian logos and coherent food sign support observed venue positioning. Neighbouring chicken-rice sign is a different stall and excluded. Partially visible left-panelfoods not assigned."
+    },
+    {
+      "id": "icf2-xiang-report",
+      "url": "https://kopitiam.com.sg/2026/08/21/blk-80-circuit-road-market-food-centre-6-must-try-hawker-stalls/",
+      "title": "Xiang Yuan on-site food/branch report 21August2026",
+      "publisher": "kopitiam.com.sg",
+      "kind": "on-site-report",
+      "checkedAt": "2026-10-16T00:40:17Z",
+      "publishedAt": "2026-08-21T12:54:49Z",
+      "status": "readable",
+      "notes": "Source metadata published 21August2026,modified 25August2026. Identifies Xiang Yuan at 02-03 and observed vegetarian kway chap. Not assumed to be the restaurant operator's own site."
+    },
+    {
+      "id": "icf2-xiang-sign",
+      "url": "https://i0.wp.com/kopitiam.com.sg/wp-content/uploads/2026/08/02.-Xiang-Yuan-Vegetarian-Food-02-03.jpg?resize=2048%2C1448&ssl=1",
+      "title": "Xiang Yuan photographed vegetarian menu/sign",
+      "publisher": "Xiang Yuan sign photographed by kopitiam.com.sg",
+      "kind": "photographed-merchant-menu",
+      "checkedAt": "2026-10-16T00:40:17Z",
+      "publishedAt": null,
+      "status": "readable",
+      "notes": "Visually read big merchant vegetarian sign and four named meals. Weekendpanel reads Laksa $4.00,Kway Chap $4.00,Lontong $3.50,Veg Mee Siam $4.00. Small weekday details insufficiently clear for reliable full transcription. Printedprice/effective/photo date unverified; reportpublished August 2026."
+    }
+  ],
+  "branches": [
+    {
+      "id": "egg-plant-marina-bay-source",
+      "name": "egg.plant - Marina Bay Link Mall",
+      "address": "8A Marina Boulevard #B2-33 Marina Bay Link Mall, Singapore 018984",
+      "postalCode": "018984",
+      "sourceIds": [
+        "icf2-egg-direct",
+        "icf2-egg-blog"
+      ],
+      "menuIds": [
+        "icf2-egg-direct-foods",
+        "icf2-egg-index-held",
+        "icf2-egg-2025-bowl"
+      ],
+      "candidatePlaceIds": [],
+      "googlePlaceId": null,
+      "identityStatus": "ordering-exact-premises-no-google-assignment",
+      "gaps": [
+        "Direct 6-bowl and indexed 8-food assortments differ; older snapshot is held rather than silently combined. From-price choices/modifiers remain incomplete. Current allium-free or vegan certification is not inferred from the 2025 visit."
+      ],
+      "venueEligibility": {
+        "status": "vegetarian-confirmed",
+        "reason": "Merchant ordering page explicitly labels the bowls vegetarian; dated on-site visit independently describes the venue as vegetarian. No vegan certification inferred."
+      },
+      "eligibility": "vegetarian-confirmed"
+    },
+    {
+      "id": "crowded-bowl-biopolis-source",
+      "name": "The Crowded Bowl - Biopolis dated source",
+      "address": "30 Biopolis Street, Matrix Building, Singapore 138671",
+      "postalCode": "138671",
+      "sourceIds": [
+        "icf2-crowded-report",
+        "icf2-crowded-sign"
+      ],
+      "menuIds": [
+        "icf2-crowded-photo-foods",
+        "icf2-crowded-report-foods"
+      ],
+      "candidatePlaceIds": [],
+      "googlePlaceId": null,
+      "identityStatus": "dated-on-site-premises-currentness-unconfirmed",
+      "gaps": [
+        "Current merchant website discovery returned 502/DNS failure. Dated 2024 article and menu sign differ on Large price/portion. Current operation/menu unconfirmed; all food rows held."
+      ],
+      "venueEligibility": {
+        "status": "dated-vegetarian-evidence-currentness-unconfirmed",
+        "reason": "Dated on-site/sign evidence only; food menus are held pending current branch/menu confirmation."
+      }
+    },
+    {
+      "id": "thunder-tea-story-alexandra-source",
+      "name": "The Thunder Tea Story - Alexandra dated source",
+      "address": "120 Bukit Merah Lane 1 #01-55 Alexandra Village Food Centre, Singapore 150120",
+      "postalCode": "150120",
+      "sourceIds": [
+        "icf2-thunder-report"
+      ],
+      "menuIds": [
+        "icf2-thunder-foods"
+      ],
+      "candidatePlaceIds": [],
+      "googlePlaceId": null,
+      "identityStatus": "dated-on-site-currentness-unconfirmed",
+      "gaps": [
+        "Only 2024 on-site food source; current merchant menu and venue-level scope unverified. Priced prepared food add-ons stay as modifiers, not standalone ingredient rows."
+      ],
+      "venueEligibility": {
+        "status": "dated-vegetarian-evidence-currentness-unconfirmed",
+        "reason": "Dated on-site/sign evidence only; food menus are held pending current branch/menu confirmation."
+      }
+    },
+    {
+      "id": "ming-su-yishun-park-source",
+      "name": "Ming Su Vegetarian - Yishun Park dated source",
+      "address": "51 Yishun Avenue 11 #01-02 Yishun Park Hawker Centre, Singapore 768867",
+      "postalCode": "768867",
+      "sourceIds": [
+        "icf2-ming-report",
+        "icf2-ming-sign"
+      ],
+      "menuIds": [
+        "icf2-ming-report-foods",
+        "icf2-ming-photo-held"
+      ],
+      "candidatePlaceIds": [],
+      "googlePlaceId": null,
+      "identityStatus": "dated-sign-unit01-02-currentness-unconfirmed",
+      "gaps": [
+        "Dated photo confirms 01-02 at that observation; current merchant continuation/unresolved 01-25 directory mismatch not assumed resolved. Small menu board unreadable; article/photo Kway Chap prices conflict."
+      ],
+      "venueEligibility": {
+        "status": "dated-vegetarian-evidence-currentness-unconfirmed",
+        "reason": "Dated on-site/sign evidence only; food menus are held pending current branch/menu confirmation."
+      }
+    },
+    {
+      "id": "fei-cui-lucky-plaza-source",
+      "name": "Fei Cui Vegetarian Food - Lucky Plaza dated source",
+      "address": "304 Orchard Road #B1-95/101 Lucky Plaza, Singapore 238863",
+      "postalCode": "238863",
+      "sourceIds": [
+        "icf2-fei-report",
+        "icf2-fei-sign"
+      ],
+      "menuIds": [
+        "icf2-fei-sign-foods",
+        "icf2-fei-observed-plate"
+      ],
+      "candidatePlaceIds": [],
+      "googlePlaceId": null,
+      "identityStatus": "dated-source-unit-conflict-no-google-assignment",
+      "gaps": [
+        "Source unit B1-95/101 differs from frozen B1-99/101 lead. Source premises retained separately without Googleassignment; current menu unverified. No neighbouring meatstall foods imported."
+      ],
+      "venueEligibility": {
+        "status": "dated-vegetarian-evidence-currentness-unconfirmed",
+        "reason": "Dated on-site/sign evidence only; food menus are held pending current branch/menu confirmation."
+      }
+    },
+    {
+      "id": "xiang-yuan-circuit-source",
+      "name": "Xiang Yuan Vegetarian Food - Circuit Road",
+      "address": "80 Circuit Road #02-03, Singapore 370080",
+      "postalCode": "370080",
+      "sourceIds": [
+        "icf2-xiang-report",
+        "icf2-xiang-sign"
+      ],
+      "menuIds": [
+        "icf2-xiang-weekend-foods"
+      ],
+      "candidatePlaceIds": [],
+      "googlePlaceId": null,
+      "identityStatus": "dated-on-site-sign-exact-unit",
+      "gaps": [
+        "Four readable named foods/prices from weekend panel only. Small weekday menu details not fully legible. Exact photo/effective price date and current stock unconfirmed; no Google ID assigned."
+      ],
+      "venueEligibility": {
+        "status": "vegetarian-confirmed",
+        "reason": "Photographed merchant sign explicitly says vegetarian and all readable menu meals are vegetarian-positioned; on-site report dated August 2026 corroborates the stall."
+      },
+      "eligibility": "vegetarian-confirmed"
+    }
+  ],
+  "menus": [
+    {
+      "id": "icf2-egg-direct-foods",
+      "name": "egg.plant - direct 6-food delivery snapshot",
+      "scope": "branch-delivery",
+      "branchIds": [
+        "egg-plant-marina-bay-source"
+      ],
+      "sourceIds": [
+        "icf2-egg-direct"
+      ],
+      "coverage": "partial",
+      "notice": "All 6 currently displayed foods captured;6 Popular repeats and 3 beverages excluded. From prices lack full modifier details. Minimum order observed S$11, session-specific. Full menu effective date/taxes/delivery fees unknown.",
+      "sourceCoverage": {
+        "foodProducts": 6,
+        "popularDuplicatesExcluded": 6,
+        "excludedBeverages": 3,
+        "foodModifierDetailsCovered": false
+      },
+      "items": [
+        {
+          "id": "icf2-egg-current-1",
+          "name": "The Egg.Plant Bowl",
+          "category": "Signature Bowls",
+          "sourceIds": [
+            "icf2-egg-direct"
+          ],
+          "price": {
+            "amount": 10.12,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "listingPrice": {
+            "amount": 11.9,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "sourcePriceText": "from S$10.12 / S$11.90",
+          "sourceFoodComponents": [
+            "Spicy eggplant",
+            "Salted egg tempura eggplant",
+            "Radish egg omelette",
+            "Stir-fry broccoli & cauliflower"
+          ],
+          "qualifier": "Explicitly under merchant's Vegetarian Bowls heading. Displayed 15% delivery discount; original from-price separate, end date unknown. Set components retained as source facts; complete ingredient composition unverified. Egg is named in the listed components; not a vegan claim. Dated/source-specific observation, not current stock, full ingredients or a menu effective-date guarantee."
+        },
+        {
+          "id": "icf2-egg-current-2",
+          "name": "The Golden Bowl",
+          "category": "Signature Bowls",
+          "sourceIds": [
+            "icf2-egg-direct"
+          ],
+          "price": {
+            "amount": 10.12,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "listingPrice": {
+            "amount": 11.9,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "sourcePriceText": "from S$10.12 / S$11.90",
+          "sourceFoodComponents": [
+            "Sambal egg bomb",
+            "Sauteed french beans",
+            "Salted egg tempura eggplant",
+            "Sichuan popcorn mushroom"
+          ],
+          "qualifier": "Explicitly under merchant's Vegetarian Bowls heading. Displayed 15% delivery discount; original from-price separate, end date unknown. Set components retained as source facts; complete ingredient composition unverified. Egg is named in the listed components; not a vegan claim. Dated/source-specific observation, not current stock, full ingredients or a menu effective-date guarantee."
+        },
+        {
+          "id": "icf2-egg-current-3",
+          "name": "The Spicy Bowl",
+          "category": "Signature Bowls",
+          "sourceIds": [
+            "icf2-egg-direct"
+          ],
+          "price": {
+            "amount": 10.12,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "listingPrice": {
+            "amount": 11.9,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "sourcePriceText": "from S$10.12 / S$11.90",
+          "sourceFoodComponents": [
+            "Pumpkin curry tofu",
+            "Sambal egg bomb",
+            "Spicy eggplant",
+            "Nyonya achar"
+          ],
+          "qualifier": "Explicitly under merchant's Vegetarian Bowls heading. Displayed 15% delivery discount; original from-price separate, end date unknown. Set components retained as source facts; complete ingredient composition unverified. Egg is named in the listed components; not a vegan claim. Dated/source-specific observation, not current stock, full ingredients or a menu effective-date guarantee."
+        },
+        {
+          "id": "icf2-egg-current-4",
+          "name": "The Harmony Bowl",
+          "category": "Signature Bowls",
+          "sourceIds": [
+            "icf2-egg-direct"
+          ],
+          "price": {
+            "amount": 10.12,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "listingPrice": {
+            "amount": 11.9,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "sourcePriceText": "from S$10.12 / S$11.90",
+          "sourceFoodComponents": [
+            "Minced meat tofu (source wording within vegetarian bowls)",
+            "Tomatoes & eggs",
+            "Stir-fry broccoli & cauliflower",
+            "Spring roll"
+          ],
+          "qualifier": "Explicitly under merchant's Vegetarian Bowls heading. Displayed 15% delivery discount; original from-price separate, end date unknown. Set components retained as source facts; complete ingredient composition unverified. Egg is named in the listed components; not a vegan claim. Dated/source-specific observation, not current stock, full ingredients or a menu effective-date guarantee."
+        },
+        {
+          "id": "icf2-egg-current-5",
+          "name": "The Earth Bowl",
+          "category": "Signature Bowls",
+          "sourceIds": [
+            "icf2-egg-direct"
+          ],
+          "price": {
+            "amount": 10.12,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "listingPrice": {
+            "amount": 11.9,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "sourcePriceText": "from S$10.12 / S$11.90",
+          "sourceFoodComponents": [
+            "Chicken chop with black pepper sauce (source wording within vegetarian bowls)",
+            "Potato & mushroom",
+            "Radish egg omelette",
+            "Buddha's delight"
+          ],
+          "qualifier": "Explicitly under merchant's Vegetarian Bowls heading. Displayed 15% delivery discount; original from-price separate, end date unknown. Set components retained as source facts; complete ingredient composition unverified. Egg is named in the listed components; not a vegan claim. Dated/source-specific observation, not current stock, full ingredients or a menu effective-date guarantee."
+        },
+        {
+          "id": "icf2-egg-current-6",
+          "name": "BYO Regular Bowl",
+          "category": "Build Your Own",
+          "sourceIds": [
+            "icf2-egg-direct"
+          ],
+          "price": {
+            "amount": 10.12,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "listingPrice": {
+            "amount": 11.9,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "sourcePriceText": "from S$10.12 / S$11.90",
+          "portionRule": "Select 1 base and 4 dishes; exact option names/price changes not captured.",
+          "qualifier": "Explicitly under merchant's Vegetarian Bowls heading. Displayed 15% delivery discount; original from-price separate, end date unknown. Choose 1 base and 4 dishes; option prices unavailable. Dated/source-specific observation, not current stock, full ingredients or a menu effective-date guarantee."
+        }
+      ]
+    },
+    {
+      "id": "icf2-egg-index-held",
+      "name": "egg.plant - distinct older indexed 8-food assortment held",
+      "scope": "branch",
+      "branchIds": [
+        "egg-plant-marina-bay-source"
+      ],
+      "sourceIds": [
+        "icf2-egg-index"
+      ],
+      "coverage": "held",
+      "publicationStatus": "held",
+      "notice": "Older indexed 8-food assortment conflicts with directly retrieved 6-bowl assortment. Source effective date/session applicability unresolved; all 8 held.",
+      "sourceCoverage": {
+        "foodProducts": 8
+      },
+      "items": [
+        {
+          "id": "icf2-egg-index-1",
+          "name": "Monkey Head Mushroom Satay w Peanut Sauce",
+          "category": "Side Dishes",
+          "sourceIds": [
+            "icf2-egg-index"
+          ],
+          "price": {
+            "amount": 8.42,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "listingPrice": {
+            "amount": 9.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "qualifier": "5 sticks. Earlier indexed 15% discounted/list prices; assortment differs from direct current retrieval. No silent currentness merge. Dated/source-specific observation, not current stock, full ingredients or a menu effective-date guarantee.",
+          "publicationStatus": "held",
+          "holdReason": "Older indexed 8-food assortment conflicts with directly retrieved 6-bowl assortment. Source effective date/session applicability unresolved; all 8 held."
+        },
+        {
+          "id": "icf2-egg-index-2",
+          "name": "Creamy Abalone Mushroom",
+          "category": "Side Dishes",
+          "sourceIds": [
+            "icf2-egg-index"
+          ],
+          "price": {
+            "amount": 6.29,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "listingPrice": {
+            "amount": 7.4,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "qualifier": "Creamy sauce. Earlier indexed 15% discounted/list prices; assortment differs from direct current retrieval. No silent currentness merge. Dated/source-specific observation, not current stock, full ingredients or a menu effective-date guarantee.",
+          "publicationStatus": "held",
+          "holdReason": "Older indexed 8-food assortment conflicts with directly retrieved 6-bowl assortment. Source effective date/session applicability unresolved; all 8 held."
+        },
+        {
+          "id": "icf2-egg-index-3",
+          "name": "Thai Chili Abalone Mushroom",
+          "category": "Side Dishes",
+          "sourceIds": [
+            "icf2-egg-index"
+          ],
+          "price": {
+            "amount": 6.29,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "listingPrice": {
+            "amount": 7.4,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "qualifier": "Thai chili sauce. Earlier indexed 15% discounted/list prices; assortment differs from direct current retrieval. No silent currentness merge. Dated/source-specific observation, not current stock, full ingredients or a menu effective-date guarantee.",
+          "publicationStatus": "held",
+          "holdReason": "Older indexed 8-food assortment conflicts with directly retrieved 6-bowl assortment. Source effective date/session applicability unresolved; all 8 held."
+        },
+        {
+          "id": "icf2-egg-index-4",
+          "name": "Sichuan Mala Tofu Steak Rice 麻辣豆腐扒饭",
+          "category": "Zhi Char Bowls",
+          "sourceIds": [
+            "icf2-egg-index"
+          ],
+          "price": {
+            "amount": 9.27,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "listingPrice": {
+            "amount": 10.9,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "qualifier": "Achar, sunny-side-up egg and brown/white rice. Earlier indexed 15% discounted/list prices; assortment differs from direct current retrieval. No silent currentness merge. Dated/source-specific observation, not current stock, full ingredients or a menu effective-date guarantee.",
+          "publicationStatus": "held",
+          "holdReason": "Older indexed 8-food assortment conflicts with directly retrieved 6-bowl assortment. Source effective date/session applicability unresolved; all 8 held."
+        },
+        {
+          "id": "icf2-egg-index-5",
+          "name": "酸甜排骨饭",
+          "category": "Zhi Char Bowls",
+          "sourceIds": [
+            "icf2-egg-index"
+          ],
+          "price": {
+            "amount": 9.27,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "listingPrice": {
+            "amount": 10.9,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "qualifier": "Source vegetarian-bowls section; achar, egg and brown/white rice. Earlier indexed 15% discounted/list prices; assortment differs from direct current retrieval. No silent currentness merge. Dated/source-specific observation, not current stock, full ingredients or a menu effective-date guarantee.",
+          "publicationStatus": "held",
+          "holdReason": "Older indexed 8-food assortment conflicts with directly retrieved 6-bowl assortment. Source effective date/session applicability unresolved; all 8 held."
+        },
+        {
+          "id": "icf2-egg-index-6",
+          "name": "Curry Chicken Chop Rice 咖喱鸡扒饭",
+          "category": "Zhi Char Bowls",
+          "sourceIds": [
+            "icf2-egg-index"
+          ],
+          "price": {
+            "amount": 9.27,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "listingPrice": {
+            "amount": 10.9,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "qualifier": "Description explicitly says vegetarian chicken chop with pumpkin curry sauce, achar, egg and brown/white rice. Earlier indexed 15% discounted/list prices; assortment differs from direct current retrieval. No silent currentness merge. Dated/source-specific observation, not current stock, full ingredients or a menu effective-date guarantee.",
+          "publicationStatus": "held",
+          "holdReason": "Older indexed 8-food assortment conflicts with directly retrieved 6-bowl assortment. Source effective date/session applicability unresolved; all 8 held."
+        },
+        {
+          "id": "icf2-egg-index-7",
+          "name": "酸甜鲍鱼菇饭",
+          "category": "Zhi Char Bowls",
+          "sourceIds": [
+            "icf2-egg-index"
+          ],
+          "price": {
+            "amount": 9.27,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "listingPrice": {
+            "amount": 10.9,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "qualifier": "Sweet-and-sour abalone mushroom, achar, egg and brown/white rice. Earlier indexed 15% discounted/list prices; assortment differs from direct current retrieval. No silent currentness merge. Dated/source-specific observation, not current stock, full ingredients or a menu effective-date guarantee.",
+          "publicationStatus": "held",
+          "holdReason": "Older indexed 8-food assortment conflicts with directly retrieved 6-bowl assortment. Source effective date/session applicability unresolved; all 8 held."
+        },
+        {
+          "id": "icf2-egg-index-8",
+          "name": "Kungpao Monkey Head Mushroom Rice 宫保猴头菇饭",
+          "category": "Zhi Char Bowls",
+          "sourceIds": [
+            "icf2-egg-index"
+          ],
+          "price": {
+            "amount": 9.27,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "listingPrice": {
+            "amount": 10.9,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "qualifier": "Complete option detail not captured. Earlier indexed 15% discounted/list prices; assortment differs from direct current retrieval. No silent currentness merge. Dated/source-specific observation, not current stock, full ingredients or a menu effective-date guarantee.",
+          "publicationStatus": "held",
+          "holdReason": "Older indexed 8-food assortment conflicts with directly retrieved 6-bowl assortment. Source effective date/session applicability unresolved; all 8 held."
+        }
+      ]
+    },
+    {
+      "id": "icf2-egg-2025-bowl",
+      "name": "egg.plant -18October2025 observed bowl format",
+      "scope": "branch",
+      "branchIds": [
+        "egg-plant-marina-bay-source"
+      ],
+      "sourceIds": [
+        "icf2-egg-blog"
+      ],
+      "coverage": "held",
+      "publicationStatus": "held",
+      "notice": "Historical 2025 visit; not current menu/prices. Photos 429 and current assortment differs.",
+      "sourceCoverage": {
+        "foodProducts": 1
+      },
+      "items": [
+        {
+          "id": "icf2-egg-old-byo",
+          "name": "Build-your-own bowl -1 base and 4 sides",
+          "category": "Dated observed bowl",
+          "sourceIds": [
+            "icf2-egg-blog"
+          ],
+          "price": {
+            "amount": 9.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "portionRule": "One base and four sides",
+          "modifierGroups": [
+            {
+              "name": "Dated base choices",
+              "minimumQuantity": 1,
+              "maximumQuantity": 1,
+              "options": [
+                {
+                  "label": "White Rice",
+                  "priceStatus": "individual-price-not-published",
+                  "sourceIds": [
+                    "icf2-egg-blog"
+                  ]
+                },
+                {
+                  "label": "Brown Rice",
+                  "priceStatus": "individual-price-not-published",
+                  "sourceIds": [
+                    "icf2-egg-blog"
+                  ]
+                },
+                {
+                  "label": "Potato Porridge",
+                  "priceStatus": "individual-price-not-published",
+                  "sourceIds": [
+                    "icf2-egg-blog"
+                  ]
+                },
+                {
+                  "label": "Sesame Udon",
+                  "priceStatus": "individual-price-not-published",
+                  "sourceIds": [
+                    "icf2-egg-blog"
+                  ]
+                },
+                {
+                  "label": "Lettuce with Dressing",
+                  "priceStatus": "individual-price-not-published",
+                  "sourceIds": [
+                    "icf2-egg-blog"
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Four sides observed in the author's bowl",
+              "options": [
+                {
+                  "label": "Creamy Mushrooms",
+                  "priceStatus": "individual-price-not-published",
+                  "sourceIds": [
+                    "icf2-egg-blog"
+                  ]
+                },
+                {
+                  "label": "Pumpkin Curry Tofu",
+                  "priceStatus": "individual-price-not-published",
+                  "sourceIds": [
+                    "icf2-egg-blog"
+                  ]
+                },
+                {
+                  "label": "Japanese Cucumber Salad",
+                  "priceStatus": "individual-price-not-published",
+                  "sourceIds": [
+                    "icf2-egg-blog"
+                  ]
+                },
+                {
+                  "label": "Spicy Eggplant",
+                  "priceStatus": "individual-price-not-published",
+                  "sourceIds": [
+                    "icf2-egg-blog"
+                  ]
+                }
+              ]
+            }
+          ],
+          "qualifier": "Visit 18October2025; reported $9.90 has no explicit currency code. Bowl components/options are dated and not transferred to the latest delivery menu.",
+          "publicationStatus": "held",
+          "holdReason": "Historical 2025 visit; not current menu/prices. Photos 429 and current assortment differs."
+        }
+      ]
+    },
+    {
+      "id": "icf2-crowded-photo-foods",
+      "name": "Crowded Bowl - dated photographed menu facts",
+      "scope": "branch",
+      "branchIds": [
+        "crowded-bowl-biopolis-source"
+      ],
+      "sourceIds": [
+        "icf2-crowded-sign"
+      ],
+      "coverage": "held",
+      "publicationStatus": "held",
+      "notice": "Dated 2024 photograph; current menu unverified and Large price conflicts with article; held.",
+      "sourceCoverage": {
+        "foodProducts": 3
+      },
+      "items": [
+        {
+          "id": "icf2-crowded-photo-regular",
+          "name": "Regular Bowl",
+          "category": "Photographed bowl",
+          "sourceIds": [
+            "icf2-crowded-sign"
+          ],
+          "price": {
+            "amount": 5.5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "portionRule": "Greens+1 main+2 sides",
+          "modifierGroups": [
+            {
+              "name": "Optional food add-ons",
+              "minimumQuantity": 0,
+              "options": [
+                {
+                  "label": "Scrambled Eggs",
+                  "additionalPrice": {
+                    "amount": 1.3,
+                    "currency": "unknown",
+                    "kind": "fixed"
+                  },
+                  "sourceIds": [
+                    "icf2-crowded-sign"
+                  ]
+                },
+                {
+                  "label": "Spring Roll",
+                  "additionalPrice": {
+                    "amount": 1.3,
+                    "currency": "unknown",
+                    "kind": "fixed"
+                  },
+                  "sourceIds": [
+                    "icf2-crowded-sign"
+                  ]
+                }
+              ]
+            }
+          ],
+          "qualifier": "Photographed menu associated with 17October2024 report. Genericextra Sides/Mains+$1 not assigned to individual foods. Dated/source-specific observation, not current stock, full ingredients or a menu effective-date guarantee.",
+          "publicationStatus": "held",
+          "holdReason": "Dated 2024 photograph; current menu unverified and Large price conflicts with article; held."
+        },
+        {
+          "id": "icf2-crowded-photo-large",
+          "name": "Large Bowl",
+          "category": "Photographed bowl",
+          "sourceIds": [
+            "icf2-crowded-sign"
+          ],
+          "price": {
+            "amount": 13,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "portionRule": "Greens+3 mains+5 sides;sharing 2-4 pax;dine-in only",
+          "modifierGroups": [
+            {
+              "name": "Optional food add-ons",
+              "minimumQuantity": 0,
+              "options": [
+                {
+                  "label": "Scrambled Eggs",
+                  "additionalPrice": {
+                    "amount": 1.3,
+                    "currency": "unknown",
+                    "kind": "fixed"
+                  },
+                  "sourceIds": [
+                    "icf2-crowded-sign"
+                  ]
+                },
+                {
+                  "label": "Spring Roll",
+                  "additionalPrice": {
+                    "amount": 1.3,
+                    "currency": "unknown",
+                    "kind": "fixed"
+                  },
+                  "sourceIds": [
+                    "icf2-crowded-sign"
+                  ]
+                }
+              ]
+            }
+          ],
+          "qualifier": "Photograph prints $13; article says S$15. Sources remain separate. Dated/source-specific observation, not current stock, full ingredients or a menu effective-date guarantee.",
+          "publicationStatus": "held",
+          "holdReason": "Dated 2024 photograph; current menu unverified and Large price conflicts with article; held."
+        },
+        {
+          "id": "icf2-crowded-egg",
+          "name": "Scrambled Egg - ala carte",
+          "category": "Photographed prepared side",
+          "sourceIds": [
+            "icf2-crowded-sign"
+          ],
+          "price": {
+            "amount": 4,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Standalone ala-carte egg price, separate from $1.30 bowl add-on. Generic unnamed Sides/Mains $3.50 not created as food. Dated/source-specific observation, not current stock, full ingredients or a menu effective-date guarantee.",
+          "publicationStatus": "held",
+          "holdReason": "Dated 2024 photograph; current menu unverified and Large price conflicts with article; held."
+        }
+      ]
+    },
+    {
+      "id": "icf2-crowded-report-foods",
+      "name": "Crowded Bowl - dated article bowl prices",
+      "scope": "branch",
+      "branchIds": [
+        "crowded-bowl-biopolis-source"
+      ],
+      "sourceIds": [
+        "icf2-crowded-report"
+      ],
+      "coverage": "held",
+      "publicationStatus": "held",
+      "notice": "Dated 2024 report with unresolved price/portion conflict; held.",
+      "sourceCoverage": {
+        "foodProducts": 2
+      },
+      "items": [
+        {
+          "id": "icf2-crowded-report-regular",
+          "name": "Regular Bowl",
+          "category": "Article bowl",
+          "sourceIds": [
+            "icf2-crowded-report"
+          ],
+          "price": {
+            "amount": 5.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "portionRule": "1 green+1 main+2 sides",
+          "qualifier": "Article 17October2024. Observed component examples include salad,potatoes,pasta,olive rice and prepared toppings; no individual component price inferred.",
+          "publicationStatus": "held",
+          "holdReason": "Dated 2024 report with unresolved price/portion conflict; held.",
+          "sourceComponentExamples": {
+            "labels": [
+              "Salad",
+              "Potatoes",
+              "Pasta",
+              "Olive rice",
+              "Roasted vegetables",
+              "Cucumber",
+              "Crispy tofu skin",
+              "Protein balls",
+              "Seaweed tofu",
+              "Corn",
+              "Scrambled egg"
+            ],
+            "notice": "Dated article examples only; exact main/side classification, complete choice inventory and individual prices are not established."
+          }
+        },
+        {
+          "id": "icf2-crowded-report-large",
+          "name": "Large Bowl",
+          "category": "Article bowl",
+          "sourceIds": [
+            "icf2-crowded-report"
+          ],
+          "price": {
+            "amount": 15,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "portionRule": "Same greens+3 mains+5 sides;sharing 2-3 people",
+          "qualifier": "Article 17October2024 says S$15; corresponding photo prints $13and2-4 pax. Conflict held.",
+          "publicationStatus": "held",
+          "holdReason": "Dated 2024 report with unresolved price/portion conflict; held.",
+          "sourceComponentExamples": {
+            "labels": [
+              "Salad",
+              "Potatoes",
+              "Pasta",
+              "Olive rice",
+              "Roasted vegetables",
+              "Cucumber",
+              "Crispy tofu skin",
+              "Protein balls",
+              "Seaweed tofu",
+              "Corn",
+              "Scrambled egg"
+            ],
+            "notice": "Dated article examples only; exact main/side classification, complete choice inventory and individual prices are not established."
+          }
+        }
+      ]
+    },
+    {
+      "id": "icf2-thunder-foods",
+      "name": "Thunder Tea Story - dated 2024 rice sets/add-ons",
+      "scope": "branch",
+      "branchIds": [
+        "thunder-tea-story-alexandra-source"
+      ],
+      "sourceIds": [
+        "icf2-thunder-report"
+      ],
+      "coverage": "held",
+      "publicationStatus": "held",
+      "notice": "Historical 2024 on-site source; current full menu/venue scope unverified; held.",
+      "sourceCoverage": {
+        "foodProducts": 2
+      },
+      "items": [
+        {
+          "id": "icf2-thunder-white",
+          "name": "White Rice Set",
+          "category": "Dated rice set",
+          "sourceIds": [
+            "icf2-thunder-report"
+          ],
+          "price": {
+            "amount": 5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "modifierGroups": [
+            {
+              "name": "Optional food add-ons",
+              "minimumQuantity": 0,
+              "options": [
+                {
+                  "label": "Chai Poh Egg",
+                  "additionalPrice": {
+                    "amount": 1.2,
+                    "currency": "unknown",
+                    "kind": "fixed"
+                  },
+                  "sourceIds": [
+                    "icf2-thunder-report"
+                  ]
+                },
+                {
+                  "label": "Fried Tofu (Plain)",
+                  "additionalPrice": {
+                    "amount": 0.5,
+                    "currency": "unknown",
+                    "kind": "fixed"
+                  },
+                  "sourceIds": [
+                    "icf2-thunder-report"
+                  ]
+                },
+                {
+                  "label": "Extra Vegetable",
+                  "additionalPrice": {
+                    "amount": 1.2,
+                    "currency": "unknown",
+                    "kind": "fixed"
+                  },
+                  "sourceIds": [
+                    "icf2-thunder-report"
+                  ]
+                }
+              ]
+            }
+          ],
+          "qualifier": "2August2024 report; vegetable/nut rice set with accompanying tea soup. Chai Poh Eggoption is egg; no vegan/allium-free inference. Dated/source-specific observation, not current stock, full ingredients or a menu effective-date guarantee.",
+          "publicationStatus": "held",
+          "holdReason": "Historical 2024 on-site source; current full menu/venue scope unverified; held."
+        },
+        {
+          "id": "icf2-thunder-brown",
+          "name": "Brown Rice Set",
+          "category": "Dated rice set",
+          "sourceIds": [
+            "icf2-thunder-report"
+          ],
+          "price": {
+            "amount": 5.5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "modifierGroups": [
+            {
+              "name": "Optional food add-ons",
+              "minimumQuantity": 0,
+              "options": [
+                {
+                  "label": "Chai Poh Egg",
+                  "additionalPrice": {
+                    "amount": 1.2,
+                    "currency": "unknown",
+                    "kind": "fixed"
+                  },
+                  "sourceIds": [
+                    "icf2-thunder-report"
+                  ]
+                },
+                {
+                  "label": "Fried Tofu (Plain)",
+                  "additionalPrice": {
+                    "amount": 0.5,
+                    "currency": "unknown",
+                    "kind": "fixed"
+                  },
+                  "sourceIds": [
+                    "icf2-thunder-report"
+                  ]
+                },
+                {
+                  "label": "Extra Vegetable",
+                  "additionalPrice": {
+                    "amount": 1.2,
+                    "currency": "unknown",
+                    "kind": "fixed"
+                  },
+                  "sourceIds": [
+                    "icf2-thunder-report"
+                  ]
+                }
+              ]
+            }
+          ],
+          "qualifier": "2August2024 report; brown-rice version. Unqualifieddollar currency unknown. Dated/source-specific observation, not current stock, full ingredients or a menu effective-date guarantee.",
+          "publicationStatus": "held",
+          "holdReason": "Historical 2024 on-site source; current full menu/venue scope unverified; held."
+        }
+      ]
+    },
+    {
+      "id": "icf2-ming-report-foods",
+      "name": "Ming Su -13October2025 food observations",
+      "scope": "branch",
+      "branchIds": [
+        "ming-su-yishun-park-source"
+      ],
+      "sourceIds": [
+        "icf2-ming-report"
+      ],
+      "coverage": "held",
+      "publicationStatus": "held",
+      "notice": "Dated source; current menu/premises and conflicting Kway Chap price unresolved; held.",
+      "sourceCoverage": {
+        "foodProducts": 3
+      },
+      "items": [
+        {
+          "id": "icf2-ming-beehoon",
+          "name": "Economical Bee Hoon Set",
+          "category": "Dated noodle set",
+          "sourceIds": [
+            "icf2-ming-report"
+          ],
+          "price": {
+            "amount": 3.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "modifierGroups": [
+            {
+              "name": "Food add-on examples in 2025 report",
+              "minimumQuantity": 0,
+              "options": [
+                {
+                  "label": "Curry cabbage",
+                  "priceStatus": "not-published",
+                  "sourceIds": [
+                    "icf2-ming-report"
+                  ]
+                },
+                {
+                  "label": "Vegetarian char siew",
+                  "priceStatus": "not-published",
+                  "sourceIds": [
+                    "icf2-ming-report"
+                  ]
+                },
+                {
+                  "label": "Crispy zai er",
+                  "priceStatus": "not-published",
+                  "sourceIds": [
+                    "icf2-ming-report"
+                  ]
+                }
+              ]
+            }
+          ],
+          "qualifier": "2025 article price; current applicability unverified.",
+          "publicationStatus": "held",
+          "holdReason": "Dated source; current menu/premises and conflicting Kway Chap price unresolved; held."
+        },
+        {
+          "id": "icf2-ming-kwayteow",
+          "name": "Economical Kway Teow Set",
+          "category": "Dated noodle set",
+          "sourceIds": [
+            "icf2-ming-report"
+          ],
+          "price": {
+            "amount": 3.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "modifierGroups": [
+            {
+              "name": "Food add-on examples in 2025 report",
+              "minimumQuantity": 0,
+              "options": [
+                {
+                  "label": "Curry cabbage",
+                  "priceStatus": "not-published",
+                  "sourceIds": [
+                    "icf2-ming-report"
+                  ]
+                },
+                {
+                  "label": "Vegetarian char siew",
+                  "priceStatus": "not-published",
+                  "sourceIds": [
+                    "icf2-ming-report"
+                  ]
+                },
+                {
+                  "label": "Crispy zai er",
+                  "priceStatus": "not-published",
+                  "sourceIds": [
+                    "icf2-ming-report"
+                  ]
+                }
+              ]
+            }
+          ],
+          "qualifier": "2025 article price; current applicability unverified.",
+          "publicationStatus": "held",
+          "holdReason": "Dated source; current menu/premises and conflicting Kway Chap price unresolved; held."
+        },
+        {
+          "id": "icf2-ming-kwaychap",
+          "name": "Kway Chap",
+          "category": "Dated prepared meal",
+          "sourceIds": [
+            "icf2-ming-report"
+          ],
+          "price": {
+            "amount": 5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "qualifier": "2025 article lists S$5 and reports soldout during visit. Not a present-stock statement; photo poster showsdifferent $4.",
+          "publicationStatus": "held",
+          "holdReason": "Dated source; current menu/premises and conflicting Kway Chap price unresolved; held."
+        }
+      ]
+    },
+    {
+      "id": "icf2-ming-photo-held",
+      "name": "Ming Su - conflicting photographed Kway Chap price",
+      "scope": "branch",
+      "branchIds": [
+        "ming-su-yishun-park-source"
+      ],
+      "sourceIds": [
+        "icf2-ming-sign"
+      ],
+      "coverage": "held",
+      "publicationStatus": "held",
+      "notice": "Undated photograph conflicts with dated article; held.",
+      "sourceCoverage": {
+        "foodProducts": 1
+      },
+      "items": [
+        {
+          "id": "icf2-ming-kwaychap-photo",
+          "name": "Kway Chap",
+          "category": "Dated sign-food example",
+          "sourceIds": [
+            "icf2-ming-sign"
+          ],
+          "price": {
+            "amount": 4,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Visible large poster $4.00; date unknown. Article 13October2025 says S$5. Small menu board not reliably legible.",
+          "publicationStatus": "held",
+          "holdReason": "Undated photograph conflicts with dated article; held."
+        }
+      ]
+    },
+    {
+      "id": "icf2-fei-sign-foods",
+      "name": "Fei Cui - three photographed vegetarian meal prices",
+      "scope": "branch",
+      "branchIds": [
+        "fei-cui-lucky-plaza-source"
+      ],
+      "sourceIds": [
+        "icf2-fei-sign"
+      ],
+      "coverage": "held",
+      "publicationStatus": "held",
+      "notice": "Dated photo/premises conflict; held pending current merchant confirmation.",
+      "sourceCoverage": {
+        "foodProducts": 3
+      },
+      "items": [
+        {
+          "id": "icf2-fei-sign-1",
+          "name": "Vegetarian Fried Rice",
+          "category": "Photographed prepared meal",
+          "sourceIds": [
+            "icf2-fei-sign"
+          ],
+          "price": {
+            "amount": 4,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Sign associated with 23December2025 report; unqualified $currency unknown. Exact serving components and current price unverified.",
+          "publicationStatus": "held",
+          "holdReason": "Dated photo/premises conflict; held pending current merchant confirmation."
+        },
+        {
+          "id": "icf2-fei-sign-2",
+          "name": "Vegetarian Mixed Veg Rice",
+          "category": "Photographed prepared meal",
+          "sourceIds": [
+            "icf2-fei-sign"
+          ],
+          "price": {
+            "amount": 3.8,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Sign associated with 23December2025 report; unqualified $currency unknown. Exact serving components and current price unverified.",
+          "publicationStatus": "held",
+          "holdReason": "Dated photo/premises conflict; held pending current merchant confirmation."
+        },
+        {
+          "id": "icf2-fei-sign-3",
+          "name": "Vegetarian Bee Hoon",
+          "category": "Photographed prepared meal",
+          "sourceIds": [
+            "icf2-fei-sign"
+          ],
+          "price": {
+            "amount": 3.8,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Sign associated with 23December2025 report; unqualified $currency unknown. Exact serving components and current price unverified.",
+          "publicationStatus": "held",
+          "holdReason": "Dated photo/premises conflict; held pending current merchant confirmation."
+        }
+      ]
+    },
+    {
+      "id": "icf2-fei-observed-plate",
+      "name": "Fei Cui -23December2025 observed plate total",
+      "scope": "branch",
+      "branchIds": [
+        "fei-cui-lucky-plaza-source"
+      ],
+      "sourceIds": [
+        "icf2-fei-report"
+      ],
+      "coverage": "held",
+      "publicationStatus": "held",
+      "notice": "Historical purchased meal; current menu and premises unconfirmed; held.",
+      "sourceCoverage": {
+        "foodProducts": 1
+      },
+      "items": [
+        {
+          "id": "icf2-fei-plate",
+          "name": "Vegetarian Fried Mee Hoon - observed plate with spring roll",
+          "category": "Dated purchased meal",
+          "sourceIds": [
+            "icf2-fei-report"
+          ],
+          "price": {
+            "amount": 5.1,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "priceBasis": "observed-plate-total",
+          "sourceFoodComponents": [
+            "Vegetarian char siew",
+            "Vegetarian crispy goose",
+            "Potato slices",
+            "Extra vegetarian spring roll"
+          ],
+          "modifierGroups": [
+            {
+              "name": "Extra food observed",
+              "options": [
+                {
+                  "label": "Vegetarian spring roll",
+                  "priceStatus": "individual-price-not-published",
+                  "sourceIds": [
+                    "icf2-fei-report"
+                  ]
+                }
+              ]
+            }
+          ],
+          "qualifier": "Author's past total SGD 5.10 for one plate including extra spring roll; not a standalone fixed current dish/menu price. No addon price inferred from difference.",
+          "publicationStatus": "held",
+          "holdReason": "Historical purchased meal; current menu and premises unconfirmed; held."
+        }
+      ]
+    },
+    {
+      "id": "icf2-xiang-weekend-foods",
+      "name": "Xiang Yuan - photographed weekend food panel",
+      "scope": "branch-dine-in",
+      "branchIds": [
+        "xiang-yuan-circuit-source"
+      ],
+      "sourceIds": [
+        "icf2-xiang-sign",
+        "icf2-xiang-report"
+      ],
+      "coverage": "partial",
+      "notice": "Four readable foods/prices from photographed weekend panel. Partial source only; weekday detail and present stock unconfirmed.",
+      "sourceCoverage": {
+        "foodProducts": 4
+      },
+      "items": [
+        {
+          "id": "icf2-xiang-1",
+          "name": "Veg Laksa",
+          "category": "Photographed weekend food",
+          "sourceIds": [
+            "icf2-xiang-sign"
+          ],
+          "price": {
+            "amount": 4,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceAvailability": {
+            "availableDays": "Sat,Sun",
+            "notice": "Printed weekend panel; not a current operating schedule guarantee."
+          },
+          "qualifier": "Photographed weekend panel accompanying 21August2026 on-site report; unqualified $ currency unknown. Merchant sign explicitly positions the stall as vegetarian. Small weekday details not fully readable; no ingredient/vegan claim. Dated/source-specific observation, not current stock, full ingredients or a menu effective-date guarantee."
+        },
+        {
+          "id": "icf2-xiang-2",
+          "name": "Veg Kway Chap",
+          "category": "Photographed weekend food",
+          "sourceIds": [
+            "icf2-xiang-sign"
+          ],
+          "price": {
+            "amount": 4,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceAvailability": {
+            "availableDays": "Sat,Sun",
+            "notice": "Printed weekend panel; not a current operating schedule guarantee."
+          },
+          "qualifier": "Photographed weekend panel accompanying 21August2026 on-site report; unqualified $ currency unknown. Merchant sign explicitly positions the stall as vegetarian. Small weekday details not fully readable; no ingredient/vegan claim. Dated/source-specific observation, not current stock, full ingredients or a menu effective-date guarantee."
+        },
+        {
+          "id": "icf2-xiang-3",
+          "name": "Veg Lontong",
+          "category": "Photographed weekend food",
+          "sourceIds": [
+            "icf2-xiang-sign"
+          ],
+          "price": {
+            "amount": 3.5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceAvailability": {
+            "availableDays": "Sat,Sun",
+            "notice": "Printed weekend panel; not a current operating schedule guarantee."
+          },
+          "qualifier": "Photographed weekend panel accompanying 21August2026 on-site report; unqualified $ currency unknown. Merchant sign explicitly positions the stall as vegetarian. Small weekday details not fully readable; no ingredient/vegan claim. Dated/source-specific observation, not current stock, full ingredients or a menu effective-date guarantee."
+        },
+        {
+          "id": "icf2-xiang-4",
+          "name": "Veg Mee Siam",
+          "category": "Photographed weekend food",
+          "sourceIds": [
+            "icf2-xiang-sign"
+          ],
+          "price": {
+            "amount": 4,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceAvailability": {
+            "availableDays": "Sat,Sun",
+            "notice": "Printed weekend panel; not a current operating schedule guarantee."
+          },
+          "qualifier": "Photographed weekend panel accompanying 21August2026 on-site report; unqualified $ currency unknown. Merchant sign explicitly positions the stall as vegetarian. Small weekday details not fully readable; no ingredient/vegan claim. Dated/source-specific observation, not current stock, full ingredients or a menu effective-date guarantee."
+        }
+      ]
+    }
+  ],
+  "exclusions": [
+    {
+      "name": "The Living Cafe",
+      "address": "779 Bukit Timah Road, Singapore 269758",
+      "eligibility": "mixed-menu",
+      "publicationStatus": "excluded",
+      "reason": "The merchant's own site explicitly states that white meat and fish are served alongside plant-based food. Entire venue excluded under the user scope.",
+      "sourceUrls": [
+        "https://thelivingcafe.com/"
+      ],
+      "checkedAt": "2026-10-16T00:40:17Z",
+      "foodRowsCreated": 0
+    }
+  ],
+  "attemptedLeads": [
+    {
+      "identitySequence": 5,
+      "name": "Teenoy Thai Vegetarian",
+      "dataset": "data/menu-research/menu-completion-identity-foods-01.json",
+      "branchId": "teenoy-hougang-foodpanda-932",
+      "outcome": "59 delivery foods retained separately at source address 932; no 932B identity merge or Google assignment."
+    },
+    {
+      "identitySequence": 6,
+      "name": "Happy Realm",
+      "dataset": "data/menu-research/menu-completion-identity-foods-01.json",
+      "branchId": "happy-realm-bright-hill",
+      "outcome": "Current full menu blocked by operator 403; 8 older magazine examples held with unknown exact publication date."
+    },
+    {
+      "identitySequence": 7,
+      "name": "150 Green",
+      "dataset": "data/menu-research/menu-completion-identity-foods-01.json",
+      "branchId": "150-green-bukit-batok",
+      "outcome": "4 merchant vegetarian-positioned delivery mains; 3 from-prices lack modifiers."
+    },
+    {
+      "identitySequence": 8,
+      "name": "Su Shi Yuan",
+      "dataset": "data/menu-research/menu-completion-identity-foods-01.json",
+      "branchId": "su-shi-yuan-tampines",
+      "outcome": "6 latest source foods; 5 retained, Popiah ingredient conflict held."
+    },
+    {
+      "identitySequence": 11,
+      "name": "The Crowded Bowl Biopolis",
+      "dataset": "data/menu-research/menu-completion-identity-foods-02.json",
+      "branchId": "crowded-bowl-biopolis-source",
+      "outcome": "5 dated photo/article price observations held; Large photo price 13 versus article 15 conflict. Current website unavailable."
+    },
+    {
+      "identitySequence": 16,
+      "name": "egg.plant",
+      "dataset": "data/menu-research/menu-completion-identity-foods-02.json",
+      "branchId": "egg-plant-marina-bay-source",
+      "outcome": "6 direct delivery foods retained. 8 differing indexed food rows and 1 dated observed bowl held rather than silently combined."
+    },
+    {
+      "identitySequence": 27,
+      "name": "The Thunder Tea Story",
+      "dataset": "data/menu-research/menu-completion-identity-foods-02.json",
+      "branchId": "thunder-tea-story-alexandra-source",
+      "outcome": "2 dated rice meals with 3 priced food add-ons each held; no current full merchant menu verified."
+    },
+    {
+      "identitySequence": 31,
+      "name": "Living Wholesome Bukit Timah",
+      "dataset": "data/menu-research/menu-completion-identity-foods-01.json",
+      "branchId": "living-wholesome-bukit-timah",
+      "outcome": "4 operator brand-shared foods; no prices or separate branch completeness claim."
+    },
+    {
+      "identitySequence": 34,
+      "name": "Fei Cui",
+      "dataset": "data/menu-research/menu-completion-identity-foods-02.json",
+      "branchId": "fei-cui-lucky-plaza-source",
+      "outcome": "3 dated photographed meal prices and 1 past purchased plate total held; source unit 95/101 differs from frozen 99/101."
+    },
+    {
+      "identitySequence": 41,
+      "name": "Ming Su",
+      "dataset": "data/menu-research/menu-completion-identity-foods-02.json",
+      "branchId": "ming-su-yishun-park-source",
+      "outcome": "3 dated article foods and 1 conflicting photo Kway Chap price held; small full board unreadable."
+    },
+    {
+      "identitySequence": 42,
+      "name": "Xiang Yuan",
+      "dataset": "data/menu-research/menu-completion-identity-foods-02.json",
+      "branchId": "xiang-yuan-circuit-source",
+      "outcome": "4 photographed weekend meal names/prices retained with August 2026 source date; weekday small print incomplete."
+    },
+    {
+      "identitySequence": 47,
+      "name": "The Living Cafe",
+      "dataset": "data/menu-research/menu-completion-identity-foods-02.json",
+      "branchId": null,
+      "outcome": "Excluded mixed-menu venue by own white-meat/fish statement; 0 food rows created."
+    }
+  ],
+  "completionHistory": [
+    {
+      "checkedAt": "2026-10-16T00:49:12.162Z",
+      "action": "Root publication review: preserve frozen source packet; approve two partial menus, retain all24 historical/conflicting held rows. Su Shi Yuan outcome in companion packet01 superseded by whole-venue hold.",
+      "frozenSourceSha256": "83c2db77e85652bd9968c86f2553e4e7e3162e94e2bac6060aeb6aaf91c1131b"
+    }
+  ]
+}

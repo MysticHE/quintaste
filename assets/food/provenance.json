@@ -1,0 +1,58 @@
+[
+  {
+    "file": "bowl.jpg",
+    "source": "C:\\Users\\huien\\.codex\\generated_images\\01a137e2-5c97-7dc3-acc5-909d35b729f0\\exec-ca64f6b6-7c38-4ec1-aade-dfd3686bbf77.png (re-encoded 2026-10-17 from the 1536x1024 PNG to 1024x683 JPEG quality 80; original kept in .local/original-photos)",
+    "prompt": "Use case: photorealistic-natural. Asset type: editorial food photograph for the QuinTaste mobile recipe preview. Primary request: a beautifully appetizing vegan miso mushroom rice bowl in a cream ceramic bowl, shiitake mushrooms with browned edges, small golden tofu cubes, edamame, avocado slices, shredded purple cabbage, brown rice and sesame. Composition: a single dish in a landscape 3:2 photograph, close three-quarter overhead view, bowl fully visible and centered with a little room at its edges, shallow natural depth of field, light peach-beige tabletop. Lighting: warm soft morning window light, real food textures, natural restaurant editorial photography, restrained styling. No onion or garlic garnishes. No people, hands, writing, logos, watermark, UI, borders or collage. This is illustrative recipe imagery, not a photograph documenting a real restaurant.",
+    "use": "Illustrative preview food/recipe imagery; not venue documentation",
+    "generated": "2026-10-14"
+  },
+  {
+    "file": "laksa.jpg",
+    "source": "C:\\Users\\huien\\.codex\\generated_images\\01a137e2-5c97-7dc3-acc5-909d35b729f0\\exec-877db44b-fc05-4306-bff9-6c5a8b050e64.png (re-encoded 2026-10-17 from the 1536x1024 PNG to 1024x683 JPEG quality 80; original kept in .local/original-photos)",
+    "prompt": "Use case: photorealistic-natural. Asset type: editorial food photograph for the QuinTaste mobile recipe preview. Primary request: a delicious plant-based coconut laksa in a warm cream ceramic bowl, rice noodles, golden tofu puffs, shiitake mushrooms, bok choy, bean sprouts and fresh coriander, rich orange coconut broth. Composition: one dish in a landscape 3:2 close three-quarter overhead photograph, entire bowl centered and visible with small margin, light peach-beige tabletop, restrained professional food styling. Lighting: soft warm morning window light, realistic steam and textures, inviting Singapore food editorial photography. No seafood, meat, egg, onion or garlic garnish. No people, hands, writing, logos, watermark, UI, borders or collage. Illustrative recipe imagery rather than documentation of a real venue.",
+    "use": "Illustrative preview food/recipe imagery; not venue documentation",
+    "generated": "2026-10-14"
+  },
+  {
+    "file": "greens.jpg",
+    "source": "C:\\Users\\huien\\.codex\\generated_images\\01a137e2-5c97-7dc3-acc5-909d35b729f0\\exec-e644ae2e-f13b-451a-911e-7a22b09b355b.png (re-encoded 2026-10-17 from the 1536x1024 PNG to 1024x683 JPEG quality 80; original kept in .local/original-photos)",
+    "prompt": "Use case: photorealistic-natural. Asset type: editorial food photograph for the QuinTaste mobile recipe preview. Primary request: a beautifully arranged vegan sesame greens and tofu bowl, vivid steamed broccolini and bok choy, pan-seared tofu, brown rice, sesame seeds, finely sliced fresh red chilli and a lemon wedge. Composition: one cream ceramic bowl, landscape 3:2 food photograph, centered and fully visible, close three-quarter overhead angle, light peach-beige tabletop, restrained styling. Lighting: warm soft natural morning window light and realistic food texture, clean modern restaurant editorial quality, appetizing fresh greens. No onion or garlic garnish. No people, hands, writing, logos, watermark, UI, borders or collage. Illustrative recipe imagery, not a real restaurant photo.",
+    "use": "Illustrative preview food/recipe imagery; not venue documentation",
+    "generated": "2026-10-14"
+  },
+  {
+    "file": "kaya-toast.jpg",
+    "source": "Higgsfield job 645e57a8-3138-4bc7-8087-dcfb596b68d2 (model gpt_image_2_5, 1024x688 PNG, re-encoded as JPEG quality 80)",
+    "prompt": "Use case: photorealistic-natural. Asset type: editorial food photograph for the QuinTaste mobile recipe preview. Primary request: Singapore-style pandan kaya toast, two thin slices of golden charcoal-toasted white bread sandwiching a layer of glossy green-brown pandan coconut kaya and thin slices of cold plant-based butter, cut into fingers on a small white plate with a green floral rim, beside a cup of dark kopi in a thick white cup and saucer. Composition: one dish in a landscape 3:2 photograph, close three-quarter overhead view, dish fully visible and centered with a little room at its edges, shallow natural depth of field, light peach-beige tabletop, restrained professional food styling. Lighting: warm soft morning window light, real food textures, natural Singapore food editorial photography. No meat, seafood, egg, onion, garlic, spring onion or fried shallot garnish. No people, hands, writing, logos, watermark, UI, borders or collage. Illustrative recipe imagery, not a photograph documenting a real restaurant.",
+    "use": "Illustrative preview food/recipe imagery; not venue documentation",
+    "generated": "2026-10-17"
+  },
+  {
+    "file": "claypot-rice.jpg",
+    "source": "Higgsfield job e4a0f357-0425-4292-9859-4597fe883677 (model gpt_image_2_5, 1024x688 PNG, re-encoded as JPEG quality 80)",
+    "prompt": "Use case: photorealistic-natural. Asset type: editorial food photograph for the QuinTaste mobile recipe preview. Primary request: rice-cooker style vegetarian claypot rice in a small black clay pot, fluffy rice glossy with dark soy sauce, topped with braised shiitake mushrooms, golden tofu cubes and blanched choy sum, a little crisp rice visible at the pot edge. Composition: one dish in a landscape 3:2 photograph, close three-quarter overhead view, dish fully visible and centered with a little room at its edges, shallow natural depth of field, light peach-beige tabletop, restrained professional food styling. Lighting: warm soft morning window light, real food textures, natural Singapore food editorial photography. No meat, sausage, seafood, egg, onion, garlic, spring onion or fried shallot garnish. No people, hands, writing, logos, watermark, UI, borders or collage. Illustrative recipe imagery, not a photograph documenting a real restaurant.",
+    "use": "Illustrative preview food/recipe imagery; not venue documentation",
+    "generated": "2026-10-17"
+  },
+  {
+    "file": "sweet-sour-tofu.jpg",
+    "source": "Higgsfield job a07c9246-cdd4-4dfe-9422-5a19fc0f0d86 (model gpt_image_2_5, 1024x688 PNG, re-encoded as JPEG quality 80)",
+    "prompt": "Use case: photorealistic-natural. Asset type: editorial food photograph for the QuinTaste mobile recipe preview. Primary request: sweet and sour tofu with pineapple, crisp golden tofu cubes tossed in a glossy orange-red sauce with pineapple chunks, red and green capsicum and cucumber pieces, on a white plate. Composition: one dish in a landscape 3:2 photograph, close three-quarter overhead view, dish fully visible and centered with a little room at its edges, shallow natural depth of field, light peach-beige tabletop, restrained professional food styling. Lighting: warm soft morning window light, real food textures, natural Singapore food editorial photography. No meat, seafood, egg, onion, garlic, spring onion or fried shallot garnish. No people, hands, writing, logos, watermark, UI, borders or collage. Illustrative recipe imagery, not a photograph documenting a real restaurant.",
+    "use": "Illustrative preview food/recipe imagery; not venue documentation",
+    "generated": "2026-10-17"
+  },
+  {
+    "file": "kangkung.jpg",
+    "source": "Higgsfield job 6bdb227b-7b24-4e7f-9071-43490d324cec (model gpt_image_2_5, 1024x688 PNG, re-encoded as JPEG quality 80)",
+    "prompt": "Use case: photorealistic-natural. Asset type: editorial food photograph for the QuinTaste mobile recipe preview. Primary request: stir-fried kangkung (water spinach) in a light fermented beancurd sauce, glossy dark-green leaves and hollow stems with a few slices of fresh red chilli, on a white oval plate. Composition: one dish in a landscape 3:2 photograph, close three-quarter overhead view, dish fully visible and centered with a little room at its edges, shallow natural depth of field, light peach-beige tabletop, restrained professional food styling. Lighting: warm soft morning window light, real food textures, natural Singapore food editorial photography. No meat, seafood, belacan, egg, onion, garlic, spring onion or fried shallot garnish. No people, hands, writing, logos, watermark, UI, borders or collage. Illustrative recipe imagery, not a photograph documenting a real restaurant.",
+    "use": "Illustrative preview food/recipe imagery; not venue documentation",
+    "generated": "2026-10-17"
+  },
+  {
+    "file": "abc-soup.jpg",
+    "source": "Higgsfield job 6d05f8e8-9804-417c-a54e-1e6519f865db (model gpt_image_2_5, 1024x688 PNG, re-encoded as JPEG quality 80)",
+    "prompt": "Use case: photorealistic-natural. Asset type: editorial food photograph for the QuinTaste mobile recipe preview. Primary request: vegan ABC soup, a clear golden vegetable broth with chunks of potato, carrot, tomato wedges and short pieces of corn on the cob, in a cream ceramic bowl with a ceramic spoon. Composition: one dish in a landscape 3:2 photograph, close three-quarter overhead view, dish fully visible and centered with a little room at its edges, shallow natural depth of field, light peach-beige tabletop, restrained professional food styling. Lighting: warm soft morning window light, real food textures, natural Singapore food editorial photography. No meat, bones, seafood, egg, onion, garlic, spring onion or fried shallot garnish. No people, hands, writing, logos, watermark, UI, borders or collage. Illustrative recipe imagery, not a photograph documenting a real restaurant.",
+    "use": "Illustrative preview food/recipe imagery; not venue documentation",
+    "generated": "2026-10-17"
+  }
+]

@@ -1,0 +1,24 @@
+{
+  "checks": [
+    "Version change blocks old steps and keeps unrelated timers",
+    "Loaded bundled recipe remains usable without network",
+    "Failed draft persistence exposes Retry and preserves typed content",
+    "Large text keeps navigation and creator controls usable at 320",
+    "Collection deletion clears private recipe drafts and shopping"
+  ],
+  "screenshots": [
+    "cook-recovery-version-guard.png",
+    "cook-recovery-draft-retry.png",
+    "cook-recovery-home-large-320.png",
+    "cook-recovery-editor-large-320.png"
+  ],
+  "errors": [],
+  "axe": [
+    {
+      "name": "editor-large",
+      "violations": []
+    }
+  ],
+  "scope": "Browser preview, native appearance and background delivery unverified",
+  "passed": true
+}

@@ -1,0 +1,60 @@
+{
+  "checks": [
+    "All five active tabs have the same persistent selection treatment after touch and content focus",
+    "Keyboard focus is distinct, Enter activates, mouse clears focus-only outline",
+    "Targets and icons stay centered, bounded and usable across portrait, landscape and desktop",
+    "Shared add buttons clear the dock and keep working",
+    "All palettes and modes preserve selected state and dock accessibility"
+  ],
+  "captures": [
+    "nav-consistency-explore-selected.png",
+    "nav-consistency-cook-selected.png",
+    "nav-consistency-social-selected.png",
+    "nav-consistency-market-selected.png",
+    "nav-consistency-game-selected.png",
+    "nav-consistency-keyboard-focus.png",
+    "nav-consistency-320x812.png",
+    "nav-consistency-375x812.png",
+    "nav-consistency-430x932.png",
+    "nav-consistency-812x375.png",
+    "nav-consistency-768x1024.png",
+    "nav-consistency-1440x1024.png",
+    "nav-consistency-market-listings.png",
+    "nav-consistency-social-events.png",
+    "nav-consistency-coral-light.png",
+    "nav-consistency-coral-dark.png",
+    "nav-consistency-cobalt-light.png",
+    "nav-consistency-cobalt-dark.png",
+    "nav-consistency-lavender-light.png",
+    "nav-consistency-lavender-dark.png"
+  ],
+  "errors": [],
+  "axe": [
+    {
+      "name": "coral-light",
+      "violations": []
+    },
+    {
+      "name": "coral-dark",
+      "violations": []
+    },
+    {
+      "name": "cobalt-light",
+      "violations": []
+    },
+    {
+      "name": "cobalt-dark",
+      "violations": []
+    },
+    {
+      "name": "lavender-light",
+      "violations": []
+    },
+    {
+      "name": "lavender-dark",
+      "violations": []
+    }
+  ],
+  "scope": "Browser touch/mouse/keyboard; native device unverified",
+  "passed": true
+}

@@ -1,0 +1,31 @@
+services:
+  app:
+    volumes:
+      - ./avatar-secrets:/run/secrets/avatar:ro
+      - ./admin-secrets/cloudflare-gateway-token:/run/secrets/cloudflare-gateway-token:ro
+      - ./admin-secrets/google-client-secret:/run/secrets/google-client-secret:ro
+      - ./avatar-data:/app/.local/avatar
+    environment:
+      AVATAR_ENABLED: 'true'
+      AVATAR_WORKER_ENABLED: 'true'
+      AVATAR_DATA_DIR: /app/.local/avatar
+      AVATAR_STORAGE_KEY_FILE: /run/secrets/avatar/storage-key
+      CLOUDFLARE_GATEWAY_TOKEN_FILE: /run/secrets/cloudflare-gateway-token
+      CLOUDFLARE_ACCOUNT_ID: 5e0f948cf2161e20c0cdfe640c6cf48f
+      CLOUDFLARE_GATEWAY_ID: quintaste
+      AVATAR_IMAGE_MODEL: gpt-image-2.5-sunburst
+      GOOGLE_CLIENT_ID: 528818348519-l3tnrloeqjm9voa41m88domtil4qmejp.apps.googleusercontent.com
+      GOOGLE_CLIENT_SECRET_FILE: /run/secrets/google-client-secret
+      GOOGLE_REDIRECT_URI: https://admin-quintaste.srv1902914.hstgr.cloud/auth/callback
+      EXPO_GO_PREVIEW_URL: https://${PREVIEW_HOST}
+    labels:
+      traefik.http.routers.quintaste-avatar.rule: Host(`${APP_HOST}`) && PathPrefix(`/api/avatar`)
+      traefik.http.routers.quintaste-avatar.priority: '100'
+      traefik.http.routers.quintaste-avatar.entrypoints: websecure
+      traefik.http.routers.quintaste-avatar.tls.certresolver: letsencrypt
+      traefik.http.routers.quintaste-avatar.service: quintaste
+      traefik.http.routers.quintaste-avatar.middlewares: quintaste-avatar-body,quintaste-avatar-rate
+      traefik.http.middlewares.quintaste-avatar-body.buffering.maxRequestBodyBytes: '5734400'
+      traefik.http.middlewares.quintaste-avatar-body.buffering.memRequestBodyBytes: '5734400'
+      traefik.http.middlewares.quintaste-avatar-rate.ratelimit.average: '30'
+      traefik.http.middlewares.quintaste-avatar-rate.ratelimit.burst: '40'

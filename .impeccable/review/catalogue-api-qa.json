@@ -1,0 +1,17 @@
+{
+  "checkedAt": "2026-10-16T11:07:40.891Z",
+  "checks": [
+    "20 summaries only; unchanged POST page204",
+    "All pages174 unique venues; no food arrays",
+    "Invalid/stale location and cross-query cursor rejected",
+    "Nearby radius and distance ordering; no unlocated venues",
+    "Saved-only filter applied before pagination",
+    "Withdrawals excluded from browse and summary",
+    "Menu/index conditional304 and original held404"
+  ],
+  "providerCalls": 0,
+  "firstPageBytes": 10389,
+  "firstPageGzipBytes": 3301,
+  "nearbyCount": 14,
+  "passed": true
+}

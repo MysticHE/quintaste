@@ -1,0 +1,4140 @@
+{
+  "version": 1,
+  "checkedAt": "2026-10-16T00:35:32.493803+00:00",
+  "sources": [
+    {
+      "id": "smallcafe-source-217925d1a8a8",
+      "url": "https://cookiecoffee.com.sg/__static/jdj5jdewjejym1jym3fwyvh4s0mzsljp/Dim-Sum-Menu-Temp-Lower-Res(8).jpg",
+      "publisher": "cookiecoffee.com.sg",
+      "title": "Primary merchant/landlord food and branch evidence",
+      "checkedAt": "2026-10-16T00:26:55.660969+00:00",
+      "status": "HTTP200",
+      "notes": "Ordinary public source; check date is not menu effective date.",
+      "evidenceFile": "cookiecoffee.com.sg-217925d1a8.jpg"
+    },
+    {
+      "id": "smallcafe-source-22579d04af22",
+      "url": "https://cookiecoffee.com.sg/__static/jdj5jdewjhpnrefnykouytdamfvwthhz/Rice-Menu-Final-A3-Revised(2).jpg",
+      "publisher": "cookiecoffee.com.sg",
+      "title": "Primary merchant/landlord food and branch evidence",
+      "checkedAt": "2026-10-16T00:26:55.661784+00:00",
+      "status": "HTTP200",
+      "notes": "Ordinary public source; check date is not menu effective date.",
+      "evidenceFile": "cookiecoffee.com.sg-22579d04af.jpg"
+    },
+    {
+      "id": "smallcafe-source-23dd35543a86",
+      "url": "https://cookiecoffee.com.sg/blank/",
+      "publisher": "cookiecoffee.com.sg",
+      "title": "Primary merchant/landlord food and branch evidence",
+      "checkedAt": "2026-10-16T00:26:28.202407+00:00",
+      "status": "HTTP200",
+      "notes": "Ordinary public source; check date is not menu effective date.",
+      "evidenceFile": "cookiecoffee.com.sg-23dd35543a.html"
+    },
+    {
+      "id": "smallcafe-source-50eea9f16b5a",
+      "url": "https://cookiecoffee.com.sg/",
+      "publisher": "cookiecoffee.com.sg",
+      "title": "Primary merchant/landlord food and branch evidence",
+      "checkedAt": "2026-10-16T00:25:58.418414+00:00",
+      "status": "HTTP200",
+      "notes": "Ordinary public source; check date is not menu effective date.",
+      "evidenceFile": "cookiecoffee.com.sg-50eea9f16b.html"
+    },
+    {
+      "id": "smallcafe-source-796a6a893ac9",
+      "url": "https://cookiecoffee.com.sg/pickup-and-delivery/",
+      "publisher": "cookiecoffee.com.sg",
+      "title": "Primary merchant/landlord food and branch evidence",
+      "checkedAt": "2026-10-16T00:26:28.204733+00:00",
+      "status": "HTTP200",
+      "notes": "Ordinary public source; check date is not menu effective date.",
+      "evidenceFile": "cookiecoffee.com.sg-796a6a893a.html"
+    },
+    {
+      "id": "smallcafe-source-7c5914d4a79c",
+      "url": "https://cookiecoffee.com.sg/menu/",
+      "publisher": "cookiecoffee.com.sg",
+      "title": "Primary merchant/landlord food and branch evidence",
+      "checkedAt": "2026-10-16T00:25:58.420368+00:00",
+      "status": "HTTP200",
+      "notes": "Ordinary public source; check date is not menu effective date.",
+      "evidenceFile": "cookiecoffee.com.sg-7c5914d4a7.html"
+    },
+    {
+      "id": "smallcafe-source-9f57eb7853e5",
+      "url": "https://cookiecoffee.com.sg/__static/jdj5jdewjemuae5kwe03nehprtvzuk9z/WhatsApp-Image-2025-08-15-at-19-33-59(3)",
+      "publisher": "cookiecoffee.com.sg",
+      "title": "Primary merchant/landlord food and branch evidence",
+      "checkedAt": "2026-10-16T00:26:55.660014+00:00",
+      "status": "HTTP200",
+      "notes": "Ordinary public source; check date is not menu effective date.",
+      "evidenceFile": "cookiecoffee.com.sg-9f57eb7853.html"
+    },
+    {
+      "id": "smallcafe-source-a96815bdf25c",
+      "url": "https://cookiecoffee.com.sg/signaturericeset/",
+      "publisher": "cookiecoffee.com.sg",
+      "title": "Primary merchant/landlord food and branch evidence",
+      "checkedAt": "2026-10-16T00:26:28.203990+00:00",
+      "status": "HTTP200",
+      "notes": "Ordinary public source; check date is not menu effective date.",
+      "evidenceFile": "cookiecoffee.com.sg-a96815bdf2.html"
+    },
+    {
+      "id": "smallcafe-source-d4fd6a69098e",
+      "url": "https://www.forumtheshoppingmall.com.sg/directory/",
+      "publisher": "www.forumtheshoppingmall.com.sg",
+      "title": "Primary merchant/landlord food and branch evidence",
+      "checkedAt": "2026-10-16T00:27:17.000229+00:00",
+      "status": "HTTP200",
+      "notes": "Ordinary public source; check date is not menu effective date.",
+      "evidenceFile": "forumtheshoppingmall.com.sg-d4fd6a6909.html"
+    },
+    {
+      "id": "smallcafe-source-143d749f043a",
+      "url": "https://jammys.sg/products/gelato-party-set",
+      "publisher": "jammys.sg",
+      "title": "Primary merchant/landlord food and branch evidence",
+      "checkedAt": "2026-10-16T00:26:56.586665+00:00",
+      "status": "HTTP200",
+      "notes": "Ordinary public source; check date is not menu effective date.",
+      "evidenceFile": "jammys.sg-143d749f04.html"
+    },
+    {
+      "id": "smallcafe-source-1cc0971e111e",
+      "url": "https://jammys.sg/products/gelato-popsicles-party-set",
+      "publisher": "jammys.sg",
+      "title": "Primary merchant/landlord food and branch evidence",
+      "checkedAt": "2026-10-16T00:26:56.370405+00:00",
+      "status": "HTTP200",
+      "notes": "Ordinary public source; check date is not menu effective date.",
+      "evidenceFile": "jammys.sg-1cc0971e11.html"
+    },
+    {
+      "id": "smallcafe-source-43c1609044cc",
+      "url": "https://www.jammys.sg/",
+      "publisher": "www.jammys.sg",
+      "title": "Primary merchant/landlord food and branch evidence",
+      "checkedAt": "2026-10-16T00:25:58.421211+00:00",
+      "status": "HTTP200",
+      "notes": "Ordinary public source; check date is not menu effective date.",
+      "evidenceFile": "jammys.sg-43c1609044.html"
+    },
+    {
+      "id": "smallcafe-source-a3374bf60acd",
+      "url": "https://jammys.sg/pages/contact",
+      "publisher": "jammys.sg",
+      "title": "Primary merchant/landlord food and branch evidence",
+      "checkedAt": "2026-10-16T00:26:28.205333+00:00",
+      "status": "HTTP200",
+      "notes": "Ordinary public source; check date is not menu effective date.",
+      "evidenceFile": "jammys.sg-a3374bf60a.html"
+    },
+    {
+      "id": "smallcafe-source-c9d9662e5181",
+      "url": "https://jammys.sg/pages/faqs",
+      "publisher": "jammys.sg",
+      "title": "Primary merchant/landlord food and branch evidence",
+      "checkedAt": "2026-10-16T00:26:28.583228+00:00",
+      "status": "HTTP200",
+      "notes": "Ordinary public source; check date is not menu effective date.",
+      "evidenceFile": "jammys.sg-c9d9662e51.html"
+    },
+    {
+      "id": "smallcafe-source-ca1140de0407",
+      "url": "https://jammys.sg/products/3-gelato-pints-mix-match-bundle",
+      "publisher": "jammys.sg",
+      "title": "Primary merchant/landlord food and branch evidence",
+      "checkedAt": "2026-10-16T00:26:56.892238+00:00",
+      "status": "HTTP200",
+      "notes": "Ordinary public source; check date is not menu effective date.",
+      "evidenceFile": "jammys.sg-ca1140de04.html"
+    },
+    {
+      "id": "smallcafe-source-d204b32e549b",
+      "url": "https://jammys.sg/products.json?limit=250",
+      "publisher": "jammys.sg",
+      "title": "Primary merchant/landlord food and branch evidence",
+      "checkedAt": "2026-10-16T00:25:58.421928+00:00",
+      "status": "HTTP200",
+      "notes": "Ordinary public source; check date is not menu effective date.",
+      "evidenceFile": "jammys.sg-d204b32e54.json"
+    },
+    {
+      "id": "smallcafe-source-3d4873037643",
+      "url": "https://www.jaspatintl.com/",
+      "publisher": "www.jaspatintl.com",
+      "title": "Primary merchant/landlord food and branch evidence",
+      "checkedAt": "2026-10-16T00:25:59.518598+00:00",
+      "status": "HTTP200",
+      "notes": "Ordinary public source; check date is not menu effective date.",
+      "evidenceFile": "jaspatintl.com-3d48730376.html"
+    },
+    {
+      "id": "smallcafe-source-5e2a5d1ccece",
+      "url": "https://www.jaspatintl.com/products.json?limit=250",
+      "publisher": "www.jaspatintl.com",
+      "title": "Primary merchant/landlord food and branch evidence",
+      "checkedAt": "2026-10-16T00:26:29.485207+00:00",
+      "status": "HTTP200",
+      "notes": "Ordinary public source; check date is not menu effective date.",
+      "evidenceFile": "jaspatintl.com-5e2a5d1cce.json"
+    },
+    {
+      "id": "smallcafe-source-6863dc80428c",
+      "url": "https://www.jaspatintl.com/pages/new-culinary-creation",
+      "publisher": "www.jaspatintl.com",
+      "title": "Primary merchant/landlord food and branch evidence",
+      "checkedAt": "2026-10-16T00:26:28.594490+00:00",
+      "status": "HTTP200",
+      "notes": "Ordinary public source; check date is not menu effective date.",
+      "evidenceFile": "jaspatintl.com-6863dc8042.html"
+    },
+    {
+      "id": "smallcafe-source-76a261be80bf",
+      "url": "https://www.jaspatintl.com/cdn/shop/files/National_day_CeleBRATION_2.png?v=1786873457&width=3840",
+      "publisher": "www.jaspatintl.com",
+      "title": "Primary merchant/landlord food and branch evidence",
+      "checkedAt": "2026-10-16T00:29:12.281573+00:00",
+      "status": "HTTP200",
+      "notes": "Ordinary public source; check date is not menu effective date.",
+      "evidenceFile": "jaspatintl.com-76a261be80.jpg"
+    },
+    {
+      "id": "smallcafe-source-9265823c1e4b",
+      "url": "https://www.jaspatintl.com/pages/our-menu",
+      "publisher": "www.jaspatintl.com",
+      "title": "Primary merchant/landlord food and branch evidence",
+      "checkedAt": "2026-10-16T00:25:59.544839+00:00",
+      "status": "HTTP200",
+      "notes": "Ordinary public source; check date is not menu effective date.",
+      "evidenceFile": "jaspatintl.com-9265823c1e.html"
+    },
+    {
+      "id": "smallcafe-source-c2eef5e083ac",
+      "url": "https://www.jaspatintl.com/cdn/shop/files/National_day_CeleBRATION.png?v=1786869547&width=3840",
+      "publisher": "www.jaspatintl.com",
+      "title": "Primary merchant/landlord food and branch evidence",
+      "checkedAt": "2026-10-16T00:29:12.283383+00:00",
+      "status": "HTTP200",
+      "notes": "Ordinary public source; check date is not menu effective date.",
+      "evidenceFile": "jaspatintl.com-c2eef5e083.jpg"
+    },
+    {
+      "id": "smallcafe-source-e38c8628f79d",
+      "url": "https://www.jaspatintl.com/cdn/shop/files/National_day_CeleBRATION_1.png?v=1789304627&width=3840",
+      "publisher": "www.jaspatintl.com",
+      "title": "Primary merchant/landlord food and branch evidence",
+      "checkedAt": "2026-10-16T00:29:12.284540+00:00",
+      "status": "HTTP200",
+      "notes": "Ordinary public source; check date is not menu effective date.",
+      "evidenceFile": "jaspatintl.com-e38c8628f7.jpg"
+    },
+    {
+      "id": "smallcafe-source-01142e15d895",
+      "url": "https://kindkones.com/products/mocha-almond-energy-ball",
+      "publisher": "kindkones.com",
+      "title": "Primary merchant/landlord food and branch evidence",
+      "checkedAt": "2026-10-16T00:29:40.127535+00:00",
+      "status": "HTTP200",
+      "notes": "Ordinary public source; check date is not menu effective date.",
+      "evidenceFile": "kindkones.com-01142e15d8.html"
+    },
+    {
+      "id": "smallcafe-source-0727fe328066",
+      "url": "https://kindkones.com/products/keto-coconut",
+      "publisher": "kindkones.com",
+      "title": "Primary merchant/landlord food and branch evidence",
+      "checkedAt": "2026-10-16T00:29:36.009140+00:00",
+      "status": "HTTP200",
+      "notes": "Ordinary public source; check date is not menu effective date.",
+      "evidenceFile": "kindkones.com-0727fe3280.html"
+    },
+    {
+      "id": "smallcafe-source-0e4082fee3ee",
+      "url": "https://kindkones.com/products/chocolate-hazelnut-energy-balls",
+      "publisher": "kindkones.com",
+      "title": "Primary merchant/landlord food and branch evidence",
+      "checkedAt": "2026-10-16T00:29:32.990941+00:00",
+      "status": "HTTP200",
+      "notes": "Ordinary public source; check date is not menu effective date.",
+      "evidenceFile": "kindkones.com-0e4082fee3.html"
+    },
+    {
+      "id": "smallcafe-source-10abcfda3751",
+      "url": "https://kindkones.com/products/3-pint-saver",
+      "publisher": "kindkones.com",
+      "title": "Primary merchant/landlord food and branch evidence",
+      "checkedAt": "2026-10-16T00:29:27.658804+00:00",
+      "status": "HTTP200",
+      "notes": "Ordinary public source; check date is not menu effective date.",
+      "evidenceFile": "kindkones.com-10abcfda37.html"
+    },
+    {
+      "id": "smallcafe-source-1131e03b172a",
+      "url": "https://kindkones.com/products/oh-just-surprise-me-5-cups-4-pints",
+      "publisher": "kindkones.com",
+      "title": "Primary merchant/landlord food and branch evidence",
+      "checkedAt": "2026-10-16T00:29:41.091622+00:00",
+      "status": "HTTP200",
+      "notes": "Ordinary public source; check date is not menu effective date.",
+      "evidenceFile": "kindkones.com-1131e03b17.html"
+    },
+    {
+      "id": "smallcafe-source-125981e76d1b",
+      "url": "https://kindkones.com/products/salted-chocolate-chip",
+      "publisher": "kindkones.com",
+      "title": "Primary merchant/landlord food and branch evidence",
+      "checkedAt": "2026-10-16T00:29:44.319345+00:00",
+      "status": "HTTP200",
+      "notes": "Ordinary public source; check date is not menu effective date.",
+      "evidenceFile": "kindkones.com-125981e76d.html"
+    },
+    {
+      "id": "smallcafe-source-130e5b22510d",
+      "url": "https://kindkones.com/products/almond-brittle-fudge",
+      "publisher": "kindkones.com",
+      "title": "Primary merchant/landlord food and branch evidence",
+      "checkedAt": "2026-10-16T00:29:28.938123+00:00",
+      "status": "HTTP200",
+      "notes": "Ordinary public source; check date is not menu effective date.",
+      "evidenceFile": "kindkones.com-130e5b2251.html"
+    },
+    {
+      "id": "smallcafe-source-1496383a6a83",
+      "url": "https://kindkones.com/products/mint-chocolate-chip",
+      "publisher": "kindkones.com",
+      "title": "Primary merchant/landlord food and branch evidence",
+      "checkedAt": "2026-10-16T00:29:39.233735+00:00",
+      "status": "HTTP200",
+      "notes": "Ordinary public source; check date is not menu effective date.",
+      "evidenceFile": "kindkones.com-1496383a6a.html"
+    },
+    {
+      "id": "smallcafe-source-1de03e6b446a",
+      "url": "https://kindkones.com/products/creamy-passionfruit",
+      "publisher": "kindkones.com",
+      "title": "Primary merchant/landlord food and branch evidence",
+      "checkedAt": "2026-10-16T00:29:34.018778+00:00",
+      "status": "HTTP200",
+      "notes": "Ordinary public source; check date is not menu effective date.",
+      "evidenceFile": "kindkones.com-1de03e6b44.html"
+    },
+    {
+      "id": "smallcafe-source-2c1e98e3d201",
+      "url": "https://kindkones.com/collections/kind-bundles/products.json?limit=250",
+      "publisher": "kindkones.com",
+      "title": "Primary merchant/landlord food and branch evidence",
+      "checkedAt": "2026-10-16T00:26:56.317416+00:00",
+      "status": "HTTP200",
+      "notes": "Ordinary public source; check date is not menu effective date.",
+      "evidenceFile": "kindkones.com-2c1e98e3d2.json"
+    },
+    {
+      "id": "smallcafe-source-37db67a48ab8",
+      "url": "https://kindkones.com/collections/energy-balls/products.json?limit=250",
+      "publisher": "kindkones.com",
+      "title": "Primary merchant/landlord food and branch evidence",
+      "checkedAt": "2026-10-16T00:26:56.053942+00:00",
+      "status": "HTTP200",
+      "notes": "Ordinary public source; check date is not menu effective date.",
+      "evidenceFile": "kindkones.com-37db67a48a.json"
+    },
+    {
+      "id": "smallcafe-source-3ca6aa061810",
+      "url": "https://kindkones.com/products/be-kind-stay-safe-bundle",
+      "publisher": "kindkones.com",
+      "title": "Primary merchant/landlord food and branch evidence",
+      "checkedAt": "2026-10-16T00:29:29.937148+00:00",
+      "status": "HTTP200",
+      "notes": "Ordinary public source; check date is not menu effective date.",
+      "evidenceFile": "kindkones.com-3ca6aa0618.html"
+    },
+    {
+      "id": "smallcafe-source-3d5d06b785cb",
+      "url": "https://kindkones.com/products/blue-planet-1",
+      "publisher": "kindkones.com",
+      "title": "Primary merchant/landlord food and branch evidence",
+      "checkedAt": "2026-10-16T00:29:31.917787+00:00",
+      "status": "HTTP200",
+      "notes": "Ordinary public source; check date is not menu effective date.",
+      "evidenceFile": "kindkones.com-3d5d06b785.html"
+    },
+    {
+      "id": "smallcafe-source-484ba18be916",
+      "url": "https://kindkones.com/products/citrus-orange-chocolate-cupcake",
+      "publisher": "kindkones.com",
+      "title": "Primary merchant/landlord food and branch evidence",
+      "checkedAt": "2026-10-16T00:29:39.044395+00:00",
+      "status": "HTTP200",
+      "notes": "Ordinary public source; check date is not menu effective date.",
+      "evidenceFile": "kindkones.com-484ba18be9.html"
+    },
+    {
+      "id": "smallcafe-source-5059464a9bed",
+      "url": "https://kindkones.com/collections/all-products/products.json?limit=250",
+      "publisher": "kindkones.com",
+      "title": "Primary merchant/landlord food and branch evidence",
+      "checkedAt": "2026-10-16T00:27:17.001468+00:00",
+      "status": "HTTP200",
+      "notes": "Ordinary public source; check date is not menu effective date.",
+      "evidenceFile": "kindkones.com-5059464a9b.json"
+    },
+    {
+      "id": "smallcafe-source-519e4a936108",
+      "url": "https://kindkones.com/products.json?limit=250",
+      "publisher": "kindkones.com",
+      "title": "Primary merchant/landlord food and branch evidence",
+      "checkedAt": "2026-10-16T00:26:00.830106+00:00",
+      "status": "HTTP200",
+      "notes": "Ordinary public source; check date is not menu effective date.",
+      "evidenceFile": "kindkones.com-519e4a9361.json"
+    },
+    {
+      "id": "smallcafe-source-632dc41e8f3c",
+      "url": "https://kindkones.com/products/double-chocolate-brownie",
+      "publisher": "kindkones.com",
+      "title": "Primary merchant/landlord food and branch evidence",
+      "checkedAt": "2026-10-16T00:29:34.019381+00:00",
+      "status": "HTTP200",
+      "notes": "Ordinary public source; check date is not menu effective date.",
+      "evidenceFile": "kindkones.com-632dc41e8f.html"
+    },
+    {
+      "id": "smallcafe-source-65611a8d3af7",
+      "url": "https://kindkones.com/products/oatmeal-almond-crisp-cookie",
+      "publisher": "kindkones.com",
+      "title": "Primary merchant/landlord food and branch evidence",
+      "checkedAt": "2026-10-16T00:29:40.296758+00:00",
+      "status": "HTTP200",
+      "notes": "Ordinary public source; check date is not menu effective date.",
+      "evidenceFile": "kindkones.com-65611a8d3a.html"
+    },
+    {
+      "id": "smallcafe-source-72b732865ce4",
+      "url": "https://kindkones.com/products/banana-pecan",
+      "publisher": "kindkones.com",
+      "title": "Primary merchant/landlord food and branch evidence",
+      "checkedAt": "2026-10-16T00:29:29.780755+00:00",
+      "status": "HTTP200",
+      "notes": "Ordinary public source; check date is not menu effective date.",
+      "evidenceFile": "kindkones.com-72b732865c.html"
+    },
+    {
+      "id": "smallcafe-source-88dd6672270a",
+      "url": "https://kindkones.com/products/flourless-sweet-potato-brownie-whole-cake",
+      "publisher": "kindkones.com",
+      "title": "Primary merchant/landlord food and branch evidence",
+      "checkedAt": "2026-10-16T00:29:28.705244+00:00",
+      "status": "retrieval-gap",
+      "notes": "HTTP Error 429: Too Many Requests",
+      "evidenceFile": null
+    },
+    {
+      "id": "smallcafe-source-8c6477152b0d",
+      "url": "https://kindkones.com/products/madagascan-vanilla-bean",
+      "publisher": "kindkones.com",
+      "title": "Primary merchant/landlord food and branch evidence",
+      "checkedAt": "2026-10-16T00:29:38.047042+00:00",
+      "status": "retrieval-gap",
+      "notes": "HTTP Error 429: Too Many Requests",
+      "evidenceFile": null
+    },
+    {
+      "id": "smallcafe-source-8c8df8feed3e",
+      "url": "https://kindkones.com/products/2-for-the-gram-2-pints",
+      "publisher": "kindkones.com",
+      "title": "Primary merchant/landlord food and branch evidence",
+      "checkedAt": "2026-10-16T00:29:26.584274+00:00",
+      "status": "HTTP200",
+      "notes": "Ordinary public source; check date is not menu effective date.",
+      "evidenceFile": "kindkones.com-8c8df8feed.html"
+    },
+    {
+      "id": "smallcafe-source-8e2ac5503bf0",
+      "url": "https://kindkones.com/pages/contact",
+      "publisher": "kindkones.com",
+      "title": "Primary merchant/landlord food and branch evidence",
+      "checkedAt": "2026-10-16T00:26:29.549106+00:00",
+      "status": "HTTP200",
+      "notes": "Ordinary public source; check date is not menu effective date.",
+      "evidenceFile": "kindkones.com-8e2ac5503b.html"
+    },
+    {
+      "id": "smallcafe-source-9461882f0c90",
+      "url": "https://kindkones.com/products/kind-kones-favorites-6-cups",
+      "publisher": "kindkones.com",
+      "title": "Primary merchant/landlord food and branch evidence",
+      "checkedAt": "2026-10-16T00:29:37.041789+00:00",
+      "status": "HTTP200",
+      "notes": "Ordinary public source; check date is not menu effective date.",
+      "evidenceFile": "kindkones.com-9461882f0c.html"
+    },
+    {
+      "id": "smallcafe-source-94acc9287cfb",
+      "url": "https://kindkones.com/products/birthday-cake-energy-balls",
+      "publisher": "kindkones.com",
+      "title": "Primary merchant/landlord food and branch evidence",
+      "checkedAt": "2026-10-16T00:29:30.892704+00:00",
+      "status": "HTTP200",
+      "notes": "Ordinary public source; check date is not menu effective date.",
+      "evidenceFile": "kindkones.com-94acc9287c.html"
+    },
+    {
+      "id": "smallcafe-source-97a5ddce2516",
+      "url": "https://kindkones.com/pages/about-us",
+      "publisher": "kindkones.com",
+      "title": "Primary merchant/landlord food and branch evidence",
+      "checkedAt": "2026-10-16T00:26:29.804969+00:00",
+      "status": "HTTP200",
+      "notes": "Ordinary public source; check date is not menu effective date.",
+      "evidenceFile": "kindkones.com-97a5ddce25.html"
+    },
+    {
+      "id": "smallcafe-source-9a4cb276723a",
+      "url": "https://kindkones.com/products/peanut-butter-cinnamon-roll-energy-ball",
+      "publisher": "kindkones.com",
+      "title": "Primary merchant/landlord food and branch evidence",
+      "checkedAt": "2026-10-16T00:29:42.215470+00:00",
+      "status": "HTTP200",
+      "notes": "Ordinary public source; check date is not menu effective date.",
+      "evidenceFile": "kindkones.com-9a4cb27672.html"
+    },
+    {
+      "id": "smallcafe-source-a79da6a8fbbb",
+      "url": "https://kindkones.com/products/pink-lemonade",
+      "publisher": "kindkones.com",
+      "title": "Primary merchant/landlord food and branch evidence",
+      "checkedAt": "2026-10-16T00:29:43.246456+00:00",
+      "status": "HTTP200",
+      "notes": "Ordinary public source; check date is not menu effective date.",
+      "evidenceFile": "kindkones.com-a79da6a8fb.html"
+    },
+    {
+      "id": "smallcafe-source-aae4e56d24ea",
+      "url": "https://kindkones.com/products/pandan-gula-melaka",
+      "publisher": "kindkones.com",
+      "title": "Primary merchant/landlord food and branch evidence",
+      "checkedAt": "2026-10-16T00:29:41.242179+00:00",
+      "status": "HTTP200",
+      "notes": "Ordinary public source; check date is not menu effective date.",
+      "evidenceFile": "kindkones.com-aae4e56d24.html"
+    },
+    {
+      "id": "smallcafe-source-ac22afe54ddb",
+      "url": "https://kindkones.com/policies/shipping-policy",
+      "publisher": "kindkones.com",
+      "title": "Primary merchant/landlord food and branch evidence",
+      "checkedAt": "2026-10-16T00:26:56.331412+00:00",
+      "status": "HTTP200",
+      "notes": "Ordinary public source; check date is not menu effective date.",
+      "evidenceFile": "kindkones.com-ac22afe54d.html"
+    },
+    {
+      "id": "smallcafe-source-ad89b39bb8f3",
+      "url": "https://kindkones.com/products/chocolate-sorbet",
+      "publisher": "kindkones.com",
+      "title": "Primary merchant/landlord food and branch evidence",
+      "checkedAt": "2026-10-16T00:29:32.991899+00:00",
+      "status": "HTTP200",
+      "notes": "Ordinary public source; check date is not menu effective date.",
+      "evidenceFile": "kindkones.com-ad89b39bb8.html"
+    },
+    {
+      "id": "smallcafe-source-b495e1aa0f23",
+      "url": "https://kindkones.com/products/4-pint-saver",
+      "publisher": "kindkones.com",
+      "title": "Primary merchant/landlord food and branch evidence",
+      "checkedAt": "2026-10-16T00:29:27.659338+00:00",
+      "status": "HTTP200",
+      "notes": "Ordinary public source; check date is not menu effective date.",
+      "evidenceFile": "kindkones.com-b495e1aa0f.html"
+    },
+    {
+      "id": "smallcafe-source-b82938b9c760",
+      "url": "https://kindkones.com/products/black-forest",
+      "publisher": "kindkones.com",
+      "title": "Primary merchant/landlord food and branch evidence",
+      "checkedAt": "2026-10-16T00:29:30.893654+00:00",
+      "status": "HTTP200",
+      "notes": "Ordinary public source; check date is not menu effective date.",
+      "evidenceFile": "kindkones.com-b82938b9c7.html"
+    },
+    {
+      "id": "smallcafe-source-bc85129e2b63",
+      "url": "https://kindkones.com/products/vegan-gluten-free-dark-chocolate-ganache-whole-cake",
+      "publisher": "kindkones.com",
+      "title": "Primary merchant/landlord food and branch evidence",
+      "checkedAt": "2026-10-16T00:29:28.704148+00:00",
+      "status": "HTTP200",
+      "notes": "Ordinary public source; check date is not menu effective date.",
+      "evidenceFile": "kindkones.com-bc85129e2b.html"
+    },
+    {
+      "id": "smallcafe-source-bce326c6f89a",
+      "url": "https://kindkones.com/products/hazelnut-chocolate-1",
+      "publisher": "kindkones.com",
+      "title": "Primary merchant/landlord food and branch evidence",
+      "checkedAt": "2026-10-16T00:29:35.009601+00:00",
+      "status": "HTTP200",
+      "notes": "Ordinary public source; check date is not menu effective date.",
+      "evidenceFile": "kindkones.com-bce326c6f8.html"
+    },
+    {
+      "id": "smallcafe-source-c15cfcde069f",
+      "url": "https://kindkones.com/products/macadamia-cranberry-white-chocolate-energy-ball",
+      "publisher": "kindkones.com",
+      "title": "Primary merchant/landlord food and branch evidence",
+      "checkedAt": "2026-10-16T00:29:37.042416+00:00",
+      "status": "HTTP200",
+      "notes": "Ordinary public source; check date is not menu effective date.",
+      "evidenceFile": "kindkones.com-c15cfcde06.html"
+    },
+    {
+      "id": "smallcafe-source-c212c3d23907",
+      "url": "https://kindkones.com/products/2-pint-saver",
+      "publisher": "kindkones.com",
+      "title": "Primary merchant/landlord food and branch evidence",
+      "checkedAt": "2026-10-16T00:29:26.585773+00:00",
+      "status": "HTTP200",
+      "notes": "Ordinary public source; check date is not menu effective date.",
+      "evidenceFile": "kindkones.com-c212c3d239.html"
+    },
+    {
+      "id": "smallcafe-source-c686bdde4377",
+      "url": "https://kindkones.com/products/keto-chocolate-sorbet",
+      "publisher": "kindkones.com",
+      "title": "Primary merchant/landlord food and branch evidence",
+      "checkedAt": "2026-10-16T00:29:36.008372+00:00",
+      "status": "HTTP200",
+      "notes": "Ordinary public source; check date is not menu effective date.",
+      "evidenceFile": "kindkones.com-c686bdde43.html"
+    },
+    {
+      "id": "smallcafe-source-c7bf375b789d",
+      "url": "https://kindkones.com/products/midnight-classique-chocolate-cupcake",
+      "publisher": "kindkones.com",
+      "title": "Primary merchant/landlord food and branch evidence",
+      "checkedAt": "2026-10-16T00:29:38.242285+00:00",
+      "status": "HTTP200",
+      "notes": "Ordinary public source; check date is not menu effective date.",
+      "evidenceFile": "kindkones.com-c7bf375b78.html"
+    },
+    {
+      "id": "smallcafe-source-cd97cefa5db7",
+      "url": "https://kindkones.com/products/saffron-pistachio",
+      "publisher": "kindkones.com",
+      "title": "Primary merchant/landlord food and branch evidence",
+      "checkedAt": "2026-10-16T00:29:43.247384+00:00",
+      "status": "HTTP200",
+      "notes": "Ordinary public source; check date is not menu effective date.",
+      "evidenceFile": "kindkones.com-cd97cefa5d.html"
+    },
+    {
+      "id": "smallcafe-source-d093aba7c4af",
+      "url": "https://kindkones.com/products/watermelon-strawberry-mint-sorbet",
+      "publisher": "kindkones.com",
+      "title": "Primary merchant/landlord food and branch evidence",
+      "checkedAt": "2026-10-16T00:29:44.319987+00:00",
+      "status": "HTTP200",
+      "notes": "Ordinary public source; check date is not menu effective date.",
+      "evidenceFile": "kindkones.com-d093aba7c4.html"
+    },
+    {
+      "id": "smallcafe-source-db8eeb4a9324",
+      "url": "https://kindkones.com/products/charcoal-vanilla-1",
+      "publisher": "kindkones.com",
+      "title": "Primary merchant/landlord food and branch evidence",
+      "checkedAt": "2026-10-16T00:29:31.918649+00:00",
+      "status": "HTTP200",
+      "notes": "Ordinary public source; check date is not menu effective date.",
+      "evidenceFile": "kindkones.com-db8eeb4a93.html"
+    },
+    {
+      "id": "smallcafe-source-ed44d992e170",
+      "url": "https://kindkones.com/",
+      "publisher": "kindkones.com",
+      "title": "Primary merchant/landlord food and branch evidence",
+      "checkedAt": "2026-10-16T00:26:00.730167+00:00",
+      "status": "HTTP200",
+      "notes": "Ordinary public source; check date is not menu effective date.",
+      "evidenceFile": "kindkones.com-ed44d992e1.html"
+    },
+    {
+      "id": "smallcafe-source-f062a451df8d",
+      "url": "https://kindkones.com/collections/ice-cream-flavours/products.json?limit=250",
+      "publisher": "kindkones.com",
+      "title": "Primary merchant/landlord food and branch evidence",
+      "checkedAt": "2026-10-16T00:26:56.016191+00:00",
+      "status": "HTTP200",
+      "notes": "Ordinary public source; check date is not menu effective date.",
+      "evidenceFile": "kindkones.com-f062a451df.json"
+    },
+    {
+      "id": "smallcafe-source-f1115550df46",
+      "url": "https://kindkones.com/collections/cakes-bakes/products.json?limit=250",
+      "publisher": "kindkones.com",
+      "title": "Primary merchant/landlord food and branch evidence",
+      "checkedAt": "2026-10-16T00:26:56.025819+00:00",
+      "status": "HTTP200",
+      "notes": "Ordinary public source; check date is not menu effective date.",
+      "evidenceFile": "kindkones.com-f1115550df.json"
+    },
+    {
+      "id": "smallcafe-source-f6d1e1481abb",
+      "url": "https://kindkones.com/products/flourless-sweet-potato-brownie",
+      "publisher": "kindkones.com",
+      "title": "Primary merchant/landlord food and branch evidence",
+      "checkedAt": "2026-10-16T00:29:35.009024+00:00",
+      "status": "HTTP200",
+      "notes": "Ordinary public source; check date is not menu effective date.",
+      "evidenceFile": "kindkones.com-f6d1e1481a.html"
+    },
+    {
+      "id": "smallcafe-source-fdad2d0e65c6",
+      "url": "https://kindkones.com/products/mango-raspberry-swirl",
+      "publisher": "kindkones.com",
+      "title": "Primary merchant/landlord food and branch evidence",
+      "checkedAt": "2026-10-16T00:29:38.047747+00:00",
+      "status": "HTTP200",
+      "notes": "Ordinary public source; check date is not menu effective date.",
+      "evidenceFile": "kindkones.com-fdad2d0e65.html"
+    },
+    {
+      "id": "smallcafe-source-fe9d0ffdf722",
+      "url": "https://kindkones.com/products/peanut-butter-jelly-1",
+      "publisher": "kindkones.com",
+      "title": "Primary merchant/landlord food and branch evidence",
+      "checkedAt": "2026-10-16T00:29:42.214189+00:00",
+      "status": "HTTP200",
+      "notes": "Ordinary public source; check date is not menu effective date.",
+      "evidenceFile": "kindkones.com-fe9d0ffdf7.html"
+    },
+    {
+      "id": "smallcafe-source-53d6e29316c8",
+      "url": "https://www.modhaircafe.com/_files/ugd/35dacc_db8b46ebb7a04ca4b0223b8ab1428a0e.pdf",
+      "publisher": "www.modhaircafe.com",
+      "title": "Primary merchant/landlord food and branch evidence",
+      "checkedAt": "2026-10-16T00:26:55.662803+00:00",
+      "status": "retrieval-gap",
+      "notes": "HTTP Error 429: Too Many Requests",
+      "evidenceFile": null
+    },
+    {
+      "id": "smallcafe-source-bd2ceb65a96b",
+      "url": "http://www.modhaircafe.com/",
+      "publisher": "www.modhaircafe.com",
+      "title": "Primary merchant/landlord food and branch evidence",
+      "checkedAt": "2026-10-16T00:25:59.861644+00:00",
+      "status": "HTTP200",
+      "notes": "Ordinary public source; check date is not menu effective date.",
+      "evidenceFile": "modhaircafe.com-bd2ceb65a9.html"
+    },
+    {
+      "id": "smallcafe-source-fd749b204aa2",
+      "url": "https://www.modhaircafe.com/mod-cafe",
+      "publisher": "www.modhaircafe.com",
+      "title": "Primary merchant/landlord food and branch evidence",
+      "checkedAt": "2026-10-16T00:26:28.593927+00:00",
+      "status": "HTTP200",
+      "notes": "Ordinary public source; check date is not menu effective date.",
+      "evidenceFile": "modhaircafe.com-fd749b204a.html"
+    },
+    {
+      "id": "ur17-mod-menu",
+      "url": "https://www.modhaircafe.com/_files/ugd/35dacc_db8b46ebb7a04ca4b0223b8ab1428a0e.pdf",
+      "publisher": "Merchant operator / linked ordering",
+      "title": "MOD Cafe linked one-page food and drink menu",
+      "checkedAt": "2026-10-16T09:40:14.140Z",
+      "accessStatus": "normal-http-200",
+      "notes": "Normal200atoriginalownerlinkedURL, ordinary redirect to filesusrCDN,2,453,420bytes. Earlier00:35normal429is retained as historical access, not bypassed. Fullpage and enlarged food/addon crops visually inspected.27foodparents/eightunassignedaddons/19drinkparentsexcluded. No currency symbol/code or effective date printed; currencyunknown. AF/VGcodes retained without unprinted legend/blanketcertification."
+    },
+    {
+      "id": "ur17-mod-owner",
+      "url": "https://www.modhaircafe.com/mod-cafe",
+      "publisher": "Merchant operator / linked ordering",
+      "title": "MOD vegetarian cafe exact premise",
+      "checkedAt": "2026-10-16T09:39:29.907Z",
+      "accessStatus": "normal-http-200",
+      "notes": "Current operator Vegetarian&PlantBasedDining page explicitly describes plant-based cafe vision at1AKuoChuan/426888 and links this exact PDF. Hair service menu excluded. Printed egg/dairy prevent blanket vegan classification."
+    },
+    {
+      "id": "ae-cookie-new-buns-source",
+      "url": "https://www.facebook.com/photo/?fbid=1411615514413226&set=a.443893764518744",
+      "title": "Merchant exact-branch dish announcement",
+      "publisher": "Cookie Coffee Cafe Bar",
+      "kind": "merchant-public-announcement",
+      "status": "readable-public-browser",
+      "checkedAt": "2026-10-17T02:40:37.565Z",
+      "publishedAt": null,
+      "notes": "Merchant poster visibly prints$4.50. Currency code, portion count, sauce identity, ingredient/allergen composition and current stock are unstated. Do not infer vegan from a different dim-sum heading. Visible date is relative/omits year; exact publication timestamp is not asserted."
+    }
+  ],
+  "branches": [
+    {
+      "id": "cookie-coffee-fortune-centre",
+      "name": "Cookie Coffee Cafe Bar",
+      "address": "190 Middle Road #01-28B Fortune Centre, Singapore 188979",
+      "directoryLeadIds": [
+        "hippo-cookie-coffee-cafe-bar"
+      ],
+      "sourceIds": [
+        "smallcafe-source-50eea9f16b5a",
+        "smallcafe-source-7c5914d4a79c",
+        "smallcafe-source-23dd35543a86",
+        "smallcafe-source-a96815bdf25c",
+        "ae-cookie-new-buns-source"
+      ],
+      "identityStatus": "merchant-address-with-unit-variation",
+      "gaps": [
+        "Merchant main body gives #01-28B; footer uses #01-28. The dim-sum page says next door. Both food images are explicitly merchant linked under the same cafe; the exact subdivision is not independently resolved.",
+        "HTML house-vegan-ice-cream section and dairy Ben & Jerry’s homepage wording differ. Ice cream source prices have no portion labels.",
+        "Separate delivery-platform and hot-pot menus remain outside checked-source coverage. No effective dates, stock or tax wording for dim sum is printed.",
+        "Merchant poster visibly prints$4.50. Currency code, portion count, sauce identity, ingredient/allergen composition and current stock are unstated. Do not infer vegan from a different dim-sum heading."
+      ],
+      "menuIds": [
+        "cookie-fortune-dimsum-20261016",
+        "cookie-fortune-rice-20261016",
+        "cookie-fortune-ice-prices-20261016",
+        "ae-cookie-new-buns-announcement"
+      ],
+      "postalCode": "188979",
+      "venueEligibility": {
+        "status": "eligible-vegetarian",
+        "basis": "operator-whole-venue-classification",
+        "sourceIds": [
+          "smallcafe-source-50eea9f16b5a",
+          "smallcafe-source-217925d1a8a8",
+          "smallcafe-source-22579d04af22"
+        ],
+        "statement": "Merchant homepage classifies the business as Vegetarian Cafe & Vegan Dim Sum Bistro; complete linked food images are headed vegetarian or vegan.",
+        "notes": "Dairy ice-cream text conflicts with a vegan ice-cream claim but does not contradict vegetarian venue classification. No actual meat/fish/gelatin ingredient evidence found in checked sources."
+      }
+    },
+    {
+      "id": "jammys-directory-ubi-avenue",
+      "name": "Jammy’s — directory premises unverified",
+      "address": "57 Ubi Avenue 1 #08-13, Singapore 408936",
+      "directoryLeadIds": [
+        "hippo-jammy-s"
+      ],
+      "sourceIds": [
+        "smallcafe-source-43c1609044cc",
+        "smallcafe-source-a3374bf60acd",
+        "smallcafe-source-c9d9662e5181",
+        "smallcafe-source-d204b32e549b"
+      ],
+      "identityStatus": "hold-current-address-differs",
+      "gaps": [
+        "FAQ explicitly says no physical shop and provides office self-collection at 10 Ubi Crescent #04-96B, Lobby E, Singapore 408564, Tuesday–Saturday 14:30–18:00, contact before arrival.",
+        "Do not attach current online products to the old 57 Ubi Avenue directory place. Some mix-and-match customizers are script-rendered and were not fully audited."
+      ],
+      "menuIds": [
+        "jammys-online-frozen-food-20261016"
+      ],
+      "postalCode": "408936",
+      "venueEligibility": {
+        "status": "eligible-vegan-brand-place-held",
+        "basis": "operator-whole-brand-classification",
+        "sourceIds": [
+          "smallcafe-source-43c1609044cc",
+          "smallcafe-source-c9d9662e5181"
+        ],
+        "statement": "Merchant homepage says 100% Vegan & Keto-Friendly and FAQ says no pork, lard, alcohol or gelatin.",
+        "notes": "This supports the brand, not the historical directory premises. Shared nut/gluten facility warning is not a mixed-restaurant menu claim."
+      }
+    },
+    {
+      "id": "jaspat-fortune-centre",
+      "name": "Jaspat International — U-Turn Point F&B",
+      "address": "190 Middle Road #02-20A Fortune Centre, Singapore 188979",
+      "directoryLeadIds": [
+        "hippo-jaspat-international"
+      ],
+      "sourceIds": [
+        "smallcafe-source-3d4873037643",
+        "smallcafe-source-9265823c1e4b",
+        "smallcafe-source-6863dc80428c",
+        "smallcafe-source-5e2a5d1ccece"
+      ],
+      "identityStatus": "merchant-confirmed",
+      "gaps": [
+        "Flagship address confirmed. Our Menu is explicitly a suggested culinary applications gallery, not a priced branch menu.",
+        "Twenty New Culinary Creation titles are unpriced examples; current branch portions/options/availability not established. Product feed is empty. Three hero images visually inspected; no food menu prices there."
+      ],
+      "menuIds": [
+        "jaspat-fortune-culinary-gallery-20261016"
+      ],
+      "postalCode": "188979",
+      "venueEligibility": {
+        "status": "hold-insufficient-whole-venue-evidence",
+        "basis": "product-claim-is-not-whole-venue-proof",
+        "sourceIds": [
+          "smallcafe-source-3d4873037643",
+          "smallcafe-source-9265823c1e4b"
+        ],
+        "statement": "EggNot vegan product and suggested-vegan-application claims do not sufficiently establish that the entire current outlet is vegetarian/vegan.",
+        "notes": "No publication proposal; gallery examples remain held regardless of individual dish names."
+      }
+    },
+    {
+      "id": "mod-cafe-kuo-chuan",
+      "name": "MOD Cafe",
+      "address": "1A Kuo Chuan Avenue, Singapore 426888",
+      "directoryLeadIds": [
+        "hippo-mod-cafe"
+      ],
+      "sourceIds": [
+        "smallcafe-source-bd2ceb65a96b",
+        "smallcafe-source-fd749b204aa2",
+        "smallcafe-source-53d6e29316c8",
+        "ur17-mod-menu",
+        "ur17-mod-owner"
+      ],
+      "identityStatus": "merchant-confirmed",
+      "gaps": [
+        "Original PDF is now normal200 after earlier429;27foods reviewed. Effective date, currency, stock, tax and final charges unstated.",
+        "AF/VGcodes have no printed legend on page; specificvegan/allium-free request wording retained but no automatic dietary certification.",
+        "Eightaddonslistedbutfoodapplicability/defaults/limitsunprinted; not attached as universalitemoptions."
+      ],
+      "menuIds": [
+        "mod-cafe-current-linked-pdf-20261016"
+      ],
+      "postalCode": "426888",
+      "venueEligibility": {
+        "status": "vegetarian-confirmed",
+        "checkedAt": "2026-10-16T09:49:04.337957+00:00",
+        "sourceIds": [
+          "ur17-mod-menu",
+          "ur17-mod-owner"
+        ],
+        "reason": "Current dedicated operator page classifies vegetarian/plantbaseddining at1AKuoChuan and links fully read foodPDF; coherentplantbasedmainswith egg/dairy. No meat-service evidence in checked primary menu. Operator classification, not universal vegan/ingredientcertification."
+      },
+      "eligibility": "vegetarian-confirmed"
+    }
+  ],
+  "menus": [
+    {
+      "id": "cookie-fortune-dimsum-20261016",
+      "name": "Cookie Coffee — steamed/baked dim sum and snacks",
+      "scope": "branch-dine-in",
+      "branchIds": [
+        "cookie-coffee-fortune-centre"
+      ],
+      "sourceIds": [
+        "smallcafe-source-217925d1a8a8",
+        "smallcafe-source-23dd35543a86"
+      ],
+      "coverage": "source-covered",
+      "publicationStatus": "reviewed-vegetarian-source-foods",
+      "qualifier": "Merchant vegetarian/vegan section wording only; not independently certified. Dollar currency code, effective date and current stock unstated. Homepage unit varies #01-28B/#01-28; adjacent dim-sum operation explicitly linked by merchant. No copied source artwork.",
+      "items": [
+        {
+          "id": "cookie-dimsum-food-001",
+          "name": "Vegan Char Siu Barbacue Bun",
+          "category": "Steamed & Baked Dim Sum",
+          "price": {
+            "amount": 4.5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "smallcafe-source-217925d1a8a8"
+          ],
+          "qualifier": "Merchant vegetarian/vegan section wording only; not independently certified. Dollar currency code, effective date and current stock unstated. Homepage unit varies #01-28B/#01-28; adjacent dim-sum operation explicitly linked by merchant. No copied source artwork.",
+          "portion": "2 pcs"
+        },
+        {
+          "id": "cookie-dimsum-food-002",
+          "name": "Vegan Chicken Bun",
+          "category": "Steamed & Baked Dim Sum",
+          "price": {
+            "amount": 4.5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "smallcafe-source-217925d1a8a8"
+          ],
+          "qualifier": "Merchant vegetarian/vegan section wording only; not independently certified. Dollar currency code, effective date and current stock unstated. Homepage unit varies #01-28B/#01-28; adjacent dim-sum operation explicitly linked by merchant. No copied source artwork.",
+          "portion": "2 pcs"
+        },
+        {
+          "id": "cookie-dimsum-food-003",
+          "name": "Vegan Curry Bun",
+          "category": "Steamed & Baked Dim Sum",
+          "price": {
+            "amount": 4.5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "smallcafe-source-217925d1a8a8"
+          ],
+          "qualifier": "Merchant vegetarian/vegan section wording only; not independently certified. Dollar currency code, effective date and current stock unstated. Homepage unit varies #01-28B/#01-28; adjacent dim-sum operation explicitly linked by merchant. No copied source artwork.",
+          "portion": "2 pcs"
+        },
+        {
+          "id": "cookie-dimsum-food-004",
+          "name": "Vegan Ginger Mushroom Bun",
+          "category": "Steamed & Baked Dim Sum",
+          "price": {
+            "amount": 4.5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "smallcafe-source-217925d1a8a8"
+          ],
+          "qualifier": "Merchant vegetarian/vegan section wording only; not independently certified. Dollar currency code, effective date and current stock unstated. Homepage unit varies #01-28B/#01-28; adjacent dim-sum operation explicitly linked by merchant. No copied source artwork.",
+          "portion": "2 pcs"
+        },
+        {
+          "id": "cookie-dimsum-food-005",
+          "name": "Vegan Big Bun",
+          "category": "Steamed & Baked Dim Sum",
+          "price": {
+            "amount": 3.6,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "smallcafe-source-217925d1a8a8"
+          ],
+          "qualifier": "Merchant vegetarian/vegan section wording only; not independently certified. Dollar currency code, effective date and current stock unstated. Homepage unit varies #01-28B/#01-28; adjacent dim-sum operation explicitly linked by merchant. No copied source artwork.",
+          "portion": "1 pc"
+        },
+        {
+          "id": "cookie-dimsum-food-006",
+          "name": "Vegan Pounded Green Tea Bun",
+          "category": "Steamed & Baked Dim Sum",
+          "price": {
+            "amount": 4.5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "smallcafe-source-217925d1a8a8"
+          ],
+          "qualifier": "Merchant vegetarian/vegan section wording only; not independently certified. Dollar currency code, effective date and current stock unstated. Homepage unit varies #01-28B/#01-28; adjacent dim-sum operation explicitly linked by merchant. No copied source artwork.",
+          "portion": "2 pcs"
+        },
+        {
+          "id": "cookie-dimsum-food-007",
+          "name": "Vegan Black Sesame Bun",
+          "category": "Steamed & Baked Dim Sum",
+          "price": {
+            "amount": 4.5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "smallcafe-source-217925d1a8a8"
+          ],
+          "qualifier": "Merchant vegetarian/vegan section wording only; not independently certified. Dollar currency code, effective date and current stock unstated. Homepage unit varies #01-28B/#01-28; adjacent dim-sum operation explicitly linked by merchant. No copied source artwork.",
+          "portion": "2 pcs"
+        },
+        {
+          "id": "cookie-dimsum-food-008",
+          "name": "Vegan Pickled Vegetable Bun",
+          "category": "Steamed & Baked Dim Sum",
+          "price": {
+            "amount": 4.5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "smallcafe-source-217925d1a8a8"
+          ],
+          "qualifier": "Merchant vegetarian/vegan section wording only; not independently certified. Dollar currency code, effective date and current stock unstated. Homepage unit varies #01-28B/#01-28; adjacent dim-sum operation explicitly linked by merchant. No copied source artwork.",
+          "portion": "2 pcs"
+        },
+        {
+          "id": "cookie-dimsum-food-009",
+          "name": "Vegan Sweet Lotus Paste Bun",
+          "category": "Steamed & Baked Dim Sum",
+          "price": {
+            "amount": 4.5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "smallcafe-source-217925d1a8a8"
+          ],
+          "qualifier": "Merchant vegetarian/vegan section wording only; not independently certified. Dollar currency code, effective date and current stock unstated. Homepage unit varies #01-28B/#01-28; adjacent dim-sum operation explicitly linked by merchant. No copied source artwork.",
+          "portion": "2 pcs"
+        },
+        {
+          "id": "cookie-dimsum-food-010",
+          "name": "Vegan Braised Meat Bun",
+          "category": "Steamed & Baked Dim Sum",
+          "price": {
+            "amount": 4.5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "smallcafe-source-217925d1a8a8"
+          ],
+          "qualifier": "Merchant vegetarian/vegan section wording only; not independently certified. Dollar currency code, effective date and current stock unstated. Homepage unit varies #01-28B/#01-28; adjacent dim-sum operation explicitly linked by merchant. No copied source artwork.",
+          "portion": "2 pcs"
+        },
+        {
+          "id": "cookie-dimsum-food-011",
+          "name": "Vegan Teochew Siew Mai",
+          "category": "Steamed & Baked Dim Sum",
+          "price": {
+            "amount": 4.5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "smallcafe-source-217925d1a8a8"
+          ],
+          "qualifier": "Merchant vegetarian/vegan section wording only; not independently certified. Dollar currency code, effective date and current stock unstated. Homepage unit varies #01-28B/#01-28; adjacent dim-sum operation explicitly linked by merchant. No copied source artwork.",
+          "portion": "6 pcs"
+        },
+        {
+          "id": "cookie-dimsum-food-012",
+          "name": "Veg Canton Siew Mai",
+          "category": "Steamed & Baked Dim Sum",
+          "price": {
+            "amount": 4.5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "smallcafe-source-217925d1a8a8"
+          ],
+          "qualifier": "Merchant vegetarian/vegan section wording only; not independently certified. Dollar currency code, effective date and current stock unstated. Homepage unit varies #01-28B/#01-28; adjacent dim-sum operation explicitly linked by merchant. No copied source artwork.",
+          "portion": "6 pcs"
+        },
+        {
+          "id": "cookie-dimsum-food-013",
+          "name": "Veg Sticky Glutinous Rice",
+          "category": "Steamed & Baked Dim Sum",
+          "price": {
+            "amount": 3.6,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "smallcafe-source-217925d1a8a8"
+          ],
+          "qualifier": "Merchant vegetarian/vegan section wording only; not independently certified. Dollar currency code, effective date and current stock unstated. Homepage unit varies #01-28B/#01-28; adjacent dim-sum operation explicitly linked by merchant. No copied source artwork.",
+          "portion": "1 pc"
+        },
+        {
+          "id": "cookie-dimsum-food-014",
+          "name": "Veg Baked Barbacue / Veg Baked Curry",
+          "category": "Steamed & Baked Dim Sum",
+          "price": {
+            "amount": 2.2,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "smallcafe-source-217925d1a8a8"
+          ],
+          "qualifier": "Merchant vegetarian/vegan section wording only; not independently certified. Dollar currency code, effective date and current stock unstated. Homepage unit varies #01-28B/#01-28; adjacent dim-sum operation explicitly linked by merchant. No copied source artwork.",
+          "portion": "1 pc",
+          "priceVariants": [
+            {
+              "name": "Veg Baked Barbacue",
+              "amount": 2.2,
+              "currency": "unknown",
+              "kind": "fixed"
+            },
+            {
+              "name": "Veg Baked Curry",
+              "amount": 2.2,
+              "currency": "unknown",
+              "kind": "fixed"
+            }
+          ]
+        },
+        {
+          "id": "cookie-dimsum-food-015",
+          "name": "Vegan Vegetable Bun",
+          "category": "Steamed & Baked Dim Sum",
+          "price": {
+            "amount": 4.5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "smallcafe-source-217925d1a8a8"
+          ],
+          "qualifier": "Merchant vegetarian/vegan section wording only; not independently certified. Dollar currency code, effective date and current stock unstated. Homepage unit varies #01-28B/#01-28; adjacent dim-sum operation explicitly linked by merchant. No copied source artwork.",
+          "portion": "2 pcs"
+        },
+        {
+          "id": "cookie-dimsum-food-016",
+          "name": "Vegan Hokkaido Fish Fingers",
+          "category": "Steamed & Baked Dim Sum",
+          "price": {
+            "amount": 2.5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "smallcafe-source-217925d1a8a8"
+          ],
+          "qualifier": "Merchant vegetarian/vegan section wording only; not independently certified. Dollar currency code, effective date and current stock unstated. Homepage unit varies #01-28B/#01-28; adjacent dim-sum operation explicitly linked by merchant. No copied source artwork.",
+          "portion": "2 pcs"
+        },
+        {
+          "id": "cookie-dimsum-food-017",
+          "name": "Vegan US Crispy Fried Chicken",
+          "category": "Steamed & Baked Dim Sum",
+          "price": {
+            "amount": 1.8,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "smallcafe-source-217925d1a8a8"
+          ],
+          "qualifier": "Merchant vegetarian/vegan section wording only; not independently certified. Dollar currency code, effective date and current stock unstated. Homepage unit varies #01-28B/#01-28; adjacent dim-sum operation explicitly linked by merchant. No copied source artwork.",
+          "portion": "1 pc"
+        },
+        {
+          "id": "cookie-dimsum-food-018",
+          "name": "Vegan Japanese Tempura Prawn",
+          "category": "Steamed & Baked Dim Sum",
+          "price": {
+            "amount": 1.8,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "smallcafe-source-217925d1a8a8"
+          ],
+          "qualifier": "Merchant vegetarian/vegan section wording only; not independently certified. Dollar currency code, effective date and current stock unstated. Homepage unit varies #01-28B/#01-28; adjacent dim-sum operation explicitly linked by merchant. No copied source artwork.",
+          "portion": "1 pc"
+        },
+        {
+          "id": "cookie-dimsum-food-019",
+          "name": "Vegan Otak Otak",
+          "category": "Steamed & Baked Dim Sum",
+          "price": {
+            "amount": 2.5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "smallcafe-source-217925d1a8a8"
+          ],
+          "qualifier": "Merchant vegetarian/vegan section wording only; not independently certified. Dollar currency code, effective date and current stock unstated. Homepage unit varies #01-28B/#01-28; adjacent dim-sum operation explicitly linked by merchant. No copied source artwork.",
+          "portion": "2 pcs"
+        },
+        {
+          "id": "cookie-dimsum-food-020",
+          "name": "Vegan Nuggets (Fish or Chicken)",
+          "category": "Steamed & Baked Dim Sum",
+          "price": {
+            "amount": 2.5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "smallcafe-source-217925d1a8a8"
+          ],
+          "qualifier": "Merchant vegetarian/vegan section wording only; not independently certified. Dollar currency code, effective date and current stock unstated. Homepage unit varies #01-28B/#01-28; adjacent dim-sum operation explicitly linked by merchant. No copied source artwork.",
+          "portion": "2 pcs",
+          "priceVariants": [
+            {
+              "name": "Fish",
+              "amount": 2.5,
+              "currency": "unknown",
+              "kind": "fixed"
+            },
+            {
+              "name": "Chicken",
+              "amount": 2.5,
+              "currency": "unknown",
+              "kind": "fixed"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cookie-fortune-rice-20261016",
+      "name": "Cookie Coffee — vegetarian rice sets, food only",
+      "scope": "branch-dine-in",
+      "branchIds": [
+        "cookie-coffee-fortune-centre"
+      ],
+      "sourceIds": [
+        "smallcafe-source-22579d04af22",
+        "smallcafe-source-a96815bdf25c"
+      ],
+      "coverage": "source-covered",
+      "publicationStatus": "reviewed-vegetarian-source-foods",
+      "qualifier": "Merchant vegetarian/vegan section wording only; not independently certified. Dollar currency code, effective date and current stock unstated. Homepage unit varies #01-28B/#01-28; adjacent dim-sum operation explicitly linked by merchant. No copied source artwork. Printed vegetarian rice-set menu: $9.90 nett per food-only set. $14.80 combo includes a drink and ice cream and is excluded. Rice-set photo layout does not establish exact side quantities.",
+      "items": [
+        {
+          "id": "cookie-rice-food-001",
+          "name": "Chicken Curry",
+          "category": "Vegetarian rice set",
+          "price": {
+            "amount": 9.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "smallcafe-source-22579d04af22"
+          ],
+          "qualifier": "Merchant vegetarian/vegan section wording only; not independently certified. Dollar currency code, effective date and current stock unstated. Homepage unit varies #01-28B/#01-28; adjacent dim-sum operation explicitly linked by merchant. No copied source artwork. Printed vegetarian rice-set menu: $9.90 nett per food-only set. $14.80 combo includes a drink and ice cream and is excluded. Rice-set photo layout does not establish exact side quantities.",
+          "portion": "1 rice set"
+        },
+        {
+          "id": "cookie-rice-food-002",
+          "name": "Sambal Cutterfish",
+          "category": "Vegetarian rice set",
+          "price": {
+            "amount": 9.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "smallcafe-source-22579d04af22"
+          ],
+          "qualifier": "Merchant vegetarian/vegan section wording only; not independently certified. Dollar currency code, effective date and current stock unstated. Homepage unit varies #01-28B/#01-28; adjacent dim-sum operation explicitly linked by merchant. No copied source artwork. Printed vegetarian rice-set menu: $9.90 nett per food-only set. $14.80 combo includes a drink and ice cream and is excluded. Rice-set photo layout does not establish exact side quantities.",
+          "portion": "1 rice set"
+        },
+        {
+          "id": "cookie-rice-food-003",
+          "name": "Assam Fish",
+          "category": "Vegetarian rice set",
+          "price": {
+            "amount": 9.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "smallcafe-source-22579d04af22"
+          ],
+          "qualifier": "Merchant vegetarian/vegan section wording only; not independently certified. Dollar currency code, effective date and current stock unstated. Homepage unit varies #01-28B/#01-28; adjacent dim-sum operation explicitly linked by merchant. No copied source artwork. Printed vegetarian rice-set menu: $9.90 nett per food-only set. $14.80 combo includes a drink and ice cream and is excluded. Rice-set photo layout does not establish exact side quantities.",
+          "portion": "1 rice set"
+        },
+        {
+          "id": "cookie-rice-food-004",
+          "name": "Mongolian Chicken",
+          "category": "Vegetarian rice set",
+          "price": {
+            "amount": 9.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "smallcafe-source-22579d04af22"
+          ],
+          "qualifier": "Merchant vegetarian/vegan section wording only; not independently certified. Dollar currency code, effective date and current stock unstated. Homepage unit varies #01-28B/#01-28; adjacent dim-sum operation explicitly linked by merchant. No copied source artwork. Printed vegetarian rice-set menu: $9.90 nett per food-only set. $14.80 combo includes a drink and ice cream and is excluded. Rice-set photo layout does not establish exact side quantities.",
+          "portion": "1 rice set"
+        },
+        {
+          "id": "cookie-rice-food-005",
+          "name": "Hakka Lean Meat",
+          "category": "Vegetarian rice set",
+          "price": {
+            "amount": 9.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "smallcafe-source-22579d04af22"
+          ],
+          "qualifier": "Merchant vegetarian/vegan section wording only; not independently certified. Dollar currency code, effective date and current stock unstated. Homepage unit varies #01-28B/#01-28; adjacent dim-sum operation explicitly linked by merchant. No copied source artwork. Printed vegetarian rice-set menu: $9.90 nett per food-only set. $14.80 combo includes a drink and ice cream and is excluded. Rice-set photo layout does not establish exact side quantities.",
+          "portion": "1 rice set"
+        },
+        {
+          "id": "cookie-rice-food-006",
+          "name": "B.Vineger Trotters",
+          "category": "Vegetarian rice set",
+          "price": {
+            "amount": 9.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "smallcafe-source-22579d04af22"
+          ],
+          "qualifier": "Merchant vegetarian/vegan section wording only; not independently certified. Dollar currency code, effective date and current stock unstated. Homepage unit varies #01-28B/#01-28; adjacent dim-sum operation explicitly linked by merchant. No copied source artwork. Printed vegetarian rice-set menu: $9.90 nett per food-only set. $14.80 combo includes a drink and ice cream and is excluded. Rice-set photo layout does not establish exact side quantities.",
+          "portion": "1 rice set"
+        },
+        {
+          "id": "cookie-rice-food-007",
+          "name": "Rendang Mutton",
+          "category": "Vegetarian rice set",
+          "price": {
+            "amount": 9.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "smallcafe-source-22579d04af22"
+          ],
+          "qualifier": "Merchant vegetarian/vegan section wording only; not independently certified. Dollar currency code, effective date and current stock unstated. Homepage unit varies #01-28B/#01-28; adjacent dim-sum operation explicitly linked by merchant. No copied source artwork. Printed vegetarian rice-set menu: $9.90 nett per food-only set. $14.80 combo includes a drink and ice cream and is excluded. Rice-set photo layout does not establish exact side quantities.",
+          "portion": "1 rice set"
+        },
+        {
+          "id": "cookie-rice-food-008",
+          "name": "Tom Yam Sotong",
+          "category": "Vegetarian rice set",
+          "price": {
+            "amount": 9.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "smallcafe-source-22579d04af22"
+          ],
+          "qualifier": "Merchant vegetarian/vegan section wording only; not independently certified. Dollar currency code, effective date and current stock unstated. Homepage unit varies #01-28B/#01-28; adjacent dim-sum operation explicitly linked by merchant. No copied source artwork. Printed vegetarian rice-set menu: $9.90 nett per food-only set. $14.80 combo includes a drink and ice cream and is excluded. Rice-set photo layout does not establish exact side quantities.",
+          "portion": "1 rice set"
+        },
+        {
+          "id": "cookie-rice-food-009",
+          "name": "Sambal Prawn",
+          "category": "Vegetarian rice set",
+          "price": {
+            "amount": 9.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "smallcafe-source-22579d04af22"
+          ],
+          "qualifier": "Merchant vegetarian/vegan section wording only; not independently certified. Dollar currency code, effective date and current stock unstated. Homepage unit varies #01-28B/#01-28; adjacent dim-sum operation explicitly linked by merchant. No copied source artwork. Printed vegetarian rice-set menu: $9.90 nett per food-only set. $14.80 combo includes a drink and ice cream and is excluded. Rice-set photo layout does not establish exact side quantities.",
+          "portion": "1 rice set"
+        },
+        {
+          "id": "cookie-rice-food-010",
+          "name": "Herbal Mushroom",
+          "category": "Vegetarian rice set",
+          "price": {
+            "amount": 9.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "smallcafe-source-22579d04af22"
+          ],
+          "qualifier": "Merchant vegetarian/vegan section wording only; not independently certified. Dollar currency code, effective date and current stock unstated. Homepage unit varies #01-28B/#01-28; adjacent dim-sum operation explicitly linked by merchant. No copied source artwork. Printed vegetarian rice-set menu: $9.90 nett per food-only set. $14.80 combo includes a drink and ice cream and is excluded. Rice-set photo layout does not establish exact side quantities.",
+          "portion": "1 rice set"
+        },
+        {
+          "id": "cookie-rice-food-011",
+          "name": "Sasame Mushroom",
+          "category": "Vegetarian rice set",
+          "price": {
+            "amount": 9.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "smallcafe-source-22579d04af22"
+          ],
+          "qualifier": "Merchant vegetarian/vegan section wording only; not independently certified. Dollar currency code, effective date and current stock unstated. Homepage unit varies #01-28B/#01-28; adjacent dim-sum operation explicitly linked by merchant. No copied source artwork. Printed vegetarian rice-set menu: $9.90 nett per food-only set. $14.80 combo includes a drink and ice cream and is excluded. Rice-set photo layout does not establish exact side quantities.",
+          "portion": "1 rice set"
+        },
+        {
+          "id": "cookie-rice-food-012",
+          "name": "Mala Kidneys",
+          "category": "Vegetarian rice set",
+          "price": {
+            "amount": 9.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "smallcafe-source-22579d04af22"
+          ],
+          "qualifier": "Merchant vegetarian/vegan section wording only; not independently certified. Dollar currency code, effective date and current stock unstated. Homepage unit varies #01-28B/#01-28; adjacent dim-sum operation explicitly linked by merchant. No copied source artwork. Printed vegetarian rice-set menu: $9.90 nett per food-only set. $14.80 combo includes a drink and ice cream and is excluded. Rice-set photo layout does not establish exact side quantities.",
+          "portion": "1 rice set"
+        },
+        {
+          "id": "cookie-rice-food-013",
+          "name": "P.S. BakKutTeh",
+          "category": "Vegetarian rice set",
+          "price": {
+            "amount": 9.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "smallcafe-source-22579d04af22"
+          ],
+          "qualifier": "Merchant vegetarian/vegan section wording only; not independently certified. Dollar currency code, effective date and current stock unstated. Homepage unit varies #01-28B/#01-28; adjacent dim-sum operation explicitly linked by merchant. No copied source artwork. Printed vegetarian rice-set menu: $9.90 nett per food-only set. $14.80 combo includes a drink and ice cream and is excluded. Rice-set photo layout does not establish exact side quantities.",
+          "portion": "1 rice set"
+        },
+        {
+          "id": "cookie-rice-food-014",
+          "name": "Braised Mushroom",
+          "category": "Vegetarian rice set",
+          "price": {
+            "amount": 9.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "smallcafe-source-22579d04af22"
+          ],
+          "qualifier": "Merchant vegetarian/vegan section wording only; not independently certified. Dollar currency code, effective date and current stock unstated. Homepage unit varies #01-28B/#01-28; adjacent dim-sum operation explicitly linked by merchant. No copied source artwork. Printed vegetarian rice-set menu: $9.90 nett per food-only set. $14.80 combo includes a drink and ice cream and is excluded. Rice-set photo layout does not establish exact side quantities.",
+          "portion": "1 rice set"
+        },
+        {
+          "id": "cookie-rice-food-015",
+          "name": "GongPo Chicken",
+          "category": "Vegetarian rice set",
+          "price": {
+            "amount": 9.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "smallcafe-source-22579d04af22"
+          ],
+          "qualifier": "Merchant vegetarian/vegan section wording only; not independently certified. Dollar currency code, effective date and current stock unstated. Homepage unit varies #01-28B/#01-28; adjacent dim-sum operation explicitly linked by merchant. No copied source artwork. Printed vegetarian rice-set menu: $9.90 nett per food-only set. $14.80 combo includes a drink and ice cream and is excluded. Rice-set photo layout does not establish exact side quantities.",
+          "portion": "1 rice set"
+        },
+        {
+          "id": "cookie-rice-food-016",
+          "name": "Tomato Fish",
+          "category": "Vegetarian rice set",
+          "price": {
+            "amount": 9.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "smallcafe-source-22579d04af22"
+          ],
+          "qualifier": "Merchant vegetarian/vegan section wording only; not independently certified. Dollar currency code, effective date and current stock unstated. Homepage unit varies #01-28B/#01-28; adjacent dim-sum operation explicitly linked by merchant. No copied source artwork. Printed vegetarian rice-set menu: $9.90 nett per food-only set. $14.80 combo includes a drink and ice cream and is excluded. Rice-set photo layout does not establish exact side quantities.",
+          "portion": "1 rice set"
+        }
+      ]
+    },
+    {
+      "id": "cookie-fortune-ice-prices-20261016",
+      "name": "Cookie Coffee — held ice-cream price series",
+      "scope": "branch-dine-in",
+      "branchIds": [
+        "cookie-coffee-fortune-centre"
+      ],
+      "sourceIds": [
+        "smallcafe-source-7c5914d4a79c"
+      ],
+      "coverage": "partial",
+      "publicationStatus": "research-held",
+      "qualifier": "All ten HTML flavors and price series captured; portion labels and dietary contradiction unresolved.",
+      "items": [
+        {
+          "id": "cookie-ice-food-001",
+          "name": "Vanilla",
+          "category": "House Vegan Ice Cream (merchant heading)",
+          "price": {
+            "amount": 4.8,
+            "currency": "unknown",
+            "kind": "from"
+          },
+          "sourceIds": [
+            "smallcafe-source-7c5914d4a79c"
+          ],
+          "qualifier": "Merchant vegetarian/vegan section wording only; not independently certified. Dollar currency code, effective date and current stock unstated. Homepage unit varies #01-28B/#01-28; adjacent dim-sum operation explicitly linked by merchant. No copied source artwork. Held: three price levels are unlabelled; portion sizes are not guessed. Homepage also describes dairy ice cream. Tax unstated.",
+          "priceVariants": [
+            {
+              "name": "Unlabelled price level 1",
+              "amount": 4.8,
+              "currency": "unknown",
+              "kind": "fixed"
+            },
+            {
+              "name": "Unlabelled price level 2",
+              "amount": 8.8,
+              "currency": "unknown",
+              "kind": "fixed"
+            },
+            {
+              "name": "Unlabelled price level 3",
+              "amount": 10.9,
+              "currency": "unknown",
+              "kind": "fixed"
+            }
+          ]
+        },
+        {
+          "id": "cookie-ice-food-002",
+          "name": "Chocolate Chip",
+          "category": "House Vegan Ice Cream (merchant heading)",
+          "price": {
+            "amount": 4.8,
+            "currency": "unknown",
+            "kind": "from"
+          },
+          "sourceIds": [
+            "smallcafe-source-7c5914d4a79c"
+          ],
+          "qualifier": "Merchant vegetarian/vegan section wording only; not independently certified. Dollar currency code, effective date and current stock unstated. Homepage unit varies #01-28B/#01-28; adjacent dim-sum operation explicitly linked by merchant. No copied source artwork. Held: three price levels are unlabelled; portion sizes are not guessed. Homepage also describes dairy ice cream. Tax unstated.",
+          "priceVariants": [
+            {
+              "name": "Unlabelled price level 1",
+              "amount": 4.8,
+              "currency": "unknown",
+              "kind": "fixed"
+            },
+            {
+              "name": "Unlabelled price level 2",
+              "amount": 8.8,
+              "currency": "unknown",
+              "kind": "fixed"
+            },
+            {
+              "name": "Unlabelled price level 3",
+              "amount": 10.9,
+              "currency": "unknown",
+              "kind": "fixed"
+            }
+          ]
+        },
+        {
+          "id": "cookie-ice-food-003",
+          "name": "Cookie & Cream",
+          "category": "House Vegan Ice Cream (merchant heading)",
+          "price": {
+            "amount": 4.8,
+            "currency": "unknown",
+            "kind": "from"
+          },
+          "sourceIds": [
+            "smallcafe-source-7c5914d4a79c"
+          ],
+          "qualifier": "Merchant vegetarian/vegan section wording only; not independently certified. Dollar currency code, effective date and current stock unstated. Homepage unit varies #01-28B/#01-28; adjacent dim-sum operation explicitly linked by merchant. No copied source artwork. Held: three price levels are unlabelled; portion sizes are not guessed. Homepage also describes dairy ice cream. Tax unstated.",
+          "priceVariants": [
+            {
+              "name": "Unlabelled price level 1",
+              "amount": 4.8,
+              "currency": "unknown",
+              "kind": "fixed"
+            },
+            {
+              "name": "Unlabelled price level 2",
+              "amount": 8.8,
+              "currency": "unknown",
+              "kind": "fixed"
+            },
+            {
+              "name": "Unlabelled price level 3",
+              "amount": 10.9,
+              "currency": "unknown",
+              "kind": "fixed"
+            }
+          ]
+        },
+        {
+          "id": "cookie-ice-food-004",
+          "name": "Mint Chocolate",
+          "category": "House Vegan Ice Cream (merchant heading)",
+          "price": {
+            "amount": 4.8,
+            "currency": "unknown",
+            "kind": "from"
+          },
+          "sourceIds": [
+            "smallcafe-source-7c5914d4a79c"
+          ],
+          "qualifier": "Merchant vegetarian/vegan section wording only; not independently certified. Dollar currency code, effective date and current stock unstated. Homepage unit varies #01-28B/#01-28; adjacent dim-sum operation explicitly linked by merchant. No copied source artwork. Held: three price levels are unlabelled; portion sizes are not guessed. Homepage also describes dairy ice cream. Tax unstated.",
+          "priceVariants": [
+            {
+              "name": "Unlabelled price level 1",
+              "amount": 4.8,
+              "currency": "unknown",
+              "kind": "fixed"
+            },
+            {
+              "name": "Unlabelled price level 2",
+              "amount": 8.8,
+              "currency": "unknown",
+              "kind": "fixed"
+            },
+            {
+              "name": "Unlabelled price level 3",
+              "amount": 10.9,
+              "currency": "unknown",
+              "kind": "fixed"
+            }
+          ]
+        },
+        {
+          "id": "cookie-ice-food-005",
+          "name": "Strawberry",
+          "category": "House Vegan Ice Cream (merchant heading)",
+          "price": {
+            "amount": 4.8,
+            "currency": "unknown",
+            "kind": "from"
+          },
+          "sourceIds": [
+            "smallcafe-source-7c5914d4a79c"
+          ],
+          "qualifier": "Merchant vegetarian/vegan section wording only; not independently certified. Dollar currency code, effective date and current stock unstated. Homepage unit varies #01-28B/#01-28; adjacent dim-sum operation explicitly linked by merchant. No copied source artwork. Held: three price levels are unlabelled; portion sizes are not guessed. Homepage also describes dairy ice cream. Tax unstated.",
+          "priceVariants": [
+            {
+              "name": "Unlabelled price level 1",
+              "amount": 4.8,
+              "currency": "unknown",
+              "kind": "fixed"
+            },
+            {
+              "name": "Unlabelled price level 2",
+              "amount": 8.8,
+              "currency": "unknown",
+              "kind": "fixed"
+            },
+            {
+              "name": "Unlabelled price level 3",
+              "amount": 10.9,
+              "currency": "unknown",
+              "kind": "fixed"
+            }
+          ]
+        },
+        {
+          "id": "cookie-ice-food-006",
+          "name": "Mango",
+          "category": "House Vegan Ice Cream (merchant heading)",
+          "price": {
+            "amount": 4.8,
+            "currency": "unknown",
+            "kind": "from"
+          },
+          "sourceIds": [
+            "smallcafe-source-7c5914d4a79c"
+          ],
+          "qualifier": "Merchant vegetarian/vegan section wording only; not independently certified. Dollar currency code, effective date and current stock unstated. Homepage unit varies #01-28B/#01-28; adjacent dim-sum operation explicitly linked by merchant. No copied source artwork. Held: three price levels are unlabelled; portion sizes are not guessed. Homepage also describes dairy ice cream. Tax unstated.",
+          "priceVariants": [
+            {
+              "name": "Unlabelled price level 1",
+              "amount": 4.8,
+              "currency": "unknown",
+              "kind": "fixed"
+            },
+            {
+              "name": "Unlabelled price level 2",
+              "amount": 8.8,
+              "currency": "unknown",
+              "kind": "fixed"
+            },
+            {
+              "name": "Unlabelled price level 3",
+              "amount": 10.9,
+              "currency": "unknown",
+              "kind": "fixed"
+            }
+          ]
+        },
+        {
+          "id": "cookie-ice-food-007",
+          "name": "Yam",
+          "category": "House Vegan Ice Cream (merchant heading)",
+          "price": {
+            "amount": 4.8,
+            "currency": "unknown",
+            "kind": "from"
+          },
+          "sourceIds": [
+            "smallcafe-source-7c5914d4a79c"
+          ],
+          "qualifier": "Merchant vegetarian/vegan section wording only; not independently certified. Dollar currency code, effective date and current stock unstated. Homepage unit varies #01-28B/#01-28; adjacent dim-sum operation explicitly linked by merchant. No copied source artwork. Held: three price levels are unlabelled; portion sizes are not guessed. Homepage also describes dairy ice cream. Tax unstated.",
+          "priceVariants": [
+            {
+              "name": "Unlabelled price level 1",
+              "amount": 4.8,
+              "currency": "unknown",
+              "kind": "fixed"
+            },
+            {
+              "name": "Unlabelled price level 2",
+              "amount": 8.8,
+              "currency": "unknown",
+              "kind": "fixed"
+            },
+            {
+              "name": "Unlabelled price level 3",
+              "amount": 10.9,
+              "currency": "unknown",
+              "kind": "fixed"
+            }
+          ]
+        },
+        {
+          "id": "cookie-ice-food-008",
+          "name": "Coconut",
+          "category": "House Vegan Ice Cream (merchant heading)",
+          "price": {
+            "amount": 4.8,
+            "currency": "unknown",
+            "kind": "from"
+          },
+          "sourceIds": [
+            "smallcafe-source-7c5914d4a79c"
+          ],
+          "qualifier": "Merchant vegetarian/vegan section wording only; not independently certified. Dollar currency code, effective date and current stock unstated. Homepage unit varies #01-28B/#01-28; adjacent dim-sum operation explicitly linked by merchant. No copied source artwork. Held: three price levels are unlabelled; portion sizes are not guessed. Homepage also describes dairy ice cream. Tax unstated.",
+          "priceVariants": [
+            {
+              "name": "Unlabelled price level 1",
+              "amount": 4.8,
+              "currency": "unknown",
+              "kind": "fixed"
+            },
+            {
+              "name": "Unlabelled price level 2",
+              "amount": 8.8,
+              "currency": "unknown",
+              "kind": "fixed"
+            },
+            {
+              "name": "Unlabelled price level 3",
+              "amount": 10.9,
+              "currency": "unknown",
+              "kind": "fixed"
+            }
+          ]
+        },
+        {
+          "id": "cookie-ice-food-009",
+          "name": "Chocolate Fudge",
+          "category": "House Vegan Ice Cream (merchant heading)",
+          "price": {
+            "amount": 4.5,
+            "currency": "unknown",
+            "kind": "from"
+          },
+          "sourceIds": [
+            "smallcafe-source-7c5914d4a79c"
+          ],
+          "qualifier": "Merchant vegetarian/vegan section wording only; not independently certified. Dollar currency code, effective date and current stock unstated. Homepage unit varies #01-28B/#01-28; adjacent dim-sum operation explicitly linked by merchant. No copied source artwork. Held: three price levels are unlabelled; portion sizes are not guessed. Homepage also describes dairy ice cream. Tax unstated.",
+          "priceVariants": [
+            {
+              "name": "Unlabelled price level 1",
+              "amount": 4.5,
+              "currency": "unknown",
+              "kind": "fixed"
+            },
+            {
+              "name": "Unlabelled price level 2",
+              "amount": 8.8,
+              "currency": "unknown",
+              "kind": "fixed"
+            },
+            {
+              "name": "Unlabelled price level 3",
+              "amount": 10.9,
+              "currency": "unknown",
+              "kind": "fixed"
+            }
+          ]
+        },
+        {
+          "id": "cookie-ice-food-010",
+          "name": "Raspberry",
+          "category": "House Vegan Ice Cream (merchant heading)",
+          "price": {
+            "amount": 4.8,
+            "currency": "unknown",
+            "kind": "from"
+          },
+          "sourceIds": [
+            "smallcafe-source-7c5914d4a79c"
+          ],
+          "qualifier": "Merchant vegetarian/vegan section wording only; not independently certified. Dollar currency code, effective date and current stock unstated. Homepage unit varies #01-28B/#01-28; adjacent dim-sum operation explicitly linked by merchant. No copied source artwork. Held: three price levels are unlabelled; portion sizes are not guessed. Homepage also describes dairy ice cream. Tax unstated.",
+          "priceVariants": [
+            {
+              "name": "Unlabelled price level 1",
+              "amount": 4.8,
+              "currency": "unknown",
+              "kind": "fixed"
+            },
+            {
+              "name": "Unlabelled price level 2",
+              "amount": 8.8,
+              "currency": "unknown",
+              "kind": "fixed"
+            },
+            {
+              "name": "Unlabelled price level 3",
+              "amount": 10.9,
+              "currency": "unknown",
+              "kind": "fixed"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "jammys-online-frozen-food-20261016",
+      "name": "Jammy’s — held online frozen desserts",
+      "scope": "brand-menu",
+      "branchIds": [
+        "jammys-directory-ubi-avenue"
+      ],
+      "sourceIds": [
+        "smallcafe-source-d204b32e549b",
+        "smallcafe-source-c9d9662e5181"
+      ],
+      "coverage": "partial",
+      "publicationStatus": "research-held",
+      "qualifier": "Held for directory-place mismatch. Current source is online delivery/coordinated office collection, not a walk-in shop. SGD product/variant prices; taxes and shipping calculated at checkout. Standard delivery Tue/Thu/Sat, 11–16 or 16–21; free above SGD75, specific delivery service +SGD20. Merchant vegan claims are not allergen/medical certification; facility processes nuts and gluten.",
+      "items": [
+        {
+          "id": "jammys-online-food-10578323865889",
+          "name": "Vanilla Gelato",
+          "category": "Frozen dessert",
+          "price": {
+            "amount": 6.8,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "sourceIds": [
+            "smallcafe-source-d204b32e549b"
+          ],
+          "qualifier": "Held for directory-place mismatch. Current source is online delivery/coordinated office collection, not a walk-in shop. SGD product/variant prices; taxes and shipping calculated at checkout. Standard delivery Tue/Thu/Sat, 11–16 or 16–21; free above SGD75, specific delivery service +SGD20. Merchant vegan claims are not allergen/medical certification; facility processes nuts and gluten.",
+          "priceVariants": [
+            {
+              "name": "Pint (473ml)",
+              "amount": 20.9,
+              "currency": "SGD",
+              "kind": "fixed",
+              "catalogueAvailable": true
+            },
+            {
+              "name": "Mini (110ml)",
+              "amount": 6.8,
+              "currency": "SGD",
+              "kind": "fixed",
+              "catalogueAvailable": false
+            }
+          ]
+        },
+        {
+          "id": "jammys-online-food-10326875636001",
+          "name": "Gelato Party Set - 12 Minis",
+          "category": "Frozen dessert",
+          "price": {
+            "amount": 79,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "smallcafe-source-d204b32e549b"
+          ],
+          "qualifier": "Held for directory-place mismatch. Current source is online delivery/coordinated office collection, not a walk-in shop. SGD product/variant prices; taxes and shipping calculated at checkout. Standard delivery Tue/Thu/Sat, 11–16 or 16–21; free above SGD75, specific delivery service +SGD20. Merchant vegan claims are not allergen/medical certification; facility processes nuts and gluten.",
+          "priceVariants": [
+            {
+              "name": "Default Title",
+              "amount": 79,
+              "currency": "SGD",
+              "kind": "fixed",
+              "catalogueAvailable": true
+            }
+          ],
+          "optionNotes": "Mix 12 mini cups: Pistachio +SGD0.80; Chocolate Hazelnut +SGD0.80; Peanut Butter, Almond Butter, Black Sesame, Really Dark Chocolate, Raspberry, Strawberry no printed supplement. Script customizer validation incomplete."
+        },
+        {
+          "id": "jammys-online-food-10326876651809",
+          "name": "Gelato Popsicles Party Set - 12 Popsicles",
+          "category": "Frozen dessert",
+          "price": {
+            "amount": 89,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "smallcafe-source-d204b32e549b"
+          ],
+          "qualifier": "Held for directory-place mismatch. Current source is online delivery/coordinated office collection, not a walk-in shop. SGD product/variant prices; taxes and shipping calculated at checkout. Standard delivery Tue/Thu/Sat, 11–16 or 16–21; free above SGD75, specific delivery service +SGD20. Merchant vegan claims are not allergen/medical certification; facility processes nuts and gluten.",
+          "priceVariants": [
+            {
+              "name": "Default Title",
+              "amount": 89,
+              "currency": "SGD",
+              "kind": "fixed",
+              "catalogueAvailable": true
+            }
+          ],
+          "optionNotes": "Mix 12 popsicles: Pistachio +SGD0.60; Peppermint Choco Chip +SGD0.60; Almond Butter, Double Chocolate, Strawberry & Cashew Butter, Thai Coconut no printed supplement. Script customizer validation incomplete."
+        },
+        {
+          "id": "jammys-online-food-10367084921121",
+          "name": "3 Gelato Pints Mix & Match Bundle",
+          "category": "Frozen dessert",
+          "price": {
+            "amount": 60,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "smallcafe-source-d204b32e549b"
+          ],
+          "qualifier": "Held for directory-place mismatch. Current source is online delivery/coordinated office collection, not a walk-in shop. SGD product/variant prices; taxes and shipping calculated at checkout. Standard delivery Tue/Thu/Sat, 11–16 or 16–21; free above SGD75, specific delivery service +SGD20. Merchant vegan claims are not allergen/medical certification; facility processes nuts and gluten.",
+          "priceVariants": [
+            {
+              "name": "Default Title",
+              "amount": 60,
+              "currency": "SGD",
+              "kind": "fixed",
+              "catalogueAvailable": true
+            }
+          ],
+          "optionNotes": "Choose three: Pistachio, Chocolate Hazelnut, Uji Matcha or Houjicha +SGD3 per pint; Black Sesame, Almond Butter, Peanut Butter, Really Dark Chocolate, Raspberry, Strawberry, Thai Coconut and limited Coffee no printed supplement. Script validation incomplete."
+        },
+        {
+          "id": "jammys-online-food-10200714740001",
+          "name": "Peppermint Choco Chip Gelato Popsicle",
+          "category": "Frozen dessert",
+          "price": {
+            "amount": 8.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "smallcafe-source-d204b32e549b"
+          ],
+          "qualifier": "Held for directory-place mismatch. Current source is online delivery/coordinated office collection, not a walk-in shop. SGD product/variant prices; taxes and shipping calculated at checkout. Standard delivery Tue/Thu/Sat, 11–16 or 16–21; free above SGD75, specific delivery service +SGD20. Merchant vegan claims are not allergen/medical certification; facility processes nuts and gluten.",
+          "priceVariants": [
+            {
+              "name": "Default Title",
+              "amount": 8.5,
+              "currency": "SGD",
+              "kind": "fixed",
+              "catalogueAvailable": true
+            }
+          ]
+        },
+        {
+          "id": "jammys-online-food-9999970173217",
+          "name": "[Fresh x Jammy's] Black Tea Soy Gelato (Sold in Sets of 4)",
+          "category": "Frozen dessert",
+          "price": {
+            "amount": 28,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "smallcafe-source-d204b32e549b"
+          ],
+          "qualifier": "Held for directory-place mismatch. Current source is online delivery/coordinated office collection, not a walk-in shop. SGD product/variant prices; taxes and shipping calculated at checkout. Standard delivery Tue/Thu/Sat, 11–16 or 16–21; free above SGD75, specific delivery service +SGD20. Merchant vegan claims are not allergen/medical certification; facility processes nuts and gluten.",
+          "priceVariants": [
+            {
+              "name": "Default Title",
+              "amount": 28,
+              "currency": "SGD",
+              "kind": "fixed",
+              "catalogueAvailable": false
+            }
+          ]
+        },
+        {
+          "id": "jammys-online-food-9757510172961",
+          "name": "Coffee Gelato",
+          "category": "Frozen dessert",
+          "price": {
+            "amount": 20.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "smallcafe-source-d204b32e549b"
+          ],
+          "qualifier": "Held for directory-place mismatch. Current source is online delivery/coordinated office collection, not a walk-in shop. SGD product/variant prices; taxes and shipping calculated at checkout. Standard delivery Tue/Thu/Sat, 11–16 or 16–21; free above SGD75, specific delivery service +SGD20. Merchant vegan claims are not allergen/medical certification; facility processes nuts and gluten.",
+          "priceVariants": [
+            {
+              "name": "Pint (473ml)",
+              "amount": 20.9,
+              "currency": "SGD",
+              "kind": "fixed",
+              "catalogueAvailable": true
+            }
+          ]
+        },
+        {
+          "id": "jammys-online-food-9667157885217",
+          "name": "Houjicha Gelato",
+          "category": "Frozen dessert",
+          "price": {
+            "amount": 23.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "smallcafe-source-d204b32e549b"
+          ],
+          "qualifier": "Held for directory-place mismatch. Current source is online delivery/coordinated office collection, not a walk-in shop. SGD product/variant prices; taxes and shipping calculated at checkout. Standard delivery Tue/Thu/Sat, 11–16 or 16–21; free above SGD75, specific delivery service +SGD20. Merchant vegan claims are not allergen/medical certification; facility processes nuts and gluten.",
+          "priceVariants": [
+            {
+              "name": "Pint (473ml)",
+              "amount": 23.9,
+              "currency": "SGD",
+              "kind": "fixed",
+              "catalogueAvailable": true
+            }
+          ]
+        },
+        {
+          "id": "jammys-online-food-9667158671649",
+          "name": "Thai Coconut Gelato",
+          "category": "Frozen dessert",
+          "price": {
+            "amount": 20.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "smallcafe-source-d204b32e549b"
+          ],
+          "qualifier": "Held for directory-place mismatch. Current source is online delivery/coordinated office collection, not a walk-in shop. SGD product/variant prices; taxes and shipping calculated at checkout. Standard delivery Tue/Thu/Sat, 11–16 or 16–21; free above SGD75, specific delivery service +SGD20. Merchant vegan claims are not allergen/medical certification; facility processes nuts and gluten.",
+          "priceVariants": [
+            {
+              "name": "Pint (473ml)",
+              "amount": 20.9,
+              "currency": "SGD",
+              "kind": "fixed",
+              "catalogueAvailable": true
+            }
+          ]
+        },
+        {
+          "id": "jammys-online-food-9667156803873",
+          "name": "Uji Matcha Gelato",
+          "category": "Frozen dessert",
+          "price": {
+            "amount": 23.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "smallcafe-source-d204b32e549b"
+          ],
+          "qualifier": "Held for directory-place mismatch. Current source is online delivery/coordinated office collection, not a walk-in shop. SGD product/variant prices; taxes and shipping calculated at checkout. Standard delivery Tue/Thu/Sat, 11–16 or 16–21; free above SGD75, specific delivery service +SGD20. Merchant vegan claims are not allergen/medical certification; facility processes nuts and gluten.",
+          "priceVariants": [
+            {
+              "name": "Pint (473ml)",
+              "amount": 23.9,
+              "currency": "SGD",
+              "kind": "fixed",
+              "catalogueAvailable": true
+            }
+          ]
+        },
+        {
+          "id": "jammys-online-food-9349968232737",
+          "name": "Strawberry & Cashew Butter Gelato Popsicle",
+          "category": "Frozen dessert",
+          "price": {
+            "amount": 7.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "smallcafe-source-d204b32e549b"
+          ],
+          "qualifier": "Held for directory-place mismatch. Current source is online delivery/coordinated office collection, not a walk-in shop. SGD product/variant prices; taxes and shipping calculated at checkout. Standard delivery Tue/Thu/Sat, 11–16 or 16–21; free above SGD75, specific delivery service +SGD20. Merchant vegan claims are not allergen/medical certification; facility processes nuts and gluten.",
+          "priceVariants": [
+            {
+              "name": "Default Title",
+              "amount": 7.9,
+              "currency": "SGD",
+              "kind": "fixed",
+              "catalogueAvailable": true
+            }
+          ]
+        },
+        {
+          "id": "jammys-online-food-9349964529953",
+          "name": "Thai Coconut Gelato Popsicle",
+          "category": "Frozen dessert",
+          "price": {
+            "amount": 7.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "smallcafe-source-d204b32e549b"
+          ],
+          "qualifier": "Held for directory-place mismatch. Current source is online delivery/coordinated office collection, not a walk-in shop. SGD product/variant prices; taxes and shipping calculated at checkout. Standard delivery Tue/Thu/Sat, 11–16 or 16–21; free above SGD75, specific delivery service +SGD20. Merchant vegan claims are not allergen/medical certification; facility processes nuts and gluten.",
+          "priceVariants": [
+            {
+              "name": "Default Title",
+              "amount": 7.9,
+              "currency": "SGD",
+              "kind": "fixed",
+              "catalogueAvailable": true
+            }
+          ]
+        },
+        {
+          "id": "jammys-online-food-9349946671393",
+          "name": "Chocolate Hazelnut Gelato",
+          "category": "Frozen dessert",
+          "price": {
+            "amount": 7.6,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "sourceIds": [
+            "smallcafe-source-d204b32e549b"
+          ],
+          "qualifier": "Held for directory-place mismatch. Current source is online delivery/coordinated office collection, not a walk-in shop. SGD product/variant prices; taxes and shipping calculated at checkout. Standard delivery Tue/Thu/Sat, 11–16 or 16–21; free above SGD75, specific delivery service +SGD20. Merchant vegan claims are not allergen/medical certification; facility processes nuts and gluten.",
+          "priceVariants": [
+            {
+              "name": "Pint (473ml)",
+              "amount": 23.9,
+              "currency": "SGD",
+              "kind": "fixed",
+              "catalogueAvailable": true
+            },
+            {
+              "name": "Mini (110ml)",
+              "amount": 7.6,
+              "currency": "SGD",
+              "kind": "fixed",
+              "catalogueAvailable": true
+            }
+          ]
+        },
+        {
+          "id": "jammys-online-food-9349938184481",
+          "name": "Strawberry Gelato",
+          "category": "Frozen dessert",
+          "price": {
+            "amount": 6.8,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "sourceIds": [
+            "smallcafe-source-d204b32e549b"
+          ],
+          "qualifier": "Held for directory-place mismatch. Current source is online delivery/coordinated office collection, not a walk-in shop. SGD product/variant prices; taxes and shipping calculated at checkout. Standard delivery Tue/Thu/Sat, 11–16 or 16–21; free above SGD75, specific delivery service +SGD20. Merchant vegan claims are not allergen/medical certification; facility processes nuts and gluten.",
+          "priceVariants": [
+            {
+              "name": "Pint (473ml)",
+              "amount": 20.9,
+              "currency": "SGD",
+              "kind": "fixed",
+              "catalogueAvailable": true
+            },
+            {
+              "name": "Mini (110ml)",
+              "amount": 6.8,
+              "currency": "SGD",
+              "kind": "fixed",
+              "catalogueAvailable": true
+            }
+          ]
+        },
+        {
+          "id": "jammys-online-food-8740167418145",
+          "name": "Roasted Pistachio Crunch Gelato",
+          "category": "Frozen dessert",
+          "price": {
+            "amount": 7.6,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "sourceIds": [
+            "smallcafe-source-d204b32e549b"
+          ],
+          "qualifier": "Held for directory-place mismatch. Current source is online delivery/coordinated office collection, not a walk-in shop. SGD product/variant prices; taxes and shipping calculated at checkout. Standard delivery Tue/Thu/Sat, 11–16 or 16–21; free above SGD75, specific delivery service +SGD20. Merchant vegan claims are not allergen/medical certification; facility processes nuts and gluten.",
+          "priceVariants": [
+            {
+              "name": "Pint (473ml)",
+              "amount": 23.9,
+              "currency": "SGD",
+              "kind": "fixed",
+              "catalogueAvailable": true
+            },
+            {
+              "name": "Mini (110ml)",
+              "amount": 7.6,
+              "currency": "SGD",
+              "kind": "fixed",
+              "catalogueAvailable": true
+            }
+          ]
+        },
+        {
+          "id": "jammys-online-food-8740159291681",
+          "name": "Very Black Sesame Gelato",
+          "category": "Frozen dessert",
+          "price": {
+            "amount": 6.8,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "sourceIds": [
+            "smallcafe-source-d204b32e549b"
+          ],
+          "qualifier": "Held for directory-place mismatch. Current source is online delivery/coordinated office collection, not a walk-in shop. SGD product/variant prices; taxes and shipping calculated at checkout. Standard delivery Tue/Thu/Sat, 11–16 or 16–21; free above SGD75, specific delivery service +SGD20. Merchant vegan claims are not allergen/medical certification; facility processes nuts and gluten.",
+          "priceVariants": [
+            {
+              "name": "Pint (473ml)",
+              "amount": 20.9,
+              "currency": "SGD",
+              "kind": "fixed",
+              "catalogueAvailable": true
+            },
+            {
+              "name": "Mini (110ml)",
+              "amount": 6.8,
+              "currency": "SGD",
+              "kind": "fixed",
+              "catalogueAvailable": true
+            }
+          ]
+        },
+        {
+          "id": "jammys-online-food-8740169679137",
+          "name": "Raspberry Sorbet",
+          "category": "Frozen dessert",
+          "price": {
+            "amount": 6.8,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "sourceIds": [
+            "smallcafe-source-d204b32e549b"
+          ],
+          "qualifier": "Held for directory-place mismatch. Current source is online delivery/coordinated office collection, not a walk-in shop. SGD product/variant prices; taxes and shipping calculated at checkout. Standard delivery Tue/Thu/Sat, 11–16 or 16–21; free above SGD75, specific delivery service +SGD20. Merchant vegan claims are not allergen/medical certification; facility processes nuts and gluten.",
+          "priceVariants": [
+            {
+              "name": "Pint (473ml)",
+              "amount": 20.9,
+              "currency": "SGD",
+              "kind": "fixed",
+              "catalogueAvailable": true
+            },
+            {
+              "name": "Mini (110ml)",
+              "amount": 6.8,
+              "currency": "SGD",
+              "kind": "fixed",
+              "catalogueAvailable": true
+            }
+          ]
+        },
+        {
+          "id": "jammys-online-food-8740191732001",
+          "name": "Pistachio Crunch Gelato Popsicle",
+          "category": "Frozen dessert",
+          "price": {
+            "amount": 8.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "smallcafe-source-d204b32e549b"
+          ],
+          "qualifier": "Held for directory-place mismatch. Current source is online delivery/coordinated office collection, not a walk-in shop. SGD product/variant prices; taxes and shipping calculated at checkout. Standard delivery Tue/Thu/Sat, 11–16 or 16–21; free above SGD75, specific delivery service +SGD20. Merchant vegan claims are not allergen/medical certification; facility processes nuts and gluten.",
+          "priceVariants": [
+            {
+              "name": "Default Title",
+              "amount": 8.5,
+              "currency": "SGD",
+              "kind": "fixed",
+              "catalogueAvailable": true
+            }
+          ]
+        },
+        {
+          "id": "jammys-online-food-8740191273249",
+          "name": "Almond Crunch Gelato Popsicle",
+          "category": "Frozen dessert",
+          "price": {
+            "amount": 7.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "smallcafe-source-d204b32e549b"
+          ],
+          "qualifier": "Held for directory-place mismatch. Current source is online delivery/coordinated office collection, not a walk-in shop. SGD product/variant prices; taxes and shipping calculated at checkout. Standard delivery Tue/Thu/Sat, 11–16 or 16–21; free above SGD75, specific delivery service +SGD20. Merchant vegan claims are not allergen/medical certification; facility processes nuts and gluten.",
+          "priceVariants": [
+            {
+              "name": "Default Title",
+              "amount": 7.9,
+              "currency": "SGD",
+              "kind": "fixed",
+              "catalogueAvailable": true
+            }
+          ]
+        },
+        {
+          "id": "jammys-online-food-8740190322977",
+          "name": "Double Chocolate Gelato Popsicle",
+          "category": "Frozen dessert",
+          "price": {
+            "amount": 7.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "smallcafe-source-d204b32e549b"
+          ],
+          "qualifier": "Held for directory-place mismatch. Current source is online delivery/coordinated office collection, not a walk-in shop. SGD product/variant prices; taxes and shipping calculated at checkout. Standard delivery Tue/Thu/Sat, 11–16 or 16–21; free above SGD75, specific delivery service +SGD20. Merchant vegan claims are not allergen/medical certification; facility processes nuts and gluten.",
+          "priceVariants": [
+            {
+              "name": "Default Title",
+              "amount": 7.9,
+              "currency": "SGD",
+              "kind": "fixed",
+              "catalogueAvailable": true
+            }
+          ]
+        },
+        {
+          "id": "jammys-online-food-8740172529953",
+          "name": "Really Dark Chocolate Gelato",
+          "category": "Frozen dessert",
+          "price": {
+            "amount": 6.8,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "sourceIds": [
+            "smallcafe-source-d204b32e549b"
+          ],
+          "qualifier": "Held for directory-place mismatch. Current source is online delivery/coordinated office collection, not a walk-in shop. SGD product/variant prices; taxes and shipping calculated at checkout. Standard delivery Tue/Thu/Sat, 11–16 or 16–21; free above SGD75, specific delivery service +SGD20. Merchant vegan claims are not allergen/medical certification; facility processes nuts and gluten.",
+          "priceVariants": [
+            {
+              "name": "Pint (473ml)",
+              "amount": 20.9,
+              "currency": "SGD",
+              "kind": "fixed",
+              "catalogueAvailable": true
+            },
+            {
+              "name": "Mini (110ml)",
+              "amount": 6.8,
+              "currency": "SGD",
+              "kind": "fixed",
+              "catalogueAvailable": false
+            }
+          ]
+        },
+        {
+          "id": "jammys-online-food-8740168892705",
+          "name": "Roasted Almond Butter Crunch Gelato",
+          "category": "Frozen dessert",
+          "price": {
+            "amount": 6.8,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "sourceIds": [
+            "smallcafe-source-d204b32e549b"
+          ],
+          "qualifier": "Held for directory-place mismatch. Current source is online delivery/coordinated office collection, not a walk-in shop. SGD product/variant prices; taxes and shipping calculated at checkout. Standard delivery Tue/Thu/Sat, 11–16 or 16–21; free above SGD75, specific delivery service +SGD20. Merchant vegan claims are not allergen/medical certification; facility processes nuts and gluten.",
+          "priceVariants": [
+            {
+              "name": "Pint (473ml)",
+              "amount": 20.9,
+              "currency": "SGD",
+              "kind": "fixed",
+              "catalogueAvailable": true
+            },
+            {
+              "name": "Mini (110ml)",
+              "amount": 6.8,
+              "currency": "SGD",
+              "kind": "fixed",
+              "catalogueAvailable": true
+            }
+          ]
+        },
+        {
+          "id": "jammys-online-food-8740165386529",
+          "name": "Roasted Peanut Butter Crunch Gelato",
+          "category": "Frozen dessert",
+          "price": {
+            "amount": 6.8,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "sourceIds": [
+            "smallcafe-source-d204b32e549b"
+          ],
+          "qualifier": "Held for directory-place mismatch. Current source is online delivery/coordinated office collection, not a walk-in shop. SGD product/variant prices; taxes and shipping calculated at checkout. Standard delivery Tue/Thu/Sat, 11–16 or 16–21; free above SGD75, specific delivery service +SGD20. Merchant vegan claims are not allergen/medical certification; facility processes nuts and gluten.",
+          "priceVariants": [
+            {
+              "name": "Pint (473ml)",
+              "amount": 20.9,
+              "currency": "SGD",
+              "kind": "fixed",
+              "catalogueAvailable": true
+            },
+            {
+              "name": "Mini (110ml)",
+              "amount": 6.8,
+              "currency": "SGD",
+              "kind": "fixed",
+              "catalogueAvailable": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "jaspat-fortune-culinary-gallery-20261016",
+      "name": "Jaspat — held culinary example titles",
+      "scope": "brand-menu",
+      "branchIds": [
+        "jaspat-fortune-centre"
+      ],
+      "sourceIds": [
+        "smallcafe-source-6863dc80428c",
+        "smallcafe-source-9265823c1e4b"
+      ],
+      "coverage": "partial",
+      "publicationStatus": "research-held",
+      "qualifier": "Held culinary-gallery example only; not established as an orderable current branch SKU. No portions/prices/options/taxes published in inspected gallery. Functional-food/therapy and health claims are not verified or reproduced as app advice.",
+      "items": [
+        {
+          "id": "jaspat-gallery-food-001",
+          "name": "《EggNot》Otah",
+          "category": "New Culinary Creation gallery",
+          "price": {
+            "amount": null,
+            "currency": "unknown",
+            "kind": "unknown"
+          },
+          "sourceIds": [
+            "smallcafe-source-6863dc80428c"
+          ],
+          "qualifier": "Held culinary-gallery example only; not established as an orderable current branch SKU. No portions/prices/options/taxes published in inspected gallery. Functional-food/therapy and health claims are not verified or reproduced as app advice."
+        },
+        {
+          "id": "jaspat-gallery-food-002",
+          "name": "《EggNot》Durian Layer Cake",
+          "category": "New Culinary Creation gallery",
+          "price": {
+            "amount": null,
+            "currency": "unknown",
+            "kind": "unknown"
+          },
+          "sourceIds": [
+            "smallcafe-source-6863dc80428c"
+          ],
+          "qualifier": "Held culinary-gallery example only; not established as an orderable current branch SKU. No portions/prices/options/taxes published in inspected gallery. Functional-food/therapy and health claims are not verified or reproduced as app advice."
+        },
+        {
+          "id": "jaspat-gallery-food-003",
+          "name": "《EggNot》Otah Bread",
+          "category": "New Culinary Creation gallery",
+          "price": {
+            "amount": null,
+            "currency": "unknown",
+            "kind": "unknown"
+          },
+          "sourceIds": [
+            "smallcafe-source-6863dc80428c"
+          ],
+          "qualifier": "Held culinary-gallery example only; not established as an orderable current branch SKU. No portions/prices/options/taxes published in inspected gallery. Functional-food/therapy and health claims are not verified or reproduced as app advice."
+        },
+        {
+          "id": "jaspat-gallery-food-004",
+          "name": "《EggNot》Sushi Beehoon",
+          "category": "New Culinary Creation gallery",
+          "price": {
+            "amount": null,
+            "currency": "unknown",
+            "kind": "unknown"
+          },
+          "sourceIds": [
+            "smallcafe-source-6863dc80428c"
+          ],
+          "qualifier": "Held culinary-gallery example only; not established as an orderable current branch SKU. No portions/prices/options/taxes published in inspected gallery. Functional-food/therapy and health claims are not verified or reproduced as app advice."
+        },
+        {
+          "id": "jaspat-gallery-food-005",
+          "name": "《EggNot》Chocolate Cake",
+          "category": "New Culinary Creation gallery",
+          "price": {
+            "amount": null,
+            "currency": "unknown",
+            "kind": "unknown"
+          },
+          "sourceIds": [
+            "smallcafe-source-6863dc80428c"
+          ],
+          "qualifier": "Held culinary-gallery example only; not established as an orderable current branch SKU. No portions/prices/options/taxes published in inspected gallery. Functional-food/therapy and health claims are not verified or reproduced as app advice."
+        },
+        {
+          "id": "jaspat-gallery-food-006",
+          "name": "《EggNot》Handmade Noodles",
+          "category": "New Culinary Creation gallery",
+          "price": {
+            "amount": null,
+            "currency": "unknown",
+            "kind": "unknown"
+          },
+          "sourceIds": [
+            "smallcafe-source-6863dc80428c"
+          ],
+          "qualifier": "Held culinary-gallery example only; not established as an orderable current branch SKU. No portions/prices/options/taxes published in inspected gallery. Functional-food/therapy and health claims are not verified or reproduced as app advice."
+        },
+        {
+          "id": "jaspat-gallery-food-007",
+          "name": "《EggNot》Egg Tarts",
+          "category": "New Culinary Creation gallery",
+          "price": {
+            "amount": null,
+            "currency": "unknown",
+            "kind": "unknown"
+          },
+          "sourceIds": [
+            "smallcafe-source-6863dc80428c"
+          ],
+          "qualifier": "Held culinary-gallery example only; not established as an orderable current branch SKU. No portions/prices/options/taxes published in inspected gallery. Functional-food/therapy and health claims are not verified or reproduced as app advice."
+        },
+        {
+          "id": "jaspat-gallery-food-008",
+          "name": "《EggNot》Platter",
+          "category": "New Culinary Creation gallery",
+          "price": {
+            "amount": null,
+            "currency": "unknown",
+            "kind": "unknown"
+          },
+          "sourceIds": [
+            "smallcafe-source-6863dc80428c"
+          ],
+          "qualifier": "Held culinary-gallery example only; not established as an orderable current branch SKU. No portions/prices/options/taxes published in inspected gallery. Functional-food/therapy and health claims are not verified or reproduced as app advice."
+        },
+        {
+          "id": "jaspat-gallery-food-009",
+          "name": "《EggNot》Vegan Shark's Fin Soup",
+          "category": "New Culinary Creation gallery",
+          "price": {
+            "amount": null,
+            "currency": "unknown",
+            "kind": "unknown"
+          },
+          "sourceIds": [
+            "smallcafe-source-6863dc80428c"
+          ],
+          "qualifier": "Held culinary-gallery example only; not established as an orderable current branch SKU. No portions/prices/options/taxes published in inspected gallery. Functional-food/therapy and health claims are not verified or reproduced as app advice."
+        },
+        {
+          "id": "jaspat-gallery-food-010",
+          "name": "《EggNot》Bags of Gold",
+          "category": "New Culinary Creation gallery",
+          "price": {
+            "amount": null,
+            "currency": "unknown",
+            "kind": "unknown"
+          },
+          "sourceIds": [
+            "smallcafe-source-6863dc80428c"
+          ],
+          "qualifier": "Held culinary-gallery example only; not established as an orderable current branch SKU. No portions/prices/options/taxes published in inspected gallery. Functional-food/therapy and health claims are not verified or reproduced as app advice."
+        },
+        {
+          "id": "jaspat-gallery-food-011",
+          "name": "《EggNot》Spicy Pie",
+          "category": "New Culinary Creation gallery",
+          "price": {
+            "amount": null,
+            "currency": "unknown",
+            "kind": "unknown"
+          },
+          "sourceIds": [
+            "smallcafe-source-6863dc80428c"
+          ],
+          "qualifier": "Held culinary-gallery example only; not established as an orderable current branch SKU. No portions/prices/options/taxes published in inspected gallery. Functional-food/therapy and health claims are not verified or reproduced as app advice."
+        },
+        {
+          "id": "jaspat-gallery-food-012",
+          "name": "《EggNot》Dumplings",
+          "category": "New Culinary Creation gallery",
+          "price": {
+            "amount": null,
+            "currency": "unknown",
+            "kind": "unknown"
+          },
+          "sourceIds": [
+            "smallcafe-source-6863dc80428c"
+          ],
+          "qualifier": "Held culinary-gallery example only; not established as an orderable current branch SKU. No portions/prices/options/taxes published in inspected gallery. Functional-food/therapy and health claims are not verified or reproduced as app advice."
+        },
+        {
+          "id": "jaspat-gallery-food-013",
+          "name": "《EggNot》Fried Rice",
+          "category": "New Culinary Creation gallery",
+          "price": {
+            "amount": null,
+            "currency": "unknown",
+            "kind": "unknown"
+          },
+          "sourceIds": [
+            "smallcafe-source-6863dc80428c"
+          ],
+          "qualifier": "Held culinary-gallery example only; not established as an orderable current branch SKU. No portions/prices/options/taxes published in inspected gallery. Functional-food/therapy and health claims are not verified or reproduced as app advice."
+        },
+        {
+          "id": "jaspat-gallery-food-014",
+          "name": "《EggNot》Wonton Soup",
+          "category": "New Culinary Creation gallery",
+          "price": {
+            "amount": null,
+            "currency": "unknown",
+            "kind": "unknown"
+          },
+          "sourceIds": [
+            "smallcafe-source-6863dc80428c"
+          ],
+          "qualifier": "Held culinary-gallery example only; not established as an orderable current branch SKU. No portions/prices/options/taxes published in inspected gallery. Functional-food/therapy and health claims are not verified or reproduced as app advice."
+        },
+        {
+          "id": "jaspat-gallery-food-015",
+          "name": "《EggNot》Tai Chi Harmony Crisp",
+          "category": "New Culinary Creation gallery",
+          "price": {
+            "amount": null,
+            "currency": "unknown",
+            "kind": "unknown"
+          },
+          "sourceIds": [
+            "smallcafe-source-6863dc80428c"
+          ],
+          "qualifier": "Held culinary-gallery example only; not established as an orderable current branch SKU. No portions/prices/options/taxes published in inspected gallery. Functional-food/therapy and health claims are not verified or reproduced as app advice."
+        },
+        {
+          "id": "jaspat-gallery-food-016",
+          "name": "《EggNot》Century Union Golden Box",
+          "category": "New Culinary Creation gallery",
+          "price": {
+            "amount": null,
+            "currency": "unknown",
+            "kind": "unknown"
+          },
+          "sourceIds": [
+            "smallcafe-source-6863dc80428c"
+          ],
+          "qualifier": "Held culinary-gallery example only; not established as an orderable current branch SKU. No portions/prices/options/taxes published in inspected gallery. Functional-food/therapy and health claims are not verified or reproduced as app advice."
+        },
+        {
+          "id": "jaspat-gallery-food-017",
+          "name": "《EggNot》Golden Blissful Stuffed Mushroom",
+          "category": "New Culinary Creation gallery",
+          "price": {
+            "amount": null,
+            "currency": "unknown",
+            "kind": "unknown"
+          },
+          "sourceIds": [
+            "smallcafe-source-6863dc80428c"
+          ],
+          "qualifier": "Held culinary-gallery example only; not established as an orderable current branch SKU. No portions/prices/options/taxes published in inspected gallery. Functional-food/therapy and health claims are not verified or reproduced as app advice."
+        },
+        {
+          "id": "jaspat-gallery-food-018",
+          "name": "《EggNot》Red Sea Dragon",
+          "category": "New Culinary Creation gallery",
+          "price": {
+            "amount": null,
+            "currency": "unknown",
+            "kind": "unknown"
+          },
+          "sourceIds": [
+            "smallcafe-source-6863dc80428c"
+          ],
+          "qualifier": "Held culinary-gallery example only; not established as an orderable current branch SKU. No portions/prices/options/taxes published in inspected gallery. Functional-food/therapy and health claims are not verified or reproduced as app advice."
+        },
+        {
+          "id": "jaspat-gallery-food-019",
+          "name": "《EggNot》Golden Carp Abalone",
+          "category": "New Culinary Creation gallery",
+          "price": {
+            "amount": null,
+            "currency": "unknown",
+            "kind": "unknown"
+          },
+          "sourceIds": [
+            "smallcafe-source-6863dc80428c"
+          ],
+          "qualifier": "Held culinary-gallery example only; not established as an orderable current branch SKU. No portions/prices/options/taxes published in inspected gallery. Functional-food/therapy and health claims are not verified or reproduced as app advice."
+        },
+        {
+          "id": "jaspat-gallery-food-020",
+          "name": "《EggNot》Purple Potato Mille-feuille Cake with Mashed Taro",
+          "category": "New Culinary Creation gallery",
+          "price": {
+            "amount": null,
+            "currency": "unknown",
+            "kind": "unknown"
+          },
+          "sourceIds": [
+            "smallcafe-source-6863dc80428c"
+          ],
+          "qualifier": "Held culinary-gallery example only; not established as an orderable current branch SKU. No portions/prices/options/taxes published in inspected gallery. Functional-food/therapy and health claims are not verified or reproduced as app advice."
+        }
+      ]
+    },
+    {
+      "id": "mod-cafe-current-linked-pdf-20261016",
+      "name": "MOD Cafe linked printed food menu",
+      "scope": "branch-printed-menu",
+      "branchIds": [
+        "mod-cafe-kuo-chuan"
+      ],
+      "sourceIds": [
+        "ur17-mod-menu"
+      ],
+      "coverage": "source-covered",
+      "notice": "All 27 printed food parents reviewed; 19 drinks excluded. Prices are unlabeled numbers: currency, effective date and tax unstated. Egg/dairy occur. Printed AF/VG codes lack a legend; request-only vegan/allium-free wording does not establish default recipes. Eight add-ons are listed, but their application to each food, defaults and limits are unconfirmed. Ingredients, stock and final charges unknown.",
+      "unassignedAddOns": [
+        {
+          "name": "Cheddar Cheese Slice",
+          "additionalAmount": 1,
+          "currency": "unknown",
+          "sourceWording": "+1",
+          "applicationToFood": "unstated",
+          "defaultSelection": "unstated"
+        },
+        {
+          "name": "Egg (Sunny Side Up or Scrambled)",
+          "additionalAmount": 2,
+          "currency": "unknown",
+          "sourceWording": "+2",
+          "applicationToFood": "unstated",
+          "defaultSelection": "unstated"
+        },
+        {
+          "name": "Truffle",
+          "additionalAmount": 4,
+          "currency": "unknown",
+          "sourceWording": "+4",
+          "applicationToFood": "unstated",
+          "defaultSelection": "unstated"
+        },
+        {
+          "name": "Sauteed Mushrooms",
+          "additionalAmount": 3,
+          "currency": "unknown",
+          "sourceWording": "+3",
+          "applicationToFood": "unstated",
+          "defaultSelection": "unstated"
+        },
+        {
+          "name": "Plant-Based Sausage Patty",
+          "additionalAmount": 3,
+          "currency": "unknown",
+          "sourceWording": "+3",
+          "applicationToFood": "unstated",
+          "defaultSelection": "unstated"
+        },
+        {
+          "name": "Plant-Based Burger Patty",
+          "additionalAmount": 5,
+          "currency": "unknown",
+          "sourceWording": "+5",
+          "applicationToFood": "unstated",
+          "defaultSelection": "unstated"
+        },
+        {
+          "name": "Impossible Sausage Patty",
+          "additionalAmount": 4,
+          "currency": "unknown",
+          "sourceWording": "+4",
+          "applicationToFood": "unstated",
+          "defaultSelection": "unstated"
+        },
+        {
+          "name": "Impossible Burger Patty",
+          "additionalAmount": 6,
+          "currency": "unknown",
+          "sourceWording": "+6",
+          "applicationToFood": "unstated",
+          "defaultSelection": "unstated"
+        }
+      ],
+      "items": [
+        {
+          "id": "ur17-mod-food-01",
+          "name": "Shoe String Fries",
+          "category": "munchies",
+          "sourceIds": [
+            "ur17-mod-menu"
+          ],
+          "sourcePdfPage": 1,
+          "sourceDescription": "",
+          "sourceBadgeCodes": [
+            "AF",
+            "VG"
+          ],
+          "price": {
+            "amount": 6,
+            "currency": "unknown",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Merchant-linked printed menu; currency, effective date, tax and stock unstated. Egg/dairy may occur. Printed components are not complete ingredients. AF/VGcodes are not independently certified.",
+          "verification": {
+            "checkedAt": "2026-10-16T09:40:14.140Z",
+            "verifiedFields": [
+              "printedfoodname/category/numericamount",
+              "printedcompositionandrequestwordingwherepresent",
+              "sourcebadgecodesasprinted"
+            ],
+            "unverifiedFields": [
+              "currency/effective date/tax",
+              "completeingredients/allergens",
+              "stock",
+              "codelegend",
+              "choice/default/foodaddonapplicability"
+            ]
+          }
+        },
+        {
+          "id": "ur17-mod-food-02",
+          "name": "Truffle Fries",
+          "category": "munchies",
+          "sourceIds": [
+            "ur17-mod-menu"
+          ],
+          "sourcePdfPage": 1,
+          "sourceDescription": "",
+          "sourceBadgeCodes": [
+            "VG"
+          ],
+          "price": {
+            "amount": 10,
+            "currency": "unknown",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Merchant-linked printed menu; currency, effective date, tax and stock unstated. Egg/dairy may occur. Printed components are not complete ingredients. AF/VGcodes are not independently certified.",
+          "verification": {
+            "checkedAt": "2026-10-16T09:40:14.140Z",
+            "verifiedFields": [
+              "printedfoodname/category/numericamount",
+              "printedcompositionandrequestwordingwherepresent",
+              "sourcebadgecodesasprinted"
+            ],
+            "unverifiedFields": [
+              "currency/effective date/tax",
+              "completeingredients/allergens",
+              "stock",
+              "codelegend",
+              "choice/default/foodaddonapplicability"
+            ]
+          }
+        },
+        {
+          "id": "ur17-mod-food-03",
+          "name": "Curly Fries",
+          "category": "munchies",
+          "sourceIds": [
+            "ur17-mod-menu"
+          ],
+          "sourcePdfPage": 1,
+          "sourceDescription": "",
+          "sourceBadgeCodes": [
+            "VG"
+          ],
+          "price": {
+            "amount": 9,
+            "currency": "unknown",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Merchant-linked printed menu; currency, effective date, tax and stock unstated. Egg/dairy may occur. Printed components are not complete ingredients. AF/VGcodes are not independently certified.",
+          "verification": {
+            "checkedAt": "2026-10-16T09:40:14.140Z",
+            "verifiedFields": [
+              "printedfoodname/category/numericamount",
+              "printedcompositionandrequestwordingwherepresent",
+              "sourcebadgecodesasprinted"
+            ],
+            "unverifiedFields": [
+              "currency/effective date/tax",
+              "completeingredients/allergens",
+              "stock",
+              "codelegend",
+              "choice/default/foodaddonapplicability"
+            ]
+          }
+        },
+        {
+          "id": "ur17-mod-food-04",
+          "name": "Tater Tots",
+          "category": "munchies",
+          "sourceIds": [
+            "ur17-mod-menu"
+          ],
+          "sourcePdfPage": 1,
+          "sourceDescription": "",
+          "sourceBadgeCodes": [
+            "AF",
+            "VG"
+          ],
+          "price": {
+            "amount": 9,
+            "currency": "unknown",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Merchant-linked printed menu; currency, effective date, tax and stock unstated. Egg/dairy may occur. Printed components are not complete ingredients. AF/VGcodes are not independently certified.",
+          "verification": {
+            "checkedAt": "2026-10-16T09:40:14.140Z",
+            "verifiedFields": [
+              "printedfoodname/category/numericamount",
+              "printedcompositionandrequestwordingwherepresent",
+              "sourcebadgecodesasprinted"
+            ],
+            "unverifiedFields": [
+              "currency/effective date/tax",
+              "completeingredients/allergens",
+              "stock",
+              "codelegend",
+              "choice/default/foodaddonapplicability"
+            ]
+          }
+        },
+        {
+          "id": "ur17-mod-food-05",
+          "name": "Onion Rings",
+          "category": "munchies",
+          "sourceIds": [
+            "ur17-mod-menu"
+          ],
+          "sourcePdfPage": 1,
+          "sourceDescription": "",
+          "sourceBadgeCodes": [
+            "VG"
+          ],
+          "price": {
+            "amount": 9,
+            "currency": "unknown",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Merchant-linked printed menu; currency, effective date, tax and stock unstated. Egg/dairy may occur. Printed components are not complete ingredients. AF/VGcodes are not independently certified.",
+          "verification": {
+            "checkedAt": "2026-10-16T09:40:14.140Z",
+            "verifiedFields": [
+              "printedfoodname/category/numericamount",
+              "printedcompositionandrequestwordingwherepresent",
+              "sourcebadgecodesasprinted"
+            ],
+            "unverifiedFields": [
+              "currency/effective date/tax",
+              "completeingredients/allergens",
+              "stock",
+              "codelegend",
+              "choice/default/foodaddonapplicability"
+            ]
+          }
+        },
+        {
+          "id": "ur17-mod-food-06",
+          "name": "MODnuggets",
+          "category": "munchies",
+          "sourceIds": [
+            "ur17-mod-menu"
+          ],
+          "sourcePdfPage": 1,
+          "sourceDescription": "",
+          "sourceBadgeCodes": [
+            "VG"
+          ],
+          "price": {
+            "amount": 10,
+            "currency": "unknown",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Merchant-linked printed menu; currency, effective date, tax and stock unstated. Egg/dairy may occur. Printed components are not complete ingredients. AF/VGcodes are not independently certified.",
+          "verification": {
+            "checkedAt": "2026-10-16T09:40:14.140Z",
+            "verifiedFields": [
+              "printedfoodname/category/numericamount",
+              "printedcompositionandrequestwordingwherepresent",
+              "sourcebadgecodesasprinted"
+            ],
+            "unverifiedFields": [
+              "currency/effective date/tax",
+              "completeingredients/allergens",
+              "stock",
+              "codelegend",
+              "choice/default/foodaddonapplicability"
+            ]
+          }
+        },
+        {
+          "id": "ur17-mod-food-07",
+          "name": "Fried Wanton",
+          "category": "munchies",
+          "sourceIds": [
+            "ur17-mod-menu"
+          ],
+          "sourcePdfPage": 1,
+          "sourceDescription": "",
+          "sourceBadgeCodes": [
+            "AF",
+            "VG"
+          ],
+          "price": {
+            "amount": 10,
+            "currency": "unknown",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Merchant-linked printed menu; currency, effective date, tax and stock unstated. Egg/dairy may occur. Printed components are not complete ingredients. AF/VGcodes are not independently certified.",
+          "verification": {
+            "checkedAt": "2026-10-16T09:40:14.140Z",
+            "verifiedFields": [
+              "printedfoodname/category/numericamount",
+              "printedcompositionandrequestwordingwherepresent",
+              "sourcebadgecodesasprinted"
+            ],
+            "unverifiedFields": [
+              "currency/effective date/tax",
+              "completeingredients/allergens",
+              "stock",
+              "codelegend",
+              "choice/default/foodaddonapplicability"
+            ]
+          }
+        },
+        {
+          "id": "ur17-mod-food-08",
+          "name": "Fried Mantou (with condensed milk)",
+          "category": "munchies",
+          "sourceIds": [
+            "ur17-mod-menu"
+          ],
+          "sourcePdfPage": 1,
+          "sourceDescription": "with condensed milk",
+          "sourceBadgeCodes": [
+            "AF"
+          ],
+          "price": {
+            "amount": 7,
+            "currency": "unknown",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Merchant-linked printed menu; currency, effective date, tax and stock unstated. Egg/dairy may occur. Printed components are not complete ingredients. AF/VGcodes are not independently certified.",
+          "verification": {
+            "checkedAt": "2026-10-16T09:40:14.140Z",
+            "verifiedFields": [
+              "printedfoodname/category/numericamount",
+              "printedcompositionandrequestwordingwherepresent",
+              "sourcebadgecodesasprinted"
+            ],
+            "unverifiedFields": [
+              "currency/effective date/tax",
+              "completeingredients/allergens",
+              "stock",
+              "codelegend",
+              "choice/default/foodaddonapplicability"
+            ]
+          },
+          "foodComponents": {
+            "printedDescription": "with condensed milk",
+            "basis": "Exact printed components, not full ingredients or people count."
+          },
+          "sourcePrintedName": "Fried Mantou"
+        },
+        {
+          "id": "ur17-mod-food-09",
+          "name": "Fried Mantou (with chilli crab sauce)",
+          "category": "munchies",
+          "sourceIds": [
+            "ur17-mod-menu"
+          ],
+          "sourcePdfPage": 1,
+          "sourceDescription": "with chilli crab sauce",
+          "sourceBadgeCodes": [],
+          "price": {
+            "amount": 12,
+            "currency": "unknown",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Merchant-linked printed menu; currency, effective date, tax and stock unstated. Egg/dairy may occur. Printed components are not complete ingredients. AF/VGcodes are not independently certified.",
+          "verification": {
+            "checkedAt": "2026-10-16T09:40:14.140Z",
+            "verifiedFields": [
+              "printedfoodname/category/numericamount",
+              "printedcompositionandrequestwordingwherepresent",
+              "sourcebadgecodesasprinted"
+            ],
+            "unverifiedFields": [
+              "currency/effective date/tax",
+              "completeingredients/allergens",
+              "stock",
+              "codelegend",
+              "choice/default/foodaddonapplicability"
+            ]
+          },
+          "foodComponents": {
+            "printedDescription": "with chilli crab sauce",
+            "basis": "Exact printed components, not full ingredients or people count."
+          },
+          "sourcePrintedName": "Fried Mantou"
+        },
+        {
+          "id": "ur17-mod-food-10",
+          "name": "Snack Platter",
+          "category": "munchies",
+          "sourceIds": [
+            "ur17-mod-menu"
+          ],
+          "sourcePdfPage": 1,
+          "sourceDescription": "pick 3 items from shoe string fries, curly fries, tater tots, onion rings and modnuggets",
+          "sourceBadgeCodes": [],
+          "price": {
+            "amount": 15,
+            "currency": "unknown",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Merchant-linked printed menu; currency, effective date, tax and stock unstated. Egg/dairy may occur. Printed components are not complete ingredients. AF/VGcodes are not independently certified.",
+          "verification": {
+            "checkedAt": "2026-10-16T09:40:14.140Z",
+            "verifiedFields": [
+              "printedfoodname/category/numericamount",
+              "printedcompositionandrequestwordingwherepresent",
+              "sourcebadgecodesasprinted"
+            ],
+            "unverifiedFields": [
+              "currency/effective date/tax",
+              "completeingredients/allergens",
+              "stock",
+              "codelegend",
+              "choice/default/foodaddonapplicability"
+            ]
+          },
+          "foodComponents": {
+            "printedDescription": "pick 3 items from shoe string fries, curly fries, tater tots, onion rings and modnuggets",
+            "basis": "Exact printed components, not full ingredients or people count."
+          },
+          "configurationNotice": "Pick 3 from shoe string fries, curly fries, tater tots, onion rings and MODnuggets. Repeat choices, individual counts and defaults unstated."
+        },
+        {
+          "id": "ur17-mod-food-11",
+          "name": "Eggdrop Sandwich",
+          "category": "sandwiches",
+          "sourceIds": [
+            "ur17-mod-menu"
+          ],
+          "sourcePdfPage": 1,
+          "sourceDescription": "brioche toast, scrambled egg, cheddar cheese slice",
+          "sourceBadgeCodes": [
+            "AF"
+          ],
+          "price": {
+            "amount": 7,
+            "currency": "unknown",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Merchant-linked printed menu; currency, effective date, tax and stock unstated. Egg/dairy may occur. Printed components are not complete ingredients. AF/VGcodes are not independently certified.",
+          "verification": {
+            "checkedAt": "2026-10-16T09:40:14.140Z",
+            "verifiedFields": [
+              "printedfoodname/category/numericamount",
+              "printedcompositionandrequestwordingwherepresent",
+              "sourcebadgecodesasprinted"
+            ],
+            "unverifiedFields": [
+              "currency/effective date/tax",
+              "completeingredients/allergens",
+              "stock",
+              "codelegend",
+              "choice/default/foodaddonapplicability"
+            ]
+          },
+          "foodComponents": {
+            "printedDescription": "brioche toast, scrambled egg, cheddar cheese slice",
+            "basis": "Exact printed components, not full ingredients or people count."
+          }
+        },
+        {
+          "id": "ur17-mod-food-12",
+          "name": "BF Croissant Sandwich",
+          "category": "sandwiches",
+          "sourceIds": [
+            "ur17-mod-menu"
+          ],
+          "sourcePdfPage": 1,
+          "sourceDescription": "croissant, scrambled egg, cheddar cheese slice, lettuce, tomato",
+          "sourceBadgeCodes": [
+            "AF"
+          ],
+          "price": {
+            "amount": 9,
+            "currency": "unknown",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Merchant-linked printed menu; currency, effective date, tax and stock unstated. Egg/dairy may occur. Printed components are not complete ingredients. AF/VGcodes are not independently certified.",
+          "verification": {
+            "checkedAt": "2026-10-16T09:40:14.140Z",
+            "verifiedFields": [
+              "printedfoodname/category/numericamount",
+              "printedcompositionandrequestwordingwherepresent",
+              "sourcebadgecodesasprinted"
+            ],
+            "unverifiedFields": [
+              "currency/effective date/tax",
+              "completeingredients/allergens",
+              "stock",
+              "codelegend",
+              "choice/default/foodaddonapplicability"
+            ]
+          },
+          "foodComponents": {
+            "printedDescription": "croissant, scrambled egg, cheddar cheese slice, lettuce, tomato",
+            "basis": "Exact printed components, not full ingredients or people count."
+          }
+        },
+        {
+          "id": "ur17-mod-food-13",
+          "name": "KJ's All Day Breakfast",
+          "category": "mains",
+          "sourceIds": [
+            "ur17-mod-menu"
+          ],
+          "sourcePdfPage": 1,
+          "sourceDescription": "muffin, two eggs (choice of sunny side up or scrambled), sauteed mushrooms, tater tots, nuggets, side salad; can be made allium-free, please request upon ordering",
+          "sourceBadgeCodes": [],
+          "price": {
+            "amount": 16.9,
+            "currency": "unknown",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Merchant-linked printed menu; currency, effective date, tax and stock unstated. Egg/dairy may occur. Printed components are not complete ingredients. AF/VGcodes are not independently certified.",
+          "verification": {
+            "checkedAt": "2026-10-16T09:40:14.140Z",
+            "verifiedFields": [
+              "printedfoodname/category/numericamount",
+              "printedcompositionandrequestwordingwherepresent",
+              "sourcebadgecodesasprinted"
+            ],
+            "unverifiedFields": [
+              "currency/effective date/tax",
+              "completeingredients/allergens",
+              "stock",
+              "codelegend",
+              "choice/default/foodaddonapplicability"
+            ]
+          },
+          "foodComponents": {
+            "printedDescription": "muffin, two eggs (choice of sunny side up or scrambled), sauteed mushrooms, tater tots, nuggets, side salad; can be made allium-free, please request upon ordering",
+            "basis": "Exact printed components, not full ingredients or people count."
+          },
+          "portion": "Two eggs; preparation choice sunny side up or scrambled. Other component counts and people served unstated.",
+          "configurationNotice": "Can be made allium-free on request. Actual changes, surcharge and defaults unprinted; standard portion not certified allium-free."
+        },
+        {
+          "id": "ur17-mod-food-14",
+          "name": "Alvin's Fish & Chips",
+          "category": "mains",
+          "sourceIds": [
+            "ur17-mod-menu"
+          ],
+          "sourcePdfPage": 1,
+          "sourceDescription": "battered plant-based fish fillet, fries, side salad; can be made vegan, please request upon ordering",
+          "sourceBadgeCodes": [
+            "AF"
+          ],
+          "price": {
+            "amount": 19.9,
+            "currency": "unknown",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Merchant-linked printed menu; currency, effective date, tax and stock unstated. Egg/dairy may occur. Printed components are not complete ingredients. AF/VGcodes are not independently certified.",
+          "verification": {
+            "checkedAt": "2026-10-16T09:40:14.140Z",
+            "verifiedFields": [
+              "printedfoodname/category/numericamount",
+              "printedcompositionandrequestwordingwherepresent",
+              "sourcebadgecodesasprinted"
+            ],
+            "unverifiedFields": [
+              "currency/effective date/tax",
+              "completeingredients/allergens",
+              "stock",
+              "codelegend",
+              "choice/default/foodaddonapplicability"
+            ]
+          },
+          "foodComponents": {
+            "printedDescription": "battered plant-based fish fillet, fries, side salad; can be made vegan, please request upon ordering",
+            "basis": "Exact printed components, not full ingredients or people count."
+          },
+          "configurationNotice": "Can be made vegan on request; actual substitutions and surcharge unprinted. Base order not assumed vegan."
+        },
+        {
+          "id": "ur17-mod-food-15",
+          "name": "Jas's Impossible Burger",
+          "category": "mains",
+          "sourceIds": [
+            "ur17-mod-menu"
+          ],
+          "sourcePdfPage": 1,
+          "sourceDescription": "brioche bun, impossible patty, cheddar cheese slice, lettuce, tomato, red onion, secret burger sauce, fries, side salad",
+          "sourceBadgeCodes": [],
+          "price": {
+            "amount": 26.9,
+            "currency": "unknown",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Merchant-linked printed menu; currency, effective date, tax and stock unstated. Egg/dairy may occur. Printed components are not complete ingredients. AF/VGcodes are not independently certified.",
+          "verification": {
+            "checkedAt": "2026-10-16T09:40:14.140Z",
+            "verifiedFields": [
+              "printedfoodname/category/numericamount",
+              "printedcompositionandrequestwordingwherepresent",
+              "sourcebadgecodesasprinted"
+            ],
+            "unverifiedFields": [
+              "currency/effective date/tax",
+              "completeingredients/allergens",
+              "stock",
+              "codelegend",
+              "choice/default/foodaddonapplicability"
+            ]
+          },
+          "foodComponents": {
+            "printedDescription": "brioche bun, impossible patty, cheddar cheese slice, lettuce, tomato, red onion, secret burger sauce, fries, side salad",
+            "basis": "Exact printed components, not full ingredients or people count."
+          }
+        },
+        {
+          "id": "ur17-mod-food-16",
+          "name": "Aloha Burger",
+          "category": "mains",
+          "sourceIds": [
+            "ur17-mod-menu"
+          ],
+          "sourcePdfPage": 1,
+          "sourceDescription": "brioche bun, plant-based patty, cheddar cheese slice, pineapple, fries, side salad",
+          "sourceBadgeCodes": [
+            "AF"
+          ],
+          "price": {
+            "amount": 22.9,
+            "currency": "unknown",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Merchant-linked printed menu; currency, effective date, tax and stock unstated. Egg/dairy may occur. Printed components are not complete ingredients. AF/VGcodes are not independently certified.",
+          "verification": {
+            "checkedAt": "2026-10-16T09:40:14.140Z",
+            "verifiedFields": [
+              "printedfoodname/category/numericamount",
+              "printedcompositionandrequestwordingwherepresent",
+              "sourcebadgecodesasprinted"
+            ],
+            "unverifiedFields": [
+              "currency/effective date/tax",
+              "completeingredients/allergens",
+              "stock",
+              "codelegend",
+              "choice/default/foodaddonapplicability"
+            ]
+          },
+          "foodComponents": {
+            "printedDescription": "brioche bun, plant-based patty, cheddar cheese slice, pineapple, fries, side salad",
+            "basis": "Exact printed components, not full ingredients or people count."
+          }
+        },
+        {
+          "id": "ur17-mod-food-17",
+          "name": "Double Filet-No-Fish",
+          "category": "mains",
+          "sourceIds": [
+            "ur17-mod-menu"
+          ],
+          "sourcePdfPage": 1,
+          "sourceDescription": "brioche bun, plant-based fish patty, cheddar cheese slice, fries",
+          "sourceBadgeCodes": [],
+          "price": {
+            "amount": 17.9,
+            "currency": "unknown",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Merchant-linked printed menu; currency, effective date, tax and stock unstated. Egg/dairy may occur. Printed components are not complete ingredients. AF/VGcodes are not independently certified.",
+          "verification": {
+            "checkedAt": "2026-10-16T09:40:14.140Z",
+            "verifiedFields": [
+              "printedfoodname/category/numericamount",
+              "printedcompositionandrequestwordingwherepresent",
+              "sourcebadgecodesasprinted"
+            ],
+            "unverifiedFields": [
+              "currency/effective date/tax",
+              "completeingredients/allergens",
+              "stock",
+              "codelegend",
+              "choice/default/foodaddonapplicability"
+            ]
+          },
+          "foodComponents": {
+            "printedDescription": "brioche bun, plant-based fish patty, cheddar cheese slice, fries",
+            "basis": "Exact printed components, not full ingredients or people count."
+          }
+        },
+        {
+          "id": "ur17-mod-food-18",
+          "name": "MOD Sliders",
+          "category": "mains",
+          "sourceIds": [
+            "ur17-mod-menu"
+          ],
+          "sourcePdfPage": 1,
+          "sourceDescription": "choice of impossible, filet, aloha (AF), mushroom (AF); +2 to mix flavor",
+          "sourceBadgeCodes": [],
+          "price": {
+            "amount": 18.9,
+            "currency": "unknown",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Merchant-linked printed menu; currency, effective date, tax and stock unstated. Egg/dairy may occur. Printed components are not complete ingredients. AF/VGcodes are not independently certified.",
+          "verification": {
+            "checkedAt": "2026-10-16T09:40:14.140Z",
+            "verifiedFields": [
+              "printedfoodname/category/numericamount",
+              "printedcompositionandrequestwordingwherepresent",
+              "sourcebadgecodesasprinted"
+            ],
+            "unverifiedFields": [
+              "currency/effective date/tax",
+              "completeingredients/allergens",
+              "stock",
+              "codelegend",
+              "choice/default/foodaddonapplicability"
+            ]
+          },
+          "foodComponents": {
+            "printedDescription": "choice of impossible, filet, aloha (AF), mushroom (AF); +2 to mix flavor",
+            "basis": "Exact printed components, not full ingredients or people count."
+          },
+          "configurationNotice": "Choice of Impossible, filet, aloha (AF) or mushroom (AF); mix flavors +2 (currency unstated). Slider count, selection rule and defaults unprinted."
+        },
+        {
+          "id": "ur17-mod-food-19",
+          "name": "Ah Tin Wanton Mee",
+          "category": "mains",
+          "sourceIds": [
+            "ur17-mod-menu"
+          ],
+          "sourcePdfPage": 1,
+          "sourceDescription": "egg noodle, fried wanton, plant-based patty, lettuce, sauteed shiitake mushrooms",
+          "sourceBadgeCodes": [
+            "AF"
+          ],
+          "price": {
+            "amount": 16.9,
+            "currency": "unknown",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Merchant-linked printed menu; currency, effective date, tax and stock unstated. Egg/dairy may occur. Printed components are not complete ingredients. AF/VGcodes are not independently certified.",
+          "verification": {
+            "checkedAt": "2026-10-16T09:40:14.140Z",
+            "verifiedFields": [
+              "printedfoodname/category/numericamount",
+              "printedcompositionandrequestwordingwherepresent",
+              "sourcebadgecodesasprinted"
+            ],
+            "unverifiedFields": [
+              "currency/effective date/tax",
+              "completeingredients/allergens",
+              "stock",
+              "codelegend",
+              "choice/default/foodaddonapplicability"
+            ]
+          },
+          "foodComponents": {
+            "printedDescription": "egg noodle, fried wanton, plant-based patty, lettuce, sauteed shiitake mushrooms",
+            "basis": "Exact printed components, not full ingredients or people count."
+          }
+        },
+        {
+          "id": "ur17-mod-food-20",
+          "name": "Sausage Egg MODmuffin OG",
+          "category": "mains",
+          "sourceIds": [
+            "ur17-mod-menu"
+          ],
+          "sourcePdfPage": 1,
+          "sourceDescription": "muffin, egg, impossible patty, cheddar cheese slice, tater tots",
+          "sourceBadgeCodes": [],
+          "price": {
+            "amount": 14.9,
+            "currency": "unknown",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Merchant-linked printed menu; currency, effective date, tax and stock unstated. Egg/dairy may occur. Printed components are not complete ingredients. AF/VGcodes are not independently certified.",
+          "verification": {
+            "checkedAt": "2026-10-16T09:40:14.140Z",
+            "verifiedFields": [
+              "printedfoodname/category/numericamount",
+              "printedcompositionandrequestwordingwherepresent",
+              "sourcebadgecodesasprinted"
+            ],
+            "unverifiedFields": [
+              "currency/effective date/tax",
+              "completeingredients/allergens",
+              "stock",
+              "codelegend",
+              "choice/default/foodaddonapplicability"
+            ]
+          },
+          "foodComponents": {
+            "printedDescription": "muffin, egg, impossible patty, cheddar cheese slice, tater tots",
+            "basis": "Exact printed components, not full ingredients or people count."
+          }
+        },
+        {
+          "id": "ur17-mod-food-21",
+          "name": "Sausage Egg MODmuffin V2",
+          "category": "mains",
+          "sourceIds": [
+            "ur17-mod-menu"
+          ],
+          "sourcePdfPage": 1,
+          "sourceDescription": "muffin, egg, plant-based patty, cheddar cheese slice, tater tots",
+          "sourceBadgeCodes": [
+            "AF"
+          ],
+          "price": {
+            "amount": 13.9,
+            "currency": "unknown",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Merchant-linked printed menu; currency, effective date, tax and stock unstated. Egg/dairy may occur. Printed components are not complete ingredients. AF/VGcodes are not independently certified.",
+          "verification": {
+            "checkedAt": "2026-10-16T09:40:14.140Z",
+            "verifiedFields": [
+              "printedfoodname/category/numericamount",
+              "printedcompositionandrequestwordingwherepresent",
+              "sourcebadgecodesasprinted"
+            ],
+            "unverifiedFields": [
+              "currency/effective date/tax",
+              "completeingredients/allergens",
+              "stock",
+              "codelegend",
+              "choice/default/foodaddonapplicability"
+            ]
+          },
+          "foodComponents": {
+            "printedDescription": "muffin, egg, plant-based patty, cheddar cheese slice, tater tots",
+            "basis": "Exact printed components, not full ingredients or people count."
+          }
+        },
+        {
+          "id": "ur17-mod-food-22",
+          "name": "So-Baaa-So-Good",
+          "category": "mains",
+          "sourceIds": [
+            "ur17-mod-menu"
+          ],
+          "sourcePdfPage": 1,
+          "sourceDescription": "buckwheat soba, edamame, carrot, sweet pea, sauteed mushrooms, sesame seed, seaweed; available in sesame sauce (AF) and soy vinaigrette sauce (AF, VG)",
+          "sourceBadgeCodes": [
+            "AF",
+            "VG"
+          ],
+          "price": {
+            "amount": 12.9,
+            "currency": "unknown",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Merchant-linked printed menu; currency, effective date, tax and stock unstated. Egg/dairy may occur. Printed components are not complete ingredients. AF/VGcodes are not independently certified.",
+          "verification": {
+            "checkedAt": "2026-10-16T09:40:14.140Z",
+            "verifiedFields": [
+              "printedfoodname/category/numericamount",
+              "printedcompositionandrequestwordingwherepresent",
+              "sourcebadgecodesasprinted"
+            ],
+            "unverifiedFields": [
+              "currency/effective date/tax",
+              "completeingredients/allergens",
+              "stock",
+              "codelegend",
+              "choice/default/foodaddonapplicability"
+            ]
+          },
+          "foodComponents": {
+            "printedDescription": "buckwheat soba, edamame, carrot, sweet pea, sauteed mushrooms, sesame seed, seaweed; available in sesame sauce (AF) and soy vinaigrette sauce (AF, VG)",
+            "basis": "Exact printed components, not full ingredients or people count."
+          },
+          "configurationNotice": "Sesame sauce (AF) or soy vinaigrette (AF, VG). Code legend, default, portion and surcharge unstated."
+        },
+        {
+          "id": "ur17-mod-food-23",
+          "name": "Haagen Dazs Vanilla Ice Cream",
+          "category": "pastries & desserts",
+          "sourceIds": [
+            "ur17-mod-menu"
+          ],
+          "sourcePdfPage": 1,
+          "sourceDescription": "",
+          "sourceBadgeCodes": [],
+          "price": {
+            "amount": 4,
+            "currency": "unknown",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Merchant-linked printed menu; currency, effective date, tax and stock unstated. Egg/dairy may occur. Printed components are not complete ingredients. AF/VGcodes are not independently certified.",
+          "verification": {
+            "checkedAt": "2026-10-16T09:40:14.140Z",
+            "verifiedFields": [
+              "printedfoodname/category/numericamount",
+              "printedcompositionandrequestwordingwherepresent",
+              "sourcebadgecodesasprinted"
+            ],
+            "unverifiedFields": [
+              "currency/effective date/tax",
+              "completeingredients/allergens",
+              "stock",
+              "codelegend",
+              "choice/default/foodaddonapplicability"
+            ]
+          }
+        },
+        {
+          "id": "ur17-mod-food-24",
+          "name": "Lava Cake",
+          "category": "pastries & desserts",
+          "sourceIds": [
+            "ur17-mod-menu"
+          ],
+          "sourcePdfPage": 1,
+          "sourceDescription": "served with a scoop of Haagen Dazs vanilla ice cream",
+          "sourceBadgeCodes": [],
+          "price": {
+            "amount": 9.9,
+            "currency": "unknown",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Merchant-linked printed menu; currency, effective date, tax and stock unstated. Egg/dairy may occur. Printed components are not complete ingredients. AF/VGcodes are not independently certified.",
+          "verification": {
+            "checkedAt": "2026-10-16T09:40:14.140Z",
+            "verifiedFields": [
+              "printedfoodname/category/numericamount",
+              "printedcompositionandrequestwordingwherepresent",
+              "sourcebadgecodesasprinted"
+            ],
+            "unverifiedFields": [
+              "currency/effective date/tax",
+              "completeingredients/allergens",
+              "stock",
+              "codelegend",
+              "choice/default/foodaddonapplicability"
+            ]
+          },
+          "foodComponents": {
+            "printedDescription": "served with a scoop of Haagen Dazs vanilla ice cream",
+            "basis": "Exact printed components, not full ingredients or people count."
+          }
+        },
+        {
+          "id": "ur17-mod-food-25",
+          "name": "Croissant",
+          "category": "pastries & desserts",
+          "sourceIds": [
+            "ur17-mod-menu"
+          ],
+          "sourcePdfPage": 1,
+          "sourceDescription": "",
+          "sourceBadgeCodes": [],
+          "price": {
+            "amount": 4.5,
+            "currency": "unknown",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Merchant-linked printed menu; currency, effective date, tax and stock unstated. Egg/dairy may occur. Printed components are not complete ingredients. AF/VGcodes are not independently certified.",
+          "verification": {
+            "checkedAt": "2026-10-16T09:40:14.140Z",
+            "verifiedFields": [
+              "printedfoodname/category/numericamount",
+              "printedcompositionandrequestwordingwherepresent",
+              "sourcebadgecodesasprinted"
+            ],
+            "unverifiedFields": [
+              "currency/effective date/tax",
+              "completeingredients/allergens",
+              "stock",
+              "codelegend",
+              "choice/default/foodaddonapplicability"
+            ]
+          }
+        },
+        {
+          "id": "ur17-mod-food-26",
+          "name": "Baked Cheese Cake",
+          "category": "pastries & desserts",
+          "sourceIds": [
+            "ur17-mod-menu"
+          ],
+          "sourcePdfPage": 1,
+          "sourceDescription": "",
+          "sourceBadgeCodes": [],
+          "price": {
+            "amount": 8.5,
+            "currency": "unknown",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Merchant-linked printed menu; currency, effective date, tax and stock unstated. Egg/dairy may occur. Printed components are not complete ingredients. AF/VGcodes are not independently certified.",
+          "verification": {
+            "checkedAt": "2026-10-16T09:40:14.140Z",
+            "verifiedFields": [
+              "printedfoodname/category/numericamount",
+              "printedcompositionandrequestwordingwherepresent",
+              "sourcebadgecodesasprinted"
+            ],
+            "unverifiedFields": [
+              "currency/effective date/tax",
+              "completeingredients/allergens",
+              "stock",
+              "codelegend",
+              "choice/default/foodaddonapplicability"
+            ]
+          }
+        },
+        {
+          "id": "ur17-mod-food-27",
+          "name": "Carrot Cake",
+          "category": "pastries & desserts",
+          "sourceIds": [
+            "ur17-mod-menu"
+          ],
+          "sourcePdfPage": 1,
+          "sourceDescription": "",
+          "sourceBadgeCodes": [],
+          "price": {
+            "amount": 8.5,
+            "currency": "unknown",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Merchant-linked printed menu; currency, effective date, tax and stock unstated. Egg/dairy may occur. Printed components are not complete ingredients. AF/VGcodes are not independently certified.",
+          "verification": {
+            "checkedAt": "2026-10-16T09:40:14.140Z",
+            "verifiedFields": [
+              "printedfoodname/category/numericamount",
+              "printedcompositionandrequestwordingwherepresent",
+              "sourcebadgecodesasprinted"
+            ],
+            "unverifiedFields": [
+              "currency/effective date/tax",
+              "completeingredients/allergens",
+              "stock",
+              "codelegend",
+              "choice/default/foodaddonapplicability"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "ae-cookie-new-buns-announcement",
+      "name": "Merchant dish announcement",
+      "branchIds": [
+        "cookie-coffee-fortune-centre"
+      ],
+      "sourceIds": [
+        "ae-cookie-new-buns-source"
+      ],
+      "scope": "branch-dine-in",
+      "coverage": "partial",
+      "publicationStatus": "reviewed-partial-source-facts",
+      "notice": "Merchant poster visibly prints$4.50. Currency code, portion count, sauce identity, ingredient/allergen composition and current stock are unstated. Do not infer vegan from a different dim-sum heading.",
+      "items": [
+        {
+          "id": "ae-cookie-new-buns-announcement-dish",
+          "name": "Golden Mini Buns 黄金迷你馒头",
+          "category": "Buns",
+          "price": {
+            "amount": 4.5,
+            "currency": "unknown"
+          },
+          "sourceIds": [
+            "ae-cookie-new-buns-source"
+          ],
+          "publicationStatus": "approved-reviewed-source-fact",
+          "verification": {
+            "checkedAt": "2026-10-17T02:40:37.565Z",
+            "sourceIds": [
+              "ae-cookie-new-buns-source"
+            ],
+            "verifiedFields": [
+              "merchant-printed dish name",
+              "existing exact-branch applicability",
+              "poster printed amount4.50"
+            ],
+            "unverifiedFields": [
+              "currency code",
+              "portion",
+              "complete ingredients",
+              "allergens",
+              "current stock"
+            ]
+          },
+          "notes": "Merchant poster visibly prints$4.50. Currency code, portion count, sauce identity, ingredient/allergen composition and current stock are unstated. Do not infer vegan from a different dim-sum heading.",
+          "printedPriceSymbol": "$"
+        }
+      ]
+    }
+  ],
+  "excludedSourceProducts": [
+    {
+      "merchant": "Cookie Coffee",
+      "reason": "All coffee/tea/ice-cream beverage fusions and 16 drink+ice-cream meal combo prices excluded."
+    },
+    {
+      "merchant": "Jammy’s",
+      "name": "Strawberry Gummy Bears",
+      "reason": "Packaged retail grocery/confectionery, gift/nonfood, event or mixed-product scope excluded."
+    },
+    {
+      "merchant": "Jammy’s",
+      "name": "The Sweet Tooth Box — Jammy’s x LAYYI",
+      "reason": "Packaged retail grocery/confectionery, gift/nonfood, event or mixed-product scope excluded."
+    },
+    {
+      "merchant": "Jammy’s",
+      "name": "Sweet Cinnamon Cashew & Pecan Granola - 45g Snack Pack",
+      "reason": "Packaged retail grocery/confectionery, gift/nonfood, event or mixed-product scope excluded."
+    },
+    {
+      "merchant": "Jammy’s",
+      "name": "[50% Off Near BBD Stock] Sweet Cinnamon Cashew & Pecan Granola - 45g Snack Pack",
+      "reason": "Packaged retail grocery/confectionery, gift/nonfood, event or mixed-product scope excluded."
+    },
+    {
+      "merchant": "Jammy’s",
+      "name": "Matcha Strawberry Almond & Pecan Crunch Granola - 225g",
+      "reason": "Packaged retail grocery/confectionery, gift/nonfood, event or mixed-product scope excluded."
+    },
+    {
+      "merchant": "Jammy’s",
+      "name": "Sour Mango Gummy Bears",
+      "reason": "Packaged retail grocery/confectionery, gift/nonfood, event or mixed-product scope excluded."
+    },
+    {
+      "merchant": "Jammy’s",
+      "name": "🎉 Jammy’s 2nd Birthday Fundraising Walk 🐾💚",
+      "reason": "Packaged retail grocery/confectionery, gift/nonfood, event or mixed-product scope excluded."
+    },
+    {
+      "merchant": "Jammy’s",
+      "name": "[20% OFF No Code Required] Jammy's x Shermay's Nonya Curry Nut Crunch 100g",
+      "reason": "Packaged retail grocery/confectionery, gift/nonfood, event or mixed-product scope excluded."
+    },
+    {
+      "merchant": "Jammy’s",
+      "name": "[20% OFF No Code Required] Jammy's x Shermay's Chilli & Vinegar Nut Crunch 100g",
+      "reason": "Packaged retail grocery/confectionery, gift/nonfood, event or mixed-product scope excluded."
+    },
+    {
+      "merchant": "Jammy’s",
+      "name": "Sour Plum Gummy Bears",
+      "reason": "Packaged retail grocery/confectionery, gift/nonfood, event or mixed-product scope excluded."
+    },
+    {
+      "merchant": "Jammy’s",
+      "name": "[20% OFF No Code Required] Jammy's x Shermay's Nut Crunch Twin Pack Set (Mix & Match Any 2)",
+      "reason": "Packaged retail grocery/confectionery, gift/nonfood, event or mixed-product scope excluded."
+    },
+    {
+      "merchant": "Jammy’s",
+      "name": "SG60 Bundle",
+      "reason": "Packaged retail grocery/confectionery, gift/nonfood, event or mixed-product scope excluded."
+    },
+    {
+      "merchant": "Jammy’s",
+      "name": "A Taste of Fresh: A Beauty and Flavour Experience",
+      "reason": "Packaged retail grocery/confectionery, gift/nonfood, event or mixed-product scope excluded."
+    },
+    {
+      "merchant": "Jammy’s",
+      "name": "6 Cookies Bites Mix & Match Bundle",
+      "reason": "Packaged retail grocery/confectionery, gift/nonfood, event or mixed-product scope excluded."
+    },
+    {
+      "merchant": "Jammy’s",
+      "name": "[NEAR BBD 50% OFF] Granola Taster Set - 3 x 45g Snack Pack",
+      "reason": "Packaged retail grocery/confectionery, gift/nonfood, event or mixed-product scope excluded."
+    },
+    {
+      "merchant": "Jammy’s",
+      "name": "[Near BBD 50% OFF] Yummy \"Honey\" Sea Salt & Macadamia Crunch Granola - 45g Snack Pack",
+      "reason": "Packaged retail grocery/confectionery, gift/nonfood, event or mixed-product scope excluded."
+    },
+    {
+      "merchant": "Jammy’s",
+      "name": "[NEAR BBD 50% OFF] Hazelnut & Almond Cocoa Crunch Granola - 45g Snack Pack",
+      "reason": "Packaged retail grocery/confectionery, gift/nonfood, event or mixed-product scope excluded."
+    },
+    {
+      "merchant": "Jammy’s",
+      "name": "Pandan Coconut Cashew Cookie Bites - 65g",
+      "reason": "Packaged retail grocery/confectionery, gift/nonfood, event or mixed-product scope excluded."
+    },
+    {
+      "merchant": "Jammy’s",
+      "name": "Coffee Hazelnut Cookie Bites - 65g",
+      "reason": "Packaged retail grocery/confectionery, gift/nonfood, event or mixed-product scope excluded."
+    },
+    {
+      "merchant": "Jammy’s",
+      "name": "Dark Chocolate Sea Salt Almond Cookie Bites - 65g",
+      "reason": "Packaged retail grocery/confectionery, gift/nonfood, event or mixed-product scope excluded."
+    },
+    {
+      "merchant": "Jammy’s",
+      "name": "Gift Set D (3 Granolas)",
+      "reason": "Packaged retail grocery/confectionery, gift/nonfood, event or mixed-product scope excluded."
+    },
+    {
+      "merchant": "Jammy’s",
+      "name": "Gift Set C (3 Gummy Bear Boxes)",
+      "reason": "Packaged retail grocery/confectionery, gift/nonfood, event or mixed-product scope excluded."
+    },
+    {
+      "merchant": "Jammy’s",
+      "name": "Gift Set B (1 Granola + 2 Gummy Bear  Boxes)",
+      "reason": "Packaged retail grocery/confectionery, gift/nonfood, event or mixed-product scope excluded."
+    },
+    {
+      "merchant": "Jammy’s",
+      "name": "Gift Set A (2 Granolas + 1 Gummy Bear Box)",
+      "reason": "Packaged retail grocery/confectionery, gift/nonfood, event or mixed-product scope excluded."
+    },
+    {
+      "merchant": "Jammy’s",
+      "name": "Gift Set E (20 Packs of Gummy Bears)",
+      "reason": "Packaged retail grocery/confectionery, gift/nonfood, event or mixed-product scope excluded."
+    },
+    {
+      "merchant": "Jammy’s",
+      "name": "Gummy Bear Taster Gift Set",
+      "reason": "Packaged retail grocery/confectionery, gift/nonfood, event or mixed-product scope excluded."
+    },
+    {
+      "merchant": "Jammy’s",
+      "name": "Lychee Gummy Bears",
+      "reason": "Packaged retail grocery/confectionery, gift/nonfood, event or mixed-product scope excluded."
+    },
+    {
+      "merchant": "Jammy’s",
+      "name": "Peach Gummy Bears",
+      "reason": "Packaged retail grocery/confectionery, gift/nonfood, event or mixed-product scope excluded."
+    },
+    {
+      "merchant": "Jammy’s",
+      "name": "Pineapple Gummy Bears",
+      "reason": "Packaged retail grocery/confectionery, gift/nonfood, event or mixed-product scope excluded."
+    },
+    {
+      "merchant": "Jammy’s",
+      "name": "Sour Green Apple Gummy Bears",
+      "reason": "Packaged retail grocery/confectionery, gift/nonfood, event or mixed-product scope excluded."
+    },
+    {
+      "merchant": "Jammy’s",
+      "name": "Sour Grape Gummy Bears",
+      "reason": "Packaged retail grocery/confectionery, gift/nonfood, event or mixed-product scope excluded."
+    },
+    {
+      "merchant": "Jammy’s",
+      "name": "Jammy's Gelato Tumbler",
+      "reason": "Packaged retail grocery/confectionery, gift/nonfood, event or mixed-product scope excluded."
+    },
+    {
+      "merchant": "Jammy’s",
+      "name": "Sweet Cinnamon Cashew & Pecan Crunch Granola - 225g",
+      "reason": "Packaged retail grocery/confectionery, gift/nonfood, event or mixed-product scope excluded."
+    },
+    {
+      "merchant": "Jammy’s",
+      "name": "Nutrition Information for Snacks",
+      "reason": "Packaged retail grocery/confectionery, gift/nonfood, event or mixed-product scope excluded."
+    },
+    {
+      "merchant": "Jammy’s",
+      "name": "Jammy's Gift Card",
+      "reason": "Packaged retail grocery/confectionery, gift/nonfood, event or mixed-product scope excluded."
+    },
+    {
+      "merchant": "Jammy’s",
+      "name": "Yummy \"Honey\" Sea Salt Macadamia Granola - 225g",
+      "reason": "Packaged retail grocery/confectionery, gift/nonfood, event or mixed-product scope excluded."
+    },
+    {
+      "merchant": "Jammy’s",
+      "name": "Hazelnut & Almond Cocoa Crunch Granola - 225g",
+      "reason": "Packaged retail grocery/confectionery, gift/nonfood, event or mixed-product scope excluded."
+    },
+    {
+      "merchant": "Kind Kones",
+      "name": "Be Kind & Stay Safe",
+      "reason": "Nonfood bag or food+bag bundle with no food-only allocation."
+    },
+    {
+      "merchant": "Kind Kones",
+      "name": "Cooler Bag",
+      "reason": "Nonfood bag or food+bag bundle with no food-only allocation."
+    }
+  ],
+  "existingBranchGapUpdates": [
+    {
+      "branchId": "kind-kones-suntec",
+      "outcome": "No new branch-specific menu proof. Current SG brand catalogue isolated, but Forum pickup proof must not be copied to this branch."
+    },
+    {
+      "branchId": "kind-kones-westgate",
+      "outcome": "No new branch-specific menu proof. Current SG brand catalogue isolated, but Forum pickup proof must not be copied to this branch."
+    }
+  ],
+  "batchScope": "Five merchant groups; four new selected directory premises plus one existing Forum branch update. Great World remains conflicting current/open wording, not a new branch proposal.",
+  "mergedBranchReferences": [
+    {
+      "dataset": "data/menu-research/menu-directory-continuation-cafes-2026-10-16.json",
+      "branchId": "kind-kones-forum"
+    }
+  ],
+  "amendedAt": "2026-10-16T09:49:04.337957+00:00",
+  "completionHistory": [
+    {
+      "checkedAt": "2026-10-17T02:40:37.565Z",
+      "action": "One new merchant dish; all original menus, source dates and holds retained. No Google ID changes.",
+      "evidence": "data/menu-research/catalogue-enrichment-2026-10-17ae.json"
+    }
+  ]
+}

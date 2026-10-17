@@ -1,0 +1,128 @@
+{
+  "startedAt": "2026-10-16T05:46:29.859Z",
+  "url": "http://127.0.0.1:8083",
+  "checks": [
+    {
+      "name": "150-green",
+      "status": "passed",
+      "foods": 15,
+      "heldAbsent": 8,
+      "publicFingerprint": "003cb1e49558617bfa400efe399144f9a79ae6309929a1c5a6b66b6d2ad40834"
+    },
+    {
+      "name": "vege-bear-bidadari",
+      "status": "passed",
+      "foods": 41,
+      "heldAbsent": 0,
+      "publicFingerprint": "43a17e958861fdb41d4296787b3c25e0cb58a978db4946b0ec2b319471b1a1af"
+    },
+    {
+      "name": "k-veggie",
+      "status": "passed",
+      "foods": 6,
+      "heldAbsent": 1,
+      "publicFingerprint": "49211e20bfb8ffd6c79f2d3ff3af2678b20e384dfea54df81550e4552757168d"
+    },
+    {
+      "name": "ascend-cross",
+      "status": "passed",
+      "foods": 1,
+      "heldAbsent": 0,
+      "publicFingerprint": "ce6d13400aa9018cd05ec82a95fa7f598c8c59b7923e8ae67e331e13ce690283"
+    }
+  ],
+  "screenshots": [
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-08-browser\\150-green-320.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-08-browser\\150-green-768.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-08-browser\\150-green-1440.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-08-browser\\vege-bear-bidadari-320.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-08-browser\\vege-bear-bidadari-768.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-08-browser\\vege-bear-bidadari-1440.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-08-browser\\k-veggie-320.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-08-browser\\k-veggie-768.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-08-browser\\k-veggie-1440.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-08-browser\\ascend-cross-320.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-08-browser\\ascend-cross-768.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-08-browser\\ascend-cross-1440.png"
+  ],
+  "errors": [],
+  "pageErrors": [],
+  "unexpectedConsoleErrors": [],
+  "blockedApiRequests": [
+    "/api/local-explore/session",
+    "/api/local-explore/session",
+    "/api/local-explore/session",
+    "/api/local-explore/session",
+    "/api/local-explore/session",
+    "/api/local-explore/session",
+    "/api/local-explore/session",
+    "/api/local-explore/session",
+    "/api/local-explore/session",
+    "/api/local-explore/session",
+    "/api/local-explore/session",
+    "/api/local-explore/session",
+    "/api/local-explore/session",
+    "/api/local-explore/session",
+    "/api/local-explore/session",
+    "/api/local-explore/session"
+  ],
+  "blockedExternalRequests": [],
+  "apiRequests": [
+    "/api/menus?view=index",
+    "/api/menus?id=research-ur08-150-green",
+    "/api/menus?view=index",
+    "/api/menus?view=index",
+    "/api/menus?view=index",
+    "/api/menus?view=index",
+    "/api/menus?id=research-ur08-vege-bear-bidadari",
+    "/api/menus?view=index",
+    "/api/menus?view=index",
+    "/api/menus?view=index",
+    "/api/menus?view=index",
+    "/api/menus?id=research-ur08-k-veggie",
+    "/api/menus?view=index",
+    "/api/menus?view=index",
+    "/api/menus?view=index",
+    "/api/menus?view=index",
+    "/api/menus?id=research-ascend-cross-lead",
+    "/api/menus?view=index",
+    "/api/menus?view=index",
+    "/api/menus?view=index"
+  ],
+  "a11y": [
+    {
+      "label": "150-green",
+      "violations": []
+    },
+    {
+      "label": "vege-bear-bidadari",
+      "violations": []
+    },
+    {
+      "label": "k-veggie",
+      "violations": []
+    },
+    {
+      "label": "ascend-cross",
+      "violations": []
+    }
+  ],
+  "forwardedProviderCalls": 0,
+  "installedChromeUsed": false,
+  "browserVersion": "156.0.8078.4",
+  "catalogue": {
+    "locations": 162,
+    "sourceMenus": 208,
+    "foodOccurrences": 11448
+  },
+  "finishedAt": "2026-10-16T05:47:37.797Z",
+  "passed": true,
+  "visualReview": {
+    "reviewedAt": "2026-10-16T06:10:53.845791+00:00",
+    "capturesInspected": 12,
+    "status": "inspected-historical-before-scope-amendment"
+  },
+  "googleLedgerUnchanged": true,
+  "publicationAcceptance": false,
+  "supersededReason": "K.Veggie entire venue withheld during strict scope review; functional success does not approve scope."
+}

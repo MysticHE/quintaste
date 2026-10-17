@@ -1,0 +1,493 @@
+{
+  "checkedAt": "2026-10-17",
+  "deployedRelease": "20261017-source-assets29",
+  "goalStatus": "active",
+  "fullCoverageComplete": false,
+  "coverage": {
+    "browseVenues": 174,
+    "menuIds": 175,
+    "covers": 171,
+    "hours": 94,
+    "uniqueAssets": 138,
+    "assetBytes": 19171228,
+    "coverGaps": 3,
+    "hoursGaps": 80,
+    "allThreeAvailable": 93,
+    "catalogueIndexBytes": 203624
+  },
+  "newPhotos": [
+    {
+      "venueId": "research-greenland-upper-serangoon",
+      "address": "789 & 791 Upper Serangoon Road, Singapore 534659",
+      "photo": {
+        "path": "/api/catalogue-photos/482882ff6b6b3b634f5ca093945033319d0be82b58255446be073e0e17cdc25c.jpg",
+        "width": 960,
+        "height": 720,
+        "author": "Greenland Vegetarian",
+        "sourceUrl": "https://greenland.zzv.sg/Category?StoreID=da5a2dbf-19c9-4a79-bf6e-aa12a440731b&Service=PickUp&lang=EN",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "482882ff6b6b3b634f5ca093945033319d0be82b58255446be073e0e17cdc25c",
+      "bytes": 181179,
+      "originalSha256": "faa7d6ffcdb9a392458fcc05e36d78a4bd207bbe00775b26224f07325ec79546",
+      "sourcePageCheckedAt": "2026-10-16T12:43:41.814089+00:00",
+      "sourceImageUrl": "https://s3-ap-southeast-1.amazonaws.com/getz-prod/7ed9c082-0f50-43e5-99b3-e6f94b9786a5/2025939216_HotplateTeaTreeMushroom_clone_280320250313450634.jpg",
+      "identityEvidence": "Exact selected GetzStoreID page names789/791UpperSerangoon/534659 and publishes additional HotplateTeaTreeMushroom image. Earlier HometownTofu URLs remain logo placeholders; no generation of them. Source filename is not capture-date proof.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance this exact Greenland Vegetarian merchant product photograph as a polished landscape gallery cover. Preserve the same round black sizzling skillet on a dark reddish wooden trivet on a honey-coloured wood table. Same glossy dark thin mushroom/stem shapes, red and green pepper strips and small central mound of finely shredded pale-yellow garnish, with same arrangement. Preserve the partial white sprout bowl at top-left and partial drink/glass on bamboo mat at top-right as background edges only. Improve natural warm light, clarity, contrast and realistic texture while keeping the reference's food and serving intact. No added ingredients, dishes, utensils, logos, readable words, people or restaurant interior. Keep same elevated angle and composition. Landscape4:3 conservative photographic enhancement, not a new dish or ingredient-certification claim.",
+        "review": "Same black skillet/trivet, glossy dark thin stems with red/green strips and pale-yellow shredded garnish on wood table; sourcefromadditional merchantproductimage, not oldlogo placeholders."
+      }
+    },
+    {
+      "venueId": "research-tian-yuan-fortune-centre-01-16",
+      "address": "190 Middle Road #01-16, Fortune Centre, Singapore 188979",
+      "photo": {
+        "path": "/api/catalogue-photos/bd7a843a35491998a6f5b05a5e3638d1f7b311383891b7edceca889b72d09fa4.jpg",
+        "width": 960,
+        "height": 720,
+        "author": "Tian Yuan Healthy Vegetarian",
+        "sourceUrl": "https://www.foodpanda.sg/restaurant/g3ra/tian-yuan-healthy-vegetarian-fortune-centre",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "bd7a843a35491998a6f5b05a5e3638d1f7b311383891b7edceca889b72d09fa4",
+      "bytes": 122411,
+      "originalSha256": "3c8c11304b59bd8210301af219c55881e71ed579ee0032366c5b9eaf964d2c52",
+      "sourcePageCheckedAt": "2026-10-17T00:19:42.418787+00:00",
+      "sourceImageUrl": "https://foodpanda.dhmedia.io/image/fd-sg/Products/70648952.jpg",
+      "identityEvidence": "Fresh exact g3ra merchant page explicitly names190MiddleRoad#01-16FortuneCentre/188979 and embeds this BrownRiceSet product image. Independent FortuneCentre.sg images were not used.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance this exact Tian Yuan merchant brown-rice meal reference photograph. Preserve the same white shallow round plate with a central light-brown rice dome, green stem vegetables at front-right, pale cabbage/carrot at front-left, yellow crumbly topping at left, dark leafy greens at back-left, large yellow cauliflower floret and single red cherry tomato at rear-center, orange-brown small round beans at rear-right. Preserve the separate white bowl of pale beige soup at right and the same burlap table covering with softly out-of-focus pale pots/background objects. Same elevated angle, portions and arrangement, food as focus. Improve soft natural light, colour balance, realistic texture and clarity. No new ingredients, garnishes, utensils, dishes, words, logos or restaurant interior. Keep the rice light brown. Landscape4:3 conservative reference-led enhancement, not dietary or ingredient certification.",
+        "review": "Same brown-rice dome with six side arrangements and separate white soup bowl on burlap; exact branch product reference, no ingredient certification or actual capture claim."
+      }
+    },
+    {
+      "venueId": "research-ur02-tpy-203-vegetarian-food",
+      "address": "203 Toa Payoh North, Singapore 310203",
+      "photo": {
+        "path": "/api/catalogue-photos/cf8a4574f74850f1e9e3648c94b4d203fb3d9bd6db136673fcbe9001ad889efa.jpg",
+        "width": 960,
+        "height": 720,
+        "author": "TPY203 Vegetarian Food",
+        "sourceUrl": "https://www.facebook.com/Tpy203veg/",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "cf8a4574f74850f1e9e3648c94b4d203fb3d9bd6db136673fcbe9001ad889efa",
+      "bytes": 163432,
+      "originalSha256": "a9abc02e5fb9d74789b1cbd3ac1bbaf2565799f95b86b6d1fb81cdc027d8686a",
+      "sourcePageCheckedAt": "2026-10-16T01:09:35.473Z",
+      "sourceImageUrl": "https://scontent.fsin14-2.fna.fbcdn.net/v/t39.30808-1/305641957_516198780506809_2153338111559744044_n.jpg?stp=dst-jpg_tt6&cstp=mx959x959&ctp=s720x720&_nc_cat=106&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=3ab345&_nc_ohc=y-JL4O_Ne9oQ7kNvwG7w_XU&_nc_oc=AdqGK4x-qKG4jovlcrVAL6Pho6ukhuR0gCHoi_uP2TXJY9t00znot7ANaaBss_pHbTA&_nc_zt=24&_nc_ht=scontent.fsin14-2.fna&_nc_gid=TaVjhdPJjWUpnut8QYVKkg&_nc_ss=7c289&oh=00_AQNbGxCq40EDUxxmPUXGjQH7PekNPbWvBBzVe0Fjs8f_Cw&oe=6AD73FD3",
+      "identityEvidence": "Already saved public merchant profile og:image shows TPY203VegetarianFood storefront sign. Existing exact203ToaPayohNorth#01-1121 binding links this same merchant profile; no other merchant photo transferred. Capturedateunknown, not a guarantee of current facade.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Conservatively enhance this actual TPY203 merchant storefront reference photograph. Keep the photographed storefront geometry, diagonal white food sign, stainless/glass display counter and visible equipment exactly recognizable. Preserve all existing sign lettering, especially 'TPY203 素食 VEGETARIAN FOOD', and the printed food photographs; do not invent, replace or add words, dishes or prices. Improve natural colour, exposure, clarity and moderate perspective balance without redesigning the shop. Crop to the upper storefront/sign and top of display counter so the person at the lower-right edge is outside the frame; do not synthesize an empty room or new architecture. Keep fine menu labels naturally photographic and soft rather than inventing legible text. No new people, props, decorations, claims, logo overlays or restaurant elements. Landscape4:3 photographic enhancement of the same real scene.",
+        "review": "Same real sign/display counter and brand lettering, cropped above incidental person. Public merchant profile image matched to existing203ToaPayohNorth#01-1121 binding; source capture date unknown. Fine printed sign detail may differ."
+      }
+    },
+    {
+      "venueId": "research-cookie-coffee-fortune-centre",
+      "address": "190 Middle Road #01-28B Fortune Centre, Singapore 188979",
+      "photo": {
+        "path": "/api/catalogue-photos/8790f9316e8281c890f28a74d5b32bb2f6097466064504deb6a9b446fc041aa4.jpg",
+        "width": 960,
+        "height": 540,
+        "author": "Cookie Coffee Cafe Bar",
+        "sourceUrl": "https://cookiecoffee.com.sg/blank/",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "8790f9316e8281c890f28a74d5b32bb2f6097466064504deb6a9b446fc041aa4",
+      "bytes": 125350,
+      "originalSha256": "1705ec5f609d1f573b5c23d3a141706a4c511cf7798d1ff98bb4174e1b027b9d",
+      "sourcePageCheckedAt": "2026-10-16T12:47:17.276596+00:00",
+      "sourceImageUrl": "https://cookiecoffee.com.sg/__static/jdj5jdewjemuae5kwe03nehprtvzuk9z/WhatsApp-Image-2025-08-15-at-19-33-59(3)",
+      "identityEvidence": "Own Aboutpage publishes this storefront hero and own site identifies190MiddleRoad#01-28BFortuneCentre. Normal browser image delivery recovered WEBP bytes after direct genericAccept406; source image URL is in saved primary HTML. Actual storefront reference, not generic cookie stacks or collage.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Conservatively enhance this exact Cookie Coffee Cafe Bar merchant storefront photograph for a landscape gallery cover. Preserve the photographed architecture and composition: red left storefront sign with the exact visible text 'Dim Sum & Mini Hot Pot' and '素食点心·迷你火锅', glowing pale circular sign without inventing a logo, warm yellow interior, glass food display case and stacked dimsum steamers at left, central doorway and existing partial dark coffee sign/bottle shelves at right. Improve exposure, natural white balance, lighting and photographic clarity while preserving the real scene. Keep existing incidental people in the same background positions with soft, unobtrusive facial detail; do not invent, replace or enlarge faces. Crop peripheral clutter if needed, without adding architecture or making an imaginary empty venue. Preserve existing text where visible; keep small poster/TV details soft and do not invent legible text or new food. No extra branding, props, people, dishes, prices or claims. Landscape16:9 reference-led photographic enhancement.",
+        "review": "Same actual DimSum/MiniHotPot storefront, glass case, stacked steamers, doorway, coffee shelves and incidental people positions. Recovered through normal public image delivery using browser; no external/provider requests allowed. No branch architecture invented."
+      }
+    }
+  ],
+  "newHours": [],
+  "googleLedger": {
+    "bytes": 1045377,
+    "sha256": "c7321dafaad0473583139494ca899501578892c5b71105429d3cd4dceb4f311a",
+    "requests": 2419,
+    "limit": 2500,
+    "remaining": 81
+  },
+  "sourceRights": "Source attribution and rights retained. User-requested enhancement does not establish an independent licence.",
+  "unresolved": "2,527 food holds,109zero-food research branches,1,828unnamed candidate IDs,3coordinate holds preserved; exact MakanVegan/SoonLai screenshot images unrecovered.",
+  "releaseEvidence": ".local/coverage-2026-10-17z/release.json",
+  "hoursReview": {
+    "checkedAt": "2026-10-17",
+    "newHours": 0,
+    "imageHolds": [
+      {
+        "venueId": "research-ascend-cross-lead",
+        "sourceUrl": "https://www.facebook.com/p/Ascend-%E8%94%AC%E5%8D%87-100089357805199/?locale=zh_CN",
+        "checkedAt": "2026-10-17",
+        "reason": "Public merchant profile picture is a logo only. Instagram public HTML supplies a two-branch bio but no public food media payload or schedule. No invented cover."
+      },
+      {
+        "venueId": "research-su-xiang-lau-pa-sat-46",
+        "sourceUrl": "https://www.foodpanda.sg/restaurant/rnb4/su-xiang-vegetarian-kopitiam-at-lau-pa-sat",
+        "checkedAt": "2026-10-17",
+        "reason": "Explicit Imagebyfoodpanda.Forreferenceonly artwork; actual merchant product photographic provenance/reuse not established. Keep separate source hold."
+      },
+      {
+        "venueId": "research-happy-vegetarian-hougang-106",
+        "sourceUrl": "https://www.foodpanda.sg/restaurant/j39t/happy-vegetarian-food-kai-xin-su-shi-hougang",
+        "checkedAt": "2026-10-17",
+        "reason": "Explicit Imagebyfoodpanda.Forreferenceonly artwork. Exact current106Hougang address may be reviewed independently; no JuFuYuan photo or current photograph inferred."
+      }
+    ],
+    "boundary": "Four additional reviewed references; all original reference and food holds retained. No price/hours/location changes, no duplicate food extraction or Google calls."
+  },
+  "remainingCoordinateHolds": [
+    {
+      "venueId": "research-ananda-syed-alwi",
+      "reason": "Operator address95SyedAlwiRoad conflicts with OneMap postal207670 at94SyedAlwiRoad. Do not shift the venue across the road by inference.",
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=207670&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "sourceCheckedAt": "2026-10-16T10:32:56.853754+00:00",
+      "reviewedAt": "2026-10-17"
+    },
+    {
+      "venueId": "research-tofu-g-amoy-street",
+      "reason": "Operator97AmoyStreet conflicts with OneMap postal069916 at96AmoyStreet. Hold until correct operator postal/point is established.",
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=069916&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "sourceCheckedAt": "2026-10-16T10:37:47.423991+00:00",
+      "reviewedAt": "2026-10-17"
+    },
+    {
+      "venueId": "research-ur11-crowded-sp",
+      "reason": "OneMap139651 returns many campus buildings and an incomplete7-page response with authentication notice; no exactFoodCourt2row. Merchant address says139651 but separatepostcode field says138671. Do not choose an admin building or generic campus point.",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/w9sh/the-crowded-bowl-dover-road",
+      "sourceCheckedAt": "2026-10-16T07:05:17.736Z",
+      "reviewedAt": "2026-10-17"
+    }
+  ],
+  "hoursQualification": "94 source-backed records; Original Sin Monday explicitly remains unconfirmed. Full coverage remains incomplete.",
+  "photoProductEvidence": [
+    {
+      "id": "greenland-teatree-mushroom",
+      "venueId": "research-greenland-upper-serangoon",
+      "sourcePageUrl": "https://greenland.zzv.sg/Category?StoreID=da5a2dbf-19c9-4a79-bf6e-aa12a440731b&Service=PickUp&lang=EN",
+      "sourceImageUrl": "https://s3-ap-southeast-1.amazonaws.com/getz-prod/7ed9c082-0f50-43e5-99b3-e6f94b9786a5/2025939216_HotplateTeaTreeMushroom_clone_280320250313450634.jpg",
+      "checkedAt": "2026-10-17",
+      "sourcePageCheckedAt": "2026-10-16T12:43:41.814089+00:00",
+      "status": "enhanced-selected",
+      "httpStatus": 200,
+      "finalUrl": "https://s3-ap-southeast-1.amazonaws.com/getz-prod/7ed9c082-0f50-43e5-99b3-e6f94b9786a5/2025939216_HotplateTeaTreeMushroom_clone_280320250313450634.jpg",
+      "contentType": "image/webp",
+      "bytes": 54034,
+      "sha256": "faa7d6ffcdb9a392458fcc05e36d78a4bd207bbe00775b26224f07325ec79546",
+      "sourceFile": "C:\\Users\\huien\\qt\\quintaste\\.local\\cover-hours\\sources\\0a84f25ce1e5830172fd.html",
+      "sourceSha256": "444b78faafae9ec81599d12f86dd89302b05e2e66c253c9f18e91cd42ec7bd36",
+      "reviewedAt": "2026-10-17",
+      "identityEvidence": "Exact selected GetzStoreID page names789/791UpperSerangoon/534659 and publishes additional HotplateTeaTreeMushroom image. Earlier HometownTofu URLs remain logo placeholders; no generation of them. Source filename is not capture-date proof."
+    },
+    {
+      "id": "tianyuan-brownrice",
+      "venueId": "research-tian-yuan-fortune-centre-01-16",
+      "sourcePageUrl": "https://www.foodpanda.sg/restaurant/g3ra/tian-yuan-healthy-vegetarian-fortune-centre",
+      "sourceImageUrl": "https://foodpanda.dhmedia.io/image/fd-sg/Products/70648952.jpg",
+      "checkedAt": "2026-10-17",
+      "sourcePageCheckedAt": "2026-10-17T00:19:42.418787+00:00",
+      "status": "enhanced-selected",
+      "httpStatus": 200,
+      "finalUrl": "https://foodpanda.dhmedia.io/image/fd-sg/Products/70648952.jpg",
+      "contentType": "image/jpeg; width=1079; height=789",
+      "bytes": 111937,
+      "sha256": "3c8c11304b59bd8210301af219c55881e71ed579ee0032366c5b9eaf964d2c52",
+      "sourceFile": "C:\\Users\\huien\\qt\\quintaste\\.local\\coverage-2026-10-17\\sources\\86e4340c618ea6c995d4.html",
+      "sourceSha256": "523dcbf97f266f087b45128a626aedfb1a8dedff8744520daa32651019b32446",
+      "productLabelForAssociationOnly": "Brown Rice Set",
+      "reviewedAt": "2026-10-17",
+      "identityEvidence": "Fresh exact g3ra merchant page explicitly names190MiddleRoad#01-16FortuneCentre/188979 and embeds this BrownRiceSet product image. Independent FortuneCentre.sg images were not used."
+    },
+    {
+      "id": "tpy203-public-profile",
+      "venueId": "research-ur02-tpy-203-vegetarian-food",
+      "sourcePageUrl": "https://www.facebook.com/Tpy203veg/",
+      "sourceImageUrl": "https://scontent.fsin14-2.fna.fbcdn.net/v/t39.30808-1/305641957_516198780506809_2153338111559744044_n.jpg?stp=dst-jpg_tt6&cstp=mx959x959&ctp=s720x720&_nc_cat=106&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=3ab345&_nc_ohc=y-JL4O_Ne9oQ7kNvwG7w_XU&_nc_oc=AdqGK4x-qKG4jovlcrVAL6Pho6ukhuR0gCHoi_uP2TXJY9t00znot7ANaaBss_pHbTA&_nc_zt=24&_nc_ht=scontent.fsin14-2.fna&_nc_gid=TaVjhdPJjWUpnut8QYVKkg&_nc_ss=7c289&oh=00_AQNbGxCq40EDUxxmPUXGjQH7PekNPbWvBBzVe0Fjs8f_Cw&oe=6AD73FD3",
+      "checkedAt": "2026-10-17",
+      "sourcePageCheckedAt": "2026-10-16T01:09:35.473Z",
+      "status": "enhanced-selected",
+      "httpStatus": 200,
+      "finalUrl": "https://scontent.fsin14-2.fna.fbcdn.net/v/t39.30808-1/305641957_516198780506809_2153338111559744044_n.jpg?stp=dst-jpg_tt6&cstp=mx959x959&ctp=s720x720&_nc_cat=106&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=3ab345&_nc_ohc=y-JL4O_Ne9oQ7kNvwG7w_XU&_nc_oc=AdqGK4x-qKG4jovlcrVAL6Pho6ukhuR0gCHoi_uP2TXJY9t00znot7ANaaBss_pHbTA&_nc_zt=24&_nc_ht=scontent.fsin14-2.fna&_nc_gid=TaVjhdPJjWUpnut8QYVKkg&_nc_ss=7c289&oh=00_AQNbGxCq40EDUxxmPUXGjQH7PekNPbWvBBzVe0Fjs8f_Cw&oe=6AD73FD3",
+      "contentType": "image/jpeg",
+      "bytes": 90606,
+      "sha256": "a9abc02e5fb9d74789b1cbd3ac1bbaf2565799f95b86b6d1fb81cdc027d8686a",
+      "sourceFile": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresearched-02\\tpy203-www.html",
+      "sourceSha256": "632aeec5ddca9366ed18b180f56fcb64063f1e3f39b6f1ed625c0e87c1116979",
+      "reviewBoundary": "Already saved public merchant profile og:image, not login-only content or Googlecache. Image visual review pending; no food extraction.",
+      "reviewedAt": "2026-10-17",
+      "identityEvidence": "Already saved public merchant profile og:image shows TPY203VegetarianFood storefront sign. Existing exact203ToaPayohNorth#01-1121 binding links this same merchant profile; no other merchant photo transferred. Capturedateunknown, not a guarantee of current facade."
+    },
+    {
+      "id": "cookie-dimsum-hero",
+      "venueId": "research-cookie-coffee-fortune-centre",
+      "sourcePageUrl": "https://cookiecoffee.com.sg/blank/",
+      "sourceImageUrl": "https://cookiecoffee.com.sg/__static/jdj5jdewjemuae5kwe03nehprtvzuk9z/WhatsApp-Image-2025-08-15-at-19-33-59(3)",
+      "checkedAt": "2026-10-17",
+      "sourcePageCheckedAt": "2026-10-16T12:47:17.276596+00:00",
+      "status": "enhanced-selected",
+      "httpStatus": 200,
+      "finalUrl": "https://cookiecoffee.com.sg/__static/jdj5jdewjemuae5kwe03nehprtvzuk9z/WhatsApp-Image-2025-08-15-at-19-33-59(3)",
+      "sourceFile": "C:\\Users\\huien\\qt\\quintaste\\.local\\cover-hours\\sources\\23dd35543a86da150cbe.html",
+      "sourceSha256": "41019d9ae7522b7cd0b1fd0f5d27f4e7815cf649069b3bdd3afb798503f328ee",
+      "previousFetchOutcome": {
+        "httpStatus": 406,
+        "status": "unavailable"
+      },
+      "bytes": 119036,
+      "sha256": "1705ec5f609d1f573b5c23d3a141706a4c511cf7798d1ff98bb4174e1b027b9d",
+      "browserDeliveryReview": {
+        "checkedAt": "2026-10-17T00:34:02.702Z",
+        "sourceUrl": "https://cookiecoffee.com.sg/blank/",
+        "addressVisible": false,
+        "hits": [
+          {
+            "url": "https://cookiecoffee.com.sg/__static/jdj5jdewjemuae5kwe03nehprtvzuk9z/WhatsApp-Image-2025-08-15-at-19-33-59(3)",
+            "status": 200,
+            "signature": "52494646f4d001005745",
+            "bytes": 119036,
+            "sha256": "1705ec5f609d1f573b5c23d3a141706a4c511cf7798d1ff98bb4174e1b027b9d"
+          }
+        ],
+        "googleOrExternalRequestsAllowed": false,
+        "reason": "Normal public merchant page image delivery, standard browser image Accept headers; no login or private API."
+      },
+      "contentType": "image/webp (verified RIFF/WEBP bytes; response omitted Content-Type)",
+      "reviewedAt": "2026-10-17",
+      "identityEvidence": "Own Aboutpage publishes this storefront hero and own site identifies190MiddleRoad#01-28BFortuneCentre. Normal browser image delivery recovered WEBP bytes after direct genericAccept406; source image URL is in saved primary HTML. Actual storefront reference, not generic cookie stacks or collage."
+    }
+  ],
+  "verificationSupplement": {
+    "checkedAt": "2026-10-17",
+    "typescript": {
+      "command": "npx tsc --noEmit",
+      "cwd": ".local/coverage-2026-10-17z/source",
+      "exitCode": 0
+    },
+    "lint": {
+      "command": "EXPO_NO_DOTENV=1 CI=1 npx expo lint --no-cache",
+      "cwd": ".",
+      "exitCode": 0
+    },
+    "sourcePreserved": true,
+    "changes": "Four photo records/assets, no food/hours/location changes. Fresh isolated TypeScript, canonical uncached root Expo lint, clean web/all16API export and module consistency passed. Social/Cook/navigation source byte-preserved from live product-assets28b."
+  },
+  "retainedReferenceHolds": {
+    "research-greenland-upper-serangoon": [
+      {
+        "id": "greenland-tofu-current",
+        "sourcePageUrl": "https://greenland.zzv.sg/Category?StoreID=da5a2dbf-19c9-4a79-bf6e-aa12a440731b&Service=PickUp&lang=EN",
+        "sourceImageUrl": "https://s3-ap-southeast-1.amazonaws.com/getz-prod/7ed9c082-0f50-43e5-99b3-e6f94b9786a5/339625876_HometownSteamedTofu_clone_270320250857264955.jpeg",
+        "sourcePageCheckedAt": "2026-10-16T12:43:41.814089+00:00",
+        "checkedAt": "2026-10-17",
+        "status": "reviewed-held-source-not-usable",
+        "holdReason": "Current cloned HometownTofu image is still a logo over blurred food, not a photograph to enhance."
+      },
+      {
+        "id": "greenland-tofu",
+        "sourcePageUrl": "https://greenland.zzv.sg/Category?StoreID=da5a2dbf-19c9-4a79-bf6e-aa12a440731b&Service=PickUp&lang=EN",
+        "sourceImageUrl": "https://s3-ap-southeast-1.amazonaws.com/getz-prod/7ed9c082-0f50-43e5-99b3-e6f94b9786a5/661780242_HometownSteamedTofu.jpeg",
+        "sourcePageCheckedAt": "2026-10-16",
+        "checkedAt": "2026-10-17",
+        "status": "reviewed-not-selected",
+        "review": "File named HometownSteamedTofu is an operator logo placeholder, not a food photograph. Do not generate."
+      },
+      {
+        "id": "greenland-upper-serangoon-food",
+        "sourcePageUrl": "https://greenland.zzv.sg/Category?StoreID=da5a2dbf-19c9-4a79-bf6e-aa12a440731b&Service=PickUp&lang=EN",
+        "sourceImageUrl": "https://s3-ap-southeast-1.amazonaws.com/getz-prod/7ed9c082-0f50-43e5-99b3-e6f94b9786a5/661780242_HometownSteamedTofu.jpeg",
+        "sourcePageCheckedAt": "2026-10-16",
+        "checkedAt": "2026-10-17",
+        "status": "reviewed-not-selected",
+        "review": "Logo with blurred background, not usable dish photography."
+      }
+    ],
+    "research-tian-yuan-fortune-centre-01-16": [],
+    "research-ur02-tpy-203-vegetarian-food": [],
+    "research-cookie-coffee-fortune-centre": [
+      {
+        "id": "cookie-coffee-cookies",
+        "sourcePageUrl": "https://cookiecoffee.com.sg/",
+        "sourceImageUrl": "https://cookiecoffee.com.sg/__static/139c1a8a2343355c823f1c279e77450a/cookies-photo.jpg",
+        "sourcePageCheckedAt": "2026-10-16",
+        "checkedAt": "2026-10-17",
+        "status": "reviewed-not-selected",
+        "review": "Generic cookie stacks on operator site; provenance as actual venue product photograph unclear. Prefer current dim-sum or exact storefront photo."
+      },
+      {
+        "id": "cookie-rice-menu",
+        "sourcePageUrl": "https://cookiecoffee.com.sg/signaturericeset/",
+        "sourceImageUrl": "https://cookiecoffee.com.sg/__static/jdj5jdewjhpnrefnykouytdamfvwthhz/Rice-Menu-Final-A3-Revised(2).jpg",
+        "sourcePageCheckedAt": "2026-10-16",
+        "checkedAt": "2026-10-17",
+        "status": "reviewed-not-selected",
+        "holdReason": "Menu is a collage of heterogeneous third-party/stock photos with multiple source marks. Actual venue product photography not established; do not fabricate a unique venue cover."
+      }
+    ]
+  },
+  "notes": [
+    "Four additional covers were matched and enhanced once: Greenland Upper Serangoon from its selected merchant Getz hotplate product photo; Tian Yuan Fortune Centre #01-16 from its exact Foodpanda brown-rice set photo; TPY203 from the public merchant-profile storefront reference already saved during the prior research; Cookie Coffee Fortune Centre #01-28B from its own About-page storefront hero. Full URLs, source HTML hashes, check dates, prompts, visual reviews and attribution remain in the JSON audit. Capture dates are unknown; filenames are not capture-date proof and reference photographs do not certify the current facade or stock.",
+    "Cookie Coffee direct generic-Accept retrieval initially returned406. Normal browser delivery returned200 with no Content-Type header; RIFF/WEBP signature and image decoding established the existing119,036-byte asset. The original406 receipt and later successful public response are preserved. No private APIs, login replay or Google calls were used. TPY203 public profile metadata was recovered from previously saved HTML, avoiding repeat extraction.",
+    "Three cover gaps remain: Ascend18Cross public merchant/landlord images are logos and its public Instagram page exposes no usable food-media payload; Su Xiang LPS46 and Happy Vegetarian Hougang106 selected merchant-listing product images explicitly say Image by foodpanda / For reference only and remain held as provider reference artwork. No other branch or same-premises merchant photo was transferred. Earlier logo/header/low-resolution/provider-artwork holds are retained alongside any accepted alternatives. Greenland has another actual photo retained as an ungenerated alternate.",
+    "A focused17October follow-up search did not establish new primary hours or approved cover evidence. The current Chinatown Point DLife primary page has no opening schedule, and CapitaLand Sufood does not provide venue hours; mall hours and the2020CNY PDF are insufficient. Orchard Gateway third-party listings conflict, and Teng Bespoke secondary schedules disagree. The landlord-hosted SuXiang editorial PDFs were already reviewed, with third-party photo credit and a46/47 unit conflict retained. No duplicate food extraction or source promotion resulted. Supplementary discovery checks are recorded privately in additional-source-review.json.",
+    "All16API bundles come from one clean export, preserving postal load-order correctness. This release starts from the actual live product-assets28b archive, retaining the latest concurrent Social redesign and unrelated Cook/navigation source. All175 menu fingerprints,138 immutable asset hashes,171 covers,94 hours records, actual postal UI, Save/Saved/Map/back, light/dark320/768/1440, image failures and bounded cache checks pass with zero unintended provider requests. Android/iOS transport is tested separately from physical-device appearance, which remains unverified.",
+    "Production JPEG storage is19,171,228bytes across138assets, up592,372bytes for this batch. The catalogue remains paginated20summaries at a time and images load only for visible cards; image bytes are not embedded in JSON. Existing12-entry/8MiB image cache,8-page catalogue cache, account isolation, request deduplication/cancellation and conditional204/304 revalidation remain. Release evidence records the actual one-sample response latency and memory/disk snapshot; no benchmark claim is made. VPS disk use remains about82percent, with18GB free. Retained release/Docker history should be monitored; no broad cleanup or pruning was performed."
+  ],
+  "currentLiveRelease": "20261017-location2",
+  "referenceQueueAudit": {
+    "checkedAt": "2026-10-17",
+    "referenceReceipts": 206,
+    "statusCounts": {
+      "enhanced-selected": 139,
+      "reviewed-not-selected": 30,
+      "reviewed-held-source-not-usable": 4,
+      "matched-existing-enhancement-reused": 10,
+      "held-unused": 4,
+      "held-source-image-unclear": 8,
+      "reviewed-usable-alternate-not-generated": 3,
+      "held-provider-reference-only": 1,
+      "unavailable": 3,
+      "held-low-resolution": 1,
+      "reviewed-held-low-resolution": 3
+    },
+    "pendingReceipts": [],
+    "statusReconciliations": [
+      {
+        "id": "delcies",
+        "venueId": "research-delcies-whampoa-west",
+        "before": null,
+        "after": "matched-existing-enhancement-reused",
+        "sourceUrl": "https://delcies.com/products?items_per_page=all",
+        "checkedAt": "2026-10-17",
+        "reviewedAt": "2026-10-17",
+        "review": "Reference hash matches the already reviewed/deployed registry enhancement. This receipt had stale or absent queue status; reconciled without new extraction, generation or branch promotion."
+      },
+      {
+        "id": "greendot-laksa",
+        "venueId": "research-greendot-star-vista",
+        "before": "downloaded-unreviewed",
+        "after": "matched-existing-enhancement-reused",
+        "sourceUrl": "https://orders.greendot.sg/?StoreID=f39c03dc-5939-438d-b91e-df0677037d8c&Service=PickUp&lang=EN",
+        "checkedAt": "2026-10-17",
+        "reviewedAt": "2026-10-17",
+        "review": "Reference hash matches the already reviewed/deployed registry enhancement. This receipt had stale or absent queue status; reconciled without new extraction, generation or branch promotion."
+      },
+      {
+        "id": "greendot-seletar",
+        "venueId": "research-greendot-seletar-mall",
+        "before": "downloaded-unreviewed",
+        "after": "matched-existing-enhancement-reused",
+        "sourceUrl": "https://orders.greendot.sg/?StoreID=191ae5df-d765-4e6d-8261-b35209534a04&Service=PickUp&lang=EN",
+        "checkedAt": "2026-10-17",
+        "reviewedAt": "2026-10-17",
+        "review": "Reference hash matches the already reviewed/deployed registry enhancement. This receipt had stale or absent queue status; reconciled without new extraction, generation or branch promotion."
+      },
+      {
+        "id": "joie",
+        "venueId": "research-joie-orchard-central",
+        "before": null,
+        "after": "matched-existing-enhancement-reused",
+        "sourceUrl": "https://www.joierestaurant.com.sg/",
+        "checkedAt": "2026-10-17",
+        "reviewedAt": "2026-10-17",
+        "review": "Reference hash matches the already reviewed/deployed registry enhancement. This receipt had stale or absent queue status; reconciled without new extraction, generation or branch promotion."
+      },
+      {
+        "id": "kailash-food",
+        "venueId": "research-kailash-belilios-road",
+        "before": "downloaded-unreviewed",
+        "after": "matched-existing-enhancement-reused",
+        "sourceUrl": "https://www.kailashparbat.com.sg/",
+        "checkedAt": "2026-10-17",
+        "reviewedAt": "2026-10-17",
+        "review": "Reference hash matches the already reviewed/deployed registry enhancement. This receipt had stale or absent queue status; reconciled without new extraction, generation or branch promotion."
+      },
+      {
+        "id": "leaf-nanyang",
+        "venueId": "research-leafcorner-jurong",
+        "before": null,
+        "after": "matched-existing-enhancement-reused",
+        "sourceUrl": "https://leafcorner.sg/contactus",
+        "checkedAt": "2026-10-17",
+        "reviewedAt": "2026-10-17",
+        "review": "Reference hash matches the already reviewed/deployed registry enhancement. This receipt had stale or absent queue status; reconciled without new extraction, generation or branch promotion."
+      },
+      {
+        "id": "leaf-sembawang",
+        "venueId": "research-leafcorner-sembawang",
+        "before": null,
+        "after": "matched-existing-enhancement-reused",
+        "sourceUrl": "https://leafcorner.sg/contactus",
+        "checkedAt": "2026-10-17",
+        "reviewedAt": "2026-10-17",
+        "review": "Reference hash matches the already reviewed/deployed registry enhancement. This receipt had stale or absent queue status; reconciled without new extraction, generation or branch promotion."
+      },
+      {
+        "id": "leaf-taiseng",
+        "venueId": "research-leafcorner-taiseng",
+        "before": null,
+        "after": "matched-existing-enhancement-reused",
+        "sourceUrl": "https://leafcorner.sg/contactus",
+        "checkedAt": "2026-10-17",
+        "reviewedAt": "2026-10-17",
+        "review": "Reference hash matches the already reviewed/deployed registry enhancement. This receipt had stale or absent queue status; reconciled without new extraction, generation or branch promotion."
+      },
+      {
+        "id": "lilac",
+        "venueId": "research-lilac-oak-oxley-rise",
+        "before": null,
+        "after": "matched-existing-enhancement-reused",
+        "sourceUrl": "https://www.lilacoak.com/",
+        "checkedAt": "2026-10-17",
+        "reviewedAt": "2026-10-17",
+        "review": "Reference hash matches the already reviewed/deployed registry enhancement. This receipt had stale or absent queue status; reconciled without new extraction, generation or branch promotion."
+      },
+      {
+        "id": "mtr",
+        "venueId": "research-mtr-serangoon438",
+        "before": "downloaded-unreviewed",
+        "after": "reviewed-usable-alternate-not-generated",
+        "sourceUrl": "https://www.mtrsingapore.com/",
+        "checkedAt": "2026-10-17",
+        "reviewedAt": "2026-10-17",
+        "review": "Visually inspected17October: red branded multi-product promotional banner with extensive text and composited dishes. Actual merchant ChowChowBhath reference was already selected/enhanced and deployed for this exact branch. Banner retained as alternate; no duplicate cover generation and no promotional ingredient/health claims imported."
+      }
+    ],
+    "newImagesGenerated": 0,
+    "newProviderCalls": 0,
+    "qualification": "All saved reference receipts have a reviewed/selected/held/unavailable outcome. This is not complete venue, hour, menu or independent reuse-licence coverage."
+  },
+  "currentLiveVerification": ".local/coverage-2026-10-17z/current-live-location2/verification.json"
+}

@@ -1,0 +1,11 @@
+{
+  "checks": [
+    "Sample/default autosave, reload persistence, keyboard focus, create/back"
+  ],
+  "captures": [
+    "C:\\Users\\huien\\qt\\quintaste\\.impeccable\\review\\avatar-icon-refresh\\avatar-keyboard-focus.png"
+  ],
+  "errors": [],
+  "scope": "Local managed Chromium; synthetic portrait; no provider calls or physical-device acceptance.",
+  "passed": true
+}

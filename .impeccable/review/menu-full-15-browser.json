@@ -1,0 +1,83 @@
+{
+  "startedAt": "2026-10-16T09:24:39.840Z",
+  "url": "http://127.0.0.1:8083",
+  "checks": [
+    {
+      "name": "ur15-xinghua-somerset",
+      "status": "passed",
+      "foods": 88,
+      "menuGap404": false,
+      "publicFingerprint": "d989bfbd92a4a0815e8bc3cfec311e37f8ea04449047ad5b71fd8575814b0b65"
+    },
+    {
+      "name": "ur15-pita-bali-scope",
+      "status": "passed",
+      "foods": 0,
+      "menuGap404": true,
+      "publicFingerprint": null
+    },
+    {
+      "name": "ur15-conut-gardens",
+      "status": "passed",
+      "foods": 0,
+      "menuGap404": true,
+      "publicFingerprint": null
+    }
+  ],
+  "screenshots": [
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-15-browser\\ur15-xinghua-somerset-320.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-15-browser\\ur15-xinghua-somerset-768.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-15-browser\\ur15-xinghua-somerset-1440.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-15-browser\\ur15-pita-bali-scope-320.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-15-browser\\ur15-pita-bali-scope-768.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-15-browser\\ur15-pita-bali-scope-1440.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-15-browser\\ur15-conut-gardens-320.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-15-browser\\ur15-conut-gardens-768.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-15-browser\\ur15-conut-gardens-1440.png"
+  ],
+  "errors": [],
+  "pageErrors": [],
+  "unexpectedConsoleErrors": [],
+  "blockedApiRequests": [],
+  "blockedExternalRequests": [],
+  "apiRequests": [],
+  "a11y": [
+    {
+      "label": "ur15-xinghua-somerset",
+      "violations": []
+    },
+    {
+      "label": "ur15-pita-bali-scope",
+      "violations": []
+    },
+    {
+      "label": "ur15-conut-gardens",
+      "violations": []
+    }
+  ],
+  "forwardedProviderCalls": 0,
+  "installedChromeUsed": false,
+  "catalogue": {
+    "locations": 170,
+    "sourceMenus": 218,
+    "foodOccurrences": 11960
+  },
+  "unchangedMenuEvidence": {
+    "path": "menu-full-14-browser.json",
+    "basis": "Original dates retained for unchanged TianMu and prior functional checks."
+  },
+  "finishedAt": "2026-10-16T09:25:24.931Z",
+  "passed": true,
+  "visualReview": {
+    "status": "passed",
+    "reviewedAt": "2026-10-16T09:27:06.913317+00:00",
+    "capturesInspected": 9,
+    "widths": [
+      320,
+      768,
+      1440
+    ],
+    "findings": "Every listed current capture visually inspected; no page overflow or visual defect observed. Source choices/prices/ingredients retain explicit uncertainty. Initial QA harness failures, where any, remain archived."
+  },
+  "googleLedgerUnchanged": true
+}

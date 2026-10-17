@@ -1,0 +1,376 @@
+{
+  "version": 1,
+  "mode": "local-research",
+  "checkedAt": "2026-10-15T05:37:16Z",
+  "rights": {
+    "content": "facts-and-links-only",
+    "artworkCopied": false,
+    "photosCopied": false,
+    "merchantConsent": "not-requested"
+  },
+  "sources": [
+    {
+      "id": "nomvnom-clarke-quay-central-website",
+      "url": "https://www.nomvnom.com/home",
+      "title": "Vegan Fast Food | nomVnom | Singapore",
+      "publisher": "nomVnom",
+      "kind": "merchant",
+      "checkedAt": "2026-10-15T05:36:33.529Z",
+      "publishedAt": null,
+      "notes": "Current merchant page identifies Clarke Quay Central, 6 Eu Tong Sen Street #03-105/106/107, Singapore 059817, and directly links its Clarke Quay Oddle ordering page."
+    },
+    {
+      "id": "nomvnom-clarke-quay-central-ordering",
+      "url": "https://nomvnombistro.oddle.me/en_SG",
+      "title": "nomVnom Bistro ordering menu",
+      "publisher": "nomVnom Bistro via Oddle",
+      "kind": "merchant-ordering",
+      "checkedAt": "2026-10-15T05:34:57.994Z",
+      "publishedAt": null,
+      "notes": "Official merchant-linked storefront identifies Clarke Quay Central and explicitly states vegan and no alliums. Its public JSON-LD publishes the sampled dish names, numeric offers and explicit priceCurrency SGD. Tax treatment, effective date and checkout availability were not established. Rights/permission for reuse beyond modest facts and links unknown."
+    },
+    {
+      "id": "lian-xin-buddha-tooth-relic-temple-contact",
+      "url": "https://www.buddhatoothrelictemple.org.sg/lianxin/contact",
+      "title": "Lian Xin Restaurant visitor information",
+      "publisher": "Buddha Tooth Relic Temple (Singapore)",
+      "kind": "merchant",
+      "checkedAt": "2026-10-15T05:37:16Z",
+      "publishedAt": null,
+      "notes": "Restaurant's own visitor page gives 288 South Bridge Road, Singapore 058840, and telephone 6854 6499. Source opened through web tools."
+    },
+    {
+      "id": "lian-xin-buddha-tooth-relic-temple-directory",
+      "url": "https://www.buddhatoothrelictemple.org.sg/temple-directory",
+      "title": "Temple Directory - Basements",
+      "publisher": "Buddha Tooth Relic Temple (Singapore)",
+      "kind": "merchant",
+      "checkedAt": "2026-10-15T05:36:53Z",
+      "publishedAt": null,
+      "notes": "Temple operator identifies Lian Xin Vegetarian Restaurant in its basement and describes a daily-changing menu. Mentioning vegetarians and vegans does not establish that all dishes are vegan."
+    },
+    {
+      "id": "lian-xin-buddha-tooth-relic-temple-menu-index",
+      "url": "https://www.buddhatoothrelictemple.org.sg/lianxin/menu",
+      "title": "Lian Xin menu",
+      "publisher": "Buddha Tooth Relic Temple (Singapore)",
+      "kind": "merchant-menu",
+      "checkedAt": "2026-10-15T05:35:29.908Z",
+      "publishedAt": null,
+      "notes": "Current official page has menu-category buttons. Isolated managed Playwright Chromium opened the Noodles tab and exposed the linked menu asset. No publication/effective date, complete recipe or price observed."
+    },
+    {
+      "id": "lian-xin-buddha-tooth-relic-temple-noodles-menu",
+      "url": "https://images-ap-prod.cms.commerce.dynamics.com/cms/api/pqrtphqsbt/imageFileData/MF2Tvi?ver=e9fc",
+      "title": "Lian Xin Noodles menu image",
+      "publisher": "Buddha Tooth Relic Temple (Singapore)",
+      "kind": "merchant-menu",
+      "checkedAt": "2026-10-15T05:35:29.908Z",
+      "publishedAt": null,
+      "notes": "Asset loaded from the official Noodles tab and was visually inspected. Selected facts: Lor Mee Monday; Wanton Noodles Tuesday; Laksa Wednesday/Sunday; Mock Fish Soup Thursday. No prices or currency printed on this image. Artwork is linked only, not imported into the app. Rights/permission unknown."
+    },
+    {
+      "id": "dlife-signature-chinatown-point-novena-exclusion-recheck",
+      "url": "https://dlifesignature.getz.co/",
+      "title": "D Life Signature ordering outlet recheck",
+      "publisher": "D Life Signature via Getz",
+      "kind": "merchant-ordering",
+      "checkedAt": "2026-10-15T05:36:34.129Z",
+      "publishedAt": null,
+      "notes": "Current selected outlet remains 10 Sinaran Drive, Square 2, Singapore 307506. This is Novena; no menu items, prices, GST treatment or ingredient labels from this page apply to Chinatown evidence."
+    },
+    {
+      "id": "eight-treasures-chinatown-site-recheck",
+      "url": "https://www.8treasuresgroup.sg/",
+      "title": "Eight Treasures website under construction",
+      "publisher": "Eight Treasures",
+      "kind": "merchant",
+      "checkedAt": "2026-10-15T05:36:33.857Z",
+      "publishedAt": null,
+      "notes": "Current first-party website still displays an under-construction notice. No current branch menu or ordering-link chain established."
+    },
+    {
+      "id": "eight-treasures-chinatown-social-recheck",
+      "url": "https://www.facebook.com/EightTreasuresVegetarian/",
+      "title": "Eight Treasures Vegetarian Restaurant public profile recheck",
+      "publisher": "Eight Treasures",
+      "kind": "merchant-social",
+      "checkedAt": "2026-10-15T05:35:31.986Z",
+      "publishedAt": null,
+      "notes": "Isolated managed Playwright Chromium loaded the public page. After closing its login overlay, only profile heading/navigation were readable; no menu, branch statement or Getz linkage could be verified. No account used."
+    },
+    {
+      "id": "nomvnom-clarke-quay-central-mall-location",
+      "url": "https://www.fareastmalls.com.sg/en/clarke-quay-central/about",
+      "title": "Clarke Quay Central mall location",
+      "publisher": "Far East Malls",
+      "kind": "directory",
+      "checkedAt": "2026-10-15T05:42:40.234Z",
+      "publishedAt": null,
+      "notes": "Mall operator identifies Clarke Quay Central along Eu Tong Sen Street by Singapore River. Supports coarse search-area grouping only, not restaurant dietary or menu evidence."
+    }
+  ],
+  "venues": [
+    {
+      "id": "nomvnom-clarke-quay-central",
+      "name": "nomVnom Bistro",
+      "branch": "Clarke Quay Central",
+      "clusterId": "outram-chinatown",
+      "areaId": "singapore-river",
+      "address": "6 Eu Tong Sen Street #03-105/106/107, Clarke Quay Central, Singapore 059817",
+      "postalCode": "059817",
+      "googlePlaceId": null,
+      "sourceIds": [
+        "nomvnom-clarke-quay-central-website",
+        "nomvnom-clarke-quay-central-ordering",
+        "nomvnom-clarke-quay-central-mall-location"
+      ],
+      "claims": [
+        {
+          "kind": "vegan",
+          "scope": "branch",
+          "sourceId": "nomvnom-clarke-quay-central-ordering",
+          "note": "Merchant-linked ordering storefront explicitly states vegan; individual dish suitability remains unconfirmed."
+        },
+        {
+          "kind": "no-onion-garlic",
+          "scope": "branch",
+          "sourceId": "nomvnom-clarke-quay-central-ordering",
+          "note": "Merchant's statement is no alliums. This records a venue claim, not an independent ingredient or allergy certification."
+        }
+      ],
+      "gaps": [
+        "Adjacent Clarke Quay branch included in the broader pilot cluster; not relabelled a Chinatown branch.",
+        "Full ingredients and individual dish suitability unconfirmed.",
+        "Ordering offers do not establish dine-in prices, checkout availability or tax treatment.",
+        "No publication/effective date or permission for broader content reuse established.",
+        "Grouped under the coarse Singapore River search area; exact Clarke Quay branch address is retained."
+      ],
+      "sourceCheck": "source-checked"
+    },
+    {
+      "id": "lian-xin-buddha-tooth-relic-temple",
+      "name": "Lian Xin Vegetarian Restaurant",
+      "branch": "Buddha Tooth Relic Temple basement",
+      "clusterId": "outram-chinatown",
+      "areaId": "chinatown",
+      "address": "Basement, Buddha Tooth Relic Temple, 288 South Bridge Road, Singapore 058840",
+      "postalCode": "058840",
+      "googlePlaceId": null,
+      "sourceIds": [
+        "lian-xin-buddha-tooth-relic-temple-contact",
+        "lian-xin-buddha-tooth-relic-temple-directory",
+        "lian-xin-buddha-tooth-relic-temple-menu-index",
+        "lian-xin-buddha-tooth-relic-temple-noodles-menu"
+      ],
+      "claims": [
+        {
+          "kind": "vegetarian",
+          "scope": "branch",
+          "sourceId": "lian-xin-buddha-tooth-relic-temple-directory",
+          "note": "Temple operator's own vegetarian restaurant identification; vegan, allium and dish ingredient status not inferred."
+        }
+      ],
+      "gaps": [
+        "Sampled dishes are scheduled for particular weekdays; service availability on a given visit is unconfirmed.",
+        "Inspected menu has no prices, currency, tax treatment or effective date.",
+        "Full ingredients, vegan/allium suitability and allergy safety remain unconfirmed.",
+        "Permission for broader content reuse unknown."
+      ],
+      "sourceCheck": "source-checked"
+    }
+  ],
+  "menus": [
+    {
+      "id": "nomvnom-clarke-quay-central-ordering-sample",
+      "venueId": "nomvnom-clarke-quay-central",
+      "sourceId": "nomvnom-clarke-quay-central-ordering",
+      "scope": "branch-ordering",
+      "effectiveDate": null,
+      "notes": "Selected research sample of names and published JSON-LD prices, not a complete menu or a statement of current availability. Explicit SGD offers are online-channel prices; dine-in equivalence and checkout availability unconfirmed.",
+      "charges": {
+        "gst": "unknown",
+        "servicePercent": null,
+        "gstPercent": null,
+        "sourceId": null
+      }
+    },
+    {
+      "id": "lian-xin-buddha-tooth-relic-temple-noodles-sample",
+      "venueId": "lian-xin-buddha-tooth-relic-temple",
+      "sourceId": "lian-xin-buddha-tooth-relic-temple-noodles-menu",
+      "scope": "branch-dine-in",
+      "effectiveDate": null,
+      "notes": "Selected research sample of published noodle names and weekday labels, not a complete menu or a statement of current availability. No prices or currency printed on the inspected image; null prices are intentional.",
+      "charges": {
+        "gst": "unknown",
+        "servicePercent": null,
+        "gstPercent": null,
+        "sourceId": null
+      }
+    }
+  ],
+  "dishes": [
+    {
+      "id": "nomvnom-clarke-quay-central-signature-vietnamese-pho",
+      "venueId": "nomvnom-clarke-quay-central",
+      "menuId": "nomvnom-clarke-quay-central-ordering-sample",
+      "name": "Signature Vietnamese Pho",
+      "price": {
+        "amount": 16.2,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "sourceIds": [
+        "nomvnom-clarke-quay-central-ordering"
+      ],
+      "suitability": "unconfirmed",
+      "ingredientsComplete": false,
+      "note": "Public merchant ordering JSON-LD offer; current checkout availability not checked."
+    },
+    {
+      "id": "nomvnom-clarke-quay-central-hainanese-chickless-rice",
+      "venueId": "nomvnom-clarke-quay-central",
+      "menuId": "nomvnom-clarke-quay-central-ordering-sample",
+      "name": "Hainanese Chickless Rice",
+      "price": {
+        "amount": 16.7,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "sourceIds": [
+        "nomvnom-clarke-quay-central-ordering"
+      ],
+      "suitability": "unconfirmed",
+      "ingredientsComplete": false,
+      "note": "Public merchant ordering JSON-LD offer; current checkout availability not checked."
+    },
+    {
+      "id": "nomvnom-clarke-quay-central-lions-mane-truffle",
+      "venueId": "nomvnom-clarke-quay-central",
+      "menuId": "nomvnom-clarke-quay-central-ordering-sample",
+      "name": "Lion's Mane Truffle",
+      "price": {
+        "amount": 15,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "sourceIds": [
+        "nomvnom-clarke-quay-central-ordering"
+      ],
+      "suitability": "unconfirmed",
+      "ingredientsComplete": false,
+      "note": "Public merchant ordering JSON-LD offer; current checkout availability not checked."
+    },
+    {
+      "id": "nomvnom-clarke-quay-central-toon-rendang-rice",
+      "venueId": "nomvnom-clarke-quay-central",
+      "menuId": "nomvnom-clarke-quay-central-ordering-sample",
+      "name": "Toon Rendang Rice",
+      "price": {
+        "amount": 14.3,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "sourceIds": [
+        "nomvnom-clarke-quay-central-ordering"
+      ],
+      "suitability": "unconfirmed",
+      "ingredientsComplete": false,
+      "note": "Public merchant ordering JSON-LD offer; current checkout availability not checked."
+    },
+    {
+      "id": "lian-xin-buddha-tooth-relic-temple-lor-mee",
+      "venueId": "lian-xin-buddha-tooth-relic-temple",
+      "menuId": "lian-xin-buddha-tooth-relic-temple-noodles-sample",
+      "name": "Lor Mee",
+      "price": {
+        "amount": null,
+        "currency": "unknown",
+        "type": "displayed"
+      },
+      "sourceIds": [
+        "lian-xin-buddha-tooth-relic-temple-noodles-menu"
+      ],
+      "suitability": "unconfirmed",
+      "ingredientsComplete": false,
+      "note": "Published menu marks Monday. Price absent; availability on a particular date unconfirmed."
+    },
+    {
+      "id": "lian-xin-buddha-tooth-relic-temple-wanton-noodles",
+      "venueId": "lian-xin-buddha-tooth-relic-temple",
+      "menuId": "lian-xin-buddha-tooth-relic-temple-noodles-sample",
+      "name": "Wanton Noodles",
+      "price": {
+        "amount": null,
+        "currency": "unknown",
+        "type": "displayed"
+      },
+      "sourceIds": [
+        "lian-xin-buddha-tooth-relic-temple-noodles-menu"
+      ],
+      "suitability": "unconfirmed",
+      "ingredientsComplete": false,
+      "note": "Published menu marks Tuesday. Price absent; availability on a particular date unconfirmed."
+    },
+    {
+      "id": "lian-xin-buddha-tooth-relic-temple-laksa",
+      "venueId": "lian-xin-buddha-tooth-relic-temple",
+      "menuId": "lian-xin-buddha-tooth-relic-temple-noodles-sample",
+      "name": "Laksa",
+      "price": {
+        "amount": null,
+        "currency": "unknown",
+        "type": "displayed"
+      },
+      "sourceIds": [
+        "lian-xin-buddha-tooth-relic-temple-noodles-menu"
+      ],
+      "suitability": "unconfirmed",
+      "ingredientsComplete": false,
+      "note": "Published menu marks Wednesday and Sunday. Price absent; availability on a particular date unconfirmed."
+    },
+    {
+      "id": "lian-xin-buddha-tooth-relic-temple-mock-fish-soup",
+      "venueId": "lian-xin-buddha-tooth-relic-temple",
+      "menuId": "lian-xin-buddha-tooth-relic-temple-noodles-sample",
+      "name": "Mock Fish Soup",
+      "price": {
+        "amount": null,
+        "currency": "unknown",
+        "type": "displayed"
+      },
+      "sourceIds": [
+        "lian-xin-buddha-tooth-relic-temple-noodles-menu"
+      ],
+      "suitability": "unconfirmed",
+      "ingredientsComplete": false,
+      "note": "Published menu marks Thursday. Price absent; availability on a particular date unconfirmed."
+    }
+  ],
+  "candidates": [],
+  "proposedUpdates": [
+    {
+      "collection": "venues",
+      "id": "dlife-signature-chinatown-point",
+      "operation": "append-source-and-gap",
+      "sourceIdsToAdd": [
+        "dlife-signature-chinatown-point-novena-exclusion-recheck"
+      ],
+      "gapsToAdd": [
+        "15 October 2026 recheck: accessible first-party Getz outlet remains Novena. Chinatown menu/source gap is unresolved; do not import its prices, tax treatment or dietary labels into Chinatown."
+      ],
+      "retainSourceCheck": "needs-information"
+    },
+    {
+      "collection": "candidates",
+      "id": "eight-treasures-chinatown",
+      "operation": "append-source-and-reason",
+      "sourceIdsToAdd": [
+        "eight-treasures-chinatown-site-recheck",
+        "eight-treasures-chinatown-social-recheck"
+      ],
+      "reasonToAppend": "15 October 2026 recheck: merchant website still under construction. Public social profile yielded no readable current menu or branch-to-Getz link. Retain as held candidate with no imported dishes; do not use the stale 2014 PDF."
+    }
+  ]
+}

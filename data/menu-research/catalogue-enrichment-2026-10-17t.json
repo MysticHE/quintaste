@@ -1,0 +1,215 @@
+{
+  "checkedAt": "2026-10-17",
+  "deployedRelease": "20261017-source-covers23",
+  "goalStatus": "active",
+  "fullCoverageComplete": false,
+  "coverage": {
+    "browseVenues": 174,
+    "menuIds": 175,
+    "covers": 151,
+    "hours": 90,
+    "uniqueAssets": 120,
+    "assetBytes": 16430935,
+    "coverGaps": 23,
+    "hoursGaps": 84,
+    "allThreeAvailable": 88,
+    "catalogueIndexBytes": 192137
+  },
+  "newPhotos": [
+    {
+      "venueId": "research-ur04-kunthaville",
+      "address": "18 Veerasamy Road, Singapore 207326",
+      "photo": {
+        "path": "/api/catalogue-photos/aea6376ae934c2670ee37ee2950b831c13511ee3d04dca3a64f2f8005f99eca2.jpg",
+        "width": 960,
+        "height": 960,
+        "author": "Kunthaville / Chope",
+        "sourceUrl": "https://www.chope.co/singapore-restaurants/restaurant/kunthaville",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of a merchant-gallery reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "aea6376ae934c2670ee37ee2950b831c13511ee3d04dca3a64f2f8005f99eca2",
+      "bytes": 179211,
+      "originalSha256": "86c1695c3e7a5a0471b418e8e5497877fca16f6abc7ca0ec77f53c08b4171d2a",
+      "sourcePageCheckedAt": "2026-10-16T12:47:27.437497+00:00",
+      "sourceImageUrl": "https://static.chope.co/uploads/2026/07/Jaffna-Thosai-with-Marakkari-Kolumbu,-Poricha-Chambal,-and-the-Green-Coconut-Chambal-1785127613.jpg?date=2026081315",
+      "identityEvidence": "Exact venue merchant gallery at18VeerasamyRoad labels this image JaffnaThosai with MarakkariKolumbu,PorichaChambal and GreenCoconutChambal. Saved page data-original/data-big references exact image.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance this exact Kunthaville Jaffna Thosai product photograph. Preserve the white ridged plate and banana leaf, the overlapping folded golden-yellow thosai, the small patterned bowl of orange sambal at top, green patterned bowl of pale coconut sambal at right, and the separate patterned cup of yellow curry at upper right. Improve natural light, color and food texture only. Preserve existing food and table props; do not add ingredients, utensils, garnishes or text. Crop close to the plate while keeping the curry bowl visible, with balanced square gallery-cover framing.",
+        "review": "Reference/output visually compared: thosai, serving vessels and accompaniments retained in closer square framing. Fine details may differ; no new ingredient or availability claim."
+      }
+    },
+    {
+      "venueId": "research-xiang-yuan-circuit-source",
+      "address": "80 Circuit Road #02-03, Singapore 370080",
+      "photo": {
+        "path": "/api/catalogue-photos/1fd5a2db6552d1c86011c9644da8dee67bf3a1705085d6d0263a11e2016fc7ff.jpg",
+        "width": 960,
+        "height": 679,
+        "author": "Kopitiam.com.sg",
+        "sourceUrl": "https://kopitiam.com.sg/2026/08/21/blk-80-circuit-road-market-food-centre-6-must-try-hawker-stalls/",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of a published on-site photograph. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "1fd5a2db6552d1c86011c9644da8dee67bf3a1705085d6d0263a11e2016fc7ff",
+      "bytes": 152270,
+      "originalSha256": "586f002a6f75ee64d080129a45efd135fc6fd4c3daaa7411df826e06b2dd8e20",
+      "sourcePageCheckedAt": "2026-10-16T00:40:17Z",
+      "sourceImageUrl": "https://i0.wp.com/kopitiam.com.sg/wp-content/uploads/2026/08/02.-Xiang-Yuan-Vegetarian-Food-02-03.jpg?resize=2048%2C1448&ssl=1",
+      "identityEvidence": "Kopitiam.com.sg on-site report identifies80CircuitRoad#02-03; exact stall sign repeats#02-03 and Chinese name. This publisher is not established as the stall operator. No current menu/hour fact derived from generated signs.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Enhance this exact Xiang Yuan Vegetarian stall photograph very conservatively. Improve exposure, white balance, mild sharpness and natural clarity only. Preserve the exact stall, equipment, food displays, customer queue, neon cat and all existing signage and lettering verbatim, especially 香苑 齋 素食 and #02-03. Do not redesign the stall, invent details, erase people, add dishes, change prices, text or claims. Keep the same landscape composition and perspective. This is a faithful photographic enhancement, not a newly invented venue.",
+        "review": "Reference/output visually compared: same stall, main signage/unit, equipment and queue retained. Minor fine details differ; not a source for current menu prices or hours."
+      }
+    },
+    {
+      "venueId": "research-kind-kones-forum",
+      "address": "583 Orchard Road #B1-27 & K1, Forum Shopping Mall, Singapore 238884",
+      "photo": {
+        "path": "/api/catalogue-photos/dd706a230a9cecfa42f181589ab442aaa73505fc1829b0d4b4448399f78b95e9.jpg",
+        "width": 960,
+        "height": 960,
+        "author": "Kind Kones",
+        "sourceUrl": "https://kindkones.com/products/banana-pecan",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "dd706a230a9cecfa42f181589ab442aaa73505fc1829b0d4b4448399f78b95e9",
+      "bytes": 86094,
+      "originalSha256": "ff85960bd7b841d42f685083a1f6a2359018c93e3d73d846fdb09694ec4e1545",
+      "sourcePageCheckedAt": "2026-10-16T21:44:14.627940+00:00",
+      "sourceImageUrl": "https://kindkones.com/cdn/shop/files/Screenshot2026-09-29at12.50.00PM.png?v=1790657411&width=764",
+      "identityEvidence": "Operator product page explicitly offers pickup at KindKones-TheForum; existing landlord binds583OrchardRoad#B1-27&K1. Shared product imagery; no interior or current stock claim. Location unit/schedule discrepancy remains held.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance this Kind Kones operator product image of Banana Pecan ice cream. Preserve the exact scoop, printed paper cup and every existing word/logo on it, white rectangular pedestal, bananas on plate left and pecans at lower left with softly blurred beige background. Make the scoop and cup larger and dominant through a closer square crop, retaining the cup completely and the pedestal top. Improve soft natural light and texture subtly. No extra scoops, toppings, ingredients, text, props or claims. Do not invent a store interior.",
+        "review": "Reference/output compared: same scoop, cup branding and pedestal composition retained, tighter crop. Fine packaging/texture details may differ; do not derive serving-size or ingredient facts from generated image. Operator product imagery, not an independently verified Forum interior."
+      }
+    },
+    {
+      "venueId": "research-fo-you-yuan-jalan-besar",
+      "address": "369 Jalan Besar, Singapore 208997",
+      "photo": {
+        "path": "/api/catalogue-photos/13dff7fe0f2d07ad3fc925f26bdada1b037bababc6fe6ea40d8b70cbf9c8dbf1.jpg",
+        "width": 960,
+        "height": 1200,
+        "author": "Fo You Yuan",
+        "sourceUrl": "https://foyouyuan.maynuu.com/",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "13dff7fe0f2d07ad3fc925f26bdada1b037bababc6fe6ea40d8b70cbf9c8dbf1",
+      "bytes": 299725,
+      "originalSha256": "40ad55a9dce3f32b4d4d6fa5875837102913fe919b9c9cb7a816ada3b3106136",
+      "sourcePageCheckedAt": "2026-10-15T10:18:26.837074+00:00",
+      "sourceImageUrl": "https://foyouyuan.maynuu.com/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBck1iIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--6a3d641a510a240ce0019f167c3d2595311e3668/FYY%20JPD%20Banner_04.png",
+      "identityEvidence": "Exact operator ordering page369JalanBesar publishesFYYJPD Banner04. Full800x1000 original retrieved from the same public signed blob after80x100 thumbnail review. Existing branch menu identity retained; no new food extraction.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance this Fo You Yuan operator food photograph. Preserve the exact overhead diagonal arrangement of transparent takeaway containers: central pale noodles with existing mushrooms and vegetable strips, upper round bread bowl of curry with crisps, right mixed vegetables with black fungus and golden strips, left fried pieces with curry leaves, and lower red mock-meat slices with lettuce/cucumber, a small yellow flower and dark sauce cup. Keep the existing red chilli sauce and sliced green chillies. Improve natural lighting, clarity and realistic color only. Do not add, remove or substitute food, containers, garnish or utensils. Keep the portrait composition and complete central noodle box. No text, logo or new claims.",
+        "review": "Source/output visually compared: same takeaway spread, central noodles, curry bread bowl, side dishes and serving containers. Lighting/color improved; fine detail may differ. No new menu or ingredient facts derived."
+      }
+    }
+  ],
+  "newHours": [],
+  "googleLedger": {
+    "bytes": 1045377,
+    "sha256": "c7321dafaad0473583139494ca899501578892c5b71105429d3cd4dceb4f311a",
+    "requests": 2419,
+    "limit": 2500,
+    "remaining": 81
+  },
+  "sourceRights": "Source attribution and rights retained. User-requested enhancement does not establish an independent licence.",
+  "unresolved": "2,527 food holds,109zero-food research branches,1,828unnamed candidate IDs,8coordinate holds preserved; exact MakanVegan/SoonLai screenshot images unrecovered.",
+  "releaseEvidence": ".local/coverage-2026-10-17t/release.json",
+  "hoursReview": {
+    "checkedAt": "2026-10-17",
+    "newHours": 0,
+    "hoursHolds": [
+      {
+        "venueId": "research-kind-kones-forum",
+        "sourceUrl": "https://kindkones.com/pages/locations",
+        "reason": "Operator#B1-17 vs landlord#B1-27&K1;11am-9pm lacks days. Product page Forum pickup confirms brand association but cannot resolve hours."
+      },
+      {
+        "venueId": "research-xiang-yuan-circuit-source",
+        "sourceUrl": "https://kopitiam.com.sg/2026/08/21/blk-80-circuit-road-market-food-centre-6-must-try-hawker-stalls/",
+        "reason": "Source photo shows closedWednesday but complete daily opening/closing times unconfirmed. Never infer schedule from generated image."
+      }
+    ],
+    "imageHolds": [
+      {
+        "venueId": "research-ur13-sangeetha-rangoon",
+        "sourceUrl": "https://www.sangeethabhavan.com/menu",
+        "sourcePageCheckedAt": "2026-10-16T07:55:08.267Z",
+        "reason": "Saved menu contains text dish rows and logo images only; no dish photo. About/contact subsequent connection failures already recorded. No retry."
+      }
+    ],
+    "additionalWebChecks": [
+      {
+        "venueId": "dlife-signature-chinatown-point",
+        "sourceUrl": "https://chinatownpoint.com.sg/stores_lists/dlife-signature/",
+        "checkedAt": "2026-10-17",
+        "finding": "Official landlord listing gives branch identity but no venue schedule. Mall general hours not promoted."
+      },
+      {
+        "venueId": "research-dlife-orchard-gateway",
+        "sourceUrl": "https://www.chope.co/singapore-restaurants/restaurant/d-life-orchard-gateway",
+        "checkedAt": "2026-10-17",
+        "finding": "Chope11:45-20:15 conflicts with secondarySingMalls11:30-21:30 and other21:00close; retain hold."
+      },
+      {
+        "venueId": "research-botanict-clementi",
+        "sourceUrl": "https://th.openrice.com/en/singapore/r-botanict-clementi-asian-variety-coffee-r215855",
+        "checkedAt": "2026-10-17",
+        "finding": "Exact-branch secondaryTueSun11-22/Monclosed candidate; still not operator-verified. BurppleTampines schedule belongs another address."
+      },
+      {
+        "venueId": "research-crowded-bowl-ntu-north-spine",
+        "sourceUrl": "https://www.burpple.com/the-crowded-bowl",
+        "checkedAt": "2026-10-17",
+        "finding": "Secondary titleSouthSpine but textNorthSpine#NS3-01-16 differs current#NS3-1-18;20:30close conflicts20:00otheraggregator. Preservehold."
+      }
+    ]
+  },
+  "verificationSupplement": {
+    "checkedAt": "2026-10-17",
+    "typescript": {
+      "command": "npx tsc --noEmit",
+      "cwd": ".local/coverage-2026-10-17t/source",
+      "exitCode": 0
+    },
+    "lint": {
+      "command": "EXPO_NO_DOTENV=1 CI=1 npx expo lint --no-cache",
+      "cwd": ".",
+      "exitCode": 0
+    },
+    "isolatedLintLimitation": "Staging tree resolves dependencies through a Windows node_modules junction and inherits the root ESLint config; import/no-unresolved reports three better-auth filesystem casing errors. Normal workspace lint passes. No lint rule or application source changed to suppress this staging-only error.",
+    "sourcePreserved": true,
+    "changes": "Reviewed JSON and image assets only; all source/configuration bytes preserved from deployed base."
+  },
+  "fullBrowserEvidence": ".local/coverage-2026-10-17t/live-browser.json",
+  "currentChecklist": "data/menu-research/current-catalogue-readiness-2026-10-17.json"
+}

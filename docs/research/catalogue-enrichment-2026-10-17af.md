@@ -1,0 +1,11 @@
+# Greenland dated hours exception — 17 October 2026, batch af
+
+**Deployed and verified in `20261017-account-native35`**, first shipped in server release `20261017-account-limits34`. This adds an exception to one existing hours record. No new foods, covers, branches or weekly schedule approvals.
+
+**Greenland Vegetarian Restaurant, 789 & 791 Upper Serangoon Road, Singapore 534659:** [merchant notice](https://www.facebook.com/zizaiveg/posts/pfbid02bMr3Xi6gGBhjmnobVdgqHXNr4dnGcYuJudoYtFAKodoxyTukjo15v6irDruSiMqfl), checked **2026-10-17T02:57:43.900Z**. The original poster explicitly prints “17 October, 5pm”. The caption binds the exact premise and says a private event is tomorrow from 5pm. Its visible age was 15 hours at the 17 October Singapore capture. **2026 is inferred from that context; the poster does not print a year.**
+
+The app shows the dated **17 October 2026, 17:00 private-event exception** alongside the retained regular 11:30–21:30 profile schedule and original source check date. No schedule was transferred to another ZiZai outlet. The source URL, check date, original HTML/image hashes and date basis remain in `data/menus/catalogue-hours.json` and the [JSON audit](../../data/menu-research/catalogue-enrichment-2026-10-17af.json). Captures remain private and were not promoted as cover assets.
+
+ZiZai's public profile exposed no additional weekly hours. One expansion encountered an optional/login wall; it was not bypassed, and a fresh ordinary public read was recorded. DLife's 11:00–21:30 panel identifies Square2 at 10 Sinaran Drive, so it was not applied to Chinatown Point, Jurong or Tengah. The second ZiZai promotion adds no verified hours. Every receipt has a reviewed outcome; food records were not extracted again.
+
+Coverage remains **174 browse locations / 175 menu IDs / 226 source menus / 12,087 source occurrences**, with 173 covers and 120 source-backed hours records, including nine weekday-qualified SHU posters. **1 cover / 54 hours / 3 coordinate holds remain.** All food holds, original source dates and Google ledger/budgets are preserved. All live menu/summary/asset checks, rendered exception/fallback cases, cache/postal/Save/menu/back and native transport pass. [Rate correction, deployment and storage evidence](production-api-rate-limits-2026-10-17.md).

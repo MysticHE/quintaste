@@ -1,0 +1,76 @@
+{
+  "startedAt": 1792134543.3719716,
+  "checks": [
+    {
+      "command": [
+        "node",
+        "-r",
+        "../tmp/qa/menu-register-ts.cjs",
+        "scripts/build-menu-research-index.ts"
+      ],
+      "exitCode": 0,
+      "seconds": 2.276158571243286,
+      "output": "{\"version\":1,\"generatedAt\":\"2026-10-16T07:09:05.083Z\",\"complete\":false,\"directoryCount\":2322,\"datasetCount\":80,\"branchRecords\":355,\"sourceMenus\":435,\"sourceFoodRows\":16948,\"counts\":{\"source-covered\":69,\"partial\":129,\"menu-pending\":47,\"menu-unavailable\":32,\"held\":78},\"note\":\"Research only. Branch records, menu sources and food rows can overlap; these are not unique-location or unique-dish counts. Source-covered means all foods visible in that source, not complete current venue stock. Google ID identity review and publication remain separate.\"}\n"
+    },
+    {
+      "command": [
+        "node",
+        "-r",
+        "../tmp/qa/menu-register-ts.cjs",
+        "scripts/build-menu-coverage.ts"
+      ],
+      "exitCode": 0,
+      "seconds": 2.357971668243408,
+      "output": "{\"directoryCount\":2322,\"counts\":{\"identity-pending\":1827,\"partial\":39,\"identity-candidate\":431,\"source-covered\":25},\"reviewedIdentities\":64,\"researchOutcomes\":{\"reviewed\":559,\"counts\":{\"vegetarian-confirmed\":161,\"mixed-menu\":37,\"supplier\":12,\"food-court\":6,\"out-of-SG\":1,\"unresolved\":342}},\"complete\":false}\n"
+    },
+    {
+      "command": [
+        "node",
+        "-r",
+        "../tmp/qa/menu-register-ts.cjs",
+        "scripts/sync-researched-menus.ts",
+        "--approve-reviewed"
+      ],
+      "exitCode": 0,
+      "seconds": 2.3677539825439453,
+      "output": "{\"action\":\"--approve-reviewed\",\"branches\":155,\"sourceMenus\":198,\"foodRows\":10857,\"bytes\":5436593,\"output\":\"data\\\\menus\\\\published-research.json\"}\n"
+    },
+    {
+      "command": [
+        "node",
+        "-r",
+        "../tmp/qa/menu-register-ts.cjs",
+        "scripts/build-menu-source-register.ts"
+      ],
+      "exitCode": 0,
+      "seconds": 3.227199077606201,
+      "output": "{\"action\":\"build\",\"foodRecords\":16948,\"sourceDocuments\":3531,\"uniqueSourceUrls\":3464,\"undatedSourceDocuments\":0,\"publishedRecords\":11473,\"publishedFoodOccurrences\":11589,\"heldRecords\":2361,\"branchOnlySources\":0,\"output\":\"data/menu-research/menu-item-source-register.json\"}\n"
+    },
+    {
+      "command": [
+        "node",
+        "-r",
+        "../tmp/qa/menu-register-ts.cjs",
+        "scripts/sync-researched-menus.ts",
+        "--check"
+      ],
+      "exitCode": 0,
+      "seconds": 2.294886589050293,
+      "output": "{\"action\":\"--check\",\"branches\":155,\"sourceMenus\":198,\"foodRows\":10857,\"bytes\":5436593,\"output\":\"data\\\\menus\\\\published-research.json\"}\n"
+    },
+    {
+      "command": [
+        "node",
+        "-r",
+        "../tmp/qa/menu-register-ts.cjs",
+        "scripts/build-menu-source-register.ts",
+        "--check"
+      ],
+      "exitCode": 0,
+      "seconds": 3.3406119346618652,
+      "output": "{\"action\":\"check\",\"foodRecords\":16948,\"sourceDocuments\":3531,\"uniqueSourceUrls\":3464,\"undatedSourceDocuments\":0,\"publishedRecords\":11473,\"publishedFoodOccurrences\":11589,\"heldRecords\":2361,\"branchOnlySources\":0,\"output\":\"data/menu-research/menu-item-source-register.json\"}\n"
+    }
+  ],
+  "passed": true,
+  "finishedAt": 1792134559.2498357
+}

@@ -1,0 +1,87 @@
+{
+  "status": "verified-consumer-menu-web-and-source",
+  "checkedAt": "2026-10-15T07:39:57.321Z",
+  "implementation": {
+    "approvedMenuFlow": true,
+    "publishedMenuBranches": 11,
+    "selectedMenuItems": 48,
+    "cardHorizontalInset": 12,
+    "dividerToHours": 6,
+    "hoursToBottom": 8,
+    "readonlyProductionHandler": true,
+    "productionDeploymentPerformed": false,
+    "ingredientSuitabilityConfirmed": false
+  },
+  "gates": {
+    "typeScript": "exit0 on current source",
+    "expoLint": "exit0 on current source",
+    "diffCheck": "exit0, line-ending warning only",
+    "generalCodeReview": "approved",
+    "typeScriptReview": "approved",
+    "sourceGroups": 7,
+    "browserGroups": 6,
+    "captures": 18,
+    "uniqueCaptures": 17,
+    "scopedAxeSurfaces": 4,
+    "definiteAxeViolations": 0,
+    "pageErrors": 0,
+    "paidGoogleCalls": 0,
+    "installedChromeUsed": false,
+    "publicationCli": {
+      "explicitWithdrawal": true,
+      "unrelatedEntriesPreserved": true,
+      "noArgsRejectsWithoutWrite": true,
+      "mixedInvalidIdsRejectWithoutWrite": true,
+      "explicitRepublish": true
+    },
+    "sourceModules": 18,
+    "maxLines": 82,
+    "maxFunctionLines": 54,
+    "preview": [
+      {
+        "kind": "menus",
+        "status": 200,
+        "venues": 11,
+        "items": 48
+      },
+      {
+        "kind": "manifest",
+        "status": 200,
+        "bundle": true
+      },
+      {
+        "kind": "web",
+        "status": 200,
+        "length": 45036
+      }
+    ]
+  },
+  "independentFinish": {
+    "disposition": "ship",
+    "scope": "React Native Web and sampled source",
+    "substituteReviewer": true
+  },
+  "documentation": {
+    "status": "passed",
+    "localLinksChecked": 408,
+    "missingLinks": 0
+  },
+  "nativeTransport": {
+    "manifestStatus": 200,
+    "bundleStatus": 200,
+    "bytes": 9479046,
+    "menuScreen": true,
+    "menuEntry": true,
+    "publicCache": true,
+    "privateGoogleKey": false,
+    "privateReviewerKey": false,
+    "serverStoreBundled": false,
+    "researchDataBundled": false,
+    "nativeDeviceAppearanceVerified": false
+  },
+  "limits": [
+    "Physical-device appearance, native gestures and assistive technology unverified.",
+    "Production API hosting/release is not performed by this task. Menu facts are source-checked selected items, not ingredient certification.",
+    "Seven-day offline copies may miss later withdrawals until a connection refreshes the catalogue. Cold-offline app launch not verified."
+  ]
+}

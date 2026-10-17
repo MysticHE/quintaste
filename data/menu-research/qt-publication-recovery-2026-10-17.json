@@ -1,0 +1,591 @@
+{
+  "verification": {
+    "checkedAt": "2026-10-17T11:05:44.471939+00:00",
+    "timezone": "Asia/Singapore",
+    "release": "20261017-qt-publication4",
+    "batchId": "qt-20261017-101937",
+    "revision": "aadde24d8ea94d2c13eb94bf48e0edd9ce39cdd2bed47520ab5c987f74997548",
+    "publishedAt": "2026-10-17T11:02:20.147Z",
+    "checks": [
+      "All seven effective hashes and public fields match approved publication",
+      "Conditional catalogue revalidation returns204",
+      "Three owner removals and two events preserved",
+      "Seven live screenshots delivered with exact-item Revert controls",
+      "No pending publication",
+      "All screenshot captures use owned app network restrictions"
+    ],
+    "venues": [
+      {
+        "id": "research-greendot-bedok-mall",
+        "name": "Greendot \u2014 Bedok Mall",
+        "fields": [
+          "sourceUrls"
+        ],
+        "sourceUrls": [
+          "https://orders.greendot.sg/?StoreID=b33dedbe-40e7-40c8-a110-b4bb4239c938&Service=PickUp&lang=EN",
+          "https://restaurant.momos.io/greendot-c29da/locations",
+          "https://patisserie.greendot.sg/Category?StoreID=45d330c9-0acb-4a6d-bf96-485df349b6bb&Service=PickUp&lang=EN",
+          "https://www.greendot.sg/stores/greendot-bedok-mall/",
+          "https://www.greendot.sg/faq/"
+        ],
+        "retainedUnverifiedSources": [
+          "https://patisserie.greendot.sg/Category?StoreID=45d330c9-0acb-4a6d-bf96-485df349b6bb&Service=PickUp&lang=EN"
+        ],
+        "conditionalStatus": 204
+      },
+      {
+        "id": "research-greendot-bukit-panjang-plaza",
+        "name": "Greendot \u2014 Bukit Panjang Plaza",
+        "fields": [
+          "hours",
+          "sourceUrls"
+        ],
+        "sourceUrls": [
+          "https://orders.greendot.sg/?StoreID=e651dea9-726c-4921-bbe0-e1cbb9abaf6d&Service=PickUp&lang=EN",
+          "https://restaurant.momos.io/greendot-c29da/locations",
+          "https://patisserie.greendot.sg/Category?StoreID=777962cc-8243-4f5d-818a-6526cec8990c&Service=PickUp&lang=EN",
+          "https://www.bukitpanjangplaza.com/store-directory/greendot/",
+          "https://www.greendot.sg/faq/"
+        ],
+        "retainedUnverifiedSources": [
+          "https://patisserie.greendot.sg/Category?StoreID=777962cc-8243-4f5d-818a-6526cec8990c&Service=PickUp&lang=EN"
+        ],
+        "conditionalStatus": 204
+      },
+      {
+        "id": "research-greendot-j8",
+        "name": "Greendot \u2014 J8",
+        "fields": [
+          "sourceUrls"
+        ],
+        "sourceUrls": [
+          "https://orders.greendot.sg/?StoreID=3d67bdd1-f091-4960-b693-5af3a1f2ab5b&Service=PickUp&lang=EN",
+          "https://restaurant.momos.io/greendot-c29da/locations",
+          "https://patisserie.greendot.sg/Category?StoreID=96bd89c8-5999-4b5c-9860-69020cf09969&Service=PickUp&lang=EN",
+          "https://www.greendot.sg/stores/greendot-junction-8/",
+          "https://www.greendot.sg/faq/"
+        ],
+        "retainedUnverifiedSources": [
+          "https://patisserie.greendot.sg/Category?StoreID=96bd89c8-5999-4b5c-9860-69020cf09969&Service=PickUp&lang=EN"
+        ],
+        "conditionalStatus": 204
+      },
+      {
+        "id": "research-greendot-jurong-point",
+        "name": "Greendot \u2014 Jurong Point",
+        "fields": [
+          "sourceUrls"
+        ],
+        "sourceUrls": [
+          "https://orders.greendot.sg/?StoreID=5252756f-953c-4270-90c7-05ce23f97896&Service=PickUp&lang=EN",
+          "https://restaurant.momos.io/greendot-c29da/locations",
+          "https://patisserie.greendot.sg/Category?StoreID=447691ba-2390-4826-a376-76302d340d1f&Service=PickUp&lang=EN",
+          "https://www.greendot.sg/stores/greendot-jurong-point/",
+          "https://www.greendot.sg/faq/"
+        ],
+        "retainedUnverifiedSources": [
+          "https://patisserie.greendot.sg/Category?StoreID=447691ba-2390-4826-a376-76302d340d1f&Service=PickUp&lang=EN"
+        ],
+        "conditionalStatus": 204
+      },
+      {
+        "id": "shu-woodlands-avenue-1",
+        "name": "SHU Vegetarian \u2014 354A Woodlands Avenue 1",
+        "fields": [
+          "sourceUrls"
+        ],
+        "sourceUrls": [
+          "https://www.foodpanda.sg/restaurant/x3kk/shu-vegetarian-shu-fang-zhai-woodlands-avenue-1",
+          "https://www.facebook.com/reel/1072235328780539/",
+          "https://www.foodgrove.sg/listing/shu-vegetarian/"
+        ],
+        "retainedUnverifiedSources": [
+          "https://www.facebook.com/reel/1072235328780539/"
+        ],
+        "conditionalStatus": 204
+      },
+      {
+        "id": "research-greendot-star-vista",
+        "name": "Greendot \u2014 Star Vista",
+        "fields": [
+          "sourceUrls"
+        ],
+        "sourceUrls": [
+          "https://orders.greendot.sg/?StoreID=f39c03dc-5939-438d-b91e-df0677037d8c&Service=PickUp&lang=EN",
+          "https://restaurant.momos.io/greendot-c29da/locations",
+          "https://patisserie.greendot.sg/Category?StoreID=9f976cf1-c830-4927-8498-73fb9279861c&Service=PickUp&lang=EN",
+          "https://thestarvista.sg/stores/greendot",
+          "https://www.greendot.sg/faq/"
+        ],
+        "retainedUnverifiedSources": [
+          "https://patisserie.greendot.sg/Category?StoreID=9f976cf1-c830-4927-8498-73fb9279861c&Service=PickUp&lang=EN"
+        ],
+        "conditionalStatus": 204
+      },
+      {
+        "id": "zhen-xiang-woodlands-street-32",
+        "name": "Zhen Xiang Vegetarian \u2014 325 Woodlands Street 32",
+        "fields": [
+          "menuPrices"
+        ],
+        "sourceUrls": [],
+        "retainedUnverifiedSources": [],
+        "conditionalStatus": 204
+      }
+    ],
+    "telegram": [
+      {
+        "messageId": 36,
+        "status": "sent",
+        "caption": "Published ? Greendot \u2014 Bedok Mall\n17 Oct, 7:02 pm SGT\nSource references refreshed: 5 links.\nExisting unverified references retained; their holds remain.\nhttps://quintaste.srv1902914.hstgr.cloud/place/catalogue-research-greendot-bedok-mall",
+        "buttons": [
+          [
+            "Open venue",
+            "Revert this update"
+          ]
+        ]
+      },
+      {
+        "messageId": 37,
+        "status": "sent",
+        "caption": "Published ? Greendot \u2014 Bukit Panjang Plaza\n17 Oct, 7:02 pm SGT\nHours rechecked: Daily 11:00\u201321:00 (times unchanged; evidence/notes updated).\nSource references refreshed: 5 links.\nExisting unverified references retained; their holds remain.\nhttps://quintaste.srv1902914.hstgr.cloud/place/catalogue-research-greendot-bukit-panjang-plaza",
+        "buttons": [
+          [
+            "Open venue",
+            "Revert this update"
+          ]
+        ]
+      },
+      {
+        "messageId": 38,
+        "status": "sent",
+        "caption": "Published ? Greendot \u2014 J8\n17 Oct, 7:02 pm SGT\nSource references refreshed: 5 links.\nExisting unverified references retained; their holds remain.\nhttps://quintaste.srv1902914.hstgr.cloud/place/catalogue-research-greendot-j8",
+        "buttons": [
+          [
+            "Open venue",
+            "Revert this update"
+          ]
+        ]
+      },
+      {
+        "messageId": 39,
+        "status": "sent",
+        "caption": "Published ? Greendot \u2014 Jurong Point\n17 Oct, 7:02 pm SGT\nSource references refreshed: 5 links.\nExisting unverified references retained; their holds remain.\nhttps://quintaste.srv1902914.hstgr.cloud/place/catalogue-research-greendot-jurong-point",
+        "buttons": [
+          [
+            "Open venue",
+            "Revert this update"
+          ]
+        ]
+      },
+      {
+        "messageId": 40,
+        "status": "sent",
+        "caption": "Published ? SHU Vegetarian \u2014 354A Woodlands Avenue 1\n17 Oct, 7:02 pm SGT\nSource references refreshed: 3 links.\nExisting unverified references retained; their holds remain.\nhttps://quintaste.srv1902914.hstgr.cloud/place/catalogue-shu-woodlands-avenue-1",
+        "buttons": [
+          [
+            "Open venue",
+            "Revert this update"
+          ]
+        ]
+      },
+      {
+        "messageId": 41,
+        "status": "sent",
+        "caption": "Published ? Greendot \u2014 Star Vista\n17 Oct, 7:02 pm SGT\nSource references refreshed: 5 links.\nExisting unverified references retained; their holds remain.\nhttps://quintaste.srv1902914.hstgr.cloud/place/catalogue-research-greendot-star-vista",
+        "buttons": [
+          [
+            "Open venue",
+            "Revert this update"
+          ]
+        ]
+      },
+      {
+        "messageId": 42,
+        "status": "sent",
+        "caption": "Published ? Zhen Xiang Vegetarian \u2014 325 Woodlands Street 32\n17 Oct, 7:02 pm SGT\nMenu price verification: 1 dish(es).\nWestern Vegetarian Pork Rib Rice Set \u897f\u5f0f\u7d20\u6392\u9aa8\u996d: SGD 7.8\nhttps://quintaste.srv1902914.hstgr.cloud/menu/zhen-xiang-woodlands-street-32",
+        "buttons": [
+          [
+            "Open venue",
+            "Revert this update"
+          ]
+        ]
+      }
+    ],
+    "captureCount": 7,
+    "blockedHosts": [],
+    "modelCallsAdded": 0,
+    "googleCallsAdded": 0,
+    "ownerRemovals": 3,
+    "liveRecipes": 0,
+    "liveEvents": 2,
+    "baselineFactsUnchanged": {
+      "hoursSummary": "Daily 11:00?21:00",
+      "menuPrice": 7.8,
+      "currency": "SGD",
+      "newVenues": 0,
+      "newDishes": 0,
+      "newCovers": 0
+    }
+  },
+  "approvedBatch": {
+    "version": 1,
+    "id": "qt-20261017-101937",
+    "parent": "702f3fc1a6120a63430b05f04eb9f91b23d0791b58da6e02c654d6b5e356905f",
+    "records": [
+      {
+        "kind": "venue",
+        "id": "research-greendot-bedok-mall",
+        "data": {
+          "id": "research-greendot-bedok-mall",
+          "sourceUrls": [
+            "https://orders.greendot.sg/?StoreID=b33dedbe-40e7-40c8-a110-b4bb4239c938&Service=PickUp&lang=EN",
+            "https://restaurant.momos.io/greendot-c29da/locations",
+            "https://patisserie.greendot.sg/Category?StoreID=45d330c9-0acb-4a6d-bf96-485df349b6bb&Service=PickUp&lang=EN",
+            "https://www.greendot.sg/stores/greendot-bedok-mall/",
+            "https://www.greendot.sg/faq/"
+          ]
+        },
+        "sources": [
+          {
+            "url": "https://restaurant.momos.io/greendot-c29da/locations",
+            "checkedAt": "2026-10-17",
+            "fetchedAt": "2026-10-17T10:02:55.046965+00:00",
+            "contentSha256": "5dc3fc769d03555622506802f8df82c854307ff4f57ad9c2a5bfa49adc3c1cc6",
+            "evidence": "Bedok address and postal match, including \"#B2 - 31\". Only a current 21:00 closing indicator appears, not a weekly schedule. ([restaurant.momos.io](https://restaurant.momos.io/greendot-c29da/locations))"
+          },
+          {
+            "url": "https://www.greendot.sg/stores/greendot-bedok-mall/",
+            "checkedAt": "2026-10-17",
+            "fetchedAt": "2026-10-17T10:13:41.367347+00:00",
+            "contentSha256": "f18a53653f292f76ba0c3e9352c59e425596297cc44ac6acd0ccdf6040b3d13c",
+            "evidence": "Official page identifies \"Greendot Bedok Mall\"; its displayed hours belong to headquarters, not this branch. ([greendot.sg](https://www.greendot.sg/stores/greendot-bedok-mall/))"
+          },
+          {
+            "url": "https://www.greendot.sg/faq/",
+            "checkedAt": "2026-10-17",
+            "fetchedAt": "2026-10-17T10:07:55.446836+00:00",
+            "contentSha256": "88983997726f0b62e4d90e7cba003d0a5f6479ebf3595e257fad6643c1e247e9",
+            "evidence": "Merchant states dine-in last orders are \"30 minutes\" before closing; this does not establish branch opening hours. ([greendot.sg](https://www.greendot.sg/faq/))"
+          },
+          {
+            "url": "https://orders.greendot.sg/?StoreID=b33dedbe-40e7-40c8-a110-b4bb4239c938&Service=PickUp&lang=EN",
+            "checkedAt": "2026-10-17",
+            "fetchedAt": "2026-10-17T10:12:32.498149+00:00",
+            "contentSha256": "daca794534d83682ee4ec8acc3bc21a8c31579d064c061cbcd43b0d812805503",
+            "evidence": "Extraction includes \"No Internet Connection.\", explicit SGD prices and unavailable rows, but does not visibly establish the selected Bedok branch."
+          }
+        ],
+        "expectedHash": "d0c5765a2488d149f3dbdc4be6ff2ffc35889927b8a341c33a03ca63c36a4d4e",
+        "proposalHash": "7a2e6ddea90becaf17d1c9ef0e27146fe6946f237f7498f3eac43afbb02640f2",
+        "review": {
+          "decision": "approved",
+          "reviewedBy": "QT Manager",
+          "dataHash": "799ecf269ddfdc22f54e6ddbd54e85c0d27ba8f02ac95814fdcf523880e508e9",
+          "reason": "Approve the exact sourceUrls-only patch. The supplied merchant-directory capture corroborates Bedok Mall, and the official branch capture identifies Greendot Bedok Mall. The FAQ supports a brand-wide last-order rule only. This does not verify ordering-page branch selection, the retained patisserie link, weekly hours, prices or availability; existing factual holds and verification dates remain unchanged."
+        }
+      },
+      {
+        "kind": "venue",
+        "id": "research-greendot-bukit-panjang-plaza",
+        "data": {
+          "id": "research-greendot-bukit-panjang-plaza",
+          "hours": {
+            "summary": "Daily 11:00\u201321:00",
+            "schedule": [
+              "Daily 11:00\u201321:00"
+            ],
+            "notes": "Regular hours confirmed on the exact-branch landlord page. Dine-in last orders are 30 minutes before closing per the merchant FAQ. Holiday exceptions remain unconfirmed.",
+            "sourceUrl": "https://www.bukitpanjangplaza.com/store-directory/greendot/",
+            "checkedAt": "2026-10-17",
+            "timezone": "Asia/Singapore"
+          },
+          "sourceUrls": [
+            "https://orders.greendot.sg/?StoreID=e651dea9-726c-4921-bbe0-e1cbb9abaf6d&Service=PickUp&lang=EN",
+            "https://restaurant.momos.io/greendot-c29da/locations",
+            "https://patisserie.greendot.sg/Category?StoreID=777962cc-8243-4f5d-818a-6526cec8990c&Service=PickUp&lang=EN",
+            "https://www.bukitpanjangplaza.com/store-directory/greendot/",
+            "https://www.greendot.sg/faq/"
+          ]
+        },
+        "sources": [
+          {
+            "url": "https://www.bukitpanjangplaza.com/store-directory/greendot/",
+            "checkedAt": "2026-10-17",
+            "fetchedAt": "2026-10-17T10:16:30.954716+00:00",
+            "contentSha256": "7f30ad5d56f44b1d776cbfb55490187ddcf11e2439b87814bc84f94d3cb99240",
+            "evidence": "Exact-branch landlord page lists \"#01-36\" and \"11am to 9pm (Mon to Sun)\". Successfully opened with web_extract; browser fallback was inaccessible."
+          },
+          {
+            "url": "https://restaurant.momos.io/greendot-c29da/locations",
+            "checkedAt": "2026-10-17",
+            "fetchedAt": "2026-10-17T10:02:55.046965+00:00",
+            "contentSha256": "5dc3fc769d03555622506802f8df82c854307ff4f57ad9c2a5bfa49adc3c1cc6",
+            "evidence": "Merchant directory corroborates \"#01-36\", 1 Jelebu Road and postal 677743. ([restaurant.momos.io](https://restaurant.momos.io/greendot-c29da/locations))"
+          },
+          {
+            "url": "https://www.greendot.sg/faq/",
+            "checkedAt": "2026-10-17",
+            "fetchedAt": "2026-10-17T10:07:55.446836+00:00",
+            "contentSha256": "88983997726f0b62e4d90e7cba003d0a5f6479ebf3595e257fad6643c1e247e9",
+            "evidence": "Merchant states dine-in last orders are \"30 minutes\" before closing. ([greendot.sg](https://www.greendot.sg/faq/))"
+          },
+          {
+            "url": "https://orders.greendot.sg/?StoreID=e651dea9-726c-4921-bbe0-e1cbb9abaf6d&Service=PickUp&lang=EN",
+            "checkedAt": "2026-10-17",
+            "fetchedAt": "2026-10-17T10:12:41.262825+00:00",
+            "contentSha256": "770308265ffb95a3dc763adf93caac66c2dd0e6618c5b17e75a659ad8fb96d89",
+            "evidence": "web_extract returned promotions and category text, not matched item-price rows; browser retry timed out."
+          }
+        ],
+        "expectedHash": "ac09e7067cecf3b313c36023a7bd8458538c7e05b02dc31e0065a0647d1f3ea8",
+        "proposalHash": "8a6f23b5e06640b4422a57948f1bc5de90ee602bc3e1e5f3b79b46e03562a521",
+        "review": {
+          "decision": "approved",
+          "reviewedBy": "QT Manager",
+          "dataHash": "c3db48457d24c4de3c794428c70816dab9356d24f11d3306035789776cb4e326",
+          "reason": "The supplied exact-branch landlord capture explicitly lists #01-36 and Monday\u2013Sunday 11:00\u201321:00; the merchant directory corroborates the branch. The supplied FAQ supports dine-in last orders 30 minutes before closing. The proposed hours accurately distinguish regular hours from unconfirmed holiday exceptions. Approve the exact hours and source-link patch only, without clearing ordering/patisserie branch matching, menu prices or other held fields."
+        }
+      },
+      {
+        "kind": "venue",
+        "id": "research-greendot-j8",
+        "data": {
+          "id": "research-greendot-j8",
+          "sourceUrls": [
+            "https://orders.greendot.sg/?StoreID=3d67bdd1-f091-4960-b693-5af3a1f2ab5b&Service=PickUp&lang=EN",
+            "https://restaurant.momos.io/greendot-c29da/locations",
+            "https://patisserie.greendot.sg/Category?StoreID=96bd89c8-5999-4b5c-9860-69020cf09969&Service=PickUp&lang=EN",
+            "https://www.greendot.sg/stores/greendot-junction-8/",
+            "https://www.greendot.sg/faq/"
+          ]
+        },
+        "sources": [
+          {
+            "url": "https://restaurant.momos.io/greendot-c29da/locations",
+            "checkedAt": "2026-10-17",
+            "fetchedAt": "2026-10-17T10:02:55.046965+00:00",
+            "contentSha256": "5dc3fc769d03555622506802f8df82c854307ff4f57ad9c2a5bfa49adc3c1cc6",
+            "evidence": "Junction 8 lists \"#B1-24/24A\", 9 Bishan Place and postal 579837; only a current closing indicator is exposed. ([restaurant.momos.io](https://restaurant.momos.io/greendot-c29da/locations))"
+          },
+          {
+            "url": "https://www.greendot.sg/stores/greendot-junction-8/",
+            "checkedAt": "2026-10-17",
+            "fetchedAt": "2026-10-17T10:13:50.479937+00:00",
+            "contentSha256": "3f876236ce304869a0a3a544518e8b710ac54ae96362456bb908d3dcec4c5aa3",
+            "evidence": "Official page identifies \"Greendot Junction 8\"; the exposed schedule is headquarters information, not branch hours. ([greendot.sg](https://www.greendot.sg/stores/greendot-junction-8/))"
+          },
+          {
+            "url": "https://www.greendot.sg/faq/",
+            "checkedAt": "2026-10-17",
+            "fetchedAt": "2026-10-17T10:07:55.446836+00:00",
+            "contentSha256": "88983997726f0b62e4d90e7cba003d0a5f6479ebf3595e257fad6643c1e247e9",
+            "evidence": "Merchant states dine-in last orders are \"30 minutes\" before closing, separately from regular operating hours. ([greendot.sg](https://www.greendot.sg/faq/))"
+          },
+          {
+            "url": "https://orders.greendot.sg/?StoreID=3d67bdd1-f091-4960-b693-5af3a1f2ab5b&Service=PickUp&lang=EN",
+            "checkedAt": "2026-10-17",
+            "fetchedAt": "2026-10-17T10:12:49.999649+00:00",
+            "contentSha256": "770308265ffb95a3dc763adf93caac66c2dd0e6618c5b17e75a659ad8fb96d89",
+            "evidence": "web_extract returned promotions and category text without matched item-price rows; browser retry timed out."
+          }
+        ],
+        "expectedHash": "698e21fec5a5130d4d76db4a637cff67f192da59414d3a038aa8fb3a45dd7927",
+        "proposalHash": "15a05ab5acb8df23300a0f44af171709560a687dab4494077f14e6498006dc54",
+        "review": {
+          "decision": "approved",
+          "reviewedBy": "QT Manager",
+          "dataHash": "65303c64becbd91e54562ab308d5582fef0f2425cf6da0e01911b48ca045a75e",
+          "reason": "Approve the exact sourceUrls-only patch. The supplied merchant-directory capture identifies Junction 8 at #B1-24/24A, and the official branch capture identifies Greendot Junction 8. Headquarters hours are not transferred into the payload. Retained ordering and patisserie links are not newly verified, and no weekly-hours, price, dietary or availability claim is cleared."
+        }
+      },
+      {
+        "kind": "venue",
+        "id": "research-greendot-jurong-point",
+        "data": {
+          "id": "research-greendot-jurong-point",
+          "sourceUrls": [
+            "https://orders.greendot.sg/?StoreID=5252756f-953c-4270-90c7-05ce23f97896&Service=PickUp&lang=EN",
+            "https://restaurant.momos.io/greendot-c29da/locations",
+            "https://patisserie.greendot.sg/Category?StoreID=447691ba-2390-4826-a376-76302d340d1f&Service=PickUp&lang=EN",
+            "https://www.greendot.sg/stores/greendot-jurong-point/",
+            "https://www.greendot.sg/faq/"
+          ]
+        },
+        "sources": [
+          {
+            "url": "https://restaurant.momos.io/greendot-c29da/locations",
+            "checkedAt": "2026-10-17",
+            "fetchedAt": "2026-10-17T10:02:55.046965+00:00",
+            "contentSha256": "5dc3fc769d03555622506802f8df82c854307ff4f57ad9c2a5bfa49adc3c1cc6",
+            "evidence": "Jurong Point address, postal and \"#01-43/44/45\" match; the current closing indicator does not establish a weekly opening schedule. ([restaurant.momos.io](https://restaurant.momos.io/greendot-c29da/locations))"
+          },
+          {
+            "url": "https://www.greendot.sg/stores/greendot-jurong-point/",
+            "checkedAt": "2026-10-17",
+            "fetchedAt": "2026-10-17T10:14:01.197810+00:00",
+            "contentSha256": "e590dee9522aa2b01a46cacfb4ddceb4a41f2eabed7c5c39a0516032be1cfa2e",
+            "evidence": "Official page identifies \"Greendot Jurong Point\"; displayed headquarters hours must not be assigned to this branch. ([greendot.sg](https://www.greendot.sg/stores/greendot-jurong-point/))"
+          },
+          {
+            "url": "https://www.greendot.sg/faq/",
+            "checkedAt": "2026-10-17",
+            "fetchedAt": "2026-10-17T10:07:55.446836+00:00",
+            "contentSha256": "88983997726f0b62e4d90e7cba003d0a5f6479ebf3595e257fad6643c1e247e9",
+            "evidence": "Merchant states dine-in last orders are \"30 minutes\" before closing; branch holiday exceptions are not established. ([greendot.sg](https://www.greendot.sg/faq/))"
+          },
+          {
+            "url": "https://orders.greendot.sg/?StoreID=5252756f-953c-4270-90c7-05ce23f97896&Service=PickUp&lang=EN",
+            "checkedAt": "2026-10-17",
+            "fetchedAt": "2026-10-17T10:12:58.903585+00:00",
+            "contentSha256": "770308265ffb95a3dc763adf93caac66c2dd0e6618c5b17e75a659ad8fb96d89",
+            "evidence": "web_extract returned promotions and category text without matched item-price rows; browser retry timed out."
+          }
+        ],
+        "expectedHash": "3982d068dc0aba5bf0400b551f5c921bd09f34fb084c8a16a8254be91d589398",
+        "proposalHash": "733966861402274a2734c260b96349dfefea0bb2da983f5fa3b0d77e2a74b7a3",
+        "review": {
+          "decision": "approved",
+          "reviewedBy": "QT Manager",
+          "dataHash": "0398368694443fb7f7c6e0a51e64018ce620f5dacd833798f98041311d96b7f3",
+          "reason": "Approve the exact sourceUrls-only patch. The supplied merchant-directory capture corroborates Jurong Point at #01-43/44/45, and the official branch capture names Greendot Jurong Point. The FAQ is supporting evidence for the general last-order rule, not branch operating days. Preserve existing hours, prices, verification dates and ordering/patisserie evidence holds."
+        }
+      },
+      {
+        "kind": "venue",
+        "id": "shu-woodlands-avenue-1",
+        "data": {
+          "id": "shu-woodlands-avenue-1",
+          "sourceUrls": [
+            "https://www.foodpanda.sg/restaurant/x3kk/shu-vegetarian-shu-fang-zhai-woodlands-avenue-1",
+            "https://www.facebook.com/reel/1072235328780539/",
+            "https://www.foodgrove.sg/listing/shu-vegetarian/"
+          ]
+        },
+        "sources": [
+          {
+            "url": "https://www.foodpanda.sg/restaurant/x3kk/shu-vegetarian-shu-fang-zhai-woodlands-avenue-1",
+            "checkedAt": "2026-10-17",
+            "fetchedAt": "2026-10-17T10:04:27.409816+00:00",
+            "contentSha256": "b0127598f44c14c32f3f3fef656a57485aae62b21c38f796ace8e3c97be8431d",
+            "evidence": "Opened with web_extract: \"Blk 354A Woodlands Ave 1, #01-01\" matches the branch; vegetarian and egg categories appear, but item prices were absent."
+          },
+          {
+            "url": "https://shuvegetarian.oddle.me/en_SG/stores",
+            "checkedAt": "2026-10-17",
+            "fetchedAt": "2026-10-17T10:03:02.543825+00:00",
+            "contentSha256": "1a0a2d973d54355ad89687915b0b1333dfff0e1d2ed696e5c06eaccbb9c4c47c",
+            "evidence": "\"259 Jalan Kayu Singapore 799488\" identifies another branch; its pickup and delivery windows cannot verify Woodlands. ([shuvegetarian.oddle.me](https://shuvegetarian.oddle.me/en_SG/stores))"
+          },
+          {
+            "url": "https://www.foodgrove.sg/listing/shu-vegetarian/",
+            "checkedAt": "2026-10-17",
+            "fetchedAt": "2026-10-17T10:05:54.761311+00:00",
+            "contentSha256": "0e4e4ba38fad3b52b83a8ac319909f3a959f600e354805c37f95ea6eff0ddc42",
+            "evidence": "\"Singapore 731354\" matches the saved postal code; this secondary directory lists daily 10:30\u201321:00. ([foodgrove.sg](https://www.foodgrove.sg/listing/shu-vegetarian/))"
+          }
+        ],
+        "expectedHash": "b73ec0e2f999f3a18e288697a3e7626f9ad4fa26a0d8f8a3402929d3f0711222",
+        "proposalHash": "35cdba8676598674fc232a60ee3a46e9e747c4f07c54e82ff6e3ae5f78f27f57",
+        "review": {
+          "decision": "approved",
+          "reviewedBy": "QT Manager",
+          "dataHash": "ddee8f32713c16f12534d69c38d1dfb6a6d5c7e267a74d989633cd350d18478e",
+          "reason": "Approve the exact source-link correction removing the mismatched Oddle source. The supplied Oddle capture identifies 259 Jalan Kayu, whereas the Foodpanda capture corroborates SHU Woodlands at Blk 354A Woodlands Avenue 1, #01-01. Retaining the existing Facebook and directory references does not freshly validate their claims. Postal-code, poster-date, dine-in-hours and price questions remain held; no dietary upgrade is approved."
+        }
+      },
+      {
+        "kind": "venue",
+        "id": "research-greendot-star-vista",
+        "data": {
+          "id": "research-greendot-star-vista",
+          "sourceUrls": [
+            "https://orders.greendot.sg/?StoreID=f39c03dc-5939-438d-b91e-df0677037d8c&Service=PickUp&lang=EN",
+            "https://restaurant.momos.io/greendot-c29da/locations",
+            "https://patisserie.greendot.sg/Category?StoreID=9f976cf1-c830-4927-8498-73fb9279861c&Service=PickUp&lang=EN",
+            "https://thestarvista.sg/stores/greendot",
+            "https://www.greendot.sg/faq/"
+          ]
+        },
+        "sources": [
+          {
+            "url": "https://restaurant.momos.io/greendot-c29da/locations",
+            "checkedAt": "2026-10-17",
+            "fetchedAt": "2026-10-17T10:02:55.046965+00:00",
+            "contentSha256": "5dc3fc769d03555622506802f8df82c854307ff4f57ad9c2a5bfa49adc3c1cc6",
+            "evidence": "\"The Star Vista\" remains listed at the saved unit/postal; the capture exposes a closing indicator, not a complete weekly schedule. ([restaurant.momos.io](https://restaurant.momos.io/greendot-c29da/locations))"
+          },
+          {
+            "url": "https://thestarvista.sg/stores/greendot",
+            "checkedAt": "2026-10-17",
+            "fetchedAt": "2026-10-17T10:06:48.089756+00:00",
+            "contentSha256": "b8869aebbf93fa88ed1739482730b22fb9482b556e7dc77a9fbc87536398635c",
+            "evidence": "\"02-04\" and \"11.00am - 9.00pm\" corroborate the unit and time window; explicit operating days and exceptions are absent. ([thestarvista.sg](https://thestarvista.sg/stores/greendot))"
+          },
+          {
+            "url": "https://orders.greendot.sg/?StoreID=f39c03dc-5939-438d-b91e-df0677037d8c&Service=PickUp&lang=EN",
+            "checkedAt": "2026-10-17",
+            "fetchedAt": "2026-10-17T10:03:22.930694+00:00",
+            "contentSha256": "44d21258e9904bff6ae23f096517730eaa15f3c11253c218a6d00d319bc39a3c",
+            "evidence": "Opened with web_extract: existing \"SGD\" base amounts match where visible; modifier ranges and current fulfilment availability were not fully validated."
+          },
+          {
+            "url": "https://www.greendot.sg/faq/",
+            "checkedAt": "2026-10-17",
+            "fetchedAt": "2026-10-17T10:07:55.446836+00:00",
+            "contentSha256": "88983997726f0b62e4d90e7cba003d0a5f6479ebf3595e257fad6643c1e247e9",
+            "evidence": "\"Greendot outlets accept dine-in orders up to 30 minutes before closing time\" supplies a last-order rule, not branch operating days. ([greendot.sg](https://www.greendot.sg/faq/))"
+          }
+        ],
+        "expectedHash": "084c4f316d14a07dbb47da830db80a909d21df7f36c6b87f1b9b51285f339eb5",
+        "proposalHash": "985a75602b29d1d95ff1e7f33617fefbafc5519c88548dbbdd5b2b38f20146fe",
+        "review": {
+          "decision": "approved",
+          "reviewedBy": "QT Manager",
+          "dataHash": "688dd2778ab357264a881306c98409a104f7dd6c4867a5076275bed9d08173b9",
+          "reason": "Approve the exact sourceUrls-only patch. The supplied merchant-directory capture identifies The Star Vista branch, and the saved independent review corroborates the landlord reference for unit 02-04. The supplied FAQ supports only the general dine-in last-order rule. No operating-day inference, renewed menu verification, patisserie branch/channel clearance, availability guarantee or image approval follows from adding these references."
+        }
+      },
+      {
+        "kind": "venue",
+        "id": "zhen-xiang-woodlands-street-32",
+        "data": {
+          "id": "zhen-xiang-woodlands-street-32",
+          "menuPrices": [
+            {
+              "sectionId": "zhen-xiang-woodlands-street-32-delivery-sample",
+              "itemId": "zhen-xiang-woodlands-street-32-western-vegetarian-pork-rib-rice-set",
+              "name": "Western Vegetarian Pork Rib Rice Set \u897f\u5f0f\u7d20\u6392\u9aa8\u996d",
+              "scope": "branch-delivery",
+              "sourceUrl": "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32",
+              "checkedAt": "2026-10-17",
+              "price": {
+                "amount": 7.8,
+                "currency": "SGD",
+                "type": "displayed"
+              }
+            }
+          ]
+        },
+        "sources": [
+          {
+            "url": "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32",
+            "checkedAt": "2026-10-17",
+            "fetchedAt": "2026-10-17T09:57:40.330260+00:00",
+            "contentSha256": "60f971e0aaa4207ea23d93e4304290eb0716b252e22f8d9c7362fbc85284e04c",
+            "evidence": "Exact branch confirmed. The supplied rice-set item has a lower displayed delivery price; explicit egg labels support vegetarian rather than vegan classification. ([foodpanda.sg](https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32))"
+          }
+        ],
+        "expectedHash": "91beb67619b9a773ebaef68b7dc7943923fd68df9f62d7e9a7a0183bf321f251",
+        "proposalHash": "8c1561d031711cc81a4aa8bae6b897f04477ead869a1c79e36c5d3217680a233",
+        "review": {
+          "decision": "approved",
+          "reviewedBy": "QT Manager",
+          "dataHash": "791f8eaac406a2f95f7b8395450e72427e247ffa280ab8b48abb227f65fb82b7",
+          "reason": "The supplied capture omits the item-price row, so a necessary independent fetch was performed. The exact Foodpanda branch page identifies 325 Woodlands Street 32 #01-131 and explicitly displays Western Vegetarian Pork Rib Rice Set \u897f\u5f0f\u7d20\u6392\u9aa8\u996d at S$7.80, supporting amount 7.8, currency SGD and branch-delivery scope. Approve only this displayed item-price patch, not a dine-in price, checkout total, vegan claim or complete-menu verification. ([foodpanda.sg](https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32))"
+        }
+      }
+    ],
+    "assets": []
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "checks": [
+    "Fresh GPS is searchable immediately before the minute tick",
+    "Delayed GPS cannot replace a newer typed location",
+    "Delayed GPS is discarded after leaving Explore"
+  ],
+  "searches": [
+    {
+      "area": "Tiong Bahru",
+      "query": "",
+      "vegan": false,
+      "radius": 5000
+    },
+    {
+      "area": "Singapore",
+      "query": "",
+      "vegan": false,
+      "origin": {
+        "latitude": 1.3,
+        "longitude": 103.84,
+        "capturedAt": 1792022754520,
+        "accuracy": 0
+      },
+      "radius": 5000
+    },
+    {
+      "area": "Tiong Bahru",
+      "query": "",
+      "vegan": false,
+      "radius": 5000
+    },
+    {
+      "area": "Bugis",
+      "query": "",
+      "vegan": false,
+      "radius": 5000
+    },
+    {
+      "area": "Tiong Bahru",
+      "query": "",
+      "vegan": false,
+      "radius": 5000
+    }
+  ],
+  "errors": [],
+  "correctedPrivateCapture": "filters-private-addresses.png"
+}

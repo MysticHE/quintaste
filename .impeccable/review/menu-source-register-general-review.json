@@ -1,0 +1,140 @@
+{
+  "review": "menu-source-register-general-review",
+  "reviewedAt": "2026-10-16T01:21:33.356Z",
+  "status": "approved",
+  "scope": {
+    "mode": "Independent focused review of the new source register, persisted dataset inventory and exported existing publicId helper. No useful historical diff exists for these local additions.",
+    "files": [
+      {
+        "file": "scripts/build-menu-source-register.ts",
+        "sha256": "63936ea17421f6aad1ba7cb5f35a7425d0cbc24b3ce55202b6596024e9f44372"
+      },
+      {
+        "file": "scripts/build-menu-research-index.ts",
+        "sha256": "9ac7eead7c691c19a01393503e7c5a1b83b65edc2e0acc8bd4cb002c4f36d5aa"
+      },
+      {
+        "file": "scripts/menu-publication/normalize.ts",
+        "sha256": "01638239be685145ebd8e5744a5cf2ca819278ebbbe7feb5052aa538c5a884d6"
+      }
+    ],
+    "ownership": "Only this review report is written; canonical source and data remain untouched."
+  },
+  "findings": [],
+  "resolvedFindings": [
+    {
+      "id": "MSR-01",
+      "severity": "MEDIUM",
+      "file": "scripts/build-menu-source-register.ts",
+      "line": 118,
+      "issue": "Raw IDs alone did not expose the actual public food/section IDs. The initial artifact contained517published records whose raw IDs differed from app IDs.",
+      "fix": "Emit publicFoodId/publicSectionId for published rows and null for nonpublished rows.",
+      "verification": "Synthetic raw hashed ID emits the exact publicId result while preserving raw foodId. Real --check passes."
+    },
+    {
+      "id": "MSR-02",
+      "severity": "MEDIUM",
+      "file": "scripts/build-menu-source-register.ts",
+      "line": 112,
+      "issue": "The register omitted the boolean menu.held state used by the publication compiler. Existing boolean-held menus had other flags that happened to keep their15rows held.",
+      "fix": "Include menu.held===true in held-state resolution.",
+      "verification": "A menu held solely by this boolean now emits held, with no public IDs."
+    },
+    {
+      "id": "MSR-03",
+      "severity": "MEDIUM",
+      "file": "scripts/build-menu-source-register.ts",
+      "line": 86,
+      "issue": "Different raw IDs could normalize to one public key; an earlier held row could consume the published mapping and pass final leftover/total checks, incorrectly attributing the app food.",
+      "fix": "Reject normalized menu-ID and normalized dataset/menu/food-key collisions before accepting a register.",
+      "verification": "Synthetic raw/hashing-namespace food collision and menu collision both reject. Initial actual inventory had no normalized collisions."
+    },
+    {
+      "id": "MSR-04",
+      "severity": "MEDIUM",
+      "file": "scripts/build-menu-source-register.ts",
+      "line": 52,
+      "issue": "A nonempty invalid checkedAt/retrievedAt value was accepted as dated evidence.",
+      "fix": "Validate both authored check/retrieval strings before choosing their explicit date basis; keep missing dates undated.",
+      "verification": "Invalid checkedAt,invalid retrievedAt and invalid retrievedAt alongside a valid checkedAt all reject. Missing dates remain null/undated; retrievedAt fallback remains labeled."
+    }
+  ],
+  "checks": [
+    {
+      "name": "Generated register consistency",
+      "status": "pass",
+      "command": "node -r ../tmp/qa/menu-register-ts.cjs scripts/build-menu-source-register.ts --check",
+      "exitCode": 0,
+      "counts": {
+        "foodRecords": 15489,
+        "sourceDocuments": 3296,
+        "uniqueSourceUrls": 3245,
+        "undatedSourceDocuments": 0,
+        "publishedRecords": 10561,
+        "publishedFoodOccurrences": 10677,
+        "heldRecords": 1814,
+        "branchOnlySources": 0
+      },
+      "datasetCount": 69,
+      "registerBytes": 12473012,
+      "assessment": "Check recomputes the register, resolves every referenced source and actual published row, compares raw food totals against the inventory and compares saved output while ignoring generatedAt only."
+    },
+    {
+      "name": "Food versus menu and branch evidence",
+      "status": "pass",
+      "assertions": [
+        "Exact item evidence remains sourceBasis item",
+        "Menu and branch sourceRefs are separately recorded as context",
+        "A menu context check date using retrievedAt retains that basis",
+        "A branch context with no authored date stays explicitly undated",
+        "Menu-only and branch-only fallbacks retain their weaker sourceBasis"
+      ]
+    },
+    {
+      "name": "Source resolution and collision safety",
+      "status": "pass",
+      "assertions": [
+        "Missing explicitly named source rejects",
+        "No traceable source rejects",
+        "Pilot fallback records the pilot dataset rather than the referring research dataset",
+        "Normalized food-ID collision rejects",
+        "Normalized menu-ID collision rejects"
+      ]
+    },
+    {
+      "name": "Publication IDs and held state",
+      "status": "pass",
+      "assertions": [
+        "Hashed publicFoodId matches existing publicId behavior",
+        "publicSectionId matches actual published section ID",
+        "Raw foodId stays available",
+        "Boolean-held menu stays held",
+        "Nonpublished records expose no public IDs"
+      ]
+    },
+    {
+      "name": "Inventory dataset persistence",
+      "status": "pass",
+      "assessment": "Dataset count/list are derived from the same collected packet list. Existing collection path/visited guards and raw-food totals remain unchanged. Stdout omits the long list; persisted JSON retains it for exact register traversal."
+    },
+    {
+      "name": "Provenance language and data boundary",
+      "status": "pass",
+      "assessment": "Register labels source observations and unconfirmed/historical pricing without certifying ingredients,live stock or future prices. Branch/whole-venue context remains separate from item proof. These are local research artifacts; this change introduces no app/API response payload."
+    }
+  ],
+  "limitations": [
+    "Source linkage and regeneration checks do not independently certify merchant claims or verify transcription accuracy.",
+    "Initial collision/date audit found none in the then-current inventory; synthetic tests establish rejection safeguards.",
+    "No new test files,canonical edits,Google calls or other outbound requests were made.",
+    "Data is being integrated concurrently; counts and code hashes describe this captured review revision.",
+    "TypeScript,lint and native/app acceptance belong to the separate final gates."
+  ],
+  "summary": {
+    "CRITICAL": 0,
+    "HIGH": 0,
+    "MEDIUM": 0,
+    "LOW": 0,
+    "verdict": "APPROVE"
+  }
+}

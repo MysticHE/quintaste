@@ -1,0 +1,822 @@
+{
+  "checkedAt": "2026-10-17",
+  "deployedRelease": "20261017-reviewed-hours30",
+  "baseline": "20261017-location2",
+  "fullCoverageComplete": false,
+  "coverage": {
+    "browseLocations": 174,
+    "menuIds": 175,
+    "covers": 171,
+    "hours": 96,
+    "allThreeAvailable": 95,
+    "coverGaps": 3,
+    "hoursGaps": 78,
+    "uniqueAssets": 138,
+    "imageBytes": 19171228,
+    "largestImageBytes": 299725,
+    "firstPageBytes": 22040,
+    "firstPageMilliseconds": 20.0,
+    "locatedBrowseLocations": 171,
+    "coordinateHolds": 3,
+    "explicitUnconfirmedWeekdaysWithinPublishedSchedules": 2
+  },
+  "newPhotos": [],
+  "newHours": [
+    {
+      "venueId": "research-sufood-raffles-city",
+      "address": "252 North Bridge Road, #02-19 to 21 Raffles City Shopping Centre, Singapore 179103",
+      "hours": {
+        "summary": "Daily 11:30–15:00 · 17:30–22:00",
+        "schedule": [
+          "Daily: 11:30–15:00 and 17:30–22:00"
+        ],
+        "notes": "Last orders: lunch 14:30; dinner 21:30. Merchant profile captured 15 October 2026; current recheck unavailable. Holiday hours may differ.",
+        "sourceUrl": "https://www.facebook.com/sufood.singapore/",
+        "checkedAt": "2026-10-15",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Exact merchant profile explicitly names Raffles City#02-19 and252NorthBridgeRoad. Original readable public browser capture/check date15October retained. Current web-reader recheck returns a block page; no login, TLS bypass, private APIs or access-control workaround attempted. The full daily venue schedule is distinct from the temporary Closednow label and delivery windows.",
+      "unconfirmedDays": [],
+      "sourcePageCheckedAt": "2026-10-15T10:50:08.115418+00:00",
+      "reviewedAt": "2026-10-17",
+      "sourceSha256": "3d5a4d167a2dbe6b29ef27ab9cd2cb1a49446c72037c1ffdee398eb4d90de9fe",
+      "previousHoldRetained": "Current primary hours unavailable; secondary schedules conflict."
+    },
+    {
+      "venueId": "research-ur01-new-green-pasture-fortune",
+      "address": "190 Middle Road #04-22 Fortune Centre, Singapore 188979",
+      "hours": {
+        "summary": "Tue–Sun 11:00–20:00",
+        "schedule": [
+          "Tue–Sun: 11:00–20:00",
+          "Monday: hours unconfirmed"
+        ],
+        "notes": "Merchant dine-in page publishes Tue–Sun hours; Monday is not specified and remains unconfirmed. Holiday hours may differ.",
+        "sourceUrl": "https://take.app/newgreenpasture",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Exact existing merchant TakeApp binding and phone63368755 retained for FortuneCentre#04-22. Fresh17October primary page200 explicitly welcomes dine-in and saysOpenTueSun11–20. This is merchant descriptive venue text, not a delivery-slot table. Its separate Feb2022price note is preserved but no prices/foods were re-extracted. Monday absent, not inferred closed.",
+      "unconfirmedDays": [
+        "Monday"
+      ],
+      "sourcePageCheckedAt": "2026-10-17T01:01:27.002601+00:00",
+      "reviewedAt": "2026-10-17",
+      "sourceSha256": "313b26065b2d44881020d9672be295198c3dce88326d6cee7ae09d726b7e848b",
+      "previousHoldRetained": "Saved source leads reviewed; no reliable exact-branch current venue opening schedule established. Ordering slots, mall hours, historical/secondary-only claims and unavailable pages are not promoted."
+    }
+  ],
+  "primaryHoursEvidence": [
+    {
+      "venueId": "research-sufood-raffles-city",
+      "sourceUrl": "https://www.facebook.com/sufood.singapore/",
+      "sourceCheckedAt": "2026-10-15T10:50:08.115418+00:00",
+      "reviewedAt": "2026-10-17",
+      "sourceFile": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-sufood-joie-genesis-lovinghut\\sufood-facebook-current-browser.html",
+      "sourceSha256": "3d5a4d167a2dbe6b29ef27ab9cd2cb1a49446c72037c1ffdee398eb4d90de9fe",
+      "excerpt": "Raffles City #02-19\nOpen daily:\nLunch: 1130am - 3pm (230pm last order)\nDinner: 5.30pm - 10pm (930pm last order)",
+      "review": "Exact merchant profile explicitly names Raffles City#02-19 and252NorthBridgeRoad. Original readable public browser capture/check date15October retained. Current web-reader recheck returns a block page; no login, TLS bypass, private APIs or access-control workaround attempted. The full daily venue schedule is distinct from the temporary Closednow label and delivery windows.",
+      "previousHoldRetained": "Current primary hours unavailable; secondary schedules conflict."
+    },
+    {
+      "venueId": "research-ur01-new-green-pasture-fortune",
+      "sourceUrl": "https://take.app/newgreenpasture",
+      "sourceCheckedAt": "2026-10-17T01:01:27.002601+00:00",
+      "reviewedAt": "2026-10-17",
+      "sourceFile": "C:\\Users\\huien\\qt\\quintaste\\.local\\coverage-2026-10-17aa\\sources\\newgreenpasture.html",
+      "sourceSha256": "313b26065b2d44881020d9672be295198c3dce88326d6cee7ae09d726b7e848b",
+      "excerpt": "We welcome dine in. Open Tue-Sun 11:00am-8:00pm",
+      "review": "Exact existing merchant TakeApp binding and phone63368755 retained for FortuneCentre#04-22. Fresh17October primary page200 explicitly welcomes dine-in and saysOpenTueSun11–20. This is merchant descriptive venue text, not a delivery-slot table. Its separate Feb2022price note is preserved but no prices/foods were re-extracted. Monday absent, not inferred closed.",
+      "previousHoldRetained": "Saved source leads reviewed; no reliable exact-branch current venue opening schedule established. Ordering slots, mall hours, historical/secondary-only claims and unavailable pages are not promoted."
+    }
+  ],
+  "sourceReview": {
+    "checkedAt": "2026-10-17",
+    "scope": "Hours-only saved-source review. Candidate inventory is not source approval. Exact-URL matching alone does not establish publisher authority.",
+    "inventory": {
+      "checkedAt": "2026-10-17",
+      "kind": "Saved HTML hours-only inventory; no food extraction or new requests",
+      "filesFound": 5229,
+      "uniqueFilesScanned": 5141,
+      "totalBytesScanned": 963325981,
+      "candidateFiles": 636
+    },
+    "focusedPages": 65,
+    "outcomes": [
+      {
+        "sourceUrl": "https://www.compassone.sg/",
+        "sourceFile": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresolved-04\\bao-landlord-postal.html",
+        "sourceSha256": "1adfb5c75e6e9a10dfa9b29fb45c5ee6d145e305376fe374818748825dae8034",
+        "venueIds": [
+          "research-ur04-bao-su-zhai"
+        ],
+        "reviewedAt": "2026-10-17",
+        "status": "held-no-usable-venue-schedule",
+        "reason": "No unambiguous exact-branch venue opening schedule in saved page. Empty/generic UI labels and service windows do not establish opening hours."
+      },
+      {
+        "sourceUrl": "https://take.app/bodhideli",
+        "sourceFile": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-bugis\\bodhi.html",
+        "sourceSha256": "dff5e289c6739c0728259132d7d87522ca5ab94a8ae1639a574ac37a8bcf4c25",
+        "venueIds": [
+          "bodhi-deli-fortune-centre"
+        ],
+        "reviewedAt": "2026-10-17",
+        "status": "held-no-usable-venue-schedule",
+        "reason": "No unambiguous exact-branch venue opening schedule in saved page. Empty/generic UI labels and service windows do not establish opening hours."
+      },
+      {
+        "sourceUrl": "https://www.onehungryhippo.com/restaurants/gan-taste-vegetarian",
+        "sourceFile": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresearched-03\\directory-gan-taste-vegetarian.html",
+        "sourceSha256": "f0b2a33daa114cbe864d79ea7ed56629e64cf9869a18243a77bb4c35984f9822",
+        "venueIds": [
+          "research-ur03-gan-taste-vegetarian"
+        ],
+        "reviewedAt": "2026-10-17",
+        "status": "held-secondary-source",
+        "reason": "Independent editorial/directory schedule; no primary promotion. Existing conflicts retained."
+      },
+      {
+        "sourceUrl": "https://www.onehungryhippo.com/restaurants/eco-sen-vegetarian-food",
+        "sourceFile": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresearched-03\\directory-eco-sen-vegetarian-food.html",
+        "sourceSha256": "6d130401e5c53c333c8cd2bab7b39111b03913be265ff920331ae0af46150d68",
+        "venueIds": [
+          "research-ur03-eco-sen-toa-payoh66"
+        ],
+        "reviewedAt": "2026-10-17",
+        "status": "held-secondary-source",
+        "reason": "Independent editorial/directory schedule; no primary promotion. Existing conflicts retained."
+      },
+      {
+        "sourceUrl": "https://www.onehungryhippo.com/restaurants/99-vegetarian",
+        "sourceFile": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresearched-03\\directory-99-vegetarian.html",
+        "sourceSha256": "ef42b087435386e41b3635fddd1fdc294ea405afd9934dc9eed7790705e7f468",
+        "venueIds": [
+          "research-ur03-99-pioneer-mall"
+        ],
+        "reviewedAt": "2026-10-17",
+        "status": "held-secondary-source",
+        "reason": "Independent editorial/directory schedule; no primary promotion. Existing conflicts retained."
+      },
+      {
+        "sourceUrl": "https://www.onehungryhippo.com/restaurants/amk-green-harmony-vegetarian",
+        "sourceFile": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresearched-02\\directory-amk-green-harmony-vegetarian.html",
+        "sourceSha256": "c7fe16d455499b7b719192cd1782b18c988ce0200c99eb6af084de2cda06ae1a",
+        "venueIds": [
+          "research-ur02-amk-green-harmony-vegetarian"
+        ],
+        "reviewedAt": "2026-10-17",
+        "status": "held-secondary-source",
+        "reason": "Independent editorial/directory schedule; no primary promotion. Existing conflicts retained."
+      },
+      {
+        "sourceUrl": "https://www.onehungryhippo.com/restaurants/vegetarian-food-stall-01-74",
+        "sourceFile": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresearched-02\\directory-vegetarian-food-stall-01-74.html",
+        "sourceSha256": "246abf15cb1247644bf358de399dd295820454b23bf3c2fa04ad462014b6ffa4",
+        "venueIds": [
+          "research-ur02-vegetarian-food-stall-01-74"
+        ],
+        "reviewedAt": "2026-10-17",
+        "status": "held-secondary-source",
+        "reason": "Independent editorial/directory schedule; no primary promotion. Existing conflicts retained."
+      },
+      {
+        "sourceUrl": "https://www.onehungryhippo.com/restaurants/tpy-203-vegetarian-food",
+        "sourceFile": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresearched-02\\directory-tpy-203-vegetarian-food.html",
+        "sourceSha256": "6092e582af3dfe31a911c9d3b715dfbf02ddfbdfeeacd5927297ba5f14387898",
+        "venueIds": [
+          "research-ur02-tpy-203-vegetarian-food"
+        ],
+        "reviewedAt": "2026-10-17",
+        "status": "held-secondary-source",
+        "reason": "Independent editorial/directory schedule; no primary promotion. Existing conflicts retained."
+      },
+      {
+        "sourceUrl": "https://www.onehungryhippo.com/restaurants/xie-bi-an-vegetarian",
+        "sourceFile": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresearched-02\\directory-xie-bi-an-vegetarian.html",
+        "sourceSha256": "08f07380fc96a1d90b7080422229bad18130b3cdb1f9b8c43443f6731fd7b156",
+        "venueIds": [
+          "research-ur02-xie-bi-an-vegetarian"
+        ],
+        "reviewedAt": "2026-10-17",
+        "status": "held-secondary-source",
+        "reason": "Independent editorial/directory schedule; no primary promotion. Existing conflicts retained."
+      },
+      {
+        "sourceUrl": "https://kopitiam.com.sg/2026/08/21/blk-80-circuit-road-market-food-centre-6-must-try-hawker-stalls/",
+        "sourceFile": "C:\\Users\\huien\\qt\\tmp\\qa\\identity-completion-foods\\xiang-visit.html",
+        "sourceSha256": "5de8c87595c6f61e6d78667b64c78954f9f41b4e498f815ffb78dd62d10fc745",
+        "venueIds": [
+          "research-xiang-yuan-circuit-source"
+        ],
+        "reviewedAt": "2026-10-17",
+        "status": "held-independent-editorial",
+        "reason": "Footer explicitly says independent editorial platform and no affiliation with any F&B group. Not the FairPrice operator website kopitiam.biz; current fetch timed out. Existing image attribution/identity already correctly distinguishes publisher from operator. Hours not promoted."
+      },
+      {
+        "sourceUrl": "https://sethlui.com/mini-green-toa-payoh-singapore-mar-2026/",
+        "sourceFile": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresearched-02\\mini-green-owner-report.html",
+        "sourceSha256": "41b957d8d43691a15fb6873e00e3de88f8e3d4da225729d50dd38304853f5d19",
+        "venueIds": [
+          "research-ur02-vegetarian-food-stall-01-74"
+        ],
+        "reviewedAt": "2026-10-17",
+        "status": "held-secondary-source",
+        "reason": "Independent editorial/directory schedule; no primary promotion. Existing conflicts retained."
+      },
+      {
+        "sourceUrl": "https://baomaker.com",
+        "sourceFile": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-remaining-merchants\\hippo-baomaker.html",
+        "sourceSha256": "d66d000a169742192c3105e50e3da3b4b5ee232e2408c83efda6d041d5a3bc3e",
+        "venueIds": [
+          "research-baomaker-ang-mo-kio-447"
+        ],
+        "reviewedAt": "2026-10-17",
+        "status": "held-no-usable-venue-schedule",
+        "reason": "No unambiguous exact-branch venue opening schedule in saved page. Empty/generic UI labels and service windows do not establish opening hours."
+      },
+      {
+        "sourceUrl": "https://take.app/newgreenpasture",
+        "sourceFile": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresearched-01\\new-green-takeapp.html",
+        "sourceSha256": "72d1bfd6017294e1b344b141c910f1a39da5de904e489217ee3aeff6546bc2a1",
+        "venueIds": [
+          "research-ur01-new-green-pasture-fortune"
+        ],
+        "reviewedAt": "2026-10-17",
+        "status": "accepted-primary-descriptive-hours",
+        "reason": "Fresh primary page explicitly welcomes dine-in and publishes Tue–Sun11–20; Monday remains unconfirmed."
+      },
+      {
+        "sourceUrl": "https://baomaker.com/pages/about",
+        "sourceFile": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-directory-continuation\\baomaker.com-ac0c2a083a.html",
+        "sourceSha256": "0ea29867cd4a89cd09fc3064a038138fbc8b71c5450b8c8c4fba8d6c0f7c1444",
+        "venueIds": [
+          "research-baomaker-ang-mo-kio-447"
+        ],
+        "reviewedAt": "2026-10-17",
+        "status": "held-no-usable-venue-schedule",
+        "reason": "No unambiguous exact-branch venue opening schedule in saved page. Empty/generic UI labels and service windows do not establish opening hours."
+      },
+      {
+        "sourceUrl": "https://baomaker.com",
+        "sourceFile": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-directory-continuation\\baomaker.com-263097906f.html",
+        "sourceSha256": "9641798116a5cec82363a8e7f5ddad4b886d68e3a815d494bbdb6ff7117284e6",
+        "venueIds": [
+          "research-baomaker-ang-mo-kio-447"
+        ],
+        "reviewedAt": "2026-10-17",
+        "status": "held-no-usable-venue-schedule",
+        "reason": "No unambiguous exact-branch venue opening schedule in saved page. Empty/generic UI labels and service windows do not establish opening hours."
+      },
+      {
+        "sourceUrl": "https://take.app/kindsproutsg",
+        "sourceFile": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresearched-01\\kind-sprout.html",
+        "sourceSha256": "12097f19a00f28c669d8680aeef0ae736bc9e2482f8b050965ad41ba15150b4d",
+        "venueIds": [
+          "research-ur01-kind-sprout-sengkang"
+        ],
+        "reviewedAt": "2026-10-17",
+        "status": "held-no-usable-venue-schedule",
+        "reason": "No unambiguous exact-branch venue opening schedule in saved page. Empty/generic UI labels and service windows do not establish opening hours."
+      },
+      {
+        "sourceUrl": "https://www.onehungryhippo.com/restaurants/kale-by-kang-su-the-adelphi",
+        "sourceFile": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresearched-01\\directory-kale-by-kang-su-the-adelphi.html",
+        "sourceSha256": "50e533e848b42a7f07d225e621c3d0eab191669030dc3b0eb5e2654cd246b27e",
+        "venueIds": [
+          "research-ur01-kale-adelphi"
+        ],
+        "reviewedAt": "2026-10-17",
+        "status": "held-secondary-source",
+        "reason": "Independent editorial/directory schedule; no primary promotion. Existing conflicts retained."
+      },
+      {
+        "sourceUrl": "https://www.onehungryhippo.com/restaurants/harmony-hut-int-l-food-llp",
+        "sourceFile": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresearched-01\\directory-harmony-hut-int-l-food-llp.html",
+        "sourceSha256": "4bceb9073f321bd5dff8207ae14457e7dab2a20c57581c18209f28dc6e6c9396",
+        "venueIds": [
+          "research-ur01-harmony-serangoon"
+        ],
+        "reviewedAt": "2026-10-17",
+        "status": "held-secondary-source",
+        "reason": "Independent editorial/directory schedule; no primary promotion. Existing conflicts retained."
+      },
+      {
+        "sourceUrl": "https://www.onehungryhippo.com/restaurants/new-green-pasture-cafe",
+        "sourceFile": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresearched-01\\directory-new-green-pasture-cafe.html",
+        "sourceSha256": "d9c1c5bf924a88173c153a5e3be816a8f44b60a431518fe74ed6af7c30b5f90c",
+        "venueIds": [
+          "research-ur01-new-green-pasture-fortune"
+        ],
+        "reviewedAt": "2026-10-17",
+        "status": "held-secondary-source",
+        "reason": "Independent editorial/directory schedule; no primary promotion. Existing conflicts retained."
+      },
+      {
+        "sourceUrl": "https://www.onehungryhippo.com/restaurants/tracy-juice-culture",
+        "sourceFile": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresearched-01\\directory-tracy-juice-culture.html",
+        "sourceSha256": "3f7949cf112be4ffbae3b59b10cde7834338aa1ea3fd9f17901f5f42555bc8b5",
+        "venueIds": [
+          "research-ur01-tracy-fortune"
+        ],
+        "reviewedAt": "2026-10-17",
+        "status": "held-secondary-source",
+        "reason": "Independent editorial/directory schedule; no primary promotion. Existing conflicts retained."
+      },
+      {
+        "sourceUrl": "https://take.app/bodhideli",
+        "sourceFile": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-venue-scope\\operator-bodhi.html",
+        "sourceSha256": "fa667ea5e56de404ba8ee83b818a96c2425616dfc7ba71f6ad151ac460ae2013",
+        "venueIds": [
+          "bodhi-deli-fortune-centre"
+        ],
+        "reviewedAt": "2026-10-17",
+        "status": "held-no-usable-venue-schedule",
+        "reason": "No unambiguous exact-branch venue opening schedule in saved page. Empty/generic UI labels and service windows do not establish opening hours."
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/vegestory/",
+        "sourceFile": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-expansion-woodlands\\vegeSocial.html",
+        "sourceSha256": "d99c3592ba14abe1a7371fc1f2b0217326b6e9c657f9390ee192ad4b1c61fa67",
+        "venueIds": [],
+        "reviewedAt": "2026-10-17",
+        "status": "held-no-full-published-schedule-in-public-bio",
+        "reason": "Public profile inventory supplies no full explicit schedule text matching the hour/day pattern. Transient Opennow/Closednow labels are not persisted. Some profiles belong to already-covered or held/nonpublished branches; no new branch approval."
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/XingHuaVegetarianRestaurant/",
+        "sourceFile": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresolved-06\\xing-hua-merchant.html",
+        "sourceSha256": "72eec6da9da0eaff41d2c22b13c787622f328cda194356cfac7dfb547fcf489c",
+        "venueIds": [
+          "research-ur06-xing-hua"
+        ],
+        "reviewedAt": "2026-10-17",
+        "status": "held-no-full-published-schedule-in-public-bio",
+        "reason": "Public profile inventory supplies no full explicit schedule text matching the hour/day pattern. Transient Opennow/Closednow labels are not persisted. Some profiles belong to already-covered or held/nonpublished branches; no new branch approval."
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/GuiLinVegetarian/",
+        "sourceFile": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresolved-06\\so-green-merchant.html",
+        "sourceSha256": "9e5ba7317b00300b71a0c7081aa80180ff548d6d132957ed540c451a94b7bace",
+        "venueIds": [
+          "research-ur06-so-green"
+        ],
+        "reviewedAt": "2026-10-17",
+        "status": "held-no-full-published-schedule-in-public-bio",
+        "reason": "Public profile inventory supplies no full explicit schedule text matching the hour/day pattern. Transient Opennow/Closednow labels are not persisted. Some profiles belong to already-covered or held/nonpublished branches; no new branch approval."
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/SanDeVege/",
+        "sourceFile": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresolved-05\\san-de-merchant.html",
+        "sourceSha256": "e094fed752a12b75f5247d32f1dc787e35650c29f2c40be5569e847f095f31c0",
+        "venueIds": [],
+        "reviewedAt": "2026-10-17",
+        "status": "held-no-full-published-schedule-in-public-bio",
+        "reason": "Public profile inventory supplies no full explicit schedule text matching the hour/day pattern. Transient Opennow/Closednow labels are not persisted. Some profiles belong to already-covered or held/nonpublished branches; no new branch approval."
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/gopalscafe/",
+        "sourceFile": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresearched-03\\gopals-facebook.html",
+        "sourceSha256": "39283454cfc4e7bc0272523c74282331a91f1fad0534176a8222b94d215dd227",
+        "venueIds": [],
+        "reviewedAt": "2026-10-17",
+        "status": "held-no-full-published-schedule-in-public-bio",
+        "reason": "Public profile inventory supplies no full explicit schedule text matching the hour/day pattern. Transient Opennow/Closednow labels are not persisted. Some profiles belong to already-covered or held/nonpublished branches; no new branch approval."
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/ciwenvegetarianfood/",
+        "sourceFile": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresearched-03\\ciwen-facebook.html",
+        "sourceSha256": "684a059ce1dd4cd0651e2ac03ec739c08abc380fb9314fc9583b12b9b14836c4",
+        "venueIds": [],
+        "reviewedAt": "2026-10-17",
+        "status": "held-no-full-published-schedule-in-public-bio",
+        "reason": "Public profile inventory supplies no full explicit schedule text matching the hour/day pattern. Transient Opennow/Closednow labels are not persisted. Some profiles belong to already-covered or held/nonpublished branches; no new branch approval."
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/originalgreenssg/",
+        "sourceFile": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-venue-scope\\followup-originalgreens-facebook.html",
+        "sourceSha256": "95aa2e5e015a3d4f0a5bff21f8f02ee1bfa95155b75d83d3aac54d66cb09ff5d",
+        "venueIds": [],
+        "reviewedAt": "2026-10-17",
+        "status": "held-no-full-published-schedule-in-public-bio",
+        "reason": "Public profile inventory supplies no full explicit schedule text matching the hour/day pattern. Transient Opennow/Closednow labels are not persisted. Some profiles belong to already-covered or held/nonpublished branches; no new branch approval."
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/p/%E7%9C%9F%E5%BF%83%E7%B4%A0%E9%A3%9F-Zhen-Xin-Vegetarian-100040638896597/",
+        "sourceFile": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresearched-02\\zhen-xin-www.html",
+        "sourceSha256": "abc286c8355456125775aa1f7bc0bf550ec07410df7742d4cfefc904ecf5b1f8",
+        "venueIds": [],
+        "reviewedAt": "2026-10-17",
+        "status": "held-no-full-published-schedule-in-public-bio",
+        "reason": "Public profile inventory supplies no full explicit schedule text matching the hour/day pattern. Transient Opennow/Closednow labels are not persisted. Some profiles belong to already-covered or held/nonpublished branches; no new branch approval."
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/YuanYuanVegetarianCuisine/",
+        "sourceFile": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresearched-02\\yuan-yuan-vegetarian-cuisine.html",
+        "sourceSha256": "a33df220ff0b0ac644354334060989e2bbc4b3278746fcfdb600de46e12cd3f2",
+        "venueIds": [],
+        "reviewedAt": "2026-10-17",
+        "status": "held-no-full-published-schedule-in-public-bio",
+        "reason": "Public profile inventory supplies no full explicit schedule text matching the hour/day pattern. Transient Opennow/Closednow labels are not persisted. Some profiles belong to already-covered or held/nonpublished branches; no new branch approval."
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/p/%E4%B8%80%E7%B4%A0%E5%93%81-Yi-SHU-PING-100086525583282/",
+        "sourceFile": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresearched-02\\yisupin-vegan-ppc.html",
+        "sourceSha256": "1f5992854746f1b046374fb1565be2603f3989bd60b72cc5c2d82078032e4d6e",
+        "venueIds": [],
+        "reviewedAt": "2026-10-17",
+        "status": "held-no-full-published-schedule-in-public-bio",
+        "reason": "Public profile inventory supplies no full explicit schedule text matching the hour/day pattern. Transient Opennow/Closednow labels are not persisted. Some profiles belong to already-covered or held/nonpublished branches; no new branch approval."
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/xmvsingapore/",
+        "sourceFile": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresearched-02\\xuan-miao-vegan-plq.html",
+        "sourceSha256": "f2d3ad082a00f4eb6a3883c42c00405975ade70b75befa9d86bd0d6729989314",
+        "venueIds": [],
+        "reviewedAt": "2026-10-17",
+        "status": "held-no-full-published-schedule-in-public-bio",
+        "reason": "Public profile inventory supplies no full explicit schedule text matching the hour/day pattern. Transient Opennow/Closednow labels are not persisted. Some profiles belong to already-covered or held/nonpublished branches; no new branch approval."
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/xiebianvege/",
+        "sourceFile": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresearched-02\\xie-bi-an-vegetarian.html",
+        "sourceSha256": "08aab495bef10fa023ccc3d0a9029a7664101798d90b5e0d6944c27661822231",
+        "venueIds": [
+          "research-ur02-xie-bi-an-vegetarian"
+        ],
+        "reviewedAt": "2026-10-17",
+        "status": "held-no-full-published-schedule-in-public-bio",
+        "reason": "Public profile inventory supplies no full explicit schedule text matching the hour/day pattern. Transient Opennow/Closednow labels are not persisted. Some profiles belong to already-covered or held/nonpublished branches; no new branch approval."
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/p/Verimix-Vegetarian-100092444573069/",
+        "sourceFile": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresearched-02\\verimix-vegetarian-science-park.html",
+        "sourceSha256": "dceb6ad8a6501ac19f48aa981e95a5ed79c4cd88a5e679ce2b0244f35b895653",
+        "venueIds": [],
+        "reviewedAt": "2026-10-17",
+        "status": "held-no-full-published-schedule-in-public-bio",
+        "reason": "Public profile inventory supplies no full explicit schedule text matching the hour/day pattern. Transient Opennow/Closednow labels are not persisted. Some profiles belong to already-covered or held/nonpublished branches; no new branch approval."
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/p/Veggie-house-Max-see-100057641671691/",
+        "sourceFile": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresearched-02\\veggie-house-www.html",
+        "sourceSha256": "f204977c7b7068822cb3cb42fa791c0d069f59b11be225bbe3ea3b763c5e862a",
+        "venueIds": [],
+        "reviewedAt": "2026-10-17",
+        "status": "held-no-full-published-schedule-in-public-bio",
+        "reason": "Public profile inventory supplies no full explicit schedule text matching the hour/day pattern. Transient Opennow/Closednow labels are not persisted. Some profiles belong to already-covered or held/nonpublished branches; no new branch approval."
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/p/Veggie-House-MAX-SEE-100068475678563/",
+        "sourceFile": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresearched-02\\veggie-house-alternate-facebook.html",
+        "sourceSha256": "f9d49e03a0f27f7f160edc490bbb4838661ebd4523e4f2c894f28e8c9a1339fa",
+        "venueIds": [],
+        "reviewedAt": "2026-10-17",
+        "status": "held-no-full-published-schedule-in-public-bio",
+        "reason": "Public profile inventory supplies no full explicit schedule text matching the hour/day pattern. Transient Opennow/Closednow labels are not persisted. Some profiles belong to already-covered or held/nonpublished branches; no new branch approval."
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/VegetarianExpress/",
+        "sourceFile": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresearched-02\\vegetarian-express-cafe.html",
+        "sourceSha256": "7ab502fa80fd6352df4937a7ed628ef844a4f916c202d1c353200c648e79c14e",
+        "venueIds": [],
+        "reviewedAt": "2026-10-17",
+        "status": "held-no-full-published-schedule-in-public-bio",
+        "reason": "Public profile inventory supplies no full explicit schedule text matching the hour/day pattern. Transient Opennow/Closednow labels are not persisted. Some profiles belong to already-covered or held/nonpublished branches; no new branch approval."
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/Tpy203veg/",
+        "sourceFile": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresearched-02\\tpy203-www.html",
+        "sourceSha256": "632aeec5ddca9366ed18b180f56fcb64063f1e3f39b6f1ed625c0e87c1116979",
+        "venueIds": [
+          "research-ur02-tpy-203-vegetarian-food"
+        ],
+        "reviewedAt": "2026-10-17",
+        "status": "held-no-full-published-schedule-in-public-bio",
+        "reason": "Public profile inventory supplies no full explicit schedule text matching the hour/day pattern. Transient Opennow/Closednow labels are not persisted. Some profiles belong to already-covered or held/nonpublished branches; no new branch approval."
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/mbakerysg/",
+        "sourceFile": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresearched-02\\m-bakery-www.html",
+        "sourceSha256": "922388227c370dd439a1b186e8c42fb2a80f3b891e2dcd042e0d3017237bcaac",
+        "venueIds": [],
+        "reviewedAt": "2026-10-17",
+        "status": "held-no-full-published-schedule-in-public-bio",
+        "reason": "Public profile inventory supplies no full explicit schedule text matching the hour/day pattern. Transient Opennow/Closednow labels are not persisted. Some profiles belong to already-covered or held/nonpublished branches; no new branch approval."
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/p/%E7%B4%A0%E5%92%8C%E8%BD%A9-Green-Harmony-Vegetarian-61573781043177/",
+        "sourceFile": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresearched-02\\green-harmony-current-facebook.html",
+        "sourceSha256": "7214847aac751eb26acb3ff10a35f5aae0babeb270360fe0ab28a1c74a4a14a5",
+        "venueIds": [],
+        "reviewedAt": "2026-10-17",
+        "status": "held-no-full-published-schedule-in-public-bio",
+        "reason": "Public profile inventory supplies no full explicit schedule text matching the hour/day pattern. Transient Opennow/Closednow labels are not persisted. Some profiles belong to already-covered or held/nonpublished branches; no new branch approval."
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/groups/362754695354819/posts/1305883787708567/",
+        "sourceFile": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresearched-02\\amk-407-vegetarian.html",
+        "sourceSha256": "c5d925dee52a460c6d1c3db62b4a860b9972878526d04f037551f06687115d66",
+        "venueIds": [],
+        "reviewedAt": "2026-10-17",
+        "status": "held-no-full-published-schedule-in-public-bio",
+        "reason": "Public profile inventory supplies no full explicit schedule text matching the hour/day pattern. Transient Opennow/Closednow labels are not persisted. Some profiles belong to already-covered or held/nonpublished branches; no new branch approval."
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/AlmondBakery/",
+        "sourceFile": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresearched-02\\almond-bakery-vegetarian.html",
+        "sourceSha256": "38fb89e743bfcaf2127a1559ccc9120b262c251c4fb4164eac498f90a9b30aa8",
+        "venueIds": [],
+        "reviewedAt": "2026-10-17",
+        "status": "held-no-full-published-schedule-in-public-bio",
+        "reason": "Public profile inventory supplies no full explicit schedule text matching the hour/day pattern. Transient Opennow/Closednow labels are not persisted. Some profiles belong to already-covered or held/nonpublished branches; no new branch approval."
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/3way.sg/",
+        "sourceFile": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresearched-02\\3way-facebook.html",
+        "sourceSha256": "5a5b86525e874dfb767c1a981f4ded921e1f98510e5c05adaaa4153fbc190e93",
+        "venueIds": [],
+        "reviewedAt": "2026-10-17",
+        "status": "held-no-full-published-schedule-in-public-bio",
+        "reason": "Public profile inventory supplies no full explicit schedule text matching the hour/day pattern. Transient Opennow/Closednow labels are not persisted. Some profiles belong to already-covered or held/nonpublished branches; no new branch approval."
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/TracyJuiceCulture/",
+        "sourceFile": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresearched-01\\tracy-juice-culture.html",
+        "sourceSha256": "1b152f5bd42a927f4f145cce5bfa65c4ed07b0f0cd1bc944492a3ad085334953",
+        "venueIds": [
+          "research-ur01-tracy-fortune"
+        ],
+        "reviewedAt": "2026-10-17",
+        "status": "held-no-full-published-schedule-in-public-bio",
+        "reason": "Public profile inventory supplies no full explicit schedule text matching the hour/day pattern. Transient Opennow/Closednow labels are not persisted. Some profiles belong to already-covered or held/nonpublished branches; no new branch approval."
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/TanakaVegetarian/",
+        "sourceFile": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresearched-01\\tanaka-liang-vegetarian-food.html",
+        "sourceSha256": "6cd0ce14b45c7e9f262dd527bfafd0a5610ea25802de6aecfce9cf60187b35aa",
+        "venueIds": [],
+        "reviewedAt": "2026-10-17",
+        "status": "held-no-full-published-schedule-in-public-bio",
+        "reason": "Public profile inventory supplies no full explicit schedule text matching the hour/day pattern. Transient Opennow/Closednow labels are not persisted. Some profiles belong to already-covered or held/nonpublished branches; no new branch approval."
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/p/Quanxin-Vegetarian-food-100063489519617/",
+        "sourceFile": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresearched-01\\quan-xin-vegetarian-food.html",
+        "sourceSha256": "d56b6feecb663c5ebdcd26efd0efc33d3d10864813d01a4956eab9e8550ea13f",
+        "venueIds": [],
+        "reviewedAt": "2026-10-17",
+        "status": "held-no-full-published-schedule-in-public-bio",
+        "reason": "Public profile inventory supplies no full explicit schedule text matching the hour/day pattern. Transient Opennow/Closednow labels are not persisted. Some profiles belong to already-covered or held/nonpublished branches; no new branch approval."
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/p/Flourish-Cafe-Singapore-%E7%B9%81%E8%8D%A3%E7%B4%A0%E9%A3%9F%E5%92%96%E5%95%A1%E5%8E%85-100068659183624/",
+        "sourceFile": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresearched-01\\flourish-cafe.html",
+        "sourceSha256": "7f3b4fcc9c6c7e80307f178ac7f9475314a2c34fb6280c9a4896949ef30b2dd7",
+        "venueIds": [],
+        "reviewedAt": "2026-10-17",
+        "status": "held-no-full-published-schedule-in-public-bio",
+        "reason": "Public profile inventory supplies no full explicit schedule text matching the hour/day pattern. Transient Opennow/Closednow labels are not persisted. Some profiles belong to already-covered or held/nonpublished branches; no new branch approval."
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/evegvegetarian/",
+        "sourceFile": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresearched-01\\e-veg-vegetarian.html",
+        "sourceSha256": "76f959ea994658a2c0881eadf3372673c54fb8b082f8fd76bfa7a412ae15627e",
+        "venueIds": [],
+        "reviewedAt": "2026-10-17",
+        "status": "held-no-full-published-schedule-in-public-bio",
+        "reason": "Public profile inventory supplies no full explicit schedule text matching the hour/day pattern. Transient Opennow/Closednow labels are not persisted. Some profiles belong to already-covered or held/nonpublished branches; no new branch approval."
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/acupoftime.FaiKee/",
+        "sourceFile": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresearched-01\\a-cup-of-time-vegetarian-bedok.html",
+        "sourceSha256": "85006cebc834ac1ced82302e089c6d8434f597a7695d3ea7c2a5e00907b103dd",
+        "venueIds": [],
+        "reviewedAt": "2026-10-17",
+        "status": "held-no-full-published-schedule-in-public-bio",
+        "reason": "Public profile inventory supplies no full explicit schedule text matching the hour/day pattern. Transient Opennow/Closednow labels are not persisted. Some profiles belong to already-covered or held/nonpublished branches; no new branch approval."
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/GingaVeggie/",
+        "sourceFile": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresearched-01\\493-ginga-vegetarian-food.html",
+        "sourceSha256": "3280e938b99fb6ee81edc8521a0b2015bc3c1b57ff5771013cfdb2edbd718cd4",
+        "venueIds": [],
+        "reviewedAt": "2026-10-17",
+        "status": "held-no-full-published-schedule-in-public-bio",
+        "reason": "Public profile inventory supplies no full explicit schedule text matching the hour/day pattern. Transient Opennow/Closednow labels are not persisted. Some profiles belong to already-covered or held/nonpublished branches; no new branch approval."
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/p/KALE-by-KangSu-61555173835603/",
+        "sourceFile": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresearched-01\\kale-by-kang-su-the-adelphi.html",
+        "sourceSha256": "393ca545e39ec33c040453037c38b01b70cbc72efcbe703bd8b067b8bf6b2568",
+        "venueIds": [],
+        "reviewedAt": "2026-10-17",
+        "status": "held-no-full-published-schedule-in-public-bio",
+        "reason": "Public profile inventory supplies no full explicit schedule text matching the hour/day pattern. Transient Opennow/Closednow labels are not persisted. Some profiles belong to already-covered or held/nonpublished branches; no new branch approval."
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/jiajiavegetarian/",
+        "sourceFile": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresearched-01\\jia-jia-vegetarian.html",
+        "sourceSha256": "82894e19a99a0ec9bd8cc2880a1df7aa8681f98193fa43d4cffab0db0fcfc422",
+        "venueIds": [],
+        "reviewedAt": "2026-10-17",
+        "status": "held-no-full-published-schedule-in-public-bio",
+        "reason": "Public profile inventory supplies no full explicit schedule text matching the hour/day pattern. Transient Opennow/Closednow labels are not persisted. Some profiles belong to already-covered or held/nonpublished branches; no new branch approval."
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/jeunvirtuefarm/",
+        "sourceFile": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresearched-01\\jeun-virtuefarm.html",
+        "sourceSha256": "60ab6075277ae616dbdcc83eeee35293b782b6d2b0458e37516e5fc01564b43d",
+        "venueIds": [],
+        "reviewedAt": "2026-10-17",
+        "status": "held-no-full-published-schedule-in-public-bio",
+        "reason": "Public profile inventory supplies no full explicit schedule text matching the hour/day pattern. Transient Opennow/Closednow labels are not persisted. Some profiles belong to already-covered or held/nonpublished branches; no new branch approval."
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/p/%E5%A4%A9%E6%81%A9%E7%B4%A0%E5%9D%8A-Heavens-Grace-Vegetarian-Point-100041917964053/",
+        "sourceFile": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresearched-01\\heaven-s-grace-vegetarian-point.html",
+        "sourceSha256": "77cd05a6735981438e3cad2f851b54c8930641e1c627a1f4374c4b89f7ba6dbc",
+        "venueIds": [],
+        "reviewedAt": "2026-10-17",
+        "status": "held-no-full-published-schedule-in-public-bio",
+        "reason": "Public profile inventory supplies no full explicit schedule text matching the hour/day pattern. Transient Opennow/Closednow labels are not persisted. Some profiles belong to already-covered or held/nonpublished branches; no new branch approval."
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/harmonyhutvegetariancafe/",
+        "sourceFile": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresearched-01\\harmony-hut-int-l-food-llp.html",
+        "sourceSha256": "649f0a63449ce2798fc01fdb1c853ae6a686587b00b47d9d268d90c49702ac38",
+        "venueIds": [
+          "research-ur01-harmony-serangoon"
+        ],
+        "reviewedAt": "2026-10-17",
+        "status": "held-no-full-published-schedule-in-public-bio",
+        "reason": "Public profile inventory supplies no full explicit schedule text matching the hour/day pattern. Transient Opennow/Closednow labels are not persisted. Some profiles belong to already-covered or held/nonpublished branches; no new branch approval."
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/p/Mummy-Yummy-Singapore-100064680667497/",
+        "sourceFile": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresearched-01\\mummy-yummy.html",
+        "sourceSha256": "ab29a6d79b85d6fd8c3395d8f93d7ad6fde8b930a678c03c2f37499fd70d78a5",
+        "venueIds": [],
+        "reviewedAt": "2026-10-17",
+        "status": "held-no-full-published-schedule-in-public-bio",
+        "reason": "Public profile inventory supplies no full explicit schedule text matching the hour/day pattern. Transient Opennow/Closednow labels are not persisted. Some profiles belong to already-covered or held/nonpublished branches; no new branch approval."
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/Kangsuvegetarian",
+        "sourceFile": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresearched-01\\kang-su-vegetarian-sims-drive.html",
+        "sourceSha256": "b34ec5aab16a24ffd0354b6a7931321a690eac9e36c4dc5a92ea482ee46fa10f",
+        "venueIds": [],
+        "reviewedAt": "2026-10-17",
+        "status": "held-no-full-published-schedule-in-public-bio",
+        "reason": "Public profile inventory supplies no full explicit schedule text matching the hour/day pattern. Transient Opennow/Closednow labels are not persisted. Some profiles belong to already-covered or held/nonpublished branches; no new branch approval."
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/fukangtingvegsg/",
+        "sourceFile": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresearched-01\\fu-kang-ting-vegetarian.html",
+        "sourceSha256": "fb6bbce04b27a88d901ba668def2717da8e4c9b4984dccab9d5e234f2eb34f8f",
+        "venueIds": [],
+        "reviewedAt": "2026-10-17",
+        "status": "held-no-full-published-schedule-in-public-bio",
+        "reason": "Public profile inventory supplies no full explicit schedule text matching the hour/day pattern. Transient Opennow/Closednow labels are not persisted. Some profiles belong to already-covered or held/nonpublished branches; no new branch approval."
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/grove.singapore/",
+        "sourceFile": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-saute-grove\\grove-facebook-menu.html",
+        "sourceSha256": "aa2f007747df2bb8e5a1c04d6ca67395df1ed0eeb4c675f09f1347620cd27fad",
+        "venueIds": [],
+        "reviewedAt": "2026-10-17",
+        "status": "held-no-full-published-schedule-in-public-bio",
+        "reason": "Public profile inventory supplies no full explicit schedule text matching the hour/day pattern. Transient Opennow/Closednow labels are not persisted. Some profiles belong to already-covered or held/nonpublished branches; no new branch approval."
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/grove.singapore/",
+        "sourceFile": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-saute-grove\\grove-facebook-browser.html",
+        "sourceSha256": "aa3f8770000fd0aeb074afe6911ad681912d6efc38af1df22f8868d0661ec76a",
+        "venueIds": [],
+        "reviewedAt": "2026-10-17",
+        "status": "held-no-full-published-schedule-in-public-bio",
+        "reason": "Public profile inventory supplies no full explicit schedule text matching the hour/day pattern. Transient Opennow/Closednow labels are not persisted. Some profiles belong to already-covered or held/nonpublished branches; no new branch approval."
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/sufood.singapore/",
+        "sourceFile": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-sufood-joie-genesis-lovinghut\\sufood-facebook.html",
+        "sourceSha256": "b854cf0a18ca4660dfd599da7b2b982c6510b0b758c6e51727df87b47a0b0b09",
+        "venueIds": [
+          "research-sufood-raffles-city"
+        ],
+        "reviewedAt": "2026-10-17",
+        "status": "accepted-saved-primary-schedule",
+        "reason": "Exact merchant daily lunch/dinner bio; original15October capture/check date retained, fresh web-reader recheck unavailable. No login or access-control workaround."
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/sufood.singapore/",
+        "sourceFile": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-sufood-joie-genesis-lovinghut\\sufood-facebook-current-browser.html",
+        "sourceSha256": "3d5a4d167a2dbe6b29ef27ab9cd2cb1a49446c72037c1ffdee398eb4d90de9fe",
+        "venueIds": [
+          "research-sufood-raffles-city"
+        ],
+        "reviewedAt": "2026-10-17",
+        "status": "accepted-saved-primary-schedule",
+        "reason": "Exact merchant daily lunch/dinner bio; original15October capture/check date retained, fresh web-reader recheck unavailable. No login or access-control workaround."
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/genesisvegan/",
+        "sourceFile": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-sufood-joie-genesis-lovinghut\\genesis-menu.html",
+        "sourceSha256": "c3906b611180b77ef009324fcc0a1b6a6a5b7aa3320ea0b726e3c7d6fec1d30e",
+        "venueIds": [
+          "research-genesis-vegan-havelock-ii"
+        ],
+        "reviewedAt": "2026-10-17",
+        "status": "held-no-full-published-schedule-in-public-bio",
+        "reason": "Public profile inventory supplies no full explicit schedule text matching the hour/day pattern. Transient Opennow/Closednow labels are not persisted. Some profiles belong to already-covered or held/nonpublished branches; no new branch approval."
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/genesisvegan/",
+        "sourceFile": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-sufood-joie-genesis-lovinghut\\genesis-facebook.html",
+        "sourceSha256": "d595d6ba869dcf2e577ff4c7d742006ad075f8a0bb5add468896cc9e3a598eca",
+        "venueIds": [
+          "research-genesis-vegan-havelock-ii"
+        ],
+        "reviewedAt": "2026-10-17",
+        "status": "held-no-full-published-schedule-in-public-bio",
+        "reason": "Public profile inventory supplies no full explicit schedule text matching the hour/day pattern. Transient Opennow/Closednow labels are not persisted. Some profiles belong to already-covered or held/nonpublished branches; no new branch approval."
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/genesisvegan/",
+        "sourceFile": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-sufood-joie-genesis-lovinghut\\genesis-facebook-frame-0.html",
+        "sourceSha256": "d9fefa4fe5d901348158b6875c45a6aa5b982b0da1b4f5cd559bc46f2c4dbef2",
+        "venueIds": [
+          "research-genesis-vegan-havelock-ii"
+        ],
+        "reviewedAt": "2026-10-17",
+        "status": "held-no-full-published-schedule-in-public-bio",
+        "reason": "Public profile inventory supplies no full explicit schedule text matching the hour/day pattern. Transient Opennow/Closednow labels are not persisted. Some profiles belong to already-covered or held/nonpublished branches; no new branch approval."
+      }
+    ],
+    "freshSourceChecks": [
+      {
+        "url": "https://take.app/newgreenpasture",
+        "checkedAt": "2026-10-17T01:01:27.002601+00:00",
+        "status": 200,
+        "finalUrl": "https://take.app/newgreenpasture",
+        "bytes": 245285,
+        "kind": "hours-only source recheck; no food extraction"
+      },
+      {
+        "url": "https://www.facebook.com/sufood.singapore/",
+        "checkedAt": "2026-10-17",
+        "status": "web-reader-block-page",
+        "oldReadableCapturePreserved": "2026-10-15T10:50:08.115418+00:00"
+      },
+      {
+        "url": "https://www.facebook.com/genesisvegan/",
+        "checkedAt": "2026-10-17",
+        "status": "web-reader-block-page",
+        "noSchedulePromoted": true
+      },
+      {
+        "url": "https://leafcorner.sg/contactus",
+        "checkedAt": "2026-10-17",
+        "status": "readable-no-hours"
+      },
+      {
+        "url": "https://www.tengbespoke.com.sg/",
+        "checkedAt": "2026-10-17",
+        "status": "web-reader-502"
+      },
+      {
+        "url": "https://www.sufood.com.sg/",
+        "checkedAt": "2026-10-17",
+        "status": "unavailable-prior-TLS-mismatch-preserved"
+      },
+      {
+        "url": "https://greenland.zzv.sg/Category?StoreID=da5a2dbf-19c9-4a79-bf6e-aa12a440731b&Service=PickUp&lang=EN",
+        "checkedAt": "2026-10-17",
+        "status": "normal-public-browser200-ordering-UI-only",
+        "providerRequestsBlocked": true,
+        "newHours": false
+      }
+    ],
+    "noFoodExtraction": true,
+    "googleCalls": 0
+  },
+  "retainedHolds": {
+    "foodObservations": 2527,
+    "zeroFoodResearchBranches": 109,
+    "unnamedCandidateIds": 1828,
+    "coordinateIds": 3,
+    "exactScreenshotPhotosUnrecovered": [
+      "Makan Vegan",
+      "Soon Lai"
+    ]
+  },
+  "googleLedger": {
+    "bytes": 1045377,
+    "sha256": "c7321dafaad0473583139494ca899501578892c5b71105429d3cd4dceb4f311a",
+    "requests": 2419,
+    "limit": 2500,
+    "remaining": 81
+  },
+  "releaseEvidence": ".local/coverage-2026-10-17aa/release.json",
+  "hoursQualification": "96 source-backed records; Monday remains explicitly unconfirmed for Original Sin and New Green Pasture. Sufood source capture/check15October retained;17October web-reader recheck unavailable."
+}

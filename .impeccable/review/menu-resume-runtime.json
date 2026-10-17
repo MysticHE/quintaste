@@ -1,0 +1,14 @@
+{
+  "checkedAt": "2026-10-16",
+  "environment": "Local Expo SDK57 development server in CI mode; no production deployment",
+  "initialPreviewPort": 8084,
+  "initialNodeProcess": 13196,
+  "observedWorkingSetBytes": 3695235072,
+  "failure": "FATAL ERROR: Ineffective mark-compacts near heap limit Allocation failed - JavaScript heap out of memory",
+  "lastGcHeapUsedMb": 4010.6,
+  "lastGcHeapCapacityMb": 4106.3,
+  "context": "Broad actual HTTP detail sweep and repeated development requests preceded ECONNRESET, route timeouts and eventual connection refusal. The original process exited1.",
+  "recovery": "Restarted only the task-owned preview. Used all143 direct actual GET-handler details for schema/fingerprint/register reconciliation, then focused live browser cases. Node heap ceiling was not raised and no production behavior was changed.",
+  "interpretation": "Confirmed development-host heap exhaustion. Repeated Metro evaluation or retention is a hypothesis requiring profiling; production memory use and root cause are not established.",
+  "remainingGap": "Investigate development server retention before repeating a broad HTTP load sweep; complete production-host and physical-device performance acceptance separately."
+}

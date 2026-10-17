@@ -1,0 +1,12 @@
+{
+  "checks": [
+    "Quick sort changes listing order through all three choices",
+    "Search clear and empty-result recovery restore products",
+    "Invalid maximum price remains in the filter until corrected",
+    "Blocked sellers disappear from profiles and Buy, and return on unblock",
+    "Fully reserved stock leaves Buy and seller profile; cancellation restores it",
+    "Returning to a mounted marketplace refreshes the expiry cutoff"
+  ],
+  "errors": [],
+  "passed": 6
+}

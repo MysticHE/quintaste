@@ -1,0 +1,34 @@
+{
+  "passed": true,
+  "scope": "Four review findings and deletion retry/Undo race recovery",
+  "typecheck": {
+    "command": "npx tsc --noEmit",
+    "exitCode": 0
+  },
+  "lint": {
+    "command": "npx eslint .",
+    "exitCode": 0
+  },
+  "browser": {
+    "checks": 8,
+    "errors": 0,
+    "reports": [
+      "review-fixes-browser.json",
+      "review-fixes-extra.json"
+    ],
+    "capturesInspected": 6
+  },
+  "api": {
+    "groups": 7,
+    "report": "review-fixes-api.json",
+    "isolatedStore": true
+  },
+  "sourceReview": {
+    "reviewer": "meet_review",
+    "result": "Approved; no remaining actionable findings"
+  },
+  "limitations": [
+    "Production authentication and shared Social services remain deferred.",
+    "Native physical-device appearance and interaction were not verified."
+  ]
+}

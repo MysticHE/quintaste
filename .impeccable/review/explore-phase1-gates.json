@@ -1,0 +1,49 @@
+{
+  "status": "verified-local-web",
+  "timestamp": "2026-10-15T03:37:39.921Z",
+  "typecheck": {
+    "command": "npx tsc --noEmit",
+    "exitCode": 0
+  },
+  "lint": {
+    "command": "npx eslint src",
+    "exitCode": 0
+  },
+  "source": {
+    "report": "explore-phase1-source.json",
+    "checks": 12,
+    "status": "pass"
+  },
+  "browser": {
+    "report": "explore-phase1-validation.json",
+    "checks": 16,
+    "screenshots": 11,
+    "consoleErrors": 0,
+    "axeViolations": 0,
+    "status": "pass"
+  },
+  "native": {
+    "report": "explore-phase1-native-transport.json",
+    "manifestStatus": 200,
+    "bundleStatus": 200,
+    "bytes": 8934941,
+    "privateGoogleKey": false,
+    "deviceVisualsVerified": false
+  },
+  "sourceReview": {
+    "status": "no findings",
+    "reviewer": "/root/instant_code_review"
+  },
+  "visualReview": {
+    "status": "pass",
+    "scope": "375 recovery;320 filters;375 dark filters;measured320/375/768/1440",
+    "cardSpacingPreserved": "6px divider gap and8px bottom inset measured"
+  },
+  "actualGoogleRequests": 0,
+  "limitations": [
+    "Reviewed owned pilot venue/dish catalogue and rights are not populated.",
+    "Auth/cloud and delivered correction/harm workflows are not connected.",
+    "Offline owned catalogue and physical native acceptance remain.",
+    "Home/Work participation backend remains separate Phase2 opt-in."
+  ]
+}

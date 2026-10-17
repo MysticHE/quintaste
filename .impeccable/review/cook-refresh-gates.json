@@ -1,0 +1,94 @@
+{
+  "date": "2026-10-15",
+  "scope": "Navigation and Cook browser/source implementation; production services and native-device acceptance excluded",
+  "status": "pass",
+  "checks": {
+    "typescript": {
+      "command": "npx tsc --noEmit",
+      "exitCode": 0
+    },
+    "eslint": {
+      "command": "npx eslint .",
+      "exitCode": 0
+    },
+    "diffCheck": {
+      "command": "git diff --check",
+      "exitCode": 0
+    },
+    "mainFlows": 8,
+    "recoveryFlows": 5,
+    "schemaGroups": 4,
+    "axeScans": 4,
+    "axeViolations": 0,
+    "runtimeErrors": 0,
+    "sourceReview": "Approved by meet_review including final accessibility and deletion routing deltas",
+    "visualReview": "cook-refresh-finish.json",
+    "documentation": "cook-refresh-documentation.json"
+  },
+  "captures": [
+    "cook-refresh-dock-explore.png",
+    "cook-refresh-dock-cook.png",
+    "cook-refresh-dock-social.png",
+    "cook-refresh-dock-market.png",
+    "cook-refresh-dock-game.png",
+    "cook-refresh-home-375.png",
+    "cook-refresh-ingredient-guide.png",
+    "cook-refresh-recipe-detail.png",
+    "cook-refresh-cooking-375.png",
+    "cook-refresh-social-plus.png",
+    "cook-refresh-market-plus.png",
+    "cook-refresh-my-recipes-empty.png",
+    "cook-refresh-draft-375.png",
+    "cook-refresh-publication-review.png",
+    "cook-refresh-my-recipes.png",
+    "cook-refresh-shopping.png",
+    "cook-refresh-home-320.png",
+    "cook-refresh-home-768.png",
+    "cook-refresh-home-1440.png",
+    "cook-refresh-home-dark.png",
+    "cook-recovery-version-guard.png",
+    "cook-recovery-draft-retry.png",
+    "cook-recovery-home-large-320.png",
+    "cook-recovery-editor-large-320.png",
+    "cook-refresh-publication-top.png",
+    "cook-refresh-recipe-top.png",
+    "cook-refresh-shopping-top.png"
+  ],
+  "native": {
+    "manifestStatus": 200,
+    "bundleStatus": 200,
+    "bundleBytes": 9265775,
+    "bundleUrl": "http://192.168.1.5:8083/node_modules/expo-router/entry.bundle?platform=android&dev=true&hot=false&lazy=true&transform.engine=hermes&transform.bytecode=1&transform.routerRoot=src%2Fapp&unstable_transformProfile=hermes-stable",
+    "markers": [
+      {
+        "marker": "RecipeEditorScreen",
+        "found": true
+      },
+      {
+        "marker": "RecipeReviewScreen",
+        "found": true
+      },
+      {
+        "marker": "FloatingAddButton",
+        "found": true
+      },
+      {
+        "marker": "Original servings",
+        "found": true
+      },
+      {
+        "marker": "Sponsorship",
+        "found": true
+      }
+    ],
+    "nativeAppearanceVerified": false
+  },
+  "limits": [
+    "Public recipe submission, creator approval, editorial review, publishing and sync are not connected; prepared requests stay private and Not sent.",
+    "Recipe and ingredient content is bundled sample material, not independently reviewed production content.",
+    "Native background alerts, iOS Live Activity and Android ongoing timer notifications are not implemented. expo-notifications installation was refused by execution sandbox before running.",
+    "Native screenshots, gestures, permissions, screen-reader and process-death testing remain unverified.",
+    "Paid recipes, eligible reviews, live Social/Market and Game mechanics retain their separate PRD gates."
+  ],
+  "reviewerSubstitution": "Shipped Impeccable role unavailable; fresh quality-engineer followed degraded finish-reviewer instructions."
+}

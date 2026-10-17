@@ -1,0 +1,324 @@
+{
+  "checks": [
+    "Explore entry never requests GPS",
+    "Raw device error is replaced by short dismissible recovery,48px actions at320/375",
+    "Denied permission shows controlled recovery",
+    "Manual typing cancels pending GPS and late result cannot replace search",
+    "Postal-code dropdown still selects location after GPS failure",
+    "Cuisine/price apply and persist immediately; matching cards update",
+    "Saved-only filters saved matches and removing final Saved item immediately reveals correct empty state without provider refetch",
+    "Late cuisine results never replace current filter result",
+    "Cuisine/price settings survive full reload",
+    "Filters retain labels-only auto-apply layout and fit320/375/768/1440 plus dark mode",
+    "Singapore-wide empty result exposes Filters without redundant widening",
+    "Widen area progresses radius then Singapore and preserves diet/cuisine/price",
+    "Provider errors show controlled recovery instead of false no-results; deliberate Retry succeeds",
+    "Offline feedback is short and recoverable, separate from empty results",
+    "Malformed provider data stays a provider error, not a false offline state",
+    "Search-area local typing also cancels GPS without closing or replacing the route"
+  ],
+  "screenshots": [
+    "C:/Users/huien/QT/quintaste/.impeccable/review/explore-phase1-explore-375.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/explore-phase1-location-recovery-320.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/explore-phase1-location-recovery-375.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/explore-phase1-filters-320.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/explore-phase1-filters-375.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/explore-phase1-filters-768.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/explore-phase1-filters-1440.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/explore-phase1-filters-375.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/explore-phase1-filters-375-dark.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/explore-phase1-empty-375.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/explore-phase1-provider-recovery-375.png"
+  ],
+  "layouts": [
+    {
+      "width": 320,
+      "cuisineRadioCount": 10,
+      "minRadioHeight": 48,
+      "priceBounds": {
+        "x": 27,
+        "y": 557,
+        "width": 266,
+        "height": 104
+      },
+      "savedBounds": {
+        "x": 27,
+        "y": 675,
+        "width": 266,
+        "height": 50
+      }
+    },
+    {
+      "width": 375,
+      "cuisineRadioCount": 10,
+      "minRadioHeight": 48,
+      "priceBounds": {
+        "x": 27,
+        "y": 557,
+        "width": 321,
+        "height": 104
+      },
+      "savedBounds": {
+        "x": 27,
+        "y": 675,
+        "width": 321,
+        "height": 50
+      }
+    },
+    {
+      "width": 768,
+      "cuisineRadioCount": 10,
+      "minRadioHeight": 48,
+      "priceBounds": {
+        "x": 34,
+        "y": 820,
+        "width": 700,
+        "height": 48
+      },
+      "savedBounds": {
+        "x": 34,
+        "y": 882,
+        "width": 700,
+        "height": 50
+      }
+    },
+    {
+      "width": 1440,
+      "cuisineRadioCount": 10,
+      "minRadioHeight": 48,
+      "priceBounds": {
+        "x": 368,
+        "y": 820,
+        "width": 704,
+        "height": 48
+      },
+      "savedBounds": {
+        "x": 368,
+        "y": 882,
+        "width": 704,
+        "height": 50
+      }
+    },
+    {
+      "width": 375,
+      "cuisineRadioCount": 10,
+      "minRadioHeight": 48,
+      "priceBounds": {
+        "x": 27,
+        "y": 557,
+        "width": 321,
+        "height": 104
+      },
+      "savedBounds": {
+        "x": 27,
+        "y": 675,
+        "width": 321,
+        "height": 50
+      }
+    }
+  ],
+  "errors": [],
+  "a11y": [],
+  "requests": [
+    {
+      "area": "Singapore",
+      "query": "",
+      "vegan": false,
+      "alliumFree": false,
+      "cuisine": "All",
+      "radius": 5000
+    },
+    {
+      "area": "Singapore",
+      "query": "",
+      "vegan": false,
+      "alliumFree": false,
+      "cuisine": "All",
+      "center": {
+        "latitude": 1.3,
+        "longitude": 103.85
+      },
+      "radius": 5000
+    },
+    {
+      "area": "Singapore",
+      "query": "",
+      "vegan": false,
+      "alliumFree": false,
+      "cuisine": "Japanese",
+      "center": {
+        "latitude": 1.3,
+        "longitude": 103.85
+      },
+      "radius": 5000
+    },
+    {
+      "area": "Singapore",
+      "query": "",
+      "vegan": false,
+      "alliumFree": false,
+      "cuisine": "Japanese",
+      "priceLevel": 2,
+      "center": {
+        "latitude": 1.3,
+        "longitude": 103.85
+      },
+      "radius": 5000
+    },
+    {
+      "area": "Singapore",
+      "query": "",
+      "vegan": false,
+      "alliumFree": false,
+      "cuisine": "Japanese",
+      "center": {
+        "latitude": 1.3,
+        "longitude": 103.85
+      },
+      "radius": 5000
+    },
+    {
+      "area": "Singapore",
+      "query": "",
+      "vegan": false,
+      "alliumFree": false,
+      "cuisine": "Chinese",
+      "center": {
+        "latitude": 1.3,
+        "longitude": 103.85
+      },
+      "radius": 5000
+    },
+    {
+      "area": "Singapore",
+      "query": "",
+      "vegan": false,
+      "alliumFree": false,
+      "cuisine": "Japanese",
+      "center": {
+        "latitude": 1.3,
+        "longitude": 103.85
+      },
+      "radius": 5000
+    },
+    {
+      "area": "Singapore",
+      "query": "",
+      "vegan": false,
+      "alliumFree": false,
+      "cuisine": "Indian",
+      "center": {
+        "latitude": 1.3,
+        "longitude": 103.85
+      },
+      "radius": 5000
+    },
+    {
+      "area": "Singapore",
+      "query": "",
+      "vegan": false,
+      "alliumFree": false,
+      "cuisine": "Indian",
+      "center": {
+        "latitude": 1.3,
+        "longitude": 103.85
+      },
+      "radius": 5000
+    },
+    {
+      "area": "Singapore",
+      "query": "unmatched",
+      "vegan": false,
+      "alliumFree": false,
+      "cuisine": "Indian",
+      "radius": 5000
+    },
+    {
+      "area": "Singapore",
+      "query": "",
+      "vegan": false,
+      "alliumFree": false,
+      "cuisine": "Indian",
+      "center": {
+        "latitude": 1.3,
+        "longitude": 103.85
+      },
+      "radius": 5000
+    },
+    {
+      "area": "Singapore",
+      "query": "",
+      "vegan": false,
+      "alliumFree": false,
+      "cuisine": "Indian",
+      "center": {
+        "latitude": 1.3,
+        "longitude": 103.85
+      },
+      "radius": 10000
+    },
+    {
+      "area": "Singapore",
+      "query": "",
+      "vegan": false,
+      "alliumFree": false,
+      "cuisine": "Indian",
+      "radius": 10000
+    },
+    {
+      "area": "Singapore",
+      "query": "provider failure",
+      "vegan": false,
+      "alliumFree": false,
+      "cuisine": "Indian",
+      "radius": 10000
+    },
+    {
+      "area": "Singapore",
+      "query": "provider failure",
+      "vegan": false,
+      "alliumFree": false,
+      "cuisine": "Indian",
+      "radius": 10000
+    },
+    {
+      "area": "Singapore",
+      "query": "offline fixture",
+      "vegan": false,
+      "alliumFree": false,
+      "cuisine": "Indian",
+      "radius": 10000
+    },
+    {
+      "area": "Singapore",
+      "query": "offline fixture",
+      "vegan": false,
+      "alliumFree": false,
+      "cuisine": "Indian",
+      "radius": 10000
+    },
+    {
+      "area": "Singapore",
+      "query": "offline fixture",
+      "vegan": false,
+      "alliumFree": false,
+      "cuisine": "Indian",
+      "radius": 10000
+    },
+    {
+      "area": "Singapore",
+      "query": "bad payload",
+      "vegan": false,
+      "alliumFree": false,
+      "cuisine": "Indian",
+      "radius": 10000
+    }
+  ],
+  "actualGoogleRequests": 0,
+  "limits": [
+    "Controlled provider/photos/location for repeatability; no paid Google requests.",
+    "Native hardware Settings/gestures/assistive technology remain device acceptance.",
+    "No field performance metrics collected."
+  ],
+  "status": "pass"
+}

@@ -1,0 +1,75 @@
+{
+  "request": "Integrate the approved menu UI into the app for production-ready use. Also fix opening-hours horizontal padding inside each Explore card.",
+  "userApproval": "okay proceed to integrate them in the app for production ready",
+  "latestSteering": "another thing please also fix the spacing/padding of the opening hours which is currently too near the edges of the card",
+  "project": "C:/Users/huien/QT/quintaste",
+  "approvedReference": "C:/Users/huien/Downloads/QuinTaste-Explore-Menu-UI-UX.png",
+  "buildPath": "Extension of the existing React Native interface. The approved three-screen reference governs menu entry, hierarchy and clean item/price rows. Sample food photos on the reference are not production assets.",
+  "context": {
+    "product": "PRODUCT.md",
+    "design": "DESIGN.md",
+    "surface": ".impeccable/surfaces/discovery.md",
+    "craftFloor": "C:/Users/huien/.agents/skills/impeccable/reference/craft-floor.md",
+    "android": "C:/Users/huien/.agents/skills/impeccable/reference/android.md",
+    "ios": "C:/Users/huien/.agents/skills/impeccable/reference/ios.md"
+  },
+  "direction": {
+    "THESIS": "Make existing collected menu samples visible and findable from Explore without reviewer access.",
+    "OWN-WORLD": "Existing Nunito, semantic Coral/Peach light and dark themes, real-photo cards, compact controls and native navigation.",
+    "STORY": "Explore Menu shortcut or place details Menu button opens selected items, prices, branch and dated external source.",
+    "FIRST-VIEWPORT": "Keep one search/filter/crosshair row; top-left Menu badge complements corner Save; details button sits beneath the four actions.",
+    "FORM": "User-pinned workflow reference, no replacement visual-world roll. Rounded menu controls and flat separated name/price rows; no invented menu imagery or ingredient certification."
+  },
+  "adaptations": [
+    "User-approved current app tokens and Nunito remain authoritative over illustrative board pixels.",
+    "Keep existing root-stack details/menu navigation above tabs: app detail routes and Back history remain unchanged. The existing five-icon dock stays on Explore.",
+    "Compact factual source/price/charge qualifiers and unconfirmed ingredients/availability preserve PRD QT-007/081 truth without ingredient evidence sections.",
+    "User's latest card-padding request changes information horizontal inset8to12, while divider-to-hours6 and hours-to-bottom8 remain.",
+    "Controlled browser fixture photos are explicitly sample imagery, not real business photos and not deployed replacements. The app still uses live rights-cleared photos or its honest missing-photo state."
+  ],
+  "artifacts": [
+    "src/components/discovery/MenuEntry.tsx",
+    "src/components/discovery/MenuSection.tsx",
+    "src/components/discovery/MenuSourceLink.tsx",
+    "src/components/discovery/MenuSearchMatches.tsx",
+    "src/components/discovery/LivePlaceCard.tsx",
+    "src/components/discovery/LivePlaceInformation.tsx",
+    "src/screens/food/LivePlaceDetail.tsx",
+    "src/screens/food/Menu.tsx",
+    "src/screens/food/Explore.tsx",
+    "src/state/Menus.tsx",
+    "src/server/published-menus.ts",
+    "src/app/api/menus+api.ts"
+  ],
+  "requiredScreenshots": [
+    ".impeccable/review/consumer-menu-explore-320.png",
+    ".impeccable/review/consumer-menu-explore-375.png",
+    ".impeccable/review/consumer-menu-explore-768.png",
+    ".impeccable/review/consumer-menu-explore-1440.png",
+    ".impeccable/review/consumer-menu-details-375.png",
+    ".impeccable/review/consumer-menu-menu-320.png",
+    ".impeccable/review/consumer-menu-menu-375.png",
+    ".impeccable/review/consumer-menu-menu-768.png",
+    ".impeccable/review/consumer-menu-menu-1440.png",
+    ".impeccable/review/consumer-menu-menu-dark375.png",
+    ".impeccable/review/consumer-menu-menu-large320.png",
+    ".impeccable/review/consumer-menu-missing-prices375.png",
+    ".impeccable/review/consumer-menu-schedules375.png",
+    ".impeccable/review/consumer-menu-cached-recovery375.png",
+    ".impeccable/review/consumer-menu-withdrawn375.png",
+    ".impeccable/review/consumer-menu-stale375.png",
+    ".impeccable/review/consumer-menu-search-fallback375.png"
+  ],
+  "evidence": [
+    ".impeccable/review/consumer-menu-validation.json",
+    ".impeccable/review/consumer-menu-source.json",
+    ".impeccable/review/consumer-menu-native-transport.json"
+  ],
+  "scopeLimits": [
+    "No design detector ran for React Native. Context launcher failed earlier in the session; existing product/design/surface files were used.",
+    "Review is browser/source scope only. These are actual React Native Web renders in Playwright-managed Chromium, not native phone or tablet captures.",
+    "No pixel-diff or extracted plate pipeline exists for the illustrative three-screen approval board; inspect its element inventory against current captures directly.",
+    "Expo's lower-left development tool badge is development chrome, not a shipped product control.",
+    "Physical Android/iOS appearance, system Back/gestures, native assistive technology and deployed production hosting remain unverified."
+  ]
+}

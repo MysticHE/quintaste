@@ -1,0 +1,9 @@
+{
+  "checkedAt": "2026-10-15T03:13:54.807Z",
+  "url": "exp://192.168.1.5:8083",
+  "manifestStatus": 200,
+  "bundleStatus": 200,
+  "bundleBytes": 8862696,
+  "currentNavigation": true,
+  "limits": "Transport and bundle only; physical device layout and Back gestures unverified."
+}

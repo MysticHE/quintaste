@@ -1,0 +1,8 @@
+{
+  "asset": "chef.png",
+  "tool": "image_gen.imagegen",
+  "reference": "QuinTaste_UI_UX_Screen_Reference.pdf, page 6",
+  "prompt": "Use case: background-extraction. Asset type: transparent PNG mascot for the QuinTaste native mobile startup and sign-in screen. The supplied image is the reference/edit target. Extract and faithfully recreate ONLY the adorable cream-colored steamed dumpling chef character from the top hero: plump softly sculpted ivory dumpling body with pleats, tiny curved closed smiling eyes, brown curved smiling mouth, round coral blush cheeks, cream chef toque tilted slightly to the right. Preserve its friendly soft 3D clay/rendered appearance, rounded proportions, warm diffuse studio lighting and delicate peach shading. Show the complete character centered, large, with generous transparent padding, no crop. Remove all UI, lettering, phone frame, decorative spheres, leaves, backdrop and floor. No text, no logos, no extra objects. Actual transparent background with clean alpha edges; this will sit on a cream-to-peach gradient. Square canvas.",
+  "transparentBackground": true,
+  "generatedOn": "2026-10-13"
+}

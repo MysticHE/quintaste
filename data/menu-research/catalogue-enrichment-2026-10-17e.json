@@ -1,0 +1,312 @@
+{
+  "checkedAt": "2026-10-17",
+  "status": "Deployed and live verified; full coverage remains active",
+  "fullCoverageComplete": false,
+  "goalStatus": "active",
+  "newPhotos": [
+    {
+      "venueId": "research-elemen-plq-mall",
+      "address": "10 Paya Lebar Road #03-13, PLQ Mall, Singapore 409057",
+      "photo": {
+        "path": "/api/catalogue-photos/54e2fa415c081a118743ed223aa239031e6186c56bf3e6c0f8c723b12f43f109.jpg",
+        "width": 960,
+        "height": 641,
+        "author": "elemen",
+        "sourceUrl": "https://www.elemengroup.com.sg/locations",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference; resized for display. Fine details may differ. Source rights are retained; enhancement is not a new licence."
+      },
+      "sha256": "54e2fa415c081a118743ed223aa239031e6186c56bf3e6c0f8c723b12f43f109",
+      "bytes": 107035,
+      "originalSha256": "79a92fbbf91f6c27cb41a8734862e55ef6ab4149a00788e48e8210149fb8adf7",
+      "sourcePageCheckedAt": "2026-10-16",
+      "sourceImageUrl": "https://images.squarespace-cdn.com/content/v1/609d2103ed36b46301aeb07d/1630582760029-AUOBU8XJGBY6KYJLN40E/elemenresized-21.jpg",
+      "identityEvidence": "Operator locations gallery block block-yui_3_17_2_1_1630582675853_5599 immediately precedes block-43296779b7ae9af3237e with elemen @ PLQ Mall,10 Paya Lebar Road #03-13. Same column contains only PLQ. First output rejected for invented window scenery; corrected output retains original clipped white windows.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Use case: lighting-weather. Faithfully enhance this exact elemen PLQ room photograph with minimal tonal refinement only. Critical constraint: BOTH window panes in the back of the room must stay featureless overexposed pure white as in this source. Do not reveal, invent or render any view, skyline, buildings, trees or scenery through them. Preserve the exact room geometry, doorway framing, all round table settings and chairs, chandelier globe arrangement, teal textured walls, wooden slats, wall plants and foreground plant. Keep the existing crop and camera angle. Improve foreground exposure slightly while retaining original window white clipping. No added, removed or moved objects, no exterior view, no architectural changes, no text, no people. The output should look like a careful exposure adjustment to the supplied photo, not a redesigned scene.",
+        "review": "Reviewed against reference; selected for later integration."
+      }
+    },
+    {
+      "venueId": "research-elemen-millenia-walk",
+      "address": "9 Raffles Boulevard #01-75/75A/76, Millenia Walk, Singapore 039596",
+      "photo": {
+        "path": "/api/catalogue-photos/ce955e81413775d10c50e7770bd7c13a4a31b079aa1773abe6ae90a2479365d9.jpg",
+        "width": 960,
+        "height": 640,
+        "author": "elemen",
+        "sourceUrl": "https://www.elemengroup.com.sg/locations",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference; resized for display. Fine details may differ. Source rights are retained; enhancement is not a new licence."
+      },
+      "sha256": "ce955e81413775d10c50e7770bd7c13a4a31b079aa1773abe6ae90a2479365d9",
+      "bytes": 103316,
+      "originalSha256": "0dfb993f642ce399337e166753b91705a7c935463954073efc12500f63b35a7c",
+      "sourcePageCheckedAt": "2026-10-16",
+      "sourceImageUrl": "https://images.squarespace-cdn.com/content/v1/609d2103ed36b46301aeb07d/1635867766158-JPNI1RH4VXV0KPMZCDTZ/membershipbannerrs-2.jpg",
+      "identityEvidence": "Operator locations gallery block block-yui_3_17_2_1_1630581806658_7049 precedes block-828da50d186bffb80fdd naming elemen @ Millenia Walk,9 Raffles Boulevard #01-75/75A/76. It is distinct from following Woodlands Height gallery. Crop excludes old promotion boards, no current offer inferred.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Use case: lighting-weather. Create a faithful enhanced cover from this exact elemen Millenia Walk storefront photograph. Crop to the upper portion so the illuminated elemen 元素 storefront sign, timber facade, upper entrance, green sculptural wall and wood lattice are visible, while the old promotional menu boards in the lower right are OUTSIDE THE CROP. Do not erase or replace boards inside the scene; exclude them by framing above their top edge. Keep the logo and all visible lettering exactly as photographed. Improve natural exposure, warm wood tones and subtle material texture only. Landscape composition based on the original upper portion. No new objects, no changed architecture, no people, no added graphics, no fabricated exterior or food. Preserve real geometry and photographic appearance.",
+        "review": "Reviewed against reference; selected for later integration."
+      }
+    },
+    {
+      "venueId": "research-boneless-irving",
+      "address": "1 Irving Place, #01-31, The Commerze @ Irving, Singapore 369546",
+      "photo": {
+        "path": "/api/catalogue-photos/d5de8a3246133055a402ac2bdbcb321510fa7c0378e80097031737dfdd57da5c.jpg",
+        "width": 960,
+        "height": 720,
+        "author": "The Boneless Kitchen",
+        "sourceUrl": "https://thebonelesskitchen.com/",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference; resized for display. Fine details may differ. Source rights are retained; enhancement is not a new licence."
+      },
+      "sha256": "d5de8a3246133055a402ac2bdbcb321510fa7c0378e80097031737dfdd57da5c",
+      "bytes": 55113,
+      "originalSha256": "68223da9c438840200dcc3d4c12b8274bdc0e6ae306fdca36a239a2b88c222a9",
+      "sourcePageCheckedAt": "2026-10-16",
+      "sourceImageUrl": "https://thebonelesskitchen.com/wp-content/uploads/2024/05/photo_2024-05-03-15.20.43.jpeg",
+      "identityEvidence": "Operator homepage displays this image and exact1 Irving Place #01-31 address. Visible photo signage matches The Boneless Kitchen. Source page captured16Oct and reviewed17Oct.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Use case: lighting-weather. Faithfully enhance this exact operator photograph for The Boneless Kitchen gallery cover. Preserve the white square plate of red-sauced vegetarian food, its contents and portions, the supporting hand with existing red nails and gold bracelet, plain wall, and neon text exactly \"#thebonelesskitchen\". Keep the same landscape composition and perspective. Improve balanced exposure on the food and natural colors, reduce neon glare slightly but preserve its actual blue-white glow. No new ingredients, dishes, objects, lettering, steam or redesigned decor. No invented meat or ingredient claims. Retain real photographic texture and the exact scene.",
+        "review": "Source and output visually compared; selected. Arrangement retained, fine details may differ; no data claim inferred."
+      }
+    },
+    {
+      "venueId": "research-supreme-vege-queen-street",
+      "address": "12 Queen Street, Hotel Royal @ Queens #02-03, Singapore 188553",
+      "photo": {
+        "path": "/api/catalogue-photos/eda64f4e104367e466c311a262cfe55cf661dd3fb22c8a771fb85840136a775e.jpg",
+        "width": 960,
+        "height": 640,
+        "author": "Supreme Vege",
+        "sourceUrl": "https://www.supremevege.sg/",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference; resized for display. Fine details may differ. Source rights are retained; enhancement is not a new licence."
+      },
+      "sha256": "eda64f4e104367e466c311a262cfe55cf661dd3fb22c8a771fb85840136a775e",
+      "bytes": 115831,
+      "originalSha256": "1a1c9120f62596442f8eb0b9dd1b389403b3658d893efb9d1050368c4cdc0b64",
+      "sourcePageCheckedAt": "2026-10-16",
+      "sourceImageUrl": "https://www.supremevege.sg/wp-content/uploads/2017/01/WhatsApp-Image-2026-01-16-at-22.17.03-1.jpeg",
+      "identityEvidence": "Operator homepage pairs selected image with Stuffed Wild Morel Mushroom & Asparagus Nets Delight and gives12 Queen Street Hotel Royal @ Queens #02-03. Stylized floating pieces are already present in operator source. No ingredient/dietary claims inferred.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Use case: lighting-weather. Faithfully enhance this exact Supreme Vege operator photograph of stuffed mushroom halves with asparagus and vegetables on a white plate. The source is already a stylized motion food photograph: preserve exactly its existing floating pieces and grounded food arrangement without adding further pieces. Keep the same mushroom shapes, filling, asparagus, pale and orange vegetables, crisp nest, white plate, pale tabletop, perspective and landscape crop. Improve soft natural light, restrained warm color balance and food texture. Do not invent meat, ingredients, garnish, utensils, steam, logos or lettering. Do not change amounts or the dish. Realistic texture faithful to the supplied operator composition.",
+        "review": "Source and output visually compared; selected. Arrangement retained, fine details may differ; no data claim inferred."
+      }
+    },
+    {
+      "venueId": "research-mtr-serangoon438",
+      "address": "438 & 438/A Serangoon Road, Singapore 218133",
+      "photo": {
+        "path": "/api/catalogue-photos/ad2a92c506e4d490f672e21ed1dcb737a64f3141f0e31dea69fd9603b1df4a6c.jpg",
+        "width": 960,
+        "height": 558,
+        "author": "MTR Singapore",
+        "sourceUrl": "https://www.mtrsingapore.com/",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference; resized for display. Fine details may differ. Source rights are retained; enhancement is not a new licence."
+      },
+      "sha256": "ad2a92c506e4d490f672e21ed1dcb737a64f3141f0e31dea69fd9603b1df4a6c",
+      "bytes": 59221,
+      "originalSha256": "cb66a4104d43f76c01a3f5a93027d47261b9ef192f66d8a85535ac52c1271bf2",
+      "sourcePageCheckedAt": "2026-10-16",
+      "sourceImageUrl": "https://www.mtrsingapore.com/wp-content/uploads/2018/12/Chow-chow-Bhath-1024x595.jpg",
+      "identityEvidence": "Operator homepage displays this Chow Chow Bhath reference and exact438 Serangoon Road address. Separate advertising poster was inspected and not selected; this food-only reference avoids its promotional/ingredient claims.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Use case: lighting-weather. Enhance this exact MTR Singapore operator food photo into a polished but faithful gallery cover. Preserve precisely the white plate, two low cylindrical servings, tomato slice on the left, two dark raisins and one cashew on the right, and metal cup of green chutney behind them. Same amounts, locations, camera angle and landscape crop. Refine soft natural light, white balance and texture detail, gently reduce excessive saturation. Keep the plain white background and real grain texture. No additions, removals, new garnish, props, text, steam or ingredient claims; do not redesign or change the dish.",
+        "review": "Source and output visually compared; selected. Arrangement retained, fine details may differ; no data claim inferred."
+      }
+    },
+    {
+      "venueId": "research-sproutz-downtown",
+      "address": "15 Central Boulevard #B1-05 Downtown MRT Station, Singapore 018969",
+      "photo": {
+        "path": "/api/catalogue-photos/6aaecb44765d1d0495759f13454caa57ae002b29eca4f53a49831d2541b72d24.jpg",
+        "width": 960,
+        "height": 1280,
+        "author": "Sproutz Downtown",
+        "sourceUrl": "https://www.sproutzdowntown.com/",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference; resized for display. Fine details may differ. Source rights are retained; enhancement is not a new licence."
+      },
+      "sha256": "6aaecb44765d1d0495759f13454caa57ae002b29eca4f53a49831d2541b72d24",
+      "bytes": 120981,
+      "originalSha256": "926f6c3b065b1e0d1b95803437a88c746ec493fb90b2fcf7f9a041d1b3946af9",
+      "sourcePageCheckedAt": "2026-10-16",
+      "sourceImageUrl": "https://static.wixstatic.com/media/58d4dd_bd5b6cfb8fef41f69db1c412a88adf46~mv2.jpg",
+      "identityEvidence": "Operator homepage displays this IMG2033 dessert reference and exact15 Central Boulevard #B1-05 Downtown MRT address. No ingredients or current availability inferred from photograph.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Use case: lighting-weather. Faithfully improve this exact Sproutz Downtown dessert photograph for a gallery card cover. Preserve the white ladle, its diagonal handle to the right, the pale creamy liquid, the exact visible orange, pale yellow and pale purple cubes and translucent pearls, and the same black cooking-pot rim behind it. Keep the vertical crop, perspective, positions and quantities. Refine clean soft lighting, modest contrast and appetizing natural texture; reduce haze and color cast. Do not add garnish, steam, bowls, props, lettering or ingredients. No change to the recipe or serving arrangement. Realistic photographic enhancement of the supplied image only.",
+        "review": "Source and output visually compared; selected. Arrangement retained, fine details may differ; no data claim inferred."
+      }
+    }
+  ],
+  "newHours": [],
+  "hoursReviews": [
+    {
+      "venueId": "research-boneless-irving",
+      "status": "new-operator-linked-hours-lead-next-batch",
+      "sources": [
+        "https://thebonelesskitchen.com/reservation/",
+        "https://tableagent.com/singapore/the-boneless-kitchen-korean/",
+        "https://thebonelesskitchen.oddle.me/en_SG/stores",
+        "https://www.burpple.com/the-boneless-kitchen-1"
+      ],
+      "finding": "Operator reservation page links and embeds exact TableAgent business, same1 Irving address and84576464 phone. Business Hours states all seven days11:00-21:00. Older unclaimed Burpple givesTue-Sun12-21/Monclosed; Oddle delivery11:30-20:45 is not restaurant schedule. New operator-linked business schedule merits qualified integration after capturing source; no booking made.",
+      "checkedAt": "2026-10-17"
+    },
+    {
+      "venueId": "research-kind-kones-forum",
+      "status": "held-unit-and-schedule-mismatch",
+      "sources": [
+        "https://kindkones.com/pages/locations",
+        "https://www.waze.com/live-map/directions/sg/singapore/kind-kones-forum?to=place.ChIJOTJ7DmAZ2jERDEVHuKdUJMc",
+        "https://burpple.com/kindkonessg?bp_ref=%2Flist%2F505127"
+      ],
+      "finding": "Operator now lists Forum#B1-17 11-21, whereas published exact branch is#B1-27 & K1. Waze has#B1-27 11-21; Burpple10-22. Resolve unit relocation/typo before attaching schedule; no branch address silently overwritten.",
+      "checkedAt": "2026-10-17"
+    },
+    {
+      "venueId": "research-ur04-peace-vegetarian",
+      "status": "new-dining-source-pending-review",
+      "sources": [
+        "https://dineout.grab.com/sg/en/restaurants/peace-vegetarian-tai-seng--4-C7DYRNXTJEUZLN",
+        "https://18taiseng.com/shop/peace-vegetarian"
+      ],
+      "finding": "Grab Dine Out exact18TaiSeng#B1-02 has explicitly Dining Hours Mon-Sun11-20:30, not delivery. Generic mall-named directory shows11-21 and omitsSaturday; operator/actual landlord confirmation still sought.",
+      "checkedAt": "2026-10-17"
+    },
+    {
+      "venueId": "research-egg-plant-marina-bay-source",
+      "status": "held-source-disagreement",
+      "sources": [
+        "https://www.burpple.com/eggplant-marina-bay-link-mall",
+        "https://www.onehungryhippo.com/restaurants/egg-plant-marina-bay-link-mall",
+        "https://www.foodpanda.sg/restaurant/io9s/egg-plant-marina-bay-link-mall-io9s?opening_type=pickup",
+        "https://www.marinabaylink.com.sg/",
+        "https://bythebay.com.sg/directory"
+      ],
+      "finding": "Secondary listings disagree07:30-21:30 vs weekday10:30-17; foodpanda is pickup10:30-17:15. Actual mall redirects to ByTheBay; directory dynamic and specific listing not yet retrieved. Do not use mall general hours.",
+      "checkedAt": "2026-10-17"
+    },
+    {
+      "venueId": "research-sufood-raffles-city",
+      "status": "held-no-current-primary-schedule",
+      "sources": [
+        "https://www.capitaland.com/sg/malls/rafflescity/en/stores/sufood.html",
+        "https://rafflescitymall.com/shop/sufood",
+        "https://www.sufood.com.sg/"
+      ],
+      "finding": "Actual landlord confirms exact#02-19to21 identity but no schedule. Mall-named independent directory saysdaily11:30-15/17:30-22; not landlord evidence. Operator URL inaccessible via web tool. Historic holiday PDFs not current regular hours.",
+      "checkedAt": "2026-10-17"
+    },
+    {
+      "venueId": "research-botanict-clementi",
+      "status": "held-secondary-only",
+      "sources": [
+        "https://www.novacircle.com/spots/asia/singapore/clementi/singapore-municipality/singapore/botanict-bf05b6/opening-hours",
+        "https://th.openrice.com/en/singapore/r-botanict-clementi-asian-variety-coffee-r215855",
+        "https://burpple.com/botanict"
+      ],
+      "finding": "Two secondary exactClementi listings agreeTue-Sun11-22/Monclosed. Burpple is a different Tampines address; never transfer it. Operator confirmation still sought.",
+      "checkedAt": "2026-10-17"
+    },
+    {
+      "venueId": "research-merle-lentor-modern",
+      "status": "held-secondary-only",
+      "sources": [
+        "https://www.burpple.com/merle-co?bp_ref=%2Ff%2FvKI4n5Zz",
+        "https://stampede.sg/merle-co/about",
+        "https://merleandco.com/"
+      ],
+      "finding": "Secondary hours Mon-Thu09:30-21,Fri09:30-22,Sat08:30-22,Sun08:30-21; guessed operator domain inaccessible and not accepted as operator identity. Follow actual merchant/landlord links next.",
+      "checkedAt": "2026-10-17"
+    },
+    {
+      "venueId": "research-mod-cafe-kuo-chuan",
+      "status": "held-conflicting-secondary-hours",
+      "sources": [
+        "https://burpple.com/modcafeinsg",
+        "https://www.onehungryhippo.com/guide/vegetarian-cafes-western-food-singapore",
+        "https://www.insanelybest.com/pet-friendly-cafe/",
+        "https://laptopfriendly.co/singapore/mod-cafe"
+      ],
+      "finding": "Conflicting9-20daily,11:30-21exceptTue,10-21exceptTue and historical10:30-18:30/22. No new approval.",
+      "checkedAt": "2026-10-17"
+    }
+  ],
+  "coverage": {
+    "browseVenues": 174,
+    "menuIds": 175,
+    "covers": 48,
+    "uniqueAssets": 39,
+    "hours": 85,
+    "coverGaps": 126,
+    "hoursGaps": 89,
+    "assetBytes": 5181884,
+    "newAssetBytes": 561497,
+    "catalogueIndexBytes": 140021
+  },
+  "photoHolds": [
+    "First elemen-plq output rejected for invented window scenery; selected corrected version retains featureless white window.",
+    "MTR advertising poster not selected; food-only Chow Chow Bhath source selected.",
+    "DLife Novena derivative remains held, not Chinatown evidence.",
+    "Makan Vegan and Soon Lai exact screenshot photographs remain unrecovered."
+  ],
+  "sourceReview": "Saved operator pages captured16Oct2026 were reviewed17Oct. Elemen gallery precedes its own branch caption; exact block structure verified, not nearest previous heading. New image assets downloaded once except one recorded Boneless406 retry using ordinary browser headers. No expired cache reader called.",
+  "concurrency": {
+    "checkedAt": "2026-10-17",
+    "oldBase": "20261017-greendot-covers6",
+    "newBase": "20261017-cook-benchmark1",
+    "reason": "Concurrent Cook deployment discovered by mandatory live inspection; preserve its source/assets and rebuild all API bundles together",
+    "oldStageRetained": "source-pre-cook-base"
+  },
+  "googleLedger": {
+    "requests": 2419,
+    "limit": 2500,
+    "remaining": 81,
+    "sha256": "c7321dafaad0473583139494ca899501578892c5b71105429d3cd4dceb4f311a"
+  },
+  "menusAndHolds": "175 IDs/223 menus/12084 source occurrences and2527 held food observations unchanged; no repeated extraction",
+  "physicalDeviceVerified": false,
+  "deployedRelease": "20261017-operator-covers7",
+  "releaseEvidence": ".local/coverage-2026-10-17e/release.json"
+}

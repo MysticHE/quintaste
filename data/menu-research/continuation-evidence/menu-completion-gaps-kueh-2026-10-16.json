@@ -1,0 +1,2369 @@
+{
+  "version": 1,
+  "checkedAt": "2026-10-16T00:23:00Z",
+  "sources": [
+    {
+      "id": "completion-kueh-shop",
+      "url": "https://kuehhojiak.com/shop-now/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Online shop and seven displayed category filters",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. All seven merchant-linked pcat filters inspected; Sweet Kuehs archive pages1/2 and Baby Shower/Wedding archive also inspected. 99 unique product-detail pages including two existing mix-match rows. All returned200."
+    },
+    {
+      "id": "completion-kueh-contact",
+      "url": "https://kuehhojiak.com/contact/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Tanjong Pagar and Sprout@AMK addresses",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary"
+    },
+    {
+      "id": "completion-kueh-delivery",
+      "url": "https://kuehhojiak.com/kueh-delivery-singapore/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Delivery process and exact self-collection address",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "Merchant article explicitly states pickup/self-collection at6TanjongPagarPlaza#02-20,081006. Article dated5June2026. Delivery20–25SGD, typical free threshold400SGD are conditional estimates, not guaranteed checkout fees. Article operating days conflict with contact header; no final schedule inferred."
+    },
+    {
+      "id": "completion-kueh-product-20-pcs-mix-match",
+      "url": "https://kuehhojiak.com/product/20-pcs-mix-match/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "20 Pcs Mix & Match",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-40-pcs-mix-match",
+      "url": "https://kuehhojiak.com/product/40-pcs-mix-match/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "40 Pcs Mix & Match",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-ang-ee-mung-bean-ang-ku-kueh",
+      "url": "https://kuehhojiak.com/product/ang-ee-mung-bean-ang-ku-kueh/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Ang Ee Mung Bean 4pcs",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-ang-ee-peanut-ang-ku-kueh-4pcs-sweet",
+      "url": "https://kuehhojiak.com/product/ang-ee-peanut-ang-ku-kueh-4pcs-sweet/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Ang Ee Peanut 4pcs",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-atas-nonya-curry-chicken-tray",
+      "url": "https://kuehhojiak.com/product/atas-nonya-curry-chicken-tray/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Atas Nonya Curry Chicken Tray",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-baby-shower-bamboo-series-gift-set",
+      "url": "https://kuehhojiak.com/product/baby-shower-bamboo-series-gift-set/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Baby Shower Bamboo Series",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-birthday-toppers",
+      "url": "https://kuehhojiak.com/product/birthday-toppers/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Birthday Topper",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-celebration-party-platter-10-12-pax",
+      "url": "https://kuehhojiak.com/product/celebration-party-platter-10-12-pax/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Celebration Party Platter 10-12 pax",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-celebration-red-eggs-10pcs",
+      "url": "https://kuehhojiak.com/product/celebration-red-eggs-10pcs/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Celebration Red Eggs 10pcs",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-chee-cheong-fun-platter-tray-set-3-4-pax-vegan-no-eggs",
+      "url": "https://kuehhojiak.com/product/chee-cheong-fun-platter-tray-set-3-4-pax-vegan-no-eggs/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Veg Chee Cheong Fun 3-4 Pax",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-chee-cheong-fun-special-tray-set-3-4-pax",
+      "url": "https://kuehhojiak.com/product/chee-cheong-fun-special-tray-set-3-4-pax/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Chee Cheong Fun 3-4 Pax",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-chendol-kueh-4pcs",
+      "url": "https://kuehhojiak.com/product/chendol-kueh-4pcs/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Chendol Kueh 4pcs",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-colourful-heart-lapis-12pcs",
+      "url": "https://kuehhojiak.com/product/colourful-heart-lapis-12pcs/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Colourful Heart Lapis 12pcs",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-customised-cards",
+      "url": "https://kuehhojiak.com/product/customised-cards/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Customised Card",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-d24-kueh-bingka-tray",
+      "url": "https://kuehhojiak.com/product/d24-kueh-bingka-tray/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "D24 Fresh Durian Bingka Tray",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-enak-platter",
+      "url": "https://kuehhojiak.com/product/enak-platter/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Enak Platter 2-3 pax",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-f1-race-khj-edition",
+      "url": "https://kuehhojiak.com/product/f1-race-khj-edition/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "F1 Race KHJ Edition",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-fresh-orchids",
+      "url": "https://kuehhojiak.com/product/fresh-orchids/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Fresh Orchids",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-fried-veg-curry-puffs",
+      "url": "https://kuehhojiak.com/product/fried-veg-curry-puffs/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Fried Veg Curry Puff 5pcs",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-fried-veg-samosa-5pcs",
+      "url": "https://kuehhojiak.com/product/fried-veg-samosa-5pcs/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Fried Veg Samosa 5pcs",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-golden-abalone-yam-cake-tray",
+      "url": "https://kuehhojiak.com/product/golden-abalone-yam-cake-tray/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Celebration and parties Golden Abalone Yam Cake Tray",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-gula-melaka-kueh-kosui-8pcs",
+      "url": "https://kuehhojiak.com/product/gula-melaka-kueh-kosui-8pcs/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Gula Melaka Kueh Kosui 8pcs",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-heart-sago-gula-melaka-sweet",
+      "url": "https://kuehhojiak.com/product/heart-sago-gula-melaka-sweet/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Heart Sago Gula Melaka 4pcs",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-high-tea-platter",
+      "url": "https://kuehhojiak.com/product/high-tea-platter/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "HIGH TEA PLATTER 3-4 pax",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-honey-bahulu",
+      "url": "https://kuehhojiak.com/product/honey-bahulu/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Honey Bahulu *POPULAR*",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-hot-coffee-canister-big",
+      "url": "https://kuehhojiak.com/product/hot-coffee-canister-big/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Hot Coffee Canister (Big)",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-hot-coffee-canister-small",
+      "url": "https://kuehhojiak.com/product/hot-coffee-canister-small/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Hot Coffee Canister (Small)",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-hot-tea-canister-big",
+      "url": "https://kuehhojiak.com/product/hot-tea-canister-big/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Hot Tea Canister (Big)",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-hot-tea-canister-small",
+      "url": "https://kuehhojiak.com/product/hot-tea-canister-small/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Hot Tea Canister (Small)",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-huaty-kueh-tower",
+      "url": "https://kuehhojiak.com/product/huaty-kueh-tower/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Good for Parties and Celebrations BEST Huaty Ong Lai Tower",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-kueh-bingka-4pcs",
+      "url": "https://kuehhojiak.com/product/kueh-bingka-4pcs/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Kueh Bingka Tapioca 4pcs",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-kueh-dadar-sweet",
+      "url": "https://kuehhojiak.com/product/kueh-dadar-sweet/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Kueh Dadar 4pcs",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-kueh-lapis-black-sesame",
+      "url": "https://kuehhojiak.com/product/kueh-lapis-black-sesame/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Sesame Kueh Lapis 4pcs",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-kueh-lapis-original",
+      "url": "https://kuehhojiak.com/product/kueh-lapis-original/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Colourful Kueh Lapis 4pcs",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-kueh-lapis-pumpkin-yellow-4pcs",
+      "url": "https://kuehhojiak.com/product/kueh-lapis-pumpkin-yellow-4pcs/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Pumpkin Kueh Lapis 4pcs",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-kueh-lapis-yam-purple-4pcs",
+      "url": "https://kuehhojiak.com/product/kueh-lapis-yam-purple-4pcs/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Yam Kueh Lapis 4pcs",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-kueh-lopez-8pcs",
+      "url": "https://kuehhojiak.com/product/kueh-lopez-8pcs/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Kueh Lopez 8pcs",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-lionhead-biscoff-ang-ku-kuehs",
+      "url": "https://kuehhojiak.com/product/lionhead-biscoff-ang-ku-kuehs/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Lionhead Ang Ku Kueh Biscoff 8pcs",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-lucky-horse-bamboo-box",
+      "url": "https://kuehhojiak.com/product/lucky-horse-bamboo-box/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Lucky Horse Bamboo Box",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-mega-ang-ku-kueh-ka-ta-kueh-mung-bean",
+      "url": "https://kuehhojiak.com/product/mega-ang-ku-kueh-ka-ta-kueh-mung-bean/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Celebration for 1 year old and birthday celebration Mega Mung Bean Ka Ta Kueh",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-mega-ang-ku-kueh-ka-ta-kueh-peanut",
+      "url": "https://kuehhojiak.com/product/mega-ang-ku-kueh-ka-ta-kueh-peanut/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "A child's first birthday or birthday cake Mega Peanut Ka Ta Kueh",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-mega-ang-ku-kueh-ka-ta-kueh-yam",
+      "url": "https://kuehhojiak.com/product/mega-ang-ku-kueh-ka-ta-kueh-yam/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Birthday Cake for 1 Year Old and Celebrations Mega Yam Ka Ta Kueh",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-mini-pink-rice-kueh-veg-10pcs",
+      "url": "https://kuehhojiak.com/product/mini-pink-rice-kueh-veg-10pcs/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Mini Veg Pink Rice Kueh 10pcs",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-mini-soon-kueh-veg-10pcs",
+      "url": "https://kuehhojiak.com/product/mini-soon-kueh-veg-10pcs/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Mini Veg Soon Kueh 10pcs",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-mixed-gift-box-8pcs",
+      "url": "https://kuehhojiak.com/product/mixed-gift-box-8pcs/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Mixed Gift Box 8pcs",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-moist-banana-cake-4pcs",
+      "url": "https://kuehhojiak.com/product/moist-banana-cake-4pcs/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Moist Banana Cake 4pcs",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-nostalgic-fried-platter-specials",
+      "url": "https://kuehhojiak.com/product/nostalgic-fried-platter-specials/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Nostalgic Fried Platter *Specials*",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-padu-platter-3-to-4-pax",
+      "url": "https://kuehhojiak.com/product/padu-platter-3-to-4-pax/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Padu Platter 3-4 pax",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-pandan-puteri-ayu-kaya-4pcs",
+      "url": "https://kuehhojiak.com/product/pandan-puteri-ayu-kaya-4pcs/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Pandan Puteri Ayu Kaya 4pcs",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-pandan-salat-4pcs",
+      "url": "https://kuehhojiak.com/product/pandan-salat-4pcs/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Pandan Kueh Salat 4pcs",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-party-tray-stand-w-out-kuehs",
+      "url": "https://kuehhojiak.com/product/party-tray-stand-w-out-kuehs/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Party Tray Stand (w/out kuehs)",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-pink-rice-kueh-10pcs",
+      "url": "https://kuehhojiak.com/product/pink-rice-kueh-10pcs/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Big Pink Rice Kueh 10pcs",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-plastic-fork",
+      "url": "https://kuehhojiak.com/product/plastic-fork/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Plastic Fork",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-plastic-plates-med",
+      "url": "https://kuehhojiak.com/product/plastic-plates-med/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Plastic Plates",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-plastic-spoon-test",
+      "url": "https://kuehhojiak.com/product/plastic-spoon-test/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Plastic Spoon (Test)",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-plastic-spoon",
+      "url": "https://kuehhojiak.com/product/plastic-spoon/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Plastic Spoon",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-prawn-egg-fried-rice-bento",
+      "url": "https://kuehhojiak.com/product/prawn-egg-fried-rice-bento/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Prawn Egg Fried Rice Bento",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-premium-savoury-platter",
+      "url": "https://kuehhojiak.com/product/premium-savoury-platter/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Premium Savoury (Exclusive)",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-rattan-boat-kueh-platter",
+      "url": "https://kuehhojiak.com/product/rattan-boat-kueh-platter/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Exclusive Rattan Boat Platter Gift Set",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-red-traditional-mung-bean-ang-ku-kueh",
+      "url": "https://kuehhojiak.com/product/red-traditional-mung-bean-ang-ku-kueh/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Red Traditional Mung AKK 4pcs",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-red-traditional-peanut-ang-ku-kueh",
+      "url": "https://kuehhojiak.com/product/red-traditional-peanut-ang-ku-kueh/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Red Traditional Peanut AKK 4pcs",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-rempah-udang-4pcs",
+      "url": "https://kuehhojiak.com/product/rempah-udang-4pcs/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Rempah Udang 4pcs",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-sambal-ho-jiak-bottles",
+      "url": "https://kuehhojiak.com/product/sambal-ho-jiak-bottles/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "SAMBAL Ho Jiak! Sedap! (Non Veg)",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-sambal-ho-jiak-veg-sedap",
+      "url": "https://kuehhojiak.com/product/sambal-ho-jiak-veg-sedap/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "SAMBAL Ho Jiak! Veg Sedap!",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-savoury-platter",
+      "url": "https://kuehhojiak.com/product/savoury-platter/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Savoury Platter 3-4 pax",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-send-a-box-of-love",
+      "url": "https://kuehhojiak.com/product/send-a-box-of-love/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Love Platter  3-4 pax",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-sg-marble-ang-ku-kueh",
+      "url": "https://kuehhojiak.com/product/sg-marble-ang-ku-kueh/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Sg Marble Ang Ku Kueh 12pcs",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-sg61-biscoff-akk-8pcs",
+      "url": "https://kuehhojiak.com/product/sg61-biscoff-akk-8pcs/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "SG61 Biscoff AKK 8pcs",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-singa-kueh-box-we-love-sg",
+      "url": "https://kuehhojiak.com/product/singa-kueh-box-we-love-sg/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Singa-Kueh SG Box (SG60)",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-soon-kueh-10pcs",
+      "url": "https://kuehhojiak.com/product/soon-kueh-10pcs/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Soon Kueh Big 10pcs",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-soy-ho-jiak-original",
+      "url": "https://kuehhojiak.com/product/soy-ho-jiak-original/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "SOY Ho Jiak Veg Mock Goose",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-specialty-mixed-kueh-box-4pcs",
+      "url": "https://kuehhojiak.com/product/specialty-mixed-kueh-box-4pcs/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Specialty Mixed Kueh Box 4pcs",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-steam-yam-cake-4pcs",
+      "url": "https://kuehhojiak.com/product/steam-yam-cake-4pcs/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Yam Cake 4pcs",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-strawberry-puteri-ayu-4pcs",
+      "url": "https://kuehhojiak.com/product/strawberry-puteri-ayu-4pcs/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Strawberry Puteri Ayu 4pcs",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-sushi-glutinous-rice-platter-45pcs",
+      "url": "https://kuehhojiak.com/product/sushi-glutinous-rice-platter-45pcs/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Suitable for Baby Shower Sushi Veg Glutinous 45pcs",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-sweet-potato-biscoff-ang-ku-kueh-sweet",
+      "url": "https://kuehhojiak.com/product/sweet-potato-biscoff-ang-ku-kueh-sweet/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "*NEW Lotus Biscoff AKK 4pcs",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-sweet-potato-hae-bee-hiam-ang-ku-kueh-6pcs",
+      "url": "https://kuehhojiak.com/product/sweet-potato-hae-bee-hiam-ang-ku-kueh-6pcs/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Sweet Potato Hae Bee Hiam AKK 6pcs",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-sweet-potato-huat-kueh-gula-16pcs",
+      "url": "https://kuehhojiak.com/product/sweet-potato-huat-kueh-gula-16pcs/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Sweet Potato Huat Kueh 16pcs",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-sweet-potato-ondeh-ondeh-8pcs",
+      "url": "https://kuehhojiak.com/product/sweet-potato-ondeh-ondeh-8pcs/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "*Vegan/ Vegetarian* Sweet Potato Ondeh 10pcs",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-sweet-potato-rice-kueh-10pcs",
+      "url": "https://kuehhojiak.com/product/sweet-potato-rice-kueh-10pcs/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Sweet Potato Rice Kueh 10pcs",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-sweet-potato-salted-egg-rice-kueh-10pcs",
+      "url": "https://kuehhojiak.com/product/sweet-potato-salted-egg-rice-kueh-10pcs/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Sweet Potato Salted Egg Rice Kueh 10pcs",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-sweet-potatoes-coconut-ang-ku-kueh-sweet",
+      "url": "https://kuehhojiak.com/product/sweet-potatoes-coconut-ang-ku-kueh-sweet/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Sweet Potato Coconut AKK 4pcs",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-sweet-potatoes-d24-durian-ang-ku-kueh-8pcs",
+      "url": "https://kuehhojiak.com/product/sweet-potatoes-d24-durian-ang-ku-kueh-8pcs/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Sweet Potato D24 Durian AKK 8pcs",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-sweet-potatoes-gyoza-soon-kueh-10pcs",
+      "url": "https://kuehhojiak.com/product/sweet-potatoes-gyoza-soon-kueh-10pcs/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Sweet Potatoes Gyoza Platter",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-sweet-potatoes-mung-bean-ang-ku-kueh-sweet",
+      "url": "https://kuehhojiak.com/product/sweet-potatoes-mung-bean-ang-ku-kueh-sweet/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Sweet Potato Mung AKK 4pcs",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-sweet-potatoes-peanut-ang-ku-kueh-sweet",
+      "url": "https://kuehhojiak.com/product/sweet-potatoes-peanut-ang-ku-kueh-sweet/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Sweet Potato Peanut AKK 4pcs",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-sweet-potatoes-yam-ang-ku-kueh-sweet",
+      "url": "https://kuehhojiak.com/product/sweet-potatoes-yam-ang-ku-kueh-sweet/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Sweet Potato Yam AKK 4pcs",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-takeaway-boxes-plastic",
+      "url": "https://kuehhojiak.com/product/takeaway-boxes-plastic/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Plastic Takeaway Box 10pcs",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-ubi-kayu-4pcs",
+      "url": "https://kuehhojiak.com/product/ubi-kayu-4pcs/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Ubi Kayu Tapioca 8pcs",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-veg-bee-hoon-tray-10pax",
+      "url": "https://kuehhojiak.com/product/veg-bee-hoon-tray-10pax/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "10 pax/tray Veg Bee Hoon Tray 10pax",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-veg-bee-hoon-tray",
+      "url": "https://kuehhojiak.com/product/veg-bee-hoon-tray/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "5 to 7 pax/tray Veg Bee Hoon Tray 5pax",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-veg-char-siew-fried-rice-bento",
+      "url": "https://kuehhojiak.com/product/veg-char-siew-fried-rice-bento/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Veg Char Siew Fried Rice Bento",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-veg-high-tea-platter",
+      "url": "https://kuehhojiak.com/product/veg-high-tea-platter/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "VEG HIGH TEA PLATTER 3-4 pax",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-veg-spring-roll-5pcs",
+      "url": "https://kuehhojiak.com/product/veg-spring-roll-5pcs/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Veg Spring Roll 5pcs",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-veg-yam-cake-4pcs",
+      "url": "https://kuehhojiak.com/product/veg-yam-cake-4pcs/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Veg Yam Cake 4pcs",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-vegetarian-savoury-platter-47-best-seller-of-savoury-items",
+      "url": "https://kuehhojiak.com/product/vegetarian-savoury-platter-47-best-seller-of-savoury-items/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Veg Savoury Platter 3-4 pax",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-wedding-bamboo-series-gift-set",
+      "url": "https://kuehhojiak.com/product/wedding-bamboo-series-gift-set/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Wedding Bamboo Series",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-yam-cake-tray-festive",
+      "url": "https://kuehhojiak.com/product/yam-cake-tray-festive/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Lucky Yam Cake Tray",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-yam-cake-tray-platter",
+      "url": "https://kuehhojiak.com/product/yam-cake-tray-platter/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Mini Yam Cake Tray (Non Veg)",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    }
+  ],
+  "branches": [
+    {
+      "id": "kueh-ho-jiak-tanjong-pagar",
+      "name": "Kueh Ho Jiak — Tanjong Pagar",
+      "address": "6 Tanjong Pagar Plaza #02-20, Singapore 081006",
+      "sourceIds": [
+        "completion-kueh-contact",
+        "completion-kueh-delivery"
+      ],
+      "menuIds": [
+        "kueh-ho-jiak-tanjong-pagar-online-food-20261016"
+      ],
+      "gaps": [
+        "All99unique product details reachable from inspected seven-category shop plus sweet/baby archives accounted. New prepared-food rows captured; two existing mix-match rows amended separately.",
+        "No claim of in-store same-day stock. Delivery page and contact page disagree on operating days; schedule unknown. Tax treatment and some optional design/cutting charges unstated."
+      ],
+      "identityStatus": "merchant-confirmed",
+      "postalCode": "081006",
+      "directoryLeadIds": [
+        "hippo-kueh-ho-jiak"
+      ]
+    },
+    {
+      "id": "kueh-ho-jiak-amk",
+      "name": "Kueh Ho Jiak — Sprout @ AMK",
+      "address": "713A Ang Mo Kio Avenue6 #01-01, Singapore 561713",
+      "sourceIds": [
+        "completion-kueh-contact"
+      ],
+      "menuIds": [],
+      "gaps": [
+        "Exact AMK address current on merchant contact. Inspected delivery page names Tanjong Pagar only for self-collection; no AMK product fulfillment/branch menu mapping. Online catalogue not transferred to this branch."
+      ],
+      "identityStatus": "merchant-confirmed",
+      "postalCode": "561713"
+    }
+  ],
+  "menus": [
+    {
+      "id": "kueh-ho-jiak-tanjong-pagar-online-food-20261016",
+      "name": "Kueh Ho Jiak — online prepared foods for Tanjong Pagar pickup",
+      "scope": "branch",
+      "branchIds": [
+        "kueh-ho-jiak-tanjong-pagar"
+      ],
+      "sourceIds": [
+        "completion-kueh-shop",
+        "completion-kueh-delivery"
+      ],
+      "coverage": "source-covered",
+      "items": [
+        {
+          "id": "kueh-completion-ang-ee-mung-bean-ang-ku-kueh",
+          "name": "Ang Ee Mung Bean 4pcs",
+          "category": "Kueh, platters & prepared snacks",
+          "price": {
+            "amount": 6.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-kueh-product-ang-ee-mung-bean-ang-ku-kueh",
+            "completion-kueh-delivery"
+          ],
+          "qualifier": "Online product for merchant-confirmed Tanjong Pagar pickup; no claim of walk-in availability. SGD from public Product JSON-LD matches displayed price. Tax/service treatment, effective date and current stock unconfirmed. Ingredients not independently verified."
+        },
+        {
+          "id": "kueh-completion-ang-ee-peanut-ang-ku-kueh-4pcs-sweet",
+          "name": "Ang Ee Peanut 4pcs",
+          "category": "Kueh, platters & prepared snacks",
+          "price": {
+            "amount": 6.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-kueh-product-ang-ee-peanut-ang-ku-kueh-4pcs-sweet",
+            "completion-kueh-delivery"
+          ],
+          "qualifier": "Online product for merchant-confirmed Tanjong Pagar pickup; no claim of walk-in availability. SGD from public Product JSON-LD matches displayed price. Tax/service treatment, effective date and current stock unconfirmed. Ingredients not independently verified."
+        },
+        {
+          "id": "kueh-completion-baby-shower-bamboo-series-gift-set",
+          "name": "Baby Shower Bamboo Series",
+          "category": "Kueh, platters & prepared snacks",
+          "price": {
+            "amount": 30,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-kueh-product-baby-shower-bamboo-series-gift-set",
+            "completion-kueh-delivery"
+          ],
+          "qualifier": "Online product for merchant-confirmed Tanjong Pagar pickup; no claim of walk-in availability. SGD from public Product JSON-LD matches displayed price. Tax/service treatment, effective date and current stock unconfirmed. Ingredients not independently verified. Mung Bean AKK2, Peanut AKK2, Heart Lapis1 with gold, Pandan Puteri Kaya1; request baby girl/boy design via remarks. Bamboo box diameter15cm,height3.5cm.",
+          "optionNotes": "Mung Bean AKK2, Peanut AKK2, Heart Lapis1 with gold, Pandan Puteri Kaya1; request baby girl/boy design via remarks. Bamboo box diameter15cm,height3.5cm."
+        },
+        {
+          "id": "kueh-completion-celebration-red-eggs-10pcs",
+          "name": "Celebration Red Eggs 10pcs",
+          "category": "Kueh, platters & prepared snacks",
+          "price": {
+            "amount": 20,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-kueh-product-celebration-red-eggs-10pcs",
+            "completion-kueh-delivery"
+          ],
+          "qualifier": "Online product for merchant-confirmed Tanjong Pagar pickup; no claim of walk-in availability. SGD from public Product JSON-LD matches displayed price. Tax/service treatment, effective date and current stock unconfirmed. Ingredients not independently verified."
+        },
+        {
+          "id": "kueh-completion-chee-cheong-fun-platter-tray-set-3-4-pax-vegan-no-eggs",
+          "name": "Veg Chee Cheong Fun 3-4 Pax",
+          "category": "Kueh, platters & prepared snacks",
+          "price": {
+            "amount": 28,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-kueh-product-chee-cheong-fun-platter-tray-set-3-4-pax-vegan-no-eggs",
+            "completion-kueh-delivery"
+          ],
+          "qualifier": "Online product for merchant-confirmed Tanjong Pagar pickup; no claim of walk-in availability. SGD from public Product JSON-LD matches displayed price. Tax/service treatment, effective date and current stock unconfirmed. Ingredients not independently verified. 3–4pax. No eggs; merchant says vegan/no garlic/no spring onion. Cutlery not supplied.",
+          "optionNotes": "3–4pax. No eggs; merchant says vegan/no garlic/no spring onion. Cutlery not supplied."
+        },
+        {
+          "id": "kueh-completion-chee-cheong-fun-special-tray-set-3-4-pax",
+          "name": "Chee Cheong Fun 3-4 Pax",
+          "category": "Kueh, platters & prepared snacks",
+          "price": {
+            "amount": 28,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-kueh-product-chee-cheong-fun-special-tray-set-3-4-pax",
+            "completion-kueh-delivery"
+          ],
+          "qualifier": "Online product for merchant-confirmed Tanjong Pagar pickup; no claim of walk-in availability. SGD from public Product JSON-LD matches displayed price. Tax/service treatment, effective date and current stock unconfirmed. Ingredients not independently verified. 3–4pax. Eggs, garlic and onions included; cutlery not supplied.",
+          "optionNotes": "3–4pax. Eggs, garlic and onions included; cutlery not supplied."
+        },
+        {
+          "id": "kueh-completion-chendol-kueh-4pcs",
+          "name": "Chendol Kueh 4pcs",
+          "category": "Kueh, platters & prepared snacks",
+          "price": {
+            "amount": 6.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-kueh-product-chendol-kueh-4pcs",
+            "completion-kueh-delivery"
+          ],
+          "qualifier": "Online product for merchant-confirmed Tanjong Pagar pickup; no claim of walk-in availability. SGD from public Product JSON-LD matches displayed price. Tax/service treatment, effective date and current stock unconfirmed. Ingredients not independently verified."
+        },
+        {
+          "id": "kueh-completion-colourful-heart-lapis-12pcs",
+          "name": "Colourful Heart Lapis 12pcs",
+          "category": "Kueh, platters & prepared snacks",
+          "price": {
+            "amount": 24,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-kueh-product-colourful-heart-lapis-12pcs",
+            "completion-kueh-delivery"
+          ],
+          "qualifier": "Online product for merchant-confirmed Tanjong Pagar pickup; no claim of walk-in availability. SGD from public Product JSON-LD matches displayed price. Tax/service treatment, effective date and current stock unconfirmed. Ingredients not independently verified."
+        },
+        {
+          "id": "kueh-completion-d24-kueh-bingka-tray",
+          "name": "D24 Fresh Durian Bingka Tray",
+          "category": "Kueh, platters & prepared snacks",
+          "price": {
+            "amount": 40,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-kueh-product-d24-kueh-bingka-tray",
+            "completion-kueh-delivery"
+          ],
+          "qualifier": "Online product for merchant-confirmed Tanjong Pagar pickup; no claim of walk-in availability. SGD from public Product JSON-LD matches displayed price. Tax/service treatment, effective date and current stock unconfirmed. Ingredients not independently verified. Freshly baked upon order; one tray13×23×6cm.",
+          "optionNotes": "Freshly baked upon order; one tray13×23×6cm."
+        },
+        {
+          "id": "kueh-completion-enak-platter",
+          "name": "Enak Platter 2-3 pax",
+          "category": "Kueh, platters & prepared snacks",
+          "price": {
+            "amount": 30,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-kueh-product-enak-platter",
+            "completion-kueh-delivery"
+          ],
+          "qualifier": "Online product for merchant-confirmed Tanjong Pagar pickup; no claim of walk-in availability. SGD from public Product JSON-LD matches displayed price. Tax/service treatment, effective date and current stock unconfirmed. Ingredients not independently verified. Salat4, Rainbow Lapis4, Pandan Puteri Kaya3, Peanut Traditional Red AKK3.",
+          "optionNotes": "Salat4, Rainbow Lapis4, Pandan Puteri Kaya3, Peanut Traditional Red AKK3."
+        },
+        {
+          "id": "kueh-completion-fried-veg-curry-puffs",
+          "name": "Fried Veg Curry Puff 5pcs",
+          "category": "Kueh, platters & prepared snacks",
+          "price": {
+            "amount": 12.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-kueh-product-fried-veg-curry-puffs",
+            "completion-kueh-delivery"
+          ],
+          "qualifier": "Online product for merchant-confirmed Tanjong Pagar pickup; no claim of walk-in availability. SGD from public Product JSON-LD matches displayed price. Tax/service treatment, effective date and current stock unconfirmed. Ingredients not independently verified."
+        },
+        {
+          "id": "kueh-completion-fried-veg-samosa-5pcs",
+          "name": "Fried Veg Samosa 5pcs",
+          "category": "Kueh, platters & prepared snacks",
+          "price": {
+            "amount": 10,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-kueh-product-fried-veg-samosa-5pcs",
+            "completion-kueh-delivery"
+          ],
+          "qualifier": "Online product for merchant-confirmed Tanjong Pagar pickup; no claim of walk-in availability. SGD from public Product JSON-LD matches displayed price. Tax/service treatment, effective date and current stock unconfirmed. Ingredients not independently verified."
+        },
+        {
+          "id": "kueh-completion-gula-melaka-kueh-kosui-8pcs",
+          "name": "Gula Melaka Kueh Kosui 8pcs",
+          "category": "Kueh, platters & prepared snacks",
+          "price": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-kueh-product-gula-melaka-kueh-kosui-8pcs",
+            "completion-kueh-delivery"
+          ],
+          "qualifier": "Online product for merchant-confirmed Tanjong Pagar pickup; no claim of walk-in availability. SGD from public Product JSON-LD matches displayed price. Tax/service treatment, effective date and current stock unconfirmed. Ingredients not independently verified."
+        },
+        {
+          "id": "kueh-completion-heart-sago-gula-melaka-sweet",
+          "name": "Heart Sago Gula Melaka 4pcs",
+          "category": "Kueh, platters & prepared snacks",
+          "price": {
+            "amount": 6.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-kueh-product-heart-sago-gula-melaka-sweet",
+            "completion-kueh-delivery"
+          ],
+          "qualifier": "Online product for merchant-confirmed Tanjong Pagar pickup; no claim of walk-in availability. SGD from public Product JSON-LD matches displayed price. Tax/service treatment, effective date and current stock unconfirmed. Ingredients not independently verified."
+        },
+        {
+          "id": "kueh-completion-honey-bahulu",
+          "name": "Honey Bahulu *POPULAR*",
+          "category": "Kueh, platters & prepared snacks",
+          "price": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-kueh-product-honey-bahulu",
+            "completion-kueh-delivery"
+          ],
+          "qualifier": "Online product for merchant-confirmed Tanjong Pagar pickup; no claim of walk-in availability. SGD from public Product JSON-LD matches displayed price. Tax/service treatment, effective date and current stock unconfirmed. Ingredients not independently verified. Per box, estimated25–28pieces; box15cm wide×6.5cm high. Contains honey by name; not vegan.",
+          "optionNotes": "Per box, estimated25–28pieces; box15cm wide×6.5cm high. Contains honey by name; not vegan."
+        },
+        {
+          "id": "kueh-completion-huaty-kueh-tower",
+          "name": "Good for Parties and Celebrations BEST Huaty Ong Lai Tower",
+          "category": "Kueh, platters & prepared snacks",
+          "price": {
+            "amount": 180,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-kueh-product-huaty-kueh-tower",
+            "completion-kueh-delivery"
+          ],
+          "qualifier": "Online product for merchant-confirmed Tanjong Pagar pickup; no claim of walk-in availability. SGD from public Product JSON-LD matches displayed price. Tax/service treatment, effective date and current stock unconfirmed. Ingredients not independently verified. Estimated70–100mini pieces; tower base28cm,height35cm. Occasion decorations via remarks; exact replacement contents uncertain. Held: Default composition includes Hae Bee Hiam; vegan-by-remarks text only promises omitting egg kuehs. Exact safe replacement/price not established.",
+          "optionNotes": "Estimated70–100mini pieces; tower base28cm,height35cm. Occasion decorations via remarks; exact replacement contents uncertain.",
+          "publicationStatus": "hold-mixed-dietary-options"
+        },
+        {
+          "id": "kueh-completion-kueh-bingka-4pcs",
+          "name": "Kueh Bingka Tapioca 4pcs",
+          "category": "Kueh, platters & prepared snacks",
+          "price": {
+            "amount": 6.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-kueh-product-kueh-bingka-4pcs",
+            "completion-kueh-delivery"
+          ],
+          "qualifier": "Online product for merchant-confirmed Tanjong Pagar pickup; no claim of walk-in availability. SGD from public Product JSON-LD matches displayed price. Tax/service treatment, effective date and current stock unconfirmed. Ingredients not independently verified. Source discloses eggs and/or dairy; do not label vegan."
+        },
+        {
+          "id": "kueh-completion-kueh-dadar-sweet",
+          "name": "Kueh Dadar 4pcs",
+          "category": "Kueh, platters & prepared snacks",
+          "price": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-kueh-product-kueh-dadar-sweet",
+            "completion-kueh-delivery"
+          ],
+          "qualifier": "Online product for merchant-confirmed Tanjong Pagar pickup; no claim of walk-in availability. SGD from public Product JSON-LD matches displayed price. Tax/service treatment, effective date and current stock unconfirmed. Ingredients not independently verified."
+        },
+        {
+          "id": "kueh-completion-kueh-lapis-black-sesame",
+          "name": "Sesame Kueh Lapis 4pcs",
+          "category": "Kueh, platters & prepared snacks",
+          "price": {
+            "amount": 6.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-kueh-product-kueh-lapis-black-sesame",
+            "completion-kueh-delivery"
+          ],
+          "qualifier": "Online product for merchant-confirmed Tanjong Pagar pickup; no claim of walk-in availability. SGD from public Product JSON-LD matches displayed price. Tax/service treatment, effective date and current stock unconfirmed. Ingredients not independently verified."
+        },
+        {
+          "id": "kueh-completion-kueh-lapis-original",
+          "name": "Colourful Kueh Lapis 4pcs",
+          "category": "Kueh, platters & prepared snacks",
+          "price": {
+            "amount": 6.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-kueh-product-kueh-lapis-original",
+            "completion-kueh-delivery"
+          ],
+          "qualifier": "Online product for merchant-confirmed Tanjong Pagar pickup; no claim of walk-in availability. SGD from public Product JSON-LD matches displayed price. Tax/service treatment, effective date and current stock unconfirmed. Ingredients not independently verified."
+        },
+        {
+          "id": "kueh-completion-kueh-lapis-pumpkin-yellow-4pcs",
+          "name": "Pumpkin Kueh Lapis 4pcs",
+          "category": "Kueh, platters & prepared snacks",
+          "price": {
+            "amount": 6.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-kueh-product-kueh-lapis-pumpkin-yellow-4pcs",
+            "completion-kueh-delivery"
+          ],
+          "qualifier": "Online product for merchant-confirmed Tanjong Pagar pickup; no claim of walk-in availability. SGD from public Product JSON-LD matches displayed price. Tax/service treatment, effective date and current stock unconfirmed. Ingredients not independently verified."
+        },
+        {
+          "id": "kueh-completion-kueh-lapis-yam-purple-4pcs",
+          "name": "Yam Kueh Lapis 4pcs",
+          "category": "Kueh, platters & prepared snacks",
+          "price": {
+            "amount": 6.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-kueh-product-kueh-lapis-yam-purple-4pcs",
+            "completion-kueh-delivery"
+          ],
+          "qualifier": "Online product for merchant-confirmed Tanjong Pagar pickup; no claim of walk-in availability. SGD from public Product JSON-LD matches displayed price. Tax/service treatment, effective date and current stock unconfirmed. Ingredients not independently verified."
+        },
+        {
+          "id": "kueh-completion-kueh-lopez-8pcs",
+          "name": "Kueh Lopez 8pcs",
+          "category": "Kueh, platters & prepared snacks",
+          "price": {
+            "amount": 16,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-kueh-product-kueh-lopez-8pcs",
+            "completion-kueh-delivery"
+          ],
+          "qualifier": "Online product for merchant-confirmed Tanjong Pagar pickup; no claim of walk-in availability. SGD from public Product JSON-LD matches displayed price. Tax/service treatment, effective date and current stock unconfirmed. Ingredients not independently verified."
+        },
+        {
+          "id": "kueh-completion-lionhead-biscoff-ang-ku-kuehs",
+          "name": "Lionhead Ang Ku Kueh Biscoff 8pcs",
+          "category": "Kueh, platters & prepared snacks",
+          "price": {
+            "amount": 24,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-kueh-product-lionhead-biscoff-ang-ku-kuehs",
+            "completion-kueh-delivery"
+          ],
+          "qualifier": "Online product for merchant-confirmed Tanjong Pagar pickup; no claim of walk-in availability. SGD from public Product JSON-LD matches displayed price. Tax/service treatment, effective date and current stock unconfirmed. Ingredients not independently verified."
+        },
+        {
+          "id": "kueh-completion-lucky-horse-bamboo-box",
+          "name": "Lucky Horse Bamboo Box",
+          "category": "Kueh, platters & prepared snacks",
+          "price": {
+            "amount": 40,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-kueh-product-lucky-horse-bamboo-box",
+            "completion-kueh-delivery"
+          ],
+          "qualifier": "Online product for merchant-confirmed Tanjong Pagar pickup; no claim of walk-in availability. SGD from public Product JSON-LD matches displayed price. Tax/service treatment, effective date and current stock unconfirmed. Ingredients not independently verified. Festive Year-of-Horse set: Chun Mung Bean, Pineapple Peanut, Horse Yam, Orange Lotus Biscoff. Quantity per design not stated.",
+          "optionNotes": "Festive Year-of-Horse set: Chun Mung Bean, Pineapple Peanut, Horse Yam, Orange Lotus Biscoff. Quantity per design not stated."
+        },
+        {
+          "id": "kueh-completion-mega-ang-ku-kueh-ka-ta-kueh-mung-bean",
+          "name": "Celebration for 1 year old and birthday celebration Mega Mung Bean Ka Ta Kueh",
+          "category": "Kueh, platters & prepared snacks",
+          "price": {
+            "amount": 55,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-kueh-product-mega-ang-ku-kueh-ka-ta-kueh-mung-bean",
+            "completion-kueh-delivery"
+          ],
+          "qualifier": "Online product for merchant-confirmed Tanjong Pagar pickup; no claim of walk-in availability. SGD from public Product JSON-LD matches displayed price. Tax/service treatment, effective date and current stock unconfirmed. Ingredients not independently verified. Price is per piece, not the traditional pair; platter and candle included."
+        },
+        {
+          "id": "kueh-completion-mega-ang-ku-kueh-ka-ta-kueh-peanut",
+          "name": "A child's first birthday or birthday cake Mega Peanut Ka Ta Kueh",
+          "category": "Kueh, platters & prepared snacks",
+          "price": {
+            "amount": 55,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-kueh-product-mega-ang-ku-kueh-ka-ta-kueh-peanut",
+            "completion-kueh-delivery"
+          ],
+          "qualifier": "Online product for merchant-confirmed Tanjong Pagar pickup; no claim of walk-in availability. SGD from public Product JSON-LD matches displayed price. Tax/service treatment, effective date and current stock unconfirmed. Ingredients not independently verified. Price is per piece, not the traditional pair; platter and candle included."
+        },
+        {
+          "id": "kueh-completion-mega-ang-ku-kueh-ka-ta-kueh-yam",
+          "name": "Birthday Cake for 1 Year Old and Celebrations Mega Yam Ka Ta Kueh",
+          "category": "Kueh, platters & prepared snacks",
+          "price": {
+            "amount": 65,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-kueh-product-mega-ang-ku-kueh-ka-ta-kueh-yam",
+            "completion-kueh-delivery"
+          ],
+          "qualifier": "Online product for merchant-confirmed Tanjong Pagar pickup; no claim of walk-in availability. SGD from public Product JSON-LD matches displayed price. Tax/service treatment, effective date and current stock unconfirmed. Ingredients not independently verified. Price is per piece, not the traditional pair; platter and candle included."
+        },
+        {
+          "id": "kueh-completion-mini-pink-rice-kueh-veg-10pcs",
+          "name": "Mini Veg Pink Rice Kueh 10pcs",
+          "category": "Kueh, platters & prepared snacks",
+          "price": {
+            "amount": 15,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-kueh-product-mini-pink-rice-kueh-veg-10pcs",
+            "completion-kueh-delivery"
+          ],
+          "qualifier": "Online product for merchant-confirmed Tanjong Pagar pickup; no claim of walk-in availability. SGD from public Product JSON-LD matches displayed price. Tax/service treatment, effective date and current stock unconfirmed. Ingredients not independently verified."
+        },
+        {
+          "id": "kueh-completion-mini-soon-kueh-veg-10pcs",
+          "name": "Mini Veg Soon Kueh 10pcs",
+          "category": "Kueh, platters & prepared snacks",
+          "price": {
+            "amount": 15,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-kueh-product-mini-soon-kueh-veg-10pcs",
+            "completion-kueh-delivery"
+          ],
+          "qualifier": "Online product for merchant-confirmed Tanjong Pagar pickup; no claim of walk-in availability. SGD from public Product JSON-LD matches displayed price. Tax/service treatment, effective date and current stock unconfirmed. Ingredients not independently verified."
+        },
+        {
+          "id": "kueh-completion-mixed-gift-box-8pcs",
+          "name": "Mixed Gift Box 8pcs",
+          "category": "Kueh, platters & prepared snacks",
+          "price": {
+            "amount": 17,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-kueh-product-mixed-gift-box-8pcs",
+            "completion-kueh-delivery"
+          ],
+          "qualifier": "Online product for merchant-confirmed Tanjong Pagar pickup; no claim of walk-in availability. SGD from public Product JSON-LD matches displayed price. Tax/service treatment, effective date and current stock unconfirmed. Ingredients not independently verified. Peanut AKK2, Heart Lapis2, Pandan Puteri Ayu Kaya2, Pandan Salat2.",
+          "optionNotes": "Peanut AKK2, Heart Lapis2, Pandan Puteri Ayu Kaya2, Pandan Salat2."
+        },
+        {
+          "id": "kueh-completion-moist-banana-cake-4pcs",
+          "name": "Moist Banana Cake 4pcs",
+          "category": "Kueh, platters & prepared snacks",
+          "price": {
+            "amount": 10,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-kueh-product-moist-banana-cake-4pcs",
+            "completion-kueh-delivery"
+          ],
+          "qualifier": "Online product for merchant-confirmed Tanjong Pagar pickup; no claim of walk-in availability. SGD from public Product JSON-LD matches displayed price. Tax/service treatment, effective date and current stock unconfirmed. Ingredients not independently verified. Source discloses eggs and/or dairy; do not label vegan."
+        },
+        {
+          "id": "kueh-completion-nostalgic-fried-platter-specials",
+          "name": "Nostalgic Fried Platter *Specials*",
+          "category": "Kueh, platters & prepared snacks",
+          "price": {
+            "amount": 70,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-kueh-product-nostalgic-fried-platter-specials",
+            "completion-kueh-delivery"
+          ],
+          "qualifier": "Online product for merchant-confirmed Tanjong Pagar pickup; no claim of walk-in availability. SGD from public Product JSON-LD matches displayed price. Tax/service treatment, effective date and current stock unconfirmed. Ingredients not independently verified. Held: Includes a bottle of Sambal Ho Jiak without distinguishing the separate vegetarian and non-vegetarian condiment variants.",
+          "publicationStatus": "hold-mixed-dietary-options"
+        },
+        {
+          "id": "kueh-completion-padu-platter-3-to-4-pax",
+          "name": "Padu Platter 3-4 pax",
+          "category": "Kueh, platters & prepared snacks",
+          "price": {
+            "amount": 50,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-kueh-product-padu-platter-3-to-4-pax",
+            "completion-kueh-delivery"
+          ],
+          "qualifier": "Online product for merchant-confirmed Tanjong Pagar pickup; no claim of walk-in availability. SGD from public Product JSON-LD matches displayed price. Tax/service treatment, effective date and current stock unconfirmed. Ingredients not independently verified. Kosui6, Peanut Traditional Red AKK4, Rainbow Lapis4, Salat4, Pandan Puteri Kaya4, Bingka5.",
+          "optionNotes": "Kosui6, Peanut Traditional Red AKK4, Rainbow Lapis4, Salat4, Pandan Puteri Kaya4, Bingka5."
+        },
+        {
+          "id": "kueh-completion-pandan-puteri-ayu-kaya-4pcs",
+          "name": "Pandan Puteri Ayu Kaya 4pcs",
+          "category": "Kueh, platters & prepared snacks",
+          "price": {
+            "amount": 6.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-kueh-product-pandan-puteri-ayu-kaya-4pcs",
+            "completion-kueh-delivery"
+          ],
+          "qualifier": "Online product for merchant-confirmed Tanjong Pagar pickup; no claim of walk-in availability. SGD from public Product JSON-LD matches displayed price. Tax/service treatment, effective date and current stock unconfirmed. Ingredients not independently verified. Source discloses eggs and/or dairy; do not label vegan."
+        },
+        {
+          "id": "kueh-completion-pandan-salat-4pcs",
+          "name": "Pandan Kueh Salat 4pcs",
+          "category": "Kueh, platters & prepared snacks",
+          "price": {
+            "amount": 6.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-kueh-product-pandan-salat-4pcs",
+            "completion-kueh-delivery"
+          ],
+          "qualifier": "Online product for merchant-confirmed Tanjong Pagar pickup; no claim of walk-in availability. SGD from public Product JSON-LD matches displayed price. Tax/service treatment, effective date and current stock unconfirmed. Ingredients not independently verified. Source discloses eggs and/or dairy; do not label vegan."
+        },
+        {
+          "id": "kueh-completion-rattan-boat-kueh-platter",
+          "name": "Exclusive Rattan Boat Platter Gift Set",
+          "category": "Kueh, platters & prepared snacks",
+          "price": {
+            "amount": 65,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-kueh-product-rattan-boat-kueh-platter",
+            "completion-kueh-delivery"
+          ],
+          "qualifier": "Online product for merchant-confirmed Tanjong Pagar pickup; no claim of walk-in availability. SGD from public Product JSON-LD matches displayed price. Tax/service treatment, effective date and current stock unconfirmed. Ingredients not independently verified. Pandan Puteri Kaya4, Mini Pandan Salat8, Sweet Potatoes Ondeh6, Heart Lapis3, Peanut AKK3, Mung Bean AKK3; covered rattan boat and edible gold foil included.",
+          "optionNotes": "Pandan Puteri Kaya4, Mini Pandan Salat8, Sweet Potatoes Ondeh6, Heart Lapis3, Peanut AKK3, Mung Bean AKK3; covered rattan boat and edible gold foil included."
+        },
+        {
+          "id": "kueh-completion-red-traditional-mung-bean-ang-ku-kueh",
+          "name": "Red Traditional Mung AKK 4pcs",
+          "category": "Kueh, platters & prepared snacks",
+          "price": {
+            "amount": 6.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-kueh-product-red-traditional-mung-bean-ang-ku-kueh",
+            "completion-kueh-delivery"
+          ],
+          "qualifier": "Online product for merchant-confirmed Tanjong Pagar pickup; no claim of walk-in availability. SGD from public Product JSON-LD matches displayed price. Tax/service treatment, effective date and current stock unconfirmed. Ingredients not independently verified."
+        },
+        {
+          "id": "kueh-completion-red-traditional-peanut-ang-ku-kueh",
+          "name": "Red Traditional Peanut AKK 4pcs",
+          "category": "Kueh, platters & prepared snacks",
+          "price": {
+            "amount": 6.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-kueh-product-red-traditional-peanut-ang-ku-kueh",
+            "completion-kueh-delivery"
+          ],
+          "qualifier": "Online product for merchant-confirmed Tanjong Pagar pickup; no claim of walk-in availability. SGD from public Product JSON-LD matches displayed price. Tax/service treatment, effective date and current stock unconfirmed. Ingredients not independently verified."
+        },
+        {
+          "id": "kueh-completion-send-a-box-of-love",
+          "name": "Love Platter  3-4 pax",
+          "category": "Kueh, platters & prepared snacks",
+          "price": {
+            "amount": 55,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-kueh-product-send-a-box-of-love",
+            "completion-kueh-delivery"
+          ],
+          "qualifier": "Online product for merchant-confirmed Tanjong Pagar pickup; no claim of walk-in availability. SGD from public Product JSON-LD matches displayed price. Tax/service treatment, effective date and current stock unconfirmed. Ingredients not independently verified. Heart Lapis4, Strawberry Puteri Ayu4, Yam AKK4, Peanut AKK4, Sweet Potatoes Ondeh8, Sago Kueh4.",
+          "optionNotes": "Heart Lapis4, Strawberry Puteri Ayu4, Yam AKK4, Peanut AKK4, Sweet Potatoes Ondeh8, Sago Kueh4."
+        },
+        {
+          "id": "kueh-completion-sg-marble-ang-ku-kueh",
+          "name": "Sg Marble Ang Ku Kueh 12pcs",
+          "category": "Kueh, platters & prepared snacks",
+          "price": {
+            "amount": 53,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-kueh-product-sg-marble-ang-ku-kueh",
+            "completion-kueh-delivery"
+          ],
+          "qualifier": "Online product for merchant-confirmed Tanjong Pagar pickup; no claim of walk-in availability. SGD from public Product JSON-LD matches displayed price. Tax/service treatment, effective date and current stock unconfirmed. Ingredients not independently verified. 12pieces: Peanut6 and Mung Bean6. National Day designs; current stock not established.",
+          "optionNotes": "12pieces: Peanut6 and Mung Bean6. National Day designs; current stock not established."
+        },
+        {
+          "id": "kueh-completion-sg61-biscoff-akk-8pcs",
+          "name": "SG61 Biscoff AKK 8pcs",
+          "category": "Kueh, platters & prepared snacks",
+          "price": {
+            "amount": 24,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-kueh-product-sg61-biscoff-akk-8pcs",
+            "completion-kueh-delivery"
+          ],
+          "qualifier": "Online product for merchant-confirmed Tanjong Pagar pickup; no claim of walk-in availability. SGD from public Product JSON-LD matches displayed price. Tax/service treatment, effective date and current stock unconfirmed. Ingredients not independently verified."
+        },
+        {
+          "id": "kueh-completion-singa-kueh-box-we-love-sg",
+          "name": "Singa-Kueh SG Box (SG60)",
+          "category": "Kueh, platters & prepared snacks",
+          "price": {
+            "amount": 30,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-kueh-product-singa-kueh-box-we-love-sg",
+            "completion-kueh-delivery"
+          ],
+          "qualifier": "Online product for merchant-confirmed Tanjong Pagar pickup; no claim of walk-in availability. SGD from public Product JSON-LD matches displayed price. Tax/service treatment, effective date and current stock unconfirmed. Ingredients not independently verified. SG60 design; Merlion Mung Bean2, Singapore Flag Peanut2, SG60 Yam2. Historical design label retained; no current promotion assumed.",
+          "optionNotes": "SG60 design; Merlion Mung Bean2, Singapore Flag Peanut2, SG60 Yam2. Historical design label retained; no current promotion assumed."
+        },
+        {
+          "id": "kueh-completion-soy-ho-jiak-original",
+          "name": "SOY Ho Jiak Veg Mock Goose",
+          "category": "Kueh, platters & prepared snacks",
+          "price": {
+            "amount": 9.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-kueh-product-soy-ho-jiak-original",
+            "completion-kueh-delivery"
+          ],
+          "qualifier": "Online product for merchant-confirmed Tanjong Pagar pickup; no claim of walk-in availability. SGD from public Product JSON-LD matches displayed price. Tax/service treatment, effective date and current stock unconfirmed. Ingredients not independently verified. Per pack, ready-to-eat mock goose snack. Merchant vegan claim; contains soybean, sesame and groundnut; shelf life up to2months.",
+          "optionNotes": "Per pack, ready-to-eat mock goose snack. Merchant vegan claim; contains soybean, sesame and groundnut; shelf life up to2months."
+        },
+        {
+          "id": "kueh-completion-specialty-mixed-kueh-box-4pcs",
+          "name": "Specialty Mixed Kueh Box 4pcs",
+          "category": "Kueh, platters & prepared snacks",
+          "price": {
+            "amount": 9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-kueh-product-specialty-mixed-kueh-box-4pcs",
+            "completion-kueh-delivery"
+          ],
+          "qualifier": "Online product for merchant-confirmed Tanjong Pagar pickup; no claim of walk-in availability. SGD from public Product JSON-LD matches displayed price. Tax/service treatment, effective date and current stock unconfirmed. Ingredients not independently verified. Peanut AKK1, Mung Bean AKK1, Heart Lapis1, Pandan Puteri Ayu Kaya1. Custom sticker surcharge not stated.",
+          "optionNotes": "Peanut AKK1, Mung Bean AKK1, Heart Lapis1, Pandan Puteri Ayu Kaya1. Custom sticker surcharge not stated."
+        },
+        {
+          "id": "kueh-completion-strawberry-puteri-ayu-4pcs",
+          "name": "Strawberry Puteri Ayu 4pcs",
+          "category": "Kueh, platters & prepared snacks",
+          "price": {
+            "amount": 6.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-kueh-product-strawberry-puteri-ayu-4pcs",
+            "completion-kueh-delivery"
+          ],
+          "qualifier": "Online product for merchant-confirmed Tanjong Pagar pickup; no claim of walk-in availability. SGD from public Product JSON-LD matches displayed price. Tax/service treatment, effective date and current stock unconfirmed. Ingredients not independently verified. Source discloses eggs and/or dairy; do not label vegan."
+        },
+        {
+          "id": "kueh-completion-sushi-glutinous-rice-platter-45pcs",
+          "name": "Suitable for Baby Shower Sushi Veg Glutinous 45pcs",
+          "category": "Kueh, platters & prepared snacks",
+          "price": {
+            "amount": 65,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-kueh-product-sushi-glutinous-rice-platter-45pcs",
+            "completion-kueh-delivery"
+          ],
+          "qualifier": "Online product for merchant-confirmed Tanjong Pagar pickup; no claim of walk-in availability. SGD from public Product JSON-LD matches displayed price. Tax/service treatment, effective date and current stock unconfirmed. Ingredients not independently verified. Estimated45pieces per platter; merchant vegan/no-garlic/no-shallot claim.",
+          "optionNotes": "Estimated45pieces per platter; merchant vegan/no-garlic/no-shallot claim."
+        },
+        {
+          "id": "kueh-completion-sweet-potato-biscoff-ang-ku-kueh-sweet",
+          "name": "*NEW Lotus Biscoff AKK 4pcs",
+          "category": "Kueh, platters & prepared snacks",
+          "price": {
+            "amount": 12,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-kueh-product-sweet-potato-biscoff-ang-ku-kueh-sweet",
+            "completion-kueh-delivery"
+          ],
+          "qualifier": "Online product for merchant-confirmed Tanjong Pagar pickup; no claim of walk-in availability. SGD from public Product JSON-LD matches displayed price. Tax/service treatment, effective date and current stock unconfirmed. Ingredients not independently verified."
+        },
+        {
+          "id": "kueh-completion-sweet-potato-huat-kueh-gula-16pcs",
+          "name": "Sweet Potato Huat Kueh 16pcs",
+          "category": "Kueh, platters & prepared snacks",
+          "price": {
+            "amount": 40,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-kueh-product-sweet-potato-huat-kueh-gula-16pcs",
+            "completion-kueh-delivery"
+          ],
+          "qualifier": "Online product for merchant-confirmed Tanjong Pagar pickup; no claim of walk-in availability. SGD from public Product JSON-LD matches displayed price. Tax/service treatment, effective date and current stock unconfirmed. Ingredients not independently verified. 16pieces per platter; individual size6×3.5cm.",
+          "optionNotes": "16pieces per platter; individual size6×3.5cm."
+        },
+        {
+          "id": "kueh-completion-sweet-potato-ondeh-ondeh-8pcs",
+          "name": "*Vegan/ Vegetarian* Sweet Potato Ondeh 10pcs",
+          "category": "Kueh, platters & prepared snacks",
+          "price": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-kueh-product-sweet-potato-ondeh-ondeh-8pcs",
+            "completion-kueh-delivery"
+          ],
+          "qualifier": "Online product for merchant-confirmed Tanjong Pagar pickup; no claim of walk-in availability. SGD from public Product JSON-LD matches displayed price. Tax/service treatment, effective date and current stock unconfirmed. Ingredients not independently verified."
+        },
+        {
+          "id": "kueh-completion-sweet-potatoes-coconut-ang-ku-kueh-sweet",
+          "name": "Sweet Potato Coconut AKK 4pcs",
+          "category": "Kueh, platters & prepared snacks",
+          "price": {
+            "amount": 6.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-kueh-product-sweet-potatoes-coconut-ang-ku-kueh-sweet",
+            "completion-kueh-delivery"
+          ],
+          "qualifier": "Online product for merchant-confirmed Tanjong Pagar pickup; no claim of walk-in availability. SGD from public Product JSON-LD matches displayed price. Tax/service treatment, effective date and current stock unconfirmed. Ingredients not independently verified."
+        },
+        {
+          "id": "kueh-completion-sweet-potatoes-d24-durian-ang-ku-kueh-8pcs",
+          "name": "Sweet Potato D24 Durian AKK 8pcs",
+          "category": "Kueh, platters & prepared snacks",
+          "price": {
+            "amount": 24,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-kueh-product-sweet-potatoes-d24-durian-ang-ku-kueh-8pcs",
+            "completion-kueh-delivery"
+          ],
+          "qualifier": "Online product for merchant-confirmed Tanjong Pagar pickup; no claim of walk-in availability. SGD from public Product JSON-LD matches displayed price. Tax/service treatment, effective date and current stock unconfirmed. Ingredients not independently verified. Limited batches available.",
+          "optionNotes": "Limited batches available."
+        },
+        {
+          "id": "kueh-completion-sweet-potatoes-mung-bean-ang-ku-kueh-sweet",
+          "name": "Sweet Potato Mung AKK 4pcs",
+          "category": "Kueh, platters & prepared snacks",
+          "price": {
+            "amount": 6.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-kueh-product-sweet-potatoes-mung-bean-ang-ku-kueh-sweet",
+            "completion-kueh-delivery"
+          ],
+          "qualifier": "Online product for merchant-confirmed Tanjong Pagar pickup; no claim of walk-in availability. SGD from public Product JSON-LD matches displayed price. Tax/service treatment, effective date and current stock unconfirmed. Ingredients not independently verified."
+        },
+        {
+          "id": "kueh-completion-sweet-potatoes-peanut-ang-ku-kueh-sweet",
+          "name": "Sweet Potato Peanut AKK 4pcs",
+          "category": "Kueh, platters & prepared snacks",
+          "price": {
+            "amount": 6.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-kueh-product-sweet-potatoes-peanut-ang-ku-kueh-sweet",
+            "completion-kueh-delivery"
+          ],
+          "qualifier": "Online product for merchant-confirmed Tanjong Pagar pickup; no claim of walk-in availability. SGD from public Product JSON-LD matches displayed price. Tax/service treatment, effective date and current stock unconfirmed. Ingredients not independently verified."
+        },
+        {
+          "id": "kueh-completion-sweet-potatoes-yam-ang-ku-kueh-sweet",
+          "name": "Sweet Potato Yam AKK 4pcs",
+          "category": "Kueh, platters & prepared snacks",
+          "price": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-kueh-product-sweet-potatoes-yam-ang-ku-kueh-sweet",
+            "completion-kueh-delivery"
+          ],
+          "qualifier": "Online product for merchant-confirmed Tanjong Pagar pickup; no claim of walk-in availability. SGD from public Product JSON-LD matches displayed price. Tax/service treatment, effective date and current stock unconfirmed. Ingredients not independently verified."
+        },
+        {
+          "id": "kueh-completion-ubi-kayu-4pcs",
+          "name": "Ubi Kayu Tapioca 8pcs",
+          "category": "Kueh, platters & prepared snacks",
+          "price": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-kueh-product-ubi-kayu-4pcs",
+            "completion-kueh-delivery"
+          ],
+          "qualifier": "Online product for merchant-confirmed Tanjong Pagar pickup; no claim of walk-in availability. SGD from public Product JSON-LD matches displayed price. Tax/service treatment, effective date and current stock unconfirmed. Ingredients not independently verified."
+        },
+        {
+          "id": "kueh-completion-veg-bee-hoon-tray-10pax",
+          "name": "10 pax/tray Veg Bee Hoon Tray 10pax",
+          "category": "Kueh, platters & prepared snacks",
+          "price": {
+            "amount": 100,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-kueh-product-veg-bee-hoon-tray-10pax",
+            "completion-kueh-delivery"
+          ],
+          "qualifier": "Online product for merchant-confirmed Tanjong Pagar pickup; no claim of walk-in availability. SGD from public Product JSON-LD matches displayed price. Tax/service treatment, effective date and current stock unconfirmed. Ingredients not independently verified. 10pax per tray; includes10fried spring rolls, toppings packed separately; cutlery not supplied.",
+          "optionNotes": "10pax per tray; includes10fried spring rolls, toppings packed separately; cutlery not supplied."
+        },
+        {
+          "id": "kueh-completion-veg-bee-hoon-tray",
+          "name": "5 to 7 pax/tray Veg Bee Hoon Tray 5pax",
+          "category": "Kueh, platters & prepared snacks",
+          "price": {
+            "amount": 50,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-kueh-product-veg-bee-hoon-tray",
+            "completion-kueh-delivery"
+          ],
+          "qualifier": "Online product for merchant-confirmed Tanjong Pagar pickup; no claim of walk-in availability. SGD from public Product JSON-LD matches displayed price. Tax/service treatment, effective date and current stock unconfirmed. Ingredients not independently verified. 5–7pax per tray; includes5fried spring rolls, toppings packed separately; cutlery not supplied.",
+          "optionNotes": "5–7pax per tray; includes5fried spring rolls, toppings packed separately; cutlery not supplied."
+        },
+        {
+          "id": "kueh-completion-veg-char-siew-fried-rice-bento",
+          "name": "Veg Char Siew Fried Rice Bento",
+          "category": "Kueh, platters & prepared snacks",
+          "price": {
+            "amount": 9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-kueh-product-veg-char-siew-fried-rice-bento",
+            "completion-kueh-delivery"
+          ],
+          "qualifier": "Online product for merchant-confirmed Tanjong Pagar pickup; no claim of walk-in availability. SGD from public Product JSON-LD matches displayed price. Tax/service treatment, effective date and current stock unconfirmed. Ingredients not independently verified. Per set. Eggs included by default; request no eggs via remarks. Merchant says no garlic/no onions; source claim only.",
+          "optionNotes": "Per set. Eggs included by default; request no eggs via remarks. Merchant says no garlic/no onions; source claim only."
+        },
+        {
+          "id": "kueh-completion-veg-high-tea-platter",
+          "name": "VEG HIGH TEA PLATTER 3-4 pax",
+          "category": "Kueh, platters & prepared snacks",
+          "price": {
+            "amount": 49,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-kueh-product-veg-high-tea-platter",
+            "completion-kueh-delivery"
+          ],
+          "qualifier": "Online product for merchant-confirmed Tanjong Pagar pickup; no claim of walk-in availability. SGD from public Product JSON-LD matches displayed price. Tax/service treatment, effective date and current stock unconfirmed. Ingredients not independently verified. Vegetarian Yam Cake4; Mung Bean AKK4; Peanut AKK4; Sweet Potatoes Ondeh8; Sago Kueh4. Vegan chilli packed separately.",
+          "optionNotes": "Vegetarian Yam Cake4; Mung Bean AKK4; Peanut AKK4; Sweet Potatoes Ondeh8; Sago Kueh4. Vegan chilli packed separately."
+        },
+        {
+          "id": "kueh-completion-veg-spring-roll-5pcs",
+          "name": "Veg Spring Roll 5pcs",
+          "category": "Kueh, platters & prepared snacks",
+          "price": {
+            "amount": 12.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-kueh-product-veg-spring-roll-5pcs",
+            "completion-kueh-delivery"
+          ],
+          "qualifier": "Online product for merchant-confirmed Tanjong Pagar pickup; no claim of walk-in availability. SGD from public Product JSON-LD matches displayed price. Tax/service treatment, effective date and current stock unconfirmed. Ingredients not independently verified."
+        },
+        {
+          "id": "kueh-completion-veg-yam-cake-4pcs",
+          "name": "Veg Yam Cake 4pcs",
+          "category": "Kueh, platters & prepared snacks",
+          "price": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-kueh-product-veg-yam-cake-4pcs",
+            "completion-kueh-delivery"
+          ],
+          "qualifier": "Online product for merchant-confirmed Tanjong Pagar pickup; no claim of walk-in availability. SGD from public Product JSON-LD matches displayed price. Tax/service treatment, effective date and current stock unconfirmed. Ingredients not independently verified."
+        },
+        {
+          "id": "kueh-completion-vegetarian-savoury-platter-47-best-seller-of-savoury-items",
+          "name": "Veg Savoury Platter 3-4 pax",
+          "category": "Kueh, platters & prepared snacks",
+          "price": {
+            "amount": 48,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-kueh-product-vegetarian-savoury-platter-47-best-seller-of-savoury-items",
+            "completion-kueh-delivery"
+          ],
+          "qualifier": "Online product for merchant-confirmed Tanjong Pagar pickup; no claim of walk-in availability. SGD from public Product JSON-LD matches displayed price. Tax/service treatment, effective date and current stock unconfirmed. Ingredients not independently verified. Vegetarian Steam Yam Cake5; Vegetarian Mini Soon Kueh10; Vegetarian Mini Pink Rice Kueh5.",
+          "optionNotes": "Vegetarian Steam Yam Cake5; Vegetarian Mini Soon Kueh10; Vegetarian Mini Pink Rice Kueh5."
+        },
+        {
+          "id": "kueh-completion-wedding-bamboo-series-gift-set",
+          "name": "Wedding Bamboo Series",
+          "category": "Kueh, platters & prepared snacks",
+          "price": {
+            "amount": 30,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-kueh-product-wedding-bamboo-series-gift-set",
+            "completion-kueh-delivery"
+          ],
+          "qualifier": "Online product for merchant-confirmed Tanjong Pagar pickup; no claim of walk-in availability. SGD from public Product JSON-LD matches displayed price. Tax/service treatment, effective date and current stock unconfirmed. Ingredients not independently verified. Biscoff AKK1, Yam AKK1, Peanut AKK1, Red Traditional Mung AKK1, Pandan Puteri Kaya1, Heart Lapis with gold1. Diameter15cm,height3.5cm.",
+          "optionNotes": "Biscoff AKK1, Yam AKK1, Peanut AKK1, Red Traditional Mung AKK1, Pandan Puteri Kaya1, Heart Lapis with gold1. Diameter15cm,height3.5cm."
+        },
+        {
+          "id": "kueh-completion-yam-cake-tray-festive",
+          "name": "Lucky Yam Cake Tray",
+          "category": "Kueh, platters & prepared snacks",
+          "price": {
+            "amount": 75,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-kueh-product-yam-cake-tray-festive",
+            "completion-kueh-delivery"
+          ],
+          "qualifier": "Online product for merchant-confirmed Tanjong Pagar pickup; no claim of walk-in availability. SGD from public Product JSON-LD matches displayed price. Tax/service treatment, effective date and current stock unconfirmed. Ingredients not independently verified. One full uncut tray33×27×7cm. Can request cutting via remarks; knife and condiments supplied separately. Held: Source offers vegetarian and non-vegetarian options but exposes no explicit selection widget or default/charge allocation. Request vegetarian option; do not assume default tray is vegetarian.",
+          "optionNotes": "One full uncut tray33×27×7cm. Can request cutting via remarks; knife and condiments supplied separately.",
+          "publicationStatus": "hold-mixed-dietary-options"
+        }
+      ],
+      "notice": "All99inspected product pages accounted through new food rows, explicit beverage/nonfood/nonvegetarian/standalone-condiment exclusions and two amendment-only existing mix-match rows. Three mixed-option/condiment ambiguity rows remain held. Category Select options labels did not expose per-product select/variation controls on fixed-product detail forms; generic legacy guide20/30/45piece text is not treated as actual product portion. Delivery article estimates20–25SGD by location/time and typical free delivery400SGD threshold; final charge unverified."
+    }
+  ],
+  "exclusions": [
+    {
+      "name": "Atas Nonya Curry Chicken Tray",
+      "sourceIds": [
+        "completion-kueh-product-atas-nonya-curry-chicken-tray"
+      ],
+      "price": {
+        "amount": 150,
+        "currency": "SGD",
+        "kind": "fixed"
+      },
+      "reason": "Explicit non-vegetarian product or default platter contains non-vegetarian components."
+    },
+    {
+      "name": "Birthday Topper",
+      "sourceIds": [
+        "completion-kueh-product-birthday-toppers"
+      ],
+      "price": {
+        "amount": 5,
+        "currency": "SGD",
+        "kind": "fixed"
+      },
+      "reason": "Beverage or non-food accessory/decor."
+    },
+    {
+      "name": "Celebration Party Platter 10-12 pax",
+      "sourceIds": [
+        "completion-kueh-product-celebration-party-platter-10-12-pax"
+      ],
+      "price": {
+        "amount": 125,
+        "currency": "SGD",
+        "kind": "fixed"
+      },
+      "reason": "Explicit non-vegetarian product or default platter contains non-vegetarian components."
+    },
+    {
+      "name": "Customised Card",
+      "sourceIds": [
+        "completion-kueh-product-customised-cards"
+      ],
+      "price": {
+        "amount": 1.5,
+        "currency": "SGD",
+        "kind": "fixed"
+      },
+      "reason": "Beverage or non-food accessory/decor."
+    },
+    {
+      "name": "F1 Race KHJ Edition",
+      "sourceIds": [
+        "completion-kueh-product-f1-race-khj-edition"
+      ],
+      "price": {
+        "amount": 35,
+        "currency": "SGD",
+        "kind": "fixed"
+      },
+      "reason": "Explicit non-vegetarian product or default platter contains non-vegetarian components."
+    },
+    {
+      "name": "Fresh Orchids",
+      "sourceIds": [
+        "completion-kueh-product-fresh-orchids"
+      ],
+      "price": {
+        "amount": 5,
+        "currency": "SGD",
+        "kind": "fixed"
+      },
+      "reason": "Beverage or non-food accessory/decor."
+    },
+    {
+      "name": "Celebration and parties Golden Abalone Yam Cake Tray",
+      "sourceIds": [
+        "completion-kueh-product-golden-abalone-yam-cake-tray"
+      ],
+      "price": {
+        "amount": 120,
+        "currency": "SGD",
+        "kind": "fixed"
+      },
+      "reason": "Explicit non-vegetarian product or default platter contains non-vegetarian components."
+    },
+    {
+      "name": "HIGH TEA PLATTER 3-4 pax",
+      "sourceIds": [
+        "completion-kueh-product-high-tea-platter"
+      ],
+      "price": {
+        "amount": 49,
+        "currency": "SGD",
+        "kind": "fixed"
+      },
+      "reason": "Explicit non-vegetarian product or default platter contains non-vegetarian components."
+    },
+    {
+      "name": "Hot Coffee Canister (Big)",
+      "sourceIds": [
+        "completion-kueh-product-hot-coffee-canister-big"
+      ],
+      "price": {
+        "amount": 88,
+        "currency": "SGD",
+        "kind": "fixed"
+      },
+      "reason": "Beverage or non-food accessory/decor."
+    },
+    {
+      "name": "Hot Coffee Canister (Small)",
+      "sourceIds": [
+        "completion-kueh-product-hot-coffee-canister-small"
+      ],
+      "price": {
+        "amount": 53,
+        "currency": "SGD",
+        "kind": "fixed"
+      },
+      "reason": "Beverage or non-food accessory/decor."
+    },
+    {
+      "name": "Hot Tea Canister (Big)",
+      "sourceIds": [
+        "completion-kueh-product-hot-tea-canister-big"
+      ],
+      "price": {
+        "amount": 88,
+        "currency": "SGD",
+        "kind": "fixed"
+      },
+      "reason": "Beverage or non-food accessory/decor."
+    },
+    {
+      "name": "Hot Tea Canister (Small)",
+      "sourceIds": [
+        "completion-kueh-product-hot-tea-canister-small"
+      ],
+      "price": {
+        "amount": 53,
+        "currency": "SGD",
+        "kind": "fixed"
+      },
+      "reason": "Beverage or non-food accessory/decor."
+    },
+    {
+      "name": "Party Tray Stand (w/out kuehs)",
+      "sourceIds": [
+        "completion-kueh-product-party-tray-stand-w-out-kuehs"
+      ],
+      "price": {
+        "amount": 15,
+        "currency": "SGD",
+        "kind": "fixed"
+      },
+      "reason": "Beverage or non-food accessory/decor."
+    },
+    {
+      "name": "Big Pink Rice Kueh 10pcs",
+      "sourceIds": [
+        "completion-kueh-product-pink-rice-kueh-10pcs"
+      ],
+      "price": {
+        "amount": 18,
+        "currency": "SGD",
+        "kind": "fixed"
+      },
+      "reason": "Explicit non-vegetarian product or default platter contains non-vegetarian components."
+    },
+    {
+      "name": "Plastic Fork",
+      "sourceIds": [
+        "completion-kueh-product-plastic-fork"
+      ],
+      "price": {
+        "amount": 8,
+        "currency": "SGD",
+        "kind": "fixed"
+      },
+      "reason": "Beverage or non-food accessory/decor."
+    },
+    {
+      "name": "Plastic Plates",
+      "sourceIds": [
+        "completion-kueh-product-plastic-plates-med"
+      ],
+      "price": {
+        "amount": 8,
+        "currency": "SGD",
+        "kind": "fixed"
+      },
+      "reason": "Beverage or non-food accessory/decor."
+    },
+    {
+      "name": "Plastic Spoon (Test)",
+      "sourceIds": [
+        "completion-kueh-product-plastic-spoon-test"
+      ],
+      "price": {
+        "amount": 0.5,
+        "currency": "SGD",
+        "kind": "fixed"
+      },
+      "reason": "Beverage or non-food accessory/decor."
+    },
+    {
+      "name": "Plastic Spoon",
+      "sourceIds": [
+        "completion-kueh-product-plastic-spoon"
+      ],
+      "price": {
+        "amount": 8,
+        "currency": "SGD",
+        "kind": "fixed"
+      },
+      "reason": "Beverage or non-food accessory/decor."
+    },
+    {
+      "name": "Prawn Egg Fried Rice Bento",
+      "sourceIds": [
+        "completion-kueh-product-prawn-egg-fried-rice-bento"
+      ],
+      "price": {
+        "amount": 9,
+        "currency": "SGD",
+        "kind": "fixed"
+      },
+      "reason": "Explicit non-vegetarian product or default platter contains non-vegetarian components."
+    },
+    {
+      "name": "Premium Savoury (Exclusive)",
+      "sourceIds": [
+        "completion-kueh-product-premium-savoury-platter"
+      ],
+      "price": {
+        "amount": 80,
+        "currency": "SGD",
+        "kind": "fixed"
+      },
+      "reason": "Explicit non-vegetarian product or default platter contains non-vegetarian components."
+    },
+    {
+      "name": "Rempah Udang 4pcs",
+      "sourceIds": [
+        "completion-kueh-product-rempah-udang-4pcs"
+      ],
+      "price": {
+        "amount": 8,
+        "currency": "SGD",
+        "kind": "fixed"
+      },
+      "reason": "Explicit non-vegetarian product or default platter contains non-vegetarian components."
+    },
+    {
+      "name": "SAMBAL Ho Jiak! Sedap! (Non Veg)",
+      "sourceIds": [
+        "completion-kueh-product-sambal-ho-jiak-bottles"
+      ],
+      "price": {
+        "amount": 9.9,
+        "currency": "SGD",
+        "kind": "fixed"
+      },
+      "reason": "Explicit non-vegetarian product or default platter contains non-vegetarian components."
+    },
+    {
+      "name": "SAMBAL Ho Jiak! Veg Sedap!",
+      "sourceIds": [
+        "completion-kueh-product-sambal-ho-jiak-veg-sedap"
+      ],
+      "price": {
+        "amount": 9.9,
+        "currency": "SGD",
+        "kind": "fixed"
+      },
+      "reason": "Standalone bottled condiment; excluded from prepared-food publication."
+    },
+    {
+      "name": "Savoury Platter 3-4 pax",
+      "sourceIds": [
+        "completion-kueh-product-savoury-platter"
+      ],
+      "price": {
+        "amount": 48,
+        "currency": "SGD",
+        "kind": "fixed"
+      },
+      "reason": "Explicit non-vegetarian product or default platter contains non-vegetarian components."
+    },
+    {
+      "name": "Soon Kueh Big 10pcs",
+      "sourceIds": [
+        "completion-kueh-product-soon-kueh-10pcs"
+      ],
+      "price": {
+        "amount": 18,
+        "currency": "SGD",
+        "kind": "fixed"
+      },
+      "reason": "Explicit non-vegetarian product or default platter contains non-vegetarian components."
+    },
+    {
+      "name": "Yam Cake 4pcs",
+      "sourceIds": [
+        "completion-kueh-product-steam-yam-cake-4pcs"
+      ],
+      "price": {
+        "amount": 8,
+        "currency": "SGD",
+        "kind": "fixed"
+      },
+      "reason": "Explicit non-vegetarian product or default platter contains non-vegetarian components."
+    },
+    {
+      "name": "Sweet Potato Hae Bee Hiam AKK 6pcs",
+      "sourceIds": [
+        "completion-kueh-product-sweet-potato-hae-bee-hiam-ang-ku-kueh-6pcs"
+      ],
+      "price": {
+        "amount": 18,
+        "currency": "SGD",
+        "kind": "fixed"
+      },
+      "reason": "Explicit non-vegetarian product or default platter contains non-vegetarian components."
+    },
+    {
+      "name": "Sweet Potato Rice Kueh 10pcs",
+      "sourceIds": [
+        "completion-kueh-product-sweet-potato-rice-kueh-10pcs"
+      ],
+      "price": {
+        "amount": 38,
+        "currency": "SGD",
+        "kind": "fixed"
+      },
+      "reason": "Explicit non-vegetarian product or default platter contains non-vegetarian components."
+    },
+    {
+      "name": "Sweet Potato Salted Egg Rice Kueh 10pcs",
+      "sourceIds": [
+        "completion-kueh-product-sweet-potato-salted-egg-rice-kueh-10pcs"
+      ],
+      "price": {
+        "amount": 45,
+        "currency": "SGD",
+        "kind": "fixed"
+      },
+      "reason": "Explicit non-vegetarian product or default platter contains non-vegetarian components."
+    },
+    {
+      "name": "Sweet Potatoes Gyoza Platter",
+      "sourceIds": [
+        "completion-kueh-product-sweet-potatoes-gyoza-soon-kueh-10pcs"
+      ],
+      "price": {
+        "amount": 30,
+        "currency": "SGD",
+        "kind": "fixed"
+      },
+      "reason": "Explicit non-vegetarian product or default platter contains non-vegetarian components."
+    },
+    {
+      "name": "Plastic Takeaway Box 10pcs",
+      "sourceIds": [
+        "completion-kueh-product-takeaway-boxes-plastic"
+      ],
+      "price": {
+        "amount": 15,
+        "currency": "SGD",
+        "kind": "fixed"
+      },
+      "reason": "Beverage or non-food accessory/decor."
+    },
+    {
+      "name": "Mini Yam Cake Tray (Non Veg)",
+      "sourceIds": [
+        "completion-kueh-product-yam-cake-tray-platter"
+      ],
+      "price": {
+        "amount": 30,
+        "currency": "SGD",
+        "kind": "fixed"
+      },
+      "reason": "Explicit non-vegetarian product or default platter contains non-vegetarian components."
+    }
+  ],
+  "notice": "Exact Tanjong Pagar online pickup established. No online menu transfer to AMK without outlet fulfillment evidence. Product detail facts and public Product JSON-LD prices/currency retained; structured InStock is not a current-stock guarantee. Two previously stored mix-and-match food rows handled in amendment-only packet, not duplicated here."
+}

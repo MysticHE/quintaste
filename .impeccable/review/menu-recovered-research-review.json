@@ -1,0 +1,113 @@
+{
+  "checkedAt": "2026-10-15T12:05:31Z",
+  "status": "approved-bounded-private-research",
+  "findings": [],
+  "scope": [
+    "data/menu-research/menu-elemen-nomvnom.json",
+    "data/menu-research/menu-veganburg-ahimsa-cultivate.json",
+    "data/menu-research/veganburg-ahimsa-cultivate/veganburg.json",
+    "data/menu-research/veganburg-ahimsa-cultivate/ahimsa.json",
+    "data/menu-research/veganburg-ahimsa-cultivate/cultivate.json",
+    "../tmp/qa/menu-veganburg-ahimsa-cultivate/recover_packets.py",
+    "../tmp/qa/menu-veganburg-ahimsa-cultivate/ahimsa_recover.cjs",
+    "docs/research/menu-elemen-nomvnom.md",
+    "docs/research/menu-veganburg-ahimsa-cultivate.md"
+  ],
+  "scopeBasis": "Assigned local data/helper scope, with staged and unstaged diff inventory inspected. No PR metadata was available; this is not a merge-readiness approval.",
+  "checks": [
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "scope": "Point-in-time canonical project check"
+    },
+    {
+      "command": "eslint . --ext .ts,.tsx,.js,.jsx",
+      "exitCode": 1,
+      "scope": "Global readiness remains separate from the bounded research approval",
+      "outOfScopeErrors": [
+        "scripts/avatar-security.cjs:2 no-undef: __dirname",
+        "scripts/avatar-security.cjs:48 expo/no-dynamic-env-var"
+      ]
+    },
+    {
+      "command": "node --check ../tmp/qa/menu-veganburg-ahimsa-cultivate/ahimsa_recover.cjs",
+      "exitCode": 0
+    },
+    {
+      "command": "Scoped ESLint via stdin for ahimsa_recover.cjs, with the CommonJS __dirname global declared",
+      "exitCode": 0
+    },
+    {
+      "command": "Python ast.parse without importing or executing writers",
+      "result": "pass",
+      "files": [
+        "recover_packets.py",
+        "build_cultivate.py",
+        "menu-elemen-nomvnom/build_packet.py",
+        "menu-elemen-nomvnom/packet_helpers.py",
+        "menu-elemen-nomvnom/branch_records.py",
+        "menu-elemen-nomvnom/source_records.py"
+      ]
+    },
+    {
+      "command": "Read-only saved-inventory comparisons and reference/numeric validation",
+      "result": "pass",
+      "details": "Unique source/branch/menu/item IDs; reciprocal branch ownership; valid source and exact pilot dish/menu/venue references; finite nonnegative numeric amounts; no zero base-food prices. All relative manifest shards resolve within the research directory."
+    }
+  ],
+  "dataEvidence": {
+    "elemenNomvnom": {
+      "newSourceFoodRows": 69,
+      "newCurrentBranchOrderingRows": 60,
+      "heldBrandBentoRowsFrom2023": 9,
+      "modifierEnrichments": 51,
+      "availabilityObservations": 13,
+      "existingPilotRowsReferencedWithoutCopying": 165,
+      "details": "PLQ and Millenia each match 30 exact-branch food products and saved modifiers. Woodlands 30 and Clarke Quay 74 ordering foods match existing canonical base IDs and prices; 20 plus 31 modifier enrichments match source food groups. Nine bento names/prices/publication dates match saved articles, with unknown currency, minimum ten boxes, GST exclusion, explicit holds and no branch assignment. Four historical leads retain unavailable menu gaps."
+    },
+    "veganburg": {
+      "foods": 38,
+      "modifierGroups": 66,
+      "modifierChoices": 201,
+      "excludedProducts": 45,
+      "details": "All retained base variants, recursive option labels/prices/statuses/constraints and conditional amounts match the saved 83-product inventory. Food bundle quantities and whole-bundle price basis remain explicit. Eunos ownership is corroborated by the saved official locator and ordering store; Woodleigh has no assigned menu and remains unresolved."
+    },
+    "ahimsa": {
+      "foods": 39,
+      "exactDetailFiles": 37,
+      "modifierGroups": 63,
+      "modifierChoices": 149,
+      "excludedBeverages": 49,
+      "unreadDetailProductIds": [656201, 656144],
+      "details": "All 39 catalogue names/categories/base SKUs and stock observations match saved source data. All 37 detail identities and SKU prices match before options are reused; option prices, selection constraints and stock/default flags match. The two missing previews remain catalogue-only-options-unread, and menu coverage remains partial. Saved recovery report records 12 successful category clicks, 88 products and zero cart additions."
+    },
+    "cultivate": {
+      "onlineFoodRows": 28,
+      "separatePdfFoodRows": 28,
+      "unpricedSetChoices": 8,
+      "olderUnassignedEventChoices": 20,
+      "excludedBeverages": 36,
+      "details": "All online foods and variant prices match the 64-product source inventory. Saved food/dessert/set/event page images independently match printed foods and amounts. Cheese serving prices 24/34 stay whole-serving options. PDF currencies remain unknown; online SGD facts remain separate. Set amounts 44/49 are not assigned to individual components. Older event foods remain unpriced brand evidence with no current branch assignment and explicit currentness gaps."
+    }
+  },
+  "resolvedFindings": [
+    {
+      "location": "../tmp/qa/menu-veganburg-ahimsa-cultivate/recover_packets.py:29",
+      "issue": "Conditional modifier prices originally lost priceUnderMinimumSelection.",
+      "resolution": "Regenerated packet preserves the raw conditional price including zero, preselection and group constraints; qualifier and documentation prohibit treating every amount as a surcharge. Verified required Smoked Franks BBQ sauce amount 2 versus conditional 0, and required Choice 1 burgers amount 13.4 versus conditional 0."
+    }
+  ],
+  "limits": [
+    "Approval covers private research facts and collection helpers only. Full-project lint remains failing outside this scope.",
+    "Counts describe source records, not unique dishes, live stock, certified ingredients or publication approval.",
+    "Currentness, exact-branch dine-in applicability, unnamed flavours and unread options remain explicit gaps; no source or branch inference fills them.",
+    "No network requests, Google calls, collector/recovery execution, app imports, publication, tests, app edits or data edits were performed during review. Only this review artifact was written."
+  ],
+  "reviewedDataSha256": {
+    "menu-elemen-nomvnom.json": "1a5952a32d1dae26f675e453c82c262fcaf39470b56effb64061c1e3604c90e8",
+    "menu-veganburg-ahimsa-cultivate.json": "9477f299068f408cfa9eb96c49e19a45f121a46b15d68cda2e906e53ab061885",
+    "veganburg-ahimsa-cultivate/veganburg.json": "4e538bb0cc93efb720b4f48b44767829e15deb21fca0f8ce2d7f74f79c7aa664",
+    "veganburg-ahimsa-cultivate/ahimsa.json": "d3d5fd69b4853ad2104b889406ee98b4f2468ff4d49d98c3c89675dc26d229a5",
+    "veganburg-ahimsa-cultivate/cultivate.json": "083413e8eef8ae38c2c6697e382002b484d698009d81f8513c0e17020f40ffd4"
+  }
+}

@@ -1,0 +1,125 @@
+{
+  "scope": "consumer Menu documentation only; no app/data edits or application QA by documenter",
+  "checkedAt": "2026-10-15T07:39:23.457Z",
+  "files": [
+    "PRODUCT.md",
+    "AGENTS.md",
+    ".impeccable/surfaces/discovery.md",
+    "docs/EXPLORE_PHASE1.md",
+    "docs/PILOT_CATALOGUE.md",
+    "docs/PRD_COVERAGE.md",
+    "README.md",
+    "DESIGN.md",
+    ".impeccable/design/quintaste.json"
+  ],
+  "publication": {
+    "branches": 11,
+    "selectedDishes": 48,
+    "herbivorePublished": false
+  },
+  "localLinksChecked": 408,
+  "missing": [],
+  "currentClaims": [
+    {
+      "file": "PRODUCT.md",
+      "publicMenu": true,
+      "padding12": true,
+      "finishRecorded": true,
+      "noFinishPending": true,
+      "noPrivateOnly": true
+    },
+    {
+      "file": "AGENTS.md",
+      "publicMenu": true,
+      "padding12": true,
+      "finishRecorded": true,
+      "noFinishPending": true,
+      "noPrivateOnly": true
+    },
+    {
+      "file": ".impeccable/surfaces/discovery.md",
+      "publicMenu": true,
+      "padding12": true,
+      "finishRecorded": true,
+      "noFinishPending": true,
+      "noPrivateOnly": true
+    },
+    {
+      "file": "docs/EXPLORE_PHASE1.md",
+      "publicMenu": true,
+      "padding12": true,
+      "finishRecorded": true,
+      "noFinishPending": true,
+      "noPrivateOnly": true
+    },
+    {
+      "file": "docs/PILOT_CATALOGUE.md",
+      "publicMenu": true,
+      "padding12": true,
+      "finishRecorded": true,
+      "noFinishPending": true,
+      "noPrivateOnly": true
+    },
+    {
+      "file": "docs/PRD_COVERAGE.md",
+      "publicMenu": true,
+      "padding12": true,
+      "finishRecorded": true,
+      "noFinishPending": true,
+      "noPrivateOnly": true
+    },
+    {
+      "file": "README.md",
+      "publicMenu": true,
+      "padding12": true,
+      "finishRecorded": true,
+      "noFinishPending": true,
+      "noPrivateOnly": true
+    },
+    {
+      "file": "DESIGN.md",
+      "publicMenu": true,
+      "padding12": true,
+      "finishRecorded": true,
+      "noFinishPending": true,
+      "noPrivateOnly": true
+    }
+  ],
+  "sidecar": {
+    "jsonParsed": true,
+    "padding12": true,
+    "information": {
+      "horizontal": 12,
+      "top": 8,
+      "bottom": 2,
+      "dividerToHours": 6,
+      "hoursToBottom": 8
+    },
+    "cssDetectorRun": false,
+    "componentTablePaddingConsistent": true
+  },
+  "finish": {
+    "status": "ship",
+    "scope": "reviewed React Native Web/source",
+    "report": ".impeccable/review/consumer-menu-finish-review.json",
+    "substituteReviewer": true,
+    "F01": "resolved",
+    "requiredImagesInspectedAndValid": 17,
+    "materialFixesRemaining": 0
+  },
+  "nativeAppearanceVerified": false,
+  "fullAppAA": false,
+  "deploymentAccepted": false,
+  "status": "passed",
+  "linkParser": "balanced Markdown destination parentheses; angle-bracket destinations supported",
+  "finalSourceReport": ".impeccable/review/consumer-menu-final.json",
+  "finalSourceAudit": {
+    "modules": 18,
+    "maxFileLines": 82,
+    "maxFunctionLines": 54,
+    "explicitCliCases": "withdraw/preserve/reject/republish passed"
+  },
+  "aggregateGates": ".impeccable/review/consumer-menu-gates.json",
+  "aggregateGatesStatus": "passed",
+  "evidenceJsonsParsed": 6
+}

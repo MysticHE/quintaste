@@ -1,0 +1,565 @@
+{
+  "version": 1,
+  "amendmentsOnly": true,
+  "checkedAt": "2026-10-16T01:04:16.936875+00:00",
+  "targetDataset": "data/menu-research/menu-continuation-stalls.json",
+  "targetBranchId": "renyi-tampines820",
+  "targetMenuId": "renyi-tampines820-foodpanda-observation",
+  "newFoodRows": 0,
+  "sourceObservation": {
+    "id": "icf5-renyi-recheck-en",
+    "url": "https://www.foodpanda.sg/restaurant/xr8d/ren-yi-vegetarian-tampines-street-81",
+    "title": "Ren Yi Vegetarian - exact Tampines820 current public source recheck",
+    "kind": "merchant-partner",
+    "checkedAt": "2026-10-16T01:04:16.936875+00:00",
+    "status": "readable-public-web-text",
+    "publishedAt": null,
+    "notes": "All 28 food cards across five non-Popular sections visible. Explicit merchant Vegetarian trading name and coherent food menu; no ingredient contradiction established. Prior ordinary HTTP403 is not bypassed; current source options/live stock remain unconfirmed."
+  },
+  "proposedMenuPatch": {
+    "scope": "branch-delivery",
+    "coverage": "partial",
+    "publicationStatus": "review-proposed",
+    "excludedItemIds": [
+      "renyi-tampines820-foodpanda-observation-001"
+    ],
+    "notice": "27 exact-name/category/price matches rechecked against current English public merchant source. The first noodle remains held for cross-language naming conflict. Displayed 15% promotional and original amounts remain separate; from-price options/stock unverified."
+  },
+  "amendments": [
+    {
+      "itemId": "renyi-tampines820-foodpanda-observation-002",
+      "name": "干捞面卜Dry noodles",
+      "matchMethod": "Exact source name after Unicode compatibility normalization; category and both displayed amounts independently agree. No positional match.",
+      "publicationStatus": "review-proposed",
+      "sourceIdAppend": "icf5-renyi-recheck-en",
+      "sourcePriceText": "from S$ 5.95 S$ 7",
+      "price": {
+        "amount": 5.95,
+        "currency": "SGD",
+        "kind": "from"
+      },
+      "originalPrice": {
+        "amount": 7,
+        "currency": "SGD",
+        "kind": "from"
+      },
+      "qualifierAddition": "Fresh public merchant-managed delivery source explicitly trades as Ren Yi Vegetarian at Block 820 Tampines Street 81, 520820. Published promotional and original prices remain separate; 15% all-items auto-applied offer shown. Options, exact portions, current stock, ingredients, fees and dine-in equivalence unverified."
+    },
+    {
+      "itemId": "renyi-tampines820-foodpanda-observation-003",
+      "name": "卤面Lor Mee",
+      "matchMethod": "Exact source name after Unicode compatibility normalization; category and both displayed amounts independently agree. No positional match.",
+      "publicationStatus": "review-proposed",
+      "sourceIdAppend": "icf5-renyi-recheck-en",
+      "sourcePriceText": "from S$ 5.95 S$ 7",
+      "price": {
+        "amount": 5.95,
+        "currency": "SGD",
+        "kind": "from"
+      },
+      "originalPrice": {
+        "amount": 7,
+        "currency": "SGD",
+        "kind": "from"
+      },
+      "qualifierAddition": "Fresh public merchant-managed delivery source explicitly trades as Ren Yi Vegetarian at Block 820 Tampines Street 81, 520820. Published promotional and original prices remain separate; 15% all-items auto-applied offer shown. Options, exact portions, current stock, ingredients, fees and dine-in equivalence unverified."
+    },
+    {
+      "itemId": "renyi-tampines820-foodpanda-observation-004",
+      "name": "Vegetarian Chicken Chop Noodles 鸡扒面",
+      "matchMethod": "Exact source name after Unicode compatibility normalization; category and both displayed amounts independently agree. No positional match.",
+      "publicationStatus": "review-proposed",
+      "sourceIdAppend": "icf5-renyi-recheck-en",
+      "sourcePriceText": "S$ 8.07 S$ 9.50",
+      "price": {
+        "amount": 8.07,
+        "currency": "SGD",
+        "kind": "fixed"
+      },
+      "originalPrice": {
+        "amount": 9.5,
+        "currency": "SGD",
+        "kind": "fixed"
+      },
+      "qualifierAddition": "Fresh public merchant-managed delivery source explicitly trades as Ren Yi Vegetarian at Block 820 Tampines Street 81, 520820. Published promotional and original prices remain separate; 15% all-items auto-applied offer shown. Options, exact portions, current stock, ingredients, fees and dine-in equivalence unverified."
+    },
+    {
+      "itemId": "renyi-tampines820-foodpanda-observation-005",
+      "name": "咖喱面Curry Noodles",
+      "matchMethod": "Exact source name after Unicode compatibility normalization; category and both displayed amounts independently agree. No positional match.",
+      "publicationStatus": "review-proposed",
+      "sourceIdAppend": "icf5-renyi-recheck-en",
+      "sourcePriceText": "from S$ 5.95 S$ 7",
+      "price": {
+        "amount": 5.95,
+        "currency": "SGD",
+        "kind": "from"
+      },
+      "originalPrice": {
+        "amount": 7,
+        "currency": "SGD",
+        "kind": "from"
+      },
+      "qualifierAddition": "Fresh public merchant-managed delivery source explicitly trades as Ren Yi Vegetarian at Block 820 Tampines Street 81, 520820. Published promotional and original prices remain separate; 15% all-items auto-applied offer shown. Options, exact portions, current stock, ingredients, fees and dine-in equivalence unverified."
+    },
+    {
+      "itemId": "renyi-tampines820-foodpanda-observation-006",
+      "name": "Kway chap",
+      "matchMethod": "Exact source name after Unicode compatibility normalization; category and both displayed amounts independently agree. No positional match.",
+      "publicationStatus": "review-proposed",
+      "sourceIdAppend": "icf5-renyi-recheck-en",
+      "sourcePriceText": "from S$ 5.95 S$ 7",
+      "price": {
+        "amount": 5.95,
+        "currency": "SGD",
+        "kind": "from"
+      },
+      "originalPrice": {
+        "amount": 7,
+        "currency": "SGD",
+        "kind": "from"
+      },
+      "qualifierAddition": "Fresh public merchant-managed delivery source explicitly trades as Ren Yi Vegetarian at Block 820 Tampines Street 81, 520820. Published promotional and original prices remain separate; 15% all-items auto-applied offer shown. Options, exact portions, current stock, ingredients, fees and dine-in equivalence unverified."
+    },
+    {
+      "itemId": "renyi-tampines820-foodpanda-observation-007",
+      "name": "酸甜猴头菇 vs 素咕咾肉",
+      "matchMethod": "Exact source name after Unicode compatibility normalization; category and both displayed amounts independently agree. No positional match.",
+      "publicationStatus": "review-proposed",
+      "sourceIdAppend": "icf5-renyi-recheck-en",
+      "sourcePriceText": "S$ 11.05 S$ 13",
+      "price": {
+        "amount": 11.05,
+        "currency": "SGD",
+        "kind": "fixed"
+      },
+      "originalPrice": {
+        "amount": 13,
+        "currency": "SGD",
+        "kind": "fixed"
+      },
+      "qualifierAddition": "Fresh public merchant-managed delivery source explicitly trades as Ren Yi Vegetarian at Block 820 Tampines Street 81, 520820. Published promotional and original prices remain separate; 15% all-items auto-applied offer shown. Options, exact portions, current stock, ingredients, fees and dine-in equivalence unverified."
+    },
+    {
+      "itemId": "renyi-tampines820-foodpanda-observation-008",
+      "name": "番茄+金针菇炒蛋 （咸口味）",
+      "matchMethod": "Exact source name after Unicode compatibility normalization; category and both displayed amounts independently agree. No positional match.",
+      "publicationStatus": "review-proposed",
+      "sourceIdAppend": "icf5-renyi-recheck-en",
+      "sourcePriceText": "S$ 8.50 S$ 10",
+      "price": {
+        "amount": 8.5,
+        "currency": "SGD",
+        "kind": "fixed"
+      },
+      "originalPrice": {
+        "amount": 10,
+        "currency": "SGD",
+        "kind": "fixed"
+      },
+      "qualifierAddition": "Fresh public merchant-managed delivery source explicitly trades as Ren Yi Vegetarian at Block 820 Tampines Street 81, 520820. Published promotional and original prices remain separate; 15% all-items auto-applied offer shown. Options, exact portions, current stock, ingredients, fees and dine-in equivalence unverified. Egg food; not vegan."
+    },
+    {
+      "itemId": "renyi-tampines820-foodpanda-observation-009",
+      "name": "Vegetarian Salad Prawn 沙律虾",
+      "matchMethod": "Exact source name after Unicode compatibility normalization; category and both displayed amounts independently agree. No positional match.",
+      "publicationStatus": "review-proposed",
+      "sourceIdAppend": "icf5-renyi-recheck-en",
+      "sourcePriceText": "S$ 8.50 S$ 10",
+      "price": {
+        "amount": 8.5,
+        "currency": "SGD",
+        "kind": "fixed"
+      },
+      "originalPrice": {
+        "amount": 10,
+        "currency": "SGD",
+        "kind": "fixed"
+      },
+      "qualifierAddition": "Fresh public merchant-managed delivery source explicitly trades as Ren Yi Vegetarian at Block 820 Tampines Street 81, 520820. Published promotional and original prices remain separate; 15% all-items auto-applied offer shown. Options, exact portions, current stock, ingredients, fees and dine-in equivalence unverified."
+    },
+    {
+      "itemId": "renyi-tampines820-foodpanda-observation-010",
+      "name": "Thai Style Tofu",
+      "matchMethod": "Exact source name after Unicode compatibility normalization; category and both displayed amounts independently agree. No positional match.",
+      "publicationStatus": "review-proposed",
+      "sourceIdAppend": "icf5-renyi-recheck-en",
+      "sourcePriceText": "S$ 8.50 S$ 10",
+      "price": {
+        "amount": 8.5,
+        "currency": "SGD",
+        "kind": "fixed"
+      },
+      "originalPrice": {
+        "amount": 10,
+        "currency": "SGD",
+        "kind": "fixed"
+      },
+      "qualifierAddition": "Fresh public merchant-managed delivery source explicitly trades as Ren Yi Vegetarian at Block 820 Tampines Street 81, 520820. Published promotional and original prices remain separate; 15% all-items auto-applied offer shown. Options, exact portions, current stock, ingredients, fees and dine-in equivalence unverified."
+    },
+    {
+      "itemId": "renyi-tampines820-foodpanda-observation-011",
+      "name": "Bitter Gourd Fried Egg 苦瓜煎蛋",
+      "matchMethod": "Exact source name after Unicode compatibility normalization; category and both displayed amounts independently agree. No positional match.",
+      "publicationStatus": "review-proposed",
+      "sourceIdAppend": "icf5-renyi-recheck-en",
+      "sourcePriceText": "S$ 8.50 S$ 10",
+      "price": {
+        "amount": 8.5,
+        "currency": "SGD",
+        "kind": "fixed"
+      },
+      "originalPrice": {
+        "amount": 10,
+        "currency": "SGD",
+        "kind": "fixed"
+      },
+      "qualifierAddition": "Fresh public merchant-managed delivery source explicitly trades as Ren Yi Vegetarian at Block 820 Tampines Street 81, 520820. Published promotional and original prices remain separate; 15% all-items auto-applied offer shown. Options, exact portions, current stock, ingredients, fees and dine-in equivalence unverified. Egg food; not vegan."
+    },
+    {
+      "itemId": "renyi-tampines820-foodpanda-observation-012",
+      "name": "Buddhas Delight 罗汉斋",
+      "matchMethod": "Exact source name after Unicode compatibility normalization; category and both displayed amounts independently agree. No positional match.",
+      "publicationStatus": "review-proposed",
+      "sourceIdAppend": "icf5-renyi-recheck-en",
+      "sourcePriceText": "S$ 8.50 S$ 10",
+      "price": {
+        "amount": 8.5,
+        "currency": "SGD",
+        "kind": "fixed"
+      },
+      "originalPrice": {
+        "amount": 10,
+        "currency": "SGD",
+        "kind": "fixed"
+      },
+      "qualifierAddition": "Fresh public merchant-managed delivery source explicitly trades as Ren Yi Vegetarian at Block 820 Tampines Street 81, 520820. Published promotional and original prices remain separate; 15% all-items auto-applied offer shown. Options, exact portions, current stock, ingredients, fees and dine-in equivalence unverified."
+    },
+    {
+      "itemId": "renyi-tampines820-foodpanda-observation-013",
+      "name": "白饭White Rice",
+      "matchMethod": "Exact source name after Unicode compatibility normalization; category and both displayed amounts independently agree. No positional match.",
+      "publicationStatus": "review-proposed",
+      "sourceIdAppend": "icf5-renyi-recheck-en",
+      "sourcePriceText": "S$ 1.27 S$ 1.50",
+      "price": {
+        "amount": 1.27,
+        "currency": "SGD",
+        "kind": "fixed"
+      },
+      "originalPrice": {
+        "amount": 1.5,
+        "currency": "SGD",
+        "kind": "fixed"
+      },
+      "qualifierAddition": "Fresh public merchant-managed delivery source explicitly trades as Ren Yi Vegetarian at Block 820 Tampines Street 81, 520820. Published promotional and original prices remain separate; 15% all-items auto-applied offer shown. Options, exact portions, current stock, ingredients, fees and dine-in equivalence unverified."
+    },
+    {
+      "itemId": "renyi-tampines820-foodpanda-observation-014",
+      "name": "青炒生菜",
+      "matchMethod": "Exact source name after Unicode compatibility normalization; category and both displayed amounts independently agree. No positional match.",
+      "publicationStatus": "review-proposed",
+      "sourceIdAppend": "icf5-renyi-recheck-en",
+      "sourcePriceText": "S$ 8.50 S$ 10",
+      "price": {
+        "amount": 8.5,
+        "currency": "SGD",
+        "kind": "fixed"
+      },
+      "originalPrice": {
+        "amount": 10,
+        "currency": "SGD",
+        "kind": "fixed"
+      },
+      "qualifierAddition": "Fresh public merchant-managed delivery source explicitly trades as Ren Yi Vegetarian at Block 820 Tampines Street 81, 520820. Published promotional and original prices remain separate; 15% all-items auto-applied offer shown. Options, exact portions, current stock, ingredients, fees and dine-in equivalence unverified."
+    },
+    {
+      "itemId": "renyi-tampines820-foodpanda-observation-015",
+      "name": "Claypot Tofu 砂锅菌菇豆腐 粉丝",
+      "matchMethod": "Exact source name after Unicode compatibility normalization; category and both displayed amounts independently agree. No positional match.",
+      "publicationStatus": "review-proposed",
+      "sourceIdAppend": "icf5-renyi-recheck-en",
+      "sourcePriceText": "S$ 11.05 S$ 13",
+      "price": {
+        "amount": 11.05,
+        "currency": "SGD",
+        "kind": "fixed"
+      },
+      "originalPrice": {
+        "amount": 13,
+        "currency": "SGD",
+        "kind": "fixed"
+      },
+      "qualifierAddition": "Fresh public merchant-managed delivery source explicitly trades as Ren Yi Vegetarian at Block 820 Tampines Street 81, 520820. Published promotional and original prices remain separate; 15% all-items auto-applied offer shown. Options, exact portions, current stock, ingredients, fees and dine-in equivalence unverified."
+    },
+    {
+      "itemId": "renyi-tampines820-foodpanda-observation-016",
+      "name": "咖喱卜 土豆（1个）",
+      "matchMethod": "Exact source name after Unicode compatibility normalization; category and both displayed amounts independently agree. No positional match.",
+      "publicationStatus": "review-proposed",
+      "sourceIdAppend": "icf5-renyi-recheck-en",
+      "sourcePriceText": "S$ 1.53 S$ 1.80",
+      "price": {
+        "amount": 1.53,
+        "currency": "SGD",
+        "kind": "fixed"
+      },
+      "originalPrice": {
+        "amount": 1.8,
+        "currency": "SGD",
+        "kind": "fixed"
+      },
+      "qualifierAddition": "Fresh public merchant-managed delivery source explicitly trades as Ren Yi Vegetarian at Block 820 Tampines Street 81, 520820. Published promotional and original prices remain separate; 15% all-items auto-applied offer shown. Options, exact portions, current stock, ingredients, fees and dine-in equivalence unverified. Source named portion: 1 piece."
+    },
+    {
+      "itemId": "renyi-tampines820-foodpanda-observation-017",
+      "name": "卤蛋",
+      "matchMethod": "Exact source name after Unicode compatibility normalization; category and both displayed amounts independently agree. No positional match.",
+      "publicationStatus": "review-proposed",
+      "sourceIdAppend": "icf5-renyi-recheck-en",
+      "sourcePriceText": "S$ 1.44 S$ 1.70",
+      "price": {
+        "amount": 1.44,
+        "currency": "SGD",
+        "kind": "fixed"
+      },
+      "originalPrice": {
+        "amount": 1.7,
+        "currency": "SGD",
+        "kind": "fixed"
+      },
+      "qualifierAddition": "Fresh public merchant-managed delivery source explicitly trades as Ren Yi Vegetarian at Block 820 Tampines Street 81, 520820. Published promotional and original prices remain separate; 15% all-items auto-applied offer shown. Options, exact portions, current stock, ingredients, fees and dine-in equivalence unverified. Egg food; not vegan."
+    },
+    {
+      "itemId": "renyi-tampines820-foodpanda-observation-018",
+      "name": "笋粿 soon kueh (1 pieces)",
+      "matchMethod": "Exact source name after Unicode compatibility normalization; category and both displayed amounts independently agree. No positional match.",
+      "publicationStatus": "review-proposed",
+      "sourceIdAppend": "icf5-renyi-recheck-en",
+      "sourcePriceText": "S$ 1.70 S$ 2",
+      "price": {
+        "amount": 1.7,
+        "currency": "SGD",
+        "kind": "fixed"
+      },
+      "originalPrice": {
+        "amount": 2,
+        "currency": "SGD",
+        "kind": "fixed"
+      },
+      "qualifierAddition": "Fresh public merchant-managed delivery source explicitly trades as Ren Yi Vegetarian at Block 820 Tampines Street 81, 520820. Published promotional and original prices remain separate; 15% all-items auto-applied offer shown. Options, exact portions, current stock, ingredients, fees and dine-in equivalence unverified. Source named portion: 1 piece."
+    },
+    {
+      "itemId": "renyi-tampines820-foodpanda-observation-019",
+      "name": "饭粿 ricw kueh (1pieces)",
+      "matchMethod": "Exact source name after Unicode compatibility normalization; category and both displayed amounts independently agree. No positional match.",
+      "publicationStatus": "review-proposed",
+      "sourceIdAppend": "icf5-renyi-recheck-en",
+      "sourcePriceText": "S$ 1.70 S$ 2",
+      "price": {
+        "amount": 1.7,
+        "currency": "SGD",
+        "kind": "fixed"
+      },
+      "originalPrice": {
+        "amount": 2,
+        "currency": "SGD",
+        "kind": "fixed"
+      },
+      "qualifierAddition": "Fresh public merchant-managed delivery source explicitly trades as Ren Yi Vegetarian at Block 820 Tampines Street 81, 520820. Published promotional and original prices remain separate; 15% all-items auto-applied offer shown. Options, exact portions, current stock, ingredients, fees and dine-in equivalence unverified. Source named portion: 1 piece."
+    },
+    {
+      "itemId": "renyi-tampines820-foodpanda-observation-020",
+      "name": "Carrot cake 萝卜糕(1pieces)",
+      "matchMethod": "Exact source name after Unicode compatibility normalization; category and both displayed amounts independently agree. No positional match.",
+      "publicationStatus": "review-proposed",
+      "sourceIdAppend": "icf5-renyi-recheck-en",
+      "sourcePriceText": "S$ 1.70 S$ 2",
+      "price": {
+        "amount": 1.7,
+        "currency": "SGD",
+        "kind": "fixed"
+      },
+      "originalPrice": {
+        "amount": 2,
+        "currency": "SGD",
+        "kind": "fixed"
+      },
+      "qualifierAddition": "Fresh public merchant-managed delivery source explicitly trades as Ren Yi Vegetarian at Block 820 Tampines Street 81, 520820. Published promotional and original prices remain separate; 15% all-items auto-applied offer shown. Options, exact portions, current stock, ingredients, fees and dine-in equivalence unverified. Source named portion: 1 piece."
+    },
+    {
+      "itemId": "renyi-tampines820-foodpanda-observation-021",
+      "name": "娘惹粽Nonya Rice Dumpling (Nonya Zongzi)",
+      "matchMethod": "Exact source name after Unicode compatibility normalization; category and both displayed amounts independently agree. No positional match.",
+      "publicationStatus": "review-proposed",
+      "sourceIdAppend": "icf5-renyi-recheck-en",
+      "sourcePriceText": "S$ 3.83 S$ 4.50",
+      "price": {
+        "amount": 3.83,
+        "currency": "SGD",
+        "kind": "fixed"
+      },
+      "originalPrice": {
+        "amount": 4.5,
+        "currency": "SGD",
+        "kind": "fixed"
+      },
+      "qualifierAddition": "Fresh public merchant-managed delivery source explicitly trades as Ren Yi Vegetarian at Block 820 Tampines Street 81, 520820. Published promotional and original prices remain separate; 15% all-items auto-applied offer shown. Options, exact portions, current stock, ingredients, fees and dine-in equivalence unverified."
+    },
+    {
+      "itemId": "renyi-tampines820-foodpanda-observation-022",
+      "name": "素肉粽Vegetarian Rice Dumpling (Vegetarian Zongzi)",
+      "matchMethod": "Exact source name after Unicode compatibility normalization; category and both displayed amounts independently agree. No positional match.",
+      "publicationStatus": "review-proposed",
+      "sourceIdAppend": "icf5-renyi-recheck-en",
+      "sourcePriceText": "S$ 3.83 S$ 4.50",
+      "price": {
+        "amount": 3.83,
+        "currency": "SGD",
+        "kind": "fixed"
+      },
+      "originalPrice": {
+        "amount": 4.5,
+        "currency": "SGD",
+        "kind": "fixed"
+      },
+      "qualifierAddition": "Fresh public merchant-managed delivery source explicitly trades as Ren Yi Vegetarian at Block 820 Tampines Street 81, 520820. Published promotional and original prices remain separate; 15% all-items auto-applied offer shown. Options, exact portions, current stock, ingredients, fees and dine-in equivalence unverified."
+    },
+    {
+      "itemId": "renyi-tampines820-foodpanda-observation-023",
+      "name": "Fried Egg",
+      "matchMethod": "Exact source name after Unicode compatibility normalization; category and both displayed amounts independently agree. No positional match.",
+      "publicationStatus": "review-proposed",
+      "sourceIdAppend": "icf5-renyi-recheck-en",
+      "sourcePriceText": "S$ 1.44 S$ 1.70",
+      "price": {
+        "amount": 1.44,
+        "currency": "SGD",
+        "kind": "fixed"
+      },
+      "originalPrice": {
+        "amount": 1.7,
+        "currency": "SGD",
+        "kind": "fixed"
+      },
+      "qualifierAddition": "Fresh public merchant-managed delivery source explicitly trades as Ren Yi Vegetarian at Block 820 Tampines Street 81, 520820. Published promotional and original prices remain separate; 15% all-items auto-applied offer shown. Options, exact portions, current stock, ingredients, fees and dine-in equivalence unverified. Egg food; not vegan."
+    },
+    {
+      "itemId": "renyi-tampines820-foodpanda-observation-024",
+      "name": "Taro Cake 芋头粿 (1 Piece)",
+      "matchMethod": "Exact source name after Unicode compatibility normalization; category and both displayed amounts independently agree. No positional match.",
+      "publicationStatus": "review-proposed",
+      "sourceIdAppend": "icf5-renyi-recheck-en",
+      "sourcePriceText": "S$ 1.70 S$ 2",
+      "price": {
+        "amount": 1.7,
+        "currency": "SGD",
+        "kind": "fixed"
+      },
+      "originalPrice": {
+        "amount": 2,
+        "currency": "SGD",
+        "kind": "fixed"
+      },
+      "qualifierAddition": "Fresh public merchant-managed delivery source explicitly trades as Ren Yi Vegetarian at Block 820 Tampines Street 81, 520820. Published promotional and original prices remain separate; 15% all-items auto-applied offer shown. Options, exact portions, current stock, ingredients, fees and dine-in equivalence unverified. Source named portion: 1 piece."
+    },
+    {
+      "itemId": "renyi-tampines820-foodpanda-observation-025",
+      "name": "Taiwan Chicken Chop with Vegetables and Mushrooms",
+      "matchMethod": "Exact source name after Unicode compatibility normalization; category and both displayed amounts independently agree. No positional match.",
+      "publicationStatus": "review-proposed",
+      "sourceIdAppend": "icf5-renyi-recheck-en",
+      "sourcePriceText": "S$ 2.98 S$ 3.50",
+      "price": {
+        "amount": 2.98,
+        "currency": "SGD",
+        "kind": "fixed"
+      },
+      "originalPrice": {
+        "amount": 3.5,
+        "currency": "SGD",
+        "kind": "fixed"
+      },
+      "qualifierAddition": "Fresh public merchant-managed delivery source explicitly trades as Ren Yi Vegetarian at Block 820 Tampines Street 81, 520820. Published promotional and original prices remain separate; 15% all-items auto-applied offer shown. Options, exact portions, current stock, ingredients, fees and dine-in equivalence unverified."
+    },
+    {
+      "itemId": "renyi-tampines820-foodpanda-observation-026",
+      "name": "日式照烧鳗鱼饭",
+      "matchMethod": "Exact source name after Unicode compatibility normalization; category and both displayed amounts independently agree. No positional match.",
+      "publicationStatus": "review-proposed",
+      "sourceIdAppend": "icf5-renyi-recheck-en",
+      "sourcePriceText": "from S$ 9.35 S$ 11",
+      "price": {
+        "amount": 9.35,
+        "currency": "SGD",
+        "kind": "from"
+      },
+      "originalPrice": {
+        "amount": 11,
+        "currency": "SGD",
+        "kind": "from"
+      },
+      "qualifierAddition": "Fresh public merchant-managed delivery source explicitly trades as Ren Yi Vegetarian at Block 820 Tampines Street 81, 520820. Published promotional and original prices remain separate; 15% all-items auto-applied offer shown. Options, exact portions, current stock, ingredients, fees and dine-in equivalence unverified."
+    },
+    {
+      "itemId": "renyi-tampines820-foodpanda-observation-027",
+      "name": "咖喱鸡扒饭",
+      "matchMethod": "Exact source name after Unicode compatibility normalization; category and both displayed amounts independently agree. No positional match.",
+      "publicationStatus": "review-proposed",
+      "sourceIdAppend": "icf5-renyi-recheck-en",
+      "sourcePriceText": "from S$ 8.42 S$ 9.90",
+      "price": {
+        "amount": 8.42,
+        "currency": "SGD",
+        "kind": "from"
+      },
+      "originalPrice": {
+        "amount": 9.9,
+        "currency": "SGD",
+        "kind": "from"
+      },
+      "qualifierAddition": "Fresh public merchant-managed delivery source explicitly trades as Ren Yi Vegetarian at Block 820 Tampines Street 81, 520820. Published promotional and original prices remain separate; 15% all-items auto-applied offer shown. Options, exact portions, current stock, ingredients, fees and dine-in equivalence unverified."
+    },
+    {
+      "itemId": "renyi-tampines820-foodpanda-observation-028",
+      "name": "米粉套餐",
+      "matchMethod": "Exact source name after Unicode compatibility normalization; category and both displayed amounts independently agree. No positional match.",
+      "publicationStatus": "review-proposed",
+      "sourceIdAppend": "icf5-renyi-recheck-en",
+      "sourcePriceText": "from S$ 4.42 S$ 5.20",
+      "price": {
+        "amount": 4.42,
+        "currency": "SGD",
+        "kind": "from"
+      },
+      "originalPrice": {
+        "amount": 5.2,
+        "currency": "SGD",
+        "kind": "from"
+      },
+      "qualifierAddition": "Fresh public merchant-managed delivery source explicitly trades as Ren Yi Vegetarian at Block 820 Tampines Street 81, 520820. Published promotional and original prices remain separate; 15% all-items auto-applied offer shown. Options, exact portions, current stock, ingredients, fees and dine-in equivalence unverified."
+    }
+  ],
+  "heldObservations": [
+    {
+      "existingItemId": "renyi-tampines820-foodpanda-observation-001",
+      "existingName": "羊肉面Kumming Soup Noodle",
+      "currentEnglishName": "羊肉面Kumming Soup Noodle",
+      "conflictingChineseSourceName": "Fish Beehoon Soup",
+      "sourceUrl": "https://www.foodpanda.sg/zh/restaurant/xr8d/ren-yi-vegetarian-tampines-street-81/reviews",
+      "conflictingChineseNameRaw": "鱼片米粉Fish Beehoon Soup",
+      "reason": "English current source still matches existing Kumming Soup Noodle, while alternate Chinese representation names fish beehoon. Same category position/price does not establish same food. Preserve both observations and hold existing 001 pending source product identity clarification. No positional replacement."
+    }
+  ],
+  "identityRecommendation": {
+    "placeId": "ChIJm-c-JQA92jERewuO3eo0RyE",
+    "name": "Ren Yi Vegetarian - Tampines 820",
+    "address": "Block 820 Tampines Street 81, Singapore 520820",
+    "postalCode": "520820",
+    "unit": null,
+    "eligibility": "vegetarian-confirmed",
+    "status": "proposed-source-backed-identity-link",
+    "reason": "Current merchant-managed channel explicitly names vegetarian venue and exact block/street/postal. No unit invented; no transfer to AMK Hub or Ubi registered office."
+  },
+  "nextAction": "Parent may merge 27 exact row amendments and review the exact source-backed identity link. Keep 001 held. No cloned menu or food IDs."
+}

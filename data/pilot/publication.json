@@ -1,0 +1,95 @@
+{
+  "version": 1,
+  "venues": [
+    {
+      "id": "whole-earth-peck-seah",
+      "status": "published",
+      "fingerprint": "596b68228a991d1239ac09ae6365e8ef8e399819503fc71a24bf1f611f7091b8",
+      "aliases": [],
+      "notice": ""
+    },
+    {
+      "id": "dlife-signature-chinatown-point",
+      "status": "published",
+      "fingerprint": "fd143cc64dae66ff3d06ae9ab6358b731845dee8f74d321408b6fb231de1a067",
+      "aliases": [],
+      "notice": ""
+    },
+    {
+      "id": "teng-bespoke-sunshine-plaza",
+      "status": "published",
+      "fingerprint": "472aa936de9bf77c56f1a6a73d21e07330e375978acdafe1cb137241d708e78e",
+      "aliases": [
+        "Teng Bespoke"
+      ],
+      "notice": "Ordering channel unavailable · branch status unconfirmed"
+    },
+    {
+      "id": "elemen-woodlands-height",
+      "status": "published",
+      "fingerprint": "d6b084be2764291ff2f5b67a5092b331711c976de32bf9c02d34a97afb1feb38",
+      "aliases": [],
+      "notice": ""
+    },
+    {
+      "id": "daily-green-woodlands-street-31",
+      "status": "published",
+      "fingerprint": "8ad55dea24adef662825ed920d1456ec5b0ae0a96726f8424fcc1c4846a27609",
+      "aliases": [
+        "Daily Green"
+      ],
+      "notice": "Historical PDF · current branch menu unconfirmed"
+    },
+    {
+      "id": "nomvnom-clarke-quay-central",
+      "status": "published",
+      "fingerprint": "f50260b0efcae41591e72b1039ffd4c78dfb3c76add2ac83a0663c29feb11082",
+      "aliases": [
+        "nomVnom"
+      ],
+      "notice": ""
+    },
+    {
+      "id": "lian-xin-buddha-tooth-relic-temple",
+      "status": "published",
+      "fingerprint": "b45c5f4bf9ae60e22b859d8035d86a762f12d2fdbde39391f1e027f1ca4e7c27",
+      "aliases": [
+        "Lian Xin"
+      ],
+      "notice": ""
+    },
+    {
+      "id": "living-wholesome-fortune-centre",
+      "status": "published",
+      "fingerprint": "bc0b4c08732c76947dafb008ab34422360697f7a16fa61bcfcbf0d9fc68e0194",
+      "aliases": [
+        "Living Wholesome"
+      ],
+      "notice": "Shared brand menu · branch availability unconfirmed"
+    },
+    {
+      "id": "bodhi-deli-fortune-centre",
+      "status": "published",
+      "fingerprint": "ea561ee93353ba0beb66894de4e7f3726b957c55f563cc54b5f8cdf3d50bc3e3",
+      "aliases": [],
+      "notice": "Takeaway charges included"
+    },
+    {
+      "id": "zhen-xiang-woodlands-street-32",
+      "status": "published",
+      "fingerprint": "ecc7fc2ed55b80a4fa352efd41d83798cccad101e720c22e1b7a40fe8dae37a1",
+      "aliases": [
+        "Zheng Xiang Vegetarian",
+        "Zhen Xiang Su Shi"
+      ],
+      "notice": ""
+    },
+    {
+      "id": "shu-woodlands-avenue-1",
+      "status": "published",
+      "fingerprint": "1a40a97b573a343c9e6d5b266ea267ae681c73a9eaab084cf06a48d74d5b8e87",
+      "aliases": [],
+      "notice": ""
+    }
+  ]
+}

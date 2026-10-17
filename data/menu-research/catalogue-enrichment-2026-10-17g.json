@@ -1,0 +1,315 @@
+{
+  "checkedAt": "2026-10-17",
+  "deployedRelease": "20261017-shu-covers10",
+  "goalStatus": "active",
+  "fullCoverageComplete": false,
+  "coverage": {
+    "browseVenues": 174,
+    "menuIds": 175,
+    "covers": 62,
+    "hours": 88,
+    "uniqueAssets": 47,
+    "assetBytes": 6310369,
+    "coverGaps": 112,
+    "hoursGaps": 86,
+    "allThreeAvailable": 43,
+    "catalogueIndexBytes": 148287
+  },
+  "newPhotos": [
+    {
+      "venueId": "research-shu-amk",
+      "address": "554 Ang Mo Kio Ave 10, #01-2040",
+      "photo": {
+        "path": "/api/catalogue-photos/679e9fa96fc2d34afa61572e73ce9e35ac304907eb23583ab41712e80e4560f4.jpg",
+        "width": 960,
+        "height": 703,
+        "author": "SHU Vegetarian / foodpanda",
+        "sourceUrl": "https://www.foodpanda.sg/restaurant/w1hc/shu-vegetarian-shu-fang-zhai-ang-mo-kio-avenue-10",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of merchant food imagery. Shared food imagery is not a branch interior or current-stock claim. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "679e9fa96fc2d34afa61572e73ce9e35ac304907eb23583ab41712e80e4560f4",
+      "bytes": 141734,
+      "originalSha256": "5b1a7e7f7d3b70fc07ddd78025459e0d5ad5f9969b749398d7b0a0a001a1f9f6",
+      "sourcePageCheckedAt": "2026-10-15T10:29:58Z",
+      "sourceImageUrl": "https://images.deliveryhero.io/image/fd-sg/LH/w1hc-listing.jpg",
+      "identityEvidence": "Saved public merchant vendor metadata binds exact vendor code/name/address to hero_image; canonical reviewed source URL agrees. Brand food imagery, not a branch interior or current-stock claim. The visually identical spread is shared only among the seven branches whose own merchant hero_image shows that composition; original hashes and individual URLs are retained.",
+      "savedVendorStateSha256": "41f0575ca96f2d6a0678369ad73bd6c4a8a5d42251a15f34b0743b0e592f766c",
+      "reuseBasis": "User explicitly requested enhancement and storage of verified reference imagery. Attribution and source rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance the supplied SHU Vegetarian operator food reference for a restaurant gallery cover. This is an edit of the actual reference, not an invented menu scene. Preserve the exact five dishes, white plates, their relative arrangement and visible ingredients, including central golden sliced vegetarian cutlet, cucumber, lettuce, orchid and dark dipping sauce; four surrounding vegetable/noodle dishes. Improve natural daylight, gentle contrast, appetising realistic texture and white balance; reduce harsh highlights and slight compression. Keep the overhead view, pale marble tabletop, all five dishes. Do not add food, utensils, text, labels, logos or meat. Produce a polished editorial photograph in the original landscape aspect ratio; do not invent a restaurant interior. Keep food intact for a card crop.",
+        "generatedReference": "shu-spread",
+        "review": "Original and generated compositions visually compared. Selected; original food arrangement retained, fine details may differ."
+      }
+    },
+    {
+      "venueId": "research-shu-clementi",
+      "address": "722 Clementi West Street 2 #01-150 (Wan Fu Eating House), Singapore 120722",
+      "photo": {
+        "path": "/api/catalogue-photos/679e9fa96fc2d34afa61572e73ce9e35ac304907eb23583ab41712e80e4560f4.jpg",
+        "width": 960,
+        "height": 703,
+        "author": "SHU Vegetarian / foodpanda",
+        "sourceUrl": "https://www.foodpanda.sg/restaurant/w3eu/shu-vegetarian-shu-fang-zhai-clementi-west-street-2",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of merchant food imagery. Shared food imagery is not a branch interior or current-stock claim. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "679e9fa96fc2d34afa61572e73ce9e35ac304907eb23583ab41712e80e4560f4",
+      "bytes": 141734,
+      "originalSha256": "5b1a7e7f7d3b70fc07ddd78025459e0d5ad5f9969b749398d7b0a0a001a1f9f6",
+      "sourcePageCheckedAt": "2026-10-15T10:29:58Z",
+      "sourceImageUrl": "https://images.deliveryhero.io/image/fd-sg/LH/w3eu-listing.jpg",
+      "identityEvidence": "Saved public merchant vendor metadata binds exact vendor code/name/address to hero_image; canonical reviewed source URL agrees. Brand food imagery, not a branch interior or current-stock claim. The visually identical spread is shared only among the seven branches whose own merchant hero_image shows that composition; original hashes and individual URLs are retained.",
+      "savedVendorStateSha256": "6efb93e110f530ee98c1a9a4644dac1e539280bc48a9295fdc9b90b046d7ae14",
+      "reuseBasis": "User explicitly requested enhancement and storage of verified reference imagery. Attribution and source rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance the supplied SHU Vegetarian operator food reference for a restaurant gallery cover. This is an edit of the actual reference, not an invented menu scene. Preserve the exact five dishes, white plates, their relative arrangement and visible ingredients, including central golden sliced vegetarian cutlet, cucumber, lettuce, orchid and dark dipping sauce; four surrounding vegetable/noodle dishes. Improve natural daylight, gentle contrast, appetising realistic texture and white balance; reduce harsh highlights and slight compression. Keep the overhead view, pale marble tabletop, all five dishes. Do not add food, utensils, text, labels, logos or meat. Produce a polished editorial photograph in the original landscape aspect ratio; do not invent a restaurant interior. Keep food intact for a card crop.",
+        "generatedReference": "shu-spread",
+        "review": "Original and generated compositions visually compared. Selected; original food arrangement retained, fine details may differ."
+      }
+    },
+    {
+      "venueId": "research-shu-hq",
+      "address": "27 Woodlands Link #01-01, Chang Cheng HQ (Chang Cheng Mee Wah Coffeeshop), Singapore 738732",
+      "photo": {
+        "path": "/api/catalogue-photos/022082e1191e7735dbf37943d2d94a8f9fc44aeccf0a3fb7726bfdc89265455d.jpg",
+        "width": 960,
+        "height": 703,
+        "author": "SHU Vegetarian / foodpanda",
+        "sourceUrl": "https://www.foodpanda.sg/restaurant/a7h1/shu-vegetarian-shu-fang-zhai-chang-cheng-hq",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of merchant food imagery. Shared food imagery is not a branch interior or current-stock claim. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "022082e1191e7735dbf37943d2d94a8f9fc44aeccf0a3fb7726bfdc89265455d",
+      "bytes": 172416,
+      "originalSha256": "20408f0961a49297b92922393c379d1b775291791ec9e32173c4bb380be6a16b",
+      "sourcePageCheckedAt": "2026-10-15T10:29:58Z",
+      "sourceImageUrl": "https://images.deliveryhero.io/image/fd-sg/LH/a7h1-listing.jpg",
+      "identityEvidence": "Saved public merchant vendor metadata binds exact vendor code/name/address to hero_image; canonical reviewed source URL agrees. Brand food imagery, not a branch interior or current-stock claim. The visually identical spread is shared only among the seven branches whose own merchant hero_image shows that composition; original hashes and individual URLs are retained.",
+      "savedVendorStateSha256": "6658dc669301bd115202449b927b51bffaeb524c9670b78bc436184033c10015",
+      "reuseBasis": "User explicitly requested enhancement and storage of verified reference imagery. Attribution and source rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Use case: faithful photographic enhancement. Edit this exact SHU Vegetarian mala platter reference for a polished gallery cover. Preserve the white asymmetric bowl, the existing arrangement and visible vegetable/plant-based food shapes: lotus root, tofu slices, cauliflower, green vegetables, dried red chillies, sesame and coriander, with the same checkered cloth and chopsticks at the edge. Improve soft natural lighting, warm balanced colours, detailed realistic texture, and remove compression softness. Keep the close overhead-oblique angle and original landscape composition. Do not add ingredients, meat, garnish, steam, dishes, props, text, logos or a restaurant interior. This is the same vegetarian platter, not a redesigned dish.",
+        "generatedReference": "shu-hq",
+        "review": "Original and generated compositions visually compared. Selected; original food arrangement retained, fine details may differ."
+      }
+    },
+    {
+      "venueId": "research-shu-jalan-kayu",
+      "address": "259 Jalan Kayu, Singapore 799488",
+      "photo": {
+        "path": "/api/catalogue-photos/679e9fa96fc2d34afa61572e73ce9e35ac304907eb23583ab41712e80e4560f4.jpg",
+        "width": 960,
+        "height": 703,
+        "author": "SHU Vegetarian / foodpanda",
+        "sourceUrl": "https://www.foodpanda.sg/restaurant/s0tp/shu-vegetarian-259-jalan-kayu",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of merchant food imagery. Shared food imagery is not a branch interior or current-stock claim. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "679e9fa96fc2d34afa61572e73ce9e35ac304907eb23583ab41712e80e4560f4",
+      "bytes": 141734,
+      "originalSha256": "5b1a7e7f7d3b70fc07ddd78025459e0d5ad5f9969b749398d7b0a0a001a1f9f6",
+      "sourcePageCheckedAt": "2026-10-15T10:29:58Z",
+      "sourceImageUrl": "https://images.deliveryhero.io/image/fd-sg/LH/s0tp-listing.jpg",
+      "identityEvidence": "Saved public merchant vendor metadata binds exact vendor code/name/address to hero_image; canonical reviewed source URL agrees. Brand food imagery, not a branch interior or current-stock claim. The visually identical spread is shared only among the seven branches whose own merchant hero_image shows that composition; original hashes and individual URLs are retained.",
+      "savedVendorStateSha256": "9b22f381862560519a3a705c8f9b185de580e654ad9128762aa2d0cad09668df",
+      "reuseBasis": "User explicitly requested enhancement and storage of verified reference imagery. Attribution and source rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance the supplied SHU Vegetarian operator food reference for a restaurant gallery cover. This is an edit of the actual reference, not an invented menu scene. Preserve the exact five dishes, white plates, their relative arrangement and visible ingredients, including central golden sliced vegetarian cutlet, cucumber, lettuce, orchid and dark dipping sauce; four surrounding vegetable/noodle dishes. Improve natural daylight, gentle contrast, appetising realistic texture and white balance; reduce harsh highlights and slight compression. Keep the overhead view, pale marble tabletop, all five dishes. Do not add food, utensils, text, labels, logos or meat. Produce a polished editorial photograph in the original landscape aspect ratio; do not invent a restaurant interior. Keep food intact for a card crop.",
+        "generatedReference": "shu-spread",
+        "review": "Original and generated compositions visually compared. Selected; original food arrangement retained, fine details may differ."
+      }
+    },
+    {
+      "venueId": "research-shu-jurong",
+      "address": "498 Jurong West Street 41 #01-462, Singapore 640498",
+      "photo": {
+        "path": "/api/catalogue-photos/679e9fa96fc2d34afa61572e73ce9e35ac304907eb23583ab41712e80e4560f4.jpg",
+        "width": 960,
+        "height": 703,
+        "author": "SHU Vegetarian / foodpanda",
+        "sourceUrl": "https://www.foodpanda.sg/restaurant/r3q1/shu-vegetarian-shu-fang-zhai-jurong-west-street-41",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of merchant food imagery. Shared food imagery is not a branch interior or current-stock claim. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "679e9fa96fc2d34afa61572e73ce9e35ac304907eb23583ab41712e80e4560f4",
+      "bytes": 141734,
+      "originalSha256": "5b1a7e7f7d3b70fc07ddd78025459e0d5ad5f9969b749398d7b0a0a001a1f9f6",
+      "sourcePageCheckedAt": "2026-10-15T10:29:58Z",
+      "sourceImageUrl": "https://images.deliveryhero.io/image/fd-sg/LH/r3q1-listing.jpg",
+      "identityEvidence": "Saved public merchant vendor metadata binds exact vendor code/name/address to hero_image; canonical reviewed source URL agrees. Brand food imagery, not a branch interior or current-stock claim. The visually identical spread is shared only among the seven branches whose own merchant hero_image shows that composition; original hashes and individual URLs are retained.",
+      "savedVendorStateSha256": "58689d5abbe31e978e0eaf78e3701ed70d23caa05abfe85c057cdc9f300f451a",
+      "reuseBasis": "User explicitly requested enhancement and storage of verified reference imagery. Attribution and source rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance the supplied SHU Vegetarian operator food reference for a restaurant gallery cover. This is an edit of the actual reference, not an invented menu scene. Preserve the exact five dishes, white plates, their relative arrangement and visible ingredients, including central golden sliced vegetarian cutlet, cucumber, lettuce, orchid and dark dipping sauce; four surrounding vegetable/noodle dishes. Improve natural daylight, gentle contrast, appetising realistic texture and white balance; reduce harsh highlights and slight compression. Keep the overhead view, pale marble tabletop, all five dishes. Do not add food, utensils, text, labels, logos or meat. Produce a polished editorial photograph in the original landscape aspect ratio; do not invent a restaurant interior. Keep food intact for a card crop.",
+        "generatedReference": "shu-spread",
+        "review": "Original and generated compositions visually compared. Selected; original food arrangement retained, fine details may differ."
+      }
+    },
+    {
+      "venueId": "research-shu-loyang",
+      "address": "259 Pasir Ris Street 21 #02-30, Loyang Point, Singapore 510259",
+      "photo": {
+        "path": "/api/catalogue-photos/679e9fa96fc2d34afa61572e73ce9e35ac304907eb23583ab41712e80e4560f4.jpg",
+        "width": 960,
+        "height": 703,
+        "author": "SHU Vegetarian / foodpanda",
+        "sourceUrl": "https://www.foodpanda.sg/restaurant/qjg1/shu-vegetarian-shu-fang-zhai-loyang-point",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of merchant food imagery. Shared food imagery is not a branch interior or current-stock claim. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "679e9fa96fc2d34afa61572e73ce9e35ac304907eb23583ab41712e80e4560f4",
+      "bytes": 141734,
+      "originalSha256": "5b1a7e7f7d3b70fc07ddd78025459e0d5ad5f9969b749398d7b0a0a001a1f9f6",
+      "sourcePageCheckedAt": "2026-10-15T10:29:58Z",
+      "sourceImageUrl": "https://images.deliveryhero.io/image/fd-sg/LH/qjg1-listing.jpg",
+      "identityEvidence": "Saved public merchant vendor metadata binds exact vendor code/name/address to hero_image; canonical reviewed source URL agrees. Brand food imagery, not a branch interior or current-stock claim. The visually identical spread is shared only among the seven branches whose own merchant hero_image shows that composition; original hashes and individual URLs are retained.",
+      "savedVendorStateSha256": "73983d4fe0f7f0f28eb7d853d0c0fa57030cb7c8ba57b1b8125133b3a406082e",
+      "reuseBasis": "User explicitly requested enhancement and storage of verified reference imagery. Attribution and source rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance the supplied SHU Vegetarian operator food reference for a restaurant gallery cover. This is an edit of the actual reference, not an invented menu scene. Preserve the exact five dishes, white plates, their relative arrangement and visible ingredients, including central golden sliced vegetarian cutlet, cucumber, lettuce, orchid and dark dipping sauce; four surrounding vegetable/noodle dishes. Improve natural daylight, gentle contrast, appetising realistic texture and white balance; reduce harsh highlights and slight compression. Keep the overhead view, pale marble tabletop, all five dishes. Do not add food, utensils, text, labels, logos or meat. Produce a polished editorial photograph in the original landscape aspect ratio; do not invent a restaurant interior. Keep food intact for a card crop.",
+        "generatedReference": "shu-spread",
+        "review": "Original and generated compositions visually compared. Selected; original food arrangement retained, fine details may differ."
+      }
+    },
+    {
+      "venueId": "research-shu-margaret",
+      "address": "40 Margaret Drive #01-05, Singapore 140040",
+      "photo": {
+        "path": "/api/catalogue-photos/679e9fa96fc2d34afa61572e73ce9e35ac304907eb23583ab41712e80e4560f4.jpg",
+        "width": 960,
+        "height": 703,
+        "author": "SHU Vegetarian / foodpanda",
+        "sourceUrl": "https://www.foodpanda.sg/restaurant/a2qp/shu-vegetarian-shu-fang-zhai-margaret-drive",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of merchant food imagery. Shared food imagery is not a branch interior or current-stock claim. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "679e9fa96fc2d34afa61572e73ce9e35ac304907eb23583ab41712e80e4560f4",
+      "bytes": 141734,
+      "originalSha256": "d2fcfbaea9e9c58320b00e6c8e96016ed851e8e562f5b42a1355019194d45a40",
+      "sourcePageCheckedAt": "2026-10-15T10:29:58Z",
+      "sourceImageUrl": "https://images.deliveryhero.io/image/fd-sg/LH/a2qp-listing.jpg",
+      "identityEvidence": "Saved public merchant vendor metadata binds exact vendor code/name/address to hero_image; canonical reviewed source URL agrees. Brand food imagery, not a branch interior or current-stock claim. The visually identical spread is shared only among the seven branches whose own merchant hero_image shows that composition; original hashes and individual URLs are retained.",
+      "savedVendorStateSha256": "e055f2596fbf16bdf04907c3089821addca32efe4afff717ac92266727b21cab",
+      "reuseBasis": "User explicitly requested enhancement and storage of verified reference imagery. Attribution and source rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance the supplied SHU Vegetarian operator food reference for a restaurant gallery cover. This is an edit of the actual reference, not an invented menu scene. Preserve the exact five dishes, white plates, their relative arrangement and visible ingredients, including central golden sliced vegetarian cutlet, cucumber, lettuce, orchid and dark dipping sauce; four surrounding vegetable/noodle dishes. Improve natural daylight, gentle contrast, appetising realistic texture and white balance; reduce harsh highlights and slight compression. Keep the overhead view, pale marble tabletop, all five dishes. Do not add food, utensils, text, labels, logos or meat. Produce a polished editorial photograph in the original landscape aspect ratio; do not invent a restaurant interior. Keep food intact for a card crop.",
+        "generatedReference": "shu-spread",
+        "review": "Original and generated compositions visually compared. Selected; original food arrangement retained, fine details may differ."
+      }
+    },
+    {
+      "venueId": "research-shu-yishun",
+      "address": "239 Yishun Ring Road #01-1150, Singapore 760239",
+      "photo": {
+        "path": "/api/catalogue-photos/679e9fa96fc2d34afa61572e73ce9e35ac304907eb23583ab41712e80e4560f4.jpg",
+        "width": 960,
+        "height": 703,
+        "author": "SHU Vegetarian / foodpanda",
+        "sourceUrl": "https://www.foodpanda.sg/restaurant/bqyw/shu-vegetarian-shu-fang-zhai-yishun-ring-road",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of merchant food imagery. Shared food imagery is not a branch interior or current-stock claim. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "679e9fa96fc2d34afa61572e73ce9e35ac304907eb23583ab41712e80e4560f4",
+      "bytes": 141734,
+      "originalSha256": "5b1a7e7f7d3b70fc07ddd78025459e0d5ad5f9969b749398d7b0a0a001a1f9f6",
+      "sourcePageCheckedAt": "2026-10-15T10:29:58Z",
+      "sourceImageUrl": "https://images.deliveryhero.io/image/fd-sg/LH/bqyw-listing.jpg",
+      "identityEvidence": "Saved public merchant vendor metadata binds exact vendor code/name/address to hero_image; canonical reviewed source URL agrees. Brand food imagery, not a branch interior or current-stock claim. The visually identical spread is shared only among the seven branches whose own merchant hero_image shows that composition; original hashes and individual URLs are retained.",
+      "savedVendorStateSha256": "b326b1dff5b281c58f4ab846edb01a38b282f2d82d890374246020f78663ab35",
+      "reuseBasis": "User explicitly requested enhancement and storage of verified reference imagery. Attribution and source rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance the supplied SHU Vegetarian operator food reference for a restaurant gallery cover. This is an edit of the actual reference, not an invented menu scene. Preserve the exact five dishes, white plates, their relative arrangement and visible ingredients, including central golden sliced vegetarian cutlet, cucumber, lettuce, orchid and dark dipping sauce; four surrounding vegetable/noodle dishes. Improve natural daylight, gentle contrast, appetising realistic texture and white balance; reduce harsh highlights and slight compression. Keep the overhead view, pale marble tabletop, all five dishes. Do not add food, utensils, text, labels, logos or meat. Produce a polished editorial photograph in the original landscape aspect ratio; do not invent a restaurant interior. Keep food intact for a card crop.",
+        "generatedReference": "shu-spread",
+        "review": "Original and generated compositions visually compared. Selected; original food arrangement retained, fine details may differ."
+      }
+    }
+  ],
+  "newHours": [],
+  "googleLedger": {
+    "bytes": 1045377,
+    "sha256": "c7321dafaad0473583139494ca899501578892c5b71105429d3cd4dceb4f311a",
+    "requests": 2419,
+    "limit": 2500,
+    "remaining": 81
+  },
+  "sourceRights": "Source attribution and rights retained. User-requested enhancement does not establish an independent licence.",
+  "unresolved": "2,527 food holds,109zero-food research branches,1,828unnamed candidate IDs,8coordinate holds preserved; exact MakanVegan/SoonLai screenshot images unrecovered.",
+  "releaseEvidence": ".local/coverage-2026-10-17g/release.json",
+  "hoursReview": {
+    "checkedAt": "2026-10-17",
+    "status": "holds preserved; no schedule imported",
+    "scope": "Nine published SHU branches",
+    "sources": [
+      {
+        "url": "https://shuvegetarian.shop/",
+        "finding": "Current site is unrelated gambling content; reject as restaurant evidence."
+      },
+      {
+        "url": "https://www.facebook.com/303321370009833/",
+        "finding": "Operator page could not be read in this check; no schedule inferred."
+      },
+      {
+        "url": "https://www.foodgrove.sg/listing/shu-vegetarian/",
+        "finding": "Exact Woodlands 354A community directory lists daily 10:30-21:00. Secondary community source, not established as operator schedule; hold pending confirmation."
+      },
+      {
+        "url": "https://www.foodgrove.sg/",
+        "finding": "Site describes a Woodgrove community food initiative; not the stall or coffeeshop operator."
+      },
+      {
+        "url": "https://www.friendlyvegetarian.com.sg/directory/9",
+        "finding": "Exact Jalan Kayu supplier directory lists daily 10:30-22:00, last order21:30. Secondary, not imported as verified operator hours."
+      },
+      {
+        "url": "https://www.restaurants10.com/SG/Singapore/303321370009833/SHU-Vegetarian",
+        "finding": "Old social mirror identifies branches but does not establish current branch schedules."
+      },
+      {
+        "url": "https://stampede.sg/shu-vegetarian-40-margaret-drive/about",
+        "finding": "Aggregated Google information, insufficient primary verification."
+      }
+    ],
+    "identityBoundary": "Belfast SHU and Melbourne SHU search results excluded. No schedule transferred between Singapore branches."
+  }
+}

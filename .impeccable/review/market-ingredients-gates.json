@@ -1,0 +1,92 @@
+{
+  "checkedAt": "2026-10-15T02:50:58.077Z",
+  "typecheck": {
+    "command": "npx tsc --noEmit",
+    "exitCode": 0
+  },
+  "lint": {
+    "command": "npm run lint",
+    "exitCode": 0
+  },
+  "browserChecks": 18,
+  "stateGroups": 9,
+  "browserErrors": [],
+  "axe": {
+    "violations": [],
+    "incomplete": [
+      "color-contrast",
+      "label-content-name-mismatch"
+    ]
+  },
+  "native": {
+    "checkedAt": "2026-10-15T02:49:34.166Z",
+    "url": "exp://192.168.1.5:8083",
+    "manifestStatus": 200,
+    "bundleStatus": 200,
+    "bundleBytes": 8848271,
+    "currentIngredients": true,
+    "limits": "Transport and bundle only; native appearance and device permissions unverified."
+  },
+  "files": [
+    {
+      "path": "src/config/market-ingredients.ts",
+      "lines": 16
+    },
+    {
+      "path": "src/types/market.ts",
+      "lines": 37
+    },
+    {
+      "path": "src/state/market-schema.ts",
+      "lines": 64
+    },
+    {
+      "path": "src/utils/market.ts",
+      "lines": 67
+    },
+    {
+      "path": "src/data/market.ts",
+      "lines": 31
+    },
+    {
+      "path": "src/components/market/Ingredients.tsx",
+      "lines": 53
+    },
+    {
+      "path": "src/components/market/ListingPhotos.tsx",
+      "lines": 62
+    },
+    {
+      "path": "src/components/market/ListingPhoto.tsx",
+      "lines": 27
+    },
+    {
+      "path": "src/components/market/MarketFilters.tsx",
+      "lines": 30
+    },
+    {
+      "path": "src/components/market/ListingCard.tsx",
+      "lines": 43
+    },
+    {
+      "path": "src/screens/market/ListingForm.tsx",
+      "lines": 77
+    },
+    {
+      "path": "src/screens/market/ListingDetail.tsx",
+      "lines": 80
+    },
+    {
+      "path": "src/screens/market/Market.tsx",
+      "lines": 74
+    },
+    {
+      "path": "src/components/Screen.tsx",
+      "lines": 167
+    }
+  ],
+  "limits": [
+    "Isolated browser QA with explicitly labelled synthetic photo fixtures. No real listings or messages.",
+    "Physical device camera, permissions and native layout remain unverified."
+  ]
+}

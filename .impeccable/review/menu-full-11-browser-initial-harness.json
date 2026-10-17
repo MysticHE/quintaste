@@ -1,0 +1,23 @@
+{
+  "startedAt": "2026-10-16T07:11:41.158Z",
+  "url": "http://127.0.0.1:8083",
+  "checks": [],
+  "screenshots": [],
+  "errors": [
+    "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n1 !== 0\n\n    at main (C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-11-qa.cjs:48:2474)"
+  ],
+  "pageErrors": [],
+  "unexpectedConsoleErrors": [],
+  "blockedApiRequests": [],
+  "blockedExternalRequests": [],
+  "apiRequests": [],
+  "a11y": [],
+  "forwardedProviderCalls": 0,
+  "installedChromeUsed": false,
+  "finishedAt": "2026-10-16T07:12:03.233Z",
+  "passed": false,
+  "visualReview": {
+    "status": "pending"
+  },
+  "googleLedgerUnchanged": true
+}

@@ -1,0 +1,129 @@
+{
+  "version": 1,
+  "amendmentsOnly": true,
+  "checkedAt": "2026-10-16T00:56:36.978728+00:00",
+  "targetDataset": "data/menu-research/menu-completion-identity-foods-03b.json",
+  "targetMenuId": "icf3b-slow-preorder-foods",
+  "newFoodRows": 0,
+  "recoveredProductDetails": 5,
+  "notice": "Amendments to five existing stable food rows only. Root already integrated and modified 03b; that file is not edited by this unit. Currency remains unknown to match root review. All 23 product details are now readable across the original packet and these five ordinary public HTTP retrievals; 12 explicit Half/Whole pairs in total. Parent must merge into current reviewed packet.",
+  "amendments": [
+    {
+      "itemId": "icf3b-slow-11",
+      "name": "Matcha (V)",
+      "menuId": "icf3b-slow-preorder-foods",
+      "sourceId": "icf3b-slow-detail-17",
+      "primaryUrl": "https://take.app/slowbakes/p/732da00-de00-e36-3632-f48ce7f5a730",
+      "retrievedAt": "2026-10-16T00:56:36.978728+00:00",
+      "httpStatus": 200,
+      "detailStatus": "readable",
+      "sourcePriceText": "$4.75 - $9.50",
+      "sourceCurrencySymbol": "$",
+      "currency": "unknown",
+      "veganClaim": "merchant-labelled",
+      "reason": "Ordinary public HTTP GET succeeded after web-text retrieval failed. Same stable product URL and food name; no login or bypass.",
+      "price": {
+        "amount": 4.75,
+        "currency": "unknown",
+        "kind": "from"
+      },
+      "priceVariants": [
+        {
+          "label": "Half",
+          "amount": 4.75,
+          "currency": "unknown"
+        },
+        {
+          "label": "Whole",
+          "amount": 9.5,
+          "currency": "unknown"
+        }
+      ],
+      "qualifierAddition": "Half $4.75 and Whole $9.50 are explicit. Merchant labels product (V); published ingredient facts include soy milk and almond flakes. Currency is the unqualified $ symbol; no ISO currency code asserted. Full ingredient/allergen certification, stock and effective menu date remain unverified."
+    },
+    {
+      "itemId": "icf3b-slow-16",
+      "name": "Chocolate Hazelnut (V)",
+      "menuId": "icf3b-slow-preorder-foods",
+      "sourceId": "icf3b-slow-detail-22",
+      "primaryUrl": "https://take.app/slowbakes/p/eb31b-23eb-b013-3748-cbc62a7083",
+      "retrievedAt": "2026-10-16T00:56:36.978728+00:00",
+      "httpStatus": 200,
+      "detailStatus": "readable",
+      "sourcePriceText": "$3.50",
+      "sourceCurrencySymbol": "$",
+      "currency": "unknown",
+      "veganClaim": "merchant-labelled",
+      "reason": "Ordinary public HTTP GET succeeded after web-text retrieval failed. Same stable product URL and food name; no login or bypass.",
+      "price": {
+        "amount": 3.5,
+        "currency": "unknown",
+        "kind": "fixed"
+      },
+      "qualifierAddition": "Fixed $3.50; no portion or modifier selection displayed. Merchant labels (V); published ingredient facts include hazelnut, cashew nut and soy milk. Currency is the unqualified $ symbol; no ISO currency code asserted. Full ingredient/allergen certification, stock and effective menu date remain unverified."
+    },
+    {
+      "itemId": "icf3b-slow-18",
+      "name": "Garlic Cheese",
+      "menuId": "icf3b-slow-preorder-foods",
+      "sourceId": "icf3b-slow-detail-24",
+      "primaryUrl": "https://take.app/slowbakes/p/7ef8e54-0d1c-7444-768f-63e5502852f",
+      "retrievedAt": "2026-10-16T00:56:36.978728+00:00",
+      "httpStatus": 200,
+      "detailStatus": "readable",
+      "sourcePriceText": "$4.40",
+      "sourceCurrencySymbol": "$",
+      "currency": "unknown",
+      "veganClaim": "not-certified",
+      "reason": "Ordinary public HTTP GET succeeded after web-text retrieval failed. Same stable product URL and food name; no login or bypass.",
+      "price": {
+        "amount": 4.4,
+        "currency": "unknown",
+        "kind": "fixed"
+      },
+      "qualifierAddition": "Fixed $4.40; no portion or modifier selection displayed. Product is not labelled (V), and the published ingredients include butter; do not label vegan. Currency is the unqualified $ symbol; no ISO currency code asserted. Full ingredient/allergen certification, stock and effective menu date remain unverified."
+    },
+    {
+      "itemId": "icf3b-slow-20",
+      "name": "Mushroom Cheese",
+      "menuId": "icf3b-slow-preorder-foods",
+      "sourceId": "icf3b-slow-detail-26",
+      "primaryUrl": "https://take.app/slowbakes/p/8eb4b6-ef0-f74-acd-f7003afe0d52",
+      "retrievedAt": "2026-10-16T00:56:36.978728+00:00",
+      "httpStatus": 200,
+      "detailStatus": "readable",
+      "sourcePriceText": "$3.80",
+      "sourceCurrencySymbol": "$",
+      "currency": "unknown",
+      "veganClaim": "not-certified",
+      "reason": "Ordinary public HTTP GET succeeded after web-text retrieval failed. Same stable product URL and food name; no login or bypass.",
+      "price": {
+        "amount": 3.8,
+        "currency": "unknown",
+        "kind": "fixed"
+      },
+      "qualifierAddition": "Fixed $3.80; no portion or modifier selection displayed. Product is not labelled (V). Do not infer vegan status from its displayed ingredient list; title includes Cheese. Currency is the unqualified $ symbol; no ISO currency code asserted. Full ingredient/allergen certification, stock and effective menu date remain unverified."
+    },
+    {
+      "itemId": "icf3b-slow-22",
+      "name": "Berries Cream Cheese",
+      "menuId": "icf3b-slow-preorder-foods",
+      "sourceId": "icf3b-slow-detail-28",
+      "primaryUrl": "https://take.app/slowbakes/p/254802f-8157-2167-beea-7bb7d43451",
+      "retrievedAt": "2026-10-16T00:56:36.978728+00:00",
+      "httpStatus": 200,
+      "detailStatus": "readable",
+      "sourcePriceText": "$3.80",
+      "sourceCurrencySymbol": "$",
+      "currency": "unknown",
+      "veganClaim": "not-certified",
+      "reason": "Ordinary public HTTP GET succeeded after web-text retrieval failed. Same stable product URL and food name; no login or bypass.",
+      "price": {
+        "amount": 3.8,
+        "currency": "unknown",
+        "kind": "fixed"
+      },
+      "qualifierAddition": "Fixed $3.80; no portion or modifier selection displayed. Product is not labelled (V), and the published ingredients include cream cheese and soy milk; do not label vegan. Currency is the unqualified $ symbol; no ISO currency code asserted. Full ingredient/allergen certification, stock and effective menu date remain unverified."
+    }
+  ]
+}

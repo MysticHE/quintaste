@@ -1,0 +1,19 @@
+{
+  "checkedAt": "2026-10-16T01:27:15.056Z",
+  "researchBytes": 33282181,
+  "registerBytes": 12620369,
+  "compiledBytes": 4980147,
+  "allMenuDataBytes": 39409134,
+  "tempQAEvidenceBytes": 2404235542,
+  "freeDiskBytes": 637479043072,
+  "indexBytes": 56391,
+  "indexGzipBytes": 16122,
+  "largestDetailBytes": 237205,
+  "appCacheLimits": {
+    "detailCount": 5,
+    "perDetailBytes": 400000,
+    "aggregateDetailBytes": 1200000,
+    "indexBytes": 1000000
+  },
+  "scope": "Local source/runtime sizes; register and private raw QA evidence excluded from app menu payload. No production-host quota or physical-device speed established."
+}

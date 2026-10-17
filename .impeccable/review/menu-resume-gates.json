@@ -1,0 +1,19 @@
+{
+  "checkedAt": "2026-10-16T03:51:54.089Z",
+  "typecheck": {
+    "command": "node node_modules/typescript/bin/tsc --noEmit",
+    "exitCode": 0,
+    "session": 18385,
+    "scope": "After shared accessibility label fix"
+  },
+  "lint": {
+    "command": "npm.cmd run lint",
+    "exitCode": 0,
+    "scope": "After shared accessibility label fix"
+  },
+  "compilerAndRegister": {
+    "exitCode": 0,
+    "output": "{\"action\":\"--check\",\"branches\":132,\"sourceMenus\":173,\"foodRows\":10039,\"bytes\":4988927,\"output\":\"data\\\\menus\\\\published-research.json\"}\r\n{\"action\":\"check\",\"foodRecords\":15799,\"sourceDocuments\":3408,\"uniqueSourceUrls\":3347,\"undatedSourceDocuments\":0,\"publishedRecords\":10655,\"publishedFoodOccurrences\":10771,\"heldRecords\":2030,\"branchOnlySources\":0,\"output\":\"data/menu-research/menu-item-source-register.json\"}\r\n"
+  },
+  "noNewAutomaticTestFiles": true
+}

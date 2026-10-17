@@ -1,0 +1,121 @@
+{
+  "checks": [
+    "Protected unlock, Cases and catalogue navigation",
+    "Area, dish search and review status filters update immediately",
+    "Menu facts, price uncertainty, source provenance and missing menus stay explicit",
+    "Required reason, saved review, conflict recovery and withdrawal persist",
+    "Refresh failure stays controlled, retry recovers and lock clears private state",
+    "Responsive layouts, keyboard, accessibility and final capture batch"
+  ],
+  "screenshots": [
+    "C:\\Users\\huien\\QT\\quintaste\\.impeccable\\review\\pilot-catalogue-mobile-320.png",
+    "C:\\Users\\huien\\QT\\quintaste\\.impeccable\\review\\pilot-catalogue-mobile-375.png",
+    "C:\\Users\\huien\\QT\\quintaste\\.impeccable\\review\\pilot-catalogue-tablet-768.png",
+    "C:\\Users\\huien\\QT\\quintaste\\.impeccable\\review\\pilot-catalogue-desktop-1440.png",
+    "C:\\Users\\huien\\QT\\quintaste\\.impeccable\\review\\pilot-catalogue-mobile-entry.png",
+    "C:\\Users\\huien\\QT\\quintaste\\.impeccable\\review\\pilot-catalogue-mobile-menu-missing.png",
+    "C:\\Users\\huien\\QT\\quintaste\\.impeccable\\review\\pilot-catalogue-mobile-pending-candidates.png",
+    "C:\\Users\\huien\\QT\\quintaste\\.impeccable\\review\\pilot-catalogue-mobile-sources.png",
+    "C:\\Users\\huien\\QT\\quintaste\\.impeccable\\review\\pilot-catalogue-mobile-review-form.png",
+    "C:\\Users\\huien\\QT\\quintaste\\.impeccable\\review\\pilot-catalogue-dark-375.png",
+    "C:\\Users\\huien\\QT\\quintaste\\.impeccable\\review\\pilot-catalogue-larger-text-320.png"
+  ],
+  "layouts": [
+    {
+      "label": "mobile-320",
+      "width": 320,
+      "controls": 27,
+      "minHeight": 48,
+      "overflow": false
+    },
+    {
+      "label": "mobile-375",
+      "width": 375,
+      "controls": 27,
+      "minHeight": 48,
+      "overflow": false
+    },
+    {
+      "label": "tablet-768",
+      "width": 768,
+      "controls": 27,
+      "minHeight": 48,
+      "overflow": false
+    },
+    {
+      "label": "desktop-1440",
+      "width": 1440,
+      "controls": 27,
+      "minHeight": 48,
+      "overflow": false
+    },
+    {
+      "label": "mobile-entry",
+      "width": 375,
+      "controls": 33,
+      "minHeight": 48,
+      "overflow": false
+    },
+    {
+      "label": "dark-375",
+      "width": 375,
+      "controls": 27,
+      "minHeight": 48,
+      "overflow": false
+    },
+    {
+      "label": "larger-text-320",
+      "width": 320,
+      "controls": 27,
+      "minHeight": 48,
+      "overflow": false
+    }
+  ],
+  "a11y": [
+    {
+      "surface": "catalogue-list",
+      "violations": []
+    },
+    {
+      "surface": "catalogue-entry",
+      "violations": []
+    },
+    {
+      "surface": "catalogue-sources",
+      "violations": []
+    },
+    {
+      "surface": "catalogue-dark",
+      "violations": []
+    },
+    {
+      "surface": "cases-queue",
+      "violations": []
+    }
+  ],
+  "pageErrors": [],
+  "actualGoogleRequests": 0,
+  "installedChromeUsed": false,
+  "scope": "Expanded12-branch/48-item catalogue and corrected focus recaptures. Playwright-managed isolated headless Chromium. Actual local API handlers/store through a browser route adapter in a separate fixture. Separate read-only Expo HTTP check.",
+  "limits": [
+    "No merchant contact or publication; no cold-offline app shell claim; native device appearance/touch/accessibility unverified.",
+    "Core Web Vitals not measured."
+  ],
+  "expoHttp": {
+    "status": 200,
+    "venues": 12,
+    "dishes": 48,
+    "mutations": 0
+  },
+  "browserVersion": "156.0.8078.4",
+  "browserPath": "C:\\Users\\huien\\QT\\tmp\\qa\\playwright-browsers",
+  "sourceLinkVerified": true,
+  "searchFocus": {
+    "outlineStyle": "solid",
+    "outlineWidth": "0px",
+    "parentRadius": "18px",
+    "parentBorder": "1px solid rgb(180, 56, 41)"
+  },
+  "passed": true,
+  "checkedAt": "2026-10-15T05:44:52.011Z"
+}

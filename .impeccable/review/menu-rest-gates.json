@@ -1,0 +1,29 @@
+{
+  "checkedAt": "2026-10-16T04:18:43.021714+00:00",
+  "shellSession": 45969,
+  "shellExitCode": 0,
+  "typecheck": {
+    "command": "npm run typecheck",
+    "result": "Completed with no TypeScript diagnostics before lint started."
+  },
+  "lint": {
+    "command": "npm run lint",
+    "result": "Completed with no ESLint diagnostics; shell exited0."
+  },
+  "compiler": {
+    "command": "node -r ../tmp/qa/menu-register-ts.cjs scripts/sync-researched-menus.ts --check",
+    "branches": 135,
+    "sourceMenus": 176,
+    "foodRows": 10067,
+    "result": "passed"
+  },
+  "sourceRegister": {
+    "command": "node -r ../tmp/qa/menu-register-ts.cjs scripts/build-menu-source-register.ts --check",
+    "foodRecords": 15866,
+    "publishedFoodOccurrences": 10799,
+    "heldRecords": 2069,
+    "undatedSourceDocuments": 0,
+    "result": "passed"
+  },
+  "noNewAutomaticTestFiles": true
+}

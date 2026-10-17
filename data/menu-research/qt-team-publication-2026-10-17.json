@@ -1,0 +1,489 @@
+{
+  "checkedAt": "2026-10-17T07:49:21.279886+00:00",
+  "release": "20261017-market-tab-color1",
+  "publisherIntroducedIn": "20261017-qt-publisher2",
+  "baseRelease": "20261017-open-market2",
+  "revision": "ad112b6196e157c6a161469c7d1f6e714d36e0e13896d95406650a6a03d6d27e",
+  "publishedAt": "2026-10-17T07:46:40.650Z",
+  "records": [
+    {
+      "kind": "venue",
+      "id": "whole-earth-peck-seah",
+      "data": {
+        "id": "whole-earth-peck-seah",
+        "sourceUrls": [
+          "https://wholeearth.com.sg/",
+          "https://wholeearth.com.sg/menu.php",
+          "https://wholeearth.com.sg/menu2026/12-Menu-Legend.webp",
+          "https://wholeearth.com.sg/links/",
+          "https://fields.wholeearth.com.sg/en_SG",
+          "https://fields.wholeearth.com.sg/en_SG/stores"
+        ],
+        "evidenceNotes": [
+          "{\"serviceChargePercent\":10,\"gstPercent\":9,\"scope\":\"Dine-in menu prices are subject to these charges; no final-price calculation proposed.\"}",
+          "{\"currency\":\"SGD\",\"salesChannel\":\"FIELDS online ordering\",\"scope\":\"Explicitly S$-labelled listings only; do not backfill saved dine-in rows.\"}"
+        ]
+      },
+      "sources": [
+        {
+          "url": "https://wholeearth.com.sg/",
+          "checkedAt": "2026-10-17",
+          "fetchedAt": "2026-10-17T06:00:03.473173+00:00",
+          "contentSha256": "d6d99f814292c10f5313a245c32de1664e9c1978da2a0b03bd583de5f10fab42",
+          "evidence": "Name, address, vegetarian description, daily split-session hours and last orders match the baseline. ([wholeearth.com.sg](https://wholeearth.com.sg/))"
+        },
+        {
+          "url": "https://wholeearth.com.sg/menu.php",
+          "checkedAt": "2026-10-17",
+          "fetchedAt": "2026-10-17T06:00:58.620542+00:00",
+          "contentSha256": "58900d6a1ef7c095c3883245c50d50b3c93a7baa16c5385c06a7daffebfa8c3a",
+          "evidence": "Official dine-in menu links to the 2026 menu images; no complete-menu re-extraction performed. ([wholeearth.com.sg](https://wholeearth.com.sg/menu.php))"
+        },
+        {
+          "url": "https://wholeearth.com.sg/menu2026/12-Menu-Legend.webp",
+          "checkedAt": "2026-10-17",
+          "fetchedAt": "2026-10-17T06:04:59.105015+00:00",
+          "contentSha256": "9d3b06ba4c9602af5fa337a8193015df5a09d600107175f02c8bf49f9a546026",
+          "evidence": "web_extract recovered dietary markers and dine-in charge terms; no explicit currency denomination. The image is linked from the official menu. ([wholeearth.com.sg](https://wholeearth.com.sg/menu.php))"
+        },
+        {
+          "url": "https://wholeearth.com.sg/links/",
+          "checkedAt": "2026-10-17",
+          "fetchedAt": "2026-10-17T06:03:32.105679+00:00",
+          "contentSha256": "088d2222cd70fcff271b347e811e519b9693b87e8b909497b1f27d05406e9b87",
+          "evidence": "Official links page identifies FIELDS as its online food-delivery channel. Its 2025 festive-menu link is historical, not a current exception. ([wholeearth.com.sg](https://wholeearth.com.sg/links/))"
+        },
+        {
+          "url": "https://fields.wholeearth.com.sg/en_SG",
+          "checkedAt": "2026-10-17",
+          "fetchedAt": "2026-10-17T06:03:08.310279+00:00",
+          "contentSha256": "5c72dfd787cf9566bb1a66f729c74b783e59acf7c163ce865f837e10663f1fea",
+          "evidence": "web_extract exposed explicitly S$-labelled ordering prices; this evidence belongs to FIELDS, not automatically to the dine-in menu. ([fields.wholeearth.com.sg](https://fields.wholeearth.com.sg/en_SG))"
+        },
+        {
+          "url": "https://fields.wholeearth.com.sg/en_SG/stores",
+          "checkedAt": "2026-10-17",
+          "fetchedAt": "2026-10-17T06:03:28.626791+00:00",
+          "contentSha256": "f4ca35b57ea84002f442af3df8292f0e4fe5cb1ef998d000b9d98e8fb83724e7",
+          "evidence": "Same Peck Seah address and postal code; pickup and delivery have separately labelled time windows, not dine-in opening hours. ([fields.wholeearth.com.sg](https://fields.wholeearth.com.sg/en_SG/stores))"
+        }
+      ],
+      "expectedHash": "55b1a17b2d8ffab464a3646e501a79d2568adc09cdc5e96831eb4ea86f0de3f7",
+      "proposalHash": "2384ce193d6a9d7dcc26ff0f1ad4a8c61b122e42139b0c32f4b368ed477aa700",
+      "review": {
+        "decision": "approved",
+        "reviewedBy": "QT Manager",
+        "dataHash": "f9e53e5aec10ef3a2ba1e17a60dcdf26c09c723447aee8e62a6bfbdc98c88cc9",
+        "reason": "Captured official sources establish the Peck Seah branch and support the narrowly scoped evidence notes: dine-in prices attract 10% service charge and 9% GST, while explicit S$ listings establish SGD only for FIELDS online ordering. The payload does not backfill dine-in currencies, substitute pickup/delivery windows for restaurant hours, or assert whole-venue vegan status."
+      }
+    },
+    {
+      "kind": "recipe",
+      "id": "tomato-egg-stir-fry",
+      "data": {
+        "id": "tomato-egg-stir-fry",
+        "name": "Tomato and egg stir-fry",
+        "description": "",
+        "minutes": 10,
+        "servings": 2,
+        "cuisine": "Chinese",
+        "dietary": {
+          "diet": "Vegetarian",
+          "contains": [
+            "Eggs",
+            "Garlic"
+          ],
+          "ingredientsKnown": true,
+          "evidence": {
+            "kind": "editorial",
+            "source": "QT Manager source review",
+            "checkedAt": "2026-10-17"
+          }
+        },
+        "categories": [
+          "With rice"
+        ],
+        "ingredients": [
+          {
+            "id": "sunflower-oil",
+            "name": "Sunflower oil",
+            "amount": 1.5,
+            "unit": "tbsp"
+          },
+          {
+            "id": "eggs",
+            "name": "Eggs",
+            "amount": 4,
+            "unit": "whole"
+          },
+          {
+            "id": "tomatoes",
+            "name": "Ripe tomatoes",
+            "amount": 454,
+            "unit": "g"
+          },
+          {
+            "id": "garlic",
+            "name": "Garlic",
+            "amount": 2,
+            "unit": "cloves"
+          },
+          {
+            "id": "salt",
+            "name": "Salt",
+            "amount": 0.75,
+            "unit": "tsp"
+          },
+          {
+            "id": "sugar",
+            "name": "Sugar",
+            "amount": 1,
+            "unit": "tsp"
+          }
+        ],
+        "steps": [
+          {
+            "title": "Step 1",
+            "instruction": "Beat the eggs, cut the tomatoes into small chunks and mince the garlic.",
+            "ingredientIds": [
+              "eggs",
+              "tomatoes",
+              "garlic"
+            ]
+          },
+          {
+            "title": "Step 2",
+            "instruction": "Heat 1 tablespoon oil over medium-high heat. Scramble the eggs until set, then transfer to a plate.",
+            "ingredientIds": [
+              "sunflower-oil",
+              "eggs"
+            ]
+          },
+          {
+            "title": "Step 3",
+            "instruction": "Add the remaining oil and garlic. Stir briefly, then add tomatoes and cook for 1–2 minutes until softened.",
+            "ingredientIds": [
+              "sunflower-oil",
+              "garlic",
+              "tomatoes"
+            ]
+          },
+          {
+            "title": "Step 4",
+            "instruction": "Return the eggs, add salt and sugar, and fold together until hot.",
+            "ingredientIds": [
+              "eggs",
+              "salt",
+              "sugar"
+            ]
+          }
+        ],
+        "author": "Maggie Zhu",
+        "language": "English",
+        "revision": 1,
+        "updatedAt": "2026-10-17",
+        "adaptationNote": "Original concise rewrite using the source's vegetable-oil option, omitting optional spring onion and rounding its one-pound tomato quantity to grams. Not kitchen-tested by QuinTaste.",
+        "provenance": {
+          "sources": [
+            "https://omnivorescookbook.com/classic-tomato-and-egg-stir-fry/"
+          ],
+          "checkedAt": "2026-10-17",
+          "kitchenTested": false,
+          "reviewedBy": "QT Manager"
+        },
+        "image": {
+          "path": "/api/editorial/assets/045766be5f3aff5bbfadf23bbf0b72ba5d98d949310829075dcc9d811bdb66d7.jpg",
+          "width": 960,
+          "height": 720,
+          "credit": "AI-generated recipe illustration"
+        }
+      },
+      "sources": [
+        {
+          "url": "https://omnivorescookbook.com/classic-tomato-and-egg-stir-fry/",
+          "checkedAt": "2026-10-17",
+          "fetchedAt": "2026-10-17T05:48:15.309621+00:00",
+          "contentSha256": "5a6c009f47d50d9720ffaa284df7772d150875dd355272784e8c442ffaa3e432",
+          "evidence": "Maggie Zhu supplies ingredient quantities and a 10-minute method for 2–4 servings. Published 2022-10-09; updated 2024-12-24. ([omnivorescookbook.com](https://omnivorescookbook.com/classic-tomato-and-egg-stir-fry/))"
+        }
+      ],
+      "expectedHash": null,
+      "proposalHash": "82c452b1e394641b7ff2957c785a81b941c5b3331cd4ecc5f7b50bcab9e3f7ea",
+      "review": {
+        "decision": "approved",
+        "reviewedBy": "QT Manager",
+        "dataHash": "47c4d55944d676881133ce9c476f5838f4912e23554ce08529a49858de3ddae4",
+        "reason": "The captured Maggie Zhu recipe supports the ingredient quantities, cooking sequence, 10-minute timing and selection of two servings from its stated range. Selecting sunflower oil within the vegetable-oil option and omitting optional spring onion are disclosed adaptations. All required ingredients are listed and referenced in the steps; Vegetarian status and the eggs/garlic declarations are consistent. Source attribution, original-rewrite disclosure, kitchenTested:false and AI-image credit are present. No semantic duplicate appears in the supplied recipe baseline, and the associated image passed pixel inspection."
+      }
+    },
+    {
+      "kind": "event",
+      "id": "little-green-kitchen-authentic-indian-cuisine-masterclass-2026-10-29-1000-sgt",
+      "data": {
+        "title": "Authentic Indian cuisine masterclass",
+        "organiser": "Little Green Kitchen",
+        "startsAt": "2026-10-29T10:00:00+08:00",
+        "endsAt": "2026-10-29T13:00:00+08:00",
+        "location": "Little Green Kitchen",
+        "address": "1 Hacienda Grove, Singapore 457908",
+        "feeAmount": null,
+        "currency": null,
+        "registrationUrl": "https://littlegreenkitchen.com.sg/product/authentic-indian-cuisine-masterclass/",
+        "registrationDeadline": null,
+        "dietEvidence": "The event description explicitly identifies classic Indian vegetarian recipes adapted for plant-based cooking. The announced menu includes eggplant coconut curry, tofu tikka masala, and potato-and-pea fritters.",
+        "status": "scheduled",
+        "id": "little-green-kitchen-authentic-indian-cuisine-masterclass-2026-10-29-1000-sgt",
+        "checkedAt": "2026-10-17",
+        "sources": [
+          "https://littlegreenkitchen.com.sg/product/authentic-indian-cuisine-masterclass/",
+          "https://littlegreenkitchen.com.sg/vegancookingclasses/"
+        ],
+        "feeNote": "Confirm total fees and availability with the organiser."
+      },
+      "sources": [
+        {
+          "url": "https://littlegreenkitchen.com.sg/product/authentic-indian-cuisine-masterclass/",
+          "checkedAt": "2026-10-17",
+          "fetchedAt": "2026-10-17T05:52:22.711516+00:00",
+          "contentSha256": "5d1a5856d7af78b4629699f6e54aa70d349af3caa79093116cd8f02296c89212",
+          "evidence": "The organiser's booking page lists 29 October 2026, 10am–1pm, a $105 fee, the Singapore venue and vegetarian recipes adapted for plant-based cooking."
+        },
+        {
+          "url": "https://littlegreenkitchen.com.sg/vegancookingclasses/",
+          "checkedAt": "2026-10-17",
+          "fetchedAt": "2026-10-17T05:51:05.865178+00:00",
+          "contentSha256": "c076f677a06fc924aca9f6e529794088f5d258bb5a2503bab7c45d1cc95d60e4",
+          "evidence": "The organiser's class schedule independently lists this session; its FAQ welcomes beginners and describes the scheduled classes as generally adult-focused."
+        }
+      ],
+      "expectedHash": null,
+      "proposalHash": "e3ae310a36992fb76b398a96b6e6d3c7eb90a5b57b24b8f3bb9328aee68267e0",
+      "review": {
+        "decision": "approved",
+        "reviewedBy": "QT Manager",
+        "dataHash": "9bd17878aa11b92416b020a9df4b57d9c0c7a8c312f565b4e670099502f2db1e",
+        "reason": "Captured organiser booking and schedule pages agree on 29 October 2026, 10:00–13:00, the class identity and vegetarian recipes adapted for plant-based cooking. The booking page confirms the exact Hacienda Grove address and announced dishes. No universal vegan claim is added. Null fee/currency fields avoid asserting an unverified denomination or final total, and the fee note does not present the class as free."
+      }
+    },
+    {
+      "kind": "event",
+      "id": "geylang-serai-cc-vegetarian-cooking-workshop-c027244070-2026-12-04-1400-sgt",
+      "data": {
+        "title": "VEGETARIAN COOKING WORKSHOP",
+        "organiser": "Geylang Serai CC",
+        "startsAt": "2026-12-04T14:00:00+08:00",
+        "endsAt": "2026-12-04T17:00:00+08:00",
+        "location": "Geylang Serai CC, Culinary Studio, Level 1",
+        "address": "1 Engku Aman Turn, #01-01, Wisma Geylang Serai, Singapore 408528",
+        "feeAmount": null,
+        "currency": null,
+        "registrationUrl": "https://www.onepa.gov.sg/courses/vegetarian-cooking-workshop-c027244070",
+        "registrationDeadline": null,
+        "dietEvidence": "The official title and description explicitly call this a vegetarian cooking workshop and identify the demonstration menu as vegetarian dishes.",
+        "status": "scheduled",
+        "id": "geylang-serai-cc-vegetarian-cooking-workshop-c027244070-2026-12-04-1400-sgt",
+        "checkedAt": "2026-10-17",
+        "sources": [
+          "https://www.onepa.gov.sg/courses/vegetarian-cooking-workshop-c027244070",
+          "https://www.onepa.gov.sg/cc/geylang-serai-cc"
+        ],
+        "feeNote": "Confirm total fees and availability with the organiser."
+      },
+      "sources": [
+        {
+          "url": "https://www.onepa.gov.sg/courses/vegetarian-cooking-workshop-c027244070",
+          "checkedAt": "2026-10-17",
+          "fetchedAt": "2026-10-17T05:56:30.106233+00:00",
+          "contentSha256": "b55d4d6d4f8148dd04fe1c273caed2596d29b52b75acce2ea71e709ca91aa078",
+          "evidence": "The official registration page identifies Geylang Serai CC as organiser and lists a vegetarian demonstration workshop on 4 December 2026, 2pm–5pm, with prices from $40 to $50."
+        },
+        {
+          "url": "https://www.onepa.gov.sg/cc/geylang-serai-cc",
+          "checkedAt": "2026-10-17",
+          "fetchedAt": "2026-10-17T05:52:22.711516+00:00",
+          "contentSha256": "d3091aae5c409f4b816064bd9b336e126b002f1dba76296630741edf42c3496f",
+          "evidence": "The official community-club page supplies the address at 1 Engku Aman Turn, #01-01, Wisma Geylang Serai, Singapore 408528."
+        }
+      ],
+      "expectedHash": null,
+      "proposalHash": "01db7f88a3b4f70bbcbf4bffa5bd32e27fa1116cd73c2abdf8998029df192900",
+      "review": {
+        "decision": "approved",
+        "reviewedBy": "QT Manager",
+        "dataHash": "d5a79c3153dbe53a1358e26191dd070a55edfe80f9c60f8825757b8f90082478",
+        "reason": "Captured official pages support course C027244070, Geylang Serai CC as organiser, 4 December 2026 at 14:00–17:00, the Level 1 culinary studio and exact community-club address. Vegetarian relevance is explicitly stated by the organiser, without an unsupported vegan claim. Null fee/currency fields and the confirmation note avoid misrepresenting the listed price range, checkout adjustments or separately payable ingredient fees as a fixed total."
+      }
+    }
+  ],
+  "assets": [
+    {
+      "sha256": "045766be5f3aff5bbfadf23bbf0b72ba5d98d949310829075dcc9d811bdb66d7",
+      "provenance": {
+        "kind": "original-generated-recipe-illustration",
+        "recipeId": "tomato-egg-stir-fry",
+        "provider": "openai-codex",
+        "model": "gpt-image-2-high",
+        "prompt": "Original natural food-photography-style recipe illustration for QuinTaste, 4:3 composition. Show only the finished dish described here, in a simple ceramic bowl, warm natural side light, realistic food textures, appetising but faithful presentation, uncluttered neutral table. Do not imitate a source photograph. No text, logos, people, extra dishes or ingredients. Leave breathing room around the food for a mobile gallery crop. Dish: Tomato and egg stir-fry. Ingredients: Sunflower oil, Eggs, Ripe tomatoes, Garlic, Salt, Sugar. Presentation brief: Original editorial illustration of red tomato chunks and yellow scrambled eggs in a shallow bowl. No spring onion, rice or additional garnish. Do not imitate the author's photograph or imply a photographed, cooked or tested result. Generation is reserved for the controlled image worker; record generation provenance in Recipe info if later generated.",
+        "originalSha256": "3b35758b5c565800caba272ae307772ab809971dd56856a9d6d7177ae77a5e74"
+      },
+      "review": {
+        "decision": "approved",
+        "reviewedBy": "QT Manager",
+        "sha256": "045766be5f3aff5bbfadf23bbf0b72ba5d98d949310829075dcc9d811bdb66d7",
+        "reason": "Inspected actual candidate pixels using qt_review_image with requestHash 3dbefdc551c0776447c96ea4f0ed6f77c48a1480180e0cf13af2fd2952c7969c. The image shows a coherent shallow bowl of red tomato chunks and yellow scrambled eggs, with small pale pieces consistent with the listed garlic. No visible extra food, rice, spring onion, garnish, text, logos or material visual artefacts. Composition is clear with surrounding crop room. Supplied generation provenance and AI-illustration credit support its disclosed illustrative use, not a claim of kitchen testing."
+      }
+    }
+  ],
+  "scheduler": {
+    "id": "f5c49a0d2502",
+    "name": "QT production publisher E2E proxy retry (one-shot)",
+    "prompt": "Retry the owner-authorised E2E after fixing scheduled imports and the proxy publication body limit. Use the same reviewed pending batch; preserve usage and checkpoints.",
+    "skills": [],
+    "skill": null,
+    "model": null,
+    "provider": null,
+    "base_url": null,
+    "script": "qt-production-acceptance.py",
+    "no_agent": true,
+    "monitor_script": null,
+    "monitor_url": null,
+    "monitor_state": null,
+    "context_from": null,
+    "schedule": {
+      "kind": "interval",
+      "minutes": 1,
+      "display": "every 1m"
+    },
+    "schedule_display": "every 1m",
+    "repeat": {
+      "times": 1,
+      "completed": 1
+    },
+    "enabled": false,
+    "state": "completed",
+    "paused_at": null,
+    "paused_reason": null,
+    "created_at": "2026-10-17T15:45:32.986208+08:00",
+    "next_run_at": null,
+    "last_run_at": "2026-10-17T15:46:40.807897+08:00",
+    "last_status": "ok",
+    "last_error": null,
+    "last_delivery_error": null,
+    "last_delivery_unverified": null,
+    "failure_streak": 0,
+    "deliver": "local",
+    "origin": null,
+    "enabled_toolsets": null,
+    "workdir": "/opt/data/qt-team",
+    "last_dispatch": {
+      "scheduled_at": "2026-10-17T15:46:32.999818+08:00",
+      "dispatched_at": "2026-10-17T15:46:40.384890+08:00",
+      "lateness_seconds": 7.4,
+      "kind": "on_time"
+    },
+    "fire_claim": null
+  },
+  "publication": {
+    "status": "published",
+    "productionWrites": 4,
+    "revision": "ad112b6196e157c6a161469c7d1f6e714d36e0e13896d95406650a6a03d6d27e",
+    "publishedAt": "2026-10-17T07:46:40.735559+00:00",
+    "records": [
+      "venue:whole-earth-peck-seah",
+      "recipe:tomato-egg-stir-fry",
+      "event:little-green-kitchen-authentic-indian-cuisine-masterclass-2026-10-29-1000-sgt",
+      "event:geylang-serai-cc-vegetarian-cooking-workshop-c027244070-2026-12-04-1400-sgt"
+    ]
+  },
+  "usage": {
+    "model": 8,
+    "image": 3,
+    "acceptance-model": 1
+  },
+  "validation": {
+    "pythonTests": 25,
+    "apiBoundaryTests": 21,
+    "actualManagerBatchAccepted": true,
+    "browserChecks": 20,
+    "liveApiChecks": 10,
+    "native": {
+      "android": {
+        "manifestStatus": 200,
+        "bundleStatus": 200,
+        "bytes": 8250211,
+        "scopeKey": "@anonymous/quintaste-9fe760a2-e5e7-47d5-bb7f-fbe718e4ab27",
+        "currentMarkers": true
+      },
+      "ios": {
+        "manifestStatus": 200,
+        "bundleStatus": 200,
+        "bytes": 7626544,
+        "scopeKey": "@anonymous/quintaste-9fe760a2-e5e7-47d5-bb7f-fbe718e4ab27",
+        "currentMarkers": true
+      }
+    },
+    "backupRestore": "passed-in-isolated-directory"
+  },
+  "performance": {
+    "recipePage": {
+      "bytes": 955,
+      "ms": 61.736099999999965
+    },
+    "recipeDetailBytes": 2009,
+    "imageBytes": 134951,
+    "eventsBytes": 2021,
+    "catalogueFirstPage": {
+      "bytes": 24041,
+      "ms": 40.93410000000006
+    },
+    "recipeWarmMedianMs": 15.501999999999953
+  },
+  "storage": {
+    "images": {
+      "app": "quintaste-app:20261017-market-tab-color1",
+      "preview": "quintaste-preview:20261017-market-tab-color1",
+      "admin": "quintaste-admin:20261017-open-market2",
+      "db": "postgres:17-bookworm"
+    },
+    "revision": "ad112b6196e157c6a161469c7d1f6e714d36e0e13896d95406650a6a03d6d27e",
+    "publishedAt": "2026-10-17T07:46:40.650Z",
+    "recordCount": 4,
+    "backup": "/docker/quintaste/backups/20261017T074715Z-editorial.tar.gz",
+    "backupBytes": 146804,
+    "contentBytes": 162773,
+    "disk": {
+      "total": 102888095744,
+      "used": 82699415552,
+      "free": 20171902976
+    },
+    "changedEnvKeys": [
+      "PREVIEW_IMAGE",
+      "APP_IMAGE"
+    ],
+    "keyMode": "0o600",
+    "productionBackupRestore": "passed-in-isolated-directory",
+    "googleLedger": {
+      "sha256": "c7321dafaad0473583139494ca899501578892c5b71105429d3cd4dceb4f311a",
+      "bytes": 1045377,
+      "requestsUsed": 2419,
+      "remaining": 81,
+      "newRequests": 0
+    }
+  },
+  "coverage": {
+    "browseLocations": 174,
+    "retainedMenuIds": 175,
+    "covers": 173,
+    "hours": 120,
+    "unavailablePrices": 3387,
+    "foodHolds": 2527,
+    "hermesMonthReviewed": 2,
+    "hermesMonthRemaining": 172
+  },
+  "limits": [
+    "Physical device UI and 1000-user capacity unverified",
+    "18 bundled recipes remain unreviewed samples; published adaptation is not kitchen-tested",
+    "New venue identities/address changes/new dishes require operator review",
+    "Only enrolled approved references can enter venue enhancement; no new paid venue-image run in this acceptance"
+  ]
+}

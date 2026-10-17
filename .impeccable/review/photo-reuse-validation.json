@@ -1,0 +1,260 @@
+{
+  "checks": [
+    "Only visible cards request photos on entry",
+    "Twenty cards retain landscape layout and 4px gutter",
+    "Expanded photo shares the card request and shows credits",
+    "Reopening the current photo adds zero requests",
+    "Scrolling loads newly visible photos without downloading all twenty",
+    "Returning to rendered cards reuses their current images",
+    "Visiting Filters and returning adds zero photo calls",
+    "Filter descriptions and Apply/Reset are absent",
+    "Filter alignment and targets at 320",
+    "Filter alignment and targets at 375",
+    "Filter alignment and targets at 768",
+    "Filter alignment and targets at 1440",
+    "Allium-free still saves and requests immediately",
+    "Vegan still applies immediately",
+    "Distance remains functional",
+    "Missing Work opens private address setup",
+    "Photo allowance failure stops requests for newly visible cards during cooldown"
+  ],
+  "calls": [
+    "http://localhost:8083/api/place-photo?fixture=0&generation=1",
+    "http://localhost:8083/api/place-photo?fixture=1&generation=1",
+    "http://localhost:8083/api/place-photo?fixture=2&generation=1",
+    "http://localhost:8083/api/place-photo?fixture=8&generation=1",
+    "http://localhost:8083/api/place-photo?fixture=9&generation=1",
+    "http://localhost:8083/api/place-photo?fixture=10&generation=1",
+    "http://localhost:8083/api/place-photo?fixture=11&generation=1",
+    "http://localhost:8083/api/place-photo?fixture=12&generation=1",
+    "http://localhost:8083/api/place-photo?fixture=0&generation=5",
+    "http://localhost:8083/api/place-photo?fixture=1&generation=5",
+    "http://localhost:8083/api/place-photo?fixture=2&generation=5",
+    "http://localhost:8083/api/place-photo?fixture=3&generation=5"
+  ],
+  "searches": [
+    {
+      "area": "Singapore",
+      "query": "",
+      "vegan": false,
+      "alliumFree": false,
+      "center": {
+        "latitude": 1.28,
+        "longitude": 103.85
+      },
+      "radius": 5000
+    },
+    {
+      "area": "Singapore",
+      "query": "",
+      "vegan": false,
+      "alliumFree": true,
+      "center": {
+        "latitude": 1.28,
+        "longitude": 103.85
+      },
+      "radius": 5000
+    },
+    {
+      "area": "Singapore",
+      "query": "",
+      "vegan": true,
+      "alliumFree": true,
+      "center": {
+        "latitude": 1.28,
+        "longitude": 103.85
+      },
+      "radius": 5000
+    },
+    {
+      "area": "Singapore",
+      "query": "",
+      "vegan": true,
+      "alliumFree": true,
+      "center": {
+        "latitude": 1.28,
+        "longitude": 103.85
+      },
+      "radius": 1000
+    },
+    {
+      "area": "Singapore",
+      "query": "",
+      "vegan": true,
+      "alliumFree": true,
+      "radius": 1000
+    }
+  ],
+  "errors": [],
+  "screenshots": [
+    "C:/Users/huien/QT/quintaste/.impeccable/review/photo-reuse-explore-375.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/photo-reuse-filters-320.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/photo-reuse-filters-375.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/photo-reuse-filters-768.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/photo-reuse-filters-1440.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/photo-reuse-filters-375-dark.png"
+  ],
+  "layouts": [
+    {
+      "width": 375,
+      "card": {
+        "x": 4,
+        "y": 150,
+        "width": 367,
+        "height": 218
+      }
+    },
+    {
+      "width": 320,
+      "locations": [
+        {
+          "x": 27,
+          "y": 341,
+          "width": 129,
+          "height": 48
+        },
+        {
+          "x": 164,
+          "y": 341,
+          "width": 129,
+          "height": 48
+        },
+        {
+          "x": 27,
+          "y": 397,
+          "width": 129,
+          "height": 48
+        },
+        {
+          "x": 164,
+          "y": 397,
+          "width": 129,
+          "height": 48
+        }
+      ],
+      "allium": {
+        "x": 27,
+        "y": 199,
+        "width": 266,
+        "height": 50
+      }
+    },
+    {
+      "width": 375,
+      "locations": [
+        {
+          "x": 27,
+          "y": 341,
+          "width": 156.5,
+          "height": 48
+        },
+        {
+          "x": 191.5,
+          "y": 341,
+          "width": 156.5,
+          "height": 48
+        },
+        {
+          "x": 27,
+          "y": 397,
+          "width": 156.5,
+          "height": 48
+        },
+        {
+          "x": 191.5,
+          "y": 397,
+          "width": 156.5,
+          "height": 48
+        }
+      ],
+      "allium": {
+        "x": 27,
+        "y": 199,
+        "width": 321,
+        "height": 50
+      }
+    },
+    {
+      "width": 768,
+      "locations": [
+        {
+          "x": 34,
+          "y": 346,
+          "width": 346,
+          "height": 48
+        },
+        {
+          "x": 388,
+          "y": 346,
+          "width": 346,
+          "height": 48
+        },
+        {
+          "x": 34,
+          "y": 402,
+          "width": 346,
+          "height": 48
+        },
+        {
+          "x": 388,
+          "y": 402,
+          "width": 346,
+          "height": 48
+        }
+      ],
+      "allium": {
+        "x": 34,
+        "y": 204,
+        "width": 700,
+        "height": 50
+      }
+    },
+    {
+      "width": 1440,
+      "locations": [
+        {
+          "x": 368,
+          "y": 346,
+          "width": 348,
+          "height": 48
+        },
+        {
+          "x": 724,
+          "y": 346,
+          "width": 348,
+          "height": 48
+        },
+        {
+          "x": 368,
+          "y": 402,
+          "width": 348,
+          "height": 48
+        },
+        {
+          "x": 724,
+          "y": 402,
+          "width": 348,
+          "height": 48
+        }
+      ],
+      "allium": {
+        "x": 368,
+        "y": 204,
+        "width": 704,
+        "height": 50
+      }
+    }
+  ],
+  "limits": [
+    "Controlled venue/photo responses; no production Google requests or saved Google photo bytes.",
+    "Native device visuals and accessibility not verified."
+  ],
+  "initial": 3,
+  "axe": {
+    "violations": [],
+    "incomplete": [
+      "color-contrast"
+    ]
+  },
+  "status": "pass"
+}

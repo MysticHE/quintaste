@@ -1,0 +1,52 @@
+{
+  "version": 1,
+  "checkedAt": "2026-10-16T01:20:31.860Z",
+  "initialInventoryCount": 2322,
+  "previouslyReviewedIds": 7,
+  "lookupTargetIds": 2315,
+  "attemptedIds": 2315,
+  "requestsReserved": 2419,
+  "requestCap": 2500,
+  "fieldMask": "id,displayName,formattedAddress,location,types,businessStatus,googleMapsUri,attributions",
+  "counts": {
+    "unmatched": 2114,
+    "candidate": 200,
+    "http-error": 1
+  },
+  "httpStatuses": {
+    "200": 2314,
+    "404": 1
+  },
+  "unresolvedLookupIds": [
+    {
+      "placeId": "ChIJxxKLuj0Q2jERu2YDqD13wT0",
+      "httpStatus": 404,
+      "status": "http-error"
+    }
+  ],
+  "note": "All initial lookup targets were attempted. Current request total is cumulative and includes later immediate independent-source rechecks. Candidate/unmatched API outcomes do not mean completed menus or confirmed vegetarian venues; source eligibility, explicit branch identity reviews and app publication are separately tracked.",
+  "initialPass": {
+    "checkedAt": "2026-10-15T23:54:29.149Z",
+    "requestsReserved": 2359,
+    "attemptedIds": 2315,
+    "counts": {
+      "unmatched": 2114,
+      "candidate": 200,
+      "http-error": 1
+    },
+    "httpStatuses": {
+      "200": 2314,
+      "404": 1
+    }
+  },
+  "remainingRequestBudget": 81,
+  "continuationResearch": {
+    "sources": [
+      "data/menu-research/identity-completion-batch-04.json",
+      "data/menu-research/identity-completion-batch-06.json"
+    ],
+    "idsRechecked": 60,
+    "freshRequests": 60,
+    "independentFactsOnly": true
+  }
+}

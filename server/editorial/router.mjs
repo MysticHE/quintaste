@@ -1,0 +1,89 @@
+import express from 'express';
+import { Buffer } from 'node:buffer';
+import fs from 'node:fs';
+import path from 'node:path';
+import { createHmac, timingSafeEqual } from 'node:crypto';
+import { readSnapshot, publish, recordState, removeRecord, revertRecord } from './store.mjs';
+import { hash } from './validation.mjs';
+
+export const editorial = express.Router();
+const root = process.env.QT_EDITORIAL_ROOT || path.resolve('.local/editorial');
+const baseline = JSON.parse(fs.readFileSync(path.resolve('server-assets/editorial-baseline.json'), 'utf8'));
+let lastWrite = 0;
+const publisherKey = () => fs.readFileSync(process.env.QT_EDITORIAL_KEY_FILE || path.resolve('.local/editorial-private/publisher.key'), 'utf8').trim();
+/** Header checks run before any body is read; only publication batches (which carry assets) get the large limit. */
+function precheck(req, res, next) {
+  res.set('Cache-Control', 'no-store');
+  try {
+    const time = req.get('X-QT-Time'), signature = req.get('X-QT-Signature');
+    if (publisherKey().length < 48 || !/^\d{10}$/.test(time ?? '') || Math.abs(Date.now() / 1000 - Number(time)) > 300 || !/^[a-f0-9]{64}$/.test(signature ?? '')) return res.sendStatus(401);
+    next();
+  } catch { res.sendStatus(401); }
+}
+const smallBody = express.raw({ type: 'application/json', limit: '64kb' }), batchBody = express.raw({ type: 'application/json', limit: '2mb' });
+function authenticate(req, res, next) {
+  try {
+    const secret = publisherKey(), time = req.get('X-QT-Time'), signature = req.get('X-QT-Signature');
+    const route = req.originalUrl.split('?')[0].slice('/api/editorial'.length);
+    const expected = createHmac('sha256', secret).update(time + '\n' + req.method + '\n' + route + '\n' + hash(req.body ?? Buffer.alloc(0))).digest();
+    if (!timingSafeEqual(expected, Buffer.from(signature, 'hex'))) return res.sendStatus(401);
+    next();
+  } catch { res.sendStatus(401); }
+}
+editorial.use('/control', precheck, (req, res, next) => (req.path === '/publish' ? batchBody : smallBody)(req, res, next), authenticate);
+editorial.get('/control/state', async (_req, res, next) => {
+  try {
+    const snapshot = await readSnapshot(root);
+    res.json({ revision: snapshot.revision, removals: Object.values(snapshot.removals ?? {}), reverts: Object.values(snapshot.reverts ?? {}), changes: Object.values(snapshot.records).map(r => r.change).filter(Boolean), venues: baseline.venues.map(v => ({ id: v.id, ...recordState(snapshot, baseline, 'venue', v.id) })), records: Object.values(snapshot.records).filter(r => r.kind !== 'venue').map(r => ({ kind: r.kind, id: r.id, hash: hash(r.data), data: r.data })), recipeIdentities: baseline.recipes });
+  } catch (e) { next(e); }
+});
+editorial.post('/control/publish', async (req, res) => {
+  if (Date.now() - lastWrite < 1000) return res.status(429).json({ error: 'Retry publication shortly.' });
+  lastWrite = Date.now();
+  try { const result = await publish(root, baseline, JSON.parse(req.body.toString())); res.json(result); }
+  catch (error) { res.status(error.status ?? (error instanceof SyntaxError ? 400 : 503)).json({ error: error.status ? error.message : 'Publication unavailable; prior content retained.' }); }
+});
+editorial.post('/control/remove', async (req, res) => {
+  if (Date.now() - lastWrite < 1000) return res.status(429).json({ error: 'Retry shortly.' });
+  lastWrite = Date.now();
+  try { res.json(await removeRecord(root, JSON.parse(req.body.toString()))); }
+  catch (error) { res.status(error.status ?? (error instanceof SyntaxError ? 400 : 503)).json({ error: error.status ? error.message : 'Removal unavailable; check current state before retrying.' }); }
+});
+editorial.post('/control/revert', async (req, res) => {
+  if (Date.now() - lastWrite < 1000) return res.status(429).json({ error: 'Retry shortly.' });
+  lastWrite = Date.now();
+  try { res.json(await revertRecord(root, baseline, JSON.parse(req.body.toString()))); }
+  catch (error) { res.status(error.status ?? (error instanceof SyntaxError ? 400 : 503)).json({ error: error.status ? error.message : 'Revert unavailable; check current state before retrying.' }); }
+});
+function conditional(req, res, value) {
+  const etag = '"' + hash(value) + '"'; res.set({ ETag: etag, 'Cache-Control': 'public, max-age=60, must-revalidate', 'X-Content-Type-Options': 'nosniff' });
+  return req.get('If-None-Match') === etag ? res.status(304).end() : res.json(value);
+}
+editorial.get('/status', async (req, res, next) => {
+  try { const s = await readSnapshot(root); conditional(req, res, { revision: s.revision, publishedAt: s.publishedAt ?? null, counts: Object.values(s.records).reduce((n, r) => ({ ...n, [r.kind]: (n[r.kind] ?? 0) + 1 }), {}) }); } catch (e) { next(e); }
+});
+editorial.get('/recipes/:id', async (req, res, next) => {
+  try { const row = (await readSnapshot(root)).records['recipe:' + req.params.id]; if (!row) return res.sendStatus(404); conditional(req, res, row.data); } catch (e) { next(e); }
+});
+for (const kind of ['recipe', 'event']) editorial.get('/' + kind + 's', async (req, res, next) => {
+  try {
+    const snapshot = await readSnapshot(root), q = String(req.query.q ?? '').trim().toLowerCase().slice(0, 160), category = String(req.query.category ?? '').slice(0, 40);
+    let offset = 0;
+    if (req.query.cursor) {
+      try { const cursor = JSON.parse(Buffer.from(String(req.query.cursor).slice(0, 300), 'base64url').toString()); if (cursor.revision !== snapshot.revision || cursor.q !== q || cursor.category !== category || !Number.isInteger(cursor.offset) || cursor.offset < 0 || cursor.offset > 2000 || cursor.offset % 20) throw Error(); offset = cursor.offset; }
+      catch { return res.status(409).json({ error: 'Results changed. Refresh the list.' }); }
+    }
+    const rows = Object.values(snapshot.records).filter(r => r.kind === kind).map(r => r.data).filter(r => kind === 'recipe' ? !r.withdrawal && (!category || r.categories.includes(category)) && (!q || (r.name + ' ' + r.ingredients.map(i => i.name).join(' ')).toLowerCase().includes(q)) : r.status !== 'cancelled' && Date.parse(r.startsAt) > Date.now() && (!q || (r.title + ' ' + r.organiser + ' ' + r.address).toLowerCase().includes(q)))
+      .sort((a, b) => kind === 'event' ? a.startsAt.localeCompare(b.startsAt) : a.name.localeCompare(b.name));
+    // Only the requested page is returned. Full recipe steps load at detail time.
+    const items = rows.slice(offset, offset + 20).map(r => kind === 'event' ? r : { ...Object.fromEntries(Object.entries(r).filter(([key]) => !['ingredients', 'steps', 'adaptationNote'].includes(key))), ingredientNames: r.ingredients.map(i => i.name) });
+    conditional(req, res, { revision: snapshot.revision, items, total: rows.length, nextCursor: offset + 20 < rows.length ? Buffer.from(JSON.stringify({ revision: snapshot.revision, offset: offset + 20, q, category })).toString('base64url') : null });
+  } catch (e) { next(e); }
+});
+export const editorialAssetRoot = path.join(root, 'assets');
+export const editorialAssets = express.Router();
+editorialAssets.use((req, res, next) => {
+  if (!/^\/[a-f0-9]{64}\.jpg$/.test(req.path)) return res.sendStatus(404);
+  res.set({ 'Cross-Origin-Resource-Policy': 'cross-origin', 'X-Content-Type-Options': 'nosniff' }); next();
+}, express.static(editorialAssetRoot, { maxAge: '1y', immutable: true, index: false, fallthrough: false }), (_e, _req, res, _next) => res.sendStatus(404));
+editorial.use('/assets', editorialAssets);

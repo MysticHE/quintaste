@@ -1,0 +1,949 @@
+{
+  "version": 1,
+  "batch": "07",
+  "frozenAt": "2026-10-16T01:22:53.172Z",
+  "googleCallsAllowed": 0,
+  "selectionRule": "Saved paid identity candidate IDs in original file order, then source-link-only IDs, excluding every outcome in batches01-06 and every explicit identity review. Unique IDs only; no padding or repeats.",
+  "approvedReviewCount": 64,
+  "excludedIds": 252,
+  "datasetRemainingUniqueCounts": {
+    "paid-identity-leads.json": 30,
+    "source-link-identity-leads.json": 91
+  },
+  "totalRemainingUniqueIds": 99,
+  "selectedCount": 30,
+  "unselectedUniqueIds": 69,
+  "placeIds": [
+    "ChIJuw7ScX0P2jERYme3zlAdgSI",
+    "ChIJuwItqUUW2jERmwPgTQqJ_Kc",
+    "ChIJUZrXPgYT2jERDjzcDePiRDc",
+    "ChIJv_M2xW8X2jER_HzsPTN6KuM",
+    "ChIJV66fEDsY2jERrTvfz87NXNs",
+    "ChIJV9LMG7Mi2jER8N-x9WjTY10",
+    "ChIJVbbPsYEP2jER_1_yA7ufhSw",
+    "ChIJVVWVGE0a2jERBSWlws9y-zA",
+    "ChIJVw5KJvk92jERkE41NAUtvGM",
+    "ChIJvwnNewAV2jERzLISYyQ2kuA",
+    "ChIJVYpDvb8b2jERnf4SUGQIN4A",
+    "ChIJw7Bn0vYZ2jER7YWZKh57T4Y",
+    "ChIJwTidp3gX2jERTYcV5RRvy88",
+    "ChIJwUh2_EAR2jER_Z7hIevjP6Q",
+    "ChIJwVMoLNY82jERygeDea_20vo",
+    "ChIJWz4AoD0V2jERP0vPM7CMOAI",
+    "ChIJXatt6MYX2jER3LU4VXja57c",
+    "ChIJxbsfTjIY2jERG7JYh_1WLNs",
+    "ChIJXRDaikAb2jER6hY0N5u0hw0",
+    "ChIJxT03f_0X2jERGvs6KtqsjUM",
+    "ChIJy7j14EwZ2jERx5xKJg_JLBU",
+    "ChIJyaVfVjAX2jERhZ-mkNvf1WY",
+    "ChIJyUrFie0a2jERKvD2ounIuis",
+    "ChIJYUWGvtYb2jERuXyTq7UO2yw",
+    "ChIJyVV0X7MP2jERTBdbGB73Wyw",
+    "ChIJyXLAg54F2jERe_oV7CwguKE",
+    "ChIJzVujAbcR2jERbInde0g43_M",
+    "ChIJzWdGaBgY2jER6hGZ8GJc1Tg",
+    "ChIJzWg8utwP2jERbq9xA6SViCc",
+    "ChIJZwY7cAAR2jERsGKtmRmM41E"
+  ],
+  "selection": [
+    {
+      "sequence": 1,
+      "placeId": "ChIJuw7ScX0P2jERYme3zlAdgSI",
+      "leads": [
+        {
+          "leadId": "paid-identity-b7c3164eadb22bb58dd16d59",
+          "leadFile": "data/menu-research/paid-identity-leads.json",
+          "name": "Flourish Cafe 繁榮素食坊",
+          "address": "519 Jurong West Street 52, #01-165, Singapore 640519",
+          "unit": "#01-165",
+          "postalCode": "640519",
+          "sourceUrls": [
+            "https://www.facebook.com/pages/category/Vegetarian-Vegan-Restaurant/Flourish-Cafe-Singapore-107129761456538/",
+            "https://www.onehungryhippo.com/restaurants"
+          ],
+          "independentLeadId": "hippo-flourish-cafe",
+          "independentLeadFile": "data/menu-research/directory-leads.json"
+        },
+        {
+          "leadId": "source-link-8811e354d327920f45f906c7",
+          "leadFile": "data/menu-research/source-link-identity-leads.json",
+          "name": "Flourish Cafe 繁榮素食坊",
+          "address": "519 Jurong West Street 52, #01-165, Singapore 640519",
+          "unit": "#01-165",
+          "postalCode": "640519",
+          "sourceUrls": [
+            "https://www.facebook.com/pages/category/Vegetarian-Vegan-Restaurant/Flourish-Cafe-Singapore-107129761456538/",
+            "https://www.onehungryhippo.com/restaurants/flourish-cafe"
+          ],
+          "independentLeadId": "hippo-flourish-cafe",
+          "independentLeadFile": "data/menu-research/directory-leads.json"
+        }
+      ]
+    },
+    {
+      "sequence": 2,
+      "placeId": "ChIJuwItqUUW2jERmwPgTQqJ_Kc",
+      "leads": [
+        {
+          "leadId": "paid-identity-10bf631db3c4ba7fbfba40c4",
+          "leadFile": "data/menu-research/paid-identity-leads.json",
+          "name": "Shu Shi Piao Xiang Vegetarian",
+          "address": "51 Hougang Ave 9, #01-33 Ci Yuan Hawker Centre, Singapore 538776",
+          "unit": "#01-33",
+          "postalCode": "538776",
+          "sourceUrls": [
+            "https://www.onehungryhippo.com/restaurants"
+          ],
+          "independentLeadId": "hippo-shu-shi-piao-xiang-vegetarian",
+          "independentLeadFile": "data/menu-research/directory-leads.json"
+        },
+        {
+          "leadId": "source-link-1fa7605f5ad06369cd2831f8",
+          "leadFile": "data/menu-research/source-link-identity-leads.json",
+          "name": "Shu Shi Piao Xiang Vegetarian",
+          "address": "51 Hougang Ave 9, #01-33 Ci Yuan Hawker Centre, Singapore 538776",
+          "unit": "#01-33",
+          "postalCode": "538776",
+          "sourceUrls": [
+            "https://www.onehungryhippo.com/restaurants/shu-shi-piao-xiang-vegetarian"
+          ],
+          "independentLeadId": "hippo-shu-shi-piao-xiang-vegetarian",
+          "independentLeadFile": "data/menu-research/directory-leads.json"
+        }
+      ]
+    },
+    {
+      "sequence": 3,
+      "placeId": "ChIJUZrXPgYT2jERDjzcDePiRDc",
+      "leads": [
+        {
+          "leadId": "paid-identity-1e1643dcbb3c0c6fd8c49523",
+          "leadFile": "data/menu-research/paid-identity-leads.json",
+          "name": "The Crowded Bowl (Republic Polytechnic)",
+          "address": "9 Woodlands Ave 9, Singapore 738964",
+          "postalCode": "738964",
+          "sourceUrls": [
+            "https://www.onehungryhippo.com/restaurants"
+          ],
+          "independentLeadId": "hippo-the-crowded-bowl-republic-polytechnic",
+          "independentLeadFile": "data/menu-research/directory-leads.json"
+        },
+        {
+          "leadId": "source-link-3143a4c4432d43d0f2f54ade",
+          "leadFile": "data/menu-research/source-link-identity-leads.json",
+          "name": "The Crowded Bowl (Republic Polytechnic)",
+          "address": "9 Woodlands Ave 9, Singapore 738964",
+          "postalCode": "738964",
+          "sourceUrls": [
+            "https://www.onehungryhippo.com/restaurants/the-crowded-bowl-republic-polytechnic"
+          ],
+          "independentLeadId": "hippo-the-crowded-bowl-republic-polytechnic",
+          "independentLeadFile": "data/menu-research/directory-leads.json"
+        }
+      ]
+    },
+    {
+      "sequence": 4,
+      "placeId": "ChIJv_M2xW8X2jER_HzsPTN6KuM",
+      "leads": [
+        {
+          "leadId": "paid-identity-5878f687f88a459e78c20690",
+          "leadFile": "data/menu-research/paid-identity-leads.json",
+          "name": "Jia Le Yuan Vegetarian Stall",
+          "address": "3004 Ubi Ave 3, Singapore 408860",
+          "postalCode": "408860",
+          "sourceUrls": [
+            "https://www.onehungryhippo.com/restaurants"
+          ],
+          "independentLeadId": "hippo-jia-le-yuan-vegetarian-stall",
+          "independentLeadFile": "data/menu-research/directory-leads.json"
+        },
+        {
+          "leadId": "source-link-c6f9d9f01cb6b7eae80f1d06",
+          "leadFile": "data/menu-research/source-link-identity-leads.json",
+          "name": "Jia Le Yuan Vegetarian Stall",
+          "address": "3004 Ubi Ave 3, Singapore 408860",
+          "postalCode": "408860",
+          "sourceUrls": [
+            "https://www.onehungryhippo.com/restaurants/jia-le-yuan-vegetarian-stall"
+          ],
+          "independentLeadId": "hippo-jia-le-yuan-vegetarian-stall",
+          "independentLeadFile": "data/menu-research/directory-leads.json"
+        }
+      ]
+    },
+    {
+      "sequence": 5,
+      "placeId": "ChIJV66fEDsY2jERrTvfz87NXNs",
+      "leads": [
+        {
+          "leadId": "paid-identity-d6b8880c1ce5bd31f1a5bf85",
+          "leadFile": "data/menu-research/paid-identity-leads.json",
+          "name": "Daily Green (Ji Xiang Vegetarian)",
+          "address": "58 Lor 25A Geylang, Singapore 388249",
+          "postalCode": "388249",
+          "sourceUrls": [
+            "https://www.onehungryhippo.com/restaurants"
+          ],
+          "independentLeadId": "hippo-daily-green-ji-xiang-vegetarian-lor-25a",
+          "independentLeadFile": "data/menu-research/directory-leads.json"
+        }
+      ]
+    },
+    {
+      "sequence": 6,
+      "placeId": "ChIJV9LMG7Mi2jER8N-x9WjTY10",
+      "leads": [
+        {
+          "leadId": "paid-identity-3d93a59c8165cc87ff65b1b1",
+          "leadFile": "data/menu-research/paid-identity-leads.json",
+          "name": "Greendot — Bedok Mall",
+          "address": "311 New Upper Changi Road, #B2-31/32, Bedok Mall · 467360",
+          "unit": "#B2-31/32",
+          "postalCode": "467360",
+          "sourceUrls": [
+            "https://www.companies.sg/places/category/vegetarian?page=4"
+          ],
+          "independentLeadId": "companies-greendot-bedok-mall",
+          "independentLeadFile": "data/menu-research/directory-leads.json"
+        },
+        {
+          "leadId": "paid-identity-0b099830beaac232f62082c3",
+          "leadFile": "data/menu-research/paid-identity-leads.json",
+          "name": "Greendot Bedok Mall",
+          "address": "311 New Upper Changi Road B2-31 Bedok Mall 311 New Upper Changi Rd B2-27 467360, Singapore 467360",
+          "postalCode": "467360",
+          "sourceUrls": [
+            "https://lookup.sg/biz/greendot-bedok-mall"
+          ],
+          "independentLeadId": "lookup-greendot-bedok-mall",
+          "independentLeadFile": "data/menu-research/directory-leads.json"
+        },
+        {
+          "leadId": "paid-identity-589388e1475c455ef5c106ac",
+          "leadFile": "data/menu-research/paid-identity-leads.json",
+          "name": "Greendot @ Bedok Mall",
+          "address": "311 New Upper Changi Road B2-31, Bedok Mall, 467360, Singapore",
+          "sourceUrls": [
+            "https://orders.greendot.sg/?StoreID=b33dedbe-40e7-40c8-a110-b4bb4239c938&Service=PickUp&lang=EN",
+            "https://patisserie.greendot.sg/Category?StoreID=45d330c9-0acb-4a6d-bf96-485df349b6bb&Service=PickUp&lang=EN"
+          ],
+          "independentLeadId": "menu-index-2c9496e810ab10d28f6b",
+          "independentLeadFile": "data/menu-research/menu-source-leads.json"
+        }
+      ]
+    },
+    {
+      "sequence": 7,
+      "placeId": "ChIJVbbPsYEP2jER_1_yA7ufhSw",
+      "leads": [
+        {
+          "leadId": "paid-identity-3f4a15696757e514f888cb7e",
+          "leadFile": "data/menu-research/paid-identity-leads.json",
+          "name": "Fo You Yuan Vegetarian",
+          "address": "50 Jurong West Street 61, #01-12, Singapore",
+          "unit": "#01-12",
+          "sourceUrls": [
+            "https://www.onehungryhippo.com/restaurants"
+          ],
+          "independentLeadId": "hippo-fo-you-yuan-vegetarian",
+          "independentLeadFile": "data/menu-research/directory-leads.json"
+        },
+        {
+          "leadId": "source-link-47f36a879291923f478a882d",
+          "leadFile": "data/menu-research/source-link-identity-leads.json",
+          "name": "Fo You Yuan Vegetarian",
+          "address": "50 Jurong West Street 61, #01-12, Singapore",
+          "unit": "#01-12",
+          "sourceUrls": [
+            "https://www.onehungryhippo.com/restaurants/fo-you-yuan-vegetarian"
+          ],
+          "independentLeadId": "hippo-fo-you-yuan-vegetarian",
+          "independentLeadFile": "data/menu-research/directory-leads.json"
+        }
+      ]
+    },
+    {
+      "sequence": 8,
+      "placeId": "ChIJVVWVGE0a2jERBSWlws9y-zA",
+      "leads": [
+        {
+          "leadId": "paid-identity-51f5c4bd861e6f5f964b1662",
+          "leadFile": "data/menu-research/paid-identity-leads.json",
+          "name": "Verimix Vegetarian (Science Park)",
+          "address": "73 Science Park Dr, #B1-01, Singapore 118254",
+          "unit": "#B1-01",
+          "postalCode": "118254",
+          "sourceUrls": [
+            "https://www.facebook.com/profile.php?id=100092444573069&mibextid=ZbWKwL",
+            "https://www.onehungryhippo.com/restaurants"
+          ],
+          "independentLeadId": "hippo-verimix-vegetarian-science-park",
+          "independentLeadFile": "data/menu-research/directory-leads.json"
+        },
+        {
+          "leadId": "source-link-cf5d46ac2fe8a9e3b83157d2",
+          "leadFile": "data/menu-research/source-link-identity-leads.json",
+          "name": "Verimix Vegetarian (Science Park)",
+          "address": "73 Science Park Dr, #B1-01, Singapore 118254",
+          "unit": "#B1-01",
+          "postalCode": "118254",
+          "sourceUrls": [
+            "https://www.facebook.com/profile.php?id=100092444573069&mibextid=ZbWKwL",
+            "https://www.onehungryhippo.com/restaurants/verimix-vegetarian-science-park"
+          ],
+          "independentLeadId": "hippo-verimix-vegetarian-science-park",
+          "independentLeadFile": "data/menu-research/directory-leads.json"
+        }
+      ]
+    },
+    {
+      "sequence": 9,
+      "placeId": "ChIJVw5KJvk92jERkE41NAUtvGM",
+      "leads": [
+        {
+          "leadId": "paid-identity-51850530e412bfcce6f4ec8e",
+          "leadFile": "data/menu-research/paid-identity-leads.json",
+          "name": "QUAN XIN VEGETARIAN FOOD",
+          "address": "538 Bedok North Street 3, #01-100, S460538",
+          "unit": "#01-100",
+          "postalCode": "460538",
+          "sourceUrls": [
+            "https://www.companies.sg/places/category/vegetarian?page=11"
+          ],
+          "independentLeadId": "companies-cdc-merchants-d517a1e08b4180367a42a421",
+          "independentLeadFile": "data/menu-research/directory-leads.json"
+        },
+        {
+          "leadId": "source-link-266687ecd6f5b1f39fccab0b",
+          "leadFile": "data/menu-research/source-link-identity-leads.json",
+          "name": "Quan Xin Vegetarian Food 泉心素食园",
+          "address": "538 Bedok North Street 3, #01-100, Singapore 460538",
+          "unit": "#01-100",
+          "postalCode": "460538",
+          "sourceUrls": [
+            "https://www.facebook.com/Quanxin-Vegetarian-food-107868047612024/",
+            "https://www.onehungryhippo.com/restaurants/quan-xin-vegetarian-food"
+          ],
+          "independentLeadId": "hippo-quan-xin-vegetarian-food",
+          "independentLeadFile": "data/menu-research/directory-leads.json"
+        }
+      ]
+    },
+    {
+      "sequence": 10,
+      "placeId": "ChIJvwnNewAV2jERzLISYyQ2kuA",
+      "leads": [
+        {
+          "leadId": "paid-identity-26a6e30cebb4d58d105e9faf",
+          "leadFile": "data/menu-research/paid-identity-leads.json",
+          "name": "KEAT LIM VEGETARIAN",
+          "address": "846 Yishun Ring Road, 4, S760846",
+          "postalCode": "760846",
+          "sourceUrls": [
+            "https://www.companies.sg/places/category/vegetarian?page=8"
+          ],
+          "independentLeadId": "companies-cdc-merchants-bed802fcf4126f606245d8c7",
+          "independentLeadFile": "data/menu-research/directory-leads.json"
+        }
+      ]
+    },
+    {
+      "sequence": 11,
+      "placeId": "ChIJVYpDvb8b2jERnf4SUGQIN4A",
+      "leads": [
+        {
+          "leadId": "paid-identity-d0fdf8b4737214000e3c6bbf",
+          "leadFile": "data/menu-research/paid-identity-leads.json",
+          "name": "Vegetarian Delight — Telok Blangah Rise Market and Food Centre",
+          "address": "36 Telok Blangah Rise, #01-42, S090036",
+          "unit": "#01-42",
+          "postalCode": "090036",
+          "sourceUrls": [
+            "https://www.companies.sg/places/category/vegetarian?page=16"
+          ],
+          "independentLeadId": "companies-hpb-dining-outlet-45cb53627a99fd4aa40e402a",
+          "independentLeadFile": "data/menu-research/directory-leads.json"
+        }
+      ]
+    },
+    {
+      "sequence": 12,
+      "placeId": "ChIJw7Bn0vYZ2jER7YWZKh57T4Y",
+      "leads": [
+        {
+          "leadId": "paid-identity-b752c4f226b254685d4cb5c3",
+          "leadFile": "data/menu-research/paid-identity-leads.json",
+          "name": "Lotus Vegetarian Restaurant",
+          "address": "201 BALESTIER ROAD #02-00,HOLIDAY INN EXPRESS & SUITES SINGAPORE NOVENA,Singapore 329926",
+          "unit": "#02-00",
+          "postalCode": "329926",
+          "sourceUrls": [
+            "https://www.companies.sg/places/category/vegetarian?page=9"
+          ],
+          "independentLeadId": "companies-sfa-food-61cc801c4b82546f8eb5635b",
+          "independentLeadFile": "data/menu-research/directory-leads.json"
+        }
+      ]
+    },
+    {
+      "sequence": 13,
+      "placeId": "ChIJwTidp3gX2jERTYcV5RRvy88",
+      "leads": [
+        {
+          "leadId": "paid-identity-ade13cab9d2a3c3c9e8f4f50",
+          "leadFile": "data/menu-research/paid-identity-leads.json",
+          "name": "Happy Realm",
+          "address": "136 Potong Pasir Ave 3, Singapore 350136",
+          "postalCode": "350136",
+          "sourceUrls": [
+            "https://www.onehungryhippo.com/restaurants"
+          ],
+          "independentLeadId": "hippo-happy-realm",
+          "independentLeadFile": "data/menu-research/directory-leads.json"
+        },
+        {
+          "leadId": "source-link-0b48fbdf43f0e927e963a4bc",
+          "leadFile": "data/menu-research/source-link-identity-leads.json",
+          "name": "Happy Realm",
+          "address": "136 Potong Pasir Ave 3, Singapore 350136",
+          "postalCode": "350136",
+          "sourceUrls": [
+            "https://www.onehungryhippo.com/restaurants/happy-realm"
+          ],
+          "independentLeadId": "hippo-happy-realm",
+          "independentLeadFile": "data/menu-research/directory-leads.json"
+        }
+      ]
+    },
+    {
+      "sequence": 14,
+      "placeId": "ChIJwUh2_EAR2jER_Z7hIevjP6Q",
+      "leads": [
+        {
+          "leadId": "paid-identity-0f2479104c766bb9f706f219",
+          "leadFile": "data/menu-research/paid-identity-leads.json",
+          "name": "Dough Culture (Hillion Mall)",
+          "address": "17 Petir Road, #B2-43, Singapore 678278",
+          "unit": "#B2-43",
+          "postalCode": "678278",
+          "sourceUrls": [
+            "https://www.doughculture.com",
+            "https://www.onehungryhippo.com/restaurants"
+          ],
+          "independentLeadId": "hippo-dough-culture-hillion-mall",
+          "independentLeadFile": "data/menu-research/directory-leads.json"
+        },
+        {
+          "leadId": "source-link-260c1a5bd42b63f02892dd02",
+          "leadFile": "data/menu-research/source-link-identity-leads.json",
+          "name": "Dough Culture (Hillion Mall)",
+          "address": "17 Petir Road, #B2-43, Singapore 678278",
+          "unit": "#B2-43",
+          "postalCode": "678278",
+          "sourceUrls": [
+            "https://www.doughculture.com",
+            "https://www.onehungryhippo.com/restaurants/dough-culture-hillion-mall"
+          ],
+          "independentLeadId": "hippo-dough-culture-hillion-mall",
+          "independentLeadFile": "data/menu-research/directory-leads.json"
+        }
+      ]
+    },
+    {
+      "sequence": 15,
+      "placeId": "ChIJwVMoLNY82jERygeDea_20vo",
+      "leads": [
+        {
+          "leadId": "paid-identity-a1906b23252a52e0a6e54734",
+          "leadFile": "data/menu-research/paid-identity-leads.json",
+          "name": "Dough Culture (Changi City Point)",
+          "address": "5 Changi Business Park Central 1, #B1-K8, Singapore 486038",
+          "unit": "#B1-K8",
+          "postalCode": "486038",
+          "sourceUrls": [
+            "https://www.doughculture.com",
+            "https://www.onehungryhippo.com/restaurants"
+          ],
+          "independentLeadId": "hippo-dough-culture-changi-city-point",
+          "independentLeadFile": "data/menu-research/directory-leads.json"
+        },
+        {
+          "leadId": "source-link-ed9b4cecf8a94e3751bc3089",
+          "leadFile": "data/menu-research/source-link-identity-leads.json",
+          "name": "Dough Culture (Changi City Point)",
+          "address": "5 Changi Business Park Central 1, #B1-K8, Singapore 486038",
+          "unit": "#B1-K8",
+          "postalCode": "486038",
+          "sourceUrls": [
+            "https://www.doughculture.com",
+            "https://www.onehungryhippo.com/restaurants/dough-culture-changi-city-point"
+          ],
+          "independentLeadId": "hippo-dough-culture-changi-city-point",
+          "independentLeadFile": "data/menu-research/directory-leads.json"
+        }
+      ]
+    },
+    {
+      "sequence": 16,
+      "placeId": "ChIJWz4AoD0V2jERP0vPM7CMOAI",
+      "leads": [
+        {
+          "leadId": "paid-identity-2148e982dc7396cd736c8faf",
+          "leadFile": "data/menu-research/paid-identity-leads.json",
+          "name": "Tong Xin Vegetarian",
+          "address": "21 Canberra Link, #01-54, Singapore 752350",
+          "unit": "#01-54",
+          "postalCode": "752350",
+          "sourceUrls": [
+            "https://www.onehungryhippo.com/restaurants"
+          ],
+          "independentLeadId": "hippo-tong-xin-vegetarian",
+          "independentLeadFile": "data/menu-research/directory-leads.json"
+        },
+        {
+          "leadId": "source-link-98dd5bf891d167afcb7cacf9",
+          "leadFile": "data/menu-research/source-link-identity-leads.json",
+          "name": "Tong Xin Vegetarian",
+          "address": "21 Canberra Link, #01-54, Singapore 752350",
+          "unit": "#01-54",
+          "postalCode": "752350",
+          "sourceUrls": [
+            "https://www.onehungryhippo.com/restaurants/tong-xin-vegetarian"
+          ],
+          "independentLeadId": "hippo-tong-xin-vegetarian",
+          "independentLeadFile": "data/menu-research/directory-leads.json"
+        }
+      ]
+    },
+    {
+      "sequence": 17,
+      "placeId": "ChIJXatt6MYX2jER3LU4VXja57c",
+      "leads": [
+        {
+          "leadId": "paid-identity-e376f933a8e572351a455ed4",
+          "leadFile": "data/menu-research/paid-identity-leads.json",
+          "name": "Zhen Xin Su Shi Vegetarian 真心素食",
+          "address": "162 Ang Mo Kio Ave 4, #01-22, Singapore 560162",
+          "unit": "#01-22",
+          "postalCode": "560162",
+          "sourceUrls": [
+            "https://m.facebook.com/100040638896597/",
+            "https://www.onehungryhippo.com/restaurants"
+          ],
+          "independentLeadId": "hippo-zhen-xin-su-shi-vegetarian",
+          "independentLeadFile": "data/menu-research/directory-leads.json"
+        },
+        {
+          "leadId": "source-link-33ebc22b97cf85f2cb7b97d7",
+          "leadFile": "data/menu-research/source-link-identity-leads.json",
+          "name": "Zhen Xin Su Shi Vegetarian 真心素食",
+          "address": "162 Ang Mo Kio Ave 4, #01-22, Singapore 560162",
+          "unit": "#01-22",
+          "postalCode": "560162",
+          "sourceUrls": [
+            "https://m.facebook.com/100040638896597/",
+            "https://www.onehungryhippo.com/restaurants/zhen-xin-su-shi-vegetarian"
+          ],
+          "independentLeadId": "hippo-zhen-xin-su-shi-vegetarian",
+          "independentLeadFile": "data/menu-research/directory-leads.json"
+        }
+      ]
+    },
+    {
+      "sequence": 18,
+      "placeId": "ChIJxbsfTjIY2jERG7JYh_1WLNs",
+      "leads": [
+        {
+          "leadId": "paid-identity-61eac52023aafc9c468ac5f3",
+          "leadFile": "data/menu-research/paid-identity-leads.json",
+          "name": "Chang Le Vegetarian Stall 常乐素食",
+          "address": "17 Upper Boon Keng Rd, #01-63, Singapore 380017",
+          "unit": "#01-63",
+          "postalCode": "380017",
+          "sourceUrls": [
+            "https://www.onehungryhippo.com/restaurants"
+          ],
+          "independentLeadId": "hippo-chang-le-vegetarian-stall",
+          "independentLeadFile": "data/menu-research/directory-leads.json"
+        },
+        {
+          "leadId": "source-link-a4868eb290a0c0db65757990",
+          "leadFile": "data/menu-research/source-link-identity-leads.json",
+          "name": "Chang Le Vegetarian Stall 常乐素食",
+          "address": "17 Upper Boon Keng Rd, #01-63, Singapore 380017",
+          "unit": "#01-63",
+          "postalCode": "380017",
+          "sourceUrls": [
+            "https://www.onehungryhippo.com/restaurants/chang-le-vegetarian-stall"
+          ],
+          "independentLeadId": "hippo-chang-le-vegetarian-stall",
+          "independentLeadFile": "data/menu-research/directory-leads.json"
+        }
+      ]
+    },
+    {
+      "sequence": 19,
+      "placeId": "ChIJXRDaikAb2jER6hY0N5u0hw0",
+      "leads": [
+        {
+          "leadId": "paid-identity-3476f66a276608155c873023",
+          "leadFile": "data/menu-research/paid-identity-leads.json",
+          "name": "吉祥如意素食 Ji Xiang Ru Yi Vegetarian",
+          "address": "85 Redhill Ln, #01-31, Singapore 150085",
+          "unit": "#01-31",
+          "postalCode": "150085",
+          "sourceUrls": [
+            "https://www.onehungryhippo.com/restaurants"
+          ],
+          "independentLeadId": "hippo-ji-xiang-ru-yi-vegetarian",
+          "independentLeadFile": "data/menu-research/directory-leads.json"
+        },
+        {
+          "leadId": "source-link-2f8dc7c69dd870d4028d4e68",
+          "leadFile": "data/menu-research/source-link-identity-leads.json",
+          "name": "吉祥如意素食 Ji Xiang Ru Yi Vegetarian",
+          "address": "85 Redhill Ln, #01-31, Singapore 150085",
+          "unit": "#01-31",
+          "postalCode": "150085",
+          "sourceUrls": [
+            "https://www.onehungryhippo.com/restaurants/ji-xiang-ru-yi-vegetarian"
+          ],
+          "independentLeadId": "hippo-ji-xiang-ru-yi-vegetarian",
+          "independentLeadFile": "data/menu-research/directory-leads.json"
+        }
+      ]
+    },
+    {
+      "sequence": 20,
+      "placeId": "ChIJxT03f_0X2jERGvs6KtqsjUM",
+      "leads": [
+        {
+          "leadId": "paid-identity-7bd892360f60586966fc8a8a",
+          "leadFile": "data/menu-research/paid-identity-leads.json",
+          "name": "Shan Yuan Vegetarian",
+          "address": "630 Bedok Reservoir Rd, #01-20, Bedok Reservoir Food Centre, Singapore 470630",
+          "unit": "#01-20",
+          "postalCode": "470630",
+          "sourceUrls": [
+            "https://www.onehungryhippo.com/restaurants"
+          ],
+          "independentLeadId": "hippo-shan-yuan-vegetarian",
+          "independentLeadFile": "data/menu-research/directory-leads.json"
+        },
+        {
+          "leadId": "source-link-71cba13e2b51e9f7aac0f008",
+          "leadFile": "data/menu-research/source-link-identity-leads.json",
+          "name": "Shan Yuan Vegetarian",
+          "address": "630 Bedok Reservoir Rd, #01-20, Bedok Reservoir Food Centre, Singapore 470630",
+          "unit": "#01-20",
+          "postalCode": "470630",
+          "sourceUrls": [
+            "https://www.onehungryhippo.com/restaurants/shan-yuan-vegetarian"
+          ],
+          "independentLeadId": "hippo-shan-yuan-vegetarian",
+          "independentLeadFile": "data/menu-research/directory-leads.json"
+        }
+      ]
+    },
+    {
+      "sequence": 21,
+      "placeId": "ChIJy7j14EwZ2jERx5xKJg_JLBU",
+      "leads": [
+        {
+          "leadId": "paid-identity-cf7a1d9ea7002a24f77a4319",
+          "leadFile": "data/menu-research/paid-identity-leads.json",
+          "name": "New Zai Xing Vegetarian Food 新再興齊素食",
+          "address": "30 Seng Poh Rd, #02-36, Singapore 168898",
+          "unit": "#02-36",
+          "postalCode": "168898",
+          "sourceUrls": [
+            "https://www.onehungryhippo.com/restaurants"
+          ],
+          "independentLeadId": "hippo-new-zai-xing-vegetarian-food",
+          "independentLeadFile": "data/menu-research/directory-leads.json"
+        },
+        {
+          "leadId": "source-link-9620b65348f72033e61a89af",
+          "leadFile": "data/menu-research/source-link-identity-leads.json",
+          "name": "New Zai Xing Vegetarian Food 新再興齊素食",
+          "address": "30 Seng Poh Rd, #02-36, Singapore 168898",
+          "unit": "#02-36",
+          "postalCode": "168898",
+          "sourceUrls": [
+            "https://www.onehungryhippo.com/restaurants/new-zai-xing-vegetarian-food"
+          ],
+          "independentLeadId": "hippo-new-zai-xing-vegetarian-food",
+          "independentLeadFile": "data/menu-research/directory-leads.json"
+        }
+      ]
+    },
+    {
+      "sequence": 22,
+      "placeId": "ChIJyaVfVjAX2jERhZ-mkNvf1WY",
+      "leads": [
+        {
+          "leadId": "paid-identity-60940076904b934fc5ad58e5",
+          "leadFile": "data/menu-research/paid-identity-leads.json",
+          "name": "Chee Wei Vegetarian",
+          "address": "147 POTONG PASIR AVENUE 1 #01-93,Singapore 350147",
+          "unit": "#01-93",
+          "postalCode": "350147",
+          "sourceUrls": [
+            "https://www.companies.sg/places/category/vegetarian?page=2"
+          ],
+          "independentLeadId": "companies-sfa-food-48bba77c162b363905459b9f",
+          "independentLeadFile": "data/menu-research/directory-leads.json"
+        },
+        {
+          "leadId": "source-link-a6c03eb95dbcfd75988cce30",
+          "leadFile": "data/menu-research/source-link-identity-leads.json",
+          "name": "Chee Wei Vegetarian (Potong Pasir) 啟維素食",
+          "address": "BLK 147 Potong Pasir Ave 1, #01-93, Singapore 350147",
+          "unit": "#01-93",
+          "postalCode": "350147",
+          "sourceUrls": [
+            "https://www.onehungryhippo.com/restaurants/chee-wei-vegetarian"
+          ],
+          "independentLeadId": "hippo-chee-wei-vegetarian",
+          "independentLeadFile": "data/menu-research/directory-leads.json"
+        }
+      ]
+    },
+    {
+      "sequence": 23,
+      "placeId": "ChIJyUrFie0a2jERKvD2ounIuis",
+      "leads": [
+        {
+          "leadId": "paid-identity-a8c724d5790b27f2a431e96e",
+          "leadFile": "data/menu-research/paid-identity-leads.json",
+          "name": "San Yuan Vegetarian",
+          "address": "726 Clementi West Street 2, Singapore 120726",
+          "postalCode": "120726",
+          "sourceUrls": [
+            "https://www.onehungryhippo.com/restaurants"
+          ],
+          "independentLeadId": "hippo-san-yuan-vegetarian",
+          "independentLeadFile": "data/menu-research/directory-leads.json"
+        },
+        {
+          "leadId": "paid-identity-74f47273ba4b4bf150f9ac21",
+          "leadFile": "data/menu-research/paid-identity-leads.json",
+          "name": "SAN YUAN VEGETARIAN",
+          "address": "726 Clementi West Street 2, #01-149, S120726",
+          "unit": "#01-149",
+          "postalCode": "120726",
+          "sourceUrls": [
+            "https://www.companies.sg/places/category/vegetarian?page=12"
+          ],
+          "independentLeadId": "companies-cdc-merchants-40886bd309c7f52349b64404",
+          "independentLeadFile": "data/menu-research/directory-leads.json"
+        },
+        {
+          "leadId": "source-link-d00cdef2f0a4da4c60cfe354",
+          "leadFile": "data/menu-research/source-link-identity-leads.json",
+          "name": "San Yuan Vegetarian",
+          "address": "726 Clementi West Street 2, Singapore 120726",
+          "postalCode": "120726",
+          "sourceUrls": [
+            "https://www.onehungryhippo.com/restaurants/san-yuan-vegetarian"
+          ],
+          "independentLeadId": "hippo-san-yuan-vegetarian",
+          "independentLeadFile": "data/menu-research/directory-leads.json"
+        }
+      ]
+    },
+    {
+      "sequence": 24,
+      "placeId": "ChIJYUWGvtYb2jERuXyTq7UO2yw",
+      "leads": [
+        {
+          "leadId": "paid-identity-113ecf1049b9fe90513e148e",
+          "leadFile": "data/menu-research/paid-identity-leads.json",
+          "name": "YUM YUM YUMMY VEGETARIAN",
+          "address": "163 Bukit Merah Central, #02-29, S150163",
+          "unit": "#02-29",
+          "postalCode": "150163",
+          "sourceUrls": [
+            "https://www.companies.sg/places/category/vegetarian?page=20"
+          ],
+          "independentLeadId": "companies-cdc-merchants-4931ed51e326f7249f5f3040",
+          "independentLeadFile": "data/menu-research/directory-leads.json"
+        }
+      ]
+    },
+    {
+      "sequence": 25,
+      "placeId": "ChIJyVV0X7MP2jERTBdbGB73Wyw",
+      "leads": [
+        {
+          "leadId": "paid-identity-d25d3fdd5245eb51d75be2ca",
+          "leadFile": "data/menu-research/paid-identity-leads.json",
+          "name": "Daily Green",
+          "address": "50 Nanyang Avenue, South Spine Canteen B, Singapore 639798",
+          "postalCode": "639798",
+          "sourceUrls": [
+            "https://www.dailygreen.sg/locations"
+          ],
+          "independentLeadId": "merchant-6968cb1ec870c3d7",
+          "independentLeadFile": "data/menu-research/directory-leads.json"
+        },
+        {
+          "leadId": "paid-identity-8872ff1d58e714a3f542cf50",
+          "leadFile": "data/menu-research/paid-identity-leads.json",
+          "name": "Daily Green (NTU South Spine Canteen B)",
+          "address": "50 Nanyang Avenue, South Spine Canteen B, Singapore 639798",
+          "sourceUrls": [
+            "https://www.dailygreen.sg/locations",
+            "https://www.dailygreen.sg/menus",
+            "https://dineout.grab.com/sg/en/restaurants/daily-green-nanyang-avenue--4-C8C3VCJ3AXLTVA"
+          ],
+          "independentLeadId": "menu-index-feb8242e4bac5167611b",
+          "independentLeadFile": "data/menu-research/menu-source-leads.json"
+        },
+        {
+          "leadId": "source-link-24be128ee14d529f876d0b73",
+          "leadFile": "data/menu-research/source-link-identity-leads.json",
+          "name": "Daily Green (NTU South Spine Canteen B) 吉祥素",
+          "address": "50 Nanyang Avenue, Canteen B South Spine, Singapore 639798",
+          "postalCode": "639798",
+          "sourceUrls": [
+            "https://www.dailygreen.sg/",
+            "https://www.onehungryhippo.com/restaurants/daily-green-ntu-south-spine-canteen-b"
+          ],
+          "independentLeadId": "hippo-daily-green-ntu-south-spine-canteen-b",
+          "independentLeadFile": "data/menu-research/directory-leads.json"
+        }
+      ]
+    },
+    {
+      "sequence": 26,
+      "placeId": "ChIJyXLAg54F2jERe_oV7CwguKE",
+      "leads": [
+        {
+          "leadId": "paid-identity-0a5944476d386ab14eab7ae3",
+          "leadFile": "data/menu-research/paid-identity-leads.json",
+          "name": "Qi Ren Vegetarian",
+          "address": "32 Pioneer Sector 2, Singapore 628388",
+          "postalCode": "628388",
+          "sourceUrls": [
+            "https://www.onehungryhippo.com/restaurants"
+          ],
+          "independentLeadId": "hippo-qi-ren-vegetarian",
+          "independentLeadFile": "data/menu-research/directory-leads.json"
+        },
+        {
+          "leadId": "source-link-c0a0a78a0d7653150f32d65b",
+          "leadFile": "data/menu-research/source-link-identity-leads.json",
+          "name": "Qi Ren Vegetarian",
+          "address": "32 Pioneer Sector 2, Singapore 628388",
+          "postalCode": "628388",
+          "sourceUrls": [
+            "https://www.onehungryhippo.com/restaurants/qi-ren-vegetarian"
+          ],
+          "independentLeadId": "hippo-qi-ren-vegetarian",
+          "independentLeadFile": "data/menu-research/directory-leads.json"
+        }
+      ]
+    },
+    {
+      "sequence": 27,
+      "placeId": "ChIJzVujAbcR2jERbInde0g43_M",
+      "leads": [
+        {
+          "leadId": "paid-identity-ad3c4559aec5cde3e26472c1",
+          "leadFile": "data/menu-research/paid-identity-leads.json",
+          "name": "Ann Healthy Vegetarian 安健康素食",
+          "address": "Blk 272 Bukit Batok East Ave 4, Singapore 650272",
+          "postalCode": "650272",
+          "sourceUrls": [
+            "https://www.onehungryhippo.com/restaurants"
+          ],
+          "independentLeadId": "hippo-ann-healthy-vegetarian",
+          "independentLeadFile": "data/menu-research/directory-leads.json"
+        },
+        {
+          "leadId": "source-link-97f8e4ac47071d2ffc7f2b1d",
+          "leadFile": "data/menu-research/source-link-identity-leads.json",
+          "name": "Ann Healthy Vegetarian 安健康素食",
+          "address": "Blk 272 Bukit Batok East Ave 4, Singapore 650272",
+          "postalCode": "650272",
+          "sourceUrls": [
+            "https://www.onehungryhippo.com/restaurants/ann-healthy-vegetarian"
+          ],
+          "independentLeadId": "hippo-ann-healthy-vegetarian",
+          "independentLeadFile": "data/menu-research/directory-leads.json"
+        }
+      ]
+    },
+    {
+      "sequence": 28,
+      "placeId": "ChIJzWdGaBgY2jER6hGZ8GJc1Tg",
+      "leads": [
+        {
+          "leadId": "paid-identity-d9817242f5fd0371ea4fbc15",
+          "leadFile": "data/menu-research/paid-identity-leads.json",
+          "name": "Greendot — Paya Lebar Square",
+          "address": "60 Paya Lebar Road · 409051",
+          "postalCode": "409051",
+          "sourceUrls": [
+            "https://www.companies.sg/places/category/vegetarian?page=5"
+          ],
+          "independentLeadId": "companies-greendot-paya-lebar-square",
+          "independentLeadFile": "data/menu-research/directory-leads.json"
+        }
+      ]
+    },
+    {
+      "sequence": 29,
+      "placeId": "ChIJzWg8utwP2jERbq9xA6SViCc",
+      "leads": [
+        {
+          "leadId": "paid-identity-f0da8fb41715a2909dcaacc1",
+          "leadFile": "data/menu-research/paid-identity-leads.json",
+          "name": "Tofu Vegetarian Food 篼畐熟食",
+          "address": "505 Jurong West Street 52, #01-41, Singapore 640505",
+          "unit": "#01-41",
+          "postalCode": "640505",
+          "sourceUrls": [
+            "https://www.onehungryhippo.com/restaurants"
+          ],
+          "independentLeadId": "hippo-tofu-vegetarian-food",
+          "independentLeadFile": "data/menu-research/directory-leads.json"
+        },
+        {
+          "leadId": "source-link-5cc95f088510d86f4dc1bb11",
+          "leadFile": "data/menu-research/source-link-identity-leads.json",
+          "name": "Tofu Vegetarian Food 篼畐熟食",
+          "address": "505 Jurong West Street 52, #01-41, Singapore 640505",
+          "unit": "#01-41",
+          "postalCode": "640505",
+          "sourceUrls": [
+            "https://www.onehungryhippo.com/restaurants/tofu-vegetarian-food"
+          ],
+          "independentLeadId": "hippo-tofu-vegetarian-food",
+          "independentLeadFile": "data/menu-research/directory-leads.json"
+        }
+      ]
+    },
+    {
+      "sequence": 30,
+      "placeId": "ChIJZwY7cAAR2jERsGKtmRmM41E",
+      "leads": [
+        {
+          "leadId": "paid-identity-4e4fca8f5efecd05197051d4",
+          "leadFile": "data/menu-research/paid-identity-leads.json",
+          "name": "JIA JIA VEGETARIAN",
+          "address": "132 JURONG GATEWAY ROAD #01-273,J CONNECT,Singapore 600132",
+          "unit": "#01-273",
+          "postalCode": "600132",
+          "sourceUrls": [
+            "https://www.companies.sg/places/category/vegetarian?page=6"
+          ],
+          "independentLeadId": "companies-sfa-food-1bfae6587444d1f4c7e741d8",
+          "independentLeadFile": "data/menu-research/directory-leads.json"
+        }
+      ]
+    }
+  ]
+}

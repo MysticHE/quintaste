@@ -1,0 +1,1196 @@
+{
+  "version": 1,
+  "checkedAt": "2026-10-16T01:23:43.975Z",
+  "reviews": [
+    {
+      "placeId": "ChIJ-yoyrPkZ2jERkVM6z1jPjM4",
+      "dataset": "data/menu-research/greendot/menus.json",
+      "branchId": "greendot-asia-square",
+      "name": "Greendot @ Asia Square",
+      "address": "8 Marina View, Tower 1, #02-02, 018960, Singapore",
+      "reviewStatus": "approved",
+      "reviewedAt": "2026-10-15T13:01:07.980734+00:00",
+      "branchFingerprint": "825fac5a69ffcacdedfed19fe4b20489a98263523c64f780607f4253bd5ebf54",
+      "independentSourceUrls": [
+        "https://orders.greendot.sg/?StoreID=47a71ad4-01ef-487c-be94-f66c9f8e0ba3&Service=PickUp&lang=EN",
+        "https://patisserie.greendot.sg/Category?StoreID=7aafa924-c582-49c7-8fe5-5fd6e23617d7&Service=PickUp&lang=EN"
+      ],
+      "placeIdentityEvidenceUrl": "https://www.google.com/maps/search/?api=1&query=vegetarian&query_place_id=ChIJ-yoyrPkZ2jERkVM6z1jPjM4",
+      "reviewMethod": "Offline review of saved place-ID/name/address observation against separately researched merchant branch premises; no new Google requests or copied Google display facts in this record.",
+      "reviewReport": ".impeccable/review/menu-identity-review.json"
+    },
+    {
+      "placeId": "ChIJ1QM76RIP2jERfj7egfVR_vo",
+      "dataset": "data/menu-research/greendot/menus.json",
+      "branchId": "greendot-jurong-point",
+      "name": "Greendot @ Jurong Point",
+      "address": "1 Jurong West Central 2 Jurong Point JP 1 #01-43/44/45, 648886, Singapore",
+      "reviewStatus": "approved",
+      "reviewedAt": "2026-10-15T13:01:07.980815+00:00",
+      "branchFingerprint": "284e34a6937b0998e8e60df7cea2c80d023a1798af1db7d4654fbac8cb3f4a1e",
+      "independentSourceUrls": [
+        "https://orders.greendot.sg/?StoreID=5252756f-953c-4270-90c7-05ce23f97896&Service=PickUp&lang=EN",
+        "https://patisserie.greendot.sg/Category?StoreID=447691ba-2390-4826-a376-76302d340d1f&Service=PickUp&lang=EN"
+      ],
+      "placeIdentityEvidenceUrl": "https://www.google.com/maps/search/?api=1&query=vegetarian&query_place_id=ChIJ1QM76RIP2jERfj7egfVR_vo",
+      "reviewMethod": "Offline review of saved place-ID/name/address observation against separately researched merchant branch premises; no new Google requests or copied Google display facts in this record.",
+      "reviewReport": ".impeccable/review/menu-identity-review.json"
+    },
+    {
+      "placeId": "ChIJ21wQCIoQ2jER6n4NxNgZDXQ",
+      "dataset": "data/menu-research/dlife/menus.json",
+      "branchId": "dlife-chun-tin",
+      "name": "D'Life @ Chun Tin",
+      "address": "6 Chun Tin Road, 599593, Singapore",
+      "reviewStatus": "approved",
+      "reviewedAt": "2026-10-15T13:01:07.980855+00:00",
+      "branchFingerprint": "e8f22837831ac6079c3d8f4df9124816bbc2a042d82feb20c6405cdbda6ec080",
+      "independentSourceUrls": [
+        "https://dlife.getz.co/?StoreID=26f7fbd6-70cc-409a-b0a8-6007e3378a78&Service=PickUp&lang=EN"
+      ],
+      "placeIdentityEvidenceUrl": "https://www.google.com/maps/search/?api=1&query=vegetarian&query_place_id=ChIJ21wQCIoQ2jER6n4NxNgZDXQ",
+      "reviewMethod": "Offline review of saved place-ID/name/address observation against separately researched merchant branch premises; no new Google requests or copied Google display facts in this record.",
+      "reviewReport": ".impeccable/review/menu-identity-review.json"
+    },
+    {
+      "placeId": "ChIJ1dqKB40Z2jERYuio7wkJl_w",
+      "dataset": "data/menu-research/menu-lotus-lingzhi-yesnatural-victor.json",
+      "branchId": "lingzhi-palais",
+      "name": "LingZhi Greens",
+      "address": "390 Orchard Road, #B1-04/05, Palais Renaissance, Singapore 238871",
+      "reviewStatus": "approved",
+      "reviewedAt": "2026-10-15T13:01:07.980896+00:00",
+      "branchFingerprint": "ad96846618c073fd7665bd77204a6925cdd6def56e4b908f10c7ad3b71055d09",
+      "independentSourceUrls": [
+        "https://www.lingzhi.com.sg/en/home",
+        "https://www.tunglok.com/en/news/welcome-to-lingzhi-greens",
+        "https://www.tunglok.com/menus/LZ-Menu.pdf?misc=20261015_183537"
+      ],
+      "placeIdentityEvidenceUrl": "https://www.google.com/maps/search/?api=1&query=vegetarian&query_place_id=ChIJ1dqKB40Z2jERYuio7wkJl_w",
+      "reviewMethod": "Offline review of saved place-ID/name/address observation against separately researched merchant branch premises; no new Google requests or copied Google display facts in this record.",
+      "reviewReport": ".impeccable/review/menu-identity-review.json"
+    },
+    {
+      "placeId": "ChIJ13ClyAwZ2jERErYteYrhkLo",
+      "dataset": "data/menu-research/saute-grove/saute-flavours.json",
+      "branchId": "saute-flavours-funan",
+      "name": "Flavours By Saute",
+      "address": "107 North Bridge Road, #B1-30 Funan, Singapore 179105",
+      "reviewStatus": "approved",
+      "reviewedAt": "2026-10-15T13:01:07.981058+00:00",
+      "branchFingerprint": "43f772fed744fd2cd946235dbb4a7c1e8c2ffe3181b9570c4d79508905fcc36d",
+      "independentSourceUrls": [
+        "https://www.saute.com.sg/flavours-menu",
+        "https://www.flavoursbysaute.sg/en_SG"
+      ],
+      "placeIdentityEvidenceUrl": "https://www.google.com/maps/search/?api=1&query=vegetarian&query_place_id=ChIJ13ClyAwZ2jERErYteYrhkLo",
+      "reviewMethod": "Offline review of saved place-ID/name/address observation against separately researched merchant branch premises; no new Google requests or copied Google display facts in this record.",
+      "reviewReport": ".impeccable/review/menu-identity-review.json"
+    },
+    {
+      "placeId": "ChIJ____p1IS2jERqPZ2xJu7QgM",
+      "dataset": "data/menu-research/zzv/zzv.json",
+      "branchId": "zzv-yishun",
+      "name": "Zi Zai Vegetarian (Yishun)",
+      "address": "Blk 236 Yishun Ring Road #01-1000, Singapore 760236",
+      "reviewStatus": "approved",
+      "reviewedAt": "2026-10-15T13:01:07.981342+00:00",
+      "branchFingerprint": "e675390a0b35e37947573b07ad8ff036c9882cf0e52de17c37e0fc5ff6a8a5d2",
+      "independentSourceUrls": [
+        "https://online.zzv.sg/index.html",
+        "https://order.zzv.sg/Category?StoreID=33a3b108-b18e-4fa3-a855-31a33c7c91b0&Service=PickUp&lang=EN"
+      ],
+      "placeIdentityEvidenceUrl": "https://www.google.com/maps/search/?api=1&query=vegetarian&query_place_id=ChIJ____p1IS2jERqPZ2xJu7QgM",
+      "reviewMethod": "Offline review of saved place-ID/name/address observation against separately researched merchant branch premises; no new Google requests or copied Google display facts in this record.",
+      "reviewReport": ".impeccable/review/menu-identity-review.json"
+    },
+    {
+      "placeId": "ChIJ-7mO4K8X2jERfxwr_C6lMlQ",
+      "dataset": "data/menu-research/zzv/greenland.json",
+      "branchId": "greenland-upper-serangoon",
+      "name": "Greenland Vegetarian",
+      "address": "789 & 791 Upper Serangoon Road, Singapore 534659",
+      "reviewStatus": "approved",
+      "reviewedAt": "2026-10-15T13:01:07.981525+00:00",
+      "branchFingerprint": "2a507ae7eebed88bc85f4577ad83426c4bbed43703b139d64597f2cc1b027656",
+      "independentSourceUrls": [
+        "https://online.zzv.sg/index.html",
+        "https://greenland.zzv.sg/Category?StoreID=da5a2dbf-19c9-4a79-bf6e-aa12a440731b&Service=PickUp&lang=EN"
+      ],
+      "placeIdentityEvidenceUrl": "https://www.google.com/maps/search/?api=1&query=vegetarian&query_place_id=ChIJ-7mO4K8X2jERfxwr_C6lMlQ",
+      "reviewMethod": "Offline review of saved place-ID/name/address observation against separately researched merchant branch premises; no new Google requests or copied Google display facts in this record.",
+      "reviewReport": ".impeccable/review/menu-identity-review.json"
+    },
+    {
+      "placeId": "ChIJ_____5oZ2jER8lCn1opbINU",
+      "dataset": "data/menu-research/menu-realfood-indian.json",
+      "branchId": "realfood-orchard",
+      "name": "Real Food (Orchard Central)",
+      "address": "181 Orchard Road, #02-16, Orchard Central, Singapore 238896",
+      "reviewStatus": "approved",
+      "reviewedAt": "2026-10-15T23:59:09.550Z",
+      "branchFingerprint": "ea1f4688239a19d06686e9ac3279998e1b63f8b8026da583b51597717dbaee8e",
+      "independentSourceUrls": [
+        "https://www.realfoodgrocer.com/",
+        "https://www.foodpanda.sg/restaurant/s5ej/real-food-orchard-central-s5ej"
+      ],
+      "placeIdentityEvidenceUrl": "https://www.google.com/maps/search/?api=1&query=vegetarian&query_place_id=ChIJ_____5oZ2jER8lCn1opbINU",
+      "reviewMethod": "Explicit parent review of strict normalized name, postal/street and ordinary exact unit (or standalone street premises without units) against the independent source branch. No Google display facts copied.",
+      "reviewReport": ".impeccable/review/menu-paid-identity-review.json"
+    },
+    {
+      "placeId": "ChIJ_WwvSwAZ2jER9lUMcAwy3hM",
+      "dataset": "data/menu-research/menu-independent-stalls.json",
+      "branchId": "kang-su-far-east-plaza",
+      "name": "Kang Su Vegetarian — Far East Plaza",
+      "address": "14 Scotts Road #05-98 Far East Plaza, Singapore 228213",
+      "reviewStatus": "approved",
+      "reviewedAt": "2026-10-15T23:59:09.550Z",
+      "branchFingerprint": "35879a0df35328580e69dd949d9140fecfad4c6d490f592d66dde000131f0221",
+      "independentSourceUrls": [
+        "https://www.foodpanda.sg/restaurant/n5wr/kang-su-vegetarian-far-east-plaza"
+      ],
+      "placeIdentityEvidenceUrl": "https://www.google.com/maps/search/?api=1&query=vegetarian&query_place_id=ChIJ_WwvSwAZ2jER9lUMcAwy3hM",
+      "reviewMethod": "Explicit parent review of strict normalized name, postal/street and ordinary exact unit (or standalone street premises without units) against the independent source branch. No Google display facts copied.",
+      "reviewReport": ".impeccable/review/menu-paid-identity-review.json"
+    },
+    {
+      "placeId": "ChIJ01ESzHMb2jER001hTwhELNQ",
+      "dataset": "data/menu-research/veganburg-ahimsa-cultivate/ahimsa.json",
+      "branchId": "ahimsa-neil-road",
+      "name": "Ahimsa Sanctuary — Neil Road",
+      "address": "76 Neil Road, Singapore 088840",
+      "reviewStatus": "approved",
+      "reviewedAt": "2026-10-15T23:59:09.550Z",
+      "branchFingerprint": "3f460affb3ceca439aa2b1843eb168f3887581d6c2697225f2734901521cdead",
+      "independentSourceUrls": [
+        "https://www.ahimsacommunityysg.com/",
+        "https://smartweb-ecms.tabsquare.com/scan/39e28049-4d8c-4061-86d6-d3b0e39501ab"
+      ],
+      "placeIdentityEvidenceUrl": "https://www.google.com/maps/search/?api=1&query=vegetarian&query_place_id=ChIJ01ESzHMb2jER001hTwhELNQ",
+      "reviewMethod": "Explicit parent review of strict normalized name, postal/street and ordinary exact unit (or standalone street premises without units) against the independent source branch. No Google display facts copied.",
+      "reviewReport": ".impeccable/review/menu-paid-identity-review.json"
+    },
+    {
+      "placeId": "ChIJ01wV1WwZ2jERSk88-PrWNFE",
+      "dataset": "data/pilot/catalogue.json",
+      "branchId": "whole-earth-peck-seah",
+      "name": "Whole Earth — Peck Seah Street",
+      "address": "76 Peck Seah Street, Singapore 079331",
+      "reviewStatus": "approved",
+      "reviewedAt": "2026-10-15T23:59:09.550Z",
+      "branchFingerprint": "2d9c3d968376283f95407ab2758ca95ab9c57c490822120fca385de6e2119e2d",
+      "independentSourceUrls": [
+        "https://wholeearth.com.sg/",
+        "https://wholeearth.com.sg/menu.php",
+        "https://wholeearth.com.sg/menu2026/12-Menu-Legend.webp"
+      ],
+      "placeIdentityEvidenceUrl": "https://www.google.com/maps/search/?api=1&query=vegetarian&query_place_id=ChIJ01wV1WwZ2jERSk88-PrWNFE",
+      "reviewMethod": "Explicit parent review of strict normalized name, postal/street and ordinary exact unit (or standalone street premises without units) against the independent source branch. No Google display facts copied.",
+      "reviewReport": ".impeccable/review/menu-paid-identity-review.json"
+    },
+    {
+      "placeId": "ChIJa9fwSMQZ2jERxS1XT0mUR_k",
+      "dataset": "data/menu-research/sufood-joie-genesis-lovinghut/genesis.json",
+      "branchId": "genesis-vegan-havelock-ii",
+      "name": "Genesis Vegan Restaurant (Havelock II)",
+      "address": "2 Havelock Road, #B1-01 Havelock II, Singapore 059763",
+      "reviewStatus": "approved",
+      "reviewedAt": "2026-10-15T23:59:09.550Z",
+      "branchFingerprint": "8b557eab1455d6cad309ae101a21d24a3b2efddc5ffdf8f706acaab0f2b75b15",
+      "independentSourceUrls": [
+        "https://www.facebook.com/genesisvegan/",
+        "https://www.foodpanda.sg/restaurant/pctp/genesis-vegan-restaurant-havelock-2-islandwide",
+        "https://www.foodpanda.sg/restaurant/fdk3/genesis-vegan-restaurant-havelock-2"
+      ],
+      "placeIdentityEvidenceUrl": "https://www.google.com/maps/search/?api=1&query=vegetarian&query_place_id=ChIJa9fwSMQZ2jERxS1XT0mUR_k",
+      "reviewMethod": "Explicit parent review of strict normalized name, postal/street and ordinary exact unit (or standalone street premises without units) against the independent source branch. No Google display facts copied.",
+      "reviewReport": ".impeccable/review/menu-paid-identity-review.json"
+    },
+    {
+      "placeId": "ChIJAdJ_1hQ92jEREl3XSdZR4tg",
+      "dataset": "data/menu-research/zzv/zzv.json",
+      "branchId": "zzv-tampines",
+      "name": "Zi Zai Vegetarian (Tampines)",
+      "address": "801 Tampines Ave 4 #01-281, Tampines Polyview, Singapore 520801",
+      "reviewStatus": "approved",
+      "reviewedAt": "2026-10-15T23:59:09.550Z",
+      "branchFingerprint": "75ffbaf9e41f6cee4f5d8b02115db5f631d52e0b1b59f8f529990f29a466bd2b",
+      "independentSourceUrls": [
+        "https://online.zzv.sg/index.html",
+        "https://order.zzv.sg/Category?StoreID=d60a08b7-7a95-46d6-8aad-8034d04cbd18&Service=PickUp&lang=EN",
+        "https://order.zzv.sg/Product/ProductDetail?id=22d401ee-a148-4a47-bbc8-2f957ebfd980.clone.3&productId=22d401ee-a148-4a47-bbc8-2f957ebfd980"
+      ],
+      "placeIdentityEvidenceUrl": "https://www.google.com/maps/search/?api=1&query=vegetarian&query_place_id=ChIJAdJ_1hQ92jEREl3XSdZR4tg",
+      "reviewMethod": "Explicit parent review of strict normalized name, postal/street and ordinary exact unit (or standalone street premises without units) against the independent source branch. No Google display facts copied.",
+      "reviewReport": ".impeccable/review/menu-paid-identity-review.json"
+    },
+    {
+      "placeId": "ChIJbcVJZ7E92jER-GCi_gtcu8U",
+      "dataset": "data/menu-research/linlin-metta-joyi-kisu/joyi.json",
+      "branchId": "joyi-bedok-north",
+      "name": "JO-YI CAFE — Bedok North",
+      "address": "136 Bedok North Avenue 3 #01-148, Singapore 460136",
+      "reviewStatus": "approved",
+      "reviewedAt": "2026-10-15T23:59:09.550Z",
+      "branchFingerprint": "87f9793214946d56983df6401edd19d230bd51e741ce22cf279b8cdaab0e6f7a",
+      "independentSourceUrls": [
+        "https://www.jo-yi.com/menu",
+        "https://static.wixstatic.com/media/802f0d_959b5615111e49f5a40b068d202f09a8~mv2.jpg/v1/fill/w_979,h_654,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/joyi%20menu.jpg",
+        "https://www.jo-yi.com/"
+      ],
+      "placeIdentityEvidenceUrl": "https://www.google.com/maps/search/?api=1&query=vegetarian&query_place_id=ChIJbcVJZ7E92jER-GCi_gtcu8U",
+      "reviewMethod": "Explicit parent review of strict normalized name, postal/street and ordinary exact unit (or standalone street premises without units) against the independent source branch. No Google display facts copied.",
+      "reviewReport": ".impeccable/review/menu-paid-identity-review.json"
+    },
+    {
+      "placeId": "ChIJc0a2bZUX2jERELEKPFW1FIQ",
+      "dataset": "data/menu-research/saute-grove/pang.json",
+      "branchId": "pang-pang-kopi-hougang-rivercourt",
+      "name": "Pang Pang Kopi (Hougang RiverCourt)",
+      "address": "377 Hougang Street 32, #01-09 Hougang RiverCourt, Singapore 530377",
+      "reviewStatus": "approved",
+      "reviewedAt": "2026-10-15T23:59:09.550Z",
+      "branchFingerprint": "31674bda49b73baad936c17bcd234f4bc39d891f140a09751dd834bf1e8c8e38",
+      "independentSourceUrls": [
+        "https://pangpangkopi.com.sg/locateus/",
+        "https://pangpangkopi.oddle.me/en_SG",
+        "https://pangpangkopi.oddle.me/en_SG/stores"
+      ],
+      "placeIdentityEvidenceUrl": "https://www.google.com/maps/search/?api=1&query=vegetarian&query_place_id=ChIJc0a2bZUX2jERELEKPFW1FIQ",
+      "reviewMethod": "Explicit parent review of strict normalized name, postal/street and ordinary exact unit (or standalone street premises without units) against the independent source branch. No Google display facts copied.",
+      "reviewReport": ".impeccable/review/menu-paid-identity-review.json"
+    },
+    {
+      "placeId": "ChIJfRNCEKEZ2jERE-hnS4keOxU",
+      "dataset": "data/menu-research/menu-lovingnature-bode-vegan.json",
+      "branchId": "lnbv-vegan-branch",
+      "name": "Veg-An",
+      "address": "11 Sam Leong Road, Trio Mall, #04-03, Singapore 207903",
+      "reviewStatus": "approved",
+      "reviewedAt": "2026-10-15T23:59:09.550Z",
+      "branchFingerprint": "b28043c15ac969a37d063a62bcba4f0d3c100cf71d9e3b6befde6044df79e8e8",
+      "independentSourceUrls": [
+        "https://www.veggie-an.com/walkin-menu",
+        "https://www.veggie-an.com/faq",
+        "https://www.blockchef.com/store/veg-an/menu/"
+      ],
+      "placeIdentityEvidenceUrl": "https://www.google.com/maps/search/?api=1&query=vegetarian&query_place_id=ChIJfRNCEKEZ2jERE-hnS4keOxU",
+      "reviewMethod": "Explicit parent review of strict normalized name, postal/street and ordinary exact unit (or standalone street premises without units) against the independent source branch. No Google display facts copied.",
+      "reviewReport": ".impeccable/review/menu-paid-identity-review.json"
+    },
+    {
+      "placeId": "ChIJfxz-Bm8Z2jERC16IhOCETPo",
+      "dataset": "data/pilot/catalogue.json",
+      "branchId": "dlife-signature-chinatown-point",
+      "name": "D'Life Signature — Chinatown Point",
+      "address": "133 New Bridge Road #02-37, Chinatown Point, Singapore 059413",
+      "reviewStatus": "approved",
+      "reviewedAt": "2026-10-15T23:59:09.550Z",
+      "branchFingerprint": "1d92efaf639c0512a82ec253ff65d96aead22560630d0896afd47e0f15fca537",
+      "independentSourceUrls": [
+        "https://www.facebook.com/DlifeSignature/posts/pfbid02WNSNnw8cZmGkwMeDXe2PhYGLsFGDWvoBuSUGg4eDxTETfGGiuRuwpBQi6EMgLJAul?comment_id=1355678666381184",
+        "https://chinatownpoint.com.sg/stores/?category=restaurant",
+        "https://dlifesignature.getz.co/"
+      ],
+      "placeIdentityEvidenceUrl": "https://www.google.com/maps/search/?api=1&query=vegetarian&query_place_id=ChIJfxz-Bm8Z2jERC16IhOCETPo",
+      "reviewMethod": "Explicit parent review of strict normalized name, postal/street and ordinary exact unit (or standalone street premises without units) against the independent source branch. No Google display facts copied.",
+      "reviewReport": ".impeccable/review/menu-paid-identity-review.json"
+    },
+    {
+      "placeId": "ChIJGdx5Yj8Q2jER_V5gefTKlJc",
+      "dataset": "data/menu-research/zzv/times-vege.json",
+      "branchId": "times-vege-bukit-batok",
+      "name": "Time’s Vege",
+      "address": "643 Bukit Batok Central #01-44, Singapore 650643",
+      "reviewStatus": "approved",
+      "reviewedAt": "2026-10-15T23:59:09.550Z",
+      "branchFingerprint": "3903b0aa3f28b35149fadd991d7b9eb0c65bc4fc99bb3f310623a5f93da9c62f",
+      "independentSourceUrls": [
+        "https://online.zzv.sg/index.html",
+        "https://timesvege.zzv.sg/Category?StoreID=f7045319-0600-4f7f-99cb-ef97f6936552&Service=PickUp&lang=EN",
+        "https://timesvege.zzv.sg/Product/ProductDetail?id=20b2e841-7640-4499-9456-e3a7f365fac3.clone.2&productId=20b2e841-7640-4499-9456-e3a7f365fac3"
+      ],
+      "placeIdentityEvidenceUrl": "https://www.google.com/maps/search/?api=1&query=vegetarian&query_place_id=ChIJGdx5Yj8Q2jER_V5gefTKlJc",
+      "reviewMethod": "Explicit parent review of strict normalized name, postal/street and ordinary exact unit (or standalone street premises without units) against the independent source branch. No Google display facts copied.",
+      "reviewReport": ".impeccable/review/menu-paid-identity-review.json"
+    },
+    {
+      "placeId": "ChIJIZrdXz0Z2jERpXtwUWhZ-Js",
+      "dataset": "data/menu-research/menu-lovingnature-bode-vegan.json",
+      "branchId": "lnbv-bode-branch",
+      "name": "Bồ Đề Vegetarian - Healthy Veggies Delights",
+      "address": "16 Hamilton Road, #01-05, Singapore 209186",
+      "reviewStatus": "approved",
+      "reviewedAt": "2026-10-15T23:59:09.550Z",
+      "branchFingerprint": "d432385e65d41f9f29028d6e04a36c839c7d972fdc1011b82c46b8eb89346b3f",
+      "independentSourceUrls": [
+        "https://www.happycow.net/reviews/bo-de-vegetarian-healthy-veggies-delights-central-singapore-503137",
+        "https://www.onehungryhippo.com/restaurants/b-vegetarian-healthy-veggies-delights",
+        "https://www.findglocal.com/SG/Kallang/111053797035434/B%E1%BB%93-%C4%90%E1%BB%81-Vegetarian"
+      ],
+      "placeIdentityEvidenceUrl": "https://www.google.com/maps/search/?api=1&query=vegetarian&query_place_id=ChIJIZrdXz0Z2jERpXtwUWhZ-Js",
+      "reviewMethod": "Explicit parent review of strict normalized name, postal/street and ordinary exact unit (or standalone street premises without units) against the independent source branch. No Google display facts copied.",
+      "reviewReport": ".impeccable/review/menu-paid-identity-review.json"
+    },
+    {
+      "placeId": "ChIJJ4X4H2gZ2jERGa4nbrwXIIA",
+      "dataset": "data/menu-research/saute-grove/pang.json",
+      "branchId": "pang-pang-kopi-singpost-centre",
+      "name": "Pang Pang Kopi (SingPost Centre)",
+      "address": "10 Eunos Road 8, #01-151 SingPost Centre, Singapore 408600",
+      "reviewStatus": "approved",
+      "reviewedAt": "2026-10-15T23:59:09.550Z",
+      "branchFingerprint": "887c9eda682706784bd6da60eff6adca759544f706e76cc8e96067d66a976fae",
+      "independentSourceUrls": [
+        "https://pangpangkopi.com.sg/locateus/",
+        "https://pangpangkopi.oddle.me/en_SG",
+        "https://pangpangkopi.oddle.me/en_SG/stores"
+      ],
+      "placeIdentityEvidenceUrl": "https://www.google.com/maps/search/?api=1&query=vegetarian&query_place_id=ChIJJ4X4H2gZ2jERGa4nbrwXIIA",
+      "reviewMethod": "Explicit parent review of strict normalized name, postal/street and ordinary exact unit (or standalone street premises without units) against the independent source branch. No Google display facts copied.",
+      "reviewReport": ".impeccable/review/menu-paid-identity-review.json"
+    },
+    {
+      "placeId": "ChIJOwdnq7cZ2jERSCAJQh3m_iY",
+      "dataset": "data/menu-research/linlin-metta-joyi-kisu/kisu.json",
+      "branchId": "kisu-tras-street",
+      "name": "Ki Su Shoujin Omakase — Tras Street",
+      "address": "60 Tras Street #01-01, Singapore 078999",
+      "reviewStatus": "approved",
+      "reviewedAt": "2026-10-15T23:59:09.550Z",
+      "branchFingerprint": "6dea9f55e06b7f506cdcb81078627813a2061f10fc75d022ca81041ebf5828d0",
+      "independentSourceUrls": [
+        "https://www.kisu.com.sg/contact",
+        "https://www.kisu.com.sg/menu"
+      ],
+      "placeIdentityEvidenceUrl": "https://www.google.com/maps/search/?api=1&query=vegetarian&query_place_id=ChIJOwdnq7cZ2jERSCAJQh3m_iY",
+      "reviewMethod": "Explicit parent review of strict normalized name, postal/street and ordinary exact unit (or standalone street premises without units) against the independent source branch. No Google display facts copied.",
+      "reviewReport": ".impeccable/review/menu-paid-identity-review.json"
+    },
+    {
+      "placeId": "ChIJW4TaTgUZ2jERRe4pr_9MV-E",
+      "dataset": "data/menu-research/menu-botanict-kindbowl-foyouyuan.json",
+      "branchId": "botanict-clementi",
+      "name": "Botanict — Clementi",
+      "address": "Blk 352 Clementi Avenue 2 #01-123, Singapore 120352",
+      "reviewStatus": "approved",
+      "reviewedAt": "2026-10-15T23:59:09.550Z",
+      "branchFingerprint": "d48afac8e06cc0e04d3f8baf30330a5295511a51e0b7144636d4dbb8efc57cfa",
+      "independentSourceUrls": [
+        "https://botanict.sg/",
+        "https://pos.amfuture.sg/h5/pages/product/list/store?app_id=10070&shop_supplier_id=10096"
+      ],
+      "placeIdentityEvidenceUrl": "https://www.google.com/maps/search/?api=1&query=vegetarian&query_place_id=ChIJW4TaTgUZ2jERRe4pr_9MV-E",
+      "reviewMethod": "Explicit parent review of strict normalized name, postal/street and ordinary exact unit (or standalone street premises without units) against the independent source branch. No Google display facts copied.",
+      "reviewReport": ".impeccable/review/menu-paid-identity-review.json"
+    },
+    {
+      "placeId": "ChIJX7F5dvYZ2jERaN7tYyTQXtM",
+      "dataset": "data/menu-research/menu-botanict-kindbowl-foyouyuan.json",
+      "branchId": "kind-bowl-killiney",
+      "name": "The Kind Bowl — Killiney Road",
+      "address": "71 Killiney Road, Singapore 239527",
+      "reviewStatus": "approved",
+      "reviewedAt": "2026-10-15T23:59:09.550Z",
+      "branchFingerprint": "100b38b275a5421bfe29cffdd5ed5138fae4c7d46bc8145d8fd82b3d64b2125e",
+      "independentSourceUrls": [
+        "https://www.thekindbowl.com.sg/blank-3",
+        "https://www.thekindbowl.com.sg/blank"
+      ],
+      "placeIdentityEvidenceUrl": "https://www.google.com/maps/search/?api=1&query=vegetarian&query_place_id=ChIJX7F5dvYZ2jERaN7tYyTQXtM",
+      "reviewMethod": "Explicit parent review of strict normalized name, postal/street and ordinary exact unit (or standalone street premises without units) against the independent source branch. No Google display facts copied.",
+      "reviewReport": ".impeccable/review/menu-paid-identity-review.json"
+    },
+    {
+      "placeId": "ChIJy7_-3L0X2jER8c4XCk22y28",
+      "dataset": "data/menu-research/menu-zzv-dailygreen.json",
+      "branchId": "merchant-7ab3dafc5f6a7876",
+      "name": "Daily Green (Hougang Mall)",
+      "address": "90 Hougang Ave 10 #04-11 Hougang Mall Foodies’ Garden®, Singapore 538766",
+      "reviewStatus": "approved",
+      "reviewedAt": "2026-10-15T23:59:09.550Z",
+      "branchFingerprint": "6fea27e0537ec5bfa25cc9dc4b04603b90ebe874d16f61949cb70df8e02c33a8",
+      "independentSourceUrls": [
+        "https://www.dailygreen.sg/locations",
+        "https://www.foodpanda.sg/zh/restaurant/ocwf/daily-green-hougang-mall",
+        "https://www.foodpanda.sg/restaurant/ocwf/daily-green-hougang-mall"
+      ],
+      "placeIdentityEvidenceUrl": "https://www.google.com/maps/search/?api=1&query=vegetarian&query_place_id=ChIJy7_-3L0X2jER8c4XCk22y28",
+      "reviewMethod": "Explicit parent review of strict normalized name, postal/street and ordinary exact unit (or standalone street premises without units) against the independent source branch. No Google display facts copied.",
+      "reviewReport": ".impeccable/review/menu-paid-identity-review.json"
+    },
+    {
+      "placeId": "ChIJZSr57K0T2jER9vGz_2-ktRg",
+      "dataset": "data/pilot/catalogue.json",
+      "branchId": "zhen-xiang-woodlands-street-32",
+      "name": "Zhen Xiang Vegetarian — 325 Woodlands Street 32",
+      "address": "325 Woodlands Street 32 #01-131, Singapore 730325",
+      "reviewStatus": "approved",
+      "reviewedAt": "2026-10-15T23:59:09.550Z",
+      "branchFingerprint": "d4c37664eef4feb69eaaf75a2c463ef25d7dbc63d0a9297171e49e6d523e1b56",
+      "independentSourceUrls": [
+        "https://threebestrated.sg/vegan-restaurants/zhen-xiang-vegetarian-woodlands-199669917",
+        "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32"
+      ],
+      "placeIdentityEvidenceUrl": "https://www.google.com/maps/search/?api=1&query=vegetarian&query_place_id=ChIJZSr57K0T2jER9vGz_2-ktRg",
+      "reviewMethod": "Explicit parent review of strict normalized name, postal/street and ordinary exact unit (or standalone street premises without units) against the independent source branch. No Google display facts copied.",
+      "reviewReport": ".impeccable/review/menu-paid-identity-review.json"
+    },
+    {
+      "placeId": "ChIJQ-C2CgAX2jERLnQly87UgBA",
+      "dataset": "data/menu-research/greendot/menus.json",
+      "branchId": "greendot-seletar-mall",
+      "name": "Greendot @ The Seletar Mall",
+      "address": "33 Sengkang West Avenue #B1-01 The Seletar Mall, 797653, Singapore",
+      "reviewStatus": "approved",
+      "reviewedAt": "2026-10-15T23:59:09.550Z",
+      "branchFingerprint": "1f8f788d7d882712a3b278053baf903785e8357ef79bf4cc8bc9b392f9118961",
+      "independentSourceUrls": [
+        "https://orders.greendot.sg/?StoreID=191ae5df-d765-4e6d-8261-b35209534a04&Service=PickUp&lang=EN",
+        "https://patisserie.greendot.sg/Category?StoreID=ea4b6adc-d0cf-4758-b2e5-f8220b4e62d8&Service=PickUp&lang=EN"
+      ],
+      "placeIdentityEvidenceUrl": "https://www.google.com/maps/search/?api=1&query=vegetarian&query_place_id=ChIJQ-C2CgAX2jERLnQly87UgBA",
+      "reviewMethod": "Explicit parent review of transient paid lookup branch clue against separately researched merchant premises; normalized brand alias and exact street/postal/unit where specified. Persisted name/address come only from the independent research record.",
+      "reviewReport": ".impeccable/review/menu-paid-identity-review.json"
+    },
+    {
+      "placeId": "ChIJs9HpItkP2jERARN7osXzrpg",
+      "dataset": "data/menu-research/dlife/menus.json",
+      "branchId": "dlife-jurong-west",
+      "name": "D'Life @ Jurong West",
+      "address": "428 Jurong West Ave 1 #01-256, 640428, Singapore",
+      "reviewStatus": "approved",
+      "reviewedAt": "2026-10-15T23:59:09.550Z",
+      "branchFingerprint": "0e043a606f1fae3f2e33c30870cfa818b41fbdc1032aa70f5ff8cf06f24c2b0a",
+      "independentSourceUrls": [
+        "https://dlife.getz.co/?StoreID=eec50bad-d2aa-4c7d-a9c8-6aaef1ed32ad&Service=PickUp&lang=EN"
+      ],
+      "placeIdentityEvidenceUrl": "https://www.google.com/maps/search/?api=1&query=vegetarian&query_place_id=ChIJs9HpItkP2jERARN7osXzrpg",
+      "reviewMethod": "Explicit parent review of transient paid lookup branch clue against separately researched merchant premises; normalized brand alias and exact street/postal/unit where specified. Persisted name/address come only from the independent research record.",
+      "reviewReport": ".impeccable/review/menu-paid-identity-review.json"
+    },
+    {
+      "placeId": "ChIJue3QPzsY2jERNukowLKc7HU",
+      "dataset": "data/menu-research/menu-lotus-lingzhi-yesnatural-victor.json",
+      "branchId": "yesnatural-geylang",
+      "name": "Yes Natural Restaurant",
+      "address": "57 Lorong 27 Geylang, Singapore 388184",
+      "reviewStatus": "approved",
+      "reviewedAt": "2026-10-15T23:59:09.550Z",
+      "branchFingerprint": "89cf89faf82436520e8953cfe343a7b8697ed51e32dc52962a475eac51328ee7",
+      "independentSourceUrls": [
+        "https://yesnatural.sg/contact-us",
+        "https://yesnatural.oddle.me/en_SG",
+        "https://yesnatural.sg/web/image/77884-ee16152b/Website%20Restaurant%20Menu_pg25-25.webp"
+      ],
+      "placeIdentityEvidenceUrl": "https://www.google.com/maps/search/?api=1&query=vegetarian&query_place_id=ChIJue3QPzsY2jERNukowLKc7HU",
+      "reviewMethod": "Explicit parent review of transient paid lookup branch clue against separately researched merchant premises; normalized brand alias and exact street/postal/unit where specified. Persisted name/address come only from the independent research record.",
+      "reviewReport": ".impeccable/review/menu-paid-identity-review.json"
+    },
+    {
+      "placeId": "ChIJTY2khwQY2jERlMZdzuX1VfA",
+      "dataset": "data/menu-research/veganburg-ahimsa-cultivate/veganburg.json",
+      "branchId": "veganburg-eunos",
+      "name": "VeganBurg — Eunos",
+      "address": "44 Jalan Eunos, Singapore 419502",
+      "reviewStatus": "approved",
+      "reviewedAt": "2026-10-15T23:59:09.550Z",
+      "branchFingerprint": "ebf22d3a9fc10a87065d615cd54f25c8d4d26cffd51c46b4557734ac78cdd02e",
+      "independentSourceUrls": [
+        "https://www.veganburg.com/location",
+        "https://veganburg.oddle.me/stores",
+        "https://veganburg.oddle.me/en_SG/"
+      ],
+      "placeIdentityEvidenceUrl": "https://www.google.com/maps/search/?api=1&query=vegetarian&query_place_id=ChIJTY2khwQY2jERlMZdzuX1VfA",
+      "reviewMethod": "Explicit parent review of transient paid lookup branch clue against separately researched merchant premises; normalized brand alias and exact street/postal/unit where specified. Persisted name/address come only from the independent research record.",
+      "reviewReport": ".impeccable/review/menu-paid-identity-review.json"
+    },
+    {
+      "placeId": "ChIJDcZX2EkZ2jERHNNf5IhBLwU",
+      "dataset": "data/menu-research/menu-warung-original-origanics.json",
+      "branchId": "warungijo-macpherson",
+      "name": "Warung Ijo — MacPherson",
+      "address": "601 MacPherson Road #01-61 Grantral Mall Taiseng, Singapore 368242",
+      "reviewStatus": "approved",
+      "reviewedAt": "2026-10-15T23:59:09.550Z",
+      "branchFingerprint": "e0cfffc0bde5a69cc83f2fab913b9a0b85b028bf36b32a5558b97df2b20f39a2",
+      "independentSourceUrls": [
+        "https://warungijo.oddle.me/en_SG",
+        "https://warungijo.oddle.me/en_SG/stores"
+      ],
+      "placeIdentityEvidenceUrl": "https://www.google.com/maps/search/?api=1&query=vegetarian&query_place_id=ChIJDcZX2EkZ2jERHNNf5IhBLwU",
+      "reviewMethod": "Explicit parent review of transient paid lookup branch clue against separately researched merchant premises; normalized brand alias and exact street/postal/unit where specified. Persisted name/address come only from the independent research record.",
+      "reviewReport": ".impeccable/review/menu-paid-identity-review.json"
+    },
+    {
+      "placeId": "ChIJ3RtK94QZ2jERZvC1muAr6lY",
+      "dataset": "data/menu-research/menu-ascend-coco-moonchay-sproutz.json",
+      "branchId": "moonchay-fortune",
+      "name": "Moon Chay Vegetarian — Fortune Centre",
+      "address": "190 Middle Road #02-27/28 Fortune Centre, Singapore 188979",
+      "reviewStatus": "approved",
+      "reviewedAt": "2026-10-16T00:29:51.579Z",
+      "branchFingerprint": "efc7c70ac061cd10daee60e6dd3161f466a2d4f01a0d671d4571cb2a8b464333",
+      "independentSourceUrls": [
+        "https://moonchayvegetarian.oddle.me/en_SG/",
+        "https://moonchayvegetarian.oddle.me/en_SG/stores",
+        "https://moonchayvegetarian.com/"
+      ],
+      "placeIdentityEvidenceUrl": "https://www.google.com/maps/search/?api=1&query=Moon%20Chay%20Vegetarian%20%E2%80%94%20Fortune%20Centre&query_place_id=ChIJ3RtK94QZ2jERZvC1muAr6lY",
+      "reviewMethod": "Manual exact branch review of existing paid-pass candidate against freshly checked independent operator/ordering premises. Unit ranges, standalone premises, postal/street agreement and source-provided direct ID links where present were reviewed; no new Google requests or copied Google display facts.",
+      "reviewReport": "docs/research/identity-completion-batch-01.md"
+    },
+    {
+      "placeId": "ChIJ4xbpO6892jERIJIcfxtTgEo",
+      "dataset": "data/menu-research/menu-zzv-dailygreen.json",
+      "branchId": "merchant-287ecefa1f8e3855",
+      "name": "Daily Green (Bedok)",
+      "address": "217 Bedok North Street 1 #01-77 Food Loft®, Singapore 460217",
+      "reviewStatus": "approved",
+      "reviewedAt": "2026-10-16T00:29:51.581Z",
+      "branchFingerprint": "fa04992f235e7d492220206b15ed1e1aa2c1f56b8fc66754410fe240831896a8",
+      "independentSourceUrls": [
+        "https://www.dailygreen.sg/locations",
+        "https://www.foodpanda.sg/restaurant/y8ot/daily-green-bedok"
+      ],
+      "placeIdentityEvidenceUrl": "https://www.google.com/maps/search/?api=1&query=Daily%20Green%20(Bedok)&query_place_id=ChIJ4xbpO6892jERIJIcfxtTgEo",
+      "reviewMethod": "Manual exact branch review of existing paid-pass candidate against freshly checked independent operator/ordering premises. Unit ranges, standalone premises, postal/street agreement and source-provided direct ID links where present were reviewed; no new Google requests or copied Google display facts.",
+      "reviewReport": "docs/research/identity-completion-batch-01.md"
+    },
+    {
+      "placeId": "ChIJa9BZ2TAY2jER2-tYXAy7t20",
+      "dataset": "data/menu-research/menu-botanict-kindbowl-foyouyuan.json",
+      "branchId": "fo-you-yuan-jalan-besar",
+      "name": "Fo You Yuan Vegetarian Restaurant — Jalan Besar",
+      "address": "369 Jalan Besar, Singapore 208997",
+      "reviewStatus": "approved",
+      "reviewedAt": "2026-10-16T00:29:51.581Z",
+      "branchFingerprint": "933103c8bd1609ccc9f13e3eccbbe2dece66647b5465008c043cb33cda7e457e",
+      "independentSourceUrls": [
+        "https://foyouyuan.com.sg/",
+        "https://foyouyuan.maynuu.com/"
+      ],
+      "placeIdentityEvidenceUrl": "https://www.google.com/maps/search/?api=1&query=Fo%20You%20Yuan%20Vegetarian%20Restaurant%20%E2%80%94%20Jalan%20Besar&query_place_id=ChIJa9BZ2TAY2jER2-tYXAy7t20",
+      "reviewMethod": "Manual exact branch review of existing paid-pass candidate against freshly checked independent operator/ordering premises. Unit ranges, standalone premises, postal/street agreement and source-provided direct ID links where present were reviewed; no new Google requests or copied Google display facts.",
+      "reviewReport": "docs/research/identity-completion-batch-01.md"
+    },
+    {
+      "placeId": "ChIJcVsAH6kZ2jER-LAOxhuN0b0",
+      "dataset": "data/menu-research/menu-elemen-nomvnom.json",
+      "branchId": "elemen-millenia-walk",
+      "name": "elemen — Millenia Walk",
+      "address": "9 Raffles Boulevard #01-75/75A/76, Millenia Walk, Singapore 039596",
+      "reviewStatus": "approved",
+      "reviewedAt": "2026-10-16T00:29:51.581Z",
+      "branchFingerprint": "76283e90e024336ac03f5885bbbc85b9f0752ee81d6b9ee0af38b57b7b416531",
+      "independentSourceUrls": [
+        "https://www.elemengroup.com.sg/locations",
+        "https://elemenmw.oddle.me/en_SG",
+        "https://elemenmw.oddle.me/en_SG/stores"
+      ],
+      "placeIdentityEvidenceUrl": "https://www.google.com/maps/search/?api=1&query=elemen%20%E2%80%94%20Millenia%20Walk&query_place_id=ChIJcVsAH6kZ2jER-LAOxhuN0b0",
+      "reviewMethod": "Manual exact branch review of existing paid-pass candidate against freshly checked independent operator/ordering premises. Unit ranges, standalone premises, postal/street agreement and source-provided direct ID links where present were reviewed; no new Google requests or copied Google display facts.",
+      "reviewReport": "docs/research/identity-completion-batch-01.md"
+    },
+    {
+      "placeId": "ChIJ0eJGJyER2jERiyMyusvJbnM",
+      "dataset": "data/menu-research/menu-completion-identity-foods-01.json",
+      "branchId": "150-green-bukit-batok",
+      "name": "150 Green Vegetarian — Bukit Batok",
+      "address": "150 Bukit Batok Street 11 #01-224, Singapore 650150",
+      "reviewStatus": "approved",
+      "reviewedAt": "2026-10-16T00:50:10.428Z",
+      "branchFingerprint": "46959b98ff8c076a59ba18534644de9ad551957e7d0520dc11abba267ed4abbe",
+      "independentSourceUrls": [
+        "https://www.foodpanda.sg/restaurant/l2ov/150-green-vegetarian-bukit-batok-street-11"
+      ],
+      "placeIdentityEvidenceUrl": "https://www.google.com/maps/search/?api=1&query=150%20Green%20Vegetarian%20%E2%80%94%20Bukit%20Batok&query_place_id=ChIJ0eJGJyER2jERiyMyusvJbnM",
+      "reviewMethod": "Manual exact-name/premises comparison of independent directory direct-map association against current operator or merchant-managed ordering branch evidence. Both feature-ID halves match the saved place ID. Postal, street, basement/unit/range and concept checked; no new paid lookup and no Google display metadata copied.",
+      "sourceProvidedPlaceLink": "https://maps.app.goo.gl/hLGPWpnr5C8GbRUz9",
+      "independentLeadId": "hippo-150-green-vegetarian",
+      "reviewReport": "docs/research/source-link-identity-review-2026-10-16.md"
+    },
+    {
+      "placeId": "ChIJKevyb6YZ2jERc-adpvma-To",
+      "dataset": "data/menu-research/menu-completion-directory-small-cafes-2026-10-16.json",
+      "branchId": "cookie-coffee-fortune-centre",
+      "name": "Cookie Coffee Cafe Bar",
+      "address": "190 Middle Road #01-28B Fortune Centre, Singapore 188979",
+      "reviewStatus": "approved",
+      "reviewedAt": "2026-10-17T02:44:50.093788+00:00",
+      "branchFingerprint": "ac7448a9c2bbb05ad43065cd46e7964690a396530efa7583d96d5c4227adb226",
+      "independentSourceUrls": [
+        "https://cookiecoffee.com.sg/",
+        "https://cookiecoffee.com.sg/menu/",
+        "https://cookiecoffee.com.sg/blank/",
+        "https://cookiecoffee.com.sg/signaturericeset/",
+        "https://cookiecoffee.com.sg/__static/jdj5jdewjejym1jym3fwyvh4s0mzsljp/Dim-Sum-Menu-Temp-Lower-Res(8).jpg",
+        "https://cookiecoffee.com.sg/__static/jdj5jdewjhpnrefnykouytdamfvwthhz/Rice-Menu-Final-A3-Revised(2).jpg"
+      ],
+      "placeIdentityEvidenceUrl": "https://www.google.com/maps/search/?api=1&query=Cookie%20Coffee%20Cafe%20Bar&query_place_id=ChIJKevyb6YZ2jERc-adpvma-To",
+      "reviewMethod": "Manual exact-name/premises comparison of independent directory direct-map association against current operator or merchant-managed ordering branch evidence. Both feature-ID halves match the saved place ID. Postal, street, basement/unit/range and concept checked; no new paid lookup and no Google display metadata copied.",
+      "sourceProvidedPlaceLink": "https://maps.app.goo.gl/nrQCXiD9TQsPWGpd9",
+      "independentLeadId": "hippo-cookie-coffee-cafe-bar",
+      "reviewReport": "docs/research/source-link-identity-review-2026-10-16.md"
+    },
+    {
+      "placeId": "ChIJfZ_HQpMZ2jERwGhRa-mtRnk",
+      "dataset": "data/menu-research/dlife/menus.json",
+      "branchId": "dlife-orchard-gateway",
+      "name": "D'Life @ Orchard Gateway",
+      "address": "277 Orchard Road #B2-04A/05 Singapore,, 238858, Singapore",
+      "reviewStatus": "approved",
+      "reviewedAt": "2026-10-16T00:50:10.428Z",
+      "branchFingerprint": "e8cf08c4d5797a76ff3eb5e877ca63b0b7e0044685ba5df87465d9d736d9f99e",
+      "independentSourceUrls": [
+        "https://dlife.getz.co/?StoreID=5f6ae0b4-a479-4131-a288-14bc7e3d5992&Service=PickUp&lang=EN"
+      ],
+      "placeIdentityEvidenceUrl": "https://www.google.com/maps/search/?api=1&query=D'Life%20%40%20Orchard%20Gateway&query_place_id=ChIJfZ_HQpMZ2jERwGhRa-mtRnk",
+      "reviewMethod": "Manual exact-name/premises comparison of independent directory direct-map association against current operator or merchant-managed ordering branch evidence. Both feature-ID halves match the saved place ID. Postal, street, basement/unit/range and concept checked; no new paid lookup and no Google display metadata copied.",
+      "sourceProvidedPlaceLink": "https://maps.app.goo.gl/pEG6uTddePqtnMUH9",
+      "independentLeadId": "hippo-d-life-orchard-gateway",
+      "reviewReport": "docs/research/source-link-identity-review-2026-10-16.md"
+    },
+    {
+      "placeId": "ChIJLXNkFgAR2jERwQvTveeKgHg",
+      "dataset": "data/menu-research/dlife/menus.json",
+      "branchId": "dlife-tengah",
+      "name": "D'Life (Tengah Drive)",
+      "address": "126B TENGAH DRIVE #01-319, PLANTATION VILLAGE S(692126)",
+      "reviewStatus": "approved",
+      "reviewedAt": "2026-10-16T00:50:10.428Z",
+      "branchFingerprint": "c530f4225df46080662252b889da26a0ec07388b7a954e1eab3cdebf15315509",
+      "independentSourceUrls": [
+        "https://www.foodpanda.sg/restaurant/xyhv/dlife-tengah-drive"
+      ],
+      "placeIdentityEvidenceUrl": "https://www.google.com/maps/search/?api=1&query=D'Life%20(Tengah%20Drive)&query_place_id=ChIJLXNkFgAR2jERwQvTveeKgHg",
+      "reviewMethod": "Manual exact-name/premises comparison of independent directory direct-map association against current operator or merchant-managed ordering branch evidence. Both feature-ID halves match the saved place ID. Postal, street, basement/unit/range and concept checked; no new paid lookup and no Google display metadata copied.",
+      "sourceProvidedPlaceLink": "https://maps.app.goo.gl/w5qBdRSHzvXZ6T6Z7",
+      "independentLeadId": "hippo-d-life-tengah",
+      "reviewReport": "docs/research/source-link-identity-review-2026-10-16.md"
+    },
+    {
+      "placeId": "ChIJOTJ7DmAZ2jERDEVHuKdUJMc",
+      "dataset": "data/menu-research/menu-directory-continuation-cafes-2026-10-16.json",
+      "branchId": "kind-kones-forum",
+      "name": "Kind Kones — Forum Shopping Mall",
+      "address": "583 Orchard Road #B1-27 & K1, Forum Shopping Mall, Singapore 238884",
+      "reviewStatus": "approved",
+      "reviewedAt": "2026-10-16T00:50:10.428Z",
+      "branchFingerprint": "7a56733b9eeab4d0272ee0be72d541f7b98a2015990640abec95941ea3241c08",
+      "independentSourceUrls": [
+        "https://kindkones.com/pages/contact",
+        "https://kindkones.com/pages/locations",
+        "https://kindkones.com/pages/about-us",
+        "https://www.forumtheshoppingmall.com.sg/directory/",
+        "https://kindkones.com/collections/all-products/products.json?limit=250",
+        "https://kindkones.com/policies/shipping-policy",
+        "https://kindkones.com/products/2-for-the-gram-2-pints",
+        "https://kindkones.com/products/2-pint-saver",
+        "https://kindkones.com/products/3-pint-saver",
+        "https://kindkones.com/products/4-pint-saver",
+        "https://kindkones.com/products/vegan-gluten-free-dark-chocolate-ganache-whole-cake",
+        "https://kindkones.com/products/flourless-sweet-potato-brownie-whole-cake",
+        "https://kindkones.com/products/almond-brittle-fudge",
+        "https://kindkones.com/products/banana-pecan",
+        "https://kindkones.com/products/birthday-cake-energy-balls",
+        "https://kindkones.com/products/black-forest",
+        "https://kindkones.com/products/blue-planet-1",
+        "https://kindkones.com/products/charcoal-vanilla-1",
+        "https://kindkones.com/products/chocolate-hazelnut-energy-balls",
+        "https://kindkones.com/products/chocolate-sorbet",
+        "https://kindkones.com/products/creamy-passionfruit",
+        "https://kindkones.com/products/double-chocolate-brownie",
+        "https://kindkones.com/products/flourless-sweet-potato-brownie",
+        "https://kindkones.com/products/hazelnut-chocolate-1",
+        "https://kindkones.com/products/keto-chocolate-sorbet",
+        "https://kindkones.com/products/keto-coconut",
+        "https://kindkones.com/products/kind-kones-favorites-6-cups",
+        "https://kindkones.com/products/macadamia-cranberry-white-chocolate-energy-ball",
+        "https://kindkones.com/products/madagascan-vanilla-bean",
+        "https://kindkones.com/products/mango-raspberry-swirl",
+        "https://kindkones.com/products/midnight-classique-chocolate-cupcake",
+        "https://kindkones.com/products/citrus-orange-chocolate-cupcake",
+        "https://kindkones.com/products/mint-chocolate-chip",
+        "https://kindkones.com/products/mocha-almond-energy-ball",
+        "https://kindkones.com/products/oatmeal-almond-crisp-cookie",
+        "https://kindkones.com/products/oh-just-surprise-me-5-cups-4-pints",
+        "https://kindkones.com/products/pandan-gula-melaka",
+        "https://kindkones.com/products/peanut-butter-jelly-1",
+        "https://kindkones.com/products/peanut-butter-cinnamon-roll-energy-ball",
+        "https://kindkones.com/products/pink-lemonade",
+        "https://kindkones.com/products/saffron-pistachio",
+        "https://kindkones.com/products/salted-chocolate-chip",
+        "https://kindkones.com/products/watermelon-strawberry-mint-sorbet"
+      ],
+      "placeIdentityEvidenceUrl": "https://www.google.com/maps/search/?api=1&query=Kind%20Kones%20%E2%80%94%20Forum%20Shopping%20Mall&query_place_id=ChIJOTJ7DmAZ2jERDEVHuKdUJMc",
+      "reviewMethod": "Manual exact-name/premises comparison of independent directory direct-map association against current operator or merchant-managed ordering branch evidence. Both feature-ID halves match the saved place ID. Postal, street, basement/unit/range and concept checked; no new paid lookup and no Google display metadata copied.",
+      "sourceProvidedPlaceLink": "https://maps.app.goo.gl/eKyVYJnoYfLSQJE8A",
+      "independentLeadId": "hippo-kind-kones-orchard",
+      "reviewReport": "docs/research/source-link-identity-review-2026-10-16.md"
+    },
+    {
+      "placeId": "ChIJDeazI-4Z2jERhBlDoAgbol4",
+      "dataset": "data/menu-research/menu-directory-continuation-cafes-2026-10-16.json",
+      "branchId": "lilac-oak-oxley-rise",
+      "name": "Lilac Oak",
+      "address": "71 Oxley Rise #01-01, Singapore 238698",
+      "reviewStatus": "approved",
+      "reviewedAt": "2026-10-16T00:50:10.428Z",
+      "branchFingerprint": "196b26b07432456d0daba1fd6dc4d364b2df62c5facdb77cbadd335ca02bc96d",
+      "independentSourceUrls": [
+        "https://www.lilacoak.com/cafe-menu"
+      ],
+      "placeIdentityEvidenceUrl": "https://www.google.com/maps/search/?api=1&query=Lilac%20Oak&query_place_id=ChIJDeazI-4Z2jERhBlDoAgbol4",
+      "reviewMethod": "Manual exact-name/premises comparison of independent directory direct-map association against current operator or merchant-managed ordering branch evidence. Both feature-ID halves match the saved place ID. Postal, street, basement/unit/range and concept checked; no new paid lookup and no Google display metadata copied.",
+      "sourceProvidedPlaceLink": "https://maps.app.goo.gl/1RLesoieai5kUhNg8",
+      "independentLeadId": "hippo-lilac-oak",
+      "reviewReport": "docs/research/source-link-identity-review-2026-10-16.md"
+    },
+    {
+      "placeId": "ChIJ8Seg-YkQ2jERAS5t2xouE04",
+      "dataset": "data/menu-research/menu-completion-identity-foods-01.json",
+      "branchId": "living-wholesome-bukit-timah",
+      "name": "Living Wholesome Vegetarian — Bukit Timah",
+      "address": "2A Jalan Seh Chuan #01-060, Singapore 599213",
+      "reviewStatus": "approved",
+      "reviewedAt": "2026-10-16T00:50:10.428Z",
+      "branchFingerprint": "db170b0d9e949489d7cc4ee01fb9f4ce96c42e8adcd14ae57d6c2313a5f921dc",
+      "independentSourceUrls": [
+        "https://livingwholesome.sg/"
+      ],
+      "placeIdentityEvidenceUrl": "https://www.google.com/maps/search/?api=1&query=Living%20Wholesome%20Vegetarian%20%E2%80%94%20Bukit%20Timah&query_place_id=ChIJ8Seg-YkQ2jERAS5t2xouE04",
+      "reviewMethod": "Manual exact-name/premises comparison of independent directory direct-map association against current operator or merchant-managed ordering branch evidence. Both feature-ID halves match the saved place ID. Postal, street, basement/unit/range and concept checked; no new paid lookup and no Google display metadata copied.",
+      "sourceProvidedPlaceLink": "https://maps.app.goo.gl/n6CcJJQzGRPHmMEt9",
+      "independentLeadId": "hippo-living-wholesome-vegetarian-bukit-timah",
+      "reviewReport": "docs/research/source-link-identity-review-2026-10-16.md"
+    },
+    {
+      "placeId": "ChIJmyUPHAAZ2jERFw5dFhmKnIA",
+      "dataset": "data/menu-research/menu-ascend-coco-moonchay-sproutz.json",
+      "branchId": "sproutz-downtown",
+      "name": "Sproutz Downtown",
+      "address": "15 Central Boulevard #B1-05 Downtown MRT Station, Singapore 018969",
+      "reviewStatus": "approved",
+      "reviewedAt": "2026-10-16T00:50:10.428Z",
+      "branchFingerprint": "400b7f7de8acdcd325c93d526626fd88059cde31b32e2b3ac52386d615111167",
+      "independentSourceUrls": [
+        "https://www.sproutzdowntown.com/",
+        "https://www.sproutzdowntown.com/menu",
+        "https://www.sproutzdowntown.com/_files/ugd/58d4dd_173e19f9e7a0458f83c058a255664338.pdf"
+      ],
+      "placeIdentityEvidenceUrl": "https://www.google.com/maps/search/?api=1&query=Sproutz%20Downtown&query_place_id=ChIJmyUPHAAZ2jERFw5dFhmKnIA",
+      "reviewMethod": "Manual exact-name/premises comparison of independent directory direct-map association against current operator or merchant-managed ordering branch evidence. Both feature-ID halves match the saved place ID. Postal, street, basement/unit/range and concept checked; no new paid lookup and no Google display metadata copied.",
+      "sourceProvidedPlaceLink": "https://maps.app.goo.gl/54HzJopueSzM38SaA",
+      "independentLeadId": "hippo-sproutz-downtown",
+      "reviewReport": "docs/research/source-link-identity-review-2026-10-16.md"
+    },
+    {
+      "placeId": "ChIJs2Wgx6QZ2jERGZRjo0rnybI",
+      "dataset": "data/menu-research/menu-supreme-vege.json",
+      "branchId": "supreme-vege-queen-street",
+      "name": "Supreme Vege — Hotel Royal @ Queens",
+      "address": "12 Queen Street, Hotel Royal @ Queens #02-03, Singapore 188553",
+      "reviewStatus": "approved",
+      "reviewedAt": "2026-10-16T00:50:10.428Z",
+      "branchFingerprint": "705b106ed2ea899ec8b03c3264426503b23053e35ff84b4d94a55539917702f6",
+      "independentSourceUrls": [
+        "https://supremevege.oddle.me/en_SG/stores",
+        "https://www.supremevege.sg/",
+        "https://www.supremevege.sg/wp-content/uploads/2016/06/BEnto-Set-2025a.pdf",
+        "https://supremevege.oddle.me/en_SG/",
+        "https://www.supremevege.sg/wp-content/uploads/2025/04/Alacarte-special-price-2025-Updated-A.pdf",
+        "https://www.supremevege.sg/wp-content/uploads/2026/01/SV-CNY-EVE-ALA-CARTE-MENU-202PDF.pdf",
+        "https://www.supremevege.sg/wp-content/uploads/2025/06/ALa-carte-Bf-Menu-2025-PDF.pdf",
+        "https://www.supremevege.sg/wp-content/uploads/2016/06/2026-SV-Standard-Buffet-Menu.pdf",
+        "https://www.supremevege.sg/wp-content/uploads/2016/06/2026-SV-Celebration-Bf-Menu.pdf",
+        "https://www.supremevege.sg/wp-content/uploads/2016/06/Funeral-Order-form-2025.pdf",
+        "https://www.supremevege.sg/wp-content/uploads/2016/06/High-tea-menu-2025.pdf",
+        "https://www.supremevege.sg/wp-content/uploads/2025/10/Set-Meal-Dine-in-8-10pax-2025.pdf",
+        "https://www.supremevege.sg/wp-content/uploads/2016/06/Wedding-Package-Menu-2025.pdf",
+        "https://www.supremevege.sg/wp-content/uploads/2016/06/Supreme-Vege-Wedding-Package-Includes-2025.pdf",
+        "https://www.supremevege.sg/wp-content/uploads/2016/06/Solemnization-Package-Menu-Inclusions-2025.pdf"
+      ],
+      "placeIdentityEvidenceUrl": "https://www.google.com/maps/search/?api=1&query=Supreme%20Vege%20%E2%80%94%20Hotel%20Royal%20%40%20Queens&query_place_id=ChIJs2Wgx6QZ2jERGZRjo0rnybI",
+      "reviewMethod": "Manual exact-name/premises comparison of independent directory direct-map association against current operator or merchant-managed ordering branch evidence. Both feature-ID halves match the saved place ID. Postal, street, basement/unit/range and concept checked; no new paid lookup and no Google display metadata copied.",
+      "sourceProvidedPlaceLink": "https://maps.app.goo.gl/ppsnt3y6fvDgEtSe9",
+      "independentLeadId": "hippo-supreme-vege",
+      "reviewReport": "docs/research/source-link-identity-review-2026-10-16.md"
+    },
+    {
+      "placeId": "ChIJgQW1PzsY2jERu4B194pJLLk",
+      "dataset": "data/menu-research/menu-completion-directory-bakeries-2026-10-16.json",
+      "branchId": "yes-natural-bakery-geylang-55",
+      "name": "Yes Natural Bakery",
+      "address": "55 Lorong 27 Geylang, Singapore 388183",
+      "reviewStatus": "approved",
+      "reviewedAt": "2026-10-16T00:50:10.428Z",
+      "branchFingerprint": "f3cfa568b738d3fbecb7003dc230ed5eee0306f7b9d9630937bd27b56a6abaa7",
+      "independentSourceUrls": [
+        "https://bakery.yesnatural.sg/",
+        "https://ynbakery.cococart.co/"
+      ],
+      "placeIdentityEvidenceUrl": "https://www.google.com/maps/search/?api=1&query=Yes%20Natural%20Bakery&query_place_id=ChIJgQW1PzsY2jERu4B194pJLLk",
+      "reviewMethod": "Manual exact-name/premises comparison of independent directory direct-map association against current operator or merchant-managed ordering branch evidence. Both feature-ID halves match the saved place ID. Postal, street, basement/unit/range and concept checked; no new paid lookup and no Google display metadata copied.",
+      "sourceProvidedPlaceLink": "https://maps.app.goo.gl/kCPQLiD7PscFYda67",
+      "independentLeadId": "hippo-yes-natural-bakery",
+      "reviewReport": "docs/research/source-link-identity-review-2026-10-16.md"
+    },
+    {
+      "placeId": "ChIJDxQtJT8Q2jERSNsdeBemT70",
+      "dataset": "data/menu-research/menu-nature-sunnychoice-leaf.json",
+      "branchId": "sunnychoice-bukit-batok",
+      "name": "Sunnychoice — Bukit Batok",
+      "address": "Blk 630 Bukit Batok Central #01-154-#01-156, Singapore 650630",
+      "reviewStatus": "approved",
+      "reviewedAt": "2026-10-16T00:58:13.010Z",
+      "branchFingerprint": "b83b8123ad342a14edfd6d02a2424493636ad4ca6151daace5b31b6b8d6a1b2b",
+      "independentSourceUrls": [
+        "https://www.sunnychoice.com.sg/",
+        "https://www.sunnychoice.com.sg/our-cafe",
+        "https://www.sunnychoice.com.sg/our-cafe/blogart91",
+        "https://www.sunnychoice.com.sg/our-cafe/blogart35",
+        "https://www.sunnychoice.com.sg/our-cafe/blogcat1/",
+        "https://www.sunnychoice.com.sg/our-cafe/blogcat4/",
+        "https://www.sunnychoice.com.sg/our-cafe/blogcat6/",
+        "https://www.sunnychoice.com.sg/our-cafe/dessert/",
+        "https://www.sunnychoice.com.sg/our-cafe/noodle/"
+      ],
+      "placeIdentityEvidenceUrl": "https://www.google.com/maps/search/?api=1&query=Sunnychoice%20%E2%80%94%20Bukit%20Batok&query_place_id=ChIJDxQtJT8Q2jERSNsdeBemT70",
+      "reviewMethod": "Manual existing paid-candidate branch review against current independently sourced operator/property/merchant-ordering premises. Name, street, postal, basement/kiosk/unit/range considered separately; Google display metadata not copied. ",
+      "reviewReport": "docs/research/identity-completion-batch-02-root-review.md"
+    },
+    {
+      "placeId": "ChIJeVaLQcoV2jERMuPmS4m2PX4",
+      "dataset": "data/menu-research/menu-completion-identity-foods-03b.json",
+      "branchId": "slow-bakes-yishun-hyc",
+      "name": "Slow Bakes",
+      "address": "30A Yishun Central 1, Tzu Chi Humanistic Youth Centre, Singapore 768796",
+      "reviewStatus": "approved",
+      "reviewedAt": "2026-10-16T00:58:13.010Z",
+      "branchFingerprint": "627cdd0ae80b0828562c957feadc7157d8ae74988a6e27cd293ea98788cd6acf",
+      "independentSourceUrls": [
+        "https://take.app/slowbakes",
+        "https://hyc.tzuchi.org.sg/spaces/dining/",
+        "https://hyc.tzuchi.org.sg/spotlight/my-experience-as-a-student-intern-at-hyc/"
+      ],
+      "placeIdentityEvidenceUrl": "https://www.google.com/maps/search/?api=1&query=Slow%20Bakes&query_place_id=ChIJeVaLQcoV2jERMuPmS4m2PX4",
+      "reviewMethod": "Manual existing paid-candidate branch review against current independently sourced operator/property/merchant-ordering premises. Name, street, postal, basement/kiosk/unit/range considered separately; Google display metadata not copied. Operator publishes exact named venue/building/street/postal but no unit; no secondary unit inferred.",
+      "reviewReport": "docs/research/identity-completion-batch-02-root-review.md"
+    },
+    {
+      "placeId": "ChIJixpj_gsQ2jERRN8w1YVWU-s",
+      "dataset": "data/menu-research/greendot/menus.json",
+      "branchId": "greendot-westgate",
+      "name": "Greendot @ Westgate",
+      "address": "3 Gateway Dr, #01-06 Westgate, 608532, Singapore",
+      "reviewStatus": "approved",
+      "reviewedAt": "2026-10-16T00:58:13.010Z",
+      "branchFingerprint": "66e45cad365c9ea1db10d8890de6898a342a3c718dd3c352de8fa27d957f05e4",
+      "independentSourceUrls": [
+        "https://orders.greendot.sg/?StoreID=4b9717ab-a5dc-432c-8cd5-20627535147a&Service=PickUp&lang=EN",
+        "https://patisserie.greendot.sg/Category?StoreID=e27abe73-7887-4989-b1ee-3b6d1405a583&Service=PickUp&lang=EN"
+      ],
+      "placeIdentityEvidenceUrl": "https://www.google.com/maps/search/?api=1&query=Greendot%20%40%20Westgate&query_place_id=ChIJixpj_gsQ2jERRN8w1YVWU-s",
+      "reviewMethod": "Manual existing paid-candidate branch review against current independently sourced operator/property/merchant-ordering premises. Name, street, postal, basement/kiosk/unit/range considered separately; Google display metadata not copied. Saved independent lead postal 608531 corrected to merchant-proven 608532; street/unit match.",
+      "reviewReport": "docs/research/identity-completion-batch-02-root-review.md"
+    },
+    {
+      "placeId": "ChIJiyb74A0Z2jER4TRtHJtVdDY",
+      "dataset": "data/menu-research/menu-completion-identity-foods-03a.json",
+      "branchId": "su-xiang-lau-pa-sat-46",
+      "name": "Su Xiang Vegetarian",
+      "address": "18 Raffles Quay, Lau Pa Sat Stall 46, Singapore 048582",
+      "reviewStatus": "approved",
+      "reviewedAt": "2026-10-16T00:58:13.010Z",
+      "branchFingerprint": "3d9ca88f2545cfd7b3e069cf6c9e4e76bf2871ba1cc659fde1f1bf35880401ad",
+      "independentSourceUrls": [
+        "https://www.foodpanda.sg/restaurant/rnb4/su-xiang-vegetarian-kopitiam-at-lau-pa-sat",
+        "https://www.happycow.net/reviews/su-xiang-central-singapore-346380"
+      ],
+      "placeIdentityEvidenceUrl": "https://www.google.com/maps/search/?api=1&query=Su%20Xiang%20Vegetarian&query_place_id=ChIJiyb74A0Z2jER4TRtHJtVdDY",
+      "reviewMethod": "Manual existing paid-candidate branch review against current independently sourced operator/property/merchant-ordering premises. Name, street, postal, basement/kiosk/unit/range considered separately; Google display metadata not copied. Current delivery Stall 46 retained; older property-hosted advertorial Stall 47 not silently merged.",
+      "reviewReport": "docs/research/identity-completion-batch-02-root-review.md"
+    },
+    {
+      "placeId": "ChIJk50NDNY92jEROjysXWAkQ4A",
+      "dataset": "data/menu-research/menu-completion-identity-foods-03a.json",
+      "branchId": "yi-ding-xuan-tampines-201",
+      "name": "Yi Ding Xuan Vegetarian",
+      "address": "201 Tampines Street 21 #01-201, Singapore 520201",
+      "reviewStatus": "approved",
+      "reviewedAt": "2026-10-16T00:58:13.010Z",
+      "branchFingerprint": "de2da4dc54281a3875e4e92d5fb8fda70ec011544dab75b415f6b0036be99502",
+      "independentSourceUrls": [
+        "https://www.foodpanda.sg/restaurant/gxl8/yi-ding-xuan-vegetarian-yi-ding-xuan-su-shi-tampines"
+      ],
+      "placeIdentityEvidenceUrl": "https://www.google.com/maps/search/?api=1&query=Yi%20Ding%20Xuan%20Vegetarian&query_place_id=ChIJk50NDNY92jEROjysXWAkQ4A",
+      "reviewMethod": "Manual existing paid-candidate branch review against current independently sourced operator/property/merchant-ordering premises. Name, street, postal, basement/kiosk/unit/range considered separately; Google display metadata not copied. ",
+      "reviewReport": "docs/research/identity-completion-batch-02-root-review.md"
+    },
+    {
+      "placeId": "ChIJKzM3xBc92jERl8FJY-7RWuw",
+      "dataset": "data/menu-research/greendot/menus.json",
+      "branchId": "greendot-tampines-1",
+      "name": "Greendot @ Tampines 1",
+      "address": "10 Tampines Central 1, Tampines 1, #B1-K8, 529536, Singapore",
+      "reviewStatus": "approved",
+      "reviewedAt": "2026-10-16T00:58:13.010Z",
+      "branchFingerprint": "a6234e31420ffd50afd3bd82d5a524e57798dd12ddc81a3480c96543592cabfc",
+      "independentSourceUrls": [
+        "https://orders.greendot.sg/?StoreID=aab91d55-dec1-4f37-b3d9-679099c43136&Service=PickUp&lang=EN",
+        "https://patisserie.greendot.sg/Category?StoreID=2668dcec-9bbe-4f30-8e9c-0884f1c361b2&Service=PickUp&lang=EN"
+      ],
+      "placeIdentityEvidenceUrl": "https://www.google.com/maps/search/?api=1&query=Greendot%20%40%20Tampines%201&query_place_id=ChIJKzM3xBc92jERl8FJY-7RWuw",
+      "reviewMethod": "Manual existing paid-candidate branch review against current independently sourced operator/property/merchant-ordering premises. Name, street, postal, basement/kiosk/unit/range considered separately; Google display metadata not copied. ",
+      "reviewReport": "docs/research/identity-completion-batch-02-root-review.md"
+    },
+    {
+      "placeId": "ChIJL3fpU0UZ2jERb1t3reUGu-I",
+      "dataset": "data/menu-research/menu-warung-original-origanics.json",
+      "branchId": "originalgreens-shaw-plaza",
+      "name": "Original Greens — Shaw Plaza",
+      "address": "360 Balestier Road #04-07/K2 Shaw Plaza, Singapore 329783",
+      "reviewStatus": "approved",
+      "reviewedAt": "2026-10-16T00:58:13.010Z",
+      "branchFingerprint": "8d7f77ddd53981bac24c81a093930fd96bf3f477fa86e85fe1b9bcdb5a130e62",
+      "independentSourceUrls": [
+        "https://originalgreens.oddle.me/en_SG",
+        "https://originalgreens.oddle.me/en_SG/stores"
+      ],
+      "placeIdentityEvidenceUrl": "https://www.google.com/maps/search/?api=1&query=Original%20Greens%20%E2%80%94%20Shaw%20Plaza&query_place_id=ChIJL3fpU0UZ2jERb1t3reUGu-I",
+      "reviewMethod": "Manual existing paid-candidate branch review against current independently sourced operator/property/merchant-ordering premises. Name, street, postal, basement/kiosk/unit/range considered separately; Google display metadata not copied. ",
+      "reviewReport": "docs/research/identity-completion-batch-02-root-review.md"
+    },
+    {
+      "placeId": "ChIJl727Gx892jERVPMYx1SNdNo",
+      "dataset": "data/menu-research/linlin-metta-joyi-kisu/metta.json",
+      "branchId": "metta-simei",
+      "name": "Metta Cafe — Simei (online-shop source)",
+      "address": "32 Simei Street 1, Level 1 Metta Building, Singapore 529950",
+      "reviewStatus": "approved",
+      "reviewedAt": "2026-10-16T00:58:13.010Z",
+      "branchFingerprint": "45fabb870caabcfb282bb66cb6ff46309103121c2f416e36c6043a32ff8eca12",
+      "independentSourceUrls": [
+        "https://www.metta.org.sg/youth-employment-support/#mettacafe",
+        "https://mettawelfareassociation-onlineshop.getz.co/?StoreID=4a3d59f0-1dfc-4ce5-b1cc-6b8046bfa747&Service=PickUp&lang=EN"
+      ],
+      "placeIdentityEvidenceUrl": "https://www.google.com/maps/search/?api=1&query=Metta%20Cafe%20%E2%80%94%20Simei%20(online-shop%20source)&query_place_id=ChIJl727Gx892jERVPMYx1SNdNo",
+      "reviewMethod": "Manual existing paid-candidate branch review against current independently sourced operator/property/merchant-ordering premises. Name, street, postal, basement/kiosk/unit/range considered separately; Google display metadata not copied. ",
+      "reviewReport": "docs/research/identity-completion-batch-02-root-review.md"
+    },
+    {
+      "placeId": "ChIJm-c-JQA92jERewuO3eo0RyE",
+      "dataset": "data/menu-research/menu-continuation-stalls.json",
+      "branchId": "renyi-tampines820",
+      "name": "Ren Yi Vegetarian — 820 Tampines Street 81",
+      "address": "Block 820 Tampines Street 81, Singapore 520820",
+      "reviewStatus": "approved",
+      "reviewedAt": "2026-10-16T01:23:43.975Z",
+      "branchFingerprint": "ce34cc8911d6edaf7a2fbe4e2fec3bf179a8506d19b00dc0a4a7464e9c9ce32a",
+      "independentSourceUrls": [
+        "https://www.foodpanda.sg/restaurant/xr8d/ren-yi-vegetarian-tampines-street-81"
+      ],
+      "placeIdentityEvidenceUrl": "https://www.google.com/maps/search/?api=1&query=vegetarian&query_place_id=ChIJm-c-JQA92jERewuO3eo0RyE",
+      "reviewMethod": "Explicit comparison of frozen candidate-ID association with exact independently sourced merchant/ordering/landlord premises. Canonical merchant facts retained; Google display metadata neither copied nor stored. Source-specific menu and price review is separate. Renewed after adding the sourced ambiguous-item verification evidence; name/address and original exact merchant evidence unchanged. Row001 remains held.",
+      "reviewReport": "docs/research/identity-completion-batch-05-root-review.md"
+    },
+    {
+      "placeId": "ChIJMcWSBZIX2jERpH5WSHHxJdc",
+      "dataset": "data/menu-research/menu-korean-greenearth-futkai.json",
+      "branchId": "boneless-irving",
+      "name": "The Boneless Kitchen",
+      "address": "1 Irving Place, #01-31, The Commerze @ Irving, Singapore 369546",
+      "reviewStatus": "approved",
+      "reviewedAt": "2026-10-16T01:18:57.375Z",
+      "branchFingerprint": "0857bf2a4c717f86ba2cb30b5c973de6c61bf05dae127e2fc141b7d7fb084ff2",
+      "independentSourceUrls": [
+        "https://thebonelesskitchen.com/",
+        "https://thebonelesskitchen.oddle.me/en_SG",
+        "https://thebonelesskitchen.com/menu/",
+        "https://buzz.fnbees.com/sg/en-US/restaurant/the-boneless-kitchen-qr/brbtZZvqP5ipULZMcIU6/takeaway/y6i3PVolWLRkNVdLkps6/3LyMaYUoYja96DFi0ouY",
+        "https://cdn-prod.fnbees.com/fnbees/outlet/brbtZZvqP5ipULZMcIU6/menu/menu.json"
+      ],
+      "placeIdentityEvidenceUrl": "https://www.google.com/maps/search/?api=1&query=vegetarian&query_place_id=ChIJMcWSBZIX2jERpH5WSHHxJdc",
+      "reviewMethod": "Explicit comparison of frozen candidate-ID association with exact independently sourced merchant/ordering/landlord premises. Canonical merchant facts retained; Google display metadata neither copied nor stored. Source-specific menu and price review is separate.",
+      "reviewReport": "docs/research/identity-completion-batch-05-root-review.md"
+    },
+    {
+      "placeId": "ChIJNd6qDbsZ2jERXzGkcSP3wvI",
+      "dataset": "data/menu-research/menu-completion-identity-foods-05d-tian-yuan.json",
+      "branchId": "tian-yuan-fortune-centre-01-16",
+      "name": "Tian Yuan Healthy Vegetarian Food Paradise",
+      "address": "190 Middle Road #01-16, Fortune Centre, Singapore 188979",
+      "reviewStatus": "approved",
+      "reviewedAt": "2026-10-16T01:18:57.375Z",
+      "branchFingerprint": "ef5c4a7e3f287f30ce25559db02c7a803c159b5ec448aa393fa930c168a9395c",
+      "independentSourceUrls": [
+        "https://www.foodpanda.sg/restaurant/g3ra/tian-yuan-healthy-vegetarian-fortune-centre"
+      ],
+      "placeIdentityEvidenceUrl": "https://www.google.com/maps/search/?api=1&query=vegetarian&query_place_id=ChIJNd6qDbsZ2jERXzGkcSP3wvI",
+      "reviewMethod": "Explicit comparison of frozen candidate-ID association with exact independently sourced merchant/ordering/landlord premises. Canonical merchant facts retained; Google display metadata neither copied nor stored. Source-specific menu and price review is separate.",
+      "reviewReport": "docs/research/identity-completion-batch-05-root-review.md"
+    },
+    {
+      "placeId": "ChIJo2WILowX2jER1jxllNQjawk",
+      "dataset": "data/menu-research/menu-completion-identity-foods-05a.json",
+      "branchId": "happy-vegetarian-hougang-106",
+      "name": "Happy Vegetarian Food - Hougang",
+      "address": "106 Hougang Avenue 1 #01-1239, Singapore 530106",
+      "reviewStatus": "approved",
+      "reviewedAt": "2026-10-16T01:18:57.375Z",
+      "branchFingerprint": "6d314ea775f3d5fdd71418bfe58af280b41265e735cae51b2662591c36f901e3",
+      "independentSourceUrls": [
+        "https://www.foodpanda.sg/restaurant/j39t/happy-vegetarian-food-kai-xin-su-shi-hougang"
+      ],
+      "placeIdentityEvidenceUrl": "https://www.google.com/maps/search/?api=1&query=vegetarian&query_place_id=ChIJo2WILowX2jER1jxllNQjawk",
+      "reviewMethod": "Explicit comparison of frozen candidate-ID association with exact independently sourced merchant/ordering/landlord premises. Canonical merchant facts retained; Google display metadata neither copied nor stored. Source-specific menu and price review is separate.",
+      "reviewReport": "docs/research/identity-completion-batch-05-root-review.md"
+    },
+    {
+      "placeId": "ChIJOeo7rRYP2jERfaGpD0hs2vE",
+      "dataset": "data/menu-research/menu-completion-identity-foods-05e-crowded-ntu.json",
+      "branchId": "crowded-bowl-ntu-north-spine",
+      "name": "The Crowded Bowl - NTU North Spine",
+      "address": "76 Nanyang Drive, North Spine Plaza NS3-1-18, Singapore 637331",
+      "reviewStatus": "approved",
+      "reviewedAt": "2026-10-16T01:18:57.375Z",
+      "branchFingerprint": "1170561ab6d2f00bcda61103eb3ef5a8cd1d1effac636b058cddca02c91d7283",
+      "independentSourceUrls": [
+        "https://www.foodpanda.sg/restaurant/e6jj/the-crowded-bowl-at-ntu-islandwide",
+        "https://www.ntu.edu.sg/alumni/alumni-stories-news/detail/alumni-entrepreneurs-changing-ntu-s-food-scene"
+      ],
+      "placeIdentityEvidenceUrl": "https://www.google.com/maps/search/?api=1&query=vegetarian&query_place_id=ChIJOeo7rRYP2jERfaGpD0hs2vE",
+      "reviewMethod": "Explicit comparison of frozen candidate-ID association with exact independently sourced merchant/ordering/landlord premises. Canonical merchant facts retained; Google display metadata neither copied nor stored. Source-specific menu and price review is separate.",
+      "reviewReport": "docs/research/identity-completion-batch-05-root-review.md"
+    },
+    {
+      "placeId": "ChIJOU3d6FcZ2jER-3pxc0jHNoI",
+      "dataset": "data/pilot/catalogue.json",
+      "branchId": "living-wholesome-fortune-centre",
+      "name": "Living Wholesome Vegetarian — Fortune Centre",
+      "address": "190 Middle Road #01-23, Fortune Centre, Singapore 188979",
+      "reviewStatus": "approved",
+      "reviewedAt": "2026-10-16T01:18:57.375Z",
+      "branchFingerprint": "8808d6997613b90db0fd8ee7fc67f70eb17019785bdf8f1feba4005aebf15e0c",
+      "independentSourceUrls": [
+        "https://livingwholesome.sg/",
+        "https://www.foodpanda.sg/restaurant/wd61/living-wholesome-vegetarian-food-fortune-centre"
+      ],
+      "placeIdentityEvidenceUrl": "https://www.google.com/maps/search/?api=1&query=vegetarian&query_place_id=ChIJOU3d6FcZ2jER-3pxc0jHNoI",
+      "reviewMethod": "Explicit comparison of frozen candidate-ID association with exact independently sourced merchant/ordering/landlord premises. Canonical merchant facts retained; Google display metadata neither copied nor stored. Source-specific menu and price review is separate.",
+      "reviewReport": "docs/research/identity-completion-batch-05-root-review.md"
+    },
+    {
+      "placeId": "ChIJPbsINYoV2jERWAx6eoSUiHY",
+      "dataset": "data/menu-research/menu-botanict-kindbowl-foyouyuan.json",
+      "branchId": "kind-bowl-northpoint",
+      "name": "The Kind Bowl — Northpoint City",
+      "address": "930 Yishun Avenue 2, Northpoint City North Wing #B1-46, Singapore 769098",
+      "reviewStatus": "approved",
+      "reviewedAt": "2026-10-16T01:18:57.375Z",
+      "branchFingerprint": "4c7db4732f98b458ef7651ae37c62fd2d80fe5118548fab5a153e9d42e57b347",
+      "independentSourceUrls": [
+        "https://www.thekindbowl.com.sg/blank-3",
+        "https://www.thekindbowl.com.sg/blank"
+      ],
+      "placeIdentityEvidenceUrl": "https://www.google.com/maps/search/?api=1&query=vegetarian&query_place_id=ChIJPbsINYoV2jERWAx6eoSUiHY",
+      "reviewMethod": "Explicit comparison of frozen candidate-ID association with exact independently sourced merchant/ordering/landlord premises. Canonical merchant facts retained; Google display metadata neither copied nor stored. Source-specific menu and price review is separate.",
+      "reviewReport": "docs/research/identity-completion-batch-05-root-review.md"
+    },
+    {
+      "placeId": "ChIJRwPIlUsb2jEREKPalHlNSR0",
+      "dataset": "data/menu-research/greendot/menus.json",
+      "branchId": "greendot-star-vista",
+      "name": "Greendot @ Star Vista",
+      "address": "1 Vista Exchange Green, #02-04, The Star Vista 138617, Singapore",
+      "reviewStatus": "approved",
+      "reviewedAt": "2026-10-16T01:18:57.375Z",
+      "branchFingerprint": "8bd1606d4ac1f701110308d9ab1e38a8f9dfc0172ef2282aa53e0b360a0f2731",
+      "independentSourceUrls": [
+        "https://orders.greendot.sg/?StoreID=f39c03dc-5939-438d-b91e-df0677037d8c&Service=PickUp&lang=EN",
+        "https://patisserie.greendot.sg/Category?StoreID=9f976cf1-c830-4927-8498-73fb9279861c&Service=PickUp&lang=EN"
+      ],
+      "placeIdentityEvidenceUrl": "https://www.google.com/maps/search/?api=1&query=vegetarian&query_place_id=ChIJRwPIlUsb2jEREKPalHlNSR0",
+      "reviewMethod": "Explicit comparison of frozen candidate-ID association with exact independently sourced merchant/ordering/landlord premises. Canonical merchant facts retained; Google display metadata neither copied nor stored. Source-specific menu and price review is separate.",
+      "reviewReport": "docs/research/identity-completion-batch-05-root-review.md"
+    },
+    {
+      "placeId": "ChIJseQ1k7gZ2jER7uusJ17hy5E",
+      "dataset": "data/menu-research/menu-realfood-indian.json",
+      "branchId": "gokul-upper-dickson",
+      "name": "Gokul-Raas Vegetarian",
+      "address": "19 Upper Dickson Road, Singapore 207478",
+      "reviewStatus": "approved",
+      "reviewedAt": "2026-10-16T01:18:57.375Z",
+      "branchFingerprint": "6885abb9ec92c89ea18ee3d12a2d5d481a0045eb3c43eda067bc4d3e0c9908ef",
+      "independentSourceUrls": [
+        "https://www.gokulraasvegetarian.com.sg/contact.php",
+        "https://www.gokulraasvegetarian.com.sg/dining.php",
+        "https://www.gokulraasvegetarian.com.sg/assets/img/gokulraas_dining_menu.pdf",
+        "https://ongobooking.com/gokulraas/",
+        "https://www.gokulraasvegetarian.com.sg/get_menu.php"
+      ],
+      "placeIdentityEvidenceUrl": "https://www.google.com/maps/search/?api=1&query=vegetarian&query_place_id=ChIJseQ1k7gZ2jER7uusJ17hy5E",
+      "reviewMethod": "Explicit comparison of frozen candidate-ID association with exact independently sourced merchant/ordering/landlord premises. Canonical merchant facts retained; Google display metadata neither copied nor stored. Source-specific menu and price review is separate.",
+      "reviewReport": "docs/research/identity-completion-batch-05-root-review.md"
+    },
+    {
+      "placeId": "ChIJtcxff28U2jER1Ux43_QFQ2I",
+      "dataset": "data/menu-research/greendot/menus.json",
+      "branchId": "greendot-northpoint",
+      "name": "Greendot @ Northpoint",
+      "address": "930 Yishun Ave 2, Northpoint City  North Wing, #B2-09/11, 769098, Singapore",
+      "reviewStatus": "approved",
+      "reviewedAt": "2026-10-16T01:18:57.375Z",
+      "branchFingerprint": "114d09faa149cf871b5f5059bd16eb92c0a407094c50dcd7d37d9af8eba0a15b",
+      "independentSourceUrls": [
+        "https://orders.greendot.sg/?StoreID=f8e46fd5-d7a7-4173-b102-20e44d859073&Service=PickUp&lang=EN",
+        "https://patisserie.greendot.sg/Category?StoreID=844bfa93-ee56-433d-af3c-874e8ab73afa&Service=PickUp&lang=EN"
+      ],
+      "placeIdentityEvidenceUrl": "https://www.google.com/maps/search/?api=1&query=vegetarian&query_place_id=ChIJtcxff28U2jER1Ux43_QFQ2I",
+      "reviewMethod": "Explicit comparison of frozen candidate-ID association with exact independently sourced merchant/ordering/landlord premises. Canonical merchant facts retained; Google display metadata neither copied nor stored. Source-specific menu and price review is separate.",
+      "reviewReport": "docs/research/identity-completion-batch-05-root-review.md"
+    },
+    {
+      "placeId": "ChIJuVmWHwAZ2jERVd6CqMOM3Tk",
+      "dataset": "data/menu-research/menu-completion-directory-bakeries-2026-10-16.json",
+      "branchId": "any1-choco-telok-ayer",
+      "name": "Any1 Choco",
+      "address": "114 Telok Ayer Street, Singapore 068583",
+      "reviewStatus": "approved",
+      "reviewedAt": "2026-10-16T01:18:57.375Z",
+      "branchFingerprint": "5a82924d03b4604cc03e959fee7a60744203d894926b1d4c9ec8c65cf35162ee",
+      "independentSourceUrls": [
+        "https://anyonechoco.com/shops/telok-ayer-street-singapore/",
+        "https://anyonechoco.com/products/",
+        "https://anyonechoco.com/products/category/chocoice/",
+        "https://www.onehungryhippo.com/restaurants"
+      ],
+      "placeIdentityEvidenceUrl": "https://www.google.com/maps/search/?api=1&query=vegetarian&query_place_id=ChIJuVmWHwAZ2jERVd6CqMOM3Tk",
+      "reviewMethod": "Explicit comparison of frozen candidate-ID association with exact independently sourced merchant/ordering/landlord premises. Canonical merchant facts retained; Google display metadata neither copied nor stored. Source-specific menu and price review is separate.",
+      "reviewReport": "docs/research/identity-completion-batch-05-root-review.md"
+    },
+    {
+      "placeId": "ChIJ_5Ti0x8V2jERR42NjLKOLmI",
+      "dataset": "data/menu-research/menu-completion-identity-foods-04a.json",
+      "branchId": "an-acai-affair-northpoint-city",
+      "name": "An Açaí Affair (Yishun Northpoint)",
+      "address": "1 Northpoint Drive #B2-149 (South Wing), Singapore 768019",
+      "reviewStatus": "approved",
+      "reviewedAt": "2026-10-16T01:18:57.375Z",
+      "branchFingerprint": "20be59bc45c5564b9caa8e3cf31b881c84364025f41a661a34db890cd4aecc8e",
+      "independentSourceUrls": [
+        "https://www.anacaiaffair.com/acai-cafe-locations",
+        "https://www.anacaiaffair.com/yishun-northpoint",
+        "https://www.anacaiaffair.com/acai-bowl-menu",
+        "https://www.anacaiaffair.com/acai-faq"
+      ],
+      "placeIdentityEvidenceUrl": "https://www.google.com/maps/search/?api=1&query=vegetarian&query_place_id=ChIJ_5Ti0x8V2jERR42NjLKOLmI",
+      "reviewMethod": "Explicit comparison of frozen candidate-ID association with exact independently sourced merchant/ordering/landlord premises. Canonical merchant facts retained; Google display metadata neither copied nor stored. Source-specific menu and price review is separate.",
+      "reviewReport": "docs/research/identity-completion-batch-05-root-review.md"
+    }
+  ],
+  "notice": "Explicit reviewed branch associations only; candidate links remain unapproved. IDs do not establish whole-venue dietary suitability or current menu completeness."
+}

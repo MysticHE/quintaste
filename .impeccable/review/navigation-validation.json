@@ -1,0 +1,47 @@
+{
+  "checks": [
+    "Five ordered accessible dock destinations",
+    "Every dock icon opens its destination and selects it",
+    "Save recipe then open through profile Saved",
+    "Saved filters, list creation, item detail and Back work",
+    "Saved collection survives reload and supports remove/undo",
+    "Direct Saved link falls back to profile",
+    "Social availability and working Explore action",
+    "Game availability and working Cook action",
+    "Social dock fits 320",
+    "Game dock fits 320",
+    "Social dock fits 375",
+    "Game dock fits 375",
+    "Social dock fits 768",
+    "Game dock fits 768",
+    "Social dock fits 1440",
+    "Game dock fits 1440",
+    "Profile returns to originating Game tab",
+    "Saved remains usable at 320 with larger text"
+  ],
+  "screenshots": [
+    "C:/Users/huien/QT/quintaste/.impeccable/review/navigation-profile-375.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/navigation-saved-375.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/navigation-social-320.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/navigation-game-320.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/navigation-social-375.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/navigation-game-375.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/navigation-social-768.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/navigation-social-1440.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/navigation-game-dark.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/navigation-profile-large-320.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/navigation-saved-large-320.png"
+  ],
+  "errors": [],
+  "limits": [
+    "Browser review only; native device layout and gestures unverified. Social and Game are availability screens, not implemented domains."
+  ],
+  "axe": {
+    "violations": [],
+    "incomplete": [
+      "aria-hidden-focus",
+      "color-contrast"
+    ]
+  },
+  "passed": true
+}

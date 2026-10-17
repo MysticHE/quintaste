@@ -1,0 +1,20 @@
+{
+  "manifestStatus": 200,
+  "bundleStatus": 200,
+  "bundleBytes": 9266148,
+  "markers": [
+    {
+      "marker": "M16 13C9 15 4 11 4 5",
+      "found": true
+    },
+    {
+      "marker": ":focus-visible",
+      "found": true
+    },
+    {
+      "marker": "navigation-dock",
+      "found": true
+    }
+  ],
+  "nativeAppearanceVerified": false
+}

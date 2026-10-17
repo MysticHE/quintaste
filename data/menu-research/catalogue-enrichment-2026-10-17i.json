@@ -1,0 +1,247 @@
+{
+  "checkedAt": "2026-10-17",
+  "deployedRelease": "20261017-group-covers12",
+  "goalStatus": "active",
+  "fullCoverageComplete": false,
+  "coverage": {
+    "browseVenues": 174,
+    "menuIds": 175,
+    "covers": 74,
+    "hours": 89,
+    "uniqueAssets": 54,
+    "assetBytes": 7340101,
+    "coverGaps": 100,
+    "hoursGaps": 85,
+    "allThreeAvailable": 49,
+    "catalogueIndexBytes": 154608
+  },
+  "newPhotos": [
+    {
+      "venueId": "research-zzv-jalan-mas-puteh",
+      "address": "9 Jalan Mas Puteh, Singapore 128615",
+      "photo": {
+        "path": "/api/catalogue-photos/cf505a81b2c6a0d79222e1444bc5d4e3074e6d0097ef75b0d0b4e6e5635036fd.jpg",
+        "width": 960,
+        "height": 640,
+        "author": "Zi Zai Vegetarian Group / Zi Zai Vegetarian",
+        "sourceUrl": "https://order.zzv.sg/Category?StoreID=43c33a3e-a6c4-4794-992d-7f93976ece31&Service=PickUp&lang=EN",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "cf505a81b2c6a0d79222e1444bc5d4e3074e6d0097ef75b0d0b4e6e5635036fd",
+      "bytes": 62307,
+      "originalSha256": "c9d8ec65015452dcbad9fcd0ba14da5153eb30c0d96a489e40ae98754cdc0b66",
+      "sourcePageCheckedAt": "2026-10-16",
+      "sourceImageUrl": "https://s3-ap-southeast-1.amazonaws.com/getz-prod/db44887a-c479-4e1a-a23f-92018e11917c/880380546_SignatureFragrantYamRing.jpg",
+      "identityEvidence": "Exact operator-selected StoreID ordering page contains this yam-ring product image. Operator group directory independently binds the branch name/address. Six branch sources show the same composition (ZiZai/ZhenYi exact hash; Times visually equivalent resized original). Shared food cover does not claim branch interior, current stock or ingredients.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Use case: faithful photo enhancement. Enhance this exact vegetarian yam-ring product photograph. Preserve the single crisp golden yam basket filled with the existing glossy red-sauced plant-based pieces, cashews and peppers, the shredded white garnish/carrot/coriander around it, and the white curved triangular plate on a pale grey background. Same three-quarter overhead angle and landscape composition. Improve clarity from the small source, soft even studio lighting and realistic crisp yam texture. Keep the food quantities, shapes and arrangement faithful. No added ingredients, meat, extra bowls, utensils, props, text, logos or invented restaurant setting. Produce a polished appetising photograph of this same dish.",
+        "review": "Reference and output visually compared. Original yam ring, plate and food arrangement retained; fine details may differ. No independent ingredient claims inferred."
+      }
+    },
+    {
+      "venueId": "research-zzv-yishun",
+      "address": "Blk 236 Yishun Ring Road #01-1000, Singapore 760236",
+      "photo": {
+        "path": "/api/catalogue-photos/cf505a81b2c6a0d79222e1444bc5d4e3074e6d0097ef75b0d0b4e6e5635036fd.jpg",
+        "width": 960,
+        "height": 640,
+        "author": "Zi Zai Vegetarian Group / Zi Zai Vegetarian",
+        "sourceUrl": "https://order.zzv.sg/Category?StoreID=33a3b108-b18e-4fa3-a855-31a33c7c91b0&Service=PickUp&lang=EN",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "cf505a81b2c6a0d79222e1444bc5d4e3074e6d0097ef75b0d0b4e6e5635036fd",
+      "bytes": 62307,
+      "originalSha256": "c9d8ec65015452dcbad9fcd0ba14da5153eb30c0d96a489e40ae98754cdc0b66",
+      "sourcePageCheckedAt": "2026-10-16",
+      "sourceImageUrl": "https://s3-ap-southeast-1.amazonaws.com/getz-prod/db44887a-c479-4e1a-a23f-92018e11917c/880380546_SignatureFragrantYamRing.jpg",
+      "identityEvidence": "Exact operator-selected StoreID ordering page contains this yam-ring product image. Operator group directory independently binds the branch name/address. Six branch sources show the same composition (ZiZai/ZhenYi exact hash; Times visually equivalent resized original). Shared food cover does not claim branch interior, current stock or ingredients.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Use case: faithful photo enhancement. Enhance this exact vegetarian yam-ring product photograph. Preserve the single crisp golden yam basket filled with the existing glossy red-sauced plant-based pieces, cashews and peppers, the shredded white garnish/carrot/coriander around it, and the white curved triangular plate on a pale grey background. Same three-quarter overhead angle and landscape composition. Improve clarity from the small source, soft even studio lighting and realistic crisp yam texture. Keep the food quantities, shapes and arrangement faithful. No added ingredients, meat, extra bowls, utensils, props, text, logos or invented restaurant setting. Produce a polished appetising photograph of this same dish.",
+        "review": "Reference and output visually compared. Original yam ring, plate and food arrangement retained; fine details may differ. No independent ingredient claims inferred."
+      }
+    },
+    {
+      "venueId": "research-zzv-tampines",
+      "address": "801 Tampines Ave 4 #01-281, Tampines Polyview, Singapore 520801",
+      "photo": {
+        "path": "/api/catalogue-photos/cf505a81b2c6a0d79222e1444bc5d4e3074e6d0097ef75b0d0b4e6e5635036fd.jpg",
+        "width": 960,
+        "height": 640,
+        "author": "Zi Zai Vegetarian Group / Zi Zai Vegetarian",
+        "sourceUrl": "https://order.zzv.sg/Category?StoreID=d60a08b7-7a95-46d6-8aad-8034d04cbd18&Service=PickUp&lang=EN",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "cf505a81b2c6a0d79222e1444bc5d4e3074e6d0097ef75b0d0b4e6e5635036fd",
+      "bytes": 62307,
+      "originalSha256": "c9d8ec65015452dcbad9fcd0ba14da5153eb30c0d96a489e40ae98754cdc0b66",
+      "sourcePageCheckedAt": "2026-10-16",
+      "sourceImageUrl": "https://s3-ap-southeast-1.amazonaws.com/getz-prod/db44887a-c479-4e1a-a23f-92018e11917c/880380546_SignatureFragrantYamRing.jpg",
+      "identityEvidence": "Exact operator-selected StoreID ordering page contains this yam-ring product image. Operator group directory independently binds the branch name/address. Six branch sources show the same composition (ZiZai/ZhenYi exact hash; Times visually equivalent resized original). Shared food cover does not claim branch interior, current stock or ingredients.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Use case: faithful photo enhancement. Enhance this exact vegetarian yam-ring product photograph. Preserve the single crisp golden yam basket filled with the existing glossy red-sauced plant-based pieces, cashews and peppers, the shredded white garnish/carrot/coriander around it, and the white curved triangular plate on a pale grey background. Same three-quarter overhead angle and landscape composition. Improve clarity from the small source, soft even studio lighting and realistic crisp yam texture. Keep the food quantities, shapes and arrangement faithful. No added ingredients, meat, extra bowls, utensils, props, text, logos or invented restaurant setting. Produce a polished appetising photograph of this same dish.",
+        "review": "Reference and output visually compared. Original yam ring, plate and food arrangement retained; fine details may differ. No independent ingredient claims inferred."
+      }
+    },
+    {
+      "venueId": "research-zzv-bendemeer",
+      "address": "23 Bendemeer Road #01-523, Bendemeer Ville, Singapore 330023",
+      "photo": {
+        "path": "/api/catalogue-photos/cf505a81b2c6a0d79222e1444bc5d4e3074e6d0097ef75b0d0b4e6e5635036fd.jpg",
+        "width": 960,
+        "height": 640,
+        "author": "Zi Zai Vegetarian Group / Zi Zai Vegetarian",
+        "sourceUrl": "https://order.zzv.sg/Category?StoreID=b04e0e8b-ea27-4c4a-8e85-23e0fb4208b0&Service=PickUp&lang=EN",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "cf505a81b2c6a0d79222e1444bc5d4e3074e6d0097ef75b0d0b4e6e5635036fd",
+      "bytes": 62307,
+      "originalSha256": "c9d8ec65015452dcbad9fcd0ba14da5153eb30c0d96a489e40ae98754cdc0b66",
+      "sourcePageCheckedAt": "2026-10-16",
+      "sourceImageUrl": "https://s3-ap-southeast-1.amazonaws.com/getz-prod/db44887a-c479-4e1a-a23f-92018e11917c/880380546_SignatureFragrantYamRing.jpg",
+      "identityEvidence": "Exact operator-selected StoreID ordering page contains this yam-ring product image. Operator group directory independently binds the branch name/address. Six branch sources show the same composition (ZiZai/ZhenYi exact hash; Times visually equivalent resized original). Shared food cover does not claim branch interior, current stock or ingredients.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Use case: faithful photo enhancement. Enhance this exact vegetarian yam-ring product photograph. Preserve the single crisp golden yam basket filled with the existing glossy red-sauced plant-based pieces, cashews and peppers, the shredded white garnish/carrot/coriander around it, and the white curved triangular plate on a pale grey background. Same three-quarter overhead angle and landscape composition. Improve clarity from the small source, soft even studio lighting and realistic crisp yam texture. Keep the food quantities, shapes and arrangement faithful. No added ingredients, meat, extra bowls, utensils, props, text, logos or invented restaurant setting. Produce a polished appetising photograph of this same dish.",
+        "review": "Reference and output visually compared. Original yam ring, plate and food arrangement retained; fine details may differ. No independent ingredient claims inferred."
+      }
+    },
+    {
+      "venueId": "research-times-vege-bukit-batok",
+      "address": "643 Bukit Batok Central #01-44, Singapore 650643",
+      "photo": {
+        "path": "/api/catalogue-photos/cf505a81b2c6a0d79222e1444bc5d4e3074e6d0097ef75b0d0b4e6e5635036fd.jpg",
+        "width": 960,
+        "height": 640,
+        "author": "Zi Zai Vegetarian Group / Time’s Vege",
+        "sourceUrl": "https://timesvege.zzv.sg/Category?StoreID=f7045319-0600-4f7f-99cb-ef97f6936552&Service=PickUp&lang=EN",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "cf505a81b2c6a0d79222e1444bc5d4e3074e6d0097ef75b0d0b4e6e5635036fd",
+      "bytes": 62307,
+      "originalSha256": "bbfdad3142233f847f160d63f20b82d5cc947ccd7c348dfa09f4da03fb608074",
+      "sourcePageCheckedAt": "2026-10-16",
+      "sourceImageUrl": "https://s3-ap-southeast-1.amazonaws.com/getz-prod/6125c606-768f-4190-8a34-c5182ad92692/1828774225_SignatureFragrantYamRing.jpg",
+      "identityEvidence": "Exact operator-selected StoreID ordering page contains this yam-ring product image. Operator group directory independently binds the branch name/address. Six branch sources show the same composition (ZiZai/ZhenYi exact hash; Times visually equivalent resized original). Shared food cover does not claim branch interior, current stock or ingredients.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Use case: faithful photo enhancement. Enhance this exact vegetarian yam-ring product photograph. Preserve the single crisp golden yam basket filled with the existing glossy red-sauced plant-based pieces, cashews and peppers, the shredded white garnish/carrot/coriander around it, and the white curved triangular plate on a pale grey background. Same three-quarter overhead angle and landscape composition. Improve clarity from the small source, soft even studio lighting and realistic crisp yam texture. Keep the food quantities, shapes and arrangement faithful. No added ingredients, meat, extra bowls, utensils, props, text, logos or invented restaurant setting. Produce a polished appetising photograph of this same dish.",
+        "review": "Reference and output visually compared. Original yam ring, plate and food arrangement retained; fine details may differ. No independent ingredient claims inferred."
+      }
+    },
+    {
+      "venueId": "research-zhenyi-ang-mo-kio-128",
+      "address": "128 Ang Mo Kio Ave 3 #01-1853, Singapore 560128",
+      "photo": {
+        "path": "/api/catalogue-photos/cf505a81b2c6a0d79222e1444bc5d4e3074e6d0097ef75b0d0b4e6e5635036fd.jpg",
+        "width": 960,
+        "height": 640,
+        "author": "Zi Zai Vegetarian Group / Zhen Yi Vegetarian",
+        "sourceUrl": "https://zhenyi.zzv.sg/Category?StoreID=82a04f03-aa49-47c8-88ee-6b8710fbf77a&Service=PickUp&lang=EN",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "cf505a81b2c6a0d79222e1444bc5d4e3074e6d0097ef75b0d0b4e6e5635036fd",
+      "bytes": 62307,
+      "originalSha256": "c9d8ec65015452dcbad9fcd0ba14da5153eb30c0d96a489e40ae98754cdc0b66",
+      "sourcePageCheckedAt": "2026-10-16",
+      "sourceImageUrl": "https://s3-ap-southeast-1.amazonaws.com/getz-prod/d22d9408-99fa-4620-a4d9-6d8e9a56fc69/1260667236_SignatureFragrantYamRing_clone_231220240646052679.jpg",
+      "identityEvidence": "Exact operator-selected StoreID ordering page contains this yam-ring product image. Operator group directory independently binds the branch name/address. Six branch sources show the same composition (ZiZai/ZhenYi exact hash; Times visually equivalent resized original). Shared food cover does not claim branch interior, current stock or ingredients.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Use case: faithful photo enhancement. Enhance this exact vegetarian yam-ring product photograph. Preserve the single crisp golden yam basket filled with the existing glossy red-sauced plant-based pieces, cashews and peppers, the shredded white garnish/carrot/coriander around it, and the white curved triangular plate on a pale grey background. Same three-quarter overhead angle and landscape composition. Improve clarity from the small source, soft even studio lighting and realistic crisp yam texture. Keep the food quantities, shapes and arrangement faithful. No added ingredients, meat, extra bowls, utensils, props, text, logos or invented restaurant setting. Produce a polished appetising photograph of this same dish.",
+        "review": "Reference and output visually compared. Original yam ring, plate and food arrangement retained; fine details may differ. No independent ingredient claims inferred."
+      }
+    }
+  ],
+  "newHours": [
+    {
+      "venueId": "research-supreme-vege-queen-street",
+      "address": "12 Queen Street, Hotel Royal @ Queens #02-03, Singapore 188553",
+      "hours": {
+        "summary": "Hours 11:00–14:00 · 17:00–21:00",
+        "schedule": [
+          "Listed outlet hours: 11:00–14:00 and 17:00–21:00"
+        ],
+        "notes": "Operator contact page lists these meal periods but does not specify weekdays or holiday exceptions. Confirm the day with the venue.",
+        "sourceUrl": "https://www.supremevege.sg/contact-us/",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Exact operator contact page name/address/unit/phone agree with reviewed branch. No daily/weekday pattern inferred."
+    }
+  ],
+  "googleLedger": {
+    "bytes": 1045377,
+    "sha256": "c7321dafaad0473583139494ca899501578892c5b71105429d3cd4dceb4f311a",
+    "requests": 2419,
+    "limit": 2500,
+    "remaining": 81
+  },
+  "sourceRights": "Source attribution and rights retained. User-requested enhancement does not establish an independent licence.",
+  "unresolved": "2,527 food holds,109zero-food research branches,1,828unnamed candidate IDs,8coordinate holds preserved; exact MakanVegan/SoonLai screenshot images unrecovered.",
+  "releaseEvidence": ".local/coverage-2026-10-17i/release.json",
+  "hoursReview": {
+    "checkedAt": "2026-10-17",
+    "acceptedVenueIds": [
+      "research-supreme-vege-queen-street"
+    ],
+    "sources": [
+      {
+        "url": "https://www.supremevege.sg/contact-us/",
+        "finding": "Exact branch meal periods accepted; weekdays unspecified and qualified in app."
+      },
+      {
+        "url": "https://www.originalsin.sg/contact-us-mediterraneanitalian-veg",
+        "finding": "Exact address but no schedule; hold preserved."
+      },
+      {
+        "url": "https://orchardgateway.sg/",
+        "finding": "JavaScript application; DLife landlord tenant detail remains a follow-up."
+      }
+    ],
+    "photoHolds": [
+      {
+        "venueId": "research-greenland-upper-serangoon",
+        "reason": "Selected HometownSteamedTofu-named file actually contains a logo over blurred food; rejected, not enhanced or deployed."
+      }
+    ]
+  }
+}

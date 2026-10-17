@@ -1,0 +1,129 @@
+{
+  "verdict": "ship",
+  "scope": "Local development browser visual/UX and supplied source-review evidence only",
+  "reviewType": "Bounded finish review of existing captures; no browser run, capture sweep or source changes",
+  "validationArtifact": ".impeccable/review/explore-local-validation.json",
+  "capturesReviewed": [
+    {
+      "file": ".impeccable/review/explore-local-correction-320.png",
+      "status": "valid",
+      "focus": "Correction form, wrapping choices and viewport flow"
+    },
+    {
+      "file": ".impeccable/review/explore-local-correction-375.png",
+      "status": "valid",
+      "focus": "Correction form and place context"
+    },
+    {
+      "file": ".impeccable/review/explore-local-correction-768.png",
+      "status": "valid",
+      "focus": "Wider correction form alignment"
+    },
+    {
+      "file": ".impeccable/review/explore-local-correction-1440.png",
+      "status": "valid",
+      "focus": "Centered correction surface and field alignment"
+    },
+    {
+      "file": ".impeccable/review/explore-local-correction-320-larger.png",
+      "status": "valid",
+      "focus": "Larger-text title, controls and form reflow"
+    },
+    {
+      "file": ".impeccable/review/explore-local-submission-preview-375.png",
+      "status": "valid",
+      "focus": "Review details, local-only wording and submit/edit hierarchy"
+    },
+    {
+      "file": ".impeccable/review/explore-local-case-receipt-375.png",
+      "status": "valid",
+      "focus": "Submitted status, reference and case action"
+    },
+    {
+      "file": ".impeccable/review/explore-local-needs-information-375.png",
+      "status": "valid",
+      "focus": "Needs-information state and reviewer request"
+    },
+    {
+      "file": ".impeccable/review/explore-local-review-console-1440.png",
+      "status": "valid",
+      "focus": "Development reviewer surface, reason field and unchanged-public-listing wording"
+    },
+    {
+      "file": ".impeccable/review/explore-local-approved-case-375.png",
+      "status": "valid",
+      "focus": "Approved local status and review reason"
+    },
+    {
+      "file": ".impeccable/review/explore-local-queued-case-offline-375.png",
+      "status": "valid",
+      "focus": "Queued submission, offline state and available cancellation"
+    },
+    {
+      "file": ".impeccable/review/explore-local-saved-offline-375.png",
+      "status": "valid",
+      "focus": "Offline Saved result, private label and search"
+    },
+    {
+      "file": ".impeccable/review/explore-local-offline-bookmark-375.png",
+      "status": "valid",
+      "focus": "Bookmark-only state, private-label editor, public-link action and Undo feedback"
+    },
+    {
+      "file": ".impeccable/review/explore-local-participation-editor-320.png",
+      "status": "valid",
+      "focus": "Coarse-area/category/audience controls and separate confirmation"
+    },
+    {
+      "file": ".impeccable/review/explore-local-participation-on-375.png",
+      "status": "valid",
+      "focus": "Independent Home/Work status and withdraw controls"
+    },
+    {
+      "file": ".impeccable/review/explore-local-participation-on-375-dark.png",
+      "status": "valid",
+      "focus": "Dark-mode participation hierarchy and legibility"
+    },
+    {
+      "file": ".impeccable/review/explore-local-home-withdrawn-375.png",
+      "status": "valid",
+      "focus": "Home off with Work still on"
+    }
+  ],
+  "materialFindings": [],
+  "advisoryFindings": [],
+  "evidence": {
+    "individuallyOpenedCaptures": 17,
+    "viewportWidths": [
+      320,
+      375,
+      768,
+      1440
+    ],
+    "largerTextReviewed": true,
+    "darkModeReviewed": true,
+    "reportedLocalApiJourneysPassed": 11,
+    "validationStatus": "pass",
+    "reportedPageErrors": 0,
+    "reportedScopedAxeViolations": 0,
+    "reportedPaidGoogleCalls": 0,
+    "sourceReview": "Approved by separate source reviewer as supplied by parent; not rerun in this visual pass",
+    "finalTypecheckAndLint": "Exit 0 as supplied by parent",
+    "nativeTransport": "HTTP 200 as supplied by parent; no native visual acceptance inferred"
+  },
+  "assessment": "No material visual or UX defect in the supplied captures. Forms, previews, references/statuses, offline Saved/queue states and independent coarse Home/Work actions are aligned with the local feature scope. Local-only public-mutation and unavailable-count boundaries are visible.",
+  "limits": [
+    "Physical Android/iOS appearance, permissions, gestures, font scaling and accessibility remain unverified.",
+    "Google/OneMap browser data are controlled fixtures; local Explore APIs use the development server.",
+    "Cold-start offline web-shell availability and full-app AA are not asserted.",
+    "This verdict does not approve production public mutation, public participation counts or a production deployment."
+  ],
+  "reviewSummary": {
+    "CRITICAL": 0,
+    "HIGH": 0,
+    "MEDIUM": 0,
+    "LOW": 0,
+    "codeCriteria": "APPROVE",
+    "finishVerdict": "ship"
+  }
+}

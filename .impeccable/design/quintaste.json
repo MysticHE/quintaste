@@ -1,0 +1,2725 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-15T07:08:51.059Z",
+  "title": "Design System: QuinTaste",
+  "wideControllerRefinement": {
+    "updated": "2026-10-16",
+    "sources": [
+      "src/components/navigation/QuinTasteIcon.tsx",
+      "src/components/navigation/TabDock.tsx"
+    ],
+    "presentation": "Game uses a wider controller body spanning x2-30 with approximately 18 units of body height, a smaller rounded 5.2-unit D-pad and two separated diagonal buttons of 2.2-unit diameter. Its top-right leaf joins the single outer contour, has no inner vein and stays hollow in both states; selection fills only the controller body with control cutouts. Market retains its seamless handle/body leaf bag and always uses navigation.selectedForeground (the palette accent), with a selected filled body and inactive outline. Every other inactive glyph uses mutedForeground. All selected glyphs and lens borders remain palette accent. Social, glyph30/stroke2.2, row56, targets48+, borderless outer dock, separate keyboard focus and selected lens geometry remain. This supersedes the compact controller and inner leaf vein; gameplay scope is unchanged.",
+    "supersedes": "Compact controller and inner vein in leafControllerRefinement. Inactive Market now remains palette accent.",
+    "report": ".local/wide-controller/local/report.json",
+    "validation": "Passed: isolated TypeScript, uncached lint and clean export. Fresh independent substitute full review ships the reviewed scope with no material fixes. Live eight cases/56 captures/40 exact selected colors/40 Market transitions, including all glyphs after each selected tab and Market-to-Game; lens colors, borderWidth0, focus and navigation passed with zero scoped axe violations or page errors.",
+    "scope": "Browser/source checks; physical-device appearance unverified.",
+    "release": "20261016-wide-controller1 deployed with healthy app/preview services. Evidence: .local/wide-controller/release.json. Exact web bytes match; Android/iOS manifests and current-marker bundles HTTP 200 with existing scope preserved. All 15 API bundles byte-preserved; no paid calls. Physical-device appearance unverified."
+  },
+  "leafControllerRefinement": {
+    "updated": "2026-10-16",
+    "sources": [
+      "src/components/navigation/QuinTasteIcon.tsx",
+      "src/components/navigation/TabDock.tsx",
+      "src/theme/tokens.ts"
+    ],
+    "presentation": "Social retains the conversation bowl and Market retains its seamless single-contour handle/body bag with an internal leaf. Game uses a conventional D-pad plus and two diagonal buttons, with a leaf smoothly joined at the top right into one outer contour. The inactive outline has solid controls and a leaf vein; the selected silhouette has control and vein cutouts. All five selected tab glyphs and lens borders use the palette accent through shared navigation.selectedForeground, which equals theme.accent in light and dark modes. There is no Game-only color exception. Preserve glyph30/stroke2.2, row56, targets48+, borderWidth0 on the outer dock, separate themed keyboard focus and the selected lens fill/geometry. This replaces the eyes/play/Discord-inspired direction without implementing gameplay.",
+    "supersedes": "Eyes/play/Discord-inspired controller and Game-only accent in controllerRefinement; all older navigation selection-color rules are historical.",
+    "report": ".local/leaf-controller/local/report.json",
+    "validation": "Eight palette/mode/width cases, 56 captures and 40 exact selected-color assertions. Isolated TypeScript, uncached lint and clean export passed. Independent substitute finish review ships the reviewed scope; documentation finding F01 resolved.",
+    "scope": "Browser/source checks; physical-device appearance unverified.",
+    "release": "20261016-leaf-controller1 deployed with healthy app/preview services. Evidence: .local/leaf-controller/release.json. Live eight cases/56 captures/40 exact glyph colors/40 lens-border colors; zero runtime errors or scoped axe violations. Exact web bytes match; Android/iOS signature-request manifests and current-marker bundles HTTP 200 with existing scope key. All 15 API bundles byte-preserved. Physical-device appearance unverified."
+  },
+  "controllerRefinement": {
+    "updated": "2026-10-16",
+    "sources": [
+      "src/components/navigation/QuinTasteIcon.tsx",
+      "src/components/navigation/TabDock.tsx"
+    ],
+    "presentation": "Social retains the conversation bowl. Market uses a single continuous handle/body contour around its leaf, with no horizontal seam or letter. Game uses a custom Discord-inspired controller with a flat top, rounded grips, two eyes and a central play triangle; its authored silhouette is distinct from the Discord logo. Inactive marks are solid inside an outline; selected leaf/face marks are cutouts. Only the selected Game glyph uses theme.accent instead of the darker navigation.selectedForeground; other tabs and the selected lens retain their colors. Preserve glyph30/stroke2.2, row56, targets48+, the borderless outer dock and separate themed keyboard focus. This visual update does not implement gameplay.",
+    "supersedes": "Separate bag handle and frying-pan/play geometry in marketGameRefresh; Social and borderless dock retained.",
+    "report": ".local/controller-refine/local/report.json",
+    "validation": "Eight palette/mode/width cases, 40 captures, exact current paths and selected Game colors; zero runtime errors or scoped axe findings. Isolated TypeScript/lint and clean export passed. Fresh finish review ships the reviewed browser/source scope with current documentation and no blocking findings.",
+    "scope": "Local browser/source checks; physical-device appearance and new account/backend acceptance not established.",
+    "release": "20261016-controller-face1 deployed and verified. Evidence: .local/controller-refine/release.json. Live eight cases/40 captures/eight selected Game color assertions, current paths and no seam; zero page errors or scoped axe findings. Exact web bytes and Android/iOS signed-manifest/current-bundle markers passed with existing scope key. Physical-device appearance unverified."
+  },
+  "marketGameRefresh": {
+    "updated": "2026-10-16",
+    "source": "src/components/navigation/QuinTasteIcon.tsx",
+    "presentation": "Social retains the conversation bowl. Market follows the user's Shopee bag reference with an arched handle and a leaf inside, without a letter. Game uses an angled frying pan with a play triangle, reflecting the PRD pp29-33 Rush Hour cooking theme; this icon change does not implement gameplay. Market and Game use outlined inactive silhouettes with solid interior marks, and filled selected silhouettes with leaf/play cutouts. Preserve glyph30/stroke2.2, row56, targets48+, the borderless outer dock, separate themed keyboard focus and existing selected lens.",
+    "supersedes": "Market/Game geometry in dockSignatureRefresh and earlier icon references; Social and borderless TabDock remain.",
+    "report": ".local/market-game-redesign/local/report.json",
+    "validation": "Eight palette/mode/width cases, 40 captures, exact current SVG paths; zero runtime errors or scoped axe findings. Isolated TypeScript/lint and clean export passed. Fresh independent visual review passed; current design guidance reconciled.",
+    "scope": "Local browser/source checks; physical-device appearance and new account/backend acceptance not established.",
+    "release": "20261016-market-play1 deployed; live Playwright and native bundle transport passed. Evidence: .local/market-game-redesign/release.json."
+  },
+  "dockSignatureRefresh": {
+    "updated": "2026-10-16",
+    "sources": [
+      "src/components/navigation/TabDock.tsx",
+      "src/components/navigation/QuinTasteIcon.tsx"
+    ],
+    "presentation": "Social uses a conversation bowl, Market a leaf-shaped awning above a stall, and Game a bao-shaped gamepad. Inactive glyphs are outlined and selected glyphs filled, with glyph30/stroke2.2, row56 and targets48+. The bottom navigation surface has no outer border (borderWidth0); suppress the default web outline while retaining the separate themed keyboard-focus border. The selected lens retains its 1.5-unit border and fill, capped at 68 by 44 with radius22.",
+    "supersedes": "Dock icon geometry in avatarIconRefresh and older navigation references; avatar selection treatment remains.",
+    "report": ".local/icon-border-redesign/local/report.json",
+    "validation": "Eight palette/mode/width cases, 40 captures; zero runtime errors or scoped axe findings. TypeScript/lint pass. Independent visual review: no blocking findings.",
+    "scope": "Local browser/source only; physical-device and account/backend acceptance not established. Deployment 20261016-dock-signatures1 pending."
+  },
+  "avatarIconRefresh": {
+    "updated": "2026-10-16",
+    "sources": [
+      "src/components/avatar/AvatarLibrary.tsx",
+      "src/screens/Avatar.tsx",
+      "src/components/navigation/QuinTasteIcon.tsx"
+    ],
+    "avatarChoices": "Avatar choices use a transparent 2-unit reserved border, accentSoft selected fill and a 20-unit accent check badge; unselected tiles use card. Keyboard focus alone reveals the full accent border; pointer activation clears it and web suppresses the default browser outline. Tiles wrap with basis96/grow1/maxWidth160/minHeight140 and gap8. Create new avatar uses the primary button.",
+    "icons": "Social uses two-person contours, Market a shopping bag with a leaf, and Game a simple controller without a sprout. Inactive glyphs are outlined and selected glyphs filled; glyph30/stroke2.2 and the dock geometry, selected lens and separate keyboard focus remain unchanged.",
+    "browserReport": ".impeccable/review/avatar-icon-refresh/report.json",
+    "gates": ".impeccable/review/avatar-icon-refresh/gates.json",
+    "interactions": ".impeccable/review/avatar-icon-refresh/interactions.json",
+    "finish": ".impeccable/review/avatar-icon-refresh/finish.json",
+    "validation": "Final browser matrix: 13 groups, 25 captures, zero runtime errors. TypeScript, lint and final focus/persistence interactions passed. Independent finish review closed the focus-outline finding and ships the reviewed browser/source scope with no visible fix-induced regression.",
+    "scope": "Local React Native Web/source presentation only; native/device and account/backend acceptance not established by this change. No deployment."
+  },
+  "extensions": {
+    "sourceOfTruth": {
+      "tokens": "src/theme/tokens.ts",
+      "components": [
+        "src/components/ui.tsx",
+        "src/components/Screen.tsx",
+        "src/components/PreferenceControls.tsx",
+        "src/components/food/Controls.tsx",
+        "src/components/food/AreaHeading.tsx",
+        "src/components/food/FoodCard.tsx",
+        "src/components/food/Evidence.tsx",
+        "src/components/food/Timers.tsx",
+        "src/components/food/DetailParts.tsx",
+        "src/app/(tabs)/_layout.tsx",
+        "src/app/_layout.tsx",
+        "src/state/Discovery.tsx",
+        "src/hooks/useNearbyLocation.ts",
+        "src/components/discovery/LivePlaceCard.tsx",
+        "src/components/discovery/DiscoveryMapCanvas.tsx",
+        "src/components/discovery/MapResultsSheet.tsx",
+        "src/components/discovery/LivePlaceActions.tsx",
+        "src/screens/food/LivePlaceDetail.tsx",
+        "src/components/discovery/GooglePhoto.tsx",
+        "src/components/discovery/GoogleReview.tsx",
+        "src/components/navigation/TabDock.tsx",
+        "src/components/navigation/QuinTasteIcon.tsx",
+        "src/components/navigation/GlassNavigation.tsx",
+        "src/components/discovery/GooglePhotoViewer.tsx",
+        "src/screens/food/Explore.tsx",
+        "src/components/discovery/GooglePhotoBackdrop.tsx",
+        "src/components/discovery/PhotoBlend.native.tsx",
+        "src/components/discovery/PhotoBlend.tsx",
+        "src/hooks/usePhotoData.ts",
+        "src/components/discovery/LocationSearchField.tsx",
+        "src/components/discovery/LocationSuggestions.tsx",
+        "src/components/discovery/DiscoveryFilterOptions.tsx",
+        "src/components/food/PrivatePlaceForm.tsx",
+        "src/screens/food/Filters.tsx",
+        "src/screens/food/PrivatePlaces.tsx",
+        "src/hooks/usePrivatePlaceEditor.ts",
+        "src/hooks/useDiscoveryInput.ts",
+        "src/utils/private-places.ts",
+        "src/config/discovery.ts",
+        "src/utils/discovery-settings.ts",
+        "src/hooks/useDiscoverySettings.ts",
+        "src/components/discovery/LivePlaceInformation.tsx",
+        "src/components/food/DietIcon.tsx",
+        "src/server/live-search-request.ts",
+        "src/screens/market/Market.tsx",
+        "src/screens/market/ListingDetail.tsx",
+        "src/screens/market/ListingForm.tsx",
+        "src/screens/market/Inbox.tsx",
+        "src/screens/market/Chat.tsx",
+        "src/screens/market/Seller.tsx",
+        "src/components/market/MarketChrome.tsx",
+        "src/components/market/MarketFilters.tsx",
+        "src/components/market/ListingCard.tsx",
+        "src/components/market/ListingPhoto.tsx",
+        "src/components/market/ListingPhotos.tsx",
+        "src/components/market/ListingDelete.tsx",
+        "src/components/market/ExchangeControls.tsx",
+        "src/hooks/useMarket.ts",
+        "src/types/market.ts",
+        "src/data/market.ts",
+        "src/state/market-actions.ts",
+        "src/state/market-schema.ts",
+        "src/utils/market.ts",
+        "src/components/discovery/PhotoScrollView.tsx",
+        "src/utils/photo-transfer.ts",
+        "src/server/development-photo-cache.ts",
+        "src/server/google-allowance.ts",
+        "src/server/google-photo.ts",
+        "src/components/discovery/GooglePhotoGallery.tsx",
+        "src/components/discovery/PlaceFeedbackActions.tsx",
+        "src/screens/meet/Home.tsx",
+        "src/screens/meet/Events.tsx",
+        "src/screens/meet/Profile.tsx",
+        "src/screens/meet/Person.tsx",
+        "src/screens/meet/Chat.tsx",
+        "src/screens/meet/Group.tsx",
+        "src/screens/meet/Gathering.tsx",
+        "src/screens/meet/Application.tsx",
+        "src/components/social/MeetUI.tsx",
+        "src/components/social/GroupTools.tsx",
+        "src/components/social/SocialTabs.tsx",
+        "src/screens/meet/Filters.tsx",
+        "src/screens/meet/Plans.tsx",
+        "src/state/Food.tsx",
+        "src/components/FloatingAddButton.tsx",
+        "src/components/recipes/DraftFields.tsx",
+        "src/components/recipes/RecipePhoto.tsx",
+        "src/screens/food/Cook.tsx",
+        "src/screens/food/MyRecipes.tsx",
+        "src/screens/food/RecipeEditor.tsx",
+        "src/screens/food/RecipeReview.tsx",
+        "src/screens/food/Shopping.tsx",
+        "src/screens/food/IngredientGuide.tsx",
+        "src/screens/food/RecipeDetail.tsx",
+        "src/screens/food/Cooking.tsx",
+        "src/hooks/useRecipeWorkspace.ts",
+        "src/state/recipe-workspace.ts"
+      ],
+      "frontmatter": "DESIGN.md",
+      "palettePreview": "coral/light",
+      "units": "CSS projections of native logical units at base text scale",
+      "tonalRamps": "Synthesized panel aids; not runtime palette tokens.",
+      "componentProjection": "Static self-contained Coral/Light documentation fixtures; no live Google metadata/media embedded. Card fixture is unavailable-photo; actual raster masks/download lifetime/native focused-scene blur are documented from source.",
+      "paletteAuthority": "User-confirmed 14 October 2026 palette refresh; src/theme/tokens.ts and DESIGN.md supersede older PDF color values."
+    },
+    "colorMeta": {
+      "coral-background-light": {
+        "role": "neutral",
+        "displayName": "Coral Background Light",
+        "tonalRamp": [
+          "oklch(15.00% 0.00668 53.45)",
+          "oklch(26.43% 0.00668 53.45)",
+          "oklch(37.86% 0.00668 53.45)",
+          "oklch(49.29% 0.00668 53.45)",
+          "oklch(60.71% 0.00668 53.45)",
+          "oklch(72.14% 0.00668 53.45)",
+          "oklch(83.57% 0.00668 53.45)",
+          "oklch(95.00% 0.00668 53.45)"
+        ]
+      },
+      "coral-gradient-middle-light": {
+        "role": "neutral",
+        "displayName": "Coral Gradient Middle Light",
+        "tonalRamp": [
+          "oklch(15.00% 0.01343 53.36)",
+          "oklch(26.43% 0.01343 53.36)",
+          "oklch(37.86% 0.01343 53.36)",
+          "oklch(49.29% 0.01343 53.36)",
+          "oklch(60.71% 0.01343 53.36)",
+          "oklch(72.14% 0.01343 53.36)",
+          "oklch(83.57% 0.01343 53.36)",
+          "oklch(95.00% 0.01343 53.36)"
+        ]
+      },
+      "coral-gradient-end-light": {
+        "role": "neutral",
+        "displayName": "Coral Gradient End Light",
+        "tonalRamp": [
+          "oklch(15.00% 0.02304 48.47)",
+          "oklch(26.43% 0.02304 48.47)",
+          "oklch(37.86% 0.02304 48.47)",
+          "oklch(49.29% 0.02304 48.47)",
+          "oklch(60.71% 0.02304 48.47)",
+          "oklch(72.14% 0.02304 48.47)",
+          "oklch(83.57% 0.02304 48.47)",
+          "oklch(95.00% 0.02304 48.47)"
+        ]
+      },
+      "coral-accent-light": {
+        "role": "primary",
+        "displayName": "Coral Accent Light",
+        "tonalRamp": [
+          "oklch(15.00% 0.16278 30.26)",
+          "oklch(26.43% 0.16278 30.26)",
+          "oklch(37.86% 0.16278 30.26)",
+          "oklch(49.29% 0.16278 30.26)",
+          "oklch(60.71% 0.16278 30.26)",
+          "oklch(72.14% 0.16278 30.26)",
+          "oklch(83.57% 0.16278 30.26)",
+          "oklch(95.00% 0.16278 30.26)"
+        ]
+      },
+      "coral-soft-light": {
+        "role": "neutral",
+        "displayName": "Coral Soft Light",
+        "tonalRamp": [
+          "oklch(15.00% 0.02637 50.87)",
+          "oklch(26.43% 0.02637 50.87)",
+          "oklch(37.86% 0.02637 50.87)",
+          "oklch(49.29% 0.02637 50.87)",
+          "oklch(60.71% 0.02637 50.87)",
+          "oklch(72.14% 0.02637 50.87)",
+          "oklch(83.57% 0.02637 50.87)",
+          "oklch(95.00% 0.02637 50.87)"
+        ]
+      },
+      "coral-background-dark": {
+        "role": "neutral",
+        "displayName": "Coral Background Dark",
+        "tonalRamp": [
+          "oklch(15.00% 0.02477 314.37)",
+          "oklch(26.43% 0.02477 314.37)",
+          "oklch(37.86% 0.02477 314.37)",
+          "oklch(49.29% 0.02477 314.37)",
+          "oklch(60.71% 0.02477 314.37)",
+          "oklch(72.14% 0.02477 314.37)",
+          "oklch(83.57% 0.02477 314.37)",
+          "oklch(95.00% 0.02477 314.37)"
+        ]
+      },
+      "coral-gradient-middle-dark": {
+        "role": "neutral",
+        "displayName": "Coral Gradient Middle Dark",
+        "tonalRamp": [
+          "oklch(15.00% 0.06869 24.34)",
+          "oklch(26.43% 0.06869 24.34)",
+          "oklch(37.86% 0.06869 24.34)",
+          "oklch(49.29% 0.06869 24.34)",
+          "oklch(60.71% 0.06869 24.34)",
+          "oklch(72.14% 0.06869 24.34)",
+          "oklch(83.57% 0.06869 24.34)",
+          "oklch(95.00% 0.06869 24.34)"
+        ]
+      },
+      "coral-gradient-end-dark": {
+        "role": "neutral",
+        "displayName": "Coral Gradient End Dark",
+        "tonalRamp": [
+          "oklch(15.00% 0.04602 328.31)",
+          "oklch(26.43% 0.04602 328.31)",
+          "oklch(37.86% 0.04602 328.31)",
+          "oklch(49.29% 0.04602 328.31)",
+          "oklch(60.71% 0.04602 328.31)",
+          "oklch(72.14% 0.04602 328.31)",
+          "oklch(83.57% 0.04602 328.31)",
+          "oklch(95.00% 0.04602 328.31)"
+        ]
+      },
+      "coral-accent-dark": {
+        "role": "primary",
+        "displayName": "Coral Accent Dark",
+        "tonalRamp": [
+          "oklch(15.00% 0.09460 34.41)",
+          "oklch(26.43% 0.09460 34.41)",
+          "oklch(37.86% 0.09460 34.41)",
+          "oklch(49.29% 0.09460 34.41)",
+          "oklch(60.71% 0.09460 34.41)",
+          "oklch(72.14% 0.09460 34.41)",
+          "oklch(83.57% 0.09460 34.41)",
+          "oklch(95.00% 0.09460 34.41)"
+        ]
+      },
+      "coral-action-start": {
+        "role": "primary",
+        "displayName": "Coral Action Start",
+        "tonalRamp": [
+          "oklch(15.00% 0.14821 32.26)",
+          "oklch(26.43% 0.14821 32.26)",
+          "oklch(37.86% 0.14821 32.26)",
+          "oklch(49.29% 0.14821 32.26)",
+          "oklch(60.71% 0.14821 32.26)",
+          "oklch(72.14% 0.14821 32.26)",
+          "oklch(83.57% 0.14821 32.26)",
+          "oklch(95.00% 0.14821 32.26)"
+        ]
+      },
+      "coral-action-end": {
+        "role": "primary",
+        "displayName": "Coral Action End",
+        "tonalRamp": [
+          "oklch(15.00% 0.14080 31.59)",
+          "oklch(26.43% 0.14080 31.59)",
+          "oklch(37.86% 0.14080 31.59)",
+          "oklch(49.29% 0.14080 31.59)",
+          "oklch(60.71% 0.14080 31.59)",
+          "oklch(72.14% 0.14080 31.59)",
+          "oklch(83.57% 0.14080 31.59)",
+          "oklch(95.00% 0.14080 31.59)"
+        ]
+      },
+      "cobalt-background-light": {
+        "role": "neutral",
+        "displayName": "Cobalt Background Light",
+        "tonalRamp": [
+          "oklch(15.00% 0.00844 225.08)",
+          "oklch(26.43% 0.00844 225.08)",
+          "oklch(37.86% 0.00844 225.08)",
+          "oklch(49.29% 0.00844 225.08)",
+          "oklch(60.71% 0.00844 225.08)",
+          "oklch(72.14% 0.00844 225.08)",
+          "oklch(83.57% 0.00844 225.08)",
+          "oklch(95.00% 0.00844 225.08)"
+        ]
+      },
+      "cobalt-gradient-middle-light": {
+        "role": "neutral",
+        "displayName": "Cobalt Gradient Middle Light",
+        "tonalRamp": [
+          "oklch(15.00% 0.01343 226.56)",
+          "oklch(26.43% 0.01343 226.56)",
+          "oklch(37.86% 0.01343 226.56)",
+          "oklch(49.29% 0.01343 226.56)",
+          "oklch(60.71% 0.01343 226.56)",
+          "oklch(72.14% 0.01343 226.56)",
+          "oklch(83.57% 0.01343 226.56)",
+          "oklch(95.00% 0.01343 226.56)"
+        ]
+      },
+      "cobalt-gradient-end-light": {
+        "role": "neutral",
+        "displayName": "Cobalt Gradient End Light",
+        "tonalRamp": [
+          "oklch(15.00% 0.02014 204.43)",
+          "oklch(26.43% 0.02014 204.43)",
+          "oklch(37.86% 0.02014 204.43)",
+          "oklch(49.29% 0.02014 204.43)",
+          "oklch(60.71% 0.02014 204.43)",
+          "oklch(72.14% 0.02014 204.43)",
+          "oklch(83.57% 0.02014 204.43)",
+          "oklch(95.00% 0.02014 204.43)"
+        ]
+      },
+      "cobalt-accent-light": {
+        "role": "primary",
+        "displayName": "Cobalt Accent Light",
+        "tonalRamp": [
+          "oklch(15.00% 0.13399 258.47)",
+          "oklch(26.43% 0.13399 258.47)",
+          "oklch(37.86% 0.13399 258.47)",
+          "oklch(49.29% 0.13399 258.47)",
+          "oklch(60.71% 0.13399 258.47)",
+          "oklch(72.14% 0.13399 258.47)",
+          "oklch(83.57% 0.13399 258.47)",
+          "oklch(95.00% 0.13399 258.47)"
+        ]
+      },
+      "cobalt-soft-light": {
+        "role": "neutral",
+        "displayName": "Cobalt Soft Light",
+        "tonalRamp": [
+          "oklch(15.00% 0.01837 232.51)",
+          "oklch(26.43% 0.01837 232.51)",
+          "oklch(37.86% 0.01837 232.51)",
+          "oklch(49.29% 0.01837 232.51)",
+          "oklch(60.71% 0.01837 232.51)",
+          "oklch(72.14% 0.01837 232.51)",
+          "oklch(83.57% 0.01837 232.51)",
+          "oklch(95.00% 0.01837 232.51)"
+        ]
+      },
+      "cobalt-background-dark": {
+        "role": "neutral",
+        "displayName": "Cobalt Background Dark",
+        "tonalRamp": [
+          "oklch(15.00% 0.04164 260.26)",
+          "oklch(26.43% 0.04164 260.26)",
+          "oklch(37.86% 0.04164 260.26)",
+          "oklch(49.29% 0.04164 260.26)",
+          "oklch(60.71% 0.04164 260.26)",
+          "oklch(72.14% 0.04164 260.26)",
+          "oklch(83.57% 0.04164 260.26)",
+          "oklch(95.00% 0.04164 260.26)"
+        ]
+      },
+      "cobalt-gradient-middle-dark": {
+        "role": "neutral",
+        "displayName": "Cobalt Gradient Middle Dark",
+        "tonalRamp": [
+          "oklch(15.00% 0.06387 241.30)",
+          "oklch(26.43% 0.06387 241.30)",
+          "oklch(37.86% 0.06387 241.30)",
+          "oklch(49.29% 0.06387 241.30)",
+          "oklch(60.71% 0.06387 241.30)",
+          "oklch(72.14% 0.06387 241.30)",
+          "oklch(83.57% 0.06387 241.30)",
+          "oklch(95.00% 0.06387 241.30)"
+        ]
+      },
+      "cobalt-gradient-end-dark": {
+        "role": "neutral",
+        "displayName": "Cobalt Gradient End Dark",
+        "tonalRamp": [
+          "oklch(15.00% 0.04275 212.18)",
+          "oklch(26.43% 0.04275 212.18)",
+          "oklch(37.86% 0.04275 212.18)",
+          "oklch(49.29% 0.04275 212.18)",
+          "oklch(60.71% 0.04275 212.18)",
+          "oklch(72.14% 0.04275 212.18)",
+          "oklch(83.57% 0.04275 212.18)",
+          "oklch(95.00% 0.04275 212.18)"
+        ]
+      },
+      "cobalt-accent-dark": {
+        "role": "primary",
+        "displayName": "Cobalt Accent Dark",
+        "tonalRamp": [
+          "oklch(15.00% 0.07543 248.72)",
+          "oklch(26.43% 0.07543 248.72)",
+          "oklch(37.86% 0.07543 248.72)",
+          "oklch(49.29% 0.07543 248.72)",
+          "oklch(60.71% 0.07543 248.72)",
+          "oklch(72.14% 0.07543 248.72)",
+          "oklch(83.57% 0.07543 248.72)",
+          "oklch(95.00% 0.07543 248.72)"
+        ]
+      },
+      "cobalt-action-start": {
+        "role": "primary",
+        "displayName": "Cobalt Action Start",
+        "tonalRamp": [
+          "oklch(15.00% 0.14108 257.45)",
+          "oklch(26.43% 0.14108 257.45)",
+          "oklch(37.86% 0.14108 257.45)",
+          "oklch(49.29% 0.14108 257.45)",
+          "oklch(60.71% 0.14108 257.45)",
+          "oklch(72.14% 0.14108 257.45)",
+          "oklch(83.57% 0.14108 257.45)",
+          "oklch(95.00% 0.14108 257.45)"
+        ]
+      },
+      "cobalt-action-end": {
+        "role": "primary",
+        "displayName": "Cobalt Action End",
+        "tonalRamp": [
+          "oklch(15.00% 0.08170 212.98)",
+          "oklch(26.43% 0.08170 212.98)",
+          "oklch(37.86% 0.08170 212.98)",
+          "oklch(49.29% 0.08170 212.98)",
+          "oklch(60.71% 0.08170 212.98)",
+          "oklch(72.14% 0.08170 212.98)",
+          "oklch(83.57% 0.08170 212.98)",
+          "oklch(95.00% 0.08170 212.98)"
+        ]
+      },
+      "lavender-background-light": {
+        "role": "neutral",
+        "displayName": "Lavender Background Light",
+        "tonalRamp": [
+          "oklch(15.00% 0.01060 316.49)",
+          "oklch(26.43% 0.01060 316.49)",
+          "oklch(37.86% 0.01060 316.49)",
+          "oklch(49.29% 0.01060 316.49)",
+          "oklch(60.71% 0.01060 316.49)",
+          "oklch(72.14% 0.01060 316.49)",
+          "oklch(83.57% 0.01060 316.49)",
+          "oklch(95.00% 0.01060 316.49)"
+        ]
+      },
+      "lavender-gradient-middle-light": {
+        "role": "neutral",
+        "displayName": "Lavender Gradient Middle Light",
+        "tonalRamp": [
+          "oklch(15.00% 0.01912 312.80)",
+          "oklch(26.43% 0.01912 312.80)",
+          "oklch(37.86% 0.01912 312.80)",
+          "oklch(49.29% 0.01912 312.80)",
+          "oklch(60.71% 0.01912 312.80)",
+          "oklch(72.14% 0.01912 312.80)",
+          "oklch(83.57% 0.01912 312.80)",
+          "oklch(95.00% 0.01912 312.80)"
+        ]
+      },
+      "lavender-gradient-end-light": {
+        "role": "neutral",
+        "displayName": "Lavender Gradient End Light",
+        "tonalRamp": [
+          "oklch(15.00% 0.02825 313.36)",
+          "oklch(26.43% 0.02825 313.36)",
+          "oklch(37.86% 0.02825 313.36)",
+          "oklch(49.29% 0.02825 313.36)",
+          "oklch(60.71% 0.02825 313.36)",
+          "oklch(72.14% 0.02825 313.36)",
+          "oklch(83.57% 0.02825 313.36)",
+          "oklch(95.00% 0.02825 313.36)"
+        ]
+      },
+      "lavender-accent-light": {
+        "role": "primary",
+        "displayName": "Lavender Accent Light",
+        "tonalRamp": [
+          "oklch(15.00% 0.13600 300.20)",
+          "oklch(26.43% 0.13600 300.20)",
+          "oklch(37.86% 0.13600 300.20)",
+          "oklch(49.29% 0.13600 300.20)",
+          "oklch(60.71% 0.13600 300.20)",
+          "oklch(72.14% 0.13600 300.20)",
+          "oklch(83.57% 0.13600 300.20)",
+          "oklch(95.00% 0.13600 300.20)"
+        ]
+      },
+      "lavender-soft-light": {
+        "role": "neutral",
+        "displayName": "Lavender Soft Light",
+        "tonalRamp": [
+          "oklch(15.00% 0.02869 308.12)",
+          "oklch(26.43% 0.02869 308.12)",
+          "oklch(37.86% 0.02869 308.12)",
+          "oklch(49.29% 0.02869 308.12)",
+          "oklch(60.71% 0.02869 308.12)",
+          "oklch(72.14% 0.02869 308.12)",
+          "oklch(83.57% 0.02869 308.12)",
+          "oklch(95.00% 0.02869 308.12)"
+        ]
+      },
+      "lavender-background-dark": {
+        "role": "neutral",
+        "displayName": "Lavender Background Dark",
+        "tonalRamp": [
+          "oklch(15.00% 0.04631 292.07)",
+          "oklch(26.43% 0.04631 292.07)",
+          "oklch(37.86% 0.04631 292.07)",
+          "oklch(49.29% 0.04631 292.07)",
+          "oklch(60.71% 0.04631 292.07)",
+          "oklch(72.14% 0.04631 292.07)",
+          "oklch(83.57% 0.04631 292.07)",
+          "oklch(95.00% 0.04631 292.07)"
+        ]
+      },
+      "lavender-gradient-middle-dark": {
+        "role": "neutral",
+        "displayName": "Lavender Gradient Middle Dark",
+        "tonalRamp": [
+          "oklch(15.00% 0.06711 303.80)",
+          "oklch(26.43% 0.06711 303.80)",
+          "oklch(37.86% 0.06711 303.80)",
+          "oklch(49.29% 0.06711 303.80)",
+          "oklch(60.71% 0.06711 303.80)",
+          "oklch(72.14% 0.06711 303.80)",
+          "oklch(83.57% 0.06711 303.80)",
+          "oklch(95.00% 0.06711 303.80)"
+        ]
+      },
+      "lavender-gradient-end-dark": {
+        "role": "neutral",
+        "displayName": "Lavender Gradient End Dark",
+        "tonalRamp": [
+          "oklch(15.00% 0.04529 306.73)",
+          "oklch(26.43% 0.04529 306.73)",
+          "oklch(37.86% 0.04529 306.73)",
+          "oklch(49.29% 0.04529 306.73)",
+          "oklch(60.71% 0.04529 306.73)",
+          "oklch(72.14% 0.04529 306.73)",
+          "oklch(83.57% 0.04529 306.73)",
+          "oklch(95.00% 0.04529 306.73)"
+        ]
+      },
+      "lavender-accent-dark": {
+        "role": "primary",
+        "displayName": "Lavender Accent Dark",
+        "tonalRamp": [
+          "oklch(15.00% 0.08135 303.15)",
+          "oklch(26.43% 0.08135 303.15)",
+          "oklch(37.86% 0.08135 303.15)",
+          "oklch(49.29% 0.08135 303.15)",
+          "oklch(60.71% 0.08135 303.15)",
+          "oklch(72.14% 0.08135 303.15)",
+          "oklch(83.57% 0.08135 303.15)",
+          "oklch(95.00% 0.08135 303.15)"
+        ]
+      },
+      "lavender-action-start": {
+        "role": "primary",
+        "displayName": "Lavender Action Start",
+        "tonalRamp": [
+          "oklch(15.00% 0.10641 299.81)",
+          "oklch(26.43% 0.10641 299.81)",
+          "oklch(37.86% 0.10641 299.81)",
+          "oklch(49.29% 0.10641 299.81)",
+          "oklch(60.71% 0.10641 299.81)",
+          "oklch(72.14% 0.10641 299.81)",
+          "oklch(83.57% 0.10641 299.81)",
+          "oklch(95.00% 0.10641 299.81)"
+        ]
+      },
+      "lavender-action-end": {
+        "role": "primary",
+        "displayName": "Lavender Action End",
+        "tonalRamp": [
+          "oklch(15.00% 0.09339 301.36)",
+          "oklch(26.43% 0.09339 301.36)",
+          "oklch(37.86% 0.09339 301.36)",
+          "oklch(49.29% 0.09339 301.36)",
+          "oklch(60.71% 0.09339 301.36)",
+          "oklch(72.14% 0.09339 301.36)",
+          "oklch(83.57% 0.09339 301.36)",
+          "oklch(95.00% 0.09339 301.36)"
+        ]
+      },
+      "foreground-light": {
+        "role": "neutral",
+        "displayName": "Foreground Light",
+        "tonalRamp": [
+          "oklch(15.00% 0.00902 159.45)",
+          "oklch(26.43% 0.00902 159.45)",
+          "oklch(37.86% 0.00902 159.45)",
+          "oklch(49.29% 0.00902 159.45)",
+          "oklch(60.71% 0.00902 159.45)",
+          "oklch(72.14% 0.00902 159.45)",
+          "oklch(83.57% 0.00902 159.45)",
+          "oklch(95.00% 0.00902 159.45)"
+        ]
+      },
+      "muted-foreground-light": {
+        "role": "neutral",
+        "displayName": "Muted Foreground Light",
+        "tonalRamp": [
+          "oklch(15.00% 0.02053 50.12)",
+          "oklch(26.43% 0.02053 50.12)",
+          "oklch(37.86% 0.02053 50.12)",
+          "oklch(49.29% 0.02053 50.12)",
+          "oklch(60.71% 0.02053 50.12)",
+          "oklch(72.14% 0.02053 50.12)",
+          "oklch(83.57% 0.02053 50.12)",
+          "oklch(95.00% 0.02053 50.12)"
+        ]
+      },
+      "card-light": {
+        "role": "neutral",
+        "displayName": "Card Light",
+        "tonalRamp": [
+          "oklch(15.00% 0.00340 67.78)",
+          "oklch(26.43% 0.00340 67.78)",
+          "oklch(37.86% 0.00340 67.78)",
+          "oklch(49.29% 0.00340 67.78)",
+          "oklch(60.71% 0.00340 67.78)",
+          "oklch(72.14% 0.00340 67.78)",
+          "oklch(83.57% 0.00340 67.78)",
+          "oklch(95.00% 0.00340 67.78)"
+        ]
+      },
+      "border-light": {
+        "role": "neutral",
+        "displayName": "Border Light",
+        "tonalRamp": [
+          "oklch(15.00% 0.00768 61.45)",
+          "oklch(26.43% 0.00768 61.45)",
+          "oklch(37.86% 0.00768 61.45)",
+          "oklch(49.29% 0.00768 61.45)",
+          "oklch(60.71% 0.00768 61.45)",
+          "oklch(72.14% 0.00768 61.45)",
+          "oklch(83.57% 0.00768 61.45)",
+          "oklch(95.00% 0.00768 61.45)"
+        ]
+      },
+      "divider-light": {
+        "role": "neutral",
+        "displayName": "Divider Light",
+        "tonalRamp": [
+          "oklch(15.00% 0.00846 56.31)",
+          "oklch(26.43% 0.00846 56.31)",
+          "oklch(37.86% 0.00846 56.31)",
+          "oklch(49.29% 0.00846 56.31)",
+          "oklch(60.71% 0.00846 56.31)",
+          "oklch(72.14% 0.00846 56.31)",
+          "oklch(83.57% 0.00846 56.31)",
+          "oklch(95.00% 0.00846 56.31)"
+        ]
+      },
+      "muted-light": {
+        "role": "neutral",
+        "displayName": "Muted Light",
+        "tonalRamp": [
+          "oklch(15.00% 0.00929 52.10)",
+          "oklch(26.43% 0.00929 52.10)",
+          "oklch(37.86% 0.00929 52.10)",
+          "oklch(49.29% 0.00929 52.10)",
+          "oklch(60.71% 0.00929 52.10)",
+          "oklch(72.14% 0.00929 52.10)",
+          "oklch(83.57% 0.00929 52.10)",
+          "oklch(95.00% 0.00929 52.10)"
+        ]
+      },
+      "shadow-light": {
+        "role": "neutral",
+        "displayName": "Shadow Light",
+        "tonalRamp": [
+          "oklch(15.00% 0.02051 46.25)",
+          "oklch(26.43% 0.02051 46.25)",
+          "oklch(37.86% 0.02051 46.25)",
+          "oklch(49.29% 0.02051 46.25)",
+          "oklch(60.71% 0.02051 46.25)",
+          "oklch(72.14% 0.02051 46.25)",
+          "oklch(83.57% 0.02051 46.25)",
+          "oklch(95.00% 0.02051 46.25)"
+        ]
+      },
+      "success-light": {
+        "role": "status",
+        "displayName": "Success Light",
+        "tonalRamp": [
+          "oklch(15.00% 0.07152 164.20)",
+          "oklch(26.43% 0.07152 164.20)",
+          "oklch(37.86% 0.07152 164.20)",
+          "oklch(49.29% 0.07152 164.20)",
+          "oklch(60.71% 0.07152 164.20)",
+          "oklch(72.14% 0.07152 164.20)",
+          "oklch(83.57% 0.07152 164.20)",
+          "oklch(95.00% 0.07152 164.20)"
+        ]
+      },
+      "error-light": {
+        "role": "status",
+        "displayName": "Error Light",
+        "tonalRamp": [
+          "oklch(15.00% 0.16072 21.38)",
+          "oklch(26.43% 0.16072 21.38)",
+          "oklch(37.86% 0.16072 21.38)",
+          "oklch(49.29% 0.16072 21.38)",
+          "oklch(60.71% 0.16072 21.38)",
+          "oklch(72.14% 0.16072 21.38)",
+          "oklch(83.57% 0.16072 21.38)",
+          "oklch(95.00% 0.16072 21.38)"
+        ]
+      },
+      "foreground-dark": {
+        "role": "neutral",
+        "displayName": "Foreground Dark",
+        "tonalRamp": [
+          "oklch(15.00% 0.00341 67.78)",
+          "oklch(26.43% 0.00341 67.78)",
+          "oklch(37.86% 0.00341 67.78)",
+          "oklch(49.29% 0.00341 67.78)",
+          "oklch(60.71% 0.00341 67.78)",
+          "oklch(72.14% 0.00341 67.78)",
+          "oklch(83.57% 0.00341 67.78)",
+          "oklch(95.00% 0.00341 67.78)"
+        ]
+      },
+      "muted-foreground-dark": {
+        "role": "neutral",
+        "displayName": "Muted Foreground Dark",
+        "tonalRamp": [
+          "oklch(15.00% 0.01574 48.53)",
+          "oklch(26.43% 0.01574 48.53)",
+          "oklch(37.86% 0.01574 48.53)",
+          "oklch(49.29% 0.01574 48.53)",
+          "oklch(60.71% 0.01574 48.53)",
+          "oklch(72.14% 0.01574 48.53)",
+          "oklch(83.57% 0.01574 48.53)",
+          "oklch(95.00% 0.01574 48.53)"
+        ]
+      },
+      "card-dark": {
+        "role": "neutral",
+        "displayName": "Card Dark",
+        "tonalRamp": [
+          "oklch(15.00% 0.01593 343.66)",
+          "oklch(26.43% 0.01593 343.66)",
+          "oklch(37.86% 0.01593 343.66)",
+          "oklch(49.29% 0.01593 343.66)",
+          "oklch(60.71% 0.01593 343.66)",
+          "oklch(72.14% 0.01593 343.66)",
+          "oklch(83.57% 0.01593 343.66)",
+          "oklch(95.00% 0.01593 343.66)"
+        ]
+      },
+      "border-dark": {
+        "role": "neutral",
+        "displayName": "Border Dark",
+        "tonalRamp": [
+          "oklch(15.00% 0.03287 355.67)",
+          "oklch(26.43% 0.03287 355.67)",
+          "oklch(37.86% 0.03287 355.67)",
+          "oklch(49.29% 0.03287 355.67)",
+          "oklch(60.71% 0.03287 355.67)",
+          "oklch(72.14% 0.03287 355.67)",
+          "oklch(83.57% 0.03287 355.67)",
+          "oklch(95.00% 0.03287 355.67)"
+        ]
+      },
+      "divider-dark": {
+        "role": "neutral",
+        "displayName": "Divider Dark",
+        "tonalRamp": [
+          "oklch(15.00% 0.02699 348.55)",
+          "oklch(26.43% 0.02699 348.55)",
+          "oklch(37.86% 0.02699 348.55)",
+          "oklch(49.29% 0.02699 348.55)",
+          "oklch(60.71% 0.02699 348.55)",
+          "oklch(72.14% 0.02699 348.55)",
+          "oklch(83.57% 0.02699 348.55)",
+          "oklch(95.00% 0.02699 348.55)"
+        ]
+      },
+      "muted-dark": {
+        "role": "neutral",
+        "displayName": "Muted Dark",
+        "tonalRamp": [
+          "oklch(15.00% 0.02207 344.80)",
+          "oklch(26.43% 0.02207 344.80)",
+          "oklch(37.86% 0.02207 344.80)",
+          "oklch(49.29% 0.02207 344.80)",
+          "oklch(60.71% 0.02207 344.80)",
+          "oklch(72.14% 0.02207 344.80)",
+          "oklch(83.57% 0.02207 344.80)",
+          "oklch(95.00% 0.02207 344.80)"
+        ]
+      },
+      "shadow-dark": {
+        "role": "neutral",
+        "displayName": "Shadow Dark",
+        "tonalRamp": [
+          "oklch(15.00% 0.02520 299.03)",
+          "oklch(26.43% 0.02520 299.03)",
+          "oklch(37.86% 0.02520 299.03)",
+          "oklch(49.29% 0.02520 299.03)",
+          "oklch(60.71% 0.02520 299.03)",
+          "oklch(72.14% 0.02520 299.03)",
+          "oklch(83.57% 0.02520 299.03)",
+          "oklch(95.00% 0.02520 299.03)"
+        ]
+      },
+      "success-dark": {
+        "role": "status",
+        "displayName": "Success Dark",
+        "tonalRamp": [
+          "oklch(15.00% 0.07395 162.68)",
+          "oklch(26.43% 0.07395 162.68)",
+          "oklch(37.86% 0.07395 162.68)",
+          "oklch(49.29% 0.07395 162.68)",
+          "oklch(60.71% 0.07395 162.68)",
+          "oklch(72.14% 0.07395 162.68)",
+          "oklch(83.57% 0.07395 162.68)",
+          "oklch(95.00% 0.07395 162.68)"
+        ]
+      },
+      "error-dark": {
+        "role": "status",
+        "displayName": "Error Dark",
+        "tonalRamp": [
+          "oklch(15.00% 0.06772 27.52)",
+          "oklch(26.43% 0.06772 27.52)",
+          "oklch(37.86% 0.06772 27.52)",
+          "oklch(49.29% 0.06772 27.52)",
+          "oklch(60.71% 0.06772 27.52)",
+          "oklch(72.14% 0.06772 27.52)",
+          "oklch(83.57% 0.06772 27.52)",
+          "oklch(95.00% 0.06772 27.52)"
+        ]
+      },
+      "action-foreground": {
+        "role": "primary",
+        "displayName": "Action Foreground",
+        "tonalRamp": [
+          "oklch(15.00% 0.00000 89.88)",
+          "oklch(26.43% 0.00000 89.88)",
+          "oklch(37.86% 0.00000 89.88)",
+          "oklch(49.29% 0.00000 89.88)",
+          "oklch(60.71% 0.00000 89.88)",
+          "oklch(72.14% 0.00000 89.88)",
+          "oklch(83.57% 0.00000 89.88)",
+          "oklch(95.00% 0.00000 89.88)"
+        ]
+      },
+      "overlay": {
+        "role": "neutral",
+        "displayName": "Overlay",
+        "tonalRamp": [
+          "oklch(15.00% 0.02912 315.12 / 0.58)",
+          "oklch(26.43% 0.02912 315.12 / 0.58)",
+          "oklch(37.86% 0.02912 315.12 / 0.58)",
+          "oklch(49.29% 0.02912 315.12 / 0.58)",
+          "oklch(60.71% 0.02912 315.12 / 0.58)",
+          "oklch(72.14% 0.02912 315.12 / 0.58)",
+          "oklch(83.57% 0.02912 315.12 / 0.58)",
+          "oklch(95.00% 0.02912 315.12 / 0.58)"
+        ]
+      },
+      "transparent": {
+        "role": "neutral",
+        "displayName": "Transparent",
+        "tonalRamp": []
+      },
+      "success-soft-light": {
+        "role": "status",
+        "displayName": "Success Soft Light",
+        "tonalRamp": [
+          "oklch(15.00% 0.01252 149.25)",
+          "oklch(26.43% 0.01252 149.25)",
+          "oklch(37.86% 0.01252 149.25)",
+          "oklch(49.29% 0.01252 149.25)",
+          "oklch(60.71% 0.01252 149.25)",
+          "oklch(72.14% 0.01252 149.25)",
+          "oklch(83.57% 0.01252 149.25)",
+          "oklch(95.00% 0.01252 149.25)"
+        ]
+      },
+      "warning-light": {
+        "role": "status",
+        "displayName": "Warning Light",
+        "tonalRamp": [
+          "oklch(15.00% 0.10409 69.29)",
+          "oklch(26.43% 0.10409 69.29)",
+          "oklch(37.86% 0.10409 69.29)",
+          "oklch(49.29% 0.10409 69.29)",
+          "oklch(60.71% 0.10409 69.29)",
+          "oklch(72.14% 0.10409 69.29)",
+          "oklch(83.57% 0.10409 69.29)",
+          "oklch(95.00% 0.10409 69.29)"
+        ]
+      },
+      "warning-soft-light": {
+        "role": "status",
+        "displayName": "Warning Soft Light",
+        "tonalRamp": [
+          "oklch(15.00% 0.03120 84.59)",
+          "oklch(26.43% 0.03120 84.59)",
+          "oklch(37.86% 0.03120 84.59)",
+          "oklch(49.29% 0.03120 84.59)",
+          "oklch(60.71% 0.03120 84.59)",
+          "oklch(72.14% 0.03120 84.59)",
+          "oklch(83.57% 0.03120 84.59)",
+          "oklch(95.00% 0.03120 84.59)"
+        ]
+      },
+      "success-soft-dark": {
+        "role": "status",
+        "displayName": "Success Soft Dark",
+        "tonalRamp": [
+          "oklch(15.00% 0.03511 169.37)",
+          "oklch(26.43% 0.03511 169.37)",
+          "oklch(37.86% 0.03511 169.37)",
+          "oklch(49.29% 0.03511 169.37)",
+          "oklch(60.71% 0.03511 169.37)",
+          "oklch(72.14% 0.03511 169.37)",
+          "oklch(83.57% 0.03511 169.37)",
+          "oklch(95.00% 0.03511 169.37)"
+        ]
+      },
+      "warning-dark": {
+        "role": "status",
+        "displayName": "Warning Dark",
+        "tonalRamp": [
+          "oklch(15.00% 0.08120 85.41)",
+          "oklch(26.43% 0.08120 85.41)",
+          "oklch(37.86% 0.08120 85.41)",
+          "oklch(49.29% 0.08120 85.41)",
+          "oklch(60.71% 0.08120 85.41)",
+          "oklch(72.14% 0.08120 85.41)",
+          "oklch(83.57% 0.08120 85.41)",
+          "oklch(95.00% 0.08120 85.41)"
+        ]
+      },
+      "warning-soft-dark": {
+        "role": "status",
+        "displayName": "Warning Soft Dark",
+        "tonalRamp": [
+          "oklch(15.00% 0.03058 76.72)",
+          "oklch(26.43% 0.03058 76.72)",
+          "oklch(37.86% 0.03058 76.72)",
+          "oklch(49.29% 0.03058 76.72)",
+          "oklch(60.71% 0.03058 76.72)",
+          "oklch(72.14% 0.03058 76.72)",
+          "oklch(83.57% 0.03058 76.72)",
+          "oklch(95.00% 0.03058 76.72)"
+        ]
+      },
+      "coral-navigation-glass-light": {
+        "role": "neutral",
+        "displayName": "Coral Navigation Glass Light",
+        "canonical": "rgba(255,245,239,0.22)",
+        "tonalRamp": [
+          "oklch(15.00% 0.01343 53.36 / 0.22)",
+          "oklch(26.43% 0.01343 53.36 / 0.22)",
+          "oklch(37.86% 0.01343 53.36 / 0.22)",
+          "oklch(49.29% 0.01343 53.36 / 0.22)",
+          "oklch(60.71% 0.01343 53.36 / 0.22)",
+          "oklch(72.14% 0.01343 53.36 / 0.22)",
+          "oklch(83.57% 0.01343 53.36 / 0.22)",
+          "oklch(95.00% 0.01343 53.36 / 0.22)"
+        ]
+      },
+      "coral-navigation-glass-dark": {
+        "role": "neutral",
+        "displayName": "Coral Navigation Glass Dark",
+        "canonical": "rgba(48,39,44,0.64)",
+        "tonalRamp": [
+          "oklch(15.00% 0.01593 343.66 / 0.64)",
+          "oklch(26.43% 0.01593 343.66 / 0.64)",
+          "oklch(37.86% 0.01593 343.66 / 0.64)",
+          "oklch(49.29% 0.01593 343.66 / 0.64)",
+          "oklch(60.71% 0.01593 343.66 / 0.64)",
+          "oklch(72.14% 0.01593 343.66 / 0.64)",
+          "oklch(83.57% 0.01593 343.66 / 0.64)",
+          "oklch(95.00% 0.01593 343.66 / 0.64)"
+        ]
+      },
+      "coral-navigation-strong-accent": {
+        "role": "primary",
+        "displayName": "Coral Navigation Strong Accent",
+        "canonical": "#642116",
+        "tonalRamp": [
+          "oklch(15.00% 0.09936 31.71)",
+          "oklch(26.43% 0.09936 31.71)",
+          "oklch(37.86% 0.09936 31.71)",
+          "oklch(49.29% 0.09936 31.71)",
+          "oklch(60.71% 0.09936 31.71)",
+          "oklch(72.14% 0.09936 31.71)",
+          "oklch(83.57% 0.09936 31.71)",
+          "oklch(95.00% 0.09936 31.71)"
+        ]
+      },
+      "cobalt-navigation-glass-light": {
+        "role": "neutral",
+        "displayName": "Cobalt Navigation Glass Light",
+        "canonical": "rgba(239,250,255,0.22)",
+        "tonalRamp": [
+          "oklch(15.00% 0.01343 226.56 / 0.22)",
+          "oklch(26.43% 0.01343 226.56 / 0.22)",
+          "oklch(37.86% 0.01343 226.56 / 0.22)",
+          "oklch(49.29% 0.01343 226.56 / 0.22)",
+          "oklch(60.71% 0.01343 226.56 / 0.22)",
+          "oklch(72.14% 0.01343 226.56 / 0.22)",
+          "oklch(83.57% 0.01343 226.56 / 0.22)",
+          "oklch(95.00% 0.01343 226.56 / 0.22)"
+        ]
+      },
+      "cobalt-navigation-glass-dark": {
+        "role": "neutral",
+        "displayName": "Cobalt Navigation Glass Dark",
+        "canonical": "rgba(32,45,60,0.64)",
+        "tonalRamp": [
+          "oklch(15.00% 0.03279 252.47 / 0.64)",
+          "oklch(26.43% 0.03279 252.47 / 0.64)",
+          "oklch(37.86% 0.03279 252.47 / 0.64)",
+          "oklch(49.29% 0.03279 252.47 / 0.64)",
+          "oklch(60.71% 0.03279 252.47 / 0.64)",
+          "oklch(72.14% 0.03279 252.47 / 0.64)",
+          "oklch(83.57% 0.03279 252.47 / 0.64)",
+          "oklch(95.00% 0.03279 252.47 / 0.64)"
+        ]
+      },
+      "cobalt-navigation-strong-accent": {
+        "role": "primary",
+        "displayName": "Cobalt Navigation Strong Accent",
+        "canonical": "#12365f",
+        "tonalRamp": [
+          "oklch(15.00% 0.08339 254.02)",
+          "oklch(26.43% 0.08339 254.02)",
+          "oklch(37.86% 0.08339 254.02)",
+          "oklch(49.29% 0.08339 254.02)",
+          "oklch(60.71% 0.08339 254.02)",
+          "oklch(72.14% 0.08339 254.02)",
+          "oklch(83.57% 0.08339 254.02)",
+          "oklch(95.00% 0.08339 254.02)"
+        ]
+      },
+      "lavender-navigation-glass-light": {
+        "role": "neutral",
+        "displayName": "Lavender Navigation Glass Light",
+        "canonical": "rgba(250,242,255,0.22)",
+        "tonalRamp": [
+          "oklch(15.00% 0.01912 312.80 / 0.22)",
+          "oklch(26.43% 0.01912 312.80 / 0.22)",
+          "oklch(37.86% 0.01912 312.80 / 0.22)",
+          "oklch(49.29% 0.01912 312.80 / 0.22)",
+          "oklch(60.71% 0.01912 312.80 / 0.22)",
+          "oklch(72.14% 0.01912 312.80 / 0.22)",
+          "oklch(83.57% 0.01912 312.80 / 0.22)",
+          "oklch(95.00% 0.01912 312.80 / 0.22)"
+        ]
+      },
+      "lavender-navigation-glass-dark": {
+        "role": "neutral",
+        "displayName": "Lavender Navigation Glass Dark",
+        "canonical": "rgba(46,40,61,0.64)",
+        "tonalRamp": [
+          "oklch(15.00% 0.03837 297.09 / 0.64)",
+          "oklch(26.43% 0.03837 297.09 / 0.64)",
+          "oklch(37.86% 0.03837 297.09 / 0.64)",
+          "oklch(49.29% 0.03837 297.09 / 0.64)",
+          "oklch(60.71% 0.03837 297.09 / 0.64)",
+          "oklch(72.14% 0.03837 297.09 / 0.64)",
+          "oklch(83.57% 0.03837 297.09 / 0.64)",
+          "oklch(95.00% 0.03837 297.09 / 0.64)"
+        ]
+      },
+      "lavender-navigation-strong-accent": {
+        "role": "primary",
+        "displayName": "Lavender Navigation Strong Accent",
+        "canonical": "#422b60",
+        "tonalRamp": [
+          "oklch(15.00% 0.09190 301.81)",
+          "oklch(26.43% 0.09190 301.81)",
+          "oklch(37.86% 0.09190 301.81)",
+          "oklch(49.29% 0.09190 301.81)",
+          "oklch(60.71% 0.09190 301.81)",
+          "oklch(72.14% 0.09190 301.81)",
+          "oklch(83.57% 0.09190 301.81)",
+          "oklch(95.00% 0.09190 301.81)"
+        ]
+      },
+      "media-surface": {
+        "role": "neutral",
+        "displayName": "Media Surface",
+        "canonical": "#171d19",
+        "tonalRamp": [
+          "oklch(15.00% 0.01177 156.14)",
+          "oklch(26.43% 0.01177 156.14)",
+          "oklch(37.86% 0.01177 156.14)",
+          "oklch(49.29% 0.01177 156.14)",
+          "oklch(60.71% 0.01177 156.14)",
+          "oklch(72.14% 0.01177 156.14)",
+          "oklch(83.57% 0.01177 156.14)",
+          "oklch(95.00% 0.01177 156.14)"
+        ]
+      },
+      "media-foreground": {
+        "role": "neutral",
+        "displayName": "Media Foreground",
+        "canonical": "#ffffff",
+        "tonalRamp": [
+          "oklch(15.00% 0.00000 89.88)",
+          "oklch(26.43% 0.00000 89.88)",
+          "oklch(37.86% 0.00000 89.88)",
+          "oklch(49.29% 0.00000 89.88)",
+          "oklch(60.71% 0.00000 89.88)",
+          "oklch(72.14% 0.00000 89.88)",
+          "oklch(83.57% 0.00000 89.88)",
+          "oklch(95.00% 0.00000 89.88)"
+        ]
+      },
+      "media-muted-foreground": {
+        "role": "neutral",
+        "displayName": "Media Muted Foreground",
+        "canonical": "#eee9df",
+        "tonalRamp": [
+          "oklch(15.00% 0.01441 84.58)",
+          "oklch(26.43% 0.01441 84.58)",
+          "oklch(37.86% 0.01441 84.58)",
+          "oklch(49.29% 0.01441 84.58)",
+          "oklch(60.71% 0.01441 84.58)",
+          "oklch(72.14% 0.01441 84.58)",
+          "oklch(83.57% 0.01441 84.58)",
+          "oklch(95.00% 0.01441 84.58)"
+        ]
+      },
+      "media-provider-foreground": {
+        "role": "neutral",
+        "displayName": "Media Provider Foreground",
+        "canonical": "#ffffff",
+        "tonalRamp": [
+          "oklch(15.00% 0.00000 89.88)",
+          "oklch(26.43% 0.00000 89.88)",
+          "oklch(37.86% 0.00000 89.88)",
+          "oklch(49.29% 0.00000 89.88)",
+          "oklch(60.71% 0.00000 89.88)",
+          "oklch(72.14% 0.00000 89.88)",
+          "oklch(83.57% 0.00000 89.88)",
+          "oklch(95.00% 0.00000 89.88)"
+        ]
+      },
+      "media-control": {
+        "role": "neutral",
+        "displayName": "Media Control",
+        "canonical": "rgba(23,29,25,0.84)",
+        "tonalRamp": [
+          "oklch(15.00% 0.01177 156.14 / 0.84)",
+          "oklch(26.43% 0.01177 156.14 / 0.84)",
+          "oklch(37.86% 0.01177 156.14 / 0.84)",
+          "oklch(49.29% 0.01177 156.14 / 0.84)",
+          "oklch(60.71% 0.01177 156.14 / 0.84)",
+          "oklch(72.14% 0.01177 156.14 / 0.84)",
+          "oklch(83.57% 0.01177 156.14 / 0.84)",
+          "oklch(95.00% 0.01177 156.14 / 0.84)"
+        ]
+      },
+      "navigation-border-light": {
+        "role": "neutral",
+        "displayName": "Navigation Border Light",
+        "canonical": "rgba(255,255,255,0.52)",
+        "tonalRamp": [
+          "oklch(15.00% 0.00000 89.88 / 0.52)",
+          "oklch(26.43% 0.00000 89.88 / 0.52)",
+          "oklch(37.86% 0.00000 89.88 / 0.52)",
+          "oklch(49.29% 0.00000 89.88 / 0.52)",
+          "oklch(60.71% 0.00000 89.88 / 0.52)",
+          "oklch(72.14% 0.00000 89.88 / 0.52)",
+          "oklch(83.57% 0.00000 89.88 / 0.52)",
+          "oklch(95.00% 0.00000 89.88 / 0.52)"
+        ]
+      },
+      "navigation-border-dark": {
+        "role": "neutral",
+        "displayName": "Navigation Border Dark",
+        "canonical": "rgba(252,250,248,0.28)",
+        "tonalRamp": [
+          "oklch(15.00% 0.00341 67.78 / 0.28)",
+          "oklch(26.43% 0.00341 67.78 / 0.28)",
+          "oklch(37.86% 0.00341 67.78 / 0.28)",
+          "oklch(49.29% 0.00341 67.78 / 0.28)",
+          "oklch(60.71% 0.00341 67.78 / 0.28)",
+          "oklch(72.14% 0.00341 67.78 / 0.28)",
+          "oklch(83.57% 0.00341 67.78 / 0.28)",
+          "oklch(95.00% 0.00341 67.78 / 0.28)"
+        ]
+      },
+      "provider-foreground-light": {
+        "role": "neutral",
+        "displayName": "Provider Foreground Light",
+        "canonical": "#1f1f1f",
+        "tonalRamp": [
+          "oklch(15.00% 0.00000 89.88)",
+          "oklch(26.43% 0.00000 89.88)",
+          "oklch(37.86% 0.00000 89.88)",
+          "oklch(49.29% 0.00000 89.88)",
+          "oklch(60.71% 0.00000 89.88)",
+          "oklch(72.14% 0.00000 89.88)",
+          "oklch(83.57% 0.00000 89.88)",
+          "oklch(95.00% 0.00000 89.88)"
+        ]
+      },
+      "provider-foreground-dark": {
+        "role": "neutral",
+        "displayName": "Provider Foreground Dark",
+        "canonical": "#ffffff",
+        "tonalRamp": [
+          "oklch(15.00% 0.00000 89.88)",
+          "oklch(26.43% 0.00000 89.88)",
+          "oklch(37.86% 0.00000 89.88)",
+          "oklch(49.29% 0.00000 89.88)",
+          "oklch(60.71% 0.00000 89.88)",
+          "oklch(72.14% 0.00000 89.88)",
+          "oklch(83.57% 0.00000 89.88)",
+          "oklch(95.00% 0.00000 89.88)"
+        ]
+      },
+      "media-rating": {
+        "role": "neutral",
+        "displayName": "Media Rating",
+        "canonical": "#ffd16a",
+        "tonalRamp": [
+          "oklch(15.00% 0.13149 85.40)",
+          "oklch(26.43% 0.13149 85.40)",
+          "oklch(37.86% 0.13149 85.40)",
+          "oklch(49.29% 0.13149 85.40)",
+          "oklch(60.71% 0.13149 85.40)",
+          "oklch(72.14% 0.13149 85.40)",
+          "oklch(83.57% 0.13149 85.40)",
+          "oklch(95.00% 0.13149 85.40)"
+        ]
+      },
+      "media-divider": {
+        "role": "neutral",
+        "displayName": "Media Divider",
+        "canonical": "rgba(255,255,255,0.28)",
+        "tonalRamp": [
+          "oklch(15.00% 0.00000 89.88 / 0.28)",
+          "oklch(26.43% 0.00000 89.88 / 0.28)",
+          "oklch(37.86% 0.00000 89.88 / 0.28)",
+          "oklch(49.29% 0.00000 89.88 / 0.28)",
+          "oklch(60.71% 0.00000 89.88 / 0.28)",
+          "oklch(72.14% 0.00000 89.88 / 0.28)",
+          "oklch(83.57% 0.00000 89.88 / 0.28)",
+          "oklch(95.00% 0.00000 89.88 / 0.28)"
+        ]
+      },
+      "photo-blend-start": {
+        "role": "neutral",
+        "displayName": "Photo Blend Start",
+        "canonical": "rgba(23,29,25,0)",
+        "tonalRamp": [
+          "oklch(15.00% 0.01177 156.14 / 0)",
+          "oklch(26.43% 0.01177 156.14 / 0)",
+          "oklch(37.86% 0.01177 156.14 / 0)",
+          "oklch(49.29% 0.01177 156.14 / 0)",
+          "oklch(60.71% 0.01177 156.14 / 0)",
+          "oklch(72.14% 0.01177 156.14 / 0)",
+          "oklch(83.57% 0.01177 156.14 / 0)",
+          "oklch(95.00% 0.01177 156.14 / 0)"
+        ]
+      },
+      "photo-blend-middle": {
+        "role": "neutral",
+        "displayName": "Photo Blend Middle",
+        "canonical": "rgba(23,29,25,0.18)",
+        "tonalRamp": [
+          "oklch(15.00% 0.01177 156.14 / 0.62)",
+          "oklch(26.43% 0.01177 156.14 / 0.62)",
+          "oklch(37.86% 0.01177 156.14 / 0.62)",
+          "oklch(49.29% 0.01177 156.14 / 0.62)",
+          "oklch(60.71% 0.01177 156.14 / 0.62)",
+          "oklch(72.14% 0.01177 156.14 / 0.62)",
+          "oklch(83.57% 0.01177 156.14 / 0.62)",
+          "oklch(95.00% 0.01177 156.14 / 0.62)"
+        ]
+      },
+      "photo-blend-end": {
+        "role": "neutral",
+        "displayName": "Photo Blend End",
+        "canonical": "rgba(23,29,25,0.42)",
+        "tonalRamp": [
+          "oklch(15.00% 0.01177 156.14 / 0.64)",
+          "oklch(26.43% 0.01177 156.14 / 0.64)",
+          "oklch(37.86% 0.01177 156.14 / 0.64)",
+          "oklch(49.29% 0.01177 156.14 / 0.64)",
+          "oklch(60.71% 0.01177 156.14 / 0.64)",
+          "oklch(72.14% 0.01177 156.14 / 0.64)",
+          "oklch(83.57% 0.01177 156.14 / 0.64)",
+          "oklch(95.00% 0.01177 156.14 / 0.64)"
+        ]
+      },
+      "coral-selection-light": {
+        "role": "primary",
+        "displayName": "Coral Selection Light",
+        "canonical": "#ffebe09c",
+        "tonalRamp": [
+          "oklch(15.00% 0.02637 50.87 / 0.6118)",
+          "oklch(26.43% 0.02637 50.87 / 0.6118)",
+          "oklch(37.86% 0.02637 50.87 / 0.6118)",
+          "oklch(49.29% 0.02637 50.87 / 0.6118)",
+          "oklch(60.71% 0.02637 50.87 / 0.6118)",
+          "oklch(72.14% 0.02637 50.87 / 0.6118)",
+          "oklch(83.57% 0.02637 50.87 / 0.6118)",
+          "oklch(95.00% 0.02637 50.87 / 0.6118)"
+        ]
+      },
+      "coral-selection-dark": {
+        "role": "primary",
+        "displayName": "Coral Selection Dark",
+        "canonical": "#ffb29f22",
+        "tonalRamp": [
+          "oklch(15.00% 0.09460 34.41 / 0.1333)",
+          "oklch(26.43% 0.09460 34.41 / 0.1333)",
+          "oklch(37.86% 0.09460 34.41 / 0.1333)",
+          "oklch(49.29% 0.09460 34.41 / 0.1333)",
+          "oklch(60.71% 0.09460 34.41 / 0.1333)",
+          "oklch(72.14% 0.09460 34.41 / 0.1333)",
+          "oklch(83.57% 0.09460 34.41 / 0.1333)",
+          "oklch(95.00% 0.09460 34.41 / 0.1333)"
+        ]
+      },
+      "coral-hover-light": {
+        "role": "primary",
+        "displayName": "Coral Hover Light",
+        "canonical": "#ffebe088",
+        "tonalRamp": [
+          "oklch(15.00% 0.02637 50.87 / 0.5333)",
+          "oklch(26.43% 0.02637 50.87 / 0.5333)",
+          "oklch(37.86% 0.02637 50.87 / 0.5333)",
+          "oklch(49.29% 0.02637 50.87 / 0.5333)",
+          "oklch(60.71% 0.02637 50.87 / 0.5333)",
+          "oklch(72.14% 0.02637 50.87 / 0.5333)",
+          "oklch(83.57% 0.02637 50.87 / 0.5333)",
+          "oklch(95.00% 0.02637 50.87 / 0.5333)"
+        ]
+      },
+      "coral-hover-dark": {
+        "role": "primary",
+        "displayName": "Coral Hover Dark",
+        "canonical": "#ffb29f15",
+        "tonalRamp": [
+          "oklch(15.00% 0.09460 34.41 / 0.0824)",
+          "oklch(26.43% 0.09460 34.41 / 0.0824)",
+          "oklch(37.86% 0.09460 34.41 / 0.0824)",
+          "oklch(49.29% 0.09460 34.41 / 0.0824)",
+          "oklch(60.71% 0.09460 34.41 / 0.0824)",
+          "oklch(72.14% 0.09460 34.41 / 0.0824)",
+          "oklch(83.57% 0.09460 34.41 / 0.0824)",
+          "oklch(95.00% 0.09460 34.41 / 0.0824)"
+        ]
+      },
+      "coral-selection-border-light": {
+        "role": "primary",
+        "displayName": "Coral Selection Border Light",
+        "canonical": "#b4382944",
+        "tonalRamp": [
+          "oklch(15.00% 0.16278 30.26 / 0.2667)",
+          "oklch(26.43% 0.16278 30.26 / 0.2667)",
+          "oklch(37.86% 0.16278 30.26 / 0.2667)",
+          "oklch(49.29% 0.16278 30.26 / 0.2667)",
+          "oklch(60.71% 0.16278 30.26 / 0.2667)",
+          "oklch(72.14% 0.16278 30.26 / 0.2667)",
+          "oklch(83.57% 0.16278 30.26 / 0.2667)",
+          "oklch(95.00% 0.16278 30.26 / 0.2667)"
+        ]
+      },
+      "coral-selection-border-dark": {
+        "role": "primary",
+        "displayName": "Coral Selection Border Dark",
+        "canonical": "#ffb29f65",
+        "tonalRamp": [
+          "oklch(15.00% 0.09460 34.41 / 0.3961)",
+          "oklch(26.43% 0.09460 34.41 / 0.3961)",
+          "oklch(37.86% 0.09460 34.41 / 0.3961)",
+          "oklch(49.29% 0.09460 34.41 / 0.3961)",
+          "oklch(60.71% 0.09460 34.41 / 0.3961)",
+          "oklch(72.14% 0.09460 34.41 / 0.3961)",
+          "oklch(83.57% 0.09460 34.41 / 0.3961)",
+          "oklch(95.00% 0.09460 34.41 / 0.3961)"
+        ]
+      },
+      "coral-selection-glow-dark": {
+        "role": "primary",
+        "displayName": "Coral Selection Glow Dark",
+        "canonical": "#ffb29f42",
+        "tonalRamp": [
+          "oklch(15.00% 0.09460 34.41 / 0.2588)",
+          "oklch(26.43% 0.09460 34.41 / 0.2588)",
+          "oklch(37.86% 0.09460 34.41 / 0.2588)",
+          "oklch(49.29% 0.09460 34.41 / 0.2588)",
+          "oklch(60.71% 0.09460 34.41 / 0.2588)",
+          "oklch(72.14% 0.09460 34.41 / 0.2588)",
+          "oklch(83.57% 0.09460 34.41 / 0.2588)",
+          "oklch(95.00% 0.09460 34.41 / 0.2588)"
+        ]
+      },
+      "cobalt-selection-light": {
+        "role": "primary",
+        "displayName": "Cobalt Selection Light",
+        "canonical": "#e5f3fb9c",
+        "tonalRamp": [
+          "oklch(15.00% 0.01837 232.51 / 0.6118)",
+          "oklch(26.43% 0.01837 232.51 / 0.6118)",
+          "oklch(37.86% 0.01837 232.51 / 0.6118)",
+          "oklch(49.29% 0.01837 232.51 / 0.6118)",
+          "oklch(60.71% 0.01837 232.51 / 0.6118)",
+          "oklch(72.14% 0.01837 232.51 / 0.6118)",
+          "oklch(83.57% 0.01837 232.51 / 0.6118)",
+          "oklch(95.00% 0.01837 232.51 / 0.6118)"
+        ]
+      },
+      "cobalt-selection-dark": {
+        "role": "primary",
+        "displayName": "Cobalt Selection Dark",
+        "canonical": "#a9d4ff22",
+        "tonalRamp": [
+          "oklch(15.00% 0.07543 248.72 / 0.1333)",
+          "oklch(26.43% 0.07543 248.72 / 0.1333)",
+          "oklch(37.86% 0.07543 248.72 / 0.1333)",
+          "oklch(49.29% 0.07543 248.72 / 0.1333)",
+          "oklch(60.71% 0.07543 248.72 / 0.1333)",
+          "oklch(72.14% 0.07543 248.72 / 0.1333)",
+          "oklch(83.57% 0.07543 248.72 / 0.1333)",
+          "oklch(95.00% 0.07543 248.72 / 0.1333)"
+        ]
+      },
+      "cobalt-hover-light": {
+        "role": "primary",
+        "displayName": "Cobalt Hover Light",
+        "canonical": "#e5f3fb88",
+        "tonalRamp": [
+          "oklch(15.00% 0.01837 232.51 / 0.5333)",
+          "oklch(26.43% 0.01837 232.51 / 0.5333)",
+          "oklch(37.86% 0.01837 232.51 / 0.5333)",
+          "oklch(49.29% 0.01837 232.51 / 0.5333)",
+          "oklch(60.71% 0.01837 232.51 / 0.5333)",
+          "oklch(72.14% 0.01837 232.51 / 0.5333)",
+          "oklch(83.57% 0.01837 232.51 / 0.5333)",
+          "oklch(95.00% 0.01837 232.51 / 0.5333)"
+        ]
+      },
+      "cobalt-hover-dark": {
+        "role": "primary",
+        "displayName": "Cobalt Hover Dark",
+        "canonical": "#a9d4ff15",
+        "tonalRamp": [
+          "oklch(15.00% 0.07543 248.72 / 0.0824)",
+          "oklch(26.43% 0.07543 248.72 / 0.0824)",
+          "oklch(37.86% 0.07543 248.72 / 0.0824)",
+          "oklch(49.29% 0.07543 248.72 / 0.0824)",
+          "oklch(60.71% 0.07543 248.72 / 0.0824)",
+          "oklch(72.14% 0.07543 248.72 / 0.0824)",
+          "oklch(83.57% 0.07543 248.72 / 0.0824)",
+          "oklch(95.00% 0.07543 248.72 / 0.0824)"
+        ]
+      },
+      "cobalt-selection-border-light": {
+        "role": "primary",
+        "displayName": "Cobalt Selection Border Light",
+        "canonical": "#285ba744",
+        "tonalRamp": [
+          "oklch(15.00% 0.13399 258.47 / 0.2667)",
+          "oklch(26.43% 0.13399 258.47 / 0.2667)",
+          "oklch(37.86% 0.13399 258.47 / 0.2667)",
+          "oklch(49.29% 0.13399 258.47 / 0.2667)",
+          "oklch(60.71% 0.13399 258.47 / 0.2667)",
+          "oklch(72.14% 0.13399 258.47 / 0.2667)",
+          "oklch(83.57% 0.13399 258.47 / 0.2667)",
+          "oklch(95.00% 0.13399 258.47 / 0.2667)"
+        ]
+      },
+      "cobalt-selection-border-dark": {
+        "role": "primary",
+        "displayName": "Cobalt Selection Border Dark",
+        "canonical": "#a9d4ff65",
+        "tonalRamp": [
+          "oklch(15.00% 0.07543 248.72 / 0.3961)",
+          "oklch(26.43% 0.07543 248.72 / 0.3961)",
+          "oklch(37.86% 0.07543 248.72 / 0.3961)",
+          "oklch(49.29% 0.07543 248.72 / 0.3961)",
+          "oklch(60.71% 0.07543 248.72 / 0.3961)",
+          "oklch(72.14% 0.07543 248.72 / 0.3961)",
+          "oklch(83.57% 0.07543 248.72 / 0.3961)",
+          "oklch(95.00% 0.07543 248.72 / 0.3961)"
+        ]
+      },
+      "cobalt-selection-glow-dark": {
+        "role": "primary",
+        "displayName": "Cobalt Selection Glow Dark",
+        "canonical": "#a9d4ff42",
+        "tonalRamp": [
+          "oklch(15.00% 0.07543 248.72 / 0.2588)",
+          "oklch(26.43% 0.07543 248.72 / 0.2588)",
+          "oklch(37.86% 0.07543 248.72 / 0.2588)",
+          "oklch(49.29% 0.07543 248.72 / 0.2588)",
+          "oklch(60.71% 0.07543 248.72 / 0.2588)",
+          "oklch(72.14% 0.07543 248.72 / 0.2588)",
+          "oklch(83.57% 0.07543 248.72 / 0.2588)",
+          "oklch(95.00% 0.07543 248.72 / 0.2588)"
+        ]
+      },
+      "lavender-selection-light": {
+        "role": "primary",
+        "displayName": "Lavender Selection Light",
+        "canonical": "#f0e6fa9c",
+        "tonalRamp": [
+          "oklch(15.00% 0.02869 308.12 / 0.6118)",
+          "oklch(26.43% 0.02869 308.12 / 0.6118)",
+          "oklch(37.86% 0.02869 308.12 / 0.6118)",
+          "oklch(49.29% 0.02869 308.12 / 0.6118)",
+          "oklch(60.71% 0.02869 308.12 / 0.6118)",
+          "oklch(72.14% 0.02869 308.12 / 0.6118)",
+          "oklch(83.57% 0.02869 308.12 / 0.6118)",
+          "oklch(95.00% 0.02869 308.12 / 0.6118)"
+        ]
+      },
+      "lavender-selection-dark": {
+        "role": "primary",
+        "displayName": "Lavender Selection Dark",
+        "canonical": "#ddc6ff22",
+        "tonalRamp": [
+          "oklch(15.00% 0.08135 303.15 / 0.1333)",
+          "oklch(26.43% 0.08135 303.15 / 0.1333)",
+          "oklch(37.86% 0.08135 303.15 / 0.1333)",
+          "oklch(49.29% 0.08135 303.15 / 0.1333)",
+          "oklch(60.71% 0.08135 303.15 / 0.1333)",
+          "oklch(72.14% 0.08135 303.15 / 0.1333)",
+          "oklch(83.57% 0.08135 303.15 / 0.1333)",
+          "oklch(95.00% 0.08135 303.15 / 0.1333)"
+        ]
+      },
+      "lavender-hover-light": {
+        "role": "primary",
+        "displayName": "Lavender Hover Light",
+        "canonical": "#f0e6fa88",
+        "tonalRamp": [
+          "oklch(15.00% 0.02869 308.12 / 0.5333)",
+          "oklch(26.43% 0.02869 308.12 / 0.5333)",
+          "oklch(37.86% 0.02869 308.12 / 0.5333)",
+          "oklch(49.29% 0.02869 308.12 / 0.5333)",
+          "oklch(60.71% 0.02869 308.12 / 0.5333)",
+          "oklch(72.14% 0.02869 308.12 / 0.5333)",
+          "oklch(83.57% 0.02869 308.12 / 0.5333)",
+          "oklch(95.00% 0.02869 308.12 / 0.5333)"
+        ]
+      },
+      "lavender-hover-dark": {
+        "role": "primary",
+        "displayName": "Lavender Hover Dark",
+        "canonical": "#ddc6ff15",
+        "tonalRamp": [
+          "oklch(15.00% 0.08135 303.15 / 0.0824)",
+          "oklch(26.43% 0.08135 303.15 / 0.0824)",
+          "oklch(37.86% 0.08135 303.15 / 0.0824)",
+          "oklch(49.29% 0.08135 303.15 / 0.0824)",
+          "oklch(60.71% 0.08135 303.15 / 0.0824)",
+          "oklch(72.14% 0.08135 303.15 / 0.0824)",
+          "oklch(83.57% 0.08135 303.15 / 0.0824)",
+          "oklch(95.00% 0.08135 303.15 / 0.0824)"
+        ]
+      },
+      "lavender-selection-border-light": {
+        "role": "primary",
+        "displayName": "Lavender Selection Border Light",
+        "canonical": "#7350a744",
+        "tonalRamp": [
+          "oklch(15.00% 0.13600 300.20 / 0.2667)",
+          "oklch(26.43% 0.13600 300.20 / 0.2667)",
+          "oklch(37.86% 0.13600 300.20 / 0.2667)",
+          "oklch(49.29% 0.13600 300.20 / 0.2667)",
+          "oklch(60.71% 0.13600 300.20 / 0.2667)",
+          "oklch(72.14% 0.13600 300.20 / 0.2667)",
+          "oklch(83.57% 0.13600 300.20 / 0.2667)",
+          "oklch(95.00% 0.13600 300.20 / 0.2667)"
+        ]
+      },
+      "lavender-selection-border-dark": {
+        "role": "primary",
+        "displayName": "Lavender Selection Border Dark",
+        "canonical": "#ddc6ff65",
+        "tonalRamp": [
+          "oklch(15.00% 0.08135 303.15 / 0.3961)",
+          "oklch(26.43% 0.08135 303.15 / 0.3961)",
+          "oklch(37.86% 0.08135 303.15 / 0.3961)",
+          "oklch(49.29% 0.08135 303.15 / 0.3961)",
+          "oklch(60.71% 0.08135 303.15 / 0.3961)",
+          "oklch(72.14% 0.08135 303.15 / 0.3961)",
+          "oklch(83.57% 0.08135 303.15 / 0.3961)",
+          "oklch(95.00% 0.08135 303.15 / 0.3961)"
+        ]
+      },
+      "lavender-selection-glow-dark": {
+        "role": "primary",
+        "displayName": "Lavender Selection Glow Dark",
+        "canonical": "#ddc6ff42",
+        "tonalRamp": [
+          "oklch(15.00% 0.08135 303.15 / 0.2588)",
+          "oklch(26.43% 0.08135 303.15 / 0.2588)",
+          "oklch(37.86% 0.08135 303.15 / 0.2588)",
+          "oklch(49.29% 0.08135 303.15 / 0.2588)",
+          "oklch(60.71% 0.08135 303.15 / 0.2588)",
+          "oklch(72.14% 0.08135 303.15 / 0.2588)",
+          "oklch(83.57% 0.08135 303.15 / 0.2588)",
+          "oklch(95.00% 0.08135 303.15 / 0.2588)"
+        ]
+      },
+      "selection-glow-light": {
+        "role": "primary",
+        "displayName": "Selection Glow Light",
+        "canonical": "rgba(255,255,255,0.84)",
+        "tonalRamp": [
+          "oklch(15.00% 0.00000 89.88 / 0.84)",
+          "oklch(26.43% 0.00000 89.88 / 0.84)",
+          "oklch(37.86% 0.00000 89.88 / 0.84)",
+          "oklch(49.29% 0.00000 89.88 / 0.84)",
+          "oklch(60.71% 0.00000 89.88 / 0.84)",
+          "oklch(72.14% 0.00000 89.88 / 0.84)",
+          "oklch(83.57% 0.00000 89.88 / 0.84)",
+          "oklch(95.00% 0.00000 89.88 / 0.84)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "ExtraBold display",
+        "purpose": "Startup food-and-community headline."
+      },
+      "title": {
+        "displayName": "ExtraBold title",
+        "purpose": "Wordmark and larger headings, including guided cooking step titles; flexible wrapping remains required."
+      },
+      "subtitle": {
+        "displayName": "ExtraBold subtitle",
+        "purpose": "Compact native screen headings, food item headings and secondary content headings."
+      },
+      "body": {
+        "displayName": "Regular body",
+        "purpose": "Readable explanatory text; bold family used for shared strong labels."
+      },
+      "small": {
+        "displayName": "Regular supporting text",
+        "purpose": "Hints, status and local-preview notes; field labels and choices use the bold family."
+      },
+      "button": {
+        "displayName": "Bold action",
+        "purpose": "Primary, secondary and link action labels."
+      },
+      "place": {
+        "displayName": "Place",
+        "purpose": "Compact 18-unit place text; Regular base, shared Bold for venue names."
+      },
+      "caption": {
+        "displayName": "Caption",
+        "purpose": "Compact 12-unit wrapping address/distance/rating/hours text."
+      },
+      "cook-title": {
+        "displayName": "Cook title",
+        "purpose": "Scoped compact Cook headings; follows text-size preference."
+      },
+      "cook-subtitle": {
+        "displayName": "Cook subtitle",
+        "purpose": "Compact Cook row and section headings."
+      },
+      "cook-button": {
+        "displayName": "Cook action",
+        "purpose": "Cook actions with48-unit minimum target and one padding layer."
+      }
+    },
+    "shadows": [
+      {
+        "name": "card-ambient",
+        "value": "0 4px 14px rgba(81,68,62,0.04)",
+        "purpose": "Static Coral/Light CSS approximation of native offset (0,4), opacity .04, radius 14 and Android elevation 1; the active family/mode supplies shadow color.",
+        "nativeSource": "src/components/ui.tsx"
+      }
+    ],
+    "motion": [
+      {
+        "name": "navigation",
+        "value": "slide_from_right",
+        "purpose": "Expo Router transition when app and device Reduce Motion are off."
+      },
+      {
+        "name": "reduced-navigation",
+        "value": "none",
+        "purpose": "Still navigation when either motion preference is on."
+      }
+    ],
+    "layout": [
+      {
+        "name": "screen-frame-max-width",
+        "value": "760 logical units"
+      },
+      {
+        "name": "minimum-control-target",
+        "value": "General controls/Save48; card footer/source24visible with parent-bounded10v/4h hitSlop, no guaranteed44 target"
+      },
+      {
+        "name": "compact-screen-inset",
+        "value": "Explore horizontal4; other screens horizontal8; vertical16"
+      },
+      {
+        "name": "compact-top-and-outer-gap",
+        "value": "14 logical units"
+      },
+      {
+        "name": "compact-child-stack",
+        "value": "12 logical units"
+      },
+      {
+        "name": "area-target",
+        "value": "36 visual units plus 6-unit hit slop"
+      },
+      {
+        "name": "native-frame",
+        "value": "Square and borderless; safe areas retained; browser preview keeps rounded frame"
+      },
+      {
+        "name": "discovery-wide-two-pane",
+        "value": "At least 600 logical units; map and result panes"
+      },
+      {
+        "name": "map-results-sheet",
+        "value": "Peek 104; half min(360, 58% stage); full stage height; 16-unit radius"
+      },
+      {
+        "name": "map-fill",
+        "value": "Flex stage through Screen fill; explicit recenter/search; no search on pan"
+      },
+      {
+        "name": "live-card",
+        "value": "116clear space;no panel minHeight;panel12h/8top/2bottom;footer/source24visible;hitSlop10v4h parent-bounded;Save48;about223heightat375;divider-hours6/hours-bottom8;blur2feather24;1line ellipsis;no zoom"
+      },
+      {
+        "name": "navigation-dock",
+        "value": "Transparent absolute host; max760;top corners24/bottom0;five icon targets minWidth48,row56,glyph30,stroke2.2,filled selected; lens max68x44/radius22; persistent1.5 selected-foreground lens border/fill; keyboard focus perimeter"
+      },
+      {
+        "name": "bottom-space",
+        "value": "Screen reserves measured dock+feedback height; notices/timers above dock; dock owns bottom inset and hides for keyboard"
+      },
+      {
+        "name": "provider-media",
+        "value": "Paging gallery;pagination24;no compact author/source row;photo tap opens viewer with full matching original credits"
+      }
+    ],
+    "evidence": {
+      "updated": "2026-10-14",
+      "scope": "Final white18/12 photo text, measured name-midpoint raster blend, icon-only small themed lens dock and 8-unit horizontal inset.",
+      "android": "Canonical manifest/bundle HTTP200, 8,635,670 bytes, current source and private key/name exclusion. LAN exp://192.168.1.5:8083; CI packager5816, no hot reload.",
+      "browser": "Canonical Playwright PASSED23 checks/six screenshots:375×812 light/dark,768×1024 light,1440×900 light,hover and decoded exact-photo viewer. Zero runtime/console/network errors.",
+      "userPhone": "Earlier Android render/nearby-detail functional confirmation retained as prior-scope history; no current accepted native captures.",
+      "nativeIos": "Current native behavior/visual/accessibility acceptance remains unavailable.",
+      "missingCaptures": [
+        "phone-android",
+        "phone-ios",
+        "tablet-android",
+        "tablet-ios"
+      ],
+      "currentValidation": ".impeccable/review/photo-dock-validation.json",
+      "currentBrowserValidation": ".impeccable/review/photo-dock-playwright.json",
+      "currentFinishVerdict": ".impeccable/review/photo-dock-finish-verdict.json",
+      "finalVerdict": "recapture; canonical web/bundle evidence does not replace four unavailable current native phone/tablet Android/iOS captures.",
+      "checksAfter": "Final cancellation/press-feedback fixes; TSC and Expo lint exit0/no warnings. Three initial card pairs share three proxy downloads; press opacity1/full perimeter; entry1/freshreturn0/expiry1/unchangedroutes0 extra calls.",
+      "accessibility": "Scoped axe zero violations retains color-contrast and label-content-name-mismatch incomplete; no full AA/native fidelity/accessibility acceptance.",
+      "browserCaptures": [
+        ".impeccable/review/photo-dock-web-375.png",
+        ".impeccable/review/photo-dock-web-hover.png",
+        ".impeccable/review/photo-dock-web-photo-viewer.png",
+        ".impeccable/review/photo-dock-web-768.png",
+        ".impeccable/review/photo-dock-web-1440.png",
+        ".impeccable/review/photo-dock-web-375-dark.png"
+      ],
+      "historicalDiscoveryEvidence": {
+        "updated": "2026-10-14",
+        "scope": "Bounded live Singapore discovery: temporary nearby GPS, shared Map/List, controlled results sheet and current branch photos/business reviews/hours. Full PRD remains partial.",
+        "android": "Final LAN native-style manifest and 8,305,879-byte bundle HTTP 200; private key literal/variable absent. User confirmed nearby results/photos/reviews/hours after reloading 8083. This is functional evidence; required screenshot acceptance remains missing.",
+        "browser": "Current localhost8083 permission declined; no fresh browser capture. All old captures excluded from the fresh finish pass.",
+        "userPhone": "Android Expo Go on exp://192.168.1.5:8083; user confirmed the live feature runtime after reload.",
+        "nativeIos": "Accepted device behavior and UI captures remain missing.",
+        "missingCaptures": [
+          "phone-ios",
+          "phone-android",
+          "tablet-ios",
+          "tablet-android"
+        ],
+        "currentValidation": ".impeccable/review/discovery-validation.json",
+        "currentFinishVerdict": ".impeccable/review/discovery-finish-verdict.json",
+        "finalVerdict": "recapture at check 0; native visual gate unmet. No production/public-release acceptance.",
+        "checksAfter": "Final opening-boundary correction: TypeScript/ESLint zero errors/warnings; nearby/details/photos/invalid-input/allowance concurrency checks and opening transition assertions passed. Code review resolved final findings at source/API scope.",
+        "reviewRole": "Fresh code-reviewer substituted for Impeccable finish reviewer; native acceptance is still pending.",
+        "browserCaptures": []
+      },
+      "historicalFoodUtilityEvidence": {
+        "updated": "2026-10-14",
+        "scope": "All eight local Phase 1 food utility feature sets and final compact refinements.",
+        "android": "Final SDK 57 Android bundle and manifest HTTP 200; bundle includes root Account and compact cooking resume. Accepted native UI captures are missing.",
+        "browser": "Supplemental functional QA passed after the final routing correction, including Saved/Cook to Me and Back, Saved detail returns, Filters and cooking resume. Browser visuals do not satisfy native acceptance.",
+        "userPhone": "Expo Go confirmed; phone OS unspecified",
+        "nativeIos": "Accepted device UI capture and behavior validation are missing.",
+        "missingCaptures": [
+          "phone-ios",
+          "phone-android",
+          "tablet-ios",
+          "tablet-android"
+        ],
+        "currentValidation": ".impeccable/review/food-utility-validation.json",
+        "currentFinishVerdict": ".impeccable/review/food-utility-finish-verdict.json",
+        "finalVerdict": "recapture; native visual gate is unmet. No ship, push, deployment or public-release acceptance.",
+        "checksAfter": "Final root-stack routing correction; npx tsc --noEmit and npx eslint . exit 0.",
+        "browserCaptureFormat": "JPEG verified by FF D8 / FF D9 file signature; historical access paths are unchanged.",
+        "browserCaptures": [
+          ".impeccable/review/browser-features-explore-clean.jpg",
+          ".impeccable/review/browser-features-cook-clean.jpg",
+          ".impeccable/review/browser-features-saved-clean.jpg",
+          ".impeccable/review/browser-features-cooking-clean.jpg",
+          ".impeccable/review/browser-features-recipe-clean.jpg",
+          ".impeccable/review/browser-features-dish-clean.jpg",
+          ".impeccable/review/browser-features-me-clean.jpg"
+        ]
+      },
+      "historicalAccessEvidence": {
+        "updated": "2026-10-13",
+        "android": "passed; headless Android API 36.1 emulator, Expo Go 57.0.9",
+        "browser": "passed; supplemental development-preview checks",
+        "userPhone": "Expo Go confirmed; phone OS unspecified",
+        "localExports": [
+          "Android",
+          "iOS",
+          "web"
+        ],
+        "nativeIos": "device behavior unverified",
+        "contrastMeasurement": ".impeccable/review/accessibility-fix-check.json",
+        "finalVerdict": "ship for the two accessibility fixes; both resolved with no batch regressions in fresh Android/browser captures. Scope: .impeccable/review/finish-verdict.json. No push or deployment authorized."
+      },
+      "navigationFinish": {
+        "lastUpdated": "2026-10-15",
+        "disposition": "ship",
+        "scope": "Browser/source navigation and profile Saved only",
+        "verdictSource": "Reviewer /root/social_nav_review, supplied handoff: 11 screenshots inspected; no material fixes",
+        "implemented": [
+          "Explore/Cook/Social/Market/Game icon-only dock",
+          "Distinct centre Social and rightmost Game SVG icons",
+          "Profile Saved count and root-stack Saved/filter routes",
+          "Unavailable Social/Game states with working food exits"
+        ],
+        "validation": {
+          "source": ".impeccable/review/navigation-validation.json",
+          "passedGroups": 18,
+          "screenshotsInspected": 11,
+          "runtimeErrors": 0,
+          "scopedAxeViolations": 0,
+          "incompleteAxeChecks": [
+            "color-contrast",
+            "aria-hidden-focus"
+          ],
+          "typescriptExit": 0,
+          "lintExit": 0,
+          "commandEvidence": "Parent reports npx tsc --noEmit and npm run lint exit 0 after final source change"
+        },
+        "androidTransport": {
+          "source": ".impeccable/review/navigation-native.json",
+          "manifestStatus": 200,
+          "bundleStatus": 200,
+          "bundleBytes": 8862696,
+          "currentNavigation": true
+        },
+        "unverified": [
+          "Native device appearance",
+          "Native gestures and accessibility",
+          "Social bookings, friends, events, ID review and messaging",
+          "Game mechanics",
+          "Full-app accessibility and production release"
+        ]
+      }
+    },
+    "asset": {
+      "path": "assets/chef.png",
+      "provenance": "assets/provenance.json",
+      "reference": "QuinTaste_UI_UX_Screen_Reference.pdf, page 6",
+      "type": "transparent generated raster",
+      "promptLocation": "assets/provenance.json; exact prompt also embedded in the PNG"
+    },
+    "previewBoundary": "Allium-free uses Google Maps keyword matches, not per-location ingredient storage. Saved noAlliums supplies optional validated DiscoverySearch.alliumFree; true requests Google Text Search with 'no onion no garlic' plus the selected vegetarian/vegan term. Strict diet, Singapore bounds/country checks, coordinate bias, radius post-filtering and area/map restrictions remain. Coordinate queries omit the literal Singapore text so it cannot override locationBias; area/bounds searches retain geography. Google has no Allium-free flag: keyword matches are not ingredient verification or complete ingredient information. The Allium-free control has no caption. Cooking and owned-recipe ingredient features are unchanged. Landscape cards use a 116-unit clear-photo spacer above measured information, preserving 8-unit horizontal/top padding,2-unit bottom padding and2-unit gaps, whole-card photo, blurRadius2/24-unit feather and Save48 and source24 visible targets (native hitSlop10v/4h is parent-bounded) and photo-tap access in the gallery. Every name, address, distance, rating, hours and provider line is single-line with tail ellipsis; full raw name/address remain in the parent accessible label and details. No Allium status appears visually or in card accessibility text. The current 375-wide card is about 223 units tall, not a height cap. Google Maps is an independent target in the inline hours/footer row with gap8 and a full-width hairline divider. Failed-photo icon/text are centered below the control lane at top60 and truncate to one line. The photo request still runs usePhotoData → /api/place-photo → src/server/google-photo.ts. That handler checks the enabled development cache before reserving Google photo allowance and deduplicates concurrent misses; misses call Google media. Ignored .local/places-allowance.json now has placePhotos limit600 and developmentPhotoCache:true; src/server/google-allowance.ts enforces hard cap600. Raising the cap preserved existing usage rather than resetting it. Fresh-metadata acceptance observed photo usage 523→524 for the first three visible photos (one new fetch, others saved), then 524 after fresh Google metadata and 524 through browser/reload. There were 23 saved photos. The cap remains 600, with 76 calls remaining at that observation; later preview activity may change usage. Supplied alignment-fix review only; native appearance/permissions/full-app AA remain outstanding. Filters renders only section headers and control labels: Diet, Vegetarian, Vegan, Allium-free, Search around and Distance. No Allium caption, diet legend, Google explanation or Home/Work help paragraph is shown. The Allium-free row has a 48-unit minimum target (observed 50). Auto-save/apply, private-address setup and functional loading/error/Retry states remain. PhotoScrollView still defers unviewed cards. Client clear/blur, viewer, detail and Saved consumers share active URL-plus-original-metadata-expiry bytes, release after the final consumer or original five-minute expiry, retain the 20-second timeout/60-second 429-or-503 cooldown, and use no-store/cachePolicy none. Client metadata and HMAC photo tokens still expire after five minutes; the development server cache does not extend them. Development photo storage still requires NODE_ENV === 'development' and the ignored private developmentPhotoCache:true flag; production disables reads and writes. Ignored .local/dev-place-photos uses SHA256(identity+'|maxWidthPx=800') filenames. Legacy raw identities are resource names; stable snapshot identities are place/<placeId>/photos/<0-2>. Headers retain type, savedAt, original photo author/sourceUri credits and assetHash (SHA256 of the original resource name), without raw Google resource names or API keys. Fresh Google venue metadata uses a saved same-slot snapshot with its matching credits/digest rather than assuming Google photo references remain stable. Validated five-minute HMAC URLs pin stable identity, digest, snapshot flag and matching credits, with optional bounded compressed long-credit payloads. An expired, missing or version-mismatched pinned snapshot rejects and requires refreshed metadata; a different image is never served under old credits. Freshness remains 24 hours with read rejection/deletion and next-write pruning; bounds remain 5MiB/image, 64MiB total and 100 entries. Atomic writes and per-process serialized pruning remove actual <hash>.image.<uuid>.tmp orphans older than 60 seconds and count recent temporary bytes. Only requested photos are stored; there is no bulk prefetch, ledger reset or production storage permission. The photo request still runs usePhotoData → /api/place-photo → src/server/google-photo.ts. That handler checks the enabled development cache before reserving Google photo allowance and deduplicates concurrent misses; misses call Google media. Ignored .local/places-allowance.json now has placePhotos limit600 and developmentPhotoCache:true; src/server/google-allowance.ts enforces hard cap600. Raising the cap preserved existing usage rather than resetting it. Fresh-metadata acceptance observed photo usage 523→524 for the first three visible photos (one new fetch, others saved), then 524 after fresh Google metadata and 524 through browser/reload. There were 23 saved photos. The cap remains 600, with 76 calls remaining at that observation; later preview activity may change usage. Development photo storage still requires NODE_ENV === 'development' and the ignored private developmentPhotoCache:true flag; production disables reads and writes. Ignored .local/dev-place-photos uses SHA256(identity+'|maxWidthPx=800') filenames. Legacy raw identities are resource names; stable snapshot identities are place/<placeId>/photos/<0-2>. Headers retain type, savedAt, original photo author/sourceUri credits and assetHash (SHA256 of the original resource name), without raw Google resource names or API keys. Fresh Google venue metadata uses a saved same-slot snapshot with its matching credits/digest rather than assuming Google photo references remain stable. Validated five-minute HMAC URLs pin stable identity, digest, snapshot flag and matching credits, with optional bounded compressed long-credit payloads. An expired, missing or version-mismatched pinned snapshot rejects and requires refreshed metadata; a different image is never served under old credits. Freshness remains 24 hours with read rejection/deletion and next-write pruning; bounds remain 5MiB/image, 64MiB total and 100 entries. Atomic writes and per-process serialized pruning remove actual <hash>.image.<uuid>.tmp orphans older than 60 seconds and count recent temporary bytes. Only requested photos are stored; there is no bulk prefetch, ledger reset or production storage permission. Google's standard [photo-name guidance](https://developers.google.com/maps/documentation/places/web-service/place-photos) and [Places caching restrictions](https://developers.google.com/maps/documentation/places/web-service/policies) still apply. The user explicitly requested development disk storage; development is not a provider licensing exemption. Current place cards use blurRadius2 with a 24-unit feather beginning at the measured name midpoint and photoBlend alpha0/.18/.42. Name/address/distance/rating/hours remain single-line with tail ellipsis. The navigation button is absolute-fill and accessible; Google Maps is a separate inline footer target beside hours with gap8. A full-width 1px/hairline theme.mediaDivider sits above that footer. There is no zoom icon. The 375-wide layout is about 223 units tall with 4-unit side gutters; this is an observed size, not a fixed height. Live place details use a horizontal paging GooglePhotoGallery: only visible/visited photos load, dots show 1/N, and swipe, keyboard and native adjustable actions select photos. Tapping a photo opens the existing viewer; no zoom icon or Photo N selection buttons remain. The compact author/source row below the gallery is removed; matching credits remain in the full-screen exact-photo viewer. Explanatory paragraphs (including Share), the menu/ingredient-evidence/Ask-the-stall block and private note are removed from live place details. Save, Directions, Share, Call, hours, website and reviews remain. Equal adjacent bordered icon-and-label Correction and Report concern controls are 52 units tall and open the existing forms. Sample/cooking ingredient evidence and other private collection data remain separate. Detail hours/rating use a single compact shrinking/ellipsized row at narrow widths. The gallery retains native accessibilityValue and uses targeted web ARIA range props for React Native Web. Place-card footer and inline Google Maps source have 24-unit visible height. The link uses native hitSlop10 vertically/4 horizontally, bounded by its parent; this does not guarantee a 44-unit target. Save remains48 and Maps stays an independent link beside hours. Information padding is8 horizontally/top and2 at the bottom, with no116-unit minimum panel height. The clear-photo spacer is116; the observed375-wide card remains about223 units tall with4-unit side gutters. Divider linebox→hours is6px and hours linebox→card bottom is8px in the initial320/375/414/768/1440 measurements; all rows stay single-line. Raster blurRadius2,24-unit feather/midpoint start and photoBlend alpha0/.18/.42 are current; there is no zoom icon. GooglePhotoGallery removes its compact author/source row and uses24-unit pagination. The full-screen exact-photo viewer retains matching original credits. Live place details omit the standalone Google Maps word above feedback; their fallback link is labelled Open map. GoogleReview source actions are labelled View review and retain the same URI. Gallery paging/photo-tap access, existing actions/forms, and development snapshot/credit validation remain.",
+    "illustrativeCatalogue": {
+      "venues": 3,
+      "dishes": 5,
+      "editorialRecipes": 4,
+      "foodAssets": [
+        "assets/food/bowl.png",
+        "assets/food/laksa.png",
+        "assets/food/greens.png"
+      ],
+      "foodProvenance": "assets/food/provenance.json",
+      "boundary": "Three fictional venues, five sample dishes, four free editorial recipes and generated illustrative images remain outside default live Explore. Sample hours/photos do not represent a business or ingredient-safety claim; current Google hours/photos belong to a separate ephemeral provider overlay.",
+      "openingHours": "Two authored Singapore sample schedules refresh every minute and on foreground; invalid, missing, future-dated or over-90-day schedules remain Unknown."
+    },
+    "navigation": {
+      "rootStack": "Exactly Explore/Cook/Social/Market/Game use Expo Router JavaScript Tabs/history and the existing slim glass dock. Me is on Cook/Social/Market/Game. Saved is first in Me with the real collection count; /saved and /saved/filters join shared detail/account/settings/ask/recipe and market tasks in the root stack, retaining URLs and Back context. Saved has Back/search/Filters without avatar/dock.",
+      "tabStacks": "Explore area/filters/map and Cook filters remain local to their tabs. Saved and Saved filters are root-stack routes.",
+      "source": "src/app/_layout.tsx",
+      "nativeAcceptance": "Icon-only accessible names retained; canonical web interactions passed. Four current native captures/VoiceOver/TalkBack/200% fidelity remain unavailable.",
+      "discovery": "Owner-isolated shared Discovery auto-ensures on eligible entry/return/foreground/expiry, reuses fresh accepted Map context and checks actual Date.now GPS freshness. Permission explicit; source expiry clears selection; canonical saved/detail routes retained.",
+      "domainBoundary": "Social now implements the opt-in local sample flow; Game retains its unavailable state, Me and Try a recipe. Live Social services and game mechanics remain gated.",
+      "updatedAt": "2026-10-15",
+      "iconSystem": "User Instagram/LinkedIn reference:30-unit outlines,2.2stroke,filled selected silhouettes,row56,lens68x44/radius22,persistent1.5 selected-foreground lens border/fill; separate outer2 keyboard focus-visible perimeter retained.",
+      "selection": "All five selected tabs retain the selection fill and a 1.5-unit lens border in navigation.selectedForeground, capped at 68×44 with radius22. A separate outer 2-unit perimeter indicates keyboard focus; web focus-visible keeps pointer/touch activation from leaving a focus outline. Market uses one continuous handle/body contour without a horizontal seam, outlined with a solid leaf when inactive and filled with a leaf cutout when selected. All five selected glyphs and lens borders use navigation.selectedForeground equal to theme.accent in each palette/mode. Glyph30, stroke2.2, row56, minimum target width48 and the shared floating add remain.",
+      "latestEvidence": {
+        "browser": "nav-consistency-browser.json",
+        "groups": 5,
+        "captures": 20,
+        "paletteModes": 6,
+        "runtimeErrors": 0,
+        "scopedAxeFindings": 0,
+        "typescript": "pass",
+        "eslint": "pass",
+        "sourceReview": "approved",
+        "native": "nav-consistency-native.json",
+        "nativeBytes": 9266148,
+        "nativeAppearanceVerified": false,
+        "finish": "Final closure pending; fresh visual inspection found no material issue"
+      }
+    },
+    "discoveryPatterns": {
+      "source": "DESIGN.md",
+      "search": "One Explore row: free-text Place or postal code field, Filters and Search by my location crosshair. Direct foreground GPS replaces the Explore Map shortcut; typing/suggestions request no GPS. Known-area/OneMap address/MRT/postal lookup retains two-character/300ms/eight-result behavior. Existing Map/Directory routes remain; their shortcuts are removed from Filters and Map retains its own filter control.",
+      "lifecycle": "Automatic entry/return/foreground/five-minute expiry; fresh accepted Map context reused. A fresh GPS capture works before the minute tick; handler/API Date.now freshness guards remain. Delayed GPS cannot replace newer typing or a blurred route. Permission is explicit foreground action. Location messages expose Settings, Retry and Dismiss with service preflight, cancellation and owner/route/manual-edit guards.",
+      "card": "Place-card footer and inline Google Maps source have 24-unit visible height. The link uses native hitSlop10 vertically/4 horizontally, bounded by its parent; this does not guarantee a 44-unit target. Save remains48 and Maps stays an independent link beside hours. Information padding is 12 horizontally, 8 at the top and 2 at the bottom, with no116-unit minimum panel height. The clear-photo spacer is116; the observed375-wide card remains about223 units tall with4-unit side gutters. Divider linebox→hours is6px and hours linebox→card bottom is8px in the initial320/375/414/768/1440 measurements; all rows stay single-line. Raster blurRadius2,24-unit feather/midpoint start and photoBlend alpha0/.18/.42 are current; there is no zoom icon.",
+      "credits": "Independent inline Maps beside card hours; no compact gallery author/source row or standalone Maps word above feedback. Exact-photo viewer keeps matching original credits. Detail fallback Open map; review CTA View review retains URI.",
+      "dock": "Full-width genuine focused-scene glass;icon-only48dp row/52 no-inset web height;responsive themed selection-hover lens capped at 62×40/inset highlight;accessible names retained.",
+      "data": "Development photo storage still requires NODE_ENV === 'development' and the ignored private developmentPhotoCache:true flag; production disables reads and writes. Ignored .local/dev-place-photos uses SHA256(identity+'|maxWidthPx=800') filenames. Legacy raw identities are resource names; stable snapshot identities are place/<placeId>/photos/<0-2>. Headers retain type, savedAt, original photo author/sourceUri credits and assetHash (SHA256 of the original resource name), without raw Google resource names or API keys. Fresh Google venue metadata uses a saved same-slot snapshot with its matching credits/digest rather than assuming Google photo references remain stable. Validated five-minute HMAC URLs pin stable identity, digest, snapshot flag and matching credits, with optional bounded compressed long-credit payloads. An expired, missing or version-mismatched pinned snapshot rejects and requires refreshed metadata; a different image is never served under old credits. Freshness remains 24 hours with read rejection/deletion and next-write pruning; bounds remain 5MiB/image, 64MiB total and 100 entries. Atomic writes and per-process serialized pruning remove actual <hash>.image.<uuid>.tmp orphans older than 60 seconds and count recent temporary bytes. Only requested photos are stored; there is no bulk prefetch, ledger reset or production storage permission.",
+      "filters": "Diet, Allium-free, cuisine keyword, Google price-band, Saved only, Search around and Distance selections auto-save locally per guest/profile and apply immediately. No Apply filters or Reset filters controls remain. Vegetarian uses an authored carrot SVG and Vegan a distinct sprout SVG, with labels and radio state. Singapore/Current search/Near Home/Near Work are exclusive; hidden open/confirmed flags stay false; cuisine keywords, Google venue price bands 1–4 and Saved only persist and apply. Diet follows preferences until explicitly selected. Validated defaults and sanitation feed FoodDocument.discoverySettings through useDiscoverySettings and the existing functional-write/error/Retry queue. Manual/GPS selections stay memory-only. Reloaded Current search without a selection asks for a new choice and blocks wrong-area requests; Directory sets an explicit memory selection rather than stale doc.areaId. Filters ensures eligible requests while visible. Explore/Map display only accepted query/diet/cuisine/price/center-or-origin/radius matches, with current-context request/error states. Invalid, over-five-minute or over-30-second-future metadata is rejected. Missing Home/Work opens matching private setup and stored mode applies automatically on return after a resolved save. Earlier removed sections/actions remain removed. Allium-free uses Google Maps keyword matches, not per-location ingredient storage. Saved noAlliums supplies optional validated DiscoverySearch.alliumFree; true requests Google Text Search with 'no onion no garlic' plus the selected vegetarian/vegan term. Strict diet, Singapore bounds/country checks, coordinate bias, radius post-filtering and area/map restrictions remain. Coordinate queries omit the literal Singapore text so it cannot override locationBias; area/bounds searches retain geography. Google has no Allium-free flag: keyword matches are not ingredient verification or complete ingredient information. The Allium-free control has no caption. Cooking and owned-recipe ingredient features are unchanged. Explore content uses 4-unit horizontal margins; other screens retain 8. Header controls center against the 54-unit field and its dropdown stays absolute. Search around uses two equal columns (48% basis with grow1); compact chips use the existing small font, one line and padding4/gap4 while preserving 48-unit targets. Current search is fully visible at 320. The 10-km chip wrapping at 320 is an accepted scrollable advisory. Filters renders only section headers and control labels: Diet, Vegetarian, Vegan, Allium-free, Cuisine, Price, Saved only, Search around and Distance. No Allium caption, diet legend, Google explanation or Home/Work help paragraph is shown. The Allium-free row has a 48-unit minimum target (observed 50). Auto-save/apply, private-address setup and functional loading/error/Retry states remain. Explore now controls location messages with Settings, Retry and Dismiss recovery. Location service preflight and an explicit foreground tap retain a 20-second timeout, cancellation, and owner/route/manual-edit guards; manual search remains available. Cuisine keywords, Google venue price bands 1–4 and Saved only auto-save/apply with the existing diet, Allium-free, Search around and Distance controls. Every immediate search and accepted-context comparison includes cuisine/price; the server validates inputs and post-filters Google price levels. Cuisine is keyword relevance, not reviewed classification; venue price bands are not exact SGD or dish prices. Saved only filters saved places within the current search matches. Empty results offer Widen area and Filters; provider/offline feedback stays short with Retry. Filters has labels/headers only, with no Apply, Reset or explanatory copy. Explore cards represent venues and now expose approved Menu navigation; private Home/Work boundaries remain.",
+      "acceptance": "Current consumer Menu: seven source groups, six browser journeys, 18 captures (17 unique), four scoped axe surfaces with zero definite violations, zero page errors/paid Google calls; TypeScript/lint exit0 and source reviews approved. Managed headless Chromium156; no installed Chrome. Native transport200 with private keys/server/research excluded; appearance/deployment/fullAA unverified. Substitute finish review ships the reviewed React Native Web/source scope: F01 resolved, 17 required images individually inspected/valid, no material fixes remain. Physical-device/deployment/full-app AA acceptance stays unverified. Prior footer/gallery reports remain scoped historical evidence.",
+      "details": "Live place details use a horizontal paging GooglePhotoGallery: only visible/visited photos load, dots show 1/N, and swipe, keyboard and native adjustable actions select photos. Tapping a photo opens the existing viewer; no zoom icon or Photo N selection buttons remain. The compact author/source row below the gallery is removed; matching credits remain in the full-screen exact-photo viewer. Explanatory paragraphs (including Share), ingredient-evidence/Ask-the-stall blocks and private notes remain removed from live place details. Approved Menu entries now open their separate selected-item page below the primary actions. Save, Directions, Share, Call, hours, website and reviews remain. Equal adjacent bordered icon-and-label Correction and Report concern controls are 52 units tall and open the existing forms. Sample/cooking ingredient evidence and other private collection data remain separate. Detail hours/rating use a single compact shrinking/ellipsized row at narrow widths. The gallery retains native accessibilityValue and uses targeted web ARIA range props for React Native Web. GooglePhotoGallery removes its compact author/source row and uses24-unit pagination. The full-screen exact-photo viewer retains matching original credits. Live place details omit the standalone Google Maps word above feedback; their fallback link is labelled Open map. GoogleReview source actions are labelled View review and retain the same URI. Gallery paging/photo-tap access, existing actions/forms, and development snapshot/credit validation remain.",
+      "menus": "Matched photo cards have an independent Menu chip at the upper left. A full Menu CTA sits below Save/Directions/Share/Call in branch details and opens /menu/[id], with flat selected-item/price rows, source and checked date. Unknown prices/currency and availability/ingredient uncertainty stay visible. Existing native stack Back, Save and gallery behavior remain. Menu source opens separately on web with explicit new-tab attributes; native uses external opening with failure feedback. Owned menu matches for typed name/branch/postal remain reachable when Google is empty or unavailable, without additional filter steps. Allium-free remains the Google keyword filter, and private Home/Work behavior is unchanged. Consumer Menu reuses Nunito and the existing semantic card, accent, action-gradient, divider and foreground tokens. The upper-left compact Menu control has a 48-unit minimum target, 28-unit radius and full focus perimeter; the detail CTA below the primary actions has a 52-unit minimum target and 16-unit radius. The separate Menu screen uses a 16-unit horizontal inset, flat item rows with a 50-unit minimum and 12-unit vertical padding, right-aligned tabular prices capped at 43% width, and 48-unit source links. Existing native Back and platform-adapted external-source behavior remain. Card information, including hours, now has 12-unit horizontal padding; top8/bottom2, divider-to-hours6 and hours-to-bottom8 remain. No new identity, token palette or CSS-detector pass is introduced."
+    },
+    "blur": [
+      {
+        "name": "photo-raster",
+        "source": "src/components/discovery/GooglePhotoBackdrop.tsx",
+        "blurRadius": 2,
+        "start": "Measured place-name midpoint",
+        "feather": 24,
+        "method": "Clear/softened copies use matching active URL-plus-original-expiry transfer shared with viewer/detail/Saved; PhotoBlend masks raster only."
+      },
+      {
+        "name": "photo-gradient",
+        "source": "src/components/discovery/LivePlaceCard.tsx",
+        "stops": "photo-blend-start/middle/end: alpha0/.18/.42; fade reaches measured name midpoint"
+      },
+      {
+        "name": "navigation",
+        "source": "src/components/navigation/GlassNavigation.tsx",
+        "nativeIntensity": 70,
+        "target": "Currently focused scene",
+        "fallback": "iOS Reduce Transparency or preference-read failure makes dock opaque"
+      }
+    ],
+    "photoData": {
+      "source": "src/utils/photo-transfer.ts",
+      "hook": "src/hooks/usePhotoData.ts",
+      "visibility": "src/components/discovery/PhotoScrollView.tsx",
+      "scope": "Matching URL plus original metadata expiry: one active transfer shared by clear/blur/viewer/detail/Saved consumers; unviewed cards defer requests.",
+      "lifetime": "Client active-transfer bytes release at final consumer or original five-minute metadata expiry; separate development snapshot freshness24h does not extend metadata/HMAC tokens.",
+      "limits": "20s timeout; MIME/5MiB/decode validation; 60s request cooldown after 429/503.",
+      "storage": "Client render bytes stay memory-only; explicit development server snapshots store original matching author/source credit metadata with bytes/digest. No raw Google resource names or API keys. Production cache reads/writes disabled.",
+      "path": "usePhotoData -> /api/place-photo -> google-photo -> enabled development byte cache, else allowance-reserved Google media",
+      "quota": "Photo hard/configured cap600; no ledger reset. Fresh-snapshot observation524/600; usage may continue.",
+      "policySources": [
+        "https://developers.google.com/maps/documentation/places/web-service/place-photos",
+        "https://developers.google.com/maps/documentation/places/web-service/policies"
+      ],
+      "clientStorage": "Active-render memory only; no-store/cachePolicy none; original five-minute metadata/token expiry unchanged."
+    },
+    "privateAddressPatterns": {
+      "source": "src/components/food/PrivatePlaceForm.tsx",
+      "lookup": "Shared addressesOnly OneMap field: select canonical street address/postal result and validated Singapore coordinates; optional unit/details separate and private. Legacy MRT-only entries require a resolved address; no MRT substitute.",
+      "controls": "Home/Work/Other radios; saved Edit/Default/Remove; form Save/Cancel; fields locked during save, deletion resets editing and vanished IDs reject saves. Owner-scoped local persistence.",
+      "origin": "Near Home/Work resolves matching kind independently of an unrelated default. Venue query uses coordinate bias without literal Singapore query text without raw address/unit; discovery labels only Near Home/Near Work. Deleting selected origin blocks wrong-area results and offers Add address. Missing setup saves the chosen mode immediately; returning after a resolved address save applies it without confirmation.",
+      "participation": "Contributed count means Home/Work area participation under QT-013–015. Phase 2, gated, off by default; no enrollment/account/count backend. Saving never enrolls an owner."
+    },
+    "filtersPrivateEvidence": {
+      "updated": "2026-10-15",
+      "scope": "Compact Filters, direct foreground GPS and private address origins at reviewed web scope.",
+      "browserValidation": ".impeccable/review/filters-private-validation.json",
+      "gpsValidation": ".impeccable/review/filters-private-gps-validation.json",
+      "nativeTransport": ".impeccable/review/filters-private-native-transport.json",
+      "finishVerdict": ".impeccable/review/filters-private-finish-verdict.json",
+      "browserChecks": 20,
+      "gpsChecks": 3,
+      "helperAssertions": 4,
+      "sourceFiles": 27,
+      "maxSourceLines": 117,
+      "sourceFunctionViolations": 0,
+      "runtimeErrors": 0,
+      "scopedAxeViolations": 0,
+      "scopedAxeIncomplete": [
+        "color-contrast",
+        "label-content-name-mismatch"
+      ],
+      "screenshots": [
+        ".impeccable/review/filters-private-320.png",
+        ".impeccable/review/filters-private-375.png",
+        ".impeccable/review/filters-private-768.png",
+        ".impeccable/review/filters-private-1440.png",
+        ".impeccable/review/filters-private-addresses.png",
+        ".impeccable/review/filters-private-explore.png"
+      ],
+      "nativeBundleBytes": 8678618,
+      "disposition": "ship at reviewed web scope; native appearance/permissions/full-app AA, production cloud ownership/evidence and Phase 2 counts remain unverified."
+    },
+    "instantEvidence": {
+      "updated": "2026-10-15",
+      "scope": "Immediate persisted filters and compact landscape cards; supplied controlled web renders and native code review only.",
+      "browserValidation": ".impeccable/review/instant-validation.json",
+      "alliumValidation": ".impeccable/review/instant-allium-validation.json",
+      "providerValidation": ".impeccable/review/instant-provider-validation.json",
+      "nativeTransport": ".impeccable/review/instant-native-transport.json",
+      "sizeAudit": ".impeccable/review/instant-size-audit.json",
+      "gates": ".impeccable/review/instant-gates.json",
+      "finishReview": ".impeccable/review/instant-finish-review.md",
+      "browserChecks": 21,
+      "runtimeErrors": 0,
+      "scopedAxeViolations": 0,
+      "scopedAxeIncomplete": [
+        "color-contrast",
+        "label-content-name-mismatch"
+      ],
+      "sourceFiles": 19,
+      "maxSourceLines": 118,
+      "maxFunctionLines": 95,
+      "sourceSizeViolations": 0,
+      "nativeBundleBytes": 8687995,
+      "nativeDeviceAppearanceVerified": false,
+      "cardFixture": {
+        "viewport": 375,
+        "width": 359,
+        "height": 182,
+        "information": 126,
+        "boundary": "Controlled base-text example, not a height cap; long content may grow."
+      },
+      "screenshots": [
+        ".impeccable/review/instant-explore-320.png",
+        ".impeccable/review/instant-explore-375.png",
+        ".impeccable/review/instant-explore-768.png",
+        ".impeccable/review/instant-explore-1440.png",
+        ".impeccable/review/instant-filters-375.png"
+      ],
+      "disposition": "ship within supplied web-render/native-code-review scope; native device/production acceptance outstanding."
+    },
+    "mapsCardEvidence": {
+      "updated": "2026-10-15",
+      "browserValidation": ".impeccable/review/maps-card-validation.json",
+      "sourceValidation": ".impeccable/review/maps-card-source-validation.json",
+      "providerValidation": ".impeccable/review/maps-card-provider-validation.json",
+      "liveValidation": ".impeccable/review/maps-card-live-validation.json",
+      "sizeAudit": ".impeccable/review/maps-card-size-audit.json",
+      "nativeTransport": ".impeccable/review/maps-card-native-transport.json",
+      "gates": ".impeccable/review/maps-card-gates.json",
+      "initialReview": ".impeccable/review/maps-card-finish-review.md",
+      "finalVerdict": ".impeccable/review/maps-card-finish-verdict.md",
+      "checks": 20,
+      "helperGroups": 13,
+      "controlledCaptures": 8,
+      "finalRecaptures": 10,
+      "runtimeErrors": 0,
+      "scopedAxeViolations": 0,
+      "scopedAxeIncomplete": [
+        "color-contrast",
+        "label-content-name-mismatch"
+      ],
+      "nativeBundleBytes": 8810492,
+      "nativeDeviceAppearanceVerified": false,
+      "photoAllowanceReached": true,
+      "livePhotosLoaded": 0,
+      "livePhoto503": 3,
+      "photoCap": 500,
+      "photoQuotaChanged": false,
+      "cardFixture": {
+        "viewport": 375,
+        "width": 367,
+        "height": 218,
+        "heightCap": false
+      },
+      "disposition": "ship only two scored alignment fixes; no full native/AA/live-photo-image approval",
+      "historical": true
+    },
+    "marketplacePatterns": {
+      "updated": "2026-10-15",
+      "surface": ".impeccable/surfaces/market.md",
+      "source": "src/screens/market/Market.tsx",
+      "modes": [
+        "Browse",
+        "My Listing"
+      ],
+      "navigation": [
+        "Explore",
+        "Cook",
+        "Social",
+        "Market",
+        "Game"
+      ],
+      "composition": "The titleless Market root opens directly to browsing with search, Inbox and Me, circular fictional-photo categories, a Saved heart and Newest/Lowest first/Highest first sort cycle. Filters and My Listing stay together on the same row. My Listing opens /market/my-listings with Back, search, Inbox and All/Active/Reserved/Draft/Paused/Sold/Unavailable chips. Creation is available only through the centered 48-unit neutral rounded-square floating + on My Listing, above the dock and measured feedback with a 12-unit offset and 72-unit extra scroll clearance; it hides for the native keyboard. Control groups retain an 8-unit gap; counts appear only when filtered or on My Listing. The Buy/Sell selector and Preview badge are removed without an information-badge replacement.",
+      "grid": "The grid uses 12-unit column and 20-unit row gaps: two columns by default, three at viewport width 900 or greater, and one when app text multiplier times OS font scale is at least 1.3.",
+      "cards": "Borderless resting cards use square rounded photos, Sealed or owner-status overlays, 20-unit prices, names capped at two lines without reserved blank height, public pickup areas and full date marks. A full semantic focus perimeter and separate Save/Manage targets remain.",
+      "deletion": "Actions and edit form expose Delete listing. Keep/Delete confirmation removes listing/photos/saved reference, cancels active requests and retains messages/completed history.",
+      "previewBoundary": "Local guest/profile collections, explicit guest copy and atomic capacity rejection. Only explicit messages; labelled counterpart simulations. Free-text public pickup has no structured future deadline/expiry. No database/accounts/sync, live multi-user chat, payments/delivery, moderation, production food safety/recall service or broader commerce acceptance.",
+      "publication": "Name, positive price, quantity 1–99, public pickup area, sealed/shelf-stable/bought-locally confirmation, full ingredient text, ingredient-label/seal/date photos and reviewed ingredient choices. Item photo optional; seven-full-day cutoff provisional. Incomplete drafts permitted within the 5,000-character text limit. Universal full-text/label/review gate applies to publish, resume and availability. Fictional sample atlas never supplies publication evidence.",
+      "provenance": "assets/market/provenance.json",
+      "freshness": "Listing availability refreshes on route focus, foreground resume and the nearest seven-day eligibility cutoff, with a timer capped at 60 seconds. Browse and seller profiles share the active/eligible/unblocked/available-stock filter. New conversations recheck those conditions atomically at action time. Detail photo selection stores a slot and resolves its current image, so edits do not retain an old URI.",
+      "reference": "User-supplied Carousell screenshot, WhatsApp Image 2026-10-15 at 09.40.42 (1).jpeg; adapted to existing Nunito and semantic palettes.",
+      "controls": "Default browse; Filters and My Listing grouped on the same row. Owner page has Back/search/Inbox, status chips and its only creation action: centered 48-unit neutral rounded-square floating + above dock/feedback; no Buy/Sell selector or Preview badge.",
+      "ownerRoute": "src/app/(tabs)/market/my-listings.tsx",
+      "createAction": "src/components/market/AddListingButton.tsx",
+      "presentationBoundary": "Marketplace-authored UI no longer uses Preview wording or a replacement badge. Sample profiles/art remain identified, exchange receipts say Exchange stored on this device, and counterpart actions explicitly say Simulate buyer request/offer/acceptance/decline. Messaging uses Message and Send message. Successful deletion returns to My Listing. These presentation changes do not connect database, authentication, live chat, payments or delivery; user-entered text is preserved.",
+      "ingredientEvidence": "Publishing, resuming and browse eligibility require the full packaging ingredient text, an ingredient-label photo and seller confirmation that Contains/May contain choices were checked against that label. The compact editor groups the label tile, required text, eight common choices plus More ingredients (20 total) and confirmation. Eggs and Milk / dairy are separate. Changing text, label photo or tags clears confirmation. Drafts may be incomplete, but the shared 5,000-character limit produces an explicit save/publish error rather than truncating typed input; hydration of overlong stored text clears confirmation. Details retain raw text, seller-declared tags and the uncropped ingredient photo. Ingredients to avoid hides either contains or may-contain matches; there is no include-unknown option because incomplete listings are universally ineligible.",
+      "sampleEligibility": "All six fictional marketplace samples are unreviewed and have no fabricated ingredient-label photos. They are excluded from eligible browse and seller-profile feeds; direct sample details remain readable with purchase actions disabled. Default browsing is empty, with no unfiltered Clear filters action, until eligible external listings exist; owned listings stay on My Listing. Database and live services remain deferred.",
+      "photoCapture": "Native photo selection offers Take photo or Choose photo; browser selection uses a file picker. Camera permission is configured with microphone permission disabled. Existing photo limits remain: under 220 KB per selected photo and 1,200,000 aggregate photo-URI characters per collection. Oversize photos are rejected; choose a smaller readable image. Native camera permission behavior and ingredient-label legibility still need device verification.",
+      "ingredientSources": [
+        "src/config/market-ingredients.ts",
+        "src/components/market/Ingredients.tsx",
+        "src/components/market/MarketFilters.tsx",
+        "src/screens/market/ListingForm.tsx",
+        "src/utils/market.ts",
+        "src/state/market-schema.ts"
+      ]
+    },
+    "marketEvidence": {
+      "updated": "2026-10-15",
+      "browserValidation": ".impeccable/review/market-ingredients-validation.json",
+      "stateValidation": ".impeccable/review/market-ingredients-state.json",
+      "gates": ".impeccable/review/market-ingredients-gates.json",
+      "nativeTransport": ".impeccable/review/market-ingredients-native.json",
+      "finishVerdict": ".impeccable/review/market-ingredients-finish.json",
+      "browserChecks": 18,
+      "browserCaptures": 9,
+      "stateChecks": 9,
+      "runtimeErrors": 0,
+      "scopedAxeViolations": 0,
+      "scopedAxeIncomplete": [
+        "color-contrast",
+        "label-content-name-mismatch"
+      ],
+      "nativeBundleBytes": 8848271,
+      "disposition": "Ship for supplied browser/source scope only, with no material findings. Native iOS/Android phone/tablet visuals, media permissions, VoiceOver/TalkBack and production acceptance remain pending.",
+      "freshnessValidation": ".impeccable/review/market-redesign-freshness.json",
+      "journeyChecks": 18,
+      "freshnessChecks": 6,
+      "reviewScope": "Fresh finish-reviewer fallback inspected all nine current captures and changed source. Ship for supplied browser/source scope only, no material findings. Explicit synthetic photo fixtures establish local behavior, not real product evidence. Native camera/permissions, label-photo legibility, appearance, keyboard/gestures and full accessibility remain unverified.",
+      "earlierChecks": "freshnessValidation and freshnessChecks retain the prior six-check redesign scope. Earlier populated six-card catalogue captures are historical; all six samples are now unreviewed and excluded."
+    },
+    "photoReuseEvidence": {
+      "updated": "2026-10-15",
+      "browserValidation": ".impeccable/review/photo-reuse-validation.json",
+      "sourceValidation": ".impeccable/review/photo-reuse-source-validation.json",
+      "beforeRequests": ".impeccable/review/photo-requests-before.json",
+      "checks": 17,
+      "screenshots": 6,
+      "initialVisibleRequests": 3,
+      "totalCards": 20,
+      "viewerExtraRequests": 0,
+      "afterScrollRequests": 8,
+      "returnFilterExtraRequests": 0,
+      "baselineInitialRequests": 20,
+      "baselineAfterViewerRequests": 21,
+      "helperGroups": 10,
+      "pageErrors": 0,
+      "scopedAxeViolations": 0,
+      "scopedAxeIncomplete": [
+        "color-contrast"
+      ],
+      "typecheck": "exit0",
+      "lint": "exit0",
+      "nativeTransport": ".impeccable/review/photo-reuse-native-transport.json",
+      "nativeBundleBytes": 8815781,
+      "finalGates": ".impeccable/review/photo-reuse-gates.json",
+      "sourceFiles": 12,
+      "maxSourceLines": 165,
+      "maxFunctionLines": 44,
+      "sourceReview": "approve; zero findings",
+      "nativeAppearance": false,
+      "photoAllowance": "500/500 unchanged; actual Google photos blocked",
+      "scope": "Controlled Playwright/source behavior only; no full native/AA/live-photo-image approval.",
+      "historical": true
+    },
+    "developmentPhotoCache": {
+      "source": "src/server/development-photo-cache.ts",
+      "enabled": "NODE_ENV development AND private developmentPhotoCache true",
+      "production": "reads and writes disabled",
+      "directory": ".local/dev-place-photos (ignored)",
+      "key": "SHA256(identity+'|maxWidthPx=800'); stable identity place/<placeId>/photos/<0-2>, legacy raw identity resource name",
+      "header": "type, savedAt, original photo authors/sourceUri and assetHash(SHA256 original resource name); no raw Google resource names or API keys",
+      "freshness": "24h; expired read rejected/deleted, also removed on next write",
+      "maxImageBytes": 5242880,
+      "maxStorageBytes": 67108864,
+      "maxImages": 100,
+      "writes": "atomic; serialized per-process prune; remove actual <hash>.image.<uuid>.tmp older60s; count recent temp bytes",
+      "fetch": "requested images only, no bulk prefetch; lookup before allowance reservation; concurrent misses deduplicate",
+      "policy": "Explicit user instruction is not a Google licensing exemption; standard photo caching restrictions still apply.",
+      "snapshots": "Fresh venue metadata uses stored same-slot bytes with original matching credits/digest. Five-minute HMAC URLs pin validated identity/digest/snapshot flag/credits, optionally bounded compressed long-credit payloads. Missing/expired/version-mismatched pinned snapshots reject; refresh metadata instead of pairing different bytes with old credits."
+    },
+    "photo600Evidence": {
+      "updated": "2026-10-15",
+      "sourceValidation": ".impeccable/review/photo-600-source-validation.json",
+      "liveValidation": ".impeccable/review/photo-600-live-validation.json",
+      "liveCapture": ".impeccable/review/photo-600-live-375.png",
+      "sourceChecks": 14,
+      "liveChecks": 4,
+      "livePhotosDecoded": 3,
+      "repeatReloadExtraGoogleCalls": 0,
+      "pageErrors": 0,
+      "usage": [
+        507,
+        508,
+        508,
+        510,
+        510
+      ],
+      "cap": 600,
+      "observedRemaining": 90,
+      "storedImagesObserved": 10,
+      "ledgerReset": false,
+      "finalGates": "pending",
+      "review": "corrected edit plus14checks; final independent reread sandbox-blocked",
+      "scope": "development storage/live photo behavior only; no full native/AA/production acceptance",
+      "historical": true
+    },
+    "photo600SnapshotEvidence": {
+      "updated": "2026-10-15",
+      "sourceValidation": ".impeccable/review/photo-600-source-validation.json",
+      "freshSnapshotValidation": ".impeccable/review/photo-600-fresh-snapshot-validation.json",
+      "liveCapture": ".impeccable/review/photo-600-live-final-375.png",
+      "sourceChecks": 22,
+      "sourceActualGoogleCalls": 0,
+      "liveChecks": 3,
+      "usage": [
+        523,
+        524,
+        524,
+        524
+      ],
+      "storedPhotosObserved": 23,
+      "cap": 600,
+      "ledgerReset": false,
+      "sourceReview": "approved; zero material open findings",
+      "uiValidation": ".impeccable/review/clean-detail-validation.json",
+      "typecheck": "exit0",
+      "lint": "exit0",
+      "nativeBundleBytes": 8832488,
+      "nativeServerSnapshotCode": false,
+      "privateGoogleKey": false,
+      "finalGates": ".impeccable/review/photo-600-gates.json",
+      "nativeAppearance": false,
+      "scope": "stable development snapshot/credit behavior and current source; no full native/AA/production approval",
+      "nativeTransport": ".impeccable/review/clean-detail-native-transport.json",
+      "status": "verified-local-web-and-server",
+      "uiChecks": 20,
+      "screenshots": 15,
+      "pageErrors": 0,
+      "scopedAxe": {
+        "cardViolations": 0,
+        "cardIncomplete": [
+          "color-contrast",
+          "label-content-name-mismatch"
+        ],
+        "galleryViolations": 0,
+        "galleryIncomplete": [
+          "color-contrast"
+        ]
+      },
+      "gitDiff": "exit0; LF/CRLF warnings only",
+      "observedPhotoUsage": 524,
+      "savedSnapshots": 23,
+      "uiHistorical": true,
+      "uiScope": "Earlier20-check card/gallery UI only; footer/credit-row changes need current proof. Backend source/cache/fresh-metadata proofs retained."
+    },
+    "cardSpacingEvidence": {
+      "updated": "2026-10-15",
+      "status": "passed",
+      "initialGeometryLayouts": 6,
+      "footerVisibleHeight": 24,
+      "sourceVisibleHeight": 24,
+      "sourceHitSlop": {
+        "vertical": 10,
+        "horizontal": 4,
+        "boundedByParent": true,
+        "guaranteed44Target": false
+      },
+      "panel": {
+        "horizontal": 8,
+        "top": 8,
+        "bottom": 2,
+        "minHeight": null
+      },
+      "clearPhotoSpace": 116,
+      "observedCardHeight375": 223,
+      "dividerToHours": 6,
+      "hoursToBottom": 8,
+      "blurRadius": 2,
+      "feather": 24,
+      "pagination": 24,
+      "compactGalleryCredits": false,
+      "viewerCredits": true,
+      "typecheck": "exit0",
+      "lint": "exit0",
+      "nativeAppearance": false,
+      "validation": ".impeccable/review/card-spacing-validation.json",
+      "finalGates": ".impeccable/review/card-spacing-gates.json",
+      "nativeTransport": ".impeccable/review/card-spacing-native-transport.json",
+      "checks": 15,
+      "captures": 15,
+      "pageErrors": 0,
+      "actualGoogleRequests": 0,
+      "geometryLayouts": 6,
+      "gitDiff": "exit0; CRLF warnings only",
+      "sourceReview": "zero material issues",
+      "nativeBundleBytes": 8848267,
+      "privateGoogleKey": false,
+      "serverSnapshotCode": false,
+      "fullAA": false
+    },
+    "explorePhase1": {
+      "updated": "2026-10-15",
+      "audit": "docs/EXPLORE_PHASE1.md",
+      "status": "verified-local-web-and-source",
+      "filters": {
+        "cuisine": "Google keyword relevance",
+        "price": "Google venue bands 1–4; not exact SGD/dish prices",
+        "savedOnly": "saved places among current search matches",
+        "autoSaveApply": true,
+        "descriptions": false,
+        "applyReset": false,
+        "contextIncludesCuisinePrice": true,
+        "serverValidationAndPricePostfilter": true
+      },
+      "location": {
+        "explicitForegroundTap": true,
+        "servicePreflight": true,
+        "timeoutSeconds": 20,
+        "cancellation": true,
+        "guards": [
+          "owner",
+          "route",
+          "manual edits"
+        ],
+        "recovery": [
+          "Settings",
+          "Retry",
+          "Dismiss"
+        ]
+      },
+      "emptyActions": [
+        "Widen area",
+        "Filters"
+      ],
+      "pilot": [
+        "Outram/Chinatown",
+        "Rochor/Bugis",
+        "Woodlands"
+      ],
+      "pilotStatus": "recommendation; merchant/menu rights and reviewed catalogue not established",
+      "remaining": "The remaining Phase 1 launch work is the owned, reviewed venue/dish catalogue with evidence and merchant/menu rights; authenticated backend/cloud ownership and delivered correction/harm workflows; an offline owned catalogue; and native-device acceptance. Home/Work participation remains Phase 2 with separate explicit opt-ins and a backend; saving a private address never enrolls its owner or makes the address public.",
+      "verification": {
+        "status": "passed-scoped-local-source-and-web",
+        "source": true,
+        "sourceScenarios": 12,
+        "paidSourceRequests": 0,
+        "sourceReport": ".impeccable/review/explore-phase1-source.json",
+        "browser": true,
+        "interactionChecks": 16,
+        "screenshots": 11,
+        "widths": [
+          320,
+          375,
+          768,
+          1440
+        ],
+        "dark": true,
+        "pageErrors": 0,
+        "scopedAxeWCAGA_AAFindings": 0,
+        "actualGoogleRequests": 0,
+        "browserReport": ".impeccable/review/explore-phase1-validation.json",
+        "typecheck": "exit0",
+        "lint": "exit0",
+        "sourceReview": "no remaining findings",
+        "nativeTransport": ".impeccable/review/explore-phase1-native-transport.json",
+        "manifestHttp": 200,
+        "bundleHttp": 200,
+        "nativeBundleBytes": 8934941,
+        "privateGoogleKey": false,
+        "recoveryPriceTitleComponentsPresent": true,
+        "nativeDeviceAppearance": false,
+        "fullAppAA": false,
+        "productionComplete": false,
+        "finalGates": ".impeccable/review/explore-phase1-gates.json",
+        "gatesStatus": "verified-local-web",
+        "sizeAudit": {
+          "touchedSourceFiles": 28,
+          "maxFileLines": 169,
+          "maxFunctionLines": 56
+        }
+      },
+      "documentTitle": "focused Expo Head",
+      "nullProviderPayloadGuard": true
+    },
+    "social": {
+      "updated": "2026-10-15",
+      "contract": ".impeccable/surfaces/social.md",
+      "profileCard": "Initial badge, name, diet, neighbourhood, optional About, interests, availability and preferred size; semantic surfaces and accent, Nunito, full perimeter card, 20-unit radius and 13-unit padding from MeetUI.",
+      "composition": "Social uses one root toolbar with Find people / Find events / Find my plans search, Inbox and Me, followed by a single People / Events / My plans segmented row. Contextual filters appear only for People and Events. People filters holds 2/4/6 group size, diet and availability, saving each selection immediately with no Apply or Reset. Event filters reveals Gatherings / Classes / Home dining; selecting one closes the choices and retains the category in the URL. My plans searches groups, gatherings and applications together, keeps Your profile reachable, and has no extra filter tabs. A centered Create event action appears on Events and My plans. The legacy /social/plans route redirects to /social?tab=plans.",
+      "truthStates": "Fictional profiles and explicit simulated peer responses; on-device gatherings; applications draft/ready, not sent or approved. Local labels and root-stack task navigation.",
+      "evidence": "social-distill-validation.json: eight checks, 11 captures, four scoped axe scans clean, zero runtime errors/overflow. Profile first top178 vs316 at375. social-distill-regressions.json: two person/home-application return checks passed. TypeScript/ESLint and source review pass; all captures visually reviewed without material findings. social-distill-native.json: manifest/bundle200,9,214,710bytes,all five markers; native appearance/accessibility unverified. Earlier meet/social layouts are historical. Aggregate checks: .impeccable/review/social-distill-gates.json.",
+      "profileSwitch": "Try local profile stores a temporary return destination above the owner-keyed navigation remount. Once profile storage and root navigation are ready, the app replaces the route with the selected screen and parameters, including selected person, My plans, event category or class/home application kind. Switching neither copies guest private data nor opts into visibility; profile setup remains explicit."
+    },
+    "cook": {
+      "updated": "2026-10-15",
+      "contract": ".impeccable/surfaces/cook.md",
+      "readiness": "docs/COOK_READINESS.md",
+      "composition": "CookLayout scopes compact UI to Cook: title23/subtitle18/body16/small13/button16,12-unit inset,10-unit gap,flat cards and single-padding 48-minimum buttons. Browse uses88x100 thumbnails,time/servings,computed fit and Save48; active-only resume. Cook/Resume near servings, reset conditional, total minutes retained. Private note/Publication/Author & disclosure collapse with children mounted; ingredients/fit/conflict/unknown warnings visible; provenance in Recipe info. Shopping trailingplus and guideinlineplus. Below360 with textMultiplier*fontScale>1, RecipeRow thumbnail is56x80 instead of88x100. Shared header AvatarPortrait images use explicit width:size,height:size.",
+      "creator": "Incomplete autosaved private drafts with photos/ingredients/up-down steps and sponsorship. Rights/policy review produces Ready to submit / Not sent. Content changes reset consent and prepared revision. Owner isolation/explicit guest copy/photo-free export/deletion. Personal cooking needs complete cooking content without author/photos/publication consent. Copy resets consent/revision to 1; deliberate text share excludes photos/private notes and retains author, declared diet/sponsorship and unpublished status.",
+      "limits": "20 drafts,40 ingredients,30 steps,100 shopping notes; photo URI300000 each/1200000 total. No production recipe auth/catalogue/upload/submission/editorial/publication; paid recipes outside scope. Physical native permission/audible background/process-death delivery unverified; iOS Live Activity/Android ongoing actions not built.",
+      "evidence": "clean-cook-browser.json passed5groups,24captures,4cleanaxe,0errors. clean-cook-final.json passed3groups,13captures,0errors/axe findings;31totalunique. clean-cook-gates.json actual npm run typecheck/lint both exit0;source approved. clean-cook-native.json signed-header manifest200/bundle200,RecipeOverview marker,nativeUIunverified. clean-cook-finish.json ships scored F01labels/F02badges corrections;16 reopened captures,no introduced regressions; no production/native alert acceptance.",
+      "timerAlerts": "expo-notifications ~57.0.23 installed with plugin/exact-alarm permission; rebuild own native apps. Explicit permission, scheduling/pause/resume/+1/cancel, owner isolation/loading preservation, Settings/Retry and current-owner /timers taps. Web unsupported; OS settings apply; app quiet hours concern future online updates. Remote push unconnected.",
+      "completion": "Final-step Finish cooking clears session and returns to recipe detail. Timers/notes survive. Matching-version legacy completion clears hydration; mismatched revisions retain review guard.",
+      "presentationOverride": "User screenshot16:49: uncaptained RecipeOverview photo,time/computedfit,Save/Share/Recipeinfo48. One-tap info holds bundled/illustrative/unreviewed provenance+author/language/version/date. Conflicts/unknownexclusions visible; ingredients/flatsteps visible. Unboxedservings/Cook; ingredientheading shopping/guide icons. Root fitbadge without Editorial sample. Private meaningful name/time/diet/sponsor; metadata/description in Recipeinfo; no unspecified/missingauthor/nonesponsor placeholders. Private note/noalliumvariation remain; fictional linked-dish shortcut removed. Saved and Not sent remain. Root/detail fit badges content-width; Cook/Resume/Replace & cook inherit visible accessible names."
+    },
+    "floatingAdd": {
+      "source": "src/components/FloatingAddButton.tsx",
+      "geometry": "Neutral48 rounded-square radius16,centered12above measured dock/feedback,72scroll clearance,native keyboard hidden",
+      "consumers": [
+        "Social",
+        "Legacy My Tables",
+        "Market My Listing",
+        "Cook My recipes"
+      ]
+    },
+    "consumerMenus": {
+      "sourceOfTruth": [
+        "src/components/discovery/MenuEntry.tsx",
+        "src/components/discovery/MenuSection.tsx",
+        "src/components/discovery/MenuSourceLink.tsx",
+        "src/screens/food/Menu.tsx",
+        "src/state/Menus.tsx"
+      ],
+      "publication": "data/pilot/publication.json",
+      "publicEndpoint": "/api/menus",
+      "productionReviewerKeyRequired": false,
+      "approvedMenuBranches": 11,
+      "selectedDishes": 48,
+      "herbivoreMenu": false,
+      "cacheMinutes": 5,
+      "offlineDays": 7,
+      "sourceRecheckDays": 90,
+      "privateResearchBundled": false,
+      "certification": false,
+      "ingredientCompleteness": false,
+      "palette": "existing semantic tokens",
+      "typography": "Nunito incumbent scale",
+      "cardInformation": {
+        "horizontal": 12,
+        "top": 8,
+        "bottom": 2,
+        "dividerToHours": 6,
+        "hoursToBottom": 8
+      },
+      "compactMenu": {
+        "minHeight": 48,
+        "radius": 16,
+        "horizontalPadding": 12,
+        "gap": 7,
+        "labelRadius": 13,
+        "visibleMinHeight": 42,
+        "icon": "authored-open-book"
+      },
+      "detailMenu": {
+        "minHeight": 52,
+        "radius": 16
+      },
+      "menuScreen": {
+        "horizontalPadding": 16,
+        "rowMinHeight": 50,
+        "rowVerticalPadding": 12,
+        "priceMaxWidth": "43%",
+        "tabularPrices": true,
+        "sourceMinHeight": 48
+      },
+      "platform": "React Native adaptive; no CSS detector run",
+      "verification": {
+        "sourceGroups": 7,
+        "browserGroups": 6,
+        "captures": 18,
+        "uniqueCaptures": 17,
+        "scopedAxeSurfaces": 4,
+        "definiteViolations": 0,
+        "pageErrors": 0,
+        "paidGoogleCalls": 0,
+        "chromium": "managed headless156",
+        "installedChrome": false,
+        "finish": "ship-reviewed-react-native-web-and-source",
+        "nativeAppearance": false,
+        "fullAppAA": false,
+        "deploymentAccepted": false,
+        "finishReport": ".impeccable/review/consumer-menu-finish-review.json",
+        "substituteReviewer": true,
+        "F01": "resolved",
+        "requiredImagesIndividuallyInspected": 17,
+        "validImages": 17,
+        "materialFixesRemaining": 0
+      }
+    }
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The gradient action with native focus, pressed and disabled states projected to CSS.",
+      "html": "<button class=\"ds-primary\"><span class=\"ds-primary-gradient\"><span class=\"ds-primary-content\">Save changes</span></span></button>",
+      "css": ".ds-primary{--qt-foreground:#232825;--qt-muted-foreground:#62554e;--qt-card:#fffdfb;--qt-border:#e8e3df;--qt-accent:#b43829;--qt-soft:#ffebe0;--qt-muted:#f5eeea;--qt-transparent:transparent;--qt-action-start:#b84935;--qt-action-end:#a73f2e;--qt-action-foreground:#ffffff;width:100%;min-height:54px;border:2px solid var(--qt-transparent);border-radius:18px;padding:0;overflow:clip;background:var(--qt-transparent);color:var(--qt-action-foreground);font-size:20px;font-family:\"Nunito_700Bold\",Nunito,sans-serif;font-weight:700;}.ds-primary-gradient{display:block;min-height:52px;padding:11px 16px;background:linear-gradient(135deg,var(--qt-action-start),var(--qt-action-end))}.ds-primary-content{display:flex;min-height:48px;align-items:center;justify-content:center;padding:7px 12px;text-align:center}.ds-primary:focus-visible{border-color:var(--qt-accent);outline:none}.ds-primary:active{opacity:.8}.ds-primary:hover:not(:disabled){cursor:pointer}.ds-primary:disabled{opacity:.6;cursor:default}"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "A near-white alternative action with the full semantic border; used for secondary tasks and disconnected provider affordances.",
+      "html": "<button class=\"ds-secondary\">Continue with Apple</button>",
+      "css": ".ds-secondary{--qt-foreground:#232825;--qt-muted-foreground:#62554e;--qt-card:#fffdfb;--qt-border:#e8e3df;--qt-accent:#b43829;--qt-soft:#ffebe0;--qt-muted:#f5eeea;--qt-transparent:transparent;width:100%;min-height:54px;border:2px solid var(--qt-border);border-radius:18px;padding:7px 12px;background:var(--qt-card);color:var(--qt-foreground);font-size:20px;font-family:\"Nunito_700Bold\",Nunito,sans-serif;font-weight:700;}.ds-secondary:focus-visible{border-color:var(--qt-accent);outline:none}.ds-secondary:active{opacity:.8}.ds-secondary:hover:not(:disabled){cursor:pointer}.ds-secondary:disabled{opacity:.6;cursor:default}"
+    },
+    {
+      "name": "Link Button",
+      "kind": "button",
+      "refersTo": "button-link",
+      "description": "The transparent guest-entry or secondary navigation action.",
+      "html": "<button class=\"ds-link\">Explore first</button>",
+      "css": ".ds-link{--qt-foreground:#232825;--qt-muted-foreground:#62554e;--qt-card:#fffdfb;--qt-border:#e8e3df;--qt-accent:#b43829;--qt-soft:#ffebe0;--qt-muted:#f5eeea;--qt-transparent:transparent;width:100%;min-height:48px;border:2px solid var(--qt-transparent);border-radius:18px;padding:7px 12px;background:var(--qt-transparent);color:var(--qt-accent);font-size:20px;font-family:\"Nunito_700Bold\",Nunito,sans-serif;font-weight:700;}.ds-link:focus-visible{border-color:var(--qt-accent);outline:none}.ds-link:active{opacity:.8}.ds-link:hover:not(:disabled){cursor:pointer}.ds-link:disabled{opacity:.6;cursor:default}"
+    },
+    {
+      "name": "Milky Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "The shared opaque near-white content surface with a complete perimeter and quiet ambient depth.",
+      "html": "<section class=\"ds-card\"><strong>Food preferences</strong><p>Choose ingredients individually.</p></section>",
+      "css": ".ds-card{--qt-foreground:#232825;--qt-muted-foreground:#62554e;--qt-card:#fffdfb;--qt-border:#e8e3df;--qt-accent:#b43829;--qt-soft:#ffebe0;--qt-muted:#f5eeea;--qt-transparent:transparent;--qt-shadow:rgba(81,68,62,0.04);border:1px solid var(--qt-border);border-radius:24px;padding:16px;background:var(--qt-card);color:var(--qt-foreground);box-shadow:0 4px 14px var(--qt-shadow);font-size:16px;font-family:\"Nunito_400Regular\",Nunito,sans-serif;}.ds-card strong{font-family:\"Nunito_700Bold\",Nunito,sans-serif;font-weight:700;}.ds-card p{margin:10px 0 0;color:var(--qt-muted-foreground)}"
+    },
+    {
+      "name": "Labeled Field",
+      "kind": "input",
+      "refersTo": "field",
+      "description": "A real label above editable text, with full focus and error borders.",
+      "html": "<label class=\"ds-field\"><span class=\"ds-field-label\">Email</span><input class=\"ds-field-input\" type=\"email\" placeholder=\"you@example.com\"></label>",
+      "css": ".ds-field{--qt-foreground:#232825;--qt-muted-foreground:#62554e;--qt-card:#fffdfb;--qt-border:#e8e3df;--qt-accent:#b43829;--qt-soft:#ffebe0;--qt-muted:#f5eeea;--qt-transparent:transparent;--qt-shadow:rgba(81,68,62,0.04);--qt-error:#a82b35;display:flex;flex-direction:column;min-height:72px;border:1px solid var(--qt-border);border-radius:24px;padding:12px 16px;background:var(--qt-card);box-shadow:0 4px 14px var(--qt-shadow)}.ds-field-label{font-size:13px;color:var(--qt-muted-foreground);font-family:\"Nunito_700Bold\",Nunito,sans-serif;font-weight:700;}.ds-field-input{min-height:30px;width:100%;padding:4px 0;border:0;background:var(--qt-transparent);color:var(--qt-foreground);font-size:16px;font-family:\"Nunito_400Regular\",Nunito,sans-serif;}.ds-field-input::placeholder{color:var(--qt-muted-foreground)}.ds-field:focus-within{border-color:var(--qt-accent)}.ds-field-input:focus-visible{outline:none}.ds-field[data-error=\"true\"]{border-color:var(--qt-error)}"
+    },
+    {
+      "name": "Selected Choice",
+      "kind": "chip",
+      "refersTo": "choice-selected",
+      "description": "A wrapping radio-style choice with a visible outline and checkmark.",
+      "html": "<div class=\"ds-choices\" role=\"radiogroup\" aria-label=\"Display mode\"><button class=\"ds-choice\" role=\"radio\" aria-checked=\"true\">System ✓</button><button class=\"ds-choice\" role=\"radio\" aria-checked=\"false\">Dark</button></div>",
+      "css": ".ds-choices{--qt-foreground:#232825;--qt-muted-foreground:#62554e;--qt-card:#fffdfb;--qt-border:#e8e3df;--qt-accent:#b43829;--qt-soft:#ffebe0;--qt-muted:#f5eeea;--qt-transparent:transparent;display:flex;flex-wrap:wrap;gap:8px}.ds-choice{flex-grow:1;min-width:80px;min-height:48px;padding:10px 13px;border:1px solid var(--qt-transparent);border-radius:19px;background:var(--qt-muted);color:var(--qt-foreground);font-size:13px;font-family:\"Nunito_700Bold\",Nunito,sans-serif;font-weight:700;}.ds-choice[aria-checked=\"true\"]{border-color:var(--qt-accent);background:var(--qt-soft)}.ds-choice:focus-visible{border-color:var(--qt-accent);outline:none}.ds-choice:hover:not(:disabled){cursor:pointer}.ds-choice:disabled{opacity:.6;cursor:default}"
+    },
+    {
+      "name": "QuinTaste Icon Glass Dock",
+      "kind": "nav",
+      "refersTo": "navigation-dock",
+      "description": "Borderless five-tab dock; Market leaf bag stays accent in both states. Game has a wide short body, small rounded D-pad, separated buttons and a hollow joined leaf with no vein. All selected glyphs/lens borders use palette accent; other inactive glyphs are muted.",
+      "html": "<nav class=\"ds-glass-dock\" aria-label=\"Main navigation documentation sample\"><div class=\"ds-glass-tabs\" role=\"tablist\"><button class=\"ds-glass-tab\" role=\"tab\" aria-label=\"Explore\" aria-selected=\"false\"><span class=\"ds-glass-lens\"><svg width=\"30\" height=\"30\" viewBox=\"0 0 32 32\" aria-hidden=\"true\"><g fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"16\" cy=\"16\" r=\"12\"/><path d=\"m21.8 10.2-3.5 8.1-8.1 3.5 3.5-8.1z\"/></g></svg></span></button><button class=\"ds-glass-tab\" role=\"tab\" aria-label=\"Cook\" aria-selected=\"false\"><span class=\"ds-glass-lens\"><svg width=\"30\" height=\"30\" viewBox=\"0 0 32 32\" aria-hidden=\"true\"><g fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M8 19a5.5 5.5 0 0 1-1-10.9A6 6 0 0 1 16 5a6 6 0 0 1 9 3.1A5.5 5.5 0 0 1 24 19v6a2 2 0 0 1-2 2H10a2 2 0 0 1-2-2z M8 22h16\"/></g></svg></span></button><button class=\"ds-glass-tab\" role=\"tab\" aria-label=\"Social\" aria-selected=\"false\"><span class=\"ds-glass-lens\"><svg width=\"30\" height=\"30\" viewBox=\"0 0 32 32\" aria-hidden=\"true\"><g fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M11 9c-3-3 3-3 0-6M21 9c-3-3 3-3 0-6 M4 13h24c0 7-5 12-12 12h-3l-5 3v-6C5 20 4 17 4 13z\"/></g></svg></span></button><button class=\"ds-glass-tab\" role=\"tab\" aria-label=\"Market\" aria-selected=\"true\"><span class=\"ds-glass-lens\"><svg width=\"30\" height=\"30\" viewBox=\"0 0 32 32\" aria-hidden=\"true\"><g fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M6 10h5V8a5 5 0 0 1 10 0v2h5l1.2 15.8a2 2 0 0 1-2 2.2H6.8a2 2 0 0 1-2-2.2z M11 23C10 17 14 14 21 14c0 7-4 10-10 9z\" fill=\"currentColor\" stroke=\"none\" fill-rule=\"evenodd\"/></g></svg></span></button><button class=\"ds-glass-tab\" role=\"tab\" aria-label=\"Game\" aria-selected=\"false\"><span class=\"ds-glass-lens\"><svg width=\"30\" height=\"30\" viewBox=\"0 0 32 32\" aria-hidden=\"true\"><g fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M9 10h11C20 6 24 4 29 4c0 4-1.8 6.2-5 7.2C27.3 11.8 28 14 28.4 16.4L30 24.5c.5 3.5-2.8 4.5-5 2.5l-4-3.5H11L7 27c-2.2 2-5.5 1-5-2.5l1.6-8.1C4.2 12.5 5.5 10 9 10z\"/><path d=\"M9.7 14.8c.4 0 .7.3.7.7v1.2h1.2a.7.7 0 0 1 0 1.4h-1.2v1.2a.7.7 0 0 1-1.4 0v-1.2H7.8a.7.7 0 0 1 0-1.4H9v-1.2c0-.4.3-.7.7-.7z M22 14.5a1.1 1.1 0 1 0 0 2.2 1.1 1.1 0 0 0 0-2.2z M24.2 18a1.1 1.1 0 1 0 0 2.2 1.1 1.1 0 0 0 0-2.2z\" fill=\"currentColor\" stroke=\"none\"/></g></svg></span></button></div></nav>",
+      "css": ".ds-glass-dock{--qt-glass:rgba(255,245,239,0.22);--qt-sdk-material:rgba(249,249,249,0.55);--qt-border:rgba(255,255,255,0.52);--qt-foreground:#232825;--qt-muted:#62554e;--qt-selected:#b43829;--qt-focus:#b43829;--qt-selection:#ffebe09c;--qt-hover:#ffebe088;--qt-selection-border:#b4382944;--qt-selection-highlight:rgba(255,255,255,0.84);--qt-transparent:transparent;box-sizing:border-box;position:relative;width:100%;max-width:760px;border:0;border-radius:24px 24px 0 0;overflow:clip;padding:0 8px 2px;background:var(--qt-glass);color:var(--qt-foreground)}.ds-glass-dock::before{content:\"\";position:absolute;inset:0;background:var(--qt-sdk-material);backdrop-filter:saturate(1.8) blur(14px);pointer-events:none}.ds-glass-tabs{position:relative;display:flex;gap:6px}.ds-glass-tab{outline:0;box-sizing:border-box;display:flex;flex:1;min-width:48px;min-height:56px;align-items:center;justify-content:center;padding:0 2px;border:2px solid var(--qt-transparent);border-radius:18px;background:var(--qt-transparent);color:var(--qt-muted)}.ds-glass-lens{display:flex;align-items:center;justify-content:center;box-sizing:border-box;width:100%;max-width:68px;height:44px;border:1.5px solid var(--qt-transparent);border-radius:22px;background:var(--qt-transparent)}.ds-glass-tab[aria-selected=\"true\"],.ds-glass-tab[aria-label=\"Market\"]{color:var(--qt-selected)}.ds-glass-tab[aria-selected=\"true\"] .ds-glass-lens{background:var(--qt-selection);border-color:var(--qt-selected);box-shadow:none}.ds-glass-tab:hover .ds-glass-lens{background:var(--qt-hover);border-color:var(--qt-transparent);box-shadow:none}.ds-glass-tab[aria-selected=\"true\"]:hover .ds-glass-lens{background:var(--qt-selection);border-color:var(--qt-selected)}.ds-glass-tab:hover{cursor:pointer}.ds-glass-tab:focus-visible{outline:none;border-color:var(--qt-focus)}.ds-glass-tab:active{opacity:.78}"
+    },
+    {
+      "name": "Preference Row",
+      "kind": "custom",
+      "description": "A bold label, optional supporting hint and navigation chevron.",
+      "html": "<button class=\"ds-row\"><span class=\"ds-row-copy\"><strong>Allium exclusions</strong><span>Garlic, Onion</span></span><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"m9 4 8 8-8 8\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg></button>",
+      "css": ".ds-row{--qt-foreground:#232825;--qt-muted-foreground:#62554e;--qt-card:#fffdfb;--qt-border:#e8e3df;--qt-accent:#b43829;--qt-soft:#ffebe0;--qt-muted:#f5eeea;--qt-transparent:transparent;display:flex;align-items:center;gap:12px;width:100%;min-height:54px;padding:6px 0;border:2px solid var(--qt-transparent);background:var(--qt-transparent);color:var(--qt-foreground);text-align:left;font-family:\"Nunito_400Regular\",Nunito,sans-serif;}.ds-row-copy{flex:1}.ds-row strong{display:block;font-size:16px;font-family:\"Nunito_700Bold\",Nunito,sans-serif;font-weight:700;}.ds-row-copy>span{display:block;margin-top:4px;font-size:13px;color:var(--qt-muted-foreground)}.ds-row svg{color:var(--qt-muted-foreground)}.ds-row:focus-visible{outline:2px solid var(--qt-accent);outline-offset:2px}.ds-row:active{opacity:.7}.ds-row:hover{cursor:pointer}"
+    },
+    {
+      "name": "Food Search",
+      "kind": "input",
+      "refersTo": "search-field",
+      "description": "Static documentation projection of the current Explore row: shared Place or postal code field, Filters and direct Search by my location crosshair. The typed dropdown follows two characters/300ms, up to eight local-area/OneMap address/MRT/postal matches, with keyboard selection. No embedded selector or initial choices. Map/Search area retain the shared field; private setup reuses addressesOnly. Me remains on Cook/Social/Market/Game.",
+      "html": "<div class=\"ds-search-pattern\"><div class=\"ds-search-row\"><div class=\"ds-search-group\"><div class=\"ds-search-context\"><button class=\"ds-search-action\" aria-label=\"Search this place or postal code\"><svg width=\"22\" height=\"22\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><circle cx=\"10\" cy=\"10\" r=\"6.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"/><path d=\"m15 15 6 6\" stroke=\"currentColor\" stroke-width=\"1.8\"/></svg></button><input class=\"ds-search-field\" role=\"combobox\" aria-label=\"Search by place name, address or postal code\" aria-expanded=\"true\" aria-controls=\"ds-location-demo\" aria-activedescendant=\"ds-location-demo-0\" value=\"Bugis\" placeholder=\"Place or postal code\"><button class=\"ds-search-action\" aria-label=\"Clear location search\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"8\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\"/><path d=\"m9 9 6 6m0-6-6 6\" stroke=\"currentColor\" stroke-width=\"1.7\"/></svg></button></div><div class=\"ds-location-suggestions\"><div id=\"ds-location-demo\" role=\"listbox\" aria-label=\"Location suggestions after typing\"><button id=\"ds-location-demo-0\" class=\"ds-location-option\" role=\"option\" aria-selected=\"true\" aria-label=\"Bugis Bugis MRT · EW12 / DT14\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"m3 5 6-2 6 2 6-2v16l-6 2-6-2-6 2V5Zm6-2v16m6-14v16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\"/></svg><span class=\"ds-option-copy\"><span class=\"ds-option-name\">Bugis </span><span class=\"ds-option-address\">Bugis MRT · EW12 / DT14</span></span></button></div></div></div><button type=\"button\" class=\"ds-search-action ds-search-control\" aria-label=\"Filters\"><svg width=\"22\" height=\"22\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M4 7h16M4 17h16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"/><circle cx=\"9\" cy=\"7\" r=\"2.5\" fill=\"var(--qt-card)\" stroke=\"currentColor\" stroke-width=\"1.8\"/><circle cx=\"15\" cy=\"17\" r=\"2.5\" fill=\"var(--qt-card)\" stroke=\"currentColor\" stroke-width=\"1.8\"/></svg></button><button type=\"button\" class=\"ds-search-action ds-search-control\" aria-label=\"Search by my location\"><svg width=\"22\" height=\"22\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"7\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"/><circle cx=\"12\" cy=\"12\" r=\"2\" fill=\"currentColor\"/><path d=\"M12 2v3m0 14v3M2 12h3m14 0h3\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"/></svg></button></div></div>",
+      "css": ".ds-search-pattern{--qt-card:#fffdfb;--qt-foreground:#232825;--qt-muted:#62554e;--qt-border:#e8e3df;--qt-focus:#b43829;--qt-transparent:transparent;--qt-soft:#ffebe0;position:relative;width:100%;padding-bottom:74px;color:var(--qt-foreground);font-family:\"Nunito_400Regular\",Nunito,sans-serif}.ds-search-group{position:relative}.ds-search-context{display:flex;align-items:center;width:100%;min-height:54px;border:1px solid var(--qt-border);border-radius:18px;background:var(--qt-card)}.ds-search-context:focus-within{border-color:var(--qt-focus)}.ds-search-action{display:flex;min-width:48px;min-height:48px;align-items:center;justify-content:center;border:0;background:var(--qt-transparent);color:var(--qt-muted);cursor:pointer}.ds-search-field{flex:1;min-width:0;border:0;outline:none;padding:14px 4px 14px 0;background:var(--qt-transparent);color:var(--qt-foreground);font-family:inherit;font-size:16px;line-height:20px}.ds-search-field::placeholder{color:var(--qt-muted)}.ds-location-suggestions{position:absolute;top:100%;left:0;right:0;margin-top:6px;max-height:260px;overflow:auto;padding:4px 0;border:1px solid var(--qt-border);border-radius:16px;background:var(--qt-card)}.ds-location-option{display:flex;align-items:center;width:100%;min-height:56px;gap:8px;padding:12px;border:0;background:var(--qt-card);color:var(--qt-foreground);text-align:left;font-family:inherit;cursor:pointer}.ds-option-copy{flex:1;min-width:0}.ds-option-name,.ds-option-address{display:block;overflow-wrap:anywhere}.ds-option-name{font-size:14px;font-weight:700}.ds-option-address{font-size:12px;color:var(--qt-muted)}.ds-location-option[aria-selected=true],.ds-location-option:hover{background:var(--qt-soft)}.ds-search-action:focus-visible,.ds-location-option:focus-visible{outline:2px solid var(--qt-focus);outline-offset:-2px}.ds-search-action:hover{color:var(--qt-foreground)}.ds-search-action:active,.ds-location-option:active{opacity:.8}.ds-search-row{display:flex;align-items:flex-start;gap:6px}.ds-search-group{flex:1;min-width:0}.ds-search-control{width:48px;border:1px solid var(--qt-border);border-radius:16px;background:var(--qt-card)}"
+    },
+    {
+      "name": "Live Place Card",
+      "kind": "custom",
+      "refersTo": "live-place-card",
+      "description": "Place-card footer and inline Google Maps source have 24-unit visible height. The link uses native hitSlop10 vertically/4 horizontally, bounded by its parent; this does not guarantee a 44-unit target. Save remains48 and Maps stays an independent link beside hours. Information padding is 12 horizontally, 8 at the top and 2 at the bottom, with no116-unit minimum panel height. The clear-photo spacer is116; the observed375-wide card remains about223 units tall with4-unit side gutters. Divider linebox→hours is6px and hours linebox→card bottom is8px in the initial320/375/414/768/1440 measurements; all rows stay single-line. Raster blurRadius2,24-unit feather/midpoint start and photoBlend alpha0/.18/.42 are current; there is no zoom icon. Static unavailable-photo fixture; no live media stored. Conditional Menu uses the published branch match; this unlinked fixture has no menu.",
+      "html": "<section class=\"ds-live-card\" aria-label=\"Documentation fixture; no live venue data\"><div class=\"ds-live-photo\"><div class=\"ds-live-unavailable\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><rect x=\"3\" y=\"4\" width=\"18\" height=\"16\" rx=\"2\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\"/><path d=\"m3 16 5-5 4 4 3-3 6 6\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\"/></svg><span>Photo unavailable · documentation fixture</span></div></div><button class=\"ds-live-open\" aria-label=\"Full venue name from live response. Full address from live response. Opens branch details\"></button><div class=\"ds-live-panel\"><strong>Full venue name from live response</strong><span>Full address from live response</span><div class=\"ds-live-summary\"><span>Approximate origin distance</span><span>Google rating from response</span></div><div class=\"ds-live-footer\"><span class=\"ds-live-hours\">Current hours from response</span><a href=\"#\" class=\"ds-live-source\" aria-label=\"Google Maps documentation placeholder\">Google Maps ↗</a></div></div><button class=\"ds-live-save\" aria-label=\"Save venue documentation sample\"><svg width=\"22\" height=\"22\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M6 3h12v18l-6-4-6 4V3Z\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linejoin=\"round\"/></svg></button></section>",
+      "css": ".ds-live-card{--qt-foreground:#ffffff;--qt-card:#171d19;--qt-media-surface:#171d19;--qt-media-foreground:#ffffff;--qt-media-control:rgba(23,29,25,0.84);--qt-provider:#ffffff;--qt-focus:#b43829;--qt-transparent:transparent;--qt-media-divider:rgba(255,255,255,0.28);position:relative;width:100%;border:2px solid var(--qt-transparent);border-radius:22px;overflow:clip;background:var(--qt-card);color:var(--qt-foreground);font-family:\"Nunito_400Regular\",Nunito,sans-serif}.ds-live-photo{display:flex;height:116px;align-items:center;padding:0 60px 0 8px;background:var(--qt-media-surface);color:var(--qt-media-foreground);font-size:12px}.ds-live-open{position:absolute;inset:0;width:100%;height:100%;padding:0;border:0;background:var(--qt-transparent);color:var(--qt-foreground);z-index:1}.ds-live-panel{display:flex;flex-direction:column;gap:2px;padding:8px 12px 2px;background:var(--qt-transparent);font-size:12px}.ds-live-panel strong{font-family:\"Nunito_700Bold\",Nunito,sans-serif;font-size:18px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.ds-live-summary{display:flex;flex-wrap:nowrap;gap:8px}.ds-live-footer{position:relative;z-index:2;display:flex;align-items:center;gap:8px;min-height:24px;border-top:1px solid var(--qt-media-divider)}.ds-live-save{display:flex;position:absolute;right:4px;top:4px;min-width:48px;min-height:48px;align-items:center;justify-content:center;padding:10px;border:2px solid var(--qt-transparent);border-radius:24px;background:var(--qt-media-control);color:var(--qt-media-foreground)}.ds-live-source{display:flex;position:relative;min-height:24px;align-items:center;gap:4px;color:var(--qt-provider);font-size:12px;text-decoration:none}.ds-live-open:hover,.ds-live-save:hover,.ds-live-source:hover{cursor:pointer}.ds-live-open:focus-visible,.ds-live-source:focus-visible{outline:2px solid var(--qt-focus);outline-offset:-2px}.ds-live-save:focus-visible{outline:none;border-color:var(--qt-media-foreground)}.ds-live-open:active{outline:2px solid var(--qt-focus);outline-offset:-2px}.ds-live-save:active{border-color:var(--qt-media-foreground)}.ds-live-unavailable{position:absolute;top:60px;left:8px;right:8px;display:flex;align-items:center;justify-content:center;gap:4px}.ds-live-photo{position:relative}.ds-live-unavailable span,.ds-live-panel>strong,.ds-live-panel>span,.ds-live-summary span,.ds-live-footer span{min-width:0;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.ds-live-summary span{flex:1}.ds-live-hours{flex:1;min-width:0}.ds-live-panel{pointer-events:none}.ds-live-footer,.ds-live-save{pointer-events:auto}.ds-live-save{z-index:3}"
+    }
+  ],
+  "narrative": {
+    "northStar": "Coral & Peach",
+    "overview": "QuinTaste inherits the supplied UI/UX PDF: pale peach backgrounds, charcoal text, rounded near-white cards, heavy Nunito headings and a smiling dumpling chef. The visual language is warm and welcoming while discovery, local pantry marketplace, private collections, cooking and account screens prioritize food, clear choices and native navigation.\n\nCoral & Peach is the default family. Cobalt & Turquoise and Lavender & Frost reuse the same components, geometry and semantic roles. Extend this system from the shipped tokens and components rather than creating another visual identity.",
+    "keyCharacteristics": [
+      "Soft food-inspired color and a transparent raster dumpling chef.",
+      "Heavy rounded headings above readable, scalable body text.",
+      "Near-white cards with full perimeter edges and quiet shadows.",
+      "Compact task controls and progressive disclosure, with readable evidence and private-save feedback.",
+      "Immediate appearance previews with deliberate local saves."
+    ],
+    "rules": [
+      {
+        "name": "Semantic Color Rule",
+        "body": "Read colors from themeFor; component styles use semantic theme roles in every palette and display mode.",
+        "section": "colors"
+      },
+      {
+        "name": "Readable Heading Rule",
+        "body": "Keep enlarged headings flexible and allow wrapping; the shared title uses minWidth: 0 and flexShrink: 1.",
+        "section": "typography"
+      },
+      {
+        "name": "Compact Flow Rule",
+        "body": "Keep one free-text Place or postal code field with suggestions after typing, followed by Filters and the Search by my location crosshair in Explore’s single row. Keep Me on Cook/Social/Market/Game, diet choices inside Filters and root headings titleless; use 4-unit Explore content insets and 8-unit insets on other screens and retain 48-unit interaction targets.",
+        "section": "layout"
+      },
+      {
+        "name": "Perimeter Rule",
+        "body": "Use complete component borders. Directional accent rails are forbidden; full-width functional dividers remain allowed.",
+        "section": "shapes"
+      }
+    ],
+    "dos": [
+      "Do reuse the shipped semantic tokens, text wrapper, cards, fields and controls.",
+      "Do preserve guest entry, explicit local-preview feedback and independent ingredient switches.",
+      "Do let small screens scroll and retain every action at enlarged text sizes.",
+      "Do use the existing chef asset and preserve its transparent background.",
+      "Do pair fit colors with text and icons. Cook keeps conflicts and unknown exclusions visible and discloses bundled/unreviewed provenance plus illustrative imagery through one-tap Recipe info; other evidence surfaces retain their relevant disclosures.",
+      "Do keep white single-line 18/12 text directly on photos, soften the raster from the measured name midpoint and retain compact Google source/full exact-photo credits.",
+      "Do keep one Explore search row and five icon-only glass tabs (Explore/Cook/Social/Market/Game) with accessible names, small themed selection/hover lenses, safe areas and the dock transparency fallback.",
+      "Do keep provider business reviews separate from independent ingredient evidence and preserve author/source links.",
+      "Do keep primary actions visible and reveal secondary choices through Filters or More without shrinking touch targets.",
+      "Do save and apply filter selections immediately, pair Vegetarian's carrot with Vegan's sprout, and use single-line tail ellipsis for compact landscape metadata."
+    ],
+    "donts": [
+      "Don't hardcode component colors or substitute palette-specific utility colors.",
+      "Don't add decorative directional borders.",
+      "Don't replace the approved chef asset, Nunito character or rounded surfaces.",
+      "Don't imply real account creation, connected account providers or allergen safety.",
+      "Don't add a pale information panel, blur text/UI, restore visible tab words or use a large glowing capsule/opaque dock host.",
+      "Don't treat illustrative venue hours, photos or draft receipts as live public facts.",
+      "Don't present search-match counts or Google categories as exhaustive venue totals or ingredient confirmation.",
+      "Don't repeat Places, Cook or Market headings above already-labelled tab roots, or add a redundant heading to the Saved toolbar."
+    ]
+  }
+}

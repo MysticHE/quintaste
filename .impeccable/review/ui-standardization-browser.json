@@ -1,0 +1,4832 @@
+{
+  "checks": [
+    {
+      "name": "Food choices auto-save rapid independent selections and survive reload",
+      "passed": true
+    },
+    {
+      "name": "Preference write failure retains changes and Retry persists them",
+      "passed": true
+    },
+    {
+      "name": "Appearance and accessibility save immediately without extra actions",
+      "passed": true
+    },
+    {
+      "name": "Notification toggles and valid quiet hours auto-save independently",
+      "passed": true
+    },
+    {
+      "name": "Canonical private address and details auto-save one stable place",
+      "passed": true
+    },
+    {
+      "name": "Preview profile saves text without a Save action",
+      "passed": true
+    },
+    {
+      "name": "Avatar selection saves automatically and default remains available",
+      "passed": true
+    },
+    {
+      "name": "Social profile persists incomplete private drafts without visibility opt-in",
+      "passed": true
+    },
+    {
+      "name": "Five supplied surfaces share compact targets and responsive layouts",
+      "passed": true
+    },
+    {
+      "name": "Corrupted preferences block edits and offer safe load recovery",
+      "passed": true
+    },
+    {
+      "name": "Other app screens inherit consistent controls and form hierarchy",
+      "passed": true
+    }
+  ],
+  "screenshots": [
+    "ui-standard-exclusions-375.png",
+    "ui-standard-preference-error.png",
+    "ui-standard-settings-dark-375.png",
+    "ui-standard-notifications-dark-375.png",
+    "ui-standard-private-places-dark-375.png",
+    "ui-standard-profile-dark-375.png",
+    "ui-standard-avatar-dark-375.png",
+    "ui-standard-social-profile-dark-375.png",
+    "ui-standard-exclusions-375.png",
+    "ui-standard-private-places-375.png",
+    "ui-standard-cases-375.png",
+    "ui-standard-avatar-375.png",
+    "ui-standard-social-375.png",
+    "ui-standard-exclusions-320.png",
+    "ui-standard-cases-320.png",
+    "ui-standard-social-320.png",
+    "ui-standard-exclusions-768.png",
+    "ui-standard-cases-768.png",
+    "ui-standard-social-768.png",
+    "ui-standard-exclusions-1440.png",
+    "ui-standard-cases-1440.png",
+    "ui-standard-social-1440.png",
+    "ui-standard-exclusions-320-dark-large.png",
+    "ui-standard-private-places-320-dark-large.png",
+    "ui-standard-cases-320-dark-large.png",
+    "ui-standard-avatar-320-dark-large.png",
+    "ui-standard-social-320-dark-large.png",
+    "ui-standard-cook-375.png",
+    "ui-standard-market-375.png",
+    "ui-standard-cook-375.png",
+    "ui-standard-market-375.png",
+    "ui-standard-game-375.png",
+    "ui-standard-account-375.png",
+    "ui-standard-settings-375.png",
+    "ui-standard-login-375.png",
+    "ui-standard-settings-coral.png",
+    "ui-standard-cook-375.png",
+    "ui-standard-market-375.png",
+    "ui-standard-game-375.png",
+    "ui-standard-account-375.png",
+    "ui-standard-settings-375.png",
+    "ui-standard-login-375.png",
+    "ui-standard-settings-coral.png",
+    "ui-standard-settings-cobalt.png",
+    "ui-standard-settings-lavender.png"
+  ],
+  "measurements": [
+    {
+      "name": "exclusions-375",
+      "width": 375,
+      "overflow": false,
+      "buttons": [
+        {
+          "label": "Go back",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "overflow": false
+        },
+        {
+          "label": "Vegan",
+          "width": 94.140625,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Vegetarian",
+          "width": 105,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Plant-based",
+          "width": 115.40625,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Eggs",
+          "width": 62.125,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Dairy",
+          "width": 65.265625,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Honey",
+          "width": 73.328125,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Animal gelatin",
+          "width": 133.125,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Rennet",
+          "width": 78.09375,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Exclude all alliums",
+          "width": 333,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Garlic",
+          "width": 90.515625,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Onion",
+          "width": 91.765625,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Leeks",
+          "width": 67.796875,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Chives",
+          "width": 74.4375,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Scallions",
+          "width": 91.640625,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Shallots",
+          "width": 86.03125,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Asafoetida",
+          "width": 104.875,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Peanuts",
+          "width": 106.984375,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Tree nuts",
+          "width": 93.71875,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Gluten",
+          "width": 75.265625,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Mushrooms",
+          "width": 111.390625,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "preference-error",
+      "width": 375,
+      "overflow": false,
+      "buttons": [
+        {
+          "label": "Go back",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "overflow": false
+        },
+        {
+          "label": "Vegan",
+          "width": 72.140625,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Vegetarian",
+          "width": 127,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Plant-based",
+          "width": 115.40625,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Eggs",
+          "width": 62.125,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Dairy",
+          "width": 65.265625,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Honey",
+          "width": 73.328125,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Animal gelatin",
+          "width": 133.125,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Rennet",
+          "width": 78.09375,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Exclude all alliums",
+          "width": 333,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Garlic",
+          "width": 90.515625,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Onion",
+          "width": 91.765625,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Leeks",
+          "width": 67.796875,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Chives",
+          "width": 74.4375,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Scallions",
+          "width": 91.640625,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Shallots",
+          "width": 86.03125,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Asafoetida",
+          "width": 104.875,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Peanuts",
+          "width": 106.984375,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Tree nuts",
+          "width": 93.71875,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Gluten",
+          "width": 75.265625,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Mushrooms",
+          "width": 111.390625,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Retry saving preferences",
+          "width": 48,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Dismiss message",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "settings-dark-375",
+      "width": 375,
+      "overflow": false,
+      "buttons": [
+        {
+          "label": "Go back",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "overflow": false
+        },
+        {
+          "label": "Vegan",
+          "width": 135.0625,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Vegetarian",
+          "width": 189.9375,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Plant-based",
+          "width": 333,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Allium exclusions",
+          "width": 333,
+          "height": 52,
+          "fonts": [
+            "16px",
+            "13px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "More food exclusions",
+          "width": 333,
+          "height": 52,
+          "fonts": [
+            "16px",
+            "13px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Coral & Peach",
+          "width": 333,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Cobalt & Turquoise",
+          "width": 333,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Lavender & Frost",
+          "width": 333,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Light",
+          "width": 93.609375,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Dark",
+          "width": 113.1875,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "System",
+          "width": 110.203125,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Accessibility",
+          "width": 333,
+          "height": 52,
+          "fonts": [
+            "16px",
+            "13px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Notifications & privacy",
+          "width": 333,
+          "height": 52,
+          "fonts": [
+            "16px",
+            "13px"
+          ],
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "notifications-dark-375",
+      "width": 375,
+      "overflow": false,
+      "buttons": [
+        {
+          "label": "Go back",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "private-places-dark-375",
+      "width": 375,
+      "overflow": false,
+      "buttons": [
+        {
+          "label": "Go back",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "overflow": false
+        },
+        {
+          "label": "Edit Home",
+          "width": 139.015625,
+          "height": 48,
+          "fonts": [
+            "18.4px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Remove Home",
+          "width": 173.75,
+          "height": 48,
+          "fonts": [
+            "18.4px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Home",
+          "width": 98.328125,
+          "height": 48,
+          "fonts": [
+            "18.4px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Work",
+          "width": 72,
+          "height": 48,
+          "fonts": [
+            "18.4px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Other",
+          "width": 74.484375,
+          "height": 48,
+          "fonts": [
+            "18.4px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Search this place or postal code",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "overflow": false
+        },
+        {
+          "label": "Clear location search",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "overflow": false
+        },
+        {
+          "label": "Add another place",
+          "width": 188.609375,
+          "height": 48,
+          "fonts": [
+            "18.4px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Area participation",
+          "width": 359,
+          "height": 48,
+          "fonts": [
+            "18.4px"
+          ],
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "profile-dark-375",
+      "width": 375,
+      "overflow": false,
+      "buttons": [
+        {
+          "label": "Go back",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "avatar-dark-375",
+      "width": 375,
+      "overflow": false,
+      "buttons": [
+        {
+          "label": "Go back",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "overflow": false
+        },
+        {
+          "label": "Animate",
+          "width": 104.9375,
+          "height": 48,
+          "fonts": [
+            "18.4px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Talking preview",
+          "width": 166.421875,
+          "height": 48,
+          "fonts": [
+            "18.4px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Default chef",
+          "width": 100,
+          "height": 148,
+          "fonts": [
+            "14.95px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Sample",
+          "width": 100,
+          "height": 148,
+          "fonts": [
+            "14.95px",
+            "14.95px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Create new avatar",
+          "width": 359,
+          "height": 48,
+          "fonts": [
+            "18.4px"
+          ],
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "social-profile-dark-375",
+      "width": 375,
+      "overflow": false,
+      "buttons": [
+        {
+          "label": "Go back",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "overflow": false
+        },
+        {
+          "label": "Open to plans",
+          "width": 359,
+          "height": 48,
+          "fonts": [
+            "14.95px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Vegan",
+          "width": 101.0625,
+          "height": 48,
+          "fonts": [
+            "18.4px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Vegetarian",
+          "width": 116.84375,
+          "height": 48,
+          "fonts": [
+            "18.4px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "2",
+          "width": 62.046875,
+          "height": 48,
+          "fonts": [
+            "18.4px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "4",
+          "width": 62.046875,
+          "height": 48,
+          "fonts": [
+            "18.4px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "6",
+          "width": 62.046875,
+          "height": 48,
+          "fonts": [
+            "18.4px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Weekday lunch",
+          "width": 155.28125,
+          "height": 48,
+          "fonts": [
+            "18.4px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Weekday dinner",
+          "width": 162.6875,
+          "height": 48,
+          "fonts": [
+            "18.4px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Weekends",
+          "width": 136.5625,
+          "height": 48,
+          "fonts": [
+            "18.4px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Eggs",
+          "width": 67.53125,
+          "height": 48,
+          "fonts": [
+            "18.4px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Milk / dairy",
+          "width": 118.828125,
+          "height": 48,
+          "fonts": [
+            "18.4px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Honey",
+          "width": 80.4375,
+          "height": 48,
+          "fonts": [
+            "18.4px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Peanuts",
+          "width": 93.828125,
+          "height": 48,
+          "fonts": [
+            "18.4px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Tree nuts",
+          "width": 103.875,
+          "height": 48,
+          "fonts": [
+            "18.4px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Gluten",
+          "width": 82.65625,
+          "height": 48,
+          "fonts": [
+            "18.4px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Soy",
+          "width": 57.25,
+          "height": 48,
+          "fonts": [
+            "18.4px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Sesame",
+          "width": 91.9375,
+          "height": 48,
+          "fonts": [
+            "18.4px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "More ingredients",
+          "width": 175.78125,
+          "height": 48,
+          "fonts": [
+            "18.4px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "I am 18 or older",
+          "width": 359,
+          "height": 48,
+          "fonts": [
+            "14.95px"
+          ],
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "exclusions-375",
+      "width": 375,
+      "overflow": false,
+      "buttons": [
+        {
+          "label": "Go back",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "overflow": false
+        },
+        {
+          "label": "Vegan",
+          "width": 72.140625,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Vegetarian",
+          "width": 127,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Plant-based",
+          "width": 115.40625,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Eggs",
+          "width": 62.125,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Dairy",
+          "width": 65.265625,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Honey",
+          "width": 73.328125,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Animal gelatin",
+          "width": 133.125,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Rennet",
+          "width": 78.09375,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Exclude all alliums",
+          "width": 333,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Garlic",
+          "width": 90.515625,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Onion",
+          "width": 91.765625,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Leeks",
+          "width": 67.796875,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Chives",
+          "width": 74.4375,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Scallions",
+          "width": 91.640625,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Shallots",
+          "width": 86.03125,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Asafoetida",
+          "width": 104.875,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Peanuts",
+          "width": 106.984375,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Tree nuts",
+          "width": 93.71875,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Gluten",
+          "width": 75.265625,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Mushrooms",
+          "width": 111.390625,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "private-places-375",
+      "width": 375,
+      "overflow": false,
+      "buttons": [
+        {
+          "label": "Go back",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "overflow": false
+        },
+        {
+          "label": "Edit Home",
+          "width": 127.53125,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Remove Home",
+          "width": 157.75,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Home",
+          "width": 91.765625,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Work",
+          "width": 66,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Other",
+          "width": 68.171875,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Search this place or postal code",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "overflow": false
+        },
+        {
+          "label": "Area participation",
+          "width": 359,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "cases-375",
+      "width": 375,
+      "overflow": false,
+      "buttons": [
+        {
+          "label": "Go back",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "overflow": false
+        },
+        {
+          "label": "Refresh cases",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "overflow": false
+        },
+        {
+          "label": "New report",
+          "width": 359,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "avatar-375",
+      "width": 375,
+      "overflow": false,
+      "buttons": [
+        {
+          "label": "Go back",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "overflow": false
+        },
+        {
+          "label": "Default chef",
+          "width": 100,
+          "height": 144,
+          "fonts": [
+            "13px",
+            "13px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Sample",
+          "width": 100,
+          "height": 144,
+          "fonts": [
+            "13px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Create new avatar",
+          "width": 359,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "social-375",
+      "width": 375,
+      "overflow": false,
+      "buttons": [
+        {
+          "label": "Inbox",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "overflow": false
+        },
+        {
+          "label": "Me: profile and settings",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "overflow": false
+        },
+        {
+          "label": "People",
+          "width": 97.65625,
+          "height": 48,
+          "fonts": [
+            "13px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Events",
+          "width": 97.671875,
+          "height": 48,
+          "fonts": [
+            "13px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "My plans",
+          "width": 97.671875,
+          "height": 48,
+          "fonts": [
+            "13px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "People filters",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "overflow": false
+        },
+        {
+          "label": "Set up profile",
+          "width": 132.375,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Browse sample profiles",
+          "width": 205.625,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "exclusions-320",
+      "width": 320,
+      "overflow": false,
+      "buttons": [
+        {
+          "label": "Go back",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "overflow": false
+        },
+        {
+          "label": "Vegan",
+          "width": 72.140625,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Vegetarian",
+          "width": 127,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Plant-based",
+          "width": 115.40625,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Eggs",
+          "width": 62.125,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Dairy",
+          "width": 65.265625,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Honey",
+          "width": 73.328125,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Animal gelatin",
+          "width": 133.125,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Rennet",
+          "width": 78.09375,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Exclude all alliums",
+          "width": 278,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Garlic",
+          "width": 90.515625,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Onion",
+          "width": 91.765625,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Leeks",
+          "width": 67.796875,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Chives",
+          "width": 74.4375,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Scallions",
+          "width": 91.640625,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Shallots",
+          "width": 86.03125,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Asafoetida",
+          "width": 104.875,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Peanuts",
+          "width": 106.984375,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Tree nuts",
+          "width": 93.71875,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Gluten",
+          "width": 75.265625,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Mushrooms",
+          "width": 111.390625,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "cases-320",
+      "width": 320,
+      "overflow": false,
+      "buttons": [
+        {
+          "label": "Go back",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "overflow": false
+        },
+        {
+          "label": "Refresh cases",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "overflow": false
+        },
+        {
+          "label": "New report",
+          "width": 304,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "social-320",
+      "width": 320,
+      "overflow": false,
+      "buttons": [
+        {
+          "label": "Inbox",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "overflow": false
+        },
+        {
+          "label": "Me: profile and settings",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "overflow": false
+        },
+        {
+          "label": "People",
+          "width": 79.328125,
+          "height": 48,
+          "fonts": [
+            "13px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Events",
+          "width": 79.34375,
+          "height": 48,
+          "fonts": [
+            "13px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "My plans",
+          "width": 79.328125,
+          "height": 48,
+          "fonts": [
+            "13px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "People filters",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "overflow": false
+        },
+        {
+          "label": "Set up profile",
+          "width": 132.375,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Browse sample profiles",
+          "width": 205.625,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "exclusions-768",
+      "width": 768,
+      "overflow": false,
+      "buttons": [
+        {
+          "label": "Go back",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "overflow": false
+        },
+        {
+          "label": "Vegan",
+          "width": 72.140625,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Vegetarian",
+          "width": 127,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Plant-based",
+          "width": 115.40625,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Eggs",
+          "width": 62.125,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Dairy",
+          "width": 65.265625,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Honey",
+          "width": 73.328125,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Animal gelatin",
+          "width": 133.125,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Rennet",
+          "width": 78.09375,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Exclude all alliums",
+          "width": 712,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Garlic",
+          "width": 90.515625,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Onion",
+          "width": 91.765625,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Leeks",
+          "width": 67.796875,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Chives",
+          "width": 74.4375,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Scallions",
+          "width": 91.640625,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Shallots",
+          "width": 86.03125,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Asafoetida",
+          "width": 104.875,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Peanuts",
+          "width": 106.984375,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Tree nuts",
+          "width": 93.71875,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Gluten",
+          "width": 75.265625,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Mushrooms",
+          "width": 111.390625,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "cases-768",
+      "width": 768,
+      "overflow": false,
+      "buttons": [
+        {
+          "label": "Go back",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "overflow": false
+        },
+        {
+          "label": "Refresh cases",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "overflow": false
+        },
+        {
+          "label": "New report",
+          "width": 738,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "social-768",
+      "width": 768,
+      "overflow": false,
+      "buttons": [
+        {
+          "label": "Inbox",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "overflow": false
+        },
+        {
+          "label": "Me: profile and settings",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "overflow": false
+        },
+        {
+          "label": "People",
+          "width": 224,
+          "height": 48,
+          "fonts": [
+            "13px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Events",
+          "width": 224,
+          "height": 48,
+          "fonts": [
+            "13px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "My plans",
+          "width": 224,
+          "height": 48,
+          "fonts": [
+            "13px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "People filters",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "overflow": false
+        },
+        {
+          "label": "Set up profile",
+          "width": 132.375,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Browse sample profiles",
+          "width": 205.625,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "exclusions-1440",
+      "width": 1440,
+      "overflow": false,
+      "buttons": [
+        {
+          "label": "Go back",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "overflow": false
+        },
+        {
+          "label": "Vegan",
+          "width": 72.140625,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Vegetarian",
+          "width": 127,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Plant-based",
+          "width": 115.40625,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Eggs",
+          "width": 62.125,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Dairy",
+          "width": 65.265625,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Honey",
+          "width": 73.328125,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Animal gelatin",
+          "width": 133.125,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Rennet",
+          "width": 78.09375,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Exclude all alliums",
+          "width": 716,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Garlic",
+          "width": 90.515625,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Onion",
+          "width": 91.765625,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Leeks",
+          "width": 67.796875,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Chives",
+          "width": 74.4375,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Scallions",
+          "width": 91.640625,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Shallots",
+          "width": 86.03125,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Asafoetida",
+          "width": 104.875,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Peanuts",
+          "width": 106.984375,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Tree nuts",
+          "width": 93.71875,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Gluten",
+          "width": 75.265625,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Mushrooms",
+          "width": 111.390625,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "cases-1440",
+      "width": 1440,
+      "overflow": false,
+      "buttons": [
+        {
+          "label": "Go back",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "overflow": false
+        },
+        {
+          "label": "Refresh cases",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "overflow": false
+        },
+        {
+          "label": "New report",
+          "width": 742,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "social-1440",
+      "width": 1440,
+      "overflow": false,
+      "buttons": [
+        {
+          "label": "Inbox",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "overflow": false
+        },
+        {
+          "label": "Me: profile and settings",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "overflow": false
+        },
+        {
+          "label": "People",
+          "width": 225.328125,
+          "height": 48,
+          "fonts": [
+            "13px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Events",
+          "width": 225.34375,
+          "height": 48,
+          "fonts": [
+            "13px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "My plans",
+          "width": 225.328125,
+          "height": 48,
+          "fonts": [
+            "13px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "People filters",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "overflow": false
+        },
+        {
+          "label": "Set up profile",
+          "width": 132.375,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Browse sample profiles",
+          "width": 205.625,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "exclusions-320-dark-large",
+      "width": 320,
+      "overflow": false,
+      "buttons": [
+        {
+          "label": "Go back",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "overflow": false
+        },
+        {
+          "label": "Vegan",
+          "width": 85.96875,
+          "height": 48,
+          "fonts": [
+            "20.8px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Vegetarian",
+          "width": 150.703125,
+          "height": 48,
+          "fonts": [
+            "20.8px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Plant-based",
+          "width": 142.21875,
+          "height": 48,
+          "fonts": [
+            "20.8px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Eggs",
+          "width": 72.953125,
+          "height": 48,
+          "fonts": [
+            "20.8px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Dairy",
+          "width": 77.046875,
+          "height": 48,
+          "fonts": [
+            "20.8px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Honey",
+          "width": 87.53125,
+          "height": 48,
+          "fonts": [
+            "20.8px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Animal gelatin",
+          "width": 165.265625,
+          "height": 48,
+          "fonts": [
+            "20.8px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Rennet",
+          "width": 93.71875,
+          "height": 48,
+          "fonts": [
+            "20.8px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Exclude all alliums",
+          "width": 278,
+          "height": 48,
+          "fonts": [
+            "20.8px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Garlic",
+          "width": 103.265625,
+          "height": 48,
+          "fonts": [
+            "20.8px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Onion",
+          "width": 104.890625,
+          "height": 48,
+          "fonts": [
+            "20.8px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Leeks",
+          "width": 80.34375,
+          "height": 48,
+          "fonts": [
+            "20.8px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Chives",
+          "width": 88.96875,
+          "height": 48,
+          "fonts": [
+            "20.8px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Scallions",
+          "width": 111.328125,
+          "height": 48,
+          "fonts": [
+            "20.8px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Shallots",
+          "width": 104.03125,
+          "height": 48,
+          "fonts": [
+            "20.8px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Asafoetida",
+          "width": 128.53125,
+          "height": 48,
+          "fonts": [
+            "20.8px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Peanuts",
+          "width": 124.671875,
+          "height": 48,
+          "fonts": [
+            "20.8px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Tree nuts",
+          "width": 114.03125,
+          "height": 48,
+          "fonts": [
+            "20.8px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Gluten",
+          "width": 90.046875,
+          "height": 48,
+          "fonts": [
+            "20.8px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Mushrooms",
+          "width": 137,
+          "height": 48,
+          "fonts": [
+            "20.8px"
+          ],
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "private-places-320-dark-large",
+      "width": 320,
+      "overflow": false,
+      "buttons": [
+        {
+          "label": "Go back",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "overflow": false
+        },
+        {
+          "label": "Edit Home",
+          "width": 150.5,
+          "height": 48,
+          "fonts": [
+            "20.8px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Remove Home",
+          "width": 189.765625,
+          "height": 48,
+          "fonts": [
+            "20.8px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Home",
+          "width": 104.890625,
+          "height": 48,
+          "fonts": [
+            "20.8px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Work",
+          "width": 78,
+          "height": 48,
+          "fonts": [
+            "20.8px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Other",
+          "width": 80.8125,
+          "height": 48,
+          "fonts": [
+            "20.8px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Search this place or postal code",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "overflow": false
+        },
+        {
+          "label": "Area participation",
+          "width": 304,
+          "height": 48,
+          "fonts": [
+            "20.8px"
+          ],
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "cases-320-dark-large",
+      "width": 320,
+      "overflow": false,
+      "buttons": [
+        {
+          "label": "Go back",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "overflow": false
+        },
+        {
+          "label": "Refresh cases",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "overflow": false
+        },
+        {
+          "label": "New report",
+          "width": 304,
+          "height": 50,
+          "fonts": [
+            "20.8px"
+          ],
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "avatar-320-dark-large",
+      "width": 320,
+      "overflow": false,
+      "buttons": [
+        {
+          "label": "Go back",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "overflow": false
+        },
+        {
+          "label": "Default chef",
+          "width": 100,
+          "height": 177,
+          "fonts": [
+            "16.9px",
+            "16.9px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Sample",
+          "width": 100,
+          "height": 177,
+          "fonts": [
+            "16.9px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Create new avatar",
+          "width": 304,
+          "height": 50,
+          "fonts": [
+            "20.8px"
+          ],
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "social-320-dark-large",
+      "width": 320,
+      "overflow": false,
+      "buttons": [
+        {
+          "label": "Inbox",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "overflow": false
+        },
+        {
+          "label": "Me: profile and settings",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "overflow": false
+        },
+        {
+          "label": "People",
+          "width": 79.328125,
+          "height": 48,
+          "fonts": [
+            "16.9px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Events",
+          "width": 79.34375,
+          "height": 48,
+          "fonts": [
+            "16.9px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "My plans",
+          "width": 79.328125,
+          "height": 48,
+          "fonts": [
+            "16.9px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "People filters",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "overflow": false
+        },
+        {
+          "label": "Set up profile",
+          "width": 161.890625,
+          "height": 50,
+          "fonts": [
+            "20.8px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Browse sample profiles",
+          "width": 257.109375,
+          "height": 50,
+          "fonts": [
+            "20.8px"
+          ],
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "cook-375",
+      "width": 375,
+      "overflow": false,
+      "buttons": [
+        {
+          "label": "Recipe filters",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "overflow": false
+        },
+        {
+          "label": "Me: profile and settings",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "overflow": false
+        },
+        {
+          "label": "My recipes",
+          "width": 128.921875,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Shopping",
+          "width": 120.734375,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Miso mushroom bowl30 min · 2 servingsVegan",
+          "width": 269,
+          "height": 106,
+          "fonts": [
+            "18px",
+            "13px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Save Miso mushroom bowl",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "overflow": false
+        },
+        {
+          "label": "Sesame greens & tofu20 min · 2 servingsVegan",
+          "width": 269,
+          "height": 106,
+          "fonts": [
+            "18px",
+            "13px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Save Sesame greens & tofu",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "overflow": false
+        },
+        {
+          "label": "Ginger coconut laksa25 min · 2 servingsVegan",
+          "width": 269,
+          "height": 106,
+          "fonts": [
+            "18px",
+            "13px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Save Ginger coconut laksa",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "overflow": false
+        },
+        {
+          "label": "Plant-based coconut laksa25 min · 2 servingsConflicts",
+          "width": 269,
+          "height": 106,
+          "fonts": [
+            "18px",
+            "13px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Save Plant-based coconut laksa",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "market-375",
+      "width": 375,
+      "overflow": false,
+      "buttons": [
+        {
+          "label": "Marketplace inbox",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "overflow": false
+        },
+        {
+          "label": "Me: profile and settings",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "overflow": false
+        },
+        {
+          "label": "All",
+          "width": 58,
+          "height": 80,
+          "fonts": [
+            "13px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Pantry",
+          "width": 58,
+          "height": 80,
+          "fonts": [
+            "13px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Grains",
+          "width": 58,
+          "height": 80,
+          "fonts": [
+            "13px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Snacks",
+          "width": 58,
+          "height": 80,
+          "fonts": [
+            "13px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Seasonings",
+          "width": 72.9375,
+          "height": 80,
+          "fonts": [
+            "13px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Drinks",
+          "width": 58,
+          "height": 80,
+          "fonts": [
+            "13px"
+          ],
+          "overflow": true
+        },
+        {
+          "label": "Saved",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "overflow": false
+        },
+        {
+          "label": "Newest",
+          "width": 87.96875,
+          "height": 48,
+          "fonts": [
+            "13px"
+          ],
+          "overflow": false
+        },
+        {
+          "label": "Marketplace filters",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "overflow": false
+        },
+        {
+          "label": "My Listing",
+          "width": 78.0625,
+          "height": 48,
+          "fonts": [
+            "13px"
+          ],
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "cook-375",
+      "width": 375,
+      "overflow": false,
+      "buttons": [
+        {
+          "label": "Recipe filters",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Me: profile and settings",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "My recipes",
+          "width": 128.921875,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Shopping",
+          "width": 120.734375,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Miso mushroom bowl30 min · 2 servingsVegan",
+          "width": 269,
+          "height": 106,
+          "fonts": [
+            "18px",
+            "13px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Save Miso mushroom bowl",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Plant-based coconut laksa25 min · 2 servingsVegan",
+          "width": 269,
+          "height": 106,
+          "fonts": [
+            "18px",
+            "13px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Save Plant-based coconut laksa",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Sesame greens & tofu20 min · 2 servingsVegan",
+          "width": 269,
+          "height": 106,
+          "fonts": [
+            "18px",
+            "13px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Save Sesame greens & tofu",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Ginger coconut laksa25 min · 2 servingsVegan",
+          "width": 269,
+          "height": 106,
+          "fonts": [
+            "18px",
+            "13px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Save Ginger coconut laksa",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "horizontalScroll": false,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "market-375",
+      "width": 375,
+      "overflow": false,
+      "buttons": [
+        {
+          "label": "Marketplace inbox",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Me: profile and settings",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "All",
+          "width": 58,
+          "height": 80,
+          "fonts": [
+            "13px"
+          ],
+          "horizontalScroll": true,
+          "overflow": false
+        },
+        {
+          "label": "Pantry",
+          "width": 58,
+          "height": 80,
+          "fonts": [
+            "13px"
+          ],
+          "horizontalScroll": true,
+          "overflow": false
+        },
+        {
+          "label": "Grains",
+          "width": 58,
+          "height": 80,
+          "fonts": [
+            "13px"
+          ],
+          "horizontalScroll": true,
+          "overflow": false
+        },
+        {
+          "label": "Snacks",
+          "width": 58,
+          "height": 80,
+          "fonts": [
+            "13px"
+          ],
+          "horizontalScroll": true,
+          "overflow": false
+        },
+        {
+          "label": "Seasonings",
+          "width": 72.9375,
+          "height": 80,
+          "fonts": [
+            "13px"
+          ],
+          "horizontalScroll": true,
+          "overflow": false
+        },
+        {
+          "label": "Drinks",
+          "width": 58,
+          "height": 80,
+          "fonts": [
+            "13px"
+          ],
+          "horizontalScroll": true,
+          "overflow": false
+        },
+        {
+          "label": "Saved",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Newest",
+          "width": 87.96875,
+          "height": 48,
+          "fonts": [
+            "13px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Marketplace filters",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "My Listing",
+          "width": 78.0625,
+          "height": 48,
+          "fonts": [
+            "13px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "game-375",
+      "width": 375,
+      "overflow": false,
+      "buttons": [
+        {
+          "label": "Me: profile and settings",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Try a recipe",
+          "width": 118.21875,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "account-375",
+      "width": 375,
+      "overflow": false,
+      "buttons": [
+        {
+          "label": "Go back",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Your avatar",
+          "width": 116.40625,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Saved",
+          "width": 333,
+          "height": 48,
+          "fonts": [
+            "16px",
+            "13px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Food choices",
+          "width": 333,
+          "height": 52,
+          "fonts": [
+            "16px",
+            "13px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Private places",
+          "width": 333,
+          "height": 52,
+          "fonts": [
+            "16px",
+            "13px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "My cases",
+          "width": 333,
+          "height": 52,
+          "fonts": [
+            "16px",
+            "13px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Appearance & settings",
+          "width": 333,
+          "height": 52,
+          "fonts": [
+            "16px",
+            "13px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Accessibility",
+          "width": 333,
+          "height": 52,
+          "fonts": [
+            "16px",
+            "13px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Notifications",
+          "width": 333,
+          "height": 52,
+          "fonts": [
+            "16px",
+            "13px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Privacy & local data",
+          "width": 333,
+          "height": 52,
+          "fonts": [
+            "16px",
+            "13px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Help",
+          "width": 333,
+          "height": 52,
+          "fonts": [
+            "16px",
+            "13px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "View profile options",
+          "width": 359,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "settings-375",
+      "width": 375,
+      "overflow": false,
+      "buttons": [
+        {
+          "label": "Go back",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Vegan",
+          "width": 146.0625,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Vegetarian",
+          "width": 178.9375,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Plant-based",
+          "width": 333,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Allium exclusions",
+          "width": 333,
+          "height": 52,
+          "fonts": [
+            "16px",
+            "13px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "More food exclusions",
+          "width": 333,
+          "height": 52,
+          "fonts": [
+            "16px",
+            "13px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Coral & Peach",
+          "width": 333,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Cobalt & Turquoise",
+          "width": 333,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Lavender & Frost",
+          "width": 333,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Light",
+          "width": 115.609375,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Dark",
+          "width": 91.1875,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "System",
+          "width": 110.203125,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Accessibility",
+          "width": 333,
+          "height": 52,
+          "fonts": [
+            "16px",
+            "13px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Notifications & privacy",
+          "width": 333,
+          "height": 52,
+          "fonts": [
+            "16px",
+            "13px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "login-375",
+      "width": 375,
+      "overflow": false,
+      "buttons": [
+        {
+          "label": "Close profile preview",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Show password",
+          "width": 48,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Forgot password?",
+          "width": 164.3125,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Sign in to preview",
+          "width": 359,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Continue with Apple",
+          "width": 173.5,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Continue with Google",
+          "width": 173.5,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "New here? Create account",
+          "width": 224.5,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Explore first",
+          "width": 122.65625,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "settings-coral",
+      "width": 375,
+      "overflow": false,
+      "buttons": [
+        {
+          "label": "Go back",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Vegan",
+          "width": 146.0625,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Vegetarian",
+          "width": 178.9375,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Plant-based",
+          "width": 333,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Allium exclusions",
+          "width": 333,
+          "height": 52,
+          "fonts": [
+            "16px",
+            "13px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "More food exclusions",
+          "width": 333,
+          "height": 52,
+          "fonts": [
+            "16px",
+            "13px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Coral & Peach",
+          "width": 333,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Cobalt & Turquoise",
+          "width": 333,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Lavender & Frost",
+          "width": 333,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Light",
+          "width": 115.609375,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Dark",
+          "width": 91.1875,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "System",
+          "width": 110.203125,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Accessibility",
+          "width": 333,
+          "height": 52,
+          "fonts": [
+            "16px",
+            "13px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Notifications & privacy",
+          "width": 333,
+          "height": 52,
+          "fonts": [
+            "16px",
+            "13px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "cook-375",
+      "width": 375,
+      "overflow": false,
+      "buttons": [
+        {
+          "label": "Recipe filters",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Me: profile and settings",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "My recipes",
+          "width": 128.921875,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Shopping",
+          "width": 120.734375,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Miso mushroom bowl30 min · 2 servingsVegan",
+          "width": 269,
+          "height": 106,
+          "fonts": [
+            "18px",
+            "13px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Save Miso mushroom bowl",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Plant-based coconut laksa25 min · 2 servingsVegan",
+          "width": 269,
+          "height": 106,
+          "fonts": [
+            "18px",
+            "13px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Save Plant-based coconut laksa",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Sesame greens & tofu20 min · 2 servingsVegan",
+          "width": 269,
+          "height": 106,
+          "fonts": [
+            "18px",
+            "13px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Save Sesame greens & tofu",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Ginger coconut laksa25 min · 2 servingsVegan",
+          "width": 269,
+          "height": 106,
+          "fonts": [
+            "18px",
+            "13px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Save Ginger coconut laksa",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "horizontalScroll": false,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "market-375",
+      "width": 375,
+      "overflow": false,
+      "buttons": [
+        {
+          "label": "Marketplace inbox",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Me: profile and settings",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "All",
+          "width": 58,
+          "height": 80,
+          "fonts": [
+            "13px"
+          ],
+          "horizontalScroll": true,
+          "overflow": false
+        },
+        {
+          "label": "Pantry",
+          "width": 58,
+          "height": 80,
+          "fonts": [
+            "13px"
+          ],
+          "horizontalScroll": true,
+          "overflow": false
+        },
+        {
+          "label": "Grains",
+          "width": 58,
+          "height": 80,
+          "fonts": [
+            "13px"
+          ],
+          "horizontalScroll": true,
+          "overflow": false
+        },
+        {
+          "label": "Snacks",
+          "width": 58,
+          "height": 80,
+          "fonts": [
+            "13px"
+          ],
+          "horizontalScroll": true,
+          "overflow": false
+        },
+        {
+          "label": "Seasonings",
+          "width": 72.9375,
+          "height": 80,
+          "fonts": [
+            "13px"
+          ],
+          "horizontalScroll": true,
+          "overflow": false
+        },
+        {
+          "label": "Drinks",
+          "width": 58,
+          "height": 80,
+          "fonts": [
+            "13px"
+          ],
+          "horizontalScroll": true,
+          "overflow": false
+        },
+        {
+          "label": "Saved",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Newest",
+          "width": 87.96875,
+          "height": 48,
+          "fonts": [
+            "13px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Marketplace filters",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "My Listing",
+          "width": 78.0625,
+          "height": 48,
+          "fonts": [
+            "13px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "game-375",
+      "width": 375,
+      "overflow": false,
+      "buttons": [
+        {
+          "label": "Me: profile and settings",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Try a recipe",
+          "width": 118.21875,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "account-375",
+      "width": 375,
+      "overflow": false,
+      "buttons": [
+        {
+          "label": "Go back",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Your avatar",
+          "width": 116.40625,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Saved",
+          "width": 333,
+          "height": 48,
+          "fonts": [
+            "16px",
+            "13px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Food choices",
+          "width": 333,
+          "height": 52,
+          "fonts": [
+            "16px",
+            "13px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Private places",
+          "width": 333,
+          "height": 52,
+          "fonts": [
+            "16px",
+            "13px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "My cases",
+          "width": 333,
+          "height": 52,
+          "fonts": [
+            "16px",
+            "13px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Appearance & settings",
+          "width": 333,
+          "height": 52,
+          "fonts": [
+            "16px",
+            "13px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Accessibility",
+          "width": 333,
+          "height": 52,
+          "fonts": [
+            "16px",
+            "13px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Notifications",
+          "width": 333,
+          "height": 52,
+          "fonts": [
+            "16px",
+            "13px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Privacy & local data",
+          "width": 333,
+          "height": 52,
+          "fonts": [
+            "16px",
+            "13px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Help",
+          "width": 333,
+          "height": 52,
+          "fonts": [
+            "16px",
+            "13px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "View profile options",
+          "width": 359,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "settings-375",
+      "width": 375,
+      "overflow": false,
+      "buttons": [
+        {
+          "label": "Go back",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Vegan",
+          "width": 146.0625,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Vegetarian",
+          "width": 178.9375,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Plant-based",
+          "width": 333,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Allium exclusions",
+          "width": 333,
+          "height": 52,
+          "fonts": [
+            "16px",
+            "13px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "More food exclusions",
+          "width": 333,
+          "height": 52,
+          "fonts": [
+            "16px",
+            "13px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Coral & Peach",
+          "width": 333,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Cobalt & Turquoise",
+          "width": 333,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Lavender & Frost",
+          "width": 333,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Light",
+          "width": 115.609375,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Dark",
+          "width": 91.1875,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "System",
+          "width": 110.203125,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Accessibility",
+          "width": 333,
+          "height": 52,
+          "fonts": [
+            "16px",
+            "13px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Notifications & privacy",
+          "width": 333,
+          "height": 52,
+          "fonts": [
+            "16px",
+            "13px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "login-375",
+      "width": 375,
+      "overflow": false,
+      "buttons": [
+        {
+          "label": "Close profile preview",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Show password",
+          "width": 48,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Forgot password?",
+          "width": 164.3125,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Sign in to preview",
+          "width": 359,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Continue with Apple",
+          "width": 173.5,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Continue with Google",
+          "width": 173.5,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "New here? Create account",
+          "width": 224.5,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Explore first",
+          "width": 122.65625,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "settings-coral",
+      "width": 375,
+      "overflow": false,
+      "buttons": [
+        {
+          "label": "Go back",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Vegan",
+          "width": 146.0625,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Vegetarian",
+          "width": 178.9375,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Plant-based",
+          "width": 333,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Allium exclusions",
+          "width": 333,
+          "height": 52,
+          "fonts": [
+            "16px",
+            "13px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "More food exclusions",
+          "width": 333,
+          "height": 52,
+          "fonts": [
+            "16px",
+            "13px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Coral & Peach",
+          "width": 333,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Cobalt & Turquoise",
+          "width": 333,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Lavender & Frost",
+          "width": 333,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Light",
+          "width": 115.609375,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Dark",
+          "width": 91.1875,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "System",
+          "width": 110.203125,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Accessibility",
+          "width": 333,
+          "height": 52,
+          "fonts": [
+            "16px",
+            "13px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Notifications & privacy",
+          "width": 333,
+          "height": 52,
+          "fonts": [
+            "16px",
+            "13px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "settings-cobalt",
+      "width": 375,
+      "overflow": false,
+      "buttons": [
+        {
+          "label": "Go back",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Vegan",
+          "width": 146.0625,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Vegetarian",
+          "width": 178.9375,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Plant-based",
+          "width": 333,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Allium exclusions",
+          "width": 333,
+          "height": 52,
+          "fonts": [
+            "16px",
+            "13px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "More food exclusions",
+          "width": 333,
+          "height": 52,
+          "fonts": [
+            "16px",
+            "13px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Coral & Peach",
+          "width": 333,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Cobalt & Turquoise",
+          "width": 333,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Lavender & Frost",
+          "width": 333,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Light",
+          "width": 115.609375,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Dark",
+          "width": 91.1875,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "System",
+          "width": 110.203125,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Accessibility",
+          "width": 333,
+          "height": 52,
+          "fonts": [
+            "16px",
+            "13px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Notifications & privacy",
+          "width": 333,
+          "height": 52,
+          "fonts": [
+            "16px",
+            "13px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "settings-lavender",
+      "width": 375,
+      "overflow": false,
+      "buttons": [
+        {
+          "label": "Go back",
+          "width": 48,
+          "height": 48,
+          "fonts": [],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Vegan",
+          "width": 146.0625,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Vegetarian",
+          "width": 178.9375,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Plant-based",
+          "width": 333,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Allium exclusions",
+          "width": 333,
+          "height": 52,
+          "fonts": [
+            "16px",
+            "13px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "More food exclusions",
+          "width": 333,
+          "height": 52,
+          "fonts": [
+            "16px",
+            "13px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Coral & Peach",
+          "width": 333,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Cobalt & Turquoise",
+          "width": 333,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Lavender & Frost",
+          "width": 333,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Light",
+          "width": 115.609375,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Dark",
+          "width": 91.1875,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "System",
+          "width": 110.203125,
+          "height": 48,
+          "fonts": [
+            "16px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Accessibility",
+          "width": 333,
+          "height": 52,
+          "fonts": [
+            "16px",
+            "13px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        },
+        {
+          "label": "Notifications & privacy",
+          "width": 333,
+          "height": 52,
+          "fonts": [
+            "16px",
+            "13px"
+          ],
+          "horizontalScroll": false,
+          "overflow": false
+        }
+      ]
+    }
+  ],
+  "axe": [
+    {
+      "name": "exclusions",
+      "violations": []
+    },
+    {
+      "name": "exclusions",
+      "violations": []
+    },
+    {
+      "name": "private-places",
+      "violations": []
+    },
+    {
+      "name": "cases",
+      "violations": []
+    },
+    {
+      "name": "avatar",
+      "violations": []
+    },
+    {
+      "name": "social",
+      "violations": []
+    },
+    {
+      "name": "settings-coral",
+      "violations": []
+    },
+    {
+      "name": "settings-cobalt",
+      "violations": []
+    },
+    {
+      "name": "settings-lavender",
+      "violations": []
+    }
+  ],
+  "errors": [],
+  "paidCalls": 0,
+  "passed": true
+}

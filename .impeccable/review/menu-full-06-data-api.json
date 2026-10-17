@@ -1,0 +1,53 @@
+{
+  "checkedAt": "2026-10-16T05:23:10.529Z",
+  "passed": true,
+  "url": "http://127.0.0.1:8083",
+  "locations": 157,
+  "sourceMenus": 202,
+  "foodOccurrences": 11258,
+  "mappedRegisterOccurrences": 11258,
+  "indexBytes": 62414,
+  "indexGzipBytes": 17758,
+  "largestDetail": {
+    "id": "research-nalan-cityhall",
+    "bytes": 237205,
+    "gzipBytes": 17355
+  },
+  "timings": {
+    "index": {
+      "method": "direct warm GET handler in Node; excludes Expo HTTP/bundling",
+      "successfulRequests": 100,
+      "concurrency": 10,
+      "p50Ms": 2.9452000000001135,
+      "p95Ms": 9.852700000000368,
+      "maxMs": 10.035699999999906
+    },
+    "largestDetail": {
+      "method": "direct warm GET handler in Node; excludes Expo HTTP/bundling",
+      "successfulRequests": 100,
+      "concurrency": 10,
+      "p50Ms": 19.971399999999903,
+      "p95Ms": 29.92489999999998,
+      "maxMs": 30.146699999999782
+    }
+  },
+  "auditMs": 2071.1833,
+  "heldBranch404s": [
+    "research-ur03-v-coffee-lorong21",
+    "research-ur03-gopals-jean-yip",
+    "research-ur03-the-acai-teahouse",
+    "research-sl08-zuya",
+    "research-sl08-bai-jia-le",
+    "research-ur05-yuan-man",
+    "research-ur05-pu-xiang-whyq",
+    "research-ur05-yi-xin",
+    "research-ur06-su-shi-piao-xiang",
+    "research-ur06-nature-purmei"
+  ],
+  "googleLedgerSha256": "c7321dafaad0473583139494ca899501578892c5b71105429d3cd4dceb4f311a",
+  "googleRequestsMade": 0,
+  "limitations": [
+    "Warm direct Node handler benchmark excludes Expo transport and bundling. Historical batch07 Expo probe took1.6–5.1seconds, not measured in this round; native rendering, production network/host quotas and production performance unmeasured."
+  ],
+  "method": "Actual local Expo HTTP index compared with all157 direct GET-handler details, their raw fingerprints, schemas and source-register mappings; focused browser cases use live HTTP details. Historical prior-continuation full-Expo parallel HTTP attempt ended ECONNRESET; no completed acceptance claimed from it."
+}

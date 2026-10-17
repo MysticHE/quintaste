@@ -1,0 +1,46 @@
+{
+  "checks": [
+    "Incomplete sample listings stay out of Buy; root has My Listing and no Buy/Sell or Preview",
+    "Eggs and milk are separate choices; additional ingredients expand and Apply stays reachable",
+    "Incomplete drafts save; publish shows required ingredient, photo and confirmation errors",
+    "Typed ingredients alone cannot publish without label photo",
+    "Adding label photo invalidates previous confirmation",
+    "Publish stores full text, label photo and independent contains/may-contain tags",
+    "Listing shows typed ingredients and uncropped label photo after reload",
+    "Changing text invalidates confirmation and blocks saving active changes",
+    "Overlong ingredient text is retained in form and rejected explicitly",
+    "Removing label blocks publication until replaced and checked again",
+    "Centered floating + and compact card spacing at 320",
+    "Centered floating + and compact card spacing at 375",
+    "Centered floating + and compact card spacing at 768",
+    "Centered floating + and compact card spacing at 1440",
+    "Complete listing can pause and resume",
+    "Complete listing supports the local exchange flow",
+    "Delete preserves cancellation and removes ingredient data after reload",
+    "Ingredient posting form has no horizontal overflow with enlarged text"
+  ],
+  "errors": [],
+  "screenshots": [
+    "C:/Users/huien/QT/quintaste/.impeccable/review/market-ingredients-buy.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/market-ingredients-filters.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/market-ingredients-form.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/market-ingredients-ingredient-editor.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/market-ingredients-detail.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/market-ingredients-my-listings-375.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/market-ingredients-my-listings-1440.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/market-ingredients-my-listings-dark.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/market-ingredients-large-text.png"
+  ],
+  "axe": {
+    "violations": [],
+    "incomplete": [
+      "color-contrast",
+      "label-content-name-mismatch"
+    ]
+  },
+  "limits": [
+    "Isolated browser QA with explicitly labelled synthetic photo fixtures. No real listings or messages.",
+    "Physical device camera, permissions and native layout remain unverified."
+  ],
+  "passed": 18
+}

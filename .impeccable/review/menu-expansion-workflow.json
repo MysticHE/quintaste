@@ -1,0 +1,14 @@
+{
+  "checks": [
+    "Menu proposals preserve original and proposed facts through save/read/merge",
+    "Missing names, malformed IDs, control characters and invalid SGD prices are rejected",
+    "Public menu schema accepts full source sections and rejects oversized/malformed records",
+    "Add/edit/remove menu corrections submit to actual case API and return complete receipts",
+    "Server rejects incomplete or contradictory menu changes and leaves public facts unchanged"
+  ],
+  "actualGoogleCalls": 0,
+  "limits": [
+    "Actual local handlers in an isolated temporary service store; no production identity or case delivery established."
+  ],
+  "status": "pass"
+}

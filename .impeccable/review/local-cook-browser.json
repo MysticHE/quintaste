@@ -1,0 +1,39 @@
+{
+  "checks": [
+    "Incomplete private draft saves; complete recipe supports per-step ingredients and a readable cooking view",
+    "Private cooking, timers, close and reload preserve progress",
+    "Editing an active recipe invalidates resume until reviewed; private text sharing and copying preserve boundaries",
+    "Deletion clears private cooking while keeping timers; web settings explain mobile alert boundary"
+  ],
+  "captures": [
+    "local-cook-incomplete.png",
+    "local-cook-step-mapping.png",
+    "local-cook-private-recipe.png",
+    "local-cook-guided-step.png",
+    "local-cook-version-review.png",
+    "local-cook-share.png",
+    "local-cook-timers.png",
+    "local-cook-notification-settings.png",
+    "local-cook-private-320.png",
+    "local-cook-private-768.png",
+    "local-cook-private-1440.png",
+    "local-cook-private-dark.png"
+  ],
+  "errors": [],
+  "axe": [
+    {
+      "name": "private-recipe",
+      "violations": []
+    },
+    {
+      "name": "notifications",
+      "violations": []
+    },
+    {
+      "name": "private-dark",
+      "violations": []
+    }
+  ],
+  "scope": "Local web flows; native alert delivery unverified",
+  "passed": true
+}

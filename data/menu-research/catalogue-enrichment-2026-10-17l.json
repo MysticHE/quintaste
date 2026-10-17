@@ -1,0 +1,335 @@
+{
+  "checkedAt": "2026-10-17",
+  "deployedRelease": "20261017-food-covers15",
+  "goalStatus": "active",
+  "fullCoverageComplete": false,
+  "coverage": {
+    "browseVenues": 174,
+    "menuIds": 175,
+    "covers": 97,
+    "hours": 90,
+    "uniqueAssets": 73,
+    "assetBytes": 9728475,
+    "coverGaps": 77,
+    "hoursGaps": 84,
+    "allThreeAvailable": 66,
+    "catalogueIndexBytes": 165753
+  },
+  "newPhotos": [
+    {
+      "venueId": "research-yesnatural-geylang",
+      "address": "57 Lorong 27 Geylang, Singapore 388184",
+      "photo": {
+        "path": "/api/catalogue-photos/a092a1ddba624503d2dfd1d19f2ab883fb65cba1045e87772ca1168e8f1a53ba.jpg",
+        "width": 960,
+        "height": 400,
+        "author": "Yes Natural Restaurant",
+        "sourceUrl": "https://yesnatural.oddle.me/en_SG",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "a092a1ddba624503d2dfd1d19f2ab883fb65cba1045e87772ca1168e8f1a53ba",
+      "bytes": 96058,
+      "originalSha256": "5bed8792167eb21df523b8071e2e6b4520f6d6fbf660808b0433b85319f3a343",
+      "sourcePageCheckedAt": "2026-10-16",
+      "sourceImageUrl": "https://ucarecdn.com/f10b825a-bdf3-4a6b-8247-dc08ba021d9a/-/crop/2047x852/1,0/-/preview/",
+      "identityEvidence": "Operator hero food image. Saved structured restaurant listing explicitly57Lorong27Geylang388184; shop51/bakery55 excluded.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance this exact operator food photograph for a restaurant gallery cover. Preserve every dish, ingredient appearance, vessel, utensil, spatial arrangement and wooden tabletop; no new food, props, lettering or claims. Improve soft natural lighting, accurate white balance and appetizing texture without changing food identity. Retain the overhead wide composition and visible six dishes, with realistic photographic detail. Do not invent a restaurant interior or alter quantities.",
+        "review": "Original and generated output visually compared. Same food presentation, vessels and setting retained; lighting and texture enhanced. No ingredient or current-stock claim."
+      }
+    },
+    {
+      "venueId": "research-originalgreens-shaw-plaza",
+      "address": "360 Balestier Road #04-07/K2 Shaw Plaza, Singapore 329783",
+      "photo": {
+        "path": "/api/catalogue-photos/a5839c4a27b287366f5cf46f6f0643b21f775834f1d19d7860571a20e551a4ba.jpg",
+        "width": 960,
+        "height": 400,
+        "author": "Original Greens",
+        "sourceUrl": "https://originalgreens.oddle.me/en_SG",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "a5839c4a27b287366f5cf46f6f0643b21f775834f1d19d7860571a20e551a4ba",
+      "bytes": 79235,
+      "originalSha256": "bf4309ba8778a1cbdfdc7c8a6bd6b66ed0e95c0f5771e419c92827e8e0eb7b7e",
+      "sourcePageCheckedAt": "2026-10-16",
+      "sourceImageUrl": "https://ucarecdn.com/67faa1a0-bced-4360-a835-3ded504e5a99/-/crop/2048x853/0,1096/-/preview/",
+      "identityEvidence": "Operator hero food photograph and exact360BalestierRoad#04-07/K2ShawPlaza329783 structured restaurant listing.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Enhance this exact restaurant operator photograph faithfully for a gallery cover. Preserve the central dark round food item on pale mash with sprouts, dark sauce, orange diced vegetables and radish, the textured white plate, green leaf placemat, wooden table and softly blurred purple flowers/drinks. Keep the same dish identity, quantities and garnish; no invented ingredients or props, no text or claims. Improve natural soft lighting, crisp food texture and balanced colors. Reframe slightly tighter toward the main plate while retaining its complete food presentation. Photorealistic, not a redesign.",
+        "review": "Original and generated output visually compared. Same food presentation, vessels and setting retained; lighting and texture enhanced. No ingredient or current-stock claim."
+      }
+    },
+    {
+      "venueId": "research-greenearth-rail-mall",
+      "address": "386 Upper Bukit Timah Road, The Rail Mall, Singapore 678043",
+      "photo": {
+        "path": "/api/catalogue-photos/229d2de7f86d46a4a60b256806635f3db379396d28cff8cc61aabd43481f54e1.jpg",
+        "width": 960,
+        "height": 401,
+        "author": "Green on Earth",
+        "sourceUrl": "https://greenonearth.oddle.me/en_SG",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "229d2de7f86d46a4a60b256806635f3db379396d28cff8cc61aabd43481f54e1",
+      "bytes": 97492,
+      "originalSha256": "1c66e2358d165214069e66556903224319abaa77f891021174278b51f9470cfa",
+      "sourcePageCheckedAt": "2026-10-16",
+      "sourceImageUrl": "https://ucarecdn.com/f28f1515-ecce-49ce-88c2-9c5fba45684e/-/crop/5760x2402/0,720/-/preview/",
+      "identityEvidence": "Operator hero dish photo and exact386UpperBukitTimahRoad678043 structured restaurant listing.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithful photographic enhancement of this exact operator food photo, for a restaurant gallery cover. Keep the same close-up mixed vegetable dish, lotus-root slices, tofu-like pieces, peanuts, sesame, coriander, stems, sauce, white bowl and arrangement. Do not add, remove or reinterpret ingredients; no text, props or claims. Improve balanced soft lighting, natural warmth and clear realistic textures while avoiding oversaturation. Preserve the original wide close-up composition.",
+        "review": "Original and generated output visually compared. Same food presentation, vessels and setting retained; lighting and texture enhanced. No ingredient or current-stock claim."
+      }
+    },
+    {
+      "venueId": "research-ur02-vegetarian-express-hougang",
+      "address": "205 Hougang Street 21, #02-22, Singapore 530205",
+      "photo": {
+        "path": "/api/catalogue-photos/9696a2b125aeacdb9312b0b6df6ab0003e019e70d301633d3bf1c6720364c73d.jpg",
+        "width": 960,
+        "height": 400,
+        "author": "Vegetarian Express Cafe",
+        "sourceUrl": "https://vegetarianexpresscafe.oddle.me/en_SG",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "9696a2b125aeacdb9312b0b6df6ab0003e019e70d301633d3bf1c6720364c73d",
+      "bytes": 73845,
+      "originalSha256": "7061b02b2ca4e76f0e4a84b6917536cb18e4863a03d3bbb0f478a2a2f88ceb0b",
+      "sourcePageCheckedAt": "2026-10-16",
+      "sourceImageUrl": "https://ucarecdn.com/cacc38aa-6a5a-4e44-9bf9-a47a5848de83/-/crop/1350x563/0,176/-/preview/",
+      "identityEvidence": "Operator hero food photo and exact205HougangStreet21#02-22 structured restaurant listing.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance this exact operator photo of a held vegetable bowl for a restaurant gallery cover. Preserve the original bowl with red interior rim, both supporting hands, the mushrooms, grated carrot, green vegetables, sprouts and small sauce cup exactly as shown. No new ingredients, props, lettering or claims. Improve natural light, balanced color and crisp realistic food texture, retaining the same close-up framing and food arrangement. Do not redesign the dish or change quantities.",
+        "review": "Original and generated output visually compared. Same food presentation, vessels and setting retained; lighting and texture enhanced. No ingredient or current-stock claim."
+      }
+    },
+    {
+      "venueId": "research-futkai-jalan-besar",
+      "address": "282 Jalan Besar, #01-00, Singapore 208945",
+      "photo": {
+        "path": "/api/catalogue-photos/d399730648def75816d64055da8842f5db9c9cc3436af4ccc604e6dccb0a060e.jpg",
+        "width": 960,
+        "height": 940,
+        "author": "New Fut Kai Vegetarian Restaurant",
+        "sourceUrl": "https://newfutkaivegetarian.oddle.me/en_SG",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "d399730648def75816d64055da8842f5db9c9cc3436af4ccc604e6dccb0a060e",
+      "bytes": 159195,
+      "originalSha256": "29cb2e056b7ec4134fc4f71939a7c041c2a550a1b294ff165069cb91f442d67f",
+      "sourcePageCheckedAt": "2026-10-16",
+      "sourceImageUrl": "https://s3-ap-southeast-1.amazonaws.com/v3-live.image.oddle.me/product/HerbalMushroomHotpot7133c2_1673924792727.jpg",
+      "identityEvidence": "Operator Herbal Mushroom Hotpot menu product image and exact282JalanBesar01-00 structured restaurant listing.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithful enhancement of this exact New Fut Kai operator Herbal Mushroom Hotpot photograph. Preserve the round metal chimney hotpot, central dark chimney opening, broth, original mushrooms and golden pieces, red berries and yellow pieces, steam, perspective and surrounding blurred tableware. Improve natural light, focus and realistic food texture without adding ingredients, changing quantities or redesigning the pot. No text or new props. Keep the original near-square framing for a restaurant gallery cover.",
+        "review": "Original and generated output visually compared; chimney hotpot, original food presentation and table setting retained. Operator menu product reference, no new ingredient claims."
+      }
+    },
+    {
+      "venueId": "research-kailash-belilios-road",
+      "address": "3 Belilios Road #01-03 Hilton Garden Inn, Singapore 219924",
+      "photo": {
+        "path": "/api/catalogue-photos/231b2b74d1e241bc2695c155baa908322136d2dfda0c9ef030b0996fb981a822.jpg",
+        "width": 960,
+        "height": 586,
+        "author": "Kailash Parbat",
+        "sourceUrl": "https://www.kailashparbat.com.sg/",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "231b2b74d1e241bc2695c155baa908322136d2dfda0c9ef030b0996fb981a822",
+      "bytes": 90007,
+      "originalSha256": "d40141d9de663e5c1a9ef76643acd4446a30cecaf966273fb9969d96584a07e0",
+      "sourcePageCheckedAt": "2026-10-17",
+      "sourceImageUrl": "https://www.kailashparbat.com.sg/admin/assets/img/banner/north-indian.webp",
+      "identityEvidence": "Shared operator brand food photograph, not a branch interior or stock claim. Primary contact page binds exact branch/address. Original watermark retained. No duplicate download or generation.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance this exact Kailash Parbat operator product photograph for a gallery cover. Preserve the same chaat portions, yellow sev, visible peanuts, garnish, dark rectangular tray, perspective and dark background. Retain the existing centered watermark exactly, including KAILASH PARBAT and SINGAPORE; do not remove branding. Improve natural warm lighting, focus on the front food and realistic crisp texture without changing ingredients, quantities or arrangement. No new props, labels or claims. Keep this a brand food photograph, not a specific branch interior.",
+        "review": "Original and generated output visually compared; operator watermark retained, same chaat food and tray. Shared brand product imagery, not branch interior or stock claim."
+      }
+    },
+    {
+      "venueId": "research-kailash-syed-alwi",
+      "address": "93 Syed Alwi Road, Singapore 207669",
+      "photo": {
+        "path": "/api/catalogue-photos/231b2b74d1e241bc2695c155baa908322136d2dfda0c9ef030b0996fb981a822.jpg",
+        "width": 960,
+        "height": 586,
+        "author": "Kailash Parbat",
+        "sourceUrl": "https://www.kailashparbat.com.sg/",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "231b2b74d1e241bc2695c155baa908322136d2dfda0c9ef030b0996fb981a822",
+      "bytes": 90007,
+      "originalSha256": "d40141d9de663e5c1a9ef76643acd4446a30cecaf966273fb9969d96584a07e0",
+      "sourcePageCheckedAt": "2026-10-17",
+      "sourceImageUrl": "https://www.kailashparbat.com.sg/admin/assets/img/banner/north-indian.webp",
+      "identityEvidence": "Shared operator brand food photograph, not a branch interior or stock claim. Primary contact page binds exact branch/address. Original watermark retained. No duplicate download or generation.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance this exact Kailash Parbat operator product photograph for a gallery cover. Preserve the same chaat portions, yellow sev, visible peanuts, garnish, dark rectangular tray, perspective and dark background. Retain the existing centered watermark exactly, including KAILASH PARBAT and SINGAPORE; do not remove branding. Improve natural warm lighting, focus on the front food and realistic crisp texture without changing ingredients, quantities or arrangement. No new props, labels or claims. Keep this a brand food photograph, not a specific branch interior.",
+        "review": "Original and generated output visually compared; operator watermark retained, same chaat food and tray. Shared brand product imagery, not branch interior or stock claim."
+      }
+    },
+    {
+      "venueId": "research-kailash-changi",
+      "address": "1 Changi Business Park Crescent #01-10/12/13 Plaza8, Singapore 486025",
+      "photo": {
+        "path": "/api/catalogue-photos/231b2b74d1e241bc2695c155baa908322136d2dfda0c9ef030b0996fb981a822.jpg",
+        "width": 960,
+        "height": 586,
+        "author": "Kailash Parbat",
+        "sourceUrl": "https://www.kailashparbat.com.sg/",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "231b2b74d1e241bc2695c155baa908322136d2dfda0c9ef030b0996fb981a822",
+      "bytes": 90007,
+      "originalSha256": "d40141d9de663e5c1a9ef76643acd4446a30cecaf966273fb9969d96584a07e0",
+      "sourcePageCheckedAt": "2026-10-17",
+      "sourceImageUrl": "https://www.kailashparbat.com.sg/admin/assets/img/banner/north-indian.webp",
+      "identityEvidence": "Shared operator brand food photograph, not a branch interior or stock claim. Primary contact page binds exact branch/address. Original watermark retained. No duplicate download or generation.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance this exact Kailash Parbat operator product photograph for a gallery cover. Preserve the same chaat portions, yellow sev, visible peanuts, garnish, dark rectangular tray, perspective and dark background. Retain the existing centered watermark exactly, including KAILASH PARBAT and SINGAPORE; do not remove branding. Improve natural warm lighting, focus on the front food and realistic crisp texture without changing ingredients, quantities or arrangement. No new props, labels or claims. Keep this a brand food photograph, not a specific branch interior.",
+        "review": "Original and generated output visually compared; operator watermark retained, same chaat food and tray. Shared brand product imagery, not branch interior or stock claim."
+      }
+    },
+    {
+      "venueId": "research-kailash-sentosa",
+      "address": "42 Imbia Road #01-01, Singapore 099701",
+      "photo": {
+        "path": "/api/catalogue-photos/231b2b74d1e241bc2695c155baa908322136d2dfda0c9ef030b0996fb981a822.jpg",
+        "width": 960,
+        "height": 586,
+        "author": "Kailash Parbat",
+        "sourceUrl": "https://www.kailashparbat.com.sg/",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "231b2b74d1e241bc2695c155baa908322136d2dfda0c9ef030b0996fb981a822",
+      "bytes": 90007,
+      "originalSha256": "d40141d9de663e5c1a9ef76643acd4446a30cecaf966273fb9969d96584a07e0",
+      "sourcePageCheckedAt": "2026-10-17",
+      "sourceImageUrl": "https://www.kailashparbat.com.sg/admin/assets/img/banner/north-indian.webp",
+      "identityEvidence": "Shared operator brand food photograph, not a branch interior or stock claim. Primary contact page binds exact branch/address. Original watermark retained. No duplicate download or generation.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance this exact Kailash Parbat operator product photograph for a gallery cover. Preserve the same chaat portions, yellow sev, visible peanuts, garnish, dark rectangular tray, perspective and dark background. Retain the existing centered watermark exactly, including KAILASH PARBAT and SINGAPORE; do not remove branding. Improve natural warm lighting, focus on the front food and realistic crisp texture without changing ingredients, quantities or arrangement. No new props, labels or claims. Keep this a brand food photograph, not a specific branch interior.",
+        "review": "Original and generated output visually compared; operator watermark retained, same chaat food and tray. Shared brand product imagery, not branch interior or stock claim."
+      }
+    }
+  ],
+  "newHours": [],
+  "googleLedger": {
+    "bytes": 1045377,
+    "sha256": "c7321dafaad0473583139494ca899501578892c5b71105429d3cd4dceb4f311a",
+    "requests": 2419,
+    "limit": 2500,
+    "remaining": 81
+  },
+  "sourceRights": "Source attribution and rights retained. User-requested enhancement does not establish an independent licence.",
+  "unresolved": "2,527 food holds,109zero-food research branches,1,828unnamed candidate IDs,8coordinate holds preserved; exact MakanVegan/SoonLai screenshot images unrecovered.",
+  "releaseEvidence": ".local/coverage-2026-10-17l/release.json",
+  "hoursReview": {
+    "checkedAt": "2026-10-17",
+    "acceptedVenueIds": [],
+    "sources": [
+      {
+        "url": "https://shawplaza.sg/original-greens/",
+        "checkedAt": "2026-10-17",
+        "finding": "Exact tenant unit. OPEN1000?2200 alongside placeholder contact/lorem ipsum. Conflicts with operator-linked Waze split service hours; hold pending confirmed operator dining schedule."
+      },
+      {
+        "url": "https://vegetarianexpresscafe.oddle.me/en_SG",
+        "checkedAt": "2026-10-16",
+        "reviewedAt": "2026-10-17",
+        "finding": "Exact205Hougang#02-22 identity. Ordering-service slots alone do not establish dine-in hours; retain hold."
+      }
+    ],
+    "photoHolds": [
+      {
+        "reference": "futkai-food",
+        "reason": "Decorative/promotional banner or tiny thumbnail; no generated cover association."
+      },
+      {
+        "reference": "futkai-food-alt",
+        "reason": "Decorative/promotional banner or tiny thumbnail; no generated cover association."
+      },
+      {
+        "reference": "xinghua-food",
+        "reason": "Decorative/promotional banner or tiny thumbnail; no generated cover association."
+      },
+      {
+        "reference": "xinghua-food-alt",
+        "reason": "Decorative/promotional banner or tiny thumbnail; no generated cover association."
+      },
+      {
+        "reference": "xinghua-set",
+        "reason": "Decorative/promotional banner or tiny thumbnail; no generated cover association."
+      },
+      {
+        "reference": "xinghua-lormee",
+        "reason": "Decorative/promotional banner or tiny thumbnail; no generated cover association."
+      }
+    ]
+  }
+}

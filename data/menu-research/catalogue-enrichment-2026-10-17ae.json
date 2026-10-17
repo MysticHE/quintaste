@@ -1,0 +1,699 @@
+{
+  "checkedAt": "2026-10-17",
+  "deployedRelease": "20261017-merchant-hours33",
+  "baseline": "20261017-community1",
+  "fullCoverageComplete": false,
+  "coverage": {
+    "browseLocations": 174,
+    "menuIds": 175,
+    "covers": 173,
+    "hours": 120,
+    "allThreeAvailable": 120,
+    "coverGaps": 1,
+    "hoursGaps": 54,
+    "uniqueAssets": 140,
+    "imageBytes": 19477212,
+    "largestImageBytes": 299725,
+    "firstPageBytes": 23997,
+    "firstPageMilliseconds": 22.6,
+    "locatedBrowseLocations": 171,
+    "coordinateHolds": 3,
+    "explicitUnconfirmedWeekdaysWithinPublishedSchedules": 2
+  },
+  "newPhotos": [],
+  "newHours": [
+    {
+      "venueId": "research-botanict-clementi",
+      "address": "Blk 352 Clementi Avenue 2 #01-123, Singapore 120352",
+      "hours": {
+        "summary": "Tue–Sun 11:00–22:00 · Mon closed",
+        "schedule": [
+          "Tue–Sun: 11:00–22:00",
+          "Monday: closed"
+        ],
+        "notes": "Merchant weekly panel says updated about 3 months ago. A separate7October private-event early closure does not change the regular schedule; dated exceptions may apply.",
+        "sourceUrl": "https://www.facebook.com/BotanictSG/",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "sourcePageCheckedAt": "2026-10-17T02:31:22.466Z",
+      "sourceSha256": "6d81065405692e408e19aa17d59c1c2ea78a7f2f4ac6ba2f5f4e33e9c8201f82",
+      "review": "Exact existing premises retained; source hours and qualifications inspected directly. No transient Open/Closed label persisted."
+    },
+    {
+      "venueId": "research-sl08-ju-fu-yuan-amk",
+      "address": "162 Ang Mo Kio Avenue 4 #01-14, Singapore 560162",
+      "hours": {
+        "summary": "Daily 05:00–14:00",
+        "schedule": [
+          "Daily: 05:00–14:00"
+        ],
+        "notes": "Merchant-listed weekly hours for162AngMoKioAve4only; last update date is unstated. No schedule transfer to other JuFuYuan outlets.",
+        "sourceUrl": "https://www.facebook.com/jfy82vegetarin",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "sourcePageCheckedAt": "2026-10-17T02:36:37.249Z",
+      "sourceSha256": "7ff301e63caeb3a4aa60b2b5d0897519fbd80ba938be55374aa72b69b4859d73",
+      "review": "Exact existing premises retained; source hours and qualifications inspected directly. No transient Open/Closed label persisted."
+    },
+    {
+      "venueId": "research-ur08-150-green",
+      "address": "150 Bukit Batok Street 11 #01-224, Singapore 650150",
+      "hours": {
+        "summary": "Daily 06:30–13:30",
+        "schedule": [
+          "Daily: 06:30–13:30"
+        ],
+        "notes": "Merchant profile hours are labelled updated about 5 years ago. Its own post announces reopening24April2026 without a revised schedule; reconfirm before visiting. Profile linked from the exact150BukitBatok company record, with matching96347417phone.",
+        "sourceUrl": "https://www.facebook.com/150greenvegetarian/",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "sourcePageCheckedAt": "2026-10-17T02:34:17.631Z",
+      "sourceSha256": "81ef5cda2f7987f8b119f5959895ebf09b8e2131fe28e29c904333f3b61c296d",
+      "review": "Exact existing premises retained; source hours and qualifications inspected directly. No transient Open/Closed label persisted.",
+      "identityEvidenceUrl": "https://recordowl.com/company/150-green-vegetarian",
+      "aliasQualification": "Both reviewed IDs represent one exact150BukitBatokStreet11#01-224premise; one browse card, no food/menu merge."
+    },
+    {
+      "venueId": "research-150-green-bukit-batok",
+      "address": "150 Bukit Batok Street 11 #01-224, Singapore 650150",
+      "hours": {
+        "summary": "Daily 06:30–13:30",
+        "schedule": [
+          "Daily: 06:30–13:30"
+        ],
+        "notes": "Merchant profile hours are labelled updated about 5 years ago. Its own post announces reopening24April2026 without a revised schedule; reconfirm before visiting. Profile linked from the exact150BukitBatok company record, with matching96347417phone.",
+        "sourceUrl": "https://www.facebook.com/150greenvegetarian/",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "sourcePageCheckedAt": "2026-10-17T02:34:17.631Z",
+      "sourceSha256": "81ef5cda2f7987f8b119f5959895ebf09b8e2131fe28e29c904333f3b61c296d",
+      "review": "Exact existing premises retained; source hours and qualifications inspected directly. No transient Open/Closed label persisted.",
+      "identityEvidenceUrl": "https://recordowl.com/company/150-green-vegetarian",
+      "aliasQualification": "Both reviewed IDs represent one exact150BukitBatokStreet11#01-224premise; one browse card, no food/menu merge."
+    },
+    {
+      "venueId": "research-cookie-coffee-fortune-centre",
+      "address": "190 Middle Road #01-28B Fortune Centre, Singapore 188979",
+      "hours": {
+        "summary": "Mon–Thu 09:30–22:00 · later Fri/Sat",
+        "schedule": [
+          "Mon–Thu: 09:30–22:00",
+          "Friday: 09:30–23:00",
+          "Saturday: 10:30–23:00",
+          "Sunday: 12:00–22:00"
+        ],
+        "notes": "Merchant-linked profile under Sereneya management; hours panel says updated about 4 years ago. Source profile/footer say01-28 while the same merchant main body specifies01-28B. Existing unit-variation hold retained; reconfirm current hours.",
+        "sourceUrl": "https://facebook.com/cookiecoffee3366",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "sourcePageCheckedAt": "2026-10-17T02:39:37.779Z",
+      "sourceSha256": "4c013008062611c9f49cf9461f4f68bf8cf869580a74093f9f57ce898f981788",
+      "review": "Exact existing premises retained; source hours and qualifications inspected directly. No transient Open/Closed label persisted.",
+      "identityEvidenceUrl": "https://cookiecoffee.com.sg/"
+    },
+    {
+      "venueId": "research-shu-jalan-kayu",
+      "address": "259 Jalan Kayu, Singapore 799488",
+      "hours": {
+        "summary": "Merchant-listed 11:00–02:00 next day · days unconfirmed",
+        "schedule": [
+          "Merchant-listed opening times: 11:00–02:00 next day",
+          "Weekdays/rest days: unconfirmed"
+        ],
+        "notes": "Operator5October Nine Emperor Gods Festival poster says outlets open as usual and prints these branch times. Weekdays/rest days and lasting applicability are not stated; reconfirm the regular schedule. Visible post date omits the year.",
+        "sourceUrl": "https://www.facebook.com/reel/1072235328780539/",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "sourcePageCheckedAt": "2026-10-17T02:37:56.085Z",
+      "sourceSha256": "36a3472a0b2fc8858f97b6b170cd77a80a406e36a03f135648234a32d6a4f552",
+      "review": "Exact existing premises retained; source hours and qualifications inspected directly. No transient Open/Closed label persisted.",
+      "weeklyDaysUnconfirmed": true,
+      "identityReview": "259JalanKayu/799488",
+      "visualEvidence": "shu-festival-legible-frame.png",
+      "visualReview": "Directly inspected all nine address/time cells in the original public video frame, moved above caption overlays for legibility; no generated/OCR-invented text."
+    },
+    {
+      "venueId": "research-shu-amk",
+      "address": "554 Ang Mo Kio Ave 10, #01-2040",
+      "hours": {
+        "summary": "Merchant-listed 08:30–21:00 · days unconfirmed",
+        "schedule": [
+          "Merchant-listed opening times: 08:30–21:00",
+          "Weekdays/rest days: unconfirmed"
+        ],
+        "notes": "Operator5October Nine Emperor Gods Festival poster says outlets open as usual and prints these branch times. Weekdays/rest days and lasting applicability are not stated; reconfirm the regular schedule. Visible post date omits the year. Separate23September merchant caption calls21:00 last order; final closing time is unconfirmed.",
+        "sourceUrl": "https://www.facebook.com/reel/1072235328780539/",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "sourcePageCheckedAt": "2026-10-17T02:37:56.085Z",
+      "sourceSha256": "36a3472a0b2fc8858f97b6b170cd77a80a406e36a03f135648234a32d6a4f552",
+      "review": "Exact existing premises retained; source hours and qualifications inspected directly. No transient Open/Closed label persisted.",
+      "weeklyDaysUnconfirmed": true,
+      "identityReview": "554AngMoKio10#01-2040/560554",
+      "visualEvidence": "shu-festival-legible-frame.png",
+      "visualReview": "Directly inspected all nine address/time cells in the original public video frame, moved above caption overlays for legibility; no generated/OCR-invented text."
+    },
+    {
+      "venueId": "shu-woodlands-avenue-1",
+      "address": "354A Woodlands Avenue 1 #01-01, Singapore 731354",
+      "hours": {
+        "summary": "Merchant-listed 10:30–21:00 · days unconfirmed",
+        "schedule": [
+          "Merchant-listed opening times: 10:30–21:00",
+          "Weekdays/rest days: unconfirmed"
+        ],
+        "notes": "Operator5October Nine Emperor Gods Festival poster says outlets open as usual and prints these branch times. Weekdays/rest days and lasting applicability are not stated; reconfirm the regular schedule. Visible post date omits the year. Poster postal730354 conflicts with existing731354; exact street/unit match retained without postal rewrite.",
+        "sourceUrl": "https://www.facebook.com/reel/1072235328780539/",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "sourcePageCheckedAt": "2026-10-17T02:37:56.085Z",
+      "sourceSha256": "36a3472a0b2fc8858f97b6b170cd77a80a406e36a03f135648234a32d6a4f552",
+      "review": "Exact existing premises retained; source hours and qualifications inspected directly. No transient Open/Closed label persisted.",
+      "weeklyDaysUnconfirmed": true,
+      "identityReview": "354AWoodlands1#01-01; posterpostal730354 differs from retained731354",
+      "visualEvidence": "shu-festival-legible-frame.png",
+      "visualReview": "Directly inspected all nine address/time cells in the original public video frame, moved above caption overlays for legibility; no generated/OCR-invented text."
+    },
+    {
+      "venueId": "research-shu-loyang",
+      "address": "259 Pasir Ris Street 21 #02-30, Loyang Point, Singapore 510259",
+      "hours": {
+        "summary": "Merchant-listed 10:30–21:00 · days unconfirmed",
+        "schedule": [
+          "Merchant-listed opening times: 10:30–21:00",
+          "Weekdays/rest days: unconfirmed"
+        ],
+        "notes": "Operator5October Nine Emperor Gods Festival poster says outlets open as usual and prints these branch times. Weekdays/rest days and lasting applicability are not stated; reconfirm the regular schedule. Visible post date omits the year.",
+        "sourceUrl": "https://www.facebook.com/reel/1072235328780539/",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "sourcePageCheckedAt": "2026-10-17T02:37:56.085Z",
+      "sourceSha256": "36a3472a0b2fc8858f97b6b170cd77a80a406e36a03f135648234a32d6a4f552",
+      "review": "Exact existing premises retained; source hours and qualifications inspected directly. No transient Open/Closed label persisted.",
+      "weeklyDaysUnconfirmed": true,
+      "identityReview": "259PasirRis21LoyangPoint#02-30; postal510259 matches existing",
+      "visualEvidence": "shu-festival-legible-frame.png",
+      "visualReview": "Directly inspected all nine address/time cells in the original public video frame, moved above caption overlays for legibility; no generated/OCR-invented text."
+    },
+    {
+      "venueId": "research-shu-jurong",
+      "address": "498 Jurong West Street 41 #01-462, Singapore 640498",
+      "hours": {
+        "summary": "Merchant-listed 10:30–21:00 · days unconfirmed",
+        "schedule": [
+          "Merchant-listed opening times: 10:30–21:00",
+          "Weekdays/rest days: unconfirmed"
+        ],
+        "notes": "Operator5October Nine Emperor Gods Festival poster says outlets open as usual and prints these branch times. Weekdays/rest days and lasting applicability are not stated; reconfirm the regular schedule. Visible post date omits the year.",
+        "sourceUrl": "https://www.facebook.com/reel/1072235328780539/",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "sourcePageCheckedAt": "2026-10-17T02:37:56.085Z",
+      "sourceSha256": "36a3472a0b2fc8858f97b6b170cd77a80a406e36a03f135648234a32d6a4f552",
+      "review": "Exact existing premises retained; source hours and qualifications inspected directly. No transient Open/Closed label persisted.",
+      "weeklyDaysUnconfirmed": true,
+      "identityReview": "498JurongWest41#01-462/640498",
+      "visualEvidence": "shu-festival-legible-frame.png",
+      "visualReview": "Directly inspected all nine address/time cells in the original public video frame, moved above caption overlays for legibility; no generated/OCR-invented text."
+    },
+    {
+      "venueId": "research-shu-margaret",
+      "address": "40 Margaret Drive #01-05, Singapore 140040",
+      "hours": {
+        "summary": "Merchant-listed 10:30–21:00 · days unconfirmed",
+        "schedule": [
+          "Merchant-listed opening times: 10:30–21:00",
+          "Weekdays/rest days: unconfirmed"
+        ],
+        "notes": "Operator5October Nine Emperor Gods Festival poster says outlets open as usual and prints these branch times. Weekdays/rest days and lasting applicability are not stated; reconfirm the regular schedule. Visible post date omits the year.",
+        "sourceUrl": "https://www.facebook.com/reel/1072235328780539/",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "sourcePageCheckedAt": "2026-10-17T02:37:56.085Z",
+      "sourceSha256": "36a3472a0b2fc8858f97b6b170cd77a80a406e36a03f135648234a32d6a4f552",
+      "review": "Exact existing premises retained; source hours and qualifications inspected directly. No transient Open/Closed label persisted.",
+      "weeklyDaysUnconfirmed": true,
+      "identityReview": "40MargaretDrive#01-05/140040",
+      "visualEvidence": "shu-festival-legible-frame.png",
+      "visualReview": "Directly inspected all nine address/time cells in the original public video frame, moved above caption overlays for legibility; no generated/OCR-invented text."
+    },
+    {
+      "venueId": "research-shu-yishun",
+      "address": "239 Yishun Ring Road #01-1150, Singapore 760239",
+      "hours": {
+        "summary": "Merchant-listed 08:00–21:00 · days unconfirmed",
+        "schedule": [
+          "Merchant-listed opening times: 08:00–21:00",
+          "Weekdays/rest days: unconfirmed"
+        ],
+        "notes": "Operator5October Nine Emperor Gods Festival poster says outlets open as usual and prints these branch times. Weekdays/rest days and lasting applicability are not stated; reconfirm the regular schedule. Visible post date omits the year.",
+        "sourceUrl": "https://www.facebook.com/reel/1072235328780539/",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "sourcePageCheckedAt": "2026-10-17T02:37:56.085Z",
+      "sourceSha256": "36a3472a0b2fc8858f97b6b170cd77a80a406e36a03f135648234a32d6a4f552",
+      "review": "Exact existing premises retained; source hours and qualifications inspected directly. No transient Open/Closed label persisted.",
+      "weeklyDaysUnconfirmed": true,
+      "identityReview": "239YishunRing#01-1150/760239",
+      "visualEvidence": "shu-festival-legible-frame.png",
+      "visualReview": "Directly inspected all nine address/time cells in the original public video frame, moved above caption overlays for legibility; no generated/OCR-invented text."
+    },
+    {
+      "venueId": "research-shu-hq",
+      "address": "27 Woodlands Link #01-01, Chang Cheng HQ (Chang Cheng Mee Wah Coffeeshop), Singapore 738732",
+      "hours": {
+        "summary": "Merchant-listed 10:00–20:45 · days unconfirmed",
+        "schedule": [
+          "Merchant-listed opening times: 10:00–20:45",
+          "Weekdays/rest days: unconfirmed"
+        ],
+        "notes": "Operator5October Nine Emperor Gods Festival poster says outlets open as usual and prints these branch times. Weekdays/rest days and lasting applicability are not stated; reconfirm the regular schedule. Visible post date omits the year.",
+        "sourceUrl": "https://www.facebook.com/reel/1072235328780539/",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "sourcePageCheckedAt": "2026-10-17T02:37:56.085Z",
+      "sourceSha256": "36a3472a0b2fc8858f97b6b170cd77a80a406e36a03f135648234a32d6a4f552",
+      "review": "Exact existing premises retained; source hours and qualifications inspected directly. No transient Open/Closed label persisted.",
+      "weeklyDaysUnconfirmed": true,
+      "identityReview": "27WoodlandsLink#01-01/738732",
+      "visualEvidence": "shu-festival-legible-frame.png",
+      "visualReview": "Directly inspected all nine address/time cells in the original public video frame, moved above caption overlays for legibility; no generated/OCR-invented text."
+    },
+    {
+      "venueId": "research-shu-clementi",
+      "address": "722 Clementi West Street 2 #01-150 (Wan Fu Eating House), Singapore 120722",
+      "hours": {
+        "summary": "Merchant-listed 10:00–20:45 · days unconfirmed",
+        "schedule": [
+          "Merchant-listed opening times: 10:00–20:45",
+          "Weekdays/rest days: unconfirmed"
+        ],
+        "notes": "Operator5October Nine Emperor Gods Festival poster says outlets open as usual and prints these branch times. Weekdays/rest days and lasting applicability are not stated; reconfirm the regular schedule. Visible post date omits the year.",
+        "sourceUrl": "https://www.facebook.com/reel/1072235328780539/",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "sourcePageCheckedAt": "2026-10-17T02:37:56.085Z",
+      "sourceSha256": "36a3472a0b2fc8858f97b6b170cd77a80a406e36a03f135648234a32d6a4f552",
+      "review": "Exact existing premises retained; source hours and qualifications inspected directly. No transient Open/Closed label persisted.",
+      "weeklyDaysUnconfirmed": true,
+      "identityReview": "722ClementiWest2#01-150/120722",
+      "visualEvidence": "shu-festival-legible-frame.png",
+      "visualReview": "Directly inspected all nine address/time cells in the original public video frame, moved above caption overlays for legibility; no generated/OCR-invented text."
+    }
+  ],
+  "newFoods": [
+    {
+      "dataset": "data/menu-research/menu-completion-directory-small-cafes-2026-10-16.json",
+      "branchId": "cookie-coffee-fortune-centre",
+      "menuId": "ae-cookie-new-buns-announcement",
+      "sourceId": "ae-cookie-new-buns-source",
+      "food": {
+        "id": "ae-cookie-new-buns-announcement-dish",
+        "name": "Golden Mini Buns 黄金迷你馒头",
+        "category": "Buns",
+        "price": {
+          "amount": 4.5,
+          "currency": "unknown"
+        },
+        "sourceIds": [
+          "ae-cookie-new-buns-source"
+        ],
+        "publicationStatus": "approved-reviewed-source-fact",
+        "verification": {
+          "checkedAt": "2026-10-17T02:40:37.565Z",
+          "sourceIds": [
+            "ae-cookie-new-buns-source"
+          ],
+          "verifiedFields": [
+            "merchant-printed dish name",
+            "existing exact-branch applicability",
+            "poster printed amount4.50"
+          ],
+          "unverifiedFields": [
+            "currency code",
+            "portion",
+            "complete ingredients",
+            "allergens",
+            "current stock"
+          ]
+        },
+        "notes": "Merchant poster visibly prints$4.50. Currency code, portion count, sauce identity, ingredient/allergen composition and current stock are unstated. Do not infer vegan from a different dim-sum heading.",
+        "printedPriceSymbol": "$"
+      }
+    },
+    {
+      "dataset": "data/menu-research/shu/menus.json",
+      "branchId": "shu-jalan-kayu",
+      "menuId": "ae-shu-new-dish-announcement",
+      "sourceId": "ae-shu-new-dish-source",
+      "food": {
+        "id": "ae-shu-new-dish-announcement-dish",
+        "name": "Kicap Manis Madu Chicken 黑酱炸鸡",
+        "category": "Vegetarian dishes",
+        "price": {
+          "amount": null,
+          "currency": "unknown"
+        },
+        "sourceIds": [
+          "ae-shu-new-dish-source"
+        ],
+        "publicationStatus": "approved-reviewed-source-fact",
+        "verification": {
+          "checkedAt": "2026-10-17T02:41:40.166Z",
+          "sourceIds": [
+            "ae-shu-new-dish-source"
+          ],
+          "verifiedFields": [
+            "merchant-printed dish name",
+            "existing exact-branch applicability"
+          ],
+          "unverifiedFields": [
+            "currency code",
+            "portion",
+            "complete ingredients",
+            "allergens",
+            "current stock",
+            "price"
+          ]
+        },
+        "notes": "Merchant caption explicitly describes crispy vegetarian chicken and curry leaves/sesame at259JalanKayu. No price printed. Complete ingredients, honey/vegan suitability, allergen safety, portion and stock remain unconfirmed."
+      }
+    }
+  ],
+  "sourceReview": {
+    "checkedAt": "2026-10-17",
+    "outcomes": [
+      {
+        "sourceUrl": "https://www.facebook.com/150greenvegetarian/",
+        "checkedAt": "2026-10-17T02:34:17.631Z",
+        "status": 200,
+        "outcome": "public-hours-control-expanded",
+        "actions": [
+          "Closed optional public login prompt",
+          "Expanded the ordinary visible opening-hours control"
+        ],
+        "sourceSha256": "81ef5cda2f7987f8b119f5959895ebf09b8e2131fe28e29c904333f3b61c296d",
+        "capture": "150green-public-hours.json",
+        "newHoursVenueIds": [
+          "research-ur08-150-green",
+          "research-150-green-bukit-batok"
+        ]
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/bodhidelivegan/",
+        "checkedAt": "2026-10-17T02:28:10.708Z",
+        "status": 200,
+        "outcome": "no-public-hours-control",
+        "actions": [
+          "Closed optional public login prompt"
+        ],
+        "sourceSha256": "c051bff2ec9cb4b09ef5c26e4e7174b32a716fcdce32d9cbf7b8456b142e816d",
+        "capture": "bodhi-deli-public-hours.json",
+        "newHoursVenueIds": []
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/100063863010493/posts/pfbid02V5QCL78TQj6dHLsuATeh5gT2tQaQDwptBbVYP9SUA4NF5gLdHLgs1tNPDNmQsdjwl/",
+        "checkedAt": "2026-10-17T02:39:55.895Z",
+        "status": 200,
+        "outcome": "no-public-hours-control",
+        "actions": [
+          "Closed optional public login prompt"
+        ],
+        "sourceSha256": "ba947b810ffcdd5f583b2208044349a4a41db58e43871acefbe2e1635f84e269",
+        "capture": "bodhi-historical-public-hours.json",
+        "newHoursVenueIds": []
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/bodhidelivegan/",
+        "checkedAt": "2026-10-17T02:34:27.937Z",
+        "status": 200,
+        "outcome": "no-public-hours-control",
+        "actions": [
+          "Closed optional public login prompt",
+          "Expanded ordinary visible public post text",
+          "Expanded ordinary visible public post text",
+          "Expanded ordinary visible public post text",
+          "Expanded ordinary visible public post text",
+          "Expanded ordinary visible public post text"
+        ],
+        "sourceSha256": "1e3b643bbfc8879fa43f1457796070b7d9aad3e25e0c342e0b63032464e47620",
+        "capture": "bodhi-posts-public-hours.json",
+        "newHoursVenueIds": []
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/BotanictSG/",
+        "checkedAt": "2026-10-17T02:31:22.466Z",
+        "status": 200,
+        "outcome": "public-hours-control-expanded",
+        "actions": [
+          "Closed optional public login prompt",
+          "Expanded the ordinary visible opening-hours control"
+        ],
+        "sourceSha256": "6d81065405692e408e19aa17d59c1c2ea78a7f2f4ac6ba2f5f4e33e9c8201f82",
+        "capture": "botanict-public-hours.json",
+        "newHoursVenueIds": [
+          "research-botanict-clementi"
+        ]
+      },
+      {
+        "sourceUrl": "https://facebook.com/cookiecoffee3366",
+        "checkedAt": "2026-10-17T02:39:37.779Z",
+        "status": 200,
+        "outcome": "public-hours-control-expanded",
+        "actions": [
+          "Closed optional public login prompt",
+          "Expanded the ordinary visible opening-hours control"
+        ],
+        "sourceSha256": "4c013008062611c9f49cf9461f4f68bf8cf869580a74093f9f57ce898f981788",
+        "capture": "cookie-alternate-public-hours.json",
+        "newHoursVenueIds": [
+          "research-cookie-coffee-fortune-centre"
+        ]
+      },
+      {
+        "sourceUrl": "https://facebook.com/cookiecoffee3366r/",
+        "checkedAt": "2026-10-17T02:39:31.336Z",
+        "status": 200,
+        "outcome": "no-public-hours-control",
+        "actions": [],
+        "sourceSha256": "a00b4297088d7a7f404a19e70c082413295bac9b85cc97c1c6d81ff5587a0517",
+        "capture": "cookie-primary-public-hours.json",
+        "newHoursVenueIds": []
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/jfy82vegetarin",
+        "checkedAt": "2026-10-17T02:36:37.249Z",
+        "status": 200,
+        "outcome": "public-hours-control-expanded",
+        "actions": [
+          "Closed optional public login prompt",
+          "Expanded the ordinary visible opening-hours control"
+        ],
+        "sourceSha256": "7ff301e63caeb3a4aa60b2b5d0897519fbd80ba938be55374aa72b69b4859d73",
+        "capture": "ju-fu-yuan-public-hours.json",
+        "newHoursVenueIds": [
+          "research-sl08-ju-fu-yuan-amk"
+        ]
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/modcafeinsg",
+        "checkedAt": "2026-10-17T02:34:53.795Z",
+        "status": 200,
+        "outcome": "no-public-hours-control",
+        "actions": [
+          "Closed optional public login prompt"
+        ],
+        "sourceSha256": "793528df1c851fa18b98718a8a8f45f8cbca6a151538e353cf08ee3ed290b6fa",
+        "capture": "mod-cafe-public-hours.json",
+        "newHoursVenueIds": []
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/pages/Red%20Apple%20Vegetarian/282576772074849/",
+        "checkedAt": "2026-10-17T02:39:47.267Z",
+        "status": 200,
+        "outcome": "no-public-hours-control",
+        "actions": [
+          "Closed optional public login prompt"
+        ],
+        "sourceSha256": "87c4bf726065d011fe2f7b7bb68a88af5e476b18ffa4c3bc10708a740e26607e",
+        "capture": "red-apple-public-hours.json",
+        "newHoursVenueIds": []
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/SHU-Vegetarian-303321370009833/",
+        "checkedAt": "2026-10-17T02:31:32.735Z",
+        "status": 200,
+        "outcome": "no-public-hours-control",
+        "actions": [
+          "Closed optional public login prompt"
+        ],
+        "sourceSha256": "84d19a2cdc8c278fcc9d195bf73c283adab13a31749c968fcae9718568a1c4a6",
+        "capture": "shu-brand-public-hours.json",
+        "newHoursVenueIds": []
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/SHU-Vegetarian-303321370009833/",
+        "checkedAt": "2026-10-17T02:34:39.294Z",
+        "status": 200,
+        "outcome": "no-public-hours-control",
+        "actions": [
+          "Closed optional public login prompt",
+          "Expanded ordinary visible public post text",
+          "Expanded ordinary visible public post text",
+          "Expanded ordinary visible public post text",
+          "Expanded ordinary visible public post text"
+        ],
+        "sourceSha256": "f6430dda7ff72728eecf907119f0dcb48052e2701cb3167d77e312dc8c5970f3",
+        "capture": "shu-posts-public-hours.json",
+        "newHoursVenueIds": []
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/tengbespokevegetarianrestaurant/",
+        "checkedAt": "2026-10-17T02:28:20.036Z",
+        "status": 200,
+        "outcome": "no-public-hours-control",
+        "actions": [],
+        "sourceSha256": "8fdf6e05dc918bbd75dc40eba138f5e4bf68bb432f7965f139ce8d6f564eb2ab",
+        "capture": "teng-bespoke-public-hours.json",
+        "newHoursVenueIds": []
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/pages/Tian-Yuan-Healthy-Vegetarian-Food-Paradise/257575380985033",
+        "checkedAt": "2026-10-17T02:36:06.278Z",
+        "status": 200,
+        "outcome": "no-public-hours-control",
+        "actions": [
+          "Closed optional public login prompt"
+        ],
+        "sourceSha256": "149c4e60bc4b68f39193fc9dde47910be32abe49cdc794e04f65609a41e0aa71",
+        "capture": "tian-yuan-public-hours.json",
+        "newHoursVenueIds": []
+      }
+    ],
+    "domainChecks": [
+      {
+        "url": "https://recommendsg.com/directory/business/red-apple-vegetarian-vegetarian-restaurant-in-tampines-vegetarian-restaurant-singapore/",
+        "checkedAt": "2026-10-17T02:39:14.165803+00:00",
+        "status": 200,
+        "facebookLinks": [
+          "https:\\/\\/www.facebook.com\\/pages\\/Red%20Apple%20Vegetarian\\/282576772074849\\/",
+          "https://www.facebook.com/pages/Red%20Apple%20Vegetarian/282576772074849/"
+        ]
+      },
+      {
+        "url": "https://recordowl.com/company/red-apple-vegetarian",
+        "checkedAt": "2026-10-17T02:39:14.166343+00:00",
+        "status": 200,
+        "facebookLinks": [
+          "https://www.facebook.com/pages/red%20apple%20vegetarian/282576772074849/"
+        ]
+      },
+      {
+        "url": "https://www.findglocal.com/SG/Singapore/829789830227864/%E5%B0%8F%E7%B4%A0%E5%8E%A8-mini-green---TPY-Vegetarian-Stall-With-Night-Lok-Lok-%E5%A4%A7%E5%B7%B48%E5%B7%B7210",
+        "checkedAt": "2026-10-17T02:39:14.166742+00:00",
+        "status": 403,
+        "facebookLinks": []
+      },
+      {
+        "url": "https://take.app/kindsproutsg",
+        "checkedAt": "2026-10-17T02:39:14.832426+00:00",
+        "status": 200,
+        "facebookLinks": []
+      },
+      {
+        "url": "https://cookiecoffee.com.sg/",
+        "checkedAt": "2026-10-17T02:39:15.152950+00:00",
+        "status": 200,
+        "facebookLinks": [
+          "https://facebook.com/cookiecoffee3366r/",
+          "https://facebook.com/cookiecoffee3366"
+        ]
+      },
+      {
+        "url": "https://www.leafcorner.sg/contactus",
+        "checkedAt": "2026-10-17T02:39:15.771790+00:00",
+        "status": 200,
+        "facebookLinks": [
+          "https://www.facebook.com/leafcornersg/"
+        ]
+      }
+    ],
+    "preservedQualifications": {
+      "dlife-signature": "Profile identifies Square2/10Sinaran, not ChinatownPoint. No branch-hours transfer.",
+      "xinghua": "Profile identifies180Bencoolen, not190Middle or111Somerset. No transfer.",
+      "kangsu-posts": "Current own schedule applies to472MacPherson, not FarEastPlaza. No transfer.",
+      "kale-posts": "Adelphi dish-availability weekdays do not establish venue opening hours. No duplicate food extraction.",
+      "originalgreens-posts": "Exact Shaw premise readable; no merchant weekly schedule. Landlord/template conflict remains held.",
+      "mother-earth-jurong": "Exact511UpperJurong branch readable; one-day closure is not weekly hours. No Balestier transfer.",
+      "divine-realm": "Public page explicitly says Unofficial Page. Not primary operator evidence.",
+      "timesvege": "Observed legacy merchant link returns content unavailable; no alternate access attempted.",
+      "leafcorner": "Nanyang schedule accepted only at60JurongWest91; TaiSeng/Sembawang unconfirmed.",
+      "ascend-public": "Profile schedule/address identify Esplanade. Existing18Cross hours preserved; separate explicitly Cross-only product photo used."
+    },
+    "pendingNewPrimaryLinks": {
+      "checkedAt": "2026-10-17",
+      "pendingNotYetVisited": [],
+      "note": "Both distinct primary links visited normally in batchae: Bodhi readable without hours control; Teng content unavailable. No source-block bypass.",
+      "completedInBatch": "ae"
+    },
+    "noPaidGoogleCalls": true
+  },
+  "referenceQueueAudit": {
+    "checkedAt": "2026-10-17",
+    "referenceReceipts": 275,
+    "statusCounts": {
+      "enhanced-selected": 141,
+      "reviewed-not-selected": 30,
+      "reviewed-held-source-not-usable": 41,
+      "matched-existing-enhancement-reused": 10,
+      "held-unused": 4,
+      "held-source-image-unclear": 8,
+      "reviewed-alternate-metadata-only": 1,
+      "reviewed-usable-alternate-not-generated": 24,
+      "held-provider-reference-only": 1,
+      "unavailable": 3,
+      "held-low-resolution": 1,
+      "reviewed-not-selected-beverage": 8,
+      "reviewed-held-low-resolution": 3
+    },
+    "pendingReceipts": [],
+    "newReceipts": 0,
+    "newPublicImageFetches": 2,
+    "imageGenerations": 0,
+    "scope": "All275saved cover-reference outcomes retained; two additional private evidence images read for hours/dish verification, not promoted as covers."
+  },
+  "retainedHolds": {
+    "foodObservations": 2527,
+    "zeroFoodResearchBranches": 109,
+    "unnamedCandidateIds": 1828,
+    "coordinateIds": 3,
+    "exactScreenshotPhotosUnrecovered": [
+      "Makan Vegan",
+      "Soon Lai"
+    ]
+  },
+  "googleLedger": {
+    "bytes": 1045377,
+    "sha256": "c7321dafaad0473583139494ca899501578892c5b71105429d3cd4dceb4f311a",
+    "requests": 2419,
+    "limit": 2500,
+    "remaining": 81
+  },
+  "releaseEvidence": ".local/coverage-2026-10-17ae/release.json",
+  "sourceCaptureDatesPreserved": true,
+  "hoursQualification": "120 source-backed hours records; nine SHU poster records explicitly leave weekdays/rest days and lasting applicability unconfirmed. Several merchant profiles retain source update ages of3months to5years. OriginalSin/NewGreenPastureMonday and LinLinMonday lunar exception times remain unconfirmed. Sufood15October source date retained."
+}

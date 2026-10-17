@@ -1,0 +1,4920 @@
+{
+  "version": 1,
+  "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+  "status": "reviewed-partial-with-unresolved-holds",
+  "googleRequestsMade": 0,
+  "sources": [
+    {
+      "id": "ur07-red-apple-tampines-source",
+      "url": "https://www.foodpanda.sg/restaurant/wvhw/red-apple-vegetarian-tampines",
+      "publisher": "Foodpanda / Red Apple Vegetarian",
+      "title": "Red Apple Vegetarian835TampinesStreet83 current public delivery menu",
+      "checkedAt": "2026-10-16T05:29:24.105Z",
+      "accessStatus": "normal-public-fetch-http-200-browser-403",
+      "notes": "Normal public HTTP200 HTML full product IDs/categories/prices reconciled with same-response visible DOM116products. Managed Chromium403 preserved; no challenge bypass. Search-index/reviews versions differ and were not merged.111foods/5drinks. Current source version/channel only; unread customizers retained."
+    },
+    {
+      "id": "ur07-red-apple-grab-context",
+      "url": "https://www.grab.com/sg/articles/food/vegetarian-food-singapore/",
+      "publisher": "Grab merchant food guide",
+      "title": "Vegetarian Food Singapore — Red Apple Vegetarian TampinesStreet83 exact premise",
+      "checkedAt": "2026-10-16T05:29:24.181Z",
+      "accessStatus": "normal-public-fetch-http-200",
+      "notes": "Platform publisher independently describes this vegetarian venue at835TampinesStreet83#01-02/520835. Source menu names vegetarian dishes/eggs; no vegan certification. Own domain currently reports Account Suspended; no operating/closure inference from hosting suspension."
+    },
+    {
+      "id": "ur07-red-apple-home-check",
+      "url": "https://www.redapplevege.com.sg/",
+      "publisher": "Red Apple domain hosting page",
+      "title": "Own website access check",
+      "checkedAt": "2026-10-16T05:29:03.863Z",
+      "accessStatus": "http-200-account-suspended",
+      "notes": "Hosting suspension page gives no menu, scope or current operation proof."
+    }
+  ],
+  "branches": [
+    {
+      "id": "ur07-red-apple-tampines",
+      "name": "Red Apple Vegetarian — Tampines Street 83",
+      "address": "835 Tampines Street 83 #01-02, Singapore 520835",
+      "postalCode": "520835",
+      "googlePlaceId": null,
+      "sourceIds": [
+        "ur07-red-apple-tampines-source",
+        "ur07-red-apple-grab-context",
+        "ur07-red-apple-home-check"
+      ],
+      "menuIds": [
+        "ur07-red-apple-tampines-foods"
+      ],
+      "eligibility": "vegetarian-confirmed",
+      "identityStatus": "independent-source-premise-no-google-assignment",
+      "venueEligibility": {
+        "status": "vegetarian-confirmed",
+        "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+        "sourceIds": [
+          "ur07-red-apple-tampines-source",
+          "ur07-red-apple-grab-context"
+        ],
+        "reason": "Exact current merchant menu and Grab vegetarian venue guide agree835TampinesStreet83#01-02/520835. Independent publication with null Google ID; not the held477TampinesStreet43 branch."
+      },
+      "gaps": [
+        "Generic animal-description conflicts remain held. Managed Chromium403 and differing indexed/reviews source versions qualified; no complete/current stock claim.",
+        "95of116products flagged customizable; food-only unread-choice count recorded separately. Own domain hosting suspended, no closure inference."
+      ]
+    }
+  ],
+  "menus": [
+    {
+      "id": "ur07-red-apple-tampines-foods",
+      "name": "Red Apple Vegetarian — Tampines Street 83 delivery",
+      "branchIds": [
+        "ur07-red-apple-tampines"
+      ],
+      "sourceIds": [
+        "ur07-red-apple-tampines-source"
+      ],
+      "scope": "branch-delivery",
+      "coverage": "partial",
+      "publicationStatus": "reviewed-partial-source-facts",
+      "notice": "Dated delivery menu. Prices may differ in store. Some ordering choices are unavailable; confirm ingredients, stock and final charges with the venue.",
+      "items": [
+        {
+          "id": "ur07-red-apple-tampines-22378747",
+          "sourceProductId": "22378747",
+          "name": "Curry Fish Rice 咖喱素鱼饭",
+          "category": "Sets 套餐",
+          "sourceDescription": "Spiced fish served with fragrant rice and a rich, flavorful curry sauce.",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 9.8,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "hold-generic-animal-description",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "holdReason": "Generic animal/meat/seafood description remains unclear despite vegetarian venue context. Do not infer mock ingredients or actual meat service.",
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378739",
+          "sourceProductId": "22378739",
+          "name": "Braised Tofu Rice 红烧豆腐饭",
+          "category": "Sets 套餐",
+          "sourceDescription": "Savory braised tofu served over fragrant rice, garnished with vegetables and rich sauce.",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 9.8,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378676",
+          "sourceProductId": "22378676",
+          "name": "Hor Fun 河粉",
+          "category": "Stir-fried Noodles 小炒面",
+          "sourceDescription": "With egg",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 7.9,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed. Source names egg or milk; no vegan inference.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378683",
+          "sourceProductId": "22378683",
+          "name": "Fried Kuey Teow 干炒粿条",
+          "category": "Stir-fried Noodles 小炒面",
+          "sourceDescription": "With egg",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 9.2,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed. Source names egg or milk; no vegan inference.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378673",
+          "sourceProductId": "22378673",
+          "name": "Olive Fried Rice 橄榄炒饭",
+          "category": "Stir-fried Rice 小炒饭",
+          "sourceDescription": "Fluffy and savoury golden fried rice",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 8.5,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378743",
+          "sourceProductId": "22378743",
+          "name": "Vegetarian Chicken Rice 素鸡饭",
+          "category": "Sets 套餐",
+          "sourceDescription": "Savory rice served with flavorful vegetarian chicken and fresh vegetables, a delightful meal option.",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 9.8,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-85104204",
+          "sourceProductId": "85104204",
+          "name": "( 每日炖汤 ) Bitter Gourd & Carrot Soup 苦瓜萝卜汤",
+          "category": "Special 特色美食",
+          "sourceDescription": "Hearty bitter gourd and carrot soup featuring a savory flavor and tender texture. For reference only.",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 8.9,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          }
+        },
+        {
+          "id": "ur07-red-apple-tampines-85104615",
+          "sourceProductId": "85104615",
+          "name": "Healthy Vegetarian Pork Belly Soup 养生猪肚汤饭",
+          "category": "Sets 套餐",
+          "sourceDescription": "With pepper, it will be a little spicy.",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 16.8,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-85104566",
+          "sourceProductId": "85104566",
+          "name": "Sambal Petai with Meat Rice 参巴臭豆肉碎饭",
+          "category": "Sets 套餐",
+          "sourceDescription": "Hearty meat rice and petai in a savory, spicy sauce offering a bold flavor and tender texture. For reference only.",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 12.8,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "hold-generic-animal-description",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "holdReason": "Generic animal/meat/seafood description remains unclear despite vegetarian venue context. Do not infer mock ingredients or actual meat service.",
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378750",
+          "sourceProductId": "22378750",
+          "name": "Honey Pork Rib Rice 蜜汁排骨饭",
+          "category": "Sets 套餐",
+          "sourceDescription": "",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 10.8,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378746",
+          "sourceProductId": "22378746",
+          "name": "Thai-style Chicken Chop Rice 泰式鸡扒饭",
+          "category": "Sets 套餐",
+          "sourceDescription": "Flavorful and aromatic Thai street food",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 9.8,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378748",
+          "sourceProductId": "22378748",
+          "name": "Lemon Chicken Chop Rice 柠檬鸡扒饭",
+          "category": "Sets 套餐",
+          "sourceDescription": "Tender chicken served with fragrant rice and zesty lemon sauce.",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 9.8,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "hold-generic-animal-description",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "holdReason": "Generic animal/meat/seafood description remains unclear despite vegetarian venue context. Do not infer mock ingredients or actual meat service.",
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378742",
+          "sourceProductId": "22378742",
+          "name": "Kung Pao Monkey Head Mushroom Rice 宫保猴头菇饭",
+          "category": "Sets 套餐",
+          "sourceDescription": "Spicy stir-fried mushrooms with rice, peanuts, and vegetables in a flavorful sauce.",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 9.8,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378751",
+          "sourceProductId": "22378751",
+          "name": "Kung Pao King Oyster Mushroom Rice 宫保杏鲍菇饭",
+          "category": "Sets 套餐",
+          "sourceDescription": "Spicy stir-fried mushrooms with rice, peanuts, and vegetables in a flavorful sauce.",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 9.8,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378744",
+          "sourceProductId": "22378744",
+          "name": "Baked Fish with Banana Leaves Rice 蕉叶烤鱼饭",
+          "category": "Sets 套餐",
+          "sourceDescription": "Grilled fish wrapped in banana leaves served with fragrant rice and aromatic herbs.",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 9.8,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "hold-generic-animal-description",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "holdReason": "Generic animal/meat/seafood description remains unclear despite vegetarian venue context. Do not infer mock ingredients or actual meat service.",
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378749",
+          "sourceProductId": "22378749",
+          "name": "Curry Mutton Rice 咖喱素羊肉饭",
+          "category": "Sets 套餐",
+          "sourceDescription": "Spiced mutton served with fragrant rice and rich curry sauce.",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 9.8,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "hold-generic-animal-description",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "holdReason": "Generic animal/meat/seafood description remains unclear despite vegetarian venue context. Do not infer mock ingredients or actual meat service.",
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-38799887",
+          "sourceProductId": "38799887",
+          "name": "Sweet & Sour Pork Rice 酸甜咕噜肉饭",
+          "category": "Sets 套餐",
+          "sourceDescription": "Deep fried pork drenched in a thick, sweet and sour glaze with rice",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 9.8,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "hold-generic-animal-description",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "holdReason": "Generic animal/meat/seafood description remains unclear despite vegetarian venue context. Do not infer mock ingredients or actual meat service.",
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378741",
+          "sourceProductId": "22378741",
+          "name": "Sweet & Sour Abalone Mushroom Rice 酸甜鲍鱼菇饭",
+          "category": "Sets 套餐",
+          "sourceDescription": "Savory rice dish featuring tender abalone mushrooms in a tangy, sweet sauce.",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 9.8,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378740",
+          "sourceProductId": "22378740",
+          "name": "Thai Abalone Mushroom Rice 泰式鲍鱼菇饭",
+          "category": "Sets 套餐",
+          "sourceDescription": "Fragrant rice dish featuring tender abalone mushrooms and aromatic Thai spices.",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 9.8,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378738",
+          "sourceProductId": "22378738",
+          "name": "Buddha's Delight Rice 罗汉斋饭",
+          "category": "Sets 套餐",
+          "sourceDescription": "A flavorful vegetarian rice dish with mixed vegetables and aromatic seasonings.",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 9.8,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          }
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378688",
+          "sourceProductId": "22378688",
+          "name": "Fish Soup Bee Hoon 鱼片米粉汤",
+          "category": "Noodles 面",
+          "sourceDescription": "With milk",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 9.5,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed. Source names egg or milk; no vegan inference.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378684",
+          "sourceProductId": "22378684",
+          "name": "Mushroom Dry Noodle + Soup 香菇手工干面素汤",
+          "category": "Noodles 面",
+          "sourceDescription": "Handmade dry noodles served with a flavorful mushroom broth and fresh ingredients.",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 9.5,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378685",
+          "sourceProductId": "22378685",
+          "name": "Tom Yum Bee Hoon Soup 东炎米粉汤",
+          "category": "Noodles 面",
+          "sourceDescription": "Spicy and sour noodle soup with shrimp, herbs, and vegetables in a fragrant broth.（Thick Behoon）",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 9.5,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "hold-generic-animal-description",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "holdReason": "Generic animal/meat/seafood description remains unclear despite vegetarian venue context. Do not infer mock ingredients or actual meat service.",
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378691",
+          "sourceProductId": "22378691",
+          "name": "Claypot Noodle 砂煲伊面",
+          "category": "Noodles 面",
+          "sourceDescription": "Rich, savory flavors and hearty texture",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 10,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378689",
+          "sourceProductId": "22378689",
+          "name": "Pumpkin Mee Hoon Kuey 黄金面粉粿",
+          "category": "Noodles 面",
+          "sourceDescription": "Savory rice noodle dish with pumpkin, vegetables, and flavorful broth, served warm.",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 10.8,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378686",
+          "sourceProductId": "22378686",
+          "name": "Healthy Soup Noodle 健康高汤拉面",
+          "category": "Noodles 面",
+          "sourceDescription": "Noodles in a flavorful broth, enriched with fresh vegetables and aromatic herbs.",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 10.8,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378690",
+          "sourceProductId": "22378690",
+          "name": "Japanese Miso Ramen 日式味增拉面",
+          "category": "Noodles 面",
+          "sourceDescription": "Savory noodle soup with rich miso broth, topped with vegetables and soft-boiled egg.",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 10.8,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed. Source names egg or milk; no vegan inference.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-38800602",
+          "sourceProductId": "38800602",
+          "name": "Sesame Ginger Egg Noodle Soup 麻油姜蛋面线汤",
+          "category": "Noodles 面",
+          "sourceDescription": "A flavorful soup with egg noodles, sesame, ginger, and aromatic broth.",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 10.8,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed. Source names egg or milk; no vegan inference.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-38800601",
+          "sourceProductId": "38800601",
+          "name": "Dumpling Noodle Soup 水饺拉面汤",
+          "category": "Noodles 面",
+          "sourceDescription": "Savory broth with tender dumplings and chewy noodles, garnished with fresh herbs and vegetables.",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 10.8,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378752",
+          "sourceProductId": "22378752",
+          "name": "Tomato Spaghetti & Meatballs 肉丸番茄意大利面",
+          "category": "Noodles 面",
+          "sourceDescription": "Savory spaghetti topped with juicy meatballs in a rich tomato sauce.",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 13.8,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "hold-generic-animal-description",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "holdReason": "Generic animal/meat/seafood description remains unclear despite vegetarian venue context. Do not infer mock ingredients or actual meat service.",
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-38800603",
+          "sourceProductId": "38800603",
+          "name": "Xiang Chun Spaghetti 香椿意大利面",
+          "category": "Noodles 面",
+          "sourceDescription": "A flavorful spaghetti dish featuring fragrant Chinese toon and savory seasonings.",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 13.8,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378681",
+          "sourceProductId": "22378681",
+          "name": "Mui Fan 烩饭",
+          "category": "Stir-fried Rice 小炒饭",
+          "sourceDescription": "Rice covered with silky gravy stir-fried with prawns, sotong, fish slices and assorted vegetables",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 7.9,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "hold-generic-animal-description",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "holdReason": "Generic animal/meat/seafood description remains unclear despite vegetarian venue context. Do not infer mock ingredients or actual meat service.",
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378672",
+          "sourceProductId": "22378672",
+          "name": "Egg Fried Rice 蛋炒饭",
+          "category": "Stir-fried Rice 小炒饭",
+          "sourceDescription": "Fluffy and savoury golden egg fried rice.",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 7.9,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed. Source names egg or milk; no vegan inference.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378675",
+          "sourceProductId": "22378675",
+          "name": "Vegetable Fried Rice 蔬菜炒饭",
+          "category": "Stir-fried Rice 小炒饭",
+          "sourceDescription": "With egg",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 7.9,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed. Source names egg or milk; no vegan inference.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378668",
+          "sourceProductId": "22378668",
+          "name": "Pineapple Fried Rice 黄梨炒饭",
+          "category": "Stir-fried Rice 小炒饭",
+          "sourceDescription": "A tropical sweet and savoury Thai fried rice",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 8.5,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378674",
+          "sourceProductId": "22378674",
+          "name": "Tom Yum Fried Rice 东炎炒饭",
+          "category": "Stir-fried Rice 小炒饭",
+          "sourceDescription": "A sour, sweet and savoury Thai fried rice",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 8.5,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378669",
+          "sourceProductId": "22378669",
+          "name": "Xiang Chun Fried Rice 香椿炒饭",
+          "category": "Stir-fried Rice 小炒饭",
+          "sourceDescription": "Fragrant rice stir-fried with aromatic greens, vegetables, and a hint of seasoning.",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 8.5,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378671",
+          "sourceProductId": "22378671",
+          "name": "Sambal Fried Rice 叁巴炒饭",
+          "category": "Stir-fried Rice 小炒饭",
+          "sourceDescription": "Fragrant, spicy and savoury sambal fried rice",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 8.5,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-85104079",
+          "sourceProductId": "85104079",
+          "name": "Sambal Petai Fried Rice 参巴臭豆炒饭",
+          "category": "Stir-fried Rice 小炒饭",
+          "sourceDescription": "Savory and mildly sweet fried rice with a tender texture and bold flavor. For reference only.",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 12,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-38800215",
+          "sourceProductId": "38800215",
+          "name": "Fried Bee Hoon 什锦米粉",
+          "category": "Stir-fried Noodles 小炒面",
+          "sourceDescription": "Stir-fried rice vermicelli with vegetables, seafood, and savory seasonings for a flavorful meal.",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 7.9,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "hold-generic-animal-description",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "holdReason": "Generic animal/meat/seafood description remains unclear despite vegetarian venue context. Do not infer mock ingredients or actual meat service.",
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378682",
+          "sourceProductId": "22378682",
+          "name": "White Hokkien Mee 白福建炒面",
+          "category": "Stir-fried Noodles 小炒面",
+          "sourceDescription": "Tender stir-fried noodles offering a savory flavor and satisfying texture. For reference only.",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 7.9,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378679",
+          "sourceProductId": "22378679",
+          "name": "Black Hokkien Mee 黑福建炒面",
+          "category": "Stir-fried Noodles 小炒面",
+          "sourceDescription": "Savoury chewy noodles smothered in a sweet salty soy sauce",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 7.9,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-38800600",
+          "sourceProductId": "38800600",
+          "name": "Fried Vermicelli 干炒冬粉",
+          "category": "Stir-fried Noodles 小炒面",
+          "sourceDescription": "Stir-fried rice noodles with a flavourful combination of various ingredients",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 9.2,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-38800491",
+          "sourceProductId": "38800491",
+          "name": "Fried Yee Mee 干炒伊面",
+          "category": "Stir-fried Noodles 小炒面",
+          "sourceDescription": "Braised e-fu noodles filled with prawns, fishcake, pork sliced & vegetables",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 9.2,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "hold-generic-animal-description",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "holdReason": "Generic animal/meat/seafood description remains unclear despite vegetarian venue context. Do not infer mock ingredients or actual meat service.",
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378680",
+          "sourceProductId": "22378680",
+          "name": "Singapore Stir-fried Rice Noodle 星洲米粉",
+          "category": "Stir-fried Noodles 小炒面",
+          "sourceDescription": "With egg",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 9.2,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed. Source names egg or milk; no vegan inference.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378678",
+          "sourceProductId": "22378678",
+          "name": "Fragrant Noodle 香底米粉",
+          "category": "Stir-fried Noodles 小炒面",
+          "sourceDescription": "With egg",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 7.8,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed. Source names egg or milk; no vegan inference.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378670",
+          "sourceProductId": "22378670",
+          "name": "Crispy Noodle 生面",
+          "category": "Stir-fried Noodles 小炒面",
+          "sourceDescription": "With egg",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 7.8,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed. Source names egg or milk; no vegan inference.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378705",
+          "sourceProductId": "22378705",
+          "name": "Stir-fried Salted Fish with Sprouts 咸鱼炒芽菜",
+          "category": "Vegetables 蔬菜",
+          "sourceDescription": "Savory and crunchy stir-fried sprouts and salted fish with a rich flavor profile. For reference only.",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 9.9,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "hold-generic-animal-description",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "holdReason": "Generic animal/meat/seafood description remains unclear despite vegetarian venue context. Do not infer mock ingredients or actual meat service.",
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378709",
+          "sourceProductId": "22378709",
+          "name": "Stir-Fried Kang Kong 清炒空心菜",
+          "category": "Vegetables 蔬菜",
+          "sourceDescription": "Popular stir-fried water spinach with aromatic seasonings",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 9.9,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378710",
+          "sourceProductId": "22378710",
+          "name": "Sambal Kangkong 马来风光",
+          "category": "Vegetables 蔬菜",
+          "sourceDescription": "Stir-fried with homemade sambal sauce",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 11.3,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378712",
+          "sourceProductId": "22378712",
+          "name": "Buddha's Delight 罗汉斋",
+          "category": "Vegetables 蔬菜",
+          "sourceDescription": "A savory and aromatic vegetable dish offering a tender texture. For reference only.",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 14.2,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-38803188",
+          "sourceProductId": "38803188",
+          "name": "Green Beans W/ Preserved Radish 菜脯四季豆",
+          "category": "Vegetables 蔬菜",
+          "sourceDescription": "Savory and crisp green beans featuring preserved radish with a rich flavor profile. For reference only.",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 14.2,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378707",
+          "sourceProductId": "22378707",
+          "name": "Celery Hericium Mushroom 西芹猴头菇",
+          "category": "Vegetables 蔬菜",
+          "sourceDescription": "Savory mushroom and celery with a comforting flavor and tender texture. For reference only.",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 17,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378713",
+          "sourceProductId": "22378713",
+          "name": "Triple Veggie Dishes 农家三鲜",
+          "category": "Vegetables 蔬菜",
+          "sourceDescription": "Savory and hearty vegetable dish featuring tender textures with a rich flavor profile. For reference only.",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 17,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378706",
+          "sourceProductId": "22378706",
+          "name": "Iron Plate Eggplant 铁板茄子",
+          "category": "Vegetables 蔬菜",
+          "sourceDescription": "Tender eggplant with a savory flavor and rich texture. For reference only.",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 17,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-38803182",
+          "sourceProductId": "38803182",
+          "name": "Stir-Fried Celery & Black Fungi 爆炒西芹木耳",
+          "category": "Vegetables 蔬菜",
+          "sourceDescription": "Celery and black fungi offer a savory flavor and crisp texture in this stir-fried dish. For reference only.",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 17,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378708",
+          "sourceProductId": "22378708",
+          "name": "Fragrant EggPlant Dish 鱼香茄子",
+          "category": "Vegetables 蔬菜",
+          "sourceDescription": "A savory and tender eggplant dish featuring a rich, aromatic flavor profile. For reference only.",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 17,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378704",
+          "sourceProductId": "22378704",
+          "name": "Taiwan Eggplant & French Beans 三杯茄子四季豆",
+          "category": "Vegetables 蔬菜",
+          "sourceDescription": "Tender vegetables in a savory, aromatic sauce with a hearty texture. For reference only.",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 17,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-38803184",
+          "sourceProductId": "38803184",
+          "name": "Vermicelli W/ Cabbage 干锅手撕包菜冬粉",
+          "category": "Vegetables 蔬菜",
+          "sourceDescription": "Savory vermicelli with cabbage offering a comforting and tender texture. For reference only.",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 18.5,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378711",
+          "sourceProductId": "22378711",
+          "name": "Mala Fragrance Pot 麻辣香锅",
+          "category": "Vegetables 蔬菜",
+          "sourceDescription": "Savory and spicy vegetables with a rich, aromatic flavor and tender texture. For reference only.",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 18.5,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-85105274",
+          "sourceProductId": "85105274",
+          "name": "Sambal Petai With Minced Meat 参巴臭豆肉碎",
+          "category": "Vegetables 蔬菜",
+          "sourceDescription": "A savory and spicy dish featuring vegetables with a tender texture. For reference only.",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 21.2,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378698",
+          "sourceProductId": "22378698",
+          "name": "Crispy Golden Yam Ring 佛钵飘香",
+          "category": "Vegetarian Dishes 素料",
+          "sourceDescription": "Crispy golden yam ring offering a comforting, savory flavor with a delightfully crispy texture. For reference only.",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 25.5,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378701",
+          "sourceProductId": "22378701",
+          "name": "Superior Vegetable Pot 一品锅",
+          "category": "Vegetarian Dishes 素料",
+          "sourceDescription": "",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 22.6,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-38802992",
+          "sourceProductId": "38802992",
+          "name": "Braised Pork MeatBalls 红烧狮子头",
+          "category": "Vegetarian Dishes 素料",
+          "sourceDescription": "Tender pork with a rich, savory flavor and hearty texture. For reference only.",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 21.8,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "hold-generic-animal-description",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "holdReason": "Generic animal/meat/seafood description remains unclear despite vegetarian venue context. Do not infer mock ingredients or actual meat service.",
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-38802921",
+          "sourceProductId": "38802921",
+          "name": "Prawn Specials 特色虾",
+          "category": "Vegetarian Dishes 素料",
+          "sourceDescription": "Prawn specials feature a savory flavor with a tender texture. For reference only.",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 19.8,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "hold-generic-animal-description",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "holdReason": "Generic animal/meat/seafood description remains unclear despite vegetarian venue context. Do not infer mock ingredients or actual meat service.",
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-38802879",
+          "sourceProductId": "38802879",
+          "name": "Abalone Mushroom Specials  特色 - 鲍鱼菇",
+          "category": "Vegetarian Dishes 素料",
+          "sourceDescription": "5 Different Flavours too choose from！",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 17,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378695",
+          "sourceProductId": "22378695",
+          "name": "Claypot Delight 砂锅三杯猴头菇",
+          "category": "Vegetarian Dishes 素料",
+          "sourceDescription": "Mushroom in a savory broth with a tender texture. For reference only.",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 17,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-85105273",
+          "sourceProductId": "85105273",
+          "name": "Kung Bao Monkey Head Mushroom 宫保猴头菇",
+          "category": "Vegetarian Dishes 素料",
+          "sourceDescription": "Monkey head mushroom in a savory and slightly spicy sauce with a tender texture. For reference only.",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 17,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378702",
+          "sourceProductId": "22378702",
+          "name": "Kung Pao King Oyster Mushrooms 宫保杏鲍菇",
+          "category": "Vegetarian Dishes 素料",
+          "sourceDescription": "Savory and tender mushrooms with a rich, aromatic flavor. For reference only.",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 17,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378699",
+          "sourceProductId": "22378699",
+          "name": "Thai Chicken Chop 泰式鸡扒",
+          "category": "Vegetarian Dishes 素料",
+          "sourceDescription": "",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 17,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378697",
+          "sourceProductId": "22378697",
+          "name": "Lemon Chicken Chop 柠檬鸡扒",
+          "category": "Vegetarian Dishes 素料",
+          "sourceDescription": "A savory vegetarian dish with a tender texture. For reference only.",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 17,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378696",
+          "sourceProductId": "22378696",
+          "name": "Honey Pork Ribs 蜜汁排骨",
+          "category": "Vegetarian Dishes 素料",
+          "sourceDescription": "",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 17,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378693",
+          "sourceProductId": "22378693",
+          "name": "Teppanyaki Fish With Banana Leaves 铁板蕉叶烤鱼",
+          "category": "Vegetarian Dishes 素料",
+          "sourceDescription": "Savory fish wrapped in banana leaves offering a rich flavor and tender texture. For reference only.",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 17,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "hold-generic-animal-description",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "holdReason": "Generic animal/meat/seafood description remains unclear despite vegetarian venue context. Do not infer mock ingredients or actual meat service.",
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378692",
+          "sourceProductId": "22378692",
+          "name": "Claypot Fish Curry 砂锅咖喱鱼",
+          "category": "Vegetarian Dishes 素料",
+          "sourceDescription": "Vegetarian fish in a savory, aromatic curry with a hearty texture. For reference only.",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 17,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378694",
+          "sourceProductId": "22378694",
+          "name": "Curry Potato & Mutton 咖喱马铃薯羊肉",
+          "category": "Vegetarian Dishes 素料",
+          "sourceDescription": "A hearty and savory curry dish featuring tender mutton and potatoes with a rich texture. For reference only.",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 17,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "hold-generic-animal-description",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "holdReason": "Generic animal/meat/seafood description remains unclear despite vegetarian venue context. Do not infer mock ingredients or actual meat service.",
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378700",
+          "sourceProductId": "22378700",
+          "name": "Sweet & Sour Pork 酸甜咕噜肉",
+          "category": "Vegetarian Dishes 素料",
+          "sourceDescription": "Deep fried pork drenched in a thick, sweet and sour glaze.",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 17,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "hold-generic-animal-description",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "holdReason": "Generic animal/meat/seafood description remains unclear despite vegetarian venue context. Do not infer mock ingredients or actual meat service.",
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-85105272",
+          "sourceProductId": "85105272",
+          "name": "Ginger Sliced Fish 姜丝鱼",
+          "category": "Vegetarian Dishes 素料",
+          "sourceDescription": "Tender fish with aromatic ginger in a savory broth offering a comforting texture. For reference only.",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 17,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "hold-generic-animal-description",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "holdReason": "Generic animal/meat/seafood description remains unclear despite vegetarian venue context. Do not infer mock ingredients or actual meat service.",
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-38802998",
+          "sourceProductId": "38802998",
+          "name": "Preserved Vegetable Fish 菜脯鱼",
+          "category": "Vegetarian Dishes 素料",
+          "sourceDescription": "Tender fish featuring a savory flavor profile. For reference only.",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 17,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "hold-generic-animal-description",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "holdReason": "Generic animal/meat/seafood description remains unclear despite vegetarian venue context. Do not infer mock ingredients or actual meat service.",
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378721",
+          "sourceProductId": "22378721",
+          "name": "Bitter Gourd Fried Egg 苦瓜炒蛋",
+          "category": "Eggs 蛋类",
+          "sourceDescription": "Bitter gourd fried eggs gives a bitter, crisp and refreshing taste",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 11.3,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed. Source names egg or milk; no vegan inference.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378719",
+          "sourceProductId": "22378719",
+          "name": "Omelette 芙蓉蛋",
+          "category": "Eggs 蛋类",
+          "sourceDescription": "Light and fluffy, typically cooked until the outisde is lightly browned and the inside is fully cooked",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 11.3,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed. Source names egg or milk; no vegan inference.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378720",
+          "sourceProductId": "22378720",
+          "name": "Tomato Fried Egg 番茄炒蛋",
+          "category": "Eggs 蛋类",
+          "sourceDescription": "Scrambled eggs cooked with fresh tomatoes, simple yet flavourful",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 11.3,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed. Source names egg or milk; no vegan inference.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-38803267",
+          "sourceProductId": "38803267",
+          "name": "String Bean Egg 菜豆蛋",
+          "category": "Eggs 蛋类",
+          "sourceDescription": "Stir-fried string beans with scrambled eggs, seasoned for a flavorful and nutritious dish.",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 11.3,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed. Source names egg or milk; no vegan inference.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-38803268",
+          "sourceProductId": "38803268",
+          "name": "Chye Poh Egg 菜脯蛋",
+          "category": "Eggs 蛋类",
+          "sourceDescription": "Savory egg dish with preserved radish, offering a unique flavor and delightful texture.",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 11.3,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed. Source names egg or milk; no vegan inference.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378718",
+          "sourceProductId": "22378718",
+          "name": "Braised Tofu 红烧豆腐",
+          "category": "Tofu 豆腐类",
+          "sourceDescription": "Savory braised tofu in a rich, flavorful sauce, garnished with green onions.",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 14.2,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378715",
+          "sourceProductId": "22378715",
+          "name": "Claypot Tofu 砂锅豆腐",
+          "category": "Tofu 豆腐类",
+          "sourceDescription": "Traditional Chinese dish made of soft tofu stewed with a variety of other ingredients",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 14.2,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378714",
+          "sourceProductId": "22378714",
+          "name": "Tofu Sauces 豆豉豆腐",
+          "category": "Tofu 豆腐类",
+          "sourceDescription": "Savory tofu dish with fermented black bean sauce, offering rich flavors and a delightful texture.",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 14.2,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378716",
+          "sourceProductId": "22378716",
+          "name": "Hotplate Tofu 铁板豆腐",
+          "category": "Tofu 豆腐类",
+          "sourceDescription": "Sizzling hotplate filled with prawns, minced meat and silken soft tofu",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 14.2,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "hold-generic-animal-description",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "holdReason": "Generic animal/meat/seafood description remains unclear despite vegetarian venue context. Do not infer mock ingredients or actual meat service.",
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-41748938",
+          "sourceProductId": "41748938",
+          "name": "Chye Poh Tofu  菜脯豆腐",
+          "category": "Tofu 豆腐类",
+          "sourceDescription": "Savory tofu dish topped with preserved radish, offering a delightful umami flavor.",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 14.2,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378717",
+          "sourceProductId": "22378717",
+          "name": "White Jade Tofu 白玉豆腐",
+          "category": "Tofu 豆腐类",
+          "sourceDescription": "Silky tofu served with a savory sauce and garnished with fresh herbs and vegetables.",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 14.2,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-38803472",
+          "sourceProductId": "38803472",
+          "name": "Mapo Tofu 麻婆豆腐",
+          "category": "Tofu 豆腐类",
+          "sourceDescription": "Spicy and flavourful dish of tofu made with other ingredients & spices",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 14.2,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-85105275",
+          "sourceProductId": "85105275",
+          "name": "Vegetarian Todu With Minced Meat 肉松豆腐",
+          "category": "Tofu 豆腐类",
+          "sourceDescription": "Tofu with minced meat featuring a savory flavor and tender texture. For reference only.",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 14.2,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "hold-generic-animal-description",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "holdReason": "Generic animal/meat/seafood description remains unclear despite vegetarian venue context. Do not infer mock ingredients or actual meat service.",
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378734",
+          "sourceProductId": "22378734",
+          "name": "Seaweed Soup 紫菜汤",
+          "category": "Soups 汤",
+          "sourceDescription": "The ultimate comfort food to satisfy your cravings",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 9.9,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378724",
+          "sourceProductId": "22378724",
+          "name": "Bitter Gourd Tofu Soup 苦瓜豆腐汤",
+          "category": "Soups 汤",
+          "sourceDescription": "Tender tofu and bitter gourd in a savory, light broth with a hearty texture. For reference only.",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 9.9,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378733",
+          "sourceProductId": "22378733",
+          "name": "Amaranth Soup 苋菜汤",
+          "category": "Soups 汤",
+          "sourceDescription": "Soothing amaranth soup with a clean, savory flavor and hearty texture. For reference only.",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 9.9,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378725",
+          "sourceProductId": "22378725",
+          "name": "Sliced Fish Soup with Salted Vegetables 咸菜鱼片汤",
+          "category": "Soups 汤",
+          "sourceDescription": "With milk",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 11.3,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed. Source names egg or milk; no vegan inference.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378726",
+          "sourceProductId": "22378726",
+          "name": "Thai-style Tom Yum Soup 泰式东炎汤",
+          "category": "Soups 汤",
+          "sourceDescription": "Aromatic soup featuring a spicy and tangy flavor profile with a light broth. For reference only.",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 9.1,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-38803473",
+          "sourceProductId": "38803473",
+          "name": "Dumpling Soup 水饺汤",
+          "category": "Soups 汤",
+          "sourceDescription": "Savory and comforting soup",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 11.3,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "configurationNotice": "Source flags choices; option names, defaults, limits and surcharges unread. No configuration inferred."
+        },
+        {
+          "id": "ur07-red-apple-tampines-85105276",
+          "sourceProductId": "85105276",
+          "name": "Healthy Vegetarian Pork Belly Soup 养生猪肚汤（大）",
+          "category": "Soups 汤",
+          "sourceDescription": "Nourishing soup featuring pork with a rich, savory flavor and tender texture. For reference only.",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 22.7,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "hold-generic-animal-description",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "holdReason": "Generic animal/meat/seafood description remains unclear despite vegetarian venue context. Do not infer mock ingredients or actual meat service."
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378758",
+          "sourceProductId": "22378758",
+          "name": "Beancurd W/ Stuffing  福片满满",
+          "category": "Snacks  小吃",
+          "sourceDescription": "4 pieces  --  (4片）",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 8.5,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "portion": "4 pieces"
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378763",
+          "sourceProductId": "22378763",
+          "name": "Spring Rolls ⾹脆春卷",
+          "category": "Snacks  小吃",
+          "sourceDescription": "Popular Asian appetizer made by wrapping mixtures of flavourful ingredients and deep fried",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 8.5,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          }
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378759",
+          "sourceProductId": "22378759",
+          "name": "Thai-Style Tofu 泰式豆腐",
+          "category": "Snacks  小吃",
+          "sourceDescription": "Crispy tofu stir-fried with vibrant vegetables and aromatic Thai spices, served with a flavorful sauce.",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 9.2,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          }
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378762",
+          "sourceProductId": "22378762",
+          "name": "Salted Chicken 盐酥鸡",
+          "category": "Snacks  小吃",
+          "sourceDescription": "Crispy, seasoned chicken pieces, deep-fried to perfection, served with a flavorful dipping sauce.",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 9.2,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "hold-generic-animal-description",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "holdReason": "Generic animal/meat/seafood description remains unclear despite vegetarian venue context. Do not infer mock ingredients or actual meat service."
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378756",
+          "sourceProductId": "22378756",
+          "name": "Truffle Fries 松露薯条",
+          "category": "Snacks  小吃",
+          "sourceDescription": "Straight cut fries coated in an aromatic and earthy truffle seasoning",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 9.2,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          }
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378760",
+          "sourceProductId": "22378760",
+          "name": "Golden Mushroom Satay 猴头菇沙爹",
+          "category": "Snacks  小吃",
+          "sourceDescription": "Grilled golden mushrooms served with a rich, flavorful peanut sauce and fresh herbs.",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 9.9,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          }
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378761",
+          "sourceProductId": "22378761",
+          "name": "Gyoza 锅贴",
+          "category": "Snacks  小吃",
+          "sourceDescription": "6(pc)  ,Pan-fried dumplings that taste savoury",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 9.9,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "portion": "6 pieces"
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378764",
+          "sourceProductId": "22378764",
+          "name": "Handmade Meatballs Shou  手工丸子",
+          "category": "Snacks  小吃",
+          "sourceDescription": "Savory, tender meatballs served with a flavorful sauce, perfect for any meal.",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 10.9,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "hold-generic-animal-description",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "holdReason": "Generic animal/meat/seafood description remains unclear despite vegetarian venue context. Do not infer mock ingredients or actual meat service."
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378767",
+          "sourceProductId": "22378767",
+          "name": "Boiled Dumplings 水饺",
+          "category": "Snacks  小吃",
+          "sourceDescription": "8(pc)",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 12.8,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "portion": "8 pieces"
+        },
+        {
+          "id": "ur07-red-apple-tampines-85105229",
+          "sourceProductId": "85105229",
+          "name": "Vegegie Roll 海味卷",
+          "category": "Snacks  小吃",
+          "sourceDescription": "Vegetable roll offering a savory flavor and crispy texture. For reference only.",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 14.2,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          }
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378736",
+          "sourceProductId": "22378736",
+          "name": "White Rice ⽩饭",
+          "category": "Rice 饭",
+          "sourceDescription": "Tasty and fluffy grains that pairs perfectly well with your favourite dishes",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 1,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed. Priced rice side, not a complete meal.",
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          }
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378735",
+          "sourceProductId": "22378735",
+          "name": "Sesame Rice ⾹油饭",
+          "category": "Rice 饭",
+          "sourceDescription": "Fragrant rice with a savory flavor and tender texture. For reference only.",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 2,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed. Priced rice side, not a complete meal.",
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          }
+        },
+        {
+          "id": "ur07-red-apple-tampines-22378737",
+          "sourceProductId": "22378737",
+          "name": "Brown Rice 糙⽶饭",
+          "category": "Rice 饭",
+          "sourceDescription": "Hearty brown rice with a savory flavor and tender texture. For reference only.",
+          "sourceIds": [
+            "ur07-red-apple-tampines-source"
+          ],
+          "price": {
+            "amount": 2,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed. Priced rice side, not a complete meal.",
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:29:24.105Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:33:22.906104+00:00",
+            "sourceIds": [
+              "ur07-red-apple-tampines-source"
+            ],
+            "verifiedFields": [
+              "printed name",
+              "source category",
+              "SGD ordering/list price",
+              "product ID"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "excludedSourceProducts": [
+    {
+      "sourceProductId": "85105151",
+      "name": "Canned Drink 罐装水",
+      "reason": "beverage",
+      "sourceIds": [
+        "ur07-red-apple-tampines-source"
+      ]
+    },
+    {
+      "sourceProductId": "85105154",
+      "name": "Herbal Tea 夏古草罗汉果",
+      "reason": "beverage",
+      "sourceIds": [
+        "ur07-red-apple-tampines-source"
+      ]
+    },
+    {
+      "sourceProductId": "85105155",
+      "name": "Red Apple Honey 红苹果蜜露水",
+      "reason": "beverage",
+      "sourceIds": [
+        "ur07-red-apple-tampines-source"
+      ]
+    },
+    {
+      "sourceProductId": "85105157",
+      "name": "Ice Lemon Tea 柠檬茶",
+      "reason": "beverage",
+      "sourceIds": [
+        "ur07-red-apple-tampines-source"
+      ]
+    },
+    {
+      "sourceProductId": "85105161",
+      "name": "Calamansi 金桔水",
+      "reason": "beverage",
+      "sourceIds": [
+        "ur07-red-apple-tampines-source"
+      ]
+    }
+  ],
+  "summary": {
+    "branches": 1,
+    "menus": 1,
+    "foodRows": 111,
+    "approvedFoodRows": 87,
+    "heldFoodRows": 24,
+    "excludedProducts": 5,
+    "foodProductsWithUnreadChoices": 95
+  }
+}

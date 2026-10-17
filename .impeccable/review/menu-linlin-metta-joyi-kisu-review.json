@@ -1,0 +1,88 @@
+{
+  "checkedAt": "2026-10-15T12:51:26.928718+00:00",
+  "status": "approved-bounded-private-research-checkpoint",
+  "findings": [],
+  "scope": [
+    "data/menu-research/menu-linlin-metta-joyi-kisu.json",
+    "data/menu-research/linlin-metta-joyi-kisu/linlin.json",
+    "data/menu-research/linlin-metta-joyi-kisu/joyi.json",
+    "data/menu-research/linlin-metta-joyi-kisu/kisu.json",
+    "../tmp/qa/menu-linlin-metta-joyi-kisu/write_research.py",
+    "../tmp/qa/menu-veganburg-ahimsa-cultivate/recover_packets.py"
+  ],
+  "scopeBasis": "Assigned local untracked research packet confirmed with git diff/status. No PR metadata available; this is not a merge-readiness approval. Metta is outside this155-record snapshot.",
+  "checks": [
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "scope": "Point-in-time canonical project check"
+    },
+    {
+      "command": "eslint . --ext .ts,.tsx,.js,.jsx",
+      "exitCode": 1,
+      "scope": "Global readiness is separate from the bounded research approval",
+      "outOfScopeErrors": [
+        "scripts/avatar-security.cjs:2 no-undef: __dirname",
+        "scripts/avatar-security.cjs:48 expo/no-dynamic-env-var"
+      ]
+    },
+    {
+      "command": "Python ast.parse of write_research.py and recovered Oddle helper",
+      "result": "pass"
+    },
+    {
+      "command": "Read-only recursive source/card/data and reference/numeric comparisons",
+      "result": "pass",
+      "details": "All155 food IDs unique; valid source/menu/branch references and reciprocal exact-branch ownership; all amounts finite/nonnegative, no zero base-food prices; manifest currently contains exactly the three reviewed relative shards."
+    },
+    {
+      "command": "Static import-side-effect check and prior recovered-data SHA256 comparison",
+      "result": "pass",
+      "details": "All VeganBurg/Ahimsa writer calls are under __main__; no top-level call expressions regenerate data. Existing recovered manifest and all approved Elemen/VeganBurg/Ahimsa/Cultivate packet hashes remain unchanged."
+    }
+  ],
+  "checkpoint": {
+    "foodSourceRecords": 155,
+    "sources": 7,
+    "branches": 3,
+    "linlin": {
+      "foodParents": 140,
+      "categoryAudits": 11,
+      "pricedVariants": 294,
+      "recursiveModifierGroups": 222,
+      "recursiveModifierChoices": 293,
+      "unconfirmedVariantGroupFoodParents": 9,
+      "details": "Every exact product/name/category/card starting price, all294 variant IDs/names/prices/statuses/preselections/conditional-price fields, and all recursive product/variant option labels/prices/constraints match saved evidence. No beverage-name/category candidates retained. Source availability weekdays/windows are preserved.",
+      "sets": "Mini Buffet17.80 remains per-pax source evidence with minimum15 and Tue-Sun schedule; missing modal configuration is held and no fifteen-person billing total is invented. Party Set108 stays a whole around-ten-person set; separately paid8.80/pax headcount and conflicting Cereal Prawns label+0.50/pax versus raw amount6 are preserved without reconciliation. Corporate225 is the30-set option, not a single bento;30/35/40/45/50/55 variants retain225/262.5/300/337.5/375/412.5 amounts.",
+      "identity": "Saved merchant Store source confirms412 Bedok North Avenue2 inside SinFoodie Coffeeshop460412; directory Fu Man wording is not substituted. Source coverage remains partial and nine variant-group render gaps remain explicit."
+    },
+    "joyi": {
+      "foodParents": 12,
+      "scoopWafflePriceVariants": 6,
+      "details": "Saved full menu JPEG independently inspected. Gelato5/9,half-waffle8.5/12.5,full-waffle10.5/14.5,pint18.9,six dim sums and two tater-tot foods match. Cone1,premium-flavour1 per scoop,waffle add-scoop4,and conditional Signature Crunch1 choices match. Unassigned finger-food Yuzu Mayo1 remains menu-level because exact eligible dishes are unstated. Beverage sections are excluded; flavour inventory remains unknown.",
+      "currencyAndIdentity": "Saved webpage explicitly states all prices SGD and confirms136 Bedok North Avenue3 #01-148460136."
+    },
+    "kisu": {
+      "wholeMenuPackages": 3,
+      "details": "Saved primary menu matches lunch98++,dinner168++,kids48.80++ and kids age5-10. Printed course labels/counts are retained as menu components; unnamed seasonal main/soup/dessert/sushi types remain unnamed. Whole-menu amounts are not allocated per course. Currency stays unknown and charge percentages are not inferred.",
+      "identity": "Saved merchant contact confirms60 Tras Street #01-01078999."
+    }
+  },
+  "limits": [
+    "Metta collection is in progress separately and is not reviewed or approved by this snapshot.",
+    "Approval covers private source facts and writer/import guard only; all menus retain partial source coverage and no whole-venue/current-stock or publication approval is claimed.",
+    "Counts are source food parents and packages, not unique current dishes. Ingredient/allium suitability and certification are not inferred from merchant labels.",
+    "No network requests, Google calls, browser runs, writer/helper execution, app imports, app/avatar edits, research-data edits, publication or test files were performed. Only this report was written.",
+    "Full-project lint remains failing outside this scope."
+  ],
+  "reviewedDataSha256": {
+    "menu-linlin-metta-joyi-kisu.json": "2e8c27fbd1149c6ab1b93f02ba80006d46ebf89fcb17b194393533ea8f958bee",
+    "linlin-metta-joyi-kisu/linlin.json": "165a712f4f4fbbebf1fc92155ce93023e1e28fb7f5975d559003600da35bd92c",
+    "linlin-metta-joyi-kisu/joyi.json": "71e84532502b30ad024e86562d17242bcd4ff0cc2d8bf24e75f696ee7dc6bfd4",
+    "linlin-metta-joyi-kisu/kisu.json": "3c28ca829f214bb128e2fd51cf170b3c811ca9ddbc9d778c5951af0fe4636c0a"
+  },
+  "reviewedHelperSha256": {
+    "../tmp/qa/menu-linlin-metta-joyi-kisu/write_research.py": "243634c718dd93bb3ddd271565d195af83f4aa7cf52f9a1aa02c94ba4a5a1402",
+    "../tmp/qa/menu-veganburg-ahimsa-cultivate/recover_packets.py": "a22968f8e82614f6185cc10078968075573fd11ee8a145544221ba5db4164d0f"
+  }
+}

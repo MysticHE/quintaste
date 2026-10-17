@@ -1,0 +1,239 @@
+{
+  "checkedAt": "2026-10-17",
+  "deployedRelease": "20261017-operator-covers11",
+  "goalStatus": "active",
+  "fullCoverageComplete": false,
+  "coverage": {
+    "browseVenues": 174,
+    "menuIds": 175,
+    "covers": 68,
+    "hours": 88,
+    "uniqueAssets": 53,
+    "assetBytes": 7277794,
+    "coverGaps": 106,
+    "hoursGaps": 86,
+    "allThreeAvailable": 48,
+    "catalogueIndexBytes": 150973
+  },
+  "newPhotos": [
+    {
+      "venueId": "bodhi-deli-fortune-centre",
+      "address": "190 Middle Road #03-26, Fortune Centre, Singapore 188979",
+      "photo": {
+        "path": "/api/catalogue-photos/43214b17bb09f82011f2416e96ca9c069eb6b2895e851adb4de5f5dabbd9beec.jpg",
+        "width": 960,
+        "height": 960,
+        "author": "Bodhi Deli",
+        "sourceUrl": "https://take.app/bodhideli",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "43214b17bb09f82011f2416e96ca9c069eb6b2895e851adb4de5f5dabbd9beec",
+      "bytes": 121598,
+      "originalSha256": "e4d1a17bfc13396d73d9b934caf22b1d2212b6f187ae531f5d3d8eb33062cee2",
+      "sourcePageCheckedAt": "2026-10-16",
+      "sourceImageUrl": "https://cdn3.take.app/media/clk1aoj9b00020fjw6uo57tho.jpeg?width=1080",
+      "identityEvidence": "Exact previously reviewed Bodhi Deli Take App merchant and ABC Soup product image; Fortune Centre branch publication retains its matched source. Photo does not establish soup ingredients or a full opening schedule.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Use case: faithful photo enhancement. Improve this exact Bodhi Deli vegetarian ABC soup product reference for a gallery cover. Keep the existing white ceramic bowl with burgundy floral/double-happiness border and the exact stacked visible vegetables and plant-based pieces: yellow corn rounds at front-left, potato at front-right, carrot left, tomato right, red date centrally and the two brown/beige pieces at back. Preserve the original stainless-steel surface and close eye-level square composition. Make lighting softer and brighter, colours natural and appetising, ceramic clean and detail crisp. Do not add broth, steam, meat, extra ingredients, props, logos or text. Do not redesign the food or change its serving vessel.",
+        "review": "Original/output visually compared; selected. Original food or venue composition retained; fine details may differ. No ingredient, current-condition or menu-board price claims inferred."
+      }
+    },
+    {
+      "venueId": "research-nalan-littleindia",
+      "address": "82 Serangoon Road, Singapore 217987",
+      "photo": {
+        "path": "/api/catalogue-photos/804e47db745d8b01be185d53559348b1bc2c687900d4a5ed3a15d0c938cc27b0.jpg",
+        "width": 668,
+        "height": 1280,
+        "author": "Nalan",
+        "sourceUrl": "https://www.nalan.com.sg/best-indian-restaurant-little-india",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "804e47db745d8b01be185d53559348b1bc2c687900d4a5ed3a15d0c938cc27b0",
+      "bytes": 215538,
+      "originalSha256": "c90f23af152ebb672d2e6ecb73c258ac9de00bbdc06cffbcd2f4a022eb0021a6",
+      "sourcePageCheckedAt": "2026-10-16",
+      "sourceImageUrl": "https://www.nalan.com.sg/assets/images/catering/rava-dosa-sambar.webp",
+      "identityEvidence": "Operator Little India branch page displays the selected rava-dosa image and identifies82Serangoon Road217987; City Hall branch is separately identified and excluded.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Use case: faithful photo enhancement. Enhance this exact Nalan rava dosa photograph for a gallery cover. Preserve the single lace-textured square dosa on its square white plate, the small round sambar bowl above, the three-compartment chutney dish below-right, and dark chevron wooden tabletop. Same overhead view and portrait arrangement; keep the colours of each visible condiment. Improve sharpness from the small source, natural warm light and realistic crispy dosa texture. No extra dishes, garnish, utensils, text, logos, labels, or changed ingredients. Output a polished portrait restaurant food photograph faithful to this reference.",
+        "review": "Original/output visually compared; selected. Original food or venue composition retained; fine details may differ. No ingredient, current-condition or menu-board price claims inferred."
+      }
+    },
+    {
+      "venueId": "research-annalakshmi-cafe-downtown",
+      "address": "6A Shenton Way #03-26 Downtown Gallery, Singapore 068815",
+      "photo": {
+        "path": "/api/catalogue-photos/73cac299c4b65c83c50c085fa9025cbb0fb4e0ed89249bec77e845605b6b87b3.jpg",
+        "width": 960,
+        "height": 605,
+        "author": "Annalakshmi",
+        "sourceUrl": "https://www.annalakshmi.sg/cafe",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "73cac299c4b65c83c50c085fa9025cbb0fb4e0ed89249bec77e845605b6b87b3",
+      "bytes": 160570,
+      "originalSha256": "898514c04f43a0b9505f1f356a6b5301926801b3c7b80faf5bf3c6f3047d3e52",
+      "sourcePageCheckedAt": "2026-10-16",
+      "sourceImageUrl": "https://images.squarespace-cdn.com/content/v1/60df1d5b30a771582d057985/0f9e8df0-c3ac-4df2-9050-421282ea3931/DSCF2631.JPG",
+      "identityEvidence": "Selected operator hero food image on the cafe page explicitly identifies6AShenton Way#03-26. Shared brand food imagery; the separate downstairs restaurant#01-03 is not substituted.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Use case: faithful photo enhancement. Enhance this exact Annalakshmi operator food photograph for a restaurant gallery cover. Preserve the three banana-leaf-lined stainless thali trays in the same composition on the purple textured table, the central basket of flatbreads, rice, papadums, small bowls, sweets, red and green chillies and existing spices. Retain all visible food placement and the cropped side trays, overhead perspective and landscape aspect ratio. Improve even natural light, realistic crisp detail, controlled highlights and warm appetising colour without over-saturation. Do not add foods, props, flowers, text, labels or logos. Do not change dishes or ingredient identities.",
+        "review": "Original/output visually compared; selected. Original food or venue composition retained; fine details may differ. No ingredient, current-condition or menu-board price claims inferred."
+      }
+    },
+    {
+      "venueId": "research-veganburg-eunos",
+      "address": "44 Jalan Eunos, Singapore 419502",
+      "photo": {
+        "path": "/api/catalogue-photos/583cdc86e5cd26daf4557aac76f8a8f4de87fbb105f60171a436efe405210288.jpg",
+        "width": 960,
+        "height": 640,
+        "author": "VeganBurg",
+        "sourceUrl": "https://www.veganburg.com/location",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "583cdc86e5cd26daf4557aac76f8a8f4de87fbb105f60171a436efe405210288",
+      "bytes": 112008,
+      "originalSha256": "9c6af88a8fe433d16f96637327cc2b610b0f1fe56cbaad19eaad8cd6f6bc8920",
+      "sourcePageCheckedAt": "2026-10-16",
+      "sourceImageUrl": "https://images.squarespace-cdn.com/content/v1/6433c7b0213339153f34770f/bcaa7d91-2d6c-4f49-9e02-4fd466f13827/Interior+1.jpeg",
+      "identityEvidence": "Operator location page first gallery contains Interior1.jpeg immediately before Eunos flagship44JalanEunos419502. Published Eunos refurbishment report corroborates the depicted wood/tile/plant interior; US address and hours not transferred.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Use case: faithful photographic enhancement. Enhance this exact VeganBurg Eunos interior reference, keeping the room architecture, perspective, wooden ceiling/floor, pale tiled partitions, plants, tables, chairs, central ordering counter, lighting and existing signage exactly where they are. Improve exposure balance, warm natural light, realistic material detail and clean photographic clarity. Preserve the landscape framing. Do not add people, windows, furniture, food, decorations or new words. Existing small menu-board text must remain background detail, not reconstructed as new prices or claims. No new logos, labels or illustration treatment; this should look like a careful enhancement of the same photo.",
+        "review": "Original/output visually compared; selected. Original food or venue composition retained; fine details may differ. No ingredient, current-condition or menu-board price claims inferred."
+      }
+    },
+    {
+      "venueId": "research-cultivate-maxwell-reserve",
+      "address": "Maxwell Reserve Singapore, Autograph Collection, 2 Cook Street, Singapore 078857",
+      "photo": {
+        "path": "/api/catalogue-photos/dbb716e730cd087372f3235260cefe2a39f1d2d37426cee3a4b08ea04baffada.jpg",
+        "width": 960,
+        "height": 1127,
+        "author": "Cultivate Cafe",
+        "sourceUrl": "https://cultivatecafe.sg/",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "dbb716e730cd087372f3235260cefe2a39f1d2d37426cee3a4b08ea04baffada",
+      "bytes": 270084,
+      "originalSha256": "cca90d6429a53d36829fbce032277af7a735249d118c86ee674322dae95da397",
+      "sourcePageCheckedAt": "2026-10-16",
+      "sourceImageUrl": "https://cultivatecafe.sg/wp-content/uploads/2023/07/Gluten-free-Pizzetta-872x1024.jpg",
+      "identityEvidence": "Operator homepage identifies Cultivate at Maxwell Reserve and displays the selected pizzetta photo. Exact previously reviewed2CookStreet branch; image is not independent ingredient evidence.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Use case: faithful photo enhancement. Enhance this exact Cultivate Cafe vegan pizzetta photograph for a gallery cover. Preserve the grey-blue ceramic plate, sliced flatbread with its existing tomato topping and generous rocket leaves, the red/yellow tomatoes, the lifted slice and the hand holding it at the top, and the dark wooden tabletop with the small green napkin area. Same close-up portrait view, food quantities, colours and arrangement. Improve soft natural lighting, crisp realistic food texture and controlled highlights. Do not add cheese, meat, ingredients, steam, utensils, props or text; do not redesign the dish. Keep the hand anatomically natural and the lifted slice in the same position.",
+        "review": "Original/output visually compared; selected. Original food or venue composition retained; fine details may differ. No ingredient, current-condition or menu-board price claims inferred."
+      }
+    },
+    {
+      "venueId": "research-ahimsa-neil-road",
+      "address": "76 Neil Road, Singapore 088840",
+      "photo": {
+        "path": "/api/catalogue-photos/9aa869defcb64e0f5007ff2500ef4c0cab9d93bfd3486de3f7f8ba1ae51b4948.jpg",
+        "width": 960,
+        "height": 721,
+        "author": "Ahimsa",
+        "sourceUrl": "https://www.ahimsacommunityysg.com/",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "9aa869defcb64e0f5007ff2500ef4c0cab9d93bfd3486de3f7f8ba1ae51b4948",
+      "bytes": 87627,
+      "originalSha256": "5f3a1392eb6e180f0cf2476dc4a32a7fb38d1af423264ff5518845ea6eaeaf37",
+      "sourcePageCheckedAt": "2026-10-16",
+      "sourceImageUrl": "https://static.wixstatic.com/media/636fda_9a5e381ce9434c9898de7930dd57ad2d~mv2.jpg",
+      "identityEvidence": "Operator homepage identifies76NeilRoad and displays this drinks image. Yoga image was inspected and rejected. Drinks source retained without inferring alcohol or ingredients.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Use case: faithful photographic enhancement. Enhance this exact Ahimsa operator drinks photograph for a restaurant gallery cover. Retain the two stemmed glasses, orange/yellow drink left and red/pink drink right, hands holding them, small splash of liquid between them, red wall and surrounding green palm leaves. Same landscape crop and composition, same hands/skin tones and sleeves, same glass shapes. Improve natural soft lighting, colour balance and clear realistic glass/liquid detail, reducing grain while preserving the candid scene. Do not add fruit, straws, garnish, food, text, logos, new props or different background; no claims about ingredients or alcohol content.",
+        "review": "Original/output visually compared; selected. Original food or venue composition retained; fine details may differ. No ingredient, current-condition or menu-board price claims inferred."
+      }
+    }
+  ],
+  "newHours": [],
+  "googleLedger": {
+    "bytes": 1045377,
+    "sha256": "c7321dafaad0473583139494ca899501578892c5b71105429d3cd4dceb4f311a",
+    "requests": 2419,
+    "limit": 2500,
+    "remaining": 81
+  },
+  "sourceRights": "Source attribution and rights retained. User-requested enhancement does not establish an independent licence.",
+  "unresolved": "2,527 food holds,109zero-food research branches,1,828unnamed candidate IDs,8coordinate holds preserved; exact MakanVegan/SoonLai screenshot images unrecovered.",
+  "releaseEvidence": ".local/coverage-2026-10-17h/release.json",
+  "hoursReview": {
+    "checkedAt": "2026-10-17",
+    "status": "no hours changes; existing confirmed schedules retained",
+    "sources": [
+      {
+        "url": "https://take.app/bodhideli",
+        "finding": "Operator lists alternate-Wednesday closure exceptions, no full regular opening hours; delivery11-14is not opening hours."
+      },
+      {
+        "url": "https://www.burpple.com/bodhi-deli",
+        "finding": "Unclaimed directory10:30-20closedWed conflicts with other sources; not imported."
+      },
+      {
+        "url": "https://restaurantguru.com/Bodhi-Deli-%E8%8F%A9%E6%8F%90%E9%BD%8B-Singapore",
+        "finding": "Aggregator10:30-19daily conflicts with operator alternate-Wednesday closure; not imported."
+      }
+    ],
+    "heldVenueIds": [
+      "bodhi-deli-fortune-centre"
+    ]
+  },
+  "veganburgSourceEvidence": {
+    "checkedAt": "2026-10-17",
+    "operatorSource": "https://www.veganburg.com/location",
+    "savedOperatorHtml": ".local/cover-hours/sources/d1603cfab60fa5844256.html",
+    "imageSection": "64ae4328f0400a689abd74fa",
+    "followingSection": "6458676705462566d7fb536c",
+    "followingSectionIdentity": "EUNOS FLAGSHIP,44JALAN EUNOS,SINGAPORE419502",
+    "sourceImage": "https://images.squarespace-cdn.com/content/v1/6433c7b0213339153f34770f/bcaa7d91-2d6c-4f49-9e02-4fd466f13827/Interior+1.jpeg",
+    "corroboratingArticle": "https://lemon-film.com/veganburgs-revamped-flagship-store-a-hub-for-sustainable-dining-in-eunos/",
+    "articlePublishedAt": "2024-02-28",
+    "corroboratingImage": "https://lemon-film.com/wp-content/uploads/2024/02/Screenshot-2024-02-27-085107.png",
+    "review": "Exterior photograph explicitly identified as Eunos shows the same tiled entrance/partitions, wood ceiling, plants and rear counter/menu boards visible through the doors. Operator gallery reference is selected for enhancement. Secondary image is corroboration only and is not packaged. No claim that old menu-board prices are current."
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "date": "2026-10-15",
+  "scope": "Shared bottom navigation selection and Market glyph; browser/source verification",
+  "typeScriptExitCode": 0,
+  "eslintExitCode": 0,
+  "sourceReview": {
+    "reviewer": "/root/meet_review",
+    "disposition": "approved",
+    "materialFindings": []
+  },
+  "browserReport": "nav-consistency-browser.json",
+  "browserCheckGroups": 5,
+  "captures": 20,
+  "runtimeErrors": 0,
+  "scopedAxeScans": 6,
+  "scopedAxeViolations": 0,
+  "recapture": "Explore selected was recaptured after the transient development loading indicator disappeared naturally. No application UI was hidden or altered. Selection remained after content focus.",
+  "visualReview": "nav-consistency-finish.json",
+  "reviewSubstitution": "Fresh quality-engineer agent followed the Impeccable degraded finish-reviewer contract because the named reviewer role is unavailable.",
+  "documentation": "nav-consistency-documentation.json",
+  "nativeTransport": "nav-consistency-native.json",
+  "nativeAppearanceVerified": false,
+  "productionAcceptance": "Not established by browser or bundle transport checks. Existing service and native acceptance boundaries remain."
+}

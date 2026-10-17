@@ -1,0 +1,153 @@
+{
+  "checkedAt": "2026-10-17T10:16:26.299091+00:00",
+  "proofs": {
+    "recipe-controls": {
+      "at": "2026-10-17T10:11:28.336782+00:00",
+      "files": [
+        "recipe_policy.py",
+        "workflow.py",
+        "publisher.py",
+        "telegram_controls.py",
+        "telegram_reporter.py",
+        "test_recipe_policy.py",
+        "test_night_controls.py",
+        "roles/qt-cooker.md",
+        "roles/qt-manager.md"
+      ],
+      "hashes": {
+        "recipe_policy.py": "c1e3dcea2134994b3de6f4deccf7260bec719ebb96a561fa6471070f63bf48d5",
+        "workflow.py": "5b0c3b826275f3bb78e32986e65a1668797ef890a283b3f41ba0a70ac7679c54",
+        "publisher.py": "b893915ac41aeb7e77b12ccc69a11de6dd0d5711b2d99dba2b0ed8bf3c5e055f",
+        "telegram_controls.py": "3e0792ee71514148ab3635a243585df87927512a2dda06a2645c978f790e7fdb",
+        "telegram_reporter.py": "3ec5c46381177641b78ab74a5d9fca955ed5bb836a6ec58c41951ff7e037eca1",
+        "test_recipe_policy.py": "c228b8ffdbd60c6816d7a86290820727b7311938d0b98ac92f0393370d9ec317",
+        "test_night_controls.py": "5351f59a936b3c7bc033aa0e0e31f1e23b4627ff13aa2079e99a11e4deb89b6b",
+        "roles/qt-cooker.md": "5dda729e9091206a06e6786b78baa6fa4a9eeb61de075df274cb722e26e4643b",
+        "roles/qt-manager.md": "3b15953c3b18a2d43b622c3dc90f358e843313e4cbfb2a18563a1ef6eb7c9309"
+      },
+      "testsPassed": 75,
+      "protectedUnchanged": true,
+      "authority": "Owner explicitly excludes five pungent vegetables and requests immediate screenshot deletion"
+    },
+    "owner-policy-removals": {
+      "at": "2026-10-17T10:11:32.071674+00:00",
+      "authority": "Owner five-pungent correction in Codex; operator invoked the production one-click handler",
+      "beforeRevision": "ee9a550c109af45bf1a04774545da09674639eb00e0264b1d03dac05db16ff2e",
+      "afterRevision": "702f3fc1a6120a63430b05f04eb9f91b23d0791b58da6e02c654d6b5e356905f",
+      "removed": [
+        {
+          "id": "garlic-chive-eggs",
+          "name": "Garlic chive scrambled eggs",
+          "actionId": "owner-delete-98e214cf0d6da0d59d7fc09b"
+        },
+        {
+          "id": "tomato-egg-stir-fry",
+          "name": "Tomato and egg stir-fry",
+          "actionId": "owner-delete-d1e1ed23b1a7ab8329ed1972"
+        }
+      ],
+      "retrofitted": [
+        {
+          "messageId": 7,
+          "kind": "event",
+          "id": "little-green-kitchen-authentic-indian-cuisine-masterclass-2026-10-29-1000-sgt",
+          "buttonReturned": true
+        }
+      ]
+    },
+    "date-fix": {
+      "at": "2026-10-17T10:11:37.668088+00:00",
+      "hashes": {
+        "publisher.py": "4c6cb35bd4da5789747f6b461f07703964a13ae10f9ff78863026cb18c27101e",
+        "test_publisher.py": "2b5081475163362eecf6c2533b5863ff9a44682ceb8fa4496ed5b16b67976ea9",
+        "test_telegram_reporter.py": "c6a0247aacdf1c47e69cb9d74fa6df6ee842232f1d7bba2dc6c6f178b34fdc44"
+      },
+      "testsPassed": 77,
+      "archivedRejectedPayload": "/opt/data/qt-team/operator-tests/e2e-20261017T093920Z/date-fix-backup/rejected-pending-publication.json",
+      "priorPublisherFailures": 2,
+      "change": "Convert timezone-aware review timestamps to Singapore date fields before exact-payload review; retain original evidence; new review required"
+    },
+    "screenshot-controls": {
+      "at": "2026-10-17T10:13:16.779308+00:00",
+      "photos": [
+        {
+          "kind": "event",
+          "id": "little-green-kitchen-authentic-indian-cuisine-masterclass-2026-10-29-1000-sgt",
+          "path": "/opt/data/qt-team/state/telegram/media/702f3fc1a6120a63430b05f04eb9f91b23d0791b58da6e02c654d6b5e356905f/event-little-green-kitchen-authentic-indian-cuisine-masterclass-2026-10-29-1000-sgt.jpg"
+        },
+        {
+          "kind": "event",
+          "id": "geylang-serai-cc-vegetarian-cooking-workshop-c027244070-2026-12-04-1400-sgt",
+          "path": "/opt/data/qt-team/state/telegram/media/702f3fc1a6120a63430b05f04eb9f91b23d0791b58da6e02c654d6b5e356905f/event-geylang-serai-cc-vegetarian-cooking-workshop-c027244070-2026-12-04-1400-sgt.jpg"
+        },
+        {
+          "kind": "recipe",
+          "id": "sweet-potato-ginger-pandan-soup",
+          "path": "/opt/data/qt-team/state/telegram/media/702f3fc1a6120a63430b05f04eb9f91b23d0791b58da6e02c654d6b5e356905f/recipe-sweet-potato-ginger-pandan-soup.jpg"
+        }
+      ],
+      "telegramEcho": [
+        {
+          "messageId": 27,
+          "buttons": [
+            "Open event",
+            "Delete event now"
+          ]
+        },
+        {
+          "messageId": 28,
+          "buttons": [
+            "Open event",
+            "Delete event now"
+          ]
+        },
+        {
+          "messageId": 29,
+          "buttons": [
+            "Open recipe",
+            "Delete recipe now"
+          ]
+        }
+      ]
+    }
+  },
+  "testStatus": {
+    "progress": {
+      "status": "running",
+      "rounds": [
+        {
+          "endedAt": "2026-10-17T09:45:20.910006+00:00",
+          "exitCode": 0,
+          "timedOut": false,
+          "runId": "20261017T093921Z"
+        },
+        {
+          "endedAt": "2026-10-17T09:49:21.919376+00:00",
+          "exitCode": 0,
+          "timedOut": false,
+          "runId": "20261017T094550Z"
+        },
+        {
+          "endedAt": "2026-10-17T09:56:02.763365+00:00",
+          "exitCode": 0,
+          "timedOut": false,
+          "runId": "20261017T094951Z"
+        },
+        {
+          "endedAt": "2026-10-17T10:02:02.028683+00:00",
+          "exitCode": 1,
+          "timedOut": false,
+          "runId": "20261017T095632Z"
+        },
+        {
+          "endedAt": "2026-10-17T10:11:25.440654+00:00",
+          "exitCode": 1,
+          "timedOut": false,
+          "runId": "20261017T100232Z"
+        }
+      ]
+    },
+    "result": null,
+    "postflight": null
+  }
+}

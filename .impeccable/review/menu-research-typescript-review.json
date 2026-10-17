@@ -1,0 +1,131 @@
+{
+  "version": 1,
+  "reviewDate": "2026-10-15",
+  "reviewer": "/root/consumer_menu_typescript_review",
+  "status": "approved-bounded-source",
+  "scope": [
+    "scripts/menu-research-types.ts",
+    "scripts/menu-research-files.ts",
+    "scripts/match-menu-locations.ts",
+    "scripts/build-menu-coverage.ts",
+    "scripts/build-menu-research-index.ts",
+    "src/components/ui.tsx: Field web outline and focus callback behavior"
+  ],
+  "scopeBasis": "Assigned new/untracked tooling and current staged/working ui.tsx diff; local review, with no PR merge-readiness metadata applicable.",
+  "dependenciesInspected": [
+    "scripts/places-client.ts: ID_FIELDS, searchIds response validation and request boundary",
+    "Existing Field/Card styles and callback forwarding",
+    ".impeccable/review/menu-research-tooling-review.json: prior independent general-review context"
+  ],
+  "findings": [],
+  "reviewedProperties": [
+    "Used lead fields and ID-only receipts are validated before typed consumption, including exact field mask, valid IDs, unique receipts and current-directory intersections.",
+    "Coverage uses current lead name/address query receipts; direct or searched IDs remain identity-candidate with candidate names/addresses, not confirmed branch facts.",
+    "The matcher enforces a 1–1000 request bound, requests only places.id,nextPageToken, persists each completed receipt atomically and releases its heartbeat-backed lease in finally.",
+    "Research paths are bounded by validated filenames; JSON read/write failures stop processing; undefined output values are rejected before replacement.",
+    "Coverage output remains explicitly incomplete and distinguishes pending identity from menu unavailability. CSV output quotes cells and prefixes supported dangerous formula starts.",
+    "Web-only inner outline removal is paired with a rounded outer accent outline whenever focused, independently of the error border. Existing focus/blur callbacks still run; native styling is unchanged."
+  ],
+  "checks": {
+    "typecheck": {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "scope": "Full project, point-in-time result during this review"
+    },
+    "targetedEslint": {
+      "command": "eslint scripts/menu-research-types.ts scripts/menu-research-files.ts scripts/match-menu-locations.ts scripts/build-menu-coverage.ts src/components/ui.tsx",
+      "exitCode": 0,
+      "diagnostics": []
+    },
+    "fullEslint": {
+      "command": "eslint . --ext .ts,.tsx,.js,.jsx",
+      "exitCode": 1,
+      "concurrentOutOfScopeErrors": [
+        "scripts/avatar-security.cjs:2:27 no-undef: __dirname is not defined",
+        "scripts/avatar-security.cjs:47:10 expo/no-dynamic-env-var: dynamic process.env access"
+      ]
+    }
+  },
+  "globalReadiness": "Pending the parent's final global gate after concurrent avatar edits settle; bounded source approval is not a claim that full-project lint is green.",
+  "sideEffects": {
+    "networkCalls": 0,
+    "dataOrReceiptWrites": 0,
+    "quotaChanges": false,
+    "applicationCodeEdits": false,
+    "testFilesCreated": false,
+    "pushes": 0,
+    "writtenArtifacts": [
+      ".impeccable/review/menu-research-typescript-review.json",
+      ".impeccable/review/menu-expansion-typescript-review.json"
+    ]
+  },
+  "followUpReviews": [
+    {
+      "reviewDate": "2026-10-15",
+      "status": "approved-bounded-source",
+      "scope": [
+        "scripts/build-menu-research-index.ts",
+        "scripts/menu-research-files.ts: bounded Windows rename retry",
+        "src/components/ui.tsx: explicit web outlineStyle and rounded outer focus outline"
+      ],
+      "findings": [],
+      "reviewedProperties": [
+        "Packet parsing narrows unknown records and strings; source, branch, menu and item IDs are unique within their applicable packet collections, and duplicate branch/menu references are rejected.",
+        "Every selected branch menu must resolve locally or in the pilot and declare that branch as an owner. Referenced menu/item sources and selected branch sources resolve before output generation.",
+        "Relative JSON shard paths are checked against the research root, and a shared visited set prevents repeated file processing and cycles.",
+        "Index totals explicitly count potentially overlapping branch records, menu sources and source food rows, retain complete:false, and do not publish app records or call Google.",
+        "CSV cells quote embedded quotes and prefix LF/CR/tab, whitespace/BOM-prefixed formula starts, and supported fullwidth formula prefixes.",
+        "Atomic rename retries only EPERM/EACCES/EBUSY for at most eight attempts, with awaited capped delays, immediate propagation of other errors and temporary-file cleanup in finally.",
+        "Explicit solid outlineStyle is web-only. The inner outline remains zero width while the rounded outer accent focus perimeter remains independent of error-border state and forwards existing focus/blur callbacks."
+      ],
+      "checks": {
+        "typecheck": {
+          "command": "npm run typecheck",
+          "exitCode": 0,
+          "scope": "Fresh full-project point-in-time check after the final index reference and CSV changes"
+        },
+        "scopedEslint": {
+          "command": "eslint scripts/build-menu-research-index.ts scripts/menu-research-files.ts src/components/ui.tsx",
+          "exitCode": 0,
+          "diagnostics": []
+        }
+      },
+      "sideEffects": {
+        "networkCalls": 0,
+        "collectionOrIndexScriptsRun": 0,
+        "dataOrQuotaChanges": false,
+        "applicationOrToolingCodeEdits": false,
+        "testFilesCreated": false,
+        "artifactUpdated": ".impeccable/review/menu-research-typescript-review.json"
+      },
+      "limits": [
+        "This source review does not independently verify the truth or completeness of individual research packets or merchant facts.",
+        "Real collection batches, Windows file-lock contention, browser appearance and native-device behavior were not exercised by this reviewer.",
+        "Earlier full-lint evidence is retained above as historical evidence; the parent owns the final global readiness gate."
+      ]
+    },
+    {
+      "reviewDate": "2026-10-15",
+      "reviewKey": "publication-date-projection",
+      "status": "approved-bounded-source",
+      "scope": "scripts/build-menu-research-index.ts: publication/date fields and item-status/source-unavailable aggregation",
+      "findings": [],
+      "reviewedProperties": [
+        "Optional publicationStatus, validOn and sourceDateNotice text survives packet parsing; item publicationStatus and boolean sourceUnavailable fields survive item projection.",
+        "Publication details retain each menu ID, sort item-status counts, report source-unavailable row counts with the menu-row denominator, and omit the summary when no publication/date/status metadata exists.",
+        "Coverage remains a source-completeness axis. Publication/date details appear separately in menuPublication and gaps, including the CSV column, without asserting current availability or publication approval.",
+        "Existing selected-menu ownership and source-reference checks remain in place; pilot fallback retains the same publication/date metadata through its shared packet parser."
+      ],
+      "checks": {
+        "typecheck": { "command": "npm run typecheck", "exitCode": 0 },
+        "scopedEslint": { "command": "eslint scripts/build-menu-research-index.ts", "exitCode": 0, "diagnostics": [] }
+      },
+      "limits": "Source/type review only. The index script, data/scratch validation, network calls and Google calls were not run; app and research data were not edited. Prior checks and global-readiness limits are preserved."
+    }
+  ],
+  "limits": [
+    "Review covers source correctness and the recorded compiler/lint checks; active collection batches were not run, interrupted or modified.",
+    "Individual lead facts, current provider pricing, browser focus appearance and physical native behavior were not independently verified by this review.",
+    "Candidate matches do not certify exact outlet identity, ingredients or menu availability."
+  ]
+}

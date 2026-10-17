@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "reviewedAt": "2026-10-16",
+  "boundary": "Exact independent venue-name and full-premise review for discovery display only. Existing menu IDs and source-specific observations remain accessible; no Google identity binding or food transfer.",
+  "entries": [
+    {
+      "aliasId": "research-150-green-bukit-batok",
+      "canonicalId": "research-ur08-150-green",
+      "name": "150 Green Vegetarian",
+      "address": "150 Bukit Batok Street 11 #01-224, Singapore 650150",
+      "reason": "Both approved publications identify the same named venue and exact unit. The earlier four-food channel snapshot remains accessible by its existing ID; the newer 23-food reviewed snapshot is the discovery entry. Dated channel differences and all food holds remain in their original packets.",
+      "sourceUrls": [
+        "https://www.foodpanda.sg/restaurant/l2ov/150-green-vegetarian-bukit-batok-street-11"
+      ]
+    }
+  ]
+}

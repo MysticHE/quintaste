@@ -1,0 +1,73 @@
+{
+  "reviewDate": "2026-10-15",
+  "reviewer": "consumer_menu_typescript_review",
+  "status": "approved-scoped-source-data",
+  "findings": [],
+  "scope": "Read-only TypeScript correctness, boundary validation, source/data projection and menu correction workflow review. No code files edited.",
+  "scopeEstablishedFrom": "Assigned new/untracked menu files and current staged/working ui.tsx changes. Local review; no pull request merge-readiness metadata applies.",
+  "reviewedAreas": [
+    "MenuChange and menuVenueId types, bounded parsing, SGD price validation and persisted branch context",
+    "Client draft/receipt schema and server correction validation, including strict kind/action values",
+    "Correction fields, summaries, topic switches, route inputs, previews, case lists and reviewer presentation",
+    "Menu source/category/search state, item rendering, menu entry/icon/search matches and 48-unit input controls",
+    "Pilot category/qualifier/coverage/notice types and validators, sanitized public projection and cache size cap",
+    "Three research fragments, coverage metadata, canonical import --check and compact catalogue formatter",
+    "Field focus/blur callback forwarding",
+    "Cooking.tsx percentage-width template-literal assertion",
+    "Avatar configuration callback string annotations and type-only optional LocalStore.avatarLedger declaration"
+  ],
+  "resolvedFindings": [
+    {
+      "id": "TS-MENU-01",
+      "file": "src/components/discovery/MenuCorrectionSummary.tsx",
+      "line": 9,
+      "problem": "Incomplete saved draft prices were coerced into S$NaN or apparently valid amounts.",
+      "resolution": "The shared isMenuPrice guard now controls semantic validation and summary formatting; nonempty invalid draft prices display Price incomplete."
+    }
+  ],
+  "remainingScopedFindings": [],
+  "sourceReviewConclusion": "No remaining material correctness, type safety or security findings in the reviewed menu scope. Selected-category fallback, strict kind validation, explicit radio checked state and compatibility declarations were inspected after correction.",
+  "dataValidation": {
+    "productionMenuGetStatus": 200,
+    "rawVenues": 12,
+    "publicVenues": 11,
+    "publicSourceSections": 15,
+    "dishRows": 732,
+    "sourceRecords": 124,
+    "heldCandidates": 4,
+    "publishedHeldCandidates": 0,
+    "canonicalFactMismatches": 0,
+    "privateFieldLeaks": 0,
+    "unknownCurrencyRows": 271,
+    "unknownPriceRows": 44,
+    "startingPriceRows": 85,
+    "zeroPriceRows": 0,
+    "beverageCategoryRows": 0,
+    "invalidCurrencyOrStartingPriceFormats": 0,
+    "publicPayloadCharacters": 156621,
+    "publicPayloadUtf8Bytes": 158684,
+    "cacheCharacterCap": 750000,
+    "researchImportCheck": "Passed --check for menu-expansion-chinatown, menu-expansion-woodlands and menu-expansion-bugis without writes.",
+    "interpretation": "Counts represent source-scoped rows, variants and separate channels; they do not establish unique current dishes, ingredient certification or present availability."
+  },
+  "checks": {
+    "earlierTypecheck": "Passed npm run typecheck after the menu merge.",
+    "earlierEslint": "Exit 0; one Cooking.tsx unicode-bom warning was reported to the parent.",
+    "previousTypecheckBlocker": {
+      "command": "npm run typecheck",
+      "exitCode": 1,
+      "blocker": "Concurrent src/screens/Avatar.tsx additions reference an avatar property absent from FoodDocument and Partial<FoodDocument>.",
+      "diagnosticLines": [16, 21, 22, 27, 28, 31, 47],
+      "diagnosticCount": 8
+    },
+    "previousFinalEslint": "Not run after the previous TypeScript failure, in accordance with the review gate.",
+    "latestPointInTimeTypecheck": "Passed npm run typecheck during the subsequent menu-research tooling review; this is not the parent's final global gate.",
+    "latestFullEslint": "Exit 1 on concurrent out-of-scope scripts/avatar-security.cjs:2 no-undef and :47 expo/no-dynamic-env-var.",
+    "globalFinalGate": "Pending the parent's final run after concurrent work settles. Scoped source/data approval and global readiness are separate."
+  },
+  "limits": [
+    "Scoped source/data review is approved with no remaining findings; global readiness awaits the parent's final typecheck and ESLint after concurrent edits settle.",
+    "This is bounded source/data review, not independent browser, physical-device or deployment acceptance.",
+    "The 732 source facts were checked for schema/projection preservation and caveats; every external merchant listing was not independently re-researched."
+  ]
+}

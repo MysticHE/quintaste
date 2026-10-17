@@ -1,0 +1,279 @@
+{
+  "checkedAt": "2026-10-15T05:55:35.866Z",
+  "status": "verified-local-research-and-web-review",
+  "catalogue": {
+    "checkedAt": "2026-10-15T05:42:40.280Z",
+    "counts": {
+      "sources": 56,
+      "venues": 12,
+      "menus": 11,
+      "dishes": 48,
+      "candidates": 4
+    },
+    "sourceChecked": 6,
+    "needsInformation": 6,
+    "priceMissing": 8,
+    "printedCurrencyUnknown": 8,
+    "confirmedDishes": 0,
+    "publicationApproved": false,
+    "clusters": [
+      {
+        "id": "outram-chinatown",
+        "venues": 4,
+        "dishes": 16
+      },
+      {
+        "id": "rochor-bugis",
+        "venues": 4,
+        "dishes": 16
+      },
+      {
+        "id": "woodlands",
+        "venues": 4,
+        "dishes": 16
+      }
+    ]
+  },
+  "sourceReviews": {
+    "general": "approved UI/request integration and final focus/accessibility changes",
+    "typescript": "approved validation/backend/data and expanded dataset"
+  },
+  "typescript": {
+    "command": "npx tsc --noEmit",
+    "exitCode": 0
+  },
+  "lint": {
+    "command": "Expo lint via hidden Node child process",
+    "exitCode": 0,
+    "warnings": 0
+  },
+  "api": {
+    "groups": 8,
+    "invalidVariants": 21,
+    "outbound": 0
+  },
+  "browser": {
+    "groups": 6,
+    "captures": 11,
+    "scopedAxeSurfaces": 5,
+    "pageErrors": 0,
+    "paidGoogleRequests": 0,
+    "installedChromeUsed": false,
+    "browser": "156.0.8078.4",
+    "scope": "Expanded12-branch/48-item catalogue and corrected focus recaptures. Playwright-managed isolated headless Chromium. Actual local API handlers/store through a browser route adapter in a separate fixture. Separate read-only Expo HTTP check."
+  },
+  "size": {
+    "modules": 22,
+    "maxLines": 106,
+    "maxFunctionLines": 71
+  },
+  "native": {
+    "manifestStatus": 200,
+    "bundleStatus": 200,
+    "bytes": 9265950,
+    "reviewScreenIncluded": true,
+    "privateGoogleKey": false,
+    "privateReviewerKey": false,
+    "serverStoreBundled": false,
+    "researchDataBundled": false,
+    "nativeDeviceAppearanceVerified": false
+  },
+  "privateServiceFilesIgnored": true,
+  "visual": {
+    "reviewer": "fresh substituted reviewer; named skill role unavailable",
+    "scope": "F01/F02 scoring-only local web",
+    "disposition": "ship",
+    "remaining": []
+  },
+  "documentation": {
+    "scope": "documentation only; no app tests, browser sessions, screenshots or source edits by documenter",
+    "checkedAt": "2026-10-15T05:53:10.121Z",
+    "files": [
+      "docs/PILOT_CATALOGUE.md",
+      "README.md",
+      "PRODUCT.md",
+      "AGENTS.md",
+      "docs/EXPLORE_PHASE1.md",
+      "docs/PRD_COVERAGE.md",
+      ".impeccable/surfaces/discovery.md"
+    ],
+    "authoritativeData": "data/pilot/catalogue.json",
+    "counts": {
+      "branches": 12,
+      "menus": 11,
+      "dishes": 48,
+      "sources": 56,
+      "heldCandidates": 4
+    },
+    "documentIndexes": {
+      "branchAnchors": 12,
+      "sourceAnchors": 56,
+      "selectedDishRows": 48
+    },
+    "currentLocalLinksChecked": 221,
+    "missing": [],
+    "staleCurrentClaims": [],
+    "claims": [
+      {
+        "file": "docs/PILOT_CATALOGUE.md",
+        "scoringOnly": true,
+        "noProductionAcceptance": true,
+        "consumerUnchanged": true
+      },
+      {
+        "file": "README.md",
+        "scoringOnly": true,
+        "noProductionAcceptance": true,
+        "consumerUnchanged": true
+      },
+      {
+        "file": "PRODUCT.md",
+        "scoringOnly": true,
+        "noProductionAcceptance": true,
+        "consumerUnchanged": true
+      },
+      {
+        "file": "AGENTS.md",
+        "scoringOnly": true,
+        "noProductionAcceptance": true,
+        "consumerUnchanged": true
+      },
+      {
+        "file": "docs/EXPLORE_PHASE1.md",
+        "scoringOnly": true,
+        "noProductionAcceptance": true,
+        "consumerUnchanged": true
+      },
+      {
+        "file": "docs/PRD_COVERAGE.md",
+        "scoringOnly": true,
+        "noProductionAcceptance": true,
+        "consumerUnchanged": true
+      },
+      {
+        "file": ".impeccable/surfaces/discovery.md",
+        "scoringOnly": true,
+        "noProductionAcceptance": true,
+        "consumerUnchanged": true
+      }
+    ],
+    "proofJsonsParsed": 8,
+    "aggregateGatesLinked": false,
+    "finish": {
+      "file": ".impeccable/review/pilot-catalogue-finish-verdict.json",
+      "F01": "resolved",
+      "F02": "resolved",
+      "recapturesInspected": 11,
+      "fixIntroducedRegressions": 0,
+      "remainingWithinScoredScope": 0,
+      "disposition": "ship",
+      "scope": "scoring-only local web",
+      "fullSurfaceApproved": false,
+      "nativeAppearanceVerified": false,
+      "productionApproved": false
+    },
+    "status": "passed"
+  },
+  "publication": {
+    "approved": false,
+    "releaseCheckExpectedBlocked": true,
+    "observedNpxExitCode": 1
+  },
+  "nativeDeviceAppearanceVerified": false,
+  "limits": [
+    "Selected menu research samples, not complete menus or island-wide coverage.",
+    "All dish suitability and full ingredients unconfirmed; six branch records need information and four candidates remain held.",
+    "No public Explore/offline owned catalogue, production identity/roles or merchant consent acceptance."
+  ],
+  "sourceDigests": [
+    {
+      "path": "src/types/pilot-catalogue.ts",
+      "sha256": "afff40a9d75a2ee314ed86af805fc4691763bfa356eaf318218b4f4b657b9faf"
+    },
+    {
+      "path": "src/config/pilot-catalogue.ts",
+      "sha256": "b0021ebdba5812ca88538504dfc5a3bd352a96e6278a3fc5dedb03f2f5e251ba"
+    },
+    {
+      "path": "src/utils/pilot-evidence.ts",
+      "sha256": "6685acb1d107722fed090a2b0fc5ed31c1449e1b7d87596c8dba7050b98add7f"
+    },
+    {
+      "path": "src/utils/pilot-validation.ts",
+      "sha256": "8ef70564f1007bae5b4ed7562aaa76af95a44022976f821c5fddeda5dfad1b94"
+    },
+    {
+      "path": "src/utils/pilot-records.ts",
+      "sha256": "c8ae5611a603d27901f55a17a3577661a39a9c01872e9664a1b658e1cda8f97e"
+    },
+    {
+      "path": "src/utils/pilot-schema.ts",
+      "sha256": "0ebcd421d0a7e2e2b3a78732a1e400577ff24c88fb93dbb58955c5eba67392f4"
+    },
+    {
+      "path": "src/utils/pilot-response.ts",
+      "sha256": "60673ab38e2273b4b8fa6f35f0824ba10744b3e79127aab4a5f4f5a65be7b399"
+    },
+    {
+      "path": "src/server/pilot-catalogue.ts",
+      "sha256": "4386e4c56c18af12b3cdedd0d12a3d6be00eee20862101dc791162eeb37d448c"
+    },
+    {
+      "path": "src/server/local-explore/pilot-catalogue.ts",
+      "sha256": "dacfac7dd1e687115e2629fd3d6b5308dd3b43e6173713c9ec5fed93f0576c68"
+    },
+    {
+      "path": "src/app/api/local-explore/catalogue+api.ts",
+      "sha256": "9a14aa608bcbe69aefb5453f97155eb8ca0b5341ec10b5ad5c44d26ec792aa64"
+    },
+    {
+      "path": "src/types/local-review.ts",
+      "sha256": "ba0be111af80d9cca0232700b5117c16f8362ff9c282c50d87d3b211450f5e53"
+    },
+    {
+      "path": "src/hooks/usePilotCatalogue.ts",
+      "sha256": "1db78afb015d7fdb27dc2d16a9ffbb1faa38cf95172243eada7857fcd661520f"
+    },
+    {
+      "path": "src/components/discovery/PilotSourceLinks.tsx",
+      "sha256": "eada93308ee02803a7bbf9a2f73033c3d9fb8cc1d3808bd2099e51285ed48782"
+    },
+    {
+      "path": "src/components/discovery/PilotMenuFacts.tsx",
+      "sha256": "4965fb7304b99818e5262f396ae248bae46d55145713e4ed8a67f2fa4a98dc80"
+    },
+    {
+      "path": "src/components/discovery/PilotReviewForm.tsx",
+      "sha256": "9925d3f4e5751c4b879fc24d8ed41310a2a3e2c214cc5873296a845c7f4701ab"
+    },
+    {
+      "path": "src/components/discovery/PilotVenueEntry.tsx",
+      "sha256": "6bcf31f7b3d819d528ed27cb06d12b49f286ff3ac4f40d40516536e93c0499d4"
+    },
+    {
+      "path": "src/components/discovery/PilotCataloguePanel.tsx",
+      "sha256": "e6a30f1eff49c5f74acb29853378b7526e130f69912cae92e6ec9232bee7eac6"
+    },
+    {
+      "path": "src/hooks/useLocalReviewQueue.ts",
+      "sha256": "32a2f74f57bef9c11f775af373cc170491bb15e405d6289c990db38d7cda882c"
+    },
+    {
+      "path": "src/screens/food/LocalReview.tsx",
+      "sha256": "a133e8811c09cda5d13e6867f1c829e9ffb74b12ab7a5d8356fda4a1307fa863"
+    },
+    {
+      "path": "src/server/local-explore/store.ts",
+      "sha256": "3131b134e7b9696a30c53b59fb00887d5311cea8d204a4839225fcd69fc1a0d2"
+    },
+    {
+      "path": "scripts/pilot-catalogue.ts",
+      "sha256": "da385bcdd1f031cd276a9f85840314c57da0685608918d0382bf38ea14e5e1ac"
+    },
+    {
+      "path": "src/components/food/Controls.tsx",
+      "sha256": "cf3db1e037b4de0c683ccfefeba78d59d64df014b8671e60c382fab577c37dc9"
+    }
+  ],
+  "catalogueDigest": "8ad01ec649f548dc10ba3a724212270e8068754d541e0cdbbd7330a859d6b345"
+}

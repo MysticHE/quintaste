@@ -1,0 +1,26 @@
+{
+  "savedAt": "2026-10-16T01:32:14.562Z",
+  "state": "paused-by-user",
+  "researchAndExtractionStopped": true,
+  "appSnapshot": {
+    "locations": 141,
+    "sourceMenus": 186,
+    "foodOccurrences": 10732
+  },
+  "indexedSourceFoodObservations": 15620,
+  "unreviewedDraftFoodObservations": 23,
+  "googleRequests": {
+    "used": 2419,
+    "cap": 2500,
+    "remaining": 81
+  },
+  "resumeHandoff": ".codex/menu-sync-handoff-2026-10-16.md",
+  "resumePrompt": ".codex/menu-extraction-resume-prompt.md",
+  "unfinished": [
+    "identity-completion-batch-07",
+    "menu-completion-unresearched-03",
+    "partial browser QA and screenshot review"
+  ],
+  "preview": "Expo CI onlocalhost8083; no extraction workers",
+  "productionDeployed": false
+}

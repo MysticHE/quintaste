@@ -1,0 +1,362 @@
+{
+  "startedAt": "2026-10-16T01:26:59.823Z",
+  "url": "http://localhost:8083",
+  "scope": "Browser-only verification of the explicit141-location data snapshot in local CI Expo. Actual menu API; all other API calls and external provider domains blocked. Managed headless Chromium, no installed browser/profile. Native devices and production performance not measured.",
+  "checks": [
+    {
+      "name": "Delcies63foods preserve13advance-order notices and exclude unavailable/copy rows",
+      "status": "passed",
+      "menuId": "research-delcies-whampoa-west",
+      "rows": 63,
+      "advanceOrderRows": 13,
+      "target": "Low Carbs Choc Hazelnut Cake (Keto friendly, Eggless, Dairy-free, Diabetic friendly, Gluten-free)",
+      "heldIdsExcluded": 40,
+      "pagination": [
+        40,
+        23
+      ],
+      "sourceLinkVerified": true,
+      "width": 320,
+      "documentWidth": 320
+    },
+    {
+      "name": "SlowBakes23preorder foods show Half/Whole options and three-day notice",
+      "status": "passed",
+      "menuId": "research-slow-bakes-yishun-hyc",
+      "rows": 23,
+      "halfWholePairs": 12,
+      "options": [
+        "price Variants: label: Half · amount: 6 · currency: unknown",
+        "price Variants: label: Whole · amount: 12 · currency: unknown",
+        "Source Price Text: $6.00"
+      ],
+      "advanceNoticeVisible": true,
+      "sourceLinkVerified": true,
+      "width": 375,
+      "documentWidth": 375
+    },
+    {
+      "name": "VegetarianExpress129Oddle foods keep option groups and held Foodpanda source omitted",
+      "status": "pending-review",
+      "menuId": "research-ur02-vegetarian-express-hougang",
+      "rows": 129,
+      "sourceOnly": "Oddle",
+      "heldSourceRowsExcluded": 120,
+      "laterPageSearch": "Combo Platter  拼盘小吃",
+      "optionsTarget": "Fried Beanspout with Salted Fish 咸鱼爆炒豆芽菜",
+      "optionLimitsPreserved": true,
+      "sourceLinkVerified": true,
+      "width": 320,
+      "documentWidth": 320,
+      "recheckedAt": "2026-10-16T01:28:16.050Z",
+      "automatedResult": "passed",
+      "pendingReason": "The interrupted background command wrote this result before process shutdown verification. Review the recorded evidence next session; it is not counted as a completed QA check in this checkpoint."
+    },
+    {
+      "name": "Harmony38available foods retain actual modifier choices and exclude90unavailable",
+      "status": "passed",
+      "menuId": "research-ur01-harmony-serangoon",
+      "foodRows": 38,
+      "heldUnavailable": 90,
+      "choicesRemainInDetails": true,
+      "target": "Mala Fried Rice 麻辣炒饭",
+      "sourceLinkVerified": true,
+      "width": 375,
+      "documentWidth": 375
+    },
+    {
+      "name": "Held conflicting source rows stay absent: research-ur02-vegetarian-food-stall-01-74",
+      "status": "pending-review",
+      "menuId": "research-ur02-vegetarian-food-stall-01-74",
+      "eligibleRows": 18,
+      "heldRows": 6,
+      "heldSearch": "Breakfast Set (春卷，豆���，面线虾）",
+      "heldSearchMatches": 0,
+      "noInventedModifierChoices": true,
+      "sourceLinkVerified": true,
+      "width": 375,
+      "documentWidth": 375,
+      "recheckedAt": "2026-10-16T01:28:19.433Z",
+      "automatedResult": "passed",
+      "pendingReason": "The interrupted background command wrote this result before process shutdown verification. Review the recorded evidence next session; it is not counted as a completed QA check in this checkpoint."
+    },
+    {
+      "name": "Held conflicting source rows stay absent: research-ur02-amk-green-harmony-vegetarian",
+      "status": "pending-review",
+      "menuId": "research-ur02-amk-green-harmony-vegetarian",
+      "eligibleRows": 30,
+      "heldRows": 15,
+      "heldSearch": "Assam Fish 亚三鱼",
+      "heldSearchMatches": 0,
+      "noInventedModifierChoices": true,
+      "sourceLinkVerified": true,
+      "width": 320,
+      "documentWidth": 320,
+      "recheckedAt": "2026-10-16T01:28:22.716Z",
+      "automatedResult": "passed",
+      "pendingReason": "The interrupted background command wrote this result before process shutdown verification. Review the recorded evidence next session; it is not counted as a completed QA check in this checkpoint."
+    },
+    {
+      "name": "Any1Choco3unpriced foods display unavailable prices without invented zeroes",
+      "status": "passed",
+      "menuId": "research-any1-choco-telok-ayer",
+      "rows": 3,
+      "missingPrices": 3,
+      "priceUnavailableLabels": 3,
+      "inventedZeroes": 0,
+      "sourceLinkVerified": true,
+      "width": 375,
+      "documentWidth": 375
+    }
+  ],
+  "errors": [],
+  "pageErrors": [],
+  "consoleErrors": [
+    {
+      "url": "http://localhost:8083/menu/research-delcies-whampoa-west",
+      "text": "Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+    },
+    {
+      "url": "http://localhost:8083/menu/research-slow-bakes-yishun-hyc",
+      "text": "Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+    },
+    {
+      "url": "http://localhost:8083/menu/research-ur02-vegetarian-express-hougang",
+      "text": "Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+    },
+    {
+      "url": "http://localhost:8083/menu/research-ur01-harmony-serangoon",
+      "text": "Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+    },
+    {
+      "url": "http://localhost:8083/menu/research-ur02-vegetarian-food-stall-01-74",
+      "text": "Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+    },
+    {
+      "url": "http://localhost:8083/menu/research-ur02-amk-green-harmony-vegetarian",
+      "text": "Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+    },
+    {
+      "url": "http://localhost:8083/menu/research-any1-choco-telok-ayer",
+      "text": "Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+    }
+  ],
+  "blockedApiRequests": [
+    "/api/local-explore/session"
+  ],
+  "blockedExternalRequests": [],
+  "apiRequests": [
+    "/api/menus?view=index",
+    "/api/menus?id=research-delcies-whampoa-west",
+    "/api/menus?view=index",
+    "/api/menus?id=research-slow-bakes-yishun-hyc",
+    "/api/menus?view=index",
+    "/api/menus?id=research-ur02-vegetarian-express-hougang",
+    "/api/menus?view=index",
+    "/api/menus?id=research-ur01-harmony-serangoon",
+    "/api/menus?view=index",
+    "/api/menus?id=research-ur02-vegetarian-food-stall-01-74",
+    "/api/menus?view=index",
+    "/api/menus?id=research-ur02-amk-green-harmony-vegetarian",
+    "/api/menus?view=index",
+    "/api/menus?id=research-any1-choco-telok-ayer",
+    "/api/menus?view=index",
+    "/api/menus?id=research-ur02-vegetarian-express-hougang",
+    "/api/menus?view=index",
+    "/api/menus?id=research-ur02-vegetarian-food-stall-01-74",
+    "/api/menus?view=index",
+    "/api/menus?id=research-ur02-amk-green-harmony-vegetarian"
+  ],
+  "screenshots": [
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-browser-latest\\delcies-preorder-320.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-browser-latest\\slow-bakes-half-whole-375.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-browser-latest\\harmony-options-375.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-browser-latest\\any1-choco-unpriced-375.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-browser-latest\\vegetarian-express-options-320.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-browser-latest\\mini-green-held-375.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-browser-latest\\green-harmony-held-320.png"
+  ],
+  "a11y": [
+    {
+      "label": "research-delcies-whampoa-west320",
+      "width": 320,
+      "documentWidth": 320,
+      "violations": []
+    },
+    {
+      "label": "research-slow-bakes-yishun-hyc375",
+      "width": 375,
+      "documentWidth": 375,
+      "violations": []
+    },
+    {
+      "label": "research-ur01-harmony-serangoon375",
+      "width": 375,
+      "documentWidth": 375,
+      "violations": []
+    },
+    {
+      "label": "research-ur02-vegetarian-express-hougang320",
+      "width": 320,
+      "documentWidth": 320,
+      "violations": []
+    }
+  ],
+  "forwardedProviderCalls": 0,
+  "sourceSnapshots": [
+    {
+      "id": "research-delcies-whampoa-west",
+      "fingerprint": "7e4c4084ea34e034ecabd18e396461649a8201798ac1bd705215fc4b09de6e8c",
+      "bytes": 105516,
+      "items": 63,
+      "sourceMenus": 1,
+      "heldIdsExcluded": 40
+    },
+    {
+      "id": "research-slow-bakes-yishun-hyc",
+      "fingerprint": "9fd56cb347a902095f75ed79da90650e9c2f19f94c4792eca34017bc1f557589",
+      "bytes": 20915,
+      "items": 23,
+      "sourceMenus": 1,
+      "heldIdsExcluded": 0
+    },
+    {
+      "id": "research-ur02-vegetarian-express-hougang",
+      "fingerprint": "cb8faeab85764a0dd9fc24976648cf85260c83413a39c10e9e1e5fff705487a1",
+      "bytes": 102306,
+      "items": 129,
+      "sourceMenus": 1,
+      "heldIdsExcluded": 120
+    },
+    {
+      "id": "research-ur01-harmony-serangoon",
+      "fingerprint": "cca83ec7176a81878efa5a1fac7ec7c0fad391c5fb5d4f7b10e1afceddfc0584",
+      "bytes": 35975,
+      "items": 38,
+      "sourceMenus": 1,
+      "heldIdsExcluded": 90
+    },
+    {
+      "id": "research-ur02-vegetarian-food-stall-01-74",
+      "fingerprint": "5e73d580c2227495a03fab29e69ae4c7586bf92c325b6f515309ec7cac2ce1f5",
+      "bytes": 13075,
+      "items": 18,
+      "sourceMenus": 1,
+      "heldIdsExcluded": 6
+    },
+    {
+      "id": "research-ur02-amk-green-harmony-vegetarian",
+      "fingerprint": "d33c7c4642415a3fa12794cdf818d2beb283974293c432cc0ba205d2128c3c21",
+      "bytes": 18567,
+      "items": 30,
+      "sourceMenus": 1,
+      "heldIdsExcluded": 15
+    },
+    {
+      "id": "research-any1-choco-telok-ayer",
+      "fingerprint": "3d2f7823d3486ab4df0c7d6f9f269713fe5ddd1d25ab6541bc3864705aa08d30",
+      "bytes": 1714,
+      "items": 3,
+      "sourceMenus": 1,
+      "heldIdsExcluded": 0
+    }
+  ],
+  "browserVersion": "156.0.8078.4",
+  "catalogue": {
+    "generatedAt": 1792114020595,
+    "locations": 141,
+    "sourceMenus": 186,
+    "foodOccurrences": 10732,
+    "indexBytes": 56391,
+    "indexGzipBytes": 16122
+  },
+  "finishedAt": "2026-10-16T01:28:22.789Z",
+  "passed": null,
+  "expectedBlockedApiConsoleErrors": [
+    {
+      "url": "http://localhost:8083/menu/research-delcies-whampoa-west",
+      "text": "Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+    },
+    {
+      "url": "http://localhost:8083/menu/research-slow-bakes-yishun-hyc",
+      "text": "Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+    },
+    {
+      "url": "http://localhost:8083/menu/research-ur02-vegetarian-express-hougang",
+      "text": "Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+    },
+    {
+      "url": "http://localhost:8083/menu/research-ur01-harmony-serangoon",
+      "text": "Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+    },
+    {
+      "url": "http://localhost:8083/menu/research-ur02-vegetarian-food-stall-01-74",
+      "text": "Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+    },
+    {
+      "url": "http://localhost:8083/menu/research-ur02-amk-green-harmony-vegetarian",
+      "text": "Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+    },
+    {
+      "url": "http://localhost:8083/menu/research-any1-choco-telok-ayer",
+      "text": "Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+    }
+  ],
+  "unexpectedConsoleErrors": [],
+  "harnessCorrections": [
+    {
+      "resolved": true,
+      "description": "Read-only held-row comparison originally matched held-* but canonical entries use hold-*. Expanded status reader to include both and reran only the three affected cases.",
+      "originalErrors": [
+        {
+          "check": "VegetarianExpress129Oddle foods keep option groups and held Foodpanda source omitted",
+          "error": "AssertionError [ERR_ASSERTION]: false == true\n    at [stdin]:16:368\n    at async check ([stdin]:4:45)\n    at async [stdin]:16:2"
+        },
+        {
+          "check": "Held conflicting source rows stay absent: research-ur02-vegetarian-food-stall-01-74",
+          "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n0 !== 6\n\n    at [stdin]:18:303\n    at async check ([stdin]:4:45)\n    at async [stdin]:18:150"
+        },
+        {
+          "check": "Held conflicting source rows stay absent: research-ur02-amk-green-harmony-vegetarian",
+          "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n0 !== 15\n\n    at [stdin]:18:303\n    at async check ([stdin]:4:45)\n    at async [stdin]:18:150"
+        }
+      ]
+    }
+  ],
+  "stoppedAt": "2026-10-16T01:29:18.992Z",
+  "stoppedByUser": true,
+  "status": "partial-stopped-by-user",
+  "fullQaComplete": false,
+  "visualReview": {
+    "status": "pending",
+    "inspectedScreenshots": [],
+    "reason": "User requested stop before screenshot inspection."
+  },
+  "pending": [
+    "Review recorded Vegetarian Express, Mini Green and Green Harmony recheck evidence after the hold/held harness correction.",
+    "Visually inspect captured screenshots; no screenshot visual inspection was completed for this snapshot.",
+    "Decide next session whether any focused rerun is necessary."
+  ],
+  "completedChecks": [
+    "Delcies63foods preserve13advance-order notices and exclude unavailable/copy rows",
+    "SlowBakes23preorder foods show Half/Whole options and three-day notice",
+    "Harmony38available foods retain actual modifier choices and exclude90unavailable",
+    "Any1Choco3unpriced foods display unavailable prices without invented zeroes"
+  ],
+  "pendingChecks": [
+    "VegetarianExpress129Oddle foods keep option groups and held Foodpanda source omitted",
+    "Held conflicting source rows stay absent: research-ur02-vegetarian-food-stall-01-74",
+    "Held conflicting source rows stay absent: research-ur02-amk-green-harmony-vegetarian"
+  ],
+  "harnessIssue": {
+    "type": "QA harness status filter",
+    "applicationDefect": false,
+    "description": "Initial held-ID comparison recognized held-* but canonical records use hold-*. A correction command was already in flight when the turn was interrupted. It wrote automated results, retained above for next-session review; no new checks were started after the stop instruction.",
+    "state": "evidence recorded; review pending"
+  },
+  "browserShutdown": {
+    "managedBrowserClosed": true,
+    "managedHeadlessProcessesRemaining": 0,
+    "verifiedBy": "Read-only process inventory after stop; no managed Playwright/headless process remained. No server restart."
+  }
+}

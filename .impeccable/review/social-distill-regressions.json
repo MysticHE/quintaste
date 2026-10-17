@@ -1,0 +1,12 @@
+{
+  "checks": [
+    "Selected fictional person survives profile switch without private-data copy or visibility opt-in",
+    "Home dining application survives owner switch with type intact"
+  ],
+  "screenshots": [
+    "social-distill-regression-selected-person.png",
+    "social-distill-regression-invitation.png"
+  ],
+  "errors": [],
+  "passed": true
+}

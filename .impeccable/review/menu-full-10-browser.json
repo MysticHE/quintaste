@@ -1,0 +1,80 @@
+{
+  "startedAt": "2026-10-16T06:57:25.816Z",
+  "url": "http://127.0.0.1:8083",
+  "checks": [
+    {
+      "name": "ju-fu-yuan-eunos",
+      "status": "passed",
+      "foods": 9,
+      "heldBranch404": false,
+      "sourceFoodCount": 10,
+      "publicFingerprint": "39060fc7f153e316c41f9037c078f92862a31de44df690dc19af4dd3e80203a9"
+    },
+    {
+      "name": "kang-su-held",
+      "status": "passed",
+      "foods": 0,
+      "heldBranch404": true,
+      "publicFingerprint": null
+    },
+    {
+      "name": "bai-jia-le-held",
+      "status": "passed",
+      "foods": 0,
+      "heldBranch404": true,
+      "publicFingerprint": null
+    }
+  ],
+  "screenshots": [
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-10-browser\\ju-fu-yuan-eunos-320.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-10-browser\\ju-fu-yuan-eunos-768.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-10-browser\\ju-fu-yuan-eunos-1440.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-10-browser\\kang-su-held-320.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-10-browser\\kang-su-held-768.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-10-browser\\kang-su-held-1440.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-10-browser\\bai-jia-le-held-320.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-10-browser\\bai-jia-le-held-768.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-10-browser\\bai-jia-le-held-1440.png"
+  ],
+  "errors": [],
+  "pageErrors": [],
+  "unexpectedConsoleErrors": [],
+  "blockedApiRequests": [],
+  "blockedExternalRequests": [],
+  "apiRequests": [],
+  "a11y": [
+    {
+      "label": "ju-fu-yuan-eunos",
+      "violations": []
+    },
+    {
+      "label": "kang-su-held",
+      "violations": []
+    },
+    {
+      "label": "bai-jia-le-held",
+      "violations": []
+    }
+  ],
+  "forwardedProviderCalls": 0,
+  "installedChromeUsed": false,
+  "catalogue": {
+    "locations": 165,
+    "sourceMenus": 212,
+    "foodOccurrences": 11576
+  },
+  "finishedAt": "2026-10-16T06:58:39.961Z",
+  "passed": true,
+  "visualReview": {
+    "status": "passed",
+    "reviewedAt": "2026-10-16T07:03:12.719631+00:00",
+    "capturesInspected": 9,
+    "widths": [
+      320,
+      768,
+      1440
+    ],
+    "findings": "All nine current captures inspected: Eunos public menu and two wholly held unavailable states. No page overflow or visual defect observed. Ordering options remain qualified as unread."
+  },
+  "googleLedgerUnchanged": true
+}

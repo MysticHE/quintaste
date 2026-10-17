@@ -1,0 +1,824 @@
+{
+  "checkedAt": "2026-10-16",
+  "cacheFiles": 44,
+  "uniqueImages": 29,
+  "uniquePlaceIds": 27,
+  "payloadBytes": 7184768,
+  "originalsUnchanged": true,
+  "allFilesReviewed": true,
+  "matchedDistinctPhotos": 14,
+  "enhancedCovers": 12,
+  "licensedCoverRetained": 1,
+  "publishedCovers": 13,
+  "browseVenues": 174,
+  "missingCovers": 161,
+  "rights": "12 enhancements explicitly requested by owner; original authors and Google Maps source attribution retained. Enhancement does not establish a new redistribution licence. One existing separately licensed cover retained. No copyright-clearance claim for the12 derivatives.",
+  "unrecoverableRequestedReferences": [
+    "Makan Vegan exact screenshot branch",
+    "Soon Lai"
+  ],
+  "outcomes": [
+    {
+      "referenceNumber": 1,
+      "imageSha256": "8d9b7211d4c0b153a509a474ffdfea676fdb22e50c54517300cf5efe0d0dc0fd",
+      "placeId": "ChIJZSr57K0T2jER9vGz_2-ktRg",
+      "checkedAt": "2026-10-16",
+      "sourceUrl": "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIHM0ogKEICAgIDXqq24qQE!2e10!4m2!3m1!1s0x31da13adecf92a65:0x18b5a46fffb3f1f6",
+      "authors": [
+        {
+          "name": "CY Gan",
+          "url": "https://maps.google.com/maps/contrib/104772502379390321732"
+        }
+      ],
+      "files": [
+        "0166d6ca1579d14dec8e7c071f9af26664689384527f34c8350b8fea9f14e697.image",
+        "82576a953fbe2911885b79b64e58ec2a5d0945b2a63c9682c44d95b1ee65612b.image",
+        "e25e45c6a765e0b3563fad8923197694e70579317dd3a9aa757135b10ea6f72b.image"
+      ],
+      "status": "matched-enhanced",
+      "venueId": "zhen-xiang-woodlands-street-32",
+      "assetPath": "/api/catalogue-photos/9884a0dc9f34e8f4fda154f994e214ed8a0ee260500db21e0d5b9a7b225981cc.jpg",
+      "evidence": "Recovered stable cache key binds the photo to ChIJZSr57K0T2jER9vGz_2-ktRg. Saved ID/address evidence matches this exact published branch; visually inspected 16 October 2026.",
+      "reuseBasis": "User explicitly directed enhancement and storage of recovered Google references in this session. This does not establish an independent redistribution licence; no rights-cleared claim."
+    },
+    {
+      "referenceNumber": 2,
+      "imageSha256": "7e4acb1740584c15f9bd6c4f7785baeeee28018dedbabc47bf9084a6fea61b58",
+      "placeId": "ChIJFxpZ8csZ2jERfyeOmdKYh4A",
+      "checkedAt": "2026-10-16",
+      "sourceUrl": "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIHM0ogKEICAgICq-YjUsgE!2e10!4m2!3m1!1s0x31da19cbf1591a17:0x808798d2998e277f",
+      "authors": [
+        {
+          "name": "siang hang lim",
+          "url": "https://maps.google.com/maps/contrib/105418373271006322339"
+        }
+      ],
+      "files": [
+        "01a3c7b1208b3c535ee95b6488a747c461410f081965e8c78f3d0294d17c951d.image",
+        "380ac301ae87770f209f8a8cad1a15798ea8250e0ebf4ef253c6bcf055d26115.image"
+      ],
+      "status": "held",
+      "reason": "Conflicting branch evidence: saved Buffalo/663 lead versus visible facade resembling Syed Alwi. Do not guess."
+    },
+    {
+      "referenceNumber": 3,
+      "imageSha256": "2d27ca2ca39d018a54e24b4ab7ad438a04fccb9ae492737150aa8c314d0764f3",
+      "placeId": "ChIJ-c0qznIZ2jERtO9HJCNB-EI",
+      "checkedAt": "2026-10-16",
+      "sourceUrl": "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIHM0ogKEICAgICZ6aOY3AE!2e10!4m2!3m1!1s0x31da1972ce2acdf9:0x42f841232447efb4",
+      "authors": [
+        {
+          "name": "Desmond Ong",
+          "url": "https://maps.google.com/maps/contrib/102494581154988847299"
+        }
+      ],
+      "files": [
+        "05322bb33bbdb9bec07ffbb1cd6bce24a08707fc2259fd2c808f47c290b38ce9.image",
+        "0bb130112a25838f79cd8053bc979bc0768d53db4162834e34b754aea79cdc74.image"
+      ],
+      "status": "matched-enhanced",
+      "venueId": "lian-xin-buddha-tooth-relic-temple",
+      "assetPath": "/api/catalogue-photos/1dace77dbc09d1a2b750edba69b6be54548f9f0e2864ebbe00881d7e9ab28dbe.jpg",
+      "evidence": "Recovered stable cache key binds the photo to ChIJ-c0qznIZ2jERtO9HJCNB-EI. Saved ID/address evidence matches this exact published branch; visually inspected 16 October 2026.",
+      "reuseBasis": "User explicitly directed enhancement and storage of recovered Google references in this session. This does not establish an independent redistribution licence; no rights-cleared claim."
+    },
+    {
+      "referenceNumber": 4,
+      "imageSha256": "76fa3828d09524c64122f03239c7f7870e148d709f1976ed429352fbef5684b6",
+      "placeId": "ChIJJ3TQYyoZ2jER6SpaN6AXTAw",
+      "checkedAt": "2026-10-16",
+      "sourceUrl": "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIABIhByDPZleHkV1f9hARJvKCM9!2e10!4m2!3m1!1s0x31da192a63d07427:0xc4c17a0375a2ae9",
+      "authors": [
+        {
+          "name": "Evergreen Veg- 长生素",
+          "url": "https://maps.google.com/maps/contrib/116411100664809403733"
+        }
+      ],
+      "files": [
+        "0d6ec5675d0fb267e48f40484b51d873ccef56fa19e17fde600e56b3dbb39b08.image"
+      ],
+      "status": "held",
+      "reason": "Recovered author identifies Evergreen Vegetarian 长生素; exact branch unresolved. Preserve pixelated patrons."
+    },
+    {
+      "referenceNumber": 5,
+      "imageSha256": "b75522d508721c5e4c913b9b25afc21f00f83fed1c416495b1856bd97173fd65",
+      "placeId": "ChIJNV7dz8cZ2jERfQnZgcYkrCo",
+      "checkedAt": "2026-10-16",
+      "sourceUrl": "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIABIhAzWh9Sm5bcgLussR0_Arns!2e10!4m2!3m1!1s0x31da19c7cfdd5e35:0x2aac24c681d9097d",
+      "authors": [
+        {
+          "name": "Dennis Niu",
+          "url": "https://maps.google.com/maps/contrib/109837147914772385649"
+        }
+      ],
+      "files": [
+        "1240e920e3f943a90a9951d28dcfa55ecdbc9da56a9182d76483be2e8bf32709.image",
+        "4223b64ec1b398fdf770a2817916288e279390cfec179afcd12f640804ba9587.image",
+        "43d2eb68aa672a9cfa00a84c774825d315107d55b6e8c5b4bd21ed3420c33fc8.image",
+        "b0fd5a09fbc89be145b27b6ced3d392e2e24977df67be76ae99042a2885cad33.image",
+        "ee405474202d619b9bb3bdeb5a565be9de0aa69d4c522af1413c13623ab438d5.image",
+        "fa9bf5dfcf1aa1be5ab61bdb3db4aa5636a176fca6334fb38e795f0c0eba1d12.image"
+      ],
+      "status": "matched-alternate",
+      "venueId": "research-ananda-syed-alwi",
+      "reason": "Same exact branch as selected reference18. Retained privately; no duplicate enhancement or second cover."
+    },
+    {
+      "referenceNumber": 6,
+      "imageSha256": "a7f9d472c092ae29f213b4349c417e2621b9bcc4660c8c5d0651f8b55cb70155",
+      "placeId": "ChIJEW3hwp4Z2jERyEBhE4ss9Ws",
+      "checkedAt": "2026-10-16",
+      "sourceUrl": "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIHM0ogKEICAgIDRnt7RNw!2e10!4m2!3m1!1s0x31da199ec2e16d11:0x6bf52c8b136140c8",
+      "authors": [
+        {
+          "name": "Beragama Piyarathana",
+          "url": "https://maps.google.com/maps/contrib/116109075218351599002"
+        }
+      ],
+      "files": [
+        "187d35ea6ffe322db95028a356e69f84bc02b0d0c4b7e6c2003009a7b6dce125.image"
+      ],
+      "status": "held",
+      "reason": "Facade beside Serangoon 450 supports Ananda 448, not either published 58 Serangoon or 95 Syed Alwi branch."
+    },
+    {
+      "referenceNumber": 7,
+      "imageSha256": "ad5aa8b7cb72d46bba833cc05fdf3d9f124d04d05492ab568ce4f04900647cc3",
+      "placeId": "ChIJxS4H7hwT2jERBRdisyWBfUM",
+      "checkedAt": "2026-10-16",
+      "sourceUrl": "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIABIhAejubK0dmbyEqs0RCc1uhS!2e10!4m2!3m1!1s0x31da131cee072ec5:0x437d8125b3621705",
+      "authors": [
+        {
+          "name": "elemen 元素",
+          "url": "https://maps.google.com/maps/contrib/105182536564299024931"
+        }
+      ],
+      "files": [
+        "1eaa94e9be5f6f80e08345be0a2d27336927019d840e397a248a4ced0e2bd0f3.image"
+      ],
+      "status": "matched-enhanced",
+      "venueId": "elemen-woodlands-height",
+      "assetPath": "/api/catalogue-photos/68480507e8e66e7b1f1763431cc5ae3cf3a999571d0ba8578e55ee9e37efe940.jpg",
+      "evidence": "Recovered stable cache key binds the photo to ChIJxS4H7hwT2jERBRdisyWBfUM. Saved ID/address evidence matches this exact published branch; visually inspected 16 October 2026.",
+      "reuseBasis": "User explicitly directed enhancement and storage of recovered Google references in this session. This does not establish an independent redistribution licence; no rights-cleared claim."
+    },
+    {
+      "referenceNumber": 8,
+      "imageSha256": "0e1decfd5ce70186bfc09f490f24366358a2abb4fdad4540d98ab470b4ed8395",
+      "placeId": "ChIJi1X0AAUT2jERCwbOXFjnR8k",
+      "checkedAt": "2026-10-16",
+      "sourceUrl": "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIHM0ogKEICAgICbjMeVOw!2e10!4m2!3m1!1s0x31da130500f4558b:0xc947e7585cce060b",
+      "authors": [
+        {
+          "name": "William THC",
+          "url": "https://maps.google.com/maps/contrib/105996243745123742646"
+        }
+      ],
+      "files": [
+        "2afaf35bca9fcd09bd8ab356df8ce65374b7cc6de873e9e72128df334b7fde5c.image",
+        "4b53ae0b11a31f854ef90e097873b54bedd005092957387fb077f9fecce7eb19.image",
+        "80a23f333a1b76d856fa33f71dbdbb1fc22dd45fa541adf22669b81fd0e9faad.image",
+        "e5d44fc6f6a4420b68a4a47015117cefbf454ecf5503f953c38229638d81fe5f.image"
+      ],
+      "status": "held",
+      "reason": "Vege Story 892C Woodlands is not a published menu branch."
+    },
+    {
+      "referenceNumber": 9,
+      "imageSha256": "128db92069cc17713b81cf719d7ee15ac860fd5fc66085c333bdbddd18c2aa81",
+      "placeId": "ChIJF79kL6QZ2jERTIaJ2CyEbSk",
+      "checkedAt": "2026-10-16",
+      "sourceUrl": "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIHM0ogKEICAgIC2wezFSw!2e10!4m2!3m1!1s0x31da19a42f64bf17:0x296d842cd889864c",
+      "authors": [
+        {
+          "name": "Sufood",
+          "url": "https://maps.google.com/maps/contrib/100033300880010333746"
+        }
+      ],
+      "files": [
+        "2fdca47e053aa72c096a2019bee993f2866a1918a2be10c13fb7c040c60f9308.image"
+      ],
+      "status": "matched-enhanced",
+      "venueId": "research-sufood-raffles-city",
+      "assetPath": "/api/catalogue-photos/af6fcb0361d540271f7f71898fa8151ca446394cf420e83c0791f43a7da9f957.jpg",
+      "evidence": "Recovered stable cache key binds the photo to ChIJF79kL6QZ2jERTIaJ2CyEbSk. Saved ID/address evidence matches this exact published branch; visually inspected 16 October 2026.",
+      "reuseBasis": "User explicitly directed enhancement and storage of recovered Google references in this session. This does not establish an independent redistribution licence; no rights-cleared claim."
+    },
+    {
+      "referenceNumber": 10,
+      "imageSha256": "eccec21852df9ada2e990c5b0c6170d247f1fe91c4f3dc817063f28e23a8a286",
+      "placeId": "ChIJseQ1k7gZ2jER7uusJ17hy5E",
+      "checkedAt": "2026-10-16",
+      "sourceUrl": "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIABIhD8frvlIoGN6DWGSBP5LZOD!2e10!4m2!3m1!1s0x31da19b89335e4b1:0x91cbe15e27acebee",
+      "authors": [
+        {
+          "name": "Siva Duvvuru",
+          "url": "https://maps.google.com/maps/contrib/104856745652529387522"
+        }
+      ],
+      "files": [
+        "5b3ab061adef8e920a63113f9eb529a4d9a34728a84c713284f00154e31593e9.image",
+        "85ae51bec5f028f2444cfdc67685a61cd1ed854df0af61c045083d7098de5aad.image"
+      ],
+      "status": "matched-enhanced",
+      "venueId": "research-gokul-upper-dickson",
+      "assetPath": "/api/catalogue-photos/ba290d52db5adecce7ff4b3cc5a9e9366e07e56d8670ec95f8c13989fa630125.jpg",
+      "evidence": "Recovered stable cache key binds the photo to ChIJseQ1k7gZ2jER7uusJ17hy5E. Saved ID/address evidence matches this exact published branch; visually inspected 16 October 2026.",
+      "reuseBasis": "User explicitly directed enhancement and storage of recovered Google references in this session. This does not establish an independent redistribution licence; no rights-cleared claim."
+    },
+    {
+      "referenceNumber": 11,
+      "imageSha256": "2b52b1fbfd76a6bf018fda1e58b43d41b3d23ec93e23471c59fc9b6998675cba",
+      "placeId": "ChIJw7Bn0vYZ2jER7YWZKh57T4Y",
+      "checkedAt": "2026-10-16",
+      "sourceUrl": "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIABIhAIocnHh7m0wywml5aHuA7l!2e10!4m2!3m1!1s0x31da19f6d267b0c3:0x864f7b1e2a9985ed",
+      "authors": [
+        {
+          "name": "Ahjussi Tan",
+          "url": "https://maps.google.com/maps/contrib/108191729542715032234"
+        }
+      ],
+      "files": [
+        "66d057d087aabfd0420a98daecd988158027ac85a8fcac24c22c20833f8dc759.image",
+        "81d099e2c5124af7386ce235a920b192ae72a107a572154c1d99ea0c5665569e.image"
+      ],
+      "status": "matched-enhanced",
+      "venueId": "research-lotus-balestier",
+      "assetPath": "/api/catalogue-photos/8a04f680d5a755d583aa39e15cdff15fff0ff8a8edbe0228664520ac99f7e9d2.jpg",
+      "evidence": "Recovered stable cache key binds the photo to ChIJw7Bn0vYZ2jER7YWZKh57T4Y. Saved ID/address evidence matches this exact published branch; visually inspected 16 October 2026. The photograph shows the host hotel exterior, not the restaurant interior. Merchant https://lotusvegetarian.oddle.me/en_SG explicitly locates Lotus on Level 2 of this hotel at 201 Balestier Road.",
+      "reuseBasis": "User explicitly directed enhancement and storage of recovered Google references in this session. This does not establish an independent redistribution licence; no rights-cleared claim."
+    },
+    {
+      "referenceNumber": 12,
+      "imageSha256": "10328cd225b964580dc03eced9fc4a56663f666d0e6155ab202e202206509a24",
+      "placeId": "ChIJoy-YZqQT2jER2c3gPPpftaQ",
+      "checkedAt": "2026-10-16",
+      "sourceUrl": "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIHM0ogKEICAgIDhw6eS7wE!2e10!4m2!3m1!1s0x31da13a466982fa3:0xa4b55ffa3ce0cdd9",
+      "authors": [
+        {
+          "name": "HONG TEY",
+          "url": "https://maps.google.com/maps/contrib/115386999460874774620"
+        }
+      ],
+      "files": [
+        "69c4f3f4c55b0742aea4a1794c829822b6dd179d1960e5e8503b09122622e9e3.image"
+      ],
+      "status": "held",
+      "reason": "Eight Immortals 678A lead shows common Cantine Corner food court; exact stall association unresolved."
+    },
+    {
+      "referenceNumber": 13,
+      "imageSha256": "5016193ef3c0f94297a6fe3c69ec4d6d127d84a8d4c1ad7692bee487905213ae",
+      "placeId": "ChIJNV7dz8cZ2jERfQnZgcYkrCo",
+      "checkedAt": "2026-10-16",
+      "sourceUrl": "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIABIhCbgphjAYHqu7qKwoexpI9n!2e10!4m2!3m1!1s0x31da19c7cfdd5e35:0x2aac24c681d9097d",
+      "authors": [
+        {
+          "name": "Ben Thomas",
+          "url": "https://maps.google.com/maps/contrib/117690793612787083388"
+        }
+      ],
+      "files": [
+        "70cd25081def5d093e79d5de1bd075e3143c558f7e17e8769750ca488f478fe0.image"
+      ],
+      "status": "matched-alternate",
+      "venueId": "research-ananda-syed-alwi",
+      "reason": "Same exact branch as selected reference18. Retained privately; no duplicate enhancement or second cover."
+    },
+    {
+      "referenceNumber": 14,
+      "imageSha256": "2c53211f2c32b4e96bdd625b4e9b69d944ba7a289e460000d9a9b57be0cdc855",
+      "placeId": "ChIJ-7uhXAAZ2jERzDXZijcEAeU",
+      "checkedAt": "2026-10-16",
+      "sourceUrl": "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIABIhD4sG_vkPOmt6_VU8aNTZuf!2e10!4m2!3m1!1s0x31da19005ca1bbfb:0xe50104378ad935cc",
+      "authors": [
+        {
+          "name": "Bear Chua",
+          "url": "https://maps.google.com/maps/contrib/112339417351827380279"
+        }
+      ],
+      "files": [
+        "711806fd8d78cabd14b5312af1f9621398dc19993371f7397a5c774d5237d8df.image"
+      ],
+      "status": "held",
+      "reason": "Yan Ci Xin, Old Airport #01-58, not a published menu branch."
+    },
+    {
+      "referenceNumber": 15,
+      "imageSha256": "a79a0db54378bd4024adc6283f32422a984234caeb0c4be99cc9f500201b4f9f",
+      "placeId": "ChIJqe44Co0Z2jERINoBk9gKjPo",
+      "checkedAt": "2026-10-16",
+      "sourceUrl": "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIABIhAhLTyQ9T1Wy4TeHtZFmWOk!2e10!4m2!3m1!1s0x31da198d0a38eea9:0xfa8c0ad89301da20",
+      "authors": [
+        {
+          "name": "Ruyi Zhai Vegetarian",
+          "url": "https://maps.google.com/maps/contrib/104959094684537185857"
+        }
+      ],
+      "files": [
+        "79f381ee4b3fe3c01f3fdd2cac449fcf0bfac266864bdadebcfd88715bdc1382.image"
+      ],
+      "status": "held",
+      "reason": "Ru Yi Zhai 134 Geylang East conflicts with Kwan Tzi Zhai operator lead; not published."
+    },
+    {
+      "referenceNumber": 16,
+      "imageSha256": "126cb9a41ca83eeb8be1da1f309e17ebc5dba2f994aa0412352bfdeeb4adba56",
+      "placeId": "ChIJTz74JQ0Z2jER4TOc1RrAgzQ",
+      "checkedAt": "2026-10-16",
+      "sourceUrl": "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIHM0ogKEICAgICMysm_tQE!2e10!4m2!3m1!1s0x31da190d25f83e4f:0x3483c01ad59c33e1",
+      "authors": [
+        {
+          "name": "Joe Yeo",
+          "url": "https://maps.google.com/maps/contrib/112876860436038477006"
+        }
+      ],
+      "files": [
+        "8483392384ca93d855b2d529e50eb67d5bae33d399452e89b0b7548ea8e1741b.image"
+      ],
+      "status": "held",
+      "reason": "Coco Veggie Marina Square branch not published; earlier menu/identity holds retained."
+    },
+    {
+      "referenceNumber": 17,
+      "imageSha256": "22bcf71d1b03a487da4d173ebf19630a827903f3e1d12fa65ccdb92e118a3c77",
+      "placeId": "ChIJ01wV1WwZ2jERSk88-PrWNFE",
+      "checkedAt": "2026-10-16",
+      "sourceUrl": "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIABIhBBxNmlIpDvkHsIQdTNwZIE!2e10!4m2!3m1!1s0x31da196cd5155cd3:0x5134d6faf83c4f4a",
+      "authors": [
+        {
+          "name": "Paoh T",
+          "url": "https://maps.google.com/maps/contrib/105891353757394313385"
+        }
+      ],
+      "files": [
+        "a2b1d0a212f6b2c63f4a545c296ddfabb5a6b8d43fb9f2724810ac6d19142566.image"
+      ],
+      "status": "matched-enhanced",
+      "venueId": "whole-earth-peck-seah",
+      "assetPath": "/api/catalogue-photos/318d9c4acf1da90d6a25ad61f796677e2676cab86f6f73757107b2c669e119e4.jpg",
+      "evidence": "Recovered stable cache key binds the photo to ChIJ01wV1WwZ2jERSk88-PrWNFE. Saved ID/address evidence matches this exact published branch; visually inspected 16 October 2026.",
+      "reuseBasis": "User explicitly directed enhancement and storage of recovered Google references in this session. This does not establish an independent redistribution licence; no rights-cleared claim."
+    },
+    {
+      "referenceNumber": 18,
+      "imageSha256": "1aadfc7865c3e8b6a758526e8cb4140df83eff36fb8e19f71c66836ce4a1f342",
+      "placeId": "ChIJNV7dz8cZ2jERfQnZgcYkrCo",
+      "checkedAt": "2026-10-16",
+      "sourceUrl": "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIABIhCGeBdXhySSkWybeupsAnzk!2e10!4m2!3m1!1s0x31da19c7cfdd5e35:0x2aac24c681d9097d",
+      "authors": [
+        {
+          "name": "AbuAadam",
+          "url": "https://maps.google.com/maps/contrib/109551117070906417828"
+        }
+      ],
+      "files": [
+        "b646b078cba868f4a50f1fded5a139b33ef01e3857ecf1491c0eb301b8a64ab0.image"
+      ],
+      "status": "matched-enhanced",
+      "venueId": "research-ananda-syed-alwi",
+      "assetPath": "/api/catalogue-photos/da5009947d3222cb93a29c155f24b5a8cfa7891a90d6fd2b6af268b43c77872a.jpg",
+      "evidence": "Recovered stable cache key binds the photo to ChIJNV7dz8cZ2jERfQnZgcYkrCo. Saved ID/address evidence matches this exact published branch; visually inspected 16 October 2026.",
+      "reuseBasis": "User explicitly directed enhancement and storage of recovered Google references in this session. This does not establish an independent redistribution licence; no rights-cleared claim."
+    },
+    {
+      "referenceNumber": 19,
+      "imageSha256": "dbb4e867e338d73f427419f8971c808edde5ba1e2f545c4759efae78b627e413",
+      "placeId": "ChIJDYfRxFAZ2jERpxY8H0_qYzU",
+      "checkedAt": "2026-10-16",
+      "sourceUrl": "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIHM0ogKEICAgICfzrHtIQ!2e10!4m2!3m1!1s0x31da1950c4d1870d:0x3563ea4f1f3c16a7",
+      "authors": [
+        {
+          "name": "Crazy Traveller",
+          "url": "https://maps.google.com/maps/contrib/116688512538684233422"
+        }
+      ],
+      "files": [
+        "b66d2a644a055be21c0e03c301d108384b46ff3cd82c32358149f6eb44935b4b.image"
+      ],
+      "status": "held",
+      "reason": "Cafe entrance remains unidentified; menu-board words do not establish a branch."
+    },
+    {
+      "referenceNumber": 20,
+      "imageSha256": "3924f6c5e9ebc72150396985262a0373702bb8aa162913f4e443e87d95e87a54",
+      "placeId": "ChIJW9dJOqEZ2jERBgaxRD3FW00",
+      "checkedAt": "2026-10-16",
+      "sourceUrl": "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIHM0ogKEICAgICG6OSFpgE!2e10!4m2!3m1!1s0x31da19a13a49d75b:0x4d5bc53d44b10606",
+      "authors": [
+        {
+          "name": "Sharan G",
+          "url": "https://maps.google.com/maps/contrib/111863196841296910876"
+        }
+      ],
+      "files": [
+        "cd31c1fd9439a1b161684d1e581b728dd74d0174cf5c6cf7084faad3dbf637eb.image"
+      ],
+      "status": "held",
+      "reason": "Shop/counter interior remains unidentified; contributor name is not venue identity."
+    },
+    {
+      "referenceNumber": 21,
+      "imageSha256": "fe3dcd09fdeaaca009270b364109d7cfe9807ce41c918a224688907c017004a6",
+      "placeId": "ChIJJfDNwzAZ2jERTm98dUb4_q0",
+      "checkedAt": "2026-10-16",
+      "sourceUrl": "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIHM0ogKEICAgICl_57Y3wE!2e10!4m2!3m1!1s0x31da1930c3cdf025:0xadfef846757c6f4e",
+      "authors": [
+        {
+          "name": "Sadeesh Kathavarayan",
+          "url": "https://maps.google.com/maps/contrib/115475365126910137179"
+        }
+      ],
+      "files": [
+        "ce8b092eeee1da8b522ea3ea6b0ef7963ab20361d8794a858abac9b09987972d.image"
+      ],
+      "status": "matched-enhanced",
+      "venueId": "research-true-veggie-geylang",
+      "assetPath": "/api/catalogue-photos/b62a93737dee95d2682da243881ccd7b69dd4b4b44cec4a388f9ad937475d737.jpg",
+      "evidence": "Recovered stable cache key binds the photo to ChIJJfDNwzAZ2jERTm98dUb4_q0. Saved ID/address evidence matches this exact published branch; visually inspected 16 October 2026.",
+      "reuseBasis": "User explicitly directed enhancement and storage of recovered Google references in this session. This does not establish an independent redistribution licence; no rights-cleared claim."
+    },
+    {
+      "referenceNumber": 22,
+      "imageSha256": "7f1dfcaed2cc8b2e5a3448714945d401623cfdbbf005c358d29471d020fa7705",
+      "placeId": "ChIJmzFIIrsZ2jERsR8ImZsdiXY",
+      "checkedAt": "2026-10-16",
+      "sourceUrl": "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIABIhCu9Aiz0jq1E7PatlHpX4wn!2e10!4m2!3m1!1s0x31da19bb2248319b:0x76891d9b99081fb1",
+      "authors": [
+        {
+          "name": "love ling",
+          "url": "https://maps.google.com/maps/contrib/103947918623608765492"
+        }
+      ],
+      "files": [
+        "d689a3210c6d5035f8f3d7f14f377d8f1865bc986fc8c36249a6afc6a32ca570.image"
+      ],
+      "status": "held",
+      "reason": "Herbivore 190 Middle Road has no approved published menu."
+    },
+    {
+      "referenceNumber": 23,
+      "imageSha256": "29dbbbc3d6e27210d09b833593a6d004a92ba246f0f5949684da5403fdb1c8ab",
+      "placeId": "ChIJ65F9ozwY2jERPcuZ65LNjao",
+      "checkedAt": "2026-10-16",
+      "sourceUrl": "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIHM0ogKEICAgIDGpfi6fw!2e10!4m2!3m1!1s0x31da183ca37d91eb:0xaa8dcd92eb99cb3d",
+      "authors": [
+        {
+          "name": "i.c",
+          "url": "https://maps.google.com/maps/contrib/104566814020357936799"
+        }
+      ],
+      "files": [
+        "da50f606a2661c79424176b740f5c414614ea78cc1ccc7c6d7f55e011b2b1b57.image"
+      ],
+      "status": "held",
+      "reason": "Shared Kim San Leng food centre exterior; Kwan Tzi Zhai/Ru Yi Zhai operator ambiguity retained."
+    },
+    {
+      "referenceNumber": 24,
+      "imageSha256": "f2f1a8a9b849419ccf69d5bf180194f346c346ca3761d69379187ff971975405",
+      "placeId": "ChIJOwdnq7cZ2jERSCAJQh3m_iY",
+      "checkedAt": "2026-10-16",
+      "sourceUrl": "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIABIhBzlZoHTe2-ny2ec4L2lElD!2e10!4m2!3m1!1s0x31da19b7ab67073b:0x26fee61d42092048",
+      "authors": [
+        {
+          "name": "Seow wei Cheong",
+          "url": "https://maps.google.com/maps/contrib/102149723294747266392"
+        }
+      ],
+      "files": [
+        "dbe1e24a99e5f497937e1270df75e03fceff7b56a204b93cf98383f267bdae1f.image"
+      ],
+      "status": "matched-enhanced",
+      "venueId": "research-kisu-tras-street",
+      "assetPath": "/api/catalogue-photos/242ca7a1de36324dbe4a53317e609c2a5b1c2ba8ec3dc3caa91f0dde375d83c1.jpg",
+      "evidence": "Recovered stable cache key binds the photo to ChIJOwdnq7cZ2jERSCAJQh3m_iY. Saved ID/address evidence matches this exact published branch; visually inspected 16 October 2026.",
+      "reuseBasis": "User explicitly directed enhancement and storage of recovered Google references in this session. This does not establish an independent redistribution licence; no rights-cleared claim."
+    },
+    {
+      "referenceNumber": 25,
+      "imageSha256": "2d7dec0d8f0d391869e9af8f9d881c8e05987e77c63aaf686c68bd1fc3d12e5d",
+      "placeId": "ChIJWbs-UOwZ2jERwP0GZgSvsgk",
+      "checkedAt": "2026-10-16",
+      "sourceUrl": "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIHM0ogKEICAgIDN9ruOuQE!2e10!4m2!3m1!1s0x31da19ec503ebb59:0x9b2af046606fdc0",
+      "authors": [
+        {
+          "name": "iNCREDi BOWL",
+          "url": "https://maps.google.com/maps/contrib/112082107071200768127"
+        }
+      ],
+      "files": [
+        "dd5d9aaae38b9a6f87303d968507f04cdea885754250e0ca25348fe28352f88e.image"
+      ],
+      "status": "excluded-mixed-menu",
+      "reason": "Contributor and matching public place ID identify iNCREDiBOWL,116 Tanjong Pagar. Current owner advertises actual meat/seafood; excluded from vegetarian/vegan scope.",
+      "sourceUrls": [
+        "https://incredibowl.sg/",
+        "https://incredibowl.sg/find-us/",
+        "https://www.waze.com/live-map/directions/sg/singapore/incredi-bowl?to=place.ChIJWbs-UOwZ2jERwP0GZgSvsgk"
+      ]
+    },
+    {
+      "referenceNumber": 26,
+      "imageSha256": "deaaf265532a6a58b752030b304d85a977026fb2d1967ef28033ad1d49df9682",
+      "placeId": "ChIJMdepCAEEBBARWeEP9knjBok",
+      "checkedAt": "2026-10-16",
+      "sourceUrl": "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIABIhDhAwhfDDnic6_bJfik_Qv7!2e10!4m2!3m1!1s0x1004040108a9d731:0x8906e349f60fe159",
+      "authors": [
+        {
+          "name": "Nalan Restaurant City Hall",
+          "url": "https://maps.google.com/maps/contrib/105396613424755792297"
+        }
+      ],
+      "files": [
+        "e2f3e99461a918ffcf44457e8f450f669509931c07f56c172ed88f90c1881b91.image"
+      ],
+      "status": "matched-enhanced",
+      "venueId": "research-nalan-cityhall",
+      "assetPath": "/api/catalogue-photos/2e0dc622100f6fa0f6fad9b27858dd3d2f6f73ed26a6b0ea73392df145b5fd5a.jpg",
+      "evidence": "Recovered contributor identifies Nalan Restaurant City Hall. Visible wood-panel logo/diagonal trim matches the owner City Hall photo and the 13 Stamford Road #B2-54 page: https://www.nalan.com.sg/indian-veg-restaurant-city-hall ; https://www.nalan.com.sg/assets/images/city-hall/best-veg-restaurant-city-hall.webp . Photo association only; no new Google menu identity approval.",
+      "reuseBasis": "User explicitly directed enhancement and storage of recovered Google references in this session. This does not establish an independent redistribution licence; no rights-cleared claim."
+    },
+    {
+      "referenceNumber": 27,
+      "imageSha256": "ac452573637c95b16d514f739d7efc3e9752054c2cd3d2199c5641e5e7149dc2",
+      "placeId": "ChIJaVJl-msZ2jERXPBXaaRx1Bk",
+      "checkedAt": "2026-10-16",
+      "sourceUrl": "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIHM0ogKEMn618Dtk9iT1AE!2e10!4m2!3m1!1s0x31da196bfa655269:0x19d471a46957f05c",
+      "authors": [
+        {
+          "name": "P G",
+          "url": "https://maps.google.com/maps/contrib/101224288064782239282"
+        }
+      ],
+      "files": [
+        "ec4152e2908f4d20b8f47896bd3ac188040749e85f788dc77e646abf3e89cbff.image",
+        "fb2ead00114b4f6c0cc3dd5201c0a0a5f868e5b2de4147eeb5729a1141401754.image"
+      ],
+      "status": "held",
+      "reason": "Yellow/blue Sweets & Chaats storefront remains unresolved; do not infer Komala Vilas branch."
+    },
+    {
+      "referenceNumber": 28,
+      "imageSha256": "e60698a752d799327579854bcb062b922dde959962f0dc03f607814d996dd6b1",
+      "placeId": "ChIJ_UhazXIZ2jER14cuFc9jkSc",
+      "checkedAt": "2026-10-16",
+      "sourceUrl": "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIABIhDXrbDd44f5ZDuZJ65B1mfO!2e10!4m2!3m1!1s0x31da1972cd5a48fd:0x279163cf152e87d7",
+      "authors": [
+        {
+          "name": "love ling",
+          "url": "https://maps.google.com/maps/contrib/103947918623608765492"
+        }
+      ],
+      "files": [
+        "ed1aa27f4b3bd8e3e62b66e1dd5c4c6a65bda1e9c6e9c0529f255e8ad51c5b62.image"
+      ],
+      "status": "held",
+      "reason": "Eight Treasures 282A South Bridge entrance, not a published menu branch."
+    },
+    {
+      "referenceNumber": 29,
+      "imageSha256": "053a700e70a937d562238d8cbb887405b00b037027925b89da94063eaa000ecf",
+      "placeId": "ChIJ4RA1sA4Z2jER3kOi_K5z8v8",
+      "checkedAt": "2026-10-16",
+      "sourceUrl": "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIHM0ogKEICAgID8qua6Dg!2e10!4m2!3m1!1s0x31da190eb03510e1:0xfff273aefca243de",
+      "authors": [
+        {
+          "name": "Greendot One Raffles Place",
+          "url": "https://maps.google.com/maps/contrib/112887580279278030657"
+        }
+      ],
+      "files": [
+        "ff224aab08e3956288647e1e2d576b0e3f5454943eccd038b7cf49608eacda83.image"
+      ],
+      "status": "matched-enhanced",
+      "venueId": "research-greendot-one-raffles-place",
+      "assetPath": "/api/catalogue-photos/422aa677e27610c7a566df89c54762c08680a73663cf6cf86a4e2cd358d53fdf.jpg",
+      "evidence": "Recovered stable cache key binds the photo to ChIJ4RA1sA4Z2jER3kOi_K5z8v8. Saved ID/address evidence matches this exact published branch; visually inspected 16 October 2026.",
+      "reuseBasis": "User explicitly directed enhancement and storage of recovered Google references in this session. This does not establish an independent redistribution licence; no rights-cleared claim."
+    }
+  ],
+  "backupIntegrity": [
+    {
+      "file": "0166d6ca1579d14dec8e7c071f9af26664689384527f34c8350b8fea9f14e697.image",
+      "bytes": 274192,
+      "sha256": "f09e8283c9fd122f37c17e7a7bca7dc82522e06d3e111d74b8dea38e0400a087"
+    },
+    {
+      "file": "01a3c7b1208b3c535ee95b6488a747c461410f081965e8c78f3d0294d17c951d.image",
+      "bytes": 123025,
+      "sha256": "df13cc353605aad24c43f2fdecdba5cba7e296b851d99e56f189846014522e1a"
+    },
+    {
+      "file": "05322bb33bbdb9bec07ffbb1cd6bce24a08707fc2259fd2c808f47c290b38ce9.image",
+      "bytes": 207025,
+      "sha256": "706afd31b9bb0a7385097a6cac87a4092c3a76e145f87da680d0b30437df69ad"
+    },
+    {
+      "file": "0bb130112a25838f79cd8053bc979bc0768d53db4162834e34b754aea79cdc74.image",
+      "bytes": 207484,
+      "sha256": "8ab6a3473dfb63db0c0c59b23fea037f8069cbfde344175fc27a109bc8ed4239"
+    },
+    {
+      "file": "0d6ec5675d0fb267e48f40484b51d873ccef56fa19e17fde600e56b3dbb39b08.image",
+      "bytes": 153870,
+      "sha256": "b1a8c4743627e323633ac1f51012ea04b2dc34b7bf76e6ec70138e7927f6ccf3"
+    },
+    {
+      "file": "1240e920e3f943a90a9951d28dcfa55ecdbc9da56a9182d76483be2e8bf32709.image",
+      "bytes": 123077,
+      "sha256": "7bdd83cf4e05227d3acfb848eeefb606c68b06874522a7e640a469f066c35d10"
+    },
+    {
+      "file": "187d35ea6ffe322db95028a356e69f84bc02b0d0c4b7e6c2003009a7b6dce125.image",
+      "bytes": 151992,
+      "sha256": "f37f9ad200c21c806ccea2801214d24941be001c0a83015ed7dd712992ef9644"
+    },
+    {
+      "file": "1eaa94e9be5f6f80e08345be0a2d27336927019d840e397a248a4ced0e2bd0f3.image",
+      "bytes": 177826,
+      "sha256": "2279ccfaa509ea8f65ca5d39a7a84b7bb378bcf91dc2ce28bfd72709ba78d7c2"
+    },
+    {
+      "file": "2afaf35bca9fcd09bd8ab356df8ce65374b7cc6de873e9e72128df334b7fde5c.image",
+      "bytes": 166008,
+      "sha256": "e9f79e8b57fbec76ba15ffec857bb1975bd3c7b153ef551df0012bf9b415b248"
+    },
+    {
+      "file": "2fdca47e053aa72c096a2019bee993f2866a1918a2be10c13fb7c040c60f9308.image",
+      "bytes": 108651,
+      "sha256": "63c83a1dbb0ffa61c3439b62ad8b63d385891244d110e525cb4b77429f6bf321"
+    },
+    {
+      "file": "380ac301ae87770f209f8a8cad1a15798ea8250e0ebf4ef253c6bcf055d26115.image",
+      "bytes": 123489,
+      "sha256": "7887f090854b0f2b910359271920f041501e69d068f18c0c2bf73500c8488fa9"
+    },
+    {
+      "file": "4223b64ec1b398fdf770a2817916288e279390cfec179afcd12f640804ba9587.image",
+      "bytes": 122612,
+      "sha256": "7deb42d238afb9638022f998a6ae000d0e4e0473feafc97a6a2e58169e5ceaf9"
+    },
+    {
+      "file": "43d2eb68aa672a9cfa00a84c774825d315107d55b6e8c5b4bd21ed3420c33fc8.image",
+      "bytes": 122612,
+      "sha256": "b40972489d879a52d8c4bca110979a70af4e7c4b5a55d51d210411d7ebd9ed99"
+    },
+    {
+      "file": "4b53ae0b11a31f854ef90e097873b54bedd005092957387fb077f9fecce7eb19.image",
+      "bytes": 166468,
+      "sha256": "666713e69396d7618b76f59f97c3328039dfa1ae4e2e62fc0d5e34cf3a22ebb8"
+    },
+    {
+      "file": "5b3ab061adef8e920a63113f9eb529a4d9a34728a84c713284f00154e31593e9.image",
+      "bytes": 221010,
+      "sha256": "bbe7cbb54fd66e3e8910c7060705f63e36fb810cbcdb19340b7cc60981f9bab4"
+    },
+    {
+      "file": "66d057d087aabfd0420a98daecd988158027ac85a8fcac24c22c20833f8dc759.image",
+      "bytes": 160339,
+      "sha256": "c31cd4b511d5232ed5fb2753fa351e64d544f067f4acb9c2c541896599f87130"
+    },
+    {
+      "file": "69c4f3f4c55b0742aea4a1794c829822b6dd179d1960e5e8503b09122622e9e3.image",
+      "bytes": 235714,
+      "sha256": "0f98327a541c047ec82e566642e63d3ff46d5a1449b606deef7117a58a381b87"
+    },
+    {
+      "file": "70cd25081def5d093e79d5de1bd075e3143c558f7e17e8769750ca488f478fe0.image",
+      "bytes": 90794,
+      "sha256": "44a54b64ea8a95f9c4a71f868d9551aed9d36233e4534107f8302905054c22c5"
+    },
+    {
+      "file": "711806fd8d78cabd14b5312af1f9621398dc19993371f7397a5c774d5237d8df.image",
+      "bytes": 163880,
+      "sha256": "f36ed3e7fc330ac6f581fa285773a84b548a2d9fe12803b7984488f8105b0542"
+    },
+    {
+      "file": "79f381ee4b3fe3c01f3fdd2cac449fcf0bfac266864bdadebcfd88715bdc1382.image",
+      "bytes": 140063,
+      "sha256": "f6fa3e2c803f2a4a5f16be2febdb40b9df4983a699ac066db661e3a2740b563d"
+    },
+    {
+      "file": "80a23f333a1b76d856fa33f71dbdbb1fc22dd45fa541adf22669b81fd0e9faad.image",
+      "bytes": 166008,
+      "sha256": "61ebb31988a1bd7823248d6a4d0b11046954bf54f904ed46ec29ec8178abcefa"
+    },
+    {
+      "file": "81d099e2c5124af7386ce235a920b192ae72a107a572154c1d99ea0c5665569e.image",
+      "bytes": 159875,
+      "sha256": "44dc62c6badbf05de9965ea4bb565669b59c94247be1218fa4b8da13584356d2"
+    },
+    {
+      "file": "82576a953fbe2911885b79b64e58ec2a5d0945b2a63c9682c44d95b1ee65612b.image",
+      "bytes": 273739,
+      "sha256": "232ca1915b6acee975f773615f575e8d00f3d1e683d4c047a1f5456de312b967"
+    },
+    {
+      "file": "8483392384ca93d855b2d529e50eb67d5bae33d399452e89b0b7548ea8e1741b.image",
+      "bytes": 158632,
+      "sha256": "b24912fcad9e45a135b4e936c0483eca2bfab126e949c01d13cc4a503500a043"
+    },
+    {
+      "file": "85ae51bec5f028f2444cfdc67685a61cd1ed854df0af61c045083d7098de5aad.image",
+      "bytes": 220545,
+      "sha256": "5e2b9ab1c40d317aca1d12268f1dfbb938e29f1e7566c3aecf2798e0af9ec45b"
+    },
+    {
+      "file": "a2b1d0a212f6b2c63f4a545c296ddfabb5a6b8d43fb9f2724810ac6d19142566.image",
+      "bytes": 155318,
+      "sha256": "21b7481c71d831be68cce6b4a40155e862a44bda329190a2d43b71f07736e303"
+    },
+    {
+      "file": "b0fd5a09fbc89be145b27b6ced3d392e2e24977df67be76ae99042a2885cad33.image",
+      "bytes": 122612,
+      "sha256": "3ca726ac6bb8338e8983036460f59aad08af6e9ee55f716eede36a5e21751668"
+    },
+    {
+      "file": "b646b078cba868f4a50f1fded5a139b33ef01e3857ecf1491c0eb301b8a64ab0.image",
+      "bytes": 159140,
+      "sha256": "f9a852d24e8ebf9af5f08f3fff00c974a7273d2dab5aaa449bad4e665af2b84b"
+    },
+    {
+      "file": "b66d2a644a055be21c0e03c301d108384b46ff3cd82c32358149f6eb44935b4b.image",
+      "bytes": 277146,
+      "sha256": "247657b5a3d5fa5fa0f4506c8a3f749490f44ab69cc31448b26cd0732ae28c0c"
+    },
+    {
+      "file": "cd31c1fd9439a1b161684d1e581b728dd74d0174cf5c6cf7084faad3dbf637eb.image",
+      "bytes": 121027,
+      "sha256": "a577259b63af038145ca2edfb3c9096a20738bf6c182c290eafde3c09a4c5e20"
+    },
+    {
+      "file": "ce8b092eeee1da8b522ea3ea6b0ef7963ab20361d8794a858abac9b09987972d.image",
+      "bytes": 107220,
+      "sha256": "9b3c41aaaa7da3aabfac0d617f6abc0caa61428bea540ade7ab7d5a90ad04ec6"
+    },
+    {
+      "file": "d689a3210c6d5035f8f3d7f14f377d8f1865bc986fc8c36249a6afc6a32ca570.image",
+      "bytes": 133612,
+      "sha256": "85f229d23228ccc8e87c5c86119b98c3bea9d3673681917e73739c68204a2555"
+    },
+    {
+      "file": "da50f606a2661c79424176b740f5c414614ea78cc1ccc7c6d7f55e011b2b1b57.image",
+      "bytes": 265022,
+      "sha256": "c09e9d81e4bc429320cf3fe8a1fae45f2f434b501bac4b6c5376a1865f9f79dc"
+    },
+    {
+      "file": "dbe1e24a99e5f497937e1270df75e03fceff7b56a204b93cf98383f267bdae1f.image",
+      "bytes": 109462,
+      "sha256": "fa40b7a8bc414e3d1ed15dfa5c6080e3159e611cf2feea3bc5aa9633b35be4bc"
+    },
+    {
+      "file": "dd5d9aaae38b9a6f87303d968507f04cdea885754250e0ca25348fe28352f88e.image",
+      "bytes": 121352,
+      "sha256": "9676059528d16f284fc788d3160229d69e09ca60b9b983ba6e4a6a49a2be31f8"
+    },
+    {
+      "file": "e25e45c6a765e0b3563fad8923197694e70579317dd3a9aa757135b10ea6f72b.image",
+      "bytes": 273739,
+      "sha256": "1e0eb2bba4752fe69f2229fa054f3eaf85b20d1c7cf402e5ba24394d24fa1e60"
+    },
+    {
+      "file": "e2f3e99461a918ffcf44457e8f450f669509931c07f56c172ed88f90c1881b91.image",
+      "bytes": 118037,
+      "sha256": "587961b2639f88811a2ac8ae0b3c54afc124260d62bdcc16edc3b7881539a87a"
+    },
+    {
+      "file": "e5d44fc6f6a4420b68a4a47015117cefbf454ecf5503f953c38229638d81fe5f.image",
+      "bytes": 166008,
+      "sha256": "ce8a75dd9c0cef98cb4699ec38bbffe6f05b09f04d2197690effb0319ae62804"
+    },
+    {
+      "file": "ec4152e2908f4d20b8f47896bd3ac188040749e85f788dc77e646abf3e89cbff.image",
+      "bytes": 169927,
+      "sha256": "41bf9d49ff8ded3b3b6d57d58059df6ea018d3f900e670a97eb44ba444c66b98"
+    },
+    {
+      "file": "ed1aa27f4b3bd8e3e62b66e1dd5c4c6a65bda1e9c6e9c0529f255e8ad51c5b62.image",
+      "bytes": 142393,
+      "sha256": "59e89be9a304236936c6451b127e2b22b75e93f9e1054e6ae318f1ce16a9ed6c"
+    },
+    {
+      "file": "ee405474202d619b9bb3bdeb5a565be9de0aa69d4c522af1413c13623ab438d5.image",
+      "bytes": 122612,
+      "sha256": "173d6862676e8159b5a26948762f28f5983dee8d53be6f3c1da031f27ffac9f2"
+    },
+    {
+      "file": "fa9bf5dfcf1aa1be5ab61bdb3db4aa5636a176fca6334fb38e795f0c0eba1d12.image",
+      "bytes": 122612,
+      "sha256": "600c83a4c9c9208366a5b6e70093bc818b06b63408ef3dab17bddf5ff5206de4"
+    },
+    {
+      "file": "fb2ead00114b4f6c0cc3dd5201c0a0a5f868e5b2de4147eeb5729a1141401754.image",
+      "bytes": 169474,
+      "sha256": "591f102103c8ae5b1eba3b1ec2fbbe08d5d01a56730a2a891260878169823243"
+    },
+    {
+      "file": "ff224aab08e3956288647e1e2d576b0e3f5454943eccd038b7cf49608eacda83.image",
+      "bytes": 124533,
+      "sha256": "eca58ab8963f7c938ee03272532b906b9fcba13430ba5b4ef0f08034ef23b1ce"
+    }
+  ]
+}

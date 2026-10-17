@@ -1,0 +1,20 @@
+{
+  "checks": [
+    "Device-only deletion works without session creation and clears Undo, lists and notes",
+    "Failed device write then Retry cannot restore the deleted Undo item",
+    "Queued save removal cannot recreate Undo after collection deletion",
+    "Server deletion failure leaves device data and Undo untouched",
+    "Explore-only guest draft triggers merge offer and copies without server ownership",
+    "Selected fictional person survives profile switch without private-data copy or visibility opt-in"
+  ],
+  "screenshots": [
+    "review-fixes-deleted-saved.png",
+    "review-fixes-retry-cleared.png",
+    "review-fixes-server-protected.png",
+    "review-fixes-draft-merge.png",
+    "review-fixes-selected-person.png",
+    "review-fixes-invitation.png"
+  ],
+  "errors": [],
+  "passed": true
+}

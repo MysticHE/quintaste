@@ -1,0 +1,44 @@
+{
+  "checkedAt": "2026-10-16T11:11:06.142Z",
+  "base": "http://127.0.0.1:8090",
+  "checks": [
+    "Opening menu fetches one branch detail, never all branch foods or Google details",
+    "Back from menu retains Explore page without another catalogue request",
+    "Saved bookmark and bounded public summary survive reload without network or private distance",
+    "Work is used when no default or Home is saved",
+    "Saved default precedes Work; explicit Singapore override persists after reload"
+  ],
+  "requests": [
+    {
+      "path": "/api/catalogue",
+      "body": "{\"search\":{\"area\":\"Singapore\",\"query\":\"\",\"vegan\":false,\"alliumFree\":false,\"cuisine\":\"All\",\"radius\":5000},\"cursor\":null}"
+    },
+    {
+      "path": "/api/menus?view=index",
+      "body": null
+    },
+    {
+      "path": "/api/menus?id=research-ur08-150-green",
+      "body": null
+    },
+    {
+      "path": "/api/catalogue",
+      "body": "{\"search\":{\"area\":\"Singapore\",\"query\":\"\",\"vegan\":false,\"alliumFree\":false,\"cuisine\":\"All\",\"center\":{\"latitude\":1.35,\"longitude\":103.848},\"radius\":5000},\"cursor\":null}"
+    },
+    {
+      "path": "/api/catalogue",
+      "body": "{\"search\":{\"area\":\"Singapore\",\"query\":\"\",\"vegan\":false,\"alliumFree\":false,\"cuisine\":\"All\",\"center\":{\"latitude\":1.27725,\"longitude\":103.84466},\"radius\":5000},\"cursor\":null}"
+    },
+    {
+      "path": "/api/catalogue",
+      "body": "{\"search\":{\"area\":\"Singapore\",\"query\":\"\",\"vegan\":false,\"alliumFree\":false,\"cuisine\":\"All\",\"radius\":5000},\"cursor\":null}"
+    },
+    {
+      "path": "/api/catalogue",
+      "body": "{\"search\":{\"area\":\"Singapore\",\"query\":\"\",\"vegan\":false,\"alliumFree\":false,\"cuisine\":\"All\",\"radius\":5000},\"cursor\":null}"
+    }
+  ],
+  "providerAttempts": [],
+  "pageErrors": [],
+  "passed": true
+}

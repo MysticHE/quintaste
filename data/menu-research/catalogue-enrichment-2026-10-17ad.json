@@ -1,0 +1,782 @@
+{
+  "checkedAt": "2026-10-17",
+  "deployedRelease": "20261017-merchant-data32",
+  "baseline": "20261017-suxiang-cover31",
+  "fullCoverageComplete": false,
+  "coverage": {
+    "browseLocations": 174,
+    "menuIds": 175,
+    "covers": 173,
+    "hours": 107,
+    "allThreeAvailable": 107,
+    "coverGaps": 1,
+    "hoursGaps": 67,
+    "uniqueAssets": 140,
+    "imageBytes": 19477212,
+    "largestImageBytes": 299725,
+    "firstPageBytes": 22616,
+    "firstPageMilliseconds": 25.0,
+    "locatedBrowseLocations": 171,
+    "coordinateHolds": 3,
+    "explicitUnconfirmedWeekdaysWithinPublishedSchedules": 2
+  },
+  "newPhotos": [
+    {
+      "venueId": "research-ascend-cross-lead",
+      "address": "18 Cross Street #B1-12, K4, Singapore 048423",
+      "photo": {
+        "path": "/api/catalogue-photos/baa6d9f2d8a147dd3b1cbed5f9808b5a0d35847b9280536e5de6241bd60e55e0.jpg",
+        "width": 960,
+        "height": 720,
+        "author": "Ascend Vegetarian",
+        "sourceUrl": "https://www.facebook.com/photo/?fbid=1163870909934825&set=a.130187213303205",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted crop and enhancement of a merchant product reference for18Cross. Promotional text removed; food arrangement preserved. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "baa6d9f2d8a147dd3b1cbed5f9808b5a0d35847b9280536e5de6241bd60e55e0",
+      "bytes": 163088,
+      "originalSha256": "1e7e1d342333e637d2cd61e7a86d03854cc18874e9afdf2bc15dc478006e25f3",
+      "sourcePageCheckedAt": "2026-10-17T02:15:55.482Z",
+      "sourceImageUrl": "https://scontent.fsin14-1.fna.fbcdn.net/v/t51.82787-15/850353310_18028521731913648_3634284532610134681_n.jpg?stp=dst-jpg_tt6&cstp=mx1760x2347&ctp=s1760x2347&_nc_cat=103&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=127cfc&_nc_ohc=RV6Cibmik3wQ7kNvwHDpDuS&_nc_oc=AdpbYSHdmo2zKVwCVLh1LDD_kxg0ux3kbiBmvNWt4PppTgXKzjx4rc4SOUjxQL2Xc7A&_nc_zt=23&_nc_ht=scontent.fsin14-1.fna&_nc_gid=DsxOFI47DQoXJdgqSZl3eQ&_nc_ss=7e289&oh=00_AQMqNe2JyPgcJtTlfeKJmCIS4uYlOmachjUHxm5I18yoIQ&oe=6AD8BA27",
+      "identityEvidence": "Ordinary public photo caption by Ascend explicitly says new dish available exclusively at18Cross outlet. Existing landlord confirms18Cross#B1-12K4; not transferred from Esplanade.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Create a faithful, polished gallery-cover enhancement from this exact Ascend 18 Cross merchant food-poster reference. Use its photographic food as the edit target. Crop/reframe to a landscape 4:3 close view of the same off-white plate: white rice on the right, the same dark browned central pieces under the same pale sauce drizzle and three overlapping green slices, the same orange-golden pieces on the left including the two round sliced pieces at the bottom, dark thin strips at upper right, and the same two red tomato pieces at right. Preserve the partial white bowl of dark brown soup at the top background and reddish wooden table where framing permits. Remove only the promotional text and NEW badge through cropping/clean presentation; do not add branding or words. Improve warm natural light, clarity and texture conservatively while keeping the food, arrangement, portion and viewing angle faithful. Do not add egg, new ingredients, dishes, utensils, people or invented interior. This is an enhanced merchant reference, not independent ingredient, portion or current-stock certification.",
+        "review": "Visually inspected source and generated image: same off-white plate, white rice, central browned pieces/pale drizzle/green slices, orange-golden pieces including two lower round pieces, dark strips, two tomato pieces, partial soup and reddish table. Promotional words/badge cropped away; no egg or extra ingredient/dish added. Fine details may differ; not ingredient or stock certification."
+      }
+    }
+  ],
+  "newHours": [
+    {
+      "venueId": "research-genesis-vegan-havelock-ii",
+      "address": "2 Havelock Road, #B1-01 Havelock II, Singapore 059763",
+      "hours": {
+        "summary": "Sun–Thu lunch & dinner · Fri lunch",
+        "schedule": [
+          "Sun–Thu: 11:00–15:00 and 17:00–21:00",
+          "Friday: 11:00–15:00",
+          "Saturday: closed"
+        ],
+        "notes": "Merchant-listed regular hours; holidays and special closures may differ.",
+        "sourceUrl": "https://www.facebook.com/genesisvegan/",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "sourcePageCheckedAt": "2026-10-17T02:07:27.440Z",
+      "sourceSha256": "a4badd83e0465a6e99814cb3c51183a6b9c0789305c5ecbb6b95df8b48cc48b4",
+      "review": "Exact existing branch matched to merchant public bio/address plus visible expanded regular-hours control or own printed post text. Transient Open/Closed/Opening soon labels are not persisted. Source update-age qualifications retained."
+    },
+    {
+      "venueId": "research-ur01-tracy-fortune",
+      "address": "190 Middle Road #01-34 Fortune Centre, Singapore 188979",
+      "hours": {
+        "summary": "Daily 09:30–18:15",
+        "schedule": [
+          "Daily: 09:30–18:15"
+        ],
+        "notes": "The merchant profile labels these hours as updated about 4 years ago. They remain publicly listed, but current trading hours should be reconfirmed.",
+        "sourceUrl": "https://www.facebook.com/TracyJuiceCulture/",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "sourcePageCheckedAt": "2026-10-17T02:07:49.371Z",
+      "sourceSha256": "bcb63852e4fe0bba3de5e377e30bb35764b517d42dca90ce0c42f5d3053de875",
+      "review": "Exact existing branch matched to merchant public bio/address plus visible expanded regular-hours control or own printed post text. Transient Open/Closed/Opening soon labels are not persisted. Source update-age qualifications retained."
+    },
+    {
+      "venueId": "research-ur02-xie-bi-an-vegetarian",
+      "address": "824 Tampines Street 81, #01-38, BK Coffeeshop, Singapore 520824",
+      "hours": {
+        "summary": "Daily 07:00–20:00",
+        "schedule": [
+          "Daily: 07:00–20:00"
+        ],
+        "notes": "The merchant profile labels these hours as updated about 5 years ago. Dated holiday/temporary-closure posts are separate; reconfirm before visiting.",
+        "sourceUrl": "https://www.facebook.com/xiebianvege/",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "sourcePageCheckedAt": "2026-10-17T02:08:49.831Z",
+      "sourceSha256": "d270acd07d9dcf4682e021d6422bc8898e450cfa5ddaa955b877366e15fcabcf",
+      "review": "Exact existing branch matched to merchant public bio/address plus visible expanded regular-hours control or own printed post text. Transient Open/Closed/Opening soon labels are not persisted. Source update-age qualifications retained."
+    },
+    {
+      "venueId": "research-ur02-tpy-203-vegetarian-food",
+      "address": "203 Toa Payoh North, Singapore 310203",
+      "hours": {
+        "summary": "Mon–Sat 06:00–13:00 · Sun closed",
+        "schedule": [
+          "Mon–Sat: 06:00–13:00",
+          "Sunday: closed"
+        ],
+        "notes": "Merchant profile identifies Block203, unit01-1121, Toa Payoh Spring. Existing exact-branch binding retained; special closures may differ.",
+        "sourceUrl": "https://www.facebook.com/Tpy203veg/",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "sourcePageCheckedAt": "2026-10-17T02:08:59.169Z",
+      "sourceSha256": "ed3445aec2392e3d317b6aa0396c3ec32ce1a8693896a7bad3f3e60604b452bd",
+      "review": "Exact existing branch matched to merchant public bio/address plus visible expanded regular-hours control or own printed post text. Transient Open/Closed/Opening soon labels are not persisted. Source update-age qualifications retained."
+    },
+    {
+      "venueId": "research-ur02-amk-green-harmony-vegetarian",
+      "address": "443 Ang Mo Kio Avenue 10, #01-1221, Singapore 560443",
+      "hours": {
+        "summary": "Daily 10:30–21:00",
+        "schedule": [
+          "Daily: 10:30–21:00"
+        ],
+        "notes": "Explicit daily hours in the merchant bio; not inferred from an Opening soon label. Holidays and special closures may differ.",
+        "sourceUrl": "https://www.facebook.com/p/%E7%B4%A0%E5%92%8C%E8%BD%A9-Green-Harmony-Vegetarian-61573781043177/",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "sourcePageCheckedAt": "2026-10-17T02:09:09.510Z",
+      "sourceSha256": "7ff360b4c2bdbb6a673e97f0145f79ef1808948b9579dd8e0ec26b88317e5e77",
+      "review": "Exact existing branch matched to merchant public bio/address plus visible expanded regular-hours control or own printed post text. Transient Open/Closed/Opening soon labels are not persisted. Source update-age qualifications retained."
+    },
+    {
+      "venueId": "research-ur01-harmony-serangoon",
+      "address": "157A Serangoon North Avenue 1 #01-01, Singapore 551157",
+      "hours": {
+        "summary": "Tue–Sun 11:00–21:00 · Mon closed",
+        "schedule": [
+          "Tue–Sun: 11:00–21:00",
+          "Monday: closed"
+        ],
+        "notes": "Merchant profile labels these hours as updated about 2 years ago; an operating-hours update post dated9June2024 is also visible. Reconfirm current hours before visiting.",
+        "sourceUrl": "https://www.facebook.com/harmonyhutvegetariancafe/",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "sourcePageCheckedAt": "2026-10-17T02:10:18.590Z",
+      "sourceSha256": "b567ae42e9ae94777b258c6967d796f419ed963a2e46cb99508a206731201125",
+      "review": "Exact existing branch matched to merchant public bio/address plus visible expanded regular-hours control or own printed post text. Transient Open/Closed/Opening soon labels are not persisted. Source update-age qualifications retained."
+    },
+    {
+      "venueId": "research-leafcorner-jurong",
+      "address": "60 Jurong West Street 91 #01-09, Nanyang Community Club, Singapore 649040",
+      "hours": {
+        "summary": "Daily 11:00–21:30",
+        "schedule": [
+          "Daily: 11:00–21:30"
+        ],
+        "notes": "Merchant bio and expanded weekly hours agree. The hours panel says updated about 3 years ago. Applied only to the explicitly addressed Nanyang branch; other branch schedules are unconfirmed.",
+        "sourceUrl": "https://www.facebook.com/leafcornersg/",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "sourcePageCheckedAt": "2026-10-17T02:10:27.544Z",
+      "sourceSha256": "ff54b9c2974d752ed771f9a085bcea874b8b08460ce91ef15cd6b96c2a30c604",
+      "review": "Exact existing branch matched to merchant public bio/address plus visible expanded regular-hours control or own printed post text. Transient Open/Closed/Opening soon labels are not persisted. Source update-age qualifications retained."
+    },
+    {
+      "venueId": "research-ur06-so-green",
+      "address": "445 Bedok North Street1 #01-02, Djitsun Mall, Singapore469661",
+      "hours": {
+        "summary": "Daily 11:00–21:00",
+        "schedule": [
+          "Daily: 11:00–21:00"
+        ],
+        "notes": "Merchant profile labels these hours as updated about 4 years ago. Current bio identifies the exact Djitsun Mall Bedok unit; reconfirm trading hours before visiting.",
+        "sourceUrl": "https://www.facebook.com/GuiLinVegetarian/",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "sourcePageCheckedAt": "2026-10-17T02:11:26.487Z",
+      "sourceSha256": "2ce2a9dc2569742b5a6ea0a1b46cbdfdfccb01a8ef9126cf8f9243708605f357",
+      "review": "Exact existing branch matched to merchant public bio/address plus visible expanded regular-hours control or own printed post text. Transient Open/Closed/Opening soon labels are not persisted. Source update-age qualifications retained."
+    },
+    {
+      "venueId": "research-greenland-upper-serangoon",
+      "address": "789 & 791 Upper Serangoon Road, Singapore 534659",
+      "hours": {
+        "summary": "Daily 11:30–21:30",
+        "schedule": [
+          "Daily: 11:30–21:30"
+        ],
+        "notes": "Merchant-listed weekly hours for789/791UpperSerangoonRoad. Effective update date is not stated; holidays and special closures may differ.",
+        "sourceUrl": "https://www.facebook.com/greenland791/",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "sourcePageCheckedAt": "2026-10-17T02:11:35.777Z",
+      "sourceSha256": "bfb2bdb43b669226bbb4641b7b83000c5d40357e79efe67a61f73fa892992849",
+      "review": "Exact existing branch matched to merchant public bio/address plus visible expanded regular-hours control or own printed post text. Transient Open/Closed/Opening soon labels are not persisted. Source update-age qualifications retained."
+    },
+    {
+      "venueId": "research-mother-earth-classic-balestier",
+      "address": "530 Balestier Road #01-06, 329857, Singapore",
+      "hours": {
+        "summary": "Thu–Tue 10:30–21:30 · Wed closed",
+        "schedule": [
+          "Mon–Tue and Thu–Sun: 10:30–21:30",
+          "Wednesday: closed"
+        ],
+        "notes": "Regular merchant profile hours, labelled updated about 7 months ago. A separate operator post dated7October announces a one-day opening without changing the weekly schedule; special announcements may override regular hours.",
+        "sourceUrl": "https://www.facebook.com/motherearthclassic/",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "sourcePageCheckedAt": "2026-10-17T02:11:45.942Z",
+      "sourceSha256": "8b3d4ced7c54adf3238f1404e9c745c347dab62689a21013ad46537467c43ca5",
+      "review": "Exact existing branch matched to merchant public bio/address plus visible expanded regular-hours control or own printed post text. Transient Open/Closed/Opening soon labels are not persisted. Source update-age qualifications retained."
+    },
+    {
+      "venueId": "research-linlin-bedok-north",
+      "address": "412 Bedok North Avenue 2, inside SinFoodie Coffeeshop, Singapore 460412",
+      "hours": {
+        "summary": "Tue–Sun 10:00–20:30 · lunar exceptions",
+        "schedule": [
+          "Tue–Sun: 10:00–20:30",
+          "Monday: closed except merchant lunar-day exceptions; exception hours unconfirmed"
+        ],
+        "notes": "Hours printed in the merchant’s own18and24September posts, distinct from a shared review. The year is not printed in the visible post date. Lunar-day exceptions are not converted into assumed Monday opening times.",
+        "sourceUrl": "https://www.facebook.com/linlin.veg/",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "sourcePageCheckedAt": "2026-10-17T02:13:08.334Z",
+      "sourceSha256": "49761c6efe399ffbacb7dbe630f611b24fa42515612ec15575add5c4a16a3132",
+      "review": "Exact existing branch matched to merchant public bio/address plus visible expanded regular-hours control or own printed post text. Transient Open/Closed/Opening soon labels are not persisted. Source update-age qualifications retained.",
+      "unconfirmedExceptions": "Monday lunar-day opening times and exact exception dates remain unconfirmed."
+    }
+  ],
+  "newFoods": [
+    {
+      "dataset": "data/menu-research/menu-ascend-coco-moonchay-sproutz.json",
+      "branchId": "ascend-cross-lead",
+      "menuId": "ad-ascend-cross-smoky-rice",
+      "sourceId": "ad-ascend-cross-merchant-announcement",
+      "food": {
+        "id": "ad-ascend-cross-smoky-rice-dish",
+        "name": "Smoky Braised ‘Pork’ Rice with Preserved Mustard Green",
+        "category": "Rice dishes",
+        "sourceIds": [
+          "ad-ascend-cross-merchant-announcement"
+        ],
+        "publicationStatus": "approved-reviewed-source-fact",
+        "price": {
+          "amount": null,
+          "currency": "unknown"
+        },
+        "setComponents": [
+          "Mushroom soup, stated by merchant"
+        ],
+        "printedExtras": [
+          "Optional braised egg; price and default not stated"
+        ],
+        "merchantDietaryStatement": "Vegan base as described by merchant; optional egg changes suitability. Not independent ingredient/allergen certification.",
+        "verification": {
+          "checkedAt": "2026-10-17T02:15:55.482Z",
+          "sourceIds": [
+            "ad-ascend-cross-merchant-announcement"
+          ],
+          "verifiedFields": [
+            "printed dish name",
+            "exact18Cross applicability",
+            "merchant base-vegan statement",
+            "separate optional egg statement"
+          ],
+          "unverifiedFields": [
+            "price",
+            "currency",
+            "portion quantity",
+            "complete ingredients",
+            "allergens",
+            "current stock",
+            "optional-egg surcharge/default"
+          ]
+        }
+      }
+    }
+  ],
+  "sourceReview": {
+    "checkedAt": "2026-10-17",
+    "outcomes": [
+      {
+        "sourceUrl": "https://www.facebook.com/p/Ascend-%E8%94%AC%E5%8D%87-100089357805199/",
+        "checkedAt": "2026-10-17T02:14:15.091Z",
+        "status": 200,
+        "outcome": "public-hours-control-expanded",
+        "actions": [
+          "Closed optional public login prompt",
+          "Expanded the ordinary visible opening-hours control"
+        ],
+        "sourceSha256": "d4764a188a738e81ad03dcb821b67b95a9509cb6664aaa16153ce4f39b35cd35",
+        "capture": "ascend-public-public-hours.json",
+        "newHoursVenueIds": [],
+        "qualification": "Profile schedule/address identify Esplanade. Existing18Cross hours preserved; separate explicitly Cross-only product photo used."
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/pages/Divine-Realm-Vegetarian-Restaurant/131750353564340",
+        "checkedAt": "2026-10-17T02:12:05.632Z",
+        "status": 200,
+        "outcome": "no-public-hours-control",
+        "actions": [
+          "Closed optional public login prompt"
+        ],
+        "sourceSha256": "1f7dd1e256b91c1c40f33d19945c8bf392568e6b23813eeb094e4babb3aa68ab",
+        "capture": "divine-realm-public-hours.json",
+        "newHoursVenueIds": [],
+        "qualification": "Public page explicitly says Unofficial Page. Not primary operator evidence."
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/DlifeSignature/",
+        "checkedAt": "2026-10-17T02:09:53.012Z",
+        "status": 200,
+        "outcome": "no-public-hours-control",
+        "actions": [
+          "Closed optional public login prompt"
+        ],
+        "sourceSha256": "514dea67dbd6674362d0f5d325b20ac63d6b863c2d59b959c7fd0a2e8dc89b9a",
+        "capture": "dlife-signature-public-hours.json",
+        "newHoursVenueIds": [],
+        "qualification": "Profile identifies Square2/10Sinaran, not ChinatownPoint. No branch-hours transfer."
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/genesisvegan/",
+        "checkedAt": "2026-10-17T02:07:27.440Z",
+        "status": 200,
+        "outcome": "public-hours-control-expanded",
+        "actions": [
+          "Closed optional public login prompt",
+          "Expanded the ordinary visible opening-hours control"
+        ],
+        "sourceSha256": "a4badd83e0465a6e99814cb3c51183a6b9c0789305c5ecbb6b95df8b48cc48b4",
+        "capture": "genesis-public-hours.json",
+        "newHoursVenueIds": [
+          "research-genesis-vegan-havelock-ii"
+        ]
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/p/%E7%B4%A0%E5%92%8C%E8%BD%A9-Green-Harmony-Vegetarian-61573781043177/",
+        "checkedAt": "2026-10-17T02:09:09.510Z",
+        "status": 200,
+        "outcome": "no-public-hours-control",
+        "actions": [
+          "Closed optional public login prompt"
+        ],
+        "sourceSha256": "7ff360b4c2bdbb6a673e97f0145f79ef1808948b9579dd8e0ec26b88317e5e77",
+        "capture": "greenharmony-public-hours.json",
+        "newHoursVenueIds": [
+          "research-ur02-amk-green-harmony-vegetarian"
+        ]
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/greenland791/",
+        "checkedAt": "2026-10-17T02:11:35.777Z",
+        "status": 200,
+        "outcome": "public-hours-control-expanded",
+        "actions": [
+          "Closed optional public login prompt",
+          "Expanded the ordinary visible opening-hours control"
+        ],
+        "sourceSha256": "bfb2bdb43b669226bbb4641b7b83000c5d40357e79efe67a61f73fa892992849",
+        "capture": "greenland-public-hours.json",
+        "newHoursVenueIds": [
+          "research-greenland-upper-serangoon"
+        ]
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/harmonyhutvegetariancafe/",
+        "checkedAt": "2026-10-17T02:10:18.590Z",
+        "status": 200,
+        "outcome": "public-hours-control-expanded",
+        "actions": [
+          "Closed optional public login prompt",
+          "Expanded the ordinary visible opening-hours control"
+        ],
+        "sourceSha256": "b567ae42e9ae94777b258c6967d796f419ed963a2e46cb99508a206731201125",
+        "capture": "harmony-expanded-public-hours.json",
+        "newHoursVenueIds": [
+          "research-ur01-harmony-serangoon"
+        ]
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/harmonyhutvegetariancafe/",
+        "checkedAt": "2026-10-17T02:08:40.876Z",
+        "status": 200,
+        "outcome": "no-public-hours-control",
+        "actions": [
+          "Closed optional public login prompt"
+        ],
+        "sourceSha256": "68b604384f9ed23034b6ace8df4061bd9fbd5ea33684d5e8e35f97a996541bfe",
+        "capture": "harmony-public-hours.json",
+        "newHoursVenueIds": []
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/p/KALE-by-KangSu-61555173835603/",
+        "checkedAt": "2026-10-17T02:13:38.218Z",
+        "status": 200,
+        "outcome": "no-public-hours-control",
+        "actions": [
+          "Closed optional public login prompt",
+          "Expanded ordinary visible public post text"
+        ],
+        "sourceSha256": "8bc32654b97b7b4db9f7001ef86c0272d9540aab483ba36eda3497f379027de4",
+        "capture": "kale-posts-public-hours.json",
+        "newHoursVenueIds": [],
+        "qualification": "Adelphi dish-availability weekdays do not establish venue opening hours. No duplicate food extraction."
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/p/KALE-by-KangSu-61555173835603/",
+        "checkedAt": "2026-10-17T02:08:32.119Z",
+        "status": 200,
+        "outcome": "no-public-hours-control",
+        "actions": [
+          "Closed optional public login prompt"
+        ],
+        "sourceSha256": "2a4bf3829a15c52e95208104a2cec96d7e0a1fa762e6bf7edd4f10a1e0c4e3c2",
+        "capture": "kale-public-hours.json",
+        "newHoursVenueIds": []
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/Kangsuvegetarian",
+        "checkedAt": "2026-10-17T02:13:19.476Z",
+        "status": 200,
+        "outcome": "no-public-hours-control",
+        "actions": [
+          "Closed optional public login prompt",
+          "Expanded ordinary visible public post text",
+          "Expanded ordinary visible public post text"
+        ],
+        "sourceSha256": "f28f274c25378f2e87c3dac1c51477bcee7dfb08a3f8340abe0b284507bd1d50",
+        "capture": "kangsu-posts-public-hours.json",
+        "newHoursVenueIds": [],
+        "qualification": "Current own schedule applies to472MacPherson, not FarEastPlaza. No transfer."
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/Kangsuvegetarian",
+        "checkedAt": "2026-10-17T02:09:35.577Z",
+        "status": 200,
+        "outcome": "no-public-hours-control",
+        "actions": [
+          "Closed optional public login prompt"
+        ],
+        "sourceSha256": "d549fe20cc4f0251d79990b8227548056b2baa0f479bff0470b14af0bc4c2c50",
+        "capture": "kangsu-public-hours.json",
+        "newHoursVenueIds": []
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/leafcornersg/",
+        "checkedAt": "2026-10-17T02:10:27.544Z",
+        "status": 200,
+        "outcome": "public-hours-control-expanded",
+        "actions": [
+          "Closed optional public login prompt",
+          "Expanded the ordinary visible opening-hours control"
+        ],
+        "sourceSha256": "ff54b9c2974d752ed771f9a085bcea874b8b08460ce91ef15cd6b96c2a30c604",
+        "capture": "leafcorner-public-hours.json",
+        "newHoursVenueIds": [
+          "research-leafcorner-jurong"
+        ],
+        "qualification": "Nanyang schedule accepted only at60JurongWest91; TaiSeng/Sembawang unconfirmed."
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/linlin.veg/",
+        "checkedAt": "2026-10-17T02:13:08.334Z",
+        "status": 200,
+        "outcome": "no-public-hours-control",
+        "actions": [
+          "Closed optional public login prompt",
+          "Expanded ordinary visible public post text",
+          "Expanded ordinary visible public post text",
+          "Expanded ordinary visible public post text",
+          "Expanded ordinary visible public post text",
+          "Expanded ordinary visible public post text"
+        ],
+        "sourceSha256": "49761c6efe399ffbacb7dbe630f611b24fa42515612ec15575add5c4a16a3132",
+        "capture": "linlin-posts-public-hours.json",
+        "newHoursVenueIds": [
+          "research-linlin-bedok-north"
+        ]
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/linlin.veg/",
+        "checkedAt": "2026-10-17T02:09:43.913Z",
+        "status": 200,
+        "outcome": "no-public-hours-control",
+        "actions": [
+          "Closed optional public login prompt"
+        ],
+        "sourceSha256": "b7cb9bf8d29f8186252a5939171b3a21cadfaf5c3306f198b1313ad1693d1b88",
+        "capture": "linlin-public-hours.json",
+        "newHoursVenueIds": []
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/motherearthclassic/",
+        "checkedAt": "2026-10-17T02:12:57.488Z",
+        "status": 200,
+        "outcome": "no-public-hours-control",
+        "actions": [
+          "Closed optional public login prompt",
+          "Expanded ordinary visible public post text",
+          "Expanded ordinary visible public post text",
+          "Expanded ordinary visible public post text",
+          "Expanded ordinary visible public post text"
+        ],
+        "sourceSha256": "7bf84c56a0709a11bd403ed75e2d53eba78518f7a1b2e5e78ed49989003365a5",
+        "capture": "mother-classic-posts-public-hours.json",
+        "newHoursVenueIds": []
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/motherearthclassic/",
+        "checkedAt": "2026-10-17T02:11:45.942Z",
+        "status": 200,
+        "outcome": "public-hours-control-expanded",
+        "actions": [
+          "Closed optional public login prompt",
+          "Expanded the ordinary visible opening-hours control"
+        ],
+        "sourceSha256": "8b3d4ced7c54adf3238f1404e9c745c347dab62689a21013ad46537467c43ca5",
+        "capture": "mother-earth-classic-public-hours.json",
+        "newHoursVenueIds": [
+          "research-mother-earth-classic-balestier"
+        ]
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/motherearthsg/",
+        "checkedAt": "2026-10-17T02:11:55.569Z",
+        "status": 200,
+        "outcome": "no-public-hours-control",
+        "actions": [
+          "Closed optional public login prompt"
+        ],
+        "sourceSha256": "91b4504dc9c376901cbb63272c908d3d31c426988103f50232c6a5006874b920",
+        "capture": "mother-earth-jurong-public-hours.json",
+        "newHoursVenueIds": [],
+        "qualification": "Exact511UpperJurong branch readable; one-day closure is not weekly hours. No Balestier transfer."
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/originalgreenssg/",
+        "checkedAt": "2026-10-17T02:13:29.037Z",
+        "status": 200,
+        "outcome": "no-public-hours-control",
+        "actions": [
+          "Closed optional public login prompt",
+          "Expanded ordinary visible public post text"
+        ],
+        "sourceSha256": "e1f12bb124ed16697dee93547c5658be74fed6629a93b30182821521a474e332",
+        "capture": "originalgreens-posts-public-hours.json",
+        "newHoursVenueIds": [],
+        "qualification": "Exact Shaw premise readable; no merchant weekly schedule. Landlord/template conflict remains held."
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/originalgreenssg/",
+        "checkedAt": "2026-10-17T02:07:40.323Z",
+        "status": 200,
+        "outcome": "no-public-hours-control",
+        "actions": [
+          "Closed optional public login prompt"
+        ],
+        "sourceSha256": "869ee62b155a3ef3d62544e8c6bbd412b8214e8ec83351e0f120c9f7d75481af",
+        "capture": "originalgreens-public-hours.json",
+        "newHoursVenueIds": []
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/GuiLinVegetarian/",
+        "checkedAt": "2026-10-17T02:11:26.487Z",
+        "status": 200,
+        "outcome": "public-hours-control-expanded",
+        "actions": [
+          "Closed optional public login prompt",
+          "Expanded the ordinary visible opening-hours control"
+        ],
+        "sourceSha256": "2ce2a9dc2569742b5a6ea0a1b46cbdfdfccb01a8ef9126cf8f9243708605f357",
+        "capture": "sogreen-expanded-public-hours.json",
+        "newHoursVenueIds": [
+          "research-ur06-so-green"
+        ]
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/GuiLinVegetarian/",
+        "checkedAt": "2026-10-17T02:09:26.987Z",
+        "status": 200,
+        "outcome": "no-public-hours-control",
+        "actions": [
+          "Closed optional public login prompt"
+        ],
+        "sourceSha256": "fadd66e2710cd4d37e7520a16fa320471b17655ebd401be2159113c1bace7604",
+        "capture": "sogreen-public-hours.json",
+        "newHoursVenueIds": []
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/Times-Vege-%E6%97%B6%E7%B4%A0-Blk-643-Bukit-Batok-Central-01-44-Singapore-650643-121212968482571/",
+        "checkedAt": "2026-10-17T02:16:29.187Z",
+        "status": 200,
+        "outcome": "no-public-hours-control",
+        "actions": [],
+        "sourceSha256": "2d91df13143ae5eceb33f22f8a4dafbaaa068a0f4cfa654327cd94518029d32f",
+        "capture": "timesvege-public-hours.json",
+        "newHoursVenueIds": [],
+        "qualification": "Observed legacy merchant link returns content unavailable; no alternate access attempted."
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/Tpy203veg/",
+        "checkedAt": "2026-10-17T02:08:59.169Z",
+        "status": 200,
+        "outcome": "public-hours-control-expanded",
+        "actions": [
+          "Closed optional public login prompt",
+          "Expanded the ordinary visible opening-hours control"
+        ],
+        "sourceSha256": "ed3445aec2392e3d317b6aa0396c3ec32ce1a8693896a7bad3f3e60604b452bd",
+        "capture": "tpy203-public-hours.json",
+        "newHoursVenueIds": [
+          "research-ur02-tpy-203-vegetarian-food"
+        ]
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/TracyJuiceCulture/",
+        "checkedAt": "2026-10-17T02:07:49.371Z",
+        "status": 200,
+        "outcome": "public-hours-control-expanded",
+        "actions": [
+          "Closed optional public login prompt",
+          "Expanded the ordinary visible opening-hours control"
+        ],
+        "sourceSha256": "bcb63852e4fe0bba3de5e377e30bb35764b517d42dca90ce0c42f5d3053de875",
+        "capture": "tracy-public-hours.json",
+        "newHoursVenueIds": [
+          "research-ur01-tracy-fortune"
+        ]
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/xiebianvege/",
+        "checkedAt": "2026-10-17T02:08:49.831Z",
+        "status": 200,
+        "outcome": "public-hours-control-expanded",
+        "actions": [
+          "Closed optional public login prompt",
+          "Expanded the ordinary visible opening-hours control"
+        ],
+        "sourceSha256": "d270acd07d9dcf4682e021d6422bc8898e450cfa5ddaa955b877366e15fcabcf",
+        "capture": "xiebian-public-hours.json",
+        "newHoursVenueIds": [
+          "research-ur02-xie-bi-an-vegetarian"
+        ]
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/XingHuaVegetarianRestaurant/",
+        "checkedAt": "2026-10-17T02:09:17.156Z",
+        "status": 200,
+        "outcome": "public-hours-control-expanded",
+        "actions": [
+          "Closed optional public login prompt",
+          "Expanded the ordinary visible opening-hours control"
+        ],
+        "sourceSha256": "f4a8b736500b2b3edffe562bcf996a702704099a382f0e89d153cb80209b636a",
+        "capture": "xinghua-public-hours.json",
+        "newHoursVenueIds": [],
+        "qualification": "Profile identifies180Bencoolen, not190Middle or111Somerset. No transfer."
+      }
+    ],
+    "domainChecks": [
+      {
+        "id": "zzv-root",
+        "url": "https://zzv.sg/",
+        "checkedAt": "2026-10-17T02:11:18.860246+00:00",
+        "checkDateSingapore": "2026-10-17",
+        "status": 200,
+        "finalUrl": "https://zzv.sg/",
+        "bytes": 6735
+      },
+      {
+        "id": "mother-earth-domain",
+        "url": "https://motherearthveg.sg/",
+        "checkedAt": "2026-10-17T02:11:19.964895+00:00",
+        "checkDateSingapore": "2026-10-17",
+        "error": "ConnectionError"
+      },
+      {
+        "id": "baomaker-root",
+        "url": "https://baomaker.com/",
+        "checkedAt": "2026-10-17T02:11:23.049829+00:00",
+        "checkDateSingapore": "2026-10-17",
+        "status": 200,
+        "finalUrl": "https://baomaker.com/",
+        "bytes": 218329
+      }
+    ],
+    "preservedQualifications": {
+      "dlife-signature": "Profile identifies Square2/10Sinaran, not ChinatownPoint. No branch-hours transfer.",
+      "xinghua": "Profile identifies180Bencoolen, not190Middle or111Somerset. No transfer.",
+      "kangsu-posts": "Current own schedule applies to472MacPherson, not FarEastPlaza. No transfer.",
+      "kale-posts": "Adelphi dish-availability weekdays do not establish venue opening hours. No duplicate food extraction.",
+      "originalgreens-posts": "Exact Shaw premise readable; no merchant weekly schedule. Landlord/template conflict remains held.",
+      "mother-earth-jurong": "Exact511UpperJurong branch readable; one-day closure is not weekly hours. No Balestier transfer.",
+      "divine-realm": "Public page explicitly says Unofficial Page. Not primary operator evidence.",
+      "timesvege": "Observed legacy merchant link returns content unavailable; no alternate access attempted.",
+      "leafcorner": "Nanyang schedule accepted only at60JurongWest91; TaiSeng/Sembawang unconfirmed.",
+      "ascend-public": "Profile schedule/address identify Esplanade. Existing18Cross hours preserved; separate explicitly Cross-only product photo used."
+    },
+    "pendingNewPrimaryLinks": {
+      "checkedAt": "2026-10-17",
+      "pendingNotYetVisited": [
+        {
+          "venueId": "bodhi-deli-fortune-centre",
+          "url": "https://www.facebook.com/bodhidelivegan/",
+          "discoveredAt": "https://burpple.com/bodhi-deli?bp_ref=%2Flist%2F503558%2Fsgp1"
+        },
+        {
+          "venueId": "teng-bespoke-sunshine-plaza",
+          "url": "https://www.facebook.com/tengbespokevegetarianrestaurant/",
+          "discoveredAt": "https://burpple.com/teng-bespoke-vegetarian-dining"
+        }
+      ],
+      "note": "New distinct primary-profile URLs observed during build. Do not count as reviewed; continue after validating/deploying current ad additions."
+    },
+    "noPaidGoogleCalls": true
+  },
+  "referenceQueueAudit": {
+    "checkedAt": "2026-10-17",
+    "referenceReceipts": 275,
+    "statusCounts": {
+      "enhanced-selected": 141,
+      "reviewed-not-selected": 30,
+      "reviewed-held-source-not-usable": 41,
+      "matched-existing-enhancement-reused": 10,
+      "held-unused": 4,
+      "held-source-image-unclear": 8,
+      "reviewed-alternate-metadata-only": 1,
+      "reviewed-usable-alternate-not-generated": 24,
+      "held-provider-reference-only": 1,
+      "unavailable": 3,
+      "held-low-resolution": 1,
+      "reviewed-not-selected-beverage": 8,
+      "reviewed-held-low-resolution": 3
+    },
+    "pendingReceipts": [],
+    "newReceipts": 1,
+    "newPublicImageFetches": 1,
+    "imageGenerations": 1,
+    "scope": "One exact18Cross merchant photo added; all preceding274receipts and their outcomes retained. This is not275venues."
+  },
+  "retainedHolds": {
+    "foodObservations": 2527,
+    "zeroFoodResearchBranches": 109,
+    "unnamedCandidateIds": 1828,
+    "coordinateIds": 3,
+    "exactScreenshotPhotosUnrecovered": [
+      "Makan Vegan",
+      "Soon Lai"
+    ]
+  },
+  "googleLedger": {
+    "bytes": 1045377,
+    "sha256": "c7321dafaad0473583139494ca899501578892c5b71105429d3cd4dceb4f311a",
+    "requests": 2419,
+    "limit": 2500,
+    "remaining": 81
+  },
+  "releaseEvidence": ".local/coverage-2026-10-17ad/release.json",
+  "sourceCaptureDatesPreserved": true,
+  "hoursQualification": "107 source-backed hours records. Several merchant panels are labelled updated2–5yearsago; those ages are retained in app notes and reconfirmation is advised. OriginalSin/NewGreenPastureMonday unconfirmed. LinLinMonday lunar exception dates/times unconfirmed. MotherEarthClassic7October one-off announcement is separate from regular Wednesday closure. Sufood source check15October retained."
+}

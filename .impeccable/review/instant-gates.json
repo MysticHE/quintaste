@@ -1,0 +1,31 @@
+{
+  "checkedAt": "2026-10-15T00:40:01.189Z",
+  "typecheck": {
+    "command": "npx tsc --noEmit",
+    "exitCode": 0
+  },
+  "lint": {
+    "command": "npx eslint src",
+    "exitCode": 0
+  },
+  "typescriptReview": {
+    "materialFindings": 1,
+    "resolved": 1,
+    "scope": "Same-mode Search around tap preserves unsubmitted text; missing Home/Work setup still routes"
+  },
+  "webInteractionChecks": 21,
+  "webRuntimeErrors": [],
+  "scopedAxe": {
+    "violations": [],
+    "incomplete": [
+      "color-contrast",
+      "label-content-name-mismatch"
+    ]
+  },
+  "designCatalogReview": {
+    "tool": "21st review",
+    "files": 5,
+    "findings": 0
+  },
+  "nativeDeviceAppearanceVerified": false
+}

@@ -1,0 +1,18 @@
+{
+  "checkedAt": "2026-10-16T07:43:53.071094+00:00",
+  "passed": true,
+  "checks": [
+    {
+      "command": "node node_modules/typescript/bin/tsc --noEmit",
+      "exitCode": 0,
+      "observedSession": 38677
+    },
+    {
+      "command": "node node_modules/expo/bin/cli lint",
+      "exitCode": 0,
+      "observedSession": 68740
+    }
+  ],
+  "publicationChecks": ".impeccable/review/menu-full-12-publication.json",
+  "scope": "Fresh code gates observed after followup12; concurrent Cook/Avatar files preserved."
+}

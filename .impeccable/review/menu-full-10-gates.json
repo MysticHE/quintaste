@@ -1,0 +1,18 @@
+{
+  "checkedAt": "2026-10-16T07:03:12.719631+00:00",
+  "passed": true,
+  "checks": [
+    {
+      "command": "npx tsc --noEmit",
+      "exitCode": 0,
+      "observedSession": 5163
+    },
+    {
+      "command": "npx expo lint",
+      "exitCode": 0,
+      "carriedFrom": ".impeccable/review/menu-full-09-gates.json",
+      "basis": "No hand-authored app code changed after successful09lint; only source JSON and generated server imports."
+    }
+  ],
+  "publicationChecks": ".impeccable/review/menu-full-10-publication.json"
+}

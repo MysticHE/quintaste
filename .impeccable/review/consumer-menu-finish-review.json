@@ -1,0 +1,94 @@
+{
+  "disposition": "ship",
+  "persistence": {
+    "status": "pass",
+    "substitution": "Fresh read-only substitute reviewer; the shipped impeccable_finish_reviewer agent type was unavailable.",
+    "scope": "Consumer menu/card integration in React Native Web and sampled source only. No rendering, browser/server launch, native capture, or detector was performed by this reviewer.",
+    "evidence": "The approved illustrative board and all 17 required screenshots were opened individually. All captures are valid for their named browser viewport/state; 18 reported captures contain 17 unique paths. PRODUCT.md, DESIGN.md, the discovery surface, packet, primary source modules and three evidence reports exist.",
+    "inspected_capture_paths": [
+      "consumer-menu-explore-320.png",
+      "consumer-menu-explore-375.png",
+      "consumer-menu-explore-768.png",
+      "consumer-menu-explore-1440.png",
+      "consumer-menu-details-375.png",
+      "consumer-menu-menu-320.png",
+      "consumer-menu-menu-375.png",
+      "consumer-menu-menu-768.png",
+      "consumer-menu-menu-1440.png",
+      "consumer-menu-menu-dark375.png",
+      "consumer-menu-menu-large320.png",
+      "consumer-menu-missing-prices375.png",
+      "consumer-menu-schedules375.png",
+      "consumer-menu-cached-recovery375.png",
+      "consumer-menu-withdrawn375.png",
+      "consumer-menu-stale375.png",
+      "consumer-menu-search-fallback375.png"
+    ],
+    "reconciliation": "F01 resolved after the documentation pass: PRODUCT.md and discovery.md now explicitly record current public /api/menus publication, the card/details/Menu journey, bounded recovery and 12-unit horizontal card inset. Earlier private-only consumer-unchanged records are explicitly headed Earlier, before consumer Menu approval. DESIGN.md's Menu guidance and Live venue cards component-table row now agree on horizontal12/top8/bottom2/gap2. The stale inset8/gap2 and Information padding is8 phrases are absent from these three current contracts. The documentation evidence reports 401 local links checked and preserves unconfirmed suitability, native acceptance and deployment limits.",
+    "input_limits": "No QUALITY BAR card was supplied. No pixel-diff, extracted plates, measured comp specification or build-state reproduction proof was supplied for the illustrative approval board; this is an extension of a pinned app world rather than a new visual-world reproduction. The context launcher previously failed and no detector ran. Long product/design history was sampled for current menu/card claims, not exhaustively re-reviewed.",
+    "supplied_validation": "Browser report passes six journey groups, four scoped axe surfaces with zero reported violations, zero runtime errors and zero actual Google calls. Axe includes incomplete contrast/ARIA/name checks and is not complete accessibility proof. Source report passes seven groups. Android transport reports manifest/bundle HTTP 200 and excludes private keys, server store and private research data; it does not verify native appearance."
+  },
+  "fidelity": {
+    "independent_reference_inventory": "One search/filter/crosshair row; photographic landscape cards with a dark information fade, white place/address text, divider and clock/source footer; top-left outlined document Menu pill and separate corner bookmark; detail back/title, large photo, pagination, address, four equal actions, prominent document Menu CTA beneath them, hours and feedback; separate Menu back/header, place and branch, Selected items, flat name/price rows with separators, dated provenance and external source. The board uses warm pale ground, rounded controls and a five-icon dock.",
+    "matrix": [
+      {
+        "element": "Explore search row and photographic card topology",
+        "state": "match",
+        "evidence": "All four Explore widths retain the single search/filter/crosshair row, photographic cards, readable information layer and independent corner Save."
+      },
+      {
+        "element": "Supported-card Menu shortcut",
+        "state": "match",
+        "evidence": "Bodhi Deli and Living Wholesome show the top-left outlined document Menu pill; unsupported Herbivore has none. MenuEntry and LivePlaceCard preserve independent navigation/Save behavior; the supplied journey evidence exercises both paths."
+      },
+      {
+        "element": "Details Menu CTA hierarchy",
+        "state": "match",
+        "evidence": "The 375 detail capture places the full-width coral document Menu action directly beneath Save, Directions, Share and Call, before hours. Existing gallery, address, reviews and feedback remain."
+      },
+      {
+        "element": "Separate menu screen and item/price rows",
+        "state": "match",
+        "evidence": "The separate screen retains Menu/back, place, branch, Selected items, flat separated rows, right-aligned prices and dated external source. Standard 320/375/768/1440 captures remain unclipped; large 320 text wraps long names without price collision. Source uses tabular numerals."
+      },
+      {
+        "element": "Opening-hours card inset",
+        "state": "acceptable adaptation",
+        "evidence": "Latest user request explicitly asks for more breathing room. LivePlaceInformation uses paddingHorizontal:12; supplied bounds put the information/divider 14 units inside the card border, including its 2-unit perimeter. Divider-to-hours remains 6 and hours-to-bottom 8 at the four captured widths."
+      },
+      {
+        "element": "TYPE",
+        "state": "acceptable adaptation",
+        "evidence": "The reference's plain dark sans hierarchy is translated into the existing Nunito family and shared text variants, as required by packet adaptations and DESIGN.md. The compact white 18/12 card scale is a prior user choice. Menu heading, venue name, body rows and quieter provenance retain clear weight/scale relationships."
+      },
+      {
+        "element": "MATERIAL",
+        "state": "acceptable adaptation",
+        "evidence": "The required photographic card/gallery material, rounded opaque controls and flat menu list remain. The sample approval-board food is not a production asset; captured bowl imagery is a disclosed controlled fixture. Sampled LivePlaceCard still obtains live photo data through GooglePhotoBackdrop and does not import these fixture images."
+      },
+      {
+        "element": "GROUND",
+        "state": "acceptable adaptation",
+        "evidence": "The rendered warm light Coral/Peach field is more saturated toward the lower edge than the illustrative board, but matches the explicitly retained current theme tokens in DESIGN.md. The dark capture uses the established plum/coral family. No pixel sampling or color-distance proof was supplied."
+      },
+      {
+        "element": "Navigation and dock",
+        "state": "acceptable adaptation",
+        "evidence": "Explore keeps the existing five-icon dock; details/menu use root-stack Back without the board's repeated dock. Packet adaptation explicitly binds these existing native-stack conventions. Browser Back journey evidence preserves details then Explore. Native gestures remain unverified."
+      },
+      {
+        "element": "Provenance, uncertainty and recovery",
+        "state": "acceptable adaptation",
+        "evidence": "Compact charges, branch/schedule/egg notices, unconfirmed ingredients/availability, missing-price labels, stale date, cached retry, withdrawal and provider-outage menu search preserve PRD truth and production error handling. They remain subordinate to the clean item/price list; no ingredient-evidence block or certification claim was added."
+      }
+    ],
+    "contract": "THESIS, OWN-WORLD, STORY, FIRST-VIEWPORT and FORM are met within the rendered/source scope: consumers can find collected menu samples without reviewer access, from a card or detail, in the pinned app world. FORM is user-pinned, so no new visual-world seed roll is applicable."
+  },
+  "ceiling": {
+    "status": "reached within the supplied browser/source scope",
+    "assessment": "The requested integration uses the existing world's relevant devices: compact photo overlays, coral document actions, Nunito hierarchy, flat menu rows and quiet factual provenance. No further ornament, imagery or new motion is needed for this Operate task. Expo's lower-left development badge is not product UI.",
+    "limits": "No native Android/iOS phone or tablet captures, hardware gestures, native assistive-technology results, cold-offline shell acceptance or production hosting proof were supplied. These browser captures are not native device evidence. No QUALITY BAR card was supplied, so no additional card-specific ceiling is claimed."
+  },
+  "material_fixes": [],
+  "keep": "Keep the supported-card Menu pill, CTA directly below the four detail actions, separate flat branch/item/price/source screen, 12-unit information inset, existing Nunito/tokens/root-stack behavior, and honest source/uncertainty/recovery labels."
+}

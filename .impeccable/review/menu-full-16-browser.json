@@ -1,0 +1,97 @@
+{
+  "startedAt": "2026-10-16T09:35:34.696Z",
+  "url": "http://127.0.0.1:8083",
+  "checks": [
+    {
+      "name": "ur15-conut-haji",
+      "status": "passed",
+      "foods": 7,
+      "menuGap404": false,
+      "publicFingerprint": "638d77dc8e4f344be628e7053165fad0deef0b6700566d1041d3bd908e48edd0"
+    },
+    {
+      "name": "ur15-conut-marriott",
+      "status": "passed",
+      "foods": 7,
+      "menuGap404": false,
+      "publicFingerprint": "f933a75063ca8b712bd0774d1fa8183d848a07cf0496682c0236d06907779693"
+    },
+    {
+      "name": "fennel-river-valley",
+      "status": "passed",
+      "foods": 75,
+      "menuGap404": false,
+      "publicFingerprint": "aa24a3fbea72e5cb0e9a67be3d5665132896689135f8fba6a5a2bddc3c1bede2"
+    },
+    {
+      "name": "ur15-conut-esplanade",
+      "status": "passed",
+      "foods": 0,
+      "menuGap404": true,
+      "publicFingerprint": null
+    }
+  ],
+  "screenshots": [
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-16-browser\\ur15-conut-haji-320.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-16-browser\\ur15-conut-haji-768.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-16-browser\\ur15-conut-haji-1440.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-16-browser\\ur15-conut-marriott-320.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-16-browser\\ur15-conut-marriott-768.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-16-browser\\ur15-conut-marriott-1440.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-16-browser\\fennel-river-valley-320.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-16-browser\\fennel-river-valley-768.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-16-browser\\fennel-river-valley-1440.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-16-browser\\ur15-conut-esplanade-320.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-16-browser\\ur15-conut-esplanade-768.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-16-browser\\ur15-conut-esplanade-1440.png"
+  ],
+  "errors": [],
+  "pageErrors": [],
+  "unexpectedConsoleErrors": [],
+  "blockedApiRequests": [],
+  "blockedExternalRequests": [],
+  "apiRequests": [],
+  "a11y": [
+    {
+      "label": "ur15-conut-haji",
+      "violations": []
+    },
+    {
+      "label": "ur15-conut-marriott",
+      "violations": []
+    },
+    {
+      "label": "fennel-river-valley",
+      "violations": []
+    },
+    {
+      "label": "ur15-conut-esplanade",
+      "violations": []
+    }
+  ],
+  "forwardedProviderCalls": 0,
+  "installedChromeUsed": false,
+  "catalogue": {
+    "locations": 173,
+    "sourceMenus": 221,
+    "foodOccurrences": 12049
+  },
+  "unchangedMenuEvidence": {
+    "path": "menu-full-15-browser.json",
+    "basis": "Original dates retained for unchanged Somerset and prior functional checks."
+  },
+  "finishedAt": "2026-10-16T09:37:22.533Z",
+  "passed": true,
+  "visualReview": {
+    "status": "passed",
+    "reviewedAt": "2026-10-16T09:39:20.667771+00:00",
+    "capturesInspected": 12,
+    "widths": [
+      320,
+      768,
+      1440
+    ],
+    "findings": "Every listed current capture visually inspected; no page overflow or visual defect observed. Source choices/prices/ingredients retain explicit uncertainty. Initial QA harness failures, where any, remain archived."
+  },
+  "googleLedgerUnchanged": true
+}

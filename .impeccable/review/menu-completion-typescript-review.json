@@ -1,0 +1,101 @@
+{
+  "review": "menu-completion-typescript-review",
+  "reviewedOn": "2026-10-16",
+  "status": "approved-within-scoped-source-review",
+  "findings": [],
+  "scope": {
+    "mode": "local-new-file-review",
+    "baseline": "Scoped files are untracked additions. Staged diff and git status established the local scope; full current sources were read. A no-index diff against NUL confirmed the additional research-index file. No PR was requested, so PR merge readiness is not applicable.",
+    "files": [
+      "scripts/menu-publication/normalize.ts",
+      "scripts/menu-identity-reviews.ts",
+      "scripts/sync-researched-menus.ts",
+      "src/server/menu-delivery.ts",
+      "scripts/menu-research-outcomes.ts",
+      "scripts/menu-research-types.ts",
+      "scripts/build-menu-coverage.ts",
+      "scripts/build-menu-research-index.ts"
+    ],
+    "mutationBoundary": "Only this review artifact was written. No production code, canonical research files, tests, provider ledgers or keys were changed. All probes were local and used in-memory fixtures or read-only research inputs; no paid or other provider calls were made."
+  },
+  "checks": [
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "result": "pass",
+      "note": "Canonical strict TypeScript check covers scripts and application sources. The later small research-index classification change additionally passed focused lint and executable in-memory probes."
+    },
+    { "command": "npm run lint", "exitCode": 0, "result": "pass" },
+    {
+      "command": "npx eslint scripts/menu-publication/normalize.ts scripts/menu-identity-reviews.ts scripts/sync-researched-menus.ts scripts/menu-research-outcomes.ts scripts/menu-research-types.ts scripts/build-menu-coverage.ts",
+      "exitCode": 0,
+      "result": "pass"
+    },
+    { "command": "npx eslint scripts/build-menu-research-index.ts", "exitCode": 0, "result": "pass" },
+    {
+      "command": "npx tsx --eval (actual normalization functions; no test files)",
+      "exitCode": 0,
+      "result": "pass",
+      "assertions": [
+        "Fifteen scope cases preserve explicit branch-ordering, branch-delivery, branch-dine-in and brand-menu declarations over URL inference.",
+        "Cococart, Maynuu and Take infer ordering scope; delivery-provider and ordinary menu URLs retain their respective inferred scopes.",
+        "Portion, portion options, customization surcharge details and bundle contents survive normalization; an unrelated private root field is omitted."
+      ]
+    },
+    {
+      "command": "npx tsx --eval (actual compileEntry and packetRows, isolated from CLI main functions)",
+      "exitCode": 0,
+      "result": "pass",
+      "assertions": [
+        "A valid baseline publication compiles through the runtime menu schema.",
+        "Twelve exclusion cases reject mixed-menu, supplier, food-court and out-of-SG branches, plus held, historical, expired and inactive branch status/publicationStatus values.",
+        "Ten index cases classify coverage/publication holds, historical and expired menus as held when every selected menu is held; mixed active/held selections remain partial and wholly active covered selections remain source-covered."
+      ]
+    },
+    {
+      "command": "npx tsx --eval (read-only actual identity and frozen-outcome adapters applied to an in-memory coverage map)",
+      "exitCode": 0,
+      "result": "pass",
+      "directoryRecords": 2322,
+      "validatedIdentityMappings": 34,
+      "frozenOutcomes": 50,
+      "outcomeCounts": {
+        "vegetarian-confirmed": 6,
+        "mixed-menu": 1,
+        "supplier": 0,
+        "food-court": 0,
+        "out-of-SG": 0,
+        "unresolved": 43
+      },
+      "assertions": [
+        "Frozen outcomes add only their whitelisted research annotations and evidence URLs.",
+        "All other fields on all 2322 records remain byte-equivalent after applying outcomes, including canonical identity/menu status, names, addresses, menu row counts, source menu IDs, publication states, reviewed identity evidence, dataset/branch links, lead candidates and gaps.",
+        "The mixed-menu outcome remains a research annotation and does not create an app publication or identity approval."
+      ]
+    }
+  ],
+  "identityReviewEvidence": {
+    "supportingReview": ".impeccable/review/menu-completion-general-review.json",
+    "note": "The identity-review adapter, server delivery, frozen-outcome adapter, types and coverage builder have identical SHA-256 hashes to the independently approved general review. Full current sources were also read for this review.",
+    "verifiedDesign": [
+      "Validated explicit review mappings bind the entire identity review to publication through a full-review fingerprint.",
+      "Server delivery checks the current complete review hash, one review for the branch and one use of the place ID; stale, withdrawn or duplicate identity evidence removes the Google ID while retaining the menu.",
+      "General-review mutation evidence covers eight changed identity fields and three duplicate/withdrawal cases. Those unchanged implementations remain within this approval."
+    ]
+  },
+  "sourceHashes": {
+    "scripts/menu-publication/normalize.ts": "0d7280b68044c02480215aa6753c14a4d952dac8b5a97e7c2706842a721ee597",
+    "scripts/menu-identity-reviews.ts": "172c1b87f23c666e75add111852c0748ac1c4d68794d56ec1171ac890f213781",
+    "scripts/sync-researched-menus.ts": "538b6580dd71e7a0bc4275048c9d66f3d3f33eff6602299fff2030090c56ccd6",
+    "src/server/menu-delivery.ts": "de136006bf1fecd1afb0e78f22536ed880b2e67a8752e0626d58a9bb8fd3eec0",
+    "scripts/menu-research-outcomes.ts": "6641bac7b83d579df94f56163325f49f006d228cd680b2c0201dc7da0ebe4ddf",
+    "scripts/menu-research-types.ts": "b9c5113ec2e7e1d0d81ae2555c76ec3fa9f3f1b3fe528ba6e407a2f47e3814aa",
+    "scripts/build-menu-coverage.ts": "c8b865748667e2892675ff8d43a40e51b585c523e425b6b7afe22b2673436db8",
+    "scripts/build-menu-research-index.ts": "46dd9f54948ff6076efffd5f084ad33a1b487a69b6afe0162158963bf4b2ad44"
+  },
+  "limits": [
+    "This approval covers source behavior and explicitly recorded local checks. Research packets were still being integrated, so final publication generation, data counts and final branch eligibility audit belong to the integration gate.",
+    "The vegetarian/vegan-only venue requirement depends on independent venue review. Known explicit non-eligible branches are rejected by the compiler; research annotations alone never approve a venue, its identity or a menu.",
+    "Source coverage is not a claim of complete current stock, ingredients or unique dish counts."
+  ]
+}

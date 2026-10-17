@@ -1,0 +1,122 @@
+{
+  "startedAt": "2026-10-16T03:45:43.573Z",
+  "url": "http://127.0.0.1:8084",
+  "checks": [
+    {
+      "name": "Vegetarian Express pending case:129 Oddle rows, paging, full-source search, modifiers and held Foodpanda absent",
+      "status": "passed"
+    },
+    {
+      "name": "mini-green pending case: held foods absent and unknown modifiers explicit",
+      "status": "passed"
+    },
+    {
+      "name": "green-harmony pending case: held foods absent and unknown modifiers explicit",
+      "status": "passed"
+    },
+    {
+      "name": "eco-sen new menu: exact approved foods, held exclusions, prices, source link and no modifiers invented",
+      "status": "passed"
+    },
+    {
+      "name": "99-vegetarian new menu: exact approved foods, held exclusions, prices, source link and no modifiers invented",
+      "status": "passed"
+    }
+  ],
+  "screenshots": [
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-resume-browser\\vegetarian-express-320.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-resume-browser\\mini-green-375.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-resume-browser\\green-harmony-320.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-resume-browser\\eco-sen-375.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-resume-browser\\99-vegetarian-375.png"
+  ],
+  "errors": [],
+  "pageErrors": [],
+  "unexpectedConsoleErrors": [],
+  "blockedApiRequests": [
+    "/api/local-explore/session",
+    "/api/local-explore/session",
+    "/api/local-explore/session",
+    "/api/local-explore/session",
+    "/api/local-explore/session"
+  ],
+  "blockedExternalRequests": [],
+  "apiRequests": [
+    "/api/menus?view=index",
+    "/api/menus?id=research-ur02-vegetarian-express-hougang",
+    "/api/menus?view=index",
+    "/api/menus?id=research-ur02-vegetarian-food-stall-01-74",
+    "/api/menus?view=index",
+    "/api/menus?id=research-ur02-amk-green-harmony-vegetarian",
+    "/api/menus?view=index",
+    "/api/menus?id=research-ur03-eco-sen-toa-payoh66",
+    "/api/menus?view=index",
+    "/api/menus?id=research-ur03-99-pioneer-mall",
+    "/api/menus?view=index",
+    "/api/menus?id=research-ur02-vegetarian-express-hougang"
+  ],
+  "a11y": [
+    {
+      "label": "eco-sen",
+      "violations": []
+    },
+    {
+      "label": "99-vegetarian",
+      "violations": []
+    },
+    {
+      "label": "Vegetarian Express pending case",
+      "violations": []
+    }
+  ],
+  "forwardedProviderCalls": 0,
+  "installedChromeUsed": false,
+  "catalogue": {
+    "locations": 143,
+    "sourceMenus": 188,
+    "foodOccurrences": 10771
+  },
+  "browserVersion": "156.0.8078.4",
+  "finishedAt": "2026-10-16T03:48:18.994Z",
+  "passed": true,
+  "visualReview": {
+    "status": "passed",
+    "checkedAt": "2026-10-16T03:49:43.788422+00:00",
+    "inspectedScreenshots": [
+      "C:\\Users\\huien\\qt\\tmp\\qa\\menu-resume-browser\\vegetarian-express-320.png",
+      "C:\\Users\\huien\\qt\\tmp\\qa\\menu-resume-browser\\mini-green-375.png",
+      "C:\\Users\\huien\\qt\\tmp\\qa\\menu-resume-browser\\green-harmony-320.png",
+      "C:\\Users\\huien\\qt\\tmp\\qa\\menu-resume-browser\\eco-sen-375.png",
+      "C:\\Users\\huien\\qt\\tmp\\qa\\menu-resume-browser\\99-vegetarian-375.png"
+    ],
+    "findings": [],
+    "scope": "All five unique captures individually inspected: readable names/prices/notices, no viewport overflow, modifier details readable and source context preserved. One final VE capture re-inspected after label correction; other four cases unchanged."
+  },
+  "googleLedgerUnchanged": true,
+  "resolvedFindings": [
+    {
+      "type": "QA selector",
+      "applicationDefect": false,
+      "reason": "Initial selector assumed Show price and options; actual control used a dish-specific accessible name. Temporary selector corrected."
+    },
+    {
+      "type": "label-content-name-mismatch",
+      "applicationDefect": true,
+      "file": "src/components/discovery/MenuItemRow.tsx",
+      "before": "Expanded visible Hide price and options, accessible Hide price and option details for [dish].",
+      "after": "Accessible name starts with exact visible Price and options / Hide price and options, then the dish name.",
+      "verification": "Only affected VE journey rerun after restarting CI preview. Expanded state axe scan has zero violations; paging/search/options/source link still pass.",
+      "sourceUrl": "https://www.w3.org/WAI/WCAG22/Understanding/label-in-name.html",
+      "checkedAt": "2026-10-16T03:49:43.788422+00:00"
+    }
+  ],
+  "runHistory": [
+    "menu-resume-browser-initial-failed.json",
+    "menu-resume-browser-before-label-fix.json"
+  ],
+  "runtimeBoundary": "Broad Expo HTTP sweep caused Node heap exhaustion; preserved in menu-resume-runtime.json. Fresh focused browser cases passed after preview restart; full-Expo load performance remains unaccepted.",
+  "browserShutdown": {
+    "managedBrowserClosed": true,
+    "method": "await browser.close() in finally for every run"
+  }
+}

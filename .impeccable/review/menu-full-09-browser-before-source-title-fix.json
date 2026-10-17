@@ -1,0 +1,91 @@
+{
+  "startedAt": "2026-10-16T06:42:19.772Z",
+  "url": "http://127.0.0.1:8083",
+  "checks": [
+    {
+      "name": "eco-harmony",
+      "status": "passed",
+      "foods": 50,
+      "heldAbsent": 1,
+      "sourceUrl": "https://erp.eco-harmony.net/cafe",
+      "publicFingerprint": "64673bd181bacb64ba6b4e539b1ed9479a45c9f1e64ea98580c55f3f26e19578"
+    },
+    {
+      "name": "happy-realm",
+      "status": "passed",
+      "foods": 50,
+      "heldAbsent": 0,
+      "sourceUrl": "https://kmspks.org/wp-content/blogs.dir/1/files/20260812-Happy-Realm-Online-Menu_hires.pdf",
+      "publicFingerprint": "b8f27e8cdf1d79d66bed863ccb551d9b94c346e89c44d863662b5cd8761202f6"
+    },
+    {
+      "name": "kms-regular",
+      "status": "passed",
+      "foods": 2,
+      "heldAbsent": 4,
+      "sourceUrl": "https://kmspks.org/services/vegetarian-food/",
+      "publicFingerprint": "b8f27e8cdf1d79d66bed863ccb551d9b94c346e89c44d863662b5cd8761202f6"
+    },
+    {
+      "name": "zen-cafe",
+      "status": "passed",
+      "foods": 23,
+      "heldAbsent": 0,
+      "sourceUrl": "https://kmspks.org/wp-content/blogs.dir/1/files/ZenCafe_Digital-Menu.pdf",
+      "publicFingerprint": "fa6c64a5f783900aaa1e9bd4d03014ae45a203377ae835684131f3b7583da9d3"
+    }
+  ],
+  "screenshots": [
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-09-browser\\eco-harmony-320.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-09-browser\\eco-harmony-768.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-09-browser\\eco-harmony-1440.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-09-browser\\happy-realm-320.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-09-browser\\happy-realm-768.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-09-browser\\happy-realm-1440.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-09-browser\\kms-regular-320.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-09-browser\\kms-regular-768.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-09-browser\\kms-regular-1440.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-09-browser\\zen-cafe-320.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-09-browser\\zen-cafe-768.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-09-browser\\zen-cafe-1440.png"
+  ],
+  "errors": [],
+  "pageErrors": [],
+  "unexpectedConsoleErrors": [],
+  "blockedApiRequests": [],
+  "blockedExternalRequests": [],
+  "apiRequests": [],
+  "a11y": [
+    {
+      "label": "eco-harmony",
+      "violations": []
+    },
+    {
+      "label": "happy-realm",
+      "violations": []
+    },
+    {
+      "label": "kms-regular",
+      "violations": []
+    },
+    {
+      "label": "zen-cafe",
+      "violations": []
+    }
+  ],
+  "forwardedProviderCalls": 0,
+  "installedChromeUsed": false,
+  "catalogue": {
+    "locations": 164,
+    "sourceMenus": 211,
+    "foodOccurrences": 11567
+  },
+  "browserVersion": "156.0.8078.4",
+  "finishedAt": "2026-10-16T06:43:47.115Z",
+  "passed": true,
+  "visualReview": {
+    "status": "pending",
+    "inspectedScreenshots": []
+  },
+  "googleLedgerUnchanged": true
+}

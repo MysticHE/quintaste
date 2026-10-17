@@ -1,0 +1,25 @@
+{
+  "checkedAt": "2026-10-15T01:57:07.229Z",
+  "markdownFiles": 6,
+  "resolvedLocalLinks": 889,
+  "missingLinks": [],
+  "jsonFiles": 2,
+  "utf8WithoutBOM": true,
+  "requirements": {
+    "unique": 90,
+    "counts": {
+      "Partial": 23,
+      "Local-only": 11,
+      "Gated": 47,
+      "Missing": 6,
+      "Removed": 3
+    }
+  },
+  "dock": [
+    "Explore, tab 1 of 4",
+    "Cook, tab 2 of 4",
+    "Market, tab 3 of 4",
+    "Saved, tab 4 of 4"
+  ],
+  "retainedSamples": 10
+}

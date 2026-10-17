@@ -1,0 +1,39 @@
+{
+  "date": "2026-10-15",
+  "scope": "Local Cook extension; web/source validation, native transport only",
+  "sourceReviews": {
+    "typescript": "approved after timer reconciliation and serving recovery fixes",
+    "general": "approved, no remaining material findings"
+  },
+  "typecheckExitCode": 0,
+  "eslintExitCode": 0,
+  "diffCheckExitCode": 0,
+  "state": { "report": "local-cook-state.json", "passedGroups": 5 },
+  "browser": {
+    "report": "local-cook-browser.json",
+    "passedGroups": 4,
+    "captures": 12,
+    "axeScans": 3,
+    "axeViolations": 0,
+    "runtimeErrors": 0,
+    "browser": "Playwright-managed headless Chromium; isolated profile"
+  },
+  "nativeTransport": {
+    "report": "local-cook-native.json",
+    "manifestStatus": 200,
+    "bundleStatus": 200,
+    "bundleBytes": 9479623,
+    "markersFound": 5
+  },
+  "finishReview": "local-cook-finish.json",
+  "finishDisposition": "ship for reviewed web/source extension and resolved documentation finding; native acceptance excluded",
+  "documentation": "local-cook-documentation.json",
+  "limitations": [
+    "Physical-device appearance, permissions, background delivery and notification tap behavior remain unverified",
+    "Web device alerts are unsupported; browser timers update while the app is open",
+    "iOS Live Activity and Android ongoing timer actions are not implemented",
+    "Production identity, recipe submission, media upload, staffed review, publishing and remote updates remain unconnected",
+    "Private recipes remain unpublished and ingredient suitability is an author declaration",
+    "Paid recipes are outside the selected scope"
+  ]
+}

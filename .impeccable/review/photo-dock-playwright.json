@@ -1,0 +1,595 @@
+{
+  "scope": "Current web preview: single-row search, automatic live discovery, white text over photo-only blur and compact icon-only glass tabs",
+  "screenshots": [
+    "C:/Users/huien/QT/quintaste/.impeccable/review/photo-dock-web-375.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/photo-dock-web-hover.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/photo-dock-web-photo-viewer.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/photo-dock-web-768.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/photo-dock-web-1440.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/photo-dock-web-375-dark.png"
+  ],
+  "checks": [
+    {
+      "name": "Entry automatically loads live Google-backed places",
+      "requests": 1,
+      "passed": true
+    },
+    {
+      "name": "Blur at name midpoint 375",
+      "nameMid": 283,
+      "blurStart": 283
+    },
+    {
+      "name": "375",
+      "metrics": {
+        "viewport": {
+          "width": 375,
+          "height": 812
+        },
+        "documentWidth": 375,
+        "dock": {
+          "x": 0,
+          "y": 760,
+          "width": 375,
+          "height": 52,
+          "bottom": 812,
+          "right": 375
+        },
+        "dockRadius": "24px 24px 0px 0px",
+        "card": {
+          "x": 8,
+          "y": 132,
+          "width": 359,
+          "height": 254,
+          "bottom": 386,
+          "right": 367
+        },
+        "panel": {
+          "x": 10,
+          "y": 259,
+          "width": 355,
+          "height": 125,
+          "bottom": 384,
+          "right": 365
+        },
+        "cardRadius": "22px",
+        "search": {
+          "x": 8,
+          "y": 14,
+          "width": 251,
+          "height": 66,
+          "bottom": 80,
+          "right": 259
+        },
+        "area": {
+          "x": 57,
+          "y": 19,
+          "width": 110.109375,
+          "height": 24,
+          "bottom": 43,
+          "right": 167.109375
+        },
+        "filters": {
+          "x": 265,
+          "y": 23,
+          "width": 48,
+          "height": 48,
+          "bottom": 71,
+          "right": 313
+        },
+        "map": {
+          "x": 319,
+          "y": 23,
+          "width": 48,
+          "height": 48,
+          "bottom": 71,
+          "right": 367
+        },
+        "ingredientsRow": false,
+        "photoCreditRow": false,
+        "obsoleteCopy": false,
+        "profileButton": false,
+        "navigationBlur": [
+          {
+            "filter": "saturate(1.8) blur(14px) none",
+            "background": "rgba(249, 249, 249, 0.55)"
+          }
+        ],
+        "photoBlur": [
+          {
+            "filter": "none none",
+            "background": "rgba(0, 0, 0, 0)"
+          },
+          {
+            "filter": "none none",
+            "background": "rgba(0, 0, 0, 0)"
+          },
+          {
+            "filter": "none none",
+            "background": "rgba(0, 0, 0, 0)"
+          },
+          {
+            "filter": "none none",
+            "background": "rgba(0, 0, 0, 0)"
+          },
+          {
+            "filter": "none none",
+            "background": "rgba(0, 0, 0, 0)"
+          },
+          {
+            "filter": "none blur(2px)",
+            "background": "rgba(0, 0, 0, 0)"
+          }
+        ],
+        "dockParentBackground": "rgba(0, 0, 0, 0)"
+      }
+    },
+    {
+      "name": "375 axe A/AA scoped search, navigation and listing scan",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "count": 28
+        },
+        {
+          "id": "label-content-name-mismatch",
+          "count": 7
+        }
+      ]
+    },
+    {
+      "name": "One proxy photo download shared by clear and blurred raster layers",
+      "photoCards": 3,
+      "requests": 3,
+      "passed": true
+    },
+    {
+      "name": "Pressed card preserves text/shade opacity and uses perimeter feedback",
+      "passed": true
+    },
+    {
+      "name": "Icon-only selected lens and pointer hover clear correctly",
+      "passed": true
+    },
+    {
+      "name": "Exact photo expansion and author credit",
+      "passed": true
+    },
+    {
+      "name": "tab cook",
+      "path": "/cook",
+      "selected": true
+    },
+    {
+      "name": "tab saved",
+      "path": "/saved",
+      "selected": true
+    },
+    {
+      "name": "tab explore",
+      "path": "/",
+      "selected": true
+    },
+    {
+      "name": "Save persistence, fresh result reuse and tab reselect scroll reset",
+      "passed": true
+    },
+    {
+      "name": "Input focus and Area/Filters/Map routes in single row",
+      "passed": true
+    },
+    {
+      "name": "Blur at name midpoint 768",
+      "nameMid": 288,
+      "blurStart": 288
+    },
+    {
+      "name": "768",
+      "metrics": {
+        "viewport": {
+          "width": 768,
+          "height": 1024
+        },
+        "documentWidth": 768,
+        "dock": {
+          "x": 0,
+          "y": 972,
+          "width": 768,
+          "height": 52,
+          "bottom": 1024,
+          "right": 768
+        },
+        "dockRadius": "24px 24px 0px 0px",
+        "card": {
+          "x": 15,
+          "y": 137,
+          "width": 738,
+          "height": 254,
+          "bottom": 391,
+          "right": 753
+        },
+        "panel": {
+          "x": 17,
+          "y": 264,
+          "width": 734,
+          "height": 125,
+          "bottom": 389,
+          "right": 751
+        },
+        "cardRadius": "22px",
+        "search": {
+          "x": 15,
+          "y": 19,
+          "width": 630,
+          "height": 66,
+          "bottom": 85,
+          "right": 645
+        },
+        "area": {
+          "x": 64,
+          "y": 24,
+          "width": 110.109375,
+          "height": 24,
+          "bottom": 48,
+          "right": 174.109375
+        },
+        "filters": {
+          "x": 651,
+          "y": 28,
+          "width": 48,
+          "height": 48,
+          "bottom": 76,
+          "right": 699
+        },
+        "map": {
+          "x": 705,
+          "y": 28,
+          "width": 48,
+          "height": 48,
+          "bottom": 76,
+          "right": 753
+        },
+        "ingredientsRow": false,
+        "photoCreditRow": false,
+        "obsoleteCopy": false,
+        "profileButton": false,
+        "navigationBlur": [
+          {
+            "filter": "saturate(1.8) blur(14px) none",
+            "background": "rgba(249, 249, 249, 0.55)"
+          }
+        ],
+        "photoBlur": [
+          {
+            "filter": "none none",
+            "background": "rgba(0, 0, 0, 0)"
+          },
+          {
+            "filter": "none none",
+            "background": "rgba(0, 0, 0, 0)"
+          },
+          {
+            "filter": "none none",
+            "background": "rgba(0, 0, 0, 0)"
+          },
+          {
+            "filter": "none none",
+            "background": "rgba(0, 0, 0, 0)"
+          },
+          {
+            "filter": "none none",
+            "background": "rgba(0, 0, 0, 0)"
+          },
+          {
+            "filter": "none blur(2px)",
+            "background": "rgba(0, 0, 0, 0)"
+          }
+        ],
+        "dockParentBackground": "rgba(0, 0, 0, 0)"
+      }
+    },
+    {
+      "name": "768 axe A/AA scoped search, navigation and listing scan",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "count": 36
+        },
+        {
+          "id": "label-content-name-mismatch",
+          "count": 7
+        }
+      ]
+    },
+    {
+      "name": "Blur at name midpoint 1440",
+      "nameMid": 288,
+      "blurStart": 288
+    },
+    {
+      "name": "1440",
+      "metrics": {
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "documentWidth": 1440,
+        "dock": {
+          "x": 0,
+          "y": 848,
+          "width": 1440,
+          "height": 52,
+          "bottom": 900,
+          "right": 1440
+        },
+        "dockRadius": "24px 24px 0px 0px",
+        "card": {
+          "x": 349,
+          "y": 137,
+          "width": 742,
+          "height": 254,
+          "bottom": 391,
+          "right": 1091
+        },
+        "panel": {
+          "x": 351,
+          "y": 264,
+          "width": 738,
+          "height": 125,
+          "bottom": 389,
+          "right": 1089
+        },
+        "cardRadius": "22px",
+        "search": {
+          "x": 349,
+          "y": 19,
+          "width": 634,
+          "height": 66,
+          "bottom": 85,
+          "right": 983
+        },
+        "area": {
+          "x": 398,
+          "y": 24,
+          "width": 110.109375,
+          "height": 24,
+          "bottom": 48,
+          "right": 508.109375
+        },
+        "filters": {
+          "x": 989,
+          "y": 28,
+          "width": 48,
+          "height": 48,
+          "bottom": 76,
+          "right": 1037
+        },
+        "map": {
+          "x": 1043,
+          "y": 28,
+          "width": 48,
+          "height": 48,
+          "bottom": 76,
+          "right": 1091
+        },
+        "ingredientsRow": false,
+        "photoCreditRow": false,
+        "obsoleteCopy": false,
+        "profileButton": false,
+        "navigationBlur": [
+          {
+            "filter": "saturate(1.8) blur(14px) none",
+            "background": "rgba(249, 249, 249, 0.55)"
+          }
+        ],
+        "photoBlur": [
+          {
+            "filter": "none none",
+            "background": "rgba(0, 0, 0, 0)"
+          },
+          {
+            "filter": "none none",
+            "background": "rgba(0, 0, 0, 0)"
+          },
+          {
+            "filter": "none none",
+            "background": "rgba(0, 0, 0, 0)"
+          },
+          {
+            "filter": "none none",
+            "background": "rgba(0, 0, 0, 0)"
+          },
+          {
+            "filter": "none none",
+            "background": "rgba(0, 0, 0, 0)"
+          },
+          {
+            "filter": "none blur(2px)",
+            "background": "rgba(0, 0, 0, 0)"
+          }
+        ],
+        "dockParentBackground": "rgba(0, 0, 0, 0)"
+      }
+    },
+    {
+      "name": "1440 axe A/AA scoped search, navigation and listing scan",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "count": 36
+        },
+        {
+          "id": "label-content-name-mismatch",
+          "count": 7
+        }
+      ]
+    },
+    {
+      "name": "Blur at name midpoint 375-dark",
+      "nameMid": 283,
+      "blurStart": 283
+    },
+    {
+      "name": "375-dark",
+      "metrics": {
+        "viewport": {
+          "width": 375,
+          "height": 812
+        },
+        "documentWidth": 375,
+        "dock": {
+          "x": 0,
+          "y": 760,
+          "width": 375,
+          "height": 52,
+          "bottom": 812,
+          "right": 375
+        },
+        "dockRadius": "24px 24px 0px 0px",
+        "card": {
+          "x": 8,
+          "y": 132,
+          "width": 359,
+          "height": 254,
+          "bottom": 386,
+          "right": 367
+        },
+        "panel": {
+          "x": 10,
+          "y": 259,
+          "width": 355,
+          "height": 125,
+          "bottom": 384,
+          "right": 365
+        },
+        "cardRadius": "22px",
+        "search": {
+          "x": 8,
+          "y": 14,
+          "width": 251,
+          "height": 66,
+          "bottom": 80,
+          "right": 259
+        },
+        "area": {
+          "x": 57,
+          "y": 19,
+          "width": 110.109375,
+          "height": 24,
+          "bottom": 43,
+          "right": 167.109375
+        },
+        "filters": {
+          "x": 265,
+          "y": 23,
+          "width": 48,
+          "height": 48,
+          "bottom": 71,
+          "right": 313
+        },
+        "map": {
+          "x": 319,
+          "y": 23,
+          "width": 48,
+          "height": 48,
+          "bottom": 71,
+          "right": 367
+        },
+        "ingredientsRow": false,
+        "photoCreditRow": false,
+        "obsoleteCopy": false,
+        "profileButton": false,
+        "navigationBlur": [
+          {
+            "filter": "saturate(1.8) blur(14px) none",
+            "background": "rgba(25, 25, 25, 0.55)"
+          }
+        ],
+        "photoBlur": [
+          {
+            "filter": "none none",
+            "background": "rgba(0, 0, 0, 0)"
+          },
+          {
+            "filter": "none none",
+            "background": "rgba(0, 0, 0, 0)"
+          },
+          {
+            "filter": "none none",
+            "background": "rgba(0, 0, 0, 0)"
+          },
+          {
+            "filter": "none none",
+            "background": "rgba(0, 0, 0, 0)"
+          },
+          {
+            "filter": "none none",
+            "background": "rgba(0, 0, 0, 0)"
+          },
+          {
+            "filter": "none blur(2px)",
+            "background": "rgba(0, 0, 0, 0)"
+          }
+        ],
+        "dockParentBackground": "rgba(0, 0, 0, 0)"
+      }
+    },
+    {
+      "name": "375-dark axe A/AA scoped search, navigation and listing scan",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "count": 28
+        },
+        {
+          "id": "label-content-name-mismatch",
+          "count": 7
+        }
+      ]
+    },
+    {
+      "name": "Five-minute expiry automatically reloads without a button",
+      "requests": 1,
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "consoleErrors": [],
+  "networkFailures": [],
+  "discoveryRequests": [
+    {
+      "query": "",
+      "area": "Tiong Bahru",
+      "bounded": false,
+      "preciseOrigin": false
+    },
+    {
+      "query": "",
+      "area": "Tiong Bahru",
+      "bounded": false,
+      "preciseOrigin": false
+    }
+  ],
+  "photoRequests": [
+    {
+      "path": "/api/place-photo"
+    },
+    {
+      "path": "/api/place-photo"
+    },
+    {
+      "path": "/api/place-photo"
+    },
+    {
+      "path": "/api/place-photo"
+    },
+    {
+      "path": "/api/place-photo"
+    }
+  ],
+  "verdict": "passed"
+}

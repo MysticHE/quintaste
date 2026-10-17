@@ -1,0 +1,106 @@
+{
+  "disposition": "ship",
+  "persistence": {
+    "status": "pass",
+    "scope": "Bounded browser/source navigation selection and Market glyph refinement only.",
+    "reviewer": "Independent reviewer using the supplied degraded finish-reviewer contract; named impeccable-finish-reviewer unavailable.",
+    "details": [
+      "PRODUCT.md exists and describes the established adaptive Expo world and native acceptance limits.",
+      "Code-led narrow extension under explicit user instructions; no concept seed, approved comp, assets, measured comp spec or comp phases required.",
+      "DESIGN.md current layout and Native tabs row, navigation.md QUALITY BAR and current override, and the design sidecar now describe the authored two-leaf canopy/stall glyph, shared persistent 1.5-unit selected perimeter and separate outer 2-unit keyboard-focus perimeter.",
+      "Native device captures are unavailable. Supplied Android manifest/bundle HTTP 200 and 9,266,148-byte bundle prove transport only; physical-device appearance, touch, gestures and platform accessibility are not accepted.",
+      "No detector ran because source is native React Native. Craft-floor and both supplied platform references were reviewed."
+    ],
+    "evidence": {
+      "baseline": "nav-fix-before.png",
+      "individuallyInspected": [
+        "nav-consistency-explore-selected.png",
+        "nav-consistency-cook-selected.png",
+        "nav-consistency-social-selected.png",
+        "nav-consistency-market-selected.png",
+        "nav-consistency-game-selected.png",
+        "nav-consistency-keyboard-focus.png",
+        "nav-consistency-320x812.png",
+        "nav-consistency-375x812.png",
+        "nav-consistency-430x932.png",
+        "nav-consistency-812x375.png",
+        "nav-consistency-768x1024.png",
+        "nav-consistency-1440x1024.png",
+        "nav-consistency-market-listings.png",
+        "nav-consistency-social-events.png",
+        "nav-consistency-coral-light.png",
+        "nav-consistency-coral-dark.png",
+        "nav-consistency-cobalt-light.png",
+        "nav-consistency-cobalt-dark.png",
+        "nav-consistency-lavender-light.png",
+        "nav-consistency-lavender-dark.png"
+      ],
+      "recapture": "The same Explore-selected path was overwritten and reinspected. Its filled compass and complete persistent selection perimeter are now unobscured.",
+      "limits": "Some retained captures include a transient Expo development lightning/loading indicator over the inactive Explore area. This is development tooling, not production app chrome; the clean Explore recapture and other unobscured dock captures establish the actual glyphs. No selected state remains unreviewable.",
+      "reportedChecks": "Five browser groups passed across touch/mouse/keyboard, six sizes, FAB clearance/navigation and six palette modes; zero runtime errors and six scoped axe scans with zero violations. Source review and TypeScript/ESLint passed according to supplied packet. These do not establish full-app accessibility or native acceptance."
+    },
+    "resolved": {
+      "id": "F01",
+      "status": "resolved",
+      "evidence": "Read updated DESIGN.md, navigation.md and sidecar source. Inspected nav-consistency-documentation.json: 1,088 links checked, zero broken links/stale current references, JSON parse and selected-border/glyph assertions passed. No application code or screenshots changed.",
+      "regressions": [],
+      "remaining": "clear"
+    }
+  },
+  "fidelity": {
+    "status": "faithful",
+    "matrix": [
+      {
+        "element": "Five destinations and order",
+        "status": "match",
+        "evidence": "Explore, Cook, Social, Market and Game remain distinct, centered and unclipped within their targets at all six captured sizes."
+      },
+      {
+        "element": "Persistent selection",
+        "status": "adaptation",
+        "evidence": "User explicitly requested the extra Explore selection effect on the rest. All five selected captures now show the same compact perimeter, soft lens and filled glyph; source applies one shared selected branch."
+      },
+      {
+        "element": "Keyboard focus",
+        "status": "match",
+        "evidence": "Keyboard capture adds an outer full perimeter around Social while its inner selected ellipse persists. Source separates focused and selected state and clears focus treatment on pointer input."
+      },
+      {
+        "element": "Market glyph",
+        "status": "adaptation",
+        "evidence": "User requested replacement of the marketplace icon with a more appealing unique design. Paired leaf canopy and stall counter replace the bag; outline and filled silhouettes remain recognizable at 30 units and coherent with the custom icon family."
+      },
+      {
+        "element": "Compact geometry and FAB clearance",
+        "status": "match",
+        "evidence": "56-unit row, minimum48 targets and lens max68x44/radius22 are retained in source. Captures show no dock clipping and a visible gap beneath the Market/My Listing and Social floating add controls."
+      },
+      {
+        "element": "TYPE",
+        "status": "match",
+        "evidence": "The icon-only dock retains user-requested absence of visual labels, accessible names in source and existing Nunito surrounding UI. No new display lettering is introduced."
+      },
+      {
+        "element": "MATERIAL",
+        "status": "match",
+        "evidence": "Clean authored vector glyphs and quiet translucent dock remain within the established native preview world. No simulated physical material, decorative glow or generated asset is introduced."
+      },
+      {
+        "element": "GROUND",
+        "status": "match",
+        "evidence": "Coral, cobalt and lavender light/dark crops maintain their established semantic hue families. The selected glyph and perimeter remain visually clear in all six; no new ground or color-temperature shift is introduced."
+      },
+      {
+        "element": "THESIS / OWN-WORLD / STORY / FIRST VIEWPORT / FORM",
+        "status": "match",
+        "evidence": "Five distinct icon destinations retain the existing food-oriented geometry and compact palette-based dock. Only selection consistency and the requested Market glyph change; the narrow user-specified extension explains the absence of a concept roll or comp round."
+      }
+    ]
+  },
+  "ceiling": {
+    "status": "reached for this bounded browser/source refinement",
+    "details": "The leaf canopy gives Market a specific plant-based identity without overcrowding the 30-unit glyph. Additional ornament or motion is not needed to satisfy this correction. Native safe areas, Dynamic Type/font scaling, accessibility focus, motion and Android expanded-width navigation require native acceptance; browser tablet/desktop captures do not establish platform conformance."
+  },
+  "material_fixes": [],
+  "keep": "Preserve the shared selected-state branch, distinct keyboard-focus outline, readable canopy/counter negative space, semantic six-mode palettes, icon-only 30-unit glyphs, 56-unit row, minimum48 touch targets and existing FAB clearance."
+}

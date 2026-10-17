@@ -1,0 +1,182 @@
+{
+  "review": "menu-completion-general-review",
+  "reviewedAt": "2026-10-16T00:32:27.422Z",
+  "status": "approved",
+  "scope": {
+    "mode": "Focused independent review of continuation changes; full files read because these local additions lack a useful historical diff.",
+    "files": [
+      {
+        "file": "scripts/menu-publication/normalize.ts",
+        "sha256": "b0db2a5c931bebfd78bf5cc16af2c1530820716e852c773938a5c39915c63cd6"
+      },
+      {
+        "file": "scripts/menu-identity-reviews.ts",
+        "sha256": "172c1b87f23c666e75add111852c0748ac1c4d68794d56ec1171ac890f213781"
+      },
+      {
+        "file": "scripts/sync-researched-menus.ts",
+        "sha256": "f40a8a6d9ebc9068842969cf5bcf7575400ea08f85cb3ded6105df354810d527"
+      },
+      {
+        "file": "src/server/menu-delivery.ts",
+        "sha256": "de136006bf1fecd1afb0e78f22536ed880b2e67a8752e0626d58a9bb8fd3eec0"
+      },
+      {
+        "file": "scripts/menu-research-outcomes.ts",
+        "sha256": "6641bac7b83d579df94f56163325f49f006d228cd680b2c0201dc7da0ebe4ddf"
+      },
+      {
+        "file": "scripts/menu-research-types.ts",
+        "sha256": "b9c5113ec2e7e1d0d81ae2555c76ec3fa9f3f1b3fe528ba6e407a2f47e3814aa"
+      },
+      {
+        "file": "scripts/build-menu-coverage.ts",
+        "sha256": "c8b865748667e2892675ff8d43a40e51b585c523e425b6b7afe22b2673436db8"
+      }
+    ],
+    "noCanonicalCodeOrDataEdits": true
+  },
+  "findings": [],
+  "resolvedFindings": [
+    {
+      "id": "MCGR-01",
+      "severity": "HIGH",
+      "file": "scripts/menu-identity-reviews.ts",
+      "line": 70,
+      "relatedFile": "src/server/menu-delivery.ts:23",
+      "issue": "Identity fingerprints covered the branch fingerprint only; changing reviewed name, address or evidence could leave an invalid mapping publicly attached.",
+      "minimalFix": "Fingerprint the complete validated identity review and compare that exact review hash at runtime.",
+      "verification": "Eight independent changes to reviewed name,address,independent URLs,place evidence,review time,status,branch fingerprint and place ID each strip the ID while retaining source menu rows and changing the public cache fingerprint."
+    },
+    {
+      "id": "MCGR-02",
+      "severity": "MEDIUM",
+      "file": "src/server/menu-delivery.ts",
+      "line": 23,
+      "issue": "Picking the first review ignored conflicting duplicate branch or place-ID assignments.",
+      "minimalFix": "Require exactly one branch review and globally unique use of the mapped place ID.",
+      "verification": "Conflicting approved branch duplicate, withdrawn branch duplicate and duplicate ID on another branch each strip the ID and retain the menu."
+    },
+    {
+      "id": "MCGR-03",
+      "severity": "MEDIUM",
+      "file": "scripts/menu-research-outcomes.ts",
+      "line": 47,
+      "issue": "Same-instant outcome conflicts were compared by raw timestamp strings, permitting offset-format differences to silently choose a winner.",
+      "minimalFix": "Normalize parsed dates to canonical ISO before comparing or storing them.",
+      "verification": "2026-10-16T00:00:00Z and2026-10-16T08:00:00+08:00 in different batches now conflict; an older outcome cannot overwrite a newer one."
+    }
+  ],
+  "checks": [
+    {
+      "name": "Explicit identity mapping boundary",
+      "status": "pass",
+      "validatedIdentityMappings": 34,
+      "assessment": "Stored-ID membership, unique IDs/branches, independent branch facts and separate branch fingerprint validation remain required. Complete-review hash now covers the public mapping authority."
+    },
+    {
+      "name": "Compiler identity projection and drift",
+      "status": "pass",
+      "method": "Isolated actual compileEntry function invoked without runner main or file writes.",
+      "assertions": [
+        "Reviewed map ID and full review fingerprint enter manifest review and output menu",
+        "A matching regenerated review passes check mode",
+        "ID change requires explicit publication review",
+        "Fingerprint-only identity change also requires explicit review"
+      ]
+    },
+    {
+      "name": "Runtime changed and withdrawn identity handling",
+      "status": "pass",
+      "identityMutationCases": 8,
+      "duplicateCases": 3,
+      "assertions": [
+        "Invalid,withdrawn or ambiguous identity strips googlePlaceId",
+        "Source-verified menu rows remain available",
+        "Public summary fingerprint changes when ID is removed",
+        "Raw source-packet mutation still withholds the affected menu"
+      ]
+    },
+    {
+      "name": "Portion and preorder/option preservation",
+      "status": "pass",
+      "fields": [
+        "portion",
+        "optionNotes",
+        "customizationFields",
+        "bundleContents"
+      ],
+      "assertions": [
+        "Printed2pcs portion retained",
+        "Surcharge note retained",
+        "Required preorder-date field retained",
+        "Bundle contents retained",
+        "Unrecognized private/provider root fields omitted from normalized public item"
+      ]
+    },
+    {
+      "name": "Frozen outcome validation and chronology",
+      "status": "pass",
+      "syntheticInvalidCasesRejected": 11,
+      "assertions": [
+        "Unknown stored ID,invalid eligibility/menu/date/URL/text,duplicate ID and nonfrozen packet reject",
+        "Equivalent timestamp instants normalize and conflict",
+        "Older outcomes cannot overwrite newer ones",
+        "Only unresolved eligibility permits empty evidence URLs"
+      ]
+    },
+    {
+      "name": "Actual coverage integration without publication promotion",
+      "status": "pass",
+      "directoryRecords": 2322,
+      "appliedExplicitIdentityReviews": 34,
+      "researchOutcomes": {
+        "reviewed": 50,
+        "counts": {
+          "vegetarian-confirmed": 6,
+          "mixed-menu": 1,
+          "supplier": 0,
+          "food-court": 0,
+          "out-of-SG": 0,
+          "unresolved": 43
+        }
+      },
+      "protectedCoverageFieldsUnchanged": [
+        "status",
+        "name",
+        "address",
+        "menuRows",
+        "sourceMenuIds",
+        "menuPublication",
+        "researchDataset",
+        "researchBranchId",
+        "identityReviewedAt",
+        "identityEvidenceUrls",
+        "candidateNames",
+        "candidateAddresses",
+        "leadIds",
+        "gaps"
+      ],
+      "method": "Actual frozen files and actual adapter applied to an in-memory directory with explicit identity reviews; no generated coverage files written."
+    },
+    {
+      "name": "Native data boundary",
+      "status": "pass",
+      "assessment": "Identity review JSON and compiled research enter src only through server/menu-delivery and the server API. Outcome adapter imports are confined to scripts. Public menu parser emits whitelisted merchant facts and place IDs, excluding research review/provenance internals and owner/private/provider payload fields."
+    }
+  ],
+  "limitations": [
+    "No Google or other outbound requests were made.",
+    "Identity and compiler mutation checks use isolated process memory; only this review artifact is written.",
+    "Static JSON identity changes take effect on server rebuild/reload, matching the existing static publication model.",
+    "Root is integrating data concurrently; this reviews the recorded code hashes and projection safeguards, not final collection completeness or new merchant transcription accuracy.",
+    "TypeScript,lint and end-to-end acceptance are handled by their separate final gates."
+  ],
+  "summary": {
+    "CRITICAL": 0,
+    "HIGH": 0,
+    "MEDIUM": 0,
+    "LOW": 0,
+    "verdict": "APPROVE"
+  }
+}

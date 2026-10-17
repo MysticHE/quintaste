@@ -1,0 +1,11 @@
+{
+  "manifestStatus": 200,
+  "bundleStatus": 200,
+  "bytes": 8678618,
+  "dietFilter": true,
+  "privateAddress": true,
+  "locateIcon": true,
+  "freshGps": true,
+  "privateGoogleKey": false,
+  "nativeDeviceAppearanceVerified": false
+}

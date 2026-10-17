@@ -1,0 +1,49 @@
+{
+  "checks": [
+    {
+      "innerOutline": "0px",
+      "innerStyle": "solid",
+      "innerShadow": "none",
+      "outerRadius": "24px",
+      "outerOffset": "0px"
+    },
+    {
+      "innerOutline": "0px",
+      "innerStyle": "solid",
+      "innerShadow": "none",
+      "outerRadius": "24px",
+      "outerOffset": "0px"
+    },
+    {
+      "innerOutline": "0px",
+      "innerStyle": "solid",
+      "innerShadow": "none",
+      "outerRadius": "24px",
+      "outerOffset": "0px"
+    },
+    {
+      "innerOutline": "0px",
+      "innerStyle": "solid",
+      "innerShadow": "none",
+      "outerRadius": "24px",
+      "outerOffset": "0px"
+    },
+    {
+      "innerOutline": "0px",
+      "innerStyle": "solid",
+      "innerShadow": "none",
+      "outerRadius": "24px",
+      "outerOffset": "0px"
+    }
+  ],
+  "screenshots": [
+    "menu-expansion-correction-320.png",
+    "menu-expansion-correction-375.png",
+    "menu-expansion-correction-768.png",
+    "menu-expansion-correction-1440.png",
+    "menu-expansion-shared-field-error-375.png"
+  ],
+  "errors": [],
+  "actualGoogleCalls": 0,
+  "status": "pass"
+}

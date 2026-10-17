@@ -1,0 +1,101 @@
+{
+  "scope": "live-singapore-discovery",
+  "date": "2026-10-14",
+  "checks": {
+    "typecheck": "passed after final code change",
+    "eslint": "passed with zero warnings after final code change",
+    "androidBundle": {
+      "status": 200,
+      "bytes": 8305879,
+      "checkedVia": "LAN bundle request after nearby/details update; earlier user app-open confirmation does not verify the new UI",
+      "updatedNativeScreenRuntimeVerified": true
+    },
+    "manifest": {
+      "unsignedStatus": 200,
+      "nativeStyleRequestStatus": 200,
+      "host": "192.168.1.5:8083",
+      "downloadTransport": "direct LAN; no tunnel",
+      "signaturePresent": false
+    },
+    "phoneLanStatus": "User confirmed packager-status:running on 8082 and QuinTaste opens through exp://192.168.1.5:8083",
+    "requestValidation": "400 / 413 / 415 confirmed for malformed, oversized and unsupported requests",
+    "allowance": "malformed ledger rejected; 99-to-100 accepted; request 101 denied with no Google request",
+    "liveApi": "HTTP200; independently requested live Google results",
+    "saveReload": "Earlier ID-only persistence check passed; current Saved route opens canonical live details. New UI path has not been recaptured.",
+    "collector": "2,322 unique candidate IDs; completed run reused with zero new requests; exports preserved",
+    "androidSecretExclusion": {
+      "serverSecretAbsent": true,
+      "serverKeyVariableAbsent": true
+    },
+    "nearbyApi": {
+      "fixture": "public Tiong Bahru MRT coordinate, not user GPS",
+      "status": 200,
+      "places": 20,
+      "capped": true,
+      "withPhotos": 20,
+      "withHours": 18,
+      "withRatings": 20
+    },
+    "detailsApi": {
+      "status": 200,
+      "photos": 3,
+      "reviews": 5,
+      "hoursDays": 7,
+      "phonePresent": true,
+      "reviewAuthorsWithProfileLinks": 5,
+      "reviewAvatarsHttps": 5
+    },
+    "photos": {
+      "concurrentRequests": 3,
+      "statuses": [
+        200,
+        200,
+        200
+      ],
+      "contentType": "image/jpeg",
+      "cacheControl": "no-store",
+      "photoAuthorLinks": true
+    },
+    "newRequestValidation": {
+      "invalidOrigin": 400,
+      "invalidRadius": 400,
+      "invalidPlaceId": 400,
+      "invalidPhotoToken": 400
+    },
+    "concurrentAllowance": {
+      "fixtureReservations": 12,
+      "lostIncrements": 0,
+      "boundary": "100 allowed, 101 rejected",
+      "staleLock": "fails closed",
+      "googleCalls": 0
+    },
+    "codeReview": {
+      "originalFindingsResolved": 3,
+      "mapFindingsResolved": 2,
+      "scope": "bounded source inspection only",
+      "openingBoundary": "resolved by reviewer"
+    },
+    "openingBoundary": "source reviewed; inline transition and expiry assertions passed",
+    "diffWhitespace": "passed",
+    "phoneFeatureConfirmation": {
+      "source": "user",
+      "answer": "Yes, they appear",
+      "flow": "Reload8083 → Use my location → open a place",
+      "confirmed": [
+        "nearby results",
+        "photos",
+        "reviews",
+        "opening hours"
+      ],
+      "scope": "Android functional confirmation, not native screenshot or accessibility acceptance"
+    }
+  },
+  "boundaries": {
+    "nativeVisualAcceptance": "recapture: current phone-android,phone-ios,tablet-android,tablet-ios captures missing",
+    "googleDirectory": "candidate IDs, non-exhaustive and unreviewed",
+    "productionDeployment": "not deployed",
+    "expoGo": "Running directLAN8083,CI/hotreloaddisabled,CLI signedout. User confirmed updated nearby/photos/reviews/hours appear on phone; native screenshot matrix remains pending.",
+    "browserVisualVerification": "Local preview localhost8083 access declined; no new browser screenshots captured and no workaround attempted"
+  },
+  "updatedScope": "true-nearby-live-place-details"
+}

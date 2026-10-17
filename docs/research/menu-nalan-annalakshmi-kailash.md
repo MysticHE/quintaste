@@ -1,0 +1,39 @@
+# NALAN, Annalakshmi and Kailash Parbat menu research
+
+Checked 15 October 2026. This research checkpoint contains **1,404 source-specific food records across eight branch records and fourteen menus**. It is separate from the published pilot catalogue. Repeated website/ordering foods and shared branch menus are not unique-dish or completed-location counts.
+
+| Branch or source | Food records | Coverage and remaining gap |
+| --- | ---: | --- |
+| NALAN, City Hall — 13 Stamford Road #B2-54, 178905 | 446 | 185 website food names and 261 pickup-ordering foods. Three lunch foods occur in the public pickup catalogue but were absent from rendered cards; those three remain held. |
+| NALAN, Little India — 82 Serangoon Road, 217987 | 317 | 152 website names and all 165 eligible pickup-ordering foods. Exact pickup outlet confirmed; website and ordering dishes remain separate sources. |
+| Kailash Parbat, Belilios Road — 3 Belilios Road #01-03, 219924 | 126 | Eligible named foods and printed prices in this branch's website menu. Price currency code, effective date and current stock are unstated. |
+| Kailash Parbat, Syed Alwi and Changi Business Park — two branches sharing one merchant menu | 117 | Merchant explicitly shares this menu between 93 Syed Alwi Road, 207669, and 1 Changi Business Park Crescent #01-10/12/13, 486025. Duplicate PAPDI CHAAT cards show $9.50 and $10.00; both observations remain, with no selected fixed price and an item hold. |
+| Kailash Parbat, Sentosa — merchant prints 42 Imbia Road #01-01, 099701 | 49 | Eligible food-only website rows. The merchant's street spelling is preserved; it is not silently corrected to an assumed address. Two beverage-inclusive combos are excluded. |
+| Annalakshmi Cafe, Downtown Gallery — 6A Shenton Way #03-26, 068815 | 31 | All distinct named foods in four currently linked menu images. Thirty prices have no explicit currency code and exclude GST. Rava Dosa is unpriced and held because its Saturday/Sunday poster conflicts with the current Sunday closure. |
+| Annalakshmi Restaurant, Downtown Gallery — #01-03, 068815 | 0 | Changing buffet has no named daily dish list or fixed per-dish prices in the checked merchant sources. Café dishes are not assigned to the restaurant. |
+| Kailash brand-only sources, without branch assignment | 318 | 176 delivery foods, 17 undated festival foods, 118 unpriced catering food choices, three whole food-only combinations and four bento boxes. All remain held for branch/currentness or applicability uncertainty. All 176 eligible linked delivery details were checked. |
+
+The shared Syed Alwi/Changi menu is counted once in the 1,404 total. Zero named buffet foods means that no readable daily food list was obtained from these sources; it does not mean the restaurant serves no food.
+
+## Price, portion and source checks
+
+- NALAN's merchant-linked `order.nalan.com.sg` identifies Little India pickup outlet 267; `orders.nalan.com.sg` identifies City Hall outlet 36. All 423 rendered retained ordering amounts were compared with the public pickup response. The remaining three City Hall lunch entries are held. All 134 food modifier groups and 1,048 choices are retained with their source constraints and unit/final amounts.
+- NALAN's tax-inclusive flag, source GST and conditional packing/delivery charges remain source context. They are not added automatically to each dish. Gift boxes, retail savouries, drinks and beverage party packs are excluded. Dessert names remain eligible even where the website panel ID says drinks.
+- Kailash's linked delivery source has conflicting premises: its header identifies 1 West Coast Drive #01-95, 128020, and its footer identifies 60 Race Course Road, 218567. Neither identifies one of the four current merchant-locator branches. Delivery prices and foods therefore have no current branch assignment.
+- The four held delivery bentos retain their minimum ten boxes and their delivery-specific components. All thirteen bulk trays retain printed portion text and minimum six-hour advance ordering. In particular, the delivery Option 4 component list is not substituted for the website version.
+- All 176 retained delivery dishes were opened through ordinary product links. The checked modals retain 43 food modifier controls and 167 choices: eighteen radio groups, twenty-three dropdowns from public rendered list seeds, and two food-choice toolbars. Naan has five explicitly priced variants and Bengali Mithai has four. Unprinted option prices and selection limits are not inferred; observed selected states are not permanent availability guarantees. No cart or checkout action was performed.
+- Royal Falooda is explicitly described as a sundae drink in three Kailash source rows; all three are excluded. Kulfi Falooda is a separately described ice-cream sundae and is not treated as the same beverage.
+- The three retained Super Saver combination prices apply to whole bundles, not people or components. GST/delivery inclusion is retained only where printed. The 600/20-pax bundle includes ten beverages and is excluded.
+- All four website bento boxes retain plus-GST pricing and the minimum ten boxes. Slash-separated sabzi names remain alternatives. No currency code is inferred from a bare dollar sign or an unlabelled number.
+- Four catering packages include beverages and are excluded as packages. Their package prices, including a zero child placeholder, are not allocated to individual foods. The 118 separately named catering food choices remain unpriced. Illustrative food photographs are not ingredient or dish-identification evidence.
+- The four Annalakshmi images have 2024 filenames but are currently linked; filename dates do not prove current prices. Printed meal windows, extras and set components remain source-specific. Rotating unnamed vegetables, rice and buffet dishes are not invented.
+
+## Primary sources
+
+- NALAN: [branch contact page](https://www.nalan.com.sg/veg-restaurant-event-catering-singapore), [City Hall menu](https://www.nalan.com.sg/indian-veg-restaurant-city-hall), [Little India menu](https://www.nalan.com.sg/best-indian-restaurant-little-india), [City Hall ordering](https://orders.nalan.com.sg/), [Little India ordering](https://order.nalan.com.sg/).
+- Annalakshmi: [café and linked food images](https://www.annalakshmi.sg/cafe), [restaurant](https://www.annalakshmi.sg/restaurant), [catering](https://www.annalakshmi.sg/catering).
+- Kailash Parbat: [current branch locator](https://www.kailashparbat.com.sg/contact), [Belilios menu](https://www.kailashparbat.com.sg/belilios-road), [shared Syed Alwi/Changi menu](https://www.kailashparbat.com.sg/syed-alwi-changi), [Sentosa menu](https://www.kailashparbat.com.sg/sentosa), [festival](https://www.kailashparbat.com.sg/soya-chaap), [delivery](https://kailashparbat.eorderfood.com/Order/Delivery), [combinations](https://www.kailashparbat.com.sg/super-saver-combo), [bentos](https://www.kailashparbat.com.sg/bento-box), [catering](https://www.kailashparbat.com.sg/catering).
+
+Machine data: [manifest](../../data/menu-research/menu-nalan-annalakshmi-kailash.json), [NALAN](../../data/menu-research/nalan-annalakshmi-kailash/nalan.json), [Annalakshmi](../../data/menu-research/nalan-annalakshmi-kailash/annalakshmi.json), [Kailash branch/ordering menus](../../data/menu-research/nalan-annalakshmi-kailash/kailash.json), [Kailash catering/bento/combo supplement](../../data/menu-research/nalan-annalakshmi-kailash/kailash-catering.json). The [bounded independent review](../../.impeccable/review/menu-indian-research-review.json) approved this checkpoint and all 176 linked delivery detail checks after beverage, conflicting-price, quantity-context and custom-control corrections. It does not approve whole-venue completeness, current stock or branch applicability.
+
+No new app publication, dietary certification, Google Places Details/photo call or merchant outreach is part of this collection.

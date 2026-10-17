@@ -1,0 +1,154 @@
+{
+  "cluster": "outram-chinatown",
+  "method": "agent-assisted public-source inspection",
+  "checkedAt": "2026-10-15T04:56:45Z",
+  "venueIds": [
+    "whole-earth-peck-seah",
+    "dlife-signature-chinatown-point"
+  ],
+  "menuIds": [
+    "whole-earth-dine-in",
+    "dlife-chinatown-delivery"
+  ],
+  "dishIds": [
+    "whole-earth-peck-seah-sambal-king",
+    "whole-earth-peck-seah-sambal-kangkong",
+    "whole-earth-peck-seah-sambal-broccoli",
+    "whole-earth-peck-seah-sambal-eggplant",
+    "dlife-signature-chinatown-point-claypot-hericium-rice",
+    "dlife-signature-chinatown-point-yam-ring-buddhas-delight",
+    "dlife-signature-chinatown-point-sambal-kang-kong",
+    "dlife-signature-chinatown-point-sweet-sour-tofu"
+  ],
+  "sources": [
+    {
+      "id": "we-home",
+      "url": "https://wholeearth.com.sg/",
+      "title": "Whole Earth restaurant",
+      "publisher": "Whole Earth",
+      "kind": "merchant",
+      "checkedAt": "2026-10-15T04:54:54Z",
+      "publishedAt": null,
+      "notes": "Merchant vegetarian positioning and 76 Peck Seah Street address."
+    },
+    {
+      "id": "we-menu-index",
+      "url": "https://wholeearth.com.sg/menu.php",
+      "title": "Whole Earth food menu",
+      "publisher": "Whole Earth",
+      "kind": "merchant-menu",
+      "checkedAt": "2026-10-15T04:54:54Z",
+      "publishedAt": null,
+      "notes": "Current official navigation links the inspected menu2026 assets; the folder name is not a publication date."
+    },
+    {
+      "id": "we-peranakan",
+      "url": "https://wholeearth.com.sg/menu2026/02-Peranakan_Dishes1.webp",
+      "title": "Whole Earth Peranakan menu",
+      "publisher": "Whole Earth",
+      "kind": "merchant-menu",
+      "checkedAt": "2026-10-15T04:54:54Z",
+      "publishedAt": null,
+      "notes": "Visual source check of four printed dish names and numeric prices. Currency not identified on this image. Artwork is linked, not copied."
+    },
+    {
+      "id": "we-legend",
+      "url": "https://wholeearth.com.sg/menu2026/12-Menu-Legend.webp",
+      "title": "Whole Earth menu information",
+      "publisher": "Whole Earth",
+      "kind": "merchant-menu",
+      "checkedAt": "2026-10-15T04:54:54Z",
+      "publishedAt": null,
+      "notes": "Merchant no-meat/no-seafood statement is separate from vegan status. Menu uses egg/milk/nut symbols and warns of shared-kitchen allergens. 10% service and 9% GST extra."
+    },
+    {
+      "id": "dlife-brand",
+      "url": "https://www.facebook.com/DlifeSignature/",
+      "title": "D'life Signature merchant profile",
+      "publisher": "D'life Signature",
+      "kind": "merchant-social",
+      "checkedAt": "2026-10-15T04:54:54Z",
+      "publishedAt": null,
+      "notes": "Explicit vegetarian brand statement. Profile contact address is Novena; not a Chinatown address source."
+    },
+    {
+      "id": "dlife-branch",
+      "url": "https://www.facebook.com/DlifeSignature/posts/pfbid02WNSNnw8cZmGkwMeDXe2PhYGLsFGDWvoBuSUGg4eDxTETfGGiuRuwpBQi6EMgLJAul?comment_id=1355678666381184",
+      "title": "D'life Signature branch comment",
+      "publisher": "D'life Signature",
+      "kind": "merchant-social",
+      "checkedAt": "2026-10-15T04:54:54Z",
+      "publishedAt": null,
+      "notes": "Merchant comment identifies Chinatown Point #02-37. Expired promotional prices are excluded."
+    },
+    {
+      "id": "dlife-directory",
+      "url": "https://chinatownpoint.com.sg/stores/?category=restaurant",
+      "title": "Chinatown Point restaurant directory",
+      "publisher": "Chinatown Point",
+      "kind": "directory",
+      "checkedAt": "2026-10-15T04:54:54Z",
+      "publishedAt": null,
+      "notes": "Indexed official directory corroborates #02-37. Direct fetch timed out; not ingredient evidence."
+    },
+    {
+      "id": "dlife-menu",
+      "url": "https://www.foodpanda.sg/restaurant/l29d/dlife-signature-chinatown-point",
+      "title": "D'life Signature Chinatown Point delivery menu",
+      "publisher": "foodpanda",
+      "kind": "delivery-platform",
+      "checkedAt": "2026-10-15T04:54:54Z",
+      "publishedAt": null,
+      "notes": "Branch-specific names and S$ prices observed. Merchant control unverified. Conflicting generic ingredient descriptions are excluded. No dine-in price equivalence or tax treatment established."
+    },
+    {
+      "id": "eight-directory",
+      "url": "https://chinatown.sg/dine/8-treasures-vegetarian/",
+      "title": "Eight Treasures directory entry",
+      "publisher": "Chinatown Business Association",
+      "kind": "directory",
+      "checkedAt": "2026-10-15T04:54:54Z",
+      "publishedAt": null,
+      "notes": "282A South Bridge Road, Singapore 058831. Identity only; no current menu or ingredient confirmation."
+    },
+    {
+      "id": "eight-site",
+      "url": "https://www.8treasuresgroup.sg/",
+      "title": "Eight Treasures website",
+      "publisher": "Eight Treasures",
+      "kind": "merchant",
+      "checkedAt": "2026-10-15T04:54:54Z",
+      "publishedAt": null,
+      "notes": "Under construction at source check."
+    },
+    {
+      "id": "eight-ordering-unresolved",
+      "url": "https://eighttreasuresrestaurant.getz.co/",
+      "title": "Eight Treasures ordering candidate",
+      "publisher": "Getz storefront",
+      "kind": "unverified",
+      "checkedAt": "2026-10-15T04:54:54Z",
+      "publishedAt": null,
+      "notes": "No selected outlet/address or primary linkage to South Bridge Road established. No dishes imported."
+    }
+  ],
+  "candidates": [
+    {
+      "id": "eight-treasures-chinatown",
+      "name": "Eight Treasures Vegetarian Restaurant",
+      "clusterId": "outram-chinatown",
+      "sourceIds": [
+        "eight-directory",
+        "eight-site",
+        "eight-ordering-unresolved"
+      ],
+      "reason": "Branch-only candidate. Official site under construction; ordering-storefront merchant/outlet linkage not established. Stale 2014 menu excluded; no dishes imported."
+    }
+  ],
+  "boundaries": [
+    "No merchant outreach, purchases or paid Google calls.",
+    "No menu artwork/photos copied.",
+    "Menu facts are not complete ingredient or vegan/allium confirmation.",
+    "Merchant permission not requested; local research only."
+  ]
+}

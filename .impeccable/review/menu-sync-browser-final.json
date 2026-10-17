@@ -1,0 +1,1591 @@
+{
+  "capturedAt": "2026-10-15T22:46:07.012Z",
+  "url": "http://localhost:8083",
+  "checks": [
+    {
+      "name": "Cold deep link loads lightweight index and only requested branch",
+      "status": "passed",
+      "provenance": "menu-sync-browser.json"
+    },
+    {
+      "name": "Pagination stays at40 rows and search sees later-page dishes",
+      "status": "passed",
+      "provenance": "menu-sync-browser.json"
+    },
+    {
+      "name": "Options disclosure and correction lookup load requested menu",
+      "status": "passed",
+      "provenance": "menu-sync-browser.json"
+    },
+    {
+      "name": "MTR day/service choices preserve meal-specific menu selection",
+      "status": "passed",
+      "provenance": "menu-sync-browser.json"
+    },
+    {
+      "name": "Responsive menu widths and scoped accessibility",
+      "status": "passed",
+      "provenance": "menu-sync-browser.json"
+    },
+    {
+      "name": "Persistent offline reload restores saved branch without fetching menu API",
+      "status": "passed",
+      "cacheBytes": 237205,
+      "menuApiRequestsDuringReload": 0
+    },
+    {
+      "name": "HTTP 404 withdrawal clears rendered dishes and persisted detail",
+      "status": "passed",
+      "cachedDishRowsCleared": true,
+      "offlineDetailRemoved": true
+    },
+    {
+      "name": "Storage quota failure keeps online menu usable and displays fallback notice",
+      "status": "passed",
+      "onlineSearchUsable": true,
+      "storageNoticeVisible": true
+    },
+    {
+      "name": "Offline detail cache evicts oldest after six real menu visits and stays within byte budget",
+      "status": "passed",
+      "visited": [
+        "whole-earth-peck-seah",
+        "teng-bespoke-sunshine-plaza",
+        "daily-green-woodlands-street-31",
+        "nomvnom-clarke-quay-central",
+        "lian-xin-buddha-tooth-relic-temple",
+        "living-wholesome-fortune-centre"
+      ],
+      "retained": 5,
+      "detailCacheBytes": 59881,
+      "detailByteLimit": 1200000
+    },
+    {
+      "name": "Final responsive menu screenshots and WCAG AA axe audit",
+      "status": "passed",
+      "axeFindings": 0,
+      "widths": [
+        320,
+        375,
+        768,
+        1440
+      ],
+      "darkMode": true
+    },
+    {
+      "name": "Withdrawal rerun with origin-scoped cache fixture has no application page errors",
+      "status": "passed",
+      "fixtureCorrection": "Origin-scoped localStorage injection avoids browser-owned opaque dev frames"
+    },
+    {
+      "name": "Place detail menu CTA appears only for matching live branch and opens correct menu",
+      "status": "passed",
+      "matchingBranchCTA": true,
+      "keyboardActivation": true,
+      "wrongPostalHidden": true,
+      "permanentlyClosedHidden": true,
+      "providerCallsForwarded": 0
+    },
+    {
+      "name": "Explore menu name and postal search open correct saved publication",
+      "status": "failed",
+      "error": "locator.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByTestId('menu-search-matches').getByRole('button', { name: /View menu for NALAN,/ }).first()\u001b[22m\n\u001b[2m    - locator resolved to <button tabindex=\"0\" role=\"button\" type=\"button\" aria-label=\"View menu for NALAN, 13 Stamford Road #B2-54 Capitol Singapore, Singapore 178905\" class=\"css-view-g5y9jx r-cursor-1loqt21 r-touchAction-1otgn73 r-alignItems-1awozwy r-borderRadius-t23y2h r-borderWidth-rs99b7 r-flexDirection-18u37iz r-gap-uaa2di r-minHeight-10gryf7 r-padding-1sp51qo\">…</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <div dir=\"auto\" aria-live=\"polite\" class=\"css-text-146c3p1 r-alignItems-1awozwy r-flexDirection-18u37iz r-gap-1cmwbt1 r-padding-xyw6el\">No matching locations. Try another name or postal…</div> from <div class=\"css-view-g5y9jx r-flexDirection-18u37iz\">…</div> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <div dir=\"auto\" aria-live=\"polite\" class=\"css-text-146c3p1 r-alignItems-1awozwy r-flexDirection-18u37iz r-gap-1cmwbt1 r-padding-xyw6el\">No matching locations. Try another name or postal…</div> from <div class=\"css-view-g5y9jx r-flexDirection-18u37iz\">…</div> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    57 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is visible, enabled and stable\u001b[22m\n\u001b[2m       - scrolling into view if needed\u001b[22m\n\u001b[2m       - done scrolling\u001b[22m\n\u001b[2m       - <div dir=\"auto\" aria-live=\"polite\" class=\"css-text-146c3p1 r-alignItems-1awozwy r-flexDirection-18u37iz r-gap-1cmwbt1 r-padding-xyw6el\">No matching locations. Try another name or postal…</div> from <div class=\"css-view-g5y9jx r-flexDirection-18u37iz\">…</div> subtree intercepts pointer events\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n",
+      "supersededBy": "Explore name/postal normal clicks verified in latestRun"
+    },
+    {
+      "name": "Menu name and postal discovery navigate after dismissing location suggestions",
+      "status": "passed",
+      "nameSearch": "NALAN",
+      "postalSearch": "178905",
+      "menuId": "research-nalan-cityhall",
+      "requiredDismissal": "Escape closes location suggestions"
+    }
+  ],
+  "errors": [],
+  "screenshots": [
+    ".impeccable/review/menu-sync-320.png",
+    ".impeccable/review/menu-sync-375.png",
+    ".impeccable/review/menu-sync-768.png",
+    ".impeccable/review/menu-sync-1440.png",
+    ".impeccable/review/menu-sync-dark1440.png",
+    ".impeccable/review/menu-sync-offline375.png",
+    ".impeccable/review/menu-sync-withdrawn375.png",
+    ".impeccable/review/menu-sync-storage-quota375.png",
+    ".impeccable/review/menu-sync-search-overlay375.png",
+    ".impeccable/review/menu-sync-search-fixed375.png",
+    ".impeccable/review/menu-sync-postal-fixed375.png",
+    ".impeccable/review/menu-sync-search-error375.png",
+    ".impeccable/review/menu-sync-address-choice375.png",
+    ".impeccable/review/menu-sync-nalan-cityhall-320-light.png",
+    ".impeccable/review/menu-sync-nalan-cityhall-375-light.png",
+    ".impeccable/review/menu-sync-nalan-cityhall-375-dark.png",
+    ".impeccable/review/menu-sync-mtr-serangoon438-320-light.png",
+    ".impeccable/review/menu-sync-mtr-serangoon438-375-light.png",
+    ".impeccable/review/menu-sync-mtr-serangoon438-375-dark.png",
+    ".impeccable/review/menu-sync-mtr-linlin-header-mtr-serangoon438.png",
+    ".impeccable/review/menu-sync-linlin-bedok-north-320-light.png",
+    ".impeccable/review/menu-sync-linlin-bedok-north-375-light.png",
+    ".impeccable/review/menu-sync-linlin-bedok-north-375-dark.png",
+    ".impeccable/review/menu-sync-mtr-linlin-header-linlin-bedok-north.png",
+    ".impeccable/review/menu-sync-mtr-wednesday375.png",
+    ".impeccable/review/menu-sync-busy-fixed-320-light.png",
+    ".impeccable/review/menu-sync-busy-fixed-375-dark.png",
+    ".impeccable/review/menu-sync-lilac-oak-oxley-rise-320-light.png",
+    ".impeccable/review/menu-sync-lilac-oak-oxley-rise-375-dark.png",
+    ".impeccable/review/menu-sync-baomaker-ang-mo-kio-447-320-light.png",
+    ".impeccable/review/menu-sync-baomaker-ang-mo-kio-447-375-dark.png",
+    ".impeccable/review/menu-sync-merle-lentor-modern-320-light.png",
+    ".impeccable/review/menu-sync-merle-lentor-modern-375-dark.png",
+    ".impeccable/review/menu-sync-wrong-basement375.png",
+    ".impeccable/review/menu-sync-wrong-kiosk-prefix375.png",
+    ".impeccable/review/menu-sync-greendot-bedok375.png",
+    ".impeccable/review/menu-sync-greendot-tampines375.png",
+    ".impeccable/review/menu-sync-467360375.png"
+  ],
+  "apiRequests": [
+    "/api/menus?view=index",
+    "/api/menus?id=research-nalan-cityhall",
+    "/api/menus?view=index",
+    "/api/menus?view=index",
+    "/api/menus?id=research-nalan-cityhall",
+    "/api/menus?view=index",
+    "/api/menus?id=whole-earth-peck-seah",
+    "/api/menus?view=index",
+    "/api/menus?id=teng-bespoke-sunshine-plaza",
+    "/api/menus?view=index",
+    "/api/menus?id=daily-green-woodlands-street-31",
+    "/api/menus?view=index",
+    "/api/menus?id=nomvnom-clarke-quay-central",
+    "/api/menus?view=index",
+    "/api/menus?id=lian-xin-buddha-tooth-relic-temple",
+    "/api/menus?view=index",
+    "/api/menus?id=living-wholesome-fortune-centre",
+    "/api/menus?view=index",
+    "/api/menus?id=research-nalan-cityhall",
+    "/api/menus?view=index",
+    "/api/menus?view=index",
+    "/api/menus?id=research-nalan-cityhall",
+    "/api/menus?view=index",
+    "/api/menus?view=index",
+    "/api/menus?view=index"
+  ],
+  "blockedGoogleRequests": [],
+  "forwardedGoogleRequests": 0,
+  "a11y": [
+    {
+      "width": 320,
+      "documentWidth": 320,
+      "violations": []
+    },
+    {
+      "width": 375,
+      "documentWidth": 375,
+      "violations": []
+    },
+    {
+      "width": 768,
+      "documentWidth": 768,
+      "violations": []
+    },
+    {
+      "width": 1440,
+      "documentWidth": 1440,
+      "violations": []
+    },
+    {
+      "mode": "dark",
+      "width": 1440,
+      "violations": []
+    }
+  ],
+  "consoleErrors": [],
+  "pageErrors": [],
+  "performance": [
+    {
+      "metric": "coldMenuVisibleMs",
+      "value": 3353,
+      "method": "Local warm Expo server, new Chromium context, 375px viewport; elapsed navigation to first dish visible; not production/native measurement"
+    }
+  ],
+  "scope": "Actual local Expo UI/API; managed headless Chromium. Controlled offline, HTTP 404, storage quota and provider fixtures. Native-device performance and production field Web Vitals not measured.",
+  "browserVersion": "156.0.8078.4",
+  "passed": true,
+  "harnessNotes": [
+    {
+      "resolved": true,
+      "message": "First withdrawal fixture injected localStorage into an opaque Expo development frame. Repeated with an origin guard; browser error was caused by QA injection, not app code."
+    }
+  ],
+  "expectedControlledConsoleErrors": [
+    "Failed to load resource: net::ERR_INTERNET_DISCONNECTED",
+    "Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "visuallyInspected": [
+    "menu-sync-375.png",
+    "menu-sync-1440.png",
+    "menu-sync-dark1440.png",
+    "menu-sync-storage-quota375.png",
+    "menu-sync-320.png",
+    "menu-sync-768.png",
+    "menu-sync-withdrawn375.png",
+    "menu-sync-search-overlay375.png",
+    "menu-sync-search-fixed375.png",
+    "menu-sync-search-error375.png",
+    "menu-sync-address-choice375.png",
+    "menu-sync-nalan-cityhall-375-dark.png",
+    "menu-sync-linlin-bedok-north-320-light.png",
+    "menu-sync-mtr-wednesday375.png",
+    "menu-sync-busy-fixed-320-light.png",
+    "menu-sync-lilac-oak-oxley-rise-320-light.png",
+    "menu-sync-baomaker-ang-mo-kio-447-320-light.png",
+    "menu-sync-merle-lentor-modern-375-dark.png",
+    "menu-sync-greendot-bedok375.png",
+    "menu-sync-greendot-tampines375.png",
+    "menu-sync-467360375.png"
+  ],
+  "findings": [
+    {
+      "severity": "medium",
+      "title": "Location suggestion overlay blocks local menu search result click",
+      "repro": "Explore -> type NALAN with no location suggestions returned -> click first NALAN local menu result. No matching locations popover intercepts pointer events.",
+      "workaround": "Press Escape or blur search, then click menu result.",
+      "screenshot": "menu-sync-search-overlay375.png",
+      "status": "resolved",
+      "resolvedAt": "2026-10-15T23:58:54.141Z",
+      "verification": "Open empty/error suggestions no longer overlap local menu results; normal pointer name/postal navigation passes without Escape"
+    },
+    {
+      "severity": "low",
+      "title": "Menu header title wraps at 320 px",
+      "repro": "Open NALAN menu at 320 px. Header reads Me on first line and nu on second beside Correct menu.",
+      "screenshot": "menu-sync-320.png",
+      "status": "resolved",
+      "resolvedAt": "2026-10-15T23:58:54.141Z",
+      "verification": "Title stays on one line at 320px; visible Correct button retains accessible name Correct menu"
+    },
+    {
+      "severity": "serious",
+      "title": "Loading location spinner requires an accessible name",
+      "rule": "aria-progressbar-name",
+      "status": "resolved",
+      "sourceFix": "Parent reports accessibilityLabel Finding locations added; waiting for restarted server confirmation",
+      "firstObservedAt": "2026-10-15T23:38:53.995Z",
+      "resolvedAt": "2026-10-15T23:58:54.141Z",
+      "verification": "Named Finding locations progressbar; zero scoped axe findings at320light/375dark; normal menu click succeeds while location request remains pending"
+    },
+    {
+      "severity": "medium",
+      "title": "Combined canonical brand or alias with branch text must find menu",
+      "status": "resolved",
+      "verifiedAt": "2026-10-16T00:04:49.695Z",
+      "verification": "Ordinary clicks for Greendot Bedok, Greendot Tampines and467360 navigate to their published menu without Escape",
+      "evidence": [
+        {
+          "query": "Greendot Bedok",
+          "status": "passed",
+          "menuId": "research-greendot-bedok-mall",
+          "name": "Greendot",
+          "branch": "Bedok Mall",
+          "address": "311 New Upper Changi Road B2-31, Bedok Mall, 467360, Singapore",
+          "normalClick": true,
+          "EscapeUsed": false
+        },
+        {
+          "query": "Greendot Tampines",
+          "status": "passed",
+          "menuId": "research-greendot-tampines-1",
+          "name": "Greendot",
+          "branch": "Tampines 1",
+          "address": "10 Tampines Central 1, Tampines 1, #B1-K8, 529536, Singapore",
+          "normalClick": true,
+          "EscapeUsed": false
+        },
+        {
+          "query": "467360",
+          "status": "passed",
+          "menuId": "research-greendot-bedok-mall",
+          "name": "Greendot",
+          "branch": "Bedok Mall",
+          "address": "311 New Upper Changi Road B2-31, Bedok Mall, 467360, Singapore",
+          "normalClick": true,
+          "EscapeUsed": false
+        }
+      ]
+    }
+  ],
+  "status": "passed",
+  "latestRun": {
+    "startedAt": "2026-10-15T23:38:53.995Z",
+    "url": "http://localhost:8083",
+    "checks": [
+      {
+        "name": "Explore name and postal menu clicks work with open empty suggestions and no Escape",
+        "status": "passed",
+        "queries": [
+          {
+            "query": "NALAN",
+            "panelBottom": 144,
+            "matchesTop": 156
+          },
+          {
+            "query": "178905",
+            "panelBottom": 144,
+            "matchesTop": 156
+          }
+        ],
+        "normalPointerClicks": true,
+        "EscapeUsed": false
+      },
+      {
+        "name": "Busy location suggestions leave menu search result directly clickable",
+        "status": "failed",
+        "error": "[{\"id\":\"aria-progressbar-name\",\"impact\":\"serious\",\"help\":\"ARIA progressbar nodes must have an accessible name\",\"nodes\":[{\"html\":\"<div role=\\\"progressbar\\\" aria-valuemax=\\\"1\\\" aria-valuemin=\\\"0\\\" class=\\\"css-view-g5y9jx r-alignItems-1awozwy r-justifyContent-1777fci\\\">\",\"failureSummary\":\"Fix any of the following:\\n  aria-label attribute does not exist or is empty\\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\\n  Element has no title attribute\"}]}]\n\n1 !== 0\n",
+        "supersededBy": "latestVerification named spinner and busy normal-click check"
+      },
+      {
+        "name": "Failed location suggestions expose retry and leave menu result clickable",
+        "status": "passed",
+        "retryVisible": true,
+        "panelBottom": 172,
+        "matchesTop": 188
+      },
+      {
+        "name": "Choosing a real address suggestion still starts a search at the chosen coordinates",
+        "status": "passed",
+        "coordinates": {
+          "latitude": 1.2931,
+          "longitude": 103.8512
+        },
+        "selectedName": "Capitol Singapore",
+        "ordinarySuggestionChoice": true
+      },
+      {
+        "name": "Menu notices, search, options and responsive axe: research-nalan-cityhall",
+        "status": "passed",
+        "headerAt320": {
+          "text": "Menu",
+          "lineTops": [
+            26
+          ],
+          "height": 28
+        },
+        "correctActionAccessible": true,
+        "sharedNotices": [
+          {
+            "source": "nalan-cityhall-published-names",
+            "characters": 159
+          },
+          {
+            "source": "nalan-cityhall-ordering-foods",
+            "characters": 193
+          }
+        ],
+        "activeNoticeVisibleOnce": true,
+        "searchTarget": "JAIN Tomato Soup",
+        "optionDetailsChecked": true,
+        "optionAvailability": "available",
+        "noResultsRecovery": true,
+        "viewports": [
+          "320 light",
+          "375 light",
+          "375 dark"
+        ]
+      },
+      {
+        "name": "Menu notices, search, options and responsive axe: research-mtr-serangoon438",
+        "status": "passed",
+        "headerAt320": {
+          "text": "Menu",
+          "lineTops": [
+            26
+          ],
+          "height": 28
+        },
+        "correctActionAccessible": true,
+        "sharedNotices": [
+          {
+            "source": "mtr-tuesday-breakfast-lunch-food",
+            "characters": 198
+          },
+          {
+            "source": "mtr-tuesday-snacks-dinner-food",
+            "characters": 185
+          },
+          {
+            "source": "mtr-wednesday-snacks-dinner-food",
+            "characters": 187
+          },
+          {
+            "source": "mtr-thursday-breakfast-lunch-food",
+            "characters": 199
+          },
+          {
+            "source": "mtr-thursday-snacks-dinner-food",
+            "characters": 186
+          },
+          {
+            "source": "mtr-friday-snacks-dinner-food",
+            "characters": 184
+          },
+          {
+            "source": "mtr-saturday-breakfast-lunch-food",
+            "characters": 199
+          },
+          {
+            "source": "mtr-saturday-snacks-dinner-food",
+            "characters": 186
+          },
+          {
+            "source": "mtr-sunday-breakfast-lunch-food",
+            "characters": 197
+          },
+          {
+            "source": "mtr-sunday-snacks-dinner-food",
+            "characters": 184
+          }
+        ],
+        "activeNoticeVisibleOnce": true,
+        "searchTarget": "VEG PULAO",
+        "optionDetailsChecked": false,
+        "optionAvailability": "No printed options in this source",
+        "noResultsRecovery": true,
+        "viewports": [
+          "320 light",
+          "375 light",
+          "375 dark"
+        ]
+      },
+      {
+        "name": "Menu notices, search, options and responsive axe: research-linlin-bedok-north",
+        "status": "passed",
+        "headerAt320": {
+          "text": "Menu",
+          "lineTops": [
+            26
+          ],
+          "height": 28
+        },
+        "correctActionAccessible": true,
+        "sharedNotices": [],
+        "activeNoticeVisibleOnce": false,
+        "searchTarget": "Mini Party Set 小型派对 - 3 Courses (Suitable for around 10pax)",
+        "optionDetailsChecked": true,
+        "optionAvailability": "available",
+        "noResultsRecovery": true,
+        "viewports": [
+          "320 light",
+          "375 light",
+          "375 dark"
+        ]
+      },
+      {
+        "name": "MTR Wednesday service selection preserves distinct prices and notice",
+        "status": "passed",
+        "prices": [
+          {
+            "section": "mtr-wednesday-breakfast-lunch-food",
+            "item": "ONION RAVA DOSA",
+            "amount": 8.5
+          },
+          {
+            "section": "mtr-wednesday-snacks-dinner-food",
+            "item": "ONION RAVA DOSA",
+            "amount": 7.5
+          }
+        ]
+      }
+    ],
+    "errors": [
+      {
+        "check": "Busy location suggestions leave menu search result directly clickable",
+        "error": "AssertionError [ERR_ASSERTION]: [{\"id\":\"aria-progressbar-name\",\"impact\":\"serious\",\"help\":\"ARIA progressbar nodes must have an accessible name\",\"nodes\":[{\"html\":\"<div role=\\\"progressbar\\\" aria-valuemax=\\\"1\\\" aria-valuemin=\\\"0\\\" class=\\\"css-view-g5y9jx r-alignItems-1awozwy r-justifyContent-1777fci\\\">\",\"failureSummary\":\"Fix any of the following:\\n  aria-label attribute does not exist or is empty\\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\\n  Element has no title attribute\"}]}]\n\n1 !== 0\n\n    at axeCheck ([stdin]:16:653)\n    at runNextTicks (node:internal/process/task_queues:65:5)\n    at process.processImmediate (node:internal/timers:453:9)\n    at process.callbackTrampoline (node:internal/async_hooks:130:17)\n    at async [stdin]:21:426\n    at async check ([stdin]:7:47)\n    at async [stdin]:21:2"
+      }
+    ],
+    "pageErrors": [],
+    "consoleErrors": [
+      {
+        "url": "http://localhost:8083/",
+        "text": "Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+      }
+    ],
+    "expectedNetworkFailures": [
+      {
+        "url": "/api/location-search",
+        "status": 503
+      }
+    ],
+    "a11y": [
+      {
+        "label": "Explore empty suggestions NALAN",
+        "width": 375,
+        "documentWidth": 375,
+        "violations": []
+      },
+      {
+        "label": "Explore empty suggestions 178905",
+        "width": 375,
+        "documentWidth": 375,
+        "violations": []
+      },
+      {
+        "label": "Explore busy suggestions",
+        "width": 375,
+        "documentWidth": 375,
+        "violations": [
+          {
+            "id": "aria-progressbar-name",
+            "impact": "serious",
+            "help": "ARIA progressbar nodes must have an accessible name",
+            "nodes": [
+              {
+                "html": "<div role=\"progressbar\" aria-valuemax=\"1\" aria-valuemin=\"0\" class=\"css-view-g5y9jx r-alignItems-1awozwy r-justifyContent-1777fci\">",
+                "failureSummary": "Fix any of the following:\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "label": "Explore failed suggestions",
+        "width": 375,
+        "documentWidth": 375,
+        "violations": []
+      },
+      {
+        "label": "Explore address suggestion",
+        "width": 375,
+        "documentWidth": 375,
+        "violations": []
+      },
+      {
+        "label": "research-nalan-cityhall 320 light expanded/search",
+        "width": 320,
+        "documentWidth": 320,
+        "violations": []
+      },
+      {
+        "label": "research-nalan-cityhall 375 light expanded/search",
+        "width": 375,
+        "documentWidth": 375,
+        "violations": []
+      },
+      {
+        "label": "research-nalan-cityhall 375 dark expanded/search",
+        "width": 375,
+        "documentWidth": 375,
+        "violations": []
+      },
+      {
+        "label": "research-mtr-serangoon438 320 light expanded/search",
+        "width": 320,
+        "documentWidth": 320,
+        "violations": []
+      },
+      {
+        "label": "research-mtr-serangoon438 375 light expanded/search",
+        "width": 375,
+        "documentWidth": 375,
+        "violations": []
+      },
+      {
+        "label": "research-mtr-serangoon438 375 dark expanded/search",
+        "width": 375,
+        "documentWidth": 375,
+        "violations": []
+      },
+      {
+        "label": "research-linlin-bedok-north 320 light expanded/search",
+        "width": 320,
+        "documentWidth": 320,
+        "violations": []
+      },
+      {
+        "label": "research-linlin-bedok-north 375 light expanded/search",
+        "width": 375,
+        "documentWidth": 375,
+        "violations": []
+      },
+      {
+        "label": "research-linlin-bedok-north 375 dark expanded/search",
+        "width": 375,
+        "documentWidth": 375,
+        "violations": []
+      },
+      {
+        "label": "MTR Wednesday source choice",
+        "width": 375,
+        "documentWidth": 375,
+        "violations": []
+      }
+    ],
+    "screenshots": [
+      ".impeccable/review/menu-sync-search-fixed375.png",
+      ".impeccable/review/menu-sync-postal-fixed375.png",
+      ".impeccable/review/menu-sync-search-error375.png",
+      ".impeccable/review/menu-sync-address-choice375.png",
+      ".impeccable/review/menu-sync-nalan-cityhall-320-light.png",
+      ".impeccable/review/menu-sync-nalan-cityhall-375-light.png",
+      ".impeccable/review/menu-sync-nalan-cityhall-375-dark.png",
+      ".impeccable/review/menu-sync-320.png",
+      ".impeccable/review/menu-sync-mtr-serangoon438-320-light.png",
+      ".impeccable/review/menu-sync-mtr-serangoon438-375-light.png",
+      ".impeccable/review/menu-sync-mtr-serangoon438-375-dark.png",
+      ".impeccable/review/menu-sync-mtr-linlin-header-mtr-serangoon438.png",
+      ".impeccable/review/menu-sync-linlin-bedok-north-320-light.png",
+      ".impeccable/review/menu-sync-linlin-bedok-north-375-light.png",
+      ".impeccable/review/menu-sync-linlin-bedok-north-375-dark.png",
+      ".impeccable/review/menu-sync-mtr-linlin-header-linlin-bedok-north.png",
+      ".impeccable/review/menu-sync-mtr-wednesday375.png"
+    ],
+    "apiRequests": [
+      "/api/menus?view=index",
+      "/api/menus?id=research-nalan-cityhall",
+      "/api/menus?view=index",
+      "/api/menus?view=index",
+      "/api/menus?view=index",
+      "/api/menus?id=research-nalan-cityhall",
+      "/api/menus?view=index",
+      "/api/menus?view=index",
+      "/api/menus?id=research-nalan-cityhall",
+      "/api/menus?view=index",
+      "/api/menus?id=research-mtr-serangoon438",
+      "/api/menus?view=index",
+      "/api/menus?id=research-linlin-bedok-north",
+      "/api/menus?view=index",
+      "/api/menus?id=research-mtr-serangoon438"
+    ],
+    "providerFixtures": [
+      {
+        "kind": "live-places",
+        "search": {
+          "area": "Singapore",
+          "query": "",
+          "vegan": false,
+          "alliumFree": false,
+          "cuisine": "All",
+          "radius": 5000
+        }
+      },
+      {
+        "kind": "location",
+        "mode": "empty",
+        "query": "NALAN"
+      },
+      {
+        "kind": "live-places",
+        "search": {
+          "area": "Singapore",
+          "query": "",
+          "vegan": false,
+          "alliumFree": false,
+          "cuisine": "All",
+          "radius": 5000
+        }
+      },
+      {
+        "kind": "location",
+        "mode": "empty",
+        "query": "178905"
+      },
+      {
+        "kind": "live-places",
+        "search": {
+          "area": "Singapore",
+          "query": "",
+          "vegan": false,
+          "alliumFree": false,
+          "cuisine": "All",
+          "radius": 5000
+        }
+      },
+      {
+        "kind": "location",
+        "mode": "busy",
+        "query": "NALAN"
+      },
+      {
+        "kind": "live-places",
+        "search": {
+          "area": "Singapore",
+          "query": "",
+          "vegan": false,
+          "alliumFree": false,
+          "cuisine": "All",
+          "radius": 5000
+        }
+      },
+      {
+        "kind": "location",
+        "mode": "error",
+        "query": "NALAN"
+      },
+      {
+        "kind": "live-places",
+        "search": {
+          "area": "Singapore",
+          "query": "",
+          "vegan": false,
+          "alliumFree": false,
+          "cuisine": "All",
+          "radius": 5000
+        }
+      },
+      {
+        "kind": "location",
+        "mode": "choice",
+        "query": "Capitol"
+      },
+      {
+        "kind": "live-places",
+        "search": {
+          "area": "Singapore",
+          "query": "",
+          "vegan": false,
+          "alliumFree": false,
+          "cuisine": "All",
+          "center": {
+            "latitude": 1.2931,
+            "longitude": 103.8512
+          },
+          "radius": 5000
+        }
+      }
+    ],
+    "blockedExternalProviders": [],
+    "forwardedGoogleCalls": 0,
+    "forwardedOneMapCalls": 0,
+    "scope": "Focused recheck after source fixes. Actual local menu index/detail API and managed headless Chromium; deterministic location search/live place fixtures; no source or test-file edits.",
+    "browserVersion": "156.0.8078.4",
+    "finishedAt": "2026-10-15T23:39:55.042Z",
+    "passed": false,
+    "visuallyInspected": [
+      "menu-sync-search-fixed375.png",
+      "menu-sync-search-error375.png",
+      "menu-sync-address-choice375.png",
+      "menu-sync-320.png",
+      "menu-sync-nalan-cityhall-375-dark.png",
+      "menu-sync-linlin-bedok-north-320-light.png",
+      "menu-sync-mtr-wednesday375.png"
+    ],
+    "errorsResolvedBy": "latestVerification"
+  },
+  "historicalErrors": [
+    {
+      "check": "Explore menu name and postal search open correct saved publication",
+      "error": "locator.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByTestId('menu-search-matches').getByRole('button', { name: /View menu for NALAN,/ }).first()\u001b[22m\n\u001b[2m    - locator resolved to <button tabindex=\"0\" role=\"button\" type=\"button\" aria-label=\"View menu for NALAN, 13 Stamford Road #B2-54 Capitol Singapore, Singapore 178905\" class=\"css-view-g5y9jx r-cursor-1loqt21 r-touchAction-1otgn73 r-alignItems-1awozwy r-borderRadius-t23y2h r-borderWidth-rs99b7 r-flexDirection-18u37iz r-gap-uaa2di r-minHeight-10gryf7 r-padding-1sp51qo\">…</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <div dir=\"auto\" aria-live=\"polite\" class=\"css-text-146c3p1 r-alignItems-1awozwy r-flexDirection-18u37iz r-gap-1cmwbt1 r-padding-xyw6el\">No matching locations. Try another name or postal…</div> from <div class=\"css-view-g5y9jx r-flexDirection-18u37iz\">…</div> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <div dir=\"auto\" aria-live=\"polite\" class=\"css-text-146c3p1 r-alignItems-1awozwy r-flexDirection-18u37iz r-gap-1cmwbt1 r-padding-xyw6el\">No matching locations. Try another name or postal…</div> from <div class=\"css-view-g5y9jx r-flexDirection-18u37iz\">…</div> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    57 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is visible, enabled and stable\u001b[22m\n\u001b[2m       - scrolling into view if needed\u001b[22m\n\u001b[2m       - done scrolling\u001b[22m\n\u001b[2m       - <div dir=\"auto\" aria-live=\"polite\" class=\"css-text-146c3p1 r-alignItems-1awozwy r-flexDirection-18u37iz r-gap-1cmwbt1 r-padding-xyw6el\">No matching locations. Try another name or postal…</div> from <div class=\"css-view-g5y9jx r-flexDirection-18u37iz\">…</div> subtree intercepts pointer events\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n\n    at [stdin]:29:201\n    at async check ([stdin]:6:46)\n    at async [stdin]:26:2"
+    }
+  ],
+  "followUpRuns": [
+    {
+      "startedAt": "2026-10-15T23:58:01.460Z",
+      "url": "http://localhost:8083",
+      "checks": [
+        {
+          "name": "Named loading spinner passes axe and busy suggestions allow normal menu click",
+          "status": "passed",
+          "spinnerName": "Finding locations",
+          "normalClick": true,
+          "EscapeUsed": false,
+          "viewports": [
+            "320 light",
+            "375 dark"
+          ],
+          "violations": 0
+        },
+        {
+          "name": "Added branch search, detail CTA and menu: research-lilac-oak-oxley-rise",
+          "status": "passed",
+          "menuId": "research-lilac-oak-oxley-rise",
+          "foodRows": 18,
+          "postalCode": "238698",
+          "nameSearch": true,
+          "postalSearch": true,
+          "matchingPlaceCTA": true,
+          "correctionTarget": "research-lilac-oak-oxley-rise",
+          "optionDetailsChecked": true,
+          "paginationChecked": false,
+          "firstPageRows": 18,
+          "viewports": [
+            "320 light",
+            "375 dark"
+          ]
+        },
+        {
+          "name": "Added branch search, detail CTA and menu: research-baomaker-ang-mo-kio-447",
+          "status": "passed",
+          "menuId": "research-baomaker-ang-mo-kio-447",
+          "foodRows": 17,
+          "postalCode": "560447",
+          "nameSearch": true,
+          "postalSearch": true,
+          "matchingPlaceCTA": true,
+          "correctionTarget": "research-baomaker-ang-mo-kio-447",
+          "optionDetailsChecked": false,
+          "paginationChecked": false,
+          "firstPageRows": 17,
+          "viewports": [
+            "320 light",
+            "375 dark"
+          ]
+        },
+        {
+          "name": "Added branch search, detail CTA and menu: research-merle-lentor-modern",
+          "status": "passed",
+          "menuId": "research-merle-lentor-modern",
+          "foodRows": 50,
+          "postalCode": "788887",
+          "nameSearch": true,
+          "postalSearch": true,
+          "matchingPlaceCTA": true,
+          "correctionTarget": "research-merle-lentor-modern",
+          "optionDetailsChecked": false,
+          "paginationChecked": true,
+          "firstPageRows": 40,
+          "viewports": [
+            "320 light",
+            "375 dark"
+          ]
+        },
+        {
+          "name": "Wrong basement and kiosk-unit place details reject menu CTA despite same brand and postal",
+          "status": "passed",
+          "cases": [
+            {
+              "type": "basement",
+              "publishedAddress": "13 Stamford Road #B2-54 Capitol Singapore, Singapore 178905",
+              "rejectedAddress": "13 Stamford Road #B1-54 Capitol Singapore, Singapore 178905",
+              "menuCTA": false
+            },
+            {
+              "type": "kiosk-prefix",
+              "publishedAddress": "447 Ang Mo Kio Avenue 10 #01-1675, Singapore 560447",
+              "rejectedAddress": "447 Ang Mo Kio Avenue 10 #01-K1675, Singapore 560447",
+              "menuCTA": false
+            }
+          ]
+        }
+      ],
+      "errors": [],
+      "pageErrors": [],
+      "consoleErrors": [],
+      "a11y": [
+        {
+          "label": "Busy suggestions 320 light",
+          "width": 320,
+          "documentWidth": 320,
+          "violations": []
+        },
+        {
+          "label": "Busy suggestions 375 dark",
+          "width": 375,
+          "documentWidth": 375,
+          "violations": []
+        },
+        {
+          "label": "research-lilac-oak-oxley-rise 320 light",
+          "width": 320,
+          "documentWidth": 320,
+          "violations": []
+        },
+        {
+          "label": "research-lilac-oak-oxley-rise 375 dark",
+          "width": 375,
+          "documentWidth": 375,
+          "violations": []
+        },
+        {
+          "label": "research-baomaker-ang-mo-kio-447 320 light",
+          "width": 320,
+          "documentWidth": 320,
+          "violations": []
+        },
+        {
+          "label": "research-baomaker-ang-mo-kio-447 375 dark",
+          "width": 375,
+          "documentWidth": 375,
+          "violations": []
+        },
+        {
+          "label": "research-merle-lentor-modern 320 light",
+          "width": 320,
+          "documentWidth": 320,
+          "violations": []
+        },
+        {
+          "label": "research-merle-lentor-modern 375 dark",
+          "width": 375,
+          "documentWidth": 375,
+          "violations": []
+        }
+      ],
+      "screenshots": [
+        ".impeccable/review/menu-sync-busy-fixed-320-light.png",
+        ".impeccable/review/menu-sync-busy-fixed-375-dark.png",
+        ".impeccable/review/menu-sync-lilac-oak-oxley-rise-320-light.png",
+        ".impeccable/review/menu-sync-lilac-oak-oxley-rise-375-dark.png",
+        ".impeccable/review/menu-sync-baomaker-ang-mo-kio-447-320-light.png",
+        ".impeccable/review/menu-sync-baomaker-ang-mo-kio-447-375-dark.png",
+        ".impeccable/review/menu-sync-merle-lentor-modern-320-light.png",
+        ".impeccable/review/menu-sync-merle-lentor-modern-375-dark.png",
+        ".impeccable/review/menu-sync-wrong-basement375.png",
+        ".impeccable/review/menu-sync-wrong-kiosk-prefix375.png"
+      ],
+      "apiRequests": [
+        "/api/menus?view=index",
+        "/api/menus?id=research-nalan-cityhall",
+        "/api/menus?view=index",
+        "/api/menus?id=research-lilac-oak-oxley-rise",
+        "/api/menus?view=index",
+        "/api/menus?view=index",
+        "/api/menus?view=index",
+        "/api/menus?id=research-baomaker-ang-mo-kio-447",
+        "/api/menus?view=index",
+        "/api/menus?view=index",
+        "/api/menus?view=index",
+        "/api/menus?id=research-merle-lentor-modern",
+        "/api/menus?view=index",
+        "/api/menus?view=index",
+        "/api/menus?view=index",
+        "/api/menus?view=index"
+      ],
+      "providerFixtures": [
+        {
+          "type": "live-places",
+          "body": {
+            "area": "Singapore",
+            "query": "",
+            "vegan": false,
+            "alliumFree": false,
+            "cuisine": "All",
+            "radius": 5000
+          }
+        },
+        {
+          "type": "location-search",
+          "query": "NALAN",
+          "held": true
+        },
+        {
+          "type": "live-places",
+          "body": {
+            "area": "Singapore",
+            "query": "",
+            "vegan": false,
+            "alliumFree": false,
+            "cuisine": "All",
+            "radius": 5000
+          }
+        },
+        {
+          "type": "location-search",
+          "query": "Lilac Oak",
+          "held": false
+        },
+        {
+          "type": "live-places",
+          "body": {
+            "area": "Singapore",
+            "query": "",
+            "vegan": false,
+            "alliumFree": false,
+            "cuisine": "All",
+            "radius": 5000
+          }
+        },
+        {
+          "type": "location-search",
+          "query": "238698",
+          "held": false
+        },
+        {
+          "type": "place-details",
+          "placeId": "QAAddedMenuBranch0000",
+          "fixture": true
+        },
+        {
+          "type": "live-places",
+          "body": {
+            "area": "Singapore",
+            "query": "",
+            "vegan": false,
+            "alliumFree": false,
+            "cuisine": "All",
+            "radius": 5000
+          }
+        },
+        {
+          "type": "location-search",
+          "query": "Baomaker",
+          "held": false
+        },
+        {
+          "type": "live-places",
+          "body": {
+            "area": "Singapore",
+            "query": "",
+            "vegan": false,
+            "alliumFree": false,
+            "cuisine": "All",
+            "radius": 5000
+          }
+        },
+        {
+          "type": "location-search",
+          "query": "560447",
+          "held": false
+        },
+        {
+          "type": "place-details",
+          "placeId": "QAAddedMenuBranch0001",
+          "fixture": true
+        },
+        {
+          "type": "live-places",
+          "body": {
+            "area": "Singapore",
+            "query": "",
+            "vegan": false,
+            "alliumFree": false,
+            "cuisine": "All",
+            "radius": 5000
+          }
+        },
+        {
+          "type": "location-search",
+          "query": "Merle & Co",
+          "held": false
+        },
+        {
+          "type": "live-places",
+          "body": {
+            "area": "Singapore",
+            "query": "",
+            "vegan": false,
+            "alliumFree": false,
+            "cuisine": "All",
+            "radius": 5000
+          }
+        },
+        {
+          "type": "location-search",
+          "query": "788887",
+          "held": false
+        },
+        {
+          "type": "place-details",
+          "placeId": "QAAddedMenuBranch0002",
+          "fixture": true
+        },
+        {
+          "type": "place-details",
+          "placeId": "QAWrongBasement0001",
+          "fixture": true
+        },
+        {
+          "type": "place-details",
+          "placeId": "QAWrongKiosk000001",
+          "fixture": true
+        }
+      ],
+      "blockedExternalProviders": [],
+      "forwardedGoogleCalls": 0,
+      "forwardedOneMapCalls": 0,
+      "scope": "Post-restart check of busy accessibility fix, three added publications and basement/kiosk matching. Actual local menu API; deterministic live place/address fixtures; managed headless Chromium.",
+      "browserVersion": "156.0.8078.4",
+      "catalogue": {
+        "venues": 103,
+        "sourceMenus": 147,
+        "foodRows": 9887,
+        "indexBytes": 39946,
+        "indexGzipBytes": 10945
+      },
+      "finishedAt": "2026-10-15T23:58:54.141Z",
+      "passed": true
+    },
+    {
+      "startedAt": "2026-10-16T00:04:26.339Z",
+      "scope": "Focused combined brand/branch query regression only; actual local menu API, deterministic provider fixtures, managed headless Chromium.",
+      "checks": [
+        {
+          "query": "Greendot Bedok",
+          "status": "passed",
+          "menuId": "research-greendot-bedok-mall",
+          "name": "Greendot",
+          "branch": "Bedok Mall",
+          "address": "311 New Upper Changi Road B2-31, Bedok Mall, 467360, Singapore",
+          "normalClick": true,
+          "EscapeUsed": false
+        },
+        {
+          "query": "Greendot Tampines",
+          "status": "passed",
+          "menuId": "research-greendot-tampines-1",
+          "name": "Greendot",
+          "branch": "Tampines 1",
+          "address": "10 Tampines Central 1, Tampines 1, #B1-K8, 529536, Singapore",
+          "normalClick": true,
+          "EscapeUsed": false
+        },
+        {
+          "query": "467360",
+          "status": "passed",
+          "menuId": "research-greendot-bedok-mall",
+          "name": "Greendot",
+          "branch": "Bedok Mall",
+          "address": "311 New Upper Changi Road B2-31, Bedok Mall, 467360, Singapore",
+          "normalClick": true,
+          "EscapeUsed": false
+        }
+      ],
+      "errors": [],
+      "pageErrors": [],
+      "consoleErrors": [],
+      "apiRequests": [
+        "/api/menus?view=index",
+        "/api/menus?id=research-greendot-bedok-mall",
+        "/api/menus?view=index",
+        "/api/menus?id=research-greendot-tampines-1",
+        "/api/menus?view=index"
+      ],
+      "screenshots": [
+        ".impeccable/review/menu-sync-greendot-bedok375.png",
+        ".impeccable/review/menu-sync-greendot-tampines375.png",
+        ".impeccable/review/menu-sync-467360375.png"
+      ],
+      "forwardedGoogleCalls": 0,
+      "forwardedOneMapCalls": 0,
+      "finishedAt": "2026-10-16T00:04:49.695Z",
+      "passed": true
+    }
+  ],
+  "latestVerification": {
+    "startedAt": "2026-10-15T23:58:01.460Z",
+    "url": "http://localhost:8083",
+    "checks": [
+      {
+        "name": "Named loading spinner passes axe and busy suggestions allow normal menu click",
+        "status": "passed",
+        "spinnerName": "Finding locations",
+        "normalClick": true,
+        "EscapeUsed": false,
+        "viewports": [
+          "320 light",
+          "375 dark"
+        ],
+        "violations": 0
+      },
+      {
+        "name": "Added branch search, detail CTA and menu: research-lilac-oak-oxley-rise",
+        "status": "passed",
+        "menuId": "research-lilac-oak-oxley-rise",
+        "foodRows": 18,
+        "postalCode": "238698",
+        "nameSearch": true,
+        "postalSearch": true,
+        "matchingPlaceCTA": true,
+        "correctionTarget": "research-lilac-oak-oxley-rise",
+        "optionDetailsChecked": true,
+        "paginationChecked": false,
+        "firstPageRows": 18,
+        "viewports": [
+          "320 light",
+          "375 dark"
+        ]
+      },
+      {
+        "name": "Added branch search, detail CTA and menu: research-baomaker-ang-mo-kio-447",
+        "status": "passed",
+        "menuId": "research-baomaker-ang-mo-kio-447",
+        "foodRows": 17,
+        "postalCode": "560447",
+        "nameSearch": true,
+        "postalSearch": true,
+        "matchingPlaceCTA": true,
+        "correctionTarget": "research-baomaker-ang-mo-kio-447",
+        "optionDetailsChecked": false,
+        "paginationChecked": false,
+        "firstPageRows": 17,
+        "viewports": [
+          "320 light",
+          "375 dark"
+        ]
+      },
+      {
+        "name": "Added branch search, detail CTA and menu: research-merle-lentor-modern",
+        "status": "passed",
+        "menuId": "research-merle-lentor-modern",
+        "foodRows": 50,
+        "postalCode": "788887",
+        "nameSearch": true,
+        "postalSearch": true,
+        "matchingPlaceCTA": true,
+        "correctionTarget": "research-merle-lentor-modern",
+        "optionDetailsChecked": false,
+        "paginationChecked": true,
+        "firstPageRows": 40,
+        "viewports": [
+          "320 light",
+          "375 dark"
+        ]
+      },
+      {
+        "name": "Wrong basement and kiosk-unit place details reject menu CTA despite same brand and postal",
+        "status": "passed",
+        "cases": [
+          {
+            "type": "basement",
+            "publishedAddress": "13 Stamford Road #B2-54 Capitol Singapore, Singapore 178905",
+            "rejectedAddress": "13 Stamford Road #B1-54 Capitol Singapore, Singapore 178905",
+            "menuCTA": false
+          },
+          {
+            "type": "kiosk-prefix",
+            "publishedAddress": "447 Ang Mo Kio Avenue 10 #01-1675, Singapore 560447",
+            "rejectedAddress": "447 Ang Mo Kio Avenue 10 #01-K1675, Singapore 560447",
+            "menuCTA": false
+          }
+        ]
+      }
+    ],
+    "errors": [],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "a11y": [
+      {
+        "label": "Busy suggestions 320 light",
+        "width": 320,
+        "documentWidth": 320,
+        "violations": []
+      },
+      {
+        "label": "Busy suggestions 375 dark",
+        "width": 375,
+        "documentWidth": 375,
+        "violations": []
+      },
+      {
+        "label": "research-lilac-oak-oxley-rise 320 light",
+        "width": 320,
+        "documentWidth": 320,
+        "violations": []
+      },
+      {
+        "label": "research-lilac-oak-oxley-rise 375 dark",
+        "width": 375,
+        "documentWidth": 375,
+        "violations": []
+      },
+      {
+        "label": "research-baomaker-ang-mo-kio-447 320 light",
+        "width": 320,
+        "documentWidth": 320,
+        "violations": []
+      },
+      {
+        "label": "research-baomaker-ang-mo-kio-447 375 dark",
+        "width": 375,
+        "documentWidth": 375,
+        "violations": []
+      },
+      {
+        "label": "research-merle-lentor-modern 320 light",
+        "width": 320,
+        "documentWidth": 320,
+        "violations": []
+      },
+      {
+        "label": "research-merle-lentor-modern 375 dark",
+        "width": 375,
+        "documentWidth": 375,
+        "violations": []
+      }
+    ],
+    "screenshots": [
+      ".impeccable/review/menu-sync-busy-fixed-320-light.png",
+      ".impeccable/review/menu-sync-busy-fixed-375-dark.png",
+      ".impeccable/review/menu-sync-lilac-oak-oxley-rise-320-light.png",
+      ".impeccable/review/menu-sync-lilac-oak-oxley-rise-375-dark.png",
+      ".impeccable/review/menu-sync-baomaker-ang-mo-kio-447-320-light.png",
+      ".impeccable/review/menu-sync-baomaker-ang-mo-kio-447-375-dark.png",
+      ".impeccable/review/menu-sync-merle-lentor-modern-320-light.png",
+      ".impeccable/review/menu-sync-merle-lentor-modern-375-dark.png",
+      ".impeccable/review/menu-sync-wrong-basement375.png",
+      ".impeccable/review/menu-sync-wrong-kiosk-prefix375.png"
+    ],
+    "apiRequests": [
+      "/api/menus?view=index",
+      "/api/menus?id=research-nalan-cityhall",
+      "/api/menus?view=index",
+      "/api/menus?id=research-lilac-oak-oxley-rise",
+      "/api/menus?view=index",
+      "/api/menus?view=index",
+      "/api/menus?view=index",
+      "/api/menus?id=research-baomaker-ang-mo-kio-447",
+      "/api/menus?view=index",
+      "/api/menus?view=index",
+      "/api/menus?view=index",
+      "/api/menus?id=research-merle-lentor-modern",
+      "/api/menus?view=index",
+      "/api/menus?view=index",
+      "/api/menus?view=index",
+      "/api/menus?view=index"
+    ],
+    "providerFixtures": [
+      {
+        "type": "live-places",
+        "body": {
+          "area": "Singapore",
+          "query": "",
+          "vegan": false,
+          "alliumFree": false,
+          "cuisine": "All",
+          "radius": 5000
+        }
+      },
+      {
+        "type": "location-search",
+        "query": "NALAN",
+        "held": true
+      },
+      {
+        "type": "live-places",
+        "body": {
+          "area": "Singapore",
+          "query": "",
+          "vegan": false,
+          "alliumFree": false,
+          "cuisine": "All",
+          "radius": 5000
+        }
+      },
+      {
+        "type": "location-search",
+        "query": "Lilac Oak",
+        "held": false
+      },
+      {
+        "type": "live-places",
+        "body": {
+          "area": "Singapore",
+          "query": "",
+          "vegan": false,
+          "alliumFree": false,
+          "cuisine": "All",
+          "radius": 5000
+        }
+      },
+      {
+        "type": "location-search",
+        "query": "238698",
+        "held": false
+      },
+      {
+        "type": "place-details",
+        "placeId": "QAAddedMenuBranch0000",
+        "fixture": true
+      },
+      {
+        "type": "live-places",
+        "body": {
+          "area": "Singapore",
+          "query": "",
+          "vegan": false,
+          "alliumFree": false,
+          "cuisine": "All",
+          "radius": 5000
+        }
+      },
+      {
+        "type": "location-search",
+        "query": "Baomaker",
+        "held": false
+      },
+      {
+        "type": "live-places",
+        "body": {
+          "area": "Singapore",
+          "query": "",
+          "vegan": false,
+          "alliumFree": false,
+          "cuisine": "All",
+          "radius": 5000
+        }
+      },
+      {
+        "type": "location-search",
+        "query": "560447",
+        "held": false
+      },
+      {
+        "type": "place-details",
+        "placeId": "QAAddedMenuBranch0001",
+        "fixture": true
+      },
+      {
+        "type": "live-places",
+        "body": {
+          "area": "Singapore",
+          "query": "",
+          "vegan": false,
+          "alliumFree": false,
+          "cuisine": "All",
+          "radius": 5000
+        }
+      },
+      {
+        "type": "location-search",
+        "query": "Merle & Co",
+        "held": false
+      },
+      {
+        "type": "live-places",
+        "body": {
+          "area": "Singapore",
+          "query": "",
+          "vegan": false,
+          "alliumFree": false,
+          "cuisine": "All",
+          "radius": 5000
+        }
+      },
+      {
+        "type": "location-search",
+        "query": "788887",
+        "held": false
+      },
+      {
+        "type": "place-details",
+        "placeId": "QAAddedMenuBranch0002",
+        "fixture": true
+      },
+      {
+        "type": "place-details",
+        "placeId": "QAWrongBasement0001",
+        "fixture": true
+      },
+      {
+        "type": "place-details",
+        "placeId": "QAWrongKiosk000001",
+        "fixture": true
+      }
+    ],
+    "blockedExternalProviders": [],
+    "forwardedGoogleCalls": 0,
+    "forwardedOneMapCalls": 0,
+    "scope": "Post-restart check of busy accessibility fix, three added publications and basement/kiosk matching. Actual local menu API; deterministic live place/address fixtures; managed headless Chromium.",
+    "browserVersion": "156.0.8078.4",
+    "catalogue": {
+      "venues": 103,
+      "sourceMenus": 147,
+      "foodRows": 9887,
+      "indexBytes": 39946,
+      "indexGzipBytes": 10945
+    },
+    "finishedAt": "2026-10-15T23:58:54.141Z",
+    "passed": true,
+    "visuallyInspected": [
+      "menu-sync-busy-fixed-320-light.png",
+      "menu-sync-lilac-oak-oxley-rise-320-light.png",
+      "menu-sync-baomaker-ang-mo-kio-447-320-light.png",
+      "menu-sync-merle-lentor-modern-375-dark.png"
+    ]
+  },
+  "resolvedRunErrors": [
+    {
+      "check": "Busy location suggestions leave menu search result directly clickable",
+      "error": "AssertionError [ERR_ASSERTION]: [{\"id\":\"aria-progressbar-name\",\"impact\":\"serious\",\"help\":\"ARIA progressbar nodes must have an accessible name\",\"nodes\":[{\"html\":\"<div role=\\\"progressbar\\\" aria-valuemax=\\\"1\\\" aria-valuemin=\\\"0\\\" class=\\\"css-view-g5y9jx r-alignItems-1awozwy r-justifyContent-1777fci\\\">\",\"failureSummary\":\"Fix any of the following:\\n  aria-label attribute does not exist or is empty\\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\\n  Element has no title attribute\"}]}]\n\n1 !== 0\n\n    at axeCheck ([stdin]:16:653)\n    at runNextTicks (node:internal/process/task_queues:65:5)\n    at process.processImmediate (node:internal/timers:453:9)\n    at process.callbackTrampoline (node:internal/async_hooks:130:17)\n    at async [stdin]:21:426\n    at async check ([stdin]:7:47)\n    at async [stdin]:21:2"
+    }
+  ],
+  "verifiedAt": "2026-10-16T00:04:49.695Z",
+  "currentSummary": {
+    "status": "passed",
+    "unresolvedFindings": 0,
+    "catalogue": {
+      "venues": 103,
+      "sourceMenus": 147,
+      "foodRows": 9887,
+      "indexBytes": 39946,
+      "indexGzipBytes": 10945
+    },
+    "finalFocusedChecks": 5,
+    "finalFocusedChecksPassed": 5,
+    "finalScopedAxeAudits": 8,
+    "finalAxeViolations": 0,
+    "finalPageErrors": 0,
+    "finalConsoleErrors": 0,
+    "forwardedGoogleCallsDuringUIQA": 0,
+    "forwardedOneMapCallsDuringUIQA": 0,
+    "productionFieldWebVitals": "not measured",
+    "nativeDevicePerformance": "not measured",
+    "combinedSearchRegression": {
+      "passed": true,
+      "checks": 3,
+      "queries": [
+        "Greendot Bedok",
+        "Greendot Tampines",
+        "467360"
+      ]
+    }
+  },
+  "searchCombinationVerification": {
+    "startedAt": "2026-10-16T00:04:26.339Z",
+    "scope": "Focused combined brand/branch query regression only; actual local menu API, deterministic provider fixtures, managed headless Chromium.",
+    "checks": [
+      {
+        "query": "Greendot Bedok",
+        "status": "passed",
+        "menuId": "research-greendot-bedok-mall",
+        "name": "Greendot",
+        "branch": "Bedok Mall",
+        "address": "311 New Upper Changi Road B2-31, Bedok Mall, 467360, Singapore",
+        "normalClick": true,
+        "EscapeUsed": false
+      },
+      {
+        "query": "Greendot Tampines",
+        "status": "passed",
+        "menuId": "research-greendot-tampines-1",
+        "name": "Greendot",
+        "branch": "Tampines 1",
+        "address": "10 Tampines Central 1, Tampines 1, #B1-K8, 529536, Singapore",
+        "normalClick": true,
+        "EscapeUsed": false
+      },
+      {
+        "query": "467360",
+        "status": "passed",
+        "menuId": "research-greendot-bedok-mall",
+        "name": "Greendot",
+        "branch": "Bedok Mall",
+        "address": "311 New Upper Changi Road B2-31, Bedok Mall, 467360, Singapore",
+        "normalClick": true,
+        "EscapeUsed": false
+      }
+    ],
+    "errors": [],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "apiRequests": [
+      "/api/menus?view=index",
+      "/api/menus?id=research-greendot-bedok-mall",
+      "/api/menus?view=index",
+      "/api/menus?id=research-greendot-tampines-1",
+      "/api/menus?view=index"
+    ],
+    "screenshots": [
+      ".impeccable/review/menu-sync-greendot-bedok375.png",
+      ".impeccable/review/menu-sync-greendot-tampines375.png",
+      ".impeccable/review/menu-sync-467360375.png"
+    ],
+    "forwardedGoogleCalls": 0,
+    "forwardedOneMapCalls": 0,
+    "finishedAt": "2026-10-16T00:04:49.695Z",
+    "passed": true,
+    "visuallyInspected": [
+      "menu-sync-greendot-bedok375.png",
+      "menu-sync-greendot-tampines375.png",
+      "menu-sync-467360375.png"
+    ]
+  }
+}

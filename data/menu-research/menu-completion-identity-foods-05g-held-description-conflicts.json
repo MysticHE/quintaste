@@ -1,0 +1,2565 @@
+{
+  "version": 1,
+  "checkedAt": "2026-10-16T01:09:34.269531+00:00",
+  "identityReviewDataset": "data/menu-research/identity-completion-batch-05.json",
+  "notice": "Held source observations only. Neither venue is classified proven mixed-menu from generic platform wording. Strict venue-only publication holds preserve all uncertainty; no food rows may publish until scope resolved. No artwork, reviews or Google metadata.",
+  "sources": [
+    {
+      "id": "icf5g-red-fp",
+      "url": "https://www.foodpanda.sg/restaurant/op18/red-apple-veggie-cafe-fortune-centre",
+      "title": "Red Apple Veggie Cafe - Fortune Centre - held public delivery food observations",
+      "publisher": "Merchant / Foodpanda",
+      "kind": "merchant-partner",
+      "status": "readable-public-web-text-with-generic-description-conflicts",
+      "checkedAt": "2026-10-16T01:09:34.269531+00:00",
+      "publishedAt": null,
+      "notes": "Dedicated vegetarian positioning is supported by independent current reporting and the merchant's many explicit mock/vegetarian product labels. Several unqualified generic descriptions still explicitly mention chicken, fish, shrimp or meat. Whole venue held until merchant clarification; actual meat service is not established."
+    },
+    {
+      "id": "icf5g-tang-fp",
+      "url": "https://www.foodpanda.sg/restaurant/n8ru/tang-leng-chay-vegetarian-dong-long-zhai-circuit-road",
+      "title": "Tang Leng Chay Vegetarian - held public delivery food observations",
+      "publisher": "Merchant / Foodpanda",
+      "kind": "merchant-partner",
+      "status": "readable-public-web-text-with-generic-description-conflicts",
+      "checkedAt": "2026-10-16T01:09:34.269531+00:00",
+      "publishedAt": null,
+      "notes": "Merchant-managed channel explicitly trades as Vegetarian; independent documentary/food reporting supports the vegetarian venue. Generic descriptions mention prawn/pork stock, marinated pork or pork belly without mock qualification. Whole venue held until merchant clarification; actual meat service is not proven."
+    }
+  ],
+  "branches": [
+    {
+      "id": "red-apple-fortune-01-32",
+      "name": "Red Apple Veggie Cafe - Fortune Centre",
+      "address": "190 Middle Road #01-32, Fortune Centre, Singapore 188979",
+      "unit": "#01-32",
+      "postalCode": "188979",
+      "sourceIds": [
+        "icf5g-red-fp"
+      ],
+      "menuIds": [
+        "icf5g-red-held-delivery"
+      ],
+      "candidatePlaceIds": [
+        "ChIJn8gFfJYZ2jERxlFxTsoWLNg"
+      ],
+      "googlePlaceId": null,
+      "identityStatus": "exact-ordering-premises-whole-venue-scope-held",
+      "venueEligibility": {
+        "status": "unresolved",
+        "appScope": "vegetarian-vegan-venues-only",
+        "reason": "Dedicated vegetarian positioning is supported by independent current reporting and the merchant's many explicit mock/vegetarian product labels. Several unqualified generic descriptions still explicitly mention chicken, fish, shrimp or meat. Whole venue held until merchant clarification; actual meat service is not established."
+      },
+      "gaps": [
+        "Whole-venue scope clarification required before publication. Generic descriptions are not proven actual ingredient declarations.",
+        "One featured/sets duplicate unified by exact name and both prices; all source categories retained.",
+        "Options, stock, effective menu date, complete ingredients and final charges unverified."
+      ]
+    },
+    {
+      "id": "tang-leng-chay-circuit-01-98",
+      "name": "Tang Leng Chay Vegetarian",
+      "address": "79A Circuit Road #01-98, Singapore 371079",
+      "unit": "#01-98",
+      "postalCode": "371079",
+      "sourceIds": [
+        "icf5g-tang-fp"
+      ],
+      "menuIds": [
+        "icf5g-tang-held-delivery"
+      ],
+      "candidatePlaceIds": [
+        "ChIJO78XSScY2jER7_5tgHYmlRY"
+      ],
+      "googlePlaceId": null,
+      "identityStatus": "exact-ordering-premises-whole-venue-scope-held",
+      "venueEligibility": {
+        "status": "unresolved",
+        "appScope": "vegetarian-vegan-venues-only",
+        "reason": "Merchant-managed channel explicitly trades as Vegetarian; independent documentary/food reporting supports the vegetarian venue. Generic descriptions mention prawn/pork stock, marinated pork or pork belly without mock qualification. Whole venue held until merchant clarification; actual meat service is not proven."
+      },
+      "gaps": [
+        "Whole-venue scope clarification required before publication. Generic descriptions are not proven actual ingredient declarations.",
+        "All 21 food offers captured from three source food sections.",
+        "Options, stock, effective menu date, complete ingredients and final charges unverified."
+      ]
+    }
+  ],
+  "menus": [
+    {
+      "id": "icf5g-red-held-delivery",
+      "name": "Red Apple Veggie Cafe - Fortune Centre - held delivery food observations",
+      "scope": "branch-delivery",
+      "branchIds": [
+        "red-apple-fortune-01-32"
+      ],
+      "sourceIds": [
+        "icf5g-red-fp"
+      ],
+      "coverage": "held",
+      "publicationStatus": "held",
+      "notice": "Dedicated vegetarian positioning is supported by independent current reporting and the merchant's many explicit mock/vegetarian product labels. Several unqualified generic descriptions still explicitly mention chicken, fish, shrimp or meat. Whole venue held until merchant clarification; actual meat service is not established. All food-card names and prices retained without artwork/descriptions; no current stock asserted.",
+      "sourceCoverage": {
+        "foodProducts": 64,
+        "pricedFoodProducts": 64,
+        "sourceFoodCardOccurrences": 65,
+        "beveragesExcluded": 14,
+        "visibleModifierGroups": 0
+      },
+      "items": [
+        {
+          "id": "icf5g-red-1",
+          "name": "Monkey Head Mushroom Rendang Set 猴头菇仁当饭",
+          "category": "FEATURED 经典菜色",
+          "sourceCategories": [
+            "FEATURED 经典菜色",
+            "Sets 套餐"
+          ],
+          "sourceIds": [
+            "icf5g-red-fp"
+          ],
+          "sourcePriceText": "from S$ 12.08 S$ 15.10",
+          "price": {
+            "amount": 12.08,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified.",
+          "originalPrice": {
+            "amount": 15.1,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "promotion": {
+            "percentOff": 20,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          }
+        },
+        {
+          "id": "icf5g-red-2",
+          "name": "Pickled Cabbage Grilled Fish 酸菜素烤鱼",
+          "category": "Vegetarian Dishes",
+          "sourceCategories": [
+            "Vegetarian Dishes"
+          ],
+          "sourceIds": [
+            "icf5g-red-fp"
+          ],
+          "sourcePriceText": "S$ 22.08 S$ 27.60",
+          "price": {
+            "amount": 22.08,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified.",
+          "originalPrice": {
+            "amount": 27.6,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "promotion": {
+            "percentOff": 20,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          }
+        },
+        {
+          "id": "icf5g-red-3",
+          "name": "Vge.Sweet & Sour Pork 酸甜咕咾肉",
+          "category": "Vegetarian Dishes",
+          "sourceCategories": [
+            "Vegetarian Dishes"
+          ],
+          "sourceIds": [
+            "icf5g-red-fp"
+          ],
+          "sourcePriceText": "S$ 17.20 S$ 21.50",
+          "price": {
+            "amount": 17.2,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified.",
+          "originalPrice": {
+            "amount": 21.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "promotion": {
+            "percentOff": 20,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          }
+        },
+        {
+          "id": "icf5g-red-4",
+          "name": "Vge. Baked Fish W/ Banana Leaves",
+          "category": "Vegetarian Dishes",
+          "sourceCategories": [
+            "Vegetarian Dishes"
+          ],
+          "sourceIds": [
+            "icf5g-red-fp"
+          ],
+          "sourcePriceText": "S$ 19.68 S$ 24.60",
+          "price": {
+            "amount": 19.68,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified.",
+          "originalPrice": {
+            "amount": 24.6,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "promotion": {
+            "percentOff": 20,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          }
+        },
+        {
+          "id": "icf5g-red-5",
+          "name": "Vge. Appetizing Salad Shrimp",
+          "category": "Vegetarian Dishes",
+          "sourceCategories": [
+            "Vegetarian Dishes"
+          ],
+          "sourceIds": [
+            "icf5g-red-fp"
+          ],
+          "sourcePriceText": "S$ 12.32 S$ 15.40",
+          "price": {
+            "amount": 12.32,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified.",
+          "originalPrice": {
+            "amount": 15.4,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "promotion": {
+            "percentOff": 20,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          }
+        },
+        {
+          "id": "icf5g-red-6",
+          "name": "Vge. Healthy Pork Belly Soup 养生珠肚汤",
+          "category": "Soup 汤",
+          "sourceCategories": [
+            "Soup 汤"
+          ],
+          "sourceIds": [
+            "icf5g-red-fp"
+          ],
+          "sourcePriceText": "S$ 22.08 S$ 27.60",
+          "price": {
+            "amount": 22.08,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified.",
+          "originalPrice": {
+            "amount": 27.6,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "promotion": {
+            "percentOff": 20,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          }
+        },
+        {
+          "id": "icf5g-red-7",
+          "name": "Vagen Fish Soup 素鱼汤",
+          "category": "Soup 汤",
+          "sourceCategories": [
+            "Soup 汤"
+          ],
+          "sourceIds": [
+            "icf5g-red-fp"
+          ],
+          "sourcePriceText": "S$ 9.60 S$ 12",
+          "price": {
+            "amount": 9.6,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified.",
+          "originalPrice": {
+            "amount": 12,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "promotion": {
+            "percentOff": 20,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          }
+        },
+        {
+          "id": "icf5g-red-8",
+          "name": "Tom Yum Soup 东炎汤",
+          "category": "Soup 汤",
+          "sourceCategories": [
+            "Soup 汤"
+          ],
+          "sourceIds": [
+            "icf5g-red-fp"
+          ],
+          "sourcePriceText": "S$ 12.32 S$ 15.40",
+          "price": {
+            "amount": 12.32,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified.",
+          "originalPrice": {
+            "amount": 15.4,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "promotion": {
+            "percentOff": 20,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          }
+        },
+        {
+          "id": "icf5g-red-9",
+          "name": "Healthy Vegetables Soup 健康蔬菜汤",
+          "category": "Soup 汤",
+          "sourceCategories": [
+            "Soup 汤"
+          ],
+          "sourceIds": [
+            "icf5g-red-fp"
+          ],
+          "sourcePriceText": "S$ 13.52 S$ 16.90",
+          "price": {
+            "amount": 13.52,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified.",
+          "originalPrice": {
+            "amount": 16.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "promotion": {
+            "percentOff": 20,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          }
+        },
+        {
+          "id": "icf5g-red-10",
+          "name": "String Bean Egg 菜豆蛋",
+          "category": "Egg 蛋",
+          "sourceCategories": [
+            "Egg 蛋"
+          ],
+          "sourceIds": [
+            "icf5g-red-fp"
+          ],
+          "sourcePriceText": "S$ 12.32 S$ 15.40",
+          "price": {
+            "amount": 12.32,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified.",
+          "originalPrice": {
+            "amount": 15.4,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "promotion": {
+            "percentOff": 20,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          }
+        },
+        {
+          "id": "icf5g-red-11",
+          "name": "Omelette 芙蓉蛋",
+          "category": "Egg 蛋",
+          "sourceCategories": [
+            "Egg 蛋"
+          ],
+          "sourceIds": [
+            "icf5g-red-fp"
+          ],
+          "sourcePriceText": "S$ 12.32 S$ 15.40",
+          "price": {
+            "amount": 12.32,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified.",
+          "originalPrice": {
+            "amount": 15.4,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "promotion": {
+            "percentOff": 20,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          }
+        },
+        {
+          "id": "icf5g-red-12",
+          "name": "Sambal Petai Fried Egg 三峇臭豆炒蛋",
+          "category": "Egg 蛋",
+          "sourceCategories": [
+            "Egg 蛋"
+          ],
+          "sourceIds": [
+            "icf5g-red-fp"
+          ],
+          "sourcePriceText": "S$ 14.72 S$ 18.40",
+          "price": {
+            "amount": 14.72,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified.",
+          "originalPrice": {
+            "amount": 18.4,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "promotion": {
+            "percentOff": 20,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          }
+        },
+        {
+          "id": "icf5g-red-13",
+          "name": "Shiitake Mushrooms W/ Broccoli 香菇西兰花",
+          "category": "vegetable 蔬菜",
+          "sourceCategories": [
+            "vegetable 蔬菜"
+          ],
+          "sourceIds": [
+            "icf5g-red-fp"
+          ],
+          "sourcePriceText": "S$ 16 S$ 20",
+          "price": {
+            "amount": 16,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified.",
+          "originalPrice": {
+            "amount": 20,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "promotion": {
+            "percentOff": 20,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          }
+        },
+        {
+          "id": "icf5g-red-14",
+          "name": "Stir fry Hand-torn Cabbage 手撕包菜",
+          "category": "vegetable 蔬菜",
+          "sourceCategories": [
+            "vegetable 蔬菜"
+          ],
+          "sourceIds": [
+            "icf5g-red-fp"
+          ],
+          "sourcePriceText": "S$ 12.32 S$ 15.40",
+          "price": {
+            "amount": 12.32,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified.",
+          "originalPrice": {
+            "amount": 15.4,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "promotion": {
+            "percentOff": 20,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          }
+        },
+        {
+          "id": "icf5g-red-15",
+          "name": "Vge. Minced Meat Eggplant 肉碎茄子",
+          "category": "vegetable 蔬菜",
+          "sourceCategories": [
+            "vegetable 蔬菜"
+          ],
+          "sourceIds": [
+            "icf5g-red-fp"
+          ],
+          "sourcePriceText": "S$ 14.72 S$ 18.40",
+          "price": {
+            "amount": 14.72,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified.",
+          "originalPrice": {
+            "amount": 18.4,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "promotion": {
+            "percentOff": 20,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          }
+        },
+        {
+          "id": "icf5g-red-16",
+          "name": "Mala Hot Pot 麻辣香锅",
+          "category": "vegetable 蔬菜",
+          "sourceCategories": [
+            "vegetable 蔬菜"
+          ],
+          "sourceIds": [
+            "icf5g-red-fp"
+          ],
+          "sourcePriceText": "S$ 22.08 S$ 27.60",
+          "price": {
+            "amount": 22.08,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified.",
+          "originalPrice": {
+            "amount": 27.6,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "promotion": {
+            "percentOff": 20,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          }
+        },
+        {
+          "id": "icf5g-red-17",
+          "name": "Thai Green Curry 泰式青咖喱",
+          "category": "vegetable 蔬菜",
+          "sourceCategories": [
+            "vegetable 蔬菜"
+          ],
+          "sourceIds": [
+            "icf5g-red-fp"
+          ],
+          "sourcePriceText": "S$ 14.72 S$ 18.40",
+          "price": {
+            "amount": 14.72,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified.",
+          "originalPrice": {
+            "amount": 18.4,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "promotion": {
+            "percentOff": 20,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          }
+        },
+        {
+          "id": "icf5g-red-18",
+          "name": "Stir Fried Four Heavenly King 四大天王",
+          "category": "vegetable 蔬菜",
+          "sourceCategories": [
+            "vegetable 蔬菜"
+          ],
+          "sourceIds": [
+            "icf5g-red-fp"
+          ],
+          "sourcePriceText": "S$ 19.68 S$ 24.60",
+          "price": {
+            "amount": 19.68,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified.",
+          "originalPrice": {
+            "amount": 24.6,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "promotion": {
+            "percentOff": 20,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          }
+        },
+        {
+          "id": "icf5g-red-19",
+          "name": "Nyonya-style Vegetarian Rendang 娘热仁当",
+          "category": "Mushrooms & Tofu",
+          "sourceCategories": [
+            "Mushrooms & Tofu"
+          ],
+          "sourceIds": [
+            "icf5g-red-fp"
+          ],
+          "sourcePriceText": "S$ 19.68 S$ 24.60",
+          "price": {
+            "amount": 19.68,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified.",
+          "originalPrice": {
+            "amount": 24.6,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "promotion": {
+            "percentOff": 20,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          }
+        },
+        {
+          "id": "icf5g-red-20",
+          "name": "Rojak Tofu 羅喏豆腐",
+          "category": "Mushrooms & Tofu",
+          "sourceCategories": [
+            "Mushrooms & Tofu"
+          ],
+          "sourceIds": [
+            "icf5g-red-fp"
+          ],
+          "sourcePriceText": "S$ 12.32 S$ 15.40",
+          "price": {
+            "amount": 12.32,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified.",
+          "originalPrice": {
+            "amount": 15.4,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "promotion": {
+            "percentOff": 20,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          }
+        },
+        {
+          "id": "icf5g-red-21",
+          "name": "Tofu in Black Bean Sauce 鼓汁豆腐",
+          "category": "Mushrooms & Tofu",
+          "sourceCategories": [
+            "Mushrooms & Tofu"
+          ],
+          "sourceIds": [
+            "icf5g-red-fp"
+          ],
+          "sourcePriceText": "S$ 12.32 S$ 15.40",
+          "price": {
+            "amount": 12.32,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified.",
+          "originalPrice": {
+            "amount": 15.4,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "promotion": {
+            "percentOff": 20,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          }
+        },
+        {
+          "id": "icf5g-red-22",
+          "name": "Braised Tofu with Ginger Shreds 姜丝红烧豆腐",
+          "category": "Mushrooms & Tofu",
+          "sourceCategories": [
+            "Mushrooms & Tofu"
+          ],
+          "sourceIds": [
+            "icf5g-red-fp"
+          ],
+          "sourcePriceText": "S$ 14.72 S$ 18.40",
+          "price": {
+            "amount": 14.72,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified.",
+          "originalPrice": {
+            "amount": 18.4,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "promotion": {
+            "percentOff": 20,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          }
+        },
+        {
+          "id": "icf5g-red-23",
+          "name": "King Pao King Oyster Mushrooms 宫保杏鲍菇",
+          "category": "Mushrooms & Tofu",
+          "sourceCategories": [
+            "Mushrooms & Tofu"
+          ],
+          "sourceIds": [
+            "icf5g-red-fp"
+          ],
+          "sourcePriceText": "S$ 14.72 S$ 18.40",
+          "price": {
+            "amount": 14.72,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified.",
+          "originalPrice": {
+            "amount": 18.4,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "promotion": {
+            "percentOff": 20,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          }
+        },
+        {
+          "id": "icf5g-red-24",
+          "name": "Salted Chicken 盐酥鸡",
+          "category": "Snacks 小吃",
+          "sourceCategories": [
+            "Snacks 小吃"
+          ],
+          "sourceIds": [
+            "icf5g-red-fp"
+          ],
+          "sourcePriceText": "S$ 8 S$ 10",
+          "price": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified. This item's generic platform wording refers to animal ingredients without a clear mock label; merchant clarification required.",
+          "originalPrice": {
+            "amount": 10,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "promotion": {
+            "percentOff": 20,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          },
+          "descriptionConflict": true
+        },
+        {
+          "id": "icf5g-red-25",
+          "name": "Tofu Goreng 泰式豆腐",
+          "category": "Snacks 小吃",
+          "sourceCategories": [
+            "Snacks 小吃"
+          ],
+          "sourceIds": [
+            "icf5g-red-fp"
+          ],
+          "sourcePriceText": "S$ 8 S$ 10",
+          "price": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified.",
+          "originalPrice": {
+            "amount": 10,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "promotion": {
+            "percentOff": 20,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          }
+        },
+        {
+          "id": "icf5g-red-26",
+          "name": "Rojak 囉喏",
+          "category": "Snacks 小吃",
+          "sourceCategories": [
+            "Snacks 小吃"
+          ],
+          "sourceIds": [
+            "icf5g-red-fp"
+          ],
+          "sourcePriceText": "S$ 8 S$ 10",
+          "price": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified.",
+          "originalPrice": {
+            "amount": 10,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "promotion": {
+            "percentOff": 20,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          }
+        },
+        {
+          "id": "icf5g-red-27",
+          "name": "Golden Mushroom Satay 猴头菇沙爹",
+          "category": "Snacks 小吃",
+          "sourceCategories": [
+            "Snacks 小吃"
+          ],
+          "sourceIds": [
+            "icf5g-red-fp"
+          ],
+          "sourcePriceText": "S$ 8.80 S$ 11",
+          "price": {
+            "amount": 8.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified.",
+          "originalPrice": {
+            "amount": 11,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "promotion": {
+            "percentOff": 20,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          }
+        },
+        {
+          "id": "icf5g-red-28",
+          "name": "Bean Curd With Stuffing 福片满满",
+          "category": "Snacks 小吃",
+          "sourceCategories": [
+            "Snacks 小吃"
+          ],
+          "sourceIds": [
+            "icf5g-red-fp"
+          ],
+          "sourcePriceText": "S$ 8 S$ 10",
+          "price": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified.",
+          "originalPrice": {
+            "amount": 10,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "promotion": {
+            "percentOff": 20,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          }
+        },
+        {
+          "id": "icf5g-red-29",
+          "name": "Spring Rolls 香脆春卷",
+          "category": "Snacks 小吃",
+          "sourceCategories": [
+            "Snacks 小吃"
+          ],
+          "sourceIds": [
+            "icf5g-red-fp"
+          ],
+          "sourcePriceText": "S$ 8 S$ 10",
+          "price": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified.",
+          "originalPrice": {
+            "amount": 10,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "promotion": {
+            "percentOff": 20,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          }
+        },
+        {
+          "id": "icf5g-red-30",
+          "name": "Healthy Vegetable Roll 健康蔬菜卷",
+          "category": "Snacks 小吃",
+          "sourceCategories": [
+            "Snacks 小吃"
+          ],
+          "sourceIds": [
+            "icf5g-red-fp"
+          ],
+          "sourcePriceText": "S$ 11.68 S$ 14.60",
+          "price": {
+            "amount": 11.68,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified.",
+          "originalPrice": {
+            "amount": 14.6,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "promotion": {
+            "percentOff": 20,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          }
+        },
+        {
+          "id": "icf5g-red-31",
+          "name": "Handmade Meatball 手工大丸子",
+          "category": "Snacks 小吃",
+          "sourceCategories": [
+            "Snacks 小吃"
+          ],
+          "sourceIds": [
+            "icf5g-red-fp"
+          ],
+          "sourcePriceText": "S$ 8.80 S$ 11",
+          "price": {
+            "amount": 8.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified. This item's generic platform wording refers to animal ingredients without a clear mock label; merchant clarification required.",
+          "originalPrice": {
+            "amount": 11,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "promotion": {
+            "percentOff": 20,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          },
+          "descriptionConflict": true
+        },
+        {
+          "id": "icf5g-red-32",
+          "name": "Pan-Fried Dumplings 锅贴",
+          "category": "Snacks 小吃",
+          "sourceCategories": [
+            "Snacks 小吃"
+          ],
+          "sourceIds": [
+            "icf5g-red-fp"
+          ],
+          "sourcePriceText": "S$ 8.80 S$ 11",
+          "price": {
+            "amount": 8.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified. Source portion: 6 pieces.",
+          "originalPrice": {
+            "amount": 11,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "promotion": {
+            "percentOff": 20,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          }
+        },
+        {
+          "id": "icf5g-red-33",
+          "name": "Veggie Tempura 蔬菜天妇罗",
+          "category": "Snacks 小吃",
+          "sourceCategories": [
+            "Snacks 小吃"
+          ],
+          "sourceIds": [
+            "icf5g-red-fp"
+          ],
+          "sourcePriceText": "S$ 11.68 S$ 14.60",
+          "price": {
+            "amount": 11.68,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified.",
+          "originalPrice": {
+            "amount": 14.6,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "promotion": {
+            "percentOff": 20,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          }
+        },
+        {
+          "id": "icf5g-red-34",
+          "name": "Boiled Dumplings 饺子",
+          "category": "Snacks 小吃",
+          "sourceCategories": [
+            "Snacks 小吃"
+          ],
+          "sourceIds": [
+            "icf5g-red-fp"
+          ],
+          "sourcePriceText": "S$ 7.60 S$ 9.50",
+          "price": {
+            "amount": 7.6,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified. This item's generic platform wording refers to animal ingredients without a clear mock label; merchant clarification required.",
+          "originalPrice": {
+            "amount": 9.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "promotion": {
+            "percentOff": 20,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          },
+          "descriptionConflict": true
+        },
+        {
+          "id": "icf5g-red-35",
+          "name": "Vge.Vegetarian seafood roll 海味卷",
+          "category": "Snacks 小吃",
+          "sourceCategories": [
+            "Snacks 小吃"
+          ],
+          "sourceIds": [
+            "icf5g-red-fp"
+          ],
+          "sourcePriceText": "S$ 8 S$ 10",
+          "price": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified.",
+          "originalPrice": {
+            "amount": 10,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "promotion": {
+            "percentOff": 20,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          }
+        },
+        {
+          "id": "icf5g-red-36",
+          "name": "Seaweed Bibimbap 紫菜拌饭",
+          "category": "Sets 套餐",
+          "sourceCategories": [
+            "Sets 套餐"
+          ],
+          "sourceIds": [
+            "icf5g-red-fp"
+          ],
+          "sourcePriceText": "from S$ 9.20 S$ 11.50",
+          "price": {
+            "amount": 9.2,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified. Source section says no egg; this is not vegan or ingredient certification.",
+          "originalPrice": {
+            "amount": 11.5,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "promotion": {
+            "percentOff": 20,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          }
+        },
+        {
+          "id": "icf5g-red-37",
+          "name": "Kung Pao King Oyster Mushroom 宫保杏鲍菇饭",
+          "category": "Sets 套餐",
+          "sourceCategories": [
+            "Sets 套餐"
+          ],
+          "sourceIds": [
+            "icf5g-red-fp"
+          ],
+          "sourcePriceText": "from S$ 9.20 S$ 11.50",
+          "price": {
+            "amount": 9.2,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified. Source section says no egg; this is not vegan or ingredient certification.",
+          "originalPrice": {
+            "amount": 11.5,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "promotion": {
+            "percentOff": 20,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          }
+        },
+        {
+          "id": "icf5g-red-38",
+          "name": "Baked Fish With Banana Leaves",
+          "category": "Sets 套餐",
+          "sourceCategories": [
+            "Sets 套餐"
+          ],
+          "sourceIds": [
+            "icf5g-red-fp"
+          ],
+          "sourcePriceText": "from S$ 9.20 S$ 11.50",
+          "price": {
+            "amount": 9.2,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified. This item's generic platform wording refers to animal ingredients without a clear mock label; merchant clarification required. Source section says no egg; this is not vegan or ingredient certification.",
+          "originalPrice": {
+            "amount": 11.5,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "promotion": {
+            "percentOff": 20,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          },
+          "descriptionConflict": true
+        },
+        {
+          "id": "icf5g-red-39",
+          "name": "Vegetarian Chicken Rice 素鸡饭",
+          "category": "Sets 套餐",
+          "sourceCategories": [
+            "Sets 套餐"
+          ],
+          "sourceIds": [
+            "icf5g-red-fp"
+          ],
+          "sourcePriceText": "from S$ 8 S$ 10",
+          "price": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified. Source section says no egg; this is not vegan or ingredient certification.",
+          "originalPrice": {
+            "amount": 10,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "promotion": {
+            "percentOff": 20,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          }
+        },
+        {
+          "id": "icf5g-red-40",
+          "name": "Black Pepper Chicken Chop Rice 黑椒G扒饭",
+          "category": "Sets 套餐",
+          "sourceCategories": [
+            "Sets 套餐"
+          ],
+          "sourceIds": [
+            "icf5g-red-fp"
+          ],
+          "sourcePriceText": "from S$ 9.20 S$ 11.50",
+          "price": {
+            "amount": 9.2,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified. This item's generic platform wording refers to animal ingredients without a clear mock label; merchant clarification required. Source section says no egg; this is not vegan or ingredient certification.",
+          "originalPrice": {
+            "amount": 11.5,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "promotion": {
+            "percentOff": 20,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          },
+          "descriptionConflict": true
+        },
+        {
+          "id": "icf5g-red-41",
+          "name": "Thai Green Curry Set 泰式⻘咖喱饭",
+          "category": "Sets 套餐",
+          "sourceCategories": [
+            "Sets 套餐"
+          ],
+          "sourceIds": [
+            "icf5g-red-fp"
+          ],
+          "sourcePriceText": "from S$ 9.20 S$ 11.50",
+          "price": {
+            "amount": 9.2,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified. Source section says no egg; this is not vegan or ingredient certification.",
+          "originalPrice": {
+            "amount": 11.5,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "promotion": {
+            "percentOff": 20,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          }
+        },
+        {
+          "id": "icf5g-red-42",
+          "name": "Hainanese Chicken Rice 海南鸡饭",
+          "category": "Sets 套餐",
+          "sourceCategories": [
+            "Sets 套餐"
+          ],
+          "sourceIds": [
+            "icf5g-red-fp"
+          ],
+          "sourcePriceText": "from S$ 9.20 S$ 11.50",
+          "price": {
+            "amount": 9.2,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified. This item's generic platform wording refers to animal ingredients without a clear mock label; merchant clarification required. Source section says no egg; this is not vegan or ingredient certification.",
+          "originalPrice": {
+            "amount": 11.5,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "promotion": {
+            "percentOff": 20,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          },
+          "descriptionConflict": true
+        },
+        {
+          "id": "icf5g-red-43",
+          "name": "Healthy Vegetarian Pork Belly Soup with Rice 养生素猪肚汤 饭",
+          "category": "Sets 套餐",
+          "sourceCategories": [
+            "Sets 套餐"
+          ],
+          "sourceIds": [
+            "icf5g-red-fp"
+          ],
+          "sourcePriceText": "S$ 11.04 S$ 13.80",
+          "price": {
+            "amount": 11.04,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified. Source section says no egg; this is not vegan or ingredient certification.",
+          "originalPrice": {
+            "amount": 13.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "promotion": {
+            "percentOff": 20,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          }
+        },
+        {
+          "id": "icf5g-red-44",
+          "name": "Dumpling Noodle 水饺拉面",
+          "category": "Noodles 面类",
+          "sourceCategories": [
+            "Noodles 面类"
+          ],
+          "sourceIds": [
+            "icf5g-red-fp"
+          ],
+          "sourcePriceText": "S$ 8.64 S$ 10.80",
+          "price": {
+            "amount": 8.64,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified.",
+          "originalPrice": {
+            "amount": 10.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "promotion": {
+            "percentOff": 20,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          }
+        },
+        {
+          "id": "icf5g-red-45",
+          "name": "Fish Soup Bee Hoon 鱼片米粉汤",
+          "category": "Noodles 面类",
+          "sourceCategories": [
+            "Noodles 面类"
+          ],
+          "sourceIds": [
+            "icf5g-red-fp"
+          ],
+          "sourcePriceText": "S$ 8.64 S$ 10.80",
+          "price": {
+            "amount": 8.64,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified. This item's generic platform wording refers to animal ingredients without a clear mock label; merchant clarification required.",
+          "originalPrice": {
+            "amount": 10.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "promotion": {
+            "percentOff": 20,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          },
+          "descriptionConflict": true
+        },
+        {
+          "id": "icf5g-red-46",
+          "name": "Mushroom Dry Noodle 香菇手工干面",
+          "category": "Noodles 面类",
+          "sourceCategories": [
+            "Noodles 面类"
+          ],
+          "sourceIds": [
+            "icf5g-red-fp"
+          ],
+          "sourcePriceText": "from S$ 8.64 S$ 10.80",
+          "price": {
+            "amount": 8.64,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified.",
+          "originalPrice": {
+            "amount": 10.8,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "promotion": {
+            "percentOff": 20,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          }
+        },
+        {
+          "id": "icf5g-red-47",
+          "name": "Healthy Soup Noodle 健康高汤拉面",
+          "category": "Noodles 面类",
+          "sourceCategories": [
+            "Noodles 面类"
+          ],
+          "sourceIds": [
+            "icf5g-red-fp"
+          ],
+          "sourcePriceText": "S$ 7.20 S$ 9",
+          "price": {
+            "amount": 7.2,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified.",
+          "originalPrice": {
+            "amount": 9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "promotion": {
+            "percentOff": 20,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          }
+        },
+        {
+          "id": "icf5g-red-48",
+          "name": "Ginger Soup Mee Sua 姜汤面线",
+          "category": "Noodles 面类",
+          "sourceCategories": [
+            "Noodles 面类"
+          ],
+          "sourceIds": [
+            "icf5g-red-fp"
+          ],
+          "sourcePriceText": "S$ 8.64 S$ 10.80",
+          "price": {
+            "amount": 8.64,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified.",
+          "originalPrice": {
+            "amount": 10.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "promotion": {
+            "percentOff": 20,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          }
+        },
+        {
+          "id": "icf5g-red-49",
+          "name": "Tom Yum Bee Hoon Soup 冬炎米粉汤",
+          "category": "Noodles 面类",
+          "sourceCategories": [
+            "Noodles 面类"
+          ],
+          "sourceIds": [
+            "icf5g-red-fp"
+          ],
+          "sourcePriceText": "S$ 8.64 S$ 10.80",
+          "price": {
+            "amount": 8.64,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified. This item's generic platform wording refers to animal ingredients without a clear mock label; merchant clarification required.",
+          "originalPrice": {
+            "amount": 10.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "promotion": {
+            "percentOff": 20,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          },
+          "descriptionConflict": true
+        },
+        {
+          "id": "icf5g-red-50",
+          "name": "Zha Jiang Noodle 炸酱面",
+          "category": "Noodles 面类",
+          "sourceCategories": [
+            "Noodles 面类"
+          ],
+          "sourceIds": [
+            "icf5g-red-fp"
+          ],
+          "sourcePriceText": "S$ 8.64 S$ 10.80",
+          "price": {
+            "amount": 8.64,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified. This item's generic platform wording refers to animal ingredients without a clear mock label; merchant clarification required.",
+          "originalPrice": {
+            "amount": 10.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "promotion": {
+            "percentOff": 20,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          },
+          "descriptionConflict": true
+        },
+        {
+          "id": "icf5g-red-51",
+          "name": "Happy Burger Set W/ Fries 开心汉堡套餐",
+          "category": "Western Food 西餐",
+          "sourceCategories": [
+            "Western Food 西餐"
+          ],
+          "sourceIds": [
+            "icf5g-red-fp"
+          ],
+          "sourcePriceText": "S$ 11.04 S$ 13.80",
+          "price": {
+            "amount": 11.04,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified.",
+          "originalPrice": {
+            "amount": 13.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "promotion": {
+            "percentOff": 20,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          }
+        },
+        {
+          "id": "icf5g-red-52",
+          "name": "Xiang Chun Mushroom Spaghetti 香椿蘑菇意大利面",
+          "category": "Western Food 西餐",
+          "sourceCategories": [
+            "Western Food 西餐"
+          ],
+          "sourceIds": [
+            "icf5g-red-fp"
+          ],
+          "sourcePriceText": "from S$ 13.52 S$ 16.90",
+          "price": {
+            "amount": 13.52,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified.",
+          "originalPrice": {
+            "amount": 16.9,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "promotion": {
+            "percentOff": 20,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          }
+        },
+        {
+          "id": "icf5g-red-53",
+          "name": "Tomato Spaghetti & Meatballs 肉丸番茄意大利面",
+          "category": "Western Food 西餐",
+          "sourceCategories": [
+            "Western Food 西餐"
+          ],
+          "sourceIds": [
+            "icf5g-red-fp"
+          ],
+          "sourcePriceText": "from S$ 13.52 S$ 16.90",
+          "price": {
+            "amount": 13.52,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified. This item's generic platform wording refers to animal ingredients without a clear mock label; merchant clarification required.",
+          "originalPrice": {
+            "amount": 16.9,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "promotion": {
+            "percentOff": 20,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          },
+          "descriptionConflict": true
+        },
+        {
+          "id": "icf5g-red-54",
+          "name": "Chicken Chop Pasta 鸡扒意大利面",
+          "category": "Western Food 西餐",
+          "sourceCategories": [
+            "Western Food 西餐"
+          ],
+          "sourceIds": [
+            "icf5g-red-fp"
+          ],
+          "sourcePriceText": "from S$ 13.52 S$ 16.90",
+          "price": {
+            "amount": 13.52,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified. This item's generic platform wording refers to animal ingredients without a clear mock label; merchant clarification required.",
+          "originalPrice": {
+            "amount": 16.9,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "promotion": {
+            "percentOff": 20,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          },
+          "descriptionConflict": true
+        },
+        {
+          "id": "icf5g-red-55",
+          "name": "Truffle Oil French Fries 松露薯条",
+          "category": "Western Food 西餐",
+          "sourceCategories": [
+            "Western Food 西餐"
+          ],
+          "sourceIds": [
+            "icf5g-red-fp"
+          ],
+          "sourcePriceText": "S$ 8 S$ 10",
+          "price": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified.",
+          "originalPrice": {
+            "amount": 10,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "promotion": {
+            "percentOff": 20,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          }
+        },
+        {
+          "id": "icf5g-red-56",
+          "name": "Vge.Mala Soba Noodles",
+          "category": "Zi Char 煮炒",
+          "sourceCategories": [
+            "Zi Char 煮炒"
+          ],
+          "sourceIds": [
+            "icf5g-red-fp"
+          ],
+          "sourcePriceText": "from S$ 11.12 S$ 13.90",
+          "price": {
+            "amount": 11.12,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified.",
+          "originalPrice": {
+            "amount": 13.9,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "promotion": {
+            "percentOff": 20,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          }
+        },
+        {
+          "id": "icf5g-red-57",
+          "name": "Nasi Lemak 椰浆饭",
+          "category": "Daily Specials 每日特色",
+          "sourceCategories": [
+            "Daily Specials 每日特色"
+          ],
+          "sourceIds": [
+            "icf5g-red-fp"
+          ],
+          "sourcePriceText": "from S$ 9.60 S$ 12",
+          "price": {
+            "amount": 9.6,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified.",
+          "originalPrice": {
+            "amount": 12,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "promotion": {
+            "percentOff": 20,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          }
+        },
+        {
+          "id": "icf5g-red-58",
+          "name": "2 Vegetables + 1 Mocked Meat 2菜1肉",
+          "category": "Bento 盒饭",
+          "sourceCategories": [
+            "Bento 盒饭"
+          ],
+          "sourceIds": [
+            "icf5g-red-fp"
+          ],
+          "sourcePriceText": "from S$ 7.20 S$ 9",
+          "price": {
+            "amount": 7.2,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified. Source section says no egg; this is not vegan or ingredient certification.",
+          "originalPrice": {
+            "amount": 9,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "promotion": {
+            "percentOff": 20,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          }
+        },
+        {
+          "id": "icf5g-red-59",
+          "name": "1 Vegetable + 2 Mocked Meats 1菜2肉",
+          "category": "Bento 盒饭",
+          "sourceCategories": [
+            "Bento 盒饭"
+          ],
+          "sourceIds": [
+            "icf5g-red-fp"
+          ],
+          "sourcePriceText": "from S$ 7.20 S$ 9",
+          "price": {
+            "amount": 7.2,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified. Source section says no egg; this is not vegan or ingredient certification.",
+          "originalPrice": {
+            "amount": 9,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "promotion": {
+            "percentOff": 20,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          }
+        },
+        {
+          "id": "icf5g-red-60",
+          "name": "3 Vegetables 3菜 Bento",
+          "category": "Bento 盒饭",
+          "sourceCategories": [
+            "Bento 盒饭"
+          ],
+          "sourceIds": [
+            "icf5g-red-fp"
+          ],
+          "sourcePriceText": "from S$ 9.20 S$ 11.50",
+          "price": {
+            "amount": 9.2,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified. Source section says no egg; this is not vegan or ingredient certification.",
+          "originalPrice": {
+            "amount": 11.5,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "promotion": {
+            "percentOff": 20,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          }
+        },
+        {
+          "id": "icf5g-red-61",
+          "name": "3 Mock Meat 3肉 Bento",
+          "category": "Bento 盒饭",
+          "sourceCategories": [
+            "Bento 盒饭"
+          ],
+          "sourceIds": [
+            "icf5g-red-fp"
+          ],
+          "sourcePriceText": "from S$ 9.84 S$ 12.30",
+          "price": {
+            "amount": 9.84,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified. Source section says no egg; this is not vegan or ingredient certification.",
+          "originalPrice": {
+            "amount": 12.3,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "promotion": {
+            "percentOff": 20,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          }
+        },
+        {
+          "id": "icf5g-red-62",
+          "name": "Sesame Rice 香油饭",
+          "category": "Rice Add-On 加饭",
+          "sourceCategories": [
+            "Rice Add-On 加饭"
+          ],
+          "sourceIds": [
+            "icf5g-red-fp"
+          ],
+          "sourcePriceText": "S$ 1.84 S$ 2.30",
+          "price": {
+            "amount": 1.84,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified.",
+          "originalPrice": {
+            "amount": 2.3,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "promotion": {
+            "percentOff": 20,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          }
+        },
+        {
+          "id": "icf5g-red-63",
+          "name": "Brown Rice 糙米饭",
+          "category": "Rice Add-On 加饭",
+          "sourceCategories": [
+            "Rice Add-On 加饭"
+          ],
+          "sourceIds": [
+            "icf5g-red-fp"
+          ],
+          "sourcePriceText": "S$ 1.84 S$ 2.30",
+          "price": {
+            "amount": 1.84,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified.",
+          "originalPrice": {
+            "amount": 2.3,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "promotion": {
+            "percentOff": 20,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          }
+        },
+        {
+          "id": "icf5g-red-64",
+          "name": "White Rice 白饭",
+          "category": "Rice Add-On 加饭",
+          "sourceCategories": [
+            "Rice Add-On 加饭"
+          ],
+          "sourceIds": [
+            "icf5g-red-fp"
+          ],
+          "sourcePriceText": "S$ 0.96 S$ 1.20",
+          "price": {
+            "amount": 0.96,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified.",
+          "originalPrice": {
+            "amount": 1.2,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "promotion": {
+            "percentOff": 20,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          }
+        }
+      ]
+    },
+    {
+      "id": "icf5g-tang-held-delivery",
+      "name": "Tang Leng Chay Vegetarian - held delivery food observations",
+      "scope": "branch-delivery",
+      "branchIds": [
+        "tang-leng-chay-circuit-01-98"
+      ],
+      "sourceIds": [
+        "icf5g-tang-fp"
+      ],
+      "coverage": "held",
+      "publicationStatus": "held",
+      "notice": "Merchant-managed channel explicitly trades as Vegetarian; independent documentary/food reporting supports the vegetarian venue. Generic descriptions mention prawn/pork stock, marinated pork or pork belly without mock qualification. Whole venue held until merchant clarification; actual meat service is not proven. All food-card names and prices retained without artwork/descriptions; no current stock asserted.",
+      "sourceCoverage": {
+        "foodProducts": 21,
+        "pricedFoodProducts": 21,
+        "sourceFoodCardOccurrences": 21,
+        "beveragesExcluded": 0,
+        "visibleModifierGroups": 0
+      },
+      "items": [
+        {
+          "id": "icf5g-tang-1",
+          "name": "Fried Kuey Teow Mee 炒粿条面",
+          "category": "Fried Specialties 煮炒类",
+          "sourceCategories": [
+            "Fried Specialties 煮炒类"
+          ],
+          "sourceIds": [
+            "icf5g-tang-fp"
+          ],
+          "sourcePriceText": "S$ 6.20",
+          "price": {
+            "amount": 6.2,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified. This item's generic platform wording refers to animal ingredients without a clear mock label; merchant clarification required.",
+          "descriptionConflict": true
+        },
+        {
+          "id": "icf5g-tang-2",
+          "name": "Fried Hokkien Mee 福建面",
+          "category": "Fried Specialties 煮炒类",
+          "sourceCategories": [
+            "Fried Specialties 煮炒类"
+          ],
+          "sourceIds": [
+            "icf5g-tang-fp"
+          ],
+          "sourcePriceText": "S$ 6.20",
+          "price": {
+            "amount": 6.2,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified. This item's generic platform wording refers to animal ingredients without a clear mock label; merchant clarification required.",
+          "descriptionConflict": true
+        },
+        {
+          "id": "icf5g-tang-3",
+          "name": "Fried Mee Goreng 马来炒面",
+          "category": "Fried Specialties 煮炒类",
+          "sourceCategories": [
+            "Fried Specialties 煮炒类"
+          ],
+          "sourceIds": [
+            "icf5g-tang-fp"
+          ],
+          "sourcePriceText": "S$ 6.20",
+          "price": {
+            "amount": 6.2,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf5g-tang-4",
+          "name": "Fried Bee Hoon 星洲米粉",
+          "category": "Fried Specialties 煮炒类",
+          "sourceCategories": [
+            "Fried Specialties 煮炒类"
+          ],
+          "sourceIds": [
+            "icf5g-tang-fp"
+          ],
+          "sourcePriceText": "S$ 6.20",
+          "price": {
+            "amount": 6.2,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified. This item's generic platform wording refers to animal ingredients without a clear mock label; merchant clarification required.",
+          "descriptionConflict": true
+        },
+        {
+          "id": "icf5g-tang-5",
+          "name": "Fried Rice 星洲炒饭",
+          "category": "Fried Specialties 煮炒类",
+          "sourceCategories": [
+            "Fried Specialties 煮炒类"
+          ],
+          "sourceIds": [
+            "icf5g-tang-fp"
+          ],
+          "sourcePriceText": "S$ 6.20",
+          "price": {
+            "amount": 6.2,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf5g-tang-6",
+          "name": "Black Fried Carrot Cake 黑菜头粿",
+          "category": "Fried Specialties 煮炒类",
+          "sourceCategories": [
+            "Fried Specialties 煮炒类"
+          ],
+          "sourceIds": [
+            "icf5g-tang-fp"
+          ],
+          "sourcePriceText": "S$ 6.20",
+          "price": {
+            "amount": 6.2,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf5g-tang-7",
+          "name": "White Fried Carrot Cake 白菜头粿",
+          "category": "Fried Specialties 煮炒类",
+          "sourceCategories": [
+            "Fried Specialties 煮炒类"
+          ],
+          "sourceIds": [
+            "icf5g-tang-fp"
+          ],
+          "sourcePriceText": "S$ 6.20",
+          "price": {
+            "amount": 6.2,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf5g-tang-8",
+          "name": "Fried Hong Kong Mee 香港面",
+          "category": "Fried Specialties 煮炒类",
+          "sourceCategories": [
+            "Fried Specialties 煮炒类"
+          ],
+          "sourceIds": [
+            "icf5g-tang-fp"
+          ],
+          "sourcePriceText": "S$ 5.80",
+          "price": {
+            "amount": 5.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf5g-tang-9",
+          "name": "Fried Hor Fun 煮炒河粉",
+          "category": "Fried Specialties 煮炒类",
+          "sourceCategories": [
+            "Fried Specialties 煮炒类"
+          ],
+          "sourceIds": [
+            "icf5g-tang-fp"
+          ],
+          "sourcePriceText": "S$ 6.20",
+          "price": {
+            "amount": 6.2,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified. This item's generic platform wording refers to animal ingredients without a clear mock label; merchant clarification required.",
+          "descriptionConflict": true
+        },
+        {
+          "id": "icf5g-tang-10",
+          "name": "Rice with Gravy 烩饭",
+          "category": "Fried Specialties 煮炒类",
+          "sourceCategories": [
+            "Fried Specialties 煮炒类"
+          ],
+          "sourceIds": [
+            "icf5g-tang-fp"
+          ],
+          "sourcePriceText": "S$ 6.20",
+          "price": {
+            "amount": 6.2,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf5g-tang-11",
+          "name": "Vegetarian Chicken Rice 金鸡饭",
+          "category": "Rice Specialties 饭类",
+          "sourceCategories": [
+            "Rice Specialties 饭类"
+          ],
+          "sourceIds": [
+            "icf5g-tang-fp"
+          ],
+          "sourcePriceText": "S$ 4.80",
+          "price": {
+            "amount": 4.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf5g-tang-12",
+          "name": "Vegetarian Char Siew Rice 叉烧饭",
+          "category": "Rice Specialties 饭类",
+          "sourceCategories": [
+            "Rice Specialties 饭类"
+          ],
+          "sourceIds": [
+            "icf5g-tang-fp"
+          ],
+          "sourcePriceText": "S$ 4.80",
+          "price": {
+            "amount": 4.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified. This item's generic platform wording refers to animal ingredients without a clear mock label; merchant clarification required.",
+          "descriptionConflict": true
+        },
+        {
+          "id": "icf5g-tang-13",
+          "name": "Dry Noodle 干捞面",
+          "category": "Extras 附加功能",
+          "sourceCategories": [
+            "Extras 附加功能"
+          ],
+          "sourceIds": [
+            "icf5g-tang-fp"
+          ],
+          "sourcePriceText": "S$ 4.80",
+          "price": {
+            "amount": 4.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf5g-tang-14",
+          "name": "Noodle Soup 面汤",
+          "category": "Extras 附加功能",
+          "sourceCategories": [
+            "Extras 附加功能"
+          ],
+          "sourceIds": [
+            "icf5g-tang-fp"
+          ],
+          "sourcePriceText": "S$ 4.80",
+          "price": {
+            "amount": 4.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf5g-tang-15",
+          "name": "Kway Chap 粿汁",
+          "category": "Extras 附加功能",
+          "sourceCategories": [
+            "Extras 附加功能"
+          ],
+          "sourceIds": [
+            "icf5g-tang-fp"
+          ],
+          "sourcePriceText": "S$ 5.50",
+          "price": {
+            "amount": 5.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf5g-tang-16",
+          "name": "Rojak 罗惹",
+          "category": "Extras 附加功能",
+          "sourceCategories": [
+            "Extras 附加功能"
+          ],
+          "sourceIds": [
+            "icf5g-tang-fp"
+          ],
+          "sourcePriceText": "S$ 5.50",
+          "price": {
+            "amount": 5.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf5g-tang-17",
+          "name": "Spring Roll 泊饼",
+          "category": "Extras 附加功能",
+          "sourceCategories": [
+            "Extras 附加功能"
+          ],
+          "sourceIds": [
+            "icf5g-tang-fp"
+          ],
+          "sourcePriceText": "S$ 4.80",
+          "price": {
+            "amount": 4.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified. Source portion: 2 pieces."
+        },
+        {
+          "id": "icf5g-tang-18",
+          "name": "Tauhu Goreng 花生豆腐",
+          "category": "Extras 附加功能",
+          "sourceCategories": [
+            "Extras 附加功能"
+          ],
+          "sourceIds": [
+            "icf5g-tang-fp"
+          ],
+          "sourcePriceText": "S$ 4.80",
+          "price": {
+            "amount": 4.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf5g-tang-19",
+          "name": "Porridge 西粥",
+          "category": "Extras 附加功能",
+          "sourceCategories": [
+            "Extras 附加功能"
+          ],
+          "sourceIds": [
+            "icf5g-tang-fp"
+          ],
+          "sourcePriceText": "S$ 4.80",
+          "price": {
+            "amount": 4.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf5g-tang-20",
+          "name": "Lor Mee 卤面",
+          "category": "Extras 附加功能",
+          "sourceCategories": [
+            "Extras 附加功能"
+          ],
+          "sourceIds": [
+            "icf5g-tang-fp"
+          ],
+          "sourcePriceText": "S$ 5",
+          "price": {
+            "amount": 5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified. This item's generic platform wording refers to animal ingredients without a clear mock label; merchant clarification required.",
+          "descriptionConflict": true
+        },
+        {
+          "id": "icf5g-tang-21",
+          "name": "Herbal Soup 十全补汤",
+          "category": "Extras 附加功能",
+          "sourceCategories": [
+            "Extras 附加功能"
+          ],
+          "sourceIds": [
+            "icf5g-tang-fp"
+          ],
+          "sourcePriceText": "S$ 6",
+          "price": {
+            "amount": 6,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "held",
+          "status": "held-venue-scope",
+          "qualifier": "Whole venue held for unresolved generic ingredient-description conflicts; actual meat service is not established. Food name/printed channel price retained as evidence only. Options, portions, stock, ingredients, final charges and dine-in equivalence unverified."
+        }
+      ]
+    }
+  ],
+  "scope": {
+    "appScope": "vegetarian-vegan-venues-only",
+    "publication": "whole-venue-held",
+    "actualMeatFinding": "not-established",
+    "beverages": "excluded",
+    "googleIdentityAssignment": "none"
+  }
+}

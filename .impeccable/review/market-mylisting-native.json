@@ -1,0 +1,9 @@
+{
+  "checkedAt": "2026-10-15T02:22:41.322Z",
+  "url": "exp://192.168.1.5:8083",
+  "manifestStatus": 200,
+  "bundleStatus": 200,
+  "bundleBytes": 8831693,
+  "currentMyListing": true,
+  "limits": "Transport and bundle only; native appearance and device permissions unverified."
+}

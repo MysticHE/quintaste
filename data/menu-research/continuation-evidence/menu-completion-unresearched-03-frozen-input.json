@@ -1,0 +1,193 @@
+{
+  "frozenAt": "2026-10-16T01:24:42.707Z",
+  "source": "C:/Users/huien/qt/tmp/qa/menu-directory-leads/hippo-restaurant-facts.json",
+  "dedupe": {
+    "files": 127,
+    "branchRecords": 393,
+    "existingDirectoryLeadReferences": 1773,
+    "review": "Manual normalized name/exact-premise comparison; matched same-postal other merchants/units were kept distinct."
+  },
+  "coordination": "Paid batch07confirmed no overlap; sibling05and allprior units excluded.",
+  "selected": [
+    {
+      "id": "nuldam-space",
+      "name": "Nuldam Space",
+      "address": "2 Orchard Link, The SCAPE #02-14/15, Singapore 237978",
+      "postalCode": "237978",
+      "sourceUrl": "https://maps.app.goo.gl/gyRQPZYgsXxun19R6",
+      "countryCode": "SG",
+      "status": null
+    },
+    {
+      "id": "the-acai-teahouse",
+      "name": "The Açaí Teahouse",
+      "address": "6 Eu Tong Sen St, #02-55 Clarke Quay Central, Singapore 059817",
+      "postalCode": "059817",
+      "sourceUrl": "https://maps.app.goo.gl/6SwSpgr1RTc87fUr5",
+      "countryCode": "SG",
+      "status": null
+    },
+    {
+      "id": "v-coffee",
+      "name": "V Coffee",
+      "address": "50 Lor 21 Geylang, Singapore 388465",
+      "postalCode": "388465",
+      "sourceUrl": "https://maps.app.goo.gl/vq8NaxF3oa3oK5QcA",
+      "countryCode": "SG",
+      "status": null
+    },
+    {
+      "id": "sayang-s",
+      "name": "Sayang's",
+      "address": "175A Punggol Fld, Singapore 821175",
+      "postalCode": "821175",
+      "sourceUrl": "https://maps.app.goo.gl/16pwhpTUyGTTMJ75A",
+      "countryCode": "SG",
+      "status": null
+    },
+    {
+      "id": "joyful-veggies",
+      "name": "Joyful Veggies",
+      "address": "Woodlands Polaris",
+      "postalCode": "",
+      "sourceUrl": "https://maps.app.goo.gl/Cw8WqTbpH2NUT6Gs5",
+      "countryCode": "SG",
+      "status": null
+    },
+    {
+      "id": "gopal-s-the-holy-cow",
+      "name": "Gopal's The Holy Cow",
+      "address": "Kaki Bukit Road 1",
+      "postalCode": "415934",
+      "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Gopal%27s%20The%20Holy%20Cow%20Kaki%20Bukit%20Road%201%20Singapore",
+      "countryCode": "SG",
+      "status": null
+    },
+    {
+      "id": "my-happy-belly",
+      "name": "My Happy Belly",
+      "address": "1 Tampines Walk",
+      "postalCode": "528523",
+      "sourceUrl": "https://www.google.com/maps/search/?api=1&query=My%20Happy%20Belly%201%20Tampines%20Walk%20Singapore",
+      "countryCode": "SG",
+      "status": null
+    },
+    {
+      "id": "elephant-mamak-stall",
+      "name": "Elephant Mamak Stall",
+      "address": "93 Lor 4 Toa Payoh, #01-35, Singapore 310093",
+      "postalCode": "310093",
+      "sourceUrl": "https://maps.app.goo.gl/aFyE3tEv3Lo4iNdv5",
+      "countryCode": "SG",
+      "status": null
+    },
+    {
+      "id": "econ-vegetarian-delight",
+      "name": "Econ Vegetarian Delight 益康斋素食苑",
+      "address": "144 Tampines Street 12, Singapore 521144",
+      "postalCode": "521144",
+      "sourceUrl": "https://maps.app.goo.gl/sampC75xpA33PgsH8",
+      "countryCode": "SG",
+      "status": null
+    },
+    {
+      "id": "33-vegetarian-food",
+      "name": "33 Vegetarian Food 素食鸡饭",
+      "address": "409 Ang Mo Kio Avenue 10, 409 AMK Market And Food Centre",
+      "postalCode": "560409",
+      "sourceUrl": "https://www.google.com/maps/search/?api=1&query=33%20Vegetarian%20Food%20%E7%B4%A0%E9%A3%9F%E9%B8%A1%E9%A5%AD%20409%20Ang%20Mo%20Kio%20Avenue%2010%20Singapore",
+      "countryCode": "SG",
+      "status": null
+    },
+    {
+      "id": "bao-bao-vegetarian-food",
+      "name": "Bao Bao Vegetarian Food 寶寶素食",
+      "address": "58 New Upper Changi Rd, #01-148, Singapore 461058",
+      "postalCode": "461058",
+      "sourceUrl": "https://maps.app.goo.gl/S5KgcqoWLyiQ35h79",
+      "countryCode": "SG",
+      "status": null
+    },
+    {
+      "id": "bao-sheng-vegetarian",
+      "name": "Bao Sheng Vegetarian 宝昇素食",
+      "address": "18 Bedok South Road, Block 18, Singapore 460018",
+      "postalCode": "460018",
+      "sourceUrl": "https://maps.app.goo.gl/7DyjcUL87M9zcF49A",
+      "countryCode": "SG",
+      "status": null
+    },
+    {
+      "id": "99-vegetarian",
+      "name": "99 Vegetarian",
+      "address": "638 Jurong West Street 61",
+      "postalCode": "640638",
+      "sourceUrl": "https://www.google.com/maps/search/?api=1&query=99%20Vegetarian%20638%20Jurong%20West%20Street%2061%20Singapore",
+      "countryCode": "SG",
+      "status": null
+    },
+    {
+      "id": "beng-shun-vegetarian-food",
+      "name": "Beng Shun Vegetarian Food 民顺素食",
+      "address": "51 Bukit Batok Cres, #02-01/02, Singapore 658077",
+      "postalCode": "658077",
+      "sourceUrl": "https://maps.app.goo.gl/1fAQ1SrW5wKpoog28",
+      "countryCode": "SG",
+      "status": null
+    },
+    {
+      "id": "ci-wen-vegetarian-food",
+      "name": "Ci Wen Vegetarian Food 慈雲素食",
+      "address": "226H Ang Mo Kio Street 22, #01-19 Kebun Baru Food Centre, Singapore 568226",
+      "postalCode": "568226",
+      "sourceUrl": "https://maps.app.goo.gl/8WCd5nKN7QHHCHR77",
+      "countryCode": "SG",
+      "status": null
+    },
+    {
+      "id": "choo-zai-zhai-vegetarian",
+      "name": "Choo Zai Zhai Vegetarian 自在齋素食",
+      "address": "79A Circuit Road, #01-89, Singapore 371079",
+      "postalCode": "371079",
+      "sourceUrl": "https://maps.app.goo.gl/kopmqCG5szcNk8PZA",
+      "countryCode": "SG",
+      "status": null
+    },
+    {
+      "id": "eco-sen-vegetarian-food",
+      "name": "Eco Sen Vegetarian Food 缘森素食",
+      "address": "66 Lorong 4 Toa Payoh",
+      "postalCode": "310066",
+      "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Eco%20Sen%20Vegetarian%20Food%20%E7%BC%98%E6%A3%AE%E7%B4%A0%E9%A3%9F%2066%20Lorong%204%20Toa%20Payoh%20Singapore",
+      "countryCode": "SG",
+      "status": null
+    },
+    {
+      "id": "fz-vegetarian",
+      "name": "FZ Vegetarian 风竹素食",
+      "address": "216 Bedok Central St 1, #01-26 Market, Singapore",
+      "postalCode": "",
+      "sourceUrl": "https://maps.app.goo.gl/LGmPZ8322JoYk1cE9",
+      "countryCode": "SG",
+      "status": null
+    },
+    {
+      "id": "gan-taste-vegetarian",
+      "name": "Gan Taste Vegetarian",
+      "address": "20 Toa Payoh East",
+      "postalCode": "310020",
+      "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Gan%20Taste%20Vegetarian%2020%20Toa%20Payoh%20East%20Singapore",
+      "countryCode": "SG",
+      "status": null
+    },
+    {
+      "id": "good-earth-vegetarian",
+      "name": "Good Earth Vegetarian",
+      "address": "453A Ang Mo Kio Avenue 10",
+      "postalCode": "561453",
+      "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Good%20Earth%20Vegetarian%20453A%20Ang%20Mo%20Kio%20Avenue%2010%20Singapore",
+      "countryCode": "SG",
+      "status": null
+    }
+  ]
+}

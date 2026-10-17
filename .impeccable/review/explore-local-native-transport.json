@@ -1,0 +1,13 @@
+{
+  "manifestStatus": 200,
+  "bundleStatus": 200,
+  "bytes": 9162482,
+  "caseFlow": true,
+  "offlineSaved": true,
+  "participation": true,
+  "secureSession": true,
+  "privateGoogleKey": false,
+  "privateReviewerKey": false,
+  "serverStoreBundled": false,
+  "nativeDeviceAppearanceVerified": false
+}

@@ -1,0 +1,135 @@
+{
+  "startedAt": "2026-10-16T05:20:19.776Z",
+  "url": "http://127.0.0.1:8083",
+  "checks": [
+    {
+      "name": "original-sin",
+      "status": "passed",
+      "foods": 45,
+      "heldAbsent": 2,
+      "publicFingerprint": "7b10460afecc055aa5acca722acd8de0baab1162d3a0dfdc0f1f4b0d55bb2f5e"
+    },
+    {
+      "name": "xing-hua",
+      "status": "passed",
+      "foods": 23,
+      "heldAbsent": 0,
+      "publicFingerprint": "10b6b6676414825ebb759517d8d4acfee1cb1a9161157aae2b22ef987ad99f9c"
+    },
+    {
+      "name": "so-green",
+      "status": "passed",
+      "foods": 98,
+      "heldAbsent": 8,
+      "publicFingerprint": "99f0e0f8ec9e8f511522d0d72fbc8ee3d55ff4323627373ae5111cc62043f967"
+    },
+    {
+      "name": "xin-yi",
+      "status": "passed",
+      "foods": 5,
+      "heldAbsent": 0,
+      "publicFingerprint": "d3dfad630e9096538420d634837ffb1dfb63159bc7ac5dc3f1e3ab77b94e86d2"
+    },
+    {
+      "name": "ju-fu-yuan-serangoon",
+      "status": "passed",
+      "foods": 10,
+      "heldAbsent": 0,
+      "publicFingerprint": "e8d2d022406708fdaf50fb7511a7bec225a7f2462c1829c3205655684914b4ea"
+    },
+    {
+      "name": "li-wei",
+      "status": "passed",
+      "foods": 58,
+      "heldAbsent": 9,
+      "publicFingerprint": "1994fbfecf98f181896a28e05e75112116575b971fda58db0286f18a1f4eafed"
+    }
+  ],
+  "screenshots": [
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-06-browser\\original-sin-320.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-06-browser\\original-sin-768.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-06-browser\\original-sin-1440.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-06-browser\\xing-hua-320.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-06-browser\\xing-hua-768.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-06-browser\\xing-hua-1440.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-06-browser\\so-green-320.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-06-browser\\so-green-768.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-06-browser\\so-green-1440.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-06-browser\\xin-yi-320.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-06-browser\\xin-yi-768.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-06-browser\\xin-yi-1440.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-06-browser\\ju-fu-yuan-serangoon-320.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-06-browser\\ju-fu-yuan-serangoon-768.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-06-browser\\ju-fu-yuan-serangoon-1440.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-06-browser\\li-wei-320.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-06-browser\\li-wei-768.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-06-browser\\li-wei-1440.png"
+  ],
+  "errors": [],
+  "pageErrors": [],
+  "unexpectedConsoleErrors": [],
+  "blockedApiRequests": [
+    "/api/local-explore/session",
+    "/api/local-explore/session",
+    "/api/local-explore/session",
+    "/api/local-explore/session",
+    "/api/local-explore/session",
+    "/api/local-explore/session"
+  ],
+  "blockedExternalRequests": [],
+  "apiRequests": [
+    "/api/menus?view=index",
+    "/api/menus?id=research-ur06-original-sin",
+    "/api/menus?view=index",
+    "/api/menus?id=research-ur06-xing-hua",
+    "/api/menus?view=index",
+    "/api/menus?id=research-ur06-so-green",
+    "/api/menus?view=index",
+    "/api/menus?id=research-ur06-xin-yi",
+    "/api/menus?view=index",
+    "/api/menus?id=research-ur06-ju-fu-yuan-serangoon",
+    "/api/menus?view=index",
+    "/api/menus?id=research-ur06-li-wei"
+  ],
+  "a11y": [
+    {
+      "label": "original-sin",
+      "violations": []
+    },
+    {
+      "label": "xing-hua",
+      "violations": []
+    },
+    {
+      "label": "so-green",
+      "violations": []
+    },
+    {
+      "label": "xin-yi",
+      "violations": []
+    },
+    {
+      "label": "ju-fu-yuan-serangoon",
+      "violations": []
+    },
+    {
+      "label": "li-wei",
+      "violations": []
+    }
+  ],
+  "forwardedProviderCalls": 0,
+  "installedChromeUsed": false,
+  "browserVersion": "156.0.8078.4",
+  "catalogue": {
+    "locations": 157,
+    "sourceMenus": 202,
+    "foodOccurrences": 11258
+  },
+  "finishedAt": "2026-10-16T05:20:52.172Z",
+  "passed": true,
+  "visualReview": {
+    "capturesInspected": 18,
+    "result": "Prices/text readable. Immediate resize screenshots show transient unpainted search/category controls for Xing Hua/So Green. Rerun with settled resize capture pending. Public research-process wording in menu footer corrected before final acceptance."
+  },
+  "googleLedgerUnchanged": true
+}

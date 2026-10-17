@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "name": "Incomplete invisible profile drafts persist without enabling Social",
+      "passed": true
+    },
+    {
+      "name": "Incomplete visible profiles are rejected by the action guard",
+      "passed": true
+    },
+    {
+      "name": "Completed profiles opt in explicitly and can pause without losing groups",
+      "passed": true
+    },
+    {
+      "name": "Private place retries update a stable ID and preserve leading postal zeroes",
+      "passed": true
+    }
+  ]
+}

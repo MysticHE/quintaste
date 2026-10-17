@@ -1,0 +1,9 @@
+{
+  "reviewer": "independent visual_review agent",
+  "initialReview": "Six avatar viewport captures, keyboard focus and 18 dock crops inspected. Sole material finding: white browser focus outline overlays theme border.",
+  "correction": "Suppress browser outline with outlineWidth 0, retain 2px theme-accent keyboard border.",
+  "recapture": "Final focus capture waits for fonts and image decoding. Reviewer confirms complete chef images and clean coral focus border.",
+  "verdict": "Sole finding resolved; no visible fix-induced regression.",
+  "disposition": "ship",
+  "scope": "Reviewed browser/source scope only; final verdict scores the listed focus fix. Physical devices and signed-in cloud workflows not revalidated. No deployment."
+}

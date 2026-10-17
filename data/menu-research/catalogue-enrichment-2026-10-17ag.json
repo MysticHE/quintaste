@@ -1,0 +1,4568 @@
+{
+  "checkedAt": "2026-10-17",
+  "deployedRelease": "20261017-reviewed-diet37",
+  "coordinateFirstDeployedRelease": "20261017-verified-coordinates36",
+  "fullCoverageComplete": false,
+  "scope": "Comprehensive saved-data integrity/display verification plus targeted public verification of unresolved branch/currency contexts; not fresh online re-extraction of every dish.",
+  "coverage": {
+    "browseLocations": 174,
+    "menuIds": 175,
+    "covers": 173,
+    "hours": 120,
+    "allThreeAvailable": 120,
+    "coverGaps": 1,
+    "hoursGaps": 54,
+    "uniqueAssets": 140,
+    "imageBytes": 19477212,
+    "largestImageBytes": 299725,
+    "firstPageBytes": 24041,
+    "firstPageMilliseconds": 29.0,
+    "locatedBrowseLocations": 174,
+    "coordinateHolds": 0,
+    "explicitUnconfirmedWeekdaysWithinPublishedSchedules": 2,
+    "weekdayQualifiedPosterRecords": 9,
+    "locatedMenuIds": 175,
+    "warmSequentialMedianMilliseconds": 25.69,
+    "displayRowsAcrossRetainedMenuIds": 10699,
+    "canonicalBrowseDisplayRows": 10695,
+    "displayRowsWithUnavailablePrices": 3387,
+    "missingPriceAmounts": 669,
+    "amountsWithUnconfirmedCurrency": 2718,
+    "supportedPriceRanges": 899,
+    "veganLabelledBrowseLocations": 2
+  },
+  "newCoordinates": [
+    {
+      "id": "research-ananda-syed-alwi",
+      "address": "95 Syed Alwi Road, Singapore 207670",
+      "postalCode": "207670",
+      "point": {
+        "latitude": 1.30946,
+        "longitude": 103.855433
+      },
+      "sourceUrl": "https://www.roots.gov.sg/places/places-landing/Places/landmarks/little-india-heritage-trail-shop-till-you-drop/Ananda-Bhavan",
+      "checkedAt": "2026-10-17T03:42:19.495433+00:00",
+      "status": "official-exact-premise-marker",
+      "matchedAddress": "95 Syed Alwi Road",
+      "qualification": "NHB heritage place publishes this exact95SyedAlwi address and explicit coordinate link. Existing operator postal207670 and earlier OneMap94SyedAlwi mismatch are retained as prior evidence; no across-road inference or postal rewrite.",
+      "sourceSha256": "7c0a40e922db5531adc3d48712fd8ad8ed04c630dae53ee16e20d3221c897615",
+      "sourceEvidence": [
+        {
+          "sourceUrl": "https://www.roots.gov.sg/places/places-landing/Places/landmarks/little-india-heritage-trail-shop-till-you-drop/Ananda-Bhavan",
+          "checkedAt": "2026-10-17T03:42:19.495433+00:00",
+          "sha256": "7c0a40e922db5531adc3d48712fd8ad8ed04c630dae53ee16e20d3221c897615",
+          "coordinateLink": "https://maps.google.com/maps?q=1.30946,103.855433&z=18"
+        }
+      ],
+      "priorHolds": [
+        {
+          "id": "research-ananda-syed-alwi",
+          "address": "95 Syed Alwi Road, Singapore 207670",
+          "postalCode": "207670",
+          "point": null,
+          "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=207670&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+          "checkedAt": "2026-10-16T10:32:56.853754+00:00",
+          "status": "unresolved-address-coordinate-match"
+        }
+      ]
+    },
+    {
+      "id": "research-ur11-crowded-sp",
+      "address": "500 Dover Road, Singapore Polytechnic Food Court 2, Stall 13, Singapore 139651",
+      "postalCode": "139651",
+      "point": {
+        "latitude": 1.3088846073595712,
+        "longitude": 103.7810531258583
+      },
+      "sourceUrl": "https://www.sp.edu.sg/staticfile/CampusMap/cwp/assets/campusmap/jar.min.js",
+      "checkedAt": "2026-10-17T03:43:15.592192+00:00",
+      "status": "official-exact-premise-marker",
+      "matchedAddress": "Singapore Polytechnic Foodcourt 2, T1A",
+      "qualification": "Official campus map marker46 explicitly bindsFoodcourt2toT1A; approximate foodcourt point, not Stall13entrance. Campus facilities page independently confirmsFoodCourt2atLevel1T1A. Merchant139651/138671postal conflict remains qualified; no admin-building substitute or postal rewrite.",
+      "sourceSha256": "631957b0b27898db141df7a1892a11987a07a27230f76e575984eef79aa5ebf3",
+      "sourceEvidence": [
+        {
+          "sourceUrl": "https://www.sp.edu.sg/staticfile/CampusMap/cwp/assets/campusmap/jar.min.js",
+          "checkedAt": "2026-10-17T03:43:15.592192+00:00",
+          "sha256": "631957b0b27898db141df7a1892a11987a07a27230f76e575984eef79aa5ebf3",
+          "mapMarkerId": 46,
+          "mapPlaceName": "Foodcourt 2",
+          "building": "T1A"
+        },
+        {
+          "sourceUrl": "https://www.sp.edu.sg/staticfile/CampusMap/index.html",
+          "checkedAt": "2026-10-17T03:42:19.494103+00:00",
+          "sha256": "3404bc0c923f73ce328ae2afcd5f86ef2bb9d161d222e27a9c666b927ca3cafc"
+        },
+        {
+          "sourceUrl": "https://www.sp.edu.sg/about-sp/campus-map-and-facilities",
+          "checkedAt": "2026-10-17T03:42:24.814270+00:00",
+          "sha256": "754e3ac88fc28f7b25725c30345f141fffe5ec325e29cf2a6f031d2675e13623",
+          "qualification": "Foodcourt location only; campus hours do not establish this stall schedule."
+        }
+      ],
+      "priorHolds": [
+        {
+          "id": "research-ur11-crowded-sp",
+          "address": "500 Dover Road, Singapore Polytechnic Food Court 2, Stall 13, Singapore 139651",
+          "postalCode": "139651",
+          "point": null,
+          "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=139651&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+          "checkedAt": "2026-10-16T10:32:45.644925+00:00",
+          "status": "unresolved-address-coordinate-match"
+        }
+      ]
+    },
+    {
+      "id": "research-tofu-g-amoy-street",
+      "address": "97 Amoy Street, Singapore 069916",
+      "postalCode": "069916",
+      "point": {
+        "latitude": 1.281472089605887,
+        "longitude": 103.8471545668725
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=97%20Amoy%20Street&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-17T03:46:23.378751+00:00",
+      "status": "official-house-and-street-match-postal-conflict",
+      "matchedAddress": "97 AMOY STREET TELOK AYER CONSERVATION AREA SINGAPORE 069917",
+      "sourceSha256": "392a6f0c0afe8cf2af01d1125e6c0de4e2099263e3ba1f8d777336bd24f42473",
+      "sourceEvidence": [
+        {
+          "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=97%20Amoy%20Street&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+          "checkedAt": "2026-10-17T03:46:23.378751+00:00",
+          "sha256": "392a6f0c0afe8cf2af01d1125e6c0de4e2099263e3ba1f8d777336bd24f42473",
+          "matchedRow": {
+            "SEARCHVAL": "TELOK AYER CONSERVATION AREA",
+            "BLK_NO": "97",
+            "ROAD_NAME": "AMOY STREET",
+            "BUILDING": "TELOK AYER CONSERVATION AREA",
+            "ADDRESS": "97 AMOY STREET TELOK AYER CONSERVATION AREA SINGAPORE 069917",
+            "POSTAL": "069917",
+            "X": "29539.83246284816",
+            "Y": "29324.19696030207",
+            "LATITUDE": "1.281472089605887",
+            "LONGITUDE": "103.8471545668725"
+          }
+        },
+        {
+          "sourceUrl": "https://www.tofug.sg/97amoy",
+          "checkedAt": "2026-10-17T03:42:19.496457+00:00",
+          "sha256": "cb54c5538a484f4e0aa933b188b5bb1316921780782d3896a0faa2401f235d6f",
+          "qualification": "Exact branch page confirms97AmoyStreet; its printed069916postal conflicts withSLA069917."
+        }
+      ],
+      "priorHolds": [
+        {
+          "id": "research-tofu-g-amoy-street",
+          "address": "97 Amoy Street, Singapore 069916",
+          "postalCode": "069916",
+          "point": null,
+          "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=069916&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+          "checkedAt": "2026-10-16T10:37:47.423991+00:00",
+          "status": "unresolved-address-coordinate-match"
+        }
+      ],
+      "qualification": "Direct SLA house/street search returns exactly97AMOY STREET, matching the operator branch page. Use this building point, not earlier postal-query96AmoyStreet. Operator069916postal and SLA069917conflict remain documented; canonical menu address/postal is not rewritten. Approximate building location, not entrance."
+    }
+  ],
+  "newFoods": 0,
+  "newCovers": 0,
+  "newHours": 0,
+  "imageGenerations": 0,
+  "wholeVenueClaimReviews": [
+    {
+      "venueId": "bodhi-deli-fortune-centre",
+      "reviewedAt": "2026-10-17",
+      "claim": {
+        "kind": "vegan",
+        "scope": "branch",
+        "sourceId": "bodhi-deli-fortune-centre-ordering",
+        "note": "Merchant reports suitability for vegan diners. Exclusively vegan operation, specials and drinks were not established.",
+        "wholeVenue": false
+      },
+      "source": {
+        "id": "bodhi-deli-fortune-centre-ordering",
+        "url": "https://take.app/bodhideli",
+        "title": "Bodhi Deli - Take App",
+        "publisher": "Bodhi Deli via Take App",
+        "kind": "merchant-ordering",
+        "checkedAt": "2026-10-15T08:18:44.197Z",
+        "publishedAt": null,
+        "notes": "Exact enabled pickup label #03-26 Fortune Centre and SGD currency checked in public storefront metadata. All eight category pages and all 29 prepared-dish detail pages inspected. Six beverages excluded, four Frozen retail products excluded. Prices include takeaway charges; GST/service basis and current stock are unstated. Variant/range/schedule facts retained without copied descriptions."
+      },
+      "outcome": "Explicit whole-venue qualification added; original source check date and note retained."
+    },
+    {
+      "venueId": "nomvnom-clarke-quay-central",
+      "reviewedAt": "2026-10-17",
+      "claim": {
+        "kind": "vegan",
+        "scope": "branch",
+        "sourceId": "nomvnom-clarke-quay-central-ordering",
+        "note": "Merchant-linked ordering storefront explicitly states vegan; individual dish suitability remains unconfirmed.",
+        "wholeVenue": true
+      },
+      "source": {
+        "id": "nomvnom-clarke-quay-central-ordering",
+        "url": "https://nomvnombistro.oddle.me/en_SG",
+        "title": "nomVnom Bistro ordering menu",
+        "publisher": "nomVnom Bistro via Oddle",
+        "kind": "merchant-ordering",
+        "checkedAt": "2026-10-15T08:24:01.435Z",
+        "publishedAt": null,
+        "notes": "Official merchant-linked Clarke Quay Central storefront; all 14 JSON-LD menu sections checked. Deduplicated Best Sellers and repeated Sides Platter; 17 beverage rows (including two smoothies in Desserts) and 16 apparel/accessory rows excluded. Explicit SGD offers; tax/effective date/checkout availability unconfirmed."
+      },
+      "outcome": "Explicit whole-venue qualification added; original source check date and note retained."
+    }
+  ],
+  "sourceOutcomes": [
+    {
+      "id": "ananda-heritage",
+      "url": "https://www.roots.gov.sg/places/places-landing/Places/landmarks/little-india-heritage-trail-shop-till-you-drop/Ananda-Bhavan",
+      "checkedAt": "2026-10-17T03:42:19.495433+00:00",
+      "status": 200,
+      "finalUrl": "https://www.roots.gov.sg/places/places-landing/Places/landmarks/little-india-heritage-trail-shop-till-you-drop/Ananda-Bhavan",
+      "sha256": "7c0a40e922db5531adc3d48712fd8ad8ed04c630dae53ee16e20d3221c897615",
+      "bytes": 86015,
+      "capture": "ananda-heritage.json",
+      "outcome": "Accepted exact 95 Syed Alwi heritage coordinate; existing postal discrepancy retained. Map-link target was parsed, never called."
+    },
+    {
+      "id": "sp-campus-map",
+      "url": "https://www.sp.edu.sg/staticfile/CampusMap/index.html",
+      "checkedAt": "2026-10-17T03:42:19.494103+00:00",
+      "status": 200,
+      "finalUrl": "https://www.sp.edu.sg/staticfile/CampusMap/index.html",
+      "sha256": "3404bc0c923f73ce328ae2afcd5f86ef2bb9d161d222e27a9c666b927ca3cafc",
+      "bytes": 89953,
+      "capture": "sp-campus-map.json",
+      "outcome": "Official map context for Foodcourt 2."
+    },
+    {
+      "url": "https://www.sp.edu.sg/staticfile/CampusMap/cwp/assets/campusmap/jar.min.js",
+      "checkedAt": "2026-10-17T03:43:15.592192+00:00",
+      "status": 200,
+      "sha256": "631957b0b27898db141df7a1892a11987a07a27230f76e575984eef79aa5ebf3",
+      "bytes": 1494697,
+      "capture": "sp-campus-map-js.json",
+      "outcome": "Accepted explicit Foodcourt 2 marker at T1A; approximate foodcourt point, not stall entrance."
+    },
+    {
+      "id": "sp-campus-hours",
+      "url": "https://www.sp.edu.sg/about-sp/campus-map-and-facilities",
+      "checkedAt": "2026-10-17T03:42:24.814270+00:00",
+      "status": 200,
+      "finalUrl": "https://www.sp.edu.sg/about-sp/campus-map-and-facilities",
+      "sha256": "754e3ac88fc28f7b25725c30345f141fffe5ec325e29cf2a6f031d2675e13623",
+      "bytes": 141638,
+      "capture": "sp-campus-hours.json",
+      "outcome": "Confirms Foodcourt 2 at T1A; foodcourt hours do not establish stall hours."
+    },
+    {
+      "url": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=97%20Amoy%20Street&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-17T03:46:23.378751+00:00",
+      "status": 200,
+      "sha256": "392a6f0c0afe8cf2af01d1125e6c0de4e2099263e3ba1f8d777336bd24f42473",
+      "query": "97 Amoy Street",
+      "capture": "onemap-97-amoy-street.json",
+      "outcome": "One exact house/street request independently matches 97 Amoy; SLA postal 069917 conflicts with merchant 069916, which remains unchanged."
+    },
+    {
+      "id": "tofug-exact",
+      "url": "https://www.tofug.sg/97amoy",
+      "checkedAt": "2026-10-17T03:42:19.496457+00:00",
+      "status": 200,
+      "finalUrl": "https://www.tofug.sg/97amoy",
+      "sha256": "cb54c5538a484f4e0aa933b188b5bb1316921780782d3896a0faa2401f235d6f",
+      "bytes": 1065212,
+      "capture": "tofug-exact.json",
+      "outcome": "Exact merchant 97 Amoy branch corroboration; original postal retained."
+    },
+    {
+      "id": "forum-directory",
+      "url": "https://www.forumtheshoppingmall.com.sg/directory/",
+      "checkedAt": "2026-10-17T03:42:20.784834+00:00",
+      "status": 200,
+      "finalUrl": "https://www.forumtheshoppingmall.com.sg/directory/",
+      "sha256": "85111c42ade296ecf743436fea60b690d240d580f312cd4821aeb0d379a7286a",
+      "bytes": 88928,
+      "capture": "forum-directory.json",
+      "outcome": "Current directory lists Kind Kones B1-27 & K1 and Capitol Optical B1-17; do not transfer hours or silently change the existing branch unit."
+    },
+    {
+      "id": "kindkones-locations",
+      "url": "https://kindkones.com/pages/locations",
+      "checkedAt": "2026-10-17T03:42:22.280269+00:00",
+      "status": 200,
+      "finalUrl": "https://kindkones.com/pages/locations",
+      "sha256": "dc80d6a692373d775d0d0ff1a922ef846f9358452b4e233cd8c2f9a9c9daa2ee",
+      "bytes": 182507,
+      "capture": "kindkones-locations.json",
+      "outcome": "Merchant lists B1-17 and daily 11:00–21:00; unresolved conflict with current mall directory."
+    },
+    {
+      "id": "gokul-price-context",
+      "url": "https://www.gokulraasvegetarian.com.sg/dining.php",
+      "checkedAt": "2026-10-17T03:51:10.773236+00:00",
+      "status": 200,
+      "finalUrl": "https://www.gokulraasvegetarian.com.sg/dining.php",
+      "sha256": "35fd1eeec50c2385e93c0deeb28f5cb394525f14e70ed3f3bc81dc0f297d5668",
+      "bytes": 52242,
+      "currencyTokens": [
+        "                  \"priceCurrency\": \"SGD\"\r",
+        "                  \"priceCurrency\": \"SGD\"\r",
+        "                  \"priceCurrency\": \"SGD\"\r",
+        "                  \"priceCurrency\": \"SGD\"\r"
+      ],
+      "structuredCurrencyTokens": [
+        "                  \"priceCurrency\": \"SGD\"\r",
+        "                  \"priceCurrency\": \"SGD\"\r",
+        "                  \"priceCurrency\": \"SGD\"\r",
+        "                  \"priceCurrency\": \"SGD\"\r"
+      ],
+      "capture": "gokul-price-context.json",
+      "outcome": "Four JSON-LD SGD offers already have confirmed SGD; no menu-wide currency statement establishes the other amounts."
+    },
+    {
+      "id": "ananda-price-context",
+      "url": "https://www.anandabhavan.com/order-online/home-delivery",
+      "checkedAt": "2026-10-17T03:51:10.770495+00:00",
+      "status": 200,
+      "finalUrl": "https://www.anandabhavan.com/order-online/home-delivery",
+      "sha256": "92ebffda3e8c5a4b0b886759b4cb863546aee2cd04c47b40a78fa885ae38ff83",
+      "bytes": 2720217,
+      "currencyTokens": [],
+      "structuredCurrencyTokens": [],
+      "capture": "ananda-price-context.json",
+      "outcome": "No explicit menu currency found; do not infer SGD from location or dollar notation."
+    },
+    {
+      "id": "sangeetha-price-context",
+      "url": "https://www.sangeethabhavan.com/menu",
+      "checkedAt": "2026-10-17T03:51:10.772191+00:00",
+      "status": 200,
+      "finalUrl": "https://www.sangeethabhavan.com/menu",
+      "sha256": "cdeb5beeb9558f620f51472b68fc40477d3ed4f2e73edff515d17b4c197ed106",
+      "bytes": 132964,
+      "currencyTokens": [],
+      "structuredCurrencyTokens": [],
+      "capture": "sangeetha-price-context.json",
+      "outcome": "No explicit menu currency found."
+    },
+    {
+      "id": "kailash-price-context",
+      "url": "https://www.kailashparbat.com.sg/belilios-road",
+      "checkedAt": "2026-10-17T03:51:14.238674+00:00",
+      "status": 200,
+      "finalUrl": "https://www.kailashparbat.com.sg/belilios-road",
+      "sha256": "71396aa57003c1d45f19da5cb2f8a66aef5bbf4e93db40f1f4e14c6b01510333",
+      "bytes": 94421,
+      "currencyTokens": [],
+      "structuredCurrencyTokens": [],
+      "capture": "kailash-price-context.json",
+      "outcome": "No explicit menu currency found."
+    },
+    {
+      "id": "nvd-price-context",
+      "url": "https://www.naturevegedelights.com.sg/our-restaurants/",
+      "checkedAt": "2026-10-17T03:51:15.185001+00:00",
+      "status": 200,
+      "finalUrl": "https://www.naturevegedelights.com.sg/our-restaurants/",
+      "sha256": "25d5f43baaaa802a52cb18a2a02a7ca645221bc003a145130519e10157ffb9b5",
+      "bytes": 153440,
+      "currencyTokens": [],
+      "structuredCurrencyTokens": [],
+      "capture": "nvd-price-context.json",
+      "outcome": "No explicit menu currency found."
+    }
+  ],
+  "publicDiscoveryReceipts": [
+    {
+      "receipt": "web-02.json",
+      "checkedAt": "2026-10-17T03:40:09.653Z",
+      "queries": [
+        {
+          "q": "site.forumtheshoppingmall.com.sg \"Kind Kones\""
+        },
+        {
+          "q": "site.sp.edu.sg \"Food Court 2\" vegetarian opening"
+        },
+        {
+          "q": "\"Happy Vegetarian\" \"106\" \"Hougang\" facebook"
+        },
+        {
+          "q": "\"D’Life\" \"277 Orchard\" \"hours\""
+        }
+      ],
+      "sourceUrls": [
+        "https://forumtheshoppingmall.com.sg/about-us/",
+        "https://forumtheshoppingmall.com.sg/happenings/pdf/forum__promo_20190528.pdf",
+        "https://hungrycat.sg/malls/forum-the-shopping-mall",
+        "https://kindkones.com/pages/locations",
+        "https://s3.amazonaws.com/kajabi-storefronts-production/sites/114363/downloads/ZBF8TKWQDm6OCzXNMY91_SG_List_1Q2021.pdf",
+        "https://singmalls.app/en/malls/orchard-gateway/merchants/orchard-gateway-d-life",
+        "https://wherecrowded.sg/at/shop/kind-kones-forum-the-shopping-mall",
+        "https://www.americanexpress.com/content/dam/amex/au/merchant/AmexOffers/OrchardRdForumTheShoppingMallPLJune.pdf",
+        "https://www.anytimefitness.sg/kind-kones/",
+        "https://www.chope.co/singapore-restaurants/restaurant/d-life-orchard-gateway",
+        "https://www.forumtheshoppingmall.com.sg/directory/",
+        "https://www.happycow.net/reviews/kind-kones-central-singapore-158433",
+        "https://www.makancentral.com/shop/kind-kones-forum",
+        "https://www.reddit.com/r/SingaporePoly/comments/1dzm0jd/what_to_eat_in_sp/",
+        "https://www.sp.edu.sg/about-sp/campus-map-and-facilities",
+        "https://www.sp.edu.sg/docs/default-source/content-migration-docs/content-migration/wsq-student-handbook_v2_updated-pdf.pdf",
+        "https://www.sp.edu.sg/docs/default-source/publications/spirit/spirit_-vol2_181119.pdf",
+        "https://www.sp.edu.sg/docs/default-source/publications/spirit/spirit_oct2013.pdf?sfvrsn=39c6db29_4",
+        "https://www.sp.edu.sg/staticfile/CampusMap/index.html"
+      ],
+      "receiptSha256": "f82d64765a66f71bfce549bd70bc10fb00e297d9375886b4f8300466e9d8590b",
+      "scope": "Discovery/check outcomes only. A search result does not independently establish current branch hours, currency, ingredients or rights."
+    },
+    {
+      "receipt": "web-03.json",
+      "checkedAt": "2026-10-17T03:40:28.641Z",
+      "queries": null,
+      "sourceUrls": [
+        "https://www.forumtheshoppingmall.com.sg/directory/",
+        "https://www.roots.gov.sg/places/places-landing/Places/landmarks/little-india-heritage-trail-shop-till-you-drop/Ananda-Bhavan",
+        "https://www.sp.edu.sg/staticfile/CampusMap/index.html",
+        "https://www.tofug.sg/97amoy"
+      ],
+      "receiptSha256": "bd2efa3b70298930dbbc62e7a1ee91ed7fb18299ec1193e9ef1502a535b68611",
+      "scope": "Discovery/check outcomes only. A search result does not independently establish current branch hours, currency, ingredients or rights."
+    },
+    {
+      "receipt": "web-04.json",
+      "checkedAt": "2026-10-17T03:40:39.410Z",
+      "queries": null,
+      "sourceUrls": [
+        "https://18taiseng.com/media?page=8&type=general",
+        "https://18taiseng.com/shop/peace-vegetarian",
+        "https://cms9files.revize.com/grotonct/document_center/Departments/Parks%20%26%20Recreation/Shennecossett%20Golf%20Course/NGF%20Final%20Report.pdf",
+        "https://files.peacecorps.gov/multimedia/pdf/learn/howvol/faq/FAQs_Dietary_Restrictions.pdf",
+        "https://orchardmalls.com/shop/dlife-orchardgateway-orchard-gateway",
+        "https://ordinarypatrons.com/2026/04/28/what-to-eat-at-18-tai-seng-2026/",
+        "https://originalgreens.oddle.me/en_SG/stores",
+        "https://sg.everydayonsales.com/1-april-30-december-2025-original-greens-1-for-1-pizza-promotion-dine-in-deal-at-shaw-plaza-singapore/",
+        "https://sgpgrid.com/company/original-greens-ID0000",
+        "https://shawplaza.testground.me/directory/?pageid=4",
+        "https://static1.squarespace.com/static/6539029c86a5cf35a3282546/t/6758198e524b567e396db43a/1733826959872/Greens_menu.pdf",
+        "https://talamore.com/wp-content/uploads/2019/03/2019-TCC-Membership-Book.pdf",
+        "https://www.blythefieldcc.org/documents/20124/46238/21.%2BOur%2BFavorite%2BGreens.pdf",
+        "https://www.chope.co/singapore-restaurants/restaurant/d-life-orchard-gateway",
+        "https://www.companies.sg/business/53456541K/ORIGINAL-GREENS",
+        "https://www.fareastmalls.com.sg/globalassets/media-library/project/rbg/shared/accepting-e-femv---as-of-7-june-2024.pdf",
+        "https://www.foodpanda.sg/chain/cj1zt/original-greens",
+        "https://www.forumtheshoppingmall.com.sg/directory/",
+        "https://www.reddit.com/r/singapore/comments/f7bsgv",
+        "https://www.sgpbusiness.com/places/building/SHAW-PLAZA/329783"
+      ],
+      "receiptSha256": "e41b1419d46e80ab2b01fd5e8d4ad4b4b0283ed1588b78fac71c77cd78615925",
+      "scope": "Discovery/check outcomes only. A search result does not independently establish current branch hours, currency, ingredients or rights."
+    },
+    {
+      "receipt": "web-05.json",
+      "checkedAt": "2026-10-17T03:40:57.483Z",
+      "queries": null,
+      "sourceUrls": [
+        "https://cdn.gccoffplan.com/prj/Pecd62de20ea67e1c2d933d311b08178a-x0b-2e803c2d-9163-4652-b175-3abab78eae0e/1d635147-8f6e-4276-8af0-6a4840a06012.pdf",
+        "https://chinatownsg.com/shop/d-life-signature/reviews",
+        "https://cos.sg/wp-content/uploads/2024/04/16721SDBOne_Draycott_BrochureCHIlowres.pdf",
+        "https://hungrygowhere.com/what-to-eat/chinatown-point-food/",
+        "https://leafcorner.sg/",
+        "https://motherearthjurong.getz.co/",
+        "https://order.dlife.com.sg/Category/c-food-%E7%B4%A0%E6%B5%B7%E5%91%B3.html",
+        "https://static1.straitstimes.com.sg/s3fs-public/attachments/2019/01/31/st_20190131_tforchard31a_4591742.pdf",
+        "https://supplyanddemandorchard.oddle.me/en_SG",
+        "https://the-sen.sg/assets/files/brochure.pdf",
+        "https://theconciergemap.com/tcm/site-assets/digital-assets/tcm-sp/lcds/LCDS-digital-r2.pdf",
+        "https://wanderlog.com/place/details/5942286",
+        "https://www.burpple.com/leaf-corner",
+        "https://www.chope.co/singapore-restaurants/restaurant/mother-earth-vegetarian-restaurant",
+        "https://www.happycow.net/reviews/dlife-signature-central-singapore-326530?page=1",
+        "https://www.leafcorner.sg/contactus",
+        "https://www.lemon8-app.com/discover/dlife%20sg%20menu%20review?region=sg",
+        "https://www.patheon.com/content/dam/temp_patheon/library/resources/visitor-guides/Singapore-Thermo-Fisher-Visitor-Guide.pdf",
+        "https://www.tripadvisor.com.sg/Restaurant_Review-g294265-d15129083-Reviews-Mother_Earth-Singapore.html",
+        "https://www.waze.com/live-map/directions/sg/singapore/mother-earth-vegetarian-restaurant-%E5%A4%A7%E5%9C%B0%E4%B9%8B%E7%B4%A0?to=place.ChIJqYXtH3AP2jERkVSR2wkqdew"
+      ],
+      "receiptSha256": "15606bac986181682dbba14b8dbb5ecbef9948762777f67202483447388fe484",
+      "scope": "Discovery/check outcomes only. A search result does not independently establish current branch hours, currency, ingredients or rights."
+    },
+    {
+      "receipt": "web-06.json",
+      "checkedAt": "2026-10-17T03:41:55.369Z",
+      "queries": null,
+      "sourceUrls": [
+        "https://ch-api.healthhub.sg/api/public/content/d29ae76821fb44a7a89fed0a82e9b611?v=ace5320f",
+        "https://divinerealm.zzv.com.sg/",
+        "https://nearme.com.sg/food/best-vegetarian-restaurants-ang-mo-kio/",
+        "https://psittaciformes4.rssing.com/chan-3386532/all_p10.html",
+        "https://syn-p-001.sitecorecontenthub.cloud/api/public/content/d29ae76821fb44a7a89fed0a82e9b611?v=ace5320f",
+        "https://vegetusco.wordpress.com/2015/06/09/divine-realm-vegetarian-restaurant-hougang-avenue-8/",
+        "https://vegyuan.wordpress.com/2017/12/18/times-vege/",
+        "https://wanderlog.com/place/details/6481435/divine-realm-vegetarian-restaurant-blk501-hougang",
+        "https://www.burpple.com/hg-106-food-place",
+        "https://www.facebook.com/Green-Harmony-Vegetarian/",
+        "https://www.facebook.com/profile.php?",
+        "https://www.facebook.com/profile.php?id=100068267259415&sk=photos",
+        "https://www.happycow.net/reviews/divine-realm-northeast-singapore-185",
+        "https://www.happycow.net/reviews/happy-vegetarian-northeast-singapore-147573/1168501",
+        "https://www.reddit.com/r/askSingapore/comments/ywwlcq",
+        "https://www.theasiapress.com/top-10-best-breakfast-places-in-hougang-singapore/",
+        "https://www.tripadvisor.co/RestaurantsNear-g297734-d3318624-oa90-Hotel_Santika_Mataram_Lombok-Mataram_Lombok_West_Nusa_Tenggara.html",
+        "https://www.waze.com/live-map/directions/sg/singapore/divine-realm-vegetarian-restaurant-blk501-hougang?to=place.ChIJd_7DgE8W2jERPk9MvW9ZRNc"
+      ],
+      "receiptSha256": "8ae896aa806941b3038edf478d10ab6d4cb6bf57865b2877f526a4b145bc0362",
+      "scope": "Discovery/check outcomes only. A search result does not independently establish current branch hours, currency, ingredients or rights."
+    },
+    {
+      "receipt": "web-07.json",
+      "checkedAt": "2026-10-17T03:42:50.224Z",
+      "queries": [
+        {
+          "q": "site.facebook.com \"True Veggie\" \"47\" \"hours\""
+        },
+        {
+          "q": "site.facebook.com \"Baomaker\" \"447\" hours"
+        },
+        {
+          "q": "\"Teenoy Thai Vegetarian\" \"932\" \"opening\""
+        },
+        {
+          "q": "\"Verimix\" \"Le Quest\" \"hours\" official"
+        }
+      ],
+      "sourceUrls": [
+        "https://azcactussucculent.org/newsletters/Central_Spine_2018_09.pdf",
+        "https://burpple.com/second-serving-express-hougang?bp_ref=%2Fneighbourhoods%2Fsg%2Fhougang",
+        "https://eatoutmap.com/en/singapore/geylang/true-veggie",
+        "https://lequestmall.com.sg/atbdp_listing_types/general/",
+        "https://lequestmall.com.sg/single-category/food-beverage/",
+        "https://simmerlist.com/restaurant/9860726dff14405da45768f72e6c85df",
+        "https://singapore-streets.openalfa.com/streets/geylang-east-avenue-1-aljunied-geylang",
+        "https://singapore-streets.openalfa.com/streets/lorong-27a-geylang-aljunied-geylang",
+        "https://smooy.sg/",
+        "https://spinach.guide/venues/true-veggie-36782/",
+        "https://volanteonline.com/wp-content/uploads/2026/05/Summer-E-edition.pdf",
+        "https://www.bizapore.com/en/true-veggie-6909-7309",
+        "https://www.burpple.com/true-veggie",
+        "https://www.chope.co/singapore-restaurants/restaurant/true-veggie-geylang",
+        "https://www.coffeebean.com.sg/",
+        "https://www.facebook.com/verimix.verimix/",
+        "https://www.instagram.com/luckincoffeesg/",
+        "https://www.instagram.com/mr_baguette_singapore/",
+        "https://www.onehungryhippo.com/restaurants/true-veggie",
+        "https://www.otterpizza.com.sg/",
+        "https://www.saizeriya.com.sg/",
+        "https://www.wingstop.com.sg/"
+      ],
+      "receiptSha256": "0a3b2de076a4cbf9ff042efd88116395aad5ff7853ded938d4acbbaa5c8f48a8",
+      "scope": "Discovery/check outcomes only. A search result does not independently establish current branch hours, currency, ingredients or rights."
+    },
+    {
+      "receipt": "web-08.json",
+      "checkedAt": "2026-10-17T03:43:19.172Z",
+      "queries": null,
+      "sourceUrls": [
+        "https://akasa.sg/blog/lau-pa-sat-opening-hours",
+        "https://danielfooddiary.com/2023/06/08/laupasat/",
+        "https://device.report/m/9502b88c147cc3e1c42a0f8114013a9f084ef3a44cf8d01774bc0d94ccd6abaa.pdf",
+        "https://kopitiam.com.sg/2026/08/01/toa-payoh-lor-8-market-food-centre-12-must-try-hawker-stalls/",
+        "https://kopitiam.com.sg/2026/08/21/blk-80-circuit-road-market-food-centre-6-must-try-hawker-stalls/",
+        "https://mia.vn/cam-nang-du-lich/lau-pa-sat-singapore-14461",
+        "https://sethlui.com/mini-green-toa-payoh-singapore-mar-2026/",
+        "https://spinach.guide/venues/su-xiang-37268/",
+        "https://stampede.sg/yi-ding-xuan-vegetarian/about",
+        "https://www.foodpanda.sg/restaurant/rnb4/su-xiang-vegetarian-kopitiam-at-lau-pa-sat?opening_type=pickup",
+        "https://www.happycow.net/reviews/su-xiang-central-singapore-346380/2103664",
+        "https://www.hpb.gov.sg/docs/default-source/default-document-library/hdp_hawker-and-coffeshop-listing_for-online-use_16-5-2018.pdf?sfvrsn=98a9c372_0",
+        "https://www.laupasat.sg/wp-content/uploads/2024/04/Bestfoodwhere_Lau-Pa-Sat-Food-Directory_-Best-Food-At-Lau-Pa-Sat-Market-2024-compressed.pdf",
+        "https://www.laupasat.sg/wp-content/uploads/2024/04/Daniels-Food-Diary_Lau-Pa-Sat-Food-Guide-%E2%80%93-Michelin-Recommended-Char-Kway-Teow-Klang-Bak-Kut-Teh-And-Korean-Burgers-compressed.pdf",
+        "https://www.laupasat.sg/wp-content/uploads/2024/04/Eatbook_Lau-Pa-Sat-Food-Guide_-20-Must-Try-Stalls-_-Eatbook.sg-compressed.pdf",
+        "https://www.onehungryhippo.com/guide/vegetarian-food-toa-payoh",
+        "https://www.onehungryhippo.com/restaurants/su-xiang-chinese-vegetarian-cuisine"
+      ],
+      "receiptSha256": "ae6bd201cc0ddbde4950ec60e9add7d9015398b027314bef4542c3eaafd548ca",
+      "scope": "Discovery/check outcomes only. A search result does not independently establish current branch hours, currency, ingredients or rights."
+    },
+    {
+      "receipt": "web-09.json",
+      "checkedAt": "2026-10-17T03:43:37.515Z",
+      "queries": null,
+      "sourceUrls": [
+        "https://cdnc.heyzine.com/files/uploaded/v3/966ca2127cdbd41ab7944eec3f0a75ca10138edf.pdf",
+        "https://cdnc.heyzine.com/files/uploaded/v3/9bf51bc764ea85be69747477d7acd2c7cbb84c92.pdf",
+        "https://cdnc.heyzine.com/files/uploaded/v3/a33f725f6bb6447893aec47256880859b2ebcec9.pdf",
+        "https://defoodladie.com/ntufood/",
+        "https://eatbook.sg/the-crowded-bowl/amp/",
+        "https://hungrycat.sg/brands/the-crowded-bowl",
+        "https://mmgroup.com.sg/NTUOH21/pdf/Navigating%20NTU.pdf",
+        "https://natalietanning.wixsite.com/ntucsa/copy-of-we-spill-the-universi-tea",
+        "https://singapore-streets.openalfa.com/western-water-catchment/eating-drinking",
+        "https://stampede.sg/the-crowded-bowl-jurong-west/about",
+        "https://visitjurong.com/shop/99-vegetarian",
+        "https://www.burpple.com/the-crowded-bowl?bp_ref=%2Flist%2F532796%2Fpulau-ntu",
+        "https://www.grab.com/sg/articles/food/vegetarian-food-singapore/",
+        "https://www.happycow.net/reviews/ren-yi-vegetarian-east-singapore-401322",
+        "https://www.ntu.edu.sg/alumni/alumni-stories-news/detail/alumni-entrepreneurs-changing-ntu-s-food-scene",
+        "https://www.ntu.edu.sg/docs/default-source/corporate-ntu/hub-news/vortex-technology-developed-by-ntu-spin-off-speeds-up-cooling-while-saving-energy0d9f3de6-b353-49f5-b4b8-d4d900968a6b.pdf?sfvrsn=5b09f393_3",
+        "https://www.reddit.com/r/NTU/comments/1c97flm",
+        "https://www.reddit.com/r/NTU/comments/1e2aqyw",
+        "https://www.reddit.com/r/NTU/comments/1e7nbfu",
+        "https://www.reddit.com/r/NTU/comments/1fimtqj",
+        "https://www.reddit.com/r/NTU/comments/eofxr6",
+        "https://www.reddit.com/r/NTU/comments/hc1ail",
+        "https://www.reddit.com/r/NTU/comments/w7f1dy",
+        "https://www.reddit.com/r/NTU/comments/w7iv14",
+        "https://www.reddit.com/r/SingaporeEats/comments/1vxr639/crowded_bowl_protein_balls/",
+        "https://www.waze.com/live-map/directions/sg/singapore/ren-yi-vegetarian?to=place.ChIJm-c-JQA92jERewuO3eo0RyE",
+        "https://www3.ntu.edu.sg/CorpComms2/Documents/2020/11_Nov/Mirage%20News_201103_Vortex%20technology%20developed%20by%20NTU%20spin-off%20speeds%20up%20cooling%20while%20saving%20energy.pdf"
+      ],
+      "receiptSha256": "0a416ed8e274f4258e76602e6152ea8642a0e6d62c46749b8f595d03813816e7",
+      "scope": "Discovery/check outcomes only. A search result does not independently establish current branch hours, currency, ingredients or rights."
+    },
+    {
+      "receipt": "web-10.json",
+      "checkedAt": "2026-10-17T03:44:04.875Z",
+      "queries": null,
+      "sourceUrls": [
+        "https://brittlebooks.library.illinois.edu/brittlebooks_open/Books2008-12/rilecha0001ameent/rilecha0001ameentv000003/rilecha0001ameentv000003.pdf",
+        "https://burpple.com/fire-flies-vegetarian-upper-paya-lebar",
+        "https://hungrycat.sg/malls/compass-one",
+        "https://mothership.sg/2020/01/chinese-new-year-restaurants-open/",
+        "https://nourii.app/restaurants/taipei/bao-su-zhai-vegetarian-snack-bar-7ftbudfq",
+        "https://restaurant-guru.in/flija-Coimbatore-m11144",
+        "https://trafo.hu/en/programs/program_1627",
+        "https://wanderlog.com/place/details/1076855/fire-flies-formerly-known-as-thunder-tree",
+        "https://www.corner.inc/place/pY6VXFYLRLum",
+        "https://www.foodpanda.sg/chain/ct3ab/bao-su-zhai-bao-su-zhai",
+        "https://www.google.com/local/userlists/list/Jz8wp5j6x6l41jz-BLjaEEFqixgl5A",
+        "https://www.happycow.net/reviews/fire-flies-veg-eating-house-aka-thunder-tree-singapore-520361",
+        "https://www.mlncdu.ac.in/pdf/RR_NT20.pdf",
+        "https://www.onehungryhippo.com/guide/vegetarian-food-sengkang"
+      ],
+      "receiptSha256": "d5b1fcb40176187df9fa4d64123fda350ee7359ef114dd1407e599b794cfdb4b",
+      "scope": "Discovery/check outcomes only. A search result does not independently establish current branch hours, currency, ingredients or rights."
+    },
+    {
+      "receipt": "web-11.json",
+      "checkedAt": "2026-10-17T03:44:23.880Z",
+      "queries": [
+        {
+          "q": "\"Xing Hua\" \"190 Middle\" \"hours\""
+        },
+        {
+          "q": "\"Xin Yi Vegetarian\" \"442\" hours"
+        },
+        {
+          "q": "\"Li Wei Vegetarian\" \"151\" opening hours"
+        },
+        {
+          "q": "\"Ju Fu Yuan\" \"262\" \"opening hours\""
+        }
+      ],
+      "sourceUrls": [
+        "https://burpple.com/li-wei-vegetarian",
+        "https://device.report/m/8d12138351e2bc0eb34c68a2d1b3e48c7b3d0f52f3b365a8e7fbc48f89d541d9.pdf",
+        "https://healthhub.sg/sites/assets/Assets/PDFs/HPB/Food/HDP_Hawker%20and%20coffeshop%20listing_for%20online%20use_16.5.2018.pdf",
+        "https://manuals.plus/m/b1d6904c6b85b298a284ee82750c2cf62fcdb96d1233d7b0001cb528b37c4d29.pdf",
+        "https://prefervege.blogspot.com/2011/04/xing-hua-vegetarian-restaurant.html",
+        "https://sg.openrice.com/en/singapore/r-xing-hua-vegetarian-restaurant-bugis-noodles-r8109",
+        "https://syn-p-001.sitecorecontenthub.cloud/api/public/content/2be093bf58c948bd8e510df83a80914a?v=ee49b3af",
+        "https://syn-p-001.sitecorecontenthub.cloud/api/public/content/9e042af86f0542f9a5f9f90e4d4287d6",
+        "https://threebestrated.sg/vegan-restaurants/li-wei-vegetarian-serangoon-190807656",
+        "https://vegetusco.wordpress.com/2014/11/23/li-wei-vegetarian-serangoon-north-avenue-1/",
+        "https://wherecrowded.sg/at/foodplace/li-wei-vegetarian",
+        "https://www.bizapore.com/en/li-wei-vegetarian-%E7%AC%A0%E7%BB%B4%E7%B4%A0%E9%A3%9F-8132-6433",
+        "https://www.burpple.com/xing-hua-vegetarian-restaurant",
+        "https://www.corner.inc/place/pJ7DSrZSam2t",
+        "https://www.foodpanda.sg/restaurant/w55k/li-wei-vegetarian-151-serangoon-north-ave-2",
+        "https://www.hpb.gov.sg/docs/default-source/default-document-library/hdp_hawker-and-coffeshop-listing_for-online-use_16-5-2018.pdf?sfvrsn=98a9c372_0",
+        "https://www.reddit.com/r/askSingapore/comments/ywwlcq",
+        "https://www.tripadvisor.com.sg/Restaurant_Review-g294265-d5302978-Reviews-or15-Xing_Hua_Vegetarian_Restaurant-Singapore.html",
+        "https://xinghuavegetarian.oddle.me/stores"
+      ],
+      "receiptSha256": "1cf56922eb51e7f043948763f14f43d2936f3029712367245019f4f5bc75901c",
+      "scope": "Discovery/check outcomes only. A search result does not independently establish current branch hours, currency, ingredients or rights."
+    },
+    {
+      "receipt": "web-12.json",
+      "checkedAt": "2026-10-17T03:44:39.498Z",
+      "queries": null,
+      "sourceUrls": [
+        "https://img1.wsimg.com/blobby/go/fbd52207-dcb2-4309-866d-856b380028d6/Foodplacepedia%20Singapore%20Edition%20Paya%20Lebar_20.pdf",
+        "https://stampede.sg/ju-fu-yuan-vegetarian-delight/about",
+        "https://stampede.sg/red-apple-vegetarian-835-83/about",
+        "https://tampinessingapore.com/vegetarian-food-tampines/",
+        "https://upload.wikimedia.org/wikipedia/commons/a/ad/The_Glendale_Evening_News_1920-02-13_%28IA_cgl_003999%29.pdf",
+        "https://www.google.com/local/userlists/list/Jz8wp5j6x6l41jz-BLjaEEFqixgl5A",
+        "https://www.onehungryhippo.com/guide/no-onion-no-garlic-vegetarian-food-singapore",
+        "https://www.onehungryhippo.com/guide/vegetarian-food-tampines"
+      ],
+      "receiptSha256": "d85172aea819ff6d4adadfcbaff62dfc8dfbf119a683a7ae821debc4b528efdc",
+      "scope": "Discovery/check outcomes only. A search result does not independently establish current branch hours, currency, ingredients or rights."
+    },
+    {
+      "receipt": "web-13.json",
+      "checkedAt": "2026-10-17T03:45:01.250Z",
+      "queries": [
+        {
+          "q": "\"Bodhi Deli\" official opening hours 2026"
+        },
+        {
+          "q": "\"Teng Bespoke\" \"opening hours\" official"
+        },
+        {
+          "q": "\"Kang Su\" \"Far East Plaza\" \"hours\""
+        },
+        {
+          "q": "\"Kale by Kang Su\" \"Adelphi\" \"opening\""
+        }
+      ],
+      "sourceUrls": [
+        "https://apac-cdn.menuweb.menu/storage/media/companies_menu_pdf/93890736/teng-bespoke-vegetarian-teng-central-singapore-menu.pdf",
+        "https://burpple.com/bodhi-deli?bp_ref=%2Flist%2F503558%2Fsgp1",
+        "https://fortunecentre.sg/bodhi-deli-fortune-centre/",
+        "https://islifearecipe.net/mall-restaurant-directory/far-east-plaza-food/kang-su-vegetarian-far-east-plaza/",
+        "https://klyptos.com/sg/orchard/restaurants/kang-su-vegetarian-far-east-plaza-orchard",
+        "https://lookup.sg/food/far-east-plaza",
+        "https://orchardmalls.com/shop/kang-su-vegetarian-far-east-plaza-far-east-plaza",
+        "https://restaurantguru.com/Kang-Su-Vegetarian-Singapore",
+        "https://thesmartlocal.com/read/far-east-shopping-centre/amp/",
+        "https://wanderlog.com/place/details/5884716",
+        "https://www.ames.ox.ac.uk/sitefiles/asian-global-programme-1june26-ppk.pdf",
+        "https://www.bestinsingapore.co/best-vegetarian-restaurants-on-orchard-road/",
+        "https://www.gocompare.sg/vesak-day-2026-a-mindful-guide-to-vegan-vegetarian-dining-in-singapore/",
+        "https://www.novacircle.com/es-es/spots/asia/singapore/orchard/singapore-municipality/singapore/kang-su-vegetarian-far-east-plaza-8d6d1b/about"
+      ],
+      "receiptSha256": "0b1b35ae6cb9279890fba56677cc3a3d7f61b886d0310bc01b1f3e74a5fd29c0",
+      "scope": "Discovery/check outcomes only. A search result does not independently establish current branch hours, currency, ingredients or rights."
+    },
+    {
+      "receipt": "web-14.json",
+      "checkedAt": "2026-10-17T03:46:01.961Z",
+      "queries": null,
+      "sourceUrls": [
+        "https://burpple.com/blackwattle?bp_ref=%2Ff%2Fa7tWwctE",
+        "https://d3h1lg3ksw6i6b.cloudfront.net/media/pdf/singapore/2019/gastromonth/menus/en/Basque_Kitchen_by_Aitor_EN.pdf",
+        "https://geographic.org/streetview/singapore/amoy_street.html",
+        "https://littlebigreddot.com/tofu-g-amoy-street-two-storey-dessert-house-tofu-pudding?action=genpdf&id=16268",
+        "https://liyenz.wordpress.com/category/food/",
+        "https://maps.app.goo.gl/ySwTu3pdfkKxRfBKA",
+        "https://opengovsg.com/corporate?street=AMOY+STREET",
+        "https://recordowl.com/company/seaborne-shipbrokers-pte-ltd",
+        "https://share.google/E2ZJMEmCw9xXJ6TJ3",
+        "https://threebestrated.sg/vegan-restaurants/zhen-xiang-vegetarian-woodlands-199669917",
+        "https://wanderlog.com/place/details/6422192",
+        "https://www.companies.sg/business/53236538X/MUU-RESTAURANT-BAR-ART",
+        "https://www.happycow.net/reviews/zhen-xiang-vegetarian-north-singapore-84867",
+        "https://www.happycow.net/reviews/zhen-xiang-vegetarian-north-singapore-84867--------------------------------------------------------------------------------",
+        "https://www.intellect-worldwide.com/wp-content/uploads/sites/123/2020/11/Journal_22-06-2012.pdf",
+        "https://www.nickblitzz.sg/2026/06/best-food-near-woodlands-checkpoint.html",
+        "https://www.sgpbusiness.com/street/AMOY-STREET/069917",
+        "https://www.singre.com.sg/sites/default/files/%28FINAL%29%20Singapore%20Reinsurance%20Corporation%20Limited_Annual%20Report%202017.pdf",
+        "https://www.stamp-auctions.de/katalogarchiv/44_band_4_iii.pdf",
+        "https://www.stb.gov.sg/content/dam/stb/documents/industries/travel-agent/Destination_Singapore_Guide_22Sep2017.pdf",
+        "https://www.theasiapress.com/top-11-best-breakfast-places-in-woodlands-singapore/",
+        "https://www.vegetarianrestaurantsingapore.com/"
+      ],
+      "receiptSha256": "7731a6f975b4d992a2c283317befbb998fafb1f16589598c2249150737336022",
+      "scope": "Discovery/check outcomes only. A search result does not independently establish current branch hours, currency, ingredients or rights."
+    },
+    {
+      "receipt": "web-15.json",
+      "checkedAt": "2026-10-17T03:46:59.690Z",
+      "queries": [
+        {
+          "q": "\"Zi Zai\" \"9 Jalan Mas Puteh\" opening hours"
+        },
+        {
+          "q": "\"Zi Zai\" \"236 Yishun\" opening hours"
+        },
+        {
+          "q": "\"Zi Zai\" \"23 Bendemeer\" opening hours"
+        },
+        {
+          "q": "\"Zi Zai\" \"801 Tampines\" opening hours"
+        }
+      ],
+      "sourceUrls": [
+        "http://zzv.com.sg/",
+        "https://dineout.grab.com/sg/en/restaurants/zi-zai-vegetarian-tampines-ave-4--4-CZE1RUATCU4CRA",
+        "https://tampinessingapore.com/ramen-taisho-tampines/",
+        "https://tampinessingapore.com/vegetarian-food-tampines/",
+        "https://wanderlog.com/place/details/9958128",
+        "https://www.burpple.com/zi-zai-vegetarian-1",
+        "https://www.chope.co/singapore-restaurants/restaurant/zi-zai-vegetarian-tampines",
+        "https://www.google.com/maps/search/236%20Yishun%20Ring%20Road%20Singapore%20760236",
+        "https://www.google.com/maps/search/Blk%20801%20Tampines%20Ave%204%20Singapore%20520801",
+        "https://www.nstc.org.sg/wp-content/uploads/2019/11/15-15-NEE-SOON-LINK_Issue15_FA-low-res.pdf",
+        "https://www.tripadvisor.com.sg/Restaurant_Review-g294265-d10397698-Reviews-Zi_Zai_Vegetarian-Singapore.html",
+        "https://www.vegetarianrestaurantsingapore.com/",
+        "https://www.waze.com/live-map/directions/sg/singapore/randj-cosy-corner-%28aka-zi-zai%29?to=place.ChIJD8mFGtIZ2jERXh_QuB0es7U",
+        "https://www.waze.com/live-map/directions/zi-zai-zai-vegetarian-restaurant-yishun-ring-rd-236-yishun?to=place.w.68026382.680525967.6870501",
+        "https://zizaivegetarian.oddle.me/en_SG",
+        "https://zizaivegetarian.oddle.me/en_SG--------------------------------------------------------------------------------"
+      ],
+      "receiptSha256": "b416c5cf98dce7a7415efb3d5e1233e18024d0a2c5b39819a234a4a49ff74be3",
+      "scope": "Discovery/check outcomes only. A search result does not independently establish current branch hours, currency, ingredients or rights."
+    },
+    {
+      "receipt": "web-16.json",
+      "checkedAt": "2026-10-17T03:47:36.126Z",
+      "queries": null,
+      "sourceUrls": [
+        "https://dineout.grab.com/sg/en/restaurants/zi-zai-vegetarian-tampines-ave-4--4-CZE1RUATCU4CRA",
+        "https://dineout.grab.com/sg/en/restaurants/zi-zai-vegetarian-tampines-ave-4--4-CZE1RUATCU4CRA:",
+        "https://lequestmall.com.sg/atbdp_listing_types/general/",
+        "https://www.leafcorner.sg/",
+        "https://www.modhaircafe.com/mod-cafe"
+      ],
+      "receiptSha256": "2f239b373461dc2115f8084ac05b7b0dc49829b2fdc841e8c5f56b4f4c4c7d5a",
+      "scope": "Discovery/check outcomes only. A search result does not independently establish current branch hours, currency, ingredients or rights."
+    },
+    {
+      "receipt": "web-17.json",
+      "checkedAt": "2026-10-17T03:48:31.716Z",
+      "queries": null,
+      "sourceUrls": [
+        "https://allabout.events/singapore-vegetarian-restaurants/",
+        "https://burpple.com/divine-vegetarian-family-restaurant",
+        "https://islifearecipe.net/mall-restaurant-directory/111-somerset-food-directory/",
+        "https://lequestmall.com.sg/atbdp_listing_types/general/",
+        "https://maps.app.goo.gl/ZDbh3WkfMUjjURqp7",
+        "https://mrandmrsvegan.wordpress.com/2013/08/27/roti-prata-divine-vegetarian-family-restaurant-hougang-ave-7/",
+        "https://semeny.no/public/sg/sted/xing-hua-vegetarian-restaurant-tripleone-somerset-bhke",
+        "https://sengkangtopunggol.sg/eat-eat-eat-all-the-way-to-hougang/",
+        "https://www.bizapore.com/en/d-life_19-6425-0128",
+        "https://www.chope.co/singapore-restaurants/restaurant/divine-vegetarian-family-restaurant",
+        "https://www.cybo.com/SG/changi-point/vegetarian-restaurants/",
+        "https://www.eatandtravelwithus.com/2019/07/dlife-vegetarian-restaurant-singapore/",
+        "https://www.onehungryhippo.com/guide/vegetarian-food-hougang",
+        "https://www.theasiapress.com/top-10-best-breakfast-places-in-hougang-singapore/"
+      ],
+      "receiptSha256": "3358a0130a1dfd4cdaf59d00b503d8b33c59e1e9ab4662cb31ca31e26c68b1f1",
+      "scope": "Discovery/check outcomes only. A search result does not independently establish current branch hours, currency, ingredients or rights."
+    },
+    {
+      "receipt": "web-18.json",
+      "checkedAt": "2026-10-17T03:49:01.999Z",
+      "queries": null,
+      "sourceUrls": [
+        "https://lequestmall.com.sg/directory/aayshas-cuisine-2/",
+        "https://www.facebook.com/verimix.verimix/†www.facebook.com"
+      ],
+      "receiptSha256": "9bb28b39ea5ea3c143df8468202b7951e427e57fe0f1395a6a804c391c68d1ce",
+      "scope": "Discovery/check outcomes only. A search result does not independently establish current branch hours, currency, ingredients or rights."
+    },
+    {
+      "receipt": "web-19.json",
+      "checkedAt": "2026-10-17T03:49:18.853Z",
+      "queries": [
+        {
+          "q": "\"Gan Taste Vegetarian\" \"20\" opening hours"
+        },
+        {
+          "q": "\"Tian Yuan\" \"01-16\" vegetarian hours"
+        },
+        {
+          "q": "\"Kind Sprout SG\" opening hours pickup"
+        },
+        {
+          "q": "\"MOD cafe\" \"Kuo Chuan\" hours"
+        }
+      ],
+      "sourceUrls": [
+        "https://burpple.com/modcafeinsg",
+        "https://burpple.com/tian-yuan-vegetarian",
+        "https://butlermag.com/container-style-cafes-in-singapore-that-are-perfect-for-instagram/",
+        "https://fortunecentre.sg/cn/tian-yuan-vegetarian-fortune-centre/",
+        "https://isomer-user-content.by.gov.sg/123/d23d0ac8-19a6-4b3d-af3e-e99f6f2bb46d/MCCY_SGPF_Infographics_5%20Mar.pdf",
+        "https://jomshow.com/wp-content/uploads/2023/02/dbs-paylah-hawker-list.pdf",
+        "https://stampede.sg/discover/sg/toa-payoh/cafe",
+        "https://stampede.sg/gan-taste-vegetarian/about",
+        "https://syn-p-001.sitecorecontenthub.cloud/api/public/content/9e042af86f0542f9a5f9f90e4d4287d6",
+        "https://www.bizapore.com/tian-yuan-healthy-vegetarian-food-6336-0058",
+        "https://www.facebook.com/modcafeinsg",
+        "https://www.foryou.sg/qql/slot/u401/ForYouPDF/336P1.pdf",
+        "https://www.insanelybest.com/pet-friendly-cafe/",
+        "https://www.lemon8-app.com/%40veggiexplorer/7458484612587913735?region=sg",
+        "https://www.misstamchiak.com/fortune-centre/",
+        "https://www.onehungryhippo.com/restaurants/kind-sprout",
+        "https://www.sgpbusiness.com/company/Mod-Cafe-1"
+      ],
+      "receiptSha256": "5ed11edf2c6f641a5ac41930d2fd0e6d3b4f16e77d6a389005be26b045548a15",
+      "scope": "Discovery/check outcomes only. A search result does not independently establish current branch hours, currency, ingredients or rights."
+    },
+    {
+      "receipt": "web-20.json",
+      "checkedAt": "2026-10-17T03:50:21.617Z",
+      "queries": [
+        {
+          "q": "\"Sangeetha Bhavan\" Singapore menu \"SGD\""
+        },
+        {
+          "q": "\"Ananda Bhavan\" Singapore menu \"SGD\""
+        },
+        {
+          "q": "\"Gokul\" Singapore menu \"SGD\""
+        },
+        {
+          "q": "\"Nature Vegetarian Delights\" menu \"SGD\""
+        }
+      ],
+      "sourceUrls": [
+        "https://alokit-bot.github.io/ananda-bhavan-website/",
+        "https://bsmedia.business-standard.com/_media/bs/data/announcements/bse/01092017/53b33971-64f3-4037-96a2-94b3bb06bc00.pdf",
+        "https://recordowl.com/company/nature-vegetarian-delights-private-limited",
+        "https://sgfoodmenu.com/ananda-bhavan-menu/",
+        "https://sgmenuprices.com/gokul-raas-vegetarian-restaurant-menu/",
+        "https://sgmyfoodie.com/gokul-raas-vegetarian-restaurant-menu-singapore/",
+        "https://thuraisingam.com/wp-content/uploads/2025/01/20250104_ETLLP-SW-profile-.pdf",
+        "https://traveling-to.com/singapore/little-india/",
+        "https://vegetusco.wordpress.com/2014/08/21/ananda-bhavan-selegie-road/",
+        "https://www.burpple.com/ananda-bhavan-restaurant/reviews",
+        "https://www.distacart.com/en-sg/collections/a2b-adyar-ananda-bhavan-sweets-snacks",
+        "https://www.postcard.inc/places/ananda-bhavan-restauarnt-singapore-rmLZmLe1-nz",
+        "https://www.scribd.com/document/327645960/Settled-in-Singapore"
+      ],
+      "receiptSha256": "c3e43db593c9075a9a488e2054dc821c02fad2bb5ab311fc7f3aadaea3b71750",
+      "scope": "Discovery/check outcomes only. A search result does not independently establish current branch hours, currency, ingredients or rights."
+    },
+    {
+      "receipt": "web-21.json",
+      "checkedAt": "2026-10-17T03:50:40.241Z",
+      "queries": [
+        {
+          "q": "site.sangeethabhavan.com \"SGD\""
+        },
+        {
+          "q": "site.anandabhavan.com \"currency\""
+        },
+        {
+          "q": "site.gokulraasvegetarian.com.sg \"Singapore dollars\""
+        },
+        {
+          "q": "site.naturevegedelights.com.sg \"SGD\""
+        }
+      ],
+      "sourceUrls": [
+        "https://anucde.info/515%20BSE%2021.pdf",
+        "https://cheapsly.com/tips/food-singapore/",
+        "https://delhiexpress.site/",
+        "https://recordowl.com/company/nature-vegetarian-delights-private-limited",
+        "https://recordowl.com/company/v4vegetarian-private-limited",
+        "https://sagaramudra.org.sg/wp-content/uploads/2024/05/2023-Financial-Report-Final.pdf",
+        "https://sgdprofessionalitsolutions.in/",
+        "https://sgmyfoodie.com/gokul-raas-vegetarian-restaurant-menu-singapore/",
+        "https://www.anandashram.org/wp-content/uploads/2016/10/04-Jan-2014.pdf",
+        "https://www.cali.sg/raffles-place",
+        "https://www.foodexplorer.sg/store-policy",
+        "https://www.naturevegedelights.com.sg/",
+        "https://www.naturevegetariancatering.getz.co/Category",
+        "https://www.orientexchange.in/",
+        "https://www.otiumjapan.com/_files/ugd/a3fbf8_0f3b2732b0164f3aaa21c646df944be4.pdf",
+        "https://www.sevenrooms.com/experiences/tiffinroom/tiffin-room-street-food-festival-experience-5319222229352448?tracking=raffles-celebrations",
+        "https://www.shangri-la.com/-/media/Shangri-La/singapore_rasasentosaresort/dining/restaurants/dine-on-3-silver-shell-cafe/2025_SEN_SSC_FoodMenu.pdf",
+        "https://www.sifas.org/uploads/1/1/5/8/115852337/40_2015.pdf",
+        "https://www.thomascook.in/foreign-exchange/currency-exchange-in-anand"
+      ],
+      "receiptSha256": "c2315071dbc9348ca308c552e54eb2aa0218803ea2cdbc1e6fb70fd0930e31a8",
+      "scope": "Discovery/check outcomes only. A search result does not independently establish current branch hours, currency, ingredients or rights."
+    },
+    {
+      "receipt": "web-22.json",
+      "checkedAt": "2026-10-17T03:52:41.514Z",
+      "queries": [
+        {
+          "q": "\"Sangeetha Bhavan\" \"Rangoon\" \"Singapore dollars\""
+        },
+        {
+          "q": "site.anandabhavan.com \"SGD\" \"home-delivery\""
+        },
+        {
+          "q": "site.naturevegedelights.com.sg \"Prices\" \"Singapore\""
+        },
+        {
+          "q": "site.kailashparbat.com.sg \"SGD\" menu"
+        }
+      ],
+      "sourceUrls": [
+        "http://www.naturevegedelights.com.sg/",
+        "https://assets-global.website-files.com/68652201e3cc2c9d07869890/689cf57a13b0a6f67f18dac1_47990169004.pdf",
+        "https://cdn.tatlerasia.com/tatlerasia/m/2022/01/20105055-htl-a-la-carte-menu.pdf",
+        "https://cliffy-goes-dining.blogspot.com/2012/11/sin-natures-vegetarian-delight.html",
+        "https://d3nse58ioth0yc.cloudfront.net/wp/VIVO_MIDAUT22_eBrochure-800px_17-FA-HIRES.pdf",
+        "https://islamic.sg/wp-content/uploads/2017/11/Islamic-Restaurant-menu_2017-updated.pdf",
+        "https://kailash-parbat-singapore-pure-vegetarian.placejoys.com/menu",
+        "https://restaurantguru.com/amp/Kailash-Parbat-Restaurant-Singapore",
+        "https://segar.group/Category/signature-dishes-%E6%8B%9B%E7%89%8C.html",
+        "https://sgfoodmenu.com/kailash-parbat-menu/",
+        "https://skip.menu/at/3106-kailash-parbat-restaurant",
+        "https://threebestrated.sg/indian-restaurants/kailash-parbat-restaurant-changi-209027047",
+        "https://www.bestinsingapore.co/best-vegetarian-catering-singapore/",
+        "https://www.burpple.com/kailash-parbhat-restaurant/reviews",
+        "https://www.cookingandme.com/kailash-parbat-serangoon-road-singapore/",
+        "https://www.google.co.ke/travel/hotels/entity/ChoI4feEoImv_s65ARoNL2cvMTFiN2M1eGhkdxAB?ap=ugEGcHJpY2Vz&rp=OAHCAhwiGg0AALxCEhMIsoi5rqzAlgMVCxbUAR0b5Q7l&ts=CAESCgoCCAMKAggDEAAaIAoCGgASGhIUCgcI6g8QCxgNEgcI6g8QCxgQGAMyAhAAKgkKBToDVVNEGgA",
+        "https://www.mercure-singapore-bugis.com/wp-content/uploads/sites/135/2026/01/Song-Garden-A-La-Carte-Menu.pdf",
+        "https://www.naturevegedelights.com.sg/catering/",
+        "https://www.naturevegedelights.com.sg/catering/nvd-mini-buffet/",
+        "https://www.reddit.com/r/askSingapore/comments/1ogm9x6/what_are_the_best_vegetarian_restaurants_in_sg/",
+        "https://www.reddit.com/r/askSingapore/comments/1twirt2/supermarkets_that_sell_affordable_different_types/",
+        "https://www.thelegacy.sg/wp-content/uploads/2024/12/NSK-INDIAN-BUFFET-AT-CALI-A.pdf"
+      ],
+      "receiptSha256": "afcedb8ff1e48b743552d77aa3b05508523c0220afa69e0d03a018cbda77aad7",
+      "scope": "Discovery/check outcomes only. A search result does not independently establish current branch hours, currency, ingredients or rights."
+    }
+  ],
+  "hoursReview": {
+    "checkedAt": "2026-10-17T03:54:32.502687+00:00",
+    "branchesReviewed": 54,
+    "newHoursRecords": 0,
+    "unresolvedHoursRecords": 54,
+    "rows": [
+      {
+        "venueId": "dlife-signature-chinatown-point",
+        "name": "D'Life Signature",
+        "address": "133 New Bridge Road #02-37, Chinatown Point, Singapore 059413",
+        "status": "reviewed-held-current-primary-schedule-not-established",
+        "previousHoldPreserved": "Saved source leads reviewed; no reliable exact-branch current venue opening schedule established. Ordering slots, mall hours, historical/secondary-only claims and unavailable pages are not promoted.",
+        "priorSourceChecks": [
+          {
+            "url": "https://dlifesignature.getz.co/",
+            "checkedAt": "2026-10-16T12:42:34.361661+00:00",
+            "status": 200,
+            "finalUrl": "https://dlifesignature.getz.co/"
+          }
+        ],
+        "discoveryReceipts": [
+          {
+            "receipt": "web-05.json",
+            "checkedAt": "2026-10-17T03:40:57.483Z",
+            "sha256": "15606bac986181682dbba14b8dbb5ecbef9948762777f67202483447388fe484",
+            "scope": "Targeted public-source discovery; only separately captured and accepted primary evidence can change facts."
+          }
+        ],
+        "acceptedHours": false
+      },
+      {
+        "venueId": "teng-bespoke-sunshine-plaza",
+        "name": "Teng Bespoke Vegetarian Japanese Dining",
+        "address": "91 Bencoolen Street #01-50, Sunshine Plaza, Singapore 189652",
+        "status": "reviewed-held-current-primary-schedule-not-established",
+        "previousHoldPreserved": "Saved source leads reviewed; no reliable exact-branch current venue opening schedule established. Ordering slots, mall hours, historical/secondary-only claims and unavailable pages are not promoted.",
+        "priorSourceChecks": [],
+        "discoveryReceipts": [
+          {
+            "receipt": "web-13.json",
+            "checkedAt": "2026-10-17T03:45:01.250Z",
+            "sha256": "0b1b35ae6cb9279890fba56677cc3a3d7f61b886d0310bc01b1f3e74a5fd29c0",
+            "scope": "Targeted public-source discovery; only separately captured and accepted primary evidence can change facts."
+          }
+        ],
+        "acceptedHours": false
+      },
+      {
+        "venueId": "bodhi-deli-fortune-centre",
+        "name": "Bodhi Deli",
+        "address": "190 Middle Road #03-26, Fortune Centre, Singapore 188979",
+        "status": "reviewed-held-current-primary-schedule-not-established",
+        "previousHoldPreserved": "Saved source leads reviewed; no reliable exact-branch current venue opening schedule established. Ordering slots, mall hours, historical/secondary-only claims and unavailable pages are not promoted.",
+        "priorSourceChecks": [
+          {
+            "url": "https://take.app/bodhideli",
+            "checkedAt": "2026-10-16T12:42:44.346491+00:00",
+            "status": 200,
+            "finalUrl": "https://take.app/bodhideli"
+          },
+          {
+            "url": "https://take.app/bodhideli/c/clh83f5fa01v90flc5vwpcqwa",
+            "checkedAt": "2026-10-16T12:42:44.454243+00:00",
+            "status": 200,
+            "finalUrl": "https://take.app/bodhideli/c/clh83f5fa01v90flc5vwpcqwa"
+          }
+        ],
+        "discoveryReceipts": [
+          {
+            "receipt": "web-13.json",
+            "checkedAt": "2026-10-17T03:45:01.250Z",
+            "sha256": "0b1b35ae6cb9279890fba56677cc3a3d7f61b886d0310bc01b1f3e74a5fd29c0",
+            "scope": "Targeted public-source discovery; only separately captured and accepted primary evidence can change facts."
+          }
+        ],
+        "acceptedHours": false
+      },
+      {
+        "venueId": "zhen-xiang-woodlands-street-32",
+        "name": "Zhen Xiang Vegetarian",
+        "address": "325 Woodlands Street 32 #01-131, Singapore 730325",
+        "status": "reviewed-held-current-primary-schedule-not-established",
+        "previousHoldPreserved": "Secondary listings conflict; no current exact-branch primary opening schedule established.",
+        "priorSourceChecks": [],
+        "discoveryReceipts": [
+          {
+            "receipt": "web-14.json",
+            "checkedAt": "2026-10-17T03:46:01.961Z",
+            "sha256": "7731a6f975b4d992a2c283317befbb998fafb1f16589598c2249150737336022",
+            "scope": "Targeted public-source discovery; only separately captured and accepted primary evidence can change facts."
+          }
+        ],
+        "acceptedHours": false
+      },
+      {
+        "venueId": "research-dlife-orchard-gateway",
+        "name": "D'Life",
+        "address": "277 Orchard Road #B2-04A/05 Singapore,, 238858, Singapore",
+        "status": "reviewed-held-current-primary-schedule-not-established",
+        "previousHoldPreserved": "Saved source leads reviewed; no reliable exact-branch current venue opening schedule established. Ordering slots, mall hours, historical/secondary-only claims and unavailable pages are not promoted.",
+        "priorSourceChecks": [
+          {
+            "url": "https://dlife.getz.co/?StoreID=5f6ae0b4-a479-4131-a288-14bc7e3d5992&Service=PickUp&lang=EN",
+            "checkedAt": "2026-10-16T12:43:06.335766+00:00",
+            "status": 200,
+            "finalUrl": "https://dlife.getz.co/?StoreID=5f6ae0b4-a479-4131-a288-14bc7e3d5992&Service=PickUp&lang=EN"
+          }
+        ],
+        "discoveryReceipts": [
+          {
+            "receipt": "web-02.json",
+            "checkedAt": "2026-10-17T03:40:09.653Z",
+            "sha256": "f82d64765a66f71bfce549bd70bc10fb00e297d9375886b4f8300466e9d8590b",
+            "scope": "Targeted public-source discovery; only separately captured and accepted primary evidence can change facts."
+          },
+          {
+            "receipt": "web-04.json",
+            "checkedAt": "2026-10-17T03:40:39.410Z",
+            "sha256": "e41b1419d46e80ab2b01fd5e8d4ad4b4b0283ed1588b78fac71c77cd78615925",
+            "scope": "Targeted public-source discovery; only separately captured and accepted primary evidence can change facts."
+          }
+        ],
+        "acceptedHours": false
+      },
+      {
+        "venueId": "research-dlife-jurong-west",
+        "name": "D'Life",
+        "address": "428 Jurong West Ave 1 #01-256, 640428, Singapore",
+        "status": "reviewed-held-current-primary-schedule-not-established",
+        "previousHoldPreserved": "Saved source leads reviewed; no reliable exact-branch current venue opening schedule established. Ordering slots, mall hours, historical/secondary-only claims and unavailable pages are not promoted.",
+        "priorSourceChecks": [
+          {
+            "url": "https://dlife.getz.co/?StoreID=eec50bad-d2aa-4c7d-a9c8-6aaef1ed32ad&Service=PickUp&lang=EN",
+            "checkedAt": "2026-10-16T12:43:07.815109+00:00",
+            "status": 200,
+            "finalUrl": "https://dlife.getz.co/?StoreID=eec50bad-d2aa-4c7d-a9c8-6aaef1ed32ad&Service=PickUp&lang=EN"
+          }
+        ],
+        "discoveryReceipts": [
+          {
+            "receipt": "web-17.json",
+            "checkedAt": "2026-10-17T03:48:31.716Z",
+            "sha256": "3358a0130a1dfd4cdaf59d00b503d8b33c59e1e9ab4662cb31ca31e26c68b1f1",
+            "scope": "Targeted public-source discovery; only separately captured and accepted primary evidence can change facts."
+          }
+        ],
+        "acceptedHours": false
+      },
+      {
+        "venueId": "research-dlife-tengah",
+        "name": "D'Life (Tengah Drive)",
+        "address": "126B TENGAH DRIVE #01-319, PLANTATION VILLAGE S(692126)",
+        "status": "reviewed-held-current-primary-schedule-not-established",
+        "previousHoldPreserved": "Saved source leads reviewed; no reliable exact-branch current venue opening schedule established. Ordering slots, mall hours, historical/secondary-only claims and unavailable pages are not promoted.",
+        "priorSourceChecks": [],
+        "discoveryReceipts": [
+          {
+            "receipt": "web-17.json",
+            "checkedAt": "2026-10-17T03:48:31.716Z",
+            "sha256": "3358a0130a1dfd4cdaf59d00b503d8b33c59e1e9ab4662cb31ca31e26c68b1f1",
+            "scope": "Targeted public-source discovery; only separately captured and accepted primary evidence can change facts."
+          }
+        ],
+        "acceptedHours": false
+      },
+      {
+        "venueId": "research-kang-su-far-east-plaza",
+        "name": "Kang Su Vegetarian",
+        "address": "14 Scotts Road #05-98 Far East Plaza, Singapore 228213",
+        "status": "reviewed-held-current-primary-schedule-not-established",
+        "previousHoldPreserved": "Saved source leads reviewed; no reliable exact-branch current venue opening schedule established. Ordering slots, mall hours, historical/secondary-only claims and unavailable pages are not promoted.",
+        "priorSourceChecks": [],
+        "discoveryReceipts": [
+          {
+            "receipt": "web-13.json",
+            "checkedAt": "2026-10-17T03:45:01.250Z",
+            "sha256": "0b1b35ae6cb9279890fba56677cc3a3d7f61b886d0310bc01b1f3e74a5fd29c0",
+            "scope": "Targeted public-source discovery; only separately captured and accepted primary evidence can change facts."
+          }
+        ],
+        "acceptedHours": false
+      },
+      {
+        "venueId": "research-mother-earth-jurong",
+        "name": "Mother Earth Vegetarian Restaurant",
+        "address": "511 Upper Jurong Road #01-04, 638366, Singapore",
+        "status": "reviewed-held-current-primary-schedule-not-established",
+        "previousHoldPreserved": "Saved source leads reviewed; no reliable exact-branch current venue opening schedule established. Ordering slots, mall hours, historical/secondary-only claims and unavailable pages are not promoted.",
+        "priorSourceChecks": [
+          {
+            "url": "https://motherearthjurong.getz.co/Category?StoreID=4453f177-c0cc-4153-8feb-f9016289cb4c&Service=PickUp&lang=EN",
+            "checkedAt": "2026-10-16T12:43:17.353755+00:00",
+            "status": 200,
+            "finalUrl": "https://motherearthjurong.getz.co/Category?StoreID=4453f177-c0cc-4153-8feb-f9016289cb4c&Service=PickUp&lang=EN"
+          }
+        ],
+        "discoveryReceipts": [
+          {
+            "receipt": "web-05.json",
+            "checkedAt": "2026-10-17T03:40:57.483Z",
+            "sha256": "15606bac986181682dbba14b8dbb5ecbef9948762777f67202483447388fe484",
+            "scope": "Targeted public-source discovery; only separately captured and accepted primary evidence can change facts."
+          }
+        ],
+        "acceptedHours": false
+      },
+      {
+        "venueId": "research-leafcorner-taiseng",
+        "name": "Leaf Corner",
+        "address": "11 Irving Place #02-01, Singapore 369551",
+        "status": "reviewed-held-current-primary-schedule-not-established",
+        "previousHoldPreserved": "Saved source leads reviewed; no reliable exact-branch current venue opening schedule established. Ordering slots, mall hours, historical/secondary-only claims and unavailable pages are not promoted.",
+        "priorSourceChecks": [
+          {
+            "url": "https://leafcorner.sg/contactus",
+            "checkedAt": "2026-10-16T12:43:19.420422+00:00",
+            "status": 200,
+            "finalUrl": "https://leafcorner.sg/contactus"
+          }
+        ],
+        "discoveryReceipts": [
+          {
+            "receipt": "web-05.json",
+            "checkedAt": "2026-10-17T03:40:57.483Z",
+            "sha256": "15606bac986181682dbba14b8dbb5ecbef9948762777f67202483447388fe484",
+            "scope": "Targeted public-source discovery; only separately captured and accepted primary evidence can change facts."
+          },
+          {
+            "receipt": "web-16.json",
+            "checkedAt": "2026-10-17T03:47:36.126Z",
+            "sha256": "2f239b373461dc2115f8084ac05b7b0dc49829b2fdc841e8c5f56b4f4c4c7d5a",
+            "scope": "Targeted public-source discovery; only separately captured and accepted primary evidence can change facts."
+          }
+        ],
+        "acceptedHours": false
+      },
+      {
+        "venueId": "research-leafcorner-sembawang",
+        "name": "Leaf Corner",
+        "address": "5 Jalan Legundi, Sembawang Garden Arcade, Singapore 759269",
+        "status": "reviewed-held-current-primary-schedule-not-established",
+        "previousHoldPreserved": "Saved source leads reviewed; no reliable exact-branch current venue opening schedule established. Ordering slots, mall hours, historical/secondary-only claims and unavailable pages are not promoted.",
+        "priorSourceChecks": [
+          {
+            "url": "https://leafcorner.sg/contactus",
+            "checkedAt": "2026-10-16T12:43:19.420422+00:00",
+            "status": 200,
+            "finalUrl": "https://leafcorner.sg/contactus"
+          }
+        ],
+        "discoveryReceipts": [
+          {
+            "receipt": "web-05.json",
+            "checkedAt": "2026-10-17T03:40:57.483Z",
+            "sha256": "15606bac986181682dbba14b8dbb5ecbef9948762777f67202483447388fe484",
+            "scope": "Targeted public-source discovery; only separately captured and accepted primary evidence can change facts."
+          },
+          {
+            "receipt": "web-16.json",
+            "checkedAt": "2026-10-17T03:47:36.126Z",
+            "sha256": "2f239b373461dc2115f8084ac05b7b0dc49829b2fdc841e8c5f56b4f4c4c7d5a",
+            "scope": "Targeted public-source discovery; only separately captured and accepted primary evidence can change facts."
+          }
+        ],
+        "acceptedHours": false
+      },
+      {
+        "venueId": "research-originalgreens-shaw-plaza",
+        "name": "Original Greens",
+        "address": "360 Balestier Road #04-07/K2 Shaw Plaza, Singapore 329783",
+        "status": "reviewed-held-current-primary-schedule-not-established",
+        "previousHoldPreserved": "Saved source leads reviewed; no reliable exact-branch current venue opening schedule established. Ordering slots, mall hours, historical/secondary-only claims and unavailable pages are not promoted.",
+        "priorSourceChecks": [
+          {
+            "url": "https://originalgreens.oddle.me/en_SG",
+            "checkedAt": "2026-10-16T12:43:30.931931+00:00",
+            "status": 200,
+            "finalUrl": "https://originalgreens.oddle.me/en_SG"
+          },
+          {
+            "url": "https://originalgreens.oddle.me/en_SG/stores",
+            "checkedAt": "2026-10-16T12:43:31.089696+00:00",
+            "status": 200,
+            "finalUrl": "https://originalgreens.oddle.me/en_SG/stores"
+          }
+        ],
+        "discoveryReceipts": [
+          {
+            "receipt": "web-04.json",
+            "checkedAt": "2026-10-17T03:40:39.410Z",
+            "sha256": "e41b1419d46e80ab2b01fd5e8d4ad4b4b0283ed1588b78fac71c77cd78615925",
+            "scope": "Targeted public-source discovery; only separately captured and accepted primary evidence can change facts."
+          }
+        ],
+        "acceptedHours": false
+      },
+      {
+        "venueId": "research-zzv-jalan-mas-puteh",
+        "name": "Zi Zai Vegetarian (Jalan Mas Puteh)",
+        "address": "9 Jalan Mas Puteh, Singapore 128615",
+        "status": "reviewed-held-current-primary-schedule-not-established",
+        "previousHoldPreserved": "Saved source leads reviewed; no reliable exact-branch current venue opening schedule established. Ordering slots, mall hours, historical/secondary-only claims and unavailable pages are not promoted.",
+        "priorSourceChecks": [
+          {
+            "url": "https://online.zzv.sg/index.html",
+            "checkedAt": "2026-10-16T12:43:33.491513+00:00",
+            "status": 200,
+            "finalUrl": "https://online.zzv.sg/index.html"
+          },
+          {
+            "url": "https://order.zzv.sg/Category?StoreID=43c33a3e-a6c4-4794-992d-7f93976ece31&Service=PickUp&lang=EN",
+            "checkedAt": "2026-10-16T12:43:33.853950+00:00",
+            "status": 200,
+            "finalUrl": "https://order.zzv.sg/Category?StoreID=43c33a3e-a6c4-4794-992d-7f93976ece31&Service=PickUp&lang=EN"
+          }
+        ],
+        "discoveryReceipts": [
+          {
+            "receipt": "web-15.json",
+            "checkedAt": "2026-10-17T03:46:59.690Z",
+            "sha256": "b416c5cf98dce7a7415efb3d5e1233e18024d0a2c5b39819a234a4a49ff74be3",
+            "scope": "Targeted public-source discovery; only separately captured and accepted primary evidence can change facts."
+          }
+        ],
+        "acceptedHours": false
+      },
+      {
+        "venueId": "research-zzv-yishun",
+        "name": "Zi Zai Vegetarian (Yishun)",
+        "address": "Blk 236 Yishun Ring Road #01-1000, Singapore 760236",
+        "status": "reviewed-held-current-primary-schedule-not-established",
+        "previousHoldPreserved": "Saved source leads reviewed; no reliable exact-branch current venue opening schedule established. Ordering slots, mall hours, historical/secondary-only claims and unavailable pages are not promoted.",
+        "priorSourceChecks": [
+          {
+            "url": "https://online.zzv.sg/index.html",
+            "checkedAt": "2026-10-16T12:43:33.491513+00:00",
+            "status": 200,
+            "finalUrl": "https://online.zzv.sg/index.html"
+          },
+          {
+            "url": "https://order.zzv.sg/Category?StoreID=33a3b108-b18e-4fa3-a855-31a33c7c91b0&Service=PickUp&lang=EN",
+            "checkedAt": "2026-10-16T12:43:34.063231+00:00",
+            "status": 200,
+            "finalUrl": "https://order.zzv.sg/Category?StoreID=33a3b108-b18e-4fa3-a855-31a33c7c91b0&Service=PickUp&lang=EN"
+          }
+        ],
+        "discoveryReceipts": [
+          {
+            "receipt": "web-15.json",
+            "checkedAt": "2026-10-17T03:46:59.690Z",
+            "sha256": "b416c5cf98dce7a7415efb3d5e1233e18024d0a2c5b39819a234a4a49ff74be3",
+            "scope": "Targeted public-source discovery; only separately captured and accepted primary evidence can change facts."
+          }
+        ],
+        "acceptedHours": false
+      },
+      {
+        "venueId": "research-zzv-tampines",
+        "name": "Zi Zai Vegetarian (Tampines)",
+        "address": "801 Tampines Ave 4 #01-281, Tampines Polyview, Singapore 520801",
+        "status": "reviewed-held-current-primary-schedule-not-established",
+        "previousHoldPreserved": "Saved source leads reviewed; no reliable exact-branch current venue opening schedule established. Ordering slots, mall hours, historical/secondary-only claims and unavailable pages are not promoted.",
+        "priorSourceChecks": [
+          {
+            "url": "https://online.zzv.sg/index.html",
+            "checkedAt": "2026-10-16T12:43:33.491513+00:00",
+            "status": 200,
+            "finalUrl": "https://online.zzv.sg/index.html"
+          },
+          {
+            "url": "https://order.zzv.sg/Category?StoreID=d60a08b7-7a95-46d6-8aad-8034d04cbd18&Service=PickUp&lang=EN",
+            "checkedAt": "2026-10-16T12:43:34.368337+00:00",
+            "status": 200,
+            "finalUrl": "https://order.zzv.sg/Category?StoreID=d60a08b7-7a95-46d6-8aad-8034d04cbd18&Service=PickUp&lang=EN"
+          }
+        ],
+        "discoveryReceipts": [
+          {
+            "receipt": "web-15.json",
+            "checkedAt": "2026-10-17T03:46:59.690Z",
+            "sha256": "b416c5cf98dce7a7415efb3d5e1233e18024d0a2c5b39819a234a4a49ff74be3",
+            "scope": "Targeted public-source discovery; only separately captured and accepted primary evidence can change facts."
+          },
+          {
+            "receipt": "web-16.json",
+            "checkedAt": "2026-10-17T03:47:36.126Z",
+            "sha256": "2f239b373461dc2115f8084ac05b7b0dc49829b2fdc841e8c5f56b4f4c4c7d5a",
+            "scope": "Targeted public-source discovery; only separately captured and accepted primary evidence can change facts."
+          }
+        ],
+        "acceptedHours": false
+      },
+      {
+        "venueId": "research-zzv-bendemeer",
+        "name": "Zi Zai Vegetarian (Bendemeer)",
+        "address": "23 Bendemeer Road #01-523, Bendemeer Ville, Singapore 330023",
+        "status": "reviewed-held-current-primary-schedule-not-established",
+        "previousHoldPreserved": "Saved source leads reviewed; no reliable exact-branch current venue opening schedule established. Ordering slots, mall hours, historical/secondary-only claims and unavailable pages are not promoted.",
+        "priorSourceChecks": [
+          {
+            "url": "https://online.zzv.sg/index.html",
+            "checkedAt": "2026-10-16T12:43:33.491513+00:00",
+            "status": 200,
+            "finalUrl": "https://online.zzv.sg/index.html"
+          },
+          {
+            "url": "https://order.zzv.sg/Category?StoreID=b04e0e8b-ea27-4c4a-8e85-23e0fb4208b0&Service=PickUp&lang=EN",
+            "checkedAt": "2026-10-16T12:43:34.378801+00:00",
+            "status": 200,
+            "finalUrl": "https://order.zzv.sg/Category?StoreID=b04e0e8b-ea27-4c4a-8e85-23e0fb4208b0&Service=PickUp&lang=EN"
+          }
+        ],
+        "discoveryReceipts": [
+          {
+            "receipt": "web-15.json",
+            "checkedAt": "2026-10-17T03:46:59.690Z",
+            "sha256": "b416c5cf98dce7a7415efb3d5e1233e18024d0a2c5b39819a234a4a49ff74be3",
+            "scope": "Targeted public-source discovery; only separately captured and accepted primary evidence can change facts."
+          }
+        ],
+        "acceptedHours": false
+      },
+      {
+        "venueId": "research-divine-realm-hougang-501",
+        "name": "Divine Realm Vegetarian (Hougang Avenue 8)",
+        "address": "501 Hougang Avenue 8 #01-630, Singapore 530501",
+        "status": "reviewed-held-current-primary-schedule-not-established",
+        "previousHoldPreserved": "Saved source leads reviewed; no reliable exact-branch current venue opening schedule established. Ordering slots, mall hours, historical/secondary-only claims and unavailable pages are not promoted.",
+        "priorSourceChecks": [
+          {
+            "url": "https://online.zzv.sg/index.html",
+            "checkedAt": "2026-10-16T12:43:33.491513+00:00",
+            "status": 200,
+            "finalUrl": "https://online.zzv.sg/index.html"
+          },
+          {
+            "url": "https://divinerealm.zzv.sg/Category?StoreID=4e302595-b862-4bbc-a896-590bfa3280ae&Service=PickUp&lang=EN",
+            "checkedAt": "2026-10-16T12:43:34.388720+00:00",
+            "status": 200,
+            "finalUrl": "https://divinerealm.zzv.sg/Category?StoreID=4e302595-b862-4bbc-a896-590bfa3280ae&Service=PickUp&lang=EN"
+          }
+        ],
+        "discoveryReceipts": [
+          {
+            "receipt": "web-06.json",
+            "checkedAt": "2026-10-17T03:41:55.369Z",
+            "sha256": "8ae896aa806941b3038edf478d10ab6d4cb6bf57865b2877f526a4b145bc0362",
+            "scope": "Targeted public-source discovery; only separately captured and accepted primary evidence can change facts."
+          }
+        ],
+        "acceptedHours": false
+      },
+      {
+        "venueId": "research-divine-family-hougang-356",
+        "name": "Divine Vegetarian Family Restaurant (Hougang Avenue 7)",
+        "address": "Blk 356 #01-803 Hougang Ave 7, Singapore 530356",
+        "status": "reviewed-held-current-primary-schedule-not-established",
+        "previousHoldPreserved": "Saved source leads reviewed; no reliable exact-branch current venue opening schedule established. Ordering slots, mall hours, historical/secondary-only claims and unavailable pages are not promoted.",
+        "priorSourceChecks": [
+          {
+            "url": "https://online.zzv.sg/index.html",
+            "checkedAt": "2026-10-16T12:43:33.491513+00:00",
+            "status": 200,
+            "finalUrl": "https://online.zzv.sg/index.html"
+          },
+          {
+            "url": "https://divinefamily.zzv.sg/Category?StoreID=bb70e5ce-9648-4ead-971e-8b78f69e74b8&Service=PickUp&lang=EN",
+            "checkedAt": "2026-10-16T12:43:38.759828+00:00",
+            "status": 200,
+            "finalUrl": "https://divinefamily.zzv.sg/Category?StoreID=bb70e5ce-9648-4ead-971e-8b78f69e74b8&Service=PickUp&lang=EN"
+          }
+        ],
+        "discoveryReceipts": [
+          {
+            "receipt": "web-17.json",
+            "checkedAt": "2026-10-17T03:48:31.716Z",
+            "sha256": "3358a0130a1dfd4cdaf59d00b503d8b33c59e1e9ab4662cb31ca31e26c68b1f1",
+            "scope": "Targeted public-source discovery; only separately captured and accepted primary evidence can change facts."
+          }
+        ],
+        "acceptedHours": false
+      },
+      {
+        "venueId": "research-times-vege-bukit-batok",
+        "name": "Time’s Vege",
+        "address": "643 Bukit Batok Central #01-44, Singapore 650643",
+        "status": "reviewed-held-current-primary-schedule-not-established",
+        "previousHoldPreserved": "Saved source leads reviewed; no reliable exact-branch current venue opening schedule established. Ordering slots, mall hours, historical/secondary-only claims and unavailable pages are not promoted.",
+        "priorSourceChecks": [
+          {
+            "url": "https://online.zzv.sg/index.html",
+            "checkedAt": "2026-10-16T12:43:33.491513+00:00",
+            "status": 200,
+            "finalUrl": "https://online.zzv.sg/index.html"
+          },
+          {
+            "url": "https://timesvege.zzv.sg/Category?StoreID=f7045319-0600-4f7f-99cb-ef97f6936552&Service=PickUp&lang=EN",
+            "checkedAt": "2026-10-16T12:43:41.816843+00:00",
+            "status": 200,
+            "finalUrl": "https://timesvege.zzv.sg/Category?StoreID=f7045319-0600-4f7f-99cb-ef97f6936552&Service=PickUp&lang=EN"
+          }
+        ],
+        "discoveryReceipts": [
+          {
+            "receipt": "web-06.json",
+            "checkedAt": "2026-10-17T03:41:55.369Z",
+            "sha256": "8ae896aa806941b3038edf478d10ab6d4cb6bf57865b2877f526a4b145bc0362",
+            "scope": "Targeted public-source discovery; only separately captured and accepted primary evidence can change facts."
+          }
+        ],
+        "acceptedHours": false
+      },
+      {
+        "venueId": "research-zhenyi-ang-mo-kio-128",
+        "name": "Zhen Yi Vegetarian",
+        "address": "128 Ang Mo Kio Ave 3 #01-1853, Singapore 560128",
+        "status": "reviewed-held-current-primary-schedule-not-established",
+        "previousHoldPreserved": "Saved source leads reviewed; no reliable exact-branch current venue opening schedule established. Ordering slots, mall hours, historical/secondary-only claims and unavailable pages are not promoted.",
+        "priorSourceChecks": [
+          {
+            "url": "https://online.zzv.sg/index.html",
+            "checkedAt": "2026-10-16T12:43:33.491513+00:00",
+            "status": 200,
+            "finalUrl": "https://online.zzv.sg/index.html"
+          },
+          {
+            "url": "https://zhenyi.zzv.sg/Category?StoreID=82a04f03-aa49-47c8-88ee-6b8710fbf77a&Service=PickUp&lang=EN",
+            "checkedAt": "2026-10-16T12:43:41.927905+00:00",
+            "status": 200,
+            "finalUrl": "https://zhenyi.zzv.sg/Category?StoreID=82a04f03-aa49-47c8-88ee-6b8710fbf77a&Service=PickUp&lang=EN"
+          }
+        ],
+        "discoveryReceipts": [
+          {
+            "receipt": "web-06.json",
+            "checkedAt": "2026-10-17T03:41:55.369Z",
+            "sha256": "8ae896aa806941b3038edf478d10ab6d4cb6bf57865b2877f526a4b145bc0362",
+            "scope": "Targeted public-source discovery; only separately captured and accepted primary evidence can change facts."
+          }
+        ],
+        "acceptedHours": false
+      },
+      {
+        "venueId": "research-true-veggie-geylang",
+        "name": "True Veggie",
+        "address": "47 Lorong 27 Geylang, Singapore 388179",
+        "status": "reviewed-held-current-primary-schedule-not-established",
+        "previousHoldPreserved": "Saved source leads reviewed; no reliable exact-branch current venue opening schedule established. Ordering slots, mall hours, historical/secondary-only claims and unavailable pages are not promoted.",
+        "priorSourceChecks": [
+          {
+            "url": "https://online.zzv.sg/index.html",
+            "checkedAt": "2026-10-16T12:43:33.491513+00:00",
+            "status": 200,
+            "finalUrl": "https://online.zzv.sg/index.html"
+          },
+          {
+            "url": "https://trueveggie.zzv.sg/Category?StoreID=415d5673-8ca3-465d-bb57-019ab4d357e6&Service=PickUp&lang=EN",
+            "checkedAt": "2026-10-16T12:43:42.142169+00:00",
+            "status": 200,
+            "finalUrl": "https://trueveggie.zzv.sg/Category?StoreID=415d5673-8ca3-465d-bb57-019ab4d357e6&Service=PickUp&lang=EN"
+          }
+        ],
+        "discoveryReceipts": [
+          {
+            "receipt": "web-07.json",
+            "checkedAt": "2026-10-17T03:42:50.224Z",
+            "sha256": "0a3b2de076a4cbf9ff042efd88116395aad5ff7853ded938d4acbbaa5c8f48a8",
+            "scope": "Targeted public-source discovery; only separately captured and accepted primary evidence can change facts."
+          }
+        ],
+        "acceptedHours": false
+      },
+      {
+        "venueId": "research-baomaker-ang-mo-kio-447",
+        "name": "Baomaker",
+        "address": "447 Ang Mo Kio Avenue 10 #01-1675, Singapore 560447",
+        "status": "reviewed-held-current-primary-schedule-not-established",
+        "previousHoldPreserved": "Saved source leads reviewed; no reliable exact-branch current venue opening schedule established. Ordering slots, mall hours, historical/secondary-only claims and unavailable pages are not promoted.",
+        "priorSourceChecks": [
+          {
+            "url": "https://baomaker.com/",
+            "checkedAt": "2026-10-16T12:47:04.983872+00:00",
+            "status": 200,
+            "finalUrl": "https://baomaker.com/"
+          },
+          {
+            "url": "https://baomaker.com/pages/about",
+            "checkedAt": "2026-10-16T12:47:06.187570+00:00",
+            "status": 200,
+            "finalUrl": "https://baomaker.com/pages/about"
+          }
+        ],
+        "discoveryReceipts": [
+          {
+            "receipt": "web-07.json",
+            "checkedAt": "2026-10-17T03:42:50.224Z",
+            "sha256": "0a3b2de076a4cbf9ff042efd88116395aad5ff7853ded938d4acbbaa5c8f48a8",
+            "scope": "Targeted public-source discovery; only separately captured and accepted primary evidence can change facts."
+          }
+        ],
+        "acceptedHours": false
+      },
+      {
+        "venueId": "research-teenoy-hougang-foodpanda-932",
+        "name": "Teenoy Thai Vegetarian",
+        "address": "932 Hougang Avenue 9 #01-04, Singapore 530932",
+        "status": "reviewed-held-current-primary-schedule-not-established",
+        "previousHoldPreserved": "Saved source leads reviewed; no reliable exact-branch current venue opening schedule established. Ordering slots, mall hours, historical/secondary-only claims and unavailable pages are not promoted.",
+        "priorSourceChecks": [],
+        "discoveryReceipts": [
+          {
+            "receipt": "web-07.json",
+            "checkedAt": "2026-10-17T03:42:50.224Z",
+            "sha256": "0a3b2de076a4cbf9ff042efd88116395aad5ff7853ded938d4acbbaa5c8f48a8",
+            "scope": "Targeted public-source discovery; only separately captured and accepted primary evidence can change facts."
+          }
+        ],
+        "acceptedHours": false
+      },
+      {
+        "venueId": "research-kind-kones-forum",
+        "name": "Kind Kones",
+        "address": "583 Orchard Road #B1-27 & K1, Forum Shopping Mall, Singapore 238884",
+        "status": "reviewed-held-current-primary-schedule-not-established",
+        "previousHoldPreserved": "Owner current location says #B1-17; saved menu address #B1-27 & K1. Hours held pending unit reconciliation.",
+        "priorSourceChecks": [
+          {
+            "url": "https://kindkones.com/pages/locations",
+            "checkedAt": "2026-10-16T12:47:18.193293+00:00",
+            "status": 200,
+            "finalUrl": "https://kindkones.com/pages/locations"
+          },
+          {
+            "url": "https://kindkones.com/pages/contact",
+            "checkedAt": "2026-10-16T12:47:19.067390+00:00",
+            "status": 200,
+            "finalUrl": "https://kindkones.com/pages/contact"
+          },
+          {
+            "url": "https://www.forumtheshoppingmall.com.sg/directory/",
+            "checkedAt": "2026-10-16T12:47:19.876857+00:00",
+            "status": 200,
+            "finalUrl": "https://www.forumtheshoppingmall.com.sg/directory/"
+          },
+          {
+            "url": "https://kindkones.com/collections/all-products/products.json?limit=250",
+            "checkedAt": "2026-10-16T12:47:19.880740+00:00",
+            "status": 200,
+            "finalUrl": "https://kindkones.com/collections/all-products/products.json?limit=250"
+          },
+          {
+            "url": "https://kindkones.com/pages/about-us",
+            "checkedAt": "2026-10-16T12:47:19.901711+00:00",
+            "status": 200,
+            "finalUrl": "https://kindkones.com/pages/about-us"
+          }
+        ],
+        "discoveryReceipts": [
+          {
+            "receipt": "web-02.json",
+            "checkedAt": "2026-10-17T03:40:09.653Z",
+            "sha256": "f82d64765a66f71bfce549bd70bc10fb00e297d9375886b4f8300466e9d8590b",
+            "scope": "Targeted public-source discovery; only separately captured and accepted primary evidence can change facts."
+          }
+        ],
+        "acceptedHours": false
+      },
+      {
+        "venueId": "research-xiang-yuan-circuit-source",
+        "name": "Xiang Yuan Vegetarian Food - Circuit Road",
+        "address": "80 Circuit Road #02-03, Singapore 370080",
+        "status": "reviewed-held-current-primary-schedule-not-established",
+        "previousHoldPreserved": "Saved source leads reviewed; no reliable exact-branch current venue opening schedule established. Ordering slots, mall hours, historical/secondary-only claims and unavailable pages are not promoted.",
+        "priorSourceChecks": [
+          {
+            "url": "https://i0.wp.com/kopitiam.com.sg/wp-content/uploads/2026/08/02.-Xiang-Yuan-Vegetarian-Food-02-03.jpg?resize=2048%2C1448&ssl=1",
+            "checkedAt": "2026-10-16T12:43:49.397969+00:00",
+            "status": 200,
+            "finalUrl": "https://i0.wp.com/kopitiam.com.sg/wp-content/uploads/2026/08/02.-Xiang-Yuan-Vegetarian-Food-02-03.jpg?resize=2048%2C1448&ssl=1"
+          }
+        ],
+        "discoveryReceipts": [
+          {
+            "receipt": "web-08.json",
+            "checkedAt": "2026-10-17T03:43:19.172Z",
+            "sha256": "ae6bd201cc0ddbde4950ec60e9add7d9015398b027314bef4542c3eaafd548ca",
+            "scope": "Targeted public-source discovery; only separately captured and accepted primary evidence can change facts."
+          }
+        ],
+        "acceptedHours": false
+      },
+      {
+        "venueId": "research-su-xiang-lau-pa-sat-46",
+        "name": "Su Xiang Vegetarian",
+        "address": "18 Raffles Quay, Lau Pa Sat Stall 46, Singapore 048582",
+        "status": "reviewed-held-current-primary-schedule-not-established",
+        "previousHoldPreserved": "Saved source leads reviewed; no reliable exact-branch current venue opening schedule established. Ordering slots, mall hours, historical/secondary-only claims and unavailable pages are not promoted.",
+        "priorSourceChecks": [],
+        "discoveryReceipts": [
+          {
+            "receipt": "web-08.json",
+            "checkedAt": "2026-10-17T03:43:19.172Z",
+            "sha256": "ae6bd201cc0ddbde4950ec60e9add7d9015398b027314bef4542c3eaafd548ca",
+            "scope": "Targeted public-source discovery; only separately captured and accepted primary evidence can change facts."
+          }
+        ],
+        "acceptedHours": false
+      },
+      {
+        "venueId": "research-yi-ding-xuan-tampines-201",
+        "name": "Yi Ding Xuan Vegetarian",
+        "address": "201 Tampines Street 21 #01-201, Singapore 520201",
+        "status": "reviewed-held-current-primary-schedule-not-established",
+        "previousHoldPreserved": "Saved source leads reviewed; no reliable exact-branch current venue opening schedule established. Ordering slots, mall hours, historical/secondary-only claims and unavailable pages are not promoted.",
+        "priorSourceChecks": [],
+        "discoveryReceipts": [
+          {
+            "receipt": "web-08.json",
+            "checkedAt": "2026-10-17T03:43:19.172Z",
+            "sha256": "ae6bd201cc0ddbde4950ec60e9add7d9015398b027314bef4542c3eaafd548ca",
+            "scope": "Targeted public-source discovery; only separately captured and accepted primary evidence can change facts."
+          }
+        ],
+        "acceptedHours": false
+      },
+      {
+        "venueId": "research-ur01-kind-sprout-sengkang",
+        "name": "Kind Sprout SG",
+        "address": "Singapore 793461",
+        "status": "reviewed-held-current-primary-schedule-not-established",
+        "previousHoldPreserved": "Saved source leads reviewed; no reliable exact-branch current venue opening schedule established. Ordering slots, mall hours, historical/secondary-only claims and unavailable pages are not promoted.",
+        "priorSourceChecks": [
+          {
+            "url": "https://take.app/kindsproutsg",
+            "checkedAt": "2026-10-16T12:43:50.212617+00:00",
+            "status": 200,
+            "finalUrl": "https://take.app/kindsproutsg"
+          }
+        ],
+        "discoveryReceipts": [
+          {
+            "receipt": "web-19.json",
+            "checkedAt": "2026-10-17T03:49:18.853Z",
+            "sha256": "5ed11edf2c6f641a5ac41930d2fd0e6d3b4f16e77d6a389005be26b045548a15",
+            "scope": "Targeted public-source discovery; only separately captured and accepted primary evidence can change facts."
+          }
+        ],
+        "acceptedHours": false
+      },
+      {
+        "venueId": "research-happy-vegetarian-hougang-106",
+        "name": "Happy Vegetarian Food - Hougang",
+        "address": "106 Hougang Avenue 1 #01-1239, Singapore 530106",
+        "status": "reviewed-held-current-primary-schedule-not-established",
+        "previousHoldPreserved": "Saved source leads reviewed; no reliable exact-branch current venue opening schedule established. Ordering slots, mall hours, historical/secondary-only claims and unavailable pages are not promoted.",
+        "priorSourceChecks": [],
+        "discoveryReceipts": [
+          {
+            "receipt": "web-02.json",
+            "checkedAt": "2026-10-17T03:40:09.653Z",
+            "sha256": "f82d64765a66f71bfce549bd70bc10fb00e297d9375886b4f8300466e9d8590b",
+            "scope": "Targeted public-source discovery; only separately captured and accepted primary evidence can change facts."
+          },
+          {
+            "receipt": "web-06.json",
+            "checkedAt": "2026-10-17T03:41:55.369Z",
+            "sha256": "8ae896aa806941b3038edf478d10ab6d4cb6bf57865b2877f526a4b145bc0362",
+            "scope": "Targeted public-source discovery; only separately captured and accepted primary evidence can change facts."
+          }
+        ],
+        "acceptedHours": false
+      },
+      {
+        "venueId": "research-ur01-kale-adelphi",
+        "name": "Kale by Kang Su (The Adelphi)",
+        "address": "1 Coleman Street #02-20 The Adelphi, Singapore 179803",
+        "status": "reviewed-held-current-primary-schedule-not-established",
+        "previousHoldPreserved": "Saved source leads reviewed; no reliable exact-branch current venue opening schedule established. Ordering slots, mall hours, historical/secondary-only claims and unavailable pages are not promoted.",
+        "priorSourceChecks": [],
+        "discoveryReceipts": [
+          {
+            "receipt": "web-13.json",
+            "checkedAt": "2026-10-17T03:45:01.250Z",
+            "sha256": "0b1b35ae6cb9279890fba56677cc3a3d7f61b886d0310bc01b1f3e74a5fd29c0",
+            "scope": "Targeted public-source discovery; only separately captured and accepted primary evidence can change facts."
+          }
+        ],
+        "acceptedHours": false
+      },
+      {
+        "venueId": "research-renyi-tampines820",
+        "name": "Ren Yi Vegetarian",
+        "address": "Block 820 Tampines Street 81, Singapore 520820",
+        "status": "reviewed-held-current-primary-schedule-not-established",
+        "previousHoldPreserved": "Saved source leads reviewed; no reliable exact-branch current venue opening schedule established. Ordering slots, mall hours, historical/secondary-only claims and unavailable pages are not promoted.",
+        "priorSourceChecks": [],
+        "discoveryReceipts": [
+          {
+            "receipt": "web-09.json",
+            "checkedAt": "2026-10-17T03:43:37.515Z",
+            "sha256": "0a416ed8e274f4258e76602e6152ea8642a0e6d62c46749b8f595d03813816e7",
+            "scope": "Targeted public-source discovery; only separately captured and accepted primary evidence can change facts."
+          }
+        ],
+        "acceptedHours": false
+      },
+      {
+        "venueId": "research-tian-yuan-fortune-centre-01-16",
+        "name": "Tian Yuan Healthy Vegetarian Food Paradise",
+        "address": "190 Middle Road #01-16, Fortune Centre, Singapore 188979",
+        "status": "reviewed-held-current-primary-schedule-not-established",
+        "previousHoldPreserved": "Saved source leads reviewed; no reliable exact-branch current venue opening schedule established. Ordering slots, mall hours, historical/secondary-only claims and unavailable pages are not promoted.",
+        "priorSourceChecks": [],
+        "discoveryReceipts": [
+          {
+            "receipt": "web-19.json",
+            "checkedAt": "2026-10-17T03:49:18.853Z",
+            "sha256": "5ed11edf2c6f641a5ac41930d2fd0e6d3b4f16e77d6a389005be26b045548a15",
+            "scope": "Targeted public-source discovery; only separately captured and accepted primary evidence can change facts."
+          }
+        ],
+        "acceptedHours": false
+      },
+      {
+        "venueId": "research-crowded-bowl-ntu-north-spine",
+        "name": "The Crowded Bowl - NTU North Spine",
+        "address": "76 Nanyang Drive, North Spine Plaza NS3-1-18, Singapore 637331",
+        "status": "reviewed-held-current-primary-schedule-not-established",
+        "previousHoldPreserved": "Saved source leads reviewed; no reliable exact-branch current venue opening schedule established. Ordering slots, mall hours, historical/secondary-only claims and unavailable pages are not promoted.",
+        "priorSourceChecks": [
+          {
+            "url": "https://www.ntu.edu.sg/alumni/alumni-stories-news/detail/alumni-entrepreneurs-changing-ntu-s-food-scene",
+            "checkedAt": "2026-10-16T12:43:52.487592+00:00",
+            "status": 200,
+            "finalUrl": "https://www.ntu.edu.sg/alumni/alumni-stories-news/detail/alumni-entrepreneurs-changing-ntu-s-food-scene"
+          }
+        ],
+        "discoveryReceipts": [
+          {
+            "receipt": "web-09.json",
+            "checkedAt": "2026-10-17T03:43:37.515Z",
+            "sha256": "0a416ed8e274f4258e76602e6152ea8642a0e6d62c46749b8f595d03813816e7",
+            "scope": "Targeted public-source discovery; only separately captured and accepted primary evidence can change facts."
+          }
+        ],
+        "acceptedHours": false
+      },
+      {
+        "venueId": "research-verimix-le-quest-01-17",
+        "name": "Verimix Vegetarian - Le Quest Mall",
+        "address": "4 Bukit Batok Street 41 #01-17 Le Quest Mall, Singapore 657991",
+        "status": "reviewed-held-current-primary-schedule-not-established",
+        "previousHoldPreserved": "Saved source leads reviewed; no reliable exact-branch current venue opening schedule established. Ordering slots, mall hours, historical/secondary-only claims and unavailable pages are not promoted.",
+        "priorSourceChecks": [
+          {
+            "url": "https://lequestmall.com.sg/single-location/",
+            "checkedAt": "2026-10-16T12:43:52.580400+00:00",
+            "status": 200,
+            "finalUrl": "https://lequestmall.com.sg/single-location/"
+          }
+        ],
+        "discoveryReceipts": [
+          {
+            "receipt": "web-04.json",
+            "checkedAt": "2026-10-17T03:40:39.410Z",
+            "sha256": "e41b1419d46e80ab2b01fd5e8d4ad4b4b0283ed1588b78fac71c77cd78615925",
+            "scope": "Targeted public-source discovery; only separately captured and accepted primary evidence can change facts."
+          },
+          {
+            "receipt": "web-07.json",
+            "checkedAt": "2026-10-17T03:42:50.224Z",
+            "sha256": "0a3b2de076a4cbf9ff042efd88116395aad5ff7853ded938d4acbbaa5c8f48a8",
+            "scope": "Targeted public-source discovery; only separately captured and accepted primary evidence can change facts."
+          },
+          {
+            "receipt": "web-16.json",
+            "checkedAt": "2026-10-17T03:47:36.126Z",
+            "sha256": "2f239b373461dc2115f8084ac05b7b0dc49829b2fdc841e8c5f56b4f4c4c7d5a",
+            "scope": "Targeted public-source discovery; only separately captured and accepted primary evidence can change facts."
+          },
+          {
+            "receipt": "web-18.json",
+            "checkedAt": "2026-10-17T03:49:01.999Z",
+            "sha256": "9bb28b39ea5ea3c143df8468202b7951e427e57fe0f1395a6a804c391c68d1ce",
+            "scope": "Targeted public-source discovery; only separately captured and accepted primary evidence can change facts."
+          }
+        ],
+        "acceptedHours": false
+      },
+      {
+        "venueId": "research-ur02-vegetarian-food-stall-01-74",
+        "name": "Mini Green Lok Lok",
+        "address": "210 Lorong 8 Toa Payoh, #01-74, Singapore 310210",
+        "status": "reviewed-held-current-primary-schedule-not-established",
+        "previousHoldPreserved": "Saved source leads reviewed; no reliable exact-branch current venue opening schedule established. Ordering slots, mall hours, historical/secondary-only claims and unavailable pages are not promoted.",
+        "priorSourceChecks": [],
+        "discoveryReceipts": [
+          {
+            "receipt": "web-08.json",
+            "checkedAt": "2026-10-17T03:43:19.172Z",
+            "sha256": "ae6bd201cc0ddbde4950ec60e9add7d9015398b027314bef4542c3eaafd548ca",
+            "scope": "Targeted public-source discovery; only separately captured and accepted primary evidence can change facts."
+          }
+        ],
+        "acceptedHours": false
+      },
+      {
+        "venueId": "research-ur03-99-pioneer-mall",
+        "name": "99 Vegetarian",
+        "address": "638A Jurong West Street 61 #01-22 Stall 10, Pioneer Mall, Singapore 641638",
+        "status": "reviewed-held-current-primary-schedule-not-established",
+        "previousHoldPreserved": "Saved source leads reviewed; no reliable exact-branch current venue opening schedule established. Ordering slots, mall hours, historical/secondary-only claims and unavailable pages are not promoted.",
+        "priorSourceChecks": [
+          {
+            "url": "https://www.onehungryhippo.com/restaurants/99-vegetarian",
+            "checkedAt": "2026-10-16T12:47:23.515260+00:00",
+            "status": 200,
+            "finalUrl": "https://www.onehungryhippo.com/restaurants/99-vegetarian"
+          }
+        ],
+        "discoveryReceipts": [
+          {
+            "receipt": "web-09.json",
+            "checkedAt": "2026-10-17T03:43:37.515Z",
+            "sha256": "0a416ed8e274f4258e76602e6152ea8642a0e6d62c46749b8f595d03813816e7",
+            "scope": "Targeted public-source discovery; only separately captured and accepted primary evidence can change facts."
+          }
+        ],
+        "acceptedHours": false
+      },
+      {
+        "venueId": "research-ur03-eco-sen-toa-payoh66",
+        "name": "Eco Sen Vegetarian Food 缘森素食",
+        "address": "66 Lorong 4 Toa Payoh, Singapore 310066",
+        "status": "reviewed-held-current-primary-schedule-not-established",
+        "previousHoldPreserved": "Saved source leads reviewed; no reliable exact-branch current venue opening schedule established. Ordering slots, mall hours, historical/secondary-only claims and unavailable pages are not promoted.",
+        "priorSourceChecks": [
+          {
+            "url": "https://www.onehungryhippo.com/restaurants/eco-sen-vegetarian-food",
+            "checkedAt": "2026-10-16T12:47:24.410768+00:00",
+            "status": 200,
+            "finalUrl": "https://www.onehungryhippo.com/restaurants/eco-sen-vegetarian-food"
+          }
+        ],
+        "discoveryReceipts": [
+          {
+            "receipt": "web-09.json",
+            "checkedAt": "2026-10-17T03:43:37.515Z",
+            "sha256": "0a416ed8e274f4258e76602e6152ea8642a0e6d62c46749b8f595d03813816e7",
+            "scope": "Targeted public-source discovery; only separately captured and accepted primary evidence can change facts."
+          }
+        ],
+        "acceptedHours": false
+      },
+      {
+        "venueId": "research-sl08-fire-flies",
+        "name": "Fire Flies Vegetarian",
+        "address": "101 Upper Cross Street B1-06 Stall 10, People's Park Centre, Singapore 058357",
+        "status": "reviewed-held-current-primary-schedule-not-established",
+        "previousHoldPreserved": "Saved source leads reviewed; no reliable exact-branch current venue opening schedule established. Ordering slots, mall hours, historical/secondary-only claims and unavailable pages are not promoted.",
+        "priorSourceChecks": [
+          {
+            "url": "https://elle.com.sg/life-culture/celebrity-make-up-artist-clarence-lee-vegan-guide-eating-green-singapore/",
+            "checkedAt": "2026-10-16T12:47:25.431451+00:00",
+            "status": 200,
+            "finalUrl": "https://elle.com.sg/life-culture/celebrity-make-up-artist-clarence-lee-vegan-guide-eating-green-singapore/"
+          },
+          {
+            "url": "https://sethlui.com/fire-flies-singapore/",
+            "checkedAt": "2026-10-16T12:47:25.521011+00:00",
+            "status": 200,
+            "finalUrl": "https://sethlui.com/fire-flies-singapore/"
+          }
+        ],
+        "discoveryReceipts": [
+          {
+            "receipt": "web-10.json",
+            "checkedAt": "2026-10-17T03:44:04.875Z",
+            "sha256": "d5b1fcb40176187df9fa4d64123fda350ee7359ef114dd1407e599b794cfdb4b",
+            "scope": "Targeted public-source discovery; only separately captured and accepted primary evidence can change facts."
+          }
+        ],
+        "acceptedHours": false
+      },
+      {
+        "venueId": "research-sl08-xi-shi-fu",
+        "name": "Xi Shi Fu Vegetarian",
+        "address": "115 Bukit Merah View #01-25, Singapore 151115",
+        "status": "reviewed-held-current-primary-schedule-not-established",
+        "previousHoldPreserved": "Saved source leads reviewed; no reliable exact-branch current venue opening schedule established. Ordering slots, mall hours, historical/secondary-only claims and unavailable pages are not promoted.",
+        "priorSourceChecks": [
+          {
+            "url": "https://www.asiaone.com/lifestyle/i-want-promote-vegetarian-food-more-people-bukit-batok-stall-owner-offers-180-meals-over",
+            "checkedAt": "2026-10-16T12:47:25.525266+00:00",
+            "status": 200,
+            "finalUrl": "https://www.asiaone.com/lifestyle/i-want-promote-vegetarian-food-more-people-bukit-batok-stall-owner-offers-180-meals-over"
+          },
+          {
+            "url": "https://ch-api.healthhub.sg/api/public/content/fc3315e24c644da5b89ff80dafdbc2ad?v=3cc3dc45",
+            "checkedAt": "2026-10-16T12:47:25.535201+00:00",
+            "status": 200,
+            "finalUrl": "https://ch-api.healthhub.sg/api/public/content/fc3315e24c644da5b89ff80dafdbc2ad?v=3cc3dc45"
+          }
+        ],
+        "discoveryReceipts": [
+          {
+            "receipt": "web-10.json",
+            "checkedAt": "2026-10-17T03:44:04.875Z",
+            "sha256": "d5b1fcb40176187df9fa4d64123fda350ee7359ef114dd1407e599b794cfdb4b",
+            "scope": "Targeted public-source discovery; only separately captured and accepted primary evidence can change facts."
+          }
+        ],
+        "acceptedHours": false
+      },
+      {
+        "venueId": "research-ur04-mani-iyer",
+        "name": "Mani Iyer Vegetarian Cuisine",
+        "address": "215 Ang Mo Kio Avenue 1, Singapore 560215",
+        "status": "reviewed-held-current-primary-schedule-not-established",
+        "previousHoldPreserved": "Saved source leads reviewed; no reliable exact-branch current venue opening schedule established. Ordering slots, mall hours, historical/secondary-only claims and unavailable pages are not promoted.",
+        "priorSourceChecks": [],
+        "discoveryReceipts": [
+          {
+            "receipt": "web-10.json",
+            "checkedAt": "2026-10-17T03:44:04.875Z",
+            "sha256": "d5b1fcb40176187df9fa4d64123fda350ee7359ef114dd1407e599b794cfdb4b",
+            "scope": "Targeted public-source discovery; only separately captured and accepted primary evidence can change facts."
+          }
+        ],
+        "acceptedHours": false
+      },
+      {
+        "venueId": "research-ur04-peace-vegetarian",
+        "name": "Peace Vegetarian",
+        "address": "18 Tai Seng Street #B1-02, Singapore 539775",
+        "status": "reviewed-held-current-primary-schedule-not-established",
+        "previousHoldPreserved": "Saved source leads reviewed; no reliable exact-branch current venue opening schedule established. Ordering slots, mall hours, historical/secondary-only claims and unavailable pages are not promoted.",
+        "priorSourceChecks": [],
+        "discoveryReceipts": [
+          {
+            "receipt": "web-04.json",
+            "checkedAt": "2026-10-17T03:40:39.410Z",
+            "sha256": "e41b1419d46e80ab2b01fd5e8d4ad4b4b0283ed1588b78fac71c77cd78615925",
+            "scope": "Targeted public-source discovery; only separately captured and accepted primary evidence can change facts."
+          }
+        ],
+        "acceptedHours": false
+      },
+      {
+        "venueId": "research-ur04-bao-su-zhai",
+        "name": "Bao Su Zhai",
+        "address": "1 Sengkang Square #04-11 Stall 23, Compass One, Singapore 545078",
+        "status": "reviewed-held-current-primary-schedule-not-established",
+        "previousHoldPreserved": "Saved source leads reviewed; no reliable exact-branch current venue opening schedule established. Ordering slots, mall hours, historical/secondary-only claims and unavailable pages are not promoted.",
+        "priorSourceChecks": [
+          {
+            "url": "https://compassone.sg/",
+            "checkedAt": "2026-10-16T12:47:25.773249+00:00",
+            "status": 200,
+            "finalUrl": "https://www.compassone.sg/"
+          }
+        ],
+        "discoveryReceipts": [
+          {
+            "receipt": "web-10.json",
+            "checkedAt": "2026-10-17T03:44:04.875Z",
+            "sha256": "d5b1fcb40176187df9fa4d64123fda350ee7359ef114dd1407e599b794cfdb4b",
+            "scope": "Targeted public-source discovery; only separately captured and accepted primary evidence can change facts."
+          }
+        ],
+        "acceptedHours": false
+      },
+      {
+        "venueId": "research-ur03-gan-taste-vegetarian",
+        "name": "Gan Taste Vegetarian",
+        "address": "20 Lorong 7 Toa Payoh #01-758, Singapore 310020",
+        "status": "reviewed-held-current-primary-schedule-not-established",
+        "previousHoldPreserved": "Saved source leads reviewed; no reliable exact-branch current venue opening schedule established. Ordering slots, mall hours, historical/secondary-only claims and unavailable pages are not promoted.",
+        "priorSourceChecks": [
+          {
+            "url": "https://www.onehungryhippo.com/restaurants/gan-taste-vegetarian",
+            "checkedAt": "2026-10-16T12:47:27.894817+00:00",
+            "status": 200,
+            "finalUrl": "https://www.onehungryhippo.com/restaurants/gan-taste-vegetarian"
+          },
+          {
+            "url": "https://restaurantguru.com/Healthy-Vegetarian-Singapore-4",
+            "checkedAt": "2026-10-16T12:47:28.100108+00:00",
+            "status": 503,
+            "finalUrl": "https://restaurantguru.com/Healthy-Vegetarian-Singapore-4"
+          },
+          {
+            "url": "https://sethlui.com/prime-court-closure-toa-payoh-singapore-may-2025/",
+            "checkedAt": "2026-10-16T12:47:28.347663+00:00",
+            "status": 200,
+            "finalUrl": "https://sethlui.com/prime-court-closure-toa-payoh-singapore-may-2025/"
+          },
+          {
+            "url": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=310020&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+            "checkedAt": "2026-10-16T12:47:28.985577+00:00",
+            "status": 200,
+            "finalUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=310020&returnGeom=Y&getAddrDetails=Y&pageNum=1"
+          }
+        ],
+        "discoveryReceipts": [
+          {
+            "receipt": "web-19.json",
+            "checkedAt": "2026-10-17T03:49:18.853Z",
+            "sha256": "5ed11edf2c6f641a5ac41930d2fd0e6d3b4f16e77d6a389005be26b045548a15",
+            "scope": "Targeted public-source discovery; only separately captured and accepted primary evidence can change facts."
+          }
+        ],
+        "acceptedHours": false
+      },
+      {
+        "venueId": "research-ur06-xing-hua",
+        "name": "Xing Hua Vegetarian",
+        "address": "190 Middle Road #01-11, Fortune Centre, Singapore188979",
+        "status": "reviewed-held-current-primary-schedule-not-established",
+        "previousHoldPreserved": "Saved source leads reviewed; no reliable exact-branch current venue opening schedule established. Ordering slots, mall hours, historical/secondary-only claims and unavailable pages are not promoted.",
+        "priorSourceChecks": [
+          {
+            "url": "https://xinghuavegetarian.oddle.me/en_SG",
+            "checkedAt": "2026-10-16T12:47:32.426432+00:00",
+            "status": 200,
+            "finalUrl": "https://xinghuavegetarian.oddle.me/en_SG"
+          },
+          {
+            "url": "https://xinghuavegetarian.oddle.me/stores",
+            "checkedAt": "2026-10-16T12:47:32.471291+00:00",
+            "status": 200,
+            "finalUrl": "https://xinghuavegetarian.oddle.me/stores"
+          }
+        ],
+        "discoveryReceipts": [
+          {
+            "receipt": "web-11.json",
+            "checkedAt": "2026-10-17T03:44:23.880Z",
+            "sha256": "1cf56922eb51e7f043948763f14f43d2936f3029712367245019f4f5bc75901c",
+            "scope": "Targeted public-source discovery; only separately captured and accepted primary evidence can change facts."
+          }
+        ],
+        "acceptedHours": false
+      },
+      {
+        "venueId": "research-ur06-xin-yi",
+        "name": "Xin Yi Vegetarian",
+        "address": "442 Jurong West Avenue1 #01-758, Singapore640442",
+        "status": "reviewed-held-current-primary-schedule-not-established",
+        "previousHoldPreserved": "Saved source leads reviewed; no reliable exact-branch current venue opening schedule established. Ordering slots, mall hours, historical/secondary-only claims and unavailable pages are not promoted.",
+        "priorSourceChecks": [],
+        "discoveryReceipts": [
+          {
+            "receipt": "web-11.json",
+            "checkedAt": "2026-10-17T03:44:23.880Z",
+            "sha256": "1cf56922eb51e7f043948763f14f43d2936f3029712367245019f4f5bc75901c",
+            "scope": "Targeted public-source discovery; only separately captured and accepted primary evidence can change facts."
+          }
+        ],
+        "acceptedHours": false
+      },
+      {
+        "venueId": "research-ur06-ju-fu-yuan-serangoon",
+        "name": "Ju Fu Yuan Vegetarian",
+        "address": "262 Serangoon Central Drive #01-91, Singapore550262",
+        "status": "reviewed-held-current-primary-schedule-not-established",
+        "previousHoldPreserved": "Saved source leads reviewed; no reliable exact-branch current venue opening schedule established. Ordering slots, mall hours, historical/secondary-only claims and unavailable pages are not promoted.",
+        "priorSourceChecks": [],
+        "discoveryReceipts": [
+          {
+            "receipt": "web-11.json",
+            "checkedAt": "2026-10-17T03:44:23.880Z",
+            "sha256": "1cf56922eb51e7f043948763f14f43d2936f3029712367245019f4f5bc75901c",
+            "scope": "Targeted public-source discovery; only separately captured and accepted primary evidence can change facts."
+          }
+        ],
+        "acceptedHours": false
+      },
+      {
+        "venueId": "research-ur06-li-wei",
+        "name": "Li Wei Vegetarian",
+        "address": "151 Serangoon North Avenue2 #01-41, Singapore550151",
+        "status": "reviewed-held-current-primary-schedule-not-established",
+        "previousHoldPreserved": "Saved source leads reviewed; no reliable exact-branch current venue opening schedule established. Ordering slots, mall hours, historical/secondary-only claims and unavailable pages are not promoted.",
+        "priorSourceChecks": [],
+        "discoveryReceipts": [
+          {
+            "receipt": "web-11.json",
+            "checkedAt": "2026-10-17T03:44:23.880Z",
+            "sha256": "1cf56922eb51e7f043948763f14f43d2936f3029712367245019f4f5bc75901c",
+            "scope": "Targeted public-source discovery; only separately captured and accepted primary evidence can change facts."
+          }
+        ],
+        "acceptedHours": false
+      },
+      {
+        "venueId": "research-ur07-red-apple-tampines",
+        "name": "Red Apple Vegetarian",
+        "address": "835 Tampines Street 83 #01-02, Singapore 520835",
+        "status": "reviewed-held-current-primary-schedule-not-established",
+        "previousHoldPreserved": "Saved source leads reviewed; no reliable exact-branch current venue opening schedule established. Ordering slots, mall hours, historical/secondary-only claims and unavailable pages are not promoted.",
+        "priorSourceChecks": [
+          {
+            "url": "https://www.redapplevege.com.sg/",
+            "checkedAt": "2026-10-16T12:47:33.712913+00:00",
+            "status": 200,
+            "finalUrl": "https://www.redapplevege.com.sg/cgi-sys/suspendedpage.cgi"
+          }
+        ],
+        "discoveryReceipts": [
+          {
+            "receipt": "web-12.json",
+            "checkedAt": "2026-10-17T03:44:39.498Z",
+            "sha256": "d85172aea819ff6d4adadfcbaff62dfc8dfbf119a683a7ae821debc4b528efdc",
+            "scope": "Targeted public-source discovery; only separately captured and accepted primary evidence can change facts."
+          }
+        ],
+        "acceptedHours": false
+      },
+      {
+        "venueId": "research-ur08-vege-bear-bidadari",
+        "name": "Vege Bear Vegetarian",
+        "address": "212 Bidadari Park Drive #03-01, Singapore 360212",
+        "status": "reviewed-held-current-primary-schedule-not-established",
+        "previousHoldPreserved": "Saved source leads reviewed; no reliable exact-branch current venue opening schedule established. Ordering slots, mall hours, historical/secondary-only claims and unavailable pages are not promoted.",
+        "priorSourceChecks": [],
+        "discoveryReceipts": [
+          {
+            "receipt": "web-12.json",
+            "checkedAt": "2026-10-17T03:44:39.498Z",
+            "sha256": "d85172aea819ff6d4adadfcbaff62dfc8dfbf119a683a7ae821debc4b528efdc",
+            "scope": "Targeted public-source discovery; only separately captured and accepted primary evidence can change facts."
+          }
+        ],
+        "acceptedHours": false
+      },
+      {
+        "venueId": "research-ur10-ju-fu-yuan-eunos",
+        "name": "Ju Fu Yuan Vegetarian Delight",
+        "address": "7 Eunos Crescent #01-2655, Singapore 400007",
+        "status": "reviewed-held-current-primary-schedule-not-established",
+        "previousHoldPreserved": "Saved source leads reviewed; no reliable exact-branch current venue opening schedule established. Ordering slots, mall hours, historical/secondary-only claims and unavailable pages are not promoted.",
+        "priorSourceChecks": [
+          {
+            "url": "https://www.havehalalwilltravel.com/halal-restaurants/detail/ju-fu-yuan-vegetarian-delight-%E8%81%9A%E7%A6%8F%E7%BC%98",
+            "checkedAt": "2026-10-16T12:47:35.552581+00:00",
+            "status": 200,
+            "finalUrl": "https://www.havehalalwilltravel.com/halal-restaurants/detail/ju-fu-yuan-vegetarian-delight-%E8%81%9A%E7%A6%8F%E7%BC%98"
+          }
+        ],
+        "discoveryReceipts": [
+          {
+            "receipt": "web-12.json",
+            "checkedAt": "2026-10-17T03:44:39.498Z",
+            "sha256": "d85172aea819ff6d4adadfcbaff62dfc8dfbf119a683a7ae821debc4b528efdc",
+            "scope": "Targeted public-source discovery; only separately captured and accepted primary evidence can change facts."
+          }
+        ],
+        "acceptedHours": false
+      },
+      {
+        "venueId": "research-ur11-crowded-sp",
+        "name": "The Crowded Bowl",
+        "address": "500 Dover Road, Singapore Polytechnic Food Court 2, Stall 13, Singapore 139651",
+        "status": "reviewed-held-current-primary-schedule-not-established",
+        "previousHoldPreserved": "Saved source leads reviewed; no reliable exact-branch current venue opening schedule established. Ordering slots, mall hours, historical/secondary-only claims and unavailable pages are not promoted.",
+        "priorSourceChecks": [],
+        "discoveryReceipts": [
+          {
+            "receipt": "web-02.json",
+            "checkedAt": "2026-10-17T03:40:09.653Z",
+            "sha256": "f82d64765a66f71bfce549bd70bc10fb00e297d9375886b4f8300466e9d8590b",
+            "scope": "Targeted public-source discovery; only separately captured and accepted primary evidence can change facts."
+          }
+        ],
+        "acceptedHours": false
+      },
+      {
+        "venueId": "research-ur13-suyuan-bedok",
+        "name": "Suyuan Vegetarian",
+        "address": "208B New Upper Changi Road #01-07, Singapore462208",
+        "status": "reviewed-held-current-primary-schedule-not-established",
+        "previousHoldPreserved": "Saved source leads reviewed; no reliable exact-branch current venue opening schedule established. Ordering slots, mall hours, historical/secondary-only claims and unavailable pages are not promoted.",
+        "priorSourceChecks": [
+          {
+            "url": "https://www.allsgpromo.com/cdc-voucher-merchant-list-southeast/",
+            "checkedAt": "2026-10-16T12:47:35.743926+00:00",
+            "status": 403,
+            "finalUrl": "https://www.allsgpromo.com/cdc-voucher-merchant-list-southeast/"
+          }
+        ],
+        "discoveryReceipts": [
+          {
+            "receipt": "web-12.json",
+            "checkedAt": "2026-10-17T03:44:39.498Z",
+            "sha256": "d85172aea819ff6d4adadfcbaff62dfc8dfbf119a683a7ae821debc4b528efdc",
+            "scope": "Targeted public-source discovery; only separately captured and accepted primary evidence can change facts."
+          }
+        ],
+        "acceptedHours": false
+      },
+      {
+        "venueId": "research-ur15-xinghua-somerset",
+        "name": "Xing Hua Vegetarian Restaurant",
+        "address": "111 Somerset Road #01-K3 to K4, Singapore 238164",
+        "status": "reviewed-held-current-primary-schedule-not-established",
+        "previousHoldPreserved": "Saved source leads reviewed; no reliable exact-branch current venue opening schedule established. Ordering slots, mall hours, historical/secondary-only claims and unavailable pages are not promoted.",
+        "priorSourceChecks": [
+          {
+            "url": "https://111somerset.com.sg/shop-directory/xing-hua-vegetarian-restaurant/",
+            "checkedAt": "2026-10-16T12:47:40.527873+00:00",
+            "status": 200,
+            "finalUrl": "https://111somerset.com.sg/shop-directory/xing-hua-vegetarian-restaurant/"
+          },
+          {
+            "url": "https://111somerset.com.sg/fb/page/4/",
+            "checkedAt": "2026-10-16T12:47:41.283044+00:00",
+            "status": 200,
+            "finalUrl": "https://111somerset.com.sg/fb/page/4/"
+          }
+        ],
+        "discoveryReceipts": [
+          {
+            "receipt": "web-17.json",
+            "checkedAt": "2026-10-17T03:48:31.716Z",
+            "sha256": "3358a0130a1dfd4cdaf59d00b503d8b33c59e1e9ab4662cb31ca31e26c68b1f1",
+            "scope": "Targeted public-source discovery; only separately captured and accepted primary evidence can change facts."
+          }
+        ],
+        "acceptedHours": false
+      },
+      {
+        "venueId": "research-mod-cafe-kuo-chuan",
+        "name": "MOD Cafe",
+        "address": "1A Kuo Chuan Avenue, Singapore 426888",
+        "status": "reviewed-held-current-primary-schedule-not-established",
+        "previousHoldPreserved": "Saved source leads reviewed; no reliable exact-branch current venue opening schedule established. Ordering slots, mall hours, historical/secondary-only claims and unavailable pages are not promoted.",
+        "priorSourceChecks": [
+          {
+            "url": "http://www.modhaircafe.com/",
+            "checkedAt": "2026-10-16T12:47:48.218622+00:00",
+            "status": 200,
+            "finalUrl": "https://www.modhaircafe.com/"
+          },
+          {
+            "url": "https://www.modhaircafe.com/mod-cafe",
+            "checkedAt": "2026-10-16T12:47:48.483917+00:00",
+            "status": 200,
+            "finalUrl": "https://www.modhaircafe.com/mod-cafe"
+          }
+        ],
+        "discoveryReceipts": [
+          {
+            "receipt": "web-16.json",
+            "checkedAt": "2026-10-17T03:47:36.126Z",
+            "sha256": "2f239b373461dc2115f8084ac05b7b0dc49829b2fdc841e8c5f56b4f4c4c7d5a",
+            "scope": "Targeted public-source discovery; only separately captured and accepted primary evidence can change facts."
+          },
+          {
+            "receipt": "web-19.json",
+            "checkedAt": "2026-10-17T03:49:18.853Z",
+            "sha256": "5ed11edf2c6f641a5ac41930d2fd0e6d3b4f16e77d6a389005be26b045548a15",
+            "scope": "Targeted public-source discovery; only separately captured and accepted primary evidence can change facts."
+          }
+        ],
+        "acceptedHours": false
+      }
+    ],
+    "specificExclusions": {
+      "KindKones": "Merchant page printsB1-17/11-21; current mall directory assignsB1-17toCapitolOptical and listsKindKonesB1-27&K1. No unit correction or hours transfer.",
+      "Verimix": "Mall10-22footer is not store hours; merchant profile already blocked in saved17October receipt, no bypass/repeated blocked extraction.",
+      "CrowdedBowlSP": "Campus foodcourt opening times are not stall hours; official marker used only for coordinates.",
+      "MOD": "Merchant website reader unavailable in web tool; conflicting secondary9-20/daily versusTuesdayclosed; no schedule imported.",
+      "BookingListings": "Several Chope pages state not accepting reservations; conflicting/undated booking and ordering slots are not promoted as current dine-in schedules.",
+      "HappyCover": "Exact listing references remain explicitly reference-only; no new approved cover found.",
+      "IngredientClaims": "Aggregators and copied menu summaries do not establish vegan/allium/allergen claims."
+    }
+  },
+  "priceDisplayAudit": {
+    "checkedAt": "2026-10-17T04:05:36.234Z",
+    "allRetainedMenuIds": {
+      "venues": 175,
+      "sourceOccurrences": 12087,
+      "displayRows": 10699,
+      "priceRanges": 899,
+      "unknownPrices": 3387,
+      "missingAmount": 669,
+      "unknownCurrencyWithAmount": 2718,
+      "priceFrom": 2228
+    },
+    "canonicalBrowse": {
+      "venues": 174,
+      "sourceOccurrences": 12083,
+      "displayRows": 10695,
+      "priceRanges": 899,
+      "unknownPrices": 3387,
+      "missingAmount": 669,
+      "unknownCurrencyWithAmount": 2718,
+      "priceFrom": 2225
+    },
+    "rows": [
+      {
+        "id": "whole-earth-peck-seah",
+        "name": "Whole Earth",
+        "venues": 1,
+        "sourceOccurrences": 89,
+        "displayRows": 89,
+        "priceRanges": 0,
+        "unknownPrices": 89,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 89,
+        "priceFrom": 0
+      },
+      {
+        "id": "dlife-signature-chinatown-point",
+        "name": "D'Life Signature",
+        "venues": 1,
+        "sourceOccurrences": 113,
+        "displayRows": 113,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 70
+      },
+      {
+        "id": "teng-bespoke-sunshine-plaza",
+        "name": "Teng Bespoke Vegetarian Japanese Dining",
+        "venues": 1,
+        "sourceOccurrences": 78,
+        "displayRows": 78,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 0
+      },
+      {
+        "id": "elemen-woodlands-height",
+        "name": "elemen",
+        "venues": 1,
+        "sourceOccurrences": 91,
+        "displayRows": 85,
+        "priceRanges": 0,
+        "unknownPrices": 55,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 55,
+        "priceFrom": 0
+      },
+      {
+        "id": "daily-green-woodlands-street-31",
+        "name": "Vegetarian Kitchen by Daily Green",
+        "venues": 1,
+        "sourceOccurrences": 83,
+        "displayRows": 82,
+        "priceRanges": 1,
+        "unknownPrices": 78,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 78,
+        "priceFrom": 0
+      },
+      {
+        "id": "nomvnom-clarke-quay-central",
+        "name": "nomVnom Bistro",
+        "venues": 1,
+        "sourceOccurrences": 74,
+        "displayRows": 74,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 0
+      },
+      {
+        "id": "lian-xin-buddha-tooth-relic-temple",
+        "name": "Lian Xin Vegetarian Restaurant",
+        "venues": 1,
+        "sourceOccurrences": 41,
+        "displayRows": 41,
+        "priceRanges": 0,
+        "unknownPrices": 41,
+        "missingAmount": 41,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 0
+      },
+      {
+        "id": "living-wholesome-fortune-centre",
+        "name": "Living Wholesome Vegetarian",
+        "venues": 1,
+        "sourceOccurrences": 11,
+        "displayRows": 11,
+        "priceRanges": 0,
+        "unknownPrices": 1,
+        "missingAmount": 1,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 7
+      },
+      {
+        "id": "bodhi-deli-fortune-centre",
+        "name": "Bodhi Deli",
+        "venues": 1,
+        "sourceOccurrences": 29,
+        "displayRows": 29,
+        "priceRanges": 0,
+        "unknownPrices": 2,
+        "missingAmount": 2,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 5
+      },
+      {
+        "id": "zhen-xiang-woodlands-street-32",
+        "name": "Zhen Xiang Vegetarian",
+        "venues": 1,
+        "sourceOccurrences": 68,
+        "displayRows": 68,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 0
+      },
+      {
+        "id": "shu-woodlands-avenue-1",
+        "name": "SHU Vegetarian",
+        "venues": 1,
+        "sourceOccurrences": 55,
+        "displayRows": 55,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 3
+      },
+      {
+        "id": "research-greendot-star-vista",
+        "name": "Greendot",
+        "venues": 1,
+        "sourceOccurrences": 72,
+        "displayRows": 72,
+        "priceRanges": 9,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 18
+      },
+      {
+        "id": "research-greendot-seletar-mall",
+        "name": "Greendot",
+        "venues": 1,
+        "sourceOccurrences": 26,
+        "displayRows": 26,
+        "priceRanges": 6,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-greendot-asia-square",
+        "name": "Greendot",
+        "venues": 1,
+        "sourceOccurrences": 57,
+        "displayRows": 57,
+        "priceRanges": 7,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 16
+      },
+      {
+        "id": "research-greendot-bedok-mall",
+        "name": "Greendot",
+        "venues": 1,
+        "sourceOccurrences": 57,
+        "displayRows": 57,
+        "priceRanges": 7,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 16
+      },
+      {
+        "id": "research-greendot-bukit-panjang-plaza",
+        "name": "Greendot",
+        "venues": 1,
+        "sourceOccurrences": 72,
+        "displayRows": 72,
+        "priceRanges": 9,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 18
+      },
+      {
+        "id": "research-greendot-j8",
+        "name": "Greendot",
+        "venues": 1,
+        "sourceOccurrences": 56,
+        "displayRows": 56,
+        "priceRanges": 8,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 15
+      },
+      {
+        "id": "research-greendot-jurong-point",
+        "name": "Greendot",
+        "venues": 1,
+        "sourceOccurrences": 56,
+        "displayRows": 56,
+        "priceRanges": 7,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 16
+      },
+      {
+        "id": "research-greendot-northpoint",
+        "name": "Greendot",
+        "venues": 1,
+        "sourceOccurrences": 56,
+        "displayRows": 56,
+        "priceRanges": 7,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 16
+      },
+      {
+        "id": "research-greendot-paya-lebar-square",
+        "name": "Greendot",
+        "venues": 1,
+        "sourceOccurrences": 85,
+        "displayRows": 85,
+        "priceRanges": 9,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 18
+      },
+      {
+        "id": "research-greendot-one-raffles-place",
+        "name": "Greendot",
+        "venues": 1,
+        "sourceOccurrences": 56,
+        "displayRows": 56,
+        "priceRanges": 7,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 16
+      },
+      {
+        "id": "research-greendot-tampines-1",
+        "name": "Greendot",
+        "venues": 1,
+        "sourceOccurrences": 58,
+        "displayRows": 58,
+        "priceRanges": 9,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 16
+      },
+      {
+        "id": "research-greendot-westgate",
+        "name": "Greendot",
+        "venues": 1,
+        "sourceOccurrences": 56,
+        "displayRows": 56,
+        "priceRanges": 7,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 16
+      },
+      {
+        "id": "research-greendot-jewel-changi-airport",
+        "name": "Greendot Plus",
+        "venues": 1,
+        "sourceOccurrences": 53,
+        "displayRows": 49,
+        "priceRanges": 1,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-shu-jalan-kayu",
+        "name": "SHU Vegetarian",
+        "venues": 1,
+        "sourceOccurrences": 182,
+        "displayRows": 108,
+        "priceRanges": 65,
+        "unknownPrices": 1,
+        "missingAmount": 1,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 5
+      },
+      {
+        "id": "research-shu-amk",
+        "name": "SHU Vegetarian 蔬方斋 (Ang Mo Kio Avenue 10)",
+        "venues": 1,
+        "sourceOccurrences": 65,
+        "displayRows": 65,
+        "priceRanges": 46,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-shu-jurong",
+        "name": "SHU Vegetarian 蔬方斋 (Jurong West Street 41)",
+        "venues": 1,
+        "sourceOccurrences": 52,
+        "displayRows": 52,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-shu-clementi",
+        "name": "SHU Vegetarian 蔬方斋 (Clementi West Street 2)",
+        "venues": 1,
+        "sourceOccurrences": 54,
+        "displayRows": 54,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-shu-yishun",
+        "name": "SHU Vegetarian 蔬方斋 (Yishun Ring Road)",
+        "venues": 1,
+        "sourceOccurrences": 56,
+        "displayRows": 56,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-shu-loyang",
+        "name": "SHU Vegetarian 蔬方斋 (Loyang Point)",
+        "venues": 1,
+        "sourceOccurrences": 52,
+        "displayRows": 52,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-shu-margaret",
+        "name": "SHU Vegetarian 蔬方斋 (Margaret Drive)",
+        "venues": 1,
+        "sourceOccurrences": 52,
+        "displayRows": 52,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-shu-hq",
+        "name": "SHU Vegetarian 蔬方斋 (Chang Cheng HQ)",
+        "venues": 1,
+        "sourceOccurrences": 54,
+        "displayRows": 54,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-dlife-orchard-gateway",
+        "name": "D'Life",
+        "venues": 1,
+        "sourceOccurrences": 134,
+        "displayRows": 134,
+        "priceRanges": 90,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 24
+      },
+      {
+        "id": "research-dlife-jurong-west",
+        "name": "D'Life",
+        "venues": 1,
+        "sourceOccurrences": 128,
+        "displayRows": 128,
+        "priceRanges": 65,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-dlife-tengah",
+        "name": "D'Life (Tengah Drive)",
+        "venues": 1,
+        "sourceOccurrences": 120,
+        "displayRows": 120,
+        "priceRanges": 56,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 1
+      },
+      {
+        "id": "research-moonchay-fortune",
+        "name": "Moon Chay Vegetarian",
+        "venues": 1,
+        "sourceOccurrences": 33,
+        "displayRows": 33,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-sproutz-downtown",
+        "name": "Sproutz Downtown",
+        "venues": 1,
+        "sourceOccurrences": 33,
+        "displayRows": 33,
+        "priceRanges": 1,
+        "unknownPrices": 33,
+        "missingAmount": 4,
+        "unknownCurrencyWithAmount": 29,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-botanict-clementi",
+        "name": "Botanict",
+        "venues": 1,
+        "sourceOccurrences": 114,
+        "displayRows": 114,
+        "priceRanges": 0,
+        "unknownPrices": 114,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 114,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-fo-you-yuan-jalan-besar",
+        "name": "Fo You Yuan Vegetarian Restaurant",
+        "venues": 1,
+        "sourceOccurrences": 67,
+        "displayRows": 67,
+        "priceRanges": 0,
+        "unknownPrices": 67,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 67,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-kang-su-far-east-plaza",
+        "name": "Kang Su Vegetarian",
+        "venues": 1,
+        "sourceOccurrences": 17,
+        "displayRows": 17,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 10
+      },
+      {
+        "id": "research-linlin-bedok-north",
+        "name": "Lin Lin Vegetarian Delight",
+        "venues": 1,
+        "sourceOccurrences": 139,
+        "displayRows": 139,
+        "priceRanges": 54,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 81
+      },
+      {
+        "id": "research-joyi-bedok-north",
+        "name": "JO-YI CAFE",
+        "venues": 1,
+        "sourceOccurrences": 12,
+        "displayRows": 12,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 5
+      },
+      {
+        "id": "research-kisu-tras-street",
+        "name": "Ki Su Shoujin Omakase",
+        "venues": 1,
+        "sourceOccurrences": 3,
+        "displayRows": 3,
+        "priceRanges": 0,
+        "unknownPrices": 3,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 3,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-elemen-plq-mall",
+        "name": "elemen",
+        "venues": 1,
+        "sourceOccurrences": 30,
+        "displayRows": 30,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 19
+      },
+      {
+        "id": "research-elemen-millenia-walk",
+        "name": "elemen",
+        "venues": 1,
+        "sourceOccurrences": 30,
+        "displayRows": 30,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 19
+      },
+      {
+        "id": "research-lingzhi-palais",
+        "name": "LingZhi Greens",
+        "venues": 1,
+        "sourceOccurrences": 92,
+        "displayRows": 83,
+        "priceRanges": 2,
+        "unknownPrices": 83,
+        "missingAmount": 34,
+        "unknownCurrencyWithAmount": 49,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-yesnatural-geylang",
+        "name": "Yes Natural Restaurant",
+        "venues": 1,
+        "sourceOccurrences": 222,
+        "displayRows": 200,
+        "priceRanges": 1,
+        "unknownPrices": 113,
+        "missingAmount": 18,
+        "unknownCurrencyWithAmount": 95,
+        "priceFrom": 9
+      },
+      {
+        "id": "research-lnbv-vegan-branch",
+        "name": "Veg-An",
+        "venues": 1,
+        "sourceOccurrences": 32,
+        "displayRows": 25,
+        "priceRanges": 3,
+        "unknownPrices": 17,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 17,
+        "priceFrom": 1
+      },
+      {
+        "id": "research-metta-simei",
+        "name": "Metta Cafe — Simei",
+        "venues": 1,
+        "sourceOccurrences": 9,
+        "displayRows": 9,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 9
+      },
+      {
+        "id": "research-mother-earth-classic-balestier",
+        "name": "Mother Earth Classic",
+        "venues": 1,
+        "sourceOccurrences": 108,
+        "displayRows": 108,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 73
+      },
+      {
+        "id": "research-mother-earth-jurong",
+        "name": "Mother Earth Vegetarian Restaurant",
+        "venues": 1,
+        "sourceOccurrences": 143,
+        "displayRows": 139,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 87
+      },
+      {
+        "id": "research-nvd-bukit-batok",
+        "name": "Nature Vegetarian Delights",
+        "venues": 1,
+        "sourceOccurrences": 301,
+        "displayRows": 161,
+        "priceRanges": 77,
+        "unknownPrices": 161,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 161,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-nvd-rivervale",
+        "name": "Nature Vegetarian Delights",
+        "venues": 1,
+        "sourceOccurrences": 270,
+        "displayRows": 130,
+        "priceRanges": 77,
+        "unknownPrices": 130,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 130,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-nature-cafe-alexandra",
+        "name": "Nature Cafe",
+        "venues": 1,
+        "sourceOccurrences": 83,
+        "displayRows": 83,
+        "priceRanges": 0,
+        "unknownPrices": 83,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 83,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-nature-cafe-smu",
+        "name": "Nature Cafe",
+        "venues": 1,
+        "sourceOccurrences": 101,
+        "displayRows": 101,
+        "priceRanges": 0,
+        "unknownPrices": 101,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 101,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-leafcorner-jurong",
+        "name": "Leaf Corner",
+        "venues": 1,
+        "sourceOccurrences": 100,
+        "displayRows": 100,
+        "priceRanges": 0,
+        "unknownPrices": 100,
+        "missingAmount": 100,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-leafcorner-taiseng",
+        "name": "Leaf Corner",
+        "venues": 1,
+        "sourceOccurrences": 106,
+        "displayRows": 106,
+        "priceRanges": 0,
+        "unknownPrices": 106,
+        "missingAmount": 106,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-leafcorner-sembawang",
+        "name": "Leaf Corner",
+        "venues": 1,
+        "sourceOccurrences": 103,
+        "displayRows": 103,
+        "priceRanges": 0,
+        "unknownPrices": 103,
+        "missingAmount": 103,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-nalan-cityhall",
+        "name": "NALAN",
+        "venues": 1,
+        "sourceOccurrences": 442,
+        "displayRows": 313,
+        "priceRanges": 0,
+        "unknownPrices": 55,
+        "missingAmount": 55,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 36
+      },
+      {
+        "id": "research-nalan-littleindia",
+        "name": "NALAN",
+        "venues": 1,
+        "sourceOccurrences": 317,
+        "displayRows": 207,
+        "priceRanges": 1,
+        "unknownPrices": 50,
+        "missingAmount": 50,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 8
+      },
+      {
+        "id": "research-kailash-belilios-road",
+        "name": "Kailash Parbat",
+        "venues": 1,
+        "sourceOccurrences": 126,
+        "displayRows": 126,
+        "priceRanges": 0,
+        "unknownPrices": 126,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 126,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-kailash-syed-alwi",
+        "name": "Kailash Parbat",
+        "venues": 1,
+        "sourceOccurrences": 116,
+        "displayRows": 116,
+        "priceRanges": 0,
+        "unknownPrices": 116,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 116,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-kailash-changi",
+        "name": "Kailash Parbat",
+        "venues": 1,
+        "sourceOccurrences": 116,
+        "displayRows": 116,
+        "priceRanges": 0,
+        "unknownPrices": 116,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 116,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-kailash-sentosa",
+        "name": "Kailash Parbat",
+        "venues": 1,
+        "sourceOccurrences": 49,
+        "displayRows": 49,
+        "priceRanges": 0,
+        "unknownPrices": 49,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 49,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-annalakshmi-cafe-downtown",
+        "name": "Annalakshmi Cafe",
+        "venues": 1,
+        "sourceOccurrences": 30,
+        "displayRows": 30,
+        "priceRanges": 0,
+        "unknownPrices": 30,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 30,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-ananda-serangoon-58",
+        "name": "Ananda Bhavan (58 Serangoon Road)",
+        "venues": 1,
+        "sourceOccurrences": 120,
+        "displayRows": 119,
+        "priceRanges": 2,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-ananda-syed-alwi",
+        "name": "Ananda Bhavan (95 Syed Alwi Road)",
+        "venues": 1,
+        "sourceOccurrences": 201,
+        "displayRows": 201,
+        "priceRanges": 0,
+        "unknownPrices": 201,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 201,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-gokul-upper-dickson",
+        "name": "Gokul-Raas Vegetarian",
+        "venues": 1,
+        "sourceOccurrences": 322,
+        "displayRows": 204,
+        "priceRanges": 4,
+        "unknownPrices": 200,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 200,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-saute-san-city-square",
+        "name": "Saute-san",
+        "venues": 1,
+        "sourceOccurrences": 77,
+        "displayRows": 77,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 32
+      },
+      {
+        "id": "research-saute-flavours-funan",
+        "name": "Flavours By Saute",
+        "venues": 1,
+        "sourceOccurrences": 99,
+        "displayRows": 99,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 43
+      },
+      {
+        "id": "research-saute-sushi-paya-lebar-square",
+        "name": "Saute Sushi",
+        "venues": 1,
+        "sourceOccurrences": 128,
+        "displayRows": 128,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 25
+      },
+      {
+        "id": "research-saute-saranghae-tampines-one",
+        "name": "Saute Saranghae",
+        "venues": 1,
+        "sourceOccurrences": 79,
+        "displayRows": 76,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 33
+      },
+      {
+        "id": "research-sufood-raffles-city",
+        "name": "Sufood (Raffles City)",
+        "venues": 1,
+        "sourceOccurrences": 20,
+        "displayRows": 20,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-joie-orchard-central",
+        "name": "Joie by DOZO (Orchard Central)",
+        "venues": 1,
+        "sourceOccurrences": 22,
+        "displayRows": 21,
+        "priceRanges": 0,
+        "unknownPrices": 21,
+        "missingAmount": 21,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-genesis-vegan-havelock-ii",
+        "name": "Genesis Vegan Restaurant (Havelock II)",
+        "venues": 1,
+        "sourceOccurrences": 21,
+        "displayRows": 14,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-supreme-vege-queen-street",
+        "name": "Supreme Vege",
+        "venues": 1,
+        "sourceOccurrences": 126,
+        "displayRows": 126,
+        "priceRanges": 3,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-veganburg-eunos",
+        "name": "VeganBurg",
+        "venues": 1,
+        "sourceOccurrences": 38,
+        "displayRows": 38,
+        "priceRanges": 3,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 30
+      },
+      {
+        "id": "research-ahimsa-neil-road",
+        "name": "Ahimsa Sanctuary",
+        "venues": 1,
+        "sourceOccurrences": 38,
+        "displayRows": 38,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 37
+      },
+      {
+        "id": "research-cultivate-maxwell-reserve",
+        "name": "Cultivate Cafe (Maxwell Reserve)",
+        "venues": 1,
+        "sourceOccurrences": 28,
+        "displayRows": 28,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 1
+      },
+      {
+        "id": "research-warungijo-macpherson",
+        "name": "Warung Ijo",
+        "venues": 1,
+        "sourceOccurrences": 82,
+        "displayRows": 82,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 18
+      },
+      {
+        "id": "research-originalgreens-shaw-plaza",
+        "name": "Original Greens",
+        "venues": 1,
+        "sourceOccurrences": 47,
+        "displayRows": 47,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 1
+      },
+      {
+        "id": "research-merchant-7ab3dafc5f6a7876",
+        "name": "Daily Green (Hougang Mall)",
+        "venues": 1,
+        "sourceOccurrences": 27,
+        "displayRows": 27,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-merchant-287ecefa1f8e3855",
+        "name": "Daily Green (Bedok)",
+        "venues": 1,
+        "sourceOccurrences": 11,
+        "displayRows": 11,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-zzv-jalan-mas-puteh",
+        "name": "Zi Zai Vegetarian (Jalan Mas Puteh)",
+        "venues": 1,
+        "sourceOccurrences": 167,
+        "displayRows": 157,
+        "priceRanges": 5,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 99
+      },
+      {
+        "id": "research-zzv-yishun",
+        "name": "Zi Zai Vegetarian (Yishun)",
+        "venues": 1,
+        "sourceOccurrences": 153,
+        "displayRows": 149,
+        "priceRanges": 0,
+        "unknownPrices": 1,
+        "missingAmount": 1,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 94
+      },
+      {
+        "id": "research-zzv-tampines",
+        "name": "Zi Zai Vegetarian (Tampines)",
+        "venues": 1,
+        "sourceOccurrences": 144,
+        "displayRows": 140,
+        "priceRanges": 2,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 98
+      },
+      {
+        "id": "research-zzv-bendemeer",
+        "name": "Zi Zai Vegetarian (Bendemeer)",
+        "venues": 1,
+        "sourceOccurrences": 169,
+        "displayRows": 169,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 131
+      },
+      {
+        "id": "research-divine-realm-hougang-501",
+        "name": "Divine Realm Vegetarian (Hougang Avenue 8)",
+        "venues": 1,
+        "sourceOccurrences": 151,
+        "displayRows": 151,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 111
+      },
+      {
+        "id": "research-divine-family-hougang-356",
+        "name": "Divine Vegetarian Family Restaurant (Hougang Avenue 7)",
+        "venues": 1,
+        "sourceOccurrences": 162,
+        "displayRows": 161,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 91
+      },
+      {
+        "id": "research-greenland-upper-serangoon",
+        "name": "Greenland Vegetarian",
+        "venues": 1,
+        "sourceOccurrences": 123,
+        "displayRows": 123,
+        "priceRanges": 0,
+        "unknownPrices": 1,
+        "missingAmount": 1,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 90
+      },
+      {
+        "id": "research-times-vege-bukit-batok",
+        "name": "Time’s Vege",
+        "venues": 1,
+        "sourceOccurrences": 161,
+        "displayRows": 160,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 108
+      },
+      {
+        "id": "research-zhenyi-ang-mo-kio-128",
+        "name": "Zhen Yi Vegetarian",
+        "venues": 1,
+        "sourceOccurrences": 152,
+        "displayRows": 152,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 122
+      },
+      {
+        "id": "research-true-veggie-geylang",
+        "name": "True Veggie",
+        "venues": 1,
+        "sourceOccurrences": 19,
+        "displayRows": 19,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 1
+      },
+      {
+        "id": "research-boneless-irving",
+        "name": "The Boneless Kitchen",
+        "venues": 1,
+        "sourceOccurrences": 92,
+        "displayRows": 71,
+        "priceRanges": 0,
+        "unknownPrices": 24,
+        "missingAmount": 24,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 13
+      },
+      {
+        "id": "research-daehwa-fusionopolis",
+        "name": "Daehwa Vegetarian Restaurant",
+        "venues": 1,
+        "sourceOccurrences": 30,
+        "displayRows": 30,
+        "priceRanges": 0,
+        "unknownPrices": 30,
+        "missingAmount": 30,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-greenearth-rail-mall",
+        "name": "Green On Earth",
+        "venues": 1,
+        "sourceOccurrences": 72,
+        "displayRows": 72,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 30
+      },
+      {
+        "id": "research-futkai-jalan-besar",
+        "name": "New Fut Kai Vegetarian Restaurant",
+        "venues": 1,
+        "sourceOccurrences": 126,
+        "displayRows": 126,
+        "priceRanges": 52,
+        "unknownPrices": 60,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 60,
+        "priceFrom": 50
+      },
+      {
+        "id": "research-lotus-balestier",
+        "name": "Lotus Vegetarian",
+        "venues": 1,
+        "sourceOccurrences": 132,
+        "displayRows": 115,
+        "priceRanges": 0,
+        "unknownPrices": 23,
+        "missingAmount": 23,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 5
+      },
+      {
+        "id": "research-mtr-serangoon438",
+        "name": "MTR Singapore",
+        "venues": 1,
+        "sourceOccurrences": 576,
+        "displayRows": 71,
+        "priceRanges": 0,
+        "unknownPrices": 71,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 71,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-swaad-desker70",
+        "name": "Swaad",
+        "venues": 1,
+        "sourceOccurrences": 103,
+        "displayRows": 103,
+        "priceRanges": 0,
+        "unknownPrices": 103,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 103,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-lilac-oak-oxley-rise",
+        "name": "Lilac Oak",
+        "venues": 1,
+        "sourceOccurrences": 18,
+        "displayRows": 18,
+        "priceRanges": 1,
+        "unknownPrices": 18,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 18,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-baomaker-ang-mo-kio-447",
+        "name": "Baomaker",
+        "venues": 1,
+        "sourceOccurrences": 17,
+        "displayRows": 17,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-merle-lentor-modern",
+        "name": "Merle & Co",
+        "venues": 1,
+        "sourceOccurrences": 50,
+        "displayRows": 50,
+        "priceRanges": 0,
+        "unknownPrices": 50,
+        "missingAmount": 1,
+        "unknownCurrencyWithAmount": 49,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-tofu-g-mandarin-gallery",
+        "name": "Tofu G",
+        "venues": 1,
+        "sourceOccurrences": 9,
+        "displayRows": 9,
+        "priceRanges": 0,
+        "unknownPrices": 9,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 9,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-tofu-g-ngee-ann-city",
+        "name": "Tofu G",
+        "venues": 1,
+        "sourceOccurrences": 9,
+        "displayRows": 9,
+        "priceRanges": 0,
+        "unknownPrices": 9,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 9,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-tofu-g-amoy-street",
+        "name": "Tofu G",
+        "venues": 1,
+        "sourceOccurrences": 11,
+        "displayRows": 11,
+        "priceRanges": 0,
+        "unknownPrices": 11,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 11,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-tofu-g-ue-square",
+        "name": "Tofu G",
+        "venues": 1,
+        "sourceOccurrences": 9,
+        "displayRows": 9,
+        "priceRanges": 0,
+        "unknownPrices": 9,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 9,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-tofu-g-waterway-point",
+        "name": "Tofu G",
+        "venues": 1,
+        "sourceOccurrences": 10,
+        "displayRows": 10,
+        "priceRanges": 0,
+        "unknownPrices": 10,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 10,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-tofu-g-suntec-city",
+        "name": "Tofu G",
+        "venues": 1,
+        "sourceOccurrences": 10,
+        "displayRows": 10,
+        "priceRanges": 0,
+        "unknownPrices": 10,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 10,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-wakamama-pasir-panjang",
+        "name": "Wakamama",
+        "venues": 1,
+        "sourceOccurrences": 2,
+        "displayRows": 2,
+        "priceRanges": 0,
+        "unknownPrices": 2,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 2,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-rya-bakehouse-cavan",
+        "name": "Rya Bakehouse",
+        "venues": 1,
+        "sourceOccurrences": 21,
+        "displayRows": 21,
+        "priceRanges": 3,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-yes-natural-bakery-geylang-55",
+        "name": "Yes Natural Bakery",
+        "venues": 1,
+        "sourceOccurrences": 77,
+        "displayRows": 77,
+        "priceRanges": 21,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 1
+      },
+      {
+        "id": "research-omg-donuts-margaret-market",
+        "name": "OMG! Decadent Donuts Singapore",
+        "venues": 1,
+        "sourceOccurrences": 12,
+        "displayRows": 12,
+        "priceRanges": 12,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-living-wholesome-bukit-timah",
+        "name": "Living Wholesome Vegetarian",
+        "venues": 1,
+        "sourceOccurrences": 4,
+        "displayRows": 4,
+        "priceRanges": 0,
+        "unknownPrices": 4,
+        "missingAmount": 4,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-150-green-bukit-batok",
+        "name": "150 Green Vegetarian",
+        "venues": 1,
+        "sourceOccurrences": 4,
+        "displayRows": 4,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 3
+      },
+      {
+        "id": "research-teenoy-hougang-foodpanda-932",
+        "name": "Teenoy Thai Vegetarian",
+        "venues": 1,
+        "sourceOccurrences": 59,
+        "displayRows": 59,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-cookie-coffee-fortune-centre",
+        "name": "Cookie Coffee Cafe Bar",
+        "venues": 1,
+        "sourceOccurrences": 37,
+        "displayRows": 37,
+        "priceRanges": 0,
+        "unknownPrices": 37,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 37,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-kind-kones-forum",
+        "name": "Kind Kones",
+        "venues": 1,
+        "sourceOccurrences": 29,
+        "displayRows": 29,
+        "priceRanges": 14,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-egg-plant-marina-bay-source",
+        "name": "egg.plant - Marina Bay Link Mall",
+        "venues": 1,
+        "sourceOccurrences": 6,
+        "displayRows": 6,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 6
+      },
+      {
+        "id": "research-xiang-yuan-circuit-source",
+        "name": "Xiang Yuan Vegetarian Food - Circuit Road",
+        "venues": 1,
+        "sourceOccurrences": 4,
+        "displayRows": 4,
+        "priceRanges": 0,
+        "unknownPrices": 4,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 4,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-su-xiang-lau-pa-sat-46",
+        "name": "Su Xiang Vegetarian",
+        "venues": 1,
+        "sourceOccurrences": 31,
+        "displayRows": 31,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-yi-ding-xuan-tampines-201",
+        "name": "Yi Ding Xuan Vegetarian",
+        "venues": 1,
+        "sourceOccurrences": 25,
+        "displayRows": 25,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-slow-bakes-yishun-hyc",
+        "name": "Slow Bakes",
+        "venues": 1,
+        "sourceOccurrences": 23,
+        "displayRows": 22,
+        "priceRanges": 12,
+        "unknownPrices": 22,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 22,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-ur01-kind-sprout-sengkang",
+        "name": "Kind Sprout SG",
+        "venues": 1,
+        "sourceOccurrences": 5,
+        "displayRows": 5,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 2
+      },
+      {
+        "id": "research-delcies-whampoa-west",
+        "name": "Delcie’s Desserts and Cakes",
+        "venues": 1,
+        "sourceOccurrences": 63,
+        "displayRows": 60,
+        "priceRanges": 38,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-happy-vegetarian-hougang-106",
+        "name": "Happy Vegetarian Food - Hougang",
+        "venues": 1,
+        "sourceOccurrences": 12,
+        "displayRows": 12,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 4
+      },
+      {
+        "id": "research-ur01-kale-adelphi",
+        "name": "Kale by Kang Su (The Adelphi)",
+        "venues": 1,
+        "sourceOccurrences": 22,
+        "displayRows": 22,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 11
+      },
+      {
+        "id": "research-ur01-tracy-fortune",
+        "name": "Tracy Juice Culture",
+        "venues": 1,
+        "sourceOccurrences": 8,
+        "displayRows": 8,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 5
+      },
+      {
+        "id": "research-ur01-harmony-serangoon",
+        "name": "Harmony Hut",
+        "venues": 1,
+        "sourceOccurrences": 38,
+        "displayRows": 38,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 27
+      },
+      {
+        "id": "research-ur01-new-green-pasture-fortune",
+        "name": "New Green Pasture Cafe",
+        "venues": 1,
+        "sourceOccurrences": 41,
+        "displayRows": 41,
+        "priceRanges": 0,
+        "unknownPrices": 41,
+        "missingAmount": 41,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-renyi-tampines820",
+        "name": "Ren Yi Vegetarian",
+        "venues": 1,
+        "sourceOccurrences": 27,
+        "displayRows": 27,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 7
+      },
+      {
+        "id": "research-tian-yuan-fortune-centre-01-16",
+        "name": "Tian Yuan Healthy Vegetarian Food Paradise",
+        "venues": 1,
+        "sourceOccurrences": 20,
+        "displayRows": 20,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 3
+      },
+      {
+        "id": "research-crowded-bowl-ntu-north-spine",
+        "name": "The Crowded Bowl - NTU North Spine",
+        "venues": 1,
+        "sourceOccurrences": 12,
+        "displayRows": 12,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 1
+      },
+      {
+        "id": "research-verimix-le-quest-01-17",
+        "name": "Verimix Vegetarian - Le Quest Mall",
+        "venues": 1,
+        "sourceOccurrences": 4,
+        "displayRows": 2,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 2
+      },
+      {
+        "id": "research-ur02-vegetarian-express-hougang",
+        "name": "Vegetarian Express Cafe",
+        "venues": 1,
+        "sourceOccurrences": 129,
+        "displayRows": 129,
+        "priceRanges": 21,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-an-acai-affair-northpoint-city",
+        "name": "An Açaí Affair (Yishun Northpoint)",
+        "venues": 1,
+        "sourceOccurrences": 18,
+        "displayRows": 18,
+        "priceRanges": 13,
+        "unknownPrices": 18,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 18,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-any1-choco-telok-ayer",
+        "name": "Any1 Choco",
+        "venues": 1,
+        "sourceOccurrences": 3,
+        "displayRows": 3,
+        "priceRanges": 0,
+        "unknownPrices": 3,
+        "missingAmount": 3,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-ur02-xie-bi-an-vegetarian",
+        "name": "Xie Bi An Vegetarian 谢必安素食",
+        "venues": 1,
+        "sourceOccurrences": 3,
+        "displayRows": 3,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 3
+      },
+      {
+        "id": "research-ur02-tpy-203-vegetarian-food",
+        "name": "TPY 203 Vegetarian food",
+        "venues": 1,
+        "sourceOccurrences": 1,
+        "displayRows": 1,
+        "priceRanges": 0,
+        "unknownPrices": 1,
+        "missingAmount": 1,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-ur02-vegetarian-food-stall-01-74",
+        "name": "Mini Green Lok Lok",
+        "venues": 1,
+        "sourceOccurrences": 18,
+        "displayRows": 18,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 13
+      },
+      {
+        "id": "research-ur02-amk-green-harmony-vegetarian",
+        "name": "Green Harmony Vegetarian 素和轩",
+        "venues": 1,
+        "sourceOccurrences": 30,
+        "displayRows": 30,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 1
+      },
+      {
+        "id": "research-ur03-99-pioneer-mall",
+        "name": "99 Vegetarian",
+        "venues": 1,
+        "sourceOccurrences": 17,
+        "displayRows": 15,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-ur03-eco-sen-toa-payoh66",
+        "name": "Eco Sen Vegetarian Food 缘森素食",
+        "venues": 1,
+        "sourceOccurrences": 22,
+        "displayRows": 22,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-sl08-fire-flies",
+        "name": "Fire Flies Vegetarian",
+        "venues": 1,
+        "sourceOccurrences": 18,
+        "displayRows": 11,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 7
+      },
+      {
+        "id": "research-sl08-ju-fu-yuan-amk",
+        "name": "Ju Fu Yuan Vegetarian Delight",
+        "venues": 1,
+        "sourceOccurrences": 2,
+        "displayRows": 2,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 2
+      },
+      {
+        "id": "research-sl08-xi-shi-fu",
+        "name": "Xi Shi Fu Vegetarian",
+        "venues": 1,
+        "sourceOccurrences": 8,
+        "displayRows": 8,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-ur04-mani-iyer",
+        "name": "Mani Iyer Vegetarian Cuisine",
+        "venues": 1,
+        "sourceOccurrences": 85,
+        "displayRows": 85,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-ur04-peace-vegetarian",
+        "name": "Peace Vegetarian",
+        "venues": 1,
+        "sourceOccurrences": 31,
+        "displayRows": 31,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-ur04-bao-su-zhai",
+        "name": "Bao Su Zhai",
+        "venues": 1,
+        "sourceOccurrences": 18,
+        "displayRows": 18,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 16
+      },
+      {
+        "id": "research-ur04-kunthaville",
+        "name": "Kunthaville",
+        "venues": 1,
+        "sourceOccurrences": 31,
+        "displayRows": 31,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-ur03-gan-taste-vegetarian",
+        "name": "Gan Taste Vegetarian",
+        "venues": 1,
+        "sourceOccurrences": 55,
+        "displayRows": 55,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 6
+      },
+      {
+        "id": "research-ur06-original-sin",
+        "name": "Original Sin",
+        "venues": 1,
+        "sourceOccurrences": 85,
+        "displayRows": 55,
+        "priceRanges": 2,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 19
+      },
+      {
+        "id": "research-ur06-xing-hua",
+        "name": "Xing Hua Vegetarian",
+        "venues": 1,
+        "sourceOccurrences": 23,
+        "displayRows": 23,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-ur06-so-green",
+        "name": "So Green Vegetarian",
+        "venues": 1,
+        "sourceOccurrences": 98,
+        "displayRows": 98,
+        "priceRanges": 55,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-ur06-xin-yi",
+        "name": "Xin Yi Vegetarian",
+        "venues": 1,
+        "sourceOccurrences": 5,
+        "displayRows": 5,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 1
+      },
+      {
+        "id": "research-ur06-ju-fu-yuan-serangoon",
+        "name": "Ju Fu Yuan Vegetarian",
+        "venues": 1,
+        "sourceOccurrences": 10,
+        "displayRows": 10,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 10
+      },
+      {
+        "id": "research-ur06-li-wei",
+        "name": "Li Wei Vegetarian",
+        "venues": 1,
+        "sourceOccurrences": 58,
+        "displayRows": 58,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 6
+      },
+      {
+        "id": "research-ur07-red-apple-tampines",
+        "name": "Red Apple Vegetarian",
+        "venues": 1,
+        "sourceOccurrences": 87,
+        "displayRows": 87,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 74
+      },
+      {
+        "id": "research-ur08-150-green",
+        "name": "150 Green Vegetarian",
+        "venues": 1,
+        "sourceOccurrences": 15,
+        "displayRows": 15,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-ur08-vege-bear-bidadari",
+        "name": "Vege Bear Vegetarian",
+        "venues": 1,
+        "sourceOccurrences": 41,
+        "displayRows": 39,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 39
+      },
+      {
+        "id": "research-ascend-cross-lead",
+        "name": "Ascend Vegetarian",
+        "venues": 1,
+        "sourceOccurrences": 2,
+        "displayRows": 2,
+        "priceRanges": 0,
+        "unknownPrices": 2,
+        "missingAmount": 2,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-ur09-eco-harmony-aljunied",
+        "name": "Eco-Harmony Cafe",
+        "venues": 1,
+        "sourceOccurrences": 50,
+        "displayRows": 49,
+        "priceRanges": 0,
+        "unknownPrices": 49,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 49,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-ur09-kms-dining-hall",
+        "name": "KMSPKS Dining Hall",
+        "venues": 1,
+        "sourceOccurrences": 52,
+        "displayRows": 52,
+        "priceRanges": 3,
+        "unknownPrices": 52,
+        "missingAmount": 2,
+        "unknownCurrencyWithAmount": 50,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-ur09-kms-zen-cafe",
+        "name": "Zen Cafe",
+        "venues": 1,
+        "sourceOccurrences": 23,
+        "displayRows": 23,
+        "priceRanges": 0,
+        "unknownPrices": 23,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 23,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-ur10-ju-fu-yuan-eunos",
+        "name": "Ju Fu Yuan Vegetarian Delight",
+        "venues": 1,
+        "sourceOccurrences": 9,
+        "displayRows": 9,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 9
+      },
+      {
+        "id": "research-ur11-crowded-sp",
+        "name": "The Crowded Bowl",
+        "venues": 1,
+        "sourceOccurrences": 13,
+        "displayRows": 13,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 1
+      },
+      {
+        "id": "research-ur13-suyuan-bedok",
+        "name": "Suyuan Vegetarian",
+        "venues": 1,
+        "sourceOccurrences": 24,
+        "displayRows": 24,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 5
+      },
+      {
+        "id": "research-ur13-sangeetha-rangoon",
+        "name": "Sangeetha Bhavan",
+        "venues": 1,
+        "sourceOccurrences": 218,
+        "displayRows": 218,
+        "priceRanges": 0,
+        "unknownPrices": 218,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 218,
+        "priceFrom": 0
+      },
+      {
+        "id": "research-ur14-tianmu-westcoast",
+        "name": "TianMu Vegetarian",
+        "venues": 1,
+        "sourceOccurrences": 41,
+        "displayRows": 41,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 6
+      },
+      {
+        "id": "research-ur15-xinghua-somerset",
+        "name": "Xing Hua Vegetarian Restaurant",
+        "venues": 1,
+        "sourceOccurrences": 88,
+        "displayRows": 88,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 1
+      },
+      {
+        "id": "research-ur15-conut-haji",
+        "name": "Co+Nut+Ink",
+        "venues": 1,
+        "sourceOccurrences": 7,
+        "displayRows": 7,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 5
+      },
+      {
+        "id": "research-ur15-conut-marriott",
+        "name": "Co+Nut+Ink",
+        "venues": 1,
+        "sourceOccurrences": 7,
+        "displayRows": 7,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 5
+      },
+      {
+        "id": "research-fennel-river-valley",
+        "name": "Fennel by Komala Vilas",
+        "venues": 1,
+        "sourceOccurrences": 75,
+        "displayRows": 74,
+        "priceRanges": 1,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 8
+      },
+      {
+        "id": "research-swaad-shenton3",
+        "name": "Swaad",
+        "venues": 1,
+        "sourceOccurrences": 8,
+        "displayRows": 8,
+        "priceRanges": 0,
+        "unknownPrices": 0,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 0,
+        "priceFrom": 3
+      },
+      {
+        "id": "research-mod-cafe-kuo-chuan",
+        "name": "MOD Cafe",
+        "venues": 1,
+        "sourceOccurrences": 27,
+        "displayRows": 27,
+        "priceRanges": 0,
+        "unknownPrices": 27,
+        "missingAmount": 0,
+        "unknownCurrencyWithAmount": 27,
+        "priceFrom": 0
+      }
+    ],
+    "expandedDetails": [],
+    "duplicateNames": [],
+    "passed": true
+  },
+  "userMerchantSourcesAvailable": false,
+  "priceResearchQualification": "Five high-gap merchant contexts were freshly read; 3387 price gaps remain. No claim that all missing currencies or amounts were individually researched today.",
+  "sourceRegisterCounts": {
+    "foodRecords": 17612,
+    "sourceDocuments": 3620,
+    "uniqueSourceUrls": 3546,
+    "undatedSourceDocuments": 0,
+    "publishedRecords": 11971,
+    "publishedFoodOccurrences": 12087,
+    "heldRecords": 2527,
+    "branchOnlySources": 0
+  },
+  "googleLedger": {
+    "bytes": 1045377,
+    "sha256": "c7321dafaad0473583139494ca899501578892c5b71105429d3cd4dceb4f311a",
+    "requests": 2419,
+    "limit": 2500,
+    "remaining": 81
+  },
+  "googleCalls": 0,
+  "oneMapExactStreetRequests": 1,
+  "preservedQualifications": [
+    "NHB heritage/campus map points establish premises, not current stock or stall entrances.",
+    "All three former coordinate holds are preserved as prior evidence; postal conflicts remain, despite zero missing map points.",
+    "Nine SHU schedules retain unknown weekdays/rest days and lasting applicability.",
+    "All food/source records, rights/attribution, approved identities, zero-food/unnamed candidate records and holds are retained.",
+    "No paid Google call, image generation or provider call on ordinary browsing."
+  ],
+  "pendingWork": [
+    "Public evidence still does not establish 54 exact-branch opening schedules or the Happy Vegetarian 106 Hougang cover; all holds remain.",
+    "3387 display rows retain unavailable prices: 669 missing amounts and 2718 amounts without confirmed currency. Lower-bound prices remain qualified. Fresh public checks of five large currency-gap contexts did not establish a menu-wide currency.",
+    "Broader research retains 2527 held food observations, 109 zero-food branch records and 1828 unnamed candidate IDs; no duplicate extraction or inferred approvals.",
+    "Physical-device UI and capacity for 1000 concurrent production users remain unverified."
+  ],
+  "releaseEvidence": ".local/reviewed-diet-2026-10-17/release.json",
+  "storage": {
+    "checkedAt": "2026-10-17T04:10:03.652928+00:00",
+    "dockerStorage": "TYPE            TOTAL     ACTIVE    SIZE      RECLAIMABLE\nImages          173       24        33.04GB   7.339GB (22%)\nContainers      24        23        3.449MB   184.3kB (5%)\nLocal Volumes   7         3         156.9MB   122.3MB (77%)\nBuild Cache     360       0         15.45GB   9.965GB",
+    "releaseAndBackupStorage": "7.4G\t/docker/quintaste/releases\n1.2M\t/docker/quintaste/deployment-backups",
+    "disk": "Filesystem      Size  Used Avail Use% Mounted on\n/dev/sda1        96G   79G   17G  83% /",
+    "filesDeleted": 0,
+    "passed": true
+  }
+}

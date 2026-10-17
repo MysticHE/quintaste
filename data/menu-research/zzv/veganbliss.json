@@ -1,0 +1,22 @@
+{
+"version":1,
+"checkedAt":"2026-10-15T09:52:45.300497+00:00",
+"sources":[
+{"id":"zzv-group-online-20261015","url":"https://online.zzv.sg/index.html","publisher":"Zi Zai Vegetarian Group","title":"Official group outlet and ordering links","kind":"merchant-location","checkedAt":"2026-10-15T09:52:45.300497+00:00","status":"readable"},
+{"id":"veganbliss-ordering-unavailable","url":"https://veganbliss.getz.co/","publisher":"Veganbliss via Getz","title":"Official ordering destination","kind":"merchant-ordering","checkedAt":"2026-10-15T09:52:45.300497+00:00","status":"redirect-loop-home-notavailable"},
+{"id":"veganbliss-social-unavailable","url":"https://www.facebook.com/veganbliss.sf/","publisher":"Directory-linked Veganbliss account (ownership unverified)","title":"Directory-linked social page","kind":"unverified-social-lead","checkedAt":"2026-10-15T09:52:45.300497+00:00","status":"public-access-blocked"}
+],
+"branches":[
+{"id":"veganbliss-joo-chiat","brandId":"veganbliss","name":"Veganbliss","address":"229 Joo Chiat Road #01-01, Singapore 427489","postalCode":"427489","unit":"#01-01","sourceIds":["zzv-group-online-20261015"],"menuIds":["veganbliss-current-menu-unavailable"],"notes":"Group-published branch identity. Live official ordering target repeatedly redirects to /Home/NotAvailable. An older indexed snapshot is not treated as a current complete menu."}
+],
+"menus":[
+{"id":"veganbliss-current-menu-unavailable","brandId":"veganbliss","name":"Veganbliss — current exact-branch menu unavailable","scope":"branch","branchIds":["veganbliss-joo-chiat"],"sourceIds":["veganbliss-ordering-unavailable","veganbliss-social-unavailable"],"coverage":"unavailable","notice":"Live ordering destination unavailable and public social extraction blocked. Prior cached products and third-party review names are not imported as a current menu.","items":[
+
+]},
+{"id":"veganbliss-group-landing-recommendations","brandId":"veganbliss","name":"Veganbliss — undated group recommendations","scope":"brand","branchIds":[],"sourceIds":["zzv-group-online-20261015"],"coverage":"partial","notice":"Three factual dish names on the group landing only. No prices, current exact-outlet availability or complete menu established.","items":[
+{"id":"veganbliss-group-landing-recommendations-1","name":"Nyonya Buah Kelauk Cuisine","category":"Group landing recommendations","qualifier":"Undated brand recommendation; price and current exact-outlet availability unconfirmed.","sourceIds":["zzv-group-online-20261015"]},
+{"id":"veganbliss-group-landing-recommendations-2","name":"Signature Assam Fish","category":"Group landing recommendations","qualifier":"Undated brand recommendation; price and current exact-outlet availability unconfirmed.","sourceIds":["zzv-group-online-20261015"]},
+{"id":"veganbliss-group-landing-recommendations-3","name":"Peking Crispy Duck","category":"Group landing recommendations","qualifier":"Undated brand recommendation; price and current exact-outlet availability unconfirmed.","sourceIds":["zzv-group-online-20261015"]}
+]}
+]
+}

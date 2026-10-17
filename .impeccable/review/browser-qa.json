@@ -1,0 +1,22 @@
+{
+  "checks": [
+    "Empty sign-in blocks navigation and shows field errors",
+    "Password visibility and unconnected-provider feedback work",
+    "Saving normalizes profile data and clears unsaved feedback",
+    "Diet, independent alliums, appearance, accessibility, notifications, and profile persist after reload; credentials do not",
+    "Help return, guest entry, and create-profile acknowledgement flows work"
+  ],
+  "pageErrors": [],
+  "consoleErrors": [],
+  "screenshots": [
+    "browser-startup.png",
+    "browser-login.png",
+    "browser-account.png",
+    "browser-settings-dark.png",
+    "browser-exclusions.png",
+    "browser-settings-light.png",
+    "browser-small-large-text.png",
+    "browser-desktop-profile.png"
+  ],
+  "status": "passed"
+}

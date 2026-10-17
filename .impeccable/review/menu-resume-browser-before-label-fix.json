@@ -1,0 +1,100 @@
+{
+  "startedAt": "2026-10-16T03:45:43.573Z",
+  "url": "http://127.0.0.1:8084",
+  "checks": [
+    {
+      "name": "Vegetarian Express pending case:129 Oddle rows, paging, full-source search, modifiers and held Foodpanda absent",
+      "status": "failed"
+    },
+    {
+      "name": "mini-green pending case: held foods absent and unknown modifiers explicit",
+      "status": "passed"
+    },
+    {
+      "name": "green-harmony pending case: held foods absent and unknown modifiers explicit",
+      "status": "passed"
+    },
+    {
+      "name": "eco-sen new menu: exact approved foods, held exclusions, prices, source link and no modifiers invented",
+      "status": "passed"
+    },
+    {
+      "name": "99-vegetarian new menu: exact approved foods, held exclusions, prices, source link and no modifiers invented",
+      "status": "passed"
+    }
+  ],
+  "screenshots": [
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-resume-browser\\vegetarian-express-320.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-resume-browser\\mini-green-375.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-resume-browser\\green-harmony-320.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-resume-browser\\eco-sen-375.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-resume-browser\\99-vegetarian-375.png"
+  ],
+  "errors": [
+    {
+      "name": "Vegetarian Express pending case:129 Oddle rows, paging, full-source search, modifiers and held Foodpanda absent",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n1 !== 0\n\n    at audit (C:\\Users\\huien\\qt\\tmp\\qa\\menu-resume-qa.cjs:68:418)\n    at async C:\\Users\\huien\\qt\\tmp\\qa\\menu-resume-qa.cjs:78:123\n    at async check (C:\\Users\\huien\\qt\\tmp\\qa\\menu-resume-qa.cjs:65:118)\n    at async main (C:\\Users\\huien\\qt\\tmp\\qa\\menu-resume-qa.cjs:70:3)"
+    }
+  ],
+  "pageErrors": [],
+  "unexpectedConsoleErrors": [],
+  "blockedApiRequests": [
+    "/api/local-explore/session",
+    "/api/local-explore/session",
+    "/api/local-explore/session",
+    "/api/local-explore/session",
+    "/api/local-explore/session"
+  ],
+  "blockedExternalRequests": [],
+  "apiRequests": [
+    "/api/menus?view=index",
+    "/api/menus?id=research-ur02-vegetarian-express-hougang",
+    "/api/menus?view=index",
+    "/api/menus?id=research-ur02-vegetarian-food-stall-01-74",
+    "/api/menus?view=index",
+    "/api/menus?id=research-ur02-amk-green-harmony-vegetarian",
+    "/api/menus?view=index",
+    "/api/menus?id=research-ur03-eco-sen-toa-payoh66",
+    "/api/menus?view=index",
+    "/api/menus?id=research-ur03-99-pioneer-mall"
+  ],
+  "a11y": [
+    {
+      "label": "Vegetarian Express pending case",
+      "violations": [
+        {
+          "id": "label-content-name-mismatch",
+          "impact": "serious",
+          "targets": [
+            [
+              ".r-alignItems-1habvwh > .r-borderRadius-6ncur5"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "label": "eco-sen",
+      "violations": []
+    },
+    {
+      "label": "99-vegetarian",
+      "violations": []
+    }
+  ],
+  "forwardedProviderCalls": 0,
+  "installedChromeUsed": false,
+  "catalogue": {
+    "locations": 143,
+    "sourceMenus": 188,
+    "foodOccurrences": 10771
+  },
+  "browserVersion": "156.0.8078.4",
+  "finishedAt": "2026-10-16T03:46:14.232Z",
+  "passed": false,
+  "visualReview": {
+    "status": "pending",
+    "inspectedScreenshots": []
+  },
+  "googleLedgerUnchanged": true
+}

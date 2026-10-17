@@ -1,0 +1,1391 @@
+{
+  "checkedAt": "2026-10-17",
+  "status": "Deployed and live verified; full coverage remains active",
+  "fullCoverageComplete": false,
+  "goalStatus": "active",
+  "newPhotos": [
+    {
+      "venueId": "research-greendot-star-vista",
+      "address": "1 Vista Exchange Green, #02-04, The Star Vista 138617, Singapore",
+      "photo": {
+        "path": "/api/catalogue-photos/201db0eed220cb50bfb806fba615437e5a20392580359d59e3c616408a5df636.jpg",
+        "width": 960,
+        "height": 640,
+        "author": "Greendot",
+        "sourceUrl": "https://orders.greendot.sg/?StoreID=f39c03dc-5939-438d-b91e-df0677037d8c&Service=PickUp&lang=EN",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator food reference; resized for display. Fine details may differ. Shared brand photograph, not a branch interior. Source rights retained."
+      },
+      "sha256": "201db0eed220cb50bfb806fba615437e5a20392580359d59e3c616408a5df636",
+      "bytes": 112108,
+      "originalSha256": "98f633118523786e770dde27b1bb99c14c756d0cb4ad257f1d01c75873d7c135",
+      "sourcePageCheckedAt": "2026-10-15T10:29:58Z",
+      "sourceImageUrl": "https://s3-ap-southeast-1.amazonaws.com/getz-prod/4ba8da88-1043-4132-98d0-634a40567afa/1262362995_LaksaPaoFan1200x800.webp",
+      "identityEvidence": "Exact selected outlet/address and product-image relationship reviewed in saved browser DOM; canonical merchant source URL matches. Shared brand food photograph, not a branch interior or current stock assertion. Selected outlet: Greendot @ Star Vista. Product: 0bcdff6e-00e6-47ae-8fbc-7d3d779fc40d.",
+      "reuseBasis": "User explicitly requested enhancing online references once and storing covers. The operator uses this same product photograph in each individually verified branch menu; source rights and attribution retained, no new licence asserted.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Use case: lighting-weather. Faithfully enhance this exact Greendot operator photograph of Signature Laksa Poached Rice for a restaurant gallery cover. Keep the black nested bowl, all visible rice, leafy vegetables, tofu pieces and plant-based morsels, garnish, separate crisp rice bowl, bamboo mat, leaves and pale tabletop exactly in their original arrangement and amounts. Improve natural daylight, appetizing texture clarity and restrained color balance without altering food contents or proportions. Same landscape framing and camera angle. No added toppings, steam, utensils, text, logos, dishes or ingredient claims; do not transform plant-based morsels into animal meat or seafood. Editorial realistic food photography faithful to the supplied reference.",
+        "review": "Source/output visually compared; original arrangement retained. No ingredient, stock or opening-hours claim inferred."
+      }
+    },
+    {
+      "venueId": "research-greendot-seletar-mall",
+      "address": "33 Sengkang West Avenue #B1-01 The Seletar Mall, 797653, Singapore",
+      "photo": {
+        "path": "/api/catalogue-photos/95e9c6da0948226b738f43f749074a4d3152ce2bead6e912cdcfaece55297c03.jpg",
+        "width": 960,
+        "height": 640,
+        "author": "Greendot",
+        "sourceUrl": "https://orders.greendot.sg/?StoreID=191ae5df-d765-4e6d-8261-b35209534a04&Service=PickUp&lang=EN",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator food reference; resized for display. Fine details may differ. Shared brand photograph, not a branch interior. Source rights retained."
+      },
+      "sha256": "95e9c6da0948226b738f43f749074a4d3152ce2bead6e912cdcfaece55297c03",
+      "bytes": 120166,
+      "originalSha256": "9031ccfec63b1b52b6ab76b1496118ca1378cfd76509b913234532482d13d28f",
+      "sourcePageCheckedAt": "2026-10-15T10:29:58Z",
+      "sourceImageUrl": "https://s3-ap-southeast-1.amazonaws.com/getz-prod/4ba8da88-1043-4132-98d0-634a40567afa/387193623_6569Edit.webp",
+      "identityEvidence": "Exact selected outlet/address and product-image relationship reviewed in saved browser DOM; canonical merchant source URL matches. Shared brand food photograph, not a branch interior or current stock assertion. Selected outlet: Greendot @ The Seletar Mall. Product: 230b6be2-27cb-4251-8b05-9212a985a4e5.",
+      "reuseBasis": "User explicitly requested enhancing online references once and storing covers. The operator uses this same product photograph in each individually verified branch menu; source rights and attribution retained, no new licence asserted.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Use case: lighting-weather. Faithfully enhance this exact Greendot Seletar menu photograph of Rendang Lion Mane Mushroom Nasi Lemak for a photographic restaurant gallery cover. Preserve the rice mound, fried egg and its yolk, rendang-coated mushroom pieces, orange slices, shredded side, peanuts, cucumber slices, banana leaf and wooden tabletop in exactly their photographed positions and amounts. Retain cropped background props as they are. Refine balanced natural light, texture and warm appetizing color without altering ingredients or adding anything. Same landscape composition and camera angle, no text or logos, no steam or extra garnish, no dietary or availability claim. Keep realistic imperfections and no plastic gloss.",
+        "review": "Source/output visually compared; original arrangement retained. No ingredient, stock or opening-hours claim inferred."
+      }
+    },
+    {
+      "venueId": "research-greendot-asia-square",
+      "address": "8 Marina View, Tower 1, #02-02, 018960, Singapore",
+      "photo": {
+        "path": "/api/catalogue-photos/201db0eed220cb50bfb806fba615437e5a20392580359d59e3c616408a5df636.jpg",
+        "width": 960,
+        "height": 640,
+        "author": "Greendot",
+        "sourceUrl": "https://orders.greendot.sg/?StoreID=47a71ad4-01ef-487c-be94-f66c9f8e0ba3&Service=PickUp&lang=EN",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator food reference; resized for display. Fine details may differ. Shared brand photograph, not a branch interior. Source rights retained."
+      },
+      "sha256": "201db0eed220cb50bfb806fba615437e5a20392580359d59e3c616408a5df636",
+      "bytes": 112108,
+      "originalSha256": "98f633118523786e770dde27b1bb99c14c756d0cb4ad257f1d01c75873d7c135",
+      "sourcePageCheckedAt": "2026-10-15T10:29:58Z",
+      "sourceImageUrl": "https://s3-ap-southeast-1.amazonaws.com/getz-prod/4ba8da88-1043-4132-98d0-634a40567afa/1262362995_LaksaPaoFan1200x800.webp",
+      "identityEvidence": "Exact selected outlet/address and product-image relationship reviewed in saved browser DOM; canonical merchant source URL matches. Shared brand food photograph, not a branch interior or current stock assertion. Selected outlet: Greendot @ Asia Square. Product: 0bcdff6e-00e6-47ae-8fbc-7d3d779fc40d.",
+      "reuseBasis": "User explicitly requested enhancing online references once and storing covers. The operator uses this same product photograph in each individually verified branch menu; source rights and attribution retained, no new licence asserted.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Use case: lighting-weather. Faithfully enhance this exact Greendot operator photograph of Signature Laksa Poached Rice for a restaurant gallery cover. Keep the black nested bowl, all visible rice, leafy vegetables, tofu pieces and plant-based morsels, garnish, separate crisp rice bowl, bamboo mat, leaves and pale tabletop exactly in their original arrangement and amounts. Improve natural daylight, appetizing texture clarity and restrained color balance without altering food contents or proportions. Same landscape framing and camera angle. No added toppings, steam, utensils, text, logos, dishes or ingredient claims; do not transform plant-based morsels into animal meat or seafood. Editorial realistic food photography faithful to the supplied reference.",
+        "review": "Source/output visually compared; original arrangement retained. No ingredient, stock or opening-hours claim inferred."
+      }
+    },
+    {
+      "venueId": "research-greendot-bedok-mall",
+      "address": "311 New Upper Changi Road B2-31, Bedok Mall, 467360, Singapore",
+      "photo": {
+        "path": "/api/catalogue-photos/201db0eed220cb50bfb806fba615437e5a20392580359d59e3c616408a5df636.jpg",
+        "width": 960,
+        "height": 640,
+        "author": "Greendot",
+        "sourceUrl": "https://orders.greendot.sg/?StoreID=b33dedbe-40e7-40c8-a110-b4bb4239c938&Service=PickUp&lang=EN",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator food reference; resized for display. Fine details may differ. Shared brand photograph, not a branch interior. Source rights retained."
+      },
+      "sha256": "201db0eed220cb50bfb806fba615437e5a20392580359d59e3c616408a5df636",
+      "bytes": 112108,
+      "originalSha256": "98f633118523786e770dde27b1bb99c14c756d0cb4ad257f1d01c75873d7c135",
+      "sourcePageCheckedAt": "2026-10-15T10:29:58Z",
+      "sourceImageUrl": "https://s3-ap-southeast-1.amazonaws.com/getz-prod/4ba8da88-1043-4132-98d0-634a40567afa/1262362995_LaksaPaoFan1200x800.webp",
+      "identityEvidence": "Exact selected outlet/address and product-image relationship reviewed in saved browser DOM; canonical merchant source URL matches. Shared brand food photograph, not a branch interior or current stock assertion. Selected outlet: Greendot @ Bedok Mall. Product: 0bcdff6e-00e6-47ae-8fbc-7d3d779fc40d.",
+      "reuseBasis": "User explicitly requested enhancing online references once and storing covers. The operator uses this same product photograph in each individually verified branch menu; source rights and attribution retained, no new licence asserted.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Use case: lighting-weather. Faithfully enhance this exact Greendot operator photograph of Signature Laksa Poached Rice for a restaurant gallery cover. Keep the black nested bowl, all visible rice, leafy vegetables, tofu pieces and plant-based morsels, garnish, separate crisp rice bowl, bamboo mat, leaves and pale tabletop exactly in their original arrangement and amounts. Improve natural daylight, appetizing texture clarity and restrained color balance without altering food contents or proportions. Same landscape framing and camera angle. No added toppings, steam, utensils, text, logos, dishes or ingredient claims; do not transform plant-based morsels into animal meat or seafood. Editorial realistic food photography faithful to the supplied reference.",
+        "review": "Source/output visually compared; original arrangement retained. No ingredient, stock or opening-hours claim inferred."
+      }
+    },
+    {
+      "venueId": "research-greendot-bukit-panjang-plaza",
+      "address": "1 Jelebu Rd, Bukit Panjang Plaza, 677743, Singapore",
+      "photo": {
+        "path": "/api/catalogue-photos/201db0eed220cb50bfb806fba615437e5a20392580359d59e3c616408a5df636.jpg",
+        "width": 960,
+        "height": 640,
+        "author": "Greendot",
+        "sourceUrl": "https://orders.greendot.sg/?StoreID=e651dea9-726c-4921-bbe0-e1cbb9abaf6d&Service=PickUp&lang=EN",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator food reference; resized for display. Fine details may differ. Shared brand photograph, not a branch interior. Source rights retained."
+      },
+      "sha256": "201db0eed220cb50bfb806fba615437e5a20392580359d59e3c616408a5df636",
+      "bytes": 112108,
+      "originalSha256": "98f633118523786e770dde27b1bb99c14c756d0cb4ad257f1d01c75873d7c135",
+      "sourcePageCheckedAt": "2026-10-15T10:29:58Z",
+      "sourceImageUrl": "https://s3-ap-southeast-1.amazonaws.com/getz-prod/4ba8da88-1043-4132-98d0-634a40567afa/1262362995_LaksaPaoFan1200x800.webp",
+      "identityEvidence": "Exact selected outlet/address and product-image relationship reviewed in saved browser DOM; canonical merchant source URL matches. Shared brand food photograph, not a branch interior or current stock assertion. Selected outlet: Greendot @ Bukit Panjang Plaza. Product: 0bcdff6e-00e6-47ae-8fbc-7d3d779fc40d.",
+      "reuseBasis": "User explicitly requested enhancing online references once and storing covers. The operator uses this same product photograph in each individually verified branch menu; source rights and attribution retained, no new licence asserted.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Use case: lighting-weather. Faithfully enhance this exact Greendot operator photograph of Signature Laksa Poached Rice for a restaurant gallery cover. Keep the black nested bowl, all visible rice, leafy vegetables, tofu pieces and plant-based morsels, garnish, separate crisp rice bowl, bamboo mat, leaves and pale tabletop exactly in their original arrangement and amounts. Improve natural daylight, appetizing texture clarity and restrained color balance without altering food contents or proportions. Same landscape framing and camera angle. No added toppings, steam, utensils, text, logos, dishes or ingredient claims; do not transform plant-based morsels into animal meat or seafood. Editorial realistic food photography faithful to the supplied reference.",
+        "review": "Source/output visually compared; original arrangement retained. No ingredient, stock or opening-hours claim inferred."
+      }
+    },
+    {
+      "venueId": "research-greendot-j8",
+      "address": "9 Bishan Pl, #B1-24 24A, 579837, Singapore",
+      "photo": {
+        "path": "/api/catalogue-photos/201db0eed220cb50bfb806fba615437e5a20392580359d59e3c616408a5df636.jpg",
+        "width": 960,
+        "height": 640,
+        "author": "Greendot",
+        "sourceUrl": "https://orders.greendot.sg/?StoreID=3d67bdd1-f091-4960-b693-5af3a1f2ab5b&Service=PickUp&lang=EN",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator food reference; resized for display. Fine details may differ. Shared brand photograph, not a branch interior. Source rights retained."
+      },
+      "sha256": "201db0eed220cb50bfb806fba615437e5a20392580359d59e3c616408a5df636",
+      "bytes": 112108,
+      "originalSha256": "98f633118523786e770dde27b1bb99c14c756d0cb4ad257f1d01c75873d7c135",
+      "sourcePageCheckedAt": "2026-10-15T10:29:58Z",
+      "sourceImageUrl": "https://s3-ap-southeast-1.amazonaws.com/getz-prod/4ba8da88-1043-4132-98d0-634a40567afa/1262362995_LaksaPaoFan1200x800.webp",
+      "identityEvidence": "Exact selected outlet/address and product-image relationship reviewed in saved browser DOM; canonical merchant source URL matches. Shared brand food photograph, not a branch interior or current stock assertion. Selected outlet: Greendot @ J8. Product: 0bcdff6e-00e6-47ae-8fbc-7d3d779fc40d.",
+      "reuseBasis": "User explicitly requested enhancing online references once and storing covers. The operator uses this same product photograph in each individually verified branch menu; source rights and attribution retained, no new licence asserted.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Use case: lighting-weather. Faithfully enhance this exact Greendot operator photograph of Signature Laksa Poached Rice for a restaurant gallery cover. Keep the black nested bowl, all visible rice, leafy vegetables, tofu pieces and plant-based morsels, garnish, separate crisp rice bowl, bamboo mat, leaves and pale tabletop exactly in their original arrangement and amounts. Improve natural daylight, appetizing texture clarity and restrained color balance without altering food contents or proportions. Same landscape framing and camera angle. No added toppings, steam, utensils, text, logos, dishes or ingredient claims; do not transform plant-based morsels into animal meat or seafood. Editorial realistic food photography faithful to the supplied reference.",
+        "review": "Source/output visually compared; original arrangement retained. No ingredient, stock or opening-hours claim inferred."
+      }
+    },
+    {
+      "venueId": "research-greendot-jurong-point",
+      "address": "1 Jurong West Central 2 Jurong Point JP 1 #01-43/44/45, 648886, Singapore",
+      "photo": {
+        "path": "/api/catalogue-photos/201db0eed220cb50bfb806fba615437e5a20392580359d59e3c616408a5df636.jpg",
+        "width": 960,
+        "height": 640,
+        "author": "Greendot",
+        "sourceUrl": "https://orders.greendot.sg/?StoreID=5252756f-953c-4270-90c7-05ce23f97896&Service=PickUp&lang=EN",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator food reference; resized for display. Fine details may differ. Shared brand photograph, not a branch interior. Source rights retained."
+      },
+      "sha256": "201db0eed220cb50bfb806fba615437e5a20392580359d59e3c616408a5df636",
+      "bytes": 112108,
+      "originalSha256": "98f633118523786e770dde27b1bb99c14c756d0cb4ad257f1d01c75873d7c135",
+      "sourcePageCheckedAt": "2026-10-15T10:29:58Z",
+      "sourceImageUrl": "https://s3-ap-southeast-1.amazonaws.com/getz-prod/4ba8da88-1043-4132-98d0-634a40567afa/1262362995_LaksaPaoFan1200x800.webp",
+      "identityEvidence": "Exact selected outlet/address and product-image relationship reviewed in saved browser DOM; canonical merchant source URL matches. Shared brand food photograph, not a branch interior or current stock assertion. Selected outlet: Greendot @ Jurong Point. Product: 0bcdff6e-00e6-47ae-8fbc-7d3d779fc40d.",
+      "reuseBasis": "User explicitly requested enhancing online references once and storing covers. The operator uses this same product photograph in each individually verified branch menu; source rights and attribution retained, no new licence asserted.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Use case: lighting-weather. Faithfully enhance this exact Greendot operator photograph of Signature Laksa Poached Rice for a restaurant gallery cover. Keep the black nested bowl, all visible rice, leafy vegetables, tofu pieces and plant-based morsels, garnish, separate crisp rice bowl, bamboo mat, leaves and pale tabletop exactly in their original arrangement and amounts. Improve natural daylight, appetizing texture clarity and restrained color balance without altering food contents or proportions. Same landscape framing and camera angle. No added toppings, steam, utensils, text, logos, dishes or ingredient claims; do not transform plant-based morsels into animal meat or seafood. Editorial realistic food photography faithful to the supplied reference.",
+        "review": "Source/output visually compared; original arrangement retained. No ingredient, stock or opening-hours claim inferred."
+      }
+    },
+    {
+      "venueId": "research-greendot-northpoint",
+      "address": "930 Yishun Ave 2, Northpoint City  North Wing, #B2-09/11, 769098, Singapore",
+      "photo": {
+        "path": "/api/catalogue-photos/201db0eed220cb50bfb806fba615437e5a20392580359d59e3c616408a5df636.jpg",
+        "width": 960,
+        "height": 640,
+        "author": "Greendot",
+        "sourceUrl": "https://orders.greendot.sg/?StoreID=f8e46fd5-d7a7-4173-b102-20e44d859073&Service=PickUp&lang=EN",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator food reference; resized for display. Fine details may differ. Shared brand photograph, not a branch interior. Source rights retained."
+      },
+      "sha256": "201db0eed220cb50bfb806fba615437e5a20392580359d59e3c616408a5df636",
+      "bytes": 112108,
+      "originalSha256": "98f633118523786e770dde27b1bb99c14c756d0cb4ad257f1d01c75873d7c135",
+      "sourcePageCheckedAt": "2026-10-15T10:29:58Z",
+      "sourceImageUrl": "https://s3-ap-southeast-1.amazonaws.com/getz-prod/4ba8da88-1043-4132-98d0-634a40567afa/1262362995_LaksaPaoFan1200x800.webp",
+      "identityEvidence": "Exact selected outlet/address and product-image relationship reviewed in saved browser DOM; canonical merchant source URL matches. Shared brand food photograph, not a branch interior or current stock assertion. Selected outlet: Greendot @ Northpoint. Product: 0bcdff6e-00e6-47ae-8fbc-7d3d779fc40d.",
+      "reuseBasis": "User explicitly requested enhancing online references once and storing covers. The operator uses this same product photograph in each individually verified branch menu; source rights and attribution retained, no new licence asserted.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Use case: lighting-weather. Faithfully enhance this exact Greendot operator photograph of Signature Laksa Poached Rice for a restaurant gallery cover. Keep the black nested bowl, all visible rice, leafy vegetables, tofu pieces and plant-based morsels, garnish, separate crisp rice bowl, bamboo mat, leaves and pale tabletop exactly in their original arrangement and amounts. Improve natural daylight, appetizing texture clarity and restrained color balance without altering food contents or proportions. Same landscape framing and camera angle. No added toppings, steam, utensils, text, logos, dishes or ingredient claims; do not transform plant-based morsels into animal meat or seafood. Editorial realistic food photography faithful to the supplied reference.",
+        "review": "Source/output visually compared; original arrangement retained. No ingredient, stock or opening-hours claim inferred."
+      }
+    },
+    {
+      "venueId": "research-greendot-paya-lebar-square",
+      "address": "60 Paya Lebar Road Paya Lebar Square #02-15/16/17, 409051, Singapore",
+      "photo": {
+        "path": "/api/catalogue-photos/201db0eed220cb50bfb806fba615437e5a20392580359d59e3c616408a5df636.jpg",
+        "width": 960,
+        "height": 640,
+        "author": "Greendot",
+        "sourceUrl": "https://orders.greendot.sg/?StoreID=e116e7c4-3ea8-46c0-a794-077e09797d97&Service=PickUp&lang=EN",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator food reference; resized for display. Fine details may differ. Shared brand photograph, not a branch interior. Source rights retained."
+      },
+      "sha256": "201db0eed220cb50bfb806fba615437e5a20392580359d59e3c616408a5df636",
+      "bytes": 112108,
+      "originalSha256": "98f633118523786e770dde27b1bb99c14c756d0cb4ad257f1d01c75873d7c135",
+      "sourcePageCheckedAt": "2026-10-15T10:29:58Z",
+      "sourceImageUrl": "https://s3-ap-southeast-1.amazonaws.com/getz-prod/4ba8da88-1043-4132-98d0-634a40567afa/1262362995_LaksaPaoFan1200x800.webp",
+      "identityEvidence": "Exact selected outlet/address and product-image relationship reviewed in saved browser DOM; canonical merchant source URL matches. Shared brand food photograph, not a branch interior or current stock assertion. Selected outlet: Greendot @ Paya Lebar Square. Product: 0bcdff6e-00e6-47ae-8fbc-7d3d779fc40d.",
+      "reuseBasis": "User explicitly requested enhancing online references once and storing covers. The operator uses this same product photograph in each individually verified branch menu; source rights and attribution retained, no new licence asserted.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Use case: lighting-weather. Faithfully enhance this exact Greendot operator photograph of Signature Laksa Poached Rice for a restaurant gallery cover. Keep the black nested bowl, all visible rice, leafy vegetables, tofu pieces and plant-based morsels, garnish, separate crisp rice bowl, bamboo mat, leaves and pale tabletop exactly in their original arrangement and amounts. Improve natural daylight, appetizing texture clarity and restrained color balance without altering food contents or proportions. Same landscape framing and camera angle. No added toppings, steam, utensils, text, logos, dishes or ingredient claims; do not transform plant-based morsels into animal meat or seafood. Editorial realistic food photography faithful to the supplied reference.",
+        "review": "Source/output visually compared; original arrangement retained. No ingredient, stock or opening-hours claim inferred."
+      }
+    },
+    {
+      "venueId": "research-greendot-tampines-1",
+      "address": "10 Tampines Central 1, Tampines 1, #B1-K8, 529536, Singapore",
+      "photo": {
+        "path": "/api/catalogue-photos/201db0eed220cb50bfb806fba615437e5a20392580359d59e3c616408a5df636.jpg",
+        "width": 960,
+        "height": 640,
+        "author": "Greendot",
+        "sourceUrl": "https://orders.greendot.sg/?StoreID=aab91d55-dec1-4f37-b3d9-679099c43136&Service=PickUp&lang=EN",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator food reference; resized for display. Fine details may differ. Shared brand photograph, not a branch interior. Source rights retained."
+      },
+      "sha256": "201db0eed220cb50bfb806fba615437e5a20392580359d59e3c616408a5df636",
+      "bytes": 112108,
+      "originalSha256": "98f633118523786e770dde27b1bb99c14c756d0cb4ad257f1d01c75873d7c135",
+      "sourcePageCheckedAt": "2026-10-15T10:29:58Z",
+      "sourceImageUrl": "https://s3-ap-southeast-1.amazonaws.com/getz-prod/4ba8da88-1043-4132-98d0-634a40567afa/1262362995_LaksaPaoFan1200x800.webp",
+      "identityEvidence": "Exact selected outlet/address and product-image relationship reviewed in saved browser DOM; canonical merchant source URL matches. Shared brand food photograph, not a branch interior or current stock assertion. Selected outlet: Greendot @ Tampines 1. Product: 0bcdff6e-00e6-47ae-8fbc-7d3d779fc40d.",
+      "reuseBasis": "User explicitly requested enhancing online references once and storing covers. The operator uses this same product photograph in each individually verified branch menu; source rights and attribution retained, no new licence asserted.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Use case: lighting-weather. Faithfully enhance this exact Greendot operator photograph of Signature Laksa Poached Rice for a restaurant gallery cover. Keep the black nested bowl, all visible rice, leafy vegetables, tofu pieces and plant-based morsels, garnish, separate crisp rice bowl, bamboo mat, leaves and pale tabletop exactly in their original arrangement and amounts. Improve natural daylight, appetizing texture clarity and restrained color balance without altering food contents or proportions. Same landscape framing and camera angle. No added toppings, steam, utensils, text, logos, dishes or ingredient claims; do not transform plant-based morsels into animal meat or seafood. Editorial realistic food photography faithful to the supplied reference.",
+        "review": "Source/output visually compared; original arrangement retained. No ingredient, stock or opening-hours claim inferred."
+      }
+    },
+    {
+      "venueId": "research-greendot-westgate",
+      "address": "3 Gateway Dr, #01-06 Westgate, 608532, Singapore",
+      "photo": {
+        "path": "/api/catalogue-photos/201db0eed220cb50bfb806fba615437e5a20392580359d59e3c616408a5df636.jpg",
+        "width": 960,
+        "height": 640,
+        "author": "Greendot",
+        "sourceUrl": "https://orders.greendot.sg/?StoreID=4b9717ab-a5dc-432c-8cd5-20627535147a&Service=PickUp&lang=EN",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator food reference; resized for display. Fine details may differ. Shared brand photograph, not a branch interior. Source rights retained."
+      },
+      "sha256": "201db0eed220cb50bfb806fba615437e5a20392580359d59e3c616408a5df636",
+      "bytes": 112108,
+      "originalSha256": "98f633118523786e770dde27b1bb99c14c756d0cb4ad257f1d01c75873d7c135",
+      "sourcePageCheckedAt": "2026-10-15T10:29:58Z",
+      "sourceImageUrl": "https://s3-ap-southeast-1.amazonaws.com/getz-prod/4ba8da88-1043-4132-98d0-634a40567afa/1262362995_LaksaPaoFan1200x800.webp",
+      "identityEvidence": "Exact selected outlet/address and product-image relationship reviewed in saved browser DOM; canonical merchant source URL matches. Shared brand food photograph, not a branch interior or current stock assertion. Selected outlet: Greendot @ Westgate. Product: 0bcdff6e-00e6-47ae-8fbc-7d3d779fc40d.",
+      "reuseBasis": "User explicitly requested enhancing online references once and storing covers. The operator uses this same product photograph in each individually verified branch menu; source rights and attribution retained, no new licence asserted.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Use case: lighting-weather. Faithfully enhance this exact Greendot operator photograph of Signature Laksa Poached Rice for a restaurant gallery cover. Keep the black nested bowl, all visible rice, leafy vegetables, tofu pieces and plant-based morsels, garnish, separate crisp rice bowl, bamboo mat, leaves and pale tabletop exactly in their original arrangement and amounts. Improve natural daylight, appetizing texture clarity and restrained color balance without altering food contents or proportions. Same landscape framing and camera angle. No added toppings, steam, utensils, text, logos, dishes or ingredient claims; do not transform plant-based morsels into animal meat or seafood. Editorial realistic food photography faithful to the supplied reference.",
+        "review": "Source/output visually compared; original arrangement retained. No ingredient, stock or opening-hours claim inferred."
+      }
+    }
+  ],
+  "branchMapping": [
+    {
+      "venueId": "research-greendot-star-vista",
+      "address": "1 Vista Exchange Green, #02-04, The Star Vista 138617, Singapore",
+      "reference": "greendot-laksa",
+      "sourcePageUrl": "https://orders.greendot.sg/?StoreID=f39c03dc-5939-438d-b91e-df0677037d8c&Service=PickUp&lang=EN",
+      "sourcePageCheckedAt": "2026-10-15T10:29:58Z",
+      "sourceImageUrl": "https://s3-ap-southeast-1.amazonaws.com/getz-prod/4ba8da88-1043-4132-98d0-634a40567afa/1262362995_LaksaPaoFan1200x800.webp",
+      "checkedAt": "2026-10-17",
+      "selectedOutlet": "Greendot @ Star Vista",
+      "savedCapture": "../tmp/qa/menu-chain-expansion/greendot-order-ui-01.json",
+      "productId": "0bcdff6e-00e6-47ae-8fbc-7d3d779fc40d",
+      "productName": "Signature Laksa Poached Rice 叻沙辣香泡饭 🌱🌶️",
+      "identityEvidence": "Exact selected outlet/address and product-image relationship reviewed in saved browser DOM; canonical merchant source URL matches. Shared brand food photograph, not a branch interior or current stock assertion."
+    },
+    {
+      "venueId": "research-greendot-seletar-mall",
+      "address": "33 Sengkang West Avenue #B1-01 The Seletar Mall, 797653, Singapore",
+      "reference": "greendot-seletar",
+      "sourcePageUrl": "https://orders.greendot.sg/?StoreID=191ae5df-d765-4e6d-8261-b35209534a04&Service=PickUp&lang=EN",
+      "sourcePageCheckedAt": "2026-10-15T10:29:58Z",
+      "sourceImageUrl": "https://s3-ap-southeast-1.amazonaws.com/getz-prod/4ba8da88-1043-4132-98d0-634a40567afa/387193623_6569Edit.webp",
+      "checkedAt": "2026-10-17",
+      "selectedOutlet": "Greendot @ The Seletar Mall",
+      "savedCapture": "../tmp/qa/menu-chain-expansion/greendot-order-ui-02.json",
+      "productId": "230b6be2-27cb-4251-8b05-9212a985a4e5",
+      "productName": "Rendang Lion Mane Mushroom Nasi Lemak 仁当猴头菇椰浆饭",
+      "identityEvidence": "Exact selected outlet/address and product-image relationship reviewed in saved browser DOM; canonical merchant source URL matches. Shared brand food photograph, not a branch interior or current stock assertion."
+    },
+    {
+      "venueId": "research-greendot-asia-square",
+      "address": "8 Marina View, Tower 1, #02-02, 018960, Singapore",
+      "reference": "greendot-laksa",
+      "sourcePageUrl": "https://orders.greendot.sg/?StoreID=47a71ad4-01ef-487c-be94-f66c9f8e0ba3&Service=PickUp&lang=EN",
+      "sourcePageCheckedAt": "2026-10-15T10:29:58Z",
+      "sourceImageUrl": "https://s3-ap-southeast-1.amazonaws.com/getz-prod/4ba8da88-1043-4132-98d0-634a40567afa/1262362995_LaksaPaoFan1200x800.webp",
+      "checkedAt": "2026-10-17",
+      "selectedOutlet": "Greendot @ Asia Square",
+      "savedCapture": "../tmp/qa/menu-chain-expansion/greendot-order-ui-03.json",
+      "productId": "0bcdff6e-00e6-47ae-8fbc-7d3d779fc40d",
+      "productName": "Signature Laksa Poached Rice 叻沙辣香泡饭 🌱🌶️",
+      "identityEvidence": "Exact selected outlet/address and product-image relationship reviewed in saved browser DOM; canonical merchant source URL matches. Shared brand food photograph, not a branch interior or current stock assertion."
+    },
+    {
+      "venueId": "research-greendot-bedok-mall",
+      "address": "311 New Upper Changi Road B2-31, Bedok Mall, 467360, Singapore",
+      "reference": "greendot-laksa",
+      "sourcePageUrl": "https://orders.greendot.sg/?StoreID=b33dedbe-40e7-40c8-a110-b4bb4239c938&Service=PickUp&lang=EN",
+      "sourcePageCheckedAt": "2026-10-15T10:29:58Z",
+      "sourceImageUrl": "https://s3-ap-southeast-1.amazonaws.com/getz-prod/4ba8da88-1043-4132-98d0-634a40567afa/1262362995_LaksaPaoFan1200x800.webp",
+      "checkedAt": "2026-10-17",
+      "selectedOutlet": "Greendot @ Bedok Mall",
+      "savedCapture": "../tmp/qa/menu-chain-expansion/greendot-order-ui-04.json",
+      "productId": "0bcdff6e-00e6-47ae-8fbc-7d3d779fc40d",
+      "productName": "Signature Laksa Poached Rice 叻沙辣香泡饭 🌱🌶️",
+      "identityEvidence": "Exact selected outlet/address and product-image relationship reviewed in saved browser DOM; canonical merchant source URL matches. Shared brand food photograph, not a branch interior or current stock assertion."
+    },
+    {
+      "venueId": "research-greendot-bukit-panjang-plaza",
+      "address": "1 Jelebu Rd, Bukit Panjang Plaza, 677743, Singapore",
+      "reference": "greendot-laksa",
+      "sourcePageUrl": "https://orders.greendot.sg/?StoreID=e651dea9-726c-4921-bbe0-e1cbb9abaf6d&Service=PickUp&lang=EN",
+      "sourcePageCheckedAt": "2026-10-15T10:29:58Z",
+      "sourceImageUrl": "https://s3-ap-southeast-1.amazonaws.com/getz-prod/4ba8da88-1043-4132-98d0-634a40567afa/1262362995_LaksaPaoFan1200x800.webp",
+      "checkedAt": "2026-10-17",
+      "selectedOutlet": "Greendot @ Bukit Panjang Plaza",
+      "savedCapture": "../tmp/qa/menu-chain-expansion/greendot-order-ui-05.json",
+      "productId": "0bcdff6e-00e6-47ae-8fbc-7d3d779fc40d",
+      "productName": "Signature Laksa Poached Rice 叻沙辣香泡饭 🌱🌶️",
+      "identityEvidence": "Exact selected outlet/address and product-image relationship reviewed in saved browser DOM; canonical merchant source URL matches. Shared brand food photograph, not a branch interior or current stock assertion."
+    },
+    {
+      "venueId": "research-greendot-j8",
+      "address": "9 Bishan Pl, #B1-24 24A, 579837, Singapore",
+      "reference": "greendot-laksa",
+      "sourcePageUrl": "https://orders.greendot.sg/?StoreID=3d67bdd1-f091-4960-b693-5af3a1f2ab5b&Service=PickUp&lang=EN",
+      "sourcePageCheckedAt": "2026-10-15T10:29:58Z",
+      "sourceImageUrl": "https://s3-ap-southeast-1.amazonaws.com/getz-prod/4ba8da88-1043-4132-98d0-634a40567afa/1262362995_LaksaPaoFan1200x800.webp",
+      "checkedAt": "2026-10-17",
+      "selectedOutlet": "Greendot @ J8",
+      "savedCapture": "../tmp/qa/menu-chain-expansion/greendot-order-ui-06.json",
+      "productId": "0bcdff6e-00e6-47ae-8fbc-7d3d779fc40d",
+      "productName": "Signature Laksa Poached Rice 叻沙辣香泡饭 🌱🌶️",
+      "identityEvidence": "Exact selected outlet/address and product-image relationship reviewed in saved browser DOM; canonical merchant source URL matches. Shared brand food photograph, not a branch interior or current stock assertion."
+    },
+    {
+      "venueId": "research-greendot-jurong-point",
+      "address": "1 Jurong West Central 2 Jurong Point JP 1 #01-43/44/45, 648886, Singapore",
+      "reference": "greendot-laksa",
+      "sourcePageUrl": "https://orders.greendot.sg/?StoreID=5252756f-953c-4270-90c7-05ce23f97896&Service=PickUp&lang=EN",
+      "sourcePageCheckedAt": "2026-10-15T10:29:58Z",
+      "sourceImageUrl": "https://s3-ap-southeast-1.amazonaws.com/getz-prod/4ba8da88-1043-4132-98d0-634a40567afa/1262362995_LaksaPaoFan1200x800.webp",
+      "checkedAt": "2026-10-17",
+      "selectedOutlet": "Greendot @ Jurong Point",
+      "savedCapture": "../tmp/qa/menu-chain-expansion/greendot-order-ui-07.json",
+      "productId": "0bcdff6e-00e6-47ae-8fbc-7d3d779fc40d",
+      "productName": "Signature Laksa Poached Rice 叻沙辣香泡饭 🌱🌶️",
+      "identityEvidence": "Exact selected outlet/address and product-image relationship reviewed in saved browser DOM; canonical merchant source URL matches. Shared brand food photograph, not a branch interior or current stock assertion."
+    },
+    {
+      "venueId": "research-greendot-northpoint",
+      "address": "930 Yishun Ave 2, Northpoint City  North Wing, #B2-09/11, 769098, Singapore",
+      "reference": "greendot-laksa",
+      "sourcePageUrl": "https://orders.greendot.sg/?StoreID=f8e46fd5-d7a7-4173-b102-20e44d859073&Service=PickUp&lang=EN",
+      "sourcePageCheckedAt": "2026-10-15T10:29:58Z",
+      "sourceImageUrl": "https://s3-ap-southeast-1.amazonaws.com/getz-prod/4ba8da88-1043-4132-98d0-634a40567afa/1262362995_LaksaPaoFan1200x800.webp",
+      "checkedAt": "2026-10-17",
+      "selectedOutlet": "Greendot @ Northpoint",
+      "savedCapture": "../tmp/qa/menu-chain-expansion/greendot-order-ui-08.json",
+      "productId": "0bcdff6e-00e6-47ae-8fbc-7d3d779fc40d",
+      "productName": "Signature Laksa Poached Rice 叻沙辣香泡饭 🌱🌶️",
+      "identityEvidence": "Exact selected outlet/address and product-image relationship reviewed in saved browser DOM; canonical merchant source URL matches. Shared brand food photograph, not a branch interior or current stock assertion."
+    },
+    {
+      "venueId": "research-greendot-paya-lebar-square",
+      "address": "60 Paya Lebar Road Paya Lebar Square #02-15/16/17, 409051, Singapore",
+      "reference": "greendot-laksa",
+      "sourcePageUrl": "https://orders.greendot.sg/?StoreID=e116e7c4-3ea8-46c0-a794-077e09797d97&Service=PickUp&lang=EN",
+      "sourcePageCheckedAt": "2026-10-15T10:29:58Z",
+      "sourceImageUrl": "https://s3-ap-southeast-1.amazonaws.com/getz-prod/4ba8da88-1043-4132-98d0-634a40567afa/1262362995_LaksaPaoFan1200x800.webp",
+      "checkedAt": "2026-10-17",
+      "selectedOutlet": "Greendot @ Paya Lebar Square",
+      "savedCapture": "../tmp/qa/menu-chain-expansion/greendot-order-ui-09.json",
+      "productId": "0bcdff6e-00e6-47ae-8fbc-7d3d779fc40d",
+      "productName": "Signature Laksa Poached Rice 叻沙辣香泡饭 🌱🌶️",
+      "identityEvidence": "Exact selected outlet/address and product-image relationship reviewed in saved browser DOM; canonical merchant source URL matches. Shared brand food photograph, not a branch interior or current stock assertion."
+    },
+    {
+      "venueId": "research-greendot-tampines-1",
+      "address": "10 Tampines Central 1, Tampines 1, #B1-K8, 529536, Singapore",
+      "reference": "greendot-laksa",
+      "sourcePageUrl": "https://orders.greendot.sg/?StoreID=aab91d55-dec1-4f37-b3d9-679099c43136&Service=PickUp&lang=EN",
+      "sourcePageCheckedAt": "2026-10-15T10:29:58Z",
+      "sourceImageUrl": "https://s3-ap-southeast-1.amazonaws.com/getz-prod/4ba8da88-1043-4132-98d0-634a40567afa/1262362995_LaksaPaoFan1200x800.webp",
+      "checkedAt": "2026-10-17",
+      "selectedOutlet": "Greendot @ Tampines 1",
+      "savedCapture": "../tmp/qa/menu-chain-expansion/greendot-order-ui-11.json",
+      "productId": "0bcdff6e-00e6-47ae-8fbc-7d3d779fc40d",
+      "productName": "Signature Laksa Poached Rice 叻沙辣香泡饭 🌱🌶️",
+      "identityEvidence": "Exact selected outlet/address and product-image relationship reviewed in saved browser DOM; canonical merchant source URL matches. Shared brand food photograph, not a branch interior or current stock assertion."
+    },
+    {
+      "venueId": "research-greendot-westgate",
+      "address": "3 Gateway Dr, #01-06 Westgate, 608532, Singapore",
+      "reference": "greendot-laksa",
+      "sourcePageUrl": "https://orders.greendot.sg/?StoreID=4b9717ab-a5dc-432c-8cd5-20627535147a&Service=PickUp&lang=EN",
+      "sourcePageCheckedAt": "2026-10-15T10:29:58Z",
+      "sourceImageUrl": "https://s3-ap-southeast-1.amazonaws.com/getz-prod/4ba8da88-1043-4132-98d0-634a40567afa/1262362995_LaksaPaoFan1200x800.webp",
+      "checkedAt": "2026-10-17",
+      "selectedOutlet": "Greendot @ Westgate",
+      "savedCapture": "../tmp/qa/menu-chain-expansion/greendot-order-ui-12.json",
+      "productId": "0bcdff6e-00e6-47ae-8fbc-7d3d779fc40d",
+      "productName": "Signature Laksa Poached Rice 叻沙辣香泡饭 🌱🌶️",
+      "identityEvidence": "Exact selected outlet/address and product-image relationship reviewed in saved browser DOM; canonical merchant source URL matches. Shared brand food photograph, not a branch interior or current stock assertion."
+    }
+  ],
+  "sourceFindings": [
+    {
+      "venueId": "teng-bespoke-sunshine-plaza",
+      "checkedAt": "2026-10-17",
+      "urls": [
+        "https://www.novacircle.com/spots/asia/singapore/central-region/singapore-municipality/singapore/teng-bespoke-42c5ce/opening-hours",
+        "https://www.timeout.com/singapore/restaurants/teng-bespoke"
+      ],
+      "outcome": "Secondary schedules vary by publication; no current direct operator schedule established. Hold retained."
+    },
+    {
+      "venueId": "research-supreme-vege-queen-street",
+      "checkedAt": "2026-10-17",
+      "urls": [
+        "https://www.royalqueens.com.sg/dining-detail/supreme-vegetarian-restaurant",
+        "https://supremevege.oddle.me/en_SG/stores",
+        "https://www.burpple.com/supreme-vege"
+      ],
+      "outcome": "Host hotel explicitly lists daily11:30-14:30,17:30-22. Merchant pickup/delivery omitsTuesday and has narrower18-21 evening service; Burpple explicitlyTuesdayclosed anddifferenttimes. Hotel source is new evidence but does not resolve conflicting current schedules; hours remain unconfirmed."
+    },
+    {
+      "venueId": "research-ur06-original-sin",
+      "checkedAt": "2026-10-17",
+      "urls": [
+        "https://www.originalsin.sg/",
+        "https://www.originalsin.sg/post/10-best-vegetarian-restaurants-in-singapore-that-bring-sexy-back-to-vegetables-by-sethlui-com",
+        "https://www.restaurants.sg/modules/booking/book_form_section.php?redirect=1&data=&bkrestaurant=SG_SG_R_OriginalSin&bktitle=&city=&country=&bkextra=&bktracking=WEBSITE&hideimage=&bkdate=&restaurantselected=&bkpromo=&type=&notestext=&clientid=&language="
+      ],
+      "outcome": "Operator site links Weeloy booking; ordinary rendered landing verified17Oct shows Indoor/Outdoor,Lunch/Dinner but no opening schedule. No reservation made. Operator-republished2020article is historical and secondary2026hours conflict. Hold retained."
+    }
+  ],
+  "coverage": {
+    "menuIds": 175,
+    "browseVenues": 174,
+    "hours": 85,
+    "covers": 42,
+    "uniqueImageAssets": 33,
+    "hoursGaps": 89,
+    "coverGaps": 132
+  },
+  "remaining": [
+    {
+      "venueId": "dlife-signature-chinatown-point",
+      "address": "133 New Bridge Road #02-37, Chinatown Point, Singapore 059413",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "teng-bespoke-sunshine-plaza",
+      "address": "91 Bencoolen Street #01-50, Sunshine Plaza, Singapore 189652",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "daily-green-woodlands-street-31",
+      "address": "306 Woodlands Street 31, Singapore 730306",
+      "hoursMissing": false,
+      "photoMissing": true
+    },
+    {
+      "venueId": "living-wholesome-fortune-centre",
+      "address": "190 Middle Road #01-23, Fortune Centre, Singapore 188979",
+      "hoursMissing": false,
+      "photoMissing": true
+    },
+    {
+      "venueId": "bodhi-deli-fortune-centre",
+      "address": "190 Middle Road #03-26, Fortune Centre, Singapore 188979",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "zhen-xiang-woodlands-street-32",
+      "address": "325 Woodlands Street 32 #01-131, Singapore 730325",
+      "hoursMissing": true,
+      "photoMissing": false
+    },
+    {
+      "venueId": "shu-woodlands-avenue-1",
+      "address": "354A Woodlands Avenue 1 #01-01, Singapore 731354",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-shu-jalan-kayu",
+      "address": "259 Jalan Kayu, Singapore 799488",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-shu-amk",
+      "address": "554 Ang Mo Kio Ave 10, #01-2040",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-shu-jurong",
+      "address": "498 Jurong West Street 41 #01-462, Singapore 640498",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-shu-clementi",
+      "address": "722 Clementi West Street 2 #01-150 (Wan Fu Eating House), Singapore 120722",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-shu-yishun",
+      "address": "239 Yishun Ring Road #01-1150, Singapore 760239",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-shu-loyang",
+      "address": "259 Pasir Ris Street 21 #02-30, Loyang Point, Singapore 510259",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-shu-margaret",
+      "address": "40 Margaret Drive #01-05, Singapore 140040",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-shu-hq",
+      "address": "27 Woodlands Link #01-01, Chang Cheng HQ (Chang Cheng Mee Wah Coffeeshop), Singapore 738732",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-dlife-orchard-gateway",
+      "address": "277 Orchard Road #B2-04A/05 Singapore,, 238858, Singapore",
+      "hoursMissing": true,
+      "photoMissing": false
+    },
+    {
+      "venueId": "research-dlife-jurong-west",
+      "address": "428 Jurong West Ave 1 #01-256, 640428, Singapore",
+      "hoursMissing": true,
+      "photoMissing": false
+    },
+    {
+      "venueId": "research-dlife-tengah",
+      "address": "126B TENGAH DRIVE #01-319, PLANTATION VILLAGE S(692126)",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-sproutz-downtown",
+      "address": "15 Central Boulevard #B1-05 Downtown MRT Station, Singapore 018969",
+      "hoursMissing": false,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-botanict-clementi",
+      "address": "Blk 352 Clementi Avenue 2 #01-123, Singapore 120352",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-fo-you-yuan-jalan-besar",
+      "address": "369 Jalan Besar, Singapore 208997",
+      "hoursMissing": false,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-kang-su-far-east-plaza",
+      "address": "14 Scotts Road #05-98 Far East Plaza, Singapore 228213",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-linlin-bedok-north",
+      "address": "412 Bedok North Avenue 2, inside SinFoodie Coffeeshop, Singapore 460412",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-elemen-plq-mall",
+      "address": "10 Paya Lebar Road #03-13, PLQ Mall, Singapore 409057",
+      "hoursMissing": false,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-elemen-millenia-walk",
+      "address": "9 Raffles Boulevard #01-75/75A/76, Millenia Walk, Singapore 039596",
+      "hoursMissing": false,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-lingzhi-palais",
+      "address": "390 Orchard Road, #B1-04/05, Palais Renaissance, Singapore 238871",
+      "hoursMissing": false,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-yesnatural-geylang",
+      "address": "57 Lorong 27 Geylang, Singapore 388184",
+      "hoursMissing": false,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-lnbv-vegan-branch",
+      "address": "11 Sam Leong Road, Trio Mall, #04-03, Singapore 207903",
+      "hoursMissing": false,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-metta-simei",
+      "address": "32 Simei Street 1, Level 1 Metta Building, Singapore 529950",
+      "hoursMissing": false,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-mother-earth-classic-balestier",
+      "address": "530 Balestier Road #01-06, 329857, Singapore",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-mother-earth-jurong",
+      "address": "511 Upper Jurong Road #01-04, 638366, Singapore",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-nature-cafe-alexandra",
+      "address": "321 Alexandra Road #02-27, Singapore 159971",
+      "hoursMissing": false,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-nature-cafe-smu",
+      "address": "SMU Li Ka Shing Library, 70 Stamford Road #01-22, Singapore 178901",
+      "hoursMissing": false,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-leafcorner-jurong",
+      "address": "60 Jurong West Street 91 #01-09, Nanyang Community Club, Singapore 649040",
+      "hoursMissing": true,
+      "photoMissing": false
+    },
+    {
+      "venueId": "research-leafcorner-taiseng",
+      "address": "11 Irving Place #02-01, Singapore 369551",
+      "hoursMissing": true,
+      "photoMissing": false
+    },
+    {
+      "venueId": "research-leafcorner-sembawang",
+      "address": "5 Jalan Legundi, Sembawang Garden Arcade, Singapore 759269",
+      "hoursMissing": true,
+      "photoMissing": false
+    },
+    {
+      "venueId": "research-nalan-littleindia",
+      "address": "82 Serangoon Road, Singapore 217987",
+      "hoursMissing": false,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-kailash-belilios-road",
+      "address": "3 Belilios Road #01-03 Hilton Garden Inn, Singapore 219924",
+      "hoursMissing": false,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-kailash-syed-alwi",
+      "address": "93 Syed Alwi Road, Singapore 207669",
+      "hoursMissing": false,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-kailash-changi",
+      "address": "1 Changi Business Park Crescent #01-10/12/13 Plaza8, Singapore 486025",
+      "hoursMissing": false,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-kailash-sentosa",
+      "address": "42 Imbia Road #01-01, Singapore 099701",
+      "hoursMissing": false,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-annalakshmi-cafe-downtown",
+      "address": "6A Shenton Way #03-26 Downtown Gallery, Singapore 068815",
+      "hoursMissing": false,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-ananda-serangoon-58",
+      "address": "58 Serangoon Road, Little India Conservation Area, Singapore 217964",
+      "hoursMissing": false,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-saute-san-city-square",
+      "address": "180 Kitchener Road, #03-23/24 City Square Mall, Singapore 208539",
+      "hoursMissing": false,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-saute-flavours-funan",
+      "address": "107 North Bridge Road, #B1-30 Funan, Singapore 179105",
+      "hoursMissing": false,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-saute-sushi-paya-lebar-square",
+      "address": "60 Paya Lebar Road, #B1-19 Paya Lebar Square, Singapore 409051",
+      "hoursMissing": false,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-saute-saranghae-tampines-one",
+      "address": "10 Tampines Central 1, #05-08/09 Tampines 1, Singapore 529536",
+      "hoursMissing": false,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-sufood-raffles-city",
+      "address": "252 North Bridge Road, #02-19 to 21 Raffles City Shopping Centre, Singapore 179103",
+      "hoursMissing": true,
+      "photoMissing": false
+    },
+    {
+      "venueId": "research-genesis-vegan-havelock-ii",
+      "address": "2 Havelock Road, #B1-01 Havelock II, Singapore 059763",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-supreme-vege-queen-street",
+      "address": "12 Queen Street, Hotel Royal @ Queens #02-03, Singapore 188553",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-veganburg-eunos",
+      "address": "44 Jalan Eunos, Singapore 419502",
+      "hoursMissing": false,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-ahimsa-neil-road",
+      "address": "76 Neil Road, Singapore 088840",
+      "hoursMissing": false,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-cultivate-maxwell-reserve",
+      "address": "Maxwell Reserve Singapore, Autograph Collection, 2 Cook Street, Singapore 078857",
+      "hoursMissing": false,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-warungijo-macpherson",
+      "address": "601 MacPherson Road #01-61 Grantral Mall Taiseng, Singapore 368242",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-originalgreens-shaw-plaza",
+      "address": "360 Balestier Road #04-07/K2 Shaw Plaza, Singapore 329783",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-merchant-7ab3dafc5f6a7876",
+      "address": "90 Hougang Ave 10 #04-11 Hougang Mall Foodies’ Garden®, Singapore 538766",
+      "hoursMissing": false,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-merchant-287ecefa1f8e3855",
+      "address": "217 Bedok North Street 1 #01-77 Food Loft®, Singapore 460217",
+      "hoursMissing": false,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-zzv-jalan-mas-puteh",
+      "address": "9 Jalan Mas Puteh, Singapore 128615",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-zzv-yishun",
+      "address": "Blk 236 Yishun Ring Road #01-1000, Singapore 760236",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-zzv-tampines",
+      "address": "801 Tampines Ave 4 #01-281, Tampines Polyview, Singapore 520801",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-zzv-bendemeer",
+      "address": "23 Bendemeer Road #01-523, Bendemeer Ville, Singapore 330023",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-divine-realm-hougang-501",
+      "address": "501 Hougang Avenue 8 #01-630, Singapore 530501",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-divine-family-hougang-356",
+      "address": "Blk 356 #01-803 Hougang Ave 7, Singapore 530356",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-greenland-upper-serangoon",
+      "address": "789 & 791 Upper Serangoon Road, Singapore 534659",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-times-vege-bukit-batok",
+      "address": "643 Bukit Batok Central #01-44, Singapore 650643",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-zhenyi-ang-mo-kio-128",
+      "address": "128 Ang Mo Kio Ave 3 #01-1853, Singapore 560128",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-true-veggie-geylang",
+      "address": "47 Lorong 27 Geylang, Singapore 388179",
+      "hoursMissing": true,
+      "photoMissing": false
+    },
+    {
+      "venueId": "research-boneless-irving",
+      "address": "1 Irving Place, #01-31, The Commerze @ Irving, Singapore 369546",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-daehwa-fusionopolis",
+      "address": "1 Fusionopolis Place, #01-35, Galaxis, Singapore 138522",
+      "hoursMissing": false,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-greenearth-rail-mall",
+      "address": "386 Upper Bukit Timah Road, The Rail Mall, Singapore 678043",
+      "hoursMissing": false,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-futkai-jalan-besar",
+      "address": "282 Jalan Besar, #01-00, Singapore 208945",
+      "hoursMissing": false,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-mtr-serangoon438",
+      "address": "438 & 438/A Serangoon Road, Singapore 218133",
+      "hoursMissing": false,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-swaad-desker70",
+      "address": "70 Desker Road, Singapore 209593",
+      "hoursMissing": false,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-baomaker-ang-mo-kio-447",
+      "address": "447 Ang Mo Kio Avenue 10 #01-1675, Singapore 560447",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-merle-lentor-modern",
+      "address": "1 Lentor Central #01-36, Lentor Modern Mall, Singapore 788887",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-tofu-g-waterway-point",
+      "address": "83 Punggol Central #01-53, Singapore 828761",
+      "hoursMissing": false,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-tofu-g-suntec-city",
+      "address": "3 Temasek Boulevard #B1-K5, West Wing, Suntec City Mall, Singapore 038983",
+      "hoursMissing": false,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-wakamama-pasir-panjang",
+      "address": "218 Pasir Panjang Road #02-15, ICON @ Pasir Panjang, Singapore 118579",
+      "hoursMissing": false,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-rya-bakehouse-cavan",
+      "address": "11 Cavan Road #01-03 Cavan Suites, Singapore 209848",
+      "hoursMissing": false,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-yes-natural-bakery-geylang-55",
+      "address": "55 Lorong 27 Geylang, Singapore 388183",
+      "hoursMissing": false,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-omg-donuts-margaret-market",
+      "address": "38 Margaret Drive #01-08 Margaret Market, Singapore 141038",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-living-wholesome-bukit-timah",
+      "address": "2A Jalan Seh Chuan #01-060, Singapore 599213",
+      "hoursMissing": false,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-150-green-bukit-batok",
+      "address": "150 Bukit Batok Street 11 #01-224, Singapore 650150",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-teenoy-hougang-foodpanda-932",
+      "address": "932 Hougang Avenue 9 #01-04, Singapore 530932",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-cookie-coffee-fortune-centre",
+      "address": "190 Middle Road #01-28B Fortune Centre, Singapore 188979",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-kind-kones-forum",
+      "address": "583 Orchard Road #B1-27 & K1, Forum Shopping Mall, Singapore 238884",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-egg-plant-marina-bay-source",
+      "address": "8A Marina Boulevard #B2-33 Marina Bay Link Mall, Singapore 018984",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-xiang-yuan-circuit-source",
+      "address": "80 Circuit Road #02-03, Singapore 370080",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-su-xiang-lau-pa-sat-46",
+      "address": "18 Raffles Quay, Lau Pa Sat Stall 46, Singapore 048582",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-yi-ding-xuan-tampines-201",
+      "address": "201 Tampines Street 21 #01-201, Singapore 520201",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-slow-bakes-yishun-hyc",
+      "address": "30A Yishun Central 1, Tzu Chi Humanistic Youth Centre, Singapore 768796",
+      "hoursMissing": false,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-ur01-kind-sprout-sengkang",
+      "address": "Singapore 793461",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-happy-vegetarian-hougang-106",
+      "address": "106 Hougang Avenue 1 #01-1239, Singapore 530106",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-ur01-kale-adelphi",
+      "address": "1 Coleman Street #02-20 The Adelphi, Singapore 179803",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-ur01-tracy-fortune",
+      "address": "190 Middle Road #01-34 Fortune Centre, Singapore 188979",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-ur01-harmony-serangoon",
+      "address": "157A Serangoon North Avenue 1 #01-01, Singapore 551157",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-ur01-new-green-pasture-fortune",
+      "address": "190 Middle Road #04-22 Fortune Centre, Singapore 188979",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-renyi-tampines820",
+      "address": "Block 820 Tampines Street 81, Singapore 520820",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-tian-yuan-fortune-centre-01-16",
+      "address": "190 Middle Road #01-16, Fortune Centre, Singapore 188979",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-crowded-bowl-ntu-north-spine",
+      "address": "76 Nanyang Drive, North Spine Plaza NS3-1-18, Singapore 637331",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-verimix-le-quest-01-17",
+      "address": "4 Bukit Batok Street 41 #01-17 Le Quest Mall, Singapore 657991",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-ur02-vegetarian-express-hougang",
+      "address": "205 Hougang Street 21, #02-22, Singapore 530205",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-an-acai-affair-northpoint-city",
+      "address": "1 Northpoint Drive #B2-149 (South Wing), Singapore 768019",
+      "hoursMissing": false,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-any1-choco-telok-ayer",
+      "address": "114 Telok Ayer Street, Singapore 068583",
+      "hoursMissing": false,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-ur02-xie-bi-an-vegetarian",
+      "address": "824 Tampines Street 81, #01-38, BK Coffeeshop, Singapore 520824",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-ur02-tpy-203-vegetarian-food",
+      "address": "203 Toa Payoh North, Singapore 310203",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-ur02-vegetarian-food-stall-01-74",
+      "address": "210 Lorong 8 Toa Payoh, #01-74, Singapore 310210",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-ur02-amk-green-harmony-vegetarian",
+      "address": "443 Ang Mo Kio Avenue 10, #01-1221, Singapore 560443",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-ur03-99-pioneer-mall",
+      "address": "638A Jurong West Street 61 #01-22 Stall 10, Pioneer Mall, Singapore 641638",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-ur03-eco-sen-toa-payoh66",
+      "address": "66 Lorong 4 Toa Payoh, Singapore 310066",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-sl08-fire-flies",
+      "address": "101 Upper Cross Street B1-06 Stall 10, People's Park Centre, Singapore 058357",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-sl08-ju-fu-yuan-amk",
+      "address": "162 Ang Mo Kio Avenue 4 #01-14, Singapore 560162",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-sl08-xi-shi-fu",
+      "address": "115 Bukit Merah View #01-25, Singapore 151115",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-ur04-mani-iyer",
+      "address": "215 Ang Mo Kio Avenue 1, Singapore 560215",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-ur04-peace-vegetarian",
+      "address": "18 Tai Seng Street #B1-02, Singapore 539775",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-ur04-bao-su-zhai",
+      "address": "1 Sengkang Square #04-11 Stall 23, Compass One, Singapore 545078",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-ur04-kunthaville",
+      "address": "18 Veerasamy Road, Singapore 207326",
+      "hoursMissing": false,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-ur03-gan-taste-vegetarian",
+      "address": "20 Lorong 7 Toa Payoh #01-758, Singapore 310020",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-ur06-original-sin",
+      "address": "43 Jalan Merah Saga #01-62, Singapore278115",
+      "hoursMissing": true,
+      "photoMissing": false
+    },
+    {
+      "venueId": "research-ur06-xing-hua",
+      "address": "190 Middle Road #01-11, Fortune Centre, Singapore188979",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-ur06-so-green",
+      "address": "445 Bedok North Street1 #01-02, Djitsun Mall, Singapore469661",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-ur06-xin-yi",
+      "address": "442 Jurong West Avenue1 #01-758, Singapore640442",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-ur06-ju-fu-yuan-serangoon",
+      "address": "262 Serangoon Central Drive #01-91, Singapore550262",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-ur06-li-wei",
+      "address": "151 Serangoon North Avenue2 #01-41, Singapore550151",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-ur07-red-apple-tampines",
+      "address": "835 Tampines Street 83 #01-02, Singapore 520835",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-ur08-150-green",
+      "address": "150 Bukit Batok Street 11 #01-224, Singapore 650150",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-ur08-vege-bear-bidadari",
+      "address": "212 Bidadari Park Drive #03-01, Singapore 360212",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-ascend-cross-lead",
+      "address": "18 Cross Street #B1-12, K4, Singapore 048423",
+      "hoursMissing": false,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-ur09-eco-harmony-aljunied",
+      "address": "106 Aljunied Crescent #01-205, Singapore 380106",
+      "hoursMissing": false,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-ur09-kms-dining-hall",
+      "address": "88 Bright Hill Road, Venerable Hong Choon Memorial Hall Level 2, Singapore 574117",
+      "hoursMissing": false,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-ur09-kms-zen-cafe",
+      "address": "88 Bright Hill Road, Venerable Hong Choon Memorial Hall Level 1 beside Ju Yuan Fang, Singapore 574117",
+      "hoursMissing": false,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-ur10-ju-fu-yuan-eunos",
+      "address": "7 Eunos Crescent #01-2655, Singapore 400007",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-ur11-crowded-sp",
+      "address": "500 Dover Road, Singapore Polytechnic Food Court 2, Stall 13, Singapore 139651",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-ur13-suyuan-bedok",
+      "address": "208B New Upper Changi Road #01-07, Singapore462208",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-ur13-sangeetha-rangoon",
+      "address": "79 Rangoon Road, Singapore218366",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-ur14-tianmu-westcoast",
+      "address": "504 West Coast Drive #01-230, Singapore 120504",
+      "hoursMissing": false,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-ur15-xinghua-somerset",
+      "address": "111 Somerset Road #01-K3 to K4, Singapore 238164",
+      "hoursMissing": true,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-ur15-conut-haji",
+      "address": "2 Haji Lane #01-01, Singapore 189195",
+      "hoursMissing": false,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-ur15-conut-marriott",
+      "address": "310 Orchard Road #01-K2, Singapore 238864",
+      "hoursMissing": false,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-fennel-river-valley",
+      "address": "413 River Valley Road, Singapore 248311",
+      "hoursMissing": false,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-swaad-shenton3",
+      "address": "3 Shenton Way #01-04 Shenton House, Singapore 068805",
+      "hoursMissing": false,
+      "photoMissing": true
+    },
+    {
+      "venueId": "research-mod-cafe-kuo-chuan",
+      "address": "1A Kuo Chuan Avenue, Singapore 426888",
+      "hoursMissing": true,
+      "photoMissing": true
+    }
+  ],
+  "uniqueAssetBytes": 4620387,
+  "newUniqueAssetBytes": 232274,
+  "catalogueIndexBytes": 137180,
+  "menuDataUnchanged": true,
+  "heldFoodObservations": 2527,
+  "googleLedger": {
+    "requests": 2419,
+    "limit": 2500,
+    "remaining": 81,
+    "sha256": "c7321dafaad0473583139494ca899501578892c5b71105429d3cd4dceb4f311a"
+  },
+  "qaCorrection": "Initial helper clicked source disclosure instead of card body, then selected hidden prior-screen hours. Corrected to main accessible button, exact location URL and visible schedule. All11 pass; no product code changed.",
+  "deployedRelease": "20261017-greendot-covers6",
+  "releaseEvidence": ".local/coverage-2026-10-17d/release.json"
+}

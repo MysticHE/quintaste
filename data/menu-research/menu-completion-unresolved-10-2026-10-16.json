@@ -1,0 +1,3779 @@
+{
+  "version": 1,
+  "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+  "status": "reviewed-partial-with-unresolved-holds",
+  "googleRequestsMade": 0,
+  "sources": [
+    {
+      "id": "ur10-kang-su-macpherson-ordering",
+      "url": "https://www.foodpanda.sg/restaurant/xx9l/kang-su-kang-su-vegetarian-macpherson",
+      "publisher": "Foodpanda / merchant public menu",
+      "title": "Kang Su Vegetarian — MacPherson source premise current delivery foods",
+      "checkedAt": "2026-10-16T06:51:00.547Z",
+      "accessStatus": "normal-public-fetch-200-browser-403",
+      "notes": "All58unique product IDs/names/categories/listprices reconciled with visible DOM in same public200response. Popular repeats not extracted; indexed representations not merged. Normal browser403 at2026-10-16T06:52:57.137Z; no bypass. Unread choices retained; printed portions/ingredients only, no photo inference."
+    },
+    {
+      "id": "ur10-ju-fu-yuan-eunos-ordering",
+      "url": "https://www.foodpanda.sg/restaurant/y2yl/ju-fu-yuan-vegetarian-delight-eunos",
+      "publisher": "Foodpanda / merchant public menu",
+      "title": "Ju Fu Yuan Vegetarian Delight — Eunos current delivery foods",
+      "checkedAt": "2026-10-16T06:51:02.428Z",
+      "accessStatus": "normal-public-fetch-200-browser-403",
+      "notes": "All10unique product IDs/names/categories/listprices reconciled with visible DOM in same public200response. Popular repeats not extracted; indexed representations not merged. Normal browser403 at2026-10-16T06:53:00.853Z; no bypass. Unread choices retained; printed portions/ingredients only, no photo inference."
+    },
+    {
+      "id": "ur10-bai-jia-le-cimb-ordering",
+      "url": "https://www.foodpanda.sg/restaurant/k3t2/bai-jia-le-leicha-sg",
+      "publisher": "Foodpanda / merchant public menu",
+      "title": "Bai Jia Le LeiCha — CIMB Plaza current delivery foods",
+      "checkedAt": "2026-10-16T06:51:03.914Z",
+      "accessStatus": "normal-public-fetch-200-browser-403",
+      "notes": "All10unique product IDs/names/categories/listprices reconciled with visible DOM in same public200response. Popular repeats not extracted; indexed representations not merged. Normal browser403 at2026-10-16T06:53:01.531Z; no bypass. Unread choices retained; printed portions/ingredients only, no photo inference."
+    },
+    {
+      "id": "ur10-eunos-travel",
+      "url": "https://www.havehalalwilltravel.com/halal-restaurants/detail/ju-fu-yuan-vegetarian-delight-%E8%81%9A%E7%A6%8F%E7%BC%98",
+      "publisher": "Have Halal Will Travel",
+      "title": "Independent vegetarian venue context at7Eunos",
+      "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+      "accessStatus": "readable-secondary-qualified",
+      "notes": "Independent venue directory namesJuFuYuan at7Eunos/400007 and vegetarian status, not preciseunit/menu/currentprices or halalcertification. Free price-range placeholder not stored as foodprice."
+    },
+    {
+      "id": "ur10-cimb-landlord",
+      "url": "https://cimbplaza.com.sg/store/baijiale/",
+      "publisher": "CIMB Plaza",
+      "title": "Current tenant at#B1-28",
+      "checkedAt": "2026-10-16T06:44:24.502264+00:00",
+      "accessStatus": "existing-landlord-page-review-reused",
+      "notes": "Landlord confirms tenant/unit and vegetables/herbs; no explicit whole-venue vegetarian or filling statement."
+    },
+    {
+      "id": "ur10-kangsu-social",
+      "url": "https://www.facebook.com/Kangsuvegetarian/",
+      "publisher": "Kang Su public social profile",
+      "title": "Public social page unreadable",
+      "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+      "accessStatus": "normal-public-web-login-blocked",
+      "notes": "Normal public web retrieval redirects/login and blocked message. No current474/472premise proof or ingredients obtained. Savedotherbranch evidence is not transferred."
+    }
+  ],
+  "branches": [
+    {
+      "id": "ur10-kang-su-macpherson",
+      "name": "Kang Su Vegetarian — MacPherson source premise",
+      "address": "472 MacPherson Road, Singapore 368189",
+      "postalCode": "368189",
+      "googlePlaceId": null,
+      "directoryLeadIds": [
+        "hippo-kang-su-vegetarian-macpherson"
+      ],
+      "sourceIds": [
+        "ur10-kang-su-macpherson-ordering",
+        "ur10-kangsu-social"
+      ],
+      "menuIds": [
+        "ur10-kang-su-macpherson-foods"
+      ],
+      "eligibility": "unresolved",
+      "identityStatus": "independent-source-premise-no-google-assignment",
+      "venueEligibility": {
+        "status": "unresolved",
+        "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+        "sourceIds": [
+          "ur10-kang-su-macpherson-ordering"
+        ],
+        "reason": "Current exact ordering source says472MacPherson/368189; frozenlead474MacPherson/368190. Current own Facebook page unreadable; generic duck/minced-meat descriptions also remain unclarified. Preserve entire menu held; no address correction or transfer from FarEast/Sims/Adelphi."
+      },
+      "gaps": [
+        "Current exact ordering source says472MacPherson/368189; frozenlead474MacPherson/368190. Current own Facebook page unreadable; generic duck/minced-meat descriptions also remain unclarified. Preserve entire menu held; no address correction or transfer from FarEast/Sims/Adelphi.",
+        "Dated channel only; complete ingredients, vegan/allium suitability, stock and final charges unconfirmed."
+      ],
+      "publicationStatus": "hold-whole-venue-or-premise-unresolved"
+    },
+    {
+      "id": "ur10-ju-fu-yuan-eunos",
+      "name": "Ju Fu Yuan Vegetarian Delight — Eunos",
+      "address": "7 Eunos Crescent #01-2655, Singapore 400007",
+      "postalCode": "400007",
+      "googlePlaceId": null,
+      "directoryLeadIds": [
+        "hippo-ju-fu-yuan-vegetarian-delight-eunos"
+      ],
+      "sourceIds": [
+        "ur10-ju-fu-yuan-eunos-ordering",
+        "ur10-eunos-travel"
+      ],
+      "menuIds": [
+        "ur10-ju-fu-yuan-eunos-foods"
+      ],
+      "eligibility": "vegetarian-confirmed",
+      "identityStatus": "independent-source-premise-no-google-assignment",
+      "venueEligibility": {
+        "status": "vegetarian-confirmed",
+        "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+        "sourceIds": [
+          "ur10-ju-fu-yuan-eunos-ordering"
+        ],
+        "reason": "Current merchant-managed public menu explicitly names JuFuYuanVegetarianDelight and exact7Eunos#01-2655/400007, with six named mock/plant-protein sets and vegetarian venue category. Independent travel directory names vegetarian venue at same7Eunos. No transfer from oldpayment#01-2651 or frozencompany#01-2665; current premise published independently with nullGoogleID."
+      },
+      "gaps": [
+        "Current merchant-managed public menu explicitly names JuFuYuanVegetarianDelight and exact7Eunos#01-2655/400007, with six named mock/plant-protein sets and vegetarian venue category. Independent travel directory names vegetarian venue at same7Eunos. No transfer from oldpayment#01-2651 or frozencompany#01-2665; current premise published independently with nullGoogleID.",
+        "Dated channel only; complete ingredients, vegan/allium suitability, stock and final charges unconfirmed."
+      ]
+    },
+    {
+      "id": "ur10-bai-jia-le-cimb",
+      "name": "Bai Jia Le LeiCha — CIMB Plaza",
+      "address": "30 Raffles Place #B1-28 CIMB Plaza, Singapore 048622",
+      "postalCode": "048622",
+      "googlePlaceId": null,
+      "directoryLeadIds": [
+        "hippo-bai-jia-le-cimb-plaza"
+      ],
+      "sourceIds": [
+        "ur10-bai-jia-le-cimb-ordering",
+        "ur10-cimb-landlord"
+      ],
+      "menuIds": [
+        "ur10-bai-jia-le-cimb-foods"
+      ],
+      "eligibility": "unresolved",
+      "identityStatus": "independent-source-premise-no-google-assignment",
+      "venueEligibility": {
+        "status": "unresolved",
+        "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+        "sourceIds": [
+          "ur10-bai-jia-le-cimb-ordering"
+        ],
+        "reason": "Landlord confirmsCIMB#B1-28 and vegetable/herb thunder-tea rice, not explicit whole-venue vegetarian scope or YTFfillings. Merchant menu categoryHealthy is not vegetarian proof. Entire10foods held; noJurongPoint transfer. Current10products differs indexed12; eggplant/bittergourdYTF absent from this response."
+      },
+      "gaps": [
+        "Landlord confirmsCIMB#B1-28 and vegetable/herb thunder-tea rice, not explicit whole-venue vegetarian scope or YTFfillings. Merchant menu categoryHealthy is not vegetarian proof. Entire10foods held; noJurongPoint transfer. Current10products differs indexed12; eggplant/bittergourdYTF absent from this response.",
+        "Dated channel only; complete ingredients, vegan/allium suitability, stock and final charges unconfirmed."
+      ],
+      "publicationStatus": "hold-whole-venue-or-premise-unresolved"
+    }
+  ],
+  "menus": [
+    {
+      "id": "ur10-kang-su-macpherson-foods",
+      "name": "Kang Su Vegetarian — MacPherson source premise delivery menu",
+      "branchIds": [
+        "ur10-kang-su-macpherson"
+      ],
+      "sourceIds": [
+        "ur10-kang-su-macpherson-ordering"
+      ],
+      "scope": "branch-delivery",
+      "coverage": "partial",
+      "publicationStatus": "hold-whole-venue-or-premise-unresolved",
+      "notice": "Current exact ordering source says472MacPherson/368189; frozenlead474MacPherson/368190. Current own Facebook page unreadable; generic duck/minced-meat descriptions also remain unclarified. Preserve entire menu held; no address correction or transfer from FarEast/Sims/Adelphi.",
+      "items": [
+        {
+          "id": "ur10-kang-su-macpherson-75293198",
+          "sourceProductId": "75293198",
+          "name": "N13. Guo Mian 卤鍋面",
+          "category": "Noodle Set",
+          "sourceIds": [
+            "ur10-kang-su-macpherson-ordering"
+          ],
+          "sourceDescription": "Vegetarian braised pot noodles",
+          "price": {
+            "amount": 9.7,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "hold-whole-venue-or-premise-unresolved",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:00.547Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-kang-su-macpherson-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "full ordering choices"
+            ]
+          },
+          "holdReason": "Current exact ordering source says472MacPherson/368189; frozenlead474MacPherson/368190. Current own Facebook page unreadable; generic duck/minced-meat descriptions also remain unclarified. Preserve entire menu held; no address correction or transfer from FarEast/Sims/Adelphi.",
+          "configurationNotice": "Source flags ordering choices; full names/defaults/limits/surcharges unread after normal browser403. No cart/order/account/challenge workaround."
+        },
+        {
+          "id": "ur10-kang-su-macpherson-75293181",
+          "sourceProductId": "75293181",
+          "name": "R2. Nasi Lemak Drumstick Rice 素鸡腿椰浆饭",
+          "category": "Rice Set",
+          "sourceIds": [
+            "ur10-kang-su-macpherson-ordering"
+          ],
+          "sourceDescription": "Vegetarian drumstick coconut rice",
+          "price": {
+            "amount": 12.3,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "hold-whole-venue-or-premise-unresolved",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:00.547Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-kang-su-macpherson-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "full ordering choices"
+            ]
+          },
+          "holdReason": "Current exact ordering source says472MacPherson/368189; frozenlead474MacPherson/368190. Current own Facebook page unreadable; generic duck/minced-meat descriptions also remain unclarified. Preserve entire menu held; no address correction or transfer from FarEast/Sims/Adelphi.",
+          "configurationNotice": "Source flags ordering choices; full names/defaults/limits/surcharges unread after normal browser403. No cart/order/account/challenge workaround."
+        },
+        {
+          "id": "ur10-kang-su-macpherson-75293184",
+          "sourceProductId": "75293184",
+          "name": "R5. Black Pepper Chicken Cutlet Rice 黑椒鸡扒饭",
+          "category": "Rice Set",
+          "sourceIds": [
+            "ur10-kang-su-macpherson-ordering"
+          ],
+          "sourceDescription": "Vegetarian black pepper chicken rice",
+          "price": {
+            "amount": 9.7,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "hold-whole-venue-or-premise-unresolved",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:00.547Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-kang-su-macpherson-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "full ordering choices"
+            ]
+          },
+          "holdReason": "Current exact ordering source says472MacPherson/368189; frozenlead474MacPherson/368190. Current own Facebook page unreadable; generic duck/minced-meat descriptions also remain unclarified. Preserve entire menu held; no address correction or transfer from FarEast/Sims/Adelphi.",
+          "configurationNotice": "Source flags ordering choices; full names/defaults/limits/surcharges unread after normal browser403. No cart/order/account/challenge workaround."
+        },
+        {
+          "id": "ur10-kang-su-macpherson-75293192",
+          "sourceProductId": "75293192",
+          "name": "N7. Black Pepper Chicken Cutlet Noodle 黑椒鸡扒面",
+          "category": "Noodle Set",
+          "sourceIds": [
+            "ur10-kang-su-macpherson-ordering"
+          ],
+          "sourceDescription": "Vegetarian black pepper chicken noodles",
+          "price": {
+            "amount": 9.7,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "hold-whole-venue-or-premise-unresolved",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:00.547Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-kang-su-macpherson-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "full ordering choices"
+            ]
+          },
+          "holdReason": "Current exact ordering source says472MacPherson/368189; frozenlead474MacPherson/368190. Current own Facebook page unreadable; generic duck/minced-meat descriptions also remain unclarified. Preserve entire menu held; no address correction or transfer from FarEast/Sims/Adelphi.",
+          "configurationNotice": "Source flags ordering choices; full names/defaults/limits/surcharges unread after normal browser403. No cart/order/account/challenge workaround."
+        },
+        {
+          "id": "ur10-kang-su-macpherson-75293199",
+          "sourceProductId": "75293199",
+          "name": "S1. Satay 沙爹",
+          "category": "Side Dish",
+          "sourceIds": [
+            "ur10-kang-su-macpherson-ordering"
+          ],
+          "sourceDescription": "Vegetarian satay skewers",
+          "price": {
+            "amount": 12.4,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "hold-whole-venue-or-premise-unresolved",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:00.547Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-kang-su-macpherson-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "future availability"
+            ]
+          },
+          "holdReason": "Current exact ordering source says472MacPherson/368189; frozenlead474MacPherson/368190. Current own Facebook page unreadable; generic duck/minced-meat descriptions also remain unclarified. Preserve entire menu held; no address correction or transfer from FarEast/Sims/Adelphi."
+        },
+        {
+          "id": "ur10-kang-su-macpherson-75293207",
+          "sourceProductId": "75293207",
+          "name": "C1. Claypot Rice 砂煲饭",
+          "category": "Claypot",
+          "sourceIds": [
+            "ur10-kang-su-macpherson-ordering"
+          ],
+          "sourceDescription": "Vegetarian claypot rice",
+          "price": {
+            "amount": 12.3,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "hold-whole-venue-or-premise-unresolved",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:00.547Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-kang-su-macpherson-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "future availability"
+            ]
+          },
+          "holdReason": "Current exact ordering source says472MacPherson/368189; frozenlead474MacPherson/368190. Current own Facebook page unreadable; generic duck/minced-meat descriptions also remain unclarified. Preserve entire menu held; no address correction or transfer from FarEast/Sims/Adelphi."
+        },
+        {
+          "id": "ur10-kang-su-macpherson-75293210",
+          "sourceProductId": "75293210",
+          "name": "S2. Bak Ku Teh 肉骨茶",
+          "category": "Soup",
+          "sourceIds": [
+            "ur10-kang-su-macpherson-ordering"
+          ],
+          "sourceDescription": "Vegetarian bak ku teh",
+          "price": {
+            "amount": 14.9,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "hold-whole-venue-or-premise-unresolved",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:00.547Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-kang-su-macpherson-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "future availability"
+            ]
+          },
+          "holdReason": "Current exact ordering source says472MacPherson/368189; frozenlead474MacPherson/368190. Current own Facebook page unreadable; generic duck/minced-meat descriptions also remain unclarified. Preserve entire menu held; no address correction or transfer from FarEast/Sims/Adelphi."
+        },
+        {
+          "id": "ur10-kang-su-macpherson-75293211",
+          "sourceProductId": "75293211",
+          "name": "S3. Mix Cabbage Beancurd Soup 靚仔汤",
+          "category": "Soup",
+          "sourceIds": [
+            "ur10-kang-su-macpherson-ordering"
+          ],
+          "sourceDescription": "Vegetarian cabbage beancurd soup",
+          "price": {
+            "amount": 11,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "hold-whole-venue-or-premise-unresolved",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:00.547Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-kang-su-macpherson-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "future availability"
+            ]
+          },
+          "holdReason": "Current exact ordering source says472MacPherson/368189; frozenlead474MacPherson/368190. Current own Facebook page unreadable; generic duck/minced-meat descriptions also remain unclarified. Preserve entire menu held; no address correction or transfer from FarEast/Sims/Adelphi."
+        },
+        {
+          "id": "ur10-kang-su-macpherson-75293212",
+          "sourceProductId": "75293212",
+          "name": "S4. Dumpling Soup 6 Pcs 水饺汤",
+          "category": "Soup",
+          "sourceIds": [
+            "ur10-kang-su-macpherson-ordering"
+          ],
+          "sourceDescription": "Vegetarian dumpling soup 6 pcs",
+          "price": {
+            "amount": 11,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "hold-whole-venue-or-premise-unresolved",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:00.547Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-kang-su-macpherson-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "future availability"
+            ]
+          },
+          "holdReason": "Current exact ordering source says472MacPherson/368189; frozenlead474MacPherson/368190. Current own Facebook page unreadable; generic duck/minced-meat descriptions also remain unclarified. Preserve entire menu held; no address correction or transfer from FarEast/Sims/Adelphi.",
+          "portion": "6 pieces"
+        },
+        {
+          "id": "ur10-kang-su-macpherson-75293213",
+          "sourceProductId": "75293213",
+          "name": "S5. Wanton Soup 8 Pcs 云吞汤",
+          "category": "Soup",
+          "sourceIds": [
+            "ur10-kang-su-macpherson-ordering"
+          ],
+          "sourceDescription": "Vegetarian wanton soup 8 pcs",
+          "price": {
+            "amount": 6.9,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "hold-whole-venue-or-premise-unresolved",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:00.547Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-kang-su-macpherson-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "future availability"
+            ]
+          },
+          "holdReason": "Current exact ordering source says472MacPherson/368189; frozenlead474MacPherson/368190. Current own Facebook page unreadable; generic duck/minced-meat descriptions also remain unclarified. Preserve entire menu held; no address correction or transfer from FarEast/Sims/Adelphi.",
+          "portion": "8 pieces"
+        },
+        {
+          "id": "ur10-kang-su-macpherson-75293214",
+          "sourceProductId": "75293214",
+          "name": "A1. Pipa Duck 琵琶鸭 Small 小",
+          "category": "Recommended",
+          "sourceIds": [
+            "ur10-kang-su-macpherson-ordering"
+          ],
+          "sourceDescription": "Vegetarian pipa duck small",
+          "price": {
+            "amount": 34.5,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "hold-whole-venue-or-premise-unresolved",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:00.547Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-kang-su-macpherson-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "future availability"
+            ]
+          },
+          "holdReason": "Current exact ordering source says472MacPherson/368189; frozenlead474MacPherson/368190. Current own Facebook page unreadable; generic duck/minced-meat descriptions also remain unclarified. Preserve entire menu held; no address correction or transfer from FarEast/Sims/Adelphi."
+        },
+        {
+          "id": "ur10-kang-su-macpherson-75293215",
+          "sourceProductId": "75293215",
+          "name": "Pipa Duck 琵琶鸭 Big 大",
+          "category": "Recommended",
+          "sourceIds": [
+            "ur10-kang-su-macpherson-ordering"
+          ],
+          "sourceDescription": "Tender duck with a rich savory flavor and crispy texture. For reference only.",
+          "price": {
+            "amount": 48.3,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "hold-whole-venue-or-premise-unresolved",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:00.547Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-kang-su-macpherson-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "future availability"
+            ]
+          },
+          "holdReason": "Current exact ordering source says472MacPherson/368189; frozenlead474MacPherson/368190. Current own Facebook page unreadable; generic duck/minced-meat descriptions also remain unclarified. Preserve entire menu held; no address correction or transfer from FarEast/Sims/Adelphi.",
+          "additionalHoldReasons": [
+            "Generic duck/minced-meat description remains unclear; do not infer mock ingredients or actual meat service."
+          ]
+        },
+        {
+          "id": "ur10-kang-su-macpherson-75293216",
+          "sourceProductId": "75293216",
+          "name": "A2. Braised Shroom-meat Tofu 卤味香",
+          "category": "Recommended",
+          "sourceIds": [
+            "ur10-kang-su-macpherson-ordering"
+          ],
+          "sourceDescription": "Vegetarian braised tofu with mushroom meat",
+          "price": {
+            "amount": 20.7,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "hold-whole-venue-or-premise-unresolved",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:00.547Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-kang-su-macpherson-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "future availability"
+            ]
+          },
+          "holdReason": "Current exact ordering source says472MacPherson/368189; frozenlead474MacPherson/368190. Current own Facebook page unreadable; generic duck/minced-meat descriptions also remain unclarified. Preserve entire menu held; no address correction or transfer from FarEast/Sims/Adelphi."
+        },
+        {
+          "id": "ur10-kang-su-macpherson-75293217",
+          "sourceProductId": "75293217",
+          "name": "A3. Claypot Shroom-meat w/Black Vinegar 素脚醋",
+          "category": "Recommended",
+          "sourceIds": [
+            "ur10-kang-su-macpherson-ordering"
+          ],
+          "sourceDescription": "",
+          "price": {
+            "amount": 19.3,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "hold-whole-venue-or-premise-unresolved",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:00.547Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-kang-su-macpherson-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "future availability"
+            ]
+          },
+          "holdReason": "Current exact ordering source says472MacPherson/368189; frozenlead474MacPherson/368190. Current own Facebook page unreadable; generic duck/minced-meat descriptions also remain unclarified. Preserve entire menu held; no address correction or transfer from FarEast/Sims/Adelphi."
+        },
+        {
+          "id": "ur10-kang-su-macpherson-75293218",
+          "sourceProductId": "75293218",
+          "name": "F1. Classic Nonya Cod Fish 娘惹鳕鱼",
+          "category": "Fish",
+          "sourceIds": [
+            "ur10-kang-su-macpherson-ordering"
+          ],
+          "sourceDescription": "Vegetarian nonya cod fish",
+          "price": {
+            "amount": 22.1,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "hold-whole-venue-or-premise-unresolved",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:00.547Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-kang-su-macpherson-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "future availability"
+            ]
+          },
+          "holdReason": "Current exact ordering source says472MacPherson/368189; frozenlead474MacPherson/368190. Current own Facebook page unreadable; generic duck/minced-meat descriptions also remain unclarified. Preserve entire menu held; no address correction or transfer from FarEast/Sims/Adelphi."
+        },
+        {
+          "id": "ur10-kang-su-macpherson-75293219",
+          "sourceProductId": "75293219",
+          "name": "F2. Mala Fish 麻辣娃娃鱼",
+          "category": "Fish",
+          "sourceIds": [
+            "ur10-kang-su-macpherson-ordering"
+          ],
+          "sourceDescription": "Vegetarian mala fish",
+          "price": {
+            "amount": 22.1,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "hold-whole-venue-or-premise-unresolved",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:00.547Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-kang-su-macpherson-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "future availability"
+            ]
+          },
+          "holdReason": "Current exact ordering source says472MacPherson/368189; frozenlead474MacPherson/368190. Current own Facebook page unreadable; generic duck/minced-meat descriptions also remain unclarified. Preserve entire menu held; no address correction or transfer from FarEast/Sims/Adelphi."
+        },
+        {
+          "id": "ur10-kang-su-macpherson-75293220",
+          "sourceProductId": "75293220",
+          "name": "F3. Szechuan Fish 酸菜娃娃鱼",
+          "category": "Fish",
+          "sourceIds": [
+            "ur10-kang-su-macpherson-ordering"
+          ],
+          "sourceDescription": "Vegetarian Szechuan fish",
+          "price": {
+            "amount": 22.1,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "hold-whole-venue-or-premise-unresolved",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:00.547Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-kang-su-macpherson-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "future availability"
+            ]
+          },
+          "holdReason": "Current exact ordering source says472MacPherson/368189; frozenlead474MacPherson/368190. Current own Facebook page unreadable; generic duck/minced-meat descriptions also remain unclarified. Preserve entire menu held; no address correction or transfer from FarEast/Sims/Adelphi."
+        },
+        {
+          "id": "ur10-kang-su-macpherson-75293221",
+          "sourceProductId": "75293221",
+          "name": "F4. Traditional Style Deep-fried Fish 古法娃娃鱼",
+          "category": "Fish",
+          "sourceIds": [
+            "ur10-kang-su-macpherson-ordering"
+          ],
+          "sourceDescription": "Vegetarian deep-fried fish",
+          "price": {
+            "amount": 22.1,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "hold-whole-venue-or-premise-unresolved",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:00.547Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-kang-su-macpherson-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "future availability"
+            ]
+          },
+          "holdReason": "Current exact ordering source says472MacPherson/368189; frozenlead474MacPherson/368190. Current own Facebook page unreadable; generic duck/minced-meat descriptions also remain unclarified. Preserve entire menu held; no address correction or transfer from FarEast/Sims/Adelphi."
+        },
+        {
+          "id": "ur10-kang-su-macpherson-75293222",
+          "sourceProductId": "75293222",
+          "name": "F5. Sweet & Sour Deep-fried Fish 五柳酸甜娃娃鱼",
+          "category": "Fish",
+          "sourceIds": [
+            "ur10-kang-su-macpherson-ordering"
+          ],
+          "sourceDescription": "Vegetarian sweet & sour fish",
+          "price": {
+            "amount": 22.1,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "hold-whole-venue-or-premise-unresolved",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:00.547Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-kang-su-macpherson-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "future availability"
+            ]
+          },
+          "holdReason": "Current exact ordering source says472MacPherson/368189; frozenlead474MacPherson/368190. Current own Facebook page unreadable; generic duck/minced-meat descriptions also remain unclarified. Preserve entire menu held; no address correction or transfer from FarEast/Sims/Adelphi."
+        },
+        {
+          "id": "ur10-kang-su-macpherson-75293227",
+          "sourceProductId": "75293227",
+          "name": "V1. Mala Mixed Vegetable 麻辣蔬菜",
+          "category": "Vegetable",
+          "sourceIds": [
+            "ur10-kang-su-macpherson-ordering"
+          ],
+          "sourceDescription": "Vegetarian mala mixed vegetables",
+          "price": {
+            "amount": 20.7,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "hold-whole-venue-or-premise-unresolved",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:00.547Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-kang-su-macpherson-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "future availability"
+            ]
+          },
+          "holdReason": "Current exact ordering source says472MacPherson/368189; frozenlead474MacPherson/368190. Current own Facebook page unreadable; generic duck/minced-meat descriptions also remain unclarified. Preserve entire menu held; no address correction or transfer from FarEast/Sims/Adelphi."
+        },
+        {
+          "id": "ur10-kang-su-macpherson-75293228",
+          "sourceProductId": "75293228",
+          "name": "V2. Luo Han Mixed Vegetable 罗汉上蔬",
+          "category": "Vegetable",
+          "sourceIds": [
+            "ur10-kang-su-macpherson-ordering"
+          ],
+          "sourceDescription": "Vegetarian luo han vegetables",
+          "price": {
+            "amount": 16.6,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "hold-whole-venue-or-premise-unresolved",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:00.547Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-kang-su-macpherson-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "future availability"
+            ]
+          },
+          "holdReason": "Current exact ordering source says472MacPherson/368189; frozenlead474MacPherson/368190. Current own Facebook page unreadable; generic duck/minced-meat descriptions also remain unclarified. Preserve entire menu held; no address correction or transfer from FarEast/Sims/Adelphi."
+        },
+        {
+          "id": "ur10-kang-su-macpherson-75293229",
+          "sourceProductId": "75293229",
+          "name": "V3. Vegetable w/Black Bean Sauce 豆豉凌鱼时菜",
+          "category": "Vegetable",
+          "sourceIds": [
+            "ur10-kang-su-macpherson-ordering"
+          ],
+          "sourceDescription": "Vegetarian vegetables in black bean sauce",
+          "price": {
+            "amount": 16.6,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "hold-whole-venue-or-premise-unresolved",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:00.547Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-kang-su-macpherson-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "future availability"
+            ]
+          },
+          "holdReason": "Current exact ordering source says472MacPherson/368189; frozenlead474MacPherson/368190. Current own Facebook page unreadable; generic duck/minced-meat descriptions also remain unclarified. Preserve entire menu held; no address correction or transfer from FarEast/Sims/Adelphi."
+        },
+        {
+          "id": "ur10-kang-su-macpherson-75293230",
+          "sourceProductId": "75293230",
+          "name": "V4. Vegetable with Mushroom Sauce 双菇时菜",
+          "category": "Vegetable",
+          "sourceIds": [
+            "ur10-kang-su-macpherson-ordering"
+          ],
+          "sourceDescription": "Vegetarian vegetables in mushroom sauce",
+          "price": {
+            "amount": 16.6,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "hold-whole-venue-or-premise-unresolved",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:00.547Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-kang-su-macpherson-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "future availability"
+            ]
+          },
+          "holdReason": "Current exact ordering source says472MacPherson/368189; frozenlead474MacPherson/368190. Current own Facebook page unreadable; generic duck/minced-meat descriptions also remain unclarified. Preserve entire menu held; no address correction or transfer from FarEast/Sims/Adelphi."
+        },
+        {
+          "id": "ur10-kang-su-macpherson-75293231",
+          "sourceProductId": "75293231",
+          "name": "V5. Fried Spicy Vegetable 香辣虾米时蔬",
+          "category": "Vegetable",
+          "sourceIds": [
+            "ur10-kang-su-macpherson-ordering"
+          ],
+          "sourceDescription": "Vegetarian spicy stir-fried vegetables",
+          "price": {
+            "amount": 13.8,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "hold-whole-venue-or-premise-unresolved",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:00.547Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-kang-su-macpherson-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "future availability"
+            ]
+          },
+          "holdReason": "Current exact ordering source says472MacPherson/368189; frozenlead474MacPherson/368190. Current own Facebook page unreadable; generic duck/minced-meat descriptions also remain unclarified. Preserve entire menu held; no address correction or transfer from FarEast/Sims/Adelphi."
+        },
+        {
+          "id": "ur10-kang-su-macpherson-75293232",
+          "sourceProductId": "75293232",
+          "name": "V6. Stir Fried Season Vegetable 清炒时菜",
+          "category": "Vegetable",
+          "sourceIds": [
+            "ur10-kang-su-macpherson-ordering"
+          ],
+          "sourceDescription": "Vegetarian seasonal stir-fried vegetables",
+          "price": {
+            "amount": 12.4,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "hold-whole-venue-or-premise-unresolved",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:00.547Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-kang-su-macpherson-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "future availability"
+            ]
+          },
+          "holdReason": "Current exact ordering source says472MacPherson/368189; frozenlead474MacPherson/368190. Current own Facebook page unreadable; generic duck/minced-meat descriptions also remain unclarified. Preserve entire menu held; no address correction or transfer from FarEast/Sims/Adelphi."
+        },
+        {
+          "id": "ur10-kang-su-macpherson-75293233",
+          "sourceProductId": "75293233",
+          "name": "M1. Monkey Head Mushroom with Basil Sauce 三杯猴头菇",
+          "category": "Mushroom",
+          "sourceIds": [
+            "ur10-kang-su-macpherson-ordering"
+          ],
+          "sourceDescription": "Vegetarian monkey head mushroom with basil",
+          "price": {
+            "amount": 22.1,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "hold-whole-venue-or-premise-unresolved",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:00.547Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-kang-su-macpherson-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "future availability"
+            ]
+          },
+          "holdReason": "Current exact ordering source says472MacPherson/368189; frozenlead474MacPherson/368190. Current own Facebook page unreadable; generic duck/minced-meat descriptions also remain unclarified. Preserve entire menu held; no address correction or transfer from FarEast/Sims/Adelphi."
+        },
+        {
+          "id": "ur10-kang-su-macpherson-75293234",
+          "sourceProductId": "75293234",
+          "name": "M2. Monkey Head Mushroom w/Ginger Sauce 姜茸猴头菇",
+          "category": "Mushroom",
+          "sourceIds": [
+            "ur10-kang-su-macpherson-ordering"
+          ],
+          "sourceDescription": "Vegetarian monkey head mushroom with ginger",
+          "price": {
+            "amount": 20.7,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "hold-whole-venue-or-premise-unresolved",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:00.547Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-kang-su-macpherson-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "future availability"
+            ]
+          },
+          "holdReason": "Current exact ordering source says472MacPherson/368189; frozenlead474MacPherson/368190. Current own Facebook page unreadable; generic duck/minced-meat descriptions also remain unclarified. Preserve entire menu held; no address correction or transfer from FarEast/Sims/Adelphi."
+        },
+        {
+          "id": "ur10-kang-su-macpherson-75293235",
+          "sourceProductId": "75293235",
+          "name": "M3. Abalone Mushroom w/Sweet & Sour Sauce 世界名片",
+          "category": "Mushroom",
+          "sourceIds": [
+            "ur10-kang-su-macpherson-ordering"
+          ],
+          "sourceDescription": "Vegetarian sweet & sour abalone mushroom",
+          "price": {
+            "amount": 16.6,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "hold-whole-venue-or-premise-unresolved",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:00.547Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-kang-su-macpherson-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "future availability"
+            ]
+          },
+          "holdReason": "Current exact ordering source says472MacPherson/368189; frozenlead474MacPherson/368190. Current own Facebook page unreadable; generic duck/minced-meat descriptions also remain unclarified. Preserve entire menu held; no address correction or transfer from FarEast/Sims/Adelphi."
+        },
+        {
+          "id": "ur10-kang-su-macpherson-75293236",
+          "sourceProductId": "75293236",
+          "name": "M4. Abalone Mushroom w/Spicy Flavor 椒盐名片",
+          "category": "Mushroom",
+          "sourceIds": [
+            "ur10-kang-su-macpherson-ordering"
+          ],
+          "sourceDescription": "Vegetarian spicy abalone mushroom",
+          "price": {
+            "amount": 16.6,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "hold-whole-venue-or-premise-unresolved",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:00.547Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-kang-su-macpherson-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "future availability"
+            ]
+          },
+          "holdReason": "Current exact ordering source says472MacPherson/368189; frozenlead474MacPherson/368190. Current own Facebook page unreadable; generic duck/minced-meat descriptions also remain unclarified. Preserve entire menu held; no address correction or transfer from FarEast/Sims/Adelphi."
+        },
+        {
+          "id": "ur10-kang-su-macpherson-75293180",
+          "sourceProductId": "75293180",
+          "name": "R1. Nasi Lemak Fish Rice 素鱼椰浆饭",
+          "category": "Rice Set",
+          "sourceIds": [
+            "ur10-kang-su-macpherson-ordering"
+          ],
+          "sourceDescription": "",
+          "price": {
+            "amount": 12.3,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "hold-whole-venue-or-premise-unresolved",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:00.547Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-kang-su-macpherson-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "full ordering choices"
+            ]
+          },
+          "holdReason": "Current exact ordering source says472MacPherson/368189; frozenlead474MacPherson/368190. Current own Facebook page unreadable; generic duck/minced-meat descriptions also remain unclarified. Preserve entire menu held; no address correction or transfer from FarEast/Sims/Adelphi.",
+          "configurationNotice": "Source flags ordering choices; full names/defaults/limits/surcharges unread after normal browser403. No cart/order/account/challenge workaround."
+        },
+        {
+          "id": "ur10-kang-su-macpherson-75293182",
+          "sourceProductId": "75293182",
+          "name": "R3. Nasi Lemak Cuttle Fish Rice 叁巴鱿鱼椰浆饭",
+          "category": "Rice Set",
+          "sourceIds": [
+            "ur10-kang-su-macpherson-ordering"
+          ],
+          "sourceDescription": "Vegetarian cuttlefish coconut rice",
+          "price": {
+            "amount": 12.3,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "hold-whole-venue-or-premise-unresolved",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:00.547Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-kang-su-macpherson-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "full ordering choices"
+            ]
+          },
+          "holdReason": "Current exact ordering source says472MacPherson/368189; frozenlead474MacPherson/368190. Current own Facebook page unreadable; generic duck/minced-meat descriptions also remain unclarified. Preserve entire menu held; no address correction or transfer from FarEast/Sims/Adelphi.",
+          "configurationNotice": "Source flags ordering choices; full names/defaults/limits/surcharges unread after normal browser403. No cart/order/account/challenge workaround."
+        },
+        {
+          "id": "ur10-kang-su-macpherson-75293183",
+          "sourceProductId": "75293183",
+          "name": "R4. Kang Su Nasi Lemak 康素椰浆饭",
+          "category": "Rice Set",
+          "sourceIds": [
+            "ur10-kang-su-macpherson-ordering"
+          ],
+          "sourceDescription": "Vegetarian coconut rice",
+          "price": {
+            "amount": 9.4,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "hold-whole-venue-or-premise-unresolved",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:00.547Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-kang-su-macpherson-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "full ordering choices"
+            ]
+          },
+          "holdReason": "Current exact ordering source says472MacPherson/368189; frozenlead474MacPherson/368190. Current own Facebook page unreadable; generic duck/minced-meat descriptions also remain unclarified. Preserve entire menu held; no address correction or transfer from FarEast/Sims/Adelphi.",
+          "configurationNotice": "Source flags ordering choices; full names/defaults/limits/surcharges unread after normal browser403. No cart/order/account/challenge workaround."
+        },
+        {
+          "id": "ur10-kang-su-macpherson-75293185",
+          "sourceProductId": "75293185",
+          "name": "R6. Sweet & Sour Pork Rice 咕噜肉饭",
+          "category": "Rice Set",
+          "sourceIds": [
+            "ur10-kang-su-macpherson-ordering"
+          ],
+          "sourceDescription": "Vegetarian sweet & sour pork rice",
+          "price": {
+            "amount": 9.4,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "hold-whole-venue-or-premise-unresolved",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:00.547Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-kang-su-macpherson-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "full ordering choices"
+            ]
+          },
+          "holdReason": "Current exact ordering source says472MacPherson/368189; frozenlead474MacPherson/368190. Current own Facebook page unreadable; generic duck/minced-meat descriptions also remain unclarified. Preserve entire menu held; no address correction or transfer from FarEast/Sims/Adelphi.",
+          "configurationNotice": "Source flags ordering choices; full names/defaults/limits/surcharges unread after normal browser403. No cart/order/account/challenge workaround."
+        },
+        {
+          "id": "ur10-kang-su-macpherson-75293186",
+          "sourceProductId": "75293186",
+          "name": "N1. Nasi Lemak Fish Noodle 素鱼椰浆面",
+          "category": "Noodle Set",
+          "sourceIds": [
+            "ur10-kang-su-macpherson-ordering"
+          ],
+          "sourceDescription": "Vegetarian fish coconut noodles",
+          "price": {
+            "amount": 12.3,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "hold-whole-venue-or-premise-unresolved",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:00.547Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-kang-su-macpherson-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "full ordering choices"
+            ]
+          },
+          "holdReason": "Current exact ordering source says472MacPherson/368189; frozenlead474MacPherson/368190. Current own Facebook page unreadable; generic duck/minced-meat descriptions also remain unclarified. Preserve entire menu held; no address correction or transfer from FarEast/Sims/Adelphi.",
+          "configurationNotice": "Source flags ordering choices; full names/defaults/limits/surcharges unread after normal browser403. No cart/order/account/challenge workaround."
+        },
+        {
+          "id": "ur10-kang-su-macpherson-75293187",
+          "sourceProductId": "75293187",
+          "name": "N2. Nasi Lemak Drumstick Noodle 素鸡腿椰浆面",
+          "category": "Noodle Set",
+          "sourceIds": [
+            "ur10-kang-su-macpherson-ordering"
+          ],
+          "sourceDescription": "Vegetarian drumstick coconut noodles",
+          "price": {
+            "amount": 12.3,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "hold-whole-venue-or-premise-unresolved",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:00.547Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-kang-su-macpherson-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "full ordering choices"
+            ]
+          },
+          "holdReason": "Current exact ordering source says472MacPherson/368189; frozenlead474MacPherson/368190. Current own Facebook page unreadable; generic duck/minced-meat descriptions also remain unclarified. Preserve entire menu held; no address correction or transfer from FarEast/Sims/Adelphi.",
+          "configurationNotice": "Source flags ordering choices; full names/defaults/limits/surcharges unread after normal browser403. No cart/order/account/challenge workaround."
+        },
+        {
+          "id": "ur10-kang-su-macpherson-75293188",
+          "sourceProductId": "75293188",
+          "name": "N3. Nasi Lemak Cuttle Fish Noodle 叁巴鱿鱼椰浆面",
+          "category": "Noodle Set",
+          "sourceIds": [
+            "ur10-kang-su-macpherson-ordering"
+          ],
+          "sourceDescription": "Vegetarian cuttlefish coconut noodles",
+          "price": {
+            "amount": 12.3,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "hold-whole-venue-or-premise-unresolved",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:00.547Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-kang-su-macpherson-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "full ordering choices"
+            ]
+          },
+          "holdReason": "Current exact ordering source says472MacPherson/368189; frozenlead474MacPherson/368190. Current own Facebook page unreadable; generic duck/minced-meat descriptions also remain unclarified. Preserve entire menu held; no address correction or transfer from FarEast/Sims/Adelphi.",
+          "configurationNotice": "Source flags ordering choices; full names/defaults/limits/surcharges unread after normal browser403. No cart/order/account/challenge workaround."
+        },
+        {
+          "id": "ur10-kang-su-macpherson-75293189",
+          "sourceProductId": "75293189",
+          "name": "N4. Big Prawn Noodle 康素大虾面",
+          "category": "Noodle Set",
+          "sourceIds": [
+            "ur10-kang-su-macpherson-ordering"
+          ],
+          "sourceDescription": "Vegetarian big prawn noodles",
+          "price": {
+            "amount": 13.7,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "hold-whole-venue-or-premise-unresolved",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:00.547Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-kang-su-macpherson-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "full ordering choices"
+            ]
+          },
+          "holdReason": "Current exact ordering source says472MacPherson/368189; frozenlead474MacPherson/368190. Current own Facebook page unreadable; generic duck/minced-meat descriptions also remain unclarified. Preserve entire menu held; no address correction or transfer from FarEast/Sims/Adelphi.",
+          "configurationNotice": "Source flags ordering choices; full names/defaults/limits/surcharges unread after normal browser403. No cart/order/account/challenge workaround."
+        },
+        {
+          "id": "ur10-kang-su-macpherson-75293190",
+          "sourceProductId": "75293190",
+          "name": "N5. Asam Laksa 亚參叻沙",
+          "category": "Noodle Set",
+          "sourceIds": [
+            "ur10-kang-su-macpherson-ordering"
+          ],
+          "sourceDescription": "Vegetarian asam laksa",
+          "price": {
+            "amount": 10.4,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "hold-whole-venue-or-premise-unresolved",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:00.547Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-kang-su-macpherson-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "full ordering choices"
+            ]
+          },
+          "holdReason": "Current exact ordering source says472MacPherson/368189; frozenlead474MacPherson/368190. Current own Facebook page unreadable; generic duck/minced-meat descriptions also remain unclarified. Preserve entire menu held; no address correction or transfer from FarEast/Sims/Adelphi.",
+          "configurationNotice": "Source flags ordering choices; full names/defaults/limits/surcharges unread after normal browser403. No cart/order/account/challenge workaround."
+        },
+        {
+          "id": "ur10-kang-su-macpherson-75293191",
+          "sourceProductId": "75293191",
+          "name": "N6. Dumpling Ramen 水饺手工面",
+          "category": "Noodle Set",
+          "sourceIds": [
+            "ur10-kang-su-macpherson-ordering"
+          ],
+          "sourceDescription": "Vegetarian dumpling ramen",
+          "price": {
+            "amount": 10.4,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "hold-whole-venue-or-premise-unresolved",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:00.547Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-kang-su-macpherson-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "full ordering choices"
+            ]
+          },
+          "holdReason": "Current exact ordering source says472MacPherson/368189; frozenlead474MacPherson/368190. Current own Facebook page unreadable; generic duck/minced-meat descriptions also remain unclarified. Preserve entire menu held; no address correction or transfer from FarEast/Sims/Adelphi.",
+          "configurationNotice": "Source flags ordering choices; full names/defaults/limits/surcharges unread after normal browser403. No cart/order/account/challenge workaround."
+        },
+        {
+          "id": "ur10-kang-su-macpherson-75293193",
+          "sourceProductId": "75293193",
+          "name": "N8. Kang Su Ban Mian 康素板面",
+          "category": "Noodle Set",
+          "sourceIds": [
+            "ur10-kang-su-macpherson-ordering"
+          ],
+          "sourceDescription": "Vegetarian ban mian",
+          "price": {
+            "amount": 9,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "hold-whole-venue-or-premise-unresolved",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:00.547Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-kang-su-macpherson-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "full ordering choices"
+            ]
+          },
+          "holdReason": "Current exact ordering source says472MacPherson/368189; frozenlead474MacPherson/368190. Current own Facebook page unreadable; generic duck/minced-meat descriptions also remain unclarified. Preserve entire menu held; no address correction or transfer from FarEast/Sims/Adelphi.",
+          "configurationNotice": "Source flags ordering choices; full names/defaults/limits/surcharges unread after normal browser403. No cart/order/account/challenge workaround."
+        },
+        {
+          "id": "ur10-kang-su-macpherson-75293194",
+          "sourceProductId": "75293194",
+          "name": "N9. Mala Kolomee 康素麻辣干捞面",
+          "category": "Noodle Set",
+          "sourceIds": [
+            "ur10-kang-su-macpherson-ordering"
+          ],
+          "sourceDescription": "Vegetarian mala dry noodles",
+          "price": {
+            "amount": 9.4,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "hold-whole-venue-or-premise-unresolved",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:00.547Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-kang-su-macpherson-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "full ordering choices"
+            ]
+          },
+          "holdReason": "Current exact ordering source says472MacPherson/368189; frozenlead474MacPherson/368190. Current own Facebook page unreadable; generic duck/minced-meat descriptions also remain unclarified. Preserve entire menu held; no address correction or transfer from FarEast/Sims/Adelphi.",
+          "configurationNotice": "Source flags ordering choices; full names/defaults/limits/surcharges unread after normal browser403. No cart/order/account/challenge workaround."
+        },
+        {
+          "id": "ur10-kang-su-macpherson-75293195",
+          "sourceProductId": "75293195",
+          "name": "N10. Kang Su Kolomee 康素干捞面",
+          "category": "Noodle Set",
+          "sourceIds": [
+            "ur10-kang-su-macpherson-ordering"
+          ],
+          "sourceDescription": "Vegetarian dry kolomee",
+          "price": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "hold-whole-venue-or-premise-unresolved",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:00.547Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-kang-su-macpherson-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "full ordering choices"
+            ]
+          },
+          "holdReason": "Current exact ordering source says472MacPherson/368189; frozenlead474MacPherson/368190. Current own Facebook page unreadable; generic duck/minced-meat descriptions also remain unclarified. Preserve entire menu held; no address correction or transfer from FarEast/Sims/Adelphi.",
+          "configurationNotice": "Source flags ordering choices; full names/defaults/limits/surcharges unread after normal browser403. No cart/order/account/challenge workaround."
+        },
+        {
+          "id": "ur10-kang-su-macpherson-75293196",
+          "sourceProductId": "75293196",
+          "name": "N11. Kang Su Minced Meat Noodle 康素肉脞面",
+          "category": "Noodle Set",
+          "sourceIds": [
+            "ur10-kang-su-macpherson-ordering"
+          ],
+          "sourceDescription": "Noodles featuring minced meat with a savory flavor and tender texture. For reference only.",
+          "price": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "hold-whole-venue-or-premise-unresolved",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:00.547Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-kang-su-macpherson-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "full ordering choices"
+            ]
+          },
+          "holdReason": "Current exact ordering source says472MacPherson/368189; frozenlead474MacPherson/368190. Current own Facebook page unreadable; generic duck/minced-meat descriptions also remain unclarified. Preserve entire menu held; no address correction or transfer from FarEast/Sims/Adelphi.",
+          "configurationNotice": "Source flags ordering choices; full names/defaults/limits/surcharges unread after normal browser403. No cart/order/account/challenge workaround.",
+          "additionalHoldReasons": [
+            "Generic duck/minced-meat description remains unclear; do not infer mock ingredients or actual meat service."
+          ]
+        },
+        {
+          "id": "ur10-kang-su-macpherson-75293197",
+          "sourceProductId": "75293197",
+          "name": "N12. Kang Su Wanton Noodle 康素云吞面",
+          "category": "Noodle Set",
+          "sourceIds": [
+            "ur10-kang-su-macpherson-ordering"
+          ],
+          "sourceDescription": "Vegetarian wanton noodles",
+          "price": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "hold-whole-venue-or-premise-unresolved",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:00.547Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-kang-su-macpherson-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "full ordering choices"
+            ]
+          },
+          "holdReason": "Current exact ordering source says472MacPherson/368189; frozenlead474MacPherson/368190. Current own Facebook page unreadable; generic duck/minced-meat descriptions also remain unclarified. Preserve entire menu held; no address correction or transfer from FarEast/Sims/Adelphi.",
+          "configurationNotice": "Source flags ordering choices; full names/defaults/limits/surcharges unread after normal browser403. No cart/order/account/challenge workaround."
+        },
+        {
+          "id": "ur10-kang-su-macpherson-75293208",
+          "sourceProductId": "75293208",
+          "name": "C2. Claypot Noodle 砂煲伊面",
+          "category": "Claypot",
+          "sourceIds": [
+            "ur10-kang-su-macpherson-ordering"
+          ],
+          "sourceDescription": "Noodles in a rich, savory broth with a hearty texture. For reference only.",
+          "price": {
+            "amount": 9.5,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "hold-whole-venue-or-premise-unresolved",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:00.547Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-kang-su-macpherson-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "future availability"
+            ]
+          },
+          "holdReason": "Current exact ordering source says472MacPherson/368189; frozenlead474MacPherson/368190. Current own Facebook page unreadable; generic duck/minced-meat descriptions also remain unclarified. Preserve entire menu held; no address correction or transfer from FarEast/Sims/Adelphi."
+        },
+        {
+          "id": "ur10-kang-su-macpherson-75293209",
+          "sourceProductId": "75293209",
+          "name": "C3. Claypot Teochew Porridge 砂煲潮州糜",
+          "category": "Claypot",
+          "sourceIds": [
+            "ur10-kang-su-macpherson-ordering"
+          ],
+          "sourceDescription": "Vegetarian claypot teochew porridge",
+          "price": {
+            "amount": 9.5,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "hold-whole-venue-or-premise-unresolved",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:00.547Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-kang-su-macpherson-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "future availability"
+            ]
+          },
+          "holdReason": "Current exact ordering source says472MacPherson/368189; frozenlead474MacPherson/368190. Current own Facebook page unreadable; generic duck/minced-meat descriptions also remain unclarified. Preserve entire menu held; no address correction or transfer from FarEast/Sims/Adelphi."
+        },
+        {
+          "id": "ur10-kang-su-macpherson-77800072",
+          "sourceProductId": "77800072",
+          "name": "S9. White Rice 白饭",
+          "category": "Side Dish",
+          "sourceIds": [
+            "ur10-kang-su-macpherson-ordering"
+          ],
+          "sourceDescription": "Plain white rice offering a simple and comforting texture with a neutral flavor. For reference only.",
+          "price": {
+            "amount": 1.38,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "hold-whole-venue-or-premise-unresolved",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:00.547Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-kang-su-macpherson-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "future availability"
+            ]
+          },
+          "holdReason": "Current exact ordering source says472MacPherson/368189; frozenlead474MacPherson/368190. Current own Facebook page unreadable; generic duck/minced-meat descriptions also remain unclarified. Preserve entire menu held; no address correction or transfer from FarEast/Sims/Adelphi."
+        },
+        {
+          "id": "ur10-kang-su-macpherson-75293200",
+          "sourceProductId": "75293200",
+          "name": "S2. Samba Cuttle Fish 叁巴鱿鱼",
+          "category": "Side Dish",
+          "sourceIds": [
+            "ur10-kang-su-macpherson-ordering"
+          ],
+          "sourceDescription": "Vegetarian sambal cuttlefish",
+          "price": {
+            "amount": 11,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "hold-whole-venue-or-premise-unresolved",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:00.547Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-kang-su-macpherson-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "future availability"
+            ]
+          },
+          "holdReason": "Current exact ordering source says472MacPherson/368189; frozenlead474MacPherson/368190. Current own Facebook page unreadable; generic duck/minced-meat descriptions also remain unclarified. Preserve entire menu held; no address correction or transfer from FarEast/Sims/Adelphi."
+        },
+        {
+          "id": "ur10-kang-su-macpherson-75293201",
+          "sourceProductId": "75293201",
+          "name": "S3. Mala Dumpling 6 Pcs 麻辣水饺",
+          "category": "Side Dish",
+          "sourceIds": [
+            "ur10-kang-su-macpherson-ordering"
+          ],
+          "sourceDescription": "Vegetarian mala dumplings 6 pcs",
+          "price": {
+            "amount": 11,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "hold-whole-venue-or-premise-unresolved",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:00.547Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-kang-su-macpherson-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "future availability"
+            ]
+          },
+          "holdReason": "Current exact ordering source says472MacPherson/368189; frozenlead474MacPherson/368190. Current own Facebook page unreadable; generic duck/minced-meat descriptions also remain unclarified. Preserve entire menu held; no address correction or transfer from FarEast/Sims/Adelphi.",
+          "portion": "6 pieces"
+        },
+        {
+          "id": "ur10-kang-su-macpherson-75293202",
+          "sourceProductId": "75293202",
+          "name": "S4. Fried Wanton 10 Pcs 炸云吞",
+          "category": "Side Dish",
+          "sourceIds": [
+            "ur10-kang-su-macpherson-ordering"
+          ],
+          "sourceDescription": "Vegetarian fried wantons 10 pcs",
+          "price": {
+            "amount": 8.3,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "hold-whole-venue-or-premise-unresolved",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:00.547Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-kang-su-macpherson-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "future availability"
+            ]
+          },
+          "holdReason": "Current exact ordering source says472MacPherson/368189; frozenlead474MacPherson/368190. Current own Facebook page unreadable; generic duck/minced-meat descriptions also remain unclarified. Preserve entire menu held; no address correction or transfer from FarEast/Sims/Adelphi.",
+          "portion": "10 pieces"
+        },
+        {
+          "id": "ur10-kang-su-macpherson-75293203",
+          "sourceProductId": "75293203",
+          "name": "S5. Fried Wu Xiang 炸五香",
+          "category": "Side Dish",
+          "sourceIds": [
+            "ur10-kang-su-macpherson-ordering"
+          ],
+          "sourceDescription": "Vegetarian fried wu xiang",
+          "price": {
+            "amount": 8.3,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "hold-whole-venue-or-premise-unresolved",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:00.547Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-kang-su-macpherson-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "future availability"
+            ]
+          },
+          "holdReason": "Current exact ordering source says472MacPherson/368189; frozenlead474MacPherson/368190. Current own Facebook page unreadable; generic duck/minced-meat descriptions also remain unclarified. Preserve entire menu held; no address correction or transfer from FarEast/Sims/Adelphi."
+        },
+        {
+          "id": "ur10-kang-su-macpherson-75293204",
+          "sourceProductId": "75293204",
+          "name": "S6. Fried Tofu 炸豆干",
+          "category": "Side Dish",
+          "sourceIds": [
+            "ur10-kang-su-macpherson-ordering"
+          ],
+          "sourceDescription": "Tofu with a savory flavor and crispy texture. For reference only.",
+          "price": {
+            "amount": 8.3,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "hold-whole-venue-or-premise-unresolved",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:00.547Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-kang-su-macpherson-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "future availability"
+            ]
+          },
+          "holdReason": "Current exact ordering source says472MacPherson/368189; frozenlead474MacPherson/368190. Current own Facebook page unreadable; generic duck/minced-meat descriptions also remain unclarified. Preserve entire menu held; no address correction or transfer from FarEast/Sims/Adelphi."
+        },
+        {
+          "id": "ur10-kang-su-macpherson-75293205",
+          "sourceProductId": "75293205",
+          "name": "S7. Fried Spring Roll 炸春卷",
+          "category": "Side Dish",
+          "sourceIds": [
+            "ur10-kang-su-macpherson-ordering"
+          ],
+          "sourceDescription": "Vegetarian fried spring rolls",
+          "price": {
+            "amount": 8.3,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "hold-whole-venue-or-premise-unresolved",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:00.547Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-kang-su-macpherson-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "future availability"
+            ]
+          },
+          "holdReason": "Current exact ordering source says472MacPherson/368189; frozenlead474MacPherson/368190. Current own Facebook page unreadable; generic duck/minced-meat descriptions also remain unclarified. Preserve entire menu held; no address correction or transfer from FarEast/Sims/Adelphi."
+        },
+        {
+          "id": "ur10-kang-su-macpherson-75293206",
+          "sourceProductId": "75293206",
+          "name": "S8. French Fries 炸薯条",
+          "category": "Side Dish",
+          "sourceIds": [
+            "ur10-kang-su-macpherson-ordering"
+          ],
+          "sourceDescription": "Vegetarian French fries",
+          "price": {
+            "amount": 6.9,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "hold-whole-venue-or-premise-unresolved",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:00.547Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-kang-su-macpherson-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "future availability"
+            ]
+          },
+          "holdReason": "Current exact ordering source says472MacPherson/368189; frozenlead474MacPherson/368190. Current own Facebook page unreadable; generic duck/minced-meat descriptions also remain unclarified. Preserve entire menu held; no address correction or transfer from FarEast/Sims/Adelphi."
+        },
+        {
+          "id": "ur10-kang-su-macpherson-75293223",
+          "sourceProductId": "75293223",
+          "name": "T1. Eight Treasure Tofu 八宝豆腐",
+          "category": "Tofu",
+          "sourceIds": [
+            "ur10-kang-su-macpherson-ordering"
+          ],
+          "sourceDescription": "Vegetarian eight treasure tofu",
+          "price": {
+            "amount": 19.2,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "hold-whole-venue-or-premise-unresolved",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:00.547Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-kang-su-macpherson-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "future availability"
+            ]
+          },
+          "holdReason": "Current exact ordering source says472MacPherson/368189; frozenlead474MacPherson/368190. Current own Facebook page unreadable; generic duck/minced-meat descriptions also remain unclarified. Preserve entire menu held; no address correction or transfer from FarEast/Sims/Adelphi."
+        },
+        {
+          "id": "ur10-kang-su-macpherson-75293224",
+          "sourceProductId": "75293224",
+          "name": "T2. Tofu with Basil Sauce 三杯豆腐",
+          "category": "Tofu",
+          "sourceIds": [
+            "ur10-kang-su-macpherson-ordering"
+          ],
+          "sourceDescription": "Vegetarian basil sauce tofu",
+          "price": {
+            "amount": 16.6,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "hold-whole-venue-or-premise-unresolved",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:00.547Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-kang-su-macpherson-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "future availability"
+            ]
+          },
+          "holdReason": "Current exact ordering source says472MacPherson/368189; frozenlead474MacPherson/368190. Current own Facebook page unreadable; generic duck/minced-meat descriptions also remain unclarified. Preserve entire menu held; no address correction or transfer from FarEast/Sims/Adelphi."
+        },
+        {
+          "id": "ur10-kang-su-macpherson-75293225",
+          "sourceProductId": "75293225",
+          "name": "T3. Teo Chew Style Tofu 潮式豆腐",
+          "category": "Tofu",
+          "sourceIds": [
+            "ur10-kang-su-macpherson-ordering"
+          ],
+          "sourceDescription": "Vegetarian teochew style tofu",
+          "price": {
+            "amount": 15.2,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "hold-whole-venue-or-premise-unresolved",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:00.547Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-kang-su-macpherson-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "future availability"
+            ]
+          },
+          "holdReason": "Current exact ordering source says472MacPherson/368189; frozenlead474MacPherson/368190. Current own Facebook page unreadable; generic duck/minced-meat descriptions also remain unclarified. Preserve entire menu held; no address correction or transfer from FarEast/Sims/Adelphi."
+        },
+        {
+          "id": "ur10-kang-su-macpherson-75293226",
+          "sourceProductId": "75293226",
+          "name": "T4. Mapo Tofu 麻婆豆腐",
+          "category": "Tofu",
+          "sourceIds": [
+            "ur10-kang-su-macpherson-ordering"
+          ],
+          "sourceDescription": "Vegetarian mapo tofu",
+          "price": {
+            "amount": 15.2,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "hold-whole-venue-or-premise-unresolved",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:00.547Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-kang-su-macpherson-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "future availability"
+            ]
+          },
+          "holdReason": "Current exact ordering source says472MacPherson/368189; frozenlead474MacPherson/368190. Current own Facebook page unreadable; generic duck/minced-meat descriptions also remain unclarified. Preserve entire menu held; no address correction or transfer from FarEast/Sims/Adelphi."
+        }
+      ]
+    },
+    {
+      "id": "ur10-ju-fu-yuan-eunos-foods",
+      "name": "Ju Fu Yuan Vegetarian Delight — Eunos delivery menu",
+      "branchIds": [
+        "ur10-ju-fu-yuan-eunos"
+      ],
+      "sourceIds": [
+        "ur10-ju-fu-yuan-eunos-ordering"
+      ],
+      "scope": "branch-delivery",
+      "coverage": "partial",
+      "publicationStatus": "reviewed-partial-source-facts",
+      "notice": "Dated delivery menu; prices and availability may differ in store. Unread ordering choices and printed composition limits retained. Source ordering was closed at check.",
+      "items": [
+        {
+          "id": "ur10-ju-fu-yuan-eunos-4569330",
+          "sourceProductId": "4569330",
+          "name": "Mee Hoon + 2 Vegetables + Mock Meat",
+          "category": "Vegetable Standard Sets",
+          "sourceIds": [
+            "ur10-ju-fu-yuan-eunos-ordering"
+          ],
+          "sourceDescription": "Stir-fried rice noodles with vegetables and plant-based protein, offering a savory, satisfying meal.",
+          "price": {
+            "amount": 6.5,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:02.428Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-ju-fu-yuan-eunos-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "full ordering choices"
+            ]
+          },
+          "configurationNotice": "Source flags ordering choices; full names/defaults/limits/surcharges unread after normal browser403. No cart/order/account/challenge workaround.",
+          "foodComponents": {
+            "printedDescription": "Stir-fried rice noodles with vegetables and plant-based protein, offering a savory, satisfying meal.",
+            "basis": "Merchant source description, not complete ingredients/allergen statement."
+          },
+          "sourcePromotionalPrice": {
+            "amount": 5.525,
+            "currency": "SGD",
+            "rawUnrounded": true
+          },
+          "pricingNotice": "Separate15%promotional amount retained in source data; displayed list price precedes promotion. Validity/final checkout unconfirmed."
+        },
+        {
+          "id": "ur10-ju-fu-yuan-eunos-81007920",
+          "sourceProductId": "81007920",
+          "name": "Kway Chap 粿汁",
+          "category": "Noodles Series 面食系列",
+          "sourceIds": [
+            "ur10-ju-fu-yuan-eunos-ordering"
+          ],
+          "sourceDescription": "Noodles in a savory, aromatic broth with a tender texture. For reference only.",
+          "price": {
+            "amount": 6.5,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:02.428Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-ju-fu-yuan-eunos-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "full ordering choices"
+            ]
+          },
+          "configurationNotice": "Source flags ordering choices; full names/defaults/limits/surcharges unread after normal browser403. No cart/order/account/challenge workaround.",
+          "foodComponents": {
+            "printedDescription": "Noodles in a savory, aromatic broth with a tender texture. For reference only.",
+            "basis": "Merchant source description, not complete ingredients/allergen statement."
+          },
+          "sourcePromotionalPrice": {
+            "amount": 5.525,
+            "currency": "SGD",
+            "rawUnrounded": true
+          },
+          "pricingNotice": "Separate15%promotional amount retained in source data; displayed list price precedes promotion. Validity/final checkout unconfirmed."
+        },
+        {
+          "id": "ur10-ju-fu-yuan-eunos-4569324",
+          "sourceProductId": "4569324",
+          "name": "Rice + 2 Vegetables + Mock Meat",
+          "category": "Vegetable Mixed Rice",
+          "sourceIds": [
+            "ur10-ju-fu-yuan-eunos-ordering"
+          ],
+          "sourceDescription": "A flavorful rice dish topped with two vegetables and plant-based protein alternative.",
+          "price": {
+            "amount": 6.5,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:02.428Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-ju-fu-yuan-eunos-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "full ordering choices"
+            ]
+          },
+          "configurationNotice": "Source flags ordering choices; full names/defaults/limits/surcharges unread after normal browser403. No cart/order/account/challenge workaround.",
+          "foodComponents": {
+            "printedDescription": "A flavorful rice dish topped with two vegetables and plant-based protein alternative.",
+            "basis": "Merchant source description, not complete ingredients/allergen statement."
+          },
+          "sourcePromotionalPrice": {
+            "amount": 5.525,
+            "currency": "SGD",
+            "rawUnrounded": true
+          },
+          "pricingNotice": "Separate15%promotional amount retained in source data; displayed list price precedes promotion. Validity/final checkout unconfirmed."
+        },
+        {
+          "id": "ur10-ju-fu-yuan-eunos-4569326",
+          "sourceProductId": "4569326",
+          "name": "Brown Rice + 2 Vegetables + Mock Meat",
+          "category": "Vegetable Mixed Rice",
+          "sourceIds": [
+            "ur10-ju-fu-yuan-eunos-ordering"
+          ],
+          "sourceDescription": "A hearty, savory combination of mock meat, vegetables, and brown rice with a wholesome texture. For reference only.",
+          "price": {
+            "amount": 6.8,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:02.428Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-ju-fu-yuan-eunos-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "full ordering choices"
+            ]
+          },
+          "configurationNotice": "Source flags ordering choices; full names/defaults/limits/surcharges unread after normal browser403. No cart/order/account/challenge workaround.",
+          "foodComponents": {
+            "printedDescription": "A hearty, savory combination of mock meat, vegetables, and brown rice with a wholesome texture. For reference only.",
+            "basis": "Merchant source description, not complete ingredients/allergen statement."
+          },
+          "sourcePromotionalPrice": {
+            "amount": 5.779999999999999,
+            "currency": "SGD",
+            "rawUnrounded": true
+          },
+          "pricingNotice": "Separate15%promotional amount retained in source data; displayed list price precedes promotion. Validity/final checkout unconfirmed."
+        },
+        {
+          "id": "ur10-ju-fu-yuan-eunos-4569331",
+          "sourceProductId": "4569331",
+          "name": "Mee Hoon + 2 Mock Meats + Vegetable",
+          "category": "Vegetable Standard Sets",
+          "sourceIds": [
+            "ur10-ju-fu-yuan-eunos-ordering"
+          ],
+          "sourceDescription": "Stir-fried rice noodles with two plant-based proteins and fresh vegetables.",
+          "price": {
+            "amount": 6.8,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:02.428Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-ju-fu-yuan-eunos-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "full ordering choices"
+            ]
+          },
+          "configurationNotice": "Source flags ordering choices; full names/defaults/limits/surcharges unread after normal browser403. No cart/order/account/challenge workaround.",
+          "foodComponents": {
+            "printedDescription": "Stir-fried rice noodles with two plant-based proteins and fresh vegetables.",
+            "basis": "Merchant source description, not complete ingredients/allergen statement."
+          },
+          "sourcePromotionalPrice": {
+            "amount": 5.779999999999999,
+            "currency": "SGD",
+            "rawUnrounded": true
+          },
+          "pricingNotice": "Separate15%promotional amount retained in source data; displayed list price precedes promotion. Validity/final checkout unconfirmed."
+        },
+        {
+          "id": "ur10-ju-fu-yuan-eunos-4569327",
+          "sourceProductId": "4569327",
+          "name": "Brown Rice + 2 Mock Meats + Vegetable",
+          "category": "Vegetable Mixed Rice",
+          "sourceIds": [
+            "ur10-ju-fu-yuan-eunos-ordering"
+          ],
+          "sourceDescription": "Nutritious brown rice topped with two plant-based proteins and fresh vegetables.",
+          "price": {
+            "amount": 7,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:02.428Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-ju-fu-yuan-eunos-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "full ordering choices"
+            ]
+          },
+          "configurationNotice": "Source flags ordering choices; full names/defaults/limits/surcharges unread after normal browser403. No cart/order/account/challenge workaround.",
+          "foodComponents": {
+            "printedDescription": "Nutritious brown rice topped with two plant-based proteins and fresh vegetables.",
+            "basis": "Merchant source description, not complete ingredients/allergen statement."
+          },
+          "sourcePromotionalPrice": {
+            "amount": 5.95,
+            "currency": "SGD",
+            "rawUnrounded": true
+          },
+          "pricingNotice": "Separate15%promotional amount retained in source data; displayed list price precedes promotion. Validity/final checkout unconfirmed."
+        },
+        {
+          "id": "ur10-ju-fu-yuan-eunos-4569328",
+          "sourceProductId": "4569328",
+          "name": "Mee Hoon + Vegetable Char Siew + Crispy Soya Bean + Cabbage 米粉素叉烧斋鹅包菜",
+          "category": "Vegetable Standard Sets",
+          "sourceIds": [
+            "ur10-ju-fu-yuan-eunos-ordering"
+          ],
+          "sourceDescription": "Stir-fried rice noodles with savory vegetable, crispy beans, and fresh cabbage.",
+          "price": {
+            "amount": 6,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "hold-bilingual-soya-component-unclear",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:02.428Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-ju-fu-yuan-eunos-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "future availability"
+            ]
+          },
+          "holdReason": "English title/description names crispy soya bean/beans; Chinese title names vegetarian goose (斋鹅), typically a different prepared component. Do not silently replace beans with sheets/mock-goose or infer composition; preserve both printed versions pending merchant clarification.",
+          "sourcePromotionalPrice": {
+            "amount": 5.1,
+            "currency": "SGD",
+            "rawUnrounded": true
+          },
+          "pricingNotice": "Separate15%promotional amount retained in source data; displayed list price precedes promotion. Validity/final checkout unconfirmed."
+        },
+        {
+          "id": "ur10-ju-fu-yuan-eunos-81007890",
+          "sourceProductId": "81007890",
+          "name": "Mee siam 米暹",
+          "category": "Noodles Series 面食系列",
+          "sourceIds": [
+            "ur10-ju-fu-yuan-eunos-ordering"
+          ],
+          "sourceDescription": "Noodles in a tangy, spicy, and savory broth with a satisfying texture. For reference only.",
+          "price": {
+            "amount": 6,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:02.428Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-ju-fu-yuan-eunos-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "full ordering choices"
+            ]
+          },
+          "configurationNotice": "Source flags ordering choices; full names/defaults/limits/surcharges unread after normal browser403. No cart/order/account/challenge workaround.",
+          "foodComponents": {
+            "printedDescription": "Noodles in a tangy, spicy, and savory broth with a satisfying texture. For reference only.",
+            "basis": "Merchant source description, not complete ingredients/allergen statement."
+          },
+          "sourcePromotionalPrice": {
+            "amount": 5.1,
+            "currency": "SGD",
+            "rawUnrounded": true
+          },
+          "pricingNotice": "Separate15%promotional amount retained in source data; displayed list price precedes promotion. Validity/final checkout unconfirmed."
+        },
+        {
+          "id": "ur10-ju-fu-yuan-eunos-81007892",
+          "sourceProductId": "81007892",
+          "name": "Lontong隆冬",
+          "category": "Noodles Series 面食系列",
+          "sourceIds": [
+            "ur10-ju-fu-yuan-eunos-ordering"
+          ],
+          "sourceDescription": "",
+          "price": {
+            "amount": 6,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:02.428Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-ju-fu-yuan-eunos-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "full ordering choices"
+            ]
+          },
+          "configurationNotice": "Source flags ordering choices; full names/defaults/limits/surcharges unread after normal browser403. No cart/order/account/challenge workaround.",
+          "sourcePromotionalPrice": {
+            "amount": 5.1,
+            "currency": "SGD",
+            "rawUnrounded": true
+          },
+          "pricingNotice": "Separate15%promotional amount retained in source data; displayed list price precedes promotion. Validity/final checkout unconfirmed."
+        },
+        {
+          "id": "ur10-ju-fu-yuan-eunos-4569350",
+          "sourceProductId": "4569350",
+          "name": "Mee Rebus 马来卥面",
+          "category": "Noodles Series 面食系列",
+          "sourceIds": [
+            "ur10-ju-fu-yuan-eunos-ordering"
+          ],
+          "sourceDescription": "Popular malay noodle dish that is flavourful and hearty",
+          "price": {
+            "amount": 6,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:02.428Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-ju-fu-yuan-eunos-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "full ordering choices"
+            ]
+          },
+          "configurationNotice": "Source flags ordering choices; full names/defaults/limits/surcharges unread after normal browser403. No cart/order/account/challenge workaround.",
+          "foodComponents": {
+            "printedDescription": "Popular malay noodle dish that is flavourful and hearty",
+            "basis": "Merchant source description, not complete ingredients/allergen statement."
+          },
+          "sourcePromotionalPrice": {
+            "amount": 5.1,
+            "currency": "SGD",
+            "rawUnrounded": true
+          },
+          "pricingNotice": "Separate15%promotional amount retained in source data; displayed list price precedes promotion. Validity/final checkout unconfirmed."
+        }
+      ]
+    },
+    {
+      "id": "ur10-bai-jia-le-cimb-foods",
+      "name": "Bai Jia Le LeiCha — CIMB Plaza delivery menu",
+      "branchIds": [
+        "ur10-bai-jia-le-cimb"
+      ],
+      "sourceIds": [
+        "ur10-bai-jia-le-cimb-ordering"
+      ],
+      "scope": "branch-delivery",
+      "coverage": "partial",
+      "publicationStatus": "hold-whole-venue-or-premise-unresolved",
+      "notice": "Landlord confirmsCIMB#B1-28 and vegetable/herb thunder-tea rice, not explicit whole-venue vegetarian scope or YTFfillings. Merchant menu categoryHealthy is not vegetarian proof. Entire10foods held; noJurongPoint transfer. Current10products differs indexed12; eggplant/bittergourdYTF absent from this response.",
+      "items": [
+        {
+          "id": "ur10-bai-jia-le-cimb-75756948",
+          "sourceProductId": "75756948",
+          "name": "Set A Thunder Tea Rice + 1 Yong Tau Foo",
+          "category": "Thunder Tea Rice",
+          "sourceIds": [
+            "ur10-bai-jia-le-cimb-ordering"
+          ],
+          "sourceDescription": "A healthy grain bowl with a mix of vegetables and nuts serve with fragrant Thunder Tea paste and Hakka Yong Tau Foo",
+          "price": {
+            "amount": 7.28,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "hold-whole-venue-or-premise-unresolved",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:03.914Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-bai-jia-le-cimb-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "full ordering choices"
+            ]
+          },
+          "holdReason": "Landlord confirmsCIMB#B1-28 and vegetable/herb thunder-tea rice, not explicit whole-venue vegetarian scope or YTFfillings. Merchant menu categoryHealthy is not vegetarian proof. Entire10foods held; noJurongPoint transfer. Current10products differs indexed12; eggplant/bittergourdYTF absent from this response.",
+          "configurationNotice": "Source flags ordering choices; full names/defaults/limits/surcharges unread after normal browser403. No cart/order/account/challenge workaround."
+        },
+        {
+          "id": "ur10-bai-jia-le-cimb-75756947",
+          "sourceProductId": "75756947",
+          "name": "Thunder Tea Rice (White Rice) - 擂茶（白饭）",
+          "category": "Thunder Tea Rice",
+          "sourceIds": [
+            "ur10-bai-jia-le-cimb-ordering"
+          ],
+          "sourceDescription": "A healthy grain bowl with a mix of vegetables and nuts serve with fragrant Thunder Tea paste",
+          "price": {
+            "amount": 8.45,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "hold-whole-venue-or-premise-unresolved",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:03.914Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-bai-jia-le-cimb-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "future availability"
+            ]
+          },
+          "holdReason": "Landlord confirmsCIMB#B1-28 and vegetable/herb thunder-tea rice, not explicit whole-venue vegetarian scope or YTFfillings. Merchant menu categoryHealthy is not vegetarian proof. Entire10foods held; noJurongPoint transfer. Current10products differs indexed12; eggplant/bittergourdYTF absent from this response."
+        },
+        {
+          "id": "ur10-bai-jia-le-cimb-75797538",
+          "sourceProductId": "75797538",
+          "name": "Yong Tau Foo (Mushroom) 1pc",
+          "category": "Thunder Tea Rice",
+          "sourceIds": [
+            "ur10-bai-jia-le-cimb-ordering"
+          ],
+          "sourceDescription": "Homemade authentic Hakka Yong Tau Foo",
+          "price": {
+            "amount": 2.08,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "hold-whole-venue-or-premise-unresolved",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:03.914Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-bai-jia-le-cimb-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "future availability"
+            ]
+          },
+          "holdReason": "Landlord confirmsCIMB#B1-28 and vegetable/herb thunder-tea rice, not explicit whole-venue vegetarian scope or YTFfillings. Merchant menu categoryHealthy is not vegetarian proof. Entire10foods held; noJurongPoint transfer. Current10products differs indexed12; eggplant/bittergourdYTF absent from this response.",
+          "portion": "1 pieces"
+        },
+        {
+          "id": "ur10-bai-jia-le-cimb-75756949",
+          "sourceProductId": "75756949",
+          "name": "Thunder Tea Rice + 1 Yong Tau Foo + 1 Drink",
+          "category": "Thunder Tea Rice",
+          "sourceIds": [
+            "ur10-bai-jia-le-cimb-ordering"
+          ],
+          "sourceDescription": "A healthy grain bowl with a mix of vegetables and nuts serve with fragrant Thunder Tea paste and Hakka Yong Tau Foo",
+          "price": {
+            "amount": 6.5,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "hold-whole-venue-or-premise-unresolved",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:03.914Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-bai-jia-le-cimb-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "full ordering choices"
+            ]
+          },
+          "holdReason": "Landlord confirmsCIMB#B1-28 and vegetable/herb thunder-tea rice, not explicit whole-venue vegetarian scope or YTFfillings. Merchant menu categoryHealthy is not vegetarian proof. Entire10foods held; noJurongPoint transfer. Current10products differs indexed12; eggplant/bittergourdYTF absent from this response.",
+          "configurationNotice": "Source flags ordering choices; full names/defaults/limits/surcharges unread after normal browser403. No cart/order/account/challenge workaround."
+        },
+        {
+          "id": "ur10-bai-jia-le-cimb-75756950",
+          "sourceProductId": "75756950",
+          "name": "Yong Tau Foo (Tofu) 1pc",
+          "category": "Thunder Tea Rice",
+          "sourceIds": [
+            "ur10-bai-jia-le-cimb-ordering"
+          ],
+          "sourceDescription": "Homemade authentic Hakka Yong Tau Foo",
+          "price": {
+            "amount": 2.08,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "hold-whole-venue-or-premise-unresolved",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:03.914Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-bai-jia-le-cimb-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "future availability"
+            ]
+          },
+          "holdReason": "Landlord confirmsCIMB#B1-28 and vegetable/herb thunder-tea rice, not explicit whole-venue vegetarian scope or YTFfillings. Merchant menu categoryHealthy is not vegetarian proof. Entire10foods held; noJurongPoint transfer. Current10products differs indexed12; eggplant/bittergourdYTF absent from this response.",
+          "portion": "1 pieces"
+        },
+        {
+          "id": "ur10-bai-jia-le-cimb-75756951",
+          "sourceProductId": "75756951",
+          "name": "White Rice",
+          "category": "Thunder Tea Rice",
+          "sourceIds": [
+            "ur10-bai-jia-le-cimb-ordering"
+          ],
+          "sourceDescription": "Fragrant White Rice",
+          "price": {
+            "amount": 1.3,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "hold-whole-venue-or-premise-unresolved",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:03.914Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-bai-jia-le-cimb-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "future availability"
+            ]
+          },
+          "holdReason": "Landlord confirmsCIMB#B1-28 and vegetable/herb thunder-tea rice, not explicit whole-venue vegetarian scope or YTFfillings. Merchant menu categoryHealthy is not vegetarian proof. Entire10foods held; noJurongPoint transfer. Current10products differs indexed12; eggplant/bittergourdYTF absent from this response."
+        },
+        {
+          "id": "ur10-bai-jia-le-cimb-75756952",
+          "sourceProductId": "75756952",
+          "name": "Brown Rice",
+          "category": "Thunder Tea Rice",
+          "sourceIds": [
+            "ur10-bai-jia-le-cimb-ordering"
+          ],
+          "sourceDescription": "Healthy Brown Rice",
+          "price": {
+            "amount": 1.3,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "hold-whole-venue-or-premise-unresolved",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:03.914Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-bai-jia-le-cimb-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "future availability"
+            ]
+          },
+          "holdReason": "Landlord confirmsCIMB#B1-28 and vegetable/herb thunder-tea rice, not explicit whole-venue vegetarian scope or YTFfillings. Merchant menu categoryHealthy is not vegetarian proof. Entire10foods held; noJurongPoint transfer. Current10products differs indexed12; eggplant/bittergourdYTF absent from this response."
+        },
+        {
+          "id": "ur10-bai-jia-le-cimb-75756953",
+          "sourceProductId": "75756953",
+          "name": "Thunder Tea Rice Soup",
+          "category": "Thunder Tea Rice",
+          "sourceIds": [
+            "ur10-bai-jia-le-cimb-ordering"
+          ],
+          "sourceDescription": "A comforting and savory rice soup with a smooth texture and rich flavor. For reference only.",
+          "price": {
+            "amount": 2.6,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "hold-whole-venue-or-premise-unresolved",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:03.914Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-bai-jia-le-cimb-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "future availability"
+            ]
+          },
+          "holdReason": "Landlord confirmsCIMB#B1-28 and vegetable/herb thunder-tea rice, not explicit whole-venue vegetarian scope or YTFfillings. Merchant menu categoryHealthy is not vegetarian proof. Entire10foods held; noJurongPoint transfer. Current10products differs indexed12; eggplant/bittergourdYTF absent from this response.",
+          "additionalHoldReasons": [
+            "ThunderTeaRiceSoup title versus generic rice-soup description does not establish ingredients or beverage/soup preparation."
+          ]
+        },
+        {
+          "id": "ur10-bai-jia-le-cimb-75756955",
+          "sourceProductId": "75756955",
+          "name": "Thunder Tea Rice (white rice) + 1 Drink",
+          "category": "Thunder Tea Rice",
+          "sourceIds": [
+            "ur10-bai-jia-le-cimb-ordering"
+          ],
+          "sourceDescription": "Healthy grain rice bowl with drink",
+          "price": {
+            "amount": 7.02,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "hold-whole-venue-or-premise-unresolved",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:03.914Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-bai-jia-le-cimb-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "full ordering choices"
+            ]
+          },
+          "holdReason": "Landlord confirmsCIMB#B1-28 and vegetable/herb thunder-tea rice, not explicit whole-venue vegetarian scope or YTFfillings. Merchant menu categoryHealthy is not vegetarian proof. Entire10foods held; noJurongPoint transfer. Current10products differs indexed12; eggplant/bittergourdYTF absent from this response.",
+          "configurationNotice": "Source flags ordering choices; full names/defaults/limits/surcharges unread after normal browser403. No cart/order/account/challenge workaround."
+        },
+        {
+          "id": "ur10-bai-jia-le-cimb-75756956",
+          "sourceProductId": "75756956",
+          "name": "Thunder Tea Rice (Brown Rice) + 1 Drink",
+          "category": "Thunder Tea Rice",
+          "sourceIds": [
+            "ur10-bai-jia-le-cimb-ordering"
+          ],
+          "sourceDescription": "Healthy grain bowl with drink",
+          "price": {
+            "amount": 7.67,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "hold-whole-venue-or-premise-unresolved",
+          "qualifier": "Dated delivery-channel source fact. Complete ingredients, dietary suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T06:51:03.914Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T06:55:12.826550+00:00",
+            "sourceIds": [
+              "ur10-bai-jia-le-cimb-ordering"
+            ],
+            "verifiedFields": [
+              "source product ID",
+              "printed name/category",
+              "visible SGD list price",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "final charges",
+              "full ordering choices"
+            ]
+          },
+          "holdReason": "Landlord confirmsCIMB#B1-28 and vegetable/herb thunder-tea rice, not explicit whole-venue vegetarian scope or YTFfillings. Merchant menu categoryHealthy is not vegetarian proof. Entire10foods held; noJurongPoint transfer. Current10products differs indexed12; eggplant/bittergourdYTF absent from this response.",
+          "configurationNotice": "Source flags ordering choices; full names/defaults/limits/surcharges unread after normal browser403. No cart/order/account/challenge workaround."
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "branches": 3,
+    "menus": 3,
+    "foodRows": 78,
+    "approvedFoodRows": 9,
+    "heldFoodRows": 69,
+    "unreadCustomizers": 32
+  }
+}

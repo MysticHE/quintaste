@@ -1,0 +1,63 @@
+{
+  "request": "Clean diet/location filters; direct locate icon; private address-based Home/Work origins.",
+  "disposition": "ship",
+  "scope": "Reviewed web filters, location and private-address flows; Android development transport.",
+  "evidence": {
+    "browser": "filters-private-validation.json",
+    "browserChecks": 20,
+    "gps": "filters-private-gps-validation.json",
+    "gpsChecks": 3,
+    "source": "filters-private-source-validation.json",
+    "helperChecks": 4,
+    "typecheck": {
+      "command": "npx tsc --noEmit",
+      "exitCode": 0
+    },
+    "lint": {
+      "command": "npx eslint src",
+      "exitCode": 0
+    },
+    "runtimeErrors": 0,
+    "scopedAxeViolations": 0,
+    "axeIncompletes": [
+      "color-contrast",
+      "label-content-name-mismatch"
+    ],
+    "catalogReview": {
+      "changedFiles": 5,
+      "findings": 0
+    },
+    "native": "filters-private-native-transport.json",
+    "nativeBundleBytes": 8678618,
+    "screenshots": [
+      "filters-private-320.png",
+      "filters-private-375.png",
+      "filters-private-768.png",
+      "filters-private-1440.png",
+      "filters-private-addresses.png",
+      "filters-private-explore.png"
+    ]
+  },
+  "reviewers": {
+    "code": "typescript-reviewer; three P2 fixes scored resolved",
+    "finish": "code-reviewer, substitute for unavailable Impeccable finish-reviewer",
+    "documenter": "doc-updater, substitute for unavailable Impeccable documenter"
+  },
+  "resolved": [
+    "Deleted editor cannot recreate a removed place.",
+    "Merged/legacy duplicate Home/Work records remain editable without loss.",
+    "Private draft fields lock while saving.",
+    "Web checked state and labelled radio groups are explicit.",
+    "Fresh GPS works before the minute tick; delayed GPS is cancelled after manual choice or route blur."
+  ],
+  "findings": [],
+  "limits": [
+    "No current native phone/tablet visual or permission acceptance.",
+    "Controlled web provider fixtures; no production-provider acceptance.",
+    "Dark mode and enlarged-text captures not covered by this request's evidence.",
+    "Scoped axe incompletes remain; no full-app AA claim.",
+    "Public area participation/count backend remains Phase 2 and disconnected; saving an address does not enroll it.",
+    "No git commit, push or deployment performed."
+  ],
+  "generatedAt": "2026-10-15T00:08:37.826Z"
+}

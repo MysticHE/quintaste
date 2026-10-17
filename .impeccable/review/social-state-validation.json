@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "checks": [
+    "Old document defaults to empty Social",
+    "Repeated sample activation preserves dates",
+    "Profile, rules, age, diet, language, ingredient and budget gates",
+    "Duplicate, overlap, full and cancelled bookings reject",
+    "Group chat enforces exact opening and closing windows",
+    "Cannot check in early or finish without check-in",
+    "Expired reserved becomes no-show; checked-in becomes completed",
+    "No-show threshold pauses new sample bookings",
+    "Private marks and friend requests require completed shared meal",
+    "Mutual Kaki, unfriend and block/unblock never reuse stale acceptance",
+    "Merged blocks cancel conflicting seats before check-in",
+    "Repeated guest draft merges are idempotent; true capacity overflow rejects",
+    "Shared accepted requests, block reports and duplicate message guard",
+    "Cancellation credit differs before and inside cutoff; host cancellation credits",
+    "Draft validation, update, deletion and date rollover validation",
+    "Changing food needs cannot invalidate an upcoming seat"
+  ]
+}

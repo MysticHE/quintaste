@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "checkedAt": "2026-10-15T22:31:53.962Z",
+  "identityEvidenceOnly": true,
+  "method": "Extracted direct merchant HTML links and made one public HEAD request per short link. No Google Maps body, place metadata or paid API request.",
+  "records": [
+    {
+      "branchId": "mtr-serangoon438",
+      "sourceUrl": "https://www.mtrsingapore.com/",
+      "merchantMapUrl": "https://goo.gl/maps/AAfhHBPvvgz",
+      "resolvedMapUrl": "https://www.google.com/maps/place/1906+14th+St+NW,+Washington,+DC+20009/@38.9162113,-77.030651,16.46z/data=!4m5!3m4!1s0x89b7b7e8752793a9:0x5577938512db6fec!8m2!3d38.9158288!4d-77.0322188?shorturl=1",
+      "placeId": null,
+      "hops": [
+        {
+          "url": "https://goo.gl/maps/AAfhHBPvvgz",
+          "status": 302,
+          "location": "https://www.google.com/maps/place/1906+14th+St+NW,+Washington,+DC+20009/@38.9162113,-77.030651,16.46z/data=!4m5!3m4!1s0x89b7b7e8752793a9:0x5577938512db6fec!8m2!3d38.9158288!4d-77.0322188?shorturl=1"
+        }
+      ],
+      "method": "HEAD requests to merchant-linked public map short links only; no map body, metadata or paid API requested",
+      "identityStatus": "rejected-wrong-geography",
+      "notice": "Merchant printed address is Singapore; the advertised short map link redirects to Washington DC. Reject this map reference for matching. The merchant iframe is a generic text query."
+    },
+    {
+      "branchId": "swaad-desker70",
+      "sourceUrl": "https://swaadgovinda.com/locations",
+      "merchantMapUrl": "https://maps.app.goo.gl/QyEaoijBd1oa7tJL9",
+      "resolvedMapUrl": "https://www.google.com/maps/place/Swaad+-+Art+of+Saatvik+Food/@1.3087496,103.8554011,17z/data=!3m1!4b1!4m6!3m5!1s0x31da19c7e9a4492f:0xfe1d6fa91c9459c1!8m2!3d1.3087496!4d103.8554011!16s%2Fg%2F1ptx7_4l7?entry=tts&g_ep=EgoyMDI2MDMwNC4xIPu8ASoASAFQAw%3D%3D&skid=7b018ab5-2150-442e-9144-dd327da144a5",
+      "placeId": null,
+      "hops": [
+        {
+          "url": "https://maps.app.goo.gl/QyEaoijBd1oa7tJL9",
+          "status": 302,
+          "location": "https://www.google.com/maps/place/Swaad+-+Art+of+Saatvik+Food/@1.3087496,103.8554011,17z/data=!3m1!4b1!4m6!3m5!1s0x31da19c7e9a4492f:0xfe1d6fa91c9459c1!8m2!3d1.3087496!4d103.8554011!16s%2Fg%2F1ptx7_4l7?entry=tts&g_ep=EgoyMDI2MDMwNC4xIPu8ASoASAFQAw%3D%3D&skid=7b018ab5-2150-442e-9144-dd327da144a5"
+        }
+      ],
+      "method": "HEAD requests to merchant-linked public map short links only; no map body, metadata or paid API requested",
+      "identityStatus": "merchant-linked-map-url-no-place-id",
+      "notice": "Exact branch card on merchant locations page supplies this link. Redirect has a feature token but no observed ChIJ Place ID; do not derive or guess one."
+    },
+    {
+      "branchId": "swaad-shenton3",
+      "sourceUrl": "https://swaadgovinda.com/locations",
+      "merchantMapUrl": "https://maps.app.goo.gl/7uSa3ZjebobBpBMp6",
+      "resolvedMapUrl": "https://www.google.com/maps/place/Swaad+-+The+art+of+Food+pure+vegetarian+counter/@1.2784556,103.8315558,15z/data=!3m2!4b1!5s0x31da1855ef94a6a9:0x2ddd90f611550669!4m6!3m5!1s0x31da192512b1ce1b:0xf55480c3182d036c!8m2!3d1.2784557!4d103.85001!16s%2Fg%2F11l1n1jvlk?entry=tts&g_ep=EgoyMDI2MDMwNC4xIPu8ASoASAFQAw%3D%3D&skid=f7717cfa-9181-44f5-8ed5-293bc7e0d8a6",
+      "placeId": null,
+      "hops": [
+        {
+          "url": "https://maps.app.goo.gl/7uSa3ZjebobBpBMp6",
+          "status": 302,
+          "location": "https://www.google.com/maps/place/Swaad+-+The+art+of+Food+pure+vegetarian+counter/@1.2784556,103.8315558,15z/data=!3m2!4b1!5s0x31da1855ef94a6a9:0x2ddd90f611550669!4m6!3m5!1s0x31da192512b1ce1b:0xf55480c3182d036c!8m2!3d1.2784557!4d103.85001!16s%2Fg%2F11l1n1jvlk?entry=tts&g_ep=EgoyMDI2MDMwNC4xIPu8ASoASAFQAw%3D%3D&skid=f7717cfa-9181-44f5-8ed5-293bc7e0d8a6"
+        }
+      ],
+      "method": "HEAD requests to merchant-linked public map short links only; no map body, metadata or paid API requested",
+      "identityStatus": "merchant-linked-map-url-no-place-id",
+      "notice": "Exact branch card on merchant locations page supplies this link. Redirect has a feature token but no observed ChIJ Place ID; do not derive or guess one."
+    }
+  ]
+}

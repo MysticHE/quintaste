@@ -1,0 +1,12 @@
+{
+  "manifestStatus": 200,
+  "bundleStatus": 200,
+  "bytes": 8810492,
+  "googleAlliumSearch": true,
+  "singleLineName": true,
+  "privateAddress": true,
+  "locateIcon": true,
+  "freshGps": true,
+  "privateGoogleKey": false,
+  "nativeDeviceAppearanceVerified": false
+}

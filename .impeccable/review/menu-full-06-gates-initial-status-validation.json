@@ -1,0 +1,73 @@
+{
+  "startedAt": 1792128041.2315755,
+  "checks": [
+    {
+      "command": [
+        "node",
+        "-r",
+        "../tmp/qa/menu-register-ts.cjs",
+        "scripts/build-menu-research-index.ts"
+      ],
+      "exitCode": 0,
+      "seconds": 1.1393694877624512,
+      "output": "{\"version\":1,\"generatedAt\":\"2026-10-16T05:20:42.019Z\",\"complete\":false,\"directoryCount\":2322,\"datasetCount\":75,\"branchRecords\":343,\"sourceMenus\":420,\"sourceFoodRows\":16502,\"counts\":{\"source-covered\":69,\"partial\":120,\"menu-pending\":47,\"menu-unavailable\":32,\"held\":75},\"note\":\"Research only. Branch records, menu sources and food rows can overlap; these are not unique-location or unique-dish counts. Source-covered means all foods visible in that source, not complete current venue stock. Google ID identity review and publication remain separate.\"}\n"
+    },
+    {
+      "command": [
+        "node",
+        "-r",
+        "../tmp/qa/menu-register-ts.cjs",
+        "scripts/build-menu-coverage.ts"
+      ],
+      "exitCode": 1,
+      "seconds": 0.6407215595245361,
+      "output": "Expected a frozen identity outcome batch: identity-completion-batch-09.json\n"
+    },
+    {
+      "command": [
+        "node",
+        "-r",
+        "../tmp/qa/menu-register-ts.cjs",
+        "scripts/sync-researched-menus.ts",
+        "--check"
+      ],
+      "exitCode": 0,
+      "seconds": 1.2093400955200195,
+      "output": "{\"action\":\"--check\",\"branches\":146,\"sourceMenus\":187,\"foodRows\":10526,\"bytes\":5225215,\"output\":\"data\\\\menus\\\\published-research.json\"}\n"
+    },
+    {
+      "command": [
+        "node",
+        "-r",
+        "../tmp/qa/menu-register-ts.cjs",
+        "scripts/build-menu-source-register.ts",
+        "--check"
+      ],
+      "exitCode": 0,
+      "seconds": 1.6347644329071045,
+      "output": "{\"action\":\"check\",\"foodRecords\":16502,\"sourceDocuments\":3455,\"uniqueSourceUrls\":3393,\"undatedSourceDocuments\":0,\"publishedRecords\":11142,\"publishedFoodOccurrences\":11258,\"heldRecords\":2246,\"branchOnlySources\":0,\"output\":\"data/menu-research/menu-item-source-register.json\"}\n"
+    },
+    {
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "--noEmit"
+      ],
+      "exitCode": 0,
+      "seconds": 12.450144052505493,
+      "output": ""
+    },
+    {
+      "command": [
+        "npm.cmd",
+        "run",
+        "lint"
+      ],
+      "exitCode": 0,
+      "seconds": 8.69150996208191,
+      "output": "\n> quintaste@1.0.0 lint\n> expo lint\n\nenv: load .env.local\nenv: export AVATAR_ALLOWED_OWNERS AVATAR_ENABLED AVATAR_IMAGE_MODEL GOOGLE_CLOUD_PROJECT_ID GOOGLE_PLACES_API_KEY OPENAI_API_KEY\n"
+    }
+  ],
+  "passed": false,
+  "finishedAt": 1792128067.0037687
+}

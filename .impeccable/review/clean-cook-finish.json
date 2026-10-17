@@ -1,0 +1,30 @@
+﻿{
+  "disposition": "ship",
+  "scope": "Ship covers only scored clean-Cook fixes F01 and F02 and their observed regression scope; not whole-surface, native or production acceptance.",
+  "reviewer": "Fresh delegated finish reviewer; final scoring-only pass",
+  "verdict": [
+    {
+      "id": "F01",
+      "status": "resolved",
+      "evidence": "RecipeDetail and PrivateRecipe primary buttons now inherit visible Cook, Resume and Replace & cook text without conflicting custom accessible names. Current detail/private recaptures retain those visible labels. clean-cook-final.json passes with an empty axe findings list."
+    },
+    {
+      "id": "F02",
+      "status": "resolved",
+      "evidence": "Re-read the same home, home-320, home-768, home-1440, dark and finished-home capture paths: fit badges are visibly content-width at every supplied size and theme. The shared RecipeFit wrapper uses alignSelf:flex-start with maxWidth:100%."
+    }
+  ],
+  "remaining": [],
+  "regressions": [],
+  "regression_note": "No fix-introduced regression observed across 16 re-opened captures. Detail retains compact actions, visible ingredients and conflict warnings, optional info and share fallback; loaded food photographs and Me portrait remain intact.",
+  "evidence": {
+    "initial_unique_captures_inspected": 31,
+    "postfix_captures_reopened": 16,
+    "postfix_paths": ["clean-cook-home.png", "clean-cook-home-320.png", "clean-cook-home-768.png", "clean-cook-home-1440.png", "clean-cook-dark.png", "clean-cook-finished-home.png", "clean-cook-detail.png", "clean-cook-detail-320.png", "clean-cook-detail-768.png", "clean-cook-detail-1440.png", "clean-cook-info.png", "clean-cook-share-fallback.png", "clean-cook-conflict.png", "clean-cook-detail-dark.png", "clean-cook-detail-large.png", "clean-cook-private.png"],
+    "browser_report": "clean-cook-browser.json: passed, five groups, 24 capture entries, four clean scoped axe scans, zero errors, primaryHeight48",
+    "final_report": "clean-cook-final.json: passed, three groups, 13 capture entries, empty axe findings and errors"
+  },
+  "unread": "Final pass intentionally excluded unrelated documentation and source; no further polish hunt. Initial full review read the Cook contract and relevant updated documentation excerpts, not entire PRODUCT.md/DESIGN.md/readiness files.",
+  "native": "Android manifest/bundle success is transport only; native appearance, permissions, platform accessibility and timer delivery remain unaccepted.",
+  "detector": "No detector ran; no second detector invoked."
+}

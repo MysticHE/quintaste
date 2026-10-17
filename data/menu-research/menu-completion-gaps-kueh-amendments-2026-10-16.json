@@ -1,0 +1,422 @@
+{
+  "amendmentsOnly": true,
+  "checkedAt": "2026-10-16T00:23:00Z",
+  "targetDataset": "data/menu-research/menu-directory-continuation-cafes-2026-10-16.json",
+  "targetMenuId": "kueh-ho-jiak-initial-mixmatch-held",
+  "sources": [
+    {
+      "id": "completion-kueh-delivery",
+      "url": "https://kuehhojiak.com/kueh-delivery-singapore/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "Delivery process and exact self-collection address",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "Merchant article explicitly states pickup/self-collection at6TanjongPagarPlaza#02-20,081006. Article dated5June2026. Delivery20–25SGD, typical free threshold400SGD are conditional estimates, not guaranteed checkout fees. Article operating days conflict with contact header; no final schedule inferred."
+    },
+    {
+      "id": "completion-kueh-product-20-pcs-mix-match",
+      "url": "https://kuehhojiak.com/product/20-pcs-mix-match/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "20 Pcs Mix & Match",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    },
+    {
+      "id": "completion-kueh-product-40-pcs-mix-match",
+      "url": "https://kuehhojiak.com/product/40-pcs-mix-match/",
+      "publisher": "Kueh Ho Jiak",
+      "title": "40 Pcs Mix & Match",
+      "checkedAt": "2026-10-16T00:23:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Exact visible product/form facts and public Product JSON-LD inspected; all price facts use matching visible and structured values."
+    }
+  ],
+  "amendments": [
+    {
+      "itemId": "kueh-ho-jiak-initial-mixmatch-001",
+      "name": "20 Pcs Mix & Match",
+      "price": {
+        "amount": 50,
+        "currency": "SGD",
+        "kind": "fixed"
+      },
+      "sourceIds": [
+        "completion-kueh-product-20-pcs-mix-match",
+        "completion-kueh-delivery"
+      ],
+      "selectionFacts": {
+        "requiredQuantity": 20,
+        "minQuantity": 20,
+        "maxQuantity": 20,
+        "perProductPricing": false,
+        "options": [
+          {
+            "merchantProductId": "2561",
+            "name": "Sweet Potato Peanut Ang Ku Kueh 1pc",
+            "minQuantity": 0,
+            "maxQuantity": 20,
+            "defaultQuantity": 0,
+            "priceDelta": {
+              "amount": 0,
+              "currency": "SGD",
+              "kind": "fixed"
+            }
+          },
+          {
+            "merchantProductId": "2562",
+            "name": "Sweet Potato Mung Bean Ang Ku Kueh 1pc",
+            "minQuantity": 0,
+            "maxQuantity": 20,
+            "defaultQuantity": 0,
+            "priceDelta": {
+              "amount": 0,
+              "currency": "SGD",
+              "kind": "fixed"
+            }
+          },
+          {
+            "merchantProductId": "2563",
+            "name": "Sweet Potato Coconut (Gula Melaka) Ang Ku Kueh 1pc",
+            "minQuantity": 0,
+            "maxQuantity": 20,
+            "defaultQuantity": 0,
+            "priceDelta": {
+              "amount": 0,
+              "currency": "SGD",
+              "kind": "fixed"
+            }
+          },
+          {
+            "merchantProductId": "2564",
+            "name": "Sweet Potato Mashed Yam (Orh Ni) Ang Ku Kueh 1pc",
+            "minQuantity": 0,
+            "maxQuantity": 20,
+            "defaultQuantity": 0,
+            "priceDelta": {
+              "amount": 0,
+              "currency": "SGD",
+              "kind": "fixed"
+            }
+          },
+          {
+            "merchantProductId": "2565",
+            "name": "Sweet Potatoes Hae Bee Hiam Ang Ku Kueh 1pc",
+            "minQuantity": 0,
+            "maxQuantity": 20,
+            "defaultQuantity": 0,
+            "priceDelta": {
+              "amount": 0,
+              "currency": "SGD",
+              "kind": "fixed"
+            },
+            "publicationStatus": "hold-nonvegetarian-option",
+            "qualifier": "Description explicitly says dried shrimp filling."
+          },
+          {
+            "merchantProductId": "2566",
+            "name": "Red Traditional Peanut Ang Ku Kueh 1pc",
+            "minQuantity": 0,
+            "maxQuantity": 20,
+            "defaultQuantity": 0,
+            "priceDelta": {
+              "amount": 0,
+              "currency": "SGD",
+              "kind": "fixed"
+            }
+          },
+          {
+            "merchantProductId": "2567",
+            "name": "Red Traditional Mung Bean Ang Ku Kueh 1pc",
+            "minQuantity": 0,
+            "maxQuantity": 20,
+            "defaultQuantity": 0,
+            "priceDelta": {
+              "amount": 0,
+              "currency": "SGD",
+              "kind": "fixed"
+            }
+          },
+          {
+            "merchantProductId": "2568",
+            "name": "Pandan Kueh Salat 1pc",
+            "minQuantity": 0,
+            "maxQuantity": 20,
+            "defaultQuantity": 0,
+            "priceDelta": {
+              "amount": 0,
+              "currency": "SGD",
+              "kind": "fixed"
+            }
+          },
+          {
+            "merchantProductId": "2569",
+            "name": "Kueh Bingka 1pc",
+            "minQuantity": 0,
+            "maxQuantity": 20,
+            "defaultQuantity": 0,
+            "priceDelta": {
+              "amount": 0,
+              "currency": "SGD",
+              "kind": "fixed"
+            }
+          },
+          {
+            "merchantProductId": "2571",
+            "name": "Pandan Puteri Ayu (Kaya) 1pc",
+            "minQuantity": 0,
+            "maxQuantity": 20,
+            "defaultQuantity": 0,
+            "priceDelta": {
+              "amount": 0,
+              "currency": "SGD",
+              "kind": "fixed"
+            }
+          },
+          {
+            "merchantProductId": "2572",
+            "name": "Strawberry Puteri Ayu (Jam) 1pc",
+            "minQuantity": 0,
+            "maxQuantity": 20,
+            "defaultQuantity": 0,
+            "priceDelta": {
+              "amount": 0,
+              "currency": "SGD",
+              "kind": "fixed"
+            }
+          },
+          {
+            "merchantProductId": "2573",
+            "name": "Colourful Kueh Lapis 1pc",
+            "minQuantity": 0,
+            "maxQuantity": 20,
+            "defaultQuantity": 0,
+            "priceDelta": {
+              "amount": 0,
+              "currency": "SGD",
+              "kind": "fixed"
+            }
+          },
+          {
+            "merchantProductId": "2574",
+            "name": "Heart Sago Gula Melaka 1pc",
+            "minQuantity": 0,
+            "maxQuantity": 20,
+            "defaultQuantity": 0,
+            "priceDelta": {
+              "amount": 0,
+              "currency": "SGD",
+              "kind": "fixed"
+            }
+          },
+          {
+            "merchantProductId": "2575",
+            "name": "Chendol Kueh 1pc",
+            "minQuantity": 0,
+            "maxQuantity": 20,
+            "defaultQuantity": 0,
+            "priceDelta": {
+              "amount": 0,
+              "currency": "SGD",
+              "kind": "fixed"
+            }
+          }
+        ]
+      },
+      "replacementQualifier": "Fixed SGD50 container, exactly20 selected one-piece kuehs. Public form price data says no per-product surcharge, all selections default zero, each0–20. Do not use separately printed4/6piece box prices as this customizer surcharge. Includes a dried-shrimp Hae Bee Hiam choice; retain hold. Tanjong Pagar pickup explicitly established, AMK applicability unknown."
+    },
+    {
+      "itemId": "kueh-ho-jiak-initial-mixmatch-002",
+      "name": "40 Pcs Mix & Match",
+      "price": {
+        "amount": 100,
+        "currency": "SGD",
+        "kind": "fixed"
+      },
+      "sourceIds": [
+        "completion-kueh-product-40-pcs-mix-match",
+        "completion-kueh-delivery"
+      ],
+      "selectionFacts": {
+        "requiredQuantity": 40,
+        "minQuantity": 40,
+        "maxQuantity": 40,
+        "perProductPricing": false,
+        "options": [
+          {
+            "merchantProductId": "2561",
+            "name": "Sweet Potato Peanut Ang Ku Kueh 1pc",
+            "minQuantity": 0,
+            "maxQuantity": 40,
+            "defaultQuantity": 0,
+            "priceDelta": {
+              "amount": 0,
+              "currency": "SGD",
+              "kind": "fixed"
+            }
+          },
+          {
+            "merchantProductId": "2562",
+            "name": "Sweet Potato Mung Bean Ang Ku Kueh 1pc",
+            "minQuantity": 0,
+            "maxQuantity": 40,
+            "defaultQuantity": 0,
+            "priceDelta": {
+              "amount": 0,
+              "currency": "SGD",
+              "kind": "fixed"
+            }
+          },
+          {
+            "merchantProductId": "2563",
+            "name": "Sweet Potato Coconut (Gula Melaka) Ang Ku Kueh 1pc",
+            "minQuantity": 0,
+            "maxQuantity": 40,
+            "defaultQuantity": 0,
+            "priceDelta": {
+              "amount": 0,
+              "currency": "SGD",
+              "kind": "fixed"
+            }
+          },
+          {
+            "merchantProductId": "2564",
+            "name": "Sweet Potato Mashed Yam (Orh Ni) Ang Ku Kueh 1pc",
+            "minQuantity": 0,
+            "maxQuantity": 40,
+            "defaultQuantity": 0,
+            "priceDelta": {
+              "amount": 0,
+              "currency": "SGD",
+              "kind": "fixed"
+            }
+          },
+          {
+            "merchantProductId": "2565",
+            "name": "Sweet Potatoes Hae Bee Hiam Ang Ku Kueh 1pc",
+            "minQuantity": 0,
+            "maxQuantity": 40,
+            "defaultQuantity": 0,
+            "priceDelta": {
+              "amount": 0,
+              "currency": "SGD",
+              "kind": "fixed"
+            },
+            "publicationStatus": "hold-nonvegetarian-option",
+            "qualifier": "Description explicitly says dried shrimp filling."
+          },
+          {
+            "merchantProductId": "2566",
+            "name": "Red Traditional Peanut Ang Ku Kueh 1pc",
+            "minQuantity": 0,
+            "maxQuantity": 40,
+            "defaultQuantity": 0,
+            "priceDelta": {
+              "amount": 0,
+              "currency": "SGD",
+              "kind": "fixed"
+            }
+          },
+          {
+            "merchantProductId": "2567",
+            "name": "Red Traditional Mung Bean Ang Ku Kueh 1pc",
+            "minQuantity": 0,
+            "maxQuantity": 40,
+            "defaultQuantity": 0,
+            "priceDelta": {
+              "amount": 0,
+              "currency": "SGD",
+              "kind": "fixed"
+            }
+          },
+          {
+            "merchantProductId": "2568",
+            "name": "Pandan Kueh Salat 1pc",
+            "minQuantity": 0,
+            "maxQuantity": 40,
+            "defaultQuantity": 0,
+            "priceDelta": {
+              "amount": 0,
+              "currency": "SGD",
+              "kind": "fixed"
+            }
+          },
+          {
+            "merchantProductId": "2569",
+            "name": "Kueh Bingka 1pc",
+            "minQuantity": 0,
+            "maxQuantity": 40,
+            "defaultQuantity": 0,
+            "priceDelta": {
+              "amount": 0,
+              "currency": "SGD",
+              "kind": "fixed"
+            }
+          },
+          {
+            "merchantProductId": "2571",
+            "name": "Pandan Puteri Ayu (Kaya) 1pc",
+            "minQuantity": 0,
+            "maxQuantity": 40,
+            "defaultQuantity": 0,
+            "priceDelta": {
+              "amount": 0,
+              "currency": "SGD",
+              "kind": "fixed"
+            }
+          },
+          {
+            "merchantProductId": "2572",
+            "name": "Strawberry Puteri Ayu (Jam) 1pc",
+            "minQuantity": 0,
+            "maxQuantity": 40,
+            "defaultQuantity": 0,
+            "priceDelta": {
+              "amount": 0,
+              "currency": "SGD",
+              "kind": "fixed"
+            }
+          },
+          {
+            "merchantProductId": "2573",
+            "name": "Colourful Kueh Lapis 1pc",
+            "minQuantity": 0,
+            "maxQuantity": 40,
+            "defaultQuantity": 0,
+            "priceDelta": {
+              "amount": 0,
+              "currency": "SGD",
+              "kind": "fixed"
+            }
+          },
+          {
+            "merchantProductId": "2574",
+            "name": "Heart Sago Gula Melaka 1pc",
+            "minQuantity": 0,
+            "maxQuantity": 40,
+            "defaultQuantity": 0,
+            "priceDelta": {
+              "amount": 0,
+              "currency": "SGD",
+              "kind": "fixed"
+            }
+          },
+          {
+            "merchantProductId": "2575",
+            "name": "Chendol Kueh 1pc",
+            "minQuantity": 0,
+            "maxQuantity": 40,
+            "defaultQuantity": 0,
+            "priceDelta": {
+              "amount": 0,
+              "currency": "SGD",
+              "kind": "fixed"
+            }
+          }
+        ]
+      },
+      "replacementQualifier": "Fixed SGD100 container, exactly40 selected one-piece kuehs. Public form price data says no per-product surcharge, all selections default zero, each0–40. Do not use separately printed4/6piece box prices as this customizer surcharge. Includes a dried-shrimp Hae Bee Hiam choice; retain hold. Tanjong Pagar pickup explicitly established, AMK applicability unknown."
+    }
+  ],
+  "remainingGap": "Keep held pending display/publication treatment for a customizer that also offers a dried-shrimp product. Exact Tanjong Pagar online pickup, fixed SGD price and required quantities now established; AMK applicability still unknown."
+}

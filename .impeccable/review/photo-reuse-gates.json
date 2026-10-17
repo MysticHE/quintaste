@@ -1,0 +1,128 @@
+{
+  "typecheckExit": 0,
+  "lintExit": 0,
+  "browserChecks": 17,
+  "helperChecks": 10,
+  "runtimeErrors": 0,
+  "scopedAxe": {
+    "violations": [],
+    "incomplete": [
+      "color-contrast"
+    ]
+  },
+  "screenshotsOpened": 6,
+  "sourceReview": {
+    "reviewer": "instant_code_review",
+    "verdict": "approve",
+    "materialFindings": 0
+  },
+  "visualReview": {
+    "scope": "Six current controlled web captures only",
+    "materialFindings": 0,
+    "nativeAppearanceVerified": false,
+    "liveGooglePhotosVerified": false
+  },
+  "before": {
+    "initial": 20,
+    "afterViewer": 21
+  },
+  "after": {
+    "initial": 3,
+    "additionalViewerCalls": 0
+  },
+  "native": {
+    "manifestStatus": 200,
+    "bundleStatus": 200,
+    "bytes": 8815781,
+    "sharedTransfers": true,
+    "lazyPhotos": true,
+    "noFilterDescriptions": true,
+    "privateGoogleKey": false,
+    "nativeDeviceAppearanceVerified": false
+  },
+  "usage": {
+    "month": "2026-10",
+    "counts": {
+      "textSearchEnterprise": 69,
+      "nearbySearchEnterprise": 4,
+      "placeDetailsAtmosphere": 9,
+      "placePhotos": 500
+    }
+  },
+  "allowanceReset": false,
+  "allowanceRaised": false,
+  "files": [
+    {
+      "path": "src/utils/photo-transfer.ts",
+      "lines": 89,
+      "maxFunction": 28,
+      "changed": true
+    },
+    {
+      "path": "src/hooks/usePhotoData.ts",
+      "lines": 21,
+      "maxFunction": 16,
+      "changed": true
+    },
+    {
+      "path": "src/components/discovery/PhotoScrollView.tsx",
+      "lines": 64,
+      "maxFunction": 20,
+      "changed": true
+    },
+    {
+      "path": "src/components/discovery/GooglePhoto.tsx",
+      "lines": 55,
+      "maxFunction": 17,
+      "changed": true
+    },
+    {
+      "path": "src/components/discovery/GooglePhotoBackdrop.tsx",
+      "lines": 35,
+      "maxFunction": 22,
+      "changed": true
+    },
+    {
+      "path": "src/components/discovery/GooglePhotoViewer.tsx",
+      "lines": 33,
+      "maxFunction": 19,
+      "changed": true
+    },
+    {
+      "path": "src/components/discovery/LivePlaceCard.tsx",
+      "lines": 70,
+      "maxFunction": 42,
+      "changed": true
+    },
+    {
+      "path": "src/components/discovery/MapResultsSheet.tsx",
+      "lines": 44,
+      "maxFunction": 25,
+      "changed": true
+    },
+    {
+      "path": "src/components/discovery/DiscoveryFilterOptions.tsx",
+      "lines": 48,
+      "maxFunction": 32,
+      "changed": true
+    },
+    {
+      "path": "src/components/Screen.tsx",
+      "lines": 165,
+      "maxFunction": 44,
+      "changed": true
+    },
+    {
+      "path": "src/screens/food/Filters.tsx",
+      "lines": 50,
+      "maxFunction": 32,
+      "changed": true
+    },
+    {
+      "path": "src/screens/food/LivePlaceDetail.tsx",
+      "lines": 58,
+      "maxFunction": 40,
+      "changed": true
+    }
+  ]
+}

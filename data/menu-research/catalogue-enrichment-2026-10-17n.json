@@ -1,0 +1,275 @@
+{
+  "checkedAt": "2026-10-17",
+  "deployedRelease": "20261017-branch-covers17",
+  "goalStatus": "active",
+  "fullCoverageComplete": false,
+  "coverage": {
+    "browseVenues": 174,
+    "menuIds": 175,
+    "covers": 108,
+    "hours": 90,
+    "uniqueAssets": 83,
+    "assetBytes": 10860183,
+    "coverGaps": 66,
+    "hoursGaps": 84,
+    "allThreeAvailable": 73,
+    "catalogueIndexBytes": 170912
+  },
+  "newPhotos": [
+    {
+      "venueId": "research-divine-realm-hougang-501",
+      "address": "501 Hougang Avenue 8 #01-630, Singapore 530501",
+      "photo": {
+        "path": "/api/catalogue-photos/d96ab85d50f24b1fa6f512ecb2723d4bde6da26b1e84fdff61bcb2d1126a4ff3.jpg",
+        "width": 960,
+        "height": 640,
+        "author": "Divine Realm Vegetarian",
+        "sourceUrl": "https://divinerealm.zzv.sg/Category?StoreID=4e302595-b862-4bbc-a896-590bfa3280ae&Service=PickUp&lang=EN",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "d96ab85d50f24b1fa6f512ecb2723d4bde6da26b1e84fdff61bcb2d1126a4ff3",
+      "bytes": 94392,
+      "originalSha256": "86e18b456c865deb97845e0c5949f65ef501ab7d4b959616ea3b9767bc03073b",
+      "sourcePageCheckedAt": "2026-10-16",
+      "sourceImageUrl": "https://s3-ap-southeast-1.amazonaws.com/getz-prod/e8306aa4-960b-4bc3-b5b4-040f52e1d5df/830073232_SignatureSignatureAssamCodFish.jpg",
+      "identityEvidence": "Exact StoreID pickup page binds501HougangAve8#01-630530501 and Signature Assam vegetarian dish photograph.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance this exact Divine Realm vegetarian operator menu photograph. Preserve the oval metal serving dish and stand with two handles, same orange-red sauced dish, visible garnish and vegetables, angle and plain pale backdrop. Do not reinterpret the food as animal meat or add/remove ingredients, toppings or portions. Improve soft studio lighting and realistic detail while keeping the complete vessel inside frame. No text, props, claims or redesign.",
+        "review": "Original and generated image visually compared; same oval metal platter, original vegetarian dish, stand and backdrop retained. No new ingredient claims."
+      }
+    },
+    {
+      "venueId": "research-divine-family-hougang-356",
+      "address": "Blk 356 #01-803 Hougang Ave 7, Singapore 530356",
+      "photo": {
+        "path": "/api/catalogue-photos/cf505a81b2c6a0d79222e1444bc5d4e3074e6d0097ef75b0d0b4e6e5635036fd.jpg",
+        "width": 960,
+        "height": 640,
+        "author": "Divine Vegetarian Family Restaurant",
+        "sourceUrl": "https://divinefamily.zzv.sg/Category?StoreID=bb70e5ce-9648-4ead-971e-8b78f69e74b8&Service=PickUp&lang=EN",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "cf505a81b2c6a0d79222e1444bc5d4e3074e6d0097ef75b0d0b4e6e5635036fd",
+      "bytes": 62307,
+      "originalSha256": "c9d8ec65015452dcbad9fcd0ba14da5153eb30c0d96a489e40ae98754cdc0b66",
+      "sourcePageCheckedAt": "2026-10-16",
+      "sourceImageUrl": "https://s3-ap-southeast-1.amazonaws.com/getz-prod/e4955781-8868-4bc0-89aa-8acda3df5f8e/728810506_SignatureFragrantYamRing.jpg",
+      "identityEvidence": "Exact StoreID pickup page bindsBlk356#01-803HougangAve7530356. Product photo matches existing zzv-yamring source SHA256 exactly; reuse generated asset, no new generation.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Use case: faithful photo enhancement. Enhance this exact vegetarian yam-ring product photograph. Preserve the single crisp golden yam basket filled with the existing glossy red-sauced plant-based pieces, cashews and peppers, the shredded white garnish/carrot/coriander around it, and the white curved triangular plate on a pale grey background. Same three-quarter overhead angle and landscape composition. Improve clarity from the small source, soft even studio lighting and realistic crisp yam texture. Keep the food quantities, shapes and arrangement faithful. No added ingredients, meat, extra bowls, utensils, props, text, logos or invented restaurant setting. Produce a polished appetising photograph of this same dish.",
+        "review": "Reference and output visually compared. Original yam ring, plate and food arrangement retained; fine details may differ. No independent ingredient claims inferred."
+      }
+    },
+    {
+      "venueId": "research-ur01-harmony-serangoon",
+      "address": "157A Serangoon North Avenue 1 #01-01, Singapore 551157",
+      "photo": {
+        "path": "/api/catalogue-photos/b0e3d855e7acd388fecdb8f8928839f4be82b090376ecdd17057469fa1d70719.jpg",
+        "width": 960,
+        "height": 960,
+        "author": "Harmony Hut International",
+        "sourceUrl": "https://harmonyhutinternational.getz.co/Category",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "b0e3d855e7acd388fecdb8f8928839f4be82b090376ecdd17057469fa1d70719",
+      "bytes": 120727,
+      "originalSha256": "eed8bd151608e69759258727acafc2869cb234525b5786340b2d95b9b862efd0",
+      "sourcePageCheckedAt": "2026-10-16",
+      "sourceImageUrl": "https://s3-ap-southeast-1.amazonaws.com/getz-prod/556d5c82-72ca-49c9-b4e8-098a4103c864/1311991969_IMG0032.jpg",
+      "identityEvidence": "Operator ordering page explicitly157ASerangoonNorthAve1#01-01551157. Original food photo with fried egg retained; vegetarian, no vegan claim.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance this exact Harmony Hut operator food photograph. Preserve the black bowl, original fried egg, green leafy vegetables, shredded carrot, pale pieces and rice/noodle contents exactly as shown. Retain the existing repeating HARMONY HUT lettering backdrop without adding or changing words. Improve natural soft lighting and realistic food texture, keeping the bowl centered with the same top-down composition. No new ingredients, portions, props or dietary claims; do not replace the egg.",
+        "review": "Original and generated output visually compared; same bowl, fried egg, vegetables and Harmony Hut backdrop retained. Vegetarian product reference, no vegan or ingredient claim."
+      }
+    },
+    {
+      "venueId": "research-ananda-serangoon-58",
+      "address": "58 Serangoon Road, Little India Conservation Area, Singapore 217964",
+      "photo": {
+        "path": "/api/catalogue-photos/5c950d162f89c00365e5a97bf3bdc413c181bfca01bc850c5cd2e0e13129f845.jpg",
+        "width": 960,
+        "height": 640,
+        "author": "Ananda Bhavan",
+        "sourceUrl": "https://www.anandabhavan.com/outlet",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "5c950d162f89c00365e5a97bf3bdc413c181bfca01bc850c5cd2e0e13129f845",
+      "bytes": 138083,
+      "originalSha256": "b55489aa07e1461bff7946cb610e685396945ae39760df056e901373a2adefce",
+      "sourcePageCheckedAt": "2026-10-16",
+      "sourceImageUrl": "https://www.anandabhavan.com/catering/uploads/branch/1526616928-58.JPG",
+      "identityEvidence": "Operator outlet page explicitly labels photo58SerangoonRoad. Original capture date unknown; source checked16Oct2026. Exact storefront, no branch transfer.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance this exact operator storefront photo of Ananda Bhavan at 58 Serangoon Road. Preserve the building facade, pink/lilac colors, windows, doors, awnings, signs, original Tamil and English lettering and neighboring facades. Improve balanced daylight, clarity and perspective gently without remodeling or removing real features. Keep ANANDA BHAVAN Vegetarian wording intact. No added people, text, food or invented interior. Same branch photo and framing, polished photography only.",
+        "review": "Original and generated storefront visually compared; same branch architecture and principal signs retained. Incidental menu/sign text is not a source for factual claims. Source photograph capture date unknown; retrieval/review date recorded separately."
+      }
+    },
+    {
+      "venueId": "research-swaad-desker70",
+      "address": "70 Desker Road, Singapore 209593",
+      "photo": {
+        "path": "/api/catalogue-photos/d83fd79880a13be6d00740d980ad03c36dad85c4c1bcfa6aadc774f71f9b3185.jpg",
+        "width": 960,
+        "height": 679,
+        "author": "Swaad",
+        "sourceUrl": "https://swaadgovinda.com/",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "d83fd79880a13be6d00740d980ad03c36dad85c4c1bcfa6aadc774f71f9b3185",
+      "bytes": 146965,
+      "originalSha256": "398be3d83f831ba23007ebf091640246d5a94520494102000fb681d2349f6aa9",
+      "sourcePageCheckedAt": "2026-10-17",
+      "sourceImageUrl": "https://swaadgovinda.com/assets/images/restaurant/desker.jpeg",
+      "identityEvidence": "Operator homepage image alt Swaad Desker Road restaurant; sign70 and primary locations page70DeskerRoad209593. Not reused for Shenton.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithful enhancement of this exact Swaad Desker Road storefront photograph. Preserve the same open entrance, green gates, awning, signboard, upper shutters, tables, chairs, lighting and visible background person. Keep the Swaad branding, number70 and existing sign text unchanged. Improve balanced warm exposure, clarity and natural color without remodeling, inventing details or adding people/food. Preserve the real branch's original framing and layout. No new labels or claims.",
+        "review": "Original and generated storefront visually compared; same branch architecture and principal signs retained. Incidental menu/sign text is not a source for factual claims. Source photograph capture date unknown; retrieval/review date recorded separately."
+      }
+    },
+    {
+      "venueId": "research-omg-donuts-margaret-market",
+      "address": "38 Margaret Drive #01-08 Margaret Market, Singapore 141038",
+      "photo": {
+        "path": "/api/catalogue-photos/f536365dc3606202f45658f05919d8defbf4354f6a74236ef5b86f523fe65a9c.jpg",
+        "width": 960,
+        "height": 610,
+        "author": "OMG! Decadent Donuts Singapore",
+        "sourceUrl": "https://omgdonuts.sg/",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "f536365dc3606202f45658f05919d8defbf4354f6a74236ef5b86f523fe65a9c",
+      "bytes": 60425,
+      "originalSha256": "706ddf18c426002ac497e1e6c246f45c4bd9090983b7de7bc8f461fc7ae7ccc0",
+      "sourcePageCheckedAt": "2026-10-17",
+      "sourceImageUrl": "https://omgdonuts.sg/cdn/shop/files/omg-decandent-donuts-berry-sinful-white-bg-new-01-edited-2.jpg?v=1747574380&width=533",
+      "identityEvidence": "Operator Berry Sinful product photo and primary contact page38MargaretDrive#01-08MargaretMarket141038. Product photo, not stock claim.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance this exact OMG Decadent Donuts Berry Sinful product photograph. Preserve the single round ring doughnut, its original brown berry-sugar coating, central hole, overhead angle and plain white background with soft shadow. Improve soft natural studio lighting and crisp realistic sugar texture without adding icing, toppings, decorations, props or text. Keep the whole same doughnut centered with comfortable white space, no ingredient or stock claims.",
+        "review": "Original and output visually compared; single coated ring doughnut and white background retained. Operator product reference, no ingredient or availability inference."
+      }
+    }
+  ],
+  "newHours": [],
+  "googleLedger": {
+    "bytes": 1045377,
+    "sha256": "c7321dafaad0473583139494ca899501578892c5b71105429d3cd4dceb4f311a",
+    "requests": 2419,
+    "limit": 2500,
+    "remaining": 81
+  },
+  "sourceRights": "Source attribution and rights retained. User-requested enhancement does not establish an independent licence.",
+  "unresolved": "2,527 food holds,109zero-food research branches,1,828unnamed candidate IDs,8coordinate holds preserved; exact MakanVegan/SoonLai screenshot images unrecovered.",
+  "releaseEvidence": ".local/coverage-2026-10-17n/release.json",
+  "hoursReview": {
+    "checkedAt": "2026-10-17",
+    "acceptedVenueIds": [],
+    "finding": "Ordering collection windows retained as distinct from opening hours; all existing schedules/holds preserved.",
+    "sourceReview": {
+      "checkedAt": "2026-10-17",
+      "sourceCheckedAt": "2026-10-16",
+      "accepted": [
+        {
+          "reference": "divinerealm-food",
+          "venueId": "research-divine-realm-hougang-501",
+          "identity": "Exact StoreID pickup page:501HougangAve8#01-630530501. Operator signature vegetarian dish photo."
+        },
+        {
+          "reference": "divinefamily-yamring",
+          "venueId": "research-divine-family-hougang-356",
+          "identity": "Exact StoreID pickup page:Blk356#01-803HougangAve7530356. Original photo SHA256c9d8ec65015452dcbad9fcd0ba14da5153eb30c0d96a489e40ae98754cdc0b66 matches previously generated zzv-yamring exactly; reuse asset."
+        },
+        {
+          "reference": "harmony-food",
+          "venueId": "research-ur01-harmony-serangoon",
+          "identity": "Exact operator pickup page:157ASerangoonNorthAve1#01-01551157."
+        }
+      ],
+      "held": [
+        {
+          "reference": "greenland-tofu",
+          "reason": "Misleading food filename resolves to logo placeholder."
+        }
+      ]
+    },
+    "photoHolds": [
+      {
+        "reference": "greenland-tofu",
+        "reason": "Misleading food filename resolves to logo placeholder."
+      }
+    ],
+    "photoIdentityEvidence": [
+      {
+        "reference": "divinerealm-food",
+        "venueId": "research-divine-realm-hougang-501",
+        "identity": "Exact StoreID pickup page binds501HougangAve8#01-630530501 and Signature Assam vegetarian dish photograph."
+      },
+      {
+        "reference": "divinefamily-yamring",
+        "venueId": "research-divine-family-hougang-356",
+        "identity": "Exact StoreID pickup page bindsBlk356#01-803HougangAve7530356. Product photo matches existing zzv-yamring source SHA256 exactly; reuse generated asset, no new generation."
+      },
+      {
+        "reference": "harmony-food",
+        "venueId": "research-ur01-harmony-serangoon",
+        "identity": "Operator ordering page explicitly157ASerangoonNorthAve1#01-01551157. Original food photo with fried egg retained; vegetarian, no vegan claim."
+      },
+      {
+        "reference": "ananda-serangoon58",
+        "venueId": "research-ananda-serangoon-58",
+        "identity": "Operator outlet page explicitly labels photo58SerangoonRoad. Original capture date unknown; source checked16Oct2026. Exact storefront, no branch transfer."
+      },
+      {
+        "reference": "swaad-desker",
+        "venueId": "research-swaad-desker70",
+        "identity": "Operator homepage image alt Swaad Desker Road restaurant; sign70 and primary locations page70DeskerRoad209593. Not reused for Shenton."
+      },
+      {
+        "reference": "omg-berry",
+        "venueId": "research-omg-donuts-margaret-market",
+        "identity": "Operator Berry Sinful product photo and primary contact page38MargaretDrive#01-08MargaretMarket141038. Product photo, not stock claim."
+      }
+    ]
+  }
+}

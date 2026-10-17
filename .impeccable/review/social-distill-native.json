@@ -1,0 +1,29 @@
+{
+  "manifestStatus": 200,
+  "bundleStatus": 200,
+  "bundleBytes": 9214710,
+  "bundleUrl": "http://192.168.1.5:8083/node_modules/expo-router/entry.bundle?platform=android&dev=true&hot=false&lazy=true&transform.engine=hermes&transform.bytecode=1&transform.routerRoot=src%2Fapp&unstable_transformProfile=hermes-stable",
+  "markers": [
+    {
+      "marker": "Find people",
+      "found": true
+    },
+    {
+      "marker": "Find my plans",
+      "found": true
+    },
+    {
+      "marker": "Social view",
+      "found": true
+    },
+    {
+      "marker": "PersonalPlans",
+      "found": true
+    },
+    {
+      "marker": "Event filters",
+      "found": true
+    }
+  ],
+  "nativeAppearanceVerified": false
+}

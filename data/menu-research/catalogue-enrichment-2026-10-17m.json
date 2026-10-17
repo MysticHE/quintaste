@@ -1,0 +1,239 @@
+{
+  "checkedAt": "2026-10-17",
+  "deployedRelease": "20261017-bakery-covers16b",
+  "goalStatus": "active",
+  "fullCoverageComplete": false,
+  "coverage": {
+    "browseVenues": 174,
+    "menuIds": 175,
+    "covers": 102,
+    "hours": 90,
+    "uniqueAssets": 78,
+    "assetBytes": 10299591,
+    "coverGaps": 72,
+    "hoursGaps": 84,
+    "allThreeAvailable": 71,
+    "catalogueIndexBytes": 168027
+  },
+  "newPhotos": [
+    {
+      "venueId": "research-lnbv-vegan-branch",
+      "address": "11 Sam Leong Road, Trio Mall, #04-03, Singapore 207903",
+      "photo": {
+        "path": "/api/catalogue-photos/8adeb0e26c3d85ae778afc07a11b7de8bb9a29597c8fad506e4f7fe3b22ca50e.jpg",
+        "width": 960,
+        "height": 960,
+        "author": "Veg-An",
+        "sourceUrl": "https://www.blockchef.com/store/veg-an/menu/",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "8adeb0e26c3d85ae778afc07a11b7de8bb9a29597c8fad506e4f7fe3b22ca50e",
+      "bytes": 191534,
+      "originalSha256": "2010fd25b41c9cd49c790b8c381513659e94dcac8fbb62953cb4a68f9d8644c1",
+      "sourcePageCheckedAt": "2026-10-16",
+      "sourceImageUrl": "https://l9ttl7hgtobzzbw7.public.blob.vercel-storage.com/images/stores/veg-an/new-listing/image-1-1785239017042.png?1785239018054",
+      "identityEvidence": "Saved exact operator BlockChef page lists11SamLeong#04-03Trio207903 and ProTEGO product image. Identity source: https://www.blockchef.com/store/veg-an/menu/; checked 2026-10-16.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance this exact Veg-An operator product photograph for a gallery cover. Keep the same black ribbed bowl, noodles, tomato slices, chickpeas, tofu cubes, corn, purple cabbage, green vegetables and dressing, preserving their original arrangement and quantity. Retain the yellow backdrop. Improve natural lighting and realistic crisp texture without adding ingredients, props, words or nutrition claims. Keep the same near-square food composition, no redesign.",
+        "review": "Original and output visually compared; original food presentation retained with enhanced lighting/texture. No new ingredient or stock claim."
+      }
+    },
+    {
+      "venueId": "research-yes-natural-bakery-geylang-55",
+      "address": "55 Lorong 27 Geylang, Singapore 388183",
+      "photo": {
+        "path": "/api/catalogue-photos/cfc7c584d68f784c3e978c89c4bce5a7875286e5b639bac25e2cb100016c3f4b.jpg",
+        "width": 960,
+        "height": 960,
+        "author": "Yes Natural Bakery",
+        "sourceUrl": "https://bakery.yesnatural.sg/",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "cfc7c584d68f784c3e978c89c4bce5a7875286e5b639bac25e2cb100016c3f4b",
+      "bytes": 94470,
+      "originalSha256": "1206779d397278d44de520ae729ba094b1ec4725759c3c5238a15aadd9b80112",
+      "sourcePageCheckedAt": "2026-10-16",
+      "sourceImageUrl": "https://bakery.yesnatural.sg/web/image/127283-redirect/20201125-Herbal-Bread-SIRS-Yes-Natural5731.webp",
+      "identityEvidence": "Operator bakery product image; primary contact page differentiates bakery55Lorong27Geylang from restaurant57 and retail51. Identity source: https://yesnatural.sg/contact-us; checked 2026-10-16.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance this exact Yes Natural Bakery bread photograph for a gallery card. Preserve the single oval golden loaf, its exact score pattern, flour dusting, shape, angle and plain pale background. Improve soft studio light, gentle warm color and realistic crust texture. No additional food, props, text, ingredient claims or invented fillings. Keep the entire loaf centered with comfortable space around it; photorealistic presentation, same product.",
+        "review": "Original and output visually compared; original food presentation retained with enhanced lighting/texture. No new ingredient or stock claim."
+      }
+    },
+    {
+      "venueId": "research-an-acai-affair-northpoint-city",
+      "address": "1 Northpoint Drive #B2-149 (South Wing), Singapore 768019",
+      "photo": {
+        "path": "/api/catalogue-photos/25e4d90dabed2fa5ec72e04f79393f221a10a706a31d11dfdaa9e2dbab2ebb27.jpg",
+        "width": 960,
+        "height": 1011,
+        "author": "An Açaí Affair",
+        "sourceUrl": "https://www.anacaiaffair.com/yishun-northpoint",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "25e4d90dabed2fa5ec72e04f79393f221a10a706a31d11dfdaa9e2dbab2ebb27",
+      "bytes": 136407,
+      "originalSha256": "ebaa2ce3e486dc52c177d9a940e990c1af7d5521de062e08f041f5a63ad143b0",
+      "sourcePageCheckedAt": "2026-10-16",
+      "sourceImageUrl": "https://static.wixstatic.com/media/9c0e5a_70be31d0ed074675ad139ba424071295~mv2.jpg",
+      "identityEvidence": "Exact operator branch page and image unit#B2-149;1NorthpointDrive SouthWing. Identity source: https://www.anacaiaffair.com/yishun-northpoint; checked 2026-10-16.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithful photographic enhancement of this exact An Acai Affair Northpoint storefront photo. Preserve the shop architecture, wood panels, greenery, lights, counter, equipment, signs and readable unit number #B2-149. Keep the original brand lettering and menu boards unchanged; do not invent or rewrite prices or menu text. Improve balanced warm interior lighting, straightness and clarity while preserving the original perspective and layout. No people, new products, props or added text. This must remain the same real branch, polished photography only.",
+        "review": "Original exact #B2-149 storefront and enhanced output visually compared; architecture, branding and unit retained. Menu-board lettering is incidental, not a source for prices or dishes."
+      }
+    },
+    {
+      "venueId": "research-rya-bakehouse-cavan",
+      "address": "11 Cavan Road #01-03 Cavan Suites, Singapore 209848",
+      "photo": {
+        "path": "/api/catalogue-photos/1d359b25067f94f93575491f3758928177040e22dc638fd2858f7cfa12334742.jpg",
+        "width": 960,
+        "height": 720,
+        "author": "Rya Bakehouse",
+        "sourceUrl": "https://ryabakehouse.com/",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "1d359b25067f94f93575491f3758928177040e22dc638fd2858f7cfa12334742",
+      "bytes": 102834,
+      "originalSha256": "74dee1645e295b9fe014cde7ad246b4e70bb597180ede5c50cef737c44cda7d5",
+      "sourcePageCheckedAt": "2026-10-16",
+      "sourceImageUrl": "https://cdn.cococart.co/c0aceb2e-1538-424f-9615-6453b661a75f-640w.jpeg",
+      "identityEvidence": "Pain au Chocolat product-card CSS1437v05 binds image; operator exact11CavanRoad#01-03. Identity source: https://ryabakehouse.com/; checked 2026-10-16.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance this exact Rya Bakehouse pain au chocolat product photograph. Preserve the single golden laminated pastry, its original folds, dark chocolate opening, orientation, white plate and softly blurred green background. Improve natural soft lighting, warm balanced tones and crisp realistic flaky texture. No extra pastry, chocolate pieces, crumbs, props, text or ingredient claims. Same photographed product and composition, polished for a restaurant gallery cover.",
+        "review": "Original product card image and generated output visually compared; single pastry, plate and setting retained. Source CSS1437v05 belongs to Pain au Chocolat product card, not logo."
+      }
+    },
+    {
+      "venueId": "research-any1-choco-telok-ayer",
+      "address": "114 Telok Ayer Street, Singapore 068583",
+      "photo": {
+        "path": "/api/catalogue-photos/d3293d4cf8df8c7d1675228685ae26ce6714f3493fb503996312bb8f95f61f1b.jpg",
+        "width": 960,
+        "height": 960,
+        "author": "ANY1 CHOCO",
+        "sourceUrl": "https://anyonechoco.com/products/category/chocoice/",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "d3293d4cf8df8c7d1675228685ae26ce6714f3493fb503996312bb8f95f61f1b",
+      "bytes": 45871,
+      "originalSha256": "d0a0c06273f0d51eb160916ba9fb967aa63c855ef8e495f17dcbb49e97dd5d9f",
+      "sourcePageCheckedAt": "2026-10-16",
+      "sourceImageUrl": "https://anyonechoco.com/wp-content/uploads/2024/03/chocoice_dark-1024x1024.jpg",
+      "identityEvidence": "Operator dark Choco Ice product photograph; primary TelokAyer114 branch page explicitly serves Choco Ice. Identity source: https://anyonechoco.com/shops/telok-ayer-street-singapore/; checked 2026-10-16.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance this exact ANY1 CHOCO dark Choco Ice product photograph. Preserve the single rounded chocolate scoop in the same clear glass cup, original simple pale backdrop and directional shadow. Improve soft studio lighting, natural chocolate color and realistic texture. Keep the same product, amount and vessel, centered with generous uncluttered space. No toppings, sauces, spoon, extra scoops, text, props or ingredient claims. Photorealistic gallery cover.",
+        "review": "Original and generated product photograph visually compared. Same single scoop/glass/pale backdrop retained with enhanced lighting and texture; no toppings or ingredient claims."
+      }
+    }
+  ],
+  "newHours": [],
+  "googleLedger": {
+    "bytes": 1045377,
+    "sha256": "c7321dafaad0473583139494ca899501578892c5b71105429d3cd4dceb4f311a",
+    "requests": 2419,
+    "limit": 2500,
+    "remaining": 81
+  },
+  "sourceRights": "Source attribution and rights retained. User-requested enhancement does not establish an independent licence.",
+  "unresolved": "2,527 food holds,109zero-food research branches,1,828unnamed candidate IDs,8coordinate holds preserved; exact MakanVegan/SoonLai screenshot images unrecovered.",
+  "releaseEvidence": ".local/coverage-2026-10-17m/release.json",
+  "hoursReview": {
+    "checkedAt": "2026-10-17",
+    "acceptedVenueIds": [],
+    "sources": [
+      {
+        "url": "https://cookiecoffee.com.sg/",
+        "checkedAt": "2026-10-16",
+        "reviewedAt": "2026-10-17",
+        "finding": "Primary exact FortuneCentre website says new management but no schedule. Secondary old-phone85182518 listings08:30?21:30 conflict with newer-phone88052034 listings10?22. Hold pending primary confirmation.",
+        "secondaryUrls": [
+          "https://www.bizapore.com/en/cookie-coffee-cafe-bar-8518-2518",
+          "https://www.happycow.net/reviews/cookie-coffee-cafe-bar-singapore-527103",
+          "https://www.onehungryhippo.com/restaurants/cookie-coffee-cafe-bar"
+        ]
+      }
+    ],
+    "photoHolds": [
+      {
+        "reference": "rya-bakehouse",
+        "reason": "Logo; actual pastry selected instead."
+      },
+      {
+        "reference": "cookie-coffee-cookies",
+        "reason": "Generic cookie stack provenance uncertain; prefer current dish image."
+      },
+      {
+        "reference": "kindsprout-kueh",
+        "reason": "Current page states Singapore only; postal793461 branch binding unresolved."
+      }
+    ],
+    "photoIdentityEvidence": [
+      {
+        "reference": "vegan-bowl",
+        "proof": "Saved exact operator BlockChef page lists11SamLeong#04-03Trio207903 and ProTEGO product image.",
+        "sourceUrl": "https://www.blockchef.com/store/veg-an/menu/",
+        "sourceCheckedAt": "2026-10-16"
+      },
+      {
+        "reference": "yesbakery-bread",
+        "proof": "Operator bakery product image; primary contact page differentiates bakery55Lorong27Geylang from restaurant57 and retail51.",
+        "sourceUrl": "https://yesnatural.sg/contact-us",
+        "sourceCheckedAt": "2026-10-16"
+      },
+      {
+        "reference": "acai-northpoint",
+        "proof": "Exact operator branch page and image unit#B2-149;1NorthpointDrive SouthWing.",
+        "sourceUrl": "https://www.anacaiaffair.com/yishun-northpoint",
+        "sourceCheckedAt": "2026-10-16"
+      },
+      {
+        "reference": "rya-chocolat",
+        "proof": "Pain au Chocolat product-card CSS1437v05 binds image; operator exact11CavanRoad#01-03.",
+        "sourceUrl": "https://ryabakehouse.com/",
+        "sourceCheckedAt": "2026-10-16"
+      },
+      {
+        "reference": "any1-chocoice",
+        "proof": "Operator dark Choco Ice product photograph; primary TelokAyer114 branch page explicitly serves Choco Ice.",
+        "sourceUrl": "https://anyonechoco.com/shops/telok-ayer-street-singapore/",
+        "sourceCheckedAt": "2026-10-16"
+      }
+    ]
+  }
+}

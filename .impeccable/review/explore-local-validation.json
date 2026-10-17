@@ -1,0 +1,102 @@
+{
+  "checks": [
+    "Compact cards and clean details remain intact",
+    "Place-specific correction validates and persists its draft",
+    "Correction layouts fit3203757681440 and larger text",
+    "Review preview submits once with a real local reference",
+    "Reviewer needs-information and user reply preserve one case",
+    "Protected reviewer console records reason without editing public facts",
+    "Offline report persists queued and reconnect sends exactly once",
+    "Offline Saved private labels search removal Undo and public-only sharing work",
+    "Home Work require separate coarse choices and persist without addresses",
+    "Offline Home withdrawal reconnects without withdrawing Work",
+    "Privacy deletion clears server and device records without repopulating"
+  ],
+  "screenshots": [
+    "C:/Users/huien/QT/quintaste/.impeccable/review/explore-local-correction-320.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/explore-local-correction-375.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/explore-local-correction-768.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/explore-local-correction-1440.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/explore-local-correction-320-larger.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/explore-local-submission-preview-375.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/explore-local-case-receipt-375.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/explore-local-needs-information-375.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/explore-local-review-console-1440.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/explore-local-approved-case-375.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/explore-local-queued-case-offline-375.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/explore-local-saved-offline-375.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/explore-local-offline-bookmark-375.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/explore-local-participation-editor-320.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/explore-local-participation-on-375.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/explore-local-participation-on-375-dark.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/explore-local-home-withdrawn-375.png"
+  ],
+  "layouts": [
+    {
+      "label": "correction-320",
+      "width": 320,
+      "controls": 12,
+      "minHeight": 48
+    },
+    {
+      "label": "correction-375",
+      "width": 375,
+      "controls": 12,
+      "minHeight": 48
+    },
+    {
+      "label": "correction-768",
+      "width": 768,
+      "controls": 12,
+      "minHeight": 48
+    },
+    {
+      "label": "correction-1440",
+      "width": 1440,
+      "controls": 12,
+      "minHeight": 48
+    },
+    {
+      "label": "correction-320-larger",
+      "width": 320,
+      "controls": 12,
+      "minHeight": 48
+    },
+    {
+      "label": "participation-320",
+      "width": 320,
+      "controls": 9,
+      "minHeight": 48
+    }
+  ],
+  "errors": [],
+  "a11y": [
+    {
+      "surface": "correction",
+      "violations": []
+    },
+    {
+      "surface": "case-detail",
+      "violations": []
+    },
+    {
+      "surface": "local-review",
+      "violations": []
+    },
+    {
+      "surface": "saved-offline",
+      "violations": []
+    },
+    {
+      "surface": "participation",
+      "violations": []
+    }
+  ],
+  "actualGoogleRequests": 0,
+  "limits": [
+    "Controlled Google/OneMap fixtures and online/offline events; local Explore APIs use actual development server.",
+    "Offline reload fetches the app shell with local APIs unavailable; a cold-start offline web shell is not asserted.",
+    "Physical Android/iOS permissions, gestures and accessibility remain unverified."
+  ],
+  "status": "pass"
+}

@@ -1,0 +1,14 @@
+{
+  "checkedAt": "2026-10-16T11:09:34.454Z",
+  "checks": [
+    "Fresh page reused without fetch",
+    "Returning to cached context aborts and ignores late prior search",
+    "Failure backoff suppresses automatic repeat; explicit Retry bypasses it",
+    "Stale cached response revalidates through body-free204",
+    "Offline results retained inside24h with no fetch",
+    "Offline results expire after24h and stop displaying",
+    "New provider owner starts with a separate cache"
+  ],
+  "providerCalls": 0,
+  "passed": true
+}

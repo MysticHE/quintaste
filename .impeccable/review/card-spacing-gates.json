@@ -1,0 +1,78 @@
+{
+  "status": "verified-local-web",
+  "checkedAt": "2026-10-15T02:52:18.070Z",
+  "changes": {
+    "dividerToHours": 6,
+    "hoursToCardBottom": 8,
+    "previousGaps": [
+      18,
+      26
+    ],
+    "cardHeight": 223,
+    "visibleSourceRow": 24,
+    "panelPadding": {
+      "horizontal": 8,
+      "top": 8,
+      "bottom": 2
+    },
+    "photoSpacer": 116,
+    "blurRadius": 2,
+    "fadeFeather": 24,
+    "fadeStartsAtNameMidpoint": true,
+    "galleryAuthorSourceRow": false,
+    "standaloneGoogleMapsLabel": false,
+    "reviewLink": "View review",
+    "galleryPagination": 24
+  },
+  "browser": {
+    "checks": 15,
+    "captures": 15,
+    "pageErrors": 0,
+    "actualGoogleRequests": 0,
+    "widths": [
+      320,
+      375,
+      414,
+      768,
+      1440
+    ],
+    "mobileDarkMode": true,
+    "proof": "card-spacing-validation.json"
+  },
+  "codeReview": {
+    "status": "approved",
+    "materialOpenFindings": 0
+  },
+  "typeScript": {
+    "command": "npx tsc --noEmit",
+    "exitCode": 0
+  },
+  "lint": {
+    "command": "npx eslint src",
+    "exitCode": 0
+  },
+  "native": {
+    "manifestStatus": 200,
+    "bundleStatus": 200,
+    "bytes": 8848267,
+    "gallery": true,
+    "feedback": true,
+    "divider": true,
+    "serverSnapshotCode": false,
+    "compactCard": true,
+    "shortReviewLabel": true,
+    "privateGoogleKey": false,
+    "nativeDeviceAppearanceVerified": false,
+    "proof": "card-spacing-native-transport.json"
+  },
+  "references": [
+    "User card reference Screenshot 2026-10-15 101950.png",
+    "User detail screenshots WhatsApp Image 2026-10-15 at 10.43.33"
+  ],
+  "limits": [
+    "Native device appearance/physical swipe/physical hit targets are not verified.",
+    "Inline source24px plus hitSlop remains constrained by parent bounds; no44px target guarantee.",
+    "Mechanical layout scanner could not launch within restricted Windows sandbox; rendered metrics and source review used.",
+    "No full-app accessibility certification or production release."
+  ]
+}

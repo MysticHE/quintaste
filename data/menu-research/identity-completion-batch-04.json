@@ -1,0 +1,748 @@
+{
+  "version": 1,
+  "batch": "identity-completion-batch-04",
+  "status": "frozen-outcome-batch",
+  "frozenAt": "2026-10-16T00:56:27.816Z",
+  "reviewedAt": "2026-10-16T01:04:55.203Z",
+  "selection": {
+    "selectionRule": "First20 stored identity-pending IDs with no name, candidate name or lead association and prior unmatched HTTP200 receipt, excluding batches01-03, approved identity reviews and sibling batch02 frozen IDs.",
+    "frozenInput": "../tmp/qa/menu-completion-identity-04/frozen-input.json",
+    "candidateIds": 20,
+    "excludedPriorIds": 142
+  },
+  "evidenceBoundary": {
+    "googleRequestsMade": 20,
+    "requestsBefore": 2359,
+    "requestsAfter": 2379,
+    "requestCap": 2500,
+    "remainingRequests": 121,
+    "googleDisplayFactsPersisted": false,
+    "hintBatchSize": 4,
+    "maxHintToIndependentCheckpointSeconds": 66.283,
+    "note": "Independent merchant, merchant-managed ordering or landlord facts only. Google name/address hints were consumed transiently and were not saved. The observed place-ID association remains candidate-only and requires explicit branch review."
+  },
+  "summary": {
+    "reviewed": 20,
+    "eligibilityCounts": {
+      "mixed-menu": 9,
+      "out-of-SG": 1,
+      "unresolved": 6,
+      "vegetarian-confirmed": 1,
+      "food-court": 3
+    },
+    "newFoodRows": 18,
+    "newFoodPackets": [
+      "data/menu-research/menu-completion-identity-foods-04a.json"
+    ],
+    "automaticIdentityApprovals": 0
+  },
+  "entries": [
+    {
+      "sequence": 1,
+      "placeId": "ChIJ___vmG8X2jERaOQfkBfAMqg",
+      "independentName": "Soi 47 Thai Food (47 Toa Payoh)",
+      "independentAddress": "47 Lor 6 Toa Payoh, Singapore 310047",
+      "eligibility": "mixed-menu",
+      "eligibilityReason": "Exact-branch merchant-managed ordering menu lists pork, beef, chicken and seafood categories. The merchant contact hub separately identifies its Toa Payoh branch at 47 Lorong 6.",
+      "sourceUrls": [
+        "https://linktr.ee/soi47thaifood",
+        "https://www.foodpanda.sg/restaurant/r412/soi-47-thai-food-47-toa-payoh"
+      ],
+      "sourceAccess": "Readable merchant contact hub and exact-branch merchant ordering menu.",
+      "gaps": [],
+      "menu": {
+        "status": "excluded-whole-venue",
+        "extractionLead": false,
+        "foodRowsCreated": 0
+      },
+      "retrievedAt": "2026-10-16T00:57:31.306Z",
+      "identityStatus": "independent-premises-scope-reviewed-candidate-id-association",
+      "identityBoundary": "Independent merchant, merchant-managed ordering or landlord facts only. Google name/address hints were consumed transiently and were not saved. The observed place-ID association remains candidate-only and requires explicit branch review.",
+      "nameAddressProvenance": "Cited independent primary premises source; no Google display facts retained.",
+      "nextAction": "Keep this parent entity excluded from vegetarian/vegan venue publication; any qualifying individual tenant needs separate evidence.",
+      "lookupReceipt": {
+        "placeId": "ChIJ___vmG8X2jERaOQfkBfAMqg",
+        "observedPlaceId": "ChIJ___vmG8X2jERaOQfkBfAMqg",
+        "queriedAt": "2026-10-16T00:56:38.208Z",
+        "completedAt": "2026-10-16T00:56:38.607Z",
+        "requestNumber": 2360,
+        "httpStatus": 200,
+        "status": "unmatched",
+        "candidates": []
+      }
+    },
+    {
+      "sequence": 2,
+      "placeId": "ChIJ__ukuI082jERlo1YRybuzoM",
+      "independentName": "Chutney Mary @ Airport",
+      "independentAddress": "Terminal 2, Singapore Changi Airport, Departure Hall, Level 3, Singapore 819643",
+      "eligibility": "mixed-menu",
+      "eligibilityReason": "Merchant website expressly offers dishes for meat lovers and identifies the Terminal2public-area outlet. Whole venue is outside vegetarian/vegan dining scope.",
+      "sourceUrls": [
+        "https://www.chutneymary.sg/",
+        "https://nowboarding.changiairport.com/discover-changi/changi-airport-terminal-2-food.html"
+      ],
+      "sourceAccess": "Readable merchant story and premises; airport article current extracted body contains only title/date while indexed snippet names unit03-26/27.",
+      "gaps": [
+        "Exact shop unit was not retained from the dynamically rendered landlord article; independently saved address uses the merchant's Terminal2Level3premises only."
+      ],
+      "menu": {
+        "status": "excluded-whole-venue",
+        "extractionLead": false,
+        "foodRowsCreated": 0
+      },
+      "retrievedAt": "2026-10-16T00:57:31.306Z",
+      "identityStatus": "independent-premises-scope-reviewed-candidate-id-association",
+      "identityBoundary": "Independent merchant, merchant-managed ordering or landlord facts only. Google name/address hints were consumed transiently and were not saved. The observed place-ID association remains candidate-only and requires explicit branch review.",
+      "nameAddressProvenance": "Cited independent primary premises source; no Google display facts retained.",
+      "nextAction": "Keep this parent entity excluded from vegetarian/vegan venue publication; any qualifying individual tenant needs separate evidence.",
+      "lookupReceipt": {
+        "placeId": "ChIJ__ukuI082jERlo1YRybuzoM",
+        "observedPlaceId": "ChIJ__ukuI082jERlo1YRybuzoM",
+        "queriedAt": "2026-10-16T00:56:38.724Z",
+        "completedAt": "2026-10-16T00:56:38.880Z",
+        "requestNumber": 2361,
+        "httpStatus": 200,
+        "status": "unmatched",
+        "candidates": []
+      }
+    },
+    {
+      "sequence": 3,
+      "placeId": "ChIJ_-6b5PgL2jERAffI3cfQItM",
+      "independentName": "Vine Cafe",
+      "independentAddress": "16-01, Laman Niaga Sunway, Persiaran Medini 3, Sunway Iskandar, 79250 Johor Bahru, Johor, Malaysia",
+      "eligibility": "out-of-SG",
+      "eligibilityReason": "Merchant-managed ordering page publishes this Malaysian premises address. It is outside the Singapore collection scope; no food rows imported.",
+      "sourceUrls": [
+        "https://www.foodpanda.my/restaurant/lszo/vine-cafe"
+      ],
+      "sourceAccess": "Readable exact-merchant ordering menu and location footer.",
+      "gaps": [
+        "Whole-venue vegetarian status was not needed to decide the geographic scope exclusion."
+      ],
+      "menu": {
+        "status": "excluded-whole-venue",
+        "extractionLead": false,
+        "foodRowsCreated": 0
+      },
+      "retrievedAt": "2026-10-16T00:57:31.306Z",
+      "identityStatus": "independent-premises-scope-reviewed-candidate-id-association",
+      "identityBoundary": "Independent merchant, merchant-managed ordering or landlord facts only. Google name/address hints were consumed transiently and were not saved. The observed place-ID association remains candidate-only and requires explicit branch review.",
+      "nameAddressProvenance": "Cited independent primary premises source; no Google display facts retained.",
+      "nextAction": "Keep this parent entity excluded from vegetarian/vegan venue publication; any qualifying individual tenant needs separate evidence.",
+      "lookupReceipt": {
+        "placeId": "ChIJ_-6b5PgL2jERAffI3cfQItM",
+        "observedPlaceId": "ChIJ_-6b5PgL2jERAffI3cfQItM",
+        "queriedAt": "2026-10-16T00:56:38.994Z",
+        "completedAt": "2026-10-16T00:56:39.153Z",
+        "requestNumber": 2362,
+        "httpStatus": 200,
+        "status": "unmatched",
+        "candidates": []
+      }
+    },
+    {
+      "sequence": 4,
+      "placeId": "ChIJ_0dnTtwb2jERK4mQ3ngnayQ",
+      "independentName": "Lazy Lizard Pasir Panjang",
+      "independentAddress": "28 Clementi Road, Singapore 129754",
+      "eligibility": "mixed-menu",
+      "eligibilityReason": "Merchant's locations page names the Pasir Panjang premises. Its food page promotes fish and chips and crab pasta, establishing a mixed brand concept rather than a wholly vegetarian venue.",
+      "sourceUrls": [
+        "https://lazylizard.com.sg/locations/",
+        "https://lazylizard.com.sg/food-menu/"
+      ],
+      "sourceAccess": "Readable merchant locations and brand food-menu pages.",
+      "gaps": [
+        "Brand menu evidence establishes mixed concept; exact current branch stock is not asserted."
+      ],
+      "menu": {
+        "status": "excluded-whole-venue",
+        "extractionLead": false,
+        "foodRowsCreated": 0
+      },
+      "retrievedAt": "2026-10-16T00:57:31.306Z",
+      "identityStatus": "independent-premises-scope-reviewed-candidate-id-association",
+      "identityBoundary": "Independent merchant, merchant-managed ordering or landlord facts only. Google name/address hints were consumed transiently and were not saved. The observed place-ID association remains candidate-only and requires explicit branch review.",
+      "nameAddressProvenance": "Cited independent primary premises source; no Google display facts retained.",
+      "nextAction": "Keep this parent entity excluded from vegetarian/vegan venue publication; any qualifying individual tenant needs separate evidence.",
+      "lookupReceipt": {
+        "placeId": "ChIJ_0dnTtwb2jERK4mQ3ngnayQ",
+        "observedPlaceId": "ChIJ_0dnTtwb2jERK4mQ3ngnayQ",
+        "queriedAt": "2026-10-16T00:56:39.271Z",
+        "completedAt": "2026-10-16T00:56:39.408Z",
+        "requestNumber": 2363,
+        "httpStatus": 200,
+        "status": "unmatched",
+        "candidates": []
+      }
+    },
+    {
+      "sequence": 5,
+      "placeId": "ChIJ_0xLmyAQ2jERFnv2OAux8mQ",
+      "eligibility": "unresolved",
+      "eligibilityReason": "Only third-party/community premises listings were readable. The merchant-linked Facebook page was throttled, so neither accepted primary premises evidence nor whole-venue vegetarian/vegan eligibility was established.",
+      "sourceUrls": [
+        "https://www.facebook.com/pages/Aashiq-Restaurant-Pte-Ltd/220112818183722"
+      ],
+      "discoverySourceUrls": [
+        "https://www.yuhua.sg/merchant/503/aashiq-restaurant-pte-ltd/"
+      ],
+      "sourceAccess": "Merchant Facebook public fetch throttled; community directory is discovery evidence only.",
+      "gaps": [
+        "Obtain readable merchant or landlord premises evidence and a whole-venue dietary claim before saving confirmed name/address or collecting food rows."
+      ],
+      "menu": {
+        "status": "identity-and-scope-pending",
+        "extractionLead": false,
+        "foodRowsCreated": 0
+      },
+      "retrievedAt": "2026-10-16T00:58:44.877Z",
+      "identityStatus": "unresolved",
+      "identityBoundary": "Independent merchant, merchant-managed ordering or landlord facts only. Google name/address hints were consumed transiently and were not saved. The observed place-ID association remains candidate-only and requires explicit branch review.",
+      "nameAddressProvenance": "No confirmed display facts retained.",
+      "nextAction": "Obtain readable current primary premises and whole-venue dietary evidence before menu collection.",
+      "lookupReceipt": {
+        "placeId": "ChIJ_0xLmyAQ2jERFnv2OAux8mQ",
+        "observedPlaceId": "ChIJ_0xLmyAQ2jERFnv2OAux8mQ",
+        "queriedAt": "2026-10-16T00:57:38.594Z",
+        "completedAt": "2026-10-16T00:57:38.953Z",
+        "requestNumber": 2364,
+        "httpStatus": 200,
+        "status": "unmatched",
+        "candidates": []
+      }
+    },
+    {
+      "sequence": 6,
+      "placeId": "ChIJ_1P6-CgZ2jERJb_bCv8FIEA",
+      "independentName": "Freebird",
+      "independentAddress": "865 Mountbatten Road #B1-09 / #B1-03 / #B1-66, Katong Shopping Centre, Singapore 437844",
+      "eligibility": "mixed-menu",
+      "eligibilityReason": "Indexed merchant-booking menu identifies this premises and lists chicken karaage, beef pie, chicken pasta and ham dishes. This last readable merchant menu is mixed; present operation is not asserted.",
+      "sourceUrls": [
+        "https://www.quandoo.sg/place/freebird-90253/menu"
+      ],
+      "sourceAccess": "Merchant menu readable in indexed text; direct open timed out. Platform announced planned closure after 30 September 2026.",
+      "gaps": [
+        "Current operation and source availability unverified; do not infer business closure from a company register or a booking-platform shutdown."
+      ],
+      "menu": {
+        "status": "excluded-whole-venue",
+        "extractionLead": false,
+        "foodRowsCreated": 0
+      },
+      "retrievedAt": "2026-10-16T00:58:44.877Z",
+      "identityStatus": "independent-premises-scope-reviewed-candidate-id-association",
+      "identityBoundary": "Independent merchant, merchant-managed ordering or landlord facts only. Google name/address hints were consumed transiently and were not saved. The observed place-ID association remains candidate-only and requires explicit branch review.",
+      "nameAddressProvenance": "Cited independent primary premises source; no Google display facts retained.",
+      "nextAction": "Keep this parent entity excluded from vegetarian/vegan venue publication; any qualifying individual tenant needs separate evidence.",
+      "lookupReceipt": {
+        "placeId": "ChIJ_1P6-CgZ2jERJb_bCv8FIEA",
+        "observedPlaceId": "ChIJ_1P6-CgZ2jERJb_bCv8FIEA",
+        "queriedAt": "2026-10-16T00:57:39.072Z",
+        "completedAt": "2026-10-16T00:57:39.232Z",
+        "requestNumber": 2365,
+        "httpStatus": 200,
+        "status": "unmatched",
+        "candidates": []
+      }
+    },
+    {
+      "sequence": 7,
+      "placeId": "ChIJ_5Ti0x8V2jERR42NjLKOLmI",
+      "independentName": "An Açaí Affair (Yishun Northpoint)",
+      "independentAddress": "1 Northpoint Drive #B2-149 (South Wing), Singapore 768019",
+      "eligibility": "vegetarian-confirmed",
+      "eligibilityReason": "Merchant's full published food menu contains fruit/açaí bowls, dairy/honey options and toasts. Its FAQ describes vegan signature bowls with yogurt exceptions and identifies honey/dairy sauces as non-vegan; these support vegetarian venue scope rather than an all-vegan claim. Official locations and ordering index both identify Northpoint.",
+      "sourceUrls": [
+        "https://www.anacaiaffair.com/acai-cafe-locations",
+        "https://www.anacaiaffair.com/acai-faq",
+        "https://www.anacaiaffair.com/acai-bowl-menu",
+        "https://anacaiaffair.treats.app/order"
+      ],
+      "sourceAccess": "Readable merchant locations, dietary FAQ, full brand menu and outlet ordering index.",
+      "gaps": [
+        "Food rows are brand-menu facts; Northpoint ordering chooser did not expose a readable branch-specific item catalogue. Current branch availability, effective date and complete ingredient certification remain unverified."
+      ],
+      "menu": {
+        "status": "readable-brand-menu-branch-availability-pending",
+        "extractionLead": true,
+        "foodRowsCreated": 18,
+        "plannedDataset": "data/menu-research/menu-completion-identity-foods-04a.json",
+        "dataset": "data/menu-research/menu-completion-identity-foods-04a.json"
+      },
+      "retrievedAt": "2026-10-16T00:58:44.877Z",
+      "identityStatus": "independent-premises-scope-reviewed-candidate-id-association",
+      "identityBoundary": "Independent merchant, merchant-managed ordering or landlord facts only. Google name/address hints were consumed transiently and were not saved. The observed place-ID association remains candidate-only and requires explicit branch review.",
+      "nameAddressProvenance": "Cited independent primary premises source; no Google display facts retained.",
+      "nextAction": "Explicitly review the candidate ID association, verify Northpoint item availability and inspect remaining menu sources before publication.",
+      "lookupReceipt": {
+        "placeId": "ChIJ_5Ti0x8V2jERR42NjLKOLmI",
+        "observedPlaceId": "ChIJ_5Ti0x8V2jERR42NjLKOLmI",
+        "queriedAt": "2026-10-16T00:57:39.335Z",
+        "completedAt": "2026-10-16T00:57:39.493Z",
+        "requestNumber": 2366,
+        "httpStatus": 200,
+        "status": "unmatched",
+        "candidates": []
+      }
+    },
+    {
+      "sequence": 8,
+      "placeId": "ChIJ_6sz2W8U2jERqrNj4qvlksk",
+      "independentName": "Happy Hawkers (747 Yishun)",
+      "independentAddress": "747 Yishun Street 72 #01-108, Singapore 760747",
+      "eligibility": "food-court",
+      "eligibilityReason": "Koufu's food-hall brand page lists the747 Yishun premises. This parent multi-stall food hall is outside whole-venue vegetarian/vegan scope; a qualifying individual stall requires its own evidence and identity.",
+      "sourceUrls": [
+        "https://www.koufu.com.sg/our-brands/food-halls/happy-hawkers/"
+      ],
+      "sourceAccess": "Readable food-hall operator brand and exact premises page.",
+      "gaps": [
+        "Candidate ID association needs separate premises review; operator address is retained as published, without substituting map display fields."
+      ],
+      "menu": {
+        "status": "excluded-whole-venue",
+        "extractionLead": false,
+        "foodRowsCreated": 0
+      },
+      "retrievedAt": "2026-10-16T00:58:44.877Z",
+      "identityStatus": "independent-premises-scope-reviewed-candidate-id-association",
+      "identityBoundary": "Independent merchant, merchant-managed ordering or landlord facts only. Google name/address hints were consumed transiently and were not saved. The observed place-ID association remains candidate-only and requires explicit branch review.",
+      "nameAddressProvenance": "Cited independent primary premises source; no Google display facts retained.",
+      "nextAction": "Keep this parent entity excluded from vegetarian/vegan venue publication; any qualifying individual tenant needs separate evidence.",
+      "lookupReceipt": {
+        "placeId": "ChIJ_6sz2W8U2jERqrNj4qvlksk",
+        "observedPlaceId": "ChIJ_6sz2W8U2jERqrNj4qvlksk",
+        "queriedAt": "2026-10-16T00:57:39.606Z",
+        "completedAt": "2026-10-16T00:57:39.745Z",
+        "requestNumber": 2367,
+        "httpStatus": 200,
+        "status": "unmatched",
+        "candidates": []
+      }
+    },
+    {
+      "sequence": 9,
+      "placeId": "ChIJ_70f0UQ92jERuI03sXq84XI",
+      "independentName": "The Original Vadai Since 1989 (Century Square)",
+      "independentAddress": "2 Tampines Central 5 #01-37 Century Square, Singapore 529509",
+      "eligibility": "mixed-menu",
+      "eligibilityReason": "Exact-branch merchant-managed ordering menu lists prawns, anchovies, dried shrimp, chicken organs and baby crab as actual foods. Vegetarian vadai choices do not establish a wholly vegetarian venue.",
+      "sourceUrls": [
+        "https://www.foodpanda.sg/restaurant/ze40/the-original-vadai-since-1989-century-square"
+      ],
+      "sourceAccess": "Readable exact-branch merchant menu and premises footer.",
+      "gaps": [
+        "A CLOSED ordering window was not treated as permanent closure."
+      ],
+      "menu": {
+        "status": "excluded-whole-venue",
+        "extractionLead": false,
+        "foodRowsCreated": 0
+      },
+      "retrievedAt": "2026-10-16T00:59:34.785Z",
+      "identityStatus": "independent-premises-scope-reviewed-candidate-id-association",
+      "identityBoundary": "Independent merchant, merchant-managed ordering or landlord facts only. Google name/address hints were consumed transiently and were not saved. The observed place-ID association remains candidate-only and requires explicit branch review.",
+      "nameAddressProvenance": "Cited independent primary premises source; no Google display facts retained.",
+      "nextAction": "Keep this parent entity excluded from vegetarian/vegan venue publication; any qualifying individual tenant needs separate evidence.",
+      "lookupReceipt": {
+        "placeId": "ChIJ_70f0UQ92jERuI03sXq84XI",
+        "observedPlaceId": "ChIJ_70f0UQ92jERuI03sXq84XI",
+        "queriedAt": "2026-10-16T00:58:51.482Z",
+        "completedAt": "2026-10-16T00:58:51.855Z",
+        "requestNumber": 2368,
+        "httpStatus": 200,
+        "status": "unmatched",
+        "candidates": []
+      }
+    },
+    {
+      "sequence": 10,
+      "placeId": "ChIJ_8kIMrA92jER1_ShHUa409c",
+      "eligibility": "unresolved",
+      "eligibilityReason": "No readable merchant or landlord page was obtained. Third-party reviews and directory meal descriptions were not accepted as whole-venue dietary confirmation.",
+      "sourceUrls": [
+        "https://www.facebook.com/Wild-Olives-149604198434135/"
+      ],
+      "sourceAccess": "Merchant-linked Facebook fetch throttled; exact-name ordering search returned no result.",
+      "gaps": [
+        "Obtain readable primary premises and complete venue-scope evidence. Do not extract foods from unverified scope."
+      ],
+      "menu": {
+        "status": "identity-and-scope-pending",
+        "extractionLead": false,
+        "foodRowsCreated": 0
+      },
+      "retrievedAt": "2026-10-16T00:59:34.785Z",
+      "identityStatus": "unresolved",
+      "identityBoundary": "Independent merchant, merchant-managed ordering or landlord facts only. Google name/address hints were consumed transiently and were not saved. The observed place-ID association remains candidate-only and requires explicit branch review.",
+      "nameAddressProvenance": "No confirmed display facts retained.",
+      "nextAction": "Obtain readable current primary premises and whole-venue dietary evidence before menu collection.",
+      "lookupReceipt": {
+        "placeId": "ChIJ_8kIMrA92jER1_ShHUa409c",
+        "observedPlaceId": "ChIJ_8kIMrA92jER1_ShHUa409c",
+        "queriedAt": "2026-10-16T00:58:51.967Z",
+        "completedAt": "2026-10-16T00:58:52.113Z",
+        "requestNumber": 2369,
+        "httpStatus": 200,
+        "status": "unmatched",
+        "candidates": []
+      }
+    },
+    {
+      "sequence": 11,
+      "placeId": "ChIJ_8v08CgZ2jERiCkaibnVvfA",
+      "eligibility": "unresolved",
+      "eligibilityReason": "An old government hawker listing and independent directories identify a possible stall, but no readable current merchant or landlord dietary evidence was established. Same-name overseas restaurants were rejected.",
+      "sourceUrls": [],
+      "discoverySourceUrls": [
+        "https://www.hpb.gov.sg/docs/default-source/default-document-library/hdp_hawker-and-coffeshop-listing_for-online-use_16-5-2018.pdf?sfvrsn=98a9c372_0",
+        "https://newtonfoodcentre.com/indian-palace/"
+      ],
+      "sourceAccess": "Discovery listings only; current merchant-menu search found no accepted exact-branch source.",
+      "gaps": [
+        "Verify the actual Singapore stall's premises and whole-venue eligibility; no confirmed name/address retained from Google or unrelated restaurants."
+      ],
+      "menu": {
+        "status": "identity-and-scope-pending",
+        "extractionLead": false,
+        "foodRowsCreated": 0
+      },
+      "retrievedAt": "2026-10-16T00:59:34.785Z",
+      "identityStatus": "unresolved",
+      "identityBoundary": "Independent merchant, merchant-managed ordering or landlord facts only. Google name/address hints were consumed transiently and were not saved. The observed place-ID association remains candidate-only and requires explicit branch review.",
+      "nameAddressProvenance": "No confirmed display facts retained.",
+      "nextAction": "Obtain readable current primary premises and whole-venue dietary evidence before menu collection.",
+      "lookupReceipt": {
+        "placeId": "ChIJ_8v08CgZ2jERiCkaibnVvfA",
+        "observedPlaceId": "ChIJ_8v08CgZ2jERiCkaibnVvfA",
+        "queriedAt": "2026-10-16T00:58:52.227Z",
+        "completedAt": "2026-10-16T00:58:52.363Z",
+        "requestNumber": 2370,
+        "httpStatus": 200,
+        "status": "unmatched",
+        "candidates": []
+      }
+    },
+    {
+      "sequence": 12,
+      "placeId": "ChIJ_a1Lj4gb2jERqZrB0KKNDwU",
+      "independentName": "CANCHITA",
+      "independentAddress": "Dempsey Road #9A 9B, Singapore 247698",
+      "eligibility": "mixed-menu",
+      "eligibilityReason": "Merchant identifies the Dempsey premises and explicitly describes fish/shellfish ceviches alongside separate vegetarian alternatives. The entire restaurant is mixed; its vegetarian section is excluded from this venue-only collection.",
+      "sourceUrls": [
+        "https://canchita.sg/",
+        "https://canchita.sg/menu/"
+      ],
+      "sourceAccess": "Readable merchant home, address and menu pages.",
+      "gaps": [],
+      "menu": {
+        "status": "excluded-whole-venue",
+        "extractionLead": false,
+        "foodRowsCreated": 0
+      },
+      "retrievedAt": "2026-10-16T00:59:34.785Z",
+      "identityStatus": "independent-premises-scope-reviewed-candidate-id-association",
+      "identityBoundary": "Independent merchant, merchant-managed ordering or landlord facts only. Google name/address hints were consumed transiently and were not saved. The observed place-ID association remains candidate-only and requires explicit branch review.",
+      "nameAddressProvenance": "Cited independent primary premises source; no Google display facts retained.",
+      "nextAction": "Keep this parent entity excluded from vegetarian/vegan venue publication; any qualifying individual tenant needs separate evidence.",
+      "lookupReceipt": {
+        "placeId": "ChIJ_a1Lj4gb2jERqZrB0KKNDwU",
+        "observedPlaceId": "ChIJ_a1Lj4gb2jERqZrB0KKNDwU",
+        "queriedAt": "2026-10-16T00:58:52.478Z",
+        "completedAt": "2026-10-16T00:58:52.618Z",
+        "requestNumber": 2371,
+        "httpStatus": 200,
+        "status": "unmatched",
+        "candidates": []
+      }
+    },
+    {
+      "sequence": 13,
+      "placeId": "ChIJ_aM-vIgG2jERfmTaAodobAs",
+      "eligibility": "unresolved",
+      "eligibilityReason": "A possible operator site lists a 1A Eating House brand, but its location finder exposes no readable address or venue-scope evidence. Corporate addresses and older canteen lists were not used to assert current premises or dietary status.",
+      "sourceUrls": [
+        "https://www.kjmgroups.com/",
+        "https://www.kjmgroups.com/locations/"
+      ],
+      "sourceAccess": "Readable brand list; dynamic location finder had no public premises text.",
+      "gaps": [
+        "Resolve the exact entity/premises using merchant or landlord evidence; establish whole-venue eligibility before menu collection."
+      ],
+      "menu": {
+        "status": "identity-and-scope-pending",
+        "extractionLead": false,
+        "foodRowsCreated": 0
+      },
+      "retrievedAt": "2026-10-16T01:00:44.295Z",
+      "identityStatus": "unresolved",
+      "identityBoundary": "Independent merchant, merchant-managed ordering or landlord facts only. Google name/address hints were consumed transiently and were not saved. The observed place-ID association remains candidate-only and requires explicit branch review.",
+      "nameAddressProvenance": "No confirmed display facts retained.",
+      "nextAction": "Obtain readable current primary premises and whole-venue dietary evidence before menu collection.",
+      "lookupReceipt": {
+        "placeId": "ChIJ_aM-vIgG2jERfmTaAodobAs",
+        "observedPlaceId": "ChIJ_aM-vIgG2jERfmTaAodobAs",
+        "queriedAt": "2026-10-16T00:59:44.834Z",
+        "completedAt": "2026-10-16T00:59:45.187Z",
+        "requestNumber": 2372,
+        "httpStatus": 200,
+        "status": "unmatched",
+        "candidates": []
+      }
+    },
+    {
+      "sequence": 14,
+      "placeId": "ChIJ_aXlIwAT2jERD6vOmHiECeE",
+      "eligibility": "unresolved",
+      "eligibilityReason": "Exact-name searches produced generic or other-branch directory references. No readable merchant/landlord premises page or complete-venue dietary evidence was found for the stored ID.",
+      "sourceUrls": [],
+      "discoverySourceUrls": [
+        "https://roncasa.co/pages/sun-trellis"
+      ],
+      "sourceAccess": "Directory discovery only; other branches were not cross-assigned.",
+      "gaps": [
+        "Find exact-branch merchant/landlord evidence. A vegetarian-looking map name is not accepted as eligibility proof."
+      ],
+      "menu": {
+        "status": "identity-and-scope-pending",
+        "extractionLead": false,
+        "foodRowsCreated": 0
+      },
+      "retrievedAt": "2026-10-16T01:00:44.295Z",
+      "identityStatus": "unresolved",
+      "identityBoundary": "Independent merchant, merchant-managed ordering or landlord facts only. Google name/address hints were consumed transiently and were not saved. The observed place-ID association remains candidate-only and requires explicit branch review.",
+      "nameAddressProvenance": "No confirmed display facts retained.",
+      "nextAction": "Obtain readable current primary premises and whole-venue dietary evidence before menu collection.",
+      "lookupReceipt": {
+        "placeId": "ChIJ_aXlIwAT2jERD6vOmHiECeE",
+        "observedPlaceId": "ChIJ_aXlIwAT2jERD6vOmHiECeE",
+        "queriedAt": "2026-10-16T00:59:45.305Z",
+        "completedAt": "2026-10-16T00:59:45.450Z",
+        "requestNumber": 2373,
+        "httpStatus": 200,
+        "status": "unmatched",
+        "candidates": []
+      }
+    },
+    {
+      "sequence": 15,
+      "placeId": "ChIJ_b2eGjsY2jERX9TRGwJQfCM",
+      "independentName": "Food Loft (56/58 Lorong 25A Geylang)",
+      "independentAddress": "56/58 Lorong 25A Geylang, Singapore 388248",
+      "eligibility": "food-court",
+      "eligibilityReason": "Indexed operator outlet list identifies the Geylang premises and describes its multiple cuisines. Historical government stall records corroborate multiple independent food vendors at this Food Loft, rather than a wholly vegetarian dining venue.",
+      "sourceUrls": [
+        "https://foodloft.sg/sp/home/",
+        "https://www.hpb.gov.sg/docs/default-source/default-document-library/hdp_hawker-and-coffeshop-listing_for-online-use_16-5-2018.pdf?sfvrsn=98a9c372_0"
+      ],
+      "sourceAccess": "Operator outlet/address text readable in index; current direct operator page returned no useful body. Government corroboration is dated 2018.",
+      "gaps": [
+        "Current operation is unverified; scope exclusion applies to the parent multi-stall entity, with separate evidence needed for any vegetarian tenant."
+      ],
+      "menu": {
+        "status": "excluded-whole-venue",
+        "extractionLead": false,
+        "foodRowsCreated": 0
+      },
+      "retrievedAt": "2026-10-16T01:00:44.295Z",
+      "identityStatus": "independent-premises-scope-reviewed-candidate-id-association",
+      "identityBoundary": "Independent merchant, merchant-managed ordering or landlord facts only. Google name/address hints were consumed transiently and were not saved. The observed place-ID association remains candidate-only and requires explicit branch review.",
+      "nameAddressProvenance": "Cited independent primary premises source; no Google display facts retained.",
+      "nextAction": "Keep this parent entity excluded from vegetarian/vegan venue publication; any qualifying individual tenant needs separate evidence.",
+      "lookupReceipt": {
+        "placeId": "ChIJ_b2eGjsY2jERX9TRGwJQfCM",
+        "observedPlaceId": "ChIJ_b2eGjsY2jERX9TRGwJQfCM",
+        "queriedAt": "2026-10-16T00:59:45.561Z",
+        "completedAt": "2026-10-16T00:59:45.704Z",
+        "requestNumber": 2374,
+        "httpStatus": 200,
+        "status": "unmatched",
+        "candidates": []
+      }
+    },
+    {
+      "sequence": 16,
+      "placeId": "ChIJ_bBoXR4R2jER27mr-i2ZDsc",
+      "independentName": "Camaca",
+      "independentAddress": "9 King Albert Park #01-53, Singapore 598332",
+      "eligibility": "unresolved",
+      "eligibilityReason": "Landlord directory independently confirms the named tenant and current listed unit, but no current whole-venue vegetarian claim or complete exact-unit ingredient/menu evidence was established. Dessert-only and vegetarian-options directory labels were not treated as confirmation.",
+      "sourceUrls": [
+        "https://www.kapmall.com.sg/directory/food-and-beverage/",
+        "https://www.quandoo.sg/place/camaca-66024/menu",
+        "https://www.foodpanda.sg/restaurant/x8hy/camaca-king-albert-park"
+      ],
+      "sourceAccess": "Readable landlord listing. Older merchant-booking menu references different units; current ordering open failed.",
+      "gaps": [
+        "Resolve unit/version differences and vegetarian venue scope before food extraction. Company strike-off data is not used as proof of restaurant closure."
+      ],
+      "menu": {
+        "status": "whole-venue-scope-pending",
+        "extractionLead": false,
+        "foodRowsCreated": 0
+      },
+      "retrievedAt": "2026-10-16T01:00:44.295Z",
+      "identityStatus": "independent-premises-scope-reviewed-candidate-id-association",
+      "identityBoundary": "Independent merchant, merchant-managed ordering or landlord facts only. Google name/address hints were consumed transiently and were not saved. The observed place-ID association remains candidate-only and requires explicit branch review.",
+      "nameAddressProvenance": "Cited independent primary premises source; no Google display facts retained.",
+      "nextAction": "Obtain readable current primary premises and whole-venue dietary evidence before menu collection.",
+      "lookupReceipt": {
+        "placeId": "ChIJ_bBoXR4R2jER27mr-i2ZDsc",
+        "observedPlaceId": "ChIJ_bBoXR4R2jER27mr-i2ZDsc",
+        "queriedAt": "2026-10-16T00:59:45.826Z",
+        "completedAt": "2026-10-16T00:59:45.960Z",
+        "requestNumber": 2375,
+        "httpStatus": 200,
+        "status": "unmatched",
+        "candidates": []
+      }
+    },
+    {
+      "sequence": 17,
+      "placeId": "ChIJ_c6vFoMZ2jERBWATXfBQ7Aw",
+      "independentName": "Zion Riverside Food Centre",
+      "independentAddress": "70 Zion Road, Singapore 247792",
+      "eligibility": "food-court",
+      "eligibilityReason": "NEA identifies this named premises in its MSE-owned market/hawker-centre list. This parent hawker centre is outside vegetarian/vegan whole-venue scope; individual vegetarian stalls need separate records.",
+      "sourceUrls": [
+        "https://www.nea.gov.sg/media/news/news/index/revision-to-service-and-conservancy-charges-for-mse-owned-markets-and-hawker-centres"
+      ],
+      "sourceAccess": "Readable premises-owning public authority hawker-centre list.",
+      "gaps": [
+        "This premises list is not a current tenant-menu or ingredient certification."
+      ],
+      "menu": {
+        "status": "excluded-whole-venue",
+        "extractionLead": false,
+        "foodRowsCreated": 0
+      },
+      "retrievedAt": "2026-10-16T01:01:52.622Z",
+      "identityStatus": "independent-premises-scope-reviewed-candidate-id-association",
+      "identityBoundary": "Independent merchant, merchant-managed ordering or landlord facts only. Google name/address hints were consumed transiently and were not saved. The observed place-ID association remains candidate-only and requires explicit branch review.",
+      "nameAddressProvenance": "Cited independent primary premises source; no Google display facts retained.",
+      "nextAction": "Keep this parent entity excluded from vegetarian/vegan venue publication; any qualifying individual tenant needs separate evidence.",
+      "lookupReceipt": {
+        "placeId": "ChIJ_c6vFoMZ2jERBWATXfBQ7Aw",
+        "observedPlaceId": "ChIJ_c6vFoMZ2jERBWATXfBQ7Aw",
+        "queriedAt": "2026-10-16T01:00:51.628Z",
+        "completedAt": "2026-10-16T01:00:51.971Z",
+        "requestNumber": 2376,
+        "httpStatus": 200,
+        "status": "unmatched",
+        "candidates": []
+      }
+    },
+    {
+      "sequence": 18,
+      "placeId": "ChIJ_f__LwYa2jER2XByCWwWhz8",
+      "independentName": "The Curry Wok (Coronation Road)",
+      "independentAddress": "5 Coronation Road #01-04 Coronation Arcade, Singapore 269406",
+      "eligibility": "mixed-menu",
+      "eligibilityReason": "Exact-branch merchant-managed menu lists fish head, chicken, beef and pork dishes. Merchant site also describes its curry fish head and pork-knuckle concept. Whole venue is excluded.",
+      "sourceUrls": [
+        "https://thecurrywok.sg/",
+        "https://www.foodpanda.sg/restaurant/w8if/the-curry-wok-coronation-road"
+      ],
+      "sourceAccess": "Merchant home readable in index; exact branch ordering menu and premises readable in full.",
+      "gaps": [],
+      "menu": {
+        "status": "excluded-whole-venue",
+        "extractionLead": false,
+        "foodRowsCreated": 0
+      },
+      "retrievedAt": "2026-10-16T01:01:52.622Z",
+      "identityStatus": "independent-premises-scope-reviewed-candidate-id-association",
+      "identityBoundary": "Independent merchant, merchant-managed ordering or landlord facts only. Google name/address hints were consumed transiently and were not saved. The observed place-ID association remains candidate-only and requires explicit branch review.",
+      "nameAddressProvenance": "Cited independent primary premises source; no Google display facts retained.",
+      "nextAction": "Keep this parent entity excluded from vegetarian/vegan venue publication; any qualifying individual tenant needs separate evidence.",
+      "lookupReceipt": {
+        "placeId": "ChIJ_f__LwYa2jER2XByCWwWhz8",
+        "observedPlaceId": "ChIJ_f__LwYa2jER2XByCWwWhz8",
+        "queriedAt": "2026-10-16T01:00:52.088Z",
+        "completedAt": "2026-10-16T01:00:52.226Z",
+        "requestNumber": 2377,
+        "httpStatus": 200,
+        "status": "unmatched",
+        "candidates": []
+      }
+    },
+    {
+      "sequence": 19,
+      "placeId": "ChIJ_fLWblQR2jERBmH6r1AoZ8s",
+      "independentName": "WOK HEY (Lot One)",
+      "independentAddress": "Lot One Shoppers' Mall #B1-K27, Singapore",
+      "eligibility": "mixed-menu",
+      "eligibilityReason": "Merchant ingredient page expressly offers chicken, beef, prawns and crab. Merchant ordering index names Lot One, and landlord's March 2026 tenant list identifies unit B1-K27. Whole venue is mixed.",
+      "sourceUrls": [
+        "https://www.wokhey.sg/",
+        "https://order.wokhey.sg/",
+        "https://pick-up.wokhey.sg/wokhey/location/32/home",
+        "https://www.capitaland.com/content/dam/capitaland-sites/singapore/shop/malls/imm/banners/Revised%20LO%20FnB%20Tenant%20List.pdf"
+      ],
+      "sourceAccess": "Readable merchant ingredient page/outlet index and landlord tenant PDF dated 26 March 2026; specific pickup catalogue is JavaScript-only.",
+      "gaps": [
+        "Street/postal address was not added from Google; source-confirmed mall/unit premises only. Branch stock and exact current offerings are not asserted."
+      ],
+      "menu": {
+        "status": "excluded-whole-venue",
+        "extractionLead": false,
+        "foodRowsCreated": 0
+      },
+      "retrievedAt": "2026-10-16T01:01:52.622Z",
+      "identityStatus": "independent-premises-scope-reviewed-candidate-id-association",
+      "identityBoundary": "Independent merchant, merchant-managed ordering or landlord facts only. Google name/address hints were consumed transiently and were not saved. The observed place-ID association remains candidate-only and requires explicit branch review.",
+      "nameAddressProvenance": "Cited independent primary premises source; no Google display facts retained.",
+      "nextAction": "Keep this parent entity excluded from vegetarian/vegan venue publication; any qualifying individual tenant needs separate evidence.",
+      "lookupReceipt": {
+        "placeId": "ChIJ_fLWblQR2jERBmH6r1AoZ8s",
+        "observedPlaceId": "ChIJ_fLWblQR2jERBmH6r1AoZ8s",
+        "queriedAt": "2026-10-16T01:00:52.336Z",
+        "completedAt": "2026-10-16T01:00:52.467Z",
+        "requestNumber": 2378,
+        "httpStatus": 200,
+        "status": "unmatched",
+        "candidates": []
+      }
+    },
+    {
+      "sequence": 20,
+      "placeId": "ChIJ_fVKw_I92jERQvR_8Xcc6U0",
+      "independentName": "Eminami (Downtown East)",
+      "independentAddress": "1 Pasir Ris Close #04-101, Downtown East E!Hub, Singapore 519599",
+      "eligibility": "mixed-menu",
+      "eligibilityReason": "Exact merchant ordering page exposes beef/chicken noodle categories and chicken pate, while merchant and landlord pages independently locate the outlet. It is a mixed Vietnamese restaurant.",
+      "sourceUrls": [
+        "https://eminamidowntowneast.getz.co/Category",
+        "https://eminami.sg/find-us-1",
+        "https://www.downtowneast.com.sg/experience/shops/details/eminami"
+      ],
+      "sourceAccess": "Readable merchant ordering catalogue, branch contact page and landlord tenant page.",
+      "gaps": [],
+      "menu": {
+        "status": "excluded-whole-venue",
+        "extractionLead": false,
+        "foodRowsCreated": 0
+      },
+      "retrievedAt": "2026-10-16T01:01:52.622Z",
+      "identityStatus": "independent-premises-scope-reviewed-candidate-id-association",
+      "identityBoundary": "Independent merchant, merchant-managed ordering or landlord facts only. Google name/address hints were consumed transiently and were not saved. The observed place-ID association remains candidate-only and requires explicit branch review.",
+      "nameAddressProvenance": "Cited independent primary premises source; no Google display facts retained.",
+      "nextAction": "Keep this parent entity excluded from vegetarian/vegan venue publication; any qualifying individual tenant needs separate evidence.",
+      "lookupReceipt": {
+        "placeId": "ChIJ_fVKw_I92jERQvR_8Xcc6U0",
+        "observedPlaceId": "ChIJ_fVKw_I92jERQvR_8Xcc6U0",
+        "queriedAt": "2026-10-16T01:00:52.583Z",
+        "completedAt": "2026-10-16T01:00:52.721Z",
+        "requestNumber": 2379,
+        "httpStatus": 200,
+        "status": "unmatched",
+        "candidates": []
+      }
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "task": "Extend the existing protected local review console with a source-backed menu/reviewed pilot catalogue, then continue uncovered records. No consumer detail menu blocks restored.",
+  "originalRequests": [
+    "Proceed with Menus/reviewed pilot data; independent merchant website research authorized.",
+    "Use own Playwright, do not use Google Chrome.",
+    "Continue next uncovered data sets after this set."
+  ],
+  "project": "C:/Users/huien/QT/quintaste",
+  "product": "PRODUCT.md",
+  "design": "DESIGN.md",
+  "incumbentContract": ".impeccable/surfaces/discovery.md",
+  "artifact": [
+    "src/screens/food/LocalReview.tsx",
+    "src/components/discovery/PilotCataloguePanel.tsx",
+    "src/components/discovery/PilotVenueEntry.tsx",
+    "src/components/discovery/PilotMenuFacts.tsx",
+    "src/components/discovery/PilotSourceLinks.tsx",
+    "src/components/discovery/PilotReviewForm.tsx"
+  ],
+  "direction": {
+    "THESIS": "Inspect exact branch facts and provenance before any public use or ingredient confirmation.",
+    "OWN-WORLD": "Inherit incumbent Nunito, semantic Coral/Peach light and dark themes, rounded perimeter cards/buttons, native controls; local extension has no new visual identity or seed requirement.",
+    "STORY": "Unlock local review; choose catalogue; search/filter; inspect menu/source/gaps; record status and reason; history, refresh and lock.",
+    "FIRST VIEWPORT": "Development boundary, Cases/Pilot catalogue switch, counts/search/area/status controls and leading branch.",
+    "FORM": "Existing narrow app frame and wrapping 48-unit chips, one card per exact branch with flat expanded menu/source/review sections. No decorative directional borders or new imagery."
+  },
+  "buildPath": "Code-led narrow extension of established surface; no comp, quality-bar card, raster assets or new concept round.",
+  "detector": "React Native components rendered in supplemental web console; no HTML/CSS design detector ran. Source/accessibility and craft-floor review applies; native device captures are not asserted.",
+  "requiredCaptures": [
+    ".impeccable/review/pilot-catalogue-mobile-320.png",
+    ".impeccable/review/pilot-catalogue-mobile-375.png",
+    ".impeccable/review/pilot-catalogue-tablet-768.png",
+    ".impeccable/review/pilot-catalogue-desktop-1440.png",
+    ".impeccable/review/pilot-catalogue-mobile-entry.png",
+    ".impeccable/review/pilot-catalogue-mobile-menu-missing.png",
+    ".impeccable/review/pilot-catalogue-mobile-pending-candidates.png",
+    ".impeccable/review/pilot-catalogue-mobile-sources.png",
+    ".impeccable/review/pilot-catalogue-mobile-review-form.png",
+    ".impeccable/review/pilot-catalogue-dark-375.png",
+    ".impeccable/review/pilot-catalogue-larger-text-320.png"
+  ],
+  "captureNotes": "Top captures show app document top. Detail/source/form/candidate captures intentionally show scrolled states in native ScrollView viewport, not full document. Larger-text enlarges branch text only. QA review/withdrawal reasons are in separate fixture store, not user data.",
+  "evidence": [
+    ".impeccable/review/pilot-catalogue-api.json",
+    ".impeccable/review/pilot-catalogue-validation.json"
+  ],
+  "fixedBeforeHandoff": [
+    "Accessible inspect/close names now include full visible button label.",
+    "Source narrative spacing corrected."
+  ],
+  "scope": "Local web review only. All dishes ingredients/suitability unconfirmed; no menu media copied. Sources reviewed does not mean publication or merchant ingredient verification. Consumer Explore layout/filters unchanged."
+}

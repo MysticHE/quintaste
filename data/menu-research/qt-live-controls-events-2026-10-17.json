@@ -1,0 +1,175 @@
+{
+  "checkedAt": "2026-10-17T10:33:51.846858+00:00",
+  "listenerFix": {
+    "at": "2026-10-17T10:25:02.157311+00:00",
+    "service": "qt-telegram-listener.service",
+    "active": true,
+    "uid": 10000,
+    "testsPassed": 79,
+    "hashes": {
+      "telegram_listener.py": "d59c0d60e9bcb32e2b487df40bbb56e3b28c1dca2db86dcca69ad7292681f1c4",
+      "telegram_reporter.py": "9513b0e816e909734fc283dc0f81cac2c8bfb07db593205f4193c41064128d81",
+      "test_telegram_reporter.py": "b1f72b279add903a06f7733ceb288db660249c7c3d96208476c10f0914d0dd6f"
+    },
+    "researchUnchanged": true,
+    "polling": "Single-consumer 20-second long poll with immediate owner acknowledgement",
+    "backup": "/docker/hermes-agent-yril/data/qt-team/telegram-runtime/backups/listener-20261017"
+  },
+  "completionReporting": {
+    "at": "2026-10-17T10:32:10.760571+00:00",
+    "testsPassed": 81,
+    "hashes": {
+      "publisher.py": "05a6c3d7aa404945ffc57aa9a6c35bbdc08e8e002493ef5d5cefc48354623dd0",
+      "test_publisher.py": "86f23d83e4a8c4b479c510f814845c632ea92ef0f3c41612bdea058b5f6c536f",
+      "telegram_reporter.py": "8760ed300549744b242e537b5673f63cefee1fdbf2e1bea1ab5d3b20d9b64fa8",
+      "test_telegram_reporter.py": "40cfedbcff6a6b2a8cd9ff103013c57c226efdf68a8fbedd0d72e695cd8995de",
+      "e2e_postflight.py": "e65bef9ad48a516b0d9feda9365b7428ae3bea050e97f368c502ee9528b7f543"
+    },
+    "suppressedPending": [],
+    "reporting": "Live changed-item screenshots; one text completion summary; manual commands, deletion receipts and budget alerts retained",
+    "publisher": "Explicit 409 baseline rejection archived for fresh review; no blind rebase"
+  },
+  "reconciliation": {
+    "status": "live-change-requires-new-review",
+    "productionWrites": 0,
+    "batchId": "qt-20261017-101937",
+    "checkedAt": "2026-10-17T10:32:57.749145+00:00",
+    "researchCalls": 0
+  },
+  "lastListenerAt": "2026-10-17T10:33:33.035233+00:00",
+  "lastTickAt": "2026-10-17T10:32:40.721385+00:00",
+  "ownerCommand": [
+    {
+      "createdAt": "2026-10-17T10:26:58.099786+00:00",
+      "sentAt": "2026-10-17T10:26:58.810598+00:00",
+      "status": "sent"
+    }
+  ],
+  "pollError": null,
+  "appVerification": {
+    "release": "20261017-event-discovery2",
+    "base": "20261017-review-hardening1",
+    "changed": [
+      "src/screens/meet/Home.tsx",
+      "src/components/social/ExternalEvents.tsx"
+    ],
+    "apiBundlesPreserved": 16,
+    "typecheckPassed": true,
+    "lint": {
+      "files": 500,
+      "errors": 0,
+      "warnings": 0
+    },
+    "browserLocal": {
+      "checks": [
+        "375 defaults to published local events",
+        "375 both current organisation events visible",
+        "375 event categories discoverable",
+        "375 source registration and details open",
+        "375 no horizontal page overflow",
+        "375 search and clearing restore live data",
+        "375 explicit Gatherings selection retained",
+        "375 local-event navigation and reload work",
+        "1440 defaults to published local events",
+        "1440 both current organisation events visible",
+        "1440 event categories discoverable",
+        "1440 source registration and details open",
+        "1440 no horizontal page overflow",
+        "1440 search and clearing restore live data",
+        "1440 explicit Gatherings selection retained",
+        "1440 local-event navigation and reload work",
+        "320 defaults to published local events",
+        "320 both current organisation events visible",
+        "320 event categories discoverable",
+        "320 source registration and details open",
+        "320 no horizontal page overflow",
+        "320 search and clearing restore live data",
+        "320 explicit Gatherings selection retained",
+        "320 local-event navigation and reload work"
+      ],
+      "errors": [],
+      "providerRequests": [],
+      "physicalDeviceVerified": false,
+      "passed": true
+    },
+    "browserLive": {
+      "checks": [
+        "375 defaults to published local events",
+        "375 both current organisation events visible",
+        "375 event categories discoverable",
+        "375 source registration and details open",
+        "375 no horizontal page overflow",
+        "375 search and clearing restore live data",
+        "375 explicit Gatherings selection retained",
+        "375 local-event navigation and reload work",
+        "1440 defaults to published local events",
+        "1440 both current organisation events visible",
+        "1440 event categories discoverable",
+        "1440 source registration and details open",
+        "1440 no horizontal page overflow",
+        "1440 search and clearing restore live data",
+        "1440 explicit Gatherings selection retained",
+        "1440 local-event navigation and reload work",
+        "320 defaults to published local events",
+        "320 both current organisation events visible",
+        "320 event categories discoverable",
+        "320 source registration and details open",
+        "320 no horizontal page overflow",
+        "320 search and clearing restore live data",
+        "320 explicit Gatherings selection retained",
+        "320 local-event navigation and reload work"
+      ],
+      "errors": [],
+      "providerRequests": [],
+      "physicalDeviceVerified": false,
+      "passed": true
+    },
+    "cleanExport": true,
+    "previousUnusedRelease": "20261017-event-discovery1",
+    "physicalDeviceVerified": false,
+    "nativePending": false,
+    "native": {
+      "checks": [
+        "live web bytes match the verified isolated release",
+        "android signed-manifest/current-bundle transport",
+        "ios signed-manifest/current-bundle transport"
+      ],
+      "productionFixturesCreated": 0,
+      "physicalDeviceVerified": false,
+      "exactWebBundle": "entry-3575cfd148e56e2c1ed87a61c0d354cc.js",
+      "native": {
+        "android": {
+          "manifestStatus": 200,
+          "bundleStatus": 200,
+          "bytes": 8305747,
+          "scopeKey": "@anonymous/quintaste-9fe760a2-e5e7-47d5-bb7f-fbe718e4ab27"
+        },
+        "ios": {
+          "manifestStatus": 200,
+          "bundleStatus": 200,
+          "bytes": 7682080,
+          "scopeKey": "@anonymous/quintaste-9fe760a2-e5e7-47d5-bb7f-fbe718e4ab27"
+        }
+      },
+      "passed": true
+    },
+    "health": {
+      "/healthz": {
+        "status": 200,
+        "bytes": 55
+      },
+      "/api/editorial/events": {
+        "status": 200,
+        "bytes": 2021,
+        "total": 2,
+        "revision": "f54d64f7bdd42d6361bb06e7182af4aba6ffabbdaf050cbe1fd7b3395be076b8"
+      },
+      "/api/editorial/recipes": {
+        "status": 200,
+        "bytes": 118,
+        "total": 0,
+        "revision": "f54d64f7bdd42d6361bb06e7182af4aba6ffabbdaf050cbe1fd7b3395be076b8"
+      }
+    }
+  }
+}

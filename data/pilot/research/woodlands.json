@@ -1,0 +1,142 @@
+{
+  "cluster": "woodlands",
+  "method": "agent-assisted public-source inspection",
+  "checkedAt": "2026-10-15T04:56:45Z",
+  "venueIds": [
+    "elemen-woodlands-height",
+    "daily-green-woodlands-street-31"
+  ],
+  "menuIds": [
+    "elemen-wh-ordering",
+    "daily-green-published-menu"
+  ],
+  "dishIds": [
+    "elemen-woodlands-height-kale-tofu-bento",
+    "elemen-woodlands-height-charcoal-churros-rojak",
+    "elemen-woodlands-height-mushroom-soup",
+    "elemen-woodlands-height-mee-sua",
+    "daily-green-woodlands-street-31-mee-goreng",
+    "daily-green-woodlands-street-31-olive-fried-rice",
+    "daily-green-woodlands-street-31-bitter-gourd-soup",
+    "daily-green-woodlands-street-31-sweet-potato-leaves"
+  ],
+  "sources": [
+    {
+      "id": "elemen-brand",
+      "url": "https://www.elemengroup.com.sg/elemen",
+      "title": "elemen cuisine",
+      "publisher": "elemen group",
+      "kind": "merchant",
+      "checkedAt": "2026-10-15T04:56:45Z",
+      "publishedAt": null,
+      "notes": "Explicit vegetarian/meatless brand statement; does not establish per-dish vegan/allium suitability."
+    },
+    {
+      "id": "elemen-locations",
+      "url": "https://www.elemengroup.com.sg/locations",
+      "title": "elemen locations",
+      "publisher": "elemen group",
+      "kind": "merchant",
+      "checkedAt": "2026-10-15T04:56:45Z",
+      "publishedAt": null,
+      "notes": "Current branch is Woodlands Height,1Woodlands Height #01-02, Koufu Headquarters, Singapore 737859; not Woods Square."
+    },
+    {
+      "id": "elemen-ordering-chain",
+      "url": "https://elemen.oddle.me/en_SG",
+      "title": "elemen ordering locations",
+      "publisher": "elemen group via Oddle",
+      "kind": "merchant-ordering",
+      "checkedAt": "2026-10-15T04:56:45Z",
+      "publishedAt": null,
+      "notes": "Linked from official merchant website; links Woodlands Height ordering subdomain."
+    },
+    {
+      "id": "elemen-wh-menu",
+      "url": "https://elemenwh.oddle.me/en_SG",
+      "title": "elemen Woodlands Height ordering menu",
+      "publisher": "elemen group via Oddle",
+      "kind": "merchant-ordering",
+      "checkedAt": "2026-10-15T04:56:45Z",
+      "publishedAt": null,
+      "notes": "Branch-linked public JSON-LD supplies dish names and SGD offers. GST/service and checkout availability unconfirmed. Mee Sua description mentions egg; full ingredients remain unknown."
+    },
+    {
+      "id": "elemen-wh-store",
+      "url": "https://elemenwh.oddle.me/en_SG/stores",
+      "title": "elemen Woodlands Height store information",
+      "publisher": "elemen group via Oddle",
+      "kind": "merchant-ordering",
+      "checkedAt": "2026-10-15T04:56:45Z",
+      "publishedAt": null,
+      "notes": "Confirms selected Woodlands Height branch address."
+    },
+    {
+      "id": "daily-green-home",
+      "url": "https://www.dailygreen.sg/",
+      "title": "Daily Green",
+      "publisher": "Daily Green",
+      "kind": "merchant",
+      "checkedAt": "2026-10-15T04:56:45Z",
+      "publishedAt": null,
+      "notes": "Merchant vegetarian-cuisine positioning."
+    },
+    {
+      "id": "daily-green-locations",
+      "url": "https://www.dailygreen.sg/locations",
+      "title": "Daily Green locations",
+      "publisher": "Daily Green",
+      "kind": "merchant",
+      "checkedAt": "2026-10-15T04:56:45Z",
+      "publishedAt": null,
+      "notes": "306 Woodlands Street 31, Singapore 730306. Current primary source does not establish the unit number."
+    },
+    {
+      "id": "daily-green-menu-link",
+      "url": "https://www.dailygreen.sg/promotions",
+      "title": "Daily Green menu navigation",
+      "publisher": "Daily Green",
+      "kind": "merchant",
+      "checkedAt": "2026-10-15T04:56:45Z",
+      "publishedAt": null,
+      "notes": "Older indexed navigation labelled Vegetarian Kitchen - 306 Woodlands links the inspected PDF. Current /menus folder is empty; linkage is not proof of current availability."
+    },
+    {
+      "id": "daily-green-menu",
+      "url": "https://www.dailygreen.sg/s/VEGETARIAN-KITCHEN-MENU-A3-FA-V2.pdf",
+      "title": "Vegetarian Kitchen published menu",
+      "publisher": "Daily Green",
+      "kind": "merchant-menu",
+      "checkedAt": "2026-10-15T04:56:45Z",
+      "publishedAt": null,
+      "notes": "Two-page PDF fetched and visually checked. Printed $ amounts do not identify currency. GST included. PDF metadata created 16 August 2025; no visible effective date, current prices/availability unconfirmed."
+    },
+    {
+      "id": "vege-story-directory",
+      "url": "https://www.foodgrove.sg/listing/vege-story/",
+      "title": "Vege Story directory entry",
+      "publisher": "Foodgrove",
+      "kind": "directory",
+      "checkedAt": "2026-10-15T04:56:45Z",
+      "publishedAt": null,
+      "notes": "Indexed directory supports Block 892C Woodlands Drive 50, Singapore 732892 only. Direct fetch 406. Merchant site/menu and dietary claims not established."
+    }
+  ],
+  "candidates": [
+    {
+      "id": "vege-story-woodlands-drive-50",
+      "name": "Vege Story — Woodlands Drive 50",
+      "clusterId": "woodlands",
+      "sourceIds": [
+        "vege-story-directory"
+      ],
+      "reason": "Directory-only branch candidate at 892C Woodlands Drive 50. Merchant site/menu unverified; directory specialties and Google reviews do not create menu evidence. No dishes imported."
+    }
+  ],
+  "boundaries": [
+    "No merchant outreach, purchases or paid Google calls.",
+    "No menu artwork/photos copied.",
+    "Menu facts are not complete ingredient or vegan/allium confirmation.",
+    "Merchant permission not requested; local research only."
+  ]
+}

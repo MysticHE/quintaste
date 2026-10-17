@@ -1,0 +1,28 @@
+{
+  "initial": 20,
+  "afterViewer": 21,
+  "calls": [
+    "http://localhost:8083/api/place-photo?fixture=0",
+    "http://localhost:8083/api/place-photo?fixture=1",
+    "http://localhost:8083/api/place-photo?fixture=2",
+    "http://localhost:8083/api/place-photo?fixture=3",
+    "http://localhost:8083/api/place-photo?fixture=4",
+    "http://localhost:8083/api/place-photo?fixture=5",
+    "http://localhost:8083/api/place-photo?fixture=6",
+    "http://localhost:8083/api/place-photo?fixture=7",
+    "http://localhost:8083/api/place-photo?fixture=8",
+    "http://localhost:8083/api/place-photo?fixture=9",
+    "http://localhost:8083/api/place-photo?fixture=10",
+    "http://localhost:8083/api/place-photo?fixture=11",
+    "http://localhost:8083/api/place-photo?fixture=12",
+    "http://localhost:8083/api/place-photo?fixture=13",
+    "http://localhost:8083/api/place-photo?fixture=14",
+    "http://localhost:8083/api/place-photo?fixture=15",
+    "http://localhost:8083/api/place-photo?fixture=16",
+    "http://localhost:8083/api/place-photo?fixture=17",
+    "http://localhost:8083/api/place-photo?fixture=18",
+    "http://localhost:8083/api/place-photo?fixture=19",
+    "http://localhost:8083/api/place-photo?fixture=0"
+  ],
+  "provenance": "Baseline captured from the pre-change Playwright terminal output; first fixture has20places. This report restores that captured baseline after the same quick script was rerun post-change."
+}

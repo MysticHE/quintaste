@@ -1,0 +1,10 @@
+[Unit]
+Description=Clean expired QuinTaste staff authentication records
+
+[Timer]
+OnCalendar=hourly
+Persistent=true
+RandomizedDelaySec=120
+
+[Install]
+WantedBy=timers.target

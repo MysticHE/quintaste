@@ -1,0 +1,51 @@
+{
+  "checks": [
+    "Live first three photo snapshots saved under stable place and slot identities",
+    "New Google metadata and matching saved snapshots preserve bytes and credits with zero additional photo reservations",
+    "Actual card images decode and browser reload adds zero photo reservations"
+  ],
+  "quota": [
+    {
+      "stage": "before",
+      "count": 523
+    },
+    {
+      "stage": "afterFirstThree",
+      "count": 524
+    },
+    {
+      "stage": "afterFreshMetadataAndPhotos",
+      "count": 524
+    },
+    {
+      "stage": "afterBrowserAndReload",
+      "count": 524
+    }
+  ],
+  "images": [
+    {
+      "name": "Vege Story Vegetarian 齋の傳說",
+      "bytes": 165962,
+      "sha256": "0e1decfd5ce70186bfc09f490f24366358a2abb4fdad4540d98ab470b4ed8395"
+    },
+    {
+      "name": "Ananda Bhavan Vegetarian",
+      "bytes": 122566,
+      "sha256": "b75522d508721c5e4c913b9b25afc21f00f83fed1c416495b1856bd97173fd65"
+    },
+    {
+      "name": "Lotus Vegetarian Restaurant",
+      "bytes": 159829,
+      "sha256": "2b52b1fbfd76a6bf018fda1e58b43d41b3d23ec93e23471c59fc9b6998675cba"
+    }
+  ],
+  "errors": [],
+  "limits": [
+    "Three live photos; fresh metadata twice; no bulk download.",
+    "Development cache only, disabled in production."
+  ],
+  "rotatedNames": 3,
+  "screenshot": "C:/Users/huien/QT/quintaste/.impeccable/review/photo-600-live-final-375.png",
+  "savedPhotos": 23,
+  "status": "pass"
+}

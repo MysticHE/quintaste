@@ -1,0 +1,20 @@
+{
+  "checkedAt": "2026-10-16T04:18:43.021714+00:00",
+  "status": "reviewed-with-unresolved-holds",
+  "foodObservations": 67,
+  "approved": 28,
+  "held": 39,
+  "canonicalReuse": true,
+  "earlierUnitPacketsUnchanged": true,
+  "sourceDatesRetained": true,
+  "googleLedgerUnchanged": true,
+  "googleRequestsMade": 0,
+  "identityApprovalsAdded": 0,
+  "providerSensitiveFooterExcluded": true,
+  "browserCases": 3,
+  "inspectedViewportCaptures": 9,
+  "initialHarnessFailuresArchived": true,
+  "remainingGaps": "See batch08 report and current handoff. Full source/ingredient/stock/identity, native and production performance acceptance incomplete.",
+  "handAuthoredAppLogicChanged": false,
+  "generatedServerPacketImportsUpdated": true
+}

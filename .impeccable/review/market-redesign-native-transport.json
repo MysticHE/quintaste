@@ -1,0 +1,10 @@
+{
+  "checkedAt": "2026-10-15T01:52:05.751Z",
+  "url": "exp://192.168.1.5:8083",
+  "limits": "Transport/bundle check only; native phone/tablet rendering and permissions remain unverified.",
+  "manifestStatus": 200,
+  "bundleUrl": "http://192.168.1.5:8083/node_modules/expo-router/entry.bundle?platform=android&dev=true&hot=false&lazy=true&transform.engine=hermes&transform.bytecode=1&transform.routerRoot=src%2Fapp&unstable_transformProfile=hermes-stable",
+  "bundleStatus": 200,
+  "bundleBytes": 8826719,
+  "currentMarketplace": true
+}

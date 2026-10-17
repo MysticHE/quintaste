@@ -1,0 +1,282 @@
+{
+  "version": 1,
+  "checkedAt": "2026-10-16T01:07:42.214946+00:00",
+  "identityReviewDataset": "data/menu-research/identity-completion-batch-05.json",
+  "notice": "NTU North Spine channel only. Twelve prepared-food rows retained from 13 source products; Pepper Corn omitted because its generic text describes black peppercorns and a prepared side is not established. No health claims copied.",
+  "sources": [
+    {
+      "id": "icf5e-crowded-fp",
+      "url": "https://www.foodpanda.sg/restaurant/e6jj/the-crowded-bowl-at-ntu-islandwide",
+      "title": "The Crowded Bowl at NTU - islandwide delivery food cards",
+      "kind": "merchant-partner",
+      "publisher": "The Crowded Bowl / Foodpanda",
+      "status": "readable-public-web-text",
+      "checkedAt": "2026-10-16T01:07:42.214946+00:00",
+      "publishedAt": null,
+      "notes": "13 source products: 1 Regular Set and 12 a-la-carte. Twelve clear prepared foods retained. Broad Chicken cuisine tag does not establish actual meat; published food catalogue is coherent vegetarian."
+    },
+    {
+      "id": "icf5e-crowded-owner",
+      "url": "https://www.ntu.edu.sg/alumni/alumni-stories-news/detail/alumni-entrepreneurs-changing-ntu-s-food-scene",
+      "title": "NTU - direct owner account of vegetarian Crowded Bowl concept and North Spine outlet",
+      "kind": "institution-primary-owner-interview",
+      "publisher": "Nanyang Technological University",
+      "status": "readable",
+      "publishedAt": "2023-08-11",
+      "checkedAt": "2026-10-16T01:07:42.214946+00:00",
+      "notes": "Dated 2023 institutional owner interview explicitly explains vegetarian food concept, plant-based meat and North Spine restaurant. This positioning evidence is dated; current exact merchant menu independently remains coherent vegetarian. No 2023 price promoted."
+    }
+  ],
+  "branches": [
+    {
+      "id": "crowded-bowl-ntu-north-spine",
+      "name": "The Crowded Bowl - NTU North Spine",
+      "address": "76 Nanyang Drive, North Spine Plaza NS3-1-18, Singapore 637331",
+      "unit": "NS3-1-18",
+      "postalCode": "637331",
+      "sourceIds": [
+        "icf5e-crowded-fp",
+        "icf5e-crowded-owner"
+      ],
+      "menuIds": [
+        "icf5e-crowded-ntu-delivery"
+      ],
+      "candidatePlaceIds": [
+        "ChIJOeo7rRYP2jERfaGpD0hs2vE"
+      ],
+      "googlePlaceId": null,
+      "identityStatus": "merchant-ordering-exact-premises",
+      "venueEligibility": {
+        "status": "vegetarian-confirmed",
+        "appScope": "vegetarian-vegan-venues-only",
+        "reason": "Institutional owner interview explicitly describes vegetarian concept and North Spine outlet; current exact merchant ordering catalogue contains coherent vegetarian prepared foods with egg/dairy and no meat/fish ingredient contradiction. Primary positioning interview is dated 2023, explicitly retained."
+      },
+      "gaps": [
+        "Daily counter menu and bowl side-selection controls not exposed.",
+        "Pepper Corn source text describes whole peppercorns; omitted pending prepared-side clarification.",
+        "No CGH, Biopolis or other outlet menu transfer; older bowl prices are not used."
+      ],
+      "eligibility": "vegetarian-confirmed"
+    }
+  ],
+  "menus": [
+    {
+      "id": "icf5e-crowded-ntu-delivery",
+      "name": "The Crowded Bowl - NTU North Spine islandwide delivery foods",
+      "scope": "branch-delivery",
+      "branchIds": [
+        "crowded-bowl-ntu-north-spine"
+      ],
+      "sourceIds": [
+        "icf5e-crowded-fp"
+      ],
+      "coverage": "partial",
+      "publicationStatus": "review-proposed",
+      "sourceCoverage": {
+        "sourceProducts": 13,
+        "foodProducts": 12,
+        "pricedFoodProducts": 12,
+        "visibleModifierGroups": 0,
+        "ambiguousIngredientProductExcluded": 1,
+        "beveragesExcluded": 0
+      },
+      "notice": "All 13 source products reviewed. Twelve prepared-food rows retained; one Pepper Corn product omitted because generic description identifies an ingredient. Regular Set includes greens plus 3 sides but available pool/prices unexposed. Exact channel only; stock, final charges and complete counter range unverified.",
+      "items": [
+        {
+          "id": "icf5e-crowded-1",
+          "name": "Regular Set",
+          "category": "Regular Bowl",
+          "sourceIds": [
+            "icf5e-crowded-fp"
+          ],
+          "sourcePriceText": "from S$ 5.80",
+          "price": {
+            "amount": 5.8,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "qualifier": "Exact NTU North Spine islandwide-delivery source. No serving size or live options exposed. Current stock, effective menu date, complete ingredients, final fees/taxes and dine-in equivalence unverified. Source includes greens and choice of 3 sides; actual selectable pool and option surcharges not exposed and not inferred from a-la-carte membership."
+        },
+        {
+          "id": "icf5e-crowded-2",
+          "name": "Olive Rice (Most Popular)",
+          "category": "A La Carte",
+          "sourceIds": [
+            "icf5e-crowded-fp"
+          ],
+          "sourcePriceText": "S$ 2.99",
+          "price": {
+            "amount": 2.99,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "qualifier": "Exact NTU North Spine islandwide-delivery source. No serving size or live options exposed. Current stock, effective menu date, complete ingredients, final fees/taxes and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf5e-crowded-3",
+          "name": "Creamy Scrambled Egg (Most Popular)",
+          "category": "A La Carte",
+          "sourceIds": [
+            "icf5e-crowded-fp"
+          ],
+          "sourcePriceText": "S$ 3.99",
+          "price": {
+            "amount": 3.99,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "qualifier": "Exact NTU North Spine islandwide-delivery source. No serving size or live options exposed. Current stock, effective menu date, complete ingredients, final fees/taxes and dine-in equivalence unverified. Source identifies egg/dairy; do not label vegan."
+        },
+        {
+          "id": "icf5e-crowded-4",
+          "name": "Potato Salad",
+          "category": "A La Carte",
+          "sourceIds": [
+            "icf5e-crowded-fp"
+          ],
+          "sourcePriceText": "S$ 2.99",
+          "price": {
+            "amount": 2.99,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "qualifier": "Exact NTU North Spine islandwide-delivery source. No serving size or live options exposed. Current stock, effective menu date, complete ingredients, final fees/taxes and dine-in equivalence unverified. Source identifies egg/dairy; do not label vegan."
+        },
+        {
+          "id": "icf5e-crowded-5",
+          "name": "Tomato Pasta",
+          "category": "A La Carte",
+          "sourceIds": [
+            "icf5e-crowded-fp"
+          ],
+          "sourcePriceText": "S$ 2.99",
+          "price": {
+            "amount": 2.99,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "qualifier": "Exact NTU North Spine islandwide-delivery source. No serving size or live options exposed. Current stock, effective menu date, complete ingredients, final fees/taxes and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf5e-crowded-6",
+          "name": "Cheese Pasta",
+          "category": "A La Carte",
+          "sourceIds": [
+            "icf5e-crowded-fp"
+          ],
+          "sourcePriceText": "S$ 2.99",
+          "price": {
+            "amount": 2.99,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "qualifier": "Exact NTU North Spine islandwide-delivery source. No serving size or live options exposed. Current stock, effective menu date, complete ingredients, final fees/taxes and dine-in equivalence unverified. Source identifies egg/dairy; do not label vegan."
+        },
+        {
+          "id": "icf5e-crowded-7",
+          "name": "Soy Protein Ball",
+          "category": "A La Carte",
+          "sourceIds": [
+            "icf5e-crowded-fp"
+          ],
+          "sourcePriceText": "S$ 2.99",
+          "price": {
+            "amount": 2.99,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "qualifier": "Exact NTU North Spine islandwide-delivery source. No serving size or live options exposed. Current stock, effective menu date, complete ingredients, final fees/taxes and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf5e-crowded-8",
+          "name": "Cheesy Pumpkin",
+          "category": "A La Carte",
+          "sourceIds": [
+            "icf5e-crowded-fp"
+          ],
+          "sourcePriceText": "S$ 2.99",
+          "price": {
+            "amount": 2.99,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "qualifier": "Exact NTU North Spine islandwide-delivery source. No serving size or live options exposed. Current stock, effective menu date, complete ingredients, final fees/taxes and dine-in equivalence unverified. Source identifies egg/dairy; do not label vegan."
+        },
+        {
+          "id": "icf5e-crowded-9",
+          "name": "7 Spices Seaweed Tofu",
+          "category": "A La Carte",
+          "sourceIds": [
+            "icf5e-crowded-fp"
+          ],
+          "sourcePriceText": "S$ 2.99",
+          "price": {
+            "amount": 2.99,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "qualifier": "Exact NTU North Spine islandwide-delivery source. No serving size or live options exposed. Current stock, effective menu date, complete ingredients, final fees/taxes and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf5e-crowded-10",
+          "name": "Honey Tomatoes",
+          "category": "A La Carte",
+          "sourceIds": [
+            "icf5e-crowded-fp"
+          ],
+          "sourcePriceText": "S$ 2.99",
+          "price": {
+            "amount": 2.99,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "qualifier": "Exact NTU North Spine islandwide-delivery source. No serving size or live options exposed. Current stock, effective menu date, complete ingredients, final fees/taxes and dine-in equivalence unverified. Source says honey-like sweetness; actual honey content and vegan suitability unconfirmed."
+        },
+        {
+          "id": "icf5e-crowded-11",
+          "name": "Cucumber w Kelp",
+          "category": "A La Carte",
+          "sourceIds": [
+            "icf5e-crowded-fp"
+          ],
+          "sourcePriceText": "S$ 2.99",
+          "price": {
+            "amount": 2.99,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "qualifier": "Exact NTU North Spine islandwide-delivery source. No serving size or live options exposed. Current stock, effective menu date, complete ingredients, final fees/taxes and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf5e-crowded-12",
+          "name": "Broccoli",
+          "category": "A La Carte",
+          "sourceIds": [
+            "icf5e-crowded-fp"
+          ],
+          "sourcePriceText": "S$ 2.99",
+          "price": {
+            "amount": 2.99,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "qualifier": "Exact NTU North Spine islandwide-delivery source. No serving size or live options exposed. Current stock, effective menu date, complete ingredients, final fees/taxes and dine-in equivalence unverified."
+        }
+      ]
+    }
+  ],
+  "scope": {
+    "appScope": "vegetarian-vegan-venues-only",
+    "beverages": "excluded",
+    "ingredientOnlyProducts": "excluded",
+    "healthClaims": "not-copied",
+    "googleIdentityAssignment": "none"
+  },
+  "completionHistory": [
+    {
+      "checkedAt": "2026-10-16T01:08:54.927Z",
+      "frozenSourceSha256": "dca6c37b165b6f61ca812d3df1d4c3ee2a4c94bd53e363ad561709009ea859dd",
+      "action": "Root reviewed current exact merchant vegetarian source and all readable food facts, preserving named portions/choices and price/stock/source-date limits. No Google association or other-branch menu transfer."
+    }
+  ]
+}

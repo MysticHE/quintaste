@@ -1,0 +1,19 @@
+{
+  "checkedAt": "2026-10-16T08:16:55.748924+00:00",
+  "passed": true,
+  "checks": [
+    {
+      "command": "node node_modules/typescript/bin/tsc --noEmit",
+      "exitCode": 0,
+      "observedSession": 47072
+    },
+    {
+      "command": "node node_modules/expo/bin/cli lint",
+      "exitCode": 0,
+      "observedSession": null,
+      "observedChunk": "6f5e7a"
+    }
+  ],
+  "publicationChecks": ".impeccable/review/menu-full-13-publication.json",
+  "scope": "Fresh code gates observed during followup13. Subsequent changes only move repeated data qualifications into existing section notice; compiler and register checks rerun. Concurrent Cook/Avatar files preserved."
+}

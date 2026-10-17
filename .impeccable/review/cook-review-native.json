@@ -1,0 +1,29 @@
+{
+  "manifestStatus": 200,
+  "bundleStatus": 200,
+  "bytes": 9488345,
+  "markers": [
+    {
+      "marker": "timing-unverified",
+      "found": true
+    },
+    {
+      "marker": "Enable approximate alerts",
+      "found": true
+    },
+    {
+      "marker": "Collection storage is full",
+      "found": true
+    },
+    {
+      "marker": "Remove selected photos",
+      "found": true
+    },
+    {
+      "marker": "maximumSignificantDigits",
+      "found": true
+    }
+  ],
+  "remoteTopicAbsent": true,
+  "physicalDeviceVerified": false
+}

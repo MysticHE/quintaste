@@ -1,0 +1,22 @@
+{
+  "checkedAt": "2026-10-16T10:14:49.637837+00:00",
+  "passed": true,
+  "fresh": false,
+  "retainedCodeEvidence": {
+    "path": "menu-full-17-gates.json",
+    "checkedAt": "2026-10-16T09:55:52.003773+00:00",
+    "checks": [
+      {
+        "command": "node node_modules/typescript/bin/tsc --noEmit",
+        "session": 92291,
+        "exitCode": 0
+      },
+      {
+        "command": "node node_modules/expo/bin/cli lint",
+        "session": 20947,
+        "exitCode": 0
+      }
+    ]
+  },
+  "scope": "TypeScript and Expo lint passed at followup17; original dates retained. Followup18 changes research metadata, source context, generated JSON and local reports only. All six fresh compiler/register checks and current API/browser18 checks pass."
+}

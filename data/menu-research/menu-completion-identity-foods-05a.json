@@ -1,0 +1,266 @@
+{
+  "version": 1,
+  "checkedAt": "2026-10-16T01:02:31.359089+00:00",
+  "identityReviewDataset": "data/menu-research/identity-completion-batch-05.json",
+  "notice": "Twelve unique food cards from the exact merchant-managed Happy Vegetarian Food Hougang delivery channel. No beverages, reviews, artwork or Google display metadata imported. Prices use the published S$ amounts; options remain a specific gap.",
+  "sources": [
+    {
+      "id": "icf5a-happy-fp",
+      "url": "https://www.foodpanda.sg/restaurant/j39t/happy-vegetarian-food-kai-xin-su-shi-hougang",
+      "title": "Happy Vegetarian Food - Hougang public delivery menu",
+      "publisher": "Happy Vegetarian Food / Foodpanda",
+      "kind": "merchant-partner",
+      "status": "readable-public-web-text",
+      "checkedAt": "2026-10-16T01:02:31.359089+00:00",
+      "publishedAt": null,
+      "notes": "All three visible food sections checked. Source explicitly gives 106 Hougang Avenue 1 #01-1239, 530106. S$ prices displayed. Delivery fee/minimum-order context varies; no fixed fee asserted."
+    }
+  ],
+  "branches": [
+    {
+      "id": "happy-vegetarian-hougang-106",
+      "name": "Happy Vegetarian Food - Hougang",
+      "address": "106 Hougang Avenue 1 #01-1239, Singapore 530106",
+      "unit": "#01-1239",
+      "postalCode": "530106",
+      "sourceIds": [
+        "icf5a-happy-fp"
+      ],
+      "menuIds": [
+        "icf5a-happy-delivery"
+      ],
+      "candidatePlaceIds": [
+        "ChIJo2WILowX2jER1jxllNQjawk"
+      ],
+      "googlePlaceId": null,
+      "identityStatus": "merchant-ordering-exact-premises",
+      "venueEligibility": {
+        "status": "vegetarian-confirmed",
+        "appScope": "vegetarian-vegan-venues-only",
+        "reason": "Current merchant-managed ordering source explicitly trades as Happy Vegetarian Food; coherent vegetarian food catalogue and mock-meat set names with no ingredient contradictions."
+      },
+      "gaps": [
+        "All 12 visible cards captured; selectable bases/sides and from-price options not exposed.",
+        "Secondary HappyCow page prints 520106, whereas current exact merchant ordering says 530106; current primary postal retained.",
+        "Counter-only specials, ingredient/allergen certification, effective menu date and current stock unconfirmed."
+      ],
+      "eligibility": "vegetarian-confirmed"
+    }
+  ],
+  "menus": [
+    {
+      "id": "icf5a-happy-delivery",
+      "name": "Happy Vegetarian Food - Hougang delivery foods",
+      "scope": "branch-delivery",
+      "branchIds": [
+        "happy-vegetarian-hougang-106"
+      ],
+      "sourceIds": [
+        "icf5a-happy-fp"
+      ],
+      "coverage": "partial",
+      "publicationStatus": "review-proposed",
+      "sourceCoverage": {
+        "foodProducts": 12,
+        "pricedFoodProducts": 12,
+        "visibleModifierGroups": 0,
+        "beveragesExcluded": 0
+      },
+      "notice": "All 12 current visible food cards across three sections captured. Four DIY sets show from-prices but no choice controls. Set composition retained only where explicit; source-covered food cards do not establish current stock, complete counter menu or final charges.",
+      "items": [
+        {
+          "id": "icf5a-happy-1",
+          "name": "Mee Hoon Set 米粉套餐",
+          "category": "Meals Set 套餐",
+          "sourceIds": [
+            "icf5a-happy-fp"
+          ],
+          "sourcePriceText": "S$ 6.20",
+          "price": {
+            "amount": 6.2,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "qualifier": "Current public branch-delivery listing. No option groups exposed; main/vegetable/mock-meat selections and surcharges are unverified. Stock, effective menu date, ingredients, tax/delivery charges and dine-in equivalence not established. Source set composition: selected noodle base, cabbage, char siew and crispy bean curd; vegetarian venue context, not an ingredient certification."
+        },
+        {
+          "id": "icf5a-happy-2",
+          "name": "Noodles Set 面套餐",
+          "category": "Meals Set 套餐",
+          "sourceIds": [
+            "icf5a-happy-fp"
+          ],
+          "sourcePriceText": "S$ 6.20",
+          "price": {
+            "amount": 6.2,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "qualifier": "Current public branch-delivery listing. No option groups exposed; main/vegetable/mock-meat selections and surcharges are unverified. Stock, effective menu date, ingredients, tax/delivery charges and dine-in equivalence not established. Source set composition: selected noodle base, cabbage, char siew and crispy bean curd; vegetarian venue context, not an ingredient certification."
+        },
+        {
+          "id": "icf5a-happy-3",
+          "name": "Kuey Teow Set 粿条套餐",
+          "category": "Meals Set 套餐",
+          "sourceIds": [
+            "icf5a-happy-fp"
+          ],
+          "sourcePriceText": "S$ 6.20",
+          "price": {
+            "amount": 6.2,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "qualifier": "Current public branch-delivery listing. No option groups exposed; main/vegetable/mock-meat selections and surcharges are unverified. Stock, effective menu date, ingredients, tax/delivery charges and dine-in equivalence not established. Source set composition: selected noodle base, cabbage, char siew and crispy bean curd; vegetarian venue context, not an ingredient certification."
+        },
+        {
+          "id": "icf5a-happy-4",
+          "name": "Laksa 叻沙",
+          "category": "Local Dishes 小吃",
+          "sourceIds": [
+            "icf5a-happy-fp"
+          ],
+          "sourcePriceText": "S$ 6.50",
+          "price": {
+            "amount": 6.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "qualifier": "Current public branch-delivery listing. No option groups exposed; main/vegetable/mock-meat selections and surcharges are unverified. Stock, effective menu date, ingredients, tax/delivery charges and dine-in equivalence not established."
+        },
+        {
+          "id": "icf5a-happy-5",
+          "name": "Lontong 隆冬",
+          "category": "Local Dishes 小吃",
+          "sourceIds": [
+            "icf5a-happy-fp"
+          ],
+          "sourcePriceText": "S$ 6.50",
+          "price": {
+            "amount": 6.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "qualifier": "Current public branch-delivery listing. No option groups exposed; main/vegetable/mock-meat selections and surcharges are unverified. Stock, effective menu date, ingredients, tax/delivery charges and dine-in equivalence not established."
+        },
+        {
+          "id": "icf5a-happy-6",
+          "name": "Kway Chap 粿汁",
+          "category": "Local Dishes 小吃",
+          "sourceIds": [
+            "icf5a-happy-fp"
+          ],
+          "sourcePriceText": "S$ 7",
+          "price": {
+            "amount": 7,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "qualifier": "Current public branch-delivery listing. No option groups exposed; main/vegetable/mock-meat selections and surcharges are unverified. Stock, effective menu date, ingredients, tax/delivery charges and dine-in equivalence not established."
+        },
+        {
+          "id": "icf5a-happy-7",
+          "name": "Mee Rebus ⻢来⻧面",
+          "category": "Local Dishes 小吃",
+          "sourceIds": [
+            "icf5a-happy-fp"
+          ],
+          "sourcePriceText": "S$ 6.50",
+          "price": {
+            "amount": 6.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "qualifier": "Current public branch-delivery listing. No option groups exposed; main/vegetable/mock-meat selections and surcharges are unverified. Stock, effective menu date, ingredients, tax/delivery charges and dine-in equivalence not established."
+        },
+        {
+          "id": "icf5a-happy-8",
+          "name": "Mee Siam 米暹",
+          "category": "Local Dishes 小吃",
+          "sourceIds": [
+            "icf5a-happy-fp"
+          ],
+          "sourcePriceText": "S$ 6.50",
+          "price": {
+            "amount": 6.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "qualifier": "Current public branch-delivery listing. No option groups exposed; main/vegetable/mock-meat selections and surcharges are unverified. Stock, effective menu date, ingredients, tax/delivery charges and dine-in equivalence not established."
+        },
+        {
+          "id": "icf5a-happy-9",
+          "name": "1 Main + 3 Vegetables 1主⻝3菜",
+          "category": "DIY Set Category",
+          "sourceIds": [
+            "icf5a-happy-fp"
+          ],
+          "sourcePriceText": "from S$ 7.20",
+          "price": {
+            "amount": 7.2,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "qualifier": "Current public branch-delivery listing. No option groups exposed; main/vegetable/mock-meat selections and surcharges are unverified. Stock, effective menu date, ingredients, tax/delivery charges and dine-in equivalence not established."
+        },
+        {
+          "id": "icf5a-happy-10",
+          "name": "1 Main + 2 Vegetables + 1 Mock Meat 1主⻝2菜1斋料",
+          "category": "DIY Set Category",
+          "sourceIds": [
+            "icf5a-happy-fp"
+          ],
+          "sourcePriceText": "from S$ 7.80",
+          "price": {
+            "amount": 7.8,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "qualifier": "Current public branch-delivery listing. No option groups exposed; main/vegetable/mock-meat selections and surcharges are unverified. Stock, effective menu date, ingredients, tax/delivery charges and dine-in equivalence not established."
+        },
+        {
+          "id": "icf5a-happy-11",
+          "name": "1 Main + 1 Vegetable + 2 Mock Meats 1主⻝1菜2斋料",
+          "category": "DIY Set Category",
+          "sourceIds": [
+            "icf5a-happy-fp"
+          ],
+          "sourcePriceText": "from S$ 8.20",
+          "price": {
+            "amount": 8.2,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "qualifier": "Current public branch-delivery listing. No option groups exposed; main/vegetable/mock-meat selections and surcharges are unverified. Stock, effective menu date, ingredients, tax/delivery charges and dine-in equivalence not established."
+        },
+        {
+          "id": "icf5a-happy-12",
+          "name": "1 Main + 3 Mock Meats 1主⻝3斋料",
+          "category": "DIY Set Category",
+          "sourceIds": [
+            "icf5a-happy-fp"
+          ],
+          "sourcePriceText": "from S$ 8.80",
+          "price": {
+            "amount": 8.8,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "qualifier": "Current public branch-delivery listing. No option groups exposed; main/vegetable/mock-meat selections and surcharges are unverified. Stock, effective menu date, ingredients, tax/delivery charges and dine-in equivalence not established."
+        }
+      ]
+    }
+  ],
+  "scope": {
+    "appScope": "vegetarian-vegan-venues-only",
+    "beverages": "excluded",
+    "googleIdentityAssignment": "none"
+  },
+  "completionHistory": [
+    {
+      "checkedAt": "2026-10-16T01:03:33.855Z",
+      "frozenSourceSha256": "0b2b15a243ce354c90fb8eb58a11ab0b0ad2e466718a7d583a02647552b46feb",
+      "action": "Root approved12 named branch-delivery food facts; current primary postal530106 retained, secondary520106 rejected. Four configurable set offers keepfrom-price and unread choices explicit."
+    }
+  ]
+}

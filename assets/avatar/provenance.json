@@ -1,0 +1,35 @@
+{
+  "generated": "2026-10-15",
+  "fictional": true,
+  "base": {
+    "original": "C:\\Users\\huien\\QT\\output\\avatar-stability\\v2-trial-1.png",
+    "prompt": "Use case: style-transfer.\nCreate one polished 3D CARTOON CHARACTER BUST from the adult photograph in Image 1, in the same avatar art direction as Images 2 and 3.\nREFERENCE PRIORITY: Images 2 and 3 define ALL rendering, sculpting, cartoon proportions, lighting and composition. Image 1 supplies ONLY the new person's identity cues, skin tone, hairstyle, facial hair, eyewear if present, and clothing. Do not use the photographic surface texture or photographic proportions of Image 1. Do not copy the identities, costumes, accessories or logos from Images 2 and 3.\nMANDATORY STYLE: a visibly sculpted and rendered adult animated-feature character, immediately recognizable as a 3D cartoon. Moderately enlarged head, subtly larger expressive eyes, simplified rounded nose and cheek planes, softly modeled ears and lips, smooth warm stylized skin with gentle subsurface scattering, clean eyebrow shapes, hair sculpted into deliberate clumps with fine detail, and a smaller simplified upper torso. No photographic pores or photo-textured face. The degree of cartoon stylization must match the reference portraits. Adult proportions and adult age cues, never a child. Avoid flat vector, anime, clay or shiny plastic toy styling.\nIDENTITY: carry across the source person's face outline, recognizable eyebrow and nose shapes, eye spacing, hairstyle and hairline, glasses shape when present, and beard/moustache pattern when present. Preserve their natural skin tone and shirt color. Interpret these features through the reference cartoon design language, not photographic copying.\nFRAMING: square image, approximately 1024 by 1024. Front-facing centered upright head and level shoulders, no head tilt. Whole hair silhouette visible. Head plus hair approximately 54% of canvas width. Crown at about 7% height, eye line about 39%, chin around 68%. Upper torso cropped at mid-chest at the bottom with shoulders reaching the lower corners. Neutral relaxed expression, lips closed in a small friendly smile, eyes open looking straight ahead.\nLIGHTING: soft studio key from upper camera-left, gentle frontal fill and subtle edge light, neutral color balance, smooth shadow transitions as in the reference portraits.\nBACKGROUND: true transparent alpha outside the silhouette, clean cutout edges, no background or ground shadow.\nOUTPUT: a single finished character, no text, watermark, border, label, UI, microphone, props, extra accessories or scene. Render the entire character anew in the reference 3D cartoon style.",
+    "source": "Synthetic adult photograph from the avatar stability experiment",
+    "styleReferences": "../../server-assets/avatar/sources.txt",
+    "served": "sample-base.webp",
+    "optimization": "768px WebP quality 85; original generation unchanged"
+  },
+  "expressions": {
+    "blink": {
+      "original": "C:\\Users\\huien\\.codex-secondary\\generated_images\\01a13e78-4da6-71e2-963e-585159257d23\\exec-e7338d80-20cb-4b28-9d34-422719865fa8.png",
+      "prompt": "Use case: precise-object-edit.\nAsset type: an aligned expression frame for an existing 2D avatar animation.\nImage 1 is the canonical avatar and the only identity, style, pose, lighting, and framing authority.\nClose both eyelids naturally for one blink. Change only the eyelid regions; preserve mouth and head pose, and preserve the glasses exactly.\nPreserve the complete original image outside the specified facial region. Keep canvas dimensions, transparent alpha, head position and size, silhouette, hair, eyebrows, glasses, nose, ears, neck, clothing, shoulders, lighting, colors, texture, and crop unchanged. No camera movement, recentering, rescaling, head tilt, retouching, or redesign. This must be directly swappable with Image 1 without a visible jump. Preserve actual transparency. No labels, text, border, or watermark.",
+      "reference": "sample-base.png",
+      "served": "sample-blink.webp",
+      "optimization": "768px WebP quality 85; original generation unchanged"
+    },
+    "mid": {
+      "original": "C:\\Users\\huien\\.codex-secondary\\generated_images\\01a13e78-4da6-71e2-963e-585159257d23\\exec-6404926e-916b-44c5-96ed-4d3d2a943e2f.png",
+      "prompt": "Use case: precise-object-edit.\nAsset type: an aligned expression frame for an existing 2D avatar animation.\nImage 1 is the canonical avatar and the only identity, style, pose, lighting, and framing authority.\nPart the lips slightly in a small relaxed speaking shape. Change only the lips and inner mouth; retain chin, jawline, nose, and cheeks in their exact positions. Eyes remain as in the base.\nPreserve the complete original image outside the specified facial region. Keep canvas dimensions, transparent alpha, head position and size, silhouette, hair, eyebrows, glasses, nose, ears, neck, clothing, shoulders, lighting, colors, texture, and crop unchanged. No camera movement, recentering, rescaling, head tilt, retouching, or redesign. This must be directly swappable with Image 1 without a visible jump. Preserve actual transparency. No labels, text, border, or watermark.",
+      "reference": "sample-base.png",
+      "served": "sample-mid.webp",
+      "optimization": "768px WebP quality 85; original generation unchanged"
+    },
+    "open": {
+      "original": "C:\\Users\\huien\\.codex-secondary\\generated_images\\01a13e78-4da6-71e2-963e-585159257d23\\exec-4f8a2286-be6e-4b76-8d81-3edd615f5ab3.png",
+      "prompt": "Use case: precise-object-edit.\nAsset type: an aligned expression frame for an existing 2D avatar animation.\nImage 1 is the canonical avatar and the only identity, style, pose, lighting, and framing authority.\nOpen the mouth moderately in a natural speaking A shape, with plausible teeth and dark inner mouth. Change only lips and inner mouth; retain chin, jawline, nose, and cheeks in their exact positions. Eyes remain as in the base.\nPreserve the complete original image outside the specified facial region. Keep canvas dimensions, transparent alpha, head position and size, silhouette, hair, eyebrows, glasses, nose, ears, neck, clothing, shoulders, lighting, colors, texture, and crop unchanged. No camera movement, recentering, rescaling, head tilt, retouching, or redesign. This must be directly swappable with Image 1 without a visible jump. Preserve actual transparency. No labels, text, border, or watermark.",
+      "reference": "sample-base.png",
+      "served": "sample-open.webp",
+      "optimization": "768px WebP quality 85; original generation unchanged"
+    }
+  }
+}

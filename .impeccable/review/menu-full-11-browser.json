@@ -1,0 +1,66 @@
+{
+  "startedAt": "2026-10-16T07:13:06.849Z",
+  "url": "http://127.0.0.1:8083",
+  "checks": [
+    {
+      "name": "crowded-sp",
+      "status": "passed",
+      "foods": 13,
+      "menuGap404": false,
+      "sourceFoodCount": 14,
+      "publicFingerprint": "0ece7ca7c07cf7aed5600088e2867a5f064a3753ce44e5d9926cc3f3a6f16029"
+    },
+    {
+      "name": "crowded-rp-menu-gap",
+      "status": "passed",
+      "foods": 0,
+      "menuGap404": true,
+      "publicFingerprint": null
+    }
+  ],
+  "screenshots": [
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-11-browser\\crowded-sp-320.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-11-browser\\crowded-sp-768.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-11-browser\\crowded-sp-1440.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-11-browser\\crowded-rp-menu-gap-320.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-11-browser\\crowded-rp-menu-gap-768.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-11-browser\\crowded-rp-menu-gap-1440.png"
+  ],
+  "errors": [],
+  "pageErrors": [],
+  "unexpectedConsoleErrors": [],
+  "blockedApiRequests": [],
+  "blockedExternalRequests": [],
+  "apiRequests": [],
+  "a11y": [
+    {
+      "label": "crowded-sp",
+      "violations": []
+    },
+    {
+      "label": "crowded-rp-menu-gap",
+      "violations": []
+    }
+  ],
+  "forwardedProviderCalls": 0,
+  "installedChromeUsed": false,
+  "catalogue": {
+    "locations": 166,
+    "sourceMenus": 213,
+    "foodOccurrences": 11589
+  },
+  "finishedAt": "2026-10-16T07:13:57.099Z",
+  "passed": true,
+  "visualReview": {
+    "status": "passed",
+    "reviewedAt": "2026-10-16T07:28:04.205202+00:00",
+    "capturesInspected": 6,
+    "widths": [
+      320,
+      768,
+      1440
+    ],
+    "findings": "Every listed current capture visually inspected; no page overflow or visual defect observed. Source choices/prices/ingredients retain explicit uncertainty. Initial QA harness failures, where any, remain archived."
+  },
+  "googleLedgerUnchanged": true
+}

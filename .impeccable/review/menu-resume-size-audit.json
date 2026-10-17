@@ -1,0 +1,35 @@
+{
+  "checkedAt": "2026-10-16T03:35:32.931359+00:00",
+  "storage": "Local structured JSON and Markdown; no relational menu database or SQL migration.",
+  "menuJsonBytes": 40089196,
+  "researchDirectoryBytes": 33951170,
+  "sourceRegisterBytes": 12741975,
+  "compiledResearchBytes": 4989061,
+  "privateQaBytes": 2411323941,
+  "diskFreeBytes": 636586033152,
+  "diskTotalBytes": 1022580748288,
+  "boundedClientStorage": {
+    "detailCount": 5,
+    "detailTotalBytes": 1200000,
+    "eachDetailBytes": 400000,
+    "indexBytes": 1000000,
+    "expiryDays": 7,
+    "refreshMinutes": 5,
+    "sourceRecheckDays": 90,
+    "renderRowsPerPage": 40,
+    "searchScope": "all rows in selected source"
+  },
+  "googleLedger": {
+    "sha256": "c7321dafaad0473583139494ca899501578892c5b71105429d3cd4dceb4f311a",
+    "bytes": 1045377,
+    "requests": 2419,
+    "cap": 2500,
+    "remaining": 81
+  },
+  "findings": [
+    "No immediate disk shortage observed. Private QA captures dominate local evidence storage and remain outside app delivery.",
+    "Source register and full research packets are server research artifacts; public delivery uses a small index and one selected branch detail.",
+    "One shared menu option-button accessibility label was corrected; cache policy and data delivery architecture are unchanged.",
+    "Broad Expo development HTTP load exhausted the approximately4GB Node heap. Current direct GET handler checks and focused restarted-preview browser cases pass; production-host memory and transport performance remain unmeasured."
+  ]
+}

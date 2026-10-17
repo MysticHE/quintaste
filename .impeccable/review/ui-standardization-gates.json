@@ -1,0 +1,43 @@
+{
+  "timestamp": "2026-10-16T06:25:23.578Z",
+  "passed": true,
+  "typecheck": {
+    "command": "npm run typecheck",
+    "exitCode": 0
+  },
+  "lint": {
+    "command": "npm run lint",
+    "exitCode": 0
+  },
+  "diffCheck": {
+    "exitCode": 0
+  },
+  "detector": {
+    "findings": []
+  },
+  "browserChecks": 11,
+  "stateChecks": 4,
+  "uniqueCaptures": 35,
+  "axeScans": 9,
+  "axeViolations": 0,
+  "runtimeErrors": 0,
+  "nativeTransport": {
+    "manifestStatus": 200,
+    "bundleStatus": 200,
+    "bytes": 9922424,
+    "platform": "android",
+    "markers": {
+      "autosave": true,
+      "newReport": true,
+      "privatePlace": true
+    },
+    "nativeDeviceConnected": false,
+    "limitation": "Bundle transport only; native appearance and interaction remain unverified."
+  },
+  "limitations": [
+    "No connected Android device; no physical Android/iOS appearance or assistive-technology acceptance.",
+    "Connected account profile autosave is source/typechecked; live remote profile writes were not exercised.",
+    "No paid generation, real user messages or production deployment."
+  ],
+  "research": "docs/UI_STANDARDIZATION.md"
+}

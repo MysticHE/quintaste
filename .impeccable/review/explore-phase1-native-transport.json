@@ -1,0 +1,16 @@
+{
+  "manifestStatus": 200,
+  "bundleStatus": 200,
+  "bytes": 8934941,
+  "instantSettings": true,
+  "dietIconComponentPresent": true,
+  "landscape": true,
+  "privateAddress": true,
+  "locateIcon": true,
+  "freshGps": true,
+  "privateGoogleKey": false,
+  "locationRecovery": true,
+  "priceFilter": true,
+  "documentTitle": true,
+  "nativeDeviceAppearanceVerified": false
+}

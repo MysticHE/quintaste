@@ -1,0 +1,71 @@
+{
+  "version": 1,
+  "checkedAt": "2026-10-15T23:30:00.000Z",
+  "notice": "Independent source follow-up after the approved identity lookup. Place IDs are retained; display facts below were re-obtained from the cited independent sources. These are candidate links, not menu publication or dietary certification.",
+  "sources": [
+    {
+      "id": "friendly-vegetarian-official-about",
+      "url": "https://www.friendlyvegetarian.com.sg/site/page?view=about",
+      "publisher": "Friendly Vegetarian Food Supplier",
+      "title": "Official supplier identity and Pasir Panjang contact address",
+      "checkedAt": "2026-10-15T23:30:00.000Z",
+      "status": "readable-primary"
+    },
+    {
+      "id": "como-shambhala-kitchen-official",
+      "url": "https://www.comogroup.com/food-dining/como-shambhala-kitchen/",
+      "publisher": "COMO Group",
+      "title": "Official COMO Shambhala Kitchen concept and Dempsey contact address",
+      "checkedAt": "2026-10-15T23:30:00.000Z",
+      "status": "readable-primary"
+    },
+    {
+      "id": "green-vegetarian-yewtee-independent",
+      "url": "https://www.happycow.net/reviews/green-vegetarian-west-singapore-40618",
+      "publisher": "HappyCow",
+      "title": "Green Vegetarian YewTee independent directory identity",
+      "checkedAt": "2026-10-15T23:30:00.000Z",
+      "status": "readable-secondary-directory"
+    }
+  ],
+  "leads": [
+    {
+      "id": "identity-friendly-vegetarian-pasir-panjang",
+      "name": "Friendly Vegetarian Food Supplier",
+      "address": "Blk 14 Pasir Panjang Wholesale Center #01-23/24 Singapore 110014",
+      "postalCode": "110014",
+      "unit": "#01-23/24",
+      "merchantUrl": "https://www.friendlyvegetarian.com.sg/site/page?view=about",
+      "sourceIds": ["friendly-vegetarian-official-about"],
+      "placeId": "ChIJ____z6sb2jERzsB56auc83Y",
+      "placeIdEvidenceUrl": "https://www.google.com/maps/search/?api=1&query=Friendly+Vegetarian+Food+Supplier&query_place_id=ChIJ____z6sb2jERzsB56auc83Y",
+      "status": "lead",
+      "notes": "Primary source confirms a retailer and supplier of frozen food goods. Do not treat its product catalogue as a prepared-food restaurant menu. Primary premises span units23/24; individual Google unit24 is not an exact range-unit identity proof. Menu publication remains held."
+    },
+    {
+      "id": "identity-como-shambhala-dempsey",
+      "name": "COMO Shambhala Kitchen",
+      "address": "26 Dempsey Rd, #01-01, Singapore 249686",
+      "postalCode": "249686",
+      "unit": "#01-01",
+      "merchantUrl": "https://www.comogroup.com/food-dining/como-shambhala-kitchen/",
+      "sourceIds": ["como-shambhala-kitchen-official"],
+      "placeId": "ChIJ__-_jYwZ2jERSqt65MBsSz0",
+      "placeIdEvidenceUrl": "https://www.google.com/maps/search/?api=1&query=COMO+Shambhala+Kitchen&query_place_id=ChIJ__-_jYwZ2jERSqt65MBsSz0",
+      "status": "lead",
+      "notes": "Official group page confirms exact Dempsey premises and a healthy-eating concept. Whole-venue vegetarian positioning and a current menu for this precise branch are unconfirmed. Orchard/Bideford and older Dempsey restaurant PDFs must not be assigned here."
+    },
+    {
+      "id": "identity-green-vegetarian-yewtee",
+      "name": "Green Vegetarian - YewTee",
+      "address": "21 Choa Chu Kang North 6, Yew Tee Point Unit B1-17/22 Koufu Foodcourt, Singapore 689578",
+      "postalCode": "689578",
+      "unit": "#B1-17/22",
+      "sourceIds": ["green-vegetarian-yewtee-independent"],
+      "placeId": "ChIJ__-P-vMR2jERweO9abqz7Ak",
+      "placeIdEvidenceUrl": "https://www.google.com/maps/search/?api=1&query=Green+Vegetarian+YewTee&query_place_id=ChIJ__-P-vMR2jERweO9abqz7Ak",
+      "status": "lead",
+      "notes": "Independent directory confirms stall identity within the shared Koufu premises and uses the Green Vegetarian name; San De is a source alias. No readable current first-party full menu or prices obtained. Older customer comments and other San De branches are not current menu evidence."
+    }
+  ]
+}

@@ -1,0 +1,127 @@
+{
+  "version": 1,
+  "reviewedAt": "2026-10-15T11:04:19.390Z",
+  "reviewer": "/root/menu_workflow_code_review",
+  "status": "approved",
+  "scope": [
+    "data/menu-research/menu-makan-vegestory-eighttreasures.json",
+    "docs/research/menu-makan-vegestory-eighttreasures.md",
+    "../tmp/qa/menu-makan-vegestory-eighttreasures/write_research.py",
+    "data/menu-research/menu-ascend-coco-moonchay-sproutz.json",
+    "docs/research/menu-ascend-coco-moonchay-sproutz.md",
+    "../tmp/qa/menu-ascend-coco-moonchay-sproutz/write_research.py",
+    "../tmp/qa/menu-ascend-coco-moonchay-sproutz/facts.py",
+    "data/menu-research/menu-supreme-vege.json",
+    "docs/research/menu-supreme-vege.md",
+    "../tmp/qa/menu-supreme-vege/build_final.py",
+    "../tmp/qa/menu-supreme-vege/build_checkpoint.py",
+    "../tmp/qa/menu-supreme-vege/pdf_contexts.py",
+    "../tmp/qa/menu-supreme-vege/bento_facts.py",
+    "../tmp/qa/menu-supreme-vege/named_packages.py",
+    "scripts/build-menu-research-index.ts: publication/date projection delta",
+    "../tmp/qa/menu-directory-feature-candidates.py: offline candidate boundary"
+  ],
+  "findings": [],
+  "resolvedFindings": [
+    {
+      "id": "B01",
+      "severity": "MEDIUM",
+      "issue": "The research index discarded the expired Supreme CNY menu publication hold/date while retaining source-covered extraction coverage.",
+      "resolution": "Index now retains publicationStatus, validOn, sourceDateNotice, per-food publication-status counts and source-unavailable counts in menuPublication, gaps and CSV. Supreme also explicitly preserves the hold/date in branch gaps and menu notice.",
+      "verification": "Actual in-memory index execution preserved hold-expired-dated-offer and valid only on 2026-02-16. The 44 expired rows remain source observations, not current publication-ready food."
+    }
+  ],
+  "packets": [
+    {
+      "file": "menu-makan-vegestory-eighttreasures.json",
+      "sources": 14,
+      "branches": 3,
+      "menus": 8,
+      "sourceFoodRows": 164
+    },
+    {
+      "file": "menu-ascend-coco-moonchay-sproutz.json",
+      "sources": 13,
+      "branches": 5,
+      "menus": 7,
+      "sourceFoodRows": 168
+    },
+    {
+      "file": "menu-supreme-vege.json",
+      "sources": 17,
+      "branches": 1,
+      "menus": 16,
+      "sourceFoodRows": 721
+    }
+  ],
+  "checks": [
+    {
+      "name": "Reference graph and amounts",
+      "result": "pass",
+      "method": "Independent recursive JSON graph inspection",
+      "details": "Unique source, branch, menu and food IDs; branch/menu references resolve; nested source references resolve; dish prices are positive finite amounts."
+    },
+    {
+      "name": "Offline generator reproducibility",
+      "result": "pass",
+      "method": "Actual Python generators executed in memory with filesystem writes intercepted",
+      "details": "Makan and Supreme generated menus/branches equal saved packets. Coco/MoonChay ordering, MoonChay PDF/homepage and Sproutz food arrays equal saved packet arrays."
+    },
+    {
+      "name": "Captured source images",
+      "result": "pass",
+      "imagesInspected": 20,
+      "details": "Makan Wanton modifier screenshot, Vege Story highlighted board, all 16 MoonChay PDF pages and both Sproutz PDF pages individually inspected. Food prices, weighted units, portions and beverage exclusions agree with the corresponding records."
+    },
+    {
+      "name": "Supreme extraction and price scope",
+      "result": "pass",
+      "method": "Full packet/report and extraction/generator dependency inspection, saved raw ordering observations and regeneration",
+      "details": "Food portion prices remain separate from package/per-pax/table/component charges; CNY delivery 50 plus GST per trip is not a from price. All source rows remain branch-specific. Raw ordering data contains zero variant-level modifier groups that would be silently dropped by the product-level modifier extractor."
+    },
+    {
+      "name": "Index projection",
+      "result": "pass",
+      "method": "Actual TypeScript index evaluated with read-only current inputs and outputs captured in memory",
+      "snapshot": {
+        "datasetCount": 35,
+        "branchRecords": 140,
+        "sourceMenus": 214,
+        "sourceFoodRows": 10770,
+        "complete": false
+      },
+      "details": "Three scoped packet counts match; publication hold survives JSON and CSV. Synthetic food-level publication/sourceUnavailable and sourceDateNotice fields survive projection."
+    },
+    {
+      "name": "Offline directory feature leads",
+      "result": "pass",
+      "method": "Source inspection, intercepted-output regeneration and actual shared parser",
+      "savedFeatureRecords": 19,
+      "candidateLeads": 10,
+      "unmatched": 9,
+      "confirmedIdentities": 0,
+      "details": "Both feature components must match a single saved place-ID byte sequence; unsupported decoding remains an unreviewed lead. No branch/menu/public mapping is made."
+    }
+  ],
+  "actualNetworkCalls": 0,
+  "actualGoogleCalls": 0,
+  "appEditsByReviewer": false,
+  "dataEditsByReviewer": false,
+  "outputFilesWrittenByReviewer": [
+    ".impeccable/review/menu-research-batch-review.json"
+  ],
+  "limits": [
+    "Approval is for the bounded offline source/code/data consistency scope, not production publication or editorial review.",
+    "Food counts are source-specific observations, including explicit portions and overlapping channels, not unique dishes.",
+    "All 21 Supreme PDF pages were inspected by the collecting owner; this reviewer independently inspected extraction logic, saved facts, packet consistency and regeneration, not every Supreme rendered page.",
+    "Saved public-source evidence does not establish current stock, price acceptance, ingredient certification, exact Google identity, or complete directory coverage.",
+    "The index snapshot includes concurrently changing research packets and remains complete:false."
+  ],
+  "summary": {
+    "CRITICAL": 0,
+    "HIGH": 0,
+    "MEDIUM": 0,
+    "LOW": 0,
+    "verdict": "APPROVE"
+  }
+}

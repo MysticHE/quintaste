@@ -1,0 +1,45 @@
+{
+  "nativeVisualAcceptance": false,
+  "manifestStatus": 200,
+  "bundleStatus": 200,
+  "bundleBytes": 9475392,
+  "clientMarkers": [
+    {
+      "marker": "Your avatar",
+      "present": true
+    },
+    {
+      "marker": "Generate avatar",
+      "present": true
+    },
+    {
+      "marker": "avatar-frame-",
+      "present": true
+    },
+    {
+      "marker": "openai-selfie-v1",
+      "present": true
+    }
+  ],
+  "serverMarkers": [
+    {
+      "marker": "https://api.openai.com/v1/images/edits",
+      "present": false
+    },
+    {
+      "marker": "Avatar allowance could not be verified.",
+      "present": false
+    },
+    {
+      "marker": "MANDATORY STYLE:",
+      "present": false
+    },
+    {
+      "marker": "hormozi-base.webp",
+      "present": false
+    }
+  ],
+  "privateKeyBundled": false,
+  "realRouteStatus": 200,
+  "generationDisabled": true
+}

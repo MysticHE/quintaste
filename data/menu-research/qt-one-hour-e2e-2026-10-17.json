@@ -1,0 +1,91 @@
+{
+  "checkedAt": "2026-10-17T09:52:18.322104+00:00",
+  "test": {
+    "id": "e2e-20261017T093920Z",
+    "start": 1792229960.8606029,
+    "deadline": 1792233560.8606029,
+    "researchDeadline": 1792232660.8606029,
+    "authorizedBy": "owner one-hour live E2E request",
+    "pid": 3115
+  },
+  "supervisorAlive": true,
+  "observerAlive": true,
+  "usage": {
+    "month": "2026-10",
+    "used": 15,
+    "limit": 2000,
+    "remaining": 1985
+  },
+  "progress": {
+    "status": "running",
+    "rounds": [
+      {
+        "endedAt": "2026-10-17T09:45:20.910006+00:00",
+        "exitCode": 0,
+        "timedOut": false,
+        "runId": "20261017T093921Z"
+      },
+      {
+        "endedAt": "2026-10-17T09:49:21.919376+00:00",
+        "exitCode": 0,
+        "timedOut": false,
+        "runId": "20261017T094550Z"
+      }
+    ]
+  },
+  "reviewed": 2,
+  "fixes": {
+    "recovery-fix": {
+      "at": "2026-10-17T09:45:25.476081+00:00",
+      "files": [
+        "workflow.py",
+        "test_workflow.py"
+      ],
+      "testsPassed": 66,
+      "originalCookerReceipt": "/opt/data/qt-team/runs/20261017T093921Z/cooker/receipt.json",
+      "checkpointCorrection": "Removed only cookDay consumed by stale recovery; retained all other state and budget rows",
+      "hashes": {
+        "workflow.py": "4d3ce2012cb18dc0413aabca85ed859c83b5cb91b99d6ed023d6a073a39be6fa",
+        "test_workflow.py": "7a155769a0527cdb1961ca3719c5a5ee7721a4aaafcef464c9028d35da0deb3d"
+      }
+    },
+    "reporter-fix": {
+      "file": "telegram_reporter.py",
+      "change": "Wait for current Sources & credits control instead of removed Source Updates text",
+      "sha256": "7c955240ac3b4eff952708658c0889cc2fd42eaa2fd79c0db3634c3b6e74aba2"
+    },
+    "manager-fix": {
+      "at": "2026-10-17T09:49:31.741488+00:00",
+      "files": [
+        "workflow.py",
+        "publisher.py",
+        "test_workflow.py",
+        "test_publisher.py"
+      ],
+      "hashes": {
+        "workflow.py": "3f9778a0463ad2ed6a7bbdf5ffcae9826400da06433d02f51d957ec1a068e353",
+        "publisher.py": "da79a7ea97f9563ac693483926f8fc15648c6a9f850a96358b98ec09ec6c6035",
+        "test_workflow.py": "8555074f45f3f701db2d449e6c6aa348d89140092ee129f9ce6645565fcf1992",
+        "test_publisher.py": "7c45bc5e376424915b30a59e2f25a8b34f33c9a7b07a9011fe8de65ebed5a549"
+      },
+      "testsPassed": 68,
+      "protectedUnchanged": true,
+      "change": "Research and final publication review both receive live recipe identities and owner suppression identities"
+    }
+  },
+  "publication": {
+    "status": "published",
+    "productionWrites": 2,
+    "revision": "ee9a550c109af45bf1a04774545da09674639eb00e0264b1d03dac05db16ff2e",
+    "publishedAt": "2026-10-17T09:49:21.826087+00:00",
+    "records": [
+      "recipe:garlic-chive-eggs",
+      "recipe:sweet-potato-ginger-pandan-soup"
+    ]
+  },
+  "health": {
+    "url": "https://quintaste.srv1902914.hstgr.cloud/healthz",
+    "status": 200,
+    "checkedAt": "2026-10-17T09:52:18.366468+00:00"
+  }
+}

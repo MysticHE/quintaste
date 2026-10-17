@@ -1,0 +1,11 @@
+{
+  "checks": [
+    "Explore draft-only signup offers merge after age check",
+    "Private-label-only guest collection offers merge"
+  ],
+  "screenshots": [
+    "review-fixes-draft-merge.png"
+  ],
+  "errors": [],
+  "passed": true
+}

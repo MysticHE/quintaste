@@ -1,0 +1,51 @@
+{
+  "checks": [
+    "Five larger icons route correctly and expose selected states with 48+ targets",
+    "Cook filters apply immediately, persist after reload and search clears",
+    "Recipe servings restore, shopping quantities deduplicate, guide and save work",
+    "Guided cooking persists steps and supports pause, +1 minute and reload",
+    "Shared floating plus matches Social and Market, remains centered above dock",
+    "Incomplete drafts autosave, photos persist and steps reorder",
+    "Publication needs rights and policy; preparing is local, edits reset consent and advance revision",
+    "Shopping checks and deletes persist without changing recipe"
+  ],
+  "screenshots": [
+    "cook-refresh-dock-explore.png",
+    "cook-refresh-dock-cook.png",
+    "cook-refresh-dock-social.png",
+    "cook-refresh-dock-market.png",
+    "cook-refresh-dock-game.png",
+    "cook-refresh-home-375.png",
+    "cook-refresh-ingredient-guide.png",
+    "cook-refresh-recipe-detail.png",
+    "cook-refresh-cooking-375.png",
+    "cook-refresh-social-plus.png",
+    "cook-refresh-market-plus.png",
+    "cook-refresh-my-recipes-empty.png",
+    "cook-refresh-draft-375.png",
+    "cook-refresh-publication-review.png",
+    "cook-refresh-my-recipes.png",
+    "cook-refresh-shopping.png",
+    "cook-refresh-home-320.png",
+    "cook-refresh-home-768.png",
+    "cook-refresh-home-1440.png",
+    "cook-refresh-home-dark.png"
+  ],
+  "errors": [],
+  "axe": [
+    {
+      "name": "publication-review",
+      "violations": []
+    },
+    {
+      "name": "cook-dark",
+      "violations": []
+    },
+    {
+      "name": "cook-light",
+      "violations": []
+    }
+  ],
+  "scope": "Browser preview, native appearance and background delivery unverified",
+  "passed": true
+}

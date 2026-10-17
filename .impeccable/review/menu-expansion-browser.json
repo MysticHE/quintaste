@@ -1,0 +1,712 @@
+{
+  "checks": [
+    "Menu card control fits and opens independently; original divider/hours rhythm remains",
+    "Menu correction validates dish/price and persists a structured edit draft through reload",
+    "Add and remove dish options work; offline menu proposals survive save/return",
+    "Menu UI supports dish search, source/category selection, dark mode and large text",
+    "Shared input keeps a rounded semantic focus perimeter even while invalid"
+  ],
+  "screenshots": [
+    "C:\\Users\\huien\\qt\\quintaste\\.impeccable\\review\\menu-expansion-card-320.png",
+    "C:\\Users\\huien\\qt\\quintaste\\.impeccable\\review\\menu-expansion-card-375.png",
+    "C:\\Users\\huien\\qt\\quintaste\\.impeccable\\review\\menu-expansion-card-768.png",
+    "C:\\Users\\huien\\qt\\quintaste\\.impeccable\\review\\menu-expansion-card-1440.png",
+    "C:\\Users\\huien\\qt\\quintaste\\.impeccable\\review\\menu-expansion-menu-375.png",
+    "C:\\Users\\huien\\qt\\quintaste\\.impeccable\\review\\menu-expansion-correction-320.png",
+    "C:\\Users\\huien\\qt\\quintaste\\.impeccable\\review\\menu-expansion-correction-375.png",
+    "C:\\Users\\huien\\qt\\quintaste\\.impeccable\\review\\menu-expansion-correction-768.png",
+    "C:\\Users\\huien\\qt\\quintaste\\.impeccable\\review\\menu-expansion-correction-1440.png",
+    "C:\\Users\\huien\\qt\\quintaste\\.impeccable\\review\\menu-expansion-review-edit-375.png",
+    "C:\\Users\\huien\\qt\\quintaste\\.impeccable\\review\\menu-expansion-receipt-375.png",
+    "C:\\Users\\huien\\qt\\quintaste\\.impeccable\\review\\menu-expansion-offline-add-375.png",
+    "C:\\Users\\huien\\qt\\quintaste\\.impeccable\\review\\menu-expansion-remove-review-375.png",
+    "C:\\Users\\huien\\qt\\quintaste\\.impeccable\\review\\menu-expansion-expanded-menu-375.png",
+    "C:\\Users\\huien\\qt\\quintaste\\.impeccable\\review\\menu-expansion-historical-source-375.png",
+    "C:\\Users\\huien\\qt\\quintaste\\.impeccable\\review\\menu-expansion-correction-large320.png",
+    "C:\\Users\\huien\\qt\\quintaste\\.impeccable\\review\\menu-expansion-correction-dark320.png",
+    "C:\\Users\\huien\\qt\\quintaste\\.impeccable\\review\\menu-expansion-shared-field-error-375.png"
+  ],
+  "layouts": [
+    {
+      "name": "Card320",
+      "width": 320,
+      "targetHeight": 48,
+      "dividerToHours": 6,
+      "hoursToBottom": 8
+    },
+    {
+      "name": "Card375",
+      "width": 375,
+      "targetHeight": 48,
+      "dividerToHours": 6,
+      "hoursToBottom": 8
+    },
+    {
+      "name": "Card768",
+      "width": 768,
+      "targetHeight": 48,
+      "dividerToHours": 6,
+      "hoursToBottom": 8
+    },
+    {
+      "name": "Card1440",
+      "width": 1440,
+      "targetHeight": 48,
+      "dividerToHours": 6,
+      "hoursToBottom": 8
+    },
+    {
+      "name": "Correction320",
+      "width": 320,
+      "overflow": false,
+      "controls": [
+        {
+          "label": "Go back",
+          "x": 8,
+          "right": 56,
+          "height": 48
+        },
+        {
+          "label": "Menu",
+          "x": 8,
+          "right": 66.34375,
+          "height": 48
+        },
+        {
+          "label": "Address",
+          "x": 74.34375,
+          "right": 144.953125,
+          "height": 48
+        },
+        {
+          "label": "Opening hours",
+          "x": 152.953125,
+          "right": 257.875,
+          "height": 48
+        },
+        {
+          "label": "Closed or moved",
+          "x": 8,
+          "right": 124.828125,
+          "height": 48
+        },
+        {
+          "label": "Other",
+          "x": 132.828125,
+          "right": 190.4375,
+          "height": 48
+        },
+        {
+          "label": "Add dish",
+          "x": 8,
+          "right": 104,
+          "height": 48
+        },
+        {
+          "label": "Edit dish",
+          "x": 112,
+          "right": 208,
+          "height": 48
+        },
+        {
+          "label": "Remove dish",
+          "x": 216,
+          "right": 312,
+          "height": 48
+        },
+        {
+          "label": "Dish to edit",
+          "x": 25,
+          "right": 295,
+          "height": 48
+        },
+        {
+          "label": "Dish name",
+          "x": 25,
+          "right": 295,
+          "height": 48
+        },
+        {
+          "label": "Price in SGD (optional)",
+          "x": 25,
+          "right": 295,
+          "height": 48
+        },
+        {
+          "label": "Category (optional)",
+          "x": 25,
+          "right": 295,
+          "height": 48
+        },
+        {
+          "label": "Details (optional)",
+          "x": 25,
+          "right": 295,
+          "height": 120
+        },
+        {
+          "label": "Source (optional)",
+          "x": 25,
+          "right": 295,
+          "height": 48
+        },
+        {
+          "label": "Observed on",
+          "x": 25,
+          "right": 295,
+          "height": 48
+        },
+        {
+          "label": "Add photo",
+          "x": 8,
+          "right": 312,
+          "height": 54
+        },
+        {
+          "label": "Save draft",
+          "x": 8,
+          "right": 156,
+          "height": 54
+        },
+        {
+          "label": "Review",
+          "x": 164,
+          "right": 312,
+          "height": 74
+        }
+      ]
+    },
+    {
+      "name": "Correction375",
+      "width": 375,
+      "overflow": false,
+      "controls": [
+        {
+          "label": "Go back",
+          "x": 8,
+          "right": 56,
+          "height": 48
+        },
+        {
+          "label": "Menu",
+          "x": 8,
+          "right": 69.46875,
+          "height": 48
+        },
+        {
+          "label": "Address",
+          "x": 77.46875,
+          "right": 155.40625,
+          "height": 48
+        },
+        {
+          "label": "Opening hours",
+          "x": 163.40625,
+          "right": 280.359375,
+          "height": 48
+        },
+        {
+          "label": "Closed or moved",
+          "x": 8,
+          "right": 137.5625,
+          "height": 48
+        },
+        {
+          "label": "Other",
+          "x": 145.5625,
+          "right": 208.6875,
+          "height": 48
+        },
+        {
+          "label": "Add dish",
+          "x": 8,
+          "right": 122.328125,
+          "height": 48
+        },
+        {
+          "label": "Edit dish",
+          "x": 130.328125,
+          "right": 244.671875,
+          "height": 48
+        },
+        {
+          "label": "Remove dish",
+          "x": 252.671875,
+          "right": 367,
+          "height": 48
+        },
+        {
+          "label": "Dish to edit",
+          "x": 25,
+          "right": 350,
+          "height": 48
+        },
+        {
+          "label": "Dish name",
+          "x": 25,
+          "right": 350,
+          "height": 48
+        },
+        {
+          "label": "Price in SGD (optional)",
+          "x": 25,
+          "right": 350,
+          "height": 48
+        },
+        {
+          "label": "Category (optional)",
+          "x": 25,
+          "right": 350,
+          "height": 48
+        },
+        {
+          "label": "Details (optional)",
+          "x": 25,
+          "right": 350,
+          "height": 120
+        },
+        {
+          "label": "Source (optional)",
+          "x": 25,
+          "right": 350,
+          "height": 48
+        },
+        {
+          "label": "Observed on",
+          "x": 25,
+          "right": 350,
+          "height": 48
+        },
+        {
+          "label": "Add photo",
+          "x": 8,
+          "right": 367,
+          "height": 54
+        },
+        {
+          "label": "Save draft",
+          "x": 8,
+          "right": 183.5,
+          "height": 54
+        },
+        {
+          "label": "Review",
+          "x": 191.5,
+          "right": 367,
+          "height": 74
+        }
+      ]
+    },
+    {
+      "name": "Correction768",
+      "width": 768,
+      "overflow": false,
+      "controls": [
+        {
+          "label": "Go back",
+          "x": 12,
+          "right": 60,
+          "height": 48
+        },
+        {
+          "label": "Menu",
+          "x": 12,
+          "right": 73.46875,
+          "height": 48
+        },
+        {
+          "label": "Address",
+          "x": 81.46875,
+          "right": 159.40625,
+          "height": 48
+        },
+        {
+          "label": "Opening hours",
+          "x": 167.40625,
+          "right": 284.359375,
+          "height": 48
+        },
+        {
+          "label": "Closed or moved",
+          "x": 292.359375,
+          "right": 421.921875,
+          "height": 48
+        },
+        {
+          "label": "Other",
+          "x": 429.921875,
+          "right": 493.046875,
+          "height": 48
+        },
+        {
+          "label": "Add dish",
+          "x": 12,
+          "right": 254.65625,
+          "height": 48
+        },
+        {
+          "label": "Edit dish",
+          "x": 262.65625,
+          "right": 505.328125,
+          "height": 48
+        },
+        {
+          "label": "Remove dish",
+          "x": 513.328125,
+          "right": 756,
+          "height": 48
+        },
+        {
+          "label": "Dish to edit",
+          "x": 29,
+          "right": 739,
+          "height": 48
+        },
+        {
+          "label": "Dish name",
+          "x": 29,
+          "right": 739,
+          "height": 48
+        },
+        {
+          "label": "Price in SGD (optional)",
+          "x": 29,
+          "right": 739,
+          "height": 48
+        },
+        {
+          "label": "Category (optional)",
+          "x": 29,
+          "right": 739,
+          "height": 48
+        },
+        {
+          "label": "Details (optional)",
+          "x": 29,
+          "right": 739,
+          "height": 120
+        },
+        {
+          "label": "Source (optional)",
+          "x": 29,
+          "right": 739,
+          "height": 48
+        },
+        {
+          "label": "Observed on",
+          "x": 29,
+          "right": 739,
+          "height": 48
+        },
+        {
+          "label": "Add photo",
+          "x": 12,
+          "right": 756,
+          "height": 54
+        },
+        {
+          "label": "Save draft",
+          "x": 12,
+          "right": 380,
+          "height": 54
+        },
+        {
+          "label": "Review",
+          "x": 388,
+          "right": 756,
+          "height": 74
+        }
+      ]
+    },
+    {
+      "name": "Correction1440",
+      "width": 1440,
+      "overflow": false,
+      "controls": [
+        {
+          "label": "Go back",
+          "x": 349,
+          "right": 397,
+          "height": 48
+        },
+        {
+          "label": "Menu",
+          "x": 349,
+          "right": 410.46875,
+          "height": 48
+        },
+        {
+          "label": "Address",
+          "x": 418.46875,
+          "right": 496.40625,
+          "height": 48
+        },
+        {
+          "label": "Opening hours",
+          "x": 504.40625,
+          "right": 621.359375,
+          "height": 48
+        },
+        {
+          "label": "Closed or moved",
+          "x": 629.359375,
+          "right": 758.921875,
+          "height": 48
+        },
+        {
+          "label": "Other",
+          "x": 766.921875,
+          "right": 830.046875,
+          "height": 48
+        },
+        {
+          "label": "Add dish",
+          "x": 349,
+          "right": 591,
+          "height": 48
+        },
+        {
+          "label": "Edit dish",
+          "x": 599,
+          "right": 841,
+          "height": 48
+        },
+        {
+          "label": "Remove dish",
+          "x": 849,
+          "right": 1091,
+          "height": 48
+        },
+        {
+          "label": "Dish to edit",
+          "x": 366,
+          "right": 1074,
+          "height": 48
+        },
+        {
+          "label": "Dish name",
+          "x": 366,
+          "right": 1074,
+          "height": 48
+        },
+        {
+          "label": "Price in SGD (optional)",
+          "x": 366,
+          "right": 1074,
+          "height": 48
+        },
+        {
+          "label": "Category (optional)",
+          "x": 366,
+          "right": 1074,
+          "height": 48
+        },
+        {
+          "label": "Details (optional)",
+          "x": 366,
+          "right": 1074,
+          "height": 120
+        },
+        {
+          "label": "Source (optional)",
+          "x": 366,
+          "right": 1074,
+          "height": 48
+        },
+        {
+          "label": "Observed on",
+          "x": 366,
+          "right": 1074,
+          "height": 48
+        },
+        {
+          "label": "Add photo",
+          "x": 349,
+          "right": 1091,
+          "height": 54
+        },
+        {
+          "label": "Save draft",
+          "x": 349,
+          "right": 716,
+          "height": 54
+        },
+        {
+          "label": "Review",
+          "x": 724,
+          "right": 1091,
+          "height": 74
+        }
+      ]
+    },
+    {
+      "name": "Correctionlarger320",
+      "width": 320,
+      "overflow": false,
+      "controls": [
+        {
+          "label": "Go back",
+          "x": 8,
+          "right": 56,
+          "height": 48
+        },
+        {
+          "label": "Menu",
+          "x": 8,
+          "right": 75.4375,
+          "height": 48
+        },
+        {
+          "label": "Address",
+          "x": 83.4375,
+          "right": 166.828125,
+          "height": 48
+        },
+        {
+          "label": "Opening hours",
+          "x": 174.828125,
+          "right": 302.8125,
+          "height": 48
+        },
+        {
+          "label": "Closed or moved",
+          "x": 8,
+          "right": 151.484375,
+          "height": 48
+        },
+        {
+          "label": "Other",
+          "x": 159.484375,
+          "right": 225.96875,
+          "height": 48
+        },
+        {
+          "label": "Add dish",
+          "x": 8,
+          "right": 104,
+          "height": 48
+        },
+        {
+          "label": "Edit dish",
+          "x": 112,
+          "right": 208,
+          "height": 48
+        },
+        {
+          "label": "Remove dish",
+          "x": 216,
+          "right": 312,
+          "height": 48
+        },
+        {
+          "label": "Dish name",
+          "x": 25,
+          "right": 295,
+          "height": 48
+        },
+        {
+          "label": "Price in SGD (optional)",
+          "x": 25,
+          "right": 295,
+          "height": 48
+        },
+        {
+          "label": "Category (optional)",
+          "x": 25,
+          "right": 295,
+          "height": 48
+        },
+        {
+          "label": "Details (optional)",
+          "x": 25,
+          "right": 295,
+          "height": 120
+        },
+        {
+          "label": "Source (optional)",
+          "x": 25,
+          "right": 295,
+          "height": 48
+        },
+        {
+          "label": "Observed on",
+          "x": 25,
+          "right": 295,
+          "height": 48
+        },
+        {
+          "label": "Add photo",
+          "x": 8,
+          "right": 312,
+          "height": 54
+        },
+        {
+          "label": "Save draft",
+          "x": 8,
+          "right": 156,
+          "height": 54
+        },
+        {
+          "label": "Review",
+          "x": 164,
+          "right": 312,
+          "height": 74
+        }
+      ]
+    }
+  ],
+  "a11y": [
+    {
+      "name": "Edit dish375",
+      "violations": [],
+      "incomplete": [
+        "color-contrast"
+      ]
+    },
+    {
+      "name": "Expanded menu375",
+      "violations": [],
+      "incomplete": [
+        "aria-prohibited-attr",
+        "color-contrast",
+        "label-content-name-mismatch"
+      ]
+    },
+    {
+      "name": "Correctionlarger320",
+      "violations": [],
+      "incomplete": [
+        "color-contrast",
+        "label-content-name-mismatch"
+      ]
+    },
+    {
+      "name": "Correctiondark320",
+      "violations": [],
+      "incomplete": [
+        "color-contrast",
+        "label-content-name-mismatch"
+      ]
+    }
+  ],
+  "errors": [],
+  "consoleErrors": [],
+  "actualGoogleCalls": 0,
+  "installedChromeUsed": false,
+  "limits": [
+    "Own managed headless Chromium; controlled venue/photo fixture; actual sanitized menus and actual local case APIs.",
+    "Native visual/gesture acceptance and production case services not established."
+  ],
+  "browserVersion": "156.0.8078.4",
+  "focus": {
+    "found": true,
+    "outerOutline": "2px",
+    "outerColor": "rgb(180, 56, 41)",
+    "borderColor": "rgb(168, 43, 53)",
+    "radius": "24px",
+    "innerOutline": "0px",
+    "height": 36
+  },
+  "status": "pass",
+  "qaOwnerCleanup": 200
+}

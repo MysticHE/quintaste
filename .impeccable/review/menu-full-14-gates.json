@@ -1,0 +1,8 @@
+{
+  "checkedAt": "2026-10-16T08:35:31.212705+00:00",
+  "passed": true,
+  "fresh": false,
+  "reference": ".impeccable/review/menu-full-13-gates.json",
+  "scope": "TypeScript and lint passed during followup13; original evidence dates retained because subsequent changes are research/publication data and private QA helpers only. Fresh followup14 compiler/register checks pass.",
+  "publicationChecks": ".impeccable/review/menu-full-14-publication.json"
+}

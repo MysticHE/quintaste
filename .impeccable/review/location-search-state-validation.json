@@ -1,0 +1,41 @@
+{
+  "checks": [
+    "Singapore mode removes dormant location label",
+    "Chosen-location mode restores label and accepted area",
+    "Non-geographic filters preserve dirty text",
+    "Blurred unresolved submit cannot replace newer map choice"
+  ],
+  "requests": [
+    {
+      "area": "Tiong Bahru",
+      "query": "",
+      "vegan": false,
+      "radius": 5000
+    },
+    {
+      "area": "Bugis",
+      "query": "",
+      "vegan": false,
+      "radius": 5000
+    },
+    {
+      "area": "Singapore",
+      "query": "",
+      "vegan": false,
+      "radius": 5000
+    },
+    {
+      "area": "Bugis",
+      "query": "",
+      "vegan": false,
+      "radius": 5000
+    },
+    {
+      "area": "Bugis",
+      "query": "",
+      "vegan": false,
+      "radius": 5000
+    }
+  ],
+  "errors": []
+}

@@ -1,0 +1,1830 @@
+{
+  "version": 1,
+  "checkedAt": "2026-10-16T00:31:58Z",
+  "identityReviewDataset": "data/menu-research/identity-completion-batch-01.json",
+  "notice": "Source-specific food facts only. Unresolved identity and dietary holds preserved. No copied artwork/marketing prose, beverages or ingredient-only standalone rows.",
+  "sources": [
+    {
+      "id": "icf-lw-home",
+      "url": "https://livingwholesome.sg/",
+      "title": "Living Wholesome four-food brand showcase",
+      "status": "readable",
+      "notes": "Normal public HTML200. Four named foods; no prices/modifiers. Explicit plant-based claim and two locations, same bowl.",
+      "kind": "merchant-source",
+      "checkedAt": "2026-10-16T00:31:58Z",
+      "publishedAt": null
+    },
+    {
+      "id": "icf-happy-index",
+      "url": "https://kmspks.org/services/vegetarian-food/",
+      "title": "Happy Realm operator vegetarian-food index",
+      "status": "indexed-text-direct403",
+      "notes": "Full menu link indexed; direct403 prevents inspecting its target. No bypass. Level 2 Dining Hall identified.",
+      "kind": "merchant-source",
+      "checkedAt": "2026-10-16T00:31:58Z",
+      "publishedAt": null
+    },
+    {
+      "id": "icf-happy-issue63",
+      "url": "https://kmspks.org/wp-content/blogs.dir/1/files/63-Awaken-Magazine-Online-compressed.pdf",
+      "title": "Awaken Issue63 Happy Realm feature, printed page85",
+      "status": "indexed-food-facts-direct403",
+      "notes": "Older operator magazine. Exact publication/effective date unverified; search age labels do not establish a date. Direct PDF403. Historical examples only.",
+      "kind": "operator-publication",
+      "checkedAt": "2026-10-16T00:31:58Z",
+      "publishedAt": null
+    },
+    {
+      "id": "icf-150-foodpanda",
+      "url": "https://www.foodpanda.sg/restaurant/l2ov/150-green-vegetarian-bukit-batok-street-11",
+      "title": "150 Green four displayed mains",
+      "status": "readable-retriever-direct403",
+      "notes": "All 4 food headings/prices captured. Ordinary HTTP403 prevents inspecting item options; no bypass. Merchant explicitly trades as150 GreenVegetarian and the displayed menu is wholly vegetarian; no ingredient certification inferred.",
+      "kind": "delivery-menu",
+      "checkedAt": "2026-10-16T00:31:58Z",
+      "publishedAt": null
+    },
+    {
+      "id": "icf-ssy-foodpanda",
+      "url": "https://www.foodpanda.sg/restaurant/x0mx/su-shi-yuan-vegetarian-tampines-street-81",
+      "title": "Su Shi Yuan latest six-food delivery assortment",
+      "status": "readable-retriever-direct403",
+      "notes": "Latest snapshot shows3 set meals+3 extras;3 Popular repeats excluded. Earlier6-food snapshot differs. Popiah says sometimes shrimp; Whole filling ingredients unverified; no contradiction established for Yam Roll. DirectHTTP403, no option bypass.",
+      "kind": "delivery-menu",
+      "checkedAt": "2026-10-16T00:31:58Z",
+      "publishedAt": null
+    },
+    {
+      "id": "icf-teenoy-foodpanda",
+      "url": "https://www.foodpanda.sg/restaurant/tad5/teenoy-thai-vegetarian-hougang-avenue-9",
+      "title": "Teenoy Hougang 59 unique displayed foods",
+      "status": "readable-retriever-direct403",
+      "notes": "59 products in9 food categories;6 Popular repeats excluded. Discounted/list prices separate. Source932#01-04 differs from frozen932B; retained separately without a Google ID assignment or identity merge. DirectHTTP403 prevents option detail; no bypass.",
+      "kind": "delivery-menu",
+      "checkedAt": "2026-10-16T00:31:58Z",
+      "publishedAt": null
+    }
+  ],
+  "branches": [
+    {
+      "id": "living-wholesome-bukit-timah",
+      "name": "Living Wholesome Vegetarian — Bukit Timah",
+      "address": "2A Jalan Seh Chuan #01-060, Singapore 599213",
+      "postalCode": "599213",
+      "sourceIds": [
+        "icf-lw-home"
+      ],
+      "menuIds": [
+        "icf-lw-brand-foods"
+      ],
+      "candidatePlaceIds": [
+        "ChIJ8Seg-YkQ2jERAS5t2xouE04"
+      ],
+      "googlePlaceId": null,
+      "gaps": [
+        "Brand-shared four-food showcase; no prices or separate complete branch menu."
+      ],
+      "unit": "#01-060",
+      "identityStatus": "merchant-confirmed",
+      "dietaryScope": "merchant-plant-based-claim",
+      "venueEligibility": {
+        "status": "vegetarian-confirmed",
+        "appScope": "vegetarian-vegan-venues-only",
+        "reason": "Explicit operator statement."
+      }
+    },
+    {
+      "id": "happy-realm-bright-hill",
+      "name": "Happy Realm 素食林",
+      "address": "88 Bright Hill Road, Venerable Hong Choon Memorial Hall Level 2 Dining Hall, Singapore 574117",
+      "postalCode": "574117",
+      "sourceIds": [
+        "icf-happy-index",
+        "icf-happy-issue63"
+      ],
+      "menuIds": [
+        "icf-happy-issue63-foods"
+      ],
+      "candidatePlaceIds": [
+        "ChIJ-6eWDAAX2jERHs6J1HJHFwg"
+      ],
+      "googlePlaceId": null,
+      "gaps": [
+        "Current full menu unavailable due403; older magazine foods held; exact publication/effective date unknown."
+      ],
+      "identityStatus": "operator-publication-confirmed",
+      "dietaryScope": "merchant-vegetarian-claim",
+      "venueEligibility": {
+        "status": "vegetarian-confirmed",
+        "appScope": "vegetarian-vegan-venues-only",
+        "reason": "Explicit operator statement."
+      }
+    },
+    {
+      "id": "150-green-bukit-batok",
+      "name": "150 Green Vegetarian — Bukit Batok",
+      "address": "150 Bukit Batok Street 11 #01-224, Singapore 650150",
+      "postalCode": "650150",
+      "sourceIds": [
+        "icf-150-foodpanda"
+      ],
+      "menuIds": [
+        "icf-150-delivery-foods"
+      ],
+      "candidatePlaceIds": [
+        "ChIJ0eJGJyER2jERiyMyusvJbnM"
+      ],
+      "googlePlaceId": null,
+      "gaps": [
+        "Three from-prices lack option/portion detail. Postal is corroborated by the owned independent lead; visible channel gives street/unit. Current ingredients/stock unverified."
+      ],
+      "unit": "#01-224",
+      "identityStatus": "delivery-street-unit-confirmed-postal-owned-lead",
+      "dietaryScope": "merchant-vegetarian-ordering-venue",
+      "venueEligibility": {
+        "status": "vegetarian-confirmed",
+        "evidence": "Merchant-managed ordering page trades explicitly as150 GreenVegetarian and all 4 displayed mains explicitly say vegetarian; no meat/fish contradiction in this source."
+      }
+    },
+    {
+      "id": "su-shi-yuan-tampines",
+      "name": "Su Shi Yuan Vegetarian — Tampines Street 81",
+      "address": "823A Tampines Street 81, Singapore 521823",
+      "postalCode": "521823",
+      "sourceIds": [
+        "icf-ssy-foodpanda"
+      ],
+      "menuIds": [
+        "icf-ssy-delivery-foods"
+      ],
+      "candidatePlaceIds": [
+        "ChIJ0XNDkms92jER5Bt2K4kpKNA"
+      ],
+      "googlePlaceId": null,
+      "gaps": [
+        "Latest assortment differs from earlier snapshot. Popiah generic shrimp description is an item hold. Other complete ingredients/options/stock remain unverified."
+      ],
+      "identityStatus": "delivery-premises-confirmed",
+      "dietaryScope": "merchant-vegetarian-ordering-venue-with-item-hold",
+      "venueEligibility": {
+        "status": "merchant-vegetarian-positioning-with-item-hold",
+        "evidence": "Ordering merchant trades asSu Shi YuanVegetarian; sets explicitly contain mock meats. Generic Popiah shrimp description remains an unresolved item hold."
+      }
+    },
+    {
+      "id": "teenoy-hougang-foodpanda-932",
+      "name": "Teenoy Thai Vegetarian - Hougang ordering source 932",
+      "address": "932 Hougang Avenue 9 #01-04, Singapore 530932",
+      "postalCode": "530932",
+      "sourceIds": [
+        "icf-teenoy-foodpanda"
+      ],
+      "menuIds": [
+        "icf-teenoy-delivery-source-932"
+      ],
+      "candidatePlaceIds": [],
+      "googlePlaceId": null,
+      "gaps": [
+        "Published ordering address932#01-04 retained exactly. It is not reconciled with the distinct932B directory lead or mapped to its candidate Google ID. Food option details/stock/taxes remain unverified."
+      ],
+      "unit": "#01-04",
+      "identityStatus": "source-specific-ordering-premises-no-google-assignment",
+      "dietaryScope": "merchant-vegetarian-ordering-venue",
+      "venueEligibility": {
+        "status": "vegetarian-confirmed",
+        "evidence": "Ordering merchant trades asTeenoy Thai Vegetarian; coherent vegetarian analogue menu. Egg/honey remain vegetarian, not vegan claims."
+      },
+      "unmergedLeadReferences": [
+        {
+          "dataset": "data/menu-research/identity-completion-batch-01.json",
+          "sequence": 5,
+          "reason": "Frozen932B lead is not merged into this distinct published932 ordering address."
+        }
+      ]
+    }
+  ],
+  "menus": [
+    {
+      "id": "icf-lw-brand-foods",
+      "name": "Living Wholesome — four brand-shared foods",
+      "scope": "brand",
+      "branchIds": [
+        "living-wholesome-bukit-timah"
+      ],
+      "sourceIds": [
+        "icf-lw-home"
+      ],
+      "coverage": "brand-only",
+      "notice": "Merchant says two locations, same bowl. Four brand-shared foods without prices; not a complete exact-branch menu.",
+      "sourceCoverage": {
+        "foodProducts": 4,
+        "pricedFoodProducts": 0,
+        "visibleModifierGroups": 0
+      },
+      "items": [
+        {
+          "id": "icf-lw-1",
+          "name": "Thunder Tea Brown Rice",
+          "category": "Brand-shared food",
+          "sourceIds": [
+            "icf-lw-home"
+          ],
+          "priceStatus": "not-published",
+          "qualifier": "Merchant describes its shared food as fully plant-based. No price published. Brown rice version. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-lw-2",
+          "name": "Thunder Tea with Bee Hoon",
+          "category": "Brand-shared food",
+          "sourceIds": [
+            "icf-lw-home"
+          ],
+          "priceStatus": "not-published",
+          "qualifier": "Merchant describes its shared food as fully plant-based. No price published. Bee hoon version. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-lw-3",
+          "name": "Kosong (No Carbs)",
+          "category": "Brand-shared food",
+          "sourceIds": [
+            "icf-lw-home"
+          ],
+          "priceStatus": "not-published",
+          "qualifier": "Merchant describes its shared food as fully plant-based. No price published. No-carbohydrate option. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-lw-4",
+          "name": "Yuan Yang",
+          "category": "Brand-shared food",
+          "sourceIds": [
+            "icf-lw-home"
+          ],
+          "priceStatus": "not-published",
+          "qualifier": "Merchant describes its shared food as fully plant-based. No price published. Rice and bee hoon combination. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        }
+      ]
+    },
+    {
+      "id": "icf-happy-issue63-foods",
+      "name": "Happy Realm — older Awaken Issue63 food examples",
+      "scope": "branch",
+      "branchIds": [
+        "happy-realm-bright-hill"
+      ],
+      "sourceIds": [
+        "icf-happy-issue63"
+      ],
+      "coverage": "historical",
+      "publicationStatus": "held",
+      "notice": "Older operator magazine, printed page85; exact publication/effective date unknown. Six printed price examples plus two unpriced sauce variants. Held as historical research. Unqualified $ symbol leaves currency unknown.",
+      "sourceCoverage": {
+        "foodProducts": 8,
+        "pricedFoodProducts": 6,
+        "unpricedVariants": 2,
+        "printedPage": 85
+      },
+      "items": [
+        {
+          "id": "icf-happy63-1",
+          "name": "Sambal Petai Fried Rice",
+          "category": "Magazine food example",
+          "sourceIds": [
+            "icf-happy-issue63"
+          ],
+          "price": {
+            "amount": 8,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "currency": "unknown",
+          "publicationStatus": "held",
+          "holdReason": "Older publication; current menu/effective date unverified.",
+          "qualifier": "Awaken Issue63 printed page85; publication date unknown. Printed price example, not current menu confirmation. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-happy63-2",
+          "name": "Spinach Wanton Noodle (Dry)",
+          "category": "Magazine food example",
+          "sourceIds": [
+            "icf-happy-issue63"
+          ],
+          "price": {
+            "amount": 8,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "currency": "unknown",
+          "publicationStatus": "held",
+          "holdReason": "Older publication; current menu/effective date unverified.",
+          "qualifier": "Awaken Issue63 printed page85; publication date unknown. Printed price example, not current menu confirmation. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-happy63-3",
+          "name": "Vegetarian Satay",
+          "category": "Magazine food example",
+          "sourceIds": [
+            "icf-happy-issue63"
+          ],
+          "price": {
+            "amount": 12,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "currency": "unknown",
+          "publicationStatus": "held",
+          "holdReason": "Older publication; current menu/effective date unverified.",
+          "qualifier": "Awaken Issue63 printed page85; publication date unknown. Printed price example, not current menu confirmation. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-happy63-4",
+          "name": "Sweet and Sour \"Chicken\" with Rice",
+          "category": "Magazine food example",
+          "sourceIds": [
+            "icf-happy-issue63"
+          ],
+          "price": {
+            "amount": 8,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "currency": "unknown",
+          "publicationStatus": "held",
+          "holdReason": "Older publication; current menu/effective date unverified.",
+          "qualifier": "Awaken Issue63 printed page85; publication date unknown. Printed price example, not current menu confirmation. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-happy63-5",
+          "name": "Sambal Asparagus",
+          "category": "Magazine food example",
+          "sourceIds": [
+            "icf-happy-issue63"
+          ],
+          "price": {
+            "amount": 13,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "currency": "unknown",
+          "publicationStatus": "held",
+          "holdReason": "Older publication; current menu/effective date unverified.",
+          "qualifier": "Awaken Issue63 printed page85; publication date unknown. Printed price example, not current menu confirmation. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-happy63-6",
+          "name": "Cereal Tofu",
+          "category": "Magazine food example",
+          "sourceIds": [
+            "icf-happy-issue63"
+          ],
+          "price": {
+            "amount": 12,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "currency": "unknown",
+          "publicationStatus": "held",
+          "holdReason": "Older publication; current menu/effective date unverified.",
+          "qualifier": "Awaken Issue63 printed page85; publication date unknown. Printed price example, not current menu confirmation. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-happy63-7",
+          "name": "Kung Pao \"Chicken\" with Rice",
+          "category": "Magazine food example",
+          "sourceIds": [
+            "icf-happy-issue63"
+          ],
+          "priceStatus": "not-published",
+          "currency": "unknown",
+          "publicationStatus": "held",
+          "holdReason": "Older publication; current menu/effective date unverified.",
+          "qualifier": "Awaken Issue63 printed page85; publication date unknown. Sauce variant named with no separate price; no inherited price. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-happy63-8",
+          "name": "Butter Sauce \"Chicken\" with Rice",
+          "category": "Magazine food example",
+          "sourceIds": [
+            "icf-happy-issue63"
+          ],
+          "priceStatus": "not-published",
+          "currency": "unknown",
+          "publicationStatus": "held",
+          "holdReason": "Older publication; current menu/effective date unverified.",
+          "qualifier": "Awaken Issue63 printed page85; publication date unknown. Sauce variant named with no separate price; no inherited price. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        }
+      ]
+    },
+    {
+      "id": "icf-150-delivery-foods",
+      "name": "150 Green Bukit Batok — partial delivery menu",
+      "scope": "branch-delivery",
+      "branchIds": [
+        "150-green-bukit-batok"
+      ],
+      "sourceIds": [
+        "icf-150-foodpanda"
+      ],
+      "coverage": "partial",
+      "notice": "All 4 displayed mains captured. Three from-prices lack readable options/portions. Minimum order observed S$13, session-specific. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified.",
+      "sourceCoverage": {
+        "foodProducts": 4,
+        "fromPrices": 3,
+        "foodModifiersCovered": false,
+        "heldFoodProducts": 0
+      },
+      "orderingContext": {
+        "minimumOrder": {
+          "amount": 13,
+          "currency": "SGD",
+          "notice": "Session observation; may vary."
+        }
+      },
+      "items": [
+        {
+          "id": "icf-150-1",
+          "name": "Vegetarian Curry Vegetable 齋咖哩菜",
+          "category": "Mains 主食薄饼",
+          "sourceIds": [
+            "icf-150-foodpanda"
+          ],
+          "price": {
+            "amount": 6.5,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "sourcePriceText": "from S$6.50",
+          "qualifier": "From-price; option/portion prices unavailable. Vegetarian is explicit in the product title; no vegan/allium-free inference. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-150-2",
+          "name": "Vegetarian White Bee Hoon 齋白米粉",
+          "category": "Mains 主食薄饼",
+          "sourceIds": [
+            "icf-150-foodpanda"
+          ],
+          "price": {
+            "amount": 6.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$6.50",
+          "qualifier": "Displayed delivery price. Vegetarian is explicit in the product title; no vegan/allium-free inference. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-150-3",
+          "name": "Vegetarian Fried Kuey Teow 齋果條",
+          "category": "Mains 主食薄饼",
+          "sourceIds": [
+            "icf-150-foodpanda"
+          ],
+          "price": {
+            "amount": 6.5,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "sourcePriceText": "from S$6.50",
+          "qualifier": "From-price; option/portion prices unavailable. Vegetarian is explicit in the product title; no vegan/allium-free inference. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-150-4",
+          "name": "Vegetarian Fried Hong Kong Noodle 斎香港面",
+          "category": "Mains 主食薄饼",
+          "sourceIds": [
+            "icf-150-foodpanda"
+          ],
+          "price": {
+            "amount": 6.5,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "sourcePriceText": "from S$6.50",
+          "qualifier": "From-price; option/portion prices unavailable. Vegetarian is explicit in the product title; no vegan/allium-free inference. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        }
+      ]
+    },
+    {
+      "id": "icf-ssy-delivery-foods",
+      "name": "Su Shi Yuan Tampines — food snapshot with item holds",
+      "scope": "branch-delivery",
+      "branchIds": [
+        "su-shi-yuan-tampines"
+      ],
+      "sourceIds": [
+        "icf-ssy-foodpanda"
+      ],
+      "coverage": "partial",
+      "notice": "All 6 unique displayed foods captured;3 Popular repeats excluded. Popiah held for contradictory generic shrimp description; other foods retained under the ordering merchant vegetarian positioning. Earlier Seaweed Roll/Fried Tofu Skin listings not silently combined as current assortment. Minimum order observed S$14, session-specific. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified.",
+      "sourceCoverage": {
+        "foodProducts": 6,
+        "popularDuplicatesExcluded": 3,
+        "heldFoodProducts": 1,
+        "foodModifiersCovered": false
+      },
+      "orderingContext": {
+        "minimumOrder": {
+          "amount": 14,
+          "currency": "SGD",
+          "notice": "Session observation; may vary."
+        }
+      },
+      "items": [
+        {
+          "id": "icf-ssy-1",
+          "name": "Bee Hoon Set",
+          "category": "Set Menus",
+          "sourceIds": [
+            "icf-ssy-foodpanda"
+          ],
+          "price": {
+            "amount": 7.4,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "qualifier": "Set includes fried tofu skin, mock meats and vegetables. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-ssy-2",
+          "name": "Kway Teow Mee Set",
+          "category": "Set Menus",
+          "sourceIds": [
+            "icf-ssy-foodpanda"
+          ],
+          "price": {
+            "amount": 7.4,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "qualifier": "Set includes fried tofu skin, mock meats and vegetables. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-ssy-3",
+          "name": "Kway Teow Mee and Bee Hoon Set",
+          "category": "Set Menus",
+          "sourceIds": [
+            "icf-ssy-foodpanda"
+          ],
+          "price": {
+            "amount": 7.4,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "qualifier": "Set includes fried tofu skin, mock meats and vegetables. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-ssy-4",
+          "name": "Popiah",
+          "category": "Extras",
+          "sourceIds": [
+            "icf-ssy-foodpanda"
+          ],
+          "price": {
+            "amount": 2.4,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "publicationStatus": "held",
+          "holdReason": "Source generic ingredient description mentions sometimes shrimp; merchant clarification required.",
+          "qualifier": "Popiah ingredient-description conflict; held. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-ssy-5",
+          "name": "Yam Roll",
+          "category": "Extras",
+          "sourceIds": [
+            "icf-ssy-foodpanda"
+          ],
+          "price": {
+            "amount": 2.4,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "qualifier": "Vegetarian-positioned merchant; complete filling ingredients not published. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-ssy-6",
+          "name": "Fried Beancurd",
+          "category": "Extras",
+          "sourceIds": [
+            "icf-ssy-foodpanda"
+          ],
+          "price": {
+            "amount": 1.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "qualifier": "Named fried-beancurd food. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        }
+      ]
+    },
+    {
+      "id": "icf-teenoy-delivery-source-932",
+      "name": "Teenoy Hougang - published 932 address delivery food snapshot",
+      "scope": "branch-delivery",
+      "branchIds": [
+        "teenoy-hougang-foodpanda-932"
+      ],
+      "sourceIds": [
+        "icf-teenoy-foodpanda"
+      ],
+      "coverage": "partial",
+      "notice": "59 unique displayed foods/9 categories,6 Popular duplicates excluded. This source-specific menu remains at its published932#01-04 address with no Google ID assignment and no932B merge. Displayed20% discounted/list prices separate, promotion end unknown. Minimum order observed S$12. CLOSED is channel status, not permanent closure. Food modifier details unavailable.",
+      "sourceCoverage": {
+        "foodProducts": 59,
+        "foodCategories": 9,
+        "popularDuplicatesExcluded": 6,
+        "foodModifiersCovered": false
+      },
+      "orderingContext": {
+        "minimumOrder": {
+          "amount": 12,
+          "currency": "SGD"
+        },
+        "promotion": "20% off automatically applied; end date unknown",
+        "sourceChannelStatus": "CLOSED; not permanent-closure evidence"
+      },
+      "items": [
+        {
+          "id": "icf-teenoy-01",
+          "name": "Stir-fried Broccoli with Mushrooms",
+          "category": "Vegetable",
+          "sourceIds": [
+            "icf-teenoy-foodpanda"
+          ],
+          "price": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "listingPrice": {
+            "amount": 10,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$8 / S$10",
+          "qualifier": "Displayed20% discounted delivery price; original list price separate, promotion end unknown. Food option/portion detail unavailable. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-teenoy-02",
+          "name": "Stir-fried Mixed Vegetables",
+          "category": "Vegetable",
+          "sourceIds": [
+            "icf-teenoy-foodpanda"
+          ],
+          "price": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "listingPrice": {
+            "amount": 10,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$8 / S$10",
+          "qualifier": "Displayed20% discounted delivery price; original list price separate, promotion end unknown. Food option/portion detail unavailable. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-teenoy-03",
+          "name": "Stir-fried Kailan with Vegetarian Oyster Sauce",
+          "category": "Vegetable",
+          "sourceIds": [
+            "icf-teenoy-foodpanda"
+          ],
+          "price": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "listingPrice": {
+            "amount": 10,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$8 / S$10",
+          "qualifier": "Displayed20% discounted delivery price; original list price separate, promotion end unknown. Food option/portion detail unavailable. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-teenoy-04",
+          "name": "Stir-fried Kangkong with Vegetarian Oyster Sauce",
+          "category": "Vegetable",
+          "sourceIds": [
+            "icf-teenoy-foodpanda"
+          ],
+          "price": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "listingPrice": {
+            "amount": 10,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$8 / S$10",
+          "qualifier": "Displayed20% discounted delivery price; original list price separate, promotion end unknown. Food option/portion detail unavailable. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-teenoy-05",
+          "name": "Stir-fried Kangkong with Sambal",
+          "category": "Vegetable",
+          "sourceIds": [
+            "icf-teenoy-foodpanda"
+          ],
+          "price": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "listingPrice": {
+            "amount": 10,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$8 / S$10",
+          "qualifier": "Displayed20% discounted delivery price; original list price separate, promotion end unknown. Food option/portion detail unavailable. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-teenoy-06",
+          "name": "Stir-fried Basil Beancurd",
+          "category": "Vegetable",
+          "sourceIds": [
+            "icf-teenoy-foodpanda"
+          ],
+          "price": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "listingPrice": {
+            "amount": 10,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$8 / S$10",
+          "qualifier": "Displayed20% discounted delivery price; original list price separate, promotion end unknown. Food option/portion detail unavailable. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-teenoy-07",
+          "name": "Stir-fried Bean Sprout with Beancurd",
+          "category": "Vegetable",
+          "sourceIds": [
+            "icf-teenoy-foodpanda"
+          ],
+          "price": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "listingPrice": {
+            "amount": 10,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$8 / S$10",
+          "qualifier": "Displayed20% discounted delivery price; original list price separate, promotion end unknown. Food option/portion detail unavailable. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-teenoy-08",
+          "name": "Stir-fried Long Bean with Sambal",
+          "category": "Vegetable",
+          "sourceIds": [
+            "icf-teenoy-foodpanda"
+          ],
+          "price": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "listingPrice": {
+            "amount": 10,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$8 / S$10",
+          "qualifier": "Displayed20% discounted delivery price; original list price separate, promotion end unknown. Food option/portion detail unavailable. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-teenoy-09",
+          "name": "Tom Yum Clear Soup with Vegetarian Shrimps & Rice",
+          "category": "Soup & Curry",
+          "sourceIds": [
+            "icf-teenoy-foodpanda"
+          ],
+          "price": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "listingPrice": {
+            "amount": 10,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$8 / S$10",
+          "qualifier": "Displayed20% discounted delivery price; original list price separate, promotion end unknown. Food option/portion detail unavailable. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-teenoy-10",
+          "name": "Tom Yum Red Soup with Vegetarian Shrimps & Rice",
+          "category": "Soup & Curry",
+          "sourceIds": [
+            "icf-teenoy-foodpanda"
+          ],
+          "price": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "listingPrice": {
+            "amount": 10,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$8 / S$10",
+          "qualifier": "Displayed20% discounted delivery price; original list price separate, promotion end unknown. Food option/portion detail unavailable. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-teenoy-11",
+          "name": "Thai Coconut Soup with Vegetarian Shrimps & Rice",
+          "category": "Soup & Curry",
+          "sourceIds": [
+            "icf-teenoy-foodpanda"
+          ],
+          "price": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "listingPrice": {
+            "amount": 10,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$8 / S$10",
+          "qualifier": "Displayed20% discounted delivery price; original list price separate, promotion end unknown. Food option/portion detail unavailable. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-teenoy-12",
+          "name": "Thai Green Curry with Vegetarian Chicken Cube & Rice",
+          "category": "Soup & Curry",
+          "sourceIds": [
+            "icf-teenoy-foodpanda"
+          ],
+          "price": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "listingPrice": {
+            "amount": 10,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$8 / S$10",
+          "qualifier": "Displayed20% discounted delivery price; original list price separate, promotion end unknown. Food option/portion detail unavailable. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-teenoy-13",
+          "name": "Vegetarian Chicken Massaman Curry with Rice",
+          "category": "Soup & Curry",
+          "sourceIds": [
+            "icf-teenoy-foodpanda"
+          ],
+          "price": {
+            "amount": 9.6,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "listingPrice": {
+            "amount": 12,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$9.6 / S$12",
+          "qualifier": "Displayed20% discounted delivery price; original list price separate, promotion end unknown. Food option/portion detail unavailable. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-teenoy-14",
+          "name": "Clear Soup with Egg Tofu, Vegetarian Shrimps & Rice",
+          "category": "Soup & Curry",
+          "sourceIds": [
+            "icf-teenoy-foodpanda"
+          ],
+          "price": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "listingPrice": {
+            "amount": 10,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$8 / S$10",
+          "qualifier": "Displayed20% discounted delivery price; original list price separate, promotion end unknown. Egg explicit; not a vegan claim. Food option/portion detail unavailable. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-teenoy-15",
+          "name": "Thai Papaya Salad",
+          "category": "Salad",
+          "sourceIds": [
+            "icf-teenoy-foodpanda"
+          ],
+          "price": {
+            "amount": 6.4,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "listingPrice": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$6.4 / S$8",
+          "qualifier": "Displayed20% discounted delivery price; original list price separate, promotion end unknown. Food option/portion detail unavailable. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-teenoy-16",
+          "name": "Thai Mango Salad",
+          "category": "Salad",
+          "sourceIds": [
+            "icf-teenoy-foodpanda"
+          ],
+          "price": {
+            "amount": 6.4,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "listingPrice": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$6.4 / S$8",
+          "qualifier": "Displayed20% discounted delivery price; original list price separate, promotion end unknown. Food option/portion detail unavailable. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-teenoy-17",
+          "name": "Thai Vermicelli Salad with Vegetarian Shrimps & Vegetables",
+          "category": "Salad",
+          "sourceIds": [
+            "icf-teenoy-foodpanda"
+          ],
+          "price": {
+            "amount": 9.6,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "listingPrice": {
+            "amount": 12,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$9.6 / S$12",
+          "qualifier": "Displayed20% discounted delivery price; original list price separate, promotion end unknown. Food option/portion detail unavailable. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-teenoy-18",
+          "name": "Thai Maggi Salad with Vegetarian Shrimps & Vegetables",
+          "category": "Salad",
+          "sourceIds": [
+            "icf-teenoy-foodpanda"
+          ],
+          "price": {
+            "amount": 9.6,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "listingPrice": {
+            "amount": 12,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$9.6 / S$12",
+          "qualifier": "Displayed20% discounted delivery price; original list price separate, promotion end unknown. Food option/portion detail unavailable. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-teenoy-19",
+          "name": "Thai Spicy Tofu Salad",
+          "category": "Salad",
+          "sourceIds": [
+            "icf-teenoy-foodpanda"
+          ],
+          "price": {
+            "amount": 9.6,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "listingPrice": {
+            "amount": 12,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$9.6 / S$12",
+          "qualifier": "Displayed20% discounted delivery price; original list price separate, promotion end unknown. Food option/portion detail unavailable. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-teenoy-20",
+          "name": "Vegetarian Pork Skewer",
+          "category": "Appetizer & Side Dish",
+          "sourceIds": [
+            "icf-teenoy-foodpanda"
+          ],
+          "price": {
+            "amount": 6.4,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "listingPrice": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$6.4 / S$8",
+          "qualifier": "Displayed20% discounted delivery price; original list price separate, promotion end unknown. Food option/portion detail unavailable. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-teenoy-21",
+          "name": "Vegetarian Pandan Chicken",
+          "category": "Appetizer & Side Dish",
+          "sourceIds": [
+            "icf-teenoy-foodpanda"
+          ],
+          "price": {
+            "amount": 6.4,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "listingPrice": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$6.4 / S$8",
+          "qualifier": "Displayed20% discounted delivery price; original list price separate, promotion end unknown. Food option/portion detail unavailable. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-teenoy-22",
+          "name": "Thai Deep-fried Beancurd with Sweet Chilli Sauce",
+          "category": "Appetizer & Side Dish",
+          "sourceIds": [
+            "icf-teenoy-foodpanda"
+          ],
+          "price": {
+            "amount": 6.4,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "listingPrice": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$6.4 / S$8",
+          "qualifier": "Displayed20% discounted delivery price; original list price separate, promotion end unknown. Food option/portion detail unavailable. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-teenoy-23",
+          "name": "Thai Spring Roll",
+          "category": "Appetizer & Side Dish",
+          "sourceIds": [
+            "icf-teenoy-foodpanda"
+          ],
+          "price": {
+            "amount": 6.4,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "listingPrice": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$6.4 / S$8",
+          "qualifier": "Displayed20% discounted delivery price; original list price separate, promotion end unknown. Food option/portion detail unavailable. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-teenoy-24",
+          "name": "Thai Vegetarian Fish Cake",
+          "category": "Appetizer & Side Dish",
+          "sourceIds": [
+            "icf-teenoy-foodpanda"
+          ],
+          "price": {
+            "amount": 6.4,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "listingPrice": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$6.4 / S$8",
+          "qualifier": "Displayed20% discounted delivery price; original list price separate, promotion end unknown. Food option/portion detail unavailable. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-teenoy-25",
+          "name": "Acacia Pennata Omelette with Spicy Paste Sauce",
+          "category": "Appetizer & Side Dish",
+          "sourceIds": [
+            "icf-teenoy-foodpanda"
+          ],
+          "price": {
+            "amount": 9.6,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "listingPrice": {
+            "amount": 12,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$9.6 / S$12",
+          "qualifier": "Displayed20% discounted delivery price; original list price separate, promotion end unknown. Egg explicit; not a vegan claim. Food option/portion detail unavailable. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-teenoy-26",
+          "name": "Thai Baked Vegetarian Prawns with Glass Noodle",
+          "category": "Appetizer & Side Dish",
+          "sourceIds": [
+            "icf-teenoy-foodpanda"
+          ],
+          "price": {
+            "amount": 9.6,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "listingPrice": {
+            "amount": 12,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$9.6 / S$12",
+          "qualifier": "Displayed20% discounted delivery price; original list price separate, promotion end unknown. Food option/portion detail unavailable. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-teenoy-27",
+          "name": "Golden Crispy Bitez",
+          "category": "Appetizer & Side Dish",
+          "sourceIds": [
+            "icf-teenoy-foodpanda"
+          ],
+          "price": {
+            "amount": 6.4,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "listingPrice": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$6.4 / S$8",
+          "qualifier": "Displayed20% discounted delivery price; original list price separate, promotion end unknown. Food option/portion detail unavailable. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-teenoy-28",
+          "name": "Samosa",
+          "category": "Appetizer & Side Dish",
+          "sourceIds": [
+            "icf-teenoy-foodpanda"
+          ],
+          "price": {
+            "amount": 6.4,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "listingPrice": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$6.4 / S$8",
+          "qualifier": "Displayed20% discounted delivery price; original list price separate, promotion end unknown. Food option/portion detail unavailable. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-teenoy-29",
+          "name": "Prawn Roll",
+          "category": "Appetizer & Side Dish",
+          "sourceIds": [
+            "icf-teenoy-foodpanda"
+          ],
+          "price": {
+            "amount": 6.4,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "listingPrice": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$6.4 / S$8",
+          "qualifier": "Displayed20% discounted delivery price; original list price separate, promotion end unknown. Food option/portion detail unavailable. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-teenoy-30",
+          "name": "Seafoods Roll Vegetarian",
+          "category": "Appetizer & Side Dish",
+          "sourceIds": [
+            "icf-teenoy-foodpanda"
+          ],
+          "price": {
+            "amount": 6.4,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "listingPrice": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$6.4 / S$8",
+          "qualifier": "Displayed20% discounted delivery price; original list price separate, promotion end unknown. Food option/portion detail unavailable. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-teenoy-31",
+          "name": "Hoijo หอยจ๊อ",
+          "category": "Appetizer & Side Dish",
+          "sourceIds": [
+            "icf-teenoy-foodpanda"
+          ],
+          "price": {
+            "amount": 9.6,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "listingPrice": {
+            "amount": 12,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$9.6 / S$12",
+          "qualifier": "Displayed20% discounted delivery price; original list price separate, promotion end unknown. Food option/portion detail unavailable. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-teenoy-32",
+          "name": "Stir-fried Basil Minced Mushroom with Rice & Egg",
+          "category": "Rice",
+          "sourceIds": [
+            "icf-teenoy-foodpanda"
+          ],
+          "price": {
+            "amount": 6.4,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "listingPrice": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$6.4 / S$8",
+          "qualifier": "Displayed20% discounted delivery price; original list price separate, promotion end unknown. Egg explicit; not a vegan claim. Food option/portion detail unavailable. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-teenoy-33",
+          "name": "Stir-fried Basil Tofu with Rice & Egg",
+          "category": "Rice",
+          "sourceIds": [
+            "icf-teenoy-foodpanda"
+          ],
+          "price": {
+            "amount": 6.4,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "listingPrice": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$6.4 / S$8",
+          "qualifier": "Displayed20% discounted delivery price; original list price separate, promotion end unknown. Egg explicit; not a vegan claim. Food option/portion detail unavailable. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-teenoy-34",
+          "name": "Stir-fried Basil Vegetarian Roasted Pork with Rice & Egg",
+          "category": "Rice",
+          "sourceIds": [
+            "icf-teenoy-foodpanda"
+          ],
+          "price": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "listingPrice": {
+            "amount": 10,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$8 / S$10",
+          "qualifier": "Displayed20% discounted delivery price; original list price separate, promotion end unknown. Egg explicit; not a vegan claim. Food option/portion detail unavailable. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-teenoy-35",
+          "name": "Stir-fried Basil Vegetarian Shrimps with Rice & Egg",
+          "category": "Rice",
+          "sourceIds": [
+            "icf-teenoy-foodpanda"
+          ],
+          "price": {
+            "amount": 6.4,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "listingPrice": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$6.4 / S$8",
+          "qualifier": "Displayed20% discounted delivery price; original list price separate, promotion end unknown. Egg explicit; not a vegan claim. Food option/portion detail unavailable. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-teenoy-36",
+          "name": "Stir-fried Kailan Vegetarian Roasted Pork with Rice & Egg",
+          "category": "Rice",
+          "sourceIds": [
+            "icf-teenoy-foodpanda"
+          ],
+          "price": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "listingPrice": {
+            "amount": 10,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$8 / S$10",
+          "qualifier": "Displayed20% discounted delivery price; original list price separate, promotion end unknown. Egg explicit; not a vegan claim. Food option/portion detail unavailable. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-teenoy-37",
+          "name": "Stir-fried Petai Vegetarian Shrimps in Sambal Sauce with Rice & Egg",
+          "category": "Rice",
+          "sourceIds": [
+            "icf-teenoy-foodpanda"
+          ],
+          "price": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "listingPrice": {
+            "amount": 10,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$8 / S$10",
+          "qualifier": "Displayed20% discounted delivery price; original list price separate, promotion end unknown. Egg explicit; not a vegan claim. Food option/portion detail unavailable. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-teenoy-38",
+          "name": "Stir-fried Tofu with Rice & Egg",
+          "category": "Rice",
+          "sourceIds": [
+            "icf-teenoy-foodpanda"
+          ],
+          "price": {
+            "amount": 6.4,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "listingPrice": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$6.4 / S$8",
+          "qualifier": "Displayed20% discounted delivery price; original list price separate, promotion end unknown. Egg explicit; not a vegan claim. Food option/portion detail unavailable. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-teenoy-39",
+          "name": "Stir-fried Honey Vegetarian Beancurd with Rice & Egg",
+          "category": "Rice",
+          "sourceIds": [
+            "icf-teenoy-foodpanda"
+          ],
+          "price": {
+            "amount": 6.4,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "listingPrice": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$6.4 / S$8",
+          "qualifier": "Displayed20% discounted delivery price; original list price separate, promotion end unknown. Egg explicit; not a vegan claim. Honey explicit; not a vegan claim. Food option/portion detail unavailable. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-teenoy-40",
+          "name": "Stir-fried Red Curry Long Bean Tofu with Rice & Egg",
+          "category": "Rice",
+          "sourceIds": [
+            "icf-teenoy-foodpanda"
+          ],
+          "price": {
+            "amount": 6.4,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "listingPrice": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$6.4 / S$8",
+          "qualifier": "Displayed20% discounted delivery price; original list price separate, promotion end unknown. Egg explicit; not a vegan claim. Food option/portion detail unavailable. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-teenoy-41",
+          "name": "Thai Crispy Omelette with Tofu & Rice",
+          "category": "Rice",
+          "sourceIds": [
+            "icf-teenoy-foodpanda"
+          ],
+          "price": {
+            "amount": 6.4,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "listingPrice": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$6.4 / S$8",
+          "qualifier": "Displayed20% discounted delivery price; original list price separate, promotion end unknown. Egg explicit; not a vegan claim. Food option/portion detail unavailable. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-teenoy-42",
+          "name": "Thai Crispy Omelette with Vegetarian Shrimps & Rice",
+          "category": "Rice",
+          "sourceIds": [
+            "icf-teenoy-foodpanda"
+          ],
+          "price": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "listingPrice": {
+            "amount": 10,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$8 / S$10",
+          "qualifier": "Displayed20% discounted delivery price; original list price separate, promotion end unknown. Egg explicit; not a vegan claim. Food option/portion detail unavailable. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-teenoy-43",
+          "name": "Sambal Petai Vegetarian Prawns Fried Rice",
+          "category": "Fried Rice",
+          "sourceIds": [
+            "icf-teenoy-foodpanda"
+          ],
+          "price": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "listingPrice": {
+            "amount": 10,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$8 / S$10",
+          "qualifier": "Displayed20% discounted delivery price; original list price separate, promotion end unknown. Food option/portion detail unavailable. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-teenoy-44",
+          "name": "Thai Style Fried Rice",
+          "category": "Fried Rice",
+          "sourceIds": [
+            "icf-teenoy-foodpanda"
+          ],
+          "price": {
+            "amount": 6.4,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "listingPrice": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$6.4 / S$8",
+          "qualifier": "Displayed20% discounted delivery price; original list price separate, promotion end unknown. Food option/portion detail unavailable. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-teenoy-45",
+          "name": "Olive Fried Rice",
+          "category": "Fried Rice",
+          "sourceIds": [
+            "icf-teenoy-foodpanda"
+          ],
+          "price": {
+            "amount": 6.4,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "listingPrice": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$6.4 / S$8",
+          "qualifier": "Displayed20% discounted delivery price; original list price separate, promotion end unknown. Food option/portion detail unavailable. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-teenoy-46",
+          "name": "Tom Yum Fried Rice with Vegetarian Prawn",
+          "category": "Fried Rice",
+          "sourceIds": [
+            "icf-teenoy-foodpanda"
+          ],
+          "price": {
+            "amount": 6.4,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "listingPrice": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$6.4 / S$8",
+          "qualifier": "Displayed20% discounted delivery price; original list price separate, promotion end unknown. Food option/portion detail unavailable. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-teenoy-47",
+          "name": "Pineapple Fried Rice with Vegetarian Prawns",
+          "category": "Fried Rice",
+          "sourceIds": [
+            "icf-teenoy-foodpanda"
+          ],
+          "price": {
+            "amount": 6.4,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "listingPrice": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$6.4 / S$8",
+          "qualifier": "Displayed20% discounted delivery price; original list price separate, promotion end unknown. Food option/portion detail unavailable. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-teenoy-48",
+          "name": "Green Curry Fried Rice with Vegetarian Chicken Cube",
+          "category": "Fried Rice",
+          "sourceIds": [
+            "icf-teenoy-foodpanda"
+          ],
+          "price": {
+            "amount": 6.4,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "listingPrice": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$6.4 / S$8",
+          "qualifier": "Displayed20% discounted delivery price; original list price separate, promotion end unknown. Food option/portion detail unavailable. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-teenoy-49",
+          "name": "Basil Fried Rice",
+          "category": "Fried Rice",
+          "sourceIds": [
+            "icf-teenoy-foodpanda"
+          ],
+          "price": {
+            "amount": 6.4,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "listingPrice": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$6.4 / S$8",
+          "qualifier": "Displayed20% discounted delivery price; original list price separate, promotion end unknown. Food option/portion detail unavailable. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-teenoy-50",
+          "name": "Thai Moonlight Hor Fun",
+          "category": "Fried Noodle",
+          "sourceIds": [
+            "icf-teenoy-foodpanda"
+          ],
+          "price": {
+            "amount": 7.2,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "listingPrice": {
+            "amount": 9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$7.2 / S$9",
+          "qualifier": "Displayed20% discounted delivery price; original list price separate, promotion end unknown. Food option/portion detail unavailable. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-teenoy-51",
+          "name": "Phad Thai",
+          "category": "Fried Noodle",
+          "sourceIds": [
+            "icf-teenoy-foodpanda"
+          ],
+          "price": {
+            "amount": 6.4,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "listingPrice": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$6.4 / S$8",
+          "qualifier": "Displayed20% discounted delivery price; original list price separate, promotion end unknown. Food option/portion detail unavailable. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-teenoy-52",
+          "name": "Stir-fried Vermicelli",
+          "category": "Fried Noodle",
+          "sourceIds": [
+            "icf-teenoy-foodpanda"
+          ],
+          "price": {
+            "amount": 6.4,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "listingPrice": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$6.4 / S$8",
+          "qualifier": "Displayed20% discounted delivery price; original list price separate, promotion end unknown. Food option/portion detail unavailable. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-teenoy-53",
+          "name": "Stir-fried Hor Fun",
+          "category": "Fried Noodle",
+          "sourceIds": [
+            "icf-teenoy-foodpanda"
+          ],
+          "price": {
+            "amount": 6.4,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "listingPrice": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$6.4 / S$8",
+          "qualifier": "Displayed20% discounted delivery price; original list price separate, promotion end unknown. Food option/portion detail unavailable. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-teenoy-54",
+          "name": "Stir-fried Maggi Noodle",
+          "category": "Fried Noodle",
+          "sourceIds": [
+            "icf-teenoy-foodpanda"
+          ],
+          "price": {
+            "amount": 6.4,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "listingPrice": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$6.4 / S$8",
+          "qualifier": "Displayed20% discounted delivery price; original list price separate, promotion end unknown. Food option/portion detail unavailable. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-teenoy-55",
+          "name": "Thai Mango Sticky Rice",
+          "category": "Desserts",
+          "sourceIds": [
+            "icf-teenoy-foodpanda"
+          ],
+          "price": {
+            "amount": 6.4,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "listingPrice": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$6.4 / S$8",
+          "qualifier": "Displayed20% discounted delivery price; original list price separate, promotion end unknown. Food option/portion detail unavailable. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-teenoy-56",
+          "name": "Vegetarian Five -Spice Stew พะโล้เจ",
+          "category": "New Dishes",
+          "sourceIds": [
+            "icf-teenoy-foodpanda"
+          ],
+          "price": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "listingPrice": {
+            "amount": 10,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$8 / S$10",
+          "qualifier": "Displayed20% discounted delivery price; original list price separate, promotion end unknown. Food option/portion detail unavailable. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-teenoy-57",
+          "name": "Stir red curry long beans vegetarian ผักพริกแกงหมูกรอบเจ",
+          "category": "New Dishes",
+          "sourceIds": [
+            "icf-teenoy-foodpanda"
+          ],
+          "price": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "listingPrice": {
+            "amount": 10,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$8 / S$10",
+          "qualifier": "Displayed20% discounted delivery price; original list price separate, promotion end unknown. Food option/portion detail unavailable. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-teenoy-58",
+          "name": "Thai Omelette Bitter Gourd with rice and sambal chili vegetarian ไข่เจียวมะระกับพริกแซมบ้า",
+          "category": "New Dishes",
+          "sourceIds": [
+            "icf-teenoy-foodpanda"
+          ],
+          "price": {
+            "amount": 9.6,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "listingPrice": {
+            "amount": 12,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$9.6 / S$12",
+          "qualifier": "Displayed20% discounted delivery price; original list price separate, promotion end unknown. Egg explicit; not a vegan claim. Food option/portion detail unavailable. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf-teenoy-59",
+          "name": "Tomyum Sausage vegetarian ใส้อั่วเจ",
+          "category": "New Dishes",
+          "sourceIds": [
+            "icf-teenoy-foodpanda"
+          ],
+          "price": {
+            "amount": 6.4,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "listingPrice": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "S$6.4 / S$8",
+          "qualifier": "Displayed20% discounted delivery price; original list price separate, promotion end unknown. Food option/portion detail unavailable. Effective menu date, present stock, full ingredients, taxes, delivery fees and dine-in equivalence unverified."
+        }
+      ]
+    }
+  ],
+  "scope": "Vegetarian/vegan venues only. Mixed restaurants excluded entirely; individual vegetarian foods do not qualify a mixed or unresolved venue."
+}

@@ -1,0 +1,11 @@
+{
+  "disposition": "ship",
+  "scope": "Two material accessibility fixes scored resolved; Android and browser recaptures show no regressions from this batch.",
+  "fixes": [
+    "Enlarged heading wraps inside320px frame",
+    "Semantic supporting and accent text pass contrast"
+  ],
+  "nativeIosDevice": "unverified",
+  "reviewer": "code-reviewer capability substitute for unavailable impeccable_finish_reviewer",
+  "externalPublishing": "not authorized; no Git push or deployment performed"
+}

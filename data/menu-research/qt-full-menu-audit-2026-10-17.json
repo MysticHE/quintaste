@@ -1,0 +1,1126 @@
+{
+  "checkedAt": "2026-10-17T11:29:22.907229+00:00",
+  "status": "verified",
+  "coverage": {
+    "zhen-xiang-woodlands-street-32": {
+      "total": 68,
+      "verified": 66,
+      "held": 2,
+      "pending": 0,
+      "complete": false,
+      "checkedAt": "2026-10-17T11:22:22.346944+00:00"
+    }
+  },
+  "menuReceipt": {
+    "id": "zhen-xiang-woodlands-street-32",
+    "name": "zhen xiang woodlands street 32",
+    "checkedAt": "2026-10-17T11:22:22.346944+00:00",
+    "coverage": {
+      "total": 68,
+      "verified": 66,
+      "held": 2,
+      "pending": 0,
+      "complete": false,
+      "checkedAt": "2026-10-17T11:22:22.346944+00:00"
+    },
+    "heldItems": [
+      {
+        "name": "Crispy Vegetarian Roasted Chicken Rice Set 脆皮素烧鸡饭",
+        "reason": "Assigned exact name absent from the captured menu. Preserve the item; do not infer a replacement, rename, deletion or current price."
+      },
+      {
+        "name": "Vegetarian BBQ Char Siew Fried Rice 蜜汁素叉烧炒饭",
+        "reason": "Assigned exact name absent from the captured menu. Preserve the item; do not infer a replacement, rename, deletion or current price."
+      }
+    ],
+    "status": "reviewed",
+    "published": false,
+    "reviewId": "9de12ecb96a1e768b2e99e5413eb5ffd3beb43673ea2c574f31c1bbb4235d78e"
+  },
+  "manager": {
+    "summary": "Independent review completed. The per-dish menu audit is approved separately, while the venue remains held. Unchanged findings are audit-only; neither full-menu completion nor publication is approved. The image-provenance lesson is deferred because its attached historical decision does not substantiate that procedure.",
+    "decisions": [
+      {
+        "id": "zhen-xiang-woodlands-street-32",
+        "decision": "hold",
+        "menuReviewDecision": "approved",
+        "reason": "Every assigned section/item ID has a result. Item-by-item comparison with the supplied capture and reopened merchant page supports all 66 claimed verified exact-name, displayed-price, SGD and branch-delivery findings, including the separately listed similarly named hericium dishes. ([foodpanda.sg](https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32)) The two absent assigned identities correctly remain held; absence does not authorize deletion, renaming or replacement. The two unassigned merchant identities also correctly remain unmapped. ([foodpanda.sg](https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32)) Retain Vegetarian: explicit egg disclosures do not support a whole-venue vegan claim, and menu-price verification establishes no allium-free recipe eligibility. ([foodpanda.sg](https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32)) Keep regular dine-in hours held: Foodpanda's ordering window is not sufficient evidence, and the reopened secondary directory's schedule cannot establish a current primary schedule. ([foodpanda.sg](https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32)) Exact entrance coordinates, cover inspection/rights and Instagram-content verification remain unresolved in the packet. Audit approval preserves supported findings without approving held dishes, venue completion or publication. No price-change proposal or production write is warranted for unchanged values; preserve existing identities, cover, links and prior holds."
+      }
+    ],
+    "operationalIssues": [
+      "Source-provenance gap: The reused merchant capture lacks its original upstream fetch timestamp. Review timestamps and reopened page content do not justify resetting original verification dates or claiming independently established source freshness.",
+      "Source-capture gap: The vegetarianrestaurantsingapore.com capture is unattached; its asserted hours must not be accepted as independently verified.",
+      "Worker-reported retrieval failure: Instagram extraction returned HTTP 403 and the fallback failed. No Instagram content was accepted; this does not establish closure or invalidate the existing link.",
+      "Lesson-evidence mismatch: The attached historical Manager reason concerns compound-sauce composition, dietary claims and allergens, not image appearance, reference rights or pixel inspection. Defer the candidate pending relevant historical evidence; existing image controls remain unchanged."
+    ],
+    "publication": "not-published",
+    "lessonDecisions": [
+      {
+        "id": "qt-cooker:image-provenance",
+        "approvalKey": "a606309ea9615fa2b0cfc2ba958afda7219b5cdb1362ddc6315ae8948659082e",
+        "decision": "defer"
+      }
+    ],
+    "learning": {
+      "approved": 0
+    }
+  },
+  "dishResults": [
+    {
+      "sectionId": "zhen-xiang-woodlands-street-32-delivery-sample",
+      "itemId": "zhen-xiang-woodlands-street-32-white-rice",
+      "status": "verified",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32",
+      "price": {
+        "amount": 1.3,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "reason": "Exact name and explicit S$ amount matched; unchanged.",
+      "contentSha256": "cde4179cfde8b84142a9a3ccd72df6abbf6bb5a6ec62158f1f5950d6bb97f95f",
+      "fetchedAt": "2026-10-17T11:19:35.640812+00:00"
+    },
+    {
+      "sectionId": "zhen-xiang-woodlands-street-32-delivery-sample",
+      "itemId": "zhen-xiang-woodlands-street-32-sunny-side-up",
+      "status": "verified",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32",
+      "price": {
+        "amount": 1,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "reason": "Exact name and explicit S$ amount matched; unchanged.",
+      "contentSha256": "cde4179cfde8b84142a9a3ccd72df6abbf6bb5a6ec62158f1f5950d6bb97f95f",
+      "fetchedAt": "2026-10-17T11:19:35.640812+00:00"
+    },
+    {
+      "sectionId": "zhen-xiang-woodlands-street-32-delivery-sample",
+      "itemId": "zhen-xiang-woodlands-street-32-vegetarian-bean-curd-skin",
+      "status": "verified",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32",
+      "price": {
+        "amount": 4,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "reason": "Exact name and explicit S$ amount matched; unchanged.",
+      "contentSha256": "cde4179cfde8b84142a9a3ccd72df6abbf6bb5a6ec62158f1f5950d6bb97f95f",
+      "fetchedAt": "2026-10-17T11:19:35.640812+00:00"
+    },
+    {
+      "sectionId": "zhen-xiang-woodlands-street-32-delivery-sample",
+      "itemId": "zhen-xiang-woodlands-street-32-vegetarian-dumpling-soup",
+      "status": "verified",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32",
+      "price": {
+        "amount": 8.5,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "reason": "Exact name and explicit S$ amount matched in the full section; unchanged.",
+      "contentSha256": "cde4179cfde8b84142a9a3ccd72df6abbf6bb5a6ec62158f1f5950d6bb97f95f",
+      "fetchedAt": "2026-10-17T11:19:35.640812+00:00"
+    },
+    {
+      "sectionId": "zhen-xiang-woodlands-street-32-delivery-sample",
+      "itemId": "zhen-xiang-woodlands-street-32-luo-han-zhai",
+      "status": "verified",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32",
+      "price": {
+        "amount": 12,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "reason": "Exact name and explicit S$ amount matched; unchanged.",
+      "contentSha256": "cde4179cfde8b84142a9a3ccd72df6abbf6bb5a6ec62158f1f5950d6bb97f95f",
+      "fetchedAt": "2026-10-17T11:19:35.640812+00:00"
+    },
+    {
+      "sectionId": "zhen-xiang-woodlands-street-32-delivery-sample",
+      "itemId": "zhen-xiang-woodlands-street-32-braised-tofu",
+      "status": "verified",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32",
+      "price": {
+        "amount": 12,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "reason": "Exact name and explicit S$ amount matched; unchanged.",
+      "contentSha256": "cde4179cfde8b84142a9a3ccd72df6abbf6bb5a6ec62158f1f5950d6bb97f95f",
+      "fetchedAt": "2026-10-17T11:19:35.640812+00:00"
+    },
+    {
+      "sectionId": "zhen-xiang-woodlands-street-32-delivery-sample",
+      "itemId": "zhen-xiang-woodlands-street-32-black-pepper-vegetarian-pork-chop",
+      "status": "verified",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32",
+      "price": {
+        "amount": 10,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "reason": "Exact name and explicit S$ amount matched; unchanged.",
+      "contentSha256": "cde4179cfde8b84142a9a3ccd72df6abbf6bb5a6ec62158f1f5950d6bb97f95f",
+      "fetchedAt": "2026-10-17T11:19:35.640812+00:00"
+    },
+    {
+      "sectionId": "zhen-xiang-woodlands-street-32-delivery-sample",
+      "itemId": "zhen-xiang-woodlands-street-32-cheese-nuggets",
+      "status": "verified",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32",
+      "price": {
+        "amount": 12,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "reason": "Exact name and explicit S$ amount matched; unchanged.",
+      "contentSha256": "cde4179cfde8b84142a9a3ccd72df6abbf6bb5a6ec62158f1f5950d6bb97f95f",
+      "fetchedAt": "2026-10-17T11:19:35.640812+00:00"
+    },
+    {
+      "sectionId": "zhen-xiang-woodlands-street-32-delivery-sample",
+      "itemId": "zhen-xiang-woodlands-street-32-black-bean-vegetarian-pork-knuckle-vinegar",
+      "status": "verified",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32",
+      "price": {
+        "amount": 15,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "reason": "Exact name and explicit S$ amount matched; unchanged.",
+      "contentSha256": "cde4179cfde8b84142a9a3ccd72df6abbf6bb5a6ec62158f1f5950d6bb97f95f",
+      "fetchedAt": "2026-10-17T11:19:35.640812+00:00"
+    },
+    {
+      "sectionId": "zhen-xiang-woodlands-street-32-delivery-sample",
+      "itemId": "zhen-xiang-woodlands-street-32-teppanyaki-vegetarian-eel",
+      "status": "verified",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32",
+      "price": {
+        "amount": 22,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "reason": "Exact name and explicit S$ amount matched; unchanged.",
+      "contentSha256": "cde4179cfde8b84142a9a3ccd72df6abbf6bb5a6ec62158f1f5950d6bb97f95f",
+      "fetchedAt": "2026-10-17T11:19:35.640812+00:00"
+    },
+    {
+      "sectionId": "zhen-xiang-woodlands-street-32-delivery-sample",
+      "itemId": "zhen-xiang-woodlands-street-32-thousand-island-vegetarian-shrimp",
+      "status": "verified",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32",
+      "price": {
+        "amount": 16.8,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "reason": "Exact name and explicit S$ amount matched; unchanged.",
+      "contentSha256": "cde4179cfde8b84142a9a3ccd72df6abbf6bb5a6ec62158f1f5950d6bb97f95f",
+      "fetchedAt": "2026-10-17T11:19:35.640812+00:00"
+    },
+    {
+      "sectionId": "zhen-xiang-woodlands-street-32-delivery-sample",
+      "itemId": "zhen-xiang-woodlands-street-32-sizzling-tofu",
+      "status": "verified",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32",
+      "price": {
+        "amount": 14,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "reason": "Exact name and explicit S$ amount matched; unchanged.",
+      "contentSha256": "cde4179cfde8b84142a9a3ccd72df6abbf6bb5a6ec62158f1f5950d6bb97f95f",
+      "fetchedAt": "2026-10-17T11:19:35.640812+00:00"
+    },
+    {
+      "sectionId": "zhen-xiang-woodlands-street-32-delivery-sample",
+      "itemId": "zhen-xiang-woodlands-street-32-vegetarian-curry-fish",
+      "status": "verified",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32",
+      "price": {
+        "amount": 18,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "reason": "Exact name and explicit S$ amount matched; unchanged.",
+      "contentSha256": "cde4179cfde8b84142a9a3ccd72df6abbf6bb5a6ec62158f1f5950d6bb97f95f",
+      "fetchedAt": "2026-10-17T11:19:35.640812+00:00"
+    },
+    {
+      "sectionId": "zhen-xiang-woodlands-street-32-delivery-sample",
+      "itemId": "zhen-xiang-woodlands-street-32-fried-yam-ring",
+      "status": "verified",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32",
+      "price": {
+        "amount": 22,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "reason": "Exact name and explicit S$ amount matched; unchanged.",
+      "contentSha256": "cde4179cfde8b84142a9a3ccd72df6abbf6bb5a6ec62158f1f5950d6bb97f95f",
+      "fetchedAt": "2026-10-17T11:19:35.640812+00:00"
+    },
+    {
+      "sectionId": "zhen-xiang-woodlands-street-32-delivery-sample",
+      "itemId": "zhen-xiang-woodlands-street-32-veg-cereal-prawn",
+      "status": "verified",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32",
+      "price": {
+        "amount": 16.8,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "reason": "Exact name and explicit S$ amount matched; unchanged.",
+      "contentSha256": "cde4179cfde8b84142a9a3ccd72df6abbf6bb5a6ec62158f1f5950d6bb97f95f",
+      "fetchedAt": "2026-10-17T11:19:35.640812+00:00"
+    },
+    {
+      "sectionId": "zhen-xiang-woodlands-street-32-delivery-sample",
+      "itemId": "zhen-xiang-woodlands-street-32-vegetarian-fish-chips",
+      "status": "verified",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32",
+      "price": {
+        "amount": 10,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "reason": "Exact name and explicit S$ amount matched; unchanged.",
+      "contentSha256": "cde4179cfde8b84142a9a3ccd72df6abbf6bb5a6ec62158f1f5950d6bb97f95f",
+      "fetchedAt": "2026-10-17T11:19:35.640812+00:00"
+    },
+    {
+      "sectionId": "zhen-xiang-woodlands-street-32-delivery-sample",
+      "itemId": "zhen-xiang-woodlands-street-32-sliced-ginger-veg-fish-chip",
+      "status": "verified",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32",
+      "price": {
+        "amount": 10,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "reason": "Name matches after whitespace collapse; explicit S$ amount unchanged.",
+      "contentSha256": "cde4179cfde8b84142a9a3ccd72df6abbf6bb5a6ec62158f1f5950d6bb97f95f",
+      "fetchedAt": "2026-10-17T11:19:35.640812+00:00"
+    },
+    {
+      "sectionId": "zhen-xiang-woodlands-street-32-delivery-sample",
+      "itemId": "zhen-xiang-woodlands-street-32-veg-sweet-sour-pork",
+      "status": "verified",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32",
+      "price": {
+        "amount": 15,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "reason": "Exact name and explicit S$ amount matched; unchanged.",
+      "contentSha256": "cde4179cfde8b84142a9a3ccd72df6abbf6bb5a6ec62158f1f5950d6bb97f95f",
+      "fetchedAt": "2026-10-17T11:19:35.640812+00:00"
+    },
+    {
+      "sectionId": "zhen-xiang-woodlands-street-32-delivery-sample",
+      "itemId": "zhen-xiang-woodlands-street-32-thai-style-beancurd",
+      "status": "verified",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32",
+      "price": {
+        "amount": 8.5,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "reason": "Exact name and explicit S$ amount matched; unchanged.",
+      "contentSha256": "cde4179cfde8b84142a9a3ccd72df6abbf6bb5a6ec62158f1f5950d6bb97f95f",
+      "fetchedAt": "2026-10-17T11:19:35.640812+00:00"
+    },
+    {
+      "sectionId": "zhen-xiang-woodlands-street-32-delivery-sample",
+      "itemId": "zhen-xiang-woodlands-street-32-fried-dumpling",
+      "status": "verified",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32",
+      "price": {
+        "amount": 8.5,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "reason": "Exact name and explicit S$ amount matched in the full section; unchanged.",
+      "contentSha256": "cde4179cfde8b84142a9a3ccd72df6abbf6bb5a6ec62158f1f5950d6bb97f95f",
+      "fetchedAt": "2026-10-17T11:19:35.640812+00:00"
+    },
+    {
+      "sectionId": "zhen-xiang-woodlands-street-32-delivery-sample",
+      "itemId": "zhen-xiang-woodlands-street-32-broccoli-with-hericium",
+      "status": "verified",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32",
+      "price": {
+        "amount": 16.8,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "reason": "Exact name and explicit S$ amount matched; unchanged.",
+      "contentSha256": "cde4179cfde8b84142a9a3ccd72df6abbf6bb5a6ec62158f1f5950d6bb97f95f",
+      "fetchedAt": "2026-10-17T11:19:35.640812+00:00"
+    },
+    {
+      "sectionId": "zhen-xiang-woodlands-street-32-delivery-sample",
+      "itemId": "zhen-xiang-woodlands-street-32-nyonya-fruit-beancurd",
+      "status": "verified",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32",
+      "price": {
+        "amount": 8.5,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "reason": "Exact name and explicit S$ amount matched; unchanged.",
+      "contentSha256": "cde4179cfde8b84142a9a3ccd72df6abbf6bb5a6ec62158f1f5950d6bb97f95f",
+      "fetchedAt": "2026-10-17T11:19:35.640812+00:00"
+    },
+    {
+      "sectionId": "zhen-xiang-woodlands-street-32-delivery-sample",
+      "itemId": "zhen-xiang-woodlands-street-32-deep-fried-prawn",
+      "status": "verified",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32",
+      "price": {
+        "amount": 16.8,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "reason": "Exact name and explicit S$ amount matched; unchanged.",
+      "contentSha256": "cde4179cfde8b84142a9a3ccd72df6abbf6bb5a6ec62158f1f5950d6bb97f95f",
+      "fetchedAt": "2026-10-17T11:19:35.640812+00:00"
+    },
+    {
+      "sectionId": "zhen-xiang-woodlands-street-32-delivery-sample",
+      "itemId": "zhen-xiang-woodlands-street-32-mala-grilled-fish",
+      "status": "verified",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32",
+      "price": {
+        "amount": 15,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "reason": "Exact name and explicit S$ amount matched; unchanged.",
+      "contentSha256": "cde4179cfde8b84142a9a3ccd72df6abbf6bb5a6ec62158f1f5950d6bb97f95f",
+      "fetchedAt": "2026-10-17T11:19:35.640812+00:00"
+    },
+    {
+      "sectionId": "zhen-xiang-woodlands-street-32-delivery-sample",
+      "itemId": "zhen-xiang-woodlands-street-32-green-curry-fish-sotong-prwn-or-mutton",
+      "status": "verified",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32",
+      "price": {
+        "amount": 16,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "reason": "Exact name and explicit S$ amount matched; unchanged.",
+      "contentSha256": "cde4179cfde8b84142a9a3ccd72df6abbf6bb5a6ec62158f1f5950d6bb97f95f",
+      "fetchedAt": "2026-10-17T11:19:35.640812+00:00"
+    },
+    {
+      "sectionId": "zhen-xiang-woodlands-street-32-delivery-sample",
+      "itemId": "zhen-xiang-woodlands-street-32-sweet-sour-hericium-mushroom-rice-set",
+      "status": "verified",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32",
+      "price": {
+        "amount": 8.5,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "reason": "Exact bilingual name and explicit S$ amount matched as its own listing; unchanged.",
+      "contentSha256": "cde4179cfde8b84142a9a3ccd72df6abbf6bb5a6ec62158f1f5950d6bb97f95f",
+      "fetchedAt": "2026-10-17T11:19:35.640812+00:00"
+    },
+    {
+      "sectionId": "zhen-xiang-woodlands-street-32-delivery-sample",
+      "itemId": "zhen-xiang-woodlands-street-32-black-pepper-vegetarian-pork-chop-rice-set",
+      "status": "verified",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32",
+      "price": {
+        "amount": 8.5,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "reason": "Exact name and explicit S$ amount matched; unchanged.",
+      "contentSha256": "cde4179cfde8b84142a9a3ccd72df6abbf6bb5a6ec62158f1f5950d6bb97f95f",
+      "fetchedAt": "2026-10-17T11:19:35.640812+00:00"
+    },
+    {
+      "sectionId": "zhen-xiang-woodlands-street-32-delivery-sample",
+      "itemId": "zhen-xiang-woodlands-street-32-golden-stick-rice",
+      "status": "verified",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32",
+      "price": {
+        "amount": 8.5,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "reason": "Exact name and explicit S$ amount matched; unchanged.",
+      "contentSha256": "cde4179cfde8b84142a9a3ccd72df6abbf6bb5a6ec62158f1f5950d6bb97f95f",
+      "fetchedAt": "2026-10-17T11:19:35.640812+00:00"
+    },
+    {
+      "sectionId": "zhen-xiang-woodlands-street-32-delivery-sample",
+      "itemId": "zhen-xiang-woodlands-street-32-kung-pao-hericium-mushroom-rice-set",
+      "status": "verified",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32",
+      "price": {
+        "amount": 8.4,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "reason": "Exact bilingual name and explicit S$ amount matched as its own listing; unchanged.",
+      "contentSha256": "cde4179cfde8b84142a9a3ccd72df6abbf6bb5a6ec62158f1f5950d6bb97f95f",
+      "fetchedAt": "2026-10-17T11:19:35.640812+00:00"
+    },
+    {
+      "sectionId": "zhen-xiang-woodlands-street-32-delivery-sample",
+      "itemId": "zhen-xiang-woodlands-street-32-ginger-vegetarian-fish-chop-rice-set",
+      "status": "verified",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32",
+      "price": {
+        "amount": 7.5,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "reason": "Exact name and explicit S$ amount matched; unchanged.",
+      "contentSha256": "cde4179cfde8b84142a9a3ccd72df6abbf6bb5a6ec62158f1f5950d6bb97f95f",
+      "fetchedAt": "2026-10-17T11:19:35.640812+00:00"
+    },
+    {
+      "sectionId": "zhen-xiang-woodlands-street-32-delivery-sample",
+      "itemId": "zhen-xiang-woodlands-street-32-thai-vegetarian-fish-chop-rice-set",
+      "status": "verified",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32",
+      "price": {
+        "amount": 8.5,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "reason": "Exact name and explicit S$ amount matched; unchanged.",
+      "contentSha256": "cde4179cfde8b84142a9a3ccd72df6abbf6bb5a6ec62158f1f5950d6bb97f95f",
+      "fetchedAt": "2026-10-17T11:19:35.640812+00:00"
+    },
+    {
+      "sectionId": "zhen-xiang-woodlands-street-32-delivery-sample",
+      "itemId": "zhen-xiang-woodlands-street-32-western-vegetarian-pork-rib-rice-set",
+      "status": "verified",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32",
+      "price": {
+        "amount": 7.8,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "reason": "Exact name and explicit S$ amount matched; unchanged.",
+      "contentSha256": "cde4179cfde8b84142a9a3ccd72df6abbf6bb5a6ec62158f1f5950d6bb97f95f",
+      "fetchedAt": "2026-10-17T11:19:35.640812+00:00"
+    },
+    {
+      "sectionId": "zhen-xiang-woodlands-street-32-delivery-sample",
+      "itemId": "zhen-xiang-woodlands-street-32-crispy-vegetarian-roasted-chicken-rice-set",
+      "status": "held",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32",
+      "price": null,
+      "reason": "Assigned exact name absent from the captured menu. Preserve the item; do not infer a replacement, rename, deletion or current price."
+    },
+    {
+      "sectionId": "zhen-xiang-woodlands-street-32-delivery-sample",
+      "itemId": "zhen-xiang-woodlands-street-32-broccoli-hericium-rice",
+      "status": "verified",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32",
+      "price": {
+        "amount": 8.5,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "reason": "Exact name and explicit S$ amount matched in the full section; unchanged.",
+      "contentSha256": "cde4179cfde8b84142a9a3ccd72df6abbf6bb5a6ec62158f1f5950d6bb97f95f",
+      "fetchedAt": "2026-10-17T11:19:35.640812+00:00"
+    },
+    {
+      "sectionId": "zhen-xiang-woodlands-street-32-delivery-sample",
+      "itemId": "zhen-xiang-woodlands-street-32-dry-curry-hericium-rice",
+      "status": "verified",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32",
+      "price": {
+        "amount": 8.5,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "reason": "Exact name and explicit S$ amount matched; unchanged.",
+      "contentSha256": "cde4179cfde8b84142a9a3ccd72df6abbf6bb5a6ec62158f1f5950d6bb97f95f",
+      "fetchedAt": "2026-10-17T11:19:35.640812+00:00"
+    },
+    {
+      "sectionId": "zhen-xiang-woodlands-street-32-delivery-sample",
+      "itemId": "zhen-xiang-woodlands-street-32-sweet-sour-hericium-rice",
+      "status": "verified",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32",
+      "price": {
+        "amount": 8.5,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "reason": "Exact bilingual name and explicit S$ amount matched as its own listing; unchanged.",
+      "contentSha256": "cde4179cfde8b84142a9a3ccd72df6abbf6bb5a6ec62158f1f5950d6bb97f95f",
+      "fetchedAt": "2026-10-17T11:19:35.640812+00:00"
+    },
+    {
+      "sectionId": "zhen-xiang-woodlands-street-32-delivery-sample",
+      "itemId": "zhen-xiang-woodlands-street-32-dried-chilli-hericium-rice",
+      "status": "verified",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32",
+      "price": {
+        "amount": 8.5,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "reason": "Exact bilingual name and explicit S$ amount matched as its own listing; unchanged.",
+      "contentSha256": "cde4179cfde8b84142a9a3ccd72df6abbf6bb5a6ec62158f1f5950d6bb97f95f",
+      "fetchedAt": "2026-10-17T11:19:35.640812+00:00"
+    },
+    {
+      "sectionId": "zhen-xiang-woodlands-street-32-delivery-sample",
+      "itemId": "zhen-xiang-woodlands-street-32-sliced-ginger-veg-fish-rice",
+      "status": "verified",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32",
+      "price": {
+        "amount": 8.5,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "reason": "Exact name and explicit S$ amount matched; unchanged.",
+      "contentSha256": "cde4179cfde8b84142a9a3ccd72df6abbf6bb5a6ec62158f1f5950d6bb97f95f",
+      "fetchedAt": "2026-10-17T11:19:35.640812+00:00"
+    },
+    {
+      "sectionId": "zhen-xiang-woodlands-street-32-delivery-sample",
+      "itemId": "zhen-xiang-woodlands-street-32-luo-han-beancurd-rice",
+      "status": "verified",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32",
+      "price": {
+        "amount": 8.5,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "reason": "Name matches after whitespace collapse; explicit S$ amount unchanged.",
+      "contentSha256": "cde4179cfde8b84142a9a3ccd72df6abbf6bb5a6ec62158f1f5950d6bb97f95f",
+      "fetchedAt": "2026-10-17T11:19:35.640812+00:00"
+    },
+    {
+      "sectionId": "zhen-xiang-woodlands-street-32-delivery-sample",
+      "itemId": "zhen-xiang-woodlands-street-32-veg-nugget-rice",
+      "status": "verified",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32",
+      "price": {
+        "amount": 8.5,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "reason": "Exact name and explicit S$ amount matched; unchanged.",
+      "contentSha256": "cde4179cfde8b84142a9a3ccd72df6abbf6bb5a6ec62158f1f5950d6bb97f95f",
+      "fetchedAt": "2026-10-17T11:19:35.640812+00:00"
+    },
+    {
+      "sectionId": "zhen-xiang-woodlands-street-32-delivery-sample",
+      "itemId": "zhen-xiang-woodlands-street-32-veg-chicken-chop-rice",
+      "status": "verified",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32",
+      "price": {
+        "amount": 8.5,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "reason": "Exact name and explicit S$ amount matched; unchanged.",
+      "contentSha256": "cde4179cfde8b84142a9a3ccd72df6abbf6bb5a6ec62158f1f5950d6bb97f95f",
+      "fetchedAt": "2026-10-17T11:19:35.640812+00:00"
+    },
+    {
+      "sectionId": "zhen-xiang-woodlands-street-32-delivery-sample",
+      "itemId": "zhen-xiang-woodlands-street-32-sweet-sour-sambal-prawn-rice",
+      "status": "verified",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32",
+      "price": {
+        "amount": 8.5,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "reason": "Exact name and explicit S$ amount matched; unchanged.",
+      "contentSha256": "cde4179cfde8b84142a9a3ccd72df6abbf6bb5a6ec62158f1f5950d6bb97f95f",
+      "fetchedAt": "2026-10-17T11:19:35.640812+00:00"
+    },
+    {
+      "sectionId": "zhen-xiang-woodlands-street-32-delivery-sample",
+      "itemId": "zhen-xiang-woodlands-street-32-sweet-sour-sambal-sotong-rice",
+      "status": "verified",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32",
+      "price": {
+        "amount": 8.5,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "reason": "Name matches after whitespace collapse; explicit S$ amount unchanged.",
+      "contentSha256": "cde4179cfde8b84142a9a3ccd72df6abbf6bb5a6ec62158f1f5950d6bb97f95f",
+      "fetchedAt": "2026-10-17T11:19:35.640812+00:00"
+    },
+    {
+      "sectionId": "zhen-xiang-woodlands-street-32-delivery-sample",
+      "itemId": "zhen-xiang-woodlands-street-32-sweet-sour-sambal-fish-rice",
+      "status": "verified",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32",
+      "price": {
+        "amount": 8.5,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "reason": "Exact name and explicit S$ amount matched; unchanged.",
+      "contentSha256": "cde4179cfde8b84142a9a3ccd72df6abbf6bb5a6ec62158f1f5950d6bb97f95f",
+      "fetchedAt": "2026-10-17T11:19:35.640812+00:00"
+    },
+    {
+      "sectionId": "zhen-xiang-woodlands-street-32-delivery-sample",
+      "itemId": "zhen-xiang-woodlands-street-32-sweet-sour-sambal-mutton-rice",
+      "status": "verified",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32",
+      "price": {
+        "amount": 8.5,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "reason": "Exact name and explicit S$ amount matched; unchanged.",
+      "contentSha256": "cde4179cfde8b84142a9a3ccd72df6abbf6bb5a6ec62158f1f5950d6bb97f95f",
+      "fetchedAt": "2026-10-17T11:19:35.640812+00:00"
+    },
+    {
+      "sectionId": "zhen-xiang-woodlands-street-32-delivery-sample",
+      "itemId": "zhen-xiang-woodlands-street-32-veg-pig-trotter-in-vinegar-with-rice",
+      "status": "verified",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32",
+      "price": {
+        "amount": 8.5,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "reason": "Exact name and explicit S$ amount matched in the full section; unchanged.",
+      "contentSha256": "cde4179cfde8b84142a9a3ccd72df6abbf6bb5a6ec62158f1f5950d6bb97f95f",
+      "fetchedAt": "2026-10-17T11:19:35.640812+00:00"
+    },
+    {
+      "sectionId": "zhen-xiang-woodlands-street-32-delivery-sample",
+      "itemId": "zhen-xiang-woodlands-street-32-green-curry",
+      "status": "verified",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32",
+      "price": {
+        "amount": 8.5,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "reason": "Exact name and explicit S$ amount matched in the Rice Set section; unchanged.",
+      "contentSha256": "cde4179cfde8b84142a9a3ccd72df6abbf6bb5a6ec62158f1f5950d6bb97f95f",
+      "fetchedAt": "2026-10-17T11:19:35.640812+00:00"
+    },
+    {
+      "sectionId": "zhen-xiang-woodlands-street-32-delivery-sample",
+      "itemId": "zhen-xiang-woodlands-street-32-vegetarian-hor-fun",
+      "status": "verified",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32",
+      "price": {
+        "amount": 7,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "reason": "Exact name and explicit S$ amount matched; unchanged.",
+      "contentSha256": "cde4179cfde8b84142a9a3ccd72df6abbf6bb5a6ec62158f1f5950d6bb97f95f",
+      "fetchedAt": "2026-10-17T11:19:35.640812+00:00"
+    },
+    {
+      "sectionId": "zhen-xiang-woodlands-street-32-delivery-sample",
+      "itemId": "zhen-xiang-woodlands-street-32-sliced-fish-bee-hoon-soup",
+      "status": "verified",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32",
+      "price": {
+        "amount": 7,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "reason": "Exact name and explicit S$ amount matched; unchanged.",
+      "contentSha256": "cde4179cfde8b84142a9a3ccd72df6abbf6bb5a6ec62158f1f5950d6bb97f95f",
+      "fetchedAt": "2026-10-17T11:19:35.640812+00:00"
+    },
+    {
+      "sectionId": "zhen-xiang-woodlands-street-32-delivery-sample",
+      "itemId": "zhen-xiang-woodlands-street-32-xing-zhou-bee-hoon",
+      "status": "verified",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32",
+      "price": {
+        "amount": 7,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "reason": "Exact name and explicit S$ amount matched; unchanged.",
+      "contentSha256": "cde4179cfde8b84142a9a3ccd72df6abbf6bb5a6ec62158f1f5950d6bb97f95f",
+      "fetchedAt": "2026-10-17T11:19:35.640812+00:00"
+    },
+    {
+      "sectionId": "zhen-xiang-woodlands-street-32-delivery-sample",
+      "itemId": "zhen-xiang-woodlands-street-32-fried-udon",
+      "status": "verified",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32",
+      "price": {
+        "amount": 7,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "reason": "Exact name and explicit S$ amount matched; unchanged.",
+      "contentSha256": "cde4179cfde8b84142a9a3ccd72df6abbf6bb5a6ec62158f1f5950d6bb97f95f",
+      "fetchedAt": "2026-10-17T11:19:35.640812+00:00"
+    },
+    {
+      "sectionId": "zhen-xiang-woodlands-street-32-delivery-sample",
+      "itemId": "zhen-xiang-woodlands-street-32-hokkien-mee",
+      "status": "verified",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32",
+      "price": {
+        "amount": 7,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "reason": "Exact name and explicit S$ amount matched; unchanged.",
+      "contentSha256": "cde4179cfde8b84142a9a3ccd72df6abbf6bb5a6ec62158f1f5950d6bb97f95f",
+      "fetchedAt": "2026-10-17T11:19:35.640812+00:00"
+    },
+    {
+      "sectionId": "zhen-xiang-woodlands-street-32-delivery-sample",
+      "itemId": "zhen-xiang-woodlands-street-32-sheng-mian",
+      "status": "verified",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32",
+      "price": {
+        "amount": 7,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "reason": "Exact name and explicit S$ amount matched; unchanged.",
+      "contentSha256": "cde4179cfde8b84142a9a3ccd72df6abbf6bb5a6ec62158f1f5950d6bb97f95f",
+      "fetchedAt": "2026-10-17T11:19:35.640812+00:00"
+    },
+    {
+      "sectionId": "zhen-xiang-woodlands-street-32-delivery-sample",
+      "itemId": "zhen-xiang-woodlands-street-32-mee-goreng",
+      "status": "verified",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32",
+      "price": {
+        "amount": 7,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "reason": "Exact name and explicit S$ amount matched; unchanged.",
+      "contentSha256": "cde4179cfde8b84142a9a3ccd72df6abbf6bb5a6ec62158f1f5950d6bb97f95f",
+      "fetchedAt": "2026-10-17T11:19:35.640812+00:00"
+    },
+    {
+      "sectionId": "zhen-xiang-woodlands-street-32-delivery-sample",
+      "itemId": "zhen-xiang-woodlands-street-32-veg-mini-wok-rice-noodle",
+      "status": "verified",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32",
+      "price": {
+        "amount": 12,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "reason": "Exact name and explicit S$ amount matched; unchanged.",
+      "contentSha256": "cde4179cfde8b84142a9a3ccd72df6abbf6bb5a6ec62158f1f5950d6bb97f95f",
+      "fetchedAt": "2026-10-17T11:19:35.640812+00:00"
+    },
+    {
+      "sectionId": "zhen-xiang-woodlands-street-32-delivery-sample",
+      "itemId": "zhen-xiang-woodlands-street-32-olive-fried-rice",
+      "status": "verified",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32",
+      "price": {
+        "amount": 7,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "reason": "Exact name and explicit S$ amount matched; unchanged.",
+      "contentSha256": "cde4179cfde8b84142a9a3ccd72df6abbf6bb5a6ec62158f1f5950d6bb97f95f",
+      "fetchedAt": "2026-10-17T11:19:35.640812+00:00"
+    },
+    {
+      "sectionId": "zhen-xiang-woodlands-street-32-delivery-sample",
+      "itemId": "zhen-xiang-woodlands-street-32-pineapple-fried-rice",
+      "status": "verified",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32",
+      "price": {
+        "amount": 7,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "reason": "Exact name and explicit S$ amount matched; unchanged.",
+      "contentSha256": "cde4179cfde8b84142a9a3ccd72df6abbf6bb5a6ec62158f1f5950d6bb97f95f",
+      "fetchedAt": "2026-10-17T11:19:35.640812+00:00"
+    },
+    {
+      "sectionId": "zhen-xiang-woodlands-street-32-delivery-sample",
+      "itemId": "zhen-xiang-woodlands-street-32-yang-zhou-fried-rice",
+      "status": "verified",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32",
+      "price": {
+        "amount": 7,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "reason": "Exact name and explicit S$ amount matched; unchanged.",
+      "contentSha256": "cde4179cfde8b84142a9a3ccd72df6abbf6bb5a6ec62158f1f5950d6bb97f95f",
+      "fetchedAt": "2026-10-17T11:19:35.640812+00:00"
+    },
+    {
+      "sectionId": "zhen-xiang-woodlands-street-32-delivery-sample",
+      "itemId": "zhen-xiang-woodlands-street-32-cedar-fried-rice",
+      "status": "verified",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32",
+      "price": {
+        "amount": 7,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "reason": "Exact name and explicit S$ amount matched; unchanged.",
+      "contentSha256": "cde4179cfde8b84142a9a3ccd72df6abbf6bb5a6ec62158f1f5950d6bb97f95f",
+      "fetchedAt": "2026-10-17T11:19:35.640812+00:00"
+    },
+    {
+      "sectionId": "zhen-xiang-woodlands-street-32-delivery-sample",
+      "itemId": "zhen-xiang-woodlands-street-32-petai-fried-rice",
+      "status": "verified",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32",
+      "price": {
+        "amount": 8,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "reason": "Exact name and explicit S$ amount matched; unchanged.",
+      "contentSha256": "cde4179cfde8b84142a9a3ccd72df6abbf6bb5a6ec62158f1f5950d6bb97f95f",
+      "fetchedAt": "2026-10-17T11:19:35.640812+00:00"
+    },
+    {
+      "sectionId": "zhen-xiang-woodlands-street-32-delivery-sample",
+      "itemId": "zhen-xiang-woodlands-street-32-tom-yum-fried-rice",
+      "status": "verified",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32",
+      "price": {
+        "amount": 7,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "reason": "Exact name and explicit S$ amount matched; unchanged.",
+      "contentSha256": "cde4179cfde8b84142a9a3ccd72df6abbf6bb5a6ec62158f1f5950d6bb97f95f",
+      "fetchedAt": "2026-10-17T11:19:35.640812+00:00"
+    },
+    {
+      "sectionId": "zhen-xiang-woodlands-street-32-delivery-sample",
+      "itemId": "zhen-xiang-woodlands-street-32-vegetarian-black-pepper-pork-chop-fried-rice",
+      "status": "verified",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32",
+      "price": {
+        "amount": 10,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "reason": "Exact name and explicit S$ amount matched; unchanged.",
+      "contentSha256": "cde4179cfde8b84142a9a3ccd72df6abbf6bb5a6ec62158f1f5950d6bb97f95f",
+      "fetchedAt": "2026-10-17T11:19:35.640812+00:00"
+    },
+    {
+      "sectionId": "zhen-xiang-woodlands-street-32-delivery-sample",
+      "itemId": "zhen-xiang-woodlands-street-32-vegetarian-fish-fillet-fried-rice",
+      "status": "verified",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32",
+      "price": {
+        "amount": 10,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "reason": "Exact name and explicit S$ amount matched; unchanged.",
+      "contentSha256": "cde4179cfde8b84142a9a3ccd72df6abbf6bb5a6ec62158f1f5950d6bb97f95f",
+      "fetchedAt": "2026-10-17T11:19:35.640812+00:00"
+    },
+    {
+      "sectionId": "zhen-xiang-woodlands-street-32-delivery-sample",
+      "itemId": "zhen-xiang-woodlands-street-32-vegetarian-pork-rib-fried-rice",
+      "status": "verified",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32",
+      "price": {
+        "amount": 10,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "reason": "Exact name and explicit S$ amount matched; unchanged.",
+      "contentSha256": "cde4179cfde8b84142a9a3ccd72df6abbf6bb5a6ec62158f1f5950d6bb97f95f",
+      "fetchedAt": "2026-10-17T11:19:35.640812+00:00"
+    },
+    {
+      "sectionId": "zhen-xiang-woodlands-street-32-delivery-sample",
+      "itemId": "zhen-xiang-woodlands-street-32-vegetarian-bbq-char-siew-fried-rice",
+      "status": "held",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32",
+      "price": null,
+      "reason": "Assigned exact name absent from the captured menu. Preserve the item; do not infer a replacement, rename, deletion or current price."
+    },
+    {
+      "sectionId": "zhen-xiang-woodlands-street-32-delivery-sample",
+      "itemId": "zhen-xiang-woodlands-street-32-hotpot-noodles",
+      "status": "verified",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32",
+      "price": {
+        "amount": 8.5,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "reason": "Exact name and explicit S$ amount matched; unchanged.",
+      "contentSha256": "cde4179cfde8b84142a9a3ccd72df6abbf6bb5a6ec62158f1f5950d6bb97f95f",
+      "fetchedAt": "2026-10-17T11:19:35.640812+00:00"
+    },
+    {
+      "sectionId": "zhen-xiang-woodlands-street-32-delivery-sample",
+      "itemId": "zhen-xiang-woodlands-street-32-two-pax-portion",
+      "status": "verified",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32",
+      "price": {
+        "amount": 18.5,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "reason": "Exact name and explicit S$ amount matched; unchanged.",
+      "contentSha256": "cde4179cfde8b84142a9a3ccd72df6abbf6bb5a6ec62158f1f5950d6bb97f95f",
+      "fetchedAt": "2026-10-17T11:19:35.640812+00:00"
+    },
+    {
+      "sectionId": "zhen-xiang-woodlands-street-32-delivery-sample",
+      "itemId": "zhen-xiang-woodlands-street-32-one-pax-portion",
+      "status": "verified",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32",
+      "price": {
+        "amount": 11.5,
+        "currency": "SGD",
+        "type": "displayed"
+      },
+      "reason": "Exact name and explicit S$ amount matched in the full section; unchanged.",
+      "contentSha256": "cde4179cfde8b84142a9a3ccd72df6abbf6bb5a6ec62158f1f5950d6bb97f95f",
+      "fetchedAt": "2026-10-17T11:19:35.640812+00:00"
+    }
+  ],
+  "liveDishCount": 68,
+  "liveMenuUnchanged": true,
+  "editorialRevisionUnchanged": true,
+  "ownerRemovalsPreserved": true,
+  "productionWrites": 0,
+  "telegram": {
+    "messageId": 43,
+    "correctedInPlace": true,
+    "caption": "Menu review ? Zhen Xiang Vegetarian ? 325 Woodlands Street 32\n17 Oct, 7:22 pm SGT\n66/68 dishes verified; 2 held; 0 not yet checked.\nAll 68 existing dishes preserved. Prices are unchanged; this was a whole-menu review.\nHeld: Crispy Vegetarian Roasted Chicken Rice Set 脆皮素烧鸡饭.\nHeld: Vegetarian BBQ Char Siew Fried Rice 蜜汁素叉烧炒饭.\nScreenshot shows the first menu page. Open the full menu below.",
+    "button": {
+      "text": "Open full menu (68 dishes)",
+      "url": "https://quintaste.srv1902914.hstgr.cloud/menu/zhen-xiang-woodlands-street-32"
+    },
+    "photo": "/opt/data/qt-team/state/telegram/media/aadde24d8ea94d2c13eb94bf48e0edd9ce39cdd2bed47520ab5c987f74997548/1b5e7bc3a02acff6/venue-zhen-xiang-woodlands-street-32.jpg"
+  },
+  "fullMenusCompleted": 0,
+  "historicalVisitsRetained": 22,
+  "usageEntries": 32,
+  "testsPassed": 98,
+  "postflight": {
+    "usage": {
+      "month": "2026-10",
+      "used": 29,
+      "limit": 2000,
+      "remaining": 1971
+    },
+    "hashesPassed": 24,
+    "roleProfileMatches": true,
+    "menuCoverage": {
+      "total": 68,
+      "verified": 66,
+      "held": 2,
+      "pending": 0,
+      "complete": false,
+      "checkedAt": "2026-10-17T11:22:22.346944+00:00"
+    },
+    "nextImmediateReviewDue": false,
+    "policy": {
+      "workWindow": "01:00-05:00 Asia/Singapore",
+      "managerSchedule": "*/15 1-4 * * *",
+      "monthlyModelInvocations": 2000,
+      "monthlyModelAlertPercent": 80,
+      "googleRequests": 0
+    },
+    "receipts": [
+      {
+        "role": "explorer",
+        "googleRequests": 0,
+        "publication": "not-published",
+        "completedAt": "2026-10-17T11:22:22.346944+00:00"
+      },
+      {
+        "role": "manager",
+        "googleRequests": 0,
+        "publication": "not-published",
+        "completedAt": "2026-10-17T11:23:12.741959+00:00"
+      },
+      {
+        "role": "manager-v2",
+        "googleRequests": 0,
+        "publication": "not-published",
+        "completedAt": "2026-10-17T11:28:31.020911+00:00"
+      }
+    ],
+    "sourceRequests": [
+      {
+        "at": "2026-10-17T11:19:45.161977+00:00",
+        "url": "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32",
+        "cacheHit": true,
+        "sourceSha256": "cde4179cfde8b84142a9a3ccd72df6abbf6bb5a6ec62158f1f5950d6bb97f95f",
+        "blocked": false,
+        "success": true
+      },
+      {
+        "at": "2026-10-17T11:19:45.162855+00:00",
+        "url": "https://www.instagram.com/zhenxiangvegetarian/?hl=en",
+        "cacheHit": true,
+        "sourceSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "blocked": true,
+        "success": false
+      },
+      {
+        "at": "2026-10-17T11:19:46.422851+00:00",
+        "url": "https://threebestrated.sg/vegan-restaurants/zhen-xiang-vegetarian-woodlands-199669917",
+        "cacheHit": false,
+        "sourceSha256": "0417891cc20d917e55d321f45d99c615bbb19f468f79b2de666258e6ccae2d88",
+        "blocked": false,
+        "success": true
+      }
+    ],
+    "telegramStatus": "sent"
+  },
+  "sourceIdentityHolds": [
+    {
+      "name": "Sambal Petai ????",
+      "amount": 16.8,
+      "currency": "SGD",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32",
+      "checkedAt": "2026-10-17T11:29:22.907229+00:00",
+      "status": "held-for-canonical-identity-review"
+    },
+    {
+      "name": "Sambal Petai Rice Set ?????",
+      "amount": 8.5,
+      "currency": "SGD",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32",
+      "checkedAt": "2026-10-17T11:29:22.907229+00:00",
+      "status": "held-for-canonical-identity-review"
+    }
+  ],
+  "sourceFreshnessQualification": "Full public web-reader capture imported at inspection time; original upstream fetch timestamp unknown. Source inspection is not a claim of merchant confirmation or permission to reset original verification dates.",
+  "googleLedger": {
+    "sha256": "c7321dafaad0473583139494ca899501578892c5b71105429d3cd4dceb4f311a",
+    "bytes": 1045377,
+    "requestsAdded": 0
+  }
+}

@@ -1,0 +1,1984 @@
+{
+  "startedAt": "2026-10-16T04:53:22.812Z",
+  "method": "Bounded sequential development HTTP index requests, inspector numeric heap metrics and sampling allocation stacks only; no object values or heap snapshot.",
+  "samples": [
+    {
+      "label": "before-forced-gc",
+      "at": "2026-10-16T04:53:22.857Z",
+      "usedSize": 462738400,
+      "totalSize": 472387584
+    },
+    {
+      "label": "baseline-after-forced-gc",
+      "at": "2026-10-16T04:53:23.014Z",
+      "usedSize": 461932240,
+      "totalSize": 470814720
+    },
+    {
+      "label": "after-2-requests",
+      "at": "2026-10-16T04:53:25.028Z",
+      "usedSize": 538584824,
+      "totalSize": 547721216
+    },
+    {
+      "label": "after-4-requests",
+      "at": "2026-10-16T04:53:26.946Z",
+      "usedSize": 615366904,
+      "totalSize": 625152000
+    },
+    {
+      "label": "after-6-requests",
+      "at": "2026-10-16T04:53:28.717Z",
+      "usedSize": 689368312,
+      "totalSize": 700485632
+    },
+    {
+      "label": "after-8-requests",
+      "at": "2026-10-16T04:53:30.412Z",
+      "usedSize": 754125336,
+      "totalSize": 765857792
+    },
+    {
+      "label": "after-10-requests",
+      "at": "2026-10-16T04:53:32.626Z",
+      "usedSize": 830880384,
+      "totalSize": 843026432
+    },
+    {
+      "label": "after-12-requests",
+      "at": "2026-10-16T04:53:34.773Z",
+      "usedSize": 907671336,
+      "totalSize": 920719360
+    },
+    {
+      "label": "after-14-requests",
+      "at": "2026-10-16T04:53:36.861Z",
+      "usedSize": 972491272,
+      "totalSize": 986091520
+    },
+    {
+      "label": "after-16-requests",
+      "at": "2026-10-16T04:53:38.860Z",
+      "usedSize": 1037324808,
+      "totalSize": 1050939392
+    },
+    {
+      "label": "after-18-requests",
+      "at": "2026-10-16T04:53:40.578Z",
+      "usedSize": 1102149400,
+      "totalSize": 1116049408
+    },
+    {
+      "label": "after-20-requests",
+      "at": "2026-10-16T04:53:42.812Z",
+      "usedSize": 1166969024,
+      "totalSize": 1181421568
+    },
+    {
+      "label": "final-after-forced-gc",
+      "at": "2026-10-16T04:53:43.397Z",
+      "usedSize": 1166713088,
+      "totalSize": 1181036544
+    }
+  ],
+  "requests": [
+    {
+      "n": 1,
+      "status": 200,
+      "bytes": 60246,
+      "ms": 1094.986
+    },
+    {
+      "n": 2,
+      "status": 200,
+      "bytes": 60246,
+      "ms": 721.5686000000001
+    },
+    {
+      "n": 3,
+      "status": 200,
+      "bytes": 60246,
+      "ms": 988.1435000000001
+    },
+    {
+      "n": 4,
+      "status": 200,
+      "bytes": 60246,
+      "ms": 690.1041999999998
+    },
+    {
+      "n": 5,
+      "status": 200,
+      "bytes": 60246,
+      "ms": 907.848
+    },
+    {
+      "n": 6,
+      "status": 200,
+      "bytes": 60246,
+      "ms": 656.9072000000006
+    },
+    {
+      "n": 7,
+      "status": 200,
+      "bytes": 60246,
+      "ms": 791.1165999999994
+    },
+    {
+      "n": 8,
+      "status": 200,
+      "bytes": 60246,
+      "ms": 661.1517999999996
+    },
+    {
+      "n": 9,
+      "status": 200,
+      "bytes": 60246,
+      "ms": 1209.384000000001
+    },
+    {
+      "n": 10,
+      "status": 200,
+      "bytes": 60246,
+      "ms": 708.9904000000006
+    },
+    {
+      "n": 11,
+      "status": 200,
+      "bytes": 60246,
+      "ms": 1042.8076
+    },
+    {
+      "n": 12,
+      "status": 200,
+      "bytes": 60246,
+      "ms": 814.6741000000002
+    },
+    {
+      "n": 13,
+      "status": 200,
+      "bytes": 60246,
+      "ms": 1249.3724000000002
+    },
+    {
+      "n": 14,
+      "status": 200,
+      "bytes": 60246,
+      "ms": 557.7600000000002
+    },
+    {
+      "n": 15,
+      "status": 200,
+      "bytes": 60246,
+      "ms": 1010.5756000000001
+    },
+    {
+      "n": 16,
+      "status": 200,
+      "bytes": 60246,
+      "ms": 661.7804999999989
+    },
+    {
+      "n": 17,
+      "status": 200,
+      "bytes": 60246,
+      "ms": 758.7911999999978
+    },
+    {
+      "n": 18,
+      "status": 200,
+      "bytes": 60246,
+      "ms": 660.8623999999982
+    },
+    {
+      "n": 19,
+      "status": 200,
+      "bytes": 60246,
+      "ms": 1149.7597999999998
+    },
+    {
+      "n": 20,
+      "status": 200,
+      "bytes": 60246,
+      "ms": 759.0786999999982
+    }
+  ],
+  "allocationStacks": [
+    {
+      "selfSize": 382633728,
+      "frames": [
+        {
+          "functionName": "(root)",
+          "url": "",
+          "lineNumber": -1
+        },
+        {
+          "functionName": "",
+          "url": "",
+          "lineNumber": -1
+        },
+        {
+          "functionName": "ssrImportApiRoute",
+          "url": "C:\\Users\\huien\\qt\\quintaste\\node_modules\\expo\\node_modules\\@expo\\cli\\build\\src\\start\\server\\metro\\MetroBundlerDevServer.js",
+          "lineNumber": 1328
+        },
+        {
+          "functionName": "evalMetroNoHandling",
+          "url": "C:\\Users\\huien\\qt\\quintaste\\node_modules\\expo\\node_modules\\@expo\\cli\\build\\src\\start\\server\\getStaticRenderFunctions.js",
+          "lineNumber": 143
+        },
+        {
+          "functionName": "evalModule",
+          "url": "C:\\Users\\huien\\qt\\quintaste\\node_modules\\@expo\\require-utils\\build\\load.js",
+          "lineNumber": 281
+        },
+        {
+          "functionName": "compileModule",
+          "url": "C:\\Users\\huien\\qt\\quintaste\\node_modules\\@expo\\require-utils\\build\\load.js",
+          "lineNumber": 164
+        },
+        {
+          "functionName": "",
+          "url": "node:internal/modules/cjs/loader",
+          "lineNumber": 1637
+        },
+        {
+          "functionName": "wrapSafe",
+          "url": "node:internal/modules/cjs/loader",
+          "lineNumber": 1577
+        }
+      ]
+    },
+    {
+      "selfSize": 27475200,
+      "frames": [
+        {
+          "functionName": "evalMetroNoHandling",
+          "url": "C:\\Users\\huien\\qt\\quintaste\\node_modules\\expo\\node_modules\\@expo\\cli\\build\\src\\start\\server\\getStaticRenderFunctions.js",
+          "lineNumber": 143
+        },
+        {
+          "functionName": "evalModule",
+          "url": "C:\\Users\\huien\\qt\\quintaste\\node_modules\\@expo\\require-utils\\build\\load.js",
+          "lineNumber": 281
+        },
+        {
+          "functionName": "compileModule",
+          "url": "C:\\Users\\huien\\qt\\quintaste\\node_modules\\@expo\\require-utils\\build\\load.js",
+          "lineNumber": 164
+        },
+        {
+          "functionName": "",
+          "url": "node:internal/modules/cjs/loader",
+          "lineNumber": 1637
+        },
+        {
+          "functionName": "wrapSafe",
+          "url": "node:internal/modules/cjs/loader",
+          "lineNumber": 1577
+        },
+        {
+          "functionName": "maybeCacheSourceMap",
+          "url": "node:internal/source_map/source_map_cache",
+          "lineNumber": 152
+        },
+        {
+          "functionName": "lineLengths",
+          "url": "node:internal/source_map/source_map_cache",
+          "lineNumber": 252
+        },
+        {
+          "functionName": "push",
+          "url": "",
+          "lineNumber": -1
+        }
+      ]
+    },
+    {
+      "selfSize": 15889968,
+      "frames": [
+        {
+          "functionName": "evalMetroNoHandling",
+          "url": "C:\\Users\\huien\\qt\\quintaste\\node_modules\\expo\\node_modules\\@expo\\cli\\build\\src\\start\\server\\getStaticRenderFunctions.js",
+          "lineNumber": 143
+        },
+        {
+          "functionName": "evalModule",
+          "url": "C:\\Users\\huien\\qt\\quintaste\\node_modules\\@expo\\require-utils\\build\\load.js",
+          "lineNumber": 281
+        },
+        {
+          "functionName": "compileModule",
+          "url": "C:\\Users\\huien\\qt\\quintaste\\node_modules\\@expo\\require-utils\\build\\load.js",
+          "lineNumber": 164
+        },
+        {
+          "functionName": "",
+          "url": "node:internal/modules/cjs/loader",
+          "lineNumber": 1637
+        },
+        {
+          "functionName": "wrapSafe",
+          "url": "node:internal/modules/cjs/loader",
+          "lineNumber": 1577
+        },
+        {
+          "functionName": "maybeCacheSourceMap",
+          "url": "node:internal/source_map/source_map_cache",
+          "lineNumber": 152
+        },
+        {
+          "functionName": "dataFromUrl",
+          "url": "node:internal/source_map/source_map_cache",
+          "lineNumber": 232
+        },
+        {
+          "functionName": "sourceMapFromFile",
+          "url": "node:internal/source_map/source_map_cache",
+          "lineNumber": 277
+        }
+      ]
+    },
+    {
+      "selfSize": 11871120,
+      "frames": [
+        {
+          "functionName": "(root)",
+          "url": "",
+          "lineNumber": -1
+        },
+        {
+          "functionName": "(EXTERNAL)",
+          "url": "",
+          "lineNumber": -1
+        }
+      ]
+    },
+    {
+      "selfSize": 11408168,
+      "frames": [
+        {
+          "functionName": "",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 4935
+        },
+        {
+          "functionName": "metroRequire",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 57
+        },
+        {
+          "functionName": "guardedLoadModule",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 153
+        },
+        {
+          "functionName": "loadModuleImplementation",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 206
+        },
+        {
+          "functionName": "",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 9187
+        },
+        {
+          "functionName": "metroRequire",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 57
+        },
+        {
+          "functionName": "guardedLoadModule",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 153
+        },
+        {
+          "functionName": "loadModuleImplementation",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 206
+        }
+      ]
+    },
+    {
+      "selfSize": 10621784,
+      "frames": [
+        {
+          "functionName": "",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 4935
+        },
+        {
+          "functionName": "metroRequire",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 57
+        },
+        {
+          "functionName": "guardedLoadModule",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 153
+        },
+        {
+          "functionName": "loadModuleImplementation",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 206
+        },
+        {
+          "functionName": "",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 9187
+        },
+        {
+          "functionName": "metroRequire",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 57
+        },
+        {
+          "functionName": "guardedLoadModule",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 153
+        },
+        {
+          "functionName": "loadModuleImplementation",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 206
+        }
+      ]
+    },
+    {
+      "selfSize": 10358912,
+      "frames": [
+        {
+          "functionName": "",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 4935
+        },
+        {
+          "functionName": "metroRequire",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 57
+        },
+        {
+          "functionName": "guardedLoadModule",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 153
+        },
+        {
+          "functionName": "loadModuleImplementation",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 206
+        },
+        {
+          "functionName": "",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 9187
+        },
+        {
+          "functionName": "metroRequire",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 57
+        },
+        {
+          "functionName": "guardedLoadModule",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 153
+        },
+        {
+          "functionName": "loadModuleImplementation",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 206
+        }
+      ]
+    },
+    {
+      "selfSize": 9966352,
+      "frames": [
+        {
+          "functionName": "",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 4935
+        },
+        {
+          "functionName": "metroRequire",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 57
+        },
+        {
+          "functionName": "guardedLoadModule",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 153
+        },
+        {
+          "functionName": "loadModuleImplementation",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 206
+        },
+        {
+          "functionName": "",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 9187
+        },
+        {
+          "functionName": "metroRequire",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 57
+        },
+        {
+          "functionName": "guardedLoadModule",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 153
+        },
+        {
+          "functionName": "loadModuleImplementation",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 206
+        }
+      ]
+    },
+    {
+      "selfSize": 8524984,
+      "frames": [
+        {
+          "functionName": "",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 4935
+        },
+        {
+          "functionName": "metroRequire",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 57
+        },
+        {
+          "functionName": "guardedLoadModule",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 153
+        },
+        {
+          "functionName": "loadModuleImplementation",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 206
+        },
+        {
+          "functionName": "",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 9187
+        },
+        {
+          "functionName": "metroRequire",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 57
+        },
+        {
+          "functionName": "guardedLoadModule",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 153
+        },
+        {
+          "functionName": "loadModuleImplementation",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 206
+        }
+      ]
+    },
+    {
+      "selfSize": 4197256,
+      "frames": [
+        {
+          "functionName": "metroRequire",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 57
+        },
+        {
+          "functionName": "guardedLoadModule",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 153
+        },
+        {
+          "functionName": "loadModuleImplementation",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 206
+        },
+        {
+          "functionName": "",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 4935
+        },
+        {
+          "functionName": "metroRequire",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 57
+        },
+        {
+          "functionName": "guardedLoadModule",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 153
+        },
+        {
+          "functionName": "loadModuleImplementation",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 206
+        },
+        {
+          "functionName": "",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 5021
+        }
+      ]
+    },
+    {
+      "selfSize": 4195456,
+      "frames": [
+        {
+          "functionName": "",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 4972
+        },
+        {
+          "functionName": "readMenuCatalogue",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 9174
+        },
+        {
+          "functionName": "pilotList",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 2543
+        },
+        {
+          "functionName": "readVenue",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 9142
+        },
+        {
+          "functionName": "pilotList",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 2543
+        },
+        {
+          "functionName": "readSection",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 9089
+        },
+        {
+          "functionName": "pilotList",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 2543
+        },
+        {
+          "functionName": "",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 9091
+        }
+      ]
+    },
+    {
+      "selfSize": 3933296,
+      "frames": [
+        {
+          "functionName": "",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 4972
+        },
+        {
+          "functionName": "readMenuCatalogue",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 9174
+        },
+        {
+          "functionName": "pilotList",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 2543
+        },
+        {
+          "functionName": "readVenue",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 9142
+        },
+        {
+          "functionName": "pilotList",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 2543
+        },
+        {
+          "functionName": "readSection",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 9089
+        },
+        {
+          "functionName": "pilotList",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 2543
+        },
+        {
+          "functionName": "",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 9091
+        }
+      ]
+    },
+    {
+      "selfSize": 3802200,
+      "frames": [
+        {
+          "functionName": "",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 4972
+        },
+        {
+          "functionName": "readMenuCatalogue",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 9174
+        },
+        {
+          "functionName": "pilotList",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 2543
+        },
+        {
+          "functionName": "readVenue",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 9142
+        },
+        {
+          "functionName": "pilotList",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 2543
+        },
+        {
+          "functionName": "readSection",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 9089
+        },
+        {
+          "functionName": "pilotList",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 2543
+        },
+        {
+          "functionName": "",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 9091
+        }
+      ]
+    },
+    {
+      "selfSize": 3671096,
+      "frames": [
+        {
+          "functionName": "",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 4972
+        },
+        {
+          "functionName": "readMenuCatalogue",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 9174
+        },
+        {
+          "functionName": "pilotList",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 2543
+        },
+        {
+          "functionName": "readVenue",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 9142
+        },
+        {
+          "functionName": "pilotList",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 2543
+        },
+        {
+          "functionName": "readSection",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 9089
+        },
+        {
+          "functionName": "pilotList",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 2543
+        },
+        {
+          "functionName": "",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 9091
+        }
+      ]
+    },
+    {
+      "selfSize": 3539928,
+      "frames": [
+        {
+          "functionName": "",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 4972
+        },
+        {
+          "functionName": "readMenuCatalogue",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 9174
+        },
+        {
+          "functionName": "pilotList",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 2543
+        },
+        {
+          "functionName": "readVenue",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 9142
+        },
+        {
+          "functionName": "pilotList",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 2543
+        },
+        {
+          "functionName": "readSection",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 9089
+        },
+        {
+          "functionName": "pilotList",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 2543
+        },
+        {
+          "functionName": "",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 9091
+        }
+      ]
+    },
+    {
+      "selfSize": 3539728,
+      "frames": [
+        {
+          "functionName": "metroRequire",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 57
+        },
+        {
+          "functionName": "guardedLoadModule",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 153
+        },
+        {
+          "functionName": "loadModuleImplementation",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 206
+        },
+        {
+          "functionName": "",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 4935
+        },
+        {
+          "functionName": "metroRequire",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 57
+        },
+        {
+          "functionName": "guardedLoadModule",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 153
+        },
+        {
+          "functionName": "loadModuleImplementation",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 206
+        },
+        {
+          "functionName": "",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 5021
+        }
+      ]
+    },
+    {
+      "selfSize": 3279768,
+      "frames": [
+        {
+          "functionName": "metroRequire",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 57
+        },
+        {
+          "functionName": "guardedLoadModule",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 153
+        },
+        {
+          "functionName": "loadModuleImplementation",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 206
+        },
+        {
+          "functionName": "",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 4935
+        },
+        {
+          "functionName": "metroRequire",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 57
+        },
+        {
+          "functionName": "guardedLoadModule",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 153
+        },
+        {
+          "functionName": "loadModuleImplementation",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 206
+        },
+        {
+          "functionName": "",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 5021
+        }
+      ]
+    },
+    {
+      "selfSize": 3278288,
+      "frames": [
+        {
+          "functionName": "",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 1279
+        },
+        {
+          "functionName": "metroRequire",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 57
+        },
+        {
+          "functionName": "guardedLoadModule",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 153
+        },
+        {
+          "functionName": "loadModuleImplementation",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 206
+        },
+        {
+          "functionName": "",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 4935
+        },
+        {
+          "functionName": "metroRequire",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 57
+        },
+        {
+          "functionName": "guardedLoadModule",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 153
+        },
+        {
+          "functionName": "loadModuleImplementation",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 206
+        }
+      ]
+    },
+    {
+      "selfSize": 3277688,
+      "frames": [
+        {
+          "functionName": "",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 4972
+        },
+        {
+          "functionName": "readMenuCatalogue",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 9174
+        },
+        {
+          "functionName": "pilotList",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 2543
+        },
+        {
+          "functionName": "readVenue",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 9142
+        },
+        {
+          "functionName": "pilotList",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 2543
+        },
+        {
+          "functionName": "readSection",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 9089
+        },
+        {
+          "functionName": "pilotList",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 2543
+        },
+        {
+          "functionName": "",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 9091
+        }
+      ]
+    },
+    {
+      "selfSize": 3148120,
+      "frames": [
+        {
+          "functionName": "metroRequire",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 57
+        },
+        {
+          "functionName": "guardedLoadModule",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 153
+        },
+        {
+          "functionName": "loadModuleImplementation",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 206
+        },
+        {
+          "functionName": "",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 4935
+        },
+        {
+          "functionName": "metroRequire",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 57
+        },
+        {
+          "functionName": "guardedLoadModule",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 153
+        },
+        {
+          "functionName": "loadModuleImplementation",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 206
+        },
+        {
+          "functionName": "",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 5021
+        }
+      ]
+    },
+    {
+      "selfSize": 3146792,
+      "frames": [
+        {
+          "functionName": "metroRequire",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 57
+        },
+        {
+          "functionName": "guardedLoadModule",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 153
+        },
+        {
+          "functionName": "loadModuleImplementation",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 206
+        },
+        {
+          "functionName": "",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 4935
+        },
+        {
+          "functionName": "metroRequire",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 57
+        },
+        {
+          "functionName": "guardedLoadModule",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 153
+        },
+        {
+          "functionName": "loadModuleImplementation",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 206
+        },
+        {
+          "functionName": "",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 5021
+        }
+      ]
+    },
+    {
+      "selfSize": 3015704,
+      "frames": [
+        {
+          "functionName": "",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 1279
+        },
+        {
+          "functionName": "metroRequire",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 57
+        },
+        {
+          "functionName": "guardedLoadModule",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 153
+        },
+        {
+          "functionName": "loadModuleImplementation",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 206
+        },
+        {
+          "functionName": "",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 4935
+        },
+        {
+          "functionName": "metroRequire",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 57
+        },
+        {
+          "functionName": "guardedLoadModule",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 153
+        },
+        {
+          "functionName": "loadModuleImplementation",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 206
+        }
+      ]
+    },
+    {
+      "selfSize": 3015336,
+      "frames": [
+        {
+          "functionName": "metroRequire",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 57
+        },
+        {
+          "functionName": "guardedLoadModule",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 153
+        },
+        {
+          "functionName": "loadModuleImplementation",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 206
+        },
+        {
+          "functionName": "",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 4935
+        },
+        {
+          "functionName": "metroRequire",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 57
+        },
+        {
+          "functionName": "guardedLoadModule",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 153
+        },
+        {
+          "functionName": "loadModuleImplementation",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 206
+        },
+        {
+          "functionName": "",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 5021
+        }
+      ]
+    },
+    {
+      "selfSize": 2753488,
+      "frames": [
+        {
+          "functionName": "",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 1279
+        },
+        {
+          "functionName": "metroRequire",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 57
+        },
+        {
+          "functionName": "guardedLoadModule",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 153
+        },
+        {
+          "functionName": "loadModuleImplementation",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 206
+        },
+        {
+          "functionName": "",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 4935
+        },
+        {
+          "functionName": "metroRequire",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 57
+        },
+        {
+          "functionName": "guardedLoadModule",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 153
+        },
+        {
+          "functionName": "loadModuleImplementation",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 206
+        }
+      ]
+    },
+    {
+      "selfSize": 2753192,
+      "frames": [
+        {
+          "functionName": "metroRequire",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 57
+        },
+        {
+          "functionName": "guardedLoadModule",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 153
+        },
+        {
+          "functionName": "loadModuleImplementation",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 206
+        },
+        {
+          "functionName": "",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 4935
+        },
+        {
+          "functionName": "metroRequire",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 57
+        },
+        {
+          "functionName": "guardedLoadModule",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 153
+        },
+        {
+          "functionName": "loadModuleImplementation",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 206
+        },
+        {
+          "functionName": "",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 5021
+        }
+      ]
+    },
+    {
+      "selfSize": 2622688,
+      "frames": [
+        {
+          "functionName": "",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 1279
+        },
+        {
+          "functionName": "metroRequire",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 57
+        },
+        {
+          "functionName": "guardedLoadModule",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 153
+        },
+        {
+          "functionName": "loadModuleImplementation",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 206
+        },
+        {
+          "functionName": "",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 4935
+        },
+        {
+          "functionName": "metroRequire",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 57
+        },
+        {
+          "functionName": "guardedLoadModule",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 153
+        },
+        {
+          "functionName": "loadModuleImplementation",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 206
+        }
+      ]
+    },
+    {
+      "selfSize": 2622240,
+      "frames": [
+        {
+          "functionName": "",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 4972
+        },
+        {
+          "functionName": "readMenuCatalogue",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 9174
+        },
+        {
+          "functionName": "pilotList",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 2543
+        },
+        {
+          "functionName": "readVenue",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 9142
+        },
+        {
+          "functionName": "pilotList",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 2543
+        },
+        {
+          "functionName": "readSection",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 9089
+        },
+        {
+          "functionName": "pilotList",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 2543
+        },
+        {
+          "functionName": "",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 9091
+        }
+      ]
+    },
+    {
+      "selfSize": 2622200,
+      "frames": [
+        {
+          "functionName": "",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 4972
+        },
+        {
+          "functionName": "readMenuCatalogue",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 9174
+        },
+        {
+          "functionName": "pilotList",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 2543
+        },
+        {
+          "functionName": "readVenue",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 9142
+        },
+        {
+          "functionName": "pilotList",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 2543
+        },
+        {
+          "functionName": "readSection",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 9089
+        },
+        {
+          "functionName": "pilotList",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 2543
+        },
+        {
+          "functionName": "",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 9091
+        }
+      ]
+    },
+    {
+      "selfSize": 2622072,
+      "frames": [
+        {
+          "functionName": "metroRequire",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 57
+        },
+        {
+          "functionName": "guardedLoadModule",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 153
+        },
+        {
+          "functionName": "loadModuleImplementation",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 206
+        },
+        {
+          "functionName": "",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 4935
+        },
+        {
+          "functionName": "metroRequire",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 57
+        },
+        {
+          "functionName": "guardedLoadModule",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 153
+        },
+        {
+          "functionName": "loadModuleImplementation",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 206
+        },
+        {
+          "functionName": "",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 5021
+        }
+      ]
+    },
+    {
+      "selfSize": 2491760,
+      "frames": [
+        {
+          "functionName": "",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 1279
+        },
+        {
+          "functionName": "metroRequire",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 57
+        },
+        {
+          "functionName": "guardedLoadModule",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 153
+        },
+        {
+          "functionName": "loadModuleImplementation",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 206
+        },
+        {
+          "functionName": "",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 4935
+        },
+        {
+          "functionName": "metroRequire",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 57
+        },
+        {
+          "functionName": "guardedLoadModule",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 153
+        },
+        {
+          "functionName": "loadModuleImplementation",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 206
+        }
+      ]
+    },
+    {
+      "selfSize": 2491312,
+      "frames": [
+        {
+          "functionName": "metroRequire",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 57
+        },
+        {
+          "functionName": "guardedLoadModule",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 153
+        },
+        {
+          "functionName": "loadModuleImplementation",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 206
+        },
+        {
+          "functionName": "",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 4935
+        },
+        {
+          "functionName": "metroRequire",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 57
+        },
+        {
+          "functionName": "guardedLoadModule",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 153
+        },
+        {
+          "functionName": "loadModuleImplementation",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 206
+        },
+        {
+          "functionName": "",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 5021
+        }
+      ]
+    },
+    {
+      "selfSize": 2491096,
+      "frames": [
+        {
+          "functionName": "",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 4972
+        },
+        {
+          "functionName": "readMenuCatalogue",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 9174
+        },
+        {
+          "functionName": "pilotList",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 2543
+        },
+        {
+          "functionName": "readVenue",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 9142
+        },
+        {
+          "functionName": "pilotList",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 2543
+        },
+        {
+          "functionName": "readSection",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 9089
+        },
+        {
+          "functionName": "pilotList",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 2543
+        },
+        {
+          "functionName": "",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 9091
+        }
+      ]
+    },
+    {
+      "selfSize": 2228920,
+      "frames": [
+        {
+          "functionName": "",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 4972
+        },
+        {
+          "functionName": "readMenuCatalogue",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 9174
+        },
+        {
+          "functionName": "pilotList",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 2543
+        },
+        {
+          "functionName": "readVenue",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 9142
+        },
+        {
+          "functionName": "pilotList",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 2543
+        },
+        {
+          "functionName": "readSection",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 9089
+        },
+        {
+          "functionName": "pilotList",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 2543
+        },
+        {
+          "functionName": "",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 9091
+        }
+      ]
+    },
+    {
+      "selfSize": 2228784,
+      "frames": [
+        {
+          "functionName": "metroRequire",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 57
+        },
+        {
+          "functionName": "guardedLoadModule",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 153
+        },
+        {
+          "functionName": "loadModuleImplementation",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 206
+        },
+        {
+          "functionName": "",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 9187
+        },
+        {
+          "functionName": "metroRequire",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 57
+        },
+        {
+          "functionName": "guardedLoadModule",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 153
+        },
+        {
+          "functionName": "loadModuleImplementation",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 206
+        },
+        {
+          "functionName": "",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 9393
+        }
+      ]
+    },
+    {
+      "selfSize": 2228760,
+      "frames": [
+        {
+          "functionName": "metroRequire",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 57
+        },
+        {
+          "functionName": "guardedLoadModule",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 153
+        },
+        {
+          "functionName": "loadModuleImplementation",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 206
+        },
+        {
+          "functionName": "",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 4935
+        },
+        {
+          "functionName": "metroRequire",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 57
+        },
+        {
+          "functionName": "guardedLoadModule",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 153
+        },
+        {
+          "functionName": "loadModuleImplementation",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 206
+        },
+        {
+          "functionName": "",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 5021
+        }
+      ]
+    },
+    {
+      "selfSize": 1966528,
+      "frames": [
+        {
+          "functionName": "metroRequire",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 57
+        },
+        {
+          "functionName": "guardedLoadModule",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 153
+        },
+        {
+          "functionName": "loadModuleImplementation",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 206
+        },
+        {
+          "functionName": "",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 9187
+        },
+        {
+          "functionName": "metroRequire",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 57
+        },
+        {
+          "functionName": "guardedLoadModule",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 153
+        },
+        {
+          "functionName": "loadModuleImplementation",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 206
+        },
+        {
+          "functionName": "",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 9393
+        }
+      ]
+    },
+    {
+      "selfSize": 1835464,
+      "frames": [
+        {
+          "functionName": "metroRequire",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 57
+        },
+        {
+          "functionName": "guardedLoadModule",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 153
+        },
+        {
+          "functionName": "loadModuleImplementation",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 206
+        },
+        {
+          "functionName": "",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 9187
+        },
+        {
+          "functionName": "metroRequire",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 57
+        },
+        {
+          "functionName": "guardedLoadModule",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 153
+        },
+        {
+          "functionName": "loadModuleImplementation",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 206
+        },
+        {
+          "functionName": "",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 9393
+        }
+      ]
+    },
+    {
+      "selfSize": 1704320,
+      "frames": [
+        {
+          "functionName": "metroRequire",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 57
+        },
+        {
+          "functionName": "guardedLoadModule",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 153
+        },
+        {
+          "functionName": "loadModuleImplementation",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 206
+        },
+        {
+          "functionName": "",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 9187
+        },
+        {
+          "functionName": "metroRequire",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 57
+        },
+        {
+          "functionName": "guardedLoadModule",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 153
+        },
+        {
+          "functionName": "loadModuleImplementation",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 206
+        },
+        {
+          "functionName": "",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 9393
+        }
+      ]
+    },
+    {
+      "selfSize": 1704320,
+      "frames": [
+        {
+          "functionName": "metroRequire",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 57
+        },
+        {
+          "functionName": "guardedLoadModule",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 153
+        },
+        {
+          "functionName": "loadModuleImplementation",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 206
+        },
+        {
+          "functionName": "",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 9187
+        },
+        {
+          "functionName": "metroRequire",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 57
+        },
+        {
+          "functionName": "guardedLoadModule",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 153
+        },
+        {
+          "functionName": "loadModuleImplementation",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 206
+        },
+        {
+          "functionName": "",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 11133
+        }
+      ]
+    },
+    {
+      "selfSize": 1573072,
+      "frames": [
+        {
+          "functionName": "",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 4935
+        },
+        {
+          "functionName": "metroRequire",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 57
+        },
+        {
+          "functionName": "guardedLoadModule",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 153
+        },
+        {
+          "functionName": "loadModuleImplementation",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 206
+        },
+        {
+          "functionName": "",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 9187
+        },
+        {
+          "functionName": "metroRequire",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 57
+        },
+        {
+          "functionName": "guardedLoadModule",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 153
+        },
+        {
+          "functionName": "loadModuleImplementation",
+          "url": "C:/Users/huien/qt/quintaste/src/app/api/menus+api.ts.bundle?platform=web&dev=true&hot=false&transform.engine=hermes&transform.routerRoot=src%2Fapp&resolver.environment=node&transform.environment=node&unstable_transformProfile=hermes-stable",
+          "lineNumber": 206
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "Development runtime only; no production or physical-device acceptance.",
+    "Allocation samples identify allocating paths, not a proven retention root cause."
+  ],
+  "finishedAt": "2026-10-16T04:53:43.407Z",
+  "passed": true
+}

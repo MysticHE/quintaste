@@ -1,0 +1,1366 @@
+{
+  "version": 1,
+  "checkedAt": "2026-10-17",
+  "complete": false,
+  "status": "Deployed and live verified; full coverage research remains active",
+  "baselineRelease": "20261017-place-details3",
+  "candidateRelease": "20261017-covers-hours4",
+  "counts": {
+    "menuIds": 175,
+    "browseEntries": 174,
+    "hoursRecords": 85,
+    "covers": 23,
+    "browseMissingHours": 89,
+    "browseMissingCovers": 151
+  },
+  "newHours": [
+    {
+      "venueId": "research-ur14-tianmu-westcoast",
+      "address": "504 West Coast Drive #01-230, Singapore 120504",
+      "hours": {
+        "summary": "Tue-Sun 08:00-16:00",
+        "schedule": [
+          "Tue-Sun: 08:00-16:00"
+        ],
+        "notes": "Monday is not listed in the published general operating schedule.",
+        "sourceUrl": "https://www.blockchef.com/store/tianmuvegetarian/about",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Saved merchant About page explicitly labels General Operating Hours, not just delivery slots, and identifies504WestCoastDrive#01-230. Re-reviewed17Oct from16Oct captured HTML; Monday closure not inferred from omission."
+    },
+    {
+      "venueId": "research-ur09-kms-zen-cafe",
+      "address": "88 Bright Hill Road, Venerable Hong Choon Memorial Hall Level 1 beside Ju Yuan Fang, Singapore 574117",
+      "hours": {
+        "summary": "Daily 10:00-17:00",
+        "schedule": [
+          "Daily: 10:00-17:00"
+        ],
+        "notes": "Food-service page and linked cafe menu give this schedule; other monastery pages retain different hours. Check with the cafe before a special trip.",
+        "sourceUrl": "https://kmspks.org/services/vegetarian-food/",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Re-reviewed16Oct saved direct operator food-service HTML and six-page linked ZenCafe_Digital-Menu.pdf. Both explicitly daily10-17 at Level1besideJuYuanFang. Indexed older food-service text and visiting-hours page list longer weekday hours; specific currently linked cafe menu and direct food-service capture preferred. No new menu extraction."
+    },
+    {
+      "venueId": "research-ur09-kms-dining-hall",
+      "address": "88 Bright Hill Road, Venerable Hong Choon Memorial Hall Level 2, Singapore 574117",
+      "hours": {
+        "summary": "Hours vary by food service",
+        "schedule": [
+          "Weekdays bento: 09:00-11:00",
+          "Weekends mixed vegetable rice: 09:00-14:00",
+          "Happy Realm Mon-Sat: 09:30-13:30"
+        ],
+        "notes": "Happy Realm lists a 13-20 December closure without a year; confirm before visiting. These are food-service windows, not general monastery opening hours.",
+        "sourceUrl": "https://kmspks.org/services/vegetarian-food/",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Re-reviewed16Oct saved direct operator HTML, explicit Level2DiningHall/HappyRealm and each food-service schedule. Older magazine10:30opening not substituted. Closure year remains unresolved; seasonal food holds preserved."
+    },
+    {
+      "venueId": "research-greenearth-rail-mall",
+      "address": "386 Upper Bukit Timah Road, The Rail Mall, Singapore 678043",
+      "hours": {
+        "summary": "Daily 11:00-22:00",
+        "schedule": [
+          "Daily: 11:00-22:00"
+        ],
+        "notes": "Last order 21:30.",
+        "sourceUrl": "https://railmall.com.sg/our-stores/?type=dining",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Property manager tenant directory identifies Green on Earth at units386/388 and its restaurant schedule. Checked17Oct through indexed public page; direct HTML currently omits tenant content. Contemporary directory takes precedence over conflicting secondary listings and delivery slots. Holiday-only PDF not used as regular hours."
+    },
+    {
+      "venueId": "research-ur04-kunthaville",
+      "address": "18 Veerasamy Road, Singapore 207326",
+      "hours": {
+        "summary": "Tue-Sun 11:00-22:00",
+        "schedule": [
+          "Mon: Closed",
+          "Tue-Sun: 11:00-22:00"
+        ],
+        "notes": "Schedule listed by the restaurant reservation partner.",
+        "sourceUrl": "https://www.chope.co/singapore-restaurants/restaurant/kunthaville",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Re-reviewed saved merchant reservation page from16Oct, corroborated public indexed page17Oct, exact18VeerasamyRoad. Explicit restaurant schedule separate from delivery hours. Earlier generic hold superseded by manual schedule review; operator homepage returned502, retained as failed cross-check. Conflicting secondary directory daily11-21 not preferred over merchant reservation schedule."
+    }
+  ],
+  "newPhotos": [
+    {
+      "venueId": "research-joyi-bedok-north",
+      "address": "136 Bedok North Avenue 3 #01-148, Singapore 460136",
+      "photo": {
+        "path": "/api/catalogue-photos/47397cd959a4ee07b05652224a1523ba44af0550e73934b1021ec7c08c343a68.jpg",
+        "width": 960,
+        "height": 1158,
+        "author": "JO-YI CAFE",
+        "sourceUrl": "https://www.jo-yi.com/menu",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference; resized for display. Fine details may differ. Source rights are retained; enhancement is not a new licence."
+      },
+      "sha256": "47397cd959a4ee07b05652224a1523ba44af0550e73934b1021ec7c08c343a68",
+      "bytes": 185630,
+      "originalSha256": "8221671d12a7539ad831b288e32e8008e9f95be1175fc2b2c680c74dbd016f7e",
+      "sourceImageUrl": "https://static.wixstatic.com/media/802f0d_0c7c23ef3f3a4ee0880ba3875effcae0~mv2.jpg",
+      "identityEvidence": "Operator menu labels the photographed waffle and two gelato scoops and identifies 136 Bedok North Avenue 3 #01-148.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Use case: lighting-weather. Edit the supplied JO-YI cafe photograph into a refined photographic gallery cover. Keep exactly the same waffle pieces, two gelato scoops (ivory and muted green), powdered sugar, wooden serving board and cutlery, with their original relative arrangement and realistic proportions. Improve exposure, neutralize the dim yellow cast, make waffle texture delicately crisp and gelato softly detailed, with tasteful natural cafe light and gentle depth. Preserve actual food contents and colors; do not add toppings, props, text, logos or claims. Retain the close portrait composition; keep the two scoops clearly visible toward the upper-middle so a lower UI overlay does not hide them. Photographic faithful enhancement, not a redesign; no plastic gloss or invented ingredients.",
+        "review": "Visually compared with original. Food arrangement or exact branch room retained; no data claims inferred from image."
+      }
+    },
+    {
+      "venueId": "research-moonchay-fortune",
+      "address": "190 Middle Road #02-27/28 Fortune Centre, Singapore 188979",
+      "photo": {
+        "path": "/api/catalogue-photos/31db9ec2558a1e13aa4a42106960e9b8b19eaf5d907c71118e8f5b71cd28928f.jpg",
+        "width": 960,
+        "height": 960,
+        "author": "Moon Chay Vegetarian",
+        "sourceUrl": "https://moonchayvegetarian.com/",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference; resized for display. Fine details may differ. Source rights are retained; enhancement is not a new licence."
+      },
+      "sha256": "31db9ec2558a1e13aa4a42106960e9b8b19eaf5d907c71118e8f5b71cd28928f",
+      "bytes": 147577,
+      "originalSha256": "8d81b7ad8a74c406060c8adeadad6c855d9e03ba2f1d67cddb1bffdaf030b587",
+      "sourceImageUrl": "https://moonchayvegetarian.com/wp-content/uploads/2025/05/IMG_1103-scaled-e1746341395716.jpg",
+      "identityEvidence": "Operator homepage food photograph; exact Fortune Centre branch established by saved menu/merchant source and operator contact evidence. This is a food cover, not an interior or availability claim.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Use case: lighting-weather. Faithfully enhance the supplied Moon Chay operator food photograph for a restaurant gallery cover. Keep the exact white plate, black marble table, central black sauce bowl, rice mound, sliced browned plant-based patty, orange triangular slice, pale shredded side, cucumber/tomato and pickled vegetables in their existing relative positions and serving amounts. Improve natural daylight, clean white balance and gentle texture clarity; make it appetizing and polished without changing ingredients or adding garnishes, food, dishes, steam, labels or branding. Preserve the same square overhead-oblique composition, realistic food textures and the original colors. Do not turn plant-based food into meat or make dietary claims. No added text or graphic frame.",
+        "review": "Visually compared with original. Food arrangement or exact branch room retained; no data claims inferred from image."
+      }
+    },
+    {
+      "venueId": "nomvnom-clarke-quay-central",
+      "address": "6 Eu Tong Sen Street #03-105/106/107, Clarke Quay Central, Singapore 059817",
+      "photo": {
+        "path": "/api/catalogue-photos/f69b611386d349bed53677ab17ff1c90e092afd47f004b078fc15a4fe60f14f4.jpg",
+        "width": 960,
+        "height": 720,
+        "author": "nomVnom",
+        "sourceUrl": "https://www.nomvnom.com/gallery",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference; resized for display. Fine details may differ. Source rights are retained; enhancement is not a new licence."
+      },
+      "sha256": "f69b611386d349bed53677ab17ff1c90e092afd47f004b078fc15a4fe60f14f4",
+      "bytes": 171399,
+      "originalSha256": "44a4219c0674ed165c394a3a188769f82c61647075fa8aad1bbf787b25afede2",
+      "sourceImageUrl": "https://static.wixstatic.com/media/34c2df_fc2b53e1f2934bcf8adc6670ae2d894c~mv2.jpg",
+      "identityEvidence": "Operator gallery explicitly labels this image Clarke Quay Outlet. Same page lists 6 Eu Tong Sen Street #03-105/106/107. The separate JB City Guide food image was held and not used.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Use case: lighting-weather. Faithfully enhance this exact nomVnom Bistro Clarke Quay interior photograph as an attractive restaurant gallery cover. Preserve the room geometry, counter, stone wall, rope pendant lights, plants, window mullions, existing tables/chairs, skyline and all signage. Keep the logo exactly as in the original, do not redraw or invent letters. Improve the underexposed interior with balanced daylight, warmer gentle pendant illumination and natural detail, without adding furnishings, people, food, plants or decor. Same landscape composition, realistic interior editorial photography, restrained contrast and accurate colors. No added text, graphics, border or branding; do not change the venue.",
+        "review": "Visually compared with original. Food arrangement or exact branch room retained; no data claims inferred from image."
+      }
+    },
+    {
+      "venueId": "research-ur06-original-sin",
+      "address": "43 Jalan Merah Saga #01-62, Singapore278115",
+      "photo": {
+        "path": "/api/catalogue-photos/e4d957cbce1ce41846dea07a27a7cded05bf2ceb025f751e8c4baddc99a44534.jpg",
+        "width": 960,
+        "height": 641,
+        "author": "Original Sin Mediterranean Restaurant",
+        "sourceUrl": "https://www.originalsin.sg/menu",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference; resized for display. Fine details may differ. Source rights are retained; enhancement is not a new licence."
+      },
+      "sha256": "e4d957cbce1ce41846dea07a27a7cded05bf2ceb025f751e8c4baddc99a44534",
+      "bytes": 122614,
+      "originalSha256": "477cf5f7d859ff6405d0872103594fa96feaefccb29e4a999bb42017b48c4ef7",
+      "sourceImageUrl": "https://static.wixstatic.com/media/43ffc9_06a8ceb3aade4b998e12c1e1a62879ce~mv2.jpg",
+      "identityEvidence": "Operator menu directly labels this food photograph Mezze Platter and identifies 43 Jalan Merah Saga #01-62. Separate exterior image with people and Venuerific watermark was not used.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Use case: lighting-weather. Faithfully enhance the supplied Original Sin mezze photograph for a photo-led restaurant gallery cover. Preserve the same close composition and exact food arrangement: central upright toasted pita triangles, four dark bowls containing orange, magenta, beige and white dips, the visible olives, white cheese cubes, tomatoes and falafel at the edges. Improve dim exposure with soft natural restaurant daylight, accurate color, subtle texture clarity and appetizing gentle highlights. Keep food quantities, shapes and placement unchanged; do not add garnish, dishes, ingredients, props, text, labels or logos. Landscape crop as supplied, shallow natural depth, photographic rather than illustrated, no excessive gloss or invented detail.",
+        "review": "Visually compared with original. Food arrangement or exact branch room retained; no data claims inferred from image."
+      }
+    }
+  ],
+  "qualifiedFindings": [
+    {
+      "venueId": "research-greenearth-rail-mall",
+      "url": "https://railmall.com.sg/our-stores/?type=dining",
+      "channel": "public indexed property-manager page",
+      "result": "Exact tenant386/388 restaurant schedule daily11-22,last21:30 accepted; directHTML tenant body missing.",
+      "checkedAt": "2026-10-17"
+    },
+    {
+      "venueId": "research-ur04-kunthaville",
+      "url": "https://www.chope.co/singapore-restaurants/restaurant/kunthaville",
+      "channel": "saved16Oct HTML and17Oct public indexed reservation page",
+      "result": "Explicit Mondayclosed,Tue-Sun11-22 restaurant hours accepted after manual re-review.",
+      "checkedAt": "2026-10-17"
+    },
+    {
+      "venueId": "nomvnom-clarke-quay-central",
+      "url": "https://www.nomvnom.com/gallery",
+      "result": "Clarke Quay Outlet explicitly labelled image selected. Homepage JB City Guide food image not used; multiple-country gallery prevents assuming all food photographs are Singapore branch.",
+      "checkedAt": "2026-10-17"
+    },
+    {
+      "venueId": "research-ur06-original-sin",
+      "url": "https://www.originalsin.sg/contact-us-mediterraneanitalian-veg",
+      "result": "Exact address but no schedule. Hours remain held; operator menu mezze image selected instead of exterior with people/third-party watermark.",
+      "checkedAt": "2026-10-17"
+    }
+  ],
+  "remaining": [
+    {
+      "venueId": "dlife-signature-chinatown-point",
+      "name": "D'Life Signature",
+      "address": "133 New Bridge Road #02-37, Chinatown Point, Singapore 059413",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "teng-bespoke-sunshine-plaza",
+      "name": "Teng Bespoke Vegetarian Japanese Dining",
+      "address": "91 Bencoolen Street #01-50, Sunshine Plaza, Singapore 189652",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "daily-green-woodlands-street-31",
+      "name": "Vegetarian Kitchen by Daily Green",
+      "address": "306 Woodlands Street 31, Singapore 730306",
+      "missingHours": false,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "living-wholesome-fortune-centre",
+      "name": "Living Wholesome Vegetarian",
+      "address": "190 Middle Road #01-23, Fortune Centre, Singapore 188979",
+      "missingHours": false,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "bodhi-deli-fortune-centre",
+      "name": "Bodhi Deli",
+      "address": "190 Middle Road #03-26, Fortune Centre, Singapore 188979",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "zhen-xiang-woodlands-street-32",
+      "name": "Zhen Xiang Vegetarian",
+      "address": "325 Woodlands Street 32 #01-131, Singapore 730325",
+      "missingHours": true,
+      "missingPhoto": false
+    },
+    {
+      "venueId": "shu-woodlands-avenue-1",
+      "name": "SHU Vegetarian",
+      "address": "354A Woodlands Avenue 1 #01-01, Singapore 731354",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-greendot-star-vista",
+      "name": "Greendot",
+      "address": "1 Vista Exchange Green, #02-04, The Star Vista 138617, Singapore",
+      "missingHours": false,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-greendot-seletar-mall",
+      "name": "Greendot",
+      "address": "33 Sengkang West Avenue #B1-01 The Seletar Mall, 797653, Singapore",
+      "missingHours": false,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-greendot-asia-square",
+      "name": "Greendot",
+      "address": "8 Marina View, Tower 1, #02-02, 018960, Singapore",
+      "missingHours": false,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-greendot-bedok-mall",
+      "name": "Greendot",
+      "address": "311 New Upper Changi Road B2-31, Bedok Mall, 467360, Singapore",
+      "missingHours": false,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-greendot-bukit-panjang-plaza",
+      "name": "Greendot",
+      "address": "1 Jelebu Rd, Bukit Panjang Plaza, 677743, Singapore",
+      "missingHours": false,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-greendot-j8",
+      "name": "Greendot",
+      "address": "9 Bishan Pl, #B1-24 24A, 579837, Singapore",
+      "missingHours": false,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-greendot-jurong-point",
+      "name": "Greendot",
+      "address": "1 Jurong West Central 2 Jurong Point JP 1 #01-43/44/45, 648886, Singapore",
+      "missingHours": false,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-greendot-northpoint",
+      "name": "Greendot",
+      "address": "930 Yishun Ave 2, Northpoint City  North Wing, #B2-09/11, 769098, Singapore",
+      "missingHours": false,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-greendot-paya-lebar-square",
+      "name": "Greendot",
+      "address": "60 Paya Lebar Road Paya Lebar Square #02-15/16/17, 409051, Singapore",
+      "missingHours": false,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-greendot-tampines-1",
+      "name": "Greendot",
+      "address": "10 Tampines Central 1, Tampines 1, #B1-K8, 529536, Singapore",
+      "missingHours": false,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-greendot-westgate",
+      "name": "Greendot",
+      "address": "3 Gateway Dr, #01-06 Westgate, 608532, Singapore",
+      "missingHours": false,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-shu-jalan-kayu",
+      "name": "SHU Vegetarian",
+      "address": "259 Jalan Kayu, Singapore 799488",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-shu-amk",
+      "name": "SHU Vegetarian 蔬方斋 (Ang Mo Kio Avenue 10)",
+      "address": "554 Ang Mo Kio Ave 10, #01-2040",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-shu-jurong",
+      "name": "SHU Vegetarian 蔬方斋 (Jurong West Street 41)",
+      "address": "498 Jurong West Street 41 #01-462, Singapore 640498",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-shu-clementi",
+      "name": "SHU Vegetarian 蔬方斋 (Clementi West Street 2)",
+      "address": "722 Clementi West Street 2 #01-150 (Wan Fu Eating House), Singapore 120722",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-shu-yishun",
+      "name": "SHU Vegetarian 蔬方斋 (Yishun Ring Road)",
+      "address": "239 Yishun Ring Road #01-1150, Singapore 760239",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-shu-loyang",
+      "name": "SHU Vegetarian 蔬方斋 (Loyang Point)",
+      "address": "259 Pasir Ris Street 21 #02-30, Loyang Point, Singapore 510259",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-shu-margaret",
+      "name": "SHU Vegetarian 蔬方斋 (Margaret Drive)",
+      "address": "40 Margaret Drive #01-05, Singapore 140040",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-shu-hq",
+      "name": "SHU Vegetarian 蔬方斋 (Chang Cheng HQ)",
+      "address": "27 Woodlands Link #01-01, Chang Cheng HQ (Chang Cheng Mee Wah Coffeeshop), Singapore 738732",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-dlife-orchard-gateway",
+      "name": "D'Life",
+      "address": "277 Orchard Road #B2-04A/05 Singapore,, 238858, Singapore",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-dlife-jurong-west",
+      "name": "D'Life",
+      "address": "428 Jurong West Ave 1 #01-256, 640428, Singapore",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-dlife-tengah",
+      "name": "D'Life (Tengah Drive)",
+      "address": "126B TENGAH DRIVE #01-319, PLANTATION VILLAGE S(692126)",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-sproutz-downtown",
+      "name": "Sproutz Downtown",
+      "address": "15 Central Boulevard #B1-05 Downtown MRT Station, Singapore 018969",
+      "missingHours": false,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-botanict-clementi",
+      "name": "Botanict",
+      "address": "Blk 352 Clementi Avenue 2 #01-123, Singapore 120352",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-fo-you-yuan-jalan-besar",
+      "name": "Fo You Yuan Vegetarian Restaurant",
+      "address": "369 Jalan Besar, Singapore 208997",
+      "missingHours": false,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-kang-su-far-east-plaza",
+      "name": "Kang Su Vegetarian",
+      "address": "14 Scotts Road #05-98 Far East Plaza, Singapore 228213",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-linlin-bedok-north",
+      "name": "Lin Lin Vegetarian Delight",
+      "address": "412 Bedok North Avenue 2, inside SinFoodie Coffeeshop, Singapore 460412",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-elemen-plq-mall",
+      "name": "elemen",
+      "address": "10 Paya Lebar Road #03-13, PLQ Mall, Singapore 409057",
+      "missingHours": false,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-elemen-millenia-walk",
+      "name": "elemen",
+      "address": "9 Raffles Boulevard #01-75/75A/76, Millenia Walk, Singapore 039596",
+      "missingHours": false,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-lingzhi-palais",
+      "name": "LingZhi Greens",
+      "address": "390 Orchard Road, #B1-04/05, Palais Renaissance, Singapore 238871",
+      "missingHours": false,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-yesnatural-geylang",
+      "name": "Yes Natural Restaurant",
+      "address": "57 Lorong 27 Geylang, Singapore 388184",
+      "missingHours": false,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-lnbv-vegan-branch",
+      "name": "Veg-An",
+      "address": "11 Sam Leong Road, Trio Mall, #04-03, Singapore 207903",
+      "missingHours": false,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-metta-simei",
+      "name": "Metta Cafe — Simei",
+      "address": "32 Simei Street 1, Level 1 Metta Building, Singapore 529950",
+      "missingHours": false,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-mother-earth-classic-balestier",
+      "name": "Mother Earth Classic",
+      "address": "530 Balestier Road #01-06, 329857, Singapore",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-mother-earth-jurong",
+      "name": "Mother Earth Vegetarian Restaurant",
+      "address": "511 Upper Jurong Road #01-04, 638366, Singapore",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-nvd-bukit-batok",
+      "name": "Nature Vegetarian Delights",
+      "address": "296A Bukit Batok Street 22, #01-62, Skyline II @ Bukit Batok, Singapore 651296",
+      "missingHours": false,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-nvd-rivervale",
+      "name": "Nature Vegetarian Delights",
+      "address": "171 Sengkang East Drive, #01-12 Rivervale Shores, Singapore 540171",
+      "missingHours": false,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-nature-cafe-alexandra",
+      "name": "Nature Cafe",
+      "address": "321 Alexandra Road #02-27, Singapore 159971",
+      "missingHours": false,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-nature-cafe-smu",
+      "name": "Nature Cafe",
+      "address": "SMU Li Ka Shing Library, 70 Stamford Road #01-22, Singapore 178901",
+      "missingHours": false,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-leafcorner-jurong",
+      "name": "Leaf Corner",
+      "address": "60 Jurong West Street 91 #01-09, Nanyang Community Club, Singapore 649040",
+      "missingHours": true,
+      "missingPhoto": false
+    },
+    {
+      "venueId": "research-leafcorner-taiseng",
+      "name": "Leaf Corner",
+      "address": "11 Irving Place #02-01, Singapore 369551",
+      "missingHours": true,
+      "missingPhoto": false
+    },
+    {
+      "venueId": "research-leafcorner-sembawang",
+      "name": "Leaf Corner",
+      "address": "5 Jalan Legundi, Sembawang Garden Arcade, Singapore 759269",
+      "missingHours": true,
+      "missingPhoto": false
+    },
+    {
+      "venueId": "research-nalan-littleindia",
+      "name": "NALAN",
+      "address": "82 Serangoon Road, Singapore 217987",
+      "missingHours": false,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-kailash-belilios-road",
+      "name": "Kailash Parbat",
+      "address": "3 Belilios Road #01-03 Hilton Garden Inn, Singapore 219924",
+      "missingHours": false,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-kailash-syed-alwi",
+      "name": "Kailash Parbat",
+      "address": "93 Syed Alwi Road, Singapore 207669",
+      "missingHours": false,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-kailash-changi",
+      "name": "Kailash Parbat",
+      "address": "1 Changi Business Park Crescent #01-10/12/13 Plaza8, Singapore 486025",
+      "missingHours": false,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-kailash-sentosa",
+      "name": "Kailash Parbat",
+      "address": "42 Imbia Road #01-01, Singapore 099701",
+      "missingHours": false,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-annalakshmi-cafe-downtown",
+      "name": "Annalakshmi Cafe",
+      "address": "6A Shenton Way #03-26 Downtown Gallery, Singapore 068815",
+      "missingHours": false,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-ananda-serangoon-58",
+      "name": "Ananda Bhavan (58 Serangoon Road)",
+      "address": "58 Serangoon Road, Little India Conservation Area, Singapore 217964",
+      "missingHours": false,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-saute-san-city-square",
+      "name": "Saute-san",
+      "address": "180 Kitchener Road, #03-23/24 City Square Mall, Singapore 208539",
+      "missingHours": false,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-saute-flavours-funan",
+      "name": "Flavours By Saute",
+      "address": "107 North Bridge Road, #B1-30 Funan, Singapore 179105",
+      "missingHours": false,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-saute-sushi-paya-lebar-square",
+      "name": "Saute Sushi",
+      "address": "60 Paya Lebar Road, #B1-19 Paya Lebar Square, Singapore 409051",
+      "missingHours": false,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-saute-saranghae-tampines-one",
+      "name": "Saute Saranghae",
+      "address": "10 Tampines Central 1, #05-08/09 Tampines 1, Singapore 529536",
+      "missingHours": false,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-sufood-raffles-city",
+      "name": "Sufood (Raffles City)",
+      "address": "252 North Bridge Road, #02-19 to 21 Raffles City Shopping Centre, Singapore 179103",
+      "missingHours": true,
+      "missingPhoto": false
+    },
+    {
+      "venueId": "research-genesis-vegan-havelock-ii",
+      "name": "Genesis Vegan Restaurant (Havelock II)",
+      "address": "2 Havelock Road, #B1-01 Havelock II, Singapore 059763",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-supreme-vege-queen-street",
+      "name": "Supreme Vege",
+      "address": "12 Queen Street, Hotel Royal @ Queens #02-03, Singapore 188553",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-veganburg-eunos",
+      "name": "VeganBurg",
+      "address": "44 Jalan Eunos, Singapore 419502",
+      "missingHours": false,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-ahimsa-neil-road",
+      "name": "Ahimsa Sanctuary",
+      "address": "76 Neil Road, Singapore 088840",
+      "missingHours": false,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-cultivate-maxwell-reserve",
+      "name": "Cultivate Cafe (Maxwell Reserve)",
+      "address": "Maxwell Reserve Singapore, Autograph Collection, 2 Cook Street, Singapore 078857",
+      "missingHours": false,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-warungijo-macpherson",
+      "name": "Warung Ijo",
+      "address": "601 MacPherson Road #01-61 Grantral Mall Taiseng, Singapore 368242",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-originalgreens-shaw-plaza",
+      "name": "Original Greens",
+      "address": "360 Balestier Road #04-07/K2 Shaw Plaza, Singapore 329783",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-merchant-7ab3dafc5f6a7876",
+      "name": "Daily Green (Hougang Mall)",
+      "address": "90 Hougang Ave 10 #04-11 Hougang Mall Foodies’ Garden®, Singapore 538766",
+      "missingHours": false,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-merchant-287ecefa1f8e3855",
+      "name": "Daily Green (Bedok)",
+      "address": "217 Bedok North Street 1 #01-77 Food Loft®, Singapore 460217",
+      "missingHours": false,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-zzv-jalan-mas-puteh",
+      "name": "Zi Zai Vegetarian (Jalan Mas Puteh)",
+      "address": "9 Jalan Mas Puteh, Singapore 128615",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-zzv-yishun",
+      "name": "Zi Zai Vegetarian (Yishun)",
+      "address": "Blk 236 Yishun Ring Road #01-1000, Singapore 760236",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-zzv-tampines",
+      "name": "Zi Zai Vegetarian (Tampines)",
+      "address": "801 Tampines Ave 4 #01-281, Tampines Polyview, Singapore 520801",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-zzv-bendemeer",
+      "name": "Zi Zai Vegetarian (Bendemeer)",
+      "address": "23 Bendemeer Road #01-523, Bendemeer Ville, Singapore 330023",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-divine-realm-hougang-501",
+      "name": "Divine Realm Vegetarian (Hougang Avenue 8)",
+      "address": "501 Hougang Avenue 8 #01-630, Singapore 530501",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-divine-family-hougang-356",
+      "name": "Divine Vegetarian Family Restaurant (Hougang Avenue 7)",
+      "address": "Blk 356 #01-803 Hougang Ave 7, Singapore 530356",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-greenland-upper-serangoon",
+      "name": "Greenland Vegetarian",
+      "address": "789 & 791 Upper Serangoon Road, Singapore 534659",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-times-vege-bukit-batok",
+      "name": "Time’s Vege",
+      "address": "643 Bukit Batok Central #01-44, Singapore 650643",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-zhenyi-ang-mo-kio-128",
+      "name": "Zhen Yi Vegetarian",
+      "address": "128 Ang Mo Kio Ave 3 #01-1853, Singapore 560128",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-true-veggie-geylang",
+      "name": "True Veggie",
+      "address": "47 Lorong 27 Geylang, Singapore 388179",
+      "missingHours": true,
+      "missingPhoto": false
+    },
+    {
+      "venueId": "research-boneless-irving",
+      "name": "The Boneless Kitchen",
+      "address": "1 Irving Place, #01-31, The Commerze @ Irving, Singapore 369546",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-daehwa-fusionopolis",
+      "name": "Daehwa Vegetarian Restaurant",
+      "address": "1 Fusionopolis Place, #01-35, Galaxis, Singapore 138522",
+      "missingHours": false,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-greenearth-rail-mall",
+      "name": "Green On Earth",
+      "address": "386 Upper Bukit Timah Road, The Rail Mall, Singapore 678043",
+      "missingHours": false,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-futkai-jalan-besar",
+      "name": "New Fut Kai Vegetarian Restaurant",
+      "address": "282 Jalan Besar, #01-00, Singapore 208945",
+      "missingHours": false,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-mtr-serangoon438",
+      "name": "MTR Singapore",
+      "address": "438 & 438/A Serangoon Road, Singapore 218133",
+      "missingHours": false,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-swaad-desker70",
+      "name": "Swaad",
+      "address": "70 Desker Road, Singapore 209593",
+      "missingHours": false,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-baomaker-ang-mo-kio-447",
+      "name": "Baomaker",
+      "address": "447 Ang Mo Kio Avenue 10 #01-1675, Singapore 560447",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-merle-lentor-modern",
+      "name": "Merle & Co",
+      "address": "1 Lentor Central #01-36, Lentor Modern Mall, Singapore 788887",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-tofu-g-mandarin-gallery",
+      "name": "Tofu G",
+      "address": "333A Orchard Road #02-26, Mandarin Gallery, Singapore 238897",
+      "missingHours": false,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-tofu-g-ngee-ann-city",
+      "name": "Tofu G",
+      "address": "391 Orchard Road #B1-29, Ngee Ann City, Singapore 238873",
+      "missingHours": false,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-tofu-g-amoy-street",
+      "name": "Tofu G",
+      "address": "97 Amoy Street, Singapore 069916",
+      "missingHours": false,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-tofu-g-ue-square",
+      "name": "Tofu G",
+      "address": "81 Clemenceau Avenue #01-19, Singapore 239917",
+      "missingHours": false,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-tofu-g-waterway-point",
+      "name": "Tofu G",
+      "address": "83 Punggol Central #01-53, Singapore 828761",
+      "missingHours": false,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-tofu-g-suntec-city",
+      "name": "Tofu G",
+      "address": "3 Temasek Boulevard #B1-K5, West Wing, Suntec City Mall, Singapore 038983",
+      "missingHours": false,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-wakamama-pasir-panjang",
+      "name": "Wakamama",
+      "address": "218 Pasir Panjang Road #02-15, ICON @ Pasir Panjang, Singapore 118579",
+      "missingHours": false,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-rya-bakehouse-cavan",
+      "name": "Rya Bakehouse",
+      "address": "11 Cavan Road #01-03 Cavan Suites, Singapore 209848",
+      "missingHours": false,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-yes-natural-bakery-geylang-55",
+      "name": "Yes Natural Bakery",
+      "address": "55 Lorong 27 Geylang, Singapore 388183",
+      "missingHours": false,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-omg-donuts-margaret-market",
+      "name": "OMG! Decadent Donuts Singapore",
+      "address": "38 Margaret Drive #01-08 Margaret Market, Singapore 141038",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-living-wholesome-bukit-timah",
+      "name": "Living Wholesome Vegetarian",
+      "address": "2A Jalan Seh Chuan #01-060, Singapore 599213",
+      "missingHours": false,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-150-green-bukit-batok",
+      "name": "150 Green Vegetarian",
+      "address": "150 Bukit Batok Street 11 #01-224, Singapore 650150",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-teenoy-hougang-foodpanda-932",
+      "name": "Teenoy Thai Vegetarian",
+      "address": "932 Hougang Avenue 9 #01-04, Singapore 530932",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-cookie-coffee-fortune-centre",
+      "name": "Cookie Coffee Cafe Bar",
+      "address": "190 Middle Road #01-28B Fortune Centre, Singapore 188979",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-kind-kones-forum",
+      "name": "Kind Kones",
+      "address": "583 Orchard Road #B1-27 & K1, Forum Shopping Mall, Singapore 238884",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-egg-plant-marina-bay-source",
+      "name": "egg.plant - Marina Bay Link Mall",
+      "address": "8A Marina Boulevard #B2-33 Marina Bay Link Mall, Singapore 018984",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-xiang-yuan-circuit-source",
+      "name": "Xiang Yuan Vegetarian Food - Circuit Road",
+      "address": "80 Circuit Road #02-03, Singapore 370080",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-su-xiang-lau-pa-sat-46",
+      "name": "Su Xiang Vegetarian",
+      "address": "18 Raffles Quay, Lau Pa Sat Stall 46, Singapore 048582",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-yi-ding-xuan-tampines-201",
+      "name": "Yi Ding Xuan Vegetarian",
+      "address": "201 Tampines Street 21 #01-201, Singapore 520201",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-slow-bakes-yishun-hyc",
+      "name": "Slow Bakes",
+      "address": "30A Yishun Central 1, Tzu Chi Humanistic Youth Centre, Singapore 768796",
+      "missingHours": false,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-ur01-kind-sprout-sengkang",
+      "name": "Kind Sprout SG",
+      "address": "Singapore 793461",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-happy-vegetarian-hougang-106",
+      "name": "Happy Vegetarian Food - Hougang",
+      "address": "106 Hougang Avenue 1 #01-1239, Singapore 530106",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-ur01-kale-adelphi",
+      "name": "Kale by Kang Su (The Adelphi)",
+      "address": "1 Coleman Street #02-20 The Adelphi, Singapore 179803",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-ur01-tracy-fortune",
+      "name": "Tracy Juice Culture",
+      "address": "190 Middle Road #01-34 Fortune Centre, Singapore 188979",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-ur01-harmony-serangoon",
+      "name": "Harmony Hut",
+      "address": "157A Serangoon North Avenue 1 #01-01, Singapore 551157",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-ur01-new-green-pasture-fortune",
+      "name": "New Green Pasture Cafe",
+      "address": "190 Middle Road #04-22 Fortune Centre, Singapore 188979",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-renyi-tampines820",
+      "name": "Ren Yi Vegetarian",
+      "address": "Block 820 Tampines Street 81, Singapore 520820",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-tian-yuan-fortune-centre-01-16",
+      "name": "Tian Yuan Healthy Vegetarian Food Paradise",
+      "address": "190 Middle Road #01-16, Fortune Centre, Singapore 188979",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-crowded-bowl-ntu-north-spine",
+      "name": "The Crowded Bowl - NTU North Spine",
+      "address": "76 Nanyang Drive, North Spine Plaza NS3-1-18, Singapore 637331",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-verimix-le-quest-01-17",
+      "name": "Verimix Vegetarian - Le Quest Mall",
+      "address": "4 Bukit Batok Street 41 #01-17 Le Quest Mall, Singapore 657991",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-ur02-vegetarian-express-hougang",
+      "name": "Vegetarian Express Cafe",
+      "address": "205 Hougang Street 21, #02-22, Singapore 530205",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-an-acai-affair-northpoint-city",
+      "name": "An Açaí Affair (Yishun Northpoint)",
+      "address": "1 Northpoint Drive #B2-149 (South Wing), Singapore 768019",
+      "missingHours": false,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-any1-choco-telok-ayer",
+      "name": "Any1 Choco",
+      "address": "114 Telok Ayer Street, Singapore 068583",
+      "missingHours": false,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-ur02-xie-bi-an-vegetarian",
+      "name": "Xie Bi An Vegetarian 谢必安素食",
+      "address": "824 Tampines Street 81, #01-38, BK Coffeeshop, Singapore 520824",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-ur02-tpy-203-vegetarian-food",
+      "name": "TPY 203 Vegetarian food",
+      "address": "203 Toa Payoh North, Singapore 310203",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-ur02-vegetarian-food-stall-01-74",
+      "name": "Mini Green Lok Lok",
+      "address": "210 Lorong 8 Toa Payoh, #01-74, Singapore 310210",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-ur02-amk-green-harmony-vegetarian",
+      "name": "Green Harmony Vegetarian 素和轩",
+      "address": "443 Ang Mo Kio Avenue 10, #01-1221, Singapore 560443",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-ur03-99-pioneer-mall",
+      "name": "99 Vegetarian",
+      "address": "638A Jurong West Street 61 #01-22 Stall 10, Pioneer Mall, Singapore 641638",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-ur03-eco-sen-toa-payoh66",
+      "name": "Eco Sen Vegetarian Food 缘森素食",
+      "address": "66 Lorong 4 Toa Payoh, Singapore 310066",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-sl08-fire-flies",
+      "name": "Fire Flies Vegetarian",
+      "address": "101 Upper Cross Street B1-06 Stall 10, People's Park Centre, Singapore 058357",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-sl08-ju-fu-yuan-amk",
+      "name": "Ju Fu Yuan Vegetarian Delight",
+      "address": "162 Ang Mo Kio Avenue 4 #01-14, Singapore 560162",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-sl08-xi-shi-fu",
+      "name": "Xi Shi Fu Vegetarian",
+      "address": "115 Bukit Merah View #01-25, Singapore 151115",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-ur04-mani-iyer",
+      "name": "Mani Iyer Vegetarian Cuisine",
+      "address": "215 Ang Mo Kio Avenue 1, Singapore 560215",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-ur04-peace-vegetarian",
+      "name": "Peace Vegetarian",
+      "address": "18 Tai Seng Street #B1-02, Singapore 539775",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-ur04-bao-su-zhai",
+      "name": "Bao Su Zhai",
+      "address": "1 Sengkang Square #04-11 Stall 23, Compass One, Singapore 545078",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-ur04-kunthaville",
+      "name": "Kunthaville",
+      "address": "18 Veerasamy Road, Singapore 207326",
+      "missingHours": false,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-ur03-gan-taste-vegetarian",
+      "name": "Gan Taste Vegetarian",
+      "address": "20 Lorong 7 Toa Payoh #01-758, Singapore 310020",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-ur06-original-sin",
+      "name": "Original Sin",
+      "address": "43 Jalan Merah Saga #01-62, Singapore278115",
+      "missingHours": true,
+      "missingPhoto": false
+    },
+    {
+      "venueId": "research-ur06-xing-hua",
+      "name": "Xing Hua Vegetarian",
+      "address": "190 Middle Road #01-11, Fortune Centre, Singapore188979",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-ur06-so-green",
+      "name": "So Green Vegetarian",
+      "address": "445 Bedok North Street1 #01-02, Djitsun Mall, Singapore469661",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-ur06-xin-yi",
+      "name": "Xin Yi Vegetarian",
+      "address": "442 Jurong West Avenue1 #01-758, Singapore640442",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-ur06-ju-fu-yuan-serangoon",
+      "name": "Ju Fu Yuan Vegetarian",
+      "address": "262 Serangoon Central Drive #01-91, Singapore550262",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-ur06-li-wei",
+      "name": "Li Wei Vegetarian",
+      "address": "151 Serangoon North Avenue2 #01-41, Singapore550151",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-ur07-red-apple-tampines",
+      "name": "Red Apple Vegetarian",
+      "address": "835 Tampines Street 83 #01-02, Singapore 520835",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-ur08-150-green",
+      "name": "150 Green Vegetarian",
+      "address": "150 Bukit Batok Street 11 #01-224, Singapore 650150",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-ur08-vege-bear-bidadari",
+      "name": "Vege Bear Vegetarian",
+      "address": "212 Bidadari Park Drive #03-01, Singapore 360212",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-ascend-cross-lead",
+      "name": "Ascend Vegetarian",
+      "address": "18 Cross Street #B1-12, K4, Singapore 048423",
+      "missingHours": false,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-ur09-eco-harmony-aljunied",
+      "name": "Eco-Harmony Cafe",
+      "address": "106 Aljunied Crescent #01-205, Singapore 380106",
+      "missingHours": false,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-ur09-kms-dining-hall",
+      "name": "KMSPKS Dining Hall",
+      "address": "88 Bright Hill Road, Venerable Hong Choon Memorial Hall Level 2, Singapore 574117",
+      "missingHours": false,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-ur09-kms-zen-cafe",
+      "name": "Zen Cafe",
+      "address": "88 Bright Hill Road, Venerable Hong Choon Memorial Hall Level 1 beside Ju Yuan Fang, Singapore 574117",
+      "missingHours": false,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-ur10-ju-fu-yuan-eunos",
+      "name": "Ju Fu Yuan Vegetarian Delight",
+      "address": "7 Eunos Crescent #01-2655, Singapore 400007",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-ur11-crowded-sp",
+      "name": "The Crowded Bowl",
+      "address": "500 Dover Road, Singapore Polytechnic Food Court 2, Stall 13, Singapore 139651",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-ur13-suyuan-bedok",
+      "name": "Suyuan Vegetarian",
+      "address": "208B New Upper Changi Road #01-07, Singapore462208",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-ur13-sangeetha-rangoon",
+      "name": "Sangeetha Bhavan",
+      "address": "79 Rangoon Road, Singapore218366",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-ur14-tianmu-westcoast",
+      "name": "TianMu Vegetarian",
+      "address": "504 West Coast Drive #01-230, Singapore 120504",
+      "missingHours": false,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-ur15-xinghua-somerset",
+      "name": "Xing Hua Vegetarian Restaurant",
+      "address": "111 Somerset Road #01-K3 to K4, Singapore 238164",
+      "missingHours": true,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-ur15-conut-haji",
+      "name": "Co+Nut+Ink",
+      "address": "2 Haji Lane #01-01, Singapore 189195",
+      "missingHours": false,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-ur15-conut-marriott",
+      "name": "Co+Nut+Ink",
+      "address": "310 Orchard Road #01-K2, Singapore 238864",
+      "missingHours": false,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-fennel-river-valley",
+      "name": "Fennel by Komala Vilas",
+      "address": "413 River Valley Road, Singapore 248311",
+      "missingHours": false,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-swaad-shenton3",
+      "name": "Swaad",
+      "address": "3 Shenton Way #01-04 Shenton House, Singapore 068805",
+      "missingHours": false,
+      "missingPhoto": true
+    },
+    {
+      "venueId": "research-mod-cafe-kuo-chuan",
+      "name": "MOD Cafe",
+      "address": "1A Kuo Chuan Avenue, Singapore 426888",
+      "missingHours": true,
+      "missingPhoto": true
+    }
+  ],
+  "preserved": {
+    "googleLedgerRequests": 2419,
+    "googleBudget": 2500,
+    "remainingRequests": 81,
+    "ledgerSha256": "c7321dafaad0473583139494ca899501578892c5b71105429d3cd4dceb4f311a",
+    "googleCalls": 0,
+    "foodHolds": 2527,
+    "sourceFoodOccurrences": 12084,
+    "menusChanged": false,
+    "oldPhotoBackupUnchanged": true
+  },
+  "deployedRelease": "20261017-covers-hours4",
+  "releaseEvidence": ".local/coverage-2026-10-17b/release.json"
+}

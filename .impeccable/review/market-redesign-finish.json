@@ -1,0 +1,20 @@
+{
+  "checkedAt": "2026-10-15T01:53:23.411Z",
+  "disposition": "ship",
+  "reviewer": "market_redesign_review",
+  "fallback": "Fresh TypeScript reviewer substituted for unavailable named Impeccable finish reviewer",
+  "scope": "Supplied browser captures and scoped source only",
+  "captureValidity": "All 13 named captures and user Carousell reference opened; valid intended viewport/state. Native captures outstanding.",
+  "fidelity": "Search-first header, Buy/Sell, List item, photo categories, functional browsing controls and price-first cards follow user direction and established semantic palettes/Nunito.",
+  "craftFloor": "No material visual findings in supplied widths, dark or enlarged text. Complete contrast, screen-reader and native acceptance unproven.",
+  "interactionEvidence": {
+    "playwrightChecks": 24,
+    "stateChecks": 9,
+    "parentTypecheck": 0,
+    "parentLint": 0,
+    "independentTypecheck": "Blocked before execution by Windows restricted-token CreateProcess refusal; no independent gate claim",
+    "independentPlaywright": "Not rerun; supplied reports inspected"
+  },
+  "materialFindings": [],
+  "remaining": "Native iOS/Android appearance, media permissions, device accessibility and production services not accepted. Documentation reconciliation follows this verdict."
+}

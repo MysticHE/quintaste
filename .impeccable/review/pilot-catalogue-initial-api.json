@@ -1,0 +1,41 @@
+{
+  "checks": [
+    {
+      "name": "Six exact branches, five channel-labelled menus and twenty unconfirmed dishes",
+      "passed": true
+    },
+    {
+      "name": "Rights, source URLs, date, ingredient, duplicate and cross-branch validation",
+      "passed": true
+    },
+    {
+      "name": "Ninety-day boundary, changed-source status and withdrawal remain honest",
+      "passed": true
+    },
+    {
+      "name": "Development gate, same-origin and private reviewer capability",
+      "passed": true
+    },
+    {
+      "name": "Catalogue GET validates every state and sends no-store",
+      "passed": true
+    },
+    {
+      "name": "Review writes preserve history and reject stale editors and invalid decisions",
+      "passed": true
+    },
+    {
+      "name": "Corrupt review state fails closed without silently clearing decisions",
+      "passed": true
+    },
+    {
+      "name": "Deleting a guest collection retains staff review; canonical facts never mutate",
+      "passed": true
+    }
+  ],
+  "outboundRequests": 0,
+  "invalidVariants": 21,
+  "passed": true,
+  "checkedAt": "2026-10-15T05:22:00.929Z",
+  "scope": "Actual API handlers and atomic store in an isolated development fixture; no publication."
+}

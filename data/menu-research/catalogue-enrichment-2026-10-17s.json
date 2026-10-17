@@ -1,0 +1,272 @@
+{
+  "checkedAt": "2026-10-17",
+  "deployedRelease": "20261017-product-covers22",
+  "goalStatus": "active",
+  "fullCoverageComplete": false,
+  "coverage": {
+    "browseVenues": 174,
+    "menuIds": 175,
+    "covers": 147,
+    "hours": 90,
+    "uniqueAssets": 116,
+    "assetBytes": 15713635,
+    "coverGaps": 27,
+    "hoursGaps": 84,
+    "allThreeAvailable": 86,
+    "catalogueIndexBytes": 190217
+  },
+  "newPhotos": [
+    {
+      "venueId": "research-botanict-clementi",
+      "address": "Blk 352 Clementi Avenue 2 #01-123, Singapore 120352",
+      "photo": {
+        "path": "/api/catalogue-photos/3be6f01540e58426277f01331f4e0ce18f22cc45b26a5f662579d887e787d921.jpg",
+        "width": 960,
+        "height": 960,
+        "author": "Botanict",
+        "sourceUrl": "https://pos.amfuture.sg/h5/pages/product/list/store?app_id=10070&shop_supplier_id=10096",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "3be6f01540e58426277f01331f4e0ce18f22cc45b26a5f662579d887e787d921",
+      "bytes": 226964,
+      "originalSha256": "ca4eb8c4938c0eb0f0cff49c5d3778495fd4faecccf29604d4de50e7fc466e36",
+      "sourcePageCheckedAt": "2026-10-15T10:18:26.837074+00:00",
+      "sourceImageUrl": "https://sgoss.amfuture.sg/20260630/b4cb72245ec8398bcbf53490fc0f2551.png",
+      "identityEvidence": "Operator-linked AMFuture ordering page, supplier10096, names Asam Laksa and binds this exact image element. Existing botanict-home/pos source records confirm352ClementiAve2#01-123. Saved page checked2026-10-15T10:18:26.837074+00:00; original image reviewed17Oct; no duplicate extraction.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance this supplied Botanict Asam Laksa operator photograph. Keep the same blue-and-white patterned bowl, orange soup, thick white noodles, exact existing tofu/vegetarian slices wrapped in dark edges, chopped cucumber, lettuce, red chili, pink onion, yellow pineapple, halved lime and central mint sprig, in their original arrangement and quantities. Preserve wood tabletop and naturally cropped small condiment bowl. Improve gentle natural lighting and clarity only; do not invent extra toppings or change this dish. No extra props, garnish, text or ingredient claims. Square compact food-photo composition.",
+        "review": "Original and output visually compared. Existing dish, serving vessels and composition retained with enhanced lighting and clarity. No new ingredient or availability claim."
+      }
+    },
+    {
+      "venueId": "research-linlin-bedok-north",
+      "address": "412 Bedok North Avenue 2, inside SinFoodie Coffeeshop, Singapore 460412",
+      "photo": {
+        "path": "/api/catalogue-photos/f3f8bdd6eb644581b9c4cc26a606c14d949bee83168c429eae44f6a547eacb98.jpg",
+        "width": 960,
+        "height": 960,
+        "author": "Lin Lin Vegetarian Delight",
+        "sourceUrl": "https://linlinvegetarian.oddle.me/en_SG",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "f3f8bdd6eb644581b9c4cc26a606c14d949bee83168c429eae44f6a547eacb98",
+      "bytes": 172753,
+      "originalSha256": "c6424fb00257e96043907c0e54db6385dbdb14191a2f0857305ba62e3d7d1ffa",
+      "sourcePageCheckedAt": "2026-10-15T22:17:06.550Z",
+      "sourceImageUrl": "https://ucarecdn.com/2f3d9aa0-2b43-41a1-94cb-c09112f06222/",
+      "identityEvidence": "Saved operator Oddle catalogue product8aa601059a5bac40019a5ddce1415c6d (Vegetable with Top Quality Mushroom) explicitly includes this imageFullUrls entry. Same catalogue storeData identifies412BedokNorthAve2,SinFoodieCoffeeshop460412. No new ingredients/stock claim.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance this Lin Lin Vegetarian operator product photograph. Preserve the exact white plate with dark shiitake mushroom caps in glossy brown sauce, its complete ring of broccoli florets, orange carrot carving at upper right, beige cloth at upper left and orange chopsticks at lower right on the pale textured table. Same food count, arrangement, scale and utensils. Improve natural light, true colors and realistic texture only. No extra ingredients, garnishes, lettering, props or claims. Square composition.",
+        "review": "Original and output visually compared. Existing dish, serving vessels and composition retained with enhanced lighting and clarity. No new ingredient or availability claim."
+      }
+    },
+    {
+      "venueId": "daily-green-woodlands-street-31",
+      "address": "306 Woodlands Street 31, Singapore 730306",
+      "photo": {
+        "path": "/api/catalogue-photos/42eddfb347db13fc2545a4b9bddd666d21e7e94ad381d4676d190690ad1787b4.jpg",
+        "width": 960,
+        "height": 960,
+        "author": "Daily Green",
+        "sourceUrl": "https://www.dailygreen.sg/",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "42eddfb347db13fc2545a4b9bddd666d21e7e94ad381d4676d190690ad1787b4",
+      "bytes": 193300,
+      "originalSha256": "f31b4d7fbd43a55b7dfca3fdbffb4ecb2a3206310d95eedb76cd20bda0b630b8",
+      "sourcePageCheckedAt": "2026-10-17",
+      "sourceImageUrl": "https://images.squarespace-cdn.com/content/v1/5d8c39e39f08893a287f1e8c/1580434548156-UO2XII57T95F4MJR96WY/IMG_3235a.jpg",
+      "identityEvidence": "Operator homepage food photograph, shared brand imagery. Saved operator locations page bb577e8956dae4a733f4 confirms306WoodlandsSt31,90HougangAve10#04-11 and217BedokNorthSt1#01-77. No claim of exact branch interior or current stock.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance this Daily Green operator food photograph. Preserve this exact white plate, rice mound, cucumber slices, green beans and golden cubes, peanuts and crispy strips, two vegetarian mock slices, red sauce in its white cup, and banana-leaf liner. Preserve the coconut halves, ginger flowers, cucumber, peanut plant, red chillies and woven mat as existing background props. Improve natural light, white balance and realistic food texture. Crop closer around the plate for a compact gallery cover, with the complete dish dominant and centered. Do not add ingredients, props, text, logos or claims. Square composition.",
+        "review": "Original and output visually compared. Same dish arrangement, vegetarian mock slices, rice, vegetables, sauce and existing props retained; closer framing and brighter lighting. No ingredient or availability claim."
+      }
+    },
+    {
+      "venueId": "research-merchant-7ab3dafc5f6a7876",
+      "address": "90 Hougang Ave 10 #04-11 Hougang Mall Foodies’ Garden®, Singapore 538766",
+      "photo": {
+        "path": "/api/catalogue-photos/42eddfb347db13fc2545a4b9bddd666d21e7e94ad381d4676d190690ad1787b4.jpg",
+        "width": 960,
+        "height": 960,
+        "author": "Daily Green",
+        "sourceUrl": "https://www.dailygreen.sg/",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "42eddfb347db13fc2545a4b9bddd666d21e7e94ad381d4676d190690ad1787b4",
+      "bytes": 193300,
+      "originalSha256": "f31b4d7fbd43a55b7dfca3fdbffb4ecb2a3206310d95eedb76cd20bda0b630b8",
+      "sourcePageCheckedAt": "2026-10-17",
+      "sourceImageUrl": "https://images.squarespace-cdn.com/content/v1/5d8c39e39f08893a287f1e8c/1580434548156-UO2XII57T95F4MJR96WY/IMG_3235a.jpg",
+      "identityEvidence": "Operator homepage food photograph, shared brand imagery. Saved operator locations page bb577e8956dae4a733f4 confirms306WoodlandsSt31,90HougangAve10#04-11 and217BedokNorthSt1#01-77. No claim of exact branch interior or current stock.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance this Daily Green operator food photograph. Preserve this exact white plate, rice mound, cucumber slices, green beans and golden cubes, peanuts and crispy strips, two vegetarian mock slices, red sauce in its white cup, and banana-leaf liner. Preserve the coconut halves, ginger flowers, cucumber, peanut plant, red chillies and woven mat as existing background props. Improve natural light, white balance and realistic food texture. Crop closer around the plate for a compact gallery cover, with the complete dish dominant and centered. Do not add ingredients, props, text, logos or claims. Square composition.",
+        "review": "Original and output visually compared. Same dish arrangement, vegetarian mock slices, rice, vegetables, sauce and existing props retained; closer framing and brighter lighting. No ingredient or availability claim."
+      }
+    },
+    {
+      "venueId": "research-merchant-287ecefa1f8e3855",
+      "address": "217 Bedok North Street 1 #01-77 Food Loft®, Singapore 460217",
+      "photo": {
+        "path": "/api/catalogue-photos/42eddfb347db13fc2545a4b9bddd666d21e7e94ad381d4676d190690ad1787b4.jpg",
+        "width": 960,
+        "height": 960,
+        "author": "Daily Green",
+        "sourceUrl": "https://www.dailygreen.sg/",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "42eddfb347db13fc2545a4b9bddd666d21e7e94ad381d4676d190690ad1787b4",
+      "bytes": 193300,
+      "originalSha256": "f31b4d7fbd43a55b7dfca3fdbffb4ecb2a3206310d95eedb76cd20bda0b630b8",
+      "sourcePageCheckedAt": "2026-10-17",
+      "sourceImageUrl": "https://images.squarespace-cdn.com/content/v1/5d8c39e39f08893a287f1e8c/1580434548156-UO2XII57T95F4MJR96WY/IMG_3235a.jpg",
+      "identityEvidence": "Operator homepage food photograph, shared brand imagery. Saved operator locations page bb577e8956dae4a733f4 confirms306WoodlandsSt31,90HougangAve10#04-11 and217BedokNorthSt1#01-77. No claim of exact branch interior or current stock.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance this Daily Green operator food photograph. Preserve this exact white plate, rice mound, cucumber slices, green beans and golden cubes, peanuts and crispy strips, two vegetarian mock slices, red sauce in its white cup, and banana-leaf liner. Preserve the coconut halves, ginger flowers, cucumber, peanut plant, red chillies and woven mat as existing background props. Improve natural light, white balance and realistic food texture. Crop closer around the plate for a compact gallery cover, with the complete dish dominant and centered. Do not add ingredients, props, text, logos or claims. Square composition.",
+        "review": "Original and output visually compared. Same dish arrangement, vegetarian mock slices, rice, vegetables, sauce and existing props retained; closer framing and brighter lighting. No ingredient or availability claim."
+      }
+    },
+    {
+      "venueId": "research-ur09-kms-dining-hall",
+      "address": "88 Bright Hill Road, Venerable Hong Choon Memorial Hall Level 2, Singapore 574117",
+      "photo": {
+        "path": "/api/catalogue-photos/78641de75734a7046492865923723ad3ce9a423f4556b0a5486b236c3c777ad7.jpg",
+        "width": 960,
+        "height": 960,
+        "author": "Kong Meng San Phor Kark See Monastery",
+        "sourceUrl": "https://kmspks.org/wp-content/blogs.dir/1/files/20260812-Happy-Realm-Online-Menu_hires.pdf",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "Operator menu imagery is for illustration purposes only. AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "78641de75734a7046492865923723ad3ce9a423f4556b0a5486b236c3c777ad7",
+      "bytes": 144589,
+      "originalSha256": "973d00ba85b71a9200a8c8a7e23c9cc9995a14b20bdb4544b27b5be0c05d8bb9",
+      "sourcePageCheckedAt": "2026-10-16T06:20:46.288Z",
+      "sourceImageUrl": "https://kmspks.org/wp-content/blogs.dir/1/files/20260812-Happy-Realm-Online-Menu_hires.pdf#page=1",
+      "identityEvidence": "Operator service page and exact linked menu identify88BrightHillRoad: ZenCafeL1besideJuYuanFang; HappyRealmDiningHallL2. Raw embedded photograph extracted from saved operator PDF without re-extraction of menu foods. Source menu states images are for illustration purposes only; retain this qualifier.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance this food photograph extracted from the KMSPKS Happy Realm operator menu. Preserve the white shallow bowl of thin yellow noodles, the existing row of red-brown vegetarian mock char siu slices, leafy greens, pale vegetables, white chopsticks lifting noodles and partially visible hand, and soup bowl behind. Improve lighting, color balance and clear natural textures only. Reframe close in a square so the bowl and food dominate, remove excessive blank space above by cropping. No added ingredients, text, logos, garnish or props. Preserve the original food shapes and arrangement.",
+        "review": "Source and output visually compared. Original food arrangement, plate and existing utensils retained with closer crop and enhanced lighting. Fine details may differ. Operator menu states images are for illustration purposes only; not an independently verified serving or ingredient claim."
+      }
+    },
+    {
+      "venueId": "research-ur09-kms-zen-cafe",
+      "address": "88 Bright Hill Road, Venerable Hong Choon Memorial Hall Level 1 beside Ju Yuan Fang, Singapore 574117",
+      "photo": {
+        "path": "/api/catalogue-photos/9a18405a9717b3cbded292c226bffc3ccac4b5a818ca81a8baaca72dc610225d.jpg",
+        "width": 960,
+        "height": 960,
+        "author": "Kong Meng San Phor Kark See Monastery",
+        "sourceUrl": "https://kmspks.org/wp-content/blogs.dir/1/files/ZenCafe_Digital-Menu.pdf",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "Operator menu imagery is for illustration purposes only. AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "9a18405a9717b3cbded292c226bffc3ccac4b5a818ca81a8baaca72dc610225d",
+      "bytes": 153288,
+      "originalSha256": "2b935baaf08070a8553175a6a76717ca12a818ad7546d2ab7622fd6a307e00a8",
+      "sourcePageCheckedAt": "2026-10-16T06:20:48.717Z",
+      "sourceImageUrl": "https://kmspks.org/wp-content/blogs.dir/1/files/ZenCafe_Digital-Menu.pdf#page=2",
+      "identityEvidence": "Operator service page and exact linked menu identify88BrightHillRoad: ZenCafeL1besideJuYuanFang; HappyRealmDiningHallL2. Raw embedded photograph extracted from saved operator PDF without re-extraction of menu foods. Source menu states images are for illustration purposes only; retain this qualifier.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance the attached KMSPKS Zen Cafe operator menu photograph of Creamy Mushroom Linguine. Preserve the exact white round plate, creamy flat pasta ribbons, existing pink vegetarian strips, mushroom pieces, red cherry tomato pieces and fine green flecks on the light gray textured tabletop. Improve natural lighting and clarity without inventing additional ingredients, utensils or garnish. Crop away the excessive empty tabletop above and below so the complete plate fills most of a square composition. Keep the same food arrangement and scale, realistic soft light, no text, logo or extra props.",
+        "review": "Source and output visually compared. Original food arrangement, plate and existing utensils retained with closer crop and enhanced lighting. Fine details may differ. Operator menu states images are for illustration purposes only; not an independently verified serving or ingredient claim."
+      }
+    }
+  ],
+  "newHours": [],
+  "googleLedger": {
+    "bytes": 1045377,
+    "sha256": "c7321dafaad0473583139494ca899501578892c5b71105429d3cd4dceb4f311a",
+    "requests": 2419,
+    "limit": 2500,
+    "remaining": 81
+  },
+  "sourceRights": "Source attribution and rights retained. User-requested enhancement does not establish an independent licence.",
+  "unresolved": "2,527 food holds,109zero-food research branches,1,828unnamed candidate IDs,8coordinate holds preserved; exact MakanVegan/SoonLai screenshot images unrecovered.",
+  "releaseEvidence": ".local/coverage-2026-10-17s/release.json",
+  "hoursReview": {
+    "checkedAt": "2026-10-17",
+    "newHours": 0,
+    "imageHolds": [
+      {
+        "reference": "fyy-curry-pau",
+        "venueId": "research-fo-you-yuan-jalan-besar",
+        "sourceUrl": "https://foyouyuan.maynuu.com/",
+        "sourcePageCheckedAt": "2026-10-15T10:18:26.837074+00:00",
+        "checkedAt": "2026-10-17",
+        "reason": "Named operator product but source image is200x200. Insufficient detail for faithful large cover enhancement."
+      },
+      {
+        "reference": "kindkones-food",
+        "venueId": "research-kind-kones-forum",
+        "sourceUrl": "https://kindkones.com/pages/about-us",
+        "sourcePageCheckedAt": "2026-10-16",
+        "checkedAt": "2026-10-17",
+        "reason": "Operator photo depicts an unidentified branch interior; Forum exact interior association is unproven. Do not guess from decor."
+      }
+    ],
+    "hoursHolds": [
+      {
+        "venueId": "research-linlin-bedok-north",
+        "sourceUrl": "https://linlinvegetarian.oddle.me/en_SG/stores",
+        "sourcePageCheckedAt": "2026-10-15T22:17:06.550Z",
+        "reviewedAt": "2026-10-17",
+        "reason": "Saved store opening slots explicitly mark pickup/delivery and special dates. Do not promote them as general dine-in hours."
+      },
+      {
+        "venueId": "research-kind-kones-forum",
+        "sourceUrl": "https://kindkones.com/pages/locations",
+        "sourcePageCheckedAt": "2026-10-16",
+        "reviewedAt": "2026-10-17",
+        "reason": "Operator location text saysForum#B1-17,11am-9pm without days; current landlord identifies#B1-27&K1. Retain unit/schedule discrepancy; no unqualified hours."
+      }
+    ]
+  }
+}

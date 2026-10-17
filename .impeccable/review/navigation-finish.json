@@ -1,0 +1,40 @@
+{
+  "lastUpdated": "2026-10-15",
+  "disposition": "ship",
+  "scope": "Browser/source navigation and profile Saved only",
+  "verdictSource": "Reviewer /root/social_nav_review, supplied handoff: 11 screenshots inspected; no material fixes",
+  "implemented": [
+    "Explore/Cook/Social/Market/Game icon-only dock",
+    "Distinct centre Social and rightmost Game SVG icons",
+    "Profile Saved count and root-stack Saved/filter routes",
+    "Unavailable Social/Game states with working food exits"
+  ],
+  "validation": {
+    "source": ".impeccable/review/navigation-validation.json",
+    "passedGroups": 18,
+    "screenshotsInspected": 11,
+    "runtimeErrors": 0,
+    "scopedAxeViolations": 0,
+    "incompleteAxeChecks": [
+      "color-contrast",
+      "aria-hidden-focus"
+    ],
+    "typescriptExit": 0,
+    "lintExit": 0,
+    "commandEvidence": "Parent reports npx tsc --noEmit and npm run lint exit 0 after final source change"
+  },
+  "androidTransport": {
+    "source": ".impeccable/review/navigation-native.json",
+    "manifestStatus": 200,
+    "bundleStatus": 200,
+    "bundleBytes": 8862696,
+    "currentNavigation": true
+  },
+  "unverified": [
+    "Native device appearance",
+    "Native gestures and accessibility",
+    "Social bookings, friends, events, ID review and messaging",
+    "Game mechanics",
+    "Full-app accessibility and production release"
+  ]
+}

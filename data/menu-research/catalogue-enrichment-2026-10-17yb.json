@@ -1,0 +1,378 @@
+{
+  "checkedAt": "2026-10-17",
+  "deployedRelease": "20261017-product-assets28b",
+  "goalStatus": "active",
+  "fullCoverageComplete": false,
+  "coverage": {
+    "browseVenues": 174,
+    "menuIds": 175,
+    "covers": 167,
+    "hours": 94,
+    "uniqueAssets": 134,
+    "assetBytes": 18578856,
+    "coverGaps": 7,
+    "hoursGaps": 80,
+    "allThreeAvailable": 93,
+    "catalogueIndexBytes": 201666
+  },
+  "newPhotos": [
+    {
+      "venueId": "research-ur02-xie-bi-an-vegetarian",
+      "address": "824 Tampines Street 81, #01-38, BK Coffeeshop, Singapore 520824",
+      "photo": {
+        "path": "/api/catalogue-photos/c4b39e8defe275c23c5a02a6b0ad3a419c0f98ff52b5a9a75756acc694edb142.jpg",
+        "width": 960,
+        "height": 720,
+        "author": "Xie Bi An Vegetarian",
+        "sourceUrl": "https://www.foodpanda.sg/restaurant/hqko/xie-bi-an-vegetarian-tampines",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "c4b39e8defe275c23c5a02a6b0ad3a419c0f98ff52b5a9a75756acc694edb142",
+      "bytes": 116165,
+      "originalSha256": "bcf7dd68a9ae888ef73aa1830a4a4bd080f9f68b11f3d3d6b3d3154cec94d348",
+      "sourcePageCheckedAt": "2026-10-16T01:14:49.940Z",
+      "sourceImageUrl": "https://foodpanda.dhmedia.io/image/fd-sg/products/55768142.jpg",
+      "identityEvidence": "Saved exact merchant page explicitly associates product label Beehoon Set with this specific product image. Source path/hash/checkdate retained. Separate from held header image; no food extraction or ingredient certification.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance this exact Xie Bi An merchant product photograph. Preserve the same white round plate on a honey-coloured wood tabletop: fine brown bee hoon noodles at rear left with the existing orange-brown crispy pieces, glossy red-sauced irregular chunks at front left, pale cabbage and carrot slivers at front right, small dark-red chilli dollop and pale green sliced chillies at right. Preserve the existing small white condiment bowl in the upper-right background, angle, servings and food placement. Improve clean natural light, colour balance and realistic texture. Keep same portion and composition. No new ingredients, garnish, bowls, utensils, logos, words or restaurant interior. Do not infer what the mock pieces are made of. Landscape4:3, conservative reference-led food photograph enhancement.",
+        "review": "Same white plate of beehoon/crisp pieces, red-sauced forms, cabbage and chilli on wood table; no new meal, branch interior or ingredient claim."
+      }
+    },
+    {
+      "venueId": "research-ur02-vegetarian-food-stall-01-74",
+      "address": "210 Lorong 8 Toa Payoh, #01-74, Singapore 310210",
+      "photo": {
+        "path": "/api/catalogue-photos/534c82584d76ef315092e694deb58faf66e7b292ea27e958ba177b70c15ed747.jpg",
+        "width": 960,
+        "height": 722,
+        "author": "Mini Green",
+        "sourceUrl": "https://www.foodpanda.sg/restaurant/ed4x/mini-green-vegetarian-toa-payoh-lorong-8",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "534c82584d76ef315092e694deb58faf66e7b292ea27e958ba177b70c15ed747",
+      "bytes": 175453,
+      "originalSha256": "77054809f6b786b258cc2c040b732888dc0d14b37ac0d641f9764be25432c762",
+      "sourcePageCheckedAt": "2026-10-16T01:11:44.383Z",
+      "sourceImageUrl": "https://images.deliveryhero.io/image/global-menu-service/FP_SG/vendor/ed4x/product/d4df7dcf-fe1e-4865-8fdb-16c63d4928d7.jpg",
+      "identityEvidence": "Saved exact merchant page explicitly associates product label CurryVegetablesSet with this specific product image. Source path/hash/checkdate retained. Separate from held header image; no food extraction or ingredient certification.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance this exact Mini Green merchant photograph as a close macro food gallery cover. Preserve the original tight framing of yellow curry vegetables: same soft pale folded cabbage, the same green long-bean segment diagonally at upper left, yellow potato-like chunks, porous rolled/folded golden pieces, glossy yellow-orange curry sauce, and the same partial dark spoon rim entering at the bottom edge. The original is a close food texture photograph, not a plated full meal. Keep that crop and do not invent a plate, bowl, table, rice, utensils or other setting beyond what is visible. Improve balanced appetizing light, remove excessive yellow cast while retaining yellow curry, recover texture and improve contrast. No additional ingredients, garnish, text, branding or scenery. Keep exact recognizable forms and layout. Landscape4:3, conservative reference enhancement; no ingredient or dietary certification.",
+        "review": "Same tight curry macro with folded cabbage, green bean, porous folded pieces and partial dark spoon rim; no invented plate, full meal or scenery."
+      }
+    },
+    {
+      "venueId": "research-ur02-amk-green-harmony-vegetarian",
+      "address": "443 Ang Mo Kio Avenue 10, #01-1221, Singapore 560443",
+      "photo": {
+        "path": "/api/catalogue-photos/cde1caf07ac60fd597db5b656d40d3e1e11ee08e994ffbe0797563f2a06841ef.jpg",
+        "width": 960,
+        "height": 721,
+        "author": "Green Harmony Vegetarian",
+        "sourceUrl": "https://www.foodpanda.sg/restaurant/hgnz/green-harmony-vegetarian-ang-mo-kio",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "cde1caf07ac60fd597db5b656d40d3e1e11ee08e994ffbe0797563f2a06841ef",
+      "bytes": 174636,
+      "originalSha256": "7446d393a84a8d9ce162b148b9749d1e3f73736d50bb7153c1f4a55413be584e",
+      "sourcePageCheckedAt": "2026-10-16T01:09:36.130Z",
+      "sourceImageUrl": "https://images.deliveryhero.io/image/global-menu-service/FP_SG/vendor/hgnz/product/71040738/8ecd47d1-fb59-48bd-bfea-498baed379fb.jpg",
+      "identityEvidence": "Saved exact merchant page explicitly associates product label Stir-fried Kangkong ???? with this specific product image. Source path/hash/checkdate retained. Separate from held header image; no food extraction or ingredient certification.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance this exact Green Harmony merchant food photograph for a gallery cover. Preserve the same close three-quarter crop of cooked dark and bright green long stems/leaves on a vivid lime-green oval plate, with the same central mound of small golden-brown crunchy crumbles and the existing red-brown fragments among the greens. Keep the visible grey tabletop edges and plate shape/crop. Improve light, white balance, glossy realistic texture and clean contrast while preserving the actual arrangement and recognizable food forms. Do not add any ingredients, garnish, dishes, utensils, table decorations, text, logos or restaurant interior. Do not infer what the crunchy topping is made from or make dietary/allium claims. Landscape4:3, conservative photographic enhancement of the reference.",
+        "review": "Same green plate, cooked stems/leaves and crunchy crumb topping; separate from held provider-reference artwork and ambiguous header. No topping ingredient or allium claim."
+      }
+    },
+    {
+      "venueId": "research-yi-ding-xuan-tampines-201",
+      "address": "201 Tampines Street 21 #01-201, Singapore 520201",
+      "photo": {
+        "path": "/api/catalogue-photos/30f6030b8791f2add3fe4e2eb2409d8a9b81c004cd65079b48a7652ca283d41f.jpg",
+        "width": 960,
+        "height": 720,
+        "author": "Yi Ding Xuan Vegetarian",
+        "sourceUrl": "https://www.foodpanda.sg/restaurant/gxl8/yi-ding-xuan-vegetarian-yi-ding-xuan-su-shi-tampines",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "30f6030b8791f2add3fe4e2eb2409d8a9b81c004cd65079b48a7652ca283d41f",
+      "bytes": 107844,
+      "originalSha256": "eb500418fb0822c8c9be1ee91057de8761286c86d8606b017df655e01d9f58b6",
+      "sourcePageCheckedAt": "2026-10-17T00:06:32.868804+00:00",
+      "sourceImageUrl": "https://foodpanda.dhmedia.io/image/fd-sg/products/50385389.jpg",
+      "identityEvidence": "Saved exact merchant page explicitly associates product label Mee Hoon Set with this specific product image. Source path/hash/checkdate retained. Separate from held header image; no food extraction or ingredient certification.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance this exact Yi Ding Xuan merchant food photograph. Preserve the same black four-compartment rectangular takeaway tray on a pale lightly marbled tabletop, elevated three-quarter view. Keep the compartments and contents in their exact positions: rear-left golden crisp irregular rectangular pieces, rear-right plain fine white beehoon noodles, front-left pale yellow-green cooked cabbage with tiny carrot slivers, front-right glossy red/orange rectangular mock-food pieces. Same serving proportions, black ridged tray and casual real meal presentation. Improve soft natural daylight, clarity, edge detail, food texture and balanced colour. Do not add garnishes, sauces, utensils, extra dishes, text, logos or restaurant setting. Do not infer ingredients or claim vegan/allium status. Landscape4:3, conservative photograph enhancement recognizably matching the source.",
+        "review": "Same four-compartment black tray, noodle/crisp pieces/cabbage/red mock-food arrangement, pale tabletop and angle; no added meal components."
+      }
+    },
+    {
+      "venueId": "research-crowded-bowl-ntu-north-spine",
+      "address": "76 Nanyang Drive, North Spine Plaza NS3-1-18, Singapore 637331",
+      "photo": {
+        "path": "/api/catalogue-photos/1e02d51c2c3ff937dd770555a25a6129107cdb45b89c5f13eb6bd6ae6698c0a5.jpg",
+        "width": 960,
+        "height": 720,
+        "author": "The Crowded Bowl",
+        "sourceUrl": "https://www.foodpanda.sg/restaurant/e6jj/the-crowded-bowl-at-ntu-islandwide",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "1e02d51c2c3ff937dd770555a25a6129107cdb45b89c5f13eb6bd6ae6698c0a5",
+      "bytes": 98696,
+      "originalSha256": "c151e15d1c40e526d677d879997005fb58070c92b749f3634e18e93dd0da4ae4",
+      "sourcePageCheckedAt": "2026-10-17T00:10:27.059416+00:00",
+      "sourceImageUrl": "https://foodpanda.dhmedia.io/image/fd-sg/Products/2327149.jpg",
+      "identityEvidence": "Fresh exacte6jjmerchant page explicitly namesNorthSpinePlazaNS3-1-18,76NanyangDrive/637331 and publishes thisRegularSet image. No SPimage transferred by inference.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance this exact Crowded Bowl NTU merchant product photograph. Preserve the single white round bowl on a plain light-grey/white tabletop, elevated three-quarter angle. Keep the large green lettuce leaves lining the bowl, red halved cherry tomatoes at front left, pale yellow spiral fusilli pasta across the middle, orange/yellow cooked pumpkin-like cubes at rear right, and the same visible seasoning. Same serving size, crop, angle and food arrangement. Improve realistic texture, clean natural lighting, sharpness and balanced colour without inventing any extra toppings, sauces, utensils, dishes, decorations, branding, text or restaurant interior. Do not infer recipe ingredients, vegan status or stock availability. Landscape4:3 conservative reference-led food photograph enhancement, recognizably the original bowl.",
+        "review": "Same white bowl with lettuce lining, fusilli center, tomato halves front-left and orange/yellow cubes rear-right on plain light table. Exact NTU RegularSet source; no SP photo transfer or ingredient certification."
+      }
+    }
+  ],
+  "newHours": [],
+  "googleLedger": {
+    "bytes": 1045377,
+    "sha256": "c7321dafaad0473583139494ca899501578892c5b71105429d3cd4dceb4f311a",
+    "requests": 2419,
+    "limit": 2500,
+    "remaining": 81
+  },
+  "sourceRights": "Source attribution and rights retained. User-requested enhancement does not establish an independent licence.",
+  "unresolved": "2,527 food holds,109zero-food research branches,1,828unnamed candidate IDs,3coordinate holds preserved; exact MakanVegan/SoonLai screenshot images unrecovered.",
+  "releaseEvidence": ".local/coverage-2026-10-17yb/release.json",
+  "hoursReview": {
+    "checkedAt": "2026-10-17",
+    "newHours": 0,
+    "scope": "Five new specific product-photo references; no menu food/price extraction, hours or coordinate change. Header-image holds and separate GreenHarmonyprovider-artwork hold retained."
+  },
+  "remainingCoordinateHolds": [
+    {
+      "venueId": "research-ananda-syed-alwi",
+      "reason": "Operator address95SyedAlwiRoad conflicts with OneMap postal207670 at94SyedAlwiRoad. Do not shift the venue across the road by inference.",
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=207670&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "sourceCheckedAt": "2026-10-16T10:32:56.853754+00:00",
+      "reviewedAt": "2026-10-17"
+    },
+    {
+      "venueId": "research-tofu-g-amoy-street",
+      "reason": "Operator97AmoyStreet conflicts with OneMap postal069916 at96AmoyStreet. Hold until correct operator postal/point is established.",
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=069916&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "sourceCheckedAt": "2026-10-16T10:37:47.423991+00:00",
+      "reviewedAt": "2026-10-17"
+    },
+    {
+      "venueId": "research-ur11-crowded-sp",
+      "reason": "OneMap139651 returns many campus buildings and an incomplete7-page response with authentication notice; no exactFoodCourt2row. Merchant address says139651 but separatepostcode field says138671. Do not choose an admin building or generic campus point.",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/w9sh/the-crowded-bowl-dover-road",
+      "sourceCheckedAt": "2026-10-16T07:05:17.736Z",
+      "reviewedAt": "2026-10-17"
+    }
+  ],
+  "hoursQualification": "94 source-backed records; Original Sin Monday explicitly remains unconfirmed. Full coverage remains incomplete.",
+  "photoProductEvidence": [
+    {
+      "id": "xiebian-beehoon",
+      "venueId": "research-ur02-xie-bi-an-vegetarian",
+      "sourcePageUrl": "https://www.foodpanda.sg/restaurant/hqko/xie-bi-an-vegetarian-tampines",
+      "sourceImageUrl": "https://foodpanda.dhmedia.io/image/fd-sg/products/55768142.jpg",
+      "checkedAt": "2026-10-17",
+      "sourcePageCheckedAt": "2026-10-16T01:14:49.940Z",
+      "status": "enhanced-selected",
+      "httpStatus": 200,
+      "finalUrl": "https://foodpanda.dhmedia.io/image/fd-sg/products/55768142.jpg",
+      "contentType": "image/jpeg; width=1440; height=1056",
+      "bytes": 219492,
+      "sha256": "bcf7dd68a9ae888ef73aa1830a4a4bd080f9f68b11f3d3d6b3d3154cec94d348",
+      "sourceFile": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresearched-02\\xie-bi-an-foodpanda.html",
+      "sourceSha256": "5dcbf416111fa9805773f09ff4ea2aa4e833ae6e01a10db7a5e33572f6c89829",
+      "productLabelForAssociationOnly": "Beehoon Set",
+      "reviewedAt": "2026-10-17",
+      "identityEvidence": "Saved exact merchant page explicitly associates product label Beehoon Set with this specific product image. Source path/hash/checkdate retained. Separate from held header image; no food extraction or ingredient certification."
+    },
+    {
+      "id": "minigreen-curry-set",
+      "venueId": "research-ur02-vegetarian-food-stall-01-74",
+      "sourcePageUrl": "https://www.foodpanda.sg/restaurant/ed4x/mini-green-vegetarian-toa-payoh-lorong-8",
+      "sourceImageUrl": "https://images.deliveryhero.io/image/global-menu-service/FP_SG/vendor/ed4x/product/d4df7dcf-fe1e-4865-8fdb-16c63d4928d7.jpg",
+      "checkedAt": "2026-10-17",
+      "sourcePageCheckedAt": "2026-10-16T01:11:44.383Z",
+      "status": "enhanced-selected",
+      "httpStatus": 200,
+      "finalUrl": "https://images.deliveryhero.io/image/global-menu-service/FP_SG/vendor/ed4x/product/d4df7dcf-fe1e-4865-8fdb-16c63d4928d7.jpg",
+      "contentType": "image/jpeg; width=3016; height=2268",
+      "bytes": 712915,
+      "sha256": "77054809f6b786b258cc2c040b732888dc0d14b37ac0d641f9764be25432c762",
+      "sourceFile": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresearched-02\\mini-green-foodpanda.html",
+      "sourceSha256": "30f3388bc8cde14fd5ee66a8b6aa884d5835f3f8466f7c6ec5ae134381451491",
+      "productLabelForAssociationOnly": "CurryVegetablesSet",
+      "reviewedAt": "2026-10-17",
+      "identityEvidence": "Saved exact merchant page explicitly associates product label CurryVegetablesSet with this specific product image. Source path/hash/checkdate retained. Separate from held header image; no food extraction or ingredient certification."
+    },
+    {
+      "id": "harmony-kangkong",
+      "venueId": "research-ur02-amk-green-harmony-vegetarian",
+      "sourcePageUrl": "https://www.foodpanda.sg/restaurant/hgnz/green-harmony-vegetarian-ang-mo-kio",
+      "sourceImageUrl": "https://images.deliveryhero.io/image/global-menu-service/FP_SG/vendor/hgnz/product/71040738/8ecd47d1-fb59-48bd-bfea-498baed379fb.jpg",
+      "checkedAt": "2026-10-17",
+      "sourcePageCheckedAt": "2026-10-16T01:09:36.130Z",
+      "status": "enhanced-selected",
+      "httpStatus": 200,
+      "finalUrl": "https://images.deliveryhero.io/image/global-menu-service/FP_SG/vendor/hgnz/product/71040738/8ecd47d1-fb59-48bd-bfea-498baed379fb.jpg",
+      "contentType": "image/jpeg; width=2487; height=1870",
+      "bytes": 495928,
+      "sha256": "7446d393a84a8d9ce162b148b9749d1e3f73736d50bb7153c1f4a55413be584e",
+      "sourceFile": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresearched-02\\green-harmony-foodpanda.html",
+      "sourceSha256": "d69898945a1aecdf932c754cc0419b698220787eeeed7d00ba4d219e6f8d6804",
+      "productLabelForAssociationOnly": "Stir-fried Kangkong ????",
+      "reviewedAt": "2026-10-17",
+      "identityEvidence": "Saved exact merchant page explicitly associates product label Stir-fried Kangkong ???? with this specific product image. Source path/hash/checkdate retained. Separate from held header image; no food extraction or ingredient certification."
+    },
+    {
+      "id": "yiding-beehoon",
+      "venueId": "research-yi-ding-xuan-tampines-201",
+      "sourcePageUrl": "https://www.foodpanda.sg/restaurant/gxl8/yi-ding-xuan-vegetarian-yi-ding-xuan-su-shi-tampines",
+      "sourceImageUrl": "https://foodpanda.dhmedia.io/image/fd-sg/products/50385389.jpg",
+      "checkedAt": "2026-10-17",
+      "sourcePageCheckedAt": "2026-10-17T00:06:32.868804+00:00",
+      "status": "enhanced-selected",
+      "httpStatus": 200,
+      "finalUrl": "https://foodpanda.dhmedia.io/image/fd-sg/products/50385389.jpg",
+      "contentType": "image/jpeg; width=1316; height=1053",
+      "bytes": 153653,
+      "sha256": "eb500418fb0822c8c9be1ee91057de8761286c86d8606b017df655e01d9f58b6",
+      "sourceFile": "C:\\Users\\huien\\qt\\quintaste\\.local\\coverage-2026-10-17\\sources\\2f710c55edc9b759e75c.html",
+      "sourceSha256": "1bb50e6fae756c334443cef2148ac94875e500712ba8e9ca81c9922f9241fba5",
+      "productLabelForAssociationOnly": "Mee Hoon Set",
+      "reviewedAt": "2026-10-17",
+      "identityEvidence": "Saved exact merchant page explicitly associates product label Mee Hoon Set with this specific product image. Source path/hash/checkdate retained. Separate from held header image; no food extraction or ingredient certification."
+    },
+    {
+      "id": "crowded-ntu-regular",
+      "venueId": "research-crowded-bowl-ntu-north-spine",
+      "sourcePageUrl": "https://www.foodpanda.sg/restaurant/e6jj/the-crowded-bowl-at-ntu-islandwide",
+      "sourceImageUrl": "https://foodpanda.dhmedia.io/image/fd-sg/Products/2327149.jpg",
+      "checkedAt": "2026-10-17",
+      "sourcePageCheckedAt": "2026-10-17T00:10:27.059416+00:00",
+      "status": "enhanced-selected",
+      "httpStatus": 200,
+      "finalUrl": "https://foodpanda.dhmedia.io/image/fd-sg/Products/2327149.jpg",
+      "contentType": "image/jpeg; width=999; height=731",
+      "bytes": 90354,
+      "sha256": "c151e15d1c40e526d677d879997005fb58070c92b749f3634e18e93dd0da4ae4",
+      "sourceFile": "C:\\Users\\huien\\qt\\quintaste\\.local\\coverage-2026-10-17\\sources\\059fe55b47f48ed2fe1a.html",
+      "sourceSha256": "6b9798abffd4575eafd48c90764d2e9d9882ad9562c3d48933cd42810adcd287",
+      "productLabelForAssociationOnly": "Regular Set",
+      "identityEvidence": "Fresh exacte6jjmerchant page explicitly namesNorthSpinePlazaNS3-1-18,76NanyangDrive/637331 and publishes thisRegularSet image. No SPimage transferred by inference.",
+      "reviewedAt": "2026-10-17"
+    }
+  ],
+  "verificationSupplement": {
+    "checkedAt": "2026-10-17",
+    "typescript": {
+      "command": "npx tsc --noEmit",
+      "cwd": ".local/coverage-2026-10-17yb/source",
+      "exitCode": 0
+    },
+    "lint": {
+      "command": "EXPO_NO_DOTENV=1 CI=1 npx expo lint --no-cache",
+      "cwd": ".",
+      "exitCode": 0
+    },
+    "sourcePreserved": true,
+    "changes": "Five photo records/assets rebased onto live social-redesign2. Fresh isolatedTypeScript, canonical uncachedrootlint and clean all16APIexport passed. Social/Cook/navigation sourcebyte-preserved fromnewlivearchive."
+  },
+  "retainedReferenceHolds": {
+    "research-ur02-xie-bi-an-vegetarian": [
+      {
+        "id": "fp-hqko",
+        "sourcePageUrl": "https://www.foodpanda.sg/restaurant/hqko/xie-bi-an-vegetarian-tampines",
+        "sourceImageUrl": "https://images.deliveryhero.io/image/fd-sg/LH/hqko-listing.jpg",
+        "sourcePageCheckedAt": "2026-10-16T01:14:49.940Z",
+        "checkedAt": "2026-10-17",
+        "status": "reviewed-not-selected",
+        "holdReason": "Generic fish-steak curry photo; actual vegetarian product correspondence unresolved. Existing ur02b OneMap evidence resolves postal typo but does not establish image contents."
+      }
+    ],
+    "research-ur02-vegetarian-food-stall-01-74": [
+      {
+        "id": "fp-ed4x",
+        "sourcePageUrl": "https://www.foodpanda.sg/restaurant/ed4x/mini-green-vegetarian-toa-payoh-lorong-8",
+        "sourceImageUrl": "https://images.deliveryhero.io/image/fd-sg/LH/ed4x-listing.png",
+        "sourcePageCheckedAt": "2026-10-16T01:11:44.383Z",
+        "checkedAt": "2026-10-17",
+        "status": "reviewed-not-selected",
+        "holdReason": "Merchant promotional composite overlays skewers on a visibly blurred plate photograph. Insufficient detail for faithful food enhancement. Exact branch identity is resolved by existing ur02b operator/owner evidence."
+      }
+    ],
+    "research-ur02-amk-green-harmony-vegetarian": [
+      {
+        "id": "fp-hgnz",
+        "sourcePageUrl": "https://www.foodpanda.sg/restaurant/hgnz/green-harmony-vegetarian-ang-mo-kio",
+        "sourceImageUrl": "https://images.deliveryhero.io/image/fd-sg/LH/hgnz-listing.jpg",
+        "sourcePageCheckedAt": "2026-10-16T01:09:36.130Z",
+        "checkedAt": "2026-10-17",
+        "status": "held-source-image-unclear",
+        "holdReason": "Generic pot image includes bone-like forms; actual vegetarian product correspondence is unresolved."
+      },
+      {
+        "id": "harmony-mushroom-broccoli",
+        "sourcePageUrl": "https://www.foodpanda.sg/restaurant/hgnz/green-harmony-vegetarian-ang-mo-kio",
+        "sourceImageUrl": "https://foodpanda.dhmedia.io/image/fd-sg/Products/70154213.jpg",
+        "sourcePageCheckedAt": "2026-10-16T01:09:36.130Z",
+        "checkedAt": "2026-10-17",
+        "status": "held-provider-reference-only",
+        "holdReason": "Explicit Imagebyfoodpanda.Forreferenceonly banner. Provider-created illustrative artwork; no merchant actual-product photographic provenance/reuse permission established. Not generated or promoted. Earlier bone-like header remainsheld."
+      }
+    ],
+    "research-yi-ding-xuan-tampines-201": [
+      {
+        "id": "yidingxuan-merchant-hero",
+        "sourcePageUrl": "https://www.foodpanda.sg/restaurant/gxl8/yi-ding-xuan-vegetarian-yi-ding-xuan-su-shi-tampines",
+        "sourceImageUrl": "https://images.deliveryhero.io/image/fd-sg/LH/gxl8-listing.jpg",
+        "sourcePageCheckedAt": "2026-10-16",
+        "checkedAt": "2026-10-17",
+        "status": "reviewed-not-selected",
+        "holdReason": "Generic pineapple-rice photograph; actual venue product photography/provenance not established. No generation."
+      }
+    ],
+    "research-crowded-bowl-ntu-north-spine": []
+  },
+  "notes": [
+    "Five exact merchant product references were enhanced once: Yi Ding Xuan, Crowded Bowl NTU North Spine, Xie Bi An, Mini Green and Green Harmony. Each source file hash and embedded image URL was checked. Crowded Bowl now uses its own NTU product photograph; no SP photo was transferred. Green Harmony uses a separate actual product photograph; the provider-labelled illustration remains held.",
+    "The first product-assets28 candidate was not promoted: the live base changed concurrently to social-redesign2 and the exact-base guard stopped before mutation. Product-assets28b was rebuilt from that live archive, preserving all Social, Cook and navigation source bytes. Fresh isolated TypeScript, canonical uncached lint and clean all16API export passed.",
+    "The first native check encountered a transient network failure at the unchanged admin health endpoint. Independent admin/preview probes returned200 and the fresh native check then passed both Android/iOS manifests and bundles. The failed result is retained; physical-device UI is unverified."
+  ]
+}

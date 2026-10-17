@@ -1,0 +1,147 @@
+{
+  "version": 1,
+  "checkedAt": "2026-10-16T01:08:56.042996+00:00",
+  "identityReviewDataset": "data/menu-research/identity-completion-batch-05.json",
+  "notice": "Newly discovered source-specific Verimix Le Quest branch; no saved candidate ID assigned. Four prepared-food offers from current merchant-managed delivery channel, independently matched to mall tenant #01-17. No other Verimix outlet menus transferred.",
+  "sources": [
+    {
+      "id": "icf5f-verimix-fp",
+      "url": "https://www.foodpanda.sg/restaurant/qzse/verimix-vegetarian-le-quest-mall",
+      "title": "Verimix Vegetarian - Le Quest public delivery food menu",
+      "publisher": "Verimix / Foodpanda",
+      "kind": "merchant-partner",
+      "status": "readable-public-web-text",
+      "checkedAt": "2026-10-16T01:08:56.042996+00:00",
+      "publishedAt": null,
+      "notes": "All four visible food offers. Explicit exact unit/address/postal; merchant trading name Vegetarian and coherent prepared-food catalogue."
+    },
+    {
+      "id": "icf5f-verimix-mall",
+      "url": "https://lequestmall.com.sg/single-location/",
+      "title": "Le Quest Mall - Verimix Vegetarian tenant #01-17",
+      "publisher": "Le Quest Mall",
+      "kind": "landlord-primary",
+      "status": "readable",
+      "checkedAt": "2026-10-16T01:08:56.042996+00:00",
+      "notes": "Current mall tenant directory lists Verimix Vegetarian #01-17, links merchant Facebook, and publishes 4 Bukit Batok Street 41, Singapore 657991."
+    }
+  ],
+  "branches": [
+    {
+      "id": "verimix-le-quest-01-17",
+      "name": "Verimix Vegetarian - Le Quest Mall",
+      "address": "4 Bukit Batok Street 41 #01-17 Le Quest Mall, Singapore 657991",
+      "unit": "#01-17",
+      "postalCode": "657991",
+      "sourceIds": [
+        "icf5f-verimix-fp",
+        "icf5f-verimix-mall"
+      ],
+      "menuIds": [
+        "icf5f-verimix-lequest-delivery"
+      ],
+      "candidatePlaceIds": [],
+      "googlePlaceId": null,
+      "identityStatus": "merchant-and-landlord-confirmed-no-google-identity",
+      "venueEligibility": {
+        "status": "vegetarian-confirmed",
+        "appScope": "vegetarian-vegan-venues-only",
+        "reason": "Current landlord explicitly lists the dedicated Verimix Vegetarian tenant and exact unit, corroborated by coherent current merchant-managed vegetarian ordering channel."
+      },
+      "gaps": [
+        "Only four current channel food offers; from-price bowl selections and per-choice prices unexposed.",
+        "No current menu copied to Timbre, International Business Park, Science Park or Bukit Batok Central branches.",
+        "Counter range, stock, ingredients, effective menu date and final charges unconfirmed."
+      ]
+    }
+  ],
+  "menus": [
+    {
+      "id": "icf5f-verimix-lequest-delivery",
+      "name": "Verimix - Le Quest delivery bowls and sides",
+      "scope": "branch-delivery",
+      "branchIds": [
+        "verimix-le-quest-01-17"
+      ],
+      "sourceIds": [
+        "icf5f-verimix-fp"
+      ],
+      "coverage": "partial",
+      "publicationStatus": "review-proposed",
+      "notice": "All four visible offers captured with explicit bowl component counts and side portions. Actual base/dish-choice pools, surcharges, stock and complete counter range unexposed; no other branch transfer.",
+      "sourceCoverage": {
+        "foodProducts": 4,
+        "pricedFoodProducts": 4,
+        "visibleModifierGroups": 0,
+        "beveragesExcluded": 0
+      },
+      "items": [
+        {
+          "id": "icf5f-verimix-1",
+          "name": "Rice / Noodle Bowl with 4 Dishes",
+          "category": "Rice / Noodle Bowl",
+          "sourceIds": [
+            "icf5f-verimix-fp"
+          ],
+          "sourcePriceText": "from S$ 7.70",
+          "price": {
+            "amount": 7.7,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "qualifier": "Source offers rice/noodle bowl with 4 dishes. Actual bases, dish choices and option prices not exposed; no default selection or surcharge inferred."
+        },
+        {
+          "id": "icf5f-verimix-2",
+          "name": "No Staple Bowl",
+          "category": "Rice / Noodle Bowl",
+          "sourceIds": [
+            "icf5f-verimix-fp"
+          ],
+          "sourcePriceText": "from S$ 7.70",
+          "price": {
+            "amount": 7.7,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "qualifier": "Source offers no-staple bowl with 5 dishes. Actual choices and per-option prices not exposed; no food components invented."
+        },
+        {
+          "id": "icf5f-verimix-3",
+          "name": "Spring Roll X 2",
+          "category": "Add-Ons",
+          "sourceIds": [
+            "icf5f-verimix-fp"
+          ],
+          "sourcePriceText": "S$ 3.50",
+          "price": {
+            "amount": 3.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "qualifier": "Source portion: 2 spring rolls. Vegetarian venue context; ingredients, current stock, taxes/fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf5f-verimix-4",
+          "name": "Soya Chips",
+          "category": "Add-Ons",
+          "sourceIds": [
+            "icf5f-verimix-fp"
+          ],
+          "sourcePriceText": "S$ 3.50",
+          "price": {
+            "amount": 3.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "qualifier": "Source portion: bowl of soya chips. Exact weight, ingredients, current stock, taxes/fees and dine-in equivalence unverified."
+        }
+      ]
+    }
+  ],
+  "scope": {
+    "appScope": "vegetarian-vegan-venues-only",
+    "beverages": "excluded",
+    "googleIdentityAssignment": "none"
+  }
+}

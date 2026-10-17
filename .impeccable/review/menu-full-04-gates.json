@@ -1,0 +1,51 @@
+{
+  "startedAt": 1792125930.9559174,
+  "checks": [
+    {
+      "command": [
+        "node",
+        "-r",
+        "../tmp/qa/menu-register-ts.cjs",
+        "scripts/sync-researched-menus.ts",
+        "--check"
+      ],
+      "exitCode": 0,
+      "seconds": 2.430995225906372,
+      "output": "{\"action\":\"--check\",\"branches\":140,\"sourceMenus\":181,\"foodRows\":10287,\"bytes\":5085931,\"output\":\"data\\\\menus\\\\published-research.json\"}\n"
+    },
+    {
+      "command": [
+        "node",
+        "-r",
+        "../tmp/qa/menu-register-ts.cjs",
+        "scripts/build-menu-source-register.ts",
+        "--check"
+      ],
+      "exitCode": 0,
+      "seconds": 3.5406551361083984,
+      "output": "{\"action\":\"check\",\"foodRecords\":16099,\"sourceDocuments\":3433,\"uniqueSourceUrls\":3371,\"undatedSourceDocuments\":0,\"publishedRecords\":10903,\"publishedFoodOccurrences\":11019,\"heldRecords\":2082,\"branchOnlySources\":0,\"output\":\"data/menu-research/menu-item-source-register.json\"}\n"
+    },
+    {
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "--noEmit"
+      ],
+      "exitCode": 0,
+      "seconds": 24.066190242767334,
+      "output": ""
+    },
+    {
+      "command": [
+        "npm.cmd",
+        "run",
+        "lint"
+      ],
+      "exitCode": 0,
+      "seconds": 11.944056749343872,
+      "output": "\n> quintaste@1.0.0 lint\n> expo lint\n\nenv: load .env.local\nenv: export AVATAR_ALLOWED_OWNERS AVATAR_ENABLED AVATAR_IMAGE_MODEL GOOGLE_CLOUD_PROJECT_ID GOOGLE_PLACES_API_KEY OPENAI_API_KEY\n"
+    }
+  ],
+  "noNewAutomaticTestFiles": true,
+  "passed": true
+}

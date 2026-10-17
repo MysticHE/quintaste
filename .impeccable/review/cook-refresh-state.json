@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "checks": [
+    "Publication rejects incomplete fields, invalid quantities/timers, missing disclosure and consent",
+    "Hydration rejects remote/SVG/oversized photos and invalid IDs; invalid prepared drafts become private drafts",
+    "Explicit guest copy preserves content/disclosure, resets publication consent, deduplicates and leaves guest unchanged",
+    "Draft, shopping and photo capacity rejects overflow before mutation or merge"
+  ]
+}

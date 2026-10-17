@@ -1,0 +1,29 @@
+{
+  "status": "pass",
+  "checks": [
+    "Development photo bytes survive separate reads",
+    "Stored keys are hashes; headers contain only type and time",
+    "Production disables both cache reads and writes",
+    "Private development opt-in is required",
+    "24hour expiry rejects and removes stale entries",
+    "Oversized and non-image data are not saved",
+    "Approved limit permits request501 without resetting prior usage",
+    "Concurrent reservations stop precisely at600",
+    "Configured limit cannot exceed the600 source guard",
+    "Combined baseline and allocation900 guard remains",
+    "A saved photo returns without a Google reservation",
+    "Concurrent misses and subsequent reads need only one provider call",
+    "Development cache stays within100image entries",
+    "Orphan temporary writes are removed while recent temporary writes are preserved",
+    "First stable place and slot snapshot saves image with matching credits and digest",
+    "Fresh metadata with rotated photo name serves existing bytes with original matching attribution and zero reservations",
+    "Signed snapshot tokens reject tampering, expiry and cross-place identities",
+    "Changed snapshot digest never substitutes a different upstream image under old credits",
+    "Expired development snapshot rejects without downloading different content",
+    "Large valid photo credits use bounded compressed signed URLs",
+    "Signed compressed payloads cannot exceed decompression bound",
+    "Production returns current provider metadata without development snapshot lookup"
+  ],
+  "actualGoogleRequests": 0,
+  "fixtureRoot": "C:/Users/huien/QT/tmp/photo-600-fixture-1792030810090"
+}

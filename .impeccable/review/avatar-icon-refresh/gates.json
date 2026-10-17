@@ -1,0 +1,12 @@
+{
+  "date": "2026-10-16",
+  "typecheck": { "command": "npm.cmd run typecheck", "exitCode": 0 },
+  "lint": { "command": "npm.cmd run lint", "exitCode": 0 },
+  "browser": { "report": "report.json", "passed": true, "groups": 13, "captures": 25 },
+  "finalFocusAndPersistence": { "report": "interactions.json", "passed": true },
+  "scope": "Local browser/source. Synthetic fixture portrait, no paid generation. Native physical-device appearance and signed-in cloud workflows were not revalidated. Not deployed.",
+  "corrections": [
+    "Initial harness expected aria-selected on a button; corrected to inspect the selected badge, with persistence checked independently in storage.",
+    "Browser default focus outline suppressed with typed outlineStyle solid / outlineWidth 0 while preserving theme-accent 2px focus border. Final TypeScript, lint and interaction checks passed."
+  ]
+}

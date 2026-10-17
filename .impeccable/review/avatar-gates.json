@@ -1,0 +1,65 @@
+{
+  "date": "2026-10-15",
+  "typecheck": {
+    "command": "npm run typecheck",
+    "exit": 0
+  },
+  "lint": {
+    "command": "npm run lint",
+    "exit": 0
+  },
+  "security": {
+    "command": "npm run test:avatar",
+    "groupedChecks": 7,
+    "exit": 0,
+    "liveNetworkCalls": 0
+  },
+  "browser": {
+    "report": "avatar-browser.json",
+    "groupedJourneys": 7,
+    "scope": "managed Chromium web with mocked image API",
+    "pageErrors": 0,
+    "scopedAxeViolations": 0
+  },
+  "native": {
+    "report": "avatar-native.json",
+    "manifestWithExpectSignature": 200,
+    "bundle": 200,
+    "nativeVisualAcceptance": false
+  },
+  "configuration": {
+    "keyPresent": false,
+    "generationEnabled": false,
+    "approvedDevices": 0,
+    "cliTest": "prepare idempotency, validation, missing-key/public-secret gates, enable/disable; passed with fake fixture key"
+  },
+  "raster": {
+    "servedBytes": 227120,
+    "previousBytes": 5789963,
+    "provenanceScan": {
+      "rasters": 6,
+      "missing": 0
+    }
+  },
+  "dependencyAudit": {
+    "total": 32,
+    "high": 20,
+    "moderate": 12,
+    "sharpListed": false,
+    "publicDeploymentApproved": false
+  },
+  "liveProviderTested": false,
+  "finishReview": {
+    "disposition": "ship",
+    "scope": "Browser/source pilot; fresh general-agent substitute",
+    "report": "avatar-finish-review.json",
+    "cancellationAddendum": "avatar-cancellation-review.json"
+  },
+  "documentation": [
+    "DESIGN.md",
+    ".impeccable/surfaces/avatar.md",
+    "docs/AVATAR_SETUP.md",
+    "docs/PRD_COVERAGE.md"
+  ],
+  "gitDiffCheckExit": 0
+}

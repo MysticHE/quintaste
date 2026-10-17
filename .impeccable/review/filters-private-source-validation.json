@@ -1,0 +1,11 @@
+{
+  "codeFiles": 27,
+  "maxFileLines": 117,
+  "functionViolations": [],
+  "helperChecks": [
+    "merged same-kind edit preserves both records",
+    "new duplicate kind rejected",
+    "legacy MRT origin disabled until resolved",
+    "invalid Singapore coordinates stripped"
+  ]
+}

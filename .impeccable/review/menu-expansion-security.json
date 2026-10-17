@@ -1,0 +1,73 @@
+{
+  "status": "pass",
+  "decision": "approve-bounded-menu-correction-and-public-projection-scope",
+  "reviewedAt": "2026-10-15",
+  "scope": [
+    "Structured add/edit/remove menu corrections and server case validation",
+    "Owner-scoped drafts, queued cases, receipts and reviewer authorization",
+    "Public menu projection, source parsers and research importer",
+    "Development-only case delivery and absence of direct public mutation"
+  ],
+  "findings": [],
+  "resolvedFindings": [
+    {
+      "id": "S01",
+      "severity": "low",
+      "file": "src/server/local-explore/validation.ts",
+      "issue": "String coercion permitted an array case kind at the server boundary.",
+      "resolution": "Strict value equality now permits only correction or report; four malformed kind variants independently returned validation errors."
+    }
+  ],
+  "verification": {
+    "structuredInputAndProjectionAssertions": 790,
+    "malformedKindVariantsRejectedAfterFix": 4,
+    "malformedJsonUtf8AndOversizeBodyChecks": 3,
+    "ownerCapabilityScopeChecks": 2,
+    "productionCaseRouteStatus": 503,
+    "publicMenus": 11,
+    "sourceSpecificSections": 15,
+    "publicDishRows": 732,
+    "publicProjectionCharacters": 156621,
+    "publicCacheMaximumCharacters": 750000,
+    "workflowEvidence": ".impeccable/review/menu-expansion-workflow.json",
+    "workflowGroups": 5,
+    "actualGoogleCalls": 0
+  },
+  "reviewConclusions": [
+    "Action is a strict string enum. Structured fields have length and control-character bounds; IDs and optional SGD prices are validated. Menu venue context and structured venue identity are pair-checked.",
+    "Malformed JSON, invalid UTF-8 and oversized bodies fail before case processing. Case payloads remain proposals rather than trusted menu facts.",
+    "Owner capabilities are checked against the requested guest/profile scope. Case retrieval and updates check stored ownership; receipt projection excludes owner capability hashes, fingerprints and photo bytes.",
+    "Owner-keyed provider remounts and cancellation guards preserve existing draft/queue isolation. Reviewer routes require the private reviewer capability, same-origin controls and the development service gate.",
+    "Review decisions update only local case records. Public menu publication remains an explicit manifest/fingerprint operation; corrections cannot directly edit the public menu catalogue.",
+    "Public source URLs require HTTPS and reject credentials and private literal hosts. Sources are external links; this change does not fetch user-submitted source URLs on the server.",
+    "The research importer accepts only fixed-format research basenames, validates merged records and references, rejects overlapping branch ownership and duplicate dishes, and uses exclusive temporary files plus atomic rename. It does not execute source text or invoke a shell.",
+    "Public menus expose an explicit branch/section/item projection without private review history, research notes, ingredient certification or copied media. Unknown suitability and source coverage remain explicit."
+  ],
+  "nativeTransportSample": {
+    "serverPort": 8083,
+    "manifestStatus": 200,
+    "bundleStatus": 200,
+    "bundleBytes": 9428882,
+    "privateResearchSentencesChecked": 597,
+    "privateResearchSentenceLeaks": 0,
+    "privateSecretsCheckedWithoutPrintingValues": 2,
+    "privateSecretLeaks": 0,
+    "privatePathsChecked": 3,
+    "privatePathLeaks": 0,
+    "note": "This is sampled transport and exclusion evidence, not physical-device appearance or fresh-build acceptance. Shared source-format enum text remains in the authorized reviewer response parser and is not private research data."
+  },
+  "dependencyBaseline": {
+    "command": "npm audit --audit-level=high --json",
+    "critical": 0,
+    "high": 20,
+    "moderate": 12,
+    "low": 0,
+    "rawEvidence": "../tmp/qa/menu-expansion-npm-audit.json",
+    "note": "The existing dependency tree is not audit-clean. This menu change adds no dependencies; no dependency changes or automatic major-version fixes were made. This targeted approval does not approve the existing dependency baseline for production release."
+  },
+  "limitations": [
+    "Case intake and review remain development-only local services; production authenticated identity, staffed delivery and public publication approval are not established.",
+    "Source links and reviewed facts do not establish complete ingredient information, current availability or merchant authorization for copied media.",
+    "No physical-device, full-application penetration test or production deployment was performed."
+  ]
+}

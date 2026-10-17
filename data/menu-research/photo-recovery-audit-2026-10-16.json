@@ -1,0 +1,897 @@
+{
+  "version": 1,
+  "checkedAt": "2026-10-16",
+  "backup": ".local/photo-card-recovery/original-cache-backup",
+  "cacheFiles": 44,
+  "payloadBytes": 7184768,
+  "uniqueImages": 29,
+  "matchedFiles": 44,
+  "stableKeyMatches": 29,
+  "byteIdenticalLegacyMatches": 15,
+  "distinctPlaceIds": 27,
+  "publishedBranchesMatched": 2,
+  "cachedPhotosApprovedForDurableReuse": 0,
+  "reusableNewBranchPhotos": 1,
+  "browseBranches": 174,
+  "remainingBrowsePhotoGaps": 173,
+  "targets": {
+    "Makan Vegan": {
+      "placeIds": [
+        "ChIJDeu5BW0Z2jER9iZvgadB8D8",
+        "ChIJMQxEodkT2jERLyi1HxYq3y4"
+      ],
+      "matchedFiles": 0,
+      "result": "Not recoverable from these 44 files for the recorded branch IDs."
+    },
+    "Soon Lai": {
+      "placeIds": [
+        "ChIJh3FwcpsR2jERwSesW6Xfvsg"
+      ],
+      "matchedFiles": 0,
+      "result": "Not recoverable from these 44 files for the recorded branch IDs."
+    }
+  },
+  "policySources": [
+    {
+      "url": "https://developers.google.com/maps/documentation/places/web-service/policies",
+      "checkedAt": "2026-10-16"
+    },
+    {
+      "url": "https://developers.google.com/maps/documentation/places/web-service/place-photos",
+      "checkedAt": "2026-10-16"
+    }
+  ],
+  "approvedPhotoRegister": "data/menus/catalogue-photos.json",
+  "entries": [
+    {
+      "placeId": "ChIJZSr57K0T2jER9vGz_2-ktRg",
+      "name": "Zhen Xiang Vegetarian — 325 Woodlands Street 32",
+      "address": "325 Woodlands Street 32 #01-131, Singapore 730325",
+      "identityEvidence": [
+        {
+          "name": "Zhen Xiang Vegetarian — 325 Woodlands Street 32",
+          "address": "325 Woodlands Street 32 #01-131, Singapore 730325",
+          "source": "data/menu-research/location-coverage.json"
+        },
+        {
+          "name": "Zhen Xiang Vegetarian",
+          "address": "325 Woodlands Street 32, #01-131, Singapore 730325",
+          "source": "data/menu-research/paid-identity-leads.json"
+        },
+        {
+          "name": "Zhen Xiang Vegetarian — 325 Woodlands Street 32",
+          "address": "325 Woodlands Street 32 #01-131, Singapore 730325",
+          "source": "data/menu-research/paid-identity-leads.json"
+        },
+        {
+          "name": "Zhen Xiang Vegetarian",
+          "address": "325 Woodlands Street 32 #01-131, Singapore 730325",
+          "source": "data/menu-research/paid-identity-leads.json"
+        },
+        {
+          "name": "Zhen Xiang Vegetarian",
+          "address": "325 Woodlands Street 32, #01-131, Singapore 730325",
+          "source": "data/menu-research/source-link-identity-leads.json"
+        },
+        {
+          "name": "Zhen Xiang Vegetarian — 325 Woodlands Street 32",
+          "address": "325 Woodlands Street 32 #01-131, Singapore 730325",
+          "source": "data/menu-research/venue-menu-identity-reviews.json"
+        },
+        {
+          "name": "Zhen Xiang Vegetarian — 325 Woodlands Street 32",
+          "address": "325 Woodlands Street 32 #01-131, Singapore 730325",
+          "source": "data/menu-research/continuation-evidence/identity-09-frozen-input.json"
+        },
+        {
+          "name": "Zhen Xiang Vegetarian",
+          "address": "325 Woodlands Street 32, #01-131, Singapore 730325",
+          "source": ".local/menu-identity-receipts.json"
+        },
+        {
+          "name": "Zhen Xiang Vegetarian — 325 Woodlands Street 32",
+          "address": "325 Woodlands Street 32 #01-131, Singapore 730325",
+          "source": ".local/menu-identity-receipts.json"
+        },
+        {
+          "name": "Zhen Xiang Vegetarian",
+          "address": "325 Woodlands Street 32 #01-131, Singapore 730325",
+          "source": ".local/menu-identity-receipts.json"
+        }
+      ],
+      "publishedVenueIds": [],
+      "cacheFiles": 3,
+      "uniqueImageHashes": [
+        "8d9b7211d4c0b153a509a474ffdfea676fdb22e50c54517300cf5efe0d0dc0fd"
+      ],
+      "sourceUrls": [
+        "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIHM0ogKEICAgIDXqq24qQE!2e10!4m2!3m1!1s0x31da13adecf92a65:0x18b5a46fffb3f1f6"
+      ],
+      "reuseStatus": "held-no-durable-permission",
+      "checkedAt": "2026-10-16"
+    },
+    {
+      "placeId": "ChIJFxpZ8csZ2jERfyeOmdKYh4A",
+      "name": "Ananda Bhavan (Buffalo Road)",
+      "address": "Blk 663 Buffalo Road, #01-10, Little India Conservation Area, Singapore 210663",
+      "identityEvidence": [
+        {
+          "name": "Ananda Bhavan (Buffalo Road)",
+          "address": "Blk 663 Buffalo Road, #01-10, Little India Conservation Area, Singapore 210663",
+          "source": "data/menu-research/location-coverage.json"
+        },
+        {
+          "name": "Ananda Bhavan (Buffalo Road)",
+          "address": "Blk 663 Buffalo Road, #01-10, Little India Conservation Area, Singapore 210663",
+          "source": "data/menu-research/continuation-evidence/identity-09-frozen-input.json"
+        }
+      ],
+      "publishedVenueIds": [],
+      "cacheFiles": 2,
+      "uniqueImageHashes": [
+        "7e4acb1740584c15f9bd6c4f7785baeeee28018dedbabc47bf9084a6fea61b58"
+      ],
+      "sourceUrls": [
+        "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIHM0ogKEICAgICq-YjUsgE!2e10!4m2!3m1!1s0x31da19cbf1591a17:0x808798d2998e277f"
+      ],
+      "reuseStatus": "held-no-durable-permission",
+      "checkedAt": "2026-10-16"
+    },
+    {
+      "placeId": "ChIJ-c0qznIZ2jERtO9HJCNB-EI",
+      "name": "Lian Xin Vegetarian; LIAN XIN VEGETARIAN FOOD COURT; Lian Xin Vegetarian Restaurant — Buddha Tooth Relic Temple basement",
+      "address": "288 South Bridge Road; 288 South Bridge Rd, 01, S058840; Basement, Buddha Tooth Relic Temple, 288 South Bridge Road, Singapore 058840",
+      "identityEvidence": [
+        {
+          "name": "Lian Xin Vegetarian; LIAN XIN VEGETARIAN FOOD COURT; Lian Xin Vegetarian Restaurant — Buddha Tooth Relic Temple basement",
+          "address": "288 South Bridge Road; 288 South Bridge Rd, 01, S058840; Basement, Buddha Tooth Relic Temple, 288 South Bridge Road, Singapore 058840",
+          "source": "data/menu-research/location-coverage.json"
+        },
+        {
+          "name": "Lian Xin Vegetarian; LIAN XIN VEGETARIAN FOOD COURT; Lian Xin Vegetarian Restaurant — Buddha Tooth Relic Temple basement",
+          "address": "288 South Bridge Road; 288 South Bridge Rd, 01, S058840; Basement, Buddha Tooth Relic Temple, 288 South Bridge Road, Singapore 058840",
+          "source": "data/menu-research/continuation-evidence/identity-09-frozen-input.json"
+        }
+      ],
+      "publishedVenueIds": [],
+      "cacheFiles": 2,
+      "uniqueImageHashes": [
+        "2d27ca2ca39d018a54e24b4ab7ad438a04fccb9ae492737150aa8c314d0764f3"
+      ],
+      "sourceUrls": [
+        "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIHM0ogKEICAgICZ6aOY3AE!2e10!4m2!3m1!1s0x31da1972ce2acdf9:0x42f841232447efb4"
+      ],
+      "reuseStatus": "held-no-durable-permission",
+      "checkedAt": "2026-10-16"
+    },
+    {
+      "placeId": "ChIJJ3TQYyoZ2jER6SpaN6AXTAw",
+      "name": null,
+      "address": null,
+      "identityEvidence": [],
+      "publishedVenueIds": [],
+      "cacheFiles": 1,
+      "uniqueImageHashes": [
+        "76fa3828d09524c64122f03239c7f7870e148d709f1976ed429352fbef5684b6"
+      ],
+      "sourceUrls": [
+        "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIABIhByDPZleHkV1f9hARJvKCM9!2e10!4m2!3m1!1s0x31da192a63d07427:0xc4c17a0375a2ae9"
+      ],
+      "reuseStatus": "held-no-durable-permission",
+      "checkedAt": "2026-10-16"
+    },
+    {
+      "placeId": "ChIJNV7dz8cZ2jERfQnZgcYkrCo",
+      "name": "Ananda Bhavan (95 Syed Alwi Road)",
+      "address": "95 Syed Alwi Road, Singapore 207670",
+      "identityEvidence": [
+        {
+          "name": "Ananda Bhavan (95 Syed Alwi Road)",
+          "address": "95 Syed Alwi Road, Singapore 207670",
+          "source": "data/menu-research/location-coverage.json"
+        },
+        {
+          "name": "Ananda Bhavan (95 Syed Alwi Road)",
+          "address": "95 Syed Alwi Road, Singapore 207670",
+          "source": "data/menu-research/continuation-evidence/identity-09-frozen-input.json"
+        }
+      ],
+      "publishedVenueIds": [],
+      "cacheFiles": 8,
+      "uniqueImageHashes": [
+        "1aadfc7865c3e8b6a758526e8cb4140df83eff36fb8e19f71c66836ce4a1f342",
+        "5016193ef3c0f94297a6fe3c69ec4d6d127d84a8d4c1ad7692bee487905213ae",
+        "b75522d508721c5e4c913b9b25afc21f00f83fed1c416495b1856bd97173fd65"
+      ],
+      "sourceUrls": [
+        "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIABIhAzWh9Sm5bcgLussR0_Arns!2e10!4m2!3m1!1s0x31da19c7cfdd5e35:0x2aac24c681d9097d",
+        "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIABIhCGeBdXhySSkWybeupsAnzk!2e10!4m2!3m1!1s0x31da19c7cfdd5e35:0x2aac24c681d9097d",
+        "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIABIhCbgphjAYHqu7qKwoexpI9n!2e10!4m2!3m1!1s0x31da19c7cfdd5e35:0x2aac24c681d9097d"
+      ],
+      "reuseStatus": "held-no-durable-permission",
+      "checkedAt": "2026-10-16"
+    },
+    {
+      "placeId": "ChIJEW3hwp4Z2jERyEBhE4ss9Ws",
+      "name": null,
+      "address": null,
+      "identityEvidence": [],
+      "publishedVenueIds": [],
+      "cacheFiles": 1,
+      "uniqueImageHashes": [
+        "a7f9d472c092ae29f213b4349c417e2621b9bcc4660c8c5d0651f8b55cb70155"
+      ],
+      "sourceUrls": [
+        "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIHM0ogKEICAgIDRnt7RNw!2e10!4m2!3m1!1s0x31da199ec2e16d11:0x6bf52c8b136140c8"
+      ],
+      "reuseStatus": "held-no-durable-permission",
+      "checkedAt": "2026-10-16"
+    },
+    {
+      "placeId": "ChIJxS4H7hwT2jERBRdisyWBfUM",
+      "name": "Elemen 元素 (Woodlands Height); elemen — Woodlands Height / elemen Academy; elemen",
+      "address": "1 Woodlands Height; 1 Woodlands Height #01-02, Koufu Headquarters, Singapore 737859",
+      "identityEvidence": [
+        {
+          "name": "Elemen 元素 (Woodlands Height); elemen — Woodlands Height / elemen Academy; elemen",
+          "address": "1 Woodlands Height; 1 Woodlands Height #01-02, Koufu Headquarters, Singapore 737859",
+          "source": "data/menu-research/location-coverage.json"
+        },
+        {
+          "name": "Elemen 元素 (Woodlands Height); elemen — Woodlands Height / elemen Academy; elemen",
+          "address": "1 Woodlands Height; 1 Woodlands Height #01-02, Koufu Headquarters, Singapore 737859",
+          "source": "data/menu-research/continuation-evidence/identity-09-frozen-input.json"
+        }
+      ],
+      "publishedVenueIds": [],
+      "cacheFiles": 1,
+      "uniqueImageHashes": [
+        "ad5aa8b7cb72d46bba833cc05fdf3d9f124d04d05492ab568ce4f04900647cc3"
+      ],
+      "sourceUrls": [
+        "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIABIhAejubK0dmbyEqs0RCc1uhS!2e10!4m2!3m1!1s0x31da131cee072ec5:0x437d8125b3621705"
+      ],
+      "reuseStatus": "held-no-durable-permission",
+      "checkedAt": "2026-10-16"
+    },
+    {
+      "placeId": "ChIJi1X0AAUT2jERCwbOXFjnR8k",
+      "name": "Vege Story Vegetarian 齋の傳說; Vege Story Vegetarian — Woodlands",
+      "address": "892C Woodlands Drive 50, Singapore 732892; 892C Woodlands Drive 50 #01-02, Singapore 732892",
+      "identityEvidence": [
+        {
+          "name": "Vege Story Vegetarian 齋の傳說; Vege Story Vegetarian — Woodlands",
+          "address": "892C Woodlands Drive 50, Singapore 732892; 892C Woodlands Drive 50 #01-02, Singapore 732892",
+          "source": "data/menu-research/location-coverage.json"
+        },
+        {
+          "name": "Vege Story Vegetarian 齋の傳說",
+          "address": "892C Woodlands Drive 50, Singapore 732892",
+          "source": "data/menu-research/paid-identity-leads.json"
+        },
+        {
+          "name": "Vege Story Vegetarian 齋の傳說",
+          "address": "892C Woodlands Drive 50, Singapore 732892",
+          "source": "data/menu-research/source-link-identity-leads.json"
+        },
+        {
+          "name": "Vege Story Vegetarian 齋の傳說",
+          "address": "892C Woodlands Drive 50, Singapore 732892",
+          "source": ".local/menu-identity-receipts.json"
+        }
+      ],
+      "publishedVenueIds": [],
+      "cacheFiles": 4,
+      "uniqueImageHashes": [
+        "0e1decfd5ce70186bfc09f490f24366358a2abb4fdad4540d98ab470b4ed8395"
+      ],
+      "sourceUrls": [
+        "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIHM0ogKEICAgICbjMeVOw!2e10!4m2!3m1!1s0x31da130500f4558b:0xc947e7585cce060b"
+      ],
+      "reuseStatus": "held-no-durable-permission",
+      "checkedAt": "2026-10-16"
+    },
+    {
+      "placeId": "ChIJF79kL6QZ2jERTIaJ2CyEbSk",
+      "name": "Sufood; Sufood — Raffles City; Sufood (Raffles City)",
+      "address": "252 North Bridge Road; 252 North Bridge Road, #02-19/21, Raffles City Shopping Centre · 179103; 252 North Bridge Road, #02-19 to 21 Raffles City Shopping Centre, Singapore 179103",
+      "identityEvidence": [
+        {
+          "name": "Sufood; Sufood — Raffles City; Sufood (Raffles City)",
+          "address": "252 North Bridge Road; 252 North Bridge Road, #02-19/21, Raffles City Shopping Centre · 179103; 252 North Bridge Road, #02-19 to 21 Raffles City Shopping Centre, Singapore 179103",
+          "source": "data/menu-research/location-coverage.json"
+        },
+        {
+          "name": "Sufood; Sufood — Raffles City; Sufood (Raffles City)",
+          "address": "252 North Bridge Road; 252 North Bridge Road, #02-19/21, Raffles City Shopping Centre · 179103; 252 North Bridge Road, #02-19 to 21 Raffles City Shopping Centre, Singapore 179103",
+          "source": "data/menu-research/continuation-evidence/identity-09-frozen-input.json"
+        }
+      ],
+      "publishedVenueIds": [],
+      "cacheFiles": 1,
+      "uniqueImageHashes": [
+        "128db92069cc17713b81cf719d7ee15ac860fd5fc66085c333bdbddd18c2aa81"
+      ],
+      "sourceUrls": [
+        "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIHM0ogKEICAgIC2wezFSw!2e10!4m2!3m1!1s0x31da19a42f64bf17:0x296d842cd889864c"
+      ],
+      "reuseStatus": "held-no-durable-permission",
+      "checkedAt": "2026-10-16"
+    },
+    {
+      "placeId": "ChIJseQ1k7gZ2jER7uusJ17hy5E",
+      "name": "Gokul-Raas Vegetarian",
+      "address": "19 Upper Dickson Road, Singapore 207478",
+      "identityEvidence": [
+        {
+          "name": "Gokul-Raas Vegetarian - Upper Dickson",
+          "address": "19 Upper Dickson Road, Singapore 207478",
+          "source": "data/menu-research/identity-completion-batch-05.json"
+        },
+        {
+          "name": "Gokul-Raas Vegetarian",
+          "address": "19 Upper Dickson Road, Singapore 207478",
+          "source": "data/menu-research/location-coverage.json"
+        },
+        {
+          "name": "GOKUL RAAS VEGETARIAN RESTAURANT",
+          "address": "19 UPPER DICKSON ROAD Singapore 207478",
+          "source": "data/menu-research/paid-identity-leads.json"
+        },
+        {
+          "name": "Gokul - Raas Vegetarian Restaurant",
+          "address": "19 Upper Dickson Rd, Singapore 207478",
+          "source": "data/menu-research/paid-identity-leads.json"
+        },
+        {
+          "name": "Gokul-Raas Vegetarian",
+          "address": "19 Upper Dickson Road, Singapore 207478",
+          "source": "data/menu-research/venue-menu-identity-reviews.json"
+        },
+        {
+          "name": "Gokul-Raas Vegetarian",
+          "address": "19 Upper Dickson Road, Singapore 207478",
+          "source": "data/menus/catalogue-index.json"
+        },
+        {
+          "name": "Gokul-Raas Vegetarian",
+          "address": "19 Upper Dickson Road, Singapore 207478",
+          "source": "data/menus/published-research.json"
+        },
+        {
+          "name": "GOKUL RAAS VEGETARIAN RESTAURANT",
+          "address": "19 UPPER DICKSON ROAD Singapore 207478",
+          "source": ".local/menu-identity-receipts.json"
+        },
+        {
+          "name": "Gokul - Raas Vegetarian Restaurant",
+          "address": "19 Upper Dickson Rd, Singapore 207478",
+          "source": ".local/menu-identity-receipts.json"
+        }
+      ],
+      "publishedVenueIds": [
+        "research-gokul-upper-dickson"
+      ],
+      "cacheFiles": 2,
+      "uniqueImageHashes": [
+        "eccec21852df9ada2e990c5b0c6170d247f1fe91c4f3dc817063f28e23a8a286"
+      ],
+      "sourceUrls": [
+        "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIABIhD8frvlIoGN6DWGSBP5LZOD!2e10!4m2!3m1!1s0x31da19b89335e4b1:0x91cbe15e27acebee"
+      ],
+      "reuseStatus": "held-no-durable-permission",
+      "checkedAt": "2026-10-16"
+    },
+    {
+      "placeId": "ChIJw7Bn0vYZ2jER7YWZKh57T4Y",
+      "name": "Lotus Vegetarian Restaurant; Lotus Vegetarian",
+      "address": "201 Balestier Road; 201 BALESTIER ROAD #02-00,HOLIDAY INN EXPRESS & SUITES SINGAPORE NOVENA,Singapore 329926; 201 Balestier Road, Level 2, Holiday Inn Express and Suites Singapore Novena, Singapore 329926",
+      "identityEvidence": [
+        {
+          "name": "Lotus Vegetarian Restaurant; Lotus Vegetarian",
+          "address": "201 Balestier Road; 201 BALESTIER ROAD #02-00,HOLIDAY INN EXPRESS & SUITES SINGAPORE NOVENA,Singapore 329926; 201 Balestier Road, Level 2, Holiday Inn Express and Suites Singapore Novena, Singapore 329926",
+          "source": "data/menu-research/location-coverage.json"
+        },
+        {
+          "name": "Lotus Vegetarian Restaurant",
+          "address": "201 BALESTIER ROAD #02-00,HOLIDAY INN EXPRESS & SUITES SINGAPORE NOVENA,Singapore 329926",
+          "source": "data/menu-research/paid-identity-leads.json"
+        },
+        {
+          "name": "Lotus Vegetarian Restaurant",
+          "address": "201 BALESTIER ROAD #02-00,HOLIDAY INN EXPRESS & SUITES SINGAPORE NOVENA,Singapore 329926",
+          "source": ".local/menu-identity-receipts.json"
+        }
+      ],
+      "publishedVenueIds": [],
+      "cacheFiles": 2,
+      "uniqueImageHashes": [
+        "2b52b1fbfd76a6bf018fda1e58b43d41b3d23ec93e23471c59fc9b6998675cba"
+      ],
+      "sourceUrls": [
+        "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIABIhAIocnHh7m0wywml5aHuA7l!2e10!4m2!3m1!1s0x31da19f6d267b0c3:0x864f7b1e2a9985ed"
+      ],
+      "reuseStatus": "held-no-durable-permission",
+      "checkedAt": "2026-10-16"
+    },
+    {
+      "placeId": "ChIJoy-YZqQT2jER2c3gPPpftaQ",
+      "name": "Eight Immortals Vegetarian 八仙素食园",
+      "address": "678A Woodlands Ave 6, level 2, Singapore 731678",
+      "identityEvidence": [
+        {
+          "name": "Eight Immortals Vegetarian 八仙素食园",
+          "address": "678A Woodlands Ave 6, level 2, Singapore 731678",
+          "source": "data/menu-research/location-coverage.json"
+        },
+        {
+          "name": "Eight Immortals Vegetarian 八仙素食园",
+          "address": "678A Woodlands Ave 6, level 2, Singapore 731678",
+          "source": "data/menu-research/source-link-identity-leads.json"
+        },
+        {
+          "name": "Eight Immortals Vegetarian 八仙素食园",
+          "address": "678A Woodlands Ave 6, level 2, Singapore 731678",
+          "source": "data/menu-research/continuation-evidence/identity-08-frozen-input.json"
+        }
+      ],
+      "publishedVenueIds": [],
+      "cacheFiles": 1,
+      "uniqueImageHashes": [
+        "10328cd225b964580dc03eced9fc4a56663f666d0e6155ab202e202206509a24"
+      ],
+      "sourceUrls": [
+        "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIHM0ogKEICAgIDhw6eS7wE!2e10!4m2!3m1!1s0x31da13a466982fa3:0xa4b55ffa3ce0cdd9"
+      ],
+      "reuseStatus": "held-no-durable-permission",
+      "checkedAt": "2026-10-16"
+    },
+    {
+      "placeId": "ChIJ-7uhXAAZ2jERzDXZijcEAeU",
+      "name": "Yan Ci Xin Vegetarian; YAN CI XIN VEGETARIAN",
+      "address": "51 Old Airport Rd, #01-58, Singapore 390051; 51 Old Airport Road, #01-58, S390051",
+      "identityEvidence": [
+        {
+          "name": "Yan Ci Xin Vegetarian; YAN CI XIN VEGETARIAN",
+          "address": "51 Old Airport Rd, #01-58, Singapore 390051; 51 Old Airport Road, #01-58, S390051",
+          "source": "data/menu-research/location-coverage.json"
+        },
+        {
+          "name": "Yan Ci Xin Vegetarian; YAN CI XIN VEGETARIAN",
+          "address": "51 Old Airport Rd, #01-58, Singapore 390051; 51 Old Airport Road, #01-58, S390051",
+          "source": "data/menu-research/continuation-evidence/identity-09-frozen-input.json"
+        }
+      ],
+      "publishedVenueIds": [],
+      "cacheFiles": 1,
+      "uniqueImageHashes": [
+        "2c53211f2c32b4e96bdd625b4e9b69d944ba7a289e460000d9a9b57be0cdc855"
+      ],
+      "sourceUrls": [
+        "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIABIhD4sG_vkPOmt6_VU8aNTZuf!2e10!4m2!3m1!1s0x31da19005ca1bbfb:0xe50104378ad935cc"
+      ],
+      "reuseStatus": "held-no-durable-permission",
+      "checkedAt": "2026-10-16"
+    },
+    {
+      "placeId": "ChIJqe44Co0Z2jERINoBk9gKjPo",
+      "name": "Ru Yi Zhai Vegetarian",
+      "address": "Blk 134 Geylang East Ave 1, #01-229, Singapore 380134",
+      "identityEvidence": [
+        {
+          "name": "Ru Yi Zhai Vegetarian",
+          "address": "Blk 134 Geylang East Ave 1, #01-229, Singapore 380134",
+          "source": "data/menu-research/location-coverage.json"
+        },
+        {
+          "name": "Ru Yi Zhai Vegetarian",
+          "address": "Blk 134 Geylang East Ave 1, #01-229, Singapore 380134",
+          "source": "data/menu-research/paid-identity-leads.json"
+        },
+        {
+          "name": "Ru Yi Zhai Vegetarian",
+          "address": "Blk 134 Geylang East Ave 1, #01-229, Singapore 380134",
+          "source": "data/menu-research/source-link-identity-leads.json"
+        },
+        {
+          "name": "Ru Yi Zhai Vegetarian",
+          "address": "Blk 134 Geylang East Ave 1, #01-229, Singapore 380134",
+          "source": ".local/menu-identity-receipts.json"
+        }
+      ],
+      "publishedVenueIds": [],
+      "cacheFiles": 1,
+      "uniqueImageHashes": [
+        "a79a0db54378bd4024adc6283f32422a984234caeb0c4be99cc9f500201b4f9f"
+      ],
+      "sourceUrls": [
+        "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIABIhAhLTyQ9T1Wy4TeHtZFmWOk!2e10!4m2!3m1!1s0x31da198d0a38eea9:0xfa8c0ad89301da20"
+      ],
+      "reuseStatus": "held-no-durable-permission",
+      "checkedAt": "2026-10-16"
+    },
+    {
+      "placeId": "ChIJTz74JQ0Z2jER4TOc1RrAgzQ",
+      "name": "Coco Veggie Nyonya; CoCo Veggie Nyonya Cuisine — Marina Square",
+      "address": "6 Raffles Blvd, #03 - 130A Marina Square, Singapore 039594; 6 Raffles Boulevard #03-130A Marina Square, Singapore 039594",
+      "identityEvidence": [
+        {
+          "name": "Coco Veggie Nyonya; CoCo Veggie Nyonya Cuisine — Marina Square",
+          "address": "6 Raffles Blvd, #03 - 130A Marina Square, Singapore 039594; 6 Raffles Boulevard #03-130A Marina Square, Singapore 039594",
+          "source": "data/menu-research/location-coverage.json"
+        },
+        {
+          "name": "Coco Veggie Nyonya",
+          "address": "6 Raffles Blvd, #03 - 130A Marina Square, Singapore 039594",
+          "source": "data/menu-research/paid-identity-leads.json"
+        },
+        {
+          "name": "Coco Veggie Nyonya",
+          "address": "6 Raffles Blvd, #03 - 130A Marina Square, Singapore 039594",
+          "source": ".local/menu-identity-receipts.json"
+        }
+      ],
+      "publishedVenueIds": [],
+      "cacheFiles": 1,
+      "uniqueImageHashes": [
+        "126cb9a41ca83eeb8be1da1f309e17ebc5dba2f994aa0412352bfdeeb4adba56"
+      ],
+      "sourceUrls": [
+        "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIHM0ogKEICAgICMysm_tQE!2e10!4m2!3m1!1s0x31da190d25f83e4f:0x3483c01ad59c33e1"
+      ],
+      "reuseStatus": "held-no-durable-permission",
+      "checkedAt": "2026-10-16"
+    },
+    {
+      "placeId": "ChIJ01wV1WwZ2jERSk88-PrWNFE",
+      "name": "Whole Earth — Peck Seah Street",
+      "address": "76 Peck Seah Street, Singapore 079331",
+      "identityEvidence": [
+        {
+          "name": "Whole Earth — Peck Seah Street",
+          "address": "76 Peck Seah Street, Singapore 079331",
+          "source": "data/menu-research/location-coverage.json"
+        },
+        {
+          "name": "Whole Earth",
+          "address": "76 Peck Seah St, Singapore 079331",
+          "source": "data/menu-research/paid-identity-leads.json"
+        },
+        {
+          "name": "Whole Earth — Peck Seah Street",
+          "address": "76 Peck Seah Street, Singapore 079331",
+          "source": "data/menu-research/paid-identity-leads.json"
+        },
+        {
+          "name": "Whole Earth",
+          "address": "76 Peck Seah Street, Singapore 079331",
+          "source": "data/menu-research/paid-identity-leads.json"
+        },
+        {
+          "name": "Whole Earth — Peck Seah Street",
+          "address": "76 Peck Seah Street, Singapore 079331",
+          "source": "data/menu-research/venue-menu-identity-reviews.json"
+        },
+        {
+          "name": "Whole Earth — Peck Seah Street",
+          "address": "76 Peck Seah Street, Singapore 079331",
+          "source": "data/menu-research/continuation-evidence/identity-09-frozen-input.json"
+        },
+        {
+          "name": "Whole Earth",
+          "address": "76 Peck Seah St, Singapore 079331",
+          "source": ".local/menu-identity-receipts.json"
+        },
+        {
+          "name": "Whole Earth — Peck Seah Street",
+          "address": "76 Peck Seah Street, Singapore 079331",
+          "source": ".local/menu-identity-receipts.json"
+        },
+        {
+          "name": "Whole Earth",
+          "address": "76 Peck Seah Street, Singapore 079331",
+          "source": ".local/menu-identity-receipts.json"
+        }
+      ],
+      "publishedVenueIds": [],
+      "cacheFiles": 1,
+      "uniqueImageHashes": [
+        "22bcf71d1b03a487da4d173ebf19630a827903f3e1d12fa65ccdb92e118a3c77"
+      ],
+      "sourceUrls": [
+        "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIABIhBBxNmlIpDvkHsIQdTNwZIE!2e10!4m2!3m1!1s0x31da196cd5155cd3:0x5134d6faf83c4f4a"
+      ],
+      "reuseStatus": "held-no-durable-permission",
+      "checkedAt": "2026-10-16"
+    },
+    {
+      "placeId": "ChIJDYfRxFAZ2jERpxY8H0_qYzU",
+      "name": null,
+      "address": null,
+      "identityEvidence": [],
+      "publishedVenueIds": [],
+      "cacheFiles": 1,
+      "uniqueImageHashes": [
+        "dbb4e867e338d73f427419f8971c808edde5ba1e2f545c4759efae78b627e413"
+      ],
+      "sourceUrls": [
+        "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIHM0ogKEICAgICfzrHtIQ!2e10!4m2!3m1!1s0x31da1950c4d1870d:0x3563ea4f1f3c16a7"
+      ],
+      "reuseStatus": "held-no-durable-permission",
+      "checkedAt": "2026-10-16"
+    },
+    {
+      "placeId": "ChIJW9dJOqEZ2jERBgaxRD3FW00",
+      "name": null,
+      "address": null,
+      "identityEvidence": [],
+      "publishedVenueIds": [],
+      "cacheFiles": 1,
+      "uniqueImageHashes": [
+        "3924f6c5e9ebc72150396985262a0373702bb8aa162913f4e443e87d95e87a54"
+      ],
+      "sourceUrls": [
+        "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIHM0ogKEICAgICG6OSFpgE!2e10!4m2!3m1!1s0x31da19a13a49d75b:0x4d5bc53d44b10606"
+      ],
+      "reuseStatus": "held-no-durable-permission",
+      "checkedAt": "2026-10-16"
+    },
+    {
+      "placeId": "ChIJJfDNwzAZ2jERTm98dUb4_q0",
+      "name": "True Veggie",
+      "address": "47 Lorong 27 Geylang; 47, Lorong 27 Geylang, 388179, Singapore; 47 Lorong 27 Geylang, Singapore 388179",
+      "identityEvidence": [
+        {
+          "name": "True Veggie",
+          "address": "47 Lorong 27 Geylang; 47, Lorong 27 Geylang, 388179, Singapore; 47 Lorong 27 Geylang, Singapore 388179",
+          "source": "data/menu-research/location-coverage.json"
+        },
+        {
+          "name": "True Veggie",
+          "address": "47 Lorong 27 Geylang; 47, Lorong 27 Geylang, 388179, Singapore; 47 Lorong 27 Geylang, Singapore 388179",
+          "source": "data/menu-research/continuation-evidence/identity-09-frozen-input.json"
+        }
+      ],
+      "publishedVenueIds": [],
+      "cacheFiles": 1,
+      "uniqueImageHashes": [
+        "fe3dcd09fdeaaca009270b364109d7cfe9807ce41c918a224688907c017004a6"
+      ],
+      "sourceUrls": [
+        "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIHM0ogKEICAgICl_57Y3wE!2e10!4m2!3m1!1s0x31da1930c3cdf025:0xadfef846757c6f4e"
+      ],
+      "reuseStatus": "held-no-durable-permission",
+      "checkedAt": "2026-10-16"
+    },
+    {
+      "placeId": "ChIJmzFIIrsZ2jERsR8ImZsdiXY",
+      "name": "Herbivore; Herbivore — Fortune Centre",
+      "address": "190 Middle Road; Fortune Centre, 190 Middle Road #01-13/14, Singapore 188979; 190 Middle Road #01-13/14, Fortune Centre, Singapore 188979",
+      "identityEvidence": [
+        {
+          "name": "Herbivore; Herbivore — Fortune Centre",
+          "address": "190 Middle Road; Fortune Centre, 190 Middle Road #01-13/14, Singapore 188979; 190 Middle Road #01-13/14, Fortune Centre, Singapore 188979",
+          "source": "data/menu-research/location-coverage.json"
+        },
+        {
+          "name": "Herbivore; Herbivore — Fortune Centre",
+          "address": "190 Middle Road; Fortune Centre, 190 Middle Road #01-13/14, Singapore 188979; 190 Middle Road #01-13/14, Fortune Centre, Singapore 188979",
+          "source": "data/menu-research/continuation-evidence/identity-09-frozen-input.json"
+        }
+      ],
+      "publishedVenueIds": [],
+      "cacheFiles": 1,
+      "uniqueImageHashes": [
+        "7f1dfcaed2cc8b2e5a3448714945d401623cfdbbf005c358d29471d020fa7705"
+      ],
+      "sourceUrls": [
+        "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIABIhCu9Aiz0jq1E7PatlHpX4wn!2e10!4m2!3m1!1s0x31da19bb2248319b:0x76891d9b99081fb1"
+      ],
+      "reuseStatus": "held-no-durable-permission",
+      "checkedAt": "2026-10-16"
+    },
+    {
+      "placeId": "ChIJ65F9ozwY2jERPcuZ65LNjao",
+      "name": "KWAN TZI ZHAI VEGETARIAN CUISINE",
+      "address": "134 Geylang East Avenue 1, #01-229, S380134",
+      "identityEvidence": [
+        {
+          "name": "KWAN TZI ZHAI VEGETARIAN CUISINE",
+          "address": "134 Geylang East Avenue 1, #01-229, S380134",
+          "source": "data/menu-research/location-coverage.json"
+        },
+        {
+          "name": "KWAN TZI ZHAI VEGETARIAN CUISINE",
+          "address": "134 Geylang East Avenue 1, #01-229, S380134",
+          "source": "data/menu-research/paid-identity-leads.json"
+        },
+        {
+          "name": "KWAN TZI ZHAI VEGETARIAN CUISINE",
+          "address": "134 Geylang East Avenue 1, #01-229, S380134",
+          "source": ".local/menu-identity-receipts.json"
+        }
+      ],
+      "publishedVenueIds": [],
+      "cacheFiles": 1,
+      "uniqueImageHashes": [
+        "29dbbbc3d6e27210d09b833593a6d004a92ba246f0f5949684da5403fdb1c8ab"
+      ],
+      "sourceUrls": [
+        "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIHM0ogKEICAgIDGpfi6fw!2e10!4m2!3m1!1s0x31da183ca37d91eb:0xaa8dcd92eb99cb3d"
+      ],
+      "reuseStatus": "held-no-durable-permission",
+      "checkedAt": "2026-10-16"
+    },
+    {
+      "placeId": "ChIJOwdnq7cZ2jERSCAJQh3m_iY",
+      "name": "Ki Su Shoujin Omakase — Tras Street",
+      "address": "60 Tras Street #01-01, Singapore 078999",
+      "identityEvidence": [
+        {
+          "name": "Ki Su Shoujin Omakase — Tras Street",
+          "address": "60 Tras Street #01-01, Singapore 078999",
+          "source": "data/menu-research/location-coverage.json"
+        },
+        {
+          "name": "Ki Su Shoujin Omakase",
+          "address": "60 Tras St, #01-01, Singapore 078999",
+          "source": "data/menu-research/paid-identity-leads.json"
+        },
+        {
+          "name": "Ki Su Shoujin Omakase — Tras Street",
+          "address": "60 Tras Street #01-01, Singapore 078999",
+          "source": "data/menu-research/paid-identity-leads.json"
+        },
+        {
+          "name": "Ki Su Shoujin Omakase",
+          "address": "60 Tras St, #01-01, Singapore 078999",
+          "source": "data/menu-research/source-link-identity-leads.json"
+        },
+        {
+          "name": "Ki Su Shoujin Omakase — Tras Street",
+          "address": "60 Tras Street #01-01, Singapore 078999",
+          "source": "data/menu-research/venue-menu-identity-reviews.json"
+        },
+        {
+          "name": "Ki Su Shoujin Omakase",
+          "address": "60 Tras Street #01-01, Singapore 078999",
+          "source": "data/menus/catalogue-index.json"
+        },
+        {
+          "name": "Ki Su Shoujin Omakase",
+          "address": "60 Tras Street #01-01, Singapore 078999",
+          "source": "data/menus/published-research.json"
+        },
+        {
+          "name": "Ki Su Shoujin Omakase — Tras Street",
+          "address": "60 Tras Street #01-01, Singapore 078999",
+          "source": "data/menu-research/continuation-evidence/identity-09-frozen-input.json"
+        },
+        {
+          "name": "Ki Su Shoujin Omakase",
+          "address": "60 Tras St, #01-01, Singapore 078999",
+          "source": ".local/menu-identity-receipts.json"
+        },
+        {
+          "name": "Ki Su Shoujin Omakase — Tras Street",
+          "address": "60 Tras Street #01-01, Singapore 078999",
+          "source": ".local/menu-identity-receipts.json"
+        }
+      ],
+      "publishedVenueIds": [
+        "research-kisu-tras-street"
+      ],
+      "cacheFiles": 1,
+      "uniqueImageHashes": [
+        "f2f1a8a9b849419ccf69d5bf180194f346c346ca3761d69379187ff971975405"
+      ],
+      "sourceUrls": [
+        "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIABIhBzlZoHTe2-ny2ec4L2lElD!2e10!4m2!3m1!1s0x31da19b7ab67073b:0x26fee61d42092048"
+      ],
+      "reuseStatus": "held-no-durable-permission",
+      "checkedAt": "2026-10-16"
+    },
+    {
+      "placeId": "ChIJWbs-UOwZ2jERwP0GZgSvsgk",
+      "name": null,
+      "address": null,
+      "identityEvidence": [],
+      "publishedVenueIds": [],
+      "cacheFiles": 1,
+      "uniqueImageHashes": [
+        "2d7dec0d8f0d391869e9af8f9d881c8e05987e77c63aaf686c68bd1fc3d12e5d"
+      ],
+      "sourceUrls": [
+        "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIHM0ogKEICAgIDN9ruOuQE!2e10!4m2!3m1!1s0x31da19ec503ebb59:0x9b2af046606fdc0"
+      ],
+      "reuseStatus": "held-no-durable-permission",
+      "checkedAt": "2026-10-16"
+    },
+    {
+      "placeId": "ChIJMdepCAEEBBARWeEP9knjBok",
+      "name": null,
+      "address": null,
+      "identityEvidence": [],
+      "publishedVenueIds": [],
+      "cacheFiles": 1,
+      "uniqueImageHashes": [
+        "deaaf265532a6a58b752030b304d85a977026fb2d1967ef28033ad1d49df9682"
+      ],
+      "sourceUrls": [
+        "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIABIhDhAwhfDDnic6_bJfik_Qv7!2e10!4m2!3m1!1s0x1004040108a9d731:0x8906e349f60fe159"
+      ],
+      "reuseStatus": "held-no-durable-permission",
+      "checkedAt": "2026-10-16"
+    },
+    {
+      "placeId": "ChIJaVJl-msZ2jERXPBXaaRx1Bk",
+      "name": null,
+      "address": null,
+      "identityEvidence": [],
+      "publishedVenueIds": [],
+      "cacheFiles": 2,
+      "uniqueImageHashes": [
+        "ac452573637c95b16d514f739d7efc3e9752054c2cd3d2199c5641e5e7149dc2"
+      ],
+      "sourceUrls": [
+        "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIHM0ogKEMn618Dtk9iT1AE!2e10!4m2!3m1!1s0x31da196bfa655269:0x19d471a46957f05c"
+      ],
+      "reuseStatus": "held-no-durable-permission",
+      "checkedAt": "2026-10-16"
+    },
+    {
+      "placeId": "ChIJ_UhazXIZ2jER14cuFc9jkSc",
+      "name": "Eight Treasures Vegetarian Restaurant; 8 Treasures; Eight Treasures Vegetarian; EIGHT TREASURES VEGETARIAN; Eight Treasures Vegetarian — Chinatown",
+      "address": "282 South Bridge Road; Nonbei Izakaya, 282 South Bridge Road, Singapore 058831; 282A South Bridge Road; 282 SOUTH BRIDGE ROAD #02,Singapore 058831; 282A South Bridge Road, Singapore 058831",
+      "identityEvidence": [
+        {
+          "name": "Eight Treasures Vegetarian Restaurant; 8 Treasures; Eight Treasures Vegetarian; EIGHT TREASURES VEGETARIAN; Eight Treasures Vegetarian — Chinatown",
+          "address": "282 South Bridge Road; Nonbei Izakaya, 282 South Bridge Road, Singapore 058831; 282A South Bridge Road; 282 SOUTH BRIDGE ROAD #02,Singapore 058831; 282A South Bridge Road, Singapore 058831",
+          "source": "data/menu-research/location-coverage.json"
+        },
+        {
+          "name": "Eight Treasures Vegetarian Restaurant; 8 Treasures; Eight Treasures Vegetarian; EIGHT TREASURES VEGETARIAN; Eight Treasures Vegetarian — Chinatown",
+          "address": "282 South Bridge Road; Nonbei Izakaya, 282 South Bridge Road, Singapore 058831; 282A South Bridge Road; 282 SOUTH BRIDGE ROAD #02,Singapore 058831; 282A South Bridge Road, Singapore 058831",
+          "source": "data/menu-research/continuation-evidence/identity-09-frozen-input.json"
+        }
+      ],
+      "publishedVenueIds": [],
+      "cacheFiles": 1,
+      "uniqueImageHashes": [
+        "e60698a752d799327579854bcb062b922dde959962f0dc03f607814d996dd6b1"
+      ],
+      "sourceUrls": [
+        "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIABIhDXrbDd44f5ZDuZJ65B1mfO!2e10!4m2!3m1!1s0x31da1972cd5a48fd:0x279163cf152e87d7"
+      ],
+      "reuseStatus": "held-no-durable-permission",
+      "checkedAt": "2026-10-16"
+    },
+    {
+      "placeId": "ChIJ4RA1sA4Z2jER3kOi_K5z8v8",
+      "name": "Greendot (One Raffles Place); GREENDOT; Greendot @ One Raffles Place",
+      "address": "1 Raffles Place; 1 RAFFLES PLACE ONE RAFFLES PLACE #03-23/24/25,Singapore 048616 ONE RAFFLES PLACE; 1 Raffles Place, #03-23/24, 048616, Singapore",
+      "identityEvidence": [
+        {
+          "name": "Greendot (One Raffles Place); GREENDOT; Greendot @ One Raffles Place",
+          "address": "1 Raffles Place; 1 RAFFLES PLACE ONE RAFFLES PLACE #03-23/24/25,Singapore 048616 ONE RAFFLES PLACE; 1 Raffles Place, #03-23/24, 048616, Singapore",
+          "source": "data/menu-research/location-coverage.json"
+        },
+        {
+          "name": "Greendot (One Raffles Place); GREENDOT; Greendot @ One Raffles Place",
+          "address": "1 Raffles Place; 1 RAFFLES PLACE ONE RAFFLES PLACE #03-23/24/25,Singapore 048616 ONE RAFFLES PLACE; 1 Raffles Place, #03-23/24, 048616, Singapore",
+          "source": "data/menu-research/continuation-evidence/identity-09-frozen-input.json"
+        }
+      ],
+      "publishedVenueIds": [],
+      "cacheFiles": 1,
+      "uniqueImageHashes": [
+        "053a700e70a937d562238d8cbb887405b00b037027925b89da94063eaa000ecf"
+      ],
+      "sourceUrls": [
+        "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIHM0ogKEICAgID8qua6Dg!2e10!4m2!3m1!1s0x31da190eb03510e1:0xfff273aefca243de"
+      ],
+      "reuseStatus": "held-no-durable-permission",
+      "checkedAt": "2026-10-16"
+    }
+  ]
+}

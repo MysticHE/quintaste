@@ -1,0 +1,187 @@
+{
+  "version": 1,
+  "batch": "identity-completion-03-scope-exclusions",
+  "status": "frozen-outcome-batch",
+  "frozenAt": "2026-10-16T00:52:16.151Z",
+  "reviewedAt": "2026-10-16T00:52:16.151Z",
+  "selection": {
+    "selectionRule": "Six independently source-checked scope exclusions from recovered paid-pass candidate IDs, plus one explicit scope amendment to batch01. No new Google calls.",
+    "candidateIds": 7
+  },
+  "scope": "Vegetarian/vegan dining venues only; food courts, suppliers and mixed venues excluded as whole entities.",
+  "evidenceBoundary": "Permanent names/addresses are independently sourced. ID association is not automatically approved. Source-access limitations recorded; no actual operation or stock guarantee.",
+  "summary": {
+    "reviewed": 7,
+    "mixedMenu": 5,
+    "foodCourt": 1,
+    "supplier": 1,
+    "foodRowsCreated": 0
+  },
+  "entries": [
+    {
+      "sequence": 1,
+      "placeId": "ChIJ_____1YW2jERK63bsKwVVXo",
+      "independentName": "Chindamani Indian Restaurant (Hougang Ave)",
+      "independentAddress": "108 Hougang Avenue 1 #01-1263, Singapore 530108",
+      "retrievedAt": "2026-10-16T00:52:16.151Z",
+      "identityStatus": "independent-premises-scope-reviewed-candidate-id-association",
+      "eligibility": "mixed-menu",
+      "eligibilityReason": "Exact-premises merchant-managed menu includes separate chicken, mutton and seafood meals alongside its vegetarian dishes. Whole venue excluded.",
+      "sourceUrls": [
+        "https://www.foodpanda.sg/restaurant/fsdo/chindamani-indian-restaurant-hougang-ave"
+      ],
+      "sourceAccess": "readable merchant ordering text",
+      "nameAddressProvenance": "Independent operator, merchant-managed ordering or exact landlord sources only; Google display facts not copied.",
+      "identityBoundary": "This scope outcome does not approve a Google-to-branch app association. Existing paid-lookup ID clue remains candidate-only pending explicit branch identity review.",
+      "menu": {
+        "status": "excluded-whole-venue",
+        "extractionLead": false,
+        "foodRowsCreated": 0,
+        "outcome": "Entire venue outside vegetarian/vegan dining scope; no vegetarian-dish extraction from mixed venues."
+      },
+      "nextAction": "Keep excluded from vegetarian/vegan venue publication; no menu extraction needed within current scope."
+    },
+    {
+      "sequence": 2,
+      "placeId": "ChIJ____r6YX2jERmWPJiuwHC2M",
+      "independentName": "Food Republic @ NEX",
+      "independentAddress": "23 Serangoon Central #B2-63 to 66, NEX, Singapore 556083",
+      "retrievedAt": "2026-10-16T00:52:16.151Z",
+      "identityStatus": "independent-premises-scope-reviewed-candidate-id-association",
+      "eligibility": "food-court",
+      "eligibilityReason": "Operator gives exact NEX address and landlord explicitly classifies the tenant as a food court. This parent food-court listing is not a vegetarian venue; any qualifying individual stall needs its own record.",
+      "sourceUrls": [
+        "https://foodrepublic.com.sg/contact/",
+        "https://www.nex.com.sg/Directory/Shop/SjEjAPFhFjXmYn4lg6NTjA_3d_3d/yhXJmeON6YWIgHYB86aEgQ_3d_3d/1000"
+      ],
+      "sourceAccess": "readable operator and landlord text",
+      "nameAddressProvenance": "Independent operator, merchant-managed ordering or exact landlord sources only; Google display facts not copied.",
+      "identityBoundary": "This scope outcome does not approve a Google-to-branch app association. Existing paid-lookup ID clue remains candidate-only pending explicit branch identity review.",
+      "menu": {
+        "status": "excluded-whole-venue",
+        "extractionLead": false,
+        "foodRowsCreated": 0,
+        "outcome": "Entire venue outside vegetarian/vegan dining scope; no vegetarian-dish extraction from mixed venues."
+      },
+      "nextAction": "Keep excluded from vegetarian/vegan venue publication; no menu extraction needed within current scope."
+    },
+    {
+      "sequence": 3,
+      "placeId": "ChIJ____L40R2jERhlVoh5JT8is",
+      "independentName": "Club July (Stagmont Ring)",
+      "independentAddress": "5 Stagmont Ring, Choa Chu Kang, Singapore",
+      "retrievedAt": "2026-10-16T00:52:16.151Z",
+      "identityStatus": "independent-premises-scope-reviewed-candidate-id-association",
+      "eligibility": "mixed-menu",
+      "eligibilityReason": "Exact Stagmont Ring merchant menu contains actual seafood, chicken and beef categories and named meals. A momentary CLOSED ordering state is not treated as business closure. No independent postal code confirmed.",
+      "sourceUrls": [
+        "https://www.foodpanda.sg/restaurant/s5kq/club-july-stagmont-ring"
+      ],
+      "sourceAccess": "readable merchant ordering text",
+      "nameAddressProvenance": "Independent operator, merchant-managed ordering or exact landlord sources only; Google display facts not copied.",
+      "identityBoundary": "This scope outcome does not approve a Google-to-branch app association. Existing paid-lookup ID clue remains candidate-only pending explicit branch identity review.",
+      "menu": {
+        "status": "excluded-whole-venue",
+        "extractionLead": false,
+        "foodRowsCreated": 0,
+        "outcome": "Entire venue outside vegetarian/vegan dining scope; no vegetarian-dish extraction from mixed venues."
+      },
+      "nextAction": "Keep excluded from vegetarian/vegan venue publication; no menu extraction needed within current scope."
+    },
+    {
+      "sequence": 4,
+      "placeId": "ChIJ__8_YBgY2jEREyD_B6vylqU",
+      "independentName": "Lotus Thai Singapore",
+      "independentAddress": "60 Paya Lebar Road #02-13/14/K1, Singapore 409051",
+      "retrievedAt": "2026-10-16T00:52:16.151Z",
+      "identityStatus": "independent-premises-scope-reviewed-candidate-id-association",
+      "eligibility": "mixed-menu",
+      "eligibilityReason": "Own ordering store locator gives exact Paya Lebar premises; own introduction and menu explicitly describe seafood, prawns, seabass, crab and chicken. A separate Green Option category does not establish a vegetarian venue. Distinct from Lotus Vegetarian in Balestier.",
+      "sourceUrls": [
+        "https://www.lotusthai.sg/en_US",
+        "https://www.lotusthai.sg/en_US/stores"
+      ],
+      "sourceAccess": "readable operator ordering text",
+      "nameAddressProvenance": "Independent operator, merchant-managed ordering or exact landlord sources only; Google display facts not copied.",
+      "identityBoundary": "This scope outcome does not approve a Google-to-branch app association. Existing paid-lookup ID clue remains candidate-only pending explicit branch identity review.",
+      "menu": {
+        "status": "excluded-whole-venue",
+        "extractionLead": false,
+        "foodRowsCreated": 0,
+        "outcome": "Entire venue outside vegetarian/vegan dining scope; no vegetarian-dish extraction from mixed venues."
+      },
+      "nextAction": "Keep excluded from vegetarian/vegan venue publication; no menu extraction needed within current scope."
+    },
+    {
+      "sequence": 5,
+      "placeId": "ChIJ____z6sb2jERzsB56auc83Y",
+      "independentName": "Friendly Vegetarian Food Supplier - Pasir Panjang",
+      "independentAddress": "Block 14 Pasir Panjang Wholesale Centre #01-23/24, Singapore 110014",
+      "retrievedAt": "2026-10-16T00:52:16.151Z",
+      "identityStatus": "independent-premises-scope-reviewed-candidate-id-association",
+      "eligibility": "supplier",
+      "eligibilityReason": "Operator identifies itself as a vegetarian food supplier and gives the exact Pasir Panjang wholesale premises. Retail/frozen products are outside the requested restaurant/cafe menu catalogue.",
+      "sourceUrls": [
+        "https://www.friendlyvegetarian.com.sg/",
+        "https://www.friendlyvegetarian.com.sg/contact-us"
+      ],
+      "sourceAccess": "current indexed operator text",
+      "nameAddressProvenance": "Independent operator, merchant-managed ordering or exact landlord sources only; Google display facts not copied.",
+      "identityBoundary": "This scope outcome does not approve a Google-to-branch app association. Existing paid-lookup ID clue remains candidate-only pending explicit branch identity review.",
+      "menu": {
+        "status": "excluded-whole-venue",
+        "extractionLead": false,
+        "foodRowsCreated": 0,
+        "outcome": "Entire venue outside vegetarian/vegan dining scope; no vegetarian-dish extraction from mixed venues."
+      },
+      "nextAction": "Keep excluded from vegetarian/vegan venue publication; no menu extraction needed within current scope."
+    },
+    {
+      "sequence": 6,
+      "placeId": "ChIJ____z2EQ2jERGNtzWu1W7l4",
+      "independentName": "Al-Ameen Makan House - Clementi",
+      "independentAddress": "14 Clementi Road, Singapore 129743",
+      "retrievedAt": "2026-10-16T00:52:16.151Z",
+      "identityStatus": "independent-premises-scope-reviewed-candidate-id-association",
+      "eligibility": "mixed-menu",
+      "eligibilityReason": "Indexed operator contact text names the Clementi premises and its own Indian kitchen menu includes mutton foods. Direct page retrieval failed; exact current branch menu not claimed. Operator-level mixed food scope is explicit, with no vegetarian-only assertion.",
+      "sourceUrls": [
+        "https://www.ameenmakanhouse.com/",
+        "https://www.ameenmakanhouse.com/menu-1?location=Cheong+Chin+Nam+Road"
+      ],
+      "sourceAccess": "indexed primary text only; direct retrieval internal error",
+      "nameAddressProvenance": "Independent operator, merchant-managed ordering or exact landlord sources only; Google display facts not copied.",
+      "identityBoundary": "This scope outcome does not approve a Google-to-branch app association. Existing paid-lookup ID clue remains candidate-only pending explicit branch identity review.",
+      "menu": {
+        "status": "excluded-whole-venue",
+        "extractionLead": false,
+        "foodRowsCreated": 0,
+        "outcome": "Entire venue outside vegetarian/vegan dining scope; no vegetarian-dish extraction from mixed venues."
+      },
+      "nextAction": "Keep excluded from vegetarian/vegan venue publication; no menu extraction needed within current scope."
+    },
+    {
+      "sequence": 7,
+      "placeId": "ChIJCVEAMZ8Q2jERADAqDsnXjss",
+      "independentName": "The Living Cafe",
+      "independentAddress": "779 Bukit Timah Road, Singapore 269758",
+      "retrievedAt": "2026-10-16T00:52:16.151Z",
+      "identityStatus": "independent-premises-scope-reviewed-candidate-id-association",
+      "eligibility": "mixed-menu",
+      "eligibilityReason": "Supersedes the earlier mixed-item extraction suggestion after user scope clarification. Operator explicitly serves white meat and fish; exclude the entire venue and extract zero dishes for this database.",
+      "sourceUrls": [
+        "https://thelivingcafe.com/"
+      ],
+      "sourceAccess": "operator scope already independently checked in frozen batch01",
+      "nameAddressProvenance": "Independent operator, merchant-managed ordering or exact landlord sources only; Google display facts not copied.",
+      "identityBoundary": "This scope outcome does not approve a Google-to-branch app association. Existing paid-lookup ID clue remains candidate-only pending explicit branch identity review.",
+      "menu": {
+        "status": "excluded-whole-venue",
+        "extractionLead": false,
+        "foodRowsCreated": 0,
+        "outcome": "Entire venue outside vegetarian/vegan dining scope; no vegetarian-dish extraction from mixed venues."
+      },
+      "nextAction": "Keep excluded from vegetarian/vegan venue publication; no menu extraction needed within current scope."
+    }
+  ]
+}

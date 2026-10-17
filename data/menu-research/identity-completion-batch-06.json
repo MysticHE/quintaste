@@ -1,0 +1,1412 @@
+{
+  "version": 1,
+  "batch": "identity-completion-batch-06",
+  "status": "frozen-outcome-batch",
+  "frozenAt": "2026-10-16T01:07:16.840Z",
+  "reviewedAt": "2026-10-16T01:14:26.481Z",
+  "selection": {
+    "selectionRule": "First 40 stored identity-pending IDs with no name, candidate name or lead association and prior unmatched receipt; excludes all outcome batches, identity reviews and frozen sibling batches 02,04,05.",
+    "frozenInput": "../tmp/qa/menu-completion-identity-06/frozen-input.json",
+    "candidateIds": 40,
+    "excludedPriorIds": 212
+  },
+  "evidenceBoundary": {
+    "googleRequestsMade": 40,
+    "requestsBefore": 2379,
+    "requestsAfter": 2419,
+    "requestCap": 2500,
+    "remainingRequests": 81,
+    "googleDisplayFactsPersisted": false,
+    "hintBatchSize": 4,
+    "maxHintToIndependentCheckpointSeconds": 59.81,
+    "note": "Google display facts were consumed transiently and discarded. Saved display facts come only from cited independent sources. All observed place-ID associations remain candidates requiring explicit branch review; no automatic identity or app publication."
+  },
+  "summary": {
+    "reviewed": 40,
+    "eligibilityCounts": {
+      "mixed-menu": 23,
+      "unresolved": 15,
+      "food-court": 2
+    },
+    "newFoodRows": 0,
+    "newFoodPackets": [],
+    "automaticIdentityApprovals": 0
+  },
+  "entries": [
+    {
+      "sequence": 1,
+      "placeId": "ChIJ_RIzVWkX2jERgrXxhOjagxk",
+      "independentName": "Banh Mi Saigon (Ang Mo Kio Avenue 8)",
+      "independentAddress": "505 Ang Mo Kio Avenue 8 #01-2668, Singapore 560505",
+      "eligibility": "mixed-menu",
+      "eligibilityReason": "Merchant-managed ordering lists roast pork and beef banh mi at the independently stated premises; this is a mixed venue.",
+      "sourceUrls": [
+        "https://www.foodpanda.sg/zh/restaurant/us2s/banh-mi-saigon-ang-mo-kio-avenue-8",
+        "https://banhmisaigon.oddle.me/en_SG"
+      ],
+      "sourceAccess": "Readable ordering page and merchant landing page; primary meat offers and premises confirmed.",
+      "gaps": [],
+      "menu": {
+        "status": "excluded-mixed-venue",
+        "extractionLead": false,
+        "foodRowsCreated": 0
+      },
+      "retrievedAt": "2026-10-16T01:08:18.341Z",
+      "identityStatus": "independent-source-candidate-id-association",
+      "identityBoundary": "Google display facts were consumed transiently and discarded. Saved display facts come only from cited independent sources. All observed place-ID associations remain candidates requiring explicit branch review; no automatic identity or app publication.",
+      "nameAddressProvenance": "Cited independent primary premises source; no Google display facts retained.",
+      "nextAction": "Keep this mixed venue or parent food court excluded from vegetarian/vegan venue publication.",
+      "lookupReceipt": {
+        "placeId": "ChIJ_RIzVWkX2jERgrXxhOjagxk",
+        "observedPlaceId": "ChIJ_RIzVWkX2jERgrXxhOjagxk",
+        "queriedAt": "2026-10-16T01:07:26.852Z",
+        "completedAt": "2026-10-16T01:07:27.252Z",
+        "requestNumber": 2380,
+        "httpStatus": 200,
+        "status": "unmatched",
+        "candidates": []
+      }
+    },
+    {
+      "sequence": 2,
+      "placeId": "ChIJ_TRYOKE92jERVasC36QBWfw",
+      "independentName": "Canopy Changi City Point",
+      "independentAddress": "5 Changi Business Park Central 1 #01-70/71, Changi City Point, Singapore 486038",
+      "eligibility": "mixed-menu",
+      "eligibilityReason": "Merchant outlet page explicitly applies its full all-day menu to this branch and lists chicken, duck, beef and seafood alongside vegetarian dishes.",
+      "sourceUrls": [
+        "https://www.canopygardendining.com/outlets/changi-city-point"
+      ],
+      "sourceAccess": "Merchant branch menu and exact premises readable.",
+      "gaps": [],
+      "menu": {
+        "status": "excluded-mixed-venue",
+        "extractionLead": false,
+        "foodRowsCreated": 0
+      },
+      "retrievedAt": "2026-10-16T01:08:18.341Z",
+      "identityStatus": "independent-source-candidate-id-association",
+      "identityBoundary": "Google display facts were consumed transiently and discarded. Saved display facts come only from cited independent sources. All observed place-ID associations remain candidates requiring explicit branch review; no automatic identity or app publication.",
+      "nameAddressProvenance": "Cited independent primary premises source; no Google display facts retained.",
+      "nextAction": "Keep this mixed venue or parent food court excluded from vegetarian/vegan venue publication.",
+      "lookupReceipt": {
+        "placeId": "ChIJ_TRYOKE92jERVasC36QBWfw",
+        "observedPlaceId": "ChIJ_TRYOKE92jERVasC36QBWfw",
+        "queriedAt": "2026-10-16T01:07:27.371Z",
+        "completedAt": "2026-10-16T01:07:27.524Z",
+        "requestNumber": 2381,
+        "httpStatus": 200,
+        "status": "unmatched",
+        "candidates": []
+      }
+    },
+    {
+      "sequence": 3,
+      "placeId": "ChIJ_UbGqnoR2jERB_DVNCNmtgA",
+      "eligibility": "unresolved",
+      "eligibilityReason": "A potential merchant-managed ordering page was discovered, but repeated reads timed out and no complete current primary whole-venue dietary evidence was obtained.",
+      "sourceUrls": [],
+      "discoverySourceUrls": [
+        "https://www.foodpanda.sg/restaurant/d875/ayeshas-fandb-trading-bukit-batok"
+      ],
+      "sourceAccess": "Ordering page retrieval failed; no provider display facts retained.",
+      "gaps": [
+        "Confirm exact premises and complete venue menu from a readable primary source."
+      ],
+      "menu": {
+        "status": "source-access-gap",
+        "extractionLead": true,
+        "foodRowsCreated": 0
+      },
+      "retrievedAt": "2026-10-16T01:08:18.341Z",
+      "identityStatus": "unresolved",
+      "identityBoundary": "Google display facts were consumed transiently and discarded. Saved display facts come only from cited independent sources. All observed place-ID associations remain candidates requiring explicit branch review; no automatic identity or app publication.",
+      "nameAddressProvenance": "No confirmed display facts retained.",
+      "nextAction": "Obtain readable current exact-premises and whole-venue dietary evidence before food extraction or identity approval.",
+      "lookupReceipt": {
+        "placeId": "ChIJ_UbGqnoR2jERB_DVNCNmtgA",
+        "observedPlaceId": "ChIJ_UbGqnoR2jERB_DVNCNmtgA",
+        "queriedAt": "2026-10-16T01:07:27.651Z",
+        "completedAt": "2026-10-16T01:07:27.794Z",
+        "requestNumber": 2382,
+        "httpStatus": 200,
+        "status": "unmatched",
+        "candidates": []
+      }
+    },
+    {
+      "sequence": 4,
+      "placeId": "ChIJ_W_POQAb2jERK3MM58El2oQ",
+      "eligibility": "unresolved",
+      "eligibilityReason": "A vegetarian ordering-category listing and third-party coverage were found, but the merchant ordering page timed out; exact current primary premises and whole-menu scope remain unverified.",
+      "sourceUrls": [],
+      "discoverySourceUrls": [
+        "https://www.foodpanda.sg/restaurant/bj1b/k-veggie-tanglin-halt-road"
+      ],
+      "sourceAccess": "Merchant ordering page failed; directory claims were not promoted to owned identity facts.",
+      "gaps": [
+        "Read the exact merchant ordering page and confirm current stall address and complete vegetarian menu."
+      ],
+      "menu": {
+        "status": "source-access-gap",
+        "extractionLead": true,
+        "foodRowsCreated": 0
+      },
+      "retrievedAt": "2026-10-16T01:08:18.341Z",
+      "identityStatus": "unresolved",
+      "identityBoundary": "Google display facts were consumed transiently and discarded. Saved display facts come only from cited independent sources. All observed place-ID associations remain candidates requiring explicit branch review; no automatic identity or app publication.",
+      "nameAddressProvenance": "No confirmed display facts retained.",
+      "nextAction": "Obtain readable current exact-premises and whole-venue dietary evidence before food extraction or identity approval.",
+      "lookupReceipt": {
+        "placeId": "ChIJ_W_POQAb2jERK3MM58El2oQ",
+        "observedPlaceId": "ChIJ_W_POQAb2jERK3MM58El2oQ",
+        "queriedAt": "2026-10-16T01:07:27.919Z",
+        "completedAt": "2026-10-16T01:07:28.050Z",
+        "requestNumber": 2383,
+        "httpStatus": 200,
+        "status": "unmatched",
+        "candidates": []
+      }
+    },
+    {
+      "sequence": 5,
+      "placeId": "ChIJ_W4jlTUX2jERTsCj3jMn0tM",
+      "independentName": "Lazy Lizard Flora Vista",
+      "independentAddress": "7 Ang Mo Kio Street 66 #01-09 and #01-12, Flora Vista, Singapore 567708",
+      "eligibility": "mixed-menu",
+      "eligibilityReason": "Merchant lists this branch and advertises actual fish and crab pasta on its shared food page; the venue is not wholly vegetarian.",
+      "sourceUrls": [
+        "https://lazylizard.com.sg/locations/",
+        "https://lazylizard.com.sg/food-menu/"
+      ],
+      "sourceAccess": "Merchant locations and food page readable.",
+      "gaps": [],
+      "menu": {
+        "status": "excluded-mixed-venue",
+        "extractionLead": false,
+        "foodRowsCreated": 0
+      },
+      "retrievedAt": "2026-10-16T01:08:59.639Z",
+      "identityStatus": "independent-source-candidate-id-association",
+      "identityBoundary": "Google display facts were consumed transiently and discarded. Saved display facts come only from cited independent sources. All observed place-ID associations remain candidates requiring explicit branch review; no automatic identity or app publication.",
+      "nameAddressProvenance": "Cited independent primary premises source; no Google display facts retained.",
+      "nextAction": "Keep this mixed venue or parent food court excluded from vegetarian/vegan venue publication.",
+      "lookupReceipt": {
+        "placeId": "ChIJ_W4jlTUX2jERTsCj3jMn0tM",
+        "observedPlaceId": "ChIJ_W4jlTUX2jERTsCj3jMn0tM",
+        "queriedAt": "2026-10-16T01:08:20.574Z",
+        "completedAt": "2026-10-16T01:08:20.950Z",
+        "requestNumber": 2384,
+        "httpStatus": 200,
+        "status": "unmatched",
+        "candidates": []
+      }
+    },
+    {
+      "sequence": 6,
+      "placeId": "ChIJ_Wdo0h0b2jER-Qef76swSfQ",
+      "independentName": "Amano Italian Ristorante",
+      "independentAddress": "76 Namly Place, Singapore 267226",
+      "eligibility": "mixed-menu",
+      "eligibilityReason": "Merchant homepage gives exact premises and explicitly states beef, lamb, pork and salmon are used in its kitchen.",
+      "sourceUrls": [
+        "https://www.amanosg.com/"
+      ],
+      "sourceAccess": "Merchant premises and whole-venue mixed scope readable.",
+      "gaps": [],
+      "menu": {
+        "status": "excluded-mixed-venue",
+        "extractionLead": false,
+        "foodRowsCreated": 0
+      },
+      "retrievedAt": "2026-10-16T01:08:59.639Z",
+      "identityStatus": "independent-source-candidate-id-association",
+      "identityBoundary": "Google display facts were consumed transiently and discarded. Saved display facts come only from cited independent sources. All observed place-ID associations remain candidates requiring explicit branch review; no automatic identity or app publication.",
+      "nameAddressProvenance": "Cited independent primary premises source; no Google display facts retained.",
+      "nextAction": "Keep this mixed venue or parent food court excluded from vegetarian/vegan venue publication.",
+      "lookupReceipt": {
+        "placeId": "ChIJ_Wdo0h0b2jER-Qef76swSfQ",
+        "observedPlaceId": "ChIJ_Wdo0h0b2jER-Qef76swSfQ",
+        "queriedAt": "2026-10-16T01:08:21.070Z",
+        "completedAt": "2026-10-16T01:08:21.210Z",
+        "requestNumber": 2385,
+        "httpStatus": 200,
+        "status": "unmatched",
+        "candidates": []
+      }
+    },
+    {
+      "sequence": 7,
+      "placeId": "ChIJ_wvd6hYX2jERB65mGuO3NBE",
+      "independentName": "Stuff'd (Junction 8)",
+      "independentAddress": "9 Bishan Place #B1-19A, Singapore 579837",
+      "eligibility": "mixed-menu",
+      "eligibilityReason": "Merchant outlet list confirms exact Junction 8 premises and merchant food page includes actual chicken and beef alongside veggie options.",
+      "sourceUrls": [
+        "https://www.stuffd.com/sg/find-an-outlet/",
+        "https://www.stuffd.com/sg/food/"
+      ],
+      "sourceAccess": "Merchant branch list and menu readable.",
+      "gaps": [],
+      "menu": {
+        "status": "excluded-mixed-venue",
+        "extractionLead": false,
+        "foodRowsCreated": 0
+      },
+      "retrievedAt": "2026-10-16T01:08:59.639Z",
+      "identityStatus": "independent-source-candidate-id-association",
+      "identityBoundary": "Google display facts were consumed transiently and discarded. Saved display facts come only from cited independent sources. All observed place-ID associations remain candidates requiring explicit branch review; no automatic identity or app publication.",
+      "nameAddressProvenance": "Cited independent primary premises source; no Google display facts retained.",
+      "nextAction": "Keep this mixed venue or parent food court excluded from vegetarian/vegan venue publication.",
+      "lookupReceipt": {
+        "placeId": "ChIJ_wvd6hYX2jERB65mGuO3NBE",
+        "observedPlaceId": "ChIJ_wvd6hYX2jERB65mGuO3NBE",
+        "queriedAt": "2026-10-16T01:08:21.328Z",
+        "completedAt": "2026-10-16T01:08:21.469Z",
+        "requestNumber": 2386,
+        "httpStatus": 200,
+        "status": "unmatched",
+        "candidates": []
+      }
+    },
+    {
+      "sequence": 8,
+      "placeId": "ChIJ_Xqa1bMR2jERrmIPqCiz9MM",
+      "eligibility": "unresolved",
+      "eligibilityReason": "Discovery produced an OSM-derived directory and a dated health-agency tenant list with multiple stalls; neither establishes a current merchant identity and wholly vegetarian venue.",
+      "sourceUrls": [],
+      "discoverySourceUrls": [
+        "https://ch-api.healthhub.sg/api/public/content/2be093bf58c948bd8e510df83a80914a?v=ee49b3af"
+      ],
+      "sourceAccess": "No current exact primary merchant evidence accepted; dated 2018 tenant list is discovery only.",
+      "gaps": [
+        "Identify current operator and determine whether this ID is a parent food court or individual stall; verify complete dietary scope."
+      ],
+      "menu": {
+        "status": "identity-and-scope-gap",
+        "extractionLead": true,
+        "foodRowsCreated": 0
+      },
+      "retrievedAt": "2026-10-16T01:08:59.639Z",
+      "identityStatus": "unresolved",
+      "identityBoundary": "Google display facts were consumed transiently and discarded. Saved display facts come only from cited independent sources. All observed place-ID associations remain candidates requiring explicit branch review; no automatic identity or app publication.",
+      "nameAddressProvenance": "No confirmed display facts retained.",
+      "nextAction": "Obtain readable current exact-premises and whole-venue dietary evidence before food extraction or identity approval.",
+      "lookupReceipt": {
+        "placeId": "ChIJ_Xqa1bMR2jERrmIPqCiz9MM",
+        "observedPlaceId": "ChIJ_Xqa1bMR2jERrmIPqCiz9MM",
+        "queriedAt": "2026-10-16T01:08:21.582Z",
+        "completedAt": "2026-10-16T01:08:21.720Z",
+        "requestNumber": 2387,
+        "httpStatus": 200,
+        "status": "unmatched",
+        "candidates": []
+      }
+    },
+    {
+      "sequence": 9,
+      "placeId": "ChIJ_yfNzLgZ2jERoG4tuWsC5MU",
+      "eligibility": "unresolved",
+      "eligibilityReason": "Only third-party stall guides and a historic award list were found; no current merchant or landlord whole-venue evidence was accepted.",
+      "sourceUrls": [],
+      "discoverySourceUrls": [
+        "https://wak-wak-hawker.com/en/stall/607/"
+      ],
+      "sourceAccess": "Discovery evidence suggests a mixed rojak stall, but primary premises and menu remain unverified.",
+      "gaps": [
+        "Obtain current primary stall evidence before identity assignment or any dietary conclusion."
+      ],
+      "menu": {
+        "status": "primary-evidence-gap",
+        "extractionLead": true,
+        "foodRowsCreated": 0
+      },
+      "retrievedAt": "2026-10-16T01:09:23.320Z",
+      "identityStatus": "unresolved",
+      "identityBoundary": "Google display facts were consumed transiently and discarded. Saved display facts come only from cited independent sources. All observed place-ID associations remain candidates requiring explicit branch review; no automatic identity or app publication.",
+      "nameAddressProvenance": "No confirmed display facts retained.",
+      "nextAction": "Obtain readable current exact-premises and whole-venue dietary evidence before food extraction or identity approval.",
+      "lookupReceipt": {
+        "placeId": "ChIJ_yfNzLgZ2jERoG4tuWsC5MU",
+        "observedPlaceId": "ChIJ_yfNzLgZ2jERoG4tuWsC5MU",
+        "queriedAt": "2026-10-16T01:09:01.856Z",
+        "completedAt": "2026-10-16T01:09:02.202Z",
+        "requestNumber": 2388,
+        "httpStatus": 200,
+        "status": "unmatched",
+        "candidates": []
+      }
+    },
+    {
+      "sequence": 10,
+      "placeId": "ChIJ_z-qGgAR2jERNjZ3qE1sgf4",
+      "eligibility": "unresolved",
+      "eligibilityReason": "Exact-name searches produced no usable merchant, landlord or merchant-managed ordering source; locality and whole-venue eligibility remain unknown.",
+      "sourceUrls": [],
+      "sourceAccess": "No accepted independent source; provider name and address were discarded.",
+      "gaps": [
+        "Identify exact premises and readable primary menu."
+      ],
+      "menu": {
+        "status": "identity-and-scope-gap",
+        "extractionLead": true,
+        "foodRowsCreated": 0
+      },
+      "retrievedAt": "2026-10-16T01:09:23.320Z",
+      "identityStatus": "unresolved",
+      "identityBoundary": "Google display facts were consumed transiently and discarded. Saved display facts come only from cited independent sources. All observed place-ID associations remain candidates requiring explicit branch review; no automatic identity or app publication.",
+      "nameAddressProvenance": "No confirmed display facts retained.",
+      "nextAction": "Obtain readable current exact-premises and whole-venue dietary evidence before food extraction or identity approval.",
+      "lookupReceipt": {
+        "placeId": "ChIJ_z-qGgAR2jERNjZ3qE1sgf4",
+        "observedPlaceId": "ChIJ_z-qGgAR2jERNjZ3qE1sgf4",
+        "queriedAt": "2026-10-16T01:09:02.322Z",
+        "completedAt": "2026-10-16T01:09:02.473Z",
+        "requestNumber": 2389,
+        "httpStatus": 200,
+        "status": "unmatched",
+        "candidates": []
+      }
+    },
+    {
+      "sequence": 11,
+      "placeId": "ChIJ_zuSzmYX2jERXX38aSSA1e4",
+      "independentName": "Tani Bistro Cloud Kitchen",
+      "independentAddress": "2 Serangoon Road #01-16/17, Tekka Place, Singapore 218227",
+      "eligibility": "mixed-menu",
+      "eligibilityReason": "Merchant contact page and merchant-managed Cococart menu independently state the premises and offer chicken, fish and mutton alongside vegetarian meals.",
+      "sourceUrls": [
+        "https://tanibistro.com/contact-us/",
+        "https://tanibistro.cococart.co/",
+        "https://tanibistro.com/"
+      ],
+      "sourceAccess": "Merchant contact and managed ordering content readable; historical Tanjong Pagar marketing text is not treated as a second branch.",
+      "gaps": [],
+      "menu": {
+        "status": "excluded-mixed-venue",
+        "extractionLead": false,
+        "foodRowsCreated": 0
+      },
+      "retrievedAt": "2026-10-16T01:09:23.320Z",
+      "identityStatus": "independent-source-candidate-id-association",
+      "identityBoundary": "Google display facts were consumed transiently and discarded. Saved display facts come only from cited independent sources. All observed place-ID associations remain candidates requiring explicit branch review; no automatic identity or app publication.",
+      "nameAddressProvenance": "Cited independent primary premises source; no Google display facts retained.",
+      "nextAction": "Keep this mixed venue or parent food court excluded from vegetarian/vegan venue publication.",
+      "lookupReceipt": {
+        "placeId": "ChIJ_zuSzmYX2jERXX38aSSA1e4",
+        "observedPlaceId": "ChIJ_zuSzmYX2jERXX38aSSA1e4",
+        "queriedAt": "2026-10-16T01:09:02.595Z",
+        "completedAt": "2026-10-16T01:09:02.738Z",
+        "requestNumber": 2390,
+        "httpStatus": 200,
+        "status": "unmatched",
+        "candidates": []
+      }
+    },
+    {
+      "sequence": 12,
+      "placeId": "ChIJ-_es5fc92jER0eLzC2Clem0",
+      "independentName": "Saigon Legend (Pasir Ris)",
+      "independentAddress": "60 Pasir Ris Drive 3 #01-03, Singapore 519497",
+      "eligibility": "mixed-menu",
+      "eligibilityReason": "Merchant branch page confirms the Pasir Ris address and explicitly advertises beef pho and seafood fried rice at this outlet.",
+      "sourceUrls": [
+        "https://saigonlegend.sg/about-us/"
+      ],
+      "sourceAccess": "Merchant branch description and exact premises readable; conflicting hours not retained.",
+      "gaps": [],
+      "menu": {
+        "status": "excluded-mixed-venue",
+        "extractionLead": false,
+        "foodRowsCreated": 0
+      },
+      "retrievedAt": "2026-10-16T01:09:23.320Z",
+      "identityStatus": "independent-source-candidate-id-association",
+      "identityBoundary": "Google display facts were consumed transiently and discarded. Saved display facts come only from cited independent sources. All observed place-ID associations remain candidates requiring explicit branch review; no automatic identity or app publication.",
+      "nameAddressProvenance": "Cited independent primary premises source; no Google display facts retained.",
+      "nextAction": "Keep this mixed venue or parent food court excluded from vegetarian/vegan venue publication.",
+      "lookupReceipt": {
+        "placeId": "ChIJ-_es5fc92jER0eLzC2Clem0",
+        "observedPlaceId": "ChIJ-_es5fc92jER0eLzC2Clem0",
+        "queriedAt": "2026-10-16T01:09:02.857Z",
+        "completedAt": "2026-10-16T01:09:02.988Z",
+        "requestNumber": 2391,
+        "httpStatus": 200,
+        "status": "unmatched",
+        "candidates": []
+      }
+    },
+    {
+      "sequence": 13,
+      "placeId": "ChIJ--NsrnAZ2jER-Ry6WJB26Uo",
+      "independentName": "Tiong Bahru Bakery (Tiong Bahru)",
+      "independentAddress": "56 Eng Hoon Street #01-70, Singapore 160056",
+      "eligibility": "mixed-menu",
+      "eligibilityReason": "Current merchant locations page identifies the exact branch, while the merchant homepage advertises a bacon croissant; this bakery brand is not wholly vegetarian.",
+      "sourceUrls": [
+        "https://tiongbahrubakery.com/pages/locations",
+        "https://tiongbahrubakery.com/"
+      ],
+      "sourceAccess": "Current merchant branch list and actual bacon product readable; outdated temporarily-closed page was not used for current status.",
+      "gaps": [],
+      "menu": {
+        "status": "excluded-mixed-venue",
+        "extractionLead": false,
+        "foodRowsCreated": 0
+      },
+      "retrievedAt": "2026-10-16T01:09:57.144Z",
+      "identityStatus": "independent-source-candidate-id-association",
+      "identityBoundary": "Google display facts were consumed transiently and discarded. Saved display facts come only from cited independent sources. All observed place-ID associations remain candidates requiring explicit branch review; no automatic identity or app publication.",
+      "nameAddressProvenance": "Cited independent primary premises source; no Google display facts retained.",
+      "nextAction": "Keep this mixed venue or parent food court excluded from vegetarian/vegan venue publication.",
+      "lookupReceipt": {
+        "placeId": "ChIJ--NsrnAZ2jER-Ry6WJB26Uo",
+        "observedPlaceId": "ChIJ--NsrnAZ2jER-Ry6WJB26Uo",
+        "queriedAt": "2026-10-16T01:09:25.560Z",
+        "completedAt": "2026-10-16T01:09:25.905Z",
+        "requestNumber": 2392,
+        "httpStatus": 200,
+        "status": "unmatched",
+        "candidates": []
+      }
+    },
+    {
+      "sequence": 14,
+      "placeId": "ChIJ-0DAQI4a2jERVIPajSdgj58",
+      "independentName": "Sichuan Tianfu Restaurant (Clementi)",
+      "independentAddress": "3151 Commonwealth Avenue West #01-17/18, Grantral Mall, Singapore 129581",
+      "eligibility": "mixed-menu",
+      "eligibilityReason": "Merchant menu and footer independently state the exact Clementi premises and actual pork, chicken, beef, prawn and fish dishes.",
+      "sourceUrls": [
+        "https://www.tianfu.com.sg/sichuantianfu-menu?menu=tianfu",
+        "https://www.tianfu.com.sg/menu"
+      ],
+      "sourceAccess": "Merchant text menu and exact branch footer readable.",
+      "gaps": [],
+      "menu": {
+        "status": "excluded-mixed-venue",
+        "extractionLead": false,
+        "foodRowsCreated": 0
+      },
+      "retrievedAt": "2026-10-16T01:09:57.144Z",
+      "identityStatus": "independent-source-candidate-id-association",
+      "identityBoundary": "Google display facts were consumed transiently and discarded. Saved display facts come only from cited independent sources. All observed place-ID associations remain candidates requiring explicit branch review; no automatic identity or app publication.",
+      "nameAddressProvenance": "Cited independent primary premises source; no Google display facts retained.",
+      "nextAction": "Keep this mixed venue or parent food court excluded from vegetarian/vegan venue publication.",
+      "lookupReceipt": {
+        "placeId": "ChIJ-0DAQI4a2jERVIPajSdgj58",
+        "observedPlaceId": "ChIJ-0DAQI4a2jERVIPajSdgj58",
+        "queriedAt": "2026-10-16T01:09:26.029Z",
+        "completedAt": "2026-10-16T01:09:26.174Z",
+        "requestNumber": 2393,
+        "httpStatus": 200,
+        "status": "unmatched",
+        "candidates": []
+      }
+    },
+    {
+      "sequence": 15,
+      "placeId": "ChIJ-1B0_ooZ2jERLdgtRon67h4",
+      "eligibility": "unresolved",
+      "eligibilityReason": "Only third-party guides and dated payment/health lists were located; no current merchant, landlord or ordering page was accepted for whole-venue scope.",
+      "sourceUrls": [],
+      "discoverySourceUrls": [
+        "https://thehungrybunnie.blogspot.com/2013/08/yip-economical-bee-hoon-115-bukit-merah.html"
+      ],
+      "sourceAccess": "Dated third-party menu observations are discovery only; no Google facts retained.",
+      "gaps": [
+        "Obtain current primary stall identity and dietary/menu evidence."
+      ],
+      "menu": {
+        "status": "primary-evidence-gap",
+        "extractionLead": true,
+        "foodRowsCreated": 0
+      },
+      "retrievedAt": "2026-10-16T01:09:57.144Z",
+      "identityStatus": "unresolved",
+      "identityBoundary": "Google display facts were consumed transiently and discarded. Saved display facts come only from cited independent sources. All observed place-ID associations remain candidates requiring explicit branch review; no automatic identity or app publication.",
+      "nameAddressProvenance": "No confirmed display facts retained.",
+      "nextAction": "Obtain readable current exact-premises and whole-venue dietary evidence before food extraction or identity approval.",
+      "lookupReceipt": {
+        "placeId": "ChIJ-1B0_ooZ2jERLdgtRon67h4",
+        "observedPlaceId": "ChIJ-1B0_ooZ2jERLdgtRon67h4",
+        "queriedAt": "2026-10-16T01:09:26.300Z",
+        "completedAt": "2026-10-16T01:09:26.442Z",
+        "requestNumber": 2394,
+        "httpStatus": 200,
+        "status": "unmatched",
+        "candidates": []
+      }
+    },
+    {
+      "sequence": 16,
+      "placeId": "ChIJ-1zvAOkb2jERXYRIfLBlRqw",
+      "independentName": "Fusion Western (Clementi)",
+      "independentAddress": "449 Clementi Avenue 3 #01-211",
+      "eligibility": "mixed-menu",
+      "eligibilityReason": "Merchant-managed ordering menu gives exact premises and lists actual chicken, grilled meats, salmon and seafood dishes.",
+      "sourceUrls": [
+        "https://www.foodpanda.sg/zh/restaurant/s2ix/fusion-western-clementi"
+      ],
+      "sourceAccess": "Ordering branch menu and address readable; postal code not supplied by accepted merchant source and not added.",
+      "gaps": [],
+      "menu": {
+        "status": "excluded-mixed-venue",
+        "extractionLead": false,
+        "foodRowsCreated": 0
+      },
+      "retrievedAt": "2026-10-16T01:09:57.144Z",
+      "identityStatus": "independent-source-candidate-id-association",
+      "identityBoundary": "Google display facts were consumed transiently and discarded. Saved display facts come only from cited independent sources. All observed place-ID associations remain candidates requiring explicit branch review; no automatic identity or app publication.",
+      "nameAddressProvenance": "Cited independent primary premises source; no Google display facts retained.",
+      "nextAction": "Keep this mixed venue or parent food court excluded from vegetarian/vegan venue publication.",
+      "lookupReceipt": {
+        "placeId": "ChIJ-1zvAOkb2jERXYRIfLBlRqw",
+        "observedPlaceId": "ChIJ-1zvAOkb2jERXYRIfLBlRqw",
+        "queriedAt": "2026-10-16T01:09:26.566Z",
+        "completedAt": "2026-10-16T01:09:26.699Z",
+        "requestNumber": 2395,
+        "httpStatus": 200,
+        "status": "unmatched",
+        "candidates": []
+      }
+    },
+    {
+      "sequence": 17,
+      "placeId": "ChIJ-5yAbEYV2jERb4bgiFcMhqw",
+      "independentName": "Food Village (115 Canberra Walk)",
+      "independentAddress": "115 Canberra Walk #01-01, Singapore 750115",
+      "eligibility": "food-court",
+      "eligibilityReason": "A merchant-managed tenant ordering page names Food Village as its parent and specifies Stall 7; the payment operator's participating-coffeeshop list independently lists several separate merchants at the same parent premises.",
+      "sourceUrls": [
+        "https://www.foodpanda.sg/restaurant/x4sy/tasty-grill-115-canberra-walk",
+        "https://dcscc.com/dcscc/v2/pdf/diners-sg-pay/participating-merchants-coffeeshops.pdf"
+      ],
+      "sourceAccess": "Tenant ordering page readable; financial operator list is dated supporting multi-tenant evidence, not proof of current tenant stock.",
+      "gaps": [
+        "Any qualifying individual stall requires separate identity and current primary menu evidence."
+      ],
+      "menu": {
+        "status": "excluded-parent-food-court",
+        "extractionLead": false,
+        "foodRowsCreated": 0
+      },
+      "retrievedAt": "2026-10-16T01:10:35.375Z",
+      "identityStatus": "independent-source-candidate-id-association",
+      "identityBoundary": "Google display facts were consumed transiently and discarded. Saved display facts come only from cited independent sources. All observed place-ID associations remain candidates requiring explicit branch review; no automatic identity or app publication.",
+      "nameAddressProvenance": "Cited independent primary premises source; no Google display facts retained.",
+      "nextAction": "Resolve the documented branch evidence gaps before any ID approval; retain scope exclusion.",
+      "lookupReceipt": {
+        "placeId": "ChIJ-5yAbEYV2jERb4bgiFcMhqw",
+        "observedPlaceId": "ChIJ-5yAbEYV2jERb4bgiFcMhqw",
+        "queriedAt": "2026-10-16T01:09:59.577Z",
+        "completedAt": "2026-10-16T01:09:59.915Z",
+        "requestNumber": 2396,
+        "httpStatus": 200,
+        "status": "unmatched",
+        "candidates": []
+      }
+    },
+    {
+      "sequence": 18,
+      "placeId": "ChIJ-7osLNMV2jERw6EQa8xZlkM",
+      "independentName": "The Summerhouse",
+      "independentAddress": "3 Park Lane, Seletar Aerospace Park, Singapore 798387",
+      "eligibility": "mixed-menu",
+      "eligibilityReason": "Merchant premises FAQ confirms 3 Park Lane; merchant menus and venue promotions explicitly offer actual beef, pork, chicken and seafood across its Botanico/Wildseed concepts.",
+      "sourceUrls": [
+        "https://www.thesummerhouse.sg/botanico/",
+        "https://www.thesummerhouse.sg/lets-go-local/",
+        "https://www.thesummerhouse.sg/wp-content/uploads/2024/03/Botanico-%40-The-Summerhouse-Menu-Feb-2024-ver12.pdf"
+      ],
+      "sourceAccess": "Merchant premises and food descriptions readable; dated menu prices were not collected as current foods.",
+      "gaps": [],
+      "menu": {
+        "status": "excluded-mixed-venue",
+        "extractionLead": false,
+        "foodRowsCreated": 0
+      },
+      "retrievedAt": "2026-10-16T01:10:35.375Z",
+      "identityStatus": "independent-source-candidate-id-association",
+      "identityBoundary": "Google display facts were consumed transiently and discarded. Saved display facts come only from cited independent sources. All observed place-ID associations remain candidates requiring explicit branch review; no automatic identity or app publication.",
+      "nameAddressProvenance": "Cited independent primary premises source; no Google display facts retained.",
+      "nextAction": "Keep this mixed venue or parent food court excluded from vegetarian/vegan venue publication.",
+      "lookupReceipt": {
+        "placeId": "ChIJ-7osLNMV2jERw6EQa8xZlkM",
+        "observedPlaceId": "ChIJ-7osLNMV2jERw6EQa8xZlkM",
+        "queriedAt": "2026-10-16T01:10:00.051Z",
+        "completedAt": "2026-10-16T01:10:00.185Z",
+        "requestNumber": 2397,
+        "httpStatus": 200,
+        "status": "unmatched",
+        "candidates": []
+      }
+    },
+    {
+      "sequence": 19,
+      "placeId": "ChIJ-8MqXCU92jER7dROYNunK98",
+      "eligibility": "unresolved",
+      "eligibilityReason": "Only third-party business directories were located; no independent merchant or landlord source establishes the current business model and premises.",
+      "sourceUrls": [],
+      "discoverySourceUrls": [
+        "https://www.bizapore.com/en/hup-choong-vegetarian-food-supplier-6448-2636"
+      ],
+      "sourceAccess": "Directory supplier clue was not promoted to verified venue or owned display facts.",
+      "gaps": [
+        "Verify current supplier-versus-dining scope and exact premises from a primary source."
+      ],
+      "menu": {
+        "status": "primary-evidence-gap",
+        "extractionLead": true,
+        "foodRowsCreated": 0
+      },
+      "retrievedAt": "2026-10-16T01:10:35.375Z",
+      "identityStatus": "unresolved",
+      "identityBoundary": "Google display facts were consumed transiently and discarded. Saved display facts come only from cited independent sources. All observed place-ID associations remain candidates requiring explicit branch review; no automatic identity or app publication.",
+      "nameAddressProvenance": "No confirmed display facts retained.",
+      "nextAction": "Obtain readable current exact-premises and whole-venue dietary evidence before food extraction or identity approval.",
+      "lookupReceipt": {
+        "placeId": "ChIJ-8MqXCU92jER7dROYNunK98",
+        "observedPlaceId": "ChIJ-8MqXCU92jER7dROYNunK98",
+        "queriedAt": "2026-10-16T01:10:00.306Z",
+        "completedAt": "2026-10-16T01:10:00.452Z",
+        "requestNumber": 2398,
+        "httpStatus": 200,
+        "status": "unmatched",
+        "candidates": []
+      }
+    },
+    {
+      "sequence": 20,
+      "placeId": "ChIJ-9Mn7wY92jERbblToHZsM7Q",
+      "eligibility": "unresolved",
+      "eligibilityReason": "Only provider-derived directories and a third-party ceased-registration record were located; no current primary premises or dining evidence was accepted.",
+      "sourceUrls": [],
+      "discoverySourceUrls": [
+        "https://recordowl.com/company/ban-chuan-heng"
+      ],
+      "sourceAccess": "Possible retail/supplier and closure clues remain unverified; no permanent Google display facts retained.",
+      "gaps": [
+        "Confirm current operator, exact premises and restaurant eligibility from merchant or landlord evidence."
+      ],
+      "menu": {
+        "status": "primary-evidence-gap",
+        "extractionLead": true,
+        "foodRowsCreated": 0
+      },
+      "retrievedAt": "2026-10-16T01:10:35.375Z",
+      "identityStatus": "unresolved",
+      "identityBoundary": "Google display facts were consumed transiently and discarded. Saved display facts come only from cited independent sources. All observed place-ID associations remain candidates requiring explicit branch review; no automatic identity or app publication.",
+      "nameAddressProvenance": "No confirmed display facts retained.",
+      "nextAction": "Obtain readable current exact-premises and whole-venue dietary evidence before food extraction or identity approval.",
+      "lookupReceipt": {
+        "placeId": "ChIJ-9Mn7wY92jERbblToHZsM7Q",
+        "observedPlaceId": "ChIJ-9Mn7wY92jERbblToHZsM7Q",
+        "queriedAt": "2026-10-16T01:10:00.589Z",
+        "completedAt": "2026-10-16T01:10:00.735Z",
+        "requestNumber": 2399,
+        "httpStatus": 200,
+        "status": "unmatched",
+        "candidates": []
+      }
+    },
+    {
+      "sequence": 21,
+      "placeId": "ChIJ-9xMjmIZ2jERKMb2TyzqZMw",
+      "independentName": "Chinatown Teh Tarik",
+      "independentAddress": "40 Sago Street, Singapore 059029",
+      "eligibility": "mixed-menu",
+      "eligibilityReason": "Merchant site independently states the premises and advertises actual chicken, lamb and prawn dishes alongside vegetarian options.",
+      "sourceUrls": [
+        "https://chinatowntehtarik.com/"
+      ],
+      "sourceAccess": "Merchant page indexed readable; one direct-open fetch failed, but primary cached text includes premises and actual meat menu. Embedded third-party reviews were not used.",
+      "gaps": [],
+      "menu": {
+        "status": "excluded-mixed-venue",
+        "extractionLead": false,
+        "foodRowsCreated": 0
+      },
+      "retrievedAt": "2026-10-16T01:11:00.537Z",
+      "identityStatus": "independent-source-candidate-id-association",
+      "identityBoundary": "Google display facts were consumed transiently and discarded. Saved display facts come only from cited independent sources. All observed place-ID associations remain candidates requiring explicit branch review; no automatic identity or app publication.",
+      "nameAddressProvenance": "Cited independent primary premises source; no Google display facts retained.",
+      "nextAction": "Keep this mixed venue or parent food court excluded from vegetarian/vegan venue publication.",
+      "lookupReceipt": {
+        "placeId": "ChIJ-9xMjmIZ2jERKMb2TyzqZMw",
+        "observedPlaceId": "ChIJ-9xMjmIZ2jERKMb2TyzqZMw",
+        "queriedAt": "2026-10-16T01:10:37.517Z",
+        "completedAt": "2026-10-16T01:10:37.872Z",
+        "requestNumber": 2400,
+        "httpStatus": 200,
+        "status": "unmatched",
+        "candidates": []
+      }
+    },
+    {
+      "sequence": 22,
+      "placeId": "ChIJ-aNrjyoR2jERDt6rhRaHJz4",
+      "independentName": "Tandoori Culture (HillV2)",
+      "independentAddress": "4 Hill View Rise #02-03, HillV2, Singapore 667979",
+      "eligibility": "mixed-menu",
+      "eligibilityReason": "Merchant ordering/contact pages establish HillV2 premises; merchant shop explicitly labels actual chicken kebabs non-vegetarian.",
+      "sourceUrls": [
+        "https://order.tandooriculture.com.sg/",
+        "https://www.tandooriculture.com.sg/contact-us/",
+        "https://www.tandooriculture.com.sg/shop/"
+      ],
+      "sourceAccess": "Merchant ordering address and non-vegetarian menu readable; closed-platform booking page was not needed.",
+      "gaps": [],
+      "menu": {
+        "status": "excluded-mixed-venue",
+        "extractionLead": false,
+        "foodRowsCreated": 0
+      },
+      "retrievedAt": "2026-10-16T01:11:00.537Z",
+      "identityStatus": "independent-source-candidate-id-association",
+      "identityBoundary": "Google display facts were consumed transiently and discarded. Saved display facts come only from cited independent sources. All observed place-ID associations remain candidates requiring explicit branch review; no automatic identity or app publication.",
+      "nameAddressProvenance": "Cited independent primary premises source; no Google display facts retained.",
+      "nextAction": "Keep this mixed venue or parent food court excluded from vegetarian/vegan venue publication.",
+      "lookupReceipt": {
+        "placeId": "ChIJ-aNrjyoR2jERDt6rhRaHJz4",
+        "observedPlaceId": "ChIJ-aNrjyoR2jERDt6rhRaHJz4",
+        "queriedAt": "2026-10-16T01:10:37.990Z",
+        "completedAt": "2026-10-16T01:10:38.153Z",
+        "requestNumber": 2401,
+        "httpStatus": 200,
+        "status": "unmatched",
+        "candidates": []
+      }
+    },
+    {
+      "sequence": 23,
+      "placeId": "ChIJ-b2mGjgT2jERStYhYNjd0eU",
+      "independentName": "KNS Restaurant (ACE The Place)",
+      "independentAddress": "120 Woodlands Avenue 1 #01-02, ACE The Place Community Club, Singapore 739069",
+      "eligibility": "mixed-menu",
+      "eligibilityReason": "Merchant branch list independently confirms exact premises; merchant-managed branch ordering menu lists actual chicken, mutton and fish meals.",
+      "sourceUrls": [
+        "https://www.knsrestaurant.com/locations.php",
+        "https://www.foodpanda.sg/restaurant/l4tm/kns-restaurant-ace-the-place-cc-l4tm"
+      ],
+      "sourceAccess": "Merchant list and exact-branch ordering menu readable; generic autogenerated descriptions were not used to infer ingredients.",
+      "gaps": [],
+      "menu": {
+        "status": "excluded-mixed-venue",
+        "extractionLead": false,
+        "foodRowsCreated": 0
+      },
+      "retrievedAt": "2026-10-16T01:11:00.537Z",
+      "identityStatus": "independent-source-candidate-id-association",
+      "identityBoundary": "Google display facts were consumed transiently and discarded. Saved display facts come only from cited independent sources. All observed place-ID associations remain candidates requiring explicit branch review; no automatic identity or app publication.",
+      "nameAddressProvenance": "Cited independent primary premises source; no Google display facts retained.",
+      "nextAction": "Keep this mixed venue or parent food court excluded from vegetarian/vegan venue publication.",
+      "lookupReceipt": {
+        "placeId": "ChIJ-b2mGjgT2jERStYhYNjd0eU",
+        "observedPlaceId": "ChIJ-b2mGjgT2jERStYhYNjd0eU",
+        "queriedAt": "2026-10-16T01:10:38.277Z",
+        "completedAt": "2026-10-16T01:10:38.428Z",
+        "requestNumber": 2402,
+        "httpStatus": 200,
+        "status": "unmatched",
+        "candidates": []
+      }
+    },
+    {
+      "sequence": 24,
+      "placeId": "ChIJ-brraKgZ2jERbhcEeUsr-po",
+      "independentName": "Kai Garden (Marina Square)",
+      "independentAddress": "6 Raffles Boulevard #03-128A/128B, Marina Square, Singapore 039594",
+      "eligibility": "mixed-menu",
+      "eligibilityReason": "Merchant page confirms exact premises and advertises Peking duck, roasts and seafood set menus; a vegetarian section does not make this a wholly vegetarian venue.",
+      "sourceUrls": [
+        "https://www.kaigarden.com.sg/index.html?sec=menu",
+        "https://www.marinasquare.com.sg/stores/95"
+      ],
+      "sourceAccess": "Merchant mixed menu and landlord exact unit readable.",
+      "gaps": [],
+      "menu": {
+        "status": "excluded-mixed-venue",
+        "extractionLead": false,
+        "foodRowsCreated": 0
+      },
+      "retrievedAt": "2026-10-16T01:11:00.537Z",
+      "identityStatus": "independent-source-candidate-id-association",
+      "identityBoundary": "Google display facts were consumed transiently and discarded. Saved display facts come only from cited independent sources. All observed place-ID associations remain candidates requiring explicit branch review; no automatic identity or app publication.",
+      "nameAddressProvenance": "Cited independent primary premises source; no Google display facts retained.",
+      "nextAction": "Keep this mixed venue or parent food court excluded from vegetarian/vegan venue publication.",
+      "lookupReceipt": {
+        "placeId": "ChIJ-brraKgZ2jERbhcEeUsr-po",
+        "observedPlaceId": "ChIJ-brraKgZ2jERbhcEeUsr-po",
+        "queriedAt": "2026-10-16T01:10:38.558Z",
+        "completedAt": "2026-10-16T01:10:38.700Z",
+        "requestNumber": 2403,
+        "httpStatus": 200,
+        "status": "unmatched",
+        "candidates": []
+      }
+    },
+    {
+      "sequence": 25,
+      "placeId": "ChIJ-cvK_tk92jERBsP2hTB8Q34",
+      "eligibility": "unresolved",
+      "eligibilityReason": "Third-party reports suggest actual chicken dishes, but the merchant Facebook page could not be read and no current primary premises/menu source was accepted.",
+      "sourceUrls": [],
+      "discoverySourceUrls": [
+        "https://www.facebook.com/nyonyapokpokkay"
+      ],
+      "sourceAccess": "Merchant Facebook unavailable; third-party menu reports retained only as follow-up clues.",
+      "gaps": [
+        "Read current primary stall premises and whole-venue menu before any identity or dietary conclusion."
+      ],
+      "menu": {
+        "status": "source-access-gap",
+        "extractionLead": true,
+        "foodRowsCreated": 0
+      },
+      "retrievedAt": "2026-10-16T01:11:51.511Z",
+      "identityStatus": "unresolved",
+      "identityBoundary": "Google display facts were consumed transiently and discarded. Saved display facts come only from cited independent sources. All observed place-ID associations remain candidates requiring explicit branch review; no automatic identity or app publication.",
+      "nameAddressProvenance": "No confirmed display facts retained.",
+      "nextAction": "Obtain readable current exact-premises and whole-venue dietary evidence before food extraction or identity approval.",
+      "lookupReceipt": {
+        "placeId": "ChIJ-cvK_tk92jERBsP2hTB8Q34",
+        "observedPlaceId": "ChIJ-cvK_tk92jERBsP2hTB8Q34",
+        "queriedAt": "2026-10-16T01:11:02.689Z",
+        "completedAt": "2026-10-16T01:11:03.040Z",
+        "requestNumber": 2404,
+        "httpStatus": 200,
+        "status": "unmatched",
+        "candidates": []
+      }
+    },
+    {
+      "sequence": 26,
+      "placeId": "ChIJ-d2VabkR2jERYQ1K_MKnO1M",
+      "independentName": "Phoenix Indian Restaurant",
+      "independentAddress": "KidsSTOP, 21 Jurong Town Hall Road, Omni-Theatre building, Singapore 609433",
+      "eligibility": "unresolved",
+      "eligibilityReason": "Merchant contact page confirms exact premises, but linked menu/homepage retrieval failed; whole-venue dietary eligibility remains unverified.",
+      "sourceUrls": [
+        "https://phoenixindianrestaurant.squarespace.com/contact"
+      ],
+      "discoverySourceUrls": [
+        "https://phoenixindianrestaurant.squarespace.com/"
+      ],
+      "sourceAccess": "Merchant premises readable, menu fetch failed.",
+      "gaps": [
+        "Obtain readable current full menu and explicit whole-venue dietary evidence."
+      ],
+      "menu": {
+        "status": "source-access-gap",
+        "extractionLead": true,
+        "foodRowsCreated": 0
+      },
+      "retrievedAt": "2026-10-16T01:11:51.511Z",
+      "identityStatus": "independent-source-candidate-id-association",
+      "identityBoundary": "Google display facts were consumed transiently and discarded. Saved display facts come only from cited independent sources. All observed place-ID associations remain candidates requiring explicit branch review; no automatic identity or app publication.",
+      "nameAddressProvenance": "Cited independent primary premises source; no Google display facts retained.",
+      "nextAction": "Obtain readable current exact-premises and whole-venue dietary evidence before food extraction or identity approval.",
+      "lookupReceipt": {
+        "placeId": "ChIJ-d2VabkR2jERYQ1K_MKnO1M",
+        "observedPlaceId": "ChIJ-d2VabkR2jERYQ1K_MKnO1M",
+        "queriedAt": "2026-10-16T01:11:03.147Z",
+        "completedAt": "2026-10-16T01:11:03.281Z",
+        "requestNumber": 2405,
+        "httpStatus": 200,
+        "status": "unmatched",
+        "candidates": []
+      }
+    },
+    {
+      "sequence": 27,
+      "placeId": "ChIJ-eEQXGYX2jERpDdSLCupkGQ",
+      "independentName": "The Larder Cafe (Toa Payoh Central)",
+      "independentAddress": "Block 177 Toa Payoh Central #01-124",
+      "eligibility": "mixed-menu",
+      "eligibilityReason": "Merchant-managed exact branch ordering page lists actual chicken wrap, salmon, pork sausages and beef; premises are stated on the same page.",
+      "sourceUrls": [
+        "https://www.foodpanda.sg/restaurant/x7tf/the-larder-cafe-toa-payoh-central"
+      ],
+      "sourceAccess": "Branch ordering menu and address readable; unrelated overseas same-name cafes excluded.",
+      "gaps": [],
+      "menu": {
+        "status": "excluded-mixed-venue",
+        "extractionLead": false,
+        "foodRowsCreated": 0
+      },
+      "retrievedAt": "2026-10-16T01:11:51.511Z",
+      "identityStatus": "independent-source-candidate-id-association",
+      "identityBoundary": "Google display facts were consumed transiently and discarded. Saved display facts come only from cited independent sources. All observed place-ID associations remain candidates requiring explicit branch review; no automatic identity or app publication.",
+      "nameAddressProvenance": "Cited independent primary premises source; no Google display facts retained.",
+      "nextAction": "Keep this mixed venue or parent food court excluded from vegetarian/vegan venue publication.",
+      "lookupReceipt": {
+        "placeId": "ChIJ-eEQXGYX2jERpDdSLCupkGQ",
+        "observedPlaceId": "ChIJ-eEQXGYX2jERpDdSLCupkGQ",
+        "queriedAt": "2026-10-16T01:11:03.390Z",
+        "completedAt": "2026-10-16T01:11:03.519Z",
+        "requestNumber": 2406,
+        "httpStatus": 200,
+        "status": "unmatched",
+        "candidates": []
+      }
+    },
+    {
+      "sequence": 28,
+      "placeId": "ChIJ-eGhoVUZ2jERqnCQOy9DEeo",
+      "independentName": "Oasis Spice Cafe",
+      "independentAddress": "Universal Studios Singapore, Ancient Egypt",
+      "eligibility": "mixed-menu",
+      "eligibilityReason": "Resort operator's dining guide identifies the Ancient Egypt outlet and explicitly describes mutton masala and butter chicken biryani.",
+      "sourceUrls": [
+        "https://www.rwsentosa.com/-/jssmedia/project/dine/rws-dining-guide-v2.pdf?rev=6a9e7edd52184b1b89c2de80fe0fbb17&sc_lang=en",
+        "https://www.rwsentosa.com/en/events/festival-of-thrills/offers"
+      ],
+      "sourceAccess": "Resort primary guide indexed readable; full PDF exceeded reader size. Current 2026 operator campaign corroborates named outlet inside USS. Street/postal fields were not supplied by these sources and were not added.",
+      "gaps": [],
+      "menu": {
+        "status": "excluded-mixed-venue",
+        "extractionLead": false,
+        "foodRowsCreated": 0
+      },
+      "retrievedAt": "2026-10-16T01:11:51.511Z",
+      "identityStatus": "independent-source-candidate-id-association",
+      "identityBoundary": "Google display facts were consumed transiently and discarded. Saved display facts come only from cited independent sources. All observed place-ID associations remain candidates requiring explicit branch review; no automatic identity or app publication.",
+      "nameAddressProvenance": "Cited independent primary premises source; no Google display facts retained.",
+      "nextAction": "Keep this mixed venue or parent food court excluded from vegetarian/vegan venue publication.",
+      "lookupReceipt": {
+        "placeId": "ChIJ-eGhoVUZ2jERqnCQOy9DEeo",
+        "observedPlaceId": "ChIJ-eGhoVUZ2jERqnCQOy9DEeo",
+        "queriedAt": "2026-10-16T01:11:03.637Z",
+        "completedAt": "2026-10-16T01:11:03.768Z",
+        "requestNumber": 2407,
+        "httpStatus": 200,
+        "status": "unmatched",
+        "candidates": []
+      }
+    },
+    {
+      "sequence": 29,
+      "placeId": "ChIJ-euSRigZ2jERIXdqERyf59Y",
+      "independentName": "Amrith by The Song of India",
+      "independentAddress": "38 Race Course Road, Singapore 218555",
+      "eligibility": "mixed-menu",
+      "eligibilityReason": "Merchant events page explicitly offers both vegetarian and non-vegetarian menus at its independently stated Race Course Road premises.",
+      "sourceUrls": [
+        "https://www.amrith.com.sg/",
+        "https://www.amrith.com.sg/happenings/"
+      ],
+      "sourceAccess": "Merchant pages readable; merchant address says 38 while merchant-managed booking says 38A, so exact address-suffix association needs review.",
+      "gaps": [
+        "Resolve 38 versus 38A suffix before any branch ID association; whole-venue mixed scope is clear."
+      ],
+      "menu": {
+        "status": "excluded-mixed-venue",
+        "extractionLead": false,
+        "foodRowsCreated": 0
+      },
+      "retrievedAt": "2026-10-16T01:12:41.952Z",
+      "identityStatus": "independent-source-candidate-id-association",
+      "identityBoundary": "Google display facts were consumed transiently and discarded. Saved display facts come only from cited independent sources. All observed place-ID associations remain candidates requiring explicit branch review; no automatic identity or app publication.",
+      "nameAddressProvenance": "Cited independent primary premises source; no Google display facts retained.",
+      "nextAction": "Resolve the documented branch evidence gaps before any ID approval; retain scope exclusion.",
+      "lookupReceipt": {
+        "placeId": "ChIJ-euSRigZ2jERIXdqERyf59Y",
+        "observedPlaceId": "ChIJ-euSRigZ2jERIXdqERyf59Y",
+        "queriedAt": "2026-10-16T01:11:53.740Z",
+        "completedAt": "2026-10-16T01:11:54.076Z",
+        "requestNumber": 2408,
+        "httpStatus": 200,
+        "status": "unmatched",
+        "candidates": []
+      }
+    },
+    {
+      "sequence": 30,
+      "placeId": "ChIJ-eXK8mga2jERa959t00JCMw",
+      "eligibility": "unresolved",
+      "eligibilityReason": "Third-party breakfast coverage points to a merchant Facebook page, but that primary source is temporarily blocked; current exact premises and full dietary scope remain unverified.",
+      "sourceUrls": [],
+      "discoverySourceUrls": [
+        "https://www.facebook.com/heavensappam/"
+      ],
+      "sourceAccess": "Merchant Facebook blocked; individual third-party vegetarian-looking dishes do not establish a wholly vegetarian venue.",
+      "gaps": [
+        "Obtain readable primary stall identity, complete menu and whole-venue eligibility proof."
+      ],
+      "menu": {
+        "status": "source-access-gap",
+        "extractionLead": true,
+        "foodRowsCreated": 0
+      },
+      "retrievedAt": "2026-10-16T01:12:41.952Z",
+      "identityStatus": "unresolved",
+      "identityBoundary": "Google display facts were consumed transiently and discarded. Saved display facts come only from cited independent sources. All observed place-ID associations remain candidates requiring explicit branch review; no automatic identity or app publication.",
+      "nameAddressProvenance": "No confirmed display facts retained.",
+      "nextAction": "Obtain readable current exact-premises and whole-venue dietary evidence before food extraction or identity approval.",
+      "lookupReceipt": {
+        "placeId": "ChIJ-eXK8mga2jERa959t00JCMw",
+        "observedPlaceId": "ChIJ-eXK8mga2jERa959t00JCMw",
+        "queriedAt": "2026-10-16T01:11:54.193Z",
+        "completedAt": "2026-10-16T01:11:54.341Z",
+        "requestNumber": 2409,
+        "httpStatus": 200,
+        "status": "unmatched",
+        "candidates": []
+      }
+    },
+    {
+      "sequence": 31,
+      "placeId": "ChIJ-QhpgCcR2jERakSJtK0yiSY",
+      "independentName": "Swensen's (Plantation Plaza)",
+      "independentAddress": "127 Plantation Crescent #01-05, Plantation Plaza, Singapore 690127",
+      "eligibility": "mixed-menu",
+      "eligibilityReason": "Merchant outlet list independently establishes Plantation Plaza premises; merchant promotes an actual chicken katsu burger and a shared general food menu rather than a wholly vegetarian concept.",
+      "sourceUrls": [
+        "https://swensens.com.sg/singapore/",
+        "https://swensens.com.sg/",
+        "https://swensens.com.sg/wp-content/uploads/2025/08/20250728_SW_GeneralMenu.pdf"
+      ],
+      "sourceAccess": "Merchant indexed outlet and food text readable; direct page retries returned 502/timeout. Ice-cream products shaped like chicken were not treated as meat evidence.",
+      "gaps": [],
+      "menu": {
+        "status": "excluded-mixed-venue",
+        "extractionLead": false,
+        "foodRowsCreated": 0
+      },
+      "retrievedAt": "2026-10-16T01:12:41.952Z",
+      "identityStatus": "independent-source-candidate-id-association",
+      "identityBoundary": "Google display facts were consumed transiently and discarded. Saved display facts come only from cited independent sources. All observed place-ID associations remain candidates requiring explicit branch review; no automatic identity or app publication.",
+      "nameAddressProvenance": "Cited independent primary premises source; no Google display facts retained.",
+      "nextAction": "Keep this mixed venue or parent food court excluded from vegetarian/vegan venue publication.",
+      "lookupReceipt": {
+        "placeId": "ChIJ-QhpgCcR2jERakSJtK0yiSY",
+        "observedPlaceId": "ChIJ-QhpgCcR2jERakSJtK0yiSY",
+        "queriedAt": "2026-10-16T01:11:54.475Z",
+        "completedAt": "2026-10-16T01:11:54.628Z",
+        "requestNumber": 2410,
+        "httpStatus": 200,
+        "status": "unmatched",
+        "candidates": []
+      }
+    },
+    {
+      "sequence": 32,
+      "placeId": "ChIJ-Rd8RAAX2jERlAPTAz--xlM",
+      "independentName": "Ruchulu Indian Family Restaurant (279 Sengkang East)",
+      "independentAddress": "279 Sengkang East Avenue #01-01, Singapore 540279",
+      "eligibility": "mixed-menu",
+      "eligibilityReason": "Exact-branch merchant-managed ordering menu explicitly separates non-vegetarian categories and lists actual chicken and mutton meals at the stated premises.",
+      "sourceUrls": [
+        "https://www.foodpanda.sg/restaurant/hmkm/ruchulu-indian-family-restaurant-279-sengkang-east"
+      ],
+      "sourceAccess": "Merchant-managed branch menu and address readable.",
+      "gaps": [],
+      "menu": {
+        "status": "excluded-mixed-venue",
+        "extractionLead": false,
+        "foodRowsCreated": 0
+      },
+      "retrievedAt": "2026-10-16T01:12:41.952Z",
+      "identityStatus": "independent-source-candidate-id-association",
+      "identityBoundary": "Google display facts were consumed transiently and discarded. Saved display facts come only from cited independent sources. All observed place-ID associations remain candidates requiring explicit branch review; no automatic identity or app publication.",
+      "nameAddressProvenance": "Cited independent primary premises source; no Google display facts retained.",
+      "nextAction": "Keep this mixed venue or parent food court excluded from vegetarian/vegan venue publication.",
+      "lookupReceipt": {
+        "placeId": "ChIJ-Rd8RAAX2jERlAPTAz--xlM",
+        "observedPlaceId": "ChIJ-Rd8RAAX2jERlAPTAz--xlM",
+        "queriedAt": "2026-10-16T01:11:54.747Z",
+        "completedAt": "2026-10-16T01:11:54.887Z",
+        "requestNumber": 2411,
+        "httpStatus": 200,
+        "status": "unmatched",
+        "candidates": []
+      }
+    },
+    {
+      "sequence": 33,
+      "placeId": "ChIJ-T2z2OkP2jER5it92C5PZ5g",
+      "eligibility": "unresolved",
+      "eligibilityReason": "Third-party reviews and dated tenant lists suggest a mixed noodle stall, but no readable current merchant or landlord premises/menu source was found.",
+      "sourceUrls": [],
+      "discoverySourceUrls": [
+        "https://sethlui.com/yew-teck-food-stall-singapore/"
+      ],
+      "sourceAccess": "Independent discovery completed; no accepted current primary facts and no provider display facts persisted.",
+      "gaps": [
+        "Confirm current exact stall identity and complete menu from a primary source."
+      ],
+      "menu": {
+        "status": "primary-evidence-gap",
+        "extractionLead": true,
+        "foodRowsCreated": 0
+      },
+      "retrievedAt": "2026-10-16T01:13:19.832Z",
+      "identityStatus": "unresolved",
+      "identityBoundary": "Google display facts were consumed transiently and discarded. Saved display facts come only from cited independent sources. All observed place-ID associations remain candidates requiring explicit branch review; no automatic identity or app publication.",
+      "nameAddressProvenance": "No confirmed display facts retained.",
+      "nextAction": "Obtain readable current exact-premises and whole-venue dietary evidence before food extraction or identity approval.",
+      "lookupReceipt": {
+        "placeId": "ChIJ-T2z2OkP2jER5it92C5PZ5g",
+        "observedPlaceId": "ChIJ-T2z2OkP2jER5it92C5PZ5g",
+        "queriedAt": "2026-10-16T01:12:44.121Z",
+        "completedAt": "2026-10-16T01:12:44.491Z",
+        "requestNumber": 2412,
+        "httpStatus": 200,
+        "status": "unmatched",
+        "candidates": []
+      }
+    },
+    {
+      "sequence": 34,
+      "placeId": "ChIJ-T2z2OkP2jERAXn_5oiPRN8",
+      "independentName": "Boon Lay Power Nasi Lemak",
+      "independentAddress": "Block 221B Boon Lay Place #01-106",
+      "eligibility": "mixed-menu",
+      "eligibilityReason": "Merchant-managed Oddle page explicitly offers actual chicken, fish, beef and mutton; the Singapore Tourism Board's dated guide independently identifies the Boon Lay stall location.",
+      "sourceUrls": [
+        "https://powernasilemak.oddle.me/en_SG",
+        "https://www.visitsingapore.com/content/dam/desktop/global/about-singapore/traveller-information/STB_Singapore%20Insider%202017%20Q2_English_FA.pdf"
+      ],
+      "sourceAccess": "Merchant food text readable; premises unit comes from a dated government guide and is not a current branch-assignment approval.",
+      "gaps": [
+        "Refresh exact premises from a current merchant/landlord source before approving the candidate ID association."
+      ],
+      "menu": {
+        "status": "excluded-mixed-venue",
+        "extractionLead": false,
+        "foodRowsCreated": 0
+      },
+      "retrievedAt": "2026-10-16T01:13:19.832Z",
+      "identityStatus": "independent-source-candidate-id-association",
+      "identityBoundary": "Google display facts were consumed transiently and discarded. Saved display facts come only from cited independent sources. All observed place-ID associations remain candidates requiring explicit branch review; no automatic identity or app publication.",
+      "nameAddressProvenance": "Cited independent primary premises source; no Google display facts retained.",
+      "nextAction": "Resolve the documented branch evidence gaps before any ID approval; retain scope exclusion.",
+      "lookupReceipt": {
+        "placeId": "ChIJ-T2z2OkP2jERAXn_5oiPRN8",
+        "observedPlaceId": "ChIJ-T2z2OkP2jERAXn_5oiPRN8",
+        "queriedAt": "2026-10-16T01:12:44.628Z",
+        "completedAt": "2026-10-16T01:12:44.766Z",
+        "requestNumber": 2413,
+        "httpStatus": 200,
+        "status": "unmatched",
+        "candidates": []
+      }
+    },
+    {
+      "sequence": 35,
+      "placeId": "ChIJ-T2z2OkP2jERn3VjJxICJM0",
+      "eligibility": "unresolved",
+      "eligibilityReason": "A related merchant-managed Thunderbolt menu contains dried shrimp and pork, but no primary source establishes that its current menu applies to the frozen Boon Lay branch; branch scope cannot be transferred automatically.",
+      "sourceUrls": [],
+      "discoverySourceUrls": [
+        "https://thunderbolttea.oddle.me/en_SG",
+        "https://www.thunderbolt.sg"
+      ],
+      "sourceAccess": "Related brand menu readable; exact branch linkage remains a real evidence gap.",
+      "gaps": [
+        "Obtain current primary Boon Lay premises and branch-applicable whole menu; do not infer vegetarian status from lei cha vegetables."
+      ],
+      "menu": {
+        "status": "branch-and-scope-gap",
+        "extractionLead": true,
+        "foodRowsCreated": 0
+      },
+      "retrievedAt": "2026-10-16T01:13:19.832Z",
+      "identityStatus": "unresolved",
+      "identityBoundary": "Google display facts were consumed transiently and discarded. Saved display facts come only from cited independent sources. All observed place-ID associations remain candidates requiring explicit branch review; no automatic identity or app publication.",
+      "nameAddressProvenance": "No confirmed display facts retained.",
+      "nextAction": "Obtain readable current exact-premises and whole-venue dietary evidence before food extraction or identity approval.",
+      "lookupReceipt": {
+        "placeId": "ChIJ-T2z2OkP2jERn3VjJxICJM0",
+        "observedPlaceId": "ChIJ-T2z2OkP2jERn3VjJxICJM0",
+        "queriedAt": "2026-10-16T01:12:44.888Z",
+        "completedAt": "2026-10-16T01:12:45.021Z",
+        "requestNumber": 2414,
+        "httpStatus": 200,
+        "status": "unmatched",
+        "candidates": []
+      }
+    },
+    {
+      "sequence": 36,
+      "placeId": "ChIJ-TfVcRcW2jERstbusirMOFE",
+      "independentName": "Kopitiam Corner (Rivervale Plaza)",
+      "independentAddress": "Rivervale Plaza",
+      "eligibility": "food-court",
+      "eligibilityReason": "FairPrice/Kopitiam operator outlet list explicitly names Kopitiam Corner at Rivervale Plaza; the group describes its food-services concepts as shared community dining outlets rather than a wholly vegetarian restaurant.",
+      "sourceUrls": [
+        "https://www.fairprice.com.sg/promo/kopitiam/",
+        "https://www.fairpricegroup.com.sg/our-group/food-services/"
+      ],
+      "sourceAccess": "Operator outlet/concept pages readable; unverified street, postal and unit details were not copied from the hint.",
+      "gaps": [
+        "Any individual vegetarian tenant needs separate current premises and menu evidence."
+      ],
+      "menu": {
+        "status": "excluded-parent-food-court",
+        "extractionLead": false,
+        "foodRowsCreated": 0
+      },
+      "retrievedAt": "2026-10-16T01:13:19.832Z",
+      "identityStatus": "independent-source-candidate-id-association",
+      "identityBoundary": "Google display facts were consumed transiently and discarded. Saved display facts come only from cited independent sources. All observed place-ID associations remain candidates requiring explicit branch review; no automatic identity or app publication.",
+      "nameAddressProvenance": "Cited independent primary premises source; no Google display facts retained.",
+      "nextAction": "Resolve the documented branch evidence gaps before any ID approval; retain scope exclusion.",
+      "lookupReceipt": {
+        "placeId": "ChIJ-TfVcRcW2jERstbusirMOFE",
+        "observedPlaceId": "ChIJ-TfVcRcW2jERstbusirMOFE",
+        "queriedAt": "2026-10-16T01:12:45.153Z",
+        "completedAt": "2026-10-16T01:12:45.280Z",
+        "requestNumber": 2415,
+        "httpStatus": 200,
+        "status": "unmatched",
+        "candidates": []
+      }
+    },
+    {
+      "sequence": 37,
+      "placeId": "ChIJ-W6FJM892jERAPFD7c7noDo",
+      "independentName": "Terrace Chinese Kitchen",
+      "independentAddress": "Changi Airport Terminal 1, Public Level 3 #03-22",
+      "eligibility": "mixed-menu",
+      "eligibilityReason": "Airport landlord dining directory confirms exact unit, and its current September-November 2026 outlet promotion explicitly offers salted egg popcorn chicken.",
+      "sourceUrls": [
+        "https://www.changiairport.com/en/dine-and-shop/dining-directory/dine-detail.terrace-chinese-kitchen.html",
+        "https://www.changiairport.com/en/happenings/promotions/outlet-deals.html"
+      ],
+      "sourceAccess": "Current landlord premises and actual chicken promotion readable; no street/postal copied from provider.",
+      "gaps": [],
+      "menu": {
+        "status": "excluded-mixed-venue",
+        "extractionLead": false,
+        "foodRowsCreated": 0
+      },
+      "retrievedAt": "2026-10-16T01:14:22.013Z",
+      "identityStatus": "independent-source-candidate-id-association",
+      "identityBoundary": "Google display facts were consumed transiently and discarded. Saved display facts come only from cited independent sources. All observed place-ID associations remain candidates requiring explicit branch review; no automatic identity or app publication.",
+      "nameAddressProvenance": "Cited independent primary premises source; no Google display facts retained.",
+      "nextAction": "Keep this mixed venue or parent food court excluded from vegetarian/vegan venue publication.",
+      "lookupReceipt": {
+        "placeId": "ChIJ-W6FJM892jERAPFD7c7noDo",
+        "observedPlaceId": "ChIJ-W6FJM892jERAPFD7c7noDo",
+        "queriedAt": "2026-10-16T01:13:22.203Z",
+        "completedAt": "2026-10-16T01:13:23.579Z",
+        "requestNumber": 2416,
+        "httpStatus": 200,
+        "status": "unmatched",
+        "candidates": []
+      }
+    },
+    {
+      "sequence": 38,
+      "placeId": "ChIJ-WJNg9gZ2jERNJWbDrY4Z4w",
+      "independentName": "Huevos River Valley",
+      "independentAddress": "46 Kim Yam Road, New Bahru, Singapore 239351",
+      "eligibility": "unresolved",
+      "eligibilityReason": "Merchant reservation page independently confirms the branch. Linked branch menu is a Canva document with no readable text, and merchant ordering requires JavaScript; third-party mixed-menu claims were not promoted to primary conclusions.",
+      "sourceUrls": [
+        "https://www.huevossg.com/reservation",
+        "https://www.newbahru.com/discover-huevos"
+      ],
+      "discoverySourceUrls": [
+        "https://order.huevossg.com/",
+        "https://www.canva.com/design/DAHCaGyOtPk/LH0lWcDi_vCYAbgpfNkCWw/view"
+      ],
+      "sourceAccess": "Exact merchant premises readable; primary branch food menu was not readable in this pass.",
+      "gaps": [
+        "Read the merchant branch menu visually or in ordering UI and confirm whole-venue dietary scope."
+      ],
+      "menu": {
+        "status": "source-access-gap",
+        "extractionLead": true,
+        "foodRowsCreated": 0
+      },
+      "retrievedAt": "2026-10-16T01:14:22.013Z",
+      "identityStatus": "independent-source-candidate-id-association",
+      "identityBoundary": "Google display facts were consumed transiently and discarded. Saved display facts come only from cited independent sources. All observed place-ID associations remain candidates requiring explicit branch review; no automatic identity or app publication.",
+      "nameAddressProvenance": "Cited independent primary premises source; no Google display facts retained.",
+      "nextAction": "Obtain readable current exact-premises and whole-venue dietary evidence before food extraction or identity approval.",
+      "lookupReceipt": {
+        "placeId": "ChIJ-WJNg9gZ2jERNJWbDrY4Z4w",
+        "observedPlaceId": "ChIJ-WJNg9gZ2jERNJWbDrY4Z4w",
+        "queriedAt": "2026-10-16T01:13:23.712Z",
+        "completedAt": "2026-10-16T01:13:23.847Z",
+        "requestNumber": 2417,
+        "httpStatus": 200,
+        "status": "unmatched",
+        "candidates": []
+      }
+    },
+    {
+      "sequence": 39,
+      "placeId": "ChIJ-xG1vioX2jERAINtsa3GgTo",
+      "eligibility": "unresolved",
+      "eligibilityReason": "A third-party vegetarian-stall directory was located, but no current primary source verifies the exact level-4 stall. The readable First Culinary vegetarian menu at a different level-1 unit cannot be transferred to this ID.",
+      "sourceUrls": [],
+      "discoverySourceUrls": [
+        "https://www.happycow.net/reviews/ite-college-central-vegetarian-stall-northeast-singapore-90515",
+        "https://order.firstculinary.com/Category/vegetarian-bento-set-%E4%BE%BF%E5%BD%93%E7%B4%A0%E9%A3%9F%E7%B3%BB%E5%88%97.html"
+      ],
+      "sourceAccess": "Exact-stall primary identity and menu absent; unrelated campus-unit menu excluded.",
+      "gaps": [
+        "Obtain campus landlord or merchant confirmation of the level-4 vegetarian stall and current complete menu."
+      ],
+      "menu": {
+        "status": "exact-stall-primary-evidence-gap",
+        "extractionLead": true,
+        "foodRowsCreated": 0
+      },
+      "retrievedAt": "2026-10-16T01:14:22.013Z",
+      "identityStatus": "unresolved",
+      "identityBoundary": "Google display facts were consumed transiently and discarded. Saved display facts come only from cited independent sources. All observed place-ID associations remain candidates requiring explicit branch review; no automatic identity or app publication.",
+      "nameAddressProvenance": "No confirmed display facts retained.",
+      "nextAction": "Obtain readable current exact-premises and whole-venue dietary evidence before food extraction or identity approval.",
+      "lookupReceipt": {
+        "placeId": "ChIJ-xG1vioX2jERAINtsa3GgTo",
+        "observedPlaceId": "ChIJ-xG1vioX2jERAINtsa3GgTo",
+        "queriedAt": "2026-10-16T01:13:23.963Z",
+        "completedAt": "2026-10-16T01:13:24.091Z",
+        "requestNumber": 2418,
+        "httpStatus": 200,
+        "status": "unmatched",
+        "candidates": []
+      }
+    },
+    {
+      "sequence": 40,
+      "placeId": "ChIJ-Xg7plcR2jERCsQIo1dg0Qk",
+      "independentName": "Springleaf Prata Place (Junction 10)",
+      "independentAddress": "1 Woodlands Road #01-25, Junction 10, Singapore 677899",
+      "eligibility": "mixed-menu",
+      "eligibilityReason": "Merchant outlet page confirms exact Junction 10 premises; exact-branch managed ordering and merchant menu list actual mutton, chicken and seafood dishes.",
+      "sourceUrls": [
+        "https://www.spplace.com/outlet",
+        "https://www.foodpanda.sg/restaurant/x5cr/springleaf-prata-place-junction-10",
+        "https://spplace.com/burger/uploads/restaurant-menu.pdf"
+      ],
+      "sourceAccess": "Merchant premises and branch ordering menu readable; generic ordering prose was not used to infer ingredients of plain prata.",
+      "gaps": [],
+      "menu": {
+        "status": "excluded-mixed-venue",
+        "extractionLead": false,
+        "foodRowsCreated": 0
+      },
+      "retrievedAt": "2026-10-16T01:14:22.013Z",
+      "identityStatus": "independent-source-candidate-id-association",
+      "identityBoundary": "Google display facts were consumed transiently and discarded. Saved display facts come only from cited independent sources. All observed place-ID associations remain candidates requiring explicit branch review; no automatic identity or app publication.",
+      "nameAddressProvenance": "Cited independent primary premises source; no Google display facts retained.",
+      "nextAction": "Keep this mixed venue or parent food court excluded from vegetarian/vegan venue publication.",
+      "lookupReceipt": {
+        "placeId": "ChIJ-Xg7plcR2jERCsQIo1dg0Qk",
+        "observedPlaceId": "ChIJ-Xg7plcR2jERCsQIo1dg0Qk",
+        "queriedAt": "2026-10-16T01:13:24.199Z",
+        "completedAt": "2026-10-16T01:13:24.319Z",
+        "requestNumber": 2419,
+        "httpStatus": 200,
+        "status": "unmatched",
+        "candidates": []
+      }
+    }
+  ]
+}

@@ -1,0 +1,83 @@
+{
+  "startedAt": "2026-10-16T08:34:01.798Z",
+  "url": "http://127.0.0.1:8083",
+  "checks": [
+    {
+      "name": "ur14-tianmu-westcoast",
+      "status": "passed",
+      "foods": 41,
+      "menuGap404": false,
+      "publicFingerprint": "5fbf4c0263a5a725a919a87a606a9b39ffd01814d5edb593135a3d7960d5bc4c"
+    },
+    {
+      "name": "ur14-thai-sumang-scope",
+      "status": "passed",
+      "foods": 0,
+      "menuGap404": true,
+      "publicFingerprint": null
+    },
+    {
+      "name": "ur14-kovan-33-gap",
+      "status": "passed",
+      "foods": 0,
+      "menuGap404": true,
+      "publicFingerprint": null
+    }
+  ],
+  "screenshots": [
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-14-browser\\ur14-tianmu-westcoast-320.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-14-browser\\ur14-tianmu-westcoast-768.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-14-browser\\ur14-tianmu-westcoast-1440.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-14-browser\\ur14-thai-sumang-scope-320.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-14-browser\\ur14-thai-sumang-scope-768.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-14-browser\\ur14-thai-sumang-scope-1440.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-14-browser\\ur14-kovan-33-gap-320.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-14-browser\\ur14-kovan-33-gap-768.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-14-browser\\ur14-kovan-33-gap-1440.png"
+  ],
+  "errors": [],
+  "pageErrors": [],
+  "unexpectedConsoleErrors": [],
+  "blockedApiRequests": [],
+  "blockedExternalRequests": [],
+  "apiRequests": [],
+  "a11y": [
+    {
+      "label": "ur14-tianmu-westcoast",
+      "violations": []
+    },
+    {
+      "label": "ur14-thai-sumang-scope",
+      "violations": []
+    },
+    {
+      "label": "ur14-kovan-33-gap",
+      "violations": []
+    }
+  ],
+  "forwardedProviderCalls": 0,
+  "installedChromeUsed": false,
+  "catalogue": {
+    "locations": 169,
+    "sourceMenus": 217,
+    "foodOccurrences": 11872
+  },
+  "unchangedMenuEvidence": {
+    "path": "menu-full-13-browser.json",
+    "basis": "Original dates retained for unchanged Suyuan/Sangeetha functional checks."
+  },
+  "finishedAt": "2026-10-16T08:34:30.777Z",
+  "passed": true,
+  "visualReview": {
+    "status": "passed",
+    "reviewedAt": "2026-10-16T08:35:48.946183+00:00",
+    "capturesInspected": 9,
+    "widths": [
+      320,
+      768,
+      1440
+    ],
+    "findings": "Every listed current capture visually inspected; no page overflow or visual defect observed. Source choices/prices/ingredients retain explicit uncertainty. Initial QA harness failures, where any, remain archived."
+  },
+  "googleLedgerUnchanged": true
+}

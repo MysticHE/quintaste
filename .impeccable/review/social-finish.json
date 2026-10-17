@@ -1,0 +1,106 @@
+{
+  "lastUpdated": "2026-10-15",
+  "disposition": "ship",
+  "scope": "Local Social browser preview and reviewed source only; no production or native-device approval",
+  "reviewer": "/root/social_domain_review",
+  "reviewMethod": "Fallback for unavailable dedicated Impeccable role. Independent source and screenshot inspection; builder interaction reports read, not independently rerun.",
+  "persistence": {
+    "status": "pass",
+    "evidence": [
+      "PRODUCT.md",
+      "DESIGN.md",
+      ".impeccable/surfaces/social.md"
+    ],
+    "buildPath": "Code-led extension of approved existing world; no approved comp supplied"
+  },
+  "fidelity": [
+    {
+      "element": "TYPE",
+      "status": "match",
+      "evidence": "Nunito hierarchy and readable wrapping across mobile, wide, dark and enlarged text."
+    },
+    {
+      "element": "MATERIAL",
+      "status": "match",
+      "evidence": "Photographic sample meals, rounded semantic surfaces, full borders and existing icon-only dock."
+    },
+    {
+      "element": "GROUND",
+      "status": "match",
+      "evidence": "Approved pastel light and semantic dark surfaces preserved."
+    },
+    {
+      "element": "FIRST VIEWPORT",
+      "status": "match",
+      "evidence": "Compact titleless search/avatar, task controls, category chips and explicit sample activation."
+    },
+    {
+      "element": "STORY",
+      "status": "match",
+      "evidence": "Booking, timed chat/check-in, mutual connections and private drafts in source and browser evidence."
+    },
+    {
+      "element": "RESPONSIVE",
+      "status": "adaptation",
+      "evidence": "320px enlarged text wraps actions and names; horizontal category scrolling satisfies narrow/scalable-text requirements."
+    },
+    {
+      "element": "TRUTH",
+      "status": "match",
+      "evidence": "Sample, fictional, on-device, not-sent and disconnected-service labels remain visible."
+    }
+  ],
+  "ceiling": "Reached within supplied local browser/source scope; native device interaction and appearance remain unverified.",
+  "material_fixes": [],
+  "resolvedFindings": [
+    "Merged blocks cancel conflicting active bookings",
+    "Repeated guest merges deduplicate reports/drafts before capacity checks",
+    "Blocking and schema reads clear reciprocal consent for blocked people",
+    "Accessible names derive from full visible card/link text",
+    "Root chip row bounded; booking diners collapse"
+  ],
+  "keep": "Explicit sample activation, dietary and peer gates, owner-scoped storage, honest local labels and compact themed navigation.",
+  "validation": {
+    "browserReport": ".impeccable/review/social-validation.json",
+    "browserPassedGroups": 13,
+    "runtimeErrors": 0,
+    "scopedAxeScans": 5,
+    "scopedAxeViolations": 0,
+    "stateReport": ".impeccable/review/social-state-validation.json",
+    "statePassedGroups": 16,
+    "typescriptExit": 0,
+    "eslintExit": 0,
+    "commandEvidence": "Reviewer final tsc session3082 exit0; final eslint session48754 exit0. Earlier lint sweep raced temporary documentation-script deletion; completed retry clean.",
+    "screenshotsIndependentlyOpened": [
+      "social-empty-375.png",
+      "social-browse-375.png",
+      "social-meal-375.png",
+      "social-booking-375.png",
+      "social-chat-375.png",
+      "social-friends-375.png",
+      "social-hosting-375.png",
+      "social-browse-320.png",
+      "social-browse-768.png",
+      "social-browse-1440.png",
+      "social-browse-dark.png",
+      "social-browse-large-320.png",
+      "social-filters-large-320.png"
+    ],
+    "screenshotDirectory": ".impeccable/review/",
+    "captureValidity": "All 13 captures opened successfully and match named state/viewport. Long task captures show viewport portions, not entire scroll content."
+  },
+  "androidTransport": {
+    "report": ".impeccable/review/social-native.json",
+    "manifestStatus": 200,
+    "bundleStatus": 200,
+    "currentSocialMarkersFound": true,
+    "nativeAppearanceVerified": false
+  },
+  "unverified": [
+    "Native appearance, gestures, keyboard and screen readers",
+    "Full-app accessibility conformance",
+    "Backend ownership and cloud sync",
+    "Live reservations, ID verification, messages, payments, moderation and host approval",
+    "Full-product readiness and production release"
+  ]
+}

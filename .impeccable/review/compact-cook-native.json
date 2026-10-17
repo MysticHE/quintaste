@@ -1,0 +1,29 @@
+{
+  "manifest": 200,
+  "bundle": 200,
+  "bytes": 9469619,
+  "markers": [
+    {
+      "marker": "CookLayout",
+      "found": true
+    },
+    {
+      "marker": "CookingTools",
+      "found": true
+    },
+    {
+      "marker": "Author & disclosure",
+      "found": true
+    },
+    {
+      "marker": "Finish cooking",
+      "found": true
+    },
+    {
+      "marker": "Enable alerts",
+      "found": true
+    }
+  ],
+  "remoteTopicAbsent": true,
+  "nativeUIVerified": false
+}

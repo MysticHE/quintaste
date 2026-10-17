@@ -1,0 +1,85 @@
+﻿{
+    "disposition":  "ship",
+    "persistence":  {
+                        "status":  "pass",
+                        "scope":  "Bounded React Native Web visual and supplied-source review only. No native detector ran; native appearance, platform accessibility, permissions and notification delivery are not accepted by this review. Native bundle transport and checks reported by the parent are not device evidence.",
+                        "review_role":  "Fresh delegated reviewer using the supplied degraded finish-reviewer contract; no inline role substitution was necessary.",
+                        "authority":  "Existing-world code-led extension. PRODUCT.md, DESIGN.md and .impeccable/surfaces/cook.md exist. No new concept, seed, approved comp, quality-bar card or raster assets were required by this extension brief; comp reproduction gates are inapplicable.",
+                        "evidence":  "Individually opened all 12 captures listed in local-cook-browser.json: incomplete, step-mapping, private-recipe, guided-step, version-review, share, timers, notification-settings, private-320, private-768, private-1440 and private-dark. Each contains the named state with plausible dimensions and no malformed/blank capture. Step-mapping and share are intentional scrolled state captures, not full-page claims.",
+                        "reading_limits":  "Read the craft floor and iOS/Android references from reference/ after the supplied degraded/ locations proved absent. Inspected all seven supplied UI source files. Sampled the Cook-relevant portions of PRODUCT.md and DESIGN.md; unrelated long historical sections were not fully read. No browser or detector run performed.",
+                        "finding":  "The prior documentation contradiction is resolved by the reread PRODUCT.md:120 and local Cook section, DESIGN.md workspace row, cook.md STORY/CREATE/TRUTH and COOK_READINESS.md. Implementation remains distinct from native-device acceptance."
+                    },
+    "fidelity":  [
+                     {
+                         "element":  "TYPE",
+                         "state":  "match",
+                         "evidence":  "Nunito character, heavy recipe/step headings, readable instruction scale and subdued supporting text continue DESIGN.md and cook.md OWN-WORLD across all inspected widths and dark mode."
+                     },
+                     {
+                         "element":  "MATERIAL",
+                         "state":  "match",
+                         "evidence":  "Existing full-perimeter cards, fields and simple drawn icons remain the material vocabulary. No fabricated texture, physical imitation, replacement imagery or new asset obligation appears."
+                     },
+                     {
+                         "element":  "GROUND",
+                         "state":  "match",
+                         "evidence":  "The pale peach light field, near-white cards and warm dark field correspond visually to the incumbent semantic coral family documented in DESIGN.md; no invented comparison comp or numeric pixel-match claim is used."
+                     },
+                     {
+                         "element":  "Private recipe hierarchy and responsive composition",
+                         "state":  "match",
+                         "evidence":  "Device/private status precedes Edit/Copy/Share, recipe identity, servings, ingredients and numbered instructions. Title wraps at 320 without horizontal clipping; expanded captures retain the documented centered 760-unit frame. Dark text, controls and cards remain legible. Bottom timer persists as the existing scroll-independent utility; screenshots do not establish an unreachable final action."
+                     },
+                     {
+                         "element":  "Draft editing and guided cooking",
+                         "state":  "match",
+                         "evidence":  "The supplied editor exposes ingredient assignment chips and explicit step movement/removal. Guided cooking emphasizes the active instruction, meaningful step/serving progress, completion action and named timer. STEP is functional sequence/status information rather than a decorative eyebrow. Missing ingredients visibly explain disabled cooking/shopping."
+                     },
+                     {
+                         "element":  "Recovery, privacy and product truth",
+                         "state":  "match",
+                         "evidence":  "Version-review capture names the change and offers Review recipe while the independent timer remains visible. PrivateRecipe source exposes text-share exclusions and fallback copy instructions; RecipeEditor retains Ready to submit / Not sent. QA-named recipe content is controlled test data, with no commercial or ingredient-certification claim."
+                     },
+                     {
+                         "element":  "Web alert and settings boundary",
+                         "state":  "adaptation",
+                         "evidence":  "The user-authorized local extension and platform limitation justify an explanatory browser message instead of a nonfunctional enable control. Native TimerAlertControl source provides explicit enable/disable, device-settings recovery and retry; those native states are not depicted or accepted by web screenshots. Online update choices explicitly remain unconnected and quiet hours state their limitation."
+                     },
+                     {
+                         "element":  "Direction promises and craft floor",
+                         "state":  "match",
+                         "evidence":  "The extension keeps food-first preparation, own-world controls, step-to-timer recovery and honest local ownership. The Cook root first viewport was not changed or recaptured in this packet and is not newly accepted. Existing fields/cards are retained under incumbent authority; no new decorative rails, gradient lettering, glyph-icon substitutions or artificial material were observed."
+                     }
+                 ],
+    "ceiling":  {
+                    "status":  "reached for the supplied bounded web extension",
+                    "limits":  "No new-world quality-bar card applies. Do not add ornament, photographic treatment or new motion to this operational extension merely to consume a visual device. Platform-native controls, system back, safe areas, text scaling, permission prompts, background delivery and alert behavior still require actual iOS/Android device evidence; browser captures and bundle transport cannot settle them."
+                },
+    "material_fixes":  [
+
+                       ],
+    "keep":  "Preserve readable active instructions, explicit private/unpublished status, independent persistent timers, visible recovery, honest web/native boundaries and the existing semantic Nunito/coral light-dark world.",
+    "initial_review":  {
+                           "disposition":  "fix",
+                           "persistence":  {
+                                               "status":  "fail",
+                                               "scope":  "Bounded React Native Web visual and supplied-source review only. No native detector ran; native appearance, platform accessibility, permissions and notification delivery are not accepted by this review. Native bundle transport and checks reported by the parent are not device evidence.",
+                                               "review_role":  "Fresh delegated reviewer using the supplied degraded finish-reviewer contract; no inline role substitution was necessary.",
+                                               "authority":  "Existing-world code-led extension. PRODUCT.md, DESIGN.md and .impeccable/surfaces/cook.md exist. No new concept, seed, approved comp, quality-bar card or raster assets were required by this extension brief; comp reproduction gates are inapplicable.",
+                                               "evidence":  "Individually opened all 12 captures listed in local-cook-browser.json: incomplete, step-mapping, private-recipe, guided-step, version-review, share, timers, notification-settings, private-320, private-768, private-1440 and private-dark. Each contains the named state with plausible dimensions and no malformed/blank capture. Step-mapping and share are intentional scrolled state captures, not full-page claims.",
+                                               "reading_limits":  "Read the craft floor and iOS/Android references from reference/ after the supplied degraded/ locations proved absent. Inspected all seven supplied UI source files. Sampled the Cook-relevant portions of PRODUCT.md and DESIGN.md; unrelated long historical sections were not fully read. No browser or detector run performed.",
+                                               "finding":  "Current persistence contradicts the local native alert implementation and omits the latest private cooking extension; see initial material_fixes. The current visual world itself remains documented accurately."
+                                           },
+                           "material_fixes":  [
+                                                  "Persistence/truth: update PRODUCT.md:120 (native background sound/lock-screen alerts \u0027are not implemented\u0027; choices \u0027neither request permission nor deliver pushes\u0027) and cook.md TRUTH (\u0027no ... notification delivery\u0027) to distinguish implemented opt-in local native timer scheduling from unverified native delivery/permissions, unavailable web device alerts and unconnected remote updates; extend the Cook records and DESIGN.md recipe-workspace row with private View \u0026 cook, per-step ingredients, servings/recovery/version guards, consent-reset copy and photo/private-note-free text share, then link the latest bounded evidence without claiming native or production acceptance."
+                                              ]
+                       },
+    "final_verdict":  {
+                          "verdict":  [
+                                          "Resolved: the one prior documentation finding. PRODUCT.md:120 and cook.md TRUTH distinguish implemented explicit opt-in local native scheduling, unverified native permissions/background delivery, unsupported web device alerts and unconnected remote updates. PRODUCT.md local Cook section, DESIGN.md workspace row, cook.md flow and COOK_READINESS.md describe private cooking, ingredient assignments, servings/recovery/version guards, consent-reset copy and share exclusions. Latest bounded evidence is linked without native/production acceptance.",
+                                          "Non-material introduced typo: PRODUCT.md:237 renders 1?8 servings; parent notified to normalize to 1-8. No source or capture changes occurred; original 12-capture inspection remains the visual evidence."
+                                      ],
+                          "remaining":  "Clear of material findings. Ship covers the scored documentation correction only; this is not a new full-surface, native or production acceptance.",
+                          "disposition":  "ship"
+                      }
+}

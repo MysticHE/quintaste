@@ -1,0 +1,89 @@
+{
+  "scope": "food-utility-pilot",
+  "date": "2026-10-14",
+  "sourceAuthority": "PRD1.4, v1.4 missing screen supplement, existing approved 14 October theme tokens and latest compact UI requests.",
+  "checks": {
+    "typescript": {
+      "command": "npx tsc --noEmit",
+      "exitCode": 0,
+      "after": "Final root-stack routing fix"
+    },
+    "eslint": {
+      "command": "npx eslint .",
+      "exitCode": 0,
+      "after": "Final root-stack routing fix"
+    },
+    "androidBundle": {
+      "status": 200,
+      "characters": 7343435,
+      "rootAccountIncluded": true,
+      "compactResumeIncluded": true
+    },
+    "expoManifest": {
+      "status": 200,
+      "sdk": "57.0.0",
+      "host": "jrui8_w-anonymous-8081.exp.direct"
+    },
+    "domainAssertions": [
+      "Serving scale and unchanged cooking times",
+      "Deadline timer expiry and pause behavior",
+      "Stale and withdrawn dietary evidence fails closed",
+      "Definite ingredient conflicts",
+      "Saved schema validation and merge deduplication",
+      "Singapore sample hours, closing time, unknown periods and overnight spans"
+    ],
+    "browserQA": [
+      "No redundant Places/Cook/Saved root headings; inline MRT area and single essential search/filter rows",
+      "Place-only search; two open sample venues precede unknown/closed groups",
+      "Recipe filters apply/reset; No alliums removes the authored allium recipe",
+      "Saved local list creation succeeds; selecting Notes clears its list and shows no unapplied list label",
+      "Root Me opens from Saved/Cook; Back restores the originating selected tab",
+      "Saved recipe opens above tabs and Back returns to Saved",
+      "Saved dish opens above tabs; Back permits selecting Cook",
+      "Detail actions are collapsed under More and expand when selected",
+      "Cooking resumes at step2 and3 servings with scaled step ingredients; Close returns to Cook",
+      "Earlier functional checks: save/note persistence, public share preview privacy, bilingual questions, undo removal, timer and cooking reload persistence, guest/profile isolation and explicit merge choice"
+    ],
+    "browserErrors": {
+      "historicalBeforeFix": "2026-10-14T03:54:15Z empty-string View node in AreaPicker; fixed with a boolean condition",
+      "newErrorsObservedAfterFinalRouting": 0
+    }
+  },
+  "preview": {
+    "type": "Browser development preview",
+    "requestedViewport": {
+      "width": 390,
+      "height": 844
+    },
+    "capturedPixels": {
+      "width": 433,
+      "height": 938
+    },
+    "zoom": "90% Chrome setting; these images are not native device captures.",
+    "screenshots": [
+      "features-explore-clean.jpg",
+      "features-cook-clean.jpg",
+      "features-saved-clean.jpg",
+      "features-cooking-clean.jpg",
+      "features-recipe-clean.jpg",
+      "features-dish-clean.jpg",
+      "features-me-clean.jpg"
+    ],
+    "actualFormat": "JPEG produced by the browser capture API, verified by file signature."
+  },
+  "dataBoundary": "Three fictional venues, five sample dishes, four editorial recipes and generated illustrative photos. Sample hours are not live business verification.",
+  "unverified": [
+    "Native phone/tablet visual and assistive technology captures",
+    "Device location and photo permission flows",
+    "Native system share sheet and foreground keep-awake behavior",
+    "Runtime storage fault injection",
+    "Actual age-check, export/deletion and notification delivery"
+  ],
+  "notConnected": [
+    "Live maps/Google enrichment and live venue hours",
+    "Production authentication or cloud sync",
+    "Public contributions and staffed moderation",
+    "Native lock-screen/background alarm delivery"
+  ],
+  "nativeVisualDisposition": "recapture"
+}

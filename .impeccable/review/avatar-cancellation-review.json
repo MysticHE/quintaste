@@ -1,0 +1,15 @@
+{
+  "disposition": "ship",
+  "scope": "Cancellation cache hardening only; source and supplied mocked-test evidence",
+  "reviewer": "fresh general-agent substitute",
+  "resolved": [
+    "Owned active jobs are aborted and removed before cache capacity checks",
+    "Unapproved owners cannot allocate early-cancellation entries",
+    "Approved requests retain bounded race protection",
+    "Saturation test verifies successful deletion, removal and no remaining provider calls"
+  ],
+  "remaining": [],
+  "liveProviderTested": false,
+  "browserRerunRequired": false,
+  "earlierUiDisposition": "unchanged"
+}

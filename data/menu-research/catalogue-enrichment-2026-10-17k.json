@@ -1,0 +1,250 @@
+{
+  "checkedAt": "2026-10-17",
+  "deployedRelease": "20261017-cafe-covers14",
+  "goalStatus": "active",
+  "fullCoverageComplete": false,
+  "coverage": {
+    "browseVenues": 174,
+    "menuIds": 175,
+    "covers": 88,
+    "hours": 90,
+    "uniqueAssets": 67,
+    "assetBytes": 9132643,
+    "coverGaps": 86,
+    "hoursGaps": 84,
+    "allThreeAvailable": 59,
+    "catalogueIndexBytes": 161640
+  },
+  "newPhotos": [
+    {
+      "venueId": "research-slow-bakes-yishun-hyc",
+      "address": "30A Yishun Central 1, Tzu Chi Humanistic Youth Centre, Singapore 768796",
+      "photo": {
+        "path": "/api/catalogue-photos/53801766d90385c5428809db1d805bb9dac9ae26cb3ad084874effe13a498eca.jpg",
+        "width": 960,
+        "height": 1280,
+        "author": "Slow Bakes",
+        "sourceUrl": "https://take.app/slowbakes",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "53801766d90385c5428809db1d805bb9dac9ae26cb3ad084874effe13a498eca",
+      "bytes": 210609,
+      "originalSha256": "56dd050dc22ed6259725fbaebbbc425732e9dfbdb0a1bef9de51d28c894fdcef",
+      "sourcePageCheckedAt": "2026-10-16",
+      "sourceImageUrl": "https://cdn3.take.app/media/clx8b7kse00000cmib27q89u5.jpeg?width=1080",
+      "identityEvidence": "Operator Take App Country bread product image. Page explicitly offers collection at Slow Bakes Yishun; landlord dining page https://hyc.tzuchi.org.sg/spaces/dining/ independently binds30A YishunCentral1.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance this exact Slow Bakes operator bread photograph for an attractive gallery cover. Preserve the sliced country loaf in front, remaining loaf behind, open crumb pattern, golden crust, wooden tabletop and softly blurred green café background. Improve soft natural light, balanced warm tones and crisp realistic bread texture. Keep composition and quantities unchanged; no added foods, toppings, utensils, text or badges.",
+        "review": "Front slice and rear loaf on wooden table retained, natural crust/crumb presentation."
+      }
+    },
+    {
+      "venueId": "research-wakamama-pasir-panjang",
+      "address": "218 Pasir Panjang Road #02-15, ICON @ Pasir Panjang, Singapore 118579",
+      "photo": {
+        "path": "/api/catalogue-photos/d58607b465814d44fc92cb973dc1b07bece02208310c8cc5b9acd17ac5bb72c0.jpg",
+        "width": 960,
+        "height": 1280,
+        "author": "Wakamama",
+        "sourceUrl": "https://www.wakamama.sg/",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "d58607b465814d44fc92cb973dc1b07bece02208310c8cc5b9acd17ac5bb72c0",
+      "bytes": 213747,
+      "originalSha256": "1dc4323339030b839105a09385cf0523c607b435fbc970b872e4cfaae1ba8867",
+      "sourcePageCheckedAt": "2026-10-16",
+      "sourceImageUrl": "https://static.wixstatic.com/media/12c200_1d80ab7a24434bc187b12682af6382bc~mv2.jpg",
+      "identityEvidence": "Operator homepage lists218PasirPanjang#02-15 and this plant-based sushi image.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance the attached Wakamama operator sushi photograph for a polished gallery card cover. Retain the existing vegetarian sushi pieces and their exact visible toppings and rice shapes, the ceramic rectangular plate, the small flower garnish, pickled garnish and the wooden spoon/chopsticks on their tray behind. Improve soft light, clarity and subtle realistic colour; no new ingredients or dishes, no meat/fish substitution, no labels or text. Preserve portrait close-up composition and original proportions.",
+        "review": "Original sushi arrangement, plate and utensils retained; no ingredient inference."
+      }
+    },
+    {
+      "venueId": "research-mod-cafe-kuo-chuan",
+      "address": "1A Kuo Chuan Avenue, Singapore 426888",
+      "photo": {
+        "path": "/api/catalogue-photos/772d852af12b8cdfcf1dab8ce382ddb8a6d91fcf4223eb53a7a467bf6f0095c5.jpg",
+        "width": 960,
+        "height": 640,
+        "author": "MOD Café",
+        "sourceUrl": "https://www.modhaircafe.com/mod-cafe",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "772d852af12b8cdfcf1dab8ce382ddb8a6d91fcf4223eb53a7a467bf6f0095c5",
+      "bytes": 80899,
+      "originalSha256": "988b8cdc4bed93c3850e8f68ffa0d0593794761f25476a4ee4315cf85ceb3a4b",
+      "sourcePageCheckedAt": "2026-10-16",
+      "sourceImageUrl": "https://static.wixstatic.com/media/35dacc_cdc4864416894bed9ecc6843914a0534~mv2.jpg",
+      "identityEvidence": "Operator cafe page displays this food image and exact1AKuoChuanAve address; salon imagery and salon hours excluded.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance the attached MOD Café operator dish photo for a polished gallery cover. Preserve the same shallow round grey plate, golden folded centre, salad at the back, mushrooms, round toasted side, and all existing golden fried sides with the same portions and layout. Improve soft natural light, clarity and realistic texture. Keep clean white background and original framing. Do not add foods, infer ingredients, change the dish into a different menu item, or add words and badges.",
+        "review": "Original shallow plated dish with golden centre and sides retained; no new food claims."
+      }
+    },
+    {
+      "venueId": "research-ur09-eco-harmony-aljunied",
+      "address": "106 Aljunied Crescent #01-205, Singapore 380106",
+      "photo": {
+        "path": "/api/catalogue-photos/b5ad2f0b296b9e1416db0b839da56446a347c4b878b06ba194447ba80efaec11.jpg",
+        "width": 960,
+        "height": 960,
+        "author": "Eco-Harmony Café",
+        "sourceUrl": "https://erp.eco-harmony.net/cafe",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "b5ad2f0b296b9e1416db0b839da56446a347c4b878b06ba194447ba80efaec11",
+      "bytes": 181552,
+      "originalSha256": "9fc753726b4603561d88812d8f73059bc58affa9864b6bc327399263f791d1fe",
+      "sourcePageCheckedAt": "2026-10-16",
+      "sourceImageUrl": "https://erp.eco-harmony.net/public/admin/upload/ecom/food/1393519931.png",
+      "identityEvidence": "Operator cafe ordering page binds Toona Organic Brown Rice product photo and106AljuniedCres#01-205 in footer.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Enhance the attached Eco-Harmony operator rice photograph faithfully for a polished food gallery cover. Keep the same overhead view of the full round plate, original rice mound and the visible small orange and green pieces and herbs; preserve their quantities and placement. Improve natural soft light, neutral white balance, sharp rice texture and appetising realistic colour. Retain the plate's brown rim and clean white background. Do not add toppings, garnish, ingredients, side dishes, props or text.",
+        "review": "Overhead rice plate, brown rim and visible vegetable pieces retained."
+      }
+    },
+    {
+      "venueId": "research-metta-simei",
+      "address": "32 Simei Street 1, Level 1 Metta Building, Singapore 529950",
+      "photo": {
+        "path": "/api/catalogue-photos/e5261dec44c15c8614503a25b7a10b6c04a0f129308db6d737ac96f670de271b.jpg",
+        "width": 960,
+        "height": 960,
+        "author": "Metta Café / Metta Welfare Association",
+        "sourceUrl": "https://mettawelfareassociation-onlineshop.getz.co/?StoreID=4a3d59f0-1dfc-4ce5-b1cc-6b8046bfa747&Service=PickUp&lang=EN",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "e5261dec44c15c8614503a25b7a10b6c04a0f129308db6d737ac96f670de271b",
+      "bytes": 80306,
+      "originalSha256": "d0f0abc9738468f46d0a30c04d23f51f071581b6346c27e96f2efb82bacc245a",
+      "sourcePageCheckedAt": "2026-10-16",
+      "sourceImageUrl": "https://s3-ap-southeast-1.amazonaws.com/getz-prod/ae79b13d-61eb-4928-8476-fb38f2f143f6/2076227299_1.png",
+      "identityEvidence": "Operator exact StoreID ordering page and32SimeiStreet1 cafe association. Selected leftmost cookie gift bag from seasonal product photo. No current-stock or ingredient claim; not a venue interior.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Create a faithful close-up enhancement cropped from this operator photo: use ONLY the LEFTMOST transparent gift bag with the large star-shaped cookie, red ribbon and its original red Merry Christmas label. Exclude the other three bags by reframing, not by redesigning the selected product. Preserve the leftmost cookie's exact star shape, cellophane, red ribbon and printed label. Improve sharpness and soft studio lighting on a clean white background, with the complete selected bag centered vertically and comfortably inside the frame. No added contents, props, claims or invented lettering. This is the same packaged product, not a new product design.",
+        "review": "Selected a close-up of the original leftmost star-cookie gift bag. Other bags excluded by framing. Seasonal product reference, not a current-stock claim. First four-bag variant rejected because a second cookie shape changed."
+      }
+    }
+  ],
+  "newHours": [
+    {
+      "venueId": "research-warungijo-macpherson",
+      "address": "601 MacPherson Road #01-61 Grantral Mall Taiseng, Singapore 368242",
+      "hours": {
+        "summary": "Mon–Fri 11:00–15:00 · 17:00–21:00",
+        "schedule": [
+          "Monday–Friday: 11:00–15:00 and 17:00–21:00",
+          "Saturday–Sunday: 11:00–15:30 and 16:30–21:00"
+        ],
+        "notes": "Landlord tenant schedule. Delivery hours are separate; confirm holiday exceptions with the venue.",
+        "sourceUrl": "https://grantralmallsg.com/store/warung-ijo/",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Official mall tenant page explicitly binds WarungIjo unit01-61 and Macpherson mall. Distinct from general mall10–22 and operator ordering delivery slots. Web reader verified17Oct2026; direct HTTP capture failed, web indexed page accessible. Older secondary Monday closure/evening differences are retained in review notes."
+    }
+  ],
+  "googleLedger": {
+    "bytes": 1045377,
+    "sha256": "c7321dafaad0473583139494ca899501578892c5b71105429d3cd4dceb4f311a",
+    "requests": 2419,
+    "limit": 2500,
+    "remaining": 81
+  },
+  "sourceRights": "Source attribution and rights retained. User-requested enhancement does not establish an independent licence.",
+  "unresolved": "2,527 food holds,109zero-food research branches,1,828unnamed candidate IDs,8coordinate holds preserved; exact MakanVegan/SoonLai screenshot images unrecovered.",
+  "releaseEvidence": ".local/coverage-2026-10-17k/release.json",
+  "hoursReview": {
+    "checkedAt": "2026-10-17",
+    "acceptedVenueIds": [
+      "research-warungijo-macpherson"
+    ],
+    "sources": [
+      {
+        "url": "https://www.modhaircafe.com/contact-5",
+        "finding": "Schedule is beside salon phone62425055 and page title MOD Hair Salon. Cafe has different phone90495359; do not transfer schedule."
+      },
+      {
+        "url": "https://grantralmallsg.com/store/warung-ijo/",
+        "checkedAt": "2026-10-17",
+        "finding": "Official mall tenant page explicitly binds WarungIjo unit01-61 and Macpherson mall. Distinct from general mall10–22 and operator ordering delivery slots. Web reader verified17Oct2026; direct HTTP capture failed, web indexed page accessible. Older secondary Monday closure/evening differences are retained in review notes.",
+        "tenantSchedule": [
+          "Monday–Friday: 11:00–15:00 and 17:00–21:00",
+          "Saturday–Sunday: 11:00–15:30 and 16:30–21:00"
+        ],
+        "sourceAccess": "web reader; cached page crawled3daysago",
+        "secondaryConflicts": [
+          "https://www.findglocal.com/SG/Singapore/459607921462620/Warung-Ijo weekday evening16:30",
+          "Older2023review Mondayclosed; landlord explicitlyMonFri"
+        ]
+      }
+    ],
+    "photoHolds": [
+      {
+        "venueId": "research-lingzhi-palais",
+        "url": "https://www.lingzhi.com.sg/en/home",
+        "finding": "Site explicitly restricts derivative works and hosting; no cover promoted from this source."
+      },
+      {
+        "reference": "foyouyuan",
+        "finding": "Logo only, rejected as photo reference."
+      },
+      {
+        "reference": "mod-cafe",
+        "finding": "Decorative leaf-shadow background, rejected; actual dish reference selected."
+      },
+      {
+        "reference": "eco-harmony",
+        "finding": "Generic lifestyle coffee photo rejected; exact operator rice product selected."
+      },
+      {
+        "reference": "metta-cafe",
+        "finding": "Staff training photo, not selected for food gallery cover."
+      },
+      {
+        "reference": "metta-cake",
+        "finding": "Full and listed thumbnail image URLs unavailable; no substitution fabricated."
+      },
+      {
+        "reference": "warung-ijo-landlord",
+        "finding": "Tenant logo, not food/interior photograph; no generated cover."
+      }
+    ]
+  }
+}

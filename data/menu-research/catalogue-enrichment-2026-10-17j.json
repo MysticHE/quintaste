@@ -1,0 +1,324 @@
+{
+  "checkedAt": "2026-10-17",
+  "deployedRelease": "20261017-menu-covers13",
+  "goalStatus": "active",
+  "fullCoverageComplete": false,
+  "coverage": {
+    "browseVenues": 174,
+    "menuIds": 175,
+    "covers": 83,
+    "hours": 89,
+    "uniqueAssets": 62,
+    "assetBytes": 8365530,
+    "coverGaps": 91,
+    "hoursGaps": 85,
+    "allThreeAvailable": 55,
+    "catalogueIndexBytes": 158903
+  },
+  "newPhotos": [
+    {
+      "venueId": "research-saute-san-city-square",
+      "address": "180 Kitchener Road, #03-23/24 City Square Mall, Singapore 208539",
+      "photo": {
+        "path": "/api/catalogue-photos/1468adea0cf32fcfcf03e97180dbf2fab2a81d6466514f6dc56e58f0a69e53eb.jpg",
+        "width": 960,
+        "height": 738,
+        "author": "Sauté Singapore",
+        "sourceUrl": "https://www.saute.com.sg/saute-san-menu",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "1468adea0cf32fcfcf03e97180dbf2fab2a81d6466514f6dc56e58f0a69e53eb",
+      "bytes": 185830,
+      "originalSha256": "2c88dcb4c4975b8abd114932c6ea3cfdc6b201246c0c0c20ba222d13f81019ef",
+      "sourcePageCheckedAt": "2026-10-16",
+      "sourceImageUrl": "https://static.wixstatic.com/media/6145ca_20cea1da7b4049adaf59728a5780a5ff~mv2.jpg",
+      "identityEvidence": "Exact operator concept/menu page binds this hero image to the branch address and existing hours.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Enhance this exact Sauté-san operator food photograph for a polished restaurant gallery cover. Edit target: attached photo. Preserve every existing dish, serving quantity, plate, prop, placement and food identity: central golden mushroom dish in white handled plate, upper-right mushroom pasta, bottom gyoza, side bowls. Improve natural soft light, balanced warm colours, sharp food texture and professional presentation without adding or removing ingredients, dishes, signage or claims. Keep photographic realism and the existing composition; no text or badges. The image will be cropped within a card, so retain the central subject clearly.",
+        "review": "Central mushroom dish, pasta, gyoza and original table setting retained; stronger natural clarity."
+      }
+    },
+    {
+      "venueId": "research-saute-flavours-funan",
+      "address": "107 North Bridge Road, #B1-30 Funan, Singapore 179105",
+      "photo": {
+        "path": "/api/catalogue-photos/4ac0b0f665ed67cf473590e81a1513ef9eae3b42395f68e0167045f33e7e6483.jpg",
+        "width": 960,
+        "height": 480,
+        "author": "Sauté Singapore",
+        "sourceUrl": "https://www.saute.com.sg/flavours-menu",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "4ac0b0f665ed67cf473590e81a1513ef9eae3b42395f68e0167045f33e7e6483",
+      "bytes": 134193,
+      "originalSha256": "c2ef76826966d2061d51acb5db9cb9b1f438b8f72ccb40dd59005af35639def8",
+      "sourcePageCheckedAt": "2026-10-16",
+      "sourceImageUrl": "https://static.wixstatic.com/media/6145ca_346a800cd581401189afca3897216d18~mv2.png",
+      "identityEvidence": "Exact operator concept/menu page binds this hero image to the branch address and existing hours.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Enhance this exact Flavours by Sauté operator photograph as a polished gallery cover. Preserve the overhead composition and all existing dishes, amounts, plates, drinks and utensils, especially the central vegetable hotpot, mushroom golden dish, curry, pasta and dessert. Natural appetising light, balanced colours, refined contrast and clearer texture only. Do not invent ingredients, add dishes, change food identities, add branding, text or claims. Keep the wide photographic layout and white table background faithful to the reference.",
+        "review": "Overhead spread and individual dishes retained; no new dish claims."
+      }
+    },
+    {
+      "venueId": "research-saute-sushi-paya-lebar-square",
+      "address": "60 Paya Lebar Road, #B1-19 Paya Lebar Square, Singapore 409051",
+      "photo": {
+        "path": "/api/catalogue-photos/e6e86c367c5aa57ef8c7dfb6b8f0454e1b137a4faafb0e697cbf8a774dfafea5.jpg",
+        "width": 960,
+        "height": 1048,
+        "author": "Sauté Singapore",
+        "sourceUrl": "https://www.saute.com.sg/saute-sushi-menu",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "e6e86c367c5aa57ef8c7dfb6b8f0454e1b137a4faafb0e697cbf8a774dfafea5",
+      "bytes": 273648,
+      "originalSha256": "170e7724d1b4ba960c446fb971b7abb1be90e5197f0dfa72aaddb95df43f7185",
+      "sourcePageCheckedAt": "2026-10-16",
+      "sourceImageUrl": "https://static.wixstatic.com/media/6145ca_ea798b705eb348bd87c6ee623a497ca8~mv2.jpg",
+      "identityEvidence": "Exact operator concept/menu page binds this hero image to the branch address and existing hours.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance this Sauté Sushi operator photograph for a restaurant gallery cover. Preserve the portrait composition, pink and turquoise tabletop, all sushi pieces, central soup bowl, skewers, plates, props and two partially visible hands with their original actions. Refine lighting, clarity, food texture and balanced colour for an attractive professional photograph. Do not add foods or ingredients, change serving amounts, transform vegetarian substitutes into meat/fish, or add words, labels or claims. Keep all objects and layout closely faithful.",
+        "review": "Pink/turquoise table, sushi spread, central soup, skewers and hands retained."
+      }
+    },
+    {
+      "venueId": "research-saute-saranghae-tampines-one",
+      "address": "10 Tampines Central 1, #05-08/09 Tampines 1, Singapore 529536",
+      "photo": {
+        "path": "/api/catalogue-photos/5fd9058ccbd47c502dfcf599aeedd57e1e9d050b341ac4332a71fb9c70f86ca3.jpg",
+        "width": 960,
+        "height": 540,
+        "author": "Sauté Singapore",
+        "sourceUrl": "https://www.saute.com.sg/saute-saranghae-menu",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "5fd9058ccbd47c502dfcf599aeedd57e1e9d050b341ac4332a71fb9c70f86ca3",
+      "bytes": 144937,
+      "originalSha256": "873d755a44d1b16fbae85929f973b4f60f0eb33b873ef930d31f11cee279dd71",
+      "sourcePageCheckedAt": "2026-10-16",
+      "sourceImageUrl": "https://static.wixstatic.com/media/6145ca_2718a214654144cb8e03f88da495f5fb~mv2.jpg",
+      "identityEvidence": "Exact operator concept/menu page binds this hero image to the branch address and existing hours.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Enhance the attached Sauté Saranghae operator photograph for a polished gallery cover. Preserve its exact wide tabletop composition, existing dishes, portions, tableware and props: central grey bowl of noodles, golden soup pot at lower left, stone rice bowl at top, omelette slices, pizza edge and side dishes. Improve natural light, appetising realistic colour, clarity and texture. No added ingredients, dishes, props, labels, words or health/diet claims. Keep the foods and arrangements faithful; this is photographic enhancement of the provided image.",
+        "review": "Original Korean-style spread and pots retained; enhanced clarity and light."
+      }
+    },
+    {
+      "venueId": "research-mother-earth-classic-balestier",
+      "address": "530 Balestier Road #01-06, 329857, Singapore",
+      "photo": {
+        "path": "/api/catalogue-photos/40f339255c94380e8bb8002cc2ebcadf2e7c1d9c13edef0fa8e41167ebcbbe3a.jpg",
+        "width": 960,
+        "height": 639,
+        "author": "Mother Earth Vegetarian Restaurant",
+        "sourceUrl": "https://motherearthclassic.getz.co/Category?StoreID=ecac78cf-3087-4f39-a1a3-97825f0e1d84&Service=PickUp&lang=EN",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "40f339255c94380e8bb8002cc2ebcadf2e7c1d9c13edef0fa8e41167ebcbbe3a",
+      "bytes": 41708,
+      "originalSha256": "f328945d11876fc84a98a5c7988797dcf69371cfb3be53c8029e8128cb1d4d0c",
+      "sourcePageCheckedAt": "2026-10-16",
+      "sourceImageUrl": "https://s3-ap-southeast-1.amazonaws.com/getz-prod/33329a1f-0021-483b-9375-cb92ad7f0d5d/856601908_400888350sichuangetz.jpeg",
+      "identityEvidence": "Exact operator ordering page and StoreID bind this product image to the reviewed branch/address; no current availability or ingredient inference.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance the attached Mother Earth Classic operator food reference into a clear, elegant restaurant gallery photograph. Preserve the same small white ceramic soup vessel, white saucer, lid placed on its right, reddish soup and the visible pale slices, small mushroom-like strands and green garnish exactly as shown. Maintain the light marble background and framing. Improve resolution, soft natural light, focus and restrained colour without adding ingredients, extra dishes, props or text. Do not infer food ingredients that are unclear; retain their visible shapes.",
+        "review": "White soup vessel, reddish soup, pale slices, garnish, saucer and right-side lid retained; unclear ingredients not asserted."
+      }
+    },
+    {
+      "venueId": "research-mother-earth-jurong",
+      "address": "511 Upper Jurong Road #01-04, 638366, Singapore",
+      "photo": {
+        "path": "/api/catalogue-photos/676597cb76584ac8520fe43b3ef45a3deaf679005f674e556e3d2dc1e248cfca.jpg",
+        "width": 960,
+        "height": 640,
+        "author": "Mother Earth Vegetarian Restaurant",
+        "sourceUrl": "https://motherearthjurong.getz.co/Category?StoreID=4453f177-c0cc-4153-8feb-f9016289cb4c&Service=PickUp&lang=EN",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "676597cb76584ac8520fe43b3ef45a3deaf679005f674e556e3d2dc1e248cfca",
+      "bytes": 94914,
+      "originalSha256": "06578ca5e101e363a98f9176666ebee4a39631ec360d6b2464494b56fb475fe7",
+      "sourcePageCheckedAt": "2026-10-16",
+      "sourceImageUrl": "https://s3-ap-southeast-1.amazonaws.com/getz-prod/9438834e-27af-47df-aedd-2d9e6b1ae3e9/1957032425_satayplattergetz.jpg",
+      "identityEvidence": "Exact operator ordering page and StoreID bind this product image to the reviewed branch/address; no current availability or ingredient inference.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Enhance this exact Mother Earth Jurong operator food photo for a polished restaurant gallery cover. Keep the original woven platter with its green rim and banana leaf, every vegetarian skewer, the sauce vessel, cucumber arrangement and existing pale accompaniments, with the same amounts, placement and framing. Improve natural soft lighting, realistic texture, clarity and appetising colour without inventing ingredients, extra food, branding, text or decorations. Preserve the light tabletop and photographic appearance.",
+        "review": "Woven platter, skewers, sauce and accompaniments retained; no ingredient or availability claims."
+      }
+    },
+    {
+      "venueId": "dlife-signature-chinatown-point",
+      "address": "133 New Bridge Road #02-37, Chinatown Point, Singapore 059413",
+      "photo": {
+        "path": "/api/catalogue-photos/9c9178ec3c8a61cb28ee270a5c672f1c0edfc4d5bc3480ac874b2e643d9a037a.jpg",
+        "width": 960,
+        "height": 640,
+        "author": "D’Life Signature",
+        "sourceUrl": "https://dlifesignature.getz.co/",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "9c9178ec3c8a61cb28ee270a5c672f1c0edfc4d5bc3480ac874b2e643d9a037a",
+      "bytes": 62937,
+      "originalSha256": "3100a727cf16da38038c12000c95c07c33d6a905a8fe1e25a1bc35511819985b",
+      "sourcePageCheckedAt": "2026-10-16",
+      "sourceImageUrl": "https://s3-ap-southeast-1.amazonaws.com/getz-prod/087154cb-19c5-4bad-9de2-1409d030d39d/1390504480_FragrantYamRing.jpg",
+      "identityEvidence": "Exact operator ordering page and StoreID bind this product image to the reviewed branch/address; no current availability or ingredient inference.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Enhance this exact D'Life Signature operator food photograph for a polished restaurant gallery. Preserve the golden cylindrical yam ring, its visible vegetables and pale pieces, surrounding crispy white strands, small existing garnish, the white square wavy-edged plate and clean pale background. Refine lighting, clarity and realistic food texture; preserve the original portion, composition and ingredients as visibly shown. Do not add dishes, infer unknown ingredients, add props, labels or text. Keep a faithful appetising photographic result.",
+        "review": "Yam ring on wavy square plate with same visible vegetables and crispy strands retained."
+      }
+    },
+    {
+      "venueId": "research-ur15-conut-haji",
+      "address": "2 Haji Lane #01-01, Singapore 189195",
+      "photo": {
+        "path": "/api/catalogue-photos/4cb8a626d885fe09291b21de799576be823164aa0258cea40362d5724c74d6a6.jpg",
+        "width": 960,
+        "height": 960,
+        "author": "Co+Nut+Ink",
+        "sourceUrl": "https://conutink.com/browse-all-products/",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "4cb8a626d885fe09291b21de799576be823164aa0258cea40362d5724c74d6a6",
+      "bytes": 87262,
+      "originalSha256": "fa760fee66ca71fc51c51ea8f82c1c31ad4d02aea9afe810759b3491f94be8ce",
+      "sourcePageCheckedAt": "2026-10-16",
+      "sourceImageUrl": "https://conutink.com/wp-content/uploads/2025/06/Signature-Classic-Free-Coconut-Water-Husk.png",
+      "identityEvidence": "Official brand product image. Operator find-us page independently confirms exact Haji Lane or Marriott Tang Plaza address. Shared product cover, not a branch interior or availability claim. https://conutink.com/find-us/ checked2026-10-16.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance this exact Co+Nut+Ink operator product image. Preserve the coconut half-shell with its single white scoop, existing branded flag and wooden spoon, and the adjacent tall white branded cup, with the same proportions and layout. Improve resolution, soft natural lighting and realistic coconut/ice-cream texture. Keep existing branding accurately; do not invent wording, toppings, ingredients or props. Preserve the original transparent cutout boundary and transparency. It is a product cover, not a depiction of any branch interior.",
+        "review": "Single scoop in coconut husk, adjacent cup, flag and wooden spoon retained. Product image shared by verified brand branches; not interior photography. Transparent original retained; JPEG uses white delivery background."
+      }
+    },
+    {
+      "venueId": "research-ur15-conut-marriott",
+      "address": "310 Orchard Road #01-K2, Singapore 238864",
+      "photo": {
+        "path": "/api/catalogue-photos/4cb8a626d885fe09291b21de799576be823164aa0258cea40362d5724c74d6a6.jpg",
+        "width": 960,
+        "height": 960,
+        "author": "Co+Nut+Ink",
+        "sourceUrl": "https://conutink.com/browse-all-products/",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "4cb8a626d885fe09291b21de799576be823164aa0258cea40362d5724c74d6a6",
+      "bytes": 87262,
+      "originalSha256": "fa760fee66ca71fc51c51ea8f82c1c31ad4d02aea9afe810759b3491f94be8ce",
+      "sourcePageCheckedAt": "2026-10-16",
+      "sourceImageUrl": "https://conutink.com/wp-content/uploads/2025/06/Signature-Classic-Free-Coconut-Water-Husk.png",
+      "identityEvidence": "Official brand product image. Operator find-us page independently confirms exact Haji Lane or Marriott Tang Plaza address. Shared product cover, not a branch interior or availability claim. https://conutink.com/find-us/ checked2026-10-16.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance this exact Co+Nut+Ink operator product image. Preserve the coconut half-shell with its single white scoop, existing branded flag and wooden spoon, and the adjacent tall white branded cup, with the same proportions and layout. Improve resolution, soft natural lighting and realistic coconut/ice-cream texture. Keep existing branding accurately; do not invent wording, toppings, ingredients or props. Preserve the original transparent cutout boundary and transparency. It is a product cover, not a depiction of any branch interior.",
+        "review": "Single scoop in coconut husk, adjacent cup, flag and wooden spoon retained. Product image shared by verified brand branches; not interior photography. Transparent original retained; JPEG uses white delivery background."
+      }
+    }
+  ],
+  "newHours": [],
+  "googleLedger": {
+    "bytes": 1045377,
+    "sha256": "c7321dafaad0473583139494ca899501578892c5b71105429d3cd4dceb4f311a",
+    "requests": 2419,
+    "limit": 2500,
+    "remaining": 81
+  },
+  "sourceRights": "Source attribution and rights retained. User-requested enhancement does not establish an independent licence.",
+  "unresolved": "2,527 food holds,109zero-food research branches,1,828unnamed candidate IDs,8coordinate holds preserved; exact MakanVegan/SoonLai screenshot images unrecovered.",
+  "releaseEvidence": ".local/coverage-2026-10-17j/release.json",
+  "hoursReview": {
+    "checkedAt": "2026-10-17",
+    "acceptedVenueIds": [],
+    "sources": [
+      {
+        "url": "https://www.chope.co/singapore-restaurants/restaurant/mother-earth-vegetarian-restaurant",
+        "finding": "Hours conflict with other listings; no operator-linked confirmation. Hold retained."
+      },
+      {
+        "url": "https://motherearthjurong.getz.co/",
+        "finding": "Pickup slots are not assumed to be dine-in opening hours."
+      },
+      {
+        "url": "https://orchardgateway.sg/",
+        "finding": "Public site map data returned no DLife schedule; tenant list requires authentication. No credentials used; hold retained."
+      },
+      {
+        "url": "https://leafcorner.sg/contactus",
+        "finding": "All three exact branch addresses confirmed; operator page has no schedule. Hours held."
+      },
+      {
+        "url": "https://kindkones.com/pages/locations",
+        "finding": "Operator Forum unit B1-17 conflicts with current landlord B1-27/K1, and listed hours differ from secondary sources. Hold retained pending exact-unit resolution."
+      }
+    ],
+    "photoHolds": [
+      {
+        "reference": "conut-classic",
+        "finding": "Packaged tub alternate not selected; operator husk product used instead."
+      }
+    ]
+  }
+}

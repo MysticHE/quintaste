@@ -1,0 +1,10 @@
+{
+  "stateChecks": "20 vegetarian options; removed tags unchecked; ascending/descending prices correct",
+  "screenshots": [
+    "C:/Users/huien/QT/quintaste/.impeccable/review/market-veg-sort-320.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/market-veg-sort-375.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/market-veg-sort-filters.png"
+  ],
+  "errors": [],
+  "passed": true
+}

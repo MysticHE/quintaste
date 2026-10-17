@@ -1,0 +1,12 @@
+{
+  "passed": 7,
+  "checks": [
+    "Oversized listing merge rejects atomically",
+    "Oversized thread merge preserves inventory history by rejecting",
+    "Merged photos cannot bypass global storage budget",
+    "Under-budget merge deduplicates records and preserves profile precedence",
+    "Reservation, cancellation and completion retain correct inventory",
+    "Delete removes listing photos and saves while retaining final history",
+    "Publishing checks actual calendar dates, food condition and photos"
+  ]
+}

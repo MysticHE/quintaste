@@ -1,0 +1,13 @@
+{
+  "checkedAt": "2026-10-15T02:23:11.494Z",
+  "disposition": "ship",
+  "reviewer": "market_redesign_review",
+  "fallback": "TypeScript reviewer substituted for named Impeccable finish reviewer, continued scoped review",
+  "scope": "Supplied browser captures and changed source only",
+  "captureValidity": "All14 named screenshots opened; valid intended states.",
+  "fidelity": "Default browse, no Buy/Sell selector or Preview badge; My Listing beside Filters; creation via floating plus only on My Listing.",
+  "craftFloor": "No material findings across four captured widths, dark and enlarged text.56-unit FAB clear of dock in populated/empty owner screens.",
+  "interactionEvidence": "19 Playwright checks,0 errors,0 scoped Buy light/dark axe violations with contrast/name incompletes. Parent typecheck/lint exit0. Route/history/shared Screen source reviewed; feedback banner and keyboard behavior source-only.",
+  "materialFindings": [],
+  "remaining": "Native appearance, keyboard, gestures and full accessibility acceptance outstanding."
+}

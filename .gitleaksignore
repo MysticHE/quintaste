@@ -1,0 +1,17 @@
+# Reviewed false positives (17 Oct 2026): public research data such as Foodpanda URL slugs, Google place IDs,
+# operator image identifiers, internal approval hashes and status text. Not credentials.
+data/menu-research/catalogue-enrichment-2026-10-17q.json:generic-api-key:522
+data/menu-research/catalogue-enrichment-2026-10-17q.json:generic-api-key:541
+data/menu-research/catalogue-enrichment-2026-10-17q.json:generic-api-key:579
+data/menu-research/catalogue-enrichment-2026-10-17q.json:generic-api-key:637
+data/menu-research/catalogue-enrichment-2026-10-17q.json:generic-api-key:675
+data/menu-research/catalogue-enrichment-2026-10-17q.json:generic-api-key:695
+data/menu-research/catalogue-enrichment-2026-10-17q.json:generic-api-key:867
+data/menu-research/catalogue-enrichment-2026-10-17q.json:generic-api-key:944
+data/menu-research/catalogue-enrichment-2026-10-17u.json:generic-api-key:313
+data/menu-research/directory-leads-matches.json:generic-api-key:767
+data/menu-research/directory-leads-matches.json:generic-api-key:819
+data/menu-research/menu-item-source-register.json:generic-api-key:1
+data/menu-research/menu-reference-review-18-2026-10-16.json:generic-api-key:57536
+data/menu-research/menu-source-leads-matches.json:generic-api-key:136
+data/menu-research/qt-full-menu-audit-2026-10-17.json:generic-api-key:60

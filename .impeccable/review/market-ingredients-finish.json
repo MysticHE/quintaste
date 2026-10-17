@@ -1,0 +1,30 @@
+{
+  "disposition": "ship",
+  "scope": "Ingredient posting/filter and centered-FAB refinement: browser captures and source only",
+  "reviewer": "market_redesign_review (fresh finish-reviewer fallback)",
+  "captureValidity": "All nine captures opened; editor, detail and enlarged text are intentional scrolled sections. Label images are synthetic isolated QA fixtures.",
+  "fidelity": "Centered 56px FAB above measured dock; compact natural card name height; mandatory ingredient text, label photo and checked declarations grouped; independent eggs and dairy exclusions.",
+  "craftFloor": "No material visual findings in supplied captures.",
+  "interactionEvidence": {
+    "browser": 18,
+    "state": 9,
+    "errors": 0,
+    "typecheckExit": 0,
+    "lintExit": 0,
+    "axeViolations": 0,
+    "axeIncomplete": [
+      "color-contrast",
+      "label-content-name-mismatch"
+    ]
+  },
+  "resolved": [
+    "Universal evidence eligibility with incomplete samples excluded",
+    "Explicit 5000-character overflow validation; sanitation clears review",
+    "S$ currency summary",
+    "Live validation clears corrected field errors"
+  ],
+  "limitations": [
+    "Isolated browser QA with explicitly labelled synthetic photo fixtures. No real listings or messages.",
+    "Physical device camera, permissions and native layout remain unverified."
+  ]
+}

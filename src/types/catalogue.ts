@@ -1,0 +1,36 @@
+import type { MenuSummary } from "./menus";
+import type { SearchPoint } from "./location-search";
+
+export type CataloguePhoto = {
+  path: string; width: number; height: number; author: string;
+  sourceUrl: string; license: string; licenseUrl: string | null;
+  capturedAt: string | null; checkedAt: string; changes: string;
+  provider?: "Google Maps";
+};
+
+export type CatalogueHours = {
+  summary: string;
+  schedule: string[];
+  notes: string;
+  sourceUrl: string;
+  checkedAt: string;
+  timezone: "Asia/Singapore";
+};
+
+export type CatalogueVenue = MenuSummary & {
+  point: SearchPoint | null;
+  distanceKm?: number;
+  venueDiet: "Vegetarian" | "Vegan";
+  alliumFreeClaim: boolean;
+  photo?: CataloguePhoto;
+  hours?: CatalogueHours;
+  research?: { sourceUrls: string[]; notes: string[]; checkedAt: string };
+};
+export type CataloguePage = {
+  version: 1;
+  revision: string;
+  venues: CatalogueVenue[];
+  nextCursor: string | null;
+  total: number;
+  locationGaps: number;
+};

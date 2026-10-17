@@ -1,0 +1,35 @@
+{
+  "verdict": {
+    "scope": "Scoring-only follow-up for F01 and F02 in the protected local web catalogue. No new audit, screenshot hunt, browser, capture, server or Chrome use.",
+    "captures_reopened": 11,
+    "F01": {
+      "status": "resolved",
+      "evidence": [
+        ".impeccable/review/pilot-catalogue-mobile-320.png",
+        ".impeccable/review/pilot-catalogue-mobile-375.png",
+        ".impeccable/review/pilot-catalogue-tablet-768.png",
+        ".impeccable/review/pilot-catalogue-desktop-1440.png",
+        ".impeccable/review/pilot-catalogue-dark-375.png",
+        ".impeccable/review/pilot-catalogue-validation.json"
+      ],
+      "assessment": "The focused light recaptures now show one rounded coral perimeter around the complete search field with no inner black rectangle. Icon/text geometry remains intact. The supplied current validation records inner outlineStyle solid with outlineWidth 0px, an 18px rounded themed parent and the passing keyboard journey. The shared semantic parent treatment retains focus visibility; the dark rest-state capture remains consistent.",
+      "regression_result": "No fix-introduced visual regression observed in the eleven recaptures. Current proof reports seven bounds checks with minimum 48-unit targets and no overflow, five scoped axe surfaces with zero violations, and zero page errors."
+    },
+    "F02": {
+      "status": "resolved",
+      "evidence": [
+        "PRODUCT.md:197",
+        "PRODUCT.md:202",
+        ".impeccable/surfaces/discovery.md:80",
+        ".impeccable/surfaces/discovery.md:85",
+        "docs/PILOT_CATALOGUE.md"
+      ],
+      "assessment": "The product and discovery contracts now explicitly state that the protected local pilot research import exists. The pilot document reconciles the initial six-branch/twenty-item batch and the next authorized six-branch/twenty-eight-item batch, yielding twelve branches, eleven menu records, forty-eight selected dish records and fifty-six source records. Current recaptures visibly show 12 places, 48 menu items and 56 sources.",
+      "historical_boundary": "The pilot documentation identifies the initial API/browser/inventory reports as historical and states that the reused screenshot paths now contain the current 12/48/56 recaptures. The original finish review remains historical for its initial batch; current screenshots are not relabelled as 6/20.",
+      "scope_boundary": "Persisted language keeps source review separate from publication, full menus, current availability, complete ingredients and suitability confirmation. Consumer catalogue/offline integration and production acceptance remain separate gates."
+    },
+    "limits": "Ship applies only to these two resolved findings and the supplied local web/source evidence. Native physical appearance and touch/keyboard/assistive behavior, full-app accessibility, Core Web Vitals and production acceptance remain unverified."
+  },
+  "remaining": [],
+  "disposition": "ship"
+}

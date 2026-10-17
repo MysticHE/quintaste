@@ -1,0 +1,510 @@
+{
+  "checks": [
+    "Only visible card photos load initially",
+    "Card midpoint fade, 1px blur, divider, adjacent footer and single-line text at 375",
+    "Maps source is an independent keyboard target",
+    "Details omit helper paragraphs, menu/evidence/private-note sections and photo buttons",
+    "Keyboard advances the gallery and updates matching photo attribution",
+    "Horizontal gallery scrolling selects the third image and credits",
+    "Returning to gallery photos reuses their bytes; navigation stays within bounds",
+    "Photo opens full view with attribution and no extra download",
+    "Save action still toggles",
+    "Share panel contains public share data and actions without helper copy",
+    "Gallery width and equal side-by-side feedback targets at 320",
+    "Gallery width and equal side-by-side feedback targets at 375",
+    "Gallery width and equal side-by-side feedback targets at 768",
+    "Gallery width and equal side-by-side feedback targets at 1440",
+    "Correction and report open the existing form with correct intent and venue",
+    "Card midpoint fade, 1px blur, divider, adjacent footer and single-line text at 320",
+    "Card midpoint fade, 1px blur, divider, adjacent footer and single-line text at 768",
+    "Card midpoint fade, 1px blur, divider, adjacent footer and single-line text at 1440",
+    "Card and gallery targeted axe scans have no definite violations",
+    "No-photo detail response retains the usable layout without an empty gallery"
+  ],
+  "calls": [
+    "http://localhost:8083/api/place-photo?fixture=0&photo=0&generation=1",
+    "http://localhost:8083/api/place-photo?fixture=1&photo=0&generation=1",
+    "http://localhost:8083/api/place-photo?fixture=2&photo=0&generation=1",
+    "http://localhost:8083/api/place-photo?fixture=0&photo=1&generation=1",
+    "http://localhost:8083/api/place-photo?fixture=0&photo=2&generation=1",
+    "http://localhost:8083/api/place-photo?fixture=0&photo=1&generation=1",
+    "http://localhost:8083/api/place-photo?fixture=0&photo=2&generation=1",
+    "http://localhost:8083/api/place-photo?fixture=0&photo=1&generation=1",
+    "http://localhost:8083/api/place-photo?fixture=0&photo=2&generation=1",
+    "http://localhost:8083/api/place-photo?fixture=3&photo=0&generation=1"
+  ],
+  "errors": [],
+  "screenshots": [
+    "C:/Users/huien/QT/quintaste/.impeccable/review/clean-detail-explore-375.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/clean-detail-details-375.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/clean-detail-feedback-320.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/clean-detail-details-320.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/clean-detail-feedback-375.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/clean-detail-feedback-768.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/clean-detail-details-768.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/clean-detail-feedback-1440.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/clean-detail-details-1440.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/clean-detail-details-375-dark.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/clean-detail-feedback-375-dark.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/clean-detail-explore-320.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/clean-detail-explore-768.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/clean-detail-explore-1440.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/clean-detail-explore-375-dark.png"
+  ],
+  "layouts": [
+    {
+      "screen": "card",
+      "width": 375,
+      "card": {
+        "x": 4,
+        "y": 150,
+        "width": 367,
+        "height": 225
+      },
+      "title": {
+        "x": 14,
+        "y": 248,
+        "width": 347,
+        "height": 24
+      },
+      "blur": {
+        "x": 6,
+        "y": 260,
+        "width": 363,
+        "height": 113
+      },
+      "blend": {
+        "x": 6,
+        "y": 260,
+        "width": 363,
+        "height": 113
+      },
+      "divider": {
+        "x": 14,
+        "y": 314,
+        "width": 347,
+        "height": 1
+      },
+      "rating": {
+        "x": 119.703125,
+        "y": 292,
+        "width": 148.78125,
+        "height": 16
+      },
+      "hours": {
+        "x": 32,
+        "y": 333,
+        "width": 116.859375,
+        "height": 16
+      },
+      "source": {
+        "x": 156.859375,
+        "y": 317,
+        "width": 86.4375,
+        "height": 48
+      },
+      "rows": [
+        {
+          "id": "place-card-name",
+          "h": 24,
+          "whiteSpace": "nowrap",
+          "overflow": "ellipsis"
+        },
+        {
+          "id": "place-card-address",
+          "h": 16,
+          "whiteSpace": "nowrap",
+          "overflow": "ellipsis"
+        },
+        {
+          "id": "place-card-distance",
+          "h": 16,
+          "whiteSpace": "nowrap",
+          "overflow": "ellipsis"
+        },
+        {
+          "id": "place-card-rating",
+          "h": 16,
+          "whiteSpace": "nowrap",
+          "overflow": "ellipsis"
+        },
+        {
+          "id": "place-card-hours",
+          "h": 16,
+          "whiteSpace": "nowrap",
+          "overflow": "ellipsis"
+        }
+      ],
+      "blurFilter": "blur(1px)"
+    },
+    {
+      "screen": "detail",
+      "width": 320,
+      "gallery": {
+        "x": 8,
+        "y": 140,
+        "width": 304,
+        "height": 268.875
+      },
+      "feedback": [
+        {
+          "x": 8,
+          "y": 661.875,
+          "width": 147,
+          "height": 52
+        },
+        {
+          "x": 165,
+          "y": 661.875,
+          "width": 147,
+          "height": 52
+        }
+      ]
+    },
+    {
+      "screen": "detail",
+      "width": 375,
+      "gallery": {
+        "x": 8,
+        "y": 112,
+        "width": 359,
+        "height": 299.4375
+      },
+      "feedback": [
+        {
+          "x": 8,
+          "y": 662.4375,
+          "width": 174.5,
+          "height": 52
+        },
+        {
+          "x": 192.5,
+          "y": 662.4375,
+          "width": 174.5,
+          "height": 52
+        }
+      ]
+    },
+    {
+      "screen": "detail",
+      "width": 768,
+      "gallery": {
+        "x": 15,
+        "y": 89,
+        "width": 738,
+        "height": 510
+      },
+      "feedback": [
+        {
+          "x": 15,
+          "y": 869,
+          "width": 364,
+          "height": 52
+        },
+        {
+          "x": 389,
+          "y": 869,
+          "width": 364,
+          "height": 52
+        }
+      ]
+    },
+    {
+      "screen": "detail",
+      "width": 1440,
+      "gallery": {
+        "x": 349,
+        "y": 89,
+        "width": 742,
+        "height": 512.21875
+      },
+      "feedback": [
+        {
+          "x": 349,
+          "y": 869.21875,
+          "width": 366,
+          "height": 52
+        },
+        {
+          "x": 725,
+          "y": 869.21875,
+          "width": 366,
+          "height": 52
+        }
+      ]
+    },
+    {
+      "screen": "card",
+      "width": 320,
+      "card": {
+        "x": 4,
+        "y": 150,
+        "width": 312,
+        "height": 225
+      },
+      "title": {
+        "x": 14,
+        "y": 248,
+        "width": 292,
+        "height": 24
+      },
+      "blur": {
+        "x": 6,
+        "y": 260,
+        "width": 308,
+        "height": 113
+      },
+      "blend": {
+        "x": 6,
+        "y": 260,
+        "width": 308,
+        "height": 113
+      },
+      "divider": {
+        "x": 14,
+        "y": 314,
+        "width": 292,
+        "height": 1
+      },
+      "rating": {
+        "x": 119.703125,
+        "y": 292,
+        "width": 148.78125,
+        "height": 16
+      },
+      "hours": {
+        "x": 32,
+        "y": 333,
+        "width": 116.859375,
+        "height": 16
+      },
+      "source": {
+        "x": 156.859375,
+        "y": 317,
+        "width": 86.4375,
+        "height": 48
+      },
+      "rows": [
+        {
+          "id": "place-card-name",
+          "h": 24,
+          "whiteSpace": "nowrap",
+          "overflow": "ellipsis"
+        },
+        {
+          "id": "place-card-address",
+          "h": 16,
+          "whiteSpace": "nowrap",
+          "overflow": "ellipsis"
+        },
+        {
+          "id": "place-card-distance",
+          "h": 16,
+          "whiteSpace": "nowrap",
+          "overflow": "ellipsis"
+        },
+        {
+          "id": "place-card-rating",
+          "h": 16,
+          "whiteSpace": "nowrap",
+          "overflow": "ellipsis"
+        },
+        {
+          "id": "place-card-hours",
+          "h": 16,
+          "whiteSpace": "nowrap",
+          "overflow": "ellipsis"
+        }
+      ],
+      "blurFilter": "blur(1px)"
+    },
+    {
+      "screen": "card",
+      "width": 768,
+      "card": {
+        "x": 11,
+        "y": 155,
+        "width": 746,
+        "height": 225
+      },
+      "title": {
+        "x": 21,
+        "y": 253,
+        "width": 726,
+        "height": 24
+      },
+      "blur": {
+        "x": 13,
+        "y": 265,
+        "width": 742,
+        "height": 113
+      },
+      "blend": {
+        "x": 13,
+        "y": 265,
+        "width": 742,
+        "height": 113
+      },
+      "divider": {
+        "x": 21,
+        "y": 319,
+        "width": 726,
+        "height": 1
+      },
+      "rating": {
+        "x": 126.703125,
+        "y": 297,
+        "width": 148.78125,
+        "height": 16
+      },
+      "hours": {
+        "x": 39,
+        "y": 338,
+        "width": 116.859375,
+        "height": 16
+      },
+      "source": {
+        "x": 163.859375,
+        "y": 322,
+        "width": 86.4375,
+        "height": 48
+      },
+      "rows": [
+        {
+          "id": "place-card-name",
+          "h": 24,
+          "whiteSpace": "nowrap",
+          "overflow": "ellipsis"
+        },
+        {
+          "id": "place-card-address",
+          "h": 16,
+          "whiteSpace": "nowrap",
+          "overflow": "ellipsis"
+        },
+        {
+          "id": "place-card-distance",
+          "h": 16,
+          "whiteSpace": "nowrap",
+          "overflow": "ellipsis"
+        },
+        {
+          "id": "place-card-rating",
+          "h": 16,
+          "whiteSpace": "nowrap",
+          "overflow": "ellipsis"
+        },
+        {
+          "id": "place-card-hours",
+          "h": 16,
+          "whiteSpace": "nowrap",
+          "overflow": "ellipsis"
+        }
+      ],
+      "blurFilter": "blur(1px)"
+    },
+    {
+      "screen": "card",
+      "width": 1440,
+      "card": {
+        "x": 345,
+        "y": 155,
+        "width": 750,
+        "height": 225
+      },
+      "title": {
+        "x": 355,
+        "y": 253,
+        "width": 730,
+        "height": 24
+      },
+      "blur": {
+        "x": 347,
+        "y": 265,
+        "width": 746,
+        "height": 113
+      },
+      "blend": {
+        "x": 347,
+        "y": 265,
+        "width": 746,
+        "height": 113
+      },
+      "divider": {
+        "x": 355,
+        "y": 319,
+        "width": 730,
+        "height": 1
+      },
+      "rating": {
+        "x": 460.703125,
+        "y": 297,
+        "width": 148.78125,
+        "height": 16
+      },
+      "hours": {
+        "x": 373,
+        "y": 338,
+        "width": 116.859375,
+        "height": 16
+      },
+      "source": {
+        "x": 497.859375,
+        "y": 322,
+        "width": 86.4375,
+        "height": 48
+      },
+      "rows": [
+        {
+          "id": "place-card-name",
+          "h": 24,
+          "whiteSpace": "nowrap",
+          "overflow": "ellipsis"
+        },
+        {
+          "id": "place-card-address",
+          "h": 16,
+          "whiteSpace": "nowrap",
+          "overflow": "ellipsis"
+        },
+        {
+          "id": "place-card-distance",
+          "h": 16,
+          "whiteSpace": "nowrap",
+          "overflow": "ellipsis"
+        },
+        {
+          "id": "place-card-rating",
+          "h": 16,
+          "whiteSpace": "nowrap",
+          "overflow": "ellipsis"
+        },
+        {
+          "id": "place-card-hours",
+          "h": 16,
+          "whiteSpace": "nowrap",
+          "overflow": "ellipsis"
+        }
+      ],
+      "blurFilter": "blur(1px)"
+    }
+  ],
+  "limits": [
+    "Controlled provider responses; no Google calls.",
+    "Native device visuals, touch and screen reader behavior not verified."
+  ],
+  "cardAxe": {
+    "violations": [],
+    "incomplete": [
+      "color-contrast",
+      "label-content-name-mismatch"
+    ]
+  },
+  "galleryAxe": {
+    "violations": [],
+    "incomplete": [
+      "color-contrast"
+    ]
+  },
+  "status": "pass"
+}

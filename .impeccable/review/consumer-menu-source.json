@@ -1,0 +1,13 @@
+{
+  "checks": [
+    "Sanitized11branch/48dishread-onlyprojection excludes private fields and unpublished candidates",
+    "Exactbranchcanonicalandabbreviatedaddresses match; postal/unit/name/closed/ambiguous mismatches fail",
+    "Manifest/localwithdrawals and changed-source fingerprints remove menu entries",
+    "Malformed/oversized/duplicate/future/stale transport data fails; validated7dayoffline cache remains bounded",
+    "Prices preserveSGD/from/unknown/missing values and menu-specific notices/charges",
+    "Actual menu handler works in production without reviewer key/local state or Google calls",
+    "Running Expo menu endpoint200withvalidatedconsumerdata"
+  ],
+  "actualGoogleCalls": 0,
+  "status": "pass"
+}

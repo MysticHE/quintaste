@@ -1,0 +1,26 @@
+{
+  "checkedAt": "2026-10-15T01:30:11.734Z",
+  "typecheck": {
+    "command": "npx tsc --noEmit",
+    "exitCode": 0,
+    "warnings": 0
+  },
+  "lint": {
+    "command": "npm run lint",
+    "exitCode": 0,
+    "warnings": 0
+  },
+  "uiReview": {
+    "command": "21st review src/screens/market src/components/market",
+    "files": 13,
+    "findings": 0
+  },
+  "assetProvenance": {
+    "command": "impeccable embed-prompt --scan assets/market",
+    "rasters": 1,
+    "missing": 0
+  },
+  "limits": [
+    "These gates do not establish native visual acceptance or production services."
+  ]
+}

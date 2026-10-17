@@ -1,0 +1,75 @@
+{
+  "startedAt": "2026-10-16T04:14:16.209Z",
+  "url": "http://127.0.0.1:8083",
+  "checks": [
+    {
+      "name": "fire-flies",
+      "status": "passed",
+      "foods": 18,
+      "heldAbsent": 0,
+      "unreadChoices": 7,
+      "viewports": [
+        320,
+        768,
+        1440
+      ]
+    },
+    {
+      "name": "ju-fu-yuan-amk",
+      "status": "failed"
+    },
+    {
+      "name": "xi-shi-fu",
+      "status": "failed"
+    }
+  ],
+  "screenshots": [
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-rest-browser\\fire-flies-320.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-rest-browser\\fire-flies-768.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-rest-browser\\fire-flies-1440.png"
+  ],
+  "errors": [
+    {
+      "name": "ju-fu-yuan-amk",
+      "error": "AssertionError [ERR_ASSERTION]: The input did not match the regular expression /ordering choices/. Input:\n\n''\n\n    at main (C:\\Users\\huien\\qt\\tmp\\qa\\menu-rest-qa.cjs:77:35)"
+    },
+    {
+      "name": "xi-shi-fu",
+      "error": "locator.focus: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('textbox', { name: 'Search dishes', exact: true })\u001b[22m\n\n    at main (C:\\Users\\huien\\qt\\tmp\\qa\\menu-rest-qa.cjs:84:91)"
+    }
+  ],
+  "pageErrors": [],
+  "unexpectedConsoleErrors": [],
+  "blockedApiRequests": [
+    "/api/local-explore/session",
+    "/api/local-explore/session"
+  ],
+  "blockedExternalRequests": [],
+  "apiRequests": [
+    "/api/menus?view=index",
+    "/api/menus?id=research-sl08-fire-flies",
+    "/api/menus?view=index",
+    "/api/menus?id=research-sl08-xi-shi-fu"
+  ],
+  "a11y": [
+    {
+      "label": "fire-flies",
+      "violations": []
+    }
+  ],
+  "forwardedProviderCalls": 0,
+  "installedChromeUsed": false,
+  "browserVersion": "156.0.8078.4",
+  "catalogue": {
+    "locations": 146,
+    "sourceMenus": 191,
+    "foodOccurrences": 10799
+  },
+  "finishedAt": "2026-10-16T04:15:08.093Z",
+  "passed": false,
+  "visualReview": {
+    "status": "pending",
+    "inspectedScreenshots": []
+  },
+  "googleLedgerUnchanged": true
+}

@@ -1,0 +1,19 @@
+{
+  "status": 200,
+  "places": 20,
+  "cachedMatches": 0,
+  "firstThree": [
+    {
+      "place": "Vege Story Vegetarian 齋の傳說",
+      "cached": false
+    },
+    {
+      "place": "Ananda Bhavan Vegetarian",
+      "cached": false
+    },
+    {
+      "place": "Lotus Vegetarian Restaurant",
+      "cached": false
+    }
+  ]
+}

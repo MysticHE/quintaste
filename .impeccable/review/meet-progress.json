@@ -1,0 +1,48 @@
+{
+  "checks": [
+    "Guest browsing and explicit fictional profiles",
+    "Profile opt-in and group preferences save",
+    "Diet filters apply and persist",
+    "Invitation required before pre-meal chat",
+    "Shared plan confirmations reset after edits",
+    "Pausing visibility preserves existing conversation",
+    "Casual gathering can post without host approval",
+    "Gathering edits, cancellation and deletion persist",
+    "Cooking class application validates and stays unapproved",
+    "Home dining has a distinct draft application",
+    "Report and block close group; unblocking never restores it",
+    "Legacy booking routes redirect to people"
+  ],
+  "screenshots": [
+    "C:/Users/huien/QT/quintaste/.impeccable/review/meet-empty-375.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/meet-people-375.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/meet-introduction-375.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/meet-chat-375.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/meet-plan-375.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/meet-gathering-375.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/meet-events-375.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/meet-application-375.png"
+  ],
+  "errors": [],
+  "axe": [
+    {
+      "name": "people",
+      "violations": []
+    },
+    {
+      "name": "chat",
+      "violations": []
+    },
+    {
+      "name": "gathering",
+      "violations": []
+    },
+    {
+      "name": "application",
+      "violations": []
+    }
+  ],
+  "limits": [
+    "Local-only flows. No actual registration, peer messaging, publication or application submission. Native device interaction not verified."
+  ]
+}

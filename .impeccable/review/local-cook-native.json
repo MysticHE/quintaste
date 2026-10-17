@@ -1,0 +1,28 @@
+{
+  "manifestStatus": 200,
+  "bundleStatus": 200,
+  "bundleBytes": 9479623,
+  "markers": [
+    {
+      "marker": "PrivateRecipeScreen",
+      "found": true
+    },
+    {
+      "marker": "cooking-timers",
+      "found": true
+    },
+    {
+      "marker": "quintaste-timer/",
+      "found": true
+    },
+    {
+      "marker": "Enable timer alerts",
+      "found": true
+    },
+    {
+      "marker": "Ingredients for this step",
+      "found": true
+    }
+  ],
+  "nativeDeliveryVerified": false
+}

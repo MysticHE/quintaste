@@ -1,0 +1,647 @@
+{
+  "version": 1,
+  "checkedAt": "2026-10-15T08:18:44.197Z",
+  "meaning": "Source coverage counts eligible prepared-dish menu rows after excluding drinks and uncooked/frozen retail products. It is not proof of complete current dine-in availability, ingredients, merchant approval or exact-unit publication eligibility.",
+  "venues": [
+    {
+      "venueId": "herbivore-fortune-centre",
+      "name": "Herbivore",
+      "sourceUrls": [
+        "https://www.herbivore.sg/",
+        "https://www.herbivore.sg/bento-set",
+        "https://www.instagram.com/herbivore_sg/",
+        "https://www.facebook.com/pg/herbivoresg"
+      ],
+      "totalFoodItems": null,
+      "importedFoodItems": 0,
+      "excludedBeverages": null,
+      "categories": [],
+      "status": "unavailable",
+      "scannedGalleryImages": 50,
+      "scannedGalleryPages": 1,
+      "remainingGaps": [
+        "No verifiable current first-party dish-name/price menu obtained after home, navigation, gallery, official social and exact-branch delivery searches.",
+        "All 50 unique official gallery images were inspected; they are uncaptioned food photos, not menu sheets.",
+        "Community menu/PDF aggregators do not establish merchant ownership, current price or full menu scope; their facts remain withheld.",
+        "Merchant menu export or dated readable branch menu is needed. Current operation, availability and all ingredient suitability remain unconfirmed."
+      ],
+      "nextSource": "Readable dated branch menu export or merchant-provided menu photos. Do not republish unverified community aggregator tables."
+    },
+    {
+      "venueId": "teng-bespoke-sunshine-plaza",
+      "name": "Teng Bespoke Vegetarian Japanese Dining",
+      "sourceUrls": [
+        "https://www.foodpanda.sg/restaurant/l8ul/teng-bespoke-vegetarian-japanese-dining-sunshine-plaza",
+        "https://tengbespoke.oddle.me/en_SG",
+        "https://www.tengbespoke.com.sg/"
+      ],
+      "totalFoodItems": 78,
+      "importedFoodItems": 78,
+      "excludedBeverages": 0,
+      "categories": [
+        {
+          "name": "Sharing Platters",
+          "items": 4
+        },
+        {
+          "name": "Seasonal Thai",
+          "items": 10
+        },
+        {
+          "name": "Appetizers/Salads",
+          "items": 7
+        },
+        {
+          "name": "Maki",
+          "items": 11
+        },
+        {
+          "name": "Grills",
+          "items": 5
+        },
+        {
+          "name": "Tempuras",
+          "items": 3
+        },
+        {
+          "name": "Side Dishes",
+          "items": 7
+        },
+        {
+          "name": "Stir-Fry",
+          "items": 8
+        },
+        {
+          "name": "Noodles",
+          "items": 9
+        },
+        {
+          "name": "Rice",
+          "items": 3
+        },
+        {
+          "name": "Japanese Bento Sets",
+          "items": 11
+        }
+      ],
+      "status": "source-covered",
+      "scannedFoodCategories": 11,
+      "remainingGaps": [
+        "All 78 public delivery-menu food rows are captured; current dine-in equivalence, present stock and merchant control of the delivery listing are unconfirmed.",
+        "Foodpanda says CLOSED and Oddle says shop currently closed; permanent restaurant closure is not established.",
+        "Reported official website returned 502; no current merchant-owned full menu obtained.",
+        "Platform descriptions contradict vegetarian context and historical sources; no ingredient, allium or vegan confirmation inferred."
+      ],
+      "nextSource": "Dated current merchant menu and branch-operation confirmation; no permanent-closure inference from closed ordering channels."
+    },
+    {
+      "venueId": "living-wholesome-fortune-centre",
+      "name": "Living Wholesome Vegetarian",
+      "sourceUrls": [
+        "https://livingwholesome.sg/",
+        "https://www.foodpanda.sg/restaurant/wd61/living-wholesome-vegetarian-food-fortune-centre"
+      ],
+      "totalFoodItems": 11,
+      "importedFoodItems": 11,
+      "excludedBeverages": 0,
+      "categories": [
+        {
+          "name": "Mains (branch delivery)",
+          "items": 6
+        },
+        {
+          "name": "Extras (branch delivery)",
+          "items": 4
+        },
+        {
+          "name": "Yuan Yang (brand-only)",
+          "items": 1
+        }
+      ],
+      "status": "partial",
+      "sourceCoverage": [
+        {
+          "scope": "branch-delivery",
+          "status": "source-covered",
+          "totalFoodItems": 10,
+          "importedFoodItems": 10
+        },
+        {
+          "scope": "brand-menu",
+          "status": "brand-only",
+          "totalFoodItems": 4,
+          "representedFoodItems": 4,
+          "distinctBrandOnlyItems": 1
+        }
+      ],
+      "deduplicatedPopularRows": 3,
+      "remainingGaps": [
+        "Exact-branch delivery food listing is covered (six mains, four extras); delivery prices are not dine-in prices.",
+        "Yuan Yang is published only on the shared brand site; Fortune Centre availability and price remain unconfirmed.",
+        "GST/service basis and effective date are unstated. Present stock, complete ingredients, allium and cross-contact remain unconfirmed."
+      ],
+      "nextSource": "Merchant Fortune Centre dine-in price/menu confirmation, especially Yuan Yang. Current direct delivery Bee Hoon price is S$1.80, not older indexed S$1.50."
+    },
+    {
+      "venueId": "bodhi-deli-fortune-centre",
+      "name": "Bodhi Deli",
+      "sourceUrls": [
+        "https://take.app/bodhideli",
+        "https://take.app/bodhideli/c/clh83f5fa01vb0flcft660147",
+        "https://take.app/bodhideli/c/clh83f5fa01v80flcdcfe8uiu",
+        "https://take.app/bodhideli/c/clh83f5fa01vg0flc7hz5bzdl",
+        "https://take.app/bodhideli/c/clh83f5fa01vc0flc9npddmjb",
+        "https://take.app/bodhideli/c/clh83f5fa01vd0flc9pjo8i60",
+        "https://take.app/bodhideli/c/clk19j5w4002nmj0gajw6urmp",
+        "https://take.app/bodhideli/c/clh83f5fa01v90flc5vwpcqwa",
+        "https://take.app/bodhideli/c/clh83f5fa01vh0flc1zlu2gpv"
+      ],
+      "totalFoodItems": 29,
+      "sourceListedFoodItems": 33,
+      "importedFoodItems": 29,
+      "excludedBeverages": 6,
+      "excludedPackagedFoods": 4,
+      "categories": [
+        {
+          "name": "ALL TIME FAVOURITE ⭐",
+          "items": 12
+        },
+        {
+          "name": "New items",
+          "items": 1
+        },
+        {
+          "name": "Bites",
+          "items": 5
+        },
+        {
+          "name": "Rice",
+          "items": 5
+        },
+        {
+          "name": "Special Menu",
+          "items": 3
+        },
+        {
+          "name": "Soup Series",
+          "items": 3
+        }
+      ],
+      "excludedCategories": [
+        {
+          "name": "Hot Beverages",
+          "items": 6,
+          "reason": "User excludes beverages"
+        },
+        {
+          "name": "Frozen",
+          "items": 4,
+          "reason": "Uncooked/frozen retail products; outside prepared restaurant dishes"
+        }
+      ],
+      "status": "source-covered",
+      "scannedCategoryPages": 8,
+      "scannedDishDetails": 29,
+      "remainingGaps": [
+        "All 29 prepared-dish rows and detail pages in the public ordering source are captured; six beverages and four frozen/fresh retail products are excluded.",
+        "Enabled pickup source states #03-26; independent directory also states #03-27.",
+        "Takeaway charges included; dine-in price equivalence, GST/service breakdown, menu effective date and present stock unconfirmed.",
+        "Two parent products lack reliable standalone prices. Variant and dated/scheduled availability notices are retained without treating zero placeholders as free meals.",
+        "Dietary statements are merchant-reported; ingredients and cross-contact remain unconfirmed."
+      ],
+      "nextSource": "Merchant clarification of two ambiguous parent prices, dated Lu Rou Fan notice, current stock and dine-in charges."
+    },
+    {
+      "venueId": "cookie-coffee-fortune-centre-candidate",
+      "name": "Cookie Coffee Cafe Bar - Fortune Centre",
+      "sourceUrls": [
+        "https://cookiecoffee.com.sg/",
+        "https://cookiecoffee.com.sg/blank/",
+        "https://cookiecoffee.com.sg/signaturericeset/",
+        "https://cookiecoffee.com.sg/__static/jdj5jdewjejym1jym3fwyvh4s0mzsljp/Dim-Sum-Menu-Temp-Lower-Res(8).jpg",
+        "https://cookiecoffee.com.sg/__static/jdj5jdewjhpnrefnykouytdamfvwthhz/Rice-Menu-Final-A3-Revised(2).jpg"
+      ],
+      "totalFoodItems": 36,
+      "importedFoodItems": 0,
+      "heldFoodItems": 36,
+      "excludedBeverages": null,
+      "categories": [
+        {
+          "name": "Steamed & Baked Dim Sum",
+          "items": 20
+        },
+        {
+          "name": "Vegetarian Rice Set Meal",
+          "items": 16
+        }
+      ],
+      "status": "partial",
+      "scannedFoodMenuImages": 2,
+      "heldCandidateFoodFacts": [
+        {
+          "name": "Vegan Char Siu Barbacue Bun",
+          "category": "Steamed & Baked Dim Sum",
+          "price": {
+            "amount": 4.5,
+            "currency": "unknown",
+            "type": "displayed"
+          },
+          "qualifier": "2 pieces",
+          "sourceId": "cookie-coffee-dim-sum-image"
+        },
+        {
+          "name": "Vegan Chicken Bun",
+          "category": "Steamed & Baked Dim Sum",
+          "price": {
+            "amount": 4.5,
+            "currency": "unknown",
+            "type": "displayed"
+          },
+          "qualifier": "2 pieces",
+          "sourceId": "cookie-coffee-dim-sum-image"
+        },
+        {
+          "name": "Vegan Curry Bun",
+          "category": "Steamed & Baked Dim Sum",
+          "price": {
+            "amount": 4.5,
+            "currency": "unknown",
+            "type": "displayed"
+          },
+          "qualifier": "2 pieces",
+          "sourceId": "cookie-coffee-dim-sum-image"
+        },
+        {
+          "name": "Vegan Ginger Mushroom Bun",
+          "category": "Steamed & Baked Dim Sum",
+          "price": {
+            "amount": 4.5,
+            "currency": "unknown",
+            "type": "displayed"
+          },
+          "qualifier": "2 pieces",
+          "sourceId": "cookie-coffee-dim-sum-image"
+        },
+        {
+          "name": "Vegan Big Bun",
+          "category": "Steamed & Baked Dim Sum",
+          "price": {
+            "amount": 3.6,
+            "currency": "unknown",
+            "type": "displayed"
+          },
+          "qualifier": "1 piece",
+          "sourceId": "cookie-coffee-dim-sum-image"
+        },
+        {
+          "name": "Vegan Pounded Green Tea Bun",
+          "category": "Steamed & Baked Dim Sum",
+          "price": {
+            "amount": 4.5,
+            "currency": "unknown",
+            "type": "displayed"
+          },
+          "qualifier": "2 pieces",
+          "sourceId": "cookie-coffee-dim-sum-image"
+        },
+        {
+          "name": "Vegan Black Sesame Bun",
+          "category": "Steamed & Baked Dim Sum",
+          "price": {
+            "amount": 4.5,
+            "currency": "unknown",
+            "type": "displayed"
+          },
+          "qualifier": "2 pieces",
+          "sourceId": "cookie-coffee-dim-sum-image"
+        },
+        {
+          "name": "Vegan Pickled Vegetable Bun",
+          "category": "Steamed & Baked Dim Sum",
+          "price": {
+            "amount": 4.5,
+            "currency": "unknown",
+            "type": "displayed"
+          },
+          "qualifier": "2 pieces",
+          "sourceId": "cookie-coffee-dim-sum-image"
+        },
+        {
+          "name": "Vegan Sweet Lotus Paste Bun",
+          "category": "Steamed & Baked Dim Sum",
+          "price": {
+            "amount": 4.5,
+            "currency": "unknown",
+            "type": "displayed"
+          },
+          "qualifier": "2 pieces",
+          "sourceId": "cookie-coffee-dim-sum-image"
+        },
+        {
+          "name": "Vegan Braised Meat Bun",
+          "category": "Steamed & Baked Dim Sum",
+          "price": {
+            "amount": 4.5,
+            "currency": "unknown",
+            "type": "displayed"
+          },
+          "qualifier": "2 pieces",
+          "sourceId": "cookie-coffee-dim-sum-image"
+        },
+        {
+          "name": "Vegan Teochew Siew Mai",
+          "category": "Steamed & Baked Dim Sum",
+          "price": {
+            "amount": 4.5,
+            "currency": "unknown",
+            "type": "displayed"
+          },
+          "qualifier": "6 pieces",
+          "sourceId": "cookie-coffee-dim-sum-image"
+        },
+        {
+          "name": "Veg Canton Siew Mai",
+          "category": "Steamed & Baked Dim Sum",
+          "price": {
+            "amount": 4.5,
+            "currency": "unknown",
+            "type": "displayed"
+          },
+          "qualifier": "6 pieces",
+          "sourceId": "cookie-coffee-dim-sum-image"
+        },
+        {
+          "name": "Veg Sticky Glutinous Rice",
+          "category": "Steamed & Baked Dim Sum",
+          "price": {
+            "amount": 3.6,
+            "currency": "unknown",
+            "type": "displayed"
+          },
+          "qualifier": "1 piece",
+          "sourceId": "cookie-coffee-dim-sum-image"
+        },
+        {
+          "name": "Veg Baked Barbacue / Veg Baked Curry",
+          "category": "Steamed & Baked Dim Sum",
+          "price": {
+            "amount": 2.2,
+            "currency": "unknown",
+            "type": "displayed"
+          },
+          "qualifier": "1 piece; two flavour alternatives",
+          "sourceId": "cookie-coffee-dim-sum-image"
+        },
+        {
+          "name": "Vegan Vegetable Bun",
+          "category": "Steamed & Baked Dim Sum",
+          "price": {
+            "amount": 4.5,
+            "currency": "unknown",
+            "type": "displayed"
+          },
+          "qualifier": "2 pieces",
+          "sourceId": "cookie-coffee-dim-sum-image"
+        },
+        {
+          "name": "Vegan Hokkaido Fish Fingers",
+          "category": "Steamed & Baked Dim Sum",
+          "price": {
+            "amount": 2.5,
+            "currency": "unknown",
+            "type": "displayed"
+          },
+          "qualifier": "2 pieces",
+          "sourceId": "cookie-coffee-dim-sum-image"
+        },
+        {
+          "name": "Vegan US Crispy Fried Chicken",
+          "category": "Steamed & Baked Dim Sum",
+          "price": {
+            "amount": 1.8,
+            "currency": "unknown",
+            "type": "displayed"
+          },
+          "qualifier": "1 piece",
+          "sourceId": "cookie-coffee-dim-sum-image"
+        },
+        {
+          "name": "Vegan Japanese Tempura Prawn",
+          "category": "Steamed & Baked Dim Sum",
+          "price": {
+            "amount": 1.8,
+            "currency": "unknown",
+            "type": "displayed"
+          },
+          "qualifier": "1 piece",
+          "sourceId": "cookie-coffee-dim-sum-image"
+        },
+        {
+          "name": "Vegan Otak Otak",
+          "category": "Steamed & Baked Dim Sum",
+          "price": {
+            "amount": 2.5,
+            "currency": "unknown",
+            "type": "displayed"
+          },
+          "qualifier": "2 pieces",
+          "sourceId": "cookie-coffee-dim-sum-image"
+        },
+        {
+          "name": "Vegan Nuggets (Fish or Chicken)",
+          "category": "Steamed & Baked Dim Sum",
+          "price": {
+            "amount": 2.5,
+            "currency": "unknown",
+            "type": "displayed"
+          },
+          "qualifier": "2 pieces; two flavour alternatives",
+          "sourceId": "cookie-coffee-dim-sum-image"
+        },
+        {
+          "name": "Chicken Curry",
+          "category": "Vegetarian Rice Set Meal",
+          "price": {
+            "amount": 9.9,
+            "currency": "unknown",
+            "type": "displayed"
+          },
+          "qualifier": "Rice set; $9.90 nett; currency code unstated",
+          "sourceId": "cookie-coffee-rice-image"
+        },
+        {
+          "name": "Sambal Cutterfish",
+          "category": "Vegetarian Rice Set Meal",
+          "price": {
+            "amount": 9.9,
+            "currency": "unknown",
+            "type": "displayed"
+          },
+          "qualifier": "Rice set; $9.90 nett; currency code unstated",
+          "sourceId": "cookie-coffee-rice-image"
+        },
+        {
+          "name": "Assam Fish",
+          "category": "Vegetarian Rice Set Meal",
+          "price": {
+            "amount": 9.9,
+            "currency": "unknown",
+            "type": "displayed"
+          },
+          "qualifier": "Rice set; $9.90 nett; currency code unstated",
+          "sourceId": "cookie-coffee-rice-image"
+        },
+        {
+          "name": "Mongolian Chicken",
+          "category": "Vegetarian Rice Set Meal",
+          "price": {
+            "amount": 9.9,
+            "currency": "unknown",
+            "type": "displayed"
+          },
+          "qualifier": "Rice set; $9.90 nett; currency code unstated",
+          "sourceId": "cookie-coffee-rice-image"
+        },
+        {
+          "name": "Hakka Lean Meat",
+          "category": "Vegetarian Rice Set Meal",
+          "price": {
+            "amount": 9.9,
+            "currency": "unknown",
+            "type": "displayed"
+          },
+          "qualifier": "Rice set; $9.90 nett; currency code unstated",
+          "sourceId": "cookie-coffee-rice-image"
+        },
+        {
+          "name": "B. Vineger Trotters",
+          "category": "Vegetarian Rice Set Meal",
+          "price": {
+            "amount": 9.9,
+            "currency": "unknown",
+            "type": "displayed"
+          },
+          "qualifier": "Rice set; $9.90 nett; currency code unstated",
+          "sourceId": "cookie-coffee-rice-image"
+        },
+        {
+          "name": "Rendang Mutton",
+          "category": "Vegetarian Rice Set Meal",
+          "price": {
+            "amount": 9.9,
+            "currency": "unknown",
+            "type": "displayed"
+          },
+          "qualifier": "Rice set; $9.90 nett; currency code unstated",
+          "sourceId": "cookie-coffee-rice-image"
+        },
+        {
+          "name": "Tom Yam Sotong",
+          "category": "Vegetarian Rice Set Meal",
+          "price": {
+            "amount": 9.9,
+            "currency": "unknown",
+            "type": "displayed"
+          },
+          "qualifier": "Rice set; $9.90 nett; currency code unstated",
+          "sourceId": "cookie-coffee-rice-image"
+        },
+        {
+          "name": "Sambal Prawn",
+          "category": "Vegetarian Rice Set Meal",
+          "price": {
+            "amount": 9.9,
+            "currency": "unknown",
+            "type": "displayed"
+          },
+          "qualifier": "Rice set; $9.90 nett; currency code unstated",
+          "sourceId": "cookie-coffee-rice-image"
+        },
+        {
+          "name": "Herbal Mushroom",
+          "category": "Vegetarian Rice Set Meal",
+          "price": {
+            "amount": 9.9,
+            "currency": "unknown",
+            "type": "displayed"
+          },
+          "qualifier": "Rice set; $9.90 nett; currency code unstated",
+          "sourceId": "cookie-coffee-rice-image"
+        },
+        {
+          "name": "Sasame Mushroom",
+          "category": "Vegetarian Rice Set Meal",
+          "price": {
+            "amount": 9.9,
+            "currency": "unknown",
+            "type": "displayed"
+          },
+          "qualifier": "Rice set; $9.90 nett; currency code unstated",
+          "sourceId": "cookie-coffee-rice-image"
+        },
+        {
+          "name": "Mala Kidneys",
+          "category": "Vegetarian Rice Set Meal",
+          "price": {
+            "amount": 9.9,
+            "currency": "unknown",
+            "type": "displayed"
+          },
+          "qualifier": "Rice set; $9.90 nett; currency code unstated",
+          "sourceId": "cookie-coffee-rice-image"
+        },
+        {
+          "name": "P.S. BakKutTeh",
+          "category": "Vegetarian Rice Set Meal",
+          "price": {
+            "amount": 9.9,
+            "currency": "unknown",
+            "type": "displayed"
+          },
+          "qualifier": "Rice set; $9.90 nett; currency code unstated",
+          "sourceId": "cookie-coffee-rice-image"
+        },
+        {
+          "name": "Braised Mushroom",
+          "category": "Vegetarian Rice Set Meal",
+          "price": {
+            "amount": 9.9,
+            "currency": "unknown",
+            "type": "displayed"
+          },
+          "qualifier": "Rice set; $9.90 nett; currency code unstated",
+          "sourceId": "cookie-coffee-rice-image"
+        },
+        {
+          "name": "GongPo Chicken",
+          "category": "Vegetarian Rice Set Meal",
+          "price": {
+            "amount": 9.9,
+            "currency": "unknown",
+            "type": "displayed"
+          },
+          "qualifier": "Rice set; $9.90 nett; currency code unstated",
+          "sourceId": "cookie-coffee-rice-image"
+        },
+        {
+          "name": "Tomato Fish",
+          "category": "Vegetarian Rice Set Meal",
+          "price": {
+            "amount": 9.9,
+            "currency": "unknown",
+            "type": "displayed"
+          },
+          "qualifier": "Rice set; $9.90 nett; currency code unstated",
+          "sourceId": "cookie-coffee-rice-image"
+        }
+      ],
+      "remainingGaps": [
+        "Primary site conflicts between #01-28B and new-management #01-28; dim-sum page says next door. Exact-premises matching remains held.",
+        "Menu sheets show dollar symbols without a currency code, no effective date and no present-stock confirmation.",
+        "Dim-sum shows piece prices; rice menu states $9.90 nett. $14.80 drink/ice-cream combo excluded; no beverage records imported.",
+        "Brand vegetarian/vegan labels are not independently confirmed ingredient/cross-contact evidence."
+      ],
+      "nextSource": "Merchant confirmation of exact food-counter unit and current menu/currency/stock. Held food facts can then be converted to venue/menu records without recrawling."
+    }
+  ]
+}

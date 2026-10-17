@@ -1,0 +1,588 @@
+{
+  "review": "menu-sync-general-review",
+  "reviewedAt": "2026-10-16T00:02:43.806Z",
+  "status": "approved",
+  "scope": {
+    "mode": "local new file implementation review",
+    "note": "Git staged/unstaged diffs read. Menu scope is untracked and has no historical implementation diff. Source changes owned by parent; this reviewer only writes this report.",
+    "files": [
+      {
+        "file": "scripts/sync-researched-menus.ts",
+        "sha256": "ce86469e602dcf8f69954ca6855a2a107d373f727c13d862f9d052c692aa9934"
+      },
+      {
+        "file": "scripts/menu-publication/normalize.ts",
+        "sha256": "0c123b764dfbda50f1e9c2e98515cbfa64011a4f1fa6f14b474ede20521c7a15"
+      },
+      {
+        "file": "src/server/research-menu-packets.ts",
+        "sha256": "27646fe7e829d735ba6043d663ba067efe50b3e4588d1506b2d629c8d1bd9415"
+      },
+      {
+        "file": "src/server/menu-delivery.ts",
+        "sha256": "4e5d1021802fdeb5586594f074118dc9d52bfdf1268fcf5a89720b04a4068c2d"
+      },
+      {
+        "file": "src/app/api/menus+api.ts",
+        "sha256": "5df6a62717a9ac9e97ef6b59447f1a2496e0bdc709239dc5e6ae95a470597783"
+      },
+      {
+        "file": "src/hooks/useMenuDetail.ts",
+        "sha256": "bb94a7e27033043d522efccafee79d74ce352692231bc173424c83bf0faeb5e9"
+      },
+      {
+        "file": "src/services/menu-storage.ts",
+        "sha256": "38044fa4a80b9b06499f09ac5b4aeabe82846bc503156189a14499afe45a2b54"
+      },
+      {
+        "file": "src/state/Menus.tsx",
+        "sha256": "20dd544de410dc4da798fc3ccd91ef07d20a03abe87c2d288a609f08cf4e1445"
+      },
+      {
+        "file": "src/types/menus.ts",
+        "sha256": "d9c46a61185f8341b59b03c69f32c45506cfa507111dbf4c81ae0025367e3345"
+      },
+      {
+        "file": "src/utils/menu-catalogue.ts",
+        "sha256": "a60fdfb210bbb1a015e21cf96058bebfb03f34c2f0812100705eebb93cb3a2f9"
+      },
+      {
+        "file": "src/utils/menu-match.ts",
+        "sha256": "235fc17528a34317a2dca60ced3e999f9d472c4dd8c28542b8644677c43da465"
+      },
+      {
+        "file": "src/components/discovery/MenuEntry.tsx",
+        "sha256": "871e12925b65534e4e00cf634eb737955eb99101edb5c2ca8635b5d8560048bc"
+      },
+      {
+        "file": "src/components/discovery/MenuDishes.tsx",
+        "sha256": "fbb8e19fbf26eab6bcee71567dcc1b3f52c4a83c66d46d9fd42784759d49bfa6"
+      },
+      {
+        "file": "src/components/discovery/MenuSection.tsx",
+        "sha256": "bf35cdb78ea6ca8344f51e65a68d9c53ef3a06ee673791e70f45eda14d6f3797"
+      },
+      {
+        "file": "src/components/discovery/MenuItemRow.tsx",
+        "sha256": "fc2959d5f45608e4a9a1d2b78ac933497544104667d583eeee0ef08c6ad32fe4"
+      },
+      {
+        "file": "src/components/discovery/MenuCorrectionFields.tsx",
+        "sha256": "f19889f6bca1dd1ba1c0ce513613aa16ff069b926b3e467f84e737e05942ee7d"
+      },
+      {
+        "file": "src/screens/food/Menu.tsx",
+        "sha256": "999d1faa7e2a1c2613a1f8c8ba425cb736408f535dbaae0e7cca5ff98d2fca85"
+      }
+    ]
+  },
+  "findings": [],
+  "resolvedFindings": [
+    {
+      "severity": "MEDIUM",
+      "file": "src/services/menu-storage.ts",
+      "line": 47,
+      "issue": "Equal or backward clock timestamps could prune the newly inserted metadata entry, then still persist its detail outside the LRU bounds.",
+      "fix": "Sort older entries then prepend the current candidate before pruning.",
+      "verification": {
+        "equalClock": {
+          "actualEntries": 4,
+          "actualBytes": 1198364
+        },
+        "metadataClockAhead": {
+          "actualEntries": 4,
+          "actualBytes": 1198369
+        },
+        "configuredCount": 5,
+        "configuredBytes": 1200000
+      }
+    },
+    {
+      "severity": "MEDIUM",
+      "file": "src/server/local-explore/pilot-catalogue.ts",
+      "line": 27,
+      "issue": "Explicit null pilotReviews is treated as absent by nullish coalescing. A corrupted review store now returns an empty withdrawal set and can show withdrawn menus, while the prior readLocalPilotCatalogue path returned503.",
+      "reproduction": {
+        "input": {
+          "version": 1,
+          "owners": {},
+          "cases": {},
+          "participation": {},
+          "pilotReviews": null
+        },
+        "previous": {
+          "status": 503
+        },
+        "optimized": {
+          "withdrawn": []
+        }
+      },
+      "fix": "Treat only undefined as the absent optional field; pass explicit null to pilotObject so it rejects and the menu API returns503.",
+      "status": "resolved",
+      "resolution": "Explicit undefined check now preserves rejection of null and malformed review metadata.",
+      "verification": {
+        "corruptCases": 9,
+        "apiStatuses": [
+          503,
+          503,
+          503,
+          503,
+          503,
+          503,
+          503,
+          503,
+          503
+        ],
+        "optionalUndefinedAccepted": true,
+        "withdrawalIndexChange": "100 ->99",
+        "withdrawnDetailStatus": 404,
+        "restoration": "99 ->100",
+        "snapshotCalls": 24,
+        "noRealFilesAltered": true
+      }
+    },
+    {
+      "severity": "MEDIUM",
+      "file": "scripts/menu-identity/client.ts",
+      "line": 24,
+      "issue": "The start gate preceded durable reservation writes, so serialized slow writes could bunch actual fetch starts after the rate gate.",
+      "resolution": "Reserve durably first, then enter the shared start gate, check stop, and dispatch fetch immediately.",
+      "verification": {
+        "slowFirstLedgerWriteMs": 650,
+        "beforeActualFetchIntervalsMs": [
+          30,
+          16
+        ],
+        "afterActualFetchIntervalsMs": [
+          154,
+          156
+        ],
+        "outboundCalls": 0
+      }
+    }
+  ],
+  "checks": [
+    {
+      "name": "Final publication identities and revisions",
+      "status": "pass",
+      "venues": 103,
+      "sourceMenus": 147,
+      "foodRows": 9887,
+      "duplicateVenueIds": 0,
+      "duplicateItemIdsWithinVenues": 0
+    },
+    {
+      "name": "Runtime changed source invalidation",
+      "status": "pass",
+      "dataset": "data/menu-research/menu-directory-continuation-cafes-2026-10-16.json",
+      "before": 103,
+      "afterMutation": 100,
+      "afterRestore": 103,
+      "method": "Mutate imported packet in memory and reload delivery module; no source file mutation."
+    },
+    {
+      "name": "API parameter and withdrawal checks",
+      "status": "pass",
+      "checks": [
+        "Traversal, null byte, __proto__, too short IDs return400",
+        "Valid unknown ID returns404",
+        "Withdrawn IDs omitted from index and absent from detail"
+      ]
+    },
+    {
+      "name": "Catalogue and detail validation",
+      "status": "pass",
+      "checks": [
+        "Future, expired and duplicate index records rejected",
+        "Wrong detail fingerprint rejected",
+        "All final detail fingerprints agree with final index"
+      ]
+    },
+    {
+      "name": "Cache bounds",
+      "status": "pass",
+      "method": "AsyncStorage in memory mock; LRU, equal clocks, future metadata clocks, byte bounds checked. No real device cache altered."
+    },
+    {
+      "name": "Availability and shared notices",
+      "status": "pass",
+      "checks": [
+        "Nonzero item and category status excluded",
+        "Plural availability notes, availableDays, dates and weekdays retained",
+        "Identical shared qualifier prefix retained in section itemNotice",
+        "Different qualifiers remain attached to their items"
+      ]
+    },
+    {
+      "name": "Static security and runtime review",
+      "status": "pass",
+      "checks": [
+        "Strict IDs used for in memory API map lookup",
+        "Source URLs restricted to public HTTPS with no credentials",
+        "Research source imports remain server side",
+        "Compiler restricts source datasets to data/menu-research",
+        "Runtime fingerprint includes raw packet and reviewed manifest entry",
+        "Index1MB, detail2MB, offline entry400KB and total1.2MB guards",
+        "Menu rendering paginates40 items"
+      ]
+    }
+  ],
+  "limitations": [
+    "Review does not establish complete collection coverage or merchant ingredient/availability verification. Data review is separate.",
+    "Memory mocked AsyncStorage probes do not measure physical device storage latency.",
+    "Performance and native UI acceptance are separate parent tasks."
+  ],
+  "summary": {
+    "CRITICAL": 0,
+    "HIGH": 0,
+    "MEDIUM": 0,
+    "LOW": 0,
+    "verdict": "APPROVE"
+  },
+  "performanceFollowup": {
+    "reviewedAt": "2026-10-15T22:51:59.312Z",
+    "status": "approved",
+    "scope": [
+      {
+        "file": "src/server/local-explore/store.ts",
+        "sha256": "cae74f4041e573f4f5de758dff171fa8d8d947016639c72c53b231f025021c6b"
+      },
+      {
+        "file": "src/server/local-explore/pilot-catalogue.ts",
+        "sha256": "dfb586e2fbbe75c288c905aeeeb13328312001c32dd850c3a926ffb3cf830b3a"
+      },
+      {
+        "file": "src/app/api/menus+api.ts",
+        "sha256": "5df6a62717a9ac9e97ef6b59447f1a2496e0bdc709239dc5e6ae95a470597783"
+      }
+    ],
+    "findings": [],
+    "checks": [
+      {
+        "name": "Writer and leased read behavior",
+        "status": "pass",
+        "method": "Memory mocked filesystem and proper-lockfile; no real store writes.",
+        "writeSequence": [
+          "lease",
+          "read",
+          "action",
+          "temporary write",
+          "fsync",
+          "close",
+          "atomic rename",
+          "cleanup",
+          "release"
+        ],
+        "leasedReadOnly": "Retains lease; no write"
+      },
+      {
+        "name": "Snapshot validation",
+        "status": "pass",
+        "checks": [
+          "Public snapshot does not acquire lease",
+          "Oversized store returns503",
+          "Malformed JSON returns503",
+          "Missing initial store returns empty initial store"
+        ]
+      },
+      {
+        "name": "Atomicity and freshness",
+        "status": "pass with complete revision semantics",
+        "assessment": "All identified records.json writers use the existing whole-file temporary write, fsync and atomic rename. Public reads take a complete prior or current revision and execute on each GET without a withdrawal cache. Leased writes remain serialized."
+      }
+    ],
+    "limitations": [
+      "HTTP latency benchmark is a separate parent check.",
+      "No Google calls were made."
+    ],
+    "recheckedAt": "2026-10-16T00:02:19.277Z"
+  },
+  "historicalPublication": {
+    "initialPublicationCheck": {
+      "name": "Final publication identities and revisions",
+      "status": "pass",
+      "venues": 100,
+      "foodRows": 9802,
+      "duplicateVenueIds": 0,
+      "duplicateItemIdsWithinVenues": 0
+    },
+    "initialRuntimeMutationCheck": {
+      "name": "Runtime changed source invalidation",
+      "status": "pass",
+      "dataset": "data/menu-research/greendot/menus.json",
+      "before": 100,
+      "afterMutation": 87,
+      "afterRestore": 100,
+      "method": "Mutate imported packet in memory and reload delivery module; no source file mutation."
+    }
+  },
+  "latestReview": {
+    "reviewedAt": "2026-10-16T00:02:43.806Z",
+    "status": "approved",
+    "scope": {
+      "mode": "Focused local review; runner main never executed; no paid or outbound calls.",
+      "files": [
+        {
+          "file": "scripts/resolve-menu-identities.ts",
+          "sha256": "7138909d939a2815b7883c067255154b9b4219f9a15d1e21fc8af03181b3ec38"
+        },
+        {
+          "file": "scripts/menu-identity/rate-limit.ts",
+          "sha256": "574a822ed72109fcf6a253dd18e96177ac7ebfd3717bba95f99ed1057b9f5fe2"
+        },
+        {
+          "file": "scripts/menu-identity/client.ts",
+          "sha256": "1394d5f9386b2513f0106febf313cfbf620354da3fccb1404ee1c2c80524c528"
+        },
+        {
+          "file": "scripts/menu-identity/ledger.ts",
+          "sha256": "ea3374a7b5046e04bda5f6b28a83b2446049d041b4d6f23d32051f0db6d94657"
+        },
+        {
+          "file": "scripts/menu-identity/match.ts",
+          "sha256": "dc3f55c18c5b1608b65aa1993161335c354c2bc8253548b05ca1e34f82720c01"
+        },
+        {
+          "file": "scripts/menu-identity/inputs.ts",
+          "sha256": "92271499ae9fed2ed9364b52ad3d3de8353c47a2d5b777bef3018118ace96a6e"
+        },
+        {
+          "file": "scripts/menu-identity/types.ts",
+          "sha256": "907432dbea6ccff2568e7d73107a2ac83ff5d798f5327a1a7c7ac9d06d94a6ff"
+        },
+        {
+          "file": "src/utils/menu-match.ts",
+          "sha256": "235fc17528a34317a2dca60ced3e999f9d472c4dd8c28542b8644677c43da465"
+        },
+        {
+          "file": "src/components/discovery/LocationSuggestions.tsx",
+          "sha256": "582d32e281408629d0cdc81122047015c36903ac6e020b180aea3a6b3d5135d1"
+        },
+        {
+          "file": "src/components/discovery/LocationSearchField.tsx",
+          "sha256": "b51e9c92567f82434fc95993a8ba187365428a5a2bb4f76c6a4963baff3b828e"
+        },
+        {
+          "file": "src/screens/food/Explore.tsx",
+          "sha256": "fb9ef234deebd1f0a6b37779bc1dab030d1ca3e0ca99a12b475b0328d42ffbb9"
+        },
+        {
+          "file": "src/screens/food/Menu.tsx",
+          "sha256": "999d1faa7e2a1c2613a1f8c8ba425cb736408f535dbaae0e7cca5ff98d2fca85"
+        },
+        {
+          "file": "src/server/local-explore/store.ts",
+          "sha256": "cae74f4041e573f4f5de758dff171fa8d8d947016639c72c53b231f025021c6b"
+        },
+        {
+          "file": "src/server/local-explore/pilot-catalogue.ts",
+          "sha256": "dfb586e2fbbe75c288c905aeeeb13328312001c32dd850c3a926ffb3cf830b3a"
+        },
+        {
+          "file": "src/app/api/menus+api.ts",
+          "sha256": "5df6a62717a9ac9e97ef6b59447f1a2496e0bdc709239dc5e6ae95a470597783"
+        },
+        {
+          "file": "data/menu-research/menu-directory-continuation-cafes-2026-10-16.json",
+          "sha256": "a715b6541ad4103c925b885f0e8738648db69b536ffbc2d4528d3dd5eec838ab"
+        },
+        {
+          "file": "data/menus/research-publication.json",
+          "sha256": "f8c0d0fd85a1238bee27df20fc6b4fa42d82c4a5c177c482cf3555ef85da6348"
+        },
+        {
+          "file": "data/menus/published-research.json",
+          "sha256": "a033ef4e0c675d1b73a99860e86a594bebe1d3a4675d22e0c2c1fd92d53547a8"
+        },
+        {
+          "file": "src/server/research-menu-packets.ts",
+          "sha256": "27646fe7e829d735ba6043d663ba067efe50b3e4588d1506b2d629c8d1bd9415"
+        },
+        {
+          "file": "src/server/menu-delivery.ts",
+          "sha256": "4e5d1021802fdeb5586594f074118dc9d52bfdf1268fcf5a89720b04a4068c2d"
+        }
+      ],
+      "dataBoundary": "New source packet reviewed for publication projection and fingerprint safety; merchant/OCR evidence review remains separate."
+    },
+    "findings": [],
+    "checks": [
+      {
+        "name": "Durable request cap and dispatch ordering",
+        "status": "pass",
+        "hardCap": 2500,
+        "concurrentReservationsAt2499": {
+          "accepted": 1,
+          "rejected": 2
+        },
+        "actualFetchStartIntervalsAfter650msLedgerStall": [
+          154,
+          156
+        ],
+        "minimumIntervalMs": 150,
+        "method": "Mocked request and ledger; real short gate delay."
+      },
+      {
+        "name": "Shared throttling and failure handling",
+        "status": "pass",
+        "sharedCooldownMs": 60000,
+        "extendedCooldownMs": 90000,
+        "oneRetryOn429": {
+          "calls": 2,
+          "reservations": 2,
+          "dispatchGapMs": 60000
+        },
+        "repeated429Attempts": 2,
+        "accessDenial": "403 completes error record then stops",
+        "stopBeforeReserve": "No reservation",
+        "stopAfterGate": "Conservative reservation counted; no fetch",
+        "method": "Mocked fetch, timers and ledger writes."
+      },
+      {
+        "name": "Argument and error retry selection",
+        "status": "pass",
+        "invalidArgumentCases": 6,
+        "defaultSelection": [
+          "pending IDs only"
+        ],
+        "retrySelection": [
+          "network-error",
+          "invalid-response",
+          "HTTP429",
+          "HTTP500",
+          "HTTP502",
+          "HTTP503",
+          "HTTP504"
+        ],
+        "excludedFromRetry": [
+          "candidate",
+          "unmatched",
+          "pending",
+          "HTTP400",
+          "HTTP401",
+          "HTTP403",
+          "HTTP404"
+        ],
+        "method": "Isolated AST-extracted option and predicate functions; runner main not imported."
+      },
+      {
+        "name": "Candidate provenance boundary",
+        "status": "pass",
+        "method": "Synthetic provider facts and independently sourced lead.",
+        "retainedFacts": [
+          "Independent lead name",
+          "Independent lead address",
+          "Independent source URLs",
+          "Provider IDs",
+          "Review proof and timestamps"
+        ],
+        "providerDisplayMetadataKeysInCandidate": [],
+        "explicitReviewRequired": true
+      },
+      {
+        "name": "Branch unit normalization",
+        "status": "pass",
+        "syntheticCases": 8,
+        "covered": [
+          "Basement floors",
+          "Kiosk units",
+          "Leading zeroes",
+          "Slash ranges",
+          "Hyphen ranges",
+          "to ranges",
+          "Different units rejected"
+        ],
+        "additionalGuards": [
+          "Wrong postal rejected",
+          "Permanently closed place rejected",
+          "Multiple menu matches rejected"
+        ]
+      },
+      {
+        "name": "Location suggestion presentation",
+        "status": "pass",
+        "assessment": "Spinner has Finding locations accessibility label. suggestionsInFlow defaults false, is forwarded to the panel, and is opted into only by Explore. In-flow mode omits absolute dropdown placement and lets the panel contribute layout height."
+      },
+      {
+        "name": "Menu correction header",
+        "status": "pass",
+        "visibleLabel": "Correct",
+        "accessibleLabel": "Correct menu",
+        "assessment": "Shared Button forwards its explicit accessibilityLabel to Pressable."
+      },
+      {
+        "name": "Three branch publication projection",
+        "status": "pass",
+        "branches": [
+          {
+            "id": "lilac-oak-oxley-rise",
+            "rawRows": 18,
+            "publishedRows": 18,
+            "excludedRows": 0
+          },
+          {
+            "id": "baomaker-ang-mo-kio-447",
+            "rawRows": 19,
+            "publishedRows": 17,
+            "excludedRows": 2
+          },
+          {
+            "id": "merle-lentor-modern",
+            "rawRows": 50,
+            "publishedRows": 50,
+            "excludedRows": 0
+          }
+        ],
+        "publishedNewRows": 85,
+        "manifestEntries": 92,
+        "compiledEntries": 92,
+        "appVenues": 103,
+        "sourceMenus": 147,
+        "appFoodRows": 9887,
+        "reviewAndCompiledFingerprints": "match",
+        "heldRows": "excluded",
+        "sourceMutation": "103 ->100 ->103"
+      },
+      {
+        "name": "Atomic snapshot and explicit null recheck",
+        "status": "pass",
+        "assessment": "Previous9-case malformed withdrawal checks and per-request withdrawal/restoration behavior passed. Only undefined is accepted as absent. Whole-file atomic writer path, fsync and lease guards remain intact."
+      },
+      {
+        "name": "Canonical brand plus branch search",
+        "status": "pass",
+        "actualIndexCases": [
+          {
+            "query": "Greendot Bedok",
+            "expectedId": "research-greendot-bedok-mall"
+          },
+          {
+            "query": "greendot",
+            "expectedId": "research-greendot-bedok-mall"
+          },
+          {
+            "query": "467360",
+            "expectedId": "research-greendot-bedok-mall"
+          },
+          {
+            "query": "Bedok Mall",
+            "expectedId": "research-greendot-bedok-mall"
+          }
+        ],
+        "syntheticChecks": [
+          "Alias plus branch finds canonical venue",
+          "Canonical name plus branch finds venue",
+          "Short and unrelated queries return no result",
+          "Eight-result bound retained"
+        ],
+        "assessment": "Search targets combine canonical or alias name with branch and separately include postal code."
+      }
+    ],
+    "limitations": [
+      "No live provider call or full paid runner execution was performed by this reviewer.",
+      "Throttle timing uses both short real delays and a virtual clock; it is not a provider load benchmark.",
+      "Suggestion behavior and header forwarding were reviewed statically; physical device and live browser appearance belong to their separate QA evidence.",
+      "Data completeness and merchant menu source interpretation are separate from this code and projection review."
+    ]
+  }
+}

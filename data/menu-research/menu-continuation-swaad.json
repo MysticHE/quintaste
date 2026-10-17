@@ -1,0 +1,2563 @@
+{
+  "version": 1,
+  "checkedAt": "2026-10-15T22:20:00.000Z",
+  "sources": [
+    {
+      "id": "swaad-menu-current",
+      "url": "https://swaadgovinda.com/menu",
+      "publisher": "Swaad — Art of Saatvik Food",
+      "title": "Swaad current linked seven-page menu",
+      "checkedAt": "2026-10-15T22:20:00.000Z",
+      "status": "HTTP200; all seven linked source images visually inspected"
+    },
+    {
+      "id": "swaad-merchant-locations",
+      "url": "https://swaadgovinda.com/locations",
+      "publisher": "Swaad — Art of Saatvik Food",
+      "title": "Merchant-published Desker Road and Shenton Way addresses",
+      "checkedAt": "2026-10-15T22:20:00.000Z",
+      "status": "HTTP200; source identity/address text checked"
+    },
+    {
+      "id": "swaad-menu-page-1",
+      "url": "https://swaadgovinda.com/assets/images/menu/Swaad_Tabloid_Menu_page-0002.jpg",
+      "publisher": "Swaad — Art of Saatvik Food",
+      "title": "Merchant linked menu image, page 1",
+      "checkedAt": "2026-10-15T22:20:00.000Z",
+      "status": "HTTP200; original image visually inspected; facts only transcribed"
+    },
+    {
+      "id": "swaad-menu-page-2",
+      "url": "https://swaadgovinda.com/assets/images/menu/Swaad_Tabloid_Menu_page-0003.jpg",
+      "publisher": "Swaad — Art of Saatvik Food",
+      "title": "Merchant linked menu image, page 2",
+      "checkedAt": "2026-10-15T22:20:00.000Z",
+      "status": "HTTP200; original image visually inspected; facts only transcribed"
+    },
+    {
+      "id": "swaad-menu-page-3",
+      "url": "https://swaadgovinda.com/assets/images/menu/Swaad_Tabloid_Menu_page-0004.jpg",
+      "publisher": "Swaad — Art of Saatvik Food",
+      "title": "Merchant linked menu image, page 3",
+      "checkedAt": "2026-10-15T22:20:00.000Z",
+      "status": "HTTP200; original image visually inspected; facts only transcribed"
+    },
+    {
+      "id": "swaad-menu-page-4",
+      "url": "https://swaadgovinda.com/assets/images/menu/Swaad_Tabloid_Menu_page-0005.jpg",
+      "publisher": "Swaad — Art of Saatvik Food",
+      "title": "Merchant linked menu image, page 4",
+      "checkedAt": "2026-10-15T22:20:00.000Z",
+      "status": "HTTP200; original image visually inspected; facts only transcribed"
+    },
+    {
+      "id": "swaad-menu-page-5",
+      "url": "https://swaadgovinda.com/assets/images/menu/Swaad_Tabloid_Menu_page-0006.jpg",
+      "publisher": "Swaad — Art of Saatvik Food",
+      "title": "Merchant linked menu image, page 5",
+      "checkedAt": "2026-10-15T22:20:00.000Z",
+      "status": "HTTP200; original image visually inspected; facts only transcribed"
+    },
+    {
+      "id": "swaad-menu-page-6",
+      "url": "https://swaadgovinda.com/assets/images/menu/Swaad_Tabloid_Menu_page-0007.jpg",
+      "publisher": "Swaad — Art of Saatvik Food",
+      "title": "Merchant linked menu image, page 6",
+      "checkedAt": "2026-10-15T22:20:00.000Z",
+      "status": "HTTP200; original image visually inspected; facts only transcribed"
+    },
+    {
+      "id": "swaad-menu-page-7",
+      "url": "https://swaadgovinda.com/assets/images/menu/Swaad_Tabloid_Menu_page-0008.jpg",
+      "publisher": "Swaad — Art of Saatvik Food",
+      "title": "Merchant linked menu image, page 7",
+      "checkedAt": "2026-10-15T22:20:00.000Z",
+      "status": "HTTP200; original image visually inspected; facts only transcribed"
+    },
+    {
+      "id": "ur17-swaad-selected",
+      "url": "https://www.blockchef.com/store/shentonfoodhall/menu?menu=Swaad%20Vegetarian%20%28Shenton%20Way%29",
+      "publisher": "Merchant operator / linked ordering",
+      "title": "Current rendered Swaad Shenton subsection",
+      "checkedAt": "2026-10-16T09:42:15.243Z",
+      "accessStatus": "normal-browser-200-visible",
+      "notes": "Ordinary linked category selection displays nine current cards: eight food parents and one excluded beverage parent. Exact Shenton#01-04premise. Other mixed-foodhall sections excluded; server-initial hidden cards not accepted until normally selected and visible. Generic prose, hypothetical allergens/server-error text and vegan tags are not recipe certification. No cart/order submitted. Equivalent percent-encoding of query parentheses preserves the normally selected source URL in the app external link; observedBrowserUrl retains exact original.",
+      "observedBrowserUrl": "https://www.blockchef.com/store/shentonfoodhall/menu?menu=Swaad%20Vegetarian%20(Shenton%20Way)"
+    },
+    {
+      "id": "ur17-swaad-owner",
+      "url": "https://swaadgovinda.com/menu",
+      "publisher": "Merchant operator / linked ordering",
+      "title": "Swaad owner vegetarian menu positioning",
+      "checkedAt": "2026-10-16T09:39:27.111Z",
+      "accessStatus": "normal-http-200",
+      "notes": "Current own site explicitly purevegetarian/noonion/nogarlic, with both Desker/Shenton dining references. Operator claim only; no complete ingredients or universal vegan claim. Existing Desker printed menu/prices not transferred to Shenton ordering."
+    },
+    {
+      "id": "ur17-swaad-detail-65f2ca465718d4711caab565",
+      "url": "https://www.blockchef.com/store/shentonfoodhall/menu/65f2ca465718d4711caab565",
+      "publisher": "Merchant operator / linked ordering",
+      "title": "Swaad Shenton current product detail",
+      "checkedAt": "2026-10-16T09:42:20.006Z",
+      "accessStatus": "normal-browser-200-visible",
+      "notes": "Normal200rendered exact name/SGDcardamount. Choice inventories read where present; initial aria-pressedfalse on all options. Product quantity1 is not a portion/people count. Generic description and potential-allergen/server-error text stay private."
+    },
+    {
+      "id": "ur17-swaad-detail-65f2caa05718d4711caab566",
+      "url": "https://www.blockchef.com/store/shentonfoodhall/menu/65f2caa05718d4711caab566",
+      "publisher": "Merchant operator / linked ordering",
+      "title": "Swaad Shenton current product detail",
+      "checkedAt": "2026-10-16T09:42:24.092Z",
+      "accessStatus": "normal-browser-200-visible",
+      "notes": "Normal200rendered exact name/SGDcardamount. Choice inventories read where present; initial aria-pressedfalse on all options. Product quantity1 is not a portion/people count. Generic description and potential-allergen/server-error text stay private."
+    },
+    {
+      "id": "ur17-swaad-detail-65f2cb274f6a900ef7876c88",
+      "url": "https://www.blockchef.com/store/shentonfoodhall/menu/65f2cb274f6a900ef7876c88",
+      "publisher": "Merchant operator / linked ordering",
+      "title": "Swaad Shenton current product detail",
+      "checkedAt": "2026-10-16T09:42:27.276Z",
+      "accessStatus": "normal-browser-200-visible",
+      "notes": "Normal200rendered exact name/SGDcardamount. Choice inventories read where present; initial aria-pressedfalse on all options. Product quantity1 is not a portion/people count. Generic description and potential-allergen/server-error text stay private."
+    },
+    {
+      "id": "ur17-swaad-detail-65f2cbe94ee001436d1d3d6e",
+      "url": "https://www.blockchef.com/store/shentonfoodhall/menu/65f2cbe94ee001436d1d3d6e",
+      "publisher": "Merchant operator / linked ordering",
+      "title": "Swaad Shenton current product detail",
+      "checkedAt": "2026-10-16T09:42:30.074Z",
+      "accessStatus": "normal-browser-200-visible",
+      "notes": "Normal200rendered exact name/SGDcardamount. Choice inventories read where present; initial aria-pressedfalse on all options. Product quantity1 is not a portion/people count. Generic description and potential-allergen/server-error text stay private."
+    },
+    {
+      "id": "ur17-swaad-detail-65f2ccc64ee001436d1d3d6f",
+      "url": "https://www.blockchef.com/store/shentonfoodhall/menu/65f2ccc64ee001436d1d3d6f",
+      "publisher": "Merchant operator / linked ordering",
+      "title": "Swaad Shenton current product detail",
+      "checkedAt": "2026-10-16T09:42:32.909Z",
+      "accessStatus": "normal-browser-200-visible",
+      "notes": "Normal200rendered exact name/SGDcardamount. Choice inventories read where present; initial aria-pressedfalse on all options. Product quantity1 is not a portion/people count. Generic description and potential-allergen/server-error text stay private."
+    },
+    {
+      "id": "ur17-swaad-detail-65f2ceaf4ee001436d1d3d70",
+      "url": "https://www.blockchef.com/store/shentonfoodhall/menu/65f2ceaf4ee001436d1d3d70",
+      "publisher": "Merchant operator / linked ordering",
+      "title": "Swaad Shenton current product detail",
+      "checkedAt": "2026-10-16T09:42:35.621Z",
+      "accessStatus": "normal-browser-200-visible",
+      "notes": "Normal200rendered exact name/SGDcardamount. Choice inventories read where present; initial aria-pressedfalse on all options. Product quantity1 is not a portion/people count. Generic description and potential-allergen/server-error text stay private."
+    },
+    {
+      "id": "ur17-swaad-detail-65f2d07406a7129deeb5391a",
+      "url": "https://www.blockchef.com/store/shentonfoodhall/menu/65f2d07406a7129deeb5391a",
+      "publisher": "Merchant operator / linked ordering",
+      "title": "Swaad Shenton current product detail",
+      "checkedAt": "2026-10-16T09:42:38.281Z",
+      "accessStatus": "normal-browser-200-visible",
+      "notes": "Normal200rendered exact name/SGDcardamount. Choice inventories read where present; initial aria-pressedfalse on all options. Product quantity1 is not a portion/people count. Generic description and potential-allergen/server-error text stay private."
+    },
+    {
+      "id": "ur17-swaad-detail-65f2d19d06a7129deeb5391b",
+      "url": "https://www.blockchef.com/store/shentonfoodhall/menu/65f2d19d06a7129deeb5391b",
+      "publisher": "Merchant operator / linked ordering",
+      "title": "Swaad Shenton current product detail",
+      "checkedAt": "2026-10-16T09:42:41.436Z",
+      "accessStatus": "normal-browser-200-visible",
+      "notes": "Normal200rendered exact name/SGDcardamount. Choice inventories read where present; initial aria-pressedfalse on all options. Product quantity1 is not a portion/people count. Generic description and potential-allergen/server-error text stay private."
+    },
+    {
+      "id": "ur17-swaad-detail-65f2d26306a7129deeb5391c",
+      "url": "https://www.blockchef.com/store/shentonfoodhall/menu/65f2d26306a7129deeb5391c",
+      "publisher": "Merchant operator / linked ordering",
+      "title": "Swaad Shenton current product detail",
+      "checkedAt": "2026-10-16T09:42:44.334Z",
+      "accessStatus": "normal-browser-200-visible",
+      "notes": "Normal200rendered exact name/SGDcardamount. Choice inventories read where present; initial aria-pressedfalse on all options. Product quantity1 is not a portion/people count. Generic description and potential-allergen/server-error text stay private."
+    }
+  ],
+  "branches": [
+    {
+      "id": "swaad-desker70",
+      "name": "Swaad — Desker Road",
+      "address": "70 Desker Road, Singapore 209593",
+      "postalCode": "209593",
+      "sourceIds": [
+        "swaad-merchant-locations",
+        "swaad-menu-page-7"
+      ],
+      "menuIds": [
+        "swaad-current-published-foods",
+        "swaad-catering-only-foods",
+        "swaad-advance-order-festive-foods"
+      ],
+      "gaps": [
+        "All114 named standalone food/portion rows in the currently linked seven-page merchant menu captured; four beverage-containing buffet/thali bundles and eleven beverages excluded.",
+        "Catering-only and advance-order foods are held separately; Sunday and seasonal qualifiers retained. Printed dollar currency code, tax treatment, effective date and current stock unconfirmed. No ingredient or allium certification inferred.",
+        "Exact merchant branch card links to Google Maps, but no direct Place ID appears in the source HTML or short-link redirect. Preserve unknown; do not derive an ID from a feature token."
+      ],
+      "merchantMapUrl": "https://maps.app.goo.gl/QyEaoijBd1oa7tJL9",
+      "mapLinkStatus": "merchant-linked-map-url-no-place-id"
+    },
+    {
+      "id": "swaad-shenton3",
+      "name": "Swaad — Shenton Way",
+      "address": "3 Shenton Way #01-04 Shenton House, Singapore 068805",
+      "postalCode": "068805",
+      "sourceIds": [
+        "swaad-merchant-locations",
+        "swaad-menu-page-7",
+        "ur17-swaad-selected",
+        "ur17-swaad-owner"
+      ],
+      "menuIds": [
+        "swaad-shenton-current-blockchef"
+      ],
+      "gaps": [
+        "Generic recipe and hypotheticalallergen prose unverified; complete set contents, ingredients, stock and final charges unknown.",
+        "Three option groups observed independent toggles with additive surcharges and no initial selections; merchant limits/requiredness remain unprinted, cart not submitted.",
+        "No current complete physical menu or shared Desker menu applicability inferred from separate channel."
+      ],
+      "merchantMapUrl": "https://maps.app.goo.gl/7uSa3ZjebobBpBMp6",
+      "mapLinkStatus": "merchant-linked-map-url-no-place-id",
+      "eligibility": "vegetarian-confirmed",
+      "venueEligibility": {
+        "status": "vegetarian-confirmed",
+        "checkedAt": "2026-10-16T09:49:04.337957+00:00",
+        "sourceIds": [
+          "ur17-swaad-selected",
+          "ur17-swaad-owner"
+        ],
+        "reason": "Current owner purevegetarian/noonion/nogarlic concept and normal rendered separately named Swaad subsection establish exact Shenton#01-04menu. The surrounding foodhall is mixed and not vegetarian; other section foods excluded. No Desker menu/price transfer or Googlebinding."
+      }
+    }
+  ],
+  "menus": [
+    {
+      "id": "swaad-current-published-foods",
+      "name": "Swaad — linked standalone food menu",
+      "scope": "branch",
+      "branchIds": [
+        "swaad-desker70"
+      ],
+      "sourceIds": [
+        "swaad-menu-current",
+        "swaad-menu-page-1",
+        "swaad-menu-page-2",
+        "swaad-menu-page-3",
+        "swaad-menu-page-4",
+        "swaad-menu-page-5",
+        "swaad-menu-page-6",
+        "swaad-menu-page-7"
+      ],
+      "coverage": "source-covered",
+      "items": [
+        {
+          "id": "swaad-published-food-001",
+          "name": "Tomato Soup",
+          "category": "Soup",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-1"
+          ],
+          "price": {
+            "amount": 4.5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-002",
+          "name": "Lentil Shorba",
+          "category": "Soup",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-1"
+          ],
+          "price": {
+            "amount": 4.5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "printedAlias": "Daal Ka Shorba",
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-003",
+          "name": "Tomato Coriander Shorba",
+          "category": "Soup",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-1"
+          ],
+          "price": {
+            "amount": 5.5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-004",
+          "name": "Sweet Corn Soup",
+          "category": "Soup",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-1"
+          ],
+          "price": {
+            "amount": 5.5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-005",
+          "name": "Hot & Sour Soup",
+          "category": "Soup",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-1"
+          ],
+          "price": {
+            "amount": 5.5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-006",
+          "name": "Veg Coriander Soup",
+          "category": "Soup",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-1"
+          ],
+          "price": {
+            "amount": 5.5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-007",
+          "name": "Manchow Soup",
+          "category": "Soup",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-1"
+          ],
+          "price": {
+            "amount": 5.5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-008",
+          "name": "Aloo Bhaji",
+          "category": "Main Dishes",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-2"
+          ],
+          "price": {
+            "amount": 6.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-009",
+          "name": "Jeera Aloo",
+          "category": "Main Dishes",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-2"
+          ],
+          "price": {
+            "amount": 6.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-010",
+          "name": "Golden Aloo Gobi",
+          "category": "Main Dishes",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-2"
+          ],
+          "price": {
+            "amount": 8.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "printedAlias": "Aloo Gobi",
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-012",
+          "name": "Bhindi Masala",
+          "category": "Main Dishes",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-2"
+          ],
+          "price": {
+            "amount": 9.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-013",
+          "name": "Sev Tomato",
+          "category": "Main Dishes",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-2"
+          ],
+          "price": {
+            "amount": 8.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-014",
+          "name": "Chatpata Chana",
+          "category": "Main Dishes",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-2"
+          ],
+          "price": {
+            "amount": 8.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "printedAlias": "Chana Masala",
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-015",
+          "name": "Veg Handi",
+          "category": "Main Dishes",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-2"
+          ],
+          "price": {
+            "amount": 10.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-016",
+          "name": "Veg Jalfrezi",
+          "category": "Main Dishes",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-2"
+          ],
+          "price": {
+            "amount": 10.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-017",
+          "name": "Veg Kadhai",
+          "category": "Main Dishes",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-2"
+          ],
+          "price": {
+            "amount": 10.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-018",
+          "name": "Malabar Veg Kurma",
+          "category": "Main Dishes",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-2"
+          ],
+          "price": {
+            "amount": 11.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "printedAlias": "Veg Kurma",
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-019",
+          "name": "Velvet Makhanwala",
+          "category": "Main Dishes",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-2"
+          ],
+          "price": {
+            "amount": 11.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "printedAlias": "Veg Makhanwala",
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-021",
+          "name": "Emerald Palak Paneer",
+          "category": "Main Dishes",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-2"
+          ],
+          "price": {
+            "amount": 12.5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "printedAlias": "Palak Paneer",
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-022",
+          "name": "Paneer Makhani",
+          "category": "Main Dishes",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-2"
+          ],
+          "price": {
+            "amount": 12.5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "printedAlias": "Paneer Butter Masala",
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-024",
+          "name": "Paneer Kadhai",
+          "category": "Main Dishes",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-2"
+          ],
+          "price": {
+            "amount": 12.5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-025",
+          "name": "Malai Kofta Royale",
+          "category": "Main Dishes",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-2"
+          ],
+          "price": {
+            "amount": 13.5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "printedAlias": "Malai Kofta",
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-026",
+          "name": "Surti Undhiyo",
+          "category": "Main Dishes",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-2"
+          ],
+          "price": {
+            "amount": 13.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "printedAlias": "Undhiyo",
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-027",
+          "name": "Swaad Signature Paneer",
+          "category": "Main Dishes",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-2"
+          ],
+          "price": {
+            "amount": 13.5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-028",
+          "name": "Sunday Daal Baati Choorma",
+          "category": "Main Dishes",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-2"
+          ],
+          "price": {
+            "amount": 12.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "weekdays": [
+            "Sunday"
+          ],
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed. SUNDAYS ONLY."
+        },
+        {
+          "id": "swaad-published-food-029",
+          "name": "Dal Fry",
+          "category": "Dal",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-3"
+          ],
+          "price": {
+            "amount": 7.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-030",
+          "name": "Dal Fry Tadka",
+          "category": "Dal",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-3"
+          ],
+          "price": {
+            "amount": 8.5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-031",
+          "name": "Dal Makhani",
+          "category": "Dal",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-3"
+          ],
+          "price": {
+            "amount": 8.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-032",
+          "name": "Gujarati Dal",
+          "category": "Dal",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-3"
+          ],
+          "price": {
+            "amount": 8.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-033",
+          "name": "Gujarati Kadhi",
+          "category": "Dal",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-3"
+          ],
+          "price": {
+            "amount": 8.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-034",
+          "name": "Punjabi Kadhi",
+          "category": "Dal",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-3"
+          ],
+          "price": {
+            "amount": 8.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-035",
+          "name": "Bhatia Kadhi",
+          "category": "Dal",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-3"
+          ],
+          "price": {
+            "amount": 8.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-036",
+          "name": "Bhindi Kadhi",
+          "category": "Dal",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-3"
+          ],
+          "price": {
+            "amount": 8.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-037",
+          "name": "Aloo Chilli",
+          "category": "Desi-Chinese Corner",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-3"
+          ],
+          "price": {
+            "amount": 8.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-038",
+          "name": "Hakka Noodles",
+          "category": "Desi-Chinese Corner",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-3"
+          ],
+          "price": {
+            "amount": 9.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-039",
+          "name": "Schezwan Fried Rice",
+          "category": "Desi-Chinese Corner",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-3"
+          ],
+          "price": {
+            "amount": 9.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-040",
+          "name": "Veg Fried Rice",
+          "category": "Desi-Chinese Corner",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-3"
+          ],
+          "price": {
+            "amount": 9.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-041",
+          "name": "Gobhi Manchurian Dry",
+          "category": "Desi-Chinese Corner",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-3"
+          ],
+          "price": {
+            "amount": 11.5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-042",
+          "name": "Gobhi Manchurian Gravy",
+          "category": "Desi-Chinese Corner",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-3"
+          ],
+          "price": {
+            "amount": 12.5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-043",
+          "name": "Veg Manchurian Dry",
+          "category": "Desi-Chinese Corner",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-3"
+          ],
+          "price": {
+            "amount": 11.5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-044",
+          "name": "Veg Manchurian Gravy",
+          "category": "Desi-Chinese Corner",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-3"
+          ],
+          "price": {
+            "amount": 12.5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-045",
+          "name": "Paneer Chilli Dry",
+          "category": "Desi-Chinese Corner",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-3"
+          ],
+          "price": {
+            "amount": 12.5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-046",
+          "name": "Paneer Chilli Gravy",
+          "category": "Desi-Chinese Corner",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-3"
+          ],
+          "price": {
+            "amount": 13.5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-047",
+          "name": "Crunchy Chinese Bhel",
+          "category": "Desi-Chinese Corner",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-3"
+          ],
+          "price": {
+            "amount": 13.5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "printedAlias": "Chinese Bhel",
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-048",
+          "name": "Samosa",
+          "category": "Chaats & Snacks",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-4"
+          ],
+          "price": {
+            "amount": 4.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "portion": "2 pcs",
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed. Printed portion: 2 pcs."
+        },
+        {
+          "id": "swaad-published-food-049",
+          "name": "Kachori",
+          "category": "Chaats & Snacks",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-4"
+          ],
+          "price": {
+            "amount": 5.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "portion": "2 pcs",
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed. Printed portion: 2 pcs."
+        },
+        {
+          "id": "swaad-published-food-050",
+          "name": "Mumbai Vada Pao",
+          "category": "Chaats & Snacks",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-4"
+          ],
+          "price": {
+            "amount": 7.5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "portion": "2 pcs",
+          "printedAlias": "Vada Pao",
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed. Printed portion: 2 pcs."
+        },
+        {
+          "id": "swaad-published-food-051",
+          "name": "Kutchi Dabeli",
+          "category": "Chaats & Snacks",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-4"
+          ],
+          "price": {
+            "amount": 5.5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "printedAlias": "Kachhi Dabheli",
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-052",
+          "name": "Batata Vada",
+          "category": "Chaats & Snacks",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-4"
+          ],
+          "price": {
+            "amount": 5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "portion": "2 pcs",
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed. Printed portion: 2 pcs."
+        },
+        {
+          "id": "swaad-published-food-054",
+          "name": "Dahi Puri Pearls",
+          "category": "Chaats & Snacks",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-4"
+          ],
+          "price": {
+            "amount": 7.5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "printedAlias": "Dahi Puri",
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-055",
+          "name": "Paani Puri Blast",
+          "category": "Chaats & Snacks",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-4"
+          ],
+          "price": {
+            "amount": 7.5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "printedAlias": "Paani Puri",
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-056",
+          "name": "Sev Puri",
+          "category": "Chaats & Snacks",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-4"
+          ],
+          "price": {
+            "amount": 7.5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-057",
+          "name": "Papadi Chaat",
+          "category": "Chaats & Snacks",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-4"
+          ],
+          "price": {
+            "amount": 7.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-058",
+          "name": "Dahi Vada",
+          "category": "Chaats & Snacks",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-4"
+          ],
+          "price": {
+            "amount": 5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "portion": "2 pcs",
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed. Printed portion: 2 pcs."
+        },
+        {
+          "id": "swaad-published-food-059",
+          "name": "Bread Pakora",
+          "category": "Chaats & Snacks",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-4"
+          ],
+          "price": {
+            "amount": 7,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-061",
+          "name": "Paneer Pakora",
+          "category": "Chaats & Snacks",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-4"
+          ],
+          "price": {
+            "amount": 7.5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-063",
+          "name": "Mumbai Pav Bhaji",
+          "category": "Chaats & Snacks",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-4"
+          ],
+          "price": {
+            "amount": 7.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "portion": "2 pcs",
+          "printedAlias": "Pao Bhaji",
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed. Printed portion: 2 pcs."
+        },
+        {
+          "id": "swaad-published-food-064",
+          "name": "Aloo Tikki Chaat",
+          "category": "Chaats & Snacks",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-4"
+          ],
+          "price": {
+            "amount": 8.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "portion": "2 pcs",
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed. Printed portion: 2 pcs."
+        },
+        {
+          "id": "swaad-published-food-065",
+          "name": "Samosa Chaat",
+          "category": "Chaats & Snacks",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-4"
+          ],
+          "price": {
+            "amount": 7.5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-066",
+          "name": "Kachori Chaat",
+          "category": "Chaats & Snacks",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-4"
+          ],
+          "price": {
+            "amount": 8.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "portion": "2 pcs",
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed. Printed portion: 2 pcs."
+        },
+        {
+          "id": "swaad-published-food-067",
+          "name": "Extra Pao",
+          "category": "Chaats & Snacks",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-4"
+          ],
+          "price": {
+            "amount": 1.5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "portion": "1 pc",
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed. Printed portion: 1 pc."
+        },
+        {
+          "id": "swaad-published-food-068",
+          "name": "Fulka Roti",
+          "category": "Roti, Puri & Parathas",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-5"
+          ],
+          "price": {
+            "amount": 1.5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-069",
+          "name": "Butter Roti",
+          "category": "Roti, Puri & Parathas",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-5"
+          ],
+          "price": {
+            "amount": 1.8,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-070",
+          "name": "Poori",
+          "category": "Roti, Puri & Parathas",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-5"
+          ],
+          "price": {
+            "amount": 4.5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "portion": "3 pcs",
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed. Printed portion: 3 pcs."
+        },
+        {
+          "id": "swaad-published-food-071",
+          "name": "Tawa Paratha",
+          "category": "Roti, Puri & Parathas",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-5"
+          ],
+          "price": {
+            "amount": 3.5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-072",
+          "name": "Methi Paratha",
+          "category": "Roti, Puri & Parathas",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-5"
+          ],
+          "price": {
+            "amount": 3.5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-073",
+          "name": "Thepla",
+          "category": "Roti, Puri & Parathas",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-5"
+          ],
+          "price": {
+            "amount": 6.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "portion": "3 pcs",
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed. Printed portion: 3 pcs."
+        },
+        {
+          "id": "swaad-published-food-074",
+          "name": "Missi Roti",
+          "category": "Roti, Puri & Parathas",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-5"
+          ],
+          "price": {
+            "amount": 4.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-075",
+          "name": "Bajra Roti",
+          "category": "Roti, Puri & Parathas",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-5"
+          ],
+          "price": {
+            "amount": 4.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-076",
+          "name": "Makai Roti",
+          "category": "Roti, Puri & Parathas",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-5"
+          ],
+          "price": {
+            "amount": 4.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-077",
+          "name": "Aloo Paratha",
+          "category": "Roti, Puri & Parathas",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-5"
+          ],
+          "price": {
+            "amount": 4.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-078",
+          "name": "Gobhi Paratha",
+          "category": "Roti, Puri & Parathas",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-5"
+          ],
+          "price": {
+            "amount": 4.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-079",
+          "name": "Paneer Paratha",
+          "category": "Roti, Puri & Parathas",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-5"
+          ],
+          "price": {
+            "amount": 5.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-080",
+          "name": "Lachha Paratha",
+          "category": "Roti, Puri & Parathas",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-5"
+          ],
+          "price": {
+            "amount": 5.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-081",
+          "name": "Bhakri",
+          "category": "Roti, Puri & Parathas",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-5"
+          ],
+          "price": {
+            "amount": 5.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-082",
+          "name": "Aloo Puri",
+          "category": "Roti, Puri & Parathas",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-5"
+          ],
+          "price": {
+            "amount": 7.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-083",
+          "name": "Sabji Puri",
+          "category": "Roti, Puri & Parathas",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-5"
+          ],
+          "price": {
+            "amount": 9.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-084",
+          "name": "Chole Puri",
+          "category": "Roti, Puri & Parathas",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-5"
+          ],
+          "price": {
+            "amount": 9.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-085",
+          "name": "Chana Bhatura",
+          "category": "Roti, Puri & Parathas",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-5"
+          ],
+          "price": {
+            "amount": 9.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-086",
+          "name": "Swaad Paratha Basket",
+          "category": "Roti, Puri & Parathas",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-5"
+          ],
+          "price": {
+            "amount": 13.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "portion": "three parathas",
+          "printedAlias": "Swaad Special Paratha Basket",
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed. Printed portion: three parathas."
+        },
+        {
+          "id": "swaad-published-food-087",
+          "name": "Plain Rice",
+          "category": "Rice",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-5"
+          ],
+          "price": {
+            "amount": 3.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-088",
+          "name": "Jeera Rice",
+          "category": "Rice",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-5"
+          ],
+          "price": {
+            "amount": 4.5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-089",
+          "name": "Peas Pulao",
+          "category": "Rice",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-5"
+          ],
+          "price": {
+            "amount": 6.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-090",
+          "name": "Veg Pulao",
+          "category": "Rice",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-5"
+          ],
+          "price": {
+            "amount": 6.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-091",
+          "name": "Veg Khichdi",
+          "category": "Rice",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-5"
+          ],
+          "price": {
+            "amount": 8.5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-092",
+          "name": "Lemon Rice",
+          "category": "Rice",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-5"
+          ],
+          "price": {
+            "amount": 7.5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-093",
+          "name": "Kashmiri Pulao",
+          "category": "Rice",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-5"
+          ],
+          "price": {
+            "amount": 8.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-094",
+          "name": "Garden Vegetable Biryani",
+          "category": "Rice",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-5"
+          ],
+          "price": {
+            "amount": 9.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "printedAlias": "Veg Biryani",
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-095",
+          "name": "Hyderabadi Dum Biryani",
+          "category": "Rice",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-5"
+          ],
+          "price": {
+            "amount": 10.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "printedAlias": "Hyderabadi Biryani",
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-096",
+          "name": "Fried Green Chilli",
+          "category": "Sides",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-6"
+          ],
+          "price": {
+            "amount": 1,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-097",
+          "name": "Papad Roasted",
+          "category": "Sides",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-6"
+          ],
+          "price": {
+            "amount": 1.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-098",
+          "name": "Papad Fried",
+          "category": "Sides",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-6"
+          ],
+          "price": {
+            "amount": 1.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-099",
+          "name": "Masala Papad",
+          "category": "Sides",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-6"
+          ],
+          "price": {
+            "amount": 2.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-100",
+          "name": "Plain Curd",
+          "category": "Sides",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-6"
+          ],
+          "price": {
+            "amount": 2.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-101",
+          "name": "Green Salad",
+          "category": "Sides",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-6"
+          ],
+          "price": {
+            "amount": 4.5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-102",
+          "name": "Boondi Raita",
+          "category": "Sides",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-6"
+          ],
+          "price": {
+            "amount": 4.5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-103",
+          "name": "Veg Raita",
+          "category": "Sides",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-6"
+          ],
+          "price": {
+            "amount": 4.5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-104",
+          "name": "Dhokla",
+          "category": "Sides",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-6"
+          ],
+          "price": {
+            "amount": 8,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "portion": "6 pcs",
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed. Printed portion: 6 pcs."
+        },
+        {
+          "id": "swaad-published-food-105",
+          "name": "Rabri",
+          "category": "Desserts",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-6"
+          ],
+          "price": {
+            "amount": 5.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-106",
+          "name": "Gulab Jamun",
+          "category": "Desserts",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-6"
+          ],
+          "price": {
+            "amount": 4,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "portion": "2 pcs",
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed. Printed portion: 2 pcs."
+        },
+        {
+          "id": "swaad-published-food-107",
+          "name": "Aam Ras",
+          "category": "Desserts",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-6"
+          ],
+          "price": {
+            "amount": 5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed. SEASONAL; current seasonal availability unconfirmed."
+        },
+        {
+          "id": "swaad-published-food-108",
+          "name": "Jalebi (Large)",
+          "category": "Desserts",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-6"
+          ],
+          "price": {
+            "amount": 8.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "portion": "8 pcs",
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed. Printed portion: 8 pcs."
+        },
+        {
+          "id": "swaad-published-food-109",
+          "name": "Jalebi (Small)",
+          "category": "Desserts",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-6"
+          ],
+          "price": {
+            "amount": 4.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "portion": "4 pcs",
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed. Printed portion: 4 pcs."
+        }
+      ],
+      "notice": "103 standalone food/portion facts from current merchant menu. Six catering-only and five advance-order rows kept in separate held menus. Four buffet/thali bundles include chaas and are excluded. Currency code, tax treatment and current stock remain unknown."
+    },
+    {
+      "id": "swaad-catering-only-foods",
+      "name": "Swaad — catering-only food facts",
+      "scope": "branch",
+      "branchIds": [
+        "swaad-desker70"
+      ],
+      "sourceIds": [
+        "swaad-menu-current",
+        "swaad-menu-page-2",
+        "swaad-menu-page-4"
+      ],
+      "coverage": "held",
+      "publicationStatus": "hold-catering-only-scope",
+      "items": [
+        {
+          "id": "swaad-published-food-011",
+          "name": "Sev Papadi",
+          "category": "Main Dishes",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-2"
+          ],
+          "price": {
+            "amount": 9.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "publicationStatus": "hold-catering-only-scope",
+          "serviceScope": "catering-only",
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed. CATERING ONLY; not a standard dine-in availability claim."
+        },
+        {
+          "id": "swaad-published-food-020",
+          "name": "Matar Paneer",
+          "category": "Main Dishes",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-2"
+          ],
+          "price": {
+            "amount": 11.5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "publicationStatus": "hold-catering-only-scope",
+          "serviceScope": "catering-only",
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed. CATERING ONLY; not a standard dine-in availability claim."
+        },
+        {
+          "id": "swaad-published-food-023",
+          "name": "Paneer Handi",
+          "category": "Main Dishes",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-2"
+          ],
+          "price": {
+            "amount": 12.5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "publicationStatus": "hold-catering-only-scope",
+          "serviceScope": "catering-only",
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed. CATERING ONLY; not a standard dine-in availability claim."
+        },
+        {
+          "id": "swaad-published-food-053",
+          "name": "Veg Sandwich",
+          "category": "Chaats & Snacks",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-4"
+          ],
+          "price": {
+            "amount": 5.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "publicationStatus": "hold-catering-only-scope",
+          "serviceScope": "catering-only",
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed. CATERING ONLY; not a standard dine-in availability claim."
+        },
+        {
+          "id": "swaad-published-food-060",
+          "name": "Chilli Pakora",
+          "category": "Chaats & Snacks",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-4"
+          ],
+          "price": {
+            "amount": 5.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "publicationStatus": "hold-catering-only-scope",
+          "serviceScope": "catering-only",
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed. CATERING ONLY; not a standard dine-in availability claim."
+        },
+        {
+          "id": "swaad-published-food-062",
+          "name": "Methi Gota",
+          "category": "Chaats & Snacks",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-4"
+          ],
+          "price": {
+            "amount": 6.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "portion": "5 pcs",
+          "publicationStatus": "hold-catering-only-scope",
+          "serviceScope": "catering-only",
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed. Printed portion: 5 pcs. CATERING ONLY; not a standard dine-in availability claim."
+        }
+      ],
+      "notice": "Six printed CATERING ONLY food dishes; not published as ordinary dine-in availability."
+    },
+    {
+      "id": "swaad-advance-order-festive-foods",
+      "name": "Swaad — traditional festive advance-order foods",
+      "scope": "branch",
+      "branchIds": [
+        "swaad-desker70"
+      ],
+      "sourceIds": [
+        "swaad-menu-current",
+        "swaad-menu-page-7"
+      ],
+      "coverage": "held",
+      "publicationStatus": "hold-preorder-specific-scope",
+      "items": [
+        {
+          "id": "swaad-published-food-110",
+          "name": "Dhokla",
+          "category": "Traditional Festive",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-7"
+          ],
+          "price": {
+            "amount": 15,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "portion": "0.5 kg",
+          "publicationStatus": "hold-preorder-specific-scope",
+          "serviceScope": "advance-order",
+          "minimumAdvanceNoticeDays": 1,
+          "minimumOrderQuantity": {
+            "amount": 0.5,
+            "unit": "kg"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed. Printed portion: 0.5 kg. Order one day in advance; printed general minimum0.5kg. Price is for the exact printed row weight, not automatically a per-kg price."
+        },
+        {
+          "id": "swaad-published-food-111",
+          "name": "Jalebi",
+          "category": "Traditional Festive",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-7"
+          ],
+          "price": {
+            "amount": 40,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "portion": "1 kg",
+          "publicationStatus": "hold-preorder-specific-scope",
+          "serviceScope": "advance-order",
+          "minimumAdvanceNoticeDays": 1,
+          "minimumOrderQuantity": {
+            "amount": 0.5,
+            "unit": "kg"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed. Printed portion: 1 kg. Order one day in advance; printed general minimum0.5kg. Price is for the exact printed row weight, not automatically a per-kg price."
+        },
+        {
+          "id": "swaad-published-food-112",
+          "name": "Fafda",
+          "category": "Traditional Festive",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-7"
+          ],
+          "price": {
+            "amount": 22.5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "portion": "0.5 kg",
+          "publicationStatus": "hold-preorder-specific-scope",
+          "serviceScope": "advance-order",
+          "minimumAdvanceNoticeDays": 1,
+          "minimumOrderQuantity": {
+            "amount": 0.5,
+            "unit": "kg"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed. Printed portion: 0.5 kg. Order one day in advance; printed general minimum0.5kg. Price is for the exact printed row weight, not automatically a per-kg price."
+        },
+        {
+          "id": "swaad-published-food-113",
+          "name": "Patra",
+          "category": "Traditional Festive",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-7"
+          ],
+          "price": {
+            "amount": 20,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "portion": "0.5 kg",
+          "publicationStatus": "hold-preorder-specific-scope",
+          "serviceScope": "advance-order",
+          "minimumAdvanceNoticeDays": 1,
+          "minimumOrderQuantity": {
+            "amount": 0.5,
+            "unit": "kg"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed. Printed portion: 0.5 kg. Order one day in advance; printed general minimum0.5kg. Price is for the exact printed row weight, not automatically a per-kg price."
+        },
+        {
+          "id": "swaad-published-food-114",
+          "name": "Khandvi",
+          "category": "Traditional Festive",
+          "sourceIds": [
+            "swaad-menu-current",
+            "swaad-menu-page-7"
+          ],
+          "price": {
+            "amount": 20,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "portion": "0.5 kg",
+          "publicationStatus": "hold-preorder-specific-scope",
+          "serviceScope": "advance-order",
+          "minimumAdvanceNoticeDays": 1,
+          "minimumOrderQuantity": {
+            "amount": 0.5,
+            "unit": "kg"
+          },
+          "qualifier": "Merchant-linked printed menu checked16October2026SGT; source dollar sign has no explicit currency code or effective date. Tax treatment, stock and full ingredients unconfirmed. Printed portion: 0.5 kg. Order one day in advance; printed general minimum0.5kg. Price is for the exact printed row weight, not automatically a per-kg price."
+        }
+      ],
+      "notice": "Five foods with required one-day advance ordering and general0.5kg minimum. Keep printed weight/price pairs; Jalebi40 applies to1kg, not0.5kg."
+    },
+    {
+      "id": "swaad-shenton-current-blockchef",
+      "name": "Swaad Shenton ordering menu",
+      "scope": "branch-ordering",
+      "branchIds": [
+        "swaad-shenton3"
+      ],
+      "sourceIds": [
+        "ur17-swaad-selected"
+      ],
+      "coverage": "source-covered",
+      "notice": "Eight foods visible in the exact Swaad subsection of mixed Shenton Food Hall. Explicit SGD base amounts. Generic descriptions, hypothetical allergen guesses/server errors and vegan tags are not verified recipes. Choices independently toggle and add surcharges; initially none selected. Included means zero surcharge if chosen. Merchant limits/requiredness, exact set contents, complete ingredients and stock unconfirmed. One drink parent excluded. No Desker prices transferred.",
+      "items": [
+        {
+          "id": "ur17-swaad-65f2ca465718d4711caab565",
+          "sourceProductId": "65f2ca465718d4711caab565",
+          "name": "Swaad Thali Vegetarian Set Meal",
+          "category": "Swaad Vegetarian (Shenton Way)",
+          "sourceIds": [
+            "ur17-swaad-selected",
+            "ur17-swaad-detail-65f2ca465718d4711caab565"
+          ],
+          "price": {
+            "amount": 15.7,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "sourceDescriptionAndAllergenText": "Swaad Thali Vegetarian Set Meal SGD 15.70 Swaad Thali Vegetarian Set Meal is a symphony of flavor, color, and texture. A traditional Indian platter, it features an array of delicacies like crunchy papadums, fluffy naan, velvety dahl, and zesty achaar. Each dish is individually prepared, showcasing a tapestry of spices and fresh ingredients. The set also includes sweet, creamy desserts, offering a perfect ending to the meal. Every bite takes you on a gastronomic journey through India's rich culinary heritage, making the Swaad Thali Set Meal an unforgettable experience. vegan. indian. vegetarian. Contains The potential allergens in a Swaad Thali Vegetarian Set Meal could include:\n\n1. Dairy: This can be found in various forms such as ghee, paneer, curd, or cream used in Indian vegetarian dishes.\n2. Gluten: Many Indian breads like roti or naan contain wheat, which has gluten.\n3. Nuts: Many Indian dishes use various nuts for garnishing and flavor.\n4. Sesame: Used in some Indian dishes for flavor.\n5. Mustard: Used as a spice in Indian cooking.\n6. Soy: Some Indian vegetarian dishes may use soy-based ingredients.\n7. Celery: Used in some Indian dishes for flavor.\n\nPlease note that the presence of these allergens can vary based on specific recipes and preparations. Always check with the chef or restaurant for the most accurate information. Available today Add to cart − 0 +",
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated vegetarian merchant source; full recipes, allergens, exact set contents and stock unconfirmed. Generic descriptions and vegan tags are unverified. Options add to base amounts when selected.",
+          "verification": {
+            "checkedAt": "2026-10-16T09:42:20.006Z",
+            "verifiedFields": [
+              "normal rendered name/category/SGDbaseamount",
+              "normal detailname/amount",
+              "printedtitlecountandvisibleoptionswherepresent"
+            ],
+            "unverifiedFields": [
+              "complete ingredients/allergens",
+              "genericsetcomponents/vegan claims",
+              "stock",
+              "merchantoptionlimits/requiredness",
+              "peoplecount/finalcharges"
+            ]
+          }
+        },
+        {
+          "id": "ur17-swaad-65f2caa05718d4711caab566",
+          "sourceProductId": "65f2caa05718d4711caab566",
+          "name": "Swaad Mini Thali Vegetarian Set Meal",
+          "category": "Swaad Vegetarian (Shenton Way)",
+          "sourceIds": [
+            "ur17-swaad-selected",
+            "ur17-swaad-detail-65f2caa05718d4711caab566"
+          ],
+          "price": {
+            "amount": 13.2,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "sourceDescriptionAndAllergenText": "Swaad Mini Thali Vegetarian Set Meal SGD 13.20 The Swaad Mini Thali Set Meal is a vibrant culinary mosaic, offering a colorful array of Indian favorites in a single plate. It's a feast of flavors, textures, and aromas, featuring a carefully curated selection of dishes like creamy dal, spicy curry, fluffy rice, tangy pickle, and warm chapati. Each bite is a journey through India's diverse culinary landscape, offering an authentic taste of its rich cultural heritage. This set meal is not just a feast for the stomach, but also for the eyes and the soul, promising a memorable dining experience. vegan. indian. vegetarian. Contains Server is busy at the moment. Please try again later. 😭 Available today Add to cart − 0 +",
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated vegetarian merchant source; full recipes, allergens, exact set contents and stock unconfirmed. Generic descriptions and vegan tags are unverified. Options add to base amounts when selected.",
+          "verification": {
+            "checkedAt": "2026-10-16T09:42:24.092Z",
+            "verifiedFields": [
+              "normal rendered name/category/SGDbaseamount",
+              "normal detailname/amount",
+              "printedtitlecountandvisibleoptionswherepresent"
+            ],
+            "unverifiedFields": [
+              "complete ingredients/allergens",
+              "genericsetcomponents/vegan claims",
+              "stock",
+              "merchantoptionlimits/requiredness",
+              "peoplecount/finalcharges"
+            ]
+          }
+        },
+        {
+          "id": "ur17-swaad-65f2cb274f6a900ef7876c88",
+          "sourceProductId": "65f2cb274f6a900ef7876c88",
+          "name": "Swaad Chapati Vegetarian Set Meal",
+          "category": "Swaad Vegetarian (Shenton Way)",
+          "sourceIds": [
+            "ur17-swaad-selected",
+            "ur17-swaad-detail-65f2cb274f6a900ef7876c88"
+          ],
+          "price": {
+            "amount": 10.5,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "sourceDescriptionAndAllergenText": "Swaad Chapati Vegetarian Set Meal SGD 10.50 Swaad Chapati Vegetarian Set Meal is a vibrant and wholesome culinary experience, inspired by the diverse flavors of Indian cuisine. The hearty meal centres around fluffy, warm chapatis, hand-rolled and cooked to perfection, served alongside a medley of vegetarian delights. The side dishes, ranging from creamy dal to aromatic vegetable curries, are concocted with traditional spices, bringing a symphony of tastes to your palate. Every bite of this set meal is a delightful journey through India's rich culinary heritage. vegan. indian. vegetarian. Contains Server is busy at the moment. Please try again later. 😭 Available today Add to cart − 0 +",
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated vegetarian merchant source; full recipes, allergens, exact set contents and stock unconfirmed. Generic descriptions and vegan tags are unverified. Options add to base amounts when selected.",
+          "verification": {
+            "checkedAt": "2026-10-16T09:42:27.276Z",
+            "verifiedFields": [
+              "normal rendered name/category/SGDbaseamount",
+              "normal detailname/amount",
+              "printedtitlecountandvisibleoptionswherepresent"
+            ],
+            "unverifiedFields": [
+              "complete ingredients/allergens",
+              "genericsetcomponents/vegan claims",
+              "stock",
+              "merchantoptionlimits/requiredness",
+              "peoplecount/finalcharges"
+            ]
+          }
+        },
+        {
+          "id": "ur17-swaad-65f2cbe94ee001436d1d3d6e",
+          "sourceProductId": "65f2cbe94ee001436d1d3d6e",
+          "name": "Swaad Vegetarian Rice Set",
+          "category": "Swaad Vegetarian (Shenton Way)",
+          "sourceIds": [
+            "ur17-swaad-selected",
+            "ur17-swaad-detail-65f2cbe94ee001436d1d3d6e"
+          ],
+          "price": {
+            "amount": 9.2,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "sourceDescriptionAndAllergenText": "Swaad Vegetarian Rice Set SGD 9.20 The Swaad Vegetarian Rice Set is an exquisite medley of flavors and textures that will delight your senses. Aromatic basmati rice, cooked to perfection, is adorned with a variety of vibrant, seasonal vegetables, each adding its unique touch to the dish. The meal is accompanied by a selection of delectable curries and chutneys, each bursting with spices that have been meticulously chosen and roasted to bring out their full flavor. Each bite of this vegetarian feast is a celebration of nature's bounty, promising a satisfying and wholesome dining experience. vegan. indian. vegetarian. Contains After refining the input to 'Vegetarian Rice Set', common allergens typically found in this dish could include:\n\n1. Gluten: Usually present in the soy sauce or any other sauces used in the dish.\n2. Soy: As part of sauces or tofu which is often used in vegetarian dishes.\n3. Nuts: Sometimes used as a garnish or in a sauce.\n4. Celery: May be used in the vegetable mix.\n5. Mustard: Could be present if mustard seeds are used in cooking.\n\nPlease note that this is a general analysis, and actual allergens may vary depending on the specific ingredients and preparation method used. Available today Add to cart − 0 +",
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated vegetarian merchant source; full recipes, allergens, exact set contents and stock unconfirmed. Generic descriptions and vegan tags are unverified. Options add to base amounts when selected.",
+          "verification": {
+            "checkedAt": "2026-10-16T09:42:30.074Z",
+            "verifiedFields": [
+              "normal rendered name/category/SGDbaseamount",
+              "normal detailname/amount",
+              "printedtitlecountandvisibleoptionswherepresent"
+            ],
+            "unverifiedFields": [
+              "complete ingredients/allergens",
+              "genericsetcomponents/vegan claims",
+              "stock",
+              "merchantoptionlimits/requiredness",
+              "peoplecount/finalcharges"
+            ]
+          }
+        },
+        {
+          "id": "ur17-swaad-65f2ccc64ee001436d1d3d6f",
+          "sourceProductId": "65f2ccc64ee001436d1d3d6f",
+          "name": "Swaad Vegetarian Bento Set",
+          "category": "Swaad Vegetarian (Shenton Way)",
+          "sourceIds": [
+            "ur17-swaad-selected",
+            "ur17-swaad-detail-65f2ccc64ee001436d1d3d6f"
+          ],
+          "price": {
+            "amount": 14.5,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "sourceDescriptionAndAllergenText": "Swaad Vegetarian Bento Set SGD 14.50 The Swaad Vegetarian Bento Set is the epitome of a balanced, vibrant meal. This delightful assortment of Indian-Japanese fusion offers an array of tastes and textures, with each compartment offering a new culinary adventure. From the crisp tempura vegetables, the soft, aromatic basmati rice, to the tangy pickles and a refreshing cucumber salad, every element is carefully prepared to both nourish and excite. Indulge in a symphony of flavors and colors in this beautifully arranged bento, a testament to the diversity and richness of vegetarian cuisine. vegan. indian. vegetarian. Contains Upon refining the input, we have 'Vegetarian Bento Set'. The common allergens typically found in a Vegetarian Bento Set can be soy, sesame, gluten, and various nuts. However, the exact allergens can vary based on the specific dishes included in the bento set. Available today Add to cart − 0 +",
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated vegetarian merchant source; full recipes, allergens, exact set contents and stock unconfirmed. Generic descriptions and vegan tags are unverified. Options add to base amounts when selected.",
+          "verification": {
+            "checkedAt": "2026-10-16T09:42:32.909Z",
+            "verifiedFields": [
+              "normal rendered name/category/SGDbaseamount",
+              "normal detailname/amount",
+              "printedtitlecountandvisibleoptionswherepresent"
+            ],
+            "unverifiedFields": [
+              "complete ingredients/allergens",
+              "genericsetcomponents/vegan claims",
+              "stock",
+              "merchantoptionlimits/requiredness",
+              "peoplecount/finalcharges"
+            ]
+          }
+        },
+        {
+          "id": "ur17-swaad-65f2ceaf4ee001436d1d3d70",
+          "sourceProductId": "65f2ceaf4ee001436d1d3d70",
+          "name": "Paratha Set (1 Piece)",
+          "category": "Swaad Vegetarian (Shenton Way)",
+          "sourceIds": [
+            "ur17-swaad-selected",
+            "ur17-swaad-detail-65f2ceaf4ee001436d1d3d70"
+          ],
+          "price": {
+            "amount": 4.7,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "sourceDescriptionAndAllergenText": "Paratha Set (1 Piece) SGD 4.70 The Paratha Set is a delightful ensemble of Indian culinary tradition, offering a single piece of delicate, flaky, butter-laden paratha. This flatbread is a testament to the art of pastry, with layers painstakingly kneaded, rolled, and griddled to golden perfection. Served with an assortment of delicious accompaniments, each bite is an exquisite blend of rich, buttery pastry, and the vibrant flavors of the chosen dip. This dish is a comforting reminder of home-cooked meals, wrapped in a simple yet satisfying package. vegan. indian. vegetarian. Contains The potential allergens in a Paratha Set could include the following: gluten, milk, and wheat. Available today Choose options +",
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated vegetarian merchant source; full recipes, allergens, exact set contents and stock unconfirmed. Generic descriptions and vegan tags are unverified. Options add to base amounts when selected.",
+          "verification": {
+            "checkedAt": "2026-10-16T09:42:35.621Z",
+            "verifiedFields": [
+              "normal rendered name/category/SGDbaseamount",
+              "normal detailname/amount",
+              "printedtitlecountandvisibleoptionswherepresent"
+            ],
+            "unverifiedFields": [
+              "complete ingredients/allergens",
+              "genericsetcomponents/vegan claims",
+              "stock",
+              "merchantoptionlimits/requiredness",
+              "peoplecount/finalcharges"
+            ]
+          },
+          "modifierGroups": [
+            {
+              "name": "Selections",
+              "options": [
+                {
+                  "name": "Aloo",
+                  "additionalAmount": 0,
+                  "currency": "SGD",
+                  "sourceWording": "Included",
+                  "initiallySelected": false
+                },
+                {
+                  "name": "Gobhi",
+                  "additionalAmount": 0.6,
+                  "currency": "SGD",
+                  "sourceWording": "SGD 0.60",
+                  "initiallySelected": false
+                },
+                {
+                  "name": "Methi",
+                  "additionalAmount": 1.3,
+                  "currency": "SGD",
+                  "sourceWording": "SGD 1.30",
+                  "initiallySelected": false
+                },
+                {
+                  "name": "Paneer",
+                  "additionalAmount": 2.0,
+                  "currency": "SGD",
+                  "sourceWording": "SGD 2",
+                  "initiallySelected": false
+                }
+              ],
+              "observedBehavior": "Independent toggles; two can remain selected and positive amounts accumulate onto base. Initially none selected. Included is zero surcharge, not a default or automatic included dish. Limits/requiredness unstated; no checkout validation."
+            }
+          ],
+          "configurationNotice": "Normal detail choices read; independent additive toggles, no initial selections. Limits/requiredness and complete set contents unstated. No cart/order submitted.",
+          "portion": "1 piece printed in title; option ingredient count and people served unconfirmed."
+        },
+        {
+          "id": "ur17-swaad-65f2d07406a7129deeb5391a",
+          "sourceProductId": "65f2d07406a7129deeb5391a",
+          "name": "Vegetarian Snacks",
+          "category": "Swaad Vegetarian (Shenton Way)",
+          "sourceIds": [
+            "ur17-swaad-selected",
+            "ur17-swaad-detail-65f2d07406a7129deeb5391a"
+          ],
+          "price": {
+            "amount": 3.5,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "sourceDescriptionAndAllergenText": "Vegetarian Snacks SGD 3.50 Our Vegetarian Snacks are a vibrant array of light, enticing bites that will satisfy your cravings without compromising on flavor. From crisp vegetable spring rolls filled with fresh, crunchy vegetables to succulent mushroom dumplings bursting with umami flavors, each snack is carefully crafted to deliver a unique taste experience. The highlight is our signature spiced chickpea patties, a delightful blend of hearty chickpeas, fragrant herbs, and aromatic spices, fried to golden perfection for a satisfying crunch. Enjoy these vegetarian delights that perfectly balance health and taste. vegan. indian. vegetarian. Contains The term 'Vegetarian Snacks' is quite broad, it could potentially cover a wide range of food items. If you could provide a specific dish or snack, it would be easier to identify potential allergens. However, in general vegetarian snacks could potentially contain the following allergens: dairy, gluten, nuts, soy, wheat, and celery. Available today Choose options +",
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated vegetarian merchant source; full recipes, allergens, exact set contents and stock unconfirmed. Generic descriptions and vegan tags are unverified. Options add to base amounts when selected.",
+          "verification": {
+            "checkedAt": "2026-10-16T09:42:38.281Z",
+            "verifiedFields": [
+              "normal rendered name/category/SGDbaseamount",
+              "normal detailname/amount",
+              "printedtitlecountandvisibleoptionswherepresent"
+            ],
+            "unverifiedFields": [
+              "complete ingredients/allergens",
+              "genericsetcomponents/vegan claims",
+              "stock",
+              "merchantoptionlimits/requiredness",
+              "peoplecount/finalcharges"
+            ]
+          },
+          "modifierGroups": [
+            {
+              "name": "Selections",
+              "options": [
+                {
+                  "name": "Samosa (1pc)",
+                  "additionalAmount": 0,
+                  "currency": "SGD",
+                  "sourceWording": "Included",
+                  "initiallySelected": false
+                },
+                {
+                  "name": "Vada Pao (1pc)",
+                  "additionalAmount": 1.2,
+                  "currency": "SGD",
+                  "sourceWording": "SGD 1.20",
+                  "initiallySelected": false
+                },
+                {
+                  "name": "Bread Pakoda (1pc)",
+                  "additionalAmount": 2.5,
+                  "currency": "SGD",
+                  "sourceWording": "SGD 2.50",
+                  "initiallySelected": false
+                },
+                {
+                  "name": "Mix Pakoda",
+                  "additionalAmount": 2.5,
+                  "currency": "SGD",
+                  "sourceWording": "SGD 2.50",
+                  "initiallySelected": false
+                },
+                {
+                  "name": "Mirchi Bhajiya",
+                  "additionalAmount": 2.5,
+                  "currency": "SGD",
+                  "sourceWording": "SGD 2.50",
+                  "initiallySelected": false
+                },
+                {
+                  "name": "Vegetable Sandwich",
+                  "additionalAmount": 2.5,
+                  "currency": "SGD",
+                  "sourceWording": "SGD 2.50",
+                  "initiallySelected": false
+                },
+                {
+                  "name": "Dhokla (4pcs)",
+                  "additionalAmount": 2.5,
+                  "currency": "SGD",
+                  "sourceWording": "SGD 2.50",
+                  "initiallySelected": false
+                },
+                {
+                  "name": "Batata Bada (4pcs)",
+                  "additionalAmount": 3.8,
+                  "currency": "SGD",
+                  "sourceWording": "SGD 3.80",
+                  "initiallySelected": false
+                },
+                {
+                  "name": "Kachi Dabeli (1pc)",
+                  "additionalAmount": 3.8,
+                  "currency": "SGD",
+                  "sourceWording": "SGD 3.80",
+                  "initiallySelected": false
+                },
+                {
+                  "name": "Pav Bhaji",
+                  "additionalAmount": 5.0,
+                  "currency": "SGD",
+                  "sourceWording": "SGD 5",
+                  "initiallySelected": false
+                }
+              ],
+              "observedBehavior": "Independent toggles; two can remain selected and positive amounts accumulate onto base. Initially none selected. Included is zero surcharge, not a default or automatic included dish. Limits/requiredness unstated; no checkout validation."
+            }
+          ],
+          "configurationNotice": "Normal detail choices read; independent additive toggles, no initial selections. Limits/requiredness and complete set contents unstated. No cart/order submitted."
+        },
+        {
+          "id": "ur17-swaad-65f2d19d06a7129deeb5391b",
+          "sourceProductId": "65f2d19d06a7129deeb5391b",
+          "name": "Chaats",
+          "category": "Swaad Vegetarian (Shenton Way)",
+          "sourceIds": [
+            "ur17-swaad-selected",
+            "ur17-swaad-detail-65f2d19d06a7129deeb5391b"
+          ],
+          "price": {
+            "amount": 7.2,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "sourceDescriptionAndAllergenText": "Chaats SGD 7.20 Chaats are the quintessential Indian street food, a symphony of flavors that dance on your palate. These addictive snacks feature a delightful mix of crispy fried dough, boiled potatoes, chickpeas, and tangy tamarind chutney, all topped with a sprinkling of chaat masala and fresh coriander. Every bite of a chaat is a surprise, with its contrasting textures and the perfect blend of sweet, sour, tangy, and spicy flavors. It's an experience that will transport you to the bustling streets of India in an instant. vegan. indian. vegetarian. Contains Server is busy at the moment. Please try again later. 😭 Available today Choose options +",
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated vegetarian merchant source; full recipes, allergens, exact set contents and stock unconfirmed. Generic descriptions and vegan tags are unverified. Options add to base amounts when selected.",
+          "verification": {
+            "checkedAt": "2026-10-16T09:42:41.436Z",
+            "verifiedFields": [
+              "normal rendered name/category/SGDbaseamount",
+              "normal detailname/amount",
+              "printedtitlecountandvisibleoptionswherepresent"
+            ],
+            "unverifiedFields": [
+              "complete ingredients/allergens",
+              "genericsetcomponents/vegan claims",
+              "stock",
+              "merchantoptionlimits/requiredness",
+              "peoplecount/finalcharges"
+            ]
+          },
+          "modifierGroups": [
+            {
+              "name": "Selections",
+              "options": [
+                {
+                  "name": "Panni Puri (5pcs)",
+                  "additionalAmount": 0,
+                  "currency": "SGD",
+                  "sourceWording": "Included",
+                  "initiallySelected": false
+                },
+                {
+                  "name": "Sev Puri",
+                  "additionalAmount": 0,
+                  "currency": "SGD",
+                  "sourceWording": "Included",
+                  "initiallySelected": false
+                },
+                {
+                  "name": "Papdi Chaat",
+                  "additionalAmount": 0,
+                  "currency": "SGD",
+                  "sourceWording": "Included",
+                  "initiallySelected": false
+                },
+                {
+                  "name": "Bhel Puri",
+                  "additionalAmount": 1.3,
+                  "currency": "SGD",
+                  "sourceWording": "SGD 1.30",
+                  "initiallySelected": false
+                },
+                {
+                  "name": "Samosa Chaat",
+                  "additionalAmount": 2.6,
+                  "currency": "SGD",
+                  "sourceWording": "SGD 2.60",
+                  "initiallySelected": false
+                },
+                {
+                  "name": "Aloo Tikki Chaat",
+                  "additionalAmount": 2.6,
+                  "currency": "SGD",
+                  "sourceWording": "SGD 2.60",
+                  "initiallySelected": false
+                }
+              ],
+              "observedBehavior": "Independent toggles; two can remain selected and positive amounts accumulate onto base. Initially none selected. Included is zero surcharge, not a default or automatic included dish. Limits/requiredness unstated; no checkout validation."
+            }
+          ],
+          "configurationNotice": "Normal detail choices read; independent additive toggles, no initial selections. Limits/requiredness and complete set contents unstated. No cart/order submitted."
+        }
+      ]
+    }
+  ],
+  "exclusions": [
+    {
+      "sourceIds": [
+        "swaad-menu-page-1"
+      ],
+      "names": [
+        "Swaad Grand Buffet",
+        "Little Maharaja Buffet",
+        "The Maharaja Thali",
+        "The Rajkumari Thali"
+      ],
+      "reason": "Printed whole-meal scope includes chaas. No food-only price allocation or bundle substituted."
+    },
+    {
+      "sourceIds": [
+        "swaad-menu-page-6"
+      ],
+      "count": 11,
+      "reason": "Entire Beverages section excluded, including catering-only Masala Milk and Fresh Aam Panna."
+    }
+  ],
+  "notice": "New primary-source food facts only. No source artwork/descriptions imported into catalogue; no Google API call, ordering, merchant message, ingredient certification or automatic app publication. All source and branch restrictions remain explicit.",
+  "amendedAt": "2026-10-16T09:49:04.337957+00:00"
+}

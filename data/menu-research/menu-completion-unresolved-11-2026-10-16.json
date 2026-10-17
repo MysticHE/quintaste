@@ -1,0 +1,733 @@
+{
+  "version": 1,
+  "checkedAt": "2026-10-16T07:08:41.237302+00:00",
+  "status": "reviewed-partial-with-unresolved-holds",
+  "googleRequestsMade": 0,
+  "sources": [
+    {
+      "id": "ur11-crowded-sp-fp",
+      "url": "https://www.foodpanda.sg/restaurant/w9sh/the-crowded-bowl-dover-road",
+      "publisher": "Foodpanda / merchant public menu",
+      "title": "The Crowded Bowl Dover Road current delivery food catalogue",
+      "checkedAt": "2026-10-16T07:05:17.736Z",
+      "accessStatus": "normal-public-fetch200-browser403",
+      "notes": "All14currentproduct IDs/names/categories/SGD listprices reconcile with same-response visible DOM.13preparedfoods publish; PepperCorn whole-black-pepper description held. Current14 includes RegularSet, absent from some indexed13versions; no indexed merge. One flagged set customizer unread after normalbrowser403, no bypass. BroadChicken cuisine tag alone is not meat-service proof."
+    },
+    {
+      "id": "ur11-crowded-owner",
+      "url": "https://www.ntu.edu.sg/alumni/alumni-stories-news/detail/alumni-entrepreneurs-changing-ntu-s-food-scene",
+      "publisher": "Nanyang Technological University / merchant owner interview",
+      "title": "Dated institutional owner interview on vegetarian brand concept",
+      "checkedAt": "2026-10-16T01:07:42.214946+00:00",
+      "recheckedAt": "2026-10-16T07:08:41.237302+00:00",
+      "publishedAt": "2023-08-11",
+      "accessStatus": "saved-canonical-primary-interview-reused-and-web-rechecked",
+      "notes": "Existing canonical2023institutional owner interview reused; explicitly describes vegetarian concept, plant-based options and branch-prepared food. This is dated positioning evidence, not current SPprices/stock/menu transfer. Current exactSPmerchant catalogue independently contains coherent vegetarian prepared foods without meat/fish ingredient contradiction. No2023price promoted."
+    },
+    {
+      "id": "ur11-crowded-rp-landlord",
+      "url": "https://www.rp.edu.sg/student/campus/facilities/food-beverage-retail/",
+      "publisher": "Republic Polytechnic",
+      "title": "Current campus F&B directory and vegetarian legend",
+      "checkedAt": "2026-10-16T07:05:19.685Z",
+      "accessStatus": "normal-public-http200",
+      "notes": "Page section updated12October2026listsCrowdedBowl(V) atLawnFoodCourt Level3 fromW4/W6, with(V)legend explicitlyVegetarian. Foodcourt term/break/holiday hours are not merchant hours. No named current food/price/menu. Footer general site date15October is not a menu date; no other mixed-foodcourt stalls extracted.",
+      "sourceLastUpdatedAt": "2026-10-12"
+    },
+    {
+      "id": "ur11-rp-premise",
+      "url": "https://www.rp.edu.sg/student/campus/getting-to-rp/",
+      "publisher": "Republic Polytechnic",
+      "title": "Official campus address",
+      "checkedAt": "2026-10-16T07:08:41.237302+00:00",
+      "accessStatus": "current-primary-web-page-readable",
+      "notes": "Official campus page gives9WoodlandsAvenue9/Singapore738964. Combined with current campus tenant directory to identify exactRPLawnpremise; no Google association or price transfer.",
+      "sourceLastUpdatedAt": "2026-06-03"
+    }
+  ],
+  "branches": [
+    {
+      "id": "ur11-crowded-sp",
+      "name": "The Crowded Bowl — Singapore Polytechnic",
+      "address": "500 Dover Road, Singapore Polytechnic Food Court 2, Stall 13, Singapore 139651",
+      "postalCode": "139651",
+      "googlePlaceId": null,
+      "directoryLeadIds": [
+        "hippo-the-crowded-bowl-singapore-polytechnic"
+      ],
+      "sourceIds": [
+        "ur11-crowded-sp-fp",
+        "ur11-crowded-owner"
+      ],
+      "menuIds": [
+        "ur11-crowded-sp-foods"
+      ],
+      "eligibility": "vegetarian-confirmed",
+      "identityStatus": "independent-merchant-premise-no-google-assignment",
+      "venueEligibility": {
+        "status": "vegetarian-confirmed",
+        "checkedAt": "2026-10-16T07:08:41.237302+00:00",
+        "sourceIds": [
+          "ur11-crowded-sp-fp",
+          "ur11-crowded-owner"
+        ],
+        "reason": "Dated institutional owner interview explicitly describes vegetarian brand concept; current merchant-controlled exact500DoverFoodCourt2Stall13 catalogue contains coherent prepared vegetarian foods with eggs/dairy/honey and no meat/fish ingredient contradiction. BroadChicken category alone is not actual meat proof. Dates/ingredient uncertainty preserved; no RP/NTU/Biopolis food or price transfer."
+      },
+      "gaps": [
+        "Dated brand positioning with current exact-outlet menu; complete ingredients, vegan suitability, access/stock and final fees unconfirmed.",
+        "PepperCorn title versus whole-black-peppercorn description is held, not assumed a prepared corn side.",
+        "RegularSet one customizer unread; published choice of three sides does not establish inventory/defaults/surcharges or number of people.",
+        "No source portions for individually priced sides; no standalone dish price inferred from bowl tiers."
+      ]
+    },
+    {
+      "id": "ur11-crowded-rp",
+      "name": "The Crowded Bowl — Republic Polytechnic",
+      "address": "9 Woodlands Avenue 9, Lawn Food Court Level 3 from W4/W6, Singapore 738964",
+      "postalCode": "738964",
+      "googlePlaceId": null,
+      "directoryLeadIds": [
+        "hippo-the-crowded-bowl-republic-polytechnic"
+      ],
+      "sourceIds": [
+        "ur11-crowded-rp-landlord",
+        "ur11-rp-premise"
+      ],
+      "menuIds": [
+        "ur11-crowded-rp-menu-gap"
+      ],
+      "eligibility": "vegetarian-confirmed",
+      "venueEligibility": {
+        "status": "vegetarian-confirmed",
+        "checkedAt": "2026-10-16T07:08:41.237302+00:00",
+        "sourceIds": [
+          "ur11-crowded-rp-landlord",
+          "ur11-rp-premise"
+        ],
+        "reason": "Current campus landlord directory explicitly marksCrowdedBowl(V) withVegetarian legend atRPLawnFoodCourtLevel3; officialcampusaddress9WoodlandsAvenue9/738964. No namedcurrentmenu recovered; currentmenu/pricegap retained."
+      },
+      "gaps": [
+        "Named current food menu, prices, portions and options unavailable. Historical2017campus food review is not current pricing.",
+        "Campus foodcourt term/break/holiday hours not assumed merchant hours or guaranteed visitor access. No NTU/SP/Biopolis/hospital menu transfer."
+      ]
+    }
+  ],
+  "menus": [
+    {
+      "id": "ur11-crowded-sp-foods",
+      "name": "The Crowded Bowl SP delivery menu",
+      "branchIds": [
+        "ur11-crowded-sp"
+      ],
+      "sourceIds": [
+        "ur11-crowded-sp-fp"
+      ],
+      "scope": "branch-delivery",
+      "coverage": "partial",
+      "publicationStatus": "reviewed-partial-source-facts",
+      "notice": "Dated delivery menu; confirm prices, availability, portions and final charges. Egg, cheese and honey source labels do not establish vegan suitability. Source ordering was closed at check.",
+      "items": [
+        {
+          "id": "ur11-crowded-sp-18419326",
+          "sourceProductId": "18419326",
+          "name": "Olive Rice (Most Popular)",
+          "category": "A La Carte",
+          "sourceIds": [
+            "ur11-crowded-sp-fp"
+          ],
+          "sourceDescription": "A savory blend of fluffy rice and tangy olives, a crowd-pleasing favorite.",
+          "price": {
+            "amount": 2.99,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated vegetarian-venue delivery source fact. Complete ingredients, vegan suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": false,
+          "verification": {
+            "checkedAt": "2026-10-16T07:08:41.237302+00:00",
+            "sourceIds": [
+              "ur11-crowded-sp-fp"
+            ],
+            "verifiedFields": [
+              "exact current merchant premise",
+              "printed food name/category",
+              "visible SGD listprice",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan/allium/allergen suitability",
+              "current stock",
+              "portion sizes",
+              "checkout total"
+            ]
+          },
+          "foodComponents": {
+            "printedDescription": "A savory blend of fluffy rice and tangy olives, a crowd-pleasing favorite.",
+            "basis": "Printed source wording, not a complete ingredients/allergen statement or health certification."
+          }
+        },
+        {
+          "id": "ur11-crowded-sp-18419309",
+          "sourceProductId": "18419309",
+          "name": "Creamy Scrambled Egg (Most Popular)",
+          "category": "A La Carte",
+          "sourceIds": [
+            "ur11-crowded-sp-fp"
+          ],
+          "sourceDescription": "Rich, fluffy scrambled eggs cooked to perfection, a classic breakfast favorite for all.",
+          "price": {
+            "amount": 3.99,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated vegetarian-venue delivery source fact. Complete ingredients, vegan suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": false,
+          "verification": {
+            "checkedAt": "2026-10-16T07:08:41.237302+00:00",
+            "sourceIds": [
+              "ur11-crowded-sp-fp"
+            ],
+            "verifiedFields": [
+              "exact current merchant premise",
+              "printed food name/category",
+              "visible SGD listprice",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan/allium/allergen suitability",
+              "current stock",
+              "portion sizes",
+              "checkout total"
+            ]
+          },
+          "foodComponents": {
+            "printedDescription": "Rich, fluffy scrambled eggs cooked to perfection, a classic breakfast favorite for all.",
+            "basis": "Printed source wording, not a complete ingredients/allergen statement or health certification."
+          },
+          "sourceLabelNotice": "Source names egg, cheese or honey; vegan suitability unconfirmed."
+        },
+        {
+          "id": "ur11-crowded-sp-18419317",
+          "sourceProductId": "18419317",
+          "name": "Potato Salad",
+          "category": "A La Carte",
+          "sourceIds": [
+            "ur11-crowded-sp-fp"
+          ],
+          "sourceDescription": "Creamy mashed potatoes with eggs, cucumbers & carrots",
+          "price": {
+            "amount": 2.99,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated vegetarian-venue delivery source fact. Complete ingredients, vegan suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": false,
+          "verification": {
+            "checkedAt": "2026-10-16T07:08:41.237302+00:00",
+            "sourceIds": [
+              "ur11-crowded-sp-fp"
+            ],
+            "verifiedFields": [
+              "exact current merchant premise",
+              "printed food name/category",
+              "visible SGD listprice",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan/allium/allergen suitability",
+              "current stock",
+              "portion sizes",
+              "checkout total"
+            ]
+          },
+          "foodComponents": {
+            "printedDescription": "Creamy mashed potatoes with eggs, cucumbers & carrots",
+            "basis": "Printed source wording, not a complete ingredients/allergen statement or health certification."
+          },
+          "sourceLabelNotice": "Source names egg, cheese or honey; vegan suitability unconfirmed."
+        },
+        {
+          "id": "ur11-crowded-sp-18419314",
+          "sourceProductId": "18419314",
+          "name": "Tomato Pasta",
+          "category": "A La Carte",
+          "sourceIds": [
+            "ur11-crowded-sp-fp"
+          ],
+          "sourceDescription": "Fettuccine pasta, mushroom, cheese & pasta sauce",
+          "price": {
+            "amount": 2.99,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated vegetarian-venue delivery source fact. Complete ingredients, vegan suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": false,
+          "verification": {
+            "checkedAt": "2026-10-16T07:08:41.237302+00:00",
+            "sourceIds": [
+              "ur11-crowded-sp-fp"
+            ],
+            "verifiedFields": [
+              "exact current merchant premise",
+              "printed food name/category",
+              "visible SGD listprice",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan/allium/allergen suitability",
+              "current stock",
+              "portion sizes",
+              "checkout total"
+            ]
+          },
+          "foodComponents": {
+            "printedDescription": "Fettuccine pasta, mushroom, cheese & pasta sauce",
+            "basis": "Printed source wording, not a complete ingredients/allergen statement or health certification."
+          },
+          "sourceLabelNotice": "Source names egg, cheese or honey; vegan suitability unconfirmed."
+        },
+        {
+          "id": "ur11-crowded-sp-18419334",
+          "sourceProductId": "18419334",
+          "name": "Cheese Pasta",
+          "category": "A La Carte",
+          "sourceIds": [
+            "ur11-crowded-sp-fp"
+          ],
+          "sourceDescription": "Creamy, cheesy pasta dish with tender noodles, perfect for a comforting and satisfying meal.",
+          "price": {
+            "amount": 2.99,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated vegetarian-venue delivery source fact. Complete ingredients, vegan suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": false,
+          "verification": {
+            "checkedAt": "2026-10-16T07:08:41.237302+00:00",
+            "sourceIds": [
+              "ur11-crowded-sp-fp"
+            ],
+            "verifiedFields": [
+              "exact current merchant premise",
+              "printed food name/category",
+              "visible SGD listprice",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan/allium/allergen suitability",
+              "current stock",
+              "portion sizes",
+              "checkout total"
+            ]
+          },
+          "foodComponents": {
+            "printedDescription": "Creamy, cheesy pasta dish with tender noodles, perfect for a comforting and satisfying meal.",
+            "basis": "Printed source wording, not a complete ingredients/allergen statement or health certification."
+          },
+          "sourceLabelNotice": "Source names egg, cheese or honey; vegan suitability unconfirmed."
+        },
+        {
+          "id": "ur11-crowded-sp-18419324",
+          "sourceProductId": "18419324",
+          "name": "Soy Protein Ball",
+          "category": "A La Carte",
+          "sourceIds": [
+            "ur11-crowded-sp-fp"
+          ],
+          "sourceDescription": "A plant-based snack made with soy protein, perfect for a quick and healthy energy boost.",
+          "price": {
+            "amount": 2.99,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated vegetarian-venue delivery source fact. Complete ingredients, vegan suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": false,
+          "verification": {
+            "checkedAt": "2026-10-16T07:08:41.237302+00:00",
+            "sourceIds": [
+              "ur11-crowded-sp-fp"
+            ],
+            "verifiedFields": [
+              "exact current merchant premise",
+              "printed food name/category",
+              "visible SGD listprice",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan/allium/allergen suitability",
+              "current stock",
+              "portion sizes",
+              "checkout total"
+            ]
+          },
+          "foodComponents": {
+            "printedDescription": "A plant-based snack made with soy protein, perfect for a quick and healthy energy boost.",
+            "basis": "Printed source wording, not a complete ingredients/allergen statement or health certification."
+          }
+        },
+        {
+          "id": "ur11-crowded-sp-18419327",
+          "sourceProductId": "18419327",
+          "name": "Cheesy Pumpkin",
+          "category": "A La Carte",
+          "sourceIds": [
+            "ur11-crowded-sp-fp"
+          ],
+          "sourceDescription": "Creamy pumpkin soup topped with melted cheese for a comforting and savory fall dish.",
+          "price": {
+            "amount": 2.99,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated vegetarian-venue delivery source fact. Complete ingredients, vegan suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": false,
+          "verification": {
+            "checkedAt": "2026-10-16T07:08:41.237302+00:00",
+            "sourceIds": [
+              "ur11-crowded-sp-fp"
+            ],
+            "verifiedFields": [
+              "exact current merchant premise",
+              "printed food name/category",
+              "visible SGD listprice",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan/allium/allergen suitability",
+              "current stock",
+              "portion sizes",
+              "checkout total"
+            ]
+          },
+          "foodComponents": {
+            "printedDescription": "Creamy pumpkin soup topped with melted cheese for a comforting and savory fall dish.",
+            "basis": "Printed source wording, not a complete ingredients/allergen statement or health certification."
+          },
+          "sourceLabelNotice": "Source names egg, cheese or honey; vegan suitability unconfirmed."
+        },
+        {
+          "id": "ur11-crowded-sp-18419316",
+          "sourceProductId": "18419316",
+          "name": "Crispy Beancurd",
+          "category": "A La Carte",
+          "sourceIds": [
+            "ur11-crowded-sp-fp"
+          ],
+          "sourceDescription": "Fried tofu with a crunchy exterior, perfect for snacking or adding to dishes.",
+          "price": {
+            "amount": 2.99,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated vegetarian-venue delivery source fact. Complete ingredients, vegan suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": false,
+          "verification": {
+            "checkedAt": "2026-10-16T07:08:41.237302+00:00",
+            "sourceIds": [
+              "ur11-crowded-sp-fp"
+            ],
+            "verifiedFields": [
+              "exact current merchant premise",
+              "printed food name/category",
+              "visible SGD listprice",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan/allium/allergen suitability",
+              "current stock",
+              "portion sizes",
+              "checkout total"
+            ]
+          },
+          "foodComponents": {
+            "printedDescription": "Fried tofu with a crunchy exterior, perfect for snacking or adding to dishes.",
+            "basis": "Printed source wording, not a complete ingredients/allergen statement or health certification."
+          }
+        },
+        {
+          "id": "ur11-crowded-sp-18419315",
+          "sourceProductId": "18419315",
+          "name": "7 Spices Seaweed Tofu",
+          "category": "A La Carte",
+          "sourceIds": [
+            "ur11-crowded-sp-fp"
+          ],
+          "sourceDescription": "Tofu in a savory, aromatic dish with a tender texture. For reference only.",
+          "price": {
+            "amount": 2.99,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated vegetarian-venue delivery source fact. Complete ingredients, vegan suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": false,
+          "verification": {
+            "checkedAt": "2026-10-16T07:08:41.237302+00:00",
+            "sourceIds": [
+              "ur11-crowded-sp-fp"
+            ],
+            "verifiedFields": [
+              "exact current merchant premise",
+              "printed food name/category",
+              "visible SGD listprice",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan/allium/allergen suitability",
+              "current stock",
+              "portion sizes",
+              "checkout total"
+            ]
+          },
+          "foodComponents": {
+            "printedDescription": "Tofu in a savory, aromatic dish with a tender texture. For reference only.",
+            "basis": "Printed source wording, not a complete ingredients/allergen statement or health certification."
+          }
+        },
+        {
+          "id": "ur11-crowded-sp-18419322",
+          "sourceProductId": "18419322",
+          "name": "Honey Tomatoes",
+          "category": "A La Carte",
+          "sourceIds": [
+            "ur11-crowded-sp-fp"
+          ],
+          "sourceDescription": "Sweet, juicy tomatoes with a hint of honey flavor, perfect for salads and snacking.",
+          "price": {
+            "amount": 2.99,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated vegetarian-venue delivery source fact. Complete ingredients, vegan suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": false,
+          "verification": {
+            "checkedAt": "2026-10-16T07:08:41.237302+00:00",
+            "sourceIds": [
+              "ur11-crowded-sp-fp"
+            ],
+            "verifiedFields": [
+              "exact current merchant premise",
+              "printed food name/category",
+              "visible SGD listprice",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan/allium/allergen suitability",
+              "current stock",
+              "portion sizes",
+              "checkout total"
+            ]
+          },
+          "foodComponents": {
+            "printedDescription": "Sweet, juicy tomatoes with a hint of honey flavor, perfect for salads and snacking.",
+            "basis": "Printed source wording, not a complete ingredients/allergen statement or health certification."
+          },
+          "sourceLabelNotice": "Source names egg, cheese or honey; vegan suitability unconfirmed."
+        },
+        {
+          "id": "ur11-crowded-sp-18419311",
+          "sourceProductId": "18419311",
+          "name": "Pepper Corn",
+          "category": "A La Carte",
+          "sourceIds": [
+            "ur11-crowded-sp-fp"
+          ],
+          "sourceDescription": "Spicy, crunchy, whole black peppercorns perfect for adding bold flavor to dishes.",
+          "price": {
+            "amount": 2.9,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "hold-prepared-side-identity-unclear",
+          "qualifier": "Dated vegetarian-venue delivery source fact. Complete ingredients, vegan suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": false,
+          "verification": {
+            "checkedAt": "2026-10-16T07:08:41.237302+00:00",
+            "sourceIds": [
+              "ur11-crowded-sp-fp"
+            ],
+            "verifiedFields": [
+              "exact current merchant premise",
+              "printed food name/category",
+              "visible SGD listprice",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan/allium/allergen suitability",
+              "current stock",
+              "portion sizes",
+              "checkout total"
+            ]
+          },
+          "holdReason": "PepperCorn is described as whole black peppercorns, not clearly the prepared food side implied by category. Preserve ambiguous product; do not silently change to sweetcorn or transfer NTUingredients."
+        },
+        {
+          "id": "ur11-crowded-sp-18419312",
+          "sourceProductId": "18419312",
+          "name": "Cucumber w Kelp",
+          "category": "A La Carte",
+          "sourceIds": [
+            "ur11-crowded-sp-fp"
+          ],
+          "sourceDescription": "Refreshing cucumber paired with nutrient-rich kelp for a unique and healthy snack option.",
+          "price": {
+            "amount": 2.99,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated vegetarian-venue delivery source fact. Complete ingredients, vegan suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": false,
+          "verification": {
+            "checkedAt": "2026-10-16T07:08:41.237302+00:00",
+            "sourceIds": [
+              "ur11-crowded-sp-fp"
+            ],
+            "verifiedFields": [
+              "exact current merchant premise",
+              "printed food name/category",
+              "visible SGD listprice",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan/allium/allergen suitability",
+              "current stock",
+              "portion sizes",
+              "checkout total"
+            ]
+          },
+          "foodComponents": {
+            "printedDescription": "Refreshing cucumber paired with nutrient-rich kelp for a unique and healthy snack option.",
+            "basis": "Printed source wording, not a complete ingredients/allergen statement or health certification."
+          }
+        },
+        {
+          "id": "ur11-crowded-sp-18419310",
+          "sourceProductId": "18419310",
+          "name": "Broccoli",
+          "category": "A La Carte",
+          "sourceIds": [
+            "ur11-crowded-sp-fp"
+          ],
+          "sourceDescription": "Reduces inflammation, improves blood sugar control & boosts overall immunity",
+          "price": {
+            "amount": 2.99,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated vegetarian-venue delivery source fact. Complete ingredients, vegan suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": false,
+          "verification": {
+            "checkedAt": "2026-10-16T07:08:41.237302+00:00",
+            "sourceIds": [
+              "ur11-crowded-sp-fp"
+            ],
+            "verifiedFields": [
+              "exact current merchant premise",
+              "printed food name/category",
+              "visible SGD listprice",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan/allium/allergen suitability",
+              "current stock",
+              "portion sizes",
+              "checkout total"
+            ]
+          },
+          "sourceLabelNotice": "Merchant health claims are unverified; no nutritional or medical benefit inferred."
+        },
+        {
+          "id": "ur11-crowded-sp-2327149",
+          "sourceProductId": "2327149",
+          "name": "Regular Set",
+          "category": "Regular Bowl",
+          "sourceIds": [
+            "ur11-crowded-sp-fp"
+          ],
+          "sourceDescription": "Comes with greens and choice of 3 sides",
+          "price": {
+            "amount": 5.8,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated vegetarian-venue delivery source fact. Complete ingredients, vegan suitability, current stock and final checkout charges unconfirmed.",
+          "hasUnreadChoices": true,
+          "verification": {
+            "checkedAt": "2026-10-16T07:08:41.237302+00:00",
+            "sourceIds": [
+              "ur11-crowded-sp-fp"
+            ],
+            "verifiedFields": [
+              "exact current merchant premise",
+              "printed food name/category",
+              "visible SGD listprice",
+              "printed description"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "vegan/allium/allergen suitability",
+              "current stock",
+              "portion sizes",
+              "checkout total"
+            ]
+          },
+          "foodComponents": {
+            "printedDescription": "Comes with greens and choice of 3 sides",
+            "basis": "Bowl contents as printed; no serving count inferred."
+          },
+          "setComponentsText": "Greens and choice of three sides. Side inventory, default selection, portions and surcharges unconfirmed.",
+          "configurationNotice": "Source flags choices; full side inventory/defaults/limits/surcharges unread after normal browser403."
+        }
+      ]
+    },
+    {
+      "id": "ur11-crowded-rp-menu-gap",
+      "name": "Republic Polytechnic current menu gap",
+      "branchIds": [
+        "ur11-crowded-rp"
+      ],
+      "sourceIds": [
+        "ur11-crowded-rp-landlord"
+      ],
+      "scope": "branch-dine-in",
+      "coverage": "menu-pending",
+      "publicationStatus": "hold-current-named-menu-unavailable",
+      "notice": "Current landlord confirms vegetarian tenant; current named foods/prices unavailable.",
+      "items": []
+    }
+  ],
+  "summary": {
+    "branches": 2,
+    "menus": 2,
+    "foodRows": 14,
+    "approvedFoodRows": 13,
+    "heldFoodRows": 1,
+    "zeroFoodBranches": 1,
+    "unreadCustomizers": 1
+  }
+}

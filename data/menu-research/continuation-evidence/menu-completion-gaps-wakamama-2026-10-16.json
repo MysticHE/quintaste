@@ -1,0 +1,437 @@
+{
+  "version": 1,
+  "checkedAt": "2026-10-16T00:25:00Z",
+  "sources": [
+    {
+      "id": "completion-waka-cantabile",
+      "url": "https://www.wakamama.sg/cantabile",
+      "publisher": "Wakamama",
+      "title": "Cantabile tasting menu, prices, courses and exact branch",
+      "checkedAt": "2026-10-16T00:25:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200 ordinary public retrieval. Prior429 source now readable. Independently scoped Italian tasting menu, not the conflicting brunch/PDF versions. No drinks bundled in the named food courses; espresso occurs as tiramisu ingredient. Printed$ currency code, taxes/fees and effective date absent."
+    },
+    {
+      "id": "completion-waka-pasta",
+      "url": "https://www.wakamama.sg/vegan-pasta",
+      "publisher": "Wakamama",
+      "title": "Current pasta repertoire and Cantabile/omakase scope",
+      "checkedAt": "2026-10-16T00:25:00Z",
+      "status": "readable-live-primary"
+    },
+    {
+      "id": "completion-waka-pastry",
+      "url": "https://www.wakamama.sg/vegan-pastry",
+      "publisher": "Wakamama",
+      "title": "Current pastry repertoire and rotating seasonal offerings",
+      "checkedAt": "2026-10-16T00:25:00Z",
+      "status": "readable-live-primary"
+    },
+    {
+      "id": "completion-waka-brunch-recheck",
+      "url": "https://www.wakamama.sg/vegan-brunch",
+      "publisher": "Wakamama",
+      "title": "Current brunch HTML and conflicting linked PDF versions",
+      "checkedAt": "2026-10-16T00:25:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP200. Same15priced human food rows and same two PDF links as earlier frozen packet. HTMLSaturday/Sunday11–15 still disagrees with footerSunday9–15. No authoritative dated supersession found; existing holds retained."
+    }
+  ],
+  "branches": [
+    {
+      "id": "wakamama-pasir-panjang",
+      "name": "Wakamama",
+      "address": "218 Pasir Panjang Road #02-15, ICON @ Pasir Panjang, Singapore 118579",
+      "sourceIds": [
+        "completion-waka-cantabile",
+        "completion-waka-pasta",
+        "completion-waka-pastry",
+        "completion-waka-brunch-recheck"
+      ],
+      "menuIds": [
+        "wakamama-completion-cantabile-tiers-20261016",
+        "wakamama-completion-cantabile-courses-held-20261016",
+        "wakamama-completion-counter-pasta-held-20261016",
+        "wakamama-completion-pastry-held-20261016"
+      ],
+      "gaps": [
+        "Two current Cantabile food tiers and19unpriced course/repertoire observations added. First week of month, reservation-only,18seats; effective service date/fees and shorter-tier selection unknown.",
+        "Previous15HTML brunch rows,17and16PDF brunch rows and3Japanese omakase tiers remain held separately; no dated authority resolves menu/price/portion/service-hour conflicts.",
+        "Current pastry/seasonal gelato flavour list, daily omakase courses and standalone prices remain undisclosed."
+      ],
+      "identityStatus": "merchant-confirmed",
+      "postalCode": "118579",
+      "directoryLeadIds": [
+        "hippo-wakamama-japanese-omakase-by-reservations-only"
+      ]
+    }
+  ],
+  "menus": [
+    {
+      "id": "wakamama-completion-cantabile-tiers-20261016",
+      "name": "Wakamama — Cantabile food tasting tiers",
+      "scope": "branch",
+      "branchIds": [
+        "wakamama-pasir-panjang"
+      ],
+      "sourceIds": [
+        "completion-waka-cantabile"
+      ],
+      "coverage": "source-covered",
+      "items": [
+        {
+          "id": "wakamama-completion-cantabile-5courses",
+          "name": "Cantabile — 5 courses",
+          "category": "Italian food tasting menu",
+          "price": {
+            "amount": 168,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "portion": "5 courses",
+          "sourceIds": [
+            "completion-waka-cantabile"
+          ],
+          "qualifier": "Current merchant source only. First week of every month, reservation only,18seats. Currency code, taxes/charges, effective date and current availability unspecified. Merchant fully-vegan wording is a source claim. Printed tier is5courses for$168. Which five of the displayed eight movements are served is unstated.",
+          "optionNotes": "Five-course selection/omissions not specified."
+        },
+        {
+          "id": "wakamama-completion-cantabile-8courses",
+          "name": "Cantabile — 8 courses",
+          "category": "Italian food tasting menu",
+          "price": {
+            "amount": 238,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "portion": "8 courses",
+          "sourceIds": [
+            "completion-waka-cantabile"
+          ],
+          "qualifier": "Current merchant source only. First week of every month, reservation only,18seats. Currency code, taxes/charges, effective date and current availability unspecified. Merchant fully-vegan wording is a source claim. Printed tier is8courses for$238. Printed full-course names: Sottoli e Sottaceti; Tiramisu in Shadow; Mare Secco; Charcoal Tagliolini; Mushroom \"Escargot\" Pappardelle; Handkerchief Pasta & Amazake Burrata; Tiramisu in Light; Cinque Piccoli Addii.",
+          "optionNotes": "Eight named movements including three dishes within The Pasta Trilogy; no separate a-la-carte prices inferred."
+        }
+      ],
+      "notice": "Two printed food tasting tiers captured. Exact course allocation for shorter tier, service date, individual per-person billing basis and final fees are not stated. Food names inside the set must not be assigned tier price as their standalone price."
+    },
+    {
+      "id": "wakamama-completion-cantabile-courses-held-20261016",
+      "name": "Wakamama — Cantabile named courses (standalone prices unknown)",
+      "scope": "branch",
+      "branchIds": [
+        "wakamama-pasir-panjang"
+      ],
+      "sourceIds": [
+        "completion-waka-cantabile",
+        "completion-waka-pasta"
+      ],
+      "coverage": "held",
+      "publicationStatus": "hold-course-only-no-standalone-price",
+      "items": [
+        {
+          "id": "wakamama-completion-cantabile-course-01",
+          "name": "Sottoli e Sottaceti",
+          "category": "Included tasting-menu movement",
+          "price": {
+            "currency": "unknown",
+            "kind": "unknown"
+          },
+          "sourceIds": [
+            "completion-waka-cantabile"
+          ],
+          "qualifier": "Current merchant source only. First week of every month, reservation only,18seats. Currency code, taxes/charges, effective date and current availability unspecified. Merchant fully-vegan wording is a source claim. Included tasting-menu course only. Standalone purchase/price and inclusion in five-course tier unknown. Pickled/preserved vegetables; preparatory movement.",
+          "publicationStatus": "hold-course-only-no-standalone-price"
+        },
+        {
+          "id": "wakamama-completion-cantabile-course-02",
+          "name": "Tiramisu in Shadow",
+          "category": "Included tasting-menu movement",
+          "price": {
+            "currency": "unknown",
+            "kind": "unknown"
+          },
+          "sourceIds": [
+            "completion-waka-cantabile"
+          ],
+          "qualifier": "Current merchant source only. First week of every month, reservation only,18seats. Currency code, taxes/charges, effective date and current availability unspecified. Merchant fully-vegan wording is a source claim. Included tasting-menu course only. Standalone purchase/price and inclusion in five-course tier unknown. Kabocha uni; opening movement.",
+          "publicationStatus": "hold-course-only-no-standalone-price"
+        },
+        {
+          "id": "wakamama-completion-cantabile-course-03",
+          "name": "Mare Secco",
+          "category": "Included tasting-menu movement",
+          "price": {
+            "currency": "unknown",
+            "kind": "unknown"
+          },
+          "sourceIds": [
+            "completion-waka-cantabile"
+          ],
+          "qualifier": "Current merchant source only. First week of every month, reservation only,18seats. Currency code, taxes/charges, effective date and current availability unspecified. Merchant fully-vegan wording is a source claim. Included tasting-menu course only. Standalone purchase/price and inclusion in five-course tier unknown. Koji beet bresaola, kombujime radish, dehydrated watermelon, smoked musk melon, coconut lardo; grouped course.",
+          "publicationStatus": "hold-course-only-no-standalone-price"
+        },
+        {
+          "id": "wakamama-completion-cantabile-course-04",
+          "name": "Charcoal Tagliolini",
+          "category": "Included tasting-menu movement",
+          "price": {
+            "currency": "unknown",
+            "kind": "unknown"
+          },
+          "sourceIds": [
+            "completion-waka-cantabile",
+            "completion-waka-pasta"
+          ],
+          "qualifier": "Current merchant source only. First week of every month, reservation only,18seats. Currency code, taxes/charges, effective date and current availability unspecified. Merchant fully-vegan wording is a source claim. Included tasting-menu course only. Standalone purchase/price and inclusion in five-course tier unknown. Pasta Trilogy i; caper and shoyu koji.",
+          "publicationStatus": "hold-course-only-no-standalone-price"
+        },
+        {
+          "id": "wakamama-completion-cantabile-course-05",
+          "name": "Mushroom \"Escargot\" Pappardelle",
+          "category": "Included tasting-menu movement",
+          "price": {
+            "currency": "unknown",
+            "kind": "unknown"
+          },
+          "sourceIds": [
+            "completion-waka-cantabile",
+            "completion-waka-pasta"
+          ],
+          "qualifier": "Current merchant source only. First week of every month, reservation only,18seats. Currency code, taxes/charges, effective date and current availability unspecified. Merchant fully-vegan wording is a source claim. Included tasting-menu course only. Standalone purchase/price and inclusion in five-course tier unknown. Pasta Trilogy ii; sage plant-based brown butter and shiso pesto.",
+          "publicationStatus": "hold-course-only-no-standalone-price"
+        },
+        {
+          "id": "wakamama-completion-cantabile-course-06",
+          "name": "Handkerchief Pasta & Amazake Burrata",
+          "category": "Included tasting-menu movement",
+          "price": {
+            "currency": "unknown",
+            "kind": "unknown"
+          },
+          "sourceIds": [
+            "completion-waka-cantabile",
+            "completion-waka-pasta"
+          ],
+          "qualifier": "Current merchant source only. First week of every month, reservation only,18seats. Currency code, taxes/charges, effective date and current availability unspecified. Merchant fully-vegan wording is a source claim. Included tasting-menu course only. Standalone purchase/price and inclusion in five-course tier unknown. Pasta Trilogy iii; amazake burrata.",
+          "publicationStatus": "hold-course-only-no-standalone-price"
+        },
+        {
+          "id": "wakamama-completion-cantabile-course-07",
+          "name": "Tiramisu in Light",
+          "category": "Included tasting-menu movement",
+          "price": {
+            "currency": "unknown",
+            "kind": "unknown"
+          },
+          "sourceIds": [
+            "completion-waka-cantabile"
+          ],
+          "qualifier": "Current merchant source only. First week of every month, reservation only,18seats. Currency code, taxes/charges, effective date and current availability unspecified. Merchant fully-vegan wording is a source claim. Included tasting-menu course only. Standalone purchase/price and inclusion in five-course tier unknown. Sake-kasu mascarpone, espresso and ceremonial matcha are dessert components.",
+          "publicationStatus": "hold-course-only-no-standalone-price"
+        },
+        {
+          "id": "wakamama-completion-cantabile-course-08",
+          "name": "Cinque Piccoli Addii",
+          "category": "Included tasting-menu movement",
+          "price": {
+            "currency": "unknown",
+            "kind": "unknown"
+          },
+          "sourceIds": [
+            "completion-waka-cantabile"
+          ],
+          "qualifier": "Current merchant source only. First week of every month, reservation only,18seats. Currency code, taxes/charges, effective date and current availability unspecified. Merchant fully-vegan wording is a source claim. Included tasting-menu course only. Standalone purchase/price and inclusion in five-course tier unknown. Bento of Italian sweets in Japanese form; five small farewells. Individual sweets unnamed.",
+          "publicationStatus": "hold-course-only-no-standalone-price"
+        }
+      ],
+      "notice": "All eight named movements captured; The Pasta Trilogy represented by its three printed dishes, not an additional priced product. No price allocation or standalone offering inferred."
+    },
+    {
+      "id": "wakamama-completion-counter-pasta-held-20261016",
+      "name": "Wakamama — other omakase-counter pasta observations",
+      "scope": "branch",
+      "branchIds": [
+        "wakamama-pasir-panjang"
+      ],
+      "sourceIds": [
+        "completion-waka-pasta"
+      ],
+      "coverage": "held",
+      "publicationStatus": "hold-seasonal-counter-no-price",
+      "items": [
+        {
+          "id": "wakamama-completion-counter-pasta-1",
+          "name": "Matcha Pasta",
+          "category": "Seasonal omakase-counter pasta",
+          "price": {
+            "currency": "unknown",
+            "kind": "unknown"
+          },
+          "sourceIds": [
+            "completion-waka-pasta"
+          ],
+          "qualifier": "Merchant repertoire page names this plant-based pasta for the omakase counter. Seasonal rotation; current service-day inclusion, portion and standalone price not stated. No brunch/PDF price transferred.",
+          "publicationStatus": "hold-seasonal-counter-no-price"
+        },
+        {
+          "id": "wakamama-completion-counter-pasta-2",
+          "name": "Miso Carbonara Fettuccine",
+          "category": "Seasonal omakase-counter pasta",
+          "price": {
+            "currency": "unknown",
+            "kind": "unknown"
+          },
+          "sourceIds": [
+            "completion-waka-pasta"
+          ],
+          "qualifier": "Merchant repertoire page names this plant-based pasta for the omakase counter. Seasonal rotation; current service-day inclusion, portion and standalone price not stated. No brunch/PDF price transferred.",
+          "publicationStatus": "hold-seasonal-counter-no-price"
+        },
+        {
+          "id": "wakamama-completion-counter-pasta-3",
+          "name": "\"Prawn\" Raviolo, Kimchi Sauce",
+          "category": "Seasonal omakase-counter pasta",
+          "price": {
+            "currency": "unknown",
+            "kind": "unknown"
+          },
+          "sourceIds": [
+            "completion-waka-pasta"
+          ],
+          "qualifier": "Merchant repertoire page names this plant-based pasta for the omakase counter. Seasonal rotation; current service-day inclusion, portion and standalone price not stated. No brunch/PDF price transferred.",
+          "publicationStatus": "hold-seasonal-counter-no-price"
+        }
+      ],
+      "notice": "Three additional named counter pastas captured. Three Cantabile pasta dishes are already retained in course menu and not repeated here."
+    },
+    {
+      "id": "wakamama-completion-pastry-held-20261016",
+      "name": "Wakamama — current pastry repertoire observations",
+      "scope": "branch",
+      "branchIds": [
+        "wakamama-pasir-panjang"
+      ],
+      "sourceIds": [
+        "completion-waka-pastry"
+      ],
+      "coverage": "held",
+      "publicationStatus": "hold-seasonal-pastry-no-price",
+      "items": [
+        {
+          "id": "wakamama-completion-pastry-1",
+          "name": "Vegan Chocolate Bonbons",
+          "category": "Pastry / dessert repertoire",
+          "price": {
+            "currency": "unknown",
+            "kind": "unknown"
+          },
+          "sourceIds": [
+            "completion-waka-pastry"
+          ],
+          "qualifier": "Current merchant pastry page names this food. Seasonal/occasion repertoire, omakase dessert course or take-home gift-box context; exact serving/day stock, portion, gift-box composition and price unknown. Source says no eggs/dairy; no independent dietary certification. Existing brunch/PDF dessert prices not transferred.",
+          "publicationStatus": "hold-seasonal-pastry-no-price"
+        },
+        {
+          "id": "wakamama-completion-pastry-2",
+          "name": "Vegan Ferrero Rocher",
+          "category": "Pastry / dessert repertoire",
+          "price": {
+            "currency": "unknown",
+            "kind": "unknown"
+          },
+          "sourceIds": [
+            "completion-waka-pastry"
+          ],
+          "qualifier": "Current merchant pastry page names this food. Seasonal/occasion repertoire, omakase dessert course or take-home gift-box context; exact serving/day stock, portion, gift-box composition and price unknown. Source says no eggs/dairy; no independent dietary certification. Existing brunch/PDF dessert prices not transferred.",
+          "publicationStatus": "hold-seasonal-pastry-no-price"
+        },
+        {
+          "id": "wakamama-completion-pastry-3",
+          "name": "Vegan Wagashi",
+          "category": "Pastry / dessert repertoire",
+          "price": {
+            "currency": "unknown",
+            "kind": "unknown"
+          },
+          "sourceIds": [
+            "completion-waka-pastry"
+          ],
+          "qualifier": "Current merchant pastry page names this food. Seasonal/occasion repertoire, omakase dessert course or take-home gift-box context; exact serving/day stock, portion, gift-box composition and price unknown. Source says no eggs/dairy; no independent dietary certification. Existing brunch/PDF dessert prices not transferred.",
+          "publicationStatus": "hold-seasonal-pastry-no-price"
+        },
+        {
+          "id": "wakamama-completion-pastry-4",
+          "name": "Vegan Cheesecake",
+          "category": "Pastry / dessert repertoire",
+          "price": {
+            "currency": "unknown",
+            "kind": "unknown"
+          },
+          "sourceIds": [
+            "completion-waka-pastry"
+          ],
+          "qualifier": "Current merchant pastry page names this food. Seasonal/occasion repertoire, omakase dessert course or take-home gift-box context; exact serving/day stock, portion, gift-box composition and price unknown. Source says no eggs/dairy; no independent dietary certification. Existing brunch/PDF dessert prices not transferred.",
+          "publicationStatus": "hold-seasonal-pastry-no-price"
+        },
+        {
+          "id": "wakamama-completion-pastry-5",
+          "name": "Vegan Gelato",
+          "category": "Pastry / dessert repertoire",
+          "price": {
+            "currency": "unknown",
+            "kind": "unknown"
+          },
+          "sourceIds": [
+            "completion-waka-pastry"
+          ],
+          "qualifier": "Current merchant pastry page names this food. Seasonal/occasion repertoire, omakase dessert course or take-home gift-box context; exact serving/day stock, portion, gift-box composition and price unknown. Source says no eggs/dairy; no independent dietary certification. Existing brunch/PDF dessert prices not transferred.",
+          "publicationStatus": "hold-seasonal-pastry-no-price"
+        },
+        {
+          "id": "wakamama-completion-pastry-6",
+          "name": "Daifuku",
+          "category": "Pastry / dessert repertoire",
+          "price": {
+            "currency": "unknown",
+            "kind": "unknown"
+          },
+          "sourceIds": [
+            "completion-waka-pastry"
+          ],
+          "qualifier": "Current merchant pastry page names this food. Seasonal/occasion repertoire, omakase dessert course or take-home gift-box context; exact serving/day stock, portion, gift-box composition and price unknown. Source says no eggs/dairy; no independent dietary certification. Existing brunch/PDF dessert prices not transferred.",
+          "publicationStatus": "hold-seasonal-pastry-no-price"
+        },
+        {
+          "id": "wakamama-completion-pastry-7",
+          "name": "Tang Yuan",
+          "category": "Pastry / dessert repertoire",
+          "price": {
+            "currency": "unknown",
+            "kind": "unknown"
+          },
+          "sourceIds": [
+            "completion-waka-pastry"
+          ],
+          "qualifier": "Current merchant pastry page names this food. Seasonal/occasion repertoire, omakase dessert course or take-home gift-box context; exact serving/day stock, portion, gift-box composition and price unknown. Source says no eggs/dairy; no independent dietary certification. Existing brunch/PDF dessert prices not transferred.",
+          "publicationStatus": "hold-seasonal-pastry-no-price"
+        },
+        {
+          "id": "wakamama-completion-pastry-8",
+          "name": "Nian Gao",
+          "category": "Pastry / dessert repertoire",
+          "price": {
+            "currency": "unknown",
+            "kind": "unknown"
+          },
+          "sourceIds": [
+            "completion-waka-pastry"
+          ],
+          "qualifier": "Current merchant pastry page names this food. Seasonal/occasion repertoire, omakase dessert course or take-home gift-box context; exact serving/day stock, portion, gift-box composition and price unknown. Source says no eggs/dairy; no independent dietary certification. Existing brunch/PDF dessert prices not transferred.",
+          "publicationStatus": "hold-seasonal-pastry-no-price"
+        }
+      ],
+      "notice": "All eight distinct named pastry types captured. Bonbon flavours and more than five rotating gelato flavours are not named exhaustively; ingredients mentioned as produce are not inferred as individual purchasable flavours."
+    }
+  ],
+  "notice": "Append current-source food observations without replacing or repricing the existing51held Wakamama rows. New Cantabile tiers are separate from brunch and Japanese omakase tiers. Named courses/repertoire have unknown standalone prices and remain held. Source vegan claims are not independent certification."
+}

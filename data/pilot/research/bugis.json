@@ -1,0 +1,87 @@
+{
+  "cluster": "rochor-bugis",
+  "method": "agent-assisted public-source inspection",
+  "checkedAt": "2026-10-15T04:56:45Z",
+  "venueIds": [
+    "herbivore-fortune-centre",
+    "teng-bespoke-sunshine-plaza"
+  ],
+  "menuIds": [
+    "teng-sunshine-delivery"
+  ],
+  "dishIds": [
+    "teng-bespoke-sunshine-plaza-kyoto-tempura",
+    "teng-bespoke-sunshine-plaza-anori-cheese",
+    "teng-bespoke-sunshine-plaza-avocado-maki",
+    "teng-bespoke-sunshine-plaza-mixed-mushroom"
+  ],
+  "sources": [
+    {
+      "id": "herbivore-home",
+      "url": "https://www.herbivore.sg/",
+      "title": "Herbivore Japanese Vegetarian Restaurant",
+      "publisher": "Herbivore Pte Ltd",
+      "kind": "merchant",
+      "checkedAt": "2026-10-15T04:55:47Z",
+      "publishedAt": null,
+      "notes": "Official pure-vegetarian statement and Fortune Centre, 190 Middle Road #01-13/14 address."
+    },
+    {
+      "id": "herbivore-gallery",
+      "url": "https://www.herbivore.sg/bento-set",
+      "title": "Herbivore gallery",
+      "publisher": "Herbivore Pte Ltd",
+      "kind": "merchant",
+      "checkedAt": "2026-10-15T04:55:47Z",
+      "publishedAt": null,
+      "notes": "No readable current menu names/prices established from the gallery. Images were not imported."
+    },
+    {
+      "id": "herbivore-community",
+      "url": "https://herbivore.res-menu.net/menu",
+      "title": "Herbivore community menu candidate",
+      "publisher": "res-menu.net",
+      "kind": "unverified",
+      "checkedAt": "2026-10-15T04:55:47Z",
+      "publishedAt": null,
+      "notes": "Community-maintained page. Claimed 2026 title is not a verified update date. Candidate dish names/prices are withheld."
+    },
+    {
+      "id": "teng-menu",
+      "url": "https://www.foodpanda.sg/restaurant/l8ul/teng-bespoke-vegetarian-japanese-dining-sunshine-plaza",
+      "title": "Teng Bespoke Sunshine Plaza delivery menu",
+      "publisher": "foodpanda",
+      "kind": "delivery-platform",
+      "checkedAt": "2026-10-15T04:55:47Z",
+      "publishedAt": null,
+      "notes": "Exact branch platform names/SGD prices only. Merchant control and dine-in equivalence unverified. Channel indicated CLOSED; not proof of permanent closure. Ingredient descriptions conflict with expired sources and are excluded."
+    },
+    {
+      "id": "teng-oddle",
+      "url": "https://tengbespoke.oddle.me/en_SG",
+      "title": "Teng ordering channel",
+      "publisher": "Teng-branded Oddle storefront",
+      "kind": "unverified",
+      "checkedAt": "2026-10-15T04:55:47Z",
+      "publishedAt": null,
+      "notes": "Ordering channel reports currently closed. Current merchant operation/menu not established."
+    },
+    {
+      "id": "teng-address-history",
+      "url": "https://www.americanexpress.com/en-sg/benefits/promotions/dining/teng-vegetarian/index.html",
+      "title": "Teng Bespoke historical dining offer",
+      "publisher": "American Express Singapore",
+      "kind": "directory",
+      "checkedAt": "2026-10-15T04:55:47Z",
+      "publishedAt": null,
+      "notes": "Historical address corroboration only. Offer expired 30 December 2023; not current menu or dietary evidence."
+    }
+  ],
+  "candidates": [],
+  "boundaries": [
+    "No merchant outreach, purchases or paid Google calls.",
+    "No menu artwork/photos copied.",
+    "Menu facts are not complete ingredient or vegan/allium confirmation.",
+    "Merchant permission not requested; local research only."
+  ]
+}

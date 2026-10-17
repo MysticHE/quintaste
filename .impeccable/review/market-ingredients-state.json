@@ -1,0 +1,15 @@
+{
+  "checkedAt": "2026-10-15T02:45:41.691Z",
+  "passed": 9,
+  "checks": [
+    "Full listing validates and becomes eligible",
+    "Missing text, label or confirmation blocks publishing, resume and buyer eligibility",
+    "Incomplete draft saves; excess ingredient text is rejected in draft and publish",
+    "Eggs, dairy and may-contain peanuts exclude independently",
+    "Missing or malformed declarations never establish reviewed evidence",
+    "Storage roundtrip preserves text/photos/tags and clears review on overlong legacy text",
+    "Universal evidence gate excludes all incomplete samples and all non-owner incomplete records",
+    "Combined ingredient, area, price and category filters return only matching verified items",
+    "Delete removes ingredient data and photos"
+  ]
+}

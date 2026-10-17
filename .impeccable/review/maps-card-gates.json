@@ -1,0 +1,35 @@
+{
+  "checkedAt": "2026-10-15T01:19:20.256Z",
+  "typecheck": {
+    "command": "npx tsc --noEmit",
+    "exitCode": 0
+  },
+  "lint": {
+    "command": "npx eslint src",
+    "exitCode": 0
+  },
+  "typescriptReview": {
+    "materialFindings": 1,
+    "resolved": 1,
+    "scope": "Coordinate Google keyword query omits explicit geography; optionalcompactChip defaults/headeralignment approved."
+  },
+  "webInteractionChecks": 20,
+  "webRuntimeErrors": [],
+  "scopedAxe": {
+    "violations": [],
+    "incomplete": [
+      "color-contrast",
+      "label-content-name-mismatch"
+    ]
+  },
+  "uiReviewFixes": {
+    "materialFindings": 2,
+    "resolved": 2,
+    "recaptured": true,
+    "verdictPending": false,
+    "disposition": "ship",
+    "scope": "Scores the two listed web fixes only; all ten recaptures valid."
+  },
+  "nativeDeviceAppearanceVerified": false,
+  "livePhotoAllowanceReached": true
+}

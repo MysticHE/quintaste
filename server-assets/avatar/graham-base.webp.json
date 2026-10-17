@@ -1,0 +1,4 @@
+{
+  "prompt": "Sourced style reference: graham-base.webp. Style references from https://github.com/nateherkai/roast-room\nInspected 2026-10-15; tree commit f5e7b631a172ecc8ef5488760654ad37f24204b0.\nhormozi-base.webp: https://raw.githubusercontent.com/nateherkai/roast-room/f5e7b631a172ecc8ef5488760654ad37f24204b0/app/public/portraits/hormozi-base.webp\ngraham-base.webp: https://raw.githubusercontent.com/nateherkai/roast-room/f5e7b631a172ecc8ef5488760654ad37f24204b0/app/public/portraits/graham-base.webp\nUpstream license: https://github.com/nateherkai/roast-room/blob/main/LICENSE\nThese are fixed reference artworks. No original generation prompt or model provenance is known.\n",
+  "createdAt": "2026-10-15T09:02:06.306Z"
+}

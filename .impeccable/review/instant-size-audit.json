@@ -1,0 +1,13 @@
+{
+  "files": 19,
+  "maxFile": {
+    "file": "src\\state\\Food.tsx",
+    "lines": 118
+  },
+  "maxFunction": {
+    "file": "src\\state\\Food.tsx",
+    "line": 14,
+    "lines": 95
+  },
+  "violations": []
+}

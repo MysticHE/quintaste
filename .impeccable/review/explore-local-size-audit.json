@@ -1,0 +1,1782 @@
+{
+  "newModules": 40,
+  "maxModuleLines": 88,
+  "maxFunctionLines": 71,
+  "rows": [
+    {
+      "file": "src/types/explore-local.ts",
+      "lines": 34
+    },
+    {
+      "file": "src/config/explore-local.ts",
+      "lines": 12
+    },
+    {
+      "file": "src/server/local-explore/store.ts",
+      "lines": 79
+    },
+    {
+      "file": "src/server/local-explore/http.ts",
+      "lines": 62
+    },
+    {
+      "file": "src/server/local-explore/validation.ts",
+      "lines": 53
+    },
+    {
+      "file": "src/server/local-explore/cases.ts",
+      "lines": 88
+    },
+    {
+      "file": "src/server/local-explore/participation.ts",
+      "lines": 35
+    },
+    {
+      "file": "src/server/local-explore/session.ts",
+      "lines": 32
+    },
+    {
+      "file": "src/app/api/local-explore/session+api.ts",
+      "lines": 5
+    },
+    {
+      "file": "src/app/api/local-explore/cases+api.ts",
+      "lines": 5
+    },
+    {
+      "file": "src/app/api/local-explore/participation+api.ts",
+      "lines": 6
+    },
+    {
+      "file": "src/app/api/local-explore/review+api.ts",
+      "lines": 5
+    },
+    {
+      "file": "src/app/api/local-explore/owner+api.ts",
+      "lines": 4
+    },
+    {
+      "file": "src/app/api/local-explore/case/[id]+api.ts",
+      "lines": 5
+    },
+    {
+      "file": "src/utils/explore-local-schema.ts",
+      "lines": 63
+    },
+    {
+      "file": "src/utils/local-explore-session.ts",
+      "lines": 5
+    },
+    {
+      "file": "src/utils/local-explore-session.native.ts",
+      "lines": 20
+    },
+    {
+      "file": "src/utils/local-explore-api.ts",
+      "lines": 45
+    },
+    {
+      "file": "src/hooks/useExploreCollection.ts",
+      "lines": 16
+    },
+    {
+      "file": "src/hooks/useLocalExploreTask.ts",
+      "lines": 27
+    },
+    {
+      "file": "src/hooks/useExploreSync.ts",
+      "lines": 18
+    },
+    {
+      "file": "src/hooks/useExploreCases.ts",
+      "lines": 73
+    },
+    {
+      "file": "src/hooks/useAreaParticipation.ts",
+      "lines": 40
+    },
+    {
+      "file": "src/state/ExploreLocal.tsx",
+      "lines": 36
+    },
+    {
+      "file": "src/components/discovery/CaseFormFields.tsx",
+      "lines": 24
+    },
+    {
+      "file": "src/components/discovery/CasePhotoField.tsx",
+      "lines": 30
+    },
+    {
+      "file": "src/screens/food/ExploreContribution.tsx",
+      "lines": 73
+    },
+    {
+      "file": "src/components/discovery/ExploreCaseList.tsx",
+      "lines": 41
+    },
+    {
+      "file": "src/screens/food/ExploreCaseDetail.tsx",
+      "lines": 52
+    },
+    {
+      "file": "src/app/explore-case/[id].tsx",
+      "lines": 2
+    },
+    {
+      "file": "src/components/discovery/ParticipationLayer.tsx",
+      "lines": 46
+    },
+    {
+      "file": "src/screens/food/AreaParticipation.tsx",
+      "lines": 22
+    },
+    {
+      "file": "src/app/area-participation.tsx",
+      "lines": 2
+    },
+    {
+      "file": "src/components/discovery/SavedPlaceLabel.tsx",
+      "lines": 30
+    },
+    {
+      "file": "src/components/discovery/SavedPlaceCard.tsx",
+      "lines": 22
+    },
+    {
+      "file": "src/components/discovery/OfflinePlaceBookmark.tsx",
+      "lines": 23
+    },
+    {
+      "file": "src/components/discovery/LocalReviewCase.tsx",
+      "lines": 35
+    },
+    {
+      "file": "src/screens/food/LocalReview.tsx",
+      "lines": 34
+    },
+    {
+      "file": "src/app/local-review.tsx",
+      "lines": 2
+    },
+    {
+      "file": "src/hooks/useLocalReviewQueue.ts",
+      "lines": 78
+    }
+  ],
+  "functions": [
+    {
+      "file": "src/types/explore-local.ts",
+      "name": "inline",
+      "lines": 3
+    },
+    {
+      "file": "src/config/explore-local.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/server/local-explore/store.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/server/local-explore/store.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/server/local-explore/store.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/server/local-explore/store.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/server/local-explore/store.ts",
+      "name": "localEnabled",
+      "lines": 7
+    },
+    {
+      "file": "src/server/local-explore/store.ts",
+      "name": "lock",
+      "lines": 9
+    },
+    {
+      "file": "src/server/local-explore/store.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/server/local-explore/store.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/server/local-explore/store.ts",
+      "name": "withLocalStore",
+      "lines": 29
+    },
+    {
+      "file": "src/server/local-explore/store.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/server/local-explore/store.ts",
+      "name": "localReviewerKey",
+      "lines": 16
+    },
+    {
+      "file": "src/server/local-explore/http.ts",
+      "name": "allow",
+      "lines": 7
+    },
+    {
+      "file": "src/server/local-explore/http.ts",
+      "name": "inline",
+      "lines": 5
+    },
+    {
+      "file": "src/server/local-explore/http.ts",
+      "name": "localToken",
+      "lines": 6
+    },
+    {
+      "file": "src/server/local-explore/http.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/server/local-explore/http.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/server/local-explore/http.ts",
+      "name": "ownerIdentity",
+      "lines": 8
+    },
+    {
+      "file": "src/server/local-explore/http.ts",
+      "name": "requireReviewer",
+      "lines": 5
+    },
+    {
+      "file": "src/server/local-explore/http.ts",
+      "name": "localJson",
+      "lines": 4
+    },
+    {
+      "file": "src/server/local-explore/http.ts",
+      "name": "localRoute",
+      "lines": 20
+    },
+    {
+      "file": "src/server/local-explore/validation.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/server/local-explore/validation.ts",
+      "name": "text",
+      "lines": 5
+    },
+    {
+      "file": "src/server/local-explore/validation.ts",
+      "name": "photoData",
+      "lines": 14
+    },
+    {
+      "file": "src/server/local-explore/validation.ts",
+      "name": "caseDraft",
+      "lines": 15
+    },
+    {
+      "file": "src/server/local-explore/validation.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/server/local-explore/validation.ts",
+      "name": "layer",
+      "lines": 4
+    },
+    {
+      "file": "src/server/local-explore/validation.ts",
+      "name": "participation",
+      "lines": 8
+    },
+    {
+      "file": "src/server/local-explore/validation.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/server/local-explore/validation.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/server/local-explore/cases.ts",
+      "name": "caseReceipt",
+      "lines": 4
+    },
+    {
+      "file": "src/server/local-explore/cases.ts",
+      "name": "ownCases",
+      "lines": 6
+    },
+    {
+      "file": "src/server/local-explore/cases.ts",
+      "name": "inline",
+      "lines": 4
+    },
+    {
+      "file": "src/server/local-explore/cases.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/server/local-explore/cases.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/server/local-explore/cases.ts",
+      "name": "submitCase",
+      "lines": 20
+    },
+    {
+      "file": "src/server/local-explore/cases.ts",
+      "name": "inline",
+      "lines": 16
+    },
+    {
+      "file": "src/server/local-explore/cases.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/server/local-explore/cases.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/server/local-explore/cases.ts",
+      "name": "caseDetails",
+      "lines": 7
+    },
+    {
+      "file": "src/server/local-explore/cases.ts",
+      "name": "inline",
+      "lines": 5
+    },
+    {
+      "file": "src/server/local-explore/cases.ts",
+      "name": "addInformation",
+      "lines": 14
+    },
+    {
+      "file": "src/server/local-explore/cases.ts",
+      "name": "inline",
+      "lines": 9
+    },
+    {
+      "file": "src/server/local-explore/cases.ts",
+      "name": "reviewCases",
+      "lines": 5
+    },
+    {
+      "file": "src/server/local-explore/cases.ts",
+      "name": "inline",
+      "lines": 3
+    },
+    {
+      "file": "src/server/local-explore/cases.ts",
+      "name": "inline",
+      "lines": 3
+    },
+    {
+      "file": "src/server/local-explore/cases.ts",
+      "name": "reviewCase",
+      "lines": 16
+    },
+    {
+      "file": "src/server/local-explore/cases.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/server/local-explore/cases.ts",
+      "name": "inline",
+      "lines": 10
+    },
+    {
+      "file": "src/server/local-explore/cases.ts",
+      "name": "reviewCaseDetails",
+      "lines": 7
+    },
+    {
+      "file": "src/server/local-explore/cases.ts",
+      "name": "inline",
+      "lines": 5
+    },
+    {
+      "file": "src/server/local-explore/participation.ts",
+      "name": "participationSnapshot",
+      "lines": 5
+    },
+    {
+      "file": "src/server/local-explore/participation.ts",
+      "name": "aggregateParticipation",
+      "lines": 5
+    },
+    {
+      "file": "src/server/local-explore/participation.ts",
+      "name": "inline",
+      "lines": 2
+    },
+    {
+      "file": "src/server/local-explore/participation.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/server/local-explore/participation.ts",
+      "name": "ownParticipation",
+      "lines": 3
+    },
+    {
+      "file": "src/server/local-explore/participation.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/server/local-explore/participation.ts",
+      "name": "joinParticipation",
+      "lines": 9
+    },
+    {
+      "file": "src/server/local-explore/participation.ts",
+      "name": "inline",
+      "lines": 6
+    },
+    {
+      "file": "src/server/local-explore/participation.ts",
+      "name": "leaveParticipation",
+      "lines": 7
+    },
+    {
+      "file": "src/server/local-explore/participation.ts",
+      "name": "inline",
+      "lines": 4
+    },
+    {
+      "file": "src/server/local-explore/session.ts",
+      "name": "localSession",
+      "lines": 17
+    },
+    {
+      "file": "src/server/local-explore/session.ts",
+      "name": "inline",
+      "lines": 13
+    },
+    {
+      "file": "src/server/local-explore/session.ts",
+      "name": "deleteLocalOwner",
+      "lines": 10
+    },
+    {
+      "file": "src/server/local-explore/session.ts",
+      "name": "inline",
+      "lines": 5
+    },
+    {
+      "file": "src/app/api/local-explore/session+api.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/app/api/local-explore/session+api.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/app/api/local-explore/session+api.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/app/api/local-explore/session+api.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/app/api/local-explore/cases+api.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/app/api/local-explore/cases+api.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/app/api/local-explore/cases+api.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/app/api/local-explore/cases+api.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/app/api/local-explore/participation+api.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/app/api/local-explore/participation+api.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/app/api/local-explore/participation+api.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/app/api/local-explore/participation+api.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/app/api/local-explore/participation+api.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/app/api/local-explore/participation+api.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/app/api/local-explore/review+api.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/app/api/local-explore/review+api.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/app/api/local-explore/review+api.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/app/api/local-explore/review+api.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/app/api/local-explore/owner+api.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/app/api/local-explore/owner+api.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/app/api/local-explore/case/[id]+api.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/app/api/local-explore/case/[id]+api.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/app/api/local-explore/case/[id]+api.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/app/api/local-explore/case/[id]+api.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/utils/explore-local-schema.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/utils/explore-local-schema.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/utils/explore-local-schema.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/utils/explore-local-schema.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/utils/explore-local-schema.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/utils/explore-local-schema.ts",
+      "name": "readCaseDraft",
+      "lines": 10
+    },
+    {
+      "file": "src/utils/explore-local-schema.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/utils/explore-local-schema.ts",
+      "name": "readCaseReceipt",
+      "lines": 12
+    },
+    {
+      "file": "src/utils/explore-local-schema.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/utils/explore-local-schema.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/utils/explore-local-schema.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/utils/explore-local-schema.ts",
+      "name": "readLayer",
+      "lines": 6
+    },
+    {
+      "file": "src/utils/explore-local-schema.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/utils/explore-local-schema.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/utils/explore-local-schema.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/utils/explore-local-schema.ts",
+      "name": "readParticipation",
+      "lines": 7
+    },
+    {
+      "file": "src/utils/explore-local-schema.ts",
+      "name": "readExploreLocal",
+      "lines": 9
+    },
+    {
+      "file": "src/utils/explore-local-schema.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/utils/explore-local-schema.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/utils/explore-local-schema.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/utils/explore-local-schema.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/utils/explore-local-schema.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/utils/explore-local-schema.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/utils/explore-local-schema.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/utils/explore-local-schema.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/utils/explore-local-schema.ts",
+      "name": "mergeExploreLocal",
+      "lines": 9
+    },
+    {
+      "file": "src/utils/explore-local-schema.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/utils/explore-local-schema.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/utils/explore-local-schema.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/utils/local-explore-session.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/utils/local-explore-session.ts",
+      "name": "saveLocalSession",
+      "lines": 1
+    },
+    {
+      "file": "src/utils/local-explore-session.ts",
+      "name": "clearLocalSession",
+      "lines": 1
+    },
+    {
+      "file": "src/utils/local-explore-session.native.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/utils/local-explore-session.native.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/utils/local-explore-session.native.ts",
+      "name": "localSessionHeaders",
+      "lines": 7
+    },
+    {
+      "file": "src/utils/local-explore-session.native.ts",
+      "name": "saveLocalSession",
+      "lines": 6
+    },
+    {
+      "file": "src/utils/local-explore-session.native.ts",
+      "name": "clearLocalSession",
+      "lines": 1
+    },
+    {
+      "file": "src/utils/local-explore-api.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/utils/local-explore-api.ts",
+      "name": "request",
+      "lines": 10
+    },
+    {
+      "file": "src/utils/local-explore-api.ts",
+      "name": "ensureLocalSession",
+      "lines": 10
+    },
+    {
+      "file": "src/utils/local-explore-api.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/utils/local-explore-api.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/utils/local-explore-api.ts",
+      "name": "localExploreRequest",
+      "lines": 9
+    },
+    {
+      "file": "src/utils/local-explore-api.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/utils/local-explore-api.ts",
+      "name": "eraseLocalExplore",
+      "lines": 7
+    },
+    {
+      "file": "src/utils/local-explore-api.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/hooks/useExploreCollection.ts",
+      "name": "useExploreCollection",
+      "lines": 11
+    },
+    {
+      "file": "src/hooks/useExploreCollection.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/hooks/useExploreCollection.ts",
+      "name": "inline",
+      "lines": 5
+    },
+    {
+      "file": "src/hooks/useExploreCollection.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/hooks/useLocalExploreTask.ts",
+      "name": "useLocalExploreTask",
+      "lines": 22
+    },
+    {
+      "file": "src/hooks/useLocalExploreTask.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/hooks/useLocalExploreTask.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/hooks/useLocalExploreTask.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/hooks/useLocalExploreTask.ts",
+      "name": "inline",
+      "lines": 15
+    },
+    {
+      "file": "src/hooks/useLocalExploreTask.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/hooks/useExploreSync.ts",
+      "name": "useExploreSync",
+      "lines": 14
+    },
+    {
+      "file": "src/hooks/useExploreSync.ts",
+      "name": "inline",
+      "lines": 6
+    },
+    {
+      "file": "src/hooks/useExploreSync.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/hooks/useExploreSync.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/hooks/useExploreSync.ts",
+      "name": "inline",
+      "lines": 6
+    },
+    {
+      "file": "src/hooks/useExploreSync.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/hooks/useExploreSync.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/hooks/useExploreCases.ts",
+      "name": "receipts",
+      "lines": 7
+    },
+    {
+      "file": "src/hooks/useExploreCases.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/hooks/useExploreCases.ts",
+      "name": "useExploreCases",
+      "lines": 57
+    },
+    {
+      "file": "src/hooks/useExploreCases.ts",
+      "name": "inline",
+      "lines": 21
+    },
+    {
+      "file": "src/hooks/useExploreCases.ts",
+      "name": "inline",
+      "lines": 21
+    },
+    {
+      "file": "src/hooks/useExploreCases.ts",
+      "name": "inline",
+      "lines": 2
+    },
+    {
+      "file": "src/hooks/useExploreCases.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/hooks/useExploreCases.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/hooks/useExploreCases.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/hooks/useExploreCases.ts",
+      "name": "inline",
+      "lines": 2
+    },
+    {
+      "file": "src/hooks/useExploreCases.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/hooks/useExploreCases.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/hooks/useExploreCases.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/hooks/useExploreCases.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/hooks/useExploreCases.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/hooks/useExploreCases.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/hooks/useExploreCases.ts",
+      "name": "inline",
+      "lines": 10
+    },
+    {
+      "file": "src/hooks/useExploreCases.ts",
+      "name": "inline",
+      "lines": 6
+    },
+    {
+      "file": "src/hooks/useExploreCases.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/hooks/useExploreCases.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/hooks/useExploreCases.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/hooks/useExploreCases.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/hooks/useExploreCases.ts",
+      "name": "inline",
+      "lines": 5
+    },
+    {
+      "file": "src/hooks/useExploreCases.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/hooks/useExploreCases.ts",
+      "name": "inline",
+      "lines": 3
+    },
+    {
+      "file": "src/hooks/useExploreCases.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/hooks/useExploreCases.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/hooks/useExploreCases.ts",
+      "name": "inline",
+      "lines": 6
+    },
+    {
+      "file": "src/hooks/useExploreCases.ts",
+      "name": "inline",
+      "lines": 6
+    },
+    {
+      "file": "src/hooks/useExploreCases.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/hooks/useExploreCases.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/hooks/useExploreCases.ts",
+      "name": "inline",
+      "lines": 5
+    },
+    {
+      "file": "src/hooks/useAreaParticipation.ts",
+      "name": "useAreaParticipation",
+      "lines": 31
+    },
+    {
+      "file": "src/hooks/useAreaParticipation.ts",
+      "name": "inline",
+      "lines": 4
+    },
+    {
+      "file": "src/hooks/useAreaParticipation.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/hooks/useAreaParticipation.ts",
+      "name": "inline",
+      "lines": 10
+    },
+    {
+      "file": "src/hooks/useAreaParticipation.ts",
+      "name": "inline",
+      "lines": 10
+    },
+    {
+      "file": "src/hooks/useAreaParticipation.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/hooks/useAreaParticipation.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/hooks/useAreaParticipation.ts",
+      "name": "inline",
+      "lines": 5
+    },
+    {
+      "file": "src/hooks/useAreaParticipation.ts",
+      "name": "inline",
+      "lines": 5
+    },
+    {
+      "file": "src/hooks/useAreaParticipation.ts",
+      "name": "inline",
+      "lines": 5
+    },
+    {
+      "file": "src/hooks/useAreaParticipation.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/state/ExploreLocal.tsx",
+      "name": "useLocalServices",
+      "lines": 18
+    },
+    {
+      "file": "src/state/ExploreLocal.tsx",
+      "name": "inline",
+      "lines": 11
+    },
+    {
+      "file": "src/state/ExploreLocal.tsx",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/state/ExploreLocal.tsx",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/state/ExploreLocal.tsx",
+      "name": "LocalScope",
+      "lines": 3
+    },
+    {
+      "file": "src/state/ExploreLocal.tsx",
+      "name": "ExploreLocalProvider",
+      "lines": 3
+    },
+    {
+      "file": "src/state/ExploreLocal.tsx",
+      "name": "useExploreLocal",
+      "lines": 3
+    },
+    {
+      "file": "src/components/discovery/CaseFormFields.tsx",
+      "name": "CaseFormFields",
+      "lines": 16
+    },
+    {
+      "file": "src/components/discovery/CaseFormFields.tsx",
+      "name": "inline",
+      "lines": 2
+    },
+    {
+      "file": "src/components/discovery/CaseFormFields.tsx",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/components/discovery/CaseFormFields.tsx",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/components/discovery/CaseFormFields.tsx",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/components/discovery/CaseFormFields.tsx",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/components/discovery/CaseFormFields.tsx",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/components/discovery/CasePhotoField.tsx",
+      "name": "CasePhotoField",
+      "lines": 24
+    },
+    {
+      "file": "src/components/discovery/CasePhotoField.tsx",
+      "name": "inline",
+      "lines": 13
+    },
+    {
+      "file": "src/components/discovery/CasePhotoField.tsx",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/components/discovery/CasePhotoField.tsx",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/components/discovery/CasePhotoField.tsx",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/screens/food/ExploreContribution.tsx",
+      "name": "ExploreContributionScreen",
+      "lines": 60
+    },
+    {
+      "file": "src/screens/food/ExploreContribution.tsx",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/screens/food/ExploreContribution.tsx",
+      "name": "inline",
+      "lines": 2
+    },
+    {
+      "file": "src/screens/food/ExploreContribution.tsx",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/screens/food/ExploreContribution.tsx",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/screens/food/ExploreContribution.tsx",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/screens/food/ExploreContribution.tsx",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/screens/food/ExploreContribution.tsx",
+      "name": "inline",
+      "lines": 7
+    },
+    {
+      "file": "src/screens/food/ExploreContribution.tsx",
+      "name": "inline",
+      "lines": 9
+    },
+    {
+      "file": "src/screens/food/ExploreContribution.tsx",
+      "name": "inline",
+      "lines": 9
+    },
+    {
+      "file": "src/screens/food/ExploreContribution.tsx",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/screens/food/ExploreContribution.tsx",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/screens/food/ExploreContribution.tsx",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/screens/food/ExploreContribution.tsx",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/screens/food/ExploreContribution.tsx",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/components/discovery/ExploreCaseList.tsx",
+      "name": "ExploreCaseList",
+      "lines": 31
+    },
+    {
+      "file": "src/components/discovery/ExploreCaseList.tsx",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/components/discovery/ExploreCaseList.tsx",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/components/discovery/ExploreCaseList.tsx",
+      "name": "inline",
+      "lines": 9
+    },
+    {
+      "file": "src/components/discovery/ExploreCaseList.tsx",
+      "name": "inline",
+      "lines": 3
+    },
+    {
+      "file": "src/components/discovery/ExploreCaseList.tsx",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/components/discovery/ExploreCaseList.tsx",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/components/discovery/ExploreCaseList.tsx",
+      "name": "inline",
+      "lines": 9
+    },
+    {
+      "file": "src/components/discovery/ExploreCaseList.tsx",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/screens/food/ExploreCaseDetail.tsx",
+      "name": "ExploreCaseDetailScreen",
+      "lines": 40
+    },
+    {
+      "file": "src/screens/food/ExploreCaseDetail.tsx",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/screens/food/ExploreCaseDetail.tsx",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/screens/food/ExploreCaseDetail.tsx",
+      "name": "inline",
+      "lines": 7
+    },
+    {
+      "file": "src/screens/food/ExploreCaseDetail.tsx",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/screens/food/ExploreCaseDetail.tsx",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/screens/food/ExploreCaseDetail.tsx",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/screens/food/ExploreCaseDetail.tsx",
+      "name": "inline",
+      "lines": 4
+    },
+    {
+      "file": "src/screens/food/ExploreCaseDetail.tsx",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/screens/food/ExploreCaseDetail.tsx",
+      "name": "inline",
+      "lines": 4
+    },
+    {
+      "file": "src/screens/food/ExploreCaseDetail.tsx",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/components/discovery/ParticipationLayer.tsx",
+      "name": "ParticipationLayer",
+      "lines": 35
+    },
+    {
+      "file": "src/components/discovery/ParticipationLayer.tsx",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/components/discovery/ParticipationLayer.tsx",
+      "name": "inline",
+      "lines": 3
+    },
+    {
+      "file": "src/components/discovery/ParticipationLayer.tsx",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/components/discovery/ParticipationLayer.tsx",
+      "name": "inline",
+      "lines": 2
+    },
+    {
+      "file": "src/components/discovery/ParticipationLayer.tsx",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/components/discovery/ParticipationLayer.tsx",
+      "name": "inline",
+      "lines": 2
+    },
+    {
+      "file": "src/components/discovery/ParticipationLayer.tsx",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/components/discovery/ParticipationLayer.tsx",
+      "name": "inline",
+      "lines": 2
+    },
+    {
+      "file": "src/components/discovery/ParticipationLayer.tsx",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/components/discovery/ParticipationLayer.tsx",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/components/discovery/ParticipationLayer.tsx",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/components/discovery/ParticipationLayer.tsx",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/components/discovery/ParticipationLayer.tsx",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/components/discovery/ParticipationLayer.tsx",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/screens/food/AreaParticipation.tsx",
+      "name": "AreaParticipationScreen",
+      "lines": 12
+    },
+    {
+      "file": "src/screens/food/AreaParticipation.tsx",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/screens/food/AreaParticipation.tsx",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/components/discovery/SavedPlaceLabel.tsx",
+      "name": "SavedPlaceLabel",
+      "lines": 3
+    },
+    {
+      "file": "src/components/discovery/SavedPlaceLabel.tsx",
+      "name": "SavedPlaceLabelContent",
+      "lines": 19
+    },
+    {
+      "file": "src/components/discovery/SavedPlaceLabel.tsx",
+      "name": "inline",
+      "lines": 10
+    },
+    {
+      "file": "src/components/discovery/SavedPlaceLabel.tsx",
+      "name": "inline",
+      "lines": 4
+    },
+    {
+      "file": "src/components/discovery/SavedPlaceLabel.tsx",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/components/discovery/SavedPlaceCard.tsx",
+      "name": "SavedPlaceCard",
+      "lines": 12
+    },
+    {
+      "file": "src/components/discovery/SavedPlaceCard.tsx",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/components/discovery/SavedPlaceCard.tsx",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/components/discovery/SavedPlaceCard.tsx",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/components/discovery/OfflinePlaceBookmark.tsx",
+      "name": "OfflinePlaceBookmark",
+      "lines": 15
+    },
+    {
+      "file": "src/components/discovery/OfflinePlaceBookmark.tsx",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/components/discovery/OfflinePlaceBookmark.tsx",
+      "name": "inline",
+      "lines": 4
+    },
+    {
+      "file": "src/components/discovery/OfflinePlaceBookmark.tsx",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/components/discovery/LocalReviewCase.tsx",
+      "name": "LocalReviewCase",
+      "lines": 27
+    },
+    {
+      "file": "src/components/discovery/LocalReviewCase.tsx",
+      "name": "inline",
+      "lines": 4
+    },
+    {
+      "file": "src/components/discovery/LocalReviewCase.tsx",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/components/discovery/LocalReviewCase.tsx",
+      "name": "inline",
+      "lines": 2
+    },
+    {
+      "file": "src/components/discovery/LocalReviewCase.tsx",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/components/discovery/LocalReviewCase.tsx",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/components/discovery/LocalReviewCase.tsx",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/components/discovery/LocalReviewCase.tsx",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/screens/food/LocalReview.tsx",
+      "name": "LocalReviewScreen",
+      "lines": 24
+    },
+    {
+      "file": "src/screens/food/LocalReview.tsx",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/screens/food/LocalReview.tsx",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/screens/food/LocalReview.tsx",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/screens/food/LocalReview.tsx",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/screens/food/LocalReview.tsx",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/screens/food/LocalReview.tsx",
+      "name": "inline",
+      "lines": 2
+    },
+    {
+      "file": "src/hooks/useLocalReviewQueue.ts",
+      "name": "useLocalReviewQueue",
+      "lines": 71
+    },
+    {
+      "file": "src/hooks/useLocalReviewQueue.ts",
+      "name": "inline",
+      "lines": 4
+    },
+    {
+      "file": "src/hooks/useLocalReviewQueue.ts",
+      "name": "inline",
+      "lines": 4
+    },
+    {
+      "file": "src/hooks/useLocalReviewQueue.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/hooks/useLocalReviewQueue.ts",
+      "name": "inline",
+      "lines": 27
+    },
+    {
+      "file": "src/hooks/useLocalReviewQueue.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/hooks/useLocalReviewQueue.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/hooks/useLocalReviewQueue.ts",
+      "name": "inline",
+      "lines": 11
+    },
+    {
+      "file": "src/hooks/useLocalReviewQueue.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/hooks/useLocalReviewQueue.ts",
+      "name": "inline",
+      "lines": 4
+    },
+    {
+      "file": "src/hooks/useLocalReviewQueue.ts",
+      "name": "inline",
+      "lines": 9
+    },
+    {
+      "file": "src/hooks/useLocalReviewQueue.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/hooks/useLocalReviewQueue.ts",
+      "name": "inline",
+      "lines": 1
+    },
+    {
+      "file": "src/hooks/useLocalReviewQueue.ts",
+      "name": "inline",
+      "lines": 6
+    }
+  ],
+  "integrations": [
+    {
+      "file": "src/hooks/usePlaceDetails.ts",
+      "lines": 46
+    },
+    {
+      "file": "src/screens/food/Contributions.tsx",
+      "lines": 74
+    },
+    {
+      "file": "src/screens/food/PrivatePlaces.tsx",
+      "lines": 50
+    },
+    {
+      "file": "src/screens/food/Privacy.tsx",
+      "lines": 53
+    },
+    {
+      "file": "src/screens/food/Saved.tsx",
+      "lines": 79
+    },
+    {
+      "file": "src/components/discovery/PlaceFeedbackActions.tsx",
+      "lines": 23
+    },
+    {
+      "file": "src/screens/food/LivePlaceDetail.tsx",
+      "lines": 52
+    },
+    {
+      "file": "src/app/_layout.tsx",
+      "lines": 71
+    },
+    {
+      "file": "src/state/food-schema.ts",
+      "lines": 86
+    },
+    {
+      "file": "src/state/Food.tsx",
+      "lines": 129
+    },
+    {
+      "file": "src/types/food.ts",
+      "lines": 79
+    },
+    {
+      "file": "src/server/read-json.ts",
+      "lines": 26
+    },
+    {
+      "file": "src/screens/Account.tsx",
+      "lines": 48
+    },
+    {
+      "file": "src/screens/food/Filters.tsx",
+      "lines": 53
+    }
+  ],
+  "privateFilesIgnored": [
+    ".local/explore-services.json",
+    ".local/explore-service/records.json",
+    ".local/explore-service/reviewer.key"
+  ]
+}

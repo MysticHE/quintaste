@@ -1,0 +1,95 @@
+{
+  "status": "pass",
+  "files": [
+    {
+      "file": "src/types/menus.ts",
+      "lines": 24,
+      "maxFunctionLines": 0
+    },
+    {
+      "file": "src/utils/menu-match.ts",
+      "lines": 36,
+      "maxFunctionLines": 12
+    },
+    {
+      "file": "src/utils/menu-catalogue.ts",
+      "lines": 43,
+      "maxFunctionLines": 12
+    },
+    {
+      "file": "src/server/published-menus.ts",
+      "lines": 42,
+      "maxFunctionLines": 21
+    },
+    {
+      "file": "src/app/api/menus+api.ts",
+      "lines": 18,
+      "maxFunctionLines": 12
+    },
+    {
+      "file": "src/state/Menus.tsx",
+      "lines": 73,
+      "maxFunctionLines": 54
+    },
+    {
+      "file": "src/components/discovery/MenuEntry.tsx",
+      "lines": 35,
+      "maxFunctionLines": 19
+    },
+    {
+      "file": "src/components/discovery/MenuSection.tsx",
+      "lines": 37,
+      "maxFunctionLines": 23
+    },
+    {
+      "file": "src/components/discovery/MenuSourceLink.tsx",
+      "lines": 34,
+      "maxFunctionLines": 11
+    },
+    {
+      "file": "src/components/discovery/MenuSearchMatches.tsx",
+      "lines": 33,
+      "maxFunctionLines": 20
+    },
+    {
+      "file": "src/screens/food/Menu.tsx",
+      "lines": 33,
+      "maxFunctionLines": 23
+    },
+    {
+      "file": "src/app/menu/[id].tsx",
+      "lines": 2,
+      "maxFunctionLines": 0
+    },
+    {
+      "file": "scripts/publish-menu-samples.ts",
+      "lines": 35,
+      "maxFunctionLines": 7
+    },
+    {
+      "file": "src/components/discovery/LivePlaceCard.tsx",
+      "lines": 68,
+      "maxFunctionLines": 41
+    },
+    {
+      "file": "src/components/discovery/LivePlaceInformation.tsx",
+      "lines": 55,
+      "maxFunctionLines": 37
+    },
+    {
+      "file": "src/screens/food/LivePlaceDetail.tsx",
+      "lines": 57,
+      "maxFunctionLines": 37
+    },
+    {
+      "file": "src/screens/food/Explore.tsx",
+      "lines": 78,
+      "maxFunctionLines": 54
+    },
+    {
+      "file": "src/app/_layout.tsx",
+      "lines": 82,
+      "maxFunctionLines": 52
+    }
+  ]
+}

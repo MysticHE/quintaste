@@ -1,0 +1,111 @@
+{
+  "capturedAt": "2026-10-16T00:08:19.762Z",
+  "commands": [
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run lint",
+      "exitCode": 0,
+      "scope": "canonical Expo src lint"
+    },
+    {
+      "command": "npx eslint scripts/sync-researched-menus.ts scripts/menu-publication/normalize.ts scripts/resolve-menu-identities.ts scripts/menu-identity/*.ts",
+      "exitCode": 0
+    },
+    {
+      "command": "npx tsx scripts/sync-researched-menus.ts --check",
+      "exitCode": 0,
+      "researchBranches": 92,
+      "sourceMenus": 132,
+      "foodRows": 9155
+    }
+  ],
+  "data": {
+    "publicVenues": 103,
+    "publicSourceMenus": 147,
+    "publicFoodRows": 9887,
+    "researchBranchRecords": 212,
+    "researchFoodRows": 13990,
+    "directoryIds": 2322,
+    "reviewedIdentities": 30,
+    "lookupRequests": 2359,
+    "lookupCap": 2500,
+    "lookupTargets": 2315,
+    "lookupHTTP200": 2314,
+    "lookupHTTP404": 1,
+    "csvInventoryRows": 2322,
+    "csvResearchRows": 212
+  },
+  "sourceFiles": [
+    {
+      "path": "src/utils/menu-match.ts",
+      "lines": 40,
+      "sha256": "235fc17528a34317a2dca60ced3e999f9d472c4dd8c28542b8644677c43da465"
+    },
+    {
+      "path": "src/components/discovery/LocationSuggestions.tsx",
+      "lines": 56,
+      "sha256": "582d32e281408629d0cdc81122047015c36903ac6e020b180aea3a6b3d5135d1"
+    },
+    {
+      "path": "src/components/discovery/LocationSearchField.tsx",
+      "lines": 50,
+      "sha256": "b51e9c92567f82434fc95993a8ba187365428a5a2bb4f76c6a4963baff3b828e"
+    },
+    {
+      "path": "src/screens/food/Explore.tsx",
+      "lines": 79,
+      "sha256": "fb9ef234deebd1f0a6b37779bc1dab030d1ca3e0ca99a12b475b0328d42ffbb9"
+    },
+    {
+      "path": "src/app/api/menus+api.ts",
+      "lines": 23,
+      "sha256": "5df6a62717a9ac9e97ef6b59447f1a2496e0bdc709239dc5e6ae95a470597783"
+    },
+    {
+      "path": "src/server/local-explore/store.ts",
+      "lines": 90,
+      "sha256": "cae74f4041e573f4f5de758dff171fa8d8d947016639c72c53b231f025021c6b"
+    },
+    {
+      "path": "src/server/local-explore/pilot-catalogue.ts",
+      "lines": 55,
+      "sha256": "dfb586e2fbbe75c288c905aeeeb13328312001c32dd850c3a926ffb3cf830b3a"
+    },
+    {
+      "path": "scripts/resolve-menu-identities.ts",
+      "lines": 73,
+      "sha256": "7138909d939a2815b7883c067255154b9b4219f9a15d1e21fc8af03181b3ec38"
+    },
+    {
+      "path": "scripts/menu-identity/rate-limit.ts",
+      "lines": 25,
+      "sha256": "574a822ed72109fcf6a253dd18e96177ac7ebfd3717bba95f99ed1057b9f5fe2"
+    },
+    {
+      "path": "scripts/menu-identity/client.ts",
+      "lines": 54,
+      "sha256": "1394d5f9386b2513f0106febf313cfbf620354da3fccb1404ee1c2c80524c528"
+    },
+    {
+      "path": "scripts/menu-identity/ledger.ts",
+      "lines": 74,
+      "sha256": "ea3374a7b5046e04bda5f6b28a83b2446049d041b4d6f23d32051f0db6d94657"
+    }
+  ],
+  "evidence": {
+    "browser": ".impeccable/review/menu-sync-browser-final.json",
+    "general": ".impeccable/review/menu-sync-general-review.json",
+    "typescript": ".impeccable/review/menu-sync-typescript-review.json",
+    "native": ".impeccable/review/menu-sync-native-transport.json",
+    "performance": ".codex/benchmarks/menu-after.json",
+    "warmHandler": ".codex/benchmarks/menu-warm-handler.json",
+    "identity": ".impeccable/review/menu-paid-identity-review.json"
+  },
+  "boundaries": [
+    "Current local app sync only; no production deployment or physical-device performance acceptance.",
+    "Source coverage and Google place-ID counts do not establish all current vegetarian venues/menus."
+  ]
+}

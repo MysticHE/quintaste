@@ -1,0 +1,117 @@
+{
+  "files": [
+    {
+      "path": "src/types/pilot-catalogue.ts",
+      "lines": 46,
+      "longestFunction": 0
+    },
+    {
+      "path": "src/config/pilot-catalogue.ts",
+      "lines": 11,
+      "longestFunction": 0
+    },
+    {
+      "path": "src/utils/pilot-evidence.ts",
+      "lines": 33,
+      "longestFunction": 12
+    },
+    {
+      "path": "src/utils/pilot-validation.ts",
+      "lines": 57,
+      "longestFunction": 7
+    },
+    {
+      "path": "src/utils/pilot-records.ts",
+      "lines": 45,
+      "longestFunction": 12
+    },
+    {
+      "path": "src/utils/pilot-schema.ts",
+      "lines": 40,
+      "longestFunction": 23
+    },
+    {
+      "path": "src/utils/pilot-response.ts",
+      "lines": 41,
+      "longestFunction": 15
+    },
+    {
+      "path": "src/server/pilot-catalogue.ts",
+      "lines": 15,
+      "longestFunction": 7
+    },
+    {
+      "path": "src/server/local-explore/pilot-catalogue.ts",
+      "lines": 49,
+      "longestFunction": 15
+    },
+    {
+      "path": "src/app/api/local-explore/catalogue+api.ts",
+      "lines": 10,
+      "longestFunction": 3
+    },
+    {
+      "path": "src/types/local-review.ts",
+      "lines": 3,
+      "longestFunction": 0
+    },
+    {
+      "path": "src/hooks/usePilotCatalogue.ts",
+      "lines": 34,
+      "longestFunction": 28
+    },
+    {
+      "path": "src/components/discovery/PilotSourceLinks.tsx",
+      "lines": 22,
+      "longestFunction": 14
+    },
+    {
+      "path": "src/components/discovery/PilotMenuFacts.tsx",
+      "lines": 29,
+      "longestFunction": 23
+    },
+    {
+      "path": "src/components/discovery/PilotReviewForm.tsx",
+      "lines": 32,
+      "longestFunction": 23
+    },
+    {
+      "path": "src/components/discovery/PilotVenueEntry.tsx",
+      "lines": 40,
+      "longestFunction": 30
+    },
+    {
+      "path": "src/components/discovery/PilotCataloguePanel.tsx",
+      "lines": 51,
+      "longestFunction": 36
+    },
+    {
+      "path": "src/hooks/useLocalReviewQueue.ts",
+      "lines": 78,
+      "longestFunction": 71
+    },
+    {
+      "path": "src/screens/food/LocalReview.tsx",
+      "lines": 40,
+      "longestFunction": 29
+    },
+    {
+      "path": "src/server/local-explore/store.ts",
+      "lines": 80,
+      "longestFunction": 29
+    },
+    {
+      "path": "scripts/pilot-catalogue.ts",
+      "lines": 27,
+      "longestFunction": 3
+    },
+    {
+      "path": "src/components/food/Controls.tsx",
+      "lines": 106,
+      "longestFunction": 17
+    }
+  ],
+  "maximumLines": 106,
+  "maximumFunctionLines": 71,
+  "passed": true
+}

@@ -1,0 +1,24 @@
+{
+  "checkedAt": "2026-10-16T09:33:58.158140+00:00",
+  "passed": true,
+  "fresh": false,
+  "scope": "TypeScript and Expo lint passed during followup15; original gate dates retained for unchanged hand-authored app logic. Fresh followup16 compiler/register checks pass after pilot-source kind/publishedAt fields corrected to schema.",
+  "retainedGateEvidence": {
+    "checkedAt": "2026-10-16T09:18:23.652850+00:00",
+    "passed": true,
+    "fresh": true,
+    "scope": "Fresh TypeScript and Expo lint both exit0 after followup15 data integration.",
+    "checks": [
+      {
+        "command": "node node_modules/typescript/bin/tsc --noEmit",
+        "exitCode": 0,
+        "session": 38104
+      },
+      {
+        "command": "node node_modules/expo/bin/cli lint",
+        "exitCode": 0,
+        "session": 80035
+      }
+    ]
+  }
+}

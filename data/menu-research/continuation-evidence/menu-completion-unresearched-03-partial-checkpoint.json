@@ -1,0 +1,1099 @@
+{
+  "version": 1,
+  "status": "in-progress-session-checkpoint",
+  "checkedAt": "2026-10-16T01:28:53.606Z",
+  "scope": "User stopped unit03; only already-read EcoSen23-food source snapshot preserved. Not a completed20-premise packet.",
+  "notice": "All items deliberately held pending next-session review. No canonical,index,manifest,review or app integration performed for unit03. Frozen20selection and evidence paths are in the checkpoint document.",
+  "sources": [
+    {
+      "id": "ur03-checkpoint-ecosen-foodpanda",
+      "url": "https://www.foodpanda.sg/restaurant/zj07/eco-sen-vegetarian-food-yuan-sen-su-shi-lorong-4-toa-payoh",
+      "title": "Eco Sen Vegetarian Food - Lorong4ToaPayoh current public ordering snapshot",
+      "publisher": "Eco Sen Vegetarian Food / Foodpanda",
+      "kind": "merchant-managed-ordering",
+      "checkedAt": "2026-10-16T01:26:23.987Z",
+      "status": "readable-unreviewed-checkpoint",
+      "notes": "Exact66Lor4ToaPayohSingapore310066. Current page contains23foodproducts,unlike older indexed12-productcopy. Coherent vegetarian/plant-based descriptions, no printed actual animal ingredient conflict observed. No source product marked customizable or sold out. All base/promotional display prices retained separately."
+    }
+  ],
+  "branches": [
+    {
+      "id": "ur03-eco-sen-toa-payoh66-checkpoint",
+      "name": "Eco Sen Vegetarian Food 缘森素食",
+      "address": "66 Lorong4 ToaPayoh, Singapore310066",
+      "postalCode": "310066",
+      "directoryLeadIds": [
+        "eco-sen-vegetarian-food"
+      ],
+      "sourceIds": [
+        "ur03-checkpoint-ecosen-foodpanda"
+      ],
+      "menuIds": [
+        "ur03-checkpoint-ecosen-foods"
+      ],
+      "googlePlaceId": null,
+      "candidatePlaceIds": [],
+      "identityStatus": "current-ordering-street-confirmed-review-pending",
+      "eligibility": "uncertain-hold",
+      "venueEligibility": {
+        "status": "uncertain-hold",
+        "reason": "Current merchant-managed name and coherent23foodcatalogue support vegetarian scope; final publication review deliberately pending at user stop.",
+        "sourceIds": [
+          "ur03-checkpoint-ecosen-foodpanda"
+        ],
+        "checkedAt": "2026-10-16T01:26:23.987Z"
+      },
+      "gaps": [
+        "Final whole-venue/publication review not performed before user stop.",
+        "Current promotion terms,real-time availability,complete ingredients and checkout charges unverified.",
+        "Exact meaning of RedPeachCake name/description requires review; no interpretive translation supplied."
+      ]
+    }
+  ],
+  "menus": [
+    {
+      "id": "ur03-checkpoint-ecosen-foods",
+      "name": "Eco Sen - already-read23foodsource snapshot, session checkpoint",
+      "scope": "branch-delivery",
+      "branchIds": [
+        "ur03-eco-sen-toa-payoh66-checkpoint"
+      ],
+      "sourceIds": [
+        "ur03-checkpoint-ecosen-foodpanda"
+      ],
+      "coverage": "partial",
+      "publicationStatus": "hold-session-checkpoint-unreviewed",
+      "sourceCoverage": {
+        "foodProducts": 23,
+        "readableListingSnapshotSaved": true,
+        "foodModifierDetailsCovered": false,
+        "finalReviewComplete": false
+      },
+      "notice": "In-progress checkpoint only. All23current publiclistingfoodnames/baseprices captured; no item marked customizable. Every row held pending next-session review.",
+      "items": [
+        {
+          "id": "ur03-ecosen-fp-95113175",
+          "name": "Signature Porridge",
+          "category": "Mains",
+          "sourceProductId": "95113175",
+          "sourceIds": [
+            "ur03-checkpoint-ecosen-foodpanda"
+          ],
+          "price": {
+            "amount": 5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "observedPromotionalPrice": {
+            "amount": 4.25,
+            "currency": "SGD",
+            "kind": "fixed",
+            "checkedAt": "2026-10-16T01:26:23.987Z"
+          },
+          "sourceDescription": "A comforting bowl of silky vegetarian porridge topped with a delicious assortment of plant-based ingredients and fresh garnishes",
+          "sourceAvailability": {
+            "isSoldOut": false,
+            "isCustomizable": false
+          },
+          "publicationStatus": "hold-session-checkpoint-unreviewed",
+          "qualifier": "Session checkpoint; requires next-session source and publication review. Printed base price retained separately from observed15%discounted price; promotion validity/conditions unverified. Portion3pieces retained where printed in name. No customizable flag on this source listing, but real-time availability,complete ingredients and checkout charges are not established.",
+          "verification": {
+            "checkedAt": "2026-10-16T01:26:23.987Z",
+            "verifiedFields": [
+              "current source product name",
+              "category",
+              "printed base price",
+              "published promotional display amount where shown",
+              "current source sold-out/customizable flags"
+            ],
+            "unverifiedFields": [
+              "current promotion conditions/expiry",
+              "real-time availability",
+              "complete ingredients",
+              "checkout charges",
+              "final publication eligibility review"
+            ]
+          }
+        },
+        {
+          "id": "ur03-ecosen-fp-95113176",
+          "name": "Vege Bee Hoon Set",
+          "category": "Mains",
+          "sourceProductId": "95113176",
+          "sourceIds": [
+            "ur03-checkpoint-ecosen-foodpanda"
+          ],
+          "price": {
+            "amount": 5.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "observedPromotionalPrice": {
+            "amount": 4.67,
+            "currency": "SGD",
+            "kind": "fixed",
+            "checkedAt": "2026-10-16T01:26:23.987Z"
+          },
+          "sourceDescription": "Stir-fried rice vermicelli with fresh vegetables and plant-based ingredients, served as a satisfying set meal",
+          "sourceAvailability": {
+            "isSoldOut": false,
+            "isCustomizable": false
+          },
+          "publicationStatus": "hold-session-checkpoint-unreviewed",
+          "qualifier": "Session checkpoint; requires next-session source and publication review. Printed base price retained separately from observed15%discounted price; promotion validity/conditions unverified. Portion3pieces retained where printed in name. No customizable flag on this source listing, but real-time availability,complete ingredients and checkout charges are not established.",
+          "verification": {
+            "checkedAt": "2026-10-16T01:26:23.987Z",
+            "verifiedFields": [
+              "current source product name",
+              "category",
+              "printed base price",
+              "published promotional display amount where shown",
+              "current source sold-out/customizable flags"
+            ],
+            "unverifiedFields": [
+              "current promotion conditions/expiry",
+              "real-time availability",
+              "complete ingredients",
+              "checkout charges",
+              "final publication eligibility review"
+            ]
+          }
+        },
+        {
+          "id": "ur03-ecosen-fp-95113177",
+          "name": "Traditional Lor Mee",
+          "category": "Mains",
+          "sourceProductId": "95113177",
+          "sourceIds": [
+            "ur03-checkpoint-ecosen-foodpanda"
+          ],
+          "price": {
+            "amount": 6.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "observedPromotionalPrice": {
+            "amount": 5.78,
+            "currency": "SGD",
+            "kind": "fixed",
+            "checkedAt": "2026-10-16T01:26:23.987Z"
+          },
+          "sourceDescription": "Thick yellow noodles in a rich vegetarian braised gravy, topped with plant-based ingredients and fresh herbs",
+          "sourceAvailability": {
+            "isSoldOut": false,
+            "isCustomizable": false
+          },
+          "publicationStatus": "hold-session-checkpoint-unreviewed",
+          "qualifier": "Session checkpoint; requires next-session source and publication review. Printed base price retained separately from observed15%discounted price; promotion validity/conditions unverified. Portion3pieces retained where printed in name. No customizable flag on this source listing, but real-time availability,complete ingredients and checkout charges are not established.",
+          "verification": {
+            "checkedAt": "2026-10-16T01:26:23.987Z",
+            "verifiedFields": [
+              "current source product name",
+              "category",
+              "printed base price",
+              "published promotional display amount where shown",
+              "current source sold-out/customizable flags"
+            ],
+            "unverifiedFields": [
+              "current promotion conditions/expiry",
+              "real-time availability",
+              "complete ingredients",
+              "checkout charges",
+              "final publication eligibility review"
+            ]
+          }
+        },
+        {
+          "id": "ur03-ecosen-fp-95113178",
+          "name": "Kway Chap",
+          "category": "Mains",
+          "sourceProductId": "95113178",
+          "sourceIds": [
+            "ur03-checkpoint-ecosen-foodpanda"
+          ],
+          "price": {
+            "amount": 6.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "observedPromotionalPrice": {
+            "amount": 5.78,
+            "currency": "SGD",
+            "kind": "fixed",
+            "checkedAt": "2026-10-16T01:26:23.987Z"
+          },
+          "sourceDescription": "Flat rice sheets served in a flavorful herbal vegetarian broth with a selection of plant-based delicacies",
+          "sourceAvailability": {
+            "isSoldOut": false,
+            "isCustomizable": false
+          },
+          "publicationStatus": "hold-session-checkpoint-unreviewed",
+          "qualifier": "Session checkpoint; requires next-session source and publication review. Printed base price retained separately from observed15%discounted price; promotion validity/conditions unverified. Portion3pieces retained where printed in name. No customizable flag on this source listing, but real-time availability,complete ingredients and checkout charges are not established.",
+          "verification": {
+            "checkedAt": "2026-10-16T01:26:23.987Z",
+            "verifiedFields": [
+              "current source product name",
+              "category",
+              "printed base price",
+              "published promotional display amount where shown",
+              "current source sold-out/customizable flags"
+            ],
+            "unverifiedFields": [
+              "current promotion conditions/expiry",
+              "real-time availability",
+              "complete ingredients",
+              "checkout charges",
+              "final publication eligibility review"
+            ]
+          }
+        },
+        {
+          "id": "ur03-ecosen-fp-95113179",
+          "name": "Vege Chicken Rice",
+          "category": "Mains",
+          "sourceProductId": "95113179",
+          "sourceIds": [
+            "ur03-checkpoint-ecosen-foodpanda"
+          ],
+          "price": {
+            "amount": 6.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "observedPromotionalPrice": {
+            "amount": 5.78,
+            "currency": "SGD",
+            "kind": "fixed",
+            "checkedAt": "2026-10-16T01:26:23.987Z"
+          },
+          "sourceDescription": "Tender plant-based chicken served with fragrant rice, accompanied by traditional sauces",
+          "sourceAvailability": {
+            "isSoldOut": false,
+            "isCustomizable": false
+          },
+          "publicationStatus": "hold-session-checkpoint-unreviewed",
+          "qualifier": "Session checkpoint; requires next-session source and publication review. Printed base price retained separately from observed15%discounted price; promotion validity/conditions unverified. Portion3pieces retained where printed in name. No customizable flag on this source listing, but real-time availability,complete ingredients and checkout charges are not established.",
+          "verification": {
+            "checkedAt": "2026-10-16T01:26:23.987Z",
+            "verifiedFields": [
+              "current source product name",
+              "category",
+              "printed base price",
+              "published promotional display amount where shown",
+              "current source sold-out/customizable flags"
+            ],
+            "unverifiedFields": [
+              "current promotion conditions/expiry",
+              "real-time availability",
+              "complete ingredients",
+              "checkout charges",
+              "final publication eligibility review"
+            ]
+          }
+        },
+        {
+          "id": "ur03-ecosen-fp-95113180",
+          "name": "Vege Laksa",
+          "category": "Mains",
+          "sourceProductId": "95113180",
+          "sourceIds": [
+            "ur03-checkpoint-ecosen-foodpanda"
+          ],
+          "price": {
+            "amount": 6.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "observedPromotionalPrice": {
+            "amount": 5.78,
+            "currency": "SGD",
+            "kind": "fixed",
+            "checkedAt": "2026-10-16T01:26:23.987Z"
+          },
+          "sourceDescription": "Rice noodles in a rich and creamy coconut laksa broth with tofu, vegetables, and plant-based ingredients",
+          "sourceAvailability": {
+            "isSoldOut": false,
+            "isCustomizable": false
+          },
+          "publicationStatus": "hold-session-checkpoint-unreviewed",
+          "qualifier": "Session checkpoint; requires next-session source and publication review. Printed base price retained separately from observed15%discounted price; promotion validity/conditions unverified. Portion3pieces retained where printed in name. No customizable flag on this source listing, but real-time availability,complete ingredients and checkout charges are not established.",
+          "verification": {
+            "checkedAt": "2026-10-16T01:26:23.987Z",
+            "verifiedFields": [
+              "current source product name",
+              "category",
+              "printed base price",
+              "published promotional display amount where shown",
+              "current source sold-out/customizable flags"
+            ],
+            "unverifiedFields": [
+              "current promotion conditions/expiry",
+              "real-time availability",
+              "complete ingredients",
+              "checkout charges",
+              "final publication eligibility review"
+            ]
+          }
+        },
+        {
+          "id": "ur03-ecosen-fp-95113181",
+          "name": "Vege Wanton Noodle",
+          "category": "Mains",
+          "sourceProductId": "95113181",
+          "sourceIds": [
+            "ur03-checkpoint-ecosen-foodpanda"
+          ],
+          "price": {
+            "amount": 6.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "observedPromotionalPrice": {
+            "amount": 5.78,
+            "currency": "SGD",
+            "kind": "fixed",
+            "checkedAt": "2026-10-16T01:26:23.987Z"
+          },
+          "sourceDescription": "Springy eggless noodles served with vegetarian wontons, leafy greens, and a savory house sauce",
+          "sourceAvailability": {
+            "isSoldOut": false,
+            "isCustomizable": false
+          },
+          "publicationStatus": "hold-session-checkpoint-unreviewed",
+          "qualifier": "Session checkpoint; requires next-session source and publication review. Printed base price retained separately from observed15%discounted price; promotion validity/conditions unverified. Portion3pieces retained where printed in name. No customizable flag on this source listing, but real-time availability,complete ingredients and checkout charges are not established.",
+          "verification": {
+            "checkedAt": "2026-10-16T01:26:23.987Z",
+            "verifiedFields": [
+              "current source product name",
+              "category",
+              "printed base price",
+              "published promotional display amount where shown",
+              "current source sold-out/customizable flags"
+            ],
+            "unverifiedFields": [
+              "current promotion conditions/expiry",
+              "real-time availability",
+              "complete ingredients",
+              "checkout charges",
+              "final publication eligibility review"
+            ]
+          }
+        },
+        {
+          "id": "ur03-ecosen-fp-95113182",
+          "name": "Vegetarian Mee Goreng",
+          "category": "Mains",
+          "sourceProductId": "95113182",
+          "sourceIds": [
+            "ur03-checkpoint-ecosen-foodpanda"
+          ],
+          "price": {
+            "amount": 8.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "observedPromotionalPrice": {
+            "amount": 7.48,
+            "currency": "SGD",
+            "kind": "fixed",
+            "checkedAt": "2026-10-16T01:26:23.987Z"
+          },
+          "sourceDescription": "Stir-fried yellow noodles with vegetables, tofu, and aromatic spices in a classic Malaysian-style sauce",
+          "sourceAvailability": {
+            "isSoldOut": false,
+            "isCustomizable": false
+          },
+          "publicationStatus": "hold-session-checkpoint-unreviewed",
+          "qualifier": "Session checkpoint; requires next-session source and publication review. Printed base price retained separately from observed15%discounted price; promotion validity/conditions unverified. Portion3pieces retained where printed in name. No customizable flag on this source listing, but real-time availability,complete ingredients and checkout charges are not established.",
+          "verification": {
+            "checkedAt": "2026-10-16T01:26:23.987Z",
+            "verifiedFields": [
+              "current source product name",
+              "category",
+              "printed base price",
+              "published promotional display amount where shown",
+              "current source sold-out/customizable flags"
+            ],
+            "unverifiedFields": [
+              "current promotion conditions/expiry",
+              "real-time availability",
+              "complete ingredients",
+              "checkout charges",
+              "final publication eligibility review"
+            ]
+          }
+        },
+        {
+          "id": "ur03-ecosen-fp-95113183",
+          "name": "Curry Puffs 3 Pcs",
+          "category": "Mains",
+          "sourceProductId": "95113183",
+          "sourceIds": [
+            "ur03-checkpoint-ecosen-foodpanda"
+          ],
+          "price": {
+            "amount": 6.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "observedPromotionalPrice": {
+            "amount": 5.87,
+            "currency": "SGD",
+            "kind": "fixed",
+            "checkedAt": "2026-10-16T01:26:23.987Z"
+          },
+          "sourceDescription": "Crispy pastry pockets filled with a flavorful curried potato and vegetable filling",
+          "sourceAvailability": {
+            "isSoldOut": false,
+            "isCustomizable": false
+          },
+          "publicationStatus": "hold-session-checkpoint-unreviewed",
+          "qualifier": "Session checkpoint; requires next-session source and publication review. Printed base price retained separately from observed15%discounted price; promotion validity/conditions unverified. Portion3pieces retained where printed in name. No customizable flag on this source listing, but real-time availability,complete ingredients and checkout charges are not established.",
+          "verification": {
+            "checkedAt": "2026-10-16T01:26:23.987Z",
+            "verifiedFields": [
+              "current source product name",
+              "category",
+              "printed base price",
+              "published promotional display amount where shown",
+              "current source sold-out/customizable flags"
+            ],
+            "unverifiedFields": [
+              "current promotion conditions/expiry",
+              "real-time availability",
+              "complete ingredients",
+              "checkout charges",
+              "final publication eligibility review"
+            ]
+          }
+        },
+        {
+          "id": "ur03-ecosen-fp-95113184",
+          "name": "Olive Fried Rice",
+          "category": "Mains",
+          "sourceProductId": "95113184",
+          "sourceIds": [
+            "ur03-checkpoint-ecosen-foodpanda"
+          ],
+          "price": {
+            "amount": 8.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "observedPromotionalPrice": {
+            "amount": 7.48,
+            "currency": "SGD",
+            "kind": "fixed",
+            "checkedAt": "2026-10-16T01:26:23.987Z"
+          },
+          "sourceDescription": "Fragrant fried rice stir-fried with savory olives and fresh vegetables for a unique umami flavor",
+          "sourceAvailability": {
+            "isSoldOut": false,
+            "isCustomizable": false
+          },
+          "publicationStatus": "hold-session-checkpoint-unreviewed",
+          "qualifier": "Session checkpoint; requires next-session source and publication review. Printed base price retained separately from observed15%discounted price; promotion validity/conditions unverified. Portion3pieces retained where printed in name. No customizable flag on this source listing, but real-time availability,complete ingredients and checkout charges are not established.",
+          "verification": {
+            "checkedAt": "2026-10-16T01:26:23.987Z",
+            "verifiedFields": [
+              "current source product name",
+              "category",
+              "printed base price",
+              "published promotional display amount where shown",
+              "current source sold-out/customizable flags"
+            ],
+            "unverifiedFields": [
+              "current promotion conditions/expiry",
+              "real-time availability",
+              "complete ingredients",
+              "checkout charges",
+              "final publication eligibility review"
+            ]
+          }
+        },
+        {
+          "id": "ur03-ecosen-fp-95113185",
+          "name": "Pineapple Fried Rice",
+          "category": "Mains",
+          "sourceProductId": "95113185",
+          "sourceIds": [
+            "ur03-checkpoint-ecosen-foodpanda"
+          ],
+          "price": {
+            "amount": 8.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "observedPromotionalPrice": {
+            "amount": 7.48,
+            "currency": "SGD",
+            "kind": "fixed",
+            "checkedAt": "2026-10-16T01:26:23.987Z"
+          },
+          "sourceDescription": "Wok-fried rice with sweet pineapple, vegetables, and a blend of savory seasonings",
+          "sourceAvailability": {
+            "isSoldOut": false,
+            "isCustomizable": false
+          },
+          "publicationStatus": "hold-session-checkpoint-unreviewed",
+          "qualifier": "Session checkpoint; requires next-session source and publication review. Printed base price retained separately from observed15%discounted price; promotion validity/conditions unverified. Portion3pieces retained where printed in name. No customizable flag on this source listing, but real-time availability,complete ingredients and checkout charges are not established.",
+          "verification": {
+            "checkedAt": "2026-10-16T01:26:23.987Z",
+            "verifiedFields": [
+              "current source product name",
+              "category",
+              "printed base price",
+              "published promotional display amount where shown",
+              "current source sold-out/customizable flags"
+            ],
+            "unverifiedFields": [
+              "current promotion conditions/expiry",
+              "real-time availability",
+              "complete ingredients",
+              "checkout charges",
+              "final publication eligibility review"
+            ]
+          }
+        },
+        {
+          "id": "ur03-ecosen-fp-95113186",
+          "name": "Hor Fun",
+          "category": "Mains",
+          "sourceProductId": "95113186",
+          "sourceIds": [
+            "ur03-checkpoint-ecosen-foodpanda"
+          ],
+          "price": {
+            "amount": 8.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "observedPromotionalPrice": {
+            "amount": 7.48,
+            "currency": "SGD",
+            "kind": "fixed",
+            "checkedAt": "2026-10-16T01:26:23.987Z"
+          },
+          "sourceDescription": "Smooth flat rice noodles stir-fried with vegetables and plant-based ingredients in a rich savory gravy",
+          "sourceAvailability": {
+            "isSoldOut": false,
+            "isCustomizable": false
+          },
+          "publicationStatus": "hold-session-checkpoint-unreviewed",
+          "qualifier": "Session checkpoint; requires next-session source and publication review. Printed base price retained separately from observed15%discounted price; promotion validity/conditions unverified. Portion3pieces retained where printed in name. No customizable flag on this source listing, but real-time availability,complete ingredients and checkout charges are not established.",
+          "verification": {
+            "checkedAt": "2026-10-16T01:26:23.987Z",
+            "verifiedFields": [
+              "current source product name",
+              "category",
+              "printed base price",
+              "published promotional display amount where shown",
+              "current source sold-out/customizable flags"
+            ],
+            "unverifiedFields": [
+              "current promotion conditions/expiry",
+              "real-time availability",
+              "complete ingredients",
+              "checkout charges",
+              "final publication eligibility review"
+            ]
+          }
+        },
+        {
+          "id": "ur03-ecosen-fp-95113187",
+          "name": "Crispy Noodle",
+          "category": "Mains",
+          "sourceProductId": "95113187",
+          "sourceIds": [
+            "ur03-checkpoint-ecosen-foodpanda"
+          ],
+          "price": {
+            "amount": 8.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "observedPromotionalPrice": {
+            "amount": 7.48,
+            "currency": "SGD",
+            "kind": "fixed",
+            "checkedAt": "2026-10-16T01:26:23.987Z"
+          },
+          "sourceDescription": "Crispy eggless noodles topped with mixed vegetables and plant-based ingredients in a flavorful gravy",
+          "sourceAvailability": {
+            "isSoldOut": false,
+            "isCustomizable": false
+          },
+          "publicationStatus": "hold-session-checkpoint-unreviewed",
+          "qualifier": "Session checkpoint; requires next-session source and publication review. Printed base price retained separately from observed15%discounted price; promotion validity/conditions unverified. Portion3pieces retained where printed in name. No customizable flag on this source listing, but real-time availability,complete ingredients and checkout charges are not established.",
+          "verification": {
+            "checkedAt": "2026-10-16T01:26:23.987Z",
+            "verifiedFields": [
+              "current source product name",
+              "category",
+              "printed base price",
+              "published promotional display amount where shown",
+              "current source sold-out/customizable flags"
+            ],
+            "unverifiedFields": [
+              "current promotion conditions/expiry",
+              "real-time availability",
+              "complete ingredients",
+              "checkout charges",
+              "final publication eligibility review"
+            ]
+          }
+        },
+        {
+          "id": "ur03-ecosen-fp-95113188",
+          "name": "Char Kway Teow",
+          "category": "Mains",
+          "sourceProductId": "95113188",
+          "sourceIds": [
+            "ur03-checkpoint-ecosen-foodpanda"
+          ],
+          "price": {
+            "amount": 8.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "observedPromotionalPrice": {
+            "amount": 7.48,
+            "currency": "SGD",
+            "kind": "fixed",
+            "checkedAt": "2026-10-16T01:26:23.987Z"
+          },
+          "sourceDescription": "Stir-fried flat rice noodles with vegetables and plant-based ingredients in a fragrant house sauce",
+          "sourceAvailability": {
+            "isSoldOut": false,
+            "isCustomizable": false
+          },
+          "publicationStatus": "hold-session-checkpoint-unreviewed",
+          "qualifier": "Session checkpoint; requires next-session source and publication review. Printed base price retained separately from observed15%discounted price; promotion validity/conditions unverified. Portion3pieces retained where printed in name. No customizable flag on this source listing, but real-time availability,complete ingredients and checkout charges are not established.",
+          "verification": {
+            "checkedAt": "2026-10-16T01:26:23.987Z",
+            "verifiedFields": [
+              "current source product name",
+              "category",
+              "printed base price",
+              "published promotional display amount where shown",
+              "current source sold-out/customizable flags"
+            ],
+            "unverifiedFields": [
+              "current promotion conditions/expiry",
+              "real-time availability",
+              "complete ingredients",
+              "checkout charges",
+              "final publication eligibility review"
+            ]
+          }
+        },
+        {
+          "id": "ur03-ecosen-fp-95113189",
+          "name": "Sweet & Sour Hericium Mushroom",
+          "category": "Mains",
+          "sourceProductId": "95113189",
+          "sourceIds": [
+            "ur03-checkpoint-ecosen-foodpanda"
+          ],
+          "price": {
+            "amount": 19.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "observedPromotionalPrice": {
+            "amount": 16.91,
+            "currency": "SGD",
+            "kind": "fixed",
+            "checkedAt": "2026-10-16T01:26:23.987Z"
+          },
+          "sourceDescription": "Crispy lion's mane mushrooms coated in a tangy sweet and sour sauce with colorful vegetables",
+          "sourceAvailability": {
+            "isSoldOut": false,
+            "isCustomizable": false
+          },
+          "publicationStatus": "hold-session-checkpoint-unreviewed",
+          "qualifier": "Session checkpoint; requires next-session source and publication review. Printed base price retained separately from observed15%discounted price; promotion validity/conditions unverified. Portion3pieces retained where printed in name. No customizable flag on this source listing, but real-time availability,complete ingredients and checkout charges are not established.",
+          "verification": {
+            "checkedAt": "2026-10-16T01:26:23.987Z",
+            "verifiedFields": [
+              "current source product name",
+              "category",
+              "printed base price",
+              "published promotional display amount where shown",
+              "current source sold-out/customizable flags"
+            ],
+            "unverifiedFields": [
+              "current promotion conditions/expiry",
+              "real-time availability",
+              "complete ingredients",
+              "checkout charges",
+              "final publication eligibility review"
+            ]
+          }
+        },
+        {
+          "id": "ur03-ecosen-fp-95113190",
+          "name": "Dried Chilli Hericium Mushroom",
+          "category": "Mains",
+          "sourceProductId": "95113190",
+          "sourceIds": [
+            "ur03-checkpoint-ecosen-foodpanda"
+          ],
+          "price": {
+            "amount": 19.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "observedPromotionalPrice": {
+            "amount": 16.91,
+            "currency": "SGD",
+            "kind": "fixed",
+            "checkedAt": "2026-10-16T01:26:23.987Z"
+          },
+          "sourceDescription": "Crispy lion's mane mushrooms stir-fried with dried chilies in a spicy and savory kung pao-style sauce",
+          "sourceAvailability": {
+            "isSoldOut": false,
+            "isCustomizable": false
+          },
+          "publicationStatus": "hold-session-checkpoint-unreviewed",
+          "qualifier": "Session checkpoint; requires next-session source and publication review. Printed base price retained separately from observed15%discounted price; promotion validity/conditions unverified. Portion3pieces retained where printed in name. No customizable flag on this source listing, but real-time availability,complete ingredients and checkout charges are not established.",
+          "verification": {
+            "checkedAt": "2026-10-16T01:26:23.987Z",
+            "verifiedFields": [
+              "current source product name",
+              "category",
+              "printed base price",
+              "published promotional display amount where shown",
+              "current source sold-out/customizable flags"
+            ],
+            "unverifiedFields": [
+              "current promotion conditions/expiry",
+              "real-time availability",
+              "complete ingredients",
+              "checkout charges",
+              "final publication eligibility review"
+            ]
+          }
+        },
+        {
+          "id": "ur03-ecosen-fp-95113191",
+          "name": "Thai Style Beancurd",
+          "category": "Mains",
+          "sourceProductId": "95113191",
+          "sourceIds": [
+            "ur03-checkpoint-ecosen-foodpanda"
+          ],
+          "price": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "observedPromotionalPrice": {
+            "amount": 6.8,
+            "currency": "SGD",
+            "kind": "fixed",
+            "checkedAt": "2026-10-16T01:26:23.987Z"
+          },
+          "sourceDescription": "Crispy tofu tossed in a sweet, tangy, and mildly spicy Thai-style sauce",
+          "sourceAvailability": {
+            "isSoldOut": false,
+            "isCustomizable": false
+          },
+          "publicationStatus": "hold-session-checkpoint-unreviewed",
+          "qualifier": "Session checkpoint; requires next-session source and publication review. Printed base price retained separately from observed15%discounted price; promotion validity/conditions unverified. Portion3pieces retained where printed in name. No customizable flag on this source listing, but real-time availability,complete ingredients and checkout charges are not established.",
+          "verification": {
+            "checkedAt": "2026-10-16T01:26:23.987Z",
+            "verifiedFields": [
+              "current source product name",
+              "category",
+              "printed base price",
+              "published promotional display amount where shown",
+              "current source sold-out/customizable flags"
+            ],
+            "unverifiedFields": [
+              "current promotion conditions/expiry",
+              "real-time availability",
+              "complete ingredients",
+              "checkout charges",
+              "final publication eligibility review"
+            ]
+          }
+        },
+        {
+          "id": "ur03-ecosen-fp-95113192",
+          "name": "Fried Beancurd",
+          "category": "Mains",
+          "sourceProductId": "95113192",
+          "sourceIds": [
+            "ur03-checkpoint-ecosen-foodpanda"
+          ],
+          "price": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "observedPromotionalPrice": {
+            "amount": 6.8,
+            "currency": "SGD",
+            "kind": "fixed",
+            "checkedAt": "2026-10-16T01:26:23.987Z"
+          },
+          "sourceDescription": "Golden fried tofu with a crispy exterior and silky soft center, served with dipping sauce",
+          "sourceAvailability": {
+            "isSoldOut": false,
+            "isCustomizable": false
+          },
+          "publicationStatus": "hold-session-checkpoint-unreviewed",
+          "qualifier": "Session checkpoint; requires next-session source and publication review. Printed base price retained separately from observed15%discounted price; promotion validity/conditions unverified. Portion3pieces retained where printed in name. No customizable flag on this source listing, but real-time availability,complete ingredients and checkout charges are not established.",
+          "verification": {
+            "checkedAt": "2026-10-16T01:26:23.987Z",
+            "verifiedFields": [
+              "current source product name",
+              "category",
+              "printed base price",
+              "published promotional display amount where shown",
+              "current source sold-out/customizable flags"
+            ],
+            "unverifiedFields": [
+              "current promotion conditions/expiry",
+              "real-time availability",
+              "complete ingredients",
+              "checkout charges",
+              "final publication eligibility review"
+            ]
+          }
+        },
+        {
+          "id": "ur03-ecosen-fp-95113193",
+          "name": "Sliced Fish Soup with Rice",
+          "category": "Mains",
+          "sourceProductId": "95113193",
+          "sourceIds": [
+            "ur03-checkpoint-ecosen-foodpanda"
+          ],
+          "price": {
+            "amount": 8.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "observedPromotionalPrice": {
+            "amount": 7.48,
+            "currency": "SGD",
+            "kind": "fixed",
+            "checkedAt": "2026-10-16T01:26:23.987Z"
+          },
+          "sourceDescription": "Plant-based sliced fish served in a light, flavorful vegetarian broth with steamed rice",
+          "sourceAvailability": {
+            "isSoldOut": false,
+            "isCustomizable": false
+          },
+          "publicationStatus": "hold-session-checkpoint-unreviewed",
+          "qualifier": "Session checkpoint; requires next-session source and publication review. Printed base price retained separately from observed15%discounted price; promotion validity/conditions unverified. Portion3pieces retained where printed in name. No customizable flag on this source listing, but real-time availability,complete ingredients and checkout charges are not established.",
+          "verification": {
+            "checkedAt": "2026-10-16T01:26:23.987Z",
+            "verifiedFields": [
+              "current source product name",
+              "category",
+              "printed base price",
+              "published promotional display amount where shown",
+              "current source sold-out/customizable flags"
+            ],
+            "unverifiedFields": [
+              "current promotion conditions/expiry",
+              "real-time availability",
+              "complete ingredients",
+              "checkout charges",
+              "final publication eligibility review"
+            ]
+          }
+        },
+        {
+          "id": "ur03-ecosen-fp-95113194",
+          "name": "Tom Yum Soup with Rice",
+          "category": "Mains",
+          "sourceProductId": "95113194",
+          "sourceIds": [
+            "ur03-checkpoint-ecosen-foodpanda"
+          ],
+          "price": {
+            "amount": 8.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "observedPromotionalPrice": {
+            "amount": 7.48,
+            "currency": "SGD",
+            "kind": "fixed",
+            "checkedAt": "2026-10-16T01:26:23.987Z"
+          },
+          "sourceDescription": "A spicy and tangy Thai-style vegetarian soup with mushrooms, tofu, and vegetables, served with rice",
+          "sourceAvailability": {
+            "isSoldOut": false,
+            "isCustomizable": false
+          },
+          "publicationStatus": "hold-session-checkpoint-unreviewed",
+          "qualifier": "Session checkpoint; requires next-session source and publication review. Printed base price retained separately from observed15%discounted price; promotion validity/conditions unverified. Portion3pieces retained where printed in name. No customizable flag on this source listing, but real-time availability,complete ingredients and checkout charges are not established.",
+          "verification": {
+            "checkedAt": "2026-10-16T01:26:23.987Z",
+            "verifiedFields": [
+              "current source product name",
+              "category",
+              "printed base price",
+              "published promotional display amount where shown",
+              "current source sold-out/customizable flags"
+            ],
+            "unverifiedFields": [
+              "current promotion conditions/expiry",
+              "real-time availability",
+              "complete ingredients",
+              "checkout charges",
+              "final publication eligibility review"
+            ]
+          }
+        },
+        {
+          "id": "ur03-ecosen-fp-95113195",
+          "name": "Red Peach Cake 3 Pcs",
+          "category": "Mains",
+          "sourceProductId": "95113195",
+          "sourceIds": [
+            "ur03-checkpoint-ecosen-foodpanda"
+          ],
+          "price": {
+            "amount": 6.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "observedPromotionalPrice": {
+            "amount": 5.87,
+            "currency": "SGD",
+            "kind": "fixed",
+            "checkedAt": "2026-10-16T01:26:23.987Z"
+          },
+          "sourceDescription": "Traditional steamed longevity peach buns with a sweet filling, served in a set of three",
+          "sourceAvailability": {
+            "isSoldOut": false,
+            "isCustomizable": false
+          },
+          "publicationStatus": "hold-session-checkpoint-unreviewed",
+          "qualifier": "Session checkpoint; requires next-session source and publication review. Printed base price retained separately from observed15%discounted price; promotion validity/conditions unverified. Portion3pieces retained where printed in name. No customizable flag on this source listing, but real-time availability,complete ingredients and checkout charges are not established. RedPeachCake source description says longevity-peach buns; exact product identity needs review before any interpretive translation.",
+          "verification": {
+            "checkedAt": "2026-10-16T01:26:23.987Z",
+            "verifiedFields": [
+              "current source product name",
+              "category",
+              "printed base price",
+              "published promotional display amount where shown",
+              "current source sold-out/customizable flags"
+            ],
+            "unverifiedFields": [
+              "current promotion conditions/expiry",
+              "real-time availability",
+              "complete ingredients",
+              "checkout charges",
+              "final publication eligibility review"
+            ]
+          }
+        },
+        {
+          "id": "ur03-ecosen-fp-95113196",
+          "name": "Vegetarian Spring Rolls 3 Pcs",
+          "category": "Mains",
+          "sourceProductId": "95113196",
+          "sourceIds": [
+            "ur03-checkpoint-ecosen-foodpanda"
+          ],
+          "price": {
+            "amount": 6.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "observedPromotionalPrice": {
+            "amount": 5.87,
+            "currency": "SGD",
+            "kind": "fixed",
+            "checkedAt": "2026-10-16T01:26:23.987Z"
+          },
+          "sourceDescription": "Crispy golden spring rolls filled with seasoned vegetables, served in a set of three",
+          "sourceAvailability": {
+            "isSoldOut": false,
+            "isCustomizable": false
+          },
+          "publicationStatus": "hold-session-checkpoint-unreviewed",
+          "qualifier": "Session checkpoint; requires next-session source and publication review. Printed base price retained separately from observed15%discounted price; promotion validity/conditions unverified. Portion3pieces retained where printed in name. No customizable flag on this source listing, but real-time availability,complete ingredients and checkout charges are not established.",
+          "verification": {
+            "checkedAt": "2026-10-16T01:26:23.987Z",
+            "verifiedFields": [
+              "current source product name",
+              "category",
+              "printed base price",
+              "published promotional display amount where shown",
+              "current source sold-out/customizable flags"
+            ],
+            "unverifiedFields": [
+              "current promotion conditions/expiry",
+              "real-time availability",
+              "complete ingredients",
+              "checkout charges",
+              "final publication eligibility review"
+            ]
+          }
+        },
+        {
+          "id": "ur03-ecosen-fp-95113197",
+          "name": "Tom Yum Fried Rice",
+          "category": "Mains",
+          "sourceProductId": "95113197",
+          "sourceIds": [
+            "ur03-checkpoint-ecosen-foodpanda"
+          ],
+          "price": {
+            "amount": 8.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "observedPromotionalPrice": {
+            "amount": 7.48,
+            "currency": "SGD",
+            "kind": "fixed",
+            "checkedAt": "2026-10-16T01:26:23.987Z"
+          },
+          "sourceDescription": "Fragrant fried rice infused with bold Thai tom yum flavors, stir-fried with vegetables and tofu",
+          "sourceAvailability": {
+            "isSoldOut": false,
+            "isCustomizable": false
+          },
+          "publicationStatus": "hold-session-checkpoint-unreviewed",
+          "qualifier": "Session checkpoint; requires next-session source and publication review. Printed base price retained separately from observed15%discounted price; promotion validity/conditions unverified. Portion3pieces retained where printed in name. No customizable flag on this source listing, but real-time availability,complete ingredients and checkout charges are not established.",
+          "verification": {
+            "checkedAt": "2026-10-16T01:26:23.987Z",
+            "verifiedFields": [
+              "current source product name",
+              "category",
+              "printed base price",
+              "published promotional display amount where shown",
+              "current source sold-out/customizable flags"
+            ],
+            "unverifiedFields": [
+              "current promotion conditions/expiry",
+              "real-time availability",
+              "complete ingredients",
+              "checkout charges",
+              "final publication eligibility review"
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "frozenSelection": {
+    "path": "../tmp/qa/menu-completion-unresearched-03/frozen-selected-leads.json",
+    "count": 20
+  },
+  "completionHistory": [
+    {
+      "checkedAt": "2026-10-16T01:28:53.606Z",
+      "action": "User explicitly requested stop and save for a new session. Source work stopped; existing current local facts saved without publication."
+    }
+  ]
+}

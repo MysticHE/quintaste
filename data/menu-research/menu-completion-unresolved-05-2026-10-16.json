@@ -1,0 +1,3486 @@
+{
+  "version": 1,
+  "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+  "status": "reviewed-public-observations-held",
+  "googleRequestsMade": 0,
+  "sources": [
+    {
+      "id": "ur05-yuan-man-ordering",
+      "url": "https://www.foodpanda.sg/restaurant/h9ki/yuan-man-vegetarian-tampines",
+      "publisher": "foodpanda public ordering listing",
+      "title": "Yuan Man Vegetarian — Tampines477 current public menu",
+      "checkedAt": "2026-10-16T04:58:55.843Z",
+      "accessStatus": "readable-public-html",
+      "notes": "Current visible names/prices reconciled with embedded product records; duplicate Popular lane excluded. Provider animal descriptions are conflicting observations, not proof of meat service. No checkout, private API or images copied."
+    },
+    {
+      "id": "ur05-pu-xiang-whyq-ordering",
+      "url": "https://www.foodpanda.sg/restaurant/y0fx/whyq6",
+      "publisher": "foodpanda public ordering listing",
+      "title": "Pu Xiang Vegetarian — Chinatown Complex current public menu",
+      "checkedAt": "2026-10-16T04:58:55.916Z",
+      "accessStatus": "readable-public-html",
+      "notes": "Current visible names/prices reconciled with embedded product records; duplicate Popular lane excluded. Provider animal descriptions are conflicting observations, not proof of meat service. No checkout, private API or images copied."
+    },
+    {
+      "id": "ur05-whyq-vegetarian-tag",
+      "url": "https://www.whyq.sg/tags/vegetarian",
+      "publisher": "WhyQ",
+      "title": "WhyQ vegetarian stall category",
+      "checkedAt": "2026-10-16",
+      "accessStatus": "search-readable-public-index",
+      "notes": "Names Pu Xiang02-144; dated crawl does not guarantee present orderability or operator linkage."
+    },
+    {
+      "id": "ur05-yi-xin-ordering",
+      "url": "https://www.foodpanda.sg/zh/restaurant/y7nz/yi-xin-vegetarian-vegan-food-temple-street",
+      "publisher": "foodpanda public ordering listing",
+      "title": "Yi Xin Vegetarian — Temple Street current public menu",
+      "checkedAt": "2026-10-16T05:00:52.830Z",
+      "accessStatus": "readable-public-html",
+      "notes": "Current visible names/prices reconciled with embedded product records; duplicate Popular lane excluded. Provider animal descriptions are conflicting observations, not proof of meat service. No checkout, private API or images copied."
+    },
+    {
+      "id": "ur05-yi-xin-district",
+      "url": "https://chinatown.sg/dine/yi-xin-vegeterian-food/",
+      "publisher": "Chinatown Singapore district publisher",
+      "title": "Yi Xin vegetarian43TempleStreet district profile",
+      "checkedAt": "2026-10-16",
+      "accessStatus": "readable-public-page",
+      "notes": "Vegetarian food and43TempleStreet; postal058584 conflicts with frozen058588. Exact premise reconciliation retained; not whole-menu vegan proof."
+    }
+  ],
+  "branches": [
+    {
+      "id": "ur05-yuan-man",
+      "name": "Yuan Man Vegetarian — Tampines477",
+      "address": "477 Tampines Street43 #01-152, Singapore520477",
+      "postalCode": "520477",
+      "googlePlaceId": null,
+      "eligibility": "uncertain-hold",
+      "sourceIds": [
+        "ur05-yuan-man-ordering"
+      ],
+      "menuIds": [
+        "ur05-yuan-man-delivery-foods"
+      ],
+      "identityStatus": "independent-source-current-premise-qualification-held",
+      "venueEligibility": {
+        "status": "uncertain-hold",
+        "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+        "sourceIds": [
+          "ur05-yuan-man-ordering"
+        ],
+        "reason": "Current exact merchant page has25foods and Vegetarian name/category, but Prawn Noodle/Lor Mee/Mixed Vegetable Rice/Sotong Ring explicitly generic animal descriptions. No separate current whole-stall primary claim obtained. All25held pending scope corroboration; actual meat service not inferred."
+      },
+      "gaps": [
+        "Current exact merchant page has25foods and Vegetarian name/category, but Prawn Noodle/Lor Mee/Mixed Vegetable Rice/Sotong Ring explicitly generic animal descriptions. No separate current whole-stall primary claim obtained. All25held pending scope corroboration; actual meat service not inferred."
+      ]
+    },
+    {
+      "id": "ur05-pu-xiang-whyq",
+      "name": "Pu Xiang Vegetarian — Chinatown Complex",
+      "address": "335 Smith Street #02-144, Singapore050335",
+      "postalCode": "050335",
+      "googlePlaceId": null,
+      "eligibility": "uncertain-hold",
+      "sourceIds": [
+        "ur05-pu-xiang-whyq-ordering",
+        "ur05-whyq-vegetarian-tag"
+      ],
+      "menuIds": [
+        "ur05-pu-xiang-whyq-delivery-foods"
+      ],
+      "identityStatus": "independent-source-current-premise-qualification-held",
+      "venueEligibility": {
+        "status": "uncertain-hold",
+        "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+        "sourceIds": [
+          "ur05-pu-xiang-whyq-ordering",
+          "ur05-whyq-vegetarian-tag"
+        ],
+        "reason": "Only five products in Pu Xiang Vegetarian(02-144) section of WhyQ6 aggregate captured. Other288aggregate products excluded as other stalls. WhyQ vegetarian classification and historical HPB premise corroborate a lead but not current operator control/whole-stall scope; allfiveheld. Chef daily special unspecified, no ingredients inferred."
+      },
+      "gaps": [
+        "Only five products in Pu Xiang Vegetarian(02-144) section of WhyQ6 aggregate captured. Other288aggregate products excluded as other stalls. WhyQ vegetarian classification and historical HPB premise corroborate a lead but not current operator control/whole-stall scope; allfiveheld. Chef daily special unspecified, no ingredients inferred."
+      ]
+    },
+    {
+      "id": "ur05-yi-xin",
+      "name": "Yi Xin Vegetarian — Temple Street",
+      "address": "43 Temple Street, Singapore (postal conflict058588/058584)",
+      "postalCode": "058588",
+      "googlePlaceId": null,
+      "eligibility": "vegetarian-confirmed",
+      "sourceIds": [
+        "ur05-yi-xin-ordering",
+        "ur05-yi-xin-district"
+      ],
+      "menuIds": [
+        "ur05-yi-xin-delivery-foods"
+      ],
+      "identityStatus": "independent-source-current-premise-qualification-held",
+      "venueEligibility": {
+        "status": "vegetarian-confirmed",
+        "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+        "sourceIds": [
+          "ur05-yi-xin-ordering",
+          "ur05-yi-xin-district"
+        ],
+        "reason": "Current district publisher supports vegetarian food at43TempleStreet; current46-product merchant delivery menu broadly coherent. Frozen45TempleStreet and058588 versus district058584 retained. Current exact postal/operator premise requires corroboration before publication. Generic meat/fish/shrimp/cuttlefish descriptions separately held; egg/cheese descriptions preclude blanket vegan inference."
+      },
+      "gaps": [
+        "Current district publisher supports vegetarian food at43TempleStreet; current46-product merchant delivery menu broadly coherent. Frozen45TempleStreet and058588 versus district058584 retained. Current exact postal/operator premise requires corroboration before publication. Generic meat/fish/shrimp/cuttlefish descriptions separately held; egg/cheese descriptions preclude blanket vegan inference."
+      ]
+    }
+  ],
+  "menus": [
+    {
+      "id": "ur05-yuan-man-delivery-foods",
+      "name": "Yuan Man Vegetarian — Tampines477 delivery snapshot",
+      "branchIds": [
+        "ur05-yuan-man"
+      ],
+      "sourceIds": [
+        "ur05-yuan-man-ordering"
+      ],
+      "scope": "branch-delivery",
+      "coverage": "partial",
+      "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+      "notice": "Current exact merchant page has25foods and Vegetarian name/category, but Prawn Noodle/Lor Mee/Mixed Vegetable Rice/Sotong Ring explicitly generic animal descriptions. No separate current whole-stall primary claim obtained. All25held pending scope corroboration; actual meat service not inferred.",
+      "items": [
+        {
+          "id": "ur05-yuan-man-5358727",
+          "sourceProductId": "5358727",
+          "name": "Economy Bee Hoon 经济米粉",
+          "category": "All Day Breakfast",
+          "sourceIds": [
+            "ur05-yuan-man-ordering"
+          ],
+          "sourceDescription": "For special request key in Chinese ",
+          "price": {
+            "amount": 5.5,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "hasUnreadChoices": true,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Current exact merchant page has25foods and Vegetarian name/category, but Prawn Noodle/Lor Mee/Mixed Vegetable Rice/Sotong Ring explicitly generic animal descriptions. No separate current whole-stall primary claim obtained. All25held pending scope corroboration; actual meat service not inferred.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:58:55.843Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-yuan-man-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          },
+          "configurationNotice": "Ordering choices flagged but names/defaults/limits/surcharges unread; no inferred options."
+        },
+        {
+          "id": "ur05-yuan-man-5358719",
+          "sourceProductId": "5358719",
+          "name": "Lonton 隆冬",
+          "category": "All Day Breakfast",
+          "sourceIds": [
+            "ur05-yuan-man-ordering"
+          ],
+          "sourceDescription": "For special request key in Chinese ",
+          "price": {
+            "amount": 6,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "hasUnreadChoices": true,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Current exact merchant page has25foods and Vegetarian name/category, but Prawn Noodle/Lor Mee/Mixed Vegetable Rice/Sotong Ring explicitly generic animal descriptions. No separate current whole-stall primary claim obtained. All25held pending scope corroboration; actual meat service not inferred.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:58:55.843Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-yuan-man-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          },
+          "configurationNotice": "Ordering choices flagged but names/defaults/limits/surcharges unread; no inferred options."
+        },
+        {
+          "id": "ur05-yuan-man-5358718",
+          "sourceProductId": "5358718",
+          "name": "Kway Chap 粿汁",
+          "category": "All Day Breakfast",
+          "sourceIds": [
+            "ur05-yuan-man-ordering"
+          ],
+          "sourceDescription": "Assortment of braised delicacies served with broad sheets of rice noodles\nFor special request key in Chinese ",
+          "price": {
+            "amount": 6,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "hasUnreadChoices": true,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Current exact merchant page has25foods and Vegetarian name/category, but Prawn Noodle/Lor Mee/Mixed Vegetable Rice/Sotong Ring explicitly generic animal descriptions. No separate current whole-stall primary claim obtained. All25held pending scope corroboration; actual meat service not inferred.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:58:55.843Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-yuan-man-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          },
+          "configurationNotice": "Ordering choices flagged but names/defaults/limits/surcharges unread; no inferred options."
+        },
+        {
+          "id": "ur05-yuan-man-5358953",
+          "sourceProductId": "5358953",
+          "name": "Bee Hoon 米粉",
+          "category": "Extras",
+          "sourceIds": [
+            "ur05-yuan-man-ordering"
+          ],
+          "sourceDescription": "A Singapore staple for early morning breakfast and quick meal fixes",
+          "price": {
+            "amount": 2,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Current exact merchant page has25foods and Vegetarian name/category, but Prawn Noodle/Lor Mee/Mixed Vegetable Rice/Sotong Ring explicitly generic animal descriptions. No separate current whole-stall primary claim obtained. All25held pending scope corroboration; actual meat service not inferred.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:58:55.843Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-yuan-man-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          }
+        },
+        {
+          "id": "ur05-yuan-man-73161900",
+          "sourceProductId": "73161900",
+          "name": "Zai Er (1 box)",
+          "category": "Extras",
+          "sourceIds": [
+            "ur05-yuan-man-ordering"
+          ],
+          "sourceDescription": "A savory food item with a hearty texture. For reference only.",
+          "price": {
+            "amount": 7,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Current exact merchant page has25foods and Vegetarian name/category, but Prawn Noodle/Lor Mee/Mixed Vegetable Rice/Sotong Ring explicitly generic animal descriptions. No separate current whole-stall primary claim obtained. All25held pending scope corroboration; actual meat service not inferred.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:58:55.843Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-yuan-man-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          }
+        },
+        {
+          "id": "ur05-yuan-man-5358721",
+          "sourceProductId": "5358721",
+          "name": "Chicken Cutlet Noodle 鸡扒面",
+          "category": "All Day Breakfast",
+          "sourceIds": [
+            "ur05-yuan-man-ordering"
+          ],
+          "sourceDescription": "For special request key in Chinese ",
+          "price": {
+            "amount": 7,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "hasUnreadChoices": true,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Current exact merchant page has25foods and Vegetarian name/category, but Prawn Noodle/Lor Mee/Mixed Vegetable Rice/Sotong Ring explicitly generic animal descriptions. No separate current whole-stall primary claim obtained. All25held pending scope corroboration; actual meat service not inferred.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:58:55.843Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-yuan-man-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          },
+          "configurationNotice": "Ordering choices flagged but names/defaults/limits/surcharges unread; no inferred options."
+        },
+        {
+          "id": "ur05-yuan-man-5358716",
+          "sourceProductId": "5358716",
+          "name": "Prawn Noodle 虾面",
+          "category": "All Day Breakfast",
+          "sourceIds": [
+            "ur05-yuan-man-ordering"
+          ],
+          "sourceDescription": "Thick yellow noodles in a broth of pork bones and prawn stock, garnished with bean sprouts, slices of pork and prawn, and kangkong.\nFor special request key in Chinese ",
+          "price": {
+            "amount": 6,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "hasUnreadChoices": true,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Current exact merchant page has25foods and Vegetarian name/category, but Prawn Noodle/Lor Mee/Mixed Vegetable Rice/Sotong Ring explicitly generic animal descriptions. No separate current whole-stall primary claim obtained. All25held pending scope corroboration; actual meat service not inferred.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:58:55.843Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-yuan-man-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          },
+          "descriptionConflict": "Source generic animal/meat description unresolved against vegetarian context; no actual meat-service conclusion.",
+          "configurationNotice": "Ordering choices flagged but names/defaults/limits/surcharges unread; no inferred options."
+        },
+        {
+          "id": "ur05-yuan-man-5358715",
+          "sourceProductId": "5358715",
+          "name": "Lor Mee 卤面",
+          "category": "All Day Breakfast",
+          "sourceIds": [
+            "ur05-yuan-man-ordering"
+          ],
+          "sourceDescription": "A flavour packed, popular Hokkien noodle dish laddled with a wholesome gravy topped with pork belly, homemade ngoh hiang, beansprouts & braised egg. Best paired with minced garlic & black vinegar\nFor special request key in Chinese ",
+          "price": {
+            "amount": 6,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "hasUnreadChoices": true,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Current exact merchant page has25foods and Vegetarian name/category, but Prawn Noodle/Lor Mee/Mixed Vegetable Rice/Sotong Ring explicitly generic animal descriptions. No separate current whole-stall primary claim obtained. All25held pending scope corroboration; actual meat service not inferred.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:58:55.843Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-yuan-man-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          },
+          "descriptionConflict": "Source generic animal/meat description unresolved against vegetarian context; no actual meat-service conclusion.",
+          "configurationNotice": "Ordering choices flagged but names/defaults/limits/surcharges unread; no inferred options."
+        },
+        {
+          "id": "ur05-yuan-man-5358717",
+          "sourceProductId": "5358717",
+          "name": "Curry Noodle 咖喱面",
+          "category": "All Day Breakfast",
+          "sourceIds": [
+            "ur05-yuan-man-ordering"
+          ],
+          "sourceDescription": "For special request key in Chinese ",
+          "price": {
+            "amount": 6,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "hasUnreadChoices": true,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Current exact merchant page has25foods and Vegetarian name/category, but Prawn Noodle/Lor Mee/Mixed Vegetable Rice/Sotong Ring explicitly generic animal descriptions. No separate current whole-stall primary claim obtained. All25held pending scope corroboration; actual meat service not inferred.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:58:55.843Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-yuan-man-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          },
+          "configurationNotice": "Ordering choices flagged but names/defaults/limits/surcharges unread; no inferred options."
+        },
+        {
+          "id": "ur05-yuan-man-5358720",
+          "sourceProductId": "5358720",
+          "name": "Ipoh Hor Fun 怡宝河粉",
+          "category": "All Day Breakfast",
+          "sourceIds": [
+            "ur05-yuan-man-ordering"
+          ],
+          "sourceDescription": "For special request key in Chinese ",
+          "price": {
+            "amount": 6,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "hasUnreadChoices": true,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Current exact merchant page has25foods and Vegetarian name/category, but Prawn Noodle/Lor Mee/Mixed Vegetable Rice/Sotong Ring explicitly generic animal descriptions. No separate current whole-stall primary claim obtained. All25held pending scope corroboration; actual meat service not inferred.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:58:55.843Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-yuan-man-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          },
+          "configurationNotice": "Ordering choices flagged but names/defaults/limits/surcharges unread; no inferred options."
+        },
+        {
+          "id": "ur05-yuan-man-5358723",
+          "sourceProductId": "5358723",
+          "name": "Dry Noodle 干捞面",
+          "category": "All Day Breakfast",
+          "sourceIds": [
+            "ur05-yuan-man-ordering"
+          ],
+          "sourceDescription": "For special request key in Chinese ",
+          "price": {
+            "amount": 6,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "hasUnreadChoices": true,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Current exact merchant page has25foods and Vegetarian name/category, but Prawn Noodle/Lor Mee/Mixed Vegetable Rice/Sotong Ring explicitly generic animal descriptions. No separate current whole-stall primary claim obtained. All25held pending scope corroboration; actual meat service not inferred.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:58:55.843Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-yuan-man-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          },
+          "configurationNotice": "Ordering choices flagged but names/defaults/limits/surcharges unread; no inferred options."
+        },
+        {
+          "id": "ur05-yuan-man-5358725",
+          "sourceProductId": "5358725",
+          "name": "Mixed Vegetable White Rice 2菜2肉杂菜饭",
+          "category": "All Day Breakfast",
+          "sourceIds": [
+            "ur05-yuan-man-ordering"
+          ],
+          "sourceDescription": "2 vegetables & meat\nFor special request key in Chinese ",
+          "price": {
+            "amount": 5.5,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "hasUnreadChoices": true,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Current exact merchant page has25foods and Vegetarian name/category, but Prawn Noodle/Lor Mee/Mixed Vegetable Rice/Sotong Ring explicitly generic animal descriptions. No separate current whole-stall primary claim obtained. All25held pending scope corroboration; actual meat service not inferred.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:58:55.843Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-yuan-man-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          },
+          "descriptionConflict": "Source generic animal/meat description unresolved against vegetarian context; no actual meat-service conclusion.",
+          "configurationNotice": "Ordering choices flagged but names/defaults/limits/surcharges unread; no inferred options."
+        },
+        {
+          "id": "ur05-yuan-man-5358749",
+          "sourceProductId": "5358749",
+          "name": "Vegetable Curry Chicken Cutlet （秦咖喱鸡扒饭）小",
+          "category": "Rice",
+          "sourceIds": [
+            "ur05-yuan-man-ordering"
+          ],
+          "sourceDescription": "For special request key in Chinese ",
+          "price": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "hasUnreadChoices": true,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Current exact merchant page has25foods and Vegetarian name/category, but Prawn Noodle/Lor Mee/Mixed Vegetable Rice/Sotong Ring explicitly generic animal descriptions. No separate current whole-stall primary claim obtained. All25held pending scope corroboration; actual meat service not inferred.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:58:55.843Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-yuan-man-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          },
+          "configurationNotice": "Ordering choices flagged but names/defaults/limits/surcharges unread; no inferred options."
+        },
+        {
+          "id": "ur05-yuan-man-5358750",
+          "sourceProductId": "5358750",
+          "name": "Sweet & Sour Pork Ribs Rice（酸甜排骨饭 ）小",
+          "category": "Rice",
+          "sourceIds": [
+            "ur05-yuan-man-ordering"
+          ],
+          "sourceDescription": "For special request key in Chinese ",
+          "price": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "hasUnreadChoices": true,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Current exact merchant page has25foods and Vegetarian name/category, but Prawn Noodle/Lor Mee/Mixed Vegetable Rice/Sotong Ring explicitly generic animal descriptions. No separate current whole-stall primary claim obtained. All25held pending scope corroboration; actual meat service not inferred.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:58:55.843Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-yuan-man-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          },
+          "configurationNotice": "Ordering choices flagged but names/defaults/limits/surcharges unread; no inferred options."
+        },
+        {
+          "id": "ur05-yuan-man-73478459",
+          "sourceProductId": "73478459",
+          "name": "Fried Dumpling 1 Piece (炸水饺）",
+          "category": "Extras",
+          "sourceIds": [
+            "ur05-yuan-man-ordering"
+          ],
+          "sourceDescription": "Picture is for 5 piece ",
+          "price": {
+            "amount": 1,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Current exact merchant page has25foods and Vegetarian name/category, but Prawn Noodle/Lor Mee/Mixed Vegetable Rice/Sotong Ring explicitly generic animal descriptions. No separate current whole-stall primary claim obtained. All25held pending scope corroboration; actual meat service not inferred.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:58:55.843Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-yuan-man-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          },
+          "portionNotice": "Name explicitly1piece; source says picture shows5pieces. Photo portion not adopted."
+        },
+        {
+          "id": "ur05-yuan-man-73478462",
+          "sourceProductId": "73478462",
+          "name": "Sotong Ring 1 Piece (苏东卷）",
+          "category": "Extras",
+          "sourceIds": [
+            "ur05-yuan-man-ordering"
+          ],
+          "sourceDescription": "Tender squid with a savory flavor and crispy texture. For reference only.",
+          "price": {
+            "amount": 1.2,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Current exact merchant page has25foods and Vegetarian name/category, but Prawn Noodle/Lor Mee/Mixed Vegetable Rice/Sotong Ring explicitly generic animal descriptions. No separate current whole-stall primary claim obtained. All25held pending scope corroboration; actual meat service not inferred.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:58:55.843Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-yuan-man-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          },
+          "descriptionConflict": "Source generic animal/meat description unresolved against vegetarian context; no actual meat-service conclusion."
+        },
+        {
+          "id": "ur05-yuan-man-73161899",
+          "sourceProductId": "73161899",
+          "name": "Curry Puff (1 Piece) 咖喱角",
+          "category": "Extras",
+          "sourceIds": [
+            "ur05-yuan-man-ordering"
+          ],
+          "sourceDescription": "Savory pastry with a rich and comforting texture. For reference only.",
+          "price": {
+            "amount": 1.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Current exact merchant page has25foods and Vegetarian name/category, but Prawn Noodle/Lor Mee/Mixed Vegetable Rice/Sotong Ring explicitly generic animal descriptions. No separate current whole-stall primary claim obtained. All25held pending scope corroboration; actual meat service not inferred.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:58:55.843Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-yuan-man-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          }
+        },
+        {
+          "id": "ur05-yuan-man-73161901",
+          "sourceProductId": "73161901",
+          "name": "Fried Tau Kwa (1 Piece) 豆干",
+          "category": "Extras",
+          "sourceIds": [
+            "ur05-yuan-man-ordering"
+          ],
+          "sourceDescription": "Crispy tau kwa with a savory flavor. For reference only.",
+          "price": {
+            "amount": 1.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Current exact merchant page has25foods and Vegetarian name/category, but Prawn Noodle/Lor Mee/Mixed Vegetable Rice/Sotong Ring explicitly generic animal descriptions. No separate current whole-stall primary claim obtained. All25held pending scope corroboration; actual meat service not inferred.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:58:55.843Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-yuan-man-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          }
+        },
+        {
+          "id": "ur05-yuan-man-73161906",
+          "sourceProductId": "73161906",
+          "name": "Carrot Cake (1 Piece) 萝卜糕",
+          "category": "Extras",
+          "sourceIds": [
+            "ur05-yuan-man-ordering"
+          ],
+          "sourceDescription": "Savory and tender carrot cake with a comforting texture. For reference only.",
+          "price": {
+            "amount": 1.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Current exact merchant page has25foods and Vegetarian name/category, but Prawn Noodle/Lor Mee/Mixed Vegetable Rice/Sotong Ring explicitly generic animal descriptions. No separate current whole-stall primary claim obtained. All25held pending scope corroboration; actual meat service not inferred.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:58:55.843Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-yuan-man-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          }
+        },
+        {
+          "id": "ur05-yuan-man-73478457",
+          "sourceProductId": "73478457",
+          "name": "Yam Cake (1 Piece ) 芋头糕",
+          "category": "Extras",
+          "sourceIds": [
+            "ur05-yuan-man-ordering"
+          ],
+          "sourceDescription": "Picture is for 2 piece ",
+          "price": {
+            "amount": 1.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Current exact merchant page has25foods and Vegetarian name/category, but Prawn Noodle/Lor Mee/Mixed Vegetable Rice/Sotong Ring explicitly generic animal descriptions. No separate current whole-stall primary claim obtained. All25held pending scope corroboration; actual meat service not inferred.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:58:55.843Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-yuan-man-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          },
+          "portionNotice": "Name explicitly1piece; source says picture shows2pieces. Photo portion not adopted."
+        },
+        {
+          "id": "ur05-yuan-man-73161910",
+          "sourceProductId": "73161910",
+          "name": "Popiah (1 piece) 薄饼",
+          "category": "Extras",
+          "sourceIds": [
+            "ur05-yuan-man-ordering"
+          ],
+          "sourceDescription": "Crispy popiah with a savory flavor and tender texture. For reference only.",
+          "price": {
+            "amount": 1.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Current exact merchant page has25foods and Vegetarian name/category, but Prawn Noodle/Lor Mee/Mixed Vegetable Rice/Sotong Ring explicitly generic animal descriptions. No separate current whole-stall primary claim obtained. All25held pending scope corroboration; actual meat service not inferred.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:58:55.843Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-yuan-man-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          }
+        },
+        {
+          "id": "ur05-yuan-man-73161904",
+          "sourceProductId": "73161904",
+          "name": "Mock Chicken Drumstick (1 Piece) 素鸡腿",
+          "category": "Extras",
+          "sourceIds": [
+            "ur05-yuan-man-ordering"
+          ],
+          "sourceDescription": "A savory mock chicken with a tender texture. For reference only.",
+          "price": {
+            "amount": 2.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Current exact merchant page has25foods and Vegetarian name/category, but Prawn Noodle/Lor Mee/Mixed Vegetable Rice/Sotong Ring explicitly generic animal descriptions. No separate current whole-stall primary claim obtained. All25held pending scope corroboration; actual meat service not inferred.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:58:55.843Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-yuan-man-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          }
+        },
+        {
+          "id": "ur05-yuan-man-5358952",
+          "sourceProductId": "5358952",
+          "name": "Sunny Egg 荷包蛋",
+          "category": "Extras",
+          "sourceIds": [
+            "ur05-yuan-man-ordering"
+          ],
+          "sourceDescription": "A popular side dish and tasty way to get nutritional benefits from eggs",
+          "price": {
+            "amount": 1.2,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Current exact merchant page has25foods and Vegetarian name/category, but Prawn Noodle/Lor Mee/Mixed Vegetable Rice/Sotong Ring explicitly generic animal descriptions. No separate current whole-stall primary claim obtained. All25held pending scope corroboration; actual meat service not inferred.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:58:55.843Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-yuan-man-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          }
+        },
+        {
+          "id": "ur05-yuan-man-5358951",
+          "sourceProductId": "5358951",
+          "name": "White Rice 白米饭",
+          "category": "Extras",
+          "sourceIds": [
+            "ur05-yuan-man-ordering"
+          ],
+          "sourceDescription": "Tasty and fluffy grains that pairs perfectly well with your favourite dishes",
+          "price": {
+            "amount": 2,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Current exact merchant page has25foods and Vegetarian name/category, but Prawn Noodle/Lor Mee/Mixed Vegetable Rice/Sotong Ring explicitly generic animal descriptions. No separate current whole-stall primary claim obtained. All25held pending scope corroboration; actual meat service not inferred.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:58:55.843Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-yuan-man-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          }
+        },
+        {
+          "id": "ur05-yuan-man-5358954",
+          "sourceProductId": "5358954",
+          "name": "Brown Rice 造米饭",
+          "category": "Extras",
+          "sourceIds": [
+            "ur05-yuan-man-ordering"
+          ],
+          "sourceDescription": "For special request key in chinese",
+          "price": {
+            "amount": 2.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Current exact merchant page has25foods and Vegetarian name/category, but Prawn Noodle/Lor Mee/Mixed Vegetable Rice/Sotong Ring explicitly generic animal descriptions. No separate current whole-stall primary claim obtained. All25held pending scope corroboration; actual meat service not inferred.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:58:55.843Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-yuan-man-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "ur05-pu-xiang-whyq-delivery-foods",
+      "name": "Pu Xiang Vegetarian — Chinatown Complex delivery snapshot",
+      "branchIds": [
+        "ur05-pu-xiang-whyq"
+      ],
+      "sourceIds": [
+        "ur05-pu-xiang-whyq-ordering"
+      ],
+      "scope": "identified-stall-section-within-mixed-aggregate",
+      "coverage": "partial",
+      "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+      "notice": "Only five products in Pu Xiang Vegetarian(02-144) section of WhyQ6 aggregate captured. Other288aggregate products excluded as other stalls. WhyQ vegetarian classification and historical HPB premise corroborate a lead but not current operator control/whole-stall scope; allfiveheld. Chef daily special unspecified, no ingredients inferred.",
+      "items": [
+        {
+          "id": "ur05-pu-xiang-whyq-4359187",
+          "sourceProductId": "4359187",
+          "name": "White Rice + 3 dishes",
+          "category": "Pu Xiang Vegetarian (02-144)",
+          "sourceIds": [
+            "ur05-pu-xiang-whyq-ordering"
+          ],
+          "sourceDescription": "",
+          "price": {
+            "amount": 4.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Only five products in Pu Xiang Vegetarian(02-144) section of WhyQ6 aggregate captured. Other288aggregate products excluded as other stalls. WhyQ vegetarian classification and historical HPB premise corroborate a lead but not current operator control/whole-stall scope; allfiveheld. Chef daily special unspecified, no ingredients inferred.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:58:55.916Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-pu-xiang-whyq-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          }
+        },
+        {
+          "id": "ur05-pu-xiang-whyq-4359188",
+          "sourceProductId": "4359188",
+          "name": "Brown Rice + 3 Dishes",
+          "category": "Pu Xiang Vegetarian (02-144)",
+          "sourceIds": [
+            "ur05-pu-xiang-whyq-ordering"
+          ],
+          "sourceDescription": "",
+          "price": {
+            "amount": 5.6,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Only five products in Pu Xiang Vegetarian(02-144) section of WhyQ6 aggregate captured. Other288aggregate products excluded as other stalls. WhyQ vegetarian classification and historical HPB premise corroborate a lead but not current operator control/whole-stall scope; allfiveheld. Chef daily special unspecified, no ingredients inferred.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:58:55.916Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-pu-xiang-whyq-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          }
+        },
+        {
+          "id": "ur05-pu-xiang-whyq-4359189",
+          "sourceProductId": "4359189",
+          "name": "Stir-fried Beehoon + 3 dishes",
+          "category": "Pu Xiang Vegetarian (02-144)",
+          "sourceIds": [
+            "ur05-pu-xiang-whyq-ordering"
+          ],
+          "sourceDescription": "",
+          "price": {
+            "amount": 4.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Only five products in Pu Xiang Vegetarian(02-144) section of WhyQ6 aggregate captured. Other288aggregate products excluded as other stalls. WhyQ vegetarian classification and historical HPB premise corroborate a lead but not current operator control/whole-stall scope; allfiveheld. Chef daily special unspecified, no ingredients inferred.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:58:55.916Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-pu-xiang-whyq-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          }
+        },
+        {
+          "id": "ur05-pu-xiang-whyq-4359204",
+          "sourceProductId": "4359204",
+          "name": "Chef's Daily Special",
+          "category": "Pu Xiang Vegetarian (02-144)",
+          "sourceIds": [
+            "ur05-pu-xiang-whyq-ordering"
+          ],
+          "sourceDescription": "",
+          "price": {
+            "amount": 5.6,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Only five products in Pu Xiang Vegetarian(02-144) section of WhyQ6 aggregate captured. Other288aggregate products excluded as other stalls. WhyQ vegetarian classification and historical HPB premise corroborate a lead but not current operator control/whole-stall scope; allfiveheld. Chef daily special unspecified, no ingredients inferred.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:58:55.916Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-pu-xiang-whyq-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          }
+        },
+        {
+          "id": "ur05-pu-xiang-whyq-4359205",
+          "sourceProductId": "4359205",
+          "name": "Stir-fried Mee + 3 dishes",
+          "category": "Pu Xiang Vegetarian (02-144)",
+          "sourceIds": [
+            "ur05-pu-xiang-whyq-ordering"
+          ],
+          "sourceDescription": "",
+          "price": {
+            "amount": 4.9,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Only five products in Pu Xiang Vegetarian(02-144) section of WhyQ6 aggregate captured. Other288aggregate products excluded as other stalls. WhyQ vegetarian classification and historical HPB premise corroborate a lead but not current operator control/whole-stall scope; allfiveheld. Chef daily special unspecified, no ingredients inferred.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T04:58:55.916Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-pu-xiang-whyq-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "ur05-yi-xin-delivery-foods",
+      "name": "Yi Xin Vegetarian — Temple Street delivery snapshot",
+      "branchIds": [
+        "ur05-yi-xin"
+      ],
+      "sourceIds": [
+        "ur05-yi-xin-ordering"
+      ],
+      "scope": "branch-delivery",
+      "coverage": "partial",
+      "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+      "notice": "Current district publisher supports vegetarian food at43TempleStreet; current46-product merchant delivery menu broadly coherent. Frozen45TempleStreet and058588 versus district058584 retained. Current exact postal/operator premise requires corroboration before publication. Generic meat/fish/shrimp/cuttlefish descriptions separately held; egg/cheese descriptions preclude blanket vegan inference.",
+      "items": [
+        {
+          "id": "ur05-yi-xin-4452108",
+          "sourceProductId": "4452108",
+          "name": "Vegetarian Satay 素沙爹",
+          "category": "特 别 介 绍",
+          "sourceIds": [
+            "ur05-yi-xin-ordering"
+          ],
+          "sourceDescription": "A savory and aromatic vegetarian satay offering a hearty texture. For reference only.",
+          "price": {
+            "amount": 9.7,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Current district publisher supports vegetarian food at43TempleStreet; current46-product merchant delivery menu broadly coherent. Frozen45TempleStreet and058588 versus district058584 retained. Current exact postal/operator premise requires corroboration before publication. Generic meat/fish/shrimp/cuttlefish descriptions separately held; egg/cheese descriptions preclude blanket vegan inference.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:00:52.830Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-yi-xin-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          }
+        },
+        {
+          "id": "ur05-yi-xin-4452025",
+          "sourceProductId": "4452025",
+          "name": "Fried Vermicelli 炒冬粉",
+          "category": "干 炒 面 类",
+          "sourceIds": [
+            "ur05-yi-xin-ordering"
+          ],
+          "sourceDescription": "Stir-fried vermicelli noodles with vegetables and light soy sauce.",
+          "price": {
+            "amount": 9.2,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Current district publisher supports vegetarian food at43TempleStreet; current46-product merchant delivery menu broadly coherent. Frozen45TempleStreet and058588 versus district058584 retained. Current exact postal/operator premise requires corroboration before publication. Generic meat/fish/shrimp/cuttlefish descriptions separately held; egg/cheese descriptions preclude blanket vegan inference.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:00:52.830Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-yi-xin-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          }
+        },
+        {
+          "id": "ur05-yi-xin-4452024",
+          "sourceProductId": "4452024",
+          "name": "Fried Yee Mee - Noodle 炒伊面",
+          "category": "干 炒 面 类",
+          "sourceIds": [
+            "ur05-yi-xin-ordering"
+          ],
+          "sourceDescription": "Crispy fried noodles stir-fried with vegetables and savory sauce, offering a delightful texture.",
+          "price": {
+            "amount": 8.7,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Current district publisher supports vegetarian food at43TempleStreet; current46-product merchant delivery menu broadly coherent. Frozen45TempleStreet and058588 versus district058584 retained. Current exact postal/operator premise requires corroboration before publication. Generic meat/fish/shrimp/cuttlefish descriptions separately held; egg/cheese descriptions preclude blanket vegan inference.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:00:52.830Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-yi-xin-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          }
+        },
+        {
+          "id": "ur05-yi-xin-4452076",
+          "sourceProductId": "4452076",
+          "name": "Vegetarian Ham Fried Rice 素火腿炒饭",
+          "category": "各 类 炒 饭",
+          "sourceIds": [
+            "ur05-yi-xin-ordering"
+          ],
+          "sourceDescription": "A savory and comforting fried rice dish featuring tender vegetarian ham with a satisfying texture. For reference only.",
+          "price": {
+            "amount": 8.7,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Current district publisher supports vegetarian food at43TempleStreet; current46-product merchant delivery menu broadly coherent. Frozen45TempleStreet and058588 versus district058584 retained. Current exact postal/operator premise requires corroboration before publication. Generic meat/fish/shrimp/cuttlefish descriptions separately held; egg/cheese descriptions preclude blanket vegan inference.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:00:52.830Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-yi-xin-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          }
+        },
+        {
+          "id": "ur05-yi-xin-4452049",
+          "sourceProductId": "4452049",
+          "name": "Spaghetti With Organic Tomato 意大利面 (有机番茄)",
+          "category": "酱汁面类",
+          "sourceIds": [
+            "ur05-yi-xin-ordering"
+          ],
+          "sourceDescription": "Spaghetti topped with rich organic tomato sauce, garnished with fresh herbs and cheese.",
+          "price": {
+            "amount": 9.2,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Current district publisher supports vegetarian food at43TempleStreet; current46-product merchant delivery menu broadly coherent. Frozen45TempleStreet and058588 versus district058584 retained. Current exact postal/operator premise requires corroboration before publication. Generic meat/fish/shrimp/cuttlefish descriptions separately held; egg/cheese descriptions preclude blanket vegan inference.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:00:52.830Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-yi-xin-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          }
+        },
+        {
+          "id": "ur05-yi-xin-4452051",
+          "sourceProductId": "4452051",
+          "name": "Black Pepper Udong Mian - Noodle 黑胡椒乌冬面",
+          "category": "酱汁面类",
+          "sourceIds": [
+            "ur05-yi-xin-ordering"
+          ],
+          "sourceDescription": "Thick noodles stir-fried with black pepper, vegetables, and savory sauce for a flavorful dish.",
+          "price": {
+            "amount": 9.2,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Current district publisher supports vegetarian food at43TempleStreet; current46-product merchant delivery menu broadly coherent. Frozen45TempleStreet and058588 versus district058584 retained. Current exact postal/operator premise requires corroboration before publication. Generic meat/fish/shrimp/cuttlefish descriptions separately held; egg/cheese descriptions preclude blanket vegan inference.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:00:52.830Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-yi-xin-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          }
+        },
+        {
+          "id": "ur05-yi-xin-4452104",
+          "sourceProductId": "4452104",
+          "name": "Dumplings With Organic Vege 有机蔬菜饺子",
+          "category": "特 别 介 绍",
+          "sourceIds": [
+            "ur05-yi-xin-ordering"
+          ],
+          "sourceDescription": "Tender dumplings featuring a savory taste profile and satisfying texture. For reference only.",
+          "price": {
+            "amount": 8.2,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Current district publisher supports vegetarian food at43TempleStreet; current46-product merchant delivery menu broadly coherent. Frozen45TempleStreet and058588 versus district058584 retained. Current exact postal/operator premise requires corroboration before publication. Generic meat/fish/shrimp/cuttlefish descriptions separately held; egg/cheese descriptions preclude blanket vegan inference.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:00:52.830Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-yi-xin-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          }
+        },
+        {
+          "id": "ur05-yi-xin-4452106",
+          "sourceProductId": "4452106",
+          "name": "Porridge With Vegetarian Chicken And Peanut 素鷄花生粥",
+          "category": "特 别 介 绍",
+          "sourceIds": [
+            "ur05-yi-xin-ordering"
+          ],
+          "sourceDescription": "Comforting vegetarian chicken and peanut porridge featuring a savory flavor and hearty texture. For reference only.",
+          "price": {
+            "amount": 5.7,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Current district publisher supports vegetarian food at43TempleStreet; current46-product merchant delivery menu broadly coherent. Frozen45TempleStreet and058588 versus district058584 retained. Current exact postal/operator premise requires corroboration before publication. Generic meat/fish/shrimp/cuttlefish descriptions separately held; egg/cheese descriptions preclude blanket vegan inference.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:00:52.830Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-yi-xin-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          }
+        },
+        {
+          "id": "ur05-yi-xin-4452107",
+          "sourceProductId": "4452107",
+          "name": "Cold Tofu 冷豆腐",
+          "category": "特 别 介 绍",
+          "sourceIds": [
+            "ur05-yi-xin-ordering"
+          ],
+          "sourceDescription": "Silky tofu offering a refreshing and savory flavor with a tender texture. For reference only.",
+          "price": {
+            "amount": 9.7,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Current district publisher supports vegetarian food at43TempleStreet; current46-product merchant delivery menu broadly coherent. Frozen45TempleStreet and058588 versus district058584 retained. Current exact postal/operator premise requires corroboration before publication. Generic meat/fish/shrimp/cuttlefish descriptions separately held; egg/cheese descriptions preclude blanket vegan inference.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:00:52.830Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-yi-xin-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          }
+        },
+        {
+          "id": "ur05-yi-xin-4452105",
+          "sourceProductId": "4452105",
+          "name": "Rojak 罗惹",
+          "category": "特 别 介 绍",
+          "sourceIds": [
+            "ur05-yi-xin-ordering"
+          ],
+          "sourceDescription": "A refreshing, savory dish featuring a crisp texture with a vibrant taste profile. For reference only.",
+          "price": {
+            "amount": 5.7,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Current district publisher supports vegetarian food at43TempleStreet; current46-product merchant delivery menu broadly coherent. Frozen45TempleStreet and058588 versus district058584 retained. Current exact postal/operator premise requires corroboration before publication. Generic meat/fish/shrimp/cuttlefish descriptions separately held; egg/cheese descriptions preclude blanket vegan inference.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:00:52.830Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-yi-xin-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          }
+        },
+        {
+          "id": "ur05-yi-xin-4452109",
+          "sourceProductId": "4452109",
+          "name": "Vegetarian Cuttlefish Kangkong 素鱿鱼雍菜",
+          "category": "特 别 介 绍",
+          "sourceIds": [
+            "ur05-yi-xin-ordering"
+          ],
+          "sourceDescription": "Vegetable and cuttlefish dish offering a savory flavor and tender texture. For reference only.",
+          "price": {
+            "amount": 6.7,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Current district publisher supports vegetarian food at43TempleStreet; current46-product merchant delivery menu broadly coherent. Frozen45TempleStreet and058588 versus district058584 retained. Current exact postal/operator premise requires corroboration before publication. Generic meat/fish/shrimp/cuttlefish descriptions separately held; egg/cheese descriptions preclude blanket vegan inference.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:00:52.830Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-yi-xin-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          },
+          "descriptionConflict": "Source generic animal/meat description unresolved against vegetarian context; no actual meat-service conclusion."
+        },
+        {
+          "id": "ur05-yi-xin-4452021",
+          "sourceProductId": "4452021",
+          "name": "Sin Chew Bee Hoon 星洲米粉",
+          "category": "干 炒 面 类",
+          "sourceIds": [
+            "ur05-yi-xin-ordering"
+          ],
+          "sourceDescription": "Stir-fried Singaporean noodle dish with rice vermicelli noodles, vegetables and mock crab meat.",
+          "price": {
+            "amount": 8.2,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Current district publisher supports vegetarian food at43TempleStreet; current46-product merchant delivery menu broadly coherent. Frozen45TempleStreet and058588 versus district058584 retained. Current exact postal/operator premise requires corroboration before publication. Generic meat/fish/shrimp/cuttlefish descriptions separately held; egg/cheese descriptions preclude blanket vegan inference.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:00:52.830Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-yi-xin-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          }
+        },
+        {
+          "id": "ur05-yi-xin-4452022",
+          "sourceProductId": "4452022",
+          "name": "Mee Goreng 印度炒面",
+          "category": "干 炒 面 类",
+          "sourceIds": [
+            "ur05-yi-xin-ordering"
+          ],
+          "sourceDescription": "Spicy stir-fried noodles with vegetables, tofu, and a blend of savory sauces.",
+          "price": {
+            "amount": 8.2,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Current district publisher supports vegetarian food at43TempleStreet; current46-product merchant delivery menu broadly coherent. Frozen45TempleStreet and058588 versus district058584 retained. Current exact postal/operator premise requires corroboration before publication. Generic meat/fish/shrimp/cuttlefish descriptions separately held; egg/cheese descriptions preclude blanket vegan inference.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:00:52.830Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-yi-xin-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          }
+        },
+        {
+          "id": "ur05-yi-xin-17782963",
+          "sourceProductId": "17782963",
+          "name": "Hor Fan 河粉",
+          "category": "酱汁面类",
+          "sourceIds": [
+            "ur05-yi-xin-ordering"
+          ],
+          "sourceDescription": "Soft flat noodles on a bed of gloriously, silky and thick sauce",
+          "price": {
+            "amount": 8.2,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Current district publisher supports vegetarian food at43TempleStreet; current46-product merchant delivery menu broadly coherent. Frozen45TempleStreet and058588 versus district058584 retained. Current exact postal/operator premise requires corroboration before publication. Generic meat/fish/shrimp/cuttlefish descriptions separately held; egg/cheese descriptions preclude blanket vegan inference.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:00:52.830Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-yi-xin-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          }
+        },
+        {
+          "id": "ur05-yi-xin-4452046",
+          "sourceProductId": "4452046",
+          "name": "Wan Tan Mee - Noodle 素云吞面",
+          "category": "酱汁面类",
+          "sourceIds": [
+            "ur05-yi-xin-ordering"
+          ],
+          "sourceDescription": "Noodles served with dumplings, vegetables, and savory sauce, offering a delightful flavor experience.",
+          "price": {
+            "amount": 8.2,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Current district publisher supports vegetarian food at43TempleStreet; current46-product merchant delivery menu broadly coherent. Frozen45TempleStreet and058588 versus district058584 retained. Current exact postal/operator premise requires corroboration before publication. Generic meat/fish/shrimp/cuttlefish descriptions separately held; egg/cheese descriptions preclude blanket vegan inference.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:00:52.830Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-yi-xin-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          }
+        },
+        {
+          "id": "ur05-yi-xin-4452048",
+          "sourceProductId": "4452048",
+          "name": "Hokkien Vegetarian Prawn Noodle 福建素虾面",
+          "category": "酱汁面类",
+          "sourceIds": [
+            "ur05-yi-xin-ordering"
+          ],
+          "sourceDescription": "Stir-fried noodles with vegetables, tofu, and flavorful broth, resembling seafood in taste.",
+          "price": {
+            "amount": 9.2,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Current district publisher supports vegetarian food at43TempleStreet; current46-product merchant delivery menu broadly coherent. Frozen45TempleStreet and058588 versus district058584 retained. Current exact postal/operator premise requires corroboration before publication. Generic meat/fish/shrimp/cuttlefish descriptions separately held; egg/cheese descriptions preclude blanket vegan inference.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:00:52.830Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-yi-xin-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          }
+        },
+        {
+          "id": "ur05-yi-xin-4452043",
+          "sourceProductId": "4452043",
+          "name": "Olive Dao Xiao Mian - Noodle 橄榄菜刀削面",
+          "category": "酱汁面类",
+          "sourceIds": [
+            "ur05-yi-xin-ordering"
+          ],
+          "sourceDescription": "Hand-pulled noodles topped with savory olive vegetable mix, offering a unique flavor experience.",
+          "price": {
+            "amount": 8.7,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Current district publisher supports vegetarian food at43TempleStreet; current46-product merchant delivery menu broadly coherent. Frozen45TempleStreet and058588 versus district058584 retained. Current exact postal/operator premise requires corroboration before publication. Generic meat/fish/shrimp/cuttlefish descriptions separately held; egg/cheese descriptions preclude blanket vegan inference.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:00:52.830Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-yi-xin-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          }
+        },
+        {
+          "id": "ur05-yi-xin-4452045",
+          "sourceProductId": "4452045",
+          "name": "Crispy Noodle  生面",
+          "category": "酱汁面类",
+          "sourceIds": [
+            "ur05-yi-xin-ordering"
+          ],
+          "sourceDescription": "Crispy fried noodles topped with savory vegetables and flavorful sauce, a delightful dish.",
+          "price": {
+            "amount": 8.7,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Current district publisher supports vegetarian food at43TempleStreet; current46-product merchant delivery menu broadly coherent. Frozen45TempleStreet and058588 versus district058584 retained. Current exact postal/operator premise requires corroboration before publication. Generic meat/fish/shrimp/cuttlefish descriptions separately held; egg/cheese descriptions preclude blanket vegan inference.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:00:52.830Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-yi-xin-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          }
+        },
+        {
+          "id": "ur05-yi-xin-4452050",
+          "sourceProductId": "4452050",
+          "name": "Qiao Mai Mian Noodle 炸酱荞麦面",
+          "category": "酱汁面类",
+          "sourceIds": [
+            "ur05-yi-xin-ordering"
+          ],
+          "sourceDescription": "Stir-fried buckwheat noodles topped with savory sauce and fresh vegetables, offering a delightful flavor.",
+          "price": {
+            "amount": 8.7,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Current district publisher supports vegetarian food at43TempleStreet; current46-product merchant delivery menu broadly coherent. Frozen45TempleStreet and058588 versus district058584 retained. Current exact postal/operator premise requires corroboration before publication. Generic meat/fish/shrimp/cuttlefish descriptions separately held; egg/cheese descriptions preclude blanket vegan inference.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:00:52.830Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-yi-xin-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          }
+        },
+        {
+          "id": "ur05-yi-xin-4452044",
+          "sourceProductId": "4452044",
+          "name": "Lu Mian - Noodle 滷面",
+          "category": "酱汁面类",
+          "sourceIds": [
+            "ur05-yi-xin-ordering"
+          ],
+          "sourceDescription": "Braised noodles served with savory sauce, vegetables, and tender meat, offering rich flavors.",
+          "price": {
+            "amount": 8.2,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Current district publisher supports vegetarian food at43TempleStreet; current46-product merchant delivery menu broadly coherent. Frozen45TempleStreet and058588 versus district058584 retained. Current exact postal/operator premise requires corroboration before publication. Generic meat/fish/shrimp/cuttlefish descriptions separately held; egg/cheese descriptions preclude blanket vegan inference.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:00:52.830Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-yi-xin-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          },
+          "descriptionConflict": "Source generic animal/meat description unresolved against vegetarian context; no actual meat-service conclusion."
+        },
+        {
+          "id": "ur05-yi-xin-4452052",
+          "sourceProductId": "4452052",
+          "name": "Vegetarian Pork Ribs Hor Fun 素排骨河粉",
+          "category": "酱汁面类",
+          "sourceIds": [
+            "ur05-yi-xin-ordering"
+          ],
+          "sourceDescription": "Noodles with tender vegetarian pork ribs featuring a savory flavor and hearty texture. For reference only.",
+          "price": {
+            "amount": 8.7,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Current district publisher supports vegetarian food at43TempleStreet; current46-product merchant delivery menu broadly coherent. Frozen45TempleStreet and058588 versus district058584 retained. Current exact postal/operator premise requires corroboration before publication. Generic meat/fish/shrimp/cuttlefish descriptions separately held; egg/cheese descriptions preclude blanket vegan inference.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:00:52.830Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-yi-xin-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          }
+        },
+        {
+          "id": "ur05-yi-xin-4452061",
+          "sourceProductId": "4452061",
+          "name": "Laksa 拉沙",
+          "category": "汤 面 类",
+          "sourceIds": [
+            "ur05-yi-xin-ordering"
+          ],
+          "sourceDescription": "Spicy noodle soup with coconut milk, shrimp, tofu, and aromatic herbs.",
+          "price": {
+            "amount": 8.2,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Current district publisher supports vegetarian food at43TempleStreet; current46-product merchant delivery menu broadly coherent. Frozen45TempleStreet and058588 versus district058584 retained. Current exact postal/operator premise requires corroboration before publication. Generic meat/fish/shrimp/cuttlefish descriptions separately held; egg/cheese descriptions preclude blanket vegan inference.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:00:52.830Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-yi-xin-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          },
+          "descriptionConflict": "Source generic animal/meat description unresolved against vegetarian context; no actual meat-service conclusion."
+        },
+        {
+          "id": "ur05-yi-xin-4452064",
+          "sourceProductId": "4452064",
+          "name": "Penang Assam Laksa 檳城阿参拉沙",
+          "category": "汤 面 类",
+          "sourceIds": [
+            "ur05-yi-xin-ordering"
+          ],
+          "sourceDescription": "Spicy, tangy noodle soup with fish, herbs, and a rich, flavorful broth.",
+          "price": {
+            "amount": 8.2,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Current district publisher supports vegetarian food at43TempleStreet; current46-product merchant delivery menu broadly coherent. Frozen45TempleStreet and058588 versus district058584 retained. Current exact postal/operator premise requires corroboration before publication. Generic meat/fish/shrimp/cuttlefish descriptions separately held; egg/cheese descriptions preclude blanket vegan inference.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:00:52.830Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-yi-xin-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          },
+          "descriptionConflict": "Source generic animal/meat description unresolved against vegetarian context; no actual meat-service conclusion."
+        },
+        {
+          "id": "ur05-yi-xin-4452063",
+          "sourceProductId": "4452063",
+          "name": "Vegetarian Bak Kut Teh With Rice 素肉骨茶加饭",
+          "category": "汤 面 类",
+          "sourceIds": [
+            "ur05-yi-xin-ordering"
+          ],
+          "sourceDescription": "A comforting vegetarian dish with a rich, savory flavor and hearty texture served with rice. For reference only.",
+          "price": {
+            "amount": 9.7,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Current district publisher supports vegetarian food at43TempleStreet; current46-product merchant delivery menu broadly coherent. Frozen45TempleStreet and058588 versus district058584 retained. Current exact postal/operator premise requires corroboration before publication. Generic meat/fish/shrimp/cuttlefish descriptions separately held; egg/cheese descriptions preclude blanket vegan inference.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:00:52.830Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-yi-xin-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          }
+        },
+        {
+          "id": "ur05-yi-xin-4452062",
+          "sourceProductId": "4452062",
+          "name": "Vegetarian Bak Kut Teh Noodle 素肉骨茶面",
+          "category": "汤 面 类",
+          "sourceIds": [
+            "ur05-yi-xin-ordering"
+          ],
+          "sourceDescription": "Tender noodles in a savory, aromatic broth with a hearty texture. For reference only.",
+          "price": {
+            "amount": 9.7,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Current district publisher supports vegetarian food at43TempleStreet; current46-product merchant delivery menu broadly coherent. Frozen45TempleStreet and058588 versus district058584 retained. Current exact postal/operator premise requires corroboration before publication. Generic meat/fish/shrimp/cuttlefish descriptions separately held; egg/cheese descriptions preclude blanket vegan inference.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:00:52.830Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-yi-xin-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          }
+        },
+        {
+          "id": "ur05-yi-xin-4452068",
+          "sourceProductId": "4452068",
+          "name": "Vegetarian Fish Mee Hoon Soup 素鱼片米粉",
+          "category": "汤 面 类",
+          "sourceIds": [
+            "ur05-yi-xin-ordering"
+          ],
+          "sourceDescription": "A flavorful noodle soup with plant-based fish slices and aromatic broth.",
+          "price": {
+            "amount": 9.2,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Current district publisher supports vegetarian food at43TempleStreet; current46-product merchant delivery menu broadly coherent. Frozen45TempleStreet and058588 versus district058584 retained. Current exact postal/operator premise requires corroboration before publication. Generic meat/fish/shrimp/cuttlefish descriptions separately held; egg/cheese descriptions preclude blanket vegan inference.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:00:52.830Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-yi-xin-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          }
+        },
+        {
+          "id": "ur05-yi-xin-4452067",
+          "sourceProductId": "4452067",
+          "name": "Spicy Noodle 红烧面",
+          "category": "汤 面 类",
+          "sourceIds": [
+            "ur05-yi-xin-ordering"
+          ],
+          "sourceDescription": "A flavorful, spicy noodle dish with rich sauce and aromatic seasonings.",
+          "price": {
+            "amount": 8.7,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Current district publisher supports vegetarian food at43TempleStreet; current46-product merchant delivery menu broadly coherent. Frozen45TempleStreet and058588 versus district058584 retained. Current exact postal/operator premise requires corroboration before publication. Generic meat/fish/shrimp/cuttlefish descriptions separately held; egg/cheese descriptions preclude blanket vegan inference.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:00:52.830Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-yi-xin-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          }
+        },
+        {
+          "id": "ur05-yi-xin-4452072",
+          "sourceProductId": "4452072",
+          "name": "Sambal Fried Rice 參巴炒饭",
+          "category": "各 类 炒 饭",
+          "sourceIds": [
+            "ur05-yi-xin-ordering"
+          ],
+          "sourceDescription": "Spicy fried rice with aromatic sambal, vegetables, and a hint of savory flavors.",
+          "price": {
+            "amount": 8.2,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Current district publisher supports vegetarian food at43TempleStreet; current46-product merchant delivery menu broadly coherent. Frozen45TempleStreet and058588 versus district058584 retained. Current exact postal/operator premise requires corroboration before publication. Generic meat/fish/shrimp/cuttlefish descriptions separately held; egg/cheese descriptions preclude blanket vegan inference.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:00:52.830Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-yi-xin-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          }
+        },
+        {
+          "id": "ur05-yi-xin-4452074",
+          "sourceProductId": "4452074",
+          "name": "Olive Fried Rice 橄榄菜炒饭",
+          "category": "各 类 炒 饭",
+          "sourceIds": [
+            "ur05-yi-xin-ordering"
+          ],
+          "sourceDescription": "A stir-fried fluffy golden fried rice served with olives",
+          "price": {
+            "amount": 8.2,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Current district publisher supports vegetarian food at43TempleStreet; current46-product merchant delivery menu broadly coherent. Frozen45TempleStreet and058588 versus district058584 retained. Current exact postal/operator premise requires corroboration before publication. Generic meat/fish/shrimp/cuttlefish descriptions separately held; egg/cheese descriptions preclude blanket vegan inference.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:00:52.830Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-yi-xin-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          }
+        },
+        {
+          "id": "ur05-yi-xin-4452075",
+          "sourceProductId": "4452075",
+          "name": "黄梨炒饭",
+          "category": "各 类 炒 饭",
+          "sourceIds": [
+            "ur05-yi-xin-ordering"
+          ],
+          "sourceDescription": "A tropical sweet & savory Thai fried rice",
+          "price": {
+            "amount": 8.2,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Current district publisher supports vegetarian food at43TempleStreet; current46-product merchant delivery menu broadly coherent. Frozen45TempleStreet and058588 versus district058584 retained. Current exact postal/operator premise requires corroboration before publication. Generic meat/fish/shrimp/cuttlefish descriptions separately held; egg/cheese descriptions preclude blanket vegan inference.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:00:52.830Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-yi-xin-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          }
+        },
+        {
+          "id": "ur05-yi-xin-4452077",
+          "sourceProductId": "4452077",
+          "name": "Brown Rice Fried Rice 糙米炒饭",
+          "category": "各 类 炒 饭",
+          "sourceIds": [
+            "ur05-yi-xin-ordering"
+          ],
+          "sourceDescription": "Stir-fried brown rice with vegetables, eggs, and savory seasonings for a wholesome meal.",
+          "price": {
+            "amount": 9.2,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Current district publisher supports vegetarian food at43TempleStreet; current46-product merchant delivery menu broadly coherent. Frozen45TempleStreet and058588 versus district058584 retained. Current exact postal/operator premise requires corroboration before publication. Generic meat/fish/shrimp/cuttlefish descriptions separately held; egg/cheese descriptions preclude blanket vegan inference.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:00:52.830Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-yi-xin-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          }
+        },
+        {
+          "id": "ur05-yi-xin-4452078",
+          "sourceProductId": "4452078",
+          "name": "Petai Fried Rice 臭豆炒饭",
+          "category": "各 类 炒 饭",
+          "sourceIds": [
+            "ur05-yi-xin-ordering"
+          ],
+          "sourceDescription": "A flavourful and fullfilling fried rice served with petai",
+          "price": {
+            "amount": 9.7,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Current district publisher supports vegetarian food at43TempleStreet; current46-product merchant delivery menu broadly coherent. Frozen45TempleStreet and058588 versus district058584 retained. Current exact postal/operator premise requires corroboration before publication. Generic meat/fish/shrimp/cuttlefish descriptions separately held; egg/cheese descriptions preclude blanket vegan inference.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:00:52.830Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-yi-xin-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          }
+        },
+        {
+          "id": "ur05-yi-xin-91787104",
+          "sourceProductId": "91787104",
+          "name": "White Rice 白饭",
+          "category": "精品素食料理",
+          "sourceIds": [
+            "ur05-yi-xin-ordering"
+          ],
+          "sourceDescription": "Plain white rice offering a simple, comforting, and tender texture. For reference only.",
+          "price": {
+            "amount": 1.3,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Current district publisher supports vegetarian food at43TempleStreet; current46-product merchant delivery menu broadly coherent. Frozen45TempleStreet and058588 versus district058584 retained. Current exact postal/operator premise requires corroboration before publication. Generic meat/fish/shrimp/cuttlefish descriptions separately held; egg/cheese descriptions preclude blanket vegan inference.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:00:52.830Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-yi-xin-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          }
+        },
+        {
+          "id": "ur05-yi-xin-91786667",
+          "sourceProductId": "91786667",
+          "name": "Brown Rice 糙米饭",
+          "category": "精品素食料理",
+          "sourceIds": [
+            "ur05-yi-xin-ordering"
+          ],
+          "sourceDescription": "Brown rice offers a hearty texture and savory flavor. For reference only.",
+          "price": {
+            "amount": 1.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Current district publisher supports vegetarian food at43TempleStreet; current46-product merchant delivery menu broadly coherent. Frozen45TempleStreet and058588 versus district058584 retained. Current exact postal/operator premise requires corroboration before publication. Generic meat/fish/shrimp/cuttlefish descriptions separately held; egg/cheese descriptions preclude blanket vegan inference.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:00:52.830Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-yi-xin-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          }
+        },
+        {
+          "id": "ur05-yi-xin-91859821",
+          "sourceProductId": "91859821",
+          "name": "Vegetable Rolls 翡翠卷",
+          "category": "精品素食料理",
+          "sourceIds": [
+            "ur05-yi-xin-ordering"
+          ],
+          "sourceDescription": "Vegetable rolls offering a refreshing taste and tender texture. For reference only.",
+          "price": {
+            "amount": 15,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Current district publisher supports vegetarian food at43TempleStreet; current46-product merchant delivery menu broadly coherent. Frozen45TempleStreet and058588 versus district058584 retained. Current exact postal/operator premise requires corroboration before publication. Generic meat/fish/shrimp/cuttlefish descriptions separately held; egg/cheese descriptions preclude blanket vegan inference.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:00:52.830Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-yi-xin-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          }
+        },
+        {
+          "id": "ur05-yi-xin-91786655",
+          "sourceProductId": "91786655",
+          "name": "砂锅豆腐",
+          "category": "精品素食料理",
+          "sourceIds": [
+            "ur05-yi-xin-ordering"
+          ],
+          "sourceDescription": "嫩滑的豆腐在传统的砂锅中烹制，搭配蘑菇、花椰菜和素肉，淋上美味的酱汁。口感温和，令人舒心。",
+          "price": {
+            "amount": 15,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Current district publisher supports vegetarian food at43TempleStreet; current46-product merchant delivery menu broadly coherent. Frozen45TempleStreet and058588 versus district058584 retained. Current exact postal/operator premise requires corroboration before publication. Generic meat/fish/shrimp/cuttlefish descriptions separately held; egg/cheese descriptions preclude blanket vegan inference.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:00:52.830Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-yi-xin-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          }
+        },
+        {
+          "id": "ur05-yi-xin-91786658",
+          "sourceProductId": "91786658",
+          "name": "Spicy Doudfu 麻辣豆腐",
+          "category": "精品素食料理",
+          "sourceIds": [
+            "ur05-yi-xin-ordering"
+          ],
+          "sourceDescription": "Tender tofu featuring a spicy flavor and savory profile. For reference only.",
+          "price": {
+            "amount": 15,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Current district publisher supports vegetarian food at43TempleStreet; current46-product merchant delivery menu broadly coherent. Frozen45TempleStreet and058588 versus district058584 retained. Current exact postal/operator premise requires corroboration before publication. Generic meat/fish/shrimp/cuttlefish descriptions separately held; egg/cheese descriptions preclude blanket vegan inference.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:00:52.830Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-yi-xin-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          }
+        },
+        {
+          "id": "ur05-yi-xin-91786641",
+          "sourceProductId": "91786641",
+          "name": "酸甜素鸡丁",
+          "category": "精品素食料理",
+          "sourceIds": [
+            "ur05-yi-xin-ordering"
+          ],
+          "sourceDescription": "鲜嫩素鸡块淋上美味的酸甜酱汁，搭配鲜艳的灯笼椒和菠萝块。口感温和，不辣。",
+          "price": {
+            "amount": 17.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Current district publisher supports vegetarian food at43TempleStreet; current46-product merchant delivery menu broadly coherent. Frozen45TempleStreet and058588 versus district058584 retained. Current exact postal/operator premise requires corroboration before publication. Generic meat/fish/shrimp/cuttlefish descriptions separately held; egg/cheese descriptions preclude blanket vegan inference.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:00:52.830Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-yi-xin-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          }
+        },
+        {
+          "id": "ur05-yi-xin-91786635",
+          "sourceProductId": "91786635",
+          "name": "Thailand Mango Salted Vegetarian Chicken 泰国芒果盐素鸡",
+          "category": "精品素食料理",
+          "sourceIds": [
+            "ur05-yi-xin-ordering"
+          ],
+          "sourceDescription": "Vegetarian chicken with a savory and tangy flavor profile featuring a crisp texture. For reference only.",
+          "price": {
+            "amount": 17.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Current district publisher supports vegetarian food at43TempleStreet; current46-product merchant delivery menu broadly coherent. Frozen45TempleStreet and058588 versus district058584 retained. Current exact postal/operator premise requires corroboration before publication. Generic meat/fish/shrimp/cuttlefish descriptions separately held; egg/cheese descriptions preclude blanket vegan inference.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:00:52.830Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-yi-xin-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          }
+        },
+        {
+          "id": "ur05-yi-xin-91786665",
+          "sourceProductId": "91786665",
+          "name": "Lemon Abalone Mushroom 柠檬鲍菇",
+          "category": "精品素食料理",
+          "sourceIds": [
+            "ur05-yi-xin-ordering"
+          ],
+          "sourceDescription": "Tender abalone mushroom in a savory sauce. For reference only.",
+          "price": {
+            "amount": 15,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Current district publisher supports vegetarian food at43TempleStreet; current46-product merchant delivery menu broadly coherent. Frozen45TempleStreet and058588 versus district058584 retained. Current exact postal/operator premise requires corroboration before publication. Generic meat/fish/shrimp/cuttlefish descriptions separately held; egg/cheese descriptions preclude blanket vegan inference.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:00:52.830Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-yi-xin-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          }
+        },
+        {
+          "id": "ur05-yi-xin-91859807",
+          "sourceProductId": "91859807",
+          "name": "Spicy Monkey Mushroom 宫保猴头菇",
+          "category": "精品素食料理",
+          "sourceIds": [
+            "ur05-yi-xin-ordering"
+          ],
+          "sourceDescription": "Tender monkey mushroom offering a spicy and savory flavor with a satisfying texture. For reference only.",
+          "price": {
+            "amount": 19.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Current district publisher supports vegetarian food at43TempleStreet; current46-product merchant delivery menu broadly coherent. Frozen45TempleStreet and058588 versus district058584 retained. Current exact postal/operator premise requires corroboration before publication. Generic meat/fish/shrimp/cuttlefish descriptions separately held; egg/cheese descriptions preclude blanket vegan inference.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:00:52.830Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-yi-xin-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          }
+        },
+        {
+          "id": "ur05-yi-xin-91851917",
+          "sourceProductId": "91851917",
+          "name": "Fried Asparagus 清炒芦笋",
+          "category": "精品素食料理",
+          "sourceIds": [
+            "ur05-yi-xin-ordering"
+          ],
+          "sourceDescription": "Asparagus with a savory flavor and tender texture. For reference only.",
+          "price": {
+            "amount": 15,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Current district publisher supports vegetarian food at43TempleStreet; current46-product merchant delivery menu broadly coherent. Frozen45TempleStreet and058588 versus district058584 retained. Current exact postal/operator premise requires corroboration before publication. Generic meat/fish/shrimp/cuttlefish descriptions separately held; egg/cheese descriptions preclude blanket vegan inference.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:00:52.830Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-yi-xin-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          }
+        },
+        {
+          "id": "ur05-yi-xin-91851598",
+          "sourceProductId": "91851598",
+          "name": "参岜臭豆",
+          "category": "精品素食料理",
+          "sourceIds": [
+            "ur05-yi-xin-ordering"
+          ],
+          "sourceDescription": "精湛的素食烹饪，以地道的炒菜为特色，采用新鲜时令蔬菜、芳香香料和传统风味制作。",
+          "price": {
+            "amount": 18.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Current district publisher supports vegetarian food at43TempleStreet; current46-product merchant delivery menu broadly coherent. Frozen45TempleStreet and058588 versus district058584 retained. Current exact postal/operator premise requires corroboration before publication. Generic meat/fish/shrimp/cuttlefish descriptions separately held; egg/cheese descriptions preclude blanket vegan inference.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:00:52.830Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-yi-xin-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          }
+        },
+        {
+          "id": "ur05-yi-xin-91787176",
+          "sourceProductId": "91787176",
+          "name": "Nyona Chilli Vegetarian Fish 娘惹辣酱素鱼",
+          "category": "精品素食料理",
+          "sourceIds": [
+            "ur05-yi-xin-ordering"
+          ],
+          "sourceDescription": "Vegetarian fish features a savory, spicy taste with a tender texture. For reference only.",
+          "price": {
+            "amount": 17.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Current district publisher supports vegetarian food at43TempleStreet; current46-product merchant delivery menu broadly coherent. Frozen45TempleStreet and058588 versus district058584 retained. Current exact postal/operator premise requires corroboration before publication. Generic meat/fish/shrimp/cuttlefish descriptions separately held; egg/cheese descriptions preclude blanket vegan inference.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:00:52.830Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-yi-xin-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          }
+        },
+        {
+          "id": "ur05-yi-xin-91787162",
+          "sourceProductId": "91787162",
+          "name": "姜汁素鱼",
+          "category": "精品素食料理",
+          "sourceIds": [
+            "ur05-yi-xin-ordering"
+          ],
+          "sourceDescription": "鲜嫩的素鱼片，融入芳香姜汁和美味酱汁，带来正宗的亚洲风味体验，是健康餐点的完美选择。",
+          "price": {
+            "amount": 17.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Current district publisher supports vegetarian food at43TempleStreet; current46-product merchant delivery menu broadly coherent. Frozen45TempleStreet and058588 versus district058584 retained. Current exact postal/operator premise requires corroboration before publication. Generic meat/fish/shrimp/cuttlefish descriptions separately held; egg/cheese descriptions preclude blanket vegan inference.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:00:52.830Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-yi-xin-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          }
+        },
+        {
+          "id": "ur05-yi-xin-91859811",
+          "sourceProductId": "91859811",
+          "name": "Clay Pot Curry Vegetarian Fish 砂锅加里素鱼",
+          "category": "精品素食料理",
+          "sourceIds": [
+            "ur05-yi-xin-ordering"
+          ],
+          "sourceDescription": "Vegetarian fish in a rich, savory curry with a tender texture. For reference only.",
+          "price": {
+            "amount": 19.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "hasUnreadChoices": false,
+          "publicationStatus": "hold-exact-premise-or-whole-venue-scope",
+          "holdReason": "Current district publisher supports vegetarian food at43TempleStreet; current46-product merchant delivery menu broadly coherent. Frozen45TempleStreet and058588 versus district058584 retained. Current exact postal/operator premise requires corroboration before publication. Generic meat/fish/shrimp/cuttlefish descriptions separately held; egg/cheese descriptions preclude blanket vegan inference.",
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:00:52.830Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "verification": {
+            "checkedAt": "2026-10-16T05:03:08.757496+00:00",
+            "sourceIds": [
+              "ur05-yi-xin-ordering"
+            ],
+            "verifiedFields": [
+              "sourceProductId",
+              "name",
+              "category",
+              "printed SGD delivery price"
+            ],
+            "unverifiedFields": [
+              "current whole-venue/exact-premise eligibility",
+              "complete ingredients",
+              "allergens",
+              "vegan suitability",
+              "current stock",
+              "checkout charges"
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "scope": "Only three independently vegetarian-labelled stall/venue leads. Mixed aggregate source restricted to Pu Xiang section; no other stall foods copied.",
+  "summary": {
+    "branches": 3,
+    "menus": 3,
+    "foodObservations": 76,
+    "approvedFoodRows": 0,
+    "heldFoodRows": 76,
+    "complete": false
+  }
+}

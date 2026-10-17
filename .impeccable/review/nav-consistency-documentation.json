@@ -1,0 +1,23 @@
+{
+  "updatedAt": "2026-10-15T07:08:51.299Z",
+  "files": [
+    "DESIGN.md",
+    "PRODUCT.md",
+    "AGENTS.md",
+    "docs/PRD_COVERAGE.md",
+    "docs/COOK_READINESS.md",
+    ".impeccable/surfaces/navigation.md",
+    ".impeccable/design/quintaste.json"
+  ],
+  "scope": "Navigation consistency only; prior no-border instruction superseded",
+  "validation": {
+    "localLinks": 1088,
+    "brokenLinks": [],
+    "staleCurrentReferences": [],
+    "sidecarJsonParsed": true,
+    "sidecarSelectedBorder": true,
+    "sidecarMarketGlyph": true
+  },
+  "boundary": "Browser/source only; native device acceptance unverified",
+  "passed": true
+}

@@ -1,0 +1,119 @@
+{
+  "checkedAt": "2026-10-17",
+  "deployedRelease": "20261017-xinghua26",
+  "goalStatus": "active",
+  "fullCoverageComplete": false,
+  "coverage": {
+    "browseVenues": 174,
+    "menuIds": 175,
+    "covers": 157,
+    "hours": 94,
+    "uniqueAssets": 125,
+    "assetBytes": 17384302,
+    "coverGaps": 17,
+    "hoursGaps": 80,
+    "allThreeAvailable": 93,
+    "catalogueIndexBytes": 196395
+  },
+  "newPhotos": [
+    {
+      "venueId": "research-ur06-xing-hua",
+      "address": "190 Middle Road #01-11, Fortune Centre, Singapore188979",
+      "photo": {
+        "path": "/api/catalogue-photos/011e62977ebe20b62f1aa19ffb97593ff3010e60432c124f9419abbd95340a2d.jpg",
+        "width": 960,
+        "height": 1280,
+        "author": "Xing Hua Vegetarian",
+        "sourceUrl": "https://xinghuavegetarian.oddle.me/en_SG",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "011e62977ebe20b62f1aa19ffb97593ff3010e60432c124f9419abbd95340a2d",
+      "bytes": 190998,
+      "originalSha256": "262be3a93c4b1a2fdb4dff3e284092fb749f0c636f6a5f01740741b00d78a1a0",
+      "sourcePageCheckedAt": "2026-10-16T12:47:32.426432+00:00",
+      "sourceImageUrl": "https://s3-ap-southeast-1.amazonaws.com/v3-live.image.oddle.me/product/YamRing2488fa.jpg",
+      "identityEvidence": "Saved exact merchant Oddle page identifies190MiddleRoad#01-11/188979 and explicitly includes YamRing2488fa.jpg as product photograph.193x200 additional source has recognizable ring/plate/food geometry. Selected as reference-led enhancement with fine-detail qualification; earlier different noodle/set thumbnails remainheld. No ingredient/eggfree/vegan claim inferred.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance and upscale this original merchant product photograph of Xing Hua Vegetarian's Yam Ring, keeping its visual contents and composition fixed. Preserve the same single golden cylindrical fried yam ring with open top and rough crisp sides, on the same rectangular white plate. Preserve the same visible fillings as abstract faithful food shapes: pale beige chunks, small round grey-brown pieces, red and green pepper pieces, yellow tapered pieces and a small light brown rectangular piece across the top. Keep the surrounding white fine noodle nest and scattered small brown nuts, green lettuce at the plate edge, pale pink/white background and the same elevated three-quarter angle. Improve the photographic clarity, lighting, colour balance, edges and crisp surface texture. Do not invent extra fillings, props, dishes, utensils, decorations, text, logos or restaurant scenery. Do not change the number or general placement of visible pieces. Do not turn it into a banquet spread. Conservative photographic enhancement, recognizably the exact source dish, portrait 3:4 with a close crop of the existing subject. No text overlay.",
+        "review": "Compared source and output: same cylindrical golden yam ring, plate/noodle nest, pale/yellow wedge, round brown pieces, red/green/yellow forms and casual angle. Source is193x200; enhancement adds fine texture but is not independent ingredient evidence. The pale/yellow wedge already exists in reference; do not infer egg-free, vegan or allergen status. Source attribution/rights retained."
+      }
+    }
+  ],
+  "newHours": [],
+  "googleLedger": {
+    "bytes": 1045377,
+    "sha256": "c7321dafaad0473583139494ca899501578892c5b71105429d3cd4dceb4f311a",
+    "requests": 2419,
+    "limit": 2500,
+    "remaining": 81
+  },
+  "sourceRights": "Source attribution and rights retained. User-requested enhancement does not establish an independent licence.",
+  "unresolved": "2,527 food holds,109zero-food research branches,1,828unnamed candidate IDs,3coordinate holds preserved; exact MakanVegan/SoonLai screenshot images unrecovered.",
+  "releaseEvidence": ".local/coverage-2026-10-17w/release.json",
+  "hoursReview": {
+    "checkedAt": "2026-10-17",
+    "holds": [
+      {
+        "venueId": "research-originalgreens-shaw-plaza",
+        "sourceUrl": "https://shawplaza.sg/original-greens/",
+        "checkedAt": "2026-10-17",
+        "reason": "Property tenant entry names correctunit but10:00?22:00 has no weekday applicability; generic template placeholders coexist and candidate differs from secondary lunch/dinner windows. Preserve hours hold; do not inferdaily."
+      },
+      {
+        "venueId": "research-ur02-tpy-203-vegetarian-food",
+        "sourceUrl": "https://www.facebook.com/Tpy203veg",
+        "checkedAt": "2026-10-17",
+        "reason": "Current web tool profile fetch throttled; prior direct public page supplied metadata only, no menu photos/hours. Waze confirms handle, but no schedule/image promotion. Do not retry login shell."
+      }
+    ],
+    "imageReview": "One additional operator YamRing reference selected with lowresolution/fine-detail qualification. Earlier noodle/set holds and all other venue holds preserved."
+  },
+  "remainingCoordinateHolds": [
+    {
+      "venueId": "research-ananda-syed-alwi",
+      "reason": "Operator address95SyedAlwiRoad conflicts with OneMap postal207670 at94SyedAlwiRoad. Do not shift the venue across the road by inference.",
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=207670&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "sourceCheckedAt": "2026-10-16T10:32:56.853754+00:00",
+      "reviewedAt": "2026-10-17"
+    },
+    {
+      "venueId": "research-tofu-g-amoy-street",
+      "reason": "Operator97AmoyStreet conflicts with OneMap postal069916 at96AmoyStreet. Hold until correct operator postal/point is established.",
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=069916&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "sourceCheckedAt": "2026-10-16T10:37:47.423991+00:00",
+      "reviewedAt": "2026-10-17"
+    },
+    {
+      "venueId": "research-ur11-crowded-sp",
+      "reason": "OneMap139651 returns many campus buildings and an incomplete7-page response with authentication notice; no exactFoodCourt2row. Merchant address says139651 but separatepostcode field says138671. Do not choose an admin building or generic campus point.",
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/w9sh/the-crowded-bowl-dover-road",
+      "sourceCheckedAt": "2026-10-16T07:05:17.736Z",
+      "reviewedAt": "2026-10-17"
+    }
+  ],
+  "hoursQualification": "94source-backed records; OriginalSinMonday explicitlyunconfirmed. Full coverage remainsincomplete.",
+  "verificationSupplement": {
+    "checkedAt": "2026-10-17",
+    "typescript": {
+      "command": "npx tsc --noEmit",
+      "cwd": ".local/coverage-2026-10-17w/source",
+      "exitCode": 0
+    },
+    "lint": {
+      "command": "EXPO_NO_DOTENV=1 CI=1 npx expo lint --no-cache",
+      "cwd": ".",
+      "exitCode": 0,
+      "basis": "Canonical uncached Expo lint passed in immediately precedingbatchv; allsource/configurationbytes unchanged inw."
+    },
+    "sourcePreserved": true,
+    "changes": "One reviewed photo metadata record andJPEG; current catalogue regenerated and all16APIfunctions exported together. Fresh isolatedTypeScript passed."
+  },
+  "sourceQualification": "Additional193x200operatorYamRing product reference selected; conservative enhancement preserves geometry but may differ in fine texture. Noingredient/eggfree/vegan claim. Earlier noodle/set holds remain retained."
+}

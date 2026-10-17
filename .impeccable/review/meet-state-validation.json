@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "checks": [
+    "Guest member actions and explicit visibility guarded",
+    "2 total capacity incl initiator and accepted pre-meal chat",
+    "4 total capacity incl initiator and accepted pre-meal chat",
+    "6 total capacity incl initiator and accepted pre-meal chat",
+    "Capacity can be recovered without deleting account data",
+    "Declined invitation frees capacity and incomplete group cannot confirm",
+    "Casual gathering approval-free lifecycle and validation",
+    "Applications cannot self-approve and ready requires complete details",
+    "Legacy migration preserves blocks without opting people in",
+    "Merge honours blocks, preserves profile and rejects collection overflow"
+  ]
+}

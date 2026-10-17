@@ -1,0 +1,244 @@
+{
+  "checkedAt": "2026-10-17",
+  "deployedRelease": "20261017-operator-covers21b",
+  "goalStatus": "active",
+  "fullCoverageComplete": false,
+  "coverage": {
+    "browseVenues": 174,
+    "menuIds": 175,
+    "covers": 140,
+    "hours": 90,
+    "uniqueAssets": 111,
+    "assetBytes": 14822741,
+    "coverGaps": 34,
+    "hoursGaps": 84,
+    "allThreeAvailable": 81,
+    "catalogueIndexBytes": 186775
+  },
+  "newPhotos": [
+    {
+      "venueId": "research-nature-cafe-alexandra",
+      "address": "321 Alexandra Road #02-27, Singapore 159971",
+      "photo": {
+        "path": "/api/catalogue-photos/1c82f5c882a37307b87d38c9ac28720df5f17517f112ff5a2e7a96979002a228.jpg",
+        "width": 960,
+        "height": 960,
+        "author": "Nature Cafe",
+        "sourceUrl": "https://www.naturecafe.com.sg/",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "1c82f5c882a37307b87d38c9ac28720df5f17517f112ff5a2e7a96979002a228",
+      "bytes": 146516,
+      "originalSha256": "8e2d4a4e3b7da88a71042f27c2e2723c91784ab457a1de3e0536dc7908382d59",
+      "sourcePageCheckedAt": "2026-10-17",
+      "sourceImageUrl": "https://www.naturecafe.com.sg/wp-content/uploads/2016/08/slider1.jpg",
+      "identityEvidence": "Operator homepage checked17Oct explicitly lists321AlexandraRoad#02-27 and70StamfordRoad#01-22. Shared operator food hero, no branch-interior/current-stock claim.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Edit this Nature Cafe operator photograph into a compact square crop centered tightly on the existing dark shiitake mushroom caps with red chili garnish and golden bean-curd inside the black claypot. The mushrooms and chili must be the central upper-middle focal point, large and visible, not left at the edge. Crop out the right-hand rice bowl and most empty steam area; do not expand or invent hidden parts of the dish. Preserve the existing lettuce and coriander, exact food arrangement and visible pot edge. Improve neutral natural light and realistic clarity only, keep gentle original steam. No new ingredients, garnish, tableware, props, lettering or claims.",
+        "review": "Original and output visually compared. Closer square framing centers the existing mushroom/claypot subject for the card. Existing food retained with enhanced lighting; fine details may differ. No new ingredient or availability claim."
+      }
+    },
+    {
+      "venueId": "research-nature-cafe-smu",
+      "address": "SMU Li Ka Shing Library, 70 Stamford Road #01-22, Singapore 178901",
+      "photo": {
+        "path": "/api/catalogue-photos/1c82f5c882a37307b87d38c9ac28720df5f17517f112ff5a2e7a96979002a228.jpg",
+        "width": 960,
+        "height": 960,
+        "author": "Nature Cafe",
+        "sourceUrl": "https://www.naturecafe.com.sg/",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "1c82f5c882a37307b87d38c9ac28720df5f17517f112ff5a2e7a96979002a228",
+      "bytes": 146516,
+      "originalSha256": "8e2d4a4e3b7da88a71042f27c2e2723c91784ab457a1de3e0536dc7908382d59",
+      "sourcePageCheckedAt": "2026-10-17",
+      "sourceImageUrl": "https://www.naturecafe.com.sg/wp-content/uploads/2016/08/slider1.jpg",
+      "identityEvidence": "Same operator homepage explicitly lists SMU70StamfordRoad#01-22. Shared operator food hero reused without another download/generation.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Edit this Nature Cafe operator photograph into a compact square crop centered tightly on the existing dark shiitake mushroom caps with red chili garnish and golden bean-curd inside the black claypot. The mushrooms and chili must be the central upper-middle focal point, large and visible, not left at the edge. Crop out the right-hand rice bowl and most empty steam area; do not expand or invent hidden parts of the dish. Preserve the existing lettuce and coriander, exact food arrangement and visible pot edge. Improve neutral natural light and realistic clarity only, keep gentle original steam. No new ingredients, garnish, tableware, props, lettering or claims.",
+        "review": "Original and output visually compared. Closer square framing centers the existing mushroom/claypot subject for the card. Existing food retained with enhanced lighting; fine details may differ. No new ingredient or availability claim."
+      }
+    },
+    {
+      "venueId": "research-lingzhi-palais",
+      "address": "390 Orchard Road, #B1-04/05, Palais Renaissance, Singapore 238871",
+      "photo": {
+        "path": "/api/catalogue-photos/4d695740225582319a3e853ed4d13106a4d1e35be57fe8914326d92177173711.jpg",
+        "width": 960,
+        "height": 920,
+        "author": "LingZhi Greens / TungLok Group",
+        "sourceUrl": "https://www.lingzhi.com.sg/en/home",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "4d695740225582319a3e853ed4d13106a4d1e35be57fe8914326d92177173711",
+      "bytes": 114536,
+      "originalSha256": "335b5a34a6396ababaa18a71ed2313f2bcbef4e94203d5e13eb80c007759ddf7",
+      "sourcePageCheckedAt": "2026-10-16",
+      "sourceImageUrl": "https://www.lingzhi.com.sg/wp-content/themes/lingzhi/images/restaurant-info-plate.jpg",
+      "identityEvidence": "Operator homepage names LingZhi Greens, Palais Renaissance#B1-04/05,390OrchardRoad and shows this food image beside restaurant information. Exact published branch.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance this LingZhi operator photograph of a red ceramic claypot on its wooden trivet against a clean white background. Preserve exactly the existing yellow broth, dark morel mushrooms, broccoli florets, small white mushrooms, pale slices and textured golden pieces in their original arrangement and quantities. Improve natural light and photographic texture only. Keep pot shape and two handles identical. No added ingredients, garnishes, props, lettering or claims.",
+        "review": "Original and output visually compared. Existing food and serving vessels retained with enhanced lighting. No new ingredient or availability claim."
+      }
+    },
+    {
+      "venueId": "research-warungijo-macpherson",
+      "address": "601 MacPherson Road #01-61 Grantral Mall Taiseng, Singapore 368242",
+      "photo": {
+        "path": "/api/catalogue-photos/63444a0e9eae5d235d7ad7a2992e8f49e7bc444b26e0207edcaaa09c6f523bd8.jpg",
+        "width": 960,
+        "height": 400,
+        "author": "Warung Ijo Vegetarian",
+        "sourceUrl": "https://warungijo.oddle.me/en_SG",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "63444a0e9eae5d235d7ad7a2992e8f49e7bc444b26e0207edcaaa09c6f523bd8",
+      "bytes": 103781,
+      "originalSha256": "4134869fcb665bf8d662e481934c4daacde4839f8097f70c72b16fd52386bbb1",
+      "sourcePageCheckedAt": "2026-10-16",
+      "sourceImageUrl": "https://warungijo.oddle.me/_next/image?url=https%3A%2F%2Fucarecdn.com%2F7aa6195b-8782-43ac-bb2c-084a8e1db9a5%2F-%2Fcrop%2F3780x1575%2F0%2C403%2F-%2Fpreview%2F&w=3840&q=75",
+      "identityEvidence": "Operator ordering/store pages identify601MacPhersonRoad#01-61GrantralMallTaiseng368242. Own food hero shown on vegetarian ordering page; no new ingredient/stock claim.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance this Warung Ijo vegetarian operator food photograph. Preserve the entire original overhead spread and all existing bowls, food quantities and positions: upper-left white plate with peanut sauce and crackers, upper-middle wicker bowl, lower-left browned pieces with cucumber/tomato, lower-center bowl of leafy greens in yellow sauce, small red condiment bowl, square tempeh plate, and right bowl with rice cakes and vegetables. Keep the gray wood table and existing botanical props. Improve soft natural light, clarity and true colors only. No new dishes, ingredients, garnishes, utensils, lettering or claims; maintain the original wide composition.",
+        "review": "Original and output visually compared. Existing food and serving vessels retained with enhanced lighting. No new ingredient or availability claim."
+      }
+    }
+  ],
+  "newHours": [],
+  "googleLedger": {
+    "bytes": 1045377,
+    "sha256": "c7321dafaad0473583139494ca899501578892c5b71105429d3cd4dceb4f311a",
+    "requests": 2419,
+    "limit": 2500,
+    "remaining": 81
+  },
+  "sourceRights": "Source attribution and rights retained. User-requested enhancement does not establish an independent licence.",
+  "unresolved": "2,527 food holds,109zero-food research branches,1,828unnamed candidate IDs,8coordinate holds preserved; exact MakanVegan/SoonLai screenshot images unrecovered.",
+  "releaseEvidence": ".local/coverage-2026-10-17r/release.json",
+  "hoursReview": {
+    "checkedAt": "2026-10-17",
+    "newHours": 0,
+    "note": "Four selected branches already have reviewed schedules; no duplicate hours extraction. Recent uncertain schedules retained as holds.",
+    "imageHolds": [
+      {
+        "reference": "lingzhi-platter",
+        "venueId": "research-lingzhi-palais",
+        "sourceUrl": "https://www.lingzhi.com.sg/en/home",
+        "sourcePageCheckedAt": "2026-10-16",
+        "checkedAt": "2026-10-17",
+        "reason": "Usable operator alternate retained; selected single claypot image instead, no redundant generation."
+      },
+      {
+        "reference": "cookie-rice-menu",
+        "venueId": "research-cookie-coffee-fortune-centre",
+        "sourceUrl": "https://cookiecoffee.com.sg/signaturericeset/",
+        "sourcePageCheckedAt": "2026-10-16",
+        "checkedAt": "2026-10-17",
+        "reason": "Menu is a collage of heterogeneous third-party/stock photos with multiple source marks. Actual venue product photography not established; do not fabricate a unique venue cover."
+      },
+      {
+        "reference": "kindkones-about",
+        "venueId": "research-kind-kones-forum",
+        "sourceUrl": "https://kindkones.com/pages/about-us",
+        "sourcePageCheckedAt": "2026-10-16",
+        "checkedAt": "2026-10-17",
+        "reason": "Founder portrait, not a food/venue cover reference."
+      },
+      {
+        "reference": "fp-ed4x",
+        "venueId": "research-ur02-vegetarian-food-stall-01-74",
+        "sourceUrl": "https://www.foodpanda.sg/restaurant/ed4x/mini-green-vegetarian-toa-payoh-lorong-8",
+        "sourcePageCheckedAt": "2026-10-16T01:11:44.383Z",
+        "checkedAt": "2026-10-17",
+        "reason": "Merchant promotional composite overlays skewers on a visibly blurred plate photograph. Insufficient detail for faithful food enhancement. Exact branch identity is resolved by existing ur02b operator/owner evidence."
+      },
+      {
+        "reference": "fp-hqko",
+        "venueId": "research-ur02-xie-bi-an-vegetarian",
+        "sourceUrl": "https://www.foodpanda.sg/restaurant/hqko/xie-bi-an-vegetarian-tampines",
+        "sourcePageCheckedAt": "2026-10-16T01:14:49.940Z",
+        "checkedAt": "2026-10-17",
+        "reason": "Generic fish-steak curry photo; actual vegetarian product correspondence unresolved. Existing ur02b OneMap evidence resolves postal typo but does not establish image contents."
+      }
+    ],
+    "hoursHolds": [
+      {
+        "venueId": "research-ur01-tracy-fortune",
+        "checkedAt": "2026-10-17",
+        "status": "held-conflicting-secondary-hours",
+        "sources": [
+          "https://stats.happycow.net/reviews/tracy-juice-culture-fortune-centre-central-singapore-21091",
+          "https://www.tripadvisor.com.sg/Restaurant_Review-g294265-d5424226-Reviews-Tracy_Juice_Culture-Singapore.html",
+          "https://www.bestinsingapore.co/best-fortune-centre-foods-singapore/"
+        ],
+        "reason": "Secondary sources disagree on opening09:00/09:30 and closing18:15/19:00; last-order versus closing ambiguity. No schedule promoted."
+      },
+      {
+        "venueId": "research-ur01-new-green-pasture-fortune",
+        "checkedAt": "2026-10-17",
+        "status": "held-conflicting-secondary-hours",
+        "sources": [
+          "https://restaurantguru.com/New-Green-Pasture-Cafe-Singapore",
+          "https://burpple.com/new-green-pasture-cafe"
+        ],
+        "reason": "Tuesday-Sunday10:30-20:30 conflicts with11:00-20:00. No operator-backed resolution."
+      },
+      {
+        "venueId": "living-wholesome-fortune-centre",
+        "checkedAt": "2026-10-17",
+        "status": "held-current-primary-unavailable",
+        "sources": [
+          "https://www.happycow.net/reviews/living-wholesome-central-singapore-243398/1883936",
+          "https://eatdrinkasia.com/what-to-eat-at-fortune-centre/page/21/"
+        ],
+        "reason": "Old listing10:30-14:00 conflicts with secondary11:00-15:00. Primary current schedule absent."
+      },
+      {
+        "venueId": "teng-bespoke-sunshine-plaza",
+        "checkedAt": "2026-10-17",
+        "status": "held-primary-unavailable",
+        "sources": [
+          "https://www.tengbespoke.com.sg/",
+          "https://www.novacircle.com/spots/asia/singapore/central-region/singapore-municipality/singapore/teng-bespoke-42c5ce/opening-hours"
+        ],
+        "reason": "Primary connection failure already recorded; secondary schedule lacks operator confirmation. Do not repeat failed fetch."
+      }
+    ],
+    "happyHougangHold": "JuFuYuan spha106Hougang source is separately unresolved in unresolved12; no transfer to HappyVegetarian despite same premises."
+  },
+  "renderedReframeReview": {
+    "checkedAt": "2026-10-17",
+    "unpromotedArchive": "20261017-operator-covers21",
+    "replacement": "20261017-operator-covers21b",
+    "reason": "Actual rendered wide Nature hero centered empty steam; square subject crop reviewed before any deployment. Old assets/archive retained privately."
+  }
+}

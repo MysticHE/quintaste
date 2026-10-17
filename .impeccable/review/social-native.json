@@ -1,0 +1,25 @@
+{
+  "manifestStatus": 200,
+  "bundleStatus": 200,
+  "bundleBytes": 9003438,
+  "bundleUrl": "http://192.168.1.5:8083/node_modules/expo-router/entry.bundle?platform=android&dev=true&hot=false&lazy=true&transform.engine=hermes&transform.bytecode=1&transform.routerRoot=src%2Fapp&unstable_transformProfile=hermes-stable",
+  "markers": [
+    {
+      "marker": "Save sample booking",
+      "found": true
+    },
+    {
+      "marker": "Simulate mutual Kaki",
+      "found": true
+    },
+    {
+      "marker": "Host approval is not connected",
+      "found": true
+    },
+    {
+      "marker": "Your block settings changed",
+      "found": true
+    }
+  ],
+  "nativeAppearanceVerified": false
+}

@@ -1,0 +1,125 @@
+{
+  "startedAt": "2026-10-16T04:48:58.071Z",
+  "url": "http://127.0.0.1:8083",
+  "checks": [
+    {
+      "name": "mani-iyer",
+      "status": "passed",
+      "foods": 85,
+      "heldAbsent": 2,
+      "publicFingerprint": "5dbcd851bfcc7281404ccab366795927593876026b03998cdb9ff6a8b2de208a"
+    },
+    {
+      "name": "peace-vegetarian",
+      "status": "passed",
+      "foods": 31,
+      "heldAbsent": 0,
+      "publicFingerprint": "4b8a3d8300ba124593f37b3e3f65152e476a2630d5a1355cf8adc8f10d1adbf2"
+    },
+    {
+      "name": "bao-su-zhai",
+      "status": "passed",
+      "foods": 18,
+      "heldAbsent": 1,
+      "publicFingerprint": "2424f1f5722cd62c1f7b06e719abf631c109560eb55a5d5a92b389789d76b5db"
+    },
+    {
+      "name": "kunthaville",
+      "status": "passed",
+      "foods": 31,
+      "heldAbsent": 1,
+      "publicFingerprint": "6d3db429f4e0dcdb2ad36236048978e2be8d2e51d1b245eb4c6ca75828193a4f"
+    },
+    {
+      "name": "gan-taste",
+      "status": "passed",
+      "foods": 55,
+      "heldAbsent": 9,
+      "publicFingerprint": "9566b18ec0594c415f5f3ec5848a813e4db909641a4cf15ecd820ddca6d829df"
+    }
+  ],
+  "screenshots": [
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-04-browser\\mani-iyer-320.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-04-browser\\mani-iyer-768.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-04-browser\\mani-iyer-1440.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-04-browser\\peace-vegetarian-320.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-04-browser\\peace-vegetarian-768.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-04-browser\\peace-vegetarian-1440.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-04-browser\\bao-su-zhai-320.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-04-browser\\bao-su-zhai-768.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-04-browser\\bao-su-zhai-1440.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-04-browser\\kunthaville-320.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-04-browser\\kunthaville-768.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-04-browser\\kunthaville-1440.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-04-browser\\gan-taste-320.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-04-browser\\gan-taste-768.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-04-browser\\gan-taste-1440.png"
+  ],
+  "errors": [],
+  "pageErrors": [],
+  "unexpectedConsoleErrors": [],
+  "blockedApiRequests": [
+    "/api/local-explore/session",
+    "/api/local-explore/session",
+    "/api/local-explore/session",
+    "/api/local-explore/session",
+    "/api/local-explore/session"
+  ],
+  "blockedExternalRequests": [],
+  "apiRequests": [
+    "/api/menus?view=index",
+    "/api/menus?id=research-ur04-mani-iyer",
+    "/api/menus?view=index",
+    "/api/menus?id=research-ur04-peace-vegetarian",
+    "/api/menus?view=index",
+    "/api/menus?id=research-ur04-bao-su-zhai",
+    "/api/menus?view=index",
+    "/api/menus?id=research-ur04-kunthaville",
+    "/api/menus?view=index",
+    "/api/menus?id=research-ur03-gan-taste-vegetarian"
+  ],
+  "a11y": [
+    {
+      "label": "mani-iyer",
+      "violations": []
+    },
+    {
+      "label": "peace-vegetarian",
+      "violations": []
+    },
+    {
+      "label": "bao-su-zhai",
+      "violations": []
+    },
+    {
+      "label": "kunthaville",
+      "violations": []
+    },
+    {
+      "label": "gan-taste",
+      "violations": []
+    }
+  ],
+  "forwardedProviderCalls": 0,
+  "installedChromeUsed": false,
+  "browserVersion": "156.0.8078.4",
+  "catalogue": {
+    "locations": 151,
+    "sourceMenus": 196,
+    "foodOccurrences": 11019
+  },
+  "finishedAt": "2026-10-16T04:49:23.588Z",
+  "passed": true,
+  "visualReview": {
+    "reviewedAt": "2026-10-16T04:56:55.645255+00:00",
+    "passed": true,
+    "capturesInspected": 15,
+    "widths": [
+      320,
+      768,
+      1440
+    ],
+    "findings": "All five menus readable; prices, wrapping and controls remain within viewport. Horizontal category scrolling intentional. No visual defect observed in inspected first-page captures."
+  },
+  "googleLedgerUnchanged": true
+}

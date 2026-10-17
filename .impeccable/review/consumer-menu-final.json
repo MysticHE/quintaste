@@ -1,0 +1,31 @@
+{
+  "status": "pass",
+  "publicationCli": {
+    "explicitWithdrawal": true,
+    "unrelatedEntriesPreserved": true,
+    "noArgsRejectsWithoutWrite": true,
+    "mixedInvalidIdsRejectWithoutWrite": true,
+    "explicitRepublish": true
+  },
+  "sourceModules": 18,
+  "maxLines": 82,
+  "maxFunctionLines": 54,
+  "preview": [
+    {
+      "kind": "menus",
+      "status": 200,
+      "venues": 11,
+      "items": 48
+    },
+    {
+      "kind": "manifest",
+      "status": 200,
+      "bundle": true
+    },
+    {
+      "kind": "web",
+      "status": 200,
+      "length": 45036
+    }
+  ]
+}

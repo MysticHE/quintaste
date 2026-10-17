@@ -1,0 +1,16 @@
+{
+  "checkedAt": "2026-10-16T03:51:54.022792+00:00",
+  "url": "http://localhost:8083",
+  "httpStatus": 200,
+  "locations": 143,
+  "sourceMenus": 188,
+  "foodOccurrences": 10771,
+  "primaryPreviewSession": 70704,
+  "browserPreviewSession": 62849,
+  "browserEvidence": "menu-resume-browser.json",
+  "ledgerUnchanged": true,
+  "focusedLiveHttpDetails": [
+    { "id": "research-ur03-eco-sen-toa-payoh66", "httpStatus": 200, "foodRows": 22 },
+    { "id": "research-ur03-99-pioneer-mall", "httpStatus": 200, "foodRows": 17 }
+  ]
+}

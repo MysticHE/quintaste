@@ -1,0 +1,63 @@
+{
+  "checks": [
+    "Browse is default with My Listing, no Buy/Sell selector, Preview badge or create action",
+    "No horizontal overflow at 320",
+    "No horizontal overflow at 375",
+    "No horizontal overflow at 768",
+    "No horizontal overflow at 1440",
+    "Save persists after reload and Saved filters the catalog",
+    "Search and category filters work",
+    "Price and public pickup filters apply without changing stored listings",
+    "Local chat stores only explicitly sent messages",
+    "Offer reserves stock, pickup and handover complete locally",
+    "Remaining stock starts a fresh conversation after handover",
+    "Incomplete draft saves and publishing validates required fields",
+    "Required photo slots accept explicit file selections",
+    "Publish and edit persist the same listing",
+    "My Listing shows edited data, retains navigation and pins the create button above it",
+    "Pause and resume manage listing visibility",
+    "Cancel deletion preserves listing and reservation",
+    "Delete removes listing and photos, cancels live request, retains completed records after reload",
+    "Enlarged text has one column and no horizontal overflow"
+  ],
+  "errors": [],
+  "screenshots": [
+    "C:/Users/huien/QT/quintaste/.impeccable/review/market-mylisting-buy-320.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/market-mylisting-buy-375.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/market-mylisting-buy-768.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/market-mylisting-buy-1440.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/market-mylisting-filters.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/market-mylisting-detail.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/market-mylisting-pickup.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/market-mylisting-sell-form.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/market-mylisting-my-listings.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/market-mylisting-delete-confirmation.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/market-mylisting-sell-empty.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/market-mylisting-seller.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/market-mylisting-buy-dark.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/market-mylisting-buy-large-text.png"
+  ],
+  "axe": [
+    {
+      "name": "buy-light",
+      "violations": [],
+      "incomplete": [
+        "color-contrast",
+        "label-content-name-mismatch"
+      ]
+    },
+    {
+      "name": "buy-dark",
+      "violations": [],
+      "incomplete": [
+        "color-contrast",
+        "label-content-name-mismatch"
+      ]
+    }
+  ],
+  "limits": [
+    "Browser evidence supplements native acceptance; iOS/Android appearance and device media permissions remain unverified.",
+    "All interactions are an isolated local preview. No real seller messages, payments, or database writes."
+  ],
+  "passed": 19
+}

@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "checks": [
+    "Private recipes survive hydration with step ingredient mapping, timer validation, and sharing without photo bytes",
+    "Alert scheduling is idempotent and loading preserves current owner alarms; pause cancels and extend replaces the deadline",
+    "Owner switch, disable and denied permission clear only owned alerts; expired timers do not replay",
+    "Native scheduling failures propagate for explicit recovery",
+    "Deleting a private recipe removes resume state while its independent timer survives"
+  ],
+  "nativeDeliveryVerified": false
+}

@@ -1,0 +1,61 @@
+{
+  "updatedAt": "2026-10-15T06:08:03.548Z",
+  "role": "Fallback Impeccable documenter; document.md read earlier in session",
+  "scope": "Cook, dock icons and shared floating add; existing-world code-led extension",
+  "files": [
+    "DESIGN.md",
+    "PRODUCT.md",
+    "AGENTS.md",
+    "docs/PRD_COVERAGE.md",
+    "docs/COOK_READINESS.md",
+    ".impeccable/design/quintaste.json",
+    ".impeccable/surfaces/navigation.md",
+    ".impeccable/surfaces/food-utility.md",
+    ".impeccable/surfaces/market.md",
+    ".impeccable/surfaces/social.md",
+    ".impeccable/surfaces/cook.md"
+  ],
+  "validation": {
+    "localLinksChecked": 1093,
+    "brokenLinks": [],
+    "sidecarJsonParsed": true,
+    "missingSourcePaths": [],
+    "staleCurrentSpecifications": []
+  },
+  "requirements": [
+    "QT-016",
+    "QT-017",
+    "QT-018",
+    "QT-019",
+    "J04",
+    "J05",
+    "N07-01",
+    "N07-02",
+    "N07-03",
+    "N08-01",
+    "N08-02",
+    "N08-03",
+    "N08-04",
+    "P04-P06"
+  ],
+  "evidence": {
+    "browserGroups": 13,
+    "stateGroups": 4,
+    "scopedAxeScans": 4,
+    "capturesIndividuallyReviewed": 27,
+    "finish": "cook-refresh-finish.json",
+    "native": "cook-refresh-native.json",
+    "nativeBytes": 9265775,
+    "typescript": "passed by root",
+    "eslint": "passed by root",
+    "sourceReview": "approved by root"
+  },
+  "boundaries": [
+    "Local creator preparation only; Ready to submit is Not sent",
+    "No paid recipes selected; no real creator approval/review/publication/backend",
+    "No native background alert, Live Activity or Android ongoing notification",
+    "Native appearance/permissions/interaction/accessibility unverified",
+    "Historical evidence retained; current geometry reconciled"
+  ],
+  "passed": true
+}

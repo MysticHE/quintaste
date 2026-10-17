@@ -1,0 +1,176 @@
+{
+  "amendmentsOnly": true,
+  "auditOnly": true,
+  "version": 1,
+  "checkedAt": "2026-10-16T00:46:25.518Z",
+  "scope": "Separate six-branch publication delta after the frozen113branch audit. Does not replace or mutate the original freeze.",
+  "freeze": {
+    "specifiedBranchIds": [
+      "living-wholesome-bukit-timah",
+      "150-green-bukit-batok",
+      "su-shi-yuan-tampines",
+      "teenoy-hougang-foodpanda-932",
+      "cookie-coffee-fortune-centre",
+      "kind-kones-forum"
+    ],
+    "matchingManifestEntries": 6,
+    "manifestReviewedAt": "2026-10-16T00:37:33.783Z",
+    "evidenceCopies": [
+      "tmp/qa/menu-completion-venue-scope/frozen-delta-six.json",
+      "tmp/qa/menu-completion-venue-scope/frozen-delta-publication.json"
+    ]
+  },
+  "summary": {
+    "total": 6,
+    "vegetarianConfirmed": 4,
+    "veganConfirmed": 1,
+    "mixedExclude": 0,
+    "uncertainHold": 1
+  },
+  "branchAudits": [
+    {
+      "branchId": "living-wholesome-bukit-timah",
+      "name": "Living Wholesome Vegetarian — Bukit Timah",
+      "address": "2A Jalan Seh Chuan #01-060, Singapore 599213",
+      "dataset": "data/menu-research/menu-completion-identity-foods-01.json",
+      "checkedAt": "2026-10-16T00:46:25.517Z",
+      "inputVenueEligibility": {
+        "status": "vegetarian-confirmed",
+        "appScope": "vegetarian-vegan-venues-only",
+        "reason": "Explicit operator statement."
+      },
+      "verdict": "vegetarian-confirmed",
+      "evidenceUrls": [
+        "https://livingwholesome.sg/"
+      ],
+      "basis": "Current Living Wholesome Vegetarian operator website explicitly describes plant-based food and two locations with the same bowl. Its exact Bukit Timah address is in the current primary location section; no cross-brand inference.",
+      "recommendedPublicationAction": "retain-with-sourced-venue-classification"
+    },
+    {
+      "branchId": "150-green-bukit-batok",
+      "name": "150 Green Vegetarian — Bukit Batok",
+      "address": "150 Bukit Batok Street 11 #01-224, Singapore 650150",
+      "dataset": "data/menu-research/menu-completion-identity-foods-01.json",
+      "checkedAt": "2026-10-16T00:46:25.517Z",
+      "inputVenueEligibility": {
+        "status": "vegetarian-confirmed",
+        "evidence": "Merchant-managed ordering page trades explicitly as150 GreenVegetarian and all 4 displayed mains explicitly say vegetarian; no meat/fish contradiction in this source."
+      },
+      "verdict": "vegetarian-confirmed",
+      "evidenceUrls": [
+        "https://www.foodpanda.sg/restaurant/l2ov/150-green-vegetarian-bukit-batok-street-11"
+      ],
+      "basis": "Live HTTP200 merchant-managed page trades as150 Green Vegetarian at the exact street/unit and all four displayed mains explicitly say vegetarian. Coherent vegetarian menu with no actual meat/fish contradiction; no blanket vegan claim.",
+      "recommendedPublicationAction": "retain-with-sourced-venue-classification"
+    },
+    {
+      "branchId": "su-shi-yuan-tampines",
+      "name": "Su Shi Yuan Vegetarian — Tampines Street 81",
+      "address": "823A Tampines Street 81, Singapore 521823",
+      "dataset": "data/menu-research/menu-completion-identity-foods-01.json",
+      "checkedAt": "2026-10-16T00:46:25.518Z",
+      "inputVenueEligibility": {
+        "status": "merchant-vegetarian-positioning-with-item-hold",
+        "evidence": "Ordering merchant trades asSu Shi YuanVegetarian; sets explicitly contain mock meats. Generic Popiah shrimp description remains an unresolved item hold."
+      },
+      "verdict": "uncertain-hold",
+      "evidenceUrls": [
+        "https://www.foodpanda.sg/restaurant/x0mx/su-shi-yuan-vegetarian-tampines-street-81",
+        "https://www.companyrecords.org/en/su-shi-yuan-vegetarian",
+        "https://www.facebook.com/713683868790757/",
+        "https://www.stomp.sg/singapore-seen/tampines-stalls-hit-back-at-2-stompers-who-complained-about-paying-for-chilli-sauce"
+      ],
+      "basis": "Current managed page names the venue Vegetarian and its three sets contain mock meats, but its Popiah description conditionally mentions shrimp. This generic wording is not proof actual shrimp is served. Independent exact-address directory corroborates vegetarian identity but is explicitly archival;2023owner interview confirms stall identity without current ingredient scope; linked operator Facebook throttled. Whole-venue current contradiction unresolved, so withhold all venue foods pending clear current whole-venue evidence.",
+      "contradiction": {
+        "food": "Popiah",
+        "price": {
+          "amount": 2.4,
+          "currency": "SGD",
+          "kind": "fixed"
+        },
+        "sourceWording": "Fresh spring rolls filled with vegetables, herbs, and sometimes shrimp, wrapped in thin crepes.",
+        "interpretation": "Conditional generic platform description, not an established actual shrimp ingredient or proof of mixed service."
+      },
+      "retrievalBoundary": "Foodpanda current body readable HTTP200. Independent directory readable via web retriever; direct403 respected. Operator Facebook public retriever throttled; no bypass/retry. Owner report dated15August2023.",
+      "recommendedPublicationAction": "withhold-entire-venue"
+    },
+    {
+      "branchId": "teenoy-hougang-foodpanda-932",
+      "name": "Teenoy Thai Vegetarian — Hougang Avenue 9",
+      "address": "932 Hougang Avenue 9 #01-04, Singapore 530932",
+      "dataset": "data/menu-research/menu-completion-identity-foods-01.json",
+      "checkedAt": "2026-10-16T00:46:25.518Z",
+      "inputVenueEligibility": {
+        "status": "vegetarian-confirmed",
+        "evidence": "Ordering merchant trades asTeenoy Thai Vegetarian; coherent vegetarian analogue menu. Egg/honey remain vegetarian, not vegan claims."
+      },
+      "verdict": "vegetarian-confirmed",
+      "evidenceUrls": [
+        "https://www.foodpanda.sg/restaurant/tad5/teenoy-thai-vegetarian-hougang-avenue-9"
+      ],
+      "basis": "Live HTTP200 merchant-managed venue explicitly trades as Teenoy Thai Vegetarian; coherent menu repeatedly labels shrimp/chicken/oyster-sauce analogues vegetarian. Egg and honey foods are vegetarian, not vegan. Keep published932#01-04premises distinct from932B and assign no Google ID.",
+      "recommendedPublicationAction": "retain-with-sourced-venue-classification"
+    },
+    {
+      "branchId": "cookie-coffee-fortune-centre",
+      "name": "Cookie Coffee Cafe Bar",
+      "address": "190 Middle Road #01-28B Fortune Centre, Singapore 188979",
+      "dataset": "data/menu-research/menu-completion-directory-small-cafes-2026-10-16.json",
+      "checkedAt": "2026-10-16T00:46:25.518Z",
+      "inputVenueEligibility": {
+        "status": "eligible-vegetarian",
+        "basis": "operator-whole-venue-classification",
+        "sourceIds": [
+          "smallcafe-source-50eea9f16b5a",
+          "smallcafe-source-217925d1a8a8",
+          "smallcafe-source-22579d04af22"
+        ],
+        "statement": "Merchant homepage classifies the business as Vegetarian Cafe & Vegan Dim Sum Bistro; complete linked food images are headed vegetarian or vegan.",
+        "notes": "Dairy ice-cream text conflicts with a vegan ice-cream claim but does not contradict vegetarian venue classification. No actual meat/fish/gelatin ingredient evidence found in checked sources."
+      },
+      "verdict": "vegetarian-confirmed",
+      "evidenceUrls": [
+        "https://cookiecoffee.com.sg/",
+        "https://cookiecoffee.com.sg/menu/"
+      ],
+      "basis": "Current HTTP200 merchant homepage explicitly classifies the venue Vegetarian Cafe & Vegan Dim Sum Bistro. Full food sources are coherent vegetarian. Dairy Ben & Jerry’s wording conflicts with a whole-ice-cream vegan claim but does not imply actual meat/fish service; do not call the whole cafe vegan.",
+      "recommendedPublicationAction": "retain-with-sourced-venue-classification"
+    },
+    {
+      "branchId": "kind-kones-forum",
+      "name": "Kind Kones — Forum Shopping Mall",
+      "address": "583 Orchard Road #B1-27 & K1, Forum Shopping Mall, Singapore 238884",
+      "dataset": "data/menu-research/menu-directory-continuation-cafes-2026-10-16.json",
+      "checkedAt": "2026-10-16T00:46:25.518Z",
+      "inputVenueEligibility": {
+        "status": "eligible-vegan",
+        "basis": "operator-whole-brand-classification",
+        "sourceIds": [
+          "smallcafe-source-ed44d992e170",
+          "smallcafe-source-97a5ddce2516"
+        ],
+        "statement": "Merchant homepage brands the business all-natural & vegan and identifies vegan cakes/bakes as well as ice cream.",
+        "notes": "Whole-brand claim with no actual meat/fish/gelatin contrary evidence in inspected SG catalogue. Shared-facility allergen warnings are retained, not certified."
+      },
+      "verdict": "vegan-confirmed",
+      "evidenceUrls": [
+        "https://kindkones.com/pages/about-us",
+        "https://kindkones.com/",
+        "https://kindkones.com/pages/contact",
+        "https://www.forumtheshoppingmall.com.sg/directory/"
+      ],
+      "basis": "Current operator evidence frozen earlier in this same session explicitly brands the business all-natural and vegan, including ice cream and cakes/bakes. Exact Forum merchant/landlord evidence ties the selected unit to the operator. Source claims are not independent allergen certification.",
+      "retrievalBoundary": "Audit attempt onAboutpage returned429; stopped. Used earlier same-session primary HTTP200 evidence checked2026-10-16T00:26:29.804969+00:00 and preserved canonical venueEligibility sources; no host retry or barrier bypass.",
+      "recommendedPublicationAction": "retain-with-sourced-venue-classification"
+    }
+  ],
+  "recommendedActions": [
+    {
+      "type": "withhold-entire-venue",
+      "branchId": "su-shi-yuan-tampines",
+      "dataset": "data/menu-research/menu-completion-identity-foods-01.json",
+      "reason": "Whole-venue vegetarian classification currently has an unresolved conditional shrimp description; item-only exclusion does not resolve the whole-venue standard. Not classified mixed without evidence actual shrimp is served."
+    }
+  ],
+  "notice": "No canonical, app, publication manifest or review changes made.119selected branches are accounted across the original113plus this6delta. No final assertion that all119meet eligibility:118source-supported,1uncertain hold."
+}

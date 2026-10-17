@@ -1,0 +1,253 @@
+{
+  "checkedAt": "2026-10-15T13:02:02.406498+00:00",
+  "status": "approved-bounded-tooling-and-seven-identities",
+  "findings": [],
+  "scope": [
+    "scripts/menu-identity-reviews.ts",
+    "scripts/build-menu-coverage.ts",
+    "scripts/menu-research-types.ts",
+    "scripts/menu-research-files.ts",
+    "scripts/build-menu-research-index.ts",
+    "../tmp/qa/menu-prepare-identity-draft.py",
+    "../tmp/qa/menu-identity-review-draft.json",
+    "../tmp/qa/menu-cached-identity-audit.json",
+    ".local/menu-research/place-link-research.json"
+  ],
+  "scopeBasis": "Assigned local new files inspected directly after staged/unstaged diff inventory. No PR metadata or merge-readiness approval.",
+  "checks": [
+    {
+      "command": "Fresh npm run typecheck after CSV extraction",
+      "exitCode": 0
+    },
+    {
+      "command": "Scoped ESLint on five tooling/type files",
+      "exitCode": 0
+    },
+    {
+      "command": "Full-project ESLint",
+      "exitCode": 1,
+      "outOfScopeErrors": [
+        "scripts/avatar-security.cjs:2 no-undef: __dirname",
+        "scripts/avatar-security.cjs:48 expo/no-dynamic-env-var"
+      ]
+    },
+    {
+      "command": "Python draft-helper ast.parse",
+      "result": "pass"
+    },
+    {
+      "command": "13 inline cases using actual transpiled helpers with in-memory filesystem fixtures",
+      "result": "pass",
+      "details": "Missing approval no-op;7 approved fixture rows copy current coverage/holds and retain candidates;pending status,duplicate ID,duplicate branch,wrong evidence ID,stale address,stale URL fingerprint,unknown coverage,negative food count and duplicate research row reject;fresh holds propagate;shared CSV handles LF/whitespace/BOM/fullwidth prefixes.",
+      "persistentWrites": 0,
+      "networkRequests": 0
+    }
+  ],
+  "toolingAssessment": {
+    "failClosed": "Invalid or stale review data throws before coverage output writes. Exact current dataset/branch/name/address/source fingerprint,independent URL membership,stored unique ID,unique branch and ID-bound HTTPS Maps evidence are required.",
+    "noCandidatePromotion": "Candidate attachments stay candidate fields; explicit approved overlay runs last and cannot be downgraded by later lead attachments.",
+    "freshFacts": "Coverage,source menu IDs,food counts,publication holds and gaps come from the current research index. Identity approval does not remove menu limitations.",
+    "csv": "Both builders now use shared researchCsvCell for quoted/escaped and formula-neutralized cells."
+  },
+  "identityDecisions": [
+    {
+      "placeId": "ChIJ-yoyrPkZ2jERkVM6z1jPjM4",
+      "dataset": "data/menu-research/greendot/menus.json",
+      "branchId": "greendot-asia-square",
+      "decision": "safe-to-approve-branch-identity",
+      "branchFingerprint": "825fac5a69ffcacdedfed19fe4b20489a98263523c64f780607f4253bd5ebf54",
+      "independentSourceUrls": [
+        "https://orders.greendot.sg/?StoreID=47a71ad4-01ef-487c-be94-f66c9f8e0ba3&Service=PickUp&lang=EN",
+        "https://patisserie.greendot.sg/Category?StoreID=7aafa924-c582-49c7-8fe5-5fd6e23617d7&Service=PickUp&lang=EN"
+      ],
+      "cachedObservationReadable": true,
+      "observationCheckedAt": "2026-10-15T09:17:42.137Z",
+      "currentCoverage": "source-covered",
+      "foodSourceRows": 58,
+      "preserveMenuPublication": [
+        "greendot-asia-square-ordering: food publication hold-outlet-applicability: 1"
+      ],
+      "rationale": "Merchant outlet metadata independently matches tower/unit/postal premises. Existing food holds remain separate."
+    },
+    {
+      "placeId": "ChIJ1QM76RIP2jERfj7egfVR_vo",
+      "dataset": "data/menu-research/greendot/menus.json",
+      "branchId": "greendot-jurong-point",
+      "decision": "safe-to-approve-branch-identity",
+      "branchFingerprint": "284e34a6937b0998e8e60df7cea2c80d023a1798af1db7d4654fbac8cb3f4a1e",
+      "independentSourceUrls": [
+        "https://orders.greendot.sg/?StoreID=5252756f-953c-4270-90c7-05ce23f97896&Service=PickUp&lang=EN",
+        "https://patisserie.greendot.sg/Category?StoreID=447691ba-2390-4826-a376-76302d340d1f&Service=PickUp&lang=EN"
+      ],
+      "cachedObservationReadable": true,
+      "observationCheckedAt": "2026-10-15T09:18:39.134Z",
+      "currentCoverage": "source-covered",
+      "foodSourceRows": 57,
+      "preserveMenuPublication": [
+        "greendot-jurong-point-ordering: food publication hold-outlet-applicability: 1"
+      ],
+      "rationale": "Merchant outlet metadata independently matches the complete JP1 unit range/postal premises."
+    },
+    {
+      "placeId": "ChIJ21wQCIoQ2jER6n4NxNgZDXQ",
+      "dataset": "data/menu-research/dlife/menus.json",
+      "branchId": "dlife-chun-tin",
+      "decision": "safe-to-approve-branch-identity",
+      "branchFingerprint": "e8f22837831ac6079c3d8f4df9124816bbc2a042d82feb20c6405cdbda6ec080",
+      "independentSourceUrls": [
+        "https://dlife.getz.co/?StoreID=26f7fbd6-70cc-409a-b0a8-6007e3378a78&Service=PickUp&lang=EN"
+      ],
+      "cachedObservationReadable": true,
+      "observationCheckedAt": "2026-10-15T09:19:00.130Z",
+      "currentCoverage": "source-covered",
+      "foodSourceRows": 141,
+      "preserveMenuPublication": [],
+      "rationale": "Merchant confirms6 Chun Tin Road. The older8 Chun Tin lead remains candidate context."
+    },
+    {
+      "placeId": "ChIJ1dqKB40Z2jERYuio7wkJl_w",
+      "dataset": "data/menu-research/menu-lotus-lingzhi-yesnatural-victor.json",
+      "branchId": "lingzhi-palais",
+      "decision": "safe-to-approve-branch-identity",
+      "branchFingerprint": "ad96846618c073fd7665bd77204a6925cdd6def56e4b908f10c7ad3b71055d09",
+      "independentSourceUrls": [
+        "https://www.lingzhi.com.sg/en/home",
+        "https://www.tunglok.com/en/news/welcome-to-lingzhi-greens",
+        "https://www.tunglok.com/menus/LZ-Menu.pdf?misc=20261015_183537"
+      ],
+      "cachedObservationReadable": true,
+      "observationCheckedAt": "2026-10-15T09:18:37.132Z",
+      "currentCoverage": "partial",
+      "foodSourceRows": 93,
+      "preserveMenuPublication": [],
+      "rationale": "Current official home and relocation notice confirm Palais premises and full unit range; older Novena/Liat branches are not transferred."
+    },
+    {
+      "placeId": "ChIJ13ClyAwZ2jERErYteYrhkLo",
+      "dataset": "data/menu-research/saute-grove/saute-flavours.json",
+      "branchId": "saute-flavours-funan",
+      "decision": "safe-to-approve-branch-identity",
+      "branchFingerprint": "43f772fed744fd2cd946235dbb4a7c1e8c2ffe3181b9570c4d79508905fcc36d",
+      "independentSourceUrls": [
+        "https://www.saute.com.sg/flavours-menu",
+        "https://www.flavoursbysaute.sg/en_SG"
+      ],
+      "cachedObservationReadable": true,
+      "observationCheckedAt": "2026-10-15T09:18:30.132Z",
+      "currentCoverage": "source-covered",
+      "foodSourceRows": 208,
+      "preserveMenuPublication": [],
+      "rationale": "Official site and ordering Store metadata independently confirm Funan unit/postal premises."
+    },
+    {
+      "placeId": "ChIJ____p1IS2jERqPZ2xJu7QgM",
+      "dataset": "data/menu-research/zzv/zzv.json",
+      "branchId": "zzv-yishun",
+      "decision": "safe-to-approve-branch-identity",
+      "branchFingerprint": "e675390a0b35e37947573b07ad8ff036c9882cf0e52de17c37e0fc5ff6a8a5d2",
+      "independentSourceUrls": [
+        "https://online.zzv.sg/index.html",
+        "https://order.zzv.sg/Category?StoreID=33a3b108-b18e-4fa3-a855-31a33c7c91b0&Service=PickUp&lang=EN"
+      ],
+      "cachedObservationReadable": true,
+      "observationCheckedAt": "2026-10-15T09:13:51.655Z",
+      "currentCoverage": "partial",
+      "foodSourceRows": 153,
+      "preserveMenuPublication": [],
+      "rationale": "Merchant outlet/pickup metadata confirms block,unit and postal premises despite mixed-language cached formatting."
+    },
+    {
+      "placeId": "ChIJ-7mO4K8X2jERfxwr_C6lMlQ",
+      "dataset": "data/menu-research/zzv/greenland.json",
+      "branchId": "greenland-upper-serangoon",
+      "decision": "safe-to-approve-branch-identity",
+      "branchFingerprint": "2a507ae7eebed88bc85f4577ad83426c4bbed43703b139d64597f2cc1b027656",
+      "independentSourceUrls": [
+        "https://online.zzv.sg/index.html",
+        "https://greenland.zzv.sg/Category?StoreID=da5a2dbf-19c9-4a79-bf6e-aa12a440731b&Service=PickUp&lang=EN"
+      ],
+      "cachedObservationReadable": true,
+      "observationCheckedAt": "2026-10-15T09:17:10.133Z",
+      "currentCoverage": "partial",
+      "foodSourceRows": 123,
+      "preserveMenuPublication": [],
+      "rationale": "Merchant outlet metadata confirms both street numbers and postal premises."
+    }
+  ],
+  "merchantEvidenceRead": [
+    "../tmp/qa/menu-chain-expansion/greendot-order-branch-15.json",
+    "../tmp/qa/menu-chain-expansion/greendot-order-branch-11.json",
+    "../tmp/qa/menu-chain-expansion/dlife-getz-branch-2.json",
+    "../tmp/qa/menu-lotus-lingzhi-yesnatural-victor/lingzhi-home-text.txt",
+    "../tmp/qa/menu-saute-grove/saute-flavours-text.txt",
+    "../tmp/qa/menu-saute-grove/saute-flavours-order-catalogue.json",
+    "../tmp/qa/menu-zzv-dailygreen/zzv-branch-02.json",
+    "../tmp/qa/menu-zzv-dailygreen/greenland-branch-01.json"
+  ],
+  "excludedAuditEdges": [
+    {
+      "branchId": "dlife-signature-novena",
+      "decision": "remain-unapproved",
+      "reason": "Unresolved unit discrepancy."
+    },
+    {
+      "branchId": "realfood-orchard",
+      "decision": "remain-unapproved",
+      "reason": "Unresolved exact unit versus unit-range discrepancy."
+    },
+    {
+      "branchId": "kang-su-far-east-plaza",
+      "decision": "remain-unapproved",
+      "reason": "Current independent primary premises confirmation not established by this bounded review."
+    },
+    {
+      "branchId": "just-greens-clementi",
+      "decision": "remain-unapproved",
+      "reason": "Historical/secondary evidence does not establish current independent primary premises."
+    },
+    {
+      "branchId": "su-xing-tang-sgh",
+      "decision": "remain-unapproved",
+      "reason": "Primary campus/operator evidence does not confirm this exact stall."
+    },
+    {
+      "branchId": "tian-tian-keat-hong",
+      "decision": "remain-unapproved",
+      "reason": "Current primary merchant identity/premises remains unresolved."
+    }
+  ],
+  "resolvedFindings": [
+    {
+      "location": "scripts/build-menu-coverage.ts former csvCell",
+      "issue": "Older CSV prefix guard missed LF,leading whitespace/BOM and fullwidth formula prefixes.",
+      "resolution": "Shared stronger researchCsvCell now protects coverage and collection-index exports;inline cases pass."
+    }
+  ],
+  "concurrentApprovalState": {
+    "absentAtReviewStart": true,
+    "sevenApprovedRowsPresentAtReport": true,
+    "matchesReviewedSeven": true,
+    "reviewerApprovalDataWrites": 0,
+    "note": "The parent workflow created approval data after the reviewer sent its seven safe-to-approve decisions. This reviewer changed only this report."
+  },
+  "humanVerificationBoundaryPreserved": true,
+  "limits": [
+    "Identity approval only;current stock,ingredients,publication and whole-directory completeness remain unapproved. Source rows may overlap.",
+    "No new network/Google requests,challenge bypass,app/avatar/data/cache edits,coverage output writes or test files by reviewer.",
+    "Cached Google display names/addresses are not copied into this report. Names/addresses in approval data originate in independent research.",
+    "Full-project lint remains failing outside this scope."
+  ],
+  "reviewedCodeSha256": {
+    "scripts/menu-identity-reviews.ts": "df5654cb4fc3871494ac43001c14119c8c9c1810bbe2ae2f927fab482613950f",
+    "scripts/build-menu-coverage.ts": "2b3cf97907736e35069c1b4c005186b578f0db7dc1a0741d89da9b13331db607",
+    "scripts/menu-research-types.ts": "5ea9e30c3bc5ed3387e11d23969c4b81445efab5f5901715ab109a68483810a5",
+    "scripts/menu-research-files.ts": "e15bf6e8d77cd012735f2274c8443a5910a3d3e4e806bb6f06d4d48fd628f925",
+    "scripts/build-menu-research-index.ts": "f82c5dc040d984ea973051220b40302352de1e75908f19e857bf0a0e73dbd974"
+  },
+  "evidenceSha256": {
+    "../tmp/qa/menu-identity-review-draft.json": "9ebda6b6b83546b147f8ea80f50c13883a34616f4e564b7c93ccecb15158df6c",
+    "../tmp/qa/menu-cached-identity-audit.json": "9a87efab81088610f8cc03cc572fe7f1de5f6edb9b8eab4ef61307a36fe66f37",
+    ".local/menu-research/place-link-research.json": "ba24349abb6f5373326f74a5105f3339e943b2ef973e4c16715d7ef0f7eb91c6",
+    "data/menu-research/menu-collection-index.json": "f97ae45295e003b875bcf083a96bb12b6bd2208369e7dfd9ef907345ca13d795"
+  }
+}

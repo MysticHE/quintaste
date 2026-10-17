@@ -1,0 +1,470 @@
+{
+  "capturedAt": "2026-10-15T23:56:51.767Z",
+  "proposalsOnly": true,
+  "rows": [
+    {
+      "placeId": "ChIJ_____5oZ2jER8lCn1opbINU",
+      "dataset": "data/menu-research/menu-realfood-indian.json",
+      "branchId": "realfood-orchard",
+      "name": "Real Food (Orchard Central)",
+      "address": "181 Orchard Road, #02-16, Orchard Central, Singapore 238896",
+      "unit": "exact",
+      "complexUnit": false,
+      "proof": {
+        "name": "normalized-branch-alias",
+        "address": "postal-and-street",
+        "unit": "exact",
+        "independentSourceFields": true,
+        "reviewRequired": true
+      }
+    },
+    {
+      "placeId": "ChIJ___vbY4a2jERdgjUDUmYmvE",
+      "dataset": "data/menu-research/menu-independent-stalls.json",
+      "branchId": "just-greens-clementi",
+      "name": "Just Greens Vegetarian — Clementi",
+      "address": "450 Clementi Avenue 3 #01-305, Singapore 120450",
+      "unit": "absent-in-one-source",
+      "complexUnit": false,
+      "proof": {
+        "name": "normalized-branch-alias",
+        "address": "postal-and-street",
+        "unit": "absent-in-one-source",
+        "independentSourceFields": true,
+        "reviewRequired": true
+      }
+    },
+    {
+      "placeId": "ChIJ_7v-HQAR2jERG-MwrWBKSnQ",
+      "dataset": "data/menu-research/menu-independent-stalls.json",
+      "branchId": "tian-tian-keat-hong",
+      "name": "Tian Tian Vegetarian — Keat Hong",
+      "address": "253 Choa Chu Kang Avenue 1 #B1-04 Keat Hong Shopping Centre, Singapore 680253",
+      "unit": "absent-in-one-source",
+      "complexUnit": false,
+      "proof": {
+        "name": "normalized-branch-alias",
+        "address": "postal-and-street",
+        "unit": "absent-in-one-source",
+        "independentSourceFields": true,
+        "reviewRequired": true
+      }
+    },
+    {
+      "placeId": "ChIJ_WwvSwAZ2jER9lUMcAwy3hM",
+      "dataset": "data/menu-research/menu-independent-stalls.json",
+      "branchId": "kang-su-far-east-plaza",
+      "name": "Kang Su Vegetarian — Far East Plaza",
+      "address": "14 Scotts Road #05-98 Far East Plaza, Singapore 228213",
+      "unit": "exact",
+      "complexUnit": false,
+      "proof": {
+        "name": "normalized-exact",
+        "address": "postal-and-street",
+        "unit": "exact",
+        "independentSourceFields": true,
+        "reviewRequired": true
+      }
+    },
+    {
+      "placeId": "ChIJ01ESzHMb2jER001hTwhELNQ",
+      "dataset": "data/menu-research/veganburg-ahimsa-cultivate/ahimsa.json",
+      "branchId": "ahimsa-neil-road",
+      "name": "Ahimsa Sanctuary — Neil Road",
+      "address": "76 Neil Road, Singapore 088840",
+      "unit": "absent-in-both",
+      "complexUnit": false,
+      "proof": {
+        "name": "normalized-branch-alias",
+        "address": "postal-and-street",
+        "unit": "absent-in-both",
+        "independentSourceFields": true,
+        "reviewRequired": true
+      }
+    },
+    {
+      "placeId": "ChIJ01wV1WwZ2jERSk88-PrWNFE",
+      "dataset": "data/pilot/catalogue.json",
+      "branchId": "whole-earth-peck-seah",
+      "name": "Whole Earth — Peck Seah Street",
+      "address": "76 Peck Seah Street, Singapore 079331",
+      "unit": "absent-in-both",
+      "complexUnit": false,
+      "proof": {
+        "name": "normalized-branch-alias",
+        "address": "postal-and-street",
+        "unit": "absent-in-both",
+        "independentSourceFields": true,
+        "reviewRequired": true
+      }
+    },
+    {
+      "placeId": "ChIJ3RtK94QZ2jERZvC1muAr6lY",
+      "dataset": "data/menu-research/menu-ascend-coco-moonchay-sproutz.json",
+      "branchId": "moonchay-fortune",
+      "name": "Moon Chay Vegetarian — Fortune Centre",
+      "address": "190 Middle Road #02-27/28 Fortune Centre, Singapore 188979",
+      "unit": "exact",
+      "complexUnit": true,
+      "proof": {
+        "name": "normalized-branch-alias",
+        "address": "postal-and-street",
+        "unit": "exact",
+        "independentSourceFields": true,
+        "reviewRequired": true
+      }
+    },
+    {
+      "placeId": "ChIJa9fwSMQZ2jERxS1XT0mUR_k",
+      "dataset": "data/menu-research/sufood-joie-genesis-lovinghut/genesis.json",
+      "branchId": "genesis-vegan-havelock-ii",
+      "name": "Genesis Vegan Restaurant (Havelock II)",
+      "address": "2 Havelock Road, #B1-01 Havelock II, Singapore 059763",
+      "unit": "exact",
+      "complexUnit": false,
+      "proof": {
+        "name": "normalized-branch-alias",
+        "address": "postal-and-street",
+        "unit": "exact",
+        "independentSourceFields": true,
+        "reviewRequired": true
+      }
+    },
+    {
+      "placeId": "ChIJAdJ_1hQ92jEREl3XSdZR4tg",
+      "dataset": "data/menu-research/zzv/zzv.json",
+      "branchId": "zzv-tampines",
+      "name": "Zi Zai Vegetarian (Tampines)",
+      "address": "801 Tampines Ave 4 #01-281, Tampines Polyview, Singapore 520801",
+      "unit": "exact",
+      "complexUnit": false,
+      "proof": {
+        "name": "normalized-exact",
+        "address": "postal-and-street",
+        "unit": "exact",
+        "independentSourceFields": true,
+        "reviewRequired": true
+      }
+    },
+    {
+      "placeId": "ChIJbcVJZ7E92jER-GCi_gtcu8U",
+      "dataset": "data/menu-research/linlin-metta-joyi-kisu/joyi.json",
+      "branchId": "joyi-bedok-north",
+      "name": "JO-YI CAFE — Bedok North",
+      "address": "136 Bedok North Avenue 3 #01-148, Singapore 460136",
+      "unit": "exact",
+      "complexUnit": false,
+      "proof": {
+        "name": "normalized-branch-alias",
+        "address": "postal-and-street",
+        "unit": "exact",
+        "independentSourceFields": true,
+        "reviewRequired": true
+      }
+    },
+    {
+      "placeId": "ChIJc0a2bZUX2jERELEKPFW1FIQ",
+      "dataset": "data/menu-research/saute-grove/pang.json",
+      "branchId": "pang-pang-kopi-hougang-rivercourt",
+      "name": "Pang Pang Kopi (Hougang RiverCourt)",
+      "address": "377 Hougang Street 32, #01-09 Hougang RiverCourt, Singapore 530377",
+      "unit": "exact",
+      "complexUnit": false,
+      "proof": {
+        "name": "normalized-exact",
+        "address": "postal-and-street",
+        "unit": "exact",
+        "independentSourceFields": true,
+        "reviewRequired": true
+      }
+    },
+    {
+      "placeId": "ChIJfRNCEKEZ2jERE-hnS4keOxU",
+      "dataset": "data/menu-research/menu-lovingnature-bode-vegan.json",
+      "branchId": "lnbv-vegan-branch",
+      "name": "Veg-An",
+      "address": "11 Sam Leong Road, Trio Mall, #04-03, Singapore 207903",
+      "unit": "exact",
+      "complexUnit": false,
+      "proof": {
+        "name": "normalized-exact",
+        "address": "postal-and-street",
+        "unit": "exact",
+        "independentSourceFields": true,
+        "reviewRequired": true
+      }
+    },
+    {
+      "placeId": "ChIJfxz-Bm8Z2jERC16IhOCETPo",
+      "dataset": "data/pilot/catalogue.json",
+      "branchId": "dlife-signature-chinatown-point",
+      "name": "D'Life Signature — Chinatown Point",
+      "address": "133 New Bridge Road #02-37, Chinatown Point, Singapore 059413",
+      "unit": "exact",
+      "complexUnit": false,
+      "proof": {
+        "name": "normalized-branch-alias",
+        "address": "postal-and-street",
+        "unit": "exact",
+        "independentSourceFields": true,
+        "reviewRequired": true
+      }
+    },
+    {
+      "placeId": "ChIJfxz-Bm8Z2jERC16IhOCETPo",
+      "dataset": "data/menu-research/dlife/menus.json",
+      "branchId": "dlife-signature-chinatown-point",
+      "name": "D'Life Signature — Chinatown Point",
+      "address": "133 New Bridge Road #02-37, Chinatown Point, Singapore 059413",
+      "unit": "exact",
+      "complexUnit": false,
+      "proof": {
+        "name": "normalized-branch-alias",
+        "address": "postal-and-street",
+        "unit": "exact",
+        "independentSourceFields": true,
+        "reviewRequired": true
+      }
+    },
+    {
+      "placeId": "ChIJGdx5Yj8Q2jER_V5gefTKlJc",
+      "dataset": "data/menu-research/zzv/times-vege.json",
+      "branchId": "times-vege-bukit-batok",
+      "name": "Time’s Vege",
+      "address": "643 Bukit Batok Central #01-44, Singapore 650643",
+      "unit": "exact",
+      "complexUnit": false,
+      "proof": {
+        "name": "normalized-exact",
+        "address": "postal-and-street",
+        "unit": "exact",
+        "independentSourceFields": true,
+        "reviewRequired": true
+      }
+    },
+    {
+      "placeId": "ChIJIZrdXz0Z2jERpXtwUWhZ-Js",
+      "dataset": "data/menu-research/menu-lovingnature-bode-vegan.json",
+      "branchId": "lnbv-bode-branch",
+      "name": "Bồ Đề Vegetarian - Healthy Veggies Delights",
+      "address": "16 Hamilton Road, #01-05, Singapore 209186",
+      "unit": "exact",
+      "complexUnit": false,
+      "proof": {
+        "name": "normalized-exact",
+        "address": "postal-and-street",
+        "unit": "exact",
+        "independentSourceFields": true,
+        "reviewRequired": true
+      }
+    },
+    {
+      "placeId": "ChIJJ4X4H2gZ2jERGa4nbrwXIIA",
+      "dataset": "data/menu-research/saute-grove/pang.json",
+      "branchId": "pang-pang-kopi-singpost-centre",
+      "name": "Pang Pang Kopi (SingPost Centre)",
+      "address": "10 Eunos Road 8, #01-151 SingPost Centre, Singapore 408600",
+      "unit": "exact",
+      "complexUnit": false,
+      "proof": {
+        "name": "normalized-exact",
+        "address": "postal-and-street",
+        "unit": "exact",
+        "independentSourceFields": true,
+        "reviewRequired": true
+      }
+    },
+    {
+      "placeId": "ChIJKzM3xBc92jERl8FJY-7RWuw",
+      "dataset": "data/menu-research/greendot/menus.json",
+      "branchId": "greendot-tampines-1",
+      "name": "Greendot @ Tampines 1",
+      "address": "10 Tampines Central 1, Tampines 1, #B1-K8, 529536, Singapore",
+      "unit": "absent-in-both",
+      "complexUnit": true,
+      "proof": {
+        "name": "normalized-exact",
+        "address": "postal-and-street",
+        "unit": "absent-in-both",
+        "independentSourceFields": true,
+        "reviewRequired": true
+      }
+    },
+    {
+      "placeId": "ChIJL3fpU0UZ2jERb1t3reUGu-I",
+      "dataset": "data/menu-research/menu-warung-original-origanics.json",
+      "branchId": "originalgreens-shaw-plaza",
+      "name": "Original Greens — Shaw Plaza",
+      "address": "360 Balestier Road #04-07/K2 Shaw Plaza, Singapore 329783",
+      "unit": "exact",
+      "complexUnit": true,
+      "proof": {
+        "name": "normalized-branch-alias",
+        "address": "postal-and-street",
+        "unit": "exact",
+        "independentSourceFields": true,
+        "reviewRequired": true
+      }
+    },
+    {
+      "placeId": "ChIJl727Gx892jERVPMYx1SNdNo",
+      "dataset": "data/menu-research/linlin-metta-joyi-kisu/metta.json",
+      "branchId": "metta-simei",
+      "name": "Metta Cafe — Simei (online-shop source)",
+      "address": "32 Simei Street 1, Level 1 Metta Building, Singapore 529950",
+      "unit": "absent-in-both",
+      "complexUnit": false,
+      "proof": {
+        "name": "normalized-branch-alias",
+        "address": "postal-and-street",
+        "unit": "absent-in-both",
+        "independentSourceFields": true,
+        "reviewRequired": true
+      }
+    },
+    {
+      "placeId": "ChIJOwdnq7cZ2jERSCAJQh3m_iY",
+      "dataset": "data/menu-research/linlin-metta-joyi-kisu/kisu.json",
+      "branchId": "kisu-tras-street",
+      "name": "Ki Su Shoujin Omakase — Tras Street",
+      "address": "60 Tras Street #01-01, Singapore 078999",
+      "unit": "exact",
+      "complexUnit": false,
+      "proof": {
+        "name": "normalized-branch-alias",
+        "address": "postal-and-street",
+        "unit": "exact",
+        "independentSourceFields": true,
+        "reviewRequired": true
+      }
+    },
+    {
+      "placeId": "ChIJPbsINYoV2jERWAx6eoSUiHY",
+      "dataset": "data/menu-research/menu-botanict-kindbowl-foyouyuan.json",
+      "branchId": "kind-bowl-northpoint",
+      "name": "The Kind Bowl — Northpoint City",
+      "address": "930 Yishun Avenue 2, Northpoint City North Wing #B1-46, Singapore 769098",
+      "unit": "absent-in-one-source",
+      "complexUnit": false,
+      "proof": {
+        "name": "normalized-branch-alias",
+        "address": "postal-and-street",
+        "unit": "absent-in-one-source",
+        "independentSourceFields": true,
+        "reviewRequired": true
+      }
+    },
+    {
+      "placeId": "ChIJtcxff28U2jER1Ux43_QFQ2I",
+      "dataset": "data/menu-research/greendot/menus.json",
+      "branchId": "greendot-northpoint",
+      "name": "Greendot @ Northpoint",
+      "address": "930 Yishun Ave 2, Northpoint City  North Wing, #B2-09/11, 769098, Singapore",
+      "unit": "exact",
+      "complexUnit": true,
+      "proof": {
+        "name": "normalized-exact",
+        "address": "postal-and-street",
+        "unit": "exact",
+        "independentSourceFields": true,
+        "reviewRequired": true
+      }
+    },
+    {
+      "placeId": "ChIJV9LMG7Mi2jER8N-x9WjTY10",
+      "dataset": "data/menu-research/greendot/menus.json",
+      "branchId": "greendot-bedok-mall",
+      "name": "Greendot @ Bedok Mall",
+      "address": "311 New Upper Changi Road B2-31, Bedok Mall, 467360, Singapore",
+      "unit": "absent-in-both",
+      "complexUnit": false,
+      "proof": {
+        "name": "normalized-exact",
+        "address": "postal-and-street",
+        "unit": "absent-in-both",
+        "independentSourceFields": true,
+        "reviewRequired": true
+      }
+    },
+    {
+      "placeId": "ChIJW4TaTgUZ2jERRe4pr_9MV-E",
+      "dataset": "data/menu-research/menu-botanict-kindbowl-foyouyuan.json",
+      "branchId": "botanict-clementi",
+      "name": "Botanict — Clementi",
+      "address": "Blk 352 Clementi Avenue 2 #01-123, Singapore 120352",
+      "unit": "exact",
+      "complexUnit": false,
+      "proof": {
+        "name": "normalized-branch-alias",
+        "address": "postal-and-street",
+        "unit": "exact",
+        "independentSourceFields": true,
+        "reviewRequired": true
+      }
+    },
+    {
+      "placeId": "ChIJX7F5dvYZ2jERaN7tYyTQXtM",
+      "dataset": "data/menu-research/menu-botanict-kindbowl-foyouyuan.json",
+      "branchId": "kind-bowl-killiney",
+      "name": "The Kind Bowl — Killiney Road",
+      "address": "71 Killiney Road, Singapore 239527",
+      "unit": "absent-in-both",
+      "complexUnit": false,
+      "proof": {
+        "name": "normalized-branch-alias",
+        "address": "postal-and-street",
+        "unit": "absent-in-both",
+        "independentSourceFields": true,
+        "reviewRequired": true
+      }
+    },
+    {
+      "placeId": "ChIJy7_-3L0X2jER8c4XCk22y28",
+      "dataset": "data/menu-research/menu-zzv-dailygreen.json",
+      "branchId": "merchant-7ab3dafc5f6a7876",
+      "name": "Daily Green (Hougang Mall)",
+      "address": "90 Hougang Ave 10 #04-11 Hougang Mall Foodies’ Garden®, Singapore 538766",
+      "unit": "exact",
+      "complexUnit": false,
+      "proof": {
+        "name": "normalized-exact",
+        "address": "postal-and-street",
+        "unit": "exact",
+        "independentSourceFields": true,
+        "reviewRequired": true
+      }
+    },
+    {
+      "placeId": "ChIJyVV0X7MP2jERTBdbGB73Wyw",
+      "dataset": "data/menu-research/menu-zzv-dailygreen.json",
+      "branchId": "merchant-6968cb1ec870c3d7",
+      "name": "Daily Green (NTU South Spine Canteen B)",
+      "address": "50 Nanyang Avenue, South Spine Canteen B, Singapore 639798",
+      "unit": "absent-in-both",
+      "complexUnit": false,
+      "proof": {
+        "name": "normalized-exact",
+        "address": "postal-and-street",
+        "unit": "absent-in-both",
+        "independentSourceFields": true,
+        "reviewRequired": true
+      }
+    },
+    {
+      "placeId": "ChIJZSr57K0T2jER9vGz_2-ktRg",
+      "dataset": "data/pilot/catalogue.json",
+      "branchId": "zhen-xiang-woodlands-street-32",
+      "name": "Zhen Xiang Vegetarian — 325 Woodlands Street 32",
+      "address": "325 Woodlands Street 32 #01-131, Singapore 730325",
+      "unit": "exact",
+      "complexUnit": false,
+      "proof": {
+        "name": "normalized-branch-alias",
+        "address": "postal-and-street",
+        "unit": "exact",
+        "independentSourceFields": true,
+        "reviewRequired": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "checkedAt": "2026-10-16T09:24:41.732Z",
+  "passed": true,
+  "url": "http://127.0.0.1:8083",
+  "locations": 170,
+  "sourceMenus": 218,
+  "foodOccurrences": 11960,
+  "mappedRegisterOccurrences": 11960,
+  "indexBytes": 67223,
+  "indexGzipBytes": 19078,
+  "largestDetail": {
+    "id": "research-nalan-cityhall",
+    "bytes": 237205,
+    "gzipBytes": 17355
+  },
+  "timings": {
+    "notRepeated": "Previous157-build warm direct timings retained separately; current run reconciles changed projection and source mappings."
+  },
+  "auditMs": 1621.9357000000002,
+  "heldBranch404s": [
+    "research-ur03-v-coffee-lorong21",
+    "research-ur03-gopals-jean-yip",
+    "research-ur03-the-acai-teahouse",
+    "research-sl08-zuya",
+    "research-sl08-bai-jia-le",
+    "research-ur05-yuan-man",
+    "research-ur05-pu-xiang-whyq",
+    "research-ur05-yi-xin",
+    "research-ur06-su-shi-piao-xiang",
+    "research-ur06-nature-purmei",
+    "research-ur08-k-veggie",
+    "research-fang-lin-jurong-west-494",
+    "research-victor-circuit-road",
+    "research-ur10-kang-su-macpherson",
+    "research-ur10-bai-jia-le-cimb",
+    "research-ur11-crowded-rp",
+    "research-ur12-jufu-hougang",
+    "research-ur12-kale-midpoint",
+    "research-ur12-evergreen-geylang",
+    "research-elemen-harbourfront-centre-legacy",
+    "research-ur13-kaveri-t1",
+    "research-ur13-sangeetha-kitchener-legacy",
+    "research-ur14-thai-sumang-scope",
+    "research-ur14-kovan-33-gap",
+    "research-ur15-pita-bali-scope",
+    "research-ur15-conut-gardens",
+    "research-ur15-conut-haji",
+    "research-ur15-conut-marriott",
+    "research-ur15-conut-siloso",
+    "research-ur15-conut-esplanade"
+  ],
+  "googleLedgerSha256": "c7321dafaad0473583139494ca899501578892c5b71105429d3cd4dceb4f311a",
+  "googleRequestsMade": 0,
+  "limitations": [
+    "Warm direct Node handler benchmark excludes Expo transport and bundling. Historical batch07 Expo probe took1.6â€“5.1seconds, not measured in this round; native rendering, production network/host quotas and production performance unmeasured."
+  ],
+  "method": "Actual local Expo HTTP index compared with all170 direct GET-handler details, their raw fingerprints, schemas and source-register mappings; focused browser cases use live HTTP details. Historical prior-continuation full-Expo parallel HTTP attempt ended ECONNRESET; no completed acceptance claimed from it."
+}

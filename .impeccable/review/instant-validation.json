@@ -1,0 +1,171 @@
+{
+  "checks": [
+    "Fresh opening hours appear immediately",
+    "Normal card is landscape and shorter than old double-panel layout",
+    "Landscape card fits 320",
+    "Landscape card fits 375",
+    "Landscape card fits 768",
+    "Landscape card fits 1440",
+    "Tapping the current mode preserves unsubmitted search text",
+    "No Apply or Reset confirmation controls",
+    "Diet icons have different custom paths",
+    "Vegan saves and starts applying before leaving Filters",
+    "Old vegetarian results hidden during Vegan request",
+    "Accepted Vegan results replace the old context",
+    "Rapid diet changes keep newest results and persisted choice",
+    "Allium-free applies immediately and excludes unknown evidence",
+    "Home address and radius save/apply without confirmation",
+    "Saved Home/radius/diet restore after reload",
+    "Work applies its distinct private coordinates",
+    "Saving a place does not refetch or reset filters",
+    "Late response cannot replace the latest selected diet",
+    "Expired provider metadata is rejected instead of displayed",
+    "Retry loads fresh results for current filters"
+  ],
+  "searches": [
+    {
+      "area": "Singapore",
+      "query": "",
+      "vegan": false,
+      "radius": 5000
+    },
+    {
+      "area": "Singapore",
+      "query": "",
+      "vegan": true,
+      "radius": 5000
+    },
+    {
+      "area": "Singapore",
+      "query": "",
+      "vegan": false,
+      "radius": 5000
+    },
+    {
+      "area": "Singapore",
+      "query": "",
+      "vegan": true,
+      "radius": 5000
+    },
+    {
+      "area": "Singapore",
+      "query": "",
+      "vegan": false,
+      "radius": 5000
+    },
+    {
+      "area": "Singapore",
+      "query": "",
+      "vegan": false,
+      "center": {
+        "latitude": 1.2823,
+        "longitude": 103.8591
+      },
+      "radius": 5000
+    },
+    {
+      "area": "Singapore",
+      "query": "",
+      "vegan": false,
+      "center": {
+        "latitude": 1.2823,
+        "longitude": 103.8591
+      },
+      "radius": 1000
+    },
+    {
+      "area": "Singapore",
+      "query": "",
+      "vegan": false,
+      "center": {
+        "latitude": 1.2823,
+        "longitude": 103.8591
+      },
+      "radius": 1000
+    },
+    {
+      "area": "Singapore",
+      "query": "",
+      "vegan": false,
+      "center": {
+        "latitude": 1.3,
+        "longitude": 103.84
+      },
+      "radius": 1000
+    },
+    {
+      "area": "Singapore",
+      "query": "",
+      "vegan": true,
+      "center": {
+        "latitude": 1.3,
+        "longitude": 103.84
+      },
+      "radius": 1000
+    },
+    {
+      "area": "Singapore",
+      "query": "",
+      "vegan": false,
+      "center": {
+        "latitude": 1.3,
+        "longitude": 103.84
+      },
+      "radius": 1000
+    },
+    {
+      "area": "Singapore",
+      "query": "",
+      "vegan": true,
+      "center": {
+        "latitude": 1.3,
+        "longitude": 103.84
+      },
+      "radius": 1000
+    },
+    {
+      "area": "Singapore",
+      "query": "",
+      "vegan": true,
+      "center": {
+        "latitude": 1.3,
+        "longitude": 103.84
+      },
+      "radius": 1000
+    },
+    {
+      "area": "Singapore",
+      "query": "",
+      "vegan": true,
+      "center": {
+        "latitude": 1.3,
+        "longitude": 103.84
+      },
+      "radius": 1000
+    }
+  ],
+  "errors": [],
+  "screenshots": [
+    "C:/Users/huien/QT/quintaste/.impeccable/review/instant-explore-320.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/instant-explore-375.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/instant-explore-768.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/instant-explore-1440.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/instant-filters-375.png"
+  ],
+  "limits": [
+    "Controlled web venue/photo fixtures; illustrative local photo is not a production Google image.",
+    "Native device appearance and permissions remain unverified."
+  ],
+  "card": {
+    "width": 359,
+    "height": 182,
+    "panelHeight": 126
+  },
+  "axe": {
+    "violations": [],
+    "incomplete": [
+      "color-contrast",
+      "label-content-name-mismatch"
+    ]
+  }
+}

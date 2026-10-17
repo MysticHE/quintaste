@@ -1,0 +1,20 @@
+{
+  "date": "2026-10-15",
+  "scope": "Four Cook review findings and bounded legacy storage cleanup",
+  "typecheck": { "command": "npm run typecheck", "exitCode": 0 },
+  "lint": { "command": "npm run lint", "exitCode": 0 },
+  "regressions": { "report": "cook-review-fixes.json", "passedGroups": 10, "playwrightGroups": 6, "pageErrors": 0 },
+  "adapterAndControl": { "report": "cook-review-alert-ui.json", "passedGroups": 4 },
+  "androidTransport": { "report": "cook-review-native.json", "manifestStatus": 200, "bundleStatus": 200 },
+  "reviews": {
+    "typescript": "Approved after fixing legacy cleanup recovery, optional ingredientInfo typing, and cleanup content-edit invariants",
+    "general": "Approved; no remaining material behavioral regressions in the reviewed scope",
+    "visual": "Four Playwright captures inspected; cleanup uses compact checkbox rows, byte feedback and one removal action without duplicate banners"
+  },
+  "limitations": [
+    "Physical-device exact-alarm access and audible/background delivery remain unverified; Android API 31+ is explicitly approximate",
+    "Legacy data must be readable to use batch cleanup; already unreadable SQLite rows are not automatically recovered",
+    "Canonical app lint passes; whole-repository ESLint has unrelated scripts/avatar-security.cjs errors reported by reviewer",
+    "Production backend and publishing services remain outside this correction scope"
+  ]
+}

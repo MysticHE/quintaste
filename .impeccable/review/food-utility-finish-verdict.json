@@ -1,0 +1,22 @@
+{
+  "scope": "food-utility-pilot",
+  "date": "2026-10-14",
+  "disposition": "recapture",
+  "roleSubstitution": "code-reviewer applying the Impeccable finish-reviewer contract; doc-updater applying the documenter contract.",
+  "missingNativeCaptures": [
+    "phone-android.png",
+    "phone-ios.png",
+    "tablet-android.png",
+    "tablet-ios.png"
+  ],
+  "reason": "Native device captures are required. Browser development previews are supplemental and cannot satisfy native visual acceptance.",
+  "nativeLaunchBlock": "Automatic approval review rejected Expo Android device launch under the managed sandbox policy. The action was not retried through another launch path.",
+  "codeReview": {
+    "typescript": "All reported data-safety, filter, clock and navigation findings resolved; final routing batch has no findings.",
+    "finish": "Stopped at evidence check 0."
+  },
+  "approvals": {
+    "nativeVisual": false,
+    "publicProduction": false
+  }
+}

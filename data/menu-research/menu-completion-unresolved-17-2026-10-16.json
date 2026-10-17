@@ -1,0 +1,194 @@
+{
+  "version": 1,
+  "checkedAt": "2026-10-16T09:49:04.337957+00:00",
+  "status": "reviewed-canonical-amendments-with-holds-preserved",
+  "googleRequestsMade": 0,
+  "sources": [
+    {
+      "id": "ur17-swaad-selected",
+      "url": "https://www.blockchef.com/store/shentonfoodhall/menu?menu=Swaad%20Vegetarian%20%28Shenton%20Way%29",
+      "publisher": "Merchant operator / linked ordering",
+      "title": "Current rendered Swaad Shenton subsection",
+      "checkedAt": "2026-10-16T09:42:15.243Z",
+      "accessStatus": "normal-browser-200-visible",
+      "notes": "Ordinary linked category selection displays nine current cards: eight food parents and one excluded beverage parent. Exact Shenton#01-04premise. Other mixed-foodhall sections excluded; server-initial hidden cards not accepted until normally selected and visible. Generic prose, hypothetical allergens/server-error text and vegan tags are not recipe certification. No cart/order submitted. Equivalent encoding preserves query parentheses in external app link; original observation URL retained.",
+      "observedBrowserUrl": "https://www.blockchef.com/store/shentonfoodhall/menu?menu=Swaad%20Vegetarian%20(Shenton%20Way)"
+    },
+    {
+      "id": "ur17-swaad-owner",
+      "url": "https://swaadgovinda.com/menu",
+      "publisher": "Merchant operator / linked ordering",
+      "title": "Swaad owner vegetarian menu positioning",
+      "checkedAt": "2026-10-16T09:39:27.111Z",
+      "accessStatus": "normal-http-200",
+      "notes": "Current own site explicitly purevegetarian/noonion/nogarlic, with both Desker/Shenton dining references. Operator claim only; no complete ingredients or universal vegan claim. Existing Desker printed menu/prices not transferred to Shenton ordering."
+    },
+    {
+      "id": "ur17-swaad-detail-65f2ca465718d4711caab565",
+      "url": "https://www.blockchef.com/store/shentonfoodhall/menu/65f2ca465718d4711caab565",
+      "publisher": "Merchant operator / linked ordering",
+      "title": "Swaad Shenton current product detail",
+      "checkedAt": "2026-10-16T09:42:20.006Z",
+      "accessStatus": "normal-browser-200-visible",
+      "notes": "Normal200rendered exact name/SGDcardamount. Choice inventories read where present; initial aria-pressedfalse on all options. Product quantity1 is not a portion/people count. Generic description and potential-allergen/server-error text stay private."
+    },
+    {
+      "id": "ur17-swaad-detail-65f2caa05718d4711caab566",
+      "url": "https://www.blockchef.com/store/shentonfoodhall/menu/65f2caa05718d4711caab566",
+      "publisher": "Merchant operator / linked ordering",
+      "title": "Swaad Shenton current product detail",
+      "checkedAt": "2026-10-16T09:42:24.092Z",
+      "accessStatus": "normal-browser-200-visible",
+      "notes": "Normal200rendered exact name/SGDcardamount. Choice inventories read where present; initial aria-pressedfalse on all options. Product quantity1 is not a portion/people count. Generic description and potential-allergen/server-error text stay private."
+    },
+    {
+      "id": "ur17-swaad-detail-65f2cb274f6a900ef7876c88",
+      "url": "https://www.blockchef.com/store/shentonfoodhall/menu/65f2cb274f6a900ef7876c88",
+      "publisher": "Merchant operator / linked ordering",
+      "title": "Swaad Shenton current product detail",
+      "checkedAt": "2026-10-16T09:42:27.276Z",
+      "accessStatus": "normal-browser-200-visible",
+      "notes": "Normal200rendered exact name/SGDcardamount. Choice inventories read where present; initial aria-pressedfalse on all options. Product quantity1 is not a portion/people count. Generic description and potential-allergen/server-error text stay private."
+    },
+    {
+      "id": "ur17-swaad-detail-65f2cbe94ee001436d1d3d6e",
+      "url": "https://www.blockchef.com/store/shentonfoodhall/menu/65f2cbe94ee001436d1d3d6e",
+      "publisher": "Merchant operator / linked ordering",
+      "title": "Swaad Shenton current product detail",
+      "checkedAt": "2026-10-16T09:42:30.074Z",
+      "accessStatus": "normal-browser-200-visible",
+      "notes": "Normal200rendered exact name/SGDcardamount. Choice inventories read where present; initial aria-pressedfalse on all options. Product quantity1 is not a portion/people count. Generic description and potential-allergen/server-error text stay private."
+    },
+    {
+      "id": "ur17-swaad-detail-65f2ccc64ee001436d1d3d6f",
+      "url": "https://www.blockchef.com/store/shentonfoodhall/menu/65f2ccc64ee001436d1d3d6f",
+      "publisher": "Merchant operator / linked ordering",
+      "title": "Swaad Shenton current product detail",
+      "checkedAt": "2026-10-16T09:42:32.909Z",
+      "accessStatus": "normal-browser-200-visible",
+      "notes": "Normal200rendered exact name/SGDcardamount. Choice inventories read where present; initial aria-pressedfalse on all options. Product quantity1 is not a portion/people count. Generic description and potential-allergen/server-error text stay private."
+    },
+    {
+      "id": "ur17-swaad-detail-65f2ceaf4ee001436d1d3d70",
+      "url": "https://www.blockchef.com/store/shentonfoodhall/menu/65f2ceaf4ee001436d1d3d70",
+      "publisher": "Merchant operator / linked ordering",
+      "title": "Swaad Shenton current product detail",
+      "checkedAt": "2026-10-16T09:42:35.621Z",
+      "accessStatus": "normal-browser-200-visible",
+      "notes": "Normal200rendered exact name/SGDcardamount. Choice inventories read where present; initial aria-pressedfalse on all options. Product quantity1 is not a portion/people count. Generic description and potential-allergen/server-error text stay private."
+    },
+    {
+      "id": "ur17-swaad-detail-65f2d07406a7129deeb5391a",
+      "url": "https://www.blockchef.com/store/shentonfoodhall/menu/65f2d07406a7129deeb5391a",
+      "publisher": "Merchant operator / linked ordering",
+      "title": "Swaad Shenton current product detail",
+      "checkedAt": "2026-10-16T09:42:38.281Z",
+      "accessStatus": "normal-browser-200-visible",
+      "notes": "Normal200rendered exact name/SGDcardamount. Choice inventories read where present; initial aria-pressedfalse on all options. Product quantity1 is not a portion/people count. Generic description and potential-allergen/server-error text stay private."
+    },
+    {
+      "id": "ur17-swaad-detail-65f2d19d06a7129deeb5391b",
+      "url": "https://www.blockchef.com/store/shentonfoodhall/menu/65f2d19d06a7129deeb5391b",
+      "publisher": "Merchant operator / linked ordering",
+      "title": "Swaad Shenton current product detail",
+      "checkedAt": "2026-10-16T09:42:41.436Z",
+      "accessStatus": "normal-browser-200-visible",
+      "notes": "Normal200rendered exact name/SGDcardamount. Choice inventories read where present; initial aria-pressedfalse on all options. Product quantity1 is not a portion/people count. Generic description and potential-allergen/server-error text stay private."
+    },
+    {
+      "id": "ur17-swaad-detail-65f2d26306a7129deeb5391c",
+      "url": "https://www.blockchef.com/store/shentonfoodhall/menu/65f2d26306a7129deeb5391c",
+      "publisher": "Merchant operator / linked ordering",
+      "title": "Swaad Shenton current product detail",
+      "checkedAt": "2026-10-16T09:42:44.334Z",
+      "accessStatus": "normal-browser-200-visible",
+      "notes": "Normal200rendered exact name/SGDcardamount. Choice inventories read where present; initial aria-pressedfalse on all options. Product quantity1 is not a portion/people count. Generic description and potential-allergen/server-error text stay private."
+    },
+    {
+      "id": "ur17-mod-menu",
+      "url": "https://www.modhaircafe.com/_files/ugd/35dacc_db8b46ebb7a04ca4b0223b8ab1428a0e.pdf",
+      "publisher": "Merchant operator / linked ordering",
+      "title": "MOD Cafe linked one-page food and drink menu",
+      "checkedAt": "2026-10-16T09:40:14.140Z",
+      "accessStatus": "normal-http-200",
+      "notes": "Normal200atoriginalownerlinkedURL, ordinary redirect to filesusrCDN,2,453,420bytes. Earlier00:35normal429is retained as historical access, not bypassed. Fullpage and enlarged food/addon crops visually inspected.27foodparents/eightunassignedaddons/19drinkparentsexcluded. No currency symbol/code or effective date printed; currencyunknown. AF/VGcodes retained without unprinted legend/blanketcertification."
+    },
+    {
+      "id": "ur17-mod-owner",
+      "url": "https://www.modhaircafe.com/mod-cafe",
+      "publisher": "Merchant operator / linked ordering",
+      "title": "MOD vegetarian cafe exact premise",
+      "checkedAt": "2026-10-16T09:39:29.907Z",
+      "accessStatus": "normal-http-200",
+      "notes": "Current operator Vegetarian&PlantBasedDining page explicitly describes plant-based cafe vision at1AKuoChuan/426888 and links this exact PDF. Hair service menu excluded. Printed egg/dairy prevent blanket vegan classification."
+    },
+    {
+      "id": "ur17-origanics-links",
+      "url": "https://linktr.ee/origanics.sg",
+      "publisher": "Origanics merchant Linktree",
+      "title": "Current Origanics outlet and preorder links",
+      "checkedAt": "2026-10-16T09:39:27.618Z",
+      "accessStatus": "normal-http-200",
+      "notes": "Current merchant Linktree lists202CWoodleigh#01-13 and links BuangkokHawkerCentre, but latter exact stall onlyGooglelink. Maps not resolved; no new Google calls. PreorderCarte link distinct from current dining menu."
+    },
+    {
+      "id": "ur17-origanics-preorder",
+      "url": "https://origanics.carteapp.io/products",
+      "publisher": "Origanics merchant linked Carte shop",
+      "title": "Five current visible preorder product cards; branch/date applicability unresolved",
+      "checkedAt": "2026-10-16T09:47:32.638Z",
+      "accessStatus": "normal-browser-200-visible",
+      "notes": "Normal EnterShop navigation after ordinary eight-second render reveals five product cards. Landing says CNY delivery15and21February without year. Current October window and applicability to either dining outlet unconfirmed. Grocery/preorder products retained as unassigned brand context, not new branch food rows. NUS12previewfoods not transferred. Initial1.2second blank render was harness timing, not source absence. No authentication, order, cart, WhatsApp or checkout used."
+    }
+  ],
+  "canonicalAmendments": [
+    {
+      "dataset": "data/menu-research/menu-continuation-swaad.json",
+      "branchId": "swaad-shenton3",
+      "menuId": "swaad-shenton-current-blockchef",
+      "foodRowsCreated": 8,
+      "approvedFoodRows": 8,
+      "heldFoodRows": 0,
+      "reason": "Current owner purevegetarian/noonion/nogarlic concept and normal rendered separately named Swaad subsection establish exact Shenton#01-04menu. The surrounding foodhall is mixed and not vegetarian; other section foods excluded. No Desker menu/price transfer or Googlebinding."
+    },
+    {
+      "dataset": "data/menu-research/menu-completion-directory-small-cafes-2026-10-16.json",
+      "branchId": "mod-cafe-kuo-chuan",
+      "menuId": "mod-cafe-current-linked-pdf-20261016",
+      "foodRowsCreated": 27,
+      "approvedFoodRows": 27,
+      "heldFoodRows": 0,
+      "reason": "Current dedicated operator page classifies vegetarian/plantbaseddining at1AKuoChuan and links fully read foodPDF; coherentplantbasedmainswith egg/dairy. No meat-service evidence in checked primary menu. Operator classification, not universal vegan/ingredientcertification."
+    },
+    {
+      "dataset": "data/menu-research/menu-warung-original-origanics.json",
+      "branchId": "origanics-woodleigh-lead",
+      "foodRowsCreated": 0,
+      "reason": "Current merchant Linktree continues to identify Woodleigh and Buangkok, but no current exact dining menu obtained. Merchant linked Carte shop shows five preorder products with CNY15/21February delivery and no year; current window and exact dining branch applicability unresolved. No NUS preview, preorder prices or other branch foods transferred."
+    },
+    {
+      "dataset": "data/menu-research/menu-warung-original-origanics.json",
+      "branchId": "origanics-buangkok-lead",
+      "foodRowsCreated": 0,
+      "reason": "Current merchant Linktree continues to identify Woodleigh and Buangkok, but no current exact dining menu obtained. Merchant linked Carte shop shows five preorder products with CNY15/21February delivery and no year; current window and exact dining branch applicability unresolved. No NUS preview, preorder prices or other branch foods transferred."
+    }
+  ],
+  "evidenceBoundary": "Exact existing branch IDs reused. Audit references foods stored only in amended canonical packets; no duplicate branch or extraction dataset.",
+  "summary": {
+    "existingBranchesAmended": 4,
+    "newBranchRecords": 0,
+    "foodRowsCreated": 35,
+    "approvedFoodRows": 35,
+    "heldFoodRows": 0,
+    "swaadFoodParents": 8,
+    "swaadFoodChoiceOptions": 20,
+    "swaadDrinkParentsExcluded": 1,
+    "swaadDrinkOptionsExcluded": 6,
+    "modFoods": 27,
+    "modUnassignedAddOns": 8,
+    "modDrinksExcluded": 19,
+    "googleRequestsMade": 0,
+    "origanicsUnassignedPreorderOffers": 5,
+    "origanicsZeroFoodBranchesRechecked": 2
+  }
+}

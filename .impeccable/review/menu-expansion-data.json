@@ -1,0 +1,429 @@
+{
+  "checkedAt": "2026-10-15T08:29:56.398Z",
+  "checks": [
+    "All three research fragments validate, retain factual fields and fit modular data limits",
+    "732 source-specific food rows publish across11 exact branches and15 sections without stale sample residue",
+    "Source scopes, categories, historical notices, weekdays, variants and currency uncertainty survive projection",
+    "Public data excludes private review/research fields and includes no ingredient-confirmation claims"
+  ],
+  "venues": [
+    {
+      "id": "whole-earth-peck-seah",
+      "name": "Whole Earth",
+      "branch": "Peck Seah Street",
+      "rows": 89,
+      "sections": [
+        {
+          "id": "whole-earth-dine-in",
+          "scope": "branch-dine-in",
+          "coverage": "source-covered",
+          "foodRows": 89,
+          "categories": [
+            "Specials",
+            "Peranakan Cuisine",
+            "Thai Flavours",
+            "Monkeyhead Mushrooms",
+            "Chef's Handmade Creations",
+            "Rice & Noodles",
+            "Tofu Delights",
+            "Vegetables",
+            "Heartwarming Soups",
+            "House-made Dessert",
+            "Classics Set Menu"
+          ],
+          "sourceUrl": "https://wholeearth.com.sg/menu.php"
+        }
+      ]
+    },
+    {
+      "id": "dlife-signature-chinatown-point",
+      "name": "D'Life Signature",
+      "branch": "Chinatown Point",
+      "rows": 113,
+      "sections": [
+        {
+          "id": "dlife-chinatown-delivery",
+          "scope": "branch-delivery",
+          "coverage": "partial",
+          "foodRows": 113,
+          "categories": [
+            "Chef Recommend",
+            "C-Food",
+            "Greens",
+            "Mushrooms",
+            "Tofu",
+            "Sides",
+            "Rice",
+            "Noodles",
+            "Soups",
+            "Congee"
+          ],
+          "sourceUrl": "https://www.foodpanda.sg/restaurant/l29d/dlife-signature-chinatown-point"
+        }
+      ]
+    },
+    {
+      "id": "teng-bespoke-sunshine-plaza",
+      "name": "Teng Bespoke Vegetarian Japanese Dining",
+      "branch": "Sunshine Plaza",
+      "rows": 78,
+      "sections": [
+        {
+          "id": "teng-sunshine-delivery",
+          "scope": "branch-delivery",
+          "coverage": "source-covered",
+          "foodRows": 78,
+          "categories": [
+            "Sharing Platters",
+            "Seasonal Thai",
+            "Appetizers/Salads",
+            "Maki",
+            "Grills",
+            "Tempuras",
+            "Side Dishes",
+            "Stir-Fry",
+            "Noodles",
+            "Rice",
+            "Japanese Bento Sets"
+          ],
+          "sourceUrl": "https://www.foodpanda.sg/restaurant/l8ul/teng-bespoke-vegetarian-japanese-dining-sunshine-plaza"
+        }
+      ]
+    },
+    {
+      "id": "elemen-woodlands-height",
+      "name": "elemen",
+      "branch": "Woodlands Height / elemen Academy",
+      "rows": 91,
+      "sections": [
+        {
+          "id": "elemen-wh-ordering",
+          "scope": "branch-ordering",
+          "coverage": "source-covered",
+          "foodRows": 30,
+          "categories": [
+            "Healthy Bento",
+            "STARTER",
+            "SOUP",
+            "HAWKER-LICIOUS",
+            "MAIN",
+            "DESSERT"
+          ],
+          "sourceUrl": "https://elemenwh.oddle.me/en_SG"
+        },
+        {
+          "id": "elemen-brand-published-menu",
+          "scope": "brand-menu",
+          "coverage": "brand-only",
+          "foodRows": 31,
+          "categories": [
+            "Appetizers",
+            "Starter",
+            "Soups",
+            "Hawker-licious",
+            "Mains",
+            "Desserts"
+          ],
+          "sourceUrl": "https://images.squarespace-cdn.com/content/v1/609d2103ed36b46301aeb07d/fc4dfb24-ed80-4f14-bca7-d46e4fefa374/elemen+tv+Portrait.jpg"
+        },
+        {
+          "id": "elemen-wh-published-menu",
+          "scope": "branch-dine-in",
+          "coverage": "source-covered",
+          "foodRows": 30,
+          "categories": [
+            "Starter",
+            "Bread",
+            "Salads",
+            "Soups",
+            "Chef's Specials",
+            "Mains",
+            "Desserts"
+          ],
+          "sourceUrl": "https://images.squarespace-cdn.com/content/v1/609d2103ed36b46301aeb07d/e52d875f-c436-4f48-a43b-ce4859a78b37/WH_TV-1080x1920px.jpg"
+        }
+      ]
+    },
+    {
+      "id": "daily-green-woodlands-street-31",
+      "name": "Vegetarian Kitchen by Daily Green",
+      "branch": "306 Woodlands",
+      "rows": 83,
+      "sections": [
+        {
+          "id": "daily-green-published-menu",
+          "scope": "brand-menu",
+          "coverage": "historical",
+          "foodRows": 79,
+          "categories": [
+            "Yong Tau Foo",
+            "Noodles",
+            "Rice",
+            "Soups",
+            "Traditional Flavours",
+            "Vegetables",
+            "Mushrooms",
+            "Egg Dishes",
+            "Claypots",
+            "Hotplates",
+            "Westerns",
+            "Pizzas",
+            "Snacks"
+          ],
+          "sourceUrl": "https://www.dailygreen.sg/s/VEGETARIAN-KITCHEN-MENU-A3-FA-V2.pdf"
+        },
+        {
+          "id": "daily-green-woodlands-street-31-delivery",
+          "scope": "branch-delivery",
+          "coverage": "partial",
+          "foodRows": 4,
+          "categories": [
+            "Hotplate 铁板"
+          ],
+          "sourceUrl": "https://www.foodpanda.sg/restaurant/i408/vegetarian-kitchen-ji-xiang-su-xiao-chu-woodlands-street-31"
+        }
+      ]
+    },
+    {
+      "id": "nomvnom-clarke-quay-central",
+      "name": "nomVnom Bistro",
+      "branch": "Clarke Quay Central",
+      "rows": 74,
+      "sections": [
+        {
+          "id": "nomvnom-clarke-quay-central-ordering-sample",
+          "scope": "branch-ordering",
+          "coverage": "source-covered",
+          "foodRows": 74,
+          "categories": [
+            "Seasonal Specials",
+            "Burger",
+            "Pizza (9\" round crust)",
+            "Pasta",
+            "Rice",
+            "Udon / Pho",
+            "Sides",
+            "Soups",
+            "Salads",
+            "Waffle",
+            "Desserts"
+          ],
+          "sourceUrl": "https://nomvnombistro.oddle.me/en_SG"
+        }
+      ]
+    },
+    {
+      "id": "lian-xin-buddha-tooth-relic-temple",
+      "name": "Lian Xin Vegetarian Restaurant",
+      "branch": "Buddha Tooth Relic Temple basement",
+      "rows": 41,
+      "sections": [
+        {
+          "id": "lian-xin-buddha-tooth-relic-temple-noodles-sample",
+          "scope": "branch-dine-in",
+          "coverage": "partial",
+          "foodRows": 41,
+          "categories": [
+            "Daily Delights",
+            "Noodles",
+            "Western",
+            "Dim Sum",
+            "Desserts"
+          ],
+          "sourceUrl": "https://www.buddhatoothrelictemple.org.sg/lianxin/menu"
+        }
+      ]
+    },
+    {
+      "id": "living-wholesome-fortune-centre",
+      "name": "Living Wholesome Vegetarian",
+      "branch": "Fortune Centre",
+      "rows": 11,
+      "sections": [
+        {
+          "id": "living-wholesome-fortune-centre-brand-menu",
+          "scope": "brand-menu",
+          "coverage": "brand-only",
+          "foodRows": 1,
+          "categories": [
+            "What We Serve"
+          ],
+          "sourceUrl": "https://livingwholesome.sg/"
+        },
+        {
+          "id": "living-wholesome-fortune-centre-delivery-menu",
+          "scope": "branch-delivery",
+          "coverage": "source-covered",
+          "foodRows": 10,
+          "categories": [
+            "Mains",
+            "Extras"
+          ],
+          "sourceUrl": "https://www.foodpanda.sg/restaurant/wd61/living-wholesome-vegetarian-food-fortune-centre"
+        }
+      ]
+    },
+    {
+      "id": "bodhi-deli-fortune-centre",
+      "name": "Bodhi Deli",
+      "branch": "Fortune Centre",
+      "rows": 29,
+      "sections": [
+        {
+          "id": "bodhi-deli-fortune-centre-ordering-menu",
+          "scope": "branch-ordering",
+          "coverage": "source-covered",
+          "foodRows": 29,
+          "categories": [
+            "ALL TIME FAVOURITE ⭐",
+            "New items",
+            "Bites",
+            "Rice",
+            "Special Menu",
+            "Soup Series"
+          ],
+          "sourceUrl": "https://take.app/bodhideli"
+        }
+      ]
+    },
+    {
+      "id": "zhen-xiang-woodlands-street-32",
+      "name": "Zhen Xiang Vegetarian",
+      "branch": "325 Woodlands Street 32",
+      "rows": 68,
+      "sections": [
+        {
+          "id": "zhen-xiang-woodlands-street-32-delivery-sample",
+          "scope": "branch-delivery",
+          "coverage": "source-covered",
+          "foodRows": 68,
+          "categories": [
+            "Sides 小吃",
+            "A La Carte Dishes 单点菜",
+            "Rice Set 套饭",
+            "Noodles 面类",
+            "Fried Rice 炒饭",
+            "Mala Xiang Guo & Hotpot 麻辣香锅火锅"
+          ],
+          "sourceUrl": "https://www.foodpanda.sg/restaurant/fqw9/zhen-xiang-su-shi-zhen-xiang-vegetarian-325-woodlands-st-32"
+        }
+      ]
+    },
+    {
+      "id": "shu-woodlands-avenue-1",
+      "name": "SHU Vegetarian",
+      "branch": "354A Woodlands Avenue 1",
+      "rows": 55,
+      "sections": [
+        {
+          "id": "shu-woodlands-avenue-1-delivery-sample",
+          "scope": "branch-delivery",
+          "coverage": "source-covered",
+          "foodRows": 55,
+          "categories": [
+            "Fried Rice",
+            "Mala Hotpot 麻辣香锅",
+            "Rice Sets",
+            "Vegetables",
+            "Noodles 面",
+            "Extra",
+            "Eggs",
+            "VEG MEAT",
+            "A La Carte",
+            "BEANCURD",
+            "Soups",
+            "VEG FISH",
+            "VEG SEAFOOD"
+          ],
+          "sourceUrl": "https://www.foodpanda.sg/restaurant/x3kk/shu-vegetarian-shu-fang-zhai-woodlands-avenue-1"
+        }
+      ]
+    }
+  ],
+  "coverageFiles": [
+    {
+      "path": "C:\\Users\\huien\\QT\\quintaste\\data\\pilot\\research\\menu-expansion-chinatown-coverage.json",
+      "keys": [
+        "checkedAt",
+        "scope",
+        "venues"
+      ],
+      "lines": 277
+    },
+    {
+      "path": "C:\\Users\\huien\\QT\\quintaste\\data\\pilot\\research\\menu-expansion-bugis-coverage.json",
+      "keys": [
+        "version",
+        "checkedAt",
+        "meaning",
+        "venues"
+      ],
+      "lines": 648
+    },
+    {
+      "path": "C:\\Users\\huien\\QT\\quintaste\\data\\pilot\\research\\menu-expansion-woodlands-coverage.json",
+      "keys": [
+        "checkedAt",
+        "scope",
+        "entries"
+      ],
+      "lines": 409
+    }
+  ],
+  "excludedBeverageRows": 0,
+  "ingredientsConfirmed": 0,
+  "publicPayloadCharacters": 156621,
+  "nameAuditCandidates": [
+    {
+      "name": "190. Green Tea Noodles with Soup",
+      "category": "Noodles",
+      "menuId": "teng-sunshine-delivery"
+    },
+    {
+      "name": "196. Green Tea Cold Soba",
+      "category": "Noodles",
+      "menuId": "teng-sunshine-delivery"
+    },
+    {
+      "name": "224. Green Tea Soba Set",
+      "category": "Japanese Bento Sets",
+      "menuId": "teng-sunshine-delivery"
+    },
+    {
+      "name": "Thunder Tea Brown Rice Set",
+      "category": "Mains",
+      "menuId": "living-wholesome-fortune-centre-delivery-menu"
+    },
+    {
+      "name": "Thunder Tea Bee Hoon Set",
+      "category": "Mains",
+      "menuId": "living-wholesome-fortune-centre-delivery-menu"
+    },
+    {
+      "name": "Thunder Tea Kosong Set",
+      "category": "Mains",
+      "menuId": "living-wholesome-fortune-centre-delivery-menu"
+    },
+    {
+      "name": "Kosong Set without Tea Paste",
+      "category": "Mains",
+      "menuId": "living-wholesome-fortune-centre-delivery-menu"
+    },
+    {
+      "name": "Brown Rice Set without Tea Paste",
+      "category": "Mains",
+      "menuId": "living-wholesome-fortune-centre-delivery-menu"
+    },
+    {
+      "name": "Bee Hoon Set without Tea Paste",
+      "category": "Mains",
+      "menuId": "living-wholesome-fortune-centre-delivery-menu"
+    },
+    {
+      "name": "Thunder Tea Paste",
+      "category": "Extras",
+      "menuId": "living-wholesome-fortune-centre-delivery-menu"
+    }
+  ],
+  "status": "pass"
+}

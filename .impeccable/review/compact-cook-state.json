@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "checks": [
+    "Legacy matching-version completed sessions clear on hydration",
+    "Independent timer and private note survive cleanup",
+    "Changed revision retains review guard",
+    "Active session remains resumable"
+  ]
+}

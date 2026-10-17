@@ -1,0 +1,305 @@
+{
+  "checkedAt": "2026-10-17",
+  "status": "Deployed and live verified",
+  "fullCoverageComplete": false,
+  "goalStatus": "paused",
+  "newPhotos": [
+    {
+      "venueId": "research-egg-plant-marina-bay-source",
+      "address": "8A Marina Boulevard #B2-33 Marina Bay Link Mall, Singapore 018984",
+      "photo": {
+        "path": "/api/catalogue-photos/88f9e1f9d364f25098bcea753b466bd1c8d84ddca1b19ee8fc2bcb99b0bd7909.jpg",
+        "width": 960,
+        "height": 539,
+        "author": "egg.plant / By The Bay",
+        "sourceUrl": "https://bythebay.com.sg/directory",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator/property reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "88f9e1f9d364f25098bcea753b466bd1c8d84ddca1b19ee8fc2bcb99b0bd7909",
+      "bytes": 79278,
+      "originalSha256": "ec8f4d6aa5ecc637249d2cee714782d24103e99d18b141f8bbc7a767008edfa1",
+      "sourcePageCheckedAt": "2026-10-17",
+      "sourceImageUrl": "https://assets.myhabitap.com/prod/shop/detail/MBFC/c2e9ae56-9ce0-4078-8a70-4a831aa867bb.jpg",
+      "identityEvidence": "Actual landlord directory publicly loads assets/includes/cache/retail.json. Exact egg.plant row bd741b07-d4d5-11f0-80af-545200000005 identifiesMBLM#B2-33 and associates this headerPicPath. Both directory and JSON checked17Oct. Food composition retained; no current stock/ingredient certification inferred.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Use case: lighting-weather. Faithfully enhance this exact egg.plant landlord-supplied food photograph for a gallery cover. Preserve all FIVE purple branded bowls in exactly the same arrangement, their original eggs, lettuce and vegetarian toppings in their original quantities and positions, and the pale lavender tabletop. Keep the landscape crop, camera angle, brand spelling egg.plant and bowl graphics. Improve balanced natural light, texture clarity and restrained color, retaining real photographic appearance. No extra ingredients, bowls, garnish, sauces, props, lettering or steam; do not infer or introduce meat or vegan claims.",
+        "review": "Source and output visually compared; selected. Original scene/food retained, fine details may differ. No current-condition or ingredient claims inferred."
+      }
+    },
+    {
+      "venueId": "research-tofu-g-waterway-point",
+      "address": "83 Punggol Central #01-53, Singapore 828761",
+      "photo": {
+        "path": "/api/catalogue-photos/26b3fa08d8fd10050de3fb1719e719478981ea1d1bd839dbda1134e4e33b7d69.jpg",
+        "width": 960,
+        "height": 720,
+        "author": "Tofu G",
+        "sourceUrl": "https://www.tofug.sg/waterwaypoint",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "Enhanced operator-supplied AI image; not independently verified site photography. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "26b3fa08d8fd10050de3fb1719e719478981ea1d1bd839dbda1134e4e33b7d69",
+      "bytes": 117685,
+      "originalSha256": "b7ba567b4b8a242402536dbefab457f93c4f2f8af5bd73050618c8198ade203b",
+      "sourcePageCheckedAt": "2026-10-16",
+      "sourceImageUrl": "https://static.wixstatic.com/media/1acd9f_2dd36e9ff60143eaac3b8cfacf7a029e~mv2.png",
+      "identityEvidence": "Dedicated operator Waterway Point page at83PunggolCentral#01-53 displays this reference. Original filename explicitly ChatGPT Image Jul27,2026; operator-supplied AI imagery, not independently verified physical-site photography. Enhancement retains operator scene.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Use case: lighting-weather. Faithfully refine this exact Tofu G operator-supplied Waterway Point interior reference for a gallery cover. Preserve the whole room layout, dark timber table and benches, counter and equipment, all existing hanging lamps, white panels, wall logos, ceiling fixtures, and signage exactly as shown. Same camera angle and landscape framing. Make only modest exposure, white-balance and shadow-detail improvements while retaining warm ambience and visible material texture. Do not redesign architecture, add or remove seating/equipment/people/plants, or invent lettering. Keep existing logo and TOFU G signage unchanged. Source image may itself have been AI produced; do not imply any independent physical-location verification.",
+        "review": "Source and output visually compared; selected. Original scene/food retained, fine details may differ. No current-condition or ingredient claims inferred."
+      }
+    },
+    {
+      "venueId": "research-tofu-g-suntec-city",
+      "address": "3 Temasek Boulevard #B1-K5, West Wing, Suntec City Mall, Singapore 038983",
+      "photo": {
+        "path": "/api/catalogue-photos/35929226f875e6c80051cef728ae70732405e611b660b27b2021a71d3d0b8f8a.jpg",
+        "width": 960,
+        "height": 720,
+        "author": "Tofu G",
+        "sourceUrl": "https://www.tofug.sg/suntec",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator/property reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "35929226f875e6c80051cef728ae70732405e611b660b27b2021a71d3d0b8f8a",
+      "bytes": 164048,
+      "originalSha256": "6b1b4917490aadef5ce89fc3c67fc672203093a611b0647e530e785a8ac7e5cf",
+      "sourcePageCheckedAt": "2026-10-16",
+      "sourceImageUrl": "https://static.wixstatic.com/media/1acd9f_4f22e2a9a99141568e149c367c469ebc~mv2.png",
+      "identityEvidence": "Dedicated operator Suntec page exact3TemasekBoulevard#B1-K5 displays this s2 reference. Other images on page have ChatGPT filenames; original production method of selected s2 is not independently known. No independent current-condition guarantee.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Use case: lighting-weather. Faithfully enhance this exact Tofu G Suntec operator storefront reference for a gallery cover. Preserve the same TOFU G sign, illuminated counter with three round logos, equipment, dark green rear door, plants, hanging bare bulbs, surrounding mall surfaces and camera perspective. Same landscape crop. Improve restrained white balance, balanced highlights and natural warm exposure only. No redesigned architecture, moved counter, new products, new signs or people. Do not add or remove physical features or lettering. Keep the operator-supplied scene recognizably unchanged, with realistic materials and fine texture.",
+        "review": "Source and output visually compared; selected. Original scene/food retained, fine details may differ. No current-condition or ingredient claims inferred."
+      }
+    },
+    {
+      "venueId": "research-merle-lentor-modern",
+      "address": "1 Lentor Central #01-36, Lentor Modern Mall, Singapore 788887",
+      "photo": {
+        "path": "/api/catalogue-photos/75227925a377ed5cd7f72826457a4c928df943994dde775a235848035b3c6aab.jpg",
+        "width": 960,
+        "height": 1201,
+        "author": "Merle & Co",
+        "sourceUrl": "https://www.merleandco.com/",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator/property reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "75227925a377ed5cd7f72826457a4c928df943994dde775a235848035b3c6aab",
+      "bytes": 193931,
+      "originalSha256": "5938e8f505cce9e8b677e7cb82d1a2ba6c3c1ce87155f4718338f6584eec437a",
+      "sourcePageCheckedAt": "2026-10-16",
+      "sourceImageUrl": "https://merleandco.com/wp-content/uploads/2026/08/grilled-portobello-with-black-pepper-sauce.png",
+      "identityEvidence": "Operator homepage exact1LentorCentral#01-36 displays grilled-portobello-with-black-pepper-sauce image. Source captured16Oct and reviewed17Oct. Exact food arrangement retained; no ingredient/current availability inference.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Use case: lighting-weather. Faithfully enhance this exact Merle & Co operator photograph of grilled portobello on a white plate for a gallery cover. Preserve the sliced mushroom arrangement, mashed base, gravy, three corn pieces, broccolini, tomato vine, rosemary, orange vegetable pieces, plate, wooden tabletop, cropped cream cloth and background leaves exactly as shown. Keep the vertical composition, camera angle and portions. Brighten the food modestly with soft natural light, refine warm white balance and realistic texture, avoid oily artificial gloss. No new ingredients, props, steam, text, logos or rearrangement, no recipe or dietary claims.",
+        "review": "Source and output visually compared; selected. Original scene/food retained, fine details may differ. No current-condition or ingredient claims inferred."
+      }
+    },
+    {
+      "venueId": "research-daehwa-fusionopolis",
+      "address": "1 Fusionopolis Place, #01-35, Galaxis, Singapore 138522",
+      "photo": {
+        "path": "/api/catalogue-photos/297210234f9c141106530872831f7955fa5fbc5705774a03bfc51c103819bd56.jpg",
+        "width": 960,
+        "height": 540,
+        "author": "Daehwa Vegetarian",
+        "sourceUrl": "https://daehwavegetarian.com/",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator/property reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "297210234f9c141106530872831f7955fa5fbc5705774a03bfc51c103819bd56",
+      "bytes": 157928,
+      "originalSha256": "6f548387680ad86083475cf36abd558a4b01f0c42a30940d2ab64bc72fb547ec",
+      "sourcePageCheckedAt": "2026-10-16",
+      "sourceImageUrl": "https://daehwavegetarian.com/wp-content/uploads/2018/09/cropped-cover-photo.jpg",
+      "identityEvidence": "Operator homepage exact1FusionopolisPlace#01-35 displays selected top-down vegetarian Korean meal spread. Source captured16Oct and reviewed17Oct; no transfer from affiliated BonelessKitchen branch.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Use case: lighting-weather. Faithfully enhance this exact Daehwa operator photograph of its vegetarian Korean meal spread. Keep the top-down landscape framing and ALL original dishes, food contents, portions, bowls, plates, cups, chopsticks, spoons and wood tabletop in exactly their positions. Preserve the central stone bowl, dark soup pot above, cropped red stew at upper right, long kimbap platter at right, white plate at lower left and all small side dishes and drinks. Improve even natural exposure and neutral white balance, remove the strong purple/yellow color cast and sharpen real food texture moderately. No new ingredients, garnish, steam, dishes, utensils, text, logos or rearrangement. Do not turn vegetarian substitutes into meat or seafood.",
+        "review": "Source and output visually compared; selected. Original scene/food retained, fine details may differ. No current-condition or ingredient claims inferred."
+      }
+    },
+    {
+      "venueId": "research-baomaker-ang-mo-kio-447",
+      "address": "447 Ang Mo Kio Avenue 10 #01-1675, Singapore 560447",
+      "photo": {
+        "path": "/api/catalogue-photos/6fd55fa5c76f25b1673270023a3ce4409853916bcde58eb272ec5a65d6bf657d.jpg",
+        "width": 960,
+        "height": 960,
+        "author": "Baomaker",
+        "sourceUrl": "https://baomaker.com/",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "Operator product image cropped to food/basket and AI-enhanced. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "6fd55fa5c76f25b1673270023a3ce4409853916bcde58eb272ec5a65d6bf657d",
+      "bytes": 101465,
+      "originalSha256": "b76591d0a9b1ec2654d8733a560f3d61216ca7848121fa8023fd0b5b9ebb92bb",
+      "sourcePageCheckedAt": "2026-10-16",
+      "sourceImageUrl": "https://cdn3.take.app/media/cmi872yh8000204jrhzwn6iym.png?width=1080",
+      "identityEvidence": "Operator ordering page explicitly lists fresh baos for447AngMoKioAvenue10#01-1675 and attaches selected reference to Char Siew Bun. Food/basket crop excludes poster title and badges; existing source attribution retained. No animal meat ingredient inference from dish name.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Use case: background-replacement. Create a faithful photographic gallery cover from the food area of this exact Baomaker operator product image. Preserve the bamboo steamer, the single whole white bun on the right and the single cut half on the left showing its existing dark vegetarian filling. Same perspective and exact food shapes, proportions and positions. Crop closely around the steamer so the poster headline and corner badges are outside the composition. Use the original simple gray-to-muted-blue gradient background visible around the basket, with no new table, props or setting. Enhance clean soft light and realistic bun/bamboo texture. No text, logos, extra buns, added fillings, steam, garnish, or ingredient claims; do not turn the vegetarian filling into animal meat.",
+        "review": "Source and output visually compared; selected. Original scene/food retained, fine details may differ. No current-condition or ingredient claims inferred."
+      }
+    }
+  ],
+  "newHours": [
+    {
+      "venueId": "research-boneless-irving",
+      "address": "1 Irving Place, #01-31, The Commerze @ Irving, Singapore 369546",
+      "hours": {
+        "summary": "Daily 11:00–21:00",
+        "schedule": [
+          "Daily: 11:00–21:00"
+        ],
+        "notes": "Business hours from the venue’s linked reservation page.",
+        "sourceUrl": "https://tableagent.com/singapore/the-boneless-kitchen-korean/",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Direct operator homepage/reservation page links and embeds this exact TableAgent business.1IrvingPlace and84576464 match; Business Hours explicitly lists all7days11-21.17Oct captured source preferred over unclaimed Burpple12-21/Monclosed; Oddle11:30-20:45 is delivery only. No reservation made. Earlier hold resolved by stronger operator-linked business-hours evidence, not booking-slot inference."
+    },
+    {
+      "venueId": "research-merle-lentor-modern",
+      "address": "1 Lentor Central #01-36, Lentor Modern Mall, Singapore 788887",
+      "hours": {
+        "summary": "Weekday & weekend hours vary",
+        "schedule": [
+          "Mon–Thu: 09:30–21:00",
+          "Fri: 09:30–22:00",
+          "Sat: 08:30–22:00",
+          "Sun: 08:30–21:00"
+        ],
+        "notes": "Business hours from the venue’s linked reservation page.",
+        "sourceUrl": "https://tableagent.com/singapore/merle-co/",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Operator homepage directly links this exact TableAgent business, same1LentorCentral address and97578449. Business Hours explicitly statesAM opening. Operator locate-us page contains apparent9.30pm weekday typo (MonThu opening after closing), while linked reservation schedule and exact-branch secondary evidence agree09:30AM; weekdayAM not silently inferred from typo. Both captured17Oct. Earlier secondary-only hold resolved by operator-linked source."
+    },
+    {
+      "venueId": "research-egg-plant-marina-bay-source",
+      "address": "8A Marina Boulevard #B2-33 Marina Bay Link Mall, Singapore 018984",
+      "hours": {
+        "summary": "Mon–Fri 11:00–20:00",
+        "schedule": [
+          "Mon–Fri: 11:00–20:00",
+          "Sat, Sun and public holidays: Closed"
+        ],
+        "notes": "Last order 19:30.",
+        "sourceUrl": "https://bythebay.com.sg/directory",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Actual property manager directory loads publicassets/includes/cache/retail.json. Exactegg.plantMBLM#B2-33row explicitly openingMonFri11am-8pm,last7.30pm,SatSunPHclosed. Captured17Oct. Landlord schedule preferred over conflicting secondary directories and delivery windows; hold resolved by exact primary tenant record."
+    }
+  ],
+  "coverage": {
+    "browseVenues": 174,
+    "menuIds": 175,
+    "covers": 54,
+    "uniqueAssets": 45,
+    "hours": 88,
+    "coverGaps": 120,
+    "hoursGaps": 86,
+    "assetBytes": 5996219,
+    "newAssetBytes": 814335,
+    "catalogueIndexBytes": 143624
+  },
+  "landlordEvidence": {
+    "checkedAt": "2026-10-17",
+    "directoryUrl": "https://bythebay.com.sg/directory",
+    "publicDataUrl": "https://bythebay.com.sg/assets/includes/cache/retail.json",
+    "javascriptUrl": "https://bythebay.com.sg/assets/js/app.min.js?v=1.11",
+    "sourceFile": ".local\\coverage-2026-10-17e\\sources\\bythebay-retail.json",
+    "sha256": "7c274df82c44acf1c8bc3dfed06730b59032098c84366707eba98b9072c39305",
+    "exactTenantRecord": {
+      "uuid": "bd741b07-d4d5-11f0-80af-545200000005",
+      "name": "egg.plant",
+      "building": "MBLM (B2)",
+      "unitNo": "MBLM #B2-33",
+      "websiteUrl": "",
+      "description": "egg.plant is a fast-casual vegetarian restaurant serving modern, flavourful vegetarian bowls. Based in Singapore’s business district, we create hearty, wholesome meals built around ingredients we love - eggs, tofu, eggplant, mushrooms, and fresh vegetables.\r\n\r\nOur menu is fully vegetarian and allium-free, thoughtfully crafted for busy professionals who want convenience without compromising on taste. With balanced proteins and bold flavours, every bowl is designed to energise your day.\r\n\r\negg.plant - Forward flavours, freshly powered.",
+      "opening": "Mon - Fri: 11am to 8pm (last order 7.30pm)\r\nSat, Sun & PH: Closed",
+      "shopType": "DINE",
+      "shopFunctionType": "INTERNAL",
+      "headerPicPath": "https://assets.myhabitap.com/prod/shop/detail/MBFC/c2e9ae56-9ce0-4078-8a70-4a831aa867bb.jpg",
+      "logoPicPath": "https://assets.myhabitap.com/prod/shop/detail/MBFC/23b3fb8f-f027-46ee-9d0c-a061e5f44ef5.jpg",
+      "facebookLink": "",
+      "instagramLink": "https://www.instagram.com/egg.plant.sg/",
+      "categories": [
+        {
+          "name": "Food & Beverage",
+          "code": "FOOD_BEVERAGE"
+        }
+      ],
+      "id": "bd741b07-d4d5-11f0-80af-545200000005"
+    },
+    "method": "Read public directory-linked data, no private API or provider calls"
+  },
+  "priorHoursHoldsResolved": [
+    "research-boneless-irving",
+    "research-merle-lentor-modern",
+    "research-egg-plant-marina-bay-source"
+  ],
+  "otherHolds": "All other hours/photo/food holds preserved. Kind Kones unit mismatch unresolved. MakanVegan/SoonLai exact screenshot images unrecovered.",
+  "sourceRights": "Source attribution/rights retained. User-requested enhancement does not establish independent licence. Waterway reference already has ChatGPT filename; not independently verified physical-site photo.",
+  "sourceDates": "Operator image pages captured16Oct, reviewed17Oct. Landlord public JSON and new hours pages captured17Oct. Raw photograph dates unknown.",
+  "googleLedger": {
+    "requests": 2419,
+    "limit": 2500,
+    "remaining": 81,
+    "sha256": "c7321dafaad0473583139494ca899501578892c5b71105429d3cd4dceb4f311a"
+  },
+  "physicalDeviceVerified": false,
+  "rebase": {
+    "checkedAt": "2026-10-17",
+    "unpromotedRelease": "20261017-branch-hours8",
+    "newRelease": "20261017-branch-hours9",
+    "oldBase": "20261017-operator-covers7",
+    "newBase": "20261017-cook-cleanup2",
+    "reason": "Live-base guard correctly rejected stale promotion after concurrent Cook cleanup; no rollback or overwrite occurred",
+    "oldStageRetained": "source-pre-cleanup8"
+  },
+  "deployedRelease": "20261017-branch-hours9",
+  "releaseEvidence": ".local/coverage-2026-10-17f/release.json",
+  "pausedAt": "2026-10-17",
+  "pauseReason": "User requested stopping further research, documenting previously reviewed/completed data, and deploying for review.",
+  "reviewCheckpoint": "docs/research/review-checkpoint-2026-10-17.md"
+}

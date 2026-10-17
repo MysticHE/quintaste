@@ -1,0 +1,141 @@
+{
+  "checkedAt": "2026-10-17",
+  "deployedRelease": "20261017-merchant-covers18",
+  "goalStatus": "active",
+  "fullCoverageComplete": false,
+  "coverage": {
+    "browseVenues": 174,
+    "menuIds": 175,
+    "covers": 111,
+    "hours": 90,
+    "uniqueAssets": 86,
+    "assetBytes": 11258401,
+    "coverGaps": 63,
+    "hoursGaps": 84,
+    "allThreeAvailable": 75,
+    "catalogueIndexBytes": 172353
+  },
+  "newPhotos": [
+    {
+      "venueId": "research-ur14-tianmu-westcoast",
+      "address": "504 West Coast Drive #01-230, Singapore 120504",
+      "photo": {
+        "path": "/api/catalogue-photos/6e1d990f88fa43510ccc8f1f34b86721ae9cc1d4422e6cff810807a3aa274835.jpg",
+        "width": 960,
+        "height": 960,
+        "author": "TianMu Vegetarian",
+        "sourceUrl": "https://www.blockchef.com/store/tianmuvegetarian/menu",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "6e1d990f88fa43510ccc8f1f34b86721ae9cc1d4422e6cff810807a3aa274835",
+      "bytes": 136475,
+      "originalSha256": "1435e492fe64668e24032679f4b439d72ff1b32f8ee2eb15d36b6848a29c9743",
+      "sourcePageCheckedAt": "2026-10-16",
+      "sourceImageUrl": "https://l9ttl7hgtobzzbw7.public.blob.vercel-storage.com/images/stores/tianmuvegetarian/33a246b1bc3c26758fdd0fa477b04214/image-1.png?1714022152272",
+      "identityEvidence": "Operator BlockChef menu page explicitly binds 504 West Coast Drive #01-230, Singapore 120504; image alt identifies Vege Chicken Big Mac. Same photographed vegetarian burger; no ingredient claim inferred.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithful enhancement of this exact TianMu Vegetarian operator burger photograph. Preserve the original tall soft square bun, upper split crumb, lettuce, golden vegetarian patty, tomato layer, lower bread and white plate, with the same proportions and food arrangement. Improve soft natural light and realistic texture without adding fillings, sauces, sesame or ingredients. Crop away the black side bars by reframing around the photographed burger, retain the understated blurred original background. No text, props or claims; same actual product.",
+        "review": "Original and output visually compared; same original product composition, food and serving vessels retained, with enhanced light/texture. No new ingredient or availability claim."
+      }
+    },
+    {
+      "venueId": "research-swaad-shenton3",
+      "address": "3 Shenton Way #01-04 Shenton House, Singapore 068805",
+      "photo": {
+        "path": "/api/catalogue-photos/b8d17fc453f1274488fea975fdf80cca9a4801aa59e405c67319650f9d60d41a.jpg",
+        "width": 960,
+        "height": 960,
+        "author": "Swaad",
+        "sourceUrl": "https://www.blockchef.com/store/shentonfoodhall/menu?menu=Swaad%20Vegetarian%20%28Shenton%20Way%29",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "b8d17fc453f1274488fea975fdf80cca9a4801aa59e405c67319650f9d60d41a",
+      "bytes": 154244,
+      "originalSha256": "c9dd4e1555624bbd68d4ef7f6d4d94fd887323afd651d87d010405b87ee5b6aa",
+      "sourcePageCheckedAt": "2026-10-16",
+      "sourceImageUrl": "https://l9ttl7hgtobzzbw7.public.blob.vercel-storage.com/images/stores/shentonfoodhall/8372b8521e7dee78b159f3d291f08d5f/image-1.png?1711346794377",
+      "identityEvidence": "Named Swaad Thali Vegetarian Set Meal on the Shenton Food Hall menu; exact 3 Shenton Way #01-04 Shenton House 068805 independently confirmed by https://swaadgovinda.com/locations. Other food-hall vendors excluded.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithful enhancement of this exact Swaad Shenton vegetarian thali menu photograph. Preserve all existing steel bowls, the original rice, breads, curries, sweet, fruit bowl, rear vessels and wooden board, in their original arrangement and quantities on the dark background. Improve soft warm food lighting, balanced color and realistic texture. Do not add or replace dishes, ingredients, garnish, props or text. Keep this same photographed set meal, not a new thali design; no dietary or stock claims.",
+        "review": "Original and output visually compared; same original product composition, food and serving vessels retained, with enhanced light/texture. No new ingredient or availability claim."
+      }
+    },
+    {
+      "venueId": "research-ur06-so-green",
+      "address": "445 Bedok North Street1 #01-02, Djitsun Mall, Singapore469661",
+      "photo": {
+        "path": "/api/catalogue-photos/9f28ede53f198f96ed038e736857b2efc3aade83da76fae70faa4dbe1f003abd.jpg",
+        "width": 960,
+        "height": 703,
+        "author": "So Green Vegetarian",
+        "sourceUrl": "https://sogreenvegetarian.oddle.me/en_SG",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "9f28ede53f198f96ed038e736857b2efc3aade83da76fae70faa4dbe1f003abd",
+      "bytes": 107499,
+      "originalSha256": "eff82e055228b410e9ec65e330600645acf6550ca5fe963f9d86a7093bfbe995",
+      "sourcePageCheckedAt": "2026-10-16",
+      "sourceImageUrl": "https://ucarecdn.com/930c1bfa-fe03-42a0-b7b5-24bf90ca123a/",
+      "identityEvidence": "Operator Oddle menu product P1 Basil Pesto image; JSON-LD and Store Information bind 445 Bedok North Street 1 #01-02 Djitsun Mall 469661. Brand food image, no interior or current availability claim.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance the supplied So Green Vegetarian operator product photograph for its gallery cover. Preserve this exact white broad-rim bowl of pesto spaghetti, mushroom slices, cashews, small green herb garnish and sprinkled rim herbs on the light wooden tabletop. Keep the same visible ingredients, serving quantity and arrangement, without adding food or props. Improve natural soft lighting, appetizing but realistic color, clarity and subtle texture. Frame a little closer so the bowl is prominent while keeping the whole bowl visible. No lettering or invented setting; this is the same photographed dish.",
+        "review": "Original and output visually compared: same broad white bowl, pesto spaghetti, mushrooms, cashews and herb garnish on wooden table; improved lighting and closer framing. No new ingredient or availability claim."
+      }
+    }
+  ],
+  "newHours": [],
+  "googleLedger": {
+    "bytes": 1045377,
+    "sha256": "c7321dafaad0473583139494ca899501578892c5b71105429d3cd4dceb4f311a",
+    "requests": 2419,
+    "limit": 2500,
+    "remaining": 81
+  },
+  "sourceRights": "Source attribution and rights retained. User-requested enhancement does not establish an independent licence.",
+  "unresolved": "2,527 food holds,109zero-food research branches,1,828unnamed candidate IDs,8coordinate holds preserved; exact MakanVegan/SoonLai screenshot images unrecovered.",
+  "releaseEvidence": ".local/coverage-2026-10-17o/release.json",
+  "hoursReview": {
+    "checkedAt": "2026-10-17",
+    "acceptedVenueIds": [],
+    "sources": [
+      {
+        "url": "https://sogreenvegetarian.oddle.me/en_SG/stores",
+        "sourceCheckedAt": "2026-10-16",
+        "reviewedAt": "2026-10-17",
+        "finding": "Exact Bedok branch: 11:30-21:30 explicitly labels Pickup Opening Hours and Delivery Opening Hours. Not imported as general dine-in hours. Upper Weld branch also present; no cross-branch transfer."
+      }
+    ],
+    "photoHolds": [
+      {
+        "reference": "ascend-signature",
+        "reason": "Landlord image is only a logo; not a venue/product cover photograph."
+      },
+      {
+        "reference": "sogreen-lunch",
+        "reason": "200px promotional collage rejected; higher-resolution operator pasta product image selected instead."
+      }
+    ],
+    "finding": "Existing verified schedules and unresolved holds preserved. No delivery/collection hours promoted to general opening hours."
+  }
+}

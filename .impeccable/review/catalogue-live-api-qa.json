@@ -1,0 +1,46 @@
+{
+  "checkedAt": "2026-10-16T11:49:29.311389+00:00",
+  "checks": [
+    "175 menu IDs/223 source menus/12084 food occurrences; all175 summary fingerprints and counts match reviewed local data; index304",
+    "All seven formerly absent menu details published with exact fingerprints; detail304; held Pita404",
+    "All9 pages174 unique browse entries; first20/no foods; unchanged204/empty body; invalid location and mismatched cursor400; nearby14/8 location gaps",
+    "Research ledger hash/bytes and live Google usage unchanged; zero provider requests"
+  ],
+  "providerCalls": 0,
+  "firstPageRawBytes": 10389,
+  "firstPageElapsedSeconds": 0.0196,
+  "contentEncoding": null,
+  "nearbyTotal": 14,
+  "nearbyLocationGaps": 8,
+  "researchLedger": {
+    "bytes": 1045377,
+    "sha256": "c7321dafaad0473583139494ca899501578892c5b71105429d3cd4dceb4f311a",
+    "requests": 2419,
+    "limit": 2500,
+    "remaining": 81
+  },
+  "liveGoogleAllowance": {
+    "month": "2026-10",
+    "limits": {
+      "textSearchEnterprise": 100,
+      "nearbySearchEnterprise": 100,
+      "placeDetailsAtmosphere": 100,
+      "placePhotos": 600
+    },
+    "observedUsage": {
+      "textSearchEnterprise": 0,
+      "nearbySearchEnterprise": 0,
+      "placeDetailsAtmosphere": 0,
+      "placePhotos": 0
+    },
+    "counts": {
+      "textSearchEnterprise": 100,
+      "nearbySearchEnterprise": 8,
+      "placeDetailsAtmosphere": 19,
+      "placePhotos": 545
+    }
+  },
+  "containerMemorySnapshot": "quintaste-staging-app-1 128.2MiB / 768MiB 0.01%\nquintaste-staging-preview-1 267.5MiB / 1.758GiB 75.22%",
+  "vpsDiskSnapshot": "Filesystem      Size  Used Avail Use% Mounted on\n/dev/sda1        96G   68G   28G  71% /",
+  "passed": true
+}

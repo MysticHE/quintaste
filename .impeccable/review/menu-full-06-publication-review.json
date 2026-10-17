@@ -1,0 +1,29 @@
+{
+  "checkedAt": "2026-10-16T05:19:10.865262+00:00",
+  "initialCompilerExcludedUnavailableProducts": [
+    "8a8192288cf11847018cf1bb1889409f",
+    "8a81955f8ced0f8a018cf1b5c8090a1c",
+    "8a8195e482805136018281e44aea16d8"
+  ],
+  "unavailablePublicRowsEverPublished": 0,
+  "rawFoodObservations": 327,
+  "approvedFoodRows": 239,
+  "heldFoodRows": 88,
+  "batch09Summary": {
+    "selected": 244,
+    "reviewed": 244,
+    "pending": 0,
+    "eligibilityCounts": {
+      "unresolved": 127,
+      "vegetarian-confirmed": 109,
+      "supplier": 8
+    },
+    "newFoodRows": 636,
+    "automaticIdentityApprovals": 0,
+    "complete": false,
+    "approvedNewFoodRows": 459,
+    "heldNewFoodRows": 177,
+    "scopeOutcomePassComplete": true
+  },
+  "googleCalls": 0
+}

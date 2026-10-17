@@ -1,0 +1,21 @@
+{
+  "checkedAt": "2026-10-15T01:52:43.412Z",
+  "typecheck": {
+    "command": "npx tsc --noEmit",
+    "exitCode": 0
+  },
+  "lint": {
+    "command": "npm run lint",
+    "exitCode": 0
+  },
+  "browser": {
+    "journeyChecks": 18,
+    "freshnessChecks": 6,
+    "consoleErrors": 0,
+    "scopedAxeViolations": 0,
+    "captures": 13
+  },
+  "stateChecks": 9,
+  "native": "Android manifest and current bundle HTTP200; device visuals and permissions not verified",
+  "scope": "Local pantry Buy/Sell preview; database and live multi-user services deferred"
+}

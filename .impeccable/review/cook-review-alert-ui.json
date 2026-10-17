@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "checks": [
+    "Android warning and approximate opt-in precede enable; enabled state stays approximate",
+    "Denied permissions do not display alerts on; alarm settings falls back to app settings",
+    "iOS and web keep their platform behavior",
+    "Batch cleanup preserves text and original snapshot, resets recipe consent/revision and listing evidence/status"
+  ],
+  "nativeDeliveryVerified": false
+}

@@ -1,0 +1,81 @@
+{
+  "disposition": "ship",
+  "scope": "Browser/source only; native acceptance unverified",
+  "reviewer": "Fresh cook_finish_review using degraded Impeccable finish-reviewer role",
+  "persistence": {
+    "status": "pass",
+    "capturesIndividuallyInspected": 27,
+    "evidence": [
+      "cook-refresh-browser.json",
+      "cook-recovery-browser.json",
+      "cook-refresh-state.json"
+    ],
+    "notes": [
+      "All captures readable; scrolled interaction views have top supplements. Expo lightning overlay is development tooling; uploaded screenshot photos are QA fixtures.",
+      "Current navigation metrics must be reconciled in documentation: glyph30, stroke2.2, row56, lens max68x44. Documentation handoff follows.",
+      "Full TypeScript/ESLint and source review approved."
+    ]
+  },
+  "fidelity": [
+    {
+      "element": "TYPE",
+      "state": "match",
+      "evidence": "Nunito hierarchy and larger text consistent"
+    },
+    {
+      "element": "MATERIAL",
+      "state": "match",
+      "evidence": "Food imagery, near-white cards and glass dock retain established world"
+    },
+    {
+      "element": "GROUND",
+      "state": "match",
+      "evidence": "Coral/peach light and plum dark surfaces retain semantic palettes"
+    },
+    {
+      "element": "Dock silhouettes",
+      "state": "adaptation",
+      "evidence": "User-authorized outline/filled icons distinct at320"
+    },
+    {
+      "element": "Floating add",
+      "state": "match",
+      "evidence": "Centered neutral rounded-square control shared by Social, Market, My recipes"
+    },
+    {
+      "element": "Cook hierarchy",
+      "state": "match",
+      "evidence": "Search, resume, My recipes, Shopping and browsing reachable"
+    },
+    {
+      "element": "Private recipes",
+      "state": "match",
+      "evidence": "Drafts, revisions, photos and preparation retain device-only boundaries"
+    },
+    {
+      "element": "Publication truth",
+      "state": "match",
+      "evidence": "Ready/Not sent creates no public listing or approval; incomplete photo blocks preparation"
+    },
+    {
+      "element": "Recovery",
+      "state": "match",
+      "evidence": "Version guard, recovered editor, dark/larger text usable"
+    }
+  ],
+  "ceiling": {
+    "status": "reached",
+    "scope": "Supplied browser/source scope",
+    "limits": [
+      "Native appearance, safe areas, gestures, photo permissions, platform accessibility, tablet navigation and background alerts require device evidence.",
+      "Source was sampled, not exhaustively rereviewed. Code-led extension has no comp/raster reproduction/new concept seed."
+    ]
+  },
+  "material_fixes": [],
+  "keep": [
+    "Distinct selected silhouettes",
+    "Shared centered plus controls",
+    "Legible cooking tasks",
+    "Explicit private, Not sent and sample boundaries"
+  ]
+}

@@ -1,0 +1,1765 @@
+{
+  "version": 1,
+  "checkedAt": "2026-10-16T00:22:00Z",
+  "sources": [
+    {
+      "id": "completion-tofug-home",
+      "url": "https://www.tofug.sg/",
+      "publisher": "Tofu G",
+      "title": "Merchant branch navigation and addresses",
+      "checkedAt": "2026-10-16T00:22:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP 200; six exact branch menu links followed. Check date is not an effective menu date."
+    },
+    {
+      "id": "completion-tofug-mandaringallery",
+      "url": "https://www.tofug.sg/mandaringallery",
+      "publisher": "Tofu G",
+      "title": "Tofu G — Mandarin Gallery live branch menu",
+      "checkedAt": "2026-10-16T00:22:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP 200. Full HTML and readable text retained in temporary evidence. Current branch-specific menu controls over stale search snippets. Relevant hero/menu-labelled images inspected and are illustrative photos, not priced menu scans."
+    },
+    {
+      "id": "completion-tofug-takashimaya",
+      "url": "https://www.tofug.sg/takashimaya",
+      "publisher": "Tofu G",
+      "title": "Tofu G — Ngee Ann City live branch menu",
+      "checkedAt": "2026-10-16T00:22:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP 200. Full HTML and readable text retained in temporary evidence. Current branch-specific menu controls over stale search snippets. Relevant hero/menu-labelled images inspected and are illustrative photos, not priced menu scans."
+    },
+    {
+      "id": "completion-tofug-97amoy",
+      "url": "https://www.tofug.sg/97amoy",
+      "publisher": "Tofu G",
+      "title": "Tofu G — Amoy Street live branch menu",
+      "checkedAt": "2026-10-16T00:22:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP 200. Full HTML and readable text retained in temporary evidence. Current branch-specific menu controls over stale search snippets. Relevant hero/menu-labelled images inspected and are illustrative photos, not priced menu scans."
+    },
+    {
+      "id": "completion-tofug-uesquare",
+      "url": "https://www.tofug.sg/uesquare",
+      "publisher": "Tofu G",
+      "title": "Tofu G — UE Square live branch menu",
+      "checkedAt": "2026-10-16T00:22:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP 200. Full HTML and readable text retained in temporary evidence. Current branch-specific menu controls over stale search snippets. Relevant hero/menu-labelled images inspected and are illustrative photos, not priced menu scans."
+    },
+    {
+      "id": "completion-tofug-waterwaypoint",
+      "url": "https://www.tofug.sg/waterwaypoint",
+      "publisher": "Tofu G",
+      "title": "Tofu G — Waterway Point live branch menu",
+      "checkedAt": "2026-10-16T00:22:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP 200. Full HTML and readable text retained in temporary evidence. Current branch-specific menu controls over stale search snippets. Relevant hero/menu-labelled images inspected and are illustrative photos, not priced menu scans."
+    },
+    {
+      "id": "completion-tofug-suntec",
+      "url": "https://www.tofug.sg/suntec",
+      "publisher": "Tofu G",
+      "title": "Tofu G — Suntec City live branch menu",
+      "checkedAt": "2026-10-16T00:22:00Z",
+      "status": "readable-live-primary",
+      "notes": "HTTP 200. Full HTML and readable text retained in temporary evidence. Current branch-specific menu controls over stale search snippets. Relevant hero/menu-labelled images inspected and are illustrative photos, not priced menu scans."
+    }
+  ],
+  "branches": [
+    {
+      "id": "tofu-g-mandarin-gallery",
+      "name": "Tofu G — Mandarin Gallery",
+      "address": "333A Orchard Road #02-26, Mandarin Gallery, Singapore 238897",
+      "sourceIds": [
+        "completion-tofug-home",
+        "completion-tofug-mandaringallery"
+      ],
+      "menuIds": [
+        "tofu-g-mandarin-gallery-merchant-food-20261016"
+      ],
+      "gaps": [
+        "All displayed branch-page human food names, prices, portions and topping choices captured. Current stock, ingredient suitability, tax/service treatment and effective date remain unspecified.",
+        "Own branch heading/address says#02-26; several other branch pages contain#03-30 under Other Locations. Own exact-branch source retained; cross-page unit discrepancy explicit."
+      ],
+      "identityStatus": "merchant-confirmed",
+      "postalCode": "238897",
+      "directoryLeadIds": [
+        "hippo-tofu-g-gelato-mandarin-gallery"
+      ]
+    },
+    {
+      "id": "tofu-g-ngee-ann-city",
+      "name": "Tofu G — Ngee Ann City",
+      "address": "391 Orchard Road #B1-29, Ngee Ann City, Singapore 238873",
+      "sourceIds": [
+        "completion-tofug-home",
+        "completion-tofug-takashimaya"
+      ],
+      "menuIds": [
+        "tofu-g-ngee-ann-city-merchant-food-20261016"
+      ],
+      "gaps": [
+        "All displayed branch-page human food names, prices, portions and topping choices captured. Current stock, ingredient suitability, tax/service treatment and effective date remain unspecified.",
+        "Merchant postal238873 retained; directory lead238872 conflicts."
+      ],
+      "identityStatus": "merchant-confirmed",
+      "postalCode": "238873",
+      "directoryLeadIds": [
+        "hippo-tofu-g-gelato-takashimaya"
+      ]
+    },
+    {
+      "id": "tofu-g-amoy-street",
+      "name": "Tofu G — Amoy Street",
+      "address": "97 Amoy Street, Singapore 069916",
+      "sourceIds": [
+        "completion-tofug-home",
+        "completion-tofug-97amoy"
+      ],
+      "menuIds": [
+        "tofu-g-amoy-street-merchant-food-20261016"
+      ],
+      "gaps": [
+        "All displayed branch-page human food names, prices, portions and topping choices captured. Current stock, ingredient suitability, tax/service treatment and effective date remain unspecified."
+      ],
+      "identityStatus": "merchant-confirmed",
+      "postalCode": "069916",
+      "directoryLeadIds": [
+        "hippo-tofu-g-gelato-amoy-street"
+      ]
+    },
+    {
+      "id": "tofu-g-ue-square",
+      "name": "Tofu G — UE Square",
+      "address": "81 Clemenceau Avenue #01-19, Singapore 239917",
+      "sourceIds": [
+        "completion-tofug-home",
+        "completion-tofug-uesquare"
+      ],
+      "menuIds": [
+        "tofu-g-ue-square-merchant-food-20261016"
+      ],
+      "gaps": [
+        "All displayed branch-page human food names, prices, portions and topping choices captured. Current stock, ingredient suitability, tax/service treatment and effective date remain unspecified."
+      ],
+      "identityStatus": "merchant-confirmed",
+      "postalCode": "239917",
+      "directoryLeadIds": [
+        "hippo-tofu-g-gelato-ue-square"
+      ]
+    },
+    {
+      "id": "tofu-g-waterway-point",
+      "name": "Tofu G — Waterway Point",
+      "address": "83 Punggol Central #01-53, Singapore 828761",
+      "sourceIds": [
+        "completion-tofug-home",
+        "completion-tofug-waterwaypoint"
+      ],
+      "menuIds": [
+        "tofu-g-waterway-point-merchant-food-20261016"
+      ],
+      "gaps": [
+        "All displayed branch-page human food names, prices, portions and topping choices captured. Current stock, ingredient suitability, tax/service treatment and effective date remain unspecified."
+      ],
+      "identityStatus": "merchant-confirmed",
+      "postalCode": "828761",
+      "directoryLeadIds": [
+        "hippo-tofu-g-gelato-waterway-point"
+      ]
+    },
+    {
+      "id": "tofu-g-suntec-city",
+      "name": "Tofu G — Suntec City",
+      "address": "3 Temasek Boulevard #B1-K5, West Wing, Suntec City Mall, Singapore 038983",
+      "sourceIds": [
+        "completion-tofug-home",
+        "completion-tofug-suntec"
+      ],
+      "menuIds": [
+        "tofu-g-suntec-city-merchant-food-20261016"
+      ],
+      "gaps": [
+        "All displayed branch-page human food names, prices, portions and topping choices captured. Current stock, ingredient suitability, tax/service treatment and effective date remain unspecified."
+      ],
+      "identityStatus": "merchant-confirmed",
+      "postalCode": "038983",
+      "directoryLeadIds": [
+        "hippo-tofu-g-gelato-suntec-city"
+      ]
+    }
+  ],
+  "menus": [
+    {
+      "id": "tofu-g-mandarin-gallery-merchant-food-20261016",
+      "name": "Tofu G — Mandarin Gallery — branch webpage foods",
+      "scope": "branch",
+      "branchIds": [
+        "tofu-g-mandarin-gallery"
+      ],
+      "sourceIds": [
+        "completion-tofug-mandaringallery"
+      ],
+      "coverage": "source-covered",
+      "items": [
+        {
+          "id": "tofu-g-mandarin-gallery-merchant-food-20261016-001",
+          "name": "Vegan Tofu Gelato",
+          "category": "Gelato",
+          "price": {
+            "amount": 8,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-mandaringallery"
+          ],
+          "qualifier": "Live branch webpage; single scoop cup price applies to displayed flavours. (Tofu-based, Vegan-friendly & Dairy-Free) Source suitability wording is a merchant claim, not independent certification. Currency code, taxes, effective date and stock unconfirmed.",
+          "portion": "Single scoop (cup)"
+        },
+        {
+          "id": "tofu-g-mandarin-gallery-merchant-food-20261016-002",
+          "name": "Earl Grey Hojicha Gelato",
+          "category": "Gelato",
+          "price": {
+            "amount": 8,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-mandaringallery"
+          ],
+          "qualifier": "Live branch webpage; single scoop cup price applies to displayed flavours. (Mandarin Gallery Exclusive, Vegan-friendly & Dairy-free) Source suitability wording is a merchant claim, not independent certification. Currency code, taxes, effective date and stock unconfirmed.",
+          "portion": "Single scoop (cup)"
+        },
+        {
+          "id": "tofu-g-mandarin-gallery-merchant-food-20261016-003",
+          "name": "Vegan High-Protein Tofu",
+          "category": "Gelato",
+          "price": {
+            "amount": 8,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-mandaringallery"
+          ],
+          "qualifier": "Live branch webpage; single scoop cup price applies to displayed flavours. (Tofu-based, Vegan-friendly & Dairy-Free) *Limited daily availability Source suitability wording is a merchant claim, not independent certification. Currency code, taxes, effective date and stock unconfirmed.",
+          "portion": "Single scoop (cup)"
+        },
+        {
+          "id": "tofu-g-mandarin-gallery-merchant-food-20261016-004",
+          "name": "Black Sesame Gelato",
+          "category": "Gelato",
+          "price": {
+            "amount": 8,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-mandaringallery"
+          ],
+          "qualifier": "Live branch webpage; single scoop cup price applies to displayed flavours. (Plant-based, Vegan-friendly & Dairy-Free) Source suitability wording is a merchant claim, not independent certification. Currency code, taxes, effective date and stock unconfirmed.",
+          "portion": "Single scoop (cup)"
+        },
+        {
+          "id": "tofu-g-mandarin-gallery-merchant-food-20261016-005",
+          "name": "Pistachio Gelato",
+          "category": "Gelato",
+          "price": {
+            "amount": 8,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-mandaringallery"
+          ],
+          "qualifier": "Live branch webpage; single scoop cup price applies to displayed flavours. (Contains Dairy) Source suitability wording is a merchant claim, not independent certification. Currency code, taxes, effective date and stock unconfirmed.",
+          "portion": "Single scoop (cup)"
+        },
+        {
+          "id": "tofu-g-mandarin-gallery-merchant-food-20261016-006",
+          "name": "Pomegranate Gelato",
+          "category": "Gelato",
+          "price": {
+            "amount": 8,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-mandaringallery"
+          ],
+          "qualifier": "Live branch webpage; single scoop cup price applies to displayed flavours. (Contains Dairy & Tofu, Lively & Refreshing) Source suitability wording is a merchant claim, not independent certification. Currency code, taxes, effective date and stock unconfirmed.",
+          "portion": "Single scoop (cup)"
+        },
+        {
+          "id": "tofu-g-mandarin-gallery-merchant-food-20261016-007",
+          "name": "Pudding",
+          "category": "Dessert",
+          "price": {
+            "amount": 6,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-mandaringallery"
+          ],
+          "qualifier": "Live branch webpage only. Printed $ currency code, taxes/charges, effective date, current stock and ingredients unconfirmed.",
+          "priceVariants": [
+            {
+              "name": "Tofu",
+              "amount": 6,
+              "currency": "unknown",
+              "kind": "fixed"
+            },
+            {
+              "name": "Pistachio",
+              "amount": 6,
+              "currency": "unknown",
+              "kind": "fixed"
+            },
+            {
+              "name": "Black Sesame",
+              "amount": 6,
+              "currency": "unknown",
+              "kind": "fixed"
+            }
+          ],
+          "optionNotes": "Three printed flavours; each flavour $6. Pudding serving size not stated."
+        },
+        {
+          "id": "tofu-g-mandarin-gallery-merchant-food-20261016-008",
+          "name": "Tiramisu",
+          "category": "Dessert",
+          "price": {
+            "amount": 8,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-mandaringallery"
+          ],
+          "qualifier": "Live branch webpage only. Printed $ currency code, taxes/charges, effective date, current stock and ingredients unconfirmed.",
+          "priceVariants": [
+            {
+              "name": "Cocoa Powder",
+              "amount": 8,
+              "currency": "unknown",
+              "kind": "fixed"
+            },
+            {
+              "name": "Matcha Powder",
+              "amount": 8,
+              "currency": "unknown",
+              "kind": "fixed"
+            },
+            {
+              "name": "Injeolmi Powder",
+              "amount": 8,
+              "currency": "unknown",
+              "kind": "fixed"
+            }
+          ],
+          "optionNotes": "Three printed powder flavours; each flavour $8. Serving size not stated."
+        },
+        {
+          "id": "tofu-g-mandarin-gallery-merchant-food-20261016-009",
+          "name": "Butter Tteok",
+          "category": "Dessert",
+          "price": {
+            "amount": 9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-mandaringallery"
+          ],
+          "qualifier": "Live branch webpage only. Printed $ currency code, taxes/charges, effective date, current stock and ingredients unconfirmed.",
+          "portion": "4 pieces",
+          "priceVariants": [
+            {
+              "name": "Original",
+              "amount": 9,
+              "currency": "unknown",
+              "kind": "fixed"
+            },
+            {
+              "name": "Injeolmi",
+              "amount": 9,
+              "currency": "unknown",
+              "kind": "fixed"
+            }
+          ],
+          "optionNotes": "Original / Injeolmi listed; flavour-mix quantities within four-piece order not stated."
+        }
+      ],
+      "notice": "All branch webpage standalone human food and priced topping rows captured. Flavours/portions retained. Drinks and espresso additions excluded. Search cache menu differences not merged; no claims about other ordering channels, display stock or seasonal foods."
+    },
+    {
+      "id": "tofu-g-ngee-ann-city-merchant-food-20261016",
+      "name": "Tofu G — Ngee Ann City — branch webpage foods",
+      "scope": "branch",
+      "branchIds": [
+        "tofu-g-ngee-ann-city"
+      ],
+      "sourceIds": [
+        "completion-tofug-takashimaya"
+      ],
+      "coverage": "source-covered",
+      "items": [
+        {
+          "id": "tofu-g-ngee-ann-city-merchant-food-20261016-001",
+          "name": "Original Tofu Gelato",
+          "category": "Gelato",
+          "price": {
+            "amount": 8,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-takashimaya"
+          ],
+          "qualifier": "Live branch webpage; single scoop cup price applies to displayed flavours. (Tofu-based, Vegan-friendly & Dairy-Free) Source suitability wording is a merchant claim, not independent certification. Currency code, taxes, effective date and stock unconfirmed.",
+          "portion": "Single scoop (cup)"
+        },
+        {
+          "id": "tofu-g-ngee-ann-city-merchant-food-20261016-002",
+          "name": "Chodang Sweet Corn Gelato",
+          "category": "Gelato",
+          "price": {
+            "amount": 8,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-takashimaya"
+          ],
+          "qualifier": "Live branch webpage; single scoop cup price applies to displayed flavours. (Contains Dairy) Source suitability wording is a merchant claim, not independent certification. Currency code, taxes, effective date and stock unconfirmed.",
+          "portion": "Single scoop (cup)"
+        },
+        {
+          "id": "tofu-g-ngee-ann-city-merchant-food-20261016-003",
+          "name": "High-Protein Tofu Gelato",
+          "category": "Gelato",
+          "price": {
+            "amount": 8,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-takashimaya"
+          ],
+          "qualifier": "Live branch webpage; single scoop cup price applies to displayed flavours. (Tofu-based, Vegan-friendly & Dairy-Free) * Limited daily availability Source suitability wording is a merchant claim, not independent certification. Currency code, taxes, effective date and stock unconfirmed.",
+          "portion": "Single scoop (cup)"
+        },
+        {
+          "id": "tofu-g-ngee-ann-city-merchant-food-20261016-004",
+          "name": "Korean Sweet Potato Gelato",
+          "category": "Gelato",
+          "price": {
+            "amount": 8,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-takashimaya"
+          ],
+          "qualifier": "Live branch webpage; single scoop cup price applies to displayed flavours. (Contains Dairy) Source suitability wording is a merchant claim, not independent certification. Currency code, taxes, effective date and stock unconfirmed.",
+          "portion": "Single scoop (cup)"
+        },
+        {
+          "id": "tofu-g-ngee-ann-city-merchant-food-20261016-005",
+          "name": "Black Sesame Gelato",
+          "category": "Gelato",
+          "price": {
+            "amount": 8,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-takashimaya"
+          ],
+          "qualifier": "Live branch webpage; single scoop cup price applies to displayed flavours. (Plant-based, Vegan-friendly, Dairy-Free) Source suitability wording is a merchant claim, not independent certification. Currency code, taxes, effective date and stock unconfirmed.",
+          "portion": "Single scoop (cup)"
+        },
+        {
+          "id": "tofu-g-ngee-ann-city-merchant-food-20261016-006",
+          "name": "Pistachio Gelato",
+          "category": "Gelato",
+          "price": {
+            "amount": 8,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-takashimaya"
+          ],
+          "qualifier": "Live branch webpage; single scoop cup price applies to displayed flavours. (Contains Dairy) Source suitability wording is a merchant claim, not independent certification. Currency code, taxes, effective date and stock unconfirmed.",
+          "portion": "Single scoop (cup)"
+        },
+        {
+          "id": "tofu-g-ngee-ann-city-merchant-food-20261016-007",
+          "name": "Pomegranate Gelato",
+          "category": "Gelato",
+          "price": {
+            "amount": 8,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-takashimaya"
+          ],
+          "qualifier": "Live branch webpage; single scoop cup price applies to displayed flavours. (Contains Dairy & Tofu, Lively & Refreshing) Source suitability wording is a merchant claim, not independent certification. Currency code, taxes, effective date and stock unconfirmed.",
+          "portion": "Single scoop (cup)"
+        },
+        {
+          "id": "tofu-g-ngee-ann-city-merchant-food-20261016-008",
+          "name": "Rich Chocolate Gelato",
+          "category": "Gelato",
+          "price": {
+            "amount": 8,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-takashimaya"
+          ],
+          "qualifier": "Live branch webpage; single scoop cup price applies to displayed flavours. (Vegan-friendly & Dairy-free) Source suitability wording is a merchant claim, not independent certification. Currency code, taxes, effective date and stock unconfirmed.",
+          "portion": "Single scoop (cup)"
+        },
+        {
+          "id": "tofu-g-ngee-ann-city-merchant-food-20261016-009",
+          "name": "Butter Tteok",
+          "category": "Dessert",
+          "price": {
+            "amount": 9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-takashimaya"
+          ],
+          "qualifier": "Live branch webpage only. Printed $ currency code, taxes/charges, effective date, current stock and ingredients unconfirmed.",
+          "portion": "4 pieces",
+          "priceVariants": [
+            {
+              "name": "Original",
+              "amount": 9,
+              "currency": "unknown",
+              "kind": "fixed"
+            },
+            {
+              "name": "Injeolmi",
+              "amount": 9,
+              "currency": "unknown",
+              "kind": "fixed"
+            }
+          ],
+          "optionNotes": "Original / Injeolmi listed; flavour-mix quantities within four-piece order not stated."
+        }
+      ],
+      "notice": "All branch webpage standalone human food and priced topping rows captured. Flavours/portions retained. Drinks and espresso additions excluded. Search cache menu differences not merged; no claims about other ordering channels, display stock or seasonal foods."
+    },
+    {
+      "id": "tofu-g-amoy-street-merchant-food-20261016",
+      "name": "Tofu G — Amoy Street — branch webpage foods",
+      "scope": "branch",
+      "branchIds": [
+        "tofu-g-amoy-street"
+      ],
+      "sourceIds": [
+        "completion-tofug-97amoy"
+      ],
+      "coverage": "source-covered",
+      "items": [
+        {
+          "id": "tofu-g-amoy-street-merchant-food-20261016-001",
+          "name": "Original Tofu Gelato",
+          "category": "Gelato",
+          "price": {
+            "amount": 8,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-97amoy"
+          ],
+          "qualifier": "Live branch webpage; single scoop cup price applies to displayed flavours. (Tofu-based, Vegan-friendly & Dairy-Free) Source suitability wording is a merchant claim, not independent certification. Currency code, taxes, effective date and stock unconfirmed.",
+          "portion": "Single scoop (cup)"
+        },
+        {
+          "id": "tofu-g-amoy-street-merchant-food-20261016-002",
+          "name": "Chodang Sweet Corn Gelato",
+          "category": "Gelato",
+          "price": {
+            "amount": 8,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-97amoy"
+          ],
+          "qualifier": "Live branch webpage; single scoop cup price applies to displayed flavours. (Contains Dairy) Source suitability wording is a merchant claim, not independent certification. Currency code, taxes, effective date and stock unconfirmed.",
+          "portion": "Single scoop (cup)"
+        },
+        {
+          "id": "tofu-g-amoy-street-merchant-food-20261016-003",
+          "name": "High-Protein Tofu Gelato",
+          "category": "Gelato",
+          "price": {
+            "amount": 8,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-97amoy"
+          ],
+          "qualifier": "Live branch webpage; single scoop cup price applies to displayed flavours. (Tofu-based, Vegan-friendly & Dairy-Free) * Limited daily availability Source suitability wording is a merchant claim, not independent certification. Currency code, taxes, effective date and stock unconfirmed.",
+          "portion": "Single scoop (cup)"
+        },
+        {
+          "id": "tofu-g-amoy-street-merchant-food-20261016-004",
+          "name": "Korean Sweet Potato Gelato",
+          "category": "Gelato",
+          "price": {
+            "amount": 8,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-97amoy"
+          ],
+          "qualifier": "Live branch webpage; single scoop cup price applies to displayed flavours. (Contains Dairy) Source suitability wording is a merchant claim, not independent certification. Currency code, taxes, effective date and stock unconfirmed.",
+          "portion": "Single scoop (cup)"
+        },
+        {
+          "id": "tofu-g-amoy-street-merchant-food-20261016-005",
+          "name": "Rich Chocolate Gelato",
+          "category": "Gelato",
+          "price": {
+            "amount": 8,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-97amoy"
+          ],
+          "qualifier": "Live branch webpage; single scoop cup price applies to displayed flavours. (Vegan-friendly & Dairy-free) Source suitability wording is a merchant claim, not independent certification. Currency code, taxes, effective date and stock unconfirmed.",
+          "portion": "Single scoop (cup)"
+        },
+        {
+          "id": "tofu-g-amoy-street-merchant-food-20261016-006",
+          "name": "Pistachio Gelato",
+          "category": "Gelato",
+          "price": {
+            "amount": 8,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-97amoy"
+          ],
+          "qualifier": "Live branch webpage; single scoop cup price applies to displayed flavours. (Contains Dairy) Source suitability wording is a merchant claim, not independent certification. Currency code, taxes, effective date and stock unconfirmed.",
+          "portion": "Single scoop (cup)"
+        },
+        {
+          "id": "tofu-g-amoy-street-merchant-food-20261016-007",
+          "name": "Black Sesame Gelato",
+          "category": "Gelato",
+          "price": {
+            "amount": 8,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-97amoy"
+          ],
+          "qualifier": "Live branch webpage; single scoop cup price applies to displayed flavours. (Plant-based, Vegan-friendly & Dairy-Free) Source suitability wording is a merchant claim, not independent certification. Currency code, taxes, effective date and stock unconfirmed.",
+          "portion": "Single scoop (cup)"
+        },
+        {
+          "id": "tofu-g-amoy-street-merchant-food-20261016-008",
+          "name": "Pomegranate Gelato",
+          "category": "Gelato",
+          "price": {
+            "amount": 8,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-97amoy"
+          ],
+          "qualifier": "Live branch webpage; single scoop cup price applies to displayed flavours. (Contains Dairy & Tofu, Lively & Refreshing) Source suitability wording is a merchant claim, not independent certification. Currency code, taxes, effective date and stock unconfirmed.",
+          "portion": "Single scoop (cup)"
+        },
+        {
+          "id": "tofu-g-amoy-street-merchant-food-20261016-009",
+          "name": "Pudding",
+          "category": "Dessert",
+          "price": {
+            "amount": 6,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-97amoy"
+          ],
+          "qualifier": "Live branch webpage only. Printed $ currency code, taxes/charges, effective date, current stock and ingredients unconfirmed.",
+          "priceVariants": [
+            {
+              "name": "Tofu",
+              "amount": 6,
+              "currency": "unknown",
+              "kind": "fixed"
+            },
+            {
+              "name": "Pistachio",
+              "amount": 6,
+              "currency": "unknown",
+              "kind": "fixed"
+            },
+            {
+              "name": "Black Sesame",
+              "amount": 6,
+              "currency": "unknown",
+              "kind": "fixed"
+            }
+          ],
+          "optionNotes": "Three printed flavours; each flavour $6. Pudding serving size not stated."
+        },
+        {
+          "id": "tofu-g-amoy-street-merchant-food-20261016-010",
+          "name": "Tiramisu",
+          "category": "Dessert",
+          "price": {
+            "amount": 8,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-97amoy"
+          ],
+          "qualifier": "Live branch webpage only. Printed $ currency code, taxes/charges, effective date, current stock and ingredients unconfirmed.",
+          "priceVariants": [
+            {
+              "name": "Cocoa Powder",
+              "amount": 8,
+              "currency": "unknown",
+              "kind": "fixed"
+            },
+            {
+              "name": "Matcha Powder",
+              "amount": 8,
+              "currency": "unknown",
+              "kind": "fixed"
+            },
+            {
+              "name": "Injeolmi Powder",
+              "amount": 8,
+              "currency": "unknown",
+              "kind": "fixed"
+            }
+          ],
+          "optionNotes": "Three printed powder flavours; each flavour $8. Serving size not stated."
+        },
+        {
+          "id": "tofu-g-amoy-street-merchant-food-20261016-011",
+          "name": "Butter Tteok",
+          "category": "Dessert",
+          "price": {
+            "amount": 9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-97amoy"
+          ],
+          "qualifier": "Live branch webpage only. Printed $ currency code, taxes/charges, effective date, current stock and ingredients unconfirmed.",
+          "portion": "4 pieces",
+          "priceVariants": [
+            {
+              "name": "Original",
+              "amount": 9,
+              "currency": "unknown",
+              "kind": "fixed"
+            },
+            {
+              "name": "Injeolmi",
+              "amount": 9,
+              "currency": "unknown",
+              "kind": "fixed"
+            }
+          ],
+          "optionNotes": "Original / Injeolmi listed; flavour-mix quantities within four-piece order not stated."
+        }
+      ],
+      "notice": "All branch webpage standalone human food and priced topping rows captured. Flavours/portions retained. Drinks and espresso additions excluded. Search cache menu differences not merged; no claims about other ordering channels, display stock or seasonal foods."
+    },
+    {
+      "id": "tofu-g-ue-square-merchant-food-20261016",
+      "name": "Tofu G — UE Square — branch webpage foods",
+      "scope": "branch",
+      "branchIds": [
+        "tofu-g-ue-square"
+      ],
+      "sourceIds": [
+        "completion-tofug-uesquare"
+      ],
+      "coverage": "source-covered",
+      "items": [
+        {
+          "id": "tofu-g-ue-square-merchant-food-20261016-001",
+          "name": "Vegan Tofu Gelato",
+          "category": "Gelato",
+          "price": {
+            "amount": 8,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-uesquare"
+          ],
+          "qualifier": "Live branch webpage; single scoop cup price applies to displayed flavours. (Tofu-based, Vegan-friendly & Dairy-Free) Source suitability wording is a merchant claim, not independent certification. Currency code, taxes, effective date and stock unconfirmed.",
+          "portion": "Single scoop (cup)"
+        },
+        {
+          "id": "tofu-g-ue-square-merchant-food-20261016-002",
+          "name": "Pomegranate Gelato",
+          "category": "Gelato",
+          "price": {
+            "amount": 8,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-uesquare"
+          ],
+          "qualifier": "Live branch webpage; single scoop cup price applies to displayed flavours. (Contains Dairy & Tofu, Lively & Refreshing) Source suitability wording is a merchant claim, not independent certification. Currency code, taxes, effective date and stock unconfirmed.",
+          "portion": "Single scoop (cup)"
+        },
+        {
+          "id": "tofu-g-ue-square-merchant-food-20261016-003",
+          "name": "Vegan Rich Chocolate Gelato",
+          "category": "Gelato",
+          "price": {
+            "amount": 8,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-uesquare"
+          ],
+          "qualifier": "Live branch webpage; single scoop cup price applies to displayed flavours. (Vegan-friendly & Dairy-free) Source suitability wording is a merchant claim, not independent certification. Currency code, taxes, effective date and stock unconfirmed.",
+          "portion": "Single scoop (cup)"
+        },
+        {
+          "id": "tofu-g-ue-square-merchant-food-20261016-004",
+          "name": "Korean Sweet Potato Gelato",
+          "category": "Gelato",
+          "price": {
+            "amount": 8,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-uesquare"
+          ],
+          "qualifier": "Live branch webpage; single scoop cup price applies to displayed flavours. (Contains Dairy) Source suitability wording is a merchant claim, not independent certification. Currency code, taxes, effective date and stock unconfirmed.",
+          "portion": "Single scoop (cup)"
+        },
+        {
+          "id": "tofu-g-ue-square-merchant-food-20261016-005",
+          "name": "Vegan Black Sesame Gelato",
+          "category": "Gelato",
+          "price": {
+            "amount": 8,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-uesquare"
+          ],
+          "qualifier": "Live branch webpage; single scoop cup price applies to displayed flavours. (Plant-Based, Vegan-friendly & Dairy-Free) Source suitability wording is a merchant claim, not independent certification. Currency code, taxes, effective date and stock unconfirmed.",
+          "portion": "Single scoop (cup)"
+        },
+        {
+          "id": "tofu-g-ue-square-merchant-food-20261016-006",
+          "name": "Pistachio Gelato",
+          "category": "Gelato",
+          "price": {
+            "amount": 8,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-uesquare"
+          ],
+          "qualifier": "Live branch webpage; single scoop cup price applies to displayed flavours. (Contains Dairy) Source suitability wording is a merchant claim, not independent certification. Currency code, taxes, effective date and stock unconfirmed.",
+          "portion": "Single scoop (cup)"
+        },
+        {
+          "id": "tofu-g-ue-square-merchant-food-20261016-007",
+          "name": "Pudding",
+          "category": "Dessert",
+          "price": {
+            "amount": 6,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-uesquare"
+          ],
+          "qualifier": "Live branch webpage only. Printed $ currency code, taxes/charges, effective date, current stock and ingredients unconfirmed.",
+          "priceVariants": [
+            {
+              "name": "Tofu",
+              "amount": 6,
+              "currency": "unknown",
+              "kind": "fixed"
+            },
+            {
+              "name": "Pistachio",
+              "amount": 6,
+              "currency": "unknown",
+              "kind": "fixed"
+            },
+            {
+              "name": "Black Sesame",
+              "amount": 6,
+              "currency": "unknown",
+              "kind": "fixed"
+            }
+          ],
+          "optionNotes": "Three printed flavours; each flavour $6. Pudding serving size not stated."
+        },
+        {
+          "id": "tofu-g-ue-square-merchant-food-20261016-008",
+          "name": "Tiramisu",
+          "category": "Dessert",
+          "price": {
+            "amount": 8,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-uesquare"
+          ],
+          "qualifier": "Live branch webpage only. Printed $ currency code, taxes/charges, effective date, current stock and ingredients unconfirmed.",
+          "priceVariants": [
+            {
+              "name": "Cocoa Powder",
+              "amount": 8,
+              "currency": "unknown",
+              "kind": "fixed"
+            },
+            {
+              "name": "Matcha Powder",
+              "amount": 8,
+              "currency": "unknown",
+              "kind": "fixed"
+            },
+            {
+              "name": "Injeolmi Powder",
+              "amount": 8,
+              "currency": "unknown",
+              "kind": "fixed"
+            }
+          ],
+          "optionNotes": "Three printed powder flavours; each flavour $8. Serving size not stated."
+        },
+        {
+          "id": "tofu-g-ue-square-merchant-food-20261016-009",
+          "name": "Butter Tteok",
+          "category": "Dessert",
+          "price": {
+            "amount": 9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-uesquare"
+          ],
+          "qualifier": "Live branch webpage only. Printed $ currency code, taxes/charges, effective date, current stock and ingredients unconfirmed.",
+          "portion": "4 pieces",
+          "priceVariants": [
+            {
+              "name": "Original",
+              "amount": 9,
+              "currency": "unknown",
+              "kind": "fixed"
+            },
+            {
+              "name": "Injeolmi",
+              "amount": 9,
+              "currency": "unknown",
+              "kind": "fixed"
+            }
+          ],
+          "optionNotes": "Original / Injeolmi listed; flavour-mix quantities within four-piece order not stated."
+        }
+      ],
+      "notice": "All branch webpage standalone human food and priced topping rows captured. Flavours/portions retained. Drinks and espresso additions excluded. Search cache menu differences not merged; no claims about other ordering channels, display stock or seasonal foods."
+    },
+    {
+      "id": "tofu-g-waterway-point-merchant-food-20261016",
+      "name": "Tofu G — Waterway Point — branch webpage foods",
+      "scope": "branch",
+      "branchIds": [
+        "tofu-g-waterway-point"
+      ],
+      "sourceIds": [
+        "completion-tofug-waterwaypoint"
+      ],
+      "coverage": "source-covered",
+      "items": [
+        {
+          "id": "tofu-g-waterway-point-merchant-food-20261016-001",
+          "name": "Vegan Tofu Gelato",
+          "category": "Gelato",
+          "price": {
+            "amount": 8,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-waterwaypoint"
+          ],
+          "qualifier": "Live branch webpage; single scoop cup price applies to displayed flavours. (Tofu-based, Vegan-friendly & Dairy-Free) Source suitability wording is a merchant claim, not independent certification. Currency code, taxes, effective date and stock unconfirmed.",
+          "portion": "Single scoop (cup)"
+        },
+        {
+          "id": "tofu-g-waterway-point-merchant-food-20261016-002",
+          "name": "Black Sesame Gelato",
+          "category": "Gelato",
+          "price": {
+            "amount": 8,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-waterwaypoint"
+          ],
+          "qualifier": "Live branch webpage; single scoop cup price applies to displayed flavours. (Plant-based, Vegan-friendly & Dairy-Free) Source suitability wording is a merchant claim, not independent certification. Currency code, taxes, effective date and stock unconfirmed.",
+          "portion": "Single scoop (cup)"
+        },
+        {
+          "id": "tofu-g-waterway-point-merchant-food-20261016-003",
+          "name": "Vegan High-Protein Tofu",
+          "category": "Gelato",
+          "price": {
+            "amount": 8,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-waterwaypoint"
+          ],
+          "qualifier": "Live branch webpage; single scoop cup price applies to displayed flavours. (Tofu-based, Vegan-friendly & Dairy-Free) Source suitability wording is a merchant claim, not independent certification. Currency code, taxes, effective date and stock unconfirmed.",
+          "portion": "Single scoop (cup)"
+        },
+        {
+          "id": "tofu-g-waterway-point-merchant-food-20261016-004",
+          "name": "Chodang Sweet Corn Gelato",
+          "category": "Gelato",
+          "price": {
+            "amount": 8,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-waterwaypoint"
+          ],
+          "qualifier": "Live branch webpage; single scoop cup price applies to displayed flavours. (Contains Dairy) Source suitability wording is a merchant claim, not independent certification. Currency code, taxes, effective date and stock unconfirmed.",
+          "portion": "Single scoop (cup)"
+        },
+        {
+          "id": "tofu-g-waterway-point-merchant-food-20261016-005",
+          "name": "Pistachio Gelato",
+          "category": "Gelato",
+          "price": {
+            "amount": 8,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-waterwaypoint"
+          ],
+          "qualifier": "Live branch webpage; single scoop cup price applies to displayed flavours. (Contains Dairy) Source suitability wording is a merchant claim, not independent certification. Currency code, taxes, effective date and stock unconfirmed.",
+          "portion": "Single scoop (cup)"
+        },
+        {
+          "id": "tofu-g-waterway-point-merchant-food-20261016-006",
+          "name": "Rich Chocolate Gelato",
+          "category": "Gelato",
+          "price": {
+            "amount": 8,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-waterwaypoint"
+          ],
+          "qualifier": "Live branch webpage; single scoop cup price applies to displayed flavours. (Vegan-friendly & Dairy-Free) Source suitability wording is a merchant claim, not independent certification. Currency code, taxes, effective date and stock unconfirmed.",
+          "portion": "Single scoop (cup)"
+        },
+        {
+          "id": "tofu-g-waterway-point-merchant-food-20261016-007",
+          "name": "Pudding",
+          "category": "Dessert",
+          "price": {
+            "amount": 6,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-waterwaypoint"
+          ],
+          "qualifier": "Live branch webpage only. Printed $ currency code, taxes/charges, effective date, current stock and ingredients unconfirmed.",
+          "priceVariants": [
+            {
+              "name": "Tofu",
+              "amount": 6,
+              "currency": "unknown",
+              "kind": "fixed"
+            },
+            {
+              "name": "Pistachio",
+              "amount": 6,
+              "currency": "unknown",
+              "kind": "fixed"
+            },
+            {
+              "name": "Black Sesame",
+              "amount": 6,
+              "currency": "unknown",
+              "kind": "fixed"
+            }
+          ],
+          "optionNotes": "Three printed flavours; each flavour $6. Pudding serving size not stated."
+        },
+        {
+          "id": "tofu-g-waterway-point-merchant-food-20261016-008",
+          "name": "Tiramisu",
+          "category": "Dessert",
+          "price": {
+            "amount": 8,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-waterwaypoint"
+          ],
+          "qualifier": "Live branch webpage only. Printed $ currency code, taxes/charges, effective date, current stock and ingredients unconfirmed.",
+          "priceVariants": [
+            {
+              "name": "Cocoa Powder",
+              "amount": 8,
+              "currency": "unknown",
+              "kind": "fixed"
+            },
+            {
+              "name": "Matcha Powder",
+              "amount": 8,
+              "currency": "unknown",
+              "kind": "fixed"
+            },
+            {
+              "name": "Injeolmi Powder",
+              "amount": 8,
+              "currency": "unknown",
+              "kind": "fixed"
+            }
+          ],
+          "optionNotes": "Three printed powder flavours; each flavour $8. Serving size not stated."
+        },
+        {
+          "id": "tofu-g-waterway-point-merchant-food-20261016-009",
+          "name": "Butter Tteok",
+          "category": "Dessert",
+          "price": {
+            "amount": 9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-waterwaypoint"
+          ],
+          "qualifier": "Live branch webpage only. Printed $ currency code, taxes/charges, effective date, current stock and ingredients unconfirmed.",
+          "portion": "4 pieces",
+          "priceVariants": [
+            {
+              "name": "Original",
+              "amount": 9,
+              "currency": "unknown",
+              "kind": "fixed"
+            },
+            {
+              "name": "Injeolmi",
+              "amount": 9,
+              "currency": "unknown",
+              "kind": "fixed"
+            }
+          ],
+          "optionNotes": "Original / Injeolmi listed; flavour-mix quantities within four-piece order not stated."
+        },
+        {
+          "id": "tofu-g-waterway-point-merchant-food-20261016-010",
+          "name": "Yakgwa",
+          "category": "Toppings — add-on only",
+          "price": {
+            "amount": 2,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-waterwaypoint"
+          ],
+          "qualifier": "Gelato topping add-on only. Source says Top up and choose any favourite $2; portion and multi-selection charging rule are not stated. Currency/taxes/date/stock/ingredients unconfirmed."
+        },
+        {
+          "id": "tofu-g-waterway-point-merchant-food-20261016-011",
+          "name": "Joripong",
+          "category": "Toppings — add-on only",
+          "price": {
+            "amount": 2,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-waterwaypoint"
+          ],
+          "qualifier": "Gelato topping add-on only. Source says Top up and choose any favourite $2; portion and multi-selection charging rule are not stated. Currency/taxes/date/stock/ingredients unconfirmed."
+        },
+        {
+          "id": "tofu-g-waterway-point-merchant-food-20261016-012",
+          "name": "Dried Cranberry",
+          "category": "Toppings — add-on only",
+          "price": {
+            "amount": 2,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-waterwaypoint"
+          ],
+          "qualifier": "Gelato topping add-on only. Source says Top up and choose any favourite $2; portion and multi-selection charging rule are not stated. Currency/taxes/date/stock/ingredients unconfirmed."
+        },
+        {
+          "id": "tofu-g-waterway-point-merchant-food-20261016-013",
+          "name": "Tempeh Chip",
+          "category": "Toppings — add-on only",
+          "price": {
+            "amount": 2,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-waterwaypoint"
+          ],
+          "qualifier": "Gelato topping add-on only. Source says Top up and choose any favourite $2; portion and multi-selection charging rule are not stated. Currency/taxes/date/stock/ingredients unconfirmed."
+        },
+        {
+          "id": "tofu-g-waterway-point-merchant-food-20261016-014",
+          "name": "Injeolmi",
+          "category": "Toppings — add-on only",
+          "price": {
+            "amount": 2,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-waterwaypoint"
+          ],
+          "qualifier": "Gelato topping add-on only. Source says Top up and choose any favourite $2; portion and multi-selection charging rule are not stated. Currency/taxes/date/stock/ingredients unconfirmed."
+        },
+        {
+          "id": "tofu-g-waterway-point-merchant-food-20261016-015",
+          "name": "Marshmallow",
+          "category": "Toppings — add-on only",
+          "price": {
+            "amount": 2,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-waterwaypoint"
+          ],
+          "qualifier": "Gelato topping add-on only. Source says Top up and choose any favourite $2; portion and multi-selection charging rule are not stated. Currency/taxes/date/stock/ingredients unconfirmed.",
+          "publicationStatus": "hold-ingredient-scope",
+          "optionNotes": "Marshmallow ingredients/gelatin not disclosed; retain research fact but exclude vegetarian publication."
+        },
+        {
+          "id": "tofu-g-waterway-point-merchant-food-20261016-016",
+          "name": "Puffed Rice",
+          "category": "Toppings — add-on only",
+          "price": {
+            "amount": 2,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-waterwaypoint"
+          ],
+          "qualifier": "Gelato topping add-on only. Source says Top up and choose any favourite $2; portion and multi-selection charging rule are not stated. Currency/taxes/date/stock/ingredients unconfirmed."
+        },
+        {
+          "id": "tofu-g-waterway-point-merchant-food-20261016-017",
+          "name": "Pecan",
+          "category": "Toppings — add-on only",
+          "price": {
+            "amount": 2,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-waterwaypoint"
+          ],
+          "qualifier": "Gelato topping add-on only. Source says Top up and choose any favourite $2; portion and multi-selection charging rule are not stated. Currency/taxes/date/stock/ingredients unconfirmed."
+        },
+        {
+          "id": "tofu-g-waterway-point-merchant-food-20261016-018",
+          "name": "Almond Slice",
+          "category": "Toppings — add-on only",
+          "price": {
+            "amount": 2,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-waterwaypoint"
+          ],
+          "qualifier": "Gelato topping add-on only. Source says Top up and choose any favourite $2; portion and multi-selection charging rule are not stated. Currency/taxes/date/stock/ingredients unconfirmed."
+        },
+        {
+          "id": "tofu-g-waterway-point-merchant-food-20261016-019",
+          "name": "Walnut",
+          "category": "Toppings — add-on only",
+          "price": {
+            "amount": 2,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-waterwaypoint"
+          ],
+          "qualifier": "Gelato topping add-on only. Source says Top up and choose any favourite $2; portion and multi-selection charging rule are not stated. Currency/taxes/date/stock/ingredients unconfirmed."
+        },
+        {
+          "id": "tofu-g-waterway-point-merchant-food-20261016-020",
+          "name": "Roasted Peanut",
+          "category": "Toppings — add-on only",
+          "price": {
+            "amount": 2,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-waterwaypoint"
+          ],
+          "qualifier": "Gelato topping add-on only. Source says Top up and choose any favourite $2; portion and multi-selection charging rule are not stated. Currency/taxes/date/stock/ingredients unconfirmed."
+        },
+        {
+          "id": "tofu-g-waterway-point-merchant-food-20261016-021",
+          "name": "Pistachio Kernel",
+          "category": "Toppings — add-on only",
+          "price": {
+            "amount": 2,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-waterwaypoint"
+          ],
+          "qualifier": "Gelato topping add-on only. Source says Top up and choose any favourite $2; portion and multi-selection charging rule are not stated. Currency/taxes/date/stock/ingredients unconfirmed."
+        }
+      ],
+      "notice": "All branch webpage standalone human food and priced topping rows captured. Flavours/portions retained. Drinks and espresso additions excluded. Search cache menu differences not merged; no claims about other ordering channels, display stock or seasonal foods."
+    },
+    {
+      "id": "tofu-g-suntec-city-merchant-food-20261016",
+      "name": "Tofu G — Suntec City — branch webpage foods",
+      "scope": "branch",
+      "branchIds": [
+        "tofu-g-suntec-city"
+      ],
+      "sourceIds": [
+        "completion-tofug-suntec"
+      ],
+      "coverage": "source-covered",
+      "items": [
+        {
+          "id": "tofu-g-suntec-city-merchant-food-20261016-001",
+          "name": "Vegan Tofu Gelato",
+          "category": "Gelato",
+          "price": {
+            "amount": 8,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-suntec"
+          ],
+          "qualifier": "Live branch webpage; single scoop cup price applies to displayed flavours. (Tofu-based, Vegan-friendly & Dairy-Free) Source suitability wording is a merchant claim, not independent certification. Currency code, taxes, effective date and stock unconfirmed.",
+          "portion": "Single scoop (cup)"
+        },
+        {
+          "id": "tofu-g-suntec-city-merchant-food-20261016-002",
+          "name": "Rich Chocolate Gelato",
+          "category": "Gelato",
+          "price": {
+            "amount": 8,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-suntec"
+          ],
+          "qualifier": "Live branch webpage; single scoop cup price applies to displayed flavours. (Vegan-friendly & Dairy-free) Source suitability wording is a merchant claim, not independent certification. Currency code, taxes, effective date and stock unconfirmed.",
+          "portion": "Single scoop (cup)"
+        },
+        {
+          "id": "tofu-g-suntec-city-merchant-food-20261016-003",
+          "name": "High-Protein Tofu Gelato",
+          "category": "Gelato",
+          "price": {
+            "amount": 8,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-suntec"
+          ],
+          "qualifier": "Live branch webpage; single scoop cup price applies to displayed flavours. (Tofu-based, Vegan-friendly & Dairy-Free) Source suitability wording is a merchant claim, not independent certification. Currency code, taxes, effective date and stock unconfirmed.",
+          "portion": "Single scoop (cup)"
+        },
+        {
+          "id": "tofu-g-suntec-city-merchant-food-20261016-004",
+          "name": "Pistachio Gelato",
+          "category": "Gelato",
+          "price": {
+            "amount": 8,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-suntec"
+          ],
+          "qualifier": "Live branch webpage; single scoop cup price applies to displayed flavours. (Contains Dairy) Source suitability wording is a merchant claim, not independent certification. Currency code, taxes, effective date and stock unconfirmed.",
+          "portion": "Single scoop (cup)"
+        },
+        {
+          "id": "tofu-g-suntec-city-merchant-food-20261016-005",
+          "name": "Vegan Black Sesame Gelato",
+          "category": "Gelato",
+          "price": {
+            "amount": 8,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-suntec"
+          ],
+          "qualifier": "Live branch webpage; single scoop cup price applies to displayed flavours. (Plant-Based, Vegan-friendly & Dairy-Free) Source suitability wording is a merchant claim, not independent certification. Currency code, taxes, effective date and stock unconfirmed.",
+          "portion": "Single scoop (cup)"
+        },
+        {
+          "id": "tofu-g-suntec-city-merchant-food-20261016-006",
+          "name": "Nurungji",
+          "category": "Gelato",
+          "price": {
+            "amount": 8,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-suntec"
+          ],
+          "qualifier": "Live branch webpage; single scoop cup price applies to displayed flavours. (Tofu-Based, Vegan-friendly & Dairy-Free) Source suitability wording is a merchant claim, not independent certification. Currency code, taxes, effective date and stock unconfirmed.",
+          "portion": "Single scoop (cup)"
+        },
+        {
+          "id": "tofu-g-suntec-city-merchant-food-20261016-007",
+          "name": "Pudding",
+          "category": "Dessert",
+          "price": {
+            "amount": 6,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-suntec"
+          ],
+          "qualifier": "Live branch webpage only. Printed $ currency code, taxes/charges, effective date, current stock and ingredients unconfirmed.",
+          "priceVariants": [
+            {
+              "name": "Tofu",
+              "amount": 6,
+              "currency": "unknown",
+              "kind": "fixed"
+            },
+            {
+              "name": "Pistachio",
+              "amount": 6,
+              "currency": "unknown",
+              "kind": "fixed"
+            },
+            {
+              "name": "Black Sesame",
+              "amount": 6,
+              "currency": "unknown",
+              "kind": "fixed"
+            }
+          ],
+          "optionNotes": "Three printed flavours; each flavour $6. Pudding serving size not stated."
+        },
+        {
+          "id": "tofu-g-suntec-city-merchant-food-20261016-008",
+          "name": "Tiramisu",
+          "category": "Dessert",
+          "price": {
+            "amount": 8,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-suntec"
+          ],
+          "qualifier": "Live branch webpage only. Printed $ currency code, taxes/charges, effective date, current stock and ingredients unconfirmed.",
+          "priceVariants": [
+            {
+              "name": "Cocoa Powder",
+              "amount": 8,
+              "currency": "unknown",
+              "kind": "fixed"
+            },
+            {
+              "name": "Matcha Powder",
+              "amount": 8,
+              "currency": "unknown",
+              "kind": "fixed"
+            },
+            {
+              "name": "Injeolmi Powder",
+              "amount": 8,
+              "currency": "unknown",
+              "kind": "fixed"
+            }
+          ],
+          "optionNotes": "Three printed powder flavours; each flavour $8. Serving size not stated."
+        },
+        {
+          "id": "tofu-g-suntec-city-merchant-food-20261016-009",
+          "name": "Butter Tteok",
+          "category": "Dessert",
+          "price": {
+            "amount": 9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-suntec"
+          ],
+          "qualifier": "Live branch webpage only. Printed $ currency code, taxes/charges, effective date, current stock and ingredients unconfirmed.",
+          "portion": "4 pieces",
+          "priceVariants": [
+            {
+              "name": "Original",
+              "amount": 9,
+              "currency": "unknown",
+              "kind": "fixed"
+            },
+            {
+              "name": "Injeolmi",
+              "amount": 9,
+              "currency": "unknown",
+              "kind": "fixed"
+            }
+          ],
+          "optionNotes": "Original / Injeolmi listed; flavour-mix quantities within four-piece order not stated."
+        },
+        {
+          "id": "tofu-g-suntec-city-merchant-food-20261016-010",
+          "name": "Yakgwa",
+          "category": "Toppings — add-on only",
+          "price": {
+            "amount": 2,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-suntec"
+          ],
+          "qualifier": "Gelato topping add-on only. Source says Top up and choose any favourite $2; portion and multi-selection charging rule are not stated. Currency/taxes/date/stock/ingredients unconfirmed."
+        },
+        {
+          "id": "tofu-g-suntec-city-merchant-food-20261016-011",
+          "name": "Joripong",
+          "category": "Toppings — add-on only",
+          "price": {
+            "amount": 2,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-suntec"
+          ],
+          "qualifier": "Gelato topping add-on only. Source says Top up and choose any favourite $2; portion and multi-selection charging rule are not stated. Currency/taxes/date/stock/ingredients unconfirmed."
+        },
+        {
+          "id": "tofu-g-suntec-city-merchant-food-20261016-012",
+          "name": "Dried Cranberry",
+          "category": "Toppings — add-on only",
+          "price": {
+            "amount": 2,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-suntec"
+          ],
+          "qualifier": "Gelato topping add-on only. Source says Top up and choose any favourite $2; portion and multi-selection charging rule are not stated. Currency/taxes/date/stock/ingredients unconfirmed."
+        },
+        {
+          "id": "tofu-g-suntec-city-merchant-food-20261016-013",
+          "name": "Tempeh Chip",
+          "category": "Toppings — add-on only",
+          "price": {
+            "amount": 2,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-suntec"
+          ],
+          "qualifier": "Gelato topping add-on only. Source says Top up and choose any favourite $2; portion and multi-selection charging rule are not stated. Currency/taxes/date/stock/ingredients unconfirmed."
+        },
+        {
+          "id": "tofu-g-suntec-city-merchant-food-20261016-014",
+          "name": "Injeolmi",
+          "category": "Toppings — add-on only",
+          "price": {
+            "amount": 2,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-suntec"
+          ],
+          "qualifier": "Gelato topping add-on only. Source says Top up and choose any favourite $2; portion and multi-selection charging rule are not stated. Currency/taxes/date/stock/ingredients unconfirmed."
+        },
+        {
+          "id": "tofu-g-suntec-city-merchant-food-20261016-015",
+          "name": "Marshmallow",
+          "category": "Toppings — add-on only",
+          "price": {
+            "amount": 2,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-suntec"
+          ],
+          "qualifier": "Gelato topping add-on only. Source says Top up and choose any favourite $2; portion and multi-selection charging rule are not stated. Currency/taxes/date/stock/ingredients unconfirmed.",
+          "publicationStatus": "hold-ingredient-scope",
+          "optionNotes": "Marshmallow ingredients/gelatin not disclosed; retain research fact but exclude vegetarian publication."
+        },
+        {
+          "id": "tofu-g-suntec-city-merchant-food-20261016-016",
+          "name": "Puffed Rice",
+          "category": "Toppings — add-on only",
+          "price": {
+            "amount": 2,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-suntec"
+          ],
+          "qualifier": "Gelato topping add-on only. Source says Top up and choose any favourite $2; portion and multi-selection charging rule are not stated. Currency/taxes/date/stock/ingredients unconfirmed."
+        },
+        {
+          "id": "tofu-g-suntec-city-merchant-food-20261016-017",
+          "name": "Pecan",
+          "category": "Toppings — add-on only",
+          "price": {
+            "amount": 2,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-suntec"
+          ],
+          "qualifier": "Gelato topping add-on only. Source says Top up and choose any favourite $2; portion and multi-selection charging rule are not stated. Currency/taxes/date/stock/ingredients unconfirmed."
+        },
+        {
+          "id": "tofu-g-suntec-city-merchant-food-20261016-018",
+          "name": "Almond Slice",
+          "category": "Toppings — add-on only",
+          "price": {
+            "amount": 2,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-suntec"
+          ],
+          "qualifier": "Gelato topping add-on only. Source says Top up and choose any favourite $2; portion and multi-selection charging rule are not stated. Currency/taxes/date/stock/ingredients unconfirmed."
+        },
+        {
+          "id": "tofu-g-suntec-city-merchant-food-20261016-019",
+          "name": "Walnut",
+          "category": "Toppings — add-on only",
+          "price": {
+            "amount": 2,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-suntec"
+          ],
+          "qualifier": "Gelato topping add-on only. Source says Top up and choose any favourite $2; portion and multi-selection charging rule are not stated. Currency/taxes/date/stock/ingredients unconfirmed."
+        },
+        {
+          "id": "tofu-g-suntec-city-merchant-food-20261016-020",
+          "name": "Roasted Peanut",
+          "category": "Toppings — add-on only",
+          "price": {
+            "amount": 2,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-suntec"
+          ],
+          "qualifier": "Gelato topping add-on only. Source says Top up and choose any favourite $2; portion and multi-selection charging rule are not stated. Currency/taxes/date/stock/ingredients unconfirmed."
+        },
+        {
+          "id": "tofu-g-suntec-city-merchant-food-20261016-021",
+          "name": "Pistachio Kernel",
+          "category": "Toppings — add-on only",
+          "price": {
+            "amount": 2,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourceIds": [
+            "completion-tofug-suntec"
+          ],
+          "qualifier": "Gelato topping add-on only. Source says Top up and choose any favourite $2; portion and multi-selection charging rule are not stated. Currency/taxes/date/stock/ingredients unconfirmed."
+        }
+      ],
+      "notice": "All branch webpage standalone human food and priced topping rows captured. Flavours/portions retained. Drinks and espresso additions excluded. Search cache menu differences not merged; no claims about other ordering channels, display stock or seasonal foods."
+    }
+  ],
+  "exclusions": [
+    {
+      "reason": "Beverage/food-beverage combination outside food-only extraction",
+      "name": "Suntec espresso shot / Nurungji × Espresso",
+      "sourceIds": [
+        "completion-tofug-suntec"
+      ]
+    }
+  ],
+  "notice": "Six branch-specific live merchant sources. All named human foods, portions and displayed food add-ons captured; source claims are not ingredient certification. No cross-branch menu transfer, stock guarantee, source imagery or menu effective date inferred."
+}

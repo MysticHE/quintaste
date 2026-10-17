@@ -1,0 +1,55 @@
+{
+  "checks": [
+    "Compact browse, immediate filters, search, save, serving reset, guide and shopping",
+    "One-tap completion clears resume, independent timer survives, note collapse preserves draft",
+    "Shopping add, check and remove persist",
+    "Private drafts autosave, steps reorder, photo and disclosure save, publication remains unsent",
+    "Private cooking, revision recovery, sharing, copy and deletion preserve boundaries"
+  ],
+  "captures": [
+    "compact-cook-home.png",
+    "compact-cook-filters.png",
+    "compact-cook-empty-search.png",
+    "compact-cook-detail.png",
+    "compact-cook-guide.png",
+    "compact-cook-guided.png",
+    "compact-cook-last-step.png",
+    "compact-cook-note.png",
+    "compact-cook-finished-home.png",
+    "compact-cook-shopping.png",
+    "compact-cook-my-empty.png",
+    "compact-cook-incomplete.png",
+    "compact-cook-editor.png",
+    "compact-cook-review.png",
+    "compact-cook-private.png",
+    "compact-cook-version.png",
+    "compact-cook-share.png",
+    "compact-cook-my-recipes.png",
+    "compact-cook-timers.png",
+    "compact-cook-home-320.png",
+    "compact-cook-home-768.png",
+    "compact-cook-home-1440.png",
+    "compact-cook-dark.png"
+  ],
+  "errors": [],
+  "axe": [
+    {
+      "name": "home",
+      "violations": []
+    },
+    {
+      "name": "review",
+      "violations": []
+    },
+    {
+      "name": "timers",
+      "violations": []
+    },
+    {
+      "name": "dark",
+      "violations": []
+    }
+  ],
+  "primaryHeight": 48,
+  "passed": true
+}

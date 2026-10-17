@@ -1,0 +1,93 @@
+{
+  "startedAt": "2026-10-16T08:19:00.035Z",
+  "url": "http://127.0.0.1:8083",
+  "checks": [
+    {
+      "name": "ur13-suyuan-bedok",
+      "status": "passed",
+      "foods": 24,
+      "menuGap404": false,
+      "publicFingerprint": "c154bb306420c96740ddca25b4902545aabf708da0c5a5dfc3a795c4323720e6"
+    },
+    {
+      "name": "ur13-sangeetha-rangoon",
+      "status": "passed",
+      "foods": 218,
+      "menuGap404": false,
+      "publicFingerprint": "db8b063f687cad766cc29877b8d5ca3549edbdaa124942731acba318e5de23ba"
+    },
+    {
+      "name": "ur13-kaveri-t1",
+      "status": "passed",
+      "foods": 0,
+      "menuGap404": true,
+      "publicFingerprint": null
+    },
+    {
+      "name": "ur13-sangeetha-kitchener-legacy",
+      "status": "passed",
+      "foods": 0,
+      "menuGap404": true,
+      "publicFingerprint": null
+    }
+  ],
+  "screenshots": [
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-13-browser\\ur13-suyuan-bedok-320.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-13-browser\\ur13-suyuan-bedok-768.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-13-browser\\ur13-suyuan-bedok-1440.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-13-browser\\ur13-sangeetha-rangoon-320.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-13-browser\\ur13-sangeetha-rangoon-768.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-13-browser\\ur13-sangeetha-rangoon-1440.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-13-browser\\ur13-kaveri-t1-320.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-13-browser\\ur13-kaveri-t1-768.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-13-browser\\ur13-kaveri-t1-1440.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-13-browser\\ur13-sangeetha-kitchener-legacy-320.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-13-browser\\ur13-sangeetha-kitchener-legacy-768.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-13-browser\\ur13-sangeetha-kitchener-legacy-1440.png"
+  ],
+  "errors": [],
+  "pageErrors": [],
+  "unexpectedConsoleErrors": [],
+  "blockedApiRequests": [],
+  "blockedExternalRequests": [],
+  "apiRequests": [],
+  "a11y": [
+    {
+      "label": "ur13-suyuan-bedok",
+      "violations": []
+    },
+    {
+      "label": "ur13-sangeetha-rangoon",
+      "violations": []
+    },
+    {
+      "label": "ur13-kaveri-t1",
+      "violations": []
+    },
+    {
+      "label": "ur13-sangeetha-kitchener-legacy",
+      "violations": []
+    }
+  ],
+  "forwardedProviderCalls": 0,
+  "installedChromeUsed": false,
+  "catalogue": {
+    "locations": 168,
+    "sourceMenus": 215,
+    "foodOccurrences": 11831
+  },
+  "finishedAt": "2026-10-16T08:19:44.207Z",
+  "passed": true,
+  "visualReview": {
+    "status": "passed",
+    "reviewedAt": "2026-10-16T08:20:10.210916+00:00",
+    "capturesInspected": 12,
+    "widths": [
+      320,
+      768,
+      1440
+    ],
+    "findings": "Every listed current capture visually inspected; no page overflow or visual defect observed. Source choices/prices/ingredients retain explicit uncertainty. Initial QA harness failures, where any, remain archived."
+  },
+  "googleLedgerUnchanged": true
+}

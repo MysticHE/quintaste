@@ -1,0 +1,32 @@
+{
+  "checks": [
+    "Cold deep link loads lightweight index and only requested branch",
+    "Pagination stays at40 rows and search sees later-page dishes",
+    "Options disclosure and correction lookup load requested menu",
+    "MTR day/service choices preserve meal-specific menu selection",
+    "Responsive menu widths and scoped accessibility"
+  ],
+  "errors": [],
+  "screenshots": [
+    ".impeccable\\review\\menu-sync-320.png",
+    ".impeccable\\review\\menu-sync-375.png",
+    ".impeccable\\review\\menu-sync-768.png",
+    ".impeccable\\review\\menu-sync-1440.png",
+    ".impeccable\\review\\menu-sync-dark1440.png"
+  ],
+  "apiRequests": [
+    "/api/menus?view=index",
+    "/api/menus?id=research-nalan-cityhall",
+    "/api/menus?view=index",
+    "/api/menus?id=research-mtr-serangoon438",
+    "/api/menus?view=index",
+    "/api/menus?id=research-swaad-desker70",
+    "/api/menus?view=index"
+  ],
+  "googleCalls": 0,
+  "scope": "Managed headless Chromium, actual local menu API, controlled provider and offline/storage failures; native-device performance not measured",
+  "browserVersion": "156.0.8078.4",
+  "a11y": [],
+  "passed": false,
+  "failure": "locator.waitFor: Timeout 20000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByText('Offline ? saved menu', { exact: true }) to be visible\u001b[22m\n\n    at [stdin]:45:249\n    at async check ([stdin]:7:30)\n    at async [stdin]:44:2"
+}

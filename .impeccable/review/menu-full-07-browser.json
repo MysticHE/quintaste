@@ -1,0 +1,76 @@
+{
+  "startedAt": "2026-10-16T05:35:30.067Z",
+  "url": "http://127.0.0.1:8083",
+  "checks": [
+    {
+      "name": "original-sin-website",
+      "status": "passed",
+      "foods": 40,
+      "heldAbsent": 1,
+      "sourceUrl": "https://www.originalsin.sg/menu"
+    },
+    {
+      "name": "red-apple-tampines",
+      "status": "passed",
+      "foods": 87,
+      "heldAbsent": 24,
+      "sourceUrl": "https://www.foodpanda.sg/restaurant/wvhw/red-apple-vegetarian-tampines"
+    }
+  ],
+  "screenshots": [
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-07-browser\\original-sin-website-320.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-07-browser\\original-sin-website-768.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-07-browser\\original-sin-website-1440.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-07-browser\\red-apple-tampines-320.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-07-browser\\red-apple-tampines-768.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-07-browser\\red-apple-tampines-1440.png"
+  ],
+  "errors": [],
+  "pageErrors": [],
+  "unexpectedConsoleErrors": [],
+  "blockedApiRequests": [
+    "/api/local-explore/session",
+    "/api/local-explore/session",
+    "/api/local-explore/session",
+    "/api/local-explore/session",
+    "/api/local-explore/session",
+    "/api/local-explore/session",
+    "/api/local-explore/session",
+    "/api/local-explore/session"
+  ],
+  "blockedExternalRequests": [],
+  "apiRequests": [],
+  "a11y": [
+    {
+      "label": "original-sin-website",
+      "violations": []
+    },
+    {
+      "label": "red-apple-tampines",
+      "violations": []
+    }
+  ],
+  "forwardedProviderCalls": 0,
+  "installedChromeUsed": false,
+  "catalogue": {
+    "locations": 158,
+    "sourceMenus": 204,
+    "foodOccurrences": 11385
+  },
+  "browserVersion": "156.0.8078.4",
+  "finishedAt": "2026-10-16T05:35:57.070Z",
+  "passed": true,
+  "visualReview": {
+    "status": "passed",
+    "passed": true,
+    "reviewedAt": "2026-10-16T05:37:51.253898+00:00",
+    "capturesInspected": 6,
+    "widths": [
+      320,
+      768,
+      1440
+    ],
+    "findings": "All six final affected-menu captures inspected. Source selector scrolls horizontally at320; source labels, search, prices and food rows remain within viewport. No visual defect observed."
+  },
+  "googleLedgerUnchanged": true
+}

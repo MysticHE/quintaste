@@ -1,0 +1,101 @@
+{
+  "version": 1,
+  "checkedAt": "2026-10-17T09:24:21.041164+00:00",
+  "status": "deployed-first-overnight-window-pending",
+  "app": {
+    "images": {
+      "app": "quintaste-app:20261017-qt-management2",
+      "preview": "quintaste-preview:20261017-menu-reviews3",
+      "admin": "quintaste-admin:20261017-open-market2",
+      "db": "postgres:17-bookworm"
+    },
+    "revision": "ad112b6196e157c6a161469c7d1f6e714d36e0e13896d95406650a6a03d6d27e",
+    "records": 4,
+    "contentBytes": 162773,
+    "diskFreeBytes": 17721884672,
+    "changedEnvKeys": [
+      "APP_IMAGE"
+    ],
+    "health": "healthy",
+    "ledgerSha256": "c7321dafaad0473583139494ca899501578892c5b71105429d3cd4dceb4f311a"
+  },
+  "hermes": {
+    "checkedAt": "2026-10-17T09:24:21.041164+00:00",
+    "tests": ".................................................................\n----------------------------------------------------------------------\nRan 65 tests in 2.505s\n\nOK",
+    "liveSignedRemove": "nonexistent rejected 422; publication state unchanged",
+    "revision": "ad112b6196e157c6a161469c7d1f6e714d36e0e13896d95406650a6a03d6d27e",
+    "removedRecords": 0,
+    "usage": {
+      "month": "2026-10",
+      "used": 9,
+      "limit": 2000,
+      "remaining": 1991
+    },
+    "googleRequestsAllowed": 0,
+    "imageMonthlyLimit": 3,
+    "reporter": {
+      "pollError": null,
+      "notice": {
+        "status": "sent",
+        "messageId": 12,
+        "sentAt": "2026-10-17T09:16:01.359242+00:00"
+      }
+    },
+    "jobs": [
+      {
+        "id": "1d0f99df35ff",
+        "name": "QT Manager daily coordination",
+        "schedule": {
+          "kind": "cron",
+          "expr": "*/15 1-4 * * *",
+          "display": "*/15 1-4 * * *"
+        },
+        "next_run_at": "2026-10-18T01:00:00+08:00",
+        "last_status": null
+      },
+      {
+        "id": "18ae508e503a",
+        "name": "QT Manager Telegram reporting",
+        "schedule": {
+          "kind": "interval",
+          "minutes": 1,
+          "display": "every 1m"
+        },
+        "next_run_at": "2026-10-17T17:19:41.323328+08:00",
+        "last_status": "ok"
+      }
+    ],
+    "stateBytes": 951971,
+    "passed": 65
+  },
+  "sources": [
+    {
+      "url": "https://developers.google.com/maps/billing-and-pricing/pricing",
+      "checkedAt": "2026-10-17",
+      "use": "Published per-SKU free allowances; not evidence of account usage or permission to reset existing ledger"
+    }
+  ],
+  "newResearchRecords": 0,
+  "newGoogleRequests": 0,
+  "newImageAttempts": 0,
+  "ownerDeletionsPerformed": 0,
+  "verification": {
+    "pythonLocal": 65,
+    "pythonVps": 65,
+    "isolatedApi": 28,
+    "liveApi": 10,
+    "liveBrowser": 6,
+    "typeScript": "passed",
+    "expoLint": "passed",
+    "backendLint": "passed"
+  },
+  "remaining": {
+    "unreviewedBranches": 172,
+    "missingCovers": 1,
+    "missingHours": 54,
+    "unknownPriceEntries": 3387,
+    "firstOvernightWindow": "2026-10-18T01:00:00+08:00",
+    "google": "Disabled pending billing-account-wide usage and exact SKU reconciliation",
+    "nativeSearchDedup": "Not interceptable; record checkpoints/extraction cache enforced, visible-query history advisory"
+  }
+}

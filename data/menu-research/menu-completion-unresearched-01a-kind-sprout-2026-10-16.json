@@ -1,0 +1,218 @@
+{
+  "version": 1,
+  "checkedAt": "2026-10-16T00:53:51.701Z",
+  "scope": "Frozen unresearched unit 01 part a: Kind Sprout SG; 1 of 20 selected premises",
+  "notice": "Facts-only source extraction. Four beverages excluded. Merchant postal code 793461 supports the directory pickup vicinity; street pickup bay text comes from the independent lead, not the merchant page. No Google Place ID assigned.",
+  "sources": [
+    {
+      "id": "ur01-kind-store",
+      "url": "https://take.app/kindsproutsg",
+      "title": "Kindsproutsg merchant storefront",
+      "publisher": "Kind Sprout SG / Take App",
+      "kind": "merchant-menu",
+      "checkedAt": "2026-10-16T00:53:51.701Z",
+      "status": "readable",
+      "notes": "Current 100% vegetarian and allium-free claim; public page data postal code 793461; all five visible food products and all five detail pages read."
+    },
+    {
+      "id": "ur01-kind-product-1",
+      "url": "https://take.app/kindsproutsg/p/cmsaiq2ps000i0akf33rbvquw",
+      "title": "Sprout Classic Soon Kueh",
+      "publisher": "Kind Sprout SG / Take App",
+      "kind": "merchant-product-detail",
+      "checkedAt": "2026-10-16T00:53:10.250Z",
+      "status": "readable"
+    },
+    {
+      "id": "ur01-kind-product-2",
+      "url": "https://take.app/kindsproutsg/p/cmu3yly5g000q0agm3zzoa1z4",
+      "title": "Sweet Mung Bean Ang Ku Kueh (Platter of 10 pcs)",
+      "publisher": "Kind Sprout SG / Take App",
+      "kind": "merchant-product-detail",
+      "checkedAt": "2026-10-16T00:53:09.727Z",
+      "status": "readable"
+    },
+    {
+      "id": "ur01-kind-product-3",
+      "url": "https://take.app/kindsproutsg/p/cmunczhy5000w0agmb5mg9g3a",
+      "title": "Yam-my Cake",
+      "publisher": "Kind Sprout SG / Take App",
+      "kind": "merchant-product-detail",
+      "checkedAt": "2026-10-16T00:53:09.643Z",
+      "status": "readable"
+    },
+    {
+      "id": "ur01-kind-product-4",
+      "url": "https://take.app/kindsproutsg/p/cmv9cnk7o000g02oucg866leq",
+      "title": "Pink Blossom Peng Kueh (Platter of 8 pcs)",
+      "publisher": "Kind Sprout SG / Take App",
+      "kind": "merchant-product-detail",
+      "checkedAt": "2026-10-16T00:53:09.796Z",
+      "status": "readable"
+    },
+    {
+      "id": "ur01-kind-product-5",
+      "url": "https://take.app/kindsproutsg/p/cmu28w1q0000c0agmpf31dxw9",
+      "title": "Papaya Peach Gum Snow Fungus Dessert (350ml)",
+      "publisher": "Kind Sprout SG / Take App",
+      "kind": "merchant-product-detail",
+      "checkedAt": "2026-10-16T00:53:09.927Z",
+      "status": "readable"
+    }
+  ],
+  "branches": [
+    {
+      "id": "ur01-kind-sprout-sengkang",
+      "name": "Kind Sprout SG",
+      "address": "Singapore 793461",
+      "postalCode": "793461",
+      "directoryLeadIds": [
+        "kind-sprout"
+      ],
+      "sourceIds": [
+        "ur01-kind-store"
+      ],
+      "menuIds": [
+        "ur01-kind-foods"
+      ],
+      "googlePlaceId": null,
+      "candidatePlaceIds": [],
+      "identityStatus": "merchant-public-postal-only-exact-pickup-unconfirmed",
+      "gaps": [
+        "Merchant page publishes postal 793461 and Singapore; full pickup-bay street text remains directory-supplied. Current order lead-time, service schedule and delivery charges not verified."
+      ],
+      "venueEligibility": {
+        "status": "vegetarian-confirmed",
+        "reason": "Merchant expressly states 100% Vegetarian; complete displayed assortment is coherent. Avocado milk beverage contains dairy, so no whole-venue vegan claim.",
+        "sourceIds": [
+          "ur01-kind-store"
+        ]
+      },
+      "eligibility": "vegetarian-confirmed",
+      "directoryAddress": "461C Sengkang West Way (Meet at pick-up bay), Singapore 793461"
+    }
+  ],
+  "menus": [
+    {
+      "id": "ur01-kind-foods",
+      "name": "Kind Sprout SG - all 5 displayed foods and options",
+      "scope": "branch-ordering",
+      "branchIds": [
+        "ur01-kind-sprout-sengkang"
+      ],
+      "sourceIds": [
+        "ur01-kind-store",
+        "ur01-kind-product-1",
+        "ur01-kind-product-2",
+        "ur01-kind-product-3",
+        "ur01-kind-product-4",
+        "ur01-kind-product-5"
+      ],
+      "coverage": "source-covered",
+      "sourceCoverage": {
+        "foodProducts": 5,
+        "foodDetailPages": 5,
+        "foodModifierDetailsCovered": true,
+        "excludedBeverages": 4
+      },
+      "notice": "All displayed food products, portions and options captured. Delivery costs and pickup checkout not exercised. Printed + charges retained as increments, not silently turned into standalone products.",
+      "items": [
+        {
+          "id": "ur01-kind-food-1",
+          "name": "Sprout Classic Soon Kueh",
+          "category": "Sprout Kueh Collection",
+          "sourceIds": [
+            "ur01-kind-store",
+            "ur01-kind-product-1"
+          ],
+          "price": {
+            "amount": 3.6,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "qualifier": "Box selection optional: Box of 2 has no printed extra charge; Box of 4 +S$3.60; Party Platter of 12 +S$18.00. Required pairing: select up to 2 from Sweet Sauce; Fragrant Fried Shredded Cabbage; Sambal Chilli; No Shrimp Chilli (Crispy). Extra sauce optional: each of those four +S$0.50, in addition to 2 complimentary sauces. Merchant states 100% vegetarian and allium-free; dairy milk appears in a beverage so whole venue is vegetarian, not vegan. Food-only source snapshot checked 16 Oct 2026. Availability, preorder lead-time and delivery fees not established by this current page. Merchant publishes postal code 793461 only; exact pickup street/location needs confirmation with the source."
+        },
+        {
+          "id": "ur01-kind-food-2",
+          "name": "Sweet Mung Bean Ang Ku Kueh (Platter of 10 pcs)",
+          "category": "Sprout Kueh Collection",
+          "sourceIds": [
+            "ur01-kind-store",
+            "ur01-kind-product-2"
+          ],
+          "price": {
+            "amount": 24,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "qualifier": "Platter of 10 pieces. Natural sweet-potato colouring. No printed size or flavour options. Merchant states 100% vegetarian and allium-free; dairy milk appears in a beverage so whole venue is vegetarian, not vegan. Food-only source snapshot checked 16 Oct 2026. Availability, preorder lead-time and delivery fees not established by this current page. Merchant publishes postal code 793461 only; exact pickup street/location needs confirmation with the source."
+        },
+        {
+          "id": "ur01-kind-food-3",
+          "name": "Yam-my Cake",
+          "category": "Sprout Kueh Collection",
+          "sourceIds": [
+            "ur01-kind-store",
+            "ur01-kind-product-3"
+          ],
+          "price": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "qualifier": "Required size: Mini 4-inch (~210g; 2-4 pax) has no printed extra charge; Standard 6-inch (~840g; 6-8 pax) +S$24.00 above displayed base. Required topping: No Topping, or Fried Shredded Cabbage +S$0.50. Merchant states 100% vegetarian and allium-free; dairy milk appears in a beverage so whole venue is vegetarian, not vegan. Food-only source snapshot checked 16 Oct 2026. Availability, preorder lead-time and delivery fees not established by this current page. Merchant publishes postal code 793461 only; exact pickup street/location needs confirmation with the source."
+        },
+        {
+          "id": "ur01-kind-food-4",
+          "name": "Pink Blossom Peng Kueh (Platter of 8 pcs)",
+          "category": "Sprout Kueh Collection",
+          "sourceIds": [
+            "ur01-kind-store",
+            "ur01-kind-product-4"
+          ],
+          "price": {
+            "amount": 22.4,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "qualifier": "Platter of 8 pieces. Vegetarian mock ham, peanuts, shiitake, glutinous rice, sweet radish and parsley named. Merchant states 100% vegetarian and allium-free; dairy milk appears in a beverage so whole venue is vegetarian, not vegan. Food-only source snapshot checked 16 Oct 2026. Availability, preorder lead-time and delivery fees not established by this current page. Merchant publishes postal code 793461 only; exact pickup street/location needs confirmation with the source."
+        },
+        {
+          "id": "ur01-kind-food-5",
+          "name": "Papaya Peach Gum Snow Fungus Dessert (350ml)",
+          "category": "Homemade Dessert",
+          "sourceIds": [
+            "ur01-kind-store",
+            "ur01-kind-product-5"
+          ],
+          "price": {
+            "amount": 6.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "qualifier": "350ml; merchant says approximately 2 traditional rice bowls per serving; warm dessert. Merchant states 100% vegetarian and allium-free; dairy milk appears in a beverage so whole venue is vegetarian, not vegan. Food-only source snapshot checked 16 Oct 2026. Availability, preorder lead-time and delivery fees not established by this current page. Merchant publishes postal code 793461 only; exact pickup street/location needs confirmation with the source."
+        }
+      ]
+    }
+  ],
+  "exclusions": [
+    {
+      "sourceId": "ur01-kind-store",
+      "type": "beverages",
+      "names": [
+        "Yuzu Butterfly Fizz",
+        "Warm Barley",
+        "Iced Barley",
+        "Avocado Milk with Gula Melaka"
+      ],
+      "reason": "Food-only collection scope."
+    }
+  ],
+  "completionHistory": [
+    {
+      "checkedAt": "2026-10-16T00:54:52.255Z",
+      "frozenSourceSha256": "8df9d48fa2469a007e7c33adf536ebc3172b0c720dc54975fac113c6844fea92",
+      "action": "Root approved5 fully read merchant food offers. App address uses only merchant-published Singapore793461; fuller directory pickup-bay address retained as unconfirmed research field. No Google association."
+    }
+  ]
+}

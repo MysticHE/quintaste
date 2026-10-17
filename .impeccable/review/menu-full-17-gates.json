@@ -1,0 +1,18 @@
+{
+  "checkedAt": "2026-10-16T09:55:52.003773+00:00",
+  "passed": true,
+  "fresh": true,
+  "scope": "Fresh TypeScript and Expo lint exited0 after followup17 canonical amendments; compiler/register checks pass after equivalent source-URL encoding.",
+  "checks": [
+    {
+      "command": "node node_modules/typescript/bin/tsc --noEmit",
+      "session": 92291,
+      "exitCode": 0
+    },
+    {
+      "command": "node node_modules/expo/bin/cli lint",
+      "session": 20947,
+      "exitCode": 0
+    }
+  ]
+}

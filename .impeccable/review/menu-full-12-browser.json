@@ -1,0 +1,93 @@
+{
+  "startedAt": "2026-10-16T07:41:36.627Z",
+  "url": "http://127.0.0.1:8083",
+  "checks": [
+    {
+      "name": "ur12-jufu-hougang",
+      "status": "passed",
+      "foods": 0,
+      "menuGap404": true
+    },
+    {
+      "name": "ur12-kale-midpoint",
+      "status": "passed",
+      "foods": 0,
+      "menuGap404": true
+    },
+    {
+      "name": "ur12-evergreen-geylang",
+      "status": "passed",
+      "foods": 0,
+      "menuGap404": true
+    },
+    {
+      "name": "elemen-harbourfront-centre-legacy",
+      "status": "passed",
+      "foods": 0,
+      "menuGap404": true
+    }
+  ],
+  "screenshots": [
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-12-browser\\ur12-jufu-hougang-320.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-12-browser\\ur12-jufu-hougang-768.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-12-browser\\ur12-jufu-hougang-1440.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-12-browser\\ur12-kale-midpoint-320.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-12-browser\\ur12-kale-midpoint-768.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-12-browser\\ur12-kale-midpoint-1440.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-12-browser\\ur12-evergreen-geylang-320.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-12-browser\\ur12-evergreen-geylang-768.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-12-browser\\ur12-evergreen-geylang-1440.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-12-browser\\elemen-harbourfront-centre-legacy-320.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-12-browser\\elemen-harbourfront-centre-legacy-768.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-12-browser\\elemen-harbourfront-centre-legacy-1440.png"
+  ],
+  "errors": [],
+  "pageErrors": [],
+  "unexpectedConsoleErrors": [],
+  "blockedApiRequests": [],
+  "blockedExternalRequests": [],
+  "apiRequests": [],
+  "a11y": [
+    {
+      "label": "ur12-jufu-hougang",
+      "violations": []
+    },
+    {
+      "label": "ur12-kale-midpoint",
+      "violations": []
+    },
+    {
+      "label": "ur12-evergreen-geylang",
+      "violations": []
+    },
+    {
+      "label": "elemen-harbourfront-centre-legacy",
+      "violations": []
+    }
+  ],
+  "forwardedProviderCalls": 0,
+  "installedChromeUsed": false,
+  "catalogue": {
+    "locations": 166,
+    "sourceMenus": 213,
+    "foodOccurrences": 11589
+  },
+  "unchangedPublicMenuAcceptance": {
+    "evidence": "menu-full-11-browser.json",
+    "basis": "All public menus and prices unchanged; previous SP functional checks retained with their original date. Current API fingerprints and mappings reconciled again."
+  },
+  "finishedAt": "2026-10-16T07:42:38.089Z",
+  "passed": true,
+  "visualReview": {
+    "status": "passed",
+    "reviewedAt": "2026-10-16T07:45:23.163462+00:00",
+    "capturesInspected": 12,
+    "widths": [
+      320,
+      768,
+      1440
+    ],
+    "findings": "Every listed current capture visually inspected; no page overflow or visual defect observed. Source choices/prices/ingredients retain explicit uncertainty. Initial QA harness failures, where any, remain archived."
+  },
+  "googleLedgerUnchanged": true
+}

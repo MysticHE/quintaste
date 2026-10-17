@@ -1,0 +1,18 @@
+{
+"version":1,
+"checkedAt":"2026-10-15T10:50:08.115418+00:00",
+"shards":["sufood-joie-genesis-lovinghut/sufood.json","sufood-joie-genesis-lovinghut/joie.json","sufood-joie-genesis-lovinghut/genesis.json"],
+"identityChecks":[{"brandId":"loving-hut-singapore","name":"Loving Hut Singapore","currentBranchesVerified":0,"status":"current-identity-unresolved","sourceIds":["lovinghut-sg-domain","lovinghut-global","lovinghut-global-june-2024-directory","lovinghut-joo-chiat-closed-secondary","lovinghut-jewel-unconfirmed-secondary","lovinghut-jewel-primary-directory"],"notes":"No verified current Singapore branch; no foreign Loving Hut menu or historical closed-branch food was attached. Legacy Joo Chiat address and unconfirmed Jewel lead remain research notes, outside current branch/menu counts. Need a current merchant or primary landlord confirmation before assigning any Singapore menu."}],
+"sources":[
+{"id":"lovinghut-sg-domain","url":"https://lovinghut.com.sg/","publisher":"Loving Hut Singapore","title":"Legacy Singapore merchant domain","kind":"merchant-website","checkedAt":"2026-10-15T10:50:08.115418+00:00","status":"http-410","notes":"Empty HTTP 410 response. No bypass or retry on alternate host attempted."},
+{"id":"lovinghut-global","url":"https://www.lovinghut.com/","publisher":"Loving Hut international","title":"Current global country links and dated directory link","kind":"merchant-location","checkedAt":"2026-10-15T10:50:08.115418+00:00","status":"readable-no-singapore-listing","notes":"Singapore is absent from displayed country links. This absence does not establish every independent franchise has closed."},
+{"id":"lovinghut-global-june-2024-directory","url":"https://www.lovinghut.com/2024-06addr","publisher":"Loving Hut international","title":"Officially linked June2024 worldwide address document","kind":"merchant-location-historical","checkedAt":"2026-10-15T10:50:08.115418+00:00","status":"readable-no-singapore-listing","notes":"Official link redirects to a public Google document. Public text export contains no Singapore entry. Dated June2024 directory absence is not a current closure date."},
+{"id":"lovinghut-joo-chiat-closed-secondary","url":"https://burpple.com/loving-hut-singapore","publisher":"Burpple","title":"Legacy Joo Chiat listing marked CLOSED","kind":"secondary-location","checkedAt":"2026-10-15T10:50:08.115418+00:00","status":"readable-closed-listing","notes":"229 Joo Chiat Road #01-01 Singapore 427489. Secondary evidence only; no current branch or current menu is established."},
+{"id":"lovinghut-jewel-unconfirmed-secondary","url":"https://www.sgvegancommunity.net/listings/loving-hut-vegan","publisher":"SG Vegan Community","title":"Unconfirmed directory lead at Jewel Changi Airport","kind":"secondary-location","checkedAt":"2026-10-15T10:50:08.115418+00:00","status":"unconfirmed-current-identity","notes":"Claims 78 Airport Blvd Jewel Changi Airport Singapore819666 without unit and links the expired merchant domain. Added/updated April2026 is a directory timestamp, not merchant confirmation. No matching primary landlord or merchant source found; not admitted as a current branch."},
+{"id":"lovinghut-jewel-primary-directory","url":"https://www.jewelchangiairport.com/en/dine.html","publisher":"Jewel Changi Airport","title":"Current public dining directory checked against secondary lead","kind":"landlord-location","checkedAt":"2026-10-15T10:50:08.115418+00:00","status":"readable-no-matching-name","notes":"No Loving Hut name in the retrieved primary dining directory HTML. Absence alone is not proof of closure."}
+],
+"branches":[
+],
+"menus":[
+]
+}

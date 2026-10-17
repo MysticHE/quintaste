@@ -1,0 +1,75 @@
+{
+  "status": "pass",
+  "scope": "Local Explore browser/source implementation; production and physical native acceptance excluded",
+  "verifiedAt": "2026-10-15T04:48:21.464Z",
+  "typeScript": {
+    "command": "npx tsc --noEmit",
+    "exitCode": 0
+  },
+  "lint": {
+    "command": "expo lint",
+    "exitCode": 0,
+    "warnings": 0
+  },
+  "api": {
+    "report": "explore-local-api.json",
+    "passedGroups": 12
+  },
+  "browser": {
+    "report": "explore-local-validation.json",
+    "passedJourneys": 11,
+    "captures": 17,
+    "pageErrors": 0,
+    "scopedAxeFindings": 0
+  },
+  "visual": {
+    "report": "explore-local-finish-review.json",
+    "capturesReviewed": 17,
+    "verdict": "ship",
+    "materialFindings": 0
+  },
+  "sourceReview": {
+    "reviewer": "instant_code_review",
+    "verdict": "approve",
+    "materialFindings": 0,
+    "followUp": "Final hook lifecycle and offline display changes approved"
+  },
+  "native": {
+    "report": "explore-local-native-transport.json",
+    "manifestStatus": 200,
+    "bundleStatus": 200,
+    "bytes": 9162482,
+    "privateGoogleKey": false,
+    "privateReviewerKey": false,
+    "serverStoreBundled": false,
+    "physicalDeviceVerified": false
+  },
+  "structure": {
+    "report": "explore-local-size-audit.json",
+    "modules": 40,
+    "maxModuleLines": 88,
+    "maxFunctionLines": 71,
+    "privateFilesIgnored": 3
+  },
+  "paidGoogleRequests": 0,
+  "dependencyAudit": {
+    "counts": {
+      "info": 0,
+      "low": 0,
+      "moderate": 12,
+      "high": 20,
+      "critical": 0,
+      "total": 32
+    },
+    "newDirectDependenciesWithAdvisories": [],
+    "note": "SDK dependency advisories remain a separate maintenance item; no forced SDK downgrades or broad audit fix applied."
+  },
+  "limits": [
+    "Development-only owner capability service is not production authentication or cloud sync.",
+    "Review decisions are stored locally and do not modify public venue facts or establish staffed harm/urgent response.",
+    "Public account counts remain null/suppressed; approved privacy rules and real eligible-account data are required.",
+    "Offline Saved retains IDs and user-authored labels/lists; Google venue metadata remains a five-minute memory cache, not an owned offline catalogue.",
+    "Cold-start offline web shell, full-app accessibility and physical native appearance/permissions/gestures remain unverified.",
+    "No pilot menus/reviewed venue or dish data was imported in this batch."
+  ]
+}

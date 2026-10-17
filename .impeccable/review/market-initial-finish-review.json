@@ -1,0 +1,17 @@
+{
+  "disposition": "fix",
+  "scope": "13 supplied browser development captures and sampled source; adaptive native iOS/Android visual acceptance pending",
+  "fallback": "Fresh independent code-reviewer substituted for unavailable shipped Impeccable finish-reviewer role.",
+  "persistence": "pass: established PRODUCT, DESIGN and surface contract preserved; documentation reconciliation follows corrections. Supplied evidence: 18 functional checks, 7 state checks, zero runtime errors. Accessibility assertion fails before final correction.",
+  "fidelity": "faithful subject to sole accessibility correction: Nunito, wrapping metadata, larger-text one-column reflow, fictional raster artwork and Preview disclosure, semantic light/dark world, Buy/Sell-only titleless hierarchy, food/price/pickup, seller/exchange flows and Delete/Keep consequences. All 13 captures valid; red deletion background is a controlled uploaded QA image.",
+  "ceiling": "Reached for requested compact browser composition. Native safe areas, Back, system scaling, tablet navigation, media permissions and VoiceOver/TalkBack unverified; Android bundle transport is not visual acceptance. HTML/CSS detector inapplicable.",
+  "material_fixes": [
+    {
+      "severity": "high",
+      "file": "src/components/market/ListingCard.tsx",
+      "finding": "Custom comma-joined accessibilityLabel causes label-content-name-mismatch in scoped light/dark axe.",
+      "required": "Remove custom label, use text-derived native name and View listing details hint; retain role/focus/Save/Manage and verify scoped axe with refreshed captures."
+    }
+  ],
+  "keep": "Buy/Sell only, compact titleless layout, two-column narrow and one-column enlarged browsing, food/price/pickup hierarchy, explicit deletion consequences, local/synthetic disclosures, Nunito and existing tokens."
+}

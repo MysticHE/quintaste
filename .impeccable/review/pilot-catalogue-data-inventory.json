@@ -1,0 +1,33 @@
+{
+  "checkedAt": "2026-10-15T05:42:40.280Z",
+  "counts": {
+    "sources": 56,
+    "venues": 12,
+    "menus": 11,
+    "dishes": 48,
+    "candidates": 4
+  },
+  "sourceChecked": 6,
+  "needsInformation": 6,
+  "priceMissing": 8,
+  "printedCurrencyUnknown": 8,
+  "confirmedDishes": 0,
+  "publicationApproved": false,
+  "clusters": [
+    {
+      "id": "outram-chinatown",
+      "venues": 4,
+      "dishes": 16
+    },
+    {
+      "id": "rochor-bugis",
+      "venues": 4,
+      "dishes": 16
+    },
+    {
+      "id": "woodlands",
+      "venues": 4,
+      "dishes": 16
+    }
+  ]
+}

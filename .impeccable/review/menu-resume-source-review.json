@@ -1,0 +1,9 @@
+{
+  "checkedAt": "2026-10-16T03:49:43.788422+00:00",
+  "scope": "One accessibility label string in MenuItemRow.tsx, plus reviewed research JSON and generated source registry.",
+  "review": "Manual code/source review plus scoped browser axe before/after; no new automatic test files.",
+  "finding": "Label in Name mismatch on shared expanded options button.",
+  "resolution": "Both collapsed and expanded accessible names now start with their exact visible text and preserve dish context.",
+  "status": "approved-within-source-and-focused-browser-scope",
+  "remaining": "Native screen reader/voice control and production acceptance unverified."
+}

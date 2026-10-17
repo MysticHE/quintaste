@@ -1,0 +1,144 @@
+{
+  "startedAt": "2026-10-16T05:23:08.326Z",
+  "url": "http://127.0.0.1:8083",
+  "checks": [
+    {
+      "name": "original-sin",
+      "status": "passed",
+      "foods": 45,
+      "heldAbsent": 2,
+      "publicFingerprint": "f62e04b955ac3a2cb5c2855479ddffc1da0dc5703c2f692ed4adc4deb540dffa"
+    },
+    {
+      "name": "xing-hua",
+      "status": "passed",
+      "foods": 23,
+      "heldAbsent": 0,
+      "publicFingerprint": "162a237e9d3d274979a86f07c514c32f14526eae351a1219fdee22d3cb4f5c65"
+    },
+    {
+      "name": "so-green",
+      "status": "passed",
+      "foods": 98,
+      "heldAbsent": 8,
+      "publicFingerprint": "2e6951bd96cadaf599c9c21d0923e5eab9024255e7aab10adf973c6147e9f56e"
+    },
+    {
+      "name": "xin-yi",
+      "status": "passed",
+      "foods": 5,
+      "heldAbsent": 0,
+      "publicFingerprint": "5b7314129c0e335c5806ada7373ffb70193a9408203adbb55c6947fde3e897c6"
+    },
+    {
+      "name": "ju-fu-yuan-serangoon",
+      "status": "passed",
+      "foods": 10,
+      "heldAbsent": 0,
+      "publicFingerprint": "9b1c42ee5e06e35850cf078ca4f5948a453cde91709a7d6da87347602511de40"
+    },
+    {
+      "name": "li-wei",
+      "status": "passed",
+      "foods": 58,
+      "heldAbsent": 9,
+      "publicFingerprint": "fac431766e7ffc2492f6a94549074a6a4c4cb37078cdb6a870951d4edaac237f"
+    }
+  ],
+  "screenshots": [
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-06-browser\\original-sin-320.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-06-browser\\original-sin-768.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-06-browser\\original-sin-1440.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-06-browser\\xing-hua-320.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-06-browser\\xing-hua-768.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-06-browser\\xing-hua-1440.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-06-browser\\so-green-320.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-06-browser\\so-green-768.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-06-browser\\so-green-1440.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-06-browser\\xin-yi-320.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-06-browser\\xin-yi-768.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-06-browser\\xin-yi-1440.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-06-browser\\ju-fu-yuan-serangoon-320.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-06-browser\\ju-fu-yuan-serangoon-768.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-06-browser\\ju-fu-yuan-serangoon-1440.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-06-browser\\li-wei-320.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-06-browser\\li-wei-768.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-full-06-browser\\li-wei-1440.png"
+  ],
+  "errors": [],
+  "pageErrors": [],
+  "unexpectedConsoleErrors": [],
+  "blockedApiRequests": [
+    "/api/local-explore/session",
+    "/api/local-explore/session",
+    "/api/local-explore/session",
+    "/api/local-explore/session",
+    "/api/local-explore/session",
+    "/api/local-explore/session"
+  ],
+  "blockedExternalRequests": [],
+  "apiRequests": [
+    "/api/menus?view=index",
+    "/api/menus?id=research-ur06-original-sin",
+    "/api/menus?view=index",
+    "/api/menus?id=research-ur06-xing-hua",
+    "/api/menus?view=index",
+    "/api/menus?id=research-ur06-so-green",
+    "/api/menus?view=index",
+    "/api/menus?id=research-ur06-xin-yi",
+    "/api/menus?view=index",
+    "/api/menus?id=research-ur06-ju-fu-yuan-serangoon",
+    "/api/menus?view=index",
+    "/api/menus?id=research-ur06-li-wei"
+  ],
+  "a11y": [
+    {
+      "label": "original-sin",
+      "violations": []
+    },
+    {
+      "label": "xing-hua",
+      "violations": []
+    },
+    {
+      "label": "so-green",
+      "violations": []
+    },
+    {
+      "label": "xin-yi",
+      "violations": []
+    },
+    {
+      "label": "ju-fu-yuan-serangoon",
+      "violations": []
+    },
+    {
+      "label": "li-wei",
+      "violations": []
+    }
+  ],
+  "forwardedProviderCalls": 0,
+  "installedChromeUsed": false,
+  "browserVersion": "156.0.8078.4",
+  "catalogue": {
+    "locations": 157,
+    "sourceMenus": 202,
+    "foodOccurrences": 11258
+  },
+  "finishedAt": "2026-10-16T05:23:44.371Z",
+  "passed": true,
+  "visualReview": {
+    "reviewedAt": "2026-10-16T05:30:36.674537+00:00",
+    "status": "passed",
+    "passed": true,
+    "capturesInspected": 18,
+    "widths": [
+      320,
+      768,
+      1440
+    ],
+    "findings": "All eighteen final fresh-load screenshots inspected. Search, names, prices and wrapping remain visible within viewport; small menus intentionally omit search. Category scrollers clip the next category intentionally. Prior focused-input resize captures were inconsistent; fresh-load captures and DOM diagnostic resolve capture acceptance, without app code changes."
+  },
+  "googleLedgerUnchanged": true,
+  "captureMethod": "Fresh page at each viewport after initial menu rows appear and a 500ms settle; separate from completed interaction tests. Focused-input resize capture was inconsistent; DOM visibility/positions and clean captures verified in layout diagnostic. No app code changed."
+}

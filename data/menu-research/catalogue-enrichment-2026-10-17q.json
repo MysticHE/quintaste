@@ -1,0 +1,1035 @@
+{
+  "checkedAt": "2026-10-17",
+  "deployedRelease": "20261017-merchant-covers20",
+  "goalStatus": "active",
+  "fullCoverageComplete": false,
+  "coverage": {
+    "browseVenues": 174,
+    "menuIds": 175,
+    "covers": 136,
+    "hours": 90,
+    "uniqueAssets": 108,
+    "assetBytes": 14457908,
+    "coverGaps": 38,
+    "hoursGaps": 84,
+    "allThreeAvailable": 77,
+    "catalogueIndexBytes": 184964
+  },
+  "newPhotos": [
+    {
+      "venueId": "research-ur03-eco-sen-toa-payoh66",
+      "address": "66 Lorong 4 Toa Payoh, Singapore 310066",
+      "photo": {
+        "path": "/api/catalogue-photos/71f9999a0cb1bc7ab0c5c4d4f8e3243e0c8d48a5cad10b9234a06a8046822496.jpg",
+        "width": 960,
+        "height": 703,
+        "author": "Eco Sen Vegetarian Food",
+        "sourceUrl": "https://www.foodpanda.sg/restaurant/zj07/eco-sen-vegetarian-food-yuan-sen-su-shi-lorong-4-toa-payoh",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "71f9999a0cb1bc7ab0c5c4d4f8e3243e0c8d48a5cad10b9234a06a8046822496",
+      "bytes": 130485,
+      "originalSha256": "964f9b471fb32913a25c8c2cd33c6c1ea028a1d49f7d7aa399391cbdbc007c4a",
+      "sourcePageCheckedAt": "2026-10-16T01:26:23.987Z",
+      "sourceImageUrl": "https://foodpanda.dhmedia.io/image/fd-sg/LH/zj07-listing.jpg",
+      "identityEvidence": "Exact saved merchant vendor code, name, street/unit and postal code match the published catalogue branch. Hero food imagery only; no branch interior or current-stock claim. Vendor zj07: 66 Lor 4 Toa Payoh, Singapore 310066; registered source https://www.foodpanda.sg/restaurant/zj07/eco-sen-vegetarian-food-yuan-sen-su-shi-lorong-4-toa-payoh. ",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance this Eco Sen merchant food photograph of three curry puffs on a white plate. Preserve the exact three folded golden pastries, lettuce, green chilies and red dipping sauce on the gray tabletop and blue-gray cloth. Improve soft natural lighting, crisp pastry texture and true colors. No changes to food quantities, no filling revealed or invented, no props or text.",
+        "review": "Original and output visually compared. Existing food, serving vessels and tabletop retained with enhanced lighting. No new ingredient or availability claim."
+      }
+    },
+    {
+      "venueId": "research-ur04-bao-su-zhai",
+      "address": "1 Sengkang Square #04-11 Stall 23, Compass One, Singapore 545078",
+      "photo": {
+        "path": "/api/catalogue-photos/0bdb7ba26f47c7705a3f0a6042a32d9136d7ca61c451735b4e0d72052e8d7b8c.jpg",
+        "width": 960,
+        "height": 703,
+        "author": "Bao Su Zhai",
+        "sourceUrl": "https://www.foodpanda.sg/restaurant/o1d2/bao-su-zhai-bao-su-zhai-compass-one",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "0bdb7ba26f47c7705a3f0a6042a32d9136d7ca61c451735b4e0d72052e8d7b8c",
+      "bytes": 80683,
+      "originalSha256": "fdf1b64cd66fb9ff74865634e4bdc744f40994ad4833d073a073725047789468",
+      "sourcePageCheckedAt": "2026-10-16T04:38:35.556Z",
+      "sourceImageUrl": "https://images.deliveryhero.io/image/fd-sg/LH/o1d2-listing.jpg",
+      "identityEvidence": "Exact saved merchant vendor code, name, street/unit and postal code match the published catalogue branch. Hero food imagery only; no branch interior or current-stock claim. Vendor o1d2: 1, Sengkang Square, Compass One, Stall 23 #04-11; registered source https://www.foodpanda.sg/restaurant/o1d2/bao-su-zhai-bao-su-zhai-compass-one. ",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance this Bao Su Zhai merchant food photograph. Keep the same square white plate, dome of rice, sliced fried bean-curd roll, cucumber and tomato slices and herb garnish in precisely the original serving arrangement. Improve natural light and texture on the clean white background. No extra ingredients, food pieces, sauces, props, text or claims.",
+        "review": "Original and output visually compared. Existing food, serving vessels and tabletop retained with enhanced lighting. No new ingredient or availability claim."
+      }
+    },
+    {
+      "venueId": "research-ur03-gan-taste-vegetarian",
+      "address": "20 Lorong 7 Toa Payoh #01-758, Singapore 310020",
+      "photo": {
+        "path": "/api/catalogue-photos/f9a108b486da4d407b23fac4bb9a5e965322ece1640c1fec5eac2884d05d2207.jpg",
+        "width": 960,
+        "height": 703,
+        "author": "Gan Taste Vegetarian",
+        "sourceUrl": "https://www.foodpanda.sg/restaurant/w7c5/gan-taste-vegetarian-18-lorong",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "f9a108b486da4d407b23fac4bb9a5e965322ece1640c1fec5eac2884d05d2207",
+      "bytes": 153960,
+      "originalSha256": "430d66c746c4055b092fe360cf5f7ab833bd8fd45f82869a89abc4726c56aed6",
+      "sourcePageCheckedAt": "2026-10-16T04:34:08.205Z",
+      "sourceImageUrl": "https://images.deliveryhero.io/image/fd-sg/LH/w7c5-listing.jpg",
+      "identityEvidence": "Exact saved merchant vendor code, name, street/unit and postal code match the published catalogue branch. Hero food imagery only; no branch interior or current-stock claim. Vendor w7c5: 20, Lorong 7 Toa Payoh, #01 758; registered source https://www.foodpanda.sg/restaurant/w7c5/gan-taste-vegetarian-18-lorong. ",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance this supplied vegetarian merchant photograph. Preserve the green plate of fine noodles with all the original fried bean-curd pieces, cooked vegetables and existing toppings. Keep the green chopsticks lifting the same bundle of noodles and blurred original dishes in back. Improve natural exposure, sharpness and realistic texture without changing the food arrangement or quantities. No invented ingredients, extra props, text or claims.",
+        "review": "Original and output visually compared. Existing food, serving vessels and tabletop retained with enhanced lighting and closer framing. No new ingredient or availability claim."
+      }
+    },
+    {
+      "venueId": "research-ur06-li-wei",
+      "address": "151 Serangoon North Avenue2 #01-41, Singapore550151",
+      "photo": {
+        "path": "/api/catalogue-photos/f9a108b486da4d407b23fac4bb9a5e965322ece1640c1fec5eac2884d05d2207.jpg",
+        "width": 960,
+        "height": 703,
+        "author": "Li Wei Vegetarian",
+        "sourceUrl": "https://www.foodpanda.sg/restaurant/w55k/li-wei-vegetarian-151-serangoon-north-ave-2",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "f9a108b486da4d407b23fac4bb9a5e965322ece1640c1fec5eac2884d05d2207",
+      "bytes": 153960,
+      "originalSha256": "430d66c746c4055b092fe360cf5f7ab833bd8fd45f82869a89abc4726c56aed6",
+      "sourcePageCheckedAt": "2026-10-16T05:15:19.991Z",
+      "sourceImageUrl": "https://images.deliveryhero.io/image/fd-sg/LH/w55k-listing.jpg",
+      "identityEvidence": "Exact saved merchant vendor code, name, street/unit and postal code match the published catalogue branch. Hero food imagery only; no branch interior or current-stock claim. Vendor w55k: 151 SERANGOON NORTH AVENUE 2 #01-41; registered source https://www.foodpanda.sg/restaurant/w55k/li-wei-vegetarian-151-serangoon-north-ave-2. Merchant source publishes the exact same original bytes as Gan Taste, SHA256 430d66c746c4055b092fe360cf5f7ab833bd8fd45f82869a89abc4726c56aed6. Reuse the enhancement; shared food imagery is not unique branch photography.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance this supplied vegetarian merchant photograph. Preserve the green plate of fine noodles with all the original fried bean-curd pieces, cooked vegetables and existing toppings. Keep the green chopsticks lifting the same bundle of noodles and blurred original dishes in back. Improve natural exposure, sharpness and realistic texture without changing the food arrangement or quantities. No invented ingredients, extra props, text or claims.",
+        "review": "Original and output visually compared. Existing food, serving vessels and tabletop retained with enhanced lighting and closer framing. No new ingredient or availability claim."
+      }
+    },
+    {
+      "venueId": "research-ur06-ju-fu-yuan-serangoon",
+      "address": "262 Serangoon Central Drive #01-91, Singapore550262",
+      "photo": {
+        "path": "/api/catalogue-photos/ba5ec4398d476adfcc7deb724334a85372f44f21ff419fa4bd8820c70e03e13b.jpg",
+        "width": 960,
+        "height": 703,
+        "author": "Ju Fu Yuan Vegetarian Delight",
+        "sourceUrl": "https://www.foodpanda.sg/restaurant/wpxm/ju-fu-yuan-vegetarian-delights-serangoon-central-dr",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "ba5ec4398d476adfcc7deb724334a85372f44f21ff419fa4bd8820c70e03e13b",
+      "bytes": 204271,
+      "originalSha256": "d0b15545909a4912d0a7f5534a8f0226f1ba975c246a720c5d4cc7f1d65cb9d7",
+      "sourcePageCheckedAt": "2026-10-16T05:08:59.088Z",
+      "sourceImageUrl": "https://images.deliveryhero.io/image/fd-sg/LH/wpxm-listing.jpg",
+      "identityEvidence": "Exact saved merchant vendor code, name, street/unit and postal code match the published catalogue branch. Hero food imagery only; no branch interior or current-stock claim. Vendor wpxm: 262 Serangoon Central Dr,  #01-91 Singapore 550262; registered source https://www.foodpanda.sg/restaurant/wpxm/ju-fu-yuan-vegetarian-delights-serangoon-central-dr. Merchant source publishes the same stall-counter image as the Ang Mo Kio vendor, with different JPEG compression. Both originals visually compared; reuse enhancement and do not claim this is the Serangoon interior.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance this exact Ju Fu Yuan Ang Mo Kio vegetarian stall display photograph. Preserve the stainless-steel food trays, their existing arrangement and all photographed food as is: front curry trays, broccoli at center, cabbage left and green beans right. Improve exposure, white balance, clarity and natural appetizing texture while keeping the real stall counter setting. No invented dishes, garnish, signage, people, utensils or new tray contents. Do not depict present availability or add text.",
+        "review": "Original and output visually compared. Existing food, serving vessels and setting retained with enhanced lighting and clarity. No new ingredient or availability claim."
+      }
+    },
+    {
+      "venueId": "research-ur06-xin-yi",
+      "address": "442 Jurong West Avenue1 #01-758, Singapore640442",
+      "photo": {
+        "path": "/api/catalogue-photos/ba976de2bcd256f120167014e714d6bad9f4d025b6457adb4fba4136c73d939c.jpg",
+        "width": 960,
+        "height": 703,
+        "author": "Xin Yi Vegetarian",
+        "sourceUrl": "https://www.foodpanda.sg/restaurant/x0ce/xin-yi-vegetarian-food-xin-yi-su-shi-jurong-west-avenue-1",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "ba976de2bcd256f120167014e714d6bad9f4d025b6457adb4fba4136c73d939c",
+      "bytes": 179318,
+      "originalSha256": "cfe367c423f1b00081fefdd3e8ce9417a0bfc68f64c97548fd500a0453e43749",
+      "sourcePageCheckedAt": "2026-10-16T05:06:19.536Z",
+      "sourceImageUrl": "https://images.deliveryhero.io/image/fd-sg/LH/x0ce-listing.jpg",
+      "identityEvidence": "Exact saved merchant vendor code, name, street/unit and postal code match the published catalogue branch. Hero food imagery only; no branch interior or current-stock claim. Vendor x0ce: 442 Jurong West Avenue 1 #01-758; registered source https://www.foodpanda.sg/restaurant/x0ce/xin-yi-vegetarian-food-xin-yi-su-shi-jurong-west-avenue-1. ",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance this Xin Yi Vegetarian food photograph by reframing toward the CENTRAL plate of browned thin noodles. Preserve the original lavender plate, exact noodles, fried bean-curd pieces, mushrooms, red-edged vegetarian slices and cabbage arrangement. Keep gray tabletop with naturally cropped neighboring dishes. Improve light, true colors and clarity, no new ingredients, garnishes, props or text.",
+        "review": "Original and output visually compared. Existing food, serving vessels and tabletop retained with enhanced lighting and closer framing. No new ingredient or availability claim."
+      }
+    },
+    {
+      "venueId": "research-ur07-red-apple-tampines",
+      "address": "835 Tampines Street 83 #01-02, Singapore 520835",
+      "photo": {
+        "path": "/api/catalogue-photos/865f4312427d6fa52c994855a6f0ff5d039e363dd3265087326922c50a770aab.jpg",
+        "width": 960,
+        "height": 703,
+        "author": "Red Apple Vegetarian / foodpanda",
+        "sourceUrl": "https://www.foodpanda.sg/restaurant/wvhw/red-apple-vegetarian-tampines",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "865f4312427d6fa52c994855a6f0ff5d039e363dd3265087326922c50a770aab",
+      "bytes": 189496,
+      "originalSha256": "bc1c38d5307f555f9d0360d8fc4a9c6e747404823779bf6903618fcb815339a8",
+      "sourcePageCheckedAt": "2026-10-16T05:29:24.105Z",
+      "sourceImageUrl": "https://images.deliveryhero.io/image/fd-sg/LH/wvhw-listing.jpg",
+      "identityEvidence": "Exact saved merchant vendor code, name, street/unit and postal code match the published catalogue branch. Hero food imagery only; no branch interior or current-stock claim. Vendor wvhw: 835 Tampines Street 83 #01-02; registered source https://www.foodpanda.sg/restaurant/wvhw/red-apple-vegetarian-tampines. ",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance the supplied Red Apple Vegetarian merchant photograph. Preserve ALL original foodpanda watermark marks visibly and exactly; do not remove or obscure them. Keep the original central white plate of tomato and egg on lettuce and naturally cropped surrounding dishes on the gray table, same original food arrangement and quantities. Improve gentle natural lighting and clarity only. No added ingredients, props, lettering or claims.",
+        "review": "Original and output visually compared. Existing food and serving vessels retained with enhanced lighting. Source watermark retained where present. No new ingredient or availability claim."
+      }
+    },
+    {
+      "venueId": "research-ur08-150-green",
+      "address": "150 Bukit Batok Street 11 #01-224, Singapore 650150",
+      "photo": {
+        "path": "/api/catalogue-photos/fc7178b823a9944bbd9089e51c6c902dede06f46f36b32abe9a79f4d02cebd40.jpg",
+        "width": 960,
+        "height": 702,
+        "author": "150 Green Vegetarian",
+        "sourceUrl": "https://www.foodpanda.sg/restaurant/l2ov/150-green-vegetarian-bukit-batok-street-11",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "fc7178b823a9944bbd9089e51c6c902dede06f46f36b32abe9a79f4d02cebd40",
+      "bytes": 86964,
+      "originalSha256": "f8a4f7a2d5d04aede7f35451b50484e812641904e15b0d8045e95a5e6ec8109c",
+      "sourcePageCheckedAt": "2026-10-16T05:40:04.855Z",
+      "sourceImageUrl": "https://images.deliveryhero.io/image/fd-sg/LH/l2ov-listing.jpg",
+      "identityEvidence": "Exact saved merchant vendor code, name, street/unit and postal code match the published catalogue branch. Hero food imagery only; no branch interior or current-stock claim. Vendor l2ov: Blk 150 Bukit Batok Street 11. #01-224; registered source https://www.foodpanda.sg/restaurant/l2ov/150-green-vegetarian-bukit-batok-street-11. ",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance this 150 Green Vegetarian merchant food photograph. Preserve the white plate with its exact fine white noodles, golden fried bean-curd sheets, original red-edged vegetarian pieces, cabbage and crumbled side topping. Same quantities and arrangement on the pale background. Improve neutral lighting, true colors and texture without adding ingredients, garnish, props or text.",
+        "review": "Original and output visually compared. Existing food and serving vessels retained with enhanced lighting. Source watermark retained where present. No new ingredient or availability claim."
+      }
+    },
+    {
+      "venueId": "research-ur10-ju-fu-yuan-eunos",
+      "address": "7 Eunos Crescent #01-2655, Singapore 400007",
+      "photo": {
+        "path": "/api/catalogue-photos/d9c98b0aac82d5012c17042bafede5fd00f53e1cfcda1896872953194903e4f6.jpg",
+        "width": 960,
+        "height": 703,
+        "author": "Ju Fu Yuan Vegetarian Delight",
+        "sourceUrl": "https://www.foodpanda.sg/restaurant/y2yl/ju-fu-yuan-vegetarian-delight-eunos",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "d9c98b0aac82d5012c17042bafede5fd00f53e1cfcda1896872953194903e4f6",
+      "bytes": 161158,
+      "originalSha256": "3b76f8c0fc8b08d414ff4b79e2fb75ae9a95f88beb417d42974f2174d3281840",
+      "sourcePageCheckedAt": "2026-10-16T06:51:02.428Z",
+      "sourceImageUrl": "https://images.deliveryhero.io/image/fd-sg/LH/y2yl-listing.jpg",
+      "identityEvidence": "Exact saved merchant vendor code, name, street/unit and postal code match the published catalogue branch. Hero food imagery only; no branch interior or current-stock claim. Vendor y2yl: 7 Eunos Crescent,  #01-2655, Singapore 400007; registered source https://www.foodpanda.sg/restaurant/y2yl/ju-fu-yuan-vegetarian-delight-eunos. ",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance this Ju Fu Yuan Eunos merchant food photograph. Frame the CENTRAL two-handled metal platter of thick stir-fried noodles prominently. Preserve the exact original noodles, leafy greens, carrot pieces, vegetarian slices and lime, and the original marble tabletop with neighboring dishes naturally cropped. Improve gentle natural light, color and texture only. No new ingredients, props or text.",
+        "review": "Original and output visually compared. Existing food and serving vessels retained with enhanced lighting. No new ingredient or availability claim."
+      }
+    },
+    {
+      "venueId": "research-ur11-crowded-sp",
+      "address": "500 Dover Road, Singapore Polytechnic Food Court 2, Stall 13, Singapore 139651",
+      "photo": {
+        "path": "/api/catalogue-photos/fa85ff63c773bd8d9e7fc9216324b721f75ab7d6535a5cf16c329b377cb67ee2.jpg",
+        "width": 960,
+        "height": 703,
+        "author": "The Crowded Bowl",
+        "sourceUrl": "https://www.foodpanda.sg/restaurant/w9sh/the-crowded-bowl-dover-road",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "fa85ff63c773bd8d9e7fc9216324b721f75ab7d6535a5cf16c329b377cb67ee2",
+      "bytes": 175020,
+      "originalSha256": "ff0d22b4cb6d875c5904308159cf5ac8e655ec2ccbc804e4868d845b98c46551",
+      "sourcePageCheckedAt": "2026-10-16T07:05:17.736Z",
+      "sourceImageUrl": "https://images.deliveryhero.io/image/fd-sg/LH/w9sh-listing.jpg",
+      "identityEvidence": "Exact saved merchant vendor code, name, street/unit and postal code match the published catalogue branch. Hero food imagery only; no branch interior or current-stock claim. Vendor w9sh: Singapore Polytechnic 500 Dover Road Singapore 139651 Food Court 2 Unit No: Stall 13; registered source https://www.foodpanda.sg/restaurant/w9sh/the-crowded-bowl-dover-road. ",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance this The Crowded Bowl Singapore Polytechnic merchant photograph. Keep the same white bowls of spiral pasta, broccoli, pumpkin, tomatoes, potatoes, eggs and tofu and tray of spring rolls, with their exact arrangement and quantities on the pale gray table. Improve natural lighting, realistic clarity and color only. Do not combine the separate bowls into an invented dish; no additional food, props or text.",
+        "review": "Original and output visually compared. Existing food and serving vessels retained with enhanced lighting. No new ingredient or availability claim."
+      }
+    },
+    {
+      "venueId": "research-ur13-suyuan-bedok",
+      "address": "208B New Upper Changi Road #01-07, Singapore462208",
+      "photo": {
+        "path": "/api/catalogue-photos/9261bd9bacbc8dbe627961d2b29f2d253c76facdb3222d8882752f907cff1738.jpg",
+        "width": 960,
+        "height": 703,
+        "author": "Suyuan Vegetarian",
+        "sourceUrl": "https://www.foodpanda.sg/restaurant/ho0y/suyuan-vegetarian-bedok-interchange-hawker-centre",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "9261bd9bacbc8dbe627961d2b29f2d253c76facdb3222d8882752f907cff1738",
+      "bytes": 160374,
+      "originalSha256": "68d8f2699d17b6c589dc0770a35254b2f94546fbcd4d277defa0ad2e880866c5",
+      "sourcePageCheckedAt": "2026-10-16T07:55:06.236Z",
+      "sourceImageUrl": "https://images.deliveryhero.io/image/fd-sg/LH/ho0y-listing.jpg",
+      "identityEvidence": "Exact saved merchant vendor code, name, street/unit and postal code match the published catalogue branch. Hero food imagery only; no branch interior or current-stock claim. Vendor ho0y: 208B Bedok Food Centre, 208B, New Upper Changi Rd, East, Bedok, #01-07; registered source https://www.foodpanda.sg/restaurant/ho0y/suyuan-vegetarian-bedok-interchange-hawker-centre. ",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance this Suyuan Vegetarian merchant photograph. Preserve the four original black compartment meal trays and their exact rice or fine noodles, vegetables and vegetarian dishes in their original positions and portions on the pale marble tabletop. Improve gentle natural lighting, realistic color and clarity. No new food, swapped ingredients, extra garnishes, text or claims.",
+        "review": "Original and output visually compared. Existing food and serving vessels retained with enhanced lighting. No new ingredient or availability claim."
+      }
+    },
+    {
+      "venueId": "research-fennel-river-valley",
+      "address": "413 River Valley Road, Singapore 248311",
+      "photo": {
+        "path": "/api/catalogue-photos/f05c17b6ca3940c4d80f899a97e24f864aa8685014dd5680280ee76f0137ae9a.jpg",
+        "width": 960,
+        "height": 703,
+        "author": "Fennel by Komala Vilas",
+        "sourceUrl": "https://www.foodpanda.sg/restaurant/raxd/fennel-by-komala-vilas-river-valley-road-islandwide",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "f05c17b6ca3940c4d80f899a97e24f864aa8685014dd5680280ee76f0137ae9a",
+      "bytes": 207783,
+      "originalSha256": "bc5dca1e5b9c9d7ac1f887581996e4c1b5b5b49dcd3325eda381cb0bff4e1bdf",
+      "sourcePageCheckedAt": "2026-10-16T09:25:14.514Z",
+      "sourceImageUrl": "https://images.deliveryhero.io/image/fd-sg/LH/raxd-listing.jpg",
+      "identityEvidence": "Exact saved merchant vendor code, name, street/unit and postal code match the published catalogue branch. Hero food imagery only; no branch interior or current-stock claim. Vendor raxd: 413 River Valley Road, S 248311; registered source https://www.foodpanda.sg/restaurant/raxd/fennel-by-komala-vilas-river-valley-road-islandwide. ",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance this Fennel by Komala Vilas merchant food photograph, framing the CENTRAL blue plate with long golden dosa prominently. Keep its exact three small black side bowls, chips and original food portions and arrangement. Preserve the gray table and naturally cropped surrounding blue dishes. Improve natural light and realistic texture without adding ingredients, props, text or claims.",
+        "review": "Original and output visually compared. Existing food and serving vessels retained with enhanced lighting. No new ingredient or availability claim."
+      }
+    },
+    {
+      "venueId": "research-teenoy-hougang-foodpanda-932",
+      "address": "932 Hougang Avenue 9 #01-04, Singapore 530932",
+      "photo": {
+        "path": "/api/catalogue-photos/7678b1b6cf0d213d5cf101f491487d32a528c23e22afe5cf699840c29324553d.jpg",
+        "width": 960,
+        "height": 703,
+        "author": "Teenoy Thai Vegetarian",
+        "sourceUrl": "https://www.foodpanda.sg/restaurant/tad5/teenoy-thai-vegetarian-hougang-avenue-9",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "7678b1b6cf0d213d5cf101f491487d32a528c23e22afe5cf699840c29324553d",
+      "bytes": 124309,
+      "originalSha256": "97618cf3c55f7e8ca23cdc502e00430cfc4f028ed6beae09ee903b40d345bcb9",
+      "sourcePageCheckedAt": "2026-10-16T00:31:58Z",
+      "sourceImageUrl": "https://images.deliveryhero.io/image/fd-sg/LH/tad5-listing.jpg",
+      "identityEvidence": "Exact saved merchant vendor code, name, street/unit and postal code match the published catalogue branch. Hero food imagery only; no branch interior or current-stock claim. Vendor tad5: 932 Hougang Ave 9, #01-04 S530932, S 530932; registered source https://www.foodpanda.sg/restaurant/tad5/teenoy-thai-vegetarian-hougang-avenue-9. ",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance this Teenoy Thai Vegetarian merchant food photograph. Preserve this exact red plate of fried curly noodles, original cabbage and visible toppings, same serving size and arrangement on the white marble tabletop. Improve soft natural lighting, true color and realistic texture. No extra vegetables, garnishes, food, props, lettering or claims.",
+        "review": "Original and output visually compared. Existing food and serving vessels retained with enhanced lighting. No new ingredient or availability claim."
+      }
+    },
+    {
+      "venueId": "research-kang-su-far-east-plaza",
+      "address": "14 Scotts Road #05-98 Far East Plaza, Singapore 228213",
+      "photo": {
+        "path": "/api/catalogue-photos/43e28c1a3b5c21a7b4cd47f4f3e8764dac16cbae3c1b65c7f7ccfa8bfaac2a28.jpg",
+        "width": 960,
+        "height": 703,
+        "author": "Kang Su Vegetarian",
+        "sourceUrl": "https://www.foodpanda.sg/restaurant/n5wr/kang-su-vegetarian-far-east-plaza",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "43e28c1a3b5c21a7b4cd47f4f3e8764dac16cbae3c1b65c7f7ccfa8bfaac2a28",
+      "bytes": 142548,
+      "originalSha256": "2f862362504d5a427723803c5b548639ad1463bc9d39cbe662d8f73c38db117d",
+      "sourcePageCheckedAt": "2026-10-15T09:49:37.612879+00:00",
+      "sourceImageUrl": "https://images.deliveryhero.io/image/fd-sg/LH/n5wr-listing.jpg",
+      "identityEvidence": "Exact saved merchant vendor code, name, street/unit and postal code match the published catalogue branch. Hero food imagery only; no branch interior or current-stock claim. Vendor n5wr: 14 Scotts Rd, #05-98 Far East Plaza, Singapore 228213, S 228213; registered source https://www.foodpanda.sg/restaurant/n5wr/kang-su-vegetarian-far-east-plaza. ",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance this Kang Su Far East Plaza merchant food photograph. Preserve the exact red bowl of broad noodles with existing bean-curd pieces, vegetables, enoki mushrooms and fried topping, the upright rectangular crisp and the small red soup bowl behind. Keep the original tabletop and background. Improve natural lighting and clarity only; no new ingredients, props or text.",
+        "review": "Original and output visually compared. Existing food and serving vessels retained with enhanced lighting. No new ingredient or availability claim."
+      }
+    },
+    {
+      "venueId": "research-genesis-vegan-havelock-ii",
+      "address": "2 Havelock Road, #B1-01 Havelock II, Singapore 059763",
+      "photo": {
+        "path": "/api/catalogue-photos/ec7d57e12bda16b8339a20c880860bb8e07fc5a4274401fa05138c4d539e1f52.jpg",
+        "width": 960,
+        "height": 703,
+        "author": "Genesis Vegan",
+        "sourceUrl": "https://www.foodpanda.sg/restaurant/fdk3/genesis-vegan-restaurant-havelock-2",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "ec7d57e12bda16b8339a20c880860bb8e07fc5a4274401fa05138c4d539e1f52",
+      "bytes": 82244,
+      "originalSha256": "60e70f21c80cfa7a3e5c3d9ac689631fdebc72f592f7f8ddc83c4210944adfd1",
+      "sourcePageCheckedAt": "2026-10-15T10:50:08.115418+00:00",
+      "sourceImageUrl": "https://images.deliveryhero.io/image/fd-sg/LH/fdk3-listing.jpg",
+      "identityEvidence": "Exact saved merchant vendor code, name, street/unit and postal code match the published catalogue branch. Hero food imagery only; no branch interior or current-stock claim. Vendor fdk3: 2 HAVELOCK ROAD #B1-01 HAVELOCK 2; registered source https://www.foodpanda.sg/restaurant/fdk3/genesis-vegan-restaurant-havelock-2. ",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance this Genesis Vegan merchant food photograph. Keep the exact white bowl and saucer of orange noodle soup, original white vegetable shreds, lettuce, sliced red chili and halved lime. Preserve the original decorative chopsticks laid across the bowl. Improve natural soft lighting and realistic texture on the white background. No extra food, garnish, props, text or claims.",
+        "review": "Original and output visually compared. Existing food and serving vessels retained with enhanced lighting. No new ingredient or availability claim."
+      }
+    },
+    {
+      "venueId": "shu-woodlands-avenue-1",
+      "address": "354A Woodlands Avenue 1 #01-01, Singapore 731354",
+      "photo": {
+        "path": "/api/catalogue-photos/679e9fa96fc2d34afa61572e73ce9e35ac304907eb23583ab41712e80e4560f4.jpg",
+        "width": 960,
+        "height": 703,
+        "author": "Shu Vegetarian",
+        "sourceUrl": "https://www.foodpanda.sg/restaurant/x3kk/shu-vegetarian-shu-fang-zhai-woodlands-avenue-1",
+        "license": "Source rights retained",
+        "licenseUrl": null,
+        "capturedAt": null,
+        "checkedAt": "2026-10-17",
+        "changes": "AI-assisted enhancement of an operator reference. Fine details may differ. Source rights retained; enhancement is not a new licence."
+      },
+      "sha256": "679e9fa96fc2d34afa61572e73ce9e35ac304907eb23583ab41712e80e4560f4",
+      "bytes": 141734,
+      "originalSha256": "5b1a7e7f7d3b70fc07ddd78025459e0d5ad5f9969b749398d7b0a0a001a1f9f6",
+      "sourcePageCheckedAt": "2026-10-15T08:16:19Z",
+      "sourceImageUrl": "https://images.deliveryhero.io/image/fd-sg/LH/x3kk-listing.jpg",
+      "identityEvidence": "Exact saved merchant vendor code, name, street/unit and postal code match the published catalogue branch. Hero food imagery only; no branch interior or current-stock claim. Vendor x3kk: Blk 354A Woodlands Ave 1, #01-01; registered source https://www.foodpanda.sg/restaurant/x3kk/shu-vegetarian-shu-fang-zhai-woodlands-avenue-1. Merchant source publishes the exact same original bytes as the previously reviewed Shu reference, SHA256 5b1a7e7f7d3b70fc07ddd78025459e0d5ad5f9969b749398d7b0a0a001a1f9f6. Reuse existing enhancement; food imagery only.",
+      "reuseBasis": "User explicitly instructed finding reference photos online once, enhancing and storing them as covers. Source attribution and rights retained; no independent licence claimed.",
+      "enhancement": {
+        "tool": "built-in image_gen",
+        "checkedAt": "2026-10-17",
+        "prompt": "Faithfully enhance the supplied SHU Vegetarian operator food reference for a restaurant gallery cover. This is an edit of the actual reference, not an invented menu scene. Preserve the exact five dishes, white plates, their relative arrangement and visible ingredients, including central golden sliced vegetarian cutlet, cucumber, lettuce, orchid and dark dipping sauce; four surrounding vegetable/noodle dishes. Improve natural daylight, gentle contrast, appetising realistic texture and white balance; reduce harsh highlights and slight compression. Keep the overhead view, pale marble tabletop, all five dishes. Do not add food, utensils, text, labels, logos or meat. Produce a polished editorial photograph in the original landscape aspect ratio; do not invent a restaurant interior. Keep food intact for a card crop.",
+        "review": "Source/output visually inspected; food composition retained, fine details may differ. Pending asset packaging, source metadata integration and rendered-card QA. Not deployed."
+      }
+    }
+  ],
+  "newHours": [],
+  "googleLedger": {
+    "bytes": 1045377,
+    "sha256": "c7321dafaad0473583139494ca899501578892c5b71105429d3cd4dceb4f311a",
+    "requests": 2419,
+    "limit": 2500,
+    "remaining": 81
+  },
+  "sourceRights": "Source attribution and rights retained. User-requested enhancement does not establish an independent licence.",
+  "unresolved": "2,527 food holds,109zero-food research branches,1,828unnamed candidate IDs,8coordinate holds preserved; exact MakanVegan/SoonLai screenshot images unrecovered.",
+  "releaseEvidence": ".local/coverage-2026-10-17q/release.json",
+  "hoursReview": {
+    "checkedAt": "2026-10-17",
+    "newHours": 0,
+    "note": "Saved delivery storefront imagery does not establish general premises opening hours. No delivery hours promoted; all unresolved hours remain explicit.",
+    "sourceMapping": [
+      {
+        "code": "hgnz",
+        "name": "Green Harmony Vegetarian (Ang Mo Kio)",
+        "url_key": "green-harmony-vegetarian-ang-mo-kio",
+        "address": "443 ang mo kio ave 10 #01-1221 singapore 560443, S 560443",
+        "post_code": "560443",
+        "hero_image": "https://images.deliveryhero.io/image/fd-sg/LH/hgnz-listing.jpg",
+        "logo": "https://images.deliveryhero.io/image/fd-sg/LH/hgnz-hero.jpg",
+        "savedState": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresearched-02\\green-harmony-foodpanda.html",
+        "stateSha256": "d69898945a1aecdf932c754cc0419b698220787eeeed7d00ba4d219e6f8d6804",
+        "sourcePageUrl": "https://www.foodpanda.sg/restaurant/hgnz/green-harmony-vegetarian-ang-mo-kio",
+        "reference": "fp-hgnz",
+        "venueId": "research-ur02-amk-green-harmony-vegetarian",
+        "sourcePageCheckedAt": "2026-10-16T01:09:36.130Z",
+        "registeredSourceRefs": [
+          "6c836adc218f6ad55edabb36"
+        ],
+        "identityEvidence": "Exact saved merchant vendor code, name, street/unit and postal code match the published catalogue branch. Hero food imagery only; no branch interior or current-stock claim."
+      },
+      {
+        "code": "rj1o",
+        "name": "99 VEGETARIAN (Pioneer Mall)",
+        "url_key": "99-vegetarian-pioneer-mall",
+        "address": "638A JURONG WEST STREET 61, #01-22 Stall 10, PIONEER MALL  SINGAPORE 641638, S 641638",
+        "post_code": "640638",
+        "hero_image": "https://images.deliveryhero.io/image/fd-sg/LH/rj1o-listing.jpg",
+        "logo": "https://images.deliveryhero.io/image/fd-sg/sg-logos/rj1o-logo.jpeg",
+        "savedState": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresearched-03\\99-foodpanda.html",
+        "stateSha256": "8d2a8d5234511475598e6a05d665fa40f898c41530d7f37c1f1adc4256872a53",
+        "sourcePageUrl": "https://www.foodpanda.sg/restaurant/rj1o/99-vegetarian-pioneer-mall",
+        "reference": "fp-rj1o",
+        "venueId": "research-ur03-99-pioneer-mall",
+        "sourcePageCheckedAt": "2026-10-16T01:26:23.676Z",
+        "registeredSourceRefs": [
+          "a9091456e239da102337655e"
+        ],
+        "identityEvidence": "Exact saved merchant vendor code, name, street/unit and postal code match the published catalogue branch. Hero food imagery only; no branch interior or current-stock claim."
+      },
+      {
+        "code": "zj07",
+        "name": "Eco Sen Vegetarian Food 缘森素食 - (Lorong 4 Toa Payoh)",
+        "url_key": "eco-sen-vegetarian-food-yuan-sen-su-shi-lorong-4-toa-payoh",
+        "address": "66 Lor 4 Toa Payoh, Singapore 310066",
+        "post_code": "310066",
+        "hero_image": "https://foodpanda.dhmedia.io/image/fd-sg/LH/zj07-listing.jpg",
+        "logo": "https://images.deliveryhero.io/image/fd-sg/LH/zj07-hero.jpg",
+        "savedState": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresearched-03\\eco-sen-foodpanda.html",
+        "stateSha256": "8f8f4637ccc6c74b4873b1c6a45d55e03fa36ee0eab14ead9a8138988fbc504e",
+        "sourcePageUrl": "https://www.foodpanda.sg/restaurant/zj07/eco-sen-vegetarian-food-yuan-sen-su-shi-lorong-4-toa-payoh",
+        "reference": "fp-zj07",
+        "venueId": "research-ur03-eco-sen-toa-payoh66",
+        "sourcePageCheckedAt": "2026-10-16T01:26:23.987Z",
+        "registeredSourceRefs": [
+          "6d35a5cf73661b300067abc8"
+        ],
+        "identityEvidence": "Exact saved merchant vendor code, name, street/unit and postal code match the published catalogue branch. Hero food imagery only; no branch interior or current-stock claim."
+      },
+      {
+        "code": "o1d2",
+        "name": "Bao Su Zhai 寶素齋 (Compass One)",
+        "url_key": "bao-su-zhai-bao-su-zhai-compass-one",
+        "address": "1, Sengkang Square, Compass One, Stall 23 #04-11",
+        "post_code": "545078",
+        "hero_image": "https://images.deliveryhero.io/image/fd-sg/LH/o1d2-listing.jpg",
+        "logo": "https://images.deliveryhero.io/image/fd-sg/LH/o1d2-hero.jpg",
+        "savedState": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresolved-04\\bao-su-zhai.html",
+        "stateSha256": "1a1d2670de5b53e78f9118c6335f324248c5c87597751ce0440eaf7b7c670677",
+        "sourcePageUrl": "https://www.foodpanda.sg/restaurant/o1d2/bao-su-zhai-bao-su-zhai-compass-one",
+        "reference": "fp-o1d2",
+        "venueId": "research-ur04-bao-su-zhai",
+        "sourcePageCheckedAt": "2026-10-16T04:38:35.556Z",
+        "registeredSourceRefs": [
+          "439ae9e5d147d10b8b2a170f"
+        ],
+        "identityEvidence": "Exact saved merchant vendor code, name, street/unit and postal code match the published catalogue branch. Hero food imagery only; no branch interior or current-stock claim."
+      },
+      {
+        "code": "w7c5",
+        "name": "GAN TASTE VEGETARIAN (18 Lorong)",
+        "url_key": "gan-taste-vegetarian-18-lorong",
+        "address": "20, Lorong 7 Toa Payoh, #01 758",
+        "post_code": "310020",
+        "hero_image": "https://images.deliveryhero.io/image/fd-sg/LH/w7c5-listing.jpg",
+        "logo": "https://images.deliveryhero.io/image/fd-sg/LH/w7c5-hero.jpg",
+        "savedState": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresolved-04\\gan-taste.html",
+        "stateSha256": "2e341234c1def8157023ce07c3ff4993b63774c826f2940f6ec5e4f4d78b6b6c",
+        "sourcePageUrl": "https://www.foodpanda.sg/restaurant/w7c5/gan-taste-vegetarian-18-lorong",
+        "reference": "fp-w7c5",
+        "venueId": "research-ur03-gan-taste-vegetarian",
+        "sourcePageCheckedAt": "2026-10-16T04:34:08.205Z",
+        "registeredSourceRefs": [
+          "cbcf062393bf25c61f83fbff",
+          "fd6101ae6ad600723253d690"
+        ],
+        "identityEvidence": "Exact saved merchant vendor code, name, street/unit and postal code match the published catalogue branch. Hero food imagery only; no branch interior or current-stock claim."
+      },
+      {
+        "code": "znif",
+        "name": "Kunthaville (Veerasamy Road)",
+        "url_key": "kunthaville-veerasamy-road",
+        "address": "Veerasamy Rd 18, 207326 Kallang/Boon Keng, Central, Singapore, Singapore",
+        "post_code": "207326",
+        "hero_image": "https://images.deliveryhero.io/image/fd-sg/LH/znif-listing.jpg",
+        "logo": "https://images.deliveryhero.io/image/fd-sg/LH/znif-hero.jpg",
+        "savedState": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresolved-04\\kunthaville.html",
+        "stateSha256": "1b8ff8edca0868a49d1027e85437767db30d3a27078f9582f424be19fbc8bbce",
+        "sourcePageUrl": "https://www.foodpanda.sg/restaurant/znif/kunthaville-veerasamy-road",
+        "reference": "fp-znif",
+        "venueId": "research-ur04-kunthaville",
+        "sourcePageCheckedAt": "2026-10-16T04:38:35.737Z",
+        "registeredSourceRefs": [
+          "2f22727402e5f15677efaf4e"
+        ],
+        "identityEvidence": "Exact saved merchant vendor code, name, street/unit and postal code match the published catalogue branch. Hero food imagery only; no branch interior or current-stock claim."
+      },
+      {
+        "code": "xsya",
+        "name": "Mani Iyer Food Pte Ltd",
+        "url_key": "mani-iyer-food-pte-ltd-xsya",
+        "address": "Mani Iyer Vegetarian Cuisune, Ang Mo Kio Ave 1, 215, 560215, Ang Mo Kio, North, Singapore, Singapore",
+        "post_code": "560215",
+        "hero_image": "https://foodpanda.dhmedia.io/image/fd-sg/LH/xsya-listing.png",
+        "logo": "https://images.deliveryhero.io/image/fd-sg/LH/xsya-hero.jpg",
+        "savedState": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresolved-04\\mani-iyer.html",
+        "stateSha256": "e020253aa6609d4ea61042e07b2215aeb68f065a53fc5937e3433d728813e3ca",
+        "sourcePageUrl": "https://www.foodpanda.sg/restaurant/xsya/mani-iyer-food-pte-ltd-xsya",
+        "reference": "fp-xsya",
+        "venueId": "research-ur04-mani-iyer",
+        "sourcePageCheckedAt": "2026-10-16T04:34:08.026Z",
+        "registeredSourceRefs": [
+          "21ba6c5944c747e0aa36de0c"
+        ],
+        "identityEvidence": "Exact saved merchant vendor code, name, street/unit and postal code match the published catalogue branch. Hero food imagery only; no branch interior or current-stock claim."
+      },
+      {
+        "code": "zi6a",
+        "name": "Peace Vegetarian (Tai Seng St 18)",
+        "url_key": "peace-vegetarian-tai-seng-st-18",
+        "address": "18 Tai Seng, Tai Seng St 18 B1-02, 539775 MacPherson, East, Singapore, Singapore",
+        "post_code": "539775",
+        "hero_image": "https://foodpanda.dhmedia.io/image/fd-sg/LH/zi6a-listing.jpg",
+        "logo": "https://images.deliveryhero.io/image/fd-sg/LH/zi6a-hero.jpg",
+        "savedState": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresolved-04\\peace-vegetarian.html",
+        "stateSha256": "fda1d20b477f2d5ba3f069d8a9b4e5ce522b79276f5cba54b62f6e62283d4743",
+        "sourcePageUrl": "https://www.foodpanda.sg/restaurant/zi6a/peace-vegetarian-tai-seng-st-18",
+        "reference": "fp-zi6a",
+        "venueId": "research-ur04-peace-vegetarian",
+        "sourcePageCheckedAt": "2026-10-16T04:34:37.150Z",
+        "registeredSourceRefs": [
+          "89c3f22c85e69e7f291862aa"
+        ],
+        "identityEvidence": "Exact saved merchant vendor code, name, street/unit and postal code match the published catalogue branch. Hero food imagery only; no branch interior or current-stock claim."
+      },
+      {
+        "code": "wpxm",
+        "name": "Ju Fu Yuan Vegetarian Delights (Serangoon Central Dr)",
+        "url_key": "ju-fu-yuan-vegetarian-delights-serangoon-central-dr",
+        "address": "262 Serangoon Central Dr,  #01-91 Singapore 550262",
+        "post_code": "550262",
+        "hero_image": "https://images.deliveryhero.io/image/fd-sg/LH/wpxm-listing.jpg",
+        "logo": "https://images.deliveryhero.io/image/fd-sg/LH/wpxm-hero.jpg",
+        "savedState": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresolved-06\\ju-fu-yuan-serangoon.html",
+        "stateSha256": "556da4305544daa99de60e4e30f0cc522349304cbefb42bf713ad70a676d756f",
+        "sourcePageUrl": "https://www.foodpanda.sg/restaurant/wpxm/ju-fu-yuan-vegetarian-delights-serangoon-central-dr",
+        "reference": "fp-wpxm",
+        "venueId": "research-ur06-ju-fu-yuan-serangoon",
+        "sourcePageCheckedAt": "2026-10-16T05:08:59.088Z",
+        "registeredSourceRefs": [
+          "2f565718aa3f6572be4f4e15"
+        ],
+        "identityEvidence": "Exact saved merchant vendor code, name, street/unit and postal code match the published catalogue branch. Hero food imagery only; no branch interior or current-stock claim."
+      },
+      {
+        "code": "w55k",
+        "name": "Li Wei Vegetarian (151 SERANGOON NORTH AVE 2)",
+        "url_key": "li-wei-vegetarian-151-serangoon-north-ave-2",
+        "address": "151 SERANGOON NORTH AVENUE 2 #01-41",
+        "post_code": "550151",
+        "hero_image": "https://images.deliveryhero.io/image/fd-sg/LH/w55k-listing.jpg",
+        "logo": "https://images.deliveryhero.io/image/fd-sg/LH/w55k-hero.jpg",
+        "savedState": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresolved-06\\li-wei-menu.html",
+        "stateSha256": "fe12d88796a7e003e7d81dc5f20fb8e9c9784c64b77404388b7b901354b84a95",
+        "sourcePageUrl": "https://www.foodpanda.sg/restaurant/w55k/li-wei-vegetarian-151-serangoon-north-ave-2",
+        "reference": "fp-w55k",
+        "venueId": "research-ur06-li-wei",
+        "sourcePageCheckedAt": "2026-10-16T05:15:19.991Z",
+        "registeredSourceRefs": [
+          "689756e9658afd2dbc5a7de0",
+          "21059560c23e7ce656077817"
+        ],
+        "identityEvidence": "Exact saved merchant vendor code, name, street/unit and postal code match the published catalogue branch. Hero food imagery only; no branch interior or current-stock claim."
+      },
+      {
+        "code": "x0ce",
+        "name": "Xin Yi Vegetarian Food 欣意素食 (Jurong West Avenue 1)",
+        "url_key": "xin-yi-vegetarian-food-xin-yi-su-shi-jurong-west-avenue-1",
+        "address": "442 Jurong West Avenue 1 #01-758",
+        "post_code": "640442",
+        "hero_image": "https://images.deliveryhero.io/image/fd-sg/LH/x0ce-listing.jpg",
+        "logo": "https://images.deliveryhero.io/image/fd-sg/LH/x0ce-hero.jpg",
+        "savedState": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresolved-06\\xin-yi.html",
+        "stateSha256": "93b47c4f7b174c7a10db7e1d10f4f526feb00e7cf48ace55858ddd811857a88d",
+        "sourcePageUrl": "https://www.foodpanda.sg/restaurant/x0ce/xin-yi-vegetarian-food-xin-yi-su-shi-jurong-west-avenue-1",
+        "reference": "fp-x0ce",
+        "venueId": "research-ur06-xin-yi",
+        "sourcePageCheckedAt": "2026-10-16T05:06:19.536Z",
+        "registeredSourceRefs": [
+          "d151aa01a9bdd4518b1a70e5"
+        ],
+        "identityEvidence": "Exact saved merchant vendor code, name, street/unit and postal code match the published catalogue branch. Hero food imagery only; no branch interior or current-stock claim."
+      },
+      {
+        "code": "wvhw",
+        "name": "Red Apple Vegetarian (Tampines)",
+        "url_key": "red-apple-vegetarian-tampines",
+        "address": "835 Tampines Street 83 #01-02",
+        "post_code": "520835",
+        "hero_image": "https://images.deliveryhero.io/image/fd-sg/LH/wvhw-listing.jpg",
+        "logo": "https://images.deliveryhero.io/image/fd-sg/LH/wvhw-hero.jpg",
+        "savedState": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresolved-07\\red-apple-tampines-fetch.html",
+        "stateSha256": "a341d3a2bbca8a40868e39991eb7601a96054c223b110c86574374fc66a01a65",
+        "sourcePageUrl": "https://www.foodpanda.sg/restaurant/wvhw/red-apple-vegetarian-tampines",
+        "reference": "fp-wvhw",
+        "venueId": "research-ur07-red-apple-tampines",
+        "sourcePageCheckedAt": "2026-10-16T05:29:24.105Z",
+        "registeredSourceRefs": [
+          "7132a8e68a2f86781783ddd6"
+        ],
+        "identityEvidence": "Exact saved merchant vendor code, name, street/unit and postal code match the published catalogue branch. Hero food imagery only; no branch interior or current-stock claim."
+      },
+      {
+        "code": "l2ov",
+        "name": "150 Green Vegetarian (Bukit Batok Street 11)",
+        "url_key": "150-green-vegetarian-bukit-batok-street-11",
+        "address": "Blk 150 Bukit Batok Street 11. #01-224",
+        "post_code": "650150",
+        "hero_image": "https://images.deliveryhero.io/image/fd-sg/LH/l2ov-listing.jpg",
+        "logo": "https://images.deliveryhero.io/image/fd-sg/LH/l2ov-hero.jpg",
+        "savedState": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresolved-08\\150-green.html",
+        "stateSha256": "07470ec8523baef1baf4a5185a74cf6f12d9d7d57fd463ddb347e2393f77edc4",
+        "sourcePageUrl": "https://www.foodpanda.sg/restaurant/l2ov/150-green-vegetarian-bukit-batok-street-11",
+        "reference": "fp-l2ov",
+        "venueId": "research-ur08-150-green",
+        "sourcePageCheckedAt": "2026-10-16T05:40:04.855Z",
+        "registeredSourceRefs": [
+          "6b9b8e964349bf2a026afea1",
+          "52c069b2d8b0aeec00b6b98a"
+        ],
+        "identityEvidence": "Exact saved merchant vendor code, name, street/unit and postal code match the published catalogue branch. Hero food imagery only; no branch interior or current-stock claim."
+      },
+      {
+        "code": "oecy",
+        "name": "Vege Bear Vegetarian 素熊 (Bidadari)",
+        "url_key": "vege-bear-vegetarian-su-xiong-bidadari-oecy",
+        "address": "Blk 212, Bidadari Park Drive, #03-01 S 360212",
+        "post_code": "360212",
+        "hero_image": "https://foodpanda.dhmedia.io/image/fd-sg/LH/oecy-listing.jpg",
+        "logo": "https://images.deliveryhero.io/image/fd-sg/LH/oecy-hero.jpg",
+        "savedState": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresolved-08\\vege-bear-bidadari.html",
+        "stateSha256": "f7806aeb7dc8852d75fd1e956d84600a4d5ea7c646e094d0357b6e1787543650",
+        "sourcePageUrl": "https://www.foodpanda.sg/restaurant/oecy/vege-bear-vegetarian-su-xiong-bidadari-oecy",
+        "reference": "fp-oecy",
+        "venueId": "research-ur08-vege-bear-bidadari",
+        "sourcePageCheckedAt": "2026-10-16T05:41:00.705Z",
+        "registeredSourceRefs": [
+          "2602cca1847a8c2147eff375"
+        ],
+        "identityEvidence": "Exact saved merchant vendor code, name, street/unit and postal code match the published catalogue branch. Hero food imagery only; no branch interior or current-stock claim."
+      },
+      {
+        "code": "y2yl",
+        "name": "Ju Fu Yuan Vegetarian Delight (Eunos)",
+        "url_key": "ju-fu-yuan-vegetarian-delight-eunos",
+        "address": "7 Eunos Crescent,  #01-2655, Singapore 400007",
+        "post_code": "400007",
+        "hero_image": "https://images.deliveryhero.io/image/fd-sg/LH/y2yl-listing.jpg",
+        "logo": "https://images.deliveryhero.io/image/fd-sg/LH/y2yl-hero.jpg",
+        "savedState": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresolved-10\\ju-fu-yuan-eunos.html",
+        "stateSha256": "668af54c88e2a4df71593cc8a47b23e1feb0588e9d44b781652374abf083e574",
+        "sourcePageUrl": "https://www.foodpanda.sg/restaurant/y2yl/ju-fu-yuan-vegetarian-delight-eunos",
+        "reference": "fp-y2yl",
+        "venueId": "research-ur10-ju-fu-yuan-eunos",
+        "sourcePageCheckedAt": "2026-10-16T06:51:02.428Z",
+        "registeredSourceRefs": [
+          "e5ec6dc2f1b19ca1b8efb261"
+        ],
+        "identityEvidence": "Exact saved merchant vendor code, name, street/unit and postal code match the published catalogue branch. Hero food imagery only; no branch interior or current-stock claim."
+      },
+      {
+        "code": "w9sh",
+        "name": "The Crowded Bowl (Dover Road)",
+        "url_key": "the-crowded-bowl-dover-road",
+        "address": "Singapore Polytechnic 500 Dover Road Singapore 139651 Food Court 2 Unit No: Stall 13",
+        "post_code": "138671",
+        "hero_image": "https://images.deliveryhero.io/image/fd-sg/LH/w9sh-listing.jpg",
+        "logo": "https://images.deliveryhero.io/image/fd-sg/LH/w9sh-hero.jpg",
+        "savedState": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresolved-11\\crowded-sp.html",
+        "stateSha256": "b15d48bfbf31283cd0337bd30bbc09c2c4fecbdc14956f2ac83fbeb249c60bcc",
+        "sourcePageUrl": "https://www.foodpanda.sg/restaurant/w9sh/the-crowded-bowl-dover-road",
+        "reference": "fp-w9sh",
+        "venueId": "research-ur11-crowded-sp",
+        "sourcePageCheckedAt": "2026-10-16T07:05:17.736Z",
+        "registeredSourceRefs": [
+          "55e48c9a6710dc792e7e2dd9"
+        ],
+        "identityEvidence": "Exact saved merchant vendor code, name, street/unit and postal code match the published catalogue branch. Hero food imagery only; no branch interior or current-stock claim."
+      },
+      {
+        "code": "ho0y",
+        "name": "Suyuan Vegetarian (Bedok Interchange Hawker Centre)",
+        "url_key": "suyuan-vegetarian-bedok-interchange-hawker-centre",
+        "address": "208B Bedok Food Centre, 208B, New Upper Changi Rd, East, Bedok, #01-07",
+        "post_code": "460208",
+        "hero_image": "https://images.deliveryhero.io/image/fd-sg/LH/ho0y-listing.jpg",
+        "logo": "https://images.deliveryhero.io/image/fd-sg/LH/ho0y-hero.jpg",
+        "savedState": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresolved-13\\suyuan-bedok.html",
+        "stateSha256": "1806cf5053c75d46d01e59aaa24387221c7d344c620dd7158b79cfc2dffab398",
+        "sourcePageUrl": "https://www.foodpanda.sg/restaurant/ho0y/suyuan-vegetarian-bedok-interchange-hawker-centre",
+        "reference": "fp-ho0y",
+        "venueId": "research-ur13-suyuan-bedok",
+        "sourcePageCheckedAt": "2026-10-16T07:55:06.236Z",
+        "registeredSourceRefs": [
+          "0257a009baa38ddca35b829f"
+        ],
+        "identityEvidence": "Exact saved merchant vendor code, name, street/unit and postal code match the published catalogue branch. Hero food imagery only; no branch interior or current-stock claim."
+      },
+      {
+        "code": "bhke",
+        "name": "Xing Hua Vegetarian Restaurant (TripleOne Somerset)",
+        "url_key": "xing-hua-vegetarian-restaurant-tripleone-somerset",
+        "address": "111 Somerset Road, #01-K4 TripleOne Somerset, Singapore 238164, S 238164",
+        "post_code": "238164",
+        "hero_image": "https://images.deliveryhero.io/image/fd-sg/LH/bhke-listing.jpg",
+        "logo": "https://images.deliveryhero.io/image/fd-sg/LH/bhke-hero.jpg",
+        "savedState": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresolved-15\\xinghua-somerset.html",
+        "stateSha256": "508cd2b33fd4f74a93698348455c015790163f8a62337a06645cbabfa5faec7c",
+        "sourcePageUrl": "https://www.foodpanda.sg/restaurant/bhke/xing-hua-vegetarian-restaurant-tripleone-somerset",
+        "reference": "fp-bhke",
+        "venueId": "research-ur15-xinghua-somerset",
+        "sourcePageCheckedAt": "2026-10-16T09:11:16.042Z",
+        "registeredSourceRefs": [
+          "3f107d8f7fc393726bf970e3"
+        ],
+        "identityEvidence": "Exact saved merchant vendor code, name, street/unit and postal code match the published catalogue branch. Hero food imagery only; no branch interior or current-stock claim."
+      },
+      {
+        "code": "raxd",
+        "name": "Fennel By Komala Vilas (River Valley Road) - Islandwide",
+        "url_key": "fennel-by-komala-vilas-river-valley-road-islandwide",
+        "address": "413 River Valley Road, S 248311",
+        "post_code": "248311",
+        "hero_image": "https://images.deliveryhero.io/image/fd-sg/LH/raxd-listing.jpg",
+        "logo": "https://images.deliveryhero.io/image/fd-sg/LH/raxd-hero.jpg",
+        "savedState": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-unresolved-16\\fennel-fp.html",
+        "stateSha256": "88b366439396da970418faa675f72d544dd50fe1d154a6b15ec0d452aea457ba",
+        "sourcePageUrl": "https://www.foodpanda.sg/restaurant/raxd/fennel-by-komala-vilas-river-valley-road-islandwide",
+        "reference": "fp-raxd",
+        "venueId": "research-fennel-river-valley",
+        "sourcePageCheckedAt": "2026-10-16T09:25:14.514Z",
+        "registeredSourceRefs": [
+          "d87c937087c895504f42cb4a"
+        ],
+        "identityEvidence": "Exact saved merchant vendor code, name, street/unit and postal code match the published catalogue branch. Hero food imagery only; no branch interior or current-stock claim."
+      },
+      {
+        "code": "tad5",
+        "name": "Teenoy Thai Vegetarian (Hougang Avenue 9)",
+        "url_key": "teenoy-thai-vegetarian-hougang-avenue-9",
+        "address": "932 Hougang Ave 9, #01-04 S530932, S 530932",
+        "post_code": "532932",
+        "hero_image": "https://images.deliveryhero.io/image/fd-sg/LH/tad5-listing.jpg",
+        "logo": "https://foodpanda.dhmedia.io/image/fd-sg/sg-logos/ci5qt-logo.jpeg",
+        "savedState": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-venue-scope\\followup-delta-teenoy.html",
+        "stateSha256": "48ae0f339738b2d80c474d7d45ac72167b4d5efc6ab66953358a592063a3feff",
+        "sourcePageUrl": "https://www.foodpanda.sg/restaurant/tad5/teenoy-thai-vegetarian-hougang-avenue-9",
+        "reference": "fp-tad5",
+        "venueId": "research-teenoy-hougang-foodpanda-932",
+        "sourcePageCheckedAt": "2026-10-16T00:31:58Z",
+        "registeredSourceRefs": [
+          "90131f78cab2ae0e5a15421d"
+        ],
+        "identityEvidence": "Exact saved merchant vendor code, name, street/unit and postal code match the published catalogue branch. Hero food imagery only; no branch interior or current-stock claim."
+      },
+      {
+        "code": "n5wr",
+        "name": "Kang Su Vegetarian (Far East Plaza)",
+        "url_key": "kang-su-vegetarian-far-east-plaza",
+        "address": "14 Scotts Rd, #05-98 Far East Plaza, Singapore 228213, S 228213",
+        "post_code": "228213",
+        "hero_image": "https://images.deliveryhero.io/image/fd-sg/LH/n5wr-listing.jpg",
+        "logo": "https://images.deliveryhero.io/image/fd-sg/LH/n5wr-hero.jpg",
+        "savedState": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-venue-scope\\followup-kangsu-zh.html",
+        "stateSha256": "a60bfe01750c1ca7a62f1d984c02abe6c5a19008dcbd1e597b3f75d17770d98b",
+        "sourcePageUrl": "https://www.foodpanda.sg/restaurant/n5wr/kang-su-vegetarian-far-east-plaza",
+        "reference": "fp-n5wr",
+        "venueId": "research-kang-su-far-east-plaza",
+        "sourcePageCheckedAt": "2026-10-15T09:49:37.612879+00:00",
+        "registeredSourceRefs": [
+          "978be033b77ca060e3e4bccf"
+        ],
+        "identityEvidence": "Exact saved merchant vendor code, name, street/unit and postal code match the published catalogue branch. Hero food imagery only; no branch interior or current-stock claim."
+      },
+      {
+        "code": "fdk3",
+        "name": "Genesis Vegan Restaurant (Havelock 2)",
+        "url_key": "genesis-vegan-restaurant-havelock-2",
+        "address": "2 HAVELOCK ROAD #B1-01 HAVELOCK 2",
+        "post_code": "059763",
+        "hero_image": "https://images.deliveryhero.io/image/fd-sg/LH/fdk3-listing.jpg",
+        "logo": "https://images.deliveryhero.io/image/fd-sg/LH/fdk3-hero.jpg",
+        "savedState": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-completion-venue-scope\\operator-genesis.html",
+        "stateSha256": "9b93da8d6eee859794994ad7d3a1f047b0644f80b62ccd548a2f9f4c0878c35e",
+        "sourcePageUrl": "https://www.foodpanda.sg/restaurant/fdk3/genesis-vegan-restaurant-havelock-2",
+        "reference": "fp-fdk3",
+        "venueId": "research-genesis-vegan-havelock-ii",
+        "sourcePageCheckedAt": "2026-10-15T10:50:08.115418+00:00",
+        "registeredSourceRefs": [
+          "647c9c33de5d44da6bfa7fe6"
+        ],
+        "identityEvidence": "Exact saved merchant vendor code, name, street/unit and postal code match the published catalogue branch. Hero food imagery only; no branch interior or current-stock claim."
+      },
+      {
+        "code": "i408",
+        "name": "Vegetarian Kitchen 吉祥素小厨 (Woodlands Street 31)",
+        "url_key": "vegetarian-kitchen-ji-xiang-su-xiao-chu-woodlands-street-31",
+        "address": "Block 306 Woodlands Street 31, #01-19, Singapore 730306, S 730306",
+        "post_code": "730306",
+        "hero_image": "https://images.deliveryhero.io/image/fd-sg/LH/i408-listing.jpg",
+        "logo": "https://images.deliveryhero.io/image/fd-sg/LH/i408-hero.jpg",
+        "savedState": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-expansion-woodlands\\dailyDelivery.html",
+        "stateSha256": "6c1a6ba668ec8ec10c4f3d86aa285f56a9dd1ac19b19ae4aae6ed7fc94379e59",
+        "sourcePageUrl": "https://www.foodpanda.sg/restaurant/i408/vegetarian-kitchen-ji-xiang-su-xiao-chu-woodlands-street-31",
+        "reference": "fp-i408",
+        "venueId": "daily-green-woodlands-street-31",
+        "sourcePageCheckedAt": "2026-10-15T08:16:19Z",
+        "registeredSourceRefs": [
+          "9b86fdaf1b8f4106ca4f3dbe",
+          "7ff52fdf285da404cacebbff"
+        ],
+        "identityEvidence": "Exact saved merchant vendor code, name, street/unit and postal code match the published catalogue branch. Hero food imagery only; no branch interior or current-stock claim."
+      },
+      {
+        "code": "x3kk",
+        "name": "SHU Vegetarian 蔬方斋 (Woodlands Avenue 1)",
+        "url_key": "shu-vegetarian-shu-fang-zhai-woodlands-avenue-1",
+        "address": "Blk 354A Woodlands Ave 1, #01-01",
+        "post_code": "730354",
+        "hero_image": "https://images.deliveryhero.io/image/fd-sg/LH/x3kk-listing.jpg",
+        "logo": "https://images.deliveryhero.io/image/fd-sg/sg-logos/cn9sl-logo.jpg",
+        "savedState": "C:\\Users\\huien\\qt\\tmp\\qa\\menu-expansion-woodlands\\shu.html",
+        "stateSha256": "66934588a60d542c532a5cb52a60d3195ccc49c20b567f792b9e282ed1c9e88a",
+        "sourcePageUrl": "https://www.foodpanda.sg/restaurant/x3kk/shu-vegetarian-shu-fang-zhai-woodlands-avenue-1",
+        "reference": "fp-x3kk",
+        "venueId": "shu-woodlands-avenue-1",
+        "sourcePageCheckedAt": "2026-10-15T08:16:19Z",
+        "registeredSourceRefs": [
+          "07bf7c30443f703dfeed575c",
+          "b623bb56f33412eaff53fd7a"
+        ],
+        "identityEvidence": "Exact saved merchant vendor code, name, street/unit and postal code match the published catalogue branch. Hero food imagery only; no branch interior or current-stock claim."
+      }
+    ],
+    "imageHolds": [
+      {
+        "venueId": "research-ur02-amk-green-harmony-vegetarian",
+        "sourceUrl": "https://www.foodpanda.sg/restaurant/hgnz/green-harmony-vegetarian-ang-mo-kio",
+        "sourcePageCheckedAt": "2026-10-16T01:09:36.130Z",
+        "imageReviewedAt": "2026-10-17",
+        "reason": "Generic pot image includes bone-like forms; actual vegetarian product correspondence is unresolved."
+      },
+      {
+        "venueId": "research-ur03-99-pioneer-mall",
+        "sourceUrl": "https://www.foodpanda.sg/restaurant/rj1o/99-vegetarian-pioneer-mall",
+        "sourcePageCheckedAt": "2026-10-16T01:26:23.676Z",
+        "imageReviewedAt": "2026-10-17",
+        "reason": "Generic laksa image includes apparent prawns/chicken; actual vegetarian dish correspondence unresolved."
+      },
+      {
+        "venueId": "research-ur04-kunthaville",
+        "sourceUrl": "https://www.foodpanda.sg/restaurant/znif/kunthaville-veerasamy-road",
+        "sourcePageCheckedAt": "2026-10-16T04:38:35.737Z",
+        "imageReviewedAt": "2026-10-17",
+        "reason": "Generic biryani image includes apparent drumsticks/bones; unsuitable without actual vegetarian product evidence."
+      },
+      {
+        "venueId": "research-ur04-mani-iyer",
+        "sourceUrl": "https://www.foodpanda.sg/restaurant/xsya/mani-iyer-food-pte-ltd-xsya",
+        "sourcePageCheckedAt": "2026-10-16T04:34:08.026Z",
+        "imageReviewedAt": "2026-10-17",
+        "reason": "Polished banana-leaf thali presentation has unclear photographic provenance; actual product photo not established."
+      },
+      {
+        "venueId": "research-ur04-peace-vegetarian",
+        "sourceUrl": "https://www.foodpanda.sg/restaurant/zi6a/peace-vegetarian-tai-seng-st-18",
+        "sourcePageCheckedAt": "2026-10-16T04:34:37.150Z",
+        "imageReviewedAt": "2026-10-17",
+        "reason": "Generic rice/omelette image with chicken-like serving; actual vegetarian product correspondence unresolved."
+      },
+      {
+        "venueId": "research-ur08-vege-bear-bidadari",
+        "sourceUrl": "https://www.foodpanda.sg/restaurant/oecy/vege-bear-vegetarian-su-xiong-bidadari-oecy",
+        "sourcePageCheckedAt": "2026-10-16T05:41:00.705Z",
+        "imageReviewedAt": "2026-10-17",
+        "reason": "Branded promotional composite; actual product photography and ingredient fidelity not established."
+      },
+      {
+        "venueId": "research-ur15-xinghua-somerset",
+        "sourceUrl": "https://www.foodpanda.sg/restaurant/bhke/xing-hua-vegetarian-restaurant-tripleone-somerset",
+        "sourcePageCheckedAt": "2026-10-16T09:11:16.042Z",
+        "imageReviewedAt": "2026-10-17",
+        "reason": "Generic fried-rice image includes apparent prawns; actual vegetarian dish correspondence unresolved."
+      },
+      {
+        "venueId": "daily-green-woodlands-street-31",
+        "sourceUrl": "https://www.foodpanda.sg/restaurant/i408/vegetarian-kitchen-ji-xiang-su-xiao-chu-woodlands-street-31",
+        "sourcePageCheckedAt": "2026-10-15T08:16:19Z",
+        "imageReviewedAt": "2026-10-17",
+        "reason": "Generic noodle image includes squid-ring-like forms; actual vegetarian product correspondence unresolved."
+      }
+    ],
+    "reusedAssets": {
+      "w55k": [
+        "fp-w7c5",
+        "Merchant source publishes the exact same original bytes as Gan Taste, SHA256 430d66c746c4055b092fe360cf5f7ab833bd8fd45f82869a89abc4726c56aed6. Reuse the enhancement; shared food imagery is not unique branch photography."
+      ],
+      "wpxm": [
+        "fp-ozx5",
+        "Merchant source publishes the same stall-counter image as the Ang Mo Kio vendor, with different JPEG compression. Both originals visually compared; reuse enhancement and do not claim this is the Serangoon interior."
+      ],
+      "x3kk": [
+        "shu-spread",
+        "Merchant source publishes the exact same original bytes as the previously reviewed Shu reference, SHA256 5b1a7e7f7d3b70fc07ddd78025459e0d5ad5f9969b749398d7b0a0a001a1f9f6. Reuse existing enhancement; food imagery only."
+      ]
+    }
+  }
+}

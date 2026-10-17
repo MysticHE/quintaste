@@ -1,0 +1,242 @@
+{
+  "checkedAt": "2026-10-15T12:41:10.585995+00:00",
+  "status": "approved-bounded-private-research-source-pass",
+  "findings": [],
+  "scope": [
+    "data/menu-research/menu-nalan-annalakshmi-kailash.json",
+    "data/menu-research/nalan-annalakshmi-kailash/nalan.json",
+    "data/menu-research/nalan-annalakshmi-kailash/kailash.json",
+    "data/menu-research/nalan-annalakshmi-kailash/annalakshmi.json",
+    "data/menu-research/nalan-annalakshmi-kailash/kailash-catering.json",
+    "../tmp/qa/menu-nalan-annalakshmi-kailash/recover_packets.py",
+    "../tmp/qa/menu-nalan-annalakshmi-kailash/supplement_kailash.py",
+    "../tmp/qa/menu-nalan-annalakshmi-kailash/kailash-ui-details.cjs",
+    "../tmp/qa/menu-nalan-annalakshmi-kailash/enrich_kailash_details.py",
+    "../tmp/qa/menu-public-fetch.py",
+    "../tmp/qa/menu-extract-oddle.py"
+  ],
+  "scopeBasis": "Assigned local untracked research packet and helper files, confirmed with staged/unstaged diff and status. No PR metadata available; no merge-readiness approval.",
+  "checks": [
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "scope": "Point-in-time canonical project check"
+    },
+    {
+      "command": "eslint . --ext .ts,.tsx,.js,.jsx",
+      "exitCode": 1,
+      "scope": "Global readiness remains separate from this research approval",
+      "outOfScopeErrors": [
+        "scripts/avatar-security.cjs:2 no-undef: __dirname",
+        "scripts/avatar-security.cjs:48 expo/no-dynamic-env-var"
+      ]
+    },
+    {
+      "command": "Python ast.parse of recover_packets.py and supplement_kailash.py, without importing or executing writers",
+      "result": "pass"
+    },
+    {
+      "command": "Read-only reference, identity, numeric, source and saved-inventory comparisons",
+      "result": "pass",
+      "details": "Four relative shards resolve inside the research directory; all source/menu/branch/food references and reciprocal ownership validate; food IDs are unique across all 1,404 rows; all retained amounts are finite and nonnegative, with no zero base-food prices."
+    }
+  ],
+  "checkpoint": {
+    "sourceFoodRows": 1404,
+    "nalan": {
+      "rows": 763,
+      "cityHallWebsiteNames": 185,
+      "cityHallOrderingRows": 261,
+      "littleIndiaWebsiteNames": 152,
+      "littleIndiaOrderingRows": 165,
+      "renderedOrderingRows": 423,
+      "modifierGroups": 134,
+      "modifierChoices": 1048,
+      "heldUnrenderedCityHallProductIds": [
+        938493,
+        938494,
+        1969506
+      ],
+      "details": "Saved merchant contact and pickup UI/public responses bind order.nalan.com.sg to outlet267,82 Serangoon Road/Little India, and orders.nalan.com.sg to outlet36,13 Stamford Road #B2-54/City Hall. All rendered amounts match source final prices. Group quantities/defaults/unit/final amounts, category schedules, taxes and conditional surcharges remain source-specific. Website names are unpriced and separate from ordering rows. Homemade beverages, four Party Pack coffees/teas, gift/retail sweets and savouries are excluded. No retained drink-name candidates or beverage-inclusive descriptions were found in the saved retained ordering facts."
+    },
+    "kailashBase": {
+      "rows": 485,
+      "branchTextMenuRows": 292,
+      "heldBrandOnlyRows": 193,
+      "sourcePriceConflictRows": 1,
+      "details": "Saved contact source confirms four exact outlets and explicitly links the shared Syed Alwi/Changi menu. The ordering page header and footer conflict; its176 retained foods remain held brand-only, with no transfer to a current branch. Seventeen undated festival rows also remain held brand-only. The shared PAPDI CHAAT observation retains $9.50/$10.00 without a chosen fixed amount; menu coverage is partial. Four delivery bentos preserve minimum10 boxes and channel-specific components;13 trays preserve printed portion text and minimum6-hour notice.",
+      "deliveryDetailRows": 176,
+      "modifierControls": 43,
+      "modifierChoices": 167,
+      "pricedBaseVariants": 9
+    },
+    "annalakshmi": {
+      "rows": 31,
+      "printedUnknownCurrencyPrices": 30,
+      "unpricedHeldRavaDosa": 1,
+      "details": "All four saved cafe JPEGs independently inspected. Names, portions, amounts, time windows, set components, conditional paratha add-on and printed extras agree. Rava Dosa remains unpriced with a hold for the Saturday/Sunday poster versus Sunday closure conflict. Image filename2024 is not treated as an effective date. Cafe #03-26 and restaurant #01-03 stay separate; no cafe food is assigned to the unnamed changing restaurant buffet."
+    },
+    "kailashSupplement": {
+      "rows": 125,
+      "unpricedCateringFoodLabels": 118,
+      "foodOnlyWholeCombos": 3,
+      "bentoBoxes": 4,
+      "details": "Saved catering/combo/bento HTML independently compared. All125 records are held brand-only with no branch IDs. Four beverage-inclusive catering packages, beverage category and600/20-pax beverage combo are excluded; package prices are not allocated to food choices. Combo60/135/260 prices remain unknown-currency whole-combo facts, with printed portions/choices and qualified GST/delivery inclusion. Bento14/14/14/17 prices remain unknown-currency box facts plus GST/minimum10 boxes; website Option4 components remain separate from delivery Option4."
+    }
+  },
+  "resolvedFindings": [
+    {
+      "issue": "Three dessert-category Royal Falooda rows were explicitly described as sundae drinks.",
+      "resolution": "All three removed from food items and preserved as explicit exclusions; the separately described Kulfi Falooda sundae remains a distinct food fact."
+    },
+    {
+      "issue": "Duplicate shared PAPDI CHAAT source cards printed $9.50 and $10.00; first-card deduplication selected one fixed price.",
+      "resolution": "Both sourcePriceTexts retained, no fixed price, hold-source-price-conflict, and shared menu coverage partial."
+    },
+    {
+      "issue": "Held delivery rows lost bento minimum orders and printed bulk-tray portions when descriptive text was discarded.",
+      "resolution": "All four bentos now retain minimumOrderQuantity10/boxes and exact source components; all13 bulk trays retain sourcePortionText and minimumAdvanceHours6."
+    },
+    {
+      "issue": "Radio-only extraction omitted23 ComboBox controls/96 choices.",
+      "resolution": "Recovered exact display texts/source values from saved public ListBox itemsInfo seeds; own-control required evidence retained separately and unprinted prices/limits left unstated."
+    },
+    {
+      "issue": "Two ASPxClientMenu food toolbars omitted11 options.",
+      "resolution": "Recovered exact captions/options and selected states from saved div.OptionMenu controls; unknown prices/selection constraints remain unknown."
+    }
+  ],
+  "limits": [
+    "This approves only the saved private research checkpoint. It does not certify whole venue menu completion, current stock, ingredients, allium status or publication readiness.",
+    "All176 retained Kailash delivery details and custom controls now match saved source evidence; exact branch applicability remains held and whole-venue/current-stock completeness remains unapproved.",
+    "Source-row counts include overlapping channels, repeated category labels and source-specific variants; they are not unique current-dish counts.",
+    "Unknown printed currency, source currentness, branch applicability, unavailable buffet details and explicit source conflicts remain unknown or held.",
+    "No network requests, Google calls, capture/recovery/helper execution, app edits, app imports, data edits, publication or test files occurred during this review. Only this review artifact was written.",
+    "Full-project lint remains failing outside the assigned research scope."
+  ],
+  "reviewedDataSha256": {
+    "menu-nalan-annalakshmi-kailash.json": "323621b583777be110fc716a1017958413fdb4be1d8ec0778cde72267b893b26",
+    "nalan-annalakshmi-kailash/nalan.json": "7f523b60c3e6a5a7d95355e3a9df6eade8222db6651f2954ed85c5f60626e6b6",
+    "nalan-annalakshmi-kailash/kailash.json": "8ae73c4001981d74a69e3c1661227763356c9f3d5dbee38808fe6c91467af362",
+    "nalan-annalakshmi-kailash/annalakshmi.json": "ba4748b4d8224477bac8a47cb52c6ca8b433a04a06003f66038697dc8e94eff5",
+    "nalan-annalakshmi-kailash/kailash-catering.json": "4a6002669bad0155fdf89e0e832719805a4457c35f720428122df75747412326"
+  },
+  "reviewedHelperSha256": {
+    "recover_packets.py": "7abd42c723087d5d955cf6a271bfcff454ebe8ad87ddbf6206dcb7363adca754",
+    "supplement_kailash.py": "ae5a96d7d3a5d1cb2989d1c6cce886202fe57aff824d4739b35acd7c41d1ef40"
+  },
+  "reviewHistory": [
+    {
+      "checkedAt": "2026-10-15T12:20:44.799523+00:00",
+      "status": "approved-bounded-private-research-checkpoint",
+      "reviewedDataSha256": {
+        "menu-nalan-annalakshmi-kailash.json": "a5909eb67b576610b5a8a86f3778be7221c8979ec345a2e9c42884f440899ec7",
+        "nalan-annalakshmi-kailash/nalan.json": "7f523b60c3e6a5a7d95355e3a9df6eade8222db6651f2954ed85c5f60626e6b6",
+        "nalan-annalakshmi-kailash/kailash.json": "bb931df40f6f0cc15a9ac4a0b67b56b66f9d4fbfddbb319ba71c3ae7cbff487a",
+        "nalan-annalakshmi-kailash/annalakshmi.json": "ba4748b4d8224477bac8a47cb52c6ca8b433a04a06003f66038697dc8e94eff5",
+        "nalan-annalakshmi-kailash/kailash-catering.json": "4a6002669bad0155fdf89e0e832719805a4457c35f720428122df75747412326"
+      },
+      "limits": [
+        "This approves only the saved private research checkpoint. It does not certify whole venue menu completion, current stock, ingredients, allium status or publication readiness.",
+        "Kailash ordering detail/options work remains pending. No facts from the separate in-progress managed UI prototype were imported into this reviewed checkpoint.",
+        "Source-row counts include overlapping channels, repeated category labels and source-specific variants; they are not unique current-dish counts.",
+        "Unknown printed currency, source currentness, branch applicability, unavailable buffet details and explicit source conflicts remain unknown or held.",
+        "No network requests, Google calls, capture/recovery/helper execution, app edits, app imports, data edits, publication or test files occurred during this review. Only this review artifact was written.",
+        "Full-project lint remains failing outside the assigned research scope."
+      ]
+    }
+  ],
+  "followUpReviews": [
+    {
+      "checkedAt": "2026-10-15T12:41:10.585995+00:00",
+      "scope": [
+        "../tmp/qa/menu-nalan-annalakshmi-kailash/kailash-ui-details.cjs",
+        "../tmp/qa/menu-nalan-annalakshmi-kailash/enrich_kailash_details.py",
+        "../tmp/qa/menu-public-fetch.py",
+        "../tmp/qa/menu-extract-oddle.py",
+        "data/menu-research/nalan-annalakshmi-kailash/kailash.json",
+        "../tmp/qa/menu-nalan-annalakshmi-kailash/kailash-ui-details/report.json",
+        "../tmp/qa/menu-nalan-annalakshmi-kailash/kailash-ui-details/*.html"
+      ],
+      "status": "approved-bounded-saved-detail-source-pass",
+      "findings": [],
+      "checks": [
+        {
+          "command": "npm run typecheck",
+          "exitCode": 0
+        },
+        {
+          "command": "eslint . --ext .ts,.tsx,.js,.jsx",
+          "exitCode": 1,
+          "outOfScopeErrors": [
+            "scripts/avatar-security.cjs:2 no-undef: __dirname",
+            "scripts/avatar-security.cjs:48 expo/no-dynamic-env-var"
+          ]
+        },
+        {
+          "command": "node --check kailash-ui-details.cjs",
+          "exitCode": 0
+        },
+        {
+          "command": "Scoped ESLint via stdin for kailash-ui-details.cjs with CommonJS __dirname declared",
+          "exitCode": 0
+        },
+        {
+          "command": "Final Python ast.parse for enrich_kailash_details.py,menu-public-fetch.py,menu-extract-oddle.py",
+          "result": "pass"
+        },
+        {
+          "command": "Read-only full176 modal identity/control/price comparison",
+          "result": "pass"
+        }
+      ],
+      "evidence": {
+        "foods": 176,
+        "identity": "All176 saved form ProductUrl/minQty values match each original public card click script; report names/source card IDs and176 distinct nonblank files match. Both modal versions were inspected without executing saved scripts.",
+        "controlInventory": {
+          "radioModifierControls": 18,
+          "radioChoices": 60,
+          "comboBoxControls": 23,
+          "comboBoxChoices": 96,
+          "foodChoiceToolbars": 2,
+          "toolbarChoices": 11,
+          "totalModifierControls": 43,
+          "totalModifierChoices": 167,
+          "pricedBaseVariants": 9
+        },
+        "dropdowns": "Public ASPxClientListBox itemsInfo arrays contain96 value/text choices despite empty virtual list tables. Helper balances the literal array and uses ast.literal_eval; it does not execute JavaScript. Group/field captions, exact source values/texts and each own ComboBox required-validation evidence match. No invented option amounts or min/max selection counts.",
+        "toolbars": "Aloo Aap Ki Pasand Your choice:Jeera,Palak,Capsicum,Dum,Achari,Matar,Gobhi; Kulcha choice:Onion,Butter,Plain,Aloo. Exact visible labels and observed selected states match div.OptionMenu.",
+        "prices": "Exactly174 scalar detail-price labels and9 explicitly priced base radio variants. Naan5 variants are5,6,6.5,7,7SGD; Bengali Mithai4 variants are7SGD each. Card/detail amounts and both base minima match. No additional printed option price or other missed food-control type was found in the saved DOM/initializers.",
+        "holds": "All176 delivery foods and their menu remain held brand-only with empty branchIds. Current ordering premises conflict is not resolved by detail collection. Other packet/shard facts are unchanged; total food source rows remain1404."
+      },
+      "resolvedFindings": [
+        {
+          "issue": "Radio-only extraction omitted23 ComboBox controls/96 choices.",
+          "resolution": "Recovered exact display texts/source values from saved public ListBox itemsInfo seeds; own-control required evidence retained separately and unprinted prices/limits left unstated."
+        },
+        {
+          "issue": "Two ASPxClientMenu food toolbars omitted11 options.",
+          "resolution": "Recovered exact captions/options and selected states from saved div.OptionMenu controls; unknown prices/selection constraints remain unknown."
+        }
+      ],
+      "limits": [
+        "The two general public-fetch/Oddle-extraction helpers received static syntax review only; no network behavior was executed.",
+        "Source detail coverage does not certify whole-venue completeness, present stock, branch applicability, ingredients or publication readiness.",
+        "No network requests, browser runs, choice selections, cart/order actions, collector/enrichment execution, research-data edits, app edits or test files were performed. Only this review artifact was updated."
+      ],
+      "reviewedDataSha256": {
+        "menu-nalan-annalakshmi-kailash.json": "323621b583777be110fc716a1017958413fdb4be1d8ec0778cde72267b893b26",
+        "nalan-annalakshmi-kailash/nalan.json": "7f523b60c3e6a5a7d95355e3a9df6eade8222db6651f2954ed85c5f60626e6b6",
+        "nalan-annalakshmi-kailash/kailash.json": "8ae73c4001981d74a69e3c1661227763356c9f3d5dbee38808fe6c91467af362",
+        "nalan-annalakshmi-kailash/annalakshmi.json": "ba4748b4d8224477bac8a47cb52c6ca8b433a04a06003f66038697dc8e94eff5",
+        "nalan-annalakshmi-kailash/kailash-catering.json": "4a6002669bad0155fdf89e0e832719805a4457c35f720428122df75747412326"
+      },
+      "reviewedHelperSha256": {
+        "../tmp/qa/menu-nalan-annalakshmi-kailash/kailash-ui-details.cjs": "eccc00aa0fbc3eda033ded8a1faa5409ac5067a9021e1f762d3c8b51bee89a20",
+        "../tmp/qa/menu-nalan-annalakshmi-kailash/enrich_kailash_details.py": "eef2ca580a82ef5d1a1fd3577d806aac05e77eb84dd2a8140656f8fdce6813fd",
+        "../tmp/qa/menu-public-fetch.py": "9f7f33ddc2073daaa2e78d1d11b291593b2cdea89b117061dd617c6f73154eb5",
+        "../tmp/qa/menu-extract-oddle.py": "1e95536ff1e9b8ff9f74c4c63bc44dbe2324d42cb9656533c4d6bcad3f440459"
+      }
+    }
+  ]
+}

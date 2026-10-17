@@ -1,0 +1,23 @@
+{
+  "errors": [],
+  "screenshots": [
+    "C:/Users/huien/QT/quintaste/.impeccable/review/maps-card-live-375.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/maps-card-live-1440.png"
+  ],
+  "photoResponses": [
+    503,
+    503,
+    503
+  ],
+  "limits": [
+    "Live Google response limited to first three places in Playwright only to bound photo requests.",
+    "Web preview, not native device appearance."
+  ],
+  "provider": {
+    "status": 200,
+    "count": 20,
+    "capped": true
+  },
+  "photosLoaded": 0,
+  "photoAllowanceReached": true
+}

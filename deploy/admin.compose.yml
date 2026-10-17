@@ -1,0 +1,38 @@
+services:
+  admin:
+    image: ${ADMIN_IMAGE:?Set ADMIN_IMAGE}
+    restart: unless-stopped
+    env_file: [./admin.env]
+    environment: { NODE_ENV: production, PORT: '3100', HOSTNAME: '0.0.0.0', CUSTOMER_APP_URL: 'https://${APP_HOST}' }
+    depends_on:
+      db: { condition: service_healthy }
+    volumes:
+      - ./admin-secrets:/run/secrets/quintaste:ro
+    networks: [private, edge]
+    mem_limit: 512m
+    cpus: 0.5
+    pids_limit: 100
+    read_only: true
+    tmpfs: [/tmp:size=32m]
+    security_opt: [no-new-privileges:true]
+    cap_drop: [ALL]
+    healthcheck:
+      test: [CMD, node, -e, "fetch('http://127.0.0.1:3100/healthz').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+    labels:
+      traefik.enable: 'true'
+      traefik.docker.network: quintaste-edge
+      traefik.http.routers.quintaste-admin.rule: Host(`${ADMIN_HOST}`)
+      traefik.http.routers.quintaste-admin.entrypoints: websecure
+      traefik.http.routers.quintaste-admin.tls.certresolver: letsencrypt
+      traefik.http.routers.quintaste-admin.middlewares: quintaste-admin-body,quintaste-admin-rate
+      traefik.http.middlewares.quintaste-admin-body.buffering.maxRequestBodyBytes: '32768'
+      traefik.http.middlewares.quintaste-admin-rate.ratelimit.average: '30'
+      traefik.http.middlewares.quintaste-admin-rate.ratelimit.burst: '60'
+      traefik.http.services.quintaste-admin.loadbalancer.server.port: '3100'
+    logging:
+      driver: json-file
+      options: { max-size: 10m, max-file: '3' }

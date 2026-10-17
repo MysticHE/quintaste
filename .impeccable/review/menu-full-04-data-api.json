@@ -1,0 +1,48 @@
+{
+  "checkedAt": "2026-10-16T04:48:59.927Z",
+  "passed": true,
+  "url": "http://127.0.0.1:8083",
+  "locations": 151,
+  "sourceMenus": 196,
+  "foodOccurrences": 11019,
+  "mappedRegisterOccurrences": 11019,
+  "indexBytes": 60246,
+  "indexGzipBytes": 17166,
+  "largestDetail": {
+    "id": "research-nalan-cityhall",
+    "bytes": 237205,
+    "gzipBytes": 17355
+  },
+  "timings": {
+    "index": {
+      "method": "direct warm GET handler in Node; excludes Expo HTTP/bundling",
+      "successfulRequests": 100,
+      "concurrency": 10,
+      "p50Ms": 2.8739999999997963,
+      "p95Ms": 6.80600000000004,
+      "maxMs": 6.852900000000318
+    },
+    "largestDetail": {
+      "method": "direct warm GET handler in Node; excludes Expo HTTP/bundling",
+      "successfulRequests": 100,
+      "concurrency": 10,
+      "p50Ms": 10.69360000000006,
+      "p95Ms": 16.284099999999853,
+      "maxMs": 16.352699999999913
+    }
+  },
+  "auditMs": 1728.085,
+  "heldBranch404s": [
+    "research-ur03-v-coffee-lorong21",
+    "research-ur03-gopals-jean-yip",
+    "research-ur03-the-acai-teahouse",
+    "research-sl08-zuya",
+    "research-sl08-bai-jia-le"
+  ],
+  "googleLedgerSha256": "c7321dafaad0473583139494ca899501578892c5b71105429d3cd4dceb4f311a",
+  "googleRequestsMade": 0,
+  "limitations": [
+    "Warm direct Node handler benchmark excludes Expo transport and bundling. Historical batch07 local Expo probe took1.6–5.1seconds; not a timing measurement of this continuation; native rendering, production network/host quotas and production performance unmeasured."
+  ],
+  "method": "Actual local Expo HTTP index compared with all151 direct GET-handler details, their raw fingerprints, schemas and source-register mappings; focused browser cases use live HTTP details. Prior continuation full-Expo parallel HTTP attempt ended ECONNRESET; no completed acceptance claimed from it."
+}

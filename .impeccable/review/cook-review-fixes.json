@@ -1,0 +1,23 @@
+{
+  "checks": [
+    "Serialized UTF8 boundary includes Unicode and rejects a single byte over the combined cap",
+    "Small positive and scaled ingredient quantities preserve precision without floating-point noise",
+    "Native permission adapter distinguishes Android 31+ timing uncertainty; only enabled alerts schedule and revocation cancels",
+    "Recipe and Market photo allowances are combined, including guest merge candidates",
+    "Playwright: rejected copy retains route, persisted recipe and Market photos, including after reload",
+    "Playwright: freeing space permits the previously rejected copy",
+    "Playwright: 0.001 kg at original servings and 0.000125 kg at one serving stay correct in detail, guided cooking and Shopping",
+    "Playwright: Saved Notes resolves private recipe title, opens private route and returns to Notes",
+    "Playwright: a missing owner-scoped draft stays unavailable",
+    "Playwright: legacy oversized collection can batch-select cleanup before one bounded save, preserving unselected photos"
+  ],
+  "errors": [],
+  "screenshots": [
+    "cook-review-capacity-rejection.png",
+    "cook-review-scaled-guided.png",
+    "cook-review-private-note.png",
+    "cook-review-legacy-cleanup.png"
+  ],
+  "nativeDeviceVerified": false,
+  "passed": true
+}

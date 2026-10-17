@@ -1,0 +1,861 @@
+{
+  "version": 1,
+  "checkedAt": "2026-10-15T12:17:55.328519+00:00",
+  "sources": [
+    {
+      "id": "annalakshmi-cafe",
+      "url": "https://www.annalakshmi.sg/cafe",
+      "title": "annalakshmi cafe",
+      "publisher": "Annalakshmi",
+      "status": "readable",
+      "checkedAt": "2026-10-15T12:17:55.328519+00:00"
+    },
+    {
+      "id": "annalakshmi-restaurant",
+      "url": "https://www.annalakshmi.sg/restaurant",
+      "title": "annalakshmi restaurant",
+      "publisher": "Annalakshmi",
+      "status": "readable",
+      "checkedAt": "2026-10-15T12:17:55.328519+00:00"
+    },
+    {
+      "id": "annalakshmi-catering",
+      "url": "https://www.annalakshmi.sg/catering",
+      "title": "annalakshmi catering",
+      "publisher": "Annalakshmi",
+      "status": "readable",
+      "checkedAt": "2026-10-15T12:17:55.328519+00:00"
+    },
+    {
+      "id": "anna-cafe-image-4",
+      "url": "https://images.squarespace-cdn.com/content/v1/60df1d5b30a771582d057985/6a1c0680-7a32-4e3b-acc4-4b716b6f2241/WhatsApp+Image+2024-06-09+at+10.11.51.jpeg",
+      "title": "annalakshmi-cafe-menu-4.jpeg",
+      "publisher": "Annalakshmi",
+      "checkedAt": "2026-10-15T12:17:55.328519+00:00",
+      "status": "readable; visually inspected"
+    },
+    {
+      "id": "anna-cafe-image-5",
+      "url": "https://images.squarespace-cdn.com/content/v1/60df1d5b30a771582d057985/79ff2403-dd8a-41fa-8dda-8fc468664a92/WhatsApp+Image+2024-06-09+at+10.11.50+%281%29.jpeg",
+      "title": "annalakshmi-cafe-menu-5.jpeg",
+      "publisher": "Annalakshmi",
+      "checkedAt": "2026-10-15T12:17:55.328519+00:00",
+      "status": "readable; visually inspected"
+    },
+    {
+      "id": "anna-cafe-image-6",
+      "url": "https://images.squarespace-cdn.com/content/v1/60df1d5b30a771582d057985/f5e0f2ba-85fe-43e3-84a9-f1340cda2023/WhatsApp+Image+2024-06-09+at+10.11.50+%282%29.jpeg",
+      "title": "annalakshmi-cafe-menu-6.jpeg",
+      "publisher": "Annalakshmi",
+      "checkedAt": "2026-10-15T12:17:55.328519+00:00",
+      "status": "readable; visually inspected"
+    },
+    {
+      "id": "anna-cafe-image-7",
+      "url": "https://images.squarespace-cdn.com/content/v1/60df1d5b30a771582d057985/d6e1624f-43ac-489d-b6f5-bd8dfd2d7a37/WhatsApp+Image+2024-06-09+at+10.11.50.jpeg",
+      "title": "annalakshmi-cafe-menu-7.jpeg",
+      "publisher": "Annalakshmi",
+      "checkedAt": "2026-10-15T12:17:55.328519+00:00",
+      "status": "readable; visually inspected"
+    },
+    {
+      "id": "ur16-annalakshmi-restaurant",
+      "url": "https://www.annalakshmi.sg/restaurant",
+      "publisher": "Merchant operator",
+      "title": "Annalakshmi current restaurant buffet context",
+      "checkedAt": "2026-10-16T09:25:16.568Z",
+      "accessStatus": "normal-http-200",
+      "notes": "Normal200and browser200exactDowntownGallery#01-03vegetarian buffet/give-as-you-wish; groups8+require unspecified fixed per-person contribution. Current hours effective15Aug2026supersede old duplicated hours. No daily named dish inventory, no cafe#03-26menu transfer."
+    }
+  ],
+  "branches": [
+    {
+      "id": "annalakshmi-cafe-downtown",
+      "name": "Annalakshmi Cafe — Downtown Gallery",
+      "address": "6A Shenton Way #03-26 Downtown Gallery, Singapore 068815",
+      "postalCode": "068815",
+      "sourceIds": [
+        "annalakshmi-cafe"
+      ],
+      "menuIds": [
+        "annalakshmi-cafe-foods"
+      ],
+      "gaps": [
+        "All31 distinct named foods in four currently linked images. Fourteen daily drinks and repeated specials names excluded/collapsed. Rava Dosa price absent and Sunday schedule conflicts with current cafe closure. Daily rotating components unnamed; no food variants invented.",
+        "Image filenames2024 do not prove current prices; posted GST qualifier retained. Menu time windows are not a new opening-hours update; cafe last-order time differs."
+      ]
+    },
+    {
+      "id": "annalakshmi-restaurant-downtown",
+      "name": "Annalakshmi Restaurant — Downtown Gallery",
+      "address": "6A Shenton Way #01-03 Downtown Gallery, Singapore 068815",
+      "postalCode": "068815",
+      "sourceIds": [
+        "annalakshmi-restaurant",
+        "annalakshmi-catering",
+        "ur16-annalakshmi-restaurant"
+      ],
+      "menuIds": [
+        "annalakshmi-buffet-food-gap"
+      ],
+      "gaps": [
+        "Current buffet is changing and no named daily food list or fixed per-dish prices were obtained from merchant pages. Do not infer foods, a free price or transfer cafe dishes to the restaurant. Current restaurant hours effective15August2026 supersede older text; not edited into app in this collection.",
+        "Normal200and browser200exactDowntownGallery#01-03vegetarian buffet/give-as-you-wish; groups8+require unspecified fixed per-person contribution. Current hours effective15Aug2026supersede old duplicated hours. No daily named dish inventory, no cafe#03-26menu transfer."
+      ],
+      "menuRecheck": {
+        "checkedAt": "2026-10-16T09:32:32.453970+00:00",
+        "sourceIds": [
+          "ur16-annalakshmi-restaurant"
+        ],
+        "result": "current-exact-named-food-menu-not-established",
+        "reason": "Normal200and browser200exactDowntownGallery#01-03vegetarian buffet/give-as-you-wish; groups8+require unspecified fixed per-person contribution. Current hours effective15Aug2026supersede old duplicated hours. No daily named dish inventory, no cafe#03-26menu transfer."
+      }
+    }
+  ],
+  "menus": [
+    {
+      "id": "annalakshmi-cafe-foods",
+      "name": "Annalakshmi Cafe — published food images",
+      "scope": "branch",
+      "branchIds": [
+        "annalakshmi-cafe-downtown"
+      ],
+      "sourceIds": [
+        "annalakshmi-cafe",
+        "anna-cafe-image-4",
+        "anna-cafe-image-5",
+        "anna-cafe-image-6",
+        "anna-cafe-image-7"
+      ],
+      "coverage": "partial",
+      "items": [
+        {
+          "id": "annalakshmi-cafe-foods-95714ae4a6adccbd1056",
+          "name": "Idli (3pc)",
+          "category": "Breakfast",
+          "sourceIds": [
+            "anna-cafe-image-4"
+          ],
+          "qualifier": "Currently linked merchant menu image; filename2024 is not an effective date. Dollar sign has no explicit currency code. Prices exclude prevailing GST; current stock, daily variants and ingredient suitability unconfirmed.",
+          "price": {
+            "amount": 6.0,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "publishedTimeWindow": "08:00–11:00"
+        },
+        {
+          "id": "annalakshmi-cafe-foods-faa4796d3ad2ff7d3ab8",
+          "name": "Ven Pongal",
+          "category": "Breakfast",
+          "sourceIds": [
+            "anna-cafe-image-4"
+          ],
+          "qualifier": "Currently linked merchant menu image; filename2024 is not an effective date. Dollar sign has no explicit currency code. Prices exclude prevailing GST; current stock, daily variants and ingredient suitability unconfirmed.",
+          "price": {
+            "amount": 6.0,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "publishedTimeWindow": "08:00–11:00"
+        },
+        {
+          "id": "annalakshmi-cafe-foods-8a1219dbcbd5ca14b25e",
+          "name": "Medhu Vadai (2pc)",
+          "category": "All day",
+          "sourceIds": [
+            "anna-cafe-image-4"
+          ],
+          "qualifier": "Currently linked merchant menu image; filename2024 is not an effective date. Dollar sign has no explicit currency code. Prices exclude prevailing GST; current stock, daily variants and ingredient suitability unconfirmed.",
+          "price": {
+            "amount": 4.5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "publishedTimeWindow": "08:00–16:30"
+        },
+        {
+          "id": "annalakshmi-cafe-foods-c2c813a8a464567e84da",
+          "name": "Sambar Vadai (2pc)",
+          "category": "All day",
+          "sourceIds": [
+            "anna-cafe-image-4"
+          ],
+          "qualifier": "Currently linked merchant menu image; filename2024 is not an effective date. Dollar sign has no explicit currency code. Prices exclude prevailing GST; current stock, daily variants and ingredient suitability unconfirmed.",
+          "price": {
+            "amount": 5.0,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "publishedTimeWindow": "08:00–16:30"
+        },
+        {
+          "id": "annalakshmi-cafe-foods-718a46e20ec3fc6b56fd",
+          "name": "Rasa Vadai (2pc)",
+          "category": "All day",
+          "sourceIds": [
+            "anna-cafe-image-4"
+          ],
+          "qualifier": "Currently linked merchant menu image; filename2024 is not an effective date. Dollar sign has no explicit currency code. Prices exclude prevailing GST; current stock, daily variants and ingredient suitability unconfirmed.",
+          "price": {
+            "amount": 5.0,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "publishedTimeWindow": "08:00–16:30"
+        },
+        {
+          "id": "annalakshmi-cafe-foods-a3cd863bd343545664ca",
+          "name": "Thairu Vadai (2pc)",
+          "category": "All day",
+          "sourceIds": [
+            "anna-cafe-image-4"
+          ],
+          "qualifier": "Currently linked merchant menu image; filename2024 is not an effective date. Dollar sign has no explicit currency code. Prices exclude prevailing GST; current stock, daily variants and ingredient suitability unconfirmed.",
+          "price": {
+            "amount": 6.0,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "publishedTimeWindow": "08:00–16:30"
+        },
+        {
+          "id": "annalakshmi-cafe-foods-0c8e678a39ef0d65ae2b",
+          "name": "Samosa (2pc)",
+          "category": "All day",
+          "sourceIds": [
+            "anna-cafe-image-4"
+          ],
+          "qualifier": "Currently linked merchant menu image; filename2024 is not an effective date. Dollar sign has no explicit currency code. Prices exclude prevailing GST; current stock, daily variants and ingredient suitability unconfirmed.",
+          "price": {
+            "amount": 6.0,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "publishedTimeWindow": "08:00–16:30"
+        },
+        {
+          "id": "annalakshmi-cafe-foods-9c013520aab51be61e03",
+          "name": "Poori & Potato",
+          "category": "All day",
+          "sourceIds": [
+            "anna-cafe-image-4"
+          ],
+          "qualifier": "Currently linked merchant menu image; filename2024 is not an effective date. Dollar sign has no explicit currency code. Prices exclude prevailing GST; current stock, daily variants and ingredient suitability unconfirmed.",
+          "price": {
+            "amount": 6.0,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "publishedTimeWindow": "08:00–16:30"
+        },
+        {
+          "id": "annalakshmi-cafe-foods-0fe2803c9c58a058c003",
+          "name": "Mixed Meal Set",
+          "category": "Set lunch",
+          "sourceIds": [
+            "anna-cafe-image-5"
+          ],
+          "qualifier": "Currently linked merchant menu image; filename2024 is not an effective date. Dollar sign has no explicit currency code. Prices exclude prevailing GST; current stock, daily variants and ingredient suitability unconfirmed.",
+          "price": {
+            "amount": 13.0,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "publishedTimeWindow": "11:00–15:00",
+          "foodComponents": [
+            "Mixed rice of the day",
+            "White rice",
+            "Rasam",
+            "Two unnamed vegetables",
+            "Curd",
+            "Papad",
+            "Pickle",
+            "Sweet",
+            "Chapathi"
+          ]
+        },
+        {
+          "id": "annalakshmi-cafe-foods-e992d3cee66c80fa0e4e",
+          "name": "Paratha Set",
+          "category": "Set lunch",
+          "sourceIds": [
+            "anna-cafe-image-5",
+            "anna-cafe-image-6"
+          ],
+          "qualifier": "Currently linked merchant menu image; filename2024 is not an effective date. Dollar sign has no explicit currency code. Prices exclude prevailing GST; current stock, daily variants and ingredient suitability unconfirmed.",
+          "price": {
+            "amount": 12.0,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "publishedTimeWindow": "11:00–15:00",
+          "foodComponents": [
+            "Parata of the day",
+            "Dhal",
+            "Unnamed vegetable",
+            "Unnamed paneer dish",
+            "Raitha",
+            "Pickle",
+            "Sweet"
+          ],
+          "modifierGroups": [
+            {
+              "name": "Add-on paratha",
+              "options": [
+                {
+                  "name": "Paratha",
+                  "amount": 5,
+                  "currency": "unknown"
+                }
+              ],
+              "notice": "Printed conditional add-on, not a standalone base price."
+            }
+          ]
+        },
+        {
+          "id": "annalakshmi-cafe-foods-98b4922f553bb43ac105",
+          "name": "Rasam of the day",
+          "category": "Set lunch",
+          "sourceIds": [
+            "anna-cafe-image-5"
+          ],
+          "qualifier": "Currently linked merchant menu image; filename2024 is not an effective date. Dollar sign has no explicit currency code. Prices exclude prevailing GST; current stock, daily variants and ingredient suitability unconfirmed.",
+          "price": {
+            "amount": 4.5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "publishedTimeWindow": "11:00–15:00",
+          "foodComponents": [
+            "Rasam of the day",
+            "Papad"
+          ]
+        },
+        {
+          "id": "annalakshmi-cafe-foods-97dbb4ac8618d0383101",
+          "name": "Porridge",
+          "category": "Set lunch",
+          "sourceIds": [
+            "anna-cafe-image-5"
+          ],
+          "qualifier": "Currently linked merchant menu image; filename2024 is not an effective date. Dollar sign has no explicit currency code. Prices exclude prevailing GST; current stock, daily variants and ingredient suitability unconfirmed.",
+          "price": {
+            "amount": 6.0,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "publishedTimeWindow": "11:00–15:00",
+          "foodComponents": [
+            "Porridge",
+            "Pickle",
+            "Yogurt chilli"
+          ]
+        },
+        {
+          "id": "annalakshmi-cafe-foods-5aa42560ae01befe8747",
+          "name": "Plain Dosa",
+          "category": "Dosa",
+          "sourceIds": [
+            "anna-cafe-image-7"
+          ],
+          "qualifier": "Currently linked merchant menu image; filename2024 is not an effective date. Dollar sign has no explicit currency code. Prices exclude prevailing GST; current stock, daily variants and ingredient suitability unconfirmed.",
+          "price": {
+            "amount": 5.0,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "publishedTimeWindow": "08:00–16:30",
+          "printedExtras": {
+            "options": [
+              "Podi",
+              "Ghee",
+              "Butter",
+              "Masala",
+              "Onion"
+            ],
+            "amount": 1,
+            "currency": "unknown",
+            "notice": "One printed extra amount against this list; selection limits and per-choice calculation unverified."
+          }
+        },
+        {
+          "id": "annalakshmi-cafe-foods-272081bfad67190583a4",
+          "name": "Masala Dosa",
+          "category": "Dosa",
+          "sourceIds": [
+            "anna-cafe-image-7"
+          ],
+          "qualifier": "Currently linked merchant menu image; filename2024 is not an effective date. Dollar sign has no explicit currency code. Prices exclude prevailing GST; current stock, daily variants and ingredient suitability unconfirmed.",
+          "price": {
+            "amount": 6.0,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "publishedTimeWindow": "08:00–16:30",
+          "printedExtras": {
+            "options": [
+              "Podi",
+              "Ghee",
+              "Butter",
+              "Masala",
+              "Onion"
+            ],
+            "amount": 1,
+            "currency": "unknown",
+            "notice": "One printed extra amount against this list; selection limits and per-choice calculation unverified."
+          }
+        },
+        {
+          "id": "annalakshmi-cafe-foods-116de947da9c3caa929e",
+          "name": "Butter Dosa",
+          "category": "Dosa",
+          "sourceIds": [
+            "anna-cafe-image-7"
+          ],
+          "qualifier": "Currently linked merchant menu image; filename2024 is not an effective date. Dollar sign has no explicit currency code. Prices exclude prevailing GST; current stock, daily variants and ingredient suitability unconfirmed.",
+          "price": {
+            "amount": 6.0,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "publishedTimeWindow": "08:00–16:30",
+          "printedExtras": {
+            "options": [
+              "Podi",
+              "Ghee",
+              "Butter",
+              "Masala",
+              "Onion"
+            ],
+            "amount": 1,
+            "currency": "unknown",
+            "notice": "One printed extra amount against this list; selection limits and per-choice calculation unverified."
+          }
+        },
+        {
+          "id": "annalakshmi-cafe-foods-2df62ccf898b45a105d8",
+          "name": "Ghee Dosa",
+          "category": "Dosa",
+          "sourceIds": [
+            "anna-cafe-image-7"
+          ],
+          "qualifier": "Currently linked merchant menu image; filename2024 is not an effective date. Dollar sign has no explicit currency code. Prices exclude prevailing GST; current stock, daily variants and ingredient suitability unconfirmed.",
+          "price": {
+            "amount": 6.0,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "publishedTimeWindow": "08:00–16:30",
+          "printedExtras": {
+            "options": [
+              "Podi",
+              "Ghee",
+              "Butter",
+              "Masala",
+              "Onion"
+            ],
+            "amount": 1,
+            "currency": "unknown",
+            "notice": "One printed extra amount against this list; selection limits and per-choice calculation unverified."
+          }
+        },
+        {
+          "id": "annalakshmi-cafe-foods-1a94518da90dec87da45",
+          "name": "Onion Dosa",
+          "category": "Dosa",
+          "sourceIds": [
+            "anna-cafe-image-7"
+          ],
+          "qualifier": "Currently linked merchant menu image; filename2024 is not an effective date. Dollar sign has no explicit currency code. Prices exclude prevailing GST; current stock, daily variants and ingredient suitability unconfirmed.",
+          "price": {
+            "amount": 6.0,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "publishedTimeWindow": "08:00–16:30",
+          "printedExtras": {
+            "options": [
+              "Podi",
+              "Ghee",
+              "Butter",
+              "Masala",
+              "Onion"
+            ],
+            "amount": 1,
+            "currency": "unknown",
+            "notice": "One printed extra amount against this list; selection limits and per-choice calculation unverified."
+          }
+        },
+        {
+          "id": "annalakshmi-cafe-foods-c40bc41731cab143bfc2",
+          "name": "Podi Dosa",
+          "category": "Dosa",
+          "sourceIds": [
+            "anna-cafe-image-7"
+          ],
+          "qualifier": "Currently linked merchant menu image; filename2024 is not an effective date. Dollar sign has no explicit currency code. Prices exclude prevailing GST; current stock, daily variants and ingredient suitability unconfirmed.",
+          "price": {
+            "amount": 6.0,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "publishedTimeWindow": "08:00–16:30",
+          "printedExtras": {
+            "options": [
+              "Podi",
+              "Ghee",
+              "Butter",
+              "Masala",
+              "Onion"
+            ],
+            "amount": 1,
+            "currency": "unknown",
+            "notice": "One printed extra amount against this list; selection limits and per-choice calculation unverified."
+          }
+        },
+        {
+          "id": "annalakshmi-cafe-foods-16544e1878ce0b8460f3",
+          "name": "Podi Masala Dosa",
+          "category": "Dosa",
+          "sourceIds": [
+            "anna-cafe-image-7"
+          ],
+          "qualifier": "Currently linked merchant menu image; filename2024 is not an effective date. Dollar sign has no explicit currency code. Prices exclude prevailing GST; current stock, daily variants and ingredient suitability unconfirmed.",
+          "price": {
+            "amount": 7.0,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "publishedTimeWindow": "08:00–16:30",
+          "printedExtras": {
+            "options": [
+              "Podi",
+              "Ghee",
+              "Butter",
+              "Masala",
+              "Onion"
+            ],
+            "amount": 1,
+            "currency": "unknown",
+            "notice": "One printed extra amount against this list; selection limits and per-choice calculation unverified."
+          }
+        },
+        {
+          "id": "annalakshmi-cafe-foods-883443ba559926994679",
+          "name": "Mysore Masala Dosa",
+          "category": "Dosa",
+          "sourceIds": [
+            "anna-cafe-image-7"
+          ],
+          "qualifier": "Currently linked merchant menu image; filename2024 is not an effective date. Dollar sign has no explicit currency code. Prices exclude prevailing GST; current stock, daily variants and ingredient suitability unconfirmed.",
+          "price": {
+            "amount": 7.0,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "publishedTimeWindow": "08:00–16:30",
+          "printedExtras": {
+            "options": [
+              "Podi",
+              "Ghee",
+              "Butter",
+              "Masala",
+              "Onion"
+            ],
+            "amount": 1,
+            "currency": "unknown",
+            "notice": "One printed extra amount against this list; selection limits and per-choice calculation unverified."
+          }
+        },
+        {
+          "id": "annalakshmi-cafe-foods-85deb198779b482d5b17",
+          "name": "Millet Dosa",
+          "category": "Dosa",
+          "sourceIds": [
+            "anna-cafe-image-7",
+            "anna-cafe-image-6"
+          ],
+          "qualifier": "Currently linked merchant menu image; filename2024 is not an effective date. Dollar sign has no explicit currency code. Prices exclude prevailing GST; current stock, daily variants and ingredient suitability unconfirmed.",
+          "price": {
+            "amount": 7.0,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "publishedTimeWindow": "08:00–16:30",
+          "printedExtras": {
+            "options": [
+              "Podi",
+              "Ghee",
+              "Butter",
+              "Masala",
+              "Onion"
+            ],
+            "amount": 1,
+            "currency": "unknown",
+            "notice": "One printed extra amount against this list; selection limits and per-choice calculation unverified."
+          }
+        },
+        {
+          "id": "annalakshmi-cafe-foods-3f303b87543b9fe15b9d",
+          "name": "Paneer Masala Dosa",
+          "category": "Dosa",
+          "sourceIds": [
+            "anna-cafe-image-7"
+          ],
+          "qualifier": "Currently linked merchant menu image; filename2024 is not an effective date. Dollar sign has no explicit currency code. Prices exclude prevailing GST; current stock, daily variants and ingredient suitability unconfirmed.",
+          "price": {
+            "amount": 8.0,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "publishedTimeWindow": "08:00–16:30",
+          "printedExtras": {
+            "options": [
+              "Podi",
+              "Ghee",
+              "Butter",
+              "Masala",
+              "Onion"
+            ],
+            "amount": 1,
+            "currency": "unknown",
+            "notice": "One printed extra amount against this list; selection limits and per-choice calculation unverified."
+          }
+        },
+        {
+          "id": "annalakshmi-cafe-foods-ae3e2dd03df6983bc69f",
+          "name": "Mushroom Masala Dosa",
+          "category": "Dosa",
+          "sourceIds": [
+            "anna-cafe-image-7"
+          ],
+          "qualifier": "Currently linked merchant menu image; filename2024 is not an effective date. Dollar sign has no explicit currency code. Prices exclude prevailing GST; current stock, daily variants and ingredient suitability unconfirmed.",
+          "price": {
+            "amount": 8.0,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "publishedTimeWindow": "08:00–16:30",
+          "printedExtras": {
+            "options": [
+              "Podi",
+              "Ghee",
+              "Butter",
+              "Masala",
+              "Onion"
+            ],
+            "amount": 1,
+            "currency": "unknown",
+            "notice": "One printed extra amount against this list; selection limits and per-choice calculation unverified."
+          }
+        },
+        {
+          "id": "annalakshmi-cafe-foods-2ae4d03ed8241d191ef7",
+          "name": "Plain Oothappam",
+          "category": "Oothappam",
+          "sourceIds": [
+            "anna-cafe-image-7"
+          ],
+          "qualifier": "Currently linked merchant menu image; filename2024 is not an effective date. Dollar sign has no explicit currency code. Prices exclude prevailing GST; current stock, daily variants and ingredient suitability unconfirmed.",
+          "price": {
+            "amount": 6.0,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "publishedTimeWindow": "08:00–16:30",
+          "printedExtras": {
+            "options": [
+              "Podi",
+              "Ghee",
+              "Butter"
+            ],
+            "amount": 1,
+            "currency": "unknown",
+            "notice": "One printed extra amount against this list; selection limits and per-choice calculation unverified."
+          }
+        },
+        {
+          "id": "annalakshmi-cafe-foods-d2cb98c6664c68d6aa36",
+          "name": "Onion Oothappam",
+          "category": "Oothappam",
+          "sourceIds": [
+            "anna-cafe-image-7"
+          ],
+          "qualifier": "Currently linked merchant menu image; filename2024 is not an effective date. Dollar sign has no explicit currency code. Prices exclude prevailing GST; current stock, daily variants and ingredient suitability unconfirmed.",
+          "price": {
+            "amount": 7.0,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "publishedTimeWindow": "08:00–16:30",
+          "printedExtras": {
+            "options": [
+              "Podi",
+              "Ghee",
+              "Butter"
+            ],
+            "amount": 1,
+            "currency": "unknown",
+            "notice": "One printed extra amount against this list; selection limits and per-choice calculation unverified."
+          }
+        },
+        {
+          "id": "annalakshmi-cafe-foods-82ce74ec5a3436c17ea8",
+          "name": "Podi Oothappam",
+          "category": "Oothappam",
+          "sourceIds": [
+            "anna-cafe-image-7"
+          ],
+          "qualifier": "Currently linked merchant menu image; filename2024 is not an effective date. Dollar sign has no explicit currency code. Prices exclude prevailing GST; current stock, daily variants and ingredient suitability unconfirmed.",
+          "price": {
+            "amount": 7.0,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "publishedTimeWindow": "08:00–16:30",
+          "printedExtras": {
+            "options": [
+              "Podi",
+              "Ghee",
+              "Butter"
+            ],
+            "amount": 1,
+            "currency": "unknown",
+            "notice": "One printed extra amount against this list; selection limits and per-choice calculation unverified."
+          }
+        },
+        {
+          "id": "annalakshmi-cafe-foods-d1dd5913b8866f3fe9f3",
+          "name": "Vegetable Oothappam",
+          "category": "Oothappam",
+          "sourceIds": [
+            "anna-cafe-image-7"
+          ],
+          "qualifier": "Currently linked merchant menu image; filename2024 is not an effective date. Dollar sign has no explicit currency code. Prices exclude prevailing GST; current stock, daily variants and ingredient suitability unconfirmed.",
+          "price": {
+            "amount": 7.0,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "publishedTimeWindow": "08:00–16:30",
+          "printedExtras": {
+            "options": [
+              "Podi",
+              "Ghee",
+              "Butter"
+            ],
+            "amount": 1,
+            "currency": "unknown",
+            "notice": "One printed extra amount against this list; selection limits and per-choice calculation unverified."
+          }
+        },
+        {
+          "id": "annalakshmi-cafe-foods-c9e5269ac226eb7426d6",
+          "name": "Masala Oothappam",
+          "category": "Oothappam",
+          "sourceIds": [
+            "anna-cafe-image-7"
+          ],
+          "qualifier": "Currently linked merchant menu image; filename2024 is not an effective date. Dollar sign has no explicit currency code. Prices exclude prevailing GST; current stock, daily variants and ingredient suitability unconfirmed.",
+          "price": {
+            "amount": 7.0,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "publishedTimeWindow": "08:00–16:30",
+          "printedExtras": {
+            "options": [
+              "Podi",
+              "Ghee",
+              "Butter"
+            ],
+            "amount": 1,
+            "currency": "unknown",
+            "notice": "One printed extra amount against this list; selection limits and per-choice calculation unverified."
+          }
+        },
+        {
+          "id": "annalakshmi-cafe-foods-ef2de2695078ebe6f206",
+          "name": "Millet Oothappam",
+          "category": "Oothappam",
+          "sourceIds": [
+            "anna-cafe-image-7"
+          ],
+          "qualifier": "Currently linked merchant menu image; filename2024 is not an effective date. Dollar sign has no explicit currency code. Prices exclude prevailing GST; current stock, daily variants and ingredient suitability unconfirmed.",
+          "price": {
+            "amount": 7.5,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "publishedTimeWindow": "08:00–16:30",
+          "printedExtras": {
+            "options": [
+              "Podi",
+              "Ghee",
+              "Butter"
+            ],
+            "amount": 1,
+            "currency": "unknown",
+            "notice": "One printed extra amount against this list; selection limits and per-choice calculation unverified."
+          }
+        },
+        {
+          "id": "annalakshmi-cafe-foods-0a6270eda490b1dfccd1",
+          "name": "Cauliflower & Yogurt-Chilli Oothappam",
+          "category": "Oothappam",
+          "sourceIds": [
+            "anna-cafe-image-7"
+          ],
+          "qualifier": "Currently linked merchant menu image; filename2024 is not an effective date. Dollar sign has no explicit currency code. Prices exclude prevailing GST; current stock, daily variants and ingredient suitability unconfirmed.",
+          "price": {
+            "amount": 8.0,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "publishedTimeWindow": "08:00–16:30",
+          "printedExtras": {
+            "options": [
+              "Podi",
+              "Ghee",
+              "Butter"
+            ],
+            "amount": 1,
+            "currency": "unknown",
+            "notice": "One printed extra amount against this list; selection limits and per-choice calculation unverified."
+          }
+        },
+        {
+          "id": "annalakshmi-cafe-foods-93bad992d973d7d7b072",
+          "name": "Rava Dosa",
+          "category": "Daily specials",
+          "sourceIds": [
+            "anna-cafe-image-6"
+          ],
+          "qualifier": "Currently linked merchant menu image; filename2024 is not an effective date. Dollar sign has no explicit currency code. Prices exclude prevailing GST; current stock, daily variants and ingredient suitability unconfirmed. Special poster says Saturday/Sunday; current cafe page says Sunday closed. Schedule conflict and unprinted price unresolved.",
+          "publicationStatus": "hold-schedule-conflict",
+          "publishedWeekdays": [
+            "Saturday",
+            "Sunday"
+          ]
+        }
+      ],
+      "notice": "All31 distinct named foods in four currently linked images. Fourteen daily drinks and repeated specials names excluded/collapsed. Rava Dosa price absent and Sunday schedule conflicts with current cafe closure. Daily rotating components unnamed; no food variants invented."
+    },
+    {
+      "id": "annalakshmi-buffet-food-gap",
+      "name": "Annalakshmi Restaurant — unnamed changing buffet",
+      "scope": "branch",
+      "branchIds": [
+        "annalakshmi-restaurant-downtown"
+      ],
+      "sourceIds": [
+        "annalakshmi-restaurant",
+        "annalakshmi-catering"
+      ],
+      "coverage": "unavailable",
+      "items": [],
+      "notice": "No named daily buffet menu published in the inspected sources. Catering page has an enquiry/photo without named dishes; no outreach sent. No cafe-menu substitution or invented buffet choices."
+    }
+  ]
+}

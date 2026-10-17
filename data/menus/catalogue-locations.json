@@ -1,0 +1,2597 @@
+{
+  "version": 1,
+  "source": "Singapore Land Authority OneMap public address search; explicitly attributed official heritage/campus and operator-published premise coordinates",
+  "boundary": "Approximate building or operator-published postal/store points, not entrance or public walk-in permission. Each entry preserves its actual source, match status and qualification. Unresolved points remain null; no runtime geocoding or Google call.",
+  "entries": [
+    {
+      "id": "whole-earth-peck-seah",
+      "address": "76 Peck Seah Street, Singapore 079331",
+      "postalCode": "079331",
+      "point": {
+        "latitude": 1.277245899058258,
+        "longitude": 103.8446638311336
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=079331&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:32:35.919029+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "76 PECK SEAH STREET HERITAGE COURT SINGAPORE 079331",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "dlife-signature-chinatown-point",
+      "address": "133 New Bridge Road #02-37, Chinatown Point, Singapore 059413",
+      "postalCode": "059413",
+      "point": {
+        "latitude": 1.284998828474023,
+        "longitude": 103.8446970811421
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=059413&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:32:32.087783+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "133 NEW BRIDGE ROAD CHINATOWN POINT SINGAPORE 059413",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "teng-bespoke-sunshine-plaza",
+      "address": "91 Bencoolen Street #01-50, Sunshine Plaza, Singapore 189652",
+      "postalCode": "189652",
+      "point": {
+        "latitude": 1.300347620815493,
+        "longitude": 103.851046168708
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=189652&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:32:55.010277+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "91 BENCOOLEN STREET SUNSHINE PLAZA SINGAPORE 189652",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "elemen-woodlands-height",
+      "address": "1 Woodlands Height #01-02, Koufu Headquarters, Singapore 737859",
+      "postalCode": "737859",
+      "point": {
+        "latitude": 1.428389367661593,
+        "longitude": 103.7991881101488
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=737859&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:40:24.586129+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "1 WOODLANDS HEIGHT KOUFU GROUP HQ SINGAPORE 737859",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "daily-green-woodlands-street-31",
+      "address": "306 Woodlands Street 31, Singapore 730306",
+      "postalCode": "730306",
+      "point": {
+        "latitude": 1.429929919935549,
+        "longitude": 103.7746365546506
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=730306&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:34:00.787715+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "306 WOODLANDS STREET 31 FUCHUN NEIGHBOURHOOD CENTRE SINGAPORE 730306",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "nomvnom-clarke-quay-central",
+      "address": "6 Eu Tong Sen Street #03-105/106/107, Clarke Quay Central, Singapore 059817",
+      "postalCode": "059817",
+      "point": {
+        "latitude": 1.288838562482049,
+        "longitude": 103.8465580247433
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=059817&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:32:33.371986+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "6 EU TONG SEN STREET THE CENTRAL SINGAPORE 059817",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "lian-xin-buddha-tooth-relic-temple",
+      "address": "Basement, Buddha Tooth Relic Temple, 288 South Bridge Road, Singapore 058840",
+      "postalCode": "058840",
+      "point": {
+        "latitude": 1.281494384802774,
+        "longitude": 103.8442416530423
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=058840&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:37:41.115061+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "288 SOUTH BRIDGE ROAD BUDDHA TOOTH RELIC TEMPLE & MUSEUM SINGAPORE 058840",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "living-wholesome-fortune-centre",
+      "address": "190 Middle Road #01-23, Fortune Centre, Singapore 188979",
+      "postalCode": "188979",
+      "point": {
+        "latitude": 1.300422419139759,
+        "longitude": 103.8522866273858
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=188979&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:38:14.062805+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "190 MIDDLE ROAD FORTUNE CENTRE SINGAPORE 188979",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "bodhi-deli-fortune-centre",
+      "address": "190 Middle Road #03-26, Fortune Centre, Singapore 188979",
+      "postalCode": "188979",
+      "point": {
+        "latitude": 1.300422419139759,
+        "longitude": 103.8522866273858
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=188979&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:38:14.062805+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "190 MIDDLE ROAD FORTUNE CENTRE SINGAPORE 188979",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "zhen-xiang-woodlands-street-32",
+      "address": "325 Woodlands Street 32 #01-131, Singapore 730325",
+      "postalCode": "730325",
+      "point": {
+        "latitude": 1.430788911556059,
+        "longitude": 103.7795177221421
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=730325&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:40:20.457842+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "325 WOODLANDS STREET 32 SINGAPORE 730325",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "shu-woodlands-avenue-1",
+      "address": "354A Woodlands Avenue 1 #01-01, Singapore 731354",
+      "postalCode": "731354",
+      "point": {
+        "latitude": 1.432849237292556,
+        "longitude": 103.7850651783021
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=731354&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:40:22.535153+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "354A WOODLANDS AVENUE 1 MULTI STOREY CAR PARK SINGAPORE 731354",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-greendot-star-vista",
+      "address": "1 Vista Exchange Green, #02-04, The Star Vista 138617, Singapore",
+      "postalCode": "138617",
+      "point": {
+        "latitude": 1.306871930089799,
+        "longitude": 103.7884743980428
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=138617&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:38:02.050026+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "1 VISTA EXCHANGE GREEN THE STAR SINGAPORE 138617",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-greendot-seletar-mall",
+      "address": "33 Sengkang West Avenue #B1-01 The Seletar Mall, 797653, Singapore",
+      "postalCode": "797653",
+      "point": {
+        "latitude": 1.391470153746278,
+        "longitude": 103.876125507257
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=797653&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:34:07.976711+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "33 SENGKANG WEST AVENUE THE SELETAR MALL SINGAPORE 797653",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-greendot-asia-square",
+      "address": "8 Marina View, Tower 1, #02-02, 018960, Singapore",
+      "postalCode": "018960",
+      "point": {
+        "latitude": 1.27894148629275,
+        "longitude": 103.8512560399742
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=018960&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:32:28.252199+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "8 MARINA VIEW ASIA SQUARE TOWER 1 SINGAPORE 018960",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-greendot-bedok-mall",
+      "address": "311 New Upper Changi Road B2-31, Bedok Mall, 467360, Singapore",
+      "postalCode": "467360",
+      "point": {
+        "latitude": 1.324736327847299,
+        "longitude": 103.929256259998
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=467360&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:39:23.445600+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "311 NEW UPPER CHANGI ROAD BEDOK MALL SINGAPORE 467360",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-greendot-bukit-panjang-plaza",
+      "address": "1 Jelebu Rd, Bukit Panjang Plaza, 677743, Singapore",
+      "postalCode": "677743",
+      "point": {
+        "latitude": 1.379920451762434,
+        "longitude": 103.764357180314
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=677743&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:33:59.005059+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "1 JELEBU ROAD BUKIT PANJANG PLAZA SINGAPORE 677743",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-greendot-j8",
+      "address": "9 Bishan Pl, #B1-24 24A, 579837, Singapore",
+      "postalCode": "579837",
+      "point": {
+        "latitude": 1.350481253450499,
+        "longitude": 103.848760473211
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=579837&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:33:49.729067+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "9 BISHAN PLACE JUNCTION 8 SINGAPORE 579837",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-greendot-jurong-point",
+      "address": "1 Jurong West Central 2 Jurong Point JP 1 #01-43/44/45, 648886, Singapore",
+      "postalCode": "648886",
+      "point": {
+        "latitude": 1.339452716614461,
+        "longitude": 103.7066850128896
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=648886&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:33:55.245002+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "1 JURONG WEST CENTRAL 2 JURONG POINT SINGAPORE 648886",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-greendot-northpoint",
+      "address": "930 Yishun Ave 2, Northpoint City  North Wing, #B2-09/11, 769098, Singapore",
+      "postalCode": "769098",
+      "point": {
+        "latitude": 1.429698486262892,
+        "longitude": 103.8357764914675
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=769098&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:34:06.124254+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "930 YISHUN AVENUE 2 NORTHPOINT CITY SINGAPORE 769098",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-greendot-paya-lebar-square",
+      "address": "60 Paya Lebar Road Paya Lebar Square #02-15/16/17, 409051, Singapore",
+      "postalCode": "409051",
+      "point": {
+        "latitude": 1.318814870076511,
+        "longitude": 103.8925807785135
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=409051&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:33:25.033249+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "60 PAYA LEBAR ROAD PAYA LEBAR SQUARE SINGAPORE 409051",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-greendot-one-raffles-place",
+      "address": "1 Raffles Place, #03-23/24, 048616, Singapore",
+      "postalCode": "048616",
+      "point": {
+        "latitude": 1.284349546223077,
+        "longitude": 103.8510725458335
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=048616&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:37:36.933528+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "1 RAFFLES PLACE ONE RAFFLES PLACE SINGAPORE 048616",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-greendot-tampines-1",
+      "address": "10 Tampines Central 1, Tampines 1, #B1-K8, 529536, Singapore",
+      "postalCode": "529536",
+      "point": {
+        "latitude": 1.35425637962116,
+        "longitude": 103.9450717480269
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=529536&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:39:36.283597+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "10 TAMPINES CENTRAL 1 TAMPINES ONE SINGAPORE 529536",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-greendot-westgate",
+      "address": "3 Gateway Dr, #01-06 Westgate, 608532, Singapore",
+      "postalCode": "608532",
+      "point": {
+        "latitude": 1.334157675568678,
+        "longitude": 103.7427664844237
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=608532&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:33:49.751015+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "3 GATEWAY DRIVE WESTGATE SINGAPORE 608532",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-greendot-jewel-changi-airport",
+      "address": "78 Aiport Blvd, #B1-297 Jewel Changi Airport, 819666, Singapore",
+      "postalCode": "819666",
+      "point": {
+        "latitude": 1.360341006610217,
+        "longitude": 103.9890775502096
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=819666&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:34:09.872986+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "78 AIRPORT BOULEVARD JEWEL CHANGI AIRPORT SINGAPORE 819666",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-shu-jalan-kayu",
+      "address": "259 Jalan Kayu, Singapore 799488",
+      "postalCode": "799488",
+      "point": {
+        "latitude": 1.396843405568592,
+        "longitude": 103.872887978423
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=799488&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:40:34.882277+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "259 JALAN KAYU JALAN KAYU ESTATE SINGAPORE 799488",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-shu-amk",
+      "address": "554 Ang Mo Kio Ave 10, #01-2040",
+      "postalCode": "560554",
+      "point": {
+        "latitude": 1.372820008443298,
+        "longitude": 103.8577840263613
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=560554&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:33:47.956107+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "554 ANG MO KIO AVENUE 10 CHENG SAN PLACE SINGAPORE 560554",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-shu-jurong",
+      "address": "498 Jurong West Street 41 #01-462, Singapore 640498",
+      "postalCode": "640498",
+      "point": {
+        "latitude": 1.34833335760515,
+        "longitude": 103.7243073192367
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=640498&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:40:09.726961+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "498 JURONG WEST STREET 41 SINGAPORE 640498",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-shu-clementi",
+      "address": "722 Clementi West Street 2 #01-150 (Wan Fu Eating House), Singapore 120722",
+      "postalCode": "120722",
+      "point": {
+        "latitude": 1.302979598819522,
+        "longitude": 103.7637140302802
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=120722&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:32:39.553705+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "722 CLEMENTI WEST STREET 2 SINGAPORE 120722",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-shu-yishun",
+      "address": "239 Yishun Ring Road #01-1150, Singapore 760239",
+      "postalCode": "760239",
+      "point": {
+        "latitude": 1.433595146492022,
+        "longitude": 103.8396853736014
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=760239&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:40:26.697979+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "239 YISHUN RING ROAD SINGAPORE 760239",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-shu-loyang",
+      "address": "259 Pasir Ris Street 21 #02-30, Loyang Point, Singapore 510259",
+      "postalCode": "510259",
+      "point": {
+        "latitude": 1.366453640103488,
+        "longitude": 103.9645984995228
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=510259&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:39:28.613480+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "259 PASIR RIS STREET 21 LOYANG POINT SINGAPORE 510259",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-shu-margaret",
+      "address": "40 Margaret Drive #01-05, Singapore 140040",
+      "postalCode": "140040",
+      "point": {
+        "latitude": 1.296458425786462,
+        "longitude": 103.8062075699212
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=140040&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:32:47.472250+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "40 MARGARET DRIVE SKYOASIS @ DAWSON SINGAPORE 140040",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-shu-hq",
+      "address": "27 Woodlands Link #01-01, Chang Cheng HQ (Chang Cheng Mee Wah Coffeeshop), Singapore 738732",
+      "postalCode": "738732",
+      "point": {
+        "latitude": 1.45240763472007,
+        "longitude": 103.8108613510444
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=738732&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:34:02.574711+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "27 WOODLANDS LINK SINGAPORE 738732",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-dlife-orchard-gateway",
+      "address": "277 Orchard Road #B2-04A/05 Singapore,, 238858, Singapore",
+      "postalCode": "238858",
+      "point": {
+        "latitude": 1.300489121147586,
+        "longitude": 103.8393250983517
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=238858&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:38:37.788766+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "277 ORCHARD ROAD JEN SINGAPORE ORCHARDGATEWAY BY SHANGRI-LA SINGAPORE 238858",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-dlife-jurong-west",
+      "address": "428 Jurong West Ave 1 #01-256, 640428, Singapore",
+      "postalCode": "640428",
+      "point": {
+        "latitude": 1.351599134942741,
+        "longitude": 103.7252876262904
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=640428&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:40:07.318234+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "428 JURONG WEST AVENUE 1 SINGAPORE 640428",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-dlife-tengah",
+      "address": "126B TENGAH DRIVE #01-319, PLANTATION VILLAGE S(692126)",
+      "postalCode": "692126",
+      "point": {
+        "latitude": 1.358958781554223,
+        "longitude": 103.7356449389471
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=692126&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:40:18.403737+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "126B TENGAH DRIVE PLANTATION VILLAGE SINGAPORE 692126",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-moonchay-fortune",
+      "address": "190 Middle Road #02-27/28 Fortune Centre, Singapore 188979",
+      "postalCode": "188979",
+      "point": {
+        "latitude": 1.300422419139759,
+        "longitude": 103.8522866273858
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=188979&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:38:14.062805+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "190 MIDDLE ROAD FORTUNE CENTRE SINGAPORE 188979",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-sproutz-downtown",
+      "address": "15 Central Boulevard #B1-05 Downtown MRT Station, Singapore 018969",
+      "postalCode": "018969",
+      "point": {
+        "latitude": 1.279446381789169,
+        "longitude": 103.8528408295805
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=018969&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:37:30.173019+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "15 CENTRAL BOULEVARD DOWNTOWN MRT STATION (DT17) SINGAPORE 018969",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-botanict-clementi",
+      "address": "Blk 352 Clementi Avenue 2 #01-123, Singapore 120352",
+      "postalCode": "120352",
+      "point": {
+        "latitude": 1.314278602273389,
+        "longitude": 103.7713505578938
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=120352&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:37:55.797540+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "352 CLEMENTI AVENUE 2 CLEMENTI AVENUE 2 SHOPPING CENTRE SINGAPORE 120352",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-fo-you-yuan-jalan-besar",
+      "address": "369 Jalan Besar, Singapore 208997",
+      "postalCode": "208997",
+      "point": {
+        "latitude": 1.312818772470473,
+        "longitude": 103.8595939537142
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=208997&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:38:25.584575+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "369 JALAN BESAR PETAIN ROAD/TYRWHITT ROAD CONSERVATION AREA SINGAPORE 208997",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-kang-su-far-east-plaza",
+      "address": "14 Scotts Road #05-98 Far East Plaza, Singapore 228213",
+      "postalCode": "228213",
+      "point": {
+        "latitude": 1.307176980711882,
+        "longitude": 103.833792932243
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=228213&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:33:04.357067+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "14 SCOTTS ROAD FAR EAST PLAZA SINGAPORE 228213",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-linlin-bedok-north",
+      "address": "412 Bedok North Avenue 2, inside SinFoodie Coffeeshop, Singapore 460412",
+      "postalCode": "460412",
+      "point": {
+        "latitude": 1.329291260828027,
+        "longitude": 103.9310906892838
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=460412&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:33:28.990540+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "412 BEDOK NORTH AVENUE 2 SINGAPORE 460412",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-joyi-bedok-north",
+      "address": "136 Bedok North Avenue 3 #01-148, Singapore 460136",
+      "postalCode": "460136",
+      "point": {
+        "latitude": 1.328154988282047,
+        "longitude": 103.9352208232702
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=460136&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:39:18.194743+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "136 BEDOK NORTH AVENUE 3 SINGAPORE 460136",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-kisu-tras-street",
+      "address": "60 Tras Street #01-01, Singapore 078999",
+      "postalCode": "078999",
+      "point": {
+        "latitude": 1.277872955851993,
+        "longitude": 103.8441337223062
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=078999&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:37:51.578112+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "60 TRAS STREET TANJONG PAGAR CONSERVATION AREA SINGAPORE 078999",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-elemen-plq-mall",
+      "address": "10 Paya Lebar Road #03-13, PLQ Mall, Singapore 409057",
+      "postalCode": "409057",
+      "point": {
+        "latitude": 1.317561159209999,
+        "longitude": 103.8928366944319
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=409057&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:33:25.071649+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "10 PAYA LEBAR ROAD PLQ MALL SINGAPORE 409057",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-elemen-millenia-walk",
+      "address": "9 Raffles Boulevard #01-75/75A/76, Millenia Walk, Singapore 039596",
+      "postalCode": "039596",
+      "point": {
+        "latitude": 1.292605444624933,
+        "longitude": 103.8597249444427
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=039596&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:37:32.471275+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "9 RAFFLES BOULEVARD MILLENIA WALK SINGAPORE 039596",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-lingzhi-palais",
+      "address": "390 Orchard Road, #B1-04/05, Palais Renaissance, Singapore 238871",
+      "postalCode": "238871",
+      "point": {
+        "latitude": 1.306654845431923,
+        "longitude": 103.8295880451874
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=238871&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:33:08.029548+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "390 ORCHARD ROAD PALAIS RENAISSANCE SINGAPORE 238871",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-yesnatural-geylang",
+      "address": "57 Lorong 27 Geylang, Singapore 388184",
+      "postalCode": "388184",
+      "point": {
+        "latitude": 1.315844602052555,
+        "longitude": 103.8836724825026
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=388184&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:39:10.486262+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "57 LORONG 27 GEYLANG SINGAPORE 388184",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-lnbv-vegan-branch",
+      "address": "11 Sam Leong Road, Trio Mall, #04-03, Singapore 207903",
+      "postalCode": "207903",
+      "point": {
+        "latitude": 1.309077789025303,
+        "longitude": 103.8569324433488
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=207903&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:38:21.029837+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "11 SAM LEONG ROAD TRIO SINGAPORE 207903",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-metta-simei",
+      "address": "32 Simei Street 1, Level 1 Metta Building, Singapore 529950",
+      "postalCode": "529950",
+      "point": {
+        "latitude": 1.346809099402509,
+        "longitude": 103.9571742168478
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=529950&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:33:36.661206+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "32 SIMEI STREET 1 METTA BUILDING SINGAPORE 529950",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-mother-earth-classic-balestier",
+      "address": "530 Balestier Road #01-06, 329857, Singapore",
+      "postalCode": "329857",
+      "point": {
+        "latitude": 1.327168744742541,
+        "longitude": 103.8455185605975
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=329857&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:33:15.791429+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "530 BALESTIER ROAD MONVILLE MANSIONS SINGAPORE 329857",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-mother-earth-jurong",
+      "address": "511 Upper Jurong Road #01-04, 638366, Singapore",
+      "postalCode": "638366",
+      "point": {
+        "latitude": 1.329425336245771,
+        "longitude": 103.6828415606492
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=638366&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:40:04.962973+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "511 UPPER JURONG ROAD ARENA COUNTRY CLUB SINGAPORE 638366",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-nvd-bukit-batok",
+      "address": "296A Bukit Batok Street 22, #01-62, Skyline II @ Bukit Batok, Singapore 651296",
+      "postalCode": "651296",
+      "point": {
+        "latitude": 1.344093582183544,
+        "longitude": 103.7464091763762
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=651296&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:40:14.230354+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "296A BUKIT BATOK STREET 22 SKYLINE II @ BUKIT BATOK SINGAPORE 651296",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-nvd-rivervale",
+      "address": "171 Sengkang East Drive, #01-12 Rivervale Shores, Singapore 540171",
+      "postalCode": "540171",
+      "point": {
+        "latitude": 1.386431381996341,
+        "longitude": 103.9098234246792
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=540171&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:39:48.391036+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "171 SENGKANG EAST DRIVE RIVERVALE SHORES SINGAPORE 540171",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-nature-cafe-alexandra",
+      "address": "321 Alexandra Road #02-27, Singapore 159971",
+      "postalCode": "159971",
+      "point": {
+        "latitude": 1.287283209305932,
+        "longitude": 103.805283367958
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=159971&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:38:06.861566+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "321 ALEXANDRA ROAD ALEXANDRA CENTRAL SINGAPORE 159971",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-nature-cafe-smu",
+      "address": "SMU Li Ka Shing Library, 70 Stamford Road #01-22, Singapore 178901",
+      "postalCode": "178901",
+      "point": {
+        "latitude": 1.296656758186516,
+        "longitude": 103.850105946307
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=178901&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:38:09.389967+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "70 STAMFORD ROAD SINGAPORE MANAGEMENT UNIVERSITY (LI KA SHING LIBRARY) SINGAPORE 178901",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-leafcorner-jurong",
+      "address": "60 Jurong West Street 91 #01-09, Nanyang Community Club, Singapore 649040",
+      "postalCode": "649040",
+      "point": {
+        "latitude": 1.342428289441089,
+        "longitude": 103.6924351631345
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=649040&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:33:55.346062+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "60 JURONG WEST STREET 91 NANYANG COMMUNITY CLUB SINGAPORE 649040",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-leafcorner-taiseng",
+      "address": "11 Irving Place #02-01, Singapore 369551",
+      "postalCode": "369551",
+      "point": {
+        "latitude": 1.336379450970477,
+        "longitude": 103.8872161495816
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=369551&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:39:05.329222+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "11 IRVING PLACE TAI SENG POINT SINGAPORE 369551",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-leafcorner-sembawang",
+      "address": "5 Jalan Legundi, Sembawang Garden Arcade, Singapore 759269",
+      "postalCode": "759269",
+      "point": {
+        "latitude": 1.441315008985625,
+        "longitude": 103.8237101238438
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=759269&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:34:02.606856+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "5 JALAN LEGUNDI SEMBAWANG GARDEN ARCADE SINGAPORE 759269",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-nalan-cityhall",
+      "address": "13 Stamford Road #B2-54 Capitol Singapore, Singapore 178905",
+      "postalCode": "178905",
+      "point": {
+        "latitude": 1.293078847631338,
+        "longitude": 103.8512619821488
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=178905&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:32:49.369811+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "13 STAMFORD ROAD CAPITOL PIAZZA SINGAPORE 178905",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-nalan-littleindia",
+      "address": "82 Serangoon Road, Singapore 217987",
+      "postalCode": "217987",
+      "point": {
+        "latitude": 1.306526625584849,
+        "longitude": 103.8520171421025
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=217987&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:38:30.305880+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "82 SERANGOON ROAD LITTLE INDIA CONSERVATION AREA SINGAPORE 217987",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-kailash-belilios-road",
+      "address": "3 Belilios Road #01-03 Hilton Garden Inn, Singapore 219924",
+      "postalCode": "219924",
+      "point": {
+        "latitude": 1.308402727056101,
+        "longitude": 103.851968750878
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=219924&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:38:35.230255+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "3 BELILIOS ROAD HILTON GARDEN INN SINGAPORE SERANGOON SINGAPORE 219924",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-kailash-syed-alwi",
+      "address": "93 Syed Alwi Road, Singapore 207669",
+      "postalCode": "207669",
+      "point": {
+        "latitude": 1.309495849115442,
+        "longitude": 103.8555242584626
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=207669&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:32:56.835711+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "93 SYED ALWI ROAD SINGAPORE 207669",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-kailash-changi",
+      "address": "1 Changi Business Park Crescent #01-10/12/13 Plaza8, Singapore 486025",
+      "postalCode": "486025",
+      "point": {
+        "latitude": 1.333351273002041,
+        "longitude": 103.9656689190855
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=486025&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:39:26.154048+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "1 CHANGI BUSINESS PARK CRESCENT PLAZA 8 @ CBP SINGAPORE 486025",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-kailash-sentosa",
+      "address": "42 Imbia Road #01-01, Singapore 099701",
+      "postalCode": "099701",
+      "point": {
+        "latitude": 1.255155625935755,
+        "longitude": 103.8176376741011
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=099701&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:32:37.329709+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "42 IMBIAH ROAD SINGAPORE 099701",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-annalakshmi-cafe-downtown",
+      "address": "6A Shenton Way #03-26 Downtown Gallery, Singapore 068815",
+      "postalCode": "068815",
+      "point": {
+        "latitude": 1.277966724102621,
+        "longitude": 103.849007895764
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=068815&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:32:34.578595+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "6A SHENTON WAY OUE DOWNTOWN SINGAPORE 068815",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-ananda-serangoon-58",
+      "address": "58 Serangoon Road, Little India Conservation Area, Singapore 217964",
+      "postalCode": "217964",
+      "point": {
+        "latitude": 1.305996163547161,
+        "longitude": 103.8517024936769
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=217964&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:38:28.009243+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "58 SERANGOON ROAD LITTLE INDIA CONSERVATION AREA SINGAPORE 217964",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-ananda-syed-alwi",
+      "address": "95 Syed Alwi Road, Singapore 207670",
+      "postalCode": "207670",
+      "point": {
+        "latitude": 1.30946,
+        "longitude": 103.855433
+      },
+      "sourceUrl": "https://www.roots.gov.sg/places/places-landing/Places/landmarks/little-india-heritage-trail-shop-till-you-drop/Ananda-Bhavan",
+      "checkedAt": "2026-10-17T03:42:19.495433+00:00",
+      "status": "official-exact-premise-marker",
+      "matchedAddress": "95 Syed Alwi Road",
+      "qualification": "NHB heritage place publishes this exact95SyedAlwi address and explicit coordinate link. Existing operator postal207670 and earlier OneMap94SyedAlwi mismatch are retained as prior evidence; no across-road inference or postal rewrite.",
+      "sourceSha256": "7c0a40e922db5531adc3d48712fd8ad8ed04c630dae53ee16e20d3221c897615",
+      "sourceEvidence": [
+        {
+          "sourceUrl": "https://www.roots.gov.sg/places/places-landing/Places/landmarks/little-india-heritage-trail-shop-till-you-drop/Ananda-Bhavan",
+          "checkedAt": "2026-10-17T03:42:19.495433+00:00",
+          "sha256": "7c0a40e922db5531adc3d48712fd8ad8ed04c630dae53ee16e20d3221c897615",
+          "coordinateLink": "https://maps.google.com/maps?q=1.30946,103.855433&z=18"
+        }
+      ],
+      "priorHolds": [
+        {
+          "id": "research-ananda-syed-alwi",
+          "address": "95 Syed Alwi Road, Singapore 207670",
+          "postalCode": "207670",
+          "point": null,
+          "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=207670&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+          "checkedAt": "2026-10-16T10:32:56.853754+00:00",
+          "status": "unresolved-address-coordinate-match"
+        }
+      ]
+    },
+    {
+      "id": "research-gokul-upper-dickson",
+      "address": "19 Upper Dickson Road, Singapore 207478",
+      "postalCode": "207478",
+      "point": {
+        "latitude": 1.306514801596349,
+        "longitude": 103.8526055866535
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=207478&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:38:18.718962+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "19 UPPER DICKSON ROAD LITTLE INDIA CONSERVATION AREA SINGAPORE 207478",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-saute-san-city-square",
+      "address": "180 Kitchener Road, #03-23/24 City Square Mall, Singapore 208539",
+      "postalCode": "208539",
+      "point": {
+        "latitude": 1.311421031076843,
+        "longitude": 103.8566240199911
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=208539&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:38:23.278628+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "180 KITCHENER ROAD CITY SQUARE MALL SINGAPORE 208539",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-saute-flavours-funan",
+      "address": "107 North Bridge Road, #B1-30 Funan, Singapore 179105",
+      "postalCode": "179105",
+      "point": {
+        "latitude": 1.291347596977954,
+        "longitude": 103.8499897900843
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=179105&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:32:51.232852+00:00",
+      "status": "reviewed-named-building-match",
+      "reviewedAt": "2026-10-17",
+      "matchedAddress": "107 NORTH BRIDGE ROAD FUNAN SINGAPORE 179105",
+      "qualification": "Approximate named building/complex point, not stall entrance. Operator exact107NorthBridgeRoad#B1-30Funan; choose explicitly namedFUNAN mall overFUNANO1 office row. Exact road/block/postal all agree.",
+      "previousCoordinateHold": {
+        "id": "research-saute-flavours-funan",
+        "address": "107 North Bridge Road, #B1-30 Funan, Singapore 179105",
+        "postalCode": "179105",
+        "point": null,
+        "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=179105&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+        "checkedAt": "2026-10-16T10:32:51.232852+00:00",
+        "status": "unresolved-address-coordinate-match"
+      }
+    },
+    {
+      "id": "research-saute-sushi-paya-lebar-square",
+      "address": "60 Paya Lebar Road, #B1-19 Paya Lebar Square, Singapore 409051",
+      "postalCode": "409051",
+      "point": {
+        "latitude": 1.318814870076511,
+        "longitude": 103.8925807785135
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=409051&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:33:25.033249+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "60 PAYA LEBAR ROAD PAYA LEBAR SQUARE SINGAPORE 409051",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-saute-saranghae-tampines-one",
+      "address": "10 Tampines Central 1, #05-08/09 Tampines 1, Singapore 529536",
+      "postalCode": "529536",
+      "point": {
+        "latitude": 1.35425637962116,
+        "longitude": 103.9450717480269
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=529536&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:39:36.283597+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "10 TAMPINES CENTRAL 1 TAMPINES ONE SINGAPORE 529536",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-sufood-raffles-city",
+      "address": "252 North Bridge Road, #02-19 to 21 Raffles City Shopping Centre, Singapore 179103",
+      "postalCode": "179103",
+      "point": {
+        "latitude": 1.294076444830724,
+        "longitude": 103.8533318270875
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=179103&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:32:51.222380+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "252 NORTH BRIDGE ROAD RAFFLES CITY TOWER SINGAPORE 179103",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-joie-orchard-central",
+      "address": "181 Orchard Road, #12-01 Orchard Central, Singapore 238896",
+      "postalCode": "238896",
+      "point": {
+        "latitude": 1.300838908392453,
+        "longitude": 103.8394347338989
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=238896&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:33:10.015086+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "181 ORCHARD ROAD ORCHARD CENTRAL SINGAPORE 238896",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-genesis-vegan-havelock-ii",
+      "address": "2 Havelock Road, #B1-01 Havelock II, Singapore 059763",
+      "postalCode": "059763",
+      "point": {
+        "latitude": 1.287150616166626,
+        "longitude": 103.8451537368625
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=059763&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:37:43.227109+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "2 HAVELOCK ROAD HAVELOCK2 SINGAPORE 059763",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-supreme-vege-queen-street",
+      "address": "12 Queen Street, Hotel Royal @ Queens #02-03, Singapore 188553",
+      "postalCode": "188553",
+      "point": {
+        "latitude": 1.297550851923486,
+        "longitude": 103.8522336251883
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=188553&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:32:53.090374+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "12 QUEEN STREET HOTEL ROYAL @ QUEENS SINGAPORE 188553",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-veganburg-eunos",
+      "address": "44 Jalan Eunos, Singapore 419502",
+      "postalCode": "419502",
+      "point": {
+        "latitude": 1.320979411872959,
+        "longitude": 103.9055125528665
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=419502&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:39:15.683646+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "44 JALAN EUNOS KEMBANGAN ESTATE SINGAPORE 419502",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-ahimsa-neil-road",
+      "address": "76 Neil Road, Singapore 088840",
+      "postalCode": "088840",
+      "point": {
+        "latitude": 1.279832149946378,
+        "longitude": 103.8423726530418
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=088840&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:37:53.685271+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "76 NEIL ROAD SINGAPORE 088840",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-cultivate-maxwell-reserve",
+      "address": "Maxwell Reserve Singapore, Autograph Collection, 2 Cook Street, Singapore 078857",
+      "postalCode": "078857",
+      "point": {
+        "latitude": 1.279329691541845,
+        "longitude": 103.8444041754414
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=078857&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:37:49.526236+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "2 COOK STREET MAXWELL RESERVE SINGAPORE 078857",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-warungijo-macpherson",
+      "address": "601 MacPherson Road #01-61 Grantral Mall Taiseng, Singapore 368242",
+      "postalCode": "368242",
+      "point": {
+        "latitude": 1.333751875705264,
+        "longitude": 103.8877459478067
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=368242&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:33:19.497682+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "601 MACPHERSON ROAD GRANTRAL COMPLEX SINGAPORE 368242",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-originalgreens-shaw-plaza",
+      "address": "360 Balestier Road #04-07/K2 Shaw Plaza, Singapore 329783",
+      "postalCode": "329783",
+      "point": {
+        "latitude": 1.325253018466617,
+        "longitude": 103.8509958302107
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=329783&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:33:15.786153+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "360 BALESTIER ROAD SINGAPORE 329783",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-merchant-7ab3dafc5f6a7876",
+      "address": "90 Hougang Ave 10 #04-11 Hougang Mall Foodies’ Garden®, Singapore 538766",
+      "postalCode": "538766",
+      "point": {
+        "latitude": 1.372491186358026,
+        "longitude": 103.8937740666245
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=538766&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:33:40.350053+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "90 HOUGANG AVENUE 10 HOUGANG MALL SINGAPORE 538766",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-merchant-287ecefa1f8e3855",
+      "address": "217 Bedok North Street 1 #01-77 Food Loft®, Singapore 460217",
+      "postalCode": "460217",
+      "point": {
+        "latitude": 1.326837217214295,
+        "longitude": 103.933920712718
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=460217&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:39:20.755143+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "217 BEDOK NORTH STREET 1 BEDOK TOWN CENTRE SINGAPORE 460217",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-zzv-jalan-mas-puteh",
+      "address": "9 Jalan Mas Puteh, Singapore 128615",
+      "postalCode": "128615",
+      "point": {
+        "latitude": 1.308454527500451,
+        "longitude": 103.7616750920554
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=128615&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:37:57.907861+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "9 JALAN MAS PUTEH PASIR PANJANG GARDENS SINGAPORE 128615",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-zzv-yishun",
+      "address": "Blk 236 Yishun Ring Road #01-1000, Singapore 760236",
+      "postalCode": "760236",
+      "point": {
+        "latitude": 1.434168079844479,
+        "longitude": 103.8389989439466
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=760236&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:34:04.283567+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "236 YISHUN RING ROAD SINGAPORE 760236",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-zzv-tampines",
+      "address": "801 Tampines Ave 4 #01-281, Tampines Polyview, Singapore 520801",
+      "postalCode": "520801",
+      "point": {
+        "latitude": 1.347192330845281,
+        "longitude": 103.9380140371872
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=520801&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:33:32.815345+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "801 TAMPINES AVENUE 4 TAMPINES POLYVIEW SINGAPORE 520801",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-zzv-bendemeer",
+      "address": "23 Bendemeer Road #01-523, Bendemeer Ville, Singapore 330023",
+      "postalCode": "330023",
+      "point": {
+        "latitude": 1.317710414613058,
+        "longitude": 103.8627860326624
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=330023&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:33:17.588102+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "23 BENDEMEER ROAD BENDEMEER VILLE SINGAPORE 330023",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-divine-realm-hougang-501",
+      "address": "501 Hougang Avenue 8 #01-630, Singapore 530501",
+      "postalCode": "530501",
+      "point": {
+        "latitude": 1.372052696263644,
+        "longitude": 103.8865314038383
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=530501&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:39:41.373992+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "501 HOUGANG AVENUE 8 SINGAPORE 530501",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-divine-family-hougang-356",
+      "address": "Blk 356 #01-803 Hougang Ave 7, Singapore 530356",
+      "postalCode": "530356",
+      "point": {
+        "latitude": 1.372593141738549,
+        "longitude": 103.8988131470284
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=530356&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:33:38.497324+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "356 HOUGANG AVENUE 7 SINGAPORE 530356",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-greenland-upper-serangoon",
+      "address": "789 & 791 Upper Serangoon Road, Singapore 534659",
+      "postalCode": "534659",
+      "point": {
+        "latitude": 1.355614061846492,
+        "longitude": 103.879413882469
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=534659&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:33:40.327462+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "789 UPPER SERANGOON ROAD SINGAPORE 534659",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-times-vege-bukit-batok",
+      "address": "643 Bukit Batok Central #01-44, Singapore 650643",
+      "postalCode": "650643",
+      "point": {
+        "latitude": 1.348982752259045,
+        "longitude": 103.7520210465952
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=650643&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:33:57.144059+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "643 BUKIT BATOK CENTRAL SINGAPORE 650643",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-zhenyi-ang-mo-kio-128",
+      "address": "128 Ang Mo Kio Ave 3 #01-1853, Singapore 560128",
+      "postalCode": "560128",
+      "point": {
+        "latitude": 1.370832028000021,
+        "longitude": 103.8435469906124
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=560128&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:33:44.282152+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "128 ANG MO KIO AVENUE 3 SINGAPORE 560128",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-true-veggie-geylang",
+      "address": "47 Lorong 27 Geylang, Singapore 388179",
+      "postalCode": "388179",
+      "point": {
+        "latitude": 1.315532227492753,
+        "longitude": 103.8836154402345
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=388179&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:39:07.886568+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "47 LORONG 27 GEYLANG SINGAPORE 388179",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-boneless-irving",
+      "address": "1 Irving Place, #01-31, The Commerze @ Irving, Singapore 369546",
+      "postalCode": "369546",
+      "point": {
+        "latitude": 1.336236787086168,
+        "longitude": 103.8864338251096
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=369546&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:39:02.882816+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "1 IRVING PLACE THE COMMERZE@IRVING SINGAPORE 369546",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-daehwa-fusionopolis",
+      "address": "1 Fusionopolis Place, #01-35, Galaxis, Singapore 138522",
+      "postalCode": "138522",
+      "point": {
+        "latitude": 1.299862514009696,
+        "longitude": 103.7881010082984
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=138522&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:37:59.960023+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "1 FUSIONOPOLIS PLACE GALAXIS SINGAPORE 138522",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-greenearth-rail-mall",
+      "address": "386 Upper Bukit Timah Road, The Rail Mall, Singapore 678043",
+      "postalCode": "678043",
+      "point": {
+        "latitude": 1.357853086727761,
+        "longitude": 103.768049412881
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=678043&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:33:59.090666+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "386 UPPER BUKIT TIMAH ROAD THE RAIL MALL SINGAPORE 678043",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-futkai-jalan-besar",
+      "address": "282 Jalan Besar, #01-00, Singapore 208945",
+      "postalCode": "208945",
+      "point": {
+        "latitude": 1.310428928781824,
+        "longitude": 103.8588247928766
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=208945&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:32:58.695952+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "282 JALAN BESAR SINGAPORE 208945",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-lotus-balestier",
+      "address": "201 Balestier Road, Level 2, Holiday Inn Express and Suites Singapore Novena, Singapore 329926",
+      "postalCode": "329926",
+      "point": {
+        "latitude": 1.320051873427087,
+        "longitude": 103.8525197344443
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=329926&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:38:54.907063+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "201 BALESTIER ROAD HOLIDAY INN EXPRESS & SUITES SINGAPORE NOVENA SINGAPORE 329926",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-mtr-serangoon438",
+      "address": "438 & 438/A Serangoon Road, Singapore 218133",
+      "postalCode": "218133",
+      "point": {
+        "latitude": 1.312911530690328,
+        "longitude": 103.8565144224729
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=218133&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:33:02.437677+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "438 SERANGOON ROAD SINGAPORE 218133",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-swaad-desker70",
+      "address": "70 Desker Road, Singapore 209593",
+      "postalCode": "209593",
+      "point": {
+        "latitude": 1.308718096355417,
+        "longitude": 103.8553987426298
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=209593&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:33:00.540802+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "70 DESKER ROAD DESKER ROAD CONSERVATION AREA SINGAPORE 209593",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-lilac-oak-oxley-rise",
+      "address": "71 Oxley Rise #01-01, Singapore 238698",
+      "postalCode": "238698",
+      "point": {
+        "latitude": 1.29741708512545,
+        "longitude": 103.8432011503919
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=238698&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:33:06.202703+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "71 OXLEY RISE THE RISE @ OXLEY SINGAPORE 238698",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-baomaker-ang-mo-kio-447",
+      "address": "447 Ang Mo Kio Avenue 10 #01-1675, Singapore 560447",
+      "postalCode": "560447",
+      "point": {
+        "latitude": 1.36747901420817,
+        "longitude": 103.8559671391242
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=560447&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:39:57.800358+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "447 ANG MO KIO AVENUE 10 CHONG BOON CENTRE SINGAPORE 560447",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-merle-lentor-modern",
+      "address": "1 Lentor Central #01-36, Lentor Modern Mall, Singapore 788887",
+      "postalCode": "788887",
+      "point": {
+        "latitude": 1.385509070504431,
+        "longitude": 103.8345699332693
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=788887&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:40:30.816024+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "1 LENTOR CENTRAL LENTOR MODERN SINGAPORE 788887",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-tofu-g-mandarin-gallery",
+      "address": "333A Orchard Road #02-26, Mandarin Gallery, Singapore 238897",
+      "postalCode": "238897",
+      "point": {
+        "latitude": 1.302064505560854,
+        "longitude": 103.8363409537472
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=238897&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:38:45.006609+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "333A ORCHARD ROAD HILTON SINGAPORE ORCHARD SINGAPORE 238897",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-tofu-g-ngee-ann-city",
+      "address": "391 Orchard Road #B1-29, Ngee Ann City, Singapore 238873",
+      "postalCode": "238873",
+      "point": {
+        "latitude": 1.302424171894113,
+        "longitude": 103.8346761247222
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=238873&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:33:08.042702+00:00",
+      "status": "reviewed-named-building-match",
+      "reviewedAt": "2026-10-17",
+      "matchedAddress": "391A ORCHARD ROAD NGEE ANN CITY SINGAPORE 238873",
+      "qualification": "Approximate named building/complex point, not stall entrance. Operator namesNgeeAnnCity#B1-29andpostal238873. SLA explicitly namesNGEEANN CITY at391AOrchardRoad. Canonical operator391OrchardRoad retained; building suffix discrepancy recorded, approximate complex only.",
+      "previousCoordinateHold": {
+        "id": "research-tofu-g-ngee-ann-city",
+        "address": "391 Orchard Road #B1-29, Ngee Ann City, Singapore 238873",
+        "postalCode": "238873",
+        "point": null,
+        "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=238873&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+        "checkedAt": "2026-10-16T10:33:08.042702+00:00",
+        "status": "unresolved-address-coordinate-match"
+      }
+    },
+    {
+      "id": "research-tofu-g-amoy-street",
+      "address": "97 Amoy Street, Singapore 069916",
+      "postalCode": "069916",
+      "point": {
+        "latitude": 1.281472089605887,
+        "longitude": 103.8471545668725
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=97%20Amoy%20Street&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-17T03:46:23.378751+00:00",
+      "status": "official-house-and-street-match-postal-conflict",
+      "matchedAddress": "97 AMOY STREET TELOK AYER CONSERVATION AREA SINGAPORE 069917",
+      "sourceSha256": "392a6f0c0afe8cf2af01d1125e6c0de4e2099263e3ba1f8d777336bd24f42473",
+      "sourceEvidence": [
+        {
+          "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=97%20Amoy%20Street&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+          "checkedAt": "2026-10-17T03:46:23.378751+00:00",
+          "sha256": "392a6f0c0afe8cf2af01d1125e6c0de4e2099263e3ba1f8d777336bd24f42473",
+          "matchedRow": {
+            "SEARCHVAL": "TELOK AYER CONSERVATION AREA",
+            "BLK_NO": "97",
+            "ROAD_NAME": "AMOY STREET",
+            "BUILDING": "TELOK AYER CONSERVATION AREA",
+            "ADDRESS": "97 AMOY STREET TELOK AYER CONSERVATION AREA SINGAPORE 069917",
+            "POSTAL": "069917",
+            "X": "29539.83246284816",
+            "Y": "29324.19696030207",
+            "LATITUDE": "1.281472089605887",
+            "LONGITUDE": "103.8471545668725"
+          }
+        },
+        {
+          "sourceUrl": "https://www.tofug.sg/97amoy",
+          "checkedAt": "2026-10-17T03:42:19.496457+00:00",
+          "sha256": "cb54c5538a484f4e0aa933b188b5bb1316921780782d3896a0faa2401f235d6f",
+          "qualification": "Exact branch page confirms97AmoyStreet; its printed069916postal conflicts withSLA069917."
+        }
+      ],
+      "priorHolds": [
+        {
+          "id": "research-tofu-g-amoy-street",
+          "address": "97 Amoy Street, Singapore 069916",
+          "postalCode": "069916",
+          "point": null,
+          "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=069916&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+          "checkedAt": "2026-10-16T10:37:47.423991+00:00",
+          "status": "unresolved-address-coordinate-match"
+        }
+      ],
+      "qualification": "Direct SLA house/street search returns exactly97AMOY STREET, matching the operator branch page. Use this building point, not earlier postal-query96AmoyStreet. Operator069916postal and SLA069917conflict remain documented; canonical menu address/postal is not rewritten. Approximate building location, not entrance."
+    },
+    {
+      "id": "research-tofu-g-ue-square",
+      "address": "81 Clemenceau Avenue #01-19, Singapore 239917",
+      "postalCode": "239917",
+      "point": {
+        "latitude": 1.292161910004652,
+        "longitude": 103.8427029217826
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=239917&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:33:10.041281+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "81 CLEMENCEAU AVENUE UE SQUARE SINGAPORE 239917",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-tofu-g-waterway-point",
+      "address": "83 Punggol Central #01-53, Singapore 828761",
+      "postalCode": "828761",
+      "point": {
+        "latitude": 1.406484621320066,
+        "longitude": 103.9021056807848
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=828761&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:34:09.886870+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "83 PUNGGOL CENTRAL WATERWAY POINT SINGAPORE 828761",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-tofu-g-suntec-city",
+      "address": "3 Temasek Boulevard #B1-K5, West Wing, Suntec City Mall, Singapore 038983",
+      "postalCode": "038983",
+      "point": {
+        "latitude": 1.295931894771942,
+        "longitude": 103.8590144067362
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=038983&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:32:29.600980+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "3 TEMASEK BOULEVARD SUNTEC CITY MALL SINGAPORE 038983",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-wakamama-pasir-panjang",
+      "address": "218 Pasir Panjang Road #02-15, ICON @ Pasir Panjang, Singapore 118579",
+      "postalCode": "118579",
+      "point": {
+        "latitude": 1.279486700701858,
+        "longitude": 103.7857561866505
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=118579&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:32:37.343779+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "218 PASIR PANJANG ROAD ICON @ PASIR PANJANG SINGAPORE 118579",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-rya-bakehouse-cavan",
+      "address": "11 Cavan Road #01-03 Cavan Suites, Singapore 209848",
+      "postalCode": "209848",
+      "point": {
+        "latitude": 1.310998559309964,
+        "longitude": 103.8611551867033
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=209848&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:33:00.544576+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "11 CAVAN ROAD CAVAN SUITES SINGAPORE 209848",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-yes-natural-bakery-geylang-55",
+      "address": "55 Lorong 27 Geylang, Singapore 388183",
+      "postalCode": "388183",
+      "point": {
+        "latitude": 1.315798462922263,
+        "longitude": 103.8836634183477
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=388183&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:33:23.166099+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "55 LORONG 27 GEYLANG SINGAPORE 388183",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-omg-donuts-margaret-market",
+      "address": "38 Margaret Drive #01-08 Margaret Market, Singapore 141038",
+      "postalCode": "141038",
+      "point": {
+        "latitude": 1.297735984345437,
+        "longitude": 103.804319690649
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=141038&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:38:04.521565+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "38 MARGARET DRIVE MARGARET DRIVE MARKETPLACE SINGAPORE 141038",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-living-wholesome-bukit-timah",
+      "address": "2A Jalan Seh Chuan #01-060, Singapore 599213",
+      "postalCode": "599213",
+      "point": {
+        "latitude": 1.340787915768959,
+        "longitude": 103.7752147143752
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=599213&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:40:02.524730+00:00",
+      "status": "reviewed-named-building-match",
+      "reviewedAt": "2026-10-17",
+      "matchedAddress": "2A JALAN SEH CHUAN BUKIT TIMAH INTERIM HAWKER CENTRE AND MARKET SINGAPORE 599213",
+      "qualification": "Approximate named building/complex point, not stall entrance. Operator identifiesfoodcentre2AJalanSehChuan#01-060,599213. Selectnamedmarket/hawker-centre record rather thanunnamedblock point; exactblock/road/postal agree.",
+      "previousCoordinateHold": {
+        "id": "research-living-wholesome-bukit-timah",
+        "address": "2A Jalan Seh Chuan #01-060, Singapore 599213",
+        "postalCode": "599213",
+        "point": null,
+        "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=599213&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+        "checkedAt": "2026-10-16T10:40:02.524730+00:00",
+        "status": "unresolved-address-coordinate-match"
+      }
+    },
+    {
+      "id": "research-150-green-bukit-batok",
+      "address": "150 Bukit Batok Street 11 #01-224, Singapore 650150",
+      "postalCode": "650150",
+      "point": {
+        "latitude": 1.348784674967408,
+        "longitude": 103.743672838723
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=650150&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:40:12.102357+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "150 BUKIT BATOK STREET 11 SINGAPORE 650150",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-teenoy-hougang-foodpanda-932",
+      "address": "932 Hougang Avenue 9 #01-04, Singapore 530932",
+      "postalCode": "530932",
+      "point": {
+        "latitude": 1.375175481181863,
+        "longitude": 103.8819909130985
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=530932&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:39:43.718999+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "932 HOUGANG AVENUE 9 HOUGANG CRIMSON SINGAPORE 530932",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-cookie-coffee-fortune-centre",
+      "address": "190 Middle Road #01-28B Fortune Centre, Singapore 188979",
+      "postalCode": "188979",
+      "point": {
+        "latitude": 1.300422419139759,
+        "longitude": 103.8522866273858
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=188979&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:38:14.062805+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "190 MIDDLE ROAD FORTUNE CENTRE SINGAPORE 188979",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-kind-kones-forum",
+      "address": "583 Orchard Road #B1-27 & K1, Forum Shopping Mall, Singapore 238884",
+      "postalCode": "238884",
+      "point": {
+        "latitude": 1.306097521645643,
+        "longitude": 103.8286785560409
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=238884&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:38:42.587077+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "583 ORCHARD ROAD FORUM THE SHOPPING MALL SINGAPORE 238884",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-egg-plant-marina-bay-source",
+      "address": "8A Marina Boulevard #B2-33 Marina Bay Link Mall, Singapore 018984",
+      "postalCode": "018984",
+      "point": {
+        "latitude": 1.280238254460868,
+        "longitude": 103.8533696625463
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=018984&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:32:28.254127+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "8A MARINA BOULEVARD MARINA BAY LINK MALL SINGAPORE 018984",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-xiang-yuan-circuit-source",
+      "address": "80 Circuit Road #02-03, Singapore 370080",
+      "postalCode": "370080",
+      "point": {
+        "latitude": 1.327834146159377,
+        "longitude": 103.8871026692355
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=370080&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:33:21.333966+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "80 CIRCUIT ROAD CIRCUIT ROAD MARKET AND FOOD CENTRE SINGAPORE 370080",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-su-xiang-lau-pa-sat-46",
+      "address": "18 Raffles Quay, Lau Pa Sat Stall 46, Singapore 048582",
+      "postalCode": "048582",
+      "point": {
+        "latitude": 1.28059421956057,
+        "longitude": 103.8504083579583
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=048582&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:32:30.837966+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "18 RAFFLES QUAY LAU PA SAT SINGAPORE 048582",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-yi-ding-xuan-tampines-201",
+      "address": "201 Tampines Street 21 #01-201, Singapore 520201",
+      "postalCode": "520201",
+      "point": {
+        "latitude": 1.35289506312913,
+        "longitude": 103.9535856831844
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=520201&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:33:32.815049+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "201 TAMPINES STREET 21 SINGAPORE 520201",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-slow-bakes-yishun-hyc",
+      "address": "30A Yishun Central 1, Tzu Chi Humanistic Youth Centre, Singapore 768796",
+      "postalCode": "768796",
+      "point": {
+        "latitude": 1.42653751243264,
+        "longitude": 103.8383334078819
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=768796&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:34:06.107352+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "30A YISHUN CENTRAL 1 TZU CHI HUMANISTIC YOUTH CENTRE SINGAPORE 768796",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-ur01-kind-sprout-sengkang",
+      "address": "Singapore 793461",
+      "postalCode": "793461",
+      "point": {
+        "latitude": 1.3941411,
+        "longitude": 103.8709515
+      },
+      "sourceUrl": "https://take.app/kindsproutsg",
+      "checkedAt": "2026-10-16T12:43:50.212617+00:00",
+      "status": "operator-public-postal-point",
+      "reviewedAt": "2026-10-17",
+      "matchedAddress": "SG793461, as published by the merchant",
+      "qualification": "Approximate operator-published postal/store point. Not surveyed entrance, apartment location or public walk-in permission. Canonical address remainsSingapore793461.",
+      "previousCoordinateHold": {
+        "id": "research-ur01-kind-sprout-sengkang",
+        "address": "Singapore 793461",
+        "postalCode": "793461",
+        "point": null,
+        "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=793461&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+        "checkedAt": "2026-10-16T10:40:32.822286+00:00",
+        "status": "unresolved-address-coordinate-match"
+      }
+    },
+    {
+      "id": "research-delcies-whampoa-west",
+      "address": "34 Whampoa West #01-83, Singapore330034",
+      "postalCode": "330034",
+      "point": {
+        "latitude": 1.320501695566084,
+        "longitude": 103.8633412713669
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=330034&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:39:00.241504+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "34 WHAMPOA WEST BENDEMEER VILLE SINGAPORE 330034",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-happy-vegetarian-hougang-106",
+      "address": "106 Hougang Avenue 1 #01-1239, Singapore 530106",
+      "postalCode": "530106",
+      "point": {
+        "latitude": 1.353702971440114,
+        "longitude": 103.8906807925524
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=530106&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:33:36.679120+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "106 HOUGANG AVENUE 1 SINGAPORE 530106",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-ur01-kale-adelphi",
+      "address": "1 Coleman Street #02-20 The Adelphi, Singapore 179803",
+      "postalCode": "179803",
+      "point": {
+        "latitude": 1.291185036584465,
+        "longitude": 103.8511843386986
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=179803&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:38:11.775542+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "1 COLEMAN STREET THE ADELPHI SINGAPORE 179803",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-ur01-tracy-fortune",
+      "address": "190 Middle Road #01-34 Fortune Centre, Singapore 188979",
+      "postalCode": "188979",
+      "point": {
+        "latitude": 1.300422419139759,
+        "longitude": 103.8522866273858
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=188979&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:38:14.062805+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "190 MIDDLE ROAD FORTUNE CENTRE SINGAPORE 188979",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-ur01-harmony-serangoon",
+      "address": "157A Serangoon North Avenue 1 #01-01, Singapore 551157",
+      "postalCode": "551157",
+      "point": {
+        "latitude": 1.3712845683801,
+        "longitude": 103.8694907592363
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=551157&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:39:53.082835+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "157A SERANGOON NORTH AVENUE 1 SINGAPORE 551157",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-ur01-new-green-pasture-fortune",
+      "address": "190 Middle Road #04-22 Fortune Centre, Singapore 188979",
+      "postalCode": "188979",
+      "point": {
+        "latitude": 1.300422419139759,
+        "longitude": 103.8522866273858
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=188979&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:38:14.062805+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "190 MIDDLE ROAD FORTUNE CENTRE SINGAPORE 188979",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-renyi-tampines820",
+      "address": "Block 820 Tampines Street 81, Singapore 520820",
+      "postalCode": "520820",
+      "point": {
+        "latitude": 1.34792965256801,
+        "longitude": 103.9361199339763
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=520820&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:39:31.209155+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "820 TAMPINES STREET 81 TAMPINES POLYVIEW SINGAPORE 520820",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-tian-yuan-fortune-centre-01-16",
+      "address": "190 Middle Road #01-16, Fortune Centre, Singapore 188979",
+      "postalCode": "188979",
+      "point": {
+        "latitude": 1.300422419139759,
+        "longitude": 103.8522866273858
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=188979&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:38:14.062805+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "190 MIDDLE ROAD FORTUNE CENTRE SINGAPORE 188979",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-crowded-bowl-ntu-north-spine",
+      "address": "76 Nanyang Drive, North Spine Plaza NS3-1-18, Singapore 637331",
+      "postalCode": "637331",
+      "point": {
+        "latitude": 1.347130488555795,
+        "longitude": 103.6800337895376
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=637331&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:33:51.591180+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "76 NANYANG DRIVE NANYANG TECHNOLOGICAL UNIVERSITY (N2.1) SINGAPORE 637331",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-verimix-le-quest-01-17",
+      "address": "4 Bukit Batok Street 41 #01-17 Le Quest Mall, Singapore 657991",
+      "postalCode": "657991",
+      "point": {
+        "latitude": 1.355941711761134,
+        "longitude": 103.7411270057638
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=657991&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:40:16.311452+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "4 BUKIT BATOK STREET 41 LE QUEST SINGAPORE 657991",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-ur02-vegetarian-express-hougang",
+      "address": "205 Hougang Street 21, #02-22, Singapore 530205",
+      "postalCode": "530205",
+      "point": {
+        "latitude": 1.359541773255625,
+        "longitude": 103.8851673727259
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=530205&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:39:38.766819+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "205 HOUGANG STREET 21 HEARTLAND MALL-KOVAN SINGAPORE 530205",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-an-acai-affair-northpoint-city",
+      "address": "1 Northpoint Drive #B2-149 (South Wing), Singapore 768019",
+      "postalCode": "768019",
+      "point": {
+        "latitude": 1.427902889913047,
+        "longitude": 103.8361776509722
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=768019&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:40:28.777859+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "1 NORTHPOINT DRIVE NORTHPOINT CITY SINGAPORE 768019",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-any1-choco-telok-ayer",
+      "address": "114 Telok Ayer Street, Singapore 068583",
+      "postalCode": "068583",
+      "point": {
+        "latitude": 1.282071347197169,
+        "longitude": 103.8481940107602
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=068583&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:32:33.414924+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "114 TELOK AYER STREET TELOK AYER CONSERVATION AREA SINGAPORE 068583",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-ur02-xie-bi-an-vegetarian",
+      "address": "824 Tampines Street 81, #01-38, BK Coffeeshop, Singapore 520824",
+      "postalCode": "520824",
+      "point": {
+        "latitude": 1.349037435165491,
+        "longitude": 103.932714940894
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=520824&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:39:33.691090+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "824 TAMPINES STREET 81 SINGAPORE 520824",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-ur02-tpy-203-vegetarian-food",
+      "address": "203 Toa Payoh North, Singapore 310203",
+      "postalCode": "310203",
+      "point": {
+        "latitude": 1.342065202096788,
+        "longitude": 103.8491654366692
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=310203&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:38:50.132768+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "203 TOA PAYOH NORTH TOA PAYOH SPRING SINGAPORE 310203",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-ur02-vegetarian-food-stall-01-74",
+      "address": "210 Lorong 8 Toa Payoh, #01-74, Singapore 310210",
+      "postalCode": "310210",
+      "point": {
+        "latitude": 1.340261046188113,
+        "longitude": 103.8543957588659
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=310210&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:38:52.511121+00:00",
+      "status": "reviewed-named-building-match",
+      "reviewedAt": "2026-10-17",
+      "matchedAddress": "210 LORONG 8 TOA PAYOH MARKET & HAWKER CENTRE (BLK 210 TOA PAYOH LORONG 8) SINGAPORE 310210",
+      "qualification": "Approximate named building/complex point, not stall entrance. Previously reviewed operator/owner sourcebinds210Lorong8ToaPayoh#01-74,310210hawkerstall. Selectnamedmarket/hawker-centre record rather thanunnamedblock point; exactblock/road/postal agree.",
+      "previousCoordinateHold": {
+        "id": "research-ur02-vegetarian-food-stall-01-74",
+        "address": "210 Lorong 8 Toa Payoh, #01-74, Singapore 310210",
+        "postalCode": "310210",
+        "point": null,
+        "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=310210&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+        "checkedAt": "2026-10-16T10:38:52.511121+00:00",
+        "status": "unresolved-address-coordinate-match"
+      }
+    },
+    {
+      "id": "research-ur02-amk-green-harmony-vegetarian",
+      "address": "443 Ang Mo Kio Avenue 10, #01-1221, Singapore 560443",
+      "postalCode": "560443",
+      "point": {
+        "latitude": 1.36604388871675,
+        "longitude": 103.8553689686805
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=560443&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:33:46.124884+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "443 ANG MO KIO AVENUE 10 SINGAPORE 560443",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-ur03-99-pioneer-mall",
+      "address": "638A Jurong West Street 61 #01-22 Stall 10, Pioneer Mall, Singapore 641638",
+      "postalCode": "641638",
+      "point": {
+        "latitude": 1.341958610167925,
+        "longitude": 103.697593081001
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=641638&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:33:53.508118+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "638A JURONG WEST STREET 61 MULTI STOREY CAR PARK SINGAPORE 641638",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-ur03-eco-sen-toa-payoh66",
+      "address": "66 Lorong 4 Toa Payoh, Singapore 310066",
+      "postalCode": "310066",
+      "point": {
+        "latitude": 1.335013325636516,
+        "longitude": 103.8517784022934
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=310066&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:33:13.984582+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "66 LORONG 4 TOA PAYOH TOA PAYOH VISTA SINGAPORE 310066",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-sl08-fire-flies",
+      "address": "101 Upper Cross Street B1-06 Stall 10, People's Park Centre, Singapore 058357",
+      "postalCode": "058357",
+      "point": {
+        "latitude": 1.285770099818055,
+        "longitude": 103.8439801228374
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=058357&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:37:39.032200+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "101 UPPER CROSS STREET PEOPLE'S PARK CENTRE SINGAPORE 058357",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-sl08-ju-fu-yuan-amk",
+      "address": "162 Ang Mo Kio Avenue 4 #01-14, Singapore 560162",
+      "postalCode": "560162",
+      "point": {
+        "latitude": 1.374107570201603,
+        "longitude": 103.8388639211216
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=560162&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:33:46.110884+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "162 ANG MO KIO AVENUE 4 MAYFLOWER MARKET AND FOOD CENTRE SINGAPORE 560162",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-sl08-xi-shi-fu",
+      "address": "115 Bukit Merah View #01-25, Singapore 151115",
+      "postalCode": "151115",
+      "point": {
+        "latitude": 1.285504455674354,
+        "longitude": 103.8218232560867
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=151115&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:32:47.490165+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "115 BUKIT MERAH VIEW MARKET & HAWKER CENTRE (BLK 115 BUKIT MERAH VIEW) SINGAPORE 151115",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-ur04-mani-iyer",
+      "address": "215 Ang Mo Kio Avenue 1, Singapore 560215",
+      "postalCode": "560215",
+      "point": {
+        "latitude": 1.366558301661224,
+        "longitude": 103.8416240829776
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=560215&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:39:55.440946+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "215 ANG MO KIO AVENUE 1 ANG MO KIO 22 SINGAPORE 560215",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-ur04-peace-vegetarian",
+      "address": "18 Tai Seng Street #B1-02, Singapore 539775",
+      "postalCode": "539775",
+      "point": {
+        "latitude": 1.336315575225767,
+        "longitude": 103.8888256203474
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=539775&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:39:46.072040+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "18 TAI SENG STREET 18 TAI SENG SINGAPORE 539775",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-ur04-bao-su-zhai",
+      "address": "1 Sengkang Square #04-11 Stall 23, Compass One, Singapore 545078",
+      "postalCode": "545078",
+      "point": {
+        "latitude": 1.39205314156707,
+        "longitude": 103.8950705438402
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=545078&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:33:42.266022+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "1 SENGKANG SQUARE COMPASS ONE SINGAPORE 545078",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-ur04-kunthaville",
+      "address": "18 Veerasamy Road, Singapore 207326",
+      "postalCode": "207326",
+      "point": {
+        "latitude": 1.307424306293339,
+        "longitude": 103.8534584057851
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=207326&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:38:16.437055+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "18 VEERASAMY ROAD LITTLE INDIA CONSERVATION AREA SINGAPORE 207326",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-ur03-gan-taste-vegetarian",
+      "address": "20 Lorong 7 Toa Payoh #01-758, Singapore 310020",
+      "postalCode": "310020",
+      "point": {
+        "latitude": 1.334967208570402,
+        "longitude": 103.8572059383091
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=310020&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:33:12.105233+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "20 LORONG 7 TOA PAYOH KIM KEAT PALM SINGAPORE 310020",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-ur06-original-sin",
+      "address": "43 Jalan Merah Saga #01-62, Singapore278115",
+      "postalCode": "278115",
+      "point": {
+        "latitude": 1.310746949638364,
+        "longitude": 103.7964307869453
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=278115&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:38:47.607428+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "43 JALAN MERAH SAGA SINGAPORE 278115",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-ur06-xing-hua",
+      "address": "190 Middle Road #01-11, Fortune Centre, Singapore188979",
+      "postalCode": "188979",
+      "point": {
+        "latitude": 1.300422419139759,
+        "longitude": 103.8522866273858
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=188979&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:38:14.062805+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "190 MIDDLE ROAD FORTUNE CENTRE SINGAPORE 188979",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-ur06-so-green",
+      "address": "445 Bedok North Street1 #01-02, Djitsun Mall, Singapore469661",
+      "postalCode": "469661",
+      "point": {
+        "latitude": 1.326119703294682,
+        "longitude": 103.9295544956149
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=469661&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:33:30.903821+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "445 BEDOK NORTH STREET 1 DJITSUN MALL BEDOK SINGAPORE 469661",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-ur06-xin-yi",
+      "address": "442 Jurong West Avenue1 #01-758, Singapore640442",
+      "postalCode": "640442",
+      "point": {
+        "latitude": 1.35151847519439,
+        "longitude": 103.719496480131
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=640442&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:33:53.393270+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "442 JURONG WEST AVENUE 1 SINGAPORE 640442",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-ur06-ju-fu-yuan-serangoon",
+      "address": "262 Serangoon Central Drive #01-91, Singapore550262",
+      "postalCode": "550262",
+      "point": {
+        "latitude": 1.353230845583577,
+        "longitude": 103.87204354837
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=550262&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:39:50.705709+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "262 SERANGOON CENTRAL DRIVE SINGAPORE 550262",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-ur06-li-wei",
+      "address": "151 Serangoon North Avenue2 #01-41, Singapore550151",
+      "postalCode": "550151",
+      "point": {
+        "latitude": 1.369345350157961,
+        "longitude": 103.873778334096
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=550151&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:33:42.276718+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "151 SERANGOON NORTH AVENUE 2 SINGAPORE 550151",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-ur07-red-apple-tampines",
+      "address": "835 Tampines Street 83 #01-02, Singapore 520835",
+      "postalCode": "520835",
+      "point": {
+        "latitude": 1.351138337409583,
+        "longitude": 103.9338631325389
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=520835&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:33:34.750995+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "835 TAMPINES STREET 83 TAMPINES PALMWALK SINGAPORE 520835",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-ur08-150-green",
+      "address": "150 Bukit Batok Street 11 #01-224, Singapore 650150",
+      "postalCode": "650150",
+      "point": {
+        "latitude": 1.348784674967408,
+        "longitude": 103.743672838723
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=650150&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:40:12.102357+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "150 BUKIT BATOK STREET 11 SINGAPORE 650150",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-ur08-vege-bear-bidadari",
+      "address": "212 Bidadari Park Drive #03-01, Singapore 360212",
+      "postalCode": "360212",
+      "point": {
+        "latitude": 1.342799486430054,
+        "longitude": 103.875178060687
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=360212&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:33:17.692692+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "212 BIDADARI PARK DRIVE WOODLEIGH HILLSIDE SINGAPORE 360212",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-ascend-cross-lead",
+      "address": "18 Cross Street #B1-12, K4, Singapore 048423",
+      "postalCode": "048423",
+      "point": {
+        "latitude": 1.28355426127584,
+        "longitude": 103.8468829085946
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=048423&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:37:34.794447+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "18 CROSS STREET 18 CROSS SINGAPORE 048423",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-ur09-eco-harmony-aljunied",
+      "address": "106 Aljunied Crescent #01-205, Singapore 380106",
+      "postalCode": "380106",
+      "point": {
+        "latitude": 1.319054949621518,
+        "longitude": 103.8829009181243
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=380106&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:33:21.368656+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "106 ALJUNIED CRESCENT SINGAPORE 380106",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-ur09-kms-dining-hall",
+      "address": "88 Bright Hill Road, Venerable Hong Choon Memorial Hall Level 2, Singapore 574117",
+      "postalCode": "574117",
+      "point": {
+        "latitude": 1.361532560236856,
+        "longitude": 103.8358192326715
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=574117&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:40:00.174570+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "88 BRIGHT HILL ROAD KONG MENG SAN PHOR KARK SEE MONASTERY SINGAPORE 574117",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-ur09-kms-zen-cafe",
+      "address": "88 Bright Hill Road, Venerable Hong Choon Memorial Hall Level 1 beside Ju Yuan Fang, Singapore 574117",
+      "postalCode": "574117",
+      "point": {
+        "latitude": 1.361532560236856,
+        "longitude": 103.8358192326715
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=574117&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:40:00.174570+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "88 BRIGHT HILL ROAD KONG MENG SAN PHOR KARK SEE MONASTERY SINGAPORE 574117",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-ur10-ju-fu-yuan-eunos",
+      "address": "7 Eunos Crescent #01-2655, Singapore 400007",
+      "postalCode": "400007",
+      "point": {
+        "latitude": 1.320655060024857,
+        "longitude": 103.9043957668521
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=400007&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:39:13.127574+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "7 EUNOS CRESCENT SINGAPORE 400007",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-ur11-crowded-sp",
+      "address": "500 Dover Road, Singapore Polytechnic Food Court 2, Stall 13, Singapore 139651",
+      "postalCode": "139651",
+      "point": {
+        "latitude": 1.3088846073595712,
+        "longitude": 103.7810531258583
+      },
+      "sourceUrl": "https://www.sp.edu.sg/staticfile/CampusMap/cwp/assets/campusmap/jar.min.js",
+      "checkedAt": "2026-10-17T03:43:15.592192+00:00",
+      "status": "official-exact-premise-marker",
+      "matchedAddress": "Singapore Polytechnic Foodcourt 2, T1A",
+      "qualification": "Official campus map marker46 explicitly bindsFoodcourt2toT1A; approximate foodcourt point, not Stall13entrance. Campus facilities page independently confirmsFoodCourt2atLevel1T1A. Merchant139651/138671postal conflict remains qualified; no admin-building substitute or postal rewrite.",
+      "sourceSha256": "631957b0b27898db141df7a1892a11987a07a27230f76e575984eef79aa5ebf3",
+      "sourceEvidence": [
+        {
+          "sourceUrl": "https://www.sp.edu.sg/staticfile/CampusMap/cwp/assets/campusmap/jar.min.js",
+          "checkedAt": "2026-10-17T03:43:15.592192+00:00",
+          "sha256": "631957b0b27898db141df7a1892a11987a07a27230f76e575984eef79aa5ebf3",
+          "mapMarkerId": 46,
+          "mapPlaceName": "Foodcourt 2",
+          "building": "T1A"
+        },
+        {
+          "sourceUrl": "https://www.sp.edu.sg/staticfile/CampusMap/index.html",
+          "checkedAt": "2026-10-17T03:42:19.494103+00:00",
+          "sha256": "3404bc0c923f73ce328ae2afcd5f86ef2bb9d161d222e27a9c666b927ca3cafc"
+        },
+        {
+          "sourceUrl": "https://www.sp.edu.sg/about-sp/campus-map-and-facilities",
+          "checkedAt": "2026-10-17T03:42:24.814270+00:00",
+          "sha256": "754e3ac88fc28f7b25725c30345f141fffe5ec325e29cf2a6f031d2675e13623",
+          "qualification": "Foodcourt location only; campus hours do not establish this stall schedule."
+        }
+      ],
+      "priorHolds": [
+        {
+          "id": "research-ur11-crowded-sp",
+          "address": "500 Dover Road, Singapore Polytechnic Food Court 2, Stall 13, Singapore 139651",
+          "postalCode": "139651",
+          "point": null,
+          "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=139651&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+          "checkedAt": "2026-10-16T10:32:45.644925+00:00",
+          "status": "unresolved-address-coordinate-match"
+        }
+      ]
+    },
+    {
+      "id": "research-ur13-suyuan-bedok",
+      "address": "208B New Upper Changi Road #01-07, Singapore462208",
+      "postalCode": "462208",
+      "point": {
+        "latitude": 1.324782369856288,
+        "longitude": 103.9305703045582
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=462208&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:33:28.992595+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "208B NEW UPPER CHANGI ROAD HAWKER CENTRE (BLK 208B NEW UPPER CHANGI ROAD) SINGAPORE 462208",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-ur13-sangeetha-rangoon",
+      "address": "79 Rangoon Road, Singapore218366",
+      "postalCode": "218366",
+      "point": {
+        "latitude": 1.313902083634927,
+        "longitude": 103.8540770784327
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=218366&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:38:32.824398+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "79 RANGOON ROAD SINGAPORE 218366",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-ur14-tianmu-westcoast",
+      "address": "504 West Coast Drive #01-230, Singapore 120504",
+      "postalCode": "120504",
+      "point": {
+        "latitude": 1.312253407486084,
+        "longitude": 103.759601815642
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=120504&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:32:39.550832+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "504 WEST COAST DRIVE SINGAPORE 120504",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-ur15-xinghua-somerset",
+      "address": "111 Somerset Road #01-K3 to K4, Singapore 238164",
+      "postalCode": "238164",
+      "point": {
+        "latitude": 1.30020625685961,
+        "longitude": 103.8373171327961
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=238164&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:33:04.368135+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "111 SOMERSET ROAD 111 SOMERSET SINGAPORE 238164",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-ur15-conut-haji",
+      "address": "2 Haji Lane #01-01, Singapore 189195",
+      "postalCode": "189195",
+      "point": {
+        "latitude": 1.300384042234753,
+        "longitude": 103.8594823959775
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=189195&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:32:53.123292+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "2 HAJI LANE KAMPONG GLAM CONSERVATION AREA SINGAPORE 189195",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-ur15-conut-marriott",
+      "address": "310 Orchard Road #01-K2, Singapore 238864",
+      "postalCode": "238864",
+      "point": {
+        "latitude": 1.30505783063002,
+        "longitude": 103.8330606559494
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=238864&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:38:40.141909+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "310 ORCHARD ROAD TANG PLAZA SINGAPORE 238864",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-fennel-river-valley",
+      "address": "413 River Valley Road, Singapore 248311",
+      "postalCode": "248311",
+      "point": {
+        "latitude": 1.295236476022978,
+        "longitude": 103.8298458578475
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=248311&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:33:12.071703+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "413 RIVER VALLEY ROAD SINGAPORE 248311",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-swaad-shenton3",
+      "address": "3 Shenton Way #01-04 Shenton House, Singapore 068805",
+      "postalCode": "068805",
+      "point": {
+        "latitude": 1.278545122777055,
+        "longitude": 103.8500900398523
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=068805&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:37:45.358594+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "3 SHENTON WAY SHENTON HOUSE SINGAPORE 068805",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    },
+    {
+      "id": "research-mod-cafe-kuo-chuan",
+      "address": "1A Kuo Chuan Avenue, Singapore 426888",
+      "postalCode": "426888",
+      "point": {
+        "latitude": 1.307709540803111,
+        "longitude": 103.9081886410471
+      },
+      "sourceUrl": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=426888&returnGeom=Y&getAddrDetails=Y&pageNum=1",
+      "checkedAt": "2026-10-16T10:33:27.042918+00:00",
+      "status": "postal-block-and-street-match",
+      "matchedAddress": "1A KUO CHUAN AVENUE SINGAPORE 426888",
+      "qualification": "Approximate building location, not stall entrance. Rd/St/Ave/Blvd and Aiport/Imbia source spelling variants normalized only for coordinate comparison; canonical venue address is unchanged."
+    }
+  ]
+}

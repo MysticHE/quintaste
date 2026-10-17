@@ -1,0 +1,30 @@
+{
+  "checkedAt": "2026-10-16T01:27:00.310Z",
+  "status": "passed",
+  "locations": 141,
+  "sourceMenus": 186,
+  "foodOccurrences": 10732,
+  "reviewedPublicPlaceIds": 52,
+  "indexBytes": 56391,
+  "indexGzipBytes": 16122,
+  "allDetailBytes": 5132680,
+  "largest": {
+    "id": "research-nalan-cityhall",
+    "bytes": 237205
+  },
+  "outboundNetworkCalls": 0,
+  "heldVenueIdsChecked": [
+    "research-su-shi-yuan-tampines",
+    "research-fang-lin-jurong-west-494",
+    "research-ur01-fu-kang-ting-bedok"
+  ],
+  "scope": "actual API handler and app readers in Node; not production/device timings",
+  "checks": [
+    "every public branch GET200, schema, raw fingerprint and row count",
+    "every register published item matches exact venue/section/item/name",
+    "unique approved Google ID attachments",
+    "new merchant food/option/unknown-price/held-source counts",
+    "OneMap-resolved postal520824",
+    "whole-venue holds return404"
+  ]
+}

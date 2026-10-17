@@ -1,0 +1,59 @@
+{
+  "checks": [
+    "Explicit sample activation creates stable dates",
+    "Search, category and ingredient filters work",
+    "Booking requires profile and table rules",
+    "No pre-window group chat or pre-meal friend request",
+    "Sample clock opens chat then check-in and post-meal choices",
+    "Private Kaki choice requires explicit simulated mutual choice for chat",
+    "Friendship and local messages survive reload",
+    "Shared-meal friend request and accepted-request simulation work",
+    "Report is local, blocks contact and hides chat",
+    "Hosting draft create, edit, reload and delete",
+    "Home-safe note and feedback persist",
+    "Diet conflict blocks vegetarian meal for vegan profile",
+    "Hosted sample cancellation records credit without real payment"
+  ],
+  "screenshots": [
+    "C:/Users/huien/QT/quintaste/.impeccable/review/social-empty-375.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/social-browse-375.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/social-meal-375.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/social-booking-375.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/social-chat-375.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/social-friends-375.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/social-hosting-375.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/social-browse-320.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/social-browse-768.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/social-browse-1440.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/social-browse-dark.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/social-browse-large-320.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/social-filters-large-320.png"
+  ],
+  "errors": [],
+  "axe": [
+    {
+      "name": "browse",
+      "violations": []
+    },
+    {
+      "name": "chat",
+      "violations": []
+    },
+    {
+      "name": "hosting",
+      "violations": []
+    },
+    {
+      "name": "dark-browse",
+      "violations": []
+    },
+    {
+      "name": "large-filters",
+      "violations": []
+    }
+  ],
+  "limits": [
+    "Browser only; native touch, keyboard and device layout unverified. All Social data is local; no live bookings, ID verification, messages, moderation or payments."
+  ],
+  "passed": true
+}

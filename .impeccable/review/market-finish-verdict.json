@@ -1,0 +1,14 @@
+{
+  "disposition": "ship",
+  "scope": "Scored browser/source accessibility fix only. Native iOS/Android phone/tablet visual acceptance pending.",
+  "fallback": "Fresh independent code-reviewer substituted for unavailable shipped Impeccable finish-reviewer role.",
+  "verdict": [
+    {
+      "finding": "ListingCard accessible-name mismatch",
+      "status": "resolved",
+      "evidence": "Visible text now supplies the native accessible name with View listing details hint. Role, focus and Save/Manage remain intact. All 13 refreshed captures were reopened and valid; no visual regression. Final browser report passes18 with zero console/page errors and zero scoped light/dark axe violations."
+    }
+  ],
+  "remaining": "Clear for the scored fix only. Axe color-contrast/name incompletes remain. Native visuals, media permissions and device accessibility remain unverified; transport is not visual approval.",
+  "initialReview": "market-initial-finish-review.json"
+}

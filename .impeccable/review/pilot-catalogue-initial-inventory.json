@@ -1,0 +1,11 @@
+{
+  "checkedAt": "2026-10-15T04:56:45Z",
+  "counts": {
+    "sources": 27,
+    "venues": 6,
+    "menus": 5,
+    "dishes": 20,
+    "candidates": 2
+  },
+  "coverage": "Initial UI/API proof fixture; selected menu research samples."
+}

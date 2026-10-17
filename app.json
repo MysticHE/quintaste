@@ -1,0 +1,80 @@
+{
+  "expo": {
+    "name": "QuinTaste",
+    "slug": "quintaste",
+    "version": "1.0.0",
+    "orientation": "default",
+    "icon": "./assets/chef.png",
+    "userInterfaceStyle": "automatic",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.mystiche.quintaste",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/chef.png",
+        "backgroundColor": "#fffaf7"
+      },
+      "permissions": [
+        "android.permission.VIBRATE"
+      ],
+      "package": "com.mystiche.quintaste",
+      "predictiveBackGestureEnabled": true
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "server",
+      "favicon": "./assets/chef.png"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-font",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/chef.png",
+          "imageWidth": 200,
+          "resizeMode": "contain",
+          "backgroundColor": "#fffaf7",
+          "dark": {
+            "image": "./assets/chef.png",
+            "backgroundColor": "#29212d"
+          }
+        }
+      ],
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "Use your approximate foreground location to find nearby places when you ask. Coordinates are temporary; there is no background tracking.",
+          "isIosBackgroundLocationEnabled": false,
+          "isAndroidBackgroundLocationEnabled": false
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Choose photos for listings, correction drafts or your optional avatar.",
+          "cameraPermission": "Take listing photos or a selfie when you choose to create an avatar.",
+          "microphonePermission": false
+        }
+      ],
+      "expo-image",
+      "expo-secure-store",
+      "expo-notifications",
+      "expo-web-browser",
+      "@react-native-community/datetimepicker",
+      "expo-sharing"
+    ],
+    "owner": "mystiche",
+    "scheme": "quintaste",
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "4ac83228-3e0a-4734-a52c-c60f2a951f82"
+      }
+    }
+  }
+}

@@ -1,0 +1,3387 @@
+{
+  "version": 1,
+  "batch": "identity-completion-batch-08",
+  "status": "frozen-outcome-batch",
+  "frozenAt": "2026-10-16T03:58:45.139423+00:00",
+  "reviewedAt": "2026-10-16T04:12:00.536Z",
+  "selection": {
+    "frozenInput": "data/menu-research/continuation-evidence/identity-08-frozen-input.json",
+    "frozenInputSha256": "877ad162b856d9d6806a6662b8d9b5e56376d04c61dd9b09938a0bbe0a2efcf0",
+    "candidateIds": 69,
+    "unselectedUniqueIds": 0
+  },
+  "evidenceBoundary": {
+    "googleRequestsMade": 0,
+    "requestsBefore": 2419,
+    "requestsAfter": 2419,
+    "requestCap": 2500,
+    "remainingRequests": 81,
+    "ledgerSha256": "c7321dafaad0473583139494ca899501578892c5b71105429d3cd4dceb4f311a",
+    "googleDisplayFactsPersisted": false
+  },
+  "summary": {
+    "reviewed": 69,
+    "eligibilityCounts": {
+      "unresolved": 55,
+      "vegetarian-confirmed": 13,
+      "supplier": 1
+    },
+    "newFoodRows": 67,
+    "approvedFoodRows": 28,
+    "heldFoodRows": 39,
+    "automaticIdentityApprovals": 0,
+    "complete": false
+  },
+  "entries": [
+    {
+      "sequence": 1,
+      "placeId": "ChIJubHqMT8Q2jERRaViPeUbHAY",
+      "independentLeadName": "Almond Bakery 杏仁烘培坊",
+      "independentLeadAddress": "630 Bukit Batok Central, #01-150, Singapore 650630",
+      "leadProvenance": "Exact frozen independent source-link lead; no Google display facts persisted.",
+      "eligibility": "unresolved",
+      "eligibilityReason": "Merchant Facebook lead remains unreadable; existing Almond Bakery zero-food hold reused. No current named menu established.",
+      "sourceUrls": [
+        "https://www.onehungryhippo.com/restaurants/almond-bakery-vegetarian",
+        "https://www.facebook.com/AlmondBakery"
+      ],
+      "retrievedAt": "2026-10-16T04:12:00.536Z",
+      "sourceChecks": [
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/almond-bakery-vegetarian",
+          "checkedAt": "2026-10-15",
+          "result": "saved-independent-directory-lead",
+          "basis": "Saved date retained; discovery only, not current food proof."
+        },
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/almond-bakery-vegetarian",
+          "checkedAt": "2026-10-16T01:08:41.141Z",
+          "reviewedAt": "2026-10-16T04:12:00.536Z",
+          "result": "canonical-source-reused-not-refetched",
+          "basis": "Earlier snapshot/holds unchanged; see canonical packet."
+        },
+        {
+          "url": "https://www.facebook.com/AlmondBakery",
+          "checkedAt": "2026-10-16T01:08:40.922Z",
+          "reviewedAt": "2026-10-16T04:12:00.536Z",
+          "result": "canonical-source-reused-not-refetched",
+          "basis": "Earlier snapshot/holds unchanged; see canonical packet."
+        }
+      ],
+      "identityStatus": "independent-source-candidate-awaiting-explicit-id-review",
+      "identityBoundary": "No new Google request or approved ID-to-branch link. Conflicting lead/current merchant premises remain separate.",
+      "gaps": [
+        "Merchant Facebook lead remains unreadable; existing Almond Bakery zero-food hold reused. No current named menu established."
+      ],
+      "menu": {
+        "status": "canonical-reused",
+        "foodRowsCreated": 0
+      },
+      "nextAction": "Retain unresolved premise, ingredient, availability and source/channel holds; seek readable current exact-premises primary evidence for remaining gaps without duplicating canonical menus.",
+      "canonicalReuse": [
+        {
+          "dataset": "data/menu-research/menu-completion-unresearched-02b-remaining-2026-10-16.json",
+          "branchId": "ur02-almond-bakery-vegetarian",
+          "menuIds": [
+            "ur02-almond-bakery-vegetarian-menu"
+          ],
+          "storedFoodRows": 0
+        }
+      ]
+    },
+    {
+      "sequence": 2,
+      "placeId": "ChIJtzdVFMQP2jERLeuciZrqeZE",
+      "independentLeadName": "Bai Jia Le (Jurong Point) 百家乐擂茶",
+      "independentLeadAddress": "63 Jurong West Central 3, #03-28, Singapore 648331",
+      "leadProvenance": "Exact frozen independent source-link lead; no Google display facts persisted.",
+      "eligibility": "unresolved",
+      "eligibilityReason": "Ordering page has seven products at Jurong Point, but no whole-venue vegetarian statement. Yong tau foo fillings unknown. Customer pork reports are not primary proof of meat service. All seven held.",
+      "sourceUrls": [
+        "https://www.onehungryhippo.com/restaurants/bai-jia-le",
+        "https://www.foodpanda.sg/restaurant/dbb8/hakka-bai-jia-le-thunder-tea-jurong-point"
+      ],
+      "retrievedAt": "2026-10-16T04:12:00.536Z",
+      "sourceChecks": [
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/bai-jia-le",
+          "checkedAt": "2026-10-15",
+          "result": "saved-independent-directory-lead",
+          "basis": "Saved date retained; discovery only, not current food proof."
+        },
+        {
+          "url": "https://www.foodpanda.sg/restaurant/dbb8/hakka-bai-jia-le-thunder-tea-jurong-point",
+          "checkedAt": "2026-10-16T04:02:00.275Z",
+          "result": "readable-public-ordering-page",
+          "basis": "Ordering page has seven products at Jurong Point, but no whole-venue vegetarian statement. Yong tau foo fillings unknown. Customer pork reports are not primary proof of meat service. All seven held."
+        }
+      ],
+      "identityStatus": "independent-source-candidate-awaiting-explicit-id-review",
+      "identityBoundary": "No new Google request or approved ID-to-branch link. Conflicting lead/current merchant premises remain separate.",
+      "gaps": [
+        "Ordering page has seven products at Jurong Point, but no whole-venue vegetarian statement. Yong tau foo fillings unknown. Customer pork reports are not primary proof of meat service. All seven held."
+      ],
+      "menu": {
+        "status": "held-current-scope-or-premise",
+        "foodRowsCreated": 7
+      },
+      "nextAction": "Retain unresolved premise, ingredient, availability and source/channel holds; seek readable current exact-premises primary evidence for remaining gaps without duplicating canonical menus.",
+      "newCanonicalMenu": {
+        "dataset": "data/menu-research/menu-completion-source-links-08-2026-10-16.json",
+        "branchId": "sl08-bai-jia-le",
+        "menuId": "sl08-bai-jia-le-foodpanda",
+        "approvedFoodRows": 0,
+        "heldFoodRows": 7
+      }
+    },
+    {
+      "sequence": 3,
+      "placeId": "ChIJyZxTRrMi2jERBSEOqP8Dcck",
+      "independentLeadName": "Bao Bao Vegetarian Food 寶寶素食",
+      "independentLeadAddress": "58 New Upper Changi Rd, #01-148, Singapore 461058",
+      "leadProvenance": "Exact frozen independent source-link lead; no Google display facts persisted.",
+      "eligibility": "unresolved",
+      "eligibilityReason": "Existing unit03 Bao Bao zero-food hold reused; historical HPB 2018 listing cannot establish a current menu.",
+      "sourceUrls": [
+        "https://www.onehungryhippo.com/restaurants/bao-bao-vegetarian-food",
+        "https://www.hpb.gov.sg/docs/default-source/default-document-library/hdp_hawker-and-coffeshop-listing_for-online-use_16-5-2018.pdf?sfvrsn=98a9c372_0",
+        "https://makansutra.com/white-beehoon-whats-the-big-deal/"
+      ],
+      "retrievedAt": "2026-10-16T04:12:00.536Z",
+      "sourceChecks": [
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/bao-bao-vegetarian-food",
+          "checkedAt": "2026-10-15",
+          "result": "saved-independent-directory-lead",
+          "basis": "Saved date retained; discovery only, not current food proof."
+        },
+        {
+          "url": "https://www.hpb.gov.sg/docs/default-source/default-document-library/hdp_hawker-and-coffeshop-listing_for-online-use_16-5-2018.pdf?sfvrsn=98a9c372_0",
+          "checkedAt": "2026-10-16",
+          "dateBasis": "Online search/open review date; precise retrieval time not captured.",
+          "result": "online-review-with-qualification",
+          "basis": "Existing unit03 Bao Bao zero-food hold reused; historical HPB 2018 listing cannot establish a current menu."
+        },
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/bao-bao-vegetarian-food",
+          "checkedAt": "2026-10-16",
+          "reviewedAt": "2026-10-16T04:12:00.536Z",
+          "result": "canonical-source-reused-not-refetched",
+          "basis": "Earlier snapshot/holds unchanged; see canonical packet."
+        },
+        {
+          "url": "https://www.hpb.gov.sg/docs/default-source/default-document-library/hdp_hawker-and-coffeshop-listing_for-online-use_16-5-2018.pdf?sfvrsn=98a9c372_0",
+          "checkedAt": "2026-10-16T01:41:57.560Z",
+          "reviewedAt": "2026-10-16T04:12:00.536Z",
+          "result": "canonical-source-reused-not-refetched",
+          "basis": "Earlier snapshot/holds unchanged; see canonical packet."
+        },
+        {
+          "url": "https://makansutra.com/white-beehoon-whats-the-big-deal/",
+          "checkedAt": "2026-10-16T01:41:57.560Z",
+          "reviewedAt": "2026-10-16T04:12:00.536Z",
+          "result": "canonical-source-reused-not-refetched",
+          "basis": "Earlier snapshot/holds unchanged; see canonical packet."
+        }
+      ],
+      "identityStatus": "independent-source-candidate-awaiting-explicit-id-review",
+      "identityBoundary": "No new Google request or approved ID-to-branch link. Conflicting lead/current merchant premises remain separate.",
+      "gaps": [
+        "Existing unit03 Bao Bao zero-food hold reused; historical HPB 2018 listing cannot establish a current menu."
+      ],
+      "menu": {
+        "status": "canonical-reused",
+        "foodRowsCreated": 0
+      },
+      "nextAction": "Retain unresolved premise, ingredient, availability and source/channel holds; seek readable current exact-premises primary evidence for remaining gaps without duplicating canonical menus.",
+      "canonicalReuse": [
+        {
+          "dataset": "data/menu-research/menu-completion-unresearched-03-2026-10-16.json",
+          "branchId": "ur03-bao-bao-vegetarian-food",
+          "menuIds": [],
+          "storedFoodRows": 0
+        }
+      ]
+    },
+    {
+      "sequence": 4,
+      "placeId": "ChIJacfEin8j2jERnI28hLqCPI4",
+      "independentLeadName": "Bao Sheng Vegetarian 宝昇素食",
+      "independentLeadAddress": "18 Bedok South Road, Block 18, Singapore 460018",
+      "leadProvenance": "Exact frozen independent source-link lead; no Google display facts persisted.",
+      "eligibility": "unresolved",
+      "eligibilityReason": "Existing unit03 Bao Sheng zero-food hold reused; no readable current merchant menu established.",
+      "sourceUrls": [
+        "https://www.onehungryhippo.com/restaurants/bao-sheng-vegetarian"
+      ],
+      "retrievedAt": "2026-10-16T04:12:00.536Z",
+      "sourceChecks": [
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/bao-sheng-vegetarian",
+          "checkedAt": "2026-10-15",
+          "result": "saved-independent-directory-lead",
+          "basis": "Saved date retained; discovery only, not current food proof."
+        },
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/bao-sheng-vegetarian",
+          "checkedAt": "2026-10-16",
+          "reviewedAt": "2026-10-16T04:12:00.536Z",
+          "result": "canonical-source-reused-not-refetched",
+          "basis": "Earlier snapshot/holds unchanged; see canonical packet."
+        }
+      ],
+      "identityStatus": "independent-source-candidate-awaiting-explicit-id-review",
+      "identityBoundary": "No new Google request or approved ID-to-branch link. Conflicting lead/current merchant premises remain separate.",
+      "gaps": [
+        "Existing unit03 Bao Sheng zero-food hold reused; no readable current merchant menu established."
+      ],
+      "menu": {
+        "status": "canonical-reused",
+        "foodRowsCreated": 0
+      },
+      "nextAction": "Retain unresolved premise, ingredient, availability and source/channel holds; seek readable current exact-premises primary evidence for remaining gaps without duplicating canonical menus.",
+      "canonicalReuse": [
+        {
+          "dataset": "data/menu-research/menu-completion-unresearched-03-2026-10-16.json",
+          "branchId": "ur03-bao-sheng-vegetarian",
+          "menuIds": [],
+          "storedFoodRows": 0
+        }
+      ]
+    },
+    {
+      "sequence": 5,
+      "placeId": "ChIJNQ1gM6sR2jERvgZQdzaBSeY",
+      "independentLeadName": "Beng Shun Vegetarian Food 民顺素食",
+      "independentLeadAddress": "51 Bukit Batok Cres, #02-01/02, Singapore 658077",
+      "leadProvenance": "Exact frozen independent source-link lead; no Google display facts persisted.",
+      "eligibility": "unresolved",
+      "eligibilityReason": "Existing unit03 Beng Shun zero-food hold reused; no readable current merchant menu established.",
+      "sourceUrls": [
+        "https://www.onehungryhippo.com/restaurants/beng-shun-vegetarian-food",
+        "https://syn-p-001.sitecorecontenthub.cloud/api/public/content/9e042af86f0542f9a5f9f90e4d4287d6"
+      ],
+      "retrievedAt": "2026-10-16T04:12:00.536Z",
+      "sourceChecks": [
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/beng-shun-vegetarian-food",
+          "checkedAt": "2026-10-15",
+          "result": "saved-independent-directory-lead",
+          "basis": "Saved date retained; discovery only, not current food proof."
+        },
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/beng-shun-vegetarian-food",
+          "checkedAt": "2026-10-16",
+          "reviewedAt": "2026-10-16T04:12:00.536Z",
+          "result": "canonical-source-reused-not-refetched",
+          "basis": "Earlier snapshot/holds unchanged; see canonical packet."
+        },
+        {
+          "url": "https://syn-p-001.sitecorecontenthub.cloud/api/public/content/9e042af86f0542f9a5f9f90e4d4287d6",
+          "checkedAt": "2026-10-16T01:41:57.560Z",
+          "reviewedAt": "2026-10-16T04:12:00.536Z",
+          "result": "canonical-source-reused-not-refetched",
+          "basis": "Earlier snapshot/holds unchanged; see canonical packet."
+        }
+      ],
+      "identityStatus": "independent-source-candidate-awaiting-explicit-id-review",
+      "identityBoundary": "No new Google request or approved ID-to-branch link. Conflicting lead/current merchant premises remain separate.",
+      "gaps": [
+        "Existing unit03 Beng Shun zero-food hold reused; no readable current merchant menu established."
+      ],
+      "menu": {
+        "status": "canonical-reused",
+        "foodRowsCreated": 0
+      },
+      "nextAction": "Retain unresolved premise, ingredient, availability and source/channel holds; seek readable current exact-premises primary evidence for remaining gaps without duplicating canonical menus.",
+      "canonicalReuse": [
+        {
+          "dataset": "data/menu-research/menu-completion-unresearched-03-2026-10-16.json",
+          "branchId": "ur03-beng-shun-vegetarian-food",
+          "menuIds": [],
+          "storedFoodRows": 0
+        }
+      ]
+    },
+    {
+      "sequence": 6,
+      "placeId": "ChIJn1vJTooX2jERRnzXW2Py-C4",
+      "independentLeadName": "Choo Zai Zhai Vegetarian 自在齋素食",
+      "independentLeadAddress": "79A Circuit Road, #01-89, Singapore 371079",
+      "leadProvenance": "Exact frozen independent source-link lead; no Google display facts persisted.",
+      "eligibility": "unresolved",
+      "eligibilityReason": "Existing unit03 Choo Zai Zhai hold reused; other Circuit Road units and Old Airport Road names are not this stall.",
+      "sourceUrls": [
+        "https://www.onehungryhippo.com/restaurants/choo-zai-zhai-vegetarian",
+        "https://www.bizapore.com/en/choo-zai-zhai-vegetarian-%E8%87%AA%E5%9C%A8%E9%BD%8B%E7%B4%A0%E9%A3%9F-6745-7934"
+      ],
+      "retrievedAt": "2026-10-16T04:12:00.536Z",
+      "sourceChecks": [
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/choo-zai-zhai-vegetarian",
+          "checkedAt": "2026-10-15",
+          "result": "saved-independent-directory-lead",
+          "basis": "Saved date retained; discovery only, not current food proof."
+        },
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/choo-zai-zhai-vegetarian",
+          "checkedAt": "2026-10-16",
+          "reviewedAt": "2026-10-16T04:12:00.536Z",
+          "result": "canonical-source-reused-not-refetched",
+          "basis": "Earlier snapshot/holds unchanged; see canonical packet."
+        },
+        {
+          "url": "https://www.bizapore.com/en/choo-zai-zhai-vegetarian-%E8%87%AA%E5%9C%A8%E9%BD%8B%E7%B4%A0%E9%A3%9F-6745-7934",
+          "checkedAt": "2026-10-16T01:41:57.560Z",
+          "reviewedAt": "2026-10-16T04:12:00.536Z",
+          "result": "canonical-source-reused-not-refetched",
+          "basis": "Earlier snapshot/holds unchanged; see canonical packet."
+        }
+      ],
+      "identityStatus": "independent-source-candidate-awaiting-explicit-id-review",
+      "identityBoundary": "No new Google request or approved ID-to-branch link. Conflicting lead/current merchant premises remain separate.",
+      "gaps": [
+        "Existing unit03 Choo Zai Zhai hold reused; other Circuit Road units and Old Airport Road names are not this stall."
+      ],
+      "menu": {
+        "status": "canonical-reused",
+        "foodRowsCreated": 0
+      },
+      "nextAction": "Retain unresolved premise, ingredient, availability and source/channel holds; seek readable current exact-premises primary evidence for remaining gaps without duplicating canonical menus.",
+      "canonicalReuse": [
+        {
+          "dataset": "data/menu-research/menu-completion-unresearched-03-2026-10-16.json",
+          "branchId": "ur03-choo-zai-zhai-vegetarian",
+          "menuIds": [],
+          "storedFoodRows": 0
+        }
+      ]
+    },
+    {
+      "sequence": 7,
+      "placeId": "ChIJpY7sPQAX2jER2PYSU0lOwN0",
+      "independentLeadName": "Ci Wen Vegetarian Food 慈雲素食",
+      "independentLeadAddress": "226H Ang Mo Kio Street 22, #01-19 Kebun Baru Food Centre, Singapore 568226",
+      "leadProvenance": "Exact frozen independent source-link lead; no Google display facts persisted.",
+      "eligibility": "unresolved",
+      "eligibilityReason": "Existing unit03 Ci Wen hold reused; no readable current exact-stall merchant menu established.",
+      "sourceUrls": [
+        "https://www.onehungryhippo.com/restaurants/ci-wen-vegetarian-food",
+        "https://kopitiam.com.sg/2026/04/07/ang-mo-kio-226h-226d-market-food-centre-must-try-hawker-stalls/"
+      ],
+      "retrievedAt": "2026-10-16T04:12:00.536Z",
+      "sourceChecks": [
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/ci-wen-vegetarian-food",
+          "checkedAt": "2026-10-15",
+          "result": "saved-independent-directory-lead",
+          "basis": "Saved date retained; discovery only, not current food proof."
+        },
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/ci-wen-vegetarian-food",
+          "checkedAt": "2026-10-16",
+          "reviewedAt": "2026-10-16T04:12:00.536Z",
+          "result": "canonical-source-reused-not-refetched",
+          "basis": "Earlier snapshot/holds unchanged; see canonical packet."
+        },
+        {
+          "url": "https://kopitiam.com.sg/2026/04/07/ang-mo-kio-226h-226d-market-food-centre-must-try-hawker-stalls/",
+          "checkedAt": "2026-10-16T01:41:57.560Z",
+          "reviewedAt": "2026-10-16T04:12:00.536Z",
+          "result": "canonical-source-reused-not-refetched",
+          "basis": "Earlier snapshot/holds unchanged; see canonical packet."
+        }
+      ],
+      "identityStatus": "independent-source-candidate-awaiting-explicit-id-review",
+      "identityBoundary": "No new Google request or approved ID-to-branch link. Conflicting lead/current merchant premises remain separate.",
+      "gaps": [
+        "Existing unit03 Ci Wen hold reused; no readable current exact-stall merchant menu established."
+      ],
+      "menu": {
+        "status": "canonical-reused",
+        "foodRowsCreated": 0
+      },
+      "nextAction": "Retain unresolved premise, ingredient, availability and source/channel holds; seek readable current exact-premises primary evidence for remaining gaps without duplicating canonical menus.",
+      "canonicalReuse": [
+        {
+          "dataset": "data/menu-research/menu-completion-unresearched-03-2026-10-16.json",
+          "branchId": "ur03-ci-wen-vegetarian-food",
+          "menuIds": [],
+          "storedFoodRows": 0
+        }
+      ]
+    },
+    {
+      "sequence": 8,
+      "placeId": "ChIJ5XZkbg4X2jERtLZi_YvRQJ4",
+      "independentLeadName": "Daily Green (AMK) 吉祥素",
+      "independentLeadAddress": "721 Ang Mo Kio Ave 8, #01-2811, Singapore 560721",
+      "leadProvenance": "Exact frozen independent source-link lead; no Google display facts persisted.",
+      "eligibility": "unresolved",
+      "eligibilityReason": "Daily Green canonical AMK menu has six foods at #01-2823; frozen lead says #01-2811. Reuse canonical source context, retain unit conflict and do not approve ID association.",
+      "sourceUrls": [
+        "https://www.onehungryhippo.com/restaurants/daily-green-amk",
+        "https://www.dailygreen.sg/locations",
+        "https://www.foodpanda.sg/restaurant/y2ic/daily-green-ang-mo-kio",
+        "https://www.foodpanda.sg/restaurant/y2ic/daily-green-ang-mo-kio/reviews"
+      ],
+      "retrievedAt": "2026-10-16T04:12:00.536Z",
+      "sourceChecks": [
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/daily-green-amk",
+          "checkedAt": "2026-10-15",
+          "result": "saved-independent-directory-lead",
+          "basis": "Saved date retained; discovery only, not current food proof."
+        },
+        {
+          "url": "https://www.dailygreen.sg/locations",
+          "checkedAt": "2026-10-16",
+          "dateBasis": "Online search/open review date; precise retrieval time not captured.",
+          "result": "online-review-with-qualification",
+          "basis": "Daily Green canonical AMK menu has six foods at #01-2823; frozen lead says #01-2811. Reuse canonical source context, retain unit conflict and do not approve ID association."
+        },
+        {
+          "url": "https://www.dailygreen.sg/locations",
+          "checkedAt": "2026-10-15T09:47:06.180634+00:00",
+          "reviewedAt": "2026-10-16T04:12:00.536Z",
+          "result": "canonical-source-reused-not-refetched",
+          "basis": "Earlier snapshot/holds unchanged; see canonical packet."
+        },
+        {
+          "url": "https://www.foodpanda.sg/restaurant/y2ic/daily-green-ang-mo-kio",
+          "checkedAt": "2026-10-15T09:47:06.180634+00:00",
+          "reviewedAt": "2026-10-16T04:12:00.536Z",
+          "result": "canonical-source-reused-not-refetched",
+          "basis": "Earlier snapshot/holds unchanged; see canonical packet."
+        },
+        {
+          "url": "https://www.foodpanda.sg/restaurant/y2ic/daily-green-ang-mo-kio/reviews",
+          "checkedAt": "2026-10-15T09:47:06.180634+00:00",
+          "reviewedAt": "2026-10-16T04:12:00.536Z",
+          "result": "canonical-source-reused-not-refetched",
+          "basis": "Earlier snapshot/holds unchanged; see canonical packet."
+        }
+      ],
+      "identityStatus": "independent-source-candidate-awaiting-explicit-id-review",
+      "identityBoundary": "No new Google request or approved ID-to-branch link. Conflicting lead/current merchant premises remain separate.",
+      "gaps": [
+        "Daily Green canonical AMK menu has six foods at #01-2823; frozen lead says #01-2811. Reuse canonical source context, retain unit conflict and do not approve ID association."
+      ],
+      "menu": {
+        "status": "canonical-reused",
+        "foodRowsCreated": 0
+      },
+      "nextAction": "Retain unresolved premise, ingredient, availability and source/channel holds; seek readable current exact-premises primary evidence for remaining gaps without duplicating canonical menus.",
+      "canonicalReuse": [
+        {
+          "dataset": "data/menu-research/menu-zzv-dailygreen.json",
+          "branchId": "merchant-b78cbdf3a3aace99",
+          "menuIds": [
+            "dailygreen-amk-platform-product-labels"
+          ],
+          "storedFoodRows": 6
+        }
+      ]
+    },
+    {
+      "sequence": 9,
+      "placeId": "ChIJYa9uyo4Z2jERkOqTvVuvZVk",
+      "independentLeadName": "Daily Green (Shaw Plaza) 吉祥素",
+      "independentLeadAddress": "360 Balestier Rd, #01-23 Shaw Plaza, Singapore 329783",
+      "leadProvenance": "Exact frozen independent source-link lead; no Google display facts persisted.",
+      "eligibility": "vegetarian-confirmed",
+      "eligibilityReason": "Daily Green merchant location source and existing Shaw branch reused; no current readable named menu. Original Greens is a different tenant and its 54 foods are not transferred.",
+      "sourceUrls": [
+        "https://www.onehungryhippo.com/restaurants/daily-green-shaw-plaza",
+        "https://www.dailygreen.sg/locations",
+        "https://www.dailygreen.sg/menus",
+        "https://www.facebook.com/DailyGreenJXS/",
+        "https://www.instagram.com/dailygreenjxs/",
+        "https://www.foodpanda.sg/city/singapore/area/kallang/toprated?page=6"
+      ],
+      "retrievedAt": "2026-10-16T04:12:00.536Z",
+      "sourceChecks": [
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/daily-green-shaw-plaza",
+          "checkedAt": "2026-10-15",
+          "result": "saved-independent-directory-lead",
+          "basis": "Saved date retained; discovery only, not current food proof."
+        },
+        {
+          "url": "https://www.dailygreen.sg/locations",
+          "checkedAt": "2026-10-16",
+          "dateBasis": "Online search/open review date; precise retrieval time not captured.",
+          "result": "online-review-with-qualification",
+          "basis": "Daily Green merchant location source and existing Shaw branch reused; no current readable named menu. Original Greens is a different tenant and its 54 foods are not transferred."
+        },
+        {
+          "url": "https://www.dailygreen.sg/locations",
+          "checkedAt": "2026-10-15T09:47:06.180634+00:00",
+          "reviewedAt": "2026-10-16T04:12:00.536Z",
+          "result": "canonical-source-reused-not-refetched",
+          "basis": "Earlier snapshot/holds unchanged; see canonical packet."
+        },
+        {
+          "url": "https://www.dailygreen.sg/menus",
+          "checkedAt": "2026-10-15T09:47:06.180634+00:00",
+          "reviewedAt": "2026-10-16T04:12:00.536Z",
+          "result": "canonical-source-reused-not-refetched",
+          "basis": "Earlier snapshot/holds unchanged; see canonical packet."
+        },
+        {
+          "url": "https://www.facebook.com/DailyGreenJXS/",
+          "checkedAt": "2026-10-15T09:47:06.180634+00:00",
+          "reviewedAt": "2026-10-16T04:12:00.536Z",
+          "result": "canonical-source-reused-not-refetched",
+          "basis": "Earlier snapshot/holds unchanged; see canonical packet."
+        },
+        {
+          "url": "https://www.instagram.com/dailygreenjxs/",
+          "checkedAt": "2026-10-15T09:47:06.180634+00:00",
+          "reviewedAt": "2026-10-16T04:12:00.536Z",
+          "result": "canonical-source-reused-not-refetched",
+          "basis": "Earlier snapshot/holds unchanged; see canonical packet."
+        },
+        {
+          "url": "https://www.foodpanda.sg/city/singapore/area/kallang/toprated?page=6",
+          "checkedAt": "2026-10-15T09:47:06.180634+00:00",
+          "reviewedAt": "2026-10-16T04:12:00.536Z",
+          "result": "canonical-source-reused-not-refetched",
+          "basis": "Earlier snapshot/holds unchanged; see canonical packet."
+        }
+      ],
+      "identityStatus": "independent-source-candidate-awaiting-explicit-id-review",
+      "identityBoundary": "No new Google request or approved ID-to-branch link. Conflicting lead/current merchant premises remain separate.",
+      "gaps": [
+        "Daily Green merchant location source and existing Shaw branch reused; no current readable named menu. Original Greens is a different tenant and its 54 foods are not transferred."
+      ],
+      "menu": {
+        "status": "canonical-reused",
+        "foodRowsCreated": 0
+      },
+      "nextAction": "Retain unresolved premise, ingredient, availability and source/channel holds; seek readable current exact-premises primary evidence for remaining gaps without duplicating canonical menus.",
+      "canonicalReuse": [
+        {
+          "dataset": "data/menu-research/menu-zzv-dailygreen.json",
+          "branchId": "merchant-f770a31d61b3db32",
+          "menuIds": [
+            "dailygreen-shaw-current-menu-unavailable"
+          ],
+          "storedFoodRows": 0
+        }
+      ]
+    },
+    {
+      "sequence": 10,
+      "placeId": "ChIJ9waWLwkX2jERR24p8Q9aL-A",
+      "independentLeadName": "Daily Green (Ubi) 吉祥素",
+      "independentLeadAddress": "3014B Ubi Rd 1, Singapore 408722",
+      "leadProvenance": "Exact frozen independent source-link lead; no Google display facts persisted.",
+      "eligibility": "vegetarian-confirmed",
+      "eligibilityReason": "Daily Green merchant location source and existing Ubi branch reused; no current readable named menu.",
+      "sourceUrls": [
+        "https://www.onehungryhippo.com/restaurants/daily-green-ubi",
+        "https://www.dailygreen.sg/locations",
+        "https://www.dailygreen.sg/menus",
+        "https://www.facebook.com/DailyGreenJXS/",
+        "https://www.instagram.com/dailygreenjxs/"
+      ],
+      "retrievedAt": "2026-10-16T04:12:00.536Z",
+      "sourceChecks": [
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/daily-green-ubi",
+          "checkedAt": "2026-10-15",
+          "result": "saved-independent-directory-lead",
+          "basis": "Saved date retained; discovery only, not current food proof."
+        },
+        {
+          "url": "https://www.dailygreen.sg/locations",
+          "checkedAt": "2026-10-16",
+          "dateBasis": "Online search/open review date; precise retrieval time not captured.",
+          "result": "online-review-with-qualification",
+          "basis": "Daily Green merchant location source and existing Ubi branch reused; no current readable named menu."
+        },
+        {
+          "url": "https://www.dailygreen.sg/locations",
+          "checkedAt": "2026-10-15T09:47:06.180634+00:00",
+          "reviewedAt": "2026-10-16T04:12:00.536Z",
+          "result": "canonical-source-reused-not-refetched",
+          "basis": "Earlier snapshot/holds unchanged; see canonical packet."
+        },
+        {
+          "url": "https://www.dailygreen.sg/menus",
+          "checkedAt": "2026-10-15T09:47:06.180634+00:00",
+          "reviewedAt": "2026-10-16T04:12:00.536Z",
+          "result": "canonical-source-reused-not-refetched",
+          "basis": "Earlier snapshot/holds unchanged; see canonical packet."
+        },
+        {
+          "url": "https://www.facebook.com/DailyGreenJXS/",
+          "checkedAt": "2026-10-15T09:47:06.180634+00:00",
+          "reviewedAt": "2026-10-16T04:12:00.536Z",
+          "result": "canonical-source-reused-not-refetched",
+          "basis": "Earlier snapshot/holds unchanged; see canonical packet."
+        },
+        {
+          "url": "https://www.instagram.com/dailygreenjxs/",
+          "checkedAt": "2026-10-15T09:47:06.180634+00:00",
+          "reviewedAt": "2026-10-16T04:12:00.536Z",
+          "result": "canonical-source-reused-not-refetched",
+          "basis": "Earlier snapshot/holds unchanged; see canonical packet."
+        }
+      ],
+      "identityStatus": "independent-source-candidate-awaiting-explicit-id-review",
+      "identityBoundary": "No new Google request or approved ID-to-branch link. Conflicting lead/current merchant premises remain separate.",
+      "gaps": [
+        "Daily Green merchant location source and existing Ubi branch reused; no current readable named menu."
+      ],
+      "menu": {
+        "status": "canonical-reused",
+        "foodRowsCreated": 0
+      },
+      "nextAction": "Retain unresolved premise, ingredient, availability and source/channel holds; seek readable current exact-premises primary evidence for remaining gaps without duplicating canonical menus.",
+      "canonicalReuse": [
+        {
+          "dataset": "data/menu-research/menu-zzv-dailygreen.json",
+          "branchId": "merchant-16fa949ebdac511f",
+          "menuIds": [
+            "dailygreen-ubi-current-menu-unavailable"
+          ],
+          "storedFoodRows": 0
+        }
+      ]
+    },
+    {
+      "sequence": 11,
+      "placeId": "ChIJq6bvoqgT2jERGt3nTcK1Hjs",
+      "independentLeadName": "Dough Culture (Causeway Point)",
+      "independentLeadAddress": "1 Woodlands Square, #01-K08, Singapore 738099",
+      "leadProvenance": "Exact frozen independent source-link lead; no Google display facts persisted.",
+      "eligibility": "unresolved",
+      "eligibilityReason": "Existing Causeway Point Dough Culture hold reused. Historical SGX vegetarian-product statement does not prove the current entire venue is vegetarian.",
+      "sourceUrls": [
+        "https://www.onehungryhippo.com/restaurants/dough-culture-causeway-point",
+        "https://www.doughculture.com.sg/gallery/locate-us",
+        "https://www.koufu.com.sg/our-brands/concept-stores/dough-culture/",
+        "https://www.onehungryhippo.com/restaurants"
+      ],
+      "retrievedAt": "2026-10-16T04:12:00.536Z",
+      "sourceChecks": [
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/dough-culture-causeway-point",
+          "checkedAt": "2026-10-15",
+          "result": "saved-independent-directory-lead",
+          "basis": "Saved date retained; discovery only, not current food proof."
+        },
+        {
+          "url": "https://www.doughculture.com.sg/gallery/locate-us",
+          "checkedAt": "2026-10-16T00:18:28.983015+00:00",
+          "reviewedAt": "2026-10-16T04:12:00.536Z",
+          "result": "canonical-source-reused-not-refetched",
+          "basis": "Earlier snapshot/holds unchanged; see canonical packet."
+        },
+        {
+          "url": "https://www.koufu.com.sg/our-brands/concept-stores/dough-culture/",
+          "checkedAt": "2026-10-16T00:16:49.402034+00:00",
+          "reviewedAt": "2026-10-16T04:12:00.536Z",
+          "result": "canonical-source-reused-not-refetched",
+          "basis": "Earlier snapshot/holds unchanged; see canonical packet."
+        },
+        {
+          "url": "https://www.onehungryhippo.com/restaurants",
+          "checkedAt": "2026-10-15T09:04:48.382338+00:00",
+          "reviewedAt": "2026-10-16T04:12:00.536Z",
+          "result": "canonical-source-reused-not-refetched",
+          "basis": "Earlier snapshot/holds unchanged; see canonical packet."
+        }
+      ],
+      "identityStatus": "independent-source-candidate-awaiting-explicit-id-review",
+      "identityBoundary": "No new Google request or approved ID-to-branch link. Conflicting lead/current merchant premises remain separate.",
+      "gaps": [
+        "Existing Causeway Point Dough Culture hold reused. Historical SGX vegetarian-product statement does not prove the current entire venue is vegetarian."
+      ],
+      "menu": {
+        "status": "canonical-reused",
+        "foodRowsCreated": 0
+      },
+      "nextAction": "Retain unresolved premise, ingredient, availability and source/channel holds; seek readable current exact-premises primary evidence for remaining gaps without duplicating canonical menus.",
+      "canonicalReuse": [
+        {
+          "dataset": "data/menu-research/menu-completion-directory-bakeries-2026-10-16.json",
+          "branchId": "dough-culture-causeway-point-completion",
+          "menuIds": [],
+          "storedFoodRows": 0
+        }
+      ]
+    },
+    {
+      "sequence": 12,
+      "placeId": "ChIJlZEjfQA92jER1jnuhji5JRI",
+      "independentLeadName": "Econ Vegetarian Delight 益康斋素食苑",
+      "independentLeadAddress": "144 Tampines Street 12, Singapore 521144",
+      "leadProvenance": "Exact frozen independent source-link lead; no Google display facts persisted.",
+      "eligibility": "unresolved",
+      "eligibilityReason": "Existing unit03 Econ zero-food hold reused; historical HPB listing is not a current merchant menu.",
+      "sourceUrls": [
+        "https://www.onehungryhippo.com/restaurants/econ-vegetarian-delight",
+        "https://www.hpb.gov.sg/docs/default-source/default-document-library/hdp_hawker-and-coffeshop-listing_for-online-use_16-5-2018.pdf?sfvrsn=98a9c372_0"
+      ],
+      "retrievedAt": "2026-10-16T04:12:00.536Z",
+      "sourceChecks": [
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/econ-vegetarian-delight",
+          "checkedAt": "2026-10-15",
+          "result": "saved-independent-directory-lead",
+          "basis": "Saved date retained; discovery only, not current food proof."
+        },
+        {
+          "url": "https://www.hpb.gov.sg/docs/default-source/default-document-library/hdp_hawker-and-coffeshop-listing_for-online-use_16-5-2018.pdf?sfvrsn=98a9c372_0",
+          "checkedAt": "2026-10-16",
+          "dateBasis": "Online search/open review date; precise retrieval time not captured.",
+          "result": "online-review-with-qualification",
+          "basis": "Existing unit03 Econ zero-food hold reused; historical HPB listing is not a current merchant menu."
+        },
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/econ-vegetarian-delight",
+          "checkedAt": "2026-10-16",
+          "reviewedAt": "2026-10-16T04:12:00.536Z",
+          "result": "canonical-source-reused-not-refetched",
+          "basis": "Earlier snapshot/holds unchanged; see canonical packet."
+        }
+      ],
+      "identityStatus": "independent-source-candidate-awaiting-explicit-id-review",
+      "identityBoundary": "No new Google request or approved ID-to-branch link. Conflicting lead/current merchant premises remain separate.",
+      "gaps": [
+        "Existing unit03 Econ zero-food hold reused; historical HPB listing is not a current merchant menu."
+      ],
+      "menu": {
+        "status": "canonical-reused",
+        "foodRowsCreated": 0
+      },
+      "nextAction": "Retain unresolved premise, ingredient, availability and source/channel holds; seek readable current exact-premises primary evidence for remaining gaps without duplicating canonical menus.",
+      "canonicalReuse": [
+        {
+          "dataset": "data/menu-research/menu-completion-unresearched-03-2026-10-16.json",
+          "branchId": "ur03-econ-vegetarian-delight",
+          "menuIds": [],
+          "storedFoodRows": 0
+        }
+      ]
+    },
+    {
+      "sequence": 13,
+      "placeId": "ChIJoy-YZqQT2jER2c3gPPpftaQ",
+      "independentLeadName": "Eight Immortals Vegetarian 八仙素食园",
+      "independentLeadAddress": "678A Woodlands Ave 6, level 2, Singapore 731678",
+      "leadProvenance": "Exact frozen independent source-link lead; no Google display facts persisted.",
+      "eligibility": "unresolved",
+      "eligibilityReason": "Eight Immortals secondary listings support Woodlands unit context only; no current primary named menu established.",
+      "sourceUrls": [
+        "https://www.onehungryhippo.com/restaurants/eight-immortals-vegetarian-woodlands"
+      ],
+      "retrievedAt": "2026-10-16T04:12:00.536Z",
+      "sourceChecks": [
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/eight-immortals-vegetarian-woodlands",
+          "checkedAt": "2026-10-15",
+          "result": "saved-independent-directory-lead",
+          "basis": "Saved date retained; discovery only, not current food proof."
+        }
+      ],
+      "identityStatus": "independent-source-candidate-awaiting-explicit-id-review",
+      "identityBoundary": "No new Google request or approved ID-to-branch link. Conflicting lead/current merchant premises remain separate.",
+      "gaps": [
+        "Eight Immortals secondary listings support Woodlands unit context only; no current primary named menu established."
+      ],
+      "menu": {
+        "status": "unresolved-current-branch-menu",
+        "foodRowsCreated": 0
+      },
+      "nextAction": "Retain unresolved premise, ingredient, availability and source/channel holds; seek readable current exact-premises primary evidence for remaining gaps without duplicating canonical menus."
+    },
+    {
+      "sequence": 14,
+      "placeId": "ChIJi0YEJGsT2jERmVBfzUZJPig",
+      "independentLeadName": "Fire Flies Vegetarian (Chinatown) 客家擂茶",
+      "independentLeadAddress": "101 Upper Cross St, B1-06 Stall 10 People Park Centre, Singapore 058357",
+      "leadProvenance": "Exact frozen independent source-link lead; no Google display facts persisted.",
+      "eligibility": "vegetarian-confirmed",
+      "eligibilityReason": "Merchant-managed Fire Flies menu names 18 unique foods at exact Upper Cross Street stall. Vegetarian title/category and coherent food descriptions corroborated by dated independent vegan guide. Publish dated vegetarian venue facts, without ingredient certification.",
+      "sourceUrls": [
+        "https://www.onehungryhippo.com/restaurants/fire-flies-vegetarian-chinatown",
+        "https://elle.com.sg/life-culture/celebrity-make-up-artist-clarence-lee-vegan-guide-eating-green-singapore/",
+        "https://sethlui.com/fire-flies-singapore/",
+        "https://www.foodpanda.sg/restaurant/h97o/fire-flies-vegetarian-upper-cross-street"
+      ],
+      "retrievedAt": "2026-10-16T04:12:00.536Z",
+      "sourceChecks": [
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/fire-flies-vegetarian-chinatown",
+          "checkedAt": "2026-10-15",
+          "result": "saved-independent-directory-lead",
+          "basis": "Saved date retained; discovery only, not current food proof."
+        },
+        {
+          "url": "https://elle.com.sg/life-culture/celebrity-make-up-artist-clarence-lee-vegan-guide-eating-green-singapore/",
+          "checkedAt": "2026-10-16",
+          "dateBasis": "Online search/open review date; precise retrieval time not captured.",
+          "result": "online-review-with-qualification",
+          "basis": "Merchant-managed Fire Flies menu names 18 unique foods at exact Upper Cross Street stall. Vegetarian title/category and coherent food descriptions corroborated by dated independent vegan guide. Publish dated vegetarian venue facts, without ingredient certification."
+        },
+        {
+          "url": "https://sethlui.com/fire-flies-singapore/",
+          "checkedAt": "2026-10-16",
+          "dateBasis": "Online search/open review date; precise retrieval time not captured.",
+          "result": "online-review-with-qualification",
+          "basis": "Merchant-managed Fire Flies menu names 18 unique foods at exact Upper Cross Street stall. Vegetarian title/category and coherent food descriptions corroborated by dated independent vegan guide. Publish dated vegetarian venue facts, without ingredient certification."
+        },
+        {
+          "url": "https://www.foodpanda.sg/restaurant/h97o/fire-flies-vegetarian-upper-cross-street",
+          "checkedAt": "2026-10-16T04:01:56.744Z",
+          "result": "readable-public-ordering-page",
+          "basis": "Merchant-managed Fire Flies menu names 18 unique foods at exact Upper Cross Street stall. Vegetarian title/category and coherent food descriptions corroborated by dated independent vegan guide. Publish dated vegetarian venue facts, without ingredient certification."
+        }
+      ],
+      "identityStatus": "independent-source-candidate-awaiting-explicit-id-review",
+      "identityBoundary": "No new Google request or approved ID-to-branch link. Conflicting lead/current merchant premises remain separate.",
+      "gaps": [
+        "Merchant-managed Fire Flies menu names 18 unique foods at exact Upper Cross Street stall. Vegetarian title/category and coherent food descriptions corroborated by dated independent vegan guide. Publish dated vegetarian venue facts, without ingredient certification."
+      ],
+      "menu": {
+        "status": "reviewed-new-source-partial",
+        "foodRowsCreated": 18
+      },
+      "nextAction": "Retain unresolved premise, ingredient, availability and source/channel holds; seek readable current exact-premises primary evidence for remaining gaps without duplicating canonical menus.",
+      "newCanonicalMenu": {
+        "dataset": "data/menu-research/menu-completion-source-links-08-2026-10-16.json",
+        "branchId": "sl08-fire-flies",
+        "menuId": "sl08-fire-flies-foodpanda",
+        "approvedFoodRows": 18,
+        "heldFoodRows": 0
+      }
+    },
+    {
+      "sequence": 15,
+      "placeId": "ChIJR6K5NZsV2jER1l_P_mT3nJc",
+      "independentLeadName": "Fu Kang Vegetarian (Yishun) 富康素食轩",
+      "independentLeadAddress": "848 Yishun Street 81, #01-136, Singapore 760848",
+      "leadProvenance": "Exact frozen independent source-link lead; no Google display facts persisted.",
+      "eligibility": "unresolved",
+      "eligibilityReason": "Fu Kang gov voucher list (correct as May 2025) says #01-136; Chope says #01-168. Current primary exact-unit/menu proof missing; preserve conflict.",
+      "sourceUrls": [
+        "https://www.onehungryhippo.com/restaurants/fu-kang-vegetarian-yishun",
+        "https://file.go.gov.sg/nscvmerchants.pdf",
+        "https://www.chope.co/singapore-restaurants/restaurant/fu-kang-vegetarian-yishun"
+      ],
+      "retrievedAt": "2026-10-16T04:12:00.536Z",
+      "sourceChecks": [
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/fu-kang-vegetarian-yishun",
+          "checkedAt": "2026-10-15",
+          "result": "saved-independent-directory-lead",
+          "basis": "Saved date retained; discovery only, not current food proof."
+        },
+        {
+          "url": "https://file.go.gov.sg/nscvmerchants.pdf",
+          "checkedAt": "2026-10-16",
+          "dateBasis": "Online search/open review date; precise retrieval time not captured.",
+          "result": "online-review-with-qualification",
+          "basis": "Fu Kang gov voucher list (correct as May 2025) says #01-136; Chope says #01-168. Current primary exact-unit/menu proof missing; preserve conflict."
+        },
+        {
+          "url": "https://www.chope.co/singapore-restaurants/restaurant/fu-kang-vegetarian-yishun",
+          "checkedAt": "2026-10-16",
+          "dateBasis": "Online search/open review date; precise retrieval time not captured.",
+          "result": "online-review-with-qualification",
+          "basis": "Fu Kang gov voucher list (correct as May 2025) says #01-136; Chope says #01-168. Current primary exact-unit/menu proof missing; preserve conflict."
+        }
+      ],
+      "identityStatus": "independent-source-candidate-awaiting-explicit-id-review",
+      "identityBoundary": "No new Google request or approved ID-to-branch link. Conflicting lead/current merchant premises remain separate.",
+      "gaps": [
+        "Fu Kang gov voucher list (correct as May 2025) says #01-136; Chope says #01-168. Current primary exact-unit/menu proof missing; preserve conflict."
+      ],
+      "menu": {
+        "status": "unresolved-current-branch-menu",
+        "foodRowsCreated": 0
+      },
+      "nextAction": "Retain unresolved premise, ingredient, availability and source/channel holds; seek readable current exact-premises primary evidence for remaining gaps without duplicating canonical menus."
+    },
+    {
+      "sequence": 16,
+      "placeId": "ChIJw4XOJEU92jERBZayVGgW73U",
+      "independentLeadName": "FZ Vegetarian 风竹素食",
+      "independentLeadAddress": "216 Bedok Central St 1, #01-26 Market, Singapore",
+      "leadProvenance": "Exact frozen independent source-link lead; no Google display facts persisted.",
+      "eligibility": "unresolved",
+      "eligibilityReason": "Existing unit03 FZ hold reused; saved #01-26 versus secondary #01-27 unresolved. No transfer from other Bedok stalls.",
+      "sourceUrls": [
+        "https://www.onehungryhippo.com/restaurants/fz-vegetarian",
+        "https://hawker.guide/centres/blk-216-bedok-north-street-1"
+      ],
+      "retrievedAt": "2026-10-16T04:12:00.536Z",
+      "sourceChecks": [
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/fz-vegetarian",
+          "checkedAt": "2026-10-15",
+          "result": "saved-independent-directory-lead",
+          "basis": "Saved date retained; discovery only, not current food proof."
+        },
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/fz-vegetarian",
+          "checkedAt": "2026-10-16",
+          "reviewedAt": "2026-10-16T04:12:00.536Z",
+          "result": "canonical-source-reused-not-refetched",
+          "basis": "Earlier snapshot/holds unchanged; see canonical packet."
+        },
+        {
+          "url": "https://hawker.guide/centres/blk-216-bedok-north-street-1",
+          "checkedAt": "2026-10-16T01:41:57.560Z",
+          "reviewedAt": "2026-10-16T04:12:00.536Z",
+          "result": "canonical-source-reused-not-refetched",
+          "basis": "Earlier snapshot/holds unchanged; see canonical packet."
+        }
+      ],
+      "identityStatus": "independent-source-candidate-awaiting-explicit-id-review",
+      "identityBoundary": "No new Google request or approved ID-to-branch link. Conflicting lead/current merchant premises remain separate.",
+      "gaps": [
+        "Existing unit03 FZ hold reused; saved #01-26 versus secondary #01-27 unresolved. No transfer from other Bedok stalls."
+      ],
+      "menu": {
+        "status": "canonical-reused",
+        "foodRowsCreated": 0
+      },
+      "nextAction": "Retain unresolved premise, ingredient, availability and source/channel holds; seek readable current exact-premises primary evidence for remaining gaps without duplicating canonical menus.",
+      "canonicalReuse": [
+        {
+          "dataset": "data/menu-research/menu-completion-unresearched-03-2026-10-16.json",
+          "branchId": "ur03-fz-vegetarian",
+          "menuIds": [],
+          "storedFoodRows": 0
+        }
+      ]
+    },
+    {
+      "sequence": 17,
+      "placeId": "ChIJQdFZAuUP2jERIYlr7bqMkBo",
+      "independentLeadName": "Ginga Vegetarian Food",
+      "independentLeadAddress": "493 Jurong West Street 41, #01-02/03, Singapore 640493",
+      "leadProvenance": "Exact frozen independent source-link lead; no Google display facts persisted.",
+      "eligibility": "vegetarian-confirmed",
+      "eligibilityReason": "Existing exact Ginga Jurong 493 nine-food menu reused; no repeated extraction, options and earlier source dates retained.",
+      "sourceUrls": [
+        "https://www.onehungryhippo.com/restaurants/493-ginga-vegetarian-food",
+        "https://www.facebook.com/GingaVeggie/"
+      ],
+      "retrievedAt": "2026-10-16T04:12:00.536Z",
+      "sourceChecks": [
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/493-ginga-vegetarian-food",
+          "checkedAt": "2026-10-15",
+          "result": "saved-independent-directory-lead",
+          "basis": "Saved date retained; discovery only, not current food proof."
+        },
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/493-ginga-vegetarian-food",
+          "checkedAt": "2026-10-16T01:00:44.681Z",
+          "reviewedAt": "2026-10-16T04:12:00.536Z",
+          "result": "canonical-source-reused-not-refetched",
+          "basis": "Earlier snapshot/holds unchanged; see canonical packet."
+        },
+        {
+          "url": "https://www.facebook.com/GingaVeggie/",
+          "checkedAt": "2026-10-16T00:51:44.966Z",
+          "reviewedAt": "2026-10-16T04:12:00.536Z",
+          "result": "canonical-source-reused-not-refetched",
+          "basis": "Earlier snapshot/holds unchanged; see canonical packet."
+        }
+      ],
+      "identityStatus": "independent-source-candidate-awaiting-explicit-id-review",
+      "identityBoundary": "No new Google request or approved ID-to-branch link. Conflicting lead/current merchant premises remain separate.",
+      "gaps": [
+        "Existing exact Ginga Jurong 493 nine-food menu reused; no repeated extraction, options and earlier source dates retained."
+      ],
+      "menu": {
+        "status": "canonical-reused",
+        "foodRowsCreated": 0
+      },
+      "nextAction": "Retain unresolved premise, ingredient, availability and source/channel holds; seek readable current exact-premises primary evidence for remaining gaps without duplicating canonical menus.",
+      "canonicalReuse": [
+        {
+          "dataset": "data/menu-research/menu-completion-unresearched-01b-remaining-2026-10-16.json",
+          "branchId": "ur01-ginga-jurong-493",
+          "menuIds": [
+            "ur01-ginga-profile-foods-held"
+          ],
+          "storedFoodRows": 9
+        }
+      ]
+    },
+    {
+      "sequence": 18,
+      "placeId": "ChIJEX3C3JEX2jERwuK4zFISqCM",
+      "independentLeadName": "Green Leaf Cuisine",
+      "independentLeadAddress": "10 Sengkang Square, #01-12 Kopitiam Square, Singapore 544829",
+      "leadProvenance": "Exact frozen independent source-link lead; no Google display facts persisted.",
+      "eligibility": "unresolved",
+      "eligibilityReason": "Green Leaf secondary Indian vegetarian listing includes historical dairy context; no current primary menu established and no vegan inference.",
+      "sourceUrls": [
+        "https://www.onehungryhippo.com/restaurants/green-leaf-cuisine",
+        "https://www.happycow.net/reviews/green-leaf-cuisine-northeast-singapore-92295"
+      ],
+      "retrievedAt": "2026-10-16T04:12:00.536Z",
+      "sourceChecks": [
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/green-leaf-cuisine",
+          "checkedAt": "2026-10-15",
+          "result": "saved-independent-directory-lead",
+          "basis": "Saved date retained; discovery only, not current food proof."
+        },
+        {
+          "url": "https://www.happycow.net/reviews/green-leaf-cuisine-northeast-singapore-92295",
+          "checkedAt": "2026-10-16",
+          "dateBasis": "Online search/open review date; precise retrieval time not captured.",
+          "result": "online-review-with-qualification",
+          "basis": "Green Leaf secondary Indian vegetarian listing includes historical dairy context; no current primary menu established and no vegan inference."
+        }
+      ],
+      "identityStatus": "independent-source-candidate-awaiting-explicit-id-review",
+      "identityBoundary": "No new Google request or approved ID-to-branch link. Conflicting lead/current merchant premises remain separate.",
+      "gaps": [
+        "Green Leaf secondary Indian vegetarian listing includes historical dairy context; no current primary menu established and no vegan inference."
+      ],
+      "menu": {
+        "status": "unresolved-current-branch-menu",
+        "foodRowsCreated": 0
+      },
+      "nextAction": "Retain unresolved premise, ingredient, availability and source/channel holds; seek readable current exact-premises primary evidence for remaining gaps without duplicating canonical menus."
+    },
+    {
+      "sequence": 19,
+      "placeId": "ChIJf3Csdk0X2jERyUlctwj8RP0",
+      "independentLeadName": "Guang Yuan Vegetarian 广缘素食",
+      "independentLeadAddress": "10 Sengkang Square, #01-33 Kopitiam Square, Singapore 544829",
+      "leadProvenance": "Exact frozen independent source-link lead; no Google display facts persisted.",
+      "eligibility": "unresolved",
+      "eligibilityReason": "Guang Yuan Sengkang secondary listings support #01-33 context; no current primary menu established.",
+      "sourceUrls": [
+        "https://www.onehungryhippo.com/restaurants/guang-yuan-vegetarian-sengkang"
+      ],
+      "retrievedAt": "2026-10-16T04:12:00.536Z",
+      "sourceChecks": [
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/guang-yuan-vegetarian-sengkang",
+          "checkedAt": "2026-10-15",
+          "result": "saved-independent-directory-lead",
+          "basis": "Saved date retained; discovery only, not current food proof."
+        }
+      ],
+      "identityStatus": "independent-source-candidate-awaiting-explicit-id-review",
+      "identityBoundary": "No new Google request or approved ID-to-branch link. Conflicting lead/current merchant premises remain separate.",
+      "gaps": [
+        "Guang Yuan Sengkang secondary listings support #01-33 context; no current primary menu established."
+      ],
+      "menu": {
+        "status": "unresolved-current-branch-menu",
+        "foodRowsCreated": 0
+      },
+      "nextAction": "Retain unresolved premise, ingredient, availability and source/channel holds; seek readable current exact-premises primary evidence for remaining gaps without duplicating canonical menus."
+    },
+    {
+      "sequence": 20,
+      "placeId": "ChIJKSubRgAX2jERTRha6r88Bfg",
+      "independentLeadName": "Guang Yuan Vegetarian 广缘素食 (Hougang)",
+      "independentLeadAddress": "681 Hougang Ave 8, Yi Huat Cafe & Eating House, Singapore 530681",
+      "leadProvenance": "Exact frozen independent source-link lead; no Google display facts persisted.",
+      "eligibility": "unresolved",
+      "eligibilityReason": "Guang Yuan Hougang 681 remains unresolved; search results for 681 Punggol Drive are a different premise.",
+      "sourceUrls": [
+        "https://www.onehungryhippo.com/restaurants/guang-yuan-vegetarian-hougang"
+      ],
+      "retrievedAt": "2026-10-16T04:12:00.536Z",
+      "sourceChecks": [
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/guang-yuan-vegetarian-hougang",
+          "checkedAt": "2026-10-15",
+          "result": "saved-independent-directory-lead",
+          "basis": "Saved date retained; discovery only, not current food proof."
+        }
+      ],
+      "identityStatus": "independent-source-candidate-awaiting-explicit-id-review",
+      "identityBoundary": "No new Google request or approved ID-to-branch link. Conflicting lead/current merchant premises remain separate.",
+      "gaps": [
+        "Guang Yuan Hougang 681 remains unresolved; search results for 681 Punggol Drive are a different premise."
+      ],
+      "menu": {
+        "status": "unresolved-current-branch-menu",
+        "foodRowsCreated": 0
+      },
+      "nextAction": "Retain unresolved premise, ingredient, availability and source/channel holds; seek readable current exact-premises primary evidence for remaining gaps without duplicating canonical menus."
+    },
+    {
+      "sequence": 21,
+      "placeId": "ChIJldEH4HIZ2jERd5RBpKhXaS0",
+      "independentLeadName": "Hao Xiang Ju Cooked Food 好香居素食",
+      "independentLeadAddress": "335 Smith St, #02-142, Singapore 050335",
+      "leadProvenance": "Exact frozen independent source-link lead; no Google display facts persisted.",
+      "eligibility": "unresolved",
+      "eligibilityReason": "Hao Xiang Ju secondary reviews support Chinatown #02-142 context; historical HPB combines #02-141/142. No current primary complete menu established.",
+      "sourceUrls": [
+        "https://www.onehungryhippo.com/restaurants/hao-xiang-ju-cooked-food",
+        "https://prod.happycow.net/reviews/hao-xiang-ju-cooked-food-central-singapore-19652",
+        "https://www.hpb.gov.sg/docs/default-source/default-document-library/hdp_hawker-and-coffeshop-listing_for-online-use_16-5-2018.pdf?sfvrsn=98a9c372_0"
+      ],
+      "retrievedAt": "2026-10-16T04:12:00.536Z",
+      "sourceChecks": [
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/hao-xiang-ju-cooked-food",
+          "checkedAt": "2026-10-15",
+          "result": "saved-independent-directory-lead",
+          "basis": "Saved date retained; discovery only, not current food proof."
+        },
+        {
+          "url": "https://prod.happycow.net/reviews/hao-xiang-ju-cooked-food-central-singapore-19652",
+          "checkedAt": "2026-10-16",
+          "dateBasis": "Online search/open review date; precise retrieval time not captured.",
+          "result": "online-review-with-qualification",
+          "basis": "Hao Xiang Ju secondary reviews support Chinatown #02-142 context; historical HPB combines #02-141/142. No current primary complete menu established."
+        },
+        {
+          "url": "https://www.hpb.gov.sg/docs/default-source/default-document-library/hdp_hawker-and-coffeshop-listing_for-online-use_16-5-2018.pdf?sfvrsn=98a9c372_0",
+          "checkedAt": "2026-10-16",
+          "dateBasis": "Online search/open review date; precise retrieval time not captured.",
+          "result": "online-review-with-qualification",
+          "basis": "Hao Xiang Ju secondary reviews support Chinatown #02-142 context; historical HPB combines #02-141/142. No current primary complete menu established."
+        }
+      ],
+      "identityStatus": "independent-source-candidate-awaiting-explicit-id-review",
+      "identityBoundary": "No new Google request or approved ID-to-branch link. Conflicting lead/current merchant premises remain separate.",
+      "gaps": [
+        "Hao Xiang Ju secondary reviews support Chinatown #02-142 context; historical HPB combines #02-141/142. No current primary complete menu established."
+      ],
+      "menu": {
+        "status": "unresolved-current-branch-menu",
+        "foodRowsCreated": 0
+      },
+      "nextAction": "Retain unresolved premise, ingredient, availability and source/channel holds; seek readable current exact-premises primary evidence for remaining gaps without duplicating canonical menus."
+    },
+    {
+      "sequence": 22,
+      "placeId": "ChIJx46HetMF2jEROF_4KBTbA1A",
+      "independentLeadName": "Ji Xiang Vegetarian (Boon Lay) 吉祥素食",
+      "independentLeadAddress": "1-3 Third Lok Yang Rd, Singapore 627998",
+      "leadProvenance": "Exact frozen independent source-link lead; no Google display facts persisted.",
+      "eligibility": "unresolved",
+      "eligibilityReason": "Ji Xiang Third Lok Yang remains a directory lead; no readable current merchant menu established.",
+      "sourceUrls": [
+        "https://www.onehungryhippo.com/restaurants/ji-xiang-vegetarian-boon-lay"
+      ],
+      "retrievedAt": "2026-10-16T04:12:00.536Z",
+      "sourceChecks": [
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/ji-xiang-vegetarian-boon-lay",
+          "checkedAt": "2026-10-15",
+          "result": "saved-independent-directory-lead",
+          "basis": "Saved date retained; discovery only, not current food proof."
+        }
+      ],
+      "identityStatus": "independent-source-candidate-awaiting-explicit-id-review",
+      "identityBoundary": "No new Google request or approved ID-to-branch link. Conflicting lead/current merchant premises remain separate.",
+      "gaps": [
+        "Ji Xiang Third Lok Yang remains a directory lead; no readable current merchant menu established."
+      ],
+      "menu": {
+        "status": "unresolved-current-branch-menu",
+        "foodRowsCreated": 0
+      },
+      "nextAction": "Retain unresolved premise, ingredient, availability and source/channel holds; seek readable current exact-premises primary evidence for remaining gaps without duplicating canonical menus."
+    },
+    {
+      "sequence": 23,
+      "placeId": "ChIJyRdkWz0Q2jERuVYqi_aL6Ms",
+      "independentLeadName": "Ji Xiang Vegetarian (Bukit Batok) 吉祥素食",
+      "independentLeadAddress": "Bukit Batok West Ave. 8, Block 177, Singapore 650177",
+      "leadProvenance": "Exact frozen independent source-link lead; no Google display facts persisted.",
+      "eligibility": "unresolved",
+      "eligibilityReason": "Ji Xiang Bukit Batok historical HPB unit #01-247 corroborates old premises only; no current primary menu established.",
+      "sourceUrls": [
+        "https://www.onehungryhippo.com/restaurants/ji-xiang-vegetarian-bukit-batok",
+        "https://www.hpb.gov.sg/docs/default-source/default-document-library/hdp_hawker-and-coffeshop-listing_for-online-use_16-5-2018.pdf?sfvrsn=98a9c372_0"
+      ],
+      "retrievedAt": "2026-10-16T04:12:00.536Z",
+      "sourceChecks": [
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/ji-xiang-vegetarian-bukit-batok",
+          "checkedAt": "2026-10-15",
+          "result": "saved-independent-directory-lead",
+          "basis": "Saved date retained; discovery only, not current food proof."
+        },
+        {
+          "url": "https://www.hpb.gov.sg/docs/default-source/default-document-library/hdp_hawker-and-coffeshop-listing_for-online-use_16-5-2018.pdf?sfvrsn=98a9c372_0",
+          "checkedAt": "2026-10-16",
+          "dateBasis": "Online search/open review date; precise retrieval time not captured.",
+          "result": "online-review-with-qualification",
+          "basis": "Ji Xiang Bukit Batok historical HPB unit #01-247 corroborates old premises only; no current primary menu established."
+        }
+      ],
+      "identityStatus": "independent-source-candidate-awaiting-explicit-id-review",
+      "identityBoundary": "No new Google request or approved ID-to-branch link. Conflicting lead/current merchant premises remain separate.",
+      "gaps": [
+        "Ji Xiang Bukit Batok historical HPB unit #01-247 corroborates old premises only; no current primary menu established."
+      ],
+      "menu": {
+        "status": "unresolved-current-branch-menu",
+        "foodRowsCreated": 0
+      },
+      "nextAction": "Retain unresolved premise, ingredient, availability and source/channel holds; seek readable current exact-premises primary evidence for remaining gaps without duplicating canonical menus."
+    },
+    {
+      "sequence": 24,
+      "placeId": "ChIJ67LSAp8R2jERbamXJvCafUs",
+      "independentLeadName": "Ji Xiang Vegetarian (Jurong East) 吉祥素食",
+      "independentLeadAddress": "221 Jurong East Street 21, #01-875, Singapore 600221",
+      "leadProvenance": "Exact frozen independent source-link lead; no Google display facts persisted.",
+      "eligibility": "unresolved",
+      "eligibilityReason": "Ji Xiang Jurong East is mentioned in 2021 town-council guide; guide distinguishes its Clementi branch. Do not transfer another outlet menu.",
+      "sourceUrls": [
+        "https://www.onehungryhippo.com/restaurants/ji-xiang-vegetarian-jurong-east",
+        "https://ourneighbourhood.jrtc.org.sg/2021/09/8-vegetarian-eateries-in-our-neighbourhood/"
+      ],
+      "retrievedAt": "2026-10-16T04:12:00.536Z",
+      "sourceChecks": [
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/ji-xiang-vegetarian-jurong-east",
+          "checkedAt": "2026-10-15",
+          "result": "saved-independent-directory-lead",
+          "basis": "Saved date retained; discovery only, not current food proof."
+        },
+        {
+          "url": "https://ourneighbourhood.jrtc.org.sg/2021/09/8-vegetarian-eateries-in-our-neighbourhood/",
+          "checkedAt": "2026-10-16",
+          "dateBasis": "Online search/open review date; precise retrieval time not captured.",
+          "result": "online-review-with-qualification",
+          "basis": "Ji Xiang Jurong East is mentioned in 2021 town-council guide; guide distinguishes its Clementi branch. Do not transfer another outlet menu."
+        }
+      ],
+      "identityStatus": "independent-source-candidate-awaiting-explicit-id-review",
+      "identityBoundary": "No new Google request or approved ID-to-branch link. Conflicting lead/current merchant premises remain separate.",
+      "gaps": [
+        "Ji Xiang Jurong East is mentioned in 2021 town-council guide; guide distinguishes its Clementi branch. Do not transfer another outlet menu."
+      ],
+      "menu": {
+        "status": "unresolved-current-branch-menu",
+        "foodRowsCreated": 0
+      },
+      "nextAction": "Retain unresolved premise, ingredient, availability and source/channel holds; seek readable current exact-premises primary evidence for remaining gaps without duplicating canonical menus."
+    },
+    {
+      "sequence": 25,
+      "placeId": "ChIJYX7QOwAX2jERTjvioAA1ycM",
+      "independentLeadName": "Jia Jia Vegetarian (AMK) 佳佳素食",
+      "independentLeadAddress": "408 Ang Mo Kio Ave 10, Singapore 560408",
+      "leadProvenance": "Exact frozen independent source-link lead; no Google display facts persisted.",
+      "eligibility": "unresolved",
+      "eligibilityReason": "Jia Jia AMK secondary relocation context does not establish a current exact-stall merchant menu.",
+      "sourceUrls": [
+        "https://www.onehungryhippo.com/restaurants/jia-jia-vegetarian-amk"
+      ],
+      "retrievedAt": "2026-10-16T04:12:00.536Z",
+      "sourceChecks": [
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/jia-jia-vegetarian-amk",
+          "checkedAt": "2026-10-15",
+          "result": "saved-independent-directory-lead",
+          "basis": "Saved date retained; discovery only, not current food proof."
+        }
+      ],
+      "identityStatus": "independent-source-candidate-awaiting-explicit-id-review",
+      "identityBoundary": "No new Google request or approved ID-to-branch link. Conflicting lead/current merchant premises remain separate.",
+      "gaps": [
+        "Jia Jia AMK secondary relocation context does not establish a current exact-stall merchant menu."
+      ],
+      "menu": {
+        "status": "unresolved-current-branch-menu",
+        "foodRowsCreated": 0
+      },
+      "nextAction": "Retain unresolved premise, ingredient, availability and source/channel holds; seek readable current exact-premises primary evidence for remaining gaps without duplicating canonical menus."
+    },
+    {
+      "sequence": 26,
+      "placeId": "ChIJucjD4T8Q2jERheh5IAu3yv0",
+      "independentLeadName": "Jin You Yuan",
+      "independentLeadAddress": "166 Jln Besar, #02-35 Berseh Food Centre, Singapore 208877",
+      "leadProvenance": "Exact frozen independent source-link lead; no Google display facts persisted.",
+      "eligibility": "unresolved",
+      "eligibilityReason": "Jin You Yuan Berseh has conflicting secondary street numbers 122/166. Supplier directory is not a current named menu.",
+      "sourceUrls": [
+        "https://www.onehungryhippo.com/restaurants/jin-you-yuan",
+        "https://www.friendlyvegetarian.com.sg/directory/31"
+      ],
+      "retrievedAt": "2026-10-16T04:12:00.536Z",
+      "sourceChecks": [
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/jin-you-yuan",
+          "checkedAt": "2026-10-15",
+          "result": "saved-independent-directory-lead",
+          "basis": "Saved date retained; discovery only, not current food proof."
+        },
+        {
+          "url": "https://www.friendlyvegetarian.com.sg/directory/31",
+          "checkedAt": "2026-10-16",
+          "dateBasis": "Online search/open review date; precise retrieval time not captured.",
+          "result": "online-review-with-qualification",
+          "basis": "Jin You Yuan Berseh has conflicting secondary street numbers 122/166. Supplier directory is not a current named menu."
+        }
+      ],
+      "identityStatus": "independent-source-candidate-awaiting-explicit-id-review",
+      "identityBoundary": "No new Google request or approved ID-to-branch link. Conflicting lead/current merchant premises remain separate.",
+      "gaps": [
+        "Jin You Yuan Berseh has conflicting secondary street numbers 122/166. Supplier directory is not a current named menu."
+      ],
+      "menu": {
+        "status": "unresolved-current-branch-menu",
+        "foodRowsCreated": 0
+      },
+      "nextAction": "Retain unresolved premise, ingredient, availability and source/channel holds; seek readable current exact-premises primary evidence for remaining gaps without duplicating canonical menus."
+    },
+    {
+      "sequence": 27,
+      "placeId": "ChIJLe7MKwAT2jERYmoCCA0AKXg",
+      "independentLeadName": "Joyful Veggies",
+      "independentLeadAddress": "Woodlands Polaris",
+      "leadProvenance": "Exact frozen independent source-link lead; no Google display facts persisted.",
+      "eligibility": "unresolved",
+      "eligibilityReason": "Existing unit03 Joyful Veggies Polaris zero-food hold reused; directory operator/premise evidence does not establish its current stall menu.",
+      "sourceUrls": [
+        "https://www.onehungryhippo.com/restaurants/joyful-veggies",
+        "https://asiacoffeehouse.com.sg/"
+      ],
+      "retrievedAt": "2026-10-16T04:12:00.536Z",
+      "sourceChecks": [
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/joyful-veggies",
+          "checkedAt": "2026-10-15",
+          "result": "saved-independent-directory-lead",
+          "basis": "Saved date retained; discovery only, not current food proof."
+        },
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/joyful-veggies",
+          "checkedAt": "2026-10-16",
+          "reviewedAt": "2026-10-16T04:12:00.536Z",
+          "result": "canonical-source-reused-not-refetched",
+          "basis": "Earlier snapshot/holds unchanged; see canonical packet."
+        },
+        {
+          "url": "https://asiacoffeehouse.com.sg/",
+          "checkedAt": "2026-10-16T01:41:57.560Z",
+          "reviewedAt": "2026-10-16T04:12:00.536Z",
+          "result": "canonical-source-reused-not-refetched",
+          "basis": "Earlier snapshot/holds unchanged; see canonical packet."
+        }
+      ],
+      "identityStatus": "independent-source-candidate-awaiting-explicit-id-review",
+      "identityBoundary": "No new Google request or approved ID-to-branch link. Conflicting lead/current merchant premises remain separate.",
+      "gaps": [
+        "Existing unit03 Joyful Veggies Polaris zero-food hold reused; directory operator/premise evidence does not establish its current stall menu."
+      ],
+      "menu": {
+        "status": "canonical-reused",
+        "foodRowsCreated": 0
+      },
+      "nextAction": "Retain unresolved premise, ingredient, availability and source/channel holds; seek readable current exact-premises primary evidence for remaining gaps without duplicating canonical menus.",
+      "canonicalReuse": [
+        {
+          "dataset": "data/menu-research/menu-completion-unresearched-03-2026-10-16.json",
+          "branchId": "ur03-joyful-veggies",
+          "menuIds": [],
+          "storedFoodRows": 0
+        }
+      ]
+    },
+    {
+      "sequence": 28,
+      "placeId": "ChIJBd7Qp8QW2jERL-lv-THRlyc",
+      "independentLeadName": "Ju Fu Yuan Vegetarian Delight 聚福缘",
+      "independentLeadAddress": "162 Ang Mo Kio Ave 4, #01-15, Singapore 560162",
+      "leadProvenance": "Exact frozen independent source-link lead; no Google display facts persisted.",
+      "eligibility": "vegetarian-confirmed",
+      "eligibilityReason": "Current Ju Fu Yuan merchant-managed ordering pages establish 162 AMK #01-14 and two mock-meat sets. Frozen lead says #01-15. Publish independently sourced #01-14 branch with null Google ID; retain candidate association conflict and unread configuration choices. CLOSED is channel state, not permanent closure proof.",
+      "sourceUrls": [
+        "https://www.onehungryhippo.com/restaurants/ju-fu-yuan-vegetarian-delight-ang-mo-kio",
+        "https://www.foodpanda.sg/restaurant/y5gs/ju-fu-yuan-vegetarian-delight-ang-mo-kio",
+        "https://www.foodpanda.sg/restaurant/ozx5/ju-fu-yuan-vegetarian-delight-ang-mo-kio-islandwide"
+      ],
+      "retrievedAt": "2026-10-16T04:12:00.536Z",
+      "sourceChecks": [
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/ju-fu-yuan-vegetarian-delight-ang-mo-kio",
+          "checkedAt": "2026-10-15",
+          "result": "saved-independent-directory-lead",
+          "basis": "Saved date retained; discovery only, not current food proof."
+        },
+        {
+          "url": "https://www.foodpanda.sg/restaurant/y5gs/ju-fu-yuan-vegetarian-delight-ang-mo-kio",
+          "checkedAt": "2026-10-16",
+          "dateBasis": "Online search/open review date; precise retrieval time not captured.",
+          "result": "online-review-with-qualification",
+          "basis": "Current Ju Fu Yuan merchant-managed ordering pages establish 162 AMK #01-14 and two mock-meat sets. Frozen lead says #01-15. Publish independently sourced #01-14 branch with null Google ID; retain candidate association conflict and unread configuration choices. CLOSED is channel state, not permanent closure proof."
+        },
+        {
+          "url": "https://www.foodpanda.sg/restaurant/ozx5/ju-fu-yuan-vegetarian-delight-ang-mo-kio-islandwide",
+          "checkedAt": "2026-10-16T04:01:56.876Z",
+          "result": "readable-public-ordering-page",
+          "basis": "Current Ju Fu Yuan merchant-managed ordering pages establish 162 AMK #01-14 and two mock-meat sets. Frozen lead says #01-15. Publish independently sourced #01-14 branch with null Google ID; retain candidate association conflict and unread configuration choices. CLOSED is channel state, not permanent closure proof."
+        }
+      ],
+      "identityStatus": "independent-source-candidate-awaiting-explicit-id-review",
+      "identityBoundary": "No new Google request or approved ID-to-branch link. Conflicting lead/current merchant premises remain separate.",
+      "gaps": [
+        "Current Ju Fu Yuan merchant-managed ordering pages establish 162 AMK #01-14 and two mock-meat sets. Frozen lead says #01-15. Publish independently sourced #01-14 branch with null Google ID; retain candidate association conflict and unread configuration choices. CLOSED is channel state, not permanent closure proof."
+      ],
+      "menu": {
+        "status": "reviewed-new-source-partial",
+        "foodRowsCreated": 2
+      },
+      "nextAction": "Retain unresolved premise, ingredient, availability and source/channel holds; seek readable current exact-premises primary evidence for remaining gaps without duplicating canonical menus.",
+      "newCanonicalMenu": {
+        "dataset": "data/menu-research/menu-completion-source-links-08-2026-10-16.json",
+        "branchId": "sl08-ju-fu-yuan-amk",
+        "menuId": "sl08-ju-fu-yuan-amk-foodpanda",
+        "approvedFoodRows": 2,
+        "heldFoodRows": 0
+      }
+    },
+    {
+      "sequence": 29,
+      "placeId": "ChIJGU02RwA92jERq_ZaIN1eR8U",
+      "independentLeadName": "Ju Fu Yuan Vegetarian 聚福缘",
+      "independentLeadAddress": "Blk 631 Bedok Reservoir Rd, Singapore 470631",
+      "leadProvenance": "Exact frozen independent source-link lead; no Google display facts persisted.",
+      "eligibility": "unresolved",
+      "eligibilityReason": "Ju Fu Yuan Bedok secondary HappyCow closure report dated March 2024 is not primary current closure confirmation. AMK foods do not transfer.",
+      "sourceUrls": [
+        "https://www.onehungryhippo.com/restaurants/ju-fu-yuan-vegetarian",
+        "https://www.happycow.net/reviews/ju-fu-yuan-vegetarian-delight-east-singapore-272785"
+      ],
+      "retrievedAt": "2026-10-16T04:12:00.536Z",
+      "sourceChecks": [
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/ju-fu-yuan-vegetarian",
+          "checkedAt": "2026-10-15",
+          "result": "saved-independent-directory-lead",
+          "basis": "Saved date retained; discovery only, not current food proof."
+        },
+        {
+          "url": "https://www.happycow.net/reviews/ju-fu-yuan-vegetarian-delight-east-singapore-272785",
+          "checkedAt": "2026-10-16",
+          "dateBasis": "Online search/open review date; precise retrieval time not captured.",
+          "result": "online-review-with-qualification",
+          "basis": "Ju Fu Yuan Bedok secondary HappyCow closure report dated March 2024 is not primary current closure confirmation. AMK foods do not transfer."
+        }
+      ],
+      "identityStatus": "independent-source-candidate-awaiting-explicit-id-review",
+      "identityBoundary": "No new Google request or approved ID-to-branch link. Conflicting lead/current merchant premises remain separate.",
+      "gaps": [
+        "Ju Fu Yuan Bedok secondary HappyCow closure report dated March 2024 is not primary current closure confirmation. AMK foods do not transfer."
+      ],
+      "menu": {
+        "status": "unresolved-current-branch-menu",
+        "foodRowsCreated": 0
+      },
+      "nextAction": "Retain unresolved premise, ingredient, availability and source/channel holds; seek readable current exact-premises primary evidence for remaining gaps without duplicating canonical menus."
+    },
+    {
+      "sequence": 30,
+      "placeId": "ChIJL_ex76Q92jER5AMt5PlsTQM",
+      "independentLeadName": "Just Greens Vegetarian (Simei) 绿清清素食",
+      "independentLeadAddress": "248 Simei St 3, #01-100, Singapore 520248",
+      "leadProvenance": "Exact frozen independent source-link lead; no Google display facts persisted.",
+      "eligibility": "unresolved",
+      "eligibilityReason": "Just Greens Simei secondary/historical accounts do not establish a current primary exact-branch menu.",
+      "sourceUrls": [
+        "https://www.onehungryhippo.com/restaurants/just-greens-vegetarian-simei"
+      ],
+      "retrievedAt": "2026-10-16T04:12:00.536Z",
+      "sourceChecks": [
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/just-greens-vegetarian-simei",
+          "checkedAt": "2026-10-15",
+          "result": "saved-independent-directory-lead",
+          "basis": "Saved date retained; discovery only, not current food proof."
+        }
+      ],
+      "identityStatus": "independent-source-candidate-awaiting-explicit-id-review",
+      "identityBoundary": "No new Google request or approved ID-to-branch link. Conflicting lead/current merchant premises remain separate.",
+      "gaps": [
+        "Just Greens Simei secondary/historical accounts do not establish a current primary exact-branch menu."
+      ],
+      "menu": {
+        "status": "unresolved-current-branch-menu",
+        "foodRowsCreated": 0
+      },
+      "nextAction": "Retain unresolved premise, ingredient, availability and source/channel holds; seek readable current exact-premises primary evidence for remaining gaps without duplicating canonical menus."
+    },
+    {
+      "sequence": 31,
+      "placeId": "ChIJBRNFl0EU2jERYrg5OJ55kuE",
+      "independentLeadName": "Just Greens Vegetarian (Yishun) 绿清清素食",
+      "independentLeadAddress": "418 Yishun Ave 11, Singapore 760418",
+      "leadProvenance": "Exact frozen independent source-link lead; no Google display facts persisted.",
+      "eligibility": "unresolved",
+      "eligibilityReason": "Just Greens Yishun historical HPB #01-385 does not establish a current primary menu.",
+      "sourceUrls": [
+        "https://www.onehungryhippo.com/restaurants/just-greens-vegetarian-yishun",
+        "https://www.hpb.gov.sg/docs/default-source/default-document-library/hdp_hawker-and-coffeshop-listing_for-online-use_16-5-2018.pdf?sfvrsn=98a9c372_0"
+      ],
+      "retrievedAt": "2026-10-16T04:12:00.536Z",
+      "sourceChecks": [
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/just-greens-vegetarian-yishun",
+          "checkedAt": "2026-10-15",
+          "result": "saved-independent-directory-lead",
+          "basis": "Saved date retained; discovery only, not current food proof."
+        },
+        {
+          "url": "https://www.hpb.gov.sg/docs/default-source/default-document-library/hdp_hawker-and-coffeshop-listing_for-online-use_16-5-2018.pdf?sfvrsn=98a9c372_0",
+          "checkedAt": "2026-10-16",
+          "dateBasis": "Online search/open review date; precise retrieval time not captured.",
+          "result": "online-review-with-qualification",
+          "basis": "Just Greens Yishun historical HPB #01-385 does not establish a current primary menu."
+        }
+      ],
+      "identityStatus": "independent-source-candidate-awaiting-explicit-id-review",
+      "identityBoundary": "No new Google request or approved ID-to-branch link. Conflicting lead/current merchant premises remain separate.",
+      "gaps": [
+        "Just Greens Yishun historical HPB #01-385 does not establish a current primary menu."
+      ],
+      "menu": {
+        "status": "unresolved-current-branch-menu",
+        "foodRowsCreated": 0
+      },
+      "nextAction": "Retain unresolved premise, ingredient, availability and source/channel holds; seek readable current exact-premises primary evidence for remaining gaps without duplicating canonical menus."
+    },
+    {
+      "sequence": 32,
+      "placeId": "ChIJzbgJZegZ2jER0hmfTQKNHCM",
+      "independentLeadName": "Kale by Kang Su (The Adelphi)",
+      "independentLeadAddress": "1 Coleman St, #02-20 The Adelphi, Singapore 179803",
+      "leadProvenance": "Exact frozen independent source-link lead; no Google display facts persisted.",
+      "eligibility": "vegetarian-confirmed",
+      "eligibilityReason": "Existing Kale Adelphi 22-food menu reused; preserve source/channel dates and qualifications without re-extraction.",
+      "sourceUrls": [
+        "https://www.onehungryhippo.com/restaurants/kale-by-kang-su-the-adelphi",
+        "https://www.facebook.com/profile.php?id=61555173835603&sfnsn=wa&mibextid=RUbZ1f",
+        "https://www.foodpanda.sg/restaurant/vqzj/kale-by-kangsu-the-adelphi"
+      ],
+      "retrievedAt": "2026-10-16T04:12:00.536Z",
+      "sourceChecks": [
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/kale-by-kang-su-the-adelphi",
+          "checkedAt": "2026-10-15",
+          "result": "saved-independent-directory-lead",
+          "basis": "Saved date retained; discovery only, not current food proof."
+        },
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/kale-by-kang-su-the-adelphi",
+          "checkedAt": "2026-10-16T01:00:44.681Z",
+          "reviewedAt": "2026-10-16T04:12:00.536Z",
+          "result": "canonical-source-reused-not-refetched",
+          "basis": "Earlier snapshot/holds unchanged; see canonical packet."
+        },
+        {
+          "url": "https://www.facebook.com/profile.php?id=61555173835603&sfnsn=wa&mibextid=RUbZ1f",
+          "checkedAt": "2026-10-16T00:51:45.257Z",
+          "reviewedAt": "2026-10-16T04:12:00.536Z",
+          "result": "canonical-source-reused-not-refetched",
+          "basis": "Earlier snapshot/holds unchanged; see canonical packet."
+        },
+        {
+          "url": "https://www.foodpanda.sg/restaurant/vqzj/kale-by-kangsu-the-adelphi",
+          "checkedAt": "2026-10-16T01:00:44.681Z",
+          "reviewedAt": "2026-10-16T04:12:00.536Z",
+          "result": "canonical-source-reused-not-refetched",
+          "basis": "Earlier snapshot/holds unchanged; see canonical packet."
+        }
+      ],
+      "identityStatus": "independent-source-candidate-awaiting-explicit-id-review",
+      "identityBoundary": "No new Google request or approved ID-to-branch link. Conflicting lead/current merchant premises remain separate.",
+      "gaps": [
+        "Existing Kale Adelphi 22-food menu reused; preserve source/channel dates and qualifications without re-extraction."
+      ],
+      "menu": {
+        "status": "canonical-reused",
+        "foodRowsCreated": 0
+      },
+      "nextAction": "Retain unresolved premise, ingredient, availability and source/channel holds; seek readable current exact-premises primary evidence for remaining gaps without duplicating canonical menus.",
+      "canonicalReuse": [
+        {
+          "dataset": "data/menu-research/menu-completion-unresearched-01b-remaining-2026-10-16.json",
+          "branchId": "ur01-kale-adelphi",
+          "menuIds": [
+            "ur01-kale-foodpanda-foods"
+          ],
+          "storedFoodRows": 22
+        }
+      ]
+    },
+    {
+      "sequence": 33,
+      "placeId": "ChIJ4RzK658Z2jERwNyDzOSlwK0",
+      "independentLeadName": "Kang Su Vegetarian (Sims Drive) 康素",
+      "independentLeadAddress": "Sims Dr, #01-180, Singapore 380045",
+      "leadProvenance": "Exact frozen independent source-link lead; no Google display facts persisted.",
+      "eligibility": "unresolved",
+      "eligibilityReason": "Existing Kang Su Sims Drive zero-food hold reused; no readable current merchant menu established.",
+      "sourceUrls": [
+        "https://www.onehungryhippo.com/restaurants/kang-su-vegetarian-sims-drive",
+        "https://www.facebook.com/Kangsuvegetarian?mibextid=LQQJ4d"
+      ],
+      "retrievedAt": "2026-10-16T04:12:00.536Z",
+      "sourceChecks": [
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/kang-su-vegetarian-sims-drive",
+          "checkedAt": "2026-10-15",
+          "result": "saved-independent-directory-lead",
+          "basis": "Saved date retained; discovery only, not current food proof."
+        },
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/kang-su-vegetarian-sims-drive",
+          "checkedAt": "2026-10-16T01:00:44.681Z",
+          "reviewedAt": "2026-10-16T04:12:00.536Z",
+          "result": "canonical-source-reused-not-refetched",
+          "basis": "Earlier snapshot/holds unchanged; see canonical packet."
+        },
+        {
+          "url": "https://www.facebook.com/Kangsuvegetarian?mibextid=LQQJ4d",
+          "checkedAt": "2026-10-16T00:51:44.887Z",
+          "reviewedAt": "2026-10-16T04:12:00.536Z",
+          "result": "canonical-source-reused-not-refetched",
+          "basis": "Earlier snapshot/holds unchanged; see canonical packet."
+        }
+      ],
+      "identityStatus": "independent-source-candidate-awaiting-explicit-id-review",
+      "identityBoundary": "No new Google request or approved ID-to-branch link. Conflicting lead/current merchant premises remain separate.",
+      "gaps": [
+        "Existing Kang Su Sims Drive zero-food hold reused; no readable current merchant menu established."
+      ],
+      "menu": {
+        "status": "canonical-reused",
+        "foodRowsCreated": 0
+      },
+      "nextAction": "Retain unresolved premise, ingredient, availability and source/channel holds; seek readable current exact-premises primary evidence for remaining gaps without duplicating canonical menus.",
+      "canonicalReuse": [
+        {
+          "dataset": "data/menu-research/menu-completion-unresearched-01b-remaining-2026-10-16.json",
+          "branchId": "ur01-kang-su-sims",
+          "menuIds": [
+            "ur01-kang-su-sims-menu-unavailable"
+          ],
+          "storedFoodRows": 0
+        }
+      ]
+    },
+    {
+      "sequence": 34,
+      "placeId": "ChIJK4X6Pz8Q2jER-pUFcxUA_ok",
+      "independentLeadName": "Lan Xiang Yuan Vegetarian 兰香园",
+      "independentLeadAddress": "632 Bukit Batok Central, Singapore 650632",
+      "leadProvenance": "Exact frozen independent source-link lead; no Google display facts persisted.",
+      "eligibility": "unresolved",
+      "eligibilityReason": "Lan Xiang Yuan secondary #01-134 and HPB 2018 context only; no current primary named menu established.",
+      "sourceUrls": [
+        "https://www.onehungryhippo.com/restaurants/lan-xiang-yuan-vegetarian",
+        "https://www.happycow.net/reviews/lan-xiang-yuan-vegetarian-west-singapore-83135",
+        "https://www.hpb.gov.sg/docs/default-source/default-document-library/hdp_hawker-and-coffeshop-listing_for-online-use_16-5-2018.pdf?sfvrsn=98a9c372_0"
+      ],
+      "retrievedAt": "2026-10-16T04:12:00.536Z",
+      "sourceChecks": [
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/lan-xiang-yuan-vegetarian",
+          "checkedAt": "2026-10-15",
+          "result": "saved-independent-directory-lead",
+          "basis": "Saved date retained; discovery only, not current food proof."
+        },
+        {
+          "url": "https://www.happycow.net/reviews/lan-xiang-yuan-vegetarian-west-singapore-83135",
+          "checkedAt": "2026-10-16",
+          "dateBasis": "Online search/open review date; precise retrieval time not captured.",
+          "result": "online-review-with-qualification",
+          "basis": "Lan Xiang Yuan secondary #01-134 and HPB 2018 context only; no current primary named menu established."
+        },
+        {
+          "url": "https://www.hpb.gov.sg/docs/default-source/default-document-library/hdp_hawker-and-coffeshop-listing_for-online-use_16-5-2018.pdf?sfvrsn=98a9c372_0",
+          "checkedAt": "2026-10-16",
+          "dateBasis": "Online search/open review date; precise retrieval time not captured.",
+          "result": "online-review-with-qualification",
+          "basis": "Lan Xiang Yuan secondary #01-134 and HPB 2018 context only; no current primary named menu established."
+        }
+      ],
+      "identityStatus": "independent-source-candidate-awaiting-explicit-id-review",
+      "identityBoundary": "No new Google request or approved ID-to-branch link. Conflicting lead/current merchant premises remain separate.",
+      "gaps": [
+        "Lan Xiang Yuan secondary #01-134 and HPB 2018 context only; no current primary named menu established."
+      ],
+      "menu": {
+        "status": "unresolved-current-branch-menu",
+        "foodRowsCreated": 0
+      },
+      "nextAction": "Retain unresolved premise, ingredient, availability and source/channel holds; seek readable current exact-premises primary evidence for remaining gaps without duplicating canonical menus."
+    },
+    {
+      "sequence": 35,
+      "placeId": "ChIJMQxEodkT2jERLyi1HxYq3y4",
+      "independentLeadName": "Makan Vegan Catering 斋这里",
+      "independentLeadAddress": "7 Mandai Estate, Singapore 729904",
+      "leadProvenance": "Exact frozen independent source-link lead; no Google display facts persisted.",
+      "eligibility": "supplier",
+      "eligibilityReason": "Makan Vegan Mandai is the central catering kitchen, not a new dining venue. Existing canonical 138 food records reused. Public order shell supplies no additional named menu; supplier/catering scope retained.",
+      "sourceUrls": [
+        "https://www.onehungryhippo.com/restaurants/makan-vegan-catering",
+        "https://www.makanvegan.com/order",
+        "https://makanveganvegetarian.oddle.me/en_SG/",
+        "https://makanveganvegetarian.oddle.me/en_SG/stores",
+        "https://www.makanvegan.com/catering",
+        "https://www.foodpanda.sg/restaurant/vycy/makan-vegan-zhai-zhe-li-mandai-estate"
+      ],
+      "retrievedAt": "2026-10-16T04:12:00.536Z",
+      "sourceChecks": [
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/makan-vegan-catering",
+          "checkedAt": "2026-10-15",
+          "result": "saved-independent-directory-lead",
+          "basis": "Saved date retained; discovery only, not current food proof."
+        },
+        {
+          "url": "https://www.makanvegan.com/order",
+          "checkedAt": "2026-10-16",
+          "dateBasis": "Online search/open review date; precise retrieval time not captured.",
+          "result": "online-review-with-qualification",
+          "basis": "Makan Vegan Mandai is the central catering kitchen, not a new dining venue. Existing canonical 138 food records reused. Public order shell supplies no additional named menu; supplier/catering scope retained."
+        },
+        {
+          "url": "https://www.makanvegan.com/order",
+          "checkedAt": "2026-10-15T10:35:09.400550+00:00",
+          "reviewedAt": "2026-10-16T04:12:00.536Z",
+          "result": "canonical-source-reused-not-refetched",
+          "basis": "Earlier snapshot/holds unchanged; see canonical packet."
+        },
+        {
+          "url": "https://makanveganvegetarian.oddle.me/en_SG/",
+          "checkedAt": "2026-10-15T10:35:09.400550+00:00",
+          "reviewedAt": "2026-10-16T04:12:00.536Z",
+          "result": "canonical-source-reused-not-refetched",
+          "basis": "Earlier snapshot/holds unchanged; see canonical packet."
+        },
+        {
+          "url": "https://makanveganvegetarian.oddle.me/en_SG/stores",
+          "checkedAt": "2026-10-15T10:35:09.400550+00:00",
+          "reviewedAt": "2026-10-16T04:12:00.536Z",
+          "result": "canonical-source-reused-not-refetched",
+          "basis": "Earlier snapshot/holds unchanged; see canonical packet."
+        },
+        {
+          "url": "https://www.makanvegan.com/catering",
+          "checkedAt": "2026-10-15T10:35:09.400550+00:00",
+          "reviewedAt": "2026-10-16T04:12:00.536Z",
+          "result": "canonical-source-reused-not-refetched",
+          "basis": "Earlier snapshot/holds unchanged; see canonical packet."
+        },
+        {
+          "url": "https://www.foodpanda.sg/restaurant/vycy/makan-vegan-zhai-zhe-li-mandai-estate",
+          "checkedAt": "2026-10-15T10:35:09.400550+00:00",
+          "reviewedAt": "2026-10-16T04:12:00.536Z",
+          "result": "canonical-source-reused-not-refetched",
+          "basis": "Earlier snapshot/holds unchanged; see canonical packet."
+        }
+      ],
+      "identityStatus": "independent-source-candidate-awaiting-explicit-id-review",
+      "identityBoundary": "No new Google request or approved ID-to-branch link. Conflicting lead/current merchant premises remain separate.",
+      "gaps": [
+        "Makan Vegan Mandai is the central catering kitchen, not a new dining venue. Existing canonical 138 food records reused. Public order shell supplies no additional named menu; supplier/catering scope retained."
+      ],
+      "menu": {
+        "status": "canonical-reused",
+        "foodRowsCreated": 0
+      },
+      "nextAction": "Retain unresolved premise, ingredient, availability and source/channel holds; seek readable current exact-premises primary evidence for remaining gaps without duplicating canonical menus.",
+      "canonicalReuse": [
+        {
+          "dataset": "data/menu-research/menu-makan-vegestory-eighttreasures.json",
+          "branchId": "makan-vegan-mandai-central-kitchen",
+          "menuIds": [
+            "makan-oddle-prepared",
+            "makan-buffet-choices",
+            "makan-bento-components",
+            "makan-bento-boxes",
+            "makan-foodpanda-extra"
+          ],
+          "storedFoodRows": 138
+        }
+      ]
+    },
+    {
+      "sequence": 36,
+      "placeId": "ChIJmTHXaAAR2jERYwnVXvRFfm8",
+      "independentLeadName": "Miao Xin Vegetarian Food 妙心素食",
+      "independentLeadAddress": "Blk 254 Jurong East St 24, #01-40 Yuhua Village Market and Food Centre, Singapore 600254",
+      "leadProvenance": "Exact frozen independent source-link lead; no Google display facts persisted.",
+      "eligibility": "unresolved",
+      "eligibilityReason": "Miao Xin secondary September 2026 budget-meal account and HPB 2018 context do not supply a current primary complete menu. The guide's operator affiliation is unverified.",
+      "sourceUrls": [
+        "https://www.onehungryhippo.com/restaurants/miao-xin-vegetarian-food",
+        "https://kopitiam.com.sg/2026/09/28/3-50-budget-meals-at-yuhua-village-market-food-centre/",
+        "https://www.hpb.gov.sg/docs/default-source/default-document-library/hdp_hawker-and-coffeshop-listing_for-online-use_16-5-2018.pdf?sfvrsn=98a9c372_0"
+      ],
+      "retrievedAt": "2026-10-16T04:12:00.536Z",
+      "sourceChecks": [
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/miao-xin-vegetarian-food",
+          "checkedAt": "2026-10-15",
+          "result": "saved-independent-directory-lead",
+          "basis": "Saved date retained; discovery only, not current food proof."
+        },
+        {
+          "url": "https://kopitiam.com.sg/2026/09/28/3-50-budget-meals-at-yuhua-village-market-food-centre/",
+          "checkedAt": "2026-10-16",
+          "dateBasis": "Online search/open review date; precise retrieval time not captured.",
+          "result": "online-review-with-qualification",
+          "basis": "Miao Xin secondary September 2026 budget-meal account and HPB 2018 context do not supply a current primary complete menu. The guide's operator affiliation is unverified."
+        },
+        {
+          "url": "https://www.hpb.gov.sg/docs/default-source/default-document-library/hdp_hawker-and-coffeshop-listing_for-online-use_16-5-2018.pdf?sfvrsn=98a9c372_0",
+          "checkedAt": "2026-10-16",
+          "dateBasis": "Online search/open review date; precise retrieval time not captured.",
+          "result": "online-review-with-qualification",
+          "basis": "Miao Xin secondary September 2026 budget-meal account and HPB 2018 context do not supply a current primary complete menu. The guide's operator affiliation is unverified."
+        }
+      ],
+      "identityStatus": "independent-source-candidate-awaiting-explicit-id-review",
+      "identityBoundary": "No new Google request or approved ID-to-branch link. Conflicting lead/current merchant premises remain separate.",
+      "gaps": [
+        "Miao Xin secondary September 2026 budget-meal account and HPB 2018 context do not supply a current primary complete menu. The guide's operator affiliation is unverified."
+      ],
+      "menu": {
+        "status": "unresolved-current-branch-menu",
+        "foodRowsCreated": 0
+      },
+      "nextAction": "Retain unresolved premise, ingredient, availability and source/channel holds; seek readable current exact-premises primary evidence for remaining gaps without duplicating canonical menus."
+    },
+    {
+      "sequence": 37,
+      "placeId": "ChIJO17dKx4X2jERtWFng59_5kc",
+      "independentLeadName": "Ming Ri Vegetarian",
+      "independentLeadAddress": "341 Ang Mo Kio Ave 1, #01-05, Singapore 560341",
+      "leadProvenance": "Exact frozen independent source-link lead; no Google display facts persisted.",
+      "eligibility": "unresolved",
+      "eligibilityReason": "Ming Ri secondary postal codes 564341/560341 differ; no current primary exact-branch menu established.",
+      "sourceUrls": [
+        "https://www.onehungryhippo.com/restaurants/ming-ri-vegetarian"
+      ],
+      "retrievedAt": "2026-10-16T04:12:00.536Z",
+      "sourceChecks": [
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/ming-ri-vegetarian",
+          "checkedAt": "2026-10-15",
+          "result": "saved-independent-directory-lead",
+          "basis": "Saved date retained; discovery only, not current food proof."
+        }
+      ],
+      "identityStatus": "independent-source-candidate-awaiting-explicit-id-review",
+      "identityBoundary": "No new Google request or approved ID-to-branch link. Conflicting lead/current merchant premises remain separate.",
+      "gaps": [
+        "Ming Ri secondary postal codes 564341/560341 differ; no current primary exact-branch menu established."
+      ],
+      "menu": {
+        "status": "unresolved-current-branch-menu",
+        "foodRowsCreated": 0
+      },
+      "nextAction": "Retain unresolved premise, ingredient, availability and source/channel holds; seek readable current exact-premises primary evidence for remaining gaps without duplicating canonical menus."
+    },
+    {
+      "sequence": 38,
+      "placeId": "ChIJf8BpdgAX2jER5p1W1zkoAGQ",
+      "independentLeadName": "Mini Green Lok Lok",
+      "independentLeadAddress": "210 Lorong 8 Toa Payoh",
+      "leadProvenance": "Exact frozen independent source-link lead; no Google display facts persisted.",
+      "eligibility": "vegetarian-confirmed",
+      "eligibilityReason": "Mini Green canonical 24 stored foods reused: 18 public and six held. Generic-description holds and unread options preserved.",
+      "sourceUrls": [
+        "https://www.onehungryhippo.com/restaurants/vegetarian-food-stall-01-74",
+        "https://www.instagram.com/minigreensg",
+        "https://www.foodpanda.sg/restaurant/ed4x/mini-green-vegetarian-toa-payoh-lorong-8",
+        "https://sethlui.com/mini-green-toa-payoh-singapore-mar-2026/"
+      ],
+      "retrievedAt": "2026-10-16T04:12:00.536Z",
+      "sourceChecks": [
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/vegetarian-food-stall-01-74",
+          "checkedAt": "2026-10-15",
+          "result": "saved-independent-directory-lead",
+          "basis": "Saved date retained; discovery only, not current food proof."
+        },
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/vegetarian-food-stall-01-74",
+          "checkedAt": "2026-10-16T01:08:40.403Z",
+          "reviewedAt": "2026-10-16T04:12:00.536Z",
+          "result": "canonical-source-reused-not-refetched",
+          "basis": "Earlier snapshot/holds unchanged; see canonical packet."
+        },
+        {
+          "url": "https://www.instagram.com/minigreensg",
+          "checkedAt": "2026-10-16T01:08:40.450Z",
+          "reviewedAt": "2026-10-16T04:12:00.536Z",
+          "result": "canonical-source-reused-not-refetched",
+          "basis": "Earlier snapshot/holds unchanged; see canonical packet."
+        },
+        {
+          "url": "https://www.foodpanda.sg/restaurant/ed4x/mini-green-vegetarian-toa-payoh-lorong-8",
+          "checkedAt": "2026-10-16T01:11:44.383Z",
+          "reviewedAt": "2026-10-16T04:12:00.536Z",
+          "result": "canonical-source-reused-not-refetched",
+          "basis": "Earlier snapshot/holds unchanged; see canonical packet."
+        },
+        {
+          "url": "https://sethlui.com/mini-green-toa-payoh-singapore-mar-2026/",
+          "checkedAt": "2026-10-16T01:11:43.293Z",
+          "reviewedAt": "2026-10-16T04:12:00.536Z",
+          "result": "canonical-source-reused-not-refetched",
+          "basis": "Earlier snapshot/holds unchanged; see canonical packet."
+        }
+      ],
+      "identityStatus": "independent-source-candidate-awaiting-explicit-id-review",
+      "identityBoundary": "No new Google request or approved ID-to-branch link. Conflicting lead/current merchant premises remain separate.",
+      "gaps": [
+        "Mini Green canonical 24 stored foods reused: 18 public and six held. Generic-description holds and unread options preserved."
+      ],
+      "menu": {
+        "status": "canonical-reused",
+        "foodRowsCreated": 0
+      },
+      "nextAction": "Retain unresolved premise, ingredient, availability and source/channel holds; seek readable current exact-premises primary evidence for remaining gaps without duplicating canonical menus.",
+      "canonicalReuse": [
+        {
+          "dataset": "data/menu-research/menu-completion-unresearched-02b-remaining-2026-10-16.json",
+          "branchId": "ur02-vegetarian-food-stall-01-74",
+          "menuIds": [
+            "ur02-vegetarian-food-stall-01-74-menu"
+          ],
+          "storedFoodRows": 24
+        }
+      ]
+    },
+    {
+      "sequence": 39,
+      "placeId": "ChIJ5anU-cMZ2jERBqEBp7taKoU",
+      "independentLeadName": "Mitu Rice 米兔饭团",
+      "independentLeadAddress": "3 Shenton Wy, #02-11 Shenton House, Singapore 068805",
+      "leadProvenance": "Exact frozen independent source-link lead; no Google display facts persisted.",
+      "eligibility": "unresolved",
+      "eligibilityReason": "Mitu Rice own website currently states 100% vegan and allium free, but gives no readable named food menu or exact Shenton premise. Existing zero-food branch reused; no named dish inferred from a rice-ball photo.",
+      "sourceUrls": [
+        "https://www.onehungryhippo.com/restaurants/mitu-rice",
+        "https://miturice.com/",
+        "https://www.happycow.net/reviews/mitu-rice-singapore-522378",
+        "https://www.onehungryhippo.com/restaurants"
+      ],
+      "retrievedAt": "2026-10-16T04:12:00.536Z",
+      "sourceChecks": [
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/mitu-rice",
+          "checkedAt": "2026-10-15",
+          "result": "saved-independent-directory-lead",
+          "basis": "Saved date retained; discovery only, not current food proof."
+        },
+        {
+          "url": "https://miturice.com/",
+          "checkedAt": "2026-10-16",
+          "dateBasis": "Online search/open review date; precise retrieval time not captured.",
+          "result": "online-review-with-qualification",
+          "basis": "Mitu Rice own website currently states 100% vegan and allium free, but gives no readable named food menu or exact Shenton premise. Existing zero-food branch reused; no named dish inferred from a rice-ball photo."
+        },
+        {
+          "url": "https://www.happycow.net/reviews/mitu-rice-singapore-522378",
+          "checkedAt": "2026-10-16",
+          "dateBasis": "Online search/open review date; precise retrieval time not captured.",
+          "result": "online-review-with-qualification",
+          "basis": "Mitu Rice own website currently states 100% vegan and allium free, but gives no readable named food menu or exact Shenton premise. Existing zero-food branch reused; no named dish inferred from a rice-ball photo."
+        },
+        {
+          "url": "https://www.onehungryhippo.com/restaurants",
+          "checkedAt": "2026-10-15T08:57:28.051666+00:00",
+          "reviewedAt": "2026-10-16T04:12:00.536Z",
+          "result": "canonical-source-reused-not-refetched",
+          "basis": "Earlier snapshot/holds unchanged; see canonical packet."
+        },
+        {
+          "url": "https://miturice.com/",
+          "checkedAt": "2026-10-15T22:48:13.316418+00:00",
+          "reviewedAt": "2026-10-16T04:12:00.536Z",
+          "result": "canonical-source-reused-not-refetched",
+          "basis": "Earlier snapshot/holds unchanged; see canonical packet."
+        }
+      ],
+      "identityStatus": "independent-source-candidate-awaiting-explicit-id-review",
+      "identityBoundary": "No new Google request or approved ID-to-branch link. Conflicting lead/current merchant premises remain separate.",
+      "gaps": [
+        "Mitu Rice own website currently states 100% vegan and allium free, but gives no readable named food menu or exact Shenton premise. Existing zero-food branch reused; no named dish inferred from a rice-ball photo."
+      ],
+      "menu": {
+        "status": "canonical-reused",
+        "foodRowsCreated": 0
+      },
+      "nextAction": "Retain unresolved premise, ingredient, availability and source/channel holds; seek readable current exact-premises primary evidence for remaining gaps without duplicating canonical menus.",
+      "canonicalReuse": [
+        {
+          "dataset": "data/menu-research/menu-directory-continuation-cafes-2026-10-16.json",
+          "branchId": "mitu-rice-shenton-lead",
+          "menuIds": [],
+          "storedFoodRows": 0
+        }
+      ]
+    },
+    {
+      "sequence": 40,
+      "placeId": "ChIJJxQI_AsZ2jERK6HpK5kZjAs",
+      "independentLeadName": "NomVNom",
+      "independentLeadAddress": "6 Eu Tong Sen Street, #03-105/106/107, Clarke Quay Central",
+      "leadProvenance": "Exact frozen independent source-link lead; no Google display facts persisted.",
+      "eligibility": "vegetarian-confirmed",
+      "eligibilityReason": "nomVnom official current vegan branding and exact Clarke Quay #03-105/106/107 corroborate existing canonical/pilot branch. Existing 74 public foods reused; shared menu references are not zero new menu coverage or a second extraction.",
+      "sourceUrls": [
+        "https://www.onehungryhippo.com/restaurants/nomvnom",
+        "https://www.nomvnom.com/",
+        "https://www.nomvnom.com/contact-us",
+        "https://nomvnombistro.oddle.me/en_SG",
+        "https://nomvnombistro.oddle.me/en_SG/stores"
+      ],
+      "retrievedAt": "2026-10-16T04:12:00.536Z",
+      "sourceChecks": [
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/nomvnom",
+          "checkedAt": "2026-10-15",
+          "result": "saved-independent-directory-lead",
+          "basis": "Saved date retained; discovery only, not current food proof."
+        },
+        {
+          "url": "https://www.nomvnom.com/",
+          "checkedAt": "2026-10-16",
+          "dateBasis": "Online search/open review date; precise retrieval time not captured.",
+          "result": "online-review-with-qualification",
+          "basis": "nomVnom official current vegan branding and exact Clarke Quay #03-105/106/107 corroborate existing canonical/pilot branch. Existing 74 public foods reused; shared menu references are not zero new menu coverage or a second extraction."
+        },
+        {
+          "url": "https://www.nomvnom.com/contact-us",
+          "checkedAt": "2026-10-15T11:08:38.894Z",
+          "reviewedAt": "2026-10-16T04:12:00.536Z",
+          "result": "canonical-source-reused-not-refetched",
+          "basis": "Earlier snapshot/holds unchanged; see canonical packet."
+        },
+        {
+          "url": "https://nomvnombistro.oddle.me/en_SG",
+          "checkedAt": "2026-10-15T11:10:29.321Z",
+          "reviewedAt": "2026-10-16T04:12:00.536Z",
+          "result": "canonical-source-reused-not-refetched",
+          "basis": "Earlier snapshot/holds unchanged; see canonical packet."
+        },
+        {
+          "url": "https://nomvnombistro.oddle.me/en_SG/stores",
+          "checkedAt": "2026-10-15T11:10:28.938Z",
+          "reviewedAt": "2026-10-16T04:12:00.536Z",
+          "result": "canonical-source-reused-not-refetched",
+          "basis": "Earlier snapshot/holds unchanged; see canonical packet."
+        }
+      ],
+      "identityStatus": "independent-source-candidate-awaiting-explicit-id-review",
+      "identityBoundary": "No new Google request or approved ID-to-branch link. Conflicting lead/current merchant premises remain separate.",
+      "gaps": [
+        "nomVnom official current vegan branding and exact Clarke Quay #03-105/106/107 corroborate existing canonical/pilot branch. Existing 74 public foods reused; shared menu references are not zero new menu coverage or a second extraction."
+      ],
+      "menu": {
+        "status": "canonical-reused",
+        "foodRowsCreated": 0
+      },
+      "nextAction": "Retain unresolved premise, ingredient, availability and source/channel holds; seek readable current exact-premises primary evidence for remaining gaps without duplicating canonical menus.",
+      "canonicalReuse": [
+        {
+          "dataset": "data/menu-research/menu-elemen-nomvnom.json",
+          "branchId": "nomvnom-clarke-quay-central",
+          "menuIds": [
+            "nomvnom-clarke-quay-central-ordering-sample",
+            "nomvnom-clarke-quay-central-food-options-enrichment"
+          ],
+          "storedFoodRows": 0,
+          "publicFoodsAlreadyPresent": 74
+        }
+      ]
+    },
+    {
+      "sequence": 41,
+      "placeId": "ChIJSVrVFBY92jERC58DYu_it90",
+      "independentLeadName": "Pu Ti Vegetarian",
+      "independentLeadAddress": "137 Tampines Street 11",
+      "leadProvenance": "Exact frozen independent source-link lead; no Google display facts persisted.",
+      "eligibility": "unresolved",
+      "eligibilityReason": "Pu Ti secondary #01-30 and postal 522137 conflict with saved 521137; no current primary menu established.",
+      "sourceUrls": [
+        "https://www.onehungryhippo.com/restaurants/vegetarian-2"
+      ],
+      "retrievedAt": "2026-10-16T04:12:00.536Z",
+      "sourceChecks": [
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/vegetarian-2",
+          "checkedAt": "2026-10-15",
+          "result": "saved-independent-directory-lead",
+          "basis": "Saved date retained; discovery only, not current food proof."
+        }
+      ],
+      "identityStatus": "independent-source-candidate-awaiting-explicit-id-review",
+      "identityBoundary": "No new Google request or approved ID-to-branch link. Conflicting lead/current merchant premises remain separate.",
+      "gaps": [
+        "Pu Ti secondary #01-30 and postal 522137 conflict with saved 521137; no current primary menu established."
+      ],
+      "menu": {
+        "status": "unresolved-current-branch-menu",
+        "foodRowsCreated": 0
+      },
+      "nextAction": "Retain unresolved premise, ingredient, availability and source/channel holds; seek readable current exact-premises primary evidence for remaining gaps without duplicating canonical menus."
+    },
+    {
+      "sequence": 42,
+      "placeId": "ChIJJ7wOPwAZ2jERqe2p7y_7SIo",
+      "independentLeadName": "Qiu Yuan 秋源 Vegetarian Food",
+      "independentLeadAddress": "10 Hospital Blvd, #02-03 SingHealth Tower, Singapore 168582",
+      "leadProvenance": "Exact frozen independent source-link lead; no Google display facts persisted.",
+      "eligibility": "unresolved",
+      "eligibilityReason": "Hospital source confirms Koufu level two, not this Qiu Yuan tenant/menu. Patient meal menus do not prove a hawker-stall menu.",
+      "sourceUrls": [
+        "https://www.onehungryhippo.com/restaurants/qiu-yuan-vegetarian-food",
+        "https://www.sgh.com.sg/patient-services/visiting-information/getting-to-SGH-Emergency-NNI/amenities-directory"
+      ],
+      "retrievedAt": "2026-10-16T04:12:00.536Z",
+      "sourceChecks": [
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/qiu-yuan-vegetarian-food",
+          "checkedAt": "2026-10-15",
+          "result": "saved-independent-directory-lead",
+          "basis": "Saved date retained; discovery only, not current food proof."
+        },
+        {
+          "url": "https://www.sgh.com.sg/patient-services/visiting-information/getting-to-SGH-Emergency-NNI/amenities-directory",
+          "checkedAt": "2026-10-16",
+          "dateBasis": "Online search/open review date; precise retrieval time not captured.",
+          "result": "online-review-with-qualification",
+          "basis": "Hospital source confirms Koufu level two, not this Qiu Yuan tenant/menu. Patient meal menus do not prove a hawker-stall menu."
+        }
+      ],
+      "identityStatus": "independent-source-candidate-awaiting-explicit-id-review",
+      "identityBoundary": "No new Google request or approved ID-to-branch link. Conflicting lead/current merchant premises remain separate.",
+      "gaps": [
+        "Hospital source confirms Koufu level two, not this Qiu Yuan tenant/menu. Patient meal menus do not prove a hawker-stall menu."
+      ],
+      "menu": {
+        "status": "unresolved-current-branch-menu",
+        "foodRowsCreated": 0
+      },
+      "nextAction": "Retain unresolved premise, ingredient, availability and source/channel holds; seek readable current exact-premises primary evidence for remaining gaps without duplicating canonical menus."
+    },
+    {
+      "sequence": 43,
+      "placeId": "ChIJ76ikgYMR2jERR0qwF8CumiQ",
+      "independentLeadName": "Red Apple Vegetarian (Bukit Batok) 红苹果",
+      "independentLeadAddress": "Blk 150 Bukit Batok Street 11, #01-246, Singapore 650150",
+      "leadProvenance": "Exact frozen independent source-link lead; no Google display facts persisted.",
+      "eligibility": "unresolved",
+      "eligibilityReason": "Red Apple Bukit Batok and canonical 150 Green share a premise but current alias/operator continuity is unproved. Four 150 Green foods are not transferred.",
+      "sourceUrls": [
+        "https://www.onehungryhippo.com/restaurants/red-apple-vegetarian-bukit-batok"
+      ],
+      "retrievedAt": "2026-10-16T04:12:00.536Z",
+      "sourceChecks": [
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/red-apple-vegetarian-bukit-batok",
+          "checkedAt": "2026-10-15",
+          "result": "saved-independent-directory-lead",
+          "basis": "Saved date retained; discovery only, not current food proof."
+        }
+      ],
+      "identityStatus": "independent-source-candidate-awaiting-explicit-id-review",
+      "identityBoundary": "No new Google request or approved ID-to-branch link. Conflicting lead/current merchant premises remain separate.",
+      "gaps": [
+        "Red Apple Bukit Batok and canonical 150 Green share a premise but current alias/operator continuity is unproved. Four 150 Green foods are not transferred."
+      ],
+      "menu": {
+        "status": "unresolved-current-branch-menu",
+        "foodRowsCreated": 0
+      },
+      "nextAction": "Retain unresolved premise, ingredient, availability and source/channel holds; seek readable current exact-premises primary evidence for remaining gaps without duplicating canonical menus."
+    },
+    {
+      "sequence": 44,
+      "placeId": "ChIJJXeeRgAT2jERZKwV2en0q_E",
+      "independentLeadName": "Red Apple Vegetarian (Woodlands) 红苹果",
+      "independentLeadAddress": "Blk 166 Woodlands Street 13, #01-553, Singapore 730166",
+      "leadProvenance": "Exact frozen independent source-link lead; no Google display facts persisted.",
+      "eligibility": "vegetarian-confirmed",
+      "eligibilityReason": "Existing Red Apple Woodlands 16-food menu reused; no duplicate extraction or renewal of its original check date.",
+      "sourceUrls": [
+        "https://www.onehungryhippo.com/restaurants/red-apple-vegetarian-woodlands",
+        "https://www.foodpanda.sg/restaurant/obfz/red-apple-vegetarian-cuisine-hong-ping-guo-su-shi-woodlands-street"
+      ],
+      "retrievedAt": "2026-10-16T04:12:00.536Z",
+      "sourceChecks": [
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/red-apple-vegetarian-woodlands",
+          "checkedAt": "2026-10-15",
+          "result": "saved-independent-directory-lead",
+          "basis": "Saved date retained; discovery only, not current food proof."
+        },
+        {
+          "url": "https://www.foodpanda.sg/restaurant/obfz/red-apple-vegetarian-cuisine-hong-ping-guo-su-shi-woodlands-street",
+          "checkedAt": "2026-10-15T11:20:49.618128+00:00",
+          "reviewedAt": "2026-10-16T04:12:00.536Z",
+          "result": "canonical-source-reused-not-refetched",
+          "basis": "Earlier snapshot/holds unchanged; see canonical packet."
+        }
+      ],
+      "identityStatus": "independent-source-candidate-awaiting-explicit-id-review",
+      "identityBoundary": "No new Google request or approved ID-to-branch link. Conflicting lead/current merchant premises remain separate.",
+      "gaps": [
+        "Existing Red Apple Woodlands 16-food menu reused; no duplicate extraction or renewal of its original check date."
+      ],
+      "menu": {
+        "status": "canonical-reused",
+        "foodRowsCreated": 0
+      },
+      "nextAction": "Retain unresolved premise, ingredient, availability and source/channel holds; seek readable current exact-premises primary evidence for remaining gaps without duplicating canonical menus.",
+      "canonicalReuse": [
+        {
+          "dataset": "data/menu-research/menu-north-stalls.json",
+          "branchId": "redapple-woodlands",
+          "menuIds": [
+            "redapple-woodlands-foods"
+          ],
+          "storedFoodRows": 16
+        }
+      ]
+    },
+    {
+      "sequence": 45,
+      "placeId": "ChIJ13950d4W2jERLFfMfXs9fDQ",
+      "independentLeadName": "Ru Lai Vegetarian Food (AMK) 茹莱斋",
+      "independentLeadAddress": "226D Ang Mo Kio Ave 1, Singapore 564226",
+      "leadProvenance": "Exact frozen independent source-link lead; no Google display facts persisted.",
+      "eligibility": "unresolved",
+      "eligibilityReason": "Ru Lai secondary #01-105 versus #01-108 conflict remains. April 2026 secondary guide is not a current primary named menu.",
+      "sourceUrls": [
+        "https://www.onehungryhippo.com/restaurants/ru-lai-vegetarian-food-amk",
+        "https://kopitiam.com.sg/2026/04/07/ang-mo-kio-226h-226d-market-food-centre-must-try-hawker-stalls/"
+      ],
+      "retrievedAt": "2026-10-16T04:12:00.536Z",
+      "sourceChecks": [
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/ru-lai-vegetarian-food-amk",
+          "checkedAt": "2026-10-15",
+          "result": "saved-independent-directory-lead",
+          "basis": "Saved date retained; discovery only, not current food proof."
+        },
+        {
+          "url": "https://kopitiam.com.sg/2026/04/07/ang-mo-kio-226h-226d-market-food-centre-must-try-hawker-stalls/",
+          "checkedAt": "2026-10-16",
+          "dateBasis": "Online search/open review date; precise retrieval time not captured.",
+          "result": "online-review-with-qualification",
+          "basis": "Ru Lai secondary #01-105 versus #01-108 conflict remains. April 2026 secondary guide is not a current primary named menu."
+        }
+      ],
+      "identityStatus": "independent-source-candidate-awaiting-explicit-id-review",
+      "identityBoundary": "No new Google request or approved ID-to-branch link. Conflicting lead/current merchant premises remain separate.",
+      "gaps": [
+        "Ru Lai secondary #01-105 versus #01-108 conflict remains. April 2026 secondary guide is not a current primary named menu."
+      ],
+      "menu": {
+        "status": "unresolved-current-branch-menu",
+        "foodRowsCreated": 0
+      },
+      "nextAction": "Retain unresolved premise, ingredient, availability and source/channel holds; seek readable current exact-premises primary evidence for remaining gaps without duplicating canonical menus."
+    },
+    {
+      "sequence": 46,
+      "placeId": "ChIJd7HBOHgb2jERqtwyBQ3u0kk",
+      "independentLeadName": "Ru Yi Vegetarian (Bukit Merah) 如意素食",
+      "independentLeadAddress": "11 Telok Blangah Cres, #01-92, Singapore 090011",
+      "leadProvenance": "Exact frozen independent source-link lead; no Google display facts persisted.",
+      "eligibility": "unresolved",
+      "eligibilityReason": "Ru Yi Telok Blangah historical payment list and secondary reviews support discovery only; no current merchant menu established.",
+      "sourceUrls": [
+        "https://www.onehungryhippo.com/restaurants/ru-yi-vegetarian-bukit-merah"
+      ],
+      "retrievedAt": "2026-10-16T04:12:00.536Z",
+      "sourceChecks": [
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/ru-yi-vegetarian-bukit-merah",
+          "checkedAt": "2026-10-15",
+          "result": "saved-independent-directory-lead",
+          "basis": "Saved date retained; discovery only, not current food proof."
+        }
+      ],
+      "identityStatus": "independent-source-candidate-awaiting-explicit-id-review",
+      "identityBoundary": "No new Google request or approved ID-to-branch link. Conflicting lead/current merchant premises remain separate.",
+      "gaps": [
+        "Ru Yi Telok Blangah historical payment list and secondary reviews support discovery only; no current merchant menu established."
+      ],
+      "menu": {
+        "status": "unresolved-current-branch-menu",
+        "foodRowsCreated": 0
+      },
+      "nextAction": "Retain unresolved premise, ingredient, availability and source/channel holds; seek readable current exact-premises primary evidence for remaining gaps without duplicating canonical menus."
+    },
+    {
+      "sequence": 47,
+      "placeId": "ChIJb6Z093kZ2jERAv7wu9OLF7U",
+      "independentLeadName": "Ru Yi Vegetarian (Tiong Bahru) 如意素食",
+      "independentLeadAddress": "30 Seng Poh Rd, #02-26, Singapore 168898",
+      "leadProvenance": "Exact frozen independent source-link lead; no Google display facts persisted.",
+      "eligibility": "unresolved",
+      "eligibilityReason": "Ru Yi Tiong Bahru February 2026 food review is dated secondary evidence; no current primary menu established. Historical review prices not promoted to current prices.",
+      "sourceUrls": [
+        "https://www.onehungryhippo.com/restaurants/ru-yi-vegetarian-tiong-bahru",
+        "https://danielfooddiary.com/2026/02/28/ruyivegetarian/"
+      ],
+      "retrievedAt": "2026-10-16T04:12:00.536Z",
+      "sourceChecks": [
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/ru-yi-vegetarian-tiong-bahru",
+          "checkedAt": "2026-10-15",
+          "result": "saved-independent-directory-lead",
+          "basis": "Saved date retained; discovery only, not current food proof."
+        },
+        {
+          "url": "https://danielfooddiary.com/2026/02/28/ruyivegetarian/",
+          "checkedAt": "2026-10-16",
+          "dateBasis": "Online search/open review date; precise retrieval time not captured.",
+          "result": "online-review-with-qualification",
+          "basis": "Ru Yi Tiong Bahru February 2026 food review is dated secondary evidence; no current primary menu established. Historical review prices not promoted to current prices."
+        }
+      ],
+      "identityStatus": "independent-source-candidate-awaiting-explicit-id-review",
+      "identityBoundary": "No new Google request or approved ID-to-branch link. Conflicting lead/current merchant premises remain separate.",
+      "gaps": [
+        "Ru Yi Tiong Bahru February 2026 food review is dated secondary evidence; no current primary menu established. Historical review prices not promoted to current prices."
+      ],
+      "menu": {
+        "status": "unresolved-current-branch-menu",
+        "foodRowsCreated": 0
+      },
+      "nextAction": "Retain unresolved premise, ingredient, availability and source/channel holds; seek readable current exact-premises primary evidence for remaining gaps without duplicating canonical menus."
+    },
+    {
+      "sequence": 48,
+      "placeId": "ChIJvZJIER4X2jERDJa7Lq2jcXw",
+      "independentLeadName": "Ru Yi Yuan (AMK) 如意园",
+      "independentLeadAddress": "340 Ang Mo Kio Avenue 1, #01-1679 Teck Ghee Court",
+      "leadProvenance": "Exact frozen independent source-link lead; no Google display facts persisted.",
+      "eligibility": "unresolved",
+      "eligibilityReason": "Ru Yi Yuan AMK secondary branch mentions do not establish a current primary menu. Tiong Bahru foods do not transfer.",
+      "sourceUrls": [
+        "https://www.onehungryhippo.com/restaurants/ruyi-yuan-vegetarian-food"
+      ],
+      "retrievedAt": "2026-10-16T04:12:00.536Z",
+      "sourceChecks": [
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/ruyi-yuan-vegetarian-food",
+          "checkedAt": "2026-10-15",
+          "result": "saved-independent-directory-lead",
+          "basis": "Saved date retained; discovery only, not current food proof."
+        }
+      ],
+      "identityStatus": "independent-source-candidate-awaiting-explicit-id-review",
+      "identityBoundary": "No new Google request or approved ID-to-branch link. Conflicting lead/current merchant premises remain separate.",
+      "gaps": [
+        "Ru Yi Yuan AMK secondary branch mentions do not establish a current primary menu. Tiong Bahru foods do not transfer."
+      ],
+      "menu": {
+        "status": "unresolved-current-branch-menu",
+        "foodRowsCreated": 0
+      },
+      "nextAction": "Retain unresolved premise, ingredient, availability and source/channel holds; seek readable current exact-premises primary evidence for remaining gaps without duplicating canonical menus."
+    },
+    {
+      "sequence": 49,
+      "placeId": "ChIJf_JSOgAZ2jERK6BXhOUwYCM",
+      "independentLeadName": "San De Vegetarian (Bukit Timah) 三德",
+      "independentLeadAddress": "100 Bukit Timah Rd, Singapore 229899",
+      "leadProvenance": "Exact frozen independent source-link lead; no Google display facts persisted.",
+      "eligibility": "unresolved",
+      "eligibilityReason": "San De Bukit Timah remains secondary discovery context; other San De branches do not establish this exact premise/menu.",
+      "sourceUrls": [
+        "https://www.onehungryhippo.com/restaurants/san-de-vegetarian-bukit-timah"
+      ],
+      "retrievedAt": "2026-10-16T04:12:00.536Z",
+      "sourceChecks": [
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/san-de-vegetarian-bukit-timah",
+          "checkedAt": "2026-10-15",
+          "result": "saved-independent-directory-lead",
+          "basis": "Saved date retained; discovery only, not current food proof."
+        }
+      ],
+      "identityStatus": "independent-source-candidate-awaiting-explicit-id-review",
+      "identityBoundary": "No new Google request or approved ID-to-branch link. Conflicting lead/current merchant premises remain separate.",
+      "gaps": [
+        "San De Bukit Timah remains secondary discovery context; other San De branches do not establish this exact premise/menu."
+      ],
+      "menu": {
+        "status": "unresolved-current-branch-menu",
+        "foodRowsCreated": 0
+      },
+      "nextAction": "Retain unresolved premise, ingredient, availability and source/channel holds; seek readable current exact-premises primary evidence for remaining gaps without duplicating canonical menus."
+    },
+    {
+      "sequence": 50,
+      "placeId": "ChIJg698wWMT2jERhPmjLkt8AYs",
+      "independentLeadName": "San De Vegetarian (Sembawang) 三德",
+      "independentLeadAddress": "Sembawang Dr, Block 401, Singapore 750401",
+      "leadProvenance": "Exact frozen independent source-link lead; no Google display facts persisted.",
+      "eligibility": "unresolved",
+      "eligibilityReason": "San De Sembawang remains unresolved; older lists of 256 Yishun are another premise.",
+      "sourceUrls": [
+        "https://www.onehungryhippo.com/restaurants/san-de-vegetarian-sembawang"
+      ],
+      "retrievedAt": "2026-10-16T04:12:00.536Z",
+      "sourceChecks": [
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/san-de-vegetarian-sembawang",
+          "checkedAt": "2026-10-15",
+          "result": "saved-independent-directory-lead",
+          "basis": "Saved date retained; discovery only, not current food proof."
+        }
+      ],
+      "identityStatus": "independent-source-candidate-awaiting-explicit-id-review",
+      "identityBoundary": "No new Google request or approved ID-to-branch link. Conflicting lead/current merchant premises remain separate.",
+      "gaps": [
+        "San De Sembawang remains unresolved; older lists of 256 Yishun are another premise."
+      ],
+      "menu": {
+        "status": "unresolved-current-branch-menu",
+        "foodRowsCreated": 0
+      },
+      "nextAction": "Retain unresolved premise, ingredient, availability and source/channel holds; seek readable current exact-premises primary evidence for remaining gaps without duplicating canonical menus."
+    },
+    {
+      "sequence": 51,
+      "placeId": "ChIJHbFMrmYU2jERE2yYcp5gWBM",
+      "independentLeadName": "San De Vegetarian (Yishun) 三德",
+      "independentLeadAddress": "747 Yishun Ring Rd, Singapore 760747",
+      "leadProvenance": "Exact frozen independent source-link lead; no Google display facts persisted.",
+      "eligibility": "unresolved",
+      "eligibilityReason": "San De Yishun secondary source says Street 72 #01-108 versus saved Ring Road. Merchant Facebook lead not a readable current menu; retain premise uncertainty.",
+      "sourceUrls": [
+        "https://www.onehungryhippo.com/restaurants/san-de-vegetarian-yishun",
+        "https://www.burpple.com/san-de-vegetarian-stall"
+      ],
+      "retrievedAt": "2026-10-16T04:12:00.536Z",
+      "sourceChecks": [
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/san-de-vegetarian-yishun",
+          "checkedAt": "2026-10-15",
+          "result": "saved-independent-directory-lead",
+          "basis": "Saved date retained; discovery only, not current food proof."
+        },
+        {
+          "url": "https://www.burpple.com/san-de-vegetarian-stall",
+          "checkedAt": "2026-10-16",
+          "dateBasis": "Online search/open review date; precise retrieval time not captured.",
+          "result": "online-review-with-qualification",
+          "basis": "San De Yishun secondary source says Street 72 #01-108 versus saved Ring Road. Merchant Facebook lead not a readable current menu; retain premise uncertainty."
+        }
+      ],
+      "identityStatus": "independent-source-candidate-awaiting-explicit-id-review",
+      "identityBoundary": "No new Google request or approved ID-to-branch link. Conflicting lead/current merchant premises remain separate.",
+      "gaps": [
+        "San De Yishun secondary source says Street 72 #01-108 versus saved Ring Road. Merchant Facebook lead not a readable current menu; retain premise uncertainty."
+      ],
+      "menu": {
+        "status": "unresolved-current-branch-menu",
+        "foodRowsCreated": 0
+      },
+      "nextAction": "Retain unresolved premise, ingredient, availability and source/channel holds; seek readable current exact-premises primary evidence for remaining gaps without duplicating canonical menus."
+    },
+    {
+      "sequence": 52,
+      "placeId": "ChIJUX-ESRAZ2jERtoPLIj3OktA",
+      "independentLeadName": "Shu Vegetarian Hawker Stall 典蔬素食",
+      "independentLeadAddress": "86 Market St, #03-05",
+      "leadProvenance": "Exact frozen independent source-link lead; no Google display facts persisted.",
+      "eligibility": "vegetarian-confirmed",
+      "eligibilityReason": "WhyQ corporate catering partner list identifies V Shu Vegetarian at Market Street #03-05. Exact vegetarian stall context established, but no named priced menu exposed; no food rows invented.",
+      "sourceUrls": [
+        "https://www.onehungryhippo.com/restaurants/shu-vegetarian-hawker-stall",
+        "https://www.whyq.sg/corporate-catering/market-street-hawker-center"
+      ],
+      "retrievedAt": "2026-10-16T04:12:00.536Z",
+      "sourceChecks": [
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/shu-vegetarian-hawker-stall",
+          "checkedAt": "2026-10-15",
+          "result": "saved-independent-directory-lead",
+          "basis": "Saved date retained; discovery only, not current food proof."
+        },
+        {
+          "url": "https://www.whyq.sg/corporate-catering/market-street-hawker-center",
+          "checkedAt": "2026-10-16",
+          "dateBasis": "Online search/open review date; precise retrieval time not captured.",
+          "result": "online-review-with-qualification",
+          "basis": "WhyQ corporate catering partner list identifies V Shu Vegetarian at Market Street #03-05. Exact vegetarian stall context established, but no named priced menu exposed; no food rows invented."
+        }
+      ],
+      "identityStatus": "independent-source-candidate-awaiting-explicit-id-review",
+      "identityBoundary": "No new Google request or approved ID-to-branch link. Conflicting lead/current merchant premises remain separate.",
+      "gaps": [
+        "WhyQ corporate catering partner list identifies V Shu Vegetarian at Market Street #03-05. Exact vegetarian stall context established, but no named priced menu exposed; no food rows invented."
+      ],
+      "menu": {
+        "status": "unresolved-current-branch-menu",
+        "foodRowsCreated": 0
+      },
+      "nextAction": "Retain unresolved premise, ingredient, availability and source/channel holds; seek readable current exact-premises primary evidence for remaining gaps without duplicating canonical menus."
+    },
+    {
+      "sequence": 53,
+      "placeId": "ChIJC5hi8RcX2jERqC4jqrINCwI",
+      "independentLeadName": "Su Man Yuan Vegetarian (素滿園)",
+      "independentLeadAddress": "10 Sengkang Square, Kopitiam Square, Singapore 544829",
+      "leadProvenance": "Exact frozen independent source-link lead; no Google display facts persisted.",
+      "eligibility": "unresolved",
+      "eligibilityReason": "Su Man Yuan secondary vegetarian context includes egg; no current primary menu established and no vegan inference.",
+      "sourceUrls": [
+        "https://www.onehungryhippo.com/restaurants/su-man-yuan-vegetarian-sengkang"
+      ],
+      "retrievedAt": "2026-10-16T04:12:00.536Z",
+      "sourceChecks": [
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/su-man-yuan-vegetarian-sengkang",
+          "checkedAt": "2026-10-15",
+          "result": "saved-independent-directory-lead",
+          "basis": "Saved date retained; discovery only, not current food proof."
+        }
+      ],
+      "identityStatus": "independent-source-candidate-awaiting-explicit-id-review",
+      "identityBoundary": "No new Google request or approved ID-to-branch link. Conflicting lead/current merchant premises remain separate.",
+      "gaps": [
+        "Su Man Yuan secondary vegetarian context includes egg; no current primary menu established and no vegan inference."
+      ],
+      "menu": {
+        "status": "unresolved-current-branch-menu",
+        "foodRowsCreated": 0
+      },
+      "nextAction": "Retain unresolved premise, ingredient, availability and source/channel holds; seek readable current exact-premises primary evidence for remaining gaps without duplicating canonical menus."
+    },
+    {
+      "sequence": 54,
+      "placeId": "ChIJ210yOfoR2jER7vv1Qb10Ni0",
+      "independentLeadName": "Su Miao Yuan Fo Vegetarian 素妙缘佛",
+      "independentLeadAddress": "254 Jurong East St 24, #01-18 Yuhua Village Market and Food Centre, Singapore 600254",
+      "leadProvenance": "Exact frozen independent source-link lead; no Google display facts persisted.",
+      "eligibility": "unresolved",
+      "eligibilityReason": "Su Miao Yuan Fo 2018 review is historical context only; no current primary menu established.",
+      "sourceUrls": [
+        "https://www.onehungryhippo.com/restaurants/su-miao-yuan-fo-vegetarian"
+      ],
+      "retrievedAt": "2026-10-16T04:12:00.536Z",
+      "sourceChecks": [
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/su-miao-yuan-fo-vegetarian",
+          "checkedAt": "2026-10-15",
+          "result": "saved-independent-directory-lead",
+          "basis": "Saved date retained; discovery only, not current food proof."
+        }
+      ],
+      "identityStatus": "independent-source-candidate-awaiting-explicit-id-review",
+      "identityBoundary": "No new Google request or approved ID-to-branch link. Conflicting lead/current merchant premises remain separate.",
+      "gaps": [
+        "Su Miao Yuan Fo 2018 review is historical context only; no current primary menu established."
+      ],
+      "menu": {
+        "status": "unresolved-current-branch-menu",
+        "foodRowsCreated": 0
+      },
+      "nextAction": "Retain unresolved premise, ingredient, availability and source/channel holds; seek readable current exact-premises primary evidence for remaining gaps without duplicating canonical menus."
+    },
+    {
+      "sequence": 55,
+      "placeId": "ChIJ_bDjEt8Z2jER-JHiRIB2M4Y",
+      "independentLeadName": "Su Xing Tang Vegetarian Cuisine 素兴堂",
+      "independentLeadAddress": "1 Hospital Crescent, SGH Block 6, Singapore 169608",
+      "leadProvenance": "Exact frozen independent source-link lead; no Google display facts persisted.",
+      "eligibility": "unresolved",
+      "eligibilityReason": "Existing Su Xing Tang SGH zero-food hold reused. Secondary current listing and ceased corporate entity do not prove current stall operation or closure. No merchant menu obtained.",
+      "sourceUrls": [
+        "https://www.onehungryhippo.com/restaurants/su-xing-tang-vegetarian-cuisine",
+        "https://www.happycow.net/reviews/su-xing-tang-vegetarian-cuisine-central-singapore-506443",
+        "https://www.sgh.com.sg/patient-services/visiting-information/getting-to-SGH-Emergency-NNI/amenities-directory",
+        "https://www.koufu.com.sg/our-brands/food-halls/koufu/"
+      ],
+      "retrievedAt": "2026-10-16T04:12:00.536Z",
+      "sourceChecks": [
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/su-xing-tang-vegetarian-cuisine",
+          "checkedAt": "2026-10-15",
+          "result": "saved-independent-directory-lead",
+          "basis": "Saved date retained; discovery only, not current food proof."
+        },
+        {
+          "url": "https://www.happycow.net/reviews/su-xing-tang-vegetarian-cuisine-central-singapore-506443",
+          "checkedAt": "2026-10-15T09:49:37.612879+00:00",
+          "reviewedAt": "2026-10-16T04:12:00.536Z",
+          "result": "canonical-source-reused-not-refetched",
+          "basis": "Earlier snapshot/holds unchanged; see canonical packet."
+        },
+        {
+          "url": "https://www.sgh.com.sg/patient-services/visiting-information/getting-to-SGH-Emergency-NNI/amenities-directory",
+          "checkedAt": "2026-10-15T09:49:37.612879+00:00",
+          "reviewedAt": "2026-10-16T04:12:00.536Z",
+          "result": "canonical-source-reused-not-refetched",
+          "basis": "Earlier snapshot/holds unchanged; see canonical packet."
+        },
+        {
+          "url": "https://www.koufu.com.sg/our-brands/food-halls/koufu/",
+          "checkedAt": "2026-10-15T09:49:37.612879+00:00",
+          "reviewedAt": "2026-10-16T04:12:00.536Z",
+          "result": "canonical-source-reused-not-refetched",
+          "basis": "Earlier snapshot/holds unchanged; see canonical packet."
+        }
+      ],
+      "identityStatus": "independent-source-candidate-awaiting-explicit-id-review",
+      "identityBoundary": "No new Google request or approved ID-to-branch link. Conflicting lead/current merchant premises remain separate.",
+      "gaps": [
+        "Existing Su Xing Tang SGH zero-food hold reused. Secondary current listing and ceased corporate entity do not prove current stall operation or closure. No merchant menu obtained."
+      ],
+      "menu": {
+        "status": "canonical-reused",
+        "foodRowsCreated": 0
+      },
+      "nextAction": "Retain unresolved premise, ingredient, availability and source/channel holds; seek readable current exact-premises primary evidence for remaining gaps without duplicating canonical menus.",
+      "canonicalReuse": [
+        {
+          "dataset": "data/menu-research/menu-independent-stalls.json",
+          "branchId": "su-xing-tang-sgh",
+          "menuIds": [
+            "su-xing-tang-sgh-unavailable"
+          ],
+          "storedFoodRows": 0
+        }
+      ]
+    },
+    {
+      "sequence": 56,
+      "placeId": "ChIJgXX1EoUR2jER3_Pn-OsV9Uc",
+      "independentLeadName": "Tanaka Vegetarian (Bukit Batok) 田中素食",
+      "independentLeadAddress": "Bukit Batok Street 34, #01-252 Block 347, Singapore 650347",
+      "leadProvenance": "Exact frozen independent source-link lead; no Google display facts persisted.",
+      "eligibility": "unresolved",
+      "eligibilityReason": "Tanaka Bukit Batok secondary/historical menu prices not current; Woodlands nine-food menu belongs to another branch.",
+      "sourceUrls": [
+        "https://www.onehungryhippo.com/restaurants/tanaka-vegetarian-bukit-batok",
+        "https://www.happycow.net/reviews/tanaka-vegetarian-west-singapore-155992"
+      ],
+      "retrievedAt": "2026-10-16T04:12:00.536Z",
+      "sourceChecks": [
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/tanaka-vegetarian-bukit-batok",
+          "checkedAt": "2026-10-15",
+          "result": "saved-independent-directory-lead",
+          "basis": "Saved date retained; discovery only, not current food proof."
+        },
+        {
+          "url": "https://www.happycow.net/reviews/tanaka-vegetarian-west-singapore-155992",
+          "checkedAt": "2026-10-16",
+          "dateBasis": "Online search/open review date; precise retrieval time not captured.",
+          "result": "online-review-with-qualification",
+          "basis": "Tanaka Bukit Batok secondary/historical menu prices not current; Woodlands nine-food menu belongs to another branch."
+        }
+      ],
+      "identityStatus": "independent-source-candidate-awaiting-explicit-id-review",
+      "identityBoundary": "No new Google request or approved ID-to-branch link. Conflicting lead/current merchant premises remain separate.",
+      "gaps": [
+        "Tanaka Bukit Batok secondary/historical menu prices not current; Woodlands nine-food menu belongs to another branch."
+      ],
+      "menu": {
+        "status": "unresolved-current-branch-menu",
+        "foodRowsCreated": 0
+      },
+      "nextAction": "Retain unresolved premise, ingredient, availability and source/channel holds; seek readable current exact-premises primary evidence for remaining gaps without duplicating canonical menus."
+    },
+    {
+      "sequence": 57,
+      "placeId": "ChIJFTGOVk0S2jERICc7Xclvp90",
+      "independentLeadName": "Tanaka Vegetarian (Woodlands) 田中素食",
+      "independentLeadAddress": "306 Woodlands Street 31, Singapore 730306",
+      "leadProvenance": "Exact frozen independent source-link lead; no Google display facts persisted.",
+      "eligibility": "vegetarian-confirmed",
+      "eligibilityReason": "Existing Tanaka Woodlands nine-food menu reused; Daily Green at same postal code is another operator, not a source to union.",
+      "sourceUrls": [
+        "https://www.onehungryhippo.com/restaurants/tanaka-vegetarian-woodlands",
+        "https://www.onehungryhippo.com/restaurants",
+        "https://www.foodgrove.sg/listing/tanaka-vegetarian-food-%E7%94%B0%E4%B8%AD%E7%B4%A0%E9%A3%9F/",
+        "https://www.foodgrove.sg/wp-content/uploads/2024/01/DSC05860-scaled.jpg"
+      ],
+      "retrievedAt": "2026-10-16T04:12:00.536Z",
+      "sourceChecks": [
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/tanaka-vegetarian-woodlands",
+          "checkedAt": "2026-10-15",
+          "result": "saved-independent-directory-lead",
+          "basis": "Saved date retained; discovery only, not current food proof."
+        },
+        {
+          "url": "https://www.onehungryhippo.com/restaurants",
+          "checkedAt": "2026-10-15T11:20:49.618128+00:00",
+          "reviewedAt": "2026-10-16T04:12:00.536Z",
+          "result": "canonical-source-reused-not-refetched",
+          "basis": "Earlier snapshot/holds unchanged; see canonical packet."
+        },
+        {
+          "url": "https://www.foodgrove.sg/listing/tanaka-vegetarian-food-%E7%94%B0%E4%B8%AD%E7%B4%A0%E9%A3%9F/",
+          "checkedAt": "2026-10-15T11:20:49.618128+00:00",
+          "reviewedAt": "2026-10-16T04:12:00.536Z",
+          "result": "canonical-source-reused-not-refetched",
+          "basis": "Earlier snapshot/holds unchanged; see canonical packet."
+        },
+        {
+          "url": "https://www.foodgrove.sg/wp-content/uploads/2024/01/DSC05860-scaled.jpg",
+          "checkedAt": "2026-10-15T11:20:49.618128+00:00",
+          "reviewedAt": "2026-10-16T04:12:00.536Z",
+          "result": "canonical-source-reused-not-refetched",
+          "basis": "Earlier snapshot/holds unchanged; see canonical packet."
+        }
+      ],
+      "identityStatus": "independent-source-candidate-awaiting-explicit-id-review",
+      "identityBoundary": "No new Google request or approved ID-to-branch link. Conflicting lead/current merchant premises remain separate.",
+      "gaps": [
+        "Existing Tanaka Woodlands nine-food menu reused; Daily Green at same postal code is another operator, not a source to union."
+      ],
+      "menu": {
+        "status": "canonical-reused",
+        "foodRowsCreated": 0
+      },
+      "nextAction": "Retain unresolved premise, ingredient, availability and source/channel holds; seek readable current exact-premises primary evidence for remaining gaps without duplicating canonical menus.",
+      "canonicalReuse": [
+        {
+          "dataset": "data/menu-research/menu-north-stalls.json",
+          "branchId": "tanaka-woodlands",
+          "menuIds": [
+            "tanaka-woodlands-photo-foods"
+          ],
+          "storedFoodRows": 9
+        }
+      ]
+    },
+    {
+      "sequence": 58,
+      "placeId": "ChIJyz98eq8Z2jERWDhUJDeXH_c",
+      "independentLeadName": "Vegetarian Cooked Food 益生齋素食",
+      "independentLeadAddress": "17 Old Airport Rd, Singapore 397972",
+      "leadProvenance": "Exact frozen independent source-link lead; no Google display facts persisted.",
+      "eligibility": "unresolved",
+      "eligibilityReason": "Yi Sheng Old Airport secondary guide identifies #01-11 but no current primary named menu established.",
+      "sourceUrls": [
+        "https://www.onehungryhippo.com/restaurants/vegetarian-cooked-food-geylang"
+      ],
+      "retrievedAt": "2026-10-16T04:12:00.536Z",
+      "sourceChecks": [
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/vegetarian-cooked-food-geylang",
+          "checkedAt": "2026-10-15",
+          "result": "saved-independent-directory-lead",
+          "basis": "Saved date retained; discovery only, not current food proof."
+        }
+      ],
+      "identityStatus": "independent-source-candidate-awaiting-explicit-id-review",
+      "identityBoundary": "No new Google request or approved ID-to-branch link. Conflicting lead/current merchant premises remain separate.",
+      "gaps": [
+        "Yi Sheng Old Airport secondary guide identifies #01-11 but no current primary named menu established."
+      ],
+      "menu": {
+        "status": "unresolved-current-branch-menu",
+        "foodRowsCreated": 0
+      },
+      "nextAction": "Retain unresolved premise, ingredient, availability and source/channel holds; seek readable current exact-premises primary evidence for remaining gaps without duplicating canonical menus."
+    },
+    {
+      "sequence": 59,
+      "placeId": "ChIJUR9c-XcZ2jERN9Le4BzNEmg",
+      "independentLeadName": "Vegetarian Stall (Geylang Bahru Market & Food Centre)",
+      "independentLeadAddress": "69 Geylang Bahru, #01-78, Singapore 330069",
+      "leadProvenance": "Exact frozen independent source-link lead; no Google display facts persisted.",
+      "eligibility": "unresolved",
+      "eligibilityReason": "Geylang Bahru vegetarian stall #01-78 remains a secondary directory lead. Historical Healthy Vegetarian #01-74 is another unit.",
+      "sourceUrls": [
+        "https://www.onehungryhippo.com/restaurants/vegetarian-stall-geylang-bahru-market-food-centre"
+      ],
+      "retrievedAt": "2026-10-16T04:12:00.536Z",
+      "sourceChecks": [
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/vegetarian-stall-geylang-bahru-market-food-centre",
+          "checkedAt": "2026-10-15",
+          "result": "saved-independent-directory-lead",
+          "basis": "Saved date retained; discovery only, not current food proof."
+        }
+      ],
+      "identityStatus": "independent-source-candidate-awaiting-explicit-id-review",
+      "identityBoundary": "No new Google request or approved ID-to-branch link. Conflicting lead/current merchant premises remain separate.",
+      "gaps": [
+        "Geylang Bahru vegetarian stall #01-78 remains a secondary directory lead. Historical Healthy Vegetarian #01-74 is another unit."
+      ],
+      "menu": {
+        "status": "unresolved-current-branch-menu",
+        "foodRowsCreated": 0
+      },
+      "nextAction": "Retain unresolved premise, ingredient, availability and source/channel holds; seek readable current exact-premises primary evidence for remaining gaps without duplicating canonical menus."
+    },
+    {
+      "sequence": 60,
+      "placeId": "ChIJY6gn4nUZ2jERvXicXSPnFLQ",
+      "independentLeadName": "Vegetarian Stall (Peninsula Plaza)",
+      "independentLeadAddress": "111 North Bridge Rd, B1 Basement Foodcourt, Singapore 179098",
+      "leadProvenance": "Exact frozen independent source-link lead; no Google display facts persisted.",
+      "eligibility": "unresolved",
+      "eligibilityReason": "Peninsula basement unnamed vegetarian stall is not sufficiently identified. Historical Swagat Indian stall is a different tenant/menu.",
+      "sourceUrls": [
+        "https://www.onehungryhippo.com/restaurants/vegetarian-stall-peninsula-plaza"
+      ],
+      "retrievedAt": "2026-10-16T04:12:00.536Z",
+      "sourceChecks": [
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/vegetarian-stall-peninsula-plaza",
+          "checkedAt": "2026-10-15",
+          "result": "saved-independent-directory-lead",
+          "basis": "Saved date retained; discovery only, not current food proof."
+        }
+      ],
+      "identityStatus": "independent-source-candidate-awaiting-explicit-id-review",
+      "identityBoundary": "No new Google request or approved ID-to-branch link. Conflicting lead/current merchant premises remain separate.",
+      "gaps": [
+        "Peninsula basement unnamed vegetarian stall is not sufficiently identified. Historical Swagat Indian stall is a different tenant/menu."
+      ],
+      "menu": {
+        "status": "unresolved-current-branch-menu",
+        "foodRowsCreated": 0
+      },
+      "nextAction": "Retain unresolved premise, ingredient, availability and source/channel holds; seek readable current exact-premises primary evidence for remaining gaps without duplicating canonical menus."
+    },
+    {
+      "sequence": 61,
+      "placeId": "ChIJj8abTwAZ2jERNRgHE3MEXl4",
+      "independentLeadName": "Vegetarian Stall (Sims Vista Food Centre)",
+      "independentLeadAddress": "49 Sims Pl, #01-45, Singapore 380049",
+      "leadProvenance": "Exact frozen independent source-link lead; no Google display facts persisted.",
+      "eligibility": "unresolved",
+      "eligibilityReason": "Sims Place #01-45 secondary alias Lu Shun lacks current merchant menu proof.",
+      "sourceUrls": [
+        "https://www.onehungryhippo.com/restaurants/vegetarian-stall-sims-vista-food-centre"
+      ],
+      "retrievedAt": "2026-10-16T04:12:00.536Z",
+      "sourceChecks": [
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/vegetarian-stall-sims-vista-food-centre",
+          "checkedAt": "2026-10-15",
+          "result": "saved-independent-directory-lead",
+          "basis": "Saved date retained; discovery only, not current food proof."
+        }
+      ],
+      "identityStatus": "independent-source-candidate-awaiting-explicit-id-review",
+      "identityBoundary": "No new Google request or approved ID-to-branch link. Conflicting lead/current merchant premises remain separate.",
+      "gaps": [
+        "Sims Place #01-45 secondary alias Lu Shun lacks current merchant menu proof."
+      ],
+      "menu": {
+        "status": "unresolved-current-branch-menu",
+        "foodRowsCreated": 0
+      },
+      "nextAction": "Retain unresolved premise, ingredient, availability and source/channel holds; seek readable current exact-premises primary evidence for remaining gaps without duplicating canonical menus."
+    },
+    {
+      "sequence": 62,
+      "placeId": "ChIJrdwWzmcT2jERbXKecHCdDLk",
+      "independentLeadName": "Wan Yuan Vegetarian Stall",
+      "independentLeadAddress": "2 Woodlands Sector 1, 201-211 Woodlands Avenue 9, Woodlands Spectrum 1, Singapore 738068",
+      "leadProvenance": "Exact frozen independent source-link lead; no Google display facts persisted.",
+      "eligibility": "unresolved",
+      "eligibilityReason": "Wan Yuan community dish reviews are not primary menu or dietary certification; no current merchant menu established.",
+      "sourceUrls": [
+        "https://www.onehungryhippo.com/restaurants/wan-yuan-vegetarian-stall"
+      ],
+      "retrievedAt": "2026-10-16T04:12:00.536Z",
+      "sourceChecks": [
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/wan-yuan-vegetarian-stall",
+          "checkedAt": "2026-10-15",
+          "result": "saved-independent-directory-lead",
+          "basis": "Saved date retained; discovery only, not current food proof."
+        }
+      ],
+      "identityStatus": "independent-source-candidate-awaiting-explicit-id-review",
+      "identityBoundary": "No new Google request or approved ID-to-branch link. Conflicting lead/current merchant premises remain separate.",
+      "gaps": [
+        "Wan Yuan community dish reviews are not primary menu or dietary certification; no current merchant menu established."
+      ],
+      "menu": {
+        "status": "unresolved-current-branch-menu",
+        "foodRowsCreated": 0
+      },
+      "nextAction": "Retain unresolved premise, ingredient, availability and source/channel holds; seek readable current exact-premises primary evidence for remaining gaps without duplicating canonical menus."
+    },
+    {
+      "sequence": 63,
+      "placeId": "ChIJh-vnOX8Z2jERUnCz5USFEiA",
+      "independentLeadName": "Xi Shi Fu Vegetarian 惜施福素食閣",
+      "independentLeadAddress": "115 Bukit Merah Vw, #01-25, Singapore 151115",
+      "leadProvenance": "Exact frozen independent source-link lead; no Google display facts persisted.",
+      "eligibility": "vegetarian-confirmed",
+      "eligibilityReason": "Current Xi Shi Fu ordering page identifies exact Bukit Merah #01-25 and 12 foods. Owner interview corroborates vegetarian stall group; historical HPB corroborates premise only. Eight coherent records publish; Crispy Zai Er, Fried Wu Xiang and Chicken Drumstick generic animal descriptions and Yam Roll identity mismatch stay held. No actual meat service inferred.",
+      "sourceUrls": [
+        "https://www.onehungryhippo.com/restaurants/xi-shi-fu-vegetarian-bukit-merah",
+        "https://www.asiaone.com/lifestyle/i-want-promote-vegetarian-food-more-people-bukit-batok-stall-owner-offers-180-meals-over",
+        "https://ch-api.healthhub.sg/api/public/content/fc3315e24c644da5b89ff80dafdbc2ad?v=3cc3dc45",
+        "https://www.foodpanda.sg/restaurant/b8pv/xi-shi-fu-vegetarian-xi-shi-fu-su-shi-ge-bukit-merah"
+      ],
+      "retrievedAt": "2026-10-16T04:12:00.536Z",
+      "sourceChecks": [
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/xi-shi-fu-vegetarian-bukit-merah",
+          "checkedAt": "2026-10-15",
+          "result": "saved-independent-directory-lead",
+          "basis": "Saved date retained; discovery only, not current food proof."
+        },
+        {
+          "url": "https://www.asiaone.com/lifestyle/i-want-promote-vegetarian-food-more-people-bukit-batok-stall-owner-offers-180-meals-over",
+          "checkedAt": "2026-10-16",
+          "dateBasis": "Online search/open review date; precise retrieval time not captured.",
+          "result": "online-review-with-qualification",
+          "basis": "Current Xi Shi Fu ordering page identifies exact Bukit Merah #01-25 and 12 foods. Owner interview corroborates vegetarian stall group; historical HPB corroborates premise only. Eight coherent records publish; Crispy Zai Er, Fried Wu Xiang and Chicken Drumstick generic animal descriptions and Yam Roll identity mismatch stay held. No actual meat service inferred."
+        },
+        {
+          "url": "https://ch-api.healthhub.sg/api/public/content/fc3315e24c644da5b89ff80dafdbc2ad?v=3cc3dc45",
+          "checkedAt": "2026-10-16",
+          "dateBasis": "Online search/open review date; precise retrieval time not captured.",
+          "result": "online-review-with-qualification",
+          "basis": "Current Xi Shi Fu ordering page identifies exact Bukit Merah #01-25 and 12 foods. Owner interview corroborates vegetarian stall group; historical HPB corroborates premise only. Eight coherent records publish; Crispy Zai Er, Fried Wu Xiang and Chicken Drumstick generic animal descriptions and Yam Roll identity mismatch stay held. No actual meat service inferred."
+        },
+        {
+          "url": "https://www.foodpanda.sg/restaurant/b8pv/xi-shi-fu-vegetarian-xi-shi-fu-su-shi-ge-bukit-merah",
+          "checkedAt": "2026-10-16T04:04:29.833Z",
+          "result": "readable-public-ordering-page",
+          "basis": "Current Xi Shi Fu ordering page identifies exact Bukit Merah #01-25 and 12 foods. Owner interview corroborates vegetarian stall group; historical HPB corroborates premise only. Eight coherent records publish; Crispy Zai Er, Fried Wu Xiang and Chicken Drumstick generic animal descriptions and Yam Roll identity mismatch stay held. No actual meat service inferred."
+        }
+      ],
+      "identityStatus": "independent-source-candidate-awaiting-explicit-id-review",
+      "identityBoundary": "No new Google request or approved ID-to-branch link. Conflicting lead/current merchant premises remain separate.",
+      "gaps": [
+        "Current Xi Shi Fu ordering page identifies exact Bukit Merah #01-25 and 12 foods. Owner interview corroborates vegetarian stall group; historical HPB corroborates premise only. Eight coherent records publish; Crispy Zai Er, Fried Wu Xiang and Chicken Drumstick generic animal descriptions and Yam Roll identity mismatch stay held. No actual meat service inferred."
+      ],
+      "menu": {
+        "status": "reviewed-new-source-partial",
+        "foodRowsCreated": 12
+      },
+      "nextAction": "Retain unresolved premise, ingredient, availability and source/channel holds; seek readable current exact-premises primary evidence for remaining gaps without duplicating canonical menus.",
+      "newCanonicalMenu": {
+        "dataset": "data/menu-research/menu-completion-source-links-08-2026-10-16.json",
+        "branchId": "sl08-xi-shi-fu",
+        "menuId": "sl08-xi-shi-fu-foodpanda",
+        "approvedFoodRows": 8,
+        "heldFoodRows": 4
+      }
+    },
+    {
+      "sequence": 64,
+      "placeId": "ChIJXwv_l2cP2jERZ7Yqw5mhboY",
+      "independentLeadName": "Xiang Yang Vegetarian 向陽素食",
+      "independentLeadAddress": "45 Quality Rd, #01-14, Singapore 618824",
+      "leadProvenance": "Exact frozen independent source-link lead; no Google display facts persisted.",
+      "eligibility": "unresolved",
+      "eligibilityReason": "Xiang Yang Quality Road historical HPB and secondary guide remain discovery context; do not transfer the different closed Roxy Square venue's menu.",
+      "sourceUrls": [
+        "https://www.onehungryhippo.com/restaurants/xiang-yang-vegetarian",
+        "https://www.hpb.gov.sg/docs/default-source/default-document-library/hdp_hawker-and-coffeshop-listing_for-online-use_16-5-2018.pdf?sfvrsn=98a9c372_0",
+        "https://singaporehawkercentres.com/quality-road-hawker-centre/"
+      ],
+      "retrievedAt": "2026-10-16T04:12:00.536Z",
+      "sourceChecks": [
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/xiang-yang-vegetarian",
+          "checkedAt": "2026-10-15",
+          "result": "saved-independent-directory-lead",
+          "basis": "Saved date retained; discovery only, not current food proof."
+        },
+        {
+          "url": "https://www.hpb.gov.sg/docs/default-source/default-document-library/hdp_hawker-and-coffeshop-listing_for-online-use_16-5-2018.pdf?sfvrsn=98a9c372_0",
+          "checkedAt": "2026-10-16",
+          "dateBasis": "Online search/open review date; precise retrieval time not captured.",
+          "result": "online-review-with-qualification",
+          "basis": "Xiang Yang Quality Road historical HPB and secondary guide remain discovery context; do not transfer the different closed Roxy Square venue's menu."
+        },
+        {
+          "url": "https://singaporehawkercentres.com/quality-road-hawker-centre/",
+          "checkedAt": "2026-10-16",
+          "dateBasis": "Online search/open review date; precise retrieval time not captured.",
+          "result": "online-review-with-qualification",
+          "basis": "Xiang Yang Quality Road historical HPB and secondary guide remain discovery context; do not transfer the different closed Roxy Square venue's menu."
+        }
+      ],
+      "identityStatus": "independent-source-candidate-awaiting-explicit-id-review",
+      "identityBoundary": "No new Google request or approved ID-to-branch link. Conflicting lead/current merchant premises remain separate.",
+      "gaps": [
+        "Xiang Yang Quality Road historical HPB and secondary guide remain discovery context; do not transfer the different closed Roxy Square venue's menu."
+      ],
+      "menu": {
+        "status": "unresolved-current-branch-menu",
+        "foodRowsCreated": 0
+      },
+      "nextAction": "Retain unresolved premise, ingredient, availability and source/channel holds; seek readable current exact-premises primary evidence for remaining gaps without duplicating canonical menus."
+    },
+    {
+      "sequence": 65,
+      "placeId": "ChIJMddReGs92jERBKhfnBWhqEo",
+      "independentLeadName": "Xie Bi An Vegetarian 谢必安素食",
+      "independentLeadAddress": "824 Tampines Street 81, #01-38, Singapore 520824",
+      "leadProvenance": "Exact frozen independent source-link lead; no Google display facts persisted.",
+      "eligibility": "vegetarian-confirmed",
+      "eligibilityReason": "Existing Xie Bi An canonical four foods reused: three public, one held. Previously verified postal 520824 and all earlier holds retained.",
+      "sourceUrls": [
+        "https://www.onehungryhippo.com/restaurants/xie-bi-an-vegetarian",
+        "https://www.facebook.com/xiebianvege?mibextid=LQQJ4d",
+        "https://www.foodpanda.sg/restaurant/hqko/xie-bi-an-vegetarian-tampines",
+        "https://burpple.com/xie-bi-an-vegetarian",
+        "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=824%20Tampines%20Street%2081&returnGeom=N&getAddrDetails=Y&pageNum=1"
+      ],
+      "retrievedAt": "2026-10-16T04:12:00.536Z",
+      "sourceChecks": [
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/xie-bi-an-vegetarian",
+          "checkedAt": "2026-10-15",
+          "result": "saved-independent-directory-lead",
+          "basis": "Saved date retained; discovery only, not current food proof."
+        },
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/xie-bi-an-vegetarian",
+          "checkedAt": "2026-10-16T01:08:40.126Z",
+          "reviewedAt": "2026-10-16T04:12:00.536Z",
+          "result": "canonical-source-reused-not-refetched",
+          "basis": "Earlier snapshot/holds unchanged; see canonical packet."
+        },
+        {
+          "url": "https://www.facebook.com/xiebianvege?mibextid=LQQJ4d",
+          "checkedAt": "2026-10-16T01:08:40.705Z",
+          "reviewedAt": "2026-10-16T04:12:00.536Z",
+          "result": "canonical-source-reused-not-refetched",
+          "basis": "Earlier snapshot/holds unchanged; see canonical packet."
+        },
+        {
+          "url": "https://www.foodpanda.sg/restaurant/hqko/xie-bi-an-vegetarian-tampines",
+          "checkedAt": "2026-10-16T01:14:49.940Z",
+          "reviewedAt": "2026-10-16T04:12:00.536Z",
+          "result": "canonical-source-reused-not-refetched",
+          "basis": "Earlier snapshot/holds unchanged; see canonical packet."
+        },
+        {
+          "url": "https://burpple.com/xie-bi-an-vegetarian",
+          "checkedAt": "2026-10-16T01:19:48.112Z",
+          "reviewedAt": "2026-10-16T04:12:00.536Z",
+          "result": "canonical-source-reused-not-refetched",
+          "basis": "Earlier snapshot/holds unchanged; see canonical packet."
+        },
+        {
+          "url": "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=824%20Tampines%20Street%2081&returnGeom=N&getAddrDetails=Y&pageNum=1",
+          "checkedAt": "2026-10-16T01:24:05.885Z",
+          "reviewedAt": "2026-10-16T04:12:00.536Z",
+          "result": "canonical-source-reused-not-refetched",
+          "basis": "Earlier snapshot/holds unchanged; see canonical packet."
+        }
+      ],
+      "identityStatus": "independent-source-candidate-awaiting-explicit-id-review",
+      "identityBoundary": "No new Google request or approved ID-to-branch link. Conflicting lead/current merchant premises remain separate.",
+      "gaps": [
+        "Existing Xie Bi An canonical four foods reused: three public, one held. Previously verified postal 520824 and all earlier holds retained."
+      ],
+      "menu": {
+        "status": "canonical-reused",
+        "foodRowsCreated": 0
+      },
+      "nextAction": "Retain unresolved premise, ingredient, availability and source/channel holds; seek readable current exact-premises primary evidence for remaining gaps without duplicating canonical menus.",
+      "canonicalReuse": [
+        {
+          "dataset": "data/menu-research/menu-completion-unresearched-02b-remaining-2026-10-16.json",
+          "branchId": "ur02-xie-bi-an-vegetarian",
+          "menuIds": [
+            "ur02-xie-bi-an-vegetarian-menu"
+          ],
+          "storedFoodRows": 4
+        }
+      ]
+    },
+    {
+      "sequence": 66,
+      "placeId": "ChIJcwe3VwAj2jERGXBNwcAd2EQ",
+      "independentLeadName": "Xin Ci Ming Vegetarian",
+      "independentLeadAddress": "216 Bedok North Street 1, #01-61, Singapore 460216",
+      "leadProvenance": "Exact frozen independent source-link lead; no Google display facts persisted.",
+      "eligibility": "unresolved",
+      "eligibilityReason": "Xin Ci Ming #01-61 remains secondary identity context without readable current merchant menu. Other Bedok #01-26/#01-27 stalls are not merged.",
+      "sourceUrls": [
+        "https://www.onehungryhippo.com/restaurants/xin-ci-ming-vegetarian",
+        "https://www.happycow.net/reviews/xin-ci-ming-east-singapore-118609"
+      ],
+      "retrievedAt": "2026-10-16T04:12:00.536Z",
+      "sourceChecks": [
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/xin-ci-ming-vegetarian",
+          "checkedAt": "2026-10-15",
+          "result": "saved-independent-directory-lead",
+          "basis": "Saved date retained; discovery only, not current food proof."
+        },
+        {
+          "url": "https://www.happycow.net/reviews/xin-ci-ming-east-singapore-118609",
+          "checkedAt": "2026-10-16",
+          "dateBasis": "Online search/open review date; precise retrieval time not captured.",
+          "result": "online-review-with-qualification",
+          "basis": "Xin Ci Ming #01-61 remains secondary identity context without readable current merchant menu. Other Bedok #01-26/#01-27 stalls are not merged."
+        }
+      ],
+      "identityStatus": "independent-source-candidate-awaiting-explicit-id-review",
+      "identityBoundary": "No new Google request or approved ID-to-branch link. Conflicting lead/current merchant premises remain separate.",
+      "gaps": [
+        "Xin Ci Ming #01-61 remains secondary identity context without readable current merchant menu. Other Bedok #01-26/#01-27 stalls are not merged."
+      ],
+      "menu": {
+        "status": "unresolved-current-branch-menu",
+        "foodRowsCreated": 0
+      },
+      "nextAction": "Retain unresolved premise, ingredient, availability and source/channel holds; seek readable current exact-premises primary evidence for remaining gaps without duplicating canonical menus."
+    },
+    {
+      "sequence": 67,
+      "placeId": "ChIJadxkPhQZ2jER8iA6aEBD3DA",
+      "independentLeadName": "Yi Xiang Vegetarian 異香素食",
+      "independentLeadAddress": "89 Circuit Rd, #01-107, Singapore 370089",
+      "leadProvenance": "Exact frozen independent source-link lead; no Google display facts persisted.",
+      "eligibility": "unresolved",
+      "eligibilityReason": "Yi Xiang government voucher list corroborates premise #01-107; September 2026 secondary chicken-rice account is not a current merchant menu.",
+      "sourceUrls": [
+        "https://www.onehungryhippo.com/restaurants/yi-xiang-vegetarian",
+        "https://file.go.gov.sg/macphersonmerchants.pdf",
+        "https://kopitiam.com.sg/2026/09/04/3-dollar-meals-macpherson-circuit-road/"
+      ],
+      "retrievedAt": "2026-10-16T04:12:00.536Z",
+      "sourceChecks": [
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/yi-xiang-vegetarian",
+          "checkedAt": "2026-10-15",
+          "result": "saved-independent-directory-lead",
+          "basis": "Saved date retained; discovery only, not current food proof."
+        },
+        {
+          "url": "https://file.go.gov.sg/macphersonmerchants.pdf",
+          "checkedAt": "2026-10-16",
+          "dateBasis": "Online search/open review date; precise retrieval time not captured.",
+          "result": "online-review-with-qualification",
+          "basis": "Yi Xiang government voucher list corroborates premise #01-107; September 2026 secondary chicken-rice account is not a current merchant menu."
+        },
+        {
+          "url": "https://kopitiam.com.sg/2026/09/04/3-dollar-meals-macpherson-circuit-road/",
+          "checkedAt": "2026-10-16",
+          "dateBasis": "Online search/open review date; precise retrieval time not captured.",
+          "result": "online-review-with-qualification",
+          "basis": "Yi Xiang government voucher list corroborates premise #01-107; September 2026 secondary chicken-rice account is not a current merchant menu."
+        }
+      ],
+      "identityStatus": "independent-source-candidate-awaiting-explicit-id-review",
+      "identityBoundary": "No new Google request or approved ID-to-branch link. Conflicting lead/current merchant premises remain separate.",
+      "gaps": [
+        "Yi Xiang government voucher list corroborates premise #01-107; September 2026 secondary chicken-rice account is not a current merchant menu."
+      ],
+      "menu": {
+        "status": "unresolved-current-branch-menu",
+        "foodRowsCreated": 0
+      },
+      "nextAction": "Retain unresolved premise, ingredient, availability and source/channel holds; seek readable current exact-premises primary evidence for remaining gaps without duplicating canonical menus."
+    },
+    {
+      "sequence": 68,
+      "placeId": "ChIJu10y6lE92jER4nOtKy0_uXg",
+      "independentLeadName": "Zhong Mei Cooked Food 中美熟食",
+      "independentLeadAddress": "538 Bedok North Street 3, #01-91 Bedok 538 Market & Food Centre, Singapore 460538",
+      "leadProvenance": "Exact frozen independent source-link lead; no Google display facts persisted.",
+      "eligibility": "unresolved",
+      "eligibilityReason": "Zhong Mei 2023 carrot-cake review prices are historical. Current whole-venue vegetarian scope and primary named menu remain unproved.",
+      "sourceUrls": [
+        "https://www.onehungryhippo.com/restaurants/zhong-mei-cooked-food",
+        "https://www.burpple.com/zhong-mei-cooked-food"
+      ],
+      "retrievedAt": "2026-10-16T04:12:00.536Z",
+      "sourceChecks": [
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/zhong-mei-cooked-food",
+          "checkedAt": "2026-10-15",
+          "result": "saved-independent-directory-lead",
+          "basis": "Saved date retained; discovery only, not current food proof."
+        },
+        {
+          "url": "https://www.burpple.com/zhong-mei-cooked-food",
+          "checkedAt": "2026-10-16",
+          "dateBasis": "Online search/open review date; precise retrieval time not captured.",
+          "result": "online-review-with-qualification",
+          "basis": "Zhong Mei 2023 carrot-cake review prices are historical. Current whole-venue vegetarian scope and primary named menu remain unproved."
+        }
+      ],
+      "identityStatus": "independent-source-candidate-awaiting-explicit-id-review",
+      "identityBoundary": "No new Google request or approved ID-to-branch link. Conflicting lead/current merchant premises remain separate.",
+      "gaps": [
+        "Zhong Mei 2023 carrot-cake review prices are historical. Current whole-venue vegetarian scope and primary named menu remain unproved."
+      ],
+      "menu": {
+        "status": "unresolved-current-branch-menu",
+        "foodRowsCreated": 0
+      },
+      "nextAction": "Retain unresolved premise, ingredient, availability and source/channel holds; seek readable current exact-premises primary evidence for remaining gaps without duplicating canonical menus."
+    },
+    {
+      "sequence": 69,
+      "placeId": "ChIJSb2S7n8Z2jERCQSO5cfXCJk",
+      "independentLeadName": "Zuya Vegetarian",
+      "independentLeadAddress": "302 Tiong Bahru Rd, #02-111A Tiong Bahru Plaza, Singapore 168732",
+      "leadProvenance": "Exact frozen independent source-link lead; no Google display facts persisted.",
+      "eligibility": "unresolved",
+      "eligibilityReason": "Zuya current Foodpanda has 28 unique foods at 298 Tiong Bahru #02-111A, versus saved/secondary 302. Several generic animal descriptions conflict with vegetarian context. All 28 held pending current merchant/landlord premise confirmation and item clarification. Separate older 21/27-row web snapshots not unioned. Guessed domain failed and is not verified official; independently linked kazuyasg.com timed out.",
+      "sourceUrls": [
+        "https://www.onehungryhippo.com/restaurants/zuya-vegetarian",
+        "https://www.chope.co/singapore-restaurants/restaurant/zuya-vegetarian-tiong-bahru-plaza",
+        "https://www.happycow.net/reviews/zuya-vegetarian-cuisines-central-singapore-264245",
+        "https://www.kazuyasg.com/",
+        "https://www.foodpanda.sg/restaurant/b0ju/zuya-vegetarian-tiong-bahru-road"
+      ],
+      "retrievedAt": "2026-10-16T04:12:00.536Z",
+      "sourceChecks": [
+        {
+          "url": "https://www.onehungryhippo.com/restaurants/zuya-vegetarian",
+          "checkedAt": "2026-10-15",
+          "result": "saved-independent-directory-lead",
+          "basis": "Saved date retained; discovery only, not current food proof."
+        },
+        {
+          "url": "https://www.chope.co/singapore-restaurants/restaurant/zuya-vegetarian-tiong-bahru-plaza",
+          "checkedAt": "2026-10-16",
+          "dateBasis": "Online search/open review date; precise retrieval time not captured.",
+          "result": "online-review-with-qualification",
+          "basis": "Zuya current Foodpanda has 28 unique foods at 298 Tiong Bahru #02-111A, versus saved/secondary 302. Several generic animal descriptions conflict with vegetarian context. All 28 held pending current merchant/landlord premise confirmation and item clarification. Separate older 21/27-row web snapshots not unioned. Guessed domain failed and is not verified official; independently linked kazuyasg.com timed out."
+        },
+        {
+          "url": "https://www.happycow.net/reviews/zuya-vegetarian-cuisines-central-singapore-264245",
+          "checkedAt": "2026-10-16",
+          "dateBasis": "Online search/open review date; precise retrieval time not captured.",
+          "result": "online-review-with-qualification",
+          "basis": "Zuya current Foodpanda has 28 unique foods at 298 Tiong Bahru #02-111A, versus saved/secondary 302. Several generic animal descriptions conflict with vegetarian context. All 28 held pending current merchant/landlord premise confirmation and item clarification. Separate older 21/27-row web snapshots not unioned. Guessed domain failed and is not verified official; independently linked kazuyasg.com timed out."
+        },
+        {
+          "url": "https://www.kazuyasg.com/",
+          "checkedAt": "2026-10-16",
+          "dateBasis": "Online search/open review date; precise retrieval time not captured.",
+          "result": "online-review-with-qualification",
+          "basis": "Zuya current Foodpanda has 28 unique foods at 298 Tiong Bahru #02-111A, versus saved/secondary 302. Several generic animal descriptions conflict with vegetarian context. All 28 held pending current merchant/landlord premise confirmation and item clarification. Separate older 21/27-row web snapshots not unioned. Guessed domain failed and is not verified official; independently linked kazuyasg.com timed out."
+        },
+        {
+          "url": "https://www.foodpanda.sg/restaurant/b0ju/zuya-vegetarian-tiong-bahru-road",
+          "checkedAt": "2026-10-16T04:01:56.878Z",
+          "result": "readable-public-ordering-page",
+          "basis": "Zuya current Foodpanda has 28 unique foods at 298 Tiong Bahru #02-111A, versus saved/secondary 302. Several generic animal descriptions conflict with vegetarian context. All 28 held pending current merchant/landlord premise confirmation and item clarification. Separate older 21/27-row web snapshots not unioned. Guessed domain failed and is not verified official; independently linked kazuyasg.com timed out."
+        }
+      ],
+      "identityStatus": "independent-source-candidate-awaiting-explicit-id-review",
+      "identityBoundary": "No new Google request or approved ID-to-branch link. Conflicting lead/current merchant premises remain separate.",
+      "gaps": [
+        "Zuya current Foodpanda has 28 unique foods at 298 Tiong Bahru #02-111A, versus saved/secondary 302. Several generic animal descriptions conflict with vegetarian context. All 28 held pending current merchant/landlord premise confirmation and item clarification. Separate older 21/27-row web snapshots not unioned. Guessed domain failed and is not verified official; independently linked kazuyasg.com timed out."
+      ],
+      "menu": {
+        "status": "held-current-scope-or-premise",
+        "foodRowsCreated": 28
+      },
+      "nextAction": "Retain unresolved premise, ingredient, availability and source/channel holds; seek readable current exact-premises primary evidence for remaining gaps without duplicating canonical menus.",
+      "newCanonicalMenu": {
+        "dataset": "data/menu-research/menu-completion-source-links-08-2026-10-16.json",
+        "branchId": "sl08-zuya",
+        "menuId": "sl08-zuya-foodpanda",
+        "approvedFoodRows": 0,
+        "heldFoodRows": 28
+      }
+    }
+  ],
+  "retrievalManifests": [
+    {
+      "id": "fire-flies",
+      "url": "https://www.foodpanda.sg/restaurant/h97o/fire-flies-vegetarian-upper-cross-street",
+      "finalUrl": "https://www.foodpanda.sg/restaurant/h97o/fire-flies-vegetarian-upper-cross-street",
+      "checkedAt": "2026-10-16T04:01:56.744Z",
+      "status": 200,
+      "bytes": 628527,
+      "file": "fire-flies.html"
+    },
+    {
+      "id": "ju-fu-yuan-amk",
+      "url": "https://www.foodpanda.sg/restaurant/ozx5/ju-fu-yuan-vegetarian-delight-ang-mo-kio-islandwide",
+      "finalUrl": "https://www.foodpanda.sg/restaurant/ozx5/ju-fu-yuan-vegetarian-delight-ang-mo-kio-islandwide",
+      "checkedAt": "2026-10-16T04:01:56.876Z",
+      "status": 200,
+      "bytes": 468246,
+      "file": "ju-fu-yuan-amk.html"
+    },
+    {
+      "id": "zuya",
+      "url": "https://www.foodpanda.sg/restaurant/b0ju/zuya-vegetarian-tiong-bahru-road",
+      "finalUrl": "https://www.foodpanda.sg/restaurant/b0ju/zuya-vegetarian-tiong-bahru-road",
+      "checkedAt": "2026-10-16T04:01:56.878Z",
+      "status": 200,
+      "bytes": 614962,
+      "file": "zuya.html"
+    },
+    {
+      "id": "bai-jia-le",
+      "url": "https://www.foodpanda.sg/restaurant/dbb8/hakka-bai-jia-le-thunder-tea-jurong-point",
+      "finalUrl": "https://www.foodpanda.sg/restaurant/dbb8/hakka-bai-jia-le-thunder-tea-jurong-point",
+      "checkedAt": "2026-10-16T04:02:00.275Z",
+      "status": 200,
+      "bytes": 515997,
+      "file": "bai-jia-le.html"
+    },
+    {
+      "id": "mitu",
+      "url": "https://miturice.com/",
+      "finalUrl": "https://miturice.com/",
+      "checkedAt": "2026-10-16T04:02:00.281Z",
+      "status": 200,
+      "bytes": 54964,
+      "file": "mitu.html"
+    },
+    {
+      "id": "zuya-official",
+      "url": "https://www.zuyavegetarian.com/",
+      "checkedAt": "2026-10-16T04:04:29.672Z",
+      "error": "fetch failed"
+    },
+    {
+      "id": "xi-shi-fu",
+      "url": "https://www.foodpanda.sg/restaurant/b8pv/xi-shi-fu-vegetarian-xi-shi-fu-su-shi-ge-bukit-merah",
+      "finalUrl": "https://www.foodpanda.sg/restaurant/b8pv/xi-shi-fu-vegetarian-xi-shi-fu-su-shi-ge-bukit-merah",
+      "checkedAt": "2026-10-16T04:04:29.833Z",
+      "status": 200,
+      "bytes": 516700,
+      "file": "xi-shi-fu.html"
+    }
+  ],
+  "unit03Followup": {
+    "checkedAt": "2026-10-16",
+    "sourceUrls": [
+      "https://wheretoeat.com.sg/vegetarian-food-in-geylang/",
+      "https://www.happycow.net/reviews/the-acai-teahouse-central-singapore-482954",
+      "https://danielfooddiary.com/2025/12/23/nuldamspace/"
+    ],
+    "result": "Targeted repeat searches for V Coffee Lorong21, Gopal Jean Yip, Acai Teahouse and Nuldam did not obtain current primary item/configuration proof. New secondary accounts do not resolve 59/74/4 held observations. Unit03 canonical data and 140 holds unchanged."
+  }
+}

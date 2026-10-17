@@ -1,0 +1,636 @@
+{
+  "version": 1,
+  "checkedAt": "2026-10-16T01:04:55.203Z",
+  "identityReviewDataset": "data/menu-research/identity-completion-batch-04.json",
+  "notice": "Merchant brand menu, not verified Northpoint stock. Bare $ currency remains unknown. FAQ says standard granola contains honey; yogurt, honey, pistachio sauce and chocolate hazelnut sauce are not vegan. Do not label default bowls vegan. All prices include GST per merchant FAQ; effective date and complete ingredients/allergen certification remain unverified.",
+  "sources": [
+    {
+      "id": "icf4a-acai-brand-menu",
+      "url": "https://www.anacaiaffair.com/acai-bowl-menu",
+      "title": "An Açaí Affair full readable brand food menu",
+      "publisher": "An Açaí Affair",
+      "kind": "merchant-menu",
+      "status": "readable",
+      "checkedAt": "2026-10-16T01:04:55.203Z",
+      "publishedAt": null,
+      "notes": "Twelve signature bowls, four signature toasts, one bowl configurator and one toast configurator. Beverage/smoothie rows and ingredient-only add-ons excluded as standalone foods. Sizes retained as price variants."
+    },
+    {
+      "id": "icf4a-acai-faq",
+      "url": "https://www.anacaiaffair.com/acai-faq",
+      "title": "Merchant dietary, customization and price FAQ",
+      "publisher": "An Açaí Affair",
+      "kind": "merchant",
+      "status": "readable",
+      "checkedAt": "2026-10-16T01:04:55.203Z",
+      "publishedAt": null,
+      "notes": "Vegan exceptions and standard honey granola are explicit. Merchant states all prices include GST; ISO currency code is not printed."
+    },
+    {
+      "id": "icf4a-acai-northpoint-premises",
+      "url": "https://www.anacaiaffair.com/acai-cafe-locations",
+      "title": "Merchant Northpoint premises list",
+      "publisher": "An Açaí Affair",
+      "kind": "merchant-location",
+      "status": "readable",
+      "checkedAt": "2026-10-16T01:04:55.203Z",
+      "publishedAt": null,
+      "notes": "Merchant identifies the Northpoint South Wing premises at 1 Northpoint Drive #B2-149, Singapore 768019."
+    }
+  ],
+  "branches": [
+    {
+      "id": "an-acai-affair-northpoint-city",
+      "name": "An Açaí Affair (Yishun Northpoint)",
+      "address": "1 Northpoint Drive #B2-149 (South Wing), Singapore 768019",
+      "postalCode": "768019",
+      "unit": "#B2-149",
+      "sourceIds": [
+        "icf4a-acai-northpoint-premises",
+        "icf4a-acai-faq"
+      ],
+      "menuIds": [
+        "icf4a-acai-brand-foods"
+      ],
+      "candidatePlaceIds": [
+        "ChIJ_5Ti0x8V2jERR42NjLKOLmI"
+      ],
+      "googlePlaceId": null,
+      "identityStatus": "merchant-premises-candidate-id-association",
+      "venueEligibility": {
+        "status": "vegetarian-confirmed",
+        "appScope": "vegetarian-vegan-venues-only",
+        "reason": "Merchant food menu and FAQ identify fruit/açaí foods, toasts and dairy/honey exceptions; no meat/fish offers in the inspected complete brand food text. Venue is not all-vegan."
+      },
+      "eligibility": "vegetarian-confirmed",
+      "publicationStatus": "hold-branch-menu-applicability",
+      "gaps": [
+        "Brand food-menu offers captured; branch-specific Northpoint ordering item list and stock remain unverified.",
+        "Popsicle/printable menu links did not expose additional readable food names in the inspected text; a separate source pass remains.",
+        "Currency code not printed; all bare $ amounts remain unknown currency.",
+        "One frozen candidate place ID is retained for review only; no Google identity assignment or publication approval."
+      ]
+    }
+  ],
+  "menus": [
+    {
+      "id": "icf4a-acai-brand-foods",
+      "name": "An Açaí Affair - readable brand food offers",
+      "scope": "brand-menu",
+      "branchIds": [
+        "an-acai-affair-northpoint-city"
+      ],
+      "sourceIds": [
+        "icf4a-acai-brand-menu",
+        "icf4a-acai-faq"
+      ],
+      "coverage": "partial",
+      "publicationStatus": "held",
+      "notice": "Merchant brand menu, not verified Northpoint stock. Bare $ currency remains unknown. FAQ says standard granola contains honey; yogurt, honey, pistachio sauce and chocolate hazelnut sauce are not vegan. Do not label default bowls vegan. All prices include GST per merchant FAQ; effective date and complete ingredients/allergen certification remain unverified. Brand food-menu offers captured; branch-specific Northpoint ordering item list and stock remain unverified.",
+      "sourceCoverage": {
+        "foodProducts": 18,
+        "pricedFoodProducts": 18,
+        "signatureBowls": 12,
+        "signatureToasts": 4,
+        "configurators": 2,
+        "beverageAndSmoothieOffersExcluded": true,
+        "popsicleMenuUnresolved": true
+      },
+      "items": [
+        {
+          "id": "icf4a-acai-1",
+          "name": "Triple A",
+          "category": "Signature açaí bowls",
+          "sourceIds": [
+            "icf4a-acai-brand-menu",
+            "icf4a-acai-faq"
+          ],
+          "price": {
+            "amount": 7,
+            "currency": "unknown",
+            "kind": "from"
+          },
+          "priceVariants": [
+            {
+              "label": "Small",
+              "amount": 7,
+              "currency": "unknown"
+            },
+            {
+              "label": "Medium",
+              "amount": 10.2,
+              "currency": "unknown"
+            },
+            {
+              "label": "Large",
+              "amount": 15.8,
+              "currency": "unknown"
+            }
+          ],
+          "sourcePriceText": "Small $7.00; Medium $10.20; Large $15.80",
+          "qualifier": "Merchant brand menu, not verified Northpoint stock. Bare $ currency remains unknown. FAQ says standard granola contains honey; yogurt, honey, pistachio sauce and chocolate hazelnut sauce are not vegan. Do not label default bowls vegan. All prices include GST per merchant FAQ; effective date and complete ingredients/allergen certification remain unverified.",
+          "veganClaim": "not-certified"
+        },
+        {
+          "id": "icf4a-acai-2",
+          "name": "Nutty Party",
+          "category": "Signature açaí bowls",
+          "sourceIds": [
+            "icf4a-acai-brand-menu",
+            "icf4a-acai-faq"
+          ],
+          "price": {
+            "amount": 7,
+            "currency": "unknown",
+            "kind": "from"
+          },
+          "priceVariants": [
+            {
+              "label": "Small",
+              "amount": 7,
+              "currency": "unknown"
+            },
+            {
+              "label": "Medium",
+              "amount": 10.2,
+              "currency": "unknown"
+            },
+            {
+              "label": "Large",
+              "amount": 15.8,
+              "currency": "unknown"
+            }
+          ],
+          "sourcePriceText": "Small $7.00; Medium $10.20; Large $15.80",
+          "qualifier": "Merchant brand menu, not verified Northpoint stock. Bare $ currency remains unknown. FAQ says standard granola contains honey; yogurt, honey, pistachio sauce and chocolate hazelnut sauce are not vegan. Do not label default bowls vegan. All prices include GST per merchant FAQ; effective date and complete ingredients/allergen certification remain unverified.",
+          "veganClaim": "not-certified"
+        },
+        {
+          "id": "icf4a-acai-3",
+          "name": "Greek Physique",
+          "category": "Signature açaí bowls",
+          "sourceIds": [
+            "icf4a-acai-brand-menu",
+            "icf4a-acai-faq"
+          ],
+          "price": {
+            "amount": 7,
+            "currency": "unknown",
+            "kind": "from"
+          },
+          "priceVariants": [
+            {
+              "label": "Small",
+              "amount": 7,
+              "currency": "unknown"
+            },
+            {
+              "label": "Medium",
+              "amount": 10.2,
+              "currency": "unknown"
+            },
+            {
+              "label": "Large",
+              "amount": 15.8,
+              "currency": "unknown"
+            }
+          ],
+          "sourcePriceText": "Small $7.00; Medium $10.20; Large $15.80",
+          "qualifier": "Merchant brand menu, not verified Northpoint stock. Bare $ currency remains unknown. FAQ says standard granola contains honey; yogurt, honey, pistachio sauce and chocolate hazelnut sauce are not vegan. Do not label default bowls vegan. All prices include GST per merchant FAQ; effective date and complete ingredients/allergen certification remain unverified. Greek Physique explicitly contains yogurt.",
+          "veganClaim": "not-certified"
+        },
+        {
+          "id": "icf4a-acai-4",
+          "name": "Ch-Ch-Ch-Chia",
+          "category": "Signature açaí bowls",
+          "sourceIds": [
+            "icf4a-acai-brand-menu",
+            "icf4a-acai-faq"
+          ],
+          "price": {
+            "amount": 7,
+            "currency": "unknown",
+            "kind": "from"
+          },
+          "priceVariants": [
+            {
+              "label": "Small",
+              "amount": 7,
+              "currency": "unknown"
+            },
+            {
+              "label": "Medium",
+              "amount": 10.2,
+              "currency": "unknown"
+            },
+            {
+              "label": "Large",
+              "amount": 15.8,
+              "currency": "unknown"
+            }
+          ],
+          "sourcePriceText": "Small $7.00; Medium $10.20; Large $15.80",
+          "qualifier": "Merchant brand menu, not verified Northpoint stock. Bare $ currency remains unknown. FAQ says standard granola contains honey; yogurt, honey, pistachio sauce and chocolate hazelnut sauce are not vegan. Do not label default bowls vegan. All prices include GST per merchant FAQ; effective date and complete ingredients/allergen certification remain unverified.",
+          "veganClaim": "not-certified"
+        },
+        {
+          "id": "icf4a-acai-5",
+          "name": "Coco Glow",
+          "category": "Signature açaí bowls",
+          "sourceIds": [
+            "icf4a-acai-brand-menu",
+            "icf4a-acai-faq"
+          ],
+          "price": {
+            "amount": 7.9,
+            "currency": "unknown",
+            "kind": "from"
+          },
+          "priceVariants": [
+            {
+              "label": "Small",
+              "amount": 7.9,
+              "currency": "unknown"
+            },
+            {
+              "label": "Medium",
+              "amount": 11.1,
+              "currency": "unknown"
+            },
+            {
+              "label": "Large",
+              "amount": 16.7,
+              "currency": "unknown"
+            }
+          ],
+          "sourcePriceText": "Small $7.90; Medium $11.10; Large $16.70",
+          "qualifier": "Merchant brand menu, not verified Northpoint stock. Bare $ currency remains unknown. FAQ says standard granola contains honey; yogurt, honey, pistachio sauce and chocolate hazelnut sauce are not vegan. Do not label default bowls vegan. All prices include GST per merchant FAQ; effective date and complete ingredients/allergen certification remain unverified.",
+          "veganClaim": "not-certified"
+        },
+        {
+          "id": "icf4a-acai-6",
+          "name": "Lemon Squeezy",
+          "category": "Signature açaí bowls",
+          "sourceIds": [
+            "icf4a-acai-brand-menu",
+            "icf4a-acai-faq"
+          ],
+          "price": {
+            "amount": 7.9,
+            "currency": "unknown",
+            "kind": "from"
+          },
+          "priceVariants": [
+            {
+              "label": "Small",
+              "amount": 7.9,
+              "currency": "unknown"
+            },
+            {
+              "label": "Medium",
+              "amount": 11.1,
+              "currency": "unknown"
+            },
+            {
+              "label": "Large",
+              "amount": 16.7,
+              "currency": "unknown"
+            }
+          ],
+          "sourcePriceText": "Small $7.90; Medium $11.10; Large $16.70",
+          "qualifier": "Merchant brand menu, not verified Northpoint stock. Bare $ currency remains unknown. FAQ says standard granola contains honey; yogurt, honey, pistachio sauce and chocolate hazelnut sauce are not vegan. Do not label default bowls vegan. All prices include GST per merchant FAQ; effective date and complete ingredients/allergen certification remain unverified.",
+          "veganClaim": "not-certified"
+        },
+        {
+          "id": "icf4a-acai-7",
+          "name": "Mango Tango",
+          "category": "Signature açaí bowls",
+          "sourceIds": [
+            "icf4a-acai-brand-menu",
+            "icf4a-acai-faq"
+          ],
+          "price": {
+            "amount": 7.9,
+            "currency": "unknown",
+            "kind": "from"
+          },
+          "priceVariants": [
+            {
+              "label": "Small",
+              "amount": 7.9,
+              "currency": "unknown"
+            },
+            {
+              "label": "Medium",
+              "amount": 11.1,
+              "currency": "unknown"
+            },
+            {
+              "label": "Large",
+              "amount": 16.7,
+              "currency": "unknown"
+            }
+          ],
+          "sourcePriceText": "Small $7.90; Medium $11.10; Large $16.70",
+          "qualifier": "Merchant brand menu, not verified Northpoint stock. Bare $ currency remains unknown. FAQ says standard granola contains honey; yogurt, honey, pistachio sauce and chocolate hazelnut sauce are not vegan. Do not label default bowls vegan. All prices include GST per merchant FAQ; effective date and complete ingredients/allergen certification remain unverified.",
+          "veganClaim": "not-certified"
+        },
+        {
+          "id": "icf4a-acai-8",
+          "name": "Feeling Grape",
+          "category": "Signature açaí bowls",
+          "sourceIds": [
+            "icf4a-acai-brand-menu",
+            "icf4a-acai-faq"
+          ],
+          "price": {
+            "amount": 7.9,
+            "currency": "unknown",
+            "kind": "from"
+          },
+          "priceVariants": [
+            {
+              "label": "Small",
+              "amount": 7.9,
+              "currency": "unknown"
+            },
+            {
+              "label": "Medium",
+              "amount": 11.1,
+              "currency": "unknown"
+            },
+            {
+              "label": "Large",
+              "amount": 16.7,
+              "currency": "unknown"
+            }
+          ],
+          "sourcePriceText": "Small $7.90; Medium $11.10; Large $16.70",
+          "qualifier": "Merchant brand menu, not verified Northpoint stock. Bare $ currency remains unknown. FAQ says standard granola contains honey; yogurt, honey, pistachio sauce and chocolate hazelnut sauce are not vegan. Do not label default bowls vegan. All prices include GST per merchant FAQ; effective date and complete ingredients/allergen certification remain unverified.",
+          "veganClaim": "not-certified"
+        },
+        {
+          "id": "icf4a-acai-9",
+          "name": "Love Me Lychee",
+          "category": "Signature açaí bowls",
+          "sourceIds": [
+            "icf4a-acai-brand-menu",
+            "icf4a-acai-faq"
+          ],
+          "price": {
+            "amount": 7.9,
+            "currency": "unknown",
+            "kind": "from"
+          },
+          "priceVariants": [
+            {
+              "label": "Small",
+              "amount": 7.9,
+              "currency": "unknown"
+            },
+            {
+              "label": "Medium",
+              "amount": 11.1,
+              "currency": "unknown"
+            },
+            {
+              "label": "Large",
+              "amount": 16.7,
+              "currency": "unknown"
+            }
+          ],
+          "sourcePriceText": "Small $7.90; Medium $11.10; Large $16.70",
+          "qualifier": "Merchant brand menu, not verified Northpoint stock. Bare $ currency remains unknown. FAQ says standard granola contains honey; yogurt, honey, pistachio sauce and chocolate hazelnut sauce are not vegan. Do not label default bowls vegan. All prices include GST per merchant FAQ; effective date and complete ingredients/allergen certification remain unverified.",
+          "veganClaim": "not-certified"
+        },
+        {
+          "id": "icf4a-acai-10",
+          "name": "Drivin’ Me Nuts",
+          "category": "Signature açaí bowls",
+          "sourceIds": [
+            "icf4a-acai-brand-menu",
+            "icf4a-acai-faq"
+          ],
+          "price": {
+            "amount": 7.9,
+            "currency": "unknown",
+            "kind": "from"
+          },
+          "priceVariants": [
+            {
+              "label": "Small",
+              "amount": 7.9,
+              "currency": "unknown"
+            },
+            {
+              "label": "Medium",
+              "amount": 11.1,
+              "currency": "unknown"
+            },
+            {
+              "label": "Large",
+              "amount": 16.7,
+              "currency": "unknown"
+            }
+          ],
+          "sourcePriceText": "Small $7.90; Medium $11.10; Large $16.70",
+          "qualifier": "Merchant brand menu, not verified Northpoint stock. Bare $ currency remains unknown. FAQ says standard granola contains honey; yogurt, honey, pistachio sauce and chocolate hazelnut sauce are not vegan. Do not label default bowls vegan. All prices include GST per merchant FAQ; effective date and complete ingredients/allergen certification remain unverified.",
+          "veganClaim": "not-certified"
+        },
+        {
+          "id": "icf4a-acai-11",
+          "name": "Berried Alive",
+          "category": "Signature açaí bowls",
+          "sourceIds": [
+            "icf4a-acai-brand-menu",
+            "icf4a-acai-faq"
+          ],
+          "price": {
+            "amount": 7.9,
+            "currency": "unknown",
+            "kind": "from"
+          },
+          "priceVariants": [
+            {
+              "label": "Small",
+              "amount": 7.9,
+              "currency": "unknown"
+            },
+            {
+              "label": "Medium",
+              "amount": 11.1,
+              "currency": "unknown"
+            },
+            {
+              "label": "Large",
+              "amount": 16.7,
+              "currency": "unknown"
+            }
+          ],
+          "sourcePriceText": "Small $7.90; Medium $11.10; Large $16.70",
+          "qualifier": "Merchant brand menu, not verified Northpoint stock. Bare $ currency remains unknown. FAQ says standard granola contains honey; yogurt, honey, pistachio sauce and chocolate hazelnut sauce are not vegan. Do not label default bowls vegan. All prices include GST per merchant FAQ; effective date and complete ingredients/allergen certification remain unverified.",
+          "veganClaim": "not-certified"
+        },
+        {
+          "id": "icf4a-acai-12",
+          "name": "Berry Me Bliss",
+          "category": "Signature açaí bowls",
+          "sourceIds": [
+            "icf4a-acai-brand-menu",
+            "icf4a-acai-faq"
+          ],
+          "price": {
+            "amount": 7.9,
+            "currency": "unknown",
+            "kind": "from"
+          },
+          "priceVariants": [
+            {
+              "label": "Small",
+              "amount": 7.9,
+              "currency": "unknown"
+            },
+            {
+              "label": "Medium",
+              "amount": 11.1,
+              "currency": "unknown"
+            },
+            {
+              "label": "Large",
+              "amount": 16.7,
+              "currency": "unknown"
+            }
+          ],
+          "sourcePriceText": "Small $7.90; Medium $11.10; Large $16.70",
+          "qualifier": "Merchant brand menu, not verified Northpoint stock. Bare $ currency remains unknown. FAQ says standard granola contains honey; yogurt, honey, pistachio sauce and chocolate hazelnut sauce are not vegan. Do not label default bowls vegan. All prices include GST per merchant FAQ; effective date and complete ingredients/allergen certification remain unverified.",
+          "veganClaim": "not-certified"
+        },
+        {
+          "id": "icf4a-acai-13",
+          "name": "Berry Crunchy",
+          "category": "Signature toasts",
+          "sourceIds": [
+            "icf4a-acai-brand-menu",
+            "icf4a-acai-faq"
+          ],
+          "price": {
+            "amount": 8.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "$8.90",
+          "qualifier": "Merchant brand menu, not verified Northpoint stock. Bare $ currency remains unknown. FAQ says standard granola contains honey; yogurt, honey, pistachio sauce and chocolate hazelnut sauce are not vegan. Do not label default bowls vegan. All prices include GST per merchant FAQ; effective date and complete ingredients/allergen certification remain unverified. Merchant labels dairy-free; no full ingredient certification.",
+          "veganClaim": "not-certified"
+        },
+        {
+          "id": "icf4a-acai-14",
+          "name": "You Butter Believe",
+          "category": "Signature toasts",
+          "sourceIds": [
+            "icf4a-acai-brand-menu",
+            "icf4a-acai-faq"
+          ],
+          "price": {
+            "amount": 8.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "$8.90",
+          "qualifier": "Merchant brand menu, not verified Northpoint stock. Bare $ currency remains unknown. FAQ says standard granola contains honey; yogurt, honey, pistachio sauce and chocolate hazelnut sauce are not vegan. Do not label default bowls vegan. All prices include GST per merchant FAQ; effective date and complete ingredients/allergen certification remain unverified. Includes honey.",
+          "veganClaim": "not-certified"
+        },
+        {
+          "id": "icf4a-acai-15",
+          "name": "Bravocado",
+          "category": "Signature toasts",
+          "sourceIds": [
+            "icf4a-acai-brand-menu",
+            "icf4a-acai-faq"
+          ],
+          "price": {
+            "amount": 9.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "$9.90",
+          "qualifier": "Merchant brand menu, not verified Northpoint stock. Bare $ currency remains unknown. FAQ says standard granola contains honey; yogurt, honey, pistachio sauce and chocolate hazelnut sauce are not vegan. Do not label default bowls vegan. All prices include GST per merchant FAQ; effective date and complete ingredients/allergen certification remain unverified. Includes honey.",
+          "veganClaim": "not-certified"
+        },
+        {
+          "id": "icf4a-acai-16",
+          "name": "Nutty or Nice",
+          "category": "Signature toasts",
+          "sourceIds": [
+            "icf4a-acai-brand-menu",
+            "icf4a-acai-faq"
+          ],
+          "price": {
+            "amount": 9.9,
+            "currency": "unknown",
+            "kind": "fixed"
+          },
+          "sourcePriceText": "$9.90",
+          "qualifier": "Merchant brand menu, not verified Northpoint stock. Bare $ currency remains unknown. FAQ says standard granola contains honey; yogurt, honey, pistachio sauce and chocolate hazelnut sauce are not vegan. Do not label default bowls vegan. All prices include GST per merchant FAQ; effective date and complete ingredients/allergen certification remain unverified. Contains pistachio/chocolate-hazelnut sauces; FAQ identifies dairy exceptions.",
+          "veganClaim": "not-certified"
+        },
+        {
+          "id": "icf4a-acai-17",
+          "name": "Make-your-own bowl",
+          "category": "Build your own",
+          "sourceIds": [
+            "icf4a-acai-brand-menu",
+            "icf4a-acai-faq"
+          ],
+          "price": {
+            "amount": 7.5,
+            "currency": "unknown",
+            "kind": "from"
+          },
+          "priceVariants": [
+            {
+              "label": "Small",
+              "amount": 7.5,
+              "currency": "unknown"
+            },
+            {
+              "label": "Medium",
+              "amount": 10.8,
+              "currency": "unknown"
+            },
+            {
+              "label": "Large",
+              "amount": 16.4,
+              "currency": "unknown"
+            }
+          ],
+          "sourcePriceText": "Small $7.50; Medium $10.80; Large $16.40",
+          "qualifier": "Merchant brand menu, not verified Northpoint stock. Bare $ currency remains unknown. FAQ says standard granola contains honey; yogurt, honey, pistachio sauce and chocolate hazelnut sauce are not vegan. Do not label default bowls vegan. All prices include GST per merchant FAQ; effective date and complete ingredients/allergen certification remain unverified. Unlimited bases/toppings within the offered lists, one drizzle. Chia pudding/yogurt +$0.40; sorbet bases +$0.80; designated premium toppings +$1.00. Add-on charging combinations/final checkout total unverified.",
+          "veganClaim": "not-certified"
+        },
+        {
+          "id": "icf4a-acai-18",
+          "name": "Make-your-own toast",
+          "category": "Build your own",
+          "sourceIds": [
+            "icf4a-acai-brand-menu",
+            "icf4a-acai-faq"
+          ],
+          "price": {
+            "amount": 10.6,
+            "currency": "unknown",
+            "kind": "from"
+          },
+          "sourcePriceText": "$10.60 base",
+          "qualifier": "Merchant brand menu, not verified Northpoint stock. Bare $ currency remains unknown. FAQ says standard granola contains honey; yogurt, honey, pistachio sauce and chocolate hazelnut sauce are not vegan. Do not label default bowls vegan. All prices include GST per merchant FAQ; effective date and complete ingredients/allergen certification remain unverified. Sourdough base, choose one spread, unlimited bases and one topping. Avocado +$1.00; designated premium toppings +$1.00. Final configuration price unverified.",
+          "veganClaim": "not-certified"
+        }
+      ]
+    }
+  ],
+  "scope": {
+    "appScope": "vegetarian-vegan-venues-only",
+    "beverages": "excluded",
+    "ingredientOnlyFoods": "excluded",
+    "googleIdentityAssignment": "none"
+  }
+}

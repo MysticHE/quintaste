@@ -1,0 +1,273 @@
+{
+  "review": "menu-sync-typescript-review",
+  "status": "approved-within-scoped-source-review",
+  "reviewedOn": "2026-10-16",
+  "finalRecheck": "Post-search-fix canonical TypeScript exited 0. Canonical and focused lint, generated publication consistency and all recorded no-network probes pass; no material scoped findings remain.",
+  "scope": {
+    "mode": "local-new-file-review",
+    "note": "Requested files are untracked; staged/unstaged diffs do not provide a historical baseline. Explicit task scope and git diff --no-index against NUL establish full new-file additions. No PR was requested; merge readiness is not applicable.",
+    "files": [
+      "src/types/menus.ts",
+      "src/utils/menu-catalogue.ts",
+      "src/utils/menu-match.ts",
+      "src/services/menu-storage.ts",
+      "src/state/Menus.tsx",
+      "src/hooks/useMenuDetail.ts",
+      "src/screens/food/Menu.tsx",
+      "src/components/discovery/MenuEntry.tsx",
+      "src/components/discovery/MenuDishes.tsx",
+      "src/components/discovery/MenuSection.tsx",
+      "src/components/discovery/MenuItemRow.tsx",
+      "src/components/discovery/MenuCorrectionFields.tsx",
+      "src/server/menu-delivery.ts",
+      "src/app/api/menus+api.ts",
+      "scripts/sync-researched-menus.ts",
+      "scripts/menu-publication/normalize.ts",
+      "scripts/resolve-menu-identities.ts",
+      "scripts/menu-identity/types.ts",
+      "scripts/menu-identity/inputs.ts",
+      "scripts/menu-identity/match.ts",
+      "scripts/menu-identity/ledger.ts",
+      "scripts/menu-identity/client.ts",
+      "scripts/menu-identity/rate-limit.ts",
+      "scripts/places-client.ts",
+      ".local/menu-identity-analysis.cjs",
+      "src/components/discovery/LocationSearchField.tsx",
+      "src/components/discovery/LocationSuggestions.tsx",
+      "src/screens/food/Explore.tsx",
+      "src/server/local-explore/store.ts",
+      "src/server/local-explore/pilot-catalogue.ts"
+    ],
+    "supportingEvidence": [
+      "data/menus/research-publication.json",
+      "data/menus/published-research.json",
+      ".local/menu-identity-receipts.json",
+      ".local/menu-identity-analysis.json"
+    ],
+    "mutationBoundary": "Only this review report was edited by the reviewer. Production source, research data, receipts and request ledgers were not edited; no paid provider calls were made."
+  },
+  "checks": [
+    { "command": "npm run typecheck", "exitCode": 0, "result": "pass" },
+    { "command": "npm run lint", "exitCode": 0, "result": "pass" },
+    { "command": "npx eslint scripts/resolve-menu-identities.ts scripts/menu-identity/types.ts scripts/menu-identity/inputs.ts scripts/menu-identity/match.ts scripts/menu-identity/ledger.ts scripts/menu-identity/client.ts scripts/menu-identity/rate-limit.ts scripts/sync-researched-menus.ts scripts/menu-publication/normalize.ts .local/menu-identity-analysis.cjs", "exitCode": 0, "result": "pass" },
+    { "command": "npx eslint src/utils/menu-match.ts", "exitCode": 0, "result": "pass", "note": "Repeated after the final combined brand/outlet search fix." },
+    {
+      "command": "npx tsx scripts/sync-researched-menus.ts --check",
+      "exitCode": 0,
+      "result": "pass",
+      "branches": 92,
+      "sourceMenus": 132,
+      "foodRows": 9155,
+      "compiledBytes": 4342178
+    },
+    {
+      "command": "npx tsx --eval (read-only publication assertions; no test file created)",
+      "exitCode": 0,
+      "result": "pass",
+      "assertions": [
+        "Index and every public branch detail pass their runtime schemas and agree on fingerprints.",
+        "Greendot Bedok Mall matches the brand-only venue name at the exact branch address; a different postal code is rejected.",
+        "Divine Realm Laksa, Chicken Rice and Kway Chap preserve published weekday notes.",
+        "The explicitly muted Boneless Kimchi Mandu source row is excluded.",
+        "A withdrawn ID is absent from the index and returns no detail."
+      ]
+    },
+    {
+      "command": "npx tsx --eval (actual menu-storage.ts with in-memory AsyncStorage stub; no test file created)",
+      "exitCode": 0,
+      "result": "pass",
+      "verificationWindow": "Earlier in the same session; menu-storage.ts is unchanged by the final gate/search changes.",
+      "assertions": [
+        "Three saved 399000-byte entries with future savedAt timestamps are pruned safely when a new real menu is saved.",
+        "Five saved small entries with future timestamps retain the new real menu and respect the five-entry limit.",
+        "Actual persisted detail bytes stay within 1200000, independently of metadata totals.",
+        "A valid cached fingerprint hydrates; a changed fingerprint is rejected.",
+        "Removing a detail deletes its persisted value and prevents hydration."
+      ]
+    },
+    {
+      "command": "npx tsx --eval (actual IdentityRequestGate with virtual clock/timers)",
+      "exitCode": 0,
+      "result": "pass",
+      "realNetworkRequests": 0,
+      "startTimes": [1000000, 1000150, 1000300, 1000450, 1000600, 1000750],
+      "minimumStartGapMs": 150,
+      "assertions": [
+        "Six queued starts remain at least 150 milliseconds apart.",
+        "A 429 imposes a shared 60000-millisecond cooldown, and another 429 extends it.",
+        "Every individual wait is positive and at most 1000 milliseconds.",
+        "Stopping a waiting caller releases the queue for later callers."
+      ]
+    },
+    {
+      "command": "npx tsx --eval (actual identity ledger/client with memory filesystem, mocked gate/timers/fetch)",
+      "exitCode": 0,
+      "result": "pass",
+      "realNetworkRequests": 0,
+      "assertions": [
+        "Starting from 2498 saved reservations, six concurrent lookups produce only two mocked requests and exactly 2500 total reservations.",
+        "Every reservation append requests flush:true and finishes before gate entry and fetch.",
+        "Ledger replay retains the 2500 cap; no budget reset occurs on resume.",
+        "A stop observed after gate entry prevents fetch while retaining the already counted reservation.",
+        "A retry reserves a separate attempt, a 429 invokes the shared cooldown, and backoff does not mark an ID complete.",
+        "Requests use the fixed Google host, redirect:error, cache:no-store and the exact literal Pro-or-lower field mask."
+      ]
+    },
+    {
+      "command": "npx tsx --eval (actual CLI with fully mocked dependencies and forbidden network)",
+      "exitCode": 0,
+      "result": "pass",
+      "realNetworkRequests": 0,
+      "assertions": [
+        "The CLI acquires the dedicated pass lock before opening the ledger.",
+        "Ordinary mode selects only never-completed IDs.",
+        "--retry-errors selects transient HTTP, network and invalid-response failures.",
+        "Successful candidate/unmatched IDs and permanent 404/403 outcomes are not selected for another paid attempt."
+      ]
+    },
+    {
+      "command": "npx tsx --eval (unit parser and real published-index search assertions)",
+      "exitCode": 0,
+      "result": "pass",
+      "assertions": [
+        "Basement, kiosk, leading-zero and equivalent range spellings match.",
+        "Different basement/kiosk units, different ranges, and a single unit versus a multi-unit range are rejected.",
+        "Ambiguous same-building branch matches are withheld.",
+        "Greendot Bedok, Greendot Tampines, Baomaker Ang Mo Kio and 560447 return owned-menu matches.",
+        "All 103 index/detail records pass runtime schemas and agree on fingerprints."
+      ]
+    },
+    {
+      "command": "npx tsx --eval (read-only final identity receipts and analysis assertions)",
+      "exitCode": 0,
+      "result": "pass",
+      "realNetworkRequests": 0,
+      "assertions": [
+        "2359 saved reservations cover 2315 unique completed lookup outcomes with zero pending IDs.",
+        "Final outcomes are 2314 HTTP 200 and one HTTP 404.",
+        "The saved analysis reports no independent-source provenance errors, no raw provider metadata fields and no duplicate result IDs.",
+        "All 234 candidate links remain candidate/reviewRequired/independentSourceFields; the stale hippo-real-food range candidate is absent."
+      ]
+    }
+  ],
+  "publishedMetrics": {
+    "venues": 103,
+    "sourceMenus": 147,
+    "foodRows": 9887,
+    "indexBytes": 39946,
+    "largestDetail": { "id": "research-nalan-cityhall", "bytes": 237205 },
+    "detailsExceeding400000ByteOfflineEntryLimit": 0
+  },
+  "identityMetrics": {
+    "requestsReserved": 2359,
+    "reservationCap": 2500,
+    "completedLookupIds": 2315,
+    "pendingLookupIds": 0,
+    "http200Outcomes": 2314,
+    "http404Outcomes": 1,
+    "candidateIds": 200,
+    "candidateLinks": 234,
+    "unmatchedIds": 2114,
+    "staleHippoRealFoodLinks": 0,
+    "note": "Completed lookups and candidate links are not reviewed branch identities or complete menus. The reviewer made zero real provider requests."
+  },
+  "findings": [],
+  "resolvedFindings": [
+    {
+      "id": "TS-MENU-01",
+      "severity": "high",
+      "file": "scripts/menu-publication/normalize.ts",
+      "line": 63,
+      "issue": "Plural availabilityNotes and sourceAvailability day restrictions disappeared from normalized public menu facts.",
+      "resolution": "Plural notes, published days, date windows and weekdays are retained; explicit nonzero Oddle item/category status codes are excluded. Published ZZV restrictions and the newly published Oddle exclusions were checked."
+    },
+    {
+      "id": "TS-MENU-02",
+      "severity": "medium",
+      "file": "scripts/sync-researched-menus.ts",
+      "line": 38,
+      "issue": "Greendot source names included outlet suffixes and had no aliases, preventing brand-only venue names from matching at the same address.",
+      "resolution": "Compiler separates @ outlet suffixes into branch identity. Exact postal and existing unit checks remain in menu-match.ts. Brand-name success and wrong-postal rejection were checked."
+    },
+    {
+      "id": "TS-MENU-03",
+      "severity": "medium",
+      "file": "src/services/menu-storage.ts",
+      "line": 48,
+      "issue": "Timestamp sort could prune a newly saved ID and then write it outside retained metadata, exceeding the cache budget.",
+      "resolution": "New entries are placed before sorted existing entries, so pruning retains them under timestamp ties and clock rollback. Actual service behavior passed byte and entry-count scenarios using future stored timestamps."
+    },
+    {
+      "id": "TS-MENU-04",
+      "severity": "medium",
+      "file": "src/utils/menu-match.ts",
+      "line": 37,
+      "issue": "Owned-menu fallback searched name and branch separately, so Greendot Bedok returned no result after branch identity was split from the name.",
+      "resolution": "Search targets now combine each canonical/alias name with branch text while retaining postal-code search. Four actual-index brand/outlet/postal assertions pass."
+    },
+    {
+      "id": "TS-IDENTITY-01",
+      "severity": "high",
+      "file": "scripts/resolve-menu-identities.ts",
+      "line": 24,
+      "issue": "Opening the ledger before acquiring the pass lock could read a stale budget in a competing process; unflushed append completion did not establish durable reservation accounting.",
+      "resolution": "The dedicated pass lock is acquired before ledger open/read. Every request/completion append uses flush:true. Mocked CLI ordering and actual ledger replay/cap probes pass."
+    },
+    {
+      "id": "TS-IDENTITY-02",
+      "severity": "medium",
+      "file": "scripts/menu-identity/client.ts",
+      "line": 41,
+      "issue": "Writing an interim HTTP-error completion before retry backoff made an interrupted ID ineligible for ordinary resume.",
+      "resolution": "Backoff leaves only its durable reservation. The next attempt gets a new reservation, stop checks prevent another fetch, and terminal transient failures have an explicit --retry-errors mode."
+    },
+    {
+      "id": "TS-IDENTITY-03",
+      "severity": "medium",
+      "file": "scripts/menu-identity/rate-limit.ts",
+      "line": 8,
+      "issue": "Concurrency alone allowed request bursts that triggered rate-limit failures.",
+      "resolution": "All workers and retries share 150-millisecond start spacing and a 60000-millisecond 429 cooldown with bounded stop-aware waits. Virtual-clock and final saved-outcome checks pass."
+    },
+    {
+      "id": "TS-IDENTITY-04",
+      "severity": "medium",
+      "file": "scripts/menu-identity/match.ts",
+      "line": 17,
+      "issue": "A supplied single unit could mask a longer address-embedded unit range and yield an incorrect exact-unit proof in the first lookup batch.",
+      "resolution": "Address-embedded ranges take precedence; range-versus-single fixtures reject the match. The stale hippo-real-food candidate was removed from the saved outcomes; all surviving candidates require review."
+    },
+    {
+      "id": "TS-MENU-GATE",
+      "severity": "gate",
+      "file": "src/hooks/useMenuDetail.ts",
+      "issue": "The initial review stopped at ref-during-render and synchronous-effect state-update lint errors.",
+      "resolution": "Summary ref synchronization now occurs in an effect; initial cache hydration is guarded before network work; the periodic load effect defers through a microtask. Final canonical lint and typecheck pass."
+    }
+  ],
+  "reviewedBehavior": [
+    "Cache-before-network initialization, cold/deep-link summary arrival, route/fingerprint cleanup and acceptance guards were traced in useMenuDetail.",
+    "Index and detail refresh intervals, offline retention, error/Retry paths, response byte limits and quota rejection were inspected.",
+    "Correction lookup uses separately loaded branch details; draft proposals preserve their branch and do not mutate published menus.",
+    "Publication is gated by explicit manifest entries, source fingerprints and generated-output consistency checks; held research is not automatically published.",
+    "Standalone prices are not promoted from listingPrice; price options, fees, unknown currency and source-specific qualifiers remain explicit.",
+    "MenuDishes mounts at most 40 matching rows per page, with separate source/category selection and on-demand option expansion.",
+    "Shared section.itemNotice removes only an identical literal qualifier prefix from every source item and renders that notice before the dishes.",
+    "Identity requests use the fixed Places host and literal field mask; API keys stay in request headers and are not persisted in receipts or public data.",
+    "Durable request reservation occurs before gate admission; stop is checked before reservation and after admission. All retries share the same cap and gate.",
+    "Identity candidate display facts are copied from independently sourced leads, and the runner does not modify publication manifests or public menus.",
+    "Explore alone opts into suggestionsInFlow, leaving the autocomplete panel in normal layout above owned-menu results while preserving the shared picker's default dropdown behavior.",
+    "The location lookup spinner explicitly exposes the accessible name Finding locations.",
+    "The menu withdrawal API reads one complete local-store revision without a writer lease; writers flush a temporary complete revision then atomically replace records.json, and malformed reviews fail closed.",
+    "The offline identity analysis script was read and linted; its existing output was inspected without rerunning its file-writing entry point."
+  ],
+  "historicalGateNote": "The first broad eslint command reported unrelated avatar-security.cjs errors outside this review scope. Final canonical Expo lint and separately scoped publication-script lint pass; this is not a claim that every unrelated CJS script passes broad lint.",
+  "limitations": [
+    "This approves the specified source and generated-menu scope after the recorded fixes; it does not establish that all researched restaurants or the candidate directory have complete menus.",
+    "No paid Google or other outbound provider calls were made by this reviewer. Field-tier documentation was checked on Google's official documentation; synthetic and memory-adapter probes made zero real network requests.",
+    "Storage scenarios used the actual service with a memory adapter. Device AsyncStorage capacity, native browser/network transitions and physical-device rendering/performance require their separate acceptance evidence.",
+    "Hook transitions were reviewed statically; publication/schema/cache assertions do not constitute live browser or native end-to-end verification.",
+    "The public catalogue probe invoked server functions directly. Live browser/native appearance, request transport and deployment acceptance require their separate evidence; the runtime must load the regenerated static publication.",
+    "The 2500 cap is durable conservative reservation accounting, including retries and reservations retained after interruption; it is not an assertion of an exact billed amount."
+  ]
+}

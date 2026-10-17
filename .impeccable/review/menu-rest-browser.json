@@ -1,0 +1,121 @@
+{
+  "startedAt": "2026-10-16T04:15:48.208Z",
+  "url": "http://127.0.0.1:8083",
+  "checks": [
+    {
+      "name": "fire-flies",
+      "status": "passed",
+      "foods": 18,
+      "heldAbsent": 0,
+      "unreadChoices": 7,
+      "viewports": [
+        320,
+        768,
+        1440
+      ]
+    },
+    {
+      "name": "ju-fu-yuan-amk",
+      "status": "passed",
+      "foods": 2,
+      "heldAbsent": 0,
+      "unreadChoices": 2,
+      "viewports": [
+        320,
+        768,
+        1440
+      ]
+    },
+    {
+      "name": "xi-shi-fu",
+      "status": "passed",
+      "foods": 8,
+      "heldAbsent": 4,
+      "unreadChoices": 0,
+      "viewports": [
+        320,
+        768,
+        1440
+      ]
+    }
+  ],
+  "screenshots": [
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-rest-browser\\fire-flies-320.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-rest-browser\\fire-flies-768.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-rest-browser\\fire-flies-1440.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-rest-browser\\ju-fu-yuan-amk-320.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-rest-browser\\ju-fu-yuan-amk-768.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-rest-browser\\ju-fu-yuan-amk-1440.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-rest-browser\\xi-shi-fu-320.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-rest-browser\\xi-shi-fu-768.png",
+    "C:\\Users\\huien\\qt\\tmp\\qa\\menu-rest-browser\\xi-shi-fu-1440.png"
+  ],
+  "errors": [],
+  "pageErrors": [],
+  "unexpectedConsoleErrors": [],
+  "blockedApiRequests": [
+    "/api/local-explore/session",
+    "/api/local-explore/session"
+  ],
+  "blockedExternalRequests": [],
+  "apiRequests": [
+    "/api/menus?view=index",
+    "/api/menus?id=research-sl08-fire-flies",
+    "/api/menus?view=index",
+    "/api/menus?id=research-sl08-xi-shi-fu",
+    "/api/menus?view=index",
+    "/api/menus?id=research-sl08-ju-fu-yuan-amk",
+    "/api/menus?view=index",
+    "/api/menus?id=research-sl08-xi-shi-fu"
+  ],
+  "a11y": [
+    {
+      "label": "fire-flies",
+      "violations": []
+    },
+    {
+      "label": "ju-fu-yuan-amk",
+      "violations": []
+    },
+    {
+      "label": "xi-shi-fu",
+      "violations": []
+    }
+  ],
+  "forwardedProviderCalls": 0,
+  "installedChromeUsed": false,
+  "browserVersion": "156.0.8078.4",
+  "catalogue": {
+    "locations": 146,
+    "sourceMenus": 191,
+    "foodOccurrences": 10799
+  },
+  "finishedAt": "2026-10-16T04:16:03.046Z",
+  "passed": true,
+  "visualReview": {
+    "status": "passed",
+    "inspectedScreenshots": [
+      "C:\\Users\\huien\\qt\\tmp\\qa\\menu-rest-browser\\fire-flies-320.png",
+      "C:\\Users\\huien\\qt\\tmp\\qa\\menu-rest-browser\\fire-flies-768.png",
+      "C:\\Users\\huien\\qt\\tmp\\qa\\menu-rest-browser\\fire-flies-1440.png",
+      "C:\\Users\\huien\\qt\\tmp\\qa\\menu-rest-browser\\ju-fu-yuan-amk-320.png",
+      "C:\\Users\\huien\\qt\\tmp\\qa\\menu-rest-browser\\ju-fu-yuan-amk-768.png",
+      "C:\\Users\\huien\\qt\\tmp\\qa\\menu-rest-browser\\ju-fu-yuan-amk-1440.png",
+      "C:\\Users\\huien\\qt\\tmp\\qa\\menu-rest-browser\\xi-shi-fu-320.png",
+      "C:\\Users\\huien\\qt\\tmp\\qa\\menu-rest-browser\\xi-shi-fu-768.png",
+      "C:\\Users\\huien\\qt\\tmp\\qa\\menu-rest-browser\\xi-shi-fu-1440.png"
+    ],
+    "scope": "Nine saved viewport captures at 320, 768 and 1440 widths inspected; not an offscreen full-scroll capture."
+  },
+  "googleLedgerUnchanged": true,
+  "harnessCorrection": {
+    "archivedInitial": "menu-rest-browser-initial-harness.json",
+    "reason": "Shared qualifier is hoisted to section.itemNotice; menus with 12 or fewer foods intentionally omit search. No app change required.",
+    "rerunCases": [
+      "ju-fu-yuan-amk",
+      "xi-shi-fu"
+    ],
+    "unchangedPassingCaseCarriedForward": "fire-flies",
+    "initialErrorsResolved": true
+  }
+}

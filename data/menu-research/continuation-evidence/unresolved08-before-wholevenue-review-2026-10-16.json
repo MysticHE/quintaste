@@ -1,0 +1,3642 @@
+{
+  "version": 1,
+  "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+  "status": "reviewed-partial-with-unresolved-holds",
+  "googleRequestsMade": 0,
+  "sources": [
+    {
+      "id": "ur08-150-green-ordering",
+      "url": "https://www.foodpanda.sg/restaurant/l2ov/150-green-vegetarian-bukit-batok-street-11",
+      "title": "150 Green Vegetarian — Bukit Batok 150 current delivery catalogue",
+      "publisher": "Foodpanda / merchant public menu",
+      "checkedAt": "2026-10-16T05:40:04.855Z",
+      "accessStatus": "normal-public-fetch-http-200",
+      "notes": "All23uniqueproductIDs/category/name/listprice records reconciled with same-response visible DOM. Popular repeats not extracted. Indexed representations differ and are not merged. No images, account, checkout or private API. Item composition/choices retained only where printed."
+    },
+    {
+      "id": "ur08-150-green-grab-context",
+      "url": "https://www.grab.com/sg/articles/food/vegetarian-food-singapore/",
+      "publisher": "Grab merchant food guide",
+      "title": "Grab vegetarian venue guide —150Green exact BukitBatok premise",
+      "checkedAt": "2026-10-16T05:29:24.181Z",
+      "accessStatus": "existing-normal-public-http-200-receipt-reused",
+      "notes": "Current saved guide independently identifies150BukitBatokStreet11#01-224/650150 as vegetarian venue. Raw receipt reused, no refetch or Grab menu items added. Guide describes a different channel/menu representation."
+    },
+    {
+      "id": "ur08-vege-bear-bidadari-ordering",
+      "url": "https://www.foodpanda.sg/restaurant/oecy/vege-bear-vegetarian-su-xiong-bidadari-oecy",
+      "title": "Vege Bear Vegetarian — Bidadari current delivery catalogue",
+      "publisher": "Foodpanda / merchant public menu",
+      "checkedAt": "2026-10-16T05:41:00.705Z",
+      "accessStatus": "normal-public-fetch-http-200",
+      "notes": "All44uniqueproductIDs/category/name/listprice records reconciled with same-response visible DOM. Popular repeats not extracted. Indexed representations differ and are not merged. No images, account, checkout or private API. Item composition/choices retained only where printed."
+    },
+    {
+      "id": "ur08-k-veggie-ordering",
+      "url": "https://www.foodpanda.sg/restaurant/bj1b/k-veggie-tanglin-halt-road",
+      "title": "K.Veggie — Tanglin Halt current delivery catalogue",
+      "publisher": "Foodpanda / merchant public menu",
+      "checkedAt": "2026-10-16T05:41:59.491Z",
+      "accessStatus": "normal-public-fetch-http-200",
+      "notes": "All7uniqueproductIDs/category/name/listprice records reconciled with same-response visible DOM. Popular repeats not extracted. Indexed representations differ and are not merged. No images, account, checkout or private API. Item composition/choices retained only where printed."
+    }
+  ],
+  "branches": [
+    {
+      "id": "ur08-150-green",
+      "name": "150 Green Vegetarian — Bukit Batok 150",
+      "address": "150 Bukit Batok Street 11 #01-224, Singapore 650150",
+      "postalCode": "650150",
+      "googlePlaceId": null,
+      "directoryLeadIds": [
+        "hippo-150-green-vegetarian"
+      ],
+      "sourceIds": [
+        "ur08-150-green-ordering",
+        "ur08-150-green-grab-context"
+      ],
+      "menuIds": [
+        "ur08-150-green-foods"
+      ],
+      "eligibility": "vegetarian-confirmed",
+      "identityStatus": "independent-source-premise-no-google-assignment",
+      "venueEligibility": {
+        "status": "vegetarian-confirmed",
+        "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+        "sourceIds": [
+          "ur08-150-green-ordering",
+          "ur08-150-green-grab-context"
+        ],
+        "reason": "Current23-product Foodpanda catalogue agrees exact150BukitBatokStreet11#01-224. Existing Grab vegetarian guide independently names same exact premise/650150; source dates retained, no repeat extraction."
+      },
+      "gaps": [
+        "Dated channel facts; current stock, complete ingredients, allium/vegan/allergy suitability and final charges unconfirmed.",
+        "Current normal menu23products differs from indexed four-product/older noodle-set representations. Eight generic animal descriptions held. No blanket vegan/no-allium inference from directory."
+      ]
+    },
+    {
+      "id": "ur08-vege-bear-bidadari",
+      "name": "Vege Bear Vegetarian — Bidadari",
+      "address": "212 Bidadari Park Drive #03-01, Singapore 360212",
+      "postalCode": "360212",
+      "googlePlaceId": null,
+      "directoryLeadIds": [
+        "hippo-vege-bear-212-bdp"
+      ],
+      "sourceIds": [
+        "ur08-vege-bear-bidadari-ordering"
+      ],
+      "menuIds": [
+        "ur08-vege-bear-bidadari-foods"
+      ],
+      "eligibility": "vegetarian-confirmed",
+      "identityStatus": "independent-source-premise-no-google-assignment",
+      "venueEligibility": {
+        "status": "vegetarian-confirmed",
+        "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+        "sourceIds": [
+          "ur08-vege-bear-bidadari-ordering"
+        ],
+        "reason": "Current exact-premise merchant listing names vegetarian venue and vegetarian food context."
+      },
+      "gaps": [
+        "Dated channel facts; current stock, complete ingredients, allium/vegan/allergy suitability and final charges unconfirmed.",
+        "Current44-product catalogue differs from indexed35-product representation. Venue ordering marked CLOSED at check; no permanent closure or current item stock inference. Repeated Saturday/Sunday named dishes retain distinct explicit weekday schedules.41food customizers unread; source-printed choices incomplete."
+      ]
+    },
+    {
+      "id": "ur08-k-veggie",
+      "name": "K.Veggie — Tanglin Halt",
+      "address": "48A Tanglin Halt Road, Stall 9, Singapore 148813",
+      "postalCode": "148813",
+      "googlePlaceId": null,
+      "directoryLeadIds": [
+        "hippo-k-veggie"
+      ],
+      "sourceIds": [
+        "ur08-k-veggie-ordering"
+      ],
+      "menuIds": [
+        "ur08-k-veggie-foods"
+      ],
+      "eligibility": "vegetarian-confirmed",
+      "identityStatus": "independent-source-premise-no-google-assignment",
+      "venueEligibility": {
+        "status": "vegetarian-confirmed",
+        "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+        "sourceIds": [
+          "ur08-k-veggie-ordering"
+        ],
+        "reason": "Current exact-premise merchant listing names vegetarian venue and vegetarian food context."
+      },
+      "gaps": [
+        "Dated channel facts; current stock, complete ingredients, allium/vegan/allergy suitability and final charges unconfirmed.",
+        "Current commercial stall48ATanglinHaltStall9 differs from corporate residential registered-office address803BKeatHong. Office is not a customer venue; no identity approval. Generic pork-rice description held. Six set customizers unread."
+      ]
+    }
+  ],
+  "menus": [
+    {
+      "id": "ur08-150-green-foods",
+      "name": "150 Green Vegetarian — Bukit Batok 150 delivery",
+      "branchIds": [
+        "ur08-150-green"
+      ],
+      "sourceIds": [
+        "ur08-150-green-ordering"
+      ],
+      "scope": "branch-delivery",
+      "coverage": "partial",
+      "publicationStatus": "reviewed-partial-source-facts",
+      "notice": "Dated delivery menu. Confirm ingredients, availability, ordering choices and final charges with the venue. Prices may differ in store.",
+      "items": [
+        {
+          "id": "ur08-150-green-73740972",
+          "sourceProductId": "73740972",
+          "name": "咖喱鸡扒饭",
+          "category": "Mains 主食薄饼",
+          "sourceIds": [
+            "ur08-150-green-ordering"
+          ],
+          "sourceDescription": "",
+          "price": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "verification": {
+            "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+            "sourceIds": [
+              "ur08-150-green-ordering"
+            ],
+            "verifiedFields": [
+              "product ID",
+              "printed name",
+              "source category",
+              "SGD list price",
+              "printed composition where available"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:40:04.855Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          }
+        },
+        {
+          "id": "ur08-150-green-73740970",
+          "sourceProductId": "73740970",
+          "name": "素咖喱羊肉饭",
+          "category": "Mains 主食薄饼",
+          "sourceIds": [
+            "ur08-150-green-ordering"
+          ],
+          "sourceDescription": "",
+          "price": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "verification": {
+            "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+            "sourceIds": [
+              "ur08-150-green-ordering"
+            ],
+            "verifiedFields": [
+              "product ID",
+              "printed name",
+              "source category",
+              "SGD list price",
+              "printed composition where available"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:40:04.855Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          }
+        },
+        {
+          "id": "ur08-150-green-73759902",
+          "sourceProductId": "73759902",
+          "name": "河粉",
+          "category": "Mains 主食薄饼",
+          "sourceIds": [
+            "ur08-150-green-ordering"
+          ],
+          "sourceDescription": "",
+          "price": {
+            "amount": 6.9,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "verification": {
+            "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+            "sourceIds": [
+              "ur08-150-green-ordering"
+            ],
+            "verifiedFields": [
+              "product ID",
+              "printed name",
+              "source category",
+              "SGD list price",
+              "printed composition where available"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:40:04.855Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          }
+        },
+        {
+          "id": "ur08-150-green-81122863",
+          "sourceProductId": "81122863",
+          "name": "麻油姜腰花饭",
+          "category": "Mains 主食薄饼",
+          "sourceIds": [
+            "ur08-150-green-ordering"
+          ],
+          "sourceDescription": "\nSesame oil ginger pork kidney rice",
+          "price": {
+            "amount": 8.3,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "hold-generic-animal-description",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "verification": {
+            "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+            "sourceIds": [
+              "ur08-150-green-ordering"
+            ],
+            "verifiedFields": [
+              "product ID",
+              "printed name",
+              "source category",
+              "SGD list price",
+              "printed composition where available"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:40:04.855Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "holdReason": "Generic animal/meat/seafood description remains unclear despite vegetarian venue context; do not infer mock ingredients or actual meat service."
+        },
+        {
+          "id": "ur08-150-green-81122862",
+          "sourceProductId": "81122862",
+          "name": "黑胡椒肉片饭",
+          "category": "Mains 主食薄饼",
+          "sourceIds": [
+            "ur08-150-green-ordering"
+          ],
+          "sourceDescription": "Black pepper pork Rice",
+          "price": {
+            "amount": 8.3,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "hold-generic-animal-description",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "verification": {
+            "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+            "sourceIds": [
+              "ur08-150-green-ordering"
+            ],
+            "verifiedFields": [
+              "product ID",
+              "printed name",
+              "source category",
+              "SGD list price",
+              "printed composition where available"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:40:04.855Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "holdReason": "Generic animal/meat/seafood description remains unclear despite vegetarian venue context; do not infer mock ingredients or actual meat service."
+        },
+        {
+          "id": "ur08-150-green-81122861",
+          "sourceProductId": "81122861",
+          "name": "糖醋排骨饭",
+          "category": "Mains 主食薄饼",
+          "sourceIds": [
+            "ur08-150-green-ordering"
+          ],
+          "sourceDescription": "Sweet and sour Ribs 饭",
+          "price": {
+            "amount": 8.3,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "hold-generic-animal-description",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "verification": {
+            "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+            "sourceIds": [
+              "ur08-150-green-ordering"
+            ],
+            "verifiedFields": [
+              "product ID",
+              "printed name",
+              "source category",
+              "SGD list price",
+              "printed composition where available"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:40:04.855Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "holdReason": "Generic animal/meat/seafood description remains unclear despite vegetarian venue context; do not infer mock ingredients or actual meat service."
+        },
+        {
+          "id": "ur08-150-green-81122860",
+          "sourceProductId": "81122860",
+          "name": "白玉菇饭",
+          "category": "Mains 主食薄饼",
+          "sourceIds": [
+            "ur08-150-green-ordering"
+          ],
+          "sourceDescription": "White jade mushroom Rice",
+          "price": {
+            "amount": 8.3,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "verification": {
+            "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+            "sourceIds": [
+              "ur08-150-green-ordering"
+            ],
+            "verifiedFields": [
+              "product ID",
+              "printed name",
+              "source category",
+              "SGD list price",
+              "printed composition where available"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:40:04.855Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          }
+        },
+        {
+          "id": "ur08-150-green-81122859",
+          "sourceProductId": "81122859",
+          "name": "宫宝鸡丁饭",
+          "category": "Mains 主食薄饼",
+          "sourceIds": [
+            "ur08-150-green-ordering"
+          ],
+          "sourceDescription": "Kung Pao chicken Rice",
+          "price": {
+            "amount": 8.3,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "hold-generic-animal-description",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "verification": {
+            "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+            "sourceIds": [
+              "ur08-150-green-ordering"
+            ],
+            "verifiedFields": [
+              "product ID",
+              "printed name",
+              "source category",
+              "SGD list price",
+              "printed composition where available"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:40:04.855Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "holdReason": "Generic animal/meat/seafood description remains unclear despite vegetarian venue context; do not infer mock ingredients or actual meat service."
+        },
+        {
+          "id": "ur08-150-green-81122858",
+          "sourceProductId": "81122858",
+          "name": "酸甜鱼片饭",
+          "category": "Mains 主食薄饼",
+          "sourceIds": [
+            "ur08-150-green-ordering"
+          ],
+          "sourceDescription": "Sweet and sour fish Rice",
+          "price": {
+            "amount": 8.3,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "hold-generic-animal-description",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "verification": {
+            "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+            "sourceIds": [
+              "ur08-150-green-ordering"
+            ],
+            "verifiedFields": [
+              "product ID",
+              "printed name",
+              "source category",
+              "SGD list price",
+              "printed composition where available"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:40:04.855Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "holdReason": "Generic animal/meat/seafood description remains unclear despite vegetarian venue context; do not infer mock ingredients or actual meat service."
+        },
+        {
+          "id": "ur08-150-green-81122857",
+          "sourceProductId": "81122857",
+          "name": "咖喱鱼条饭",
+          "category": "Mains 主食薄饼",
+          "sourceIds": [
+            "ur08-150-green-ordering"
+          ],
+          "sourceDescription": "Curry fish Stick Rice",
+          "price": {
+            "amount": 8.3,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "hold-generic-animal-description",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "verification": {
+            "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+            "sourceIds": [
+              "ur08-150-green-ordering"
+            ],
+            "verifiedFields": [
+              "product ID",
+              "printed name",
+              "source category",
+              "SGD list price",
+              "printed composition where available"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:40:04.855Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "holdReason": "Generic animal/meat/seafood description remains unclear despite vegetarian venue context; do not infer mock ingredients or actual meat service."
+        },
+        {
+          "id": "ur08-150-green-81122856",
+          "sourceProductId": "81122856",
+          "name": "麻油姜鱼片饭",
+          "category": "Mains 主食薄饼",
+          "sourceIds": [
+            "ur08-150-green-ordering"
+          ],
+          "sourceDescription": "",
+          "price": {
+            "amount": 8.3,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "verification": {
+            "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+            "sourceIds": [
+              "ur08-150-green-ordering"
+            ],
+            "verifiedFields": [
+              "product ID",
+              "printed name",
+              "source category",
+              "SGD list price",
+              "printed composition where available"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:40:04.855Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          }
+        },
+        {
+          "id": "ur08-150-green-81122853",
+          "sourceProductId": "81122853",
+          "name": "罗汉斋饭",
+          "category": "Mains 主食薄饼",
+          "sourceIds": [
+            "ur08-150-green-ordering"
+          ],
+          "sourceDescription": "Logan Zhai Rice",
+          "price": {
+            "amount": 8.3,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "verification": {
+            "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+            "sourceIds": [
+              "ur08-150-green-ordering"
+            ],
+            "verifiedFields": [
+              "product ID",
+              "printed name",
+              "source category",
+              "SGD list price",
+              "printed composition where available"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:40:04.855Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          }
+        },
+        {
+          "id": "ur08-150-green-81122852",
+          "sourceProductId": "81122852",
+          "name": "咕噜肉饭",
+          "category": "Mains 主食薄饼",
+          "sourceIds": [
+            "ur08-150-green-ordering"
+          ],
+          "sourceDescription": "Sweet and sour pork Rice",
+          "price": {
+            "amount": 8.3,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "hold-generic-animal-description",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "verification": {
+            "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+            "sourceIds": [
+              "ur08-150-green-ordering"
+            ],
+            "verifiedFields": [
+              "product ID",
+              "printed name",
+              "source category",
+              "SGD list price",
+              "printed composition where available"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:40:04.855Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "holdReason": "Generic animal/meat/seafood description remains unclear despite vegetarian venue context; do not infer mock ingredients or actual meat service."
+        },
+        {
+          "id": "ur08-150-green-81122851",
+          "sourceProductId": "81122851",
+          "name": "红烧豆腐饭",
+          "category": "Mains 主食薄饼",
+          "sourceIds": [
+            "ur08-150-green-ordering"
+          ],
+          "sourceDescription": "Ren Braised tofu Rice",
+          "price": {
+            "amount": 8.3,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "verification": {
+            "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+            "sourceIds": [
+              "ur08-150-green-ordering"
+            ],
+            "verifiedFields": [
+              "product ID",
+              "printed name",
+              "source category",
+              "SGD list price",
+              "printed composition where available"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:40:04.855Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          }
+        },
+        {
+          "id": "ur08-150-green-73768361",
+          "sourceProductId": "73768361",
+          "name": "干河",
+          "category": "Mains 主食薄饼",
+          "sourceIds": [
+            "ur08-150-green-ordering"
+          ],
+          "sourceDescription": "Dry kuay teo",
+          "price": {
+            "amount": 6.9,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "verification": {
+            "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+            "sourceIds": [
+              "ur08-150-green-ordering"
+            ],
+            "verifiedFields": [
+              "product ID",
+              "printed name",
+              "source category",
+              "SGD list price",
+              "printed composition where available"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:40:04.855Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          }
+        },
+        {
+          "id": "ur08-150-green-73759899",
+          "sourceProductId": "73759899",
+          "name": "星州米粉",
+          "category": "Mains 主食薄饼",
+          "sourceIds": [
+            "ur08-150-green-ordering"
+          ],
+          "sourceDescription": "Xingzhou Bee Hoon",
+          "price": {
+            "amount": 7.4,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "verification": {
+            "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+            "sourceIds": [
+              "ur08-150-green-ordering"
+            ],
+            "verifiedFields": [
+              "product ID",
+              "printed name",
+              "source category",
+              "SGD list price",
+              "printed composition where available"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:40:04.855Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          }
+        },
+        {
+          "id": "ur08-150-green-73759894",
+          "sourceProductId": "73759894",
+          "name": "鱼片米粉汤",
+          "category": "Mains 主食薄饼",
+          "sourceIds": [
+            "ur08-150-green-ordering"
+          ],
+          "sourceDescription": "Fish Bee Hoon soup",
+          "price": {
+            "amount": 6.9,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "hold-generic-animal-description",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "verification": {
+            "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+            "sourceIds": [
+              "ur08-150-green-ordering"
+            ],
+            "verifiedFields": [
+              "product ID",
+              "printed name",
+              "source category",
+              "SGD list price",
+              "printed composition where available"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:40:04.855Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "holdReason": "Generic animal/meat/seafood description remains unclear despite vegetarian venue context; do not infer mock ingredients or actual meat service."
+        },
+        {
+          "id": "ur08-150-green-73759892",
+          "sourceProductId": "73759892",
+          "name": "山芭炒饭",
+          "category": "Mains 主食薄饼",
+          "sourceIds": [
+            "ur08-150-green-ordering"
+          ],
+          "sourceDescription": "",
+          "price": {
+            "amount": 7.4,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "verification": {
+            "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+            "sourceIds": [
+              "ur08-150-green-ordering"
+            ],
+            "verifiedFields": [
+              "product ID",
+              "printed name",
+              "source category",
+              "SGD list price",
+              "printed composition where available"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:40:04.855Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          }
+        },
+        {
+          "id": "ur08-150-green-73759890",
+          "sourceProductId": "73759890",
+          "name": "杨州炒饭",
+          "category": "Mains 主食薄饼",
+          "sourceIds": [
+            "ur08-150-green-ordering"
+          ],
+          "sourceDescription": "Yangzhou fried rice",
+          "price": {
+            "amount": 7.4,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "verification": {
+            "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+            "sourceIds": [
+              "ur08-150-green-ordering"
+            ],
+            "verifiedFields": [
+              "product ID",
+              "printed name",
+              "source category",
+              "SGD list price",
+              "printed composition where available"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:40:04.855Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          }
+        },
+        {
+          "id": "ur08-150-green-73759889",
+          "sourceProductId": "73759889",
+          "name": "橄榄炒饭",
+          "category": "Mains 主食薄饼",
+          "sourceIds": [
+            "ur08-150-green-ordering"
+          ],
+          "sourceDescription": "Olive fried rice",
+          "price": {
+            "amount": 7.4,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "verification": {
+            "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+            "sourceIds": [
+              "ur08-150-green-ordering"
+            ],
+            "verifiedFields": [
+              "product ID",
+              "printed name",
+              "source category",
+              "SGD list price",
+              "printed composition where available"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:40:04.855Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          }
+        },
+        {
+          "id": "ur08-150-green-73740976",
+          "sourceProductId": "73740976",
+          "name": "泰式鱼扒饭",
+          "category": "Mains 主食薄饼",
+          "sourceIds": [
+            "ur08-150-green-ordering"
+          ],
+          "sourceDescription": "",
+          "price": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "verification": {
+            "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+            "sourceIds": [
+              "ur08-150-green-ordering"
+            ],
+            "verifiedFields": [
+              "product ID",
+              "printed name",
+              "source category",
+              "SGD list price",
+              "printed composition where available"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:40:04.855Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          }
+        },
+        {
+          "id": "ur08-150-green-73740973",
+          "sourceProductId": "73740973",
+          "name": "咖喱鱼扒饭",
+          "category": "Mains 主食薄饼",
+          "sourceIds": [
+            "ur08-150-green-ordering"
+          ],
+          "sourceDescription": "",
+          "price": {
+            "amount": 8,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "verification": {
+            "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+            "sourceIds": [
+              "ur08-150-green-ordering"
+            ],
+            "verifiedFields": [
+              "product ID",
+              "printed name",
+              "source category",
+              "SGD list price",
+              "printed composition where available"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:40:04.855Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          }
+        },
+        {
+          "id": "ur08-150-green-5664925",
+          "sourceProductId": "5664925",
+          "name": "Vegetarian White Bee Hoon 齋白米粉",
+          "category": "Mains 主食薄饼",
+          "sourceIds": [
+            "ur08-150-green-ordering"
+          ],
+          "sourceDescription": "A popular Singaporean dish made with rice vermicelli, vegetables, tofu, and a flavorful broth.",
+          "price": {
+            "amount": 6.5,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "verification": {
+            "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+            "sourceIds": [
+              "ur08-150-green-ordering"
+            ],
+            "verifiedFields": [
+              "product ID",
+              "printed name",
+              "source category",
+              "SGD list price",
+              "printed composition where available"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:40:04.855Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "ur08-vege-bear-bidadari-foods",
+      "name": "Vege Bear Vegetarian — Bidadari delivery",
+      "branchIds": [
+        "ur08-vege-bear-bidadari"
+      ],
+      "sourceIds": [
+        "ur08-vege-bear-bidadari-ordering"
+      ],
+      "scope": "branch-delivery",
+      "coverage": "partial",
+      "publicationStatus": "reviewed-partial-source-facts",
+      "notice": "Dated delivery menu. Confirm ingredients, availability, ordering choices and final charges with the venue. Prices may differ in store. Source ordering was closed at last check; weekday specials retain printed schedules.",
+      "items": [
+        {
+          "id": "ur08-vege-bear-bidadari-92647615",
+          "sourceProductId": "92647615",
+          "name": "Four Heavenly Kings Rice Set 四大天王套餐",
+          "category": "Vege Bear Recommendation",
+          "sourceIds": [
+            "ur08-vege-bear-bidadari-ordering"
+          ],
+          "sourceDescription": "Long beans, brinjal, lady fingers and petai, collectively known as the 4 Heavenly Kings, stir-fried with tau kwa. Choose Sambal for a fiery spicy kick or Braised for rich savoury flavour. Served with fragrant rice.\n长豆、茄子、羊角豆与臭豆，合称四大天王，搭配豆干。可选择香辣开胃的三巴口味，或浓郁咸香的红烧口味。配上香喷喷白饭，营养丰富又满足。",
+          "price": {
+            "amount": 10.95,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "verification": {
+            "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+            "sourceIds": [
+              "ur08-vege-bear-bidadari-ordering"
+            ],
+            "verifiedFields": [
+              "product ID",
+              "printed name",
+              "source category",
+              "SGD list price",
+              "printed composition where available"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:41:00.705Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "configurationNotice": "Source flags ordering choices; complete names/defaults/limits/surcharges unread. Only printed description choices retained.",
+          "sourcePromotionalPrice": {
+            "amount": 9.3075,
+            "currency": "SGD",
+            "rawUnrounded": true
+          },
+          "pricingNotice": "Separately observed15% promotional price retained in source data; displayed list price precedes promotion. Validity and final checkout total unconfirmed.",
+          "setComponentsText": "Long beans, brinjal, lady fingers, petai and tau kwa, served with rice.",
+          "foodChoiceGroups": [
+            {
+              "name": "Printed preparation",
+              "options": [
+                "Sambal",
+                "Braised"
+              ],
+              "default": "unstated",
+              "surcharge": "unstated",
+              "minSelections": "unstated",
+              "maxSelections": "unstated"
+            }
+          ]
+        },
+        {
+          "id": "ur08-vege-bear-bidadari-92647544",
+          "sourceProductId": "92647544",
+          "name": "Vegetarian Yong Tau Foo Set A 素酿豆腐套餐 A",
+          "category": "YTF Menu",
+          "sourceIds": [
+            "ur08-vege-bear-bidadari-ordering"
+          ],
+          "sourceDescription": "A wholesome selection of handmade stuffed delights. This set includes handmade bittergourd, brinjal, tau kwa, lady's finger and stuffed tau pok. Each piece is freshly prepared and served in your choice of soup or dry style.\n精选多款手工制作的素酿配料。套餐包含手工苦瓜、茄子、豆干、秋葵，以及酿豆卜。每一款均采用新鲜食材精心制作，可选择汤或干拌方式享用。",
+          "price": {
+            "amount": 8.7,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "verification": {
+            "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+            "sourceIds": [
+              "ur08-vege-bear-bidadari-ordering"
+            ],
+            "verifiedFields": [
+              "product ID",
+              "printed name",
+              "source category",
+              "SGD list price",
+              "printed composition where available"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:41:00.705Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "configurationNotice": "Source flags ordering choices; complete names/defaults/limits/surcharges unread. Only printed description choices retained.",
+          "sourcePromotionalPrice": {
+            "amount": 7.395,
+            "currency": "SGD",
+            "rawUnrounded": true
+          },
+          "pricingNotice": "Separately observed15% promotional price retained in source data; displayed list price precedes promotion. Validity and final checkout total unconfirmed.",
+          "setComponentsText": "Handmade bittergourd, brinjal, tau kwa, lady's finger and stuffed tau pok.",
+          "foodChoiceGroups": [
+            {
+              "name": "Printed serving style",
+              "options": [
+                "soup",
+                "dry"
+              ],
+              "default": "unstated",
+              "surcharge": "unstated",
+              "minSelections": "unstated",
+              "maxSelections": "unstated"
+            }
+          ]
+        },
+        {
+          "id": "ur08-vege-bear-bidadari-92647539",
+          "sourceProductId": "92647539",
+          "name": "Kway Chap 粿汁",
+          "category": "All Day Menu",
+          "sourceIds": [
+            "ur08-vege-bear-bidadari-ordering"
+          ],
+          "sourceDescription": "A Teochew style dish featuring silky, broad rice sheets in a rich, aromatic herbal soy based broth. Served with braised tau kwa, tau pok, mock intestine and egg. A wholesome vegetarian twist on the classic favourite.\n暖心的潮州风味佳肴，滑嫩宽米片浸在浓郁芳香的药材酱油汤中。搭配多样素食配料，如卤豆干、豆卜、素肠及鸡蛋，是经典粿汁的健康素食版本。",
+          "price": {
+            "amount": 7.95,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed. Source names egg or milk; no vegan inference.",
+          "verification": {
+            "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+            "sourceIds": [
+              "ur08-vege-bear-bidadari-ordering"
+            ],
+            "verifiedFields": [
+              "product ID",
+              "printed name",
+              "source category",
+              "SGD list price",
+              "printed composition where available"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:41:00.705Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "configurationNotice": "Source flags ordering choices; complete names/defaults/limits/surcharges unread. Only printed description choices retained.",
+          "sourcePromotionalPrice": {
+            "amount": 6.7575,
+            "currency": "SGD",
+            "rawUnrounded": true
+          },
+          "pricingNotice": "Separately observed15% promotional price retained in source data; displayed list price precedes promotion. Validity and final checkout total unconfirmed."
+        },
+        {
+          "id": "ur08-vege-bear-bidadari-92647536",
+          "sourceProductId": "92647536",
+          "name": "Bak Kut Teh 素肉骨茶",
+          "category": "All Day Menu",
+          "sourceIds": [
+            "ur08-vege-bear-bidadari-ordering"
+          ],
+          "sourceDescription": "A peppery broth simmered with mock meat, assorted mushrooms, beancurd skin, vegetables, infused with traditional Chinese herbs and topped with crispy deep fried you tiao for a rich, comforting flavour.\n以素肉、多种鲜菇、豆腐皮和蔬菜慢火炖煮，加入传统中药材熬制成胡椒风味浓郁的汤底，上面配以香脆炸油条，口感丰富，是一份饱足又暖心的佳肴。",
+          "price": {
+            "amount": 9.45,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "verification": {
+            "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+            "sourceIds": [
+              "ur08-vege-bear-bidadari-ordering"
+            ],
+            "verifiedFields": [
+              "product ID",
+              "printed name",
+              "source category",
+              "SGD list price",
+              "printed composition where available"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:41:00.705Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "configurationNotice": "Source flags ordering choices; complete names/defaults/limits/surcharges unread. Only printed description choices retained.",
+          "sourcePromotionalPrice": {
+            "amount": 8.032499999999999,
+            "currency": "SGD",
+            "rawUnrounded": true
+          },
+          "pricingNotice": "Separately observed15% promotional price retained in source data; displayed list price precedes promotion. Validity and final checkout total unconfirmed."
+        },
+        {
+          "id": "ur08-vege-bear-bidadari-92647537",
+          "sourceProductId": "92647537",
+          "name": "Vegetarian Fish Soup 素鱼汤",
+          "category": "All Day Menu",
+          "sourceIds": [
+            "ur08-vege-bear-bidadari-ordering"
+          ],
+          "sourceDescription": "A comforting bowl of light, flavourful broth served with tender vegetarian fish slices, fresh vegetables, and tomatoes, mushroom and seaweed, topped with fragrant fried ginger slices.\n清爽美味的汤底，搭配嫩滑的素鱼片、新鲜蔬菜、番茄、蘑菇和海带，上面点缀香气扑鼻的香炸姜片，带来一碗温暖又满足的汤品。",
+          "price": {
+            "amount": 8.7,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "verification": {
+            "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+            "sourceIds": [
+              "ur08-vege-bear-bidadari-ordering"
+            ],
+            "verifiedFields": [
+              "product ID",
+              "printed name",
+              "source category",
+              "SGD list price",
+              "printed composition where available"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:41:00.705Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "configurationNotice": "Source flags ordering choices; complete names/defaults/limits/surcharges unread. Only printed description choices retained.",
+          "sourcePromotionalPrice": {
+            "amount": 7.395,
+            "currency": "SGD",
+            "rawUnrounded": true
+          },
+          "pricingNotice": "Separately observed15% promotional price retained in source data; displayed list price precedes promotion. Validity and final checkout total unconfirmed."
+        },
+        {
+          "id": "ur08-vege-bear-bidadari-92647538",
+          "sourceProductId": "92647538",
+          "name": "Nasi Lemak 椰浆饭",
+          "category": "All Day Menu",
+          "sourceIds": [
+            "ur08-vege-bear-bidadari-ordering"
+          ],
+          "sourceDescription": "Fragrant coconut rice served with sambal, crispy peanuts, cucumber, and assorted vegetarian sides such as mock fish, hot dog, sunny side egg and long beans.\n香浓椰浆饭，配上参巴辣椒酱、香脆花生、黄瓜，以及多种素食配料，如素鱼、素热狗、煎蛋、长豆和咖喱蔬菜",
+          "price": {
+            "amount": 8.7,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed. Source names egg or milk; no vegan inference.",
+          "verification": {
+            "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+            "sourceIds": [
+              "ur08-vege-bear-bidadari-ordering"
+            ],
+            "verifiedFields": [
+              "product ID",
+              "printed name",
+              "source category",
+              "SGD list price",
+              "printed composition where available"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:41:00.705Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "configurationNotice": "Source flags ordering choices; complete names/defaults/limits/surcharges unread. Only printed description choices retained.",
+          "sourcePromotionalPrice": {
+            "amount": 7.395,
+            "currency": "SGD",
+            "rawUnrounded": true
+          },
+          "pricingNotice": "Separately observed15% promotional price retained in source data; displayed list price precedes promotion. Validity and final checkout total unconfirmed."
+        },
+        {
+          "id": "ur08-vege-bear-bidadari-92647540",
+          "sourceProductId": "92647540",
+          "name": "Chicken Rice 素鸡饭",
+          "category": "All Day Menu",
+          "sourceIds": [
+            "ur08-vege-bear-bidadari-ordering"
+          ],
+          "sourceDescription": "A delicious combination of tender vegetarian steamed chicken and a crispy fried vegetarian drumstick served over fragrant sesame rice. Accompanied by fresh cucumber and tomato slices, and our homemade chili sauce.\n嫩滑的素蒸鸡和香脆的素炸鸡腿，搭配香气扑鼻的芝麻饭。配以新鲜黄瓜和番茄片，并附上我们自制的辣椒酱。",
+          "price": {
+            "amount": 8.7,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "verification": {
+            "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+            "sourceIds": [
+              "ur08-vege-bear-bidadari-ordering"
+            ],
+            "verifiedFields": [
+              "product ID",
+              "printed name",
+              "source category",
+              "SGD list price",
+              "printed composition where available"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:41:00.705Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "configurationNotice": "Source flags ordering choices; complete names/defaults/limits/surcharges unread. Only printed description choices retained.",
+          "sourcePromotionalPrice": {
+            "amount": 7.395,
+            "currency": "SGD",
+            "rawUnrounded": true
+          },
+          "pricingNotice": "Separately observed15% promotional price retained in source data; displayed list price precedes promotion. Validity and final checkout total unconfirmed."
+        },
+        {
+          "id": "ur08-vege-bear-bidadari-92647541",
+          "sourceProductId": "92647541",
+          "name": "Laska 叻沙",
+          "category": "All Day Menu",
+          "sourceIds": [
+            "ur08-vege-bear-bidadari-ordering"
+          ],
+          "sourceDescription": "A rich and aromatic coconut curry noodle soup, with tau kwa, tau pok, bean sprouts, egg and fresh herbs. A creamy, mildly spicy, and deeply satisfying Southeast Asian comfort dish.\n香浓椰浆咖喱汤底，加入豆干、豆卜、豆芽、鸡蛋和新鲜香草。汤汁顺滑微辣，滋味浓郁，是东南亚深受喜爱的暖心料理。",
+          "price": {
+            "amount": 8.7,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed. Source names egg or milk; no vegan inference.",
+          "verification": {
+            "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+            "sourceIds": [
+              "ur08-vege-bear-bidadari-ordering"
+            ],
+            "verifiedFields": [
+              "product ID",
+              "printed name",
+              "source category",
+              "SGD list price",
+              "printed composition where available"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:41:00.705Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "configurationNotice": "Source flags ordering choices; complete names/defaults/limits/surcharges unread. Only printed description choices retained.",
+          "sourcePromotionalPrice": {
+            "amount": 7.395,
+            "currency": "SGD",
+            "rawUnrounded": true
+          },
+          "pricingNotice": "Separately observed15% promotional price retained in source data; displayed list price precedes promotion. Validity and final checkout total unconfirmed."
+        },
+        {
+          "id": "ur08-vege-bear-bidadari-92650533",
+          "sourceProductId": "92650533",
+          "name": "Egg Fried Rice 扬州炒饭",
+          "category": "Fried Rice",
+          "sourceIds": [
+            "ur08-vege-bear-bidadari-ordering"
+          ],
+          "sourceDescription": "Fragrant fried rice tossed with a colourful mix of vegetables, egg, and vegetarian ham. Light, flavourful, and satisfying.\n香喷喷的炒饭配上蔬菜、鸡蛋和素火腿翻炒而成。色香味俱全，清爽可口。\n",
+          "price": {
+            "amount": 8.7,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed. Source names egg or milk; no vegan inference.",
+          "verification": {
+            "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+            "sourceIds": [
+              "ur08-vege-bear-bidadari-ordering"
+            ],
+            "verifiedFields": [
+              "product ID",
+              "printed name",
+              "source category",
+              "SGD list price",
+              "printed composition where available"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:41:00.705Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "configurationNotice": "Source flags ordering choices; complete names/defaults/limits/surcharges unread. Only printed description choices retained.",
+          "sourcePromotionalPrice": {
+            "amount": 7.395,
+            "currency": "SGD",
+            "rawUnrounded": true
+          },
+          "pricingNotice": "Separately observed15% promotional price retained in source data; displayed list price precedes promotion. Validity and final checkout total unconfirmed."
+        },
+        {
+          "id": "ur08-vege-bear-bidadari-92650532",
+          "sourceProductId": "92650532",
+          "name": "Olive Fried Rice 橄榄炒饭",
+          "category": "Fried Rice",
+          "sourceIds": [
+            "ur08-vege-bear-bidadari-ordering"
+          ],
+          "sourceDescription": "A savoury fried rice flavoured with preserved olive vegetables, stir-fried with vegetarian ham, egg and seasonal vegetables. Fragrant, slightly tangy, and full of umami; a wholesome vegetarian favourite.\n以橄榄菜的独特咸香入味，搭配素火腿、鸡蛋与蔬菜快炒，米饭粒粒分明，带有清爽微酸与浓郁鲜香，是深受喜爱的素食炒饭。",
+          "price": {
+            "amount": 8.7,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed. Source names egg or milk; no vegan inference.",
+          "verification": {
+            "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+            "sourceIds": [
+              "ur08-vege-bear-bidadari-ordering"
+            ],
+            "verifiedFields": [
+              "product ID",
+              "printed name",
+              "source category",
+              "SGD list price",
+              "printed composition where available"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:41:00.705Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "configurationNotice": "Source flags ordering choices; complete names/defaults/limits/surcharges unread. Only printed description choices retained.",
+          "sourcePromotionalPrice": {
+            "amount": 7.395,
+            "currency": "SGD",
+            "rawUnrounded": true
+          },
+          "pricingNotice": "Separately observed15% promotional price retained in source data; displayed list price precedes promotion. Validity and final checkout total unconfirmed."
+        },
+        {
+          "id": "ur08-vege-bear-bidadari-92650538",
+          "sourceProductId": "92650538",
+          "name": "Pineapple Fried Rice 黄梨炒饭",
+          "category": "Fried Rice",
+          "sourceIds": [
+            "ur08-vege-bear-bidadari-ordering"
+          ],
+          "sourceDescription": "A tropical-inspired fried rice with juicy pineapple chunks, seasonal vegetables, vegetarian ham and egg, stir-fried to a perfect balance of sweet and savoury flavours. Refreshing, colourful, and appetizing.\n热带风味的炒饭，加入鲜甜黄梨块、时令蔬菜、素火腿与鸡蛋快炒，酸甜咸香相互融合，清新可口，色彩缤纷，令人食欲大开。",
+          "price": {
+            "amount": 8.7,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed. Source names egg or milk; no vegan inference.",
+          "verification": {
+            "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+            "sourceIds": [
+              "ur08-vege-bear-bidadari-ordering"
+            ],
+            "verifiedFields": [
+              "product ID",
+              "printed name",
+              "source category",
+              "SGD list price",
+              "printed composition where available"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:41:00.705Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "configurationNotice": "Source flags ordering choices; complete names/defaults/limits/surcharges unread. Only printed description choices retained.",
+          "sourcePromotionalPrice": {
+            "amount": 7.395,
+            "currency": "SGD",
+            "rawUnrounded": true
+          },
+          "pricingNotice": "Separately observed15% promotional price retained in source data; displayed list price precedes promotion. Validity and final checkout total unconfirmed."
+        },
+        {
+          "id": "ur08-vege-bear-bidadari-92650540",
+          "sourceProductId": "92650540",
+          "name": "Salted Fish Fried Rice 咸鱼炒饭",
+          "category": "Fried Rice",
+          "sourceIds": [
+            "ur08-vege-bear-bidadari-ordering"
+          ],
+          "sourceDescription": "A vegetarian twist on the classic, with fragrant fried rice tossed with vegetarian salted fish, egg and seasonal vegetables. Savoury, aromatic, and belly good.\n经典咸鱼炒饭的素食版本，香喷喷的炒饭搭配素咸鱼、鸡蛋与时令蔬菜翻炒而成。咸香扑鼻，味道浓郁，令人回味无穷。",
+          "price": {
+            "amount": 8.7,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed. Source names egg or milk; no vegan inference.",
+          "verification": {
+            "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+            "sourceIds": [
+              "ur08-vege-bear-bidadari-ordering"
+            ],
+            "verifiedFields": [
+              "product ID",
+              "printed name",
+              "source category",
+              "SGD list price",
+              "printed composition where available"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:41:00.705Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "configurationNotice": "Source flags ordering choices; complete names/defaults/limits/surcharges unread. Only printed description choices retained.",
+          "sourcePromotionalPrice": {
+            "amount": 7.395,
+            "currency": "SGD",
+            "rawUnrounded": true
+          },
+          "pricingNotice": "Separately observed15% promotional price retained in source data; displayed list price precedes promotion. Validity and final checkout total unconfirmed."
+        },
+        {
+          "id": "ur08-vege-bear-bidadari-92650542",
+          "sourceProductId": "92650542",
+          "name": "Tom Yam Fried Rice 冬炎炒饭",
+          "category": "Fried Rice",
+          "sourceIds": [
+            "ur08-vege-bear-bidadari-ordering"
+          ],
+          "sourceDescription": "Fragrant fried rice infused with the bold, tangy, and mildly spicy flavors of tom yam, stir-fried with vegetarian ham, egg and seasonal vegetables. Zesty, appetizing, and a perfect vegetarian twist on a Thai favourite.\n香喷喷的炒饭融入酸辣冬炎风味，加入素火腿、香菇、鸡蛋与时令蔬菜快炒而成。酸香开胃，微辣可口，是经典泰式料理的素食改良版。",
+          "price": {
+            "amount": 8.7,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed. Source names egg or milk; no vegan inference.",
+          "verification": {
+            "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+            "sourceIds": [
+              "ur08-vege-bear-bidadari-ordering"
+            ],
+            "verifiedFields": [
+              "product ID",
+              "printed name",
+              "source category",
+              "SGD list price",
+              "printed composition where available"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:41:00.705Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "configurationNotice": "Source flags ordering choices; complete names/defaults/limits/surcharges unread. Only printed description choices retained.",
+          "sourcePromotionalPrice": {
+            "amount": 7.395,
+            "currency": "SGD",
+            "rawUnrounded": true
+          },
+          "pricingNotice": "Separately observed15% promotional price retained in source data; displayed list price precedes promotion. Validity and final checkout total unconfirmed."
+        },
+        {
+          "id": "ur08-vege-bear-bidadari-92650573",
+          "sourceProductId": "92650573",
+          "name": "Wat Tan Hor Fun 滑蛋河粉",
+          "category": "Noodles",
+          "sourceIds": [
+            "ur08-vege-bear-bidadari-ordering"
+          ],
+          "sourceDescription": "Flat rice noodles stir-fried and topped with a silky smooth egg gravy made with mushrooms, vegetarian meat slices, and seasonal vegetables. A comforting Cantonese classic in a wholesome vegetarian version.\n香炒河粉，淋上以香菇、素肉片和青菜熬制的顺滑鸡蛋芡汁，口感浓郁润滑，传统粤式经典的健康素食改良版。",
+          "price": {
+            "amount": 8.7,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed. Source names egg or milk; no vegan inference.",
+          "verification": {
+            "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+            "sourceIds": [
+              "ur08-vege-bear-bidadari-ordering"
+            ],
+            "verifiedFields": [
+              "product ID",
+              "printed name",
+              "source category",
+              "SGD list price",
+              "printed composition where available"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:41:00.705Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "configurationNotice": "Source flags ordering choices; complete names/defaults/limits/surcharges unread. Only printed description choices retained.",
+          "sourcePromotionalPrice": {
+            "amount": 7.395,
+            "currency": "SGD",
+            "rawUnrounded": true
+          },
+          "pricingNotice": "Separately observed15% promotional price retained in source data; displayed list price precedes promotion. Validity and final checkout total unconfirmed."
+        },
+        {
+          "id": "ur08-vege-bear-bidadari-92650574",
+          "sourceProductId": "92650574",
+          "name": "Wat Tan Bee Hoon 滑蛋米粉",
+          "category": "Noodles",
+          "sourceIds": [
+            "ur08-vege-bear-bidadari-ordering"
+          ],
+          "sourceDescription": "Thin rice vermicelli stir-fried and topped with a silky smooth egg gravy made with mushrooms, vegetarian meat slices, and seasonal vegetables. A comforting Cantonese classic in a wholesome vegetarian version.\n香炒米粉，淋上以香菇、素肉片和青菜熬制的顺滑鸡蛋芡汁，口感浓郁润滑，传统粤式经典的健康素食改良版。",
+          "price": {
+            "amount": 8.7,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed. Source names egg or milk; no vegan inference.",
+          "verification": {
+            "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+            "sourceIds": [
+              "ur08-vege-bear-bidadari-ordering"
+            ],
+            "verifiedFields": [
+              "product ID",
+              "printed name",
+              "source category",
+              "SGD list price",
+              "printed composition where available"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:41:00.705Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "configurationNotice": "Source flags ordering choices; complete names/defaults/limits/surcharges unread. Only printed description choices retained.",
+          "sourcePromotionalPrice": {
+            "amount": 7.395,
+            "currency": "SGD",
+            "rawUnrounded": true
+          },
+          "pricingNotice": "Separately observed15% promotional price retained in source data; displayed list price precedes promotion. Validity and final checkout total unconfirmed."
+        },
+        {
+          "id": "ur08-vege-bear-bidadari-92650575",
+          "sourceProductId": "92650575",
+          "name": "Fried Hokkien Mee 炒福建面",
+          "category": "Noodles",
+          "sourceIds": [
+            "ur08-vege-bear-bidadari-ordering"
+          ],
+          "sourceDescription": "Yellow noodles and thick rice vermicelli stir-fried in a rich, flavourful vegetable stock, creating a fragrant and slightly saucy texture. Topped with vegetarian meat slices, mushrooms, egg and fresh vegetables. \n以鲜香蔬菜高汤炒制的黄面与粗米粉，融合浓郁香气与湿润口感。搭配素肉片、香菇、鸡蛋及时蔬，吸收汤汁的精华，每一口都咸香可口。",
+          "price": {
+            "amount": 8.7,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed. Source names egg or milk; no vegan inference.",
+          "verification": {
+            "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+            "sourceIds": [
+              "ur08-vege-bear-bidadari-ordering"
+            ],
+            "verifiedFields": [
+              "product ID",
+              "printed name",
+              "source category",
+              "SGD list price",
+              "printed composition where available"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:41:00.705Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "configurationNotice": "Source flags ordering choices; complete names/defaults/limits/surcharges unread. Only printed description choices retained.",
+          "sourcePromotionalPrice": {
+            "amount": 7.395,
+            "currency": "SGD",
+            "rawUnrounded": true
+          },
+          "pricingNotice": "Separately observed15% promotional price retained in source data; displayed list price precedes promotion. Validity and final checkout total unconfirmed."
+        },
+        {
+          "id": "ur08-vege-bear-bidadari-92650576",
+          "sourceProductId": "92650576",
+          "name": "KL Noodles 吉隆坡福建面",
+          "category": "Noodles",
+          "sourceIds": [
+            "ur08-vege-bear-bidadari-ordering"
+          ],
+          "sourceDescription": "A vegetarian twist on Kuala Lumpur's famous thick yellow noodles, stir fried in rich dark soy sauce with fresh vegetables, vegetarian meat slices and mushrooms cooked over high heat for that signature wok hei (smoky aroma).\n吉隆坡著名的粗黄面进行素食改良，加入蔬菜、素肉片、香菇等新鲜蔬菜，以浓郁酱油快炒，高温烹调锁住独特的镬气香味。\n",
+          "price": {
+            "amount": 8.7,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "verification": {
+            "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+            "sourceIds": [
+              "ur08-vege-bear-bidadari-ordering"
+            ],
+            "verifiedFields": [
+              "product ID",
+              "printed name",
+              "source category",
+              "SGD list price",
+              "printed composition where available"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:41:00.705Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "configurationNotice": "Source flags ordering choices; complete names/defaults/limits/surcharges unread. Only printed description choices retained.",
+          "sourcePromotionalPrice": {
+            "amount": 7.395,
+            "currency": "SGD",
+            "rawUnrounded": true
+          },
+          "pricingNotice": "Separately observed15% promotional price retained in source data; displayed list price precedes promotion. Validity and final checkout total unconfirmed."
+        },
+        {
+          "id": "ur08-vege-bear-bidadari-92650577",
+          "sourceProductId": "92650577",
+          "name": "Char Kway Teow Mee 炒粿条面",
+          "category": "Noodles",
+          "sourceIds": [
+            "ur08-vege-bear-bidadari-ordering"
+          ],
+          "sourceDescription": "Flat rice noodles and yellow noodles stir-fried over high heat with bean sprouts, vegetarian meat slices, egg, and vegetables in a savoury soy-based sauce. Smoky, aromatic, and full of wok hei; a satisfying vegetarian twist on a street food classic.\n河粉与黄面高温快炒，搭配豆芽、素肉片、鸡蛋和蔬菜，以酱油调味。镬气十足，是街头经典美食的素食版本。",
+          "price": {
+            "amount": 8.7,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed. Source names egg or milk; no vegan inference.",
+          "verification": {
+            "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+            "sourceIds": [
+              "ur08-vege-bear-bidadari-ordering"
+            ],
+            "verifiedFields": [
+              "product ID",
+              "printed name",
+              "source category",
+              "SGD list price",
+              "printed composition where available"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:41:00.705Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "configurationNotice": "Source flags ordering choices; complete names/defaults/limits/surcharges unread. Only printed description choices retained.",
+          "sourcePromotionalPrice": {
+            "amount": 7.395,
+            "currency": "SGD",
+            "rawUnrounded": true
+          },
+          "pricingNotice": "Separately observed15% promotional price retained in source data; displayed list price precedes promotion. Validity and final checkout total unconfirmed."
+        },
+        {
+          "id": "ur08-vege-bear-bidadari-92650578",
+          "sourceProductId": "92650578",
+          "name": "Mee Goreng 马来炒面",
+          "category": "Noodles",
+          "sourceIds": [
+            "ur08-vege-bear-bidadari-ordering"
+          ],
+          "sourceDescription": "A spicy and savoury stir-fried dish with yellow noodles tossed in a blend of sauces, fresh vegetables, vegetarian meat slices, egg and a hint of chili. Bold in flavour, colourful, and satisfying, a true vegetarian take on a local favourite.\n香辣可口的炒黄面，加入多种酱料翻炒，搭配新鲜蔬菜素肉片、及鸡蛋，并带有微微辣味。滋味浓郁，是经典马来风味的素食版。",
+          "price": {
+            "amount": 8.7,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed. Source names egg or milk; no vegan inference.",
+          "verification": {
+            "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+            "sourceIds": [
+              "ur08-vege-bear-bidadari-ordering"
+            ],
+            "verifiedFields": [
+              "product ID",
+              "printed name",
+              "source category",
+              "SGD list price",
+              "printed composition where available"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:41:00.705Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "configurationNotice": "Source flags ordering choices; complete names/defaults/limits/surcharges unread. Only printed description choices retained.",
+          "sourcePromotionalPrice": {
+            "amount": 7.395,
+            "currency": "SGD",
+            "rawUnrounded": true
+          },
+          "pricingNotice": "Separately observed15% promotional price retained in source data; displayed list price precedes promotion. Validity and final checkout total unconfirmed."
+        },
+        {
+          "id": "ur08-vege-bear-bidadari-92650579",
+          "sourceProductId": "92650579",
+          "name": "Stir Fried Beehoon 星洲米粉",
+          "category": "Noodles",
+          "sourceIds": [
+            "ur08-vege-bear-bidadari-ordering"
+          ],
+          "sourceDescription": "Thin rice vermicelli stir-fried with vegetables, vegetarian meat slices, egg, seasoned with soy sauce and a touch of curry powder for a fragrant, golden finish. Light, flavourful, and a beloved classic made vegetarian.\n细米粉配蔬菜、素肉片、及鸡蛋快炒，以酱油与少许咖喱粉调味，色泽金黄，香气四溢。清爽可口，是广受喜爱的经典素食炒粉。",
+          "price": {
+            "amount": 8.7,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed. Source names egg or milk; no vegan inference.",
+          "verification": {
+            "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+            "sourceIds": [
+              "ur08-vege-bear-bidadari-ordering"
+            ],
+            "verifiedFields": [
+              "product ID",
+              "printed name",
+              "source category",
+              "SGD list price",
+              "printed composition where available"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:41:00.705Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "configurationNotice": "Source flags ordering choices; complete names/defaults/limits/surcharges unread. Only printed description choices retained.",
+          "sourcePromotionalPrice": {
+            "amount": 7.395,
+            "currency": "SGD",
+            "rawUnrounded": true
+          },
+          "pricingNotice": "Separately observed15% promotional price retained in source data; displayed list price precedes promotion. Validity and final checkout total unconfirmed."
+        },
+        {
+          "id": "ur08-vege-bear-bidadari-92650580",
+          "sourceProductId": "92650580",
+          "name": "Stir Fried Hor Fun 干炒河粉",
+          "category": "Noodles",
+          "sourceIds": [
+            "ur08-vege-bear-bidadari-ordering"
+          ],
+          "sourceDescription": "Flat rice noodles stir-fried over high heat with vegetarian meat slices, bean sprouts, vegetables and egg in a rich soy-based sauce. Smoky, flavourful, and full of wok hei; a vegetarian take on the Cantonese classic.\n河粉以大火快炒，加入素肉片、豆芽、蔬菜及鸡蛋，以酱油调味。镬气浓郁，香味扑鼻，是经典粤式干炒河粉的素食改良版。",
+          "price": {
+            "amount": 8.7,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed. Source names egg or milk; no vegan inference.",
+          "verification": {
+            "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+            "sourceIds": [
+              "ur08-vege-bear-bidadari-ordering"
+            ],
+            "verifiedFields": [
+              "product ID",
+              "printed name",
+              "source category",
+              "SGD list price",
+              "printed composition where available"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:41:00.705Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "configurationNotice": "Source flags ordering choices; complete names/defaults/limits/surcharges unread. Only printed description choices retained.",
+          "sourcePromotionalPrice": {
+            "amount": 7.395,
+            "currency": "SGD",
+            "rawUnrounded": true
+          },
+          "pricingNotice": "Separately observed15% promotional price retained in source data; displayed list price precedes promotion. Validity and final checkout total unconfirmed."
+        },
+        {
+          "id": "ur08-vege-bear-bidadari-92650581",
+          "sourceProductId": "92650581",
+          "name": "Stir Fried Mee Sua 炒面线",
+          "category": "Noodles",
+          "sourceIds": [
+            "ur08-vege-bear-bidadari-ordering"
+          ],
+          "sourceDescription": "Mee Sua stir-fried over high heat with vegetarian meat slices, bean sprouts, vegetables and egg in a rich soy-based sauce. Smoky, flavourful, and full of wok hei; a vegetarian take on the Cantonese classic.\n面线以大火快炒，加入素肉片、豆芽、蔬菜及鸡蛋，以酱油调味。镬气浓郁，香味扑鼻。",
+          "price": {
+            "amount": 9.45,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed. Source names egg or milk; no vegan inference.",
+          "verification": {
+            "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+            "sourceIds": [
+              "ur08-vege-bear-bidadari-ordering"
+            ],
+            "verifiedFields": [
+              "product ID",
+              "printed name",
+              "source category",
+              "SGD list price",
+              "printed composition where available"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:41:00.705Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "configurationNotice": "Source flags ordering choices; complete names/defaults/limits/surcharges unread. Only printed description choices retained.",
+          "sourcePromotionalPrice": {
+            "amount": 8.032499999999999,
+            "currency": "SGD",
+            "rawUnrounded": true
+          },
+          "pricingNotice": "Separately observed15% promotional price retained in source data; displayed list price precedes promotion. Validity and final checkout total unconfirmed."
+        },
+        {
+          "id": "ur08-vege-bear-bidadari-92650582",
+          "sourceProductId": "92650582",
+          "name": "Stir Fried Udon 炒乌冬面",
+          "category": "Noodles",
+          "sourceIds": [
+            "ur08-vege-bear-bidadari-ordering"
+          ],
+          "sourceDescription": "Thick and chewy udon noodles wok-fried with fresh vegetables, mushrooms, and a savoury vegetarian sauce for a hearty and satisfying meal.\nQ弹厚实的乌冬面，搭配新鲜蔬菜与蘑菇，以香浓素酱快炒。口感丰厚，滋味十足，饱足又满足。",
+          "price": {
+            "amount": 9.45,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "verification": {
+            "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+            "sourceIds": [
+              "ur08-vege-bear-bidadari-ordering"
+            ],
+            "verifiedFields": [
+              "product ID",
+              "printed name",
+              "source category",
+              "SGD list price",
+              "printed composition where available"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:41:00.705Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "configurationNotice": "Source flags ordering choices; complete names/defaults/limits/surcharges unread. Only printed description choices retained.",
+          "sourcePromotionalPrice": {
+            "amount": 8.032499999999999,
+            "currency": "SGD",
+            "rawUnrounded": true
+          },
+          "pricingNotice": "Separately observed15% promotional price retained in source data; displayed list price precedes promotion. Validity and final checkout total unconfirmed."
+        },
+        {
+          "id": "ur08-vege-bear-bidadari-92650584",
+          "sourceProductId": "92650584",
+          "name": "Luo Han Zhai Rice 罗汉斋饭",
+          "category": "Rice Sets",
+          "sourceIds": [
+            "ur08-vege-bear-bidadari-ordering"
+          ],
+          "sourceDescription": "A wholesome rice set featuring the traditional mixed vegetable stew (Luo Han Zhai), with broccoli, cauliflower, mushrooms and black fungus braised in a light savoury sauce. Served with steamed rice for a nutritious and comforting meal.\n以西兰花、白菜花、香菇、和木耳等食材烹制的传统罗汉斋，酱汁清香鲜美，营养丰富。配上白米饭，清淡健康，温润可口。",
+          "price": {
+            "amount": 9.45,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "verification": {
+            "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+            "sourceIds": [
+              "ur08-vege-bear-bidadari-ordering"
+            ],
+            "verifiedFields": [
+              "product ID",
+              "printed name",
+              "source category",
+              "SGD list price",
+              "printed composition where available"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:41:00.705Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "configurationNotice": "Source flags ordering choices; complete names/defaults/limits/surcharges unread. Only printed description choices retained.",
+          "sourcePromotionalPrice": {
+            "amount": 8.032499999999999,
+            "currency": "SGD",
+            "rawUnrounded": true
+          },
+          "pricingNotice": "Separately observed15% promotional price retained in source data; displayed list price precedes promotion. Validity and final checkout total unconfirmed."
+        },
+        {
+          "id": "ur08-vege-bear-bidadari-92650585",
+          "sourceProductId": "92650585",
+          "name": "Black Pepper Chicken Rice 黑胡椒鸡丁饭",
+          "category": "Rice Sets",
+          "sourceIds": [
+            "ur08-vege-bear-bidadari-ordering"
+          ],
+          "sourceDescription": "Crispy vegetarian chicken pieces stir-fried in a rich black pepper sauce, served with steamed rice. Fragrant, savoury, and satisfying with a peppery kick.\n香脆素鸡丁以香浓黑胡椒酱快炒，配上白米饭。香气扑鼻，咸香微辣。",
+          "price": {
+            "amount": 9.45,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "verification": {
+            "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+            "sourceIds": [
+              "ur08-vege-bear-bidadari-ordering"
+            ],
+            "verifiedFields": [
+              "product ID",
+              "printed name",
+              "source category",
+              "SGD list price",
+              "printed composition where available"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:41:00.705Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "configurationNotice": "Source flags ordering choices; complete names/defaults/limits/surcharges unread. Only printed description choices retained.",
+          "sourcePromotionalPrice": {
+            "amount": 8.032499999999999,
+            "currency": "SGD",
+            "rawUnrounded": true
+          },
+          "pricingNotice": "Separately observed15% promotional price retained in source data; displayed list price precedes promotion. Validity and final checkout total unconfirmed."
+        },
+        {
+          "id": "ur08-vege-bear-bidadari-92650586",
+          "sourceProductId": "92650586",
+          "name": "Kung Pao Chicken Rice 宫保鸡丁饭",
+          "category": "Rice Sets",
+          "sourceIds": [
+            "ur08-vege-bear-bidadari-ordering"
+          ],
+          "sourceDescription": "Crispy vegetarian chicken pieces stir-fried with dried chilies, bell peppers in a sweet, spicy, and savoury sauce. Served with steamed rice. Bold, aromatic, and full of flavour.\n香脆素鸡丁搭配干辣椒、彩椒，以酸甜微辣的酱汁快炒。配上白米饭，香辣惹味，口感丰富。",
+          "price": {
+            "amount": 9.45,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "verification": {
+            "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+            "sourceIds": [
+              "ur08-vege-bear-bidadari-ordering"
+            ],
+            "verifiedFields": [
+              "product ID",
+              "printed name",
+              "source category",
+              "SGD list price",
+              "printed composition where available"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:41:00.705Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "configurationNotice": "Source flags ordering choices; complete names/defaults/limits/surcharges unread. Only printed description choices retained.",
+          "sourcePromotionalPrice": {
+            "amount": 8.032499999999999,
+            "currency": "SGD",
+            "rawUnrounded": true
+          },
+          "pricingNotice": "Separately observed15% promotional price retained in source data; displayed list price precedes promotion. Validity and final checkout total unconfirmed."
+        },
+        {
+          "id": "ur08-vege-bear-bidadari-92650588",
+          "sourceProductId": "92650588",
+          "name": "Sweet & Sour Chicken Rice 酸甜鸡丁饭",
+          "category": "Rice Sets",
+          "sourceIds": [
+            "ur08-vege-bear-bidadari-ordering"
+          ],
+          "sourceDescription": "Crispy vegetarian chicken pieces coated in a tangy sweet and sour sauce, stir-fried with pineapple, and bell peppers. Served with steamed rice.\n香脆素鸡丁裹上酸甜酱汁，搭配黄梨与彩椒快炒，配以白米饭，色泽鲜艳，酸甜开胃。",
+          "price": {
+            "amount": 9.45,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "verification": {
+            "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+            "sourceIds": [
+              "ur08-vege-bear-bidadari-ordering"
+            ],
+            "verifiedFields": [
+              "product ID",
+              "printed name",
+              "source category",
+              "SGD list price",
+              "printed composition where available"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:41:00.705Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "configurationNotice": "Source flags ordering choices; complete names/defaults/limits/surcharges unread. Only printed description choices retained.",
+          "sourcePromotionalPrice": {
+            "amount": 8.032499999999999,
+            "currency": "SGD",
+            "rawUnrounded": true
+          },
+          "pricingNotice": "Separately observed15% promotional price retained in source data; displayed list price precedes promotion. Validity and final checkout total unconfirmed."
+        },
+        {
+          "id": "ur08-vege-bear-bidadari-92650589",
+          "sourceProductId": "92650589",
+          "name": "Black Pepper Monkey Head Mushroom Rice 黑胡椒猴头菇饭",
+          "category": "Rice Sets",
+          "sourceIds": [
+            "ur08-vege-bear-bidadari-ordering"
+          ],
+          "sourceDescription": "Succulent monkey head mushroom stir-fried in a rich black pepper sauce, served with steamed rice. Fragrant, savoury, and satisfying with a peppery kick.\n鲜嫩猴头菇以香浓黑胡椒酱快炒，配上白米饭。香气扑鼻，咸香微辣。",
+          "price": {
+            "amount": 10.95,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "verification": {
+            "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+            "sourceIds": [
+              "ur08-vege-bear-bidadari-ordering"
+            ],
+            "verifiedFields": [
+              "product ID",
+              "printed name",
+              "source category",
+              "SGD list price",
+              "printed composition where available"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:41:00.705Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "configurationNotice": "Source flags ordering choices; complete names/defaults/limits/surcharges unread. Only printed description choices retained.",
+          "sourcePromotionalPrice": {
+            "amount": 9.3075,
+            "currency": "SGD",
+            "rawUnrounded": true
+          },
+          "pricingNotice": "Separately observed15% promotional price retained in source data; displayed list price precedes promotion. Validity and final checkout total unconfirmed."
+        },
+        {
+          "id": "ur08-vege-bear-bidadari-92650590",
+          "sourceProductId": "92650590",
+          "name": "Sweet & Sour Monkey Head Mushroom Rice 酸甜猴头菇饭",
+          "category": "Rice Sets",
+          "sourceIds": [
+            "ur08-vege-bear-bidadari-ordering"
+          ],
+          "sourceDescription": "Succulent monkey head mushroom tossed in a tangy sweet and sour sauce with pineapple and bell peppers. Served with steamed rice. Bright, colourful, and bursting with flavour.\n鲜嫩猴头菇裹上酸甜酱汁，搭配黄梨与彩椒洋葱快炒。配以白米饭，色泽鲜艳，酸甜开胃，滋味十足。",
+          "price": {
+            "amount": 10.95,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "verification": {
+            "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+            "sourceIds": [
+              "ur08-vege-bear-bidadari-ordering"
+            ],
+            "verifiedFields": [
+              "product ID",
+              "printed name",
+              "source category",
+              "SGD list price",
+              "printed composition where available"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:41:00.705Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "configurationNotice": "Source flags ordering choices; complete names/defaults/limits/surcharges unread. Only printed description choices retained.",
+          "sourcePromotionalPrice": {
+            "amount": 9.3075,
+            "currency": "SGD",
+            "rawUnrounded": true
+          },
+          "pricingNotice": "Separately observed15% promotional price retained in source data; displayed list price precedes promotion. Validity and final checkout total unconfirmed."
+        },
+        {
+          "id": "ur08-vege-bear-bidadari-92650591",
+          "sourceProductId": "92650591",
+          "name": "Kung Pao Monkey Head Mushroom Rice 宫保猴头菇饭",
+          "category": "Rice Sets",
+          "sourceIds": [
+            "ur08-vege-bear-bidadari-ordering"
+          ],
+          "sourceDescription": "Succulent monkey head mushroom stir-fried with dried chilies, bell peppers in a sweet, spicy, and savoury Kung Pao sauce. Served with steamed rice. Bold, aromatic, and full of flavour.\n鲜嫩猴头菇搭配干辣椒、彩椒，以酸甜微辣的酱汁快炒。配上白米饭，香辣惹味，口感丰富。",
+          "price": {
+            "amount": 10.95,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "verification": {
+            "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+            "sourceIds": [
+              "ur08-vege-bear-bidadari-ordering"
+            ],
+            "verifiedFields": [
+              "product ID",
+              "printed name",
+              "source category",
+              "SGD list price",
+              "printed composition where available"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:41:00.705Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "configurationNotice": "Source flags ordering choices; complete names/defaults/limits/surcharges unread. Only printed description choices retained.",
+          "sourcePromotionalPrice": {
+            "amount": 9.3075,
+            "currency": "SGD",
+            "rawUnrounded": true
+          },
+          "pricingNotice": "Separately observed15% promotional price retained in source data; displayed list price precedes promotion. Validity and final checkout total unconfirmed."
+        },
+        {
+          "id": "ur08-vege-bear-bidadari-92677275",
+          "sourceProductId": "92677275",
+          "name": "Chicken Curry Noodles 咖喱鸡面",
+          "category": "Monday Special",
+          "sourceIds": [
+            "ur08-vege-bear-bidadari-ordering"
+          ],
+          "sourceDescription": "A hearty bowl of yellow noodles in a rich coconut curry broth, with tender vegetarian chicken and potatoes topped with a papadum.\n香浓椰浆咖喱汤底，搭配黄面，加入嫩滑素鸡与马铃薯再搭配香脆印度饼。",
+          "price": {
+            "amount": 7.95,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "verification": {
+            "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+            "sourceIds": [
+              "ur08-vege-bear-bidadari-ordering"
+            ],
+            "verifiedFields": [
+              "product ID",
+              "printed name",
+              "source category",
+              "SGD list price",
+              "printed composition where available"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:41:00.705Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "configurationNotice": "Source flags ordering choices; complete names/defaults/limits/surcharges unread. Only printed description choices retained.",
+          "sourcePromotionalPrice": {
+            "amount": 6.7575,
+            "currency": "SGD",
+            "rawUnrounded": true
+          },
+          "pricingNotice": "Separately observed15% promotional price retained in source data; displayed list price precedes promotion. Validity and final checkout total unconfirmed.",
+          "publishedWeekdays": [
+            "Monday"
+          ]
+        },
+        {
+          "id": "ur08-vege-bear-bidadari-92696021",
+          "sourceProductId": "92696021",
+          "name": "Braised Duck Kway Teow 卤鸭粿条",
+          "category": "Tuesday Special",
+          "sourceIds": [
+            "ur08-vege-bear-bidadari-ordering"
+          ],
+          "sourceDescription": "Flat rice noodles served with tender vegetarian duck in a rich, aromatic braising sauce, accompanied by braised egg and tau kwa.\n滑嫩河粉配上香嫩素鸭，淋上浓郁芳香的卤汁，搭配卤蛋与豆干。",
+          "price": {
+            "amount": 7.95,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed. Source names egg or milk; no vegan inference.",
+          "verification": {
+            "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+            "sourceIds": [
+              "ur08-vege-bear-bidadari-ordering"
+            ],
+            "verifiedFields": [
+              "product ID",
+              "printed name",
+              "source category",
+              "SGD list price",
+              "printed composition where available"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:41:00.705Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "configurationNotice": "Source flags ordering choices; complete names/defaults/limits/surcharges unread. Only printed description choices retained.",
+          "sourcePromotionalPrice": {
+            "amount": 6.7575,
+            "currency": "SGD",
+            "rawUnrounded": true
+          },
+          "pricingNotice": "Separately observed15% promotional price retained in source data; displayed list price precedes promotion. Validity and final checkout total unconfirmed.",
+          "publishedWeekdays": [
+            "Tuesday"
+          ]
+        },
+        {
+          "id": "ur08-vege-bear-bidadari-92716102",
+          "sourceProductId": "92716102",
+          "name": "Mee Soto 马来鸡汤面",
+          "category": "Friday Special",
+          "sourceIds": [
+            "ur08-vege-bear-bidadari-ordering"
+          ],
+          "sourceDescription": "Yellow noodles served in a warm, aromatic spiced broth, topped with vegetarian chicken, bean sprouts, tomato and coriander.\n黄面泡在香料熬制的浓郁汤底中，搭配素鸡、豆芽、番茄与芫荽。\n",
+          "price": {
+            "amount": 7.95,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "verification": {
+            "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+            "sourceIds": [
+              "ur08-vege-bear-bidadari-ordering"
+            ],
+            "verifiedFields": [
+              "product ID",
+              "printed name",
+              "source category",
+              "SGD list price",
+              "printed composition where available"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:41:00.705Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "configurationNotice": "Source flags ordering choices; complete names/defaults/limits/surcharges unread. Only printed description choices retained.",
+          "sourcePromotionalPrice": {
+            "amount": 6.7575,
+            "currency": "SGD",
+            "rawUnrounded": true
+          },
+          "pricingNotice": "Separately observed15% promotional price retained in source data; displayed list price precedes promotion. Validity and final checkout total unconfirmed.",
+          "publishedWeekdays": [
+            "Friday"
+          ]
+        },
+        {
+          "id": "ur08-vege-bear-bidadari-92714694",
+          "sourceProductId": "92714694",
+          "name": "Char Siew Wanton Noodles 叉烧云吞面",
+          "category": "Saturday Special",
+          "sourceIds": [
+            "ur08-vege-bear-bidadari-ordering"
+          ],
+          "sourceDescription": "Springy noodles tossed in a savory soy-based sauce, served with plant-based char siew slices, handmade vegetarian wontons filled with tofu and mushrooms, and fresh greens. A meat-free twist on the classic Cantonese noodle dish, full of sweet, smoky, and umami flavours.\n弹牙的面条拌上香浓酱油调味，配上植物素叉烧片、手工素云吞（豆腐和香菇馅），以及新鲜青菜。无肉版本的经典粤式面食，带有甜香、微熏和鲜味十足的口感。",
+          "price": {
+            "amount": 7.95,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "verification": {
+            "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+            "sourceIds": [
+              "ur08-vege-bear-bidadari-ordering"
+            ],
+            "verifiedFields": [
+              "product ID",
+              "printed name",
+              "source category",
+              "SGD list price",
+              "printed composition where available"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:41:00.705Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "configurationNotice": "Source flags ordering choices; complete names/defaults/limits/surcharges unread. Only printed description choices retained.",
+          "sourcePromotionalPrice": {
+            "amount": 6.7575,
+            "currency": "SGD",
+            "rawUnrounded": true
+          },
+          "pricingNotice": "Separately observed15% promotional price retained in source data; displayed list price precedes promotion. Validity and final checkout total unconfirmed.",
+          "publishedWeekdays": [
+            "Saturday"
+          ]
+        },
+        {
+          "id": "ur08-vege-bear-bidadari-92714695",
+          "sourceProductId": "92714695",
+          "name": "Lontong 隆东",
+          "category": "Saturday Special",
+          "sourceIds": [
+            "ur08-vege-bear-bidadari-ordering"
+          ],
+          "sourceDescription": "A comforting Malay-inspired dish featuring soft compressed rice cakes served in a fragrant coconut milk and turmeric vegetable curry. Packed with cabbage, carrots, long beans, and tau kwa, this wholesome stew is rich, creamy, and mildly spiced.\n马来风味料理，以松软的压制米糕搭配椰浆姜黄蔬菜咖喱，内含白菜、胡萝卜、长豆、豆腐干等。汤汁香浓顺滑，微辣可口。\n",
+          "price": {
+            "amount": 7.95,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed. Source names egg or milk; no vegan inference.",
+          "verification": {
+            "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+            "sourceIds": [
+              "ur08-vege-bear-bidadari-ordering"
+            ],
+            "verifiedFields": [
+              "product ID",
+              "printed name",
+              "source category",
+              "SGD list price",
+              "printed composition where available"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:41:00.705Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "configurationNotice": "Source flags ordering choices; complete names/defaults/limits/surcharges unread. Only printed description choices retained.",
+          "sourcePromotionalPrice": {
+            "amount": 6.7575,
+            "currency": "SGD",
+            "rawUnrounded": true
+          },
+          "pricingNotice": "Separately observed15% promotional price retained in source data; displayed list price precedes promotion. Validity and final checkout total unconfirmed.",
+          "publishedWeekdays": [
+            "Saturday"
+          ]
+        },
+        {
+          "id": "ur08-vege-bear-bidadari-92714696",
+          "sourceProductId": "92714696",
+          "name": "Mee Siam 米暹",
+          "category": "Saturday Special",
+          "sourceIds": [
+            "ur08-vege-bear-bidadari-ordering"
+          ],
+          "sourceDescription": "Thin rice vermicelli served with a tangy, mildly spicy tamarind-based gravy, topped with tofu, bean sprouts, and egg.\n细米粉配上酸甜微辣的罗望子卤汁，搭配豆腐、豆芽和鸡蛋。",
+          "price": {
+            "amount": 7.95,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed. Source names egg or milk; no vegan inference.",
+          "verification": {
+            "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+            "sourceIds": [
+              "ur08-vege-bear-bidadari-ordering"
+            ],
+            "verifiedFields": [
+              "product ID",
+              "printed name",
+              "source category",
+              "SGD list price",
+              "printed composition where available"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:41:00.705Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "configurationNotice": "Source flags ordering choices; complete names/defaults/limits/surcharges unread. Only printed description choices retained.",
+          "sourcePromotionalPrice": {
+            "amount": 6.7575,
+            "currency": "SGD",
+            "rawUnrounded": true
+          },
+          "pricingNotice": "Separately observed15% promotional price retained in source data; displayed list price precedes promotion. Validity and final checkout total unconfirmed.",
+          "publishedWeekdays": [
+            "Saturday"
+          ]
+        },
+        {
+          "id": "ur08-vege-bear-bidadari-92714697",
+          "sourceProductId": "92714697",
+          "name": "Char Siew Wanton Noodles 叉烧云吞面",
+          "category": "Sunday Special",
+          "sourceIds": [
+            "ur08-vege-bear-bidadari-ordering"
+          ],
+          "sourceDescription": "Springy noodles tossed in a savory soy-based sauce, served with plant-based char siew slices, handmade vegetarian wontons filled with tofu and mushrooms, and fresh greens. A meat-free twist on the classic Cantonese noodle dish, full of sweet, smoky, and umami flavours.\n弹牙的面条拌上香浓酱油调味，配上植物素叉烧片、手工素云吞（豆腐和香菇馅），以及新鲜青菜。无肉版本的经典粤式面食，带有甜香、微熏和鲜味十足的口感。",
+          "price": {
+            "amount": 7.95,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "verification": {
+            "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+            "sourceIds": [
+              "ur08-vege-bear-bidadari-ordering"
+            ],
+            "verifiedFields": [
+              "product ID",
+              "printed name",
+              "source category",
+              "SGD list price",
+              "printed composition where available"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:41:00.705Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "configurationNotice": "Source flags ordering choices; complete names/defaults/limits/surcharges unread. Only printed description choices retained.",
+          "sourcePromotionalPrice": {
+            "amount": 6.7575,
+            "currency": "SGD",
+            "rawUnrounded": true
+          },
+          "pricingNotice": "Separately observed15% promotional price retained in source data; displayed list price precedes promotion. Validity and final checkout total unconfirmed.",
+          "publishedWeekdays": [
+            "Sunday"
+          ]
+        },
+        {
+          "id": "ur08-vege-bear-bidadari-92714698",
+          "sourceProductId": "92714698",
+          "name": "Lontong 隆东",
+          "category": "Sunday Special",
+          "sourceIds": [
+            "ur08-vege-bear-bidadari-ordering"
+          ],
+          "sourceDescription": "A comforting Malay-inspired dish featuring soft compressed rice cakes served in a fragrant coconut milk and turmeric vegetable curry. Packed with cabbage, carrots, long beans, and tau kwa, this wholesome stew is rich, creamy, and mildly spiced.\n马来风味料理，以松软的压制米糕搭配椰浆姜黄蔬菜咖喱，内含白菜、胡萝卜、长豆、豆腐干等。汤汁香浓顺滑，微辣可口。",
+          "price": {
+            "amount": 7.95,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed. Source names egg or milk; no vegan inference.",
+          "verification": {
+            "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+            "sourceIds": [
+              "ur08-vege-bear-bidadari-ordering"
+            ],
+            "verifiedFields": [
+              "product ID",
+              "printed name",
+              "source category",
+              "SGD list price",
+              "printed composition where available"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:41:00.705Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "configurationNotice": "Source flags ordering choices; complete names/defaults/limits/surcharges unread. Only printed description choices retained.",
+          "sourcePromotionalPrice": {
+            "amount": 6.7575,
+            "currency": "SGD",
+            "rawUnrounded": true
+          },
+          "pricingNotice": "Separately observed15% promotional price retained in source data; displayed list price precedes promotion. Validity and final checkout total unconfirmed.",
+          "publishedWeekdays": [
+            "Sunday"
+          ]
+        },
+        {
+          "id": "ur08-vege-bear-bidadari-92714700",
+          "sourceProductId": "92714700",
+          "name": "Mee Rebus 马来卤面",
+          "category": "Sunday Special",
+          "sourceIds": [
+            "ur08-vege-bear-bidadari-ordering"
+          ],
+          "sourceDescription": "Yellow noodles served in a thick, flavourful potato-based gravy, topped with tau kwa, bean sprouts, and egg. Rich, fragrant, and comforting; a vegetarian version of a beloved Malay classic.\n黄面配上以马铃薯熬制的浓郁卤汁，加入豆干、豆芽和鸡蛋。汤汁香浓顺滑，滋味丰富，是马来传统美食的素食改良版。",
+          "price": {
+            "amount": 7.95,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed. Source names egg or milk; no vegan inference.",
+          "verification": {
+            "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+            "sourceIds": [
+              "ur08-vege-bear-bidadari-ordering"
+            ],
+            "verifiedFields": [
+              "product ID",
+              "printed name",
+              "source category",
+              "SGD list price",
+              "printed composition where available"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:41:00.705Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "configurationNotice": "Source flags ordering choices; complete names/defaults/limits/surcharges unread. Only printed description choices retained.",
+          "sourcePromotionalPrice": {
+            "amount": 6.7575,
+            "currency": "SGD",
+            "rawUnrounded": true
+          },
+          "pricingNotice": "Separately observed15% promotional price retained in source data; displayed list price precedes promotion. Validity and final checkout total unconfirmed.",
+          "publishedWeekdays": [
+            "Sunday"
+          ]
+        },
+        {
+          "id": "ur08-vege-bear-bidadari-92647542",
+          "sourceProductId": "92647542",
+          "name": "Rojak 罗惹",
+          "category": "Sides",
+          "sourceIds": [
+            "ur08-vege-bear-bidadari-ordering"
+          ],
+          "sourceDescription": "A refreshing salad of fresh fruits and vegetables such as cucumber, pineapple, and turnip, tossed with crispy dough fritters and tau pok in a rich and tangy tamarind sauce. Served in a popiah skin bowl and topped with crushed peanuts for extra crunch.\n以黄瓜、黄梨、沙葛等搭配油条与豆卜，拌上香浓酸甜的自制罗惹酱，撒上花生碎，清爽开胃。",
+          "price": {
+            "amount": 7.95,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "verification": {
+            "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+            "sourceIds": [
+              "ur08-vege-bear-bidadari-ordering"
+            ],
+            "verifiedFields": [
+              "product ID",
+              "printed name",
+              "source category",
+              "SGD list price",
+              "printed composition where available"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:41:00.705Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "configurationNotice": "Source flags ordering choices; complete names/defaults/limits/surcharges unread. Only printed description choices retained.",
+          "sourcePromotionalPrice": {
+            "amount": 6.7575,
+            "currency": "SGD",
+            "rawUnrounded": true
+          },
+          "pricingNotice": "Separately observed15% promotional price retained in source data; displayed list price precedes promotion. Validity and final checkout total unconfirmed."
+        },
+        {
+          "id": "ur08-vege-bear-bidadari-92647543",
+          "sourceProductId": "92647543",
+          "name": "Thai Tofu 泰式豆腐",
+          "category": "Sides",
+          "sourceIds": [
+            "ur08-vege-bear-bidadari-ordering"
+          ],
+          "sourceDescription": "Crispy golden tofu cubes served drizzled with a sweet and tangy Thai-style dipping sauce, with crushed peanuts, cucumber, pineapple, mango. Topped with lychee boba popping balls. Light, aromatic, and delightfully appetizing.\n金黄酥脆的豆腐块，淋上酸甜泰式酱，搭配碎花生、黄瓜、菠萝和芒果。顶层点缀荔枝波霸爆珠，清爽香气扑鼻，令人食欲大开。",
+          "price": {
+            "amount": 7.95,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "verification": {
+            "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+            "sourceIds": [
+              "ur08-vege-bear-bidadari-ordering"
+            ],
+            "verifiedFields": [
+              "product ID",
+              "printed name",
+              "source category",
+              "SGD list price",
+              "printed composition where available"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:41:00.705Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "configurationNotice": "Source flags ordering choices; complete names/defaults/limits/surcharges unread. Only printed description choices retained.",
+          "sourcePromotionalPrice": {
+            "amount": 6.7575,
+            "currency": "SGD",
+            "rawUnrounded": true
+          },
+          "pricingNotice": "Separately observed15% promotional price retained in source data; displayed list price precedes promotion. Validity and final checkout total unconfirmed."
+        }
+      ]
+    },
+    {
+      "id": "ur08-k-veggie-foods",
+      "name": "K.Veggie — Tanglin Halt delivery",
+      "branchIds": [
+        "ur08-k-veggie"
+      ],
+      "sourceIds": [
+        "ur08-k-veggie-ordering"
+      ],
+      "scope": "branch-delivery",
+      "coverage": "partial",
+      "publicationStatus": "reviewed-partial-source-facts",
+      "notice": "Dated delivery menu. Confirm ingredients, availability, ordering choices and final charges with the venue. Prices may differ in store.",
+      "items": [
+        {
+          "id": "ur08-k-veggie-91213021",
+          "sourceProductId": "91213021",
+          "name": "Bee Hoon Set",
+          "category": "Mains",
+          "sourceIds": [
+            "ur08-k-veggie-ordering"
+          ],
+          "sourceDescription": "Fried bee hoon with cabbage, char siru and vegetarian goose",
+          "price": {
+            "amount": 5.5,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "verification": {
+            "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+            "sourceIds": [
+              "ur08-k-veggie-ordering"
+            ],
+            "verifiedFields": [
+              "product ID",
+              "printed name",
+              "source category",
+              "SGD list price",
+              "printed composition where available"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:41:59.491Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "configurationNotice": "Source flags ordering choices; complete names/defaults/limits/surcharges unread. Only printed description choices retained.",
+          "setComponentsText": "Fried bee hoon with cabbage, char siru and vegetarian goose"
+        },
+        {
+          "id": "ur08-k-veggie-91213022",
+          "sourceProductId": "91213022",
+          "name": "Kway Teow Set",
+          "category": "Mains",
+          "sourceIds": [
+            "ur08-k-veggie-ordering"
+          ],
+          "sourceDescription": "Fried kway teow with cabbage, char siru and vegetarian goose",
+          "price": {
+            "amount": 6,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "verification": {
+            "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+            "sourceIds": [
+              "ur08-k-veggie-ordering"
+            ],
+            "verifiedFields": [
+              "product ID",
+              "printed name",
+              "source category",
+              "SGD list price",
+              "printed composition where available"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:41:59.491Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "configurationNotice": "Source flags ordering choices; complete names/defaults/limits/surcharges unread. Only printed description choices retained.",
+          "setComponentsText": "Fried kway teow with cabbage, char siru and vegetarian goose"
+        },
+        {
+          "id": "ur08-k-veggie-91213023",
+          "sourceProductId": "91213023",
+          "name": "Set 1",
+          "category": "Mains",
+          "sourceIds": [
+            "ur08-k-veggie-ordering"
+          ],
+          "sourceDescription": "Fried been hoon with fried tofu, seasonal vegetables and fried toppings",
+          "price": {
+            "amount": 7,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "verification": {
+            "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+            "sourceIds": [
+              "ur08-k-veggie-ordering"
+            ],
+            "verifiedFields": [
+              "product ID",
+              "printed name",
+              "source category",
+              "SGD list price",
+              "printed composition where available"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:41:59.491Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "configurationNotice": "Source flags ordering choices; complete names/defaults/limits/surcharges unread. Only printed description choices retained.",
+          "setComponentsText": "Fried been hoon with fried tofu, seasonal vegetables and fried toppings"
+        },
+        {
+          "id": "ur08-k-veggie-91213024",
+          "sourceProductId": "91213024",
+          "name": "Set 2",
+          "category": "Mains",
+          "sourceIds": [
+            "ur08-k-veggie-ordering"
+          ],
+          "sourceDescription": "Fried bee hoon with curry vegetables, mock meat and crispy snacks",
+          "price": {
+            "amount": 7,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "verification": {
+            "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+            "sourceIds": [
+              "ur08-k-veggie-ordering"
+            ],
+            "verifiedFields": [
+              "product ID",
+              "printed name",
+              "source category",
+              "SGD list price",
+              "printed composition where available"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:41:59.491Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "configurationNotice": "Source flags ordering choices; complete names/defaults/limits/surcharges unread. Only printed description choices retained.",
+          "setComponentsText": "Fried bee hoon with curry vegetables, mock meat and crispy snacks"
+        },
+        {
+          "id": "ur08-k-veggie-91213025",
+          "sourceProductId": "91213025",
+          "name": "Set 3",
+          "category": "Mains",
+          "sourceIds": [
+            "ur08-k-veggie-ordering"
+          ],
+          "sourceDescription": "White rice with curry vegetables and crispy fried ingredients",
+          "price": {
+            "amount": 7,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "verification": {
+            "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+            "sourceIds": [
+              "ur08-k-veggie-ordering"
+            ],
+            "verifiedFields": [
+              "product ID",
+              "printed name",
+              "source category",
+              "SGD list price",
+              "printed composition where available"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:41:59.491Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "configurationNotice": "Source flags ordering choices; complete names/defaults/limits/surcharges unread. Only printed description choices retained.",
+          "setComponentsText": "White rice with curry vegetables and crispy fried ingredients"
+        },
+        {
+          "id": "ur08-k-veggie-91213026",
+          "sourceProductId": "91213026",
+          "name": "Set 4",
+          "category": "Mains",
+          "sourceIds": [
+            "ur08-k-veggie-ordering"
+          ],
+          "sourceDescription": "White rice with cabbage, long beans and fried tofu",
+          "price": {
+            "amount": 7,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "approved-reviewed-source-fact",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "verification": {
+            "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+            "sourceIds": [
+              "ur08-k-veggie-ordering"
+            ],
+            "verifiedFields": [
+              "product ID",
+              "printed name",
+              "source category",
+              "SGD list price",
+              "printed composition where available"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "hasUnreadChoices": true,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:41:59.491Z",
+            "soldOutFlag": false,
+            "customizableFlag": true
+          },
+          "configurationNotice": "Source flags ordering choices; complete names/defaults/limits/surcharges unread. Only printed description choices retained.",
+          "setComponentsText": "White rice with cabbage, long beans and fried tofu"
+        },
+        {
+          "id": "ur08-k-veggie-100459961",
+          "sourceProductId": "100459961",
+          "name": "台式肉燥飯 Taiwanese Braised Pork Rice",
+          "category": "Mains",
+          "sourceIds": [
+            "ur08-k-veggie-ordering"
+          ],
+          "sourceDescription": "Fluffy white rice topped with tender braised pork in a savory soy-based sauce garnished with crispy shallots and fresh cilantro A beloved Taiwanese classic comfort dish",
+          "price": {
+            "amount": 8.9,
+            "currency": "SGD",
+            "kind": "displayed"
+          },
+          "publicationStatus": "hold-generic-animal-description",
+          "qualifier": "Dated delivery-channel food observation. Complete ingredients, dietary suitability, checkout charges and current stock unconfirmed.",
+          "verification": {
+            "checkedAt": "2026-10-16T05:44:18.835564+00:00",
+            "sourceIds": [
+              "ur08-k-veggie-ordering"
+            ],
+            "verifiedFields": [
+              "product ID",
+              "printed name",
+              "source category",
+              "SGD list price",
+              "printed composition where available"
+            ],
+            "unverifiedFields": [
+              "complete ingredients",
+              "allergens/cross-contact",
+              "vegan/allium suitability",
+              "current stock",
+              "checkout total"
+            ]
+          },
+          "hasUnreadChoices": false,
+          "sourceSnapshot": {
+            "checkedAt": "2026-10-16T05:41:59.491Z",
+            "soldOutFlag": false,
+            "customizableFlag": false
+          },
+          "holdReason": "Generic animal/meat/seafood description remains unclear despite vegetarian venue context; do not infer mock ingredients or actual meat service.",
+          "setComponentsText": "Fluffy white rice topped with tender braised pork in a savory soy-based sauce garnished with crispy shallots and fresh cilantro A beloved Taiwanese classic comfort dish"
+        }
+      ]
+    }
+  ],
+  "excludedSourceProducts": [
+    {
+      "sourceProductId": "92647546",
+      "name": "Premium Soy Bean Milk (Lightly Sweetened) 优质豆奶 (微甜)",
+      "category": "Beverages",
+      "reason": "beverage",
+      "sourceIds": [
+        "ur08-vege-bear-bidadari-ordering"
+      ]
+    },
+    {
+      "sourceProductId": "92647547",
+      "name": "Premium Soy Bean Milk (Unsweetened) 优质豆奶 (无糖)",
+      "category": "Beverages",
+      "reason": "beverage",
+      "sourceIds": [
+        "ur08-vege-bear-bidadari-ordering"
+      ]
+    },
+    {
+      "sourceProductId": "92720741",
+      "name": "Good Luck Mushroom Sauce 菇的辣克",
+      "category": "Vege Bear Mart",
+      "reason": "standalone packaged mushroom condiment",
+      "sourceIds": [
+        "ur08-vege-bear-bidadari-ordering"
+      ]
+    }
+  ],
+  "summary": {
+    "branches": 3,
+    "menus": 3,
+    "foodRows": 71,
+    "approvedFoodRows": 62,
+    "heldFoodRows": 9,
+    "excludedProducts": 3
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "manifestStatus": 200,
+  "bundleStatus": 200,
+  "bytes": 9479046,
+  "menuScreen": true,
+  "menuEntry": true,
+  "publicCache": true,
+  "privateGoogleKey": false,
+  "privateReviewerKey": false,
+  "serverStoreBundled": false,
+  "researchDataBundled": false,
+  "nativeDeviceAppearanceVerified": false
+}

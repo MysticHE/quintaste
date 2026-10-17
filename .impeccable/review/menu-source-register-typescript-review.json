@@ -1,0 +1,81 @@
+{
+  "review": "menu-source-register-typescript-review",
+  "reviewedOn": "2026-10-16",
+  "status": "approved-within-scoped-source-review",
+  "findings": [],
+  "scope": {
+    "mode": "local-new-file-review",
+    "baseline": "The three scoped files are untracked local additions. Staged diff and git status established the scope; full current source was read and a no-index diff against NUL confirmed the source-register addition. No PR was requested, so merge readiness is not applicable.",
+    "files": [
+      "scripts/build-menu-source-register.ts",
+      "scripts/build-menu-research-index.ts",
+      "scripts/menu-publication/normalize.ts"
+    ],
+    "mutationBoundary": "Only this review artifact was written. Production code, research data, generated registers and test files were not changed; no provider or other network requests were made."
+  },
+  "checks": [
+    { "command": "npm run typecheck", "exitCode": 0, "result": "pass" },
+    { "command": "npm run lint", "exitCode": 0, "result": "pass" },
+    {
+      "command": "npx eslint scripts/build-menu-source-register.ts scripts/build-menu-research-index.ts scripts/menu-publication/normalize.ts",
+      "exitCode": 0,
+      "result": "pass"
+    },
+    {
+      "command": "npx tsx --eval (actual register functions, isolated from CLI execution; no test files)",
+      "exitCode": 0,
+      "result": "pass",
+      "assertions": [
+        "Item evidence remains separate from menu and branch context, with correctly labeled item, menu and branch-only fallbacks.",
+        "Published rows preserve raw IDs and emit the actual normalized public food and section IDs; the matching public reference is consumed exactly once.",
+        "A menu held solely by boolean menu.held emits held and null public IDs.",
+        "Normalized food-ID and menu-ID collisions both reject.",
+        "An explicitly missing item source rejects instead of silently falling back to weaker evidence.",
+        "Invalid checkedAt, invalid retrievedAt and invalid retrievedAt accompanying a valid checkedAt all reject. Missing dates stay undated; retrievedAt fallback retains its basis.",
+        "Quote-required and historical-only price facts retain their unconfirmed or historical price-state labels."
+      ]
+    },
+    {
+      "command": "npx tsx scripts/build-menu-source-register.ts --check",
+      "exitCode": 1,
+      "result": "generated-data-drift-detected",
+      "message": "Menu item source register needs regeneration",
+      "assessment": "The expected regeneration guard detects concurrent research edits. All source resolution, public-row reconciliation and inventory food-total checks completed before the saved-output comparison rejected the stale register. This is an outstanding integration data gate, not a source implementation defect."
+    },
+    {
+      "command": "npx tsx --eval (read-only saved-register fingerprint comparison)",
+      "exitCode": 0,
+      "result": "pass",
+      "savedFoodRows": 15489,
+      "indexFoodRows": 15489,
+      "changedDatasetFingerprints": [
+        "data/menu-research/menu-completion-directory-bakeries-2026-10-16.json",
+        "data/menu-research/menu-completion-identity-foods-01.json",
+        "data/menu-research/menu-completion-identity-foods-03a.json",
+        "data/menu-research/menu-completion-unresearched-01b-remaining-2026-10-16.json",
+        "data/menu-research/menu-continuation-stalls.json"
+      ]
+    }
+  ],
+  "sourceAssessment": [
+    "Exact dataset paths and their count are persisted from the same collected packet inventory. The long list is omitted only from stdout.",
+    "Dataset path guards restrict register traversal to the pilot file and research JSON paths. Source IDs, normalized menu/item collisions, missing sources and invalid authored dates fail before output replacement.",
+    "The register emits distinct item, menu and branch source references and a weaker fallback basis where appropriate. Dataset fingerprints preserve the reviewed raw context without claiming ingredients, current stock or future prices are certified.",
+    "Every currently published food must reconcile to a raw row; unmatched published references and raw-food total drift reject generation. Existing-output checks ignore generatedAt only.",
+    "The existing publicId behavior is exported for reuse. This change introduces no app/API response payload or client import of the generated research register."
+  ],
+  "independentReviewEvidence": {
+    "report": ".impeccable/review/menu-source-register-general-review.json",
+    "note": "All three current source hashes exactly match the independently approved general review. Its four resolved findings cover actual public IDs, boolean-held menus, normalized-ID collisions and source-date validation; those behaviors were independently exercised again here."
+  },
+  "sourceHashes": {
+    "scripts/build-menu-source-register.ts": "63936ea17421f6aad1ba7cb5f35a7425d0cbc24b3ce55202b6596024e9f44372",
+    "scripts/build-menu-research-index.ts": "9ac7eead7c691c19a01393503e7c5a1b83b65edc2e0acc8bd4cb002c4f36d5aa",
+    "scripts/menu-publication/normalize.ts": "01638239be685145ebd8e5744a5cf2ca819278ebbbe7feb5052aa538c5a884d6"
+  },
+  "remainingIntegrationGate": "Regenerate the research index/publication/register after data integration, then obtain a passing source-register --check. The currently saved register is stale for five dataset fingerprints.",
+  "limitations": [
+    "Source traceability does not independently certify merchant claims, ingredients, transcription accuracy, complete stock or eligibility of every venue.",
+    "Research files were being edited concurrently; counts and fingerprint comparisons describe this captured revision."
+  ]
+}

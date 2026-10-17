@@ -1,0 +1,90 @@
+{
+  "version": 1,
+  "reviewDate": "2026-10-15",
+  "reviewer": "/root/consumer_menu_typescript_review",
+  "status": "approved-bounded-private-research",
+  "findings": [],
+  "scope": [
+    "../tmp/qa/menu-build-source-leads.py",
+    "../tmp/qa/menu-north-stalls/capture.cjs",
+    "../tmp/qa/menu-north-stalls/gallery.cjs",
+    "../tmp/qa/menu-north-stalls/write_research.py",
+    "data/menu-research/menu-north-stalls.json",
+    "docs/research/menu-north-stalls.md",
+    "data/menu-research/menu-source-leads.json",
+    "Additional requested packet: menu-warung-original-origanics.json and its Python writer/saved evidence"
+  ],
+  "northPacket": {
+    "sources": 14,
+    "branchOrIdentityLeads": 11,
+    "menus": 9,
+    "foodRows": 139,
+    "pricedRows": 125,
+    "unpricedRows": 14,
+    "conditionalPromotionalRows": 17,
+    "allFoodRowsHeld": true,
+    "assignedGooglePlaceIds": 0,
+    "duplicateIdsOrBrokenOwnershipOrSourceReferences": 0,
+    "invalidObservedPrices": 0,
+    "rowsByMenu": {
+      "redapple-queen-foods": 17,
+      "redapple-teckwhye-foods": 13,
+      "redapple-woodlands-foods": 16,
+      "redapple-tampines477-foods": 18,
+      "enhui-whyq-historical": 45,
+      "rongyuan-sign-foods": 13,
+      "tanaka-woodlands-photo-foods": 9,
+      "tanaka-cck-held-foods": 8,
+      "ruyixuan-menu-gap": 0
+    },
+    "evidenceReviewed": [
+      "Saved Rong Yuan sign visibly supports the 13 retained names without prices.",
+      "Saved Tanaka photograph supports six board foods at 3.80, the additional 3.80 ticket and two 3.50 noodle tickets; unknown currency and undated evidence remain explicit.",
+      "The supplied En Hui web-fact extraction matches all 45 retained name/printed-price pairs exactly; live 404 and historical/currentness hold remain explicit.",
+      "Saved HTTP snapshots retain WhyQ 404 and Tampines Foodpanda 403; capture helpers do not interact with a challenge or replay a private API.",
+      "Teck Whye whole buy-10/get-1 bundles, separate Tampines promotional prices, missing soup price and unresolved source wording remain qualified rather than inferred."
+    ]
+  },
+  "sourceLeadSemantics": {
+    "result": "pass",
+    "snapshotLeadCount": 149,
+    "snapshotReceiptCount": 149,
+    "receiptLeadIdsRetained": true,
+    "receiptsMatchingCurrentQueries": 149,
+    "staleQueryReceipts": 0,
+    "behavior": "The builder retains existing lead/source IDs and records, appends stable provenance-derived IDs, and refreshes name/address only for an existing exact provenance row. It does not rewrite receipts. Unchanged name/address queries remain reusable; the existing matcher distinguishes changed queries."
+  },
+  "additionalPacket": {
+    "name": "menu-warung-original-origanics",
+    "status": "approved-bounded-private-research",
+    "foodRows": 155,
+    "warungRows": 89,
+    "originalGreensRows": 54,
+    "heldOriganicsPreviewRows": 12,
+    "renderedCategoryAudits": 22,
+    "auditedSourceProducts": 145,
+    "excludedProducts": 2,
+    "auditProductIdDifferences": 0,
+    "basePriceOrStartingPriceMismatches": 0,
+    "deepVariantModifierRowsCompared": 143,
+    "variantModifierAvailabilityOrOwnershipMismatches": 0,
+    "checkedEvidence": [
+      "Saved store pages identify Warung Ijo at MacPherson and Original Greens at Shaw Plaza.",
+      "Bento modal and data preserve the 10–20 pax whole-bundle prices and required two-main/two-side groups, rather than a 162.00 per-person price.",
+      "Original Greens ice-cream modal and data preserve Strawberry as unavailable and the one-flavour selection rule.",
+      "The Origanics page explicitly shows preview mode; the saved store screenshot identifies NUS The Deck. All 12 preview foods remain held, while Woodleigh and Buangkok have empty menu assignments."
+    ]
+  },
+  "checks": {
+    "fullTypecheck": { "command": "npm run typecheck", "exitCode": 0 },
+    "pythonSyntax": "AST parsing passed for all three reviewed Python helpers, without executing their writing entry points or creating bytecode files.",
+    "cjsSyntax": "node --check passed for capture.cjs and gallery.cjs.",
+    "scopedEslint": "Both CJS helpers passed ESLint via stdin with the CommonJS __dirname global explicitly supplied.",
+    "dataValidation": "Read-only checks passed for counts, holds, finite nonnegative prices, unique IDs, ownership/source references, current query receipts, rendered product IDs and deep option preservation."
+  },
+  "limits": [
+    "Approval is for private source-specific research and preserved holds, not public publication, current availability or ingredient/allium certification.",
+    "Original readable Foodpanda representations for the 64 Red Apple rows and the secondary Tanaka Choa Chu Kang eight-row sample are not saved locally for independent factual rechecking; these rows retain their explicit holds and caveats.",
+    "Capture/build entry points were not run. The review made zero network or Google requests, changed no app/data/quotas, created no test files and wrote only this review artifact."
+  ]
+}

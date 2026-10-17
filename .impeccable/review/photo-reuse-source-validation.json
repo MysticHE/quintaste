@@ -1,0 +1,15 @@
+{
+  "status": "pass",
+  "checks": [
+    "Simultaneous displays share one transfer and decoded URI",
+    "Removing one display preserves bytes for remaining consumers",
+    "Last consumer discards data instead of retaining a later-session cache",
+    "Original expiry clears the active photo",
+    "Last consumer cancels pending download without late delivery",
+    "Non-image response is rejected",
+    "Images larger than5MiB are rejected",
+    "Expired metadata does not start a request",
+    "Decode failure invalidates every active consumer",
+    "503 allowance response pauses new transfers"
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "disposition": "ship",
+  "reviewer": "fresh general-agent substitute for impeccable_finish_reviewer",
+  "scope": "Bounded browser/source development pilot",
+  "excluded": [
+    "Native appearance",
+    "Live-provider output",
+    "Full unrelated documentation sections",
+    "Provider prompt source"
+  ],
+  "persistence": {
+    "pass": true,
+    "capturesOpened": 7,
+    "contract": ".impeccable/surfaces/avatar.md",
+    "setup": "docs/AVATAR_SETUP.md",
+    "provenanceRasters": 6
+  },
+  "fidelity": [
+    [
+      "TYPE",
+      "match",
+      "Nunito and wrapping controls readable across supplied widths/larger text"
+    ],
+    [
+      "MATERIAL",
+      "match",
+      "Transparent dimensional cartoon portrait"
+    ],
+    [
+      "GROUND",
+      "match",
+      "Existing coral light/dark palette"
+    ],
+    [
+      "THESIS/FIRST VIEWPORT",
+      "match",
+      "Portrait inspection and Save lead; generation remains a draft"
+    ],
+    [
+      "STORY",
+      "match",
+      "Photo, OpenAI consent, generation, inspect, Save/Undo/discard"
+    ],
+    [
+      "FORM",
+      "match",
+      "Four-frame animation, pause, talking preview, reduced-motion fallback"
+    ],
+    [
+      "Sample truth",
+      "match",
+      "Fictional label and synthetic provenance"
+    ],
+    [
+      "Owner isolation",
+      "match",
+      "Owner-keyed screen, capabilities and server allowlist"
+    ],
+    [
+      "Spending and recovery",
+      "match",
+      "Durable reservations and polling prevent silent paid resubmission"
+    ],
+    [
+      "Privacy and failures",
+      "match",
+      "Validated stripped uploads, expiring previews, cancellation, no partial frames"
+    ]
+  ],
+  "ceiling": "Reached for supplied Operate pilot quality bar; live generated quality and native acceptance remain separate gates.",
+  "material_fixes": [],
+  "keep": [
+    "Inspect before Save",
+    "Explicit OpenAI consent",
+    "Fictional sample labeling",
+    "Owner isolation",
+    "No automatic paid retries",
+    "Reduce Motion",
+    "Existing Nunito and semantic palette"
+  ]
+}

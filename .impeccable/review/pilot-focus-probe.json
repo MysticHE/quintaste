@@ -1,0 +1,39 @@
+{
+  "checks": [
+    "Protected unlock, Cases and catalogue navigation"
+  ],
+  "screenshots": [],
+  "layouts": [],
+  "a11y": [],
+  "pageErrors": [],
+  "actualGoogleRequests": 0,
+  "installedChromeUsed": false,
+  "scope": "Playwright-managed isolated headless Chromium. Actual local API handlers/store through a browser route adapter in a separate fixture. Separate read-only Expo HTTP check.",
+  "limits": [
+    "No merchant contact or publication; no cold-offline app shell claim; native device appearance/touch/accessibility unverified.",
+    "Core Web Vitals not measured."
+  ],
+  "expoHttp": {
+    "status": 200,
+    "venues": 6,
+    "dishes": 20,
+    "mutations": 0
+  },
+  "browserVersion": "156.0.8078.4",
+  "browserPath": "C:\\Users\\huien\\QT\\tmp\\qa\\playwright-browsers",
+  "inputStyle": {
+    "outline": "rgb(16, 16, 16) auto 0px",
+    "outlineWidth": "0px",
+    "outlineStyle": "auto",
+    "border": "0px solid rgb(0, 0, 0)",
+    "borderWidth": "0px",
+    "borderColor": "rgb(0, 0, 0)",
+    "borderRadius": "0px",
+    "boxShadow": "none",
+    "parentBorder": "1px solid rgb(180, 56, 41)",
+    "parentRadius": "18px",
+    "inline": "--placeholderTextColor: #62554e; color: rgb(35, 40, 37); font-family: Nunito_400Regular; font-size: 16px;",
+    "className": "css-textinput-11aywtz r-placeholderTextColor-6taxm2 r-flex-13awgt0 r-minWidth-bcqeeo r-outlineWidth-10paoce r-paddingBlock-1ml3abn r-paddingRight-1hvjb8t"
+  },
+  "passed": true
+}

@@ -1,0 +1,145 @@
+{
+  "status": "pass",
+  "files": [
+    {
+      "file": "src/components/discovery/DiscoveryFilterOptions.tsx",
+      "lines": 42,
+      "maxFunctionLines": 26
+    },
+    {
+      "file": "src/components/discovery/LocationFeedback.tsx",
+      "lines": 26,
+      "maxFunctionLines": 15
+    },
+    {
+      "file": "src/components/Screen.tsx",
+      "lines": 169,
+      "maxFunctionLines": 44
+    },
+    {
+      "file": "src/config/discovery.ts",
+      "lines": 8,
+      "maxFunctionLines": 0
+    },
+    {
+      "file": "src/hooks/useDiscoveryInput.ts",
+      "lines": 41,
+      "maxFunctionLines": 31
+    },
+    {
+      "file": "src/hooks/useDiscoverySettings.ts",
+      "lines": 20,
+      "maxFunctionLines": 12
+    },
+    {
+      "file": "src/hooks/useNearbyLocation.ts",
+      "lines": 61,
+      "maxFunctionLines": 50
+    },
+    {
+      "file": "src/screens/food/AreaPicker.tsx",
+      "lines": 24,
+      "maxFunctionLines": 12
+    },
+    {
+      "file": "src/screens/food/Explore.tsx",
+      "lines": 76,
+      "maxFunctionLines": 53
+    },
+    {
+      "file": "src/screens/food/Filters.tsx",
+      "lines": 52,
+      "maxFunctionLines": 33
+    },
+    {
+      "file": "src/server/discovery-input.ts",
+      "lines": 35,
+      "maxFunctionLines": 27
+    },
+    {
+      "file": "src/server/live-places.ts",
+      "lines": 39,
+      "maxFunctionLines": 17
+    },
+    {
+      "file": "src/server/live-search-request.ts",
+      "lines": 28,
+      "maxFunctionLines": 23
+    },
+    {
+      "file": "src/server/place-details.ts",
+      "lines": 24,
+      "maxFunctionLines": 11
+    },
+    {
+      "file": "src/server/place-normalize.ts",
+      "lines": 49,
+      "maxFunctionLines": 22
+    },
+    {
+      "file": "src/state/Discovery.tsx",
+      "lines": 72,
+      "maxFunctionLines": 56
+    },
+    {
+      "file": "src/types/discovery.ts",
+      "lines": 22,
+      "maxFunctionLines": 0
+    },
+    {
+      "file": "src/types/food.ts",
+      "lines": 77,
+      "maxFunctionLines": 0
+    },
+    {
+      "file": "src/utils/catalog.ts",
+      "lines": 37,
+      "maxFunctionLines": 23
+    },
+    {
+      "file": "src/utils/discovery-search.ts",
+      "lines": 28,
+      "maxFunctionLines": 6
+    },
+    {
+      "file": "src/utils/discovery-settings.ts",
+      "lines": 19,
+      "maxFunctionLines": 14
+    },
+    {
+      "file": "src/utils/live-place-filters.ts",
+      "lines": 11,
+      "maxFunctionLines": 6
+    },
+    {
+      "file": "src/utils/location-feedback.ts",
+      "lines": 19,
+      "maxFunctionLines": 9
+    },
+    {
+      "file": "src/utils/nearby-position.ts",
+      "lines": 14,
+      "maxFunctionLines": 11
+    },
+    {
+      "file": "src/components/discovery/DiscoveryToggle.tsx",
+      "lines": 20,
+      "maxFunctionLines": 12
+    },
+    {
+      "file": "src/components/discovery/DiscoveryPlaceFilters.tsx",
+      "lines": 29,
+      "maxFunctionLines": 21
+    },
+    {
+      "file": "src/components/discovery/DiscoveryEmptyState.tsx",
+      "lines": 15,
+      "maxFunctionLines": 11
+    },
+    {
+      "file": "src/config/discovery-options.ts",
+      "lines": 16,
+      "maxFunctionLines": 3
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "checks": [
+    "Only Buy and Sell marketplace modes; four main navigation tabs",
+    "No horizontal overflow at 320",
+    "No horizontal overflow at 375",
+    "No horizontal overflow at 768",
+    "No horizontal overflow at 1440",
+    "Save persists after reload and Saved filters the catalog",
+    "Search and category filters work",
+    "Price and public pickup filters apply without changing stored listings",
+    "Local chat stores only explicitly sent messages",
+    "Offer reserves stock, pickup and handover complete locally",
+    "Remaining stock starts a fresh conversation after handover",
+    "Incomplete draft saves and publishing validates required fields",
+    "Required photo slots accept explicit file selections",
+    "Publish and edit persist the same listing",
+    "Pause and resume manage listing visibility",
+    "Cancel deletion preserves listing and reservation",
+    "Delete removes listing and photos, cancels live request, retains completed records after reload",
+    "Enlarged text has one column and no horizontal overflow"
+  ],
+  "errors": [],
+  "screenshots": [
+    "C:/Users/huien/QT/quintaste/.impeccable/review/market-buy-320.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/market-buy-375.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/market-buy-768.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/market-buy-1440.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/market-filters.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/market-detail.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/market-pickup.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/market-sell-form.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/market-delete-confirmation.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/market-sell-empty.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/market-seller.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/market-buy-dark.png",
+    "C:/Users/huien/QT/quintaste/.impeccable/review/market-buy-large-text.png"
+  ],
+  "axe": [
+    {
+      "name": "buy-light",
+      "violations": [],
+      "incomplete": [
+        "color-contrast",
+        "label-content-name-mismatch"
+      ]
+    },
+    {
+      "name": "buy-dark",
+      "violations": [],
+      "incomplete": [
+        "color-contrast",
+        "label-content-name-mismatch"
+      ]
+    }
+  ],
+  "limits": [
+    "Browser evidence supplements native acceptance; iOS/Android appearance and device media permissions remain unverified.",
+    "All interactions are an isolated local preview. No real seller messages, payments, or database writes."
+  ],
+  "passed": 18
+}

@@ -1,0 +1,1447 @@
+{
+  "collectedAt": "2026-10-14T07:37:18.311Z",
+  "complete": true,
+  "requests": 679,
+  "receipts": [
+    {
+      "query": "vegetarian restaurants in Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegan restaurants in Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian hawker stalls in Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "素食 in Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian restaurants in Ang Mo Kio, Singapore",
+      "pages": 3,
+      "results": 56,
+      "capped": false
+    },
+    {
+      "query": "vegan restaurants in Ang Mo Kio, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian hawker stalls in Ang Mo Kio, Singapore",
+      "pages": 3,
+      "results": 59,
+      "capped": false
+    },
+    {
+      "query": "素食 in Ang Mo Kio, Singapore",
+      "pages": 2,
+      "results": 34,
+      "capped": false
+    },
+    {
+      "query": "vegetarian restaurants in Bedok, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegan restaurants in Bedok, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian hawker stalls in Bedok, Singapore",
+      "pages": 3,
+      "results": 50,
+      "capped": false
+    },
+    {
+      "query": "素食 in Bedok, Singapore",
+      "pages": 3,
+      "results": 50,
+      "capped": false
+    },
+    {
+      "query": "vegetarian restaurants in Bishan, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegan restaurants in Bishan, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian hawker stalls in Bishan, Singapore",
+      "pages": 2,
+      "results": 27,
+      "capped": false
+    },
+    {
+      "query": "素食 in Bishan, Singapore",
+      "pages": 3,
+      "results": 43,
+      "capped": false
+    },
+    {
+      "query": "vegetarian restaurants in Boon Lay, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegan restaurants in Boon Lay, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian hawker stalls in Boon Lay, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "素食 in Boon Lay, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian restaurants in Bukit Batok, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegan restaurants in Bukit Batok, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian hawker stalls in Bukit Batok, Singapore",
+      "pages": 3,
+      "results": 53,
+      "capped": false
+    },
+    {
+      "query": "素食 in Bukit Batok, Singapore",
+      "pages": 2,
+      "results": 27,
+      "capped": false
+    },
+    {
+      "query": "vegetarian restaurants in Bukit Merah, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegan restaurants in Bukit Merah, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian hawker stalls in Bukit Merah, Singapore",
+      "pages": 3,
+      "results": 47,
+      "capped": false
+    },
+    {
+      "query": "素食 in Bukit Merah, Singapore",
+      "pages": 3,
+      "results": 47,
+      "capped": false
+    },
+    {
+      "query": "vegetarian restaurants in Bukit Panjang, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegan restaurants in Bukit Panjang, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian hawker stalls in Bukit Panjang, Singapore",
+      "pages": 1,
+      "results": 13,
+      "capped": false
+    },
+    {
+      "query": "素食 in Bukit Panjang, Singapore",
+      "pages": 3,
+      "results": 49,
+      "capped": false
+    },
+    {
+      "query": "vegetarian restaurants in Bukit Timah, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegan restaurants in Bukit Timah, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian hawker stalls in Bukit Timah, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "素食 in Bukit Timah, Singapore",
+      "pages": 2,
+      "results": 23,
+      "capped": false
+    },
+    {
+      "query": "vegetarian restaurants in Central Water Catchment, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegan restaurants in Central Water Catchment, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian hawker stalls in Central Water Catchment, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "素食 in Central Water Catchment, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian restaurants in Changi, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegan restaurants in Changi, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian hawker stalls in Changi, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "素食 in Changi, Singapore",
+      "pages": 2,
+      "results": 29,
+      "capped": false
+    },
+    {
+      "query": "vegetarian restaurants in Changi Bay, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegan restaurants in Changi Bay, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian hawker stalls in Changi Bay, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "素食 in Changi Bay, Singapore",
+      "pages": 1,
+      "results": 16,
+      "capped": false
+    },
+    {
+      "query": "vegetarian restaurants in Choa Chu Kang, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegan restaurants in Choa Chu Kang, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian hawker stalls in Choa Chu Kang, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "素食 in Choa Chu Kang, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian restaurants in Clementi, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegan restaurants in Clementi, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian hawker stalls in Clementi, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "素食 in Clementi, Singapore",
+      "pages": 3,
+      "results": 42,
+      "capped": false
+    },
+    {
+      "query": "vegetarian restaurants in Downtown Core, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegan restaurants in Downtown Core, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian hawker stalls in Downtown Core, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "素食 in Downtown Core, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian restaurants in Geylang, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegan restaurants in Geylang, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian hawker stalls in Geylang, Singapore",
+      "pages": 3,
+      "results": 56,
+      "capped": false
+    },
+    {
+      "query": "素食 in Geylang, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian restaurants in Hougang, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegan restaurants in Hougang, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian hawker stalls in Hougang, Singapore",
+      "pages": 3,
+      "results": 43,
+      "capped": false
+    },
+    {
+      "query": "素食 in Hougang, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian restaurants in Jurong East, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegan restaurants in Jurong East, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian hawker stalls in Jurong East, Singapore",
+      "pages": 3,
+      "results": 50,
+      "capped": false
+    },
+    {
+      "query": "素食 in Jurong East, Singapore",
+      "pages": 2,
+      "results": 38,
+      "capped": false
+    },
+    {
+      "query": "vegetarian restaurants in Jurong West, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegan restaurants in Jurong West, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian hawker stalls in Jurong West, Singapore",
+      "pages": 3,
+      "results": 48,
+      "capped": false
+    },
+    {
+      "query": "素食 in Jurong West, Singapore",
+      "pages": 2,
+      "results": 24,
+      "capped": false
+    },
+    {
+      "query": "vegetarian restaurants in Kallang, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegan restaurants in Kallang, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian hawker stalls in Kallang, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "素食 in Kallang, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian restaurants in Lim Chu Kang, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegan restaurants in Lim Chu Kang, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian hawker stalls in Lim Chu Kang, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "素食 in Lim Chu Kang, Singapore",
+      "pages": 3,
+      "results": 58,
+      "capped": false
+    },
+    {
+      "query": "vegetarian restaurants in Mandai, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegan restaurants in Mandai, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian hawker stalls in Mandai, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "素食 in Mandai, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian restaurants in Marina East, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegan restaurants in Marina East, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian hawker stalls in Marina East, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "素食 in Marina East, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian restaurants in Marina South, Singapore",
+      "pages": 1,
+      "results": 16,
+      "capped": false
+    },
+    {
+      "query": "vegan restaurants in Marina South, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian hawker stalls in Marina South, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "素食 in Marina South, Singapore",
+      "pages": 3,
+      "results": 49,
+      "capped": false
+    },
+    {
+      "query": "vegetarian restaurants in Marine Parade, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegan restaurants in Marine Parade, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian hawker stalls in Marine Parade, Singapore",
+      "pages": 1,
+      "results": 5,
+      "capped": false
+    },
+    {
+      "query": "素食 in Marine Parade, Singapore",
+      "pages": 1,
+      "results": 14,
+      "capped": false
+    },
+    {
+      "query": "vegetarian restaurants in Museum, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegan restaurants in Museum, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian hawker stalls in Museum, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "素食 in Museum, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian restaurants in Newton, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegan restaurants in Newton, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian hawker stalls in Newton, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "素食 in Newton, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian restaurants in North Eastern Islands, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegan restaurants in North Eastern Islands, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian hawker stalls in North Eastern Islands, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "素食 in North Eastern Islands, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian restaurants in Novena, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegan restaurants in Novena, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian hawker stalls in Novena, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "素食 in Novena, Singapore",
+      "pages": 1,
+      "results": 9,
+      "capped": false
+    },
+    {
+      "query": "vegetarian restaurants in Orchard, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegan restaurants in Orchard, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian hawker stalls in Orchard, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "素食 in Orchard, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian restaurants in Outram, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegan restaurants in Outram, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian hawker stalls in Outram, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "素食 in Outram, Singapore",
+      "pages": 3,
+      "results": 52,
+      "capped": false
+    },
+    {
+      "query": "vegetarian restaurants in Pasir Ris, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegan restaurants in Pasir Ris, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian hawker stalls in Pasir Ris, Singapore",
+      "pages": 1,
+      "results": 17,
+      "capped": false
+    },
+    {
+      "query": "素食 in Pasir Ris, Singapore",
+      "pages": 2,
+      "results": 34,
+      "capped": false
+    },
+    {
+      "query": "vegetarian restaurants in Paya Lebar, Singapore",
+      "pages": 3,
+      "results": 44,
+      "capped": false
+    },
+    {
+      "query": "vegan restaurants in Paya Lebar, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian hawker stalls in Paya Lebar, Singapore",
+      "pages": 2,
+      "results": 24,
+      "capped": false
+    },
+    {
+      "query": "素食 in Paya Lebar, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian restaurants in Pioneer, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegan restaurants in Pioneer, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian hawker stalls in Pioneer, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "素食 in Pioneer, Singapore",
+      "pages": 3,
+      "results": 57,
+      "capped": false
+    },
+    {
+      "query": "vegetarian restaurants in Punggol, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegan restaurants in Punggol, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian hawker stalls in Punggol, Singapore",
+      "pages": 1,
+      "results": 18,
+      "capped": false
+    },
+    {
+      "query": "素食 in Punggol, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian restaurants in Queenstown, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegan restaurants in Queenstown, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian hawker stalls in Queenstown, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "素食 in Queenstown, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian restaurants in River Valley, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegan restaurants in River Valley, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian hawker stalls in River Valley, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "素食 in River Valley, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian restaurants in Rochor, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegan restaurants in Rochor, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian hawker stalls in Rochor, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "素食 in Rochor, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian restaurants in Seletar, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegan restaurants in Seletar, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian hawker stalls in Seletar, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "素食 in Seletar, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian restaurants in Sembawang, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegan restaurants in Sembawang, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian hawker stalls in Sembawang, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "素食 in Sembawang, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian restaurants in Sengkang, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegan restaurants in Sengkang, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian hawker stalls in Sengkang, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "素食 in Sengkang, Singapore",
+      "pages": 2,
+      "results": 33,
+      "capped": false
+    },
+    {
+      "query": "vegetarian restaurants in Serangoon, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegan restaurants in Serangoon, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian hawker stalls in Serangoon, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "素食 in Serangoon, Singapore",
+      "pages": 2,
+      "results": 34,
+      "capped": false
+    },
+    {
+      "query": "vegetarian restaurants in Simpang, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegan restaurants in Simpang, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian hawker stalls in Simpang, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "素食 in Simpang, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian restaurants in Singapore River, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegan restaurants in Singapore River, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian hawker stalls in Singapore River, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "素食 in Singapore River, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian restaurants in Southern Islands, Singapore",
+      "pages": 1,
+      "results": 3,
+      "capped": false
+    },
+    {
+      "query": "vegan restaurants in Southern Islands, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian hawker stalls in Southern Islands, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "素食 in Southern Islands, Singapore",
+      "pages": 1,
+      "results": 7,
+      "capped": false
+    },
+    {
+      "query": "vegetarian restaurants in Straits View, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegan restaurants in Straits View, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian hawker stalls in Straits View, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "素食 in Straits View, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian restaurants in Sungei Kadut, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegan restaurants in Sungei Kadut, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian hawker stalls in Sungei Kadut, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "素食 in Sungei Kadut, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian restaurants in Tampines, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegan restaurants in Tampines, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian hawker stalls in Tampines, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "素食 in Tampines, Singapore",
+      "pages": 2,
+      "results": 29,
+      "capped": false
+    },
+    {
+      "query": "vegetarian restaurants in Tanglin, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegan restaurants in Tanglin, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian hawker stalls in Tanglin, Singapore",
+      "pages": 2,
+      "results": 25,
+      "capped": false
+    },
+    {
+      "query": "素食 in Tanglin, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian restaurants in Tengah, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegan restaurants in Tengah, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian hawker stalls in Tengah, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "素食 in Tengah, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian restaurants in Toa Payoh, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegan restaurants in Toa Payoh, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian hawker stalls in Toa Payoh, Singapore",
+      "pages": 2,
+      "results": 38,
+      "capped": false
+    },
+    {
+      "query": "素食 in Toa Payoh, Singapore",
+      "pages": 2,
+      "results": 40,
+      "capped": false
+    },
+    {
+      "query": "vegetarian restaurants in Tuas, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegan restaurants in Tuas, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian hawker stalls in Tuas, Singapore",
+      "pages": 2,
+      "results": 21,
+      "capped": false
+    },
+    {
+      "query": "素食 in Tuas, Singapore",
+      "pages": 2,
+      "results": 34,
+      "capped": false
+    },
+    {
+      "query": "vegetarian restaurants in Western Islands, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegan restaurants in Western Islands, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian hawker stalls in Western Islands, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "素食 in Western Islands, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian restaurants in Western Water Catchment, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegan restaurants in Western Water Catchment, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian hawker stalls in Western Water Catchment, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "素食 in Western Water Catchment, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian restaurants in Woodlands, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegan restaurants in Woodlands, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian hawker stalls in Woodlands, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "素食 in Woodlands, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian restaurants in Yishun, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegan restaurants in Yishun, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian hawker stalls in Yishun, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "素食 in Yishun, Singapore",
+      "pages": 1,
+      "results": 20,
+      "capped": false
+    },
+    {
+      "query": "vegetarian restaurants in Tiong Bahru, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegan restaurants in Tiong Bahru, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian hawker stalls in Tiong Bahru, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "素食 in Tiong Bahru, Singapore",
+      "pages": 1,
+      "results": 8,
+      "capped": false
+    },
+    {
+      "query": "vegetarian restaurants in Chinatown, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegan restaurants in Chinatown, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian hawker stalls in Chinatown, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "素食 in Chinatown, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian restaurants in Little India, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegan restaurants in Little India, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian hawker stalls in Little India, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "素食 in Little India, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian restaurants in Bugis, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegan restaurants in Bugis, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "vegetarian hawker stalls in Bugis, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    },
+    {
+      "query": "素食 in Bugis, Singapore",
+      "pages": 3,
+      "results": 60,
+      "capped": true
+    }
+  ]
+}

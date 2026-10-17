@@ -1,0 +1,653 @@
+{
+  "version": 1,
+  "checkedAt": "2026-10-16T01:06:39.499757+00:00",
+  "identityReviewDataset": "data/menu-research/identity-completion-batch-05.json",
+  "notice": "20 new unique food cards from exact Tian Yuan Healthy Vegetarian Fortune Centre delivery channel. Structured promotional/original S$ prices; named preparation/flavor choices retained without invented prices. No drinks, reviews, artwork or Google metadata.",
+  "sources": [
+    {
+      "id": "icf5d-tian-fp",
+      "url": "https://www.foodpanda.sg/restaurant/g3ra/tian-yuan-healthy-vegetarian-fortune-centre",
+      "title": "Tian Yuan Healthy Vegetarian - Fortune Centre delivery foods",
+      "publisher": "Tian Yuan / Foodpanda",
+      "kind": "merchant-partner",
+      "status": "readable-public-web-text",
+      "checkedAt": "2026-10-16T01:06:39.499757+00:00",
+      "publishedAt": null,
+      "notes": "All 20 visible cards in five food sections; explicit exact 190 Middle Road #01-16, 188979. Current merchant trading name and coherent vegetarian menu. Printed 15% promotion; no effective dates. Delivery context fees/minimums vary."
+    }
+  ],
+  "branches": [
+    {
+      "id": "tian-yuan-fortune-centre-01-16",
+      "name": "Tian Yuan Healthy Vegetarian Food Paradise",
+      "address": "190 Middle Road #01-16, Fortune Centre, Singapore 188979",
+      "unit": "#01-16",
+      "postalCode": "188979",
+      "sourceIds": [
+        "icf5d-tian-fp"
+      ],
+      "menuIds": [
+        "icf5d-tian-delivery"
+      ],
+      "candidatePlaceIds": [
+        "ChIJNd6qDbsZ2jERXzGkcSP3wvI"
+      ],
+      "googlePlaceId": null,
+      "identityStatus": "merchant-ordering-exact-premises",
+      "venueEligibility": {
+        "status": "vegetarian-confirmed",
+        "appScope": "vegetarian-vegan-venues-only",
+        "reason": "Current merchant-managed channel explicitly trades as Tian Yuan Healthy Vegetarian and coherently identifies vegetarian/mock foods with no meat/fish ingredient contradiction."
+      },
+      "gaps": [
+        "Soup/dry and noodle-flavor choices are named but pricing/selection controls unexposed.",
+        "Daily-special schedules and actual changing dessert/counter range unspecified.",
+        "Historical #02-23 supplier-shop discussion is not merged into this exact #01-16 food venue."
+      ]
+    }
+  ],
+  "menus": [
+    {
+      "id": "icf5d-tian-delivery",
+      "name": "Tian Yuan - Fortune Centre delivery foods",
+      "scope": "branch-delivery",
+      "branchIds": [
+        "tian-yuan-fortune-centre-01-16"
+      ],
+      "sourceIds": [
+        "icf5d-tian-fp"
+      ],
+      "coverage": "partial",
+      "publicationStatus": "review-proposed",
+      "notice": "All 20 visible food cards in five sections captured. Published 15% promotional/original prices kept separate; no calculated rounding. Named choices/daily soup inclusions retained, but controls, day-specific specials, stock, final charges and complete counter menu unconfirmed.",
+      "sourceCoverage": {
+        "foodProducts": 20,
+        "pricedFoodProducts": 20,
+        "namedModifierGroups": 3,
+        "visibleModifierGroups": 0,
+        "beveragesExcluded": 0
+      },
+      "items": [
+        {
+          "id": "icf5d-tian-1",
+          "name": "Fruit Rojak 素蔬果罗惹",
+          "category": "Appetiser 小吃",
+          "sourceIds": [
+            "icf5d-tian-fp"
+          ],
+          "sourcePriceText": "S$ 10.20 S$ 12",
+          "price": {
+            "amount": 10.2,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "originalPrice": {
+            "amount": 12,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "promotion": {
+            "percentOff": 15,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          },
+          "qualifier": "Public branch-delivery listing; displayed 15% auto-applied promotional and original prices preserved separately without recalculation. Current stock, effective menu date, complete ingredients, final taxes/fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf5d-tian-2",
+          "name": "Mixed Salad 素沙拉",
+          "category": "Appetiser 小吃",
+          "sourceIds": [
+            "icf5d-tian-fp"
+          ],
+          "sourcePriceText": "S$ 10.20 S$ 12",
+          "price": {
+            "amount": 10.2,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "originalPrice": {
+            "amount": 12,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "promotion": {
+            "percentOff": 15,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          },
+          "qualifier": "Public branch-delivery listing; displayed 15% auto-applied promotional and original prices preserved separately without recalculation. Current stock, effective menu date, complete ingredients, final taxes/fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf5d-tian-3",
+          "name": "Brown Rice Set",
+          "category": "Rice 饭类",
+          "sourceIds": [
+            "icf5d-tian-fp"
+          ],
+          "sourcePriceText": "S$ 10.88 S$ 12.80",
+          "price": {
+            "amount": 10.88,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "originalPrice": {
+            "amount": 12.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "promotion": {
+            "percentOff": 15,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          },
+          "qualifier": "Public branch-delivery listing; displayed 15% auto-applied promotional and original prices preserved separately without recalculation. Current stock, effective menu date, complete ingredients, final taxes/fees and dine-in equivalence unverified. Source says daily soup included and accompanying dishes change daily."
+        },
+        {
+          "id": "icf5d-tian-4",
+          "name": "Thunder Tea Brown Rice 素擂茶糙米饭",
+          "category": "Rice 饭类",
+          "sourceIds": [
+            "icf5d-tian-fp"
+          ],
+          "sourcePriceText": "S$ 10.88 S$ 12.80",
+          "price": {
+            "amount": 10.88,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "originalPrice": {
+            "amount": 12.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "promotion": {
+            "percentOff": 15,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          },
+          "qualifier": "Public branch-delivery listing; displayed 15% auto-applied promotional and original prices preserved separately without recalculation. Current stock, effective menu date, complete ingredients, final taxes/fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf5d-tian-5",
+          "name": "Vinegar Brown Rice Set 素养生醋配糙米饭",
+          "category": "Rice 饭类",
+          "sourceIds": [
+            "icf5d-tian-fp"
+          ],
+          "sourcePriceText": "S$ 11.73 S$ 13.80",
+          "price": {
+            "amount": 11.73,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "originalPrice": {
+            "amount": 13.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "promotion": {
+            "percentOff": 15,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          },
+          "qualifier": "Public branch-delivery listing; displayed 15% auto-applied promotional and original prices preserved separately without recalculation. Current stock, effective menu date, complete ingredients, final taxes/fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf5d-tian-6",
+          "name": "Fried Brown Rice 素炒糙米饭",
+          "category": "Rice 饭类",
+          "sourceIds": [
+            "icf5d-tian-fp"
+          ],
+          "sourcePriceText": "S$ 10.88 S$ 12.80",
+          "price": {
+            "amount": 10.88,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "originalPrice": {
+            "amount": 12.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "promotion": {
+            "percentOff": 15,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          },
+          "qualifier": "Public branch-delivery listing; displayed 15% auto-applied promotional and original prices preserved separately without recalculation. Current stock, effective menu date, complete ingredients, final taxes/fees and dine-in equivalence unverified. Source says daily soup included."
+        },
+        {
+          "id": "icf5d-tian-7",
+          "name": "Buckwheat Mee Hoon Kueh 素荞面粉粿",
+          "category": "Noodles 面类",
+          "sourceIds": [
+            "icf5d-tian-fp"
+          ],
+          "sourcePriceText": "from S$ 9.78 S$ 11.50",
+          "price": {
+            "amount": 9.78,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "originalPrice": {
+            "amount": 11.5,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "promotion": {
+            "percentOff": 15,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          },
+          "qualifier": "Public branch-delivery listing; displayed 15% auto-applied promotional and original prices preserved separately without recalculation. Current stock, effective menu date, complete ingredients, final taxes/fees and dine-in equivalence unverified. Source offers Soup or Dry; Dry includes a side of daily soup. No separate option prices/selection rules exposed.",
+          "modifierGroups": [
+            {
+              "name": "Preparation",
+              "sourceRequirement": "Source description offers soup or dry; control and per-choice prices unexposed",
+              "choices": [
+                {
+                  "name": "Soup",
+                  "priceStatus": "not-published"
+                },
+                {
+                  "name": "Dry",
+                  "priceStatus": "not-published",
+                  "qualifier": "Side of daily soup included"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "icf5d-tian-8",
+          "name": "Taiwan Ramen 素台湾拉面",
+          "category": "Noodles 面类",
+          "sourceIds": [
+            "icf5d-tian-fp"
+          ],
+          "sourcePriceText": "from S$ 9.78 S$ 11.50",
+          "price": {
+            "amount": 9.78,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "originalPrice": {
+            "amount": 11.5,
+            "currency": "SGD",
+            "kind": "from"
+          },
+          "promotion": {
+            "percentOff": 15,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          },
+          "qualifier": "Public branch-delivery listing; displayed 15% auto-applied promotional and original prices preserved separately without recalculation. Current stock, effective menu date, complete ingredients, final taxes/fees and dine-in equivalence unverified. Source offers Soup or Dry; Dry includes a side of daily soup. No separate option prices/selection rules exposed.",
+          "modifierGroups": [
+            {
+              "name": "Preparation",
+              "sourceRequirement": "Source description offers soup or dry; control and per-choice prices unexposed",
+              "choices": [
+                {
+                  "name": "Soup",
+                  "priceStatus": "not-published"
+                },
+                {
+                  "name": "Dry",
+                  "priceStatus": "not-published",
+                  "qualifier": "Side of daily soup included"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "icf5d-tian-9",
+          "name": "Red Yeast Mee Sua 素红糟面线",
+          "category": "Noodles 面类",
+          "sourceIds": [
+            "icf5d-tian-fp"
+          ],
+          "sourcePriceText": "S$ 10.20 S$ 12",
+          "price": {
+            "amount": 10.2,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "originalPrice": {
+            "amount": 12,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "promotion": {
+            "percentOff": 15,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          },
+          "qualifier": "Public branch-delivery listing; displayed 15% auto-applied promotional and original prices preserved separately without recalculation. Current stock, effective menu date, complete ingredients, final taxes/fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf5d-tian-10",
+          "name": "Kway Chap 素粿汁",
+          "category": "Noodles 面类",
+          "sourceIds": [
+            "icf5d-tian-fp"
+          ],
+          "sourcePriceText": "S$ 9.78 S$ 11.50",
+          "price": {
+            "amount": 9.78,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "originalPrice": {
+            "amount": 11.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "promotion": {
+            "percentOff": 15,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          },
+          "qualifier": "Public branch-delivery listing; displayed 15% auto-applied promotional and original prices preserved separately without recalculation. Current stock, effective menu date, complete ingredients, final taxes/fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf5d-tian-11",
+          "name": "Zha Jiang Mian 素炸酱面",
+          "category": "Noodles 面类",
+          "sourceIds": [
+            "icf5d-tian-fp"
+          ],
+          "sourcePriceText": "S$ 9.78 S$ 11.50",
+          "price": {
+            "amount": 9.78,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "originalPrice": {
+            "amount": 11.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "promotion": {
+            "percentOff": 15,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          },
+          "qualifier": "Public branch-delivery listing; displayed 15% auto-applied promotional and original prices preserved separately without recalculation. Current stock, effective menu date, complete ingredients, final taxes/fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf5d-tian-12",
+          "name": "Tom Yum Bee Hoon Soup 素冬炎米粉汤",
+          "category": "Noodles 面类",
+          "sourceIds": [
+            "icf5d-tian-fp"
+          ],
+          "sourcePriceText": "S$ 9.78 S$ 11.50",
+          "price": {
+            "amount": 9.78,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "originalPrice": {
+            "amount": 11.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "promotion": {
+            "percentOff": 15,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          },
+          "qualifier": "Public branch-delivery listing; displayed 15% auto-applied promotional and original prices preserved separately without recalculation. Current stock, effective menu date, complete ingredients, final taxes/fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf5d-tian-13",
+          "name": "Fried Bee Hoon 素炒米粉",
+          "category": "Noodles 面类",
+          "sourceIds": [
+            "icf5d-tian-fp"
+          ],
+          "sourcePriceText": "S$ 10.88 S$ 12.80",
+          "price": {
+            "amount": 10.88,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "originalPrice": {
+            "amount": 12.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "promotion": {
+            "percentOff": 15,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          },
+          "qualifier": "Public branch-delivery listing; displayed 15% auto-applied promotional and original prices preserved separately without recalculation. Current stock, effective menu date, complete ingredients, final taxes/fees and dine-in equivalence unverified. Source describes cedar, olive or tom yum flavors; option prices and required-selection rules unexposed.",
+          "modifierGroups": [
+            {
+              "name": "Flavor",
+              "sourceRequirement": "Choices named in description; control and per-choice prices unexposed",
+              "choices": [
+                {
+                  "name": "Cedar",
+                  "priceStatus": "not-published"
+                },
+                {
+                  "name": "Olive",
+                  "priceStatus": "not-published"
+                },
+                {
+                  "name": "Tom yum",
+                  "priceStatus": "not-published"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "icf5d-tian-14",
+          "name": "Tom Yum Fried Bee Hoon 冬炎炒米粉",
+          "category": "Noodles 面类",
+          "sourceIds": [
+            "icf5d-tian-fp"
+          ],
+          "sourcePriceText": "S$ 10.88 S$ 12.80",
+          "price": {
+            "amount": 10.88,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "originalPrice": {
+            "amount": 12.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "promotion": {
+            "percentOff": 15,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          },
+          "qualifier": "Public branch-delivery listing; displayed 15% auto-applied promotional and original prices preserved separately without recalculation. Current stock, effective menu date, complete ingredients, final taxes/fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf5d-tian-15",
+          "name": "Fried Vegetarian Hokkien Mee 素炒福建面",
+          "category": "Noodles 面类",
+          "sourceIds": [
+            "icf5d-tian-fp"
+          ],
+          "sourcePriceText": "S$ 10.88 S$ 12.80",
+          "price": {
+            "amount": 10.88,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "originalPrice": {
+            "amount": 12.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "promotion": {
+            "percentOff": 15,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          },
+          "qualifier": "Public branch-delivery listing; displayed 15% auto-applied promotional and original prices preserved separately without recalculation. Current stock, effective menu date, complete ingredients, final taxes/fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf5d-tian-16",
+          "name": "Fried Udon 素炒乌冬面",
+          "category": "Noodles 面类",
+          "sourceIds": [
+            "icf5d-tian-fp"
+          ],
+          "sourcePriceText": "S$ 10.88 S$ 12.80",
+          "price": {
+            "amount": 10.88,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "originalPrice": {
+            "amount": 12.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "promotion": {
+            "percentOff": 15,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          },
+          "qualifier": "Public branch-delivery listing; displayed 15% auto-applied promotional and original prices preserved separately without recalculation. Current stock, effective menu date, complete ingredients, final taxes/fees and dine-in equivalence unverified."
+        },
+        {
+          "id": "icf5d-tian-17",
+          "name": "Vegetarian Prawn Noodle 素虾面",
+          "category": "Daily Specials 每日特色",
+          "sourceIds": [
+            "icf5d-tian-fp"
+          ],
+          "sourcePriceText": "S$ 9.78 S$ 11.50",
+          "price": {
+            "amount": 9.78,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "originalPrice": {
+            "amount": 11.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "promotion": {
+            "percentOff": 15,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          },
+          "qualifier": "Public branch-delivery listing; displayed 15% auto-applied promotional and original prices preserved separately without recalculation. Current stock, effective menu date, complete ingredients, final taxes/fees and dine-in equivalence unverified. Daily-special service days/times are not specified by the source."
+        },
+        {
+          "id": "icf5d-tian-18",
+          "name": "Tomato Noodle 素番茄面",
+          "category": "Daily Specials 每日特色",
+          "sourceIds": [
+            "icf5d-tian-fp"
+          ],
+          "sourcePriceText": "S$ 9.78 S$ 11.50",
+          "price": {
+            "amount": 9.78,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "originalPrice": {
+            "amount": 11.5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "promotion": {
+            "percentOff": 15,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          },
+          "qualifier": "Public branch-delivery listing; displayed 15% auto-applied promotional and original prices preserved separately without recalculation. Current stock, effective menu date, complete ingredients, final taxes/fees and dine-in equivalence unverified. Daily-special service days/times are not specified by the source."
+        },
+        {
+          "id": "icf5d-tian-19",
+          "name": "Tomato Soup with Brown Rice 素番茄汤配糙米饭",
+          "category": "Daily Specials 每日特色",
+          "sourceIds": [
+            "icf5d-tian-fp"
+          ],
+          "sourcePriceText": "S$ 10.88 S$ 12.80",
+          "price": {
+            "amount": 10.88,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "originalPrice": {
+            "amount": 12.8,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "promotion": {
+            "percentOff": 15,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          },
+          "qualifier": "Public branch-delivery listing; displayed 15% auto-applied promotional and original prices preserved separately without recalculation. Current stock, effective menu date, complete ingredients, final taxes/fees and dine-in equivalence unverified. Daily-special service days/times are not specified by the source."
+        },
+        {
+          "id": "icf5d-tian-20",
+          "name": "Dessert Of The Day 每日甜品",
+          "category": "Dessert 甜品",
+          "sourceIds": [
+            "icf5d-tian-fp"
+          ],
+          "sourcePriceText": "S$ 4.25 S$ 5",
+          "price": {
+            "amount": 4.25,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "originalPrice": {
+            "amount": 5,
+            "currency": "SGD",
+            "kind": "fixed"
+          },
+          "promotion": {
+            "percentOff": 15,
+            "sourceApplied": true,
+            "scope": "all-items",
+            "dates": "not-published"
+          },
+          "qualifier": "Public branch-delivery listing; displayed 15% auto-applied promotional and original prices preserved separately without recalculation. Current stock, effective menu date, complete ingredients, final taxes/fees and dine-in equivalence unverified. Dessert changes daily; current flavor not named and not invented."
+        }
+      ]
+    }
+  ],
+  "scope": {
+    "appScope": "vegetarian-vegan-venues-only",
+    "beverages": "excluded",
+    "googleIdentityAssignment": "none"
+  }
+}

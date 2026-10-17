@@ -1,0 +1,56 @@
+{
+  "checks": [
+    "Compact browse, immediate filters, search, save, serving reset, guide and shopping",
+    "One-tap completion clears resume, independent timer survives, note collapse preserves draft",
+    "Shopping add, check and remove persist",
+    "Private drafts autosave, steps reorder, photo and disclosure save, publication remains unsent",
+    "Private cooking, revision recovery, sharing, copy and deletion preserve boundaries"
+  ],
+  "captures": [
+    "clean-cook-home.png",
+    "clean-cook-filters.png",
+    "clean-cook-empty-search.png",
+    "clean-cook-detail.png",
+    "clean-cook-info.png",
+    "clean-cook-guide.png",
+    "clean-cook-guided.png",
+    "clean-cook-last-step.png",
+    "clean-cook-note.png",
+    "clean-cook-finished-home.png",
+    "clean-cook-shopping.png",
+    "clean-cook-my-empty.png",
+    "clean-cook-incomplete.png",
+    "clean-cook-editor.png",
+    "clean-cook-review.png",
+    "clean-cook-private.png",
+    "clean-cook-version.png",
+    "clean-cook-share.png",
+    "clean-cook-my-recipes.png",
+    "clean-cook-timers.png",
+    "clean-cook-home-320.png",
+    "clean-cook-home-768.png",
+    "clean-cook-home-1440.png",
+    "clean-cook-dark.png"
+  ],
+  "errors": [],
+  "axe": [
+    {
+      "name": "home",
+      "violations": []
+    },
+    {
+      "name": "review",
+      "violations": []
+    },
+    {
+      "name": "timers",
+      "violations": []
+    },
+    {
+      "name": "dark",
+      "violations": []
+    }
+  ],
+  "primaryHeight": 48,
+  "passed": true
+}

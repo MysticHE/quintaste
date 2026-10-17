@@ -1,0 +1,2035 @@
+{
+  "version": 1,
+  "checkedAt": "2026-10-17",
+  "entries": [
+    {
+      "venueId": "whole-earth-peck-seah",
+      "address": "76 Peck Seah Street, Singapore 079331",
+      "hours": {
+        "summary": "Daily 11:30–15:00 · 17:30–22:00",
+        "schedule": [
+          "Daily: 11:30–15:00 and 17:30–22:00"
+        ],
+        "notes": "Last orders: lunch 14:30; dinner 21:00.",
+        "sourceUrl": "https://wholeearth.com.sg/",
+        "checkedAt": "2026-10-16",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Exact published branch matched to operator or property source; venue hours, not ordering slots."
+    },
+    {
+      "venueId": "elemen-woodlands-height",
+      "address": "1 Woodlands Height #01-02, Koufu Headquarters, Singapore 737859",
+      "hours": {
+        "summary": "Lunch & dinner · seating times vary",
+        "schedule": [
+          "Mon–Thu: 11:00–15:00 and 17:30–21:00",
+          "Fri–Sun lunch seatings: 11:00–13:00; 13:30–15:00",
+          "Fri–Sun dinner seatings: 17:30–19:00; 19:30–21:30"
+        ],
+        "notes": "Weekend seating schedule also applies on public holidays, their eves, and lunar days 1 and 15. Last orders 30 minutes before each seating ends. Operator outlet schedule takes precedence over conflicting parent-brand and booking-slot listings.",
+        "sourceUrl": "https://www.elemengroup.com.sg/locations",
+        "checkedAt": "2026-10-16",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Exact published branch matched to operator or property source; venue hours, not ordering slots."
+    },
+    {
+      "venueId": "research-elemen-plq-mall",
+      "address": "10 Paya Lebar Road #03-13, PLQ Mall, Singapore 409057",
+      "hours": {
+        "summary": "Lunch & dinner · seating times vary",
+        "schedule": [
+          "Mon–Thu: 11:00–15:30 and 17:30–21:30",
+          "Fri–Sun lunch seatings: 11:00–13:00; 13:30–15:30",
+          "Fri–Sun dinner seatings: 17:30–19:00; 19:30–22:00"
+        ],
+        "notes": "Weekend seating schedule also applies on public holidays, their eves, and lunar days 1 and 15. Last orders 30 minutes before each seating ends. Operator outlet schedule takes precedence over conflicting parent-brand and booking-slot listings.",
+        "sourceUrl": "https://www.elemengroup.com.sg/locations",
+        "checkedAt": "2026-10-16",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Exact published branch matched to operator or property source; venue hours, not ordering slots."
+    },
+    {
+      "venueId": "research-elemen-millenia-walk",
+      "address": "9 Raffles Boulevard #01-75/75A/76, Millenia Walk, Singapore 039596",
+      "hours": {
+        "summary": "Lunch & dinner · seating times vary",
+        "schedule": [
+          "Mon–Thu: 11:00–15:30 and 17:30–21:30",
+          "Fri–Sun lunch seatings: 11:00–13:00; 13:30–15:30",
+          "Fri–Sun dinner seatings: 17:30–19:00; 19:30–22:00"
+        ],
+        "notes": "Weekend seating schedule also applies on public holidays, their eves, and lunar days 1 and 15. Last orders 30 minutes before each seating ends. Operator outlet schedule takes precedence over conflicting parent-brand and booking-slot listings.",
+        "sourceUrl": "https://www.elemengroup.com.sg/locations",
+        "checkedAt": "2026-10-16",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Exact published branch matched to operator or property source; venue hours, not ordering slots."
+    },
+    {
+      "venueId": "daily-green-woodlands-street-31",
+      "address": "306 Woodlands Street 31, Singapore 730306",
+      "hours": {
+        "summary": "Daily 16:00–21:00",
+        "schedule": [
+          "Daily: 16:00–21:00"
+        ],
+        "notes": "Last order 20:30.",
+        "sourceUrl": "https://www.dailygreen.sg/locations",
+        "checkedAt": "2026-10-16",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Exact published branch matched to operator or property source; venue hours, not ordering slots."
+    },
+    {
+      "venueId": "research-merchant-7ab3dafc5f6a7876",
+      "address": "90 Hougang Ave 10 #04-11 Hougang Mall Foodies’ Garden®, Singapore 538766",
+      "hours": {
+        "summary": "Hours 10:00–21:00",
+        "schedule": [
+          "Listed operating hours: 10:00–21:00"
+        ],
+        "notes": "Last order 20:30. Days of operation are not specified in this outlet listing.",
+        "sourceUrl": "https://www.dailygreen.sg/locations",
+        "checkedAt": "2026-10-16",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Exact published branch matched to operator or property source; venue hours, not ordering slots."
+    },
+    {
+      "venueId": "research-merchant-287ecefa1f8e3855",
+      "address": "217 Bedok North Street 1 #01-77 Food Loft®, Singapore 460217",
+      "hours": {
+        "summary": "Hours 08:30–19:30",
+        "schedule": [
+          "Listed operating hours: 08:30–19:30"
+        ],
+        "notes": "Last order 19:00. Days of operation are not specified in this outlet listing.",
+        "sourceUrl": "https://www.dailygreen.sg/locations",
+        "checkedAt": "2026-10-16",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Exact published branch matched to operator or property source; venue hours, not ordering slots."
+    },
+    {
+      "venueId": "lian-xin-buddha-tooth-relic-temple",
+      "address": "Basement, Buddha Tooth Relic Temple, 288 South Bridge Road, Singapore 058840",
+      "hours": {
+        "summary": "Daily 07:30–16:45",
+        "schedule": [
+          "Mon–Sun: 07:30–16:45"
+        ],
+        "notes": "Last order 16:15.",
+        "sourceUrl": "https://www.buddhatoothrelictemple.org.sg/lianxin/contact",
+        "checkedAt": "2026-10-16",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Exact published branch matched to operator or property source; venue hours, not ordering slots."
+    },
+    {
+      "venueId": "living-wholesome-fortune-centre",
+      "address": "190 Middle Road #01-23, Fortune Centre, Singapore 188979",
+      "hours": {
+        "summary": "Mon–Sat 11:00–15:00",
+        "schedule": [
+          "Mon–Sat: 11:00–15:00",
+          "Sun: closed except lunar days 1 and 15"
+        ],
+        "notes": "Sunday exception hours are not stated.",
+        "sourceUrl": "https://livingwholesome.sg/",
+        "checkedAt": "2026-10-16",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Exact published branch matched to operator or property source; venue hours, not ordering slots."
+    },
+    {
+      "venueId": "research-living-wholesome-bukit-timah",
+      "address": "2A Jalan Seh Chuan #01-060, Singapore 599213",
+      "hours": {
+        "summary": "Weekdays 10:00–19:30 · weekends 10:00–13:45",
+        "schedule": [
+          "Mon–Fri: 10:00–19:30",
+          "Sat–Sun: 10:00–13:45"
+        ],
+        "notes": "",
+        "sourceUrl": "https://livingwholesome.sg/",
+        "checkedAt": "2026-10-16",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Exact published branch matched to operator or property source; venue hours, not ordering slots."
+    },
+    {
+      "venueId": "nomvnom-clarke-quay-central",
+      "address": "6 Eu Tong Sen Street #03-105/106/107, Clarke Quay Central, Singapore 059817",
+      "hours": {
+        "summary": "Sun–Thu 11:30–21:30 · Fri–Sat until 22:30",
+        "schedule": [
+          "Sun–Thu: 11:30–21:30",
+          "Fri–Sat: 11:30–22:30"
+        ],
+        "notes": "Last orders: Sun–Thu 21:00; Fri–Sat 22:00.",
+        "sourceUrl": "https://www.nomvnom.com/home",
+        "checkedAt": "2026-10-16",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Exact published branch matched to operator or property source; venue hours, not ordering slots."
+    },
+    {
+      "venueId": "research-moonchay-fortune",
+      "address": "190 Middle Road #02-27/28 Fortune Centre, Singapore 188979",
+      "hours": {
+        "summary": "Daily 09:00–21:00",
+        "schedule": [
+          "Daily: 09:00–21:00"
+        ],
+        "notes": "",
+        "sourceUrl": "https://moonchayvegetarian.com/",
+        "checkedAt": "2026-10-16",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Exact published branch matched to operator or property source; venue hours, not ordering slots."
+    },
+    {
+      "venueId": "research-sproutz-downtown",
+      "address": "15 Central Boulevard #B1-05 Downtown MRT Station, Singapore 018969",
+      "hours": {
+        "summary": "Mon–Thu 08:00–16:30 · Sat 10:00–13:00",
+        "schedule": [
+          "Mon–Thu: 08:00–16:30",
+          "Sat: 10:00–13:00",
+          "Fri, Sun and public holidays: closed except lunar days 1 and 15"
+        ],
+        "notes": "Lunar exception hours are not stated. Listed last order 16:00 applies to the longer service; Saturday last order is unconfirmed. Homepage outlet schedule used; the menu page has a conflicting weekday-special description.",
+        "sourceUrl": "https://www.sproutzdowntown.com/",
+        "checkedAt": "2026-10-16",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Exact published branch matched to operator or property source; venue hours, not ordering slots."
+    },
+    {
+      "venueId": "research-fo-you-yuan-jalan-besar",
+      "address": "369 Jalan Besar, Singapore 208997",
+      "hours": {
+        "summary": "Tue–Sun 10:00–14:00 · 17:30–21:00",
+        "schedule": [
+          "Tue–Sun and public holidays: 10:00–14:00 and 17:30–21:00",
+          "Mon: closed"
+        ],
+        "notes": "The source does not resolve a public holiday that falls on Monday.",
+        "sourceUrl": "https://foyouyuan.com.sg/",
+        "checkedAt": "2026-10-16",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Exact published branch matched to operator or property source; venue hours, not ordering slots."
+    },
+    {
+      "venueId": "research-lingzhi-palais",
+      "address": "390 Orchard Road, #B1-04/05, Palais Renaissance, Singapore 238871",
+      "hours": {
+        "summary": "Daily 11:00–15:00 · 18:00–22:00",
+        "schedule": [
+          "Daily: 11:00–15:00 and 18:00–22:00"
+        ],
+        "notes": "Last orders: 14:30 and 21:30.",
+        "sourceUrl": "https://www.lingzhi.com.sg/en/home",
+        "checkedAt": "2026-10-16",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Exact published branch matched to operator or property source; venue hours, not ordering slots."
+    },
+    {
+      "venueId": "research-yesnatural-geylang",
+      "address": "57 Lorong 27 Geylang, Singapore 388184",
+      "hours": {
+        "summary": "Lunch & dinner · see opening hours",
+        "schedule": [
+          "Mon–Fri: 11:00–15:30 and 16:45–21:30",
+          "Sat–Sun: 11:00–15:30 and 16:30–21:30",
+          "Public holidays and lunar days 1 and 15: 11:30–21:30"
+        ],
+        "notes": "Last orders 15:00 and 21:00. Selected holiday closures may apply.",
+        "sourceUrl": "https://yesnatural.sg/contact-us",
+        "checkedAt": "2026-10-16",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Exact published branch matched to operator or property source; venue hours, not ordering slots."
+    },
+    {
+      "venueId": "research-yes-natural-bakery-geylang-55",
+      "address": "55 Lorong 27 Geylang, Singapore 388183",
+      "hours": {
+        "summary": "Daily 09:30–20:30",
+        "schedule": [
+          "Mon–Sun: 09:30–20:30",
+          "Public holidays: 09:30–19:00"
+        ],
+        "notes": "Selected holiday closures may apply. Bakery at 55 Lorong 27, separate from the restaurant at 57.",
+        "sourceUrl": "https://yesnatural.sg/contact-us",
+        "checkedAt": "2026-10-16",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Exact published branch matched to operator or property source; venue hours, not ordering slots."
+    },
+    {
+      "venueId": "research-ananda-serangoon-58",
+      "address": "58 Serangoon Road, Little India Conservation Area, Singapore 217964",
+      "hours": {
+        "summary": "Hours 07:30–22:00",
+        "schedule": [
+          "Listed outlet hours: 07:30–22:00"
+        ],
+        "notes": "Days and holiday exceptions are not specified for this outlet.",
+        "sourceUrl": "https://www.anandabhavan.com/outlet",
+        "checkedAt": "2026-10-16",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Exact published branch matched to operator or property source; venue hours, not ordering slots."
+    },
+    {
+      "venueId": "research-ananda-syed-alwi",
+      "address": "95 Syed Alwi Road, Singapore 207670",
+      "hours": {
+        "summary": "Hours 07:30–23:00",
+        "schedule": [
+          "Listed outlet hours: 07:30–23:00"
+        ],
+        "notes": "Days and holiday exceptions are not specified for this outlet.",
+        "sourceUrl": "https://www.anandabhavan.com/outlet",
+        "checkedAt": "2026-10-16",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Exact published branch matched to operator or property source; venue hours, not ordering slots."
+    },
+    {
+      "venueId": "research-saute-san-city-square",
+      "address": "180 Kitchener Road, #03-23/24 City Square Mall, Singapore 208539",
+      "hours": {
+        "summary": "Daily 11:30–21:30",
+        "schedule": [
+          "Daily, including public holidays: 11:30–21:30"
+        ],
+        "notes": "Last order 20:45.",
+        "sourceUrl": "https://www.saute.com.sg/saute-san-menu",
+        "checkedAt": "2026-10-16",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Exact published branch matched to operator or property source; venue hours, not ordering slots."
+    },
+    {
+      "venueId": "research-saute-flavours-funan",
+      "address": "107 North Bridge Road, #B1-30 Funan, Singapore 179105",
+      "hours": {
+        "summary": "Daily 11:30–21:30",
+        "schedule": [
+          "Daily, including public holidays: 11:30–21:30"
+        ],
+        "notes": "Last order 20:45.",
+        "sourceUrl": "https://www.saute.com.sg/flavours-menu",
+        "checkedAt": "2026-10-16",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Exact published branch matched to operator or property source; venue hours, not ordering slots."
+    },
+    {
+      "venueId": "research-saute-sushi-paya-lebar-square",
+      "address": "60 Paya Lebar Road, #B1-19 Paya Lebar Square, Singapore 409051",
+      "hours": {
+        "summary": "Daily 11:30–21:30",
+        "schedule": [
+          "Daily, including public holidays: 11:30–21:30"
+        ],
+        "notes": "Last order 20:45.",
+        "sourceUrl": "https://www.saute.com.sg/saute-sushi-menu",
+        "checkedAt": "2026-10-16",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Exact published branch matched to operator or property source; venue hours, not ordering slots."
+    },
+    {
+      "venueId": "research-saute-saranghae-tampines-one",
+      "address": "10 Tampines Central 1, #05-08/09 Tampines 1, Singapore 529536",
+      "hours": {
+        "summary": "Daily 11:30–21:30",
+        "schedule": [
+          "Daily, including public holidays: 11:30–21:30"
+        ],
+        "notes": "Last order 20:45.",
+        "sourceUrl": "https://www.saute.com.sg/saute-saranghae-menu",
+        "checkedAt": "2026-10-16",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Exact published branch matched to operator or property source; venue hours, not ordering slots."
+    },
+    {
+      "venueId": "research-cultivate-maxwell-reserve",
+      "address": "Maxwell Reserve Singapore, Autograph Collection, 2 Cook Street, Singapore 078857",
+      "hours": {
+        "summary": "Daily 07:00–21:00",
+        "schedule": [
+          "Daily breakfast: 07:00–11:00",
+          "Daily lunch: 11:00–17:00",
+          "Daily dinner: 17:00–21:00"
+        ],
+        "notes": "Set-lunch offer hours are separate from restaurant opening hours.",
+        "sourceUrl": "https://cultivatecafe.sg/",
+        "checkedAt": "2026-10-16",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Exact published branch matched to operator or property source; venue hours, not ordering slots."
+    },
+    {
+      "venueId": "research-daehwa-fusionopolis",
+      "address": "1 Fusionopolis Place, #01-35, Galaxis, Singapore 138522",
+      "hours": {
+        "summary": "Daily 11:00–21:00",
+        "schedule": [
+          "Mon–Sun: 11:00–21:00"
+        ],
+        "notes": "Last order 20:30.",
+        "sourceUrl": "https://daehwavegetarian.com/",
+        "checkedAt": "2026-10-16",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Exact published branch matched to operator or property source; venue hours, not ordering slots."
+    },
+    {
+      "venueId": "research-slow-bakes-yishun-hyc",
+      "address": "30A Yishun Central 1, Tzu Chi Humanistic Youth Centre, Singapore 768796",
+      "hours": {
+        "summary": "Daily 07:00–14:00",
+        "schedule": [
+          "Daily: 07:00–14:00"
+        ],
+        "notes": "Uses the Slow Bakes section, not the youth centre or neighbouring cafe hours.",
+        "sourceUrl": "https://hyc.tzuchi.org.sg/spaces/dining/",
+        "checkedAt": "2026-10-16",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Exact published branch matched to operator or property source; venue hours, not ordering slots."
+    },
+    {
+      "venueId": "research-an-acai-affair-northpoint-city",
+      "address": "1 Northpoint Drive #B2-149 (South Wing), Singapore 768019",
+      "hours": {
+        "summary": "Daily 10:30–22:00",
+        "schedule": [
+          "Mon–Sun: 10:30–22:00"
+        ],
+        "notes": "Takeaway outlet.",
+        "sourceUrl": "https://www.anacaiaffair.com/yishun-northpoint",
+        "checkedAt": "2026-10-16",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Exact published branch matched to operator or property source; venue hours, not ordering slots."
+    },
+    {
+      "venueId": "research-nvd-bukit-batok",
+      "address": "296A Bukit Batok Street 22, #01-62, Skyline II @ Bukit Batok, Singapore 651296",
+      "hours": {
+        "summary": "Daily 07:30–15:00 · 16:00–21:00",
+        "schedule": [
+          "Daily: 07:30–15:00 and 16:00–21:00"
+        ],
+        "notes": "Break 15:00–16:00. Breakfast menu until 11:00; last order 20:30.",
+        "sourceUrl": "https://www.naturevegedelights.com.sg/contact-us/",
+        "checkedAt": "2026-10-16",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Exact published branch matched to operator or property source; venue hours, not ordering slots."
+    },
+    {
+      "venueId": "research-nvd-rivervale",
+      "address": "171 Sengkang East Drive, #01-12 Rivervale Shores, Singapore 540171",
+      "hours": {
+        "summary": "Lunch & dinner · break 15:00–16:30",
+        "schedule": [
+          "Mon–Fri: 11:00–15:00 and 16:30–21:00",
+          "Sat–Sun: 10:00–15:00 and 16:30–21:00"
+        ],
+        "notes": "Last order 20:30.",
+        "sourceUrl": "https://www.naturevegedelights.com.sg/contact-us/",
+        "checkedAt": "2026-10-16",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Exact published branch matched to operator or property source; venue hours, not ordering slots."
+    },
+    {
+      "venueId": "research-kisu-tras-street",
+      "address": "60 Tras Street #01-01, Singapore 078999",
+      "hours": {
+        "summary": "Mon–Sat lunch 12:00–15:00 · dinner available",
+        "schedule": [
+          "Mon–Sat lunch: 12:00–15:00; last order 14:00",
+          "Mon–Sat dinner: last seating 20:30; opening and closing times unconfirmed",
+          "Sun: closed"
+        ],
+        "notes": "20:30 is the last dinner seating, not the closing time.",
+        "sourceUrl": "https://www.kisu.com.sg/contact",
+        "checkedAt": "2026-10-16",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Exact published branch matched to operator or property source; venue hours, not ordering slots."
+    },
+    {
+      "venueId": "research-lnbv-vegan-branch",
+      "address": "11 Sam Leong Road, Trio Mall, #04-03, Singapore 207903",
+      "hours": {
+        "summary": "Wed–Sun 10:00–14:00",
+        "schedule": [
+          "Wed–Sun: 10:00–14:00",
+          "Mon–Tue: closed"
+        ],
+        "notes": "Merchant website footer, independently visible in the browser/search page. Ordering collection windows differ.",
+        "sourceUrl": "https://www.veggie-an.com/",
+        "checkedAt": "2026-10-16",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Exact published branch matched to operator or property source; venue hours, not ordering slots."
+    },
+    {
+      "venueId": "research-fennel-river-valley",
+      "address": "413 River Valley Road, Singapore 248311",
+      "hours": {
+        "summary": "Mon–Fri 09:00–22:30 · weekends from 08:00",
+        "schedule": [
+          "Mon–Fri: 09:00–22:30",
+          "Sat–Sun and public holidays: 08:00–22:30"
+        ],
+        "notes": "Sister-outlet section identifies Fennel at 413 River Valley Road.",
+        "sourceUrl": "https://komalavilas.com.sg/contact/",
+        "checkedAt": "2026-10-16",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Exact published branch matched to operator or property source; venue hours, not ordering slots."
+    },
+    {
+      "venueId": "research-greendot-j8",
+      "address": "9 Bishan Pl, #B1-24 24A, 579837, Singapore",
+      "hours": {
+        "summary": "Daily 11:00–21:00",
+        "schedule": [
+          "Daily 11:00–21:00"
+        ],
+        "notes": "Owner-linked outlet directory. Unlisted days remain unconfirmed.",
+        "sourceUrl": "https://restaurant.momos.io/greendot-c29da/locations",
+        "checkedAt": "2026-10-16",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Greendot locate-us embeds Momos. Exact outlet address/name compared; public dine_in records have platform gmb. No Google API request was made; delivery records excluded."
+    },
+    {
+      "venueId": "research-greendot-bedok-mall",
+      "address": "311 New Upper Changi Road B2-31, Bedok Mall, 467360, Singapore",
+      "hours": {
+        "summary": "Daily 11:00–21:00",
+        "schedule": [
+          "Daily 11:00–21:00"
+        ],
+        "notes": "Owner-linked outlet directory. Unlisted days remain unconfirmed.",
+        "sourceUrl": "https://restaurant.momos.io/greendot-c29da/locations",
+        "checkedAt": "2026-10-16",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Greendot locate-us embeds Momos. Exact outlet address/name compared; public dine_in records have platform gmb. No Google API request was made; delivery records excluded."
+    },
+    {
+      "venueId": "research-greendot-jewel-changi-airport",
+      "address": "78 Aiport Blvd, #B1-297 Jewel Changi Airport, 819666, Singapore",
+      "hours": {
+        "summary": "Mon–Thu 10:00–21:00 · Fri–Sun until 21:30",
+        "schedule": [
+          "Mon: 10:00–21:00",
+          "Tue: 10:00–21:00",
+          "Wed: 10:00–21:00",
+          "Thu: 10:00–21:00",
+          "Fri: 10:00–21:30",
+          "Sat: 10:00–21:30",
+          "Sun: 10:00–21:30"
+        ],
+        "notes": "Owner-linked outlet directory. Unlisted days remain unconfirmed.",
+        "sourceUrl": "https://restaurant.momos.io/greendot-c29da/locations",
+        "checkedAt": "2026-10-16",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Greendot locate-us embeds Momos. Exact outlet address/name compared; public dine_in records have platform gmb. No Google API request was made; delivery records excluded."
+    },
+    {
+      "venueId": "research-greendot-one-raffles-place",
+      "address": "1 Raffles Place, #03-23/24, 048616, Singapore",
+      "hours": {
+        "summary": "Mon–Fri 11:00–19:30 · Sat 11:00–14:30",
+        "schedule": [
+          "Mon: 11:00–19:30",
+          "Tue: 11:00–19:30",
+          "Wed: 11:00–19:30",
+          "Thu: 11:00–19:30",
+          "Fri: 11:00–19:30",
+          "Sat: 11:00–14:30",
+          "Sun: not listed"
+        ],
+        "notes": "Owner-linked outlet directory. Unlisted days remain unconfirmed.",
+        "sourceUrl": "https://restaurant.momos.io/greendot-c29da/locations",
+        "checkedAt": "2026-10-16",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Greendot locate-us embeds Momos. Exact outlet address/name compared; public dine_in records have platform gmb. No Google API request was made; delivery records excluded."
+    },
+    {
+      "venueId": "research-greendot-northpoint",
+      "address": "930 Yishun Ave 2, Northpoint City  North Wing, #B2-09/11, 769098, Singapore",
+      "hours": {
+        "summary": "Daily 11:00–21:00",
+        "schedule": [
+          "Daily 11:00–21:00"
+        ],
+        "notes": "Owner-linked outlet directory. Unlisted days remain unconfirmed.",
+        "sourceUrl": "https://restaurant.momos.io/greendot-c29da/locations",
+        "checkedAt": "2026-10-16",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Greendot locate-us embeds Momos. Exact outlet address/name compared; public dine_in records have platform gmb. No Google API request was made; delivery records excluded."
+    },
+    {
+      "venueId": "research-greendot-asia-square",
+      "address": "8 Marina View, Tower 1, #02-02, 018960, Singapore",
+      "hours": {
+        "summary": "Mon–Fri 11:00–20:00",
+        "schedule": [
+          "Mon: 11:00–20:00",
+          "Tue: 11:00–20:00",
+          "Wed: 11:00–20:00",
+          "Thu: 11:00–20:00",
+          "Fri: 11:00–20:00",
+          "Sat: not listed",
+          "Sun: not listed"
+        ],
+        "notes": "Owner-linked outlet directory. Unlisted days remain unconfirmed.",
+        "sourceUrl": "https://restaurant.momos.io/greendot-c29da/locations",
+        "checkedAt": "2026-10-16",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Greendot locate-us embeds Momos. Exact outlet address/name compared; public dine_in records have platform gmb. No Google API request was made; delivery records excluded."
+    },
+    {
+      "venueId": "research-greendot-westgate",
+      "address": "3 Gateway Dr, #01-06 Westgate, 608532, Singapore",
+      "hours": {
+        "summary": "Daily 11:00–21:00",
+        "schedule": [
+          "Daily 11:00–21:00"
+        ],
+        "notes": "Owner-linked outlet directory. Unlisted days remain unconfirmed.",
+        "sourceUrl": "https://restaurant.momos.io/greendot-c29da/locations",
+        "checkedAt": "2026-10-16",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Greendot locate-us embeds Momos. Exact outlet address/name compared; public dine_in records have platform gmb. No Google API request was made; delivery records excluded."
+    },
+    {
+      "venueId": "research-greendot-bukit-panjang-plaza",
+      "address": "1 Jelebu Rd, Bukit Panjang Plaza, 677743, Singapore",
+      "hours": {
+        "summary": "Daily 11:00–21:00",
+        "schedule": [
+          "Daily 11:00–21:00"
+        ],
+        "notes": "Owner-linked outlet directory. Unlisted days remain unconfirmed.",
+        "sourceUrl": "https://restaurant.momos.io/greendot-c29da/locations",
+        "checkedAt": "2026-10-16",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Greendot locate-us embeds Momos. Exact outlet address/name compared; public dine_in records have platform gmb. No Google API request was made; delivery records excluded."
+    },
+    {
+      "venueId": "research-greendot-star-vista",
+      "address": "1 Vista Exchange Green, #02-04, The Star Vista 138617, Singapore",
+      "hours": {
+        "summary": "Daily 11:00–21:00",
+        "schedule": [
+          "Daily 11:00–21:00"
+        ],
+        "notes": "Owner-linked outlet directory. Unlisted days remain unconfirmed.",
+        "sourceUrl": "https://restaurant.momos.io/greendot-c29da/locations",
+        "checkedAt": "2026-10-16",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Greendot locate-us embeds Momos. Exact outlet address/name compared; public dine_in records have platform gmb. No Google API request was made; delivery records excluded."
+    },
+    {
+      "venueId": "research-greendot-jurong-point",
+      "address": "1 Jurong West Central 2 Jurong Point JP 1 #01-43/44/45, 648886, Singapore",
+      "hours": {
+        "summary": "Daily 11:00–21:00",
+        "schedule": [
+          "Daily 11:00–21:00"
+        ],
+        "notes": "Owner-linked outlet directory. Unlisted days remain unconfirmed.",
+        "sourceUrl": "https://restaurant.momos.io/greendot-c29da/locations",
+        "checkedAt": "2026-10-16",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Greendot locate-us embeds Momos. Exact outlet address/name compared; public dine_in records have platform gmb. No Google API request was made; delivery records excluded."
+    },
+    {
+      "venueId": "research-greendot-paya-lebar-square",
+      "address": "60 Paya Lebar Road Paya Lebar Square #02-15/16/17, 409051, Singapore",
+      "hours": {
+        "summary": "Daily 11:00–21:00",
+        "schedule": [
+          "Daily 11:00–21:00"
+        ],
+        "notes": "Owner-linked outlet directory. Unlisted days remain unconfirmed.",
+        "sourceUrl": "https://restaurant.momos.io/greendot-c29da/locations",
+        "checkedAt": "2026-10-16",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Greendot locate-us embeds Momos. Exact outlet address/name compared; public dine_in records have platform gmb. No Google API request was made; delivery records excluded."
+    },
+    {
+      "venueId": "research-greendot-seletar-mall",
+      "address": "33 Sengkang West Avenue #B1-01 The Seletar Mall, 797653, Singapore",
+      "hours": {
+        "summary": "Daily 11:00–21:00",
+        "schedule": [
+          "Daily 11:00–21:00"
+        ],
+        "notes": "Owner-linked outlet directory. Unlisted days remain unconfirmed.",
+        "sourceUrl": "https://restaurant.momos.io/greendot-c29da/locations",
+        "checkedAt": "2026-10-16",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Greendot locate-us embeds Momos. Exact outlet address/name compared; public dine_in records have platform gmb. No Google API request was made; delivery records excluded."
+    },
+    {
+      "venueId": "research-greendot-tampines-1",
+      "address": "10 Tampines Central 1, Tampines 1, #B1-K8, 529536, Singapore",
+      "hours": {
+        "summary": "Daily 11:00–21:00",
+        "schedule": [
+          "Daily 11:00–21:00"
+        ],
+        "notes": "Owner-linked outlet directory. Unlisted days remain unconfirmed.",
+        "sourceUrl": "https://restaurant.momos.io/greendot-c29da/locations",
+        "checkedAt": "2026-10-16",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Greendot locate-us embeds Momos. Exact outlet address/name compared; public dine_in records have platform gmb. No Google API request was made; delivery records excluded."
+    },
+    {
+      "venueId": "research-any1-choco-telok-ayer",
+      "address": "114 Telok Ayer Street, Singapore 068583",
+      "hours": {
+        "summary": "Mon–Sat 11:00–22:00",
+        "schedule": [
+          "Mon–Sat: 11:00–22:00",
+          "Sun: closed"
+        ],
+        "notes": "",
+        "sourceUrl": "https://anyonechoco.com/shops/telok-ayer-street-singapore/",
+        "checkedAt": "2026-10-16",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Exact published branch matched to operator or property source; venue hours, not ordering slots."
+    },
+    {
+      "venueId": "research-joyi-bedok-north",
+      "address": "136 Bedok North Avenue 3 #01-148, Singapore 460136",
+      "hours": {
+        "summary": "Daily 10:00–01:00 next day",
+        "schedule": [
+          "Daily: 10:00–01:00 the following day"
+        ],
+        "notes": "Overnight closing time retained.",
+        "sourceUrl": "https://www.jo-yi.com/menu",
+        "checkedAt": "2026-10-16",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Exact published branch matched to operator or property source; venue hours, not ordering slots."
+    },
+    {
+      "venueId": "research-metta-simei",
+      "address": "32 Simei Street 1, Level 1 Metta Building, Singapore 529950",
+      "hours": {
+        "summary": "07:00–17:00 · lunar-day extensions",
+        "schedule": [
+          "Mon–Sun except public holidays: 07:00–17:00",
+          "Lunar days 1 and 15: 07:00–18:30"
+        ],
+        "notes": "Cafe retail hours, not the upstairs office. Public-holiday exceptions are not specified.",
+        "sourceUrl": "https://www.metta.org.sg/youth-employment-support/#mettacafe",
+        "checkedAt": "2026-10-16",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Exact published branch matched to operator or property source; venue hours, not ordering slots."
+    },
+    {
+      "venueId": "research-nalan-cityhall",
+      "address": "13 Stamford Road #B2-54 Capitol Singapore, Singapore 178905",
+      "hours": {
+        "summary": "Mon–Sat 10:00–22:00 · Sun from 08:00",
+        "schedule": [
+          "Mon–Sat: 10:00–22:00",
+          "Sun: 08:00–22:00"
+        ],
+        "notes": "Current branch contact page used; older blog footers differ.",
+        "sourceUrl": "https://www.nalan.com.sg/veg-restaurant-event-catering-singapore",
+        "checkedAt": "2026-10-16",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Exact published branch matched to operator or property source; venue hours, not ordering slots."
+    },
+    {
+      "venueId": "research-nalan-littleindia",
+      "address": "82 Serangoon Road, Singapore 217987",
+      "hours": {
+        "summary": "Hours 07:30–23:30",
+        "schedule": [
+          "Listed outlet hours: 07:30–23:30"
+        ],
+        "notes": "Current branch contact page used; days and holiday exceptions are not specified. Older blog footers differ.",
+        "sourceUrl": "https://www.nalan.com.sg/veg-restaurant-event-catering-singapore",
+        "checkedAt": "2026-10-16",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Exact published branch matched to operator or property source; venue hours, not ordering slots."
+    },
+    {
+      "venueId": "research-annalakshmi-cafe-downtown",
+      "address": "6A Shenton Way #03-26 Downtown Gallery, Singapore 068815",
+      "hours": {
+        "summary": "Mon–Sat 08:00–16:30 · Sun closed",
+        "schedule": [
+          "Mon–Sat: 08:00–16:30",
+          "Sun: closed"
+        ],
+        "notes": "Last order 16:00. Cafe #03-26; the downstairs restaurant has a separate schedule.",
+        "sourceUrl": "https://www.annalakshmi.sg/cafe",
+        "checkedAt": "2026-10-16",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Exact published branch matched to operator or property source; venue hours, not ordering slots."
+    },
+    {
+      "venueId": "research-ahimsa-neil-road",
+      "address": "76 Neil Road, Singapore 088840",
+      "hours": {
+        "summary": "Daily 10:00–22:00",
+        "schedule": [
+          "Mon–Sun: 10:00–22:00"
+        ],
+        "notes": "Last order 21:00. Confirm holiday exceptions with the venue.",
+        "sourceUrl": "https://www.ahimsacommunityysg.com/",
+        "checkedAt": "2026-10-16",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Exact published branch matched to operator or property source; venue hours, not ordering slots."
+    },
+    {
+      "venueId": "research-swaad-desker70",
+      "address": "70 Desker Road, Singapore 209593",
+      "hours": {
+        "summary": "Tue–Sun lunch & dinner · Mon lunch only",
+        "schedule": [
+          "Tue–Sun: 11:00–16:00 and 18:00–22:00",
+          "Mon: 12:00–15:00; evening closed"
+        ],
+        "notes": "",
+        "sourceUrl": "https://swaadgovinda.com/locations",
+        "checkedAt": "2026-10-16",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Exact published branch matched to operator or property source; venue hours, not ordering slots."
+    },
+    {
+      "venueId": "research-swaad-shenton3",
+      "address": "3 Shenton Way #01-04 Shenton House, Singapore 068805",
+      "hours": {
+        "summary": "Mon–Fri 11:30–18:00",
+        "schedule": [
+          "Mon–Fri: 11:30–18:00",
+          "Sat–Sun: not listed"
+        ],
+        "notes": "Merchant branch hours. The shared food hall and ordering windows are separate.",
+        "sourceUrl": "https://swaadgovinda.com/locations",
+        "checkedAt": "2026-10-16",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Exact published branch matched to operator or property source; venue hours, not ordering slots."
+    },
+    {
+      "venueId": "research-tofu-g-mandarin-gallery",
+      "address": "333A Orchard Road #02-26, Mandarin Gallery, Singapore 238897",
+      "hours": {
+        "summary": "Daily 11:00–22:00",
+        "schedule": [
+          "Mon–Sun: 11:00–22:00"
+        ],
+        "notes": "Operation hours on this exact outlet page; not transferred to other branches.",
+        "sourceUrl": "https://www.tofug.sg/mandaringallery",
+        "checkedAt": "2026-10-16",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Exact published branch matched to operator or property source; venue hours, not ordering slots."
+    },
+    {
+      "venueId": "research-tofu-g-ngee-ann-city",
+      "address": "391 Orchard Road #B1-29, Ngee Ann City, Singapore 238873",
+      "hours": {
+        "summary": "Daily 11:00–21:30",
+        "schedule": [
+          "Mon–Sun: 11:00–21:30"
+        ],
+        "notes": "Operation hours on this exact outlet page; not transferred to other branches.",
+        "sourceUrl": "https://www.tofug.sg/takashimaya",
+        "checkedAt": "2026-10-16",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Exact published branch matched to operator or property source; venue hours, not ordering slots."
+    },
+    {
+      "venueId": "research-tofu-g-waterway-point",
+      "address": "83 Punggol Central #01-53, Singapore 828761",
+      "hours": {
+        "summary": "Daily 10:00–22:00",
+        "schedule": [
+          "Mon–Sun: 10:00–22:00"
+        ],
+        "notes": "Operation hours on this exact outlet page; not transferred to other branches.",
+        "sourceUrl": "https://www.tofug.sg/waterwaypoint",
+        "checkedAt": "2026-10-16",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Exact published branch matched to operator or property source; venue hours, not ordering slots."
+    },
+    {
+      "venueId": "research-tofu-g-suntec-city",
+      "address": "3 Temasek Boulevard #B1-K5, West Wing, Suntec City Mall, Singapore 038983",
+      "hours": {
+        "summary": "Daily 10:00–22:00",
+        "schedule": [
+          "Mon–Sun: 10:00–22:00"
+        ],
+        "notes": "Operation hours on this exact outlet page; not transferred to other branches.",
+        "sourceUrl": "https://www.tofug.sg/suntec",
+        "checkedAt": "2026-10-16",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Exact published branch matched to operator or property source; venue hours, not ordering slots."
+    },
+    {
+      "venueId": "research-rya-bakehouse-cavan",
+      "address": "11 Cavan Road #01-03 Cavan Suites, Singapore 209848",
+      "hours": {
+        "summary": "Thu–Fri 09:00–16:00 · Sat–Sun 08:00–15:00",
+        "schedule": [
+          "Thu–Fri: 09:00–16:00",
+          "Sat–Sun: 08:00–15:00",
+          "Mon–Wed: not listed"
+        ],
+        "notes": "Source opening-hours section; advance-order lead times are separate.",
+        "sourceUrl": "https://ryabakehouse.com/",
+        "checkedAt": "2026-10-16",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Exact published branch matched to operator or property source; venue hours, not ordering slots."
+    },
+    {
+      "venueId": "research-ur09-eco-harmony-aljunied",
+      "address": "106 Aljunied Crescent #01-205, Singapore 380106",
+      "hours": {
+        "summary": "Hours 09:00–19:00",
+        "schedule": [
+          "Listed cafe hours: 09:00–19:00"
+        ],
+        "notes": "Days and holiday exceptions are not specified.",
+        "sourceUrl": "https://www.eco-harmony.net/cafe",
+        "checkedAt": "2026-10-16",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Exact published branch matched to operator or property source; venue hours, not ordering slots."
+    },
+    {
+      "venueId": "research-ur15-conut-haji",
+      "address": "2 Haji Lane #01-01, Singapore 189195",
+      "hours": {
+        "summary": "Daily 09:00–20:00",
+        "schedule": [
+          "Daily: 09:00–20:00"
+        ],
+        "notes": "",
+        "sourceUrl": "https://conutink.com/find-us/",
+        "checkedAt": "2026-10-16",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Exact published branch matched to operator or property source; venue hours, not ordering slots."
+    },
+    {
+      "venueId": "research-ur15-conut-marriott",
+      "address": "310 Orchard Road #01-K2, Singapore 238864",
+      "hours": {
+        "summary": "Daily 11:00–22:00",
+        "schedule": [
+          "Daily: 11:00–22:00"
+        ],
+        "notes": "Marriott Tang Plaza #01-K2, distinct from other Co+Nut+Ink locations.",
+        "sourceUrl": "https://conutink.com/find-us/",
+        "checkedAt": "2026-10-16",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Exact published branch matched to operator or property source; venue hours, not ordering slots."
+    },
+    {
+      "venueId": "research-ascend-cross-lead",
+      "address": "18 Cross Street #B1-12, K4, Singapore 048423",
+      "hours": {
+        "summary": "Hours 10:00–21:00",
+        "schedule": [
+          "Listed opening hours: 10:00–21:00"
+        ],
+        "notes": "Property listing for the exact #B1-12 K4 outlet. Days are not specified.",
+        "sourceUrl": "https://www.18cross.sg/ascend-signature",
+        "checkedAt": "2026-10-16",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Exact published branch matched to operator or property source; venue hours, not ordering slots."
+    },
+    {
+      "venueId": "research-kailash-belilios-road",
+      "address": "3 Belilios Road #01-03 Hilton Garden Inn, Singapore 219924",
+      "hours": {
+        "summary": "Hours 11:00–22:30",
+        "schedule": [
+          "Listed outlet hours: 11:00–22:30"
+        ],
+        "notes": "Days and holiday exceptions are not stated in the outlet listing.",
+        "sourceUrl": "https://www.kailashparbat.com.sg/contact",
+        "checkedAt": "2026-10-16",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Exact published branch matched to operator or property source; venue hours, not ordering slots."
+    },
+    {
+      "venueId": "research-kailash-syed-alwi",
+      "address": "93 Syed Alwi Road, Singapore 207669",
+      "hours": {
+        "summary": "Hours 11:30–23:30",
+        "schedule": [
+          "Listed outlet hours: 11:30–23:30"
+        ],
+        "notes": "Days and holiday exceptions are not stated in the outlet listing.",
+        "sourceUrl": "https://www.kailashparbat.com.sg/contact",
+        "checkedAt": "2026-10-16",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Exact published branch matched to operator or property source; venue hours, not ordering slots."
+    },
+    {
+      "venueId": "research-kailash-changi",
+      "address": "1 Changi Business Park Crescent #01-10/12/13 Plaza8, Singapore 486025",
+      "hours": {
+        "summary": "Hours 11:30–22:00",
+        "schedule": [
+          "Listed outlet hours: 11:30–22:00"
+        ],
+        "notes": "Days and holiday exceptions are not stated in the outlet listing.",
+        "sourceUrl": "https://www.kailashparbat.com.sg/contact",
+        "checkedAt": "2026-10-16",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Exact published branch matched to operator or property source; venue hours, not ordering slots."
+    },
+    {
+      "venueId": "research-kailash-sentosa",
+      "address": "42 Imbia Road #01-01, Singapore 099701",
+      "hours": {
+        "summary": "Hours 10:30–21:00",
+        "schedule": [
+          "Listed outlet hours: 10:30–21:00"
+        ],
+        "notes": "Days and holiday exceptions are not stated in the outlet listing.",
+        "sourceUrl": "https://www.kailashparbat.com.sg/contact",
+        "checkedAt": "2026-10-16",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Exact published branch matched to operator or property source; venue hours, not ordering slots."
+    },
+    {
+      "venueId": "research-veganburg-eunos",
+      "address": "44 Jalan Eunos, Singapore 419502",
+      "hours": {
+        "summary": "Mon–Thu 11:30–21:00 · Fri–Sun until 21:30",
+        "schedule": [
+          "Mon–Thu: 11:30–21:00",
+          "Fri–Sun: 11:30–21:30"
+        ],
+        "notes": "Last order 30 minutes before closing. Eunos flagship only; US outlet excluded.",
+        "sourceUrl": "https://www.veganburg.com/location",
+        "checkedAt": "2026-10-16",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Exact published branch matched to operator or property source; venue hours, not ordering slots."
+    },
+    {
+      "venueId": "research-mtr-serangoon438",
+      "address": "438 & 438/A Serangoon Road, Singapore 218133",
+      "hours": {
+        "summary": "Tue–Sun breakfast, lunch & dinner",
+        "schedule": [
+          "Tue–Thu: 08:30–15:00 and 17:30–21:30",
+          "Fri–Sun: 08:30–15:30 and 17:30–22:00",
+          "Mon: not listed"
+        ],
+        "notes": "Monday is not specified on this current operator page.",
+        "sourceUrl": "https://www.mtrsingapore.com/",
+        "checkedAt": "2026-10-16",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Exact published branch matched to operator or property source; venue hours, not ordering slots."
+    },
+    {
+      "venueId": "research-tofu-g-amoy-street",
+      "address": "97 Amoy Street, Singapore 069916",
+      "hours": {
+        "summary": "Sun–Thu 11:30–22:00 · Fri–Sat until 23:00",
+        "schedule": [
+          "Sun–Thu: 11:30–22:00",
+          "Fri–Sat: 11:30–23:00"
+        ],
+        "notes": "",
+        "sourceUrl": "https://www.tofug.sg/97amoy",
+        "checkedAt": "2026-10-16",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Exact published branch matched to operator or property source; venue hours, not ordering slots."
+    },
+    {
+      "venueId": "research-tofu-g-ue-square",
+      "address": "81 Clemenceau Avenue #01-19, Singapore 239917",
+      "hours": {
+        "summary": "Sun–Thu 11:00–22:00 · Fri–Sat until 23:00",
+        "schedule": [
+          "Sun–Thu: 11:00–22:00",
+          "Fri–Sat: 11:00–23:00"
+        ],
+        "notes": "",
+        "sourceUrl": "https://www.tofug.sg/uesquare",
+        "checkedAt": "2026-10-16",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Exact published branch matched to operator or property source; venue hours, not ordering slots."
+    },
+    {
+      "venueId": "research-wakamama-pasir-panjang",
+      "address": "218 Pasir Panjang Road #02-15, ICON @ Pasir Panjang, Singapore 118579",
+      "hours": {
+        "summary": "Wed–Sun · reservation required",
+        "schedule": [
+          "Wed omakase: 17:00–23:00",
+          "Thu–Sat omakase: 11:00–23:00",
+          "Sun dim sum: 09:00–15:00",
+          "Mon–Tue: not listed"
+        ],
+        "notes": "Private dining by reservation only. Service depends on the day; Sunday dim sum portions are limited.",
+        "sourceUrl": "https://www.wakamama.sg/",
+        "checkedAt": "2026-10-16",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Exact published branch matched to operator or property source; venue hours, not ordering slots."
+    },
+    {
+      "venueId": "research-gokul-upper-dickson",
+      "address": "19 Upper Dickson Road, Singapore 207478",
+      "hours": {
+        "summary": "Daily 08:00–22:00",
+        "schedule": [
+          "Mon–Sun: 08:00–22:00",
+          "Public holidays: 08:00–22:00"
+        ],
+        "notes": "",
+        "sourceUrl": "https://www.gokulraasvegetarian.com.sg/faq.php",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Operator FAQ explicitly gives restaurant hours and the exact 19 Upper Dickson address; takes precedence over conflicting secondary listings."
+    },
+    {
+      "venueId": "research-joie-orchard-central",
+      "address": "181 Orchard Road, #12-01 Orchard Central, Singapore 238896",
+      "hours": {
+        "summary": "Daily 12:00–15:00 · 18:00–22:00",
+        "schedule": [
+          "Daily: 12:00–15:00 and 18:00–22:00"
+        ],
+        "notes": "Last orders: lunch 14:00; dinner 21:00.",
+        "sourceUrl": "https://www.joierestaurant.com.sg/contact-us",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Operator contact page explicitly states daily operation hours at Orchard Central #12-01."
+    },
+    {
+      "venueId": "research-lotus-balestier",
+      "address": "201 Balestier Road, Level 2, Holiday Inn Express and Suites Singapore Novena, Singapore 329926",
+      "hours": {
+        "summary": "Lunch 11:30–15:00 · Dinner 17:30–21:30",
+        "schedule": [
+          "Lunch: 11:30–15:00",
+          "Dinner: 17:30–21:30"
+        ],
+        "notes": "Last orders: lunch 14:30; dinner 21:00. Operating days are not specified in the dine-in notice.",
+        "sourceUrl": "https://lotusvegetarian.oddle.me/en_SG/stores",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Merchant store additional-information notice explicitly describes the restaurant at 201 Balestier Level 2 / Holiday Inn Express and Suites. Dine-in notice used; separate 11:00–20:00 pickup/delivery slots are not restaurant hours."
+    },
+    {
+      "venueId": "research-lilac-oak-oxley-rise",
+      "address": "71 Oxley Rise #01-01, Singapore 238698",
+      "hours": {
+        "summary": "Mon/Tue/Thu 11:00–16:00 · Fri–Sun 11:00–18:00",
+        "schedule": [
+          "Mon, Tue, Thu: 11:00–16:00",
+          "Wed: Closed",
+          "Fri–Sun: 11:00–18:00"
+        ],
+        "notes": "",
+        "sourceUrl": "https://www.lilacoak.com/our-location",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Operator cafe location page confirms 71 Oxley Rise #01-01. Separate FAQ delivery slots are not substituted for cafe hours."
+    },
+    {
+      "venueId": "research-delcies-whampoa-west",
+      "address": "34 Whampoa West #01-83, Singapore330034",
+      "hours": {
+        "summary": "Mon 11:00–17:00 · Tue–Sun 11:00–20:00",
+        "schedule": [
+          "Mon: 11:00–17:00",
+          "Tue–Sun: 11:00–20:00",
+          "Public holidays: 11:00–15:00"
+        ],
+        "notes": "Closed on Labour Day and Chinese New Year.",
+        "sourceUrl": "https://delcies.com/contact-us",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Operator contact page confirms 34 Whampoa West #01-83 and explicit store hours. Primary page takes precedence over inconsistent older Getz contact hours."
+    },
+    {
+      "venueId": "research-nature-cafe-alexandra",
+      "address": "321 Alexandra Road #02-27, Singapore 159971",
+      "hours": {
+        "summary": "Daily 10:30–21:00",
+        "schedule": [
+          "Mon–Sun: 10:30–21:00"
+        ],
+        "notes": "Last order 20:45.",
+        "sourceUrl": "https://www.naturecafe.com.sg/menu/",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Operator page groups Alexandra and SMU, prints both exact addresses and explicitly separates 20:45 last order from 21:00 closing."
+    },
+    {
+      "venueId": "research-nature-cafe-smu",
+      "address": "SMU Li Ka Shing Library, 70 Stamford Road #01-22, Singapore 178901",
+      "hours": {
+        "summary": "Daily 10:30–21:00",
+        "schedule": [
+          "Mon–Sun: 10:30–21:00"
+        ],
+        "notes": "Last order 20:45.",
+        "sourceUrl": "https://www.naturecafe.com.sg/menu/",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Operator page groups Alexandra and SMU, prints both exact addresses and explicitly separates 20:45 last order from 21:00 closing."
+    },
+    {
+      "venueId": "research-futkai-jalan-besar",
+      "address": "282 Jalan Besar, #01-00, Singapore 208945",
+      "hours": {
+        "summary": "Tue-Sun lunch & dinner",
+        "schedule": [
+          "Tue-Sun: 10:30-15:00 and 17:30-22:00",
+          "Mon: Closed, except public holidays and lunar days 1 and 15"
+        ],
+        "notes": "Last orders: lunch 14:30; dinner 21:30. When a Monday holiday or lunar day opens, the following Tuesday is the rest day.",
+        "sourceUrl": "https://www.newfutkai.com.sg/contact/",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Operator contact page accessed through web open, exact 282 Jalan Besar address and operation timings. Direct workstation HTTP returned403; no workaround. Secondary conflicting hours not used."
+    },
+    {
+      "venueId": "research-greenearth-rail-mall",
+      "address": "386 Upper Bukit Timah Road, The Rail Mall, Singapore 678043",
+      "hours": {
+        "summary": "Daily 11:00-22:00",
+        "schedule": [
+          "Daily: 11:00-22:00"
+        ],
+        "notes": "Last order 21:30.",
+        "sourceUrl": "https://railmall.com.sg/our-stores/?type=dining",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Property manager tenant directory identifies Green on Earth at units386/388 and its restaurant schedule. Checked17Oct through indexed public page; direct HTML currently omits tenant content. Contemporary directory takes precedence over conflicting secondary listings and delivery slots. Holiday-only PDF not used as regular hours."
+    },
+    {
+      "venueId": "research-ur04-kunthaville",
+      "address": "18 Veerasamy Road, Singapore 207326",
+      "hours": {
+        "summary": "Tue-Sun 11:00-22:00",
+        "schedule": [
+          "Mon: Closed",
+          "Tue-Sun: 11:00-22:00"
+        ],
+        "notes": "Schedule listed by the restaurant reservation partner.",
+        "sourceUrl": "https://www.chope.co/singapore-restaurants/restaurant/kunthaville",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Re-reviewed saved merchant reservation page from16Oct, corroborated public indexed page17Oct, exact18VeerasamyRoad. Explicit restaurant schedule separate from delivery hours. Earlier generic hold superseded by manual schedule review; operator homepage returned502, retained as failed cross-check. Conflicting secondary directory daily11-21 not preferred over merchant reservation schedule."
+    },
+    {
+      "venueId": "research-ur14-tianmu-westcoast",
+      "address": "504 West Coast Drive #01-230, Singapore 120504",
+      "hours": {
+        "summary": "Tue-Sun 08:00-16:00",
+        "schedule": [
+          "Tue-Sun: 08:00-16:00"
+        ],
+        "notes": "Monday is not listed in the published general operating schedule.",
+        "sourceUrl": "https://www.blockchef.com/store/tianmuvegetarian/about",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Saved merchant About page explicitly labels General Operating Hours, not just delivery slots, and identifies504WestCoastDrive#01-230. Re-reviewed17Oct from16Oct captured HTML; Monday closure not inferred from omission."
+    },
+    {
+      "venueId": "research-ur09-kms-zen-cafe",
+      "address": "88 Bright Hill Road, Venerable Hong Choon Memorial Hall Level 1 beside Ju Yuan Fang, Singapore 574117",
+      "hours": {
+        "summary": "Daily 10:00-17:00",
+        "schedule": [
+          "Daily: 10:00-17:00"
+        ],
+        "notes": "Food-service page and linked cafe menu give this schedule; other monastery pages retain different hours. Check with the cafe before a special trip.",
+        "sourceUrl": "https://kmspks.org/services/vegetarian-food/",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Re-reviewed16Oct saved direct operator food-service HTML and six-page linked ZenCafe_Digital-Menu.pdf. Both explicitly daily10-17 at Level1besideJuYuanFang. Indexed older food-service text and visiting-hours page list longer weekday hours; specific currently linked cafe menu and direct food-service capture preferred. No new menu extraction."
+    },
+    {
+      "venueId": "research-ur09-kms-dining-hall",
+      "address": "88 Bright Hill Road, Venerable Hong Choon Memorial Hall Level 2, Singapore 574117",
+      "hours": {
+        "summary": "Hours vary by food service",
+        "schedule": [
+          "Weekdays bento: 09:00-11:00",
+          "Weekends mixed vegetable rice: 09:00-14:00",
+          "Happy Realm Mon-Sat: 09:30-13:30"
+        ],
+        "notes": "Happy Realm lists a 13-20 December closure without a year; confirm before visiting. These are food-service windows, not general monastery opening hours.",
+        "sourceUrl": "https://kmspks.org/services/vegetarian-food/",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Re-reviewed16Oct saved direct operator HTML, explicit Level2DiningHall/HappyRealm and each food-service schedule. Older magazine10:30opening not substituted. Closure year remains unresolved; seasonal food holds preserved."
+    },
+    {
+      "venueId": "research-boneless-irving",
+      "address": "1 Irving Place, #01-31, The Commerze @ Irving, Singapore 369546",
+      "hours": {
+        "summary": "Daily 11:00–21:00",
+        "schedule": [
+          "Daily: 11:00–21:00"
+        ],
+        "notes": "Business hours from the venue’s linked reservation page.",
+        "sourceUrl": "https://tableagent.com/singapore/the-boneless-kitchen-korean/",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Direct operator homepage/reservation page links and embeds this exact TableAgent business.1IrvingPlace and84576464 match; Business Hours explicitly lists all7days11-21.17Oct captured source preferred over unclaimed Burpple12-21/Monclosed; Oddle11:30-20:45 is delivery only. No reservation made. Earlier hold resolved by stronger operator-linked business-hours evidence, not booking-slot inference."
+    },
+    {
+      "venueId": "research-merle-lentor-modern",
+      "address": "1 Lentor Central #01-36, Lentor Modern Mall, Singapore 788887",
+      "hours": {
+        "summary": "Weekday & weekend hours vary",
+        "schedule": [
+          "Mon–Thu: 09:30–21:00",
+          "Fri: 09:30–22:00",
+          "Sat: 08:30–22:00",
+          "Sun: 08:30–21:00"
+        ],
+        "notes": "Business hours from the venue’s linked reservation page.",
+        "sourceUrl": "https://tableagent.com/singapore/merle-co/",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Operator homepage directly links this exact TableAgent business, same1LentorCentral address and97578449. Business Hours explicitly statesAM opening. Operator locate-us page contains apparent9.30pm weekday typo (MonThu opening after closing), while linked reservation schedule and exact-branch secondary evidence agree09:30AM; weekdayAM not silently inferred from typo. Both captured17Oct. Earlier secondary-only hold resolved by operator-linked source."
+    },
+    {
+      "venueId": "research-egg-plant-marina-bay-source",
+      "address": "8A Marina Boulevard #B2-33 Marina Bay Link Mall, Singapore 018984",
+      "hours": {
+        "summary": "Mon–Fri 11:00–20:00",
+        "schedule": [
+          "Mon–Fri: 11:00–20:00",
+          "Sat, Sun and public holidays: Closed"
+        ],
+        "notes": "Last order 19:30.",
+        "sourceUrl": "https://bythebay.com.sg/directory",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Actual property manager directory loads publicassets/includes/cache/retail.json. Exactegg.plantMBLM#B2-33row explicitly openingMonFri11am-8pm,last7.30pm,SatSunPHclosed. Captured17Oct. Landlord schedule preferred over conflicting secondary directories and delivery windows; hold resolved by exact primary tenant record."
+    },
+    {
+      "venueId": "research-supreme-vege-queen-street",
+      "address": "12 Queen Street, Hotel Royal @ Queens #02-03, Singapore 188553",
+      "hours": {
+        "summary": "Hours 11:00–14:00 · 17:00–21:00",
+        "schedule": [
+          "Listed outlet hours: 11:00–14:00 and 17:00–21:00"
+        ],
+        "notes": "Operator contact page lists these meal periods but does not specify weekdays or holiday exceptions. Confirm the day with the venue.",
+        "sourceUrl": "https://www.supremevege.sg/contact-us/",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Exact operator contact page name/address/unit/phone agree with reviewed branch. No daily/weekday pattern inferred."
+    },
+    {
+      "venueId": "research-warungijo-macpherson",
+      "address": "601 MacPherson Road #01-61 Grantral Mall Taiseng, Singapore 368242",
+      "hours": {
+        "summary": "Mon–Fri 11:00–15:00 · 17:00–21:00",
+        "schedule": [
+          "Monday–Friday: 11:00–15:00 and 17:00–21:00",
+          "Saturday–Sunday: 11:00–15:30 and 16:30–21:00"
+        ],
+        "notes": "Landlord tenant schedule. Delivery hours are separate; confirm holiday exceptions with the venue.",
+        "sourceUrl": "https://grantralmallsg.com/store/warung-ijo/",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Official mall tenant page explicitly binds WarungIjo unit01-61 and Macpherson mall. Distinct from general mall10–22 and operator ordering delivery slots. Web reader verified17Oct2026; direct HTTP capture failed, web indexed page accessible. Older secondary Monday closure/evening differences are retained in review notes."
+    },
+    {
+      "venueId": "research-omg-donuts-margaret-market",
+      "address": "38 Margaret Drive #01-08 Margaret Market, Singapore 141038",
+      "hours": {
+        "summary": "Daily 10:00–22:00",
+        "schedule": [
+          "Daily: 10:00–22:00"
+        ],
+        "notes": "Margaret Market tenant directory schedule. Holiday hours may differ.",
+        "sourceUrl": "https://margaretmarket.sg/our-vendors/",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Exact named tenant OMG!DecadentDonuts in landlordLevel1F&B directory at38MargaretDrive. Own operatorcontact page confirms#01-08. Landlord explicitly listsMondaySunday10am10pm; not generic mall hours or delivery slots. Web tool reads259line primarypage; ordinaryHTTPfetch403 retained as separate retrieval outcome."
+    },
+    {
+      "venueId": "research-ur02-vegetarian-express-hougang",
+      "address": "205 Hougang Street 21, #02-22, Singapore 530205",
+      "hours": {
+        "summary": "Daily 11:00–21:00",
+        "schedule": [
+          "Daily: 11:00–21:00"
+        ],
+        "notes": "Holiday hours may differ.",
+        "sourceUrl": "https://heartlandmall.com.sg/vegetarian-express/",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Exact landlord tenant entry says Monday–Sunday11am–9pm and#02-22, same name and phone63835672. This is tenant opening hours, not generic mall hours. Older third-party unit#02-04 not transferred."
+    },
+    {
+      "venueId": "research-ur13-sangeetha-rangoon",
+      "address": "79 Rangoon Road, Singapore218366",
+      "hours": {
+        "summary": "Daily 11:30–22:15",
+        "schedule": [
+          "Daily: 11:30–22:15"
+        ],
+        "notes": "Holiday hours may differ.",
+        "sourceUrl": "https://www.sangeethabhavan.com/",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Readable merchant homepage explicitly labels Opening Hours for Monday–Friday/Saturday/Sunday11.30AM–10.15PM, with79RangoonRoad/218366 and63925785. Operator venue schedule takes precedence over different delivery/pickup windows, secondary22:30 and old uppercase Menu404. Contact retrieval failure retained; no refetch of failed path."
+    },
+    {
+      "venueId": "research-ur06-original-sin",
+      "address": "43 Jalan Merah Saga #01-62, Singapore278115",
+      "hours": {
+        "summary": "Tue–Sun 11:30–16:15 · 17:00–22:30",
+        "schedule": [
+          "Tue–Sun: 11:30–16:15 and 17:00–22:30",
+          "Monday: hours unconfirmed"
+        ],
+        "notes": "Operator homepage structured schedule. Monday is not published and remains unconfirmed; holiday hours may differ.",
+        "sourceUrl": "https://www.originalsin.sg/",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Fresh17October direct merchant homepage200 publishes exact43JalanMerahSaga/278115 Restaurant JSON-LD with12explicit intervals forTue–Sun. Visible homepage names#01-62. Monday is absent: preserve as unconfirmed, never infer closed. Historic2020article hours are not used. The embedded schedule was missed by visible-text-only earlier reviews.",
+      "unconfirmedDays": [
+        "Monday"
+      ]
+    },
+    {
+      "venueId": "research-sufood-raffles-city",
+      "address": "252 North Bridge Road, #02-19 to 21 Raffles City Shopping Centre, Singapore 179103",
+      "hours": {
+        "summary": "Daily 11:30–15:00 · 17:30–22:00",
+        "schedule": [
+          "Daily: 11:30–15:00 and 17:30–22:00"
+        ],
+        "notes": "Last orders: lunch 14:30; dinner 21:30. Merchant profile captured 15 October 2026; current recheck unavailable. Holiday hours may differ.",
+        "sourceUrl": "https://www.facebook.com/sufood.singapore/",
+        "checkedAt": "2026-10-15",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Exact merchant profile explicitly names Raffles City#02-19 and252NorthBridgeRoad. Original readable public browser capture/check date15October retained. Current web-reader recheck returns a block page; no login, TLS bypass, private APIs or access-control workaround attempted. The full daily venue schedule is distinct from the temporary Closednow label and delivery windows.",
+      "unconfirmedDays": [],
+      "sourcePageCheckedAt": "2026-10-15T10:50:08.115418+00:00",
+      "reviewedAt": "2026-10-17",
+      "sourceSha256": "3d5a4d167a2dbe6b29ef27ab9cd2cb1a49446c72037c1ffdee398eb4d90de9fe",
+      "previousHoldRetained": "Current primary hours unavailable; secondary schedules conflict."
+    },
+    {
+      "venueId": "research-ur01-new-green-pasture-fortune",
+      "address": "190 Middle Road #04-22 Fortune Centre, Singapore 188979",
+      "hours": {
+        "summary": "Tue–Sun 11:00–20:00",
+        "schedule": [
+          "Tue–Sun: 11:00–20:00",
+          "Monday: hours unconfirmed"
+        ],
+        "notes": "Merchant dine-in page publishes Tue–Sun hours; Monday is not specified and remains unconfirmed. Holiday hours may differ.",
+        "sourceUrl": "https://take.app/newgreenpasture",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "review": "Exact existing merchant TakeApp binding and phone63368755 retained for FortuneCentre#04-22. Fresh17October primary page200 explicitly welcomes dine-in and saysOpenTueSun11–20. This is merchant descriptive venue text, not a delivery-slot table. Its separate Feb2022price note is preserved but no prices/foods were re-extracted. Monday absent, not inferred closed.",
+      "unconfirmedDays": [
+        "Monday"
+      ],
+      "sourcePageCheckedAt": "2026-10-17T01:01:27.002601+00:00",
+      "reviewedAt": "2026-10-17",
+      "sourceSha256": "313b26065b2d44881020d9672be295198c3dce88326d6cee7ae09d726b7e848b",
+      "previousHoldRetained": "Saved source leads reviewed; no reliable exact-branch current venue opening schedule established. Ordering slots, mall hours, historical/secondary-only claims and unavailable pages are not promoted."
+    },
+    {
+      "venueId": "research-genesis-vegan-havelock-ii",
+      "address": "2 Havelock Road, #B1-01 Havelock II, Singapore 059763",
+      "hours": {
+        "summary": "Sun–Thu lunch & dinner · Fri lunch",
+        "schedule": [
+          "Sun–Thu: 11:00–15:00 and 17:00–21:00",
+          "Friday: 11:00–15:00",
+          "Saturday: closed"
+        ],
+        "notes": "Merchant-listed regular hours; holidays and special closures may differ.",
+        "sourceUrl": "https://www.facebook.com/genesisvegan/",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "sourcePageCheckedAt": "2026-10-17T02:07:27.440Z",
+      "sourceSha256": "a4badd83e0465a6e99814cb3c51183a6b9c0789305c5ecbb6b95df8b48cc48b4",
+      "review": "Exact existing branch matched to merchant public bio/address plus visible expanded regular-hours control or own printed post text. Transient Open/Closed/Opening soon labels are not persisted. Source update-age qualifications retained."
+    },
+    {
+      "venueId": "research-ur01-tracy-fortune",
+      "address": "190 Middle Road #01-34 Fortune Centre, Singapore 188979",
+      "hours": {
+        "summary": "Daily 09:30–18:15",
+        "schedule": [
+          "Daily: 09:30–18:15"
+        ],
+        "notes": "The merchant profile labels these hours as updated about 4 years ago. They remain publicly listed, but current trading hours should be reconfirmed.",
+        "sourceUrl": "https://www.facebook.com/TracyJuiceCulture/",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "sourcePageCheckedAt": "2026-10-17T02:07:49.371Z",
+      "sourceSha256": "bcb63852e4fe0bba3de5e377e30bb35764b517d42dca90ce0c42f5d3053de875",
+      "review": "Exact existing branch matched to merchant public bio/address plus visible expanded regular-hours control or own printed post text. Transient Open/Closed/Opening soon labels are not persisted. Source update-age qualifications retained."
+    },
+    {
+      "venueId": "research-ur02-xie-bi-an-vegetarian",
+      "address": "824 Tampines Street 81, #01-38, BK Coffeeshop, Singapore 520824",
+      "hours": {
+        "summary": "Daily 07:00–20:00",
+        "schedule": [
+          "Daily: 07:00–20:00"
+        ],
+        "notes": "The merchant profile labels these hours as updated about 5 years ago. Dated holiday/temporary-closure posts are separate; reconfirm before visiting.",
+        "sourceUrl": "https://www.facebook.com/xiebianvege/",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "sourcePageCheckedAt": "2026-10-17T02:08:49.831Z",
+      "sourceSha256": "d270acd07d9dcf4682e021d6422bc8898e450cfa5ddaa955b877366e15fcabcf",
+      "review": "Exact existing branch matched to merchant public bio/address plus visible expanded regular-hours control or own printed post text. Transient Open/Closed/Opening soon labels are not persisted. Source update-age qualifications retained."
+    },
+    {
+      "venueId": "research-ur02-tpy-203-vegetarian-food",
+      "address": "203 Toa Payoh North, Singapore 310203",
+      "hours": {
+        "summary": "Mon–Sat 06:00–13:00 · Sun closed",
+        "schedule": [
+          "Mon–Sat: 06:00–13:00",
+          "Sunday: closed"
+        ],
+        "notes": "Merchant profile identifies Block203, unit01-1121, Toa Payoh Spring. Existing exact-branch binding retained; special closures may differ.",
+        "sourceUrl": "https://www.facebook.com/Tpy203veg/",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "sourcePageCheckedAt": "2026-10-17T02:08:59.169Z",
+      "sourceSha256": "ed3445aec2392e3d317b6aa0396c3ec32ce1a8693896a7bad3f3e60604b452bd",
+      "review": "Exact existing branch matched to merchant public bio/address plus visible expanded regular-hours control or own printed post text. Transient Open/Closed/Opening soon labels are not persisted. Source update-age qualifications retained."
+    },
+    {
+      "venueId": "research-ur02-amk-green-harmony-vegetarian",
+      "address": "443 Ang Mo Kio Avenue 10, #01-1221, Singapore 560443",
+      "hours": {
+        "summary": "Daily 10:30–21:00",
+        "schedule": [
+          "Daily: 10:30–21:00"
+        ],
+        "notes": "Explicit daily hours in the merchant bio; not inferred from an Opening soon label. Holidays and special closures may differ.",
+        "sourceUrl": "https://www.facebook.com/p/%E7%B4%A0%E5%92%8C%E8%BD%A9-Green-Harmony-Vegetarian-61573781043177/",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "sourcePageCheckedAt": "2026-10-17T02:09:09.510Z",
+      "sourceSha256": "7ff360b4c2bdbb6a673e97f0145f79ef1808948b9579dd8e0ec26b88317e5e77",
+      "review": "Exact existing branch matched to merchant public bio/address plus visible expanded regular-hours control or own printed post text. Transient Open/Closed/Opening soon labels are not persisted. Source update-age qualifications retained."
+    },
+    {
+      "venueId": "research-ur01-harmony-serangoon",
+      "address": "157A Serangoon North Avenue 1 #01-01, Singapore 551157",
+      "hours": {
+        "summary": "Tue–Sun 11:00–21:00 · Mon closed",
+        "schedule": [
+          "Tue–Sun: 11:00–21:00",
+          "Monday: closed"
+        ],
+        "notes": "Merchant profile labels these hours as updated about 2 years ago; an operating-hours update post dated9June2024 is also visible. Reconfirm current hours before visiting.",
+        "sourceUrl": "https://www.facebook.com/harmonyhutvegetariancafe/",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "sourcePageCheckedAt": "2026-10-17T02:10:18.590Z",
+      "sourceSha256": "b567ae42e9ae94777b258c6967d796f419ed963a2e46cb99508a206731201125",
+      "review": "Exact existing branch matched to merchant public bio/address plus visible expanded regular-hours control or own printed post text. Transient Open/Closed/Opening soon labels are not persisted. Source update-age qualifications retained."
+    },
+    {
+      "venueId": "research-leafcorner-jurong",
+      "address": "60 Jurong West Street 91 #01-09, Nanyang Community Club, Singapore 649040",
+      "hours": {
+        "summary": "Daily 11:00–21:30",
+        "schedule": [
+          "Daily: 11:00–21:30"
+        ],
+        "notes": "Merchant bio and expanded weekly hours agree. The hours panel says updated about 3 years ago. Applied only to the explicitly addressed Nanyang branch; other branch schedules are unconfirmed.",
+        "sourceUrl": "https://www.facebook.com/leafcornersg/",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "sourcePageCheckedAt": "2026-10-17T02:10:27.544Z",
+      "sourceSha256": "ff54b9c2974d752ed771f9a085bcea874b8b08460ce91ef15cd6b96c2a30c604",
+      "review": "Exact existing branch matched to merchant public bio/address plus visible expanded regular-hours control or own printed post text. Transient Open/Closed/Opening soon labels are not persisted. Source update-age qualifications retained."
+    },
+    {
+      "venueId": "research-ur06-so-green",
+      "address": "445 Bedok North Street1 #01-02, Djitsun Mall, Singapore469661",
+      "hours": {
+        "summary": "Daily 11:00–21:00",
+        "schedule": [
+          "Daily: 11:00–21:00"
+        ],
+        "notes": "Merchant profile labels these hours as updated about 4 years ago. Current bio identifies the exact Djitsun Mall Bedok unit; reconfirm trading hours before visiting.",
+        "sourceUrl": "https://www.facebook.com/GuiLinVegetarian/",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "sourcePageCheckedAt": "2026-10-17T02:11:26.487Z",
+      "sourceSha256": "2ce2a9dc2569742b5a6ea0a1b46cbdfdfccb01a8ef9126cf8f9243708605f357",
+      "review": "Exact existing branch matched to merchant public bio/address plus visible expanded regular-hours control or own printed post text. Transient Open/Closed/Opening soon labels are not persisted. Source update-age qualifications retained."
+    },
+    {
+      "venueId": "research-greenland-upper-serangoon",
+      "address": "789 & 791 Upper Serangoon Road, Singapore 534659",
+      "hours": {
+        "summary": "Regular 11:30–21:30 · dated exception",
+        "schedule": [
+          "Daily: 11:30–21:30",
+          "17 October 2026: private event from 17:00; regular evening service overridden"
+        ],
+        "notes": "Merchant notice checked17October2026 announces a private event on17October from17:00. Regular hours may not apply that evening. Regular weekly profile hours and their original check date are retained; other special closures may differ.",
+        "sourceUrl": "https://www.facebook.com/greenland791/",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "sourcePageCheckedAt": "2026-10-17T02:11:35.777Z",
+      "sourceSha256": "bfb2bdb43b669226bbb4641b7b83000c5d40357e79efe67a61f73fa892992849",
+      "review": "Exact existing branch matched to merchant public bio/address plus visible expanded regular-hours control or own printed post text. Transient Open/Closed/Opening soon labels are not persisted. Source update-age qualifications retained.",
+      "supplementalSources": [
+        {
+          "url": "https://www.facebook.com/zizaiveg/posts/pfbid02bMr3Xi6gGBhjmnobVdgqHXNr4dnGcYuJudoYtFAKodoxyTukjo15v6irDruSiMqfl",
+          "checkedAt": "2026-10-17T02:57:43.900Z",
+          "kind": "operator-dated-private-event",
+          "sourceSha256": "c14565ec7b1f5d016c279a9989a959601092e13fb0c05be62e3acdbb245f6f6a",
+          "imageSha256": "9adabdb1ebe2ee976e3d4367bf9a782ba7c1ead5216353e36c3a746734a30c20",
+          "printedDate": "17 October, 5pm",
+          "eventDate": "2026-10-17",
+          "dateBasis": "Poster explicitly prints17October/5pm; caption says tomorrow and visible relative age is15hours at17October2026Singapore capture. Year inferred from capture context, not printed on poster.",
+          "identityEvidence": "Exact789&791UpperSerangoon/534659 in the operator caption, matching existing Greenland record.",
+          "review": "Visually read original merchant poster. No inference about normal weekly hours or other ZiZai outlets."
+        }
+      ]
+    },
+    {
+      "venueId": "research-mother-earth-classic-balestier",
+      "address": "530 Balestier Road #01-06, 329857, Singapore",
+      "hours": {
+        "summary": "Thu–Tue 10:30–21:30 · Wed closed",
+        "schedule": [
+          "Mon–Tue and Thu–Sun: 10:30–21:30",
+          "Wednesday: closed"
+        ],
+        "notes": "Regular merchant profile hours, labelled updated about 7 months ago. A separate operator post dated7October announces a one-day opening without changing the weekly schedule; special announcements may override regular hours.",
+        "sourceUrl": "https://www.facebook.com/motherearthclassic/",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "sourcePageCheckedAt": "2026-10-17T02:11:45.942Z",
+      "sourceSha256": "8b3d4ced7c54adf3238f1404e9c745c347dab62689a21013ad46537467c43ca5",
+      "review": "Exact existing branch matched to merchant public bio/address plus visible expanded regular-hours control or own printed post text. Transient Open/Closed/Opening soon labels are not persisted. Source update-age qualifications retained."
+    },
+    {
+      "venueId": "research-linlin-bedok-north",
+      "address": "412 Bedok North Avenue 2, inside SinFoodie Coffeeshop, Singapore 460412",
+      "hours": {
+        "summary": "Tue–Sun 10:00–20:30 · lunar exceptions",
+        "schedule": [
+          "Tue–Sun: 10:00–20:30",
+          "Monday: closed except merchant lunar-day exceptions; exception hours unconfirmed"
+        ],
+        "notes": "Hours printed in the merchant’s own18and24September posts, distinct from a shared review. The year is not printed in the visible post date. Lunar-day exceptions are not converted into assumed Monday opening times.",
+        "sourceUrl": "https://www.facebook.com/linlin.veg/",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "sourcePageCheckedAt": "2026-10-17T02:13:08.334Z",
+      "sourceSha256": "49761c6efe399ffbacb7dbe630f611b24fa42515612ec15575add5c4a16a3132",
+      "review": "Exact existing branch matched to merchant public bio/address plus visible expanded regular-hours control or own printed post text. Transient Open/Closed/Opening soon labels are not persisted. Source update-age qualifications retained.",
+      "unconfirmedExceptions": "Monday lunar-day opening times and exact exception dates remain unconfirmed."
+    },
+    {
+      "venueId": "research-botanict-clementi",
+      "address": "Blk 352 Clementi Avenue 2 #01-123, Singapore 120352",
+      "hours": {
+        "summary": "Tue–Sun 11:00–22:00 · Mon closed",
+        "schedule": [
+          "Tue–Sun: 11:00–22:00",
+          "Monday: closed"
+        ],
+        "notes": "Merchant weekly panel says updated about 3 months ago. A separate7October private-event early closure does not change the regular schedule; dated exceptions may apply.",
+        "sourceUrl": "https://www.facebook.com/BotanictSG/",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "sourcePageCheckedAt": "2026-10-17T02:31:22.466Z",
+      "sourceSha256": "6d81065405692e408e19aa17d59c1c2ea78a7f2f4ac6ba2f5f4e33e9c8201f82",
+      "review": "Exact existing premises retained; source hours and qualifications inspected directly. No transient Open/Closed label persisted."
+    },
+    {
+      "venueId": "research-sl08-ju-fu-yuan-amk",
+      "address": "162 Ang Mo Kio Avenue 4 #01-14, Singapore 560162",
+      "hours": {
+        "summary": "Daily 05:00–14:00",
+        "schedule": [
+          "Daily: 05:00–14:00"
+        ],
+        "notes": "Merchant-listed weekly hours for162AngMoKioAve4only; last update date is unstated. No schedule transfer to other JuFuYuan outlets.",
+        "sourceUrl": "https://www.facebook.com/jfy82vegetarin",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "sourcePageCheckedAt": "2026-10-17T02:36:37.249Z",
+      "sourceSha256": "7ff301e63caeb3a4aa60b2b5d0897519fbd80ba938be55374aa72b69b4859d73",
+      "review": "Exact existing premises retained; source hours and qualifications inspected directly. No transient Open/Closed label persisted."
+    },
+    {
+      "venueId": "research-ur08-150-green",
+      "address": "150 Bukit Batok Street 11 #01-224, Singapore 650150",
+      "hours": {
+        "summary": "Daily 06:30–13:30",
+        "schedule": [
+          "Daily: 06:30–13:30"
+        ],
+        "notes": "Merchant profile hours are labelled updated about 5 years ago. Its own post announces reopening24April2026 without a revised schedule; reconfirm before visiting. Profile linked from the exact150BukitBatok company record, with matching96347417phone.",
+        "sourceUrl": "https://www.facebook.com/150greenvegetarian/",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "sourcePageCheckedAt": "2026-10-17T02:34:17.631Z",
+      "sourceSha256": "81ef5cda2f7987f8b119f5959895ebf09b8e2131fe28e29c904333f3b61c296d",
+      "review": "Exact existing premises retained; source hours and qualifications inspected directly. No transient Open/Closed label persisted.",
+      "identityEvidenceUrl": "https://recordowl.com/company/150-green-vegetarian",
+      "aliasQualification": "Both reviewed IDs represent one exact150BukitBatokStreet11#01-224premise; one browse card, no food/menu merge."
+    },
+    {
+      "venueId": "research-150-green-bukit-batok",
+      "address": "150 Bukit Batok Street 11 #01-224, Singapore 650150",
+      "hours": {
+        "summary": "Daily 06:30–13:30",
+        "schedule": [
+          "Daily: 06:30–13:30"
+        ],
+        "notes": "Merchant profile hours are labelled updated about 5 years ago. Its own post announces reopening24April2026 without a revised schedule; reconfirm before visiting. Profile linked from the exact150BukitBatok company record, with matching96347417phone.",
+        "sourceUrl": "https://www.facebook.com/150greenvegetarian/",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "sourcePageCheckedAt": "2026-10-17T02:34:17.631Z",
+      "sourceSha256": "81ef5cda2f7987f8b119f5959895ebf09b8e2131fe28e29c904333f3b61c296d",
+      "review": "Exact existing premises retained; source hours and qualifications inspected directly. No transient Open/Closed label persisted.",
+      "identityEvidenceUrl": "https://recordowl.com/company/150-green-vegetarian",
+      "aliasQualification": "Both reviewed IDs represent one exact150BukitBatokStreet11#01-224premise; one browse card, no food/menu merge."
+    },
+    {
+      "venueId": "research-cookie-coffee-fortune-centre",
+      "address": "190 Middle Road #01-28B Fortune Centre, Singapore 188979",
+      "hours": {
+        "summary": "Mon–Thu 09:30–22:00 · later Fri/Sat",
+        "schedule": [
+          "Mon–Thu: 09:30–22:00",
+          "Friday: 09:30–23:00",
+          "Saturday: 10:30–23:00",
+          "Sunday: 12:00–22:00"
+        ],
+        "notes": "Merchant-linked profile under Sereneya management; hours panel says updated about 4 years ago. Source profile/footer say01-28 while the same merchant main body specifies01-28B. Existing unit-variation hold retained; reconfirm current hours.",
+        "sourceUrl": "https://facebook.com/cookiecoffee3366",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "sourcePageCheckedAt": "2026-10-17T02:39:37.779Z",
+      "sourceSha256": "4c013008062611c9f49cf9461f4f68bf8cf869580a74093f9f57ce898f981788",
+      "review": "Exact existing premises retained; source hours and qualifications inspected directly. No transient Open/Closed label persisted.",
+      "identityEvidenceUrl": "https://cookiecoffee.com.sg/"
+    },
+    {
+      "venueId": "research-shu-jalan-kayu",
+      "address": "259 Jalan Kayu, Singapore 799488",
+      "hours": {
+        "summary": "Merchant-listed 11:00–02:00 next day · days unconfirmed",
+        "schedule": [
+          "Merchant-listed opening times: 11:00–02:00 next day",
+          "Weekdays/rest days: unconfirmed"
+        ],
+        "notes": "Operator5October Nine Emperor Gods Festival poster says outlets open as usual and prints these branch times. Weekdays/rest days and lasting applicability are not stated; reconfirm the regular schedule. Visible post date omits the year.",
+        "sourceUrl": "https://www.facebook.com/reel/1072235328780539/",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "sourcePageCheckedAt": "2026-10-17T02:37:56.085Z",
+      "sourceSha256": "36a3472a0b2fc8858f97b6b170cd77a80a406e36a03f135648234a32d6a4f552",
+      "review": "Exact existing premises retained; source hours and qualifications inspected directly. No transient Open/Closed label persisted.",
+      "weeklyDaysUnconfirmed": true,
+      "identityReview": "259JalanKayu/799488",
+      "visualEvidence": "shu-festival-legible-frame.png",
+      "visualReview": "Directly inspected all nine address/time cells in the original public video frame, moved above caption overlays for legibility; no generated/OCR-invented text."
+    },
+    {
+      "venueId": "research-shu-amk",
+      "address": "554 Ang Mo Kio Ave 10, #01-2040",
+      "hours": {
+        "summary": "Merchant-listed 08:30–21:00 · days unconfirmed",
+        "schedule": [
+          "Merchant-listed opening times: 08:30–21:00",
+          "Weekdays/rest days: unconfirmed"
+        ],
+        "notes": "Operator5October Nine Emperor Gods Festival poster says outlets open as usual and prints these branch times. Weekdays/rest days and lasting applicability are not stated; reconfirm the regular schedule. Visible post date omits the year. Separate23September merchant caption calls21:00 last order; final closing time is unconfirmed.",
+        "sourceUrl": "https://www.facebook.com/reel/1072235328780539/",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "sourcePageCheckedAt": "2026-10-17T02:37:56.085Z",
+      "sourceSha256": "36a3472a0b2fc8858f97b6b170cd77a80a406e36a03f135648234a32d6a4f552",
+      "review": "Exact existing premises retained; source hours and qualifications inspected directly. No transient Open/Closed label persisted.",
+      "weeklyDaysUnconfirmed": true,
+      "identityReview": "554AngMoKio10#01-2040/560554",
+      "visualEvidence": "shu-festival-legible-frame.png",
+      "visualReview": "Directly inspected all nine address/time cells in the original public video frame, moved above caption overlays for legibility; no generated/OCR-invented text."
+    },
+    {
+      "venueId": "shu-woodlands-avenue-1",
+      "address": "354A Woodlands Avenue 1 #01-01, Singapore 731354",
+      "hours": {
+        "summary": "Merchant-listed 10:30–21:00 · days unconfirmed",
+        "schedule": [
+          "Merchant-listed opening times: 10:30–21:00",
+          "Weekdays/rest days: unconfirmed"
+        ],
+        "notes": "Operator5October Nine Emperor Gods Festival poster says outlets open as usual and prints these branch times. Weekdays/rest days and lasting applicability are not stated; reconfirm the regular schedule. Visible post date omits the year. Poster postal730354 conflicts with existing731354; exact street/unit match retained without postal rewrite.",
+        "sourceUrl": "https://www.facebook.com/reel/1072235328780539/",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "sourcePageCheckedAt": "2026-10-17T02:37:56.085Z",
+      "sourceSha256": "36a3472a0b2fc8858f97b6b170cd77a80a406e36a03f135648234a32d6a4f552",
+      "review": "Exact existing premises retained; source hours and qualifications inspected directly. No transient Open/Closed label persisted.",
+      "weeklyDaysUnconfirmed": true,
+      "identityReview": "354AWoodlands1#01-01; posterpostal730354 differs from retained731354",
+      "visualEvidence": "shu-festival-legible-frame.png",
+      "visualReview": "Directly inspected all nine address/time cells in the original public video frame, moved above caption overlays for legibility; no generated/OCR-invented text."
+    },
+    {
+      "venueId": "research-shu-loyang",
+      "address": "259 Pasir Ris Street 21 #02-30, Loyang Point, Singapore 510259",
+      "hours": {
+        "summary": "Merchant-listed 10:30–21:00 · days unconfirmed",
+        "schedule": [
+          "Merchant-listed opening times: 10:30–21:00",
+          "Weekdays/rest days: unconfirmed"
+        ],
+        "notes": "Operator5October Nine Emperor Gods Festival poster says outlets open as usual and prints these branch times. Weekdays/rest days and lasting applicability are not stated; reconfirm the regular schedule. Visible post date omits the year.",
+        "sourceUrl": "https://www.facebook.com/reel/1072235328780539/",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "sourcePageCheckedAt": "2026-10-17T02:37:56.085Z",
+      "sourceSha256": "36a3472a0b2fc8858f97b6b170cd77a80a406e36a03f135648234a32d6a4f552",
+      "review": "Exact existing premises retained; source hours and qualifications inspected directly. No transient Open/Closed label persisted.",
+      "weeklyDaysUnconfirmed": true,
+      "identityReview": "259PasirRis21LoyangPoint#02-30; postal510259 matches existing",
+      "visualEvidence": "shu-festival-legible-frame.png",
+      "visualReview": "Directly inspected all nine address/time cells in the original public video frame, moved above caption overlays for legibility; no generated/OCR-invented text."
+    },
+    {
+      "venueId": "research-shu-jurong",
+      "address": "498 Jurong West Street 41 #01-462, Singapore 640498",
+      "hours": {
+        "summary": "Merchant-listed 10:30–21:00 · days unconfirmed",
+        "schedule": [
+          "Merchant-listed opening times: 10:30–21:00",
+          "Weekdays/rest days: unconfirmed"
+        ],
+        "notes": "Operator5October Nine Emperor Gods Festival poster says outlets open as usual and prints these branch times. Weekdays/rest days and lasting applicability are not stated; reconfirm the regular schedule. Visible post date omits the year.",
+        "sourceUrl": "https://www.facebook.com/reel/1072235328780539/",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "sourcePageCheckedAt": "2026-10-17T02:37:56.085Z",
+      "sourceSha256": "36a3472a0b2fc8858f97b6b170cd77a80a406e36a03f135648234a32d6a4f552",
+      "review": "Exact existing premises retained; source hours and qualifications inspected directly. No transient Open/Closed label persisted.",
+      "weeklyDaysUnconfirmed": true,
+      "identityReview": "498JurongWest41#01-462/640498",
+      "visualEvidence": "shu-festival-legible-frame.png",
+      "visualReview": "Directly inspected all nine address/time cells in the original public video frame, moved above caption overlays for legibility; no generated/OCR-invented text."
+    },
+    {
+      "venueId": "research-shu-margaret",
+      "address": "40 Margaret Drive #01-05, Singapore 140040",
+      "hours": {
+        "summary": "Merchant-listed 10:30–21:00 · days unconfirmed",
+        "schedule": [
+          "Merchant-listed opening times: 10:30–21:00",
+          "Weekdays/rest days: unconfirmed"
+        ],
+        "notes": "Operator5October Nine Emperor Gods Festival poster says outlets open as usual and prints these branch times. Weekdays/rest days and lasting applicability are not stated; reconfirm the regular schedule. Visible post date omits the year.",
+        "sourceUrl": "https://www.facebook.com/reel/1072235328780539/",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "sourcePageCheckedAt": "2026-10-17T02:37:56.085Z",
+      "sourceSha256": "36a3472a0b2fc8858f97b6b170cd77a80a406e36a03f135648234a32d6a4f552",
+      "review": "Exact existing premises retained; source hours and qualifications inspected directly. No transient Open/Closed label persisted.",
+      "weeklyDaysUnconfirmed": true,
+      "identityReview": "40MargaretDrive#01-05/140040",
+      "visualEvidence": "shu-festival-legible-frame.png",
+      "visualReview": "Directly inspected all nine address/time cells in the original public video frame, moved above caption overlays for legibility; no generated/OCR-invented text."
+    },
+    {
+      "venueId": "research-shu-yishun",
+      "address": "239 Yishun Ring Road #01-1150, Singapore 760239",
+      "hours": {
+        "summary": "Merchant-listed 08:00–21:00 · days unconfirmed",
+        "schedule": [
+          "Merchant-listed opening times: 08:00–21:00",
+          "Weekdays/rest days: unconfirmed"
+        ],
+        "notes": "Operator5October Nine Emperor Gods Festival poster says outlets open as usual and prints these branch times. Weekdays/rest days and lasting applicability are not stated; reconfirm the regular schedule. Visible post date omits the year.",
+        "sourceUrl": "https://www.facebook.com/reel/1072235328780539/",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "sourcePageCheckedAt": "2026-10-17T02:37:56.085Z",
+      "sourceSha256": "36a3472a0b2fc8858f97b6b170cd77a80a406e36a03f135648234a32d6a4f552",
+      "review": "Exact existing premises retained; source hours and qualifications inspected directly. No transient Open/Closed label persisted.",
+      "weeklyDaysUnconfirmed": true,
+      "identityReview": "239YishunRing#01-1150/760239",
+      "visualEvidence": "shu-festival-legible-frame.png",
+      "visualReview": "Directly inspected all nine address/time cells in the original public video frame, moved above caption overlays for legibility; no generated/OCR-invented text."
+    },
+    {
+      "venueId": "research-shu-hq",
+      "address": "27 Woodlands Link #01-01, Chang Cheng HQ (Chang Cheng Mee Wah Coffeeshop), Singapore 738732",
+      "hours": {
+        "summary": "Merchant-listed 10:00–20:45 · days unconfirmed",
+        "schedule": [
+          "Merchant-listed opening times: 10:00–20:45",
+          "Weekdays/rest days: unconfirmed"
+        ],
+        "notes": "Operator5October Nine Emperor Gods Festival poster says outlets open as usual and prints these branch times. Weekdays/rest days and lasting applicability are not stated; reconfirm the regular schedule. Visible post date omits the year.",
+        "sourceUrl": "https://www.facebook.com/reel/1072235328780539/",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "sourcePageCheckedAt": "2026-10-17T02:37:56.085Z",
+      "sourceSha256": "36a3472a0b2fc8858f97b6b170cd77a80a406e36a03f135648234a32d6a4f552",
+      "review": "Exact existing premises retained; source hours and qualifications inspected directly. No transient Open/Closed label persisted.",
+      "weeklyDaysUnconfirmed": true,
+      "identityReview": "27WoodlandsLink#01-01/738732",
+      "visualEvidence": "shu-festival-legible-frame.png",
+      "visualReview": "Directly inspected all nine address/time cells in the original public video frame, moved above caption overlays for legibility; no generated/OCR-invented text."
+    },
+    {
+      "venueId": "research-shu-clementi",
+      "address": "722 Clementi West Street 2 #01-150 (Wan Fu Eating House), Singapore 120722",
+      "hours": {
+        "summary": "Merchant-listed 10:00–20:45 · days unconfirmed",
+        "schedule": [
+          "Merchant-listed opening times: 10:00–20:45",
+          "Weekdays/rest days: unconfirmed"
+        ],
+        "notes": "Operator5October Nine Emperor Gods Festival poster says outlets open as usual and prints these branch times. Weekdays/rest days and lasting applicability are not stated; reconfirm the regular schedule. Visible post date omits the year.",
+        "sourceUrl": "https://www.facebook.com/reel/1072235328780539/",
+        "checkedAt": "2026-10-17",
+        "timezone": "Asia/Singapore"
+      },
+      "sourcePageCheckedAt": "2026-10-17T02:37:56.085Z",
+      "sourceSha256": "36a3472a0b2fc8858f97b6b170cd77a80a406e36a03f135648234a32d6a4f552",
+      "review": "Exact existing premises retained; source hours and qualifications inspected directly. No transient Open/Closed label persisted.",
+      "weeklyDaysUnconfirmed": true,
+      "identityReview": "722ClementiWest2#01-150/120722",
+      "visualEvidence": "shu-festival-legible-frame.png",
+      "visualReview": "Directly inspected all nine address/time cells in the original public video frame, moved above caption overlays for legibility; no generated/OCR-invented text."
+    }
+  ]
+}

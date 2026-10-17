@@ -1,0 +1,928 @@
+{
+  "checks": [
+    "Explore card shortcuts route directly to actual8itemmenu; unsupportedHerbivorehasnobadge",
+    "Card→details→Menu→Backpreservesdetails→Explore;independentSaveandgalleryremain",
+    "Cardinsetsandcompactrhythmfit320/375/768/1440withoutcontrolsoverlapping",
+    "Menusfit320/375/768/1440,darkandlargertext;longnames/unknownpriceswrapwithoutoverlap",
+    "DirectmenuURLsurvivesreloadandcachedmenuislabelledonnetworkfailure;retryremoveswithdrawnentries",
+    "Staleevidenceshowsexplicitrecheckanddatedsource;provideroutagestillallowsownedmenusearch"
+  ],
+  "screenshots": [
+    "C:\\Users\\huien\\QT\\quintaste\\.impeccable\\review\\consumer-menu-details-375.png",
+    "C:\\Users\\huien\\QT\\quintaste\\.impeccable\\review\\consumer-menu-menu-375.png",
+    "C:\\Users\\huien\\QT\\quintaste\\.impeccable\\review\\consumer-menu-explore-320.png",
+    "C:\\Users\\huien\\QT\\quintaste\\.impeccable\\review\\consumer-menu-explore-375.png",
+    "C:\\Users\\huien\\QT\\quintaste\\.impeccable\\review\\consumer-menu-explore-768.png",
+    "C:\\Users\\huien\\QT\\quintaste\\.impeccable\\review\\consumer-menu-explore-1440.png",
+    "C:\\Users\\huien\\QT\\quintaste\\.impeccable\\review\\consumer-menu-menu-320.png",
+    "C:\\Users\\huien\\QT\\quintaste\\.impeccable\\review\\consumer-menu-menu-375.png",
+    "C:\\Users\\huien\\QT\\quintaste\\.impeccable\\review\\consumer-menu-menu-768.png",
+    "C:\\Users\\huien\\QT\\quintaste\\.impeccable\\review\\consumer-menu-menu-1440.png",
+    "C:\\Users\\huien\\QT\\quintaste\\.impeccable\\review\\consumer-menu-menu-dark375.png",
+    "C:\\Users\\huien\\QT\\quintaste\\.impeccable\\review\\consumer-menu-menu-large320.png",
+    "C:\\Users\\huien\\QT\\quintaste\\.impeccable\\review\\consumer-menu-missing-prices375.png",
+    "C:\\Users\\huien\\QT\\quintaste\\.impeccable\\review\\consumer-menu-schedules375.png",
+    "C:\\Users\\huien\\QT\\quintaste\\.impeccable\\review\\consumer-menu-cached-recovery375.png",
+    "C:\\Users\\huien\\QT\\quintaste\\.impeccable\\review\\consumer-menu-withdrawn375.png",
+    "C:\\Users\\huien\\QT\\quintaste\\.impeccable\\review\\consumer-menu-stale375.png",
+    "C:\\Users\\huien\\QT\\quintaste\\.impeccable\\review\\consumer-menu-search-fallback375.png"
+  ],
+  "layouts": [
+    {
+      "name": "Explore320",
+      "width": 320,
+      "card": {
+        "x": 4,
+        "y": 120,
+        "width": 312,
+        "height": 207
+      },
+      "divider": {
+        "x": 18,
+        "y": 296,
+        "width": 284,
+        "height": 1
+      },
+      "hours": {
+        "x": 36,
+        "y": 303,
+        "width": 97.484375,
+        "height": 16
+      },
+      "badge": {
+        "x": 10,
+        "y": 126,
+        "width": 86.46875,
+        "height": 48
+      },
+      "save": {
+        "x": 262,
+        "y": 126,
+        "width": 48,
+        "height": 48
+      }
+    },
+    {
+      "name": "Explore320",
+      "width": 320,
+      "overflow": false,
+      "rows": [],
+      "buttons": [
+        {
+          "label": "Search this place or postal code",
+          "x": 5,
+          "right": 53,
+          "height": 48
+        },
+        {
+          "label": "Filters",
+          "x": 214,
+          "right": 262,
+          "height": 48
+        },
+        {
+          "label": "Search by my location",
+          "x": 268,
+          "right": 316,
+          "height": 48
+        },
+        {
+          "label": "Bodhi Deli. 190 Middle Road #03-26, Fortune Centre, Singapore 188979. Hours unavailable",
+          "x": 6,
+          "right": 314,
+          "height": 203
+        },
+        {
+          "label": "View Bodhi Deli in Google Maps",
+          "x": 141.484375,
+          "right": 227.921875,
+          "height": 24
+        },
+        {
+          "label": "View menu for Bodhi Deli, Fortune Centre",
+          "x": 10,
+          "right": 96.46875,
+          "height": 48
+        },
+        {
+          "label": "Remove saved Bodhi Deli",
+          "x": 262,
+          "right": 310,
+          "height": 48
+        },
+        {
+          "label": "Living Wholesome Vegetarian. 190 Middle Road #01-23, Fortune Centre, Singapore 188979. Hours unavailable",
+          "x": 6,
+          "right": 314,
+          "height": 203
+        },
+        {
+          "label": "View Living Wholesome Vegetarian in Google Maps",
+          "x": 141.484375,
+          "right": 227.921875,
+          "height": 24
+        },
+        {
+          "label": "View menu for Living Wholesome Vegetarian, Fortune Centre",
+          "x": 10,
+          "right": 96.46875,
+          "height": 48
+        },
+        {
+          "label": "Save Living Wholesome Vegetarian",
+          "x": 262,
+          "right": 310,
+          "height": 48
+        },
+        {
+          "label": "Herbivore. 190 Middle Road #01-13/14, Fortune Centre, Singapore 188979. Hours unavailable",
+          "x": 6,
+          "right": 314,
+          "height": 203
+        },
+        {
+          "label": "View Herbivore in Google Maps",
+          "x": 141.484375,
+          "right": 227.921875,
+          "height": 24
+        },
+        {
+          "label": "Save Herbivore",
+          "x": 262,
+          "right": 310,
+          "height": 48
+        }
+      ]
+    },
+    {
+      "name": "Explore375",
+      "width": 375,
+      "card": {
+        "x": 4,
+        "y": 120,
+        "width": 367,
+        "height": 207
+      },
+      "divider": {
+        "x": 18,
+        "y": 296,
+        "width": 339,
+        "height": 1
+      },
+      "hours": {
+        "x": 36,
+        "y": 303,
+        "width": 97.484375,
+        "height": 16
+      },
+      "badge": {
+        "x": 10,
+        "y": 126,
+        "width": 86.46875,
+        "height": 48
+      },
+      "save": {
+        "x": 317,
+        "y": 126,
+        "width": 48,
+        "height": 48
+      }
+    },
+    {
+      "name": "Explore375",
+      "width": 375,
+      "overflow": false,
+      "rows": [],
+      "buttons": [
+        {
+          "label": "Search this place or postal code",
+          "x": 5,
+          "right": 53,
+          "height": 48
+        },
+        {
+          "label": "Filters",
+          "x": 269,
+          "right": 317,
+          "height": 48
+        },
+        {
+          "label": "Search by my location",
+          "x": 323,
+          "right": 371,
+          "height": 48
+        },
+        {
+          "label": "Bodhi Deli. 190 Middle Road #03-26, Fortune Centre, Singapore 188979. Hours unavailable",
+          "x": 6,
+          "right": 369,
+          "height": 203
+        },
+        {
+          "label": "View Bodhi Deli in Google Maps",
+          "x": 141.484375,
+          "right": 227.921875,
+          "height": 24
+        },
+        {
+          "label": "View menu for Bodhi Deli, Fortune Centre",
+          "x": 10,
+          "right": 96.46875,
+          "height": 48
+        },
+        {
+          "label": "Remove saved Bodhi Deli",
+          "x": 317,
+          "right": 365,
+          "height": 48
+        },
+        {
+          "label": "Living Wholesome Vegetarian. 190 Middle Road #01-23, Fortune Centre, Singapore 188979. Hours unavailable",
+          "x": 6,
+          "right": 369,
+          "height": 203
+        },
+        {
+          "label": "View Living Wholesome Vegetarian in Google Maps",
+          "x": 141.484375,
+          "right": 227.921875,
+          "height": 24
+        },
+        {
+          "label": "View menu for Living Wholesome Vegetarian, Fortune Centre",
+          "x": 10,
+          "right": 96.46875,
+          "height": 48
+        },
+        {
+          "label": "Save Living Wholesome Vegetarian",
+          "x": 317,
+          "right": 365,
+          "height": 48
+        },
+        {
+          "label": "Herbivore. 190 Middle Road #01-13/14, Fortune Centre, Singapore 188979. Hours unavailable",
+          "x": 6,
+          "right": 369,
+          "height": 203
+        },
+        {
+          "label": "View Herbivore in Google Maps",
+          "x": 141.484375,
+          "right": 227.921875,
+          "height": 24
+        },
+        {
+          "label": "Save Herbivore",
+          "x": 317,
+          "right": 365,
+          "height": 48
+        }
+      ]
+    },
+    {
+      "name": "Explore768",
+      "width": 768,
+      "card": {
+        "x": 11,
+        "y": 125,
+        "width": 746,
+        "height": 207
+      },
+      "divider": {
+        "x": 25,
+        "y": 301,
+        "width": 718,
+        "height": 1
+      },
+      "hours": {
+        "x": 43,
+        "y": 308,
+        "width": 97.484375,
+        "height": 16
+      },
+      "badge": {
+        "x": 17,
+        "y": 131,
+        "width": 86.46875,
+        "height": 48
+      },
+      "save": {
+        "x": 703,
+        "y": 131,
+        "width": 48,
+        "height": 48
+      }
+    },
+    {
+      "name": "Explore768",
+      "width": 768,
+      "overflow": false,
+      "rows": [],
+      "buttons": [
+        {
+          "label": "Search this place or postal code",
+          "x": 12,
+          "right": 60,
+          "height": 48
+        },
+        {
+          "label": "Filters",
+          "x": 655,
+          "right": 703,
+          "height": 48
+        },
+        {
+          "label": "Search by my location",
+          "x": 709,
+          "right": 757,
+          "height": 48
+        },
+        {
+          "label": "Bodhi Deli. 190 Middle Road #03-26, Fortune Centre, Singapore 188979. Hours unavailable",
+          "x": 13,
+          "right": 755,
+          "height": 203
+        },
+        {
+          "label": "View Bodhi Deli in Google Maps",
+          "x": 148.484375,
+          "right": 234.921875,
+          "height": 24
+        },
+        {
+          "label": "View menu for Bodhi Deli, Fortune Centre",
+          "x": 17,
+          "right": 103.46875,
+          "height": 48
+        },
+        {
+          "label": "Remove saved Bodhi Deli",
+          "x": 703,
+          "right": 751,
+          "height": 48
+        },
+        {
+          "label": "Living Wholesome Vegetarian. 190 Middle Road #01-23, Fortune Centre, Singapore 188979. Hours unavailable",
+          "x": 13,
+          "right": 755,
+          "height": 203
+        },
+        {
+          "label": "View Living Wholesome Vegetarian in Google Maps",
+          "x": 148.484375,
+          "right": 234.921875,
+          "height": 24
+        },
+        {
+          "label": "View menu for Living Wholesome Vegetarian, Fortune Centre",
+          "x": 17,
+          "right": 103.46875,
+          "height": 48
+        },
+        {
+          "label": "Save Living Wholesome Vegetarian",
+          "x": 703,
+          "right": 751,
+          "height": 48
+        },
+        {
+          "label": "Herbivore. 190 Middle Road #01-13/14, Fortune Centre, Singapore 188979. Hours unavailable",
+          "x": 13,
+          "right": 755,
+          "height": 203
+        },
+        {
+          "label": "View Herbivore in Google Maps",
+          "x": 148.484375,
+          "right": 234.921875,
+          "height": 24
+        },
+        {
+          "label": "Save Herbivore",
+          "x": 703,
+          "right": 751,
+          "height": 48
+        }
+      ]
+    },
+    {
+      "name": "Explore1440",
+      "width": 1440,
+      "card": {
+        "x": 345,
+        "y": 125,
+        "width": 750,
+        "height": 207
+      },
+      "divider": {
+        "x": 359,
+        "y": 301,
+        "width": 722,
+        "height": 1
+      },
+      "hours": {
+        "x": 377,
+        "y": 308,
+        "width": 97.484375,
+        "height": 16
+      },
+      "badge": {
+        "x": 351,
+        "y": 131,
+        "width": 86.46875,
+        "height": 48
+      },
+      "save": {
+        "x": 1041,
+        "y": 131,
+        "width": 48,
+        "height": 48
+      }
+    },
+    {
+      "name": "Explore1440",
+      "width": 1440,
+      "overflow": false,
+      "rows": [],
+      "buttons": [
+        {
+          "label": "Search this place or postal code",
+          "x": 346,
+          "right": 394,
+          "height": 48
+        },
+        {
+          "label": "Filters",
+          "x": 993,
+          "right": 1041,
+          "height": 48
+        },
+        {
+          "label": "Search by my location",
+          "x": 1047,
+          "right": 1095,
+          "height": 48
+        },
+        {
+          "label": "Bodhi Deli. 190 Middle Road #03-26, Fortune Centre, Singapore 188979. Hours unavailable",
+          "x": 347,
+          "right": 1093,
+          "height": 203
+        },
+        {
+          "label": "View Bodhi Deli in Google Maps",
+          "x": 482.484375,
+          "right": 568.921875,
+          "height": 24
+        },
+        {
+          "label": "View menu for Bodhi Deli, Fortune Centre",
+          "x": 351,
+          "right": 437.46875,
+          "height": 48
+        },
+        {
+          "label": "Remove saved Bodhi Deli",
+          "x": 1041,
+          "right": 1089,
+          "height": 48
+        },
+        {
+          "label": "Living Wholesome Vegetarian. 190 Middle Road #01-23, Fortune Centre, Singapore 188979. Hours unavailable",
+          "x": 347,
+          "right": 1093,
+          "height": 203
+        },
+        {
+          "label": "View Living Wholesome Vegetarian in Google Maps",
+          "x": 482.484375,
+          "right": 568.921875,
+          "height": 24
+        },
+        {
+          "label": "View menu for Living Wholesome Vegetarian, Fortune Centre",
+          "x": 351,
+          "right": 437.46875,
+          "height": 48
+        },
+        {
+          "label": "Save Living Wholesome Vegetarian",
+          "x": 1041,
+          "right": 1089,
+          "height": 48
+        },
+        {
+          "label": "Herbivore. 190 Middle Road #01-13/14, Fortune Centre, Singapore 188979. Hours unavailable",
+          "x": 347,
+          "right": 1093,
+          "height": 203
+        },
+        {
+          "label": "View Herbivore in Google Maps",
+          "x": 482.484375,
+          "right": 568.921875,
+          "height": 24
+        },
+        {
+          "label": "Save Herbivore",
+          "x": 1041,
+          "right": 1089,
+          "height": 48
+        }
+      ]
+    },
+    {
+      "name": "Menu320",
+      "width": 320,
+      "overflow": false,
+      "rows": [
+        {
+          "x": 16,
+          "right": 304,
+          "height": 50
+        },
+        {
+          "x": 16,
+          "right": 304,
+          "height": 50
+        },
+        {
+          "x": 16,
+          "right": 304,
+          "height": 50
+        },
+        {
+          "x": 16,
+          "right": 304,
+          "height": 50
+        },
+        {
+          "x": 16,
+          "right": 304,
+          "height": 50
+        },
+        {
+          "x": 16,
+          "right": 304,
+          "height": 50
+        },
+        {
+          "x": 16,
+          "right": 304,
+          "height": 50
+        },
+        {
+          "x": 16,
+          "right": 304,
+          "height": 50
+        }
+      ],
+      "buttons": [
+        {
+          "label": "Go back",
+          "x": 16,
+          "right": 64,
+          "height": 48
+        },
+        {
+          "label": "Menu source, Bodhi Deli via Take App, opens in browser",
+          "x": 195.8125,
+          "right": 304,
+          "height": 48
+        }
+      ]
+    },
+    {
+      "name": "Menu375",
+      "width": 375,
+      "overflow": false,
+      "rows": [
+        {
+          "x": 16,
+          "right": 359,
+          "height": 50
+        },
+        {
+          "x": 16,
+          "right": 359,
+          "height": 50
+        },
+        {
+          "x": 16,
+          "right": 359,
+          "height": 50
+        },
+        {
+          "x": 16,
+          "right": 359,
+          "height": 50
+        },
+        {
+          "x": 16,
+          "right": 359,
+          "height": 50
+        },
+        {
+          "x": 16,
+          "right": 359,
+          "height": 50
+        },
+        {
+          "x": 16,
+          "right": 359,
+          "height": 50
+        },
+        {
+          "x": 16,
+          "right": 359,
+          "height": 50
+        }
+      ],
+      "buttons": [
+        {
+          "label": "Go back",
+          "x": 16,
+          "right": 64,
+          "height": 48
+        },
+        {
+          "label": "Menu source, Bodhi Deli via Take App, opens in browser",
+          "x": 250.8125,
+          "right": 359,
+          "height": 48
+        }
+      ]
+    },
+    {
+      "name": "Menu768",
+      "width": 768,
+      "overflow": false,
+      "rows": [
+        {
+          "x": 23,
+          "right": 745,
+          "height": 50
+        },
+        {
+          "x": 23,
+          "right": 745,
+          "height": 50
+        },
+        {
+          "x": 23,
+          "right": 745,
+          "height": 50
+        },
+        {
+          "x": 23,
+          "right": 745,
+          "height": 50
+        },
+        {
+          "x": 23,
+          "right": 745,
+          "height": 50
+        },
+        {
+          "x": 23,
+          "right": 745,
+          "height": 50
+        },
+        {
+          "x": 23,
+          "right": 745,
+          "height": 50
+        },
+        {
+          "x": 23,
+          "right": 745,
+          "height": 50
+        }
+      ],
+      "buttons": [
+        {
+          "label": "Go back",
+          "x": 23,
+          "right": 71,
+          "height": 48
+        },
+        {
+          "label": "Menu source, Bodhi Deli via Take App, opens in browser",
+          "x": 636.8125,
+          "right": 745,
+          "height": 48
+        }
+      ]
+    },
+    {
+      "name": "Menu1440",
+      "width": 1440,
+      "overflow": false,
+      "rows": [
+        {
+          "x": 357,
+          "right": 1083,
+          "height": 50
+        },
+        {
+          "x": 357,
+          "right": 1083,
+          "height": 50
+        },
+        {
+          "x": 357,
+          "right": 1083,
+          "height": 50
+        },
+        {
+          "x": 357,
+          "right": 1083,
+          "height": 50
+        },
+        {
+          "x": 357,
+          "right": 1083,
+          "height": 50
+        },
+        {
+          "x": 357,
+          "right": 1083,
+          "height": 50
+        },
+        {
+          "x": 357,
+          "right": 1083,
+          "height": 50
+        },
+        {
+          "x": 357,
+          "right": 1083,
+          "height": 50
+        }
+      ],
+      "buttons": [
+        {
+          "label": "Go back",
+          "x": 357,
+          "right": 405,
+          "height": 48
+        },
+        {
+          "label": "Menu source, Bodhi Deli via Take App, opens in browser",
+          "x": 974.8125,
+          "right": 1083,
+          "height": 48
+        }
+      ]
+    },
+    {
+      "name": "Menudark375",
+      "width": 375,
+      "overflow": false,
+      "rows": [
+        {
+          "x": 16,
+          "right": 359,
+          "height": 50
+        },
+        {
+          "x": 16,
+          "right": 359,
+          "height": 50
+        },
+        {
+          "x": 16,
+          "right": 359,
+          "height": 50
+        },
+        {
+          "x": 16,
+          "right": 359,
+          "height": 50
+        },
+        {
+          "x": 16,
+          "right": 359,
+          "height": 50
+        },
+        {
+          "x": 16,
+          "right": 359,
+          "height": 50
+        },
+        {
+          "x": 16,
+          "right": 359,
+          "height": 50
+        },
+        {
+          "x": 16,
+          "right": 359,
+          "height": 50
+        }
+      ],
+      "buttons": [
+        {
+          "label": "Go back",
+          "x": 16,
+          "right": 64,
+          "height": 48
+        },
+        {
+          "label": "Menu source, Bodhi Deli via Take App, opens in browser",
+          "x": 250.8125,
+          "right": 359,
+          "height": 48
+        }
+      ]
+    },
+    {
+      "name": "Menulargetext320",
+      "width": 320,
+      "overflow": false,
+      "rows": [
+        {
+          "x": 16,
+          "right": 304,
+          "height": 108
+        },
+        {
+          "x": 16,
+          "right": 304,
+          "height": 80
+        },
+        {
+          "x": 16,
+          "right": 304,
+          "height": 80
+        },
+        {
+          "x": 16,
+          "right": 304,
+          "height": 74
+        }
+      ],
+      "buttons": [
+        {
+          "label": "Go back",
+          "x": 16,
+          "right": 64,
+          "height": 48
+        },
+        {
+          "label": "Menu source, elemen group via Oddle, opens in browser",
+          "x": 173.546875,
+          "right": 304,
+          "height": 48
+        }
+      ]
+    }
+  ],
+  "a11y": [
+    {
+      "name": "Bodhi menu375",
+      "violations": [],
+      "incomplete": [
+        "aria-prohibited-attr",
+        "color-contrast",
+        "label-content-name-mismatch"
+      ]
+    },
+    {
+      "name": "Explore375",
+      "violations": [],
+      "incomplete": [
+        "color-contrast",
+        "label-content-name-mismatch"
+      ]
+    },
+    {
+      "name": "Bodhi dark375",
+      "violations": [],
+      "incomplete": [
+        "aria-prohibited-attr",
+        "color-contrast",
+        "label-content-name-mismatch"
+      ]
+    },
+    {
+      "name": "elemen large320",
+      "violations": [],
+      "incomplete": [
+        "aria-prohibited-attr",
+        "color-contrast",
+        "label-content-name-mismatch"
+      ]
+    }
+  ],
+  "errors": [],
+  "actualGoogleCalls": 0,
+  "installedChromeUsed": false,
+  "limits": [
+    "Controlled Google place/photo fixtures; sample fixture image is not shipped as a real venue photo. Public menu content uses actual sanitized handler data.",
+    "Own Playwright-managed headless Chromium. Native device appearance/gestures, cold-offline shell and production hosting not established."
+  ],
+  "browserVersion": "156.0.8078.4",
+  "status": "pass"
+}

@@ -1,0 +1,146 @@
+{
+  "generatedAt": "2026-10-15T08:43:36.1194679Z",
+  "scope": "Compact Cook redesign: bounded TypeScript and behavior source review",
+  "disposition": "blocked-by-unrelated-lint",
+  "sourceReview": "Cook source findings resolved; responsive RecipeRow follow-up approved with no new material findings",
+  "findings": [
+    {
+      "id": "F01",
+      "severity": "medium",
+      "title": "Collapsing Private note discarded unsaved text",
+      "status": "resolved",
+      "evidence": "src/components/recipes/CookLayout.tsx keeps children mounted, hides closed content with display:none, accessibilityElementsHidden and importantForAccessibility=no-hide-descendants."
+    },
+    {
+      "id": "F02",
+      "severity": "medium",
+      "title": "Custom controls hid authored total cooking time",
+      "status": "resolved",
+      "evidence": "src/components/recipes/PrivateRecipeContent.tsx renders d.minutes independently when controls are supplied."
+    },
+    {
+      "id": "W01",
+      "severity": "warning",
+      "title": "Cooking.tsx Unicode BOM",
+      "status": "resolved",
+      "evidence": "Cooking.tsx BOM removed; latest complete ESLint run reports only concurrent avatar issues."
+    }
+  ],
+  "checks": [
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "command": "eslint . --ext .ts,.tsx,.js,.jsx",
+      "exitCode": 1,
+      "status": "failed",
+      "errorCount": 10,
+      "warningCount": 2,
+      "scope": "Reported failures are in concurrent avatar implementation",
+      "observedFiles": [
+        "src/components/avatar/AvatarConsent.tsx",
+        "src/components/avatar/AvatarPortrait.tsx",
+        "src/hooks/useAvatarGeneration.ts",
+        "src/hooks/useAvatarPhoto.ts",
+        "src/screens/Avatar.tsx"
+      ],
+      "observedRules": [
+        "react/no-unescaped-entities",
+        "react-hooks/refs",
+        "react-hooks/set-state-in-effect",
+        "react-hooks/exhaustive-deps"
+      ],
+      "outputLimit": "Console capture was truncated; totals are exact, listed files and rules are those visible in captured output."
+    }
+  ],
+  "additionalReview": [
+    "RecipeRow now inherits child accessibility text and supplies Open recipe hint.",
+    "Completion clears cooking independently from timers; shared storage Retry feedback remains present.",
+    "Legacy same-version completed sessions normalize to null; revision mismatch guard remains.",
+    "Ingredient lists and evidence remain visible.",
+    "RecipeRow uses width < 360 and combined app textMultiplier/system fontScale > 1 to select a 56x80 thumbnail; default remains 88x100. Recipe/evidence text, accessible hint and separate save action are retained."
+  ],
+  "limitations": [
+    "Bounded source follow-up; browser/recovery report JSON inspected, no new browser or physical-device execution by this reviewer.",
+    "Latest global typecheck passes. Full-project lint is blocked by concurrent avatar implementation; no avatar source edits performed.",
+    "Historical TypeScript gate failures retained under checkHistory."
+  ],
+  "sourceEdits": "None",
+  "checkHistory": [
+    {
+      "generatedAt": "2026-10-15T08:34:05.7922037Z",
+      "disposition": "blocked-by-typecheck",
+      "checks": [
+        {
+          "command": "npm run typecheck",
+          "exitCode": 1,
+          "status": "failed",
+          "errors": [
+            "src/server/avatar/config.ts(7,76): TS7006 parameter s implicitly has any type",
+            "src/server/avatar/config.ts(7,98): TS7006 parameter s implicitly has any type",
+            "src/server/avatar/ledger.ts(6,26): TS2339 LocalStore.avatarLedger missing",
+            "src/server/avatar/ledger.ts(6,60): TS2339 LocalStore.avatarLedger missing",
+            "src/server/avatar/ledger.ts(11,45): TS2339 LocalStore.avatarLedger missing"
+          ]
+        },
+        {
+          "command": "eslint . --ext .ts,.tsx,.js,.jsx",
+          "status": "not-run",
+          "reason": "Review protocol stops when TypeScript checking fails."
+        }
+      ]
+    }
+  ],
+  "externalEvidence": [
+    {
+      "path": ".impeccable/review/compact-cook-recovery.json",
+      "inspectedReport": true,
+      "passed": true,
+      "groupedChecks": 3,
+      "captures": 4,
+      "runtimeErrors": 0,
+      "coverage": [
+        "Failed finish save has visible Retry, retry clears persisted session",
+        "320px larger text Cook, guided cooking and editor have no horizontal overflow",
+        "Loaded cooking step works offline"
+      ],
+      "executedByThisReviewer": false
+    },
+    {
+      "path": ".impeccable/review/compact-cook-browser.json",
+      "inspectedReport": true,
+      "passed": true,
+      "groupedChecks": 5,
+      "captures": 23,
+      "runtimeErrors": 0,
+      "axeSurfaces": 4,
+      "executedByThisReviewer": false
+    }
+  ],
+  "supplementalReviews": [
+    {
+      "reviewedAt": "2026-10-15T08:44:54.0344678Z",
+      "file": "src/components/avatar/AvatarPortrait.tsx",
+      "scope": "Only explicit width:size and height:size added to fallback Image and avatar frame Image styles",
+      "disposition": "approved-source-only",
+      "findings": [],
+      "rationale": "Both image branches now use the same numeric size as their clipping container while retaining absolute positioning, contain resizing and per-frame opacity. This bounds web image layout without changing animation, owner state or frame selection.",
+      "runtimeEvidence": "Parent reports web DOM changed from intrinsic 1254x1254 image inside 46x46 wrapper to loaded 46x46 portrait; not independently rerun by this reviewer.",
+      "checks": "No global checks rerun as requested. Parent owns targeted AvatarPortrait/RecipeRow ESLint session 66919; result pending at review time."
+    }
+  ],
+  "finalTargetedLint": {
+    "command": "eslint src/components/avatar/AvatarPortrait.tsx src/components/recipes/RecipeRow.tsx",
+    "exitCode": 1,
+    "recipeRow": "clean",
+    "avatarPortrait": "Four existing animation ref-read errors at lines16/53; explicit image size change reviewed and visually verified"
+  },
+  "finishReview": {
+    "report": "compact-cook-finish.json",
+    "disposition": "ship",
+    "scope": "Scored Cook corrections; native and whole-app acceptance outstanding"
+  }
+}

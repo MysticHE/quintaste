@@ -1,0 +1,25 @@
+{
+  "captures": [
+    "clean-cook-detail.png",
+    "clean-cook-home.png",
+    "clean-cook-detail-320.png",
+    "clean-cook-home-320.png",
+    "clean-cook-detail-768.png",
+    "clean-cook-home-768.png",
+    "clean-cook-detail-1440.png",
+    "clean-cook-home-1440.png",
+    "clean-cook-info.png",
+    "clean-cook-share-fallback.png",
+    "clean-cook-conflict.png",
+    "clean-cook-detail-dark.png",
+    "clean-cook-detail-large.png"
+  ],
+  "checks": [
+    "Share failure exposes selectable recipe text and closes",
+    "Ingredient conflict stays visible without opening info",
+    "Recipe detail at320/375/768/1440, dark and largest text has no horizontal overflow"
+  ],
+  "errors": [],
+  "axe": [],
+  "passed": true
+}
