@@ -9,7 +9,9 @@ ROOT=/docker/quintaste
 APP_URL=https://quintaste.srv1902914.hstgr.cloud
 cd "$ROOT"
 log() { printf '[%s] %s\n' "$(date -u +%H:%M:%S)" "$*"; }
-fail() { log "FAILED: $1"; exit "${2:-1}"; }
+# Before promotion a failure removes the received archive and extracted folder (build logs stay for diagnosis).
+PROMOTING=false
+fail() { log "FAILED: $1"; if ! $PROMOTING && [[ -n "${RELEASE:-}" && "${RECEIVED:-false}" == true ]]; then rm -rf "$ROOT/releases/$RELEASE" "$ROOT/releases/$RELEASE.tgz"; fi; exit "${2:-1}"; }
 
 read -r verb RELEASE SHA extra <<< "${SSH_ORIGINAL_COMMAND:-}"
 [[ "$verb" == "deploy" && -z "${extra:-}" ]] || fail "Only 'deploy <release> <sha256>' is accepted" 2
@@ -26,21 +28,23 @@ actual=$(sha256sum "releases/$RELEASE.tgz" | cut -d' ' -f1)
 [[ "$actual" == "$SHA" ]] || { rm -f "releases/$RELEASE.tgz"; fail "Archive digest mismatch" 2; }
 mkdir "releases/$RELEASE"
 tar -xzf "releases/$RELEASE.tgz" -C "releases/$RELEASE"
+RECEIVED=true
 log "Received $RELEASE"
 
 # 2. Gates against the live release: schema and Compose changes need the manual runbook procedure.
 LIVE=$(docker inspect --format '{{.Config.Image}}' quintaste-staging-app-1 | sed 's/^quintaste-app://')
 [[ -d "releases/$LIVE" ]] || fail "Live release folder releases/$LIVE is missing; deploy manually" 4
-digest() { (cd "releases/$1" && find $2 -type f 2>/dev/null | LC_ALL=C sort | xargs -r sha256sum) | sha256sum | cut -d' ' -f1; }
-schema_new=$(cd "releases/$RELEASE" && find server admin/db -type f -name '*.sql' | LC_ALL=C sort | xargs -r sha256sum | sha256sum)
-schema_live=$(cd "releases/$LIVE" && find server admin/db -type f -name '*.sql' | LC_ALL=C sort | xargs -r sha256sum | sha256sum)
+# Content digests ignore CR line endings: Windows-packaged and CI-packaged releases must compare equal.
+digest() { (cd "releases/$1" && find "${@:2}" -type f 2>/dev/null | LC_ALL=C sort | while read -r f; do printf '%s ' "$f"; tr -d '\r' < "$f" | sha256sum; done) | sha256sum | cut -d' ' -f1; }
+schema_new=$(digest "$RELEASE" server admin/db -name '*.sql')
+schema_live=$(digest "$LIVE" server admin/db -name '*.sql')
 [[ "$schema_new" == "$schema_live" ]] || fail "Database schema files changed since $LIVE; apply the migration manually (runbook section 4)" 10
-compose_new=$(cd "releases/$RELEASE" && sha256sum deploy/*.yml | sha256sum)
-compose_live=$(cd "releases/$LIVE" && sha256sum deploy/*.yml | sha256sum)
+compose_new=$(digest "$RELEASE" deploy -name '*.yml')
+compose_live=$(digest "$LIVE" deploy -name '*.yml')
 [[ "$compose_new" == "$compose_live" ]] || fail "Compose files changed since $LIVE; review and deploy manually" 11
 SERVICES="app preview"
-admin_new=$(digest "$RELEASE" "admin")
-admin_live=$(digest "$LIVE" "admin")
+admin_new=$(digest "$RELEASE" admin)
+admin_live=$(digest "$LIVE" admin)
 [[ "$admin_new" == "$admin_live" ]] || SERVICES="app preview admin"
 log "Live $LIVE; updating: $SERVICES"
 
@@ -98,6 +102,7 @@ rollback() {
 }
 
 # 6. Promote and verify; any failure restores the previous images.
+PROMOTING=true
 if ! compose up -d --no-deps --wait --wait-timeout 240 $SERVICES < /dev/null; then rollback; fail "Containers did not become healthy; rolled back" 20; fi
 check() { [[ "$(curl -s -o /dev/null -w '%{http_code}' --max-time 20 "$APP_URL$1")" == "$2" ]]; }
 healthy=true
