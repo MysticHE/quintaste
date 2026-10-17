@@ -8,6 +8,8 @@ The `production` environment holds `VPS_DEPLOY_KEY` (dedicated ed25519 key, comm
 `/docker/quintaste/bin/ci-deploy.sh` (source `deploy/ci-deploy.sh`) verifies the archive digest, takes a lock, and **stops without changes** when database schema files (`server/**/*.sql`, `admin/db/*.sql`) or Compose files differ from the live release. Those still follow sections 4 and 5 manually: apply after backup, then deploy. Otherwise it builds app and preview (and admin only when `admin/` changed), runs the backup, waits for avatar jobs, saves `deployment-backups/<release>`, promotes, checks `/healthz`, `/api/menus` and the web entry bundle, and **rolls back automatically** if any check fails. Finally `/docker/quintaste/bin/prune-releases.sh --apply 3` keeps the three newest releases plus anything running or needed for rollback, so disk use stays flat. Release ids look like `YYYYMMDD-ci<run>-<sha7>`. Logs: `releases/<release>-{app,preview,prune}.log` and the Actions run.
 
 Manual releases with the steps below remain valid for schema or Compose changes; after one, push to `main` again so CI continues from the new live release. Do not run a manual promotion while a workflow run is deploying (the script holds `/docker/quintaste/.ci-deploy.lock`).
+
+First automated release: **20261017-ci3-1539d85** (app/preview; admin stays open-market2), live and verified 17 Oct: health 200, protected routes 401, unsigned editorial publish 401, Android/iOS manifests and bundles 200 with the existing scopeKey, zero app error lines, three releases retained, disk 69%. Two early runs were stopped safely: run 1 by the schema gate (CRLF vs LF in identical SQL; gates now ignore line endings), run 2 auto-rolled back because the strict umask left extracted folders unreadable to the `node` user (extraction now uses umask 022). Lesson: never change file modes in the build context; the app and preview images run as `node`.
 <!-- end-ci-deployment-20261017 -->
 
 <!-- qt-full-menu-audit-20261017 -->
@@ -282,8 +284,8 @@ Each SSH/Paramiko command starts a fresh shell. Repeat `cd` and variable declara
 | Web/API | `https://quintaste.srv1902914.hstgr.cloud` |
 | Admin | `https://admin-quintaste.srv1902914.hstgr.cloud` |
 | Android Expo Go | `exps://preview-quintaste.srv1902914.hstgr.cloud` |
-| App image | `quintaste-app:20261017-area-participation1` |
-| Preview image | `quintaste-preview:20261017-area-participation1` |
+| App image | `quintaste-app:20261017-ci3-1539d85` (CI) |
+| Preview image | `quintaste-preview:20261017-ci3-1539d85` (CI) |
 | Admin image | `quintaste-admin:20261017-open-market2` |
 | Database | Existing `postgres:17-bookworm`, database/user `quintaste`; app role `quintaste_app` |
 
