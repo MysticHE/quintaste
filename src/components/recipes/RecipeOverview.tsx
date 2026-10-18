@@ -1,18 +1,15 @@
 import { useState } from "react";
 import { Pressable, StyleSheet, View } from "react-native";
 import type { Recipe } from "../../types/food";
-import { useFood } from "../../state/Food";
 import { usePreferences } from "../../state/Preferences";
 import { alliumFree, recipeFit } from "../../utils/recipe-dietary";
 import { alliums, fivePungentLabel } from "../../config/preferences";
-import { cookedStats } from "../../utils/recipe-browse";
-import { shortDate } from "../../utils/food-format";
 import { IconButton } from "../food/Controls";
 import { FitBadge } from "../food/Evidence";
 import { Button, Icon, T, common } from "../ui";
 import { RecipeImage } from "./RecipeImage";
-import { Action, ReactionBar } from "../ReactionBar";
-import { useReactions } from "../../hooks/useReactions";
+import { Action, ReactionBar, cookedBy } from "../ReactionBar";
+import { useReaction, useReactions } from "../../hooks/useReactions";
 import { useRecipeSave } from "../../hooks/useRecipeSave";
 import { recipeShareMessage } from "../../utils/recipe-share";
 import * as Linking from "expo-linking";
@@ -36,11 +33,11 @@ export function FivePungentTag({ recipe, detail = false }: { recipe: Recipe; det
     <T variant="small" color={theme.warning} style={common.bold}>Has {used.join(", ").toLowerCase()}</T></View>;
 }
 export function RecipeOverview({ recipe }: { recipe: Recipe }) {
-  const { doc } = useFood(), save = useRecipeSave(recipe.id);
+  const save = useRecipeSave(recipe.id);
   const { draft, theme } = usePreferences();
   const [info, setInfo] = useState(false), [fallback, setFallback] = useState(""), [failedLink, setFailedLink] = useState("");
   const [report, setReport] = useState(false), member = useMember();
-  const result = recipeFit(recipe, draft.diet, draft.excluded), cooked = cookedStats(doc.recipes.cooked, recipe.id);
+  const result = recipeFit(recipe, draft.diet, draft.excluded), cooks = useReaction("recipe", recipe.id).reaction.cooks;
   useReactions("recipe", [recipe.id]);
   return <>
     <RecipeImage recipe={recipe} label style={{ width: "100%", aspectRatio: 2.4, borderRadius: 16 }} />
@@ -50,7 +47,7 @@ export function RecipeOverview({ recipe }: { recipe: Recipe }) {
       <Action icon={info ? "information-circle" : "information-circle-outline"} color={info ? theme.accent : theme.foreground} label="Recipe Info" selected={info} onPress={() => setInfo(!info)} />
     </>} />
     <View style={{ gap: 4, alignItems: "flex-start" }}>
-      <T variant="small" muted>{[recipe.minutes + " min", recipe.onePot ? "One pot" : "", cooked.count ? "Cooked " + cooked.count + "× · last " + shortDate(cooked.last) : ""].filter(Boolean).join(" · ")}</T>
+      <T variant="small" muted>{[recipe.minutes + " min", recipe.onePot ? "One pot" : "", cooks ? cookedBy(cooks) : ""].filter(Boolean).join(" · ")}</T>
       <View style={[common.row, { gap: 6, flexWrap: "wrap" }]}><FitBadge fit={result.fit} /><FivePungentTag recipe={recipe} detail /></View>
     </View>
     {recipe.member?.shop && <AuthorShop author={recipe.author} shop={recipe.member.shop} />}

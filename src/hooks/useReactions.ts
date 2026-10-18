@@ -6,7 +6,8 @@ import { useRemote, invalidate } from "./useRemote";
 import { ApiError, communityRequest } from "../services/community-api";
 
 export type ReactionKind = "recipe" | "place";
-export type Reaction = { id: string; likes: number; shares: number; liked: boolean; shared: boolean };
+/** `cooks`: members who finished Cook mode for a recipe (always 0 for places). */
+export type Reaction = { id: string; likes: number; shares: number; cooks: number; liked: boolean; shared: boolean; cooked: boolean };
 type Page = { items: Reaction[] };
 
 /** Private recipe drafts stay on the phone, so only published ids can carry likes and shares. */
@@ -15,7 +16,8 @@ export const reactable = (id: string) => /^[a-z0-9][a-z0-9-]{0,119}$/.test(id) &
 // Each card listens to its own item only, so a page of counts redraws only the cards whose numbers changed.
 const known = new Map<string, Reaction>(), listeners = new Map<string, Set<() => void>>(), pending = new Set<string>();
 const keyOf = (account: string, kind: ReactionKind, id: string) => account + ":" + kind + ":" + id;
-const same = (a: Reaction | undefined, b: Reaction) => !!a && a.likes === b.likes && a.shares === b.shares && a.liked === b.liked && a.shared === b.shared;
+const same = (a: Reaction | undefined, b: Reaction) => !!a && a.likes === b.likes && a.shares === b.shares && a.cooks === b.cooks
+  && a.liked === b.liked && a.shared === b.shared && a.cooked === b.cooked;
 function remember(account: string, kind: ReactionKind, items: Reaction[]) {
   for (const item of items) {
     const key = keyOf(account, kind, item.id), before = known.get(key);
@@ -49,7 +51,7 @@ export function useReaction(kind: ReactionKind, id: string) {
   const path = usePathname(), { tab } = useGlobalSearchParams<{ tab?: string }>();
   const returnTo = path + (typeof tab === "string" && /^[a-z]+$/.test(tab) ? "?tab=" + tab : "");
   const enabled = reactable(id);
-  const current = known.get(key) ?? { id, likes: 0, shares: 0, liked: false, shared: false };
+  const current = known.get(key) ?? { id, likes: 0, shares: 0, cooks: 0, liked: false, shared: false, cooked: false };
   const signedIn = () => {
     if (!user) { router.push({ pathname: "/login", params: { returnTo } }); return false; }
     if (!user.adultConfirmed) { router.push("/account-eligibility"); return false; }
@@ -83,4 +85,27 @@ export function useReaction(kind: ReactionKind, id: string) {
     finally { pending.delete(key + ":share"); }
   };
   return { reaction: current, enabled, toggleLike, recordShare };
+}
+
+// Recipes this session already reported as cooked, per account, so each is sent at most once while the app is open.
+const reported = new Set<string>();
+/**
+ * Reports each recipe the signed-in member has finished in Cook mode, including ones finished before signing in.
+ * The server counts a member once per recipe; the number shows as "Cooked by N". Failures retry on the next change.
+ */
+export function useCookedSync(recipeIds: string[]) {
+  const { user } = useAuth(), account = user?.adultConfirmed ? user.id : null;
+  const ids = [...new Set(recipeIds.filter(reactable))].sort().join(",");
+  useEffect(() => {
+    if (!account || !ids) return;
+    for (const id of ids.split(",")) {
+      const key = keyOf(account, "recipe", id);
+      if (reported.has(key)) continue;
+      reported.add(key);
+      void communityRequest<Reaction>(`/api/reactions/recipe/${id}/cooked`, { method: "POST" })
+        .then(reaction => remember(account, "recipe", [reaction]))
+        // A recipe that is no longer published stays reported; anything else is tried again later.
+        .catch(error => { if (!(error instanceof ApiError && error.status === 404)) reported.delete(key); });
+    }
+  }, [account, ids]);
 }

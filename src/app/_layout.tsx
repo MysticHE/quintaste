@@ -13,6 +13,7 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { FoodProvider, useFood } from "../state/Food";
 import { TimerAlertsProvider } from "../state/TimerAlerts";
 import { TimerFinishHaptics } from "../components/food/Timers";
+import { CookedSync } from "../components/recipes/CookedSync";
 import { useTimerNotification } from "../hooks/useTimerNotification";
 import { ExploreLocalProvider } from "../state/ExploreLocal";
 import { DiscoveryProvider } from "../state/Discovery";
@@ -112,7 +113,7 @@ function AccountScope() {
   </View>;
   return (
       <PreferencesProvider key={user?.id || "guest"}>
-        <FoodProvider><TimerAlertsProvider><ExploreLocalProvider><MenusProvider><DiscoveryProvider><Navigation /><TimerFinishHaptics /></DiscoveryProvider></MenusProvider></ExploreLocalProvider></TimerAlertsProvider></FoodProvider>
+        <FoodProvider><TimerAlertsProvider><ExploreLocalProvider><MenusProvider><DiscoveryProvider><Navigation /><TimerFinishHaptics /><CookedSync /></DiscoveryProvider></MenusProvider></ExploreLocalProvider></TimerAlertsProvider></FoodProvider>
       </PreferencesProvider>
   );
 }

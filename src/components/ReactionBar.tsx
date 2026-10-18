@@ -13,6 +13,9 @@ export function compactCount(n: number) {
   return (n < 10000 ? (Math.floor(n / 100) / 10).toFixed(1).replace(/\.0$/, "") : String(Math.floor(n / 1000))) + "k";
 }
 
+/** "Cooked by 1 person" / "Cooked by 1.2k people". */
+export const cookedBy = (n: number) => "Cooked by " + (compactCount(n) || "0") + (n === 1 ? " person" : " people");
+
 /**
  * Like and share with their counts, the post idiom shared by Explore places and Cook recipes. `trailing` adds controls
  * on the right (a recipe page's save and info). A failed share sheet hands its text to `onShareFailed`.

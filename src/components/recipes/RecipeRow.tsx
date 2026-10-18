@@ -1,13 +1,12 @@
 import type { Recipe } from "../../types/food";
-import { useFood } from "../../state/Food";
 import { usePreferences } from "../../state/Preferences";
 import { fivePungentLabel } from "../../config/preferences";
 import { photos } from "../../data/photos";
 import { alliumFree, recipeFit } from "../../utils/recipe-dietary";
-import { cookedStats } from "../../utils/recipe-browse";
 import { recipeShareMessage } from "../../utils/recipe-share";
-import { ReactionColumn } from "../ReactionBar";
+import { ReactionColumn, cookedBy } from "../ReactionBar";
 import { useRecipeSave } from "../../hooks/useRecipeSave";
+import { useReaction } from "../../hooks/useReactions";
 import { PhotoPostCard, PostChip, PostFact, PostFacts } from "../discovery/PhotoPostCard";
 
 /**
@@ -15,8 +14,7 @@ import { PhotoPostCard, PostChip, PostFact, PostFacts } from "../discovery/Photo
  * the name and facts on the photo. Diet and the five pungent stay on the card because they decide a meal here.
  */
 export function RecipeRow({ recipe, onPress }: { recipe: Recipe; onPress: () => void }) {
-  const { doc } = useFood(), { draft, theme } = usePreferences(), save = useRecipeSave(recipe.id);
-  const cooked = cookedStats(doc.recipes.cooked, recipe.id).count;
+  const { draft, theme } = usePreferences(), save = useRecipeSave(recipe.id), cooks = useReaction("recipe", recipe.id).reaction.cooks;
   const fit = recipeFit(recipe, draft.diet, draft.excluded);
   const diet = [recipe.dietary.diet !== "Unknown" ? recipe.dietary.diet : "", alliumFree(recipe) ? fivePungentLabel : ""].filter(Boolean).join(" · ");
   const facts = [recipe.categories[0] ?? "", recipe.onePot ? "One pot" : "", recipe.member ? "By " + recipe.author : ""].filter(Boolean).join(" · ");
@@ -29,7 +27,7 @@ export function RecipeRow({ recipe, onPress }: { recipe: Recipe; onPress: () => 
     <PostFacts>
       {!!diet && <PostFact icon="leaf-outline" shrink>{diet}</PostFact>}
       {fit.fit === "Conflicts" && <PostFact icon="alert-circle-outline" iconColor={theme.mediaRating} shrink>Contains {fit.conflicts.join(", ").toLowerCase()}</PostFact>}
-      {cooked > 0 && <PostFact icon="checkmark-done-outline" shrink>Cooked {cooked}×</PostFact>}
+      {cooks > 0 && <PostFact icon="flame-outline" shrink>{cookedBy(cooks)}</PostFact>}
     </PostFacts>
   </PhotoPostCard>;
 }
