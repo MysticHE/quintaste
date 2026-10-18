@@ -6,24 +6,17 @@ import { useFood } from "../../state/Food";
 import { usePreferences } from "../../state/Preferences";
 
 /**
- * Cooking timer alerts as one on/off row. Android 12+ only offers approximate timing, so the row says so before
- * and after opting in. Phone-only: the web build has no device alerts and shows nothing.
+ * Cooking timer alerts as one on/off row: label and switch only (owner decision, 18 October 2026: no status or
+ * timing description). Errors and a blocked permission still show their fix. Phone-only: nothing on the web build.
  */
 export function TimerAlertControl({ label = "Timer Alerts" }: { label?: string }) {
   const alerts = useTimerAlerts(), { readable, dirty } = useFood(), { setNotice, theme } = usePreferences();
   if (Platform.OS === "web") return null;
-  const approximate = Platform.OS === "android" && Number(Platform.Version) >= 31;
-  const status = alerts.permission === "denied" ? "Blocked in phone settings"
-    : alerts.enabled ? (approximate || alerts.permission === "timing-unverified" ? "On · may arrive a little late" : "On")
-    : approximate ? "Cooking timers · may arrive a little late" : "Cooking timers";
   const openSettings = () => void Linking.openSettings().catch(() => setNotice({ text: "Phone settings could not open.", error: true }));
   return <View>
     <View style={s.row}>
       <View style={s.icon}><Icon name="notifications-outline" size={24} color={theme.accent} /></View>
-      <View style={common.flex}>
-        <T style={common.bold}>{label}</T>
-        <T variant="small" muted>{status}</T>
-      </View>
+      <T style={[common.flex, common.bold]}>{label}</T>
       <ThemedSwitch label={label} value={alerts.enabled} disabled={!readable || dirty || alerts.busy} onChange={() => void alerts.toggle()} />
     </View>
     {!!alerts.error && <T variant="small" color={theme.error} accessibilityLiveRegion="polite" style={s.note}>{alerts.error}</T>}
