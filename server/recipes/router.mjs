@@ -60,10 +60,10 @@ async function readPhotos(body, steps) {
   const cover = body?.photos?.cover;
   if (typeof cover !== 'string') throw new CommunityError(400, 'Add a recipe photo.');
   const options = { edge: 1280, quality: 76, max: 500000, inputMax: 320000 };
-  const photos = [['cover', await encodePhoto(cover, options)]];
+  const photos = [{ slot: 'cover', ...await encodePhoto(cover, options) }];
   for (let index = 0; index < steps; index++) {
     const step = body?.photos?.['step-' + index];
-    if (typeof step === 'string') photos.push(['step-' + index, await encodePhoto(step, options)]);
+    if (typeof step === 'string') photos.push({ slot: 'step-' + index, ...await encodePhoto(step, options) });
   }
   return photos;
 }
@@ -84,8 +84,8 @@ recipes.put('/mine/:key', member, async (req, res) => {
       ON CONFLICT (author_id, draft_key) DO UPDATE SET pending=$3, pending_revision=$4, pending_state='review', decision_note='', submitted_at=now(), updated_at=now()
       RETURNING id`, [me, key, JSON.stringify(recipe), recipe.revision])).rows[0];
     await db.query("DELETE FROM recipes.photo WHERE recipe_id=$1 AND version='pending'", [row.id]);
-    for (const [slot, photo] of photos) {
-      await db.query("INSERT INTO recipes.photo(recipe_id, version, slot, bytes, digest) VALUES($1,'pending',$2,$3,$4)", [row.id, slot, photo.bytes, photo.digest]);
+    for (const photo of photos) {
+      await db.query("INSERT INTO recipes.photo(recipe_id, version, slot, bytes, digest) VALUES($1,'pending',$2,$3,$4)", [row.id, photo.slot, photo.bytes, photo.digest]);
     }
     return row.id;
   }, 'recipe:' + me);
