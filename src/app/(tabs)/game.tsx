@@ -1,1 +1,1 @@
-export { GameScreen as default } from "../../screens/destinations/Game";
+export { GameScreen as default } from "../../screens/game/Home";

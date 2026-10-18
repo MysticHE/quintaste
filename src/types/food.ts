@@ -6,6 +6,7 @@ import type { SocialDocument } from "./social";
 import type { MarketDocument } from "./market";
 import type { Exclusion } from "../config/preferences";
 import type { SearchPoint } from "./location-search";
+import type { GameProgress } from "../game/progress";
 
 export type PhotoKey = "bowl" | "laksa" | "greens" | "kaya-toast" | "claypot-rice" | "sweet-sour-tofu" | "kangkung" | "abc-soup";
 /** Singapore meal structure: rice meals and noodles are one-dish meals; "With rice" dishes share a rice table. */
@@ -90,6 +91,8 @@ export type FoodDocument = {
   version: 1; areaId: string; searchArea: string; onboardingDone: boolean; adultConfirmed: boolean;
   saves: SavedItem[]; notes: Record<string, string>; lists: string[];
   privatePlaces: PrivatePlace[]; cases: LocalCase[]; discoverySettings: DiscoverySettings;
+  /** Rush Hour and My little café progress (local per owner until the Phase B account store). */
+  game: GameProgress;
   cooking: CookingSession | null; timers: CookingTimer[];
   notifications: { cooking: boolean; cases: boolean; saved: boolean; marketing: boolean; quietStart: string; quietEnd: string };
 };

@@ -7,6 +7,7 @@ import { emptyMarket } from "../types/market";
 import { readMarket, mergeMarket } from "./market-schema";
 import { areaById } from "../data/areas";
 import { readDiscoverySettings } from "../utils/discovery-settings";
+import { emptyGame, mergeGame, readGame } from "../game/progress";
 import { readPrivatePoint, privatePlaceKind } from "../utils/private-places";
 import { recipeById } from "../data/recipes";
 import { cookingRecipeById } from "../utils/private-recipes";
@@ -20,6 +21,7 @@ export function emptyFoodDocument(): FoodDocument {
     saves: [], notes: {}, lists: [], privatePlaces: [], cases: [], cooking: null, timers: [],
     market: emptyMarket(), social: emptySocial(), exploreLocal: readExploreLocal(undefined),
     discoverySettings: readDiscoverySettings(undefined),
+    game: emptyGame(),
     notifications: { cooking: false, cases: false, saved: false, marketing: false, quietStart: "22:00", quietEnd: "08:00" },
   };
 }
@@ -86,6 +88,7 @@ export function readFoodDocument(value: unknown): FoodDocument {
     privatePlaces: readPlaces(input.privatePlaces), cases, timers: readTimers(input.timers),
     market: readMarket(input.market), social: readSocial(input.social), exploreLocal: readExploreLocal(input.exploreLocal),
     discoverySettings: readDiscoverySettings(input.discoverySettings),
+    game: readGame(input.game),
     cooking: recipe && !(number(cooking.step) >= recipe.steps.length && number(cooking.recipeVersion, 1) === recipe.revision) ? { recipeId: recipe.id, step: Math.max(0, Math.min(recipe.steps.length, Math.floor(number(cooking.step)))),
       servings: Math.max(1, Math.min(8, Math.floor(number(cooking.servings, recipe.servings)))), startedAt: number(cooking.startedAt), recipeVersion: Math.max(1, Math.floor(number(cooking.recipeVersion, 1))),
       ...readCookingChecks(cooking, recipe) } : null,
@@ -99,5 +102,6 @@ export function mergeFoodDocuments(profile: FoodDocument, guest: FoodDocument): 
     notes: { ...guest.notes, ...profile.notes }, lists: [...profile.lists, ...guest.lists],
     privatePlaces: [...profile.privatePlaces, ...guest.privatePlaces.map(item => ({ ...item, isDefault: profile.privatePlaces.length ? false : item.isDefault }))],
     cases: [...profile.cases, ...guest.cases], cooking: profile.cooking ?? guest.cooking, timers: [...profile.timers, ...guest.timers],
+    game: mergeGame(profile.game, guest.game),
   });
 }
