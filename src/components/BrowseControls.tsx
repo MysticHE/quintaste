@@ -19,14 +19,13 @@ export function BrowseHeader({ query, onChange, placeholder, filter, action }: {
     {action}<MeButton />
   </View>;
 }
-/** The filter button that sits inside a search box; solid with a count while filters are on. */
+/** The filter button that sits inside a search box; solid while filters are on. Owner rule: never show a count on it. */
 export function FilterButton({ label, count, onPress }: BrowseFilter) {
   const { theme } = usePreferences(), onAccent = useOnAccent(), { focused, focusProps } = useKeyboardFocus(), active = count > 0;
-  return <Pressable accessibilityRole="button" accessibilityLabel={active ? `${label}, ${count} on` : label} accessibilityState={{ selected: active }}
+  return <Pressable accessibilityRole="button" accessibilityLabel={active ? label + ", on" : label} accessibilityState={{ selected: active }}
     onPress={onPress} hitSlop={4} {...focusProps}
     style={({ pressed }) => [s.filter, { backgroundColor: active ? theme.accent : theme.accentSoft, borderColor: focused ? theme.foreground : theme.transparent, opacity: pressed ? 0.75 : 1 }]}>
     <Icon name="options-outline" size={20} color={active ? onAccent : theme.accent} />
-    {active && <View style={[s.dot, { backgroundColor: theme.error, borderColor: theme.card }]}><T variant="small" color={theme.actionForeground} style={[common.bold, s.dotText]}>{count}</T></View>}
   </Pressable>;
 }
 
@@ -73,7 +72,6 @@ export function FilterSection({ title, icon, children }: PropsWithChildren<{ tit
 const s = StyleSheet.create({
   search: { flexDirection: "row", alignItems: "center", gap: 8 },
   filter: { width: 40, height: 40, borderRadius: 12, borderWidth: 2, alignItems: "center", justifyContent: "center", marginRight: 4 },
-  dot: { position: "absolute", top: -7, right: -7, minWidth: 20, height: 20, borderRadius: 10, borderWidth: 2, alignItems: "center", justifyContent: "center", paddingHorizontal: 3 },
   dotText: { fontSize: 11, lineHeight: 14 },
   tabs: { flexDirection: "row" },
   tab: { flex: 1, minHeight: 52, alignItems: "center", justifyContent: "center", borderWidth: 2, borderRadius: 12 },
