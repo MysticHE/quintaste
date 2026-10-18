@@ -13,6 +13,16 @@ export function publicUrl(v) {
   try { const u = new URL(v); return text(v, 600) && u.protocol === 'https:' && !u.username && !u.password && (!u.port || u.port === '443') && /^[a-z0-9.-]+\.[a-z]{2,}$/i.test(u.hostname) && !/^(localhost|.*\.(local|internal))$/.test(u.hostname); } catch { return false; }
 }
 const date = v => typeof v === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(v) && Number.isFinite(Date.parse(v)) && new Date(v).toISOString().slice(0, 10) === v && Date.parse(v) <= Date.now() + 86400000;
+/** A branch photo the owner approved in Telegram travels with its enhanced asset (signed by the publisher). */
+export function ownerReference(p) {
+  const ref = p?.reference, photo = ref?.photo;
+  const valid = keys(ref, ['venueId', 'sha256', 'rightsApprovalId', 'approvedBy', 'approvedAt', 'photo']) && /^owner-telegram-[a-f0-9]{24}$/.test(ref.rightsApprovalId)
+    && ref.rightsApprovalId === p.rightsApprovalId && ref.venueId === p.venueId && ref.sha256 === p.referenceSha256 && validHash(ref.sha256)
+    && ref.approvedBy === 'telegram-owner' && date(ref.approvedAt)
+    && keys(photo, ['author', 'sourceUrl', 'license', 'licenseUrl', 'capturedAt']) && text(photo.author, 180) && publicUrl(photo.sourceUrl)
+    && text(photo.license, 80) && (photo.licenseUrl === null || publicUrl(photo.licenseUrl)) && (photo.capturedAt === null || date(photo.capturedAt));
+  return valid ? { status: 'approved', venueId: ref.venueId, sha256: ref.sha256, rightsApprovalId: ref.rightsApprovalId, photo } : null;
+}
 export function validateSources(sources) {
   requireValue(Array.isArray(sources) && sources.length > 0 && sources.length <= 12, 'Source evidence is required');
   for (const s of sources) requireValue(keys(s, ['url', 'checkedAt', 'fetchedAt', 'contentSha256', 'evidence']) && publicUrl(s.url) && date(s.checkedAt) && Number.isFinite(Date.parse(s.fetchedAt)) && Date.parse(s.fetchedAt) <= Date.now() + 60000 && Date.now() - Date.parse(s.fetchedAt) < 35 * 86400000 && validHash(s.contentSha256) && text(s.evidence, 1200), 'Missing or stale source capture');

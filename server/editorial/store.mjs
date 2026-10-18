@@ -1,7 +1,7 @@
 import fs from 'node:fs/promises';
 import { Buffer } from 'node:buffer';
 import path from 'node:path';
-import { hash, requireValue, validHash, validId, validateSources, validateRecipe, validateEvent, validateVenue } from './validation.mjs';
+import { hash, ownerReference, requireValue, validHash, validId, validateSources, validateRecipe, validateEvent, validateVenue } from './validation.mjs';
 import { readFileSync } from 'node:fs';
 import sharp from 'sharp';
 
@@ -98,7 +98,7 @@ export async function publish(root, baseline, batch) {
       try { await sharp(bytes, { limitInputPixels: 1600 * 1600, failOn: 'warning' }).raw().toBuffer(); }
       catch { requireValue(false, 'Image cannot be fully decoded'); }
       requireValue(a.review?.decision === 'approved' && a.review.sha256 === a.sha256 && a.review.reviewedBy === 'QT Manager' && ['original-generated-recipe-illustration', 'approved-reference-enhancement'].includes(a.provenance?.kind), 'Image requires hash-bound visual review');
-      if (a.provenance.kind === 'approved-reference-enhancement') requireValue(references.some(r => r.status === 'approved' && r.venueId === a.provenance.venueId && r.sha256 === a.provenance.referenceSha256 && r.rightsApprovalId === a.provenance.rightsApprovalId), 'Approved exact-branch reference required');
+      if (a.provenance.kind === 'approved-reference-enhancement') requireValue(references.some(r => r.status === 'approved' && r.venueId === a.provenance.venueId && r.sha256 === a.provenance.referenceSha256 && r.rightsApprovalId === a.provenance.rightsApprovalId) || ownerReference(a.provenance), 'Approved exact-branch reference required');
       assets.set(a.sha256, { bytes, dimensions, provenance: a.provenance, review: a.review });
     }
     const next = structuredClone(current), seen = new Set();
@@ -135,7 +135,7 @@ export async function publish(root, baseline, batch) {
         requireValue(metadata && metadata.dimensions.width === image.width && metadata.dimensions.height === image.height, 'Reviewed image is missing or dimensions differ');
         if (r.kind === 'venue') {
           requireValue(metadata.provenance.kind === 'approved-reference-enhancement' && metadata.provenance.venueId === r.id, 'Image belongs to another venue');
-          const reference = references.find(ref => ref.sha256 === metadata.provenance.referenceSha256 && ref.venueId === r.id);
+          const reference = references.find(ref => ref.sha256 === metadata.provenance.referenceSha256 && ref.venueId === r.id) ?? ownerReference(metadata.provenance);
           requireValue(reference && ['author', 'sourceUrl', 'license', 'licenseUrl', 'capturedAt'].every(key => image[key] === reference.photo[key]), 'Original photo attribution/licence must be retained');
         }
         if (r.kind === 'recipe') requireValue(metadata.provenance.kind === 'original-generated-recipe-illustration' && metadata.provenance.recipeId === r.id, 'Image belongs to another recipe');
