@@ -15,8 +15,10 @@ import { usePublishedRecipes } from "../../components/recipes/PublishedRecipes";
 import { useMemberRecipes } from "../../hooks/useMemberRecipes";
 
 export function CookScreen() {
-  const { doc, isSaved, cookSearch: query, setCookSearch: setQuery, cookBrowse: browse, setCookBrowse } = useFood();
-  const { draft } = usePreferences();
+  const { doc, isSaved, cookSearch: query, setCookSearch: setQuery, cookBrowse: browse, setCookBrowse, patchDocument } = useFood();
+  const { draft, setNotice } = usePreferences();
+  // Ending the session only forgets the step; running timers and the recipe stay as they are.
+  const endCooking = async () => { if (await patchDocument({ cooking: null })) setNotice({ text: "Cooking ended" }); };
   const published = usePublishedRecipes(), members = useMemberRecipes();
   const hasMore = published.hasMore || members.hasMore, limited = published.limited || members.limited;
   const more = () => { if (published.hasMore) published.more(); if (members.hasMore) members.more(); };
@@ -36,6 +38,7 @@ export function CookScreen() {
         <T variant="small" muted>{doc.cooking.gathering ? "Gathering ingredients" : "Step " + (doc.cooking.step + 1) + "/" + resume.steps.length} · {doc.cooking.servings} servings</T>
       </View>
       <IconButton label={"Resume cooking " + resume.name} icon="play-outline" selected onPress={() => router.push("/cooking/" + resume.id as never)} />
+      <IconButton label={"End cooking " + resume.name} icon="close" onPress={() => void endCooking()} />
     </Card>}
     {!!visible.length && <View style={common.spread}>
       <T variant="small" muted accessibilityLiveRegion="polite">{visible.length} {visible.length === 1 ? "recipe" : "recipes"}{hasMore ? " shown" : ""}</T>
