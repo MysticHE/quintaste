@@ -46,8 +46,8 @@ export function CatalogueVenueCard({ venue, more, review }: { venue: CatalogueVe
           </View>
         </View>
         <View style={s.facts}>
-          <View style={s.line}><Icon name="leaf-outline" size={14} color={theme.mediaMutedForeground} /><T variant="caption" color={theme.mediaMutedForeground}>{venue.venueDiet}</T></View>
-          <View style={[s.line, { flexShrink: 1 }]}><Icon name="time-outline" size={14} color={theme.mediaMutedForeground} /><T variant="caption" style={{ flexShrink: 1 }} color={theme.mediaMutedForeground}>{hoursSummary}</T></View>
+          <View style={s.line}><Icon name="leaf-outline" size={14} color={theme.mediaForeground} /><T variant="caption" color={theme.mediaForeground}>{venue.venueDiet}</T></View>
+          <View style={[s.line, { flexShrink: 1 }]}><Icon name="time-outline" size={14} color={theme.mediaForeground} /><T variant="caption" style={{ flexShrink: 1 }} color={theme.mediaForeground}>{hoursSummary}</T></View>
         </View>
       </View>
     </View>

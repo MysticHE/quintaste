@@ -43,13 +43,13 @@ export function ExploreScreen() {
       <MeButton /></View>
     <View testID="explore-search-context" style={s.context}>
     {!!point && !privateMissing && <View testID="explore-location-label" style={[s.locationLabel, { backgroundColor: theme.accentSoft }]}>
-      <Icon name="location-outline" size={14} color={theme.mutedForeground} />
+      <Icon name="location-outline" size={14} color={theme.foreground} />
       <T variant="caption" style={{ flexShrink: 1 }}><T variant="caption" style={common.bold}>{areaLabel}</T>
-        <T variant="caption" muted>{" · " + input.radius / 1000 + " km"}</T></T>
+        <T variant="caption">{" · " + input.radius / 1000 + " km"}</T></T>
     </View>}
-    {accepted && <View testID="explore-places-count" style={[s.countLabel, { backgroundColor: theme.muted }]}>
-      <Icon name="storefront-outline" size={14} color={theme.mutedForeground} />
-      <T variant="caption" muted accessibilityLiveRegion="polite">{discovery.catalogue?.total ?? 0} {(discovery.catalogue?.total ?? 0) === 1 ? "place" : "places"}</T>
+    {accepted && <View testID="explore-places-count" style={[s.countLabel, { backgroundColor: theme.accentSoft }]}>
+      <Icon name="storefront-outline" size={14} color={theme.foreground} />
+      <T variant="caption" accessibilityLiveRegion="polite"><T variant="caption" style={common.bold}>{discovery.catalogue?.total ?? 0}</T>{(discovery.catalogue?.total ?? 0) === 1 ? " place" : " places"}</T>
     </View>}
     </View>
     <LocationFeedback nearby={nearby} />
