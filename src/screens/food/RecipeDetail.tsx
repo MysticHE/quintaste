@@ -6,7 +6,7 @@ import { View } from "react-native";
 import { useState } from "react";
 import { CookLayout as Screen, CookSection } from "../../components/recipes/CookLayout";
 import { Button, T, common } from "../../components/ui";
-import { EmptyState, IconButton, InfoBox, SectionTitle, Servings } from "../../components/food/Controls";
+import { Chip, EmptyState, InfoBox, SectionTitle, Servings } from "../../components/food/Controls";
 import { RecipeOverview } from "../../components/recipes/RecipeOverview";
 import { IngredientList } from "../../components/recipes/IngredientList";
 import { PrivateNote } from "../../components/food/DetailParts";
@@ -47,9 +47,10 @@ export function RecipeDetailScreen() {
       <Button label={current ? "Resume" : replace ? "Replace & Cook" : "Cook"} icon="play-outline"
         disabled={busy || !readable || !!recipe.withdrawal} loading={busy} onPress={() => void start()} />
     </View>
-    <View style={common.row}><T variant="subtitle" style={common.flex} accessibilityRole="header">Ingredients</T>
-      <IconButton label="Add To Shopping" icon="basket-outline" disabled={!readable} onPress={() => void shop()} />
-      <IconButton label="Ingredient Guide" icon="book-outline" onPress={() => router.push({ pathname: "/cook/ingredients/[id]", params: { id, servings: String(servings) } } as never)} />
+    <T variant="subtitle" accessibilityRole="header">Ingredients</T>
+    <View style={[common.row, { gap: 8 }]}>
+      <Chip compact label="Add To Shopping List" icon="cart-outline" disabled={!readable} onPress={() => void shop()} />
+      <Chip compact label="Ingredient Guide" icon="library-outline" onPress={() => router.push({ pathname: "/cook/ingredients/[id]", params: { id, servings: String(servings) } } as never)} />
     </View>
     <IngredientList ingredients={recipe.ingredients} scale={servings / recipe.servings} flagged={flagged} />
     <SectionTitle title="Steps" />

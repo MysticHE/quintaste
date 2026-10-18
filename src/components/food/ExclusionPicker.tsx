@@ -18,7 +18,6 @@ export function ExclusionPicker({ value, onChange }: { value: Exclusion[]; onCha
         return <Chip key={preset.label} label={preset.label} icon="leaf-outline" role="checkbox" selected={selected}
           onPress={() => onChange(selected ? value.filter(item => !preset.items.includes(item)) : [...new Set([...value, ...preset.items])])} />;
       })}</Chips>
-      <T variant="small" muted>Presets fill in the choices below. Practice varies, so adjust any item.</T>
     </View>
     {group("Non-vegan", animalExclusions)}
     <View style={common.stack}>
@@ -26,6 +25,6 @@ export function ExclusionPicker({ value, onChange }: { value: Exclusion[]; onCha
       <Chips>{alliums.map(item => <Chip key={item} label={item} role="checkbox" selected={value.includes(item)} onPress={() => toggle(item)} />)}</Chips>
     </View>
     {group("Other Ingredient Choices", [...otherExclusions, ...traditionExclusions])}
-    <T variant="small" muted>These choices help you ask the right questions. They do not confirm that food is free from allergens or cross-contact.</T>
+    <T variant="small" muted>Not an allergen guarantee: always check with the cook or the label.</T>
   </View>;
 }

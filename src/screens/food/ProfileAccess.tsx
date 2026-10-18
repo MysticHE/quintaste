@@ -58,7 +58,7 @@ export function MergeSavesScreen() {
     setBusy(true);
     try { if (await mergeGuest()) router.dismissTo(destination); } finally { setBusy(false); }
   };
-  return <Screen title="Import Guest Data">
+  return <Screen title="Bring In Guest Saves">
     <T>Copy saves and drafts from guest mode into this account on this device. Guest originals and existing account notes are kept.</T>
     <Button label="Import" disabled={!readable} loading={busy} onPress={() => void merge()} />
     <Button label="Not Now" variant="link" disabled={busy} onPress={() => { clearMerge(); router.dismissTo(destination); }} />

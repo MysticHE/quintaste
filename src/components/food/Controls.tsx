@@ -6,7 +6,8 @@ import { useState, type PropsWithChildren, type ReactNode } from "react";
 import { useKeyboardFocus } from "../../hooks/useKeyboardFocus";
 import { usePreferences } from "../../state/Preferences";
 import { fontNames } from "../../theme/tokens";
-import { Button, Card, Icon, T, common, type IconName } from "../ui";
+import { Card, Icon, T, common, type IconName } from "../ui";
+import { StateView } from "../StateView";
 
 export function Chip({ label, icon, leading, trailing, selected = false, onPress, role = "button", disabled = false, compact = false, style }: {
   label: string; icon?: IconName; leading?: ReactNode; trailing?: ReactNode; selected?: boolean; onPress: () => void; role?: AccessibilityRole; disabled?: boolean; compact?: boolean; style?: StyleProp<ViewStyle>;
@@ -78,12 +79,10 @@ export function InfoBox({ title, text, icon = "information-circle-outline", chil
     <T variant="small" muted style={s.infoText}>{text}</T>{children}
   </Card>;
 }
+/** Empty, error and not-found states in lists and screens; see StateView. A lone `action` becomes the primary step. */
 export function EmptyState({ title, text, action, onPress, icon = "search-outline", primary }: { title: string; text: string; action?: string; onPress?: () => void; icon?: IconName; primary?: { label: string; onPress: () => void } }) {
-  const { theme } = usePreferences();
-  return <Card style={s.empty}>
-    <Icon name={icon} size={32} color={theme.accent} /><T variant="subtitle" accessibilityRole="header" style={common.center}>{title}</T>
-    {!!text && <T muted style={common.center}>{text}</T>}{primary && <Button label={primary.label} onPress={primary.onPress} />}{action && onPress && <Button label={action} onPress={onPress} variant="secondary" />}
-  </Card>;
+  const extra = action && onPress ? { label: action, onPress } : undefined;
+  return <StateView icon={icon} title={title} text={text} primary={primary ?? extra} secondary={primary ? extra : undefined} />;
 }
 export function Servings({ value, onChange }: { value: number; onChange: (value: number) => void }) {
   return <View style={[common.spread, s.servings]}><T style={[common.bold, common.flex]}>Servings</T>
@@ -105,6 +104,5 @@ const s = StyleSheet.create({
   searchInput: { outlineWidth: 0, outlineStyle: "solid", flex: 1, minWidth: 0, paddingVertical: 10, paddingRight: 4 },
   clear: { width: 48, height: 48, alignItems: "center", justifyContent: "center" },
   infoText: { marginTop: 7, marginBottom: 3 },
-  empty: { gap: 12, alignItems: "center", paddingVertical: 24, paddingHorizontal: 20 },
   servings: { flexWrap: "wrap", gap: 10 },
 });

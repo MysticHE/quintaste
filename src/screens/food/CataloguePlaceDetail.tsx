@@ -4,7 +4,7 @@ import { useState } from "react";
 import { ActivityIndicator, Share, StyleSheet, View } from "react-native";
 import { Screen } from "../../components/Screen";
 import { Button, Icon, T, common } from "../../components/ui";
-import { IconButton } from "../../components/food/Controls";
+import { EmptyState, IconButton } from "../../components/food/Controls";
 import { StatusPill } from "../../components/GroupedList";
 import { CataloguePhotoBackdrop } from "../../components/discovery/CataloguePhotoBackdrop";
 import { PlaceDetailAction, PlaceDetailSection, PlaceSources } from "../../components/discovery/PlaceDetailParts";
@@ -44,7 +44,9 @@ export function CataloguePlaceDetailScreen({ id }: { id: string }) {
     headerAction={venue ? <IconButton label="Share place" icon="share-outline" onPress={() => void share()} /> : undefined}>
     {busy && <ActivityIndicator color={theme.accent} accessibilityLabel="Loading place details" />}
     {offline && <T variant="caption" muted>Offline · {venue ? "saved place details" : "bookmark only"}</T>}
-    {!!error && <View style={common.row}><T variant="small" muted style={common.flex} accessibilityLiveRegion="polite">{error}</T><Button label="Retry Details" variant="link" onPress={retry} /></View>}
+    {!!error && (venue ? <View style={common.row}><T variant="small" muted style={common.flex} accessibilityLiveRegion="polite">Showing saved details</T><Button label="Try Again" variant="link" onPress={retry} /></View>
+      : <EmptyState icon="cloud-offline-outline" title="Couldn't load this place" text={offline ? "You're offline. Connect and try again." : "Check your connection and try again."} primary={{ label: "Try Again", onPress: retry }}
+        action="Back To Explore" onPress={() => router.navigate("/")} />)}
     {venue && <>
       {venue.photo ? <View testID="catalogue-place-photo" style={[s.hero, { backgroundColor: theme.mediaSurface }]}>
         <CataloguePhotoBackdrop key={venue.photo.path} path={venue.photo.path} enabled panelHeight={0} nameHeight={0} />

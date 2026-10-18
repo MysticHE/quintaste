@@ -1,4 +1,5 @@
 import { router, useLocalSearchParams } from "expo-router";
+import { dietLabel } from "../config/preferences";
 import { useState } from "react";
 import { Pressable, StyleSheet, View } from "react-native";
 import { AvatarPortrait } from "../components/avatar/AvatarPortrait";
@@ -43,7 +44,7 @@ export function AccountScreen() {
     </Card>
     <Card style={s.group}>
       <SettingsRow label="Saved" leading={<QuinTasteIcon name="saved" color={theme.accent} size={26} />} value={String(doc.saves.length)} onPress={() => router.push("/saved")} />
-      <SettingsRow label="Food Choices" icon="leaf-outline" value={draft.diet === "Plant-based" ? "Plant-Based" : draft.diet} onPress={() => router.push("/exclusions")} />
+      <SettingsRow label="Food Choices" icon="leaf-outline" value={dietLabel(draft.diet)} onPress={() => router.push("/exclusions")} />
       <SettingsRow label="Location" icon="location-outline" last={!__DEV__} onPress={() => router.push("/private-places")} />
       {__DEV__ && <SettingsRow label="My Cases" icon="file-tray-outline" last onPress={() => router.push("/cases")} />}
     </Card>
@@ -55,7 +56,7 @@ export function AccountScreen() {
     <Card style={s.group}>
       <SettingsRow label="Privacy & Data" icon="shield-checkmark-outline" onPress={() => router.push("/privacy")} />
       <SettingsRow label="Help" icon="help-circle-outline" last={!user} onPress={() => router.push("/help")} />
-      {user && <SettingsRow label="Import Guest Data" icon="download-outline" last onPress={() => router.push('/merge-saves')} />}
+      {user && <SettingsRow label="Bring In Guest Saves" icon="download-outline" last onPress={() => router.push('/merge-saves')} />}
     </Card>
     {(user || preview || !enabled) && <Button label={user ? "Sign Out" : preview ? "Return To Guest Collection" : "View Profile Options"} icon={user || preview ? "log-out-outline" : "log-in-outline"} variant="link" loading={switching} onPress={() => {
       if (preview) void leave();

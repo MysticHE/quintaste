@@ -45,7 +45,7 @@ export default function MarketScreen() {
   const add = useShopAdd(shopTab), browsing = tab === "browse" || tab === "saved";
   const tabs: IconTab<MarketTab>[] = [
     { id: "browse", label: "Browse", icon: "grid-outline", activeIcon: "grid" },
-    { id: "saved", label: "Saved", icon: "heart-outline", activeIcon: "heart" },
+    { id: "saved", label: "Saved", icon: "bookmark-outline", activeIcon: "bookmark" },
     { id: "orders", label: "Orders", icon: "receipt-outline", activeIcon: "receipt", badge: counts?.orders ?? 0 },
     { id: "shop", label: "My shop", icon: "storefront-outline", activeIcon: "storefront" },
   ];
@@ -54,7 +54,7 @@ export default function MarketScreen() {
       filter={browsing ? { label: "Market filters", count: refined({ ...filters, savedOnly: false }), onPress: () => setFilterOpen(true) } : undefined}
       action={<IconButton label={counts?.count ? `Market Inbox, ${counts.count} new` : "Market Inbox"} icon="chatbubbles-outline" badge={counts?.count ?? 0} onPress={() => router.push("/market/inbox")} />} />}>
     <IconTabs tabs={tabs} value={tab} label="Market sections" onChange={next => router.setParams({ tab: next === "browse" ? undefined : next })} />
-    {browsing ? (tab === "saved" && !member.member ? <MemberPrompt icon="heart-outline" returnTo="/market?tab=saved" />
+    {browsing ? (tab === "saved" && !member.member ? <MemberPrompt icon="bookmark-outline" returnTo="/market?tab=saved" />
       : <Browse query={query} filters={{ ...filters, savedOnly: tab === "saved" }} setFilters={setFilters} />)
       : tab === "orders" ? <OrdersContent query={query} /> : <MyShopContent tab={shopTab} setTab={setShopTab} query={query} />}
     {filterOpen && <MarketFilters value={{ ...filters, savedOnly: tab === "saved" }} onApply={next => setFilters({ ...next, savedOnly: false })} onClose={() => setFilterOpen(false)} />}
@@ -81,14 +81,14 @@ function Browse({ query, filters, setFilters }: { query: string; filters: ShopFi
     catch (error) { setNotice({ text: error instanceof ApiError ? error.message : "That did not save. Try again.", error: true }); }
     finally { saving.current.delete(item.id); }
   };
-  if (paused) return <FirstRunState icon="storefront-outline" title="Market is coming soon" text="Sell food you make at home." action={{ label: "Open Shop", onPress: () => router.setParams({ tab: "shop" }) }} />;
+  if (paused) return <FirstRunState icon="storefront-outline" title="Market opens soon" text="Buy home-cooked food and sealed packs from people nearby." />;
   return <>
     {filtered && remote.data && <T variant="small" muted accessibilityLiveRegion="polite">{items.length}{next !== null ? "+" : ""} {items.length === 1 ? "item" : "items"}</T>}
     <RemoteStatus remote={remote} icon="storefront-outline" returnTo="/market" />
     {remote.data && (items.length ? <ListingGrid items={items} onSave={item => void save(item)} />
       : filtered ? <EmptyState title="No Matching Food" text="" icon="search-outline" action="Clear Filters" onPress={clear} />
-      : filters.savedOnly ? <FirstRunState icon="heart-outline" title="Save food you like" text="Tap the heart on any item to keep it here." action={{ label: "Browse", onPress: () => router.setParams({ tab: undefined }) }} />
-      : <FirstRunState icon="storefront-outline" title="Be the first to sell" text="Sell food you make at home." action={{ label: "Open Shop", onPress: () => router.setParams({ tab: "shop" }) }} />)}
+      : filters.savedOnly ? <FirstRunState icon="bookmark-outline" title="Save food you like" text="Tap the bookmark on any item to keep it here." action={{ label: "Browse Food", icon: "grid-outline", onPress: () => router.setParams({ tab: undefined }) }} />
+      : <FirstRunState icon="storefront-outline" title="Nothing on sale yet" text="Home cooks will list food here. Cook something good? You can sell it too." action={{ label: "Sell On Market", icon: "storefront-outline", onPress: () => router.setParams({ tab: "shop" }) }} />)}
     {next !== null && <Button label="Show More" variant="secondary" loading={more.busy} onPress={() => void more.load(next)} />}
   </>;
 }

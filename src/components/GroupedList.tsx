@@ -63,10 +63,11 @@ export function ListItem({ title, badge, subtitle, detail, leading, trailing, on
   </Pressable>;
 }
 /** Theme-coloured switch; activeThumbColor is the web prop for the on-state thumb. */
+/** Off track uses the muted text colour so the switch passes 3:1 non-text contrast on a card (WCAG 1.4.11). */
 export function ThemedSwitch({ label, value, onChange, disabled = false }: { label: string; value: boolean; onChange: (value: boolean) => void; disabled?: boolean }) {
   const { theme } = usePreferences();
   return <Switch accessibilityLabel={label} value={value} disabled={disabled} onValueChange={onChange}
-    trackColor={{ false: theme.muted, true: theme.accent }} thumbColor={theme.card} {...{ activeThumbColor: theme.card }} />;
+    trackColor={{ false: theme.mutedForeground, true: theme.accent }} thumbColor={theme.card} {...{ activeThumbColor: theme.card }} />;
 }
 /** Visible label for a chip group or control, matching Field labels. */
 export const FieldLabel = ({ children }: { children: string }) => <T variant="small" style={common.bold}>{children}</T>;

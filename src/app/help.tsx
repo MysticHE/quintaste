@@ -1,1 +1,1 @@
-export { HelpScreen as default } from "../screens/Profile";
+export { HelpScreen as default } from "../screens/Help";

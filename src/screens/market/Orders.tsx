@@ -8,7 +8,7 @@ import { SegmentedTabs } from "../../components/SegmentedTabs";
 import { FirstRunState } from "../../components/BrowseControls";
 import { MemberPrompt, RemoteStatus, useMember } from "../../components/CommunityGate";
 import { useRemote } from "../../hooks/useRemote";
-import { orders } from "../../services/market-api";
+import { orders, sellerState } from "../../services/market-api";
 import { orderLabel } from "../../config/market";
 import { marketMoney, slotDay } from "../../utils/market";
 import type { OrderStatus, OrderSummary } from "../../types/community";
@@ -24,14 +24,16 @@ export function OrderRow({ order, role = "buyer" }: { order: OrderSummary; role?
 const modes = [{ id: "buy", label: "Buying" }, { id: "sell", label: "Selling" }] as const;
 /** Market > Orders: orders you placed, or orders for your shop, open ones first. The header search narrows them. */
 export function OrdersContent({ query }: { query: string }) {
-  const { member } = useMember(), [mode, setMode] = useState<"buy" | "sell">("buy");
+  const { member } = useMember(), [chosen, setMode] = useState<"buy" | "sell">("buy");
+  // Selling only appears once the member has a shop.
+  const seller = useRemote(member ? "/api/market/seller" : null, sellerState).data?.seller, mode = seller ? chosen : "buy";
   const remote = useRemote(member ? "/api/market/orders?role=" + mode : null, signal => orders(mode, signal), 20000);
   const term = query.trim().toLowerCase(), all = remote.data?.items ?? [];
   const items = term ? all.filter(o => (o.summary + " " + o.otherName).toLowerCase().includes(term)) : all;
   const open = items.filter(o => ["requested", "confirmed", "ready"].includes(o.status)), role = mode === "sell" ? "seller" : "buyer";
   if (!member) return <MemberPrompt icon="receipt-outline" returnTo="/market?tab=orders" />;
   return <>
-    <View style={common.row}><SegmentedTabs options={modes} value={mode} onChange={setMode} label="Orders" /></View>
+    {!!seller && <View style={common.row}><SegmentedTabs options={modes} value={mode} onChange={setMode} label="Orders" /></View>}
     <RemoteStatus remote={remote} icon="receipt-outline" returnTo="/market?tab=orders" />
     {remote.data && (items.length ? <>
       <ListGroup title="Open">{open.map(o => <OrderRow key={o.id} order={o} role={role} />)}</ListGroup>
@@ -39,6 +41,6 @@ export function OrdersContent({ query }: { query: string }) {
     </> : term ? <EmptyState title="No Matching Orders" text="" icon="receipt-outline" />
       : <FirstRunState icon="receipt-outline" title={mode === "buy" ? "Place your first order" : "No orders yet"}
         text={mode === "buy" ? "Pre-order home-cooked food from neighbours." : "Orders for your shop appear here."}
-        action={mode === "buy" ? { label: "Browse", onPress: () => router.setParams({ tab: undefined }) } : undefined} />)}
+        action={mode === "buy" ? { label: "Browse Food", icon: "grid-outline", onPress: () => router.setParams({ tab: undefined }) } : undefined} />)}
   </>;
 }

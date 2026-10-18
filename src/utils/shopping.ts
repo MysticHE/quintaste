@@ -1,6 +1,6 @@
 import type { Recipe } from "../types/food";
 import type { RecipeWorkspace, ShoppingNote } from "../types/recipe-workspace";
-import { ingredientLine } from "./food-format";
+import { ingredientLine, quantity } from "./food-format";
 
 export const aisles = ["Vegetables & fruit", "Tofu & soy", "Rice, noodles & bread", "Sauces & pastes", "Oils, spices & dry goods", "Coconut & plant milks", "Other"] as const;
 export type Aisle = (typeof aisles)[number];
@@ -48,7 +48,8 @@ export function upgradeLegacyShopping(notes: ShoppingNote[], resolve: (recipeId:
   }
   return out;
 }
-export type ShoppingRow = { key: string; ids: string[]; text: string; spoken: string; checked: boolean; recipeIds: string[]; aisle: Aisle };
+/** `name` and `qty` split the line for display ("Brown sugar" · "60 g"); manual notes have no qty. */
+export type ShoppingRow = { key: string; ids: string[]; text: string; spoken: string; checked: boolean; recipeIds: string[]; aisle: Aisle; name: string; qty: string };
 function mergeKey(note: ShoppingNote) {
   return note.name ? note.name.trim().toLowerCase() + "|" + (note.amount === null ? "to-taste" : (note.unit ?? "").toLowerCase()) : "note|" + note.id;
 }
@@ -57,8 +58,10 @@ function toRow(group: ShoppingNote[]): ShoppingRow {
   const line = first.name && group.length > 1
     ? ingredientLine({ name: first.name, unit: first.unit ?? "", amount: first.amount === null || first.amount === undefined ? null : group.reduce((sum, note) => sum + (note.amount ?? 0), 0) })
     : { text: first.text, spoken: first.text };
+  const total = first.amount === null || first.amount === undefined ? null : group.reduce((sum, note) => sum + (note.amount ?? 0), 0);
+  const qty = !first.name ? "" : total === null ? "To taste" : [quantity(total), first.unit].filter(Boolean).join(" ");
   return { key: mergeKey(first), ids: group.map(note => note.id), text: line.text, spoken: line.spoken, checked: group.every(note => note.checked),
-    recipeIds: [...new Set(group.map(note => note.recipeId).filter(Boolean))], aisle: aisleFor(first.name ?? first.text) };
+    recipeIds: [...new Set(group.map(note => note.recipeId).filter(Boolean))], aisle: aisleFor(first.name ?? first.text), name: first.name ?? first.text, qty };
 }
 /** Identical name + unit lines merge across recipes; different units never merge. */
 export function combinedRows(notes: ShoppingNote[]) {
@@ -66,11 +69,6 @@ export function combinedRows(notes: ShoppingNote[]) {
   for (const note of notes) groups.set(mergeKey(note), [...(groups.get(mergeKey(note)) ?? []), note]);
   const rows = [...groups.values()].map(toRow);
   return aisles.map(aisle => ({ title: aisle as string, rows: rows.filter(row => row.aisle === aisle) })).filter(section => section.rows.length);
-}
-export function recipeRows(notes: ShoppingNote[], recipeName: (id: string) => string) {
-  const order = [...new Set(notes.map(note => note.recipeId))];
-  // Unmerged rows key by note id: one recipe can list the same name and unit twice.
-  return order.map(recipeId => ({ title: recipeId ? recipeName(recipeId) : "Your items", rows: notes.filter(note => note.recipeId === recipeId).map(note => ({ ...toRow([note]), key: note.id })) }));
 }
 export function shoppingShareText(notes: ShoppingNote[]) {
   const sections = combinedRows(notes.filter(note => !note.checked));

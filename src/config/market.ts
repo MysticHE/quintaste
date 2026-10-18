@@ -6,7 +6,7 @@ export const shopCategories: { id: ShopCategory; icon: IconName }[] = [
   { id: "Frozen", icon: "snow-outline" }, { id: "Sauces & pantry", icon: "basket-outline" }, { id: "Drinks", icon: "water-outline" },
 ];
 /** Every Market item is vegetarian; these are optional seller declarations on top. */
-export const dietLabels: Record<Diet, string> = { "vegan": "Vegan", "no-egg": "No egg", "five-pungent-free": "No onion & garlic", "jain": "Jain" };
+export const dietLabels: Record<Diet, string> = { "vegan": "Vegan", "no-egg": "No egg", "five-pungent-free": "No five pungent (五辛)", "jain": "Jain" };
 export const diets = Object.keys(dietLabels) as Diet[];
 /** Food the seller cooks at home, or a sealed item bought from a shop in Singapore. */
 export const kindLabels: Record<ListingKind, string> = { made: "Home-cooked", prepacked: "Sealed pack" };

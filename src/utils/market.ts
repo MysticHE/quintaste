@@ -62,7 +62,7 @@ export function dietConflict(d: Pick<ListingDraft, "diets" | "info">) {
   const has = (tag: string) => d.info.contains.includes(tag as never);
   if (d.diets.includes("vegan") && ["Eggs", "Dairy", "Honey"].some(has)) return "A vegan item can't contain egg, dairy or honey.";
   if (d.diets.includes("no-egg") && has("Eggs")) return "An egg-free item can't contain eggs.";
-  if ((d.diets.includes("five-pungent-free") || d.diets.includes("jain")) && alliums.some(has)) return "Remove onion and garlic family items, or the No onion & garlic claim.";
+  if ((d.diets.includes("five-pungent-free") || d.diets.includes("jain")) && alliums.some(has)) return "Remove onion and garlic family items, or the No five pungent claim.";
   if (d.diets.includes("jain") && has("Honey")) return "A Jain item can't contain honey.";
   return null;
 }
@@ -71,7 +71,7 @@ export function dietWarnings(d: Pick<ListingDraft, "diets" | "ingredients">) {
   const warnings: string[] = [], text = d.ingredients;
   const animalWord = text.replace(plantDairy, " ").match(animal)?.[0];
   if (d.diets.includes("vegan") && animalWord) warnings.push(`"${animalWord}" usually isn't vegan. If it's plant-based, say so in the ingredients (e.g. oat milk).`);
-  if ((d.diets.includes("five-pungent-free") || d.diets.includes("jain")) && pungent.test(text)) warnings.push(`"${text.match(pungent)?.[0]}" conflicts with No onion & garlic. Check spice mixes and sauces too.`);
+  if ((d.diets.includes("five-pungent-free") || d.diets.includes("jain")) && pungent.test(text)) warnings.push(`"${text.match(pungent)?.[0]}" conflicts with No five pungent. Check spice mixes and sauces too.`);
   if (d.diets.includes("jain") && roots.test(text)) warnings.push(`"${text.match(roots)?.[0]}" is a root vegetable, which Jain diets avoid.`);
   const meatWord = text.match(meat)?.[0];
   if (meatWord && !qualified.test(text)) warnings.push(`Market is vegetarian. Write "mock ${meatWord.toLowerCase()}" or "plant-based" if it's a meat alternative.`);

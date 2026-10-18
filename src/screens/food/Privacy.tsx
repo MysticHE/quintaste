@@ -4,7 +4,7 @@ import { Share } from "react-native";
 import { router } from "expo-router";
 import { Screen } from "../../components/Screen";
 import { Button, Card, T, common } from "../../components/ui";
-import { InfoBox } from "../../components/food/Controls";
+import { ListGroup, ListItem, RowIcon } from "../../components/GroupedList";
 import { useFood } from "../../state/Food";
 import { usePreferences } from "../../state/Preferences";
 import { useExploreLocal } from "../../state/ExploreLocal";
@@ -22,7 +22,7 @@ export function PrivacyScreen() {
   const exportData = async () => {
     const textData = { app: "QuinTaste local preview", collection: owner, exportedAt: new Date().toISOString(),
       preferences: saved, data: { ...doc, avatar: avatarExport(doc.avatar), recipes: { ...doc.recipes, drafts: doc.recipes.drafts.map(({ photo, steps, ...draft }) => ({ ...draft, photoAttached: !!photo, steps: steps.map(({ photo, ...step }) => ({ ...step, photoAttached: !!photo })) })) }, exploreLocal: { ...doc.exploreLocal, drafts: doc.exploreLocal.drafts.map(({ photoUri, ...item }) => ({ ...item, photoAttached: !!photoUri })) }, market: { ...doc.market, listings: doc.market.listings.map(({ photos, ...item }) => ({ ...item, photoSlots: Object.keys(photos).filter(key => !!photos[key as keyof typeof photos]) })) }, cases: doc.cases.map(({ photoUri, ...item }) => ({ ...item, photoAttached: !!photoUri })) } };
-    try { await Share.share({ message: JSON.stringify(textData, null, 2), title: "QuinTaste local data export" }); }
+    try { await Share.share({ message: JSON.stringify(textData, null, 2), title: "QuinTaste data export" }); }
     catch { setNotice({ text: "System export sharing is unavailable here. Your local data was not changed.", error: true }); }
   };
   const erase = async () => {
@@ -43,23 +43,22 @@ export function PrivacyScreen() {
       }
       local.resume(); setConfirm(false);
       if (owner === "profile" && !user) setPreview(false);
-      setNotice({ text: "This local collection was cleared. Other local collections and your theme remain." });
+      setNotice({ text: "Data on this phone was deleted" });
       router.dismissTo("/account");
     } finally { setBusy(false); }
   };
-  return <Screen title="Privacy & Local Data" subtitle="You decide what stays on this device.">
-    <InfoBox title={owner === "guest" ? "Guest Collection" : "Local Profile Collection"} icon="shield-checkmark-outline" text="Your collection stays on this device. Submitted place cases and opted-in coarse areas also use the local development server. Guest and profile collections stay separate." />
-    <Card style={common.stack}><T variant="subtitle" accessibilityRole="header">Export Text Data</T>
-      <T muted>This personal export includes your private notes, places and preferences. Photo bytes are excluded. Share it only to a destination you trust.</T>
-      <Button label="Open Personal Export Share" variant="secondary" onPress={() => void exportData()} disabled={!readable} /></Card>
-    <Card style={common.stack}><T variant="subtitle" accessibilityRole="header">Delete This Collection</T>
-      <T muted>Clears your saved avatar, saves, notes, private places, case drafts and local review records, participation, marketplace listings, conversations and favourites, social profiles, groups, messages, gatherings, host applications, reports and earlier sample records, private recipe drafts, shopping notes, cooking progress and timers in the current collection. A copied guest collection remains separate.</T>
+  return <Screen title="Privacy & Data">
+    <ListGroup title="Where your data lives">
+      <ListItem title="On this phone" subtitle="Saves, notes, recipe drafts, shopping list, cooking timers and your Home and Work addresses" wrap leading={<RowIcon name="phone-portrait-outline" />} />
+      {!!user && <ListItem title="In your QuinTaste account" subtitle="Your profile, Social plans and messages, Market shop and orders, reviews and shared recipes" wrap leading={<RowIcon name="cloud-outline" />} />}
+    </ListGroup>
+    <Button label="Export My Data" icon="share-outline" variant="secondary" onPress={() => void exportData()} disabled={!readable} />
+    <Card style={common.stack}><T variant="subtitle" accessibilityRole="header">Delete data on this phone</T>
+      <T muted>Removes everything listed under On this phone{user ? " and takes your shared recipes out of Cook. Your account stays; delete it from Edit Profile." : "."}</T>
       {confirm ? <>
-        <T style={common.bold}>Delete this {owner} collection from this device?</T>
-        <Button label="Delete Local Collection" onPress={() => void erase()} loading={busy} disabled={!readable} />
-        <Button label="Cancel Deletion" variant="secondary" disabled={busy} onPress={() => setConfirm(false)} />
+        <Button label="Delete From This Phone" onPress={() => void erase()} loading={busy} disabled={!readable} />
+        <Button label="Keep My Data" variant="secondary" disabled={busy} onPress={() => setConfirm(false)} />
       </> : <Button label="Review Deletion" variant="secondary" onPress={() => setConfirm(true)} />}
     </Card>
-    <T variant="small" muted>Public item shares contain the item only. Precise locations and private notes are excluded. Location and photo access are requested only when you choose those actions.</T>
   </Screen>;
 }

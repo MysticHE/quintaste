@@ -1,4 +1,5 @@
 import { useRef, useState, type PropsWithChildren } from "react";
+import { fivePungentLabel } from "../../config/preferences";
 import { Screen } from "../../components/Screen";
 import { Chip, Chips } from "../../components/food/Controls";
 import { FilterSection } from "../../components/BrowseControls";
@@ -26,12 +27,12 @@ function Filters() {
   return <>
     <Group label="Group size" icon="people-outline">{(["Any", ...groupSizes] as const).map(size =>
       <Chip compact key={size} label={size === "Any" ? "Any size" : size + " people"} role="radio" disabled={disabled} selected={filters.prefers === size} onPress={() => void change({ prefers: size })} />)}</Group>
-    <Group label="Diet" icon="leaf-outline">{(["All", "Vegan", "Vegetarian"] as const).map(diet =>
-      <Chip compact key={diet} label={diet === "All" ? "All diets" : diet} role="radio" disabled={disabled} selected={filters.diet === diet} onPress={() => void change({ diet })} />)}</Group>
-    <Group label="Dietary practice" icon="nutrition-outline" checks><Chip compact label="No five pungent (五辛)" icon="leaf-outline" role="checkbox" disabled={disabled} selected={filters.fivePungentFree}
+    <Group label="Diet" icon="leaf-outline">{(["All", "Vegetarian", "Vegan"] as const).map(diet =>
+      <Chip compact key={diet} label={diet === "All" ? "Any diet" : diet} role="radio" disabled={disabled} selected={filters.diet === diet} onPress={() => void change({ diet })} />)}</Group>
+    <Group label="Five pungent" icon="leaf-outline" checks><Chip compact label={fivePungentLabel} role="checkbox" disabled={disabled} selected={filters.fivePungentFree}
       onPress={() => void change({ fivePungentFree: !filters.fivePungentFree })} /></Group>
     <Group label="Usually free" icon="time-outline">{["Any", ...meetTimes].map(time =>
       <Chip compact key={time} label={time === "Any" ? "Any time" : time} role="radio" disabled={disabled} selected={filters.time === time} onPress={() => void change({ time })} />)}</Group>
-    {activePeopleFilters(filters) && <Button label="Clear Filters" variant="link" disabled={disabled} onPress={() => void change(defaultMeetFilters())} />}
+    <Button label="Reset filters" variant="link" disabled={disabled || !activePeopleFilters(filters)} onPress={() => void change(defaultMeetFilters())} />
   </>;
 }

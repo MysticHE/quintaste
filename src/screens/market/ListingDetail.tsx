@@ -75,7 +75,7 @@ function Detail({ item }: { item: ListingDetail }) {
     </ScrollView>
     <View style={[st.bar, { backgroundColor: theme.card, borderColor: theme.border }]}>
       {item.own ? <View style={common.flex}><Button label="Edit Item" icon="create-outline" onPress={() => router.push({ pathname: "/market/edit", params: { id: item.id } })} /></View> : <>
-        <IconButton label={saved ? "Unsave Item" : "Save Item"} icon={saved ? "heart" : "heart-outline"} selected={saved} onPress={() => void save()} />
+        <IconButton label={saved ? "Unsave Item" : "Save Item"} icon={saved ? "bookmark" : "bookmark-outline"} selected={saved} onPress={() => void save()} />
         <IconButton label="Message Seller" icon="chatbubble-outline" onPress={() => void message()} />
         <View style={common.flex}><Button label={ordered ? "Order" : "No Collections Open"} icon={ordered ? "bag-add-outline" : undefined} disabled={!ordered}
           onPress={() => { if (ensureMember(member, "/market/listing/" + item.id)) router.push({ pathname: "/market/checkout", params: { seller: s.id, listing: item.id } }); }} /></View>

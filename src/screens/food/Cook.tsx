@@ -31,7 +31,7 @@ export function CookScreen() {
   const tabs: IconTab<CookTab>[] = [
     { id: "recipes", label: "Recipes", icon: "grid-outline", activeIcon: "grid" },
     { id: "mine", label: "My recipes", icon: "book-outline", activeIcon: "book" },
-    { id: "shopping", label: "Shopping", icon: "basket-outline", activeIcon: "basket", badge: toGet },
+    { id: "shopping", label: "Shopping list", icon: "cart-outline", activeIcon: "cart", badge: toGet },
   ];
   return <Screen back={false}
     header={<BrowseHeader query={query} onChange={setQuery} placeholder={placeholders[tab]}

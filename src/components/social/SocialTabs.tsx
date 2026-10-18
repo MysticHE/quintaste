@@ -5,5 +5,5 @@ export const socialTabs: readonly IconTab<SocialSection>[] = [
   { id: "people", label: "People", icon: "people-outline", activeIcon: "people" },
   { id: "events", label: "Events", icon: "calendar-outline", activeIcon: "calendar" },
   { id: "areas", label: "Areas", icon: "map-outline", activeIcon: "map" },
-  { id: "plans", label: "My plans", icon: "checkmark-done-circle-outline", activeIcon: "checkmark-done-circle" },
+  { id: "plans", label: "My plans", icon: "restaurant-outline", activeIcon: "restaurant" },
 ];

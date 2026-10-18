@@ -41,12 +41,12 @@ export function CatalogueVenueCard({ venue, more, review }: { venue: CatalogueVe
         <View style={s.line}><Icon name="location-outline" size={14} color={theme.mediaForeground} /><T variant="caption" style={common.flex} color={theme.mediaForeground}>{venue.address}</T></View>
         <View style={s.facts}>
           {venue.distanceKm !== undefined && <View style={s.line}><Icon name="navigate-outline" size={14} color={theme.mediaForeground} /><T variant="caption" color={theme.mediaForeground}>{venue.distanceKm.toFixed(1)} km away</T></View>}
-          <View testID="catalogue-card-rating" style={s.line}><Icon name={review?.count ? "star" : "star-outline"} size={15} color={theme.mediaRating} />
-            <T variant="caption" color={theme.mediaForeground}>{review ? review.count ? <><T variant="caption" style={common.bold} color={theme.mediaForeground}>{review.rating?.toFixed(1)}</T>{" · " + review.count + " QuinTaste " + (review.count === 1 ? "review" : "reviews")}</> : "No reviews yet" : "QuinTaste reviews"}</T>
-          </View>
+          {!!review?.count && <View testID="catalogue-card-rating" style={s.line}><Icon name="star" size={15} color={theme.mediaRating} />
+            <T variant="caption" color={theme.mediaForeground}><T variant="caption" style={common.bold} color={theme.mediaForeground}>{review.rating?.toFixed(1)}</T>{" · " + review.count + " QuinTaste " + (review.count === 1 ? "review" : "reviews")}</T>
+          </View>}
         </View>
         <View style={s.facts}>
-          <View style={s.line}><Icon name="leaf-outline" size={14} color={theme.mediaForeground} /><T variant="caption" color={theme.mediaForeground}>{venue.venueDiet}</T></View>
+          {venue.venueDiet !== "Vegetarian" && <View style={s.line}><Icon name="leaf-outline" size={14} color={theme.mediaForeground} /><T variant="caption" color={theme.mediaForeground}>{venue.venueDiet}</T></View>}
           <View style={[s.line, { flexShrink: 1 }]}><Icon name="time-outline" size={14} color={theme.mediaForeground} /><T variant="caption" style={{ flexShrink: 1 }} color={theme.mediaForeground}>{hoursSummary}</T></View>
         </View>
       </View>

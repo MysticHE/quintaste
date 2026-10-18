@@ -1,9 +1,10 @@
 import { useRef, useState } from "react";
-import { Pressable, Share, View } from "react-native";
+import { Pressable, Share, StyleSheet, View } from "react-native";
 import type { Recipe } from "../../types/food";
 import { useFood } from "../../state/Food";
 import { usePreferences } from "../../state/Preferences";
-import { recipeFit } from "../../utils/recipe-dietary";
+import { alliumFree, recipeFit } from "../../utils/recipe-dietary";
+import { alliums, fivePungentLabel } from "../../config/preferences";
 import { cookedStats } from "../../utils/recipe-browse";
 import { ingredientLine, shortDate } from "../../utils/food-format";
 import { IconButton } from "../food/Controls";
@@ -17,7 +18,18 @@ import { ensureMember, useMember } from "../CommunityGate";
 
 export function RecipeFit({ recipe }: { recipe: Recipe }) {
   const { draft } = usePreferences();
-  return <View style={{ alignSelf: "flex-start", maxWidth: "100%" }}><FitBadge fit={recipeFit(recipe, draft.diet, draft.excluded).fit} /></View>;
+  return <View style={[common.row, { gap: 6, flexWrap: "wrap", alignSelf: "flex-start", maxWidth: "100%" }]}>
+    <FitBadge fit={recipeFit(recipe, draft.diet, draft.excluded).fit} /><FivePungentTag recipe={recipe} />
+  </View>;
+}
+/** The five pungent decide a meal for much of this audience, so every recipe says where it stands: free of them, or which it uses. */
+export function FivePungentTag({ recipe, detail = false }: { recipe: Recipe; detail?: boolean }) {
+  const { theme } = usePreferences(), used = alliums.filter(item => recipe.dietary.contains.includes(item));
+  if (alliumFree(recipe)) return <View style={[s.tag, { backgroundColor: theme.successSoft, borderColor: theme.success }]}>
+    <T variant="small" color={theme.success} style={common.bold}>{fivePungentLabel}</T></View>;
+  if (!detail || !used.length) return null;
+  return <View style={[s.tag, { backgroundColor: theme.warningSoft, borderColor: theme.warning }]}>
+    <T variant="small" color={theme.warning} style={common.bold}>Has {used.join(", ").toLowerCase()}</T></View>;
 }
 function bundledShareText(recipe: Recipe) {
   if (recipe.member) return recipe.name + "\nBy " + recipe.author + " · " + recipe.minutes + " min · " + recipe.servings + " servings\n" +
@@ -45,11 +57,11 @@ export function RecipeOverview({ recipe }: { recipe: Recipe }) {
     <View style={[common.row, { gap: 6 }]}>
       <View style={[common.flex, { gap: 4, alignItems: "flex-start" }]}>
         <T variant="small" muted>{[recipe.minutes + " min", recipe.onePot ? "One pot" : "", cooked.count ? "Cooked " + cooked.count + "× · last " + shortDate(cooked.last) : ""].filter(Boolean).join(" · ")}</T>
-        <RecipeFit recipe={recipe} />
+        <View style={[common.row, { gap: 6, flexWrap: "wrap" }]}><FitBadge fit={result.fit} /><FivePungentTag recipe={recipe} detail /></View>
       </View>
       <IconButton label={saved ? "Remove Saved Recipe" : "Save Recipe"} icon={saved ? "bookmark" : "bookmark-outline"} selected={saved} disabled={!readable || busy} loading={busy} onPress={() => void save()} />
       <IconButton label="Share Recipe" icon="share-outline" onPress={() => void share()} />
-      <IconButton label="Recipe Info" icon="information-outline" selected={info} onPress={() => setInfo(!info)} />
+      <IconButton label="Recipe Info" icon="information-circle-outline" selected={info} onPress={() => setInfo(!info)} />
     </View>
     {recipe.member?.shop && <AuthorShop author={recipe.author} shop={recipe.member.shop} />}
     {!!result.conflicts.length && <T variant="small" color={theme.warning}>Contains: {result.conflicts.join(", ")}</T>}
@@ -83,3 +95,4 @@ function AuthorShop({ author, shop }: { author: string; shop: { id: string; name
     <T variant="small" numberOfLines={1} style={{ flexShrink: 1 }}>By {author} · <T variant="small" color={theme.accent} style={common.bold}>{shop.name}</T></T>
   </Pressable>;
 }
+const s = StyleSheet.create({ tag: { borderWidth: 1, borderRadius: 8, paddingHorizontal: 8, paddingVertical: 2, alignSelf: "flex-start" } });

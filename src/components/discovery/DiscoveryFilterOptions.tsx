@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { fivePungentLabel, fivePungentSpoken } from "../../config/preferences";
 import { FilterSection } from "../BrowseControls";
 import { Chip, Chips } from "../food/Controls";
 import { DietIcon } from "../food/DietIcon";
@@ -29,11 +30,11 @@ export function DiscoveryFilterOptions({ filters, change, diets, selected, disab
         {(["Vegetarian", "Vegan"] as const).map(value => <Chip compact key={value} label={value} role="checkbox"
         leading={<DietIcon diet={value} color={restricted.includes(value) ? theme.accent : theme.foreground} />}
         selected={restricted.includes(value)} disabled={disabled} onPress={() => change({ diets: anyDiet(toggleFilter(restricted, value)), diet: null })} />)}</Chips>
-      <DiscoveryToggle label="Allium-free" accessibilityLabel="Allium-free venue claims" checked={filters.noAlliums} disabled={disabled}
+      <DiscoveryToggle label={fivePungentLabel} accessibilityLabel={fivePungentSpoken + " venue claims"} checked={filters.noAlliums} disabled={disabled}
         onPress={() => change(current => ({ ...current, noAlliums: !current.noAlliums }))} />
     </FilterSection>
     <FilterSection title="Location" icon="location-outline">
-      <Chips label="Search Around">{locations.map(item => <Chip key={item.mode} label={item.label} icon={item.icon} role="radio" compact style={s.locationChoice}
+      <Chips label="Search Around">{locations.filter(item => item.mode !== "selected" || selected || mode === "selected").map(item => <Chip key={item.mode} label={item.label} icon={item.icon} role="radio" compact style={s.locationChoice}
         disabled={disabled || item.mode === "selected" && !selected} selected={mode === item.mode}
         onPress={() => selectLocation(item.mode)} />)}</Chips>
     </FilterSection>

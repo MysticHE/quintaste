@@ -4,7 +4,7 @@ import { Screen } from "../../components/Screen";
 import { Button, Card, T, common } from "../../components/ui";
 import { Chips, Chip } from "../../components/food/Controls";
 import { ExclusionPicker } from "../../components/food/ExclusionPicker";
-import { diets } from "../../config/preferences";
+import { diets, dietLabel } from "../../config/preferences";
 import { usePreferences } from "../../state/Preferences";
 import { useFood } from "../../state/Food";
 import { goBack } from "../../utils/navigation";
@@ -24,7 +24,7 @@ export function FoodChoicesScreen({ onboarding = false }: { onboarding?: boolean
   return <Screen title={onboarding ? "Your Food Choices" : "Food Choices"} >
     <PreferenceSaveStatus />
     <Card style={common.stack}><T variant="subtitle" accessibilityRole="header">Eating Style</T>
-      <Chips>{diets.map(diet => <Chip key={diet} label={diet === "Plant-based" ? "Plant-Based" : diet} role="radio" selected={draft.diet === diet} onPress={() => patch({ diet })} />)}</Chips>
+      <Chips>{diets.map(diet => <Chip key={diet} label={dietLabel(diet)} role="radio" selected={draft.diet === diet} onPress={() => patch({ diet })} />)}</Chips>
 </Card>
     <Card><ExclusionPicker value={draft.excluded} onChange={excluded => patch({ excluded })} /></Card>
     {onboarding && <Button label="Continue" onPress={() => void apply()} loading={busy} disabled={!storageReady} />}

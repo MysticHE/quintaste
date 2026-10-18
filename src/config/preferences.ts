@@ -10,10 +10,14 @@ export const exclusions = [...alliums, ...animalExclusions, ...otherExclusions, 
 export type Palette = (typeof palettes)[number];
 export type DisplayMode = (typeof displayModes)[number];
 export type Diet = (typeof diets)[number];
+/** One name everywhere for avoiding garlic, onion, leek, chives and asafoetida; screen readers hear the English. */
+export const fivePungentLabel = "No five pungent (五辛)", fivePungentSpoken = "No five pungent";
+/** "Plant-based" matches like Vegetarian; it is shown as what it means. */
+export const dietLabel = (diet: Diet) => diet === "Plant-based" ? "Mostly plant-based" : diet;
 export type Exclusion = (typeof exclusions)[number];
 /** Named starting points that expand into editable chips; observance varies, so none is a certification. */
 export const exclusionPresets: { label: string; items: readonly Exclusion[] }[] = [
-  { label: "Five pungent-free", items: alliums },
+  { label: "No five pungent (五辛)", items: alliums },
   { label: "Jain", items: [...alliums, "Root vegetables", "Mushrooms", "Eggs", "Honey"] },
 ];
 export type Preferences = {

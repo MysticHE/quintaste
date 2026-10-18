@@ -20,7 +20,7 @@ export function RecipeRow({ recipe, onPress }: { recipe: Recipe; onPress: () => 
         style={({ pressed }) => [common.row, common.flex, { alignItems: "flex-start", opacity: pressed ? 0.7 : 1 }]}>
         <RecipeImage recipe={recipe} style={{ width: thumbnail, height: thumbnail === 56 ? 80 : 100, borderRadius: 10 }} />
         <View style={[common.flex, { gap: 4, paddingVertical: 2 }]}><T variant="subtitle">{recipe.name}</T>
-          <T variant="small" muted>{[recipe.minutes + " min", recipe.servings + " servings", recipe.onePot ? "One pot" : "", cooked ? "Cooked " + cooked + "×" : ""].filter(Boolean).join(" · ")}</T>
+          <T variant="small" muted>{[recipe.minutes + " min", recipe.categories[0] ?? "", recipe.onePot ? "One pot" : "", cooked ? "Cooked " + cooked + "×" : ""].filter(Boolean).join(" · ")}</T>
           <RecipeFit recipe={recipe} />
         </View>
       </Pressable>

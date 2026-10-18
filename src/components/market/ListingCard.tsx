@@ -29,7 +29,7 @@ export function ListingCard({ listing, onSave }: { listing: Listing; onSave?: ()
         <T variant="caption" muted numberOfLines={1}>{meta}</T>
       </View>
     </Pressable>
-    {onSave && <View style={s.save}><IconButton appearance="media" label={(listing.saved ? "Unsave " : "Save ") + listing.name} icon={listing.saved ? "heart" : "heart-outline"}
+    {onSave && <View style={s.save}><IconButton appearance="media" label={(listing.saved ? "Unsave " : "Save ") + listing.name} icon={listing.saved ? "bookmark" : "bookmark-outline"}
       selected={listing.saved} onPress={onSave} /></View>}
   </View>;
 }

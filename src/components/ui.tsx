@@ -119,19 +119,21 @@ export function Button({
 }) {
   const { theme } = usePreferences();
   const { focused, focusProps } = useKeyboardFocus();
+  // Dark backdrops sit close to the action hue, so dark mode fills primary buttons with the light accent and dark text.
+  const fill = theme.dark ? theme.accent : theme.action[0], onFill = theme.dark ? theme.background : theme.actionForeground;
   const content = (
     <View style={s.buttonContent}>
       {loading ? (
         <ActivityIndicator
           size="small"
-          color={variant === "primary" ? theme.actionForeground : theme.accent}
+          color={variant === "primary" ? onFill : theme.accent}
         />
-      ) : icon ? <Icon name={icon} size={18} color={variant === "primary" ? theme.actionForeground : theme.accent} /> : null}
+      ) : icon ? <Icon name={icon} size={18} color={variant === "primary" ? onFill : theme.accent} /> : null}
           <T
             variant="button"
             color={
               variant === "primary"
-                ? theme.actionForeground
+                ? onFill
                 : variant === "link"
                   ? theme.accent
                   : theme.foreground
@@ -160,7 +162,7 @@ export function Button({
             : variant === "secondary"
               ? theme.border
               : theme.transparent,
-          backgroundColor: variant === "primary" ? theme.action[0]
+          backgroundColor: variant === "primary" ? fill
             : variant === "secondary" ? theme.card : pressed ? theme.accentSoft : theme.transparent,
         },
         variant === "link" && s.link,

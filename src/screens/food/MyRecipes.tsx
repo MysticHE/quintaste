@@ -26,8 +26,8 @@ export function MyRecipesContent({ query }: { query: string }) {
   const exportAll = async () => { const message = recipesExportText(workspace.drafts); try { await Share.share({ message }); } catch { setFallback(message); } };
   const drafts = workspace.drafts.filter(d => (d.title + " " + d.description).toLowerCase().includes(query.trim().toLowerCase()));
   if (!ready || !readable) return <EmptyState title="Opening Recipes" text="" />;
-  if (!workspace.drafts.length) return <FirstRunState icon="book-outline" title="Create your first recipe" text="Share what you cook with the community."
-    action={{ label: "Create", onPress: () => void create() }} />;
+  if (!workspace.drafts.length) return <FirstRunState icon="book-outline" title="Create your first recipe" text="Keep your own recipes here, and share them in Cook when ready."
+    action={{ label: "Create Recipe", icon: "add", onPress: () => void create() }} />;
   return <>
     <Chips><Chip label="Export My Recipes" icon="share-outline" onPress={() => void exportAll()} /></Chips>
     {!!fallback && <InfoBox title="Sharing Unavailable" text="Select and copy your recipes. Photos are not included."><T selectable>{fallback}</T><Button label="Close" variant="link" onPress={() => setFallback("")} /></InfoBox>}

@@ -23,21 +23,19 @@ export function ContinueCooking() {
         <Icon name="play" size={22} color={onAccent} />
       </Pressable>
       <Pressable accessibilityElementsHidden importantForAccessibility="no" onPress={resume} style={[common.flex, { minWidth: 0 }]}>
-        <T variant="small" color={theme.accent} style={[common.bold, s.kicker]}>CONTINUE COOKING</T>
         <T variant="subtitle" numberOfLines={2}>{recipe.name}</T>
+        <T variant="small" muted>{where} · {session.servings} {session.servings === 1 ? "serving" : "servings"}</T>
       </Pressable>
       <IconButton label={"End cooking " + recipe.name} icon="close" onPress={() => void end()} />
     </View>
     <View accessibilityRole="progressbar" accessibilityValue={{ min: 0, max: total, now: done }} style={[s.track, { backgroundColor: theme.border }]}>
       <View style={[s.fill, { backgroundColor: theme.accent, width: `${Math.max(4, (done / total) * 100)}%` }]} />
     </View>
-    <T variant="small" muted>{where} · {session.servings} {session.servings === 1 ? "serving" : "servings"}</T>
   </View>;
 }
 const s = StyleSheet.create({
   card: { borderWidth: 1, borderRadius: 18, padding: 12, gap: 10 },
   play: { width: 48, height: 48, borderRadius: 24, alignItems: "center", justifyContent: "center" },
-  kicker: { letterSpacing: 0.6, fontSize: 11 },
   track: { height: 5, borderRadius: 3, overflow: "hidden" },
   fill: { height: "100%", borderRadius: 3 },
 });

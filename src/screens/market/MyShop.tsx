@@ -33,7 +33,7 @@ export function MyShopContent({ tab, setTab, query }: { tab: ShopTab; setTab: (t
   const { member, userId } = useMember(), remote = useRemote(member ? "/api/market/seller" : null, sellerState), seller = remote.data?.seller;
   if (!member) return <MemberPrompt icon="storefront-outline" returnTo="/market?tab=shop" />;
   if (!remote.data) return <RemoteStatus remote={remote} icon="storefront-outline" returnTo="/market?tab=shop" />;
-  if (!seller) return <FirstRunState icon="storefront-outline" title="Open your shop" text="Sell food you make at home." action={{ label: "Open Shop", onPress: () => router.push("/market/setup") }} />;
+  if (!seller) return <FirstRunState icon="storefront-outline" title="Open your shop" text="Sell food you make at home." action={{ label: "Open Shop", icon: "storefront-outline", onPress: () => router.push("/market/setup") }} />;
   return <>
     <ListGroup><ListItem title={seller.tradingName || "Your shop"} subtitle={[seller.area, seller.status === "suspended" || seller.status === "removed" ? seller.statusNote : ""].filter(Boolean).join(" · ") || undefined} wrap
       leading={<RowIcon name="storefront-outline" />} trailing={<View style={[common.row, { gap: 6 }]}><StatusPill label={statusText[seller.status][0]} tone={statusText[seller.status][1]} />

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { alliums, type Diet } from "../../config/preferences";
 import { View } from "react-native";
 import { Screen } from "../../components/Screen";
 import { Chip, Chips } from "../../components/food/Controls";
@@ -27,11 +28,17 @@ export function MeetProfileScreen() {
 const parseInterests = (value: string) => value.split(",").map(s => s.trim().slice(0, 30)).filter(Boolean).slice(0, 5);
 const listText = (items: string[]) => items.length > 1 ? items.slice(0, -1).join(", ") + " and " + items[items.length - 1] : items[0] ?? "";
 const toggle = <T,>(list: T[], item: T) => list.includes(item) ? list.filter(x => x !== item) : [...list, item];
-/** An empty account profile starts from the profile kept on this device, or the account's first name. */
-function starting(p: SocialProfile, local: MeetProfile, accountName: string): SocialProfile {
+/**
+ * An empty account profile starts from the profile kept on this device, or else from the account's first name and
+ * the member's Food Choices (diet, and the five pungent if they avoid them all), so the two never start out disagreeing.
+ */
+function starting(p: SocialProfile, local: MeetProfile, accountName: string, food: { diet: Diet; excluded: readonly string[] }): SocialProfile {
   if (p.firstName || p.area || p.times.length) return p;
-  return local.name ? { ...p, firstName: local.name, area: local.area, diet: local.diet, about: local.about, interests: local.interests, times: local.times,
-    size: local.size, excluded: local.excluded, practices: local.practices } : { ...p, firstName: accountName.split(/\s+/)[0]?.slice(0, 40) ?? "" };
+  if (local.name) return { ...p, firstName: local.name, area: local.area, diet: local.diet, about: local.about, interests: local.interests, times: local.times,
+    size: local.size, excluded: local.excluded, practices: local.practices };
+  const fivePungent = alliums.every(item => food.excluded.includes(item));
+  return { ...p, firstName: accountName.split(/\s+/)[0]?.slice(0, 40) ?? "", diet: food.diet === "Vegan" ? "Vegan" : "Vegetarian",
+    practices: fivePungent && !p.practices.includes("No five pungent") ? [...p.practices, "No five pungent"] : p.practices };
 }
 /** The switch stays disabled until the profile has what others need. */
 function OpenToPlans({ p, set }: { p: SocialProfile; set: (next: SocialProfile) => void }) {
@@ -43,7 +50,7 @@ function OpenToPlans({ p, set }: { p: SocialProfile; set: (next: SocialProfile) 
 }
 function Profile({ initial, accountName }: { initial: SocialProfile; accountName: string }) {
   const { draft } = usePreferences(), { network } = useMeet();
-  const [p, setProfile] = useState(() => starting(initial, network.profile, accountName)), [interests, setInterests] = useState(p.interests.join(", "));
+  const [p, setProfile] = useState(() => starting(initial, network.profile, accountName, draft)), [interests, setInterests] = useState(p.interests.join(", "));
   const autosave = useAutosave(async (profile: SocialProfile) => {
     try { await saveProfile(profile); invalidate("/api/social/"); return true; } catch { return false; }
   });

@@ -3,6 +3,7 @@ import { useExploreLocal } from "../../state/ExploreLocal";
 import { SavedPlaceCard } from "../../components/discovery/SavedPlaceCard";
 import { SavedCatalogueVenue } from "../../components/discovery/CatalogueVenueCard";
 import { recalledPlace, savedGoogleId } from "../../utils/live-place-cache";
+import { FilterButton } from "../../components/BrowseControls";
 import { router } from "expo-router";
 import { useState } from "react";
 import { View } from "react-native";
@@ -58,8 +59,8 @@ export function SavedScreen() {
   };
   return <Screen header={<View style={common.row}>
     <IconButton label="Go Back" icon="chevron-back" onPress={() => goBack("/account")} />
-    <View style={common.flex}><SearchField value={query} onChange={setQuery} placeholder="Search saved" /></View>
-    <IconButton label="Saved Filters" icon="options-outline" selected={category !== "All" || !!list} onPress={() => router.push("/saved/filters")} />
+    <View style={common.flex}><SearchField value={query} onChange={setQuery} placeholder="Search saved"
+      trailing={<FilterButton label="Saved filters" count={category !== "All" || !!list ? 1 : 0} onPress={() => router.push("/saved/filters")} />} /></View>
   </View>}>
     {offline && <T variant="small" muted accessibilityLiveRegion="polite">Offline · saved on this device</T>}
     {(category !== "All" || !!list) && <T variant="small" muted>{[category !== "All" ? category : "", list].filter(Boolean).join(" · ")}</T>}
@@ -76,7 +77,7 @@ export function SavedScreen() {
     </> : <>
       {ready && !visible.length && <EmptyState title={doc.saves.length ? "No Matching Saves" : "Find Your Next Favourite"}
         text={doc.saves.length ? "Try another filter or search." : "Save a place, dish or recipe to keep it on this device."}
-        action={doc.saves.length ? "Edit filters" : "Explore food"} icon="bookmark-outline"
+        action={doc.saves.length ? "Edit Filters" : "Explore Food"} icon="bookmark-outline"
         onPress={() => router.navigate(doc.saves.length ? "/saved/filters" : "/")} />}
       {[...visible].sort((a, b) => b.savedAt - a.savedAt).map(item => <View key={item.kind + ":" + item.id} style={common.stack}>
         {item.kind === "place" && item.id.startsWith("catalogue-")
@@ -91,7 +92,7 @@ export function SavedScreen() {
         </Card>}
       </View>)}
     </>}
-    <T variant="small" muted>{preview ? "Local profile collection" : "Guest collection"} · Kept on this device</T>
+    {!!doc.saves.length && <T variant="small" muted>Saved on this phone</T>}
     {!preview && <Button label="Profile Options" variant="link" onPress={() => router.push({ pathname: "/login", params: { returnTo: "/saved" } })} />}
   </Screen>;
 }

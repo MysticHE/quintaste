@@ -39,6 +39,9 @@ export function profileState(p: SocialProfile) {
 }
 export function ProfileRow({ profile }: { profile: SocialProfile }) {
   const state = profileState(profile);
-  return <ListItem title={profile.firstName || "Your profile"} leading={<Initial name={profile.firstName || "You"} size={44} />} subtitle={profile.area || undefined}
-    trailing={<StatusPill label={state.label} tone={state.tone} />} label={"Your profile, " + state.label} onPress={() => openSocial("/profile")} />;
+  // An unfinished profile is a step to take, so it reads as the row's action rather than a status badge.
+  const unfinished = state.label === "Finish profile";
+  return <ListItem title={profile.firstName || "Your profile"} leading={<Initial name={profile.firstName || "You"} size={44} />}
+    subtitle={unfinished ? "Finish your profile to meet people" : profile.area || undefined}
+    trailing={unfinished ? undefined : <StatusPill label={state.label} tone={state.tone} />} label={"Your profile, " + state.label} onPress={() => openSocial("/profile")} />;
 }

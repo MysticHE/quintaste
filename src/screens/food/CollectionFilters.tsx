@@ -11,7 +11,7 @@ import type { CookBrowse } from "../../types/recipe-workspace";
 import { DietIcon } from "../../components/food/DietIcon";
 import { FilterSection } from "../../components/BrowseControls";
 import { recipeCategories } from "../../types/food";
-import { categoryIcons } from "../../components/recipes/RecipeImage";
+import { fivePungentLabel } from "../../config/preferences";
 import { defaultCookBrowse } from "../../state/recipe-workspace";
 import { selectedRecipeDiets, sortLabels } from "../../utils/recipe-browse";
 import { toggleFilter } from "../../utils/discovery-filters";
@@ -21,32 +21,33 @@ export function CookFiltersScreen() {
   const set = (patch: Partial<CookBrowse>) => void setCookBrowse(patch);
   const times = [["Any", "Any time"], ["15", "15 min or less"], ["30", "30 min or less"]] as const;
   const diets = selectedRecipeDiets(browse);
-  return <CookLayout title="Recipe filters" backTo="/cook" headerAction={<Button label="Done" variant="link" onPress={() => goBack("/cook")} />}>
-    <FilterSection title="Category" icon="grid-outline">
-      <Chips label="Recipe category"><Chip compact label="All categories" icon="grid-outline" role="radio" selected={browse.category === "All"} disabled={!readable} onPress={() => set({ category: "All" })} />
-        {recipeCategories.map(category => <Chip compact key={category} label={category} icon={categoryIcons[category]} role="radio"
-          selected={browse.category === category} disabled={!readable} onPress={() => set({ category })} />)}</Chips>
-    </FilterSection>
-    <FilterSection title="Sort by" icon="swap-vertical-outline">
-      <Chips label="Recipe sort">{(["Fit", "Time", "Recent"] as const).map(sort => <Chip compact key={sort} label={sortLabels[sort]} role="radio"
-        selected={browse.sort === sort} disabled={!readable} onPress={() => set({ sort })} />)}</Chips>
-    </FilterSection>
+  // Order follows what decides a meal for this audience: diet (with the five pungent), time, then kind of dish.
+  return <CookLayout title="Recipe filters" backTo="/cook" headerAction={<Button label="Done" variant="link" onPress={() => goBack("/cook")} />}
+    footer={<Button label="Reset filters" variant="link" disabled={!readable} onPress={() => void setCookBrowse({ ...defaultCookBrowse })} />}>
     <FilterSection title="Diet" icon="leaf-outline">
       <Chips multiple label="Recipe diet"><Chip compact label="Any diet" selected={!diets.length} disabled={!readable} onPress={() => set({ diets: [], vegan: false })} />
         {(["Vegetarian", "Vegan"] as const).map(diet => <Chip compact key={diet} label={diet} role="checkbox" selected={diets.includes(diet)} disabled={!readable}
           leading={<DietIcon diet={diet} color={diets.includes(diet) ? theme.accent : theme.foreground} />}
           onPress={() => { const next = toggleFilter(diets, diet); set({ diets: next, vegan: next.length === 1 && next[0] === "Vegan" }); }} />)}
       </Chips>
+      <Chips multiple label="Five pungent"><Chip compact label={fivePungentLabel} role="checkbox" selected={browse.alliumFree} disabled={!readable} onPress={() => set({ alliumFree: !browse.alliumFree })} /></Chips>
     </FilterSection>
     <FilterSection title="Cooking time" icon="time-outline">
       <Chips label="Time">{times.map(([value, label]) => <Chip compact key={value} label={label} role="radio" selected={browse.time === value} disabled={!readable} onPress={() => set({ time: value })} />)}</Chips>
     </FilterSection>
-    <FilterSection title="More options" icon="options-outline">
-      <Chips multiple label="More recipe filters"><Chip compact label="One pot" icon="flame-outline" role="checkbox" selected={browse.onePot} disabled={!readable} onPress={() => set({ onePot: !browse.onePot })} />
-        <Chip compact label="Allium-free" icon="leaf-outline" role="checkbox" selected={browse.alliumFree} disabled={!readable} onPress={() => set({ alliumFree: !browse.alliumFree })} />
+    <FilterSection title="Category" icon="grid-outline">
+      <Chips label="Recipe category"><Chip compact label="All" role="radio" selected={browse.category === "All"} disabled={!readable} onPress={() => set({ category: "All" })} />
+        {recipeCategories.map(category => <Chip compact key={category} label={category} role="radio"
+          selected={browse.category === category} disabled={!readable} onPress={() => set({ category })} />)}</Chips>
+    </FilterSection>
+    <FilterSection title="Sort by" icon="swap-vertical-outline">
+      <Chips label="Recipe sort">{(["Fit", "Time", "Recent"] as const).map(sort => <Chip compact key={sort} label={sortLabels[sort]} role="radio"
+        selected={browse.sort === sort} disabled={!readable} onPress={() => set({ sort })} />)}</Chips>
+    </FilterSection>
+    <FilterSection title="More" icon="ellipsis-horizontal-circle-outline">
+      <Chips multiple label="More recipe filters"><Chip compact label="One pot" role="checkbox" selected={browse.onePot} disabled={!readable} onPress={() => set({ onePot: !browse.onePot })} />
         <Chip compact label="Saved only" icon="bookmark-outline" role="checkbox" selected={browse.saved} disabled={!readable} onPress={() => set({ saved: !browse.saved })} /></Chips>
     </FilterSection>
-    <Button label="Reset filters" variant="link" disabled={!readable} onPress={() => void setCookBrowse({ ...defaultCookBrowse })} />
   </CookLayout>;
 }
 export function SavedFiltersScreen() {

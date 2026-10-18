@@ -1,10 +1,11 @@
 import { router, useFocusEffect, useLocalSearchParams } from "expo-router";
+import { goBack } from "../../utils/navigation";
 import { useCallback, useState } from "react";
 import { ActivityIndicator, Pressable, View } from "react-native";
 import { Screen } from "../../components/Screen";
 import { MenuDishes } from "../../components/discovery/MenuDishes";
 import { Button, Icon, T, common } from "../../components/ui";
-import { IconButton } from "../../components/food/Controls";
+import { EmptyState, IconButton } from "../../components/food/Controls";
 import { MenuSourceLink } from "../../components/discovery/MenuSourceLink";
 import { useMenus } from "../../state/Menus";
 import { usePreferences } from "../../state/Preferences";
@@ -51,11 +52,10 @@ export function MenuScreen() {
           label={"Last updated " + new Date(latestSource.checkedAt).toLocaleDateString("en-SG", { day: "numeric", month: "short", year: "numeric", timeZone: "Asia/Singapore" })} />
       </View>}
       {storageError && <T variant="caption" muted>Offline copy could not be saved</T>}
-    </> : !busy && <View style={common.stack}>
-      <T variant="subtitle" accessibilityRole="header">Menu Unavailable</T>
-      <T muted>{error || indexError || (loaded ? "No published menu for this place." : "Connect to load this menu.")}</T>
-      <Button label="Retry Menu" variant="secondary" onPress={retry} />
-    </View>}
+    </> : !busy && (loaded && !error && !indexError
+      // Loaded fine, nothing published: not an error, so no retry; point to what the member can do instead.
+      ? <EmptyState icon="book-outline" title="No menu for this place yet" text="We haven't published a menu for this place." action="Back" onPress={() => goBack("/")} />
+      : <EmptyState icon="cloud-offline-outline" title="Couldn't load the menu" text="Check your connection and try again." primary={{ label: "Try Again", onPress: retry }} />)}
     {menu && !__DEV__ && <ReportSheet kind="place" targetId={menu.id} name={menu.name} initialReason="Menu or prices"
       visible={reporting} onClose={() => setReporting(false)} />}
   </Screen>;

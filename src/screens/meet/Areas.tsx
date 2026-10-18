@@ -12,7 +12,8 @@ import { areaSnapshot, myAreas } from "../../services/areas-api";
 import { planningAreaByCode } from "../../utils/planning-area";
 import type { AreaBand, AreaLayer } from "../../types/areas";
 
-const layers = [{ id: "home", label: "Live here" }, { id: "work", label: "Work here" }] as const;
+// The switch picks the map layer (everyone); "Your areas" below is the member's own Home and Work.
+const layers = [{ id: "home", label: "Where people live" }, { id: "work", label: "Where people work" }] as const;
 const rank: Record<AreaBand, number> = { "100+": 4, "50+": 3, "20+": 2, "10+": 1 };
 const weekLabel = (week: string) => "Week of " + new Date(week + "T00:00:00+08:00").toLocaleDateString("en-SG", { day: "numeric", month: "short", year: "numeric", timeZone: "Asia/Singapore" });
 const editPlace = (layer: AreaLayer) => router.push({ pathname: "/location-place", params: { kind: layer } });
@@ -39,7 +40,7 @@ export function AreasView({ query }: { query: string }) {
     </>}
     {area && <Card style={common.stack}>
       <View style={common.spread}><View style={common.flex}><T variant="subtitle" accessibilityRole="header">{area.name}</T><T variant="small" muted>{area.region}</T></View>
-        {area.code === own && <StatusPill label={layer === "home" ? "Your Home" : "Your Work"} tone="accent" />}</View>
+        {area.code === own && <StatusPill label={layer === "home" ? "Your home" : "Your work"} tone="accent" />}</View>
       <View style={[common.row, { gap: 8, flexWrap: "wrap" }]}>
         <StatusPill label={"Live here · " + ((layer === "home" ? bands : other).get(area.code) ?? "Not enough yet")} />
         <StatusPill label={"Work here · " + ((layer === "work" ? bands : other).get(area.code) ?? "Not enough yet")} />
@@ -47,14 +48,14 @@ export function AreasView({ query }: { query: string }) {
       <Button label="Plan A Gathering Here" icon="people-outline" variant="secondary"
         onPress={() => router.push({ pathname: "/social/gathering/[id]", params: { id: "new", area: area.name } })} />
     </Card>}
-    <ListGroup title="Your Areas">
+    <ListGroup title="Your areas">
       {(["home", "work"] as const).map(kind => {
         const code = mine.data?.[kind]?.area ?? null, name = code ? planningAreaByCode.get(code)?.name : undefined;
         return <ListItem key={kind} title={kind === "home" ? "Home" : "Work"} subtitle={name ?? "Not shared"} leading={<RowIcon name={kind === "home" ? "home-outline" : "briefcase-outline"} tone={code ? "accent" : "muted"} />}
           trailing={code ? <StatusPill label={status(code, kind === layer ? bands : other)} /> : undefined} onPress={() => editPlace(kind)} />;
       })}
     </ListGroup>
-    {snapshot.data && (active.length ? <ListGroup title="Active Areas">{active.map(item => <ListItem key={item.area.code} title={item.area.name} subtitle={item.area.region}
+    {snapshot.data && (active.length ? <ListGroup title="Most active">{active.map(item => <ListItem key={item.area.code} title={item.area.name} subtitle={item.area.region}
       trailing={<StatusPill label={item.band} tone={item.band === "10+" || item.band === "20+" ? "muted" : "accent"} />} onPress={() => select(item.area.code)} />)}</ListGroup>
       : <EmptyState title={search ? "No Matching Areas" : "No Areas With 10+ Members Yet"} text="" icon="map-outline"
         action={!search && !own ? "Count Me In" : undefined} onPress={() => editPlace(layer)} />)}

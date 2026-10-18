@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Redirect } from "expo-router";
 import { useMinuteClock } from "../../components/food/Timers";
 import { EmptyState } from "../../components/food/Controls";
@@ -26,7 +27,8 @@ function ApplicationItem({ a }: { a: HostApplication }) {
     trailing={<StatusPill label={a.state === "submitted" ? "In review" : "Draft"} tone={a.state === "submitted" ? "accent" : "muted"} />} onPress={() => openSocial("/application/" + a.id)} />;
 }
 /** Your groups, gatherings and applications; everything here belongs to your account. */
-export function PersonalPlans({ query, findPeople }: { query: string; findPeople: () => void }) {
+/** `onEmpty` tells Social when the empty state (with its own Create) is showing, so it can drop the floating button. */
+export function PersonalPlans({ query, onEmpty }: { query: string; onEmpty: (empty: boolean) => void }) {
   const profile = useSocialMe(), now = useMinuteClock(), search = query.trim().toLowerCase();
   const groups = useRemote("/api/social/groups", loadGroups, 30000), gatherings = useRemote("/api/social/gatherings/mine", myGatherings);
   const apps = useRemote("/api/social/applications", applications);
@@ -39,7 +41,8 @@ export function PersonalPlans({ query, findPeople }: { query: string; findPeople
   const drafts = events.filter(g => g.state === "draft"), coming = events.filter(g => g.state === "posted" && !g.past);
   const ended = events.filter(g => g.state === "cancelled" || (g.state === "posted" && g.past)), forms = (apps.data?.items ?? []).filter(a => matches(a.name, a.kind));
   const loaded = !!groups.data && !!gatherings.data && !!apps.data;
-  const empty = loaded && !rows.length && !events.length && !forms.length;
+  const empty = loaded && !rows.length && !events.length && !forms.length, firstRun = empty && !search;
+  useEffect(() => { onEmpty(firstRun); }, [firstRun, onEmpty]);
   return <>
     {profile.data && <ListGroup><ProfileRow profile={profile.data.profile} /></ListGroup>}
     <RemoteStatus remote={groups.error ? groups : [gatherings, apps].find(remote => remote.error) ?? groups} icon="people-outline" returnTo="/social" />
@@ -51,6 +54,6 @@ export function PersonalPlans({ query, findPeople }: { query: string; findPeople
     <ListGroup title="Past">{past.map(x => <GroupRow key={x.g.id} {...x} pill={x.status.section === "closed"} />)}
       {ended.map(g => <GatheringRow key={g.id} g={g} status={g.state === "cancelled" ? "Cancelled" : "Past"} />)}</ListGroup>
     {empty && (search ? <EmptyState title="No Matching Plans" text="" icon="people-outline" />
-      : <FirstRunState icon="restaurant-outline" title="Plan your first meal" text="Invite people to eat together." action={{ label: "Create", onPress: () => openSocial("/create") }} />)}
+      : <FirstRunState icon="restaurant-outline" title="Plan your first meal" text="Invite people to eat together." action={{ label: "Create Plan", icon: "add", onPress: () => openSocial("/create") }} />)}
   </>;
 }

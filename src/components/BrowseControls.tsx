@@ -1,8 +1,9 @@
 import type { PropsWithChildren, ReactNode } from "react";
 import { Pressable, StyleSheet, View } from "react-native";
 import { MeButton, SearchField } from "./food/Controls";
-import { Button, Icon, T, common, type IconName } from "./ui";
+import { Icon, T, common, type IconName } from "./ui";
 import { usePreferences } from "../state/Preferences";
+import { StateView, type StateAction } from "./StateView";
 import { useKeyboardFocus } from "../hooks/useKeyboardFocus";
 
 export type BrowseFilter = { label: string; count: number; onPress: () => void };
@@ -19,13 +20,13 @@ export function BrowseHeader({ query, onChange, placeholder, filter, action }: {
     {action}<MeButton />
   </View>;
 }
-/** The filter button that sits inside a search box; solid while filters are on. Owner rule: never show a count on it. */
+/** The filter button inside a search box: a plain icon at rest, solid accent while filters are on. Owner rule: never show a count on it. */
 export function FilterButton({ label, count, onPress }: BrowseFilter) {
   const { theme } = usePreferences(), onAccent = useOnAccent(), { focused, focusProps } = useKeyboardFocus(), active = count > 0;
   return <Pressable accessibilityRole="button" accessibilityLabel={active ? label + ", on" : label} accessibilityState={{ selected: active }}
     onPress={onPress} hitSlop={4} {...focusProps}
-    style={({ pressed }) => [s.filter, { backgroundColor: active ? theme.accent : theme.accentSoft, borderColor: focused ? theme.foreground : theme.transparent, opacity: pressed ? 0.75 : 1 }]}>
-    <Icon name="options-outline" size={20} color={active ? onAccent : theme.accent} />
+    style={({ pressed }) => [s.filter, { backgroundColor: active ? theme.accent : pressed ? theme.muted : theme.transparent, borderColor: focused ? theme.foreground : theme.transparent }]}>
+    <Icon name="options-outline" size={22} color={active ? onAccent : theme.foreground} />
   </Pressable>;
 }
 
@@ -52,15 +53,9 @@ function TabButton<T extends string>({ tab, selected, onPress }: { tab: IconTab<
   </Pressable>;
 }
 
-/** A section with nothing in it yet: one icon, a title, one short line and the action that fills it. */
-export function FirstRunState({ icon, title, text, action }: { icon: IconName; title: string; text: string; action?: { label: string; onPress: () => void } }) {
-  const { theme } = usePreferences();
-  return <View style={s.empty}>
-    <View style={[s.emptyIcon, { backgroundColor: theme.accentSoft }]}><Icon name={icon} size={38} color={theme.accent} /></View>
-    <T variant="title" accessibilityRole="header" style={[common.center, common.bold]}>{title}</T>
-    <T muted style={common.center}>{text}</T>
-    {action && <View style={s.emptyAction}><Button label={action.label} icon="add" onPress={action.onPress} /></View>}
-  </View>;
+/** A tab with nothing in it yet: icon, title, one short line and the step that fills it. Only creating actions take a + icon. */
+export function FirstRunState({ icon, title, text, action }: { icon: IconName; title: string; text: string; action?: StateAction }) {
+  return <StateView size="page" icon={icon} title={title} text={text} primary={action} />;
 }
 export function FilterSection({ title, icon, children }: PropsWithChildren<{ title: string; icon: IconName }>) {
   const { theme } = usePreferences();
@@ -78,8 +73,5 @@ const s = StyleSheet.create({
   tabBadge: { position: "absolute", top: -6, left: 18, minWidth: 18, height: 18, borderRadius: 9, alignItems: "center", justifyContent: "center", paddingHorizontal: 4 },
   indicator: { position: "absolute", bottom: 0, left: "22%", right: "22%", height: 3, borderRadius: 2 },
   rule: { height: StyleSheet.hairlineWidth },
-  empty: { alignItems: "center", gap: 10, paddingHorizontal: 24, paddingTop: 56, paddingBottom: 40 },
-  emptyIcon: { width: 80, height: 80, borderRadius: 24, alignItems: "center", justifyContent: "center", marginBottom: 6 },
-  emptyAction: { marginTop: 14, minWidth: 160 },
   section: { gap: 10, paddingBottom: 16, borderBottomWidth: StyleSheet.hairlineWidth },
 });

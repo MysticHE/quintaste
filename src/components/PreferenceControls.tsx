@@ -1,8 +1,8 @@
 import { Pressable, StyleSheet, Switch, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import { palettes, displayModes } from "../config/preferences";
+import { palettes, displayModes, type Palette } from "../config/preferences";
 import { usePreferences } from "../state/Preferences";
-import { fontNames } from "../theme/tokens";
+import { fontNames, themeFor } from "../theme/tokens";
 import { titleCaseLabel } from "../utils/ui-label";
 import { Divider, Icon, T, common, type IconName } from "./ui";
 export function Row({
@@ -41,7 +41,7 @@ export function Row({
           value={value}
           disabled={disabled}
           onValueChange={onToggle}
-          trackColor={{ false: theme.divider, true: theme.action[0] }}
+          trackColor={{ false: theme.mutedForeground, true: theme.action[0] }}
           thumbColor={theme.actionForeground}
         />
       ) : onPress ? (
@@ -118,8 +118,8 @@ export function Appearance() {
   };
   return (
     <>
-      <T style={common.bold}>Color Palette</T>
-      <View accessibilityRole="radiogroup" accessibilityLabel="Color palette">
+      <T style={common.bold}>Colour palette</T>
+      <View accessibilityRole="radiogroup" accessibilityLabel="Colour palette">
         {palettes.map((palette, i) => (
           <View key={palette}>
             {i > 0 && <Divider />}
@@ -131,10 +131,7 @@ export function Appearance() {
               onPress={() => patch({ palette })}
               style={s.row}
             >
-              <LinearGradient
-                colors={theme.swatches[palette].swatch}
-                style={[s.swatch, { borderColor: theme.border }]}
-              />
+              <PaletteSample palette={palette} dark={theme.dark} />
               <T style={[common.flex, { fontFamily: fontNames.bold }]}>
                 {names[palette]}
               </T>
@@ -187,5 +184,14 @@ const s = StyleSheet.create({
     paddingVertical: 8,
     flexGrow: 1,
   },
-  swatch: { width: 28, height: 28, borderRadius: 14, borderWidth: 2 },
+  sample: { width: 52, height: 36, borderRadius: 10, borderWidth: 1, padding: 6, justifyContent: "flex-end" },
+  sampleCard: { height: 14, borderRadius: 5, justifyContent: "center", paddingLeft: 4 },
+  sampleDot: { width: 8, height: 8, borderRadius: 4 },
 });
+/** A small preview of the palette as it will look: its backdrop, a card and the accent on top. */
+function PaletteSample({ palette, dark }: { palette: Palette; dark: boolean }) {
+  const preview = themeFor(palette, dark);
+  return <LinearGradient colors={preview.backdrop} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={[s.sample, { borderColor: preview.border }]}>
+    <View style={[s.sampleCard, { backgroundColor: preview.card }]}><View style={[s.sampleDot, { backgroundColor: preview.accent }]} /></View>
+  </LinearGradient>;
+}
