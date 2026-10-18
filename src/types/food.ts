@@ -53,6 +53,9 @@ export type Recipe = {
   adaptationNote?: string;
   /** The original recipe page's rating when the QT bot selected it (not a QuinTaste rating). */
   sourceRating?: { value: number; count: number; site: string; url: string; checkedAt: string };
+  /** Per-serving figures from the source page ("source") or estimated from the ingredients ("estimate"); absent when unreliable. */
+  nutrition?: { basis: "source" | "estimate"; site?: string; coverage?: number; checkedAt: string;
+    perServing: { kcal: number; protein?: number; fat?: number; carbs?: number; fibre?: number; sugar?: number; sodium?: number } };
   author: string; language: string; revision: number; updatedAt: string; withdrawal?: string;
   /** Present on recipes members shared and staff published; `shop` is the author's Market shop when buyers can see it. */
   member?: { sponsorship: string; own: boolean; shop: { id: string; name: string } | null };
