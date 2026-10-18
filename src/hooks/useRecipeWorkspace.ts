@@ -17,7 +17,8 @@ export function useRecipeWorkspace() {
       return { ...w, drafts: [{ ...source, id: nextId, title: (source.title + " (copy)").slice(0, 100), revision: 1, rights: false, policy: false, status: "draft", updatedAt: Date.now() }, ...w.drafts] }; });
     return okay ? nextId : null;
   };
-  const consent = (id: string, key: "rights" | "policy", value: boolean) => change(w => ({ ...w, drafts: w.drafts.map(d => d.id !== id ? d : { ...d, [key]: value, status: "draft", updatedAt: Date.now() }) }));
+  // Leaving "ready" starts a new revision, as an edit does, so a submitted copy never matches a changed draft.
+  const consent = (id: string, key: "rights" | "policy", value: boolean) => change(w => ({ ...w, drafts: w.drafts.map(d => d.id !== id ? d : { ...d, [key]: value, revision: d.status === "ready" ? d.revision + 1 : d.revision, status: "draft", updatedAt: Date.now() }) }));
   const prepare = (id: string) => change(w => ({ ...w, drafts: w.drafts.map(d => { if (d.id !== id) return d; const issue = publicationIssue(d); if (issue) throw new Error(issue); return { ...d, status: "ready", updatedAt: Date.now() }; }) }));
   const remove = (id: string) => change(w => ({ ...w, drafts: w.drafts.filter(d => d.id !== id) }));
   const shop = (recipeId: string, text: string) => change(w => w.shopping.some(n => n.recipeId === recipeId && n.text === text) ? w : { ...w, shopping: [...w.shopping, { id: localId("shopping"), recipeId, text: text.slice(0, 300), checked: false }] });

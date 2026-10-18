@@ -7,8 +7,9 @@ import PlacePanel from './PlacePanel';
 import RecipePanel from './RecipePanel';
 import EventPanel from './EventPanel';
 import { Gatherings, Market, Reviews } from './MemberContent';
+import { MemberRecipes } from './MemberRecipes';
 
-const tabs = [['places', 'Places & menus'], ['recipes', 'Recipes'], ['events', 'Events'], ['reviews', 'Place reviews'], ['gatherings', 'Gatherings'], ['market', 'Market']] as const;
+const tabs = [['places', 'Places & menus'], ['recipes', 'Recipes'], ['member-recipes', 'Member recipes'], ['events', 'Events'], ['reviews', 'Place reviews'], ['gatherings', 'Gatherings'], ['market', 'Market']] as const;
 type Tab = typeof tabs[number][0];
 type Row = { id: string; hidden: boolean; edited: boolean; newer?: boolean; updatedAt: string | null; reports?: number; [key: string]: unknown };
 
@@ -40,6 +41,7 @@ export default function ContentConsole() {
       filters={[['all', 'All'], ['upcoming', 'Upcoming'], ['bot', 'From QT Manager'], ['staff', 'Added by staff'], ['edited', 'Edited'], ['hidden', 'Hidden']]}
       describe={r => ({ title: String(r.title), meta: [r.startsAt ? date(r.startsAt) : '', sourceLabel(r.source), r.status !== 'scheduled' ? r.status : ''].filter(Boolean).join(' · '), search: [r.title], staff: r.source === 'staff' })}
       detail={(id, changed) => <EventPanel key={id} id={id} onChanged={changed}/>}/>}
+    {tab === 'member-recipes' && <MemberRecipes/>}
     {tab === 'reviews' && <Reviews/>}
     {tab === 'gatherings' && <Gatherings/>}
     {tab === 'market' && <Market/>}

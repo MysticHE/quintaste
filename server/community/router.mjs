@@ -1,6 +1,7 @@
 import { pool, logger } from '../config.mjs';
 import { CommunityError, communityRouter, errors, requireUser, text, throttle, transaction } from './http.mjs';
 import { publishedPlaceId } from '../catalogue-places.mjs';
+import { publishedRecipeId } from '../recipes/published.mjs';
 
 /** Blocking is mutual for visibility: neither side sees or contacts the other. */
 export async function blockedBetween(a, b, db = pool) {
@@ -8,10 +9,11 @@ export async function blockedBetween(a, b, db = pool) {
   const result = await db.query('SELECT 1 FROM community.block WHERE (user_id=$1 AND blocked_id=$2) OR (user_id=$2 AND blocked_id=$1) LIMIT 1', [a, b]);
   return result.rowCount > 0;
 }
-/** SQL fragment excluding people blocked in either direction from `viewer`; `column` is the other person's id column. */
-export const notBlocked = (column, param) => `NOT EXISTS (SELECT 1 FROM community.block b WHERE (b.user_id=${param} AND b.blocked_id=${column}) OR (b.user_id=${column} AND b.blocked_id=${param}))`;
+/** SQL fragment excluding people blocked in either direction from `viewer`; `column` is the other person's id column.
+ * Helper aliases are unusual (blk_, rst_) so they never shadow a caller's table alias. */
+export const notBlocked = (column, param) => `NOT EXISTS (SELECT 1 FROM community.block blk_ WHERE (blk_.user_id=${param} AND blk_.blocked_id=${column}) OR (blk_.user_id=${column} AND blk_.blocked_id=${param}))`;
 /** Accounts under an active admin restriction disappear from browsing. */
-export const notRestricted = column => `NOT EXISTS (SELECT 1 FROM ops.restriction r WHERE r.user_id=${column} AND r.active)`;
+export const notRestricted = column => `NOT EXISTS (SELECT 1 FROM ops.restriction rst_ WHERE rst_.user_id=${column} AND rst_.active)`;
 
 /** Files a report in the admin case queue; three per reporter per 24 hours. Pass `db` to file it inside the caller's transaction. */
 export async function fileReport(reporterId, { subject, title, description }, db = null) {
@@ -52,14 +54,14 @@ community.delete('/blocks/:id', async (req, res) => {
 });
 community.post('/reports', async (req, res) => {
   const me = res.locals.user.id, kind = req.body?.kind;
-  if (!['person', 'listing', 'place'].includes(kind)) throw new CommunityError(400, 'Choose what you are reporting.');
+  if (!['person', 'listing', 'place', 'recipe'].includes(kind)) throw new CommunityError(400, 'Choose what you are reporting.');
   // Place reports (wrong hours, menu, location, closure or diet) go to the same staff case queue as other reports.
-  const target = kind === 'place' ? await publishedPlaceId(req.body?.targetId) : requireUser(req.body?.targetId);
-  if (!target) throw new CommunityError(404, 'That place is unavailable.');
+  const target = kind === 'place' ? await publishedPlaceId(req.body?.targetId) : kind === 'recipe' ? await publishedRecipeId(req.body?.targetId) : requireUser(req.body?.targetId);
+  if (!target) throw new CommunityError(404, kind === 'recipe' ? 'That recipe is unavailable.' : 'That place is unavailable.');
   const reason = text(req.body?.reason, 60), details = text(req.body?.details, 1000);
-  const subject = { listing: 'market:listing:', person: 'community:user:', place: 'place:catalogue:' }[kind] + target;
+  const subject = { listing: 'market:listing:', person: 'community:user:', place: 'place:catalogue:', recipe: 'recipe:member:' }[kind] + target;
   const reference = await fileReport(me, { subject,
-    title: { listing: 'Market listing report', person: 'Member report', place: 'Place update' }[kind] + (reason ? ' · ' + reason : ''),
+    title: { listing: 'Market listing report', person: 'Member report', place: 'Place update', recipe: 'Member recipe report' }[kind] + (reason ? ' · ' + reason : ''),
     description: [reason && 'Reason: ' + reason, details || 'No details given.'].filter(Boolean).join('\n\n') });
   if (req.body?.block === true && kind === 'person' && target !== me) {
     await transaction(async db => {

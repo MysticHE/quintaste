@@ -4,6 +4,8 @@ import { useFocusEffect } from "expo-router";
 import { editorialRequest, type StaffRecipes } from "../services/editorial";
 import { bundledRecipeIds, recipeById } from "../data/recipes";
 import type { Recipe } from "../types/food";
+import { useMemberRecipe } from "./useMemberRecipes";
+import { isMemberRecipe } from "../services/member-recipes";
 
 export function useEditorial<T>(path: string | null): { data?: T; error?: string; loading: boolean; refresh: () => void } {
   const [state, setState] = useState<{ path: string; data?: T; error?: string; loading: boolean }>();
@@ -25,8 +27,9 @@ export function useEditorial<T>(path: string | null): { data?: T; error?: string
 export function usePublishedRecipe(id: string | null) {
   // Bundled recipes come with the app; staff edits and hides of them arrive in one small list, never per recipe.
   const bundled = !!id && bundledRecipeIds.has(id), staff = useEditorial<StaffRecipes>(bundled ? "/staff-recipes" : null);
-  const existing = id ? recipeById(id) : undefined;
-  const remote = useEditorial<Recipe>(id && !bundled && (!existing || existing.provenance) && !id.startsWith("private-") ? "/recipes/" + encodeURIComponent(id) : null);
+  const existing = id ? recipeById(id) : undefined, member = useMemberRecipe(id);
+  const remote = useEditorial<Recipe>(id && !bundled && !isMemberRecipe(id) && (!existing || existing.provenance) && !id.startsWith("private-") ? "/recipes/" + encodeURIComponent(id) : null);
+  if (isMemberRecipe(id)) return member;
   if (bundled) return { loading: staff.loading && !existing, error: undefined as string | undefined, refresh: staff.refresh, recipe: existing };
   return { ...remote, recipe: remote.data ?? existing };
 }

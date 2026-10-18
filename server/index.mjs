@@ -15,6 +15,7 @@ import { devWebOrigin } from './community/http.mjs';
 import { market, marketSeller } from './market/router.mjs';
 import { purgeOrderContacts } from './market/orders.mjs';
 import { social } from './social/router.mjs';
+import { recipes } from './recipes/router.mjs';
 import { areas } from './areas/router.mjs';
 import { startAreaSnapshots } from './areas/snapshot.mjs';
 import { placeReviews } from './place-reviews/router.mjs';
@@ -94,6 +95,9 @@ app.use('/api/place-reviews', featureGate('menus'), placeReviews);
 app.use('/api/market/seller', featureGate('market_sellers'), marketSeller);
 app.use('/api/market', featureGate('market'), market);
 app.use('/api/social', featureGate('social'), social);
+// Withdrawing stays available while the service is paused, so members can always take their recipes down.
+const recipesGate = featureGate('recipes');
+app.use('/api/recipes', (req, res, next) => req.method === 'DELETE' ? next() : recipesGate(req, res, next), recipes);
 app.use('/api/areas', featureGate('areas'), areas);
 app.use('/api/local-explore', (_req, res) => res.status(503).json({ error: 'Local development services are unavailable on this deployment.' }));
 app.use('/api/staff-base', (_req, res) => res.sendStatus(404));

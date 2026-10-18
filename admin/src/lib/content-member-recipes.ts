@@ -1,0 +1,62 @@
+import 'server-only';
+import { query, transaction } from './db';
+import { audit } from './audit';
+import { authorize, lockPermission, type Session } from './session';
+import { choice, HttpError, integer, text, uuid } from './http';
+import { search } from './content-members';
+
+// Member recipes are published or declined, hidden or restored, never rewritten: staff must not put words in a member's name.
+type Version = { title: string; description: string; author: string; language: string; servings: number; minutes: number; diet: string; categories: string[];
+  sponsorship: string; ingredients: { id: string; name: string; amount: number | null; unit: string; listingId?: string }[];
+  steps: { title: string; instruction: string; minutes: number | null; ingredientIds: string[] }[]; revision: number };
+const statuses = ['review', 'published', 'declined', 'hidden'] as const;
+const where = { review: "r.pending_state='review'", published: 'r.live IS NOT NULL AND r.hidden_at IS NULL', declined: "r.pending_state='declined'", hidden: 'r.hidden_at IS NOT NULL' };
+
+export async function memberRecipeList(member: Session, status: string, q: string) {
+  authorize(member, 'content');
+  const filter = choice(status || 'review', statuses, 'status'), term = search(q);
+  const shown = filter === 'review' || filter === 'declined' ? 'pending' : 'live';
+  const rows = (await query<{ id: string; recipe: Version; version: string; photos: string[]; [key: string]: unknown }>(`SELECT r.id, r.${shown} AS recipe, '${shown}' AS version,
+      r.pending_state, r.decision_note, r.live IS NOT NULL AS live, r.hidden_reason, r.submitted_at, r.published_at, u.username, u.name AS account_name,
+      coalesce((SELECT json_agg(p.slot ORDER BY p.slot) FROM recipes.photo p WHERE p.recipe_id=r.id AND p.version='${shown}'), '[]') AS photos,
+      (SELECT count(*)::int FROM ops.case_record c WHERE c.kind='report' AND c.status NOT IN ('resolved','dismissed') AND split_part(c.subject_id,'|',1)='recipe:member:'||r.id) AS reports
+    FROM recipes.recipe r JOIN public."user" u ON u.id=r.author_id
+    WHERE ${where[filter]} AND ($1='' OR r.${shown}->>'title' ILIKE $1 OR u.username ILIKE $1)
+    ORDER BY reports DESC, ${filter === 'review' ? 'r.submitted_at ASC' : 'r.updated_at DESC'} LIMIT 100`, [term])).rows;
+  // Staff see which Market item each linked ingredient points to and whether buyers can see it.
+  const ids = [...new Set(rows.flatMap(row => row.recipe.ingredients.map(i => i.listingId).filter((id): id is string => !!id)))];
+  const items = ids.length ? (await query<{ id: string; name: string; status: string; price_cents: number }>('SELECT id, name, status, price_cents FROM market.listing WHERE id = ANY($1::uuid[])', [ids])).rows : [];
+  const byId = new Map(items.map(item => [item.id, item]));
+  return rows.map(row => ({ ...row, recipe: { ...row.recipe, ingredients: row.recipe.ingredients.map(i => ({ ...i, listing: i.listingId ? byId.get(i.listingId) ?? null : undefined })) } }));
+}
+export async function memberRecipePhoto(member: Session, id: string, version: string, slot: string) {
+  authorize(member, 'content');
+  if (!/^(cover|step-[0-9]{1,2})$/.test(slot)) throw new HttpError(400, 'Check photo.');
+  return (await query<{ bytes: Buffer }>('SELECT bytes FROM recipes.photo WHERE recipe_id=$1 AND version=$2 AND slot=$3',
+    [uuid(id, 'recipe'), choice(version, ['live', 'pending'] as const, 'version'), slot])).rows[0]?.bytes ?? null;
+}
+/** Publish or decline a submission, or hide or restore a published recipe. Publishing replaces the live version and its photos. */
+export async function memberRecipeAction(member: Session, input: Record<string, unknown>, reason: string) {
+  const act = choice(input.action, ['publish', 'decline', 'hide', 'restore'] as const, 'action'), id = uuid(input.id, 'recipe');
+  authorize(member, 'content', true);
+  return transaction(async db => {
+    await lockPermission(db, member, 'content', true);
+    let result;
+    if (act === 'publish' || act === 'decline') {
+      const revision = integer(input.revision, 'revision', 1, 10000);
+      result = act === 'publish'
+        ? await db.query(`UPDATE recipes.recipe SET live=pending, live_revision=pending_revision, pending=NULL, pending_revision=NULL, pending_state=NULL,
+            decision_note='', published_at=now(), updated_at=now() WHERE id=$1 AND pending_state='review' AND pending_revision=$2`, [id, revision])
+        : await db.query(`UPDATE recipes.recipe SET pending_state='declined', decision_note=$3, updated_at=now() WHERE id=$1 AND pending_state='review' AND pending_revision=$2`,
+          [id, revision, text(input.note, 'note shown to the author', 300, 5)]);
+      if (result.rowCount && act === 'publish') {
+        await db.query("DELETE FROM recipes.photo WHERE recipe_id=$1 AND version='live'", [id]);
+        await db.query("UPDATE recipes.photo SET version='live' WHERE recipe_id=$1 AND version='pending'", [id]);
+      }
+    } else result = await db.query(`UPDATE recipes.recipe SET hidden_at=${act === 'hide' ? 'now()' : 'NULL'}, hidden_reason=$2, updated_at=now()
+      WHERE id=$1 AND live IS NOT NULL AND (hidden_at IS NULL)=$3`, [id, act === 'hide' ? reason : null, act === 'hide']);
+    if (!result.rowCount) throw new HttpError(409, 'This changed since you opened it. Refresh the list.');
+    await audit(db, member.id, 'content.member-recipe.' + act, 'member-recipe:' + id, reason, { note: input.note ?? null, revision: input.revision ?? null });
+    return { saved: true, note: act === 'publish' ? 'Published. Members see it in Cook within a minute.' : undefined };
+  });
+}

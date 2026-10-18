@@ -37,7 +37,8 @@ export type Dish = {
   recipeId?: string;
 };
 /** amount null means "to taste": shown as text and never scaled. labelChecked clears compound-ingredient uncertainty. */
-export type Ingredient = { id: string; name: string; amount: number | null; unit: string; labelChecked?: boolean };
+/** `shop` appears on a member recipe line linked to the author's Market item, only while the viewer can open and buy it. */
+export type Ingredient = { id: string; name: string; amount: number | null; unit: string; labelChecked?: boolean; shop?: { listingId: string; name: string; priceCents: number } };
 export type RecipeStep = {
   title: string; instruction: string; ingredientIds: string[];
   timer?: { label: string; seconds: number };
@@ -51,6 +52,8 @@ export type Recipe = {
   ingredients: Ingredient[]; steps: RecipeStep[]; dishId?: string; adaptationId?: string;
   adaptationNote?: string;
   author: string; language: string; revision: number; updatedAt: string; withdrawal?: string;
+  /** Present on recipes members shared and staff published; `shop` is the author's Market shop when buyers can see it. */
+  member?: { sponsorship: string; own: boolean; shop: { id: string; name: string } | null };
 };
 export type SavedKind = "place" | "dish" | "recipe";
 export type SavedItem = { kind: SavedKind; id: string; savedAt: number; list: string };

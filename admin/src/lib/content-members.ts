@@ -8,7 +8,8 @@ import { packagedPlaces } from './content-base';
 import { staffRows } from './content-store';
 
 // Member-written content is hidden or restored, never rewritten: staff must not put words in a member's name.
-const search = (value: string) => value ? '%' + text(value, 'search', 60).replace(/[\\%_]/g, '\\$&') + '%' : '';
+/** A LIKE pattern for a staff search box, or '' when empty. */
+export const search = (value: string) => value ? '%' + text(value, 'search', 60).replace(/[\\%_]/g, '\\$&') + '%' : '';
 const openReports = (subject: string) => `(SELECT count(*)::int FROM ops.case_record c WHERE c.kind='report' AND c.status NOT IN ('resolved','dismissed')
   AND split_part(c.subject_id,'|',1)=${subject})`;
 

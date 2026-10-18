@@ -41,7 +41,8 @@ function readDate(value) {
   if (!Number.isFinite(at) || new Date(at + 8 * 3600000).toISOString().slice(0, 10) !== value) throw new CommunityError(400, 'Choose a valid date.');
   return value;
 }
-const whole = (value, min, max, message) => { const n = Number(value); if (!Number.isInteger(n) || n < min || n > max) throw new CommunityError(400, message); return n; };
+/** A whole number within [min, max], or a 400 with `message`. */
+export const whole = (value, min, max, message) => { const n = Number(value); if (!Number.isInteger(n) || n < min || n > max) throw new CommunityError(400, message); return n; };
 
 /** Shop profile fields; a draft may be incomplete. */
 export function readSeller(body) {
@@ -110,7 +111,8 @@ export function dietProblem(l) {
   if (l.diets.includes('jain') && (has('Honey') || jainRoots.test(l.ingredients))) return 'Jain items can’t contain honey, root vegetables or alliums.';
   return null;
 }
-async function encode(uri, { edge, quality, max, inputMax }) {
+/** Re-encodes an uploaded data URI as a bounded JPEG: EXIF rotation applied, metadata stripped. */
+export async function encodePhoto(uri, { edge, quality, max, inputMax }) {
   if (typeof uri !== 'string' || uri.length > inputMax || !/^data:image\/(jpeg|png|webp);base64,[A-Za-z0-9+/]+={0,2}$/.test(uri)) {
     throw new CommunityError(400, 'Use a JPG, PNG or WebP photo under 1 MB.');
   }
@@ -126,7 +128,7 @@ async function encode(uri, { edge, quality, max, inputMax }) {
   } finally { input.fill(0); }
 }
 /** Listing photos: EXIF rotation applied, metadata stripped, bounded JPEG. */
-export const processPhoto = uri => encode(uri, { edge: 1280, quality: 78, max: 600000, inputMax: 1400000 });
+export const processPhoto = uri => encodePhoto(uri, { edge: 1280, quality: 78, max: 600000, inputMax: 1400000 });
 export const money = cents => 'S$' + (cents / 100).toFixed(cents % 100 ? 2 : 0);
 /** A seller whose shop buyers can see and order from: open on the current declarations, and not suspended or removed by staff. */
 export const liveSeller = alias => `${alias}.status='active' AND ${alias}.declarations_version >= ${declarationsVersion}`;

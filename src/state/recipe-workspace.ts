@@ -26,7 +26,7 @@ function readCooked(value: unknown): CookedEntry[] {
     .map(e => ({ recipeId: String(e.recipeId), revision: Number.isInteger(e.revision) ? Math.max(1, Number(e.revision)) : 1,
       servings: Number.isInteger(e.servings) ? Math.max(1, Math.min(8, Number(e.servings))) : 1, finishedAt: Number(e.finishedAt) }));
 }
-export const emptyRecipeDraft = (id: string): RecipeDraft => ({ id, title: "", description: "", author: "", language: "English", servings: "2", minutes: "", diet: "Unspecified", ingredients: [], steps: [], sponsorship: "", rights: false, policy: false, status: "draft", revision: 1, updatedAt: Date.now() });
+export const emptyRecipeDraft = (id: string): RecipeDraft => ({ id, title: "", description: "", author: "", language: "English", servings: "2", minutes: "", diet: "Unspecified", categories: [], ingredients: [], steps: [], sponsorship: "", rights: false, policy: false, status: "draft", revision: 1, updatedAt: Date.now() });
 export function recipePhoto(value: unknown) {
   return typeof value === "string" && value.length <= 300000 && /^data:image\/(jpeg|png|webp);base64,[A-Za-z0-9+/=]+$/.test(value) ? value : undefined;
 }
@@ -35,6 +35,7 @@ export function publicationIssue(d: RecipeDraft) {
   if (!d.photo) return "Add a recipe photo.";
   if (!/^[1-8]$/.test(d.servings) || !/^\d+$/.test(d.minutes) || +d.minutes < 1 || +d.minutes > 1440) return "Choose 1–8 servings and a total time from 1 to 1440 minutes.";
   if (d.diet === "Unspecified") return "Choose Vegan or Vegetarian.";
+  if (!d.categories.length) return "Choose a category.";
   if (!d.ingredients.length || d.ingredients.some(ingredientIssue)) return "Give every ingredient a name. Amounts need a unit (use item for whole pieces); leave the amount blank for to-taste ingredients.";
   if (!d.steps.length || d.steps.some(s => !s.title.trim() || !s.instruction.trim() || (s.minutes !== "" && (!/^\d+$/.test(s.minutes) || +s.minutes < 1 || +s.minutes > 180)))) return "Add a title and instructions to each step. Optional timers must be 1–180 whole minutes.";
   if (!d.sponsorship) return "Choose a sponsorship disclosure, including None if there is no sponsorship.";
@@ -44,8 +45,8 @@ export function publicationIssue(d: RecipeDraft) {
 export function readRecipeWorkspace(value: unknown): RecipeWorkspace {
   const v = record(value), seen = new Set<string>();
   const drafts = rows(v.drafts).filter(d => typeof d.id === "string" && /^[a-z0-9-]{1,80}$/.test(d.id) && !seen.has(d.id) && !!seen.add(d.id)).slice(0, 20).map(d => {
-    const draft: RecipeDraft = { ...emptyRecipeDraft(String(d.id)), title: text(d.title, 100), description: text(d.description, 2000), author: text(d.author, 80), language: text(d.language, 40), servings: text(d.servings, 2), minutes: text(d.minutes, 4), diet: d.diet === "Vegan" || d.diet === "Vegetarian" ? d.diet : "Unspecified", photo: recipePhoto(d.photo), sponsorship: d.sponsorship === "None" || d.sponsorship === "Paid" || d.sponsorship === "Gifted" || d.sponsorship === "Affiliate" ? d.sponsorship : "", rights: d.rights === true, policy: d.policy === true, revision: Number.isInteger(d.revision) ? Math.max(1, Math.min(10000, Number(d.revision))) : 1, updatedAt: typeof d.updatedAt === "number" && Number.isFinite(d.updatedAt) ? d.updatedAt : 0,
-      ingredients: rows(d.ingredients).slice(0, 40).map((i, n) => ({ id: text(i.id, 80) || "ingredient-" + n, name: text(i.name, 120), amount: text(i.amount, 12), unit: text(i.unit, 24) })),
+    const draft: RecipeDraft = { ...emptyRecipeDraft(String(d.id)), title: text(d.title, 100), description: text(d.description, 2000), author: text(d.author, 80), language: text(d.language, 40), servings: text(d.servings, 2), minutes: text(d.minutes, 4), diet: d.diet === "Vegan" || d.diet === "Vegetarian" ? d.diet : "Unspecified", categories: Array.isArray(d.categories) ? recipeCategories.filter(c => (d.categories as unknown[]).includes(c)).slice(0, 2) : [], photo: recipePhoto(d.photo), sponsorship: d.sponsorship === "None" || d.sponsorship === "Paid" || d.sponsorship === "Gifted" || d.sponsorship === "Affiliate" ? d.sponsorship : "", rights: d.rights === true, policy: d.policy === true, revision: Number.isInteger(d.revision) ? Math.max(1, Math.min(10000, Number(d.revision))) : 1, updatedAt: typeof d.updatedAt === "number" && Number.isFinite(d.updatedAt) ? d.updatedAt : 0,
+      ingredients: rows(d.ingredients).slice(0, 40).map((i, n) => ({ id: text(i.id, 80) || "ingredient-" + n, name: text(i.name, 120), amount: text(i.amount, 12), unit: text(i.unit, 24), ...(typeof i.listingId === "string" && /^[0-9a-f-]{36}$/.test(i.listingId) ? { listingId: i.listingId } : {}) })),
       steps: rows(d.steps).slice(0, 30).map((s, n) => ({ id: text(s.id, 80) || "step-" + n, title: text(s.title, 120), instruction: text(s.instruction, 3000), minutes: text(s.minutes, 3), photo: recipePhoto(s.photo), ingredientIds: Array.isArray(s.ingredientIds) ? [...new Set(s.ingredientIds.filter((id): id is string => typeof id === "string" && rows(d.ingredients).some(i => i.id === id)))].slice(0, 40) : [] })) };
     draft.status = d.status === "ready" && !publicationIssue(draft) ? "ready" : "draft";
     return draft;

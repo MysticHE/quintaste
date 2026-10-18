@@ -13,7 +13,7 @@ type ShopReview = { id: string; rating: number; review: string; diet_matched: bo
 const stars = (n: number) => '★'.repeat(n) + '☆'.repeat(5 - n);
 
 /** Status chips, a search box and a list of member posts, each with its own audited hide or restore. */
-function Moderation<T extends { id: string }>({ path, statuses, search = true, render, act }: {
+export function Moderation<T extends { id: string }>({ path, statuses, search = true, render, act }: {
   path: string; statuses: [string, string][]; search?: boolean; render: (row: T) => ReactNode; act: (row: T, status: string, done: () => void) => ReactNode;
 }) {
   const [status, setStatus] = useState(statuses[0][0]), [draft, setDraft] = useState(''), [q, setQ] = useState('');
@@ -27,7 +27,7 @@ function Moderation<T extends { id: string }>({ path, statuses, search = true, r
       : <div className="empty">Nothing here.</div>)}
   </section>;
 }
-const toggle = (resource: string, id: string, hidden: boolean, done: () => void, hideLabel = 'Hide', extra?: ReactNode) =>
+export const toggle = (resource: string, id: string, hidden: boolean, done: () => void, hideLabel = 'Hide', extra?: ReactNode) =>
   <details><summary>{hidden ? 'Show to members again' : hideLabel}</summary>
     <ActionBar resource={resource} payload={() => ({ id })} onDone={done} actions={[hidden ? { action: 'restore', label: 'Show again' } : { action: 'hide', label: hideLabel, tone: 'danger' }]}>{extra}</ActionBar></details>;
 

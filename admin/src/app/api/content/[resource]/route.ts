@@ -5,6 +5,7 @@ import { menuAction, placeAction, placeDetail, placeList } from '../../../../lib
 import { eventAction, eventDetail, eventList, recipeAction, recipeDetail, recipeList } from '../../../../lib/content-recipes';
 import { gatheringList, marketItems, marketPhoto, marketReviews, memberAction, reviewList, reviewPhoto } from '../../../../lib/content-members';
 import { contentPhoto, uploadPhoto } from '../../../../lib/content-assets';
+import { memberRecipeAction, memberRecipeList, memberRecipePhoto } from '../../../../lib/content-member-recipes';
 
 type Context = { params: Promise<{ resource: string }> };
 export const runtime = 'nodejs';
@@ -23,9 +24,11 @@ export function GET(request: Request, context: Context) { return route(async () 
   if (resource === 'gatherings') return json(await gatheringList(member, status, q));
   if (resource === 'market') return json(await marketItems(member, status, q));
   if (resource === 'market-reviews') return json(await marketReviews(member, status));
+  if (resource === 'member-recipes') return json(await memberRecipeList(member, status, q));
   if (resource === 'review-photo') return image(await reviewPhoto(member, text(id, 'photo', 36)));
   if (resource === 'market-photo') return image(await marketPhoto(member, text(id, 'item', 36), text(params.get('slot'), 'photo', 10)));
   if (resource === 'photo') return image(await contentPhoto(member, text(id, 'photo', 64)));
+  if (resource === 'member-recipe-photo') return image(await memberRecipePhoto(member, text(id, 'recipe', 36), text(params.get('version'), 'version', 10), text(params.get('slot'), 'photo', 10)));
   throw new HttpError(404, 'Not found.');
 }); }
 export function POST(request: Request, context: Context) { return route(async () => {
@@ -46,5 +49,6 @@ export function POST(request: Request, context: Context) { return route(async ()
   if (resource === 'gatherings') return json(await memberAction(member, 'gathering', input, reason));
   if (resource === 'market') return json(await memberAction(member, 'market-item', input, reason));
   if (resource === 'market-reviews') return json(await memberAction(member, 'market-review', input, reason));
+  if (resource === 'member-recipes') return json(await memberRecipeAction(member, input, reason));
   throw new HttpError(404, 'Not found.');
 }); }

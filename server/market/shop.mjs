@@ -22,8 +22,21 @@ const cardColumns = `l.id, l.name, l.price_cents AS "priceCents", l.portion, l.c
   s.trading_name AS "sellerName", s.area, ${sgText('n.starts')} AS "nextSlot", l.lead_days AS "leadDays", l.max_per_order AS "maxPerOrder",
   (SELECT digest FROM market.photo p WHERE p.listing_id=l.id AND p.slot='item') AS digest`;
 const card = ({ digest, ...row }, saved = false) => ({ ...row, saved, photo: photoUrl(row.id, 'item', digest) });
-const like = value => '%' + value.trim().slice(0, 60).replace(/[\\%_]/g, '\\$&') + '%';
+export const like = value => '%' + value.trim().slice(0, 60).replace(/[\\%_]/g, '\\$&') + '%';
 
+/** One seller's items a viewer can open right now (on sale, live shop, not blocked), for recipe ingredient labels. */
+export async function visibleListings(ids, sellerId, viewer) {
+  if (!ids.length) return new Map();
+  const rows = (await pool.query(`SELECT l.id, l.name, l.price_cents AS "priceCents" FROM market.listing l JOIN market.seller s ON s.user_id=l.seller_id
+    WHERE l.id = ANY($1::uuid[]) AND l.seller_id=$2 AND ${visible} ${viewer ? `AND ${notBlocked('s.user_id', '$3')}` : ''}`,
+  viewer ? [ids, sellerId, viewer] : [ids, sellerId])).rows;
+  return new Map(rows.map(row => [row.id, row]));
+}
+/** A seller's shop name when buyers can see the shop, else null. */
+export async function visibleShop(sellerId) {
+  const row = (await pool.query(`SELECT s.user_id AS id, s.trading_name AS name FROM market.seller s WHERE s.user_id=$1 AND ${liveSeller('s')} AND ${notRestricted('s.user_id')}`, [sellerId])).rows[0];
+  return row ?? null;
+}
 shop.get('/listings', async (req, res) => {
   const viewer = res.locals.user?.id ?? null, q = req.query, params = [viewer], where = [visible];
   const add = value => { params.push(value); return '$' + params.length; };

@@ -10,6 +10,8 @@ import { usePreferences } from "../../state/Preferences";
 import { useExploreLocal } from "../../state/ExploreLocal";
 import { defaults } from "../../config/preferences";
 import { useAuth } from "../../state/Auth";
+import { accountsEnabled } from "../../services/auth-client";
+import { withdrawRecipes } from "../../services/member-recipes";
 
 export function PrivacyScreen() {
   const { user } = useAuth();
@@ -26,6 +28,12 @@ export function PrivacyScreen() {
   const erase = async () => {
     setBusy(true);
     try {
+      // Recipes shared from these drafts leave Cook first; the drafts that manage them are about to go.
+      const drafts = doc.recipes.drafts.map(d => d.id);
+      if (accountsEnabled && user?.adultConfirmed && drafts.length) {
+        try { await withdrawRecipes(drafts); }
+        catch { setNotice({ text: "Connect to remove your shared recipes. Your device collection has not been cleared.", error: true }); return; }
+      }
       if (!await local.eraseServer()) { setNotice({ text: "Connect to delete local review records. Your device collection has not been cleared.", error: true }); return; }
       if (!await deleteCurrent()) { local.resume(); return; }
       try { await local.completeErase(); }

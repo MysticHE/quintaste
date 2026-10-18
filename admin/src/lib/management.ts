@@ -30,7 +30,7 @@ export async function accountAction(member: Session, input: Record<string, unkno
 }
 export async function changeControl(member: Session, input: Record<string, unknown>, reason: string) {
   authorize(member, 'operations', true);
-  const key = choice(input.key, ['registration','discovery','menus','avatars','ai','social','market','market_sellers','areas','games','identity'] as const, 'feature');
+  const key = choice(input.key, ['registration','discovery','menus','avatars','ai','social','market','market_sellers','recipes','areas','games','identity'] as const, 'feature');
   if (typeof input.enabled !== 'boolean') throw new HttpError(400, 'Choose enabled or disabled.');
   if (input.enabled && ['ai','games','identity'].includes(key)) throw new HttpError(409, 'This feature still requires production acceptance and cannot be enabled here.');
   const version = integer(input.version, 'control version', 1);

@@ -1,21 +1,35 @@
-import { StyleSheet, View } from "react-native";
+import { Pressable, StyleSheet, View } from "react-native";
+import { router } from "expo-router";
 import type { Ingredient } from "../../types/food";
 import { usePreferences } from "../../state/Preferences";
-import { ingredientLine } from "../../utils/food-format";
+import { useKeyboardFocus } from "../../hooks/useKeyboardFocus";
+import { ingredientLine, money } from "../../utils/food-format";
 import { Icon, T, common } from "../ui";
 
 /** Read-only scaled ingredients; prepared items that could hide the reader's exclusions get a Check label tag. */
-export function IngredientList({ ingredients, scale, flagged }: { ingredients: Pick<Ingredient, "id" | "name" | "amount" | "unit">[]; scale: number; flagged?: Set<string> }) {
+export function IngredientList({ ingredients, scale, flagged }: { ingredients: Pick<Ingredient, "id" | "name" | "amount" | "unit" | "shop">[]; scale: number; flagged?: Set<string> }) {
   const { theme } = usePreferences();
   return <View style={{ gap: 8 }}>{ingredients.map(item => {
     const line = ingredientLine(item, scale), check = !!flagged?.has(item.id);
-    return <View key={item.id} accessible accessibilityLabel={line.spoken + (check ? ". Check the label for your exclusions" : "")} style={[common.row, s.line]}>
-      <T style={common.flex}>{line.text}</T>
-      {check && <View style={[s.tag, { borderColor: theme.warning, backgroundColor: theme.warningSoft }]}>
-        <Icon name="alert-circle-outline" size={14} color={theme.warning} /><T variant="small" color={theme.warning}>Check label</T>
-      </View>}
+    return <View key={item.id} style={[common.row, s.line]}>
+      <View accessible accessibilityLabel={line.spoken + (check ? ". Check the label for your exclusions" : "")} style={[common.row, common.flex, s.line]}>
+        <T style={common.flex}>{line.text}</T>
+        {check && <View style={[s.tag, { borderColor: theme.warning, backgroundColor: theme.warningSoft }]}>
+          <Icon name="alert-circle-outline" size={14} color={theme.warning} /><T variant="small" color={theme.warning}>Check label</T>
+        </View>}
+      </View>
+      {item.shop && <ShopTag name={item.name} shop={item.shop} />}
     </View>;
   })}</View>;
+}
+/** The author's Market item for this line, shown only while it is on sale; opens that exact item. */
+function ShopTag({ name, shop }: { name: string; shop: NonNullable<Ingredient["shop"]> }) {
+  const { theme } = usePreferences(), { focused, focusProps } = useKeyboardFocus(), price = money(shop.priceCents / 100);
+  return <Pressable accessibilityRole="link" accessibilityLabel={"Buy " + name + " from the author's shop, " + price} hitSlop={{ top: 11, bottom: 11, left: 8, right: 8 }}
+    onPress={() => router.push({ pathname: "/market/listing/[id]", params: { id: shop.listingId } })} {...focusProps}
+    style={({ pressed }) => [s.tag, { borderColor: focused ? theme.foreground : theme.accent, backgroundColor: theme.accentSoft, opacity: pressed ? 0.7 : 1 }]}>
+    <Icon name="storefront-outline" size={14} color={theme.accent} /><T variant="small" color={theme.accent} style={common.bold}>{price}</T>
+  </Pressable>;
 }
 const s = StyleSheet.create({
   line: { gap: 8, alignItems: "flex-start" },
