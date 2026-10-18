@@ -13,7 +13,7 @@ First automated release: **20261017-ci3-1539d85** (app/preview; admin stays open
 <!-- end-ci-deployment-20261017 -->
 
 <!-- current-20261018-member-recipes2 -->
-Current app/preview/admin **20261018-member-recipes2** (commits 8983125, b37df6e; manual release because it adds `server/recipes/schema.sql`). Members submit Cook recipes for staff review and may link ingredients to their own Market items; buyers see a price label that opens the item (`docs/MEMBER_RECIPES.md`). Backup succeeded, zero active avatar jobs, additive schema applied with the operations role, grants verified (app read/write; admin read, publish columns and photo moves). The new `recipes` control was inserted **disabled**: `/api/recipes` answers 503 until staff enable it in Operations; withdrawals (DELETE) stay available. Local: TypeScript (app, server, admin), lint, 31/31 API end-to-end checks against the dev database with the retained accounts, browser checks of the label/listing/Back and editor linking. Live: app/admin health 200, menus/editorial/market 200, `/api/recipes` 503 paused, member routes 401, admin member-recipes 401 signed out, web bundle and Android manifest/bundle 200 with the existing scopeKey and the new code, zero app/admin error lines. CI run for 8983125 failed its server type check (fixed in b37df6e) before reaching the VPS. Not yet exercised live: a signed-in submission, staff publishing with a real staff login, physical devices. Rollback `deployment-backups/20261018-member-recipes2` (leave the additive recipes tables; keep `recipes` off).
+Current app/preview/admin **20261018-member-recipes2** (commits 8983125, b37df6e; manual release because it adds `server/recipes/schema.sql`). Members submit Cook recipes for staff review and may link ingredients to their own Market items; buyers see a price label that opens the item (`docs/MEMBER_RECIPES.md`). Backup succeeded, zero active avatar jobs, additive schema applied with the operations role, grants verified (app read/write; admin read, publish columns and photo moves). The new `recipes` control was inserted **disabled**: `/api/recipes` answers 503 until staff enable it in Operations; withdrawals (DELETE) stay available. Local: TypeScript (app, server, admin), lint, 31/31 API end-to-end checks against the dev database with the retained accounts, browser checks of the label/listing/Back and editor linking. Live: app/admin health 200, menus/editorial/market 200, `/api/recipes` 503 paused, member routes 401, admin member-recipes 401 signed out, web bundle and Android manifest/bundle 200 with the existing scopeKey and the new code, zero app/admin error lines. CI run for 8983125 failed its server type check (fixed in b37df6e) before reaching the VPS. CI then redeployed b37df6e as app/preview **20261018-ci8-b37df6e** (admin stays member-recipes2); verified healthy with zero app error lines. Not yet exercised live: a signed-in submission, staff publishing with a real staff login, physical devices. Rollback `deployment-backups/20261018-member-recipes2` (leave the additive recipes tables; keep `recipes` off).
 <!-- end-current-20261018-member-recipes2 -->
 
 <!-- current-20261018-content-admin1 -->
@@ -292,8 +292,8 @@ Each SSH/Paramiko command starts a fresh shell. Repeat `cd` and variable declara
 | Web/API | `https://quintaste.srv1902914.hstgr.cloud` |
 | Admin | `https://admin-quintaste.srv1902914.hstgr.cloud` |
 | Android Expo Go | `exps://preview-quintaste.srv1902914.hstgr.cloud` |
-| App image | `quintaste-app:20261018-member-recipes2` |
-| Preview image | `quintaste-preview:20261018-member-recipes2` |
+| App image | `quintaste-app:20261018-ci8-b37df6e` (CI, same code as member-recipes2) |
+| Preview image | `quintaste-preview:20261018-ci8-b37df6e` (CI) |
 | Admin image | `quintaste-admin:20261018-member-recipes2` |
 | Database | Existing `postgres:17-bookworm`, database/user `quintaste`; app role `quintaste_app` |
 
