@@ -1,10 +1,9 @@
 import { Platform, View } from "react-native";
 import type { Ingredient } from "../../types/food";
-import { usePreferences } from "../../state/Preferences";
 import { useTimerAlerts } from "../../state/TimerAlerts";
 import { ingredientLine } from "../../utils/food-format";
 import { TimerAlertControl } from "../food/TimerAlertControl";
-import { Card, Icon, T, common } from "../ui";
+import { Card, T } from "../ui";
 import { CheckRow } from "./CheckRow";
 
 type Line = Pick<Ingredient, "id" | "name" | "amount" | "unit">;
@@ -37,10 +36,7 @@ export function StepChecklist({ ingredients, ids, step, scale, used, onToggle, d
 }
 /** Offered where a timer starts, so alerts are a choice made in context rather than buried in settings. */
 export function TimerAlertOffer() {
-  const alerts = useTimerAlerts(), { theme } = usePreferences();
+  const alerts = useTimerAlerts();
   if (Platform.OS === "web" || alerts.enabled) return null;
-  return <Card style={common.stack}>
-    <View style={common.row}><Icon name="notifications-outline" color={theme.accent} /><T style={[common.bold, common.flex]}>Get an alert when the timer ends</T></View>
-    <TimerAlertControl />
-  </Card>;
+  return <Card><TimerAlertControl label="Alert Me When It Ends" /></Card>;
 }

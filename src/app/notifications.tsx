@@ -1,1 +1,4 @@
-export { NotificationChoicesScreen as default } from "../screens/food/Notifications";
+import { Redirect } from "expo-router";
+
+/** Notifications is now a switch on Me. */
+export default function Previous() { return <Redirect href="/account" />; }

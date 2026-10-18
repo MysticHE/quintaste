@@ -1,7 +1,7 @@
 import { router, useLocalSearchParams } from "expo-router";
 import { dietLabel } from "../config/preferences";
 import { useState } from "react";
-import { Pressable, StyleSheet, View } from "react-native";
+import { Platform, Pressable, StyleSheet, View } from "react-native";
 import { AvatarPortrait } from "../components/avatar/AvatarPortrait";
 import { Screen } from "../components/Screen";
 import { SettingsRow } from "../components/SettingsRow";
@@ -13,6 +13,7 @@ import { safeReturn } from "../utils/navigation";
 import { useAuth } from "../state/Auth";
 import { MarketModal } from "../components/market/MarketChrome";
 import { Action } from "../components/Actions";
+import { TimerAlertControl } from "../components/food/TimerAlertControl";
 
 export function AccountScreen() {
   const { user, enabled } = useAuth();
@@ -50,8 +51,8 @@ export function AccountScreen() {
     </Card>
     <Card style={s.group}>
       <SettingsRow label="Appearance" icon="color-palette-outline" onPress={() => router.push("/settings")} />
-      <SettingsRow label="Accessibility" icon="accessibility-outline" onPress={() => router.push("/accessibility")} />
-      <SettingsRow label="Notifications" icon="notifications-outline" last onPress={() => router.push("/notifications")} />
+      <SettingsRow label="Accessibility" icon="accessibility-outline" last={Platform.OS === "web"} onPress={() => router.push("/accessibility")} />
+      <TimerAlertControl label="Notifications" />
     </Card>
     <Card style={s.group}>
       <SettingsRow label="Privacy & Data" icon="shield-checkmark-outline" onPress={() => router.push("/privacy")} />

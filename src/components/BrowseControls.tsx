@@ -22,11 +22,12 @@ export function BrowseHeader({ query, onChange, placeholder, filter, action }: {
 }
 /** The filter button inside a search box: a plain icon at rest, solid accent while filters are on. Owner rule: never show a count on it. */
 export function FilterButton({ label, count, onPress }: BrowseFilter) {
-  const { theme } = usePreferences(), onAccent = useOnAccent(), { focused, focusProps } = useKeyboardFocus(), active = count > 0;
+  const { theme } = usePreferences(), { focused, focusProps } = useKeyboardFocus(), active = count > 0;
+  // Looks the same whether or not filters are on (owner rule: no count or colour on filter buttons); screen readers still hear "on".
   return <Pressable accessibilityRole="button" accessibilityLabel={active ? label + ", on" : label} accessibilityState={{ selected: active }}
     onPress={onPress} hitSlop={4} {...focusProps}
-    style={({ pressed }) => [s.filter, { backgroundColor: active ? theme.accent : pressed ? theme.muted : theme.transparent, borderColor: focused ? theme.foreground : theme.transparent }]}>
-    <Icon name="options-outline" size={22} color={active ? onAccent : theme.foreground} />
+    style={({ pressed }) => [s.filter, { backgroundColor: pressed ? theme.muted : theme.transparent, borderColor: focused ? theme.foreground : theme.transparent }]}>
+    <Icon name="options-outline" size={22} color={theme.foreground} />
   </Pressable>;
 }
 
