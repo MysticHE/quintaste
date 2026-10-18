@@ -37,26 +37,36 @@ async function download(url: string, entry: Entry, controller: AbortController) 
       reader.readAsDataURL(blob);
     });
     if (!controller.signal.aborted) { entry.until = Date.now() + 86400000; publish(entry, { uri, failed: false }); }
-  } catch { entry.until = Date.now() + 60000; publish(entry, { failed: true }); }
+  } catch { entry.until = Date.now() + 15000; publish(entry, { failed: true }); }
   finally { clearTimeout(timeout); entry.controller = undefined; trim(); }
 }
-export function subscribeCataloguePhoto(url: string, offline: boolean, notify: (state: State) => void) {
-  let entry = entries.get(url);
-  if (entry && !entry.controller && entry.until <= Date.now()) { entries.delete(url); entry = undefined; }
-  if (!entry) {
-    trim(1);
-    // Bound both in-flight requests and resident bytes, including mounted cards.
-    const size = [...entries.values()].reduce((n, item) => n + (item.state.uri?.length || 0), 0);
-    if (offline || entries.size >= maxEntries || size > maxChars - 700000) { notify({ failed: true }); return () => {}; }
-    entry = { state: { failed: false }, until: 0, listeners: new Set(), controller: new AbortController() };
-    entries.set(url, entry); void download(url, entry, entry.controller!);
-  } else { entries.delete(url); entries.set(url, entry); }
-  const current = entry; current.listeners.add(notify); notify(current.state);
-  return () => {
-    current.listeners.delete(notify);
-    queueMicrotask(() => {
-      if (!current.listeners.size && current.controller) { current.controller.abort(); entries.delete(url); }
-      trim();
-    });
+/**
+ * Streams one photo's state to `notify`. When every slot is held by photos still on screen, the request waits for a
+ * free slot (showing as loading) rather than reporting the photo as unavailable. Only a real download failure,
+ * including being offline, reports `failed`, and that is retried after a short pause.
+ */
+export function subscribeCataloguePhoto(url: string, notify: (state: State) => void) {
+  let release: (() => void) | undefined, timer: ReturnType<typeof setTimeout> | undefined, stopped = false;
+  const attempt = () => {
+    if (stopped) return;
+    let entry = entries.get(url);
+    if (entry && !entry.controller && entry.until <= Date.now()) { entries.delete(url); entry = undefined; }
+    if (!entry) {
+      trim(1);
+      const size = [...entries.values()].reduce((n, item) => n + (item.state.uri?.length || 0), 0);
+      if (entries.size >= maxEntries || size > maxChars - 700000) { notify({ failed: false }); timer = setTimeout(attempt, 1000); return; }
+      entry = { state: { failed: false }, until: 0, listeners: new Set(), controller: new AbortController() };
+      entries.set(url, entry); void download(url, entry, entry.controller!);
+    } else { entries.delete(url); entries.set(url, entry); }
+    const current = entry; current.listeners.add(notify); notify(current.state);
+    release = () => {
+      current.listeners.delete(notify);
+      queueMicrotask(() => {
+        if (!current.listeners.size && current.controller) { current.controller.abort(); entries.delete(url); }
+        trim();
+      });
+    };
   };
+  attempt();
+  return () => { stopped = true; if (timer) clearTimeout(timer); release?.(); };
 }

@@ -17,7 +17,7 @@ export function RecipeImage({ recipe, style, label = false }: { recipe: Pick<Rec
   const { theme } = usePreferences();
   const visibility = usePhotoVisibility(true), [remote, setRemote] = useState<{ asset?: string; uri?: string; failed: boolean }>({ failed: false });
   const asset = recipe.image?.path;
-  useEffect(() => { if (asset && visibility.visible) return subscribeCataloguePhoto(apiUrl(asset), false, state => setRemote({ ...state, asset })); }, [asset, visibility.visible]);
+  useEffect(() => { if (asset && visibility.visible) return subscribeCataloguePhoto(apiUrl(asset), state => setRemote({ ...state, asset })); }, [asset, visibility.visible]);
   if (asset && remote.asset === asset && remote.uri && !remote.failed) return <View ref={node => visibility.attach(node)} onLayout={visibility.onLayout} style={[{ overflow: "hidden" }, style]}>
     <Image source={{ uri: remote.uri }} resizeMode="cover" accessibilityLabel={label ? recipe.name : undefined} accessible={label} onError={() => setRemote({ failed: true })} style={{ width: "100%", height: "100%" }} />
   </View>;
