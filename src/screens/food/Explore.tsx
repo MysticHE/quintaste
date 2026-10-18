@@ -17,6 +17,7 @@ import { usePreferences } from "../../state/Preferences";
 import { activeFilterCount } from "../../utils/catalog";
 import { sameSearchContext } from "../../utils/discovery-search";
 import { usePlaceReviewSummaries } from "../../hooks/usePlaceReviewSummaries";
+import { useReactions } from "../../hooks/useReactions";
 
 export function ExploreScreen() {
   const { discoveryScope, search, setSearch, filters, ready, readable } = useFood();
@@ -34,6 +35,7 @@ export function ExploreScreen() {
   const currentRequest = !!discovery.requested && sameSearchContext(discovery.requested, input);
   const venues = accepted ? discovery.venues : [], count = activeFilterCount(filters, draft.diet);
   const reviews = usePlaceReviewSummaries(venues.map(venue => venue.id), accepted);
+  useReactions("place", accepted ? venues.map(venue => venue.id) : []);
   return <Screen back={false} compact contentStyle={{ paddingHorizontal: 4 }}>
     <View style={[common.row, { gap: 6, zIndex: 50, alignItems: "flex-start" }]}><View style={common.flex}>
       <LocationSearchField key={discoveryScope} value={search} disabled={!readable} onChange={setSearch} onChoose={choose}

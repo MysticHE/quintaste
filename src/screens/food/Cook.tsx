@@ -18,7 +18,7 @@ import { useMemberRecipes } from "../../hooks/useMemberRecipes";
 import { MyRecipesContent, useCreateRecipe } from "./MyRecipes";
 import { ShoppingContent } from "./Shopping";
 import { SavedRecipes } from "./SavedRecipes";
-import { useRecipeReactions } from "../../hooks/useRecipeReactions";
+import { useReactions } from "../../hooks/useReactions";
 
 type CookTab = "recipes" | "saved" | "mine" | "shopping";
 const placeholders: Record<CookTab, string> = { recipes: "Search recipes", saved: "Search saved recipes", mine: "Search my recipes", shopping: "Search shopping list" };
@@ -51,7 +51,7 @@ function Recipes() {
   const hasMore = published.hasMore || members.hasMore, limited = published.limited || members.limited;
   const more = () => { if (published.hasMore) published.more(); if (members.hasMore) members.more(); };
   const visible = browseRecipes([...published.recipes, ...members.recipes, ...bundledRecipes()], browse, query, { diet: draft.diet, excluded: draft.excluded, isSaved: id => isSaved("recipe", id), cooked: doc.recipes.cooked });
-  useRecipeReactions(visible.map(recipe => recipe.id));
+  useReactions("recipe", visible.map(recipe => recipe.id));
   const narrowed = activeFilterCount(browse) > 0 || browse.category !== "All";
   return <>
     <ContinueCooking />

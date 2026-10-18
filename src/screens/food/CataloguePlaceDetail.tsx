@@ -1,10 +1,13 @@
 import * as Linking from "expo-linking";
 import { router } from "expo-router";
 import { useState } from "react";
-import { ActivityIndicator, Share, StyleSheet, View } from "react-native";
+import { ActivityIndicator, StyleSheet, View } from "react-native";
+import { ReactionBar } from "../../components/ReactionBar";
+import { useReactions } from "../../hooks/useReactions";
+import { placeShareMessage } from "../../utils/place-share";
 import { Screen } from "../../components/Screen";
 import { Button, Icon, T, common } from "../../components/ui";
-import { EmptyState, IconButton } from "../../components/food/Controls";
+import { EmptyState } from "../../components/food/Controls";
 import { StatusPill } from "../../components/GroupedList";
 import { CataloguePhotoBackdrop } from "../../components/discovery/CataloguePhotoBackdrop";
 import { PlaceDetailAction, PlaceDetailSection, PlaceSources } from "../../components/discovery/PlaceDetailParts";
@@ -18,6 +21,7 @@ import { usePreferences } from "../../state/Preferences";
 
 export function CataloguePlaceDetailScreen({ id }: { id: string }) {
   const { venue, busy, error, offline, retry } = useCatalogueVenue(id);
+  useReactions("place", venue ? [venue.id] : []);
   const { theme, setNotice } = usePreferences(), { owner, isSaved, toggleSave, readable } = useFood();
   const [saving, setSaving] = useState(false);
   const savedId = "catalogue-" + id, saved = isSaved("place", savedId);
@@ -30,18 +34,9 @@ export function CataloguePlaceDetailScreen({ id }: { id: string }) {
     setSaving(true);
     try { await toggleSave("place", savedId, venue.name); } finally { setSaving(false); }
   };
-  const query = venue ? encodeURIComponent(venue.name + ", " + venue.address) : "";
-  const placeParam = venue?.googlePlaceId ? "&query_place_id=" + encodeURIComponent(venue.googlePlaceId) : "";
-  const mapUrl = "https://www.google.com/maps/search/?api=1&query=" + query + placeParam;
   const directionsUrl = "https://www.google.com/maps/dir/?api=1&destination=" + encodeURIComponent(venue?.address ?? "")
     + (venue?.googlePlaceId ? "&destination_place_id=" + encodeURIComponent(venue.googlePlaceId) : "");
-  const share = async () => {
-    if (!venue) return;
-    try { await Share.share({ message: venue.name + "\n" + venue.address + "\n" + mapUrl }); }
-    catch { setNotice({ text: "Sharing is unavailable. You can copy the address below.", error: true }); }
-  };
-  return <Screen title={venue?.name ?? "Place details"} contentStyle={{ paddingHorizontal: 12 }}
-    headerAction={venue ? <IconButton label="Share place" icon="share-outline" onPress={() => void share()} /> : undefined}>
+  return <Screen title={venue?.name ?? "Place details"} contentStyle={{ paddingHorizontal: 12 }}>
     {busy && <ActivityIndicator color={theme.accent} accessibilityLabel="Loading place details" />}
     {offline && <T variant="caption" muted>Offline · {venue ? "saved place details" : "bookmark only"}</T>}
     {!!error && (venue ? <View style={common.row}><T variant="small" muted style={common.flex} accessibilityLiveRegion="polite">Showing saved details</T><Button label="Try Again" variant="link" onPress={retry} /></View>
@@ -51,6 +46,7 @@ export function CataloguePlaceDetailScreen({ id }: { id: string }) {
       {venue.photo ? <View testID="catalogue-place-photo" style={[s.hero, { backgroundColor: theme.mediaSurface }]}>
         <CataloguePhotoBackdrop key={venue.photo.path} path={venue.photo.path} enabled panelHeight={0} nameHeight={0} />
       </View> : <View style={[s.missing, { backgroundColor: theme.muted }]}><Icon name="image-outline" size={20} /><T variant="small" muted>Photo unavailable</T></View>}
+      <ReactionBar kind="place" id={venue.id} name={venue.name} shareMessage={() => placeShareMessage(venue)} />
       <View style={[common.row, { flexWrap: "wrap", gap: 8 }]}><StatusPill label={venue.venueDiet} />
         {!!venue.branch && !venue.address.toLowerCase().includes(venue.branch.toLowerCase()) && <T variant="caption" muted>{venue.branch}</T>}</View>
       <View style={[s.overview, { backgroundColor: theme.card, borderColor: theme.border }]}>

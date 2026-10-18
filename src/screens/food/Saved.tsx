@@ -23,6 +23,7 @@ import { itemPath } from "../../utils/catalog";
 import type { SavedKind } from "../../types/food";
 import { recalledCatalogueVenueName } from "../../services/catalogue-summaries";
 import { usePlaceReviewSummaries } from "../../hooks/usePlaceReviewSummaries";
+import { useReactions } from "../../hooks/useReactions";
 
 function itemName(kind: SavedKind, id: string, now: number, workspace: RecipeWorkspace, labels: Record<string, string>) {
   if (kind === "place" && id.startsWith("catalogue-")) return labels[id] || recalledCatalogueVenueName(id.slice("catalogue-".length)) || "Saved place";
@@ -42,6 +43,7 @@ export function SavedScreen() {
   const list = category === "Notes" ? "" : savedSelection.list;
   const [editing, setEditing] = useState("");
   // One ratings request for every saved catalogue place, rather than one per card.
+  useReactions("place", doc.saves.filter(item => item.kind === "place" && item.id.startsWith("catalogue-")).map(item => item.id.slice(10)));
   const reviews = usePlaceReviewSummaries(doc.saves.filter(item => item.kind === "place" && item.id.startsWith("catalogue-")).map(item => item.id.slice(10)), ready);
   const visible = doc.saves.filter(item => (category === "All" || ({ Places: "place", Dishes: "dish", Recipes: "recipe" } as Record<string, string>)[category] === item.kind) &&
     (!list || item.list === list) && (itemName(item.kind, item.id, now, doc.recipes, doc.exploreLocal.labels) + " " + (doc.exploreLocal.labels[item.id] ?? "") + " " + (doc.notes[item.kind + ":" + item.id] ?? "")).toLowerCase().includes(query.toLowerCase()));

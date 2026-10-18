@@ -11,8 +11,9 @@ import { IconButton } from "../food/Controls";
 import { FitBadge } from "../food/Evidence";
 import { Button, Icon, T, common } from "../ui";
 import { RecipeImage } from "./RecipeImage";
-import { Action, RecipeActions } from "./RecipeActions";
-import { useRecipeReactions } from "../../hooks/useRecipeReactions";
+import { Action, ReactionBar } from "../ReactionBar";
+import { useReactions } from "../../hooks/useReactions";
+import { recipeShareMessage } from "../../utils/recipe-share";
 import * as Linking from "expo-linking";
 import { router } from "expo-router";
 import { ReportSheet } from "../ReportSheet";
@@ -34,16 +35,21 @@ export function FivePungentTag({ recipe, detail = false }: { recipe: Recipe; det
     <T variant="small" color={theme.warning} style={common.bold}>Has {used.join(", ").toLowerCase()}</T></View>;
 }
 export function RecipeOverview({ recipe }: { recipe: Recipe }) {
-  const { doc } = useFood();
+  const { doc, isSaved, toggleSave, readable } = useFood();
   const { draft, theme } = usePreferences();
   const [info, setInfo] = useState(false), [fallback, setFallback] = useState(""), [failedLink, setFailedLink] = useState("");
-  const [report, setReport] = useState(false), member = useMember();
+  const [report, setReport] = useState(false), [saving, setSaving] = useState(false), member = useMember();
   const result = recipeFit(recipe, draft.diet, draft.excluded), cooked = cookedStats(doc.recipes.cooked, recipe.id);
-  useRecipeReactions([recipe.id]);
+  const saved = isSaved("recipe", recipe.id);
+  const save = async () => { if (saving || !readable) return; setSaving(true); try { await toggleSave("recipe", recipe.id); } finally { setSaving(false); } };
+  useReactions("recipe", [recipe.id]);
   return <>
     <RecipeImage recipe={recipe} label style={{ width: "100%", aspectRatio: 2.4, borderRadius: 16 }} />
-    <RecipeActions recipe={recipe} onShareFailed={setFallback} extra={<Action icon={info ? "information-circle" : "information-circle-outline"}
-      color={info ? theme.accent : theme.foreground} label="Recipe Info" selected={info} onPress={() => setInfo(!info)} />} />
+    <ReactionBar kind="recipe" id={recipe.id} name={recipe.name} shareMessage={() => recipeShareMessage(recipe)} onShareFailed={setFallback} trailing={<>
+      <Action icon={saved ? "bookmark" : "bookmark-outline"} color={saved ? theme.accent : theme.foreground} busy={saving} disabled={!readable}
+        label={(saved ? "Remove saved " : "Save ") + recipe.name} selected={saved} onPress={() => void save()} />
+      <Action icon={info ? "information-circle" : "information-circle-outline"} color={info ? theme.accent : theme.foreground} label="Recipe Info" selected={info} onPress={() => setInfo(!info)} />
+    </>} />
     <View style={{ gap: 4, alignItems: "flex-start" }}>
       <T variant="small" muted>{[recipe.minutes + " min", recipe.onePot ? "One pot" : "", cooked.count ? "Cooked " + cooked.count + "× · last " + shortDate(cooked.last) : ""].filter(Boolean).join(" · ")}</T>
       <View style={[common.row, { gap: 6, flexWrap: "wrap" }]}><FitBadge fit={result.fit} /><FivePungentTag recipe={recipe} detail /></View>

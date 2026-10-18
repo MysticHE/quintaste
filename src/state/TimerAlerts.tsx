@@ -43,14 +43,22 @@ function useTimerAlertState() {
     if (busy || !readable || dirty) return;
     const captured = lease.current;
     setBusy(true); setError("");
+    // Each step names its own fix: allowing notifications happens in phone settings, a failed save just needs another try.
+    let step: "permission" | "save" = "permission";
     try {
       const status = doc.notifications.cooking ? permission : await timerAlerts.permission(true);
       if (!captured || lease.current !== captured) return;
       setPermission(status);
-      if (!doc.notifications.cooking && !canScheduleTimerAlerts(status)) return;
+      if (!doc.notifications.cooking && !canScheduleTimerAlerts(status)) {
+        setError("Allow notifications for QuinTaste in phone settings, then turn this on.");
+        return;
+      }
+      step = "save";
       await update(current => ({ ...current, notifications: { ...current.notifications, cooking: !current.notifications.cooking } }));
       if (lease.current === captured) setRefresh(n => n + 1);
-    } catch { if (lease.current === captured) setError("Could not change timer alerts. Try again or check device settings."); }
+    } catch {
+      if (lease.current === captured) setError(step === "permission" ? "Allow notifications for QuinTaste in phone settings, then turn this on." : "Your choice didn't save. Try again.");
+    }
     finally { if (lease.current === captured) setBusy(false); }
   }, [busy, readable, dirty, doc.notifications.cooking, permission, update]);
   return { permission, error, busy, enabled: doc.notifications.cooking, toggle, retry: () => setRefresh(n => n + 1) };
