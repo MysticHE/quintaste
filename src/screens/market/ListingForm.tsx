@@ -27,11 +27,11 @@ export default function ListingFormScreen() {
   const shop = useRemote(member ? "/api/market/seller" : null, sellerState);
   const item = useRemote(member && id ? "/api/market/seller/listings/" + id : null, signal => ownListing(id ?? "", signal));
   const seller = shop.data?.seller;
-  return <Screen title={title} hideTimers backTo="/market/my-shop">
-    {!member ? <MemberPrompt icon="storefront-outline" returnTo="/market/my-shop" />
-      : !shop.data ? <RemoteStatus remote={shop} icon="storefront-outline" returnTo="/market/my-shop" />
-      : !seller ? <EmptyState title="Set Up Your Shop First" text="" icon="storefront-outline" primary={{ label: "Set Up Shop", onPress: () => router.replace("/market/my-shop") }} />
-      : id && !item.data ? <RemoteStatus remote={item} icon="pricetags-outline" returnTo="/market/my-shop" missing="Item Unavailable" />
+  return <Screen title={title} hideTimers backTo="/market?tab=shop">
+    {!member ? <MemberPrompt icon="storefront-outline" returnTo="/market?tab=shop" />
+      : !shop.data ? <RemoteStatus remote={shop} icon="storefront-outline" returnTo="/market?tab=shop" />
+      : !seller ? <EmptyState title="Set Up Your Shop First" text="" icon="storefront-outline" primary={{ label: "Set Up Shop", onPress: () => router.replace("/market?tab=shop") }} />
+      : id && !item.data ? <RemoteStatus remote={item} icon="pricetags-outline" returnTo="/market?tab=shop" missing="Item Unavailable" />
       : <ListingForm key={id ?? "new"} initial={id ? item.data : undefined} seller={seller} />}
   </Screen>;
 }
@@ -63,7 +63,7 @@ function ListingForm({ initial, seller }: { initial?: OwnListing; seller: Seller
       await saveListing(initial?.id ?? null, { listing: listingInput(d), photos: photoChanges(d, initial), publish });
       invalidate("/api/market/");
       setNotice({ text: publish ? (live ? "Changes saved" : "Item is live") : "Draft saved" });
-      router.dismissTo("/market/my-shop");
+      router.dismissTo("/market?tab=shop");
     } catch (error) { setFailure(error instanceof ApiError ? error.message : "Your item wasn't saved. Try again."); }
     finally { setBusy(false); }
   };
@@ -105,8 +105,8 @@ function ListingForm({ initial, seller }: { initial?: OwnListing; seller: Seller
     {!live && <Button label="Save Draft" variant={canPublish ? "secondary" : "primary"} disabled={locked} onPress={() => void save(false)} />}
     {!canPublish && seller.status !== "active" && <T variant="small" muted style={common.center}>Open your shop to publish.</T>}
     {live && initial && <Confirm link label="Pause Item" text="Buyers won't see it until you publish it again." action="Pause item"
-      run={async () => { await setListingStatus(initial.id, "paused"); invalidate("/api/market/"); router.dismissTo("/market/my-shop"); return true; }} />}
+      run={async () => { await setListingStatus(initial.id, "paused"); invalidate("/api/market/"); router.dismissTo("/market?tab=shop"); return true; }} />}
     {initial && <Confirm link label="Delete Item" text="Open orders keep their copy of this item." action="Delete item"
-      run={async () => { await deleteListing(initial.id); invalidate("/api/market/"); router.dismissTo("/market/my-shop"); return true; }} />}
+      run={async () => { await deleteListing(initial.id); invalidate("/api/market/"); router.dismissTo("/market?tab=shop"); return true; }} />}
   </>;
 }

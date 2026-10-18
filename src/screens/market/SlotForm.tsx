@@ -18,10 +18,10 @@ import type { SellerProfile } from "../../types/community";
 
 export default function SlotFormScreen() {
   const { member } = useMember(), remote = useRemote(member ? "/api/market/seller" : null, sellerState), seller = remote.data?.seller;
-  return <Screen title="Collection Slot" hideTimers backTo="/market/my-shop">
-    {!member ? <MemberPrompt icon="calendar-outline" returnTo="/market/my-shop" /> : seller ? <SlotForm seller={seller} />
-      : remote.data ? <EmptyState title="Set Up Your Shop First" text="" icon="storefront-outline" primary={{ label: "Set Up Shop", onPress: () => router.replace("/market/my-shop") }} />
-      : <RemoteStatus remote={remote} icon="calendar-outline" returnTo="/market/my-shop" />}
+  return <Screen title="Collection Slot" hideTimers backTo="/market?tab=shop">
+    {!member ? <MemberPrompt icon="calendar-outline" returnTo="/market?tab=shop" /> : seller ? <SlotForm seller={seller} />
+      : remote.data ? <EmptyState title="Set Up Your Shop First" text="" icon="storefront-outline" primary={{ label: "Set Up Shop", onPress: () => router.replace("/market?tab=shop") }} />
+      : <RemoteStatus remote={remote} icon="calendar-outline" returnTo="/market?tab=shop" />}
   </Screen>;
 }
 const durations = [1, 2, 3, 4];
@@ -39,7 +39,7 @@ function SlotForm({ seller }: { seller: SellerProfile }) {
     setBusy(true); setError("");
     try {
       await createSlot({ starts, ends, mode, place, capacity: Number(capacity), cutoffHours: cutoff });
-      invalidate("/api/market/"); setNotice({ text: "Slot open for orders" }); router.dismissTo("/market/my-shop");
+      invalidate("/api/market/"); setNotice({ text: "Slot open for orders" }); router.dismissTo("/market?tab=shop");
     } catch (problem) { setError(problem instanceof ApiError ? problem.message : "The slot wasn't saved. Try again."); }
     finally { setBusy(false); }
   };

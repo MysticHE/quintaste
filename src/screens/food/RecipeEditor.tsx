@@ -13,17 +13,17 @@ export function RecipeEditorScreen() {
   const { id } = useLocalSearchParams<{ id: string }>(), state = useRecipeWorkspace();
   const [photoBusy, setPhotoBusy] = useState(false), [deleting, setDeleting] = useState(false);
   const d = state.workspace.drafts.find(d => d.id === id), status = useMyRecipeStatus(), { setNotice } = usePreferences();
-  if (!state.ready || !state.readable || !d) return <Screen title="My Recipe" backTo="/cook/my-recipes"><EmptyState title={!state.ready ? "Opening Recipe" : "Recipe Unavailable"} text="" /></Screen>;
+  if (!state.ready || !state.readable || !d) return <Screen title="My Recipe" backTo="/cook?tab=mine"><EmptyState title={!state.ready ? "Opening Recipe" : "Recipe Unavailable"} text="" /></Screen>;
   const mine = status.byDraft.get(d.id);
   // A signed-in member's draft may be shared even before its status loads, so always withdraw it first:
   // nothing stays public without a draft to manage it, and a failed withdrawal keeps the draft.
   const remove = async () => {
     try { if (status.member.member) { await withdrawRecipe(d.id); invalidate("member-recipes", "/api/recipes"); } }
     catch (error) { setNotice({ text: error instanceof Error ? error.message : "The recipe could not be removed from Cook. Try again.", error: true }); return; }
-    if (await state.remove(id)) router.dismissTo("/cook/my-recipes" as never);
+    if (await state.remove(id)) router.dismissTo("/cook?tab=mine" as never);
   };
   const props = { draft: d, edit: (patch: Parameters<typeof state.edit>[1]) => { void state.edit(id, patch); }, disabled: !state.readable || photoBusy, onBusy: setPhotoBusy };
-  return <Screen title={d.title || "New recipe"} backTo="/cook/my-recipes">
+  return <Screen title={d.title || "New recipe"} backTo="/cook?tab=mine">
     <T variant="small" muted accessibilityLiveRegion="polite">{state.error ? "Changes need Retry" : state.saving ? "Saving…" : "Saved"}</T>
     {(d.status === "ready" || mine) && <InfoBox title={recipeStatus(d, mine)} text={mine ? "" : "Editing resets publication consent."} />}
     <DraftBasics {...props} /><DraftIngredients {...props} /><DraftSteps {...props} />

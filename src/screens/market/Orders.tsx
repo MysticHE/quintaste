@@ -1,12 +1,11 @@
 import { router } from "expo-router";
 import { useState } from "react";
 import { View } from "react-native";
-import { Screen } from "../../components/Screen";
 import { EmptyState } from "../../components/food/Controls";
 import { common } from "../../components/ui";
 import { ListGroup, ListItem, RowIcon, StatusPill, type Tone } from "../../components/GroupedList";
 import { SegmentedTabs } from "../../components/SegmentedTabs";
-import { MarketToolbar } from "../../components/market/MarketChrome";
+import { FirstRunState } from "../../components/BrowseControls";
 import { MemberPrompt, RemoteStatus, useMember } from "../../components/CommunityGate";
 import { useRemote } from "../../hooks/useRemote";
 import { orders } from "../../services/market-api";
@@ -23,18 +22,23 @@ export function OrderRow({ order, role = "buyer" }: { order: OrderSummary; role?
     onPress={() => router.push({ pathname: "/market/order/[id]", params: { id: order.id } })} />;
 }
 const modes = [{ id: "buy", label: "Buying" }, { id: "sell", label: "Selling" }] as const;
-/** Orders you placed, or orders for your shop, with open ones first. */
-export default function MarketOrdersScreen() {
+/** Market > Orders: orders you placed, or orders for your shop, open ones first. The header search narrows them. */
+export function OrdersContent({ query }: { query: string }) {
   const { member } = useMember(), [mode, setMode] = useState<"buy" | "sell">("buy");
   const remote = useRemote(member ? "/api/market/orders?role=" + mode : null, signal => orders(mode, signal), 20000);
-  const items = remote.data?.items ?? [], open = items.filter(o => ["requested", "confirmed", "ready"].includes(o.status));
-  return <Screen title="Orders" hideTimers header={<MarketToolbar><View style={common.row}><SegmentedTabs options={modes} value={mode} onChange={setMode} label="Orders" /></View></MarketToolbar>}>
-    {!member ? <MemberPrompt icon="receipt-outline" returnTo="/market" /> : <>
-      <RemoteStatus remote={remote} icon="receipt-outline" returnTo="/market" />
-      {remote.data && (items.length ? <>
-        <ListGroup title="Open">{open.map(o => <OrderRow key={o.id} order={o} role={mode === "sell" ? "seller" : "buyer"} />)}</ListGroup>
-        <ListGroup title="Past">{items.filter(o => !open.includes(o)).map(o => <OrderRow key={o.id} order={o} role={mode === "sell" ? "seller" : "buyer"} />)}</ListGroup>
-      </> : <EmptyState title="No Orders Yet" text="" icon="receipt-outline" action={mode === "buy" ? "Browse Market" : undefined} onPress={() => router.navigate("/market")} />)}
-    </>}
-  </Screen>;
+  const term = query.trim().toLowerCase(), all = remote.data?.items ?? [];
+  const items = term ? all.filter(o => (o.summary + " " + o.otherName).toLowerCase().includes(term)) : all;
+  const open = items.filter(o => ["requested", "confirmed", "ready"].includes(o.status)), role = mode === "sell" ? "seller" : "buyer";
+  if (!member) return <MemberPrompt icon="receipt-outline" returnTo="/market?tab=orders" />;
+  return <>
+    <View style={common.row}><SegmentedTabs options={modes} value={mode} onChange={setMode} label="Orders" /></View>
+    <RemoteStatus remote={remote} icon="receipt-outline" returnTo="/market?tab=orders" />
+    {remote.data && (items.length ? <>
+      <ListGroup title="Open">{open.map(o => <OrderRow key={o.id} order={o} role={role} />)}</ListGroup>
+      <ListGroup title="Past">{items.filter(o => !open.includes(o)).map(o => <OrderRow key={o.id} order={o} role={role} />)}</ListGroup>
+    </> : term ? <EmptyState title="No Matching Orders" text="" icon="receipt-outline" />
+      : <FirstRunState icon="receipt-outline" title={mode === "buy" ? "Place your first order" : "No orders yet"}
+        text={mode === "buy" ? "Pre-order home-cooked food from neighbours." : "Orders for your shop appear here."}
+        action={mode === "buy" ? { label: "Browse", onPress: () => router.setParams({ tab: undefined }) } : undefined} />)}
+  </>;
 }

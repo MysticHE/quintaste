@@ -13,7 +13,7 @@ import { cookingIssue, cookingSessionFor, privateCookingRecipe, recipeShareText 
 import { addRecipeToShopping } from "../../utils/shopping";
 export function PrivateRecipeScreen() {
   const { id, from } = useLocalSearchParams<{ id: string; from?: string }>(), state = useRecipeWorkspace(), { setNotice } = usePreferences();
-  const backTo = from === "saved" ? "/saved" : "/cook/my-recipes";
+  const backTo = from === "saved" ? "/saved" : "/cook?tab=mine";
   const d = state.workspace.drafts.find(d => d.id === id);
   const [servings, setServings] = usePristineDraft(state.doc.cooking?.recipeId === id ? state.doc.cooking.servings : d && /^[1-8]$/.test(d.servings) ? +d.servings : 2);
   const [replace, setReplace] = useState(false), [sharing, setSharing] = useState(false), [busy, setBusy] = useState(false);

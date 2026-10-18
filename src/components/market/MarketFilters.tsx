@@ -36,7 +36,6 @@ export function MarketFilters({ value, onApply, onClose }: { value: ShopFilter; 
     <FilterSection title="Location & availability" icon="location-outline">
       <Field label="Area" value={draft.area} onChangeText={area => set({ area })} placeholder="Any area" maxLength={60} />
       <View style={common.spread}><T variant="small" style={[common.flex, { minWidth: 0 }]}>Open for orders now</T><ThemedSwitch label="Open for orders now" value={draft.available} onChange={available => set({ available })} /></View>
-      <View style={common.spread}><T variant="small" style={[common.flex, { minWidth: 0 }]}>Saved items only</T><ThemedSwitch label="Saved items only" value={draft.savedOnly} onChange={savedOnly => set({ savedOnly })} /></View>
     </FilterSection>
   </ScrollView><View style={common.row}><View style={common.flex}><Button label="Reset" variant="secondary" onPress={() => setDraft(defaultShopFilter())} /></View>
     <View style={common.flex}><Button label="Show results" onPress={() => { onApply(draft); onClose(); }} /></View></View>

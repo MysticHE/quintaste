@@ -1,9 +1,9 @@
 import { router } from "expo-router";
 import { useState } from "react";
 import { View } from "react-native";
-import { Screen } from "../../components/Screen";
 import { EmptyState, IconButton } from "../../components/food/Controls";
-import { T, common } from "../../components/ui";
+import { common } from "../../components/ui";
+import { FirstRunState } from "../../components/BrowseControls";
 import { ListGroup, ListItem, RowIcon, StatusPill, type Tone } from "../../components/GroupedList";
 import { SegmentedTabs } from "../../components/SegmentedTabs";
 import { FloatingAddButton } from "../../components/FloatingAddButton";
@@ -20,41 +20,34 @@ import type { SellerProfile, Slot } from "../../types/community";
 const statusText: Record<SellerProfile["status"], [string, Tone]> = {
   draft: ["Not open yet", "warning"], active: ["Open", "success"], suspended: ["Suspended", "warning"], removed: ["Removed", "muted"],
 };
-const tabs = [{ id: "orders", label: "Orders" }, { id: "items", label: "Items" }, { id: "slots", label: "Collections" }] as const;
-type Tab = typeof tabs[number]["id"];
-/** The seller's workspace: shop status, then orders, items and collection slots. */
-export default function MyShopScreen() {
-  const { member, userId } = useMember(), remote = useRemote(member ? "/api/market/seller" : null, sellerState);
-  const [tab, setTab] = useState<Tab>("orders"), seller = remote.data?.seller;
-  const add = seller && !["suspended", "removed"].includes(seller.status) && tab !== "orders"
+export const shopTabs = [{ id: "orders", label: "Orders" }, { id: "items", label: "Items" }, { id: "slots", label: "Collections" }] as const;
+export type ShopTab = typeof shopTabs[number]["id"];
+/** The add button for the seller's current shop section, or nothing (orders, or a shop that can't change). */
+export function useShopAdd(tab: ShopTab) {
+  const { member } = useMember(), seller = useRemote(member ? "/api/market/seller" : null, sellerState).data?.seller;
+  return seller && !["suspended", "removed"].includes(seller.status) && tab !== "orders"
     ? <FloatingAddButton label={tab === "items" ? "Add Item" : "Open A Collection Slot"} onPress={() => router.push(tab === "items" ? "/market/new" : "/market/slot")} /> : undefined;
-  return <Screen title="My Shop" hideTimers backTo="/market" floatingAction={add}
-    headerAction={seller ? <IconButton label="Shop Settings" icon="settings-outline" onPress={() => router.push("/market/setup")} /> : undefined}>
-    {!member ? <MemberPrompt icon="storefront-outline" returnTo="/market/my-shop" />
-      : !remote.data ? <RemoteStatus remote={remote} icon="storefront-outline" returnTo="/market/my-shop" />
-      : !seller ? <Start /> : <>
-        <ListGroup><ListItem title={seller.tradingName || "Your shop"} subtitle={[seller.area, seller.status === "suspended" || seller.status === "removed" ? seller.statusNote : ""].filter(Boolean).join(" · ") || undefined} wrap
-          leading={<RowIcon name="storefront-outline" />} trailing={<StatusPill label={statusText[seller.status][0]} tone={statusText[seller.status][1]} />}
-          onPress={() => seller.status === "active" && userId ? router.push({ pathname: "/market/shop/[id]", params: { id: userId } }) : router.push("/market/setup")} /></ListGroup>
-        <View style={common.row}><SegmentedTabs options={tabs} value={tab} onChange={setTab} label="My shop" /></View>
-        {tab === "orders" ? <SellerOrders /> : tab === "items" ? <SellerItems /> : <SellerSlots />}
-      </>}
-  </Screen>;
 }
-function Start() {
+/** Market > My shop: shop status, then the seller's orders, items and collection slots. */
+export function MyShopContent({ tab, setTab, query }: { tab: ShopTab; setTab: (tab: ShopTab) => void; query: string }) {
+  const { member, userId } = useMember(), remote = useRemote(member ? "/api/market/seller" : null, sellerState), seller = remote.data?.seller;
+  if (!member) return <MemberPrompt icon="storefront-outline" returnTo="/market?tab=shop" />;
+  if (!remote.data) return <RemoteStatus remote={remote} icon="storefront-outline" returnTo="/market?tab=shop" />;
+  if (!seller) return <FirstRunState icon="storefront-outline" title="Open your shop" text="Sell food you make at home." action={{ label: "Open Shop", onPress: () => router.push("/market/setup") }} />;
   return <>
-    <ListGroup title="Sell on QuinTaste">
-      <ListItem title="Open Your Shop" subtitle="Sell food you cook at home, or sealed packs bought from shops in Singapore" wrap leading={<RowIcon name="storefront-outline" />}
-        onPress={() => router.push("/market/setup")} />
-    </ListGroup>
-    <T variant="small" muted style={common.center}>Buyers pay you at collection.</T>
+    <ListGroup><ListItem title={seller.tradingName || "Your shop"} subtitle={[seller.area, seller.status === "suspended" || seller.status === "removed" ? seller.statusNote : ""].filter(Boolean).join(" · ") || undefined} wrap
+      leading={<RowIcon name="storefront-outline" />} trailing={<View style={[common.row, { gap: 6 }]}><StatusPill label={statusText[seller.status][0]} tone={statusText[seller.status][1]} />
+        <IconButton label="Shop Settings" icon="settings-outline" onPress={() => router.push("/market/setup")} /></View>}
+      onPress={() => seller.status === "active" && userId ? router.push({ pathname: "/market/shop/[id]", params: { id: userId } }) : router.push("/market/setup")} /></ListGroup>
+    <View style={common.row}><SegmentedTabs options={shopTabs} value={tab} onChange={setTab} label="My shop" /></View>
+    {tab === "orders" ? <SellerOrders /> : tab === "items" ? <SellerItems query={query} /> : <SellerSlots />}
   </>;
 }
 function SellerOrders() {
   const remote = useRemote("/api/market/orders?role=sell", signal => orders("sell", signal), 20000), items = remote.data?.items ?? [];
   const open = items.filter(o => ["requested", "confirmed", "ready"].includes(o.status));
   return <>
-    <RemoteStatus remote={remote} icon="receipt-outline" returnTo="/market/my-shop" />
+    <RemoteStatus remote={remote} icon="receipt-outline" returnTo="/market?tab=shop" />
     {remote.data && (items.length ? <>
       <ListGroup title="Open">{open.map(o => <OrderRow key={o.id} order={o} role="seller" />)}</ListGroup>
       <ListGroup title="Past">{items.filter(o => !open.includes(o)).slice(0, 30).map(o => <OrderRow key={o.id} order={o} role="seller" />)}</ListGroup>
@@ -62,10 +55,11 @@ function SellerOrders() {
   </>;
 }
 const itemTone = { active: "success", draft: "muted", paused: "muted", removed: "warning" } as const;
-function SellerItems() {
-  const remote = useRemote("/api/market/seller/listings", ownListings), items = remote.data?.items ?? [];
+function SellerItems({ query }: { query: string }) {
+  const remote = useRemote("/api/market/seller/listings", ownListings), term = query.trim().toLowerCase();
+  const items = (remote.data?.items ?? []).filter(item => !term || item.name.toLowerCase().includes(term));
   return <>
-    <RemoteStatus remote={remote} icon="pricetags-outline" returnTo="/market/my-shop" />
+    <RemoteStatus remote={remote} icon="pricetags-outline" returnTo="/market?tab=shop" />
     {remote.data && (items.length ? <ListGroup>{items.map(item => <ListItem key={item.id} title={item.name || "Untitled item"}
       subtitle={[marketMoney(item.priceCents), item.portion, item.status === "removed" ? item.removedReason : ""].filter(Boolean).join(" · ")} wrap
       leading={<ListingThumb path={item.photos.item} />} trailing={<StatusPill label={item.status === "active" ? "Live" : item.status[0].toUpperCase() + item.status.slice(1)} tone={itemTone[item.status]} />}
@@ -78,7 +72,7 @@ function SellerSlots() {
   const items = remote.data?.items ?? [];
   const change = async (status: "open" | "closed" | "cancelled") => { if (!selected) return false; await setSlotStatus(selected.id, status); setSelected(null); remote.refresh(); invalidate("/api/market/"); return true; };
   return <>
-    <RemoteStatus remote={remote} icon="calendar-outline" returnTo="/market/my-shop" />
+    <RemoteStatus remote={remote} icon="calendar-outline" returnTo="/market?tab=shop" />
     {remote.data && (items.length ? <ListGroup>{items.map(slot => <ListItem key={slot.id} title={slotLabel(slot)}
       subtitle={[slot.mode === "delivery" ? "Delivery" : "Meetup · " + slot.place, `${slot.booked ?? 0} of ${slot.capacity} orders`].join(" · ")} wrap
       leading={<RowIcon name={slot.mode === "delivery" ? "bicycle-outline" : "location-outline"} tone={slot.status === "open" ? "accent" : "muted"} />}

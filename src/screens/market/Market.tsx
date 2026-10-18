@@ -1,12 +1,14 @@
-import { router } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import { useRef, useState } from "react";
 import { Screen } from "../../components/Screen";
-import { Chip, EmptyState, IconButton } from "../../components/food/Controls";
-import { BrowseActions, BrowseHeader } from "../../components/BrowseControls";
+import { EmptyState, IconButton } from "../../components/food/Controls";
+import { BrowseHeader, FirstRunState, IconTabs, type IconTab } from "../../components/BrowseControls";
 import { Button, T } from "../../components/ui";
 import { ListingGrid } from "../../components/market/ListingGrid";
 import { MarketFilters } from "../../components/market/MarketFilters";
-import { RemoteStatus, ensureMember, useMember } from "../../components/CommunityGate";
+import { MemberPrompt, RemoteStatus, ensureMember, useMember } from "../../components/CommunityGate";
+import { OrdersContent } from "./Orders";
+import { MyShopContent, useShopAdd, type ShopTab } from "./MyShop";
 import { useDebounced } from "../../hooks/useDebounced";
 import { invalidate, useRemote } from "../../hooks/useRemote";
 import { usePreferences } from "../../state/Preferences";
@@ -15,11 +17,6 @@ import { ApiError } from "../../services/community-api";
 import { defaultShopFilter, type ListingCard, type ShopFilter } from "../../types/community";
 
 const refined = (f: ShopFilter) => [f.category !== "All", f.diets.length > 0, f.exclude.length > 0, f.mode !== "Any", f.kind !== "Any", !!f.area.trim(), f.available, f.savedOnly, f.sort !== "Newest"].filter(Boolean).length;
-export function MarketHeader({ query, setQuery, placeholder = "Search food and shops" }: { query: string; setQuery: (value: string) => void; placeholder?: string }) {
-  const { member } = useMember(), count = useRemote(member ? "/api/market/unread" : null, unread, 30000).data?.count ?? 0;
-  return <BrowseHeader query={query} onChange={setQuery} placeholder={placeholder}
-    action={<IconButton label={count ? `Market Inbox, ${count} new` : "Market Inbox"} icon="chatbubbles-outline" badge={count} onPress={() => router.push("/market/inbox")} />} />;
-}
 /** Further pages of the current browse query; reset whenever the query changes. */
 function useMore(key: string) {
   const { setNotice } = usePreferences();
@@ -35,20 +32,48 @@ function useMore(key: string) {
   };
   return { extra, busy, load };
 }
-/** Browse home-cooked food and sealed packs: categories, compact controls and the grid. */
+type MarketTab = "browse" | "saved" | "orders" | "shop";
+const placeholders: Record<MarketTab, string> = { browse: "Search Market", saved: "Search saved", orders: "Search orders", shop: "My items" };
+/** Market: browse, saved items, orders and the member's shop as tabs under one search box. */
 export default function MarketScreen() {
+  const { tab: param } = useLocalSearchParams<{ tab?: string }>();
+  const tab: MarketTab = param === "saved" || param === "orders" || param === "shop" ? param : "browse";
+  const member = useMember(), counts = useRemote(member.member ? "/api/market/unread" : null, unread, 30000).data;
+  const [queries, setQueries] = useState<Record<MarketTab, string>>({ browse: "", saved: "", orders: "", shop: "" });
+  const [filters, setFilters] = useState(defaultShopFilter), [filterOpen, setFilterOpen] = useState(false), [shopTab, setShopTab] = useState<ShopTab>("orders");
+  const query = queries[tab], setQuery = (value: string) => setQueries(current => ({ ...current, [tab]: value }));
+  const add = useShopAdd(shopTab), browsing = tab === "browse" || tab === "saved";
+  const tabs: IconTab<MarketTab>[] = [
+    { id: "browse", label: "Browse", icon: "grid-outline", activeIcon: "grid" },
+    { id: "saved", label: "Saved", icon: "heart-outline", activeIcon: "heart" },
+    { id: "orders", label: "Orders", icon: "receipt-outline", activeIcon: "receipt", badge: counts?.orders ?? 0 },
+    { id: "shop", label: "My shop", icon: "storefront-outline", activeIcon: "storefront" },
+  ];
+  return <Screen title="Market" back={false} hideTimers contentStyle={{ paddingHorizontal: 12 }} floatingAction={tab === "shop" ? add : undefined}
+    header={<BrowseHeader query={query} onChange={setQuery} placeholder={placeholders[tab]}
+      filter={browsing ? { label: "Market filters", count: refined({ ...filters, savedOnly: false }), onPress: () => setFilterOpen(true) } : undefined}
+      action={<IconButton label={counts?.count ? `Market Inbox, ${counts.count} new` : "Market Inbox"} icon="chatbubbles-outline" badge={counts?.count ?? 0} onPress={() => router.push("/market/inbox")} />} />}>
+    <IconTabs tabs={tabs} value={tab} label="Market sections" onChange={next => router.setParams({ tab: next === "browse" ? undefined : next })} />
+    {browsing ? (tab === "saved" && !member.member ? <MemberPrompt icon="heart-outline" returnTo="/market?tab=saved" />
+      : <Browse query={query} filters={{ ...filters, savedOnly: tab === "saved" }} setFilters={setFilters} />)
+      : tab === "orders" ? <OrdersContent query={query} /> : <MyShopContent tab={shopTab} setTab={setShopTab} query={query} />}
+    {filterOpen && <MarketFilters value={{ ...filters, savedOnly: tab === "saved" }} onApply={next => setFilters({ ...next, savedOnly: false })} onClose={() => setFilterOpen(false)} />}
+  </Screen>;
+}
+/** The listing grid for Browse and Saved; Saved is Browse limited to the member's hearts. */
+function Browse({ query, filters, setFilters }: { query: string; filters: ShopFilter; setFilters: (filters: ShopFilter) => void }) {
   const member = useMember(), { setNotice } = usePreferences();
-  const [query, setQuery] = useState(""), [filters, setFilters] = useState(defaultShopFilter), [filterOpen, setFilterOpen] = useState(false);
   // Heart overrides bridge the refetch after a toggle; a newer first page from the server wins for its own items.
   const [saved, setSaved] = useState<Record<string, { value: boolean; base: unknown }>>({}), saving = useRef(new Set<string>());
   const key = browseKey(useDebounced(query), filters), remote = useRemote(key, signal => browse(key, signal)), more = useMore(key);
   const firstPage = new Set(remote.data?.items.map(item => item.id));
   const items = [...new Map([...(remote.data?.items ?? []), ...(more.extra?.items ?? [])].map(item => [item.id, item])).values()]
-    .map(item => item.id in saved && (saved[item.id].base === remote.data || !firstPage.has(item.id)) ? { ...item, saved: saved[item.id].value } : item);
+    .map(item => item.id in saved && (saved[item.id].base === remote.data || !firstPage.has(item.id)) ? { ...item, saved: saved[item.id].value } : item)
+    .filter(item => !filters.savedOnly || item.saved);
   const next = more.extra ? more.extra.next : remote.data?.next ?? null;
-  const count = refined(filters), filtered = !!query.trim() || filters.category !== "All" || filters.savedOnly || count > 0;
+  const count = refined({ ...filters, savedOnly: false }), filtered = !!query.trim() || filters.category !== "All" || count > 0;
   const paused = remote.error?.code === "SERVICE_PAUSED";
-  const clear = () => { setFilters(defaultShopFilter()); setQuery(""); };
+  const clear = () => setFilters({ ...defaultShopFilter(), savedOnly: false });
   const save = async (item: ListingCard) => {
     if (!ensureMember(member, "/market") || saving.current.has(item.id)) return;
     saving.current.add(item.id);
@@ -56,19 +81,14 @@ export default function MarketScreen() {
     catch (error) { setNotice({ text: error instanceof ApiError ? error.message : "That did not save. Try again.", error: true }); }
     finally { saving.current.delete(item.id); }
   };
-  return <Screen title="Market" back={false} hideTimers contentStyle={{ paddingHorizontal: 12 }} header={<MarketHeader query={query} setQuery={setQuery} />}>
-    {paused ? <EmptyState title="Coming Soon" text="" icon="storefront-outline" primary={{ label: "Sell On QuinTaste", onPress: () => router.push("/market/my-shop") }} /> : <>
-      <BrowseActions trailing={<IconButton label={count ? "Market filters, " + count + " active" : "Market filters"} icon="options-outline" badge={count} selected={count > 0} onPress={() => setFilterOpen(true)} />}>
-        <Chip compact label="Orders" icon="receipt-outline" onPress={() => { if (ensureMember(member, "/market")) router.push("/market/orders"); }} />
-        <Chip compact label="My Shop" icon="storefront-outline" onPress={() => router.push("/market/my-shop")} />
-      </BrowseActions>
-      {filtered && remote.data && <T variant="small" muted accessibilityLiveRegion="polite">{items.length}{next !== null ? "+" : ""} {items.length === 1 ? "item" : "items"}</T>}
-      <RemoteStatus remote={remote} icon="storefront-outline" returnTo="/market" />
-      {remote.data && (items.length ? <ListingGrid items={items} onSave={item => void save(item)} />
-        : filtered ? <EmptyState title={filters.savedOnly && !query && count === 1 ? "No Saved Items" : "No Matching Food"} text="" icon="search-outline" action="Clear Filters" onPress={clear} />
-        : <EmptyState title="No Shops Yet" text="" icon="storefront-outline" primary={{ label: "Sell On QuinTaste", onPress: () => router.push("/market/my-shop") }} />)}
-      {next !== null && <Button label="Show More" variant="secondary" loading={more.busy} onPress={() => void more.load(next)} />}
-    </>}
-    {filterOpen && <MarketFilters value={filters} onApply={next => { if (!next.savedOnly || ensureMember(member, "/market")) setFilters(next); }} onClose={() => setFilterOpen(false)} />}
-  </Screen>;
+  if (paused) return <FirstRunState icon="storefront-outline" title="Market is coming soon" text="Sell food you make at home." action={{ label: "Open Shop", onPress: () => router.setParams({ tab: "shop" }) }} />;
+  return <>
+    {filtered && remote.data && <T variant="small" muted accessibilityLiveRegion="polite">{items.length}{next !== null ? "+" : ""} {items.length === 1 ? "item" : "items"}</T>}
+    <RemoteStatus remote={remote} icon="storefront-outline" returnTo="/market" />
+    {remote.data && (items.length ? <ListingGrid items={items} onSave={item => void save(item)} />
+      : filtered ? <EmptyState title="No Matching Food" text="" icon="search-outline" action="Clear Filters" onPress={clear} />
+      : filters.savedOnly ? <FirstRunState icon="heart-outline" title="Save food you like" text="Tap the heart on any item to keep it here." action={{ label: "Browse", onPress: () => router.setParams({ tab: undefined }) }} />
+      : <FirstRunState icon="storefront-outline" title="Be the first to sell" text="Sell food you make at home." action={{ label: "Open Shop", onPress: () => router.setParams({ tab: "shop" }) }} />)}
+    {next !== null && <Button label="Show More" variant="secondary" loading={more.busy} onPress={() => void more.load(next)} />}
+  </>;
 }

@@ -5,13 +5,13 @@ import { View } from "react-native";
 import { Screen } from "../../components/Screen";
 import { useMinuteClock } from "../../components/food/Timers";
 import { Chip, Chips, EmptyState, IconButton } from "../../components/food/Controls";
-import { BrowseHeader } from "../../components/BrowseControls";
+import { BrowseHeader, IconTabs } from "../../components/BrowseControls";
 import { common } from "../../components/ui";
 import { openSocial } from "../../components/social/Shared";
 import { MemberGate, PersonRow, ProfileRow, profileState, useSocialMe } from "../../components/social/MeetUI";
 import { ListGroup } from "../../components/GroupedList";
 import { RemoteStatus, useMember } from "../../components/CommunityGate";
-import { SocialTabs, type SocialSection } from "../../components/social/SocialTabs";
+import { socialTabs, type SocialSection } from "../../components/social/SocialTabs";
 import { useMeet } from "../../hooks/useMeet";
 import { useDebounced } from "../../hooks/useDebounced";
 import { useRemote } from "../../hooks/useRemote";
@@ -59,12 +59,10 @@ export function MeetHomeScreen() {
   const filtered = activePeopleFilters(n.filters);
   return <Screen title="Social" back={false} contentStyle={{ paddingHorizontal: 12 }} header={<BrowseHeader query={query} onChange={setQuery}
     placeholder={section === "people" ? "Find people" : section === "events" ? "Find events" : section === "areas" ? "Find areas" : "Find my plans"}
+    filter={section === "people" ? { label: "People filters", count: filtered ? 1 : 0, onPress: () => openSocial("/filters") } : undefined}
     action={<IconButton label={badge ? `Inbox, ${badge} new` : "Inbox"} icon="chatbubbles-outline" badge={badge} onPress={() => openSocial("/inbox")} />} />}
     floatingAction={member && (section === "events" || section === "plans") ? <FloatingAddButton label="Create Event" onPress={() => openSocial("/create")} /> : undefined}>
-    <View testID="browse-options-row" style={[common.row, { gap: 8 }]}><SocialTabs value={section} onChange={select} />
-      {section === "people" && <IconButton label={"People Filters" + (filtered ? ", active" : "")} icon="options-outline"
-        selected={filtered} onPress={() => openSocial("/filters")} />}
-    </View>
+    <IconTabs tabs={socialTabs} value={section} onChange={select} label="Social sections" />
     {section === "events" && <Chips label="Event Type">{eventTypes.map(label => <Chip key={label} label={label} role="radio"
       selected={type === label} onPress={() => router.setParams({ eventType: label })} />)}</Chips>}
     {section === "events" && type === "Local events" ? <Events query={query} type={type} /> : <MemberGate returnTo="/social">{section === "people" ? <People query={query} /> : section === "events" ? <Events query={query} type={type} />

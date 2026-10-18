@@ -1,1 +1,3 @@
-export { ShoppingScreen as default } from "../../../screens/food/Shopping";
+import { Redirect } from "expo-router";
+/** Now a tab of Cook; kept so older links still open it. */
+export default function Previous() { return <Redirect href="/cook?tab=shopping" />; }

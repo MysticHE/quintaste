@@ -15,10 +15,10 @@ import type { SellerState } from "../../types/community";
 
 export default function SellerSetupScreen() {
   const { member } = useMember(), remote = useRemote(member ? "/api/market/seller" : null, sellerState);
-  return <Screen title="Shop Setup" hideTimers backTo="/market/my-shop">
-    {!member ? <MemberPrompt icon="storefront-outline" returnTo="/market/my-shop" /> : remote.data
+  return <Screen title="Shop Setup" hideTimers backTo="/market?tab=shop">
+    {!member ? <MemberPrompt icon="storefront-outline" returnTo="/market?tab=shop" /> : remote.data
       ? <Setup state={remote.data} refresh={remote.refresh} />
-      : <RemoteStatus remote={remote} icon="storefront-outline" returnTo="/market/my-shop" />}
+      : <RemoteStatus remote={remote} icon="storefront-outline" returnTo="/market?tab=shop" />}
   </Screen>;
 }
 const empty: SellerInput = { tradingName: "", about: "", area: "", meetup: true, delivery: false, deliveryFeeCents: 0, deliveryAreas: "", payCash: true, payPaynow: false };
@@ -41,7 +41,7 @@ function Setup({ state, refresh }: { state: SellerState; refresh: () => void }) 
     finally { setBusy(false); }
   };
   const save = () => run(() => saveSeller(input()), "Shop saved");
-  const openNow = async () => { if (await run(async () => { await saveSeller(input()); await openShop(declarationsVersion); }, "Your shop is open")) router.replace("/market/my-shop"); };
+  const openNow = async () => { if (await run(async () => { await saveSeller(input()); await openShop(declarationsVersion); }, "Your shop is open")) router.replace("/market?tab=shop"); };
   return <>
     <FormSection title="Shop">
       <Field label="Shop Name" value={form.tradingName} onChangeText={tradingName => set({ tradingName })} maxLength={60} editable={!busy} />

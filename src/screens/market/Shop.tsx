@@ -52,7 +52,7 @@ export default function MarketShopScreen() {
     {s.items.length ? <ListingGrid items={s.items} /> : <EmptyState title="Nothing On Sale" text="" icon="storefront-outline" />}
     {s.reviews.length > 0 && <ListGroup title="Reviews">{s.reviews.map((r, i) => <ListItem key={i} title={"★ " + r.rating + (r.dietMatched === false ? " · Diet label didn't match" : "")}
       subtitle={r.review || undefined} wrap leading={<RowIcon name="star-outline" tone={r.dietMatched === false ? "warning" : "accent"} />} />)}</ListGroup>}
-    {s.own && <Button label="Manage My Shop" variant="secondary" onPress={() => router.push("/market/my-shop")} />}
+    {s.own && <Button label="Manage My Shop" variant="secondary" onPress={() => router.push("/market?tab=shop")} />}
     <MarketModal visible={menu} onClose={() => setMenu(false)} label={s.tradingName}>
       <ListItem title="Report" leading={<RowIcon name="flag-outline" tone="warning" />} onPress={() => { setMenu(false); setReport(true); }} />
       <Confirm label="Block" text="Hide this shop and stop messages both ways." action={"Block " + s.tradingName} run={blockShop} />

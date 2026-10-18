@@ -50,8 +50,8 @@ export function MeButton() {
     <AvatarPortrait avatar={doc.avatar} size={46} />
   </Pressable>;
 }
-export function SearchField({ value, onChange, placeholder, onSubmit, context }: {
-  value: string; onChange: (value: string) => void; placeholder: string; onSubmit?: () => void; context?: ReactNode;
+export function SearchField({ value, onChange, placeholder, onSubmit, context, trailing }: {
+  value: string; onChange: (value: string) => void; placeholder: string; onSubmit?: () => void; context?: ReactNode; trailing?: ReactNode;
 }) {
   const { theme, textMultiplier } = usePreferences();
   const [focused, setFocused] = useState(false);
@@ -65,6 +65,7 @@ export function SearchField({ value, onChange, placeholder, onSubmit, context }:
       placeholderTextColor={theme.mutedForeground} selectionColor={theme.accent}
       style={[s.searchInput, !!context && { paddingVertical: 5 }, { color: theme.foreground, fontFamily: fontNames.regular, fontSize: 16 * textMultiplier }]} /></View>
     {!!value && <Pressable accessibilityRole="button" accessibilityLabel="Clear search" onPress={() => onChange("")} style={s.clear}><Icon name="close-circle-outline" /></Pressable>}
+    {trailing}
   </View>;
 }
 export function SectionTitle({ title, aside }: { title: string; aside?: string }) {

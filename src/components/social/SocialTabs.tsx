@@ -1,6 +1,9 @@
-import { SegmentedTabs } from "../SegmentedTabs";
-export const socialTabs = [{ id: "people", label: "People" }, { id: "events", label: "Events" }, { id: "plans", label: "My plans" }, { id: "areas", label: "Areas" }] as const;
-export type SocialSection = typeof socialTabs[number]["id"];
-export function SocialTabs({ value, onChange }: { value: SocialSection; onChange: (value: SocialSection) => void }) {
-  return <SegmentedTabs options={socialTabs} value={value} onChange={onChange} label="Social view" />;
-}
+import type { IconTab } from "../BrowseControls";
+export type SocialSection = "people" | "events" | "areas" | "plans";
+/** Social sections in tab order; labels are read by screen readers. */
+export const socialTabs: readonly IconTab<SocialSection>[] = [
+  { id: "people", label: "People", icon: "people-outline", activeIcon: "people" },
+  { id: "events", label: "Events", icon: "calendar-outline", activeIcon: "calendar" },
+  { id: "areas", label: "Areas", icon: "map-outline", activeIcon: "map" },
+  { id: "plans", label: "My plans", icon: "checkmark-done-circle-outline", activeIcon: "checkmark-done-circle" },
+];

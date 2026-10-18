@@ -1,6 +1,7 @@
 import { Redirect } from "expo-router";
 import { useMinuteClock } from "../../components/food/Timers";
 import { EmptyState } from "../../components/food/Controls";
+import { FirstRunState } from "../../components/BrowseControls";
 import { openSocial } from "../../components/social/Shared";
 import { ProfileRow, useSocialMe } from "../../components/social/MeetUI";
 import { Initial, ListGroup, ListItem, RowIcon, StatusPill } from "../../components/GroupedList";
@@ -49,6 +50,7 @@ export function PersonalPlans({ query, findPeople }: { query: string; findPeople
     <ListGroup title="Applications">{forms.filter(a => a.state === "submitted").map(a => <ApplicationItem key={a.id} a={a} />)}</ListGroup>
     <ListGroup title="Past">{past.map(x => <GroupRow key={x.g.id} {...x} pill={x.status.section === "closed"} />)}
       {ended.map(g => <GatheringRow key={g.id} g={g} status={g.state === "cancelled" ? "Cancelled" : "Past"} />)}</ListGroup>
-    {empty && <EmptyState title={search ? "No Matching Plans" : "No Plans Yet"} text="" action={search ? undefined : "Find People"} onPress={findPeople} icon="people-outline" />}
+    {empty && (search ? <EmptyState title="No Matching Plans" text="" icon="people-outline" />
+      : <FirstRunState icon="restaurant-outline" title="Plan your first meal" text="Invite people to eat together." action={{ label: "Create", onPress: () => openSocial("/create") }} />)}
   </>;
 }

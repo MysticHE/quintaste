@@ -1,1 +1,3 @@
-export { MyRecipesScreen as default } from "../../../screens/food/MyRecipes";
+import { Redirect } from "expo-router";
+/** Now a tab of Cook; kept so older links still open it. */
+export default function Previous() { return <Redirect href="/cook?tab=mine" />; }
