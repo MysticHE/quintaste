@@ -13,6 +13,9 @@ import { useMenuDetail } from "../../hooks/useMenuDetail";
 import { ensureMember, useMember } from "../../components/CommunityGate";
 import { ReportSheet } from "../../components/ReportSheet";
 
+/** Vegetarian restaurants often name plant-based dishes after meat or seafood ("Assam Fish", "BLT"). */
+const MEAT_NAMED = /\b(chicken|pork|beef|mutton|lamb|bacon|ham|duck|fish\w*|prawns?|shrimp|crab|squid|abalone|blt|steak|sausage|meat\w*)\b|[鸡鸭猪牛羊鱼虾蟹肉]/i;
+
 export function MenuScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const { loaded, busy: indexBusy, error: indexError, now, load: loadIndex, offline } = useMenus();
@@ -29,6 +32,7 @@ export function MenuScreen() {
   useFocusEffect(useCallback(() => { void loadIndex(); void load(); }, [loadIndex, load]));
   const retry = () => { void loadIndex(true); void load(true); };
   const details = () => router.push({ pathname: "/place/[id]", params: { id: "catalogue-" + id } } as never);
+  const mockNamed = !!menu?.sections.some(section => section.items.some(item => MEAT_NAMED.test(item.name)));
   const latestSource = menu?.sections.reduce<(typeof menu.sections)[number] | undefined>((latest, section) => !latest || Date.parse(section.checkedAt) > Date.parse(latest.checkedAt) ? section : latest, undefined);
   return <Screen title={menu?.name ?? "Menu"} contentStyle={{ paddingHorizontal: 16 }}
     headerAction={menu ? <IconButton label={__DEV__ ? "Suggest a menu correction" : "Report a menu problem"} icon={__DEV__ ? "create-outline" : "flag-outline"} onPress={correct} /> : undefined}>
@@ -44,6 +48,7 @@ export function MenuScreen() {
           </Pressable>
         </View>
       </View>
+      {mockNamed && <T variant="small" muted>Every dish here is vegetarian. Names like fish or chicken are plant-based versions.</T>}
       {cached && <View style={common.row}><T variant="caption" muted style={common.flex} accessibilityLiveRegion="polite">{offline ? "Offline · saved menu" : "Saved menu · may have changed"}</T>
         <Button label="Retry" variant="link" loading={busy} onPress={retry} /></View>}
       <MenuDishes key={menu.id} menu={menu} now={now} />
