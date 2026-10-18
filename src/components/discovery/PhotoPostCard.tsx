@@ -9,12 +9,12 @@ import { usePhotoVisibility } from "./PhotoScrollView";
 
 /**
  * The shared photo post for Explore places and Cook recipes: the photo fills the card, the title and facts sit in white
- * on its blurred lower part, a chip top-left and save top-right, and an optional action strip (likes, shares) beneath.
+ * on its blurred lower part, a chip top-left, and like / save / share stacked down the right edge (`side`).
  * The whole photo opens the item; the corner controls and strip work on their own.
  */
-export function PhotoPostCard({ photo, title, label, hint, onPress, topLeft, topRight, footer, children, testID, titleTestID = "post-card-title" }: {
+export function PhotoPostCard({ photo, title, label, hint, onPress, topLeft, topRight, side, footer, children, testID, titleTestID = "post-card-title" }: {
   photo: { path?: string; source?: ImageSourcePropType; fallback?: string }; title: string; label: string; hint: string; onPress: () => void;
-  topLeft?: ReactNode; topRight?: ReactNode; footer?: ReactNode; children?: ReactNode; testID?: string; titleTestID?: string;
+  topLeft?: ReactNode; topRight?: ReactNode; side?: ReactNode; footer?: ReactNode; children?: ReactNode; testID?: string; titleTestID?: string;
 }) {
   const { theme, textMultiplier } = usePreferences(), visibility = usePhotoVisibility(true);
   const [focused, setFocused] = useState(false), [pressed, setPressed] = useState(false);
@@ -32,7 +32,7 @@ export function PhotoPostCard({ photo, title, label, hint, onPress, topLeft, top
         onFocus={() => setFocused(true)} onBlur={() => setFocused(false)} onPressIn={() => setPressed(true)} onPressOut={() => setPressed(false)} style={StyleSheet.absoluteFill} />
       <View pointerEvents="none" accessibilityElementsHidden importantForAccessibility="no-hide-descendants" aria-hidden>
         <View style={{ height: 156 }} />
-        <View onLayout={event => setPanelHeight(event.nativeEvent.layout.height)} style={s.information}>
+        <View onLayout={event => setPanelHeight(event.nativeEvent.layout.height)} style={[s.information, !!side && s.besideSide]}>
           <T testID={titleTestID} variant="place" style={[s.name, { fontSize: 20 * textMultiplier, lineHeight: 26 * textMultiplier }]} color={theme.mediaForeground}
             onLayout={event => setNameHeight(event.nativeEvent.layout.height)}>{title}</T>
           {children}
@@ -40,6 +40,7 @@ export function PhotoPostCard({ photo, title, label, hint, onPress, topLeft, top
       </View>
       {topLeft && <View style={s.topLeft}>{topLeft}</View>}
       {topRight && <View style={s.topRight} pointerEvents="box-none">{topRight}</View>}
+      {side && <View style={s.side} pointerEvents="box-none">{side}</View>}
     </View>
     {footer && <View style={s.footer}>{footer}</View>}
   </View>;
@@ -68,6 +69,9 @@ const s = StyleSheet.create({
   facts: { flexDirection: "row", alignItems: "center", flexWrap: "wrap", columnGap: 12, rowGap: 4, marginTop: 3 },
   topLeft: { position: "absolute", top: 4, left: 4 },
   topRight: { position: "absolute", top: 4, right: 4, flexDirection: "row", gap: 6 },
+  // The stacked actions sit on the right edge; the text keeps clear of them.
+  side: { position: "absolute", right: 4, bottom: 8 },
+  besideSide: { paddingRight: 64 },
   chip: { minHeight: 42, margin: 3, borderRadius: 13, borderWidth: StyleSheet.hairlineWidth, flexDirection: "row", alignItems: "center", gap: 6, paddingHorizontal: 12 },
   footer: { paddingHorizontal: 4, paddingVertical: 2 },
 });

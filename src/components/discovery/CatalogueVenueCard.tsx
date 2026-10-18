@@ -7,7 +7,7 @@ import { useCatalogueVenue } from "../../hooks/useCatalogueVenue";
 import { Button, Card, T, common } from "../ui";
 import type { PlaceReviewSummary } from "../../types/place-reviews";
 import { IconButton } from "../food/Controls";
-import { ReactionBar } from "../ReactionBar";
+import { ReactionColumn } from "../ReactionBar";
 import { placeShareMessage } from "../../utils/place-share";
 import { MenuEntry } from "./MenuEntry";
 import { PhotoPostCard, PostFact, PostFacts } from "./PhotoPostCard";
@@ -21,12 +21,9 @@ export function CatalogueVenueCard({ venue, more, review }: { venue: CatalogueVe
     label={[venue.name, venue.address, metadata, hoursSummary].join(". ")} hint="Opens this branch's location and details"
     onPress={() => router.push({ pathname: "/place/[id]", params: { id } } as never)}
     topLeft={<MenuEntry menu={venue} compact />}
-    topRight={<>
-      {more && <IconButton label={"More options for " + venue.name} icon="ellipsis-horizontal" appearance="media" onPress={more} />}
-      <IconButton label={(saved ? "Remove saved " : "Save ") + venue.name} icon={saved ? "bookmark" : "bookmark-outline"}
-        selected={saved} disabled={!readable} appearance="media" onPress={() => void toggleSave("place", id, venue.name)} />
-    </>}
-    footer={<ReactionBar kind="place" id={venue.id} name={venue.name} shareMessage={() => placeShareMessage(venue)} />}>
+    topRight={more && <IconButton label={"More options for " + venue.name} icon="ellipsis-horizontal" appearance="media" onPress={more} />}
+    side={<ReactionColumn kind="place" id={venue.id} name={venue.name} shareMessage={() => placeShareMessage(venue)}
+      save={{ saved, busy: false, disabled: !readable, onPress: () => void toggleSave("place", id, venue.name) }} />}>
     <PostFact icon="location-outline">{venue.address}</PostFact>
     <PostFacts>
       {venue.distanceKm !== undefined && <PostFact icon="navigate-outline" shrink>{venue.distanceKm.toFixed(1)} km away</PostFact>}

@@ -7,13 +7,12 @@ import { photos } from "../../data/photos";
 import { alliumFree, recipeFit } from "../../utils/recipe-dietary";
 import { cookedStats } from "../../utils/recipe-browse";
 import { recipeShareMessage } from "../../utils/recipe-share";
-import { IconButton } from "../food/Controls";
-import { ReactionBar } from "../ReactionBar";
+import { ReactionColumn } from "../ReactionBar";
 import { PhotoPostCard, PostChip, PostFact, PostFacts } from "../discovery/PhotoPostCard";
 
 /**
- * A recipe as the same photo post as an Explore place: cooking time top-left, save top-right, the name and facts on the
- * photo, and likes and shares beneath. Diet and the five pungent stay on the card because they decide a meal here.
+ * A recipe as the same photo post as an Explore place: cooking time top-left, like / save / share down the right edge,
+ * the name and facts on the photo. Diet and the five pungent stay on the card because they decide a meal here.
  */
 export function RecipeRow({ recipe, onPress }: { recipe: Recipe; onPress: () => void }) {
   const { doc, isSaved, toggleSave, readable } = useFood(), { draft, theme } = usePreferences(), [saving, setSaving] = useState(false);
@@ -25,9 +24,8 @@ export function RecipeRow({ recipe, onPress }: { recipe: Recipe; onPress: () => 
   return <PhotoPostCard testID="recipe-card" photo={{ path: recipe.image?.path, source: recipe.image?.path ? undefined : recipe.photo ? photos[recipe.photo] : undefined, fallback: recipe.categories[0] ?? "Recipe" }}
     title={recipe.name} label={[recipe.name, recipe.minutes + " min", facts, diet].filter(Boolean).join(". ")} hint="Opens the recipe" onPress={onPress}
     topLeft={<PostChip icon="time-outline" label={recipe.minutes + " min"} />}
-    topRight={<IconButton label={(saved ? "Remove saved " : "Save ") + recipe.name} icon={saved ? "bookmark" : "bookmark-outline"}
-      selected={saved} disabled={!readable} loading={saving} appearance="media" onPress={() => void save()} />}
-    footer={<ReactionBar kind="recipe" id={recipe.id} name={recipe.name} shareMessage={() => recipeShareMessage(recipe)} />}>
+    side={<ReactionColumn kind="recipe" id={recipe.id} name={recipe.name} shareMessage={() => recipeShareMessage(recipe)}
+      save={{ saved, busy: saving, disabled: !readable, onPress: () => void save() }} />}>
     {!!facts && <PostFact icon="restaurant-outline">{facts}</PostFact>}
     <PostFacts>
       {!!diet && <PostFact icon="leaf-outline" shrink>{diet}</PostFact>}

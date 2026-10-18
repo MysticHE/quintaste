@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
-import { ActivityIndicator, Pressable, Share, StyleSheet, View } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import { ActivityIndicator, Platform, Pressable, Share, StyleSheet, View, type TextStyle } from "react-native";
 import { usePreferences } from "../state/Preferences";
 import { useKeyboardFocus } from "../hooks/useKeyboardFocus";
 import { useReaction, type ReactionKind } from "../hooks/useReactions";
@@ -19,7 +20,37 @@ export function compactCount(n: number) {
 export function ReactionBar({ kind, id, name, shareMessage, trailing, onShareFailed }: {
   kind: ReactionKind; id: string; name: string; shareMessage: () => string; trailing?: ReactNode; onShareFailed?: (text: string) => void;
 }) {
-  const { theme, setNotice } = usePreferences(), { reaction, enabled, toggleLike, recordShare } = useReaction(kind, id);
+  const { theme } = usePreferences(), { reaction, enabled, toggleLike, share } = useReactionActions(kind, id, shareMessage, onShareFailed);
+  return <View style={s.row}>
+    {enabled && <Action icon={reaction.liked ? "heart" : "heart-outline"} color={reaction.liked ? theme.accent : theme.foreground} count={compactCount(reaction.likes)}
+      label={(reaction.liked ? "Unlike " : "Like ") + name + people(reaction.likes, "like", "likes")} selected={reaction.liked} onPress={() => void toggleLike()} />}
+    <Action icon="arrow-redo-outline" color={theme.foreground} count={enabled ? compactCount(reaction.shares) : ""}
+      label={"Share " + name + (enabled ? people(reaction.shares, "share", "shares") : "")} onPress={() => void share()} />
+    <View style={common.flex} />
+    {trailing}
+  </View>;
+}
+/**
+ * The photo card's version: like, save and share stacked down the right edge of the photo, each count under its icon,
+ * filled white with a shadow so they read on any photo; liked or saved turns the icon the accent colour.
+ */
+export function ReactionColumn({ kind, id, name, shareMessage, save }: {
+  kind: ReactionKind; id: string; name: string; shareMessage: () => string;
+  save: { saved: boolean; busy: boolean; disabled: boolean; onPress: () => void };
+}) {
+  const { theme } = usePreferences(), { reaction, enabled, toggleLike, share } = useReactionActions(kind, id, shareMessage);
+  return <View style={s.column}>
+    {enabled && <MediaAction icon="heart" color={reaction.liked ? theme.accent : theme.mediaForeground} count={compactCount(reaction.likes)}
+      label={(reaction.liked ? "Unlike " : "Like ") + name + people(reaction.likes, "like", "likes")} selected={reaction.liked} onPress={() => void toggleLike()} />}
+    <MediaAction icon="bookmark" color={save.saved ? theme.accent : theme.mediaForeground} busy={save.busy} disabled={save.disabled}
+      label={(save.saved ? "Remove saved " : "Save ") + name} selected={save.saved} onPress={save.onPress} />
+    <MediaAction icon="arrow-redo" color={theme.mediaForeground} count={enabled ? compactCount(reaction.shares) : ""}
+      label={"Share " + name + (enabled ? people(reaction.shares, "share", "shares") : "")} onPress={() => void share()} />
+  </View>;
+}
+const people = (n: number, one: string, many: string) => n ? ", " + n + " " + (n === 1 ? one : many) : "";
+function useReactionActions(kind: ReactionKind, id: string, shareMessage: () => string, onShareFailed?: (text: string) => void) {
+  const { setNotice } = usePreferences(), { reaction, enabled, toggleLike, recordShare } = useReaction(kind, id);
   const share = async () => {
     const message = shareMessage();
     try {
@@ -29,15 +60,24 @@ export function ReactionBar({ kind, id, name, shareMessage, trailing, onShareFai
       if (onShareFailed) onShareFailed(message); else setNotice({ text: "Sharing isn't available here.", error: true });
     }
   };
-  const people = (n: number, one: string, many: string) => n ? ", " + n + " " + (n === 1 ? one : many) : "";
-  return <View style={s.row}>
-    {enabled && <Action icon={reaction.liked ? "heart" : "heart-outline"} color={reaction.liked ? theme.accent : theme.foreground} count={compactCount(reaction.likes)}
-      label={(reaction.liked ? "Unlike " : "Like ") + name + people(reaction.likes, "like", "likes")} selected={reaction.liked} onPress={() => void toggleLike()} />}
-    <Action icon="paper-plane-outline" color={theme.foreground} count={enabled ? compactCount(reaction.shares) : ""}
-      label={"Share " + name + (enabled ? people(reaction.shares, "share", "shares") : "")} onPress={() => void share()} />
-    <View style={common.flex} />
-    {trailing}
-  </View>;
+  return { reaction, enabled, toggleLike, share };
+}
+/** A dark halo under white icons and counts. React Native Web ignores the native textShadow* props, so web gets CSS. */
+function halo(color: string): TextStyle {
+  if (Platform.OS === "web") return { textShadow: `0 1px 6px ${color}, 0 0 2px ${color}` } as TextStyle;
+  return { textShadowColor: color, textShadowOffset: { width: 0, height: 1 }, textShadowRadius: 8 };
+}
+/** One stacked photo action: icon over its count, 48-point target. */
+function MediaAction({ icon, color, count = "", label, onPress, selected, busy = false, disabled = false }: {
+  icon: IconName; color: string; count?: string; label: string; onPress: () => void; selected?: boolean; busy?: boolean; disabled?: boolean;
+}) {
+  const { theme } = usePreferences(), { focused, focusProps } = useKeyboardFocus(), shadow = halo(theme.mediaSurface);
+  return <Pressable accessibilityRole="button" accessibilityLabel={label} accessibilityState={{ selected, disabled: disabled || busy, busy }} disabled={disabled || busy}
+    onPress={onPress} {...focusProps}
+    style={({ pressed }) => [s.media, { borderColor: focused ? theme.mediaForeground : theme.transparent, opacity: disabled ? 0.5 : pressed ? 0.7 : 1 }]}>
+    {busy ? <ActivityIndicator color={theme.mediaForeground} /> : <Ionicons name={icon} size={28} color={color} style={shadow} />}
+    {!!count && <T variant="small" color={theme.mediaForeground} style={[common.bold, shadow]}>{count}</T>}
+  </Pressable>;
 }
 /** A bare icon with an optional count: lighter than bordered buttons, with a 48-point target. */
 export function Action({ icon, color, count = "", label, onPress, selected, busy = false, disabled = false }: {
@@ -54,4 +94,6 @@ export function Action({ icon, color, count = "", label, onPress, selected, busy
 const s = StyleSheet.create({
   row: { flexDirection: "row", alignItems: "center", gap: 2 },
   action: { gap: 6, minWidth: 48, minHeight: 48, paddingHorizontal: 10, borderRadius: 24, borderWidth: 2, justifyContent: "center" },
+  column: { alignItems: "center", gap: 4 },
+  media: { minWidth: 48, minHeight: 48, alignItems: "center", justifyContent: "center", borderRadius: 12, borderWidth: 2, paddingVertical: 2 },
 });
