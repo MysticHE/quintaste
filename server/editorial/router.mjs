@@ -97,6 +97,14 @@ for (const kind of ['recipe', 'event']) editorial.get('/' + kind + 's', async (r
     conditional(req, res, { revision, items, total: rows.length, nextCursor: offset + 20 < rows.length ? Buffer.from(JSON.stringify({ revision, offset: offset + 20, q, category })).toString('base64url') : null });
   } catch (e) { next(e); }
 });
+/** Whether a bundled, bot or staff-created recipe is published and not hidden or withdrawn (likes and shares use this). */
+export async function publishedRecipe(id) {
+  const [snapshot, staff] = await Promise.all([readSnapshot(root), staffContent()]), item = staff.items.get('recipe:' + id);
+  if (item?.hidden) return false;
+  const row = snapshot.records['recipe:' + id];
+  if (row || item?.origin === 'staff') { const recipe = staffRecord(staff, 'recipe', id, row?.data ?? null); return !!recipe && !recipe.withdrawal; }
+  return baseline.recipes.some(recipe => recipe.id === id);
+}
 export const editorialAssetRoot = path.join(root, 'assets');
 export const editorialAssets = express.Router();
 editorialAssets.use((req, res, next) => {

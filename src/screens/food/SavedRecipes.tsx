@@ -1,4 +1,5 @@
 import { router } from "expo-router";
+import { useState } from "react";
 import { ActivityIndicator, StyleSheet, View } from "react-native";
 import { Button, T, common } from "../../components/ui";
 import { FirstRunState } from "../../components/BrowseControls";
@@ -12,10 +13,15 @@ import { usePreferences } from "../../state/Preferences";
 export function SavedRecipes({ query }: { query: string }) {
   const { doc } = useFood();
   const ids = doc.saves.filter(item => item.kind === "recipe" && !item.id.startsWith("private-")).sort((a, b) => b.savedAt - a.savedAt).map(item => item.id);
-  useReactions("recipe", ids);
+  // Recipes that aren't bundled with the app load one by one, so the list grows ten at a time.
+  const [limit, setLimit] = useState(10), shown = ids.slice(0, limit);
+  useReactions("recipe", shown);
   if (!ids.length) return <FirstRunState icon="bookmark-outline" title="Save recipes you like" text="Tap the bookmark on any recipe to keep it here."
     action={{ label: "Browse Recipes", icon: "grid-outline", onPress: () => router.setParams({ tab: undefined }) }} />;
-  return <>{ids.map(id => <SavedRecipe key={id} id={id} query={query.trim().toLowerCase()} />)}</>;
+  return <>
+    {shown.map(id => <SavedRecipe key={id} id={id} query={query.trim().toLowerCase()} />)}
+    {ids.length > limit && <Button label="More Saved Recipes" variant="secondary" onPress={() => setLimit(limit + 10)} />}
+  </>;
 }
 function SavedRecipe({ id, query }: { id: string; query: string }) {
   const { recipe, loading } = usePublishedRecipe(id), { toggleSave, readable } = useFood(), { theme } = usePreferences();

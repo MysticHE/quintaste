@@ -50,14 +50,16 @@ function useTimerAlertState() {
       if (!captured || lease.current !== captured) return;
       setPermission(status);
       if (!doc.notifications.cooking && !canScheduleTimerAlerts(status)) {
-        setError("Allow notifications for QuinTaste in phone settings, then turn this on.");
+        // Blocked needs phone settings; a prompt that was closed (or couldn't show) can simply be tried again.
+        setError(status === "denied" ? "Allow notifications for QuinTaste in phone settings, then turn this on."
+          : "Notifications weren't turned on. Try again, or allow them in phone settings.");
         return;
       }
       step = "save";
       await update(current => ({ ...current, notifications: { ...current.notifications, cooking: !current.notifications.cooking } }));
       if (lease.current === captured) setRefresh(n => n + 1);
     } catch {
-      if (lease.current === captured) setError(step === "permission" ? "Allow notifications for QuinTaste in phone settings, then turn this on." : "Your choice didn't save. Try again.");
+      if (lease.current === captured) setError(step === "permission" ? "Notifications weren't turned on. Try again, or allow them in phone settings." : "Your choice didn't save. Try again.");
     }
     finally { if (lease.current === captured) setBusy(false); }
   }, [busy, readable, dirty, doc.notifications.cooking, permission, update]);

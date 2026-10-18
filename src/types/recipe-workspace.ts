@@ -12,7 +12,7 @@ export type ShoppingNote = { id: string; recipeId: string; text: string; checked
 export type CookSort = "Fit" | "Time" | "Recent";
 export type CookBrowse = {
   category: "All" | RecipeCategory; vegan: boolean; alliumFree: boolean; time: "Any" | "15" | "30";
-  onePot: boolean; saved: boolean; sort: CookSort; diets?: ("Vegan" | "Vegetarian")[];
+  onePot: boolean; sort: CookSort; diets?: ("Vegan" | "Vegetarian")[];
 };
 export type CookedEntry = { recipeId: string; revision: number; servings: number; finishedAt: number };
 export type RecipeWorkspace = {

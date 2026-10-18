@@ -4,7 +4,7 @@ import { ActivityIndicator, Platform, Pressable, Share, StyleSheet, View, type T
 import { usePreferences } from "../state/Preferences";
 import { useKeyboardFocus } from "../hooks/useKeyboardFocus";
 import { useReaction, type ReactionKind } from "../hooks/useReactions";
-import { Icon, T, common, type IconName } from "./ui";
+import { T, common, type IconName } from "./ui";
 
 /** 1,234 → 1.2k; zero shows no number so something new reads as fresh rather than ignored. */
 export function compactCount(n: number) {
@@ -40,11 +40,11 @@ export function ReactionColumn({ kind, id, name, shareMessage, save }: {
 }) {
   const { theme } = usePreferences(), { reaction, enabled, toggleLike, share } = useReactionActions(kind, id, shareMessage);
   return <View style={s.column}>
-    {enabled && <MediaAction icon="heart" color={reaction.liked ? theme.accent : theme.mediaForeground} count={compactCount(reaction.likes)}
+    {enabled && <Action stacked icon="heart" color={reaction.liked ? theme.accent : theme.mediaForeground} count={compactCount(reaction.likes)}
       label={(reaction.liked ? "Unlike " : "Like ") + name + people(reaction.likes, "like", "likes")} selected={reaction.liked} onPress={() => void toggleLike()} />}
-    <MediaAction icon="bookmark" color={save.saved ? theme.accent : theme.mediaForeground} busy={save.busy} disabled={save.disabled}
+    <Action stacked icon="bookmark" color={save.saved ? theme.accent : theme.mediaForeground} busy={save.busy} disabled={save.disabled}
       label={(save.saved ? "Remove saved " : "Save ") + name} selected={save.saved} onPress={save.onPress} />
-    <MediaAction icon="arrow-redo" color={theme.mediaForeground} count={enabled ? compactCount(reaction.shares) : ""}
+    <Action stacked icon="arrow-redo" color={theme.mediaForeground} count={enabled ? compactCount(reaction.shares) : ""}
       label={"Share " + name + (enabled ? people(reaction.shares, "share", "shares") : "")} onPress={() => void share()} />
   </View>;
 }
@@ -67,33 +67,27 @@ function halo(color: string): TextStyle {
   if (Platform.OS === "web") return { textShadow: `0 1px 6px ${color}, 0 0 2px ${color}` } as TextStyle;
   return { textShadowColor: color, textShadowOffset: { width: 0, height: 1 }, textShadowRadius: 8 };
 }
-/** One stacked photo action: icon over its count, 48-point target. */
-function MediaAction({ icon, color, count = "", label, onPress, selected, busy = false, disabled = false }: {
-  icon: IconName; color: string; count?: string; label: string; onPress: () => void; selected?: boolean; busy?: boolean; disabled?: boolean;
-}) {
-  const { theme } = usePreferences(), { focused, focusProps } = useKeyboardFocus(), shadow = halo(theme.mediaSurface);
-  return <Pressable accessibilityRole="button" accessibilityLabel={label} accessibilityState={{ selected, disabled: disabled || busy, busy }} disabled={disabled || busy}
-    onPress={onPress} {...focusProps}
-    style={({ pressed }) => [s.media, { borderColor: focused ? theme.mediaForeground : theme.transparent, opacity: disabled ? 0.5 : pressed ? 0.7 : 1 }]}>
-    {busy ? <ActivityIndicator color={theme.mediaForeground} /> : <Ionicons name={icon} size={28} color={color} style={shadow} />}
-    {!!count && <T variant="small" color={theme.mediaForeground} style={[common.bold, shadow]}>{count}</T>}
-  </Pressable>;
-}
-/** A bare icon with an optional count: lighter than bordered buttons, with a 48-point target. */
-export function Action({ icon, color, count = "", label, onPress, selected, busy = false, disabled = false }: {
-  icon: IconName; color: string; count?: string; label: string; onPress: () => void; selected?: boolean; busy?: boolean; disabled?: boolean;
+/**
+ * A bare icon with an optional count and a 48-point target. `stacked` puts the count under the icon in white with a
+ * halo for use on photos; otherwise the count sits beside the icon in the theme colours.
+ */
+export function Action({ icon, color, count = "", label, onPress, selected, busy = false, disabled = false, stacked = false }: {
+  icon: IconName; color: string; count?: string; label: string; onPress: () => void; selected?: boolean; busy?: boolean; disabled?: boolean; stacked?: boolean;
 }) {
   const { theme } = usePreferences(), { focused, focusProps } = useKeyboardFocus();
+  const shadow = stacked ? halo(theme.mediaSurface) : undefined;
   return <Pressable accessibilityRole="button" accessibilityLabel={label} accessibilityState={{ selected, disabled: disabled || busy, busy }} disabled={disabled || busy}
-    onPress={onPress} hitSlop={4} {...focusProps}
-    style={({ pressed }) => [common.row, s.action, { borderColor: focused ? theme.accent : theme.transparent, backgroundColor: pressed ? theme.muted : theme.transparent, opacity: disabled ? 0.5 : 1 }]}>
-    {busy ? <ActivityIndicator color={theme.accent} /> : <Icon name={icon} size={24} color={color} />}
-    {!!count && <T style={common.bold}>{count}</T>}
+    onPress={onPress} hitSlop={stacked ? 0 : 4} {...focusProps}
+    style={({ pressed }) => [stacked ? s.stacked : [common.row, s.action], {
+      borderColor: focused ? (stacked ? theme.mediaForeground : theme.accent) : theme.transparent,
+      backgroundColor: !stacked && pressed ? theme.muted : theme.transparent, opacity: disabled ? 0.5 : stacked && pressed ? 0.7 : 1 }]}>
+    {busy ? <ActivityIndicator color={stacked ? theme.mediaForeground : theme.accent} /> : <Ionicons name={icon} size={stacked ? 28 : 24} color={color} style={shadow} />}
+    {!!count && <T variant={stacked ? "small" : "body"} color={stacked ? theme.mediaForeground : undefined} style={[common.bold, shadow]}>{count}</T>}
   </Pressable>;
 }
 const s = StyleSheet.create({
   row: { flexDirection: "row", alignItems: "center", gap: 2 },
   action: { gap: 6, minWidth: 48, minHeight: 48, paddingHorizontal: 10, borderRadius: 24, borderWidth: 2, justifyContent: "center" },
   column: { alignItems: "center", gap: 4 },
-  media: { minWidth: 48, minHeight: 48, alignItems: "center", justifyContent: "center", borderRadius: 12, borderWidth: 2, paddingVertical: 2 },
+  stacked: { minWidth: 48, minHeight: 48, alignItems: "center", justifyContent: "center", borderRadius: 12, borderWidth: 2, paddingVertical: 2 },
 });

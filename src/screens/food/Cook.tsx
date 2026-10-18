@@ -45,12 +45,12 @@ export function CookScreen() {
   </Screen>;
 }
 function Recipes() {
-  const { doc, isSaved, cookSearch: query, setCookSearch: setQuery, cookBrowse: browse, setCookBrowse } = useFood();
+  const { doc, cookSearch: query, setCookSearch: setQuery, cookBrowse: browse, setCookBrowse } = useFood();
   const { draft } = usePreferences();
   const published = usePublishedRecipes(), members = useMemberRecipes();
   const hasMore = published.hasMore || members.hasMore, limited = published.limited || members.limited;
   const more = () => { if (published.hasMore) published.more(); if (members.hasMore) members.more(); };
-  const visible = browseRecipes([...published.recipes, ...members.recipes, ...bundledRecipes()], browse, query, { diet: draft.diet, excluded: draft.excluded, isSaved: id => isSaved("recipe", id), cooked: doc.recipes.cooked });
+  const visible = browseRecipes([...published.recipes, ...members.recipes, ...bundledRecipes()], browse, query, { diet: draft.diet, excluded: draft.excluded, cooked: doc.recipes.cooked });
   useReactions("recipe", visible.map(recipe => recipe.id));
   const narrowed = activeFilterCount(browse) > 0 || browse.category !== "All";
   return <>

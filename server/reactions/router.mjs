@@ -1,8 +1,9 @@
 import { pool } from '../config.mjs';
 import { CommunityError, communityRouter, errors, member, throttle } from '../community/http.mjs';
 import { notRestricted } from '../community/router.mjs';
-import { publishedPlaceIds } from '../catalogue-places.mjs';
+import { placeAliases, publishedPlaceIds } from '../catalogue-places.mjs';
 import { rowId } from '../recipes/rules.mjs';
+import { publishedRecipe } from '../editorial/router.mjs';
 
 /**
  * Likes and shares on Cook recipes and Explore places: /api/reactions/recipe and /api/reactions/place.
@@ -19,15 +20,22 @@ async function targets(kind, raw) {
   if (kind === 'place') return publishedPlaceIds(raw);
   return raw.map(id => typeof id === 'string' && /^[a-z0-9][a-z0-9-]{0,99}$/.test(id) && !id.startsWith('private-') ? id : null);
 }
-/** Writes need an item members can see: a published place, or a live member recipe. */
+/** Liking or sharing needs an item members can see now: a published place, a live member recipe, or a published QuinTaste recipe. */
 async function writable(kind, raw) {
   const [id] = await targets(kind, [raw]);
   if (!id) throw unavailable(kind);
-  if (kind === 'recipe' && id.startsWith('member-')) {
-    const found = await pool.query(`SELECT 1 FROM recipes.recipe WHERE id=$1 AND live IS NOT NULL AND hidden_at IS NULL`, [rowId(id)]);
-    if (!found.rowCount) throw unavailable(kind);
+  if (kind === 'recipe') {
+    const live = id.startsWith('member-')
+      ? (await pool.query(`SELECT 1 FROM recipes.recipe WHERE id=$1 AND live IS NOT NULL AND hidden_at IS NULL`, [rowId(id)])).rowCount > 0
+      : await publishedRecipe(id);
+    if (!live) throw unavailable(kind);
   }
   return id;
+}
+/** Removing a like works even after staff hide or unpublish the item, so nobody is stuck with a like they can't take back. */
+function removable(kind, raw) {
+  if (typeof raw !== 'string' || !/^[a-z0-9][a-z0-9-]{0,119}$/.test(raw)) throw unavailable(kind);
+  return kind === 'place' ? placeAliases.get(raw) ?? raw : raw;
 }
 const counted = action => `(SELECT count(*)::int FROM community.reaction r WHERE r.kind=$1 AND r.target=k.id AND r.action='${action}' AND ${notRestricted('r.user_id')})`;
 const mine = action => `EXISTS (SELECT 1 FROM community.reaction r WHERE r.kind=$1 AND r.target=k.id AND r.action='${action}' AND r.user_id=$3)`;
@@ -46,15 +54,16 @@ reactions.get('/:kind', async (req, res) => {
     return { id, likes: row?.likes ?? 0, shares: row?.shares ?? 0, liked: !!row?.liked, shared: !!row?.shared }; }) });
 });
 async function react(req, res, action, adding) {
-  const kind = res.locals.kind, me = res.locals.user.id, id = await writable(kind, req.params.id);
+  const kind = res.locals.kind, me = res.locals.user.id, id = adding ? await writable(kind, req.params.id) : removable(kind, req.params.id);
   await throttle(`reaction-${action}:${me}`, 300, 3600);
   if (adding) await pool.query(`INSERT INTO community.reaction(kind, target, action, user_id) VALUES($1,$2,$3,$4) ON CONFLICT DO NOTHING`, [kind, id, action, me]);
   else await pool.query(`DELETE FROM community.reaction WHERE kind=$1 AND target=$2 AND action=$3 AND user_id=$4`, [kind, id, action, me]);
   const row = (await counts(kind, [id], me)).get(id);
-  res.json({ id: req.params.id, likes: row.likes, shares: row.shares, liked: row.liked, shared: row.shared });
+  res.json({ id: req.params.id, likes: row?.likes ?? 0, shares: row?.shares ?? 0, liked: !!row?.liked, shared: !!row?.shared });
 }
 reactions.put('/:kind/:id/like', member, (req, res) => react(req, res, 'like', true));
 reactions.delete('/:kind/:id/like', member, (req, res) => react(req, res, 'like', false));
-// Recorded after the share sheet completes; a member counts once per item however often they share it.
+// The app records a share once the share sheet reports it (on Android: once the sheet opens, as Android doesn't report
+// a cancelled share). A member counts once per item however often they share it.
 reactions.post('/:kind/:id/share', member, (req, res) => react(req, res, 'share', true));
 reactions.use(errors);

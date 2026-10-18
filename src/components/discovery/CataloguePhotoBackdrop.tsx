@@ -27,15 +27,17 @@ export function CataloguePhotoBackdrop({ path, source, fallback, enabled, panelH
   }, [state.failed, url, enabled]);
   const start = panelHeight > 0 ? Math.max(0, height - panelHeight + 8 - 32) : height;
   const fail = () => setState({ failed: true });
+  // A bundled photo is used unless it failed to load; a failed or missing photo shows the fallback name when there is one.
+  const image = state.failed ? undefined : source ?? (state.uri ? { uri: state.uri } : undefined);
   return <View pointerEvents="none" accessibilityElementsHidden importantForAccessibility="no-hide-descendants" aria-hidden
     onLayout={event => setHeight(event.nativeEvent.layout.height)}
     style={[StyleSheet.absoluteFill, { backgroundColor: theme.mediaSurface }]}>
-    {(source || state.uri) ? <><Image source={source ?? { uri: state.uri }} cachePolicy="none" contentFit="cover" style={StyleSheet.absoluteFill} accessible={false} alt="" onError={fail} />
+    {image ? <><Image source={image} cachePolicy="none" contentFit="cover" style={StyleSheet.absoluteFill} accessible={false} alt="" onError={fail} />
       {panelHeight > 0 && <View testID="photo-soft-blur" style={{ position: "absolute", left: 0, right: 0, top: start, bottom: 0, overflow: "hidden" }}>
         <PhotoBlend fadeAt={32 / Math.max(32, height - start)}><View style={{ position: "absolute", top: -start, height, left: 0, right: 0 }}>
-          <Image source={source ?? { uri: state.uri }} cachePolicy="none" contentFit="cover" blurRadius={5} style={StyleSheet.absoluteFill} accessible={false} alt="" onError={fail} />
+          <Image source={image} cachePolicy="none" contentFit="cover" blurRadius={5} style={StyleSheet.absoluteFill} accessible={false} alt="" onError={fail} />
         </View></PhotoBlend>
-      </View>}</> : !url && fallback ? <View style={s.fallback}>
+      </View>}</> : fallback && (!url || state.failed) ? <View style={s.fallback}>
       <T variant="title" color={theme.mediaMutedForeground} numberOfLines={2} style={s.fallbackText}>{fallback}</T>
     </View> : <View style={{ position: "absolute", top: 76, left: 16, right: 16, flexDirection: "row", alignItems: "center", gap: 8 }}>
       <Icon name="image-outline" color={theme.mediaMutedForeground} />

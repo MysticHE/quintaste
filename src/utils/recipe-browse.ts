@@ -13,7 +13,7 @@ export function cookedStats(cooked: CookedEntry[], recipeId: string) {
 export function activeFilterCount(browse: CookBrowse) {
   return [selectedRecipeDiets(browse).length > 0, browse.alliumFree, browse.time !== "Any", browse.onePot].filter(Boolean).length;
 }
-type Context = { diet: Diet; excluded: readonly Exclusion[]; isSaved: (id: string) => boolean; cooked: CookedEntry[] };
+type Context = { diet: Diet; excluded: readonly Exclusion[]; cooked: CookedEntry[] };
 /** Category is OR within one chip row; every Filters choice narrows (AND) across facets. */
 export function browseRecipes(all: Recipe[], browse: CookBrowse, query: string, context: Context) {
   const text = query.trim().toLowerCase(), diets = selectedRecipeDiets(browse);
