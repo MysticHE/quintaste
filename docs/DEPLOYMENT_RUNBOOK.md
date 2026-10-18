@@ -12,6 +12,10 @@ Manual releases with the steps below remain valid for schema or Compose changes;
 First automated release: **20261017-ci3-1539d85** (app/preview; admin stays open-market2), live and verified 17 Oct: health 200, protected routes 401, unsigned editorial publish 401, Android/iOS manifests and bundles 200 with the existing scopeKey, zero app error lines, three releases retained, disk 69%. Two early runs were stopped safely: run 1 by the schema gate (CRLF vs LF in identical SQL; gates now ignore line endings), run 2 auto-rolled back because the strict umask left extracted folders unreadable to the `node` user (extraction now uses umask 022). Lesson: never change file modes in the build context; the app and preview images run as `node`.
 <!-- end-ci-deployment-20261017 -->
 
+<!-- current-20261018-cooked1 -->
+Current app/preview **20261018-cooked1** (manual, commit 8a3f196, because `server/reactions/schema.sql` v2 changes the `community.reaction` check), then CI redeployed the same code as **20261018-ci19-8a3f196**; admin stays member-recipes2. Adds "Cooked by N" on recipes: `POST /api/reactions/recipe/:id/cooked`, once per member per recipe, reported by `CookedSync` from the device cooked log. Backup succeeded (zero active avatar jobs); v1 `reaction_action_check` replaced by `reaction_action_kind` (cooked only for recipes); the one existing production share row kept. Local: TypeScript (app, server), lint, 31/31 API and browser checks with the retained accounts (test rows removed). Live: app/admin healthz 200, counts include `cooks`, guest cooked 401, untrusted 403, menus 200, web entry bundle identical to the local export, Android manifest/bundle 200 with the existing scopeKey and "Cooked by", zero app error lines. Rollback `deployment-backups/20261018-cooked1` (leave the table; the older image ignores cooked rows).
+<!-- end-current-20261018-cooked1 -->
+
 <!-- current-20261018-reactions1 -->
 Current app/preview **20261018-reactions1** (manual, commits 1365aef..ee7df3e, because it adds `server/reactions/schema.sql`), then CI redeployed the same code as **20261018-ci18-ee7df3e**; admin stays member-recipes2. Adds likes and shares on Explore places and Cook recipes (`/api/reactions/:kind`, ungated), the shared photo post card with like/save/share stacked on the right, Cook's Saved tab, and the Notifications permission fix. Backup succeeded (zero active avatar jobs); additive `community.reaction` applied with the operations role; grants verified (app select/insert/delete, no update; admin select; 0 rows). Local: TypeScript (app, server), lint, 24/24 API and browser checks with the retained Alice/Bob accounts (test rows removed). Live: app/admin healthz 200, reactions counts 200 for guests, guest like 401, untrusted origin 403, menus 200, web entry bundle identical to the local export, Android manifest/bundle 200 with the existing scopeKey and the new code, zero app error lines. Not yet exercised live: a signed-in like/share on production, physical devices (Notifications fix included). Rollback `deployment-backups/20261018-reactions1` (leave the additive table).
 <!-- end-current-20261018-reactions1 -->
@@ -296,8 +300,8 @@ Each SSH/Paramiko command starts a fresh shell. Repeat `cd` and variable declara
 | Web/API | `https://quintaste.srv1902914.hstgr.cloud` |
 | Admin | `https://admin-quintaste.srv1902914.hstgr.cloud` |
 | Android Expo Go | `exps://preview-quintaste.srv1902914.hstgr.cloud` |
-| App image | `quintaste-app:20261018-ci18-ee7df3e` (CI, same code as manual reactions1) |
-| Preview image | `quintaste-preview:20261018-ci18-ee7df3e` (CI) |
+| App image | `quintaste-app:20261018-ci19-8a3f196` (CI, same code as manual cooked1) |
+| Preview image | `quintaste-preview:20261018-ci19-8a3f196` (CI) |
 | Admin image | `quintaste-admin:20261018-member-recipes2` |
 | Database | Existing `postgres:17-bookworm`, database/user `quintaste`; app role `quintaste_app` |
 
