@@ -19,7 +19,8 @@ export function BrowseHeader({ query, onChange, placeholder, filter, action }: {
     {action}<MeButton />
   </View>;
 }
-function FilterButton({ label, count, onPress }: BrowseFilter) {
+/** The filter button that sits inside a search box; solid with a count while filters are on. */
+export function FilterButton({ label, count, onPress }: BrowseFilter) {
   const { theme } = usePreferences(), onAccent = useOnAccent(), { focused, focusProps } = useKeyboardFocus(), active = count > 0;
   return <Pressable accessibilityRole="button" accessibilityLabel={active ? `${label}, ${count} on` : label} accessibilityState={{ selected: active }}
     onPress={onPress} hitSlop={4} {...focusProps}

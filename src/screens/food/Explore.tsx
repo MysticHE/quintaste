@@ -3,7 +3,8 @@ import { useCallback } from "react";
 import { ActivityIndicator, View, AppState, StyleSheet } from "react-native";
 import { Screen } from "../../components/Screen";
 import { Button, Icon, T, common } from "../../components/ui";
-import { IconButton } from "../../components/food/Controls";
+import { IconButton, MeButton } from "../../components/food/Controls";
+import { FilterButton } from "../../components/BrowseControls";
 import { LocationSearchField } from "../../components/discovery/LocationSearchField";
 import { LocationFeedback } from "../../components/discovery/LocationFeedback";
 import { CatalogueVenueCard } from "../../components/discovery/CatalogueVenueCard";
@@ -36,11 +37,10 @@ export function ExploreScreen() {
   return <Screen back={false} compact contentStyle={{ paddingHorizontal: 4 }}>
     <View style={[common.row, { gap: 6, zIndex: 50, alignItems: "flex-start" }]}><View style={common.flex}>
       <LocationSearchField key={discoveryScope} value={search} disabled={!readable} onChange={setSearch} onChoose={choose}
-        onSearch={searchPlaces} suggestionsInFlow /></View>
-      <IconButton label={count ? "Filters, " + count + " active" : "Filters"} icon="options-outline" badge={count > 0 ? count : undefined}
-        selected={count > 0} onPress={() => router.push("/filters")} />
+        onSearch={searchPlaces} suggestionsInFlow trailing={<FilterButton label="Filters" count={count} onPress={() => router.push("/filters")} />} /></View>
       <IconButton label="Search By My Location" icon="locate-outline" disabled={!readable} loading={nearby.busy}
-        selected={!!input.origin} onPress={() => void nearby.locate()} /></View>
+        selected={!!input.origin} onPress={() => void nearby.locate()} />
+      <MeButton /></View>
     <View testID="explore-search-context" style={s.context}>
     {!!point && !privateMissing && <View testID="explore-location-label" style={[s.locationLabel, { backgroundColor: theme.accentSoft }]}>
       <Icon name="location-outline" size={14} color={theme.mutedForeground} />

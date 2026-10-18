@@ -1,4 +1,4 @@
-import { useId, useRef, useState } from "react";
+import { useId, useRef, useState, type ReactNode } from "react";
 import { Keyboard, Platform, Pressable, StyleSheet, TextInput, View } from "react-native";
 import { usePreferences } from "../../state/Preferences";
 import { fontNames } from "../../theme/tokens";
@@ -9,9 +9,9 @@ import { Icon } from "../ui";
 import { LocationSuggestions } from "./LocationSuggestions";
 
 export function LocationSearchField({ value, onChange, onChoose, onSearch, addressesOnly = false, disabled = false,
-  suggestionsInFlow = false, placeholder = "Place or postal code" }: {
+  suggestionsInFlow = false, placeholder = "Place or postal code", trailing }: {
   value: string; onChange: (value: string) => void; onChoose: (item: LocationSuggestion) => void; onSearch?: (query: string) => void;
-  addressesOnly?: boolean; placeholder?: string; disabled?: boolean; suggestionsInFlow?: boolean;
+  addressesOnly?: boolean; placeholder?: string; disabled?: boolean; suggestionsInFlow?: boolean; trailing?: ReactNode;
 }) {
   const { theme, textMultiplier } = usePreferences(), [focused, setFocused] = useState(false);
   const input = useRef<TextInput>(null), id = "location-" + useId();
@@ -36,6 +36,7 @@ export function LocationSearchField({ value, onChange, onChoose, onSearch, addre
       {!!value && <Pressable accessibilityRole="button" accessibilityLabel="Clear location search" disabled={disabled} accessibilityState={{ disabled }}
         onPress={() => { control.changed(); onChange(""); onSearch?.(""); input.current?.focus(); }}
         style={s.action}><Icon name="close-circle-outline" /></Pressable>}
+      {trailing}
     </View>
     {expanded && <LocationSuggestions id={id} suggestions={control.suggestions} busy={control.busy} inFlow={suggestionsInFlow}
       error={control.error} index={control.index} choose={control.choose} keepOpen={control.keepOpen} retry={control.retry} />}
