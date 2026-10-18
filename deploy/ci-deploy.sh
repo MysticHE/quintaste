@@ -123,7 +123,8 @@ done
 if ! $healthy; then rollback; fail "Live checks failed; rolled back" 21; fi
 log "Live checks passed"
 
-# 7. Keep the newest releases only.
+# 7. Keep the newest releases only, and drop build cache older than two days (recent layers keep the next build fast).
 "$ROOT/bin/prune-releases.sh" --apply 3 > "releases/$RELEASE-prune.log" 2>&1 || log "Prune reported an error (see releases/$RELEASE-prune.log)"
+docker builder prune -f --filter until=48h > "releases/$RELEASE-cache.log" 2>&1 || log "Build cache cleanup reported an error (see releases/$RELEASE-cache.log)"
 docker ps --filter name=quintaste-staging --format '{{.Names}} {{.Image}} {{.Status}}'
 log "Deployed $RELEASE ($SERVICES)"
