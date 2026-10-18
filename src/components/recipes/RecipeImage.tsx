@@ -9,7 +9,7 @@ import { subscribeCataloguePhoto } from "../../services/catalogue-photo-cache";
 import { usePhotoVisibility } from "../discovery/PhotoScrollView";
 
 /** Illustrative photo when one exists; otherwise an honest category tile rather than a borrowed image. */
-export function RecipeImage({ recipe, style, label = false }: { recipe: Pick<Recipe, "name" | "photo" | "categories" | "image">; style: StyleProp<ViewStyle>; label?: boolean }) {
+export function RecipeImage({ recipe, style, label = false, large = label }: { recipe: Pick<Recipe, "name" | "photo" | "categories" | "image">; style: StyleProp<ViewStyle>; label?: boolean; large?: boolean }) {
   const { theme } = usePreferences();
   const visibility = usePhotoVisibility(true), [remote, setRemote] = useState<{ asset?: string; uri?: string; failed: boolean }>({ failed: false });
   const asset = recipe.image?.path;
@@ -24,6 +24,6 @@ export function RecipeImage({ recipe, style, label = false }: { recipe: Pick<Rec
   const category = recipe.categories[0] ?? "Recipe";
   return <View ref={node => visibility.attach(node)} onLayout={visibility.onLayout} accessible={label} accessibilityLabel={label ? recipe.name + ", no photo yet" : undefined}
     style={[{ overflow: "hidden", backgroundColor: theme.accentSoft, alignItems: "center", justifyContent: "center", padding: 8 }, style]}>
-    <T variant={label ? "subtitle" : "small"} color={theme.accent} numberOfLines={2} style={[common.bold, common.center]}>{category}</T>
+    <T variant={large ? "title" : "small"} color={theme.accent} numberOfLines={2} style={[common.bold, common.center]}>{category}</T>
   </View>;
 }

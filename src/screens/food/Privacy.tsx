@@ -50,7 +50,7 @@ export function PrivacyScreen() {
   return <Screen title="Privacy & Data">
     <ListGroup title="Where your data lives">
       <ListItem title="On this phone" subtitle="Saves, notes, recipe drafts, shopping list, cooking timers and your Home and Work addresses" wrap leading={<RowIcon name="phone-portrait-outline" />} />
-      {!!user && <ListItem title="In your QuinTaste account" subtitle="Your profile, Social plans and messages, Market shop and orders, reviews and shared recipes" wrap leading={<RowIcon name="cloud-outline" />} />}
+      {!!user && <ListItem title="In your QuinTaste account" subtitle="Your profile, Social plans and messages, Market shop and orders, reviews, recipe likes and shared recipes" wrap leading={<RowIcon name="cloud-outline" />} />}
     </ListGroup>
     <Button label="Export My Data" icon="share-outline" variant="secondary" onPress={() => void exportData()} disabled={!readable} />
     <Card style={common.stack}><T variant="subtitle" accessibilityRole="header">Delete data on this phone</T>

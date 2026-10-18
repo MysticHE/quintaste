@@ -45,8 +45,7 @@ export function CookFiltersScreen() {
         selected={browse.sort === sort} disabled={!readable} onPress={() => set({ sort })} />)}</Chips>
     </FilterSection>
     <FilterSection title="More" icon="ellipsis-horizontal-circle-outline">
-      <Chips multiple label="More recipe filters"><Chip compact label="One pot" role="checkbox" selected={browse.onePot} disabled={!readable} onPress={() => set({ onePot: !browse.onePot })} />
-        <Chip compact label="Saved only" icon="bookmark-outline" role="checkbox" selected={browse.saved} disabled={!readable} onPress={() => set({ saved: !browse.saved })} /></Chips>
+      <Chips multiple label="More recipe filters"><Chip compact label="One pot" role="checkbox" selected={browse.onePot} disabled={!readable} onPress={() => set({ onePot: !browse.onePot })} /></Chips>
     </FilterSection>
   </CookLayout>;
 }

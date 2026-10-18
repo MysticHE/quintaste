@@ -1,16 +1,18 @@
-import { useRef, useState } from "react";
-import { Pressable, Share, StyleSheet, View } from "react-native";
+import { useState } from "react";
+import { Pressable, StyleSheet, View } from "react-native";
 import type { Recipe } from "../../types/food";
 import { useFood } from "../../state/Food";
 import { usePreferences } from "../../state/Preferences";
 import { alliumFree, recipeFit } from "../../utils/recipe-dietary";
 import { alliums, fivePungentLabel } from "../../config/preferences";
 import { cookedStats } from "../../utils/recipe-browse";
-import { ingredientLine, shortDate } from "../../utils/food-format";
+import { shortDate } from "../../utils/food-format";
 import { IconButton } from "../food/Controls";
 import { FitBadge } from "../food/Evidence";
 import { Button, Icon, T, common } from "../ui";
 import { RecipeImage } from "./RecipeImage";
+import { Action, RecipeActions } from "./RecipeActions";
+import { useRecipeReactions } from "../../hooks/useRecipeReactions";
 import * as Linking from "expo-linking";
 import { router } from "expo-router";
 import { ReportSheet } from "../ReportSheet";
@@ -31,37 +33,20 @@ export function FivePungentTag({ recipe, detail = false }: { recipe: Recipe; det
   return <View style={[s.tag, { backgroundColor: theme.warningSoft, borderColor: theme.warning }]}>
     <T variant="small" color={theme.warning} style={common.bold}>Has {used.join(", ").toLowerCase()}</T></View>;
 }
-function bundledShareText(recipe: Recipe) {
-  if (recipe.member) return recipe.name + "\nBy " + recipe.author + " · " + recipe.minutes + " min · " + recipe.servings + " servings\n" +
-    recipe.ingredients.map(i => ingredientLine(i).text).join("\n") + "\n\n" + recipe.steps.map((s, n) => (n + 1) + ". " + s.instruction).join("\n\n") +
-    "\n\nShared on QuinTaste · Ingredient claims are the author’s." + (recipe.member.sponsorship !== "None" ? "\nSponsorship: " + recipe.member.sponsorship : "");
-  return recipe.name + "\n" + recipe.minutes + " min · " + recipe.servings + " servings\n" +
-    recipe.ingredients.map(i => ingredientLine(i).text).join("\n") + "\n\n" +
-    recipe.steps.map((s, n) => (n + 1) + ". " + s.instruction).join("\n\n") + (recipe.provenance ? "\n\nQuinTaste · Source-reviewed adaptation; not kitchen-tested.\n" + recipe.provenance.sources.join("\n") : "\n\nQuinTaste bundled recipe · Ingredient claims unreviewed.");
-}
 export function RecipeOverview({ recipe }: { recipe: Recipe }) {
-  const { doc, isSaved, toggleSave, readable } = useFood();
+  const { doc } = useFood();
   const { draft, theme } = usePreferences();
-  const [info, setInfo] = useState(false), [fallback, setFallback] = useState(false), [failedLink, setFailedLink] = useState("");
-  const [busy, setBusy] = useState(false), lock = useRef(false), [report, setReport] = useState(false), member = useMember();
-  const saved = isSaved("recipe", recipe.id), result = recipeFit(recipe, draft.diet, draft.excluded);
-  const cooked = cookedStats(doc.recipes.cooked, recipe.id), shareText = bundledShareText(recipe);
-  const save = async () => {
-    if (lock.current || !readable) return;
-    lock.current = true; setBusy(true);
-    try { await toggleSave("recipe", recipe.id); } finally { lock.current = false; setBusy(false); }
-  };
-  const share = async () => { try { await Share.share({ message: shareText }); } catch { setFallback(true); } };
+  const [info, setInfo] = useState(false), [fallback, setFallback] = useState(""), [failedLink, setFailedLink] = useState("");
+  const [report, setReport] = useState(false), member = useMember();
+  const result = recipeFit(recipe, draft.diet, draft.excluded), cooked = cookedStats(doc.recipes.cooked, recipe.id);
+  useRecipeReactions([recipe.id]);
   return <>
     <RecipeImage recipe={recipe} label style={{ width: "100%", aspectRatio: 2.4, borderRadius: 16 }} />
-    <View style={[common.row, { gap: 6 }]}>
-      <View style={[common.flex, { gap: 4, alignItems: "flex-start" }]}>
-        <T variant="small" muted>{[recipe.minutes + " min", recipe.onePot ? "One pot" : "", cooked.count ? "Cooked " + cooked.count + "× · last " + shortDate(cooked.last) : ""].filter(Boolean).join(" · ")}</T>
-        <View style={[common.row, { gap: 6, flexWrap: "wrap" }]}><FitBadge fit={result.fit} /><FivePungentTag recipe={recipe} detail /></View>
-      </View>
-      <IconButton label={saved ? "Remove Saved Recipe" : "Save Recipe"} icon={saved ? "bookmark" : "bookmark-outline"} selected={saved} disabled={!readable || busy} loading={busy} onPress={() => void save()} />
-      <IconButton label="Share Recipe" icon="share-outline" onPress={() => void share()} />
-      <IconButton label="Recipe Info" icon="information-circle-outline" selected={info} onPress={() => setInfo(!info)} />
+    <RecipeActions recipe={recipe} onShareFailed={setFallback} extra={<Action icon={info ? "information-circle" : "information-circle-outline"}
+      color={info ? theme.accent : theme.foreground} label="Recipe Info" selected={info} onPress={() => setInfo(!info)} />} />
+    <View style={{ gap: 4, alignItems: "flex-start" }}>
+      <T variant="small" muted>{[recipe.minutes + " min", recipe.onePot ? "One pot" : "", cooked.count ? "Cooked " + cooked.count + "× · last " + shortDate(cooked.last) : ""].filter(Boolean).join(" · ")}</T>
+      <View style={[common.row, { gap: 6, flexWrap: "wrap" }]}><FitBadge fit={result.fit} /><FivePungentTag recipe={recipe} detail /></View>
     </View>
     {recipe.member?.shop && <AuthorShop author={recipe.author} shop={recipe.member.shop} />}
     {!!result.conflicts.length && <T variant="small" color={theme.warning}>Contains: {result.conflicts.join(", ")}</T>}
@@ -83,7 +68,7 @@ export function RecipeOverview({ recipe }: { recipe: Recipe }) {
       {!!recipe.adaptationNote && <T variant="small">{recipe.adaptationNote}</T>}
     </View>}
     {!!failedLink && <View style={{ gap: 6 }}><T variant="small">Link did not open. Select and copy:</T><T selectable>{failedLink}</T><IconButton label="Close Link" icon="close" onPress={() => setFailedLink("")} /></View>}
-    {fallback && <View style={{ gap: 6 }}><T variant="small">Sharing unavailable. Select and copy:</T><T selectable>{shareText}</T><IconButton label="Close Share Text" icon="close" onPress={() => setFallback(false)} /></View>}
+    {!!fallback && <View style={{ gap: 6 }}><T variant="small">Sharing unavailable. Select and copy:</T><T selectable>{fallback}</T><IconButton label="Close Share Text" icon="close" onPress={() => setFallback("")} /></View>}
   </>;
 }
 /** The author sells on Market: one line naming their shop, which opens it. */

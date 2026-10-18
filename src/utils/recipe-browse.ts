@@ -11,7 +11,7 @@ export function cookedStats(cooked: CookedEntry[], recipeId: string) {
   return { count: entries.length, last: entries.reduce((latest, entry) => Math.max(latest, entry.finishedAt), 0) };
 }
 export function activeFilterCount(browse: CookBrowse) {
-  return [selectedRecipeDiets(browse).length > 0, browse.alliumFree, browse.time !== "Any", browse.onePot, browse.saved].filter(Boolean).length;
+  return [selectedRecipeDiets(browse).length > 0, browse.alliumFree, browse.time !== "Any", browse.onePot].filter(Boolean).length;
 }
 type Context = { diet: Diet; excluded: readonly Exclusion[]; isSaved: (id: string) => boolean; cooked: CookedEntry[] };
 /** Category is OR within one chip row; every Filters choice narrows (AND) across facets. */
@@ -23,8 +23,7 @@ export function browseRecipes(all: Recipe[], browse: CookBrowse, query: string, 
     && (!diets.length || recipe.dietary.diet !== "Unknown" && diets.includes(recipe.dietary.diet))
     && (!browse.alliumFree || alliumFree(recipe))
     && (browse.time === "Any" || recipe.minutes <= +browse.time)
-    && (!browse.onePot || !!recipe.onePot)
-    && (!browse.saved || context.isSaved(recipe.id)));
+    && (!browse.onePot || !!recipe.onePot));
   const rank = new Map(matches.map(recipe => [recipe.id, evidenceRank(recipeFit(recipe, context.diet, context.excluded))]));
   const last = new Map(matches.map(recipe => [recipe.id, cookedStats(context.cooked, recipe.id).last]));
   const byFit = (a: Recipe, b: Recipe) => rank.get(a.id)! - rank.get(b.id)!;
