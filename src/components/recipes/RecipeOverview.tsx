@@ -65,6 +65,7 @@ export function RecipeOverview({ recipe }: { recipe: Recipe }) {
       <T variant="small">{recipe.author} · {recipe.language} · v{recipe.revision}</T>
       <T variant="small" muted>{recipe.provenance ? "Source-reviewed adaptation · Not kitchen-tested" : "Bundled recipe"} · {recipe.photo || recipe.image ? "Illustrative image" : "No photo yet"}</T>
       <T variant="small" muted>Updated {recipe.updatedAt}{recipe.provenance ? " · Reviewed by QT Manager" : " · Ingredient claims unreviewed"}</T>
+      {recipe.sourceRating && <T variant="small">Original rated {recipe.sourceRating.value.toFixed(1)} by {recipe.sourceRating.count.toLocaleString("en-SG")} cooks on {recipe.sourceRating.site}</T>}
       {recipe.provenance?.sources.map((url, index) => <Button key={url} label={"Recipe Source " + (index + 1)} variant="link" onPress={() => { setFailedLink(""); void Linking.openURL(url).catch(() => setFailedLink(url)); }} />)}
       {!!recipe.description && <T variant="small">{recipe.description}</T>}
       {!!recipe.adaptationNote && <T variant="small">{recipe.adaptationNote}</T>}

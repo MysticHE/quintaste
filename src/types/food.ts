@@ -51,6 +51,8 @@ export type Recipe = {
   categories: RecipeCategory[]; onePot?: boolean;
   ingredients: Ingredient[]; steps: RecipeStep[]; dishId?: string; adaptationId?: string;
   adaptationNote?: string;
+  /** The original recipe page's rating when the QT bot selected it (not a QuinTaste rating). */
+  sourceRating?: { value: number; count: number; site: string; url: string; checkedAt: string };
   author: string; language: string; revision: number; updatedAt: string; withdrawal?: string;
   /** Present on recipes members shared and staff published; `shop` is the author's Market shop when buyers can see it. */
   member?: { sponsorship: string; own: boolean; shop: { id: string; name: string } | null };
