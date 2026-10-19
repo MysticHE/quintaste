@@ -21,7 +21,10 @@ import { MenusProvider } from "../state/Menus";
 import { PreferencesProvider, usePreferences } from "../state/Preferences";
 import { AuthProvider, useAuth } from "../state/Auth";
 import { takeSignInDestination } from '../services/sign-in-destination';
+import { SplashIntro, SplashMark, startSplashIntro } from '../components/splash/Intro';
 void SplashScreen.preventAutoHideAsync().catch(() => {});
+// The native splash is the plain brand background the intro starts on, so a quick fade is enough to hand over.
+SplashScreen.setOptions({ duration: 200, fade: true });
 const presentations = {
   'food-choices': 'modal', login: 'formSheet',
   'create-account': 'formSheet', 'cooking/[id]': 'fullScreenModal',
@@ -65,8 +68,10 @@ function Navigation() {
     }
   }, [ready, fontsLoaded, fontError, owner, collectionReady, navigation?.key, profileRoute, clearProfileRoute]);
   useEffect(() => {
-    if (ready && (fontsLoaded || fontError))
+    if (ready && (fontsLoaded || fontError)) {
+      startSplashIntro();
       void SplashScreen.hideAsync().catch(() => {});
+    }
   }, [ready, fontsLoaded, fontError]);
   if (!ready || (!fontsLoaded && !fontError))
     return (
@@ -77,10 +82,7 @@ function Navigation() {
           backgroundColor: theme.background,
         }}
       >
-        <ActivityIndicator
-          color={theme.accent}
-          accessibilityLabel="Loading QuinTaste"
-        />
+        <SplashMark />
       </View>
     );
   return (
@@ -113,7 +115,7 @@ function AccountScope() {
   </View>;
   return (
       <PreferencesProvider key={user?.id || "guest"}>
-        <FoodProvider><TimerAlertsProvider><ExploreLocalProvider><MenusProvider><DiscoveryProvider><Navigation /><TimerFinishHaptics /><CookedSync /></DiscoveryProvider></MenusProvider></ExploreLocalProvider></TimerAlertsProvider></FoodProvider>
+        <FoodProvider><TimerAlertsProvider><ExploreLocalProvider><MenusProvider><DiscoveryProvider><Navigation /><TimerFinishHaptics /><CookedSync /></DiscoveryProvider></MenusProvider></ExploreLocalProvider></TimerAlertsProvider></FoodProvider><SplashIntro />
       </PreferencesProvider>
   );
 }
