@@ -34,6 +34,8 @@ export function useGame() {
   const { setNotice } = usePreferences();
   const memberId = accountsEnabled && owner === "profile" && user?.adultConfirmed ? user.id : null;
   const { tier } = useLotus();
+  const stored = doc.game;
+  const game = useMemo(() => withTier(stored, tier), [stored, tier]);
   const tierRef = useRef(tier);
   useLayoutEffect(() => { tierRef.current = tier; }, [tier]);
   /** Every change sees the account's tier, and the stored copy never keeps one. */
@@ -110,7 +112,5 @@ export function useGame() {
     }
   }, [memberId, commit, updateGame, tiered]);
 
-  const stored = doc.game;
-  const game = useMemo(() => withTier(stored, tier), [stored, tier]);
   return { game, set, save, buy, startRun, finish, member: !!memberId, tier };
 }
