@@ -28,14 +28,14 @@ Expected cost: about US$0.005 per minute of video with Flash, a few cents per re
 
 Phase 1 is production-usable behind the feature control; Phases 2 and 3 are what make it trustworthy at scale and marketable as Plus.
 
-## 3. Storing the Gemini key in Cloudflare (owner step, after Phase 1 is deployed)
+## 3. Storing the Gemini key (owner step)
 
-1. Cloudflare dashboard → AI → AI Gateway → gateway `quintaste` → Provider Keys (BYOK) → Add → provider **Google AI Studio** → paste the Gemini API key → alias **default**.
-2. Same gateway → Settings: keep Authenticated Gateway on (the VPS already holds the gateway token in `/docker/quintaste/admin-secrets/cloudflare-gateway-token`), set a monthly spend limit, keep logging on.
-3. No VPS secret changes. The server reads `CLOUDFLARE_ACCOUNT_ID`, `CLOUDFLARE_GATEWAY_ID` and the token file it already uses for avatars, and calls `…/google-ai-studio/v1beta/models/gemini-2.5-flash:generateContent` with `cf-aig-authorization` and `cf-aig-byok-alias: default`.
-4. Enable the feature: `UPDATE ops.control SET enabled=true WHERE key='ai_recipes';` with the operations role. Disable the same way at any time; running jobs stop at their next check.
+Owner decision, 19 October 2026: the key is entered in the staff console, not in Cloudflare (Cloudflare's BYOK rejected both the AI Studio key and the Vertex service account).
 
-The key never appears in the app, the repo, the VPS or this documentation.
+1. Admin console → **Integrations** → "Gemini · AI recipes" → paste the Google AI Studio key (from https://aistudio.google.com/app/apikey) → reason → **Save key**. The console first asks Google for the model list with that key (no generation, no cost); a key Google rejects is not stored, and the message says why (invalid, project restricted or billing not linked, quota).
+2. Then **Operations** → enable `recipes` (the member recipe feed the AI recipes publish into) and `ai_recipes`. Both can be turned off at any time; running jobs stop at their next check.
+
+How it is protected: the key is encrypted with AES-256-GCM under `/docker/quintaste/admin-secrets/provider-secret-key` (32 random bytes, mode 0400, mounted read-only into the app and admin containers only), stored in `ops.provider_secret` with the provider name as associated data; the app role can only read the row, staff roles write it; the console shows only the last four characters; saving, replacing and removing are audited without the value; the app never logs it and redacts `AIza…` from any provider error it records. A database copy alone does not reveal the key. The Cloudflare gateway path remains as a fallback when no key is stored.
 
 ## 4. Known limits in Phase 1
 

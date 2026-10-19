@@ -6,6 +6,7 @@ import { overview } from '../../../../lib/overview';
 import { accounts, accountAction, changeControl, staffList, changeStaff } from '../../../../lib/management';
 import { caseList, caseDetails, createCase, updateCase } from '../../../../lib/cases';
 import { gatewayStatus, checkGateway } from '../../../../lib/gateway';
+import { providerKeyStatus, setProviderKey, removeProviderKey, checkProviderKey } from '../../../../lib/provider-keys';
 import { sellerAction, sellerDetail, sellerList } from '../../../../lib/sellers';
 
 type Context = { params: Promise<{ resource: string }> };
@@ -18,7 +19,7 @@ export function GET(request: Request, context: Context) { return route(async () 
   if (resource === 'accounts') return json(await accounts(member, params.get('q') || ''));
   if (resource === 'cases') return json(params.has('id') ? await caseDetails(member, text(params.get('id'),'case id',36)) : await caseList(member, params.get('status') || '', offset(params.get('page'))));
   if (resource === 'sellers') return json(params.has('id') ? await sellerDetail(member, text(params.get('id'),'seller id',64)) : await sellerList(member, params.get('status') || ''));
-  if (resource === 'integrations') return json(await gatewayStatus(member));
+  if (resource === 'integrations') return json({ ...await gatewayStatus(member), ...await providerKeyStatus(member) });
   if (resource === 'staff') return json(await staffList(member));
   if (resource === 'assignees') {
     authorize(member, 'operations');
@@ -44,6 +45,9 @@ export function POST(request: Request, context: Context) { return route(async ()
   if (resource === 'sellers') return json(await sellerAction(member,input,reason));
   if (resource === 'controls') return json(await changeControl(member,input,reason));
   if (resource === 'staff') return json(await changeStaff(member,input,reason));
-  if (resource === 'integrations') return json(await checkGateway(member,reason));
+  if (resource === 'integrations') {
+    if (input.provider) return json(input.action === 'remove' ? await removeProviderKey(member,input,reason) : input.action === 'check' ? await checkProviderKey(member,input,reason) : await setProviderKey(member,input,reason));
+    return json(await checkGateway(member,reason));
+  }
   throw new HttpError(404, 'Not found.');
 }); }

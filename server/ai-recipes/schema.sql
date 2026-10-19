@@ -29,10 +29,23 @@ CREATE INDEX IF NOT EXISTS recipes_ai_job_hash ON recipes.ai_job(input_hash) WHE
 -- Off until the owner enables it; the notice may carry "daily=N" to cap jobs a day across all members.
 INSERT INTO ops.control(key, enabled, notice) VALUES ('ai_recipes', false, '') ON CONFLICT DO NOTHING;
 GRANT SELECT, INSERT, UPDATE, DELETE ON recipes.ai_job TO quintaste_app;
+-- Provider keys entered in the staff console (v2, 19 Oct 2026): AES-256-GCM ciphertext (12-byte iv, 16-byte tag, data)
+-- under the provider-secret-key file that only the app and admin containers can read, so a database copy alone
+-- reveals nothing. `hint` is the last four characters, for the console. The app only reads; staff write.
+CREATE TABLE IF NOT EXISTS ops.provider_secret (
+  provider text PRIMARY KEY CHECK (provider ~ '^[a-z][a-z0-9_-]{1,31}$'),
+  ciphertext bytea NOT NULL CHECK (octet_length(ciphertext) BETWEEN 29 AND 4096),
+  key_version integer NOT NULL DEFAULT 1,
+  hint text NOT NULL DEFAULT '' CHECK (length(hint) <= 4),
+  updated_at timestamptz NOT NULL DEFAULT now(),
+  updated_by uuid
+);
+GRANT SELECT ON ops.provider_secret TO quintaste_app;
 DO $$
 BEGIN
   IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'quintaste_admin') THEN
     GRANT SELECT ON recipes.ai_job TO quintaste_admin;
+    GRANT SELECT, INSERT, UPDATE, DELETE ON ops.provider_secret TO quintaste_admin;
   END IF;
 END $$;
 COMMIT;

@@ -4,6 +4,7 @@ services:
       - ./avatar-secrets:/run/secrets/avatar:ro
       - ./admin-secrets/cloudflare-gateway-token:/run/secrets/cloudflare-gateway-token:ro
       - ./admin-secrets/google-client-secret:/run/secrets/google-client-secret:ro
+      - ./admin-secrets/provider-secret-key:/run/secrets/provider-secret-key:ro
       - ./avatar-data:/app/.local/avatar
     environment:
       AVATAR_ENABLED: 'true'
@@ -16,6 +17,7 @@ services:
       AVATAR_IMAGE_MODEL: gpt-image-2.5-sunburst
       GOOGLE_CLIENT_ID: 528818348519-l3tnrloeqjm9voa41m88domtil4qmejp.apps.googleusercontent.com
       GOOGLE_CLIENT_SECRET_FILE: /run/secrets/google-client-secret
+      PROVIDER_SECRET_KEY_FILE: /run/secrets/provider-secret-key
       GOOGLE_REDIRECT_URI: https://admin-quintaste.srv1902914.hstgr.cloud/auth/callback
       EXPO_GO_PREVIEW_URL: https://${PREVIEW_HOST}
     labels:

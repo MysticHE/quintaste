@@ -44,7 +44,9 @@ export function Audit() {
         <button type="button" disabled={resource.data.length < 100} onClick={() => setBefore(resource.data?.at(-1)?.id || '')}>Older<Icon name="forward" size={16}/></button></div></div>}
   </>;
 }
-type Gateway = { account: string; gateway: string; alias: string; credentialConfigured: boolean; latest: null | { status: string; http_status: number | null; checked_at: string }; dashboard: string };
+type Check = null | { status: string; http_status: number | null; checked_at: string };
+type Gateway = { account: string; gateway: string; alias: string; credentialConfigured: boolean; latest: Check; dashboard: string;
+  gemini: { label: string; configured: boolean; hint: string; updatedAt: string | null; updatedBy: string | null; latest: Check }; encryptionReady: boolean };
 export function Integrations() {
   const resource = useResource<Gateway>('/api/manage/integrations'), data = resource.data;
   const passed = data?.latest?.status === 'connected_text_probe';
@@ -61,5 +63,19 @@ export function Integrations() {
     <section className="panel"><h2>Connection check</h2>
       <div className="notice warn"><Icon name="warning"/>Sends one paid OpenAI request · 3 per day</div>
       <Mutation endpoint="integrations" label="Run check" onSaved={resource.reload} values={() => ({})}/></section>
+    <section className="panel"><h2>Gemini · AI recipes</h2>
+      <ul className="list">
+        <li><span>Google AI Studio key</span><span className="value"><span className={'badge ' + (data.gemini.configured ? 'good' : 'warn')}>{data.gemini.configured ? 'Stored · ends ' + data.gemini.hint : 'Not set'}</span></span></li>
+        <li><span>Updated</span><span className="value">{data.gemini.updatedAt ? date(data.gemini.updatedAt) + (data.gemini.updatedBy ? ' · ' + data.gemini.updatedBy : '') : '—'}</span></li>
+        <li><span>Last Google check</span><span className="value">{data.gemini.latest ? data.gemini.latest.status.replaceAll('_', ' ') + ' · ' + date(data.gemini.latest.checked_at) : '—'}</span></li>
+        <li><span>Encrypted storage</span><span className="value">{data.encryptionReady ? 'Ready' : 'Key file missing on server'}</span></li>
+      </ul>
+      {!data.encryptionReady && <div className="notice warn"><Icon name="warning"/>The provider-secret-key file is not mounted, so keys cannot be stored yet.</div>}
+      <Mutation endpoint="integrations" label={data.gemini.configured ? 'Replace key' : 'Save key'} reset onSaved={resource.reload} values={f => ({ provider: 'gemini', action: 'set', key: f.get('key') })}>
+        <div className="fields"><label>API key from Google AI Studio<input name="key" type="password" required minLength={39} maxLength={39} autoComplete="off" spellCheck={false} placeholder="AIza…"/></label></div>
+        <div className="notice"><Icon name="check"/>Checked with Google before it is saved (no generation, no cost); stored encrypted; shown only as its last four characters.</div>
+      </Mutation>
+      {data.gemini.configured && <Mutation endpoint="integrations" label="Remove key" tone="danger" onSaved={resource.reload} values={() => ({ provider: 'gemini', action: 'remove' })}/>}
+    </section>
   </div>}</>;
 }

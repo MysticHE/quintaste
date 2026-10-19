@@ -8,10 +8,10 @@ export function startAiRecipeWorker() {
   const controller = new AbortController();
   let busy = false, stopped = false;
   async function tick() {
-    if (busy || stopped || !geminiConfig().enabled) return;
+    if (busy || stopped) return;
     busy = true;
     try {
-      if (!await allowed('ai_recipes') || !await allowed('recipes')) return;
+      if (!(await geminiConfig()).enabled || !await allowed('ai_recipes') || !await allowed('recipes')) return;
       await pool.query(`UPDATE recipes.ai_job SET status='failed', message='The job was interrupted. Try again.', finished_at=now()
         WHERE status='working' AND started_at < now() - interval '20 minutes'`);
       const job = (await pool.query(`UPDATE recipes.ai_job SET status='working', started_at=now(), attempts=attempts+1

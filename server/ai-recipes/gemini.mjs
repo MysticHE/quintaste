@@ -1,29 +1,35 @@
 import { readFileSync } from 'node:fs';
 import { logger } from '../config.mjs';
+import { loadProviderKey } from './secret.mjs';
 
 /**
- * Gemini through the Cloudflare AI Gateway (Google AI Studio provider, BYOK). The Gemini key is stored in the gateway
- * under the alias "default"; this server sends only the gateway token it already holds for avatars.
- * AI_RECIPES_LOCAL_URL points the client at a local stub for checks without any provider call.
+ * Gemini access. Preferred: the Google AI Studio key staff entered in the admin console (ops.provider_secret,
+ * encrypted), called directly. Fallback: the Cloudflare AI Gateway (Google AI Studio provider, BYOK alias "default")
+ * with the gateway token the server already holds. AI_RECIPES_LOCAL_URL points at a local stub for checks.
  */
 export class GeminiError extends Error {
   constructor(status, message) { super(message); this.status = status; }
 }
+const DIRECT = 'https://generativelanguage.googleapis.com/v1beta/models/';
 
-export function geminiConfig() {
-  const account = process.env.CLOUDFLARE_ACCOUNT_ID || '', gateway = process.env.CLOUDFLARE_GATEWAY_ID || '';
+export async function geminiConfig() {
   const model = process.env.AI_RECIPES_MODEL || 'gemini-2.5-flash', strong = process.env.AI_RECIPES_STRONG_MODEL || 'gemini-2.5-pro';
+  const local = process.env.NODE_ENV !== 'production' && process.env.AI_RECIPES_LOCAL_URL ? process.env.AI_RECIPES_LOCAL_URL : null;
+  if (local) return { enabled: true, mode: 'local', base: local, model, strong, headers: {} };
+  const apiKey = await loadProviderKey('gemini');
+  if (apiKey) return { enabled: true, mode: 'direct', base: DIRECT, model, strong, headers: { 'x-goog-api-key': apiKey } };
+  const account = process.env.CLOUDFLARE_ACCOUNT_ID || '', gateway = process.env.CLOUDFLARE_GATEWAY_ID || '';
   let token = '';
   try { token = readFileSync(process.env.CLOUDFLARE_GATEWAY_TOKEN_FILE || '', 'utf8').trim(); } catch { /* Stays unavailable. */ }
-  const local = process.env.NODE_ENV !== 'production' && process.env.AI_RECIPES_LOCAL_URL ? process.env.AI_RECIPES_LOCAL_URL : null;
-  const valid = local || (/^[a-f0-9]{32}$/.test(account) && /^[a-z0-9-]{1,64}$/.test(gateway) && /^[\x21-\x7e]{20,512}$/.test(token));
-  const base = local ?? `https://gateway.ai.cloudflare.com/v1/${account}/${gateway}/google-ai-studio/v1beta/models/`;
-  return { enabled: Boolean(valid), token, model, strong, base, local: Boolean(local) };
+  const valid = /^[a-f0-9]{32}$/.test(account) && /^[a-z0-9-]{1,64}$/.test(gateway) && /^[\x21-\x7e]{20,512}$/.test(token);
+  return { enabled: Boolean(valid), mode: 'gateway', model, strong,
+    base: `https://gateway.ai.cloudflare.com/v1/${account}/${gateway}/google-ai-studio/v1beta/models/`,
+    headers: valid ? { 'cf-aig-authorization': 'Bearer ' + token, 'cf-aig-byok-alias': 'default' } : {} };
 }
 
 /** One generateContent call; returns the parsed JSON the schema asked for plus token usage. */
 export async function generate({ parts, schema = null, system = null, tools = null, model = null, signal = undefined, maxOutputTokens = 8192 }) {
-  const config = geminiConfig();
+  const config = await geminiConfig();
   if (!config.enabled) throw new GeminiError(503, 'AI recipes are not configured.');
   const body = {
     contents: [{ role: 'user', parts }],
@@ -31,20 +37,21 @@ export async function generate({ parts, schema = null, system = null, tools = nu
     ...(tools ? { tools } : {}),
     generationConfig: { temperature: 0.2, maxOutputTokens, ...(schema ? { responseMimeType: 'application/json', responseSchema: schema } : {}) },
   };
-  const headers = { 'content-type': 'application/json' };
-  if (!config.local) { headers['cf-aig-authorization'] = 'Bearer ' + config.token; headers['cf-aig-byok-alias'] = 'default'; }
   const controller = new AbortController(), timer = setTimeout(() => controller.abort(), 240000);
   signal?.addEventListener('abort', () => controller.abort(), { once: true });
   let response;
   try {
-    response = await fetch(config.base + (model ?? config.model) + ':generateContent', { method: 'POST', headers, body: JSON.stringify(body), signal: controller.signal });
-  } catch (error) {
+    response = await fetch(config.base + (model ?? config.model) + ':generateContent', { method: 'POST', redirect: 'error',
+      headers: { 'content-type': 'application/json', ...config.headers }, body: JSON.stringify(body), signal: controller.signal });
+  } catch {
     throw new GeminiError(502, controller.signal.aborted ? 'The model took too long.' : 'The model could not be reached.');
   } finally { clearTimeout(timer); }
   const text = await response.text();
   if (!response.ok) {
-    logger.warn({ event: 'ai_recipes_model_error', status: response.status, body: text.slice(0, 300) });
-    throw new GeminiError(response.status === 429 ? 429 : 502, response.status === 429 ? 'The model is busy. Try again in a few minutes.' : 'The model returned an error.');
+    // Status and a short, key-free excerpt only.
+    logger.warn({ event: 'ai_recipes_model_error', mode: config.mode, status: response.status, body: text.replace(/AIza[\w-]+/g, '[key]').slice(0, 300) });
+    throw new GeminiError(response.status === 429 ? 429 : 502, response.status === 429 ? 'The model is busy. Try again in a few minutes.'
+      : response.status === 401 || response.status === 403 ? 'The AI key was refused. Staff need to check it in the console.' : 'The model returned an error.');
   }
   let data;
   try { data = JSON.parse(text); } catch { throw new GeminiError(502, 'The model returned an unreadable reply.'); }
