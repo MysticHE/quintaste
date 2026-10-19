@@ -1,13 +1,12 @@
 /**
  * Ambient motion for My little café: wok steam, dust in the sunlight, a glint across the window, swaying decor,
- * the cook's sway, the companion's hop and first-visit sparkles. Everything is decorative (no pointer events) and
+ * the cook's sway, the companion's hop, tap reactions and the beacons that mark what can be tapped. Everything is decorative (no pointer events) and
  * disappears or holds still when the member asks for reduced motion.
  */
 import { useEffect, type ReactNode } from "react";
 import { StyleSheet, View, type StyleProp, type ViewStyle } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import Animated, { cancelAnimation, Easing, interpolate, useAnimatedStyle, useSharedValue, withDelay, withRepeat, withSequence, withTiming, type SharedValue } from "react-native-reanimated";
-import { Icon } from "../../../components/ui";
 import { usePreferences } from "../../../state/Preferences";
 import type { Box } from "./sceneLayout";
 
@@ -72,14 +71,20 @@ export function Glint({ box, u }: { box: Box; u: number }) {
 }
 
 /** Gentle rotation about the top (hanging decor) or bottom (plants, the cook). */
-export function Sway({ children, style, deg, origin, duration = 3400, delay = 0 }: { children: ReactNode; style: StyleProp<ViewStyle>; deg: number; origin: "top" | "bottom"; duration?: number; delay?: number }) {
+export function Sway({ children, style, deg, origin, duration = 3400, delay = 0, poke }: {
+  children: ReactNode; style: StyleProp<ViewStyle>; deg: number; origin: "top" | "bottom"; duration?: number; delay?: number; poke?: SharedValue<number>;
+}) {
   const { reducedMotion } = usePreferences(), t = useClock(reducedMotion, duration, delay, true);
-  const st = useAnimatedStyle(() => ({ transform: [{ rotate: (t.value - 0.5) * 2 * deg + "deg" }] }));
+  // A tap makes it wiggle: a few quick swings that fade out as `poke` runs 0 → 1.
+  const st = useAnimatedStyle(() => {
+    const k = poke ? poke.value : 0, wiggle = k > 0 && k < 1 ? Math.sin(k * Math.PI * 4) * (1 - k) * 7 : 0;
+    return { transform: [{ rotate: (t.value - 0.5) * 2 * deg + wiggle + "deg" }] };
+  });
   return <Animated.View pointerEvents="box-none" style={[style, { transformOrigin: origin === "top" ? "50% 0%" : "50% 100%" }, st]}>{children}</Animated.View>;
 }
 
 /** The companion breathes and hops every few seconds. */
-export function Hop({ children, style, u }: { children: ReactNode; style: StyleProp<ViewStyle>; u: number }) {
+export function Hop({ children, style, u, poke }: { children: ReactNode; style: StyleProp<ViewStyle>; u: number; poke?: SharedValue<number> }) {
   const { reducedMotion } = usePreferences(), y = useSharedValue(0), breath = useClock(reducedMotion, 1500, 0, true);
   useEffect(() => {
     if (reducedMotion) { cancelAnimation(y); y.value = 0; return; }
@@ -87,17 +92,34 @@ export function Hop({ children, style, u }: { children: ReactNode; style: StyleP
       withTiming(0, { duration: 420, easing: Easing.bounce })), -1);
     return () => cancelAnimation(y);
   }, [reducedMotion, u, y]);
-  const st = useAnimatedStyle(() => ({ transform: [{ translateY: y.value }, { scaleY: 1 + breath.value * 0.025 }, { scaleX: 1 - breath.value * 0.012 }] }));
+  // A tap makes it jump with a squash on landing.
+  const st = useAnimatedStyle(() => {
+    const k = poke ? poke.value : 0, jump = k > 0 && k < 1 ? Math.sin(k * Math.PI) : 0, squash = k > 0.75 && k < 1 ? Math.sin((k - 0.75) * 4 * Math.PI) * 0.08 : 0;
+    return { transform: [{ translateY: y.value - jump * 5 * u }, { scaleY: 1 + breath.value * 0.025 - squash }, { scaleX: 1 - breath.value * 0.012 + squash }] };
+  });
   return <Animated.View style={[style, { transformOrigin: "50% 100%" }, st]}>{children}</Animated.View>;
 }
 
-/** First-visit hint: a pulsing sparkle at the corner of something worth tapping. */
-export function Sparkle({ left, top, size }: { left: number; top: number; size: number }) {
-  const { theme, reducedMotion } = usePreferences(), t = useClock(reducedMotion, 1100, 0, true);
-  const st = useAnimatedStyle(() => ({ opacity: 0.55 + t.value * 0.45, transform: [{ scale: 0.82 + t.value * 0.3 }, { rotate: t.value * 14 + "deg" }] }));
-  return <Animated.View pointerEvents="none" style={[s.abs, { left: left - size / 2, top: top - size / 2 }, st]}>
-    <Icon name="sparkles" size={size} color={theme.mediaRating} />
-  </Animated.View>;
+/**
+ * Marks something tappable without a label: a small gold dot that sends out a soft ring every few seconds. Beacons are
+ * staggered so only one or two pulse at once; first-visit beacons pulse more often and stronger. Reduced motion keeps the dot only.
+ */
+export function Beacon({ left, top, u, delay, strong }: { left: number; top: number; u: number; delay: number; strong: boolean }) {
+  const { theme, reducedMotion } = usePreferences(), t = useClock(reducedMotion, 1500, delay, false, strong ? 1400 : 4200);
+  const d = Math.max(9, 2.2 * u), ring = Math.max(30, 7 * u);
+  const ringSt = useAnimatedStyle(() => ({ opacity: interpolate(t.value, [0, 0.15, 1], [0, strong ? 0.95 : 0.7, 0]), transform: [{ scale: 0.3 + t.value * 1.1 }] }));
+  const dotSt = useAnimatedStyle(() => ({ transform: [{ scale: 1 + interpolate(t.value, [0, 0.2, 0.5, 1], [0, 0.35, 0, 0]) }] }));
+  return <View pointerEvents="none" style={[s.abs, s.centre, { left: left - ring / 2, top: top - ring / 2, width: ring, height: ring }]}>
+    {!reducedMotion && <Animated.View style={[s.abs, { width: ring, height: ring, borderRadius: ring, borderWidth: 2, borderColor: theme.mediaRating }, ringSt]} />}
+    <Animated.View style={[{ width: d, height: d, borderRadius: d, backgroundColor: theme.mediaRating, borderWidth: 2, borderColor: theme.mediaForeground }, dotSt]} />
+  </View>;
+}
+
+/** Hover light for an invisible hotspot: a soft gold outline and wash while the pointer is over it. */
+export function HoverGlow({ h }: { h: SharedValue<number> }) {
+  const { theme } = usePreferences();
+  const st = useAnimatedStyle(() => ({ opacity: h.value }));
+  return <Animated.View pointerEvents="none" style={[StyleSheet.absoluteFill, s.hover, { borderColor: theme.mediaRating, backgroundColor: theme.mediaDivider }, st]} />;
 }
 
 /** A press glow for an invisible hotspot: a soft light that blooms from the centre. */
@@ -114,4 +136,7 @@ export function useEnter(delay: number, from: number, scaleFrom = 1) {
   return useAnimatedStyle(() => ({ opacity: t.value, transform: [{ translateY: (1 - t.value) * from }, { scale: scaleFrom + (1 - scaleFrom) * t.value }] }));
 }
 
-const s = StyleSheet.create({ abs: { position: "absolute" }, fill: { width: "100%", height: "100%" }, centre: { alignItems: "center", justifyContent: "center" } });
+const s = StyleSheet.create({
+  abs: { position: "absolute" }, fill: { width: "100%", height: "100%" }, centre: { alignItems: "center", justifyContent: "center" },
+  hover: { borderRadius: 16, borderWidth: 2 },
+});

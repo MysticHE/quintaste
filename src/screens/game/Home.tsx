@@ -1,6 +1,6 @@
 import { Redirect, router, useIsFocused } from "expo-router";
-import { useMemo, useState } from "react";
-import { Alert, Platform, StyleSheet, View, type LayoutChangeEvent } from "react-native";
+import { useEffect, useMemo, useState } from "react";
+import { Alert, BackHandler, InteractionManager, Platform, StyleSheet, View, type LayoutChangeEvent } from "react-native";
 import Animated from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { DestinationScreen } from "../../components/navigation/DestinationScreen";
@@ -58,12 +58,23 @@ function CafeHome() {
   const find = focused && sheet === null && !deco ? finds[0] : undefined;
   const n = nextLevel(game), lv = LEVELS[n - 1], allDone = cleared(game, 20);
   const bottom = insets.bottom + 16, trayH = 196 + insets.bottom;
-  const fit = stageFit(size.w, size.h, deco ? trayH : bottom + 56 + 20, !!deco, insets.top + 60, !!wideSkinKey(sceneSkin(game)));
+  const fit = stageFit(size.w, size.h, deco ? trayH : bottom + 56 + 20, !!deco, insets.top + 90, !!wideSkinKey(sceneSkin(game)));
   const hudIn = useEnter(180, -14), barIn = useEnter(300, 18);
 
   const open = (sh: SheetId) => { if (!game.introSeen) set(g => ({ ...g, introSeen: true })); setSheet(sh); };
   const hot = (id: HotId) => open(({ books: "books", menu: "menu", window: "window", wardrobe: "avatar", stove: "levels", avatar: "avatar", pet: "companion" } as const)[id]);
-  const play = (level: number, mode: "rush" | "calm") => { setSheet(null); set(g => ({ ...g, mode })); router.push({ pathname: "/game/play", params: { level: String(level), mode, run: String(Date.now()) } }); };
+  // Navigate once the sheet's Modal has gone: on iOS a push during a Modal dismissal can be dropped.
+  const play = (level: number, mode: "rush" | "calm") => { setSheet(null); set(g => ({ ...g, mode }));
+    InteractionManager.runAfterInteractions(() => router.push({ pathname: "/game/play", params: { level: String(level), mode, run: String(Date.now()) } })); };
+  // Android Back leaves decorate mode, asking first when there are unsaved changes.
+  useEffect(() => {
+    if (!deco) return;
+    const sub = BackHandler.addEventListener("hardwareBackPress", () => {
+      if (JSON.stringify(deco.draft) === JSON.stringify(game.decor)) setDeco(null); else confirmDiscard(() => setDeco(null));
+      return true;
+    });
+    return () => sub.remove();
+  }, [deco, game.decor]);
   const seeFind = (f: Find, equip: boolean) => set(g => {
     const next = { ...g, seen: [...g.seen, f.kind + ":" + f.id] };
     if (!equip) return next;

@@ -26,7 +26,7 @@ export function CompanionSheet({ game, onClose, onChoose, onWear }: { game: Game
     : tab === "style" ? style === worn ? <Button label={style ? "Wearing the " + ACCESSORIES[style].name.toLowerCase() : "Wearing nothing"} disabled onPress={() => {}} />
       : !style || accOk(style) ? <Button label={style ? "Wear the " + ACCESSORIES[style].name.toLowerCase() : "Take it off"} onPress={() => onWear(game.pet, style)} />
       : <Button label={unlockText(ACCESSORIES[style].unlock)} disabled onPress={() => {}} /> : undefined;
-  return <GameSheet title={tab === "choose" ? "Companion" : pet.name} onClose={onClose} footer={footer}>
+  return <GameSheet title={tab === "choose" ? "Companion" : pet.name} subtitle={SKILLS[pet.skill].name + " · equal-value skill"} onClose={onClose} footer={footer}>
     <View style={[s.hero, { backgroundColor: theme.accentSoft }]}>
       {hero && <Image source={hero} style={s.heroImg} resizeMode="contain" accessibilityLabel={pet.name} />}
     </View>

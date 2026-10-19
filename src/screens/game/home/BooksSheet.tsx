@@ -8,6 +8,7 @@ import { GUESTS, RULES } from "../../../game/content/guests";
 import { ITEMS, itemName } from "../../../game/content/items";
 import { LEVELS } from "../../../game/content/levels";
 import { cleared, highestCleared, nextLevel, type GameProgress } from "../../../game/progress";
+import { usePreferences } from "../../../state/Preferences";
 import { GameSheet, Section } from "./GameSheet";
 import { Art, Grid, Seg } from "./bits";
 
@@ -26,9 +27,10 @@ function firsts() {
 const FIRST = firsts();
 
 export function BooksSheet({ game, initial = "recipes", onClose }: { game: GameProgress; initial?: Tab; onClose(): void }) {
+  const { theme } = usePreferences();
   const [tab, setTab] = useState<Tab>(initial);
   const reached = nextLevel(game), top = highestCleared(game);
-  return <GameSheet title="Books" onClose={onClose}>
+  return <GameSheet title="Books" subtitle="Recipes, pantry labels and your regulars" art="dish-beehoon" onClose={onClose}>
     <Seg<Tab> label="Books" value={tab} onChange={setTab} options={[["recipes", "Recipes"], ["pantry", "Pantry"], ["regulars", "Regulars"]] as [Tab, string][]} />
     {tab === "recipes" && Object.entries(FIRST.dish).sort((a, b) => a[1] - b[1]).map(([id, n]) => {
       const d = DISHES[id], got = cleared(game, n), recipe = d.recipeId && recipeById(d.recipeId);
@@ -43,7 +45,7 @@ export function BooksSheet({ game, initial = "recipes", onClose }: { game: GameP
       <T variant="small" muted>Game labels are fictional. Real products vary, so always read the actual label.</T>
       <Grid>{Object.entries(FIRST.item).sort((a, b) => a[1] - b[1]).map(([id, n]) => {
         const it = ITEMS[id], got = n <= reached;
-        return <View key={id} style={s.card}><Art k={it.art} size={52} style={!got ? { opacity: 0.3 } : undefined} />
+        return <View key={id} style={[s.card, { backgroundColor: theme.card, borderColor: theme.border }]}><Art k={it.art} size={52} style={!got ? { opacity: 0.3 } : undefined} />
           <T variant="small" style={{ fontWeight: "800", textAlign: "center" }} numberOfLines={2}>{got ? itemName(id) : "???"}</T>
           {got && (it.note || it.label?.flagged) && <T variant="small" muted style={{ fontSize: 11, textAlign: "center" }} numberOfLines={3}>{it.label?.flagged ? "Label lists " + it.label.flagged : it.note}</T>}
         </View>;
@@ -62,5 +64,5 @@ export function BooksSheet({ game, initial = "recipes", onClose }: { game: GameP
 }
 const s = StyleSheet.create({
   row: { flexDirection: "row", alignItems: "center", gap: 12 },
-  card: { width: "30%", flexGrow: 1, maxWidth: 140, alignItems: "center", gap: 4, padding: 8, borderRadius: 14 },
+  card: { width: "30%", flexGrow: 1, maxWidth: 140, alignItems: "center", gap: 4, padding: 10, borderRadius: 18, borderWidth: 1 },
 });

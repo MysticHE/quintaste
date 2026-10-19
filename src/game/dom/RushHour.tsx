@@ -21,6 +21,9 @@ type Props = {
   dom?: DOMProps;
 };
 const noop = () => {};
+/** Nunito for the webview (phones): expo-font registers it only for native text. */
+const fontFaces = (art: Record<string, string>) => [["Nunito_800ExtraBold", "font-nunito-800"], ["Nunito_700Bold", "font-nunito-700"]]
+  .filter(([, k]) => art[k]).map(([family, k]) => `@font-face{font-family:"${family}";src:url("${art[k]}") format("truetype");font-display:swap;}`).join("");
 
 export default function RushHour(props: Props) {
   const { level, pet, petArt, chefArt, art, signature } = props;
@@ -96,7 +99,7 @@ export default function RushHour(props: Props) {
 
   const overlay = !run.started || !!run.label || (paused && !run.ended) || (!!result && run.endReason !== "quit");
   return <div ref={rootRef} className="rh" style={{ position: "fixed", inset: 0 }}>
-    <style dangerouslySetInnerHTML={{ __html: RUSH_CSS }} />
+    <style dangerouslySetInnerHTML={{ __html: fontFaces(art) + RUSH_CSS }} />
     <div ref={stageRef} style={{ position: "absolute", inset: 0 }} aria-hidden="true" />
     {L && <div className="panels" inert={overlay || undefined} style={{ position: "absolute", inset: 0 }}>
       <Hud run={run} L={L} coins={coins} eatKey={eat} onPause={() => doPause(true)} />

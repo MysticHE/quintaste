@@ -34,26 +34,23 @@ export const slotBox = (id: SlotId, skin: string): Box => {
 /** Where steam leaves the wok on the stove. */
 export const WOK = { x: 73, y: 93 };
 
-/** First-visit sparkles: points (scene units) on the bookshelf, wardrobe and stove; the companion's is computed. */
-export const HINTS: Record<"books" | "wardrobe" | "stove", [number, number]> = { books: [9, 44], wardrobe: [92, 46], stove: [80, 90] };
+/** Beacon points (scene units) marking what can be tapped; the companion's and the menu's are computed. */
+export const BEACONS: Record<"books" | "wardrobe" | "stove" | "avatar", [number, number]> = { books: [9, 44], wardrobe: [92, 46], stove: [83, 91], avatar: [57, 72] };
 
 /**
- * Fits the 2:3 portrait room to the screen. Phones fill the width (zooming up to 20%, trimming the side edges, when
- * there is spare height). With a wide skin, wider screens show the whole room top to bottom and the wide art fills the
- * sides; the room only grows (cropping at most the top 22 units) when it would otherwise be too narrow for the wide art
- * to reach the screen edges. Without a wide skin they fill the width by sliding the room up, cropping at most the top
- * 45 units (down to the window sill) in play; decorate keeps 22 so the ceiling spot stays reachable, and anything
- * wider shows a blurred copy of the room. The counter (play) or floor slots (decorate) always stay above the controls.
- * When there is height to spare the room moves down by at most `lift` and Stage mirrors the ceiling above it.
+ * Fits the 2:3 portrait room to the screen without ever cropping its sides. With a wide skin the room fits the height
+ * (cropping at most the top 22 units under the HUD) and, on phones, takes 90% of the width so the wide art shows a
+ * little more room at each edge; the wide art fills the rest. Without one, phones fill the width and wider screens slide
+ * the room up (at most 45 units in play, 22 in decorate so the ceiling spot stays reachable) before falling back to a
+ * blurred copy of the room. The counter (play) or floor slots (decorate) always stay above the controls. When there is
+ * height to spare the room moves down by at most `lift` and Stage mirrors the ceiling above it.
  */
 export function stageFit(W: number, H: number, reserve: number, decorating: boolean, lift = 0, wide = false) {
   const crop = decorating || wide ? 22 : 45, need = decorating ? 150 : 128, avail = Math.max(1, H - reserve);
   const most = Math.min(W, (avail * 100) / (need - crop));
-  let width = Math.max(0, wide ? Math.min(most, Math.max((avail * 100) / 150, W / WIDE_SCALE)) : Math.min(most, decorating ? H / 1.2 : Infinity));
-  if (width === W && !decorating) width = W * Math.max(1, Math.min(1.2, (avail * 100) / (need * W)));
+  const width = Math.max(0, wide ? Math.min(most, W * 0.9, Math.max((avail * 100) / 150, W / WIDE_SCALE)) : Math.min(most, decorating ? H / 1.2 : Infinity));
   const u = width / 100;
   const top = Math.max(-crop * u, Math.min(0, avail - 150 * u));
-  // Tall phones: lower the room (up to `lift`, the header height) so the counter sits nearer the Play button.
   return { width, u, left: (W - width) / 2, top: top < 0 || decorating ? top : Math.min(lift, Math.max(0, avail - 125 * u - 110)) };
 }
 /** Wide skins are 3:2 with the 2:3 room in the middle, so they are 2.25 times the room's width. */

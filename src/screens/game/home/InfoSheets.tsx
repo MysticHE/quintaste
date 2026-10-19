@@ -16,7 +16,7 @@ export function MenuSheet({ game, onClose, onSignature }: { game: GameProgress; 
     <T muted>Clear the first lunch rush and the chalkboard becomes your menu: every dish you have learned, and your signature menu for Level 20.</T></Section></GameSheet>;
   const dishes = learnedDishes(game), sig = game.signature;
   const toggle = (id: string) => onSignature(sig.includes(id) ? sig.filter(x => x !== id) : sig.length < 3 ? [...sig, id] : sig);
-  return <GameSheet title="Your menu" onClose={onClose}>
+  return <GameSheet title="Your menu" subtitle={sig.length + " of 3 signature dishes"} onClose={onClose}>
     <T muted>Pick three dishes for your signature service (Level 20). Your regulars order from them.</T>
     <Grid>{dishes.map(id => <Tile key={id} art={DISHES[id].art} label={DISHES[id].name} selected={sig.includes(id)} worn={sig.includes(id)}
       status={sig.includes(id) ? "Signature" : sig.length < 3 ? "Add" : undefined} onPress={() => toggle(id)} />)}</Grid>
@@ -26,7 +26,7 @@ export function MenuSheet({ game, onClose, onSignature }: { game: GameProgress; 
 
 /** Lian and the wardrobe. The member's own avatar arrives with the Lotus Avatar flow. */
 export function AvatarSheet({ onClose, onCompanion }: { onClose(): void; onCompanion(): void }) {
-  return <GameSheet title="Lian" onClose={onClose}>
+  return <GameSheet title="Lian" subtitle="The QuinTaste mascot" onClose={onClose}>
     <View style={s.center}><Art k="avatar-lian" size={180} /></View>
     <Section title="Peach apron · wearing"><T muted>Lian, the QuinTaste mascot, runs every new café. Your own Adult and Mini style avatar arrives with the Lotus Avatar flow, and outfits come with the wardrobe set.</T></Section>
     <Button variant="secondary" label="Style your companion" onPress={onCompanion} />

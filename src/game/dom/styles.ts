@@ -50,7 +50,7 @@ export const RUSH_CSS = `
 .rh .tabs button[aria-selected=true] { background:var(--ink); color:var(--white); } .rh .tabs .view { margin-left:auto; }
 .rh .tray { display:grid; grid-auto-flow:column; grid-template-rows:1fr 1fr; grid-auto-columns:calc((100% - 30px)/6); gap:6px; overflow-x:auto; overflow-y:hidden; padding-bottom:4px; scrollbar-width:none; }
 .rh .tray::-webkit-scrollbar { display:none; }
-.rh .cardwrap { position:relative; display:grid; } .rh .card { position:relative; width:100%; border-radius:12px; background:var(--card); box-shadow:0 2px 0 var(--panel-edge); display:grid; grid-template-rows:1fr auto; justify-items:center; padding:3px 2px 2px; min-height:48px; touch-action:none; }
+.rh .cardwrap { position:relative; display:grid; } .rh .card { position:relative; width:100%; border-radius:12px; background:var(--card); box-shadow:0 2px 0 var(--panel-edge); display:grid; grid-template-rows:1fr auto; justify-items:center; padding:3px 2px 2px; min-height:48px; touch-action:pan-x; }
 .rh .card img { width:84%; height:100%; max-height:44px; object-fit:contain; pointer-events:none; } .rh .card span { font-size:9px; line-height:1.1; text-align:center; pointer-events:none; }
 .rh .card.sel { box-shadow:0 0 0 3px var(--gold), 0 2px 0 var(--panel-edge); transform:translateY(-3px); }
 .rh .card .tag { position:absolute; top:2px; left:3px; font-size:9px; width:15px; height:15px; border-radius:50%; background:var(--ink); color:var(--white); display:grid; place-items:center; }
@@ -108,5 +108,7 @@ export const RUSH_CSS = `
 .rh .list section { background:var(--white); border-radius:14px; padding:10px; display:grid; gap:6px; } .rh .list h4 { margin:0; font-size:14px; }
 .rh .list .acts { display:flex; flex-wrap:wrap; gap:6px; } .rh .list .acts button { min-height:40px; padding:6px 12px; border-radius:12px; background:var(--cream-2); font-size:12px; }
 .rh .list .line { font-size:12px; font-family:"Nunito_700Bold","Nunito",ui-rounded,system-ui,sans-serif; font-weight:700; }
+/* The panel layer passes taps through to the canvas (guests, stations, plates); only its own bands take them. */
+.rh .panels { pointer-events:none; } .rh .panels > * { pointer-events:auto; } .rh .panels > .floater { pointer-events:none; }
 @media (prefers-reduced-motion: reduce) { .rh *, .rh *::before, .rh *::after { animation:none !important; transition:none !important; } }
 `;

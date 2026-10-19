@@ -21,17 +21,27 @@ export function Stage({ skin, W, H, fit, insetTop, children }: {
   const src = GAME_ART[SKINS[skin].art!], sh = fit.width * 1.5, enter = useEnter(0, 0, 1.04);
   const wideKey = wideSkinKey(skin), wide = fit.width < W && wideKey ? wideKey : null;
   const room = wide ? GAME_ART[wide] : src, roomW = wide ? sh * GAME_ART_SIZE[wide][0] / GAME_ART_SIZE[wide][1] : fit.width;
-  const roomLeft = (fit.width - roomW) / 2, img = (top: number, flip: boolean) => <Image source={room} resizeMode="cover" accessibilityIgnoresInvertColors
-    style={[s.abs, { left: roomLeft, top, width: roomW, height: sh }, flip && { transform: [{ scaleY: -1 }] }]} />;
+  const roomLeft = (fit.width - roomW) / 2, img = (top: number) => <Image source={room} resizeMode="cover" accessibilityIgnoresInvertColors
+    style={[s.abs, { left: roomLeft, top, width: roomW, height: sh }]} />;
+  // Mirror only a strip at the room's edge (the floor below, the ceiling above) and stretch it to fill the gap, so a
+  // tall phone never shows an upside-down wall; a stretched floor reads as floor nearer the camera.
+  const below = Math.max(0, H - fit.top - sh), above = Math.max(0, fit.top);
+  const strip = (top: number, height: number, part: number, edge: "top" | "bottom") => {
+    const box = height / part;
+    return <View style={[s.abs, { left: roomLeft, top, width: roomW, height, overflow: "hidden" }]}>
+      <Image source={room} resizeMode="stretch" accessibilityIgnoresInvertColors
+        style={[s.abs, { left: 0, top: edge === "bottom" ? 0 : height - box, width: roomW, height: box, transform: [{ scaleY: -1 }] }]} />
+    </View>;
+  };
   return <View style={StyleSheet.absoluteFill} pointerEvents="box-none">
     {fit.left + roomLeft > 0 && <>
       <Image source={room} blurRadius={22} resizeMode="cover" style={[s.abs, { left: 0, top: 0, width: W, height: H }]} accessibilityIgnoresInvertColors />
       <View style={[StyleSheet.absoluteFill, { backgroundColor: theme.overlay, opacity: 0.55 }]} />
     </>}
     <Animated.View style={[s.abs, { left: fit.left, top: fit.top, width: fit.width, height: Math.max(sh, H - fit.top) }, enter]} pointerEvents="box-none">
-      {fit.top > 0 && img(-sh, true)}
-      {wide && img(0, false)}
-      {H > fit.top + sh && img(sh, true)}
+      {above > 0 && strip(-above, above, 0.12, "top")}
+      {wide && img(0)}
+      {below > 0 && strip(sh, below, 0.2, "bottom")}
       {children}
     </Animated.View>
     <LinearGradient pointerEvents="none" colors={[theme.overlay, theme.transparent]} style={[s.abs, { left: 0, right: 0, top: 0, height: insetTop + 36 + Math.max(0, fit.top) }]} />

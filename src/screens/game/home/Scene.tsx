@@ -1,14 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Image, Pressable, StyleSheet, View, type ImageSourcePropType } from "react-native";
-import { useSharedValue, withTiming } from "react-native-reanimated";
+import { Easing, useSharedValue, withTiming } from "react-native-reanimated";
 import { GAME_ART, GAME_ART_SIZE } from "../../../game/art";
 import { DECOR, PETS, SKINS, wearArt } from "../../../game/content/cosmetics";
 import { cleared, type GameProgress } from "../../../game/progress";
 import { usePreferences } from "../../../state/Preferences";
 import { useKeyboardFocus } from "../../../hooks/useKeyboardFocus";
 import { Icon } from "../../../components/ui";
-import { AVATAR, BACK, COUNTER, PET, SLOTS, STATIONS_ON_COUNTER, STOVE, WOK, HINTS, slotBox, type Box, type SlotId } from "./sceneLayout";
-import { Glint, Hop, Motes, PressGlow, Sparkle, Steam, Sway } from "./Ambient";
+import { AVATAR, BACK, COUNTER, PET, SLOTS, STATIONS_ON_COUNTER, STOVE, WOK, BEACONS, slotBox, type Box, type SlotId } from "./sceneLayout";
+import { Beacon, Glint, Hop, HoverGlow, Motes, PressGlow, Steam, Sway } from "./Ambient";
 
 export type HotId = "books" | "menu" | "window" | "wardrobe" | "stove" | "avatar" | "pet";
 const art = (key: string): ImageSourcePropType | undefined => GAME_ART[key];
@@ -29,7 +29,20 @@ export function Scene({ game, width, decor, decorating, selectedSlot, hint, onHo
   const px = (b: Box) => ({ left: b[0] * u, top: b[1] * u, width: b[2] * u, height: b[3] * u });
   const bottomAt = (key: string, x: number, w: number, bottom: number) => { const h = w * ratio(key); return { left: x * u, top: (bottom - h) * u, width: w * u, height: h * u }; };
   const petKey = (() => { const k = wearArt(game.pet, game.equip[game.pet] ?? null); return art(k) ? k : PETS[game.pet].art; })();
-  const petW = PET.w * (PETS[game.pet].scale ?? 1), menuOpen = cleared(game, 5);
+  const petW = PET.w * (PETS[game.pet].scale ?? 1), menuOpen = cleared(game, 5), petTop = PET.bottom - petW * ratio(petKey);
+  const { reducedMotion } = usePreferences(), petPoke = useSharedValue(0), cookPoke = useSharedValue(0);
+  const [timers] = useState(() => new Set<ReturnType<typeof setTimeout>>());
+  useEffect(() => () => timers.forEach(clearTimeout), [timers]);
+  // The companion and the cook react to a tap first; the sheet opens once the reaction has read.
+  const tap = (id: HotId) => {
+    const poke = id === "pet" ? petPoke : id === "avatar" ? cookPoke : null;
+    if (!poke || reducedMotion) { onHot(id); return; }
+    poke.value = 0; poke.value = withTiming(1, { duration: 620, easing: Easing.out(Easing.quad) });
+    timers.forEach(clearTimeout); timers.clear();
+    timers.add(setTimeout(() => onHot(id), 280));
+  };
+  const [mx, my, mw, mh] = BACK.menu[skin];
+  const beacons: [number, number][] = [BEACONS.books, BEACONS.wardrobe, BEACONS.stove, BEACONS.avatar, [mx + mw * 0.82, my + mh * 0.18], [PET.x + petW * 0.88, petTop + 2]];
   const hots: { id: HotId; box: Box; name: string; core?: boolean }[] = [
     { id: "window", box: BACK.window[skin], name: "Window: stall visits, coming in a later update" },
     { id: "books", box: BACK.books[skin], name: "Bookshelf: recipe, pantry and regulars books", core: true },
@@ -37,7 +50,7 @@ export function Scene({ game, width, decor, decorating, selectedSlot, hint, onHo
     { id: "wardrobe", box: BACK.wardrobe[skin], name: "Mirror and aprons: wardrobe", core: true },
     { id: "avatar", box: [AVATAR.cx - AVATAR.w / 2, 66, AVATAR.w, 32], name: "Lian, the QuinTaste mascot, cooking" },
     { id: "stove", box: STOVE, name: "Stove: play Rush Hour", core: true },
-    { id: "pet", box: [PET.x, PET.bottom - petW * ratio(petKey), petW, petW * ratio(petKey)], name: "Your companion, " + PETS[game.pet].name, core: true },
+    { id: "pet", box: [PET.x, petTop, petW, petW * ratio(petKey)], name: "Your companion, " + PETS[game.pet].name, core: true },
   ];
   const decorImg = (slot: SlotId) => {
     const id = decor[slot]; if (!id || !DECOR[id]) return null;
@@ -53,30 +66,35 @@ export function Scene({ game, width, decor, decorating, selectedSlot, hint, onHo
     {backdrop && <Image source={art(SKINS[skin].art!)} style={[s.abs, { left: 0, top: 0, width, height: width * 1.5 }]} resizeMode="cover" />}
     <Glint box={BACK.window[skin]} u={u} />
     {decorImg("ceiling")}{decorImg("wall")}
-    <Sway style={[s.abs, bottomAt("avatar-lian", AVATAR.cx - AVATAR.w / 2, AVATAR.w, AVATAR.bottom)]} deg={0.9} origin="bottom" duration={1900}>
+    <Sway style={[s.abs, bottomAt("avatar-lian", AVATAR.cx - AVATAR.w / 2, AVATAR.w, AVATAR.bottom)]} deg={0.9} origin="bottom" duration={1900} poke={cookPoke}>
       <Image source={art("avatar-lian")} style={s.fill} resizeMode="contain" />
     </Sway>
     <Image source={art("cafe-counter")} style={[s.abs, bottomAt("cafe-counter", COUNTER.x, COUNTER.w, COUNTER.y + COUNTER.w * ratio("cafe-counter"))]} resizeMode="contain" />
     {STATIONS_ON_COUNTER.filter(st => cleared(game, st.level)).map(st =>
       <Image key={st.id} source={art(st.art)} style={[s.abs, bottomAt(st.art, st.x, st.w, st.bottom)]} resizeMode="contain" accessibilityLabel={st.name} />)}
     <Steam x={WOK.x} y={WOK.y} u={u} />
-    <Hop style={[s.abs, bottomAt(petKey, PET.x, petW, PET.bottom)]} u={u}>
+    <Hop style={[s.abs, bottomAt(petKey, PET.x, petW, PET.bottom)]} u={u} poke={petPoke}>
       <Image source={art(petKey)} style={s.fill} resizeMode="contain" />
     </Hop>
     {decorImg("floorL")}{decorImg("floorR")}
     <Motes u={u} />
-    {!decorating && hots.map(h => <HotSpot key={h.id} name={h.name} box={px(h.box)} onPress={() => onHot(h.id)} />)}
-    {!decorating && hint && [...Object.values(HINTS), [PET.x + petW * 0.85, PET.bottom - petW * ratio(petKey) + 2]].map(([x, y]) => <Sparkle key={x + ":" + y} left={x * u} top={y * u} size={Math.max(18, 4.6 * u)} />)}
+    {!decorating && beacons.map(([x, y], i) => <Beacon key={i} left={x * u} top={y * u} u={u} delay={i * 950} strong={hint} />)}
+    {!decorating && hots.map(h => <HotSpot key={h.id} name={h.name} box={px(h.box)} onPress={() => tap(h.id)} />)}
     {decorating && (Object.keys(SLOTS) as SlotId[]).map(id => <DecorSlot key={id} id={id} box={px(slotBox(id, skin))} item={decor[id]} selected={selectedSlot === id} onPress={() => onSlot(id)} />)}
   </View>;
 }
 
-/** An invisible hotspot: no outline or label at rest; it glows under the finger and shows a ring for keyboard focus. */
+/**
+ * An unlabelled hotspot: a beacon marks it at rest, a gold outline and wash light it under a pointer, light blooms
+ * under the finger, and keyboard focus shows a full ring.
+ */
 function HotSpot({ name, box, onPress }: { name: string; box: { left: number; top: number; width: number; height: number }; onPress(): void }) {
-  const { theme } = usePreferences(), { focused, focusProps } = useKeyboardFocus(), p = useSharedValue(0);
+  const { theme } = usePreferences(), { focused, focusProps } = useKeyboardFocus(), p = useSharedValue(0), h = useSharedValue(0);
   return <Pressable accessibilityRole="button" accessibilityLabel={name} onPress={onPress} {...focusProps}
+    onHoverIn={() => { h.value = withTiming(1, { duration: 160 }); }} onHoverOut={() => { h.value = withTiming(0, { duration: 260 }); }}
     onPressIn={() => { p.value = withTiming(1, { duration: 140 }); }} onPressOut={() => { p.value = withTiming(0, { duration: 420 }); }}
     style={[s.abs, s.hot, box, { borderColor: focused ? theme.mediaRating : theme.transparent }]}>
+    <HoverGlow h={h} />
     <PressGlow p={p} w={box.width} h={box.height} />
   </Pressable>;
 }

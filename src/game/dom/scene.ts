@@ -15,6 +15,8 @@ export type SceneHooks = {
   onServeDrag(slot: number, orderId: string): void; onPlateDrag(kind: StationKind): void; ready(): void;
 };
 type Vec = { x: number; y: number };
+/** Pixel density for a crisp canvas on phones, capped to keep texture memory reasonable. */
+export const DPR = typeof window !== "undefined" ? Math.min(2.5, Math.max(1, window.devicePixelRatio || 1)) : 1;
 
 /** Canvas colours come from the DOM layer's CSS tokens (styles.ts), so the game keeps one palette. */
 const TOKENS = { light: "--fx-light", spark: "--fx-spark", flame: "--fx-flame", flameHot: "--fx-flame-hot", smoke: "--fx-smoke", char: "--fx-char",
@@ -44,6 +46,8 @@ export class Playfield extends Phaser.Scene {
     this.run = data.run; this.L = data.layout; this.art = data.art; this.hooks = data.hooks; this.reduced = data.reduced; this.pal = readPalette();
   }
   preload() {
+    // Image elements instead of XHR, so file:// art in release builds loads and stays untainted for WebGL.
+    this.load.imageLoadType = "HTMLImageElement";
     // Only what this level uses: its stations, guests, dishes and every ingredient its dishes accept.
     const r = this.run, dishes = [...new Set(r.guests.map(g => g.dishId))].map(id => DISHES[id]);
     const items = new Set<string>([...r.level.distractors]);
@@ -54,6 +58,8 @@ export class Playfield extends Phaser.Scene {
     keys.forEach(k => { if (this.art[k]) this.load.image(k, this.art[k]); });
   }
   create() {
+    // The canvas is drawn at the screen's pixel density and shown at CSS size; the camera zoom keeps layout in CSS px.
+    this.cameras.main.setOrigin(0, 0).setZoom(DPR);
     const g = this.make.graphics({ x: 0, y: 0 }, false);
     const P = this.pal;
     g.fillStyle(P.coin).fillCircle(16, 16, 15).lineStyle(3, P.coinEdge).strokeCircle(16, 16, 13); g.generateTexture("coin", 32, 32); g.clear();
@@ -108,7 +114,7 @@ export class Playfield extends Phaser.Scene {
     const s = Math.max(w / img.width, h / img.height); img.setScale(s).setPosition(x + w / 2, y + h / 2);
     img.setCrop((img.width - w / s) / 2, (img.height - h / s) / 2, w / s, h / s); return img;
   }
-  setLayout(L: Layout) { this.L = L; this.scale.resize(L.w, L.h); this.build(); }
+  setLayout(L: Layout) { this.L = L; this.scale.resize(L.w * DPR, L.h * DPR); this.scale.setZoom(1 / DPR); this.cameras.main.setZoom(DPR); this.build(); }
 
   update() {
     if (!this.run) return;

@@ -1,12 +1,13 @@
 import { useEffect, useRef, useState, type MutableRefObject } from "react";
+import * as Phaser from "phaser";
 import type { StationKind } from "../content/dishes";
 import type * as sim from "../sim/engine";
 import { computeLayout, type Layout } from "./layout";
-import type { Playfield, SceneHooks } from "./scene";
+import { DPR, Playfield, type SceneHooks } from "./scene";
 
 export type PlayfieldInput = Omit<SceneHooks, "ready">;
 /**
- * Measures the container, boots Phaser lazily (game code only loads on this screen), keeps the scene's layout in step
+ * Measures the container, boots Phaser, keeps the scene's layout in step
  * with resizes (including ones during asset loading) and destroys the game on unmount or reboot.
  */
 export function usePlayfield(runRef: MutableRefObject<sim.Run>, seats: number, stations: StationKind[], art: Record<string, string>, reduced: boolean,
@@ -21,29 +22,26 @@ export function usePlayfield(runRef: MutableRefObject<sim.Run>, seats: number, s
   useEffect(() => { layoutRef.current = L; }, [L]);
   useEffect(() => {
     const el = rootRef.current; if (!el) return;
-    const measure = () => setL(computeLayout(el.clientWidth, el.clientHeight, seats, stations));
+    // A webview can report 0×0 before its first layout; wait for a real size before booting Phaser.
+    const measure = () => { if (el.clientWidth > 0 && el.clientHeight > 0) setL(computeLayout(el.clientWidth, el.clientHeight, seats, stations)); };
     measure(); const ro = new ResizeObserver(measure); ro.observe(el); return () => ro.disconnect();
   }, [seats, key]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    if (!layoutRef.current || gameRef.current || !stageRef.current) return;
-    let cancelled = false;
-    (async () => {
-      const Phaser = await import("phaser"), { Playfield: Scene } = await import("./scene");
-      const lay = layoutRef.current;
-      if (cancelled || !stageRef.current || !lay) return;
-      const hooks: SceneHooks = {
-        ready: () => { const sc = sceneRef.current, now = layoutRef.current; if (sc && now && sc.L !== now) sc.setLayout(now); onReady(); },
-        onStation: (k: StationKind) => input.current.onStation(k), onPlate: (i: number) => input.current.onPlate(i), onGuest: (id: string) => input.current.onGuest(id),
-        onServeDrag: (i: number, id: string) => input.current.onServeDrag(i, id), onPlateDrag: (k: StationKind) => input.current.onPlateDrag(k),
-      };
-      const game = new Phaser.Game({ type: Phaser.AUTO, parent: stageRef.current, width: lay.w, height: lay.h, transparent: true, banner: false,
-        scale: { mode: Phaser.Scale.NONE }, render: { antialias: true }, input: { activePointers: 2 } });
-      game.scene.add("playfield", Scene, true, { run: runRef.current, layout: lay, art, hooks, reduced });
-      sceneRef.current = game.scene.getScene("playfield") as Playfield; gameRef.current = game;
-      if (process.env.NODE_ENV !== "production") (globalThis as { __rushHour?: unknown }).__rushHour = { game, run: () => runRef.current, layout: () => layoutRef.current };
-    })();
-    return () => { cancelled = true; };
+    const lay = layoutRef.current;
+    if (!lay || gameRef.current || !stageRef.current) return;
+    // Phaser is imported statically: Expo's DOM-component export for phones cannot package split chunks. The web build
+    // keeps it out of the main bundle by lazy-loading the whole game screen (src/screens/game/RushHourHost.web.tsx).
+    const hooks: SceneHooks = {
+      ready: () => { const sc = sceneRef.current, now = layoutRef.current; if (sc && now && sc.L !== now) sc.setLayout(now); onReady(); },
+      onStation: (k: StationKind) => input.current.onStation(k), onPlate: (i: number) => input.current.onPlate(i), onGuest: (id: string) => input.current.onGuest(id),
+      onServeDrag: (i: number, id: string) => input.current.onServeDrag(i, id), onPlateDrag: (k: StationKind) => input.current.onPlateDrag(k),
+    };
+    const game = new Phaser.Game({ type: Phaser.AUTO, parent: stageRef.current, width: lay.w * DPR, height: lay.h * DPR, transparent: true, banner: false,
+      scale: { mode: Phaser.Scale.NONE, zoom: 1 / DPR }, render: { antialias: true }, input: { activePointers: 2, windowEvents: false } });
+    game.scene.add("playfield", Playfield, true, { run: runRef.current, layout: lay, art, hooks, reduced });
+    sceneRef.current = game.scene.getScene("playfield") as Playfield; gameRef.current = game;
+    if (process.env.NODE_ENV !== "production") (globalThis as { __rushHour?: unknown }).__rushHour = { game, run: () => runRef.current, layout: () => layoutRef.current };
   }, [L !== null, boot]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => { if (L && sceneRef.current?.sys?.isActive()) sceneRef.current.setLayout(L); }, [L]);

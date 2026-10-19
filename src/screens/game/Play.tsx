@@ -1,13 +1,15 @@
-import { Redirect, router, useLocalSearchParams } from "expo-router";
+import { Redirect, router, Stack, useLocalSearchParams } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useCallback, useEffect, useMemo, useRef } from "react";
-import { View } from "react-native";
+import { Alert, BackHandler, View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { gameEnabled } from "../../config/game";
 import { PETS, wearArt } from "../../game/content/cosmetics";
 import { LEVELS } from "../../game/content/levels";
 import { gameArtUris } from "../../game/artUris";
 import { applyResult, levelOpen } from "../../game/progress";
-import RushHour, { type FinishPayload } from "../../game/dom/RushHour";
+import type { FinishPayload } from "../../game/dom/RushHour";
+import RushHour from "./RushHourHost";
 import { useGame } from "../../hooks/useGame";
 import { useFood } from "../../state/Food";
 import { usePreferences } from "../../state/Preferences";
@@ -17,7 +19,8 @@ export function GamePlayScreen() {
   const params = useLocalSearchParams<{ level?: string; mode?: string; run?: string }>();
   const { game, save } = useGame();
   const { ready } = useFood();
-  const { reducedMotion } = usePreferences();
+  const { reducedMotion, theme } = usePreferences();
+  const insets = useSafeAreaInsets();
   const level = Math.max(1, Math.min(LEVELS.length, Math.floor(Number(params.level)) || 1));
   const mode = params.mode === "calm" ? "calm" : "rush";
   const art = useMemo(() => gameArtUris(), []);
@@ -40,13 +43,23 @@ export function GamePlayScreen() {
     router.replace({ pathname: "/game/play", params: { level: String(n), mode, run: String(Date.now()) } });
   }, [level, mode]);
 
+  // Android Back during a service asks first, so a stray press never throws the round away (iOS swipe-back is off below).
+  useEffect(() => {
+    const sub = BackHandler.addEventListener("hardwareBackPress", () => {
+      Alert.alert("Leave this service?", "This round won't be saved.", [{ text: "Keep cooking", style: "cancel" }, { text: "Leave", style: "destructive", onPress: () => router.back() }]);
+      return true;
+    });
+    return () => sub.remove();
+  }, []);
+
   if (!gameEnabled) return <Redirect href="/game" />;
   if (!ready) return <View style={{ flex: 1 }} />;
   if (!levelOpen(game, level)) return <Redirect href="/game" />;
-  return <View style={{ flex: 1 }}>
+  return <View style={{ flex: 1, backgroundColor: theme.background, paddingTop: insets.top, paddingBottom: insets.bottom, paddingLeft: insets.left, paddingRight: insets.right }}>
+    <Stack.Screen options={{ gestureEnabled: false }} />
     <StatusBar hidden />
     <RushHour key={params.run ?? "first"} level={level} mode={mode} pet={game.pet} petArt={petArt} chefArt="avatar-lian" art={art}
       signature={game.signature} reduceMotion={reducedMotion} onFinish={onFinish} onExit={onExit}
-      dom={{ style: { flex: 1 }, scrollEnabled: false, bounces: false, overScrollMode: "never", mediaPlaybackRequiresUserAction: true }} />
+      dom={{ style: { flex: 1 }, useExpoDOMWebView: false, scrollEnabled: false, bounces: false, overScrollMode: "never", mediaPlaybackRequiresUserAction: true, textZoom: 100 }} />
   </View>;
 }
