@@ -122,8 +122,8 @@ export function themeFor(palette: Palette, dark: boolean) {
     /** Lotus tier colours (Lotus Avatar): the same in every palette and mode, like a status colour. */
     lotus: { pink: "#f59cc3", purple: "#b18ae8", blue: "#6fc0f2", golden: "#f6c453", petal: "#ffe3ee", ray: "rgba(255,247,226,0.85)",
       frost: dark ? "rgba(48,39,52,0.55)" : "rgba(255,255,255,0.55)" },
-    // Mochi Chef mascot cheek blush; the same in every palette and mode.
-    mascot: { blush: "#f4907a" },
+    // Mochi Chef mascot colours: cheek blush, and the brown of its face for the "Quin" of the wordmark. The same in every palette.
+    mascot: { blush: "#f4907a", ink: "#52271a" },
     mediaDivider: "rgba(255,255,255,0.28)",
     photoBlend: ["rgba(23,29,25,0)", "rgba(23,29,25,0.58)", "rgba(23,29,25,0.76)"] as const,
     navigation: {
