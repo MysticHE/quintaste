@@ -13,7 +13,7 @@ import type { Box } from "./sceneLayout";
 
 const sine = Easing.inOut(Easing.sin);
 /** A 0→1 clock that loops (optionally back and forth) after a delay; reset to 0 when still. */
-function useClock(still: boolean, duration: number, delay = 0, yoyo = false, pause = 0) {
+export function useClock(still: boolean, duration: number, delay = 0, yoyo = false, pause = 0) {
   const t = useSharedValue(0);
   useEffect(() => {
     if (still) { cancelAnimation(t); t.value = 0; return; }

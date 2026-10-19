@@ -65,7 +65,7 @@ export function AvatarScreen() {
   return <Screen title="Your Avatar" backTo="/account">
     <View style={{ gap: 10, alignItems: 'center', paddingVertical: 8, backgroundColor: theme.accentSoft, borderRadius: 20 }}
       onLayout={event => setWidth(Math.min(224, event.nativeEvent.layout.width - 24))}>
-      <AvatarPortrait key={selected} avatar={editor.preview} size={width} animate={moving} speaking={speaking} label={editor.preview ? 'Selected Avatar Preview' : 'Default QuinTaste Chef'} />
+      <AvatarPortrait key={selected} avatar={editor.preview} size={width} animate={moving} speaking={speaking} label={editor.preview ? 'Selected Avatar Preview' : 'Lian, the QuinTaste Mascot'} />
       {editor.preview && <View style={[common.row, { flexWrap: 'wrap', justifyContent: 'center' }]}>
         <Button label={moving ? 'Pause' : 'Animate'} variant="link" disabled={reducedMotion} onPress={() => { setMoving(value => !value); setSpeaking(false); }} />
         <Button label={speaking ? 'Stop Talking' : 'Talking Preview'} variant="link" disabled={reducedMotion} onPress={() => { setMoving(true); setSpeaking(value => !value); }} />

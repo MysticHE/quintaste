@@ -3,6 +3,7 @@ import { Animated, AppState, Easing, Image, Platform, StyleSheet, View, type Ima
 import { useIsFocused } from "expo-router/react-navigation";
 import { usePreferences } from "../../state/Preferences";
 import type { Avatar, AvatarState } from "../../types/avatar";
+import { GAME_ART, GAME_ART_SIZE } from "../../game/art";
 const samples: Record<AvatarState, ImageSourcePropType> = {
   base: require("../../../assets/avatar/sample-base.webp"), blink: require("../../../assets/avatar/sample-blink.webp"),
   mid: require("../../../assets/avatar/sample-mid.webp"), open: require("../../../assets/avatar/sample-open.webp"),
@@ -52,10 +53,16 @@ export function AvatarPortrait({ avatar, size = 280, animate = false, speaking =
   return <View accessibilityRole={label ? "image" : undefined} accessibilityLabel={label || undefined} accessible={!!label}
     aria-hidden={!label} style={{ width: size, height: size, overflow: "hidden" }} testID="avatar-portrait">
     <Animated.View style={[StyleSheet.absoluteFill, { transform: [{ translateY: breathe.interpolate({ inputRange: [0, 1], outputRange: [0, -2] }) }] }]}>
-      {unavailable ? <Image source={require("../../../assets/chef.png")} resizeMode="contain" style={[StyleSheet.absoluteFill, { width: size, height: size }]} accessible={false} />
+      {unavailable ? <Lian size={size} />
         : Object.entries(sources).map(([key, source]) => <Image key={sourceKey(key as AvatarState)} source={source} resizeMode="contain" accessible={false}
           testID={"avatar-frame-" + key} onError={() => setFailed(current => [...current, sourceKey(key as AvatarState)])}
           style={[StyleSheet.absoluteFill, { width: size, height: size, opacity: key === state ? 1 : 0 }]} />)}
     </Animated.View>
   </View>;
+}
+/** Lian, the QuinTaste mascot: every member's picture until they choose their own. Small pictures show her head and shoulders. */
+function Lian({ size }: { size: number }) {
+  if (size > 120) return <Image source={GAME_ART["avatar-lian"]} resizeMode="contain" accessible={false} style={[StyleSheet.absoluteFill, { width: size, height: size }]} />;
+  const [w, h] = GAME_ART_SIZE["avatar-lian"], height = size / 0.72, width = height * w / h;
+  return <Image source={GAME_ART["avatar-lian"]} resizeMode="contain" accessible={false} style={{ position: "absolute", width, height, top: -0.02 * height, left: (size - width) / 2 }} />;
 }

@@ -14,6 +14,7 @@ import { useAuth } from "../state/Auth";
 import { MarketModal } from "../components/market/MarketChrome";
 import { Action } from "../components/Actions";
 import { TimerAlertControl } from "../components/food/TimerAlertControl";
+import { LotusSlot } from "../components/lotus/LotusSlot";
 
 export function AccountScreen() {
   const { user, enabled } = useAuth();
@@ -43,6 +44,7 @@ export function AccountScreen() {
         {user && !user.adultConfirmed && <Button label="Complete Account Setup" variant="link" onPress={() => router.push('/account-eligibility')} />}
       </View>
     </Card>
+    <LotusSlot />
     <Card style={s.group}>
       <SettingsRow label="Saved" leading={<QuinTasteIcon name="saved" color={theme.accent} size={26} />} value={String(doc.saves.length)} onPress={() => router.push("/saved")} />
       <SettingsRow label="Food Choices" icon="leaf-outline" value={dietLabel(draft.diet)} onPress={() => router.push("/exclusions")} />
