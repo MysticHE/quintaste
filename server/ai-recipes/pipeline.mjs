@@ -23,7 +23,7 @@ async function fromRequest(job, signal, usage, progress) {
 
 /** Saves the recipe and its photos together (live, or pending for staff review); steps with a photo are marked. */
 async function save(job, recipe, photos, review) {
-  const steps = recipe.steps.map(({ shotAt, ...step }, index) => photos?.steps.has(index) ? { ...step, image: photos.kind } : step);
+  const steps = recipe.steps.map(({ shotAt, ...step }, index) => photos?.kinds.has(index) ? { ...step, image: photos.kinds.get(index) } : step);
   const saved = { ...recipe, steps };
   const cover = photos?.cover ?? (photos?.steps.size ? photos.steps.get(Math.max(...photos.steps.keys())) : null);
   const version = review ? 'pending' : 'live';

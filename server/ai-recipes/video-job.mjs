@@ -6,7 +6,7 @@ import { recipeSchema, verifyPrompt, verifySystem, videoPrompt, videoSystem } fr
 import { loadVideo, parseLink } from './video.mjs';
 import { deleteFile, storeFile } from './files.mjs';
 import { downloadVideo, downloaderAvailable } from './download.mjs';
-import { framesAvailable } from './frames.mjs';
+import { framesAvailable, photoJpeg } from './frames.mjs';
 import { framesFor, illustrationsFor } from './photos.mjs';
 import { clip, parseUpload, toRecipe } from './recipe.mjs';
 import { jobDir, removeDir, uploadPath } from './work.mjs';
@@ -85,11 +85,22 @@ export async function fromVideo(job, signal, usage, progress) {
       // The platform's own channel or uploader name wins over the model's reading of the video.
       creator: clip(got.creator || checked.creator, 80) } });
     await progress('Choosing a photo for each step…');
-    let photos = { cover: null, steps: new Map(), kind: null };
+    let photos = { cover: null, steps: new Map(), kinds: new Map() };
     try {
       if (got.local && framesAvailable()) photos = await framesFor(got.local.path, recipe, { coverAt: checked.coverAt }, usage);
-      else if (got.link?.platform === 'youtube') photos = await illustrationsFor(recipe, await youtubeThumbnail(got.link), usage);
-    } catch (error) { logger.warn({ event: 'ai_recipes_photos_failed', detail: String(error?.message ?? error).slice(0, 160) }); }
+    } catch (error) { logger.warn({ event: 'ai_recipes_frames_failed', detail: String(error?.message ?? error).slice(0, 160) }); }
+    // Every step without a matching frame gets a reviewed illustration, so no step is left without a picture.
+    const missing = recipe.steps.map((_, index) => index).filter(index => !photos.steps.has(index));
+    try {
+      if (missing.length) {
+        if (missing.length < recipe.steps.length) await progress('Drawing the steps the video does not show…');
+        const drawn = await illustrationsFor(recipe, null, usage, missing);
+        for (const [index, bytes] of drawn.steps) { photos.steps.set(index, bytes); photos.kinds.set(index, 'illustration'); }
+      }
+      const thumbnail = !photos.cover && got.link?.platform === 'youtube' ? await youtubeThumbnail(got.link) : null;
+      if (thumbnail) photos.cover = await photoJpeg(thumbnail);
+    } catch (error) { logger.warn({ event: 'ai_recipes_illustrations_failed', detail: String(error?.message ?? error).slice(0, 160) }); }
+    if (photos.steps.size < recipe.steps.length) logger.warn({ event: 'ai_recipes_steps_without_photo', steps: recipe.steps.length, photos: photos.steps.size });
     return { recipe, photos };
   } finally {
     if (stored) await deleteFile(stored.name);

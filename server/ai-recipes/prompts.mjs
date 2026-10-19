@@ -34,13 +34,13 @@ export const recipeSchema = {
           instruction: { type: 'STRING', description: 'one action per step with heat, time and a doneness cue, in your own words' },
           ingredientNames: { type: 'ARRAY', items: { type: 'STRING' } },
           timerMinutes: { type: 'INTEGER', nullable: true, description: 'a timer the cook should set for this step, else null' },
-          at: { type: 'INTEGER', nullable: true, description: 'second in the video where this step starts; null for text sources' },
-          shotAt: { type: 'INTEGER', nullable: true, description: 'second in the video where a still frame shows this step most clearly (hands, ingredients or the result, not a face or a title card); null for text sources' },
+          at: { type: 'INTEGER', nullable: true, description: 'whole seconds from the start of the video where this step starts (1:04 is 64, never 104); null for text sources' },
+          shotAt: { type: 'INTEGER', nullable: true, description: 'whole seconds from the start where a still frame shows this step most clearly (hands, ingredients or the result, not a face or a title card; 1:04 is 64); null for text sources' },
         },
         required: ['title', 'instruction', 'ingredientNames', 'timerMinutes', 'at', 'shotAt'],
       },
     },
-    coverAt: { type: 'INTEGER', nullable: true, description: 'second in the video showing the finished dish best; null for text sources' },
+    coverAt: { type: 'INTEGER', nullable: true, description: 'whole seconds from the start showing the finished dish best (1:04 is 64); null for text sources' },
     confidence: { type: 'NUMBER', description: '0 to 1: how completely the quantities and steps were shown or stated' },
     notes: { type: 'STRING', description: 'what was unclear or assumed; empty when nothing' },
   },
@@ -57,7 +57,8 @@ const house = `You write recipes for QuinTaste, a Singapore vegetarian cooking a
 - Return JSON matching the schema and nothing else.`;
 
 export const videoSystem = house + `
-You are given a cooking video. Watch the frames and listen to the speech and on-screen text. Record for each step the second in the video where it starts.`;
+You are given a cooking video. Watch the frames and listen to the speech and on-screen text, and read the creator's caption when given. Record for each step the second in the video where it starts.
+Every action a cook must do is a step, including preparation the video skips but the caption or speech states (soaking, deseeding, boiling, slicing, dissolving, straining). Never put a needed action only in notes. A step the video does not show gets at and shotAt null.`;
 
 export const videoPrompt = 'Turn this video into a complete recipe. If it is not a cooking recipe, set isRecipe to false.';
 
@@ -73,6 +74,7 @@ You are checking a draft recipe against the cooking video it was written from. W
 Return the complete corrected recipe in the same JSON schema:
 - every ingredient that is added in the video, with the quantity shown or said (null when not given); remove ingredients that never appear;
 - every action as its own step, in the order the video does them, with heat, time and doneness cues the video gives; nothing skipped, nothing invented;
+- preparation stated in the caption or speech but not shown (soaking, deseeding, boiling, slicing, dissolving) as steps of their own before the step that uses it, with at and shotAt null; notes never hold a needed action;
 - correct start times (at), best still-frame times (shotAt) and the finished-dish time (coverAt);
 - list what you changed in notes.`;
 
@@ -84,7 +86,7 @@ export const photoReviewSchema = {
     steps: { type: 'ARRAY', items: { type: 'OBJECT', properties: {
       step: { type: 'INTEGER', description: 'step number, starting at 1' },
       choice: { type: 'STRING', nullable: true, description: 'label of the photo that shows this step correctly, or null if none does' },
-      betterAt: { type: 'INTEGER', nullable: true, description: 'when choice is null and a video is available: the second where this step is clearly visible' },
+      betterAt: { type: 'INTEGER', nullable: true, description: 'when choice is null and a video is available: whole seconds from the start where this step is clearly visible' },
       note: { type: 'STRING' },
     }, required: ['step', 'choice', 'betterAt', 'note'] } },
     cover: { type: 'STRING', nullable: true, description: 'label of the photo that shows the finished dish best, or null' },
@@ -92,4 +94,4 @@ export const photoReviewSchema = {
   required: ['steps', 'cover'],
 };
 
-export const photoReviewSystem = `You check step photos for a cooking recipe app. Each photo is labelled. For every step, pick the one photo that a home cook would recognise as that exact step: the right ingredients, the right stage (raw, frying, simmering, plated), the action described. Reject photos that show only a face or a person talking, title cards, text overlays, transitions, black or blurry frames, or a different step. Never choose the same photo for two steps. If no photo fits a step, set choice to null and, when a video is available, give betterAt: a second inside that step where it is clearly visible. For the cover, choose the photo that best shows the finished dish. Return JSON only.`;
+export const photoReviewSystem = `You check step photos for a cooking recipe app. Each photo is labelled. For every step, pick the one photo that a home cook would recognise as that exact step: the right ingredients, the right stage (raw, frying, simmering, plated), the action described. Reject photos that show only a face or a person talking, title cards or frames mostly covered by text, transitions, black or blurry frames, or a different step (short subtitles from the creator are fine). Use the whole method to know what should be in the pan at that stage: reject a photo that shows an ingredient the method adds later or cooks or serves separately, a wrong cooking state, or readable labels on packaging in a drawn photo. When you reject, say in note exactly what is wrong. Never choose the same photo for two steps. If no photo fits a step, set choice to null and, when a video is available, give betterAt: a second inside that step where it is clearly visible. For the cover, choose the photo that best shows the finished dish. Answer choice and cover with the bare label only, for example S3-B. Return JSON only.`;
