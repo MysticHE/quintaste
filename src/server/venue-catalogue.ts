@@ -5,8 +5,8 @@ import { areas } from "../data/areas";
 import type { CataloguePage, CatalogueVenue } from "../types/catalogue";
 import type { DiscoverySearch } from "../types/discovery";
 import { distanceKm } from "../utils/discovery-search";
-import { editorialContent, editorialVenue } from "./editorial-content";
-import { menuSummary, staffMenu, staffPlaceIds } from "./menu-delivery";
+import { editorialContent, editorialPlaces, editorialPlaceVenue, editorialVenue } from "./editorial-content";
+import { editorialPlaceIds, menuSummary, staffMenu, staffPlaceIds } from "./menu-delivery";
 import type { StaffContent, StaffPlaceData } from "../types/staff-content";
 
 const hash = (value: unknown) => createHash("sha256").update(JSON.stringify(value)).digest("hex");
@@ -65,8 +65,9 @@ function staffVenue(id: string, base: CatalogueVenue | undefined, staff: StaffCo
 
 export function catalogueVenue(id: string, withdrawn: ReadonlySet<string>, staff = noStaff): CatalogueVenue | undefined {
   if (withdrawn.has(id) || withdrawn.has(hiddenAliases.get(id) ?? id)) return undefined;
-  const venue = catalogue.find(venue => venue.id === id), content = editorialContent();
-  return kitchenVenue(staffVenue(id, venue ? editorialVenue(venue, true, content) : undefined, staff, content), staff, content);
+  const venue = catalogue.find(venue => venue.id === id), content = editorialContent(), place = venue ? undefined : editorialPlaces(content).get(id);
+  const base = venue ? editorialVenue(venue, true, content) : place ? editorialPlaceVenue(place, true) : undefined;
+  return kitchenVenue(staffVenue(id, base, staff, content), staff, content);
 }
 
 export function searchCatalogue(search: DiscoverySearch, cursor: string | null, withdrawn: ReadonlySet<string>, staff = noStaff): CataloguePage {
@@ -87,8 +88,11 @@ export function searchCatalogue(search: DiscoverySearch, cursor: string | null, 
     offset = page.offset!;
   }
   let locationGaps = 0;
+  // QT Explorer veg options places join packaged and staff-created places; each id is listed once.
+  const explorer = editorialPlaces(content), explorerIds = editorialPlaceIds(content);
   const sources = [...catalogue.map(venue => staffVenue(venue.id, editorialVenue(venue, false, content), staff, content)),
-    ...staffPlaceIds(staff).filter(id => !packagedIds.has(id)).map(id => staffVenue(id, undefined, staff, content))].map(venue => kitchenVenue(venue, staff, content));
+    ...explorerIds.map(id => staffVenue(id, editorialPlaceVenue(explorer.get(id)!, false), staff, content)),
+    ...staffPlaceIds(staff).filter(id => !packagedIds.has(id) && !explorer.has(id)).map(id => staffVenue(id, undefined, staff, content))].map(venue => kitchenVenue(venue, staff, content));
   const venues = sources.flatMap(venue => venue ? [venue] : []).flatMap(venue => {
     if (hiddenAliases.has(venue.id)) return [];
     const savedAlias = search.savedIds && [...hiddenAliases].some(([alias, id]) => id === venue.id && search.savedIds!.includes("catalogue-" + alias));

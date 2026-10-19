@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { createHash } from "node:crypto";
-import type { CatalogueVenue } from "../types/catalogue";
+import type { CatalogueHours, CatalogueVenue } from "../types/catalogue";
 import type { MenuItem, PublishedMenu } from "../types/menus";
 import baseline from "../../data/menus/catalogue-index.json";
 
@@ -42,4 +42,62 @@ export function editorialMenu(menu: PublishedMenu, fingerprint: string, content 
     return change ? { ...item, price: change.price } : item;
   }) })) };
   return { menu: changed, fingerprint: createHash("sha256").update(JSON.stringify({ base: fingerprint, menuPrices: updates })).digest("hex") };
+}
+
+/** A complete veg options place published by QT Explorer (record kind "place", validated by server/editorial/validation.mjs). */
+type PlaceItem = { id: string; name: string; category?: string; price: { amount: number; currency: "SGD"; type: "displayed" | "from"; maxAmount?: number }; diet: "V" | "VG" };
+type PlaceData = {
+  id: string; kitchen: "options"; name: string; branch: string; address: string; postalCode: string; point: { latitude: number; longitude: number };
+  googlePlaceId: string | null; venueDiet: "Vegetarian" | "Vegan"; alliumFreeClaim: false; hours?: CatalogueHours; sourceUrls: string[]; checkedAt: string;
+  menu: { sourceUrl: string; sourceLabel: string; checkedAt: string; items: PlaceItem[] };
+};
+export type EditorialPlace = { venue: CatalogueVenue; menu: PublishedMenu; fingerprint: string };
+const isText = (value: unknown, max: number, empty = false): value is string => typeof value === "string" && value.length <= max && (empty || value.trim().length > 0)
+  && !/[\u0000-\u0008\u000b\u000c\u000e-\u001f]/.test(value);
+const isDate = (value: unknown): value is string => typeof value === "string" && /^\d{4}-\d{2}-\d{2}$/.test(value);
+const isHttps = (value: unknown): value is string => isText(value, 600) && value.startsWith("https://");
+const isPrice = (p: PlaceItem["price"] | undefined) => !!p && typeof p.amount === "number" && Number.isFinite(p.amount) && p.amount >= 0 && p.amount <= 10000 && p.currency === "SGD"
+  && (p.type === "displayed" || p.type === "from") && (p.maxAmount === undefined || typeof p.maxAmount === "number" && p.maxAmount >= p.amount && p.maxAmount <= 10000);
+/** The publisher validates every place; a malformed record is skipped here rather than shown. */
+function readPlace(data: PlaceData | undefined): PlaceData | undefined {
+  const items = data?.menu?.items;
+  if (!data || typeof data.id !== "string" || !/^vo-[a-z0-9][a-z0-9-]{2,110}$/.test(data.id) || data.kitchen !== "options" || data.alliumFreeClaim !== false
+    || !isText(data.name, 120) || !isText(data.branch, 120, true) || !isText(data.address, 300) || typeof data.postalCode !== "string" || !/^\d{6}$/.test(data.postalCode)
+    || !(data.venueDiet === "Vegetarian" || data.venueDiet === "Vegan") || !isDate(data.checkedAt) || !Array.isArray(data.sourceUrls) || !data.sourceUrls.every(isHttps)
+    || !data.point || !(data.point.latitude >= 1.15 && data.point.latitude <= 1.48 && data.point.longitude >= 103.6 && data.point.longitude <= 104.1)
+    || !(data.googlePlaceId === null || typeof data.googlePlaceId === "string" && /^[A-Za-z0-9_-]{10,200}$/.test(data.googlePlaceId))
+    || !isHttps(data.menu.sourceUrl) || !isText(data.menu.sourceLabel, 80) || !isDate(data.menu.checkedAt) || !Array.isArray(items) || items.length < 2 || items.length > 200) return undefined;
+  const ids = new Set(items.map(item => item?.id)), names = new Set(items.map(item => typeof item?.name === "string" ? item.name.trim().toLowerCase() : null));
+  if (ids.size !== items.length || names.size !== items.length || !items.every(item => typeof item.id === "string" && /^[a-z0-9][a-z0-9-]{0,80}$/.test(item.id) && isText(item.name, 120)
+    && (item.category === undefined || isText(item.category, 40, true)) && (item.diet === "V" || item.diet === "VG") && isPrice(item.price))) return undefined;
+  if (data.venueDiet === "Vegan" && !items.every(item => item.diet === "VG")) return undefined;
+  if (data.hours && !(isText(data.hours.summary, 120) && Array.isArray(data.hours.schedule) && isHttps(data.hours.sourceUrl) && isDate(data.hours.checkedAt))) return undefined;
+  return data;
+}
+let places: { revision: string; places: Map<string, EditorialPlace> } | undefined;
+/** Published veg options places as catalogue venues (with research sources) and their one-section menus, cached per snapshot revision. */
+export function editorialPlaces(content = editorialContent()): ReadonlyMap<string, EditorialPlace> {
+  if (places?.revision === content.revision) return places.places;
+  const result = new Map<string, EditorialPlace>();
+  for (const [key, entry] of Object.entries(content.records)) {
+    const data = key.startsWith("place:") ? readPlace(entry.data as unknown as PlaceData) : undefined;
+    if (!data || key !== "place:" + data.id) continue;
+    const fingerprint = createHash("sha256").update(JSON.stringify(entry.data)).digest("hex");
+    const identity = { id: data.id, name: data.name, branch: data.branch, address: data.address, postalCode: data.postalCode, aliases: [], googlePlaceId: data.googlePlaceId };
+    const menu: PublishedMenu = { ...identity, sections: [{ id: "veg-options", title: "Vegetarian dishes", scope: "branch-dine-in", coverage: "partial", checkedAt: data.menu.checkedAt,
+      sourceUrl: data.menu.sourceUrl, sourceLabel: data.menu.sourceLabel, notice: "", charges: "",
+      items: data.menu.items.map(item => ({ id: item.id, name: item.name, ...(item.category ? { category: item.category } : {}), price: { ...item.price }, qualifier: "", diet: item.diet })) }] };
+    const venue: CatalogueVenue = { ...identity, fingerprint, checkedAt: data.menu.checkedAt, sectionCount: 1, itemCount: data.menu.items.length, point: { latitude: data.point.latitude, longitude: data.point.longitude },
+      venueDiet: data.venueDiet, alliumFreeClaim: false, kitchen: "options", ...(data.hours ? { hours: data.hours } : {}),
+      research: { sourceUrls: [...new Set([...data.sourceUrls, data.menu.sourceUrl])].slice(0, 12), notes: [], checkedAt: data.checkedAt } };
+    result.set(data.id, { venue, menu, fingerprint });
+  }
+  places = { revision: content.revision, places: result };
+  return result;
+}
+/** The catalogue form of a place: research sources only on the place page, never in search results. */
+export function editorialPlaceVenue(place: EditorialPlace, includeResearch: boolean): CatalogueVenue {
+  if (includeResearch) return place.venue;
+  const { research: _research, ...venue } = place.venue;
+  return venue;
 }

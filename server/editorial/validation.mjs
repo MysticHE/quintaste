@@ -64,6 +64,32 @@ export function validateEvent(e) {
   requireValue(typeof e.startsAt === 'string' && /\+08:00$/.test(e.startsAt) && Date.parse(e.startsAt) > Date.now() && Date.parse(e.startsAt) < Date.now() + 366 * 86400000 && (e.endsAt === null || /\+08:00$/.test(e.endsAt) && Date.parse(e.endsAt) > Date.parse(e.startsAt)) && ['scheduled', 'cancelled', 'rescheduled'].includes(e.status), 'Invalid event date/status');
   requireValue((e.feeAmount === null && e.currency === null || typeof e.feeAmount === 'number' && e.feeAmount >= 0 && e.feeAmount < 10000 && e.currency === 'SGD') && text(e.feeNote, 300, true) && (e.registrationUrl === null || publicUrl(e.registrationUrl)) && (e.registrationDeadline === null || Number.isFinite(Date.parse(e.registrationDeadline)) && Date.parse(e.registrationDeadline) <= Date.parse(e.startsAt)) && Array.isArray(e.sources) && e.sources.length > 0 && e.sources.length <= 12 && e.sources.every(publicUrl), 'Invalid event source/price');
 }
+function validateHours(h) {
+  requireValue(keys(h, ['summary', 'schedule', 'notes', 'sourceUrl', 'checkedAt', 'timezone']) && text(h.summary, 120) && Array.isArray(h.schedule) && h.schedule.length >= 1 && h.schedule.length <= 8 && h.schedule.every(s => text(s, 220)) && text(h.notes, 500, true) && publicUrl(h.sourceUrl) && date(h.checkedAt) && h.timezone === 'Asia/Singapore', 'Invalid branch hours');
+}
+const placeFields = ['id', 'kitchen', 'name', 'branch', 'address', 'postalCode', 'point', 'googlePlaceId', 'venueDiet', 'alliumFreeClaim', 'hours', 'sourceUrls', 'checkedAt', 'menu'];
+/** A complete veg options place created by QT Explorer: only its venue-labelled V/VG dishes are published. */
+export function validatePlace(p) {
+  requireValue(keys(p, placeFields) && placeFields.every(k => k === 'hours' || k in p) && typeof p.id === 'string' && /^vo-[a-z0-9][a-z0-9-]{2,110}$/.test(p.id) && p.kitchen === 'options'
+    && text(p.name, 120) && text(p.branch, 120, true) && text(p.address, 300) && typeof p.postalCode === 'string' && /^\d{6}$/.test(p.postalCode) && date(p.checkedAt), 'Invalid veg options place');
+  requireValue(keys(p.point, ['latitude', 'longitude']) && typeof p.point.latitude === 'number' && p.point.latitude >= 1.15 && p.point.latitude <= 1.48 && typeof p.point.longitude === 'number' && p.point.longitude >= 103.6 && p.point.longitude <= 104.1, 'Invalid Singapore coordinates');
+  requireValue(p.googlePlaceId === null || typeof p.googlePlaceId === 'string' && /^[A-Za-z0-9_-]{10,200}$/.test(p.googlePlaceId), 'Invalid Google place ID');
+  requireValue(Array.isArray(p.sourceUrls) && p.sourceUrls.length >= 1 && p.sourceUrls.length <= 12 && p.sourceUrls.every(publicUrl), 'Invalid venue sources');
+  if (p.hours !== undefined) validateHours(p.hours);
+  const m = p.menu;
+  requireValue(keys(m, ['sourceUrl', 'sourceLabel', 'checkedAt', 'items']) && publicUrl(m.sourceUrl) && text(m.sourceLabel, 80) && date(m.checkedAt) && Array.isArray(m.items) && m.items.length >= 2 && m.items.length <= 200, 'A veg options place needs 2 to 200 labelled dishes');
+  const ids = new Set(), names = new Set();
+  for (const i of m.items) {
+    const price = i?.price;
+    requireValue(keys(i, ['id', 'name', 'category', 'price', 'diet']) && typeof i.id === 'string' && /^[a-z0-9][a-z0-9-]{0,80}$/.test(i.id) && !ids.has(i.id) && text(i.name, 120) && !names.has(i.name.trim().toLowerCase())
+      && (i.category === undefined || text(i.category, 40, true)), 'Invalid or repeated dish'); ids.add(i.id); names.add(i.name.trim().toLowerCase());
+    requireValue(i.diet === 'V' || i.diet === 'VG', "Every dish of a veg options place needs the venue's V or VG label");
+    requireValue(keys(price, ['amount', 'currency', 'type', 'maxAmount']) && typeof price.amount === 'number' && Number.isFinite(price.amount) && price.amount >= 0 && price.amount <= 10000 && price.currency === 'SGD' && ['displayed', 'from'].includes(price.type)
+      && (price.maxAmount === undefined || typeof price.maxAmount === 'number' && Number.isFinite(price.maxAmount) && price.maxAmount >= price.amount && price.maxAmount <= 10000), 'Price requires an explicit SGD amount or supported range');
+  }
+  requireValue(['Vegetarian', 'Vegan'].includes(p.venueDiet) && (p.venueDiet !== 'Vegan' || m.items.every(i => i.diet === 'VG')), 'A veg options place is Vegan only when every dish is VG');
+  requireValue(p.alliumFreeClaim === false, 'A veg options place cannot claim allium-free food');
+}
 export function validateVenue(v, base, menu) {
   requireValue(base && keys(v, ['id', 'hours', 'photo', 'sourceUrls', 'evidenceNotes', 'point', 'venueDiet', 'alliumFreeClaim', 'menuTotal', 'menuPrices', 'closed']) && v.id === base.id && Object.keys(v).length > 1, 'Unknown venue or unsupported field');
   // A stored page (often Google Maps) says the venue is permanently closed: it leaves Explore until the owner reverts it.
@@ -78,10 +104,7 @@ export function validateVenue(v, base, menu) {
       requireValue(keys(p, ['amount', 'maxAmount', 'currency', 'type']) && typeof p.amount === 'number' && Number.isFinite(p.amount) && p.amount >= 0 && p.amount <= 10000 && p.currency === 'SGD' && ['displayed', 'from'].includes(p.type) && (p.maxAmount === undefined || typeof p.maxAmount === 'number' && Number.isFinite(p.maxAmount) && p.maxAmount >= p.amount && p.maxAmount <= 10000), 'Price requires an explicit SGD amount or supported range');
     }
   }
-  if (v.hours) {
-    const h = v.hours;
-    requireValue(keys(h, ['summary', 'schedule', 'notes', 'sourceUrl', 'checkedAt', 'timezone']) && text(h.summary, 120) && Array.isArray(h.schedule) && h.schedule.length >= 1 && h.schedule.length <= 8 && h.schedule.every(s => text(s, 220)) && text(h.notes, 500, true) && publicUrl(h.sourceUrl) && date(h.checkedAt) && h.timezone === 'Asia/Singapore', 'Invalid branch hours');
-  }
+  if (v.hours) validateHours(v.hours);
   if (v.point) requireValue(keys(v.point, ['latitude', 'longitude']) && typeof v.point.latitude === 'number' && v.point.latitude >= 1.13 && v.point.latitude <= 1.48 && typeof v.point.longitude === 'number' && v.point.longitude >= 103.59 && v.point.longitude <= 104.09, 'Invalid Singapore coordinates');
   if ('venueDiet' in v) requireValue(['Vegetarian', 'Vegan'].includes(v.venueDiet), 'Invalid venue diet');
   if ('alliumFreeClaim' in v) requireValue(typeof v.alliumFreeClaim === 'boolean', 'Invalid allium claim');

@@ -1,7 +1,7 @@
 import fs from 'node:fs/promises';
 import { Buffer } from 'node:buffer';
 import path from 'node:path';
-import { hash, ownerReference, requireValue, validHash, validId, validateSources, validateRecipe, validateEvent, validateVenue } from './validation.mjs';
+import { hash, ownerReference, requireValue, validHash, validId, validateSources, validateRecipe, validateEvent, validatePlace, validateVenue } from './validation.mjs';
 import { readFileSync } from 'node:fs';
 import sharp from 'sharp';
 
@@ -9,7 +9,8 @@ const references = JSON.parse(readFileSync(path.resolve('server-assets/editorial
 const menus = JSON.parse(readFileSync(path.resolve('server-assets/editorial-menu-baseline.json'), 'utf8'));
 
 export const emptySnapshot = () => ({ version: 1, revision: '0'.repeat(64), records: {} });
-export const moderationKey = (kind, data) => kind + ':' + (kind === 'recipe' ? data.name : [data.title, data.organiser, data.startsAt?.slice(0, 10)].join('|')).normalize('NFKC').toLowerCase().replace(/[^\p{L}\p{N}|]+/gu, '');
+// A place is identified by its name and postal code, so a removed place is not republished under a new id.
+export const moderationKey = (kind, data) => kind + ':' + (kind === 'recipe' ? data.name : kind === 'place' ? [data.name, data.postalCode].join('|') : [data.title, data.organiser, data.startsAt?.slice(0, 10)].join('|')).normalize('NFKC').toLowerCase().replace(/[^\p{L}\p{N}|]+/gu, '');
 export const suppressed = (snapshot, kind, id, data) => Object.values(snapshot.removals ?? {}).some(r => r.kind === kind && (r.id === id || r.identity === moderationKey(kind, data)));
 const snapshots = new Map();
 export async function readSnapshot(root) {
@@ -103,7 +104,7 @@ export async function publish(root, baseline, batch) {
     }
     const next = structuredClone(current), seen = new Set();
     for (const r of batch.records) {
-      requireValue(['venue', 'recipe', 'event'].includes(r.kind) && validId(r.id) && r.data?.id === r.id && !seen.has(r.kind + ':' + r.id), 'Invalid or repeated record'); seen.add(r.kind + ':' + r.id);
+      requireValue(['venue', 'recipe', 'event', 'place'].includes(r.kind) && validId(r.id) && r.data?.id === r.id && !seen.has(r.kind + ':' + r.id), 'Invalid or repeated record'); seen.add(r.kind + ':' + r.id);
       requireValue(r.review?.decision === 'approved' && r.review.reviewedBy === 'QT Manager' && r.review.dataHash === hash(r.data) && typeof r.review.reason === 'string' && r.review.reason.length >= 10 && r.review.reason.length <= 1800, 'Manager approval must match the exact data');
       validateSources(r.sources);
       requireValue(r.kind === 'venue' || !suppressed(current, r.kind, r.id, r.data), 'Owner removed this content; automatic republication is blocked');
@@ -113,7 +114,8 @@ export async function publish(root, baseline, batch) {
       const retainedUrls = new Set(r.kind === 'venue' ? [...(previousData?.sourceUrls ?? []), previousData?.hours?.sourceUrl, previousData?.photo?.sourceUrl, ...(menus.find(m => m.id === r.id)?.sections ?? []).map(s => s.sourceUrl)] : []);
       // A retained reference is not a newly verified claim. New references and
       // every factual hours/price change still require a fresh attached capture.
-      const citedUrls = r.kind === 'recipe' ? r.data.provenance?.sources ?? [] : r.kind === 'event' ? r.data.sources ?? [] : [...(r.data.sourceUrls ?? []).filter(url => !retainedUrls.has(url)), ...(r.data.hours ? [r.data.hours.sourceUrl] : []), ...(r.data.menuPrices ?? []).map(p => p.sourceUrl)];
+      const citedUrls = r.kind === 'recipe' ? r.data.provenance?.sources ?? [] : r.kind === 'event' ? r.data.sources ?? []
+        : r.kind === 'place' ? [...(r.data.sourceUrls ?? []), r.data.menu?.sourceUrl, ...(r.data.hours ? [r.data.hours.sourceUrl] : [])] : [...(r.data.sourceUrls ?? []).filter(url => !retainedUrls.has(url)), ...(r.data.hours ? [r.data.hours.sourceUrl] : []), ...(r.data.menuPrices ?? []).map(p => p.sourceUrl)];
       requireValue(citedUrls.every(url => capturedUrls.has(url)), 'Published source lacks a capture');
       requireValue(r.expectedHash === recordState(current, baseline, r.kind, r.id).hash, 'Record changed since review');
       const base = baseline.venues.find(v => v.id === r.id);
@@ -126,6 +128,11 @@ export async function publish(root, baseline, batch) {
         requireValue(!prior || r.data.revision > prior.data.revision, 'Recipe revision must advance');
       }
       if (r.kind === 'event') validateEvent(r.data);
+      if (r.kind === 'place') {
+        validatePlace(r.data);
+        const identity = moderationKey('place', r.data);
+        requireValue(!baseline.venues.some(v => v.id === r.id || moderationKey('place', v) === identity) && !Object.values(current.records).some(x => x.kind === 'place' && x.id !== r.id && moderationKey('place', x.data) === identity), 'Existing place identity');
+      }
       const image = r.data.image ?? r.data.photo;
       if (image) {
         const sha = image.path.match(/([a-f0-9]{64})\.jpg$/)?.[1], asset = assets.get(sha);
@@ -152,7 +159,7 @@ export async function publish(root, baseline, batch) {
       const fields = Object.keys(r.data).filter(k => k !== 'id' && hash(before.data?.[k] ?? null) !== hash(after.data?.[k] ?? null));
       next.records[r.kind + ':' + r.id].change = {
         changeId: hash({ batchHash, kind: r.kind, id: r.id }), kind: r.kind, id: r.id,
-        name: (after.data.name ?? after.data.title ?? r.id) + (r.kind === 'venue' && after.data.branch ? ' — ' + after.data.branch : ''), parent: current.revision,
+        name: (after.data.name ?? after.data.title ?? r.id) + (['venue', 'place'].includes(r.kind) && after.data.branch ? ' — ' + after.data.branch : ''), parent: current.revision,
         reviewedParent: batch.parent, beforeHash: before.hash, afterHash: after.hash,
         dataHash: hash(r.data), proposalHash: r.proposalHash ?? null, fields,
         retainedSourceUrls: (r.data.sourceUrls ?? []).filter(url => retainedUrls.has(url) && !capturedUrls.has(url)),
@@ -198,7 +205,7 @@ export async function rollback(root, expected, target) {
 }
 
 export async function revertRecord(root, baseline, request) {
-  requireValue(request && validId(request.actionId) && ['venue', 'recipe', 'event'].includes(request.kind) && validId(request.id) && validHash(request.expectedHash) && validHash(request.changeId) && request.actor === 'telegram-owner', 'Invalid revert request');
+  requireValue(request && validId(request.actionId) && ['venue', 'recipe', 'event', 'place'].includes(request.kind) && validId(request.id) && validHash(request.expectedHash) && validHash(request.changeId) && request.actor === 'telegram-owner', 'Invalid revert request');
   const lock = path.join(root, 'publish.lock');
   await acquire(lock);
   try {
@@ -209,7 +216,7 @@ export async function revertRecord(root, baseline, request) {
     requireValue(change && change.changeId === request.changeId && change.afterHash === request.expectedHash && recordState(current, baseline, request.kind, request.id).hash === request.expectedHash, 'Record changed since this report; a newer change cannot be reverted by an old button');
     const archived = JSON.parse(await fs.readFile(path.join(root, 'revisions', change.parent + '.json'), 'utf8'));
     requireValue(archived.revision === change.parent && recordState(archived, baseline, request.kind, request.id).hash === change.beforeHash, 'Original baseline changed; operator review required');
-    // A new recipe/event uses removal, so owner identity suppression is retained.
+    // A new recipe/event/place uses removal, so owner identity suppression is retained.
     requireValue(request.kind === 'venue' || archived.records[key], 'New items must use Delete');
     const next = structuredClone(current), restored = archived.records[key];
     if (restored) next.records[key] = structuredClone(restored); else delete next.records[key];
@@ -228,7 +235,7 @@ export async function revertRecord(root, baseline, request) {
 }
 
 export async function removeRecord(root, request) {
-  requireValue(request && validId(request.actionId) && ['recipe', 'event'].includes(request.kind) && validId(request.id) && validHash(request.expectedHash) && request.actor === 'telegram-owner', 'Invalid removal request');
+  requireValue(request && validId(request.actionId) && ['recipe', 'event', 'place'].includes(request.kind) && validId(request.id) && validHash(request.expectedHash) && request.actor === 'telegram-owner', 'Invalid removal request');
   const lock = path.join(root, 'publish.lock');
   await acquire(lock);
   try {

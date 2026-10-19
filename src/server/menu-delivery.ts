@@ -7,7 +7,7 @@ import type { MenuDetail, MenuIndex, MenuSummary, PublishedMenu } from "../types
 import { readMenuCatalogue } from "../utils/menu-catalogue";
 import { publishedMenus } from "./published-menus";
 import { researchMenuPackets } from "./research-menu-packets";
-import { editorialContent, editorialMenu } from "./editorial-content";
+import { editorialContent, editorialMenu, editorialPlaces } from "./editorial-content";
 import type { StaffContent, StaffMenuData, StaffPlaceData } from "../types/staff-content";
 
 type Entry = { dataset: string; branchId: string; fingerprint: string; menu: PublishedMenu };
@@ -49,10 +49,12 @@ const noStaff: StaffContent = { revision: "0".repeat(64), catalogueRevision: "0"
 let applied: { key: string; menus: Map<string, Applied | undefined> } = { key: "", menus: new Map() };
 const staffSection = "quintaste-additions";
 
-/** The packaged menu with bot price updates, before staff changes. */
+/** The packaged menu with bot price updates, or a QT Explorer veg options place's menu, before staff changes. */
 export function baseMenu(id: string, content = editorialContent()): Applied | undefined {
   const menu = details.get(id);
-  return menu ? editorialMenu(menu, revisions.get(id)!, content) : undefined;
+  if (menu) return editorialMenu(menu, revisions.get(id)!, content);
+  const place = editorialPlaces(content).get(id);
+  return place ? { menu: place.menu, fingerprint: place.fingerprint } : undefined;
 }
 /** Staff changes win over packaged and bot content: hidden dishes leave, edited fields replace, added dishes form one section. */
 export function staffMenu(id: string, staff: StaffContent, content = editorialContent()): Applied | undefined {
@@ -90,10 +92,11 @@ export function menuSummary({ menu, fingerprint }: Applied): MenuSummary {
 }
 const touched = (id: string, staff: StaffContent) => staff.items.has("place:" + id) || staff.items.has("menu:" + id);
 const packagedKitchens = new Map((catalogueIndex.venues as { id: string; kitchen?: string }[]).flatMap(venue => venue.kitchen === undefined ? [] : [[venue.id, venue.kitchen] as const]));
-/** A staff place edit decides the kitchen (null = fully vegetarian), else the packaged place. */
+/** A staff place edit decides the kitchen (null = fully vegetarian), else the packaged place; QT Explorer places are always veg options. */
 function kitchenOf(id: string, staff: StaffContent) {
   const place = staff.items.get("place:" + id)?.data as StaffPlaceData | undefined;
-  return place?.kitchen !== undefined ? place.kitchen : packagedKitchens.get(id);
+  if (place?.kitchen !== undefined) return place.kitchen;
+  return packagedKitchens.get(id) ?? (!details.has(id) && editorialPlaces().has(id) ? "options" : undefined);
 }
 /** A veg options place only ever serves dishes carrying the venue's V/VG label; an untagged dish could be meat or seafood. */
 function servable(id: string, staff: StaffContent, current: Applied | undefined): Applied | undefined {
@@ -106,6 +109,8 @@ function servable(id: string, staff: StaffContent, current: Applied | undefined)
 }
 /** Staff-created places, published once they have at least one dish. */
 export const staffPlaceIds = (staff: StaffContent) => [...staff.items.values()].filter(item => item.kind === "place" && item.origin === "staff").map(item => item.id);
+/** QT Explorer veg options places that do not reuse a packaged place id. */
+export const editorialPlaceIds = (content = editorialContent()) => [...editorialPlaces(content).keys()].filter(id => !details.has(id));
 
 export function publishedMenuIndex(now = Date.now(), withdrawn: ReadonlySet<string> = new Set(), staff = noStaff): MenuIndex {
   const content = editorialContent();
@@ -114,7 +119,8 @@ export function publishedMenuIndex(now = Date.now(), withdrawn: ReadonlySet<stri
     const applied = servable(summary.id, staff, staffMenu(summary.id, staff, content));
     return applied ? [menuSummary(applied)] : [];
   });
-  const created = staffPlaceIds(staff).filter(id => !withdrawn.has(id) && !details.has(id)).flatMap(id => {
+  const explorer = editorialPlaceIds(content), ids = [...explorer, ...staffPlaceIds(staff).filter(id => !details.has(id) && !explorer.includes(id))];
+  const created = ids.filter(id => !withdrawn.has(id)).flatMap(id => {
     const applied = servable(id, staff, staffMenu(id, staff, content));
     return applied ? [menuSummary(applied)] : [];
   });
