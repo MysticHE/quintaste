@@ -44,7 +44,7 @@ export function ExploreScreen() {
   const venues = accepted ? discovery.venues : [], count = activeFilterCount(filters, draft.diet);
   const reviews = usePlaceReviewSummaries(venues.map(venue => venue.id), accepted);
   useReactions("place", accepted ? venues.map(venue => venue.id) : []);
-  return <Screen back={false} compact contentStyle={{ paddingHorizontal: 4 }}>
+  return <Screen back={false} compact>
     <View style={[common.row, { gap: 6, zIndex: 50, alignItems: "flex-start" }]}><View style={common.flex}>
       <LocationSearchField key={discoveryScope} value={search} disabled={!readable} onChange={setSearch} onChoose={choose}
         onSearch={searchPlaces} suggestionsInFlow trailing={<FilterButton label="Filters" count={count} onPress={() => router.push("/filters")} />} /></View>
@@ -84,7 +84,7 @@ export function ExploreScreen() {
 }
 
 const s = StyleSheet.create({
-  context: { flexDirection: "row", alignItems: "center", flexWrap: "wrap", gap: 6, marginHorizontal: 8 },
+  context: { flexDirection: "row", alignItems: "center", flexWrap: "wrap", gap: 6 },
   countLabel: { flexDirection: "row", alignItems: "center", gap: 5, minHeight: 32, paddingHorizontal: 9, paddingVertical: 6, borderRadius: 10 },
   locationLabel: { alignSelf: "flex-start", flexDirection: "row", alignItems: "center", gap: 6,
     flexShrink: 1, paddingHorizontal: 10, paddingVertical: 6, minHeight: 32, borderRadius: 10 },

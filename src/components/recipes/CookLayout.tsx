@@ -5,7 +5,7 @@ import { Screen } from "../Screen";
 import { CompactUI } from "../ui-density";
 import { Icon, T, common } from "../ui";
 export function CookLayout(props: ComponentProps<typeof Screen>) {
-  return <CompactUI><Screen {...props} contentStyle={[{ gap: 10, paddingHorizontal: 12 }, props.contentStyle]} /></CompactUI>;
+  return <CompactUI><Screen {...props} contentStyle={[{ gap: 10 }, props.contentStyle]} /></CompactUI>;
 }
 export function CookSection({ title, children, initiallyOpen = false }: PropsWithChildren<{ title: string; initiallyOpen?: boolean }>) {
   const [open, setOpen] = useState(initiallyOpen);

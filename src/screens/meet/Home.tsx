@@ -62,7 +62,7 @@ export function MeetHomeScreen() {
   const counts = useRemote(member ? "/api/social/unread" : null, unread, 30000).data, badge = (counts?.invitations ?? 0) + (counts?.messages ?? 0);
   const select = (value: SocialSection) => { if (value === section) return; router.setParams({ tab: value, eventType: value === "events" ? type : undefined }); setQuery(""); };
   const filtered = activePeopleFilters(n.filters);
-  return <Screen title="Social" back={false} contentStyle={{ paddingHorizontal: 12 }} header={<BrowseHeader query={query} onChange={setQuery}
+  return <Screen title="Social" back={false} header={<BrowseHeader query={query} onChange={setQuery}
     placeholder={section === "people" ? "Find people" : section === "events" ? "Find events" : section === "areas" ? "Find areas" : "Find my plans"}
     filter={section === "people" ? { label: "People filters", count: filtered ? 1 : 0, onPress: () => openSocial("/filters") } : undefined}
     action={<IconButton label={badge ? `Inbox, ${badge} new` : "Inbox"} icon="chatbubbles-outline" badge={badge} onPress={() => openSocial("/inbox")} />} />}

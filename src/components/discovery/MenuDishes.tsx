@@ -7,6 +7,7 @@ import type { PublishedMenu } from "../../types/menus";
 import { menuDisplayItems } from "../../utils/menu-display";
 import { MenuSection } from "./MenuSection";
 import { useScreenScrollToTop } from "../Screen";
+import { edgeScroll } from "../../theme/layout";
 
 export function MenuDishes({ menu }: { menu: PublishedMenu; now: number }) {
   const [query, setQuery] = useState(""), [categoriesChosen, setCategories] = useState<string[]>([]);
@@ -27,7 +28,7 @@ export function MenuDishes({ menu }: { menu: PublishedMenu; now: number }) {
   return <View testID="menu-dishes" style={{ gap: 12 }}>
     {(count > 12 || !!query) && <SearchField placeholder="Search dishes" value={query}
       onChange={value => { setQuery(value); setPage(0); }} />}
-    {categories.length > 1 && <ScrollView horizontal showsHorizontalScrollIndicator={false} keyboardShouldPersistTaps="handled">
+    {categories.length > 1 && <ScrollView horizontal showsHorizontalScrollIndicator={false} keyboardShouldPersistTaps="handled" style={edgeScroll.row} contentContainerStyle={edgeScroll.content}>
       <View accessibilityLabel="Menu categories, choose any" style={{ flexDirection: "row", gap: 8, paddingVertical: 2 }}>
         <Chip label="All dishes" selected={!selectedCategories.length} compact onPress={() => { setCategories([]); setPage(0); }} />
         {categories.map(value => <Chip key={value} label={value} role="checkbox" selected={selectedCategories.includes(value)} compact

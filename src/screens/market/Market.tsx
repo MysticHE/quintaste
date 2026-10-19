@@ -49,7 +49,7 @@ export default function MarketScreen() {
     { id: "orders", label: "Orders", icon: "receipt-outline", activeIcon: "receipt", badge: counts?.orders ?? 0 },
     { id: "shop", label: "My shop", icon: "storefront-outline", activeIcon: "storefront" },
   ];
-  return <Screen title="Market" back={false} hideTimers contentStyle={{ paddingHorizontal: 12 }} floatingAction={tab === "shop" ? add : undefined}
+  return <Screen title="Market" back={false} hideTimers floatingAction={tab === "shop" ? add : undefined}
     header={<BrowseHeader query={query} onChange={setQuery} placeholder={placeholders[tab]}
       filter={browsing ? { label: "Market filters", count: refined({ ...filters, savedOnly: false }), onPress: () => setFilterOpen(true) } : undefined}
       action={<IconButton label={counts?.count ? `Market Inbox, ${counts.count} new` : "Market Inbox"} icon="chatbubbles-outline" badge={counts?.count ?? 0} onPress={() => router.push("/market/inbox")} />} />}>

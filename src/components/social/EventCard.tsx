@@ -5,6 +5,7 @@ import { usePreferences } from "../../state/Preferences";
 import { useKeyboardFocus } from "../../hooks/useKeyboardFocus";
 import { useOnAccent } from "../BrowseControls";
 import { sgDateTile } from "../../utils/sg-datetime";
+import { edgeScroll } from "../../theme/layout";
 
 export type EventTag = { label: string; tone?: "accent" | "success" | "muted" };
 /** One event: a date tile, the title, then time and place on their own lines, then a few facts as tags. */
@@ -47,7 +48,7 @@ export function WhenHeading({ title }: { title: string }) {
 /** Event types as one scrolling row of icon pills; the chosen type is filled. */
 export function TypePills<T extends string>({ options, value, onChange }: { options: readonly { id: T; label: string; icon: IconName }[]; value: T; onChange: (value: T) => void }) {
   const { theme } = usePreferences(), onAccent = useOnAccent();
-  return <ScrollView horizontal showsHorizontalScrollIndicator={false} style={s.pillRow} contentContainerStyle={s.pills} accessibilityRole="radiogroup" accessibilityLabel="Event type">
+  return <ScrollView horizontal showsHorizontalScrollIndicator={false} style={[s.pillRow, edgeScroll.row]} contentContainerStyle={[s.pills, edgeScroll.content]} accessibilityRole="radiogroup" accessibilityLabel="Event type">
     {options.map(option => { const on = option.id === value;
       return <Pressable key={option.id} accessibilityRole="radio" accessibilityState={{ selected: on, checked: on }} accessibilityLabel={option.label} onPress={() => onChange(option.id)}
         style={({ pressed }) => [common.row, s.pill, { backgroundColor: on ? theme.accent : theme.card, borderColor: on ? theme.accent : theme.border, opacity: pressed ? 0.8 : 1 }]}>
