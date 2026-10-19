@@ -44,16 +44,26 @@ export async function providerKeyStatus(member: Session) {
 
 /** Asks Google for the model list with the key; no generation, no cost. Returns a safe status category. */
 async function probe(apiKey: string) {
-  let httpStatus: number | null = null, status = 'network_error';
+  let httpStatus: number | null = null, status = 'network_error', google = '';
   try {
     const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models?pageSize=1', {
       redirect: 'error', signal: AbortSignal.timeout(15000), headers: { 'x-goog-api-key': apiKey } });
     httpStatus = response.status;
     status = response.ok ? 'connected' : response.status === 400 || response.status === 401 ? 'key_invalid'
       : response.status === 403 ? 'rejected_by_google' : response.status === 429 ? 'quota_or_rate_limit' : 'provider_error';
-    await response.body?.cancel();
+    if (response.ok) await response.body?.cancel();
+    else {
+      // Google's own reason (e.g. BILLING_DISABLED, API_KEY_SERVICE_BLOCKED) and message, without the key; at most 8 KB read.
+      const raw = (await response.text()).slice(0, 8192);
+      try {
+        const error = JSON.parse(raw).error ?? {};
+        const reasons = (Array.isArray(error.details) ? error.details : []).map((d: { reason?: unknown }) => d?.reason).filter((r: unknown) => typeof r === 'string');
+        google = [error.status, ...reasons].filter(Boolean).join(' · ') + (error.message ? ': ' + String(error.message) : '');
+      } catch { google = ''; }
+      google = google.split(apiKey).join('[key]').replace(/\s+/g, ' ').slice(0, 300);
+    }
   } catch { /* A network failure is recorded as such; nothing from upstream is stored. */ }
-  return { status, httpStatus };
+  return { status, httpStatus, google };
 }
 const explain: Record<string, string> = {
   key_invalid: 'Google says this key is not valid. Copy it again from Google AI Studio.',
@@ -71,13 +81,13 @@ export async function setProviderKey(member: Session, input: Record<string, unkn
   const value = text(input.key, 'API key', 256, 20).trim();
   if (!PROVIDERS[name].pattern.test(value)) throw new HttpError(400, 'That key contains spaces or characters a Google key never has. Copy it again from Google AI Studio.');
   await throttle('provider-key-probe:' + member.id, 10, 3600);
-  const { status, httpStatus } = await probe(value);
+  const { status, httpStatus, google } = await probe(value);
   await transaction(async db => {
     await lockPermission(db, member, 'integrations');
     await db.query('INSERT INTO ops.integration_check(provider,status,http_status) VALUES($1,$2,$3)', [name, status, httpStatus]);
     if (status !== 'connected') {
-      await audit(db, member.id, 'integration.key_rejected', name, reason, { status, httpStatus });
-      throw new HttpError(400, explain[status] ?? 'The key was not accepted.');
+      await audit(db, member.id, 'integration.key_rejected', name, reason, { status, httpStatus, google });
+      throw new HttpError(400, (explain[status] ?? 'The key was not accepted.') + (google ? ' Google said: ' + google : ''));
     }
     const hint = value.slice(-4);
     await db.query(`INSERT INTO ops.provider_secret(provider, ciphertext, hint, updated_by) VALUES($1,$2,$3,$4)

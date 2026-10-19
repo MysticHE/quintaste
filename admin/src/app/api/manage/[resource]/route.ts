@@ -39,7 +39,9 @@ export function GET(request: Request, context: Context) { return route(async () 
 export function POST(request: Request, context: Context) { return route(async () => {
   const input = await body(request); const member = await session(request); const { resource } = await context.params;
   await throttle('write:' + member.id, 30);
-  const reason = text(input.reason, 'reason for this change', 1000, 10);
+  // Provider key changes are audited with a fixed reason (owner decision: no reason box on that panel); everything else needs one.
+  const reason = resource === 'integrations' && input.provider && !input.reason ? 'Gemini key ' + (input.action === 'remove' ? 'removed' : 'saved') + ' from Integrations'
+    : text(input.reason, 'reason for this change', 1000, 10);
   if (resource === 'accounts') return json(await accountAction(member,input,reason));
   if (resource === 'cases') return json(input.id ? await updateCase(member,input,reason) : await createCase(member,input,reason));
   if (resource === 'sellers') return json(await sellerAction(member,input,reason));

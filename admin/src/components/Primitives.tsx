@@ -14,8 +14,9 @@ export function Empty({ icon, children }: { icon: IconName; children: ReactNode 
   return <div className="empty"><Icon name={icon} size={34}/>{children}</div>;
 }
 /** A form whose submit is audited: every change carries a reason. Create forms pass `reset` so a second click cannot repeat the save. */
-export function Mutation({ endpoint, values, onSaved, children, label = 'Save', tone = 'primary', reset = false }: {
+export function Mutation({ endpoint, values, onSaved, children, label = 'Save', tone = 'primary', reset = false, reason = true }: {
   endpoint: string; values: (form: FormData) => Record<string, unknown>; onSaved: () => void; children?: ReactNode; label?: string; tone?: 'primary' | 'danger'; reset?: boolean;
+  /** false hides the reason box; the server then records a fixed reason for that action. */ reason?: boolean;
 }) {
   const [busy,setBusy] = useState(false); const [error,setError] = useState(''); const [message,setMessage] = useState('');
   async function submit(event: FormEvent<HTMLFormElement>) {
@@ -31,7 +32,7 @@ export function Mutation({ endpoint, values, onSaved, children, label = 'Save', 
     finally { setBusy(false); }
   }
   return <form onSubmit={submit} className="stack">{children}
-    <label>Reason<textarea name="reason" required minLength={10} maxLength={1000} rows={2}/></label>
+    {reason && <label>Reason<textarea name="reason" required minLength={10} maxLength={1000} rows={2}/></label>}
     {error && <div className="notice error" role="alert"><Icon name="warning"/>{error}</div>}
     {message && <div className="notice success" role="status"><Icon name="check"/>{message}</div>}
     <div className="form-actions"><button className={tone} disabled={busy}>{busy ? 'Saving…' : label}</button></div>
