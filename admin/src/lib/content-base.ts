@@ -13,7 +13,9 @@ export type Photo = { path: string; width: number; height: number; author: strin
   capturedAt: string | null; checkedAt: string; changes: string; provider?: 'Google Maps' };
 export type Place = { id: string; name: string; branch: string; address: string; postalCode: string; aliases: string[];
   point: { latitude: number; longitude: number } | null; venueDiet: 'Vegetarian' | 'Vegan'; alliumFreeClaim: boolean; photo?: Photo; hours?: Hours;
-  kitchen?: 'options'; menuTotal?: number; itemCount: number; research?: { sourceUrls: string[] } };
+  kitchen?: 'options'; menuTotal?: number; itemCount: number; research?: { sourceUrls: string[]; checkedAt?: string };
+  /** QT Explorer Veg Kitchen places: the venue's own words that it serves no meat or seafood. */
+  dietProof?: { sourceUrl: string; quote: string; checkedAt: string } };
 export type Recipe = Record<string, unknown> & { id: string; name: string; revision: number; provenance?: Record<string, unknown> };
 export type Event = Record<string, unknown> & { id: string; title: string; startsAt: string; status: string };
 export type Packaged<T> = { source?: 'bundled' | 'bot'; hash: string; data: T };

@@ -33,9 +33,13 @@ export async function changeControl(member: Session, input: Record<string, unkno
   const key = choice(input.key, ['registration','discovery','menus','avatars','ai_recipes','social','market','market_sellers','recipes','areas','games'] as const, 'feature');
   if (typeof input.enabled !== 'boolean') throw new HttpError(400, 'Choose enabled or disabled.');
   const version = integer(input.version, 'control version', 1);
-  const notice = text(input.notice || '', 'member notice', 300, 0);
+  const typed = text(input.notice || '', 'staff note', 300, 0).replace(/\s*daily=\d+\s*/g, ' ').trim();
   return transaction(async db => {
     await lockPermission(db, member, 'operations');
+    // The AI recipes daily limit is stored in this note (set on the AI recipes page); a toggle keeps it.
+    const kept = key === 'ai_recipes' ? /daily=\d+/.exec((await db.query('SELECT notice FROM ops.control WHERE key=$1', [key])).rows[0]?.notice ?? '')?.[0] : undefined;
+    const notice = [typed, kept].filter(Boolean).join(' ');
+    if (notice.length > 300) throw new HttpError(400, 'Shorten the note.');
     const result = await db.query('UPDATE ops.control SET enabled=$1,notice=$2,version=version+1,updated_at=now() WHERE key=$3 AND version=$4', [input.enabled,notice,key,version]);
     if (!result.rowCount) {
       const exists = await db.query('SELECT 1 FROM ops.control WHERE key=$1', [key]);

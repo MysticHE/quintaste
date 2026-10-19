@@ -10,8 +10,9 @@ import MenuPanel, { type Menu } from './MenuPanel';
 type Hours = { summary: string; schedule: string[]; notes: string; sourceUrl: string; checkedAt: string };
 type Photo = { path: string; width: number; height: number; author: string; sourceUrl: string; license: string; licenseUrl: string | null; capturedAt: string | null; checkedAt: string; changes: string; provider?: string };
 type Place = { name: string; branch: string; address: string; postalCode: string; aliases: string[]; point: { latitude: number; longitude: number } | null;
-  venueDiet: 'Vegetarian' | 'Vegan'; alliumFreeClaim: boolean; kitchen?: 'options' | null; menuTotal?: number | null; hours?: Hours | null; photo?: Photo | null; sourceUrl?: string };
-type Detail = { id: string; app: string | null; base: Place | null; staff: Staff | null; newer: boolean; history: Audit[];
+  venueDiet: 'Vegetarian' | 'Vegan'; alliumFreeClaim: boolean; kitchen?: 'options' | null; menuTotal?: number | null; hours?: Hours | null; photo?: Photo | null; sourceUrl?: string;
+  research?: { sourceUrls: string[]; checkedAt?: string }; dietProof?: { sourceUrl: string; quote: string; checkedAt: string } };
+type Detail = { id: string; app: string | null; origin: 'packaged' | 'explorer' | 'staff'; base: Place | null; staff: Staff | null; newer: boolean; history: Audit[];
   menu: { base: Menu | null; staff: Staff | null; newer: boolean }; reports: { id: string; title: string; status: string; created_at: string }[] };
 const blank: Place = { name: '', branch: '', address: '', postalCode: '', aliases: [], point: null, venueDiet: 'Vegetarian', alliumFreeClaim: false, kitchen: null, menuTotal: null, hours: null, photo: null, sourceUrl: '' };
 const today = () => new Date(Date.now() + 8 * 3600000).toISOString().slice(0, 10);
@@ -51,14 +52,15 @@ function PlaceForm({ detail, onSaved }: { detail: Detail | null; onSaved: (id?: 
       <div className="row spread"><div className="stack compact"><h2>{detail ? start.name : 'New place'}</h2>{detail && <span className="code">{detail.id}</span>}</div>
         {detail && <Badges hidden={detail.staff?.hidden} edited={edited} staff={staffMade} newer={detail.newer} reports={detail.reports.filter(r => !['resolved', 'dismissed'].includes(r.status)).length}/>}</div>
       {detail && <Edited staff={detail.staff} link={detail.app && !detail.staff?.hidden ? `${detail.app}/place/catalogue-${detail.id}` : null}/>}
+      {detail?.origin === 'explorer' && base && <Evidence place={base}/>}
       <div className="fields">
         <label>Name<input value={place.name} onChange={e => set({ name: e.target.value })} maxLength={300}/>{was('name')}</label>
         <label>Branch<input value={place.branch} onChange={e => set({ branch: e.target.value })} maxLength={300}/>{was('branch')}</label>
         <label>Postal code<input value={place.postalCode} onChange={e => set({ postalCode: e.target.value })} inputMode="numeric" maxLength={6}/>{was('postalCode')}</label>
         <label>Diet<select value={place.venueDiet} onChange={e => set({ venueDiet: e.target.value as Place['venueDiet'] })}><option>Vegetarian</option><option>Vegan</option></select>{was('venueDiet')}</label>
-        {/* Veg options needs the app's menu filter (docs/VEG_OPTIONS_PLAN.md); until that ships, staff cannot newly mark a place. */}
-        {start.kitchen === 'options' && <label>Kitchen<select value={place.kitchen ?? ''} onChange={e => set(e.target.value === 'options' ? { kitchen: 'options', alliumFreeClaim: false } : { kitchen: null, menuTotal: null })}>
-          <option value="">Vegetarian</option><option value="options">Mixed Kitchen</option></select>{was('kitchen')}</label>}
+        {/* Mixed Kitchen lists only the venue's V/VG-labelled dishes, so the server refuses it while any visible dish is unlabelled. */}
+        <label>Kitchen<select value={place.kitchen ?? ''} onChange={e => set(e.target.value === 'options' ? { kitchen: 'options', alliumFreeClaim: false } : { kitchen: null, menuTotal: null })}>
+          <option value="">Veg Kitchen</option><option value="options">Mixed Kitchen</option></select>{was('kitchen')}</label>
         {place.kitchen === 'options' && <label>Full menu size<input value={place.menuTotal ?? ''} inputMode="numeric" maxLength={4}
           onChange={e => { const digits = e.target.value.replace(/\D/g, ''); set({ menuTotal: digits ? Number(digits) : null }); }}/>{was('menuTotal')}</label>}
       </div>
@@ -96,5 +98,17 @@ function PlaceForm({ detail, onSaved }: { detail: Detail | null; onSaved: (id?: 
     {detail && <section className="panel stack">{!!detail.reports.length && <><div className="row spread"><h3>Reports</h3><Link className="row" href="/console/cases">Cases<Icon name="forward" size={14}/></Link></div>
       <ul className="history">{detail.reports.map(r => <li key={r.id}><strong>{r.title}</strong><small>{date(r.created_at)} · {r.status}</small></li>)}</ul></>}
       <h3>History</h3><History rows={detail.history}/></section>}
+  </div>;
+}
+
+/** Where a QT Explorer place came from: the venue's own words for a Veg Kitchen place and the pages the bot read. Hide it here, or use Remove in Telegram. */
+function Evidence({ place }: { place: Place }) {
+  const sources = place.research?.sourceUrls ?? [];
+  return <div className="evidence stack compact">
+    <div className="row"><span className="badge">QT Explorer</span><small>{place.kitchen === 'options' ? 'Mixed Kitchen: dishes labelled V or VG by the venue' : 'Veg Kitchen: the venue says it serves no meat or seafood'}
+      {place.research?.checkedAt ? ' · checked ' + place.research.checkedAt : ''}</small></div>
+    {place.dietProof && <blockquote className="detail">“{place.dietProof.quote}”<small> <a href={place.dietProof.sourceUrl} target="_blank" rel="noreferrer">Source</a> · {place.dietProof.checkedAt}</small></blockquote>}
+    {!!sources.length && <details><summary>{sources.length} {sources.length === 1 ? 'source' : 'sources'}</summary>
+      <ul className="links">{sources.map(url => <li key={url}><a href={url} target="_blank" rel="noreferrer">{url.replace(/^https?:\/\/(www\.)?/, '').slice(0, 90)}</a></li>)}</ul></details>}
   </div>;
 }

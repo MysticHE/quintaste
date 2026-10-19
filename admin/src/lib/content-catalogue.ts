@@ -30,11 +30,12 @@ export async function placeList(member: Session) {
   const row = (id: string, fields: Partial<Place>, extra: Record<string, unknown>) => {
     const s = staff.get(id), m = menu.get(id), patch = (s?.data ?? {}) as Patch;
     return { id, name: patch.name ?? fields.name, branch: patch.branch ?? fields.branch, address: patch.address ?? fields.address,
+      kitchen: (patch.kitchen !== undefined ? patch.kitchen : fields.kitchen) === 'options' ? 'mixed' : 'veg',
       hidden: !!s?.hidden, edited: s?.origin !== 'staff' && (!!m || Object.keys(patch).some(key => key !== 'base')), reports: reported.get(id) ?? 0,
       updatedAt: [s?.updated_at, m?.updated_at].filter(Boolean).sort((a, b) => new Date(a!).getTime() - new Date(b!).getTime()).at(-1) ?? null, ...extra };
   };
   return [...rows.filter(r => r.origin === 'staff').map(r => row(r.id, {}, { origin: 'staff', dishes: ((menu.get(r.id)?.data as MenuData)?.added ?? []).length })),
-    ...base.map(({ hash, data }) => row(data.id, data, { origin: 'packaged', dishes: data.itemCount, newer: newerBelow(staff.get(data.id) ?? null, hash) }))];
+    ...base.map(({ source, hash, data }) => row(data.id, data, { origin: source === 'bot' ? 'explorer' : 'packaged', dishes: data.itemCount, newer: newerBelow(staff.get(data.id) ?? null, hash) }))];
 }
 export async function placeDetail(member: Session, raw: string) {
   authorize(member, 'content');
@@ -47,7 +48,7 @@ export async function placeDetail(member: Session, raw: string) {
     query(`SELECT id,title,status,created_at FROM ops.case_record WHERE kind='report' AND split_part(subject_id,'|',1)=$1 ORDER BY created_at DESC LIMIT 20`, ['place:catalogue:' + id])]);
   const base = places.find(p => p.data.id === id) ?? null;
   if (!base && place?.origin !== 'staff') throw new HttpError(404, 'Place not found.');
-  return { id, app: process.env.CUSTOMER_APP_URL ?? null, base: base?.data ?? null, staff: place && { ...staffState(place), data: place.data }, newer: newerBelow(place, base?.hash),
+  return { id, app: process.env.CUSTOMER_APP_URL ?? null, origin: base?.source === 'bot' ? 'explorer' : base ? 'packaged' : 'staff', base: base?.data ?? null, staff: place && { ...staffState(place), data: place.data }, newer: newerBelow(place, base?.hash),
     menu: { base: menu?.data ?? null, staff: menuRow && { ...staffState(menuRow), data: menuRow.data }, newer: newerBelow(menuRow, menu?.hash) },
     history: [...trail, ...menuTrail, ...decisions.rows].sort((a, b) => new Date(b.occurred_at).getTime() - new Date(a.occurred_at).getTime()).slice(0, 30), reports: reports.rows };
 }

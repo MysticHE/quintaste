@@ -5,24 +5,28 @@ import { ActionBar } from './Parts';
 import { Moderation, toggle } from './MemberContent';
 
 type Listing = { id: string; name: string; status: string; price_cents: number } | null;
+type Source = { kind: 'video' | 'request'; platform?: string; url?: string; request?: string; urls?: string[]; creator?: string; notes?: string; confidence?: number };
+type Nutrition = { perServing?: Record<string, number>; [key: string]: unknown };
 type Recipe = {
-  id: string; version: 'live' | 'pending'; pending_state: 'review' | 'declined' | null; decision_note: string; live: boolean; hidden_reason: string | null;
+  id: string; version: 'live' | 'pending'; pending_state: 'review' | 'declined' | null; decision_note: string; live: boolean; hidden_reason: string | null; ai: boolean;
   submitted_at: string | null; published_at: string | null; username: string; photos: string[]; reports: number;
   recipe: { title: string; description: string; author: string; language: string; servings: number; minutes: number; diet: string; categories: string[]; sponsorship: string; revision: number;
     ingredients: { id: string; name: string; amount: number | null; unit: string; listingId?: string; listing?: Listing }[];
-    steps: { title: string; instruction: string; minutes: number | null }[] };
+    steps: { title: string; instruction: string; minutes: number | null }[]; source?: Source; nutrition?: Nutrition };
 };
 const photo = (r: Recipe, slot: string) => `/api/content/member-recipe-photo?id=${r.id}&version=${r.version}&slot=${slot}`;
 
-/** Staff review of recipes members submit from Cook: publish, decline with a note to the author, or hide a published one. */
-export function MemberRecipes() {
-  return <Moderation<Recipe> path="/api/content/member-recipes" statuses={[['review', 'In review'], ['published', 'Published'], ['declined', 'Declined'], ['hidden', 'Hidden']]} render={r => <RecipeCard r={r}/>}
+/** Staff review of recipes from Cook: written by members, or made by the AI recipe worker from a request or video (low confidence only).
+ * Publish, decline with a note to the author, or hide a published one. */
+export function MemberRecipes({ origin }: { origin: 'member' | 'ai' }) {
+  return <Moderation<Recipe> key={origin} path={'/api/content/member-recipes?origin=' + origin} statuses={[['review', 'In review'], ['published', 'Published'], ['declined', 'Declined'], ['hidden', 'Hidden']]} render={r => <RecipeCard r={r}/>}
       act={(r, status, done) => status === 'review' ? <Decide r={r} done={done}/> : status === 'published' || status === 'hidden' ? toggle('member-recipes', r.id, status === 'hidden', done, 'Hide recipe') : null}/>;
 }
 function RecipeCard({ r }: { r: Recipe }) {
   const d = r.recipe, links = d.ingredients.filter(i => i.listingId);
   return <>
     <div className="row spread"><strong>{d.title}</strong><span className="row badges">
+      {r.ai && <span className="badge">AI</span>}
       {r.live && r.version === 'pending' && <span className="badge">Update</span>}
       {!!r.reports && <span className="badge warn">{r.reports} {r.reports === 1 ? 'report' : 'reports'}</span>}</span></div>
     <small>{d.author} ({r.username}) · {d.diet} · {d.categories.join(', ')} · {d.servings} servings · {d.minutes} min · v{d.revision} · {date(r.version === 'pending' ? r.submitted_at : r.published_at)}</small>
@@ -30,6 +34,8 @@ function RecipeCard({ r }: { r: Recipe }) {
     {/* eslint-disable-next-line @next/next/no-img-element -- staff view of member photos */}
     {r.photos.includes('cover') && <img src={photo(r, 'cover')} alt="Recipe photo" width={240} height={160} style={{ objectFit: 'cover' }}/>}
     <p className="detail">{d.description}</p>
+    {d.source && <SourceLine source={d.source}/>}
+    {d.nutrition?.perServing && <small>Per serving: {Object.entries(d.nutrition.perServing).slice(0, 6).map(([k, v]) => `${k} ${Math.round(v * 10) / 10}`).join(' · ')}</small>}
     {!!links.length && <small>Shop links: {links.map(i => i.listing ? `${i.name} → ${i.listing.name} (S$${(i.listing.price_cents / 100).toFixed(2)}, ${i.listing.status})` : `${i.name} → removed item`).join(' · ')}</small>}
     <details><summary>Ingredients and steps</summary>
       <ul>{d.ingredients.map(i => <li key={i.id}>{i.amount === null ? i.name + ', to taste' : `${i.amount} ${i.unit} ${i.name}`}</li>)}</ul>
@@ -48,4 +54,14 @@ function Decide({ r, done }: { r: Recipe; done: () => void }) {
       actions={[{ action: 'publish', label: 'Publish', tone: 'primary' }, { action: 'decline', label: 'Decline', tone: 'danger' }]}>
       <label>Note to author<textarea value={note} onChange={e => setNote(e.target.value)} maxLength={300} rows={2}/></label>
     </ActionBar></details>;
+}
+/** Where an AI recipe came from, with the model's own confidence: below the review line, a person checks quantities and steps. */
+function SourceLine({ source }: { source: Source }) {
+  const confidence = typeof source.confidence === 'number' ? Math.round(source.confidence * 100) + '% confidence' : '';
+  return <div className="stack compact">
+    <small>{source.kind === 'video' ? <>From {source.platform === 'upload' ? 'an uploaded video' : (source.platform ?? 'a') + ' video'}{source.url && <> · <a href={source.url} target="_blank" rel="noreferrer">Open</a></>}</>
+      : <>Asked for “{source.request}”{!!source.urls?.length && <> · {source.urls.length} {source.urls.length === 1 ? 'source' : 'sources'}</>}</>}
+      {source.creator ? ' · ' + source.creator : ''}{confidence ? ' · ' + confidence : ''}</small>
+    {source.notes && <small>Model notes: {source.notes}</small>}
+  </div>;
 }

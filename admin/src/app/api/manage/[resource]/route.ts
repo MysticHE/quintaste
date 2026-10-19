@@ -8,6 +8,7 @@ import { caseList, caseDetails, createCase, updateCase } from '../../../../lib/c
 import { gatewayStatus, checkGateway } from '../../../../lib/gateway';
 import { providerKeyStatus, setProviderKey, removeProviderKey } from '../../../../lib/provider-keys';
 import { sellerAction, sellerDetail, sellerList } from '../../../../lib/sellers';
+import { setDailyCap } from '../../../../lib/ai-recipes';
 
 type Context = { params: Promise<{ resource: string }> };
 export const runtime = 'nodejs';
@@ -42,12 +43,14 @@ export function POST(request: Request, context: Context) { return route(async ()
   // Provider key changes are audited with a fixed reason (owner decision: no reason box on that panel); everything else needs one.
   const what = resource === 'integrations' && input.provider ? 'Gemini key ' + (input.action === 'remove' ? 'removed' : 'saved')
     : resource === 'controls' ? (input.enabled ? 'Turned on ' : 'Turned off ') + String(input.key ?? '')
+    : resource === 'ai-limit' ? 'AI recipes daily limit ' + String(input.dailyCap ?? '')
     : resource + (typeof input.action === 'string' ? ' ' + input.action : '');
   const reason = reasonText(input.reason, what + ' (no reason given)');
   if (resource === 'accounts') return json(await accountAction(member,input,reason));
   if (resource === 'cases') return json(input.id ? await updateCase(member,input,reason) : await createCase(member,input,reason));
   if (resource === 'sellers') return json(await sellerAction(member,input,reason));
   if (resource === 'controls') return json(await changeControl(member,input,reason));
+  if (resource === 'ai-limit') return json(await setDailyCap(member,input,reason));
   if (resource === 'staff') return json(await changeStaff(member,input,reason));
   if (resource === 'integrations') {
     if (input.provider) return json(input.action === 'remove' ? await removeProviderKey(member,input,reason) : await setProviderKey(member,input,reason));

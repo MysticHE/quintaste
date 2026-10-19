@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import Link from 'next/link';
 import { date, useResource } from './client';
 import { Feedback, IconButton, Mutation, Pager, Segmented, Table, reveal } from './Primitives';
 import { Icon } from './Icon';
@@ -9,6 +10,16 @@ const statuses = ['open', 'triaged', 'investigating', 'resolved', 'dismissed'];
 const closed = ['resolved', 'dismissed'];
 const tone = (status: string) => 'badge ' + (closed.includes(status) ? '' : status === 'open' ? 'warn' : 'good');
 const overdue = (c: Case) => !closed.includes(c.status) && Date.parse(c.due_at) < Date.now();
+/** Member reports carry "<kind>:<id>|by:<reporter>"; this opens the reported item where staff can act on it. */
+const subjects: [RegExp, string, (id: string) => string][] = [
+  [/^place:catalogue:(.+)$/, 'Open place', id => '/console/places?id=' + encodeURIComponent(id)],
+  [/^place:review:/, 'Place reviews', () => '/console/reviews'], [/^recipe:member:/, 'Member recipes', () => '/console/member-recipes'],
+  [/^market:listing:/, 'Listings', () => '/console/listings'], [/^market:order:/, 'Shops', () => '/console/shops'], [/^community:user:/, 'Accounts', () => '/console/accounts']];
+function Subject({ value }: { value: string }) {
+  const [subject, by] = value.split('|by:'), match = subjects.map(([re, label, href]) => { const m = re.exec(subject); return m && { label, href: href(m[1] ?? '') }; }).find(Boolean);
+  return <span className="row">{match ? <Link className="row" href={match.href}>{match.label}<Icon name="forward" size={14}/></Link> : null}
+    <span className="code">{subject}</span>{by && <small>reported by a member</small>}</span>;
+}
 
 export default function Cases({ canAssign }: { canAssign: boolean }) {
   const [status, setStatus] = useState(''); const [selected, setSelected] = useState<string | null>(null); const [creating, setCreating] = useState(false); const [page, setPage] = useState(0);
@@ -46,7 +57,8 @@ function CaseDetail({ id, onSaved, onClose, canAssign }: { id: string; onSaved: 
     <Feedback {...resource} retry={resource.reload}/>
     {row && <>
       <div className="row badges"><span className={tone(row.status)}>{row.status}</span><span className="badge">{row.kind}</span>
-        <span className={'badge ' + (row.severity === 'normal' ? '' : 'warn')}>{row.severity}</span>{row.subject_id && <span className="code">{row.subject_id}</span>}</div>
+        <span className={'badge ' + (row.severity === 'normal' ? '' : 'warn')}>{row.severity}</span></div>
+      {row.subject_id && <Subject value={row.subject_id}/>}
       <p className="detail">{row.description}</p>
       <div className="divider"/>
       <CaseForm key={row.version} id={id} row={row} canAssign={canAssign} assignees={assignees} onSaved={() => { resource.reload(); onSaved(); }}/>

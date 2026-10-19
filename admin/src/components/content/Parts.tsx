@@ -2,7 +2,6 @@
 import { useState, type ReactNode } from 'react';
 import { api, date } from '../client';
 import { Icon } from '../Icon';
-import { SearchField, Segmented } from '../Primitives';
 
 export type Staff = { origin: 'edit' | 'staff'; hidden: boolean; version: number; updatedAt: string; editor: string | null; data: Record<string, unknown> };
 export type Photo = { path: string; width: number; height: number };
@@ -10,7 +9,7 @@ export type Audit = { occurred_at: string; action: string; reason: string; actor
 type Action = { action: string; label: string; tone?: 'primary' | 'danger'; confirm?: string };
 
 /** One status line for any content item. */
-export function Badges({ hidden, edited, staff, newer, reports, extra }: { hidden?: boolean; edited?: boolean; staff?: boolean; newer?: boolean; reports?: number; extra?: string }) {
+export function Badges({ hidden, edited, staff, newer, reports, extra, tags = [] }: { hidden?: boolean; edited?: boolean; staff?: boolean; newer?: boolean; reports?: number; extra?: string; tags?: string[] }) {
   return <span className="row badges">
     {hidden ? <span className="badge warn">Hidden</span> : <span className="badge good">Live</span>}
     {staff && <span className="badge">Staff</span>}
@@ -18,6 +17,7 @@ export function Badges({ hidden, edited, staff, newer, reports, extra }: { hidde
     {newer && <span className="badge warn">Newer source</span>}
     {!!reports && <span className="badge warn">{reports} {reports === 1 ? 'report' : 'reports'}</span>}
     {extra && <span className="badge">{extra}</span>}
+    {tags.filter(Boolean).map(tag => <span key={tag} className="badge">{tag}</span>)}
   </span>;
 }
 /** Content actions; each change is recorded in the audit log. */
@@ -68,14 +68,10 @@ export function History({ rows }: { rows: Audit[] }) {
   return <ul className="history">{rows.map((row, i) => <li key={i}><strong>{row.action.replace(/^content\./, '').replaceAll('.', ' · ')}</strong>
     <small>{date(row.occurred_at)} · {row.actor ?? 'Staff'}</small><div>{row.reason}</div></li>)}</ul>;
 }
-/** Search box plus one-tap filters for a content list. */
-export function ListTools({ query, setQuery, filters, filter, setFilter, children }: {
-  query: string; setQuery: (v: string) => void; filters: [string, string][]; filter: string; setFilter: (v: string) => void; children?: ReactNode;
-}) {
-  return <div className="stack compact list-tools">
-    <div className="row"><SearchField label="Search" value={query} onChange={setQuery} maxLength={100}/>{children}</div>
-    <Segmented label="Filter" options={filters} value={filter} onChange={setFilter}/>
-  </div>;
+/** One-tap filters that wrap instead of scrolling out of sight, each with how many items it holds. */
+export function Chips({ options, value, onChange, label }: { options: [string, string, number?][]; value: string; onChange: (value: string) => void; label: string }) {
+  return <div className="chips" role="group" aria-label={label}>{options.map(([id, text, n]) =>
+    <button type="button" key={id} aria-pressed={value === id} onClick={() => onChange(id)}>{text}{n !== undefined && <span className="chip-count">{n}</span>}</button>)}</div>;
 }
 /** "Last staff change" line with an optional link to the member-facing page. */
 export function Edited({ staff, link }: { staff: Staff | null | undefined; link?: string | null }) {

@@ -1,7 +1,7 @@
 import { createHash } from "node:crypto";
 import index from "../../../data/menus/catalogue-index.json";
 import { bundledRecipes } from "../../data/recipes";
-import { editorialContent, editorialVenue } from "../../server/editorial-content";
+import { editorialContent, editorialPlaces, editorialVenue } from "../../server/editorial-content";
 import { baseMenu } from "../../server/menu-delivery";
 import type { CatalogueVenue } from "../../types/catalogue";
 
@@ -15,10 +15,15 @@ export function GET(request: Request) {
   const params = new URL(request.url).searchParams, kind = params.get("kind"), id = params.get("id") ?? "";
   const content = editorialContent(), bot = (type: string) => Object.values(content.records as unknown as Record<string, Row>)
     .filter(row => row.kind === type).map(row => ({ source: "bot", hash: hash(row.data), data: row.data }));
-  if (kind === "places") return Response.json({ items: (index.venues as CatalogueVenue[]).map(venue => {
+  if (kind === "places") return Response.json({ items: [...(index.venues as CatalogueVenue[]).map(venue => {
     const current = editorialVenue(venue, true, content);
     return { hash: hash(current), data: current };
-  }) }, { headers });
+  }),
+  // QT Explorer places (Veg Kitchen and Mixed Kitchen), with the diet evidence staff need to judge them; the fingerprint moves on every republish.
+  ...[...editorialPlaces(content).values()].map(place => {
+    const proof = (content.records as unknown as Record<string, Row>)["place:" + place.venue.id]?.data.dietProof;
+    return { source: "bot", hash: place.fingerprint, data: { ...place.venue, ...(proof ? { dietProof: proof } : {}) } };
+  })] }, { headers });
   if (kind === "menu" && /^[a-z0-9][a-z0-9-]{2,119}$/.test(id)) {
     const menu = baseMenu(id, content);
     return menu ? Response.json({ hash: menu.fingerprint, data: menu.menu }, { headers }) : Response.json({ error: "No packaged menu" }, { status: 404, headers });

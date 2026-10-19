@@ -6,6 +6,7 @@ import { eventAction, eventDetail, eventList, recipeAction, recipeDetail, recipe
 import { gatheringList, marketItems, marketPhoto, marketReviews, memberAction, reviewList, reviewPhoto } from '../../../../lib/content-members';
 import { contentPhoto, uploadPhoto } from '../../../../lib/content-assets';
 import { memberRecipeAction, memberRecipeList, memberRecipePhoto } from '../../../../lib/content-member-recipes';
+import { aiJobs, aiSummary } from '../../../../lib/ai-recipes';
 
 type Context = { params: Promise<{ resource: string }> };
 export const runtime = 'nodejs';
@@ -24,7 +25,9 @@ export function GET(request: Request, context: Context) { return route(async () 
   if (resource === 'gatherings') return json(await gatheringList(member, status, q, skip));
   if (resource === 'market') return json(await marketItems(member, status, q, skip));
   if (resource === 'market-reviews') return json(await marketReviews(member, status, skip));
-  if (resource === 'member-recipes') return json(await memberRecipeList(member, status, q, skip));
+  if (resource === 'member-recipes') return json(await memberRecipeList(member, status, q, skip, params.get('origin') || ''));
+  if (resource === 'ai-jobs') return json(await aiJobs(member, status, q, skip));
+  if (resource === 'ai-summary') return json(await aiSummary(member));
   if (resource === 'review-photo') return image(await reviewPhoto(member, text(id, 'photo', 36)));
   if (resource === 'market-photo') return image(await marketPhoto(member, text(id, 'item', 36), text(params.get('slot'), 'photo', 10)));
   if (resource === 'photo') return image(await contentPhoto(member, text(id, 'photo', 64)));

@@ -12,16 +12,18 @@ type Version = { title: string; description: string; author: string; language: s
 const statuses = ['review', 'published', 'declined', 'hidden'] as const;
 const where = { review: "r.pending_state='review'", published: 'r.live IS NOT NULL AND r.hidden_at IS NULL', declined: "r.pending_state='declined'", hidden: 'r.hidden_at IS NOT NULL' };
 
-export async function memberRecipeList(member: Session, status: string, q: string, skip = 0) {
+/** `origin` narrows to recipes members wrote ('member') or ones the AI recipe worker made from a request or video ('ai'). */
+export async function memberRecipeList(member: Session, status: string, q: string, skip = 0, origin = '') {
   authorize(member, 'content');
-  const filter = choice(status || 'review', statuses, 'status'), term = search(q);
+  const filter = choice(status || 'review', statuses, 'status'), term = search(q), from = choice(origin || 'all', ['all', 'ai', 'member'] as const, 'origin');
   const shown = filter === 'review' || filter === 'declined' ? 'pending' : 'live';
   const rows = (await query<{ id: string; recipe: Version; version: string; photos: string[]; [key: string]: unknown }>(`SELECT r.id, r.${shown} AS recipe, '${shown}' AS version,
-      r.pending_state, r.decision_note, r.live IS NOT NULL AS live, r.hidden_reason, r.submitted_at, r.published_at, u.username, u.name AS account_name,
+      r.pending_state, r.decision_note, r.live IS NOT NULL AS live, r.draft_key LIKE 'ai-%' AS ai, r.hidden_reason, r.submitted_at, r.published_at, u.username, u.name AS account_name,
       coalesce((SELECT json_agg(p.slot ORDER BY p.slot) FROM recipes.photo p WHERE p.recipe_id=r.id AND p.version='${shown}'), '[]') AS photos,
       (SELECT count(*)::int FROM ops.case_record c WHERE c.kind='report' AND c.status NOT IN ('resolved','dismissed') AND split_part(c.subject_id,'|',1)='recipe:member:'||r.id) AS reports
     FROM recipes.recipe r JOIN public."user" u ON u.id=r.author_id
     WHERE ${where[filter]} AND ($1='' OR r.${shown}->>'title' ILIKE $1 OR u.username ILIKE $1)
+      AND ${from === 'all' ? 'true' : from === 'ai' ? "r.draft_key LIKE 'ai-%'" : "r.draft_key NOT LIKE 'ai-%'"}
     ORDER BY reports DESC, ${filter === 'review' ? 'r.submitted_at ASC' : 'r.updated_at DESC'}, r.id LIMIT ${pageSize} OFFSET $2`, [term, skip])).rows;
   // Staff see which Market item each linked ingredient points to and whether buyers can see it.
   const ids = [...new Set(rows.flatMap(row => row.recipe.ingredients.map(i => i.listingId).filter((id): id is string => typeof id === 'string' && /^[0-9a-f-]{36}$/i.test(id))))];

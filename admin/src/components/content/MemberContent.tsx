@@ -18,7 +18,7 @@ export function Moderation<T extends { id: string }>({ path, statuses, search = 
   path: string; statuses: [string, string][]; search?: boolean; render: (row: T) => ReactNode; act: (row: T, status: string, done: () => void) => ReactNode;
 }) {
   const [status, setStatus] = useState(statuses[0][0]), [draft, setDraft] = useState(''), [q, setQ] = useState(''), [page, setPage] = useState(0);
-  const resource = useResource<T[]>(`${path}?status=${status}&q=${encodeURIComponent(q)}&page=${page}`);
+  const resource = useResource<T[]>(`${path}${path.includes('?') ? '&' : '?'}status=${status}&q=${encodeURIComponent(q)}&page=${page}`);
   return <section className="panel stack">
     <div className="toolbar spread"><Segmented label="Status" options={statuses} value={status} onChange={v => { setStatus(v); setPage(0); }}/>
       {search && <form className="row grow" style={{ justifyContent: 'flex-end' }} onSubmit={e => { e.preventDefault(); setQ(draft.trim()); setPage(0); }}>
@@ -52,7 +52,7 @@ export function Gatherings() {
       {g.hidden_reason && <p className="muted">Hidden: {g.hidden_reason}</p>}</>}
       act={(g, status, done) => toggle('gatherings', g.id, status === 'hidden', done, 'Hide gathering')}/></>;
 }
-export function Market() {
+export function Listings() {
   const [view, setView] = useState<'items' | 'reviews'>('items');
   return <><Segmented label="Market" options={[['items', 'Items'], ['reviews', 'Shop reviews']]} value={view} onChange={v => setView(v as 'items' | 'reviews')}/>
     {view === 'items' ? <MarketItems/> : <Moderation<ShopReview> path="/api/content/market-reviews" search={false} statuses={[['visible', 'Visible'], ['hidden', 'Hidden']]} render={r => <>

@@ -38,6 +38,10 @@ function recipe(id: string, input: unknown, base: Recipe | null, version: number
   const evidence = (prior.dietary as Record<string, unknown> | undefined)?.evidence ?? { kind: 'editorial', source: 'QuinTaste team', checkedAt: now };
   const rest = { ...prior };
   delete rest.image;
+  // Nutrition is estimated from the ingredients and servings; when staff change either, the old figures would be wrong, so members see none
+  // until the estimate is rerun (scripts/recipe-nutrition.ts for app recipes, the bot for its own).
+  const portions = (value: unknown) => JSON.stringify((value as { name?: unknown; amount?: unknown; unit?: unknown }[] | undefined ?? []).map(i => [i.name, i.amount, i.unit]));
+  if (rest.nutrition && (portions(prior.ingredients) !== portions(fields.ingredients) || prior.servings !== fields.servings)) delete rest.nutrition;
   return { ...rest, ...fields, id, dietary: { ...dietary, evidence }, ...(image ? { image } : {}),
     author: prior.author ?? 'QuinTaste team', language: prior.language ?? 'English', revision: Number(prior.revision ?? 0) + version + 1, updatedAt: now,
     ...(provenance ? { provenance: { ...provenance, ...(sources.length ? { sources } : {}) } }
