@@ -6,6 +6,7 @@ import { useState, type PropsWithChildren, type ReactNode } from "react";
 import { useKeyboardFocus } from "../../hooks/useKeyboardFocus";
 import { usePreferences } from "../../state/Preferences";
 import { fontNames } from "../../theme/tokens";
+import { edgeScroll } from "../../theme/layout";
 import { Card, Icon, T, common, type IconName } from "../ui";
 import { StateView } from "../StateView";
 
@@ -28,7 +29,11 @@ export function Chip({ label, icon, leading, trailing, selected = false, onPress
 export function Chips({ children, label, multiple = false }: PropsWithChildren<{ label?: string; multiple?: boolean }>) {
   return <View accessibilityRole={label && !multiple ? "radiogroup" : undefined} accessibilityLabel={label} style={s.chips}>{children}</View>;
 }
-export function HorizontalChips({ children }: PropsWithChildren) { return <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ flexGrow: 0 }} contentContainerStyle={{ gap: 8, alignItems: "center", paddingVertical: 2 }}>{children}</ScrollView>; }
+/** `bleed` lets a screen-level row scroll to the screen edge; leave it off inside cards, forms and sheets. */
+export function HorizontalChips({ children, bleed = false }: PropsWithChildren<{ bleed?: boolean }>) {
+  return <ScrollView horizontal showsHorizontalScrollIndicator={false} style={[{ flexGrow: 0 }, bleed && edgeScroll.row]}
+    contentContainerStyle={[{ gap: 8, alignItems: "center", paddingVertical: 2 }, bleed && edgeScroll.content]}>{children}</ScrollView>;
+}
 export function IconButton({ label, icon, onPress, selected = false, badge = 0, appearance = "default", disabled = false, loading = false }: {
   label: string; icon: IconName; onPress: () => void; selected?: boolean; badge?: number; appearance?: "default" | "media"; disabled?: boolean; loading?: boolean;
 }) {

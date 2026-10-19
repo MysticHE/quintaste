@@ -34,7 +34,7 @@ export function MenuScreen() {
   const details = () => router.push({ pathname: "/place/[id]", params: { id: "catalogue-" + id } } as never);
   const mockNamed = !!menu?.sections.some(section => section.items.some(item => MEAT_NAMED.test(item.name)));
   const latestSource = menu?.sections.reduce<(typeof menu.sections)[number] | undefined>((latest, section) => !latest || Date.parse(section.checkedAt) > Date.parse(latest.checkedAt) ? section : latest, undefined);
-  return <Screen title={menu?.name ?? "Menu"} contentStyle={{ paddingHorizontal: 16 }}
+  return <Screen title={menu?.name ?? "Menu"}
     headerAction={menu ? <IconButton label={__DEV__ ? "Suggest a menu correction" : "Report a menu problem"} icon={__DEV__ ? "create-outline" : "flag-outline"} onPress={correct} /> : undefined}>
     {busy && !menu && <ActivityIndicator color={theme.accent} accessibilityLabel="Loading menu" />}
     {menu ? <>

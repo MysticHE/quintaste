@@ -20,6 +20,7 @@ import { TimerDock, FoodStorageBanner } from "./food/Timers";
 import { Icon, T, common } from "./ui";
 import { PhotoScrollView } from "./discovery/PhotoScrollView";
 import { useGlassNavigation } from "./navigation/GlassNavigation";
+import { SCREEN_GUTTER } from "../theme/layout";
 type ScreenProps = {
   title?: string;
   subtitle?: string;
@@ -149,8 +150,8 @@ const s = StyleSheet.create({
     borderWidth: 1,
     overflow: "hidden",
   },
-  content: { flexGrow: 1, padding: 20, paddingTop: 22, gap: 22 },
-  compact: { padding: 16, paddingHorizontal: 8, paddingTop: 14, gap: 14 },
+  content: { flexGrow: 1, padding: 20, paddingHorizontal: SCREEN_GUTTER, paddingTop: 22, gap: 22 },
+  compact: { padding: 16, paddingHorizontal: SCREEN_GUTTER, paddingTop: 14, gap: 14 },
   heading: { gap: 8 },
   title: { minWidth: 0, flexShrink: 1 },
   back: {

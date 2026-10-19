@@ -38,7 +38,7 @@ export function FiltersScreen() {
     if (mode === "home" && !home || mode === "work" && !work)
       router.push({ pathname: "/location-place", params: { kind: mode } });
   };
-  return <Screen title="Place filters" compact contentStyle={{ paddingHorizontal: 12 }}
+  return <Screen title="Place filters" compact
     headerAction={<Button label="Done" variant="link" onPress={() => goBack("/")} />}>
     <DiscoveryFilterOptions filters={privateKind ? { ...filters, home: privateKind === "home", work: privateKind === "work", near: false } : filters} change={change => { void setFilters(change); }}
       diets={discoveryDiets(filters, preferences.diet)} disabled={!readable}

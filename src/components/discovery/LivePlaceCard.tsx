@@ -17,6 +17,7 @@ import { IconButton } from "../food/Controls";
 import { useMenus } from "../../state/Menus";
 import { menuForPlace } from "../../utils/menu-match";
 import { MenuEntry } from "./MenuEntry";
+import { photoCardBleed } from "../../theme/layout";
 
 export function LivePlaceCard({ place, now, more, origin }: {
   place: LivePlace; now: number; more?: () => void; origin?: SearchPoint;
@@ -60,7 +61,7 @@ export function LivePlaceCard({ place, now, more, origin }: {
   </View></>;
 }
 const s = StyleSheet.create({
-  card: { borderRadius: 22, overflow: "hidden", borderWidth: 2 },
+  card: { borderRadius: 22, overflow: "hidden", borderWidth: 2, ...photoCardBleed },
   photoSpace: { height: 116 }, blend: { position: "absolute", bottom: 0, left: 0, right: 0 },
   menu: { position: "absolute", top: 4, left: 4 },
   actions: { position: "absolute", top: 4, right: 4, flexDirection: "row", gap: 6 },

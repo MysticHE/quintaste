@@ -3,6 +3,7 @@ import { useState, type ReactNode } from "react";
 import { Pressable, StyleSheet, View, type ImageSourcePropType } from "react-native";
 import { usePreferences } from "../../state/Preferences";
 import { fontNames } from "../../theme/tokens";
+import { photoCardBleed } from "../../theme/layout";
 import { Icon, T, common, type IconName } from "../ui";
 import { CataloguePhotoBackdrop } from "./CataloguePhotoBackdrop";
 import { usePhotoVisibility } from "./PhotoScrollView";
@@ -61,7 +62,7 @@ export function PostChip({ icon, label }: { icon: IconName; label: string }) {
   </View>;
 }
 const s = StyleSheet.create({
-  card: { borderRadius: 22, overflow: "hidden", borderWidth: 1 },
+  card: { borderRadius: 22, overflow: "hidden", borderWidth: 1, ...photoCardBleed },
   blend: { position: "absolute", bottom: 0, left: 0, right: 0 },
   information: { paddingHorizontal: 12, paddingTop: 8, paddingBottom: 12, gap: 3 },
   name: { fontFamily: fontNames.bold },

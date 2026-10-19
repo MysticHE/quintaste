@@ -36,7 +36,7 @@ export function CataloguePlaceDetailScreen({ id }: { id: string }) {
   };
   const directionsUrl = "https://www.google.com/maps/dir/?api=1&destination=" + encodeURIComponent(venue?.address ?? "")
     + (venue?.googlePlaceId ? "&destination_place_id=" + encodeURIComponent(venue.googlePlaceId) : "");
-  return <Screen title={venue?.name ?? "Place details"} contentStyle={{ paddingHorizontal: 12 }}>
+  return <Screen title={venue?.name ?? "Place details"}>
     {busy && <ActivityIndicator color={theme.accent} accessibilityLabel="Loading place details" />}
     {offline && <T variant="caption" muted>Offline · {venue ? "saved place details" : "bookmark only"}</T>}
     {!!error && (venue ? <View style={common.row}><T variant="small" muted style={common.flex} accessibilityLiveRegion="polite">Showing saved details</T><Button label="Try Again" variant="link" onPress={retry} /></View>

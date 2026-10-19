@@ -61,7 +61,7 @@ function OrderView({ order: o, refresh }: { order: Order; refresh: () => void })
     {seller && s === "confirmed" && <Action label="Mark Ready" run={() => run({ action: "ready" })} />}
     {seller && started && (s === "confirmed" || s === "ready") && <Action label="Handed Over And Paid" icon="checkmark-done-outline" secondary={s === "confirmed"} run={() => run({ action: "complete" })} />}
     {!seller && s === "completed" && !o.rating && <Button label="Leave A Review" icon="star-outline" onPress={() => setSheet("review")} />}
-    <HorizontalChips>
+    <HorizontalChips bleed>
       {o.conversationId && <Chip compact icon="chatbubble-outline" label={seller ? "Message Buyer" : "Message Seller"} onPress={() => withOther()} />}
       {seller && started && (s === "confirmed" || s === "ready") && <ActionChip icon="alert-circle-outline" label="Not Collected" run={() => run({ action: "no-show" })} />}
       {open && (seller || s === "requested" || !o.cutoffPassed) && <Chip compact icon="close-outline" label="Cancel Order" onPress={() => setSheet("cancel")} />}

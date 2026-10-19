@@ -9,7 +9,7 @@ import { useMeet } from "../../hooks/useMeet";
 import { defaultMeetFilters, groupSizes, meetTimes, type MeetFilters } from "../../types/meet";
 import { activePeopleFilters } from "./Home";
 export function MeetFiltersScreen() {
-  return <Screen title="People filters" contentStyle={{ paddingHorizontal: 12 }} backTo="/social"
+  return <Screen title="People filters" backTo="/social"
     headerAction={<Button label="Done" variant="link" onPress={() => goBack("/social")} />}><Filters /></Screen>;
 }
 function Group({ label, icon, checks = false, children }: PropsWithChildren<{ label: string; icon: IconName; checks?: boolean }>) {
