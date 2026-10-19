@@ -9,6 +9,7 @@ import { useAuth } from '../state/Auth';
 import { usePreferences } from '../state/Preferences';
 import { foodKey } from '../state/useFoodStorage';
 import { useAutosave } from '../hooks/useAutosave';
+import { lotusTierKey } from '../hooks/useLotus';
 import { AutosaveStatus } from '../components/AutosaveStatus';
 
 export function ConnectedProfileScreen() {
@@ -68,7 +69,7 @@ export function ConnectedProfileScreen() {
     const id = user.id;
     const result = await authClient.deleteUser(access.passwordLogin?{password}:{});
     if (result.error) throw new Error(result.error.message || 'Deletion failed. Check your password and retry.');
-    await AsyncStorage.multiRemove([foodKey('profile', id), '@quintaste/preview-preferences-v1/' + id, '@quintaste/avatar-preview/' + id]);
+    await AsyncStorage.multiRemove([foodKey('profile', id), '@quintaste/preview-preferences-v1/' + id, '@quintaste/avatar-preview/' + id, lotusTierKey(id)]);
     setPassword(''); router.dismissTo('/account');
   });
   if (!user) return <Screen title="Account"><T>{pending ? 'Checking your session…' : 'Sign in to manage or delete your account.'}</T>

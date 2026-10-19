@@ -5,10 +5,11 @@ import Animated from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { DestinationScreen } from "../../components/navigation/DestinationScreen";
 import { gameEnabled } from "../../config/game";
-import { ACCESSORIES, DECOR, PETS, SKINS, type Tier } from "../../game/content/cosmetics";
+import { ACCESSORIES, DECOR, PETS, SKINS } from "../../game/content/cosmetics";
 import { LEVELS } from "../../game/content/levels";
-import { cleared, isUnlocked, nextLevel, type GameProgress } from "../../game/progress";
+import { cleared, nextLevel, type GameProgress } from "../../game/progress";
 import { useGame } from "../../hooks/useGame";
+import { useLotus } from "../../hooks/useLotus";
 import { usePreferences } from "../../state/Preferences";
 import { Scene, sceneSkin, wideSkinKey, type HotId } from "./home/Scene";
 import { stageFit, type SlotId } from "./home/sceneLayout";
@@ -112,6 +113,7 @@ type GameApi = ReturnType<typeof useGame>;
 function HomeSheets({ sheet, setSheet, game, set, save, play, onDecorate }: {
   sheet: SheetId; setSheet(s: SheetId): void; game: GameProgress; set: GameApi["set"]; save: GameApi["save"]; play(level: number, mode: "rush" | "calm"): void; onDecorate(): void;
 }) {
+  const { member } = useLotus();
   const close = () => setSheet(null);
   if (sheet === "levels") return <LevelsSheet game={game} onClose={close} onPlay={play} onCompanion={() => setSheet("companion")} onMode={m => set(g => ({ ...g, mode: m }))} />;
   if (sheet === "books" || sheet === "regulars") return <BooksSheet game={game} initial={sheet === "regulars" ? "regulars" : "recipes"} onClose={close} />;
@@ -121,7 +123,7 @@ function HomeSheets({ sheet, setSheet, game, set, save, play, onDecorate }: {
       return { ...g, credits: g.credits - d.unlock.price, owned: [...g.owned, id] }; })} />;
   if (sheet === "menu") return <MenuSheet game={game} onClose={close} onSignature={ids => set(g => ({ ...g, signature: ids }))} />;
   if (sheet === "avatar") return <AvatarSheet onClose={close} onCompanion={() => setSheet("companion")} />;
-  if (sheet === "lotus") return <LotusSheet game={game} onClose={close} onTier={(t: Tier | null) => set(g => { const next = { ...g, tier: t }; return isUnlocked(next, PETS[g.pet].unlock) ? next : { ...next, pet: "sprout" }; })} />;
+  if (sheet === "lotus") return <LotusSheet tier={game.tier} member={member} onClose={close} />;
   if (sheet === "window") return <LaterSheet title="Stall visits" onClose={close} text="Visit someone else's hawker stall as the customer and choose which questions to ask. It ends on your own Ask-the-stall card." />;
   return null;
 }

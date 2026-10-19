@@ -3,7 +3,6 @@
  * Credits are earned only and never bought (QT-056); nothing expires (QT-057).
  */
 import { ACCESSORIES, CREDIT_REWARDS, DECOR, DECOR_SLOTS, PETS, SKINS, TIERS, type Tier, type Unlock } from "./content/cosmetics";
-import { gamePreviewTools } from "../config/game";
 import { LEVELS } from "./content/levels";
 import { DISHES } from "./content/dishes";
 
@@ -14,7 +13,7 @@ export type GameProgress = {
   menu: "chinese" | "malay" | "peranakan"; mode: "rush" | "calm"; signature: string[]; introSeen: boolean;
   /** Unlocks already revealed on the New find screen. */
   seen: string[];
-  /** Lotus tier from the Lotus Avatar flow; null until that ships. Development builds can preview tiers. */
+  /** The account's lotus tier from the server (useGame adds it). Never saved or read from the device, so it is always null in storage. */
   tier: Tier | null;
 };
 export const emptyGame = (): GameProgress => ({
@@ -46,8 +45,8 @@ export function readGame(value: unknown): GameProgress {
     skin: typeof input.skin === "string" && SKINS[input.skin] ? input.skin : base.skin, cafeName: name || base.cafeName,
     menu: input.menu === "malay" || input.menu === "peranakan" ? input.menu : "chinese", mode: input.mode === "calm" ? "calm" : "rush",
     signature: Array.isArray(input.signature) ? input.signature.filter((x): x is string => typeof x === "string" && !!DISHES[x]).slice(0, 3) : [],
-    introSeen: input.introSeen === true, seen: Array.isArray(input.seen) ? [...new Set(input.seen.filter((x): x is string => typeof x === "string" && x.length < 40))].slice(0, 200) : [], // Lotus tiers are paid entitlements: until the Lotus flow has a server record, only development previews may set one.
-    tier: gamePreviewTools && typeof input.tier === "string" && (TIERS as string[]).includes(input.tier) ? input.tier as Tier : null,
+    introSeen: input.introSeen === true, seen: Array.isArray(input.seen) ? [...new Set(input.seen.filter((x): x is string => typeof x === "string" && x.length < 40))].slice(0, 200) : [],
+    tier: null,
   };
 }
 export function mergeGame(profile: GameProgress, guest: GameProgress): GameProgress {
@@ -71,6 +70,16 @@ export function isUnlocked(g: GameProgress, u: Unlock, id?: string) {
   if (u.kind === "level") return cleared(g, u.level);
   if (u.kind === "tier") return !!g.tier && TIERS.indexOf(g.tier) >= TIERS.indexOf(u.tier);
   return !!id && g.owned.includes(id);
+}
+
+/**
+ * The game as shown: the account's lotus tier from the server, with any companion, accessory or skin that tier does not
+ * cover shown as the free choice. The saved choice is kept and returns once the tier is known again (for example back online).
+ */
+export function withTier(g: GameProgress, tier: Tier | null): GameProgress {
+  const view = { ...g, tier };
+  const equip = Object.fromEntries(Object.entries(g.equip).map(([p, a]) => [p, a && isUnlocked(view, ACCESSORIES[a].unlock) ? a : null]));
+  return { ...view, equip, pet: isUnlocked(view, PETS[g.pet].unlock) ? g.pet : "sprout", skin: isUnlocked(view, SKINS[g.skin].unlock) ? g.skin : "sunny" };
 }
 
 /** Applies a finished service: best stamps, clears and earned credits. Returns the reward line to show. */

@@ -1,12 +1,12 @@
+import { router } from "expo-router";
 import { StyleSheet, View } from "react-native";
 import { Button, T } from "../../../components/ui";
-import { gamePreviewTools } from "../../../config/game";
 import { DISHES } from "../../../game/content/dishes";
-import { PETS, TIERS, type Tier } from "../../../game/content/cosmetics";
+import { PETS, type Tier } from "../../../game/content/cosmetics";
 import { LEVELS } from "../../../game/content/levels";
 import { cleared, type GameProgress } from "../../../game/progress";
 import { GameSheet, Section } from "./GameSheet";
-import { Art, Grid, Seg, Tile } from "./bits";
+import { Art, Grid, Tile } from "./bits";
 
 const learnedDishes = (g: GameProgress) => [...new Set(LEVELS.filter(l => cleared(g, l.n)).flatMap(l => l.orders.map(o => o.dish)).filter(d => d !== "*"))];
 
@@ -33,18 +33,17 @@ export function AvatarSheet({ onClose, onCompanion }: { onClose(): void; onCompa
   </GameSheet>;
 }
 
-export function LotusSheet({ game, onClose, onTier }: { game: GameProgress; onClose(): void; onTier(t: Tier | null): void }) {
-  const t = game.tier;
+/** The member's lotus from their account. Blooming happens on the lotus screen, where the odds are shown. */
+export function LotusSheet({ tier, member, onClose }: { tier: Tier | null; member: boolean; onClose(): void }) {
+  const name = tier ? tier[0].toUpperCase() + tier.slice(1) + " lotus" : "Not bloomed yet";
+  const open = () => { onClose(); router.push(member ? "/lotus" : { pathname: "/login", params: { returnTo: "/lotus" } }); };
   return <GameSheet title="Your lotus" onClose={onClose}>
-    <View style={s.center}><Art k={t ? "lotus-" + t : "lotus-bud-pink"} size={120} /></View>
-    <Section title={t ? t[0].toUpperCase() + t.slice(1) + " lotus" : "Not bloomed yet"}>
-      <T muted>{t ? (t === "pink" ? "Your avatar in Adult and Mini style." : "Your avatar, plus " + PETS[t].name + " and its accessory.") : "The Lotus Avatar flow lets you bloom a free lotus, see your tier, then breed your own avatar. It arrives in a later update."}</T>
+    <View style={s.center}><Art k={tier ? "lotus-" + tier : "lotus-bud-pink"} size={120} /></View>
+    <Section title={name}>
+      <T muted>{tier ? (tier === "pink" ? "Your avatar in Adult and Mini style." : "Your avatar, plus " + PETS[tier].name + " and its accessory, here in your café.")
+        : member ? "Bloom your free lotus to find your tier." : "Sign in to bloom your free lotus."}</T>
     </Section>
-    {gamePreviewTools && <Section title="Development preview">
-      <T variant="small" muted>Development builds only: preview a lotus tier to test companions and skins.</T>
-      <Seg label="Preview lotus tier" value={(t ?? "none") as Tier | "none"} onChange={v => onTier(v === "none" ? null : v)}
-        options={[["none", "None"], ...TIERS.map(x => [x, x[0].toUpperCase() + x.slice(1)] as [Tier, string])]} />
-    </Section>}
+    <Button variant={tier ? "secondary" : "primary"} label={tier ? "Open Your Lotus" : member ? "Bloom Your Lotus" : "Sign In"} onPress={open} />
   </GameSheet>;
 }
 
