@@ -31,14 +31,13 @@ const HAPTICS: Record<HapticKind, () => Promise<void>> = {
  * services open an attempt on the account when they start and settle by server replay when they finish.
  */
 export function GamePlayScreen() {
-  const params = useLocalSearchParams<{ level?: string; mode?: string; run?: string; special?: string }>();
+  const params = useLocalSearchParams<{ level?: string; run?: string; special?: string }>();
   const { game, set, startRun, finish } = useGame();
   const on = useGameSwitch();
   const { ready } = useFood();
   const { reducedMotion, textMultiplier, theme } = usePreferences();
   const insets = useSafeAreaInsets();
   const level = Math.max(1, Math.min(LEVELS.length, Math.floor(Number(params.level)) || 1));
-  const mode = params.mode === "calm" ? "calm" : "rush";
   const top = highestCleared(game), day = typeof params.special === "string" ? params.special : null;
   const special = useMemo(() => (day ? specialFor(game, day) : null), [day, top]); // eslint-disable-line react-hooks/exhaustive-deps
   const art = useMemo(() => gameArtUris(), []);
@@ -58,14 +57,14 @@ export function GamePlayScreen() {
   const onStart = useCallback(async (run: RunInfo) => { finished.current = null; started.current = startRun(run); }, [startRun]);
   const onFinish = useCallback(async (p: FinishPayload) => {
     // One save per finished service: a repeated call (the Try again button) waits for the same save.
-    finished.current ??= finish(started.current, { level: p.level, special: p.special, top: p.top, hints: p.hints, mode: p.mode, pet: p.pet, signature: p.signature }, p.actions, p.result);
+    finished.current ??= finish(started.current, { id: p.id, level: p.level, special: p.special, top: p.top, hints: p.hints, pet: p.pet, signature: p.signature }, p.actions, p.result);
     try { return await finished.current; } catch (error) { finished.current = null; throw error; }
   }, [finish]);
   const onExit = useCallback(async (to: "cafe" | "next" | "again") => {
     if (to === "cafe") { if (router.canGoBack()) router.back(); else router.replace("/game/cafe"); return; }
     const n = to === "next" ? Math.min(LEVELS.length, level + 1) : level;
-    router.replace({ pathname: "/game/play", params: { level: String(n), mode, run: String(Date.now()), ...(day && to === "again" ? { special: day } : {}) } });
-  }, [level, mode, day]);
+    router.replace({ pathname: "/game/play", params: { level: String(n), run: String(Date.now()), ...(day && to === "again" ? { special: day } : {}) } });
+  }, [level, day]);
   const onHaptic = useCallback(async (kind: HapticKind) => { if (game.settings.haptics) await HAPTICS[kind]?.().catch(() => {}); }, [game.settings.haptics]);
   const onBridge = useCallback(async (kind: BridgeKind, dish: string, alliumFree: boolean) => {
     const target = kind === "cook" ? cookRecipeId(dish, alliumFree) : nearbyTerm(dish);
@@ -88,7 +87,7 @@ export function GamePlayScreen() {
   return <View style={{ flex: 1, backgroundColor: theme.background, paddingTop: insets.top, paddingBottom: insets.bottom, paddingLeft: insets.left, paddingRight: insets.right }}>
     <Stack.Screen options={{ gestureEnabled: false }} />
     <StatusBar hidden />
-    <RushHour key={(params.run ?? "first") + (day ?? "")} level={level} special={special?.level} mode={mode} pet={game.pet} petArt={petArt} chefArt="avatar-lian" art={art}
+    <RushHour key={(params.run ?? "first") + (day ?? "")} level={level} special={special?.level} pet={game.pet} petArt={petArt} chefArt="avatar-lian" art={art}
       signature={game.signature} reduceMotion={reducedMotion} settings={game.settings} textScale={textScale(game.settings, textMultiplier)} bridges={bridges}
       onStart={onStart} onFinish={onFinish} onExit={onExit} onHaptic={onHaptic} onBridge={onBridge} onSettings={onSettings}
       dom={{ style: { flex: 1 }, useExpoDOMWebView: false, ...(host ? { overrideUri: host + GAME_PAGE_PATH } : {}), injectedJavaScriptBeforeContentLoaded: "true;", scrollEnabled: false, bounces: false, overScrollMode: "never", mediaPlaybackRequiresUserAction: true, textZoom: 100 }} />

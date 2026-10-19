@@ -69,8 +69,8 @@ function CafeHome() {
   const open = (sh: SheetId) => { if (!game.introSeen) set(g => ({ ...g, introSeen: true })); setSheet(sh); };
   const hot = (id: HotId) => open(({ books: "books", menu: "menu", window: "window", wardrobe: "avatar", stove: "levels", avatar: "avatar", pet: "companion" } as const)[id]);
   // Navigate once the sheet's Modal has gone: on iOS a push during a Modal dismissal can be dropped.
-  const play = (level: number, mode: "rush" | "calm", special?: string) => { setSheet(null); set(g => ({ ...g, mode }));
-    InteractionManager.runAfterInteractions(() => router.push({ pathname: "/game/play", params: { level: String(level), mode, run: String(Date.now()), ...(special ? { special } : {}) } })); };
+  const play = (level: number, special?: string) => { setSheet(null);
+    InteractionManager.runAfterInteractions(() => router.push({ pathname: "/game/play", params: { level: String(level), run: String(Date.now()), ...(special ? { special } : {}) } })); };
   // Android Back leaves decorate mode, asking first when there are unsaved changes.
   useEffect(() => {
     if (!deco) return;
@@ -116,16 +116,16 @@ function CafeHome() {
 
 type GameApi = ReturnType<typeof useGame>;
 function HomeSheets({ sheet, setSheet, game, set, buy, play, onDecorate }: {
-  sheet: SheetId; setSheet(s: SheetId): void; game: GameProgress; set: GameApi["set"]; buy: GameApi["buy"]; play(level: number, mode: "rush" | "calm", special?: string): void; onDecorate(): void;
+  sheet: SheetId; setSheet(s: SheetId): void; game: GameProgress; set: GameApi["set"]; buy: GameApi["buy"]; play(level: number, special?: string): void; onDecorate(): void;
 }) {
   const { member } = useLotus();
   const close = () => setSheet(null);
-  if (sheet === "levels") return <LevelsSheet game={game} onClose={close} onPlay={play} onCompanion={() => setSheet("companion")} onMode={m => set(g => ({ ...g, mode: m }))} />;
+  if (sheet === "levels") return <LevelsSheet game={game} onClose={close} onPlay={play} onCompanion={() => setSheet("companion")} />;
   if (sheet === "books" || sheet === "regulars") return <BooksSheet game={game} initial={sheet === "regulars" ? "regulars" : "recipes"} onClose={close} />;
   if (sheet === "companion") return <CompanionSheet game={game} onClose={close} onChoose={p => set(g => ({ ...g, pet: p }))} onWear={(p, a) => set(g => ({ ...g, equip: { ...g.equip, [p]: a } }))} />;
   if (sheet === "cafe") return <CafeSheet game={game} onClose={close} onDecorate={() => { close(); onDecorate(); }} onName={nm => set(g => ({ ...g, cafeName: nm.trim().slice(0, 18) || "My Café" }))}
     onSkin={id => set(g => ({ ...g, skin: id }))} onBuy={id => void buy(id)} />;
-  if (sheet === "menu") return <MenuSheet game={game} onClose={close} onSignature={ids => set(g => ({ ...g, signature: ids }))} onSpecial={day => play(1, game.mode, day)} />;
+  if (sheet === "menu") return <MenuSheet game={game} onClose={close} onSignature={ids => set(g => ({ ...g, signature: ids }))} onSpecial={day => play(1, day)} />;
   if (sheet === "settings") return <PlaySettingsSheet settings={game.settings} onChange={next => set(g => ({ ...g, settings: next }))} onClose={close} />;
   if (sheet === "avatar") return <AvatarSheet onClose={close} onCompanion={() => setSheet("companion")} />;
   if (sheet === "lotus") return <LotusSheet tier={game.tier} member={member} onClose={close} />;

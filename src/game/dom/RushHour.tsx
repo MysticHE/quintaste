@@ -22,11 +22,11 @@ import { usePlayfield, type PlayfieldInput } from "./usePlayfield";
 import { useServiceEvents } from "./useServiceEvents";
 
 /** What the native screen needs to save a run: the setup and input log let the server replay it (sim/replay.ts). */
-export type RunInfo = { level: number; special: string | null; top: number | null; hints: Level["hints"]; mode: "rush" | "calm"; pet: string; signature: string[] };
+export type RunInfo = { id: string; level: number; special: string | null; top: number | null; hints: Level["hints"]; pet: string; signature: string[] };
 export type FinishPayload = RunInfo & { result: sim.Result; actions: sim.Action[] };
 export type BridgeKind = "cook" | "nearby";
 type Props = {
-  level: number; special?: Level; mode?: "rush" | "calm"; pet: string; petArt: string; chefArt: string; art: Record<string, string>;
+  level: number; special?: Level; pet: string; petArt: string; chefArt: string; art: Record<string, string>;
   signature?: string[]; reduceMotion?: boolean; settings: PlaySettings; textScale: number;
   /** Which bridges the app can open for each dish. */
   bridges?: Record<string, { cook: boolean; nearby: boolean }>;
@@ -35,6 +35,9 @@ type Props = {
   dom?: DOMProps;
 };
 const noop = () => {};
+/** A new run's id. It names the attempt on the account and, through `seedOf`, decides this service's arrivals, jars and twists. */
+const newRunId = () => globalThis.crypto?.randomUUID?.() ??
+  "10000000-1000-4000-8000-100000000000".replace(/[018]/g, c => (+c ^ Math.floor(Math.random() * 16) >> +c / 4).toString(16));
 /** Nunito for the webview (phones): expo-font registers it only for native text. */
 const fontFaces = (art: Record<string, string>) => [["Nunito_800ExtraBold", "font-nunito-800"], ["Nunito_700Bold", "font-nunito-700"]]
   .filter(([, k]) => art[k]).map(([family, k]) => `@font-face{font-family:"${family}";src:url("${art[k]}") format("truetype");font-display:swap;}`).join("");
@@ -44,9 +47,10 @@ export default function RushHour(props: Props) {
   // The interval and Phaser callbacks outlive renders, so they read the latest props and handlers through refs.
   const latest = useRef(props); latest.current = props;
   const base = props.special ?? levelByNumber(level);
-  const newRun = (m: "rush" | "calm") => sim.createRun(props.special ?? level, m, pet, signature, hintsFor(settings, base.hints));
+  const runId = useRef("");
+  const newRun = () => { runId.current = newRunId(); return sim.createRun(props.special ?? level, pet, signature, hintsFor(settings, base.hints), sim.seedOf(runId.current)); };
   const runRef = useRef<sim.Run>(null as unknown as sim.Run);
-  if (!runRef.current) runRef.current = newRun(props.mode ?? "rush");
+  if (!runRef.current) runRef.current = newRun();
   const [, setVersion] = useState(0);
   const bump = useCallback(() => setVersion(v => v + 1), []);
   const reduced = !!props.reduceMotion || settings.reduceMotion || (typeof matchMedia !== "undefined" && matchMedia("(prefers-reduced-motion: reduce)").matches);
@@ -56,7 +60,7 @@ export default function RushHour(props: Props) {
     { reduced, tapOnly: settings.tapOnly }, input, bump);
   const [plateSel, setPlateSel] = useState<number | null>(null), [list, setList] = useState(false), [paused, setPaused] = useState(false);
   const [leaving, setLeaving] = useState(false);
-  const ev = useServiceEvents({ runRef, sceneRef, rootRef, fx, reduced, onPlated: slot => setPlateSel(slot), onEnd: () => void save() });
+  const ev = useServiceEvents({ runRef, sceneRef, rootRef, fx, reduced, onPlated: slot => { if (latest.current.settings.tapOnly) setPlateSel(slot); }, onEnd: () => void save() });
   const [reward, setReward] = useState<Reward | null>(null), [saveFailed, setSaveFailed] = useState(false);
   const run = runRef.current;
 
@@ -94,16 +98,20 @@ export default function RushHour(props: Props) {
     try { setSaveFailed(false); setReward(await latest.current.onFinish({ ...info(r), result: sim.results(r), actions: r.actions })); }
     catch { setReward(null); setSaveFailed(true); }
   }
-  const info = (r: sim.Run): RunInfo => ({ level: r.level.n, special: r.level.special?.day ?? null, top: r.level.special?.top ?? null, hints: r.level.hints, mode: r.mode, pet: r.pet,
+  const info = (r: sim.Run): RunInfo => ({ id: runId.current, level: r.level.n, special: r.level.special?.day ?? null, top: r.level.special?.top ?? null, hints: r.level.hints, pet: r.pet,
     signature: r.level.signature ? signature ?? [] : [] });
   function doPause(on: boolean) { const r = runRef.current; if (!r.started || r.ended) return; sim.pause(r, on); setPaused(on); fx.audio.pause(on); bump(); }
   const exit = (to: "cafe" | "next" | "again") => latest.current.onExit(to);
 
+  // Play is drag and drop: ingredients go onto a station, a ready dish is dragged to the plates, a plate to its guest. A plain
+  // tap on a station only selects it (to see its heat). Plating, restarting and picking a plate with a tap or a key press
+  // stay available for the "Tap only" accessibility option and for keyboards and screen readers (actStation, tap on a plate).
+  const actStation = (k: StationKind) => { const r = runRef.current, pr = r.stations[k]?.part;
+    if (pr?.state === "ready") sim.plate(r, k); else if (pr && (pr.state === "scorched" || pr.state === "split")) sim.restart(r, k); else sim.select(r, k);
+    after(); };
   input.current = {
-    onStation: k => { const r = runRef.current, pr = r.stations[k]?.part;
-      if (pr?.state === "ready") sim.plate(r, k); else if (pr && (pr.state === "scorched" || pr.state === "split")) sim.restart(r, k); else sim.select(r, k);
-      after(); },
-    onPlate: i => { if (runRef.current.board[i]) { setPlateSel(p => (p === i ? null : i)); bump(); } },
+    onStation: k => { if (settings.tapOnly) actStation(k); else { sim.select(runRef.current, k); after(); } },
+    onPlate: i => { if (settings.tapOnly && runRef.current.board[i]) { setPlateSel(p => (p === i ? null : i)); bump(); } },
     onGuest: id => { const r = runRef.current; if (picked !== null) sim.serve(r, picked, id); else sim.setFocus(r, id); setPlateSel(null); after(); },
     onServeDrag: (i, id) => { sim.serve(runRef.current, i, id); setPlateSel(null); after(); },
     onPlateDrag: k => { sim.plate(runRef.current, k); after(); },
@@ -112,6 +120,7 @@ export default function RushHour(props: Props) {
   const latestLayout = useRef(L); latestLayout.current = L;
   const shelf = useRef({
     add: (id: string, from: Point) => { ev.origin.current = from; sim.place(runRef.current, id); ev.drain(); bump(); },
+    hint: (id: string) => ev.nudgeCard(id),
     drop: (id: string, at: Point, from: Point) => {
       const lay = latestLayout.current, k = lay && (Object.keys(lay.stations) as StationKind[]).find(s => { const r = lay.stations[s]!; return at.x >= r.x && at.x <= r.x + r.w && at.y >= r.y - 12 && at.y <= r.y + r.h; });
       if (!k) return false;
@@ -128,9 +137,8 @@ export default function RushHour(props: Props) {
   };
   /** Hold to heat: only switches when the burner is not already in the wanted state. */
   const heatTo = (k: StationKind, on: boolean) => { const r = runRef.current; if (!!r.stations[k]?.heatOn !== on) { sim.toggleHeat(r, k); bump(); } };
-  function again() { runRef.current = newRun(run.mode); reboot(); fx.audio.pause(false); ev.reset();
+  function again() { runRef.current = newRun(); reboot(); fx.audio.pause(false); ev.reset();
     setReward(null); setPaused(false); setPlateSel(null); }
-  const setMode = (m: "rush" | "calm") => { if (m === run.mode) return; runRef.current = newRun(m); const sc = sceneRef.current; if (sc) { sc.run = runRef.current; sc.build(); } bump(); };
   /** The brief slides away, then the service starts with a banner. */
   function begin() {
     setLeaving(true);
@@ -143,27 +151,29 @@ export default function RushHour(props: Props) {
   const bridge = (kind: BridgeKind) => () => { void props.onBridge?.(kind, dish!, alliumFree); };
   const result = ev.result, showResults = !!result && ev.showResults && run.endReason !== "quit";
   const overlay = !run.started || !!run.label || (paused && !run.ended) || showResults || cramped;
+  const shortStock = run.sched.low && run.plan.stock ? { item: run.plan.stock.item, state: run.sched.out ? "out" as const : "low" as const } : null;
   const st = run.stations[run.selected], nudgeHeat = run.level.hints !== "none" && run.started && !!st?.part && st.part.state === "cooking" && !st.heatOn && STATIONS[run.selected].heat;
   return <div ref={rootRef} className={"rh" + (reduced ? " still" : "")} style={{ position: "fixed", inset: 0, "--ts": props.textScale } as CSSProperties}
     onPointerDownCapture={() => fx.audio.unlock()} onKeyDownCapture={() => fx.audio.unlock()}>
     <style dangerouslySetInnerHTML={{ __html: fontFaces(art) + RUSH_CSS }} />
     <div ref={stageRef} style={{ position: "absolute", inset: 0 }} aria-hidden="true" />
     {L && <div className="panels" inert={overlay || undefined} style={{ position: "absolute", inset: 0 }}>
-      <Hud run={run} L={L} coins={ev.coins} eatKey={ev.eatKey} coinRef={ev.coinRef} list={list} onList={() => setList(v => !v)} onPause={() => doPause(true)} />
-      <RecipeCard run={run} L={L} art={art} />
+      <Hud run={run} L={L} coins={ev.coins} eatKey={ev.eatKey} coinRef={ev.coinRef} list={list} quietList={!settings.tapOnly} onList={() => setList(v => !v)} onPause={() => doPause(true)} />
+      <RecipeCard run={run} L={L} art={art} tapOnly={settings.tapOnly} />
       <SeatTags L={L} />
-      <Bubbles run={run} L={L} art={art} plateSel={picked} onGuest={id => input.current.onGuest(id)} />
-      <StationTags run={run} L={L} plateSel={picked} onStation={k => input.current.onStation(k)} />
-      <Shelf run={run} L={L} art={art} tapOnly={settings.tapOnly} nudge={ev.nudge} onAdd={shelf.add} onDrop={shelf.drop} onHover={shelf.hover} onLabel={shelf.label} />
-      <HeatPanel run={run} L={L} art={art} petArt={petArt} hold={settings.burner === "hold"} nudge={nudgeHeat} onHeat={act.heat} onHeatTo={heatTo} onLift={act.lift}
+      <Bubbles run={run} L={L} art={art} plateSel={picked ?? sceneRef.current?.dragSlot ?? null} onGuest={id => input.current.onGuest(id)} />
+      <StationTags run={run} L={L} plateSel={picked ?? sceneRef.current?.dragSlot ?? null} dragging={sceneRef.current?.dragKind ?? null} tapOnly={settings.tapOnly} onSelect={k => input.current.onStation(k)} onAct={actStation} />
+      <Shelf run={run} L={L} art={art} tapOnly={settings.tapOnly} nudge={ev.nudge} stock={shortStock} onAdd={shelf.add} onHint={shelf.hint} onDrop={shelf.drop} onHover={shelf.hover} onLabel={shelf.label} />
+      <HeatPanel run={run} L={L} art={art} petArt={petArt} hold={settings.burner === "hold"} nudge={nudgeHeat} tapOnly={settings.tapOnly} onHeat={act.heat} onHeatTo={heatTo} onLift={act.lift}
         onRestart={act.restart} onPlate={act.plate} onSkill={() => { sim.useSkill(run); after(); }} />
       <Dialogue run={run} L={L} art={art} chefArt={chefArt} />
+      {ev.hint && <div key={ev.hint.key} className="toast" style={{ left: L.col.x + L.col.w / 2, top: L.shelves.y - 30 }}>{ev.hint.text}</div>}
       {picked !== null && <div className="toast" style={{ left: L.col.x + L.col.w / 2, top: L.counter.y - 30 }}>Tap a guest to serve</div>}
       {list && <ListView run={run} L={L} act={act} onBack={() => setList(false)} />}
     </div>}
     {L && fx.caption && <div key={fx.caption.key} className="caption" style={{ top: L.recipe.y + L.recipe.h + 6, right: L.col.x + 12 }} aria-hidden="true">{fx.caption.text}</div>}
-    {L && ev.bannerText && <div key={ev.bannerText.key} className="banner" style={{ left: L.col.x + L.col.w / 2, top: (L.recipe.y + L.counter.y) / 2 }} role="status">{ev.bannerText.text}</div>}
-    {!run.started && <Brief run={run} art={art} petArt={petArt} leaving={leaving} onMode={setMode} onStart={begin} onExit={() => exit("cafe")} />}
+    {L && ev.bannerText && <div key={ev.bannerText.key} className="banner" style={{ left: L.col.x + L.col.w / 2, top: L.recipe.y + L.recipe.h + 24 }} role="status">{ev.bannerText.text}</div>}
+    {!run.started && <Brief run={run} art={art} petArt={petArt} leaving={leaving} onStart={begin} onExit={() => exit("cafe")} />}
     {run.label && <LabelSheet run={run} onClose={() => { sim.closeLabel(run); bump(); }} onUse={id => { sim.closeLabel(run); ev.origin.current = null; sim.place(run, id); after(); }} />}
     {paused && !run.ended && !cramped && <PauseSheet onResume={() => doPause(false)} onRestart={again} onQuit={() => { sim.quit(run); void exit("cafe"); }}
       onSettings={props.onSettings ? () => void props.onSettings?.() : undefined} />}

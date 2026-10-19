@@ -11,7 +11,7 @@ export type LevelBest = { stars: number; score: number; served: boolean; rules: 
 export type GameProgress = {
   version: 1; best: Record<string, LevelBest>; credits: number; owned: string[];
   pet: string; equip: Record<string, string | null>; decor: Record<string, string | null>; skin: string; cafeName: string;
-  menu: "chinese" | "malay" | "peranakan"; mode: "rush" | "calm"; signature: string[]; introSeen: boolean;
+  menu: "chinese" | "malay" | "peranakan"; mode: "rush"; signature: string[]; introSeen: boolean;
   /** Unlocks already revealed on the New find screen. */
   seen: string[];
   /** The account's lotus tier from the server (useGame adds it). Never saved or read from the device, so it is always null in storage. */
@@ -48,7 +48,7 @@ export function readGame(value: unknown): GameProgress {
     owned: Array.isArray(input.owned) ? [...new Set(input.owned.filter((x): x is string => typeof x === "string" && own(DECOR, x)))] : [],
     pet: typeof input.pet === "string" && own(PETS, input.pet) ? input.pet : base.pet, equip, decor,
     skin: typeof input.skin === "string" && own(SKINS, input.skin) ? input.skin : base.skin, cafeName: name || base.cafeName,
-    menu: input.menu === "malay" || input.menu === "peranakan" ? input.menu : "chinese", mode: input.mode === "calm" ? "calm" : "rush",
+    menu: input.menu === "malay" || input.menu === "peranakan" ? input.menu : "chinese", mode: "rush",
     signature: Array.isArray(input.signature) ? input.signature.filter((x): x is string => typeof x === "string" && own(DISHES, x)).slice(0, 3) : [],
     introSeen: input.introSeen === true, seen: Array.isArray(input.seen) ? [...new Set(input.seen.filter((x): x is string => typeof x === "string" && x.length < 40))].slice(0, 200) : [],
     tier: null,

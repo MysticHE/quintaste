@@ -63,7 +63,7 @@ Kaya toast was left out: too many steps for one service.
 
 | L | Name | New decision | Stations | Orders / open | Rush clock |
 |---|---|---|---|---|---|
-| 1 | First plate | Pick up, drop, heat, plate, serve | Wok | 1 / 1 | none |
+| 1 | First plate | Drag, heat, plate, serve | Wok | 1 / 1 | 1:15 |
 | 2 | Read the ticket | Vegan topping | Wok | 2 / 2 | 1:10 |
 | 3 | Feel the heat | Hold the band; leaves scorch | Wok | 2 / 2 | 1:05 |
 | 4 | Stems before leaves | Cooking order | Wok | 3 / 2 | 1:30 |
@@ -84,19 +84,20 @@ Kaya toast was left out: too many steps for one service.
 | 19 | Dinner service | Triage across four stations | Four stations | 7 / 4 | 2:55 |
 | 20 | Your signature service | Three dishes chosen on the chalkboard | All five | 6 / 4 | 2:50 |
 
-**Hints fade:** full chef lines in Levels 1–4, first-time tips only in Levels 5–10, none from Level 11. Mistakes before cooking can always be lifted out for free.
+**Every level has a clock** (Calm was removed on 19 October). **Hints fade:** full chef lines in Levels 1–4, first-time tips only in Levels 5–10, none from Level 11. Mistakes before cooking can always be lifted out for free.
 
 ### Difficulty, measured
 
-`npx tsx scripts/validate-game.ts --react <seconds per action>` plays every level through the real simulation:
+`npx tsx scripts/validate-game.ts --react <seconds per action> --seeds 12` plays every level on several seeds through the real simulation with the bot in `scripts/game-bot.ts` (it rides each burner to the middle of its band, reads flare warnings, serves the most urgent guest first, swaps out an ingredient that ran out and clears a dish nobody wants any more). It also replays every trace the way the server settles it and plays all 1,356 Today's specials.
 
-| Player | Seconds per action | Result |
+| Player | Seconds per action | Clear rate (12 seeds) |
 |---|---|---|
-| Expert | 0.7 | All 20 levels with 3 stars |
-| Average | 2.2 | All 20 cleared, mostly 2 stars, with 35–55 seconds left in late levels |
-| Slow | 3.5 | 14 of 20 cleared |
+| Expert | 0.7 | Every level, 3 stars |
+| Competent | 2.2 | Every level, Level 20 11 of 12 |
+| Newcomer dragging | 2.8 | Every level but six: L6 (the wave) 8, L11 11, L13 11, L14 10, L20 11 |
+| Slower | 3.2 | Levels 1-5, 7-10, 12, 16, 17 all; L6 8, L11 10, L13 6, L14 5, L15 10, L18 1, L19 5, L20 9 |
 
-The slow player fails the checkpoint levels (7, 11, 13, 14, 18 and 19) because guests run out of patience. Calm mode (no clock, no patience) and the companion skills are the way through. Clocks are set to about 1.35 times the average player's time.
+Dragging is slower than tapping, so the competent and newcomer rows matter most. A cut to the clocks was tried and dropped: at 2.8 s it made Levels 7, 11 and 13 impossible, because the clock runs out with the last plate already on the board. The extra challenge comes from the twists and variation below instead. Levels 11, 13, 14 and 20 got a little more guest patience (77, 90, 83 and 90) after the seeds showed knife-edge outcomes.
 
 ## Scoring
 
@@ -172,11 +173,26 @@ Owner report: guests missing, ingredients not fitting the pan or cut off, sauces
 | Guests, arcs, coins never drawn | `usePlayfield` read the scene right after `scene.add`, but Phaser creates the scene only after it boots, so `sceneRef` stayed null. Choosing a mode in the brief (even the selected one) replaced the run while the scene kept the old one, so no guests ever showed | The scene hands itself over in `hooks.ready(scene)`; choosing the current mode does nothing |
 | Ingredients outside the pan, cut off | Items were placed at fractions of the station box, not of its art; bands were fixed percentages of the height, so the second shelf row was clipped | `layout.ts` is a budgeted column (HUD, recipe, scene, shelf, stations, heat, dialogue): the scene keeps a minimum for a guest plus bubble, shelf cards shrink first, the station row is only as tall as its art. `stationArt.ts` holds each art's bowl oval; `pan.ts` piles solids inside it |
 | Bottles and jars left in the pan | Every item was a sprite in the pan | `ITEM_FORM` (`content/items.ts`) marks items poured or sprinkled; `motion.ts` flies the container over the pan, tips or shakes it and it leaves; the pan keeps a pool or speckles in the item's tone |
-| Flow | Many small gaps | Plates and Restart are one tap on the state tag under each station (Ready · Plate, Scorched · Restart); a plated dish picks itself and highlights the guests to serve; ingredients drag with a lit drop target and float home when dropped away; a refused card shakes; the heat button pulses when food waits on a cold burner; the recipe card names the next step; Service and Time's up banners; the brief slides away; results wait for the last coin; a screen too short for the layout (a phone on its side) pauses the service with a message |
+| Flow | Many small gaps | The state tag under each station reads Ready · Drag it or Scorched · Restart (a pointer tap only selects the station; see the drag-only note below); a dragged plate highlights the guests to serve; ingredients drag with a lit drop target and float home when dropped away; a refused card shakes; the heat button pulses when food waits on a cold burner; the recipe card names the next step; Service and Time's up banners; the brief slides away; results wait for the last coin; a screen too short for the layout (a phone on its side) pauses the service with a message |
 
 Code: `layout.ts` (geometry), `scene.ts` (Phaser view), `pan.ts` and `motion.ts` (contents and one-shot motion), `useServiceEvents.ts` (events to effects), `Hud.tsx`, `Counter.tsx`, `Shelf.tsx`, `Controls.tsx` (panels), `styles.ts` and `styles-sheets.ts`. The sim only gained `uid` on the `placed` event. Class names must stay unique: a `seg` clash once stretched the brief's mode toggle.
 
 **Test without the Expo dev server** (it can take minutes to bundle): `.local/rh-harness` (gitignored) bundles the game component with esbuild into a plain page; run `node build.mjs`, `node serve.mjs`, then the Playwright scripts in `tests/` (`rh.mjs` playthrough and device sweep, `bot.mjs` cooks one dish per level through the UI, `misc.mjs` drag, restart, large text, reduce motion, tap only). Phones, native touch and haptics were not tested on a device.
+
+## Rush only, drag only, twists and variation (19 October 2026)
+
+Owner direction: no Calm mode, every level a timed Rush, and ingredients, dishes and plates all dragged. This changed the shared simulation, so the rules version changed (`ENGINE_VERSION` 3) and runs started on an older build are refused with the usual "Update QuinTaste" message.
+
+- **Rush only.** `createRun(which, pet, signature, hints, seed)` has no mode. Level 1 has a clock (1:15, patience 70). The brief and the level sheet have no mode row. `game.run.mode` keeps the value `rush` (the schema check still allows `calm`; no migration).
+- **Drag only.** An ingredient is dragged from the shelf onto a station (it lights up; dropping away floats the card home). A ready dish is carried from its station to the plates, and a plate to its guest; the targets light up while carrying. A plain tap on a card shows "Drag X onto a station"; a tap on a station only selects it; the Plate chip and the auto-picked plate are gone. Exceptions kept on purpose, because dragging alone fails players who cannot drag (WCAG 2.5.7): a key press or assistive-tech activation on a card, a station tag or the hidden station list still acts, and the existing **Tap only** option in Play your way (off by default) restores taps. Tell the owner if these should go.
+- **Seed.** The app makes the run's UUID when a service is created and derives the seed from it (`seedOf`); the server derives the same seed from the stored run id, so replay needs no schema change. `sim/plan.ts` builds the whole plan before the first tick, so the simulation uses no randomness.
+- **Shuffled jars.** Which of a look-alike pair (A or B) hides the problem is decided per run (`Run.flip`, `factsOf`, `PAIRS`). A card's name, letter and picture never change, only its label and tags, so reading the label is the only way. Before this, every pair's A was the bad one.
+- **Variation.** From Level 5 dishes are dealt to different guests, only among orders that use the same stations (so pacing holds) and only where the guest can eat them; arrival gaps stretch or shrink by up to 20% (Level 1 and a wave stay as written).
+- **Twists** (`Level.twists`, `TWISTS`): Flare-up (L3, 18, 19, 20): the burner surges once, warned 2.5 s ahead, only if it is on, so switching it off rides it out. Lunch wave (L6): three guests sit within seconds of a bell. Running low (L7, 11, 13, 17, 19): one ingredient runs out, chosen so every guest can still be served. Change of mind (L8, 14, 17, 20): a guest asks for another dish a few seconds after sitting. Don't walk away (L9, 10, 16, 18): a ready dish left over a hot burner burns after 6-7 s. VIP table (L12, 15, 19, 20): one guest has 65% patience and tips 4 more (the star targets count it).
+- **Bonus goal** (`Level.bonus`, `BONUS`): one optional fourth stamp per level (Golden plate, Clean hands, First come first served, Swift service, Steady hands), shown in the brief and on the results. It never gates a clear, stars or Mastery and is not stored or paid (the credit ledger has fixed reasons); storing it needs a schema change.
+- **Not built yet:** batch dishes that serve two guests (Level 15), a stored personal best, and persisting the bonus stamp.
+
+Tests: `.local/rh-harness/tests` (see its README) plays Level 1 and every station type with real mouse drags, checks each twist's cues, keyboard and Tap only, restart, large text, reduce motion and landscape.
 
 ## Not done yet
 

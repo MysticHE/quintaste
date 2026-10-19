@@ -23,12 +23,12 @@ function Meter({ name, H, lo, hi, scorch }: { name: string; H: number; lo: numbe
   </div>;
 }
 
-export function HeatPanel({ run, L, art, petArt, hold, nudge, onHeat, onHeatTo, onLift, onRestart, onPlate, onSkill }: {
-  run: sim.Run; L: Layout; art: Art; petArt: string; hold: boolean; nudge: boolean; onHeat(k: StationKind): void; onHeatTo(k: StationKind, on: boolean): void;
+export function HeatPanel({ run, L, art, petArt, hold, nudge, tapOnly, onHeat, onHeatTo, onLift, onRestart, onPlate, onSkill }: {
+  run: sim.Run; L: Layout; art: Art; petArt: string; hold: boolean; nudge: boolean; tapOnly: boolean; onHeat(k: StationKind): void; onHeatTo(k: StationKind, on: boolean): void;
   onLift(k: StationKind, uid: number): void; onRestart(k: StationKind): void; onPlate(k: StationKind): void; onSkill(): void;
 }) {
   const kind = run.selected, st = run.stations[kind]!, cfg = STATIONS[kind], pr = st.part, [lo, hi] = sim.bandOf(st, pr), g = sim.focusGuest(run);
-  const bad = pr && g ? conflicts(pr.items.map(i => i.id), g.rules) : [];
+  const bad = pr && g ? conflicts(pr.items.map(i => i.id), g.rules, run.flip) : [];
   const state = !pr ? "Empty" : pr.state === "cooking" ? "Cooking " + Math.round(pr.progress * 100) + "%" : pr.state === "waiting" ? "Step " + (pr.stage + 1) + " next"
     : pr.state === "ready" ? "Ready" : pr.state === "scorched" ? "Scorched" : pr.state === "split" ? "Split" : "Loading";
   const pet = PETS[run.pet], skill = SKILLS[pet.skill], liftable = pr && pr.progress === 0 && pr.state !== "ready" ? pr.items.filter(i => i.stage === pr.stage) : [];
@@ -44,11 +44,11 @@ export function HeatPanel({ run, L, art, petArt, hold, nudge, onHeat, onHeatTo, 
         <span className="line"><b>{cfg.name}:</b> {cfg.heat ? heatWord(st.H, lo, hi, cfg.scorch) + " · " : ""}{state}</span>
         <span className="chips">
           {liftable.map(i => <button key={i.uid} className={"hchip" + (bad.includes(i.id) ? " alert" : "")} onClick={() => onLift(kind, i.uid)} aria-label={"Lift " + itemName(i.id) + " out"}>{bad.includes(i.id) ? "! " : ""}{itemName(i.id)} ✕</button>)}
-          {pr?.state === "ready" && <button className="hchip act" onClick={() => onPlate(kind)}>Plate</button>}
+          {tapOnly && pr?.state === "ready" && <button className="hchip act" onClick={() => onPlate(kind)}>Plate</button>}
           {pr && pr.state !== "ready" && pr.items.length > 0 && <button className="hchip" onClick={() => onRestart(kind)}>Restart</button>}
         </span>
       </div>
-      {run.mode === "rush" && <button className="skill" onClick={onSkill} disabled={run.skill.used || !run.started} aria-label={pet.name + ": " + skill.name + ". " + skill.effect + (run.skill.used ? " Used." : "")}>
+      {<button className="skill" onClick={onSkill} disabled={run.skill.used || !run.started} aria-label={pet.name + ": " + skill.name + ". " + skill.effect + (run.skill.used ? " Used." : "")}>
         <img src={art[petArt] ?? art[pet.art]} alt="" /><span>{run.skill.used ? "Used" : skill.name}</span></button>}
     </div>
   </div>;

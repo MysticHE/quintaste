@@ -9,15 +9,15 @@ export function Bubbles({ run, L, art, plateSel, onGuest }: { run: sim.Run; L: L
   const serving = plateSel !== null && !!run.board[plateSel];
   return <>{run.guests.filter(g => g.state === "waiting" || g.state === "eating").map(g => {
     const s = L.seats[g.seat - 1]; if (!s) return null;
-    const hearts = Math.ceil(g.patience / run.level.patience * 5), guest = GUESTS[g.guestId], waiting = g.state === "waiting";
-    const cls = "bubble" + (run.focus === g.orderId && !serving ? " focus" : "") + (serving && waiting ? " target" : "") + (run.mode === "rush" && hearts <= 1 && waiting ? " low" : "");
+    const hearts = Math.ceil(g.patience / g.maxPatience * 5), guest = GUESTS[g.guestId], waiting = g.state === "waiting";
+    const cls = "bubble" + (run.focus === g.orderId && !serving ? " focus" : "") + (serving && waiting ? " target" : "") + (g.vip ? " vip" : "") + (hearts <= 1 && waiting ? " low" : "");
     return <button key={g.orderId} className={cls} style={{ left: s.bubble.x, top: s.bubble.y, maxWidth: L.seatW - 2 }} onClick={() => onGuest(g.orderId)} disabled={!waiting}
       aria-label={guest.name + ", seat " + g.seat + ", " + DISHES[g.dishId].name + (g.rules.length ? ", " + g.rules.map(r => RULES[r].spoken).join(", ") : "")
-        + (serving && waiting ? ". Serve the selected plate" : "")}>
+        + (g.vip ? ", VIP" : "") + (serving && waiting ? ". Drop the plate here" : "")}>
       {!waiting ? <span className="chip yum">Enjoying it ♥</span> : <>
-        <span className="row"><img src={art[DISHES[g.dishId].art]} alt="" />{serving && <span className="chip serve">Serve</span>}</span>
+        <span className="row"><img src={art[DISHES[g.dishId].art]} alt="" />{serving && <span className="chip serve">Drop</span>}{g.vip && <span className="chip crown">♛ VIP</span>}</span>
         {g.rules.map(r => <span key={r} className="chip rule">{RULES[r].short}</span>)}
-        {run.mode === "rush" ? <span className="hearts" aria-hidden>{[0, 1, 2, 3, 4].map(i => <span key={i} className={i < hearts ? "" : "off"}>♥</span>)}</span> : <span className="chip">{guest.name}</span>}
+        <span className="hearts" aria-hidden>{[0, 1, 2, 3, 4].map(i => <span key={i} className={i < hearts ? "" : "off"}>♥</span>)}</span>
       </>}
     </button>;
   })}</>;
@@ -30,11 +30,14 @@ export function SeatTags({ L }: { L: Layout }) {
 
 const SHORT: Record<StationKind, string> = { pan: "Wok", pot: "Pot", rice: "Rice", dessert: "Sweet", board: "Board" };
 /** A station's state in two or three words (`short` for a narrow station), and how it reads. */
-export function stationState(run: sim.Run, kind: StationKind): { text: string; short: string; tone: "idle" | "cook" | "ready" | "warn" } {
+export function stationState(run: sim.Run, kind: StationKind, tapOnly = false): { text: string; short: string; tone: "idle" | "cook" | "ready" | "warn" } {
   const st = run.stations[kind]!, pr = st.part, cfg = STATIONS[kind], [lo, hi] = sim.bandOf(st, pr), many = Object.keys(run.stations).length > 1;
   const pct = pr ? Math.round(pr.progress * 100) + "%" : "";
   if (!pr) return { text: many ? cfg.name : "Empty", short: many ? SHORT[kind] : "Empty", tone: "idle" };
-  if (pr.state === "ready") return { text: "Ready · Plate", short: "Plate!", tone: "ready" };
+  if (pr.state === "ready") {
+    if (pr.exposure > 0 && run.plan.neglect !== null) return { text: "Burning! Drag it out", short: "Burning!", tone: "warn" };
+    return tapOnly ? { text: "Ready · Plate", short: "Plate!", tone: "ready" } : { text: "Ready · Drag it", short: "Drag it", tone: "ready" };
+  }
   if (pr.state === "scorched") return { text: "Scorched · Restart", short: "Restart", tone: "warn" };
   if (pr.state === "split") return { text: "Split · Restart", short: "Restart", tone: "warn" };
   if (pr.state === "loading" || pr.state === "waiting") return { text: "Add more", short: "Add", tone: "idle" };
@@ -45,13 +48,20 @@ export function stationState(run: sim.Run, kind: StationKind): { text: string; s
   return { text: (st.H > hi ? "Hot · " : "Cooking ") + pct, short: pct, tone: "cook" };
 }
 
-export function StationTags({ run, L, plateSel, onStation }: { run: sim.Run; L: Layout; plateSel: number | null; onStation(k: StationKind): void }) {
+/**
+ * A station's state under it. A pointer tap only selects the station; a key press (or a tap with "Tap only" on) also plates
+ * or restarts it, so keyboards and screen readers are never locked out of a drag.
+ */
+export function StationTags({ run, L, plateSel, dragging, tapOnly, onSelect, onAct }: {
+  run: sim.Run; L: Layout; plateSel: number | null; dragging: StationKind | null; tapOnly: boolean; onSelect(k: StationKind): void; onAct(k: StationKind): void;
+}) {
   const serving = plateSel !== null && !!run.board[plateSel], narrow = Object.keys(L.stations).length > 3;
   return <>
-    <span className={"stag plating" + (serving ? " ready" : "")} style={{ left: L.plating.tag.x, top: L.plating.tag.y, maxWidth: L.plating.w }} aria-hidden="true">{serving ? "Tap a guest" : narrow ? "Plates" : "Plating board"}</span>
+    <span className={"stag plating" + (serving || dragging ? " ready" : "")} style={{ left: L.plating.tag.x, top: L.plating.tag.y, maxWidth: L.plating.w }} aria-hidden="true">{serving ? "Drop on a guest" : dragging ? "Drop here" : narrow ? "Plates" : "Plating board"}</span>
     {(Object.keys(L.stations) as StationKind[]).map(k => {
-      const r = L.stations[k]!, s = stationState(run, k), cfg = STATIONS[k];
-      return <button key={k} className={"stag " + s.tone} style={{ left: r.tag.x, top: r.tag.y, maxWidth: r.w - 2 }} onClick={() => onStation(k)}
+      const r = L.stations[k]!, s = stationState(run, k, tapOnly), cfg = STATIONS[k];
+      return <button key={k} className={"stag " + s.tone} style={{ left: r.tag.x, top: r.tag.y, maxWidth: r.w - 2 }}
+        onClick={e => (tapOnly || e.detail === 0 ? onAct(k) : onSelect(k))}
         aria-label={cfg.name + ": " + s.text}>{narrow ? s.short : s.text}</button>;
     })}
   </>;

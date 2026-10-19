@@ -13,15 +13,17 @@ import { emptyGame, type GameProgress } from "../progress";
 import { specialFor } from "../special";
 
 /** Bump when engine.ts changes how a run plays out; content changes are picked up by the hash automatically. */
-const ENGINE_VERSION = 2;
+const ENGINE_VERSION = 3;
 /**
  * What a run was started with. A Today's special is rebuilt from its Singapore date and the highest level the player had
  * cleared when it started (`top`); `hints` is the Play your way hint setting the run used.
  */
-export type RunSetup = { level: number; special?: { day: string; top: number } | null; hints?: Level["hints"] | null; mode: "rush" | "calm"; pet: string; signature: string[] };
+export type RunSetup = { level: number; special?: { day: string; top: number } | null; hints?: Level["hints"] | null; pet: string; signature: string[];
+  /** The service's seed: arrivals, shuffled jars and twists. The app derives it from the run's id (`seedOf`), the server from the stored id. */
+  seed: number };
 
 /** What the app sends when a service starts; the server turns `special` (a date) into its stored setup. */
-export type RunStart = { level: number; special: string | null; top?: number | null; hints: Level["hints"] | null; mode: "rush" | "calm"; pet: string; signature: string[] };
+export type RunStart = { id: string; level: number; special: string | null; top?: number | null; hints: Level["hints"] | null; pet: string; signature: string[] };
 
 /** A player who has cleared Levels 1..top: enough to rebuild the same special the player saw. */
 export const progressAt = (top: number): GameProgress => {
@@ -41,8 +43,6 @@ export function setupLevel(setup: RunSetup): Level {
   return levelByNumber(setup.level);
 }
 const hintsOf = (setup: RunSetup) => setup.hints === "full" || setup.hints === "chip" || setup.hints === "none" ? setup.hints : undefined;
-/** Calm services have no clock, so replay stops at 30 minutes of play. */
-export const MAX_CALM_TICKS = Math.round(30 * 60 / sim.DT);
 export const MAX_ACTIONS = 6000;
 
 /** FNV-1a over the rules content and the engine version: client and server must agree before a run can settle. */
@@ -80,10 +80,9 @@ function apply(r: sim.Run, [, op, a, b]: sim.Action) {
   }
 }
 
-/** Highest tick count an honest run can reach: the round plus the clock skill, or the Calm cap. */
+/** Highest tick count an honest run can reach: the round plus the clock skill. */
 export function tickLimit(setup: RunSetup) {
-  const round = setupLevel(setup).round;
-  return setup.mode === "rush" && round != null ? Math.ceil((round + 12) / sim.DT) + 2 : MAX_CALM_TICKS;
+  return Math.ceil((setupLevel(setup).round + 12) / sim.DT) + 2;
 }
 
 /**
@@ -92,7 +91,7 @@ export function tickLimit(setup: RunSetup) {
  */
 export function replay(setup: RunSetup, actions: unknown): sim.Run {
   if (!Array.isArray(actions) || actions.length > MAX_ACTIONS) throw new ReplayError("bad log");
-  const limit = tickLimit(setup), r = sim.createRun(setupLevel(setup), setup.mode, setup.pet, setup.signature, hintsOf(setup));
+  const limit = tickLimit(setup), r = sim.createRun(setupLevel(setup), setup.pet, setup.signature, hintsOf(setup), int(setup.seed, 0xffffffff));
   const advanceTo = (tick: number) => {
     while (r.ticks < tick) {
       const before = r.ticks;

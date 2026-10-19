@@ -18,8 +18,6 @@ export type RunReward = { credits: number; first: boolean; mastered: boolean; un
 /** A service as it starts: online attempts settle on the account; offline-started ones are local practice (PRD §17). */
 export type StartedRun = { id: string; online: boolean; note?: string };
 const none = { credits: 0, first: false, mastered: false, unlocks: [] as string[] };
-const runId = () => globalThis.crypto?.randomUUID?.() ??
-  "10000000-1000-4000-8000-100000000000".replace(/[018]/g, c => (+c ^ Math.floor(Math.random() * 16) >> +c / 4).toString(16));
 /** Requests the server can never accept (a bad or unknown run): retrying would not help. */
 const final = (error: unknown) => error instanceof ApiError && [400, 404, 413].includes(error.status);
 
@@ -67,10 +65,10 @@ export function useGame() {
     }
   }, [memberId, commit, updateGame, setNotice]);
 
-  /** Opens the attempt on the account when the service starts. Null for guests. */
+  /** Opens the attempt on the account when the service starts (under the id that seeded it). Null for guests. */
   const startRun = useCallback(async (setup: RunStart): Promise<StartedRun | null> => {
     if (!memberId) return null;
-    const id = runId();
+    const id = setup.id;
     try { await openRun(id, setup, rulesVersion); return { id, online: true }; }
     catch (error) {
       const code = error instanceof ApiError ? error.code : undefined;
@@ -87,7 +85,7 @@ export function useGame() {
   const finish = useCallback(async (started: Promise<StartedRun | null> | null, setup: RunStart, actions: Action[], result: Result): Promise<RunReward> => {
     if (!memberId) {
       let reward: RunReward = none;
-      const ok = await commit(d => ({ ...d, game: tiered(g => { const r = applyRun(g, setup, result); reward = r.reward; return { ...r.game, mode: setup.mode }; })(d.game) }));
+      const ok = await commit(d => ({ ...d, game: tiered(g => { const r = applyRun(g, setup, result); reward = r.reward; return { ...r.game, mode: "rush" as const }; })(d.game) }));
       if (!ok) throw new Error("Progress not saved");
       return reward;
     }

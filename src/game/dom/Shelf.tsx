@@ -1,7 +1,8 @@
 /**
  * Ingredient shelf: Fresh and Pantry side by side in two rows, scrolling sideways when a level has more than fits.
- * A tap (mouse, touch, keyboard or assistive tech) adds the item to the station it belongs in; a drag of 8 px or more
- * carries it to a station of the player's choice, which lights up while the item is over it. The Label tab sits on the
+ * Play is a drag: an ingredient is carried to a station of the player's choice, which lights up while the item is over it. A
+ * pointer tap only nudges the card ("drag me"); a key press or assistive-tech activation, or a tap with the "Tap only"
+ * accessibility option on, adds the item to the station it belongs in. The Label tab sits on the
  * card but is its own button. Memoised: the shelf changes only with the level, layout, input mode or a refused item.
  */
 import { memo, useEffect, useMemo, useRef, useState, type CSSProperties, type MouseEvent as RMouseEvent, type PointerEvent as RPointerEvent } from "react";
@@ -20,11 +21,13 @@ export function shelfItems(run: sim.Run): string[] {
 
 type Props = {
   run: sim.Run; L: Layout; art: Art; tapOnly: boolean; nudge: { id: string; key: number } | null;
-  onAdd(id: string, from: Point): void; onDrop(id: string, at: Point, from: Point): boolean; onHover(k: StationKind | null): void; onLabel(id: string): void;
+  /** The ingredient that is running low or out this service, if any. */
+  stock: { item: string; state: "low" | "out" } | null;
+  onHint(id: string): void; onAdd(id: string, from: Point): void; onDrop(id: string, at: Point, from: Point): boolean; onHover(k: StationKind | null): void; onLabel(id: string): void;
 };
 type Drag = { id: string; x0: number; y0: number; from: Point; moved: boolean; ghost: HTMLImageElement | null; root: HTMLElement; over: StationKind | null };
 
-export const Shelf = memo(function Shelf({ run, L, art, tapOnly, nudge, onAdd, onDrop, onHover, onLabel }: Props) {
+export const Shelf = memo(function Shelf({ run, L, art, tapOnly, nudge, stock, onAdd, onHint, onDrop, onHover, onLabel }: Props) {
   const drag = useRef<Drag | null>(null), suppressClick = useRef(false), cleanup = useRef<(() => void) | null>(null);
   useEffect(() => () => cleanup.current?.(), []);
   const all = useMemo(() => shelfItems(run), [run]);
@@ -62,6 +65,8 @@ export const Shelf = memo(function Shelf({ run, L, art, tapOnly, nudge, onAdd, o
   }
   function click(e: RMouseEvent<HTMLButtonElement>, id: string) {
     if (suppressClick.current) { suppressClick.current = false; return; }
+    // detail 0 is a key press or assistive-tech activation: never lock those out of a drag.
+    if (!tapOnly && e.detail !== 0) { onHint(id); return; }
     const root = e.currentTarget.closest(".rh") as HTMLElement | null;
     onAdd(id, root ? centre(e.currentTarget, root) : { x: L.shelves.x + L.shelves.w / 2, y: L.shelves.y });
   }
@@ -80,15 +85,15 @@ export const Shelf = memo(function Shelf({ run, L, art, tapOnly, nudge, onAdd, o
     <div className="tray" ref={trayRef} data-more={more || undefined}>{groups.map((g, gi) => <div key={g.tray} style={{ display: "contents" }}>
       {gi > 0 && <span className="divider" aria-hidden="true" />}
       <div className="group" role="group" aria-label={g.tray === "fresh" ? "Fresh" : "Pantry"}>{g.ids.map(id => {
-        const it = ITEMS[id], nope = nudge?.id === id;
+        const it = ITEMS[id], nope = nudge?.id === id, short = stock?.item === id ? stock.state : null;
         return <div key={id} className="cardwrap">
-          <button key={nope ? nudge!.key : 0} className={"card" + (nope ? " nope" : "")} onPointerDown={e => down(e, id)} onClick={e => click(e, id)}
+          <button key={nope ? nudge!.key : 0} className={"card" + (nope ? " nope" : "") + (short ? " " + short : "")} onPointerDown={e => down(e, id)} onClick={e => click(e, id)}
             aria-label={"Add " + itemName(id)}>
-            <img src={art[it.art]} alt="" draggable={false} /><span className="nm">{it.name}</span>{it.variant && <span className="ab">{it.variant}</span>}
+            <img src={art[it.art]} alt="" draggable={false} /><span className="nm">{it.name}</span>{it.variant && <span className="ab">{it.variant}</span>}{short && <span className="stk">{short === "out" ? "Out" : "Low"}</span>}
           </button>
           {it.label && <button className="lab" onClick={() => onLabel(id)} aria-label={"Read the label of " + itemName(id)}>Label</button>}
         </div>;
       })}</div>
     </div>)}</div>
   </div>;
-}, (a, b) => a.run === b.run && a.L === b.L && a.tapOnly === b.tapOnly && a.nudge === b.nudge);
+}, (a, b) => a.run === b.run && a.L === b.L && a.tapOnly === b.tapOnly && a.nudge === b.nudge && a.stock?.item === b.stock?.item && a.stock?.state === b.stock?.state);

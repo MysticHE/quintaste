@@ -15,7 +15,7 @@ export const importDeviceProgress = (game: GameProgress) => communityRequest<Ser
 export const saveCafe = (cafe: Partial<GameProgress>) => communityRequest<ServerProgress>("/api/game/cafe", { method: "PUT", body: { cafe } });
 export const buyItem = (item: string) => communityRequest<ServerProgress>("/api/game/purchases", { method: "POST", body: { item } });
 export const openRun = (id: string, setup: RunStart, rules: string) =>
-  communityRequest<{ id: string; status: string }>("/api/game/runs", { method: "POST", body: { id, ...setup, rules } });
+  communityRequest<{ id: string; status: string }>("/api/game/runs", { method: "POST", body: { ...setup, id, rules } });
 export const finishRun = (id: string, actions: Action[], result: Result) =>
   communityRequest<RunOutcome>("/api/game/runs/" + id + "/finish", { method: "POST", body: { actions, result } });
 

@@ -2,7 +2,7 @@
  * Fictional adult regulars (GAME_PLAN §7). Reasons are self-stated, never inferred; allergies are never ticket rules.
  * The kitchen is vegetarian, so every guest refuses hidden animal ingredients.
  */
-import { ITEMS, type ItemTag } from "./items";
+import { factsOf, ITEMS, type Flip, type ItemTag } from "./items";
 
 export type Rule = "vegan" | "five" | "jain" | "nomeat" | "nomush" | "mild";
 export type Guest = { id: string; name: string; art: string; artNo?: string; rules: Rule[]; first: number;
@@ -36,15 +36,15 @@ export const GUESTS: Record<string, Guest> = Object.fromEntries(([
 ] as Guest[]).map(g => [g.id, g]));
 
 /** Items in a list that break a guest's rules. Hidden animal ingredients break every order in a vegetarian kitchen. */
-export function conflicts(itemIds: string[], rules: Rule[]): string[] {
+export function conflicts(itemIds: string[], rules: Rule[], flip?: Flip): string[] {
   const banned = new Set<ItemTag>(["animal", ...rules.flatMap(r => RULES[r].tags)]);
-  return itemIds.filter(id => (ITEMS[id]?.tags ?? []).some(t => banned.has(t)));
+  return itemIds.filter(id => (factsOf(id, flip)?.tags ?? []).some(t => banned.has(t)));
 }
 
 /** One short reason, used in the dialogue panel and saved to the pantry book. */
-export function reason(itemId: string, rules: Rule[]): string {
-  const it = ITEMS[itemId]; if (!it) return "";
-  const tags = it.tags ?? [], name = it.name + (it.variant ? " " + it.variant : "");
+export function reason(itemId: string, rules: Rule[], flip?: Flip): string {
+  const shown = ITEMS[itemId]; if (!shown) return "";
+  const it = factsOf(itemId, flip), tags = it.tags ?? [], name = shown.name + (shown.variant ? " " + shown.variant : "");
   if (tags.includes("animal")) return name + " lists " + (it.label?.flagged ?? "an animal ingredient") + ". This is a vegetarian kitchen.";
   if (tags.includes("allium") && (rules.includes("five") || rules.includes("jain")))
     return it.label ? name + " lists " + it.label.flagged + ", one of the five pungent." : name + " is one of the five pungent." + (rules.includes("jain") ? "" : " Ginger is a common swap.");

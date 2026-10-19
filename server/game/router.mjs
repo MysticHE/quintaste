@@ -64,8 +64,9 @@ game.post('/runs', async (req, res) => {
   // Today's special: a Singapore date within a day of now; otherwise a numbered level.
   const day = body.special == null ? null : String(body.special);
   if (day !== null && !nearDays().includes(day)) throw new CommunityError(400, 'Invalid run.');
-  const level = day ? 0 : Number(body.level), mode = body.mode === 'calm' ? 'calm' : body.mode === 'rush' ? 'rush' : null, lv = sim.LEVELS[level - 1];
-  if ((!day && (!Number.isInteger(level) || !lv)) || !mode) throw new CommunityError(400, 'Invalid run.');
+  // Every service is a Rush; the column keeps its old name and value (the schema allows 'rush' and 'calm').
+  const level = day ? 0 : Number(body.level), mode = 'rush', lv = sim.LEVELS[level - 1];
+  if (!day && (!Number.isInteger(level) || !lv)) throw new CommunityError(400, 'Invalid run.');
   const hints = ['full', 'chip', 'none'].includes(body.hints) ? body.hints : null;
   const pet = typeof body.pet === 'string' && Object.hasOwn(sim.cosmetics.PETS, body.pet) ? body.pet : null;
   const signature = lv?.signature && Array.isArray(body.signature) ? [...new Set(body.signature.filter(d => typeof d === 'string' && Object.hasOwn(sim.DISHES, d)))].slice(0, 3) : [];
@@ -117,7 +118,8 @@ game.post('/runs/:id/finish', async (req, res) => {
   if (run.rules_version !== sim.rulesVersion) { await refuse(id, user.id, 'game updated since the run started', actions); return reply(); }
   if (run.elapsed > RUN_DAYS * 86400) { await refuse(id, user.id, 'run expired', actions); return reply(); }
   const special = run.special_day ? { day: isoDay(run.special_day), top: run.special_top } : null;
-  const setup = { level: run.level, special, hints: run.hints, mode: run.mode, pet: run.pet, signature: run.signature };
+  // The service's seed comes from the run's id, which the app also used to play it.
+  const setup = { level: run.level, special, hints: run.hints, pet: run.pet, signature: run.signature, seed: sim.seedOf(run.id) };
   let replayed;
   try { replayed = sim.replay(setup, actions); }
   catch (error) {

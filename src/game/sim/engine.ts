@@ -1,15 +1,20 @@
 /**
  * Rush Hour simulation: pure TypeScript, no Phaser or DOM (GAME_PLAN §12.3). The renderer calls actions and tick(),
- * then drains `run.events` for animation. Generalised from the tested Level 5 sketch.
+ * then drains `run.events` for animation. Every service is a Rush (a clock and guests' patience); a seed decides the
+ * shuffled jars, arrivals and twists (sim/plan.ts), so a run replays exactly from its inputs and its seed.
  */
 import { DISHES, STATIONS, type Part, type Stage, type StationKind } from "../content/dishes";
 import { GUESTS, conflicts, reason, RULES, type Rule } from "../content/guests";
-import { ITEMS, itemName } from "../content/items";
-import { levelByNumber, type Level } from "../content/levels";
+import { ITEMS, itemName, type Flip } from "../content/items";
+import { BONUS, levelByNumber, type BonusKind, type Level } from "../content/levels";
 import { PETS, SKILLS } from "../content/cosmetics";
+import { buildPlan, dishFeasible, FLARE_WARN, VIP_PATIENCE, type Plan } from "./plan";
 
+export { dishFeasible, seedOf } from "./plan";
 export const DT = 0.05;
 const BOARD_SLOTS = 3, WALK = 1, EAT = 1.4, LEAVE = 1;
+/** Heat a flare adds to a burner that is on, and the extra a VIP pays. */
+const FLARE_HEAT = 0.22, VIP_TIP = 4;
 
 export type PlacedItem = { uid: number; id: string; stage: number; warn: boolean };
 export type PartRun = { dishId: string; partId: string; stage: number; items: PlacedItem[]; progress: number;
@@ -17,32 +22,33 @@ export type PartRun = { dishId: string; partId: string; stage: number; items: Pl
 export type StationRun = { kind: StationKind; heatOn: boolean; F: number; H: number; part: PartRun | null; hotWarned: boolean };
 export type PlatePart = { partId: string; items: string[]; hq: number };
 export type Plate = { uid: number; dishId: string; parts: PlatePart[] };
-export type GuestRun = { orderId: string; guestId: string; dishId: string; seat: number; at: number; rules: Rule[];
+export type GuestRun = { orderId: string; guestId: string; dishId: string; seat: number; at: number; rules: Rule[]; vip: boolean; maxPatience: number;
   state: "queue" | "walking" | "waiting" | "eating" | "leaving" | "gone"; st: number; patience: number;
-  order: "open" | "served" | "expired"; paid: { base: number; heatTip: number; quick: number; total: number } | null };
+  order: "open" | "served" | "expired"; paid: { base: number; heatTip: number; quick: number; vipTip: number; total: number; left: number } | null };
 export type GameEvent =
   | { type: "placed"; station: StationKind; item: string; warn: boolean; uid: number } | { type: "rejected"; item: string }
   | { type: "ready"; station: StationKind } | { type: "scorched"; station: StationKind } | { type: "split"; station: StationKind }
   | { type: "plated"; station: StationKind; slot: number } | { type: "served"; seat: number; slot: number; coins: number }
   | { type: "returned"; seat: number; slot: number } | { type: "arrived"; seat: number } | { type: "left"; seat: number; expired: boolean }
-  | { type: "skill"; skill: string } | { type: "stage"; station: StationKind } | { type: "end" };
+  | { type: "skill"; skill: string } | { type: "stage"; station: StationKind } | { type: "end" }
+  | { type: "bell" } | { type: "flare"; station: StationKind; phase: "warn" | "hit" } | { type: "stock"; item: string; phase: "low" | "out" }
+  | { type: "changed"; seat: number; to: string };
 /** One player input: the tick it happened on, the action and its arguments. The server replays these (sim/replay.ts). */
 export type Action = [tick: number, op: string, ...args: (string | number | boolean | null)[]];
+/** Which scheduled twist events have already fired. */
+type Sched = { flares: { at: number; station: StationKind; warned: boolean; hit: boolean }[]; bell: boolean; low: boolean; out: boolean; change: boolean };
 export type Run = {
-  level: Level; mode: "rush" | "calm"; pet: string; t: number; timeLeft: number; started: boolean; paused: boolean; label: string | null;
+  level: Level; seed: number; flip: Flip; plan: Plan; sched: Sched; pet: string; t: number; timeLeft: number; started: boolean; paused: boolean; label: string | null;
   ended: boolean; endReason: "" | "time" | "done" | "quit"; focus: string | null; selected: StationKind;
   stations: Partial<Record<StationKind, StationRun>>; board: (Plate | null)[]; guests: GuestRun[]; coins: number; uid: number;
   skill: { used: boolean; freezeUntil: number; halfUntil: number; steadyUntil: number; steadyStation: StationKind | null };
-  stats: { inBand: number; prog: number; returned: number; servedBad: number; labels: number; served: number; expired: number; mistakes: number };
+  stats: { inBand: number; prog: number; returned: number; servedBad: number; labels: number; served: number; expired: number; mistakes: number;
+    bestHq: number; inOrder: boolean; lastAt: number; minLeft: number };
   say: { who: string | null; text: string; tone: "info" | "warn" | "good" }; seen: Set<string>; events: GameEvent[]; log: string[];
   /** Simulated ticks so far (time only moves while playing) and every input in order, for server replay. */
   ticks: number; actions: Action[];
 };
 
-/** True when every required slot has at least one accepted item that fits the rules. */
-export function dishFeasible(dishId: string, rules: Rule[]) {
-  return DISHES[dishId].parts.every(p => p.stages.every(s => s.slots.every(sl => sl.optional || sl.accepts.some(a => !conflicts([a], rules).length))));
-}
 /** Signature level: each guest gets a chosen dish they can eat (round-robin); ABC soup fits every rule as a fallback. */
 function resolveOrders(level: Level, signature: string[]) {
   return level.orders.map((o, i) => {
@@ -53,20 +59,25 @@ function resolveOrders(level: Level, signature: string[]) {
   });
 }
 
-/** A run of a numbered level, or of a built level such as Today's special. `hints` overrides the level's hint plan (Play your way). */
-export function createRun(which: number | Level, mode: "rush" | "calm", pet: string, signature: string[] = [], hints?: Level["hints"]): Run {
+/**
+ * A run of a numbered level, or of a built level such as Today's special. `hints` overrides the level's hint plan (Play your
+ * way); `seed` picks this service's arrivals, jars and twists (the app derives it from the run's id).
+ */
+export function createRun(which: number | Level, pet: string, signature: string[] = [], hints?: Level["hints"], seed = 1): Run {
   const base = typeof which === "number" ? levelByNumber(which) : which, level = hints && hints !== base.hints ? { ...base, hints } : base;
-  const rush = mode === "rush" && level.round !== null;
+  const plan = buildPlan(level, resolveOrders(level, signature), seed);
   const stations: Run["stations"] = {};
   level.stations.forEach(kind => { stations[kind] = { kind, heatOn: false, F: 0.1, H: 0.15, part: null, hotWarned: false }; });
-  const guests: GuestRun[] = resolveOrders(level, signature).map(o => ({
-    orderId: o.id, guestId: o.guest, dishId: o.dish, seat: 0, at: o.at, rules: [...new Set([...GUESTS[o.guest].rules, ...(level.allRules ?? [])])],
-    state: "queue", st: 0, patience: level.patience, order: "open", paid: null,
-  }));
-  return { level, mode: rush ? "rush" : "calm", pet: PETS[pet] ? pet : "sprout", t: 0, timeLeft: level.round ?? 0, started: false, paused: false, label: null,
+  const guests: GuestRun[] = plan.orders.map(o => {
+    const vip = o.id === plan.vip, patience = level.patience * (vip ? VIP_PATIENCE : 1);
+    return { orderId: o.id, guestId: o.guest, dishId: o.dish, seat: 0, at: o.at, rules: [...new Set([...GUESTS[o.guest].rules, ...(level.allRules ?? [])])],
+      vip, maxPatience: patience, state: "queue", st: 0, patience, order: "open", paid: null };
+  });
+  return { level, seed, flip: plan.flip, plan, sched: { flares: plan.flares.map(f => ({ ...f, warned: false, hit: false })), bell: false, low: false, out: false, change: false },
+    pet: PETS[pet] ? pet : "sprout", t: 0, timeLeft: level.round, started: false, paused: false, label: null,
     ended: false, endReason: "", focus: null, selected: level.stations[0], stations, board: Array(BOARD_SLOTS).fill(null), guests, coins: 0, uid: 1,
     skill: { used: false, freezeUntil: 0, halfUntil: 0, steadyUntil: 0, steadyStation: null },
-    stats: { inBand: 0, prog: 0, returned: 0, servedBad: 0, labels: 0, served: 0, expired: 0, mistakes: 0 },
+    stats: { inBand: 0, prog: 0, returned: 0, servedBad: 0, labels: 0, served: 0, expired: 0, mistakes: 0, bestHq: 0, inOrder: true, lastAt: 0, minLeft: 1 },
     say: { who: null, text: level.brief, tone: "info" }, seen: new Set(), events: [], log: [], ticks: 0, actions: [] };
 }
 
@@ -82,12 +93,16 @@ export const partOf = (pr: PartRun): Part => DISHES[pr.dishId].parts.find(p => p
 export const stageOf = (pr: PartRun): Stage => partOf(pr).stages[Math.min(pr.stage, partOf(pr).stages.length - 1)];
 export const bandOf = (s: StationRun, pr: PartRun | null) => (pr && stageOf(pr).band) || STATIONS[s.kind].band;
 export const dishName = (id: string) => DISHES[id]?.name ?? id;
-export const maxCoins = (r: Run) => r.guests.length * (r.mode === "rush" ? 16 : 14);
+export const maxCoins = (r: Run) => r.guests.reduce((n, g) => n + 16 + (g.vip ? VIP_TIP : 0), 0);
+/** Whether an ingredient is plentiful, running low (a warning), or gone for the rest of the service. */
+export const stockOf = (r: Run, id: string): "ok" | "low" | "out" => r.plan.stock?.item !== id ? "ok" : r.sched.out ? "out" : r.sched.low ? "low" : "ok";
+/** Rule check for items under this run's jars. */
+export const runConflicts = (r: Run, ids: string[], rules: Rule[]) => conflicts(ids, rules, r.flip);
 const record = (r: Run, line: string) => { r.log.push(r.t.toFixed(2) + " " + line); };
 /** Logs every input before it runs, accepted or not, so replaying the same calls on the same ticks rebuilds the run exactly. */
 const input = (r: Run, op: string, ...args: (string | number | boolean | null)[]) => { r.actions.push([r.ticks, op, ...args]); };
 
-export function start(r: Run) { input(r, "start"); r.started = true; record(r, "start " + r.mode); }
+export function start(r: Run) { input(r, "start"); r.started = true; record(r, "start"); }
 export function setFocus(r: Run, orderId: string) {
   input(r, "focus", orderId);
   if (idle(r)) return;
@@ -139,17 +154,21 @@ export function place(r: Run, itemId: string, at?: StationKind): boolean {
   input(r, "place", itemId, at ?? null);
   if (idle(r)) return false;
   const kind = at ?? targetStation(r, itemId);
+  if (stockOf(r, itemId) === "out") {
+    const who = focusGuest(r); say(r, itemName(itemId) + " has run out. Swap in another one" + (who ? " that suits " + GUESTS[who.guestId].name : "") + ".", "warn");
+    r.events.push({ type: "rejected", item: itemId }); return false;
+  }
   const why = check(r, itemId, kind);
   if (why) { say(r, why, "warn"); r.events.push({ type: "rejected", item: itemId }); return false; }
   const st = r.stations[kind]!, g = focusGuest(r);
   if (!st.part && g) { const part = dishPart(g.dishId, kind)!; st.part = { dishId: g.dishId, partId: part.id, stage: 0, items: [], progress: 0, state: "loading", exposure: 0, inBand: 0, prog: 0 }; }
   const pr = st.part!, stage = stageOf(pr), band = bandOf(st, pr);
-  const warn = !!g && conflicts([itemId], g.rules).length > 0 && pr.dishId === g.dishId;
+  const warn = !!g && conflicts([itemId], g.rules, r.flip).length > 0 && pr.dishId === g.dishId;
   const uid = r.uid++;
   pr.items.push({ uid, id: itemId, stage: pr.stage, warn });
   r.selected = kind; record(r, "place " + itemId + " " + kind);
   r.events.push({ type: "placed", station: kind, item: itemId, warn, uid });
-  if (warn && g) { r.stats.mistakes++; say(r, reason(itemId, g.rules) + " Tap it in the pan chips to lift it out.", "warn"); }
+  if (warn && g) { r.stats.mistakes++; say(r, reason(itemId, g.rules, r.flip) + " Tap it in the pan chips to lift it out.", "warn"); }
   if (stage.splitIfHot?.includes(itemId) && STATIONS[kind].heat && st.H > band[1]) {
     pr.state = "split"; say(r, "Too hot: the " + itemName(itemId).toLowerCase() + " split. Restart the dish; it's free. Turn the heat down before adding it.", "warn");
     r.events.push({ type: "split", station: kind }); return true;
@@ -194,7 +213,7 @@ function advance(r: Run, st: StationRun) {
     hintSay(r, "stage-" + st.kind + pr.stage, "Step " + pr.stage + " done. Add " + part.stages[pr.stage].hint + ".");
   } else {
     pr.state = "ready"; r.events.push({ type: "ready", station: st.kind });
-    hintSay(r, "ready-" + st.kind, "Ready! Plate it, then serve the guest it suits.");
+    hintSay(r, "ready-" + st.kind, "Ready! Drag it to the plates, then to the guest it suits.");
   }
 }
 
@@ -216,7 +235,7 @@ export function plate(r: Run, kind: StationKind): boolean {
   st.part = null; record(r, "plate " + kind + " " + slot);
   r.events.push({ type: "plated", station: kind, slot });
   const p = r.board[slot]!;
-  say(r, p.parts.length < dish.parts.length ? "Half a " + dish.name.toLowerCase() + ". Cook the " + dish.parts.find(x => !p.parts.some(y => y.partId === x.id))!.name.toLowerCase() + " too." : "Plated. Serve it to the guest it suits.");
+  say(r, p.parts.length < dish.parts.length ? "Half a " + dish.name.toLowerCase() + ". Cook the " + dish.parts.find(x => !p.parts.some(y => y.partId === x.id))!.name.toLowerCase() + " too." : "Plated. Drag it to the guest it suits.");
   return true;
 }
 export const plateComplete = (p: Plate) => p.parts.length === DISHES[p.dishId].parts.length;
@@ -228,16 +247,18 @@ export function serve(r: Run, slot: number, orderId: string) {
   if (!p || !g || g.state !== "waiting") return;
   if (!plateComplete(p)) { say(r, "That plate is missing part of the dish.", "warn"); return; }
   if (p.dishId !== g.dishId) { say(r, GUESTS[g.guestId].name + " ordered " + dishName(g.dishId) + ".", "warn", g.guestId); r.events.push({ type: "returned", seat: g.seat, slot }); return; }
-  const items = p.parts.flatMap(x => x.items), bad = conflicts(items, g.rules);
+  const items = p.parts.flatMap(x => x.items), bad = conflicts(items, g.rules, r.flip);
   if (bad.length) {
     r.stats.returned++; record(r, "returned " + orderId);
-    say(r, reason(bad[0], g.rules) + " Sorry, I can't eat this one.", "warn", g.guestId);
+    say(r, reason(bad[0], g.rules, r.flip) + " Sorry, I can't eat this one.", "warn", g.guestId);
     r.events.push({ type: "returned", seat: g.seat, slot }); return;
   }
-  const hq = p.parts.reduce((a, x) => a + x.hq, 0) / p.parts.length;
-  const heatTip = Math.round(4 * hq), quick = r.mode === "rush" ? Math.round(2 * g.patience / r.level.patience) : 0;
-  g.paid = { base: 10, heatTip, quick, total: 10 + heatTip + quick };
+  const hq = p.parts.reduce((a, x) => a + x.hq, 0) / p.parts.length, left = g.patience / g.maxPatience;
+  const heatTip = Math.round(4 * hq), quick = Math.round(2 * left), vipTip = g.vip ? VIP_TIP : 0;
+  g.paid = { base: 10, heatTip, quick, vipTip, total: 10 + heatTip + quick + vipTip, left };
   r.coins += g.paid.total; g.order = "served"; g.state = "eating"; g.st = 0; r.board[slot] = null; r.stats.served++;
+  r.stats.bestHq = Math.max(r.stats.bestHq, hq); r.stats.minLeft = Math.min(r.stats.minLeft, left);
+  if (g.at < r.stats.lastAt) r.stats.inOrder = false; else r.stats.lastAt = g.at;
   record(r, "served " + orderId + " " + g.paid.total);
   say(r, GUESTS[g.guestId].thanks, "good", g.guestId);
   r.events.push({ type: "served", seat: g.seat, slot, coins: g.paid.total });
@@ -245,13 +266,13 @@ export function serve(r: Run, slot: number, orderId: string) {
 
 export function useSkill(r: Run) {
   input(r, "skill");
-  if (r.skill.used || r.mode !== "rush" || idle(r)) return false;
+  if (r.skill.used || idle(r)) return false;
   const skill = PETS[r.pet].skill; r.skill.used = true; record(r, "skill " + skill);
   if (skill === "breath") r.skill.freezeUntil = r.t + 6;
   if (skill === "bubbles") r.skill.halfUntil = r.t + 12;
   if (skill === "minute") r.timeLeft += 12;
   if (skill === "steady") { r.skill.steadyUntil = r.t + 8; r.skill.steadyStation = r.selected; }
-  if (skill === "cheer") { const low = waiting(r).sort((a, b) => a.patience - b.patience)[0]; if (low) low.patience = Math.min(r.level.patience, low.patience + 20); }
+  if (skill === "cheer") { const low = waiting(r).sort((a, b) => a.patience - b.patience)[0]; if (low) low.patience = Math.min(low.maxPatience, low.patience + 20); }
   say(r, PETS[r.pet].name + ": " + SKILLS[skill].name + "! " + SKILLS[skill].effect, "good");
   r.events.push({ type: "skill", skill }); return true;
 }
@@ -270,10 +291,38 @@ function seatFor(r: Run) {
   return 0;
 }
 
+/** Twists that fire on the clock: the bell, flares, the ingredient running out, and a guest changing their mind. */
+function schedule(r: Run) {
+  const p = r.plan, t = r.t, s = r.sched;
+  if (p.bell !== null && !s.bell && t >= p.bell) { s.bell = true; r.events.push({ type: "bell" }); say(r, "Bell! The lunch crowd is on its way.", "warn"); }
+  for (const f of s.flares) {
+    if (!f.warned && t >= f.at - FLARE_WARN) { f.warned = true; r.events.push({ type: "flare", station: f.station, phase: "warn" }); say(r, "The " + STATIONS[f.station].name.toLowerCase() + " is about to flare. Turn the burner off to ride it out.", "warn"); }
+    if (!f.hit && t >= f.at) {
+      f.hit = true; const st = r.stations[f.station];
+      if (st?.heatOn && r.t >= r.skill.steadyUntil) { st.H = Math.min(1, st.H + FLARE_HEAT); st.F = Math.min(1, st.F + 0.2); }
+      r.events.push({ type: "flare", station: f.station, phase: "hit" });
+    }
+  }
+  if (p.stock) {
+    if (!s.low && t >= p.stock.at - 6) { s.low = true; r.events.push({ type: "stock", item: p.stock.item, phase: "low" }); say(r, itemName(p.stock.item) + " is running low.", "warn"); }
+    if (!s.out && t >= p.stock.at) { s.out = true; r.events.push({ type: "stock", item: p.stock.item, phase: "out" }); say(r, itemName(p.stock.item) + " has run out. Use another one.", "warn"); }
+  }
+  if (p.change && !s.change && t >= p.change.at) {
+    const g = guestByOrder(r, p.change.orderId);
+    if (!g || g.state === "eating" || g.state === "leaving" || g.state === "gone") s.change = true;
+    else if (g.state === "waiting") {
+      s.change = true; g.dishId = p.change.to;
+      r.events.push({ type: "changed", seat: g.seat, to: g.dishId });
+      say(r, "Sorry, could I have the " + dishName(g.dishId).toLowerCase() + " instead?", "warn", g.guestId);
+    }
+  }
+}
+
 export function tick(r: Run) {
   if (!r.started || r.paused || r.label || r.ended) return;
   r.t += DT; r.ticks++;
-  if (r.mode === "rush") { r.timeLeft = Math.max(0, r.timeLeft - DT); if (r.timeLeft <= 0) { say(r, "Time. The kitchen closes for this service."); finish(r, "time"); return; } }
+  r.timeLeft = Math.max(0, r.timeLeft - DT);
+  if (r.timeLeft <= 0) { say(r, "Time. The kitchen closes for this service."); finish(r, "time"); return; }
   const open = () => r.guests.filter(g => g.state === "walking" || g.state === "waiting").length;
   const frozen = r.t < r.skill.freezeUntil, half = r.t < r.skill.halfUntil;
   for (const g of r.guests) {
@@ -283,12 +332,13 @@ export function tick(r: Run) {
       g.state = "waiting"; g.st = 0; r.events.push({ type: "arrived", seat: g.seat });
       if (!focusGuest(r) || focusGuest(r)!.state !== "waiting") r.focus = g.orderId;
       say(r, GUESTS[g.guestId].hello.replace("{dish}", dishName(g.dishId)), "info", g.guestId);
-    } else if (g.state === "waiting" && r.mode === "rush" && !frozen) {
+    } else if (g.state === "waiting" && !frozen) {
       g.patience = Math.max(0, g.patience - DT * (half ? 0.5 : 1));
       if (g.patience <= 0) { g.order = "expired"; g.state = "leaving"; g.st = 0; r.stats.expired++; say(r, "Ran out of time. Next time, ah.", "warn", g.guestId); r.events.push({ type: "left", seat: g.seat, expired: true }); }
     } else if (g.state === "eating" && g.st >= EAT) { g.state = "leaving"; g.st = 0; r.events.push({ type: "left", seat: g.seat, expired: false }); }
     else if (g.state === "leaving" && g.st >= LEAVE) g.state = "gone";
   }
+  schedule(r);
   const fg = focusGuest(r);
   if (!fg || fg.state !== "waiting") { const next = waiting(r)[0]; r.focus = next ? next.orderId : null; }
   for (const st of Object.values(r.stations)) if (st) heatStation(r, st);
@@ -309,6 +359,12 @@ function heatStation(r: Run, st: StationRun) {
   const [lo, hi] = bandOf(st, pr);
   if (st.H >= cfg.scorch && !st.hotWarned && pr && (pr.state === "cooking" || pr.state === "waiting")) { st.hotWarned = true; say(r, "Too hot. Turn the heat off and let it settle.", "warn"); }
   if (st.H < hi) st.hotWarned = false;
+  // Don't walk away: a finished dish left over a hot burner starts to burn.
+  if (pr && pr.state === "ready" && r.plan.neglect !== null) {
+    pr.exposure = st.H > hi ? pr.exposure + DT : Math.max(0, pr.exposure - DT / 2);
+    if (pr.exposure >= r.plan.neglect) { pr.state = "scorched"; say(r, "It sat on the heat too long and burnt. Plate dishes as soon as they're ready.", "warn"); r.events.push({ type: "scorched", station: st.kind }); }
+    return;
+  }
   if (!pr || pr.state !== "cooking") return;
   const stage = stageOf(pr);
   if (st.H < cfg.scorch) pr.exposure = Math.max(0, pr.exposure - DT / 2);
@@ -326,13 +382,18 @@ function heatStation(r: Run, st: StationRun) {
 }
 
 export type Result = { n: number; v: number; max: number; stars: number; hq: number; score: number; cleared: boolean; completed: boolean;
-  stamps: { served: boolean; rules: boolean; steady: boolean }; coins: number };
+  stamps: { served: boolean; rules: boolean; steady: boolean }; coins: number;
+  /** The level's optional fourth stamp. It is shown on the results and never gates a clear, stars or Mastery. */
+  bonus: { kind: BonusKind; name: string; text: string; done: boolean } | null };
 export function results(r: Run): Result {
   const n = r.guests.length, v = r.stats.served, max = maxCoins(r);
   const stars = v === n ? 1 + [0.75, 0.9].filter(f => r.coins >= Math.ceil(f * max)).length : 0;
   const hq = r.stats.prog ? r.stats.inBand / r.stats.prog : 1;
   const paid = r.guests.filter(g => g.paid), quickAvg = paid.length ? paid.reduce((a, g) => a + g.paid!.quick / 2, 0) / paid.length : 0;
-  const score = v === n ? Math.round(70 + (r.mode === "rush" ? 20 * hq + 10 * quickAvg : 30 * hq)) : Math.floor(69 * v / n);
+  const score = v === n ? Math.round(70 + 20 * hq + 10 * quickAvg) : Math.floor(69 * v / n);
+  const kind = r.level.bonus, st = r.stats;
+  const done = v === n && !!kind && (kind === "golden" ? st.bestHq >= 0.95 : kind === "clean" ? st.mistakes === 0 && st.returned === 0 : kind === "order" ? st.inOrder
+    : kind === "swift" ? st.minLeft >= 0.5 : hq >= 0.9);
   return { n, v, max, stars, hq, score, cleared: v === n, completed: v >= Math.ceil(0.75 * n), coins: r.coins,
-    stamps: { served: v === n, rules: r.stats.returned === 0, steady: hq >= 0.6 } };
+    stamps: { served: v === n, rules: r.stats.returned === 0, steady: hq >= 0.6 }, bonus: kind ? { kind, ...BONUS[kind], done } : null };
 }

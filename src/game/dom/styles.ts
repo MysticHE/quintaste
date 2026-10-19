@@ -92,7 +92,7 @@ const SCENE = `
 @keyframes rhtag { 50% { transform:translate(-50%,-50%) scale(1.08); } }
 .rh .toast { position:absolute; transform:translateX(-50%); font-size:12px; padding:5px 12px; border-radius:99px; background:var(--pill); color:var(--white); white-space:nowrap; animation:rhin .2s ease-out; }
 @keyframes rhin { from { opacity:0; transform:translate(-50%,6px); } }
-.rh .banner { position:absolute; transform:translate(-50%,-50%); z-index:48; font-size:34px; color:var(--white); white-space:nowrap; pointer-events:none;
+.rh .banner { position:absolute; transform:translate(-50%,-50%); z-index:48; font-size:30px; color:var(--white); white-space:nowrap; pointer-events:none;
   text-shadow:0 3px 0 var(--coral), 0 6px 14px var(--shadow); animation:rhbanner 1.3s ease-out forwards; }
 @keyframes rhbanner { 0% { transform:translate(-50%,-50%) scale(.4); opacity:0; } 18% { transform:translate(-50%,-50%) scale(1.12); opacity:1; } 30% { transform:translate(-50%,-50%) scale(1); }
   78% { opacity:1; transform:translate(-50%,-50%); } 100% { opacity:0; transform:translate(-50%,-80%); } }
@@ -160,4 +160,19 @@ const BOTTOM = `
 .rh .panels { pointer-events:none; } .rh .panels > * { pointer-events:auto; }
 .rh .panels > .toast, .rh .panels > .seattag, .rh .panels > .stag.plating { pointer-events:none; }
 `;
-export const RUSH_CSS = scaleText(TOKENS + TOP + SCENE + SHELF + BOTTOM + SHEETS_CSS);
+/** Twists and the drag-only shelf: VIP guests, stock tags, the hidden station list, bonus goals and twist cards. */
+const TWISTS_CSS = `
+.rh .listbtn.quiet:not(:focus-visible) { position:absolute; width:1px; height:1px; margin:-1px; padding:0; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }
+.rh .bubble.vip { box-shadow:0 0 0 3px var(--gold-hi), 0 3px 8px var(--shadow); }
+.rh .chip.crown { background:var(--gold); color:var(--gold-ink); }
+.rh .card.low { box-shadow:0 0 0 2px var(--amber), 0 2px 0 var(--panel-edge); }
+.rh .card.out { opacity:.5; filter:grayscale(.75); }
+.rh .stk { position:absolute; right:3px; top:3px; font-size:9px; padding:0 5px; min-height:14px; line-height:14px; border-radius:99px; background:var(--warn); color:var(--white); pointer-events:none; }
+.rh .card.low .stk { background:var(--amber); color:var(--ink); }
+.rh .remember.twist { background:var(--hint-bg); color:var(--hint-ink); }
+.rh .bonus { display:grid; gap:2px; padding:8px 12px; border-radius:14px; background:var(--white); box-shadow:inset 0 0 0 2px var(--panel-edge); font-size:12px; }
+.rh .bonus.on { box-shadow:inset 0 0 0 2px var(--gold); }
+.rh .bonus span { font-family:"Nunito_700Bold","Nunito",ui-rounded,system-ui,sans-serif; font-weight:700; color:var(--ink-2); font-size:11px; }
+.rh .stag.ready.plating { animation:rhtag 0.8s ease-in-out infinite; }
+`;
+export const RUSH_CSS = scaleText(TOKENS + TOP + SCENE + SHELF + BOTTOM + TWISTS_CSS + SHEETS_CSS);

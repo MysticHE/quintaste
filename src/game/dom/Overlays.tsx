@@ -1,30 +1,29 @@
 /** Sheets over the playfield: brief, game label, pause, results, and the station list mode (GAME_PLAN §12.4). */
 import { DISHES, STATIONS, type StationKind } from "../content/dishes";
 import { GUESTS, RULES } from "../content/guests";
-import { ITEMS, itemName } from "../content/items";
+import { factsOf, ITEMS, itemName } from "../content/items";
 import { PETS, SKILLS } from "../content/cosmetics";
-import { levelDishes } from "../content/levels";
+import { BONUS, levelDishes, TWISTS } from "../content/levels";
 import * as sim from "../sim/engine";
 import type { Art } from "./Hud";
 import { shelfItems } from "./Shelf";
 import type { Layout } from "./layout";
 
-export function Brief({ run, art, petArt, leaving, onMode, onStart, onExit }: { run: sim.Run; art: Art; petArt: string; leaving: boolean; onMode(m: "rush" | "calm"): void; onStart(): void; onExit(): void }) {
+export function Brief({ run, art, petArt, leaving, onStart, onExit }: { run: sim.Run; art: Art; petArt: string; leaving: boolean; onStart(): void; onExit(): void }) {
   const lv = run.level, guests = [...new Set(run.guests.map(g => g.guestId))], pet = PETS[run.pet], skill = SKILLS[pet.skill];
   return <div className={"overlay center" + (leaving ? " out" : "")}><div className="sheet" role="dialog" aria-modal="true" aria-labelledby="rhBrief">
-    <span className="k">Before service · {lv.special ? "Today's special" : "Level " + lv.n}</span><h3 id="rhBrief">{lv.special ? DISHES[lv.special.dish].name : lv.name}</h3><p>{lv.brief}</p>
+    <span className="k">Rush · {Math.floor(lv.round / 60)}:{String(lv.round % 60).padStart(2, "0")} · {lv.special ? "Today's special" : "Level " + lv.n}</span><h3 id="rhBrief">{lv.special ? DISHES[lv.special.dish].name : lv.name}</h3><p>{lv.brief}</p>
     {lv.special?.lunar && <span className="chip rule" style={{ justifySelf: "start", fontSize: 11 }}>{lv.special.lunar} · {RULES.five.chip}</span>}
     <span className="k">Regulars</span>
     <div className="guestrow">{guests.map(id => { const g = GUESTS[id], rules = [...new Set([...g.rules, ...(lv.allRules ?? [])])];
       return <div key={id}><img src={art[g.art]} alt="" /><b>{g.name}</b>{rules.map(r => <span key={r} className="chip rule">{RULES[r].chip}</span>)}{!rules.length && <span className="chip">No rules</span>}</div>; })}</div>
     <span className="k">On the menu</span>
     <div className="guestrow">{levelDishes(lv).map(d => <div key={d.id}><img src={art[d.art]} alt="" /><b>{d.name}</b></div>)}</div>
-    {lv.round !== null ? <div className="seg" role="group" aria-label="Mode">
-      <button aria-pressed={run.mode === "rush"} onClick={() => onMode("rush")}>Rush · {Math.floor(lv.round / 60)}:{String(lv.round % 60).padStart(2, "0")}</button>
-      <button aria-pressed={run.mode === "calm"} onClick={() => onMode("calm")}>Calm · no clock</button></div> : <p>Level 1 has no clock.</p>}
-    {run.mode === "rush" && <div className="remember" style={{ display: "flex", gap: 8, alignItems: "center" }}><img src={art[petArt] ?? art[pet.art]} alt="" style={{ width: 44, height: 44, objectFit: "contain" }} />
-      <span><b>{pet.name} · {skill.name}</b><br />{skill.effect} Once per service. {skill.best}</span></div>}
+    {(lv.twists ?? []).map(t => <div key={t.kind} className="remember twist"><b>{TWISTS[t.kind].name}. </b>{TWISTS[t.kind].text}</div>)}
+    <div className="remember" style={{ display: "flex", gap: 8, alignItems: "center" }}><img src={art[petArt] ?? art[pet.art]} alt="" style={{ width: 44, height: 44, objectFit: "contain" }} />
+      <span><b>{pet.name} · {skill.name}</b><br />{skill.effect} Once per service. {skill.best}</span></div>
     <div className="remember"><b>New: </b>{lv.teach}</div>
+    {lv.bonus && <div className="remember"><b>Bonus goal · {BONUS[lv.bonus].name}. </b>{BONUS[lv.bonus].text}</div>}
     <div className="row"><button className="btn ghost" onClick={onExit} disabled={leaving}>Back to café</button><button className="btn" autoFocus onClick={onStart} disabled={leaving}>Start service</button></div>
   </div></div>;
 }
@@ -38,7 +37,7 @@ export function TooShort() {
 }
 
 export function LabelSheet({ run, onClose, onUse }: { run: sim.Run; onClose(): void; onUse(id: string): void }) {
-  const it = ITEMS[run.label!], lab = it.label!, g = sim.focusGuest(run);
+  const it = ITEMS[run.label!], lab = factsOf(run.label!, run.flip).label!, g = sim.focusGuest(run);
   const flagged = (lab.flagged ?? "").split(",").map(x => x.trim()).filter(Boolean);
   return <div className="overlay"><div className="sheet" role="dialog" aria-modal="true" aria-labelledby="rhLabel">
     <span className="paused">Clock and patience paused while reading</span>
@@ -72,11 +71,12 @@ export function Results({ run, res, reward, saveFailed, onRetrySave, onAgain, on
   const head = res.cleared ? (res.stars === 3 ? "Perfect service" : "Level cleared") : res.completed ? "Nearly there" : "Service over";
   const dish = levelDishes(run.level)[0] ?? DISHES[run.guests[0].dishId];
   return <div className="overlay center"><div className="sheet" role="dialog" aria-modal="true" aria-labelledby="rhRes">
-    <span className="k">{run.mode === "rush" ? "Rush" : "Calm"} · {run.level.special ? "Today's special" : "Level " + run.level.n} · {run.endReason === "time" ? "time's up" : "all guests done"}</span>
+    <span className="k">Rush · {run.level.special ? "Today's special" : "Level " + run.level.n} · {run.endReason === "time" ? "time's up" : "all guests done"}</span>
     <h3 id="rhRes">{head}</h3>
     <div className="bigstars" aria-label={res.stars + " of 3 stars"}>{[0, 1, 2].map(i => <span key={i} className={i < res.stars ? "lit" : ""} style={{ animationDelay: i * 0.18 + "s" }}>★</span>)}</div>
     <div className="stamps">{([["served", "Served"], ["rules", "Rules respected"], ["steady", "Steady heat"]] as const).map(([k, l]) =>
       <div key={k} className={res.stamps[k] ? "on" : "off"}><b>{res.stamps[k] ? "✓" : "○"}</b>{l}</div>)}</div>
+    {res.bonus && <div className={"bonus" + (res.bonus.done ? " on" : "")}><b>{res.bonus.done ? "✓" : "○"} Bonus goal · {res.bonus.name}</b><span>{res.bonus.text}</span></div>}
     <div className="rgrid"><span>Takings <b>{res.coins} / {res.max}</b></span><span>Served <b>{res.v} of {res.n}</b></span>
       <span>Steady heat <b>{Math.round(res.hq * 100)}%</b></span><span>Service score <b>{res.score}</b></span></div>
     <div className="remember"><b>One thing to remember. </b>{dish?.remember}</div>
@@ -103,7 +103,7 @@ export function ListView({ run, L, act, onBack }: { run: sim.Run; L: Layout; onB
   return <div className="list" role="region" aria-label="Station list" style={{ left: L.recipe.x, width: L.recipe.w, top: L.recipe.y, bottom: L.h - L.dialogue.y + 6 }}>
     <button className="btn ghost" onClick={onBack}>Back to the scene</button>
     <section><h4>Guests</h4>{run.guests.filter(x => x.state !== "queue" && x.state !== "gone").map(x => <div key={x.orderId}>
-      <div className="line">Seat {x.seat} · {GUESTS[x.guestId].name} · {DISHES[x.dishId].name} · {x.rules.length ? x.rules.map(r => RULES[r].chip).join(", ") : "No rules"} · {x.order === "served" ? "Served" : run.focus === x.orderId ? "Cooking for" : "Waiting"}{run.mode === "rush" && x.state === "waiting" ? " · patience " + Math.ceil(x.patience / run.level.patience * 5) + " of 5" : ""}</div>
+      <div className="line">Seat {x.seat} · {GUESTS[x.guestId].name} · {DISHES[x.dishId].name} · {x.rules.length ? x.rules.map(r => RULES[r].chip).join(", ") : "No rules"} · {x.order === "served" ? "Served" : run.focus === x.orderId ? "Cooking for" : "Waiting"}{x.state === "waiting" ? " · patience " + Math.ceil(x.patience / x.maxPatience * 5) + " of 5" : ""}</div>
       {x.state === "waiting" && run.focus !== x.orderId && <div className="acts"><button onClick={() => act.focus(x.orderId)}>Cook for {GUESTS[x.guestId].name}</button></div>}</div>)}</section>
     {(Object.keys(run.stations) as StationKind[]).map(k => { const st = run.stations[k]!, pr = st.part, cfg = STATIONS[k], [lo, hi] = sim.bandOf(st, pr);
       return <section key={k}><h4>{cfg.name}</h4>

@@ -118,3 +118,13 @@ export const ITEM_FORM: Record<string, ItemForm> = Object.fromEntries([
   ...forms("sprinkle", "gold", ["turmeric", "brown-sugar", "peanuts"]),
   ...forms("sprinkle", "dark", ["white-pepper", "black-beans"]),
 ]);
+
+/** Look-alike pairs (A and B) where one label hides a problem, e.g. ["paste-a", "paste-b"]. */
+export const PAIRS: [string, string][] = Object.values(ITEMS).filter(i => i.variant === "A").map(a => [a.id, a.id.replace(/-a$/, "-b")] as [string, string]).filter(([, b]) => !!ITEMS[b]);
+/** A run's shuffle: which look-alike hides the problem is decided per run, so no jar is "always the bad one". */
+export type Flip = Record<string, string>;
+/**
+ * What an item really is in this run: its tags and label. The card's name, letter and picture stay fixed, so a swapped
+ * pair looks the same and only reading the label tells them apart.
+ */
+export const factsOf = (id: string, flip?: Flip) => ITEMS[flip?.[id] ?? id] ?? ITEMS[id];

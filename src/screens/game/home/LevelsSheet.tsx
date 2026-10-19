@@ -3,24 +3,23 @@ import { Pressable, StyleSheet, View } from "react-native";
 import Animated, { cancelAnimation, Easing, useAnimatedStyle, useSharedValue, withRepeat, withTiming } from "react-native-reanimated";
 import { Button, Icon, T } from "../../../components/ui";
 import { PETS, SKILLS } from "../../../game/content/cosmetics";
-import { LEVELS, levelDishes } from "../../../game/content/levels";
+import { BONUS, LEVELS, TWISTS, levelDishes } from "../../../game/content/levels";
 import { GUESTS, RULES } from "../../../game/content/guests";
 import { levelOpen, nextLevel, type GameProgress } from "../../../game/progress";
 import { usePreferences } from "../../../state/Preferences";
 import { GameSheet, Section } from "./GameSheet";
-import { Art, Seg, useHover } from "./bits";
+import { Art, useHover } from "./bits";
 
-/** Rush Hour: the next level, Rush or Calm, the companion joining, and the twenty-level path. */
-export function LevelsSheet({ game, onClose, onPlay, onCompanion, onMode }: {
-  game: GameProgress; onClose(): void; onPlay(level: number, mode: "rush" | "calm"): void; onCompanion(): void; onMode(m: "rush" | "calm"): void;
+/** Rush Hour: the next level, its twist, the companion joining, and the twenty-level path. */
+export function LevelsSheet({ game, onClose, onPlay, onCompanion }: {
+  game: GameProgress; onClose(): void; onPlay(level: number): void; onCompanion(): void;
 }) {
   const { theme } = usePreferences();
   const [pick, setPick] = useState(nextLevel(game));
   const lv = LEVELS[pick - 1], pet = PETS[game.pet], skill = SKILLS[pet.skill];
-  const mode = lv.round === null ? "calm" : game.mode;
   const guests = [...new Set(lv.orders.map(o => o.guest))];
   return <GameSheet title="Rush Hour" subtitle={"Level " + pick + " · " + lv.name} art={levelDishes(lv)[0]?.art} onClose={onClose}
-    footer={<Button label={"Start Level " + pick} onPress={() => onPlay(pick, mode)} />}>
+    footer={<Button label={"Start Level " + pick} onPress={() => onPlay(pick)} />}>
     <Section>
       <T variant="small" muted>Level {pick}{game.best[pick]?.stars ? " · best " + "★".repeat(game.best[pick].stars) : ""}</T>
       <T variant="subtitle">{lv.name}</T>
@@ -28,11 +27,12 @@ export function LevelsSheet({ game, onClose, onPlay, onCompanion, onMode }: {
       <View style={s.row}>{levelDishes(lv).map(d => <View key={d.id} style={s.chip}><Art k={d.art} size={44} /><T variant="small" style={{ fontWeight: "700" }}>{d.name}</T></View>)}</View>
       <View style={s.row}>{guests.map(g => <View key={g} style={s.chip}><Art k={GUESTS[g].art} size={36} />
         <T variant="small" style={{ fontWeight: "700" }}>{GUESTS[g].name}{GUESTS[g].rules.length ? " · " + GUESTS[g].rules.map(r => RULES[r].chip).join(", ") : ""}</T></View>)}</View>
+      {(lv.twists ?? []).map(t => <T key={t.kind} variant="small" muted><T variant="small" style={{ fontWeight: "800" }}>{TWISTS[t.kind].name}: </T>{TWISTS[t.kind].text}</T>)}
+      {lv.bonus && <T variant="small" muted><T variant="small" style={{ fontWeight: "800" }}>Bonus: {BONUS[lv.bonus].name}. </T>{BONUS[lv.bonus].text}</T>}
     </Section>
-    {lv.round !== null && <Seg label="Mode" value={mode} onChange={onMode} options={[["rush", "Rush · clock and patience"], ["calm", "Calm · no clock"]]} />}
     <Pressable onPress={onCompanion} accessibilityRole="button" accessibilityLabel={"Companion " + pet.name + ", " + skill.name + ". Change companion"}>
       <Section><View style={s.row}><Art k={pet.art} size={52} /><View style={{ flex: 1 }}>
-        <T style={{ fontWeight: "800" }}>{pet.name} · {skill.name}</T><T variant="small" muted>{mode === "calm" ? "Calm has no clock, so companions just keep you company." : skill.effect + " Once per service."}</T>
+        <T style={{ fontWeight: "800" }}>{pet.name} · {skill.name}</T><T variant="small" muted>{skill.effect + " Once per service."}</T>
       </View><T variant="small" color={theme.accent} style={{ fontWeight: "800" }}>Change</T></View></Section>
     </Pressable>
     <Section title="Your path">
