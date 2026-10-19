@@ -2,7 +2,7 @@ import { useRecipeWorkspace } from "../../hooks/useRecipeWorkspace";
 import { usePreferences } from "../../state/Preferences";
 import { usePristineDraft } from "../../hooks/usePristineDraft";
 import { router, useLocalSearchParams } from "expo-router";
-import { View } from "react-native";
+import { Linking, View } from "react-native";
 import { useState } from "react";
 import { CookLayout as Screen, CookSection } from "../../components/recipes/CookLayout";
 import { Button, T, common } from "../../components/ui";
@@ -55,7 +55,10 @@ export function RecipeDetailScreen() {
     </View>
     <IngredientList ingredients={recipe.ingredients} scale={servings / recipe.servings} flagged={flagged} />
     <SectionTitle title="Steps" />
-    {recipe.steps.map((step, index) => <View key={index} style={{ gap: 4, paddingVertical: 6 }}><T style={common.bold}>{/^step \d+$/i.test(step.title.trim()) ? "Step " + (index + 1) : index + 1 + ". " + step.title}</T><T muted>{step.instruction}</T></View>)}
+    {recipe.steps.map((step, index) => <View key={index} style={{ gap: 4, paddingVertical: 6 }}><T style={common.bold}>{/^step \d+$/i.test(step.title.trim()) ? "Step " + (index + 1) : index + 1 + ". " + step.title}</T><T muted>{step.instruction}</T>
+      {typeof step.at === "number" && !!recipe.source?.url && <Button label={"Watch At " + Math.floor(step.at / 60) + ":" + String(step.at % 60).padStart(2, "0")} variant="link" icon="play-circle-outline"
+        onPress={() => void Linking.openURL(recipe.source!.url! + (recipe.source!.platform === "youtube" ? "&t=" + step.at + "s" : "")).catch(() => setNotice({ text: "Link did not open.", error: true }))} />}
+    </View>)}
     <NutritionFacts recipe={recipe} />
     {recipe.adaptationId && <Button label="No-Allium Version" variant="link" onPress={() => router.push(("/cook/recipe/" + recipe.adaptationId) as never)} />}
     <CookSection title="Private Note"><PrivateNote key={"recipe:" + id} noteKey={"recipe:" + id} /></CookSection>
