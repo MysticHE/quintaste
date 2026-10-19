@@ -1,6 +1,6 @@
 # QuinTaste VPS overview
 
-Updated 16 October 2026 against the running server. Read [DEPLOYMENT_RUNBOOK.md](DEPLOYMENT_RUNBOOK.md) before any deployment, restart, remote configuration change or rollback. It is the authoritative operating procedure. All project documentation and QA evidence remain local.
+Updated 16 October 2026 against the running server. Read [DEPLOYMENT_RUNBOOK.md](DEPLOYMENT_RUNBOOK.md) before any deployment, restart, remote configuration change or rollback. It is the authoritative operating procedure. All project documentation and QA evidence remain local. Before moving to another host or cloud, or resizing the preview service, read [PLATFORM_REQUIREMENTS.md](PLATFORM_REQUIREMENTS.md): Metro compiles on demand and needs a prewarm after every start.
 
 ## Access and services
 

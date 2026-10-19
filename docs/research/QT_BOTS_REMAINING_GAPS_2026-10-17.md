@@ -273,3 +273,43 @@ backup `operator-tests/review-fixes-20261018`.
 - **Residual risk:** the image's bundled `chrome-headless-shell` ignores managed policies (it opened
   `file://` and reached 172.17.0.1 in a test). Nothing selects it, but never set the browser path
   to it.
+
+### Daytime live run, image cap, Explorer self-correction (18 October 2026, morning SGT)
+
+- A supervised 3-hour live run (`deploy_live_run.py 3`) ran from 7:31 to 10:31 am SGT, with
+  research cutoff at 10:16. Today's Explorer and Cooker failure breakers were reset (backed up).
+  - Round 1 published `recipe:ginger-milk-curd` and `recipe:pumpkin-millet-porridge` without images.
+  - Cooker's timing fix is confirmed live.
+- **Image cap removed (owner request).** `policy.json` `monthlyImageAttempts` is now null, and
+  `reserve()` treats null as uncapped. Attempts are still ledgered, and failed recipe images are
+  not retried automatically. The cap had been 3/month, all spent on 17 Oct.
+  - Ginger milk curd's image was generated at 8:25 am (openai-codex gpt-image-2-high, 960x720)
+    and is awaiting Manager visual review before attachment.
+- **Explorer self-correction.**
+  - Unproven "verified" claims are now held per dish with an explicit cause (`EVIDENCE_REASONS`),
+    instead of the whole batch being rejected.
+  - `validation_feedback.py` feeds those causes into the same role's next prompt automatically,
+    with no model call or approval.
+  - Root cause on SHU Ang Mo Kio: foodpanda serves a PerimeterX "confirm you are a human" page to
+    automated browsers, so the stored capture is only a header. That was not bypassed; its
+    dishes stay held.
+- **Learning loop (`learning.py`) limits.** It only ingests Manager-reviewed outbox packets and only
+  activates fixed catalogue procedures. It never saw validation-rejected batches and cannot change
+  code. Live: 9 approved lessons, 2 pending, 24 held-retry records. It is useful as an approved
+  checklist, not as self-repair.
+
+### Photo-first recipes and one summary (deployed 8:58 am SGT, 18 Oct)
+
+- A new bot recipe now publishes **only together with its approved photo**. `publisher.prepare`
+  holds it as "Awaiting its generated photo". Within one round, the image is generated, Manager
+  inspects the pixels, and the recipe and image go live in the same batch. If Manager rejects the
+  image, the recipe stays unpublished.
+- `recipe_image` makes up to 2 images per round (Cooker's daily maximum). A failed attempt is
+  retried after 30 minutes, up to 3 attempts, so a recipe cannot wait forever. Results are returned
+  per recipe.
+- Audit-only menu reviews no longer send one screenshot message per venue. `menu_digest()` adds one
+  line per venue to the overnight summary and to the supervised-run end message. Screenshot messages
+  remain only for real app changes. The 3-hour run that started at 7:31 am still uses the old
+  supervisor code for its end message.
+- Earlier today: Ginger Milk Curd and Pumpkin Millet Porridge published at 7:31 am without photos.
+  Their photos followed at 8:26 and 8:27 after the image cap was lifted.
