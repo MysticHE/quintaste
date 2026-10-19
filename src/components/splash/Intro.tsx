@@ -8,7 +8,7 @@
  * Reduced motion (system or the app's switch) shows the settled mochi without sound or haptics.
  */
 import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
-import { Platform, Pressable, StyleSheet, View, useColorScheme, useWindowDimensions } from "react-native";
+import { Platform, Pressable, StyleSheet, Text, View, useColorScheme, useWindowDimensions } from "react-native";
 import * as Haptics from "expo-haptics";
 import * as SplashScreen from "expo-splash-screen";
 import { useFonts, Nunito_800ExtraBold } from "@expo-google-fonts/nunito";
@@ -35,13 +35,14 @@ export function markAppReady() {
 const subscribe = (l: () => void) => { listeners.add(l); return () => { listeners.delete(l); }; };
 const isReady = () => ready;
 
-type Brand = { background: string; ink: string; shadow: string; blush: string };
+type Brand = { background: string; quin: string; taste: string; shadow: string; blush: string };
 /** The native splash's colours (the coral brand, light or dark with the phone), used before any preferences load. */
 function useBrand(): Brand {
   const dark = useColorScheme() === "dark";
   return useMemo(() => {
     const t = themeFor("coral", dark), coral = t.swatches.coral;
-    return { background: dark ? coral.dark[0] : coral.light[0], ink: dark ? coral.accentDark : coral.accent, shadow: t.shadow, blush: t.mascot.blush };
+    // Wordmark: "Quin" in the mochi's brown (warm cream on dark), "Taste" in coral.
+    return { background: dark ? coral.dark[0] : coral.light[0], quin: dark ? coral.light[1] : t.mascot.ink, taste: dark ? coral.accentDark : coral.accent, shadow: t.shadow, blush: t.mascot.blush };
   }, [dark]);
 }
 
@@ -161,7 +162,10 @@ function Play({ still, sounds, onDone }: { still: boolean; sounds: boolean; onDo
           </Animated.View>
         </Animated.View>
       </Animated.View>
-      <Animated.Text pointerEvents="none" style={[s.abs, s.word, { top: base + size * 0.12, width: W, fontSize: word, color: brand.ink }, title]}>QuinTaste</Animated.Text>
+      <Animated.View pointerEvents="none" accessible accessibilityRole="header" accessibilityLabel="QuinTaste" style={[s.abs, s.word, { top: base + size * 0.12, width: W }, title]}>
+        <Text style={[s.wordPart, { fontSize: word, color: brand.quin }]}>Quin</Text>
+        <Text style={[s.wordPart, { fontSize: word, color: brand.taste }]}>Taste</Text>
+      </Animated.View>
     </Pressable>
   </Animated.View>;
 }
@@ -170,5 +174,7 @@ const s = StyleSheet.create({
   abs: { position: "absolute" },
   feet: { transformOrigin: FEET_ORIGIN },
   fill: { flex: 1, width: "100%", height: "100%" },
-  word: { left: 0, textAlign: "center", fontFamily: fontNames.display, letterSpacing: 0.5 },
+  // The wordmark is two side-by-side pieces, one per colour.
+  word: { left: 0, flexDirection: "row", justifyContent: "center" },
+  wordPart: { fontFamily: fontNames.display, letterSpacing: 0.5 },
 });

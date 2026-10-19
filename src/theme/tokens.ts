@@ -119,8 +119,8 @@ export function themeFor(palette: Palette, dark: boolean) {
     mediaProviderForeground: "#ffffff",
     mediaControl: "rgba(23,29,25,0.84)",
     mediaRating: "#ffd16a",
-    // Mochi Chef mascot cheek blush; the same in every palette and mode.
-    mascot: { blush: "#f4907a" },
+    // Mochi Chef mascot colours: cheek blush, and the brown of its face for the "Quin" of the wordmark. The same in every palette.
+    mascot: { blush: "#f4907a", ink: "#52271a" },
     mediaDivider: "rgba(255,255,255,0.28)",
     photoBlend: ["rgba(23,29,25,0)", "rgba(23,29,25,0.58)", "rgba(23,29,25,0.76)"] as const,
     navigation: {
