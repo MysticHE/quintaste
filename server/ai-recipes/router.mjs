@@ -1,11 +1,17 @@
-import { createHash } from 'node:crypto';
+import { createHash, randomUUID } from 'node:crypto';
+import { createWriteStream } from 'node:fs';
+import { mkdir, rm } from 'node:fs/promises';
+import { once } from 'node:events';
+import { finished } from 'node:stream/promises';
+import path from 'node:path';
 import { pool } from '../config.mjs';
 import { allowed, restricted } from '../operations.mjs';
 import { CommunityError, communityRouter, errors, member, text } from '../community/http.mjs';
 import { publicId } from '../recipes/rules.mjs';
 import { GeminiError, geminiConfig } from './gemini.mjs';
 import { parseLink } from './video.mjs';
-import { MAX_FILE_BYTES, VIDEO_TYPES, deleteFile, storeFile } from './files.mjs';
+import { MAX_FILE_BYTES, VIDEO_TYPES } from './files.mjs';
+import { UPLOAD_DIR } from './work.mjs';
 import { parseUpload } from './pipeline.mjs';
 
 /** Members queue AI recipe jobs here and watch them; guests see nothing. Three jobs a day per member for now. */
@@ -91,8 +97,8 @@ aiRecipes.post('/', member, async (req, res) => {
 });
 
 /**
- * A video file from the member's phone (for TikTok and Instagram, which block servers). The body is the raw video,
- * streamed straight to Gemini file storage with its length enforced; `source` is an optional original link for credit.
+ * A video file from the member's phone (for TikTok, Instagram and YouTube, which block servers). The body is the raw
+ * video, saved to the app's disk with its length enforced; `source` is an optional original link for credit.
  * The edge allows 63 MB on this path only (deploy/avatar.compose.yml).
  */
 aiRecipes.post('/upload', member, async (req, res) => {
@@ -112,39 +118,45 @@ aiRecipes.post('/upload', member, async (req, res) => {
   finally { const left = (uploading.get(me) ?? 1) - 1; if (left > 0) uploading.set(me, left); else uploading.delete(me); }
 });
 
-/** Streams the body to Gemini file storage, then records the job (or reuses an earlier recipe for the same video). */
+const EXTENSIONS = { 'video/mp4': 'mp4', 'video/quicktime': 'mov', 'video/webm': 'webm', 'video/3gpp': '3gp', 'video/x-matroska': 'mkv' };
+/** Saves the body to the app's disk for the worker (it reads the video and takes step photos from it), then records the job. */
 async function finishUpload(req, res, me, { mimeType, size, link }) {
+  const ext = EXTENSIONS[mimeType];
+  if (!ext) throw new CommunityError(415, 'Pick an MP4, MOV, WebM or 3GP video.');
+  await mkdir(UPLOAD_DIR, { recursive: true });
+  const name = randomUUID() + '.' + ext, file = path.join(UPLOAD_DIR, name);
   const digest = createHash('sha256');
-  let received = 0, bodyError = null;
-  async function* body() {
+  const out = createWriteStream(file, { flags: 'wx', mode: 0o600 });
+  let received = 0, kept = false;
+  try {
     for await (const chunk of req) {
       received += chunk.length;
-      if (received > size) throw (bodyError = new CommunityError(400, 'The upload was larger than it said. Try again.'));
+      if (received > size) throw new CommunityError(400, 'The upload was larger than it said. Try again.');
       digest.update(chunk);
-      yield chunk;
+      if (!out.write(chunk)) await once(out, 'drain');
     }
-    if (received !== size) throw (bodyError = new CommunityError(400, 'The upload was cut short. Try again.'));
+    if (received !== size) throw new CommunityError(400, 'The upload was cut short. Try again.');
+    out.end();
+    await finished(out);
+    const hash = sha(digest.digest('hex') + (link ?? ''));
+    const existing = (await pool.query(`SELECT j.recipe_id FROM recipes.ai_job j JOIN recipes.recipe r ON r.id=j.recipe_id
+      WHERE j.input_hash=$1 AND j.status='published' AND r.live IS NOT NULL AND r.hidden_at IS NULL ORDER BY j.finished_at DESC LIMIT 1`, [hash])).rows[0];
+    const input = 'upload local/' + name + ' ' + mimeType + (link ? ' ' + link : '');
+    if (existing) {
+      const row = (await pool.query(`INSERT INTO recipes.ai_job (user_id, kind, input, input_hash, status, recipe_id, finished_at, message)
+        VALUES ($1, 'video', $2, $3, 'published', $4, now(), 'This video was already imported.') RETURNING *`, [me, input, hash, existing.recipe_id])).rows[0];
+      return res.status(201).json(view(row));
+    }
+    const row = (await pool.query(`INSERT INTO recipes.ai_job (user_id, kind, input, input_hash) VALUES ($1, 'video', $2, $3) RETURNING *`, [me, input, hash])).rows[0];
+    kept = true;
+    res.status(201).json(view(row));
+  } catch (error) {
+    out.destroy();
+    if (error instanceof CommunityError) throw error;
+    throw new CommunityError(400, 'The upload did not finish. Try again.');
+  } finally {
+    if (!kept) await rm(file, { force: true }).catch(() => {});
   }
-  let stored;
-  // The fetch body wraps a generator error in its own TypeError; report the member's real problem instead.
-  try { stored = await storeFile({ body: body(), size, mimeType, displayName: 'member-upload', wait: false }); }
-  catch (error) {
-    if (bodyError) throw bodyError;
-    if (error instanceof GeminiError) throw new CommunityError(error.status >= 400 && error.status < 500 ? error.status : 502, error.message);
-    throw error;
-  }
-  const hash = sha(digest.digest('hex') + (link ?? ''));
-  const existing = (await pool.query(`SELECT j.recipe_id FROM recipes.ai_job j JOIN recipes.recipe r ON r.id=j.recipe_id
-    WHERE j.input_hash=$1 AND j.status='published' AND r.live IS NOT NULL AND r.hidden_at IS NULL ORDER BY j.finished_at DESC LIMIT 1`, [hash])).rows[0];
-  if (existing) {
-    await deleteFile(stored.name);
-    const row = (await pool.query(`INSERT INTO recipes.ai_job (user_id, kind, input, input_hash, status, recipe_id, finished_at, message)
-      VALUES ($1, 'video', $2, $3, 'published', $4, now(), 'This video was already imported.') RETURNING *`, [me, 'upload ' + stored.name + ' ' + stored.mimeType, hash, existing.recipe_id])).rows[0];
-    return res.status(201).json(view(row));
-  }
-  const input = 'upload ' + stored.name + ' ' + stored.mimeType + (link ? ' ' + link : '');
-  const row = (await pool.query(`INSERT INTO recipes.ai_job (user_id, kind, input, input_hash) VALUES ($1, 'video', $2, $3) RETURNING *`, [me, input, hash])).rows[0];
-  res.status(201).json(view(row));
 }
 
 aiRecipes.use(errors);

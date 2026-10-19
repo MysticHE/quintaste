@@ -20,7 +20,7 @@ function summary(row) {
   const r = row.live;
   return { id: publicId(row.id), name: r.title, description: r.description, minutes: r.minutes, servings: r.servings, categories: r.categories,
     diet: r.diet, author: r.author, language: r.language, sponsorship: r.sponsorship, revision: row.live_revision, updatedAt: day(row.published_at),
-    ...(r.nutrition ? { nutrition: r.nutrition } : {}), ...(r.source ? { source: r.source } : {}),
+    ...(r.nutrition ? { nutrition: r.nutrition } : {}), ...(r.source ? { source: r.source } : {}), ...(Array.isArray(r.contains) ? { contains: r.contains } : {}),
     image: row.cover ? photoPath(row.id, 'cover', row.cover) : null, ingredientNames: r.ingredients.map(i => i.name) };
 }
 

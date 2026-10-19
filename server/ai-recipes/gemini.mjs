@@ -81,3 +81,24 @@ async function call({ parts, schema = null, system = null, tools = null, model =
   const grounding = candidate?.groundingMetadata?.groundingChunks?.map(chunk => chunk.web?.uri).filter(Boolean) ?? [];
   return { data: parsed, usage: { input: usage.promptTokenCount ?? 0, output: usage.candidatesTokenCount ?? 0, model: model ?? config.model }, sources: grounding };
 }
+
+const IMAGE_MODELS = ['gemini-3.1-flash-image', 'gemini-2.5-flash-image'];
+/** One generated image (step illustrations for videos the server cannot download). Returns bytes and type, or null. */
+export async function generateImage(prompt, signal = undefined) {
+  const config = await geminiConfig();
+  if (config.mode !== 'direct') return null;
+  for (const model of IMAGE_MODELS) {
+    const body = { contents: [{ role: 'user', parts: [{ text: prompt }] }], generationConfig: { responseModalities: ['IMAGE'], imageConfig: { aspectRatio: '16:9' } } };
+    let response;
+    try {
+      response = await fetch(config.base + model + ':generateContent', { method: 'POST', redirect: 'error', signal: signal ?? AbortSignal.timeout(120000),
+        headers: { 'content-type': 'application/json', ...config.headers }, body: JSON.stringify(body) });
+    } catch { return null; }
+    if (response.status === 404) { await response.body?.cancel(); continue; }
+    if (!response.ok) { logger.warn({ event: 'ai_recipes_image_error', model, status: response.status }); await response.body?.cancel(); return null; }
+    const data = /** @type {{ candidates?: { content?: { parts?: { inlineData?: { mimeType?: string, data?: string } }[] } }[] }} */ (await response.json().catch(() => ({})));
+    const image = data.candidates?.[0]?.content?.parts?.find(part => part.inlineData?.data)?.inlineData;
+    return image?.data ? { bytes: Buffer.from(image.data, 'base64'), mimeType: image.mimeType ?? 'image/png' } : null;
+  }
+  return null;
+}

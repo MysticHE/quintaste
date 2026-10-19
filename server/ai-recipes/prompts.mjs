@@ -35,10 +35,12 @@ export const recipeSchema = {
           ingredientNames: { type: 'ARRAY', items: { type: 'STRING' } },
           timerMinutes: { type: 'INTEGER', nullable: true, description: 'a timer the cook should set for this step, else null' },
           at: { type: 'INTEGER', nullable: true, description: 'second in the video where this step starts; null for text sources' },
+          shotAt: { type: 'INTEGER', nullable: true, description: 'second in the video where a still frame shows this step most clearly (hands, ingredients or the result, not a face or a title card); null for text sources' },
         },
-        required: ['title', 'instruction', 'ingredientNames', 'timerMinutes', 'at'],
+        required: ['title', 'instruction', 'ingredientNames', 'timerMinutes', 'at', 'shotAt'],
       },
     },
+    coverAt: { type: 'INTEGER', nullable: true, description: 'second in the video showing the finished dish best; null for text sources' },
     confidence: { type: 'NUMBER', description: '0 to 1: how completely the quantities and steps were shown or stated' },
     notes: { type: 'STRING', description: 'what was unclear or assumed; empty when nothing' },
   },
@@ -65,3 +67,29 @@ export const structureSystem = house + `
 You are given research notes about recipes found on the web plus a proposed version. Produce the final recipe JSON from the proposed version. Set creator to the author of the page the version mainly follows, and at to null for every step.`;
 
 export const requestPrompt = text => `Recipe request from a member: "${text}". Find matching vegetarian recipes and propose the QuinTaste version.`;
+
+export const verifySystem = house + `
+You are checking a draft recipe against the cooking video it was written from. Watch the whole video again, start to end, frame by frame where needed, and listen to every spoken instruction and on-screen text.
+Return the complete corrected recipe in the same JSON schema:
+- every ingredient that is added in the video, with the quantity shown or said (null when not given); remove ingredients that never appear;
+- every action as its own step, in the order the video does them, with heat, time and doneness cues the video gives; nothing skipped, nothing invented;
+- correct start times (at), best still-frame times (shotAt) and the finished-dish time (coverAt);
+- list what you changed in notes.`;
+
+export const verifyPrompt = draft => 'Draft recipe to check against the video:' + String.fromCharCode(10) + JSON.stringify(draft);
+
+export const photoReviewSchema = {
+  type: 'OBJECT',
+  properties: {
+    steps: { type: 'ARRAY', items: { type: 'OBJECT', properties: {
+      step: { type: 'INTEGER', description: 'step number, starting at 1' },
+      choice: { type: 'STRING', nullable: true, description: 'label of the photo that shows this step correctly, or null if none does' },
+      betterAt: { type: 'INTEGER', nullable: true, description: 'when choice is null and a video is available: the second where this step is clearly visible' },
+      note: { type: 'STRING' },
+    }, required: ['step', 'choice', 'betterAt', 'note'] } },
+    cover: { type: 'STRING', nullable: true, description: 'label of the photo that shows the finished dish best, or null' },
+  },
+  required: ['steps', 'cover'],
+};
+
+export const photoReviewSystem = `You check step photos for a cooking recipe app. Each photo is labelled. For every step, pick the one photo that a home cook would recognise as that exact step: the right ingredients, the right stage (raw, frying, simmering, plated), the action described. Reject photos that show only a face or a person talking, title cards, text overlays, transitions, black or blurry frames, or a different step. Never choose the same photo for two steps. If no photo fits a step, set choice to null and, when a video is available, give betterAt: a second inside that step where it is clearly visible. For the cover, choose the photo that best shows the finished dish. Return JSON only.`;

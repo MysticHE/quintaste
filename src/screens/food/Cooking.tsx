@@ -1,6 +1,7 @@
 import { activateKeepAwakeAsync, deactivateKeepAwake } from "expo-keep-awake";
 import { usePublishedRecipe } from "../../hooks/useEditorial";
 import { Image } from "expo-image";
+import { StepPhoto } from "../../components/recipes/StepPhoto";
 import { router, useFocusEffect, useIsFocused, useLocalSearchParams } from "expo-router";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { View } from "react-native";
@@ -87,7 +88,8 @@ export function CookingScreen() {
     </View>
     {gathering ? <><T variant="title">Gather your ingredients</T>{servingsControl}{gatherList}</> : step && <>
       <T variant="title">{step.title}</T><T style={{ fontSize: 20 * textMultiplier, lineHeight: 29 * textMultiplier }}>{step.instruction}</T>
-      {privateDraft?.steps[session.step]?.photo && <Image source={{ uri: privateDraft.steps[session.step].photo }} contentFit="contain" style={{ width: "100%", height: 160 }} accessibilityLabel={"Step " + (session.step + 1) + " photo"} />}
+      {privateDraft?.steps[session.step]?.photo ? <Image source={{ uri: privateDraft.steps[session.step].photo }} contentFit="contain" style={{ width: "100%", height: 160 }} accessibilityLabel={"Step " + (session.step + 1) + " photo"} />
+        : step.photo ? <StepPhoto path={step.photo} kind={step.image} label={"Step " + (session.step + 1) + " photo"} /> : null}
       <StepChecklist ingredients={recipe.ingredients} ids={step.ingredientIds} step={session.step} scale={scale} used={session.used ?? []} disabled={!readable} onToggle={key => toggle("used", key)} />
       {step.timer && <Button label={"Start " + Math.round(step.timer.seconds / 60) + " min timer"} icon="timer-outline" variant="secondary" disabled={!readable}
         onPress={() => void startTimer(id, step.timer!.label, step.timer!.seconds).then(okay => { if (okay) setOffer(true); })} />}

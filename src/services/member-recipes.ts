@@ -1,22 +1,26 @@
 import { communityRequest as call } from "./community-api";
 import type { Ingredient, Recipe, RecipeCategory } from "../types/food";
 import type { RecipeDraft } from "../types/recipe-workspace";
+import type { Exclusion } from "../config/preferences";
 
 type MemberSummary = {
   id: string; name: string; description: string; minutes: number; servings: number; categories: RecipeCategory[]; diet: "Vegan" | "Vegetarian";
   author: string; language: string; sponsorship: string; revision: number; updatedAt: string; image: string | null; ingredientNames: string[];
   nutrition?: Recipe["nutrition"]; source?: Recipe["source"];
+  /** Diet tags the server read from the ingredient names (AI recipes). */
+  contains?: Exclusion[];
 };
 type MemberDetail = MemberSummary & {
   own: boolean; shop: { id: string; name: string } | null;
-  ingredients: Ingredient[]; steps: { title: string; instruction: string; minutes: number | null; ingredientIds: string[]; photo: string | null; at?: number }[];
+  ingredients: Ingredient[]; steps: { title: string; instruction: string; minutes: number | null; ingredientIds: string[]; photo: string | null; at?: number; image?: "frame" | "illustration" }[];
 };
 export type MyRecipeStatus = { id: string; draftKey: string; live: boolean; liveRevision: number | null; state: "review" | "declined" | null; pendingRevision: number | null; note: string; hidden: boolean };
 
 /** Shared recipe fields in the app's Recipe shape. Diet is the author's declaration; ingredient contents stay unconfirmed. */
 function base(r: MemberSummary): Omit<Recipe, "ingredients" | "steps"> {
   return { id: r.id, name: r.name, description: r.description, minutes: r.minutes, servings: r.servings, cuisine: "", categories: r.categories,
-    dietary: { diet: r.diet, contains: [], ingredientsKnown: false, evidence: { source: "Author declaration", kind: "community" } },
+    dietary: r.contains ? { diet: r.diet, contains: r.contains, ingredientsKnown: true, evidence: { source: "Read from the video or recipe pages by AI", kind: "community" } }
+      : { diet: r.diet, contains: [], ingredientsKnown: false, evidence: { source: "Author declaration", kind: "community" } },
     author: r.author, language: r.language, revision: r.revision, updatedAt: r.updatedAt,
     ...(r.image ? { image: { path: r.image, width: 1280, height: 960, credit: r.author } } : {}),
     ...(r.nutrition ? { nutrition: r.nutrition } : {}), ...(r.source ? { source: r.source } : {}),
@@ -27,7 +31,8 @@ export function memberSummary(r: MemberSummary): Recipe {
 }
 export function memberRecipe(r: MemberDetail): Recipe {
   return { ...base(r), member: { sponsorship: r.sponsorship, own: r.own, shop: r.shop }, ingredients: r.ingredients,
-    steps: r.steps.map(s => ({ title: s.title, instruction: s.instruction, ingredientIds: s.ingredientIds, ...(s.minutes ? { timer: { label: s.title, seconds: s.minutes * 60 } } : {}), ...(typeof s.at === "number" ? { at: s.at } : {}) })) };
+    steps: r.steps.map(s => ({ title: s.title, instruction: s.instruction, ingredientIds: s.ingredientIds, ...(s.minutes ? { timer: { label: s.title, seconds: s.minutes * 60 } } : {}), ...(typeof s.at === "number" ? { at: s.at } : {}),
+      ...(s.photo ? { photo: s.photo } : {}), ...(s.image ? { image: s.image } : {}) })) };
 }
 export const isMemberRecipe = (id: string | null | undefined) => !!id && /^member-[0-9a-f-]{36}$/.test(id);
 export function browsePath(q: string, category: string, cursor: number | null) {

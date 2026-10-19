@@ -6,8 +6,8 @@ RUN npm ci --omit=dev --no-audit --no-fund && npm cache clean --force
 FROM node:22-bookworm-slim AS runtime
 ENV NODE_ENV=production
 WORKDIR /app
-# AI recipes video downloads (server/ai-recipes/download.mjs): yt-dlp 2026.08.19 zipapp, checksum-pinned, run with python3.
-RUN apt-get update && apt-get install -y --no-install-recommends python3 ca-certificates && rm -rf /var/lib/apt/lists/*
+# AI recipes (server/ai-recipes): yt-dlp 2026.08.19 zipapp (checksum-pinned, run with python3) downloads videos; ffmpeg takes step photos.
+RUN apt-get update && apt-get install -y --no-install-recommends python3 ca-certificates ffmpeg && rm -rf /var/lib/apt/lists/*
 ADD --checksum=sha256:1fa6733c37ea6fb51c99ad8fe785e7b7e5f3246c9b980230329d4fb72ed8d4d6 --chmod=0755 https://github.com/yt-dlp/yt-dlp/releases/download/2026.08.19/yt-dlp /usr/local/bin/yt-dlp
 COPY --from=dependencies /app/node_modules ./node_modules
 COPY package.json ./

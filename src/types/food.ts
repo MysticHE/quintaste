@@ -45,6 +45,8 @@ export type RecipeStep = {
   timer?: { label: string; seconds: number };
   /** Second in the source video where this step starts (AI-imported recipes). */
   at?: number;
+  /** Server path of the step's photo: a frame from the recipe video, or a drawn illustration. */
+  photo?: string; image?: "frame" | "illustration";
 };
 /** Where an AI-written recipe came from: a member's video link or a dish request answered from recipe pages. */
 export type RecipeSource = {
