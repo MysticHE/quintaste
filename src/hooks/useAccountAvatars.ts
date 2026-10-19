@@ -5,7 +5,7 @@ import { readAvatar, sampleAvatar } from '../utils/avatar-schema';
 import type { Avatar } from '../types/avatar';
 import type { FoodDocument } from '../types/food';
 
-export type AvatarItem = { id: string; createdAt: number; thumbnail: string };
+export type AvatarItem = { id: string; createdAt: number; thumbnail: string; recipe?: Avatar['recipe']; form?: Avatar['form'] };
 type Library = { items: AvatarItem[]; selected: string | null };
 type Options = { scope: string; enabled: boolean; avatar: Avatar | null; update: (change: (doc: FoodDocument) => FoodDocument) => Promise<boolean> };
 export function useAccountAvatars(options: Options) {

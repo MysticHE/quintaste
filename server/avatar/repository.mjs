@@ -32,6 +32,17 @@ async function reserve(db, scope, limit) {
     ON CONFLICT(day,scope) DO UPDATE SET attempts=avatar.budget.attempts+1 WHERE avatar.budget.attempts<$2 RETURNING attempts`, [scope, limit]);
   if (!r.rowCount) throw new AvatarError(429, scope === 'global' ? 'Today’s avatar allowance is used. Try again tomorrow (UTC).' : 'You can create two avatars per UTC day. Try again tomorrow.');
 }
+/**
+ * One generation runs at a time on this server, portraits and lotus breeds together. Call under the admission lock
+ * (pg_advisory_xact_lock(721941,1)). Lotus jobs count once server/lotus/schema.sql is applied.
+ */
+export async function admitGeneration(db, userId) {
+  const lotus = (await db.query("SELECT to_regclass('lotus.job') IS NOT NULL AS ready")).rows[0].ready;
+  const rows = (await db.query(`SELECT user_id FROM avatar.job WHERE status IN ('queued','working') AND expires_at>now()`
+    + (lotus ? ` UNION ALL SELECT user_id FROM lotus.job WHERE status IN ('queued','working') AND expires_at>now()` : ''))).rows;
+  if (rows.some(row => row.user_id === userId)) throw new AvatarError(409, 'You already have an avatar being created. Check the existing request.', 'BUSY');
+  if (rows.length) throw new AvatarError(503, 'Another avatar is being created. Please try again in a few minutes.');
+}
 export async function createJob(userId, requestId, photo) {
   const db = await pool.connect(), id = randomUUID();
   let persisted = false;
@@ -40,10 +51,7 @@ export async function createJob(userId, requestId, photo) {
     await db.query('SELECT pg_advisory_xact_lock(721941,1)');
     const duplicate = await db.query('SELECT * FROM avatar.job WHERE user_id=$1 AND request_id=$2', [userId, requestId]);
     if (duplicate.rows[0]) { await db.query('COMMIT'); return duplicate.rows[0]; }
-    const active = await db.query("SELECT id FROM avatar.job WHERE user_id=$1 AND status IN ('queued','working') AND expires_at>now()", [userId]);
-    if (active.rowCount) throw new AvatarError(409, 'You already have an avatar being created. Check the existing request.');
-    const occupied = await db.query("SELECT id FROM avatar.job WHERE status IN ('queued','working') AND expires_at>now() LIMIT 1");
-    if (occupied.rowCount) throw new AvatarError(503, 'Another avatar is being created. Please try again in a few minutes.');
+    await admitGeneration(db, userId);
     const config = avatarConfig();
     const access=await accountAccess(userId,db);
     if (access.unlimitedUsage) {

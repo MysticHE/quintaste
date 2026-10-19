@@ -54,14 +54,21 @@ library.get('/',async(_req,res)=>{
   const items=[];
   for (const row of rows) {
     const avatar=await decryptAvatar(userId+':'+row.id,row.payload);
-    items.push({id:avatar.id,createdAt:avatar.createdAt,thumbnail:avatar.frames.base});
+    items.push({id:avatar.id,createdAt:avatar.createdAt,thumbnail:avatar.frames.base,recipe:avatar.recipe,...(avatar.form?{form:avatar.form}:{})});
   }
   const pref=(await pool.query('SELECT selected FROM avatar.preference WHERE user_id=$1',[userId])).rows[0];
   res.json({items,selected:pref?.selected??null});
 });
 library.get('/:id',async(req,res)=>res.json(await readSaved(res.locals.userId,req.params.id)));
 library.post('/',async(req,res)=>{
-  const avatar=await validate(req.body?.avatar), userId=res.locals.userId;
+  const userId=res.locals.userId, given=req.body?.avatar;
+  // Lotus forms are saved by the server when a breed finishes; the app can only choose one that is already there.
+  if (given?.recipe==='lotus-v1') {
+    if (!uuid.test(given.id)) throw new AvatarError(400,'Choose a saved avatar.');
+    await locked(userId,async db=>{ await readSaved(userId,given.id,db); if (req.body.select!==false) await preference(db,userId,given.id); });
+    return res.status(201).json({saved:true,id:given.id});
+  }
+  const avatar=await validate(given);
   const encrypted=await encryptAvatar(userId+':'+avatar.id,avatar);
   await locked(userId,async db=>{
     const existing=await db.query('SELECT id FROM avatar.saved WHERE user_id=$1 AND id=$2',[userId,avatar.id]);

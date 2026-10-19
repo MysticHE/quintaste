@@ -11,6 +11,8 @@ import { rateLimit } from 'express-rate-limit';
 import { reportAvatar } from './reports.mjs';
 import { accountAccess } from '../account-access.mjs';
 import { library } from './library.mjs';
+import { lotusUploads } from '../lotus/uploads.mjs';
+import { CommunityError } from '../community/http.mjs';
 
 export const avatars = express.Router();
 let activeUploads = 0;
@@ -35,6 +37,17 @@ avatars.get('/status', async (_req,res) => {
   res.json({ available:ready, reason:ready?'ready':'setup', ...await accountAccess(res.locals.userId) });
 });
 avatars.use('/library',library);
+/** At most two selfie uploads are parsed at once on this server, portraits and lotus breeds together. */
+function uploadSlot(req,res,next) {
+  if (req.method !== 'POST') return next();
+  if (activeUploads >= 2) return res.status(503).json({ error:'The upload service is busy. Try again shortly.' });
+  activeUploads++;
+  let released=false;
+  const release=() => { if (!released) { released=true; activeUploads--; } };
+  res.once('finish',release); res.once('close',release);
+  next();
+}
+avatars.use('/lotus', async (req,res,next) => { if (req.method === 'POST') await throttleAvatar(res.locals.userId); next(); }, uploadSlot, lotusUploads);
 avatars.post('/reports',express.json({limit:'16kb',inflate:false}),async(req,res) => {
   await throttleAvatar('report:'+res.locals.userId);
   res.status(201).json(await reportAvatar(res.locals.userId,req.body));
@@ -45,15 +58,8 @@ avatars.use('/jobs', async (req,res,next) => {
     return res.status(400).json({ error:'Choose a valid avatar request.' });
   }
   if (req.method === 'POST' || req.method === 'DELETE') await throttleAvatar(res.locals.userId);
-  if (req.method === 'POST') {
-    if (activeUploads >= 2) return res.status(503).json({ error:'The upload service is busy. Try again shortly.' });
-    activeUploads++;
-    let released=false;
-    const release=() => { if (!released) { released=true; activeUploads--; } };
-    res.once('finish',release); res.once('close',release);
-  }
   next();
-});
+}, uploadSlot);
 avatars.get('/jobs', async (req,res) => res.json(await jobView(await getJob(res.locals.userId,req.query.requestId))));
 avatars.delete('/jobs', async (req,res) => { await cancelJob(res.locals.userId,req.query.requestId); res.json({ deleted:true }); });
 avatars.post('/jobs', express.json({ limit:'5600kb', inflate:false }), async (req,res) => {
@@ -69,7 +75,8 @@ avatars.post('/jobs', express.json({ limit:'5600kb', inflate:false }), async (re
   res.status(202).json(await jobView(job));
 });
 avatars.use((error,_req,res,next) => {
-  if (error instanceof AvatarError) return res.status(error.status).json({ error:error.message });
+  if (error instanceof AvatarError || error instanceof CommunityError) return res.status(error.status).json({ error:error.message, ...(error.code ? { code:error.code } : {}) });
+  if (['42P01','3F000'].includes(error?.code)) return res.status(503).json({ error:'Breeding is not available yet.', code:'UNAVAILABLE' });
   if (error?.type === 'entity.parse.failed') return res.status(400).json({ error:'Invalid upload.' });
   next(error);
 });

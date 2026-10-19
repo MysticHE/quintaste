@@ -18,14 +18,21 @@ async function boundedJson(response) {
     return JSON.parse(Buffer.concat(parts).toString('utf8'));
   } finally { await reader.cancel().catch(() => {}); reader.releaseLock(); }
 }
-export async function renderFrame(input, state, signal) {
+/**
+ * One image edit through the Cloudflare AI Gateway. `input` is Image 1; `references` are style references from
+ * server-assets/avatar. Returns the normalized 768-pixel transparent frame.
+ * @param {Buffer} input
+ * @param {{ prompt: string, quality?: 'high' | 'medium', type?: 'image/jpeg' | 'image/webp', references?: string[] }} request
+ * @param {AbortSignal} signal
+ */
+export async function renderImage(input, { prompt, quality = 'high', type = 'image/webp', references = [] }, signal) {
   const config = avatarConfig();
   if (!config.enabled) throw new AvatarError(503, 'Avatar generation is temporarily unavailable.');
   const body = new FormData();
-  for (const [key,value] of Object.entries({ model: config.model, prompt: state === 'base' ? basePrompt : expressionPrompt(state),
-    n: '1', size: '1024x1024', quality: 'high', background: 'transparent', output_format: 'webp', output_compression: '85' })) body.set(key,value);
-  body.append('image[]', new Blob([input], { type: state === 'base' ? 'image/jpeg' : 'image/webp' }), 'portrait.' + (state === 'base' ? 'jpg' : 'webp'));
-  if (state === 'base') for (const name of ['hormozi-base.webp','graham-base.webp']) {
+  for (const [key,value] of Object.entries({ model: config.model, prompt,
+    n: '1', size: '1024x1024', quality, background: 'transparent', output_format: 'webp', output_compression: '85' })) body.set(key,value);
+  body.append('image[]', new Blob([input], { type }), 'portrait.' + (type === 'image/jpeg' ? 'jpg' : 'webp'));
+  for (const name of references) {
     body.append('image[]', new Blob([await readFile(join('server-assets','avatar',name))], { type: 'image/webp' }), name);
   }
   const response = await fetch(config.endpoint, { method: 'POST', body, redirect: 'error',
@@ -45,3 +52,7 @@ export async function renderFrame(input, state, signal) {
   }
   return avatarFrame(Buffer.from(encoded,'base64'));
 }
+/** Portrait frames: the base from the selfie with the two style references, then expressions from the base. */
+export const renderFrame = (input, state, signal) => renderImage(input, state === 'base'
+  ? { prompt: basePrompt, type: 'image/jpeg', references: ['hormozi-base.webp','graham-base.webp'] }
+  : { prompt: expressionPrompt(state) }, signal);

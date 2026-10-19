@@ -4,11 +4,14 @@ import { restricted, allowed } from '../operations.mjs';
 import { avatarConfig, frameNames, AvatarError } from './config.mjs';
 import { storageReady, loadPayload, savePayload, erasePayload, sweepPayloads } from './storage.mjs';
 import { renderFrame } from './provider.mjs';
+import { claimLotusJob, lotusAvailable, lotusCleanup } from '../lotus/breeding.mjs';
+import { generateLotus } from '../lotus/generate.mjs';
 
 async function cleanup(db) {
   const stale = await db.query(`UPDATE avatar.job SET status='failed',message='Generation was interrupted or expired. No automatic paid retry was made.'
     WHERE (status='working' OR expires_at<=now()) AND status NOT IN ('failed','cancelled') RETURNING id`);
   for (const row of stale.rows) await erasePayload(row.id);
+  await lotusCleanup(db, true);
   await sweepPayloads();
   await db.query("DELETE FROM avatar.job WHERE created_at < now()-interval '30 days'");
   await db.query("DELETE FROM avatar.budget WHERE day < current_date-31");
@@ -55,6 +58,7 @@ export function startAvatarWorker() {
     try {
       const rows=await pool.query("UPDATE avatar.job SET status='failed',message='This private preview expired.' WHERE expires_at<=now() AND status NOT IN ('failed','cancelled') RETURNING id");
       for (const row of rows.rows) await erasePayload(row.id);
+      await lotusCleanup(pool, false);
       await sweepPayloads();
     } catch { logger.error({ event:'avatar_cleanup_failed' }); }
     finally { sweeping=false; }
@@ -73,15 +77,18 @@ export function startAvatarWorker() {
       if (!avatarConfig().enabled || !await allowed('avatars')) return;
       const next = await db.query(`UPDATE avatar.job SET status='working' WHERE id=(
         SELECT id FROM avatar.job WHERE status='queued' AND expires_at>now() ORDER BY created_at LIMIT 1) RETURNING *`);
-      if (next.rows[0]) {
-        const job=next.rows[0];
+      // Portraits first, then lotus breeds: both share this lock, so one generation runs at a time across replicas.
+      const job = next.rows[0], breed = job ? null : await claimLotusJob(db);
+      const check = job ? () => available(job) : breed ? () => lotusAvailable(breed) : null;
+      if (check) {
         let checking=false;
         const monitor=setInterval(async () => {
           if (checking) return; checking=true;
-          try { if (!await available(job)) connectionAbort.abort(); } catch { connectionAbort.abort(); }
+          try { if (!await check()) connectionAbort.abort(); } catch { connectionAbort.abort(); }
           finally { checking=false; }
         },2000);
-        try { await generate(db,job,AbortSignal.any([controller.signal,connectionAbort.signal])); }
+        const signal=AbortSignal.any([controller.signal,connectionAbort.signal]);
+        try { await (job ? generate(db,job,signal) : generateLotus(db,breed,signal)); }
         finally { clearInterval(monitor); }
       }
     } catch { logger.error({ event: 'avatar_worker_unavailable' }); }

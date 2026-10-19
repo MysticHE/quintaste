@@ -36,7 +36,7 @@ export function AvatarLibrary({ items, pending, selected, onSelect, disabled }: 
     <T variant="subtitle" accessibilityRole="header">Your Avatars</T>
     <View style={[common.row, { flexWrap: 'wrap', alignItems: 'stretch', gap: 8 }]}>
       {pending && !items.some(item => item.id === pending.id) && <Choice id={pending.id} label="New - Unsaved" thumbnail={pending.frames.base} selected={selected === pending.id} onPress={onSelect} disabled={disabled} />}
-      {items.map((item, index) => <Choice key={item.id} id={item.id} label={'Portrait ' + (items.length - index)} thumbnail={item.thumbnail}
+      {items.map((item, index) => <Choice key={item.id} id={item.id} label={item.form === 'mini' ? 'Mini Form' : item.form === 'adult' ? 'Adult Form' : 'Portrait ' + (items.length - index)} thumbnail={item.thumbnail}
         selected={selected === item.id} onPress={onSelect} disabled={disabled} />)}
       <Choice id="default" label="Lian" avatar={null} selected={selected === 'default'} onPress={onSelect} disabled={disabled} />
       <Choice id={sampleAvatar.id} label="Sample" avatar={sampleAvatar} selected={selected === sampleAvatar.id} onPress={onSelect} disabled={disabled} />
