@@ -13,7 +13,10 @@ export function LotusSlot() {
   const { member, remote, unavailable } = useLotus();
   if (!member || unavailable) return null;
   const state = remote.data, tier = state?.tier ?? null;
-  const status = !state ? (remote.error ? "Your lotus did not load." : " ") : tier ? `Your ${TIER_NAMES[tier]} Lotus is waiting` : "Tap to bloom your lotus";
+  const breed = state?.breed, name = tier ? TIER_NAMES[tier] : "";
+  const status = !state ? (remote.error ? "Your lotus did not load." : " ") : !tier ? "Tap to bloom your lotus"
+    : breed?.status === "breeding" ? "Breeding your avatar…" : state.breeds?.available ? "Your breed is ready"
+    : breed?.status === "bred" ? `Your ${name} Lotus avatar` : `Your ${name} Lotus is waiting`;
   return <Card style={[s.card, { borderColor: focused ? theme.accent : theme.border }]}>
     <Pressable testID="lotus-slot" accessibilityRole="button" accessibilityLabel={"Your own avatar. " + status} disabled={!state}
       onPress={() => router.push("/lotus")} {...focusProps} style={({ pressed }) => [s.press, { opacity: pressed ? 0.8 : 1 }]}>

@@ -32,7 +32,8 @@ export async function avatarRequest<T>(owner: LocalOwner, path: string, options:
       credentials: accountsEnabled && Platform.OS !== "web" ? "omit" : "include", cache: "no-store",
       headers });
     const value = await response.json();
-    if (!response.ok) throw Object.assign(new Error(typeof value.error === "string" ? value.error.slice(0, 200) : "Avatar generation is unavailable."), { status: response.status });
+    if (!response.ok) throw Object.assign(new Error(typeof value.error === "string" ? value.error.slice(0, 200) : "Avatar generation is unavailable."),
+      { status: response.status, code: typeof value.code === "string" ? value.code : undefined });
     return value as T;
   } finally { clearTimeout(timeout); options.signal?.removeEventListener("abort", cancel); }
 }

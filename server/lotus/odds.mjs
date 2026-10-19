@@ -43,5 +43,8 @@ export function decide(seed, number, { sinceBlue, sinceGolden }) {
   return { roll, tier, pity, sinceBlue: rank(tier) >= rank('blue') ? 0 : sinceBlue + 1, sinceGolden: tier === 'golden' ? 0 : sinceGolden + 1 };
 }
 
+/** A re-bloom never lowers a lotus: every tier includes the perks below it, so the member keeps the better of the two. */
+export const keepBetter = (/** @type {Tier | null} */ current, /** @type {Tier} */ rolled) => (current && rank(current) >= rank(rolled) ? current : rolled);
+
 /** Odds as shown to members: the same table the server rolls against. */
 export const publishedOdds = () => TIERS.map(tier => ({ tier, percent: ODDS[tier] / 100 }));

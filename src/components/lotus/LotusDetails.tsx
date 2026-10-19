@@ -25,33 +25,33 @@ export function OddsList({ odds }: { odds: LotusState["odds"] }) {
 }
 
 /** A frame or aura preview: a frosted portrait with the tier's ring around it. */
-function Ring({ perk }: { perk: LotusPerk }) {
+function Ring({ perk, frosted }: { perk: LotusPerk; frosted: boolean }) {
   const { theme } = usePreferences(), colour = theme.lotus[perk.tier];
   return <View style={[s.ring, { borderColor: colour, borderWidth: perk.kind === "aura" ? 2 : 4 }]}>
     {perk.kind === "aura" && <View style={[s.aura, { borderColor: colour }]} />}
-    <Art k="avatar-adult" size={46} frosted />
+    <Art k="avatar-adult" size={46} frosted={frosted} />
     {perk.id === "sparkle-frame" && <View style={s.spark}><Icon name="sparkles" size={18} color={colour} /></View>}
   </View>;
 }
 
 /**
  * What the member's lotus brings. Companions and the café pond are theirs in Rush Hour now; frames and auras are frosted
- * previews that arrive with their own avatar.
+ * previews until the member breeds their own avatar, then they are drawn on it.
  */
-export function Perks({ tier }: { tier: Tier }) {
+export function Perks({ tier, bred = false }: { tier: Tier; bred?: boolean }) {
   const { theme } = usePreferences(), perks = perksFor(tier);
   if (!perks.length) return null;
   return <View style={s.grid}>
     {perks.map(perk => {
-      const inCafe = perk.kind === "companion" || perk.kind === "decor";
+      const inCafe = perk.kind === "companion" || perk.kind === "decor", owned = inCafe || bred;
       return <View key={perk.id} testID={"lotus-perk-" + perk.id} style={[s.perk, { backgroundColor: theme.card, borderColor: theme.border }]}
-        accessible accessibilityLabel={perk.name + (inCafe ? ", in your café now" : ", arrives with your own avatar")}>
-        <View style={[s.art, inCafe ? null : { backgroundColor: theme.lotus.frost }]}>
-          {perk.art ? <Art k={perk.art} size={64} frosted={!inCafe} /> : <Ring perk={perk} />}
-          {!inCafe && <View style={[s.lock, { backgroundColor: theme.card, borderColor: theme.border }]}><Icon name="lock-closed" size={12} color={theme.accent} /></View>}
+        accessible accessibilityLabel={perk.name + (inCafe ? ", in your café now" : bred ? ", on your avatar" : ", arrives with your own avatar")}>
+        <View style={[s.art, owned ? null : { backgroundColor: theme.lotus.frost }]}>
+          {perk.art ? <Art k={perk.art} size={64} frosted={!owned} /> : <Ring perk={perk} frosted={!owned} />}
+          {!owned && <View style={[s.lock, { backgroundColor: theme.card, borderColor: theme.border }]}><Icon name="lock-closed" size={12} color={theme.accent} /></View>}
         </View>
         <T variant="small" style={[common.bold, common.center]} numberOfLines={2}>{perk.name}</T>
-        <T variant="small" muted style={common.center}>{inCafe ? "In your café" : "With your avatar"}</T>
+        <T variant="small" muted style={common.center}>{inCafe ? "In your café" : bred ? "On your avatar" : "With your avatar"}</T>
       </View>;
     })}
   </View>;

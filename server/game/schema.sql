@@ -91,6 +91,35 @@ CREATE TABLE IF NOT EXISTS game.owned (
   PRIMARY KEY (user_id, item)
 );
 
+-- The balance moves only through the ledger (Lotus Avatar L2): each new ledger row adds its amount to game.profile.credits
+-- and must match the balance_after it claims, and any other write that changes credits is refused. Spends by the app
+-- (server/game/ledger.mjs) set the same value the trigger already wrote, so older app images keep working.
+CREATE OR REPLACE FUNCTION game.apply_ledger() RETURNS trigger LANGUAGE plpgsql SET search_path = pg_catalog, pg_temp AS $$
+DECLARE next integer;
+BEGIN
+  UPDATE game.profile SET credits = credits + NEW.amount, updated_at = now() WHERE user_id = NEW.user_id RETURNING credits INTO next;
+  IF next IS DISTINCT FROM NEW.balance_after THEN
+    RAISE EXCEPTION 'game.ledger row does not match the balance' USING ERRCODE = '23514';
+  END IF;
+  RETURN NULL;
+END $$;
+CREATE OR REPLACE FUNCTION game.guard_credits() RETURNS trigger LANGUAGE plpgsql SET search_path = pg_catalog, pg_temp AS $$
+BEGIN
+  IF pg_trigger_depth() < 2 AND ((TG_OP = 'INSERT' AND NEW.credits <> 0) OR (TG_OP = 'UPDATE' AND NEW.credits IS DISTINCT FROM OLD.credits)) THEN
+    RAISE EXCEPTION 'café credits change only through game.ledger' USING ERRCODE = '42501';
+  END IF;
+  RETURN NEW;
+END $$;
+CREATE OR REPLACE TRIGGER game_ledger_apply AFTER INSERT ON game.ledger FOR EACH ROW EXECUTE FUNCTION game.apply_ledger();
+CREATE OR REPLACE TRIGGER game_profile_credits BEFORE INSERT OR UPDATE OF credits ON game.profile FOR EACH ROW EXECUTE FUNCTION game.guard_credits();
+-- Keeps the balance and the ledger in step for members who earned credits before the trigger existed.
+DO $$
+BEGIN
+  IF EXISTS (SELECT 1 FROM game.profile p WHERE p.credits <> COALESCE((SELECT sum(amount) FROM game.ledger l WHERE l.user_id = p.user_id), 0)) THEN
+    RAISE EXCEPTION 'game.profile credits differ from the ledger; reconcile before applying';
+  END IF;
+END $$;
+
 GRANT SELECT, INSERT, UPDATE ON game.profile, game.level_best, game.run TO quintaste_app;
 GRANT SELECT, INSERT, DELETE ON game.run_log TO quintaste_app;
 GRANT SELECT, INSERT ON game.ledger, game.owned TO quintaste_app;
