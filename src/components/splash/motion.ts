@@ -1,12 +1,18 @@
 /**
  * The intro's timeline, in ms from the moment the native splash hides. One table drives the body (drop, squash,
  * spring), the blush, the haptic taps, and the sound (assets/sounds/mochi-intro.wav is synthesised to LANDINGS).
+ *
+ * The bounce is computed here as plain numbers and sampled into CSS keyframes (Reanimated 4 CSS animations), so it
+ * runs on the browser's compositor or the phone's UI thread: the app loading underneath cannot make it stutter.
  */
-import { useEffect } from "react";
-import { cancelAnimation, Easing, useSharedValue, withDelay, withRepeat, withSequence, withTiming } from "react-native-reanimated";
+import type { CSSAnimationKeyframes } from "react-native-reanimated";
 
-const fall = Easing.in(Easing.quad), rise = Easing.out(Easing.quad), pop = Easing.out(Easing.quad);
-const START = 60, DROP = 460;
+type Ease = (t: number) => number;
+const linear: Ease = t => t, inQuad: Ease = t => t * t, outQuad: Ease = t => 1 - (1 - t) * (1 - t);
+const outBack = (s: number): Ease => t => 1 + (s + 1) * (t - 1) ** 3 + s * (t - 1) ** 2;
+type Step = [duration: number, to: number, ease: Ease];
+
+const START = 60, DROP = 460, SAMPLE = 20;
 /** Each landing: how flat it squashes (0–1), how long it stays down, then the height (× size) and time of the next hop. */
 const HOPS = [
   { squash: 0.42, down: 90, height: 0.46, air: 220 },
@@ -15,47 +21,60 @@ const HOPS = [
 ];
 /** When each landing happens: 520, 1050 and 1360 ms. */
 export const LANDINGS = HOPS.reduce<number[]>((at, hop, i) => [...at, i ? at[i - 1] + HOPS[i - 1].down + 2 * HOPS[i - 1].air : START + DROP], []);
-const SETTLED = LANDINGS[2] + 290;
+export const SETTLED = LANDINGS[2] + 290;
 export const HOLD = SETTLED + 650;
 
-/**
- * `y` is the lift above the resting spot in px; `squash` is +1 for fully flat and below 0 for a stretch.
- * On each landing the body flattens, stays down for a moment, then springs up stretched tall and rounds out
- * at the top of the hop; the last landing jiggles to rest.
- */
-export function useBounce(still: boolean, size: number, drop: number) {
-  const y = useSharedValue(still ? 0 : drop), squash = useSharedValue(0), breathe = useSharedValue(0);
-  useEffect(() => {
-    if (still) return;
-    const ys: number[] = [withTiming(0, { duration: DROP, easing: fall })];
-    const ks: number[] = [withTiming(-0.12, { duration: DROP, easing: fall })];
-    HOPS.forEach((hop, i) => {
-      const flat = i === 2 ? 50 : Math.min(70, hop.down);
-      ks.push(withTiming(hop.squash, { duration: flat, easing: pop }));
-      if (i === 2) { ks.push(withTiming(0, { duration: 240, easing: Easing.out(Easing.back(3)) })); return; }
-      ks.push(withTiming(hop.squash, { duration: hop.down - flat }));
-      ks.push(withTiming(-0.14 * (hop.squash / 0.42), { duration: hop.air / 2, easing: pop }));
-      ks.push(withTiming(0, { duration: hop.air / 2 }));
-      ks.push(withTiming(-0.05 * (hop.squash / 0.42), { duration: hop.air, easing: fall }));
-      ys.push(withTiming(0, { duration: hop.down }));
-      ys.push(withTiming(hop.height * size, { duration: hop.air, easing: rise }));
-      ys.push(withTiming(0, { duration: hop.air, easing: fall }));
-    });
-    y.value = withDelay(START, withSequence(...ys));
-    squash.value = withDelay(START, withSequence(...ks));
-    breathe.value = withDelay(SETTLED, withRepeat(withTiming(1, { duration: 1300, easing: Easing.inOut(Easing.sin) }), -1, true));
-    return () => { cancelAnimation(y); cancelAnimation(squash); cancelAnimation(breathe); };
-  }, [still, size, drop, y, squash, breathe]);
-  return { y, squash, breathe };
+/** Hop height above the resting spot (× size), after the drop: holds while squashed, then hops lower each time. */
+const hop: Step[] = [[LANDINGS[0], 0, linear], ...HOPS.slice(0, 2).flatMap((h): Step[] => [
+  [h.down, 0, linear], [h.air, h.height, outQuad], [h.air, 0, inQuad],
+])];
+/** Squash: +1 fully flat, below 0 stretched. Flattens on each landing, springs up stretched, rounds out at the top. */
+const squash: Step[] = [[START, 0, linear], [DROP, -0.12, inQuad], ...HOPS.flatMap((h, i): Step[] => {
+  const flat = i === 2 ? 50 : Math.min(70, h.down), k = h.squash / 0.42;
+  if (i === 2) return [[flat, h.squash, outQuad], [240, 0, outBack(3)]];
+  return [[flat, h.squash, outQuad], [h.down - flat, h.squash, linear],
+    [h.air / 2, -0.14 * k, outQuad], [h.air / 2, 0, linear], [h.air, -0.05 * k, inQuad]];
+})];
+
+/** The value of a step track at time t (it starts at the first step's target). */
+function at(track: Step[], t: number) {
+  let from = track[0][1], start = 0;
+  for (const [duration, to, ease] of track) {
+    if (t < start + duration) return from + (to - from) * ease(duration ? (t - start) / duration : 1);
+    from = to; start += duration;
+  }
+  return from;
 }
 
-/** The cheeks glow pink once the mochi has settled, then ease back a little. */
-export function useBlush(still: boolean) {
-  const blush = useSharedValue(0);
-  useEffect(() => {
-    if (still) return;
-    blush.value = withDelay(SETTLED, withSequence(withTiming(1, { duration: 300 }), withTiming(0.55, { duration: 500 })));
-    return () => cancelAnimation(blush);
-  }, [still, blush]);
-  return blush;
+/** Lift above the resting spot in px: the drop from `drop` px up, then the hops. */
+function lift(t: number, size: number, drop: number) {
+  if (t < START) return drop;
+  if (t < LANDINGS[0]) return drop * (1 - inQuad((t - START) / DROP));
+  return at(hop, t) * size;
+}
+
+function frames<T>(make: (t: number) => T): Record<string, T> {
+  const out: Record<string, T> = {};
+  for (let t = 0; t < SETTLED; t += SAMPLE) out[`${((t / SETTLED) * 100).toFixed(2)}%`] = make(t);
+  out["100%"] = make(SETTLED);
+  return out;
+}
+
+/**
+ * Keyframes for the body. `drop` is how far above its spot it starts (px); `foot` is the distance from the box
+ * centre to its feet, so every squash flattens onto the ground instead of shrinking towards the middle.
+ */
+export function bodyKeyframes(size: number, drop: number, foot: number): CSSAnimationKeyframes {
+  return frames(t => {
+    const k = at(squash, t), sy = 1 - 0.9 * k, sx = 1 + 0.8 * k;
+    return { transform: [{ translateY: -lift(t, size, drop) + foot * (1 - sy) }, { scaleX: sx }, { scaleY: sy }] };
+  });
+}
+
+/** Keyframes for the contact shadow: smaller and fainter the higher the mochi is, wider when it squashes flat. */
+export function shadowKeyframes(size: number, drop: number): CSSAnimationKeyframes {
+  return frames(t => {
+    const near = 1 - Math.min(1, lift(t, size, drop) / (size * 1.6)), flat = Math.max(0, at(squash, t));
+    return { opacity: 0.25 + 0.75 * near, transform: [{ scaleX: (0.45 + 0.55 * near) * (1 + 0.6 * flat) }, { scaleY: 0.6 + 0.4 * near }] };
+  });
 }

@@ -1,19 +1,22 @@
 /**
  * The Mochi Chef (assets/mochi/mochi-happy.webp, its original closed-eye happy face) with a blush glow over its
- * cheeks. Cheek positions are in the art's own 1254-unit coordinates, measured from assets/chef.png.
+ * cheeks (a CSS animation, like the bounce). Cheek positions are in the art's own 1254-unit coordinates, measured from assets/chef.png.
  */
 import { Image, StyleSheet, View } from "react-native";
 import Svg, { Defs, Ellipse, RadialGradient, Stop } from "react-native-svg";
-import Animated, { useAnimatedStyle, type SharedValue } from "react-native-reanimated";
+import Animated from "react-native-reanimated";
 import { usePreferences } from "../../state/Preferences";
+import { SETTLED } from "./motion";
 
 const MOCHI = require("../../../assets/mochi/mochi-happy.webp");
 const ART = 1254;
 const CHEEKS: [number, number, number][] = [[330, 795, 78], [810, 870, 88]];
+/** The cheeks glow pink once the mochi has settled, then ease back a little. */
+const GLOW = { "0%": { opacity: 0 }, "37.5%": { opacity: 1 }, "100%": { opacity: 0.55 } };
 
-export function MochiFace({ size, blush }: { size: number; blush: SharedValue<number> }) {
+export function MochiFace({ size, still }: { size: number; still: boolean }) {
   const { theme } = usePreferences(), box = { left: 0, top: 0, width: size, height: size };
-  const glow = useAnimatedStyle(() => ({ opacity: blush.value }));
+  const glow = still ? s.hidden : { animationName: GLOW, animationDuration: 800, animationDelay: SETTLED, animationTimingFunction: "ease-out", animationFillMode: "both" } as const;
   return <View pointerEvents="none" style={{ width: size, height: size }}>
     <Image source={MOCHI} style={[s.abs, box]} resizeMode="contain" />
     <Animated.View style={[s.abs, box, glow]}>
@@ -30,4 +33,4 @@ export function MochiFace({ size, blush }: { size: number; blush: SharedValue<nu
   </View>;
 }
 
-const s = StyleSheet.create({ abs: { position: "absolute" } });
+const s = StyleSheet.create({ abs: { position: "absolute" }, hidden: { opacity: 0 } });

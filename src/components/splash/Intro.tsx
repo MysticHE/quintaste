@@ -5,15 +5,15 @@
  * the wordmark rises in and the layer fades away. Tap anywhere to skip. Reduced motion shows the settled frame and
  * a short fade, without sound or haptics; the Sounds switch in Accessibility mutes the boing.
  */
-import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import { Platform, Pressable, StyleSheet, View, useWindowDimensions } from "react-native";
 import * as Haptics from "expo-haptics";
 import Svg, { Defs, Ellipse, RadialGradient, Stop } from "react-native-svg";
-import Animated, { Easing, useAnimatedStyle, useSharedValue, withDelay, withTiming, type SharedValue } from "react-native-reanimated";
+import Animated, { type CSSAnimationKeyframes } from "react-native-reanimated";
 import { usePreferences } from "../../state/Preferences";
 import { fontNames } from "../../theme/tokens";
 import { MochiFace } from "./Face";
-import { HOLD, LANDINGS, useBlush, useBounce } from "./motion";
+import { HOLD, LANDINGS, SETTLED, bodyKeyframes, shadowKeyframes } from "./motion";
 import { playIntroSound, prepareIntroSound, releaseIntroSound } from "./sound";
 
 const EXIT = 380;
@@ -57,14 +57,10 @@ function tap(style: Haptics.ImpactFeedbackStyle) {
   Haptics.impactAsync(style).catch(error => { if (__DEV__) console.warn("Intro haptic unavailable", error); });
 }
 
-function Shadow({ size, cx, base, y, squash }: { size: number; cx: number; base: number; y: SharedValue<number>; squash: SharedValue<number> }) {
+function Shadow({ size, cx, base, frames }: { size: number; cx: number; base: number; frames?: CSSAnimationKeyframes }) {
   const { shadow } = useBrand(), w = size * 0.74, h = size * 0.13;
-  // Smaller and fainter the higher the mochi is; full size on contact, wider when it squashes flat.
-  const st = useAnimatedStyle(() => {
-    const near = 1 - Math.min(1, Math.max(0, y.value) / (size * 1.6)), flat = Math.max(0, squash.value);
-    return { opacity: 0.25 + 0.75 * near, transform: [{ scaleX: (0.45 + 0.55 * near) * (1 + 0.6 * flat) }, { scaleY: 0.6 + 0.4 * near }] };
-  });
-  return <Animated.View pointerEvents="none" style={[s.abs, { left: cx - w / 2, top: base - h / 2, width: w, height: h }, st]}>
+  const motion = frames ? { animationName: frames, animationDuration: SETTLED, animationTimingFunction: "linear", animationFillMode: "both" } as const : null;
+  return <Animated.View pointerEvents="none" style={[s.abs, { left: cx - w / 2, top: base - h / 2, width: w, height: h }, motion]}>
     <Svg width={w} height={h}>
       <Defs>
         <RadialGradient id="mochiShadow" cx="50%" cy="50%" rx="50%" ry="50%">
@@ -77,21 +73,26 @@ function Shadow({ size, cx, base, y, squash }: { size: number; cx: number; base:
   </Animated.View>;
 }
 
+const FADE_OUT = { to: { opacity: 0 } };
+const TITLE_IN = { from: { opacity: 0, transform: [{ translateY: 14 }] }, to: { opacity: 1, transform: [{ translateY: 0 }] } };
+
 function Play({ onDone }: { onDone: () => void }) {
   const { reducedMotion: still, draft } = usePreferences(), { background, ink } = useBrand();
   const { width: W, height: H } = useWindowDimensions();
   const size = Math.min(W * 0.46, H * 0.26, 220), cx = W / 2, cy = H * 0.43;
   // The art's feet sit at 91% of its height; the shadow and squash pivot sit there.
-  const foot = size * 0.41, base = cy + foot, word = Math.min(44, W * 0.11);
-  const { y, squash, breathe } = useBounce(still, size, cy + size * 1.2);
-  const blush = useBlush(still);
-  const exit = useSharedValue(0), title = useSharedValue(still ? 1 : 0), leaving = useRef(false);
+  const foot = size * 0.41, base = cy + foot, word = Math.min(44, W * 0.11), drop = cy + size * 1.2;
+  const body = useMemo(() => bodyKeyframes(size, drop, foot), [size, drop, foot]);
+  const ground = useMemo(() => shadowKeyframes(size, drop), [size, drop]);
+  // A gentle breath once settled, scaled about the feet like the squash.
+  const breath = useMemo(() => ({ to: { transform: [{ translateY: -0.02 * foot }, { scaleX: 0.99 }, { scaleY: 1.02 }] } }), [foot]);
+  const [leaving, setLeaving] = useState(false), left = useRef(false);
 
   const leave = (skipped: boolean) => {
-    if (leaving.current) return;
-    leaving.current = true;
+    if (left.current) return;
+    left.current = true;
     releaseIntroSound(skipped ? EXIT : 0);
-    exit.value = withTiming(1, { duration: still ? 250 : EXIT, easing: Easing.in(Easing.cubic) });
+    setLeaving(true);
     setTimeout(onDone, (still ? 250 : EXIT) + 40);
   };
   useEffect(() => {
@@ -101,26 +102,24 @@ function Play({ onDone }: { onDone: () => void }) {
       if (draft.sounds) playIntroSound();
       timers.push(setTimeout(() => tap(Haptics.ImpactFeedbackStyle.Light), LANDINGS[0]));
       timers.push(setTimeout(() => tap(Haptics.ImpactFeedbackStyle.Soft), LANDINGS[1]));
-      title.value = withDelay(LANDINGS[0] + 180, withTiming(1, { duration: 420, easing: Easing.out(Easing.cubic) }));
     }
     return () => timers.forEach(clearTimeout);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const layer = useAnimatedStyle(() => ({ opacity: 1 - exit.value }));
-  const mochi = useAnimatedStyle(() => {
-    const k = squash.value, sy = 1 - 0.9 * k + breathe.value * 0.02, sx = 1 + 0.8 * k - breathe.value * 0.01;
-    // Scale about the feet, not the centre, so a squash flattens onto the ground.
-    return { transform: [{ translateY: -y.value + foot * (1 - sy) - exit.value * 10 }, { scaleX: sx }, { scaleY: sy }] };
-  });
-  const wordmark = useAnimatedStyle(() => ({ opacity: title.value, transform: [{ translateY: (1 - title.value) * 14 }] }));
-  return <Animated.View style={[StyleSheet.absoluteFill, { backgroundColor: background }, layer]}>
+  const fade = leaving ? { animationName: FADE_OUT, animationDuration: still ? 250 : EXIT, animationTimingFunction: "ease-in", animationFillMode: "forwards" } as const : null;
+  const fall = still ? null : { animationName: body, animationDuration: SETTLED, animationTimingFunction: "linear", animationFillMode: "both" } as const;
+  const breathe = still ? null : { animationName: breath, animationDuration: 1300, animationDelay: SETTLED, animationTimingFunction: "ease-in-out", animationIterationCount: "infinite", animationDirection: "alternate" } as const;
+  const title = still ? null : { animationName: TITLE_IN, animationDuration: 420, animationDelay: LANDINGS[0] + 180, animationTimingFunction: "ease-out", animationFillMode: "both" } as const;
+  return <Animated.View style={[StyleSheet.absoluteFill, { backgroundColor: background }, fade]}>
     <Pressable accessibilityRole="button" accessibilityLabel="Skip QuinTaste intro" onPress={() => leave(true)} style={StyleSheet.absoluteFill}>
-      <Shadow size={size} cx={cx} base={base} y={y} squash={squash} />
-      <Animated.View pointerEvents="none" style={[s.abs, { left: cx - size / 2, top: cy - size / 2, width: size, height: size }, mochi]}>
-        <MochiFace size={size} blush={blush} />
+      <Shadow size={size} cx={cx} base={base} frames={still ? undefined : ground} />
+      <Animated.View pointerEvents="none" style={[s.abs, { left: cx - size / 2, top: cy - size / 2, width: size, height: size }, fall]}>
+        <Animated.View style={breathe}>
+          <MochiFace size={size} still={still} />
+        </Animated.View>
       </Animated.View>
-      <Animated.Text pointerEvents="none" style={[s.abs, s.word, { top: base + size * 0.12, width: W, fontSize: word, color: ink }, wordmark]}>QuinTaste</Animated.Text>
+      <Animated.Text pointerEvents="none" style={[s.abs, s.word, { top: base + size * 0.12, width: W, fontSize: word, color: ink }, title]}>QuinTaste</Animated.Text>
     </Pressable>
   </Animated.View>;
 }
