@@ -33,6 +33,12 @@ export function AccessibilityScreen() {
         />
         <Divider />
         <Row
+          label="Sounds" icon="volume-high-outline"
+          value={draft.sounds}
+          onToggle={(sounds) => patch({ sounds })}
+        />
+        <Divider />
+        <Row
           label="Screen-Reader Hints" icon="chatbox-ellipses-outline"
           value={draft.readerHints}
           onToggle={(readerHints) => patch({ readerHints })}

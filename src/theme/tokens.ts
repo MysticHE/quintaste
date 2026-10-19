@@ -119,6 +119,8 @@ export function themeFor(palette: Palette, dark: boolean) {
     mediaProviderForeground: "#ffffff",
     mediaControl: "rgba(23,29,25,0.84)",
     mediaRating: "#ffd16a",
+    // Mochi Chef mascot cheek blush; the same in every palette and mode.
+    mascot: { blush: "#f4907a" },
     mediaDivider: "rgba(255,255,255,0.28)",
     photoBlend: ["rgba(23,29,25,0)", "rgba(23,29,25,0.58)", "rgba(23,29,25,0.76)"] as const,
     navigation: {
