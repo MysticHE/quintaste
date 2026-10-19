@@ -2,10 +2,14 @@
 # Deploys the QT bot's nutrition v2 files on the VPS (run as root on srv1902914, from any folder).
 # Backup first, install with the folder's root-owned read-only convention, run the bot tests in the Hermes
 # container, record hashes. Revert = copy the backup folder's files back.
-# Expects the four files in /root/qt-nutrition-upload/: nutrition.py nutrition_sg.json publisher.py test_nutrition.py
+# Staging: the four files sit in /root/qt-nutrition-upload/ (nutrition.py nutrition_sg.json publisher.py test_nutrition.py).
+# Files uploaded flat as /root/qt-nutrition-upload-<name> are moved there first.
 set -eu
 QT=/docker/hermes-agent-yril/data/qt-team
 UP=/root/qt-nutrition-upload
+mkdir -p "$UP"
+for f in nutrition.py nutrition_sg.json publisher.py test_nutrition.py; do [ -f "/root/qt-nutrition-upload-$f" ] && mv -f "/root/qt-nutrition-upload-$f" "$UP/$f"; done
+for f in nutrition.py nutrition_sg.json publisher.py test_nutrition.py; do [ -f "$UP/$f" ] || { echo "missing $UP/$f"; exit 1; }; done
 STAMP=$(date -u +%Y%m%dT%H%M%SZ)
 BK=$QT/operator-tests/nutrition-table-$STAMP
 mkdir -p "$BK"
@@ -19,10 +23,12 @@ tail -3 "$BK/tests.txt"
 cat "$BK/release.json"
 # Dry run of the backfill: which live recipes would get figures (no publication, no model call).
 docker exec -w /opt/data/qt-team hermes-agent-yril-hermes-agent-1 python3 -c "
-import publisher as p
+import json, publisher as p
 live=p.request('GET','/control/state'); c=[]; h=[]
-states={(r['kind'],r['id']):r.get('hash') for r in live['records']}
-p.nutrition_candidates(live,states,{},c,h)
+states={(r['kind'],r['id']):r['hash'] for r in live['records']}
+path=p.ROOT/'state/publication-outcomes.json'
+outs=json.loads(path.read_text()) if path.exists() else {}
+p.nutrition_candidates(live,states,outs,c,h)
 print('candidates',[(x['id'],x['data']['nutrition']['basis'],x['data']['nutrition']['perServing']['kcal']) for x in c])
 print('held',h)
 " | tee "$BK/backfill-dry-run.txt"
