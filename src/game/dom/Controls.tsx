@@ -54,11 +54,15 @@ export function HeatPanel({ run, L, art, petArt, hold, nudge, onHeat, onHeatTo, 
 }
 
 /**
- * Burner input. Toggle: a tap switches. Hold: heat stays on while a finger or mouse is down. The burner is a control, not
- * food, so it keeps its tap (a click without a pointer still toggles it, which keeps Hold usable with a switch).
+ * Burner input. Toggle: a press switches. Hold: heat stays on while a finger or mouse is down. The burner is a control, not
+ * food, so it keeps its tap (a click without a pointer still toggles it, which keeps it usable with a keyboard or switch).
  */
 function burnerInput(hold: boolean, kind: StationKind, onHeat: (k: StationKind) => void, onHeatTo: (k: StationKind, on: boolean) => void) {
-  if (!hold) return { onClick: () => onHeat(kind) };
+  // Toggle switches on press, not on click: a phone sends no click for a tap made while another finger holds a card.
+  if (!hold) return {
+    onPointerDown: (e: RPointerEvent<HTMLButtonElement>) => { if (!e.button) onHeat(kind); },
+    onClick: (e: RMouseEvent<HTMLButtonElement>) => { if (e.detail === 0) onHeat(kind); },
+  };
   const off = () => onHeatTo(kind, false);
   return {
     onPointerDown: (e: RPointerEvent<HTMLButtonElement>) => { if (e.button) return; e.currentTarget.setPointerCapture?.(e.pointerId); onHeatTo(kind, true); },
