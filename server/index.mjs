@@ -26,6 +26,7 @@ import { editorial, editorialAssets, editorialAssetRoot } from './editorial/rout
 import { startAvatarWorker } from './avatar/worker.mjs';
 import { aiRecipes } from './ai-recipes/router.mjs';
 import { startAiRecipeWorker } from './ai-recipes/worker.mjs';
+import { startNutritionRefresh } from './nutrition/service.mjs';
 const { createRequestHandler } = createRequire(import.meta.url)('expo-server/adapter/express');
 
 const app = express();
@@ -145,6 +146,8 @@ server.headersTimeout = 15000;
 const stopAvatars = process.env.AVATAR_WORKER_ENABLED === 'true' ? startAvatarWorker() : () => {};
 // On unless disabled: the worker idles until the ai_recipes control is on and the gateway is configured.
 const stopAiRecipes = process.env.AI_RECIPES_WORKER_ENABLED !== 'false' ? startAiRecipeWorker() : () => {};
+// Hourly: recipe nutrition from the learned ingredient database (asks the AI only while ai_recipes is on).
+const stopNutrition = process.env.AI_RECIPES_WORKER_ENABLED !== 'false' ? startNutritionRefresh() : () => {};
 const purgeContacts = () => purgeOrderContacts().then(count => count && logger.info({ event: 'market_contacts_purged', count }))
   .catch(error => logger.warn({ event: 'market_contacts_purge_failed', code: error?.code }));
 const purgeTimer = setInterval(purgeContacts, 6 * 3600000).unref();
@@ -161,6 +164,7 @@ async function stop() {
   closing = true;
   stopAvatars();
   stopAiRecipes();
+  stopNutrition();
   clearInterval(purgeTimer);
   clearInterval(purgeLogsTimer);
   stopAreaSnapshots();

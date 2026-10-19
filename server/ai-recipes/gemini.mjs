@@ -78,8 +78,11 @@ async function call({ parts, schema = null, system = null, tools = null, model =
     try { parsed = JSON.parse(output); } catch { throw new GeminiError(502, 'The model returned invalid JSON.'); }
   }
   const usage = data.usageMetadata ?? {};
-  const grounding = candidate?.groundingMetadata?.groundingChunks?.map(chunk => chunk.web?.uri).filter(Boolean) ?? [];
-  return { data: parsed, usage: { input: usage.promptTokenCount ?? 0, output: usage.candidatesTokenCount ?? 0, model: model ?? config.model }, sources: grounding };
+  const chunks = candidate?.groundingMetadata?.groundingChunks?.filter(chunk => chunk.web?.uri) ?? [];
+  // Search results come as Google redirect links; `pages` keeps each page's title (its site) for people to read.
+  const pages = chunks.map(chunk => ({ url: String(chunk.web.uri).slice(0, 600), title: String(chunk.web.title ?? '').slice(0, 120) }));
+  return { data: parsed, usage: { input: usage.promptTokenCount ?? 0, output: usage.candidatesTokenCount ?? 0, model: model ?? config.model },
+    sources: pages.map(page => page.url), pages };
 }
 
 const IMAGE_MODELS = ['gemini-3.1-flash-image', 'gemini-2.5-flash-image'];

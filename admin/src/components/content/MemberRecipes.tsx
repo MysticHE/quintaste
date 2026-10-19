@@ -11,7 +11,7 @@ type Recipe = {
   id: string; version: 'live' | 'pending'; pending_state: 'review' | 'declined' | null; decision_note: string; live: boolean; hidden_reason: string | null; ai: boolean;
   submitted_at: string | null; published_at: string | null; username: string; photos: string[]; reports: number;
   recipe: { title: string; description: string; author: string; language: string; servings: number; minutes: number; diet: string; categories: string[]; sponsorship: string; revision: number;
-    ingredients: { id: string; name: string; amount: number | null; unit: string; listingId?: string; listing?: Listing }[];
+    ingredients: { id: string; name: string; amount: number | null; unit: string; suggested?: boolean; listingId?: string; listing?: Listing }[];
     steps: { title: string; instruction: string; minutes: number | null }[]; source?: Source; nutrition?: Nutrition };
 };
 const photo = (r: Recipe, slot: string) => `/api/content/member-recipe-photo?id=${r.id}&version=${r.version}&slot=${slot}`;
@@ -38,7 +38,7 @@ function RecipeCard({ r }: { r: Recipe }) {
     {d.nutrition?.perServing && <small>Per serving: {Object.entries(d.nutrition.perServing).slice(0, 6).map(([k, v]) => `${k} ${Math.round(v * 10) / 10}`).join(' · ')}</small>}
     {!!links.length && <small>Shop links: {links.map(i => i.listing ? `${i.name} → ${i.listing.name} (S$${(i.listing.price_cents / 100).toFixed(2)}, ${i.listing.status})` : `${i.name} → removed item`).join(' · ')}</small>}
     <details><summary>Ingredients and steps</summary>
-      <ul>{d.ingredients.map(i => <li key={i.id}>{i.amount === null ? i.name + ', to taste' : `${i.amount} ${i.unit} ${i.name}`}</li>)}</ul>
+      <ul>{d.ingredients.map(i => <li key={i.id}>{i.amount === null ? i.name + ', to taste' : `${i.amount} ${i.unit} ${i.name}${i.suggested ? ' (suggested)' : ''}`}</li>)}</ul>
       <ol>{d.steps.map((s, index) => <li key={index}><strong>{s.title}</strong>{s.minutes ? ` · ${s.minutes} min` : ''}<p className="detail">{s.instruction}</p>
         {/* eslint-disable-next-line @next/next/no-img-element -- staff view of member photos */}
         {r.photos.includes('step-' + index) && <img src={photo(r, 'step-' + index)} alt={'Step ' + (index + 1) + ' photo'} width={160} height={110} style={{ objectFit: 'cover' }}/>}</li>)}</ol>

@@ -13,6 +13,7 @@ import { Events, Places, Recipes } from './content/ContentConsole';
 import { Gatherings, Listings, Reviews } from './content/MemberContent';
 import { MemberRecipes } from './content/MemberRecipes';
 import AiRecipes from './content/AiRecipes';
+import { Ingredients } from './content/Ingredients';
 import Sellers from './Sellers';
 import { Audit, Integrations, Staff } from './Administration';
 
@@ -28,6 +29,7 @@ const groups: { title?: string; sections: Section[] }[] = [
   { title: 'Community', sections: [
     { id: 'member-recipes', title: 'Member recipes', icon: 'chef', capability: 'content', count: d => d.memberRecipes },
     { id: 'ai-recipes', title: 'AI recipes', icon: 'wand', capability: 'content', count: d => d.ai?.installed ? d.ai.waiting : null },
+    { id: 'ingredients', title: 'Ingredients', icon: 'leaf', capability: 'content' },
     { id: 'reviews', title: 'Place reviews', icon: 'star', capability: 'content', count: d => d.reviews },
     { id: 'gatherings', title: 'Gatherings', icon: 'group', capability: 'content' }] },
   { title: 'Market', sections: [
@@ -77,7 +79,7 @@ export default function Console({ section }: { section: string }) {
       {!current ? <Empty icon="warning">Not available</Empty> : <>
         {section === 'overview' && <Overview resource={attention} role={member.role}/>}
         {section === 'places' && <Places/>}{section === 'recipes' && <Recipes/>}{section === 'events' && <Events/>}
-        {section === 'member-recipes' && <MemberRecipes origin="member"/>}{section === 'ai-recipes' && <AiRecipes canLimit={can(member.role, 'operations')}/>}
+        {section === 'member-recipes' && <MemberRecipes origin="member"/>}{section === 'ai-recipes' && <AiRecipes canLimit={can(member.role, 'operations')}/>}{section === 'ingredients' && <Ingredients/>}
         {section === 'reviews' && <Reviews/>}{section === 'gatherings' && <Gatherings/>}
         {section === 'shops' && <Sellers/>}{section === 'listings' && <Listings/>}
         {section === 'accounts' && <Accounts/>}{section === 'cases' && <Cases canAssign={can(member.role, 'operations')}/>}

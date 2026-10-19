@@ -14,9 +14,12 @@ const per100 = JSON.parse(readFileSync(path.join(root, 'usda-subset.json'), 'utf
 const nutrients = ['kcal', 'protein', 'fat', 'carbs', 'fibre', 'sugar', 'sodium'];
 const foods = Object.entries(table.foods).map(([key, food]) => ({ key, food, patterns: food.match.map(pattern => new RegExp(pattern, 'i')) }));
 const countUnits = new Set(['each', 'whole', 'piece', 'pieces', 'egg', 'eggs', 'leaves', 'leaf', 'cloves', 'clove', 'slices', 'slice', 'cubes', 'cube', 'sprig', 'sprigs', 'inch', 'handful', 'handfuls', 'pods', 'pod', 'sticks', 'stick']);
-const MIN_COVERAGE = 0.9, MAX_MISSING_SHARE = 0.1, MAX_GRAMS = 3000;
+export const MIN_COVERAGE = 0.9, MAX_MISSING_SHARE = 0.1, MAX_GRAMS = 3000;
+/** Millilitres in one of a volume unit (tbsp 15, tsp 5, cup 240), or undefined. */
+export const volumeMl = unit => table.units[unitOf(unit)];
+export { countUnits };
 
-function unitOf(unit) {
+export function unitOf(unit) {
   const u = String(unit ?? '').trim().toLowerCase().replace(/\s+/g, ' ');
   if (['inch piece', 'inch pieces', 'inches'].includes(u)) return 'inch';
   if (['', 'whole', 'piece', 'pieces'].includes(u)) return 'each';
@@ -31,7 +34,7 @@ export function matchFood(name) {
   }
   return best;
 }
-function gramsFor(line, food) {
+export function gramsFor(line, food) {
   const unit = unitOf(line.unit), amount = Number(line.amount);
   if (!(amount > 0)) return undefined;
   if (['g', 'gram', 'grams'].includes(unit)) return amount;

@@ -39,7 +39,8 @@ export type Dish = {
 };
 /** amount null means "to taste": shown as text and never scaled. labelChecked clears compound-ingredient uncertainty. */
 /** `shop` appears on a member recipe line linked to the author's Market item, only while the viewer can open and buy it. */
-export type Ingredient = { id: string; name: string; amount: number | null; unit: string; labelChecked?: boolean; shop?: { listingId: string; name: string; priceCents: number } };
+/** `suggested` marks an amount the AI proposed because the source video or page gave none. */
+export type Ingredient = { id: string; name: string; amount: number | null; unit: string; labelChecked?: boolean; suggested?: boolean; shop?: { listingId: string; name: string; priceCents: number } };
 export type RecipeStep = {
   title: string; instruction: string; ingredientIds: string[];
   timer?: { label: string; seconds: number };

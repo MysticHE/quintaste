@@ -19,10 +19,11 @@ export const recipeSchema = {
         type: 'OBJECT',
         properties: {
           name: { type: 'STRING', description: 'plain ingredient name, e.g. "firm tofu", "light soy sauce"' },
-          amount: { type: 'NUMBER', nullable: true, description: 'number only; null when added to taste or not stated' },
+          amount: { type: 'NUMBER', nullable: true, description: 'number only; the stated amount, or a suggested one when the source gives none; null only for seasoning or garnish added to taste' },
           unit: { type: 'STRING', description: 'metric where possible: g, ml, tbsp, tsp, cup, cloves, slices, pieces; empty when amount is null' },
+          suggested: { type: 'BOOLEAN', description: 'true when the source gives no amount and amount is your suggestion for these servings' },
         },
-        required: ['name', 'amount', 'unit'],
+        required: ['name', 'amount', 'unit', 'suggested'],
       },
     },
     steps: {
@@ -48,7 +49,8 @@ export const recipeSchema = {
 };
 
 const house = `You write recipes for QuinTaste, a Singapore vegetarian cooking app. Rules:
-- Use only what the source shows or states. Do not add ingredients, quantities or times that are not there; use null amounts for "to taste" or unstated.
+- Use only the ingredients, steps and times the source shows or states; never add an ingredient that is not there.
+- Every ingredient needs an amount a home cook can follow. Use the amount the source states or shows (read measuring spoons, cups, packets and scale readings in the video). When it gives none, suggest a typical amount for the servings, consistent with what the video shows (a generous pour, a pinch, a whole packet), and set suggested true. Keep amount null only for salt, pepper or garnish that is clearly added to taste at the end.
 - Write every sentence in your own words. Never copy the creator's wording or captions.
 - Metric units. Convert cups and spoons only when the source states them; keep "1 cup" as unit "cup".
 - One action per step, with heat level, time and a visual or sensory doneness cue when the source gives one.
@@ -72,10 +74,12 @@ export const requestPrompt = text => `Recipe request from a member: "${text}". F
 export const verifySystem = house + `
 You are checking a draft recipe against the cooking video it was written from. Watch the whole video again, start to end, frame by frame where needed, and listen to every spoken instruction and on-screen text.
 Return the complete corrected recipe in the same JSON schema:
-- every ingredient that is added in the video, with the quantity shown or said (null when not given); remove ingredients that never appear;
+- every ingredient that is added in the video, with the quantity shown or said; remove ingredients that never appear;
+- for each amount the video does not give, a realistic suggested amount for the servings that matches what the video shows (how much oil goes in, how many chillies), with suggested true; stated amounts keep suggested false;
 - every action as its own step, in the order the video does them, with heat, time and doneness cues the video gives; nothing skipped, nothing invented;
 - preparation stated in the caption or speech but not shown (soaking, deseeding, boiling, slicing, dissolving) as steps of their own before the step that uses it, with at and shotAt null; notes never hold a needed action;
 - correct start times (at), best still-frame times (shotAt) and the finished-dish time (coverAt);
+- when the creator's caption is given, go through it sentence by sentence: every instruction in it (soaking, boiling, resting, seasoning, storing) must appear in a step, and every amount in it must be used;
 - list what you changed in notes.`;
 
 export const verifyPrompt = draft => 'Draft recipe to check against the video:' + String.fromCharCode(10) + JSON.stringify(draft);

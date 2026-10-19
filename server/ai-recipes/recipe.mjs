@@ -1,4 +1,3 @@
-import { estimateNutrition } from '../nutrition/estimate.mjs';
 import { categories as recipeCategories, veganConflict } from '../recipes/rules.mjs';
 import { containsMeat } from '../market/rules.mjs';
 import { GeminiError } from './gemini.mjs';
@@ -37,7 +36,8 @@ export function toRecipe(draft, { source }) {
     ids.set(id, name.toLowerCase());
     const amount = typeof item.amount === 'number' && item.amount > 0 && item.amount <= 100000 ? Math.round(item.amount * 1000) / 1000 : null;
     const unit = amount === null ? '' : clip(item.unit, 24);
-    return { id, name, amount, unit: COUNT_UNITS.test(unit) ? '' : unit };
+    // A suggested amount is the model's typical figure where the source gave none; the app labels it.
+    return { id, name, amount, unit: COUNT_UNITS.test(unit) ? '' : unit, ...(amount !== null && item.suggested === true ? { suggested: true } : {}) };
   }).filter(Boolean);
   if (!ingredients.length) throw new GeminiError(422, 'No ingredients could be read from this source.');
   if (containsMeat(ingredients.map(i => i.name).join(', '))) throw new GeminiError(422, 'QuinTaste recipes are vegetarian; this one uses meat or seafood.');
@@ -66,8 +66,6 @@ export function toRecipe(draft, { source }) {
     servings, minutes, diet, contains, categories: [category], sponsorship: 'None', ingredients, steps, revision: 1,
     source: { ...source, notes: clip(draft.notes, 500), confidence: Math.min(Math.max(Number(draft.confidence) || 0, 0), 1) },
   };
-  const nutrition = estimateNutrition({ servings, ingredients });
-  if (nutrition) recipe.nutrition = nutrition;
   return recipe;
 }
 

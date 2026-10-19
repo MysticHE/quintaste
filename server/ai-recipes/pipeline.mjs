@@ -4,6 +4,9 @@ import { GeminiError, generate } from './gemini.mjs';
 import { recipeSchema, requestPrompt, searchSystem, structureSystem } from './prompts.mjs';
 import { clip, parseUpload, toRecipe } from './recipe.mjs';
 import { fromVideo } from './video-job.mjs';
+import { nutritionFor } from '../nutrition/service.mjs';
+import { recipeKeys } from '../nutrition/dynamic.mjs';
+import { linkRecipe } from '../nutrition/learned.mjs';
 
 export { parseUpload, toRecipe };
 
@@ -38,6 +41,8 @@ async function save(job, recipe, photos, review) {
       await client.query('INSERT INTO recipes.photo (recipe_id, version, slot, bytes, digest) VALUES ($1, $2, $3, $4, $5)',
         [row.id, version, slot, bytes, createHash('sha256').update(bytes).digest('hex')]);
     }
+    // A live recipe is linked to its ingredient names, so later corrections in the ingredient database reach it.
+    if (!review) await linkRecipe(client, row.id, 1, recipeKeys(saved.ingredients));
     await client.query('COMMIT');
     return { id: row.id, photos: images.length };
   } catch (error) {
@@ -52,6 +57,9 @@ export async function runJob(job, signal) {
   const progress = message => pool.query("UPDATE recipes.ai_job SET message=$2 WHERE id=$1 AND status='working'", [job.id, message]).catch(() => {});
   try {
     const { recipe, photos } = job.kind === 'video' ? await fromVideo(job, signal, usage, progress) : await fromRequest(job, signal, usage, progress);
+    await progress('Working out the nutrition…');
+    const nutrition = await nutritionFor(recipe, { usage, signal });
+    if (nutrition) recipe.nutrition = nutrition;
     const review = recipe.source.confidence < REVIEW_BELOW;
     const saved = await save(job, recipe, photos, review);
     const status = review ? 'review' : 'published';

@@ -6,14 +6,15 @@ import { useKeyboardFocus } from "../../hooks/useKeyboardFocus";
 import { ingredientLine, money } from "../../utils/food-format";
 import { Icon, T, common } from "../ui";
 
-/** Read-only scaled ingredients; prepared items that could hide the reader's exclusions get a Check label tag. */
-export function IngredientList({ ingredients, scale, flagged }: { ingredients: Pick<Ingredient, "id" | "name" | "amount" | "unit" | "shop">[]; scale: number; flagged?: Set<string> }) {
+/** Read-only scaled ingredients; prepared items that could hide the reader's exclusions get a Check label tag, AI-proposed amounts a Suggested tag. */
+export function IngredientList({ ingredients, scale, flagged }: { ingredients: Pick<Ingredient, "id" | "name" | "amount" | "unit" | "shop" | "suggested">[]; scale: number; flagged?: Set<string> }) {
   const { theme } = usePreferences();
   return <View style={{ gap: 8 }}>{ingredients.map(item => {
-    const line = ingredientLine(item, scale), check = !!flagged?.has(item.id);
+    const line = ingredientLine(item, scale), check = !!flagged?.has(item.id), suggested = !!item.suggested && item.amount !== null;
     return <View key={item.id} style={[common.row, s.line]}>
-      <View accessible accessibilityLabel={line.spoken + (check ? ". Check the label for your exclusions" : "")} style={[common.row, common.flex, s.line]}>
+      <View accessible accessibilityLabel={line.spoken + (suggested ? ", suggested amount" : "") + (check ? ". Check the label for your exclusions" : "")} style={[common.row, common.flex, s.line]}>
         <T style={common.flex}>{line.text}</T>
+        {suggested && <View style={[s.tag, { borderColor: theme.border }]}><T variant="small" muted>Suggested</T></View>}
         {check && <View style={[s.tag, { borderColor: theme.warning, backgroundColor: theme.warningSoft }]}>
           <Icon name="alert-circle-outline" size={14} color={theme.warning} /><T variant="small" color={theme.warning}>Check label</T>
         </View>}
