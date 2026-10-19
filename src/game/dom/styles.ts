@@ -105,7 +105,7 @@ const SHELF = `
 .rh .divider { flex:none; width:2px; margin:6px 2px; border-radius:2px; background:var(--panel-edge); }
 .rh .cardwrap { position:relative; scroll-snap-align:start; min-width:0; }
 .rh .card { position:relative; width:100%; height:100%; border-radius:12px; background:var(--card); box-shadow:0 0 0 1.5px var(--panel-edge), 0 2px 0 var(--panel-edge);
-  display:flex; flex-direction:column; align-items:center; justify-content:flex-end; gap:1px; padding:5px 3px 3px; touch-action:pan-x; transition:transform .12s ease-out; }
+  display:flex; flex-direction:column; align-items:center; justify-content:flex-end; gap:1px; padding:5px 3px 3px; touch-action:none; transition:transform .12s ease-out; }
 .rh .card img { flex:1 1 0; min-height:0; width:88%; object-fit:contain; pointer-events:none; }
 .rh .card .nm { max-width:100%; font-size:calc(10px * min(var(--ts, 1), 1.08)); line-height:1.1; text-align:center; overflow:hidden; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; pointer-events:none; }
 .rh .card:active { transform:scale(.93); } .rh .card.nope { animation:rhnope .4s ease-in-out; }
