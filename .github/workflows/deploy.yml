@@ -53,6 +53,23 @@ jobs:
           NODE_OPTIONS: --max-old-space-size=6144
         run: npx expo export --platform web --clear --max-workers 2
 
+      # Expo Go cannot load the game's packaged DOM page, so the web app serves it (src/game/artUris.ts gameHost).
+      - name: Export the game page for Expo Go
+        env:
+          EXPO_NO_DOTENV: "1"
+          EXPO_PUBLIC_AUTH_ENABLED: "true"
+          EXPO_PUBLIC_API_URL: https://quintaste.srv1902914.hstgr.cloud
+          CI: "1"
+          NODE_OPTIONS: --max-old-space-size=6144
+        run: |
+          npx expo export --platform android --output-dir .local/native-export --max-workers 2
+          pages=$(ls .local/native-export/www.bundle/*.html)
+          test "$(echo "$pages" | wc -l)" -eq 1
+          mkdir -p dist/client/game-dom
+          cp .local/native-export/www.bundle/*.js dist/client/game-dom/
+          cp "$pages" dist/client/game-dom/rush-hour.html
+          grep -q 'src="\./[0-9a-f]*\.js"' dist/client/game-dom/rush-hour.html
+
       - name: Package release
         id: package
         run: |

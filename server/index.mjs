@@ -110,6 +110,10 @@ app.get('/api/game/status', async (_req, res) => { res.set('Cache-Control', 'no-
 app.use('/api/game', featureGate('games'), game);
 app.use('/api/local-explore', (_req, res) => res.status(503).json({ error: 'Local development services are unavailable on this deployment.' }));
 app.use('/api/staff-base', (_req, res) => res.sendStatus(404));
+// Rush Hour's exported game page for Expo Go (CI copies Expo's DOM export here): the page is always revalidated so it
+// never points at a removed script; the scripts are content-hashed.
+app.use('/game-dom', express.static(path.resolve('dist/client/game-dom'), { index: false, fallthrough: false,
+  setHeaders: (res, file) => res.setHeader('Cache-Control', file.endsWith('.html') ? 'no-cache' : 'public, max-age=31536000, immutable') }));
 app.use(express.static(path.resolve('dist/client'), { maxAge: '1h', extensions: ['html'], index: false }));
 app.all('/{*all}', createRequestHandler({ build: path.resolve('dist/server') }));
 app.use((err, _req, res, _next) => {
