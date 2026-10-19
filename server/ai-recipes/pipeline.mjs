@@ -46,7 +46,7 @@ export function toRecipe(draft, { source }) {
   const servings = Number.isInteger(draft.servings) ? Math.min(Math.max(draft.servings, 1), 8) : 2;
   const minutes = Number.isInteger(draft.minutes) ? Math.min(Math.max(draft.minutes, 1), 1440) : 30;
   const category = recipeCategories.includes(draft.category) ? draft.category : 'With rice';
-  const author = clip(draft.creator, 80) || (source.kind === 'video' ? 'Video creator' : 'Sourced recipes');
+  const author = clip(source.creator, 80) || clip(draft.creator, 80) || (source.kind === 'video' ? 'Video creator' : 'Sourced recipes');
   const recipe = {
     title: clip(draft.title, 100) || 'Untitled recipe', description: clip(draft.description, 2000), author, language: clip(draft.language, 40) || 'English',
     servings, minutes, diet, categories: [category], sponsorship: 'None', ingredients, steps, revision: 1,
@@ -74,7 +74,15 @@ async function fromVideo(job, signal, usage) {
       part = { file_data: { file_uri: stored.uri, mime_type: stored.mimeType } };
     } else {
       link = parseLink(job.input);
-      if (link.platform === 'youtube') part = { file_data: { file_uri: link.fileUri } };
+      if (link.platform === 'youtube') {
+        part = { file_data: { file_uri: link.fileUri } };
+        // The channel name for the credit and the title as context, from YouTube's public oEmbed (no key, no download).
+        try {
+          const response = await fetch('https://www.youtube.com/oembed?format=json&url=' + encodeURIComponent(link.canonical), { redirect: 'error', signal: AbortSignal.timeout(10000) });
+          const info = /** @type {{ author_name?: string, title?: string }} */ (response.ok ? await response.json() : {});
+          creator = clip(info.author_name, 80); caption = clip(info.title, 300);
+        } catch { /* The model may still read the name from the video. */ }
+      }
       else if (downloaderAvailable() && (await geminiConfig()).mode === 'direct') {
         const download = await downloadToGemini(link, signal);
         stored = download.file; usage.bytes = download.bytes; caption = download.caption; creator = download.creator;
@@ -89,7 +97,8 @@ async function fromVideo(job, signal, usage) {
     const result = await generate({ parts: [part, { text: videoPrompt + context }], schema: recipeSchema, system: videoSystem, signal });
     usage.calls.push(result.usage);
     return toRecipe(result.data, { source: { kind: 'video', platform: link?.platform ?? 'upload', ...(link ? { url: link.canonical } : {}),
-      creator: clip(result.data.creator || creator, 80) } });
+      // The platform's own channel or uploader name wins over the model's reading of the video.
+      creator: clip(creator || result.data.creator, 80) } });
   } finally {
     if (stored) await deleteFile(stored.name);
   }
