@@ -6,7 +6,7 @@ Owner direction, 19 October 2026: members get recipes two new ways, both AI-powe
 
 | Part | Choice | Why |
 |---|---|---|
-| Model | Gemini 2.5 Flash (video, audio and text in one call, JSON schema output, Google Search grounding); Gemini 2.5 Pro only for low-confidence retries | Reads the video frames and speech directly; cheapest capable model; one provider for both features |
+| Model | Gemini 3.8 Flash (video, audio and text in one call, JSON schema output, Google Search grounding), falling back to `gemini-flash-latest` when Google retires a model name; `gemini-pro-latest` reserved for low-confidence retries. Gemini 2.5 Flash was closed to new accounts by Oct 2026 | Reads the video frames and speech directly; cheapest capable model; one provider for both features |
 | Model access | Cloudflare AI Gateway, Google AI Studio provider, BYOK: the Gemini key is stored in the gateway, the VPS sends only the existing gateway token | No new secret on the VPS; per-request logs, caching, rate limits and a spend ceiling in one dashboard |
 | Video intake | YouTube by URL (Gemini fetches it, nothing downloaded); TikTok, Instagram, Facebook by fetching the public MP4 and sending it inline (≤ 20 MB); member file upload as the fallback when a platform blocks fetching | No ffmpeg or yt-dlp needed in Phase 1, so no Compose change; the upload path cannot be blocked by platforms |
 | Jobs | Postgres table `recipes.ai_job`, in-process worker in the app server (same pattern as the avatar worker), one job at a time per process, idempotent by link | Fits the VPS today; the same table and worker move to separate containers when volume needs it |

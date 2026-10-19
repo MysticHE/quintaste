@@ -8,12 +8,13 @@ import { loadProviderKey } from './secret.mjs';
  * with the gateway token the server already holds. AI_RECIPES_LOCAL_URL points at a local stub for checks.
  */
 export class GeminiError extends Error {
-  constructor(status, message) { super(message); this.status = status; }
+  constructor(status, message) { super(message); this.status = status; this.retired = false; }
 }
 const DIRECT = 'https://generativelanguage.googleapis.com/v1beta/models/';
 
 export async function geminiConfig() {
-  const model = process.env.AI_RECIPES_MODEL || 'gemini-2.5-flash', strong = process.env.AI_RECIPES_STRONG_MODEL || 'gemini-2.5-pro';
+  // Google retires model names for new accounts (gemini-2.5-flash was by Oct 2026); generate() falls back to the -latest alias on that 404.
+  const model = process.env.AI_RECIPES_MODEL || 'gemini-3.8-flash', strong = process.env.AI_RECIPES_STRONG_MODEL || 'gemini-pro-latest';
   const local = process.env.NODE_ENV !== 'production' && process.env.AI_RECIPES_LOCAL_URL ? process.env.AI_RECIPES_LOCAL_URL : null;
   if (local) return { enabled: true, mode: 'local', base: local, model, strong, headers: {} };
   const apiKey = await loadProviderKey('gemini');
@@ -28,7 +29,17 @@ export async function geminiConfig() {
 }
 
 /** One generateContent call; returns the parsed JSON the schema asked for plus token usage. */
-export async function generate({ parts, schema = null, system = null, tools = null, model = null, signal = undefined, maxOutputTokens = 8192 }) {
+export async function generate(options) {
+  try { return await call(options); }
+  catch (error) {
+    if (!(error instanceof GeminiError) || !error.retired) throw error;
+    logger.warn({ event: 'ai_recipes_model_retired', model: options.model ?? 'default', fallback: FALLBACK });
+    return call({ ...options, model: FALLBACK });
+  }
+}
+const FALLBACK = 'gemini-flash-latest';
+
+async function call({ parts, schema = null, system = null, tools = null, model = null, signal = undefined, maxOutputTokens = 8192 }) {
   const config = await geminiConfig();
   if (!config.enabled) throw new GeminiError(503, 'AI recipes are not configured.');
   const body = {
@@ -50,6 +61,9 @@ export async function generate({ parts, schema = null, system = null, tools = nu
   if (!response.ok) {
     // Status and a short, key-free excerpt only.
     logger.warn({ event: 'ai_recipes_model_error', mode: config.mode, status: response.status, body: (config.headers['x-goog-api-key'] ? text.split(config.headers['x-goog-api-key']).join('[key]') : text).replace(/AIza[\w-]+/g, '[key]').slice(0, 300) });
+    if (response.status === 404 && (model ?? config.model) !== FALLBACK && /no longer available|not found/i.test(text)) {
+      const retired = new GeminiError(502, 'The model is no longer available.'); retired.retired = true; throw retired;
+    }
     throw new GeminiError(response.status === 429 ? 429 : 502, response.status === 429 ? 'The model is busy. Try again in a few minutes.'
       : response.status === 401 || response.status === 403 ? 'The AI key was refused. Staff need to check it in the console.' : 'The model returned an error.');
   }
