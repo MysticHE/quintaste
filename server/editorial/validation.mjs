@@ -87,7 +87,7 @@ export function validatePlace(p) {
   const ids = new Set(), names = new Set();
   for (const i of m.items) {
     const price = i?.price;
-    requireValue(keys(i, ['id', 'name', 'category', 'price', 'diet']) && typeof i.id === 'string' && /^[a-z0-9][a-z0-9-]{0,80}$/.test(i.id) && !ids.has(i.id) && text(i.name, 120) && !names.has(i.name.trim().toLowerCase())
+    requireValue(keys(i, ['id', 'name', 'category', 'price', 'diet']) && typeof i.id === 'string' && /^[a-z0-9][a-z0-9-]{2,80}$/.test(i.id) && !ids.has(i.id) && text(i.name, 120) && !names.has(i.name.trim().toLowerCase())
       && (i.category === undefined || text(i.category, 40, true)), 'Invalid or repeated dish'); ids.add(i.id); names.add(i.name.trim().toLowerCase());
     requireValue(i.diet === 'V' || i.diet === 'VG', "Every dish of a veg options place needs the venue's V or VG label");
     requireValue(keys(price, ['amount', 'currency', 'type', 'maxAmount']) && typeof price.amount === 'number' && Number.isFinite(price.amount) && price.amount >= 0 && price.amount <= 10000 && price.currency === 'SGD' && ['displayed', 'from'].includes(price.type)

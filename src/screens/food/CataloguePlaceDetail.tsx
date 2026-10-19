@@ -18,7 +18,7 @@ import { PrivateNote } from "../../components/food/DetailParts";
 import { useCatalogueVenue } from "../../hooks/useCatalogueVenue";
 import { useFood } from "../../state/Food";
 import { usePreferences } from "../../state/Preferences";
-import { isVegOptions, mixedKitchenLabel, placeTileIcon } from "../../utils/venue-kitchen";
+import { isVegOptions, mixedKitchenLabel, mixedKitchenSafety, placeTileIcon } from "../../utils/venue-kitchen";
 
 export function CataloguePlaceDetailScreen({ id }: { id: string }) {
   const { venue, busy, error, offline, retry } = useCatalogueVenue(id);
@@ -51,7 +51,7 @@ export function CataloguePlaceDetailScreen({ id }: { id: string }) {
       <View style={[common.row, { flexWrap: "wrap", gap: 8 }]}>
         {isVegOptions(venue) ? <StatusPill label={mixedKitchenLabel} tone="warning" /> : <StatusPill label={venue.venueDiet} />}
         {!!venue.branch && !venue.address.toLowerCase().includes(venue.branch.toLowerCase()) && <T variant="caption" muted>{venue.branch}</T>}</View>
-      {isVegOptions(venue) && <T testID="veg-options-notice" variant="small" muted>Also serves meat or seafood. Cooking tools may be shared.</T>}
+      {isVegOptions(venue) && <T testID="veg-options-notice" variant="small" muted>{mixedKitchenSafety}</T>}
       <View style={[s.overview, { backgroundColor: theme.card, borderColor: theme.border }]}>
         <View style={[common.row, { gap: 10, paddingHorizontal: 4 }]}><Icon name="location-outline" size={18} /><T variant="small" selectable style={common.flex}>{venue.address}</T></View>
         <PlaceDetailSection title="Opening hours" summary={venue.hours?.summary || "Hours unconfirmed"} icon="time-outline">

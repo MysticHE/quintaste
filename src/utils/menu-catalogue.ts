@@ -31,7 +31,7 @@ function readIdentity(value: unknown): Omit<PublishedMenu, "sections"> {
   const v = pilotObject(value), postalCode = pilotText(v.postalCode, 6);
   if (!/^\d{6}$/.test(postalCode) || v.googlePlaceId !== null && (typeof v.googlePlaceId !== "string"
     || !/^[A-Za-z0-9_-]{10,255}$/.test(v.googlePlaceId))) throw new Error("Invalid menu branch");
-  return { id: pilotId(v.id), name: pilotText(v.name), branch: pilotText(v.branch), address: pilotText(v.address, 500),
+  return { id: pilotId(v.id), name: pilotText(v.name), branch: pilotText(v.branch, 300, true), address: pilotText(v.address, 500),
     postalCode, googlePlaceId: v.googlePlaceId as string | null,
     aliases: pilotList(v.aliases, value => pilotText(value), 10) };
 }

@@ -8,6 +8,7 @@ import { FilterButton } from "../../components/BrowseControls";
 import { LocationSearchField } from "../../components/discovery/LocationSearchField";
 import { LocationFeedback } from "../../components/discovery/LocationFeedback";
 import { CatalogueVenueCard } from "../../components/discovery/CatalogueVenueCard";
+import { MixedKitchenList } from "../../components/discovery/MixedKitchenList";
 import { useMinuteClock } from "../../components/food/Timers";
 import { useDiscovery } from "../../state/Discovery";
 import { useDiscoveryInput } from "../../hooks/useDiscoveryInput";
@@ -82,7 +83,8 @@ export function ExploreScreen() {
     {currentRequest && !!discovery.error && <View style={common.row}><T variant="caption" accessibilityLiveRegion="polite" style={common.flex}>{discovery.error}</T>
       <IconButton label="Retry Places" icon="refresh-outline" onPress={() => { if (eligible) void discovery.load(input, true); }} /></View>}
     {accepted && discovery.cached && <T variant="caption" muted>{discovery.offline ? "Offline - saved results" : "Saved results - checking for changes"}</T>}
-    {venues.map(venue => <CatalogueVenueCard key={venue.id} venue={venue} review={reviews.data?.items.find(item => item.id === venue.id)} />)}
+    {discovery.mixed ? <MixedKitchenList venues={venues} />
+      : venues.map(venue => <CatalogueVenueCard key={venue.id} venue={venue} review={reviews.data?.items.find(item => item.id === venue.id)} />)}
     {accepted && !!venues.length && <View style={common.row}><T variant="caption" muted style={common.flex}>{venues.length} of {discovery.catalogue?.total} published places</T>
       <IconButton label="Refresh Places" icon="refresh-outline" loading={discovery.busy} onPress={() => void discovery.load(input, true)} /></View>}
     {accepted && discovery.capped && <Button label="Load More Places" variant="secondary" loading={discovery.busy} onPress={discovery.loadMore} />}

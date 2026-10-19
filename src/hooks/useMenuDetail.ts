@@ -1,14 +1,15 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import type { MenuDetail } from "../types/menus";
+import type { MenuDetail, MenuSummary } from "../types/menus";
 import { useMenus } from "../state/Menus";
 import { utf8Bytes } from "../state/food-capacity";
 import { cachedMenuDetail, menuDetailByteLimit, readMenuDetail, removeMenuDetail, saveMenuDetail } from "../services/menu-storage";
 import { ownedApiRequest } from "../services/owned-api";
 import { menuOfflineMs, menuRefreshMs } from "../utils/menu-catalogue";
 
-export function useMenuDetail(id: string | undefined) {
+/** `known` supplies the summary where the menu index is not loaded (Explore rows carry their own). */
+export function useMenuDetail(id: string | undefined, known?: MenuSummary) {
   const { menus, offline, now, cached: indexCached } = useMenus();
-  const summary = menus.find(menu => menu.id === id), summaryRef = useRef(summary);
+  const summary = known ?? menus.find(menu => menu.id === id), summaryRef = useRef(summary);
   useEffect(() => { summaryRef.current = summary; }, [summary]);
   const [detail, setDetail] = useState<MenuDetail | null>(null), [error, setError] = useState("");
   const [busy, setBusy] = useState(false), [storageError, setStorageError] = useState(false), [settled, setSettled] = useState(false);
