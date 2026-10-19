@@ -31,3 +31,12 @@ services:
       traefik.http.middlewares.quintaste-avatar-body.buffering.memRequestBodyBytes: '5734400'
       traefik.http.middlewares.quintaste-avatar-rate.ratelimit.average: '30'
       traefik.http.middlewares.quintaste-avatar-rate.ratelimit.burst: '40'
+      # AI recipes video upload (docs/AI_RECIPES_PLAN.md): the raw video streams through the app to Gemini file storage.
+      traefik.http.routers.quintaste-ai-upload.rule: Host(`${APP_HOST}`) && Path(`/api/ai-recipes/upload`)
+      traefik.http.routers.quintaste-ai-upload.priority: '100'
+      traefik.http.routers.quintaste-ai-upload.entrypoints: websecure
+      traefik.http.routers.quintaste-ai-upload.tls.certresolver: letsencrypt
+      traefik.http.routers.quintaste-ai-upload.service: quintaste
+      traefik.http.routers.quintaste-ai-upload.middlewares: quintaste-ai-upload-body,quintaste-avatar-rate
+      traefik.http.middlewares.quintaste-ai-upload-body.buffering.maxRequestBodyBytes: '66060288'
+      traefik.http.middlewares.quintaste-ai-upload-body.buffering.memRequestBodyBytes: '2097152'

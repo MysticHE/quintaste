@@ -13,10 +13,9 @@ export function Feedback({ error, loading, retry }: { error: string; loading: bo
 export function Empty({ icon, children }: { icon: IconName; children: ReactNode }) {
   return <div className="empty"><Icon name={icon} size={34}/>{children}</div>;
 }
-/** A form whose submit is audited: every change carries a reason. Create forms pass `reset` so a second click cannot repeat the save. */
-export function Mutation({ endpoint, values, onSaved, children, label = 'Save', tone = 'primary', reset = false, reason = true }: {
+/** A form whose submit is audited (the server records what changed). Create forms pass `reset` so a second click cannot repeat the save. */
+export function Mutation({ endpoint, values, onSaved, children, label = 'Save', tone = 'primary', reset = false }: {
   endpoint: string; values: (form: FormData) => Record<string, unknown>; onSaved: () => void; children?: ReactNode; label?: string; tone?: 'primary' | 'danger'; reset?: boolean;
-  /** false hides the reason box; the server then records a fixed reason for that action. */ reason?: boolean;
 }) {
   const [busy,setBusy] = useState(false); const [error,setError] = useState(''); const [message,setMessage] = useState('');
   async function submit(event: FormEvent<HTMLFormElement>) {
@@ -24,15 +23,13 @@ export function Mutation({ endpoint, values, onSaved, children, label = 'Save', 
     const form = event.currentTarget, data = new FormData(form);
     setBusy(true); setError(''); setMessage('');
     try {
-      const result = await api<{ note?: string; status?: string }>(`/api/manage/${endpoint}`, { ...values(data), reason: data.get('reason') });
-      const reasonField = form.elements.namedItem('reason');
-      if (reset) form.reset(); else if (reasonField instanceof HTMLTextAreaElement) reasonField.value = '';
+      const result = await api<{ note?: string; status?: string }>(`/api/manage/${endpoint}`, values(data));
+      if (reset) form.reset();
       setMessage(result.note || (result.status ? result.status.replaceAll('_',' ') : 'Saved')); onSaved();
     } catch(error) { setError(error instanceof Error ? error.message : 'Request failed.'); }
     finally { setBusy(false); }
   }
   return <form onSubmit={submit} className="stack">{children}
-    {reason && <label>Reason<textarea name="reason" required minLength={10} maxLength={1000} rows={2}/></label>}
     {error && <div className="notice error" role="alert"><Icon name="warning"/>{error}</div>}
     {message && <div className="notice success" role="status"><Icon name="check"/>{message}</div>}
     <div className="form-actions"><button className={tone} disabled={busy}>{busy ? 'Saving…' : label}</button></div>

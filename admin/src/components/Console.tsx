@@ -24,7 +24,6 @@ const sections: { id: string; title: string; icon: IconName; capability?: Capabi
   { id: 'integrations', title: 'Integrations', icon: 'integrations', capability: 'integrations' },
   { id: 'staff', title: 'Staff', icon: 'staff', capability: 'staff' },
   { id: 'audit', title: 'Audit', icon: 'audit', capability: 'audit' },
-  { id: 'identity', title: 'Identity', icon: 'identity', capability: 'identity' },
 ];
 export default function Console({ section }: { section: string }) {
   const [signOutError, setSignOutError] = useState('');
@@ -53,7 +52,6 @@ export default function Console({ section }: { section: string }) {
         {section === 'cases' && <Cases canAssign={can(member.role, 'operations')}/>}{section === 'content' && <ContentConsole/>}
         {section === 'sellers' && <Sellers/>}{section === 'controls' && <Controls/>}{section === 'integrations' && <Integrations/>}
         {section === 'staff' && <Staff self={member.id}/>}{section === 'audit' && <Audit/>}
-        {section === 'identity' && <div className="panel"><Empty icon="identity">Identity review is off</Empty></div>}
       </>}
     </main>
   </div>;

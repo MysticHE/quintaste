@@ -5,6 +5,9 @@ import { containsMeat } from '../market/rules.mjs';
 import { GeminiError, generate } from './gemini.mjs';
 import { recipeSchema, requestPrompt, searchSystem, structureSystem, videoPrompt, videoSystem } from './prompts.mjs';
 import { loadVideo, parseLink } from './video.mjs';
+import { deleteFile } from './files.mjs';
+import { downloadToGemini, downloaderAvailable } from './download.mjs';
+import { geminiConfig } from './gemini.mjs';
 
 /** Confidence below this goes to staff review instead of straight to the feed. */
 export const REVIEW_BELOW = 0.6;
@@ -54,13 +57,42 @@ export function toRecipe(draft, { source }) {
   return recipe;
 }
 
+/** An uploaded video's job input: "upload <files/id> <mime type> [original link]". */
+export function parseUpload(input) {
+  const match = /^upload (files\/[a-z0-9-]{1,64}) (video\/[a-z0-9.+-]{1,40})(?: (https:\/\/\S{1,400}))?$/.exec(String(input));
+  return match ? { name: match[1], mimeType: match[2], link: match[3] ?? null } : null;
+}
+const fileUri = name => 'https://generativelanguage.googleapis.com/v1beta/' + name;
+
 async function fromVideo(job, signal, usage) {
-  const link = parseLink(job.input);
-  const video = await loadVideo(link, signal);
-  usage.bytes = video.bytes;
-  const result = await generate({ parts: [video.part, { text: videoPrompt }], schema: recipeSchema, system: videoSystem, signal });
-  usage.calls.push(result.usage);
-  return toRecipe(result.data, { source: { kind: 'video', platform: link.platform, url: link.canonical, creator: clip(result.data.creator, 80) } });
+  const upload = parseUpload(job.input);
+  let stored = upload ? { name: upload.name, uri: fileUri(upload.name), mimeType: upload.mimeType } : null;
+  try {
+    let link = null, part, caption = '', creator = '';
+    if (upload) {
+      try { link = upload.link ? parseLink(upload.link) : null; } catch { link = null; }
+      part = { file_data: { file_uri: stored.uri, mime_type: stored.mimeType } };
+    } else {
+      link = parseLink(job.input);
+      if (link.platform === 'youtube') part = { file_data: { file_uri: link.fileUri } };
+      else if (downloaderAvailable() && (await geminiConfig()).mode === 'direct') {
+        const download = await downloadToGemini(link, signal);
+        stored = download.file; usage.bytes = download.bytes; caption = download.caption; creator = download.creator;
+        part = { file_data: { file_uri: stored.uri, mime_type: stored.mimeType } };
+      } else {
+        const video = await loadVideo(link, signal);
+        part = video.part; usage.bytes = video.bytes;
+      }
+    }
+    const context = (caption ? "\n\nThe creator's caption (it may hold the written recipe; use it together with the video):\n" + caption : '')
+      + (creator ? '\nCreator: ' + creator : '');
+    const result = await generate({ parts: [part, { text: videoPrompt + context }], schema: recipeSchema, system: videoSystem, signal });
+    usage.calls.push(result.usage);
+    return toRecipe(result.data, { source: { kind: 'video', platform: link?.platform ?? 'upload', ...(link ? { url: link.canonical } : {}),
+      creator: clip(result.data.creator || creator, 80) } });
+  } finally {
+    if (stored) await deleteFile(stored.name);
+  }
 }
 
 async function fromRequest(job, signal, usage) {

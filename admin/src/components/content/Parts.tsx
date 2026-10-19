@@ -20,26 +20,24 @@ export function Badges({ hidden, edited, staff, newer, reports, extra }: { hidde
     {extra && <span className="badge">{extra}</span>}
   </span>;
 }
-/** Every content change carries a reason for the audit log. */
+/** Content actions; each change is recorded in the audit log. */
 export function ActionBar({ resource, actions, payload, onDone, children }: {
   resource: string; actions: Action[]; payload: () => Record<string, unknown>; onDone: (result: { id?: string; note?: string }, action: string) => void; children?: ReactNode;
 }) {
-  const [reason, setReason] = useState(''), [busy, setBusy] = useState(''), [error, setError] = useState(''), [message, setMessage] = useState('');
+  const [busy, setBusy] = useState(''), [error, setError] = useState(''), [message, setMessage] = useState('');
   async function run(item: Action) {
     setError(''); setMessage('');
-    if (reason.trim().length < 10) return setError('Reason needs at least 10 characters.');
     if (item.confirm && !window.confirm(item.confirm)) return;
     let input: Record<string, unknown>;
     try { input = payload(); } catch (problem) { return setError(problem instanceof Error ? problem.message : 'Check the form.'); }
     setBusy(item.action);
     try {
-      const result = await api<{ id?: string; note?: string }>('/api/content/' + resource, { ...input, action: item.action, reason });
-      setReason(''); setMessage(result.note || 'Saved'); onDone(result, item.action);
+      const result = await api<{ id?: string; note?: string }>('/api/content/' + resource, { ...input, action: item.action });
+      setMessage(result.note || 'Saved'); onDone(result, item.action);
     } catch (problem) { setError(problem instanceof Error ? problem.message : 'Request failed.'); }
     finally { setBusy(''); }
   }
   return <div className="stack action-bar">{children}
-    <label>Reason<textarea value={reason} onChange={e => setReason(e.target.value)} maxLength={1000} rows={2}/></label>
     {error && <div className="notice error" role="alert"><Icon name="warning"/>{error}</div>}
     {message && <div className="notice success" role="status"><Icon name="check"/>{message}</div>}
     <div className="form-actions">{actions.map(item => <button type="button" key={item.action} className={item.tone} disabled={!!busy} onClick={() => run(item)}>
@@ -49,21 +47,19 @@ export function ActionBar({ resource, actions, payload, onDone, children }: {
 export const photoSrc = (path?: string | null) => path && /\/([a-f0-9]{64})\.jpg$/.test(path) ? '/api/content/photo?id=' + path.match(/\/([a-f0-9]{64})\.jpg$/)![1] : '';
 /** Uploads a photo (the server re-encodes it and strips metadata) and returns its public path and size. */
 export function PhotoUpload({ onUploaded, label = 'Upload' }: { onUploaded: (photo: Photo) => void; label?: string }) {
-  const [busy, setBusy] = useState(false), [error, setError] = useState(''), [reason, setReason] = useState('');
+  const [busy, setBusy] = useState(false), [error, setError] = useState('');
   async function upload(file: File | undefined) {
     if (!file) return;
-    if (reason.trim().length < 10) return setError('Reason needs at least 10 characters.');
     setBusy(true); setError('');
     try {
-      const response = await fetch('/api/content/upload', { method: 'POST', credentials: 'same-origin', body: file, headers: { 'Content-Type': file.type, 'x-quintaste-admin': '1', 'x-quintaste-reason': encodeURIComponent(reason.trim()) } });
+      const response = await fetch('/api/content/upload', { method: 'POST', credentials: 'same-origin', body: file, headers: { 'Content-Type': file.type, 'x-quintaste-admin': '1' } });
       const value = await response.json().catch(() => ({}));
       if (!response.ok) throw new Error(value.error || 'Upload failed.');
-      onUploaded(value as Photo); setReason('');
+      onUploaded(value as Photo);
     } catch (problem) { setError(problem instanceof Error ? problem.message : 'Upload failed.'); }
     finally { setBusy(false); }
   }
-  return <div className="stack compact"><label>Photo reason<input value={reason} maxLength={1000} onChange={e => setReason(e.target.value)}/></label>
-    <label className="upload"><Icon name="photo" size={16}/>{busy ? 'Uploading…' : label}
+  return <div className="stack compact"><label className="upload"><Icon name="photo" size={16}/>{busy ? 'Uploading…' : label}
       <input type="file" accept="image/jpeg,image/png,image/webp" disabled={busy} onChange={e => { void upload(e.target.files?.[0]); e.target.value = ''; }}/></label>
     {error && <div className="notice error" role="alert"><Icon name="warning"/>{error}</div>}</div>;
 }

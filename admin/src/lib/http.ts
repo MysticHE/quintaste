@@ -44,6 +44,11 @@ export function text(value: unknown, name: string, maximum = 500, minimum = 1) {
   }
   return value.trim();
 }
+/** Reasons are optional (owner, 19 Oct 2026): an empty one is recorded in the audit log as `fallback`. */
+export function reasonText(value: unknown, fallback: string) {
+  if (value === undefined || value === null || (typeof value === 'string' && !value.trim())) return fallback;
+  return text(value, 'reason', 1000, 1);
+}
 export function choice<T extends string>(value: unknown, values: readonly T[], name: string): T {
   if (typeof value !== 'string' || !values.includes(value as T)) throw new HttpError(400, `Check ${name}.`);
   return value as T;

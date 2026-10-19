@@ -109,17 +109,3 @@ export async function removeProviderKey(member: Session, input: Record<string, u
     return { saved: true, note: 'Key removed. AI recipes stop within a minute unless the gateway fallback is configured.' };
   });
 }
-
-export async function checkProviderKey(member: Session, input: Record<string, unknown>, reason: string) {
-  authorize(member, 'integrations');
-  const name = provider(input.provider);
-  const row = (await query('SELECT ciphertext FROM ops.provider_secret WHERE provider=$1', [name])).rows[0];
-  if (!row) throw new HttpError(404, 'No key is stored.');
-  await throttle('provider-key-check:' + member.id, 10, 3600);
-  // The console never decrypts a stored key; the app verifies it on use. This records that a key is present and when.
-  await transaction(async db => {
-    await lockPermission(db, member, 'integrations');
-    await audit(db, member.id, 'integration.key_present', name, reason);
-  });
-  return { saved: true, note: 'A key is stored. Run an AI recipe in the app to exercise it.' };
-}

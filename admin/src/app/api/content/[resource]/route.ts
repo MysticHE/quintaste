@@ -1,6 +1,6 @@
 import { route } from '../../../../lib/route';
 import { session } from '../../../../lib/session';
-import { body, HttpError, json, offset, text, throttle } from '../../../../lib/http';
+import { body, HttpError, json, offset, text, throttle, reasonText } from '../../../../lib/http';
 import { menuAction, placeAction, placeDetail, placeList } from '../../../../lib/content-catalogue';
 import { eventAction, eventDetail, eventList, recipeAction, recipeDetail, recipeList } from '../../../../lib/content-recipes';
 import { gatheringList, marketItems, marketPhoto, marketReviews, memberAction, reviewList, reviewPhoto } from '../../../../lib/content-members';
@@ -40,7 +40,7 @@ export function POST(request: Request, context: Context) { return route(async ()
   }
   const input = await body(request, 262144), member = await session(request);
   await throttle('write:' + member.id, 30);
-  const reason = text(input.reason, 'reason for this change', 1000, 10);
+  const reason = reasonText(input.reason, resource + (typeof input.action === 'string' ? ' ' + input.action : '') + ' (no reason given)');
   if (resource === 'places') return json(await placeAction(member, input, reason));
   if (resource === 'menus') return json(await menuAction(member, input, reason));
   if (resource === 'recipes') return json(await recipeAction(member, input, reason));

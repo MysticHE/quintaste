@@ -85,7 +85,7 @@ export async function memberAction(member: Session, kind: keyof typeof memberAct
     else {
       const item = (await db.query('SELECT seller_id,status FROM market.listing WHERE id=$1 FOR UPDATE', [id])).rows[0];
       if (!item) throw new HttpError(404, 'Item not found.');
-      if (act === 'remove') { const told = await removeListing(db, item.seller_id, id, text(input.note, 'reason shown to the seller', 300, 5)); note = told ? `${told} buyer conversation(s) notified.` : undefined; }
+      if (act === 'remove') { const told = await removeListing(db, item.seller_id, id, (text(input.note || '', 'note for the seller', 300, 0) || 'This item does not meet the QuinTaste listing rules.')); note = told ? `${told} buyer conversation(s) notified.` : undefined; }
       // A restored item returns paused, so its seller checks it and resumes it themselves.
       else result = await db.query("UPDATE market.listing SET status='paused', removed_reason='', updated_at=now() WHERE id=$1 AND status='removed'", [id]);
     }

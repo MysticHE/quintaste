@@ -1,12 +1,12 @@
 import { route } from '../../../../lib/route';
 import { session, authorize } from '../../../../lib/session';
-import { body, HttpError, json, offset, text, throttle } from '../../../../lib/http';
+import { body, HttpError, json, offset, text, throttle, reasonText } from '../../../../lib/http';
 import { query } from '../../../../lib/db';
 import { overview } from '../../../../lib/overview';
 import { accounts, accountAction, changeControl, staffList, changeStaff } from '../../../../lib/management';
 import { caseList, caseDetails, createCase, updateCase } from '../../../../lib/cases';
 import { gatewayStatus, checkGateway } from '../../../../lib/gateway';
-import { providerKeyStatus, setProviderKey, removeProviderKey, checkProviderKey } from '../../../../lib/provider-keys';
+import { providerKeyStatus, setProviderKey, removeProviderKey } from '../../../../lib/provider-keys';
 import { sellerAction, sellerDetail, sellerList } from '../../../../lib/sellers';
 
 type Context = { params: Promise<{ resource: string }> };
@@ -25,7 +25,7 @@ export function GET(request: Request, context: Context) { return route(async () 
     authorize(member, 'operations');
     return json((await query("SELECT id,email FROM staff.member WHERE active AND role<>'auditor' ORDER BY email LIMIT 100")).rows);
   }
-  if (resource === 'controls') { authorize(member, 'operations'); return json((await query('SELECT * FROM ops.control ORDER BY key')).rows); }
+  if (resource === 'controls') { authorize(member, 'operations'); return json((await query("SELECT * FROM ops.control WHERE key NOT IN ('ai','identity') ORDER BY key")).rows); }
   if (resource === 'audit') {
     authorize(member, 'audit');
     const before = params.get('before') || '9223372036854775807';
@@ -40,15 +40,17 @@ export function POST(request: Request, context: Context) { return route(async ()
   const input = await body(request); const member = await session(request); const { resource } = await context.params;
   await throttle('write:' + member.id, 30);
   // Provider key changes are audited with a fixed reason (owner decision: no reason box on that panel); everything else needs one.
-  const reason = resource === 'integrations' && input.provider && !input.reason ? 'Gemini key ' + (input.action === 'remove' ? 'removed' : 'saved') + ' from Integrations'
-    : text(input.reason, 'reason for this change', 1000, 10);
+  const what = resource === 'integrations' && input.provider ? 'Gemini key ' + (input.action === 'remove' ? 'removed' : 'saved')
+    : resource === 'controls' ? (input.enabled ? 'Turned on ' : 'Turned off ') + String(input.key ?? '')
+    : resource + (typeof input.action === 'string' ? ' ' + input.action : '');
+  const reason = reasonText(input.reason, what + ' (no reason given)');
   if (resource === 'accounts') return json(await accountAction(member,input,reason));
   if (resource === 'cases') return json(input.id ? await updateCase(member,input,reason) : await createCase(member,input,reason));
   if (resource === 'sellers') return json(await sellerAction(member,input,reason));
   if (resource === 'controls') return json(await changeControl(member,input,reason));
   if (resource === 'staff') return json(await changeStaff(member,input,reason));
   if (resource === 'integrations') {
-    if (input.provider) return json(input.action === 'remove' ? await removeProviderKey(member,input,reason) : input.action === 'check' ? await checkProviderKey(member,input,reason) : await setProviderKey(member,input,reason));
+    if (input.provider) return json(input.action === 'remove' ? await removeProviderKey(member,input,reason) : await setProviderKey(member,input,reason));
     return json(await checkGateway(member,reason));
   }
   throw new HttpError(404, 'Not found.');

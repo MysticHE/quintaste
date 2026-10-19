@@ -57,7 +57,7 @@ function SellerDetail({ id, onSaved, onClose }: { id: string; onSaved: () => voi
       {!!live.length && <details><summary>Remove an item</summary><div className="editor"><Mutation endpoint="sellers" onSaved={saved} label="Remove item" tone="danger" reset
         values={f => ({ id, action: 'remove_listing', listingId: f.get('listingId'), note: f.get('note') })}>
         <label>Item<select name="listingId">{live.map(l => <option key={l.id} value={l.id}>{l.name || 'Untitled'}</option>)}</select></label>
-        <label>Note to seller<textarea name="note" rows={2} required minLength={5} maxLength={300}/></label></Mutation></div></details>}
+        <label>Note to seller<textarea name="note" rows={2} maxLength={300}/></label></Mutation></div></details>}
     </div>}
   </section>;
 }

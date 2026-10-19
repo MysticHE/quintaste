@@ -4,7 +4,7 @@ import sharp, { type OutputInfo } from 'sharp';
 import { query, transaction } from './db';
 import { audit } from './audit';
 import { authorize, lockPermission, type Session } from './session';
-import { HttpError, text, trustedWrite } from './http';
+import { HttpError, trustedWrite, reasonText } from './http';
 
 const types = new Set(['image/jpeg', 'image/png', 'image/webp']), limit = 8 * 1024 * 1024;
 async function readImage(request: Request) {
@@ -24,7 +24,7 @@ async function readImage(request: Request) {
 export async function uploadPhoto(member: Session, request: Request) {
   authorize(member, 'content');
   let reason: string;
-  try { reason = text(decodeURIComponent(request.headers.get('x-quintaste-reason') ?? ''), 'reason for this photo', 1000, 10); }
+  try { reason = reasonText(decodeURIComponent(request.headers.get('x-quintaste-reason') ?? ''), 'Photo uploaded (no reason given)'); }
   catch { throw new HttpError(400, 'Give a reason of at least 10 characters for this photo.'); }
   const input = await readImage(request);
   let output: { data: Buffer; info: OutputInfo };

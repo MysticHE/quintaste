@@ -91,7 +91,7 @@ export async function sellerAction(member: Session, input: Record<string, unknow
     const seller = (await db.query('SELECT user_id, status FROM market.seller WHERE user_id=$1 FOR UPDATE', [id])).rows[0];
     if (!seller) throw new HttpError(404, 'Seller not found.');
     let notified: number;
-    if (action === 'remove_listing') notified = await removeListing(db, id, uuid(input.listingId, 'item'), text(input.note, 'reason shown to the seller', 300, 5));
+    if (action === 'remove_listing') notified = await removeListing(db, id, uuid(input.listingId, 'item'), (text(input.note || '', 'note for the seller', 300, 0) || 'This item does not meet the QuinTaste listing rules.'));
     else notified = await decide(db, seller, action, note);
     await audit(db, member.id, 'seller.' + action, id, reason, { note, listing: input.listingId, notified });
     return { saved: true, note: notified ? `${notified} buyer conversation(s) notified.` : undefined };

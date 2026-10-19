@@ -30,11 +30,10 @@ export async function accountAction(member: Session, input: Record<string, unkno
 }
 export async function changeControl(member: Session, input: Record<string, unknown>, reason: string) {
   authorize(member, 'operations');
-  const key = choice(input.key, ['registration','discovery','menus','avatars','ai','ai_recipes','social','market','market_sellers','recipes','areas','games','identity'] as const, 'feature');
+  const key = choice(input.key, ['registration','discovery','menus','avatars','ai_recipes','social','market','market_sellers','recipes','areas','games'] as const, 'feature');
   if (typeof input.enabled !== 'boolean') throw new HttpError(400, 'Choose enabled or disabled.');
-  if (input.enabled && ['ai','identity'].includes(key)) throw new HttpError(409, 'This feature still requires production acceptance and cannot be enabled here.');
   const version = integer(input.version, 'control version', 1);
-  const notice = text(input.notice || '', 'member notice', 300, input.enabled ? 0 : 10);
+  const notice = text(input.notice || '', 'member notice', 300, 0);
   return transaction(async db => {
     await lockPermission(db, member, 'operations');
     const result = await db.query('UPDATE ops.control SET enabled=$1,notice=$2,version=version+1,updated_at=now() WHERE key=$3 AND version=$4', [input.enabled,notice,key,version]);
