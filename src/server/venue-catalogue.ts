@@ -98,9 +98,11 @@ export function searchCatalogue(search: DiscoverySearch, cursor: string | null, 
     const savedAlias = search.savedIds && [...hiddenAliases].some(([alias, id]) => id === venue.id && search.savedIds!.includes("catalogue-" + alias));
     if (search.savedIds && !search.savedIds.includes("catalogue-" + venue.id)
       && !savedAlias && !(venue.googlePlaceId && search.savedIds.includes("google-" + venue.googlePlaceId))) return [];
-    // Veg options places appear only when the member opts in, and never in an allium-free search.
+    // Veg Kitchen and Mixed Kitchen are separate lists; Saved and older clients sending includeOptions get both kinds.
+    // A Mixed Kitchen place never appears in an allium-free search.
     const options = venue.kitchen === "options";
-    if (options && (!search.includeOptions || search.alliumFree)) return [];
+    if (options && search.alliumFree) return [];
+    if (!search.savedIds && (search.kitchen === "mixed" ? !options : options && !search.includeOptions)) return [];
     // An options place passes Vegan when at least one published dish is labelled VG.
     const veganOptions = options && menuFacts(venue.id, staff, content).anyVegan;
     const dietMatch = search.diets ? !search.diets.length || search.diets.includes(venue.venueDiet) || veganOptions && search.diets.includes("Vegan")

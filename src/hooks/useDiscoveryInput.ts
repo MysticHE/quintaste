@@ -30,10 +30,10 @@ export function useDiscoveryInput(now: number) {
   const choices = useMemo(() => ({ diets: JSON.parse(dietKey), cuisines: JSON.parse(cuisineKey), priceLevels: JSON.parse(priceKey) }), [dietKey, cuisineKey, priceKey]);
   const savedKey = filters.savedOnly ? JSON.stringify(doc.saves.filter(item => item.kind === "place").map(item => item.id).sort()) : "";
   const savedIds = useMemo(() => savedKey ? JSON.parse(savedKey) as string[] : undefined, [savedKey]);
-  // Veg options places stay out of Explore until the member opts in; the flag is sent only when on.
-  const includeOptions = filters.includeOptions ? true : undefined;
-  const input = useMemo(() => ({ area, query, vegan, alliumFree, cuisine, priceLevel, ...choices, origin, center, radius, savedIds, includeOptions }),
-    [area, query, vegan, alliumFree, cuisine, priceLevel, choices, origin, center, radius, savedIds, includeOptions]);
+  // Veg Kitchen sends no kitchen field; Mixed Kitchen lists only places that also serve meat or seafood.
+  const kitchen = discovery.mixed ? "mixed" as const : undefined;
+  const input = useMemo(() => ({ area, query, vegan, alliumFree, cuisine, priceLevel, ...choices, origin, center, radius, savedIds, kitchen }),
+    [area, query, vegan, alliumFree, cuisine, priceLevel, choices, origin, center, radius, savedIds, kitchen]);
   const choose = (suggestion: LocationSuggestion) => {
     // Re-selecting the accepted location must not clear results when the search
     // input is unchanged: the focus effect would have no new input to reload.

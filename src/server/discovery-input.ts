@@ -9,7 +9,8 @@ export function discoveryInput(value: unknown): DiscoverySearch | undefined {
   if (!object(value) || !validSearchArea(value.area) || typeof value.query !== "string" || value.query.length > 100
     || /[\u0000-\u001f]/.test(value.query) || typeof value.vegan !== "boolean"
     || (value.alliumFree !== undefined && typeof value.alliumFree !== "boolean")
-    || (value.includeOptions !== undefined && typeof value.includeOptions !== "boolean") || !validatedSearch(value)) return;
+    || (value.includeOptions !== undefined && typeof value.includeOptions !== "boolean")
+    || (value.kitchen !== undefined && value.kitchen !== "mixed") || !validatedSearch(value)) return;
   if (value.cuisine !== undefined && !isDiscoveryCuisine(value.cuisine)
     || value.priceLevel !== undefined && value.priceLevel !== null && !isPriceLevel(value.priceLevel)) return;
   const cuisine = isDiscoveryCuisine(value.cuisine) ? value.cuisine : "All";
@@ -38,5 +39,5 @@ export function discoveryInput(value: unknown): DiscoverySearch | undefined {
   const radius = value.radius === undefined ? 5000 : value.radius;
   if (typeof radius !== "number" || ![1000, 3000, 5000, 10000].includes(radius)) return;
   return { area: value.area.trim(), query: value.query.trim(), vegan: value.vegan, diets, alliumFree: value.alliumFree === true, cuisine, cuisines, priceLevel, priceLevels, origin, center, radius, bounds: validatedSearch(value)?.bounds,
-    ...(value.includeOptions === true ? { includeOptions: true } : {}) };
+    ...(value.includeOptions === true ? { includeOptions: true } : {}), ...(value.kitchen === "mixed" ? { kitchen: "mixed" as const } : {}) };
 }

@@ -9,7 +9,7 @@ import type { PlaceReviewSummary } from "../../types/place-reviews";
 import { IconButton } from "../food/Controls";
 import { ReactionColumn } from "../ReactionBar";
 import { placeShareMessage } from "../../utils/place-share";
-import { dishCount, isVegOptions, vegOptionsSpoken } from "../../utils/venue-kitchen";
+import { dishCount, isVegOptions, mixedKitchenLabel, mixedKitchenSpoken } from "../../utils/venue-kitchen";
 import { MenuEntry } from "./MenuEntry";
 import { PhotoPostCard, PostFact, PostFacts } from "./PhotoPostCard";
 
@@ -18,8 +18,8 @@ export function CatalogueVenueCard({ venue, more, review }: { venue: CatalogueVe
   const id = "catalogue-" + venue.id, saved = isSaved("place", id), hours = venue.hours;
   const hoursSummary = hours?.summary || "Hours unconfirmed";
   const options = isVegOptions(venue), distance = venue.distanceKm !== undefined ? " · " + venue.distanceKm.toFixed(1) + " km" : "";
-  // A veg options place never reads as Vegetarian or Vegan: it is not a vegetarian kitchen.
-  const metadata = options ? vegOptionsSpoken + " · " + dishCount(venue.itemCount) + distance : venue.venueDiet + distance;
+  // A Mixed Kitchen place never reads as Vegetarian or Vegan: it is not a vegetarian kitchen.
+  const metadata = options ? mixedKitchenSpoken + " · " + dishCount(venue.itemCount) + distance : venue.venueDiet + distance;
   return <PhotoPostCard testID="catalogue-venue" titleTestID="catalogue-card-name" photo={{ path: venue.photo?.path }} title={venue.name}
     label={[venue.name, venue.address, metadata, hoursSummary].join(". ")} hint="Opens this branch's location and details"
     onPress={() => router.push({ pathname: "/place/[id]", params: { id } } as never)}
@@ -46,7 +46,7 @@ export function CatalogueVenueCard({ venue, more, review }: { venue: CatalogueVe
 export function VegOptionsChip() {
   const { theme } = usePreferences();
   return <View testID="veg-options-chip" style={[s.chip, { backgroundColor: theme.warningSoft }]}>
-    <Icon name="restaurant-outline" size={13} color={theme.warning} /><T variant="caption" color={theme.warning} style={common.bold}>Veg options</T>
+    <Icon name="restaurant-outline" size={13} color={theme.warning} /><T variant="caption" color={theme.warning} style={common.bold}>{mixedKitchenLabel}</T>
   </View>;
 }
 

@@ -18,6 +18,12 @@ import { activeFilterCount } from "../../utils/catalog";
 import { sameSearchContext } from "../../utils/discovery-search";
 import { usePlaceReviewSummaries } from "../../hooks/usePlaceReviewSummaries";
 import { useReactions } from "../../hooks/useReactions";
+import { useMixedKitchenCount } from "../../hooks/useMixedKitchenCount";
+import { SegmentedTabs } from "../../components/SegmentedTabs";
+import { LinkRow } from "../../components/LinkRow";
+import { discoveryRadii } from "../../config/discovery";
+
+const kitchens = [{ id: "veg", label: "Veg Kitchen" }, { id: "mixed", label: "Mixed Kitchen" }] as const;
 
 export function ExploreScreen() {
   const { discoveryScope, search, setSearch, filters, ready, readable } = useFood();
@@ -41,7 +47,10 @@ export function ExploreScreen() {
   }, [eligible, ensure, input]));
   const accepted = eligible && !!discovery.accepted && sameSearchContext(discovery.accepted, input);
   const currentRequest = !!discovery.requested && sameSearchContext(discovery.requested, input);
-  const venues = accepted ? discovery.venues : [], count = activeFilterCount(filters, draft.diet);
+  const venues = accepted ? discovery.venues : [], count = activeFilterCount(filters, draft.diet), total = discovery.catalogue?.total ?? 0;
+  // A short Veg Kitchen list points to Mixed Kitchen places for the same search; Saved already lists both kinds.
+  const mixedCount = useMixedKitchenCount(input, accepted && !discovery.mixed && !input.savedIds && total < 5);
+  const wider = point ? discoveryRadii.find(value => value > input.radius) : undefined;
   const reviews = usePlaceReviewSummaries(venues.map(venue => venue.id), accepted);
   useReactions("place", accepted ? venues.map(venue => venue.id) : []);
   return <Screen back={false} compact>
@@ -51,6 +60,8 @@ export function ExploreScreen() {
       <IconButton label="Search By My Location" icon="locate-outline" disabled={!readable} loading={nearby.busy}
         selected={!!input.origin} onPress={() => void nearby.locate()} />
       <MeButton /></View>
+    <View style={common.row}><SegmentedTabs label="Kitchen" options={kitchens} value={discovery.mixed ? "mixed" : "veg"}
+      onChange={id => discovery.setMixed(id === "mixed")} /></View>
     <View testID="explore-search-context" style={s.context}>
     {!!point && !privateMissing && <View testID="explore-location-label" style={[s.locationLabel, { backgroundColor: theme.accentSoft }]}>
       <Icon name="location-outline" size={14} color={theme.foreground} />
@@ -75,10 +86,16 @@ export function ExploreScreen() {
     {accepted && !!venues.length && <View style={common.row}><T variant="caption" muted style={common.flex}>{venues.length} of {discovery.catalogue?.total} published places</T>
       <IconButton label="Refresh Places" icon="refresh-outline" loading={discovery.busy} onPress={() => void discovery.load(input, true)} /></View>}
     {accepted && discovery.capped && <Button label="Load More Places" variant="secondary" loading={discovery.busy} onPress={discovery.loadMore} />}
-    {accepted && !discovery.busy && !venues.length && <View style={common.stack}>
+    {accepted && !discovery.busy && !venues.length && discovery.mixed && <View style={common.stack}>
+      <T variant="subtitle" accessibilityRole="header">No Mixed Kitchen Places Here</T>
+      {!!wider && <Button label="Widen Area" variant="secondary" onPress={() => { void discovery.setRadius(wider); }} />}
+      <Button label="Edit Filters" variant="secondary" onPress={() => router.push("/filters")} /></View>}
+    {accepted && !discovery.busy && !venues.length && !discovery.mixed && <View style={common.stack}>
       <T variant="subtitle" accessibilityRole="header">No Published Places Match This Search</T>
       <T muted>Try a wider distance, another location or fewer filters.</T>
       <Button label="Edit Filters" variant="secondary" onPress={() => router.push("/filters")} /></View>}
+    {!!mixedCount && <LinkRow label={"Mixed Kitchen nearby · " + mixedCount + (mixedCount === 1 ? " place" : " places")}
+      icon="arrow-forward" hint="Shows the Mixed Kitchen list" onPress={() => discovery.setMixed(true)} />}
     {accepted && !!discovery.catalogue?.locationGaps && <T variant="caption" muted>Some published places have unconfirmed map locations and are omitted from nearby results.</T>}
   </Screen>;
 }

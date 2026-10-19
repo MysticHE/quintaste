@@ -18,7 +18,7 @@ import { PrivateNote } from "../../components/food/DetailParts";
 import { useCatalogueVenue } from "../../hooks/useCatalogueVenue";
 import { useFood } from "../../state/Food";
 import { usePreferences } from "../../state/Preferences";
-import { isVegOptions } from "../../utils/venue-kitchen";
+import { isVegOptions, mixedKitchenLabel } from "../../utils/venue-kitchen";
 
 export function CataloguePlaceDetailScreen({ id }: { id: string }) {
   const { venue, busy, error, offline, retry } = useCatalogueVenue(id);
@@ -49,7 +49,7 @@ export function CataloguePlaceDetailScreen({ id }: { id: string }) {
       </View> : <View style={[s.missing, { backgroundColor: theme.muted }]}><Icon name="image-outline" size={20} /><T variant="small" muted>Photo unavailable</T></View>}
       <ReactionBar kind="place" id={venue.id} name={venue.name} shareMessage={() => placeShareMessage(venue)} />
       <View style={[common.row, { flexWrap: "wrap", gap: 8 }]}>
-        {isVegOptions(venue) ? <StatusPill label="Veg options · Not a vegetarian kitchen" tone="warning" lines={2} /> : <StatusPill label={venue.venueDiet} />}
+        {isVegOptions(venue) ? <StatusPill label={mixedKitchenLabel} tone="warning" /> : <StatusPill label={venue.venueDiet} />}
         {!!venue.branch && !venue.address.toLowerCase().includes(venue.branch.toLowerCase()) && <T variant="caption" muted>{venue.branch}</T>}</View>
       {isVegOptions(venue) && <T testID="veg-options-notice" variant="small" muted>Also serves meat or seafood. Cooking tools may be shared.</T>}
       <View style={[s.overview, { backgroundColor: theme.card, borderColor: theme.border }]}>

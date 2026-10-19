@@ -33,10 +33,6 @@ export function DiscoveryFilterOptions({ filters, change, diets, selected, disab
       <DiscoveryToggle label={fivePungentLabel} accessibilityLabel={fivePungentSpoken + " venue claims"} checked={filters.noAlliums} disabled={disabled}
         onPress={() => change(current => ({ ...current, noAlliums: !current.noAlliums }))} />
     </FilterSection>
-    <FilterSection title="Place type" icon="restaurant-outline">
-      <DiscoveryToggle label="Also show veg options" checked={filters.includeOptions} disabled={disabled}
-        onPress={() => change(current => ({ ...current, includeOptions: !current.includeOptions }))} />
-    </FilterSection>
     <FilterSection title="Location" icon="location-outline">
       <Chips label="Search Around">{locations.filter(item => item.mode !== "selected" || selected || mode === "selected").map(item => <Chip key={item.mode} label={item.label} icon={item.icon} role="radio" compact style={s.locationChoice}
         disabled={disabled || item.mode === "selected" && !selected} selected={mode === item.mode}

@@ -16,6 +16,8 @@ export function catalogueRequestKey(search: DiscoverySearch, cursor: string | nu
 }
 export function useCatalogueDiscovery() {
   const [location, setLocation] = useState<SearchOrigin | null>(null);
+  // Veg Kitchen (false) opens every time; the choice is memory-only and scoped with this provider to the guest/profile.
+  const [mixed, setMixed] = useState(false);
   const { searchSelection: selection, setSearchSelection: setSelection, discoveryQuery: query, setDiscoveryQuery: setQuery, radius, setRadius } = useFood();
   const { offline } = useExploreLocal();
   const [catalogue, setCatalogue] = useState<CataloguePage | null>(null);
@@ -109,7 +111,7 @@ export function useCatalogueDiscovery() {
     active.current?.abort(); active.current = null; activeKey.current = ""; current.current = null; currentSearch.current = undefined; acceptedCheckedAt.current = 0;
     setCatalogue(null); setAccepted(undefined); setRequested(null); setQuery(""); setError(""); setBusy(false);
   }, [setQuery]);
-  return { location, setLocation, selection, setSelection, radius, setRadius,
+  return { location, setLocation, mixed, setMixed, selection, setSelection, radius, setRadius,
     requested, query, setQuery, busy, error, cached, offline, load, ensure, loadMore, clear, accepted,
     venues: catalogue?.venues ?? [], catalogue, capped: !!catalogue?.nextCursor };
 }
