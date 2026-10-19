@@ -1,6 +1,6 @@
 import { route } from '../../../../lib/route';
 import { session, authorize } from '../../../../lib/session';
-import { body, HttpError, json, text, throttle } from '../../../../lib/http';
+import { body, HttpError, json, offset, text, throttle } from '../../../../lib/http';
 import { query } from '../../../../lib/db';
 import { overview } from '../../../../lib/overview';
 import { accounts, accountAction, changeControl, staffList, changeStaff } from '../../../../lib/management';
@@ -16,7 +16,7 @@ export function GET(request: Request, context: Context) { return route(async () 
   const params = new URL(request.url).searchParams;
   if (resource === 'overview') return json(await overview(member));
   if (resource === 'accounts') return json(await accounts(member, params.get('q') || ''));
-  if (resource === 'cases') return json(params.has('id') ? await caseDetails(member, text(params.get('id'),'case id',36)) : await caseList(member, params.get('status') || ''));
+  if (resource === 'cases') return json(params.has('id') ? await caseDetails(member, text(params.get('id'),'case id',36)) : await caseList(member, params.get('status') || '', offset(params.get('page'))));
   if (resource === 'sellers') return json(params.has('id') ? await sellerDetail(member, text(params.get('id'),'seller id',64)) : await sellerList(member, params.get('status') || ''));
   if (resource === 'integrations') return json(await gatewayStatus(member));
   if (resource === 'staff') return json(await staffList(member));

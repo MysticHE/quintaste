@@ -1,14 +1,24 @@
 'use client';
+import Link from 'next/link';
 import { useResource } from './client';
-import { Feedback, Table } from './Primitives';
+import { Feedback } from './Primitives';
+import { Icon } from './Icon';
+import { featureName } from './Operations';
 
+type Data = { users: number | null; queues: { kind: string; count: number; overdue: number }[] | null; features: { key: string; enabled: boolean }[] | null };
 export default function Overview() {
-  const resource = useResource<{ users: number | null; queues: { kind: string; count: number; overdue: number }[]; readiness: { title: string; state: string }[] }>('/api/manage/overview');
-  return <><Feedback {...resource} retry={resource.reload}/>{resource.data && <>
-    <div className="grid">{resource.data.users !== null && <div className="panel"><small>Customer accounts</small><div className="metric">{resource.data.users}</div><small>Registered on this deployment</small></div>}
-      <div className="panel"><small>Your open cases</small><div className="metric">{resource.data.queues.reduce((sum,q) => sum+q.count,0)}</div><small>Includes assigned cases you can access</small></div>
-      <div className="panel"><small>Past response target</small><div className="metric">{resource.data.queues.reduce((sum,q) => sum+q.overdue,0)}</div><small>Review and update the case owner</small></div></div>
-    <div className="panel"><h2>Review queues</h2><Table headings={['Queue','Open','Overdue']} rows={resource.data.queues.map(q => [q.kind,q.count,q.overdue])} empty="No open cases in your queues."/></div>
-    <div className="panel"><h2>Deployment readiness</h2><p className="muted">Connection and feature readiness are tracked separately. These states do not certify the whole product for launch.</p><Table headings={['Area','Current state']} rows={resource.data.readiness.map(r => [r.title,r.state])}/></div>
-  </>}</>;
+  const resource = useResource<Data>('/api/manage/overview'), d = resource.data;
+  const open = d?.queues?.reduce((sum, q) => sum + q.count, 0) ?? 0, overdue = d?.queues?.reduce((sum, q) => sum + q.overdue, 0) ?? 0;
+  return <><Feedback {...resource} retry={resource.reload}/>{d && <div className="stack">
+    {(d.users !== null || d.queues) && <ul className="list">
+      {d.users !== null && <li><Icon name="accounts"/><span>Members</span><span className="value strong">{d.users.toLocaleString()}</span></li>}
+      {d.queues && <li><Icon name="cases"/><span>Open cases</span><span className="value strong">{open}</span></li>}
+      {d.queues && <li><Icon name="warning"/><span>Overdue</span><span className={'value strong'}>{overdue ? <span className="badge warn">{overdue}</span> : 0}</span></li>}
+    </ul>}
+    {!!d.queues?.length && <><h2 className="section-title">Queues</h2><ul className="list">{d.queues.map(q =>
+      <li key={q.kind}><span className="badge">{q.kind}</span><span className="value">{q.count}{q.overdue ? <> · <span className="badge warn">{q.overdue} overdue</span></> : null}</span></li>)}</ul></>}
+    {d.features && <><h2 className="section-title">Features</h2><ul className="list">{d.features.map(f =>
+      <li key={f.key}><span>{featureName(f.key)}</span><span className="value"><span className={'badge ' + (f.enabled ? 'good' : '')}>{f.enabled ? 'On' : 'Off'}</span></span></li>)}</ul>
+      <div><Link className="button" href="/console/controls"><Icon name="controls" size={16}/>Manage</Link></div></>}
+  </div>}</>;
 }

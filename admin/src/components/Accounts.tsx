@@ -1,20 +1,35 @@
 'use client';
 import { useState } from 'react';
 import { date, useResource } from './client';
-import { Feedback, Mutation, Table } from './Primitives';
+import { Empty, Feedback, Mutation, SearchField, Table, reveal } from './Primitives';
+import { Icon } from './Icon';
 
 type Account = { id: string; username: string; name: string; created_at: string; restricted: boolean };
 export default function Accounts() {
-  const [search,setSearch] = useState(''); const [query,setQuery] = useState(''); const [selected,setSelected] = useState<Account | null>(null);
+  const [search, setSearch] = useState(''); const [query, setQuery] = useState(''); const [selectedId, setSelectedId] = useState<string | null>(null);
   const resource = useResource<Account[]>(query ? '/api/manage/accounts?q=' + encodeURIComponent(query) : null);
-  return <><form className="search" onSubmit={e => { e.preventDefault(); setQuery(search.trim()); setSelected(null); }}>
-    <label>Find a customer by username<input value={search} onChange={e => setSearch(e.target.value)} minLength={2} maxLength={30} required placeholder="At least two characters"/></label><button className="primary">Search accounts</button></form>
+  const selected = resource.data?.find(row => row.id === selectedId) ?? null;
+  function submit() {
+    const term = search.trim(); if (term.length < 2) return;
+    if (term === query) resource.reload(); else setQuery(term);
+    setSelectedId(null);
+  }
+  return <>
+    <form className="toolbar" onSubmit={e => { e.preventDefault(); submit(); }}>
+      <SearchField label="Username" value={search} onChange={setSearch} maxLength={30} autoFocus/>
+      <button className="primary" disabled={search.trim().length < 2}>Search</button>
+    </form>
     <Feedback {...resource} retry={resource.reload}/>
-    {resource.data && <div className="panel"><Table headings={['Username','Display name','Created','Access','Action']} rows={resource.data.map(row => [row.username,row.name,date(row.created_at),<span className={'badge ' + (row.restricted ? 'warn' : 'good')} key="status">{row.restricted ? 'Restricted' : 'Active'}</span>,<button key="select" onClick={() => setSelected(row)}>Manage {row.username}</button>])}/><small>Up to 50 matching accounts. Refine your search for more precise results.</small></div>}
-    {selected && <section className="panel"><h2>Manage {selected.username}</h2><p className="muted">Suspending access revokes sessions and blocks new sign-ins. Restoring access requires the customer to sign in again.</p>
-      <Mutation key={selected.id} endpoint="accounts" onSaved={resource.reload} values={f => ({ id:selected.id,action:f.get('action') })}>
-        <label>Action<select name="action"><option value="revoke_sessions">Sign out all devices</option><option value="suspend">Suspend account access</option><option value="restore">Restore account access</option></select></label>
+    {!query && <div className="panel"><Empty icon="accounts">Search by username</Empty></div>}
+    {query && resource.data && <div className="panel"><Table headings={['Username', 'Name', 'Joined', 'Status', '']} empty="No matches"
+      rows={resource.data.map(row => [<strong key="u">{row.username}</strong>, row.name, date(row.created_at),
+        <span className={'badge ' + (row.restricted ? 'warn' : 'good')} key="s">{row.restricted ? 'Suspended' : 'Active'}</span>,
+        <button type="button" key="m" aria-label={'Manage ' + row.username} onClick={() => setSelectedId(row.id)}>Manage</button>])}/></div>}
+    {selected && <section className="panel" ref={reveal}><div className="row spread"><h2>{selected.username}</h2>
+      <button type="button" className="icon-button" aria-label="Close" onClick={() => setSelectedId(null)}><Icon name="close"/></button></div>
+      <Mutation key={selected.id + selected.restricted} endpoint="accounts" onSaved={resource.reload} label="Apply" values={f => ({ id: selected.id, action: f.get('action') })}>
+        <label>Action<select name="action" defaultValue={selected.restricted ? 'restore' : 'revoke_sessions'}>
+          <option value="revoke_sessions">Sign out all devices</option><option value="suspend">Suspend</option><option value="restore">Restore</option></select></label>
       </Mutation></section>}
-    <p className="muted">Password and recovery-code values are never available in this workspace.</p>
   </>;
 }

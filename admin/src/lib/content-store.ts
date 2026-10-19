@@ -36,9 +36,9 @@ export const newerBelow = (row: StaffRow | null, hash: string | undefined) => !!
  */
 export async function writeItem(member: Session, kind: Kind, id: string, expected: number, act: string, reason: string,
   change: (row: StaffRow | undefined) => Next, details: Record<string, unknown> = {}) {
-  authorize(member, 'content', true);
+  authorize(member, 'content');
   return transaction(async db => {
-    await lockPermission(db, member, 'content', true);
+    await lockPermission(db, member, 'content');
     const row = (await db.query<StaffRow>('SELECT kind,id,origin,hidden,data,version FROM content.item WHERE kind=$1 AND id=$2 FOR UPDATE', [kind, id])).rows[0];
     if ((row?.version ?? 0) !== expected) throw new HttpError(409, 'This content changed since you opened it. Refresh before saving.');
     const next = change(row);

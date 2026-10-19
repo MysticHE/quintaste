@@ -84,10 +84,10 @@ async function decide(db: PoolClient, seller: Record<string, unknown>, action: t
 }
 export async function sellerAction(member: Session, input: Record<string, unknown>, reason: string) {
   const action = choice(input.action, [...decisions, 'remove_listing'] as const, 'seller action');
-  authorize(member, 'sellers', true);
+  authorize(member, 'sellers');
   const id = userId(input.id), note = text(input.note || '', 'note for the seller', 300, 0);
   return transaction(async db => {
-    await lockPermission(db, member, 'sellers', true);
+    await lockPermission(db, member, 'sellers');
     const seller = (await db.query('SELECT user_id, status FROM market.seller WHERE user_id=$1 FOR UPDATE', [id])).rows[0];
     if (!seller) throw new HttpError(404, 'Seller not found.');
     let notified: number;

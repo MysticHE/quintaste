@@ -2,6 +2,9 @@ import 'server-only';
 import { createHash, randomBytes } from 'node:crypto';
 import { settings } from './config';
 import { query } from './db';
+import { pageSize } from './paging';
+
+export { pageSize };
 
 export class HttpError extends Error { constructor(public status: number, message: string) { super(message); } }
 export const hash = (value: string) => createHash('sha256').update(value).digest('hex');
@@ -48,6 +51,11 @@ export function choice<T extends string>(value: unknown, values: readonly T[], n
 export function integer(value: unknown, name: string, min = 0, max = 100000) {
   if (typeof value !== 'number' || !Number.isSafeInteger(value) || value < min || value > max) throw new HttpError(400, `Check ${name}.`);
   return value;
+}
+/** Row offset for a page of staff list rows; anything malformed reads as the first page. */
+export function offset(value: string | null) {
+  const page = /^\d{1,4}$/.test(value ?? '') ? Number(value) : 0;
+  return Math.min(page, 1000) * pageSize;
 }
 export function uuid(value: unknown, name: string) {
   const id = text(value, name, 36, 36);

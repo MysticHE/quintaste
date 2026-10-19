@@ -1,7 +1,8 @@
 'use client';
 import { useState, type ReactNode } from 'react';
 import { date, useResource } from '../client';
-import { Feedback } from '../Primitives';
+import { Empty, Feedback, Pager, SearchField, Segmented } from '../Primitives';
+import { Icon } from '../Icon';
 import { ActionBar } from './Parts';
 
 type Review = { id: string; place: string; rating: number; body: string; created_at: string; hidden_reason: string | null; username: string; photos: string[]; reports: number };
@@ -10,32 +11,32 @@ type Gathering = { id: string; title: string; area: string; venue: string; start
 type Item = { id: string; name: string; kind: string; category: string; price_cents: number; portion: string; description: string; ingredients: string; contains: string[];
   may_contain: string[]; date_mark: string | null; status: string; removed_reason: string; updated_at: string; trading_name: string; username: string; shop_status: string; photos: string[]; reports: number };
 type ShopReview = { id: string; rating: number; review: string; diet_matched: boolean | null; completed_at: string; buyer_name: string; shop: string };
-const stars = (n: number) => '★'.repeat(n) + '☆'.repeat(5 - n);
+const Rating = ({ value }: { value: number }) => <span className="row rating" aria-label={value + ' out of 5'}><Icon name="star" size={14} filled/>{value}</span>;
 
 /** Status chips, a search box and a list of member posts, each with its own audited hide or restore. */
 export function Moderation<T extends { id: string }>({ path, statuses, search = true, render, act }: {
   path: string; statuses: [string, string][]; search?: boolean; render: (row: T) => ReactNode; act: (row: T, status: string, done: () => void) => ReactNode;
 }) {
-  const [status, setStatus] = useState(statuses[0][0]), [draft, setDraft] = useState(''), [q, setQ] = useState('');
-  const resource = useResource<T[]>(`${path}?status=${status}&q=${encodeURIComponent(q)}`);
+  const [status, setStatus] = useState(statuses[0][0]), [draft, setDraft] = useState(''), [q, setQ] = useState(''), [page, setPage] = useState(0);
+  const resource = useResource<T[]>(`${path}?status=${status}&q=${encodeURIComponent(q)}&page=${page}`);
   return <section className="panel stack">
-    <div className="row spread"><div className="chips" role="group" aria-label="Status">{statuses.map(([value, label]) =>
-      <button type="button" key={value} aria-pressed={status === value} onClick={() => setStatus(value)}>{label}</button>)}</div>
-      {search && <form className="row" onSubmit={e => { e.preventDefault(); setQ(draft); }}><label className="grow">Search<input type="search" value={draft} onChange={e => setDraft(e.target.value)}/></label><button>Search</button></form>}</div>
+    <div className="toolbar spread"><Segmented label="Status" options={statuses} value={status} onChange={v => { setStatus(v); setPage(0); }}/>
+      {search && <form className="row grow" style={{ justifyContent: 'flex-end' }} onSubmit={e => { e.preventDefault(); setQ(draft.trim()); setPage(0); }}>
+        <SearchField label="Search" value={draft} onChange={setDraft} maxLength={60}/><button>Search</button></form>}</div>
     <Feedback {...resource} retry={resource.reload}/>
     {resource.data && (resource.data.length ? <ul className="cards">{resource.data.map(row => <li key={row.id} className="card stack">{render(row)}{act(row, status, resource.reload)}</li>)}</ul>
-      : <div className="empty">Nothing here.</div>)}
+      : <Empty icon="content">Nothing here</Empty>)}
+    {resource.data && <Pager page={page} setPage={setPage} count={resource.data.length}/>}
   </section>;
 }
 export const toggle = (resource: string, id: string, hidden: boolean, done: () => void, hideLabel = 'Hide', extra?: ReactNode) =>
-  <details><summary>{hidden ? 'Show to members again' : hideLabel}</summary>
+  <details><summary>{hidden ? 'Show again' : hideLabel}</summary>
     <ActionBar resource={resource} payload={() => ({ id })} onDone={done} actions={[hidden ? { action: 'restore', label: 'Show again' } : { action: 'hide', label: hideLabel, tone: 'danger' }]}>{extra}</ActionBar></details>;
 
 export function Reviews() {
-  return <><div className="notice">Hide a review that breaks the rules; its author still sees it. Member reviews are never edited by staff.</div>
-    <Moderation<Review> path="/api/content/reviews" statuses={[['visible', 'Visible'], ['hidden', 'Hidden']]} render={r => <>
-      <div className="row spread"><strong>{r.place}</strong>{!!r.reports && <span className="badge warn">{r.reports} open {r.reports === 1 ? 'report' : 'reports'}</span>}</div>
-      <div><span aria-label={r.rating + ' out of 5'}>{stars(r.rating)}</span> <span className="muted">{r.username} · {date(r.created_at)}</span></div>
+  return <><Moderation<Review> path="/api/content/reviews" statuses={[['visible', 'Visible'], ['hidden', 'Hidden']]} render={r => <>
+      <div className="row spread"><strong>{r.place}</strong>{!!r.reports && <span className="badge warn">{r.reports} {r.reports === 1 ? 'report' : 'reports'}</span>}</div>
+      <div className="row"><Rating value={r.rating}/><small>{r.username} · {date(r.created_at)}</small></div>
       {r.body && <p className="detail">{r.body}</p>}
       {/* eslint-disable-next-line @next/next/no-img-element -- staff view of member photos */}
       {!!r.photos.length && <div className="row thumbs">{r.photos.map(p => <img key={p} src={'/api/content/review-photo?id=' + p} alt="Review photo" width={96} height={96}/>)}</div>}
@@ -43,34 +44,31 @@ export function Reviews() {
       act={(r, status, done) => toggle('reviews', r.id, status === 'hidden', done, 'Hide review')}/></>;
 }
 export function Gatherings() {
-  return <><div className="notice">Hiding a gathering takes it out of Events and stops new people joining. Its organiser still sees it.</div>
-    <Moderation<Gathering> path="/api/content/gatherings" statuses={[['upcoming', 'Upcoming'], ['past', 'Past or cancelled'], ['hidden', 'Hidden']]} render={g => <>
+  return <><Moderation<Gathering> path="/api/content/gatherings" statuses={[['upcoming', 'Upcoming'], ['past', 'Past'], ['hidden', 'Hidden']]} render={g => <>
       <div className="row spread"><strong>{g.title}</strong><span className="badge">{g.state}</span></div>
-      <div className="muted">{g.starts ? date(g.starts) : 'No time set'} · {[g.venue, g.area].filter(Boolean).join(', ')} · by {g.organiser}</div>
+      <small>{g.starts ? date(g.starts) : '—'} · {[g.venue, g.area].filter(Boolean).join(', ')} · {g.organiser}</small>
       <div>{g.joined} of {g.seats} seats · {g.diet} · {g.food} · {g.pay}</div>
-      {!!g.reports && <span className="badge warn">{g.reports} open reports about the organiser</span>}
+      {!!g.reports && <span className="badge warn">{g.reports} {g.reports === 1 ? 'report' : 'reports'}</span>}
       {g.hidden_reason && <p className="muted">Hidden: {g.hidden_reason}</p>}</>}
       act={(g, status, done) => toggle('gatherings', g.id, status === 'hidden', done, 'Hide gathering')}/></>;
 }
 export function Market() {
   const [view, setView] = useState<'items' | 'reviews'>('items');
-  return <><div className="chips" role="group" aria-label="Market content">{(['items', 'reviews'] as const).map(v =>
-    <button type="button" key={v} aria-pressed={view === v} onClick={() => setView(v)}>{v === 'items' ? 'Items' : 'Shop reviews'}</button>)}</div>
+  return <><Segmented label="Market" options={[['items', 'Items'], ['reviews', 'Shop reviews']]} value={view} onChange={v => setView(v as 'items' | 'reviews')}/>
     {view === 'items' ? <MarketItems/> : <Moderation<ShopReview> path="/api/content/market-reviews" search={false} statuses={[['visible', 'Visible'], ['hidden', 'Hidden']]} render={r => <>
-      <strong>{r.shop}</strong><div><span aria-label={r.rating + ' out of 5'}>{stars(r.rating)}</span> <span className="muted">{r.buyer_name} · {date(r.completed_at)}{r.diet_matched === false ? ' · Said the diet label did not match' : ''}</span></div>
+      <strong>{r.shop}</strong><div className="row"><Rating value={r.rating}/><small>{r.buyer_name} · {date(r.completed_at)}</small>{r.diet_matched === false && <span className="badge warn">Diet mismatch</span>}</div>
       <p className="detail">{r.review}</p></>} act={(r, status, done) => toggle('market-reviews', r.id, status === 'hidden', done, 'Hide review text')}/>}</>;
 }
 function MarketItems() {
-  return <><div className="notice">Removing an item cancels its open orders and tells those buyers. A restored item returns paused so its seller can check it and resume it. Shops are managed in Market sellers.</div>
-    <Moderation<Item> path="/api/content/market" statuses={[['active', 'Active'], ['paused', 'Paused'], ['draft', 'Drafts'], ['removed', 'Removed']]} render={i => <>
+  return <><Moderation<Item> path="/api/content/market" statuses={[['active', 'Active'], ['paused', 'Paused'], ['draft', 'Draft'], ['removed', 'Removed']]} render={i => <>
       <div className="row spread"><strong>{i.name || 'Untitled'}</strong><span>S${(i.price_cents / 100).toFixed(2)}{i.portion ? ' · ' + i.portion : ''}</span></div>
-      <div className="muted">{i.trading_name || i.username} ({i.shop_status}) · {i.kind === 'prepacked' ? 'Sealed pack' : 'Home-cooked'} · {i.category} · updated {date(i.updated_at)}</div>
+      <small>{i.trading_name || i.username} ({i.shop_status}) · {i.kind === 'prepacked' ? 'Sealed pack' : 'Home-cooked'} · {i.category} · {date(i.updated_at)}</small>
       {/* eslint-disable-next-line @next/next/no-img-element -- staff view of listing photos */}
       {!!i.photos.length && <div className="row thumbs">{i.photos.map(slot => <img key={slot} src={`/api/content/market-photo?id=${i.id}&slot=${slot}`} alt={slot + ' photo'} width={96} height={96}/>)}</div>}
       {i.description && <p className="detail">{i.description}</p>}
-      <details><summary>Ingredients and labels</summary><p className="detail">{i.ingredients || 'Not given'}</p>
-        <p className="muted">Contains: {i.contains.join(', ') || 'none declared'} · May contain: {i.may_contain.join(', ') || 'none declared'}{i.date_mark ? ' · Date mark ' + i.date_mark : ''}</p></details>
-      {!!i.reports && <span className="badge warn">{i.reports} open reports</span>}
+      <details><summary>Ingredients</summary><p className="detail">{i.ingredients || '—'}</p>
+        <small>Contains: {i.contains.join(', ') || '—'} · May contain: {i.may_contain.join(', ') || '—'}{i.date_mark ? ' · ' + i.date_mark : ''}</small></details>
+      {!!i.reports && <span className="badge warn">{i.reports} {i.reports === 1 ? 'report' : 'reports'}</span>}
       {i.removed_reason && <p className="muted">Removed: {i.removed_reason}</p>}</>}
       act={(i, status, done) => status === 'removed' ? toggle('market', i.id, true, done)
         : <RemoveItem id={i.id} done={done}/>}/></>;
@@ -78,6 +76,6 @@ function MarketItems() {
 function RemoveItem({ id, done }: { id: string; done: () => void }) {
   const [note, setNote] = useState('');
   return <details><summary>Remove item</summary><ActionBar resource="market" onDone={done} payload={() => ({ id, note })}
-    actions={[{ action: 'remove', label: 'Remove and notify buyers', tone: 'danger' }]}>
-    <label>Reason shown to the seller<textarea value={note} onChange={e => setNote(e.target.value)} minLength={5} maxLength={300} rows={2}/></label></ActionBar></details>;
+    actions={[{ action: 'remove', label: 'Remove', tone: 'danger' }]}>
+    <label>Note to seller<textarea value={note} onChange={e => setNote(e.target.value)} minLength={5} maxLength={300} rows={2}/></label></ActionBar></details>;
 }

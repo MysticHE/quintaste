@@ -15,14 +15,14 @@ export async function gatewayStatus(member: Session) {
     generationEnabled: false, note: 'A connection check does not enable customer AI generation.' };
 }
 export async function checkGateway(member: Session, reason: string) {
-  authorize(member, 'integrations', true);
+  authorize(member, 'integrations');
   const config = settings(); const credential = secret('CLOUDFLARE_GATEWAY_TOKEN');
   if (!/^[a-f0-9]{32}$/.test(config.cloudflareAccount) || !/^[a-z0-9-]{1,64}$/.test(config.gateway) || !credential) {
     throw new HttpError(503, 'The gateway connection has not been configured on the server.');
   }
   await throttle('gateway-probe-daily', 3, 86400);
   await transaction(async db => {
-    await lockPermission(db, member, 'integrations', true);
+    await lockPermission(db, member, 'integrations');
     await audit(db, member.id, 'integration.check_started', 'openai', reason);
   });
   let status = 'network_error'; let httpStatus: number | null = null;

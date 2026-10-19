@@ -45,7 +45,7 @@ function recipe(id: string, input: unknown, base: Recipe | null, version: number
 }
 async function save(member: Session, kind: 'recipe' | 'event', input: Record<string, unknown>, reason: string, base: Packaged<Recipe | Event>[]) {
   const act = action(input.action, ['create', 'save', 'hide', 'restore', 'clear', 'delete'] as const), expected = expectedVersion(input.version);
-  authorize(member, 'content', true);
+  authorize(member, 'content');
   const build = (id: string, packaged: Packaged<Recipe | Event> | null, row?: StaffRow) =>
     kind === 'recipe' ? recipe(id, input.fields, (packaged?.data as Recipe) ?? null, row?.version ?? 0) : event(input.fields, id);
   if (act === 'create') {
@@ -54,6 +54,8 @@ async function save(member: Session, kind: 'recipe' | 'event', input: Record<str
     return { saved: true, id };
   }
   const id = contentId(input.id, kind);
+  // Hiding an unknown id would leave an orphan row that silently hides a later bot item with that id.
+  if (act !== 'save' && !base.some(b => b.data.id === id) && !(await staffRow(kind, id))) throw new HttpError(404, 'Not found. Refresh the list.');
   if (act !== 'save') return visibility(member, kind, id, expected, act, reason);
   const packaged = base.find(b => b.data.id === id) ?? null;
   return writeItem(member, kind, id, expected, act, reason, row => {

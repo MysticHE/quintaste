@@ -3,15 +3,15 @@ import type { PoolClient } from 'pg';
 import { query, transaction } from './db';
 import { audit } from './audit';
 import { authorize, lockPermission, type Session } from './session';
-import { choice, HttpError, integer, text, uuid } from './http';
+import { choice, HttpError, integer, pageSize, text, uuid } from './http';
 
 const kinds = ['report','harm','correction','incident','privacy'] as const;
 const statuses = ['open','triaged','investigating','resolved','dismissed'] as const;
-export async function caseList(member: Session, filter: string) {
+export async function caseList(member: Session, filter: string, skip = 0) {
   authorize(member, 'cases');
   return (await query(`SELECT c.*,m.email AS assignee FROM ops.case_record c LEFT JOIN staff.member m ON m.id=c.assigned_to
     WHERE ($1 IN ('owner','operator') OR c.assigned_to=$2) AND ($3='' OR c.status=$3)
-    ORDER BY c.due_at,c.id LIMIT 100`, [member.role, member.id, filter ? choice(filter, statuses, 'status') : ''])).rows;
+    ORDER BY c.status IN ('resolved','dismissed'),c.due_at,c.id LIMIT ${pageSize} OFFSET $4`, [member.role, member.id, filter ? choice(filter, statuses, 'status') : '', skip])).rows;
 }
 async function lockedCase(db: PoolClient, member: Session, id: string) {
   const result = await db.query('SELECT * FROM ops.case_record WHERE id=$1 FOR UPDATE', [id]);

@@ -14,11 +14,11 @@ export async function accounts(member: Session, search: string) {
     WHERE u.username ILIKE $1 ESCAPE '\\' ORDER BY u.username LIMIT 50`, [term.replace(/[\\%_]/g, '\\$&') + '%'])).rows;
 }
 export async function accountAction(member: Session, input: Record<string, unknown>, reason: string) {
-  authorize(member, 'accounts', true);
+  authorize(member, 'accounts');
   const id = text(input.id, 'account id', 128);
   const action = choice(input.action, ['suspend','restore','revoke_sessions'] as const, 'account action');
   return transaction(async db => {
-    await lockPermission(db, member, 'accounts', true);
+    await lockPermission(db, member, 'accounts');
     const found = await db.query('SELECT id FROM public."user" WHERE id=$1', [id]);
     if (!found.rowCount) throw new HttpError(404, 'Account not found.');
     if (action !== 'revoke_sessions') await db.query(`INSERT INTO ops.restriction(user_id,reason,active) VALUES($1,$2,$3)
@@ -29,32 +29,34 @@ export async function accountAction(member: Session, input: Record<string, unkno
   });
 }
 export async function changeControl(member: Session, input: Record<string, unknown>, reason: string) {
-  authorize(member, 'operations', true);
+  authorize(member, 'operations');
   const key = choice(input.key, ['registration','discovery','menus','avatars','ai','social','market','market_sellers','recipes','areas','games','identity'] as const, 'feature');
   if (typeof input.enabled !== 'boolean') throw new HttpError(400, 'Choose enabled or disabled.');
   if (input.enabled && ['ai','identity'].includes(key)) throw new HttpError(409, 'This feature still requires production acceptance and cannot be enabled here.');
   const version = integer(input.version, 'control version', 1);
   const notice = text(input.notice || '', 'member notice', 300, input.enabled ? 0 : 10);
   return transaction(async db => {
-    await lockPermission(db, member, 'operations', true);
+    await lockPermission(db, member, 'operations');
     const result = await db.query('UPDATE ops.control SET enabled=$1,notice=$2,version=version+1,updated_at=now() WHERE key=$3 AND version=$4', [input.enabled,notice,key,version]);
-    if (!result.rowCount) throw new HttpError(409, 'This setting changed. Refresh before saving.');
+    if (!result.rowCount) {
+      const exists = await db.query('SELECT 1 FROM ops.control WHERE key=$1', [key]);
+      throw exists.rowCount ? new HttpError(409, 'This setting changed. Refresh before saving.') : new HttpError(404, 'This feature is not installed.');
+    }
     await audit(db, member.id, 'control.changed', key, reason, { enabled: input.enabled, notice });
     return { saved: true };
   });
 }
 export async function staffList(member: Session) {
   authorize(member, 'staff');
-  return (await query(`SELECT m.id,m.email,m.role,m.active,m.created_at,
-    (SELECT count(*)::int FROM staff.credential c WHERE c.member_id=m.id) AS keys
+  return (await query(`SELECT m.id,m.email,m.role,m.active,m.created_at
     FROM staff.member m ORDER BY m.created_at LIMIT 100`)).rows;
 }
 export async function changeStaff(member: Session, input: Record<string, unknown>, reason: string) {
-  authorize(member, 'staff', true);
+  authorize(member, 'staff');
   const action = choice(input.action, ['invite','update','revoke_sessions'] as const, 'staff action');
   return transaction(async db => {
     await db.query('SELECT pg_advisory_xact_lock(1902914311)');
-    await lockPermission(db, member, 'staff', true);
+    await lockPermission(db, member, 'staff');
     let id: string;
     if (action === 'invite') {
       const email = text(input.email, 'Google email', 254).toLowerCase();

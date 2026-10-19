@@ -65,7 +65,21 @@ export function price(value: unknown): Price {
 }
 export function menuItem(value: unknown, id: string): MenuItem {
   const v = asRecord(value, 'dish'), category = text(v.category ?? '', 'category', 100, 0);
-  return { id, name: text(v.name, 'dish name', 300), ...(category ? { category } : {}), price: price(v.price), qualifier: '' };
+  const diet = v.diet === undefined || v.diet === null || v.diet === '' ? undefined : choice(v.diet, ['V', 'VG'] as const, 'dish label');
+  return { id, name: text(v.name, 'dish name', 300), ...(category ? { category } : {}), price: price(v.price), qualifier: '', ...(diet ? { diet } : {}) };
+}
+/** Dishes on the venue's full menu, used for "6 of 38"; empty clears it. */
+export function menuTotal(value: unknown) {
+  if (value === null || value === '' || value === undefined) return null;
+  const n = typeof value === 'number' ? value : Number(value);
+  if (!Number.isSafeInteger(n) || n < 1 || n > 2000) throw new HttpError(400, 'Enter the full menu dish count as a whole number from 1 to 2000.');
+  return n;
+}
+/** Every dish a veg options place shows must carry the venue's own V or VG label, so meat and seafood dishes never appear. */
+export function checkOptionsMenu(kitchen: 'options' | null | undefined, venueDiet: string | undefined, diets: (string | undefined)[]) {
+  if (kitchen == null) return;
+  if (diets.some(diet => diet !== 'V' && diet !== 'VG')) throw new HttpError(409, 'Label every dish V or VG before listing this place as veg options.');
+  if (venueDiet === 'Vegan' && diets.some(diet => diet !== 'VG')) throw new HttpError(409, 'A veg options place is Vegan only when every dish is VG.');
 }
 export function point(value: unknown) {
   if (value === null) return null;

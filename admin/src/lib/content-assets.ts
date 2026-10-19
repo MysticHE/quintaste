@@ -22,7 +22,7 @@ async function readImage(request: Request) {
 }
 /** Re-encodes an uploaded photo (strips location and camera metadata), stores it by SHA-256 and returns its public path. */
 export async function uploadPhoto(member: Session, request: Request) {
-  authorize(member, 'content', true);
+  authorize(member, 'content');
   let reason: string;
   try { reason = text(decodeURIComponent(request.headers.get('x-quintaste-reason') ?? ''), 'reason for this photo', 1000, 10); }
   catch { throw new HttpError(400, 'Give a reason of at least 10 characters for this photo.'); }
@@ -38,7 +38,7 @@ export async function uploadPhoto(member: Session, request: Request) {
   if (output.info.width < 320 || output.info.height < 240) throw new HttpError(400, 'Use a photo at least 320 by 240 pixels.');
   const sha = createHash('sha256').update(output.data).digest('hex');
   await transaction(async db => {
-    await lockPermission(db, member, 'content', true);
+    await lockPermission(db, member, 'content');
     await db.query('INSERT INTO content.asset(sha256,bytes,width,height,created_by) VALUES($1,$2,$3,$4,$5) ON CONFLICT DO NOTHING',
       [sha, output.data, output.info.width, output.info.height, member.id]);
     await audit(db, member.id, 'content.photo.upload', 'asset:' + sha, reason, { bytes: output.data.length });

@@ -1,14 +1,23 @@
 import 'server-only';
 import { query } from './db';
 import { authorize, type Session } from './session';
-import { HttpError, text } from './http';
-import { packagedMenu, packagedPlaces, type MenuItem, type Place } from './content-base';
+import { choice, HttpError, text } from './http';
+import { packagedMenu, packagedPlaces, type Menu, type MenuItem, type Place } from './content-base';
 import { action, contentId, expectedVersion, history, newerBelow, newId, staffRow, staffRows, staffState, visibility, writeItem, type StaffRow } from './content-store';
-import { asRecord, hours, menuItem, photo, point, url } from './content-validate';
+import { asRecord, checkOptionsMenu, hours, menuItem, menuTotal, photo, point, url } from './content-validate';
 
-type Patch = Partial<Place> & { sourceUrl?: string; base?: string };
-type MenuData = { items?: Record<string, { name?: string; category?: string; price?: MenuItem['price']; hidden?: boolean }>; added?: MenuItem[]; sourceUrl?: string; base?: string };
-const same = (a: unknown, b: unknown) => JSON.stringify(a) === JSON.stringify(b);
+// null clears the veg options kitchen or the full-menu count set by an earlier staff edit.
+type Patch = Omit<Partial<Place>, 'kitchen' | 'menuTotal'> & { kitchen?: 'options' | null; menuTotal?: number | null; sourceUrl?: string; base?: string };
+type MenuData = { items?: Record<string, { name?: string; category?: string; price?: MenuItem['price']; diet?: MenuItem['diet']; hidden?: boolean }>; added?: MenuItem[]; sourceUrl?: string; base?: string };
+/** The labels on every dish members see: packaged dishes after staff edits and hides, then added dishes. */
+const visibleDiets = (menu: Menu | null | undefined, data: MenuData) => [...(menu?.sections ?? []).flatMap(section => section.items.flatMap(item => {
+  const change = data.items?.[section.id + '/' + item.id];
+  return change?.hidden ? [] : [change?.diet ?? item.diet];
+})), ...(data.added ?? []).map(dish => dish.diet)];
+/** Deep equality that ignores object key order, so an untouched packaged field never reads as a staff edit. */
+const sorted = (_key: string, value: unknown) => value && typeof value === 'object' && !Array.isArray(value)
+  ? Object.fromEntries(Object.entries(value).sort(([a], [b]) => a < b ? -1 : a > b ? 1 : 0)) : value;
+const same = (a: unknown, b: unknown) => JSON.stringify(a, sorted) === JSON.stringify(b, sorted);
 const openReports = `SELECT split_part(subject_id,'|',1) AS subject, count(*)::int AS reports FROM ops.case_record
   WHERE kind='report' AND status NOT IN ('resolved','dismissed') AND subject_id LIKE 'place:catalogue:%' GROUP BY 1`;
 
@@ -22,7 +31,7 @@ export async function placeList(member: Session) {
     const s = staff.get(id), m = menu.get(id), patch = (s?.data ?? {}) as Patch;
     return { id, name: patch.name ?? fields.name, branch: patch.branch ?? fields.branch, address: patch.address ?? fields.address,
       hidden: !!s?.hidden, edited: s?.origin !== 'staff' && (!!m || Object.keys(patch).some(key => key !== 'base')), reports: reported.get(id) ?? 0,
-      updatedAt: [s?.updated_at, m?.updated_at].filter(Boolean).sort().at(-1) ?? null, ...extra };
+      updatedAt: [s?.updated_at, m?.updated_at].filter(Boolean).sort((a, b) => new Date(a!).getTime() - new Date(b!).getTime()).at(-1) ?? null, ...extra };
   };
   return [...rows.filter(r => r.origin === 'staff').map(r => row(r.id, {}, { origin: 'staff', dishes: ((menu.get(r.id)?.data as MenuData)?.added ?? []).length })),
     ...base.map(({ hash, data }) => row(data.id, data, { origin: 'packaged', dishes: data.itemCount, newer: newerBelow(staff.get(data.id) ?? null, hash) }))];
@@ -48,17 +57,19 @@ async function placeFields(input: Record<string, unknown>, base: Place | null) {
   const postalCode = text(f.postalCode, 'postal code', 6, 6);
   if (!/^\d{6}$/.test(postalCode)) throw new HttpError(400, 'Enter a six-digit postal code.');
   const pictured = f.photo === undefined ? undefined : photo(f.photo);
+  const kitchen = f.kitchen === undefined || f.kitchen === null || f.kitchen === '' ? null : choice(f.kitchen, ['options'] as const, 'place type');
+  if (kitchen && f.alliumFreeClaim === true) throw new HttpError(400, 'A veg options place cannot claim allium-free food.');
   if (pictured && pictured.path !== base?.photo?.path
     && !(await query('SELECT 1 FROM content.asset WHERE sha256=$1', [pictured.path.split('/').pop()!.slice(0, 64)])).rowCount) throw new HttpError(400, 'Upload the photo again.');
   return { name: text(f.name, 'name', 300), branch: text(f.branch, 'branch', 300), address: text(f.address, 'address', 500), postalCode,
     aliases: String(f.aliases ?? '').split(',').map(a => a.trim()).filter(Boolean).slice(0, 10).map(a => text(a, 'other name', 300)),
     point: f.point === undefined ? base?.point ?? null : point(f.point), venueDiet: f.venueDiet === 'Vegan' ? 'Vegan' as const : 'Vegetarian' as const,
-    alliumFreeClaim: f.alliumFreeClaim === true, ...(f.hours !== undefined ? { hours: hours(f.hours) } : {}), ...(pictured !== undefined ? { photo: pictured } : {}) };
+    alliumFreeClaim: f.alliumFreeClaim === true, kitchen, menuTotal: menuTotal(f.menuTotal), ...(f.hours !== undefined ? { hours: hours(f.hours) } : {}), ...(pictured !== undefined ? { photo: pictured } : {}) };
 }
 /** Save keeps only the fields that differ from the packaged place, so bot updates to untouched fields still reach members. */
 export async function placeAction(member: Session, input: Record<string, unknown>, reason: string) {
   const act = action(input.action, ['create', 'save', 'hide', 'restore', 'clear', 'delete'] as const), expected = expectedVersion(input.version);
-  authorize(member, 'content', true);
+  authorize(member, 'content');
   if (act === 'create') {
     const fields = await placeFields(input, null), id = newId(fields.name + ' ' + fields.branch);
     const sourceUrl = url(asRecord(input.fields, 'place details').sourceUrl, 'the place source');
@@ -66,10 +77,19 @@ export async function placeAction(member: Session, input: Record<string, unknown
     return { saved: true, id, note: 'Place created. Add at least one dish so it appears in Explore.' };
   }
   const id = contentId(input.id, 'place');
+  const base = (await packagedPlaces()).find(p => p.data.id === id) ?? null;
   if (act !== 'save') {
+    if (!base && !(await staffRow('place', id))) throw new HttpError(404, 'Place not found.');
+    // Reverting to the original place must not expose unlabelled dishes at a veg-options venue.
+    if (act === 'clear' && base) {
+      const [menu, menuRow] = await Promise.all([packagedMenu(id), staffRow('menu', id)]);
+      checkOptionsMenu(base.data.kitchen, base.data.venueDiet, visibleDiets(menu?.data, (menuRow?.data ?? {}) as MenuData));
+    }
     return visibility(member, 'place', id, expected, act, reason);
   }
-  const base = (await packagedPlaces()).find(p => p.data.id === id) ?? null, fields = await placeFields(input, base?.data ?? null);
+  const [menu, menuRow] = await Promise.all([packagedMenu(id), staffRow('menu', id)]);
+  const fields = await placeFields(input, base?.data ?? null);
+  checkOptionsMenu(fields.kitchen, fields.venueDiet, visibleDiets(menu?.data, (menuRow?.data ?? {}) as MenuData));
   return writeItem(member, 'place', id, expected, act, reason, row => {
     if (row?.origin === 'staff') return { origin: 'staff', hidden: row.hidden, data: { ...fields, sourceUrl: url(asRecord(input.fields, 'place details').sourceUrl, 'the place source') } };
     if (!base) throw new HttpError(404, 'Place not found.');
@@ -82,10 +102,15 @@ export async function placeAction(member: Session, input: Record<string, unknown
 export async function menuAction(member: Session, input: Record<string, unknown>, reason: string) {
   const act = action(input.action, ['edit', 'hide', 'restore', 'add', 'edit-added', 'remove-added', 'clear'] as const), expected = expectedVersion(input.version);
   const id = contentId(input.id, 'place');
-  authorize(member, 'content', true);
-  const [base, place] = await Promise.all([packagedMenu(id), staffRow('place', id)]);
+  authorize(member, 'content');
+  const [base, place, places] = await Promise.all([packagedMenu(id), staffRow('place', id), packagedPlaces()]);
+  const placeData = (place?.data ?? {}) as Patch, basePlace = places.find(p => p.data.id === id)?.data;
+  const kitchen = placeData.kitchen !== undefined ? placeData.kitchen : basePlace?.kitchen;
   if (!base && place?.origin !== 'staff') throw new HttpError(404, 'Menu not found.');
-  if (act === 'clear') return visibility(member, 'menu', id, expected, 'clear', reason);
+  if (act === 'clear') {
+    checkOptionsMenu(kitchen, placeData.venueDiet ?? basePlace?.venueDiet, visibleDiets(base?.data, {}));
+    return visibility(member, 'menu', id, expected, 'clear', reason);
+  }
   const key = act === 'edit' || act === 'hide' || act === 'restore' ? text(input.key, 'dish', 250) : '';
   const original = key ? base?.data.sections.flatMap(s => s.items.map(item => ({ key: s.id + '/' + item.id, item }))).find(entry => entry.key === key)?.item : undefined;
   if (key && !original) throw new HttpError(404, 'Dish not found. Refresh the menu.');
@@ -96,6 +121,7 @@ export async function menuAction(member: Session, input: Record<string, unknown>
       if (next.name !== original!.name) change.name = next.name;
       if ((next.category ?? '') !== (original!.category ?? '')) change.category = next.category ?? '';
       if (!same(next.price, original!.price)) change.price = next.price;
+      if (next.diet && next.diet !== original!.diet) change.diet = next.diet;
       if (Object.keys(change).length) items[key] = change; else delete items[key];
     } else if (act === 'hide' || act === 'restore') {
       const rest = { ...items[key] };
@@ -114,6 +140,7 @@ export async function menuAction(member: Session, input: Record<string, unknown>
     const visible = (base?.data.sections ?? []).reduce((n, s) => n + s.items.filter(item => !items[s.id + '/' + item.id]?.hidden).length, 0) + added.length;
     if (!visible && act !== 'restore') throw new HttpError(409, 'This is the last dish. Hide the place instead, or add another dish first.');
     const next = { ...data, items, added, ...(base ? { base: base.hash } : {}) };
+    checkOptionsMenu(kitchen, placeData.venueDiet ?? basePlace?.venueDiet, visibleDiets(base?.data, next));
     return Object.keys(items).length || added.length || row?.hidden ? { origin: 'edit', hidden: !!row?.hidden, data: next } : null;
   }, { dish: key || input.dishId || null });
 }

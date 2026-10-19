@@ -1,6 +1,6 @@
 import { route } from '../../../../lib/route';
 import { session } from '../../../../lib/session';
-import { body, HttpError, json, text, throttle } from '../../../../lib/http';
+import { body, HttpError, json, offset, text, throttle } from '../../../../lib/http';
 import { menuAction, placeAction, placeDetail, placeList } from '../../../../lib/content-catalogue';
 import { eventAction, eventDetail, eventList, recipeAction, recipeDetail, recipeList } from '../../../../lib/content-recipes';
 import { gatheringList, marketItems, marketPhoto, marketReviews, memberAction, reviewList, reviewPhoto } from '../../../../lib/content-members';
@@ -16,15 +16,15 @@ const image = (bytes: Buffer | null) => {
 export function GET(request: Request, context: Context) { return route(async () => {
   const member = await session(request), { resource } = await context.params, params = new URL(request.url).searchParams;
   await throttle('read:' + member.id, 240);
-  const id = params.get('id'), status = params.get('status') || '', q = params.get('q') || '';
+  const id = params.get('id'), status = params.get('status') || '', q = params.get('q') || '', skip = offset(params.get('page'));
   if (resource === 'places') return json(id ? await placeDetail(member, id) : await placeList(member));
   if (resource === 'recipes') return json(id ? await recipeDetail(member, id) : await recipeList(member));
   if (resource === 'events') return json(id ? await eventDetail(member, id) : await eventList(member));
-  if (resource === 'reviews') return json(await reviewList(member, status, q));
-  if (resource === 'gatherings') return json(await gatheringList(member, status, q));
-  if (resource === 'market') return json(await marketItems(member, status, q));
-  if (resource === 'market-reviews') return json(await marketReviews(member, status));
-  if (resource === 'member-recipes') return json(await memberRecipeList(member, status, q));
+  if (resource === 'reviews') return json(await reviewList(member, status, q, skip));
+  if (resource === 'gatherings') return json(await gatheringList(member, status, q, skip));
+  if (resource === 'market') return json(await marketItems(member, status, q, skip));
+  if (resource === 'market-reviews') return json(await marketReviews(member, status, skip));
+  if (resource === 'member-recipes') return json(await memberRecipeList(member, status, q, skip));
   if (resource === 'review-photo') return image(await reviewPhoto(member, text(id, 'photo', 36)));
   if (resource === 'market-photo') return image(await marketPhoto(member, text(id, 'item', 36), text(params.get('slot'), 'photo', 10)));
   if (resource === 'photo') return image(await contentPhoto(member, text(id, 'photo', 64)));
