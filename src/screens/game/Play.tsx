@@ -42,7 +42,9 @@ export function GamePlayScreen() {
   const top = highestCleared(game), day = typeof params.special === "string" ? params.special : null;
   const special = useMemo(() => (day ? specialFor(game, day) : null), [day, top]); // eslint-disable-line react-hooks/exhaustive-deps
   const art = useMemo(() => gameArtUris(), []);
-  // Expo Go preview: the game page is not packaged with the app, so it loads from the web app (see gameHost).
+  // Expo Go preview: the game page is not packaged with the app, so it loads from the web app (see gameHost), and that
+  // page waits for its props (scripts/host-game-page.mjs). A before-content script also makes react-native-webview on
+  // Android define the props when each page starts, not only when it finishes, for the page packaged in installed builds.
   const host = useMemo(() => gameHost(), []);
   const equipped = game.equip[game.pet] ?? null;
   const petArt = art[wearArt(game.pet, equipped)] ? wearArt(game.pet, equipped) : PETS[game.pet].art;
@@ -89,7 +91,7 @@ export function GamePlayScreen() {
     <RushHour key={(params.run ?? "first") + (day ?? "")} level={level} special={special?.level} mode={mode} pet={game.pet} petArt={petArt} chefArt="avatar-lian" art={art}
       signature={game.signature} reduceMotion={reducedMotion} settings={game.settings} textScale={textScale(game.settings, textMultiplier)} bridges={bridges}
       onStart={onStart} onFinish={onFinish} onExit={onExit} onHaptic={onHaptic} onBridge={onBridge} onSettings={onSettings}
-      dom={{ style: { flex: 1 }, useExpoDOMWebView: false, ...(host ? { overrideUri: host + GAME_PAGE_PATH } : {}), scrollEnabled: false, bounces: false, overScrollMode: "never", mediaPlaybackRequiresUserAction: true, textZoom: 100 }} />
+      dom={{ style: { flex: 1 }, useExpoDOMWebView: false, ...(host ? { overrideUri: host + GAME_PAGE_PATH } : {}), injectedJavaScriptBeforeContentLoaded: "true;", scrollEnabled: false, bounces: false, overScrollMode: "never", mediaPlaybackRequiresUserAction: true, textZoom: 100 }} />
     {settingsOpen && <PlaySettingsSheet settings={game.settings} onChange={next => set(g => ({ ...g, settings: next }))} onClose={() => setSettingsOpen(false)} />}
   </View>;
 }
