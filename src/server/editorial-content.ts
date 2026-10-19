@@ -53,8 +53,9 @@ type PlaceData = {
   menu: { sourceUrl: string; sourceLabel: string; checkedAt: string; items: PlaceItem[] };
 };
 export type EditorialPlace = { venue: CatalogueVenue; menu: PublishedMenu; fingerprint: string };
-/** The menu readers require a full UTC timestamp; a place stores only the day it was checked. */
-const dayStamp = (day: string) => day + "T00:00:00.000Z";
+/** The menu readers require a full UTC timestamp that is never in the future; a place stores only the Singapore day it
+ * was checked, so use that day's Singapore midnight (UTC midnight of today's SGT date is still ahead before 8 am SGT). */
+const dayStamp = (day: string) => new Date(day + "T00:00:00+08:00").toISOString();
 /** The publisher's own validator decides; a malformed or future-schema record is skipped rather than shown or thrown. */
 function readPlace(data: unknown): PlaceData | undefined {
   try { validatePlace(data); return data as PlaceData; } catch { return undefined; }
