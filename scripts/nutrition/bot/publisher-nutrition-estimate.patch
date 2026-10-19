@@ -1,6 +1,14 @@
 --- a/publisher.py
 +++ b/publisher.py
-@@ -392,8 +392,8 @@
+@@ -9,6 +9,7 @@
+ from pathlib import Path
+ import re
+ import time
++import urllib.parse
+ import urllib.request
+ import urllib.error
+ 
+@@ -392,26 +393,30 @@
  
  
  def nutrition_candidates(live, states, outcomes, candidates, held):
@@ -11,17 +19,27 @@
      import nutrition
      import recipe_quality
      for row in live['records']:
-@@ -403,15 +403,16 @@
+         data, key = row['data'], ('recipe', row['id'])
+-        rating = data.get('sourceRating')
+-        if row['kind'] != 'recipe' or not isinstance(rating, dict) or data.get('nutrition') or any((c['kind'], c['id']) == key for c in candidates):
++        rating, urls = data.get('sourceRating'), data.get('provenance', {}).get('sources', [])
++        if row['kind'] != 'recipe' or not urls or data.get('nutrition') or any((c['kind'], c['id']) == key for c in candidates):
              continue
          try:
-             page = recipe_quality.fetch(ROOT, rating['url']).get('recipe')
+-            page = recipe_quality.fetch(ROOT, rating['url']).get('recipe')
 -            figures = nutrition.from_page(page, rating['site'], data.get('servings'))
-+            figures = nutrition.from_page(page, rating['site'], data.get('servings')) or nutrition.estimate(ROOT, data)
++            # Recipes published before the rating gate carry no sourceRating; their first provenance source is the page.
++            url = rating['url'] if isinstance(rating, dict) else urls[0]
++            site = rating['site'] if isinstance(rating, dict) else (urllib.parse.urlparse(url).hostname or url)[:80]
++            page = recipe_quality.fetch(ROOT, url).get('recipe')
++            figures = nutrition.from_page(page, site, data.get('servings')) or nutrition.estimate(ROOT, data)
              if not figures:
                  continue  # nothing reliable to add; the recipe simply shows no nutrition
              proposal_hash = sha({'nutrition': row['id'], 'figures': figures['perServing']})
-             if proposal_hash in outcomes:
-                 continue
+-            if proposal_hash in outcomes:
+-                continue
++            if proposal_hash in outcomes and outcomes[proposal_hash].get('decision') != 'approved':
++                continue  # an approval that never reached the live record is proposed again; a hold stands
              today = dt.datetime.now(dt.timezone.utc).date().isoformat()
 -            evidence = sources({'sources': [{'url': u, 'checkedAt': today, 'evidence': 'Per-serving nutrition published on the source recipe page.'}
 -                                            for u in data.get('provenance', {}).get('sources', [])]})
@@ -31,3 +49,13 @@
              if not evidence or len(evidence) != len(data.get('provenance', {}).get('sources', [])):
                  raise ValueError('Nutrition backfill needs a fresh capture of every recipe source')
              updated = dict(data, nutrition=figures, revision=data['revision'] + 1, updatedAt=today)
+@@ -484,7 +489,8 @@
+         d=decision[r['kind']+':'+r['id']]
+         if d['decision']!='approved':continue
+         image=r['data'].get('image') or r['data'].get('photo')
+-        if image:
++        if image and any(i['sha256']==Path(image['path']).stem for i in images):
++            # Only an image sent with this batch needs the visual review; a record keeping its live image is unchanged there.
+             image_hash=Path(image['path']).stem
+             if visual.get(image_hash,{}).get('decision')!='approved':continue
+             used.add(image_hash)

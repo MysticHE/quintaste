@@ -115,6 +115,41 @@ class Backfill(unittest.TestCase):
             p.nutrition_candidates(live, {}, {}, candidates, held)
         self.assertEqual((candidates, held), ([], []))
 
+    def test_recipe_without_source_rating_uses_its_provenance_page(self):
+        import publisher as p
+        live = {'records': [{'kind': 'recipe', 'id': 'r2', 'data': {'name': 'Chai', 'servings': 2, 'revision': 3, 'provenance': {'sources': ['https://example.org/chai']},
+                 'ingredients': [{'id': 'a', 'name': 'Firm tofu', 'amount': 300, 'unit': 'g'}]}}]}
+        figures = {'basis': 'estimate', 'perServing': {'kcal': 117}, 'coverage': 1.0, 'checkedAt': '2026-10-19'}
+        candidates, held = [], []
+        with patch('recipe_quality.fetch', return_value={'recipe': {}}) as fetch, patch.object(n, 'estimate', return_value=figures),              patch.object(p, 'sources', return_value=[{'url': 'https://example.org/chai', 'checkedAt': '2026-10-19'}]), patch.object(p, 'server_recipe_problem', return_value=None):
+            p.nutrition_candidates(live, {}, {}, candidates, held)
+        self.assertEqual(fetch.call_args[0][1], 'https://example.org/chai')
+        self.assertEqual(held, [])
+        self.assertEqual(candidates[0]['data']['revision'], 4)
+        self.assertEqual(candidates[0]['data']['nutrition'], figures)
+
+    def test_approved_figures_that_never_went_live_are_proposed_again_but_holds_stand(self):
+        import publisher as p
+        data = {'name': 'Tofu', 'servings': 2, 'revision': 1, 'sourceRating': {'url': 'https://example.org/r', 'site': 'example.org'},
+                'provenance': {'sources': ['https://example.org/r']}, 'ingredients': [{'id': 'a', 'name': 'Firm tofu', 'amount': 300, 'unit': 'g'}]}
+        figures = {'basis': 'estimate', 'perServing': {'kcal': 117}, 'coverage': 1.0, 'checkedAt': '2026-10-19'}
+        key = p.sha({'nutrition': 'r1', 'figures': figures['perServing']})
+        for decision, expected in (('approved', 1), ('hold', 0)):
+            candidates, held = [], []
+            with patch('recipe_quality.fetch', return_value={'recipe': {}}), patch.object(n, 'estimate', return_value=figures),                  patch.object(p, 'sources', return_value=[{'url': 'https://example.org/r', 'checkedAt': '2026-10-19'}]), patch.object(p, 'server_recipe_problem', return_value=None):
+                p.nutrition_candidates({'records': [{'kind': 'recipe', 'id': 'r1', 'data': dict(data)}]}, {}, {key: {'decision': decision}}, candidates, held)
+            self.assertEqual(len(candidates), expected, decision)
+
+    def test_batch_keeps_a_record_that_keeps_its_live_image(self):
+        import publisher as p
+        record = {'kind': 'recipe', 'id': 'r1', 'data': {'name': 'Tofu', 'image': {'path': '/api/editorial/assets/abc.jpg'}}, 'sources': [], 'proposalHash': 'x'}
+        review = {'decisions': [{'key': 'recipe:r1', 'decision': 'approved', 'reason': 'Figures match the source page exactly.'}], 'images': []}
+        batch = p.make_batch([record], [], review, 'parent', 'b1')
+        self.assertEqual([r['id'] for r in batch['records']], ['r1'])
+        self.assertEqual(batch['assets'], [])
+        unreviewed = p.make_batch([record], [{'sha256': 'abc', 'file': 'x', 'provenance': {}}], review, 'parent', 'b2')
+        self.assertEqual(unreviewed['records'], [])  # an image sent with the batch still needs its visual approval
+
 
 if __name__ == '__main__':
     unittest.main()
