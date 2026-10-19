@@ -1,38 +1,48 @@
 /**
- * Opening screen, played once per cold start over the first app screen. The native splash is the plain brand
- * background, so the Mochi Chef drops in from above it: it falls with a slight stretch, lands with a squash,
- * bounces twice with less height each time and settles over its contact shadow; then the wordmark rises in and the
- * layer fades away, with a matching sound (./sound). Tap anywhere to skip. Reduced motion shows the settled frame
- * and a short fade, without sound.
+ * Opening screen. It mounts at the root, above sign-in restore and every provider, and starts as soon as the code
+ * runs (after the device-level intro settings and the wordmark font, both local). The native splash is the plain
+ * brand background, so the Mochi Chef drops in from above it: it lands flat, springs back up and bounces twice more
+ * (./motion), its cheeks blush (./Face), with a boing (./sound) and a light tap on the first two landings, then the
+ * wordmark rises in. The bounce always plays to the end. If the app is still loading, the mochi then hovers side
+ * to side until the root layout calls markAppReady(), and the layer fades away. Tap anywhere to skip.
+ * Reduced motion (system or the app's switch) shows the settled mochi without sound or haptics.
  */
-import { useEffect, useRef, useState, useSyncExternalStore } from "react";
-import { Image, Pressable, StyleSheet, View, useWindowDimensions } from "react-native";
+import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
+import { Platform, Pressable, StyleSheet, View, useColorScheme, useWindowDimensions } from "react-native";
+import * as Haptics from "expo-haptics";
+import * as SplashScreen from "expo-splash-screen";
+import { useFonts, Nunito_800ExtraBold } from "@expo-google-fonts/nunito";
 import Svg, { Defs, Ellipse, RadialGradient, Stop } from "react-native-svg";
-import Animated, { cancelAnimation, Easing, useAnimatedStyle, useSharedValue, withDelay, withRepeat, withSequence, withTiming, type SharedValue } from "react-native-reanimated";
-import { usePreferences } from "../../state/Preferences";
-import { fontNames } from "../../theme/tokens";
+import Animated, { useReducedMotion, type CSSAnimationKeyframes } from "react-native-reanimated";
+import { fontNames, themeFor } from "../../theme/tokens";
+import { MochiFace } from "./Face";
+import { FEET_ORIGIN, HOLD, LANDINGS, SETTLED, SWAY, bodyKeyframes, shadowKeyframes, shadowSwayKeyframes, swayKeyframes } from "./motion";
+import { loadIntroSettings, type IntroSettings } from "./settings";
 import { playIntroSound, prepareIntroSound, releaseIntroSound } from "./sound";
 
-const MOCHI = require("../../../assets/chef.png");
-const HOLD = 2200, EXIT = 380;
-const fall = Easing.in(Easing.quad), rise = Easing.out(Easing.quad);
+const EXIT = 380;
+/** Never cover the app longer than this, even if it never reports ready. */
+const MAX_WAIT = 15000;
 
-let played = false;
-let started = false;
+let ready = false;
 const listeners = new Set<() => void>();
-/** Fired by the root layout when it hides the native splash: the intro plays from that moment. */
-export function startSplashIntro() {
-  if (started) return;
-  started = true;
+/** Called by the root layout once the app can show its first screen (or its sign-in error). */
+export function markAppReady() {
+  if (ready) return;
+  ready = true;
   listeners.forEach(l => l());
 }
 const subscribe = (l: () => void) => { listeners.add(l); return () => { listeners.delete(l); }; };
-const isStarted = () => started;
+const isReady = () => ready;
 
-/** The native splash's colours: the coral brand background, whatever palette the member picked. */
-function useBrand() {
-  const { theme } = usePreferences(), coral = theme.swatches.coral;
-  return { background: theme.dark ? coral.dark[0] : coral.light[0], ink: theme.dark ? coral.accentDark : coral.accent, shadow: theme.shadow };
+type Brand = { background: string; ink: string; shadow: string; blush: string };
+/** The native splash's colours (the coral brand, light or dark with the phone), used before any preferences load. */
+function useBrand(): Brand {
+  const dark = useColorScheme() === "dark";
+  return useMemo(() => {
+    const t = themeFor("coral", dark), coral = t.swatches.coral;
+    return { background: dark ? coral.dark[0] : coral.light[0], ink: dark ? coral.accentDark : coral.accent, shadow: t.shadow, blush: t.mascot.blush };
+  }, [dark]);
 }
 
 /** The native splash frame (plain brand background), shown while the app loads where no native splash exists (web). */
@@ -41,106 +51,124 @@ export function SplashMark() {
   return <View accessible accessibilityLabel="Loading QuinTaste" style={[s.fill, { backgroundColor: background }]} />;
 }
 
-/** Mount once above the navigation tree, so the owner remount at start-up cannot cut it short. */
+/** Mount once, at the root. */
 export function SplashIntro() {
-  const go = useSyncExternalStore(subscribe, isStarted, isStarted);
-  const [done, setDone] = useState(played);
-  useEffect(() => { if (!played) prepareIntroSound(); }, []);
-  if (done) return null;
-  return go ? <Play onDone={() => setDone(true)} /> : <View style={StyleSheet.absoluteFill}><SplashMark /></View>;
-}
-
-/**
- * Drop and bounce. `y` is the lift above the resting spot in px; `squash` is +1 for a full squash, −1 for a stretch.
- * Each impact squashes as the bounce starts; bounce heights fall to about a third each time, as a soft toy's would.
- */
-function useBounce(still: boolean, size: number, drop: number) {
-  const y = useSharedValue(still ? 0 : drop), squash = useSharedValue(0), breathe = useSharedValue(0);
+  const [done, setDone] = useState(false);
+  const [settings, setSettings] = useState<IntroSettings | null>(null);
+  const [fonts, fontError] = useFonts({ Nunito_800ExtraBold });
+  const systemStill = useReducedMotion();
   useEffect(() => {
-    if (still) return;
-    const h1 = size * 0.42, h2 = size * 0.13, t1 = 230, t2 = 130;
-    y.value = withDelay(60, withSequence(
-      withTiming(0, { duration: 460, easing: fall }),
-      withTiming(h1, { duration: t1, easing: rise }), withTiming(0, { duration: t1, easing: fall }),
-      withTiming(h2, { duration: t2, easing: rise }), withTiming(0, { duration: t2, easing: fall }),
-    ));
-    const hit = (k: number, back: number) => [withTiming(k, { duration: 70, easing: Easing.out(Easing.quad) }), withTiming(0, { duration: back, easing: Easing.out(Easing.back(2)) })];
-    squash.value = withDelay(60, withSequence(
-      withTiming(-0.1, { duration: 460, easing: fall }), ...hit(0.24, 170),
-      withTiming(-0.04, { duration: t1 + t1 - 240 }), ...hit(0.11, 120),
-      withTiming(0, { duration: 2 * t2 - 190 }), ...hit(0.05, 110),
-    ));
-    breathe.value = withDelay(1500, withRepeat(withTiming(1, { duration: 1300, easing: Easing.inOut(Easing.sin) }), -1, true));
-    return () => { cancelAnimation(y); cancelAnimation(squash); cancelAnimation(breathe); };
-  }, [still, size, drop, y, squash, breathe]);
-  return { y, squash, breathe };
+    let live = true;
+    loadIntroSettings().then(value => {
+      if (!live) return;
+      if (value.sounds && !value.reduceMotion && !systemStill) prepareIntroSound();
+      setSettings(value);
+    });
+    return () => { live = false; };
+  }, [systemStill]);
+  const go = !!settings && (fonts || !!fontError);
+  useEffect(() => { if (go) void SplashScreen.hideAsync().catch(() => {}); }, [go]);
+  if (done) return null;
+  if (!go) return <View style={StyleSheet.absoluteFill}><SplashMark /></View>;
+  return <Play still={systemStill || settings.reduceMotion} sounds={settings.sounds} onDone={() => setDone(true)} />;
 }
 
-function Shadow({ size, cx, base, y }: { size: number; cx: number; base: number; y: SharedValue<number> }) {
-  const { shadow } = useBrand(), w = size * 0.74, h = size * 0.13;
-  // Smaller and fainter the higher the mochi is; full size on contact.
-  const st = useAnimatedStyle(() => {
-    const near = 1 - Math.min(1, Math.max(0, y.value) / (size * 1.6));
-    return { opacity: 0.25 + 0.75 * near, transform: [{ scaleX: 0.45 + 0.55 * near }, { scaleY: 0.6 + 0.4 * near }] };
-  });
-  return <Animated.View pointerEvents="none" style={[s.abs, { left: cx - w / 2, top: base - h / 2, width: w, height: h }, st]}>
-    <Svg width={w} height={h}>
-      <Defs>
-        <RadialGradient id="mochiShadow" cx="50%" cy="50%" rx="50%" ry="50%">
-          <Stop offset="0" stopColor={shadow} stopOpacity={0.32} />
-          <Stop offset="1" stopColor={shadow} stopOpacity={0} />
-        </RadialGradient>
-      </Defs>
-      <Ellipse cx={w / 2} cy={h / 2} rx={w / 2} ry={h / 2} fill="url(#mochiShadow)" />
-    </Svg>
+function tap(style: Haptics.ImpactFeedbackStyle) {
+  if (Platform.OS === "web") return;
+  Haptics.impactAsync(style).catch(error => { if (__DEV__) console.warn("Intro haptic unavailable", error); });
+}
+
+/** Play keyframes once over `duration` ms and hold the last frame. */
+function play(frames: CSSAnimationKeyframes, duration: number, delay = 0) {
+  return { animationName: frames, animationDuration: duration, animationDelay: delay, animationTimingFunction: "linear", animationFillMode: "both" } as const;
+}
+/** An ease-in cycle, then the steady cycle forever. */
+function loop(rampIn: CSSAnimationKeyframes, steady: CSSAnimationKeyframes) {
+  return {
+    animationName: [rampIn, steady], animationDuration: [SWAY, SWAY], animationDelay: [0, SWAY],
+    animationIterationCount: [1, "infinite" as const], animationTimingFunction: "linear" as const, animationFillMode: "both" as const,
+  };
+}
+
+function Shadow({ size, cx, base, brand, bounce, sway }: { size: number; cx: number; base: number; brand: Brand; bounce: object | null; sway: object | null }) {
+  const w = size * 0.74, h = size * 0.13;
+  return <Animated.View pointerEvents="none" style={[s.abs, { left: cx - w / 2, top: base - h / 2, width: w, height: h }, sway]}>
+    <Animated.View style={[s.fill, bounce]}>
+      <Svg width={w} height={h}>
+        <Defs>
+          <RadialGradient id="mochiShadow" cx="50%" cy="50%" rx="50%" ry="50%">
+            <Stop offset="0" stopColor={brand.shadow} stopOpacity={0.32} />
+            <Stop offset="1" stopColor={brand.shadow} stopOpacity={0} />
+          </RadialGradient>
+        </Defs>
+        <Ellipse cx={w / 2} cy={h / 2} rx={w / 2} ry={h / 2} fill="url(#mochiShadow)" />
+      </Svg>
+    </Animated.View>
   </Animated.View>;
 }
 
-function Play({ onDone }: { onDone: () => void }) {
-  const { reducedMotion: still } = usePreferences(), { background, ink } = useBrand();
+const FADE_OUT = { to: { opacity: 0 } };
+const TITLE_IN = { from: { opacity: 0, transform: [{ translateY: 14 }] }, to: { opacity: 1, transform: [{ translateY: 0 }] } };
+
+function Play({ still, sounds, onDone }: { still: boolean; sounds: boolean; onDone: () => void }) {
+  const brand = useBrand(), appReady = useSyncExternalStore(subscribe, isReady, isReady);
   const { width: W, height: H } = useWindowDimensions();
   const size = Math.min(W * 0.46, H * 0.26, 220), cx = W / 2, cy = H * 0.43;
-  // The art's feet sit at 91% of its height; the shadow and squash pivot sit there.
-  const foot = size * 0.41, base = cy + foot, word = Math.min(44, W * 0.11);
-  const { y, squash, breathe } = useBounce(still, size, cy + size * 1.2);
-  const exit = useSharedValue(0), title = useSharedValue(still ? 1 : 0), leaving = useRef(false);
+  // The art's feet sit at 91% of its height; the shadow, squash and hover all pivot there.
+  const foot = size * 0.41, base = cy + foot, word = Math.min(44, W * 0.11), drop = cy + size * 1.2;
+  const frames = useMemo(() => ({
+    body: bodyKeyframes(size, drop, foot), ground: shadowKeyframes(size, drop),
+    swayIn: swayKeyframes(size, true), sway: swayKeyframes(size, false),
+    groundIn: shadowSwayKeyframes(size, true), groundSway: shadowSwayKeyframes(size, false),
+    breath: { to: { transform: [{ translateY: -0.02 * foot }, { scaleX: 0.99 }, { scaleY: 1.02 }] } },
+  }), [size, drop, foot]);
+  const [bounced, setBounced] = useState(still), [leaving, setLeaving] = useState(false), left = useRef(false);
+  // Once the hover starts it keeps going through the fade, so the mochi never snaps back to the middle.
+  const [hovering, setHovering] = useState(false);
 
   const leave = (skipped: boolean) => {
-    if (leaving.current) return;
-    leaving.current = true;
+    if (left.current) return;
+    left.current = true;
     releaseIntroSound(skipped ? EXIT : 0);
-    exit.value = withTiming(1, { duration: still ? 250 : EXIT, easing: Easing.in(Easing.cubic) });
+    setLeaving(true);
     setTimeout(onDone, (still ? 250 : EXIT) + 40);
   };
   useEffect(() => {
-    played = true;
-    if (!still) playIntroSound();
-    if (!still) title.value = withDelay(640, withTiming(1, { duration: 420, easing: Easing.out(Easing.cubic) }));
-    const timer = setTimeout(() => leave(false), still ? 600 : HOLD);
-    return () => clearTimeout(timer);
+    const settle = () => { setBounced(true); if (!isReady() && !still) setHovering(true); };
+    const timers = [setTimeout(settle, still ? 600 : HOLD), setTimeout(() => leave(false), MAX_WAIT)];
+    if (!still) {
+      if (sounds) playIntroSound();
+      timers.push(setTimeout(() => tap(Haptics.ImpactFeedbackStyle.Light), LANDINGS[0]));
+      timers.push(setTimeout(() => tap(Haptics.ImpactFeedbackStyle.Soft), LANDINGS[1]));
+    }
+    return () => timers.forEach(clearTimeout);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  // The bounce always finishes; then leave as soon as the app is ready.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => { if (bounced && appReady) leave(false); }, [bounced, appReady]);
 
-  const layer = useAnimatedStyle(() => ({ opacity: 1 - exit.value }));
-  const mochi = useAnimatedStyle(() => {
-    const k = squash.value, sy = 1 - 0.9 * k + breathe.value * 0.02, sx = 1 + 0.75 * k - breathe.value * 0.01;
-    // Scale about the feet, not the centre, so a squash flattens onto the ground.
-    return { transform: [{ translateY: -y.value + foot * (1 - sy) - exit.value * 10 }, { scaleX: sx }, { scaleY: sy }] };
-  });
-  const wordmark = useAnimatedStyle(() => ({ opacity: title.value, transform: [{ translateY: (1 - title.value) * 14 }] }));
-  return <Animated.View style={[StyleSheet.absoluteFill, { backgroundColor: background }, layer]}>
+  const fade = leaving ? { animationName: FADE_OUT, animationDuration: still ? 250 : EXIT, animationTimingFunction: "ease-in", animationFillMode: "forwards" } as const : null;
+  const breathe = still ? null : { animationName: frames.breath, animationDuration: 1300, animationDelay: SETTLED, animationTimingFunction: "ease-in-out", animationIterationCount: "infinite", animationDirection: "alternate" } as const;
+  const title = still ? null : { animationName: TITLE_IN, animationDuration: 420, animationDelay: LANDINGS[0] + 180, animationTimingFunction: "ease-out", animationFillMode: "both" } as const;
+  return <Animated.View style={[StyleSheet.absoluteFill, { backgroundColor: brand.background }, fade]}>
     <Pressable accessibilityRole="button" accessibilityLabel="Skip QuinTaste intro" onPress={() => leave(true)} style={StyleSheet.absoluteFill}>
-      <Shadow size={size} cx={cx} base={base} y={y} />
-      <Animated.View pointerEvents="none" style={[s.abs, { left: cx - size / 2, top: cy - size / 2, width: size, height: size }, mochi]}>
-        <Image source={MOCHI} style={s.fill} resizeMode="contain" />
+      <Shadow size={size} cx={cx} base={base} brand={brand} bounce={still ? null : play(frames.ground, SETTLED)} sway={hovering ? loop(frames.groundIn, frames.groundSway) : null} />
+      <Animated.View pointerEvents="none" style={[s.abs, { left: cx - size / 2, top: cy - size / 2, width: size, height: size }, still ? null : play(frames.body, SETTLED)]}>
+        <Animated.View style={[s.feet, hovering ? loop(frames.swayIn, frames.sway) : null]}>
+          <Animated.View style={breathe}>
+            <MochiFace size={size} still={still} blush={brand.blush} />
+          </Animated.View>
+        </Animated.View>
       </Animated.View>
-      <Animated.Text pointerEvents="none" style={[s.abs, s.word, { top: base + size * 0.12, width: W, fontSize: word, color: ink }, wordmark]}>QuinTaste</Animated.Text>
+      <Animated.Text pointerEvents="none" style={[s.abs, s.word, { top: base + size * 0.12, width: W, fontSize: word, color: brand.ink }, title]}>QuinTaste</Animated.Text>
     </Pressable>
   </Animated.View>;
 }
 
 const s = StyleSheet.create({
   abs: { position: "absolute" },
+  feet: { transformOrigin: FEET_ORIGIN },
   fill: { flex: 1, width: "100%", height: "100%" },
   word: { left: 0, textAlign: "center", fontFamily: fontNames.display, letterSpacing: 0.5 },
 });

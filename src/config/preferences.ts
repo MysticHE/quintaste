@@ -22,13 +22,13 @@ export const exclusionPresets: { label: string; items: readonly Exclusion[] }[] 
 ];
 export type Preferences = {
   displayName: string; bio: string; diet: Diet; palette: Palette; mode: DisplayMode;
-  excluded: Exclusion[]; reduceMotion: boolean; readerHints: boolean;
+  excluded: Exclusion[]; reduceMotion: boolean; readerHints: boolean; sounds: boolean;
   textSize: "system" | "large" | "larger";
   activityUpdates: boolean; socialRequests: boolean; productSuggestions: boolean;
 };
 export const defaults: Preferences = {
   displayName: "Food friend", bio: "", diet: "Plant-based", palette: "coral", mode: "system",
-  excluded: [], reduceMotion: false, readerHints: true, textSize: "system",
+  excluded: [], reduceMotion: false, readerHints: true, sounds: true, textSize: "system",
   activityUpdates: false, socialRequests: false, productSuggestions: false,
 };
 function inList<T extends string>(value: unknown, values: readonly T[], fallback: T): T {
@@ -45,7 +45,7 @@ export function readPreferences(value: unknown): Preferences {
     mode: inList(p.mode, displayModes, defaults.mode),
     excluded: Array.isArray(p.excluded) ? [...new Set(p.excluded.filter((x): x is Exclusion =>
       typeof x === "string" && exclusions.includes(x as Exclusion)))] : [],
-    reduceMotion: p.reduceMotion === true, readerHints: p.readerHints !== false,
+    reduceMotion: p.reduceMotion === true, readerHints: p.readerHints !== false, sounds: p.sounds !== false,
     textSize: inList(p.textSize, ["system", "large", "larger"], "system"),
     activityUpdates: p.activityUpdates === true, socialRequests: p.socialRequests === true,
     productSuggestions: p.productSuggestions === true,

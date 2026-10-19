@@ -1,6 +1,6 @@
 /**
- * The intro's sound (assets/sounds/mochi-intro.wav): a springy "boing" on each of the three landings, timed to the
- * bounce in Intro.tsx. On phones it mixes with whatever is already playing and stays quiet in silent or vibrate mode.
+ * The intro's sound (assets/sounds/mochi-intro.wav): a thud as the mochi squashes and a springy "boing" as it launches,
+ * timed to motion.ts LANDINGS. On phones it mixes with whatever is already playing and stays quiet in silent or vibrate mode.
  * Browsers often block sound before the first tap; the web player then stays silent.
  */
 import { Platform } from "react-native";
