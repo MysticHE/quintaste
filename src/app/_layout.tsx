@@ -21,7 +21,8 @@ import { MenusProvider } from "../state/Menus";
 import { PreferencesProvider, usePreferences } from "../state/Preferences";
 import { AuthProvider, useAuth } from "../state/Auth";
 import { takeSignInDestination } from '../services/sign-in-destination';
-import { SplashIntro, SplashMark, startSplashIntro } from '../components/splash/Intro';
+import { SplashIntro, SplashMark, markAppReady } from '../components/splash/Intro';
+import { rememberIntroSettings } from '../components/splash/settings';
 void SplashScreen.preventAutoHideAsync().catch(() => {});
 // The native splash is the plain brand background the intro starts on, so a quick fade is enough to hand over.
 SplashScreen.setOptions({ duration: 200, fade: true });
@@ -68,11 +69,17 @@ function Navigation() {
     }
   }, [ready, fontsLoaded, fontError, owner, collectionReady, navigation?.key, profileRoute, clearProfileRoute]);
   useEffect(() => {
-    if (ready && (fontsLoaded || fontError)) {
-      startSplashIntro();
+    if (ready && (fontsLoaded || fontError))
       void SplashScreen.hideAsync().catch(() => {});
-    }
   }, [ready, fontsLoaded, fontError]);
+  // The intro hovers until the first screen can show, then fades away.
+  useEffect(() => {
+    if (ready && (fontsLoaded || fontError) && collectionReady && navigation?.key) markAppReady();
+  }, [ready, fontsLoaded, fontError, collectionReady, navigation?.key]);
+  const { draft } = usePreferences();
+  useEffect(() => {
+    if (ready) rememberIntroSettings({ sounds: draft.sounds, reduceMotion: draft.reduceMotion });
+  }, [ready, draft.sounds, draft.reduceMotion]);
   if (!ready || (!fontsLoaded && !fontError))
     return (
       <View
@@ -104,7 +111,7 @@ function Navigation() {
 }
 function AccountScope() {
   const { user, pending, unavailable, retry, openGuest } = useAuth();
-  useEffect(() => { if (!pending && unavailable) void SplashScreen.hideAsync(); }, [pending, unavailable]);
+  useEffect(() => { if (!pending && unavailable) { markAppReady(); void SplashScreen.hideAsync(); } }, [pending, unavailable]);
   // Do not mount guest storage while a saved account session is being restored.
   if (pending || (unavailable && !user)) return <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', gap: 16 }}>
     {pending ? <ActivityIndicator accessibilityLabel="Restoring sign-in" /> : <>
@@ -115,10 +122,10 @@ function AccountScope() {
   </View>;
   return (
       <PreferencesProvider key={user?.id || "guest"}>
-        <FoodProvider><TimerAlertsProvider><ExploreLocalProvider><MenusProvider><DiscoveryProvider><Navigation /><TimerFinishHaptics /><CookedSync /></DiscoveryProvider></MenusProvider></ExploreLocalProvider></TimerAlertsProvider></FoodProvider><SplashIntro />
+        <FoodProvider><TimerAlertsProvider><ExploreLocalProvider><MenusProvider><DiscoveryProvider><Navigation /><TimerFinishHaptics /><CookedSync /></DiscoveryProvider></MenusProvider></ExploreLocalProvider></TimerAlertsProvider></FoodProvider>
       </PreferencesProvider>
   );
 }
 export default function RootLayout() {
-  return <SafeAreaProvider><AuthProvider><AccountScope /></AuthProvider></SafeAreaProvider>;
+  return <SafeAreaProvider><AuthProvider><AccountScope /></AuthProvider><SplashIntro /></SafeAreaProvider>;
 }

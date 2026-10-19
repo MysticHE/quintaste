@@ -78,3 +78,41 @@ export function shadowKeyframes(size: number, drop: number): CSSAnimationKeyfram
     return { opacity: 0.25 + 0.75 * near, transform: [{ scaleX: (0.45 + 0.55 * near) * (1 + 0.6 * flat) }, { scaleY: 0.6 + 0.4 * near }] };
   });
 }
+
+/** The art's feet sit at 91% of its height. */
+export const FEET_ORIGIN = "50% 91%";
+/** One full left-right rock of the hover, in ms. */
+export const SWAY = 1900;
+const smooth = (t: number) => t * t * (3 - 2 * t);
+
+/**
+ * Hover while the app is still loading: the body rocks side to side with a slight drift and a soft lift at each
+ * turn. It pivots on its feet through the element's transformOrigin (FEET_ORIGIN): keyframes keep one entry per
+ * transform type, so a translate-rotate-translate pivot would lose a translate. `rampIn` is the first cycle, which grows from rest so the hover never starts with a jolt;
+ * the steady cycle then loops. Both start and end centred and moving, so they join seamlessly.
+ */
+export function swayKeyframes(size: number, rampIn: boolean): CSSAnimationKeyframes {
+  const out: CSSAnimationKeyframes = {};
+  for (let i = 0; i <= 40; i++) {
+    const t = i / 40, side = Math.sin(2 * Math.PI * t), amp = rampIn ? smooth(t) : 1;
+    out[`${(t * 100).toFixed(1)}%`] = { transform: [
+      { translateX: 0.035 * size * side * amp },
+      { translateY: -0.02 * size * (1 - Math.cos(4 * Math.PI * t)) / 2 * amp },
+      { rotate: `${5 * side * amp}deg` },
+    ] };
+  }
+  return out;
+}
+
+/** The shadow follows the hover's drift and narrows a touch as the body lifts at each turn. */
+export function shadowSwayKeyframes(size: number, rampIn: boolean): CSSAnimationKeyframes {
+  const out: CSSAnimationKeyframes = {};
+  for (let i = 0; i <= 40; i++) {
+    const t = i / 40, amp = rampIn ? smooth(t) : 1;
+    out[`${(t * 100).toFixed(1)}%`] = { transform: [
+      { translateX: 0.035 * size * Math.sin(2 * Math.PI * t) * amp },
+      { scaleX: 1 - 0.06 * (1 - Math.cos(4 * Math.PI * t)) / 2 * amp },
+    ] };
+  }
+  return out;
+}
