@@ -26,11 +26,13 @@ export function menuDisplayItems(menu: PublishedMenu): MenuItem[] {
     for (const [id, items] of groups) {
       if (result.has(id)) continue;
       const first = items[0], prices = items.map(item => item.price);
+      // A merged dish is Vegan only when every listing of it is; an untagged listing leaves it untagged.
+      const diet = items.every(item => item.diet === "VG") ? "VG" : items.every(item => item.diet) ? "V" : undefined;
       const valid = prices.every(price => price.amount !== null && price.currency === first.price.currency);
       const amount = valid ? Math.min(...prices.map(price => price.amount!)) : first.price.amount;
       const bounded = valid && prices.every(price => price.type !== "from" || price.maxAmount !== undefined);
       const maxAmount = bounded ? Math.max(...prices.map(price => price.maxAmount ?? price.amount!)) : undefined;
-      result.set(id, { id: first.id, name: first.name, category: first.category, qualifier: "",
+      result.set(id, { id: first.id, name: first.name, category: first.category, qualifier: "", ...(diet ? { diet } : {}),
         price: { amount, currency: first.price.currency, type: bounded ? "displayed" : prices.some(price => price.type === "from") ? "from" : first.price.type,
           ...(maxAmount !== undefined && amount !== null && maxAmount > amount ? { maxAmount } : {}) } });
     }

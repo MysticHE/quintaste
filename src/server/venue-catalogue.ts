@@ -21,17 +21,30 @@ const hiddenAliases = new Map(aliases.entries.filter(alias => {
 const noStaff: StaffContent = { revision: "0".repeat(64), catalogueRevision: "0".repeat(64), items: new Map() };
 const packagedIds = new Set(catalogue.map(venue => venue.id));
 
-// Dish names on each place's current menu, one per line so a keyword never matches across two dishes.
-let dishes: { key: string; text: Map<string, string> } = { key: "", text: new Map() };
-function dishText(id: string, staff: StaffContent, content: ReturnType<typeof editorialContent>) {
+// Facts from each place's current menu: dish names one per line, so a keyword never matches across two dishes,
+// and the venue's own V/VG labels, which decide what a veg options place may show.
+type MenuFacts = { text: string; tagged: boolean; anyVegan: boolean; allVegan: boolean };
+let facts: { key: string; menus: Map<string, MenuFacts> } = { key: "", menus: new Map() };
+function menuFacts(id: string, staff: StaffContent, content: ReturnType<typeof editorialContent>) {
   const key = staff.catalogueRevision + ":" + content.revision;
-  if (dishes.key !== key) dishes = { key, text: new Map() };
-  let text = dishes.text.get(id);
-  if (text === undefined) {
-    text = staffMenu(id, staff, content)?.menu.sections.flatMap(section => section.items.map(item => words(item.name))).join("\n") ?? "";
-    dishes.text.set(id, text);
+  if (facts.key !== key) facts = { key, menus: new Map() };
+  let value = facts.menus.get(id);
+  if (value === undefined) {
+    const items = staffMenu(id, staff, content)?.menu.sections.flatMap(section => section.items) ?? [];
+    value = { text: items.map(item => words(item.name)).join("\n"), tagged: items.length > 0 && items.every(item => item.diet === "V" || item.diet === "VG"),
+      anyVegan: items.some(item => item.diet === "VG"), allVegan: items.length > 0 && items.every(item => item.diet === "VG") };
+    facts.menus.set(id, value);
   }
-  return text;
+  return value;
+}
+/** A veg options place is listed only while every published dish carries the venue's V/VG label: an untagged dish could be meat or seafood. */
+function kitchenVenue(venue: CatalogueVenue | undefined, staff: StaffContent, content: ReturnType<typeof editorialContent>): CatalogueVenue | undefined {
+  if (!venue || venue.kitchen === undefined) return venue;
+  const menu = menuFacts(venue.id, staff, content);
+  if (venue.kitchen !== "options" || !menu.tagged) return undefined;
+  const { menuTotal, ...rest } = venue;
+  const total = menuTotal !== undefined && Number.isSafeInteger(menuTotal) && menuTotal >= venue.itemCount && menuTotal <= 2000 ? { menuTotal } : {};
+  return { ...rest, ...total, alliumFreeClaim: false, venueDiet: menu.allVegan ? "Vegan" : "Vegetarian" };
 }
 
 /** Applies a staff place edit, or builds a staff-created place, with counts from the staff-applied menu. Undefined when hidden or without dishes. */
@@ -41,17 +54,19 @@ function staffVenue(id: string, base: CatalogueVenue | undefined, staff: StaffCo
   if (place?.hidden || !base && place?.origin !== "staff") return undefined;
   const applied = staffMenu(id, staff, content);
   if (!applied) return undefined;
-  const { base: _base, sourceUrl: _sourceUrl, photo, hours, ...fields } = (place?.data ?? {}) as StaffPlaceData;
+  const { base: _base, sourceUrl: _sourceUrl, photo, hours, kitchen, menuTotal, ...fields } = (place?.data ?? {}) as StaffPlaceData;
   const venue = { ...(base ?? { point: null, venueDiet: "Vegetarian", alliumFreeClaim: false }), ...fields, ...menuSummary(applied) } as CatalogueVenue;
   if (photo === null) delete venue.photo; else if (photo) venue.photo = photo;
   if (hours === null) delete venue.hours; else if (hours) venue.hours = hours;
+  if (kitchen === null) delete venue.kitchen; else if (kitchen) venue.kitchen = kitchen;
+  if (menuTotal === null) delete venue.menuTotal; else if (menuTotal !== undefined) venue.menuTotal = menuTotal;
   return venue;
 }
 
 export function catalogueVenue(id: string, withdrawn: ReadonlySet<string>, staff = noStaff): CatalogueVenue | undefined {
   if (withdrawn.has(id) || withdrawn.has(hiddenAliases.get(id) ?? id)) return undefined;
-  const venue = catalogue.find(venue => venue.id === id);
-  return staffVenue(id, venue ? editorialVenue(venue, true) : undefined, staff);
+  const venue = catalogue.find(venue => venue.id === id), content = editorialContent();
+  return kitchenVenue(staffVenue(id, venue ? editorialVenue(venue, true, content) : undefined, staff, content), staff, content);
 }
 
 export function searchCatalogue(search: DiscoverySearch, cursor: string | null, withdrawn: ReadonlySet<string>, staff = noStaff): CataloguePage {
@@ -73,18 +88,25 @@ export function searchCatalogue(search: DiscoverySearch, cursor: string | null, 
   }
   let locationGaps = 0;
   const sources = [...catalogue.map(venue => staffVenue(venue.id, editorialVenue(venue, false, content), staff, content)),
-    ...staffPlaceIds(staff).filter(id => !packagedIds.has(id)).map(id => staffVenue(id, undefined, staff, content))];
+    ...staffPlaceIds(staff).filter(id => !packagedIds.has(id)).map(id => staffVenue(id, undefined, staff, content))].map(venue => kitchenVenue(venue, staff, content));
   const venues = sources.flatMap(venue => venue ? [venue] : []).flatMap(venue => {
     if (hiddenAliases.has(venue.id)) return [];
     const savedAlias = search.savedIds && [...hiddenAliases].some(([alias, id]) => id === venue.id && search.savedIds!.includes("catalogue-" + alias));
     if (search.savedIds && !search.savedIds.includes("catalogue-" + venue.id)
       && !savedAlias && !(venue.googlePlaceId && search.savedIds.includes("google-" + venue.googlePlaceId))) return [];
-    if (withdrawn.has(venue.id) || (search.diets ? search.diets.length > 0 && !search.diets.includes(venue.venueDiet) : search.vegan && venue.venueDiet !== "Vegan") || search.alliumFree && !venue.alliumFreeClaim) return [];
+    // Veg options places appear only when the member opts in, and never in an allium-free search.
+    const options = venue.kitchen === "options";
+    if (options && (!search.includeOptions || search.alliumFree)) return [];
+    // An options place passes Vegan when at least one published dish is labelled VG.
+    const veganOptions = options && menuFacts(venue.id, staff, content).anyVegan;
+    const dietMatch = search.diets ? !search.diets.length || search.diets.includes(venue.venueDiet) || veganOptions && search.diets.includes("Vegan")
+      : !search.vegan || venue.venueDiet === "Vegan" || veganOptions;
+    if (withdrawn.has(venue.id) || !dietMatch || search.alliumFree && !venue.alliumFreeClaim) return [];
     // Unknown cuisine and Google price-band facts cannot pass those filters.
     if (search.priceLevels?.length || search.cuisines?.length || search.priceLevel || search.cuisine && search.cuisine !== "All") return [];
     const text = words([venue.name, venue.branch, venue.address, ...venue.aliases].join(" "));
     // A keyword finds places by name, branch or address, or by a dish on the published menu (the game's Find it nearby).
-    if (query && !text.includes(query) && !dishText(venue.id, staff, content).includes(query)) return [];
+    if (query && !text.includes(query) && !menuFacts(venue.id, staff, content).text.includes(query)) return [];
     if (search.bounds) {
       if (!venue.point) { locationGaps++; return []; }
       if (venue.point.latitude < search.bounds.low.latitude || venue.point.latitude > search.bounds.high.latitude

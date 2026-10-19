@@ -1,14 +1,15 @@
 import { router } from "expo-router";
-import { ActivityIndicator, View } from "react-native";
+import { ActivityIndicator, StyleSheet, View } from "react-native";
 import type { CatalogueVenue } from "../../types/catalogue";
 import { useFood } from "../../state/Food";
 import { usePreferences } from "../../state/Preferences";
 import { useCatalogueVenue } from "../../hooks/useCatalogueVenue";
-import { Button, Card, T, common } from "../ui";
+import { Button, Card, Icon, T, common } from "../ui";
 import type { PlaceReviewSummary } from "../../types/place-reviews";
 import { IconButton } from "../food/Controls";
 import { ReactionColumn } from "../ReactionBar";
 import { placeShareMessage } from "../../utils/place-share";
+import { dishCount, isVegOptions, vegOptionsSpoken } from "../../utils/venue-kitchen";
 import { MenuEntry } from "./MenuEntry";
 import { PhotoPostCard, PostFact, PostFacts } from "./PhotoPostCard";
 
@@ -16,7 +17,9 @@ export function CatalogueVenueCard({ venue, more, review }: { venue: CatalogueVe
   const { isSaved, toggleSave, readable } = useFood(), { theme } = usePreferences();
   const id = "catalogue-" + venue.id, saved = isSaved("place", id), hours = venue.hours;
   const hoursSummary = hours?.summary || "Hours unconfirmed";
-  const metadata = venue.venueDiet + (venue.distanceKm !== undefined ? " · " + venue.distanceKm.toFixed(1) + " km" : "");
+  const options = isVegOptions(venue), distance = venue.distanceKm !== undefined ? " · " + venue.distanceKm.toFixed(1) + " km" : "";
+  // A veg options place never reads as Vegetarian or Vegan: it is not a vegetarian kitchen.
+  const metadata = options ? vegOptionsSpoken + " · " + dishCount(venue.itemCount) + distance : venue.venueDiet + distance;
   return <PhotoPostCard testID="catalogue-venue" titleTestID="catalogue-card-name" photo={{ path: venue.photo?.path }} title={venue.name}
     label={[venue.name, venue.address, metadata, hoursSummary].join(". ")} hint="Opens this branch's location and details"
     onPress={() => router.push({ pathname: "/place/[id]", params: { id } } as never)}
@@ -32,10 +35,19 @@ export function CatalogueVenueCard({ venue, more, review }: { venue: CatalogueVe
       </PostFact></View>}
     </PostFacts>
     <PostFacts>
-      {venue.venueDiet !== "Vegetarian" && <PostFact icon="leaf-outline" shrink>{venue.venueDiet}</PostFact>}
+      {options ? <><VegOptionsChip /><PostFact icon="book-outline" shrink>{dishCount(venue.itemCount)}</PostFact></>
+        : venue.venueDiet !== "Vegetarian" && <PostFact icon="leaf-outline" shrink>{venue.venueDiet}</PostFact>}
       <PostFact icon="time-outline" shrink>{hoursSummary}</PostFact>
     </PostFacts>
   </PhotoPostCard>;
+}
+
+/** Marks a place that is not a vegetarian kitchen, in a warm tone distinct from the vegetarian leaf. */
+export function VegOptionsChip() {
+  const { theme } = usePreferences();
+  return <View testID="veg-options-chip" style={[s.chip, { backgroundColor: theme.warningSoft }]}>
+    <Icon name="restaurant-outline" size={13} color={theme.warning} /><T variant="caption" color={theme.warning} style={common.bold}>Veg options</T>
+  </View>;
 }
 
 /** Saved screens batch ratings in one request and pass this place's summary in. */
@@ -50,3 +62,6 @@ export function SavedCatalogueVenue({ id, more, review }: { id: string; more: ()
     <Button label="Remove Saved Place" variant="link" onPress={() => void toggleSave("place", "catalogue-" + id)} />
     <Button label="More Options" variant="link" onPress={more} /></Card>;
 }
+const s = StyleSheet.create({
+  chip: { flexDirection: "row", alignItems: "center", gap: 4, borderRadius: 8, paddingHorizontal: 6, paddingVertical: 1 },
+});

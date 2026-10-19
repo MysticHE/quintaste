@@ -65,7 +65,7 @@ export function validateEvent(e) {
   requireValue((e.feeAmount === null && e.currency === null || typeof e.feeAmount === 'number' && e.feeAmount >= 0 && e.feeAmount < 10000 && e.currency === 'SGD') && text(e.feeNote, 300, true) && (e.registrationUrl === null || publicUrl(e.registrationUrl)) && (e.registrationDeadline === null || Number.isFinite(Date.parse(e.registrationDeadline)) && Date.parse(e.registrationDeadline) <= Date.parse(e.startsAt)) && Array.isArray(e.sources) && e.sources.length > 0 && e.sources.length <= 12 && e.sources.every(publicUrl), 'Invalid event source/price');
 }
 export function validateVenue(v, base, menu) {
-  requireValue(base && keys(v, ['id', 'hours', 'photo', 'sourceUrls', 'evidenceNotes', 'point', 'venueDiet', 'alliumFreeClaim', 'menuPrices', 'closed']) && v.id === base.id && Object.keys(v).length > 1, 'Unknown venue or unsupported field');
+  requireValue(base && keys(v, ['id', 'hours', 'photo', 'sourceUrls', 'evidenceNotes', 'point', 'venueDiet', 'alliumFreeClaim', 'menuTotal', 'menuPrices', 'closed']) && v.id === base.id && Object.keys(v).length > 1, 'Unknown venue or unsupported field');
   // A stored page (often Google Maps) says the venue is permanently closed: it leaves Explore until the owner reverts it.
   if (v.closed) requireValue(keys(v.closed, ['status', 'sourceUrl', 'quote', 'checkedAt']) && v.closed.status === 'permanently-closed' && publicUrl(v.closed.sourceUrl) && text(v.closed.quote, 200) && /closed|结业|停业/i.test(v.closed.quote) && date(v.closed.checkedAt), 'Invalid venue closure');
   if (v.menuPrices) {
@@ -85,6 +85,15 @@ export function validateVenue(v, base, menu) {
   if (v.point) requireValue(keys(v.point, ['latitude', 'longitude']) && typeof v.point.latitude === 'number' && v.point.latitude >= 1.13 && v.point.latitude <= 1.48 && typeof v.point.longitude === 'number' && v.point.longitude >= 103.59 && v.point.longitude <= 104.09, 'Invalid Singapore coordinates');
   if ('venueDiet' in v) requireValue(['Vegetarian', 'Vegan'].includes(v.venueDiet), 'Invalid venue diet');
   if ('alliumFreeClaim' in v) requireValue(typeof v.alliumFreeClaim === 'boolean', 'Invalid allium claim');
+  if ('menuTotal' in v) requireValue(Number.isInteger(v.menuTotal) && v.menuTotal >= 1 && v.menuTotal <= 2000, 'Invalid full-menu dish count');
+  // The kitchen type is never changed by a bot patch: fully vegetarian places are never downgraded automatically.
+  requireValue(base.kitchen === undefined || base.kitchen === 'options', 'Invalid venue kitchen');
+  if (base.kitchen === 'options') {
+    const items = (menu?.sections ?? []).flatMap(s => s.items);
+    requireValue(items.length > 0 && items.every(i => i.diet === 'V' || i.diet === 'VG'), "Every dish of a veg options place needs the venue's V or VG label");
+    requireValue(v.alliumFreeClaim !== true, 'A veg options place cannot claim allium-free food');
+    requireValue(v.venueDiet !== 'Vegan' || items.every(i => i.diet === 'VG'), 'A veg options place is Vegan only when every dish is VG');
+  }
   if ('sourceUrls' in v) requireValue(Array.isArray(v.sourceUrls) && v.sourceUrls.length > 0 && v.sourceUrls.length <= 12 && v.sourceUrls.every(publicUrl), 'Invalid venue sources');
   if ('evidenceNotes' in v) requireValue(Array.isArray(v.evidenceNotes) && v.evidenceNotes.length <= 6 && v.evidenceNotes.every(s => text(s, 700)), 'Invalid evidence notes');
   if (v.photo) {

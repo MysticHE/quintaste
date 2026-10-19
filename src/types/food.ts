@@ -97,7 +97,7 @@ export type FoodDocument = {
   notifications: { cooking: boolean; cases: boolean; saved: boolean; marketing: boolean; quietStart: string; quietEnd: string };
 };
 export type ExploreFilters = {
-  confirmed: boolean; noAlliums: boolean; savedOnly: boolean; openNow: boolean;
+  confirmed: boolean; noAlliums: boolean; savedOnly: boolean; openNow: boolean; includeOptions: boolean;
   near: boolean; home: boolean; work: boolean; diet: "Vegetarian" | "Vegan" | null; cuisine: string; maxPrice: number | null; priceLevel: PriceLevel | null;
   diets?: ("Vegetarian" | "Vegan")[] | null; cuisines?: string[] | null; priceLevels?: PriceLevel[] | null;
 };

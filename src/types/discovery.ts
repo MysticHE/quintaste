@@ -15,4 +15,4 @@ export type LivePlace = MapPlace & {
   rating?: number; reviewCount?: number; photos: LivePhoto[]; reviews?: LiveReview[];
   phone?: string; website?: string; priceLevel?: PriceLevel;
 };
-export type DiscoverySearch = { area: string; query: string; vegan: boolean; diets?: ("Vegetarian" | "Vegan")[]; alliumFree?: boolean; cuisine?: string; cuisines?: string[]; priceLevel?: PriceLevel; priceLevels?: PriceLevel[]; origin?: SearchOrigin; center?: SearchPoint; bounds?: SearchBounds; radius: number; savedIds?: string[] };
+export type DiscoverySearch = { area: string; query: string; vegan: boolean; diets?: ("Vegetarian" | "Vegan")[]; alliumFree?: boolean; cuisine?: string; cuisines?: string[]; priceLevel?: PriceLevel; priceLevels?: PriceLevel[]; origin?: SearchOrigin; center?: SearchPoint; bounds?: SearchBounds; radius: number; savedIds?: string[]; includeOptions?: boolean };

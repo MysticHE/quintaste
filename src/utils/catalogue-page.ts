@@ -51,6 +51,9 @@ export function readCatalogueVenue(value: unknown): CatalogueVenue {
     || !Number.isSafeInteger(v.itemCount) || v.itemCount < 1 || !Number.isSafeInteger(v.sectionCount) || v.sectionCount < 1
     || (v.point !== null && (!v.point || !inSingapore(v.point)))
     || (v.distanceKm !== undefined && (!Number.isFinite(v.distanceKm) || v.distanceKm < 0))
+    // A veg options place is never fully vegetarian and never carries an allium-free claim.
+    || (v.kitchen !== undefined && (v.kitchen !== "options" || v.alliumFreeClaim))
+    || (v.menuTotal !== undefined && (!Number.isSafeInteger(v.menuTotal) || v.menuTotal < 1 || v.menuTotal > 2000))
     || "sections" in v || "items" in v) throw new Error("Invalid venue summary");
   if (v.photo !== undefined) readCataloguePhoto(v.photo);
   if (v.hours !== undefined) readCatalogueHours(v.hours);

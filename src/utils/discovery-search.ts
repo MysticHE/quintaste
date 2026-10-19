@@ -18,6 +18,7 @@ export function distanceKm(origin: SearchPoint, point: { latitude: number; longi
 export function searchKey(search: DiscoverySearch) { return JSON.stringify(search); }
 export function sameSearchContext(a: DiscoverySearch, b: DiscoverySearch) {
   return a.area === b.area && a.query === b.query && a.vegan === b.vegan && !!a.alliumFree === !!b.alliumFree && a.radius === b.radius
+    && !!a.includeOptions === !!b.includeOptions
     && (a.cuisine ?? "All") === (b.cuisine ?? "All") && (a.priceLevel ?? null) === (b.priceLevel ?? null)
     && JSON.stringify(a.diets ?? null) === JSON.stringify(b.diets ?? null)
     && JSON.stringify(a.cuisines ?? null) === JSON.stringify(b.cuisines ?? null)

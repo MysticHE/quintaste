@@ -10,7 +10,7 @@ export function readDiscoverySettings(value: unknown): DiscoverySettings {
   return {
     locationModeChosen: settings.locationModeChosen === true || home || work || filters.near === true,
     filters: { ...defaultFilters, home, work, near: !home && !work && filters.near === true,
-      noAlliums: filters.noAlliums === true, savedOnly: filters.savedOnly === true,
+      noAlliums: filters.noAlliums === true, savedOnly: filters.savedOnly === true, includeOptions: filters.includeOptions === true,
       cuisine: isDiscoveryCuisine(filters.cuisine) ? filters.cuisine : "All",
       priceLevel: isPriceLevel(filters.priceLevel) ? filters.priceLevel : null,
       diet: filters.diet === "Vegan" || filters.diet === "Vegetarian" ? filters.diet : null,

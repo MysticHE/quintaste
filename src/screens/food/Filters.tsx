@@ -48,7 +48,7 @@ export function FiltersScreen() {
         selected={radius === value} disabled={!readable} onPress={() => { void setRadius(value); }} />)}</Chips>
     </FilterSection>}
     <DiscoveryPlaceFilters filters={filters} change={change => { void setFilters(change); }} disabled={!readable} />
-    <Button label="Reset filters" variant="link" disabled={!readable} onPress={() => { void setFilters(current => ({ ...current, diets: [], diet: null, noAlliums: false, savedOnly: false })); }} />
+    <Button label="Reset filters" variant="link" disabled={!readable} onPress={() => { void setFilters(current => ({ ...current, diets: [], diet: null, noAlliums: false, savedOnly: false, includeOptions: false })); }} />
     {eligible && currentRequest && busy && <ActivityIndicator color={theme.accent} accessibilityLabel="Updating places" />}
     {eligible && currentRequest && !!error && <><T variant="small" color={theme.error} accessibilityLiveRegion="polite">{error}</T>
       <Button label="Retry Places" variant="link" onPress={() => { void load(input, true); }} /></>}

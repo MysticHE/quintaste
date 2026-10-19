@@ -2,6 +2,7 @@ import { createHash } from "node:crypto";
 import compiled from "../../data/menus/published-research.json";
 import publication from "../../data/menus/research-publication.json";
 import identities from "../../data/menu-research/venue-menu-identity-reviews.json";
+import catalogueIndex from "../../data/menus/catalogue-index.json";
 import type { MenuDetail, MenuIndex, MenuSummary, PublishedMenu } from "../types/menus";
 import { readMenuCatalogue } from "../utils/menu-catalogue";
 import { publishedMenus } from "./published-menus";
@@ -35,7 +36,7 @@ function researchMenus() {
 // receive the compact price projection, never long modifier/publication notes.
 const published = [...publishedMenus().venues, ...researchMenus()].map(menu => ({ ...menu,
   sections: menu.sections.map(section => ({ ...section, items: section.items.map(item => ({
-    id: item.id, name: item.name, category: item.category, price: item.price, qualifier: "",
+    id: item.id, name: item.name, category: item.category, price: item.price, qualifier: "", ...(item.diet ? { diet: item.diet } : {}),
   })) })),
 }));
 const details = new Map(published.map(menu => [menu.id, menu]));
@@ -71,7 +72,7 @@ function applyStaff(id: string, staff: StaffContent, content: ReturnType<typeof 
     if (!change) return [item];
     if (change.hidden) return [];
     return [{ ...item, ...(change.name ? { name: change.name } : {}), ...(change.category !== undefined ? { category: change.category || undefined } : {}),
-      ...(change.price ? { price: change.price } : {}) }];
+      ...(change.price ? { price: change.price } : {}), ...(change.diet ? { diet: change.diet } : {}) }];
   }) })).filter(section => section.items.length);
   const sourceUrl = m.sourceUrl ?? p.sourceUrl ?? base?.menu.sections[0]?.sourceUrl;
   if (m.added?.length && sourceUrl && edit) sections.push({ id: staffSection, title: "Added by QuinTaste", scope: "branch-dine-in", coverage: "partial",
@@ -88,24 +89,39 @@ export function menuSummary({ menu, fingerprint }: Applied): MenuSummary {
     itemCount: sections.reduce((sum, section) => sum + section.items.length, 0), sectionCount: sections.length };
 }
 const touched = (id: string, staff: StaffContent) => staff.items.has("place:" + id) || staff.items.has("menu:" + id);
+const packagedKitchens = new Map((catalogueIndex.venues as { id: string; kitchen?: string }[]).flatMap(venue => venue.kitchen === undefined ? [] : [[venue.id, venue.kitchen] as const]));
+/** A staff place edit decides the kitchen (null = fully vegetarian), else the packaged place. */
+function kitchenOf(id: string, staff: StaffContent) {
+  const place = staff.items.get("place:" + id)?.data as StaffPlaceData | undefined;
+  return place?.kitchen !== undefined ? place.kitchen : packagedKitchens.get(id);
+}
+/** A veg options place only ever serves dishes carrying the venue's V/VG label; an untagged dish could be meat or seafood. */
+function servable(id: string, staff: StaffContent, current: Applied | undefined): Applied | undefined {
+  if (!current || kitchenOf(id, staff) == null) return current;
+  const sections = current.menu.sections.map(section => ({ ...section, items: section.items.filter(item => item.diet === "V" || item.diet === "VG") }))
+    .filter(section => section.items.length);
+  const unchanged = sections.length === current.menu.sections.length && sections.every((section, i) => section.items.length === current.menu.sections[i].items.length);
+  if (unchanged) return current;
+  return sections.length ? { menu: { ...current.menu, sections }, fingerprint: fingerprint({ base: current.fingerprint, sections }) } : undefined;
+}
 /** Staff-created places, published once they have at least one dish. */
 export const staffPlaceIds = (staff: StaffContent) => [...staff.items.values()].filter(item => item.kind === "place" && item.origin === "staff").map(item => item.id);
 
 export function publishedMenuIndex(now = Date.now(), withdrawn: ReadonlySet<string> = new Set(), staff = noStaff): MenuIndex {
   const content = editorialContent();
   const packaged = summaries.filter(menu => !withdrawn.has(menu.id)).flatMap(summary => {
-    if (!touched(summary.id, staff)) return [{ ...summary, fingerprint: editorialMenu(details.get(summary.id)!, summary.fingerprint, content).fingerprint }];
-    const applied = staffMenu(summary.id, staff, content);
+    if (!touched(summary.id, staff) && !packagedKitchens.has(summary.id)) return [{ ...summary, fingerprint: editorialMenu(details.get(summary.id)!, summary.fingerprint, content).fingerprint }];
+    const applied = servable(summary.id, staff, staffMenu(summary.id, staff, content));
     return applied ? [menuSummary(applied)] : [];
   });
   const created = staffPlaceIds(staff).filter(id => !withdrawn.has(id) && !details.has(id)).flatMap(id => {
-    const applied = staffMenu(id, staff, content);
+    const applied = servable(id, staff, staffMenu(id, staff, content));
     return applied ? [menuSummary(applied)] : [];
   });
   return { version: 2, generatedAt: now, venues: [...packaged, ...created] };
 }
 
 export function publishedMenuDetail(id: string, now = Date.now(), withdrawn: ReadonlySet<string> = new Set(), staff = noStaff): MenuDetail | undefined {
-  const current = withdrawn.has(id) ? undefined : staffMenu(id, staff);
+  const current = withdrawn.has(id) ? undefined : servable(id, staff, staffMenu(id, staff));
   return current ? { version: 1, generatedAt: now, fingerprint: current.fingerprint, venues: [current.menu] } : undefined;
 }

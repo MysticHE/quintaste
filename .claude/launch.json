@@ -4,16 +4,54 @@
     {
       "name": "expo-web",
       "runtimeExecutable": "npx",
-      "runtimeArgs": ["expo", "start", "--web", "--port", "8086"],
-      "env": { "CI": "1" },
+      "runtimeArgs": [
+        "expo",
+        "start",
+        "--web",
+        "--port",
+        "8086"
+      ],
+      "env": {
+        "CI": "1"
+      },
       "port": 8086
+    },
+    {
+      "name": "expo-web-ops",
+      "runtimeExecutable": "node",
+      "runtimeArgs": [
+        "--env-file=.local/community-dev/dev.env",
+        "node_modules/expo/bin/cli",
+        "start",
+        "--web",
+        "--port",
+        "8087"
+      ],
+      "env": {
+        "CI": "1"
+      },
+      "port": 8087
     },
     {
       "name": "local-api",
       "runtimeExecutable": "node",
-      "runtimeArgs": ["--env-file=.local/community-dev/dev.env", "server/index.mjs"],
-      "env": { "PORT": "18948", "APP_URL": "http://localhost:18948" },
+      "runtimeArgs": [
+        "--env-file=.local/community-dev/dev.env",
+        "server/index.mjs"
+      ],
+      "env": {
+        "PORT": "18948",
+        "APP_URL": "http://localhost:18948"
+      },
       "port": 18948
+    },
+    {
+      "name": "admin-dev",
+      "runtimeExecutable": "node",
+      "runtimeArgs": [
+        ".local/admin-dev/start.mjs"
+      ],
+      "port": 3100
     }
   ]
 }

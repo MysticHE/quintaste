@@ -20,10 +20,10 @@ export function ListGroup({ title, aside, inset = true, children }: PropsWithChi
     </View>
   </View>;
 }
-export function StatusPill({ label, tone = "muted" }: { label: string; tone?: Tone }) {
+export function StatusPill({ label, tone = "muted", lines = 1 }: { label: string; tone?: Tone; lines?: number }) {
   const { theme } = usePreferences();
   const colors = { accent: [theme.accentSoft, theme.accent], warning: [theme.warningSoft, theme.warning], success: [theme.successSoft, theme.success], muted: [theme.muted, theme.mutedForeground] }[tone];
-  return <View style={[s.pill, { backgroundColor: colors[0] }]}><T variant="small" color={colors[1]} numberOfLines={1} style={common.bold}>{label}</T></View>;
+  return <View style={[s.pill, lines > 1 && s.pillWide, { backgroundColor: colors[0] }]}><T variant="small" color={colors[1]} numberOfLines={lines} style={common.bold}>{label}</T></View>;
 }
 export function Initial({ name, size = 40 }: { name: string; size?: number }) {
   const { theme } = usePreferences();
@@ -83,6 +83,7 @@ const s = StyleSheet.create({
   text: { flex: 1, minWidth: 0, gap: 2 },
   shrink: { flexShrink: 1 },
   pill: { borderRadius: 999, paddingHorizontal: 9, paddingVertical: 3, maxWidth: 150 },
+  pillWide: { maxWidth: "100%" },
   tileMonth: { fontSize: 10, lineHeight: 12 }, tileDay: { fontSize: 17, lineHeight: 20 },
   rowIcon: { width: 40, height: 40, borderRadius: 12, alignItems: "center", justifyContent: "center" },
 });

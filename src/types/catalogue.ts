@@ -22,6 +22,10 @@ export type CatalogueVenue = MenuSummary & {
   distanceKm?: number;
   venueDiet: "Vegetarian" | "Vegan";
   alliumFreeClaim: boolean;
+  /** "options": not a vegetarian kitchen; only its venue-labelled vegetarian/vegan dishes are published. Absent: fully vegetarian/vegan. */
+  kitchen?: "options";
+  /** Dishes on the venue's full menu, when known ("6 of 38"). */
+  menuTotal?: number;
   photo?: CataloguePhoto;
   hours?: CatalogueHours;
   research?: { sourceUrls: string[]; notes: string[]; checkedAt: string };

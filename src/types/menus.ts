@@ -4,6 +4,8 @@ export type MenuItem = Pick<PilotDish, "id" | "name" | "category"> & {
   price: PilotDish["price"] & { maxAmount?: number };
   qualifier: string;
   details?: string[];
+  /** The venue's own label; required on every dish of a veg options place. */
+  diet?: "V" | "VG";
 };
 export type PublishedMenu = {
   id: string;

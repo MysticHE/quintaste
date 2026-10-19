@@ -13,6 +13,7 @@ function readSection(value: unknown): PublishedMenu["sections"][number] {
     if (maxAmount !== undefined && (maxAmount === null || amount === null || maxAmount < amount)) throw new Error("Invalid menu price range");
     return { id: pilotId(item.id), name: pilotText(item.name), category: item.category === undefined ? undefined : pilotText(item.category, 100, true),
       qualifier: pilotText(item.qualifier, 4000, true),
+      ...(item.diet === undefined ? {} : { diet: pilotChoice(item.diet, ["V", "VG"]) }),
       ...(item.details === undefined ? {} : { details: pilotList(item.details, value => pilotText(value, 12000), 80) }),
       price: { amount, ...(maxAmount === undefined ? {} : { maxAmount: maxAmount! }),
       currency: pilotChoice(price.currency, ["SGD", "unknown"]), type: pilotChoice(price.type, ["displayed", "from"]) } };
