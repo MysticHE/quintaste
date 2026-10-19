@@ -6,7 +6,8 @@ import type { MenuItem, PublishedMenu } from "../types/menus";
 import baseline from "../../data/menus/catalogue-index.json";
 
 type MenuPrice = { sectionId: string; itemId: string; name: string; scope: string; sourceUrl: string; checkedAt: string; price: MenuItem["price"] };
-type Override = { baseHash: string; checkedAt: string; data: Partial<CatalogueVenue> & { sourceUrls?: string[]; evidenceNotes?: string[]; menuPrices?: MenuPrice[] } };
+type Closure = { status: "permanently-closed"; sourceUrl: string; quote: string; checkedAt: string };
+type Override = { baseHash: string; checkedAt: string; data: Partial<CatalogueVenue> & { sourceUrls?: string[]; evidenceNotes?: string[]; menuPrices?: MenuPrice[]; closed?: Closure } };
 let cache: { marker: string; revision: string; records: Record<string, Override> } | undefined;
 /** The publisher switches one complete snapshot atomically. No network/provider fallback. */
 export function editorialContent() {
@@ -26,8 +27,12 @@ export function editorialContent() {
 export function editorialVenue(base: CatalogueVenue, includeResearch = false, content = editorialContent()): CatalogueVenue {
   const entry = content.records["venue:" + base.id];
   if (!entry || entry.baseHash !== createHash("sha256").update(JSON.stringify(base)).digest("hex")) return base;
-  const { sourceUrls, evidenceNotes, menuPrices, ...fields } = entry.data;
+  const { sourceUrls, evidenceNotes, menuPrices, closed: _closed, ...fields } = entry.data;
   return { ...base, ...fields, ...(menuPrices?.length ? { fingerprint: createHash("sha256").update(JSON.stringify({ base: base.fingerprint, menuPrices })).digest("hex") } : {}), ...(includeResearch ? { research: { sourceUrls: [...new Set([...(sourceUrls ?? []), ...(menuPrices ?? []).map(p => p.sourceUrl)])].slice(0, 12), notes: evidenceNotes ?? [], checkedAt: entry.checkedAt.slice(0, 10) } } : {}) };
+}
+/** Venues QT Explorer found permanently closed (removed from Explore and menus until the owner reverts the change). */
+export function closedVenues(content = editorialContent()) {
+  return Object.entries(content.records).flatMap(([key, entry]) => key.startsWith("venue:") && entry.data.closed ? [key.slice(6)] : []);
 }
 export function editorialMenu(menu: PublishedMenu, fingerprint: string, content = editorialContent()) {
   const entry = content.records["venue:" + menu.id], base = baseline.venues.find(v => v.id === menu.id), updates = entry?.data.menuPrices;

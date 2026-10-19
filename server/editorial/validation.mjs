@@ -65,7 +65,9 @@ export function validateEvent(e) {
   requireValue((e.feeAmount === null && e.currency === null || typeof e.feeAmount === 'number' && e.feeAmount >= 0 && e.feeAmount < 10000 && e.currency === 'SGD') && text(e.feeNote, 300, true) && (e.registrationUrl === null || publicUrl(e.registrationUrl)) && (e.registrationDeadline === null || Number.isFinite(Date.parse(e.registrationDeadline)) && Date.parse(e.registrationDeadline) <= Date.parse(e.startsAt)) && Array.isArray(e.sources) && e.sources.length > 0 && e.sources.length <= 12 && e.sources.every(publicUrl), 'Invalid event source/price');
 }
 export function validateVenue(v, base, menu) {
-  requireValue(base && keys(v, ['id', 'hours', 'photo', 'sourceUrls', 'evidenceNotes', 'point', 'venueDiet', 'alliumFreeClaim', 'menuPrices']) && v.id === base.id && Object.keys(v).length > 1, 'Unknown venue or unsupported field');
+  requireValue(base && keys(v, ['id', 'hours', 'photo', 'sourceUrls', 'evidenceNotes', 'point', 'venueDiet', 'alliumFreeClaim', 'menuPrices', 'closed']) && v.id === base.id && Object.keys(v).length > 1, 'Unknown venue or unsupported field');
+  // A stored page (often Google Maps) says the venue is permanently closed: it leaves Explore until the owner reverts it.
+  if (v.closed) requireValue(keys(v.closed, ['status', 'sourceUrl', 'quote', 'checkedAt']) && v.closed.status === 'permanently-closed' && publicUrl(v.closed.sourceUrl) && text(v.closed.quote, 200) && /closed|结业|停业/i.test(v.closed.quote) && date(v.closed.checkedAt), 'Invalid venue closure');
   if (v.menuPrices) {
     requireValue(Array.isArray(v.menuPrices) && v.menuPrices.length > 0 && v.menuPrices.length <= 100 && menu, 'Invalid menu price patch');
     const seen = new Set();

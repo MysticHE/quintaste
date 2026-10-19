@@ -3,6 +3,7 @@ import { localEnabled } from "../../server/local-explore/store";
 import { readLocalMenuWithdrawals } from "../../server/local-explore/pilot-catalogue";
 import { publishedMenuDetail, publishedMenuIndex } from "../../server/menu-delivery";
 import { hiddenPlaces, staffContent } from "../../server/staff-content";
+import { closedVenues } from "../../server/editorial-content";
 import { createHash } from "node:crypto";
 
 const headers = { "Cache-Control": "no-store", "X-Content-Type-Options": "nosniff" };
@@ -17,7 +18,7 @@ export async function GET(request?: Request) {
   try {
     const withdrawn = await localEnabled() ? await readLocalMenuWithdrawals() : new Set<string>();
     const staff = await staffContent();
-    for (const id of hiddenPlaces(staff)) withdrawn.add(id);
+    for (const id of [...hiddenPlaces(staff), ...closedVenues()]) withdrawn.add(id);
     const params = new URL(request?.url ?? "http://localhost/api/menus").searchParams;
     if (params.get("view") === "index") {
       const index = publishedMenuIndex(Date.now(), withdrawn, staff);

@@ -3,6 +3,7 @@ import { discoveryInput } from "../../server/discovery-input";
 import { readSmallJson, BodyError } from "../../server/read-json";
 import { catalogueVenue, searchCatalogue } from "../../server/venue-catalogue";
 import { hiddenPlaces, staffContent } from "../../server/staff-content";
+import { closedVenues } from "../../server/editorial-content";
 import { localEnabled } from "../../server/local-explore/store";
 import { readLocalMenuWithdrawals } from "../../server/local-explore/pilot-catalogue";
 
@@ -28,7 +29,7 @@ export async function POST(request: Request) {
   try {
     const withdrawn = await localEnabled() ? await readLocalMenuWithdrawals() : new Set<string>();
     const staff = await staffContent();
-    for (const id of hiddenPlaces(staff)) withdrawn.add(id);
+    for (const id of [...hiddenPlaces(staff), ...closedVenues()]) withdrawn.add(id);
     const data = typeof value.id === "string" ? catalogueVenue(value.id, withdrawn, staff) : searchCatalogue(search!, (value.cursor as string | null) ?? null, withdrawn, staff);
     if (!data) return Response.json({ error: "Venue no longer published." }, { status: 404, headers });
     const text = JSON.stringify(data), etag = '"' + createHash("sha256").update(text).digest("hex") + '"';
