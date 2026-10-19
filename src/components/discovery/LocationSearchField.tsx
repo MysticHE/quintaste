@@ -22,7 +22,7 @@ export function LocationSearchField({ value, onChange, onChoose, onSearch, addre
   return <View style={s.root}>
     <View testID="discovery-search" style={[s.field, { backgroundColor: theme.card, borderColor: focused ? theme.accent : theme.border }]}>
       <Pressable accessibilityRole="button" accessibilityLabel="Search this place or postal code" disabled={disabled} accessibilityState={{ disabled }} onPress={() => void control.submit()}
-        style={s.action}><Icon name="search-outline" /></Pressable>
+        hitSlop={searchSlop} style={s.search}><Icon name="search-outline" /></Pressable>
       <TextInput ref={input} editable={!disabled} value={value} onChangeText={next => { control.changed(); onChange(next); }}
         placeholder={placeholder} accessibilityLabel={addressesOnly ? "Private address or postal code" : "Search by place name, address or postal code"} role="combobox"
         aria-expanded={expanded} accessibilityState={{ expanded, busy: control.busy }}
@@ -42,9 +42,13 @@ export function LocationSearchField({ value, onChange, onChoose, onSearch, addre
       error={control.error} index={control.index} choose={control.choose} keepOpen={control.keepOpen} retry={control.retry} />}
   </View>;
 }
+/** Keeps the search icon a 48-point tap target without padding the box. */
+const searchSlop = { left: 10, right: 8, top: 12, bottom: 12 };
 const s = StyleSheet.create({
   root: { position: "relative", zIndex: 50 },
-  field: { flexDirection: "row", alignItems: "center", borderWidth: 1, borderRadius: 18, minHeight: 54 },
+  // Same box as the shared SearchField on Cook, Social and Market.
+  field: { flexDirection: "row", alignItems: "center", gap: 8, borderWidth: 1, borderRadius: 12, paddingLeft: 10, minHeight: 48 },
+  search: { alignItems: "center", justifyContent: "center" },
   action: { minHeight: 48, minWidth: 48, alignItems: "center", justifyContent: "center" },
-  input: { outlineStyle: "solid", outlineWidth: 0, flex: 1, minWidth: 0, paddingVertical: 14, paddingRight: 4 },
+  input: { outlineStyle: "solid", outlineWidth: 0, flex: 1, minWidth: 0, paddingVertical: 10, paddingRight: 4 },
 });

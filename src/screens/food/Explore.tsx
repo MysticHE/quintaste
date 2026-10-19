@@ -45,7 +45,7 @@ export function ExploreScreen() {
   const reviews = usePlaceReviewSummaries(venues.map(venue => venue.id), accepted);
   useReactions("place", accepted ? venues.map(venue => venue.id) : []);
   return <Screen back={false} compact>
-    <View style={[common.row, { gap: 6, zIndex: 50, alignItems: "flex-start" }]}><View style={common.flex}>
+    <View style={[common.row, { gap: 8, zIndex: 50, alignItems: "flex-start" }]}><View style={common.flex}>
       <LocationSearchField key={discoveryScope} value={search} disabled={!readable} onChange={setSearch} onChoose={choose}
         onSearch={searchPlaces} suggestionsInFlow trailing={<FilterButton label="Filters" count={count} onPress={() => router.push("/filters")} />} /></View>
       <IconButton label="Search By My Location" icon="locate-outline" disabled={!readable} loading={nearby.busy}
