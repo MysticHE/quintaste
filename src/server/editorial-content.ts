@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { createHash } from "node:crypto";
-import type { CatalogueHours, CatalogueVenue } from "../types/catalogue";
+import type { CatalogueHours, CataloguePhoto, CatalogueVenue } from "../types/catalogue";
 import type { MenuItem, PublishedMenu } from "../types/menus";
 import baseline from "../../data/menus/catalogue-index.json";
 import { validatePlace } from "../../server/editorial/validation.mjs";
@@ -49,7 +49,7 @@ export function editorialMenu(menu: PublishedMenu, fingerprint: string, content 
 type PlaceItem = { id: string; name: string; category?: string; price: { amount: number; currency: "SGD"; type: "displayed" | "from"; maxAmount?: number }; diet: "V" | "VG" };
 type PlaceData = {
   id: string; kitchen: "options"; name: string; branch: string; address: string; postalCode: string; point: { latitude: number; longitude: number };
-  googlePlaceId: string | null; venueDiet: "Vegetarian" | "Vegan"; alliumFreeClaim: false; hours?: CatalogueHours; sourceUrls: string[]; checkedAt: string;
+  googlePlaceId: string | null; venueDiet: "Vegetarian" | "Vegan"; alliumFreeClaim: false; hours?: CatalogueHours; photo?: CataloguePhoto; sourceUrls: string[]; checkedAt: string;
   menu: { sourceUrl: string; sourceLabel: string; checkedAt: string; items: PlaceItem[] };
 };
 export type EditorialPlace = { venue: CatalogueVenue; menu: PublishedMenu; fingerprint: string };
@@ -71,7 +71,7 @@ export function editorialPlaces(content = editorialContent()): ReadonlyMap<strin
       sourceUrl: data.menu.sourceUrl, sourceLabel: data.menu.sourceLabel, notice: "", charges: "",
       items: data.menu.items.map(item => ({ id: item.id, name: item.name, ...(item.category ? { category: item.category } : {}), price: { ...item.price }, qualifier: "", diet: item.diet })) }] };
     const venue: CatalogueVenue = { ...identity, fingerprint, checkedAt: data.menu.checkedAt, sectionCount: 1, itemCount: data.menu.items.length, point: { latitude: data.point.latitude, longitude: data.point.longitude },
-      venueDiet: data.venueDiet, alliumFreeClaim: false, kitchen: "options", ...(data.hours ? { hours: data.hours } : {}),
+      venueDiet: data.venueDiet, alliumFreeClaim: false, kitchen: "options", ...(data.hours ? { hours: data.hours } : {}), ...(data.photo ? { photo: data.photo } : {}),
       research: { sourceUrls: [...new Set([...data.sourceUrls, data.menu.sourceUrl])].slice(0, 12), notes: [], checkedAt: data.checkedAt } };
     result.set(data.id, { venue, menu, fingerprint });
   }

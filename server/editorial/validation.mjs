@@ -64,18 +64,24 @@ export function validateEvent(e) {
   requireValue(typeof e.startsAt === 'string' && /\+08:00$/.test(e.startsAt) && Date.parse(e.startsAt) > Date.now() && Date.parse(e.startsAt) < Date.now() + 366 * 86400000 && (e.endsAt === null || /\+08:00$/.test(e.endsAt) && Date.parse(e.endsAt) > Date.parse(e.startsAt)) && ['scheduled', 'cancelled', 'rescheduled'].includes(e.status), 'Invalid event date/status');
   requireValue((e.feeAmount === null && e.currency === null || typeof e.feeAmount === 'number' && e.feeAmount >= 0 && e.feeAmount < 10000 && e.currency === 'SGD') && text(e.feeNote, 300, true) && (e.registrationUrl === null || publicUrl(e.registrationUrl)) && (e.registrationDeadline === null || Number.isFinite(Date.parse(e.registrationDeadline)) && Date.parse(e.registrationDeadline) <= Date.parse(e.startsAt)) && Array.isArray(e.sources) && e.sources.length > 0 && e.sources.length <= 12 && e.sources.every(publicUrl), 'Invalid event source/price');
 }
+/** An owner-approved branch cover (enhanced from an exact-branch reference), shared by venue patches and places. */
+function validateCoverPhoto(p) {
+  requireValue(keys(p, ['path', 'width', 'height', 'author', 'sourceUrl', 'license', 'licenseUrl', 'capturedAt', 'checkedAt', 'changes']) && /^\/api\/catalogue-photos\/[a-f0-9]{64}\.jpg$/.test(p.path) && Number.isInteger(p.width) && p.width >= 320 && p.width <= 1600 && Number.isInteger(p.height) && p.height >= 240 && p.height <= 1600 && text(p.author, 180) && publicUrl(p.sourceUrl) && text(p.license, 80) && (p.licenseUrl === null || publicUrl(p.licenseUrl)) && (p.capturedAt === null || date(p.capturedAt)) && date(p.checkedAt) && text(p.changes, 300), 'Invalid approved branch cover');
+}
 function validateHours(h) {
   requireValue(keys(h, ['summary', 'schedule', 'notes', 'sourceUrl', 'checkedAt', 'timezone']) && text(h.summary, 120) && Array.isArray(h.schedule) && h.schedule.length >= 1 && h.schedule.length <= 8 && h.schedule.every(s => text(s, 220)) && text(h.notes, 500, true) && publicUrl(h.sourceUrl) && date(h.checkedAt) && h.timezone === 'Asia/Singapore', 'Invalid branch hours');
 }
-const placeFields = ['id', 'kitchen', 'name', 'branch', 'address', 'postalCode', 'point', 'googlePlaceId', 'venueDiet', 'alliumFreeClaim', 'hours', 'sourceUrls', 'checkedAt', 'menu'];
-/** A complete veg options place created by QT Explorer: only its venue-labelled V/VG dishes are published. */
+const placeFields = ['id', 'kitchen', 'name', 'branch', 'address', 'postalCode', 'point', 'googlePlaceId', 'venueDiet', 'alliumFreeClaim', 'hours', 'photo', 'sourceUrls', 'checkedAt', 'menu'];
+const optionalPlaceFields = ['hours', 'photo'];
+/** A complete Mixed Kitchen place created by QT Explorer: only its venue-labelled V/VG dishes are published. */
 export function validatePlace(p) {
-  requireValue(keys(p, placeFields) && placeFields.every(k => k === 'hours' || k in p) && typeof p.id === 'string' && /^vo-[a-z0-9][a-z0-9-]{2,110}$/.test(p.id) && p.kitchen === 'options'
+  requireValue(keys(p, placeFields) && placeFields.every(k => optionalPlaceFields.includes(k) || k in p) && typeof p.id === 'string' && /^vo-[a-z0-9][a-z0-9-]{2,110}$/.test(p.id) && p.kitchen === 'options'
     && text(p.name, 120) && text(p.branch, 120, true) && text(p.address, 300) && typeof p.postalCode === 'string' && /^\d{6}$/.test(p.postalCode) && date(p.checkedAt), 'Invalid veg options place');
   requireValue(keys(p.point, ['latitude', 'longitude']) && typeof p.point.latitude === 'number' && p.point.latitude >= 1.15 && p.point.latitude <= 1.48 && typeof p.point.longitude === 'number' && p.point.longitude >= 103.6 && p.point.longitude <= 104.1, 'Invalid Singapore coordinates');
   requireValue(p.googlePlaceId === null || typeof p.googlePlaceId === 'string' && /^[A-Za-z0-9_-]{10,200}$/.test(p.googlePlaceId), 'Invalid Google place ID');
   requireValue(Array.isArray(p.sourceUrls) && p.sourceUrls.length >= 1 && p.sourceUrls.length <= 12 && p.sourceUrls.every(publicUrl), 'Invalid venue sources');
   if (p.hours !== undefined) validateHours(p.hours);
+  if (p.photo !== undefined) validateCoverPhoto(p.photo);
   const m = p.menu;
   requireValue(keys(m, ['sourceUrl', 'sourceLabel', 'checkedAt', 'items']) && publicUrl(m.sourceUrl) && text(m.sourceLabel, 80) && date(m.checkedAt) && Array.isArray(m.items) && m.items.length >= 2 && m.items.length <= 200, 'A veg options place needs 2 to 200 labelled dishes');
   const ids = new Set(), names = new Set();
@@ -119,9 +125,6 @@ export function validateVenue(v, base, menu) {
   }
   if ('sourceUrls' in v) requireValue(Array.isArray(v.sourceUrls) && v.sourceUrls.length > 0 && v.sourceUrls.length <= 12 && v.sourceUrls.every(publicUrl), 'Invalid venue sources');
   if ('evidenceNotes' in v) requireValue(Array.isArray(v.evidenceNotes) && v.evidenceNotes.length <= 6 && v.evidenceNotes.every(s => text(s, 700)), 'Invalid evidence notes');
-  if (v.photo) {
-    const p = v.photo;
-    requireValue(keys(p, ['path', 'width', 'height', 'author', 'sourceUrl', 'license', 'licenseUrl', 'capturedAt', 'checkedAt', 'changes']) && /^\/api\/catalogue-photos\/[a-f0-9]{64}\.jpg$/.test(p.path) && Number.isInteger(p.width) && p.width >= 320 && p.width <= 1600 && Number.isInteger(p.height) && p.height >= 240 && p.height <= 1600 && text(p.author, 180) && publicUrl(p.sourceUrl) && text(p.license, 80) && (p.licenseUrl === null || publicUrl(p.licenseUrl)) && (p.capturedAt === null || date(p.capturedAt)) && date(p.checkedAt) && text(p.changes, 300), 'Invalid approved branch cover');
-  }
+  if (v.photo) validateCoverPhoto(v.photo);
   requireValue(!Object.values(v).some(x => x === null), 'Cannot erase prior facts with missing data');
 }

@@ -9,7 +9,7 @@ import type { PlaceReviewSummary } from "../../types/place-reviews";
 import { IconButton } from "../food/Controls";
 import { ReactionColumn } from "../ReactionBar";
 import { placeShareMessage } from "../../utils/place-share";
-import { dishCount, isVegOptions, mixedKitchenLabel, mixedKitchenSpoken } from "../../utils/venue-kitchen";
+import { dishCount, isVegOptions, mixedKitchenLabel, mixedKitchenSpoken, placeTileIcon } from "../../utils/venue-kitchen";
 import { MenuEntry } from "./MenuEntry";
 import { PhotoPostCard, PostFact, PostFacts } from "./PhotoPostCard";
 
@@ -20,7 +20,7 @@ export function CatalogueVenueCard({ venue, more, review }: { venue: CatalogueVe
   const options = isVegOptions(venue), distance = venue.distanceKm !== undefined ? " · " + venue.distanceKm.toFixed(1) + " km" : "";
   // A Mixed Kitchen place never reads as Vegetarian or Vegan: it is not a vegetarian kitchen.
   const metadata = options ? mixedKitchenSpoken + " · " + dishCount(venue.itemCount) + distance : venue.venueDiet + distance;
-  return <PhotoPostCard testID="catalogue-venue" titleTestID="catalogue-card-name" photo={{ path: venue.photo?.path }} title={venue.name}
+  return <PhotoPostCard testID="catalogue-venue" titleTestID="catalogue-card-name" photo={{ path: venue.photo?.path, emptyIcon: placeTileIcon(venue) }} title={venue.name}
     label={[venue.name, venue.address, metadata, hoursSummary].join(". ")} hint="Opens this branch's location and details"
     onPress={() => router.push({ pathname: "/place/[id]", params: { id } } as never)}
     topLeft={<MenuEntry menu={venue} compact />}

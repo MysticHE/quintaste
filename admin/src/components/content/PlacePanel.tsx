@@ -58,7 +58,7 @@ function PlaceForm({ detail, onSaved }: { detail: Detail | null; onSaved: (id?: 
         <label>Diet<select value={place.venueDiet} onChange={e => set({ venueDiet: e.target.value as Place['venueDiet'] })}><option>Vegetarian</option><option>Vegan</option></select>{was('venueDiet')}</label>
         {/* Veg options needs the app's menu filter (docs/VEG_OPTIONS_PLAN.md); until that ships, staff cannot newly mark a place. */}
         {start.kitchen === 'options' && <label>Kitchen<select value={place.kitchen ?? ''} onChange={e => set(e.target.value === 'options' ? { kitchen: 'options', alliumFreeClaim: false } : { kitchen: null, menuTotal: null })}>
-          <option value="">Vegetarian</option><option value="options">Veg options</option></select>{was('kitchen')}</label>}
+          <option value="">Vegetarian</option><option value="options">Mixed Kitchen</option></select>{was('kitchen')}</label>}
         {place.kitchen === 'options' && <label>Full menu size<input value={place.menuTotal ?? ''} inputMode="numeric" maxLength={4}
           onChange={e => { const digits = e.target.value.replace(/\D/g, ''); set({ menuTotal: digits ? Number(digits) : null }); }}/>{was('menuTotal')}</label>}
       </div>

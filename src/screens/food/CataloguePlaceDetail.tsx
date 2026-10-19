@@ -18,7 +18,7 @@ import { PrivateNote } from "../../components/food/DetailParts";
 import { useCatalogueVenue } from "../../hooks/useCatalogueVenue";
 import { useFood } from "../../state/Food";
 import { usePreferences } from "../../state/Preferences";
-import { isVegOptions, mixedKitchenLabel } from "../../utils/venue-kitchen";
+import { isVegOptions, mixedKitchenLabel, placeTileIcon } from "../../utils/venue-kitchen";
 
 export function CataloguePlaceDetailScreen({ id }: { id: string }) {
   const { venue, busy, error, offline, retry } = useCatalogueVenue(id);
@@ -44,9 +44,9 @@ export function CataloguePlaceDetailScreen({ id }: { id: string }) {
       : <EmptyState icon="cloud-offline-outline" title="Couldn't load this place" text={offline ? "You're offline. Connect and try again." : "Check your connection and try again."} primary={{ label: "Try Again", onPress: retry }}
         action="Back To Explore" onPress={() => router.navigate("/")} />)}
     {venue && <>
-      {venue.photo ? <View testID="catalogue-place-photo" style={[s.hero, { backgroundColor: theme.mediaSurface }]}>
-        <CataloguePhotoBackdrop key={venue.photo.path} path={venue.photo.path} enabled panelHeight={0} nameHeight={0} />
-      </View> : <View style={[s.missing, { backgroundColor: theme.muted }]}><Icon name="image-outline" size={20} /><T variant="small" muted>Photo unavailable</T></View>}
+      <View testID={venue.photo ? "catalogue-place-photo" : "catalogue-place-tile"} style={[s.hero, { backgroundColor: theme.mediaSurface }]}>
+        <CataloguePhotoBackdrop key={venue.photo?.path ?? "none"} path={venue.photo?.path} emptyIcon={placeTileIcon(venue)} enabled panelHeight={0} nameHeight={0} />
+      </View>
       <ReactionBar kind="place" id={venue.id} name={venue.name} shareMessage={() => placeShareMessage(venue)} />
       <View style={[common.row, { flexWrap: "wrap", gap: 8 }]}>
         {isVegOptions(venue) ? <StatusPill label={mixedKitchenLabel} tone="warning" /> : <StatusPill label={venue.venueDiet} />}
@@ -76,7 +76,6 @@ export function CataloguePlaceDetailScreen({ id }: { id: string }) {
 }
 const s = StyleSheet.create({
   hero: { height: 176, borderRadius: 18, overflow: "hidden" },
-  missing: { minHeight: 64, borderRadius: 14, flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 8 },
   overview: { padding: 10, borderRadius: 14, borderWidth: 1, gap: 4 },
   actions: { flexDirection: "row", gap: 4, padding: 4, borderWidth: 1, borderRadius: 14 },
   secondary: { borderTopWidth: 1, paddingTop: 4 },

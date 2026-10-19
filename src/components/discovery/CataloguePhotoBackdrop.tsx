@@ -4,12 +4,15 @@ import { StyleSheet, View, type ImageSourcePropType } from "react-native";
 import { usePreferences } from "../../state/Preferences";
 import { subscribeCataloguePhoto } from "../../services/catalogue-photo-cache";
 import { apiUrl } from "../../utils/api-url";
-import { Icon, T } from "../ui";
+import { Icon, T, type IconName } from "../ui";
 import { PhotoBlend } from "./PhotoBlend";
 
-/** `source` is a photo bundled with the app; `fallback` names what a photo-less item is (a recipe's category). */
-export function CataloguePhotoBackdrop({ path, source, fallback, enabled, panelHeight, nameHeight }: {
-  path?: string; source?: ImageSourcePropType; fallback?: string; enabled: boolean; panelHeight: number; nameHeight: number;
+/**
+ * `source` is a photo bundled with the app; `fallback` names what a photo-less item is (a recipe's category);
+ * `emptyIcon` draws a plain tile with that icon when there is no photo at all (a failed photo still says so).
+ */
+export function CataloguePhotoBackdrop({ path, source, fallback, emptyIcon, enabled, panelHeight, nameHeight }: {
+  path?: string; source?: ImageSourcePropType; fallback?: string; emptyIcon?: IconName; enabled: boolean; panelHeight: number; nameHeight: number;
 }) {
   const { theme } = usePreferences();
   const [state, setState] = useState<{ uri?: string; failed: boolean }>({ failed: false });
@@ -37,7 +40,12 @@ export function CataloguePhotoBackdrop({ path, source, fallback, enabled, panelH
         <PhotoBlend fadeAt={32 / Math.max(32, height - start)}><View style={{ position: "absolute", top: -start, height, left: 0, right: 0 }}>
           <Image source={image} cachePolicy="none" contentFit="cover" blurRadius={5} style={StyleSheet.absoluteFill} accessible={false} alt="" onError={fail} />
         </View></PhotoBlend>
-      </View>}</> : fallback && (!url || state.failed) ? <View style={s.fallback}>
+      </View>}</> : emptyIcon && !path && !source ? <View testID="photo-empty-tile" style={StyleSheet.absoluteFill}>
+      <View style={[StyleSheet.absoluteFill, s.tint, { backgroundColor: theme.accent }]} />
+      <View style={[panelHeight > 0 ? s.fallback : [StyleSheet.absoluteFill, s.centred], s.emptyIcon]}>
+        <Icon name={emptyIcon} size={56} color={theme.mediaMutedForeground} />
+      </View>
+    </View> : fallback && (!url || state.failed) ? <View style={s.fallback}>
       <T variant="title" color={theme.mediaMutedForeground} numberOfLines={2} style={s.fallbackText}>{fallback}</T>
     </View> : <View style={{ position: "absolute", top: 76, left: 16, right: 16, flexDirection: "row", alignItems: "center", gap: 8 }}>
       <Icon name="image-outline" color={theme.mediaMutedForeground} />
@@ -48,4 +56,7 @@ export function CataloguePhotoBackdrop({ path, source, fallback, enabled, panelH
 const s = StyleSheet.create({
   fallback: { position: "absolute", top: 0, left: 16, right: 16, height: 156, alignItems: "center", justifyContent: "center" },
   fallbackText: { textAlign: "center", opacity: 0.8 },
+  tint: { opacity: 0.18 },
+  centred: { alignItems: "center", justifyContent: "center" },
+  emptyIcon: { opacity: 0.72 },
 });

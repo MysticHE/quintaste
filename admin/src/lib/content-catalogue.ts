@@ -58,7 +58,7 @@ async function placeFields(input: Record<string, unknown>, base: Place | null) {
   if (!/^\d{6}$/.test(postalCode)) throw new HttpError(400, 'Enter a six-digit postal code.');
   const pictured = f.photo === undefined ? undefined : photo(f.photo);
   const kitchen = f.kitchen === undefined || f.kitchen === null || f.kitchen === '' ? null : choice(f.kitchen, ['options'] as const, 'place type');
-  if (kitchen && f.alliumFreeClaim === true) throw new HttpError(400, 'A veg options place cannot claim allium-free food.');
+  if (kitchen && f.alliumFreeClaim === true) throw new HttpError(400, 'A Mixed Kitchen place cannot claim allium-free food.');
   if (pictured && pictured.path !== base?.photo?.path
     && !(await query('SELECT 1 FROM content.asset WHERE sha256=$1', [pictured.path.split('/').pop()!.slice(0, 64)])).rowCount) throw new HttpError(400, 'Upload the photo again.');
   return { name: text(f.name, 'name', 300), branch: text(f.branch, 'branch', 300), address: text(f.address, 'address', 500), postalCode,

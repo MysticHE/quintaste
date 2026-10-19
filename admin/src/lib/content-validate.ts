@@ -78,8 +78,8 @@ export function menuTotal(value: unknown) {
 /** Every dish a veg options place shows must carry the venue's own V or VG label, so meat and seafood dishes never appear. */
 export function checkOptionsMenu(kitchen: 'options' | null | undefined, venueDiet: string | undefined, diets: (string | undefined)[]) {
   if (kitchen == null) return;
-  if (diets.some(diet => diet !== 'V' && diet !== 'VG')) throw new HttpError(409, 'Label every dish V or VG before listing this place as veg options.');
-  if (venueDiet === 'Vegan' && diets.some(diet => diet !== 'VG')) throw new HttpError(409, 'A veg options place is Vegan only when every dish is VG.');
+  if (diets.some(diet => diet !== 'V' && diet !== 'VG')) throw new HttpError(409, 'Label every dish V or VG before listing this place as Mixed Kitchen.');
+  if (venueDiet === 'Vegan' && diets.some(diet => diet !== 'VG')) throw new HttpError(409, 'A Mixed Kitchen place is Vegan only when every dish is VG.');
 }
 export function point(value: unknown) {
   if (value === null) return null;

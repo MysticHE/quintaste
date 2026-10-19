@@ -140,7 +140,8 @@ export async function publish(root, baseline, batch) {
         if (!asset) try { stored = JSON.parse(await fs.readFile(path.join(root, 'assets', sha + '.json'), 'utf8')); } catch { /* Fail closed. */ }
         const metadata = asset ?? stored;
         requireValue(metadata && metadata.dimensions.width === image.width && metadata.dimensions.height === image.height, 'Reviewed image is missing or dimensions differ');
-        if (r.kind === 'venue') {
+        // A place cover follows the venue cover rules: an approved exact-branch reference with its original credit and licence.
+        if (r.kind === 'venue' || r.kind === 'place') {
           requireValue(metadata.provenance.kind === 'approved-reference-enhancement' && metadata.provenance.venueId === r.id, 'Image belongs to another venue');
           const reference = references.find(ref => ref.sha256 === metadata.provenance.referenceSha256 && ref.venueId === r.id) ?? ownerReference(metadata.provenance);
           requireValue(reference && ['author', 'sourceUrl', 'license', 'licenseUrl', 'capturedAt'].every(key => image[key] === reference.photo[key]), 'Original photo attribution/licence must be retained');
