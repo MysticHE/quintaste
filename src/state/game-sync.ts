@@ -7,11 +7,12 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect, useSyncExternalStore } from "react";
 import { applyResult, type GameProgress } from "../game/progress";
 import type { Action, Result } from "../game/sim/engine";
-import type { RunSetup } from "../game/sim/replay";
+import type { RunStart } from "../game/sim/replay";
+import { applyRun } from "../game/special";
 import { fetchGameStatus, type ServerProgress } from "../services/game-api";
 
 /** A run that started online and finished, waiting for the server to replay and settle it. */
-export type PendingRun = { id: string; setup: RunSetup; actions: Action[]; result: Result; finishedAt: number };
+export type PendingRun = { id: string; setup: RunStart; actions: Action[]; result: Result; finishedAt: number };
 export type SyncQueue = { imported: boolean; cafeDirty: boolean; runs: PendingRun[] };
 const MAX_PENDING = 50;
 const queueKey = (userId: string) => "@quintaste/game-sync-v1/" + userId;
@@ -55,7 +56,7 @@ export const cafeOf = (g: GameProgress) => Object.fromEntries(CAFE_KEYS.map(k =>
  */
 export function reconcile(server: GameProgress, local: GameProgress, pending: PendingRun[], keepLocalCafe: boolean): GameProgress {
   let game: GameProgress = { ...server, ...(keepLocalCafe ? cafeOf(local) : {}), tier: local.tier };
-  for (const run of pending) game = applyResult(game, run.setup.level, run.result).game;
+  for (const run of pending) game = applyRun(game, run.setup, run.result).game;
   return game;
 }
 type GameUpdate = (change: (game: GameProgress) => GameProgress) => Promise<boolean>;
@@ -75,7 +76,7 @@ export async function applyPending(userId: string, run: PendingRun, update: Game
   let reward: ReturnType<typeof applyResult>["reward"] | null = null;
   const ok = await update(local => {
     const others = queue.runs.filter(r => r.id !== run.id), base = lastServer?.userId === userId ? reconcile(lastServer.game, local, others, queue.cafeDirty) : local;
-    const next = applyResult(base, run.setup.level, run.result);
+    const next = applyRun(base, run.setup, run.result);
     reward = next.reward;
     return next.game;
   });

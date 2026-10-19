@@ -1,5 +1,5 @@
-import { router, useFocusEffect } from "expo-router";
-import { useCallback } from "react";
+import { router, useFocusEffect, useLocalSearchParams } from "expo-router";
+import { useCallback, useEffect } from "react";
 import { ActivityIndicator, View, AppState, StyleSheet } from "react-native";
 import { Screen } from "../../components/Screen";
 import { Button, Icon, T, common } from "../../components/ui";
@@ -25,6 +25,14 @@ export function ExploreScreen() {
   const { input, locationExpired, privateMissing, privateKind, point, areaLabel, choose, searchPlaces } = useDiscoveryInput(useMinuteClock());
   const nearby = useNearbyLocation(), { ensure } = discovery;
   const eligible = ready && !privateMissing && !locationExpired;
+  // Find it nearby (the game's bridges, GAME_PLAN §11): /?q=laksa runs the same search as typing it, once.
+  const { q } = useLocalSearchParams<{ q?: string }>();
+  useEffect(() => {
+    if (typeof q !== "string" || !ready || !readable) return;
+    router.setParams({ q: undefined });
+    const term = q.trim().slice(0, 80);
+    if (term) searchPlaces(term);
+  }, [q, ready, readable]); // eslint-disable-line react-hooks/exhaustive-deps
   useFocusEffect(useCallback(() => {
     const refresh = () => { if (eligible && AppState.currentState !== "background" && AppState.currentState !== "inactive") ensure(input); };
     refresh();

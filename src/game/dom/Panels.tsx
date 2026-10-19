@@ -23,7 +23,7 @@ export function Hud({ run, L, coins, eatKey, onPause }: { run: sim.Run; L: Layou
         <circle className="arc" cx="22" cy="22" r="19" fill="none" stroke="var(--sage-deep)" strokeWidth="4" strokeDasharray="119.4" strokeDashoffset={(119.4 * (1 - frac)).toFixed(1)} strokeLinecap="round" /></svg>
       <b>{rush ? Math.floor(secs / 60) + ":" + String(secs % 60).padStart(2, "0") : "Calm"}</b>
     </div>
-    <div className="lvl">Level {run.level.n}<small>{run.level.name}</small></div>
+    <div className="lvl">{run.level.special ? "Today's special" : "Level " + run.level.n}<small>{run.level.special ? DISHES[run.level.special.dish]?.name : run.level.name}</small></div>
     <div className="takings" aria-label={"Takings " + coins + " of " + max}>
       <div className="coins"><span key={eatKey} className={"ico" + (eatKey ? " eat" : "")} />{coins}<small style={{ marginLeft: "auto", fontSize: 10, color: "var(--ink-2)" }}>{left} left</small></div>
       <div className="bar"><i style={{ width: Math.min(100, coins / max * 100) + "%" }} />
@@ -89,12 +89,14 @@ type ShelvesProps = {
   run: sim.Run; L: Layout; art: Art; tab: "fresh" | "pantry"; setTab(t: "fresh" | "pantry"): void; selected: string | null;
   onPick(id: string | null, origin?: { x: number; y: number }): void; onDrop(id: string, x: number, y: number, origin: { x: number; y: number }): void;
   onLabel(id: string): void; listMode: boolean; setList(v: boolean): void;
+  /** Play your way tap only: no drags, so a shaky tap never turns into a drop. */
+  tapOnly: boolean;
 };
 /**
  * Ingredient trays. A plain click (mouse, touch, keyboard or assistive tech) selects; a pointer drag of 8 px or more drops on a station.
- * The label button sits beside the card, never inside it. Memoised: the trays only change with tab, selection or layout.
+ * The label button sits beside the card, never inside it. Memoised: the trays only change with tab, selection, layout or input mode.
  */
-export const Shelves = memo(function Shelves({ run, L, art, tab, setTab, selected, onPick, onDrop, onLabel, listMode, setList }: ShelvesProps) {
+export const Shelves = memo(function Shelves({ run, L, art, tab, setTab, selected, onPick, onDrop, onLabel, listMode, setList, tapOnly }: ShelvesProps) {
   const drag = useRef<{ id: string; x0: number; y0: number; moved: boolean; ghost: HTMLImageElement | null; root: HTMLElement | null } | null>(null);
   const suppressClick = useRef(false);
   const cleanup = useRef<(() => void) | null>(null);
@@ -102,7 +104,7 @@ export const Shelves = memo(function Shelves({ run, L, art, tab, setTab, selecte
   const items = useMemo(() => shelfItems(run).filter(id => ITEMS[id].tray === tab), [run, tab]);
   const rel = (e: { clientX: number; clientY: number }, root: HTMLElement) => { const b = root.getBoundingClientRect(); return { x: e.clientX - b.left, y: e.clientY - b.top }; };
   function down(e: RPointerEvent<HTMLButtonElement>, id: string) {
-    if (e.button) return;
+    if (e.button || tapOnly) return;
     const root = (e.currentTarget.closest(".rh") as HTMLElement) ?? null;
     drag.current = { id, x0: e.clientX, y0: e.clientY, moved: false, ghost: null, root };
     const move = (ev: PointerEvent) => {
@@ -145,11 +147,11 @@ export const Shelves = memo(function Shelves({ run, L, art, tab, setTab, selecte
       </div>;
     })}</div>
   </div>;
-}, (a, b) => a.run === b.run && a.L === b.L && a.tab === b.tab && a.selected === b.selected && a.listMode === b.listMode);
+}, (a, b) => a.run === b.run && a.L === b.L && a.tab === b.tab && a.selected === b.selected && a.listMode === b.listMode && a.tapOnly === b.tapOnly);
 
-export function HeatPanel({ run, L, art, petArt, onHeat, onLift, onRestart, onPlate, onSkill }: {
-  run: sim.Run; L: Layout; art: Art; petArt: string; onHeat(k: StationKind): void; onLift(k: StationKind, uid: number): void;
-  onRestart(k: StationKind): void; onPlate(k: StationKind): void; onSkill(): void;
+export function HeatPanel({ run, L, art, petArt, hold, onHeat, onHeatTo, onLift, onRestart, onPlate, onSkill }: {
+  run: sim.Run; L: Layout; art: Art; petArt: string; hold: boolean; onHeat(k: StationKind): void; onHeatTo(k: StationKind, on: boolean): void;
+  onLift(k: StationKind, uid: number): void; onRestart(k: StationKind): void; onPlate(k: StationKind): void; onSkill(): void;
 }) {
   const kind = run.selected, st = run.stations[kind]!, cfg = STATIONS[kind], pr = st.part;
   const [lo, hi] = sim.bandOf(st, pr), g = sim.focusGuest(run);
@@ -164,8 +166,8 @@ export function HeatPanel({ run, L, art, petArt, onHeat, onLift, onRestart, onPl
       <span className="words"><span>Cool</span><span>Target</span><span>Too hot</span></span>
     </div> : <div className="status" style={{ fontSize: 11 }}>{cfg.name}: no heat to manage</div>}
     <div style={{ gridRow: "span 2", display: "flex", gap: 6 }}>
-      <button className="burner" aria-pressed={st.heatOn} disabled={!cfg.heat} onClick={() => onHeat(kind)}
-        aria-label={cfg.heat ? (st.heatOn ? "Heat on, tap to turn it off" : "Heat off, tap to turn it on") : cfg.name + " has no heat"}>
+      <button className="burner" aria-pressed={st.heatOn} disabled={!cfg.heat} {...burnerInput(hold, kind, onHeat, onHeatTo)}
+        aria-label={cfg.heat ? (hold ? (st.heatOn ? "Heat on, release to turn it off" : "Heat off, hold to heat") : st.heatOn ? "Heat on, tap to turn it off" : "Heat off, tap to turn it on") : cfg.name + " has no heat"}>
         <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12.6 2.4c.5 3.2 4.1 5 4.1 9.6a4.7 4.7 0 0 1-9.4 0c0-2.2 1.1-3.7 2.5-4.9-.1 2 .6 3.4 1.9 3.8.2-3.2 1.7-5.4.9-8.5z" /></svg>
         <span>{cfg.heat ? (st.heatOn ? "On" : "Off") : "No heat"}</span>
       </button>
@@ -179,6 +181,21 @@ export function HeatPanel({ run, L, art, petArt, onHeat, onLift, onRestart, onPl
       {pr && pr.state !== "ready" && <button className="hchip" onClick={() => onRestart(kind)}>Restart</button>}
     </div>
   </div>;
+}
+
+/**
+ * Burner input. Toggle: a tap switches. Hold: heat stays on while a finger or mouse is down; a click without a pointer
+ * (keyboard, switch access, screen reader) still toggles, so hold never locks anyone out (QT-050/051).
+ */
+function burnerInput(hold: boolean, kind: StationKind, onHeat: (k: StationKind) => void, onHeatTo: (k: StationKind, on: boolean) => void) {
+  if (!hold) return { onClick: () => onHeat(kind) };
+  const off = () => onHeatTo(kind, false);
+  return {
+    onPointerDown: (e: RPointerEvent<HTMLButtonElement>) => { if (e.button) return; e.currentTarget.setPointerCapture?.(e.pointerId); onHeatTo(kind, true); },
+    onPointerUp: off, onPointerCancel: off, onLostPointerCapture: off,
+    onClick: (e: RMouseEvent<HTMLButtonElement>) => { if (e.detail === 0) onHeat(kind); },
+    onContextMenu: (e: RMouseEvent<HTMLButtonElement>) => e.preventDefault(),
+  };
 }
 
 export function Dialogue({ run, L, art, chefArt }: { run: sim.Run; L: Layout; art: Art; chefArt: string }) {

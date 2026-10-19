@@ -6,13 +6,41 @@
 import { STATIONS, DISHES, type StationKind } from "../content/dishes";
 import { GUESTS, RULES } from "../content/guests";
 import { ITEMS } from "../content/items";
-import { LEVELS } from "../content/levels";
+import { LEVELS, levelByNumber, type Level } from "../content/levels";
 import { CREDIT_REWARDS, PETS, SKILLS } from "../content/cosmetics";
 import * as sim from "./engine";
+import { emptyGame, type GameProgress } from "../progress";
+import { specialFor } from "../special";
 
 /** Bump when engine.ts changes how a run plays out; content changes are picked up by the hash automatically. */
-const ENGINE_VERSION = 1;
-export type RunSetup = { level: number; mode: "rush" | "calm"; pet: string; signature: string[] };
+const ENGINE_VERSION = 2;
+/**
+ * What a run was started with. A Today's special is rebuilt from its Singapore date and the highest level the player had
+ * cleared when it started (`top`); `hints` is the Play your way hint setting the run used.
+ */
+export type RunSetup = { level: number; special?: { day: string; top: number } | null; hints?: Level["hints"] | null; mode: "rush" | "calm"; pet: string; signature: string[] };
+
+/** What the app sends when a service starts; the server turns `special` (a date) into its stored setup. */
+export type RunStart = { level: number; special: string | null; hints: Level["hints"] | null; mode: "rush" | "calm"; pet: string; signature: string[] };
+
+/** A player who has cleared Levels 1..top: enough to rebuild the same special the player saw. */
+export const progressAt = (top: number): GameProgress => {
+  const g = emptyGame();
+  for (let n = 1; n <= top; n++) g.best[n] = { stars: 1, score: 75, served: true, rules: true, steady: false, mastered: false, clears: 1 };
+  return g;
+};
+/** The level a setup plays: a numbered level, or the special for its date. Throws ReplayError when it cannot exist. */
+export function setupLevel(setup: RunSetup): Level {
+  if (setup.special) {
+    const top = int(setup.special.top, LEVELS.length), sp = specialFor(progressAt(top), String(setup.special.day));
+    if (!sp) throw new ReplayError("no special");
+    return sp.level;
+  }
+  const lv = LEVELS[setup.level - 1];
+  if (!lv) throw new ReplayError("bad level");
+  return levelByNumber(setup.level);
+}
+const hintsOf = (setup: RunSetup) => setup.hints === "full" || setup.hints === "chip" || setup.hints === "none" ? setup.hints : undefined;
 /** Calm services have no clock, so replay stops at 30 minutes of play. */
 export const MAX_CALM_TICKS = Math.round(30 * 60 / sim.DT);
 export const MAX_ACTIONS = 6000;
@@ -54,7 +82,7 @@ function apply(r: sim.Run, [, op, a, b]: sim.Action) {
 
 /** Highest tick count an honest run can reach: the round plus the clock skill, or the Calm cap. */
 export function tickLimit(setup: RunSetup) {
-  const round = LEVELS[setup.level - 1]?.round;
+  const round = setupLevel(setup).round;
   return setup.mode === "rush" && round != null ? Math.ceil((round + 12) / sim.DT) + 2 : MAX_CALM_TICKS;
 }
 
@@ -64,7 +92,7 @@ export function tickLimit(setup: RunSetup) {
  */
 export function replay(setup: RunSetup, actions: unknown): sim.Run {
   if (!Array.isArray(actions) || actions.length > MAX_ACTIONS) throw new ReplayError("bad log");
-  const limit = tickLimit(setup), r = sim.createRun(setup.level, setup.mode, setup.pet, setup.signature);
+  const limit = tickLimit(setup), r = sim.createRun(setupLevel(setup), setup.mode, setup.pet, setup.signature, hintsOf(setup));
   const advanceTo = (tick: number) => {
     while (r.ticks < tick) {
       const before = r.ticks;

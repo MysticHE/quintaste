@@ -8,15 +8,17 @@ import { usePreferences } from "../../../state/Preferences";
 import { Art } from "./bits";
 import { SLOTS, type SlotId } from "./sceneLayout";
 
-export function Pill({ text, icon, label, onPress, disabled, strong, children }: {
-  text?: string; icon?: IconName; label: string; onPress?(): void; disabled?: boolean; strong?: boolean; children?: React.ReactNode;
+export function Pill({ text, icon, label, onPress, disabled, strong, shrink, children }: {
+  text?: string; icon?: IconName; label: string; onPress?(): void; disabled?: boolean; strong?: boolean;
+  /** Gives up width first on narrow screens (the café name). */
+  shrink?: boolean; children?: React.ReactNode;
 }) {
   const { theme } = usePreferences();
   const bg = strong ? theme.success : theme.card, fg = strong ? theme.actionForeground : theme.foreground;
   return <Pressable onPress={onPress} disabled={!onPress || disabled} accessibilityRole={onPress ? "button" : "text"} accessibilityLabel={label} accessibilityState={{ disabled }}
-    style={({ pressed }) => [s.pill, { backgroundColor: bg, opacity: disabled ? 0.5 : 1, transform: [{ scale: pressed ? 0.96 : 1 }] }]}>
+    style={({ pressed }) => [s.pill, shrink && s.shrinkPill, { backgroundColor: bg, opacity: disabled ? 0.5 : 1, transform: [{ scale: pressed ? 0.96 : 1 }] }]}>
     {icon && <Icon name={icon} size={16} color={strong ? fg : theme.accent} />}
-    {!!text && <T variant="small" color={fg} style={s.pillText} numberOfLines={1}>{text}</T>}{children}
+    {!!text && <T variant="small" color={fg} style={[s.pillText, shrink && s.shrink]} numberOfLines={1}>{text}</T>}{children}
   </Pressable>;
 }
 
@@ -80,6 +82,8 @@ function TrayTile({ art, label, status, selected, disabled, onPress }: { art?: s
 const s = StyleSheet.create({
   pill: { minHeight: 44, minWidth: 44, paddingHorizontal: 12, borderRadius: 22, flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 6 },
   pillText: { fontWeight: "800", maxWidth: 140 },
+  shrink: { flexShrink: 1, minWidth: 0 },
+  shrinkPill: { flexShrink: 1 },
   halo: { borderRadius: 26 },
   play: { minHeight: 52, borderRadius: 26, flexDirection: "row", alignItems: "center", gap: 10, paddingLeft: 7, paddingRight: 20, maxWidth: 300 },
   playDot: { width: 38, height: 38, borderRadius: 19, alignItems: "center", justifyContent: "center" },

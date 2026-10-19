@@ -10,14 +10,17 @@ export type PlayfieldInput = Omit<SceneHooks, "ready">;
  * Measures the container, boots Phaser, keeps the scene's layout in step
  * with resizes (including ones during asset loading) and destroys the game on unmount or reboot.
  */
-export function usePlayfield(runRef: MutableRefObject<sim.Run>, seats: number, stations: StationKind[], art: Record<string, string>, reduced: boolean,
-  input: MutableRefObject<PlayfieldInput>, onReady: () => void) {
+export function usePlayfield(runRef: MutableRefObject<sim.Run>, seats: number, stations: StationKind[], art: Record<string, string>,
+  look: { reduced: boolean; tapOnly: boolean }, input: MutableRefObject<PlayfieldInput>, onReady: () => void) {
   const rootRef = useRef<HTMLDivElement>(null), stageRef = useRef<HTMLDivElement>(null);
   const sceneRef = useRef<Playfield | null>(null), gameRef = useRef<{ destroy(b: boolean): void } | null>(null);
   const [L, setL] = useState<Layout | null>(null);
   const layoutRef = useRef<Layout | null>(null);
   const [boot, setBoot] = useState(0);
   const key = stations.join(",");
+  // Reduce motion and tap only can change from the pause menu; the running scene follows them.
+  const lookRef = useRef(look);
+  useEffect(() => { lookRef.current = look; const sc = sceneRef.current; if (sc) { sc.reduced = look.reduced; sc.tapOnly = look.tapOnly; } }, [look.reduced, look.tapOnly]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => { layoutRef.current = L; }, [L]);
   useEffect(() => {
@@ -39,7 +42,7 @@ export function usePlayfield(runRef: MutableRefObject<sim.Run>, seats: number, s
     };
     const game = new Phaser.Game({ type: Phaser.AUTO, parent: stageRef.current, width: lay.w * DPR, height: lay.h * DPR, transparent: true, banner: false,
       scale: { mode: Phaser.Scale.NONE, zoom: 1 / DPR }, render: { antialias: true }, input: { activePointers: 2, windowEvents: false } });
-    game.scene.add("playfield", Playfield, true, { run: runRef.current, layout: lay, art, hooks, reduced });
+    game.scene.add("playfield", Playfield, true, { run: runRef.current, layout: lay, art, hooks, reduced: lookRef.current.reduced, tapOnly: lookRef.current.tapOnly });
     sceneRef.current = game.scene.getScene("playfield") as Playfield; gameRef.current = game;
     if (process.env.NODE_ENV !== "production") (globalThis as { __rushHour?: unknown }).__rushHour = { game, run: () => runRef.current, layout: () => layoutRef.current };
   }, [L !== null, boot]); // eslint-disable-line react-hooks/exhaustive-deps

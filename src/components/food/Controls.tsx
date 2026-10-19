@@ -9,11 +9,11 @@ import { fontNames } from "../../theme/tokens";
 import { Card, Icon, T, common, type IconName } from "../ui";
 import { StateView } from "../StateView";
 
-export function Chip({ label, icon, leading, trailing, selected = false, onPress, role = "button", disabled = false, compact = false, style }: {
-  label: string; icon?: IconName; leading?: ReactNode; trailing?: ReactNode; selected?: boolean; onPress: () => void; role?: AccessibilityRole; disabled?: boolean; compact?: boolean; style?: StyleProp<ViewStyle>;
+export function Chip({ label, a11y, icon, leading, trailing, selected = false, onPress, role = "button", disabled = false, compact = false, style }: {
+  label: string; a11y?: string; icon?: IconName; leading?: ReactNode; trailing?: ReactNode; selected?: boolean; onPress: () => void; role?: AccessibilityRole; disabled?: boolean; compact?: boolean; style?: StyleProp<ViewStyle>;
 }) {
   const { theme } = usePreferences(), { focused, focusProps } = useKeyboardFocus();
-  return <Pressable accessibilityRole={role} accessibilityLabel={label}
+  return <Pressable accessibilityRole={role} accessibilityLabel={a11y ?? label}
     aria-checked={role === "checkbox" || role === "radio" ? selected : undefined}
     accessibilityState={(role === "checkbox" || role === "radio") ? { checked: selected, disabled } : { selected, disabled }}
     disabled={disabled} onPress={onPress} {...focusProps}

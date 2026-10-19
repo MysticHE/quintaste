@@ -1,5 +1,9 @@
-/** Styles for the Rush Hour DOM layer. The game world keeps one warm look in both app themes; every colour is a token. */
-export const RUSH_CSS = `
+/**
+ * Styles for the Rush Hour DOM layer. The game world keeps one warm look in both app themes; every colour is a token.
+ * Every font size follows Play your way text size through --ts, set on the root.
+ */
+const scaleText = (css: string) => css.replace(/font-size:(\d+(?:\.\d+)?)px/g, "font-size:calc($1px * var(--ts, 1))");
+export const RUSH_CSS = scaleText(`
 .rh { --cream:#fff8ef; --cream-2:#fbefe2; --card:#fffdf8; --ink:#3a2a2c; --ink-2:#6f5a55; --white:#ffffff; --peach:#f7a98c; --coral:#d9573f;
   --gold:#f2c14e; --gold-hi:#ffd977; --gold-deep:#b98516; --gold-ink:#3b2604; --sage:#6f9a72; --sage-deep:#3f6b47; --warn:#c0392b; --warn-soft:#fde3dd;
   --band:#f6c27a; --band-stripe:#e9a74f; --hot:#e2553b; --cool:#7fb7d6; --glass:rgba(255,248,239,0.9); --scrim:rgba(38,30,32,0.55); --shadow:rgba(60,30,10,0.25);
@@ -19,7 +23,7 @@ export const RUSH_CSS = `
 .rh .timer b { position:absolute; inset:0; display:grid; place-items:center; font-size:12px; }
 .rh .timer.warm .arc { stroke:var(--coral); } .rh .timer.late { animation:rhpulse .8s ease-in-out infinite; }
 @keyframes rhpulse { 50% { transform:scale(1.08); } }
-.rh .lvl { font-size:13px; line-height:1.15; min-width:0; flex:1; } .rh .lvl small { display:block; font-size:11px; color:var(--ink-2); }
+.rh .lvl { font-size:13px; line-height:1.15; min-width:0; flex:1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; } .rh .lvl small { display:block; font-size:11px; color:var(--ink-2); overflow:hidden; text-overflow:ellipsis; }
 .rh .takings { flex:1.4; display:grid; gap:3px; }
 .rh .bar { position:relative; height:12px; border-radius:99px; background:var(--cream-2); box-shadow:inset 0 0 0 2px var(--panel-edge); }
 .rh .bar i { position:absolute; left:0; top:0; bottom:0; border-radius:99px; background:linear-gradient(var(--gold-hi),var(--gold)); }
@@ -30,7 +34,7 @@ export const RUSH_CSS = `
 .rh .pill { min-height:36px; min-width:36px; padding:0 10px; border-radius:99px; background:var(--glass); display:inline-flex; align-items:center; justify-content:center; gap:4px; font-size:13px; box-shadow:0 2px 6px var(--shadow); }
 .rh .recipe { display:flex; align-items:center; gap:8px; padding:4px 10px; border-radius:16px; background:var(--glass); box-shadow:0 2px 6px var(--shadow); }
 .rh .recipe .bowl { width:52px; height:52px; flex:none; object-fit:contain; filter:drop-shadow(0 2px 3px var(--shadow)); }
-.rh .recipe .t { font-size:14px; } .rh .recipe .t small { font-size:11px; color:var(--ink-2); margin-left:4px; }
+.rh .recipe .t { font-size:14px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; } .rh .recipe .t small { font-size:11px; color:var(--ink-2); margin-left:4px; }
 .rh .steps { display:flex; gap:5px; margin-top:3px; flex-wrap:nowrap; overflow:hidden; }
 .rh .step { width:30px; height:30px; border-radius:9px; background:var(--cream); box-shadow:inset 0 0 0 2px var(--panel-edge); position:relative; flex:none; display:grid; place-items:center; }
 .rh .step img { width:24px; height:24px; object-fit:contain; } .rh .step.want { box-shadow:inset 0 0 0 2px var(--gold); animation:rhpulse 1.6s ease-in-out infinite; }
@@ -110,5 +114,12 @@ export const RUSH_CSS = `
 .rh .list .line { font-size:12px; font-family:"Nunito_700Bold","Nunito",ui-rounded,system-ui,sans-serif; font-weight:700; }
 /* The panel layer passes taps through to the canvas (guests, stations, plates); only its own bands take them. */
 .rh .panels { pointer-events:none; } .rh .panels > * { pointer-events:auto; } .rh .panels > .floater { pointer-events:none; }
+.rh .caption { position:absolute; right:8px; z-index:46; pointer-events:none; font-size:11px; padding:3px 9px; border-radius:99px; background:var(--ink); color:var(--white); animation:rhcap 1.4s ease-out forwards; }
+@keyframes rhcap { 0% { opacity:0; transform:translateY(-4px); } 12%, 75% { opacity:1; transform:none; } 100% { opacity:0; } }
+.rh .sheethead { display:flex; align-items:center; justify-content:space-between; gap:8px; }
+.rh .bridges { display:flex; flex-wrap:wrap; gap:6px; }
+.rh .linkpill { min-height:40px; padding:6px 12px; border-radius:99px; background:var(--white); color:var(--ink); box-shadow:inset 0 0 0 2px var(--panel-edge); display:inline-flex; align-items:center; gap:6px; font-size:12px; }
+.rh .linkpill svg { color:var(--coral); flex:none; }
 @media (prefers-reduced-motion: reduce) { .rh *, .rh *::before, .rh *::after { animation:none !important; transition:none !important; } }
-`;
+.rh.still *, .rh.still *::before, .rh.still *::after { animation:none !important; transition:none !important; }
+`);

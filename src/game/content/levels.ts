@@ -18,6 +18,8 @@ export type Level = {
   /** Level 20: the player picks three dishes; orders are drawn from them. */
   signature?: boolean;
   unlocks: string[];
+  /** Today's special (src/game/special.ts): built per date, never part of the level path. */
+  special?: { day: string; dish: string; lunar: string | null };
 };
 
 let seq = 0;
@@ -64,7 +66,7 @@ export const LEVELS: Level[] = [
     stations: ["pan", "pot", "rice", "dessert"], seats: 4, maxOpen: 4, round: 175, patience: 80, hints: "none", orders: [o("jia", "nasi-lemak", 1), o("mei", "mee-goreng", 4), o("asha", "abc-soup", 8), o("daniel", "bubur", 28), o("lim", "claypot", 50), o("nurul", "kangkung-split", 70), o("office", "sago", 92)], distractors: [], unlocks: [] },
   { n: 20, name: "Your signature service", brief: "Choose three dishes you have mastered. Your regulars come for your signature menu.", teach: "Everything you have learned.",
     stations: ["pan", "pot", "rice", "dessert", "board"], seats: 4, maxOpen: 4, round: 170, patience: 82, hints: "none", signature: true,
-    orders: [o("mei", "*", 1), o("daniel", "*", 4), o("jia", "*", 10), o("asha", "*", 32), o("lim", "*", 56), o("nurul", "*", 80)], distractors: [], unlocks: ["Signature badge"] },
+    orders: [o("mei", "*", 1), o("daniel", "*", 4), o("jia", "*", 10), o("asha", "*", 32), o("lim", "*", 56), o("nurul", "*", 80)], distractors: [], unlocks: ["Signature badge", "Signature café skin"] },
 ];
 
 export const levelByNumber = (n: number) => LEVELS[n - 1];

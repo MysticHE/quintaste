@@ -6,9 +6,10 @@ import { accountsEnabled } from "../services/auth-client";
 import { ApiError } from "../services/community-api";
 import { buyItem, finishRun, openRun } from "../services/game-api";
 import { DECOR } from "../game/content/cosmetics";
-import { applyResult, withTier, type GameProgress } from "../game/progress";
+import { withTier, type GameProgress } from "../game/progress";
 import type { Action, Result } from "../game/sim/engine";
-import { rulesVersion, type RunSetup } from "../game/sim/replay";
+import { rulesVersion, type RunStart } from "../game/sim/replay";
+import { applyRun } from "../game/special";
 import { applyPending, applyServer, editQueue, markCafeChanged, requestGameSync, type PendingRun } from "../state/game-sync";
 import { useLotus } from "./useLotus";
 
@@ -67,7 +68,7 @@ export function useGame() {
   }, [memberId, commit, updateGame, setNotice]);
 
   /** Opens the attempt on the account when the service starts. Null for guests. */
-  const startRun = useCallback(async (setup: RunSetup): Promise<StartedRun | null> => {
+  const startRun = useCallback(async (setup: RunStart): Promise<StartedRun | null> => {
     if (!memberId) return null;
     const id = runId();
     try { await openRun(id, setup, rulesVersion); return { id, online: true }; }
@@ -83,10 +84,10 @@ export function useGame() {
    * Saves a finished service and returns the reward line. Guests: applied on the device. Members: queued first, shown at
    * once as pending, then settled by the server; a settled or refused answer replaces the pending one.
    */
-  const finish = useCallback(async (started: Promise<StartedRun | null> | null, setup: RunSetup, actions: Action[], result: Result): Promise<RunReward> => {
+  const finish = useCallback(async (started: Promise<StartedRun | null> | null, setup: RunStart, actions: Action[], result: Result): Promise<RunReward> => {
     if (!memberId) {
       let reward: RunReward = none;
-      const ok = await commit(d => ({ ...d, game: tiered(g => { const r = applyResult(g, setup.level, result); reward = r.reward; return { ...r.game, mode: setup.mode }; })(d.game) }));
+      const ok = await commit(d => ({ ...d, game: tiered(g => { const r = applyRun(g, setup, result); reward = r.reward; return { ...r.game, mode: setup.mode }; })(d.game) }));
       if (!ok) throw new Error("Progress not saved");
       return reward;
     }

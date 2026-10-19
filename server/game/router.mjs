@@ -61,10 +61,14 @@ game.post('/runs', async (req, res) => {
   const { sim, user } = res.locals, body = req.body ?? {};
   if (!uuid(body.id)) throw new CommunityError(400, 'Invalid run.');
   if (body.rules !== sim.rulesVersion) throw new CommunityError(409, 'Update QuinTaste to save game progress.', 'GAME_UPDATE');
-  const level = Number(body.level), mode = body.mode === 'calm' ? 'calm' : body.mode === 'rush' ? 'rush' : null, lv = sim.LEVELS[level - 1];
-  if (!Number.isInteger(level) || !lv || !mode) throw new CommunityError(400, 'Invalid run.');
+  // Today's special: a Singapore date within a day of now; otherwise a numbered level.
+  const day = body.special == null ? null : String(body.special);
+  if (day !== null && !nearDays().includes(day)) throw new CommunityError(400, 'Invalid run.');
+  const level = day ? 0 : Number(body.level), mode = body.mode === 'calm' ? 'calm' : body.mode === 'rush' ? 'rush' : null, lv = sim.LEVELS[level - 1];
+  if ((!day && (!Number.isInteger(level) || !lv)) || !mode) throw new CommunityError(400, 'Invalid run.');
+  const hints = ['full', 'chip', 'none'].includes(body.hints) ? body.hints : null;
   const pet = sim.cosmetics.PETS[body.pet] ? body.pet : null;
-  const signature = lv.signature && Array.isArray(body.signature) ? [...new Set(body.signature.filter(d => typeof d === 'string' && sim.DISHES[d]))].slice(0, 3) : [];
+  const signature = lv?.signature && Array.isArray(body.signature) ? [...new Set(body.signature.filter(d => typeof d === 'string' && sim.DISHES[d]))].slice(0, 3) : [];
   await throttle(`game-run:${user.id}`, 120, 3600);
   const run = await transaction(async db => {
     await lockProfile(db, user.id);
@@ -72,8 +76,11 @@ game.post('/runs', async (req, res) => {
     if (existing) { if (existing.user_id !== user.id) throw new CommunityError(404, 'Invalid run.'); return { id: body.id, status: existing.status }; }
     const { game: progress } = await loadProgress(db, sim, user.id);
     if (!pet || !sim.isUnlocked(progress, sim.cosmetics.PETS[pet].unlock)) throw new CommunityError(409, 'That companion is locked.', 'PET_LOCKED');
-    await db.query(`INSERT INTO game.run(id, user_id, level, mode, pet, signature, rules_version) VALUES($1,$2,$3,$4,$5,$6,$7)`,
-      [body.id, user.id, level, mode, pet, signature, sim.rulesVersion]);
+    // A special is rebuilt later from its date and the account's highest clear now, so both are stored with the run.
+    const top = day ? sim.highestCleared(progress) : null;
+    if (day && !sim.specialFor(progress, day)) throw new CommunityError(409, "Today's special opens at Level 6.", 'SPECIAL_LOCKED');
+    await db.query(`INSERT INTO game.run(id, user_id, level, mode, pet, signature, rules_version, special_day, special_top, hints) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)`,
+      [body.id, user.id, level, mode, pet, signature, sim.rulesVersion, day, top, hints]);
     return { id: body.id, status: 'open' };
   });
   res.json(run);
@@ -107,7 +114,8 @@ game.post('/runs/:id/finish', async (req, res) => {
   if (run.status !== 'open') return reply();
   if (run.rules_version !== sim.rulesVersion) { await refuse(id, user.id, 'game updated since the run started', actions); return reply(); }
   if (run.elapsed > RUN_DAYS * 86400) { await refuse(id, user.id, 'run expired', actions); return reply(); }
-  const setup = { level: run.level, mode: run.mode, pet: run.pet, signature: run.signature };
+  const special = run.special_day ? { day: isoDay(run.special_day), top: run.special_top } : null;
+  const setup = { level: run.level, special, hints: run.hints, mode: run.mode, pet: run.pet, signature: run.signature };
   let replayed;
   try { replayed = sim.replay(setup, actions); }
   catch (error) {
@@ -123,6 +131,7 @@ game.post('/runs/:id/finish', async (req, res) => {
     const current = (await db.query('SELECT status FROM game.run WHERE id=$1 FOR UPDATE', [id])).rows[0];
     if (current.status !== 'open') return;
     const { game: progress } = await loadProgress(db, sim, user.id);
+    if (special) { await settleSpecial(db, sim, user.id, id, replayed, result, actions); return; }
     if (!sim.levelOpen(progress, run.level)) {
       await db.query(`UPDATE game.run SET status='rejected', reason='level locked', finished_at=now() WHERE id=$1`, [id]);
       await db.query('INSERT INTO game.run_log(run_id, actions) VALUES($1,$2) ON CONFLICT DO NOTHING', [id, JSON.stringify(actions)]);
@@ -141,6 +150,23 @@ game.post('/runs/:id/finish', async (req, res) => {
   });
   return reply();
 });
+
+/** Singapore dates (YYYY-MM-DD) for yesterday, today and tomorrow: a special may start around midnight. */
+function nearDays(now = Date.now()) {
+  return [-1, 0, 1].map(d => new Date(now + 8 * 3600000 + d * 86400000).toISOString().slice(0, 10));
+}
+/** A `date` column as YYYY-MM-DD (pg returns a Date at local midnight, or a string when parsing is off). */
+const isoDay = value => value instanceof Date
+  ? `${value.getFullYear()}-${String(value.getMonth() + 1).padStart(2, '0')}-${String(value.getDate()).padStart(2, '0')}` : String(value).slice(0, 10);
+
+/** A finished Today's special pays the normal replay grant on a clear and records nothing per level (GAME_PLAN §10). */
+async function settleSpecial(db, sim, me, id, replayed, result, actions) {
+  const credits = result.cleared ? sim.cosmetics.CREDIT_REWARDS.replay : 0, reward = { credits, first: false, mastered: false, unlocks: [] };
+  if (credits) await postCredits(db, me, credits, 'replay', 'run:' + id);
+  await db.query(`UPDATE game.run SET status='settled', finished_at=now(), ticks=$2, credits=$3, result=$4 WHERE id=$1`,
+    [id, replayed.ticks, credits, { result: { stars: result.stars, score: result.score, cleared: result.cleared, coins: result.coins, stamps: result.stamps }, reward }]);
+  await db.query('INSERT INTO game.run_log(run_id, actions) VALUES($1,$2) ON CONFLICT DO NOTHING', [id, JSON.stringify(actions)]);
+}
 
 /** Deletes input logs older than 30 days; settled results and the ledger stay. */
 export async function purgeRunLogs() {

@@ -1,7 +1,7 @@
 import { Platform } from "react-native";
 import type { GameProgress } from "../game/progress";
 import type { Action, Result } from "../game/sim/engine";
-import type { RunSetup } from "../game/sim/replay";
+import type { RunStart } from "../game/sim/replay";
 import { apiUrl } from "../utils/api-url";
 import { communityRequest } from "./community-api";
 
@@ -14,7 +14,7 @@ export const fetchProgress = () => communityRequest<ServerProgress>("/api/game/p
 export const importDeviceProgress = (game: GameProgress) => communityRequest<ServerProgress & { merged: boolean }>("/api/game/import", { method: "POST", body: { game } });
 export const saveCafe = (cafe: Partial<GameProgress>) => communityRequest<ServerProgress>("/api/game/cafe", { method: "PUT", body: { cafe } });
 export const buyItem = (item: string) => communityRequest<ServerProgress>("/api/game/purchases", { method: "POST", body: { item } });
-export const openRun = (id: string, setup: RunSetup, rules: string) =>
+export const openRun = (id: string, setup: RunStart, rules: string) =>
   communityRequest<{ id: string; status: string }>("/api/game/runs", { method: "POST", body: { id, ...setup, rules } });
 export const finishRun = (id: string, actions: Action[], result: Result) =>
   communityRequest<RunOutcome>("/api/game/runs/" + id + "/finish", { method: "POST", body: { actions, result } });

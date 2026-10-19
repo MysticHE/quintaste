@@ -22,7 +22,11 @@ CREATE TABLE IF NOT EXISTS game.profile (
 -- Best result per level from settled runs (and the one-time import).
 CREATE TABLE IF NOT EXISTS game.level_best (
   user_id text NOT NULL REFERENCES game.profile(user_id) ON DELETE CASCADE,
-  level smallint NOT NULL CHECK (level BETWEEN 1 AND 20),
+  -- 0 for Today's special, which is rebuilt from special_day and special_top (the highest level cleared at its start).
+  level smallint NOT NULL CHECK (level BETWEEN 0 AND 20),
+  special_day date,
+  special_top smallint CHECK (special_top BETWEEN 5 AND 20),
+  hints text CHECK (hints IN ('full','chip','none')),
   stars smallint NOT NULL CHECK (stars BETWEEN 0 AND 3),
   score smallint NOT NULL CHECK (score BETWEEN 0 AND 100),
   served boolean NOT NULL, rules boolean NOT NULL, steady boolean NOT NULL, mastered boolean NOT NULL,
@@ -36,7 +40,11 @@ CREATE TABLE IF NOT EXISTS game.level_best (
 CREATE TABLE IF NOT EXISTS game.run (
   id uuid PRIMARY KEY,
   user_id text NOT NULL REFERENCES game.profile(user_id) ON DELETE CASCADE,
-  level smallint NOT NULL CHECK (level BETWEEN 1 AND 20),
+  -- 0 for Today's special, which is rebuilt from special_day and special_top (the highest level cleared at its start).
+  level smallint NOT NULL CHECK (level BETWEEN 0 AND 20),
+  special_day date,
+  special_top smallint CHECK (special_top BETWEEN 5 AND 20),
+  hints text CHECK (hints IN ('full','chip','none')),
   mode text NOT NULL CHECK (mode IN ('rush','calm')),
   pet text NOT NULL CHECK (pet ~ '^[a-z]{1,20}$'),
   signature text[] NOT NULL DEFAULT '{}' CHECK (cardinality(signature) <= 3),
@@ -47,7 +55,8 @@ CREATE TABLE IF NOT EXISTS game.run (
   ticks integer CHECK (ticks >= 0),
   result jsonb,
   credits integer NOT NULL DEFAULT 0 CHECK (credits >= 0),
-  reason text NOT NULL DEFAULT '' CHECK (char_length(reason) <= 80)
+  reason text NOT NULL DEFAULT '' CHECK (char_length(reason) <= 80),
+  CHECK ((level = 0) = (special_day IS NOT NULL) AND (special_day IS NULL) = (special_top IS NULL))
 );
 CREATE INDEX IF NOT EXISTS game_run_user ON game.run(user_id, started_at DESC);
 

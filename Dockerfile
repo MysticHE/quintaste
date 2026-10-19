@@ -12,6 +12,9 @@ COPY server ./server
 # The game API replays runs with the app's own simulation (src/game, TypeScript run by Node's type stripping).
 COPY src/game ./src/game
 COPY src/config/game.ts ./src/config/game.ts
+# Today's special (src/game/special.ts) needs the lunar calendar and the Singapore date helper.
+COPY src/data/lunar.ts ./src/data/lunar.ts
+COPY src/utils/sg-datetime.ts ./src/utils/sg-datetime.ts
 COPY dist ./dist
 COPY server-assets ./server-assets
 RUN mkdir -p /app/.local && chown node:node /app/.local

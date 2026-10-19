@@ -3,6 +3,7 @@
  * Credits are earned only and never bought (QT-056); nothing expires (QT-057).
  */
 import { ACCESSORIES, CREDIT_REWARDS, DECOR, DECOR_SLOTS, PETS, SKINS, TIERS, type Tier, type Unlock } from "./content/cosmetics";
+import { defaultSettings, readSettings, type PlaySettings } from "./settings";
 import { LEVELS } from "./content/levels";
 import { DISHES } from "./content/dishes";
 
@@ -15,10 +16,12 @@ export type GameProgress = {
   seen: string[];
   /** The account's lotus tier from the server (useGame adds it). Never saved or read from the device, so it is always null in storage. */
   tier: Tier | null;
+  /** Play your way. */
+  settings: PlaySettings;
 };
 export const emptyGame = (): GameProgress => ({
   version: 1, best: {}, credits: 0, owned: [], pet: "sprout", equip: {}, decor: { ceiling: null, wall: "painting", floorL: "plant", floorR: null },
-  skin: "sunny", cafeName: "My Café", menu: "chinese", mode: "rush", signature: [], introSeen: false, seen: [], tier: null,
+  skin: "sunny", cafeName: "My Café", menu: "chinese", mode: "rush", signature: [], introSeen: false, seen: [], tier: null, settings: { ...defaultSettings },
 });
 
 const num = (v: unknown, lo: number, hi: number, d: number) => (typeof v === "number" && Number.isFinite(v) ? Math.max(lo, Math.min(hi, Math.round(v))) : d);
@@ -47,6 +50,7 @@ export function readGame(value: unknown): GameProgress {
     signature: Array.isArray(input.signature) ? input.signature.filter((x): x is string => typeof x === "string" && !!DISHES[x]).slice(0, 3) : [],
     introSeen: input.introSeen === true, seen: Array.isArray(input.seen) ? [...new Set(input.seen.filter((x): x is string => typeof x === "string" && x.length < 40))].slice(0, 200) : [],
     tier: null,
+    settings: readSettings(input.settings),
   };
 }
 export function mergeGame(profile: GameProgress, guest: GameProgress): GameProgress {

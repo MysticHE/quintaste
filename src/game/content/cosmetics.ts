@@ -60,8 +60,9 @@ export const SKINS: Record<string, Skin> = {
   sunny: { id: "sunny", name: "Sunny garden", art: "skin-sunny", unlock: { kind: "free" } },
   lantern: { id: "lantern", name: "Lantern night", art: "skin-lantern", unlock: { kind: "level", level: 18 } },
   lotus: { id: "lotus", name: "Lotus pond", art: "skin-lotus", unlock: { kind: "tier", tier: "golden" } },
+  signature: { id: "signature", name: "Signature café", art: "skin-signature", unlock: { kind: "level", level: 20 } },
 };
-export const SKIN_ORDER = ["sunny", "lantern", "lotus"];
+export const SKIN_ORDER = ["sunny", "lantern", "lotus", "signature"];
 
 export const CREDIT_REWARDS = { firstClear: 30, replay: 8, mastered: 20 };
 

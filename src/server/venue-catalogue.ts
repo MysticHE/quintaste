@@ -21,6 +21,19 @@ const hiddenAliases = new Map(aliases.entries.filter(alias => {
 const noStaff: StaffContent = { revision: "0".repeat(64), catalogueRevision: "0".repeat(64), items: new Map() };
 const packagedIds = new Set(catalogue.map(venue => venue.id));
 
+// Dish names on each place's current menu, one per line so a keyword never matches across two dishes.
+let dishes: { key: string; text: Map<string, string> } = { key: "", text: new Map() };
+function dishText(id: string, staff: StaffContent, content: ReturnType<typeof editorialContent>) {
+  const key = staff.catalogueRevision + ":" + content.revision;
+  if (dishes.key !== key) dishes = { key, text: new Map() };
+  let text = dishes.text.get(id);
+  if (text === undefined) {
+    text = staffMenu(id, staff, content)?.menu.sections.flatMap(section => section.items.map(item => words(item.name))).join("\n") ?? "";
+    dishes.text.set(id, text);
+  }
+  return text;
+}
+
 /** Applies a staff place edit, or builds a staff-created place, with counts from the staff-applied menu. Undefined when hidden or without dishes. */
 function staffVenue(id: string, base: CatalogueVenue | undefined, staff: StaffContent, content = editorialContent()): CatalogueVenue | undefined {
   const place = staff.items.get("place:" + id);
@@ -70,7 +83,8 @@ export function searchCatalogue(search: DiscoverySearch, cursor: string | null, 
     // Unknown cuisine and Google price-band facts cannot pass those filters.
     if (search.priceLevels?.length || search.cuisines?.length || search.priceLevel || search.cuisine && search.cuisine !== "All") return [];
     const text = words([venue.name, venue.branch, venue.address, ...venue.aliases].join(" "));
-    if (query && !text.includes(query)) return [];
+    // A keyword finds places by name, branch or address, or by a dish on the published menu (the game's Find it nearby).
+    if (query && !text.includes(query) && !dishText(venue.id, staff, content).includes(query)) return [];
     if (search.bounds) {
       if (!venue.point) { locationGaps++; return []; }
       if (venue.point.latitude < search.bounds.low.latitude || venue.point.latitude > search.bounds.high.latitude
