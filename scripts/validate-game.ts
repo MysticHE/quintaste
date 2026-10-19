@@ -1,16 +1,25 @@
 /**
  * Plays every Rush Hour level with a careful bot through the real simulation (GAME_PLAN §12.3 golden traces).
  * Proves each level can be cleared and reports the slack left, so difficulty can be tuned with evidence.
- * Usage: npx tsx scripts/validate-game.ts [--level N] [--mode rush|calm] [--react 0.7]
+ * Every trace is then replayed the way the server settles it (sim/replay.ts): the replay must reach the same result,
+ * and tampered logs (a claimed extra star, inputs out of order, a cut-off log, an input while paused) must be refused.
+ * Usage: npx tsx scripts/validate-game.ts [--level N] [--mode rush|calm|both] [--react 0.7] [--traces out.json]
+ * (or without tsx: node --import ./server/game/register-ts.mjs scripts/validate-game.ts ...). --traces writes each
+ * level's setup, input log and result, for the API settlement tests.
  */
 import { DISHES, STATIONS, type StationKind } from "../src/game/content/dishes";
 import { conflicts } from "../src/game/content/guests";
 import { ITEMS } from "../src/game/content/items";
 import { LEVELS } from "../src/game/content/levels";
+import { writeFileSync } from "node:fs";
 import * as sim from "../src/game/sim/engine";
+import { replay, ReplayError, sameResult, type RunSetup } from "../src/game/sim/replay";
 
 const arg = (k: string, d: string) => { const i = process.argv.indexOf("--" + k); return i > 0 ? process.argv[i + 1] : d; };
-const only = +arg("level", "0"), mode = arg("mode", "rush") as "rush" | "calm", react = +arg("react", "0.7");
+const only = +arg("level", "0"), modeArg = arg("mode", "rush"), react = +arg("react", "0.7");
+const tracesOut = arg("traces", "");
+const traces: { setup: RunSetup; actions: sim.Action[]; result: sim.Result; ticks: number }[] = [];
+const modes: ("rush" | "calm")[] = modeArg === "both" ? ["rush", "calm"] : [modeArg === "calm" ? "calm" : "rush"];
 let failures = 0;
 
 function safeItem(accepts: string[], rules: sim.GuestRun["rules"]) { return accepts.find(id => ITEMS[id] && !conflicts([id], rules).length); }
@@ -62,7 +71,29 @@ function botStep(r: sim.Run) {
   }
 }
 
-for (const level of LEVELS) {
+const refused = (setup: RunSetup, actions: unknown) => { try { replay(setup, actions); return false; } catch (e) { return e instanceof ReplayError; } };
+/** Server-side checks on one finished trace. Returns the reasons it failed, empty when the replay matches. */
+function replayChecks(setup: RunSetup, r: sim.Run, res: sim.Result) {
+  const bad: string[] = [], log = r.actions;
+  try {
+    const again = replay(setup, JSON.parse(JSON.stringify(log)));
+    if (!sameResult(sim.results(again), res)) bad.push("replay result differs");
+    if (again.ticks !== r.ticks) bad.push("replay ended on tick " + again.ticks + ", run on " + r.ticks);
+  } catch (e) { bad.push("replay refused: " + (e as Error).message); }
+  if (sameResult(sim.results(r), { ...res, stars: res.stars === 3 ? 2 : res.stars + 1 })) bad.push("a changed star count still matches");
+  const swapped = log.map(a => [...a] as sim.Action); const i = swapped.findIndex((a, k) => k > 0 && a[0] > swapped[k - 1][0]);
+  if (i > 0) { swapped[i][0] = swapped[i - 1][0] - 1; if (!refused(setup, swapped)) bad.push("out-of-order log accepted"); }
+  const serves = log.filter(a => a[1] === "serve").length;
+  if (serves > 0) {
+    const cut = log.slice(0, log.findIndex(a => a[1] === "serve"));
+    try { const part = sim.results(replay(setup, cut)); if (part.v >= res.v) bad.push("cut-off log kept every serve"); } catch { /* refusing it is also correct */ }
+  }
+  const paused: sim.Action[] = [[0, "start"], [1, "pause", true], [5, "heat", "pan"]];
+  if (!refused(setup, paused)) bad.push("input while paused accepted");
+  return bad;
+}
+
+for (const mode of modes) for (const level of LEVELS) {
   if (only && level.n !== only) continue;
   const sig = level.signature ? ["mapo-tofu", "laksa", "claypot"] : [];
   const r = sim.createRun(level.n, mode, "sprout", sig);
@@ -81,10 +112,14 @@ for (const level of LEVELS) {
   }
   const left = r.mode === "rush" ? r.timeLeft.toFixed(0) + "s left" : "untimed";
   const minPatience = Math.min(...r.guests.filter(g => g.paid).map(g => g.paid!.quick));
-  const ok = res.cleared && res.stamps.rules;
+  const bad = replayChecks({ level: level.n, mode, pet: "sprout", signature: sig }, r, res);
+  traces.push({ setup: { level: level.n, mode, pet: "sprout", signature: sig }, actions: r.actions, result: res, ticks: r.ticks });
+  const ok = res.cleared && res.stamps.rules && !bad.length;
   if (!ok) failures++;
-  console.log((ok ? "PASS" : "FAIL") + " L" + level.n + " " + level.name.padEnd(24) + " served " + res.v + "/" + res.n + " stars " + res.stars +
-    " score " + res.score + " heat " + Math.round(res.hq * 100) + "% " + left + " t=" + r.t.toFixed(0) + "s returned " + r.stats.returned + " minQuick " + minPatience);
+  console.log((ok ? "PASS" : "FAIL") + " " + mode.padEnd(4) + " L" + level.n + " " + level.name.padEnd(24) + " served " + res.v + "/" + res.n + " stars " + res.stars +
+    " score " + res.score + " heat " + Math.round(res.hq * 100) + "% " + left + " t=" + r.t.toFixed(0) + "s returned " + r.stats.returned + " minQuick " + minPatience +
+    " replay " + (bad.length ? bad.join("; ") : "ok (" + r.actions.length + " inputs)"));
 }
+if (tracesOut) writeFileSync(tracesOut, JSON.stringify(traces));
 console.log(failures ? failures + " level(s) failed" : "All levels cleared");
 process.exit(failures ? 1 : 0);

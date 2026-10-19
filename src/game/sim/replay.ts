@@ -1,0 +1,96 @@
+/**
+ * Server replay (GAME_PLAN §12.3, Phase B): rebuilds a run from its setup and input log with the same simulation the
+ * player used, so the API settles credits from what actually happened rather than from what the client claims.
+ * Pure TypeScript, no DOM: the Node API loads this file directly.
+ */
+import { STATIONS, DISHES, type StationKind } from "../content/dishes";
+import { GUESTS, RULES } from "../content/guests";
+import { ITEMS } from "../content/items";
+import { LEVELS } from "../content/levels";
+import { CREDIT_REWARDS, PETS, SKILLS } from "../content/cosmetics";
+import * as sim from "./engine";
+
+/** Bump when engine.ts changes how a run plays out; content changes are picked up by the hash automatically. */
+const ENGINE_VERSION = 1;
+export type RunSetup = { level: number; mode: "rush" | "calm"; pet: string; signature: string[] };
+/** Calm services have no clock, so replay stops at 30 minutes of play. */
+export const MAX_CALM_TICKS = Math.round(30 * 60 / sim.DT);
+export const MAX_ACTIONS = 6000;
+
+/** FNV-1a over the rules content and the engine version: client and server must agree before a run can settle. */
+function computeRulesVersion() {
+  const text = JSON.stringify({ e: ENGINE_VERSION, LEVELS, DISHES, STATIONS, GUESTS, RULES, ITEMS, PETS, SKILLS, CREDIT_REWARDS });
+  let h = 0x811c9dc5;
+  for (let i = 0; i < text.length; i++) { h ^= text.charCodeAt(i); h = Math.imul(h, 0x01000193) >>> 0; }
+  return h.toString(36);
+}
+export const rulesVersion = computeRulesVersion();
+
+export class ReplayError extends Error {}
+const kinds = new Set(Object.keys(STATIONS));
+const station = (v: unknown) => { if (typeof v !== "string" || !kinds.has(v)) throw new ReplayError("bad station"); return v as StationKind; };
+const word = (v: unknown) => { if (typeof v !== "string" || !/^[a-z0-9-]{1,40}$/.test(v)) throw new ReplayError("bad id"); return v; };
+const int = (v: unknown, max: number) => { if (!Number.isInteger(v) || (v as number) < 0 || (v as number) > max) throw new ReplayError("bad number"); return v as number; };
+
+function apply(r: sim.Run, [, op, a, b]: sim.Action) {
+  switch (op) {
+    case "start": return sim.start(r);
+    case "focus": return sim.setFocus(r, word(a));
+    case "select": return sim.select(r, station(a));
+    case "place": return void sim.place(r, word(a), b === null ? undefined : station(b));
+    case "lift": return sim.lift(r, station(a), int(b, 1_000_000));
+    case "restart": return sim.restart(r, station(a));
+    case "heat": return sim.toggleHeat(r, station(a));
+    case "label": return sim.openLabel(r, word(a));
+    case "close": return sim.closeLabel(r);
+    case "pause": if (typeof a !== "boolean") throw new ReplayError("bad pause"); return sim.pause(r, a);
+    case "plate": return void sim.plate(r, station(a));
+    case "serve": return sim.serve(r, int(a, 10), word(b));
+    case "skill": return void sim.useSkill(r);
+    case "quit": return sim.quit(r);
+    default: throw new ReplayError("unknown action");
+  }
+}
+
+/** Highest tick count an honest run can reach: the round plus the clock skill, or the Calm cap. */
+export function tickLimit(setup: RunSetup) {
+  const round = LEVELS[setup.level - 1]?.round;
+  return setup.mode === "rush" && round != null ? Math.ceil((round + 12) / sim.DT) + 2 : MAX_CALM_TICKS;
+}
+
+/**
+ * Replays the inputs on their ticks and then lets the run play out. Throws ReplayError when the log could not have come
+ * from a real service: out of order, an input while time could not move, too long, or a run that never ends.
+ */
+export function replay(setup: RunSetup, actions: unknown): sim.Run {
+  if (!Array.isArray(actions) || actions.length > MAX_ACTIONS) throw new ReplayError("bad log");
+  const limit = tickLimit(setup), r = sim.createRun(setup.level, setup.mode, setup.pet, setup.signature);
+  const advanceTo = (tick: number) => {
+    while (r.ticks < tick) {
+      const before = r.ticks;
+      if (r.ended) throw new ReplayError("input after the end");
+      sim.tick(r); r.events.length = 0;
+      if (r.ticks === before) throw new ReplayError("input while time was stopped");
+    }
+  };
+  for (const raw of actions) {
+    if (!Array.isArray(raw) || raw.length < 2 || raw.length > 4 || typeof raw[1] !== "string") throw new ReplayError("bad action");
+    const tick = int(raw[0], limit);
+    if (tick < r.ticks) throw new ReplayError("out of order");
+    advanceTo(tick);
+    apply(r, raw as sim.Action); r.events.length = 0;
+  }
+  while (!r.ended && r.ticks < limit) {
+    const before = r.ticks;
+    sim.tick(r); r.events.length = 0;
+    if (r.ticks === before) break;
+  }
+  if (!r.ended) throw new ReplayError("run did not finish");
+  return r;
+}
+
+/** The parts of a result that must match exactly between the player's device and the replay. */
+export function sameResult(a: sim.Result, b: Partial<sim.Result> | null | undefined) {
+  return !!b && a.stars === b.stars && a.score === b.score && a.cleared === b.cleared && a.coins === b.coins && a.v === b.v && a.n === b.n &&
+    !!b.stamps && a.stamps.served === b.stamps.served && a.stamps.rules === b.stamps.rules && a.stamps.steady === b.stamps.steady;
+}

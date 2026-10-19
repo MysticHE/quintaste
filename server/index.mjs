@@ -8,7 +8,7 @@ import { toNodeHandler, fromNodeHeaders } from 'better-auth/node';
 import { auth } from './auth.mjs';
 import { accounts } from './accounts.mjs';
 import { logger, pool } from './config.mjs';
-import { featureGate, operations, restricted } from './operations.mjs';
+import { allowed, featureGate, operations, restricted } from './operations.mjs';
 import { avatars } from './avatar/router.mjs';
 import { community } from './community/router.mjs';
 import { devWebOrigin } from './community/http.mjs';
@@ -20,6 +20,7 @@ import { reactions } from './reactions/router.mjs';
 import { areas } from './areas/router.mjs';
 import { startAreaSnapshots } from './areas/snapshot.mjs';
 import { placeReviews } from './place-reviews/router.mjs';
+import { game, purgeRunLogs } from './game/router.mjs';
 import { editorial, editorialAssets, editorialAssetRoot } from './editorial/router.mjs';
 import { startAvatarWorker } from './avatar/worker.mjs';
 const { createRequestHandler } = createRequire(import.meta.url)('expo-server/adapter/express');
@@ -102,6 +103,9 @@ app.use('/api/recipes', (req, res, next) => req.method === 'DELETE' ? next() : r
 // Likes and shares cover every Cook recipe and Explore place, so they stay on while member submissions are paused.
 app.use('/api/reactions', reactions);
 app.use('/api/areas', featureGate('areas'), areas);
+// Public and outside the gate, so the app can show its placeholder when staff switch the game off.
+app.get('/api/game/status', async (_req, res) => { res.set('Cache-Control', 'no-store').json({ enabled: await allowed('games') }); });
+app.use('/api/game', featureGate('games'), game);
 app.use('/api/local-explore', (_req, res) => res.status(503).json({ error: 'Local development services are unavailable on this deployment.' }));
 app.use('/api/staff-base', (_req, res) => res.sendStatus(404));
 app.use(express.static(path.resolve('dist/client'), { maxAge: '1h', extensions: ['html'], index: false }));
@@ -133,6 +137,9 @@ const purgeContacts = () => purgeOrderContacts().then(count => count && logger.i
   .catch(error => logger.warn({ event: 'market_contacts_purge_failed', code: error?.code }));
 const purgeTimer = setInterval(purgeContacts, 6 * 3600000).unref();
 const stopAreaSnapshots = startAreaSnapshots();
+const purgeLogs = () => purgeRunLogs().then(count => count && logger.info({ event: 'game_run_logs_purged', count }))
+  .catch(error => logger.warn({ event: 'game_run_logs_purge_failed', code: error?.code }));
+const purgeLogsTimer = setInterval(purgeLogs, 24 * 3600000).unref();
 setTimeout(purgeContacts, 60000).unref();
 let closing = false;
 async function stop() {
@@ -140,6 +147,7 @@ async function stop() {
   closing = true;
   stopAvatars();
   clearInterval(purgeTimer);
+  clearInterval(purgeLogsTimer);
   stopAreaSnapshots();
   const timer = setTimeout(() => process.exit(1), 15000).unref();
   internal?.close();

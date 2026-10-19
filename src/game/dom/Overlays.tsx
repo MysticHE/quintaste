@@ -49,7 +49,8 @@ export function PauseSheet({ onResume, onRestart, onQuit }: { onResume(): void; 
   </div></div>;
 }
 
-export type Reward = { credits: number; first: boolean; mastered: boolean; unlocks: string[] };
+/** Settled (or a guest's device save), pending until the account confirms it, practice (started offline) or refused. */
+export type Reward = { credits: number; first: boolean; mastered: boolean; unlocks: string[]; status?: "settled" | "pending" | "practice" | "rejected"; note?: string };
 export function Results({ run, res, reward, saveFailed, onRetrySave, onAgain, onCafe, onNext }: { run: sim.Run; res: sim.Result; reward: Reward | null; saveFailed: boolean; onRetrySave(): void; onAgain(): void; onCafe(): void; onNext(): void }) {
   const head = res.cleared ? (res.stars === 3 ? "Perfect service" : "Level cleared") : res.completed ? "Nearly there" : "Service over";
   const dish = levelDishes(run.level)[0] ?? DISHES[run.guests[0].dishId];
@@ -63,8 +64,9 @@ export function Results({ run, res, reward, saveFailed, onRetrySave, onAgain, on
       <span>Steady heat <b>{Math.round(res.hq * 100)}%</b></span><span>Service score <b>{res.score}</b></span></div>
     <div className="remember"><b>One thing to remember. </b>{dish?.remember}</div>
     {reward && (reward.credits > 0 || reward.unlocks.length > 0) && <div className="remember">
-      {reward.credits > 0 && <><b>+{reward.credits} café credits</b>{reward.first ? " · first clear" : reward.mastered ? " · mastered" : " · replay"}<br /></>}
+      {reward.credits > 0 && <><b>+{reward.credits} café credits{reward.status === "pending" ? " pending" : ""}</b>{reward.first ? " · first clear" : reward.mastered ? " · mastered" : " · replay"}<br /></>}
       {reward.unlocks.length > 0 && <>Unlocked: {reward.unlocks.join(", ")}</>}</div>}
+    {reward?.note && <div className="remember" role="status">{reward.note}</div>}
     {saveFailed && <div className="remember" role="alert"><b>Progress not saved yet.</b> <button className="btn ghost" onClick={onRetrySave} style={{ marginTop: 6, width: "100%" }}>Try saving again</button></div>}
     <p>Coins reset every service. Play again any time; nothing is lost.</p>
     <div className="row"><button className="btn ghost" autoFocus onClick={onCafe}>Back to café</button><button className="btn ghost" onClick={onAgain}>Play again</button></div>
