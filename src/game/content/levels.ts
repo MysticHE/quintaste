@@ -19,7 +19,8 @@ export type Level = {
   signature?: boolean;
   unlocks: string[];
   /** Today's special (src/game/special.ts): built per date, never part of the level path. */
-  special?: { day: string; dish: string; lunar: string | null };
+  /** Today's special: its date, dish, lunar day and the highest level cleared it was built from (for server replay). */
+  special?: { day: string; dish: string; lunar: string | null; top: number };
 };
 
 let seq = 0;

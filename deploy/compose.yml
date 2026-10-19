@@ -85,6 +85,17 @@ services:
       traefik.http.middlewares.quintaste-market-uploads-body.buffering.memRequestBodyBytes: '6291456'
       traefik.http.middlewares.quintaste-market-uploads-rate.ratelimit.average: '10'
       traefik.http.middlewares.quintaste-market-uploads-rate.ratelimit.burst: '15'
+      # Rush Hour results carry the service's input log for server replay (router allows 256 KB); the default is 16 KB.
+      traefik.http.routers.quintaste-game-finish.rule: Host(`${APP_HOST}`) && Method(`POST`) && PathRegexp(`^/api/game/runs/[0-9a-f-]{36}/finish$`)
+      traefik.http.routers.quintaste-game-finish.priority: '105'
+      traefik.http.routers.quintaste-game-finish.entrypoints: websecure
+      traefik.http.routers.quintaste-game-finish.tls.certresolver: letsencrypt
+      traefik.http.routers.quintaste-game-finish.service: quintaste
+      traefik.http.routers.quintaste-game-finish.middlewares: quintaste-game-finish-body,quintaste-game-finish-rate
+      traefik.http.middlewares.quintaste-game-finish-body.buffering.maxRequestBodyBytes: '262144'
+      traefik.http.middlewares.quintaste-game-finish-body.buffering.memRequestBodyBytes: '262144'
+      traefik.http.middlewares.quintaste-game-finish-rate.ratelimit.average: '5'
+      traefik.http.middlewares.quintaste-game-finish-rate.ratelimit.burst: '20'
     logging: *logging
   preview:
     image: ${PREVIEW_IMAGE:?Set PREVIEW_IMAGE}

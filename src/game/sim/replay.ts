@@ -21,7 +21,7 @@ const ENGINE_VERSION = 2;
 export type RunSetup = { level: number; special?: { day: string; top: number } | null; hints?: Level["hints"] | null; mode: "rush" | "calm"; pet: string; signature: string[] };
 
 /** What the app sends when a service starts; the server turns `special` (a date) into its stored setup. */
-export type RunStart = { level: number; special: string | null; hints: Level["hints"] | null; mode: "rush" | "calm"; pet: string; signature: string[] };
+export type RunStart = { level: number; special: string | null; top?: number | null; hints: Level["hints"] | null; mode: "rush" | "calm"; pet: string; signature: string[] };
 
 /** A player who has cleared Levels 1..top: enough to rebuild the same special the player saw. */
 export const progressAt = (top: number): GameProgress => {

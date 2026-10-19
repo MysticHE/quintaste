@@ -27,6 +27,8 @@ export const emptyGame = (): GameProgress => ({
 const num = (v: unknown, lo: number, hi: number, d: number) => (typeof v === "number" && Number.isFinite(v) ? Math.max(lo, Math.min(hi, Math.round(v))) : d);
 const rec = (v: unknown): Record<string, unknown> => (v && typeof v === "object" && !Array.isArray(v) ? v as Record<string, unknown> : {});
 
+/** Own keys only: stored or client-sent ids such as "toString" must never match a built-in property. */
+const own = (table: object, key: string) => Object.prototype.hasOwnProperty.call(table, key);
 export function readGame(value: unknown): GameProgress {
   const input = rec(value), base = emptyGame();
   const best: Record<string, LevelBest> = {};
@@ -37,17 +39,17 @@ export function readGame(value: unknown): GameProgress {
       mastered: b.mastered === true, clears: num(b.clears, 0, 100000, 0) };
   }
   const equip: Record<string, string | null> = {};
-  for (const [p, a] of Object.entries(rec(input.equip))) if (PETS[p]) equip[p] = typeof a === "string" && ACCESSORIES[a] ? a : null;
+  for (const [p, a] of Object.entries(rec(input.equip))) if (own(PETS, p)) equip[p] = typeof a === "string" && own(ACCESSORIES, a) ? a : null;
   const decor = { ...base.decor };
-  for (const slot of DECOR_SLOTS) { const d = rec(input.decor)[slot]; if (d === null || (typeof d === "string" && DECOR[d])) decor[slot] = d as string | null; }
+  for (const slot of DECOR_SLOTS) { const d = rec(input.decor)[slot]; if (d === null || (typeof d === "string" && own(DECOR, d))) decor[slot] = d as string | null; }
   const name = typeof input.cafeName === "string" ? input.cafeName.replace(/[\u0000-\u001f]/g, "").trim().slice(0, 18) : "";
   return {
     version: 1, best, credits: num(input.credits, 0, 1_000_000, 0),
-    owned: Array.isArray(input.owned) ? [...new Set(input.owned.filter((x): x is string => typeof x === "string" && !!DECOR[x]))] : [],
-    pet: typeof input.pet === "string" && PETS[input.pet] ? input.pet : base.pet, equip, decor,
-    skin: typeof input.skin === "string" && SKINS[input.skin] ? input.skin : base.skin, cafeName: name || base.cafeName,
+    owned: Array.isArray(input.owned) ? [...new Set(input.owned.filter((x): x is string => typeof x === "string" && own(DECOR, x)))] : [],
+    pet: typeof input.pet === "string" && own(PETS, input.pet) ? input.pet : base.pet, equip, decor,
+    skin: typeof input.skin === "string" && own(SKINS, input.skin) ? input.skin : base.skin, cafeName: name || base.cafeName,
     menu: input.menu === "malay" || input.menu === "peranakan" ? input.menu : "chinese", mode: input.mode === "calm" ? "calm" : "rush",
-    signature: Array.isArray(input.signature) ? input.signature.filter((x): x is string => typeof x === "string" && !!DISHES[x]).slice(0, 3) : [],
+    signature: Array.isArray(input.signature) ? input.signature.filter((x): x is string => typeof x === "string" && own(DISHES, x)).slice(0, 3) : [],
     introSeen: input.introSeen === true, seen: Array.isArray(input.seen) ? [...new Set(input.seen.filter((x): x is string => typeof x === "string" && x.length < 40))].slice(0, 200) : [],
     tier: null,
     settings: readSettings(input.settings),

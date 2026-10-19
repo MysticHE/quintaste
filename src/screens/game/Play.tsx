@@ -54,7 +54,7 @@ export function GamePlayScreen() {
   const onStart = useCallback(async (run: RunInfo) => { finished.current = null; started.current = startRun(run); }, [startRun]);
   const onFinish = useCallback(async (p: FinishPayload) => {
     // One save per finished service: a repeated call (the Try again button) waits for the same save.
-    finished.current ??= finish(started.current, { level: p.level, special: p.special, hints: p.hints, mode: p.mode, pet: p.pet, signature: p.signature }, p.actions, p.result);
+    finished.current ??= finish(started.current, { level: p.level, special: p.special, top: p.top, hints: p.hints, mode: p.mode, pet: p.pet, signature: p.signature }, p.actions, p.result);
     try { return await finished.current; } catch (error) { finished.current = null; throw error; }
   }, [finish]);
   const onExit = useCallback(async (to: "cafe" | "next" | "again") => {

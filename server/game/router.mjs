@@ -44,7 +44,7 @@ game.put('/cafe', async (req, res) => {
 
 // Decor bought with credits: a direct purchase of a known item (QT-056). Buying twice changes nothing.
 game.post('/purchases', async (req, res) => {
-  const { sim, user } = res.locals, id = req.body?.item, item = typeof id === 'string' ? sim.cosmetics.DECOR[id] : null;
+  const { sim, user } = res.locals, id = req.body?.item, item = typeof id === 'string' && Object.hasOwn(sim.cosmetics.DECOR, id) ? sim.cosmetics.DECOR[id] : null;
   if (!item || item.unlock.kind !== 'credits') throw new CommunityError(404, 'That item is unavailable.');
   await throttle(`game-buy:${user.id}`, 60, 3600);
   await transaction(async db => {
@@ -67,8 +67,8 @@ game.post('/runs', async (req, res) => {
   const level = day ? 0 : Number(body.level), mode = body.mode === 'calm' ? 'calm' : body.mode === 'rush' ? 'rush' : null, lv = sim.LEVELS[level - 1];
   if ((!day && (!Number.isInteger(level) || !lv)) || !mode) throw new CommunityError(400, 'Invalid run.');
   const hints = ['full', 'chip', 'none'].includes(body.hints) ? body.hints : null;
-  const pet = sim.cosmetics.PETS[body.pet] ? body.pet : null;
-  const signature = lv?.signature && Array.isArray(body.signature) ? [...new Set(body.signature.filter(d => typeof d === 'string' && sim.DISHES[d]))].slice(0, 3) : [];
+  const pet = typeof body.pet === 'string' && Object.hasOwn(sim.cosmetics.PETS, body.pet) ? body.pet : null;
+  const signature = lv?.signature && Array.isArray(body.signature) ? [...new Set(body.signature.filter(d => typeof d === 'string' && Object.hasOwn(sim.DISHES, d)))].slice(0, 3) : [];
   await throttle(`game-run:${user.id}`, 120, 3600);
   const run = await transaction(async db => {
     await lockProfile(db, user.id);
@@ -76,8 +76,10 @@ game.post('/runs', async (req, res) => {
     if (existing) { if (existing.user_id !== user.id) throw new CommunityError(404, 'Invalid run.'); return { id: body.id, status: existing.status }; }
     const { game: progress } = await loadProgress(db, sim, user.id);
     if (!pet || !sim.isUnlocked(progress, sim.cosmetics.PETS[pet].unlock)) throw new CommunityError(409, 'That companion is locked.', 'PET_LOCKED');
-    // A special is rebuilt later from its date and the account's highest clear now, so both are stored with the run.
-    const top = day ? sim.highestCleared(progress) : null;
+    // A special is rebuilt later from its date and the highest clear it was built from. The device may be ahead of the
+    // account (clears still queued offline), so its own `top` is used; a special always pays the same replay grant, so a
+    // different `top` changes only which dish and regulars appear. The account must have opened the chalkboard.
+    const claimed = Number(body.top), top = day ? (Number.isInteger(claimed) && claimed >= 5 && claimed <= 20 ? claimed : sim.highestCleared(progress)) : null;
     if (day && !sim.specialFor(progress, day)) throw new CommunityError(409, "Today's special opens at Level 6.", 'SPECIAL_LOCKED');
     await db.query(`INSERT INTO game.run(id, user_id, level, mode, pet, signature, rules_version, special_day, special_top, hints) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)`,
       [body.id, user.id, level, mode, pet, signature, sim.rulesVersion, day, top, hints]);

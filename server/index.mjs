@@ -142,6 +142,8 @@ const stopAreaSnapshots = startAreaSnapshots();
 const purgeLogs = () => purgeRunLogs().then(count => count && logger.info({ event: 'game_run_logs_purged', count }))
   .catch(error => logger.warn({ event: 'game_run_logs_purge_failed', code: error?.code }));
 const purgeLogsTimer = setInterval(purgeLogs, 24 * 3600000).unref();
+// Also shortly after start: deploys more often than daily would otherwise never reach the first daily run.
+setTimeout(purgeLogs, 120000).unref();
 setTimeout(purgeContacts, 60000).unref();
 let closing = false;
 async function stop() {

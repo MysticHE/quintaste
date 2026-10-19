@@ -18,7 +18,7 @@ import { usePlayfield, type PlayfieldInput } from "./usePlayfield";
 import { useFeedback, type HapticKind } from "./useFeedback";
 
 /** What the native screen needs to save a run: the setup and input log let the server replay it (sim/replay.ts). */
-export type RunInfo = { level: number; special: string | null; hints: Level["hints"]; mode: "rush" | "calm"; pet: string; signature: string[] };
+export type RunInfo = { level: number; special: string | null; top: number | null; hints: Level["hints"]; mode: "rush" | "calm"; pet: string; signature: string[] };
 export type FinishPayload = RunInfo & { result: sim.Result; actions: sim.Action[] };
 export type BridgeKind = "cook" | "nearby";
 type Props = {
@@ -102,7 +102,7 @@ export default function RushHour(props: Props) {
     try { setSaveFailed(false); setReward(await latest.current.onFinish({ ...info(r), result: res, actions: r.actions })); }
     catch { setReward(null); setSaveFailed(true); }
   }
-  const info = (r: sim.Run): RunInfo => ({ level: r.level.n, special: r.level.special?.day ?? null, hints: r.level.hints, mode: r.mode, pet: r.pet,
+  const info = (r: sim.Run): RunInfo => ({ level: r.level.n, special: r.level.special?.day ?? null, top: r.level.special?.top ?? null, hints: r.level.hints, mode: r.mode, pet: r.pet,
     signature: r.level.signature ? signature ?? [] : [] });
   function doPause(on: boolean) { const r = runRef.current; if (!r.started || r.ended) return; sim.pause(r, on); setPaused(on); fx.audio.pause(on); bump(); }
   const exit = (to: "cafe" | "next" | "again") => latest.current.onExit(to);

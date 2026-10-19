@@ -55,7 +55,8 @@ export const cafeOf = (g: GameProgress) => Object.fromEntries(CAFE_KEYS.map(k =>
  * applied on top so the next level opens offline. A lotus tier is kept only where the device may preview one.
  */
 export function reconcile(server: GameProgress, local: GameProgress, pending: PendingRun[], keepLocalCafe: boolean): GameProgress {
-  let game: GameProgress = { ...server, ...(keepLocalCafe ? cafeOf(local) : {}), tier: local.tier };
+  // Play your way settings are per device and never on the server, so the device's own always win.
+  let game: GameProgress = { ...server, ...(keepLocalCafe ? cafeOf(local) : {}), tier: local.tier, settings: local.settings };
   for (const run of pending) game = applyRun(game, run.setup, run.result).game;
   return game;
 }

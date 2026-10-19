@@ -41,7 +41,7 @@ export function specialFor(game: GameProgress, day: string): Special | null {
     n: 0, name: "Today's special", teach: d.remember, stations, seats: 3, maxOpen: 3, round: 150, patience: 90, hints: "none", distractors: [], unlocks: [],
     brief: "Four orders from your regulars today." + (moment ? " It's the " + moment.label + (moment.label === "Nine Emperor Gods" ? " festival" : "") + ", so every order is five pungent-free." : ""),
     orders: [1, 8, 34, 58].map((at, i) => ({ id: "s" + (i + 1), guest: guests[i % guests.length].id, dish, at })),
-    ...(moment ? { allRules: ["five"] as Rule[] } : {}), special: { day, dish, lunar: moment?.label ?? null },
+    ...(moment ? { allRules: ["five"] as Rule[] } : {}), special: { day, dish, lunar: moment?.label ?? null, top },
   };
   return { day, dish, lunar: moment?.label ?? null, level };
 }
