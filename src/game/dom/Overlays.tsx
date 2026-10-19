@@ -5,24 +5,35 @@ import { ITEMS, itemName } from "../content/items";
 import { PETS, SKILLS } from "../content/cosmetics";
 import { levelDishes } from "../content/levels";
 import * as sim from "../sim/engine";
-import { shelfItems, type Art } from "./Panels";
+import type { Art } from "./Hud";
+import { shelfItems } from "./Shelf";
 import type { Layout } from "./layout";
 
-export function Brief({ run, art, petArt, onMode, onStart, onExit }: { run: sim.Run; art: Art; petArt: string; onMode(m: "rush" | "calm"): void; onStart(): void; onExit(): void }) {
+export function Brief({ run, art, petArt, leaving, onMode, onStart, onExit }: { run: sim.Run; art: Art; petArt: string; leaving: boolean; onMode(m: "rush" | "calm"): void; onStart(): void; onExit(): void }) {
   const lv = run.level, guests = [...new Set(run.guests.map(g => g.guestId))], pet = PETS[run.pet], skill = SKILLS[pet.skill];
-  return <div className="overlay center"><div className="sheet" role="dialog" aria-modal="true" aria-labelledby="rhBrief">
+  return <div className={"overlay center" + (leaving ? " out" : "")}><div className="sheet" role="dialog" aria-modal="true" aria-labelledby="rhBrief">
     <span className="k">Before service · {lv.special ? "Today's special" : "Level " + lv.n}</span><h3 id="rhBrief">{lv.special ? DISHES[lv.special.dish].name : lv.name}</h3><p>{lv.brief}</p>
     {lv.special?.lunar && <span className="chip rule" style={{ justifySelf: "start", fontSize: 11 }}>{lv.special.lunar} · {RULES.five.chip}</span>}
+    <span className="k">Regulars</span>
     <div className="guestrow">{guests.map(id => { const g = GUESTS[id], rules = [...new Set([...g.rules, ...(lv.allRules ?? [])])];
-      return <div key={id}><img src={art[g.art]} alt="" />{g.name}{rules.map(r => <span key={r} className="chip rule">{RULES[r].chip}</span>)}{!rules.length && <span className="chip">No rules</span>}</div>; })}</div>
-    <div className="guestrow">{levelDishes(lv).map(d => <div key={d.id}><img src={art[d.art]} alt="" />{d.name}</div>)}</div>
+      return <div key={id}><img src={art[g.art]} alt="" /><b>{g.name}</b>{rules.map(r => <span key={r} className="chip rule">{RULES[r].chip}</span>)}{!rules.length && <span className="chip">No rules</span>}</div>; })}</div>
+    <span className="k">On the menu</span>
+    <div className="guestrow">{levelDishes(lv).map(d => <div key={d.id}><img src={art[d.art]} alt="" /><b>{d.name}</b></div>)}</div>
     {lv.round !== null ? <div className="seg" role="group" aria-label="Mode">
       <button aria-pressed={run.mode === "rush"} onClick={() => onMode("rush")}>Rush · {Math.floor(lv.round / 60)}:{String(lv.round % 60).padStart(2, "0")}</button>
       <button aria-pressed={run.mode === "calm"} onClick={() => onMode("calm")}>Calm · no clock</button></div> : <p>Level 1 has no clock.</p>}
     {run.mode === "rush" && <div className="remember" style={{ display: "flex", gap: 8, alignItems: "center" }}><img src={art[petArt] ?? art[pet.art]} alt="" style={{ width: 44, height: 44, objectFit: "contain" }} />
       <span><b>{pet.name} · {skill.name}</b><br />{skill.effect} Once per service. {skill.best}</span></div>}
     <div className="remember"><b>New: </b>{lv.teach}</div>
-    <div className="row"><button className="btn ghost" onClick={onExit}>Back to café</button><button className="btn" autoFocus onClick={onStart}>Start service</button></div>
+    <div className="row"><button className="btn ghost" onClick={onExit} disabled={leaving}>Back to café</button><button className="btn" autoFocus onClick={onStart} disabled={leaving}>Start service</button></div>
+  </div></div>;
+}
+
+/** Shown over everything when the screen is too short for the portrait playfield (a phone turned sideways); the service waits. */
+export function TooShort() {
+  return <div className="overlay center" style={{ zIndex: 60 }}><div className="sheet" role="alert">
+    <span className="k">Paused</span><h3>Turn your phone upright</h3>
+    <p>The kitchen needs more height than this screen has. Turn the phone upright, or make the window taller, and the service carries on where it stopped.</p>
   </div></div>;
 }
 
@@ -89,7 +100,7 @@ export function ListView({ run, L, act, onBack }: { run: sim.Run; L: Layout; onB
   focus(id: string): void; add(id: string, k: StationKind): void; label(id: string): void; heat(k: StationKind): void;
   plate(k: StationKind): void; restart(k: StationKind): void; lift(k: StationKind, uid: number): void; serve(slot: number, id: string): void; } }) {
   const g = sim.focusGuest(run);
-  return <div className="list" role="region" aria-label="Station list" style={{ top: L.hud.h, bottom: L.dialogue.h }}>
+  return <div className="list" role="region" aria-label="Station list" style={{ left: L.recipe.x, width: L.recipe.w, top: L.recipe.y, bottom: L.h - L.dialogue.y + 6 }}>
     <button className="btn ghost" onClick={onBack}>Back to the scene</button>
     <section><h4>Guests</h4>{run.guests.filter(x => x.state !== "queue" && x.state !== "gone").map(x => <div key={x.orderId}>
       <div className="line">Seat {x.seat} · {GUESTS[x.guestId].name} · {DISHES[x.dishId].name} · {x.rules.length ? x.rules.map(r => RULES[r].chip).join(", ") : "No rules"} · {x.order === "served" ? "Served" : run.focus === x.orderId ? "Cooking for" : "Waiting"}{run.mode === "rush" && x.state === "waiting" ? " · patience " + Math.ceil(x.patience / run.level.patience * 5) + " of 5" : ""}</div>

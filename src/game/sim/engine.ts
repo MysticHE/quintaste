@@ -21,7 +21,7 @@ export type GuestRun = { orderId: string; guestId: string; dishId: string; seat:
   state: "queue" | "walking" | "waiting" | "eating" | "leaving" | "gone"; st: number; patience: number;
   order: "open" | "served" | "expired"; paid: { base: number; heatTip: number; quick: number; total: number } | null };
 export type GameEvent =
-  | { type: "placed"; station: StationKind; item: string; warn: boolean } | { type: "rejected"; item: string }
+  | { type: "placed"; station: StationKind; item: string; warn: boolean; uid: number } | { type: "rejected"; item: string }
   | { type: "ready"; station: StationKind } | { type: "scorched"; station: StationKind } | { type: "split"; station: StationKind }
   | { type: "plated"; station: StationKind; slot: number } | { type: "served"; seat: number; slot: number; coins: number }
   | { type: "returned"; seat: number; slot: number } | { type: "arrived"; seat: number } | { type: "left"; seat: number; expired: boolean }
@@ -145,9 +145,10 @@ export function place(r: Run, itemId: string, at?: StationKind): boolean {
   if (!st.part && g) { const part = dishPart(g.dishId, kind)!; st.part = { dishId: g.dishId, partId: part.id, stage: 0, items: [], progress: 0, state: "loading", exposure: 0, inBand: 0, prog: 0 }; }
   const pr = st.part!, stage = stageOf(pr), band = bandOf(st, pr);
   const warn = !!g && conflicts([itemId], g.rules).length > 0 && pr.dishId === g.dishId;
-  pr.items.push({ uid: r.uid++, id: itemId, stage: pr.stage, warn });
+  const uid = r.uid++;
+  pr.items.push({ uid, id: itemId, stage: pr.stage, warn });
   r.selected = kind; record(r, "place " + itemId + " " + kind);
-  r.events.push({ type: "placed", station: kind, item: itemId, warn });
+  r.events.push({ type: "placed", station: kind, item: itemId, warn, uid });
   if (warn && g) { r.stats.mistakes++; say(r, reason(itemId, g.rules) + " Tap it in the pan chips to lift it out.", "warn"); }
   if (stage.splitIfHot?.includes(itemId) && STATIONS[kind].heat && st.H > band[1]) {
     pr.state = "split"; say(r, "Too hot: the " + itemName(itemId).toLowerCase() + " split. Restart the dish; it's free. Turn the heat down before adding it.", "warn");

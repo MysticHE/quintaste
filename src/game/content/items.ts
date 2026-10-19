@@ -100,3 +100,21 @@ export const ITEMS: Record<string, GameItem> = Object.fromEntries([
 ].map(item => [item.id, item]));
 
 export const itemName = (id: string) => { const it = ITEMS[id]; return it ? it.name + (it.variant ? " " + it.variant : "") : id; };
+
+/** Colour family of what a poured or sprinkled item leaves in the pan (the playfield maps each to a CSS token). */
+export type ItemTone = "soy" | "oil" | "cream" | "red" | "white" | "gold" | "dark";
+/**
+ * Items that go in from a container: poured (sauces, oils, milks, pastes) or sprinkled (powders, seeds, grains from a bowl).
+ * The container never stays in the pan; the pan keeps a pool or speckles in the item's tone. Display only, not a rule.
+ */
+export type ItemForm = { form: "pour" | "sprinkle"; tone: ItemTone };
+const forms = (form: ItemForm["form"], tone: ItemTone, ids: string[]) => ids.map(id => [id, { form, tone }] as const);
+export const ITEM_FORM: Record<string, ItemForm> = Object.fromEntries([
+  ...forms("pour", "soy", ["soy", "dark-soy", "kecap", "sweet-sauce-a", "sweet-sauce-b"]),
+  ...forms("pour", "oil", ["sesame-oil", "cooking-oil", "rice-vinegar", "stock-a", "stock-b", "honey", "gula-melaka"]),
+  ...forms("pour", "cream", ["coconut-milk", "dairy-milk"]),
+  ...forms("pour", "red", ["paste-a", "paste-b", "ketchup-a", "ketchup-b", "chilli-paste-a", "chilli-paste-b", "sambal-a", "sambal-b", "chilli-sauce", "fu-ru"]),
+  ...forms("sprinkle", "white", ["salt", "cornflour", "sesame-seeds", "rice", "sago", "oats"]),
+  ...forms("sprinkle", "gold", ["turmeric", "brown-sugar", "peanuts"]),
+  ...forms("sprinkle", "dark", ["white-pepper", "black-beans"]),
+]);

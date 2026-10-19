@@ -8,13 +8,14 @@ export type Rule = "vegan" | "five" | "jain" | "nomeat" | "nomush" | "mild";
 export type Guest = { id: string; name: string; art: string; artNo?: string; rules: Rule[]; first: number;
   quote: string; hello: string; thanks: string; notes: string[] };
 
-export const RULES: Record<Rule, { chip: string; spoken: string; tags: ItemTag[] }> = {
-  vegan: { chip: "Vegan", spoken: "vegan", tags: ["egg", "dairy", "honey"] },
-  five: { chip: "No five pungent 五辛", spoken: "no five pungent", tags: ["allium"] },
-  jain: { chip: "Jain", spoken: "Jain", tags: ["allium", "root", "mushroom", "egg", "honey"] },
-  nomeat: { chip: "No meat or seafood", spoken: "no meat or seafood", tags: [] },
-  nomush: { chip: "No mushrooms", spoken: "no mushrooms", tags: ["mushroom"] },
-  mild: { chip: "Less spicy", spoken: "less spicy", tags: ["hot"] },
+/** `chip` is the full label; `short` fits an order bubble over a narrow seat. */
+export const RULES: Record<Rule, { chip: string; short: string; spoken: string; tags: ItemTag[] }> = {
+  vegan: { chip: "Vegan", short: "Vegan", spoken: "vegan", tags: ["egg", "dairy", "honey"] },
+  five: { chip: "No five pungent 五辛", short: "No pungent", spoken: "no five pungent", tags: ["allium"] },
+  jain: { chip: "Jain", short: "Jain", spoken: "Jain", tags: ["allium", "root", "mushroom", "egg", "honey"] },
+  nomeat: { chip: "No meat or seafood", short: "No meat", spoken: "no meat or seafood", tags: [] },
+  nomush: { chip: "No mushrooms", short: "No mushroom", spoken: "no mushrooms", tags: ["mushroom"] },
+  mild: { chip: "Less spicy", short: "Less spicy", spoken: "less spicy", tags: ["hot"] },
 };
 
 export const GUESTS: Record<string, Guest> = Object.fromEntries(([

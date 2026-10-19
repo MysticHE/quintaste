@@ -1,47 +1,59 @@
 /**
- * Phaser playfield: backdrop, guests behind the counter, stations with heat, steam and smoke, the plating board,
- * plates on mats, flying items and coins. Visual state is derived from the simulation every frame, so the scene
- * never owns game rules; taps and drags are reported to the DOM root.
+ * Phaser playfield: backdrop, guests behind the counter, plate mats, the plating board, stations with heat glow, steam,
+ * smoke and what is cooking in them, and every flight between them. Visual state is derived from the simulation every
+ * frame, so the scene never owns game rules; taps and drags are reported to the DOM root through `hooks`.
  */
 import * as Phaser from "phaser";
 import { DISHES, STATIONS, type StationKind } from "../content/dishes";
 import { GUESTS } from "../content/guests";
-import { ITEMS } from "../content/items";
+import { ITEM_FORM, ITEMS, type ItemTone } from "../content/items";
 import * as sim from "../sim/engine";
-import type { Layout } from "./layout";
+import type { Layout, Point, Rect } from "./layout";
+import * as motion from "./motion";
+import { PanContents, type Tones } from "./pan";
+import { STATION_ART } from "./stationArt";
 
 export type SceneHooks = {
   onStation(kind: StationKind): void; onPlate(slot: number): void; onGuest(orderId: string): void;
-  onServeDrag(slot: number, orderId: string): void; onPlateDrag(kind: StationKind): void; ready(): void;
+  onServeDrag(slot: number, orderId: string): void; onPlateDrag(kind: StationKind): void;
+  /** The scene has built its first frame; it hands itself over, since Phaser creates scenes only after it boots. */
+  ready(scene: Playfield): void;
 };
-type Vec = { x: number; y: number };
 /** Pixel density for a crisp canvas on phones, capped to keep texture memory reasonable. */
 export const DPR = typeof window !== "undefined" ? Math.min(2.5, Math.max(1, window.devicePixelRatio || 1)) : 1;
 
 /** Canvas colours come from the DOM layer's CSS tokens (styles.ts), so the game keeps one palette. */
 const TOKENS = { light: "--fx-light", spark: "--fx-spark", flame: "--fx-flame", flameHot: "--fx-flame-hot", smoke: "--fx-smoke", char: "--fx-char",
-  track: "--fx-ring-track", ready: "--fx-ready", warn: "--fx-warn", progress: "--fx-progress", coin: "--fx-coin", coinEdge: "--fx-coin-edge" } as const;
+  track: "--fx-ring-track", ready: "--fx-ready", warn: "--fx-warn", progress: "--fx-progress", coin: "--fx-coin", coinEdge: "--fx-coin-edge",
+  cooked: "--fx-cooked", focus: "--fx-focus", soy: "--fx-soy", oil: "--fx-oil", cream: "--fx-cream", red: "--fx-red",
+  white: "--fx-grain-white", gold: "--fx-grain-gold", dark: "--fx-grain-dark" } as const;
 type Palette = Record<keyof typeof TOKENS, number>;
 function readPalette(): Palette {
-  const el = typeof document !== "undefined" ? document.querySelector(".rh") : null, css = el ? getComputedStyle(el) : null;
-  const out = {} as Palette;
+  const el = typeof document !== "undefined" ? document.querySelector(".rh") : null, css = el ? getComputedStyle(el) : null, out = {} as Palette;
   (Object.keys(TOKENS) as (keyof typeof TOKENS)[]).forEach(k => {
     const v = css?.getPropertyValue(TOKENS[k]).trim() ?? ""; out[k] = /^#[0-9a-f]{6}$/i.test(v) ? parseInt(v.slice(1), 16) : 0x808080;
   });
   return out;
 }
+type StationView = { glow: Phaser.GameObjects.Ellipse; hi: Phaser.GameObjects.Graphics; ring: Phaser.GameObjects.Graphics; pan: PanContents;
+  steam: Phaser.GameObjects.Particles.ParticleEmitter; smoke: Phaser.GameObjects.Particles.ParticleEmitter };
+type PlateView = { base: Phaser.GameObjects.Image; dish: Phaser.GameObjects.Image; glow: Phaser.GameObjects.Ellipse };
+type Img = Phaser.GameObjects.Image;
 
 export class Playfield extends Phaser.Scene {
-  run!: sim.Run; pal!: Palette; L!: Layout; art: Record<string, string> = {}; hooks!: SceneHooks; reduced = false;
+  run!: sim.Run; L!: Layout; art: Record<string, string> = {}; hooks!: SceneHooks; reduced = false; pal!: Palette;
   /** Play your way: drags are ignored and any lift of the finger over a target counts as a tap. */
   tapOnly = false;
-  private guestSprites = new Map<string, Phaser.GameObjects.Image>();
-  private stationSprites = new Map<StationKind, { img: Phaser.GameObjects.Image; glow: Phaser.GameObjects.Ellipse; ring: Phaser.GameObjects.Graphics;
-    items: Phaser.GameObjects.Image[]; steam: Phaser.GameObjects.Particles.ParticleEmitter; smoke: Phaser.GameObjects.Particles.ParticleEmitter; zone: Phaser.GameObjects.Zone }>();
-  private plates: { base: Phaser.GameObjects.Image; dish: Phaser.GameObjects.Image; zone: Phaser.GameObjects.Zone }[] = [];
-  private mats: Phaser.GameObjects.Image[] = [];
-  private select!: Phaser.GameObjects.Graphics;
+  /** The station a dragged ingredient is over (a drop target), and the plate picked to serve. */
+  hover: StationKind | null = null; plateSel: number | null = null;
+  /** Item uids, board slots and seats whose food is still flying in; each shows only when it lands. */
+  readonly landing = new Set<number>(); readonly incomingSlots = new Set<number>(); readonly incomingSeats = new Set<number>();
+  private guests = new Map<string, Img>();
+  private stations = new Map<StationKind, StationView>();
+  private plates: PlateView[] = [];
+  private mats: Img[] = [];
   private shakeUntil = new Map<number, number>();
+  private dragSlot: number | null = null;
 
   constructor() { super("playfield"); }
   init(data: { run: sim.Run; layout: Layout; art: Record<string, string>; hooks: SceneHooks; reduced: boolean; tapOnly?: boolean }) {
@@ -62,164 +74,185 @@ export class Playfield extends Phaser.Scene {
   create() {
     // The canvas is drawn at the screen's pixel density and shown at CSS size; the camera zoom keeps layout in CSS px.
     this.cameras.main.setOrigin(0, 0).setZoom(DPR);
-    const g = this.make.graphics({ x: 0, y: 0 }, false);
-    const P = this.pal;
+    const g = this.make.graphics({ x: 0, y: 0 }, false), P = this.pal;
     g.fillStyle(P.coin).fillCircle(16, 16, 15).lineStyle(3, P.coinEdge).strokeCircle(16, 16, 13); g.generateTexture("coin", 32, 32); g.clear();
     g.fillStyle(P.light).fillCircle(16, 16, 16); g.generateTexture("puff", 32, 32); g.clear();
+    g.fillStyle(P.light).fillCircle(5, 5, 5); g.generateTexture("drop", 10, 10); g.clear();
     g.fillStyle(P.spark).fillCircle(6, 6, 6); g.generateTexture("spark", 12, 12); g.destroy();
-    this.build(); this.hooks.ready();
+    this.build(); this.hooks.ready(this);
   }
-  /** Rebuild every object for a new layout (resize). */
+
+  /** Rebuild every object for a new layout or a new run; flights in progress are dropped. */
   build() {
-    this.children.removeAll(true); this.guestSprites.clear(); this.stationSprites.clear(); this.plates = []; this.mats = [];
+    this.children.removeAll(true); this.stations.forEach(v => v.pan.destroy());
+    this.guests.clear(); this.stations.clear(); this.plates = []; this.mats = [];
+    this.landing.clear(); this.incomingSlots.clear(); this.incomingSeats.clear();
     const L = this.L;
-    if (this.textures.exists("rh-bg")) this.cover(this.add.image(0, 0, "rh-bg"), L.guests.x, L.guests.y - L.recipe.h, L.guests.w, L.guests.h + L.recipe.h);
-    this.run.guests.forEach(gr => { const img = this.add.image(-100, -100, GUESTS[gr.guestId].art).setVisible(false).setDepth(2); this.guestSprites.set(gr.orderId, img); });
-    if (this.textures.exists("rh-counter")) this.cover(this.add.image(0, 0, "rh-counter").setDepth(3), L.counter.x, L.counter.y, L.counter.w, L.counter.h + 6);
-    L.mats.forEach(m => { const img = this.add.image(m.x + m.w / 2, m.y + m.h / 2, "plate").setDepth(4).setVisible(false); this.fit(img, m.w, m.h * 1.3); this.mats.push(img); });
+    if (this.textures.exists("rh-bg")) this.cover(this.add.image(0, 0, "rh-bg"), L.backdrop);
+    this.run.guests.forEach(gr => this.guests.set(gr.orderId, this.add.image(-200, -200, GUESTS[gr.guestId].art).setOrigin(0.5, 1).setVisible(false).setDepth(2)));
+    if (this.textures.exists("rh-counter")) this.cover(this.add.image(0, 0, "rh-counter").setDepth(3), L.counter);
     L.seats.forEach((s, i) => {
-      const z = this.add.zone(s.x + s.w / 2, s.y + s.h / 2, s.w, s.h + L.counter.h).setInteractive({ useHandCursor: true }).setDepth(6);
-      z.on("pointerup", () => { const gr = this.run.guests.find(x => x.seat === i + 1 && x.state === "waiting"); if (gr) this.hooks.onGuest(gr.orderId); });
+      this.place(this.add.image(0, 0, "plate").setDepth(4), s.mat);
+      this.mats.push(this.add.image(s.mat.x + s.mat.w / 2, s.mat.y + s.mat.h * 0.42, "plate").setDepth(4.5).setVisible(false));
+      const col = { x: s.guest.x - 6, y: s.guest.y, w: s.guest.w + 12, h: L.counter.y + L.counter.h - s.guest.y };
+      this.zone(col, 6).on("pointerup", () => { const gr = this.guestAt(i + 1); if (gr) this.hooks.onGuest(gr.orderId); });
     });
-    this.select = this.add.graphics().setDepth(7);
-    (Object.keys(L.stations) as StationKind[]).forEach(kind => {
-      const r = L.stations[kind], cfg = STATIONS[kind];
-      const glow = this.add.ellipse(r.x + r.w / 2, r.y + r.h * 0.82, r.w * 0.9, r.h * 0.26, this.pal.flame, 0).setDepth(4);
-      const img = this.add.image(r.x + r.w / 2, r.y + r.h / 2, cfg.art).setDepth(5); this.fit(img, r.w * 0.92, r.h * 0.86);
-      const ring = this.add.graphics().setDepth(8);
-      const steam = this.add.particles(r.x + r.w / 2, r.y + r.h * 0.35, "puff", { speedY: { min: -40, max: -70 }, speedX: { min: -10, max: 10 }, scale: { start: 0.35, end: 0.9 },
-        alpha: { start: 0.45, end: 0 }, lifespan: 1300, frequency: 220, emitting: false }).setDepth(9);
-      const smoke = this.add.particles(r.x + r.w / 2, r.y + r.h * 0.35, "puff", { speedY: { min: -50, max: -90 }, speedX: { min: -16, max: 16 }, scale: { start: 0.4, end: 1.2 },
-        alpha: { start: 0.55, end: 0 }, tint: this.pal.smoke, lifespan: 1200, frequency: 120, emitting: false }).setDepth(9);
-      const zone = this.add.zone(r.x + r.w / 2, r.y + r.h / 2, r.w, r.h).setInteractive({ useHandCursor: true, draggable: true }).setDepth(10);
-      zone.on("pointerup", (p: Phaser.Input.Pointer) => { if (this.tapOnly || p.getDistance() < 10) this.hooks.onStation(kind); });
-      zone.on("dragend", (p: Phaser.Input.Pointer) => { if (!this.tapOnly && p.getDistance() >= 10 && p.y > L.board[0].y - 20 && p.x < L.board[2].x + L.board[2].w + 10) this.hooks.onPlateDrag(kind); });
-      this.stationSprites.set(kind, { img, glow, ring, items: [], steam, smoke, zone });
-    });
+    this.buildBoard();
+    (Object.keys(L.stations) as StationKind[]).forEach(kind => this.buildStation(kind));
+  }
+  private buildBoard() {
+    const L = this.L;
+    if (this.textures.exists("board")) this.place(this.add.image(0, 0, "board").setDepth(4), L.plating.art);
     L.board.forEach((b, i) => {
-      const base = this.add.image(b.x + b.w / 2, b.y + b.h / 2, "plate").setDepth(5); this.fit(base, b.w * 1.05, b.h * 1.05);
-      const dish = this.add.image(base.x, base.y - 2, "plate").setDepth(6).setVisible(false);
-      const zone = this.add.zone(base.x, base.y, b.w, b.h * 1.4).setInteractive({ useHandCursor: true, draggable: true }).setDepth(10);
+      const glow = this.add.ellipse(b.x + b.w / 2, b.y + b.h * 0.62, b.w * 1.25, b.h * 0.9, this.pal.focus, 0).setDepth(4.6);
+      const base = this.place(this.add.image(0, 0, "plate").setDepth(5), b), dish = this.add.image(base.x, base.y - 2, "plate").setDepth(6).setVisible(false);
+      const zone = this.zone({ x: b.x - 4, y: b.y - b.h * 0.7, w: b.w + 8, h: b.h * 2.2 }, 10, true);
       zone.on("pointerup", (p: Phaser.Input.Pointer) => { if (this.tapOnly || p.getDistance() < 10) this.hooks.onPlate(i); });
-      zone.on("drag", (_p: Phaser.Input.Pointer, x: number, y: number) => { if (this.run.board[i] && !this.tapOnly) dish.setPosition(x, y).setDepth(20); });
+      zone.on("drag", (_p: Phaser.Input.Pointer, x: number, y: number) => { if (this.run.board[i] && !this.tapOnly) { this.dragSlot = i; dish.setPosition(x, y).setDepth(20); } });
       zone.on("dragend", (p: Phaser.Input.Pointer) => {
-        dish.setPosition(base.x, base.y - 2).setDepth(6); zone.setPosition(base.x, base.y);
+        this.dragSlot = null; dish.setDepth(6); zone.setPosition(b.x + b.w / 2, b.y + b.h * 0.4);
         if (this.tapOnly) return;
-        const seat = L.seats.findIndex(s => p.x >= s.x && p.x <= s.x + s.w && p.y >= s.y && p.y <= L.counter.y + L.counter.h);
-        const gr = seat >= 0 ? this.run.guests.find(x => x.seat === seat + 1 && x.state === "waiting") : undefined;
+        const seat = L.seats.findIndex(s => p.x >= s.guest.x - 10 && p.x <= s.guest.x + s.guest.w + 10 && p.y >= s.guest.y && p.y <= L.counter.y + L.counter.h);
+        const gr = seat >= 0 ? this.guestAt(seat + 1) : undefined;
         if (gr && this.run.board[i]) this.hooks.onServeDrag(i, gr.orderId);
       });
-      this.plates.push({ base, dish, zone });
+      this.plates.push({ base, dish, glow });
     });
   }
-  private fit(img: Phaser.GameObjects.Image, w: number, h: number) { const s = Math.min(w / img.width, h / img.height); img.setScale(s); return img; }
-  private cover(img: Phaser.GameObjects.Image, x: number, y: number, w: number, h: number) {
-    const s = Math.max(w / img.width, h / img.height); img.setScale(s).setPosition(x + w / 2, y + h / 2);
-    img.setCrop((img.width - w / s) / 2, (img.height - h / s) / 2, w / s, h / s); return img;
+  private buildStation(kind: StationKind) {
+    const r = this.L.stations[kind]!, cfg = STATIONS[kind], P = this.pal;
+    const hi = this.add.graphics().setDepth(4);
+    this.place(this.add.image(0, 0, cfg.art).setDepth(5), r.art);
+    const f = STATION_ART[kind].flame;
+    const glow = this.add.ellipse(r.art.x + r.art.w * f.x, r.art.y + r.art.h * f.y, r.art.w * f.rx * 2, r.art.h * f.ry * 2, P.flame, 0).setDepth(5.5).setBlendMode(Phaser.BlendModes.ADD);
+    const pan = new PanContents(this, r.bowl, 6, this.tones(), !!STATION_ART[kind].closed);
+    const ring = this.add.graphics().setDepth(8);
+    const steam = this.add.particles(r.bowl.x, r.bowl.y - r.bowl.ry, "puff", { speedY: { min: -40, max: -70 }, speedX: { min: -10, max: 10 }, scale: { start: 0.3, end: 0.85 },
+      alpha: { start: 0.45, end: 0 }, lifespan: 1200, frequency: 240, emitting: false }).setDepth(9);
+    const smoke = this.add.particles(r.bowl.x, r.bowl.y - r.bowl.ry, "puff", { speedY: { min: -50, max: -90 }, speedX: { min: -16, max: 16 }, scale: { start: 0.4, end: 1.2 },
+      alpha: { start: 0.55, end: 0 }, tint: P.smoke, lifespan: 1200, frequency: 120, emitting: false }).setDepth(9);
+    const zone = this.zone(r, 10, true);
+    zone.on("pointerup", (p: Phaser.Input.Pointer) => { if (this.tapOnly || p.getDistance() < 10) this.hooks.onStation(kind); });
+    zone.on("dragend", (p: Phaser.Input.Pointer) => {
+      const b = this.L.plating;
+      if (!this.tapOnly && p.getDistance() >= 10 && p.x >= b.x && p.x <= b.x + b.w && p.y >= b.y && p.y <= b.y + b.h) this.hooks.onPlateDrag(kind);
+    });
+    this.stations.set(kind, { glow, hi, ring, pan, steam, smoke });
   }
+  private tones(): Tones { const P = this.pal; return { soy: P.soy, oil: P.oil, cream: P.cream, red: P.red, white: P.white, gold: P.gold, dark: P.dark, cooked: P.cooked, char: P.char, light: P.light }; }
+  private zone(r: Rect, depth: number, draggable = false) {
+    return this.add.zone(r.x + r.w / 2, r.y + r.h / 2, r.w, r.h).setInteractive({ useHandCursor: true, draggable }).setDepth(depth);
+  }
+  private place(img: Img, r: Rect) { return img.setDisplaySize(r.w, r.h).setPosition(r.x + r.w / 2, r.y + r.h / 2); }
+  private fit(img: Img, w: number, h: number) { return img.setScale(Math.min(w / img.width, h / img.height)); }
+  private cover(img: Img, r: Rect) {
+    const s = Math.max(r.w / img.width, r.h / img.height); img.setScale(s).setPosition(r.x + r.w / 2, r.y + r.h / 2);
+    img.setCrop((img.width - r.w / s) / 2, (img.height - r.h / s) / 2, r.w / s, r.h / s); return img;
+  }
+  private guestAt(seat: number) { return this.run.guests.find(x => x.seat === seat && x.state === "waiting"); }
   setLayout(L: Layout) { this.L = L; this.scale.resize(L.w * DPR, L.h * DPR); this.scale.setZoom(1 / DPR); this.cameras.main.setZoom(DPR); this.build(); }
 
   update() {
     if (!this.run) return;
-    const L = this.L, t = this.time.now / 1000;
-    for (const gr of this.run.guests) {
-      const img = this.guestSprites.get(gr.orderId)!; if (!img) continue;
-      const seat = L.seats[gr.seat - 1];
-      if (!seat || gr.state === "queue" || gr.state === "gone") { img.setVisible(false); continue; }
-      const tex = gr.state === "leaving" && gr.order === "expired" ? GUESTS[gr.guestId].art : (this.shakeUntil.get(gr.seat) ?? 0) > t && GUESTS[gr.guestId].artNo ? GUESTS[gr.guestId].artNo! : GUESTS[gr.guestId].art;
-      if (img.texture.key !== tex && this.textures.exists(tex)) img.setTexture(tex);
-      const h = seat.h * 0.98, s = h / img.height, home: Vec = { x: seat.x + seat.w / 2, y: L.counter.y + L.counter.h * 0.25 - h * 0.36 };
-      const edge = gr.seat <= L.seats.length / 2 ? -seat.w : L.w + seat.w;
-      let x = home.x, y = home.y, alpha = 1, rot = 0, sc = s;
-      if (gr.state === "walking") { const k = Math.min(1, gr.st); x = edge + (home.x - edge) * (1 - (1 - k) * (1 - k)); y = home.y - (this.reduced ? 0 : Math.abs(Math.sin(k * Math.PI * 3)) * 8); }
-      else if (gr.state === "leaving") { const k = Math.min(1, gr.st); x = home.x + (edge - home.x) * k * k; alpha = 1 - k * 0.6; }
-      else if (gr.state === "eating" && !this.reduced) y = home.y + Math.abs(Math.sin(gr.st * Math.PI * 3)) * 4;
-      else if (!this.reduced) sc = s * (1 + Math.sin(t * 2 + gr.seat) * 0.008);
-      if ((this.shakeUntil.get(gr.seat) ?? 0) > t && !this.reduced) rot = Math.sin(t * 40) * 0.05;
-      img.setVisible(true).setPosition(x, y).setScale(sc).setAlpha(alpha).setRotation(rot);
-    }
-    L.mats.forEach((m, i) => {
-      const gr = this.run.guests.find(x => x.seat === i + 1 && x.state === "eating");
-      const img = this.mats[i];
-      if (gr && this.textures.exists(DISHES[gr.dishId].art)) { if (img.texture.key !== DISHES[gr.dishId].art) { img.setTexture(DISHES[gr.dishId].art); this.fit(img, m.w, m.h * 1.4); } img.setVisible(true); }
+    const t = this.time.now / 1000;
+    this.updateGuests(t);
+    this.L.seats.forEach((_, i) => {
+      const gr = this.run.guests.find(x => x.seat === i + 1 && x.state === "eating"), img = this.mats[i], m = this.L.seats[i].mat;
+      const key = gr ? DISHES[gr.dishId].art : "";
+      if (gr && !this.incomingSeats.has(i + 1) && this.textures.exists(key)) { if (img.texture.key !== key) img.setTexture(key); this.fit(img, m.w * 1.05, m.h * 1.5); img.setVisible(true); }
       else img.setVisible(false);
     });
-    this.select.clear();
-    for (const [kind, v] of this.stationSprites) {
-      const st = this.run.stations[kind]!, r = L.stations[kind], cfg = STATIONS[kind], pr = st.part;
-      if (this.run.selected === kind) this.select.lineStyle(3, this.pal.light, 0.95).strokeRoundedRect(r.x + 3, r.y + 3, r.w - 6, r.h - 6, 14);
-      v.glow.setFillStyle(st.H >= cfg.scorch ? this.pal.flameHot : this.pal.flame, cfg.heat ? Math.min(0.7, st.H * 0.75) : 0);
-      const cooking = !!pr && pr.state === "cooking";
-      v.steam.emitting = !this.reduced && cooking && pr!.progress > 0.4;
-      v.smoke.emitting = !this.reduced && cfg.heat && st.H >= cfg.scorch && !!pr;
-      // Items in the station toss gently while cooking.
-      const ids = pr ? pr.items.filter(i => i.stage === pr.stage || pr.state === "ready").map(i => i.id) : [];
-      while (v.items.length > ids.length) v.items.pop()!.destroy();
-      ids.forEach((id, i) => {
-        const key = ITEMS[id]?.art; if (!key || !this.textures.exists(key)) return;
-        let im = v.items[i]; if (!im) { im = this.add.image(0, 0, key).setDepth(6); v.items[i] = im; }
-        if (im.texture.key !== key) im.setTexture(key);
-        const n = ids.length, cx = r.x + r.w / 2 + (i - (n - 1) / 2) * r.w * 0.22, toss = cooking && !this.reduced ? Math.abs(Math.sin(t * 4 + i)) * r.h * 0.08 : 0;
-        this.fit(im, r.w * 0.3, r.h * 0.3); im.setPosition(cx, r.y + r.h * 0.42 - toss);
-        im.setTint(pr!.state === "scorched" ? this.pal.char : this.pal.light);
-      });
-      v.ring.clear();
-      if (pr) {
-        const cx = r.x + r.w * 0.86, cy = r.y + r.h * 0.16, rad = Math.min(r.w, r.h) * 0.11;
-        const stages = sim.partOf(pr).stages.length, done = (pr.stage + (pr.state === "ready" ? 1 : pr.progress)) / stages;
-        v.ring.fillStyle(this.pal.light, 0.9).fillCircle(cx, cy, rad + 3).lineStyle(4, this.pal.track).strokeCircle(cx, cy, rad);
-        v.ring.lineStyle(4, pr.state === "ready" ? this.pal.ready : pr.state === "scorched" || pr.state === "split" ? this.pal.warn : this.pal.progress)
-          .beginPath().arc(cx, cy, rad, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * Math.min(1, done)).strokePath();
-      }
+    for (const [kind, v] of this.stations) this.updateStation(kind, v, t);
+    this.updatePlates();
+  }
+  private updateGuests(t: number) {
+    const L = this.L;
+    for (const gr of this.run.guests) {
+      const img = this.guests.get(gr.orderId), seat = L.seats[gr.seat - 1]; if (!img) continue;
+      if (!seat || gr.state === "queue" || gr.state === "gone") { img.setVisible(false); continue; }
+      const shaking = (this.shakeUntil.get(gr.seat) ?? 0) > t, guest = GUESTS[gr.guestId];
+      const tex = shaking && guest.artNo && gr.state !== "leaving" ? guest.artNo : guest.art;
+      if (img.texture.key !== tex && this.textures.exists(tex)) img.setTexture(tex);
+      const g = seat.guest, s = Math.min(g.h / img.height, (g.w * 1.25) / img.width), homeX = g.x + g.w / 2, homeY = g.y + g.h;
+      const edge = gr.seat <= L.seats.length / 2 ? L.col.x - g.w : L.col.x + L.col.w + g.w;
+      let x = homeX, y = homeY, alpha = 1, rot = 0, sy = s;
+      if (gr.state === "walking") { const k = Math.min(1, gr.st); x = edge + (homeX - edge) * (1 - (1 - k) * (1 - k)); alpha = Math.min(1, k * 2); y = homeY - (this.reduced ? 0 : Math.abs(Math.sin(k * Math.PI * 3)) * 7); }
+      else if (gr.state === "leaving") { const k = Math.min(1, gr.st); x = homeX + (edge - homeX) * k * k; alpha = 1 - k * 0.7; }
+      else if (gr.state === "eating" && !this.reduced) y = homeY - Math.abs(Math.sin(gr.st * Math.PI * 3)) * 4;
+      else if (!this.reduced) sy = s * (1 + Math.sin(t * 2 + gr.seat) * 0.012);
+      if (shaking && !this.reduced) rot = Math.sin(t * 40) * 0.05;
+      img.setVisible(true).setPosition(x, y).setScale(s, sy).setAlpha(alpha).setRotation(rot);
     }
+  }
+  private updateStation(kind: StationKind, v: StationView, t: number) {
+    const st = this.run.stations[kind]!, r = this.L.stations[kind]!, cfg = STATIONS[kind], pr = st.part, P = this.pal;
+    const [lo, hi] = sim.bandOf(st, pr), cooking = !!pr && pr.state === "cooking", many = Object.keys(this.L.stations).length > 1;
+    v.hi.clear();
+    const a = r.art, hl = (alpha: number, color: number) => v.hi.fillStyle(color, alpha).fillRoundedRect(a.x - 5, a.y - 4, a.w + 10, a.h + 8, 16);
+    if (this.hover === kind) hl(0.55, P.spark); else if (many && this.run.selected === kind) hl(0.5, P.light);
+    v.glow.setFillStyle(st.H >= cfg.scorch ? P.flameHot : P.flame, cfg.heat && st.heatOn || st.H > 0.3 ? Math.min(0.55, st.H * 0.65) : 0);
+    const toss = !cooking || this.reduced || !cfg.heat ? 0 : st.H >= lo && st.H <= hi ? 1 : st.H >= lo - 0.1 ? 0.4 : 0;
+    v.pan.draw(pr, t, this.landing, toss);
+    v.steam.emitting = !this.reduced && cooking && pr!.progress > 0.35;
+    v.smoke.emitting = !this.reduced && cfg.heat && st.H >= cfg.scorch && !!pr;
+    v.ring.clear();
+    if (!pr) return;
+    const rad = Math.max(9, Math.min(14, r.w * 0.08)), cx = r.x + r.w - rad - 6, cy = r.y + rad + 6;
+    const done = (pr.stage + (pr.state === "ready" ? 1 : pr.progress)) / sim.partOf(pr).stages.length;
+    v.ring.fillStyle(P.light, 0.95).fillCircle(cx, cy, rad + 3).lineStyle(4, P.track).strokeCircle(cx, cy, rad);
+    v.ring.lineStyle(4, pr.state === "ready" ? P.ready : pr.state === "scorched" || pr.state === "split" ? P.warn : P.progress)
+      .beginPath().arc(cx, cy, rad, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * Math.min(1, done)).strokePath();
+  }
+  private updatePlates() {
     this.run.board.forEach((p, i) => {
-      const v = this.plates[i]; if (!v) return;
-      if (!p) { v.dish.setVisible(false); return; }
+      const v = this.plates[i], b = this.L.board[i]; if (!v) return;
+      const sel = this.plateSel === i && !!p, lift = sel ? -5 : 0;
+      v.glow.setFillStyle(this.pal.focus, sel ? 0.7 : 0);
+      v.base.setY(b.y + b.h / 2 + lift);
+      if (!p || this.incomingSlots.has(i)) { v.dish.setVisible(false); return; }
       const key = DISHES[p.dishId].art;
-      if (this.textures.exists(key)) { if (v.dish.texture.key !== key) v.dish.setTexture(key); this.fit(v.dish, L.board[i].w * 0.95, L.board[i].h * 1.05); }
+      if (this.textures.exists(key)) { if (v.dish.texture.key !== key) v.dish.setTexture(key); this.fit(v.dish, b.w * 1.05, b.h * 1.25); }
+      if (this.dragSlot !== i) v.dish.setPosition(b.x + b.w / 2, b.y + b.h * 0.42 + lift);
       v.dish.setVisible(true).setAlpha(sim.plateComplete(p) ? 1 : 0.55);
     });
   }
 
-  /** Short arc from a screen point into a station or onto a plate. */
-  arc(key: string, from: Vec, to: Vec, ms = 240, done?: () => void) {
-    if (!this.textures.exists(key) || this.reduced) { done?.(); return; }
-    const img = this.add.image(from.x, from.y, key).setDepth(30); this.fit(img, this.L.w * 0.12, this.L.w * 0.12);
-    const c = { t: 0 }, peak = Math.min(120, Math.abs(to.x - from.x) * 0.3 + 40);
-    this.tweens.add({ targets: c, t: 1, duration: ms, ease: "Sine.easeInOut",
-      onUpdate: () => { img.setPosition(from.x + (to.x - from.x) * c.t, from.y + (to.y - from.y) * c.t - peak * 4 * c.t * (1 - c.t)); },
-      onComplete: () => { img.destroy(); this.squash(to); done?.(); } });
+  // ---------- one-shot motion, called by the DOM root as simulation events drain ----------
+  /** An ingredient flies from `from` (a shelf card) into a station: solids land in the pile, sauces pour, powders sprinkle. */
+  itemIn(itemId: string, uid: number, kind: StationKind, from: Point) {
+    const r = this.L.stations[kind], key = ITEMS[itemId]?.art, form = ITEM_FORM[itemId], st = this.run.stations[kind];
+    if (!r || !key || this.reduced) return;
+    this.landing.add(uid);
+    const land = () => { this.landing.delete(uid); if (!STATION_ART[kind].closed) motion.burst(this, { x: r.bowl.x, y: r.bowl.y - r.bowl.ry * 0.4 }, 6); };
+    const tone = form ? this.pal[form.tone as ItemTone] : 0;
+    if (form?.form === "pour") motion.pour(this, key, from, r.bowl, tone, land);
+    else if (form?.form === "sprinkle") motion.sprinkle(this, key, from, r.bowl, tone, land);
+    else { const spot = this.stations.get(kind)?.pan.landingFor(st?.part ?? null, uid) ?? { x: r.bowl.x, y: r.bowl.y, size: 40 }; motion.arc(this, key, from, spot, Math.max(44, spot.size * 1.3), 300, land, spot.size); }
   }
-  stationCentre(kind: StationKind): Vec { const r = this.L.stations[kind]; return { x: r.x + r.w / 2, y: r.y + r.h * 0.4 }; }
-  private squash(at: Vec) {
-    if (this.reduced) return;
-    const e = this.add.particles(at.x, at.y, "spark", { speed: { min: 60, max: 140 }, angle: { min: 200, max: 340 }, scale: { start: 0.8, end: 0 }, lifespan: 380, quantity: 7, emitting: false }).setDepth(31);
-    e.explode(7); this.time.delayedCall(500, () => e.destroy());
+  /** A finished dish slides from its station onto the board. */
+  plateIn(kind: StationKind, slot: number, dishId: string) {
+    const r = this.L.stations[kind], b = this.L.board[slot]; if (!r || !b || this.reduced) return;
+    this.incomingSlots.add(slot);
+    motion.arc(this, DISHES[dishId].art, { x: r.bowl.x, y: r.bowl.y }, { x: b.x + b.w / 2, y: b.y + b.h * 0.42 }, r.bowl.rx * 1.8, 320, () => this.incomingSlots.delete(slot), b.w * 1.05);
   }
-  /** Five-step coin pickup (GAME_PLAN §13): pop, sparkle, arc, counter eats it; sound and haptics live outside. */
-  coins(seat: number, count: number, eat: () => void) {
+  /** A plate glides from the board to the guest's mat, then the coins come out. */
+  serveTo(slot: number, seat: number, dishId: string, then: () => void) {
+    const b = this.L.board[slot], s = this.L.seats[seat - 1];
+    if (!b || !s || this.reduced) { then(); return; }
+    this.incomingSeats.add(seat);
+    motion.arc(this, DISHES[dishId].art, { x: b.x + b.w / 2, y: b.y + b.h / 2 }, { x: s.mat.x + s.mat.w / 2, y: s.mat.y + s.mat.h * 0.42 }, b.w * 1.05, 380,
+      () => { this.incomingSeats.delete(seat); then(); }, s.mat.w * 1.05);
+  }
+  coins(seat: number, count: number, to: Point, eat: () => void) {
     const s = this.L.seats[seat - 1]; if (!s) return;
-    const from = { x: s.x + s.w / 2, y: s.y + s.h * 0.3 }, to = this.L.coin;
     if (this.reduced) { for (let i = 0; i < count; i++) eat(); return; }
-    this.squash(from);
-    for (let i = 0; i < Math.min(8, count); i++) {
-      const a = -Math.PI / 2 + (Math.random() - 0.5) * 2, d = this.L.w * (0.04 + Math.random() * 0.05);
-      const img = this.add.image(from.x, from.y, "coin").setDepth(32).setScale(0.3);
-      const mid = { x: from.x + Math.cos(a) * d, y: from.y + Math.sin(a) * d };
-      this.tweens.chain({ targets: img, tweens: [
-        { x: mid.x, y: mid.y, scale: 0.8, duration: 160, ease: "Back.easeOut" },
-        { x: to.x, y: to.y, scale: 0.45, angle: 360, duration: 520, delay: i * 40, ease: "Cubic.easeIn", onComplete: () => { img.destroy(); eat(); } }] });
-    }
+    motion.coins(this, { x: s.mat.x + s.mat.w / 2, y: s.mat.y }, to, Math.min(8, count), eat);
   }
   shake(seat: number) { this.shakeUntil.set(seat, this.time.now / 1000 + 0.9); }
-  puff(kind: StationKind) {
-    if (this.reduced) return; const c = this.stationCentre(kind);
-    const e = this.add.particles(c.x, c.y, "puff", { speed: { min: 30, max: 70 }, scale: { start: 0.5, end: 1.4 }, alpha: { start: 0.6, end: 0 }, tint: this.pal.char, lifespan: 900, quantity: 10, emitting: false }).setDepth(31);
-    e.explode(10); this.time.delayedCall(1000, () => e.destroy());
+  wobblePlate(slot: number) {
+    const v = this.plates[slot]; if (!v || this.reduced) return;
+    this.tweens.add({ targets: [v.base, v.dish], angle: { from: -8, to: 8 }, duration: 70, yoyo: true, repeat: 3, onComplete: () => { v.base.setAngle(0); v.dish.setAngle(0); } });
   }
-  sparkleReady(kind: StationKind) {
-    if (this.reduced) return; const c = this.stationCentre(kind);
-    const e = this.add.particles(c.x, c.y - 10, "spark", { speed: { min: 50, max: 120 }, scale: { start: 1, end: 0 }, lifespan: 600, quantity: 14, emitting: false }).setDepth(31);
-    e.explode(14); this.time.delayedCall(700, () => e.destroy());
-  }
+  puff(kind: StationKind) { const r = this.L.stations[kind]; if (r && !this.reduced) motion.puff(this, { x: r.bowl.x, y: r.bowl.y - r.bowl.ry }, this.pal.char); }
+  sparkleReady(kind: StationKind) { const r = this.L.stations[kind]; if (r && !this.reduced) motion.burst(this, { x: r.bowl.x, y: r.bowl.y - r.bowl.ry }, 14); }
 }

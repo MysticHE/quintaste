@@ -36,14 +36,15 @@ export function usePlayfield(runRef: MutableRefObject<sim.Run>, seats: number, s
     // Phaser is imported statically: Expo's DOM-component export for phones cannot package split chunks. The web build
     // keeps it out of the main bundle by lazy-loading the whole game screen (src/screens/game/RushHourHost.web.tsx).
     const hooks: SceneHooks = {
-      ready: () => { const sc = sceneRef.current, now = layoutRef.current; if (sc && now && sc.L !== now) sc.setLayout(now); onReady(); },
+      // Phaser creates the scene only once it has booted, so the scene hands itself over here: game.scene.add returns null before then.
+      ready: (sc: Playfield) => { sceneRef.current = sc; const now = layoutRef.current; if (now && sc.L !== now) sc.setLayout(now); onReady(); },
       onStation: (k: StationKind) => input.current.onStation(k), onPlate: (i: number) => input.current.onPlate(i), onGuest: (id: string) => input.current.onGuest(id),
       onServeDrag: (i: number, id: string) => input.current.onServeDrag(i, id), onPlateDrag: (k: StationKind) => input.current.onPlateDrag(k),
     };
     const game = new Phaser.Game({ type: Phaser.AUTO, parent: stageRef.current, width: lay.w * DPR, height: lay.h * DPR, transparent: true, banner: false,
       scale: { mode: Phaser.Scale.NONE, zoom: 1 / DPR }, render: { antialias: true }, input: { activePointers: 2, windowEvents: false } });
     game.scene.add("playfield", Playfield, true, { run: runRef.current, layout: lay, art, hooks, reduced: lookRef.current.reduced, tapOnly: lookRef.current.tapOnly });
-    sceneRef.current = game.scene.getScene("playfield") as Playfield; gameRef.current = game;
+    gameRef.current = game;
     if (process.env.NODE_ENV !== "production") (globalThis as { __rushHour?: unknown }).__rushHour = { game, run: () => runRef.current, layout: () => layoutRef.current };
   }, [L !== null, boot]); // eslint-disable-line react-hooks/exhaustive-deps
 
