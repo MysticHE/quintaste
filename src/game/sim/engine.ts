@@ -49,8 +49,9 @@ function resolveOrders(level: Level, signature: string[]) {
   });
 }
 
-export function createRun(levelNumber: number, mode: "rush" | "calm", pet: string, signature: string[] = []): Run {
-  const level = levelByNumber(levelNumber);
+/** A run of a numbered level, or of a built level such as Today's special. `hints` overrides the level's hint plan (Play your way). */
+export function createRun(which: number | Level, mode: "rush" | "calm", pet: string, signature: string[] = [], hints?: Level["hints"]): Run {
+  const base = typeof which === "number" ? levelByNumber(which) : which, level = hints && hints !== base.hints ? { ...base, hints } : base;
   const rush = mode === "rush" && level.round !== null;
   const stations: Run["stations"] = {};
   level.stations.forEach(kind => { stations[kind] = { kind, heatOn: false, F: 0.1, H: 0.15, part: null, hotWarned: false }; });

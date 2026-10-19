@@ -1,6 +1,7 @@
 /**
  * Plays every Rush Hour level with a careful bot through the real simulation (GAME_PLAN §12.3 golden traces).
  * Proves each level can be cleared and reports the slack left, so difficulty can be tuned with evidence.
+ * Also plays every Today's special the date seed can produce for players at several points on the path.
  * Usage: npx tsx scripts/validate-game.ts [--level N] [--mode rush|calm] [--react 0.7]
  */
 import { DISHES, STATIONS, type StationKind } from "../src/game/content/dishes";
@@ -8,6 +9,8 @@ import { conflicts } from "../src/game/content/guests";
 import { ITEMS } from "../src/game/content/items";
 import { LEVELS } from "../src/game/content/levels";
 import * as sim from "../src/game/sim/engine";
+import { emptyGame } from "../src/game/progress";
+import { specialFor } from "../src/game/special";
 
 const arg = (k: string, d: string) => { const i = process.argv.indexOf("--" + k); return i > 0 ? process.argv[i + 1] : d; };
 const only = +arg("level", "0"), mode = arg("mode", "rush") as "rush" | "calm", react = +arg("react", "0.7");
@@ -62,10 +65,7 @@ function botStep(r: sim.Run) {
   }
 }
 
-for (const level of LEVELS) {
-  if (only && level.n !== only) continue;
-  const sig = level.signature ? ["mapo-tofu", "laksa", "claypot"] : [];
-  const r = sim.createRun(level.n, mode, "sprout", sig);
+function play(r: sim.Run) {
   sim.start(r);
   let next = 0, guard = 0;
   while (!r.ended && guard++ < 20000) {
@@ -73,7 +73,14 @@ for (const level of LEVELS) {
     sim.tick(r);
     r.events.length = 0;
   }
-  const res = sim.results(r);
+  return sim.results(r);
+}
+
+for (const level of LEVELS) {
+  if (only && level.n !== only) continue;
+  const sig = level.signature ? ["mapo-tofu", "laksa", "claypot"] : [];
+  const r = sim.createRun(level.n, mode, "sprout", sig);
+  const res = play(r);
   if (process.env.DEBUG_GAME) {
     console.log(r.log.slice(-30).join("\n"));
     console.log(r.guests.map(g => g.guestId + ":" + g.dishId + ":" + g.order).join(" "), JSON.stringify(r.board));
@@ -86,5 +93,28 @@ for (const level of LEVELS) {
   console.log((ok ? "PASS" : "FAIL") + " L" + level.n + " " + level.name.padEnd(24) + " served " + res.v + "/" + res.n + " stars " + res.stars +
     " score " + res.score + " heat " + Math.round(res.hq * 100) + "% " + left + " t=" + r.t.toFixed(0) + "s returned " + r.stats.returned + " minQuick " + minPatience);
 }
-console.log(failures ? failures + " level(s) failed" : "All levels cleared");
+
+// Today's special: every distinct special over two years of dates, for players who have cleared 5, 8, 12, 16 and 20 levels.
+if (!only) {
+  const seen = new Map<string, { ok: boolean; line: string }>();
+  for (const top of [5, 8, 12, 16, 20]) {
+    const game = emptyGame();
+    for (let n = 1; n <= top; n++) game.best[n] = { stars: 3, score: 90, served: true, rules: true, steady: true, mastered: true, clears: 1 };
+    for (let t = Date.parse("2026-10-01T04:00:00Z"); t < Date.parse("2028-01-31T04:00:00Z"); t += 86400000) {
+      const sp = specialFor(game, new Date(t + 8 * 3600000).toISOString().slice(0, 10));
+      if (!sp) { failures++; console.log("FAIL no special for a player at Level " + (top + 1)); break; }
+      const key = sp.dish + ":" + (sp.lunar ? "lunar" : "plain") + ":" + sp.level.orders.map(o => o.guest).join(",");
+      if (seen.has(key)) continue;
+      const r = sim.createRun(sp.level, mode, "sprout"), res = play(r), ok = res.cleared && res.stamps.rules && r.guests.every(g => sim.dishFeasible(g.dishId, g.rules));
+      seen.set(key, { ok, line: (ok ? "PASS" : "FAIL") + " special " + key.padEnd(46) + " served " + res.v + "/" + res.n + " stars " + res.stars +
+        (r.mode === "rush" ? " " + r.timeLeft.toFixed(0) + "s left" : "") });
+    }
+  }
+  const bad = [...seen.values()].filter(x => !x.ok);
+  failures += bad.length;
+  bad.forEach(x => console.log(x.line));
+  if (process.env.DEBUG_GAME) seen.forEach(x => console.log(x.line));
+  console.log((bad.length ? "FAIL " : "PASS ") + seen.size + " distinct specials, " + bad.length + " failed");
+}
+console.log(failures ? failures + " check(s) failed" : "All levels and specials cleared");
 process.exit(failures ? 1 : 0);

@@ -7,10 +7,11 @@ export type Box = [number, number, number, number];
 const sc = (x: number, y: number, w: number, h: number): Box => [x, y * 1.5, w, h * 1.5];
 
 export const BACK: Record<"books" | "menu" | "window" | "wardrobe", Record<string, Box>> = {
-  books: { sunny: sc(0, 1, 17, 55), lotus: sc(0, 1, 17, 56), lantern: sc(0, 3, 16, 53) },
-  menu: { sunny: sc(65, 18, 18, 21), lotus: sc(62, 16, 20, 25), lantern: sc(68, 18, 19, 26) },
-  window: { sunny: sc(19, 9, 43, 26), lotus: sc(21, 11, 40, 26), lantern: sc(22, 12, 43, 24) },
-  wardrobe: { sunny: sc(86, 17, 14, 32), lotus: sc(87, 20, 13, 30), lantern: sc(88, 20, 12, 33) },
+  // The signature room was painted from the sunny room's layout, so it shares its tap areas.
+  books: { sunny: sc(0, 1, 17, 55), lotus: sc(0, 1, 17, 56), lantern: sc(0, 3, 16, 53), signature: sc(0, 1, 17, 55) },
+  menu: { sunny: sc(65, 18, 18, 21), lotus: sc(62, 16, 20, 25), lantern: sc(68, 18, 19, 26), signature: sc(65, 18, 18, 21) },
+  window: { sunny: sc(19, 9, 43, 26), lotus: sc(21, 11, 40, 26), lantern: sc(22, 12, 43, 24), signature: sc(19, 9, 43, 26) },
+  wardrobe: { sunny: sc(86, 17, 14, 32), lotus: sc(87, 20, 13, 30), lantern: sc(88, 20, 12, 33), signature: sc(86, 17, 14, 32) },
 };
 export const COUNTER = { x: 6, y: 94, w: 88 };
 export const STOVE: Box = [60, 88, 29, 21];
@@ -20,11 +21,13 @@ export const PET = { x: 25.5, bottom: 107, w: 17 };
 export const STATIONS_ON_COUNTER = [
   { id: "rice", art: "rice-cooker", name: "Rice cooker", x: 6.5, w: 14, bottom: 106.5, level: 11 },
   { id: "soup", art: "soup-pot", name: "Soup pot", x: 45.5, w: 15, bottom: 106.5, level: 8 },
+  // Drawn after the rice cooker so it sits just in front of it, with the companion in front of both.
+  { id: "board", art: "assembly-counter", name: "Assembly board", x: 15.5, w: 13, bottom: 107.6, level: 15 },
 ];
 export type { SlotId };
 export const SLOTS: Record<SlotId, { name: string; fits: "hanging" | "wall" | "floor"; box: Box; anchor: "top" | "center" | "bottom"; wallTop?: Record<string, number> }> = {
   ceiling: { name: "Ceiling", fits: "hanging", box: [39, 3.5, 22, 24], anchor: "top" },
-  wall: { name: "Wall by the door", fits: "wall", box: [67.5, 61, 14, 17], anchor: "center", wallTop: { sunny: 61, lotus: 62.5, lantern: 67 } },
+  wall: { name: "Wall by the door", fits: "wall", box: [67.5, 61, 14, 17], anchor: "center", wallTop: { sunny: 61, lotus: 62.5, lantern: 67, signature: 61 } },
   floorL: { name: "Floor left", fits: "floor", box: [-1, 117, 27, 32], anchor: "bottom" },
   floorR: { name: "Floor right", fits: "floor", box: [70, 126, 31, 23], anchor: "bottom" },
 };

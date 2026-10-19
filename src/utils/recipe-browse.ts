@@ -13,7 +13,16 @@ export function cookedStats(cooked: CookedEntry[], recipeId: string) {
 export function activeFilterCount(browse: CookBrowse) {
   return [selectedRecipeDiets(browse).length > 0, browse.alliumFree, browse.time !== "Any", browse.onePot].filter(Boolean).length;
 }
-type Context = { diet: Diet; excluded: readonly Exclusion[]; cooked: CookedEntry[] };
+const words = (value: string) => value.toLowerCase().replace(/[^\p{L}\p{N}]+/gu, " ").trim();
+/** Whole-word match on ingredient names, singular or plural ("peanuts" finds "roasted peanuts, crushed"). */
+export function usesIngredient(recipe: Recipe, term: string) {
+  // words() leaves only letters, digits and spaces, so the term is safe inside a pattern.
+  const t = words(term).replace(/s$/, "");
+  if (!t) return false;
+  const re = new RegExp("(^| )" + t + "s?( |$)");
+  return recipe.ingredients.some(item => re.test(words(item.name)));
+}
+type Context = { diet: Diet; excluded: readonly Exclusion[]; cooked: CookedEntry[]; ingredient?: string };
 /** Category is OR within one chip row; every Filters choice narrows (AND) across facets. */
 export function browseRecipes(all: Recipe[], browse: CookBrowse, query: string, context: Context) {
   const text = query.trim().toLowerCase(), diets = selectedRecipeDiets(browse);
@@ -23,7 +32,8 @@ export function browseRecipes(all: Recipe[], browse: CookBrowse, query: string, 
     && (!diets.length || recipe.dietary.diet !== "Unknown" && diets.includes(recipe.dietary.diet))
     && (!browse.alliumFree || alliumFree(recipe))
     && (browse.time === "Any" || recipe.minutes <= +browse.time)
-    && (!browse.onePot || !!recipe.onePot));
+    && (!browse.onePot || !!recipe.onePot)
+    && (!context.ingredient || usesIngredient(recipe, context.ingredient)));
   const rank = new Map(matches.map(recipe => [recipe.id, evidenceRank(recipeFit(recipe, context.diet, context.excluded))]));
   const last = new Map(matches.map(recipe => [recipe.id, cookedStats(context.cooked, recipe.id).last]));
   const byFit = (a: Recipe, b: Recipe) => rank.get(a.id)! - rank.get(b.id)!;

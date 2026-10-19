@@ -21,10 +21,11 @@ import { BooksSheet } from "./home/BooksSheet";
 import { CompanionSheet } from "./home/CompanionSheet";
 import { CafeSheet } from "./home/CafeSheet";
 import { AvatarSheet, LaterSheet, LotusSheet, MenuSheet } from "./home/InfoSheets";
+import { PlaySettingsSheet } from "./home/PlaySettingsSheet";
 import { FindReveal, type Find } from "./home/FindReveal";
 import { Art } from "./home/bits";
 
-type SheetId = "levels" | "books" | "regulars" | "companion" | "cafe" | "menu" | "avatar" | "lotus" | "window" | null;
+type SheetId = "levels" | "books" | "regulars" | "companion" | "cafe" | "menu" | "avatar" | "lotus" | "window" | "settings" | null;
 
 /** Unlocks earned by clears and not yet revealed, oldest first. */
 function pendingFinds(g: GameProgress): Find[] {
@@ -63,7 +64,8 @@ function CafeHome() {
 
   const open = (sh: SheetId) => { if (!game.introSeen) set(g => ({ ...g, introSeen: true })); setSheet(sh); };
   const hot = (id: HotId) => open(({ books: "books", menu: "menu", window: "window", wardrobe: "avatar", stove: "levels", avatar: "avatar", pet: "companion" } as const)[id]);
-  const play = (level: number, mode: "rush" | "calm") => { setSheet(null); set(g => ({ ...g, mode })); router.push({ pathname: "/game/play", params: { level: String(level), mode, run: String(Date.now()) } }); };
+  const play = (level: number, mode: "rush" | "calm", special?: string) => { setSheet(null); set(g => ({ ...g, mode }));
+    router.push({ pathname: "/game/play", params: { level: String(level), mode, run: String(Date.now()), ...(special ? { special } : {}) } }); };
   const seeFind = (f: Find, equip: boolean) => set(g => {
     const next = { ...g, seen: [...g.seen, f.kind + ":" + f.id] };
     if (!equip) return next;
@@ -81,10 +83,11 @@ function CafeHome() {
     <Animated.View style={[s.hud, { top: insets.top + 6, left: insets.left + 10, right: insets.right + 10 }, hudIn]}>
       {deco ? <DecoHud deco={deco} game={game} setDeco={setDeco} save={save} /> : <>
         <Pill icon="chevron-back" label="Back to Game" onPress={leave} />
-        <Pill text={game.cafeName} icon="storefront" label={"Café details, " + game.cafeName} onPress={() => open("cafe")} />
+        <Pill shrink text={game.cafeName} icon="storefront" label={"Café details, " + game.cafeName} onPress={() => open("cafe")} />
         <View style={{ flex: 1 }} />
         <CreditsPill credits={game.credits} />
         <Pill label={game.tier ? "Your lotus: " + game.tier : "Your lotus"} onPress={() => open("lotus")}><Art k={game.tier ? "lotus-" + game.tier : "lotus-bud-pink"} size={28} /></Pill>
+        <Pill icon="options-outline" label="Play your way" onPress={() => open("settings")} />
       </>}
     </Animated.View>
     {!deco && size.w > 0 && <Animated.View pointerEvents="box-none" style={[s.bar, { bottom }, barIn]}>
@@ -99,7 +102,7 @@ function CafeHome() {
 
 type GameApi = ReturnType<typeof useGame>;
 function HomeSheets({ sheet, setSheet, game, set, save, play, onDecorate }: {
-  sheet: SheetId; setSheet(s: SheetId): void; game: GameProgress; set: GameApi["set"]; save: GameApi["save"]; play(level: number, mode: "rush" | "calm"): void; onDecorate(): void;
+  sheet: SheetId; setSheet(s: SheetId): void; game: GameProgress; set: GameApi["set"]; save: GameApi["save"]; play(level: number, mode: "rush" | "calm", special?: string): void; onDecorate(): void;
 }) {
   const close = () => setSheet(null);
   if (sheet === "levels") return <LevelsSheet game={game} onClose={close} onPlay={play} onCompanion={() => setSheet("companion")} onMode={m => set(g => ({ ...g, mode: m }))} />;
@@ -108,7 +111,8 @@ function HomeSheets({ sheet, setSheet, game, set, save, play, onDecorate }: {
   if (sheet === "cafe") return <CafeSheet game={game} onClose={close} onDecorate={() => { close(); onDecorate(); }} onName={nm => set(g => ({ ...g, cafeName: nm.trim().slice(0, 18) || "My Café" }))}
     onSkin={id => set(g => ({ ...g, skin: id }))} onBuy={id => save(g => { const d = DECOR[id]; if (d.unlock.kind !== "credits" || g.credits < d.unlock.price || g.owned.includes(id)) return g;
       return { ...g, credits: g.credits - d.unlock.price, owned: [...g.owned, id] }; })} />;
-  if (sheet === "menu") return <MenuSheet game={game} onClose={close} onSignature={ids => set(g => ({ ...g, signature: ids }))} />;
+  if (sheet === "menu") return <MenuSheet game={game} onClose={close} onSignature={ids => set(g => ({ ...g, signature: ids }))} onSpecial={day => play(1, game.mode, day)} />;
+  if (sheet === "settings") return <PlaySettingsSheet settings={game.settings} onChange={next => set(g => ({ ...g, settings: next }))} onClose={close} />;
   if (sheet === "avatar") return <AvatarSheet onClose={close} onCompanion={() => setSheet("companion")} />;
   if (sheet === "lotus") return <LotusSheet game={game} onClose={close} onTier={(t: Tier | null) => set(g => { const next = { ...g, tier: t }; return isUnlocked(next, PETS[g.pet].unlock) ? next : { ...next, pet: "sprout" }; })} />;
   if (sheet === "window") return <LaterSheet title="Stall visits" onClose={close} text="Visit someone else's hawker stall as the customer and choose which questions to ask. It ends on your own Ask-the-stall card." />;

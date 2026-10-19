@@ -16,12 +16,14 @@ from PIL import Image
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 OUT = ROOT / "assets" / "game"
 # Later runs win. Scenes come from raw PNGs; sprites from processed sprite-N.webp files.
-RUNS = ["scene", "scene2", "level5", "lotus", "home", "home2", "iso", "kit", "cast", "dishes", "pantry", "dishfix", "wear2", "wear3", "widen"]
+RUNS = ["scene", "scene2", "level5", "lotus", "home", "home2", "iso", "kit", "cast", "dishes", "pantry", "dishfix", "wear2", "wear3", "widen",
+        "growth", "widen-signature"]
 RENAME = {"rh-bg": ("scene2", "bg-cafe"), "rh-counter": ("scene2", "counter"), "cafe-counter": ("home", "counter")}
-VARIANT = {"avatar-adult": 2, "avatar-mini": 2}
-SCENES = {"skin-sunny", "skin-lotus", "skin-lantern", "rh-bg"}
+# Pinned by eye: the signature room variant that keeps the hotspot layout, and the more compact assembly board.
+VARIANT = {"avatar-adult": 2, "avatar-mini": 2, "skin-signature": 2, "assembly-counter": 2}
+SCENES = {"skin-sunny", "skin-lotus", "skin-lantern", "skin-signature", "rh-bg"}
 # Wide home skins (QT Gamer style.json homeSkin): widen.py composites, imported at 1280 px high with the portrait room in the middle.
-WIDE = {"skin-sunny-wide", "skin-lotus-wide", "skin-lantern-wide"}
+WIDE = {"skin-sunny-wide", "skin-lotus-wide", "skin-lantern-wide", "skin-signature-wide"}
 SCENES |= WIDE
 SIZES = {"skin": 1280, "rh-bg": 1280, "rh-counter": 1024, "cafe-counter": 768, "avatar": 480, "guest": 360, "dish": 360, "pet": 360, "wear": 360,
          "decor": 360, "stove": 320, "soup": 320, "rice": 320, "dessert": 320, "assembly": 320, "board": 320, "plate": 256, "acc": 220, "lotus": 160}
@@ -45,7 +47,7 @@ def required_keys():
     keys |= {f"wear-{p}-{a}" for p in pets for a in accs if not (p == "blue" and a == "scarf")}
     keys |= WIDE
     keys |= {"rh-bg", "rh-counter", "plate", "board", "cafe-counter", "avatar-adult", "avatar-mini", "avatar-lian", "lotus-bud-pink",
-             "lotus-pink", "lotus-purple", "lotus-blue", "lotus-golden", "decor-rug"}
+             "lotus-pink", "lotus-purple", "lotus-blue", "lotus-golden", "decor-rug", "assembly-counter"}
     keys.discard("")
     return sorted(k for k in keys if k)
 

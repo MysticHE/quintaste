@@ -31,6 +31,8 @@ function readPalette(): Palette {
 
 export class Playfield extends Phaser.Scene {
   run!: sim.Run; pal!: Palette; L!: Layout; art: Record<string, string> = {}; hooks!: SceneHooks; reduced = false;
+  /** Play your way: drags are ignored and any lift of the finger over a target counts as a tap. */
+  tapOnly = false;
   private guestSprites = new Map<string, Phaser.GameObjects.Image>();
   private stationSprites = new Map<StationKind, { img: Phaser.GameObjects.Image; glow: Phaser.GameObjects.Ellipse; ring: Phaser.GameObjects.Graphics;
     items: Phaser.GameObjects.Image[]; steam: Phaser.GameObjects.Particles.ParticleEmitter; smoke: Phaser.GameObjects.Particles.ParticleEmitter; zone: Phaser.GameObjects.Zone }>();
@@ -40,8 +42,8 @@ export class Playfield extends Phaser.Scene {
   private shakeUntil = new Map<number, number>();
 
   constructor() { super("playfield"); }
-  init(data: { run: sim.Run; layout: Layout; art: Record<string, string>; hooks: SceneHooks; reduced: boolean }) {
-    this.run = data.run; this.L = data.layout; this.art = data.art; this.hooks = data.hooks; this.reduced = data.reduced; this.pal = readPalette();
+  init(data: { run: sim.Run; layout: Layout; art: Record<string, string>; hooks: SceneHooks; reduced: boolean; tapOnly?: boolean }) {
+    this.run = data.run; this.L = data.layout; this.art = data.art; this.hooks = data.hooks; this.reduced = data.reduced; this.tapOnly = !!data.tapOnly; this.pal = readPalette();
   }
   preload() {
     // Only what this level uses: its stations, guests, dishes and every ingredient its dishes accept.
@@ -84,18 +86,19 @@ export class Playfield extends Phaser.Scene {
       const smoke = this.add.particles(r.x + r.w / 2, r.y + r.h * 0.35, "puff", { speedY: { min: -50, max: -90 }, speedX: { min: -16, max: 16 }, scale: { start: 0.4, end: 1.2 },
         alpha: { start: 0.55, end: 0 }, tint: this.pal.smoke, lifespan: 1200, frequency: 120, emitting: false }).setDepth(9);
       const zone = this.add.zone(r.x + r.w / 2, r.y + r.h / 2, r.w, r.h).setInteractive({ useHandCursor: true, draggable: true }).setDepth(10);
-      zone.on("pointerup", (p: Phaser.Input.Pointer) => { if (p.getDistance() < 10) this.hooks.onStation(kind); });
-      zone.on("dragend", (p: Phaser.Input.Pointer) => { if (p.getDistance() >= 10 && p.y > L.board[0].y - 20 && p.x < L.board[2].x + L.board[2].w + 10) this.hooks.onPlateDrag(kind); });
+      zone.on("pointerup", (p: Phaser.Input.Pointer) => { if (this.tapOnly || p.getDistance() < 10) this.hooks.onStation(kind); });
+      zone.on("dragend", (p: Phaser.Input.Pointer) => { if (!this.tapOnly && p.getDistance() >= 10 && p.y > L.board[0].y - 20 && p.x < L.board[2].x + L.board[2].w + 10) this.hooks.onPlateDrag(kind); });
       this.stationSprites.set(kind, { img, glow, ring, items: [], steam, smoke, zone });
     });
     L.board.forEach((b, i) => {
       const base = this.add.image(b.x + b.w / 2, b.y + b.h / 2, "plate").setDepth(5); this.fit(base, b.w * 1.05, b.h * 1.05);
       const dish = this.add.image(base.x, base.y - 2, "plate").setDepth(6).setVisible(false);
       const zone = this.add.zone(base.x, base.y, b.w, b.h * 1.4).setInteractive({ useHandCursor: true, draggable: true }).setDepth(10);
-      zone.on("pointerup", (p: Phaser.Input.Pointer) => { if (p.getDistance() < 10) this.hooks.onPlate(i); });
-      zone.on("drag", (_p: Phaser.Input.Pointer, x: number, y: number) => { if (this.run.board[i]) dish.setPosition(x, y).setDepth(20); });
+      zone.on("pointerup", (p: Phaser.Input.Pointer) => { if (this.tapOnly || p.getDistance() < 10) this.hooks.onPlate(i); });
+      zone.on("drag", (_p: Phaser.Input.Pointer, x: number, y: number) => { if (this.run.board[i] && !this.tapOnly) dish.setPosition(x, y).setDepth(20); });
       zone.on("dragend", (p: Phaser.Input.Pointer) => {
         dish.setPosition(base.x, base.y - 2).setDepth(6); zone.setPosition(base.x, base.y);
+        if (this.tapOnly) return;
         const seat = L.seats.findIndex(s => p.x >= s.x && p.x <= s.x + s.w && p.y >= s.y && p.y <= L.counter.y + L.counter.h);
         const gr = seat >= 0 ? this.run.guests.find(x => x.seat === seat + 1 && x.state === "waiting") : undefined;
         if (gr && this.run.board[i]) this.hooks.onServeDrag(i, gr.orderId);

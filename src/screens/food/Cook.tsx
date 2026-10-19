@@ -2,8 +2,8 @@ import { router, useLocalSearchParams } from "expo-router";
 import { useState } from "react";
 import { View } from "react-native";
 import { CookLayout as Screen } from "../../components/recipes/CookLayout";
-import { Button, T, common } from "../../components/ui";
-import { EmptyState } from "../../components/food/Controls";
+import { Button, Icon, T, common } from "../../components/ui";
+import { Chip, EmptyState } from "../../components/food/Controls";
 import { BrowseHeader, IconTabs, type IconTab } from "../../components/BrowseControls";
 import { FloatingAddButton } from "../../components/FloatingAddButton";
 import { RecipeRow } from "../../components/recipes/RecipeRow";
@@ -24,7 +24,9 @@ type CookTab = "recipes" | "saved" | "mine" | "shopping";
 const placeholders: Record<CookTab, string> = { recipes: "Search recipes", saved: "Search saved recipes", mine: "Search my recipes", shopping: "Search shopping list" };
 /** Cook: browse recipes, saved recipes, the member's own recipes and the shopping list, as tabs under one search box. */
 export function CookScreen() {
-  const { tab: param } = useLocalSearchParams<{ tab?: string }>(), tab: CookTab = param === "saved" || param === "mine" || param === "shopping" ? param : "recipes";
+  const { tab: param, ingredient: wanted } = useLocalSearchParams<{ tab?: string; ingredient?: string }>(), tab: CookTab = param === "saved" || param === "mine" || param === "shopping" ? param : "recipes";
+  // Recipes with this (the game's pantry book, GAME_PLAN §11): one ingredient narrows the recipe list until removed.
+  const ingredient = typeof wanted === "string" ? wanted.trim().slice(0, 40) : "";
   const { doc, cookSearch, setCookSearch, cookBrowse: browse } = useFood();
   const [local, setLocal] = useState({ saved: "", mine: "", shopping: "" }), { create, readable } = useCreateRecipe();
   const query = tab === "recipes" ? cookSearch : local[tab];
@@ -41,26 +43,28 @@ export function CookScreen() {
       filter={tab === "recipes" ? { label: "Recipe filters", count: filters, onPress: () => router.push("/cook/filters") } : undefined} />}
     floatingAction={tab === "mine" && readable && doc.recipes.drafts.length ? <FloatingAddButton label="Create Recipe" onPress={() => void create()} /> : undefined}>
     <IconTabs tabs={tabs} value={tab} label="Cook sections" onChange={next => router.setParams({ tab: next === "recipes" ? undefined : next })} />
-    {tab === "recipes" ? <Recipes /> : tab === "saved" ? <SavedRecipes query={query} /> : tab === "mine" ? <MyRecipesContent query={query} /> : <ShoppingContent query={query} />}
+    {tab === "recipes" ? <Recipes ingredient={ingredient} /> : tab === "saved" ? <SavedRecipes query={query} /> : tab === "mine" ? <MyRecipesContent query={query} /> : <ShoppingContent query={query} />}
   </Screen>;
 }
-function Recipes() {
+function Recipes({ ingredient }: { ingredient: string }) {
   const { doc, cookSearch: query, setCookSearch: setQuery, cookBrowse: browse, setCookBrowse } = useFood();
   const { draft } = usePreferences();
   const published = usePublishedRecipes(), members = useMemberRecipes();
   const hasMore = published.hasMore || members.hasMore, limited = published.limited || members.limited;
   const more = () => { if (published.hasMore) published.more(); if (members.hasMore) members.more(); };
-  const visible = browseRecipes([...published.recipes, ...members.recipes, ...bundledRecipes()], browse, query, { diet: draft.diet, excluded: draft.excluded, cooked: doc.recipes.cooked });
+  const visible = browseRecipes([...published.recipes, ...members.recipes, ...bundledRecipes()], browse, query, { diet: draft.diet, excluded: draft.excluded, cooked: doc.recipes.cooked, ingredient: ingredient || undefined });
   useReactions("recipe", visible.map(recipe => recipe.id));
   const narrowed = activeFilterCount(browse) > 0 || browse.category !== "All";
   return <>
     <ContinueCooking />
+    {!!ingredient && <View style={common.row}><Chip compact selected label={"With " + ingredient} a11y={"With " + ingredient + ". Remove this filter"}
+      trailing={<Icon name="close" size={16} />} onPress={() => router.setParams({ ingredient: undefined })} /></View>}
     {!!visible.length && <View style={common.spread}>
       <T variant="small" muted accessibilityLiveRegion="polite">{visible.length} {visible.length === 1 ? "recipe" : "recipes"}{hasMore ? " shown" : ""}</T>
     </View>}
     {published.error && <><T variant="small" muted>{published.error}</T><Button label="Retry New Recipes" variant="link" onPress={published.refresh} /></>}
     {!visible.length && !published.loading && !members.loading && <EmptyState title="No Matching Recipes" text="Try another category, ingredient or filter." icon="restaurant-outline"
-      action={narrowed || !!query ? "Show All Recipes" : undefined} onPress={() => { setQuery(""); void setCookBrowse({ ...defaultCookBrowse, sort: browse.sort }); }} />}
+      action={narrowed || !!query || !!ingredient ? "Show All Recipes" : undefined} onPress={() => { setQuery(""); if (ingredient) router.setParams({ ingredient: undefined }); void setCookBrowse({ ...defaultCookBrowse, sort: browse.sort }); }} />}
     {visible.map(recipe => <RecipeRow key={recipe.id} recipe={recipe} onPress={() => router.push("/cook/recipe/" + recipe.id as never)} />)}
     {hasMore && !limited && <Button label="More Recipes" variant="secondary" disabled={published.loading || members.loading} onPress={more} />}
     {hasMore && limited && <T variant="small" muted>Narrow your search to see more recipes.</T>}

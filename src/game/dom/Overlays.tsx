@@ -11,7 +11,8 @@ import type { Layout } from "./layout";
 export function Brief({ run, art, petArt, onMode, onStart, onExit }: { run: sim.Run; art: Art; petArt: string; onMode(m: "rush" | "calm"): void; onStart(): void; onExit(): void }) {
   const lv = run.level, guests = [...new Set(run.guests.map(g => g.guestId))], pet = PETS[run.pet], skill = SKILLS[pet.skill];
   return <div className="overlay center"><div className="sheet" role="dialog" aria-modal="true" aria-labelledby="rhBrief">
-    <span className="k">Before service · Level {lv.n}</span><h3 id="rhBrief">{lv.name}</h3><p>{lv.brief}</p>
+    <span className="k">Before service · {lv.special ? "Today's special" : "Level " + lv.n}</span><h3 id="rhBrief">{lv.special ? DISHES[lv.special.dish].name : lv.name}</h3><p>{lv.brief}</p>
+    {lv.special?.lunar && <span className="chip rule" style={{ justifySelf: "start", fontSize: 11 }}>{lv.special.lunar} · {RULES.five.chip}</span>}
     <div className="guestrow">{guests.map(id => { const g = GUESTS[id], rules = [...new Set([...g.rules, ...(lv.allRules ?? [])])];
       return <div key={id}><img src={art[g.art]} alt="" />{g.name}{rules.map(r => <span key={r} className="chip rule">{RULES[r].chip}</span>)}{!rules.length && <span className="chip">No rules</span>}</div>; })}</div>
     <div className="guestrow">{levelDishes(lv).map(d => <div key={d.id}><img src={art[d.art]} alt="" />{d.name}</div>)}</div>
@@ -40,9 +41,10 @@ export function LabelSheet({ run, onClose, onUse }: { run: sim.Run; onClose(): v
   </div></div>;
 }
 
-export function PauseSheet({ onResume, onRestart, onQuit }: { onResume(): void; onRestart(): void; onQuit(): void }) {
+export function PauseSheet({ onResume, onRestart, onQuit, onSettings }: { onResume(): void; onRestart(): void; onQuit(): void; onSettings?(): void }) {
   return <div className="overlay center"><div className="sheet" role="dialog" aria-modal="true" aria-labelledby="rhPause">
-    <span className="k">Paused</span><h3 id="rhPause">Heat is off. Everything waits.</h3>
+    <div className="sheethead"><span className="k">Paused</span>{onSettings && <button className="linkpill" onClick={onSettings}><Gear />Play your way</button>}</div>
+    <h3 id="rhPause">Heat is off. Everything waits.</h3>
     <p>The clock, cooking and every guest&apos;s patience stop together. Resuming never turns the heat back on.</p>
     <div className="row"><button className="btn ghost" onClick={onQuit}>Back to café</button><button className="btn ghost" onClick={onRestart}>Restart</button></div>
     <button className="btn" autoFocus onClick={onResume}>Resume</button>
@@ -50,11 +52,15 @@ export function PauseSheet({ onResume, onRestart, onQuit }: { onResume(): void; 
 }
 
 export type Reward = { credits: number; first: boolean; mastered: boolean; unlocks: string[] };
-export function Results({ run, res, reward, saveFailed, onRetrySave, onAgain, onCafe, onNext }: { run: sim.Run; res: sim.Result; reward: Reward | null; saveFailed: boolean; onRetrySave(): void; onAgain(): void; onCafe(): void; onNext(): void }) {
+export function Results({ run, res, reward, saveFailed, onRetrySave, onAgain, onCafe, onNext, onCook, onNearby }: {
+  run: sim.Run; res: sim.Result; reward: Reward | null; saveFailed: boolean; onRetrySave(): void; onAgain(): void; onCafe(): void; onNext(): void;
+  /** Bridges into the app (GAME_PLAN §11), when the app has somewhere to send them. */
+  onCook?(): void; onNearby?(): void;
+}) {
   const head = res.cleared ? (res.stars === 3 ? "Perfect service" : "Level cleared") : res.completed ? "Nearly there" : "Service over";
   const dish = levelDishes(run.level)[0] ?? DISHES[run.guests[0].dishId];
   return <div className="overlay center"><div className="sheet" role="dialog" aria-modal="true" aria-labelledby="rhRes">
-    <span className="k">{run.mode === "rush" ? "Rush" : "Calm"} · Level {run.level.n} · {run.endReason === "time" ? "time's up" : "all guests done"}</span>
+    <span className="k">{run.mode === "rush" ? "Rush" : "Calm"} · {run.level.special ? "Today's special" : "Level " + run.level.n} · {run.endReason === "time" ? "time's up" : "all guests done"}</span>
     <h3 id="rhRes">{head}</h3>
     <div className="bigstars" aria-label={res.stars + " of 3 stars"}>{[0, 1, 2].map(i => <span key={i} className={i < res.stars ? "lit" : ""} style={{ animationDelay: i * 0.18 + "s" }}>★</span>)}</div>
     <div className="stamps">{([["served", "Served"], ["rules", "Rules respected"], ["steady", "Steady heat"]] as const).map(([k, l]) =>
@@ -62,13 +68,17 @@ export function Results({ run, res, reward, saveFailed, onRetrySave, onAgain, on
     <div className="rgrid"><span>Takings <b>{res.coins} / {res.max}</b></span><span>Served <b>{res.v} of {res.n}</b></span>
       <span>Steady heat <b>{Math.round(res.hq * 100)}%</b></span><span>Service score <b>{res.score}</b></span></div>
     <div className="remember"><b>One thing to remember. </b>{dish?.remember}</div>
+    {(onCook || onNearby) && <div className="bridges" role="group" aria-label={"Take " + (dish?.name ?? "it") + " further"}>
+      {onCook && <button className="linkpill" onClick={onCook}><Pot />Cook it for real</button>}
+      {onNearby && <button className="linkpill" onClick={onNearby}><Pin />Find it nearby</button>}
+    </div>}
     {reward && (reward.credits > 0 || reward.unlocks.length > 0) && <div className="remember">
       {reward.credits > 0 && <><b>+{reward.credits} café credits</b>{reward.first ? " · first clear" : reward.mastered ? " · mastered" : " · replay"}<br /></>}
       {reward.unlocks.length > 0 && <>Unlocked: {reward.unlocks.join(", ")}</>}</div>}
     {saveFailed && <div className="remember" role="alert"><b>Progress not saved yet.</b> <button className="btn ghost" onClick={onRetrySave} style={{ marginTop: 6, width: "100%" }}>Try saving again</button></div>}
     <p>Coins reset every service. Play again any time; nothing is lost.</p>
     <div className="row"><button className="btn ghost" autoFocus onClick={onCafe}>Back to café</button><button className="btn ghost" onClick={onAgain}>Play again</button></div>
-    {res.cleared && run.level.n < 20 && <button className="btn gold" onClick={onNext}>Next: Level {run.level.n + 1}</button>}
+    {res.cleared && !run.level.special && run.level.n < 20 && <button className="btn gold" onClick={onNext}>Next: Level {run.level.n + 1}</button>}
   </div></div>;
 }
 
@@ -95,3 +105,8 @@ export function ListView({ run, L, act, onBack }: { run: sim.Run; L: Layout; onB
       {run.board.every(p => !p) && <div className="line">The board is empty.</div>}</section>
   </div>;
 }
+
+const svg = { viewBox: "0 0 24 24", "aria-hidden": true, width: 16, height: 16 } as const;
+function Gear() { return <svg {...svg}><path fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" d="M4 7h16M4 12h16M4 17h16" /><circle cx="9" cy="7" r="2.6" fill="currentColor" /><circle cx="15" cy="12" r="2.6" fill="currentColor" /><circle cx="8" cy="17" r="2.6" fill="currentColor" /></svg>; }
+function Pot() { return <svg {...svg}><path fill="currentColor" d="M3 11h18a8 8 0 0 1-8 8h-2a8 8 0 0 1-8-8z" /><path fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" d="M9 3.5c1 1.2-1 2.3 0 3.5M12.5 3c1 1.2-1 2.3 0 3.5M16 3.5c1 1.2-1 2.3 0 3.5" /></svg>; }
+function Pin() { return <svg {...svg}><path fill="currentColor" d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z" /></svg>; }
