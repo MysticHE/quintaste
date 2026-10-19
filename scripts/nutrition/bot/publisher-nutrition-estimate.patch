@@ -1,0 +1,33 @@
+--- a/publisher.py
++++ b/publisher.py
+@@ -392,8 +392,8 @@
+ 
+ 
+ def nutrition_candidates(live, states, outcomes, candidates, held):
+-    """Live bar-passing recipes published before nutrition existed: add the source page's own per-serving figures
+-    as a reviewed revision (owner, 19 Oct 2026). Recipes whose page publishes none stay unchanged."""
++    """Live bar-passing recipes published before nutrition existed: add the source page's own per-serving figures,
++    else the table estimate (nutrition.py v2), as a reviewed revision (owner, 19 Oct 2026). Recipes with neither stay unchanged."""
+     import nutrition
+     import recipe_quality
+     for row in live['records']:
+@@ -403,15 +403,16 @@
+             continue
+         try:
+             page = recipe_quality.fetch(ROOT, rating['url']).get('recipe')
+-            figures = nutrition.from_page(page, rating['site'], data.get('servings'))
++            figures = nutrition.from_page(page, rating['site'], data.get('servings')) or nutrition.estimate(ROOT, data)
+             if not figures:
+                 continue  # nothing reliable to add; the recipe simply shows no nutrition
+             proposal_hash = sha({'nutrition': row['id'], 'figures': figures['perServing']})
+             if proposal_hash in outcomes:
+                 continue
+             today = dt.datetime.now(dt.timezone.utc).date().isoformat()
+-            evidence = sources({'sources': [{'url': u, 'checkedAt': today, 'evidence': 'Per-serving nutrition published on the source recipe page.'}
+-                                            for u in data.get('provenance', {}).get('sources', [])]})
++            why = ('Per-serving nutrition published on the source recipe page.' if figures['basis'] == 'source'
++                   else 'Per-serving estimate from the ingredient weights (reviewed USDA SR Legacy table, coverage %s); the page publishes no figures.' % figures.get('coverage'))
++            evidence = sources({'sources': [{'url': u, 'checkedAt': today, 'evidence': why} for u in data.get('provenance', {}).get('sources', [])]})
+             if not evidence or len(evidence) != len(data.get('provenance', {}).get('sources', [])):
+                 raise ValueError('Nutrition backfill needs a fresh capture of every recipe source')
+             updated = dict(data, nutrition=figures, revision=data['revision'] + 1, updatedAt=today)
