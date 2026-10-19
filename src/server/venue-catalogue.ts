@@ -88,7 +88,7 @@ export function searchCatalogue(search: DiscoverySearch, cursor: string | null, 
     offset = page.offset!;
   }
   let locationGaps = 0;
-  // QT Explorer veg options places join packaged and staff-created places; each id is listed once.
+  // QT Explorer places (Mixed Kitchen and fully vegetarian) join packaged and staff-created places; each id is listed once.
   const explorer = editorialPlaces(content), explorerIds = editorialPlaceIds(content);
   const sources = [...catalogue.map(venue => staffVenue(venue.id, editorialVenue(venue, false, content), staff, content)),
     ...explorerIds.map(id => staffVenue(id, editorialPlaceVenue(explorer.get(id)!, false), staff, content)),

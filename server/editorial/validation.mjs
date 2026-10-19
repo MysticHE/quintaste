@@ -73,28 +73,59 @@ function validateHours(h) {
 }
 const placeFields = ['id', 'kitchen', 'name', 'branch', 'address', 'postalCode', 'point', 'googlePlaceId', 'venueDiet', 'alliumFreeClaim', 'hours', 'photo', 'sourceUrls', 'checkedAt', 'menu'];
 const optionalPlaceFields = ['hours', 'photo'];
-/** A complete Mixed Kitchen place created by QT Explorer: only its venue-labelled V/VG dishes are published. */
-export function validatePlace(p) {
-  requireValue(keys(p, placeFields) && placeFields.every(k => optionalPlaceFields.includes(k) || k in p) && typeof p.id === 'string' && /^vo-[a-z0-9][a-z0-9-]{2,110}$/.test(p.id) && p.kitchen === 'options'
-    && text(p.name, 120) && text(p.branch, 120, true) && text(p.address, 300) && typeof p.postalCode === 'string' && /^\d{6}$/.test(p.postalCode) && date(p.checkedAt), 'Invalid veg options place');
+// A fully vegetarian place has no kitchen key: it is an ordinary Veg Kitchen place whose menu is published whole.
+const vegKitchenFields = ['id', 'name', 'branch', 'address', 'postalCode', 'point', 'googlePlaceId', 'venueDiet', 'alliumFreeClaim', 'hours', 'photo', 'sourceUrls', 'checkedAt', 'dietProof', 'menu'];
+const vegetarianWords = /vegetarian|vegan|plant[- ]based|meat[- ]free|meatless|素|斋|齋/i;
+const veganWords = /vegan|plant[- ]based|全素|纯素|純素|no animal products|animal[- ]free/i;
+const validPlaceId = (v, prefix) => typeof v === 'string' && new RegExp('^' + prefix + '-[a-z0-9][a-z0-9-]{2,110}$').test(v);
+/** The identity, location, sources, hours and cover every QT Explorer place shares. */
+function validatePlaceCommon(p) {
+  requireValue(text(p.name, 120) && text(p.branch, 120, true) && text(p.address, 300) && typeof p.postalCode === 'string' && /^\d{6}$/.test(p.postalCode) && date(p.checkedAt), 'Invalid place identity');
   requireValue(keys(p.point, ['latitude', 'longitude']) && typeof p.point.latitude === 'number' && p.point.latitude >= 1.15 && p.point.latitude <= 1.48 && typeof p.point.longitude === 'number' && p.point.longitude >= 103.6 && p.point.longitude <= 104.1, 'Invalid Singapore coordinates');
   requireValue(p.googlePlaceId === null || typeof p.googlePlaceId === 'string' && /^[A-Za-z0-9_-]{10,200}$/.test(p.googlePlaceId), 'Invalid Google place ID');
   requireValue(Array.isArray(p.sourceUrls) && p.sourceUrls.length >= 1 && p.sourceUrls.length <= 12 && p.sourceUrls.every(publicUrl), 'Invalid venue sources');
   if (p.hours !== undefined) validateHours(p.hours);
   if (p.photo !== undefined) validateCoverPhoto(p.photo);
+}
+/** One dish of a place menu: unique id and name, an explicit SGD price or supported range, and the caller's own rule for the V/VG label. */
+function validateDish(i, ids, names, dietRule) {
+  const price = i?.price;
+  requireValue(keys(i, ['id', 'name', 'category', 'price', 'diet']) && typeof i.id === 'string' && /^[a-z0-9][a-z0-9-]{2,80}$/.test(i.id) && !ids.has(i.id) && text(i.name, 120) && !names.has(i.name.trim().toLowerCase())
+    && (i.category === undefined || text(i.category, 40, true)), 'Invalid or repeated dish'); ids.add(i.id); names.add(i.name.trim().toLowerCase());
+  dietRule(i);
+  requireValue(keys(price, ['amount', 'currency', 'type', 'maxAmount']) && typeof price.amount === 'number' && Number.isFinite(price.amount) && price.amount >= 0 && price.amount <= 10000 && price.currency === 'SGD' && ['displayed', 'from'].includes(price.type)
+    && (price.maxAmount === undefined || typeof price.maxAmount === 'number' && Number.isFinite(price.maxAmount) && price.maxAmount >= price.amount && price.maxAmount <= 10000), 'Price requires an explicit SGD amount or supported range');
+}
+/** A complete Mixed Kitchen place created by QT Explorer: only its venue-labelled V/VG dishes are published. */
+function validateOptionsPlace(p) {
+  requireValue(keys(p, placeFields) && placeFields.every(k => optionalPlaceFields.includes(k) || k in p) && validPlaceId(p.id, 'vo') && p.kitchen === 'options', 'Invalid veg options place');
+  validatePlaceCommon(p);
   const m = p.menu;
   requireValue(keys(m, ['sourceUrl', 'sourceLabel', 'checkedAt', 'items']) && publicUrl(m.sourceUrl) && text(m.sourceLabel, 80) && date(m.checkedAt) && Array.isArray(m.items) && m.items.length >= 2 && m.items.length <= 200, 'A veg options place needs 2 to 200 labelled dishes');
   const ids = new Set(), names = new Set();
-  for (const i of m.items) {
-    const price = i?.price;
-    requireValue(keys(i, ['id', 'name', 'category', 'price', 'diet']) && typeof i.id === 'string' && /^[a-z0-9][a-z0-9-]{2,80}$/.test(i.id) && !ids.has(i.id) && text(i.name, 120) && !names.has(i.name.trim().toLowerCase())
-      && (i.category === undefined || text(i.category, 40, true)), 'Invalid or repeated dish'); ids.add(i.id); names.add(i.name.trim().toLowerCase());
-    requireValue(i.diet === 'V' || i.diet === 'VG', "Every dish of a veg options place needs the venue's V or VG label");
-    requireValue(keys(price, ['amount', 'currency', 'type', 'maxAmount']) && typeof price.amount === 'number' && Number.isFinite(price.amount) && price.amount >= 0 && price.amount <= 10000 && price.currency === 'SGD' && ['displayed', 'from'].includes(price.type)
-      && (price.maxAmount === undefined || typeof price.maxAmount === 'number' && Number.isFinite(price.maxAmount) && price.maxAmount >= price.amount && price.maxAmount <= 10000), 'Price requires an explicit SGD amount or supported range');
-  }
+  for (const i of m.items) validateDish(i, ids, names, dish => requireValue(dish.diet === 'V' || dish.diet === 'VG', "Every dish of a veg options place needs the venue's V or VG label"));
   requireValue(['Vegetarian', 'Vegan'].includes(p.venueDiet) && (p.venueDiet !== 'Vegan' || m.items.every(i => i.diet === 'VG')), 'A veg options place is Vegan only when every dish is VG');
   requireValue(p.alliumFreeClaim === false, 'A veg options place cannot claim allium-free food');
+}
+/** A fully vegetarian or vegan place created by QT Explorer: it joins Veg Kitchen with its whole menu, backed by a stored quote from the venue. */
+function validateVegKitchenPlace(p) {
+  requireValue(keys(p, vegKitchenFields) && vegKitchenFields.every(k => optionalPlaceFields.includes(k) || k in p) && validPlaceId(p.id, 'vk'), 'Invalid vegetarian place');
+  validatePlaceCommon(p);
+  requireValue(['Vegetarian', 'Vegan'].includes(p.venueDiet), 'Invalid venue diet');
+  requireValue(p.alliumFreeClaim === false, 'A bot-added place cannot claim allium-free food');
+  const proof = p.dietProof;
+  requireValue(keys(proof, ['sourceUrl', 'quote', 'checkedAt']) && publicUrl(proof.sourceUrl) && text(proof.quote, 200) && !/[\u0000-\u001f\u007f]/.test(proof.quote) && date(proof.checkedAt), 'A vegetarian place needs a quote from the venue that says so');
+  requireValue(vegetarianWords.test(proof.quote), 'The quote must say the venue is vegetarian or vegan');
+  requireValue(p.venueDiet !== 'Vegan' || veganWords.test(proof.quote), 'A Vegan place needs a quote that says vegan or plant-based');
+  const m = p.menu;
+  requireValue(keys(m, ['sourceUrl', 'sourceLabel', 'checkedAt', 'items']) && publicUrl(m.sourceUrl) && text(m.sourceLabel, 80) && date(m.checkedAt) && Array.isArray(m.items) && m.items.length >= 3 && m.items.length <= 400, 'A vegetarian place needs 3 to 400 dishes');
+  const ids = new Set(), names = new Set();
+  for (const i of m.items) validateDish(i, ids, names, dish => requireValue(dish.diet === undefined || dish.diet === 'VG' || dish.diet === 'V' && p.venueDiet !== 'Vegan', 'Invalid dish label for this venue diet'));
+}
+/** A place created by QT Explorer: vo- (Mixed Kitchen, labelled dishes only) or vk- (fully vegetarian, whole menu). */
+export function validatePlace(p) {
+  requireValue(p && typeof p === 'object' && typeof p.id === 'string', 'Invalid place');
+  if (p.id.startsWith('vk-')) validateVegKitchenPlace(p); else validateOptionsPlace(p);
 }
 export function validateVenue(v, base, menu) {
   requireValue(base && keys(v, ['id', 'hours', 'photo', 'sourceUrls', 'evidenceNotes', 'point', 'venueDiet', 'alliumFreeClaim', 'menuTotal', 'menuPrices', 'closed']) && v.id === base.id && Object.keys(v).length > 1, 'Unknown venue or unsupported field');

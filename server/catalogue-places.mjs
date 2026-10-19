@@ -11,7 +11,7 @@ export const placeAliases = new Map([['research-150-green-bukit-batok', 'researc
 const packaged = new Set(catalogueVenues.map(venue => venue.id));
 const editorialFile = path.join(process.env.QT_EDITORIAL_ROOT || path.resolve('.local/editorial'), 'active.json');
 let explorerPlaces = { marker: '', ids: new Set() };
-/** Valid QT Explorer veg options places in the published snapshot (the same check the publisher and app use).
+/** Valid QT Explorer places (veg options and fully vegetarian) in the published snapshot (the same check the publisher and app use).
  * A missing, oversized or unreadable snapshot never blocks packaged places: it keeps the last good set. */
 async function explorerPlaceIds() {
   try {
@@ -30,7 +30,7 @@ async function explorerPlaceIds() {
   }
   return explorerPlaces.ids;
 }
-/** Canonical ids of places members can see: packaged, staff-created or a QT Explorer veg options place, and not hidden by staff. */
+/** Canonical ids of places members can see: packaged, staff-created or a QT Explorer place, and not hidden by staff. */
 export async function publishedPlaceIds(raw) {
   const [staff, explorer] = await Promise.all([staffContent(), explorerPlaceIds()]);
   return raw.map(value => {

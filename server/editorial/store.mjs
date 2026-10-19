@@ -115,7 +115,7 @@ export async function publish(root, baseline, batch) {
       // A retained reference is not a newly verified claim. New references and
       // every factual hours/price change still require a fresh attached capture.
       const citedUrls = r.kind === 'recipe' ? r.data.provenance?.sources ?? [] : r.kind === 'event' ? r.data.sources ?? []
-        : r.kind === 'place' ? [...(r.data.sourceUrls ?? []), r.data.menu?.sourceUrl, ...(r.data.hours ? [r.data.hours.sourceUrl] : [])] : [...(r.data.sourceUrls ?? []).filter(url => !retainedUrls.has(url)), ...(r.data.hours ? [r.data.hours.sourceUrl] : []), ...(r.data.menuPrices ?? []).map(p => p.sourceUrl)];
+        : r.kind === 'place' ? [...(r.data.sourceUrls ?? []), r.data.menu?.sourceUrl, ...(r.data.dietProof ? [r.data.dietProof.sourceUrl] : []), ...(r.data.hours ? [r.data.hours.sourceUrl] : [])] : [...(r.data.sourceUrls ?? []).filter(url => !retainedUrls.has(url)), ...(r.data.hours ? [r.data.hours.sourceUrl] : []), ...(r.data.menuPrices ?? []).map(p => p.sourceUrl)];
       requireValue(citedUrls.every(url => capturedUrls.has(url)), 'Published source lacks a capture');
       requireValue(r.expectedHash === recordState(current, baseline, r.kind, r.id).hash, 'Record changed since review');
       const base = baseline.venues.find(v => v.id === r.id);
@@ -131,7 +131,7 @@ export async function publish(root, baseline, batch) {
       if (r.kind === 'place') {
         validatePlace(r.data);
         const identity = moderationKey('place', r.data);
-        requireValue(!baseline.venues.some(v => v.id === r.id || moderationKey('place', v) === identity) && !Object.values(current.records).some(x => x.kind === 'place' && x.id !== r.id && moderationKey('place', x.data) === identity), 'Existing place identity');
+        requireValue(!baseline.venues.some(v => v.id === r.id || moderationKey('place', v) === identity) && !Object.values(next.records).some(x => x.kind === 'place' && x.id !== r.id && moderationKey('place', x.data) === identity), 'Existing place identity');
       }
       const image = r.data.image ?? r.data.photo;
       if (image) {

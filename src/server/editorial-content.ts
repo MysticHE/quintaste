@@ -45,38 +45,46 @@ export function editorialMenu(menu: PublishedMenu, fingerprint: string, content 
   return { menu: changed, fingerprint: createHash("sha256").update(JSON.stringify({ base: fingerprint, menuPrices: updates })).digest("hex") };
 }
 
-/** A complete veg options place published by QT Explorer (record kind "place", validated by server/editorial/validation.mjs). */
-type PlaceItem = { id: string; name: string; category?: string; price: { amount: number; currency: "SGD"; type: "displayed" | "from"; maxAmount?: number }; diet: "V" | "VG" };
+/** A place published by QT Explorer (record kind "place", validated by server/editorial/validation.mjs): a Mixed Kitchen place (vo-,
+ * kitchen "options", labelled dishes only) or a fully vegetarian one (vk-, no kitchen, whole menu, with a stored quote from the venue). */
+type PlaceItem = { id: string; name: string; category?: string; price: { amount: number; currency: "SGD"; type: "displayed" | "from"; maxAmount?: number }; diet?: "V" | "VG" };
 type PlaceData = {
-  id: string; kitchen: "options"; name: string; branch: string; address: string; postalCode: string; point: { latitude: number; longitude: number };
+  id: string; kitchen?: "options"; name: string; branch: string; address: string; postalCode: string; point: { latitude: number; longitude: number };
   googlePlaceId: string | null; venueDiet: "Vegetarian" | "Vegan"; alliumFreeClaim: false; hours?: CatalogueHours; photo?: CataloguePhoto; sourceUrls: string[]; checkedAt: string;
+  dietProof?: { sourceUrl: string; quote: string; checkedAt: string };
   menu: { sourceUrl: string; sourceLabel: string; checkedAt: string; items: PlaceItem[] };
 };
 export type EditorialPlace = { venue: CatalogueVenue; menu: PublishedMenu; fingerprint: string };
 /** The menu readers require a full UTC timestamp that is never in the future; a place stores only the Singapore day it
- * was checked, so use that day's Singapore midnight (UTC midnight of today's SGT date is still ahead before 8 am SGT). */
-const dayStamp = (day: string) => new Date(day + "T00:00:00+08:00").toISOString();
+ * was checked, so use that day's Singapore midnight (UTC midnight of today's SGT date is still ahead before 8 am SGT).
+ * A day still ahead of today (the validator allows a day of slack) is held at now, so one record can never fail every reader. */
+const dayStamp = (day: string) => new Date(Math.min(Date.parse(day + "T00:00:00+08:00"), Date.now())).toISOString();
 /** The publisher's own validator decides; a malformed or future-schema record is skipped rather than shown or thrown. */
 function readPlace(data: unknown): PlaceData | undefined {
   try { validatePlace(data); return data as PlaceData; } catch { return undefined; }
 }
 let places: { revision: string; places: Map<string, EditorialPlace> } | undefined;
-/** Published veg options places as catalogue venues (with research sources) and their one-section menus, cached per snapshot revision. */
+/** Published QT Explorer places as catalogue venues (with research sources) and their one-section menus, cached per snapshot revision. */
 export function editorialPlaces(content = editorialContent()): ReadonlyMap<string, EditorialPlace> {
   if (places?.revision === content.revision) return places.places;
   const result = new Map<string, EditorialPlace>();
   for (const [key, entry] of Object.entries(content.records)) {
-    const data = key.startsWith("place:") ? readPlace(entry.data) : undefined;
+    const data = key.startsWith("place:") ? readPlace(entry?.data) : undefined;
     if (!data || key !== "place:" + data.id) continue;
     // Bump placeFormat when the served shape changes, so clients holding an older copy (same data) refetch it.
     const fingerprint = createHash("sha256").update(JSON.stringify({ placeFormat: 2, data: entry.data })).digest("hex");
     const identity = { id: data.id, name: data.name, branch: data.branch, address: data.address, postalCode: data.postalCode, aliases: [], googlePlaceId: data.googlePlaceId };
-    const menu: PublishedMenu = { ...identity, sections: [{ id: "veg-options", title: "Vegetarian dishes", scope: "branch-dine-in", coverage: "partial", checkedAt: dayStamp(data.menu.checkedAt),
-      sourceUrl: data.menu.sourceUrl, sourceLabel: data.menu.sourceLabel, notice: "", charges: "",
-      items: data.menu.items.map(item => ({ id: item.id, name: item.name, ...(item.category ? { category: item.category } : {}), price: { ...item.price }, qualifier: "", diet: item.diet })) }] };
+    // A Mixed Kitchen place keeps the venue's V/VG label on each dish; a fully vegetarian place serves every dish unlabelled, like a packaged Veg Kitchen one.
+    const options = data.kitchen === "options";
+    const items: MenuItem[] = data.menu.items.map(item => ({ id: item.id, name: item.name, ...(item.category ? { category: item.category } : {}), price: { ...item.price }, qualifier: "", ...(options && item.diet ? { diet: item.diet } : {}) }));
+    const menu: PublishedMenu = { ...identity, sections: [{ id: options ? "veg-options" : "menu", title: options ? "Vegetarian dishes" : "Menu", scope: "branch-dine-in", coverage: "partial", checkedAt: dayStamp(data.menu.checkedAt),
+      sourceUrl: data.menu.sourceUrl, sourceLabel: data.menu.sourceLabel, notice: "", charges: "", items }] };
+    // For a fully vegetarian place the quote's page and the menu page come first, so the 12-source limit can never drop the evidence for the diet.
+    const sources = options ? [...data.sourceUrls, data.menu.sourceUrl] : [...(data.dietProof ? [data.dietProof.sourceUrl] : []), data.menu.sourceUrl, ...data.sourceUrls];
+    const sourceUrls = [...new Set(sources)].slice(0, 12);
     const venue: CatalogueVenue = { ...identity, fingerprint, checkedAt: dayStamp(data.menu.checkedAt), sectionCount: 1, itemCount: data.menu.items.length, point: { latitude: data.point.latitude, longitude: data.point.longitude },
-      venueDiet: data.venueDiet, alliumFreeClaim: false, kitchen: "options", ...(data.hours ? { hours: data.hours } : {}), ...(data.photo ? { photo: data.photo } : {}),
-      research: { sourceUrls: [...new Set([...data.sourceUrls, data.menu.sourceUrl])].slice(0, 12), notes: [], checkedAt: data.checkedAt } };
+      venueDiet: data.venueDiet, alliumFreeClaim: false, ...(options ? { kitchen: "options" as const } : {}), ...(data.hours ? { hours: data.hours } : {}), ...(data.photo ? { photo: data.photo } : {}),
+      research: { sourceUrls, notes: [], checkedAt: data.checkedAt } };
     result.set(data.id, { venue, menu, fingerprint });
   }
   places = { revision: content.revision, places: result };

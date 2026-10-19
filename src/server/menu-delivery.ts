@@ -49,7 +49,7 @@ const noStaff: StaffContent = { revision: "0".repeat(64), catalogueRevision: "0"
 let applied: { key: string; menus: Map<string, Applied | undefined> } = { key: "", menus: new Map() };
 const staffSection = "quintaste-additions";
 
-/** The packaged menu with bot price updates, or a QT Explorer veg options place's menu, before staff changes. */
+/** The packaged menu with bot price updates, or a QT Explorer place's menu, before staff changes. */
 export function baseMenu(id: string, content = editorialContent()): Applied | undefined {
   const menu = details.get(id);
   if (menu) return editorialMenu(menu, revisions.get(id)!, content);
@@ -92,11 +92,11 @@ export function menuSummary({ menu, fingerprint }: Applied): MenuSummary {
 }
 const touched = (id: string, staff: StaffContent) => staff.items.has("place:" + id) || staff.items.has("menu:" + id);
 const packagedKitchens = new Map((catalogueIndex.venues as { id: string; kitchen?: string }[]).flatMap(venue => venue.kitchen === undefined ? [] : [[venue.id, venue.kitchen] as const]));
-/** A staff place edit decides the kitchen (null = fully vegetarian), else the packaged place; QT Explorer places are always veg options. */
+/** A staff place edit decides the kitchen (null = fully vegetarian), else the packaged place; a QT Explorer place is veg options (vo-) or fully vegetarian (vk-) as published. */
 function kitchenOf(id: string, staff: StaffContent, content: ReturnType<typeof editorialContent>) {
   const place = staff.items.get("place:" + id)?.data as StaffPlaceData | undefined;
   if (place?.kitchen !== undefined) return place.kitchen;
-  return packagedKitchens.get(id) ?? (!details.has(id) && editorialPlaces(content).has(id) ? "options" : undefined);
+  return packagedKitchens.get(id) ?? (!details.has(id) ? editorialPlaces(content).get(id)?.venue.kitchen : undefined);
 }
 /** A veg options place only ever serves dishes carrying the venue's V/VG label; an untagged dish could be meat or seafood. */
 function servable(id: string, staff: StaffContent, current: Applied | undefined, content: ReturnType<typeof editorialContent>): Applied | undefined {
@@ -109,7 +109,7 @@ function servable(id: string, staff: StaffContent, current: Applied | undefined,
 }
 /** Staff-created places, published once they have at least one dish. */
 export const staffPlaceIds = (staff: StaffContent) => [...staff.items.values()].filter(item => item.kind === "place" && item.origin === "staff").map(item => item.id);
-/** QT Explorer veg options places that do not reuse a packaged place id. */
+/** QT Explorer places (veg options and fully vegetarian) that do not reuse a packaged place id. */
 export const editorialPlaceIds = (content = editorialContent()) => [...editorialPlaces(content).keys()].filter(id => !details.has(id));
 
 export function publishedMenuIndex(now = Date.now(), withdrawn: ReadonlySet<string> = new Set(), staff = noStaff): MenuIndex {
