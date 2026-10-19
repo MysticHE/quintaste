@@ -1,0 +1,906 @@
+{
+ "source": "USDA FoodData Central, SR Legacy (April 2018), per 100 g; public domain",
+ "built": "2026-10-19",
+ "foods": {
+  "167747": {
+   "name": "Lemon juice, raw",
+   "protein": 0.35,
+   "fibre": 0.3,
+   "sodium": 1,
+   "sugar": 2.52,
+   "fat": 0.24,
+   "carbs": 6.9,
+   "kcal": 22
+  },
+  "167762": {
+   "name": "Strawberries, raw",
+   "fat": 0.3,
+   "fibre": 2,
+   "protein": 0.67,
+   "sodium": 1,
+   "sugar": 4.89,
+   "carbs": 7.68,
+   "kcal": 32
+  },
+  "167763": {
+   "name": "Tamarinds, raw",
+   "sugar": 38.8,
+   "fibre": 5.1,
+   "protein": 2.8,
+   "sodium": 28,
+   "fat": 0.6,
+   "carbs": 62.5,
+   "kcal": 239
+  },
+  "168155": {
+   "name": "Limes, raw",
+   "fat": 0.2,
+   "carbs": 10.54,
+   "sugar": 1.69,
+   "protein": 0.7,
+   "sodium": 2,
+   "fibre": 2.8,
+   "kcal": 30
+  },
+  "168409": {
+   "name": "Cucumber, with peel, raw",
+   "carbs": 3.63,
+   "kcal": 15,
+   "sugar": 1.67,
+   "sodium": 2,
+   "fat": 0.11,
+   "fibre": 0.5,
+   "protein": 0.65
+  },
+  "168410": {
+   "name": "Edamame, frozen, unprepared",
+   "fibre": 4.8,
+   "fat": 4.73,
+   "sodium": 6,
+   "protein": 11.22,
+   "carbs": 7.61,
+   "kcal": 109,
+   "sugar": 2.48
+  },
+  "168448": {
+   "name": "Pumpkin, raw",
+   "carbs": 6.5,
+   "fibre": 0.5,
+   "kcal": 26,
+   "sugar": 2.76,
+   "fat": 0.1,
+   "protein": 1,
+   "sodium": 1
+  },
+  "168462": {
+   "name": "Spinach, raw",
+   "protein": 2.86,
+   "sodium": 79,
+   "fibre": 2.2,
+   "sugar": 0.42,
+   "fat": 0.39,
+   "carbs": 3.63,
+   "kcal": 23
+  },
+  "168482": {
+   "name": "Sweet potato, raw, unprepared (Includes foods for USDA's Food Distribution Program)",
+   "fibre": 3,
+   "sugar": 4.18,
+   "carbs": 20.12,
+   "kcal": 86,
+   "sodium": 55,
+   "fat": 0.05,
+   "protein": 1.57
+  },
+  "168556": {
+   "name": "Catsup",
+   "sodium": 907,
+   "protein": 1.04,
+   "fibre": 0.3,
+   "sugar": 21.27,
+   "fat": 0.1,
+   "carbs": 27.4,
+   "kcal": 101
+  },
+  "168570": {
+   "name": "Peppers, hot chile, sun-dried",
+   "carbs": 69.86,
+   "sugar": 41.06,
+   "kcal": 324,
+   "fat": 5.81,
+   "fibre": 28.7,
+   "sodium": 91,
+   "protein": 10.58
+  },
+  "168576": {
+   "name": "Peppers, jalapeno, raw",
+   "fibre": 2.8,
+   "sodium": 3,
+   "protein": 0.91,
+   "sugar": 4.12,
+   "fat": 0.37,
+   "carbs": 6.5,
+   "kcal": 29
+  },
+  "168833": {
+   "name": "Sugars, brown",
+   "fat": 0,
+   "carbs": 98.09,
+   "kcal": 380,
+   "sugar": 97.02,
+   "protein": 0.12,
+   "fibre": 0,
+   "sodium": 28
+  },
+  "169124": {
+   "name": "Pineapple, raw, all varieties",
+   "protein": 0.54,
+   "sodium": 1,
+   "sugar": 9.85,
+   "fat": 0.12,
+   "fibre": 1.4,
+   "carbs": 13.12,
+   "kcal": 50
+  },
+  "169230": {
+   "name": "Garlic, raw",
+   "carbs": 33.06,
+   "kcal": 149,
+   "sugar": 1,
+   "fibre": 2.1,
+   "sodium": 17,
+   "protein": 6.36,
+   "fat": 0.5
+  },
+  "169231": {
+   "name": "Ginger root, raw",
+   "sugar": 1.7,
+   "fat": 0.75,
+   "sodium": 13,
+   "protein": 1.82,
+   "carbs": 17.77,
+   "kcal": 80,
+   "fibre": 2
+  },
+  "169242": {
+   "name": "Mushrooms, shiitake, raw",
+   "sugar": 2.38,
+   "fat": 0.49,
+   "sodium": 9,
+   "protein": 2.24,
+   "fibre": 2.5,
+   "carbs": 6.79,
+   "kcal": 34
+  },
+  "169249": {
+   "name": "Lettuce, green leaf, raw",
+   "fibre": 1.3,
+   "sugar": 0.78,
+   "carbs": 2.87,
+   "kcal": 15,
+   "protein": 1.36,
+   "sodium": 28,
+   "fat": 0.15
+  },
+  "169251": {
+   "name": "Mushrooms, white, raw",
+   "sugar": 1.98,
+   "fibre": 1,
+   "fat": 0.34,
+   "sodium": 5,
+   "protein": 3.09,
+   "carbs": 3.26,
+   "kcal": 22
+  },
+  "169308": {
+   "name": "Taro, raw",
+   "sugar": 0.4,
+   "kcal": 112,
+   "fibre": 4.1,
+   "sodium": 11,
+   "protein": 1.5,
+   "fat": 0.2,
+   "carbs": 26.46
+  },
+  "169655": {
+   "name": "Sugars, granulated",
+   "protein": 0,
+   "sodium": 1,
+   "fat": 0,
+   "kcal": 387,
+   "sugar": 99.8,
+   "carbs": 99.98,
+   "fibre": 0
+  },
+  "169656": {
+   "name": "Sugars, powdered",
+   "fat": 0,
+   "kcal": 389,
+   "protein": 0,
+   "sodium": 2,
+   "carbs": 99.77,
+   "sugar": 97.81,
+   "fibre": 0
+  },
+  "169661": {
+   "name": "Syrups, maple",
+   "fibre": 0,
+   "sodium": 12,
+   "protein": 0.04,
+   "fat": 0.06,
+   "carbs": 67.04,
+   "kcal": 260,
+   "sugar": 60.46
+  },
+  "169698": {
+   "name": "Cornstarch",
+   "sugar": 0,
+   "fat": 0.05,
+   "carbs": 91.27,
+   "kcal": 381,
+   "protein": 0.26,
+   "fibre": 0.9,
+   "sodium": 9
+  },
+  "169702": {
+   "name": "Millet, raw",
+   "fat": 4.22,
+   "carbs": 72.85,
+   "kcal": 378,
+   "fibre": 8.5,
+   "sodium": 5,
+   "protein": 11.02
+  },
+  "169703": {
+   "name": "Rice, brown, long-grain, raw (Includes foods for USDA's Food Distribution Program)",
+   "sugar": 0.66,
+   "fat": 3.2,
+   "carbs": 76.25,
+   "kcal": 367,
+   "fibre": 3.6,
+   "sodium": 5,
+   "protein": 7.54
+  },
+  "169704": {
+   "name": "Rice, brown, long-grain, cooked (Includes foods for USDA's Food Distribution Program)",
+   "fibre": 1.6,
+   "sodium": 4,
+   "protein": 2.74,
+   "fat": 0.97,
+   "carbs": 25.58,
+   "kcal": 123,
+   "sugar": 0.24
+  },
+  "169717": {
+   "name": "Tapioca, pearl, dry",
+   "protein": 0.19,
+   "fibre": 0.9,
+   "sodium": 1,
+   "fat": 0.02,
+   "carbs": 88.69,
+   "kcal": 358,
+   "sugar": 3.35
+  },
+  "169742": {
+   "name": "Rice noodles, dry",
+   "fat": 0.56,
+   "kcal": 364,
+   "fibre": 1.6,
+   "sodium": 182,
+   "sugar": 0.12,
+   "protein": 5.95,
+   "carbs": 80.18
+  },
+  "169756": {
+   "name": "Rice, white, long-grain, regular, raw, unenriched",
+   "sugar": 0.12,
+   "protein": 7.13,
+   "fibre": 1.3,
+   "sodium": 5,
+   "fat": 0.66,
+   "carbs": 79.95,
+   "kcal": 365
+  },
+  "169761": {
+   "name": "Wheat flour, white, all-purpose, unenriched",
+   "fat": 0.98,
+   "carbs": 76.31,
+   "kcal": 364,
+   "fibre": 2.7,
+   "sodium": 2,
+   "protein": 10.33,
+   "sugar": 0.27
+  },
+  "169762": {
+   "name": "Noodles, egg, cooked, unenriched, with added salt",
+   "sodium": 165,
+   "sugar": 0.4,
+   "fat": 2.07,
+   "fibre": 1.2,
+   "protein": 4.54,
+   "carbs": 25.16,
+   "kcal": 138
+  },
+  "169957": {
+   "name": "Mung beans, mature seeds, sprouted, raw",
+   "sugar": 4.13,
+   "carbs": 5.94,
+   "kcal": 30,
+   "protein": 3.04,
+   "fibre": 1.8,
+   "sodium": 6,
+   "fat": 0.18
+  },
+  "169975": {
+   "name": "Cabbage, raw",
+   "fat": 0.1,
+   "carbs": 5.8,
+   "kcal": 25,
+   "sugar": 3.2,
+   "protein": 1.28,
+   "fibre": 2.5,
+   "sodium": 18
+  },
+  "169977": {
+   "name": "Cabbage, red, raw",
+   "carbs": 7.37,
+   "kcal": 31,
+   "sugar": 3.83,
+   "fibre": 2.1,
+   "fat": 0.16,
+   "protein": 1.43,
+   "sodium": 27
+  },
+  "169997": {
+   "name": "Coriander (cilantro) leaves, raw",
+   "protein": 2.13,
+   "carbs": 3.67,
+   "kcal": 23,
+   "fibre": 2.8,
+   "sodium": 46,
+   "fat": 0.52,
+   "sugar": 0.87
+  },
+  "169998": {
+   "name": "Corn, sweet, yellow, raw",
+   "fibre": 2,
+   "sodium": 15,
+   "protein": 3.27,
+   "fat": 1.35,
+   "sugar": 6.26,
+   "carbs": 18.7,
+   "kcal": 86
+  },
+  "170000": {
+   "name": "Onions, raw",
+   "sugar": 4.24,
+   "fat": 0.1,
+   "carbs": 9.34,
+   "kcal": 40,
+   "protein": 1.1,
+   "fibre": 1.7,
+   "sodium": 4
+  },
+  "170026": {
+   "name": "Potatoes, flesh and skin, raw",
+   "fat": 0.09,
+   "kcal": 77,
+   "sodium": 6,
+   "protein": 2.05,
+   "fibre": 2.1,
+   "carbs": 17.49,
+   "sugar": 0.82
+  },
+  "170073": {
+   "name": "Yambean (jicama), raw",
+   "carbs": 8.82,
+   "sugar": 1.8,
+   "kcal": 38,
+   "fat": 0.09,
+   "protein": 0.72,
+   "fibre": 4.9,
+   "sodium": 4
+  },
+  "170106": {
+   "name": "Peppers, hot chili, red, raw",
+   "sugar": 5.3,
+   "fibre": 1.5,
+   "sodium": 9,
+   "fat": 0.44,
+   "carbs": 8.81,
+   "kcal": 40,
+   "protein": 1.87
+  },
+  "170108": {
+   "name": "Peppers, sweet, red, raw",
+   "fibre": 2.1,
+   "kcal": 26,
+   "sodium": 4,
+   "sugar": 4.2,
+   "carbs": 6.03,
+   "protein": 0.99,
+   "fat": 0.3
+  },
+  "170150": {
+   "name": "Seeds, sesame seeds, whole, dried",
+   "sugar": 0.3,
+   "protein": 17.73,
+   "fibre": 11.8,
+   "sodium": 11,
+   "fat": 49.67,
+   "carbs": 23.45,
+   "kcal": 573
+  },
+  "170169": {
+   "name": "Nuts, coconut meat, raw",
+   "fibre": 9,
+   "sodium": 20,
+   "protein": 3.33,
+   "fat": 33.49,
+   "carbs": 15.23,
+   "kcal": 354,
+   "sugar": 6.23
+  },
+  "170172": {
+   "name": "Nuts, coconut milk, raw (liquid expressed from grated meat and water)",
+   "protein": 2.29,
+   "fibre": 2.2,
+   "sodium": 15,
+   "fat": 23.84,
+   "carbs": 5.54,
+   "kcal": 230,
+   "sugar": 3.34
+  },
+  "170379": {
+   "name": "Broccoli, raw",
+   "sugar": 1.7,
+   "carbs": 6.64,
+   "kcal": 34,
+   "fat": 0.37,
+   "protein": 2.82,
+   "fibre": 2.6,
+   "sodium": 33
+  },
+  "170390": {
+   "name": "Cabbage, chinese (pak-choi), raw",
+   "fibre": 1,
+   "sodium": 65,
+   "protein": 1.5,
+   "fat": 0.2,
+   "sugar": 1.18,
+   "carbs": 2.18,
+   "kcal": 13
+  },
+  "170393": {
+   "name": "Carrots, raw",
+   "sodium": 69,
+   "protein": 0.93,
+   "fat": 0.24,
+   "sugar": 4.74,
+   "carbs": 9.58,
+   "kcal": 41,
+   "fibre": 2.8
+  },
+  "170419": {
+   "name": "Peas, green, raw",
+   "carbs": 14.45,
+   "kcal": 81,
+   "sugar": 5.67,
+   "protein": 5.42,
+   "sodium": 5,
+   "fat": 0.4,
+   "fibre": 5.7
+  },
+  "170457": {
+   "name": "Tomatoes, red, ripe, raw, year round average",
+   "sugar": 2.63,
+   "carbs": 3.89,
+   "kcal": 18,
+   "fat": 0.2,
+   "fibre": 1.2,
+   "sodium": 5,
+   "protein": 0.88
+  },
+  "170499": {
+   "name": "Shallots, raw",
+   "carbs": 16.8,
+   "kcal": 72,
+   "fat": 0.1,
+   "sodium": 12,
+   "protein": 2.5,
+   "sugar": 7.87,
+   "fibre": 3.2
+  },
+  "170919": {
+   "name": "Spices, cardamom",
+   "sodium": 18,
+   "protein": 10.76,
+   "fat": 6.7,
+   "carbs": 68.47,
+   "kcal": 311,
+   "fibre": 28
+  },
+  "170922": {
+   "name": "Spices, coriander seed",
+   "fat": 17.77,
+   "carbs": 54.99,
+   "kcal": 298,
+   "sodium": 35,
+   "protein": 12.37,
+   "fibre": 41.9
+  },
+  "170923": {
+   "name": "Spices, cumin seed",
+   "protein": 17.81,
+   "fibre": 10.5,
+   "sodium": 168,
+   "fat": 22.27,
+   "carbs": 44.24,
+   "kcal": 375,
+   "sugar": 2.25
+  },
+  "170929": {
+   "name": "Spices, mustard seed, ground",
+   "sugar": 6.79,
+   "protein": 26.08,
+   "fibre": 12.2,
+   "sodium": 13,
+   "fat": 36.24,
+   "carbs": 28.09,
+   "kcal": 508
+  },
+  "170931": {
+   "name": "Spices, pepper, black",
+   "fat": 3.26,
+   "sugar": 0.64,
+   "carbs": 63.95,
+   "kcal": 251,
+   "protein": 10.39,
+   "fibre": 25.3,
+   "sodium": 20
+  },
+  "170933": {
+   "name": "Spices, pepper, white",
+   "protein": 10.4,
+   "sodium": 5,
+   "fat": 2.12,
+   "carbs": 68.61,
+   "kcal": 296,
+   "fibre": 26.2
+  },
+  "171016": {
+   "name": "Oil, sesame, salad or cooking",
+   "protein": 0,
+   "fibre": 0,
+   "sodium": 0,
+   "fat": 100,
+   "carbs": 0,
+   "kcal": 884,
+   "sugar": 0
+  },
+  "171025": {
+   "name": "Oil, sunflower, linoleic, (approx. 65%)",
+   "fibre": 0,
+   "sodium": 0,
+   "protein": 0,
+   "fat": 100,
+   "carbs": 0,
+   "kcal": 884,
+   "sugar": 0
+  },
+  "171186": {
+   "name": "Sauce, hot chile, sriracha",
+   "protein": 1.93,
+   "fibre": 2.2,
+   "sodium": 2124,
+   "fat": 0.93,
+   "carbs": 19.16,
+   "kcal": 93,
+   "sugar": 15.11
+  },
+  "171265": {
+   "name": "Milk, whole, 3.25% milkfat, with added vitamin D",
+   "fat": 3.25,
+   "sugar": 5.05,
+   "carbs": 4.8,
+   "kcal": 61,
+   "fibre": 0,
+   "sodium": 43,
+   "protein": 3.15
+  },
+  "171287": {
+   "name": "Egg, whole, raw, fresh",
+   "kcal": 143,
+   "protein": 12.56,
+   "sodium": 142,
+   "sugar": 0.37,
+   "fat": 9.51,
+   "carbs": 0.72,
+   "fibre": 0
+  },
+  "171320": {
+   "name": "Spices, cinnamon, ground",
+   "sugar": 2.17,
+   "fibre": 53.1,
+   "protein": 3.99,
+   "sodium": 10,
+   "fat": 1.24,
+   "carbs": 80.59,
+   "kcal": 247
+  },
+  "171321": {
+   "name": "Spices, cloves, ground",
+   "sugar": 2.38,
+   "fat": 13,
+   "carbs": 65.53,
+   "kcal": 274,
+   "fibre": 33.9,
+   "sodium": 277,
+   "protein": 5.97
+  },
+  "171410": {
+   "name": "Oil, peanut, salad or cooking",
+   "fat": 100,
+   "carbs": 0,
+   "kcal": 884,
+   "protein": 0,
+   "fibre": 0,
+   "sodium": 0,
+   "sugar": 0
+  },
+  "171412": {
+   "name": "Oil, coconut",
+   "protein": 0,
+   "fat": 99.06,
+   "kcal": 892,
+   "carbs": 0,
+   "fibre": 0,
+   "sodium": 0,
+   "sugar": 0
+  },
+  "171413": {
+   "name": "Oil, olive, salad or cooking",
+   "fat": 100,
+   "carbs": 0,
+   "kcal": 884,
+   "sodium": 2,
+   "protein": 0,
+   "fibre": 0,
+   "sugar": 0
+  },
+  "171436": {
+   "name": "Margarine, regular, 80% fat, composite, tub, with salt, with added vitamin D",
+   "protein": 0.22,
+   "fibre": 0,
+   "sodium": 657,
+   "fat": 80.17,
+   "carbs": 0.75,
+   "kcal": 713,
+   "sugar": 0
+  },
+  "171583": {
+   "name": "Soup, vegetable broth, ready to serve",
+   "protein": 0.24,
+   "fibre": 0,
+   "sodium": 296,
+   "fat": 0.07,
+   "carbs": 0.93,
+   "kcal": 5,
+   "sugar": 0.55
+  },
+  "171705": {
+   "name": "Avocados, raw, all commercial varieties",
+   "protein": 2,
+   "fibre": 6.7,
+   "sodium": 7,
+   "fat": 14.66,
+   "sugar": 0.66,
+   "carbs": 8.53,
+   "kcal": 160
+  },
+  "172231": {
+   "name": "Spices, turmeric, ground",
+   "sugar": 3.21,
+   "fat": 3.25,
+   "carbs": 67.14,
+   "kcal": 312,
+   "protein": 9.68,
+   "fibre": 22.7,
+   "sodium": 27
+  },
+  "172237": {
+   "name": "Vinegar, distilled",
+   "fat": 0,
+   "sugar": 0.04,
+   "protein": 0,
+   "sodium": 2,
+   "fibre": 0,
+   "carbs": 0.04,
+   "kcal": 18
+  },
+  "172336": {
+   "name": "Oil, canola",
+   "fat": 100,
+   "protein": 0,
+   "carbs": 0,
+   "kcal": 884,
+   "fibre": 0,
+   "sodium": 0,
+   "sugar": 0
+  },
+  "172442": {
+   "name": "Miso",
+   "sugar": 6.2,
+   "protein": 12.79,
+   "carbs": 25.37,
+   "kcal": 198,
+   "fibre": 5.4,
+   "sodium": 3728,
+   "fat": 6.01
+  },
+  "172446": {
+   "name": "Soymilk, original and vanilla, unfortified",
+   "fat": 1.75,
+   "carbs": 6.28,
+   "kcal": 54,
+   "sugar": 3.99,
+   "fibre": 0.6,
+   "sodium": 51,
+   "protein": 3.27
+  },
+  "172448": {
+   "name": "Tofu, firm, prepared with calcium sulfate and magnesium chloride (nigari)",
+   "fibre": 0.9,
+   "protein": 9.04,
+   "carbs": 2.85,
+   "kcal": 78,
+   "sugar": 0.6,
+   "fat": 4.17,
+   "sodium": 12
+  },
+  "172449": {
+   "name": "Tofu, soft, prepared with calcium sulfate and magnesium chloride (nigari)",
+   "kcal": 61,
+   "carbs": 1.18,
+   "protein": 7.17,
+   "sugar": 0.7,
+   "fat": 3.69,
+   "fibre": 0.2,
+   "sodium": 8
+  },
+  "172451": {
+   "name": "Tofu, fried",
+   "sugar": 2.72,
+   "carbs": 8.86,
+   "kcal": 270,
+   "protein": 18.82,
+   "fat": 20.18,
+   "fibre": 3.9,
+   "sodium": 16
+  },
+  "172802": {
+   "name": "Wonton wrappers (includes egg roll wrappers)",
+   "fibre": 1.8,
+   "fat": 1.5,
+   "carbs": 57.9,
+   "kcal": 291,
+   "protein": 9.8,
+   "sodium": 572
+  },
+  "172886": {
+   "name": "Sauce, hoisin, ready-to-serve",
+   "fat": 3.39,
+   "carbs": 44.08,
+   "kcal": 220,
+   "protein": 3.31,
+   "fibre": 2.8,
+   "sodium": 1615,
+   "sugar": 27.26
+  },
+  "173410": {
+   "name": "Butter, salted",
+   "fibre": 0,
+   "sodium": 643,
+   "kcal": 717,
+   "fat": 81.11,
+   "carbs": 0.06,
+   "protein": 0.85,
+   "sugar": 0.06
+  },
+  "173430": {
+   "name": "Butter, without salt",
+   "sugar": 0.06,
+   "kcal": 717,
+   "fat": 81.11,
+   "carbs": 0.06,
+   "protein": 0.85,
+   "fibre": 0,
+   "sodium": 11
+  },
+  "173468": {
+   "name": "Salt, table",
+   "fibre": 0,
+   "sodium": 38758,
+   "protein": 0,
+   "fat": 0,
+   "carbs": 0,
+   "kcal": 0,
+   "sugar": 0
+  },
+  "173806": {
+   "name": "Peanuts, all types, dry-roasted, without salt",
+   "fibre": 8.4,
+   "protein": 24.35,
+   "carbs": 21.26,
+   "kcal": 587,
+   "sugar": 4.9,
+   "sodium": 6,
+   "fat": 49.66
+  },
+  "173904": {
+   "name": "Cereals, oats, regular and quick, not fortified, dry",
+   "fibre": 10.1,
+   "sugar": 0.99,
+   "fat": 6.52,
+   "carbs": 67.7,
+   "kcal": 379,
+   "sodium": 6,
+   "protein": 13.15
+  },
+  "174259": {
+   "name": "Mungo beans, mature seeds, raw",
+   "protein": 25.21,
+   "fibre": 18.3,
+   "sodium": 38,
+   "fat": 1.64,
+   "carbs": 58.99,
+   "kcal": 341
+  },
+  "174272": {
+   "name": "Tempeh",
+   "protein": 20.29,
+   "carbs": 7.64,
+   "kcal": 192,
+   "sodium": 9,
+   "fat": 10.8
+  },
+  "174277": {
+   "name": "Soy sauce made from soy and wheat (shoyu)",
+   "fat": 0.57,
+   "carbs": 4.93,
+   "sugar": 0.4,
+   "protein": 8.14,
+   "sodium": 5493,
+   "kcal": 53,
+   "fibre": 0.8
+  },
+  "174280": {
+   "name": "Tofu, salted and fermented (fuyu)",
+   "carbs": 4.38,
+   "protein": 8.92,
+   "fat": 8,
+   "kcal": 116,
+   "sodium": 2873
+  },
+  "174529": {
+   "name": "Sauce, oyster, ready-to-serve",
+   "protein": 1.35,
+   "fibre": 0.3,
+   "sodium": 2733,
+   "fat": 0.25,
+   "carbs": 10.92,
+   "kcal": 51,
+   "sugar": 0
+  },
+  "174924": {
+   "name": "Bread, white, commercially prepared (includes soft bread crumbs)",
+   "fibre": 2.7,
+   "fat": 3.33,
+   "carbs": 49.42,
+   "kcal": 266,
+   "sugar": 5.67,
+   "protein": 8.85,
+   "sodium": 490
+  }
+ }
+}

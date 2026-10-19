@@ -1,0 +1,1104 @@
+{
+  "version": "2026-10-19",
+  "notes": "Reviewed ingredient keys for scripts/recipe-nutrition.ts. `usda` is a USDA FoodData Central SR Legacy fdcId (public domain). `gPerMl` converts volume units (tbsp 15 ml, tsp 5 ml, cup 240 ml); `each`/`per` give grams for count units. `analogue` names a stand-in when no USDA entry exists for the Singapore ingredient. `negligible` foods count as matched with no nutrients (water, pandan, tea leaves, curry leaves). Lines with amount null (to taste) are skipped and shown as such.",
+  "units": {
+    "ml": 1,
+    "l": 1000,
+    "litre": 1000,
+    "liter": 1000,
+    "tbsp": 15,
+    "tablespoon": 15,
+    "tablespoons": 15,
+    "tsp": 5,
+    "teaspoon": 5,
+    "teaspoons": 5,
+    "cup": 240,
+    "cups": 240
+  },
+  "foods": {
+    "water": {
+      "name": "Water",
+      "negligible": true,
+      "match": [
+        "^water",
+        "water for",
+        "cooking water"
+      ]
+    },
+    "pandan": {
+      "name": "Pandan leaves",
+      "negligible": true,
+      "match": [
+        "pandan"
+      ]
+    },
+    "curry_leaves": {
+      "name": "Curry leaves",
+      "negligible": true,
+      "match": [
+        "curry leaves",
+        "curry leaf"
+      ]
+    },
+    "tea_leaves": {
+      "name": "Tea leaves",
+      "negligible": true,
+      "match": [
+        "black tea",
+        "ctc",
+        "tea leaves"
+      ]
+    },
+    "salt": {
+      "name": "Salt, table",
+      "usda": "173468",
+      "gPerMl": 1.2,
+      "match": [
+        "^salt$",
+        "^salt,",
+        "^salt ",
+        "plain salt",
+        "sea salt",
+        "table salt",
+        "^fine salt"
+      ]
+    },
+    "salt_kosher_dc": {
+      "name": "Diamond Crystal kosher salt",
+      "usda": "173468",
+      "gPerMl": 0.56,
+      "match": [
+        "diamond crystal"
+      ]
+    },
+    "white_pepper": {
+      "name": "White pepper",
+      "usda": "170933",
+      "gPerMl": 0.48,
+      "match": [
+        "white pepper"
+      ]
+    },
+    "black_pepper": {
+      "name": "Black pepper",
+      "usda": "170931",
+      "gPerMl": 0.46,
+      "per": {
+        "pieces": 0.05,
+        "each": 0.05
+      },
+      "match": [
+        "black pepper",
+        "peppercorn"
+      ]
+    },
+    "sichuan_pepper": {
+      "name": "Sichuan pepper",
+      "usda": "170931",
+      "analogue": "black pepper",
+      "gPerMl": 0.4,
+      "match": [
+        "sichuan pepper",
+        "szechuan pepper"
+      ]
+    },
+    "coconut_milk": {
+      "name": "Coconut milk (fresh-pressed)",
+      "usda": "170172",
+      "gPerMl": 1.0,
+      "match": [
+        "coconut milk",
+        "coconut cream"
+      ]
+    },
+    "coconut_fresh": {
+      "name": "Coconut, fresh grated",
+      "usda": "170169",
+      "gPerMl": 0.33,
+      "match": [
+        "grated coconut",
+        "coconut, grated",
+        "fresh coconut"
+      ]
+    },
+    "brown_sugar": {
+      "name": "Sugar, brown",
+      "usda": "168833",
+      "gPerMl": 0.8,
+      "match": [
+        "brown sugar"
+      ]
+    },
+    "gula_melaka": {
+      "name": "Gula melaka (palm sugar)",
+      "usda": "168833",
+      "analogue": "brown sugar",
+      "gPerMl": 0.8,
+      "match": [
+        "gula melaka",
+        "palm sugar"
+      ]
+    },
+    "jaggery": {
+      "name": "Jaggery",
+      "usda": "168833",
+      "analogue": "brown sugar",
+      "gPerMl": 0.6,
+      "match": [
+        "jaggery"
+      ]
+    },
+    "sugar": {
+      "name": "Sugar, granulated",
+      "usda": "169655",
+      "gPerMl": 0.85,
+      "match": [
+        "^sugar",
+        "white sugar",
+        "granulated sugar",
+        "caster sugar",
+        "^plain sugar"
+      ]
+    },
+    "powdered_sugar": {
+      "name": "Sugar, powdered",
+      "usda": "169656",
+      "gPerMl": 0.5,
+      "match": [
+        "powdered sugar",
+        "icing sugar"
+      ]
+    },
+    "maple_syrup": {
+      "name": "Maple syrup",
+      "usda": "169661",
+      "gPerMl": 1.32,
+      "match": [
+        "maple syrup"
+      ]
+    },
+    "cornflour": {
+      "name": "Cornflour",
+      "usda": "169698",
+      "gPerMl": 0.53,
+      "match": [
+        "cornflour",
+        "cornstarch",
+        "corn starch",
+        "corn flour"
+      ]
+    },
+    "white_bread": {
+      "name": "Bread, white",
+      "usda": "174924",
+      "each": 25,
+      "per": {
+        "slices": 25,
+        "slice": 25
+      },
+      "match": [
+        "white bread",
+        "^bread"
+      ]
+    },
+    "plant_butter": {
+      "name": "Plant-based butter",
+      "usda": "171436",
+      "analogue": "margarine, 80% fat, tub",
+      "gPerMl": 0.95,
+      "match": [
+        "plant-based butter",
+        "plant based butter",
+        "vegan butter",
+        "margarine"
+      ]
+    },
+    "butter_unsalted": {
+      "name": "Butter, unsalted",
+      "usda": "173430",
+      "gPerMl": 0.95,
+      "match": [
+        "unsalted butter",
+        "butter, unsalted"
+      ]
+    },
+    "butter": {
+      "name": "Butter, salted",
+      "usda": "173410",
+      "gPerMl": 0.95,
+      "match": [
+        "^butter",
+        "salted butter"
+      ]
+    },
+    "oats": {
+      "name": "Oats, rolled, dry",
+      "usda": "173904",
+      "gPerMl": 0.34,
+      "match": [
+        "rolled oats",
+        "^oats",
+        "oatmeal"
+      ]
+    },
+    "ginger": {
+      "name": "Ginger root, raw",
+      "usda": "169231",
+      "gPerMl": 0.4,
+      "each": 15,
+      "per": {
+        "slices": 2,
+        "slice": 2,
+        "inch": 15,
+        "pieces": 15,
+        "piece": 15
+      },
+      "match": [
+        "ginger"
+      ]
+    },
+    "shiitake": {
+      "name": "Mushrooms, shiitake, raw",
+      "usda": "169242",
+      "match": [
+        "shiitake"
+      ]
+    },
+    "mushrooms": {
+      "name": "Mushrooms, white, raw",
+      "usda": "169251",
+      "gPerMl": 0.3,
+      "match": [
+        "mushroom"
+      ]
+    },
+    "tofu_silken": {
+      "name": "Tofu, soft",
+      "usda": "172449",
+      "match": [
+        "silken tofu",
+        "soft tofu",
+        "tofu, soft",
+        "tofu, silken"
+      ]
+    },
+    "tofu_firm": {
+      "name": "Tofu, firm",
+      "usda": "172448",
+      "match": [
+        "firm tofu",
+        "tofu, firm",
+        "^tofu",
+        "tau kwa",
+        "taukwa"
+      ]
+    },
+    "tofu_puffs": {
+      "name": "Tofu, fried (tau pok)",
+      "usda": "172451",
+      "match": [
+        "tofu puff",
+        "tau pok",
+        "taupok",
+        "fried tofu",
+        "fried beancurd"
+      ]
+    },
+    "soy_sauce": {
+      "name": "Soy sauce (shoyu)",
+      "usda": "174277",
+      "gPerMl": 1.07,
+      "match": [
+        "soy sauce",
+        "light soy",
+        "soya sauce"
+      ]
+    },
+    "soy_sauce_dark": {
+      "name": "Dark soy sauce",
+      "usda": "174277",
+      "analogue": "soy sauce (shoyu)",
+      "gPerMl": 1.1,
+      "match": [
+        "dark soy sauce",
+        "dark soya sauce",
+        "dark soy"
+      ]
+    },
+    "sesame_oil": {
+      "name": "Sesame oil",
+      "usda": "171016",
+      "gPerMl": 0.91,
+      "match": [
+        "sesame oil"
+      ]
+    },
+    "coriander_leaves": {
+      "name": "Coriander leaves, raw",
+      "usda": "169997",
+      "gPerMl": 0.1,
+      "each": 15,
+      "per": {
+        "handfuls": 15,
+        "handful": 15,
+        "sprig": 2,
+        "sprigs": 2
+      },
+      "match": [
+        "coriander leaves",
+        "cilantro",
+        "fresh coriander"
+      ]
+    },
+    "turmeric": {
+      "name": "Turmeric, ground",
+      "usda": "172231",
+      "gPerMl": 0.55,
+      "match": [
+        "turmeric"
+      ]
+    },
+    "coriander_seed": {
+      "name": "Coriander seed, ground",
+      "usda": "170922",
+      "gPerMl": 0.36,
+      "match": [
+        "ground coriander",
+        "coriander seed",
+        "coriander powder"
+      ]
+    },
+    "popiah_skins": {
+      "name": "Popiah skins",
+      "usda": "172802",
+      "analogue": "wonton/egg roll wrappers",
+      "each": 15,
+      "match": [
+        "popiah skin",
+        "spring roll wrapper",
+        "popiah wrapper"
+      ]
+    },
+    "jicama": {
+      "name": "Jicama (bangkuang), raw",
+      "usda": "170073",
+      "match": [
+        "jicama",
+        "bangkuang",
+        "yam bean",
+        "turnip"
+      ]
+    },
+    "carrot": {
+      "name": "Carrots, raw",
+      "usda": "170393",
+      "each": 61,
+      "gPerMl": 0.45,
+      "match": [
+        "carrot"
+      ]
+    },
+    "oil_neutral": {
+      "name": "Oil, canola",
+      "usda": "172336",
+      "gPerMl": 0.92,
+      "match": [
+        "neutral oil",
+        "vegetable oil",
+        "canola",
+        "cooking oil",
+        "^oil$"
+      ]
+    },
+    "sunflower_oil": {
+      "name": "Oil, sunflower",
+      "usda": "171025",
+      "gPerMl": 0.92,
+      "match": [
+        "sunflower oil"
+      ]
+    },
+    "olive_oil": {
+      "name": "Oil, olive",
+      "usda": "171413",
+      "gPerMl": 0.91,
+      "match": [
+        "olive oil"
+      ]
+    },
+    "peanut_oil": {
+      "name": "Oil, peanut",
+      "usda": "171410",
+      "gPerMl": 0.92,
+      "match": [
+        "peanut oil",
+        "groundnut oil"
+      ]
+    },
+    "coconut_oil": {
+      "name": "Oil, coconut",
+      "usda": "171412",
+      "gPerMl": 0.92,
+      "match": [
+        "coconut oil"
+      ]
+    },
+    "bean_sprouts": {
+      "name": "Mung bean sprouts, raw",
+      "usda": "169957",
+      "gPerMl": 0.43,
+      "match": [
+        "bean sprout",
+        "beansprout",
+        "taugeh",
+        "tauge"
+      ]
+    },
+    "lettuce": {
+      "name": "Lettuce, green leaf",
+      "usda": "169249",
+      "each": 10,
+      "per": {
+        "leaves": 10,
+        "leaf": 10
+      },
+      "match": [
+        "lettuce"
+      ]
+    },
+    "peanuts": {
+      "name": "Peanuts, dry-roasted, unsalted",
+      "usda": "173806",
+      "gPerMl": 0.6,
+      "match": [
+        "peanut"
+      ]
+    },
+    "sweet_sauce": {
+      "name": "Sweet sauce (tim cheong)",
+      "usda": "172886",
+      "analogue": "hoisin sauce",
+      "gPerMl": 1.07,
+      "match": [
+        "sweet sauce",
+        "tim cheong",
+        "hoisin",
+        "sweet bean sauce",
+        "sweet flour sauce"
+      ]
+    },
+    "chilli_sauce": {
+      "name": "Chilli sauce",
+      "usda": "171186",
+      "analogue": "sriracha",
+      "gPerMl": 1.1,
+      "match": [
+        "chilli sauce",
+        "chili sauce",
+        "sriracha",
+        "sambal"
+      ]
+    },
+    "chilli_paste": {
+      "name": "Chilli paste",
+      "usda": "171186",
+      "analogue": "sriracha",
+      "gPerMl": 1.1,
+      "match": [
+        "chilli paste",
+        "chili paste"
+      ]
+    },
+    "rice_noodles_dry": {
+      "name": "Rice noodles, dry",
+      "usda": "169742",
+      "match": [
+        "rice noodles",
+        "rice vermicelli",
+        "bee hoon",
+        "beehoon",
+        "rice stick",
+        "kway teow",
+        "rice noodle"
+      ]
+    },
+    "vegetable_stock": {
+      "name": "Vegetable broth, ready to serve",
+      "usda": "171583",
+      "gPerMl": 1.0,
+      "match": [
+        "vegetable stock",
+        "vegetable broth",
+        "^stock",
+        "mushroom stock"
+      ]
+    },
+    "onion": {
+      "name": "Onions, raw",
+      "usda": "170000",
+      "each": 110,
+      "gPerMl": 0.67,
+      "match": [
+        "onion"
+      ]
+    },
+    "spring_onion": {
+      "name": "Spring onion",
+      "usda": "170000",
+      "analogue": "onions, raw",
+      "each": 15,
+      "gPerMl": 0.4,
+      "match": [
+        "spring onion",
+        "scallion",
+        "green onion"
+      ]
+    },
+    "garlic": {
+      "name": "Garlic, raw",
+      "usda": "169230",
+      "each": 3,
+      "per": {
+        "cloves": 3,
+        "clove": 3
+      },
+      "gPerMl": 0.6,
+      "match": [
+        "garlic"
+      ]
+    },
+    "brown_rice_dry": {
+      "name": "Rice, brown, raw",
+      "usda": "169703",
+      "gPerMl": 0.8,
+      "match": [
+        "brown rice"
+      ]
+    },
+    "brown_rice_cooked": {
+      "name": "Rice, brown, cooked",
+      "usda": "169704",
+      "gPerMl": 0.8,
+      "match": [
+        "cooked brown rice"
+      ]
+    },
+    "avocado": {
+      "name": "Avocado",
+      "usda": "171705",
+      "each": 150,
+      "match": [
+        "avocado"
+      ]
+    },
+    "red_cabbage": {
+      "name": "Cabbage, red, raw",
+      "usda": "169977",
+      "gPerMl": 0.37,
+      "match": [
+        "red cabbage",
+        "purple cabbage"
+      ]
+    },
+    "cabbage": {
+      "name": "Cabbage, raw",
+      "usda": "169975",
+      "gPerMl": 0.37,
+      "match": [
+        "cabbage"
+      ]
+    },
+    "edamame": {
+      "name": "Edamame, shelled",
+      "usda": "168410",
+      "gPerMl": 0.65,
+      "match": [
+        "edamame"
+      ]
+    },
+    "miso": {
+      "name": "Miso",
+      "usda": "172442",
+      "gPerMl": 1.15,
+      "match": [
+        "miso"
+      ]
+    },
+    "broccoli": {
+      "name": "Broccoli, raw",
+      "usda": "170379",
+      "gPerMl": 0.37,
+      "match": [
+        "broccoli"
+      ]
+    },
+    "bok_choy": {
+      "name": "Chinese greens (pak choi), raw",
+      "usda": "170390",
+      "match": [
+        "bok choy",
+        "pak choi",
+        "pak choy",
+        "choy sum",
+        "chye sim",
+        "xiao bai cai",
+        "kai lan",
+        "kailan",
+        "chinese greens",
+        "nai bai"
+      ]
+    },
+    "sesame_seeds": {
+      "name": "Sesame seeds, whole",
+      "usda": "170150",
+      "gPerMl": 0.6,
+      "match": [
+        "sesame seed"
+      ]
+    },
+    "doubanjiang": {
+      "name": "Chilli bean paste (doubanjiang)",
+      "usda": "172442",
+      "analogue": "miso",
+      "gPerMl": 1.2,
+      "match": [
+        "chilli bean paste",
+        "chili bean paste",
+        "doubanjiang",
+        "toban"
+      ]
+    },
+    "black_beans_fermented": {
+      "name": "Fermented black beans",
+      "usda": "172442",
+      "analogue": "miso",
+      "gPerMl": 1.0,
+      "match": [
+        "fermented black bean",
+        "douchi"
+      ]
+    },
+    "ketchup": {
+      "name": "Tomato ketchup",
+      "usda": "168556",
+      "gPerMl": 1.13,
+      "match": [
+        "ketchup",
+        "catsup"
+      ]
+    },
+    "rice_vinegar": {
+      "name": "Rice vinegar",
+      "usda": "172237",
+      "analogue": "vinegar, distilled",
+      "gPerMl": 1.0,
+      "match": [
+        "vinegar"
+      ]
+    },
+    "capsicum": {
+      "name": "Capsicum, raw",
+      "usda": "170108",
+      "each": 120,
+      "match": [
+        "capsicum",
+        "bell pepper",
+        "sweet pepper"
+      ]
+    },
+    "pineapple": {
+      "name": "Pineapple, raw",
+      "usda": "169124",
+      "gPerMl": 0.68,
+      "match": [
+        "pineapple"
+      ]
+    },
+    "cucumber": {
+      "name": "Cucumber, with peel",
+      "usda": "168409",
+      "each": 300,
+      "match": [
+        "cucumber"
+      ]
+    },
+    "kangkung": {
+      "name": "Kangkung (water spinach)",
+      "usda": "168462",
+      "analogue": "spinach, raw",
+      "match": [
+        "kangkung",
+        "kangkong",
+        "water spinach",
+        "spinach"
+      ]
+    },
+    "fermented_beancurd": {
+      "name": "Fermented beancurd (fu ru)",
+      "usda": "174280",
+      "each": 10,
+      "per": {
+        "cubes": 10,
+        "cube": 10
+      },
+      "gPerMl": 1.0,
+      "match": [
+        "fermented beancurd",
+        "fermented bean curd",
+        "fu ru",
+        "fuyu",
+        "nam yu"
+      ]
+    },
+    "red_chilli": {
+      "name": "Red chilli, raw",
+      "usda": "170106",
+      "each": 12,
+      "match": [
+        "red chilli",
+        "red chili",
+        "fresh chilli",
+        "chilli, sliced",
+        "chillies?$",
+        "chilies?$",
+        "bird'?s eye"
+      ]
+    },
+    "green_chilli": {
+      "name": "Green chilli, raw",
+      "usda": "168576",
+      "analogue": "jalapeno, raw",
+      "each": 15,
+      "match": [
+        "green chilli",
+        "green chili"
+      ]
+    },
+    "dried_chilli": {
+      "name": "Dried chillies",
+      "usda": "168570",
+      "each": 1,
+      "match": [
+        "dried chilli",
+        "dried chili",
+        "dried red chil"
+      ]
+    },
+    "potato": {
+      "name": "Potatoes, raw",
+      "usda": "170026",
+      "each": 170,
+      "match": [
+        "potato"
+      ]
+    },
+    "sweet_potato": {
+      "name": "Sweet potato, raw",
+      "usda": "168482",
+      "match": [
+        "sweet potato"
+      ]
+    },
+    "corn": {
+      "name": "Corn, sweet, raw",
+      "usda": "169998",
+      "each": 90,
+      "gPerMl": 0.6,
+      "match": [
+        "^corn",
+        "sweetcorn",
+        "corn on the cob",
+        "corn kernels"
+      ]
+    },
+    "tomato": {
+      "name": "Tomatoes, raw",
+      "usda": "170457",
+      "each": 123,
+      "match": [
+        "tomato"
+      ]
+    },
+    "taro": {
+      "name": "Taro (yam), raw",
+      "usda": "169308",
+      "match": [
+        "taro",
+        "yam"
+      ]
+    },
+    "sago": {
+      "name": "Sago pearls, dry",
+      "usda": "169717",
+      "analogue": "tapioca pearl, dry",
+      "match": [
+        "sago",
+        "tapioca pearl"
+      ]
+    },
+    "jasmine_rice": {
+      "name": "Rice, white, raw",
+      "usda": "169756",
+      "gPerMl": 0.85,
+      "match": [
+        "jasmine rice",
+        "white rice",
+        "^rice$",
+        "^rice,",
+        "long-grain rice",
+        "basmati"
+      ]
+    },
+    "yellow_noodles": {
+      "name": "Yellow noodles, fresh",
+      "usda": "169762",
+      "analogue": "egg noodles, cooked",
+      "match": [
+        "yellow noodles",
+        "hokkien noodles",
+        "yellow mee",
+        "fresh noodles"
+      ]
+    },
+    "tempeh": {
+      "name": "Tempeh",
+      "usda": "174272",
+      "match": [
+        "tempeh",
+        "tempe"
+      ]
+    },
+    "shallots": {
+      "name": "Shallots, raw",
+      "usda": "170499",
+      "each": 15,
+      "gPerMl": 0.67,
+      "match": [
+        "shallot"
+      ]
+    },
+    "kecap_manis": {
+      "name": "Kecap manis",
+      "usda": "172886",
+      "analogue": "hoisin sauce",
+      "gPerMl": 1.3,
+      "match": [
+        "kecap manis",
+        "sweet soy"
+      ]
+    },
+    "lime": {
+      "name": "Lime, raw",
+      "usda": "168155",
+      "each": 44,
+      "gPerMl": 1.0,
+      "match": [
+        "lime"
+      ]
+    },
+    "lemon": {
+      "name": "Lemon juice, raw",
+      "usda": "167747",
+      "each": 47,
+      "gPerMl": 1.0,
+      "match": [
+        "lemon"
+      ]
+    },
+    "tamarind": {
+      "name": "Tamarind",
+      "usda": "167763",
+      "gPerMl": 1.0,
+      "match": [
+        "tamarind",
+        "assam"
+      ]
+    },
+    "veg_oyster_sauce": {
+      "name": "Vegetarian oyster or mushroom sauce",
+      "usda": "174529",
+      "analogue": "oyster sauce",
+      "gPerMl": 1.2,
+      "match": [
+        "oyster sauce",
+        "vegetarian mushroom sauce",
+        "mushroom sauce",
+        "vegetarian oyster",
+        "vegetarian stir-fry sauce"
+      ]
+    },
+    "flour": {
+      "name": "Wheat flour, all-purpose",
+      "usda": "169761",
+      "gPerMl": 0.52,
+      "match": [
+        "flour"
+      ]
+    },
+    "eggs": {
+      "name": "Egg, whole, raw",
+      "usda": "171287",
+      "each": 50,
+      "per": {
+        "egg": 50,
+        "eggs": 50,
+        "whole": 50
+      },
+      "match": [
+        "^eggs?$",
+        "^eggs?,",
+        "large eggs?",
+        "^egg",
+        "eggs"
+      ]
+    },
+    "milk": {
+      "name": "Milk, whole",
+      "usda": "171265",
+      "gPerMl": 1.03,
+      "match": [
+        "milk"
+      ]
+    },
+    "soy_milk": {
+      "name": "Soy milk, unfortified",
+      "usda": "172446",
+      "gPerMl": 1.03,
+      "match": [
+        "soy milk",
+        "soymilk",
+        "soya milk"
+      ]
+    },
+    "strawberries": {
+      "name": "Strawberries, raw",
+      "usda": "167762",
+      "gPerMl": 0.63,
+      "match": [
+        "strawberr"
+      ]
+    },
+    "millet": {
+      "name": "Millet, raw",
+      "usda": "169702",
+      "gPerMl": 0.83,
+      "match": [
+        "millet"
+      ]
+    },
+    "pumpkin": {
+      "name": "Pumpkin, raw",
+      "usda": "168448",
+      "gPerMl": 0.48,
+      "match": [
+        "pumpkin"
+      ]
+    },
+    "cardamom": {
+      "name": "Cardamom",
+      "usda": "170919",
+      "gPerMl": 0.4,
+      "each": 0.3,
+      "per": {
+        "pods": 0.3,
+        "pod": 0.3,
+        "pieces": 0.3,
+        "piece": 0.3
+      },
+      "match": [
+        "cardamom"
+      ]
+    },
+    "cloves_spice": {
+      "name": "Cloves",
+      "usda": "171321",
+      "gPerMl": 0.4,
+      "each": 0.1,
+      "per": {
+        "pieces": 0.1,
+        "piece": 0.1
+      },
+      "match": [
+        "^cloves",
+        "whole cloves",
+        "cloves$"
+      ]
+    },
+    "cinnamon": {
+      "name": "Cinnamon",
+      "usda": "171320",
+      "gPerMl": 0.5,
+      "each": 2.6,
+      "per": {
+        "inch": 2.6,
+        "pieces": 2.6,
+        "piece": 2.6,
+        "sticks": 2.6,
+        "stick": 2.6
+      },
+      "match": [
+        "cinnamon"
+      ]
+    },
+    "peas": {
+      "name": "Peas, green",
+      "usda": "170419",
+      "gPerMl": 0.6,
+      "match": [
+        "green peas",
+        "^peas",
+        "^plain green peas"
+      ]
+    },
+    "mustard_seeds": {
+      "name": "Mustard seeds",
+      "usda": "170929",
+      "gPerMl": 0.4,
+      "match": [
+        "mustard seed"
+      ]
+    },
+    "urad_dal": {
+      "name": "Urad dal (black gram)",
+      "usda": "174259",
+      "gPerMl": 0.8,
+      "match": [
+        "urad",
+        "black gram"
+      ]
+    },
+    "cumin": {
+      "name": "Cumin seeds",
+      "usda": "170923",
+      "gPerMl": 0.42,
+      "match": [
+        "cumin"
+      ]
+    },
+    "poha": {
+      "name": "Poha (flattened rice)",
+      "usda": "169756",
+      "analogue": "rice, white, raw",
+      "gPerMl": 0.33,
+      "match": [
+        "poha",
+        "aval",
+        "rice flakes",
+        "flattened rice"
+      ]
+    },
+    "lentils": {
+      "name": "Lentils, raw",
+      "usda": "174259",
+      "analogue": "mungo beans, raw",
+      "gPerMl": 0.8,
+      "match": [
+        "lentil",
+        "dal$",
+        "dhal",
+        "toor",
+        "moong"
+      ]
+    }
+  }
+}

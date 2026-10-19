@@ -56,7 +56,7 @@ export function RecipeDetailScreen() {
     <IngredientList ingredients={recipe.ingredients} scale={servings / recipe.servings} flagged={flagged} />
     <SectionTitle title="Steps" />
     {recipe.steps.map((step, index) => <View key={index} style={{ gap: 4, paddingVertical: 6 }}><T style={common.bold}>{/^step \d+$/i.test(step.title.trim()) ? "Step " + (index + 1) : index + 1 + ". " + step.title}</T><T muted>{step.instruction}</T></View>)}
-    <NutritionFacts nutrition={recipe.nutrition} />
+    <NutritionFacts recipe={recipe} />
     {recipe.adaptationId && <Button label="No-Allium Version" variant="link" onPress={() => router.push(("/cook/recipe/" + recipe.adaptationId) as never)} />}
     <CookSection title="Private Note"><PrivateNote key={"recipe:" + id} noteKey={"recipe:" + id} /></CookSection>
   </Screen>;
