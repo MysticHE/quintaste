@@ -93,14 +93,14 @@ export function menuSummary({ menu, fingerprint }: Applied): MenuSummary {
 const touched = (id: string, staff: StaffContent) => staff.items.has("place:" + id) || staff.items.has("menu:" + id);
 const packagedKitchens = new Map((catalogueIndex.venues as { id: string; kitchen?: string }[]).flatMap(venue => venue.kitchen === undefined ? [] : [[venue.id, venue.kitchen] as const]));
 /** A staff place edit decides the kitchen (null = fully vegetarian), else the packaged place; QT Explorer places are always veg options. */
-function kitchenOf(id: string, staff: StaffContent) {
+function kitchenOf(id: string, staff: StaffContent, content: ReturnType<typeof editorialContent>) {
   const place = staff.items.get("place:" + id)?.data as StaffPlaceData | undefined;
   if (place?.kitchen !== undefined) return place.kitchen;
-  return packagedKitchens.get(id) ?? (!details.has(id) && editorialPlaces().has(id) ? "options" : undefined);
+  return packagedKitchens.get(id) ?? (!details.has(id) && editorialPlaces(content).has(id) ? "options" : undefined);
 }
 /** A veg options place only ever serves dishes carrying the venue's V/VG label; an untagged dish could be meat or seafood. */
-function servable(id: string, staff: StaffContent, current: Applied | undefined): Applied | undefined {
-  if (!current || kitchenOf(id, staff) == null) return current;
+function servable(id: string, staff: StaffContent, current: Applied | undefined, content: ReturnType<typeof editorialContent>): Applied | undefined {
+  if (!current || kitchenOf(id, staff, content) == null) return current;
   const sections = current.menu.sections.map(section => ({ ...section, items: section.items.filter(item => item.diet === "V" || item.diet === "VG") }))
     .filter(section => section.items.length);
   const unchanged = sections.length === current.menu.sections.length && sections.every((section, i) => section.items.length === current.menu.sections[i].items.length);
@@ -116,18 +116,18 @@ export function publishedMenuIndex(now = Date.now(), withdrawn: ReadonlySet<stri
   const content = editorialContent();
   const packaged = summaries.filter(menu => !withdrawn.has(menu.id)).flatMap(summary => {
     if (!touched(summary.id, staff) && !packagedKitchens.has(summary.id)) return [{ ...summary, fingerprint: editorialMenu(details.get(summary.id)!, summary.fingerprint, content).fingerprint }];
-    const applied = servable(summary.id, staff, staffMenu(summary.id, staff, content));
+    const applied = servable(summary.id, staff, staffMenu(summary.id, staff, content), content);
     return applied ? [menuSummary(applied)] : [];
   });
   const explorer = editorialPlaceIds(content), ids = [...explorer, ...staffPlaceIds(staff).filter(id => !details.has(id) && !explorer.includes(id))];
   const created = ids.filter(id => !withdrawn.has(id)).flatMap(id => {
-    const applied = servable(id, staff, staffMenu(id, staff, content));
+    const applied = servable(id, staff, staffMenu(id, staff, content), content);
     return applied ? [menuSummary(applied)] : [];
   });
   return { version: 2, generatedAt: now, venues: [...packaged, ...created] };
 }
 
 export function publishedMenuDetail(id: string, now = Date.now(), withdrawn: ReadonlySet<string> = new Set(), staff = noStaff): MenuDetail | undefined {
-  const current = withdrawn.has(id) ? undefined : servable(id, staff, staffMenu(id, staff));
+  const content = editorialContent(), current = withdrawn.has(id) ? undefined : servable(id, staff, staffMenu(id, staff, content), content);
   return current ? { version: 1, generatedAt: now, fingerprint: current.fingerprint, venues: [current.menu] } : undefined;
 }

@@ -4,6 +4,7 @@ import { createHash } from "node:crypto";
 import type { CatalogueHours, CatalogueVenue } from "../types/catalogue";
 import type { MenuItem, PublishedMenu } from "../types/menus";
 import baseline from "../../data/menus/catalogue-index.json";
+import { validatePlace } from "../../server/editorial/validation.mjs";
 
 type MenuPrice = { sectionId: string; itemId: string; name: string; scope: string; sourceUrl: string; checkedAt: string; price: MenuItem["price"] };
 type Closure = { status: "permanently-closed"; sourceUrl: string; quote: string; checkedAt: string };
@@ -11,7 +12,7 @@ type Override = { baseHash: string; checkedAt: string; data: Partial<CatalogueVe
 let cache: { marker: string; revision: string; records: Record<string, Override> } | undefined;
 /** The publisher switches one complete snapshot atomically. No network/provider fallback. */
 export function editorialContent() {
-  const file = path.join(process.env.QT_EDITORIAL_ROOT ?? path.resolve(".local/editorial"), "active.json");
+  const file = path.join(process.env.QT_EDITORIAL_ROOT || path.resolve(".local/editorial"), "active.json");
   try {
     const stat = fs.statSync(file), marker = file + ":" + stat.ino + ":" + stat.mtimeMs + ":" + stat.size;
     if (cache?.marker === marker) return cache;
@@ -52,27 +53,9 @@ type PlaceData = {
   menu: { sourceUrl: string; sourceLabel: string; checkedAt: string; items: PlaceItem[] };
 };
 export type EditorialPlace = { venue: CatalogueVenue; menu: PublishedMenu; fingerprint: string };
-const isText = (value: unknown, max: number, empty = false): value is string => typeof value === "string" && value.length <= max && (empty || value.trim().length > 0)
-  && !/[\u0000-\u0008\u000b\u000c\u000e-\u001f]/.test(value);
-const isDate = (value: unknown): value is string => typeof value === "string" && /^\d{4}-\d{2}-\d{2}$/.test(value);
-const isHttps = (value: unknown): value is string => isText(value, 600) && value.startsWith("https://");
-const isPrice = (p: PlaceItem["price"] | undefined) => !!p && typeof p.amount === "number" && Number.isFinite(p.amount) && p.amount >= 0 && p.amount <= 10000 && p.currency === "SGD"
-  && (p.type === "displayed" || p.type === "from") && (p.maxAmount === undefined || typeof p.maxAmount === "number" && p.maxAmount >= p.amount && p.maxAmount <= 10000);
-/** The publisher validates every place; a malformed record is skipped here rather than shown. */
-function readPlace(data: PlaceData | undefined): PlaceData | undefined {
-  const items = data?.menu?.items;
-  if (!data || typeof data.id !== "string" || !/^vo-[a-z0-9][a-z0-9-]{2,110}$/.test(data.id) || data.kitchen !== "options" || data.alliumFreeClaim !== false
-    || !isText(data.name, 120) || !isText(data.branch, 120, true) || !isText(data.address, 300) || typeof data.postalCode !== "string" || !/^\d{6}$/.test(data.postalCode)
-    || !(data.venueDiet === "Vegetarian" || data.venueDiet === "Vegan") || !isDate(data.checkedAt) || !Array.isArray(data.sourceUrls) || !data.sourceUrls.every(isHttps)
-    || !data.point || !(data.point.latitude >= 1.15 && data.point.latitude <= 1.48 && data.point.longitude >= 103.6 && data.point.longitude <= 104.1)
-    || !(data.googlePlaceId === null || typeof data.googlePlaceId === "string" && /^[A-Za-z0-9_-]{10,200}$/.test(data.googlePlaceId))
-    || !isHttps(data.menu.sourceUrl) || !isText(data.menu.sourceLabel, 80) || !isDate(data.menu.checkedAt) || !Array.isArray(items) || items.length < 2 || items.length > 200) return undefined;
-  const ids = new Set(items.map(item => item?.id)), names = new Set(items.map(item => typeof item?.name === "string" ? item.name.trim().toLowerCase() : null));
-  if (ids.size !== items.length || names.size !== items.length || !items.every(item => typeof item.id === "string" && /^[a-z0-9][a-z0-9-]{0,80}$/.test(item.id) && isText(item.name, 120)
-    && (item.category === undefined || isText(item.category, 40, true)) && (item.diet === "V" || item.diet === "VG") && isPrice(item.price))) return undefined;
-  if (data.venueDiet === "Vegan" && !items.every(item => item.diet === "VG")) return undefined;
-  if (data.hours && !(isText(data.hours.summary, 120) && Array.isArray(data.hours.schedule) && isHttps(data.hours.sourceUrl) && isDate(data.hours.checkedAt))) return undefined;
-  return data;
+/** The publisher's own validator decides; a malformed or future-schema record is skipped rather than shown or thrown. */
+function readPlace(data: unknown): PlaceData | undefined {
+  try { validatePlace(data); return data as PlaceData; } catch { return undefined; }
 }
 let places: { revision: string; places: Map<string, EditorialPlace> } | undefined;
 /** Published veg options places as catalogue venues (with research sources) and their one-section menus, cached per snapshot revision. */
@@ -80,7 +63,7 @@ export function editorialPlaces(content = editorialContent()): ReadonlyMap<strin
   if (places?.revision === content.revision) return places.places;
   const result = new Map<string, EditorialPlace>();
   for (const [key, entry] of Object.entries(content.records)) {
-    const data = key.startsWith("place:") ? readPlace(entry.data as unknown as PlaceData) : undefined;
+    const data = key.startsWith("place:") ? readPlace(entry.data) : undefined;
     if (!data || key !== "place:" + data.id) continue;
     const fingerprint = createHash("sha256").update(JSON.stringify(entry.data)).digest("hex");
     const identity = { id: data.id, name: data.name, branch: data.branch, address: data.address, postalCode: data.postalCode, aliases: [], googlePlaceId: data.googlePlaceId };

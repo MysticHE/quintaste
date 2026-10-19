@@ -84,7 +84,7 @@ export function searchCatalogue(search: DiscoverySearch, cursor: string | null, 
     try { value = JSON.parse(Buffer.from(cursor, "base64url").toString()); } catch { throw new Error("Invalid page"); }
     const page = value as { revision?: string; offset?: number };
     if (!page || page.revision !== searchRevision || !Number.isSafeInteger(page.offset) || page.offset! < 0
-      || page.offset! > catalogue.length + 2000 || page.offset! % 20 !== 0) throw new Error("Search changed. Refresh results.");
+      || page.offset! % 20 !== 0) throw new Error("Search changed. Refresh results.");
     offset = page.offset!;
   }
   let locationGaps = 0;
@@ -124,6 +124,8 @@ export function searchCatalogue(search: DiscoverySearch, cursor: string | null, 
     if (!search.bounds && area !== "singapore" && !text.includes(area)) return [];
     return [venue];
   }).sort((a, b) => (a.distanceKm ?? 0) - (b.distanceKm ?? 0) || a.name.localeCompare(b.name) || a.id.localeCompare(b.id));
+  // The page must exist in this result set; QT Explorer places can take it well past the packaged catalogue.
+  if (offset > 0 && offset >= venues.length) throw new Error("Search changed. Refresh results.");
   const next = offset + 20;
   return { version: 1, revision: searchRevision, venues: venues.slice(offset, next), total: venues.length, locationGaps,
     nextCursor: next < venues.length ? Buffer.from(JSON.stringify({ revision: searchRevision, offset: next })).toString("base64url") : null };
