@@ -67,7 +67,8 @@ export function editorialPlaces(content = editorialContent()): ReadonlyMap<strin
   for (const [key, entry] of Object.entries(content.records)) {
     const data = key.startsWith("place:") ? readPlace(entry.data) : undefined;
     if (!data || key !== "place:" + data.id) continue;
-    const fingerprint = createHash("sha256").update(JSON.stringify(entry.data)).digest("hex");
+    // Bump placeFormat when the served shape changes, so clients holding an older copy (same data) refetch it.
+    const fingerprint = createHash("sha256").update(JSON.stringify({ placeFormat: 2, data: entry.data })).digest("hex");
     const identity = { id: data.id, name: data.name, branch: data.branch, address: data.address, postalCode: data.postalCode, aliases: [], googlePlaceId: data.googlePlaceId };
     const menu: PublishedMenu = { ...identity, sections: [{ id: "veg-options", title: "Vegetarian dishes", scope: "branch-dine-in", coverage: "partial", checkedAt: dayStamp(data.menu.checkedAt),
       sourceUrl: data.menu.sourceUrl, sourceLabel: data.menu.sourceLabel, notice: "", charges: "",

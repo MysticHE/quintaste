@@ -5,10 +5,11 @@ import type { RecipeDraft } from "../types/recipe-workspace";
 type MemberSummary = {
   id: string; name: string; description: string; minutes: number; servings: number; categories: RecipeCategory[]; diet: "Vegan" | "Vegetarian";
   author: string; language: string; sponsorship: string; revision: number; updatedAt: string; image: string | null; ingredientNames: string[];
+  nutrition?: Recipe["nutrition"]; source?: Recipe["source"];
 };
 type MemberDetail = MemberSummary & {
   own: boolean; shop: { id: string; name: string } | null;
-  ingredients: Ingredient[]; steps: { title: string; instruction: string; minutes: number | null; ingredientIds: string[]; photo: string | null }[];
+  ingredients: Ingredient[]; steps: { title: string; instruction: string; minutes: number | null; ingredientIds: string[]; photo: string | null; at?: number }[];
 };
 export type MyRecipeStatus = { id: string; draftKey: string; live: boolean; liveRevision: number | null; state: "review" | "declined" | null; pendingRevision: number | null; note: string; hidden: boolean };
 
@@ -18,6 +19,7 @@ function base(r: MemberSummary): Omit<Recipe, "ingredients" | "steps"> {
     dietary: { diet: r.diet, contains: [], ingredientsKnown: false, evidence: { source: "Author declaration", kind: "community" } },
     author: r.author, language: r.language, revision: r.revision, updatedAt: r.updatedAt,
     ...(r.image ? { image: { path: r.image, width: 1280, height: 960, credit: r.author } } : {}),
+    ...(r.nutrition ? { nutrition: r.nutrition } : {}), ...(r.source ? { source: r.source } : {}),
     member: { sponsorship: r.sponsorship, own: false, shop: null } };
 }
 export function memberSummary(r: MemberSummary): Recipe {
@@ -25,7 +27,7 @@ export function memberSummary(r: MemberSummary): Recipe {
 }
 export function memberRecipe(r: MemberDetail): Recipe {
   return { ...base(r), member: { sponsorship: r.sponsorship, own: r.own, shop: r.shop }, ingredients: r.ingredients,
-    steps: r.steps.map(s => ({ title: s.title, instruction: s.instruction, ingredientIds: s.ingredientIds, ...(s.minutes ? { timer: { label: s.title, seconds: s.minutes * 60 } } : {}) })) };
+    steps: r.steps.map(s => ({ title: s.title, instruction: s.instruction, ingredientIds: s.ingredientIds, ...(s.minutes ? { timer: { label: s.title, seconds: s.minutes * 60 } } : {}), ...(typeof s.at === "number" ? { at: s.at } : {}) })) };
 }
 export const isMemberRecipe = (id: string | null | undefined) => !!id && /^member-[0-9a-f-]{36}$/.test(id);
 export function browsePath(q: string, category: string, cursor: number | null) {
