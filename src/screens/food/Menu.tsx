@@ -14,7 +14,7 @@ import { ensureMember, useMember } from "../../components/CommunityGate";
 import { ReportSheet } from "../../components/ReportSheet";
 import { useCatalogueVenue } from "../../hooks/useCatalogueVenue";
 import { menuDisplayItems } from "../../utils/menu-display";
-import { isVegOptions } from "../../utils/venue-kitchen";
+import { menuKind } from "../../utils/venue-kitchen";
 
 /** Vegetarian restaurants often name plant-based dishes after meat or seafood ("Assam Fish", "BLT"). */
 const MEAT_NAMED = /\b(chicken|pork|beef|mutton|lamb|bacon|ham|duck|fish\w*|prawns?|shrimp|crab|squid|abalone|blt|steak|sausage|meat\w*)\b|[鸡鸭猪牛羊鱼虾蟹肉]/i;
@@ -23,9 +23,10 @@ export function MenuScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const { loaded, busy: indexBusy, error: indexError, now, load: loadIndex, offline } = useMenus();
   const { menu, busy: detailBusy, error, storageError, cached, load } = useMenuDetail(id);
-  const busy = indexBusy || detailBusy;
+  const { venue, busy: venueBusy, retry: retryVenue } = useCatalogueVenue(id);
+  // The kitchen decides how the menu reads, so hold the menu back until the place has answered (a failed lookup still shows it, unstyled).
+  const venuePending = venueBusy && !venue, busy = indexBusy || detailBusy || venuePending, ready = !!menu && !venuePending;
   const { theme } = usePreferences(), member = useMember(), [reporting, setReporting] = useState(false);
-  const { venue } = useCatalogueVenue(id);
   // Production menu updates file to the staff case queue; development keeps the local review service.
   const correct = () => {
     if (!menu) return;
@@ -34,19 +35,19 @@ export function MenuScreen() {
       target: menu.name + " · " + menu.branch, kind: "correction", topic: "Menu", menuId: menu.id } });
   };
   useFocusEffect(useCallback(() => { void loadIndex(); void load(); }, [loadIndex, load]));
-  const retry = () => { void loadIndex(true); void load(true); };
+  const retry = () => { void loadIndex(true); void load(true); if (!venue) retryVenue(); };
   const details = () => router.push({ pathname: "/place/[id]", params: { id: "catalogue-" + id } } as never);
-  // A veg options place lists only its venue-labelled dishes; a labelled dish also marks it when the place summary is unavailable.
-  const options = !!venue && isVegOptions(venue) || !!menu?.sections.some(section => section.items.some(item => item.diet));
+  // A veg options place lists only its venue-labelled dishes. The venue alone decides: staff can tag a dish of a fully vegetarian place.
+  const kind = menuKind(venue), options = kind === "mixed";
   const shown = options && menu ? menuDisplayItems(menu).length : 0;
   // Owner, 19 Oct: show only the vegetarian count; "3 of 38" read as 38 vegetarian dishes.
   const heading = !options ? "Menu" : shown + " vegetarian " + (shown === 1 ? "dish" : "dishes");
-  const mockNamed = !options && !!menu?.sections.some(section => section.items.some(item => MEAT_NAMED.test(item.name)));
+  const mockNamed = kind === "vegetarian" && !!menu?.sections.some(section => section.items.some(item => MEAT_NAMED.test(item.name)));
   const latestSource = menu?.sections.reduce<(typeof menu.sections)[number] | undefined>((latest, section) => !latest || Date.parse(section.checkedAt) > Date.parse(latest.checkedAt) ? section : latest, undefined);
   return <Screen title={menu?.name ?? "Menu"}
     headerAction={menu ? <IconButton label={__DEV__ ? "Suggest a menu correction" : "Report a menu problem"} icon={__DEV__ ? "create-outline" : "flag-outline"} onPress={correct} /> : undefined}>
-    {busy && !menu && <ActivityIndicator color={theme.accent} accessibilityLabel="Loading menu" />}
-    {menu ? <>
+    {busy && !ready && <ActivityIndicator color={theme.accent} accessibilityLabel="Loading menu" />}
+    {ready && menu ? <>
       <View testID="menu-overview" style={{ gap: 8 }}>
         <View style={[common.row, { gap: 8 }]}><Icon name="location-outline" size={16} /><T variant="small" muted style={common.flex}>{menu.branch || menu.address}</T></View>
         <View style={[common.row, { borderBottomWidth: 1, borderBottomColor: theme.divider, paddingBottom: 2 }]}>

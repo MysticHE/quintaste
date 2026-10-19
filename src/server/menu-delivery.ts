@@ -119,7 +119,9 @@ export function publishedMenuIndex(now = Date.now(), withdrawn: ReadonlySet<stri
     const applied = servable(summary.id, staff, staffMenu(summary.id, staff, content), content);
     return applied ? [menuSummary(applied)] : [];
   });
-  const explorer = editorialPlaceIds(content), ids = [...explorer, ...staffPlaceIds(staff).filter(id => !details.has(id) && !explorer.includes(id))];
+  // QT Explorer places are not listed: they grow with every nightly run and would end every member's menu index at the client bounds.
+  // Their menus are served one at a time (publishedMenuDetail) and their summaries come from the catalogue (/api/catalogue).
+  const explorer = new Set(editorialPlaceIds(content)), ids = staffPlaceIds(staff).filter(id => !details.has(id) && !explorer.has(id));
   const created = ids.filter(id => !withdrawn.has(id)).flatMap(id => {
     const applied = servable(id, staff, staffMenu(id, staff, content), content);
     return applied ? [menuSummary(applied)] : [];

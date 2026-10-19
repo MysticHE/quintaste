@@ -1,18 +1,27 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { MenuDetail, MenuSummary } from "../types/menus";
 import { useMenus } from "../state/Menus";
+import { useCatalogueVenue } from "./useCatalogueVenue";
 import { utf8Bytes } from "../state/food-capacity";
 import { cachedMenuDetail, menuDetailByteLimit, readMenuDetail, removeMenuDetail, saveMenuDetail } from "../services/menu-storage";
 import { ownedApiRequest } from "../services/owned-api";
 import { menuOfflineMs, menuRefreshMs } from "../utils/menu-catalogue";
 
-/** `known` supplies the summary where the menu index is not loaded (Explore rows carry their own). */
+const settleKey = (id: string | undefined, fingerprint: string | undefined) => id + ":" + (fingerprint ?? "");
+
+/** `known` supplies the summary where the menu index is not loaded (Explore rows carry their own). The index lists packaged and staff-created
+ * places only: for any other place (a QT Explorer one) the place's own catalogue summary, a superset of a menu summary, stands in once the index has answered. */
 export function useMenuDetail(id: string | undefined, known?: MenuSummary) {
-  const { menus, offline, now, cached: indexCached } = useMenus();
-  const summary = known ?? menus.find(menu => menu.id === id), summaryRef = useRef(summary);
-  useEffect(() => { summaryRef.current = summary; }, [summary]);
+  const { menus, offline, now, cached: indexCached, loaded: indexLoaded, error: indexError } = useMenus();
+  const indexed = known ?? menus.find(menu => menu.id === id);
+  const lookupWanted = !!id && !indexed && (indexLoaded || !!indexError || offline);
+  const lookup = useCatalogueVenue(id ?? "", lookupWanted), retryLookup = lookup.retry;
+  const found = lookup.venue && lookup.venue.id === id ? lookup.venue : undefined;
+  const summary: MenuSummary | undefined = indexed ?? found, summaryRef = useRef(summary);
+  const lookupOpen = useRef(false);
+  useEffect(() => { summaryRef.current = summary; lookupOpen.current = lookupWanted && !summary; }, [summary, lookupWanted]);
   const [detail, setDetail] = useState<MenuDetail | null>(null), [error, setError] = useState("");
-  const [busy, setBusy] = useState(false), [storageError, setStorageError] = useState(false), [settled, setSettled] = useState(false);
+  const [busy, setBusy] = useState(false), [storageError, setStorageError] = useState(false), [settled, setSettled] = useState("");
   const active = useRef<AbortController | null>(null), alive = useRef(false), ready = useRef(false), current = useRef(detail);
   const fingerprint = summary?.fingerprint;
   const load = useCallback(async (force = false) => {
@@ -60,22 +69,27 @@ export function useMenuDetail(id: string | undefined, known?: MenuSummary) {
     let disposed = false;
     void Promise.resolve().then(async () => {
       if (disposed) return;
-      setBusy(false); setSettled(false);
+      setBusy(false); setSettled("");
       if (current.current?.venues[0].id !== id || current.current?.fingerprint !== fingerprint) {
         current.current = null; setDetail(null); setError("");
       }
-      if (!venue) { setSettled(true); return; }
+      if (!venue) { setSettled(settleKey(id, fingerprint)); return; }
       try {
         const saved = await cachedMenuDetail(venue);
         if (!disposed && saved && !current.current) { current.current = saved; setDetail(saved); }
       } catch { if (!disposed) setStorageError(true); }
-      if (!disposed) { ready.current = true; void load(); setSettled(true); }
+      if (!disposed) { ready.current = true; void load(); setSettled(settleKey(id, fingerprint)); }
     });
     return () => { disposed = true; alive.current = false; ready.current = false; active.current?.abort(); active.current = null; };
   }, [id, fingerprint, load]);
   useEffect(() => { void Promise.resolve().then(() => load()); }, [now, load]);
   const valid = summary && detail?.fingerprint === summary.fingerprint && detail.venues[0].id === id
     && now - detail.generatedAt < menuOfflineMs ? detail : null;
-  return { menu: valid?.venues[0], busy: busy || !!summary && !settled, error, storageError, load,
+  // A retry also asks again for a summary that could not be loaded.
+  const reload = useCallback((force = false) => { if (force && lookupOpen.current) retryLookup(); return load(force); }, [load, retryLookup]);
+  const lookupError = lookupWanted && !summary ? lookup.error : "";
+  // Busy until the saved copy of this very place and version has been read, so no render shows "no menu" between a summary arriving and its menu loading.
+  const waiting = !!summary && settled !== settleKey(id, fingerprint), looking = lookupWanted && lookup.busy && !summary;
+  return { menu: valid?.venues[0], busy: busy || waiting || looking, error: error || lookupError, storageError, load: reload,
     cached: offline || indexCached || !!error || !!valid && now - valid.generatedAt >= menuRefreshMs };
 }

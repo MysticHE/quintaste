@@ -20,7 +20,8 @@ export function MenuCorrectionFields({ value, change, placeId }: {
   const [suggest, setSuggest] = useState(false), [focus, setFocus] = useState("");
   const current = value ?? emptyMenuChange();
   const summary = menus.find(menu => current.venueId ? menu.id === current.venueId : menu.googlePlaceId === placeId || menu.id === placeId);
-  const { menu, busy: detailBusy, error: detailError, load: loadDetail } = useMenuDetail(summary?.id);
+  // A QT Explorer place is not in the menu index: its menu is looked up by the place id the form was opened with.
+  const { menu, busy: detailBusy, error: detailError, load: loadDetail } = useMenuDetail(summary?.id ?? (current.venueId || undefined));
   const patch = (values: Partial<MenuChange>) => change({ ...current, ...values });
   const needle = current.originalName.trim().toLocaleLowerCase();
   const matches = menu?.sections.flatMap(section => section.items).filter(item => item.name.toLocaleLowerCase().includes(needle)).slice(0, 8) ?? [];

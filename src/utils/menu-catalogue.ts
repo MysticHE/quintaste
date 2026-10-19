@@ -4,6 +4,8 @@ import { pilotAmount, pilotChoice, pilotDate, pilotId, pilotList, pilotObject, p
 export const menuRefreshMs = 300000;
 export const menuOfflineMs = 7 * 86400000;
 export const menuSourceMs = 90 * 86400000;
+/** A sanity bound, not a working limit: the index lists packaged and staff-created places only (QT Explorer places are served one at a time). */
+export const menuIndexVenueLimit = 20000;
 
 function readSection(value: unknown): PublishedMenu["sections"][number] {
   const v = pilotObject(value);
@@ -55,7 +57,7 @@ export function readMenuIndex(value: unknown, now = Date.now(), cached = false):
       || Number(row.sectionCount) > 20) throw new Error("Invalid menu index");
     return { ...identity, fingerprint, checkedAt: pilotDate(row.checkedAt), itemCount: Number(row.itemCount),
       sectionCount: Number(row.sectionCount) } satisfies MenuSummary;
-  }, 2400));
+  }, menuIndexVenueLimit));
   return { version: 2, generatedAt: Number(v.generatedAt), venues };
 }
 

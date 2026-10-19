@@ -1,7 +1,7 @@
 import fs from 'node:fs/promises';
 import { Buffer } from 'node:buffer';
 import path from 'node:path';
-import { hash, ownerReference, requireValue, validHash, validId, validateSources, validateRecipe, validateEvent, validatePlace, validateVenue } from './validation.mjs';
+import { hash, ownerReference, requirePlaceDatesNotFuture, requireValue, validHash, validId, validateSources, validateRecipe, validateEvent, validatePlace, validateVenue } from './validation.mjs';
 import { readFileSync } from 'node:fs';
 import sharp from 'sharp';
 
@@ -130,8 +130,11 @@ export async function publish(root, baseline, batch) {
       if (r.kind === 'event') validateEvent(r.data);
       if (r.kind === 'place') {
         validatePlace(r.data);
-        const identity = moderationKey('place', r.data);
-        requireValue(!baseline.venues.some(v => v.id === r.id || moderationKey('place', v) === identity) && !Object.values(next.records).some(x => x.kind === 'place' && x.id !== r.id && moderationKey('place', x.data) === identity), 'Existing place identity');
+        requirePlaceDatesNotFuture(r.data);
+        const identity = moderationKey('place', r.data), googleId = r.data.googlePlaceId, others = Object.values(next.records).filter(x => x.kind === 'place' && x.id !== r.id);
+        requireValue(!baseline.venues.some(v => v.id === r.id || moderationKey('place', v) === identity) && !others.some(x => moderationKey('place', x.data) === identity), 'Existing place identity');
+        // A Google place ID names one place: a second record with the same ID would list a branch twice and merge their reviews and saves.
+        requireValue(!googleId || !baseline.venues.some(v => v.googlePlaceId === googleId) && !others.some(x => x.data.googlePlaceId === googleId), 'Existing place identity: Google place ID already used');
       }
       const image = r.data.image ?? r.data.photo;
       if (image) {

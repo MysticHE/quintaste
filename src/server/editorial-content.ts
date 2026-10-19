@@ -4,7 +4,7 @@ import { createHash } from "node:crypto";
 import type { CatalogueHours, CataloguePhoto, CatalogueVenue } from "../types/catalogue";
 import type { MenuItem, PublishedMenu } from "../types/menus";
 import baseline from "../../data/menus/catalogue-index.json";
-import { validatePlace } from "../../server/editorial/validation.mjs";
+import { validPlaces } from "../../server/editorial/places.mjs";
 
 type MenuPrice = { sectionId: string; itemId: string; name: string; scope: string; sourceUrl: string; checkedAt: string; price: MenuItem["price"] };
 type Closure = { status: "permanently-closed"; sourceUrl: string; quote: string; checkedAt: string };
@@ -59,20 +59,15 @@ export type EditorialPlace = { venue: CatalogueVenue; menu: PublishedMenu; finge
  * was checked, so use that day's Singapore midnight (UTC midnight of today's SGT date is still ahead before 8 am SGT).
  * A day still ahead of today (the validator allows a day of slack) is held at now, so one record can never fail every reader. */
 const dayStamp = (day: string) => new Date(Math.min(Date.parse(day + "T00:00:00+08:00"), Date.now())).toISOString();
-/** The publisher's own validator decides; a malformed or future-schema record is skipped rather than shown or thrown. */
-function readPlace(data: unknown): PlaceData | undefined {
-  try { validatePlace(data); return data as PlaceData; } catch { return undefined; }
-}
 let places: { revision: string; places: Map<string, EditorialPlace> } | undefined;
 /** Published QT Explorer places as catalogue venues (with research sources) and their one-section menus, cached per snapshot revision. */
 export function editorialPlaces(content = editorialContent()): ReadonlyMap<string, EditorialPlace> {
   if (places?.revision === content.revision) return places.places;
   const result = new Map<string, EditorialPlace>();
-  for (const [key, entry] of Object.entries(content.records)) {
-    const data = key.startsWith("place:") ? readPlace(entry?.data) : undefined;
-    if (!data || key !== "place:" + data.id) continue;
+  // The publisher's own validator (shared with the member routes) decides; a malformed or future-schema record is skipped rather than shown or thrown.
+  for (const data of (validPlaces(content.records) as ReadonlyMap<string, PlaceData>).values()) {
     // Bump placeFormat when the served shape changes, so clients holding an older copy (same data) refetch it.
-    const fingerprint = createHash("sha256").update(JSON.stringify({ placeFormat: 2, data: entry.data })).digest("hex");
+    const fingerprint = createHash("sha256").update(JSON.stringify({ placeFormat: 2, data })).digest("hex");
     const identity = { id: data.id, name: data.name, branch: data.branch, address: data.address, postalCode: data.postalCode, aliases: [], googlePlaceId: data.googlePlaceId };
     // A Mixed Kitchen place keeps the venue's V/VG label on each dish; a fully vegetarian place serves every dish unlabelled, like a packaged Veg Kitchen one.
     const options = data.kitchen === "options";

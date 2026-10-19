@@ -70,6 +70,29 @@ export function catalogueVenue(id: string, withdrawn: ReadonlySet<string>, staff
   return kitchenVenue(staffVenue(id, base, staff, content), staff, content);
 }
 
+const hiddenAliasEntries = [...hiddenAliases];
+// Everything Explore can list, built once per editorial snapshot and staff revision: a nightly run adds hundreds of places, and rebuilding every
+// venue on each search page would grow with them. A search only filters, sorts and slices this list.
+type Listed = { venue: CatalogueVenue; text: string };
+let listed: { key: string; venues: Listed[] } | undefined;
+/** Packaged, QT Explorer and staff-created venues after staff edits and the Mixed Kitchen rule, with the lower-case name/branch/address text a keyword is matched against. */
+function listedVenues(staff: StaffContent, content: ReturnType<typeof editorialContent>): Listed[] {
+  const key = staff.catalogueRevision + ":" + content.revision;
+  if (listed?.key === key) return listed.venues;
+  // QT Explorer places (Mixed Kitchen and fully vegetarian) join packaged and staff-created places; each id is listed once.
+  const explorer = editorialPlaces(content), explorerIds = editorialPlaceIds(content);
+  const sources = [...catalogue.map(venue => staffVenue(venue.id, editorialVenue(venue, false, content), staff, content)),
+    ...explorerIds.map(id => staffVenue(id, editorialPlaceVenue(explorer.get(id)!, false), staff, content)),
+    ...staffPlaceIds(staff).filter(id => !packagedIds.has(id) && !explorer.has(id)).map(id => staffVenue(id, undefined, staff, content))];
+  const venues: Listed[] = [];
+  for (const source of sources) {
+    const venue = kitchenVenue(source, staff, content);
+    if (venue && !hiddenAliases.has(venue.id)) venues.push({ venue, text: words([venue.name, venue.branch, venue.address, ...venue.aliases].join(" ")) });
+  }
+  listed = { key, venues };
+  return venues;
+}
+
 export function searchCatalogue(search: DiscoverySearch, cursor: string | null, withdrawn: ReadonlySet<string>, staff = noStaff): CataloguePage {
   const content = editorialContent();
   const query = words(search.query), area = words(search.area);
@@ -88,44 +111,40 @@ export function searchCatalogue(search: DiscoverySearch, cursor: string | null, 
     offset = page.offset!;
   }
   let locationGaps = 0;
-  // QT Explorer places (Mixed Kitchen and fully vegetarian) join packaged and staff-created places; each id is listed once.
-  const explorer = editorialPlaces(content), explorerIds = editorialPlaceIds(content);
-  const sources = [...catalogue.map(venue => staffVenue(venue.id, editorialVenue(venue, false, content), staff, content)),
-    ...explorerIds.map(id => staffVenue(id, editorialPlaceVenue(explorer.get(id)!, false), staff, content)),
-    ...staffPlaceIds(staff).filter(id => !packagedIds.has(id) && !explorer.has(id)).map(id => staffVenue(id, undefined, staff, content))].map(venue => kitchenVenue(venue, staff, content));
-  const venues = sources.flatMap(venue => venue ? [venue] : []).flatMap(venue => {
-    if (hiddenAliases.has(venue.id)) return [];
-    const savedAlias = search.savedIds && [...hiddenAliases].some(([alias, id]) => id === venue.id && search.savedIds!.includes("catalogue-" + alias));
+  const venues: CatalogueVenue[] = [];
+  for (const { venue, text } of listedVenues(staff, content)) {
+    const savedAlias = search.savedIds && hiddenAliasEntries.some(([alias, id]) => id === venue.id && search.savedIds!.includes("catalogue-" + alias));
     if (search.savedIds && !search.savedIds.includes("catalogue-" + venue.id)
-      && !savedAlias && !(venue.googlePlaceId && search.savedIds.includes("google-" + venue.googlePlaceId))) return [];
+      && !savedAlias && !(venue.googlePlaceId && search.savedIds.includes("google-" + venue.googlePlaceId))) continue;
     // Veg Kitchen and Mixed Kitchen are separate lists; Saved and older clients sending includeOptions get both kinds.
     // A Mixed Kitchen place never appears in an allium-free search.
     const options = venue.kitchen === "options";
-    if (options && search.alliumFree) return [];
-    if (!search.savedIds && (search.kitchen === "mixed" ? !options : options && !search.includeOptions)) return [];
+    if (options && search.alliumFree) continue;
+    if (!search.savedIds && (search.kitchen === "mixed" ? !options : options && !search.includeOptions)) continue;
     // An options place passes Vegan when at least one published dish is labelled VG.
     const veganOptions = options && menuFacts(venue.id, staff, content).anyVegan;
     const dietMatch = search.diets ? !search.diets.length || search.diets.includes(venue.venueDiet) || veganOptions && search.diets.includes("Vegan")
       : !search.vegan || venue.venueDiet === "Vegan" || veganOptions;
-    if (withdrawn.has(venue.id) || !dietMatch || search.alliumFree && !venue.alliumFreeClaim) return [];
+    if (withdrawn.has(venue.id) || !dietMatch || search.alliumFree && !venue.alliumFreeClaim) continue;
     // Unknown cuisine and Google price-band facts cannot pass those filters.
-    if (search.priceLevels?.length || search.cuisines?.length || search.priceLevel || search.cuisine && search.cuisine !== "All") return [];
-    const text = words([venue.name, venue.branch, venue.address, ...venue.aliases].join(" "));
+    if (search.priceLevels?.length || search.cuisines?.length || search.priceLevel || search.cuisine && search.cuisine !== "All") continue;
     // A keyword finds places by name, branch or address, or by a dish on the published menu (the game's Find it nearby).
-    if (query && !text.includes(query) && !menuFacts(venue.id, staff, content).text.includes(query)) return [];
+    if (query && !text.includes(query) && !menuFacts(venue.id, staff, content).text.includes(query)) continue;
     if (search.bounds) {
-      if (!venue.point) { locationGaps++; return []; }
+      if (!venue.point) { locationGaps++; continue; }
       if (venue.point.latitude < search.bounds.low.latitude || venue.point.latitude > search.bounds.high.latitude
-        || venue.point.longitude < search.bounds.low.longitude || venue.point.longitude > search.bounds.high.longitude) return [];
+        || venue.point.longitude < search.bounds.low.longitude || venue.point.longitude > search.bounds.high.longitude) continue;
     }
     if (center && !search.bounds) {
-      if (!venue.point) { locationGaps++; return []; }
+      if (!venue.point) { locationGaps++; continue; }
       const distance = distanceKm(center, venue.point);
-      return distance <= search.radius / 1000 ? [{ ...venue, distanceKm: Math.round(distance * 100) / 100 }] : [];
+      if (distance <= search.radius / 1000) venues.push({ ...venue, distanceKm: Math.round(distance * 100) / 100 });
+      continue;
     }
-    if (!search.bounds && area !== "singapore" && !text.includes(area)) return [];
-    return [venue];
-  }).sort((a, b) => (a.distanceKm ?? 0) - (b.distanceKm ?? 0) || a.name.localeCompare(b.name) || a.id.localeCompare(b.id));
+    if (!search.bounds && area !== "singapore" && !text.includes(area)) continue;
+    venues.push(venue);
+  }
+  venues.sort((a, b) => (a.distanceKm ?? 0) - (b.distanceKm ?? 0) || a.name.localeCompare(b.name) || a.id.localeCompare(b.id));
   // The page must exist in this result set; QT Explorer places can take it well past the packaged catalogue.
   if (offset > 0 && offset >= venues.length) throw new Error("Search changed. Refresh results.");
   const next = offset + 20;

@@ -77,7 +77,18 @@ const optionalPlaceFields = ['hours', 'photo'];
 const vegKitchenFields = ['id', 'name', 'branch', 'address', 'postalCode', 'point', 'googlePlaceId', 'venueDiet', 'alliumFreeClaim', 'hours', 'photo', 'sourceUrls', 'checkedAt', 'dietProof', 'menu'];
 const vegetarianWords = /vegetarian|vegan|plant[- ]based|meat[- ]free|meatless|素|斋|齋/i;
 const veganWords = /vegan|plant[- ]based|全素|纯素|純素|no animal products|animal[- ]free/i;
-const validPlaceId = (v, prefix) => typeof v === 'string' && new RegExp('^' + prefix + '-[a-z0-9][a-z0-9-]{2,110}$').test(v);
+// A quote that denies the diet ("not a vegetarian restaurant", "non-vegetarian", "not fully vegan") is no proof of it. A negation word
+// up to 25 characters (within one sentence) before a diet word rejects the quote; "no animal products" and "no onion, no garlic" are
+// claims about ingredients, so they are set aside first and a quote such as "No animal products, 100% vegan" stays valid.
+const dietWord = String.raw`(?:vegetarian|vegan|plant[- ]based|meat[- ]free|meatless)`;
+const negationWord = String.raw`(?:not|non|no|isn['’]?t|aren['’]?t|don['’]?t|doesn['’]?t|without|never)`;
+const negatedDietQuote = new RegExp(String.raw`\b${negationWord}\b[^.!?;:]{0,25}?\b${dietWord}`, 'i');
+const nonVegetarianQuote = /\bnon[- ]?veg/i;
+const negatedCjkDietQuote = /(?:非|不是|并非|並非)[^。！？；\s]{0,6}(?:素|斋|齋)/;
+const ingredientDenial = /\b(?:no|without|never|zero|(?:do|does)(?:\s+not|n['’]?t))\s+(?:(?:use of|uses?|serves?|contains?|includes?|has|have|adds?|cook with)\s+)?(?:any\s+)?(?:animal|meat|fish|seafood|eggs?|dairy|poultry|onions?|garlic|alliums?|pungent|msg|additives?|preservatives?)(?:[- ](?:products?|ingredients?|derived|based|by-?products?|vegetables?))*\b/gi;
+const deniesDiet = quote => nonVegetarianQuote.test(quote) || negatedCjkDietQuote.test(quote) || negatedDietQuote.test(quote.replace(ingredientDenial, ' '));
+const voPlaceId = /^vo-[a-z0-9][a-z0-9-]{2,110}$/, vkPlaceId = /^vk-[a-z0-9][a-z0-9-]{2,110}$/;
+const validPlaceId = (v, pattern) => typeof v === 'string' && pattern.test(v);
 /** The identity, location, sources, hours and cover every QT Explorer place shares. */
 function validatePlaceCommon(p) {
   requireValue(text(p.name, 120) && text(p.branch, 120, true) && text(p.address, 300) && typeof p.postalCode === 'string' && /^\d{6}$/.test(p.postalCode) && date(p.checkedAt), 'Invalid place identity');
@@ -98,7 +109,7 @@ function validateDish(i, ids, names, dietRule) {
 }
 /** A complete Mixed Kitchen place created by QT Explorer: only its venue-labelled V/VG dishes are published. */
 function validateOptionsPlace(p) {
-  requireValue(keys(p, placeFields) && placeFields.every(k => optionalPlaceFields.includes(k) || k in p) && validPlaceId(p.id, 'vo') && p.kitchen === 'options', 'Invalid veg options place');
+  requireValue(keys(p, placeFields) && placeFields.every(k => optionalPlaceFields.includes(k) || k in p) && validPlaceId(p.id, voPlaceId) && p.kitchen === 'options', 'Invalid veg options place');
   validatePlaceCommon(p);
   const m = p.menu;
   requireValue(keys(m, ['sourceUrl', 'sourceLabel', 'checkedAt', 'items']) && publicUrl(m.sourceUrl) && text(m.sourceLabel, 80) && date(m.checkedAt) && Array.isArray(m.items) && m.items.length >= 2 && m.items.length <= 200, 'A veg options place needs 2 to 200 labelled dishes');
@@ -109,18 +120,27 @@ function validateOptionsPlace(p) {
 }
 /** A fully vegetarian or vegan place created by QT Explorer: it joins Veg Kitchen with its whole menu, backed by a stored quote from the venue. */
 function validateVegKitchenPlace(p) {
-  requireValue(keys(p, vegKitchenFields) && vegKitchenFields.every(k => optionalPlaceFields.includes(k) || k in p) && validPlaceId(p.id, 'vk'), 'Invalid vegetarian place');
+  requireValue(keys(p, vegKitchenFields) && vegKitchenFields.every(k => optionalPlaceFields.includes(k) || k in p) && validPlaceId(p.id, vkPlaceId), 'Invalid vegetarian place');
   validatePlaceCommon(p);
   requireValue(['Vegetarian', 'Vegan'].includes(p.venueDiet), 'Invalid venue diet');
   requireValue(p.alliumFreeClaim === false, 'A bot-added place cannot claim allium-free food');
   const proof = p.dietProof;
   requireValue(keys(proof, ['sourceUrl', 'quote', 'checkedAt']) && publicUrl(proof.sourceUrl) && text(proof.quote, 200) && !/[\u0000-\u001f\u007f]/.test(proof.quote) && date(proof.checkedAt), 'A vegetarian place needs a quote from the venue that says so');
   requireValue(vegetarianWords.test(proof.quote), 'The quote must say the venue is vegetarian or vegan');
+  requireValue(!deniesDiet(proof.quote), 'The quote must not deny that the venue is vegetarian or vegan');
   requireValue(p.venueDiet !== 'Vegan' || veganWords.test(proof.quote), 'A Vegan place needs a quote that says vegan or plant-based');
   const m = p.menu;
   requireValue(keys(m, ['sourceUrl', 'sourceLabel', 'checkedAt', 'items']) && publicUrl(m.sourceUrl) && text(m.sourceLabel, 80) && date(m.checkedAt) && Array.isArray(m.items) && m.items.length >= 3 && m.items.length <= 400, 'A vegetarian place needs 3 to 400 dishes');
   const ids = new Set(), names = new Set();
   for (const i of m.items) validateDish(i, ids, names, dish => requireValue(dish.diet === undefined || dish.diet === 'VG' || dish.diet === 'V' && p.venueDiet !== 'Vegan', 'Invalid dish label for this venue diet'));
+}
+/** Today's date in Singapore (UTC+8, no daylight saving), as YYYY-MM-DD. */
+const singaporeToday = () => new Date(Date.now() + 8 * 3600000).toISOString().slice(0, 10);
+/** Publication only: no date of a place may be later than today in Singapore. Readers keep the one-day slack of `date()`, so a stored record never disappears. */
+export function requirePlaceDatesNotFuture(p) {
+  const today = singaporeToday();
+  const days = [p.checkedAt, p.menu?.checkedAt, p.dietProof?.checkedAt, p.hours?.checkedAt, p.photo?.checkedAt, p.photo?.capturedAt];
+  requireValue(days.every(day => day == null || day <= today), 'A place cannot be dated in the future');
 }
 /** A place created by QT Explorer: vo- (Mixed Kitchen, labelled dishes only) or vk- (fully vegetarian, whole menu). */
 export function validatePlace(p) {

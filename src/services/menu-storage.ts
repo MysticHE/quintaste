@@ -4,7 +4,8 @@ import { utf8Bytes } from "../state/food-capacity";
 import { readMenuCatalogue } from "../utils/menu-catalogue";
 
 export const menuIndexCacheKey = "quintaste:menu-index:v2";
-export const menuIndexByteLimit = 1_000_000;
+// A sanity bound for the index (packaged and staff-created places); AsyncStorage on Android breaks above about 2 MB per value, and a real index is far below it.
+export const menuIndexByteLimit = 4_000_000;
 export const menuDetailByteLimit = 2_000_000;
 export const menuOfflineEntryLimit = 400_000;
 export const menuOfflineByteLimit = 1_200_000;
