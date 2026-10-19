@@ -9,6 +9,9 @@ WORKDIR /app
 COPY --from=dependencies /app/node_modules ./node_modules
 COPY package.json ./
 COPY server ./server
+# The game API replays runs with the app's own simulation (src/game, TypeScript run by Node's type stripping).
+COPY src/game ./src/game
+COPY src/config/game.ts ./src/config/game.ts
 COPY dist ./dist
 COPY server-assets ./server-assets
 RUN mkdir -p /app/.local && chown node:node /app/.local

@@ -10,6 +10,7 @@ import { LEVELS } from "../../game/content/levels";
 import { cleared, nextLevel, type GameProgress } from "../../game/progress";
 import { useGame } from "../../hooks/useGame";
 import { useLotus } from "../../hooks/useLotus";
+import { useGameSwitch } from "../../state/game-sync";
 import { usePreferences } from "../../state/Preferences";
 import { Scene, sceneSkin, wideSkinKey, type HotId } from "./home/Scene";
 import { stageFit, type SlotId } from "./home/sceneLayout";
@@ -37,12 +38,14 @@ function pendingFinds(g: GameProgress): Find[] {
 }
 
 export function GameScreen() {
-  if (!gameEnabled) return <DestinationScreen kind="game" title="Rush Hour is on its way" message="A quick cooking game: plate hawker favourites, read the labels and keep every guest's food rules." action="Cook Something" href="/cook" />;
+  const on = useGameSwitch();
+  if (!gameEnabled || !on) return <DestinationScreen kind="game" title="Rush Hour is on its way" message="A quick cooking game: plate hawker favourites, read the labels and keep every guest's food rules." action="Cook Something" href="/cook" />;
   return <GameLobby />;
 }
 /** The café, full screen at /game/cafe: no app navigation, a Back button returns to the Game tab. */
 export function GameCafeScreen() {
-  if (!gameEnabled) return <Redirect href="/game" />;
+  const on = useGameSwitch();
+  if (!gameEnabled || !on) return <Redirect href="/game" />;
   return <CafeHome />;
 }
 const leave = () => { if (router.canGoBack()) router.back(); else router.replace("/game"); };
@@ -50,7 +53,7 @@ const leave = () => { if (router.canGoBack()) router.back(); else router.replace
 function CafeHome() {
   const { theme } = usePreferences();
   const insets = useSafeAreaInsets();
-  const { game, set, save } = useGame();
+  const { game, set, save, buy } = useGame();
   const [size, setSize] = useState({ w: 0, h: 0 });
   const [sheet, setSheet] = useState<SheetId>(null);
   const [deco, setDeco] = useState<Deco | null>(null);
@@ -104,14 +107,14 @@ function CafeHome() {
     </Animated.View>}
     {deco && <View style={{ position: "absolute", left: 0, right: 0, bottom: 0, height: trayH }}>
       <DecorTray game={game} draft={deco.draft} slot={deco.slot} height={trayH} onPut={id => setDeco(d => putDecor(d, id))} /></View>}
-    <HomeSheets sheet={sheet} setSheet={setSheet} game={game} set={set} save={save} play={play} onDecorate={startDeco} />
+    <HomeSheets sheet={sheet} setSheet={setSheet} game={game} set={set} buy={buy} play={play} onDecorate={startDeco} />
     {find && <FindReveal find={find} pet={game.pet} onEquip={() => seeFind(find, true)} onKeep={() => seeFind(find, false)} />}
   </View>;
 }
 
 type GameApi = ReturnType<typeof useGame>;
-function HomeSheets({ sheet, setSheet, game, set, save, play, onDecorate }: {
-  sheet: SheetId; setSheet(s: SheetId): void; game: GameProgress; set: GameApi["set"]; save: GameApi["save"]; play(level: number, mode: "rush" | "calm"): void; onDecorate(): void;
+function HomeSheets({ sheet, setSheet, game, set, buy, play, onDecorate }: {
+  sheet: SheetId; setSheet(s: SheetId): void; game: GameProgress; set: GameApi["set"]; buy: GameApi["buy"]; play(level: number, mode: "rush" | "calm"): void; onDecorate(): void;
 }) {
   const { member } = useLotus();
   const close = () => setSheet(null);
@@ -119,8 +122,7 @@ function HomeSheets({ sheet, setSheet, game, set, save, play, onDecorate }: {
   if (sheet === "books" || sheet === "regulars") return <BooksSheet game={game} initial={sheet === "regulars" ? "regulars" : "recipes"} onClose={close} />;
   if (sheet === "companion") return <CompanionSheet game={game} onClose={close} onChoose={p => set(g => ({ ...g, pet: p }))} onWear={(p, a) => set(g => ({ ...g, equip: { ...g.equip, [p]: a } }))} />;
   if (sheet === "cafe") return <CafeSheet game={game} onClose={close} onDecorate={() => { close(); onDecorate(); }} onName={nm => set(g => ({ ...g, cafeName: nm.trim().slice(0, 18) || "My Café" }))}
-    onSkin={id => set(g => ({ ...g, skin: id }))} onBuy={id => save(g => { const d = DECOR[id]; if (d.unlock.kind !== "credits" || g.credits < d.unlock.price || g.owned.includes(id)) return g;
-      return { ...g, credits: g.credits - d.unlock.price, owned: [...g.owned, id] }; })} />;
+    onSkin={id => set(g => ({ ...g, skin: id }))} onBuy={id => void buy(id)} />;
   if (sheet === "menu") return <MenuSheet game={game} onClose={close} onSignature={ids => set(g => ({ ...g, signature: ids }))} />;
   if (sheet === "avatar") return <AvatarSheet onClose={close} onCompanion={() => setSheet("companion")} />;
   if (sheet === "lotus") return <LotusSheet tier={game.tier} member={member} onClose={close} />;

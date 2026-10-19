@@ -14,6 +14,7 @@ import { FoodProvider, useFood } from "../state/Food";
 import { TimerAlertsProvider } from "../state/TimerAlerts";
 import { TimerFinishHaptics } from "../components/food/Timers";
 import { CookedSync } from "../components/recipes/CookedSync";
+import { GameSync } from "../components/game/GameSync";
 import { useTimerNotification } from "../hooks/useTimerNotification";
 import { ExploreLocalProvider } from "../state/ExploreLocal";
 import { DiscoveryProvider } from "../state/Discovery";
@@ -115,7 +116,7 @@ function AccountScope() {
   </View>;
   return (
       <PreferencesProvider key={user?.id || "guest"}>
-        <FoodProvider><TimerAlertsProvider><ExploreLocalProvider><MenusProvider><DiscoveryProvider><Navigation /><TimerFinishHaptics /><CookedSync /></DiscoveryProvider></MenusProvider></ExploreLocalProvider></TimerAlertsProvider></FoodProvider><SplashIntro />
+        <FoodProvider><TimerAlertsProvider><ExploreLocalProvider><MenusProvider><DiscoveryProvider><Navigation /><TimerFinishHaptics /><CookedSync /><GameSync /></DiscoveryProvider></MenusProvider></ExploreLocalProvider></TimerAlertsProvider></FoodProvider><SplashIntro />
       </PreferencesProvider>
   );
 }

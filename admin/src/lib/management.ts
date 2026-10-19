@@ -32,7 +32,7 @@ export async function changeControl(member: Session, input: Record<string, unkno
   authorize(member, 'operations', true);
   const key = choice(input.key, ['registration','discovery','menus','avatars','ai','social','market','market_sellers','recipes','areas','games','identity'] as const, 'feature');
   if (typeof input.enabled !== 'boolean') throw new HttpError(400, 'Choose enabled or disabled.');
-  if (input.enabled && ['ai','games','identity'].includes(key)) throw new HttpError(409, 'This feature still requires production acceptance and cannot be enabled here.');
+  if (input.enabled && ['ai','identity'].includes(key)) throw new HttpError(409, 'This feature still requires production acceptance and cannot be enabled here.');
   const version = integer(input.version, 'control version', 1);
   const notice = text(input.notice || '', 'member notice', 300, input.enabled ? 0 : 10);
   return transaction(async db => {

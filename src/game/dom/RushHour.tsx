@@ -13,11 +13,13 @@ import { Brief, LabelSheet, ListView, PauseSheet, Results, type Reward } from ".
 import { RUSH_CSS } from "./styles";
 import { usePlayfield, type PlayfieldInput } from "./usePlayfield";
 
-export type FinishPayload = { level: number; mode: "rush" | "calm"; result: sim.Result; log: string[] };
+/** What the native screen needs to save a run: the setup and input log let the server replay it (sim/replay.ts). */
+export type RunInfo = { level: number; mode: "rush" | "calm"; pet: string; signature: string[] };
+export type FinishPayload = RunInfo & { result: sim.Result; actions: sim.Action[] };
 type Props = {
   level: number; mode?: "rush" | "calm"; pet: string; petArt: string; chefArt: string; art: Record<string, string>;
   signature?: string[]; reduceMotion?: boolean;
-  onFinish: (payload: FinishPayload) => Promise<Reward>; onExit: (to: "cafe" | "next" | "again") => Promise<void>;
+  onStart?: (run: RunInfo) => Promise<void>; onFinish: (payload: FinishPayload) => Promise<Reward>; onExit: (to: "cafe" | "next" | "again") => Promise<void>;
   dom?: DOMProps;
 };
 const noop = () => {};
@@ -68,9 +70,10 @@ export default function RushHour(props: Props) {
   async function finish() {
     const r = runRef.current, res = sim.results(r); setResult(res); setCoins(r.coins);
     if (r.endReason === "quit") return;
-    try { setSaveFailed(false); setReward(await latest.current.onFinish({ level: r.level.n, mode: r.mode, result: res, log: r.log.slice(-400) })); }
+    try { setSaveFailed(false); setReward(await latest.current.onFinish({ ...info(r), result: res, actions: r.actions })); }
     catch { setReward(null); setSaveFailed(true); }
   }
+  const info = (r: sim.Run): RunInfo => ({ level: r.level.n, mode: r.mode, pet: r.pet, signature: r.level.signature ? signature ?? [] : [] });
   function doPause(on: boolean) { const r = runRef.current; if (!r.started || r.ended) return; sim.pause(r, on); setPaused(on); bump(); }
   const exit = (to: "cafe" | "next" | "again") => latest.current.onExit(to);
 
@@ -113,7 +116,7 @@ export default function RushHour(props: Props) {
       {selected && <div className="floater" style={{ left: L.w / 2, top: L.shelves.y - 6, animation: "none" }}>Tap a station for {ITEMS[selected]?.name}</div>}
       {list && <ListView run={run} L={L} act={act} onBack={() => setList(false)} />}
     </div>}
-    {!run.started && <Brief run={run} art={art} petArt={petArt} onMode={setMode} onStart={() => { sim.start(runRef.current); bump(); }} onExit={() => exit("cafe")} />}
+    {!run.started && <Brief run={run} art={art} petArt={petArt} onMode={setMode} onStart={() => { sim.start(runRef.current); void latest.current.onStart?.(info(runRef.current)); bump(); }} onExit={() => exit("cafe")} />}
     {run.label && <LabelSheet run={run} onClose={() => { sim.closeLabel(run); bump(); }} onUse={id => { sim.closeLabel(run); sim.place(run, id); after(); }} />}
     {paused && !run.ended && <PauseSheet onResume={() => doPause(false)} onRestart={again} onQuit={() => { sim.quit(run); void exit("cafe"); }} />}
     {result && run.endReason !== "quit" && <Results run={run} res={result} reward={reward} saveFailed={saveFailed} onRetrySave={() => void finish()}
