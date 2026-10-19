@@ -14,13 +14,15 @@ import { ITEMS } from "../src/game/content/items";
 import { LEVELS } from "../src/game/content/levels";
 import { writeFileSync } from "node:fs";
 import * as sim from "../src/game/sim/engine";
-import { replay, ReplayError, sameResult, type RunSetup } from "../src/game/sim/replay";
+import { progressAt, replay, ReplayError, sameResult, type RunSetup } from "../src/game/sim/replay";
 import { emptyGame } from "../src/game/progress";
 import { specialFor } from "../src/game/special";
 
 const arg = (k: string, d: string) => { const i = process.argv.indexOf("--" + k); return i > 0 ? process.argv[i + 1] : d; };
 const only = +arg("level", "0"), modeArg = arg("mode", "rush"), react = +arg("react", "0.7");
 const tracesOut = arg("traces", "");
+// --special YYYY-MM-DD --top N plays just that day's special for a player who has cleared N levels (with --traces, for API tests).
+const specialDay = arg("special", ""), specialTop = +arg("top", "8");
 const traces: { setup: RunSetup; actions: sim.Action[]; result: sim.Result; ticks: number }[] = [];
 const modes: ("rush" | "calm")[] = modeArg === "both" ? ["rush", "calm"] : [modeArg === "calm" ? "calm" : "rush"];
 let failures = 0;
@@ -108,7 +110,7 @@ function play(r: sim.Run) {
 }
 
 for (const mode of modes) for (const level of LEVELS) {
-  if (only && level.n !== only) continue;
+  if ((only && level.n !== only) || specialDay) continue;
   const sig = level.signature ? ["mapo-tofu", "laksa", "claypot"] : [];
   const r = sim.createRun(level.n, mode, "sprout", sig);
   const res = play(r);
@@ -127,9 +129,19 @@ for (const mode of modes) for (const level of LEVELS) {
     " score " + res.score + " heat " + Math.round(res.hq * 100) + "% " + left + " t=" + r.t.toFixed(0) + "s returned " + r.stats.returned + " minQuick " + minPatience +
     " replay " + (bad.length ? bad.join("; ") : "ok (" + r.actions.length + " inputs)"));
 }
-if (tracesOut) writeFileSync(tracesOut, JSON.stringify(traces));
 // Today's special: every distinct special over two years of dates, for players who have cleared 5, 8, 12, 16 and 20 levels.
-if (!only) {
+if (specialDay) {
+  const sp = specialFor(progressAt(specialTop), specialDay);
+  if (!sp) { failures++; console.log("FAIL no special on " + specialDay + " at Level " + (specialTop + 1)); }
+  else {
+    const r = sim.createRun(sp.level, modes[0], "sprout"), res = play(r);
+    const setup: RunSetup = { level: 0, special: { day: specialDay, top: specialTop }, hints: r.level.hints, mode: modes[0], pet: "sprout", signature: [] };
+    const bad = replayChecks(setup, r, res), ok = res.cleared && !bad.length;
+    if (!ok) failures++;
+    traces.push({ setup, actions: r.actions, result: res, ticks: r.ticks });
+    console.log((ok ? "PASS" : "FAIL") + " special " + specialDay + " " + sp.dish + " served " + res.v + "/" + res.n + (bad.length ? " replay " + bad.join("; ") : " replay ok"));
+  }
+} else if (!only) {
   const seen = new Map<string, { ok: boolean; line: string }>();
   for (const top of [5, 8, 12, 16, 20]) {
     const game = emptyGame();
@@ -153,5 +165,6 @@ if (!only) {
   if (process.env.DEBUG_GAME) seen.forEach(x => console.log(x.line));
   console.log((bad.length ? "FAIL " : "PASS ") + seen.size + " distinct specials, " + bad.length + " failed");
 }
+if (tracesOut) writeFileSync(tracesOut, JSON.stringify(traces));
 console.log(failures ? failures + " check(s) failed" : "All levels and specials cleared");
 process.exit(failures ? 1 : 0);
