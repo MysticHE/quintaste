@@ -2,7 +2,8 @@
 # QuinTaste continuous deployment entry point on the VPS (installed as /docker/quintaste/bin/ci-deploy.sh).
 # Runs only as the forced command of the CI deploy key: `deploy <release-id> <sha256>` with the release archive on stdin.
 # Follows docs/DEPLOYMENT_RUNBOOK.md: verify archive, refuse schema/Compose changes, build, back up, wait for avatar
-# jobs, snapshot, promote app/preview (and admin when it changed), health-check, roll back on failure, prune old releases.
+# jobs, snapshot, promote app/preview (and admin when it changed), health-check, roll back on failure, warm the
+# Expo Go preview bundles (bin/preview-prewarm.sh), prune old releases.
 set -euo pipefail
 umask 077
 ROOT=/docker/quintaste
@@ -122,6 +123,13 @@ for attempt in 1 2 3; do
 done
 if ! $healthy; then rollback; fail "Live checks failed; rolled back" 21; fi
 log "Live checks passed"
+
+# Compile the Expo Go bundles now, so the first phone open after a deploy does not wait 2-3 minutes for Metro.
+# A cold preview is not a production fault: warn (shown as an Actions annotation) instead of rolling back.
+if "$ROOT/bin/preview-prewarm.sh"; then log "Preview warm"; else
+  log "WARNING: preview bundles are not ready yet; the first Expo Go open may wait for Metro"
+  echo "::warning title=Preview not warm::Expo Go bundles did not return 200 after deploy; see the Deploy to VPS log"
+fi
 
 # 7. Keep the newest releases only, and drop build cache older than two days (recent layers keep the next build fast).
 "$ROOT/bin/prune-releases.sh" --apply 3 > "releases/$RELEASE-prune.log" 2>&1 || log "Prune reported an error (see releases/$RELEASE-prune.log)"
