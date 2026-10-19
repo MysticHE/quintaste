@@ -53,6 +53,8 @@ type PlaceData = {
   menu: { sourceUrl: string; sourceLabel: string; checkedAt: string; items: PlaceItem[] };
 };
 export type EditorialPlace = { venue: CatalogueVenue; menu: PublishedMenu; fingerprint: string };
+/** The menu readers require a full UTC timestamp; a place stores only the day it was checked. */
+const dayStamp = (day: string) => day + "T00:00:00.000Z";
 /** The publisher's own validator decides; a malformed or future-schema record is skipped rather than shown or thrown. */
 function readPlace(data: unknown): PlaceData | undefined {
   try { validatePlace(data); return data as PlaceData; } catch { return undefined; }
@@ -67,10 +69,10 @@ export function editorialPlaces(content = editorialContent()): ReadonlyMap<strin
     if (!data || key !== "place:" + data.id) continue;
     const fingerprint = createHash("sha256").update(JSON.stringify(entry.data)).digest("hex");
     const identity = { id: data.id, name: data.name, branch: data.branch, address: data.address, postalCode: data.postalCode, aliases: [], googlePlaceId: data.googlePlaceId };
-    const menu: PublishedMenu = { ...identity, sections: [{ id: "veg-options", title: "Vegetarian dishes", scope: "branch-dine-in", coverage: "partial", checkedAt: data.menu.checkedAt,
+    const menu: PublishedMenu = { ...identity, sections: [{ id: "veg-options", title: "Vegetarian dishes", scope: "branch-dine-in", coverage: "partial", checkedAt: dayStamp(data.menu.checkedAt),
       sourceUrl: data.menu.sourceUrl, sourceLabel: data.menu.sourceLabel, notice: "", charges: "",
       items: data.menu.items.map(item => ({ id: item.id, name: item.name, ...(item.category ? { category: item.category } : {}), price: { ...item.price }, qualifier: "", diet: item.diet })) }] };
-    const venue: CatalogueVenue = { ...identity, fingerprint, checkedAt: data.menu.checkedAt, sectionCount: 1, itemCount: data.menu.items.length, point: { latitude: data.point.latitude, longitude: data.point.longitude },
+    const venue: CatalogueVenue = { ...identity, fingerprint, checkedAt: dayStamp(data.menu.checkedAt), sectionCount: 1, itemCount: data.menu.items.length, point: { latitude: data.point.latitude, longitude: data.point.longitude },
       venueDiet: data.venueDiet, alliumFreeClaim: false, kitchen: "options", ...(data.hours ? { hours: data.hours } : {}), ...(data.photo ? { photo: data.photo } : {}),
       research: { sourceUrls: [...new Set([...data.sourceUrls, data.menu.sourceUrl])].slice(0, 12), notes: [], checkedAt: data.checkedAt } };
     result.set(data.id, { venue, menu, fingerprint });
