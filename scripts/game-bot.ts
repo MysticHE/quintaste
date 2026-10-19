@@ -1,7 +1,8 @@
 /**
  * The careful bot that plays Rush Hour through the real simulation, for the validator and for tuning experiments.
  * It rides each burner to the middle of its band, reads the flare warning, serves the most urgent guest first,
- * swaps out an ingredient that ran out and clears a dish nobody is waiting for any more.
+ * swaps out an ingredient that ran out and clears a dish nobody is waiting for any more. A pot cooked for a party that
+ * shares it counts for both guests, and its plate is served to each in turn.
  */
 import { DISHES, STATIONS, type StationKind } from "../src/game/content/dishes";
 import { ITEMS } from "../src/game/content/items";
@@ -40,8 +41,8 @@ export function botStep(r: sim.Run) {
   }
   // Cook: for each waiting guest (most urgent first), add the next safe item to a free or matching station.
   // How many of each part already exist (cooking or on the board), so each waiting guest gets exactly one.
-  const have = (partId: string) => Object.values(r.stations).filter(s => s?.part?.partId === partId).length +
-    r.board.filter(p => p && p.parts.some(x => x.partId === partId)).length;
+  const have = (partId: string) => Object.values(r.stations).reduce((n, s) => n + (s?.part?.partId === partId ? s.part.portions : 0), 0) +
+    r.board.reduce((n, p) => n + (p && p.parts.some(x => x.partId === partId) ? p.portions : 0), 0);
   for (const g of urgent()) {
     const dish = DISHES[g.dishId];
     const rank = sim.waiting(r).filter(x => x.dishId === g.dishId).indexOf(g) + 1;
@@ -55,7 +56,7 @@ export function botStep(r: sim.Run) {
       for (const slot of stage.slots) {
         if (slot.optional) continue;
         if (st.part?.items.some(x => x.stage === stageIdx && slot.accepts.includes(x.id))) continue;
-        const item = safeItem(r, slot.accepts, g.rules); if (!item) { console.log("  no safe item for", g.guestId, slot.key); continue; }
+        const item = safeItem(r, slot.accepts, sim.tableRules(r, g)); if (!item) { console.log("  no safe item for", g.guestId, slot.key); continue; }
         if (ITEMS[item].label) { sim.openLabel(r, item); sim.closeLabel(r); }
         sim.setFocus(r, g.orderId);
         if (sim.place(r, item, st.kind)) return;

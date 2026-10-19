@@ -4,7 +4,7 @@
  * shuffled jars, arrivals and twists (sim/plan.ts), so a run replays exactly from its inputs and its seed.
  */
 import { DISHES, STATIONS, type Part, type Stage, type StationKind } from "../content/dishes";
-import { GUESTS, conflicts, reason, RULES, type Rule } from "../content/guests";
+import { GUESTS, conflicts, reason, RULES, unionRules, type Rule } from "../content/guests";
 import { ITEMS, itemName, type Flip } from "../content/items";
 import { BONUS, levelByNumber, type BonusKind, type Level } from "../content/levels";
 import { PETS, SKILLS } from "../content/cosmetics";
@@ -15,14 +15,19 @@ export const DT = 0.05;
 const BOARD_SLOTS = 3, WALK = 1, EAT = 1.4, LEAVE = 1;
 /** Heat a flare adds to a burner that is on, and the extra a VIP pays. */
 const FLARE_HEAT = 0.22, VIP_TIP = 4;
+/** A pot cooked for two guests takes this much longer at every step. */
+const BATCH_SLOW = 1.5;
 
 export type PlacedItem = { uid: number; id: string; stage: number; warn: boolean };
 export type PartRun = { dishId: string; partId: string; stage: number; items: PlacedItem[]; progress: number;
-  state: "loading" | "cooking" | "waiting" | "ready" | "scorched" | "split"; exposure: number; inBand: number; prog: number };
+  state: "loading" | "cooking" | "waiting" | "ready" | "scorched" | "split"; exposure: number; inBand: number; prog: number;
+  /** Guests this pot feeds: 2 when it was started for a party that shares it. */
+  portions: number };
 export type StationRun = { kind: StationKind; heatOn: boolean; F: number; H: number; part: PartRun | null; hotWarned: boolean };
 export type PlatePart = { partId: string; items: string[]; hq: number };
-export type Plate = { uid: number; dishId: string; parts: PlatePart[] };
-export type GuestRun = { orderId: string; guestId: string; dishId: string; seat: number; at: number; rules: Rule[]; vip: boolean; maxPatience: number;
+/** `portions` is how many guests the plate can still feed; `shared` marks one that was cooked for two. */
+export type Plate = { uid: number; dishId: string; parts: PlatePart[]; portions: number; shared: boolean };
+export type GuestRun = { orderId: string; guestId: string; dishId: string; seat: number; at: number; rules: Rule[]; party: string | null; vip: boolean; maxPatience: number;
   state: "queue" | "walking" | "waiting" | "eating" | "leaving" | "gone"; st: number; patience: number;
   order: "open" | "served" | "expired"; paid: { base: number; heatTip: number; quick: number; vipTip: number; total: number; left: number } | null };
 export type GameEvent =
@@ -71,7 +76,7 @@ export function createRun(which: number | Level, pet: string, signature: string[
   const guests: GuestRun[] = plan.orders.map(o => {
     const vip = o.id === plan.vip, patience = level.patience * (vip ? VIP_PATIENCE : 1);
     return { orderId: o.id, guestId: o.guest, dishId: o.dish, seat: 0, at: o.at, rules: [...new Set([...GUESTS[o.guest].rules, ...(level.allRules ?? [])])],
-      vip, maxPatience: patience, state: "queue", st: 0, patience, order: "open", paid: null };
+      party: o.party ?? null, vip, maxPatience: patience, state: "queue", st: 0, patience, order: "open", paid: null };
   });
   return { level, seed, flip: plan.flip, plan, sched: { flares: plan.flares.map(f => ({ ...f, warned: false, hit: false })), bell: false, low: false, out: false, change: false },
     pet: PETS[pet] ? pet : "sprout", t: 0, timeLeft: level.round, started: false, paused: false, label: null,
@@ -96,6 +101,10 @@ export const dishName = (id: string) => DISHES[id]?.name ?? id;
 export const maxCoins = (r: Run) => r.guests.reduce((n, g) => n + 16 + (g.vip ? VIP_TIP : 0), 0);
 /** Whether an ingredient is plentiful, running low (a warning), or gone for the rest of the service. */
 export const stockOf = (r: Run, id: string): "ok" | "low" | "out" => r.plan.stock?.item !== id ? "ok" : r.sched.out ? "out" : r.sched.low ? "low" : "ok";
+/** The other guests who would share the pot cooked for `g`: party mates who are at the counter (walking in or waiting) for the same dish. A mate still in the queue does not count. */
+export const mates = (r: Run, g: GuestRun) => (g.party ? r.guests.filter(x => x !== g && x.party === g.party && x.dishId === g.dishId && x.order === "open" && (x.state === "walking" || x.state === "waiting")) : []);
+/** What a pot cooked for `g` must respect: their rules and those of everyone sharing it. */
+export const tableRules = (r: Run, g: GuestRun): Rule[] => unionRules(g.rules, ...mates(r, g).map(x => x.rules));
 /** Rule check for items under this run's jars. */
 export const runConflicts = (r: Run, ids: string[], rules: Rule[]) => conflicts(ids, rules, r.flip);
 const record = (r: Run, line: string) => { r.log.push(r.t.toFixed(2) + " " + line); };
@@ -109,19 +118,10 @@ export function setFocus(r: Run, orderId: string) {
   const g = guestByOrder(r, orderId); if (!g || g.state !== "waiting") return;
   r.focus = orderId; record(r, "focus " + orderId);
   const station = DISHES[g.dishId].parts[0].station; if (r.stations[station]) r.selected = station;
-  const rules = g.rules.map(x => RULES[x].spoken).join(" and ");
-  say(r, "Cooking " + dishName(g.dishId) + " for " + GUESTS[g.guestId].name + (rules ? ": " + rules + "." : ". No food rules."));
+  const rules = tableRules(r, g).map(x => RULES[x].spoken).join(" and "), who = [g, ...mates(r, g)].map(x => GUESTS[x.guestId].name).join(" and ");
+  say(r, "Cooking " + dishName(g.dishId) + " for " + who + (rules ? ": " + rules + "." : ". No food rules."));
 }
 export function select(r: Run, station: StationKind) { input(r, "select", station); if (r.stations[station]) { r.selected = station; record(r, "select " + station); } }
-
-/** Which station an item should go to for the focused guest: the part that uses it, else the selected station. */
-export function targetStation(r: Run, itemId: string): StationKind {
-  const g = focusGuest(r);
-  if (g) for (const p of DISHES[g.dishId].parts) if (r.stations[p.station] && p.stages.some(s => s.slots.some(sl => sl.accepts.includes(itemId)))) {
-    const st = r.stations[p.station]!; if (!st.part || st.part.dishId === g.dishId) return p.station;
-  }
-  return r.selected;
-}
 
 function check(r: Run, itemId: string, kind: StationKind): string | null {
   const st = r.stations[kind]; if (!st) return "That station isn't in this kitchen yet.";
@@ -150,10 +150,10 @@ function check(r: Run, itemId: string, kind: StationKind): string | null {
 }
 
 const idle = (r: Run) => !r.started || r.paused || r.ended || !!r.label;
-export function place(r: Run, itemId: string, at?: StationKind): boolean {
-  input(r, "place", itemId, at ?? null);
+/** Puts an ingredient on a station: play is a drag, so the player always chooses the station. */
+export function place(r: Run, itemId: string, kind: StationKind): boolean {
+  input(r, "place", itemId, kind);
   if (idle(r)) return false;
-  const kind = at ?? targetStation(r, itemId);
   if (stockOf(r, itemId) === "out") {
     const who = focusGuest(r); say(r, itemName(itemId) + " has run out. Swap in another one" + (who ? " that suits " + GUESTS[who.guestId].name : "") + ".", "warn");
     r.events.push({ type: "rejected", item: itemId }); return false;
@@ -161,14 +161,14 @@ export function place(r: Run, itemId: string, at?: StationKind): boolean {
   const why = check(r, itemId, kind);
   if (why) { say(r, why, "warn"); r.events.push({ type: "rejected", item: itemId }); return false; }
   const st = r.stations[kind]!, g = focusGuest(r);
-  if (!st.part && g) { const part = dishPart(g.dishId, kind)!; st.part = { dishId: g.dishId, partId: part.id, stage: 0, items: [], progress: 0, state: "loading", exposure: 0, inBand: 0, prog: 0 }; }
+  if (!st.part && g) { const part = dishPart(g.dishId, kind)!; st.part = { dishId: g.dishId, partId: part.id, stage: 0, items: [], progress: 0, state: "loading", exposure: 0, inBand: 0, prog: 0, portions: mates(r, g).length ? 2 : 1 }; }
   const pr = st.part!, stage = stageOf(pr), band = bandOf(st, pr);
-  const warn = !!g && conflicts([itemId], g.rules, r.flip).length > 0 && pr.dishId === g.dishId;
+  const rules = g ? tableRules(r, g) : [], warn = !!g && conflicts([itemId], rules, r.flip).length > 0 && pr.dishId === g.dishId;
   const uid = r.uid++;
   pr.items.push({ uid, id: itemId, stage: pr.stage, warn });
   r.selected = kind; record(r, "place " + itemId + " " + kind);
   r.events.push({ type: "placed", station: kind, item: itemId, warn, uid });
-  if (warn && g) { r.stats.mistakes++; say(r, reason(itemId, g.rules, r.flip) + " Tap it in the pan chips to lift it out.", "warn"); }
+  if (warn && g) { r.stats.mistakes++; say(r, reason(itemId, rules, r.flip) + " Tap it in the pan chips to lift it out.", "warn"); }
   if (stage.splitIfHot?.includes(itemId) && STATIONS[kind].heat && st.H > band[1]) {
     pr.state = "split"; say(r, "Too hot: the " + itemName(itemId).toLowerCase() + " split. Restart the dish; it's free. Turn the heat down before adding it.", "warn");
     r.events.push({ type: "split", station: kind }); return true;
@@ -226,16 +226,16 @@ export function plate(r: Run, kind: StationKind): boolean {
   const piece: PlatePart = { partId: pr.partId, items: pr.items.map(i => i.id), hq };
   const dish = DISHES[pr.dishId];
   let slot = r.board.findIndex(p => p && p.dishId === pr.dishId && p.parts.length < dish.parts.length && !p.parts.some(x => x.partId === pr.partId));
-  if (slot >= 0) r.board[slot]!.parts.push(piece);
+  if (slot >= 0) { const joined = r.board[slot]!; joined.parts.push(piece); joined.portions = Math.min(joined.portions, pr.portions); joined.shared ||= pr.portions > 1; }
   else {
     slot = r.board.indexOf(null);
     if (slot < 0) { say(r, "The board is full. Serve a plate first.", "warn"); return false; }
-    r.board[slot] = { uid: r.uid++, dishId: pr.dishId, parts: [piece] };
+    r.board[slot] = { uid: r.uid++, dishId: pr.dishId, parts: [piece], portions: pr.portions, shared: pr.portions > 1 };
   }
   st.part = null; record(r, "plate " + kind + " " + slot);
   r.events.push({ type: "plated", station: kind, slot });
   const p = r.board[slot]!;
-  say(r, p.parts.length < dish.parts.length ? "Half a " + dish.name.toLowerCase() + ". Cook the " + dish.parts.find(x => !p.parts.some(y => y.partId === x.id))!.name.toLowerCase() + " too." : "Plated. Drag it to the guest it suits.");
+  say(r, p.parts.length < dish.parts.length ? "Half a " + dish.name.toLowerCase() + ". Cook the " + dish.parts.find(x => !p.parts.some(y => y.partId === x.id))!.name.toLowerCase() + " too." : p.shared ? "Plated for two. Drag it to one guest, then the other." : "Plated. Drag it to the guest it suits.");
   return true;
 }
 export const plateComplete = (p: Plate) => p.parts.length === DISHES[p.dishId].parts.length;
@@ -256,7 +256,9 @@ export function serve(r: Run, slot: number, orderId: string) {
   const hq = p.parts.reduce((a, x) => a + x.hq, 0) / p.parts.length, left = g.patience / g.maxPatience;
   const heatTip = Math.round(4 * hq), quick = Math.round(2 * left), vipTip = g.vip ? VIP_TIP : 0;
   g.paid = { base: 10, heatTip, quick, vipTip, total: 10 + heatTip + quick + vipTip, left };
-  r.coins += g.paid.total; g.order = "served"; g.state = "eating"; g.st = 0; r.board[slot] = null; r.stats.served++;
+  r.coins += g.paid.total; g.order = "served"; g.state = "eating"; g.st = 0; r.stats.served++;
+  // A pot cooked for two stays on the board until its second portion goes out.
+  if (--p.portions <= 0) r.board[slot] = null;
   r.stats.bestHq = Math.max(r.stats.bestHq, hq); r.stats.minLeft = Math.min(r.stats.minLeft, left);
   if (g.at < r.stats.lastAt) r.stats.inOrder = false; else r.stats.lastAt = g.at;
   record(r, "served " + orderId + " " + g.paid.total);
@@ -339,6 +341,8 @@ export function tick(r: Run) {
     else if (g.state === "leaving" && g.st >= LEAVE) g.state = "gone";
   }
   schedule(r);
+  // A plate cooked for two is cleared once nobody at the counter is still waiting for that dish (a guest yet to arrive does not count).
+  r.board.forEach((p, i) => { if (p?.shared && !r.guests.some(x => x.order === "open" && x.dishId === p.dishId && r.t >= x.at)) r.board[i] = null; });
   const fg = focusGuest(r);
   if (!fg || fg.state !== "waiting") { const next = waiting(r)[0]; r.focus = next ? next.orderId : null; }
   for (const st of Object.values(r.stations)) if (st) heatStation(r, st);
@@ -348,7 +352,7 @@ export function tick(r: Run) {
 function heatStation(r: Run, st: StationRun) {
   const cfg = STATIONS[st.kind], pr = st.part;
   if (!cfg.heat) {
-    if (pr && pr.state === "cooking") { const secs = stageOf(pr).secs || 0.001; pr.progress = Math.min(1, pr.progress + DT / secs); if (pr.progress >= 1) advance(r, st); }
+    if (pr && pr.state === "cooking") { const secs = (stageOf(pr).secs || 0.001) * (pr.portions > 1 ? BATCH_SLOW : 1); pr.progress = Math.min(1, pr.progress + DT / secs); if (pr.progress >= 1) advance(r, st); }
     return;
   }
   const steady = r.t < r.skill.steadyUntil && r.skill.steadyStation === st.kind;
@@ -375,7 +379,7 @@ function heatStation(r: Run, st: StationRun) {
   }
   const rate = st.H >= lo ? 1 : st.H >= lo - 0.1 ? 0.5 : 0;
   if (rate > 0) {
-    pr.progress = Math.min(1, pr.progress + rate * DT / stage.secs); pr.prog++; r.stats.prog++;
+    pr.progress = Math.min(1, pr.progress + rate * DT / (stage.secs * (pr.portions > 1 ? BATCH_SLOW : 1))); pr.prog++; r.stats.prog++;
     if (st.H >= lo && st.H <= hi) { pr.inBand++; r.stats.inBand++; }
   }
   if (pr.progress >= 1) advance(r, st);
@@ -383,6 +387,8 @@ function heatStation(r: Run, st: StationRun) {
 
 export type Result = { n: number; v: number; max: number; stars: number; hq: number; score: number; cleared: boolean; completed: boolean;
   stamps: { served: boolean; rules: boolean; steady: boolean }; coins: number;
+  /** Whole seconds left on the clock when a cleared service ended (0 when it was not cleared). */
+  left: number;
   /** The level's optional fourth stamp. It is shown on the results and never gates a clear, stars or Mastery. */
   bonus: { kind: BonusKind; name: string; text: string; done: boolean } | null };
 export function results(r: Run): Result {
@@ -394,6 +400,6 @@ export function results(r: Run): Result {
   const kind = r.level.bonus, st = r.stats;
   const done = v === n && !!kind && (kind === "golden" ? st.bestHq >= 0.95 : kind === "clean" ? st.mistakes === 0 && st.returned === 0 : kind === "order" ? st.inOrder
     : kind === "swift" ? st.minLeft >= 0.5 : hq >= 0.9);
-  return { n, v, max, stars, hq, score, cleared: v === n, completed: v >= Math.ceil(0.75 * n), coins: r.coins,
+  return { n, v, max, stars, hq, score, cleared: v === n, completed: v >= Math.ceil(0.75 * n), coins: r.coins, left: v === n ? Math.floor(r.timeLeft) : 0,
     stamps: { served: v === n, rules: r.stats.returned === 0, steady: hq >= 0.6 }, bonus: kind ? { kind, ...BONUS[kind], done } : null };
 }

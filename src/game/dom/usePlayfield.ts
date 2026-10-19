@@ -11,16 +11,16 @@ export type PlayfieldInput = Omit<SceneHooks, "ready">;
  * with resizes (including ones during asset loading) and destroys the game on unmount or reboot.
  */
 export function usePlayfield(runRef: MutableRefObject<sim.Run>, seats: number, stations: StationKind[], art: Record<string, string>,
-  look: { reduced: boolean; tapOnly: boolean }, input: MutableRefObject<PlayfieldInput>, onReady: () => void) {
+  look: { reduced: boolean }, input: MutableRefObject<PlayfieldInput>, onReady: () => void) {
   const rootRef = useRef<HTMLDivElement>(null), stageRef = useRef<HTMLDivElement>(null);
   const sceneRef = useRef<Playfield | null>(null), gameRef = useRef<{ destroy(b: boolean): void } | null>(null);
   const [L, setL] = useState<Layout | null>(null);
   const layoutRef = useRef<Layout | null>(null);
   const [boot, setBoot] = useState(0);
   const key = stations.join(",");
-  // Reduce motion and tap only can change from the pause menu; the running scene follows them.
+  // Reduce motion can change from the pause menu; the running scene follows it.
   const lookRef = useRef(look);
-  useEffect(() => { lookRef.current = look; const sc = sceneRef.current; if (sc) { sc.reduced = look.reduced; sc.tapOnly = look.tapOnly; } }, [look.reduced, look.tapOnly]); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => { lookRef.current = look; const sc = sceneRef.current; if (sc) sc.reduced = look.reduced; }, [look.reduced]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => { layoutRef.current = L; }, [L]);
   useEffect(() => {
@@ -38,12 +38,12 @@ export function usePlayfield(runRef: MutableRefObject<sim.Run>, seats: number, s
     const hooks: SceneHooks = {
       // Phaser creates the scene only once it has booted, so the scene hands itself over here: game.scene.add returns null before then.
       ready: (sc: Playfield) => { sceneRef.current = sc; const now = layoutRef.current; if (now && sc.L !== now) sc.setLayout(now); onReady(); },
-      onStation: (k: StationKind) => input.current.onStation(k), onPlate: (i: number) => input.current.onPlate(i), onGuest: (id: string) => input.current.onGuest(id),
+      onStation: (k: StationKind) => input.current.onStation(k), onGuest: (id: string) => input.current.onGuest(id),
       onServeDrag: (i: number, id: string) => input.current.onServeDrag(i, id), onPlateDrag: (k: StationKind) => input.current.onPlateDrag(k),
     };
     const game = new Phaser.Game({ type: Phaser.AUTO, parent: stageRef.current, width: lay.w * DPR, height: lay.h * DPR, transparent: true, banner: false,
       scale: { mode: Phaser.Scale.NONE, zoom: 1 / DPR }, render: { antialias: true }, input: { activePointers: 2, windowEvents: false } });
-    game.scene.add("playfield", Playfield, true, { run: runRef.current, layout: lay, art, hooks, reduced: lookRef.current.reduced, tapOnly: lookRef.current.tapOnly });
+    game.scene.add("playfield", Playfield, true, { run: runRef.current, layout: lay, art, hooks, reduced: lookRef.current.reduced });
     gameRef.current = game;
     if (process.env.NODE_ENV !== "production") (globalThis as { __rushHour?: unknown }).__rushHour = { game, run: () => runRef.current, layout: () => layoutRef.current };
   }, [L !== null, boot]); // eslint-disable-line react-hooks/exhaustive-deps

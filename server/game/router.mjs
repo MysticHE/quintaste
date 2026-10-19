@@ -89,6 +89,9 @@ game.post('/runs', async (req, res) => {
   res.json(run);
 });
 
+/** The parts of a result kept with a settled run (the full result is rebuilt from its input log when needed). */
+const resultOf = result => ({ stars: result.stars, score: result.score, cleared: result.cleared, coins: result.coins, left: result.left, bonus: !!result.bonus?.done, stamps: result.stamps });
+
 /** The stored outcome of a run that was already settled or refused, so retries return the same answer. */
 const outcome = row => ({ status: row.status, reason: row.reason, reward: row.result?.reward ?? { credits: 0, first: false, mastered: false, unlocks: [] } });
 
@@ -145,11 +148,11 @@ game.post('/runs/:id/finish', async (req, res) => {
     if (result.cleared) await postCredits(db, user.id, reward.first ? pay.firstClear : pay.replay, reward.first ? 'first_clear' : 'replay', reward.first ? 'level:' + run.level : 'run:' + id);
     if (reward.mastered) await postCredits(db, user.id, pay.mastered, 'mastered', 'level:' + run.level);
     const b = next.best[String(run.level)];
-    await db.query(`INSERT INTO game.level_best(user_id, level, stars, score, served, rules, steady, mastered, clears) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9)
-      ON CONFLICT (user_id, level) DO UPDATE SET stars=$3, score=$4, served=$5, rules=$6, steady=$7, mastered=$8, clears=$9, updated_at=now()`,
-    [user.id, run.level, b.stars, b.score, b.served, b.rules, b.steady, b.mastered, b.clears]);
+    await db.query(`INSERT INTO game.level_best(user_id, level, stars, score, served, rules, steady, mastered, clears, bonus, coins, left_secs) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12)
+      ON CONFLICT (user_id, level) DO UPDATE SET stars=$3, score=$4, served=$5, rules=$6, steady=$7, mastered=$8, clears=$9, bonus=$10, coins=$11, left_secs=$12, updated_at=now()`,
+    [user.id, run.level, b.stars, b.score, b.served, b.rules, b.steady, b.mastered, b.clears, b.bonus, b.coins, b.left]);
     await db.query(`UPDATE game.run SET status='settled', finished_at=now(), ticks=$2, credits=$3, result=$4 WHERE id=$1`,
-      [id, replayed.ticks, reward.credits, { result: { stars: result.stars, score: result.score, cleared: result.cleared, coins: result.coins, stamps: result.stamps }, reward }]);
+      [id, replayed.ticks, reward.credits, { result: resultOf(result), reward }]);
     await db.query('INSERT INTO game.run_log(run_id, actions) VALUES($1,$2) ON CONFLICT DO NOTHING', [id, JSON.stringify(actions)]);
   });
   return reply();
@@ -168,7 +171,7 @@ async function settleSpecial(db, sim, me, id, replayed, result, actions) {
   const credits = result.cleared ? sim.cosmetics.CREDIT_REWARDS.replay : 0, reward = { credits, first: false, mastered: false, unlocks: [] };
   if (credits) await postCredits(db, me, credits, 'replay', 'run:' + id);
   await db.query(`UPDATE game.run SET status='settled', finished_at=now(), ticks=$2, credits=$3, result=$4 WHERE id=$1`,
-    [id, replayed.ticks, credits, { result: { stars: result.stars, score: result.score, cleared: result.cleared, coins: result.coins, stamps: result.stamps }, reward }]);
+    [id, replayed.ticks, credits, { result: resultOf(result), reward }]);
   await db.query('INSERT INTO game.run_log(run_id, actions) VALUES($1,$2) ON CONFLICT DO NOTHING', [id, JSON.stringify(actions)]);
 }
 

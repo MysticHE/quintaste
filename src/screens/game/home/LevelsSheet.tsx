@@ -3,7 +3,7 @@ import { Pressable, StyleSheet, View } from "react-native";
 import Animated, { cancelAnimation, Easing, useAnimatedStyle, useSharedValue, withRepeat, withTiming } from "react-native-reanimated";
 import { Button, Icon, T } from "../../../components/ui";
 import { PETS, SKILLS } from "../../../game/content/cosmetics";
-import { BONUS, LEVELS, TWISTS, levelDishes } from "../../../game/content/levels";
+import { BONUS, LEVELS, SHARE, TWISTS, hasShare, levelDishes } from "../../../game/content/levels";
 import { GUESTS, RULES } from "../../../game/content/guests";
 import { levelOpen, nextLevel, type GameProgress } from "../../../game/progress";
 import { usePreferences } from "../../../state/Preferences";
@@ -16,19 +16,20 @@ export function LevelsSheet({ game, onClose, onPlay, onCompanion }: {
 }) {
   const { theme } = usePreferences();
   const [pick, setPick] = useState(nextLevel(game));
-  const lv = LEVELS[pick - 1], pet = PETS[game.pet], skill = SKILLS[pet.skill];
+  const lv = LEVELS[pick - 1], pet = PETS[game.pet], skill = SKILLS[pet.skill], best = game.best[pick], record = best?.clears ? best : null;
   const guests = [...new Set(lv.orders.map(o => o.guest))];
   return <GameSheet title="Rush Hour" subtitle={"Level " + pick + " · " + lv.name} art={levelDishes(lv)[0]?.art} onClose={onClose}
     footer={<Button label={"Start Level " + pick} onPress={() => onPlay(pick)} />}>
     <Section>
-      <T variant="small" muted>Level {pick}{game.best[pick]?.stars ? " · best " + "★".repeat(game.best[pick].stars) : ""}</T>
+      <T variant="small" muted>Level {pick}{record ? " · best " + "★".repeat(record.stars) + " · " + record.score + " pts" + (record.coins ? " · " + record.coins + " coins" : "") + (record.left ? " · " + record.left + " s left" : "") : ""}</T>
       <T variant="subtitle">{lv.name}</T>
       <T muted>{lv.brief}</T>
       <View style={s.row}>{levelDishes(lv).map(d => <View key={d.id} style={s.chip}><Art k={d.art} size={44} /><T variant="small" style={{ fontWeight: "700" }}>{d.name}</T></View>)}</View>
       <View style={s.row}>{guests.map(g => <View key={g} style={s.chip}><Art k={GUESTS[g].art} size={36} />
         <T variant="small" style={{ fontWeight: "700" }}>{GUESTS[g].name}{GUESTS[g].rules.length ? " · " + GUESTS[g].rules.map(r => RULES[r].chip).join(", ") : ""}</T></View>)}</View>
       {(lv.twists ?? []).map(t => <T key={t.kind} variant="small" muted><T variant="small" style={{ fontWeight: "800" }}>{TWISTS[t.kind].name}: </T>{TWISTS[t.kind].text}</T>)}
-      {lv.bonus && <T variant="small" muted><T variant="small" style={{ fontWeight: "800" }}>Bonus: {BONUS[lv.bonus].name}. </T>{BONUS[lv.bonus].text}</T>}
+      {hasShare(lv) && <T variant="small" muted><T variant="small" style={{ fontWeight: "800" }}>{SHARE.name}: </T>{SHARE.text}</T>}
+      {lv.bonus && <T variant="small" muted><T variant="small" style={{ fontWeight: "800" }}>Bonus: {BONUS[lv.bonus].name}{record?.bonus ? " ✓" : ""}. </T>{BONUS[lv.bonus].text}</T>}
     </Section>
     <Pressable onPress={onCompanion} accessibilityRole="button" accessibilityLabel={"Companion " + pet.name + ", " + skill.name + ". Change companion"}>
       <Section><View style={s.row}><Art k={pet.art} size={52} /><View style={{ flex: 1 }}>

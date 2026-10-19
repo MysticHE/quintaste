@@ -48,9 +48,6 @@ const TOP = `
 .rh .bar .star.lit { color:var(--gold); text-shadow:0 1px 0 var(--gold-deep); animation:rhstar .45s cubic-bezier(.2,1.6,.4,1); }
 @keyframes rhstar { from { transform:scale(.3); } }
 .rh .left { flex:none; display:grid; justify-items:center; line-height:1; } .rh .left b { font-size:20px; } .rh .left small { font-size:10px; color:var(--ink-2); }
-.rh .listbtn { flex:none; height:40px; padding:0 11px 0 8px; border-radius:14px; display:inline-flex; align-items:center; gap:4px; font-size:13px; color:var(--white);
-  background:linear-gradient(var(--amber),var(--coral)); box-shadow:inset 0 -3px 0 var(--press); }
-.rh .listbtn svg { width:18px; height:18px; fill:var(--white); stroke:var(--coral); stroke-width:2; stroke-linecap:round; }
 .rh .recipe { display:flex; align-items:center; gap:8px; padding:6px 8px 6px 6px; }
 .rh .recipe .idle { margin:auto; font-size:13px; color:var(--ink-2); }
 .rh .recipe .bowl { height:100%; width:64px; flex:none; object-fit:contain; filter:drop-shadow(0 2px 3px var(--shadow)); }
@@ -160,11 +157,15 @@ const BOTTOM = `
 .rh .panels { pointer-events:none; } .rh .panels > * { pointer-events:auto; }
 .rh .panels > .toast, .rh .panels > .seattag, .rh .panels > .stag.plating { pointer-events:none; }
 `;
-/** Twists and the drag-only shelf: VIP guests, stock tags, the hidden station list, bonus goals and twist cards. */
+/** Twists and the drag-only shelf: VIP guests, stock tags, shared pots, bonus goals, personal bests and twist cards. */
 const TWISTS_CSS = `
-.rh .listbtn.quiet:not(:focus-visible) { position:absolute; width:1px; height:1px; margin:-1px; padding:0; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }
 .rh .bubble.vip { box-shadow:0 0 0 3px var(--gold-hi), 0 3px 8px var(--shadow); }
 .rh .chip.crown { background:var(--gold); color:var(--gold-ink); }
+.rh .chip.pair { background:var(--sage-deep); color:var(--white); }
+.rh .ptag { position:absolute; z-index:3; transform:translate(-100%,0); padding:1px 7px; min-height:16px; line-height:16px; border-radius:99px; font-size:10px; background:var(--gold); color:var(--gold-ink);
+  box-shadow:0 0 0 1.5px var(--gold-deep); pointer-events:none; white-space:nowrap; }
+.rh .pbest { display:flex; flex-wrap:wrap; align-items:center; gap:4px 10px; } .rh .pbest span { font-family:"Nunito_700Bold","Nunito",ui-rounded,system-ui,sans-serif; font-weight:700; }
+.rh .pbest span.new { color:var(--sage-deep); }
 .rh .card.low { box-shadow:0 0 0 2px var(--amber), 0 2px 0 var(--panel-edge); }
 .rh .card.out { opacity:.5; filter:grayscale(.75); }
 .rh .stk { position:absolute; right:3px; top:3px; font-size:9px; padding:0 5px; min-height:14px; line-height:14px; border-radius:99px; background:var(--warn); color:var(--white); pointer-events:none; }

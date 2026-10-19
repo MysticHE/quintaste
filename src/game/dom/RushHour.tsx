@@ -8,13 +8,14 @@ import { useCallback, useEffect, useRef, useState, type CSSProperties } from "re
 import type { DOMProps } from "expo/dom";
 import { STATIONS, type StationKind } from "../content/dishes";
 import { levelByNumber, levelDishes, type Level } from "../content/levels";
+import type { LevelBest } from "../progress";
 import { hintsFor, PACE_SPEED, type PlaySettings } from "../settings";
 import * as sim from "../sim/engine";
 import { Dialogue, HeatPanel } from "./Controls";
-import { Bubbles, SeatTags, StationTags } from "./Counter";
+import { Bubbles, PlateTags, SeatTags, StationTags } from "./Counter";
 import { Hud, RecipeCard } from "./Hud";
 import type { Point } from "./layout";
-import { Brief, LabelSheet, ListView, PauseSheet, Results, TooShort, type Reward } from "./Overlays";
+import { Brief, LabelSheet, PauseSheet, Results, TooShort, type Reward } from "./Overlays";
 import { Shelf } from "./Shelf";
 import { RUSH_CSS } from "./styles";
 import { useFeedback, type HapticKind } from "./useFeedback";
@@ -28,6 +29,8 @@ export type BridgeKind = "cook" | "nearby";
 type Props = {
   level: number; special?: Level; pet: string; petArt: string; chefArt: string; art: Record<string, string>;
   signature?: string[]; reduceMotion?: boolean; settings: PlaySettings; textScale: number;
+  /** The player's record on this level (not for Today's special), shown on the brief and the results. */
+  best?: LevelBest | null;
   /** Which bridges the app can open for each dish. */
   bridges?: Record<string, { cook: boolean; nearby: boolean }>;
   onStart?: (run: RunInfo) => Promise<void>; onFinish: (payload: FinishPayload) => Promise<Reward>; onExit: (to: "cafe" | "next" | "again") => Promise<void>;
@@ -55,12 +58,12 @@ export default function RushHour(props: Props) {
   const bump = useCallback(() => setVersion(v => v + 1), []);
   const reduced = !!props.reduceMotion || settings.reduceMotion || (typeof matchMedia !== "undefined" && matchMedia("(prefers-reduced-motion: reduce)").matches);
   const fx = useFeedback(settings, props.onHaptic);
-  const input = useRef<PlayfieldInput>({ onStation: noop, onPlate: noop, onGuest: noop, onServeDrag: noop, onPlateDrag: noop });
+  const input = useRef<PlayfieldInput>({ onStation: noop, onGuest: noop, onServeDrag: noop, onPlateDrag: noop });
   const { rootRef, stageRef, sceneRef, L, reboot } = usePlayfield(runRef, runRef.current.level.seats, runRef.current.level.stations, art,
-    { reduced, tapOnly: settings.tapOnly }, input, bump);
-  const [plateSel, setPlateSel] = useState<number | null>(null), [list, setList] = useState(false), [paused, setPaused] = useState(false);
+    { reduced }, input, bump);
+  const [paused, setPaused] = useState(false);
   const [leaving, setLeaving] = useState(false);
-  const ev = useServiceEvents({ runRef, sceneRef, rootRef, fx, reduced, onPlated: slot => { if (latest.current.settings.tapOnly) setPlateSel(slot); }, onEnd: () => void save() });
+  const ev = useServiceEvents({ runRef, sceneRef, rootRef, fx, reduced, onEnd: () => void save() });
   const [reward, setReward] = useState<Reward | null>(null), [saveFailed, setSaveFailed] = useState(false);
   const run = runRef.current;
 
@@ -78,10 +81,6 @@ export default function RushHour(props: Props) {
   useEffect(() => { if (process.env.NODE_ENV !== "production") (globalThis as { __rushAudio?: unknown }).__rushAudio = fx.audio; }, [fx.audio]);
   // Hints follow Play your way during the service too.
   useEffect(() => { const r = runRef.current; r.level = { ...r.level, hints: hintsFor(settings, base.hints) }; }, [settings.hints]); // eslint-disable-line react-hooks/exhaustive-deps
-  // The scene lifts the picked plate; a plate that left the board (served, or the run restarted) is no longer picked.
-  const picked = plateSel !== null && run.board[plateSel] ? plateSel : null;
-  useEffect(() => { if (sceneRef.current) sceneRef.current.plateSel = picked; }, [picked, sceneRef]);
-
   // A screen too short for the playfield (a phone on its side) pauses the service, and resumes it only if that pause was the game's own.
   const cramped = !!L && L.h < 520, autoPaused = useRef(false);
   useEffect(() => {
@@ -93,7 +92,7 @@ export default function RushHour(props: Props) {
   const after = () => { ev.drain(); bump(); };
   /** Saves a finished service (and again from Results when the first save failed). */
   async function save() {
-    const r = runRef.current; fx.audio.setSizzle(0); setPlateSel(null);
+    const r = runRef.current; fx.audio.setSizzle(0);
     if (r.endReason === "quit") return;
     try { setSaveFailed(false); setReward(await latest.current.onFinish({ ...info(r), result: sim.results(r), actions: r.actions })); }
     catch { setReward(null); setSaveFailed(true); }
@@ -103,23 +102,18 @@ export default function RushHour(props: Props) {
   function doPause(on: boolean) { const r = runRef.current; if (!r.started || r.ended) return; sim.pause(r, on); setPaused(on); fx.audio.pause(on); bump(); }
   const exit = (to: "cafe" | "next" | "again") => latest.current.onExit(to);
 
-  // Play is drag and drop: ingredients go onto a station, a ready dish is dragged to the plates, a plate to its guest. A plain
-  // tap on a station only selects it (to see its heat). Plating, restarting and picking a plate with a tap or a key press
-  // stay available for the "Tap only" accessibility option and for keyboards and screen readers (actStation, tap on a plate).
-  const actStation = (k: StationKind) => { const r = runRef.current, pr = r.stations[k]?.part;
-    if (pr?.state === "ready") sim.plate(r, k); else if (pr && (pr.state === "scorched" || pr.state === "split")) sim.restart(r, k); else sim.select(r, k);
-    after(); };
+  // Play is drag and drop: ingredients go onto a station, a ready dish is dragged to the plates, a plate to its guest. A tap
+  // never moves food: on a station it selects it (to see its heat), on a guest it picks who to cook for, and the state tag under
+  // a scorched or split dish restarts it.
   input.current = {
-    onStation: k => { if (settings.tapOnly) actStation(k); else { sim.select(runRef.current, k); after(); } },
-    onPlate: i => { if (settings.tapOnly && runRef.current.board[i]) { setPlateSel(p => (p === i ? null : i)); bump(); } },
-    onGuest: id => { const r = runRef.current; if (picked !== null) sim.serve(r, picked, id); else sim.setFocus(r, id); setPlateSel(null); after(); },
-    onServeDrag: (i, id) => { sim.serve(runRef.current, i, id); setPlateSel(null); after(); },
+    onStation: k => { sim.select(runRef.current, k); after(); },
+    onGuest: id => { sim.setFocus(runRef.current, id); after(); },
+    onServeDrag: (i, id) => { sim.serve(runRef.current, i, id); after(); },
     onPlateDrag: k => { sim.plate(runRef.current, k); after(); },
   };
   // Shelf handlers are stable (the shelf is memoised) and read the current run and layout through refs.
   const latestLayout = useRef(L); latestLayout.current = L;
   const shelf = useRef({
-    add: (id: string, from: Point) => { ev.origin.current = from; sim.place(runRef.current, id); ev.drain(); bump(); },
     hint: (id: string) => ev.nudgeCard(id),
     drop: (id: string, at: Point, from: Point) => {
       const lay = latestLayout.current, k = lay && (Object.keys(lay.stations) as StationKind[]).find(s => { const r = lay.stations[s]!; return at.x >= r.x && at.x <= r.x + r.w && at.y >= r.y - 12 && at.y <= r.y + r.h; });
@@ -130,15 +124,13 @@ export default function RushHour(props: Props) {
     label: (id: string) => { sim.openLabel(runRef.current, id); bump(); },
   }).current;
   const act = {
-    focus: (id: string) => { sim.setFocus(run, id); after(); }, add: (id: string, k: StationKind) => { sim.place(run, id, k); after(); },
-    label: (id: string) => { sim.openLabel(run, id); bump(); }, heat: (k: StationKind) => { sim.toggleHeat(run, k); bump(); },
-    plate: (k: StationKind) => { sim.plate(run, k); after(); }, restart: (k: StationKind) => { sim.restart(run, k); bump(); },
-    lift: (k: StationKind, uid: number) => { sim.lift(run, k, uid); bump(); }, serve: (i: number, id: string) => { sim.serve(run, i, id); setPlateSel(null); after(); },
+    heat: (k: StationKind) => { sim.toggleHeat(run, k); bump(); }, restart: (k: StationKind) => { sim.restart(run, k); bump(); },
+    lift: (k: StationKind, uid: number) => { sim.lift(run, k, uid); bump(); },
   };
   /** Hold to heat: only switches when the burner is not already in the wanted state. */
   const heatTo = (k: StationKind, on: boolean) => { const r = runRef.current; if (!!r.stations[k]?.heatOn !== on) { sim.toggleHeat(r, k); bump(); } };
   function again() { runRef.current = newRun(); reboot(); fx.audio.pause(false); ev.reset();
-    setReward(null); setPaused(false); setPlateSel(null); }
+    setReward(null); setPaused(false); }
   /** The brief slides away, then the service starts with a banner. */
   function begin() {
     setLeaving(true);
@@ -158,27 +150,26 @@ export default function RushHour(props: Props) {
     <style dangerouslySetInnerHTML={{ __html: fontFaces(art) + RUSH_CSS }} />
     <div ref={stageRef} style={{ position: "absolute", inset: 0 }} aria-hidden="true" />
     {L && <div className="panels" inert={overlay || undefined} style={{ position: "absolute", inset: 0 }}>
-      <Hud run={run} L={L} coins={ev.coins} eatKey={ev.eatKey} coinRef={ev.coinRef} list={list} quietList={!settings.tapOnly} onList={() => setList(v => !v)} onPause={() => doPause(true)} />
-      <RecipeCard run={run} L={L} art={art} tapOnly={settings.tapOnly} />
+      <Hud run={run} L={L} coins={ev.coins} eatKey={ev.eatKey} coinRef={ev.coinRef} onPause={() => doPause(true)} />
+      <RecipeCard run={run} L={L} art={art} />
       <SeatTags L={L} />
-      <Bubbles run={run} L={L} art={art} plateSel={picked ?? sceneRef.current?.dragSlot ?? null} onGuest={id => input.current.onGuest(id)} />
-      <StationTags run={run} L={L} plateSel={picked ?? sceneRef.current?.dragSlot ?? null} dragging={sceneRef.current?.dragKind ?? null} tapOnly={settings.tapOnly} onSelect={k => input.current.onStation(k)} onAct={actStation} />
-      <Shelf run={run} L={L} art={art} tapOnly={settings.tapOnly} nudge={ev.nudge} stock={shortStock} onAdd={shelf.add} onHint={shelf.hint} onDrop={shelf.drop} onHover={shelf.hover} onLabel={shelf.label} />
-      <HeatPanel run={run} L={L} art={art} petArt={petArt} hold={settings.burner === "hold"} nudge={nudgeHeat} tapOnly={settings.tapOnly} onHeat={act.heat} onHeatTo={heatTo} onLift={act.lift}
-        onRestart={act.restart} onPlate={act.plate} onSkill={() => { sim.useSkill(run); after(); }} />
+      <Bubbles run={run} L={L} art={art} plateSel={sceneRef.current?.dragSlot ?? null} onGuest={id => input.current.onGuest(id)} />
+      <StationTags run={run} L={L} plateSel={sceneRef.current?.dragSlot ?? null} dragging={sceneRef.current?.dragKind ?? null} onSelect={k => input.current.onStation(k)} onRestart={act.restart} />
+      <PlateTags run={run} L={L} incoming={sceneRef.current?.incomingSlots} />
+      <Shelf run={run} L={L} art={art} nudge={ev.nudge} stock={shortStock} onHint={shelf.hint} onDrop={shelf.drop} onHover={shelf.hover} onLabel={shelf.label} />
+      <HeatPanel run={run} L={L} art={art} petArt={petArt} hold={settings.burner === "hold"} nudge={nudgeHeat} onHeat={act.heat} onHeatTo={heatTo} onLift={act.lift}
+        onRestart={act.restart} onSkill={() => { sim.useSkill(run); after(); }} />
       <Dialogue run={run} L={L} art={art} chefArt={chefArt} />
       {ev.hint && <div key={ev.hint.key} className="toast" style={{ left: L.col.x + L.col.w / 2, top: L.shelves.y - 30 }}>{ev.hint.text}</div>}
-      {picked !== null && <div className="toast" style={{ left: L.col.x + L.col.w / 2, top: L.counter.y - 30 }}>Tap a guest to serve</div>}
-      {list && <ListView run={run} L={L} act={act} onBack={() => setList(false)} />}
     </div>}
     {L && fx.caption && <div key={fx.caption.key} className="caption" style={{ top: L.recipe.y + L.recipe.h + 6, right: L.col.x + 12 }} aria-hidden="true">{fx.caption.text}</div>}
     {L && ev.bannerText && <div key={ev.bannerText.key} className="banner" style={{ left: L.col.x + L.col.w / 2, top: L.recipe.y + L.recipe.h + 24 }} role="status">{ev.bannerText.text}</div>}
-    {!run.started && <Brief run={run} art={art} petArt={petArt} leaving={leaving} onStart={begin} onExit={() => exit("cafe")} />}
-    {run.label && <LabelSheet run={run} onClose={() => { sim.closeLabel(run); bump(); }} onUse={id => { sim.closeLabel(run); ev.origin.current = null; sim.place(run, id); after(); }} />}
+    {!run.started && <Brief run={run} art={art} petArt={petArt} best={props.best} leaving={leaving} onStart={begin} onExit={() => exit("cafe")} />}
+    {run.label && <LabelSheet run={run} onClose={() => { sim.closeLabel(run); bump(); }} />}
     {paused && !run.ended && !cramped && <PauseSheet onResume={() => doPause(false)} onRestart={again} onQuit={() => { sim.quit(run); void exit("cafe"); }}
       onSettings={props.onSettings ? () => void props.onSettings?.() : undefined} />}
     {cramped && <TooShort />}
-    {showResults && result && <Results run={run} res={result} reward={reward} saveFailed={saveFailed} onRetrySave={() => void save()}
+    {showResults && result && <Results run={run} res={result} reward={reward} best={props.best} saveFailed={saveFailed} onRetrySave={() => void save()}
       onAgain={() => exit("again")} onCafe={() => exit("cafe")} onNext={() => exit("next")}
       onCook={offer?.cook ? bridge("cook") : undefined} onNearby={offer?.nearby ? bridge("nearby") : undefined} />}
   </div>;

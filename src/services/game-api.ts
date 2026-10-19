@@ -7,7 +7,7 @@ import { communityRequest } from "./community-api";
 
 /** Rush Hour account progress (server/game). Signed-in, age-checked members only; guests never call these. */
 export type ServerProgress = { game: GameProgress; imported: boolean; rules: string };
-export type RunReward = { credits: number; first: boolean; mastered: boolean; unlocks: string[] };
+export type RunReward = { credits: number; first: boolean; mastered: boolean; unlocks: string[]; beat?: string[]; bonus?: boolean };
 export type RunOutcome = { status: "open" | "settled" | "rejected"; reason: string; reward: RunReward; progress: ServerProgress };
 
 export const fetchProgress = () => communityRequest<ServerProgress>("/api/game/progress");

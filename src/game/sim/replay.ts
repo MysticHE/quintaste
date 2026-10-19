@@ -13,7 +13,7 @@ import { emptyGame, type GameProgress } from "../progress";
 import { specialFor } from "../special";
 
 /** Bump when engine.ts changes how a run plays out; content changes are picked up by the hash automatically. */
-const ENGINE_VERSION = 3;
+const ENGINE_VERSION = 4;
 /**
  * What a run was started with. A Today's special is rebuilt from its Singapore date and the highest level the player had
  * cleared when it started (`top`); `hints` is the Play your way hint setting the run used.
@@ -28,7 +28,7 @@ export type RunStart = { id: string; level: number; special: string | null; top?
 /** A player who has cleared Levels 1..top: enough to rebuild the same special the player saw. */
 export const progressAt = (top: number): GameProgress => {
   const g = emptyGame();
-  for (let n = 1; n <= top; n++) g.best[n] = { stars: 1, score: 75, served: true, rules: true, steady: false, mastered: false, clears: 1 };
+  for (let n = 1; n <= top; n++) g.best[n] = { stars: 1, score: 75, served: true, rules: true, steady: false, mastered: false, clears: 1, bonus: false, coins: 0, left: 0 };
   return g;
 };
 /** The level a setup plays: a numbered level, or the special for its date. Throws ReplayError when it cannot exist. */
@@ -65,7 +65,7 @@ function apply(r: sim.Run, [, op, a, b]: sim.Action) {
     case "start": return sim.start(r);
     case "focus": return sim.setFocus(r, word(a));
     case "select": return sim.select(r, station(a));
-    case "place": return void sim.place(r, word(a), b === null ? undefined : station(b));
+    case "place": return void sim.place(r, word(a), station(b));
     case "lift": return sim.lift(r, station(a), int(b, 1_000_000));
     case "restart": return sim.restart(r, station(a));
     case "heat": return sim.toggleHeat(r, station(a));
@@ -119,5 +119,5 @@ export function replay(setup: RunSetup, actions: unknown): sim.Run {
 /** The parts of a result that must match exactly between the player's device and the replay. */
 export function sameResult(a: sim.Result, b: Partial<sim.Result> | null | undefined) {
   return !!b && a.stars === b.stars && a.score === b.score && a.cleared === b.cleared && a.coins === b.coins && a.v === b.v && a.n === b.n &&
-    !!b.stamps && a.stamps.served === b.stamps.served && a.stamps.rules === b.stamps.rules && a.stamps.steady === b.stamps.steady;
+    a.left === b.left && (a.bonus?.done ?? false) === (b.bonus?.done ?? false) && !!b.stamps && a.stamps.served === b.stamps.served && a.stamps.rules === b.stamps.rules && a.stamps.steady === b.stamps.steady;
 }

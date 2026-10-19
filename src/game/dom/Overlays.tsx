@@ -1,16 +1,19 @@
-/** Sheets over the playfield: brief, game label, pause, results, and the station list mode (GAME_PLAN §12.4). */
-import { DISHES, STATIONS, type StationKind } from "../content/dishes";
+/** Sheets over the playfield: brief, game label, pause and results (GAME_PLAN §12.4). */
+import { DISHES } from "../content/dishes";
 import { GUESTS, RULES } from "../content/guests";
 import { factsOf, ITEMS, itemName } from "../content/items";
 import { PETS, SKILLS } from "../content/cosmetics";
-import { BONUS, levelDishes, TWISTS } from "../content/levels";
+import { BONUS, hasShare, levelDishes, SHARE, TWISTS } from "../content/levels";
+import type { LevelBest } from "../progress";
 import * as sim from "../sim/engine";
 import type { Art } from "./Hud";
-import { shelfItems } from "./Shelf";
-import type { Layout } from "./layout";
 
-export function Brief({ run, art, petArt, leaving, onStart, onExit }: { run: sim.Run; art: Art; petArt: string; leaving: boolean; onStart(): void; onExit(): void }) {
-  const lv = run.level, guests = [...new Set(run.guests.map(g => g.guestId))], pet = PETS[run.pet], skill = SKILLS[pet.skill];
+const stars = (n: number) => "★".repeat(n) + "☆".repeat(3 - n);
+/** The personal best of a level that has been cleared before, or null. */
+const cleared = (best?: LevelBest | null) => (best && best.clears > 0 ? best : null);
+
+export function Brief({ run, art, petArt, best, leaving, onStart, onExit }: { run: sim.Run; art: Art; petArt: string; best?: LevelBest | null; leaving: boolean; onStart(): void; onExit(): void }) {
+  const lv = run.level, record = cleared(best), guests = [...new Set(run.guests.map(g => g.guestId))], pet = PETS[run.pet], skill = SKILLS[pet.skill];
   return <div className={"overlay center" + (leaving ? " out" : "")}><div className="sheet" role="dialog" aria-modal="true" aria-labelledby="rhBrief">
     <span className="k">Rush · {Math.floor(lv.round / 60)}:{String(lv.round % 60).padStart(2, "0")} · {lv.special ? "Today's special" : "Level " + lv.n}</span><h3 id="rhBrief">{lv.special ? DISHES[lv.special.dish].name : lv.name}</h3><p>{lv.brief}</p>
     {lv.special?.lunar && <span className="chip rule" style={{ justifySelf: "start", fontSize: 11 }}>{lv.special.lunar} · {RULES.five.chip}</span>}
@@ -20,10 +23,12 @@ export function Brief({ run, art, petArt, leaving, onStart, onExit }: { run: sim
     <span className="k">On the menu</span>
     <div className="guestrow">{levelDishes(lv).map(d => <div key={d.id}><img src={art[d.art]} alt="" /><b>{d.name}</b></div>)}</div>
     {(lv.twists ?? []).map(t => <div key={t.kind} className="remember twist"><b>{TWISTS[t.kind].name}. </b>{TWISTS[t.kind].text}</div>)}
+    {hasShare(lv) && <div className="remember twist"><b>{SHARE.name}. </b>{SHARE.text}</div>}
     <div className="remember" style={{ display: "flex", gap: 8, alignItems: "center" }}><img src={art[petArt] ?? art[pet.art]} alt="" style={{ width: 44, height: 44, objectFit: "contain" }} />
       <span><b>{pet.name} · {skill.name}</b><br />{skill.effect} Once per service. {skill.best}</span></div>
     <div className="remember"><b>New: </b>{lv.teach}</div>
-    {lv.bonus && <div className="remember"><b>Bonus goal · {BONUS[lv.bonus].name}. </b>{BONUS[lv.bonus].text}</div>}
+    {lv.bonus && <div className="remember"><b>{best?.bonus ? "✓ " : ""}Bonus goal · {BONUS[lv.bonus].name}. </b>{BONUS[lv.bonus].text}{best?.bonus ? " Earned before." : ""}</div>}
+    {record && <div className="remember pbest"><b>Your best</b><span>{stars(record.stars)}</span><span>{record.score} pts</span>{record.coins > 0 && <span>{record.coins} coins</span>}{record.left > 0 && <span>{record.left} s left</span>}</div>}
     <div className="row"><button className="btn ghost" onClick={onExit} disabled={leaving}>Back to café</button><button className="btn" autoFocus onClick={onStart} disabled={leaving}>Start service</button></div>
   </div></div>;
 }
@@ -36,7 +41,7 @@ export function TooShort() {
   </div></div>;
 }
 
-export function LabelSheet({ run, onClose, onUse }: { run: sim.Run; onClose(): void; onUse(id: string): void }) {
+export function LabelSheet({ run, onClose }: { run: sim.Run; onClose(): void }) {
   const it = ITEMS[run.label!], lab = factsOf(run.label!, run.flip).label!, g = sim.focusGuest(run);
   const flagged = (lab.flagged ?? "").split(",").map(x => x.trim()).filter(Boolean);
   return <div className="overlay"><div className="sheet" role="dialog" aria-modal="true" aria-labelledby="rhLabel">
@@ -47,7 +52,7 @@ export function LabelSheet({ run, onClose, onUse }: { run: sim.Run; onClose(): v
       <span className="k">Contains: {lab.contains}</span></div>
     {g && flagged.length > 0 && <p>{GUESTS[g.guestId].name} keeps {g.rules.length ? g.rules.map(r => RULES[r].spoken).join(" and ") : "a vegetarian order"}. Check whether the highlighted ingredient fits.</p>}
     <p>Game product. Real brands vary, so always read the actual label.</p>
-    <div className="row"><button className="btn ghost" autoFocus onClick={onClose}>Back</button><button className="btn" onClick={() => onUse(it.id)}>Use it</button></div>
+    <button className="btn" autoFocus onClick={onClose}>Back to the kitchen</button>
   </div></div>;
 }
 
@@ -62,23 +67,28 @@ export function PauseSheet({ onResume, onRestart, onQuit, onSettings }: { onResu
 }
 
 /** Settled (or a guest's device save), pending until the account confirms it, practice (started offline) or refused. */
-export type Reward = { credits: number; first: boolean; mastered: boolean; unlocks: string[]; status?: "settled" | "pending" | "practice" | "rejected"; note?: string };
-export function Results({ run, res, reward, saveFailed, onRetrySave, onAgain, onCafe, onNext, onCook, onNearby }: {
-  run: sim.Run; res: sim.Result; reward: Reward | null; saveFailed: boolean; onRetrySave(): void; onAgain(): void; onCafe(): void; onNext(): void;
+export type Reward = { credits: number; first: boolean; mastered: boolean; unlocks: string[]; status?: "settled" | "pending" | "practice" | "rejected"; note?: string;
+  /** Which personal bests this service beat ("score", "coins", "time") and whether it earned the bonus stamp for the first time. */
+  beat?: string[]; bonus?: boolean };
+export function Results({ run, res, reward, best, saveFailed, onRetrySave, onAgain, onCafe, onNext, onCook, onNearby }: {
+  run: sim.Run; res: sim.Result; reward: Reward | null; best?: LevelBest | null; saveFailed: boolean; onRetrySave(): void; onAgain(): void; onCafe(): void; onNext(): void;
   /** Bridges into the app (GAME_PLAN §11), when the app has somewhere to send them. */
   onCook?(): void; onNearby?(): void;
 }) {
   const head = res.cleared ? (res.stars === 3 ? "Perfect service" : "Level cleared") : res.completed ? "Nearly there" : "Service over";
-  const dish = levelDishes(run.level)[0] ?? DISHES[run.guests[0].dishId];
+  const dish = levelDishes(run.level)[0] ?? DISHES[run.guests[0].dishId], record = run.level.special ? null : cleared(best), beat = reward?.beat ?? [];
+  const marks = record ? ([["score", record.score + " pts"], ["coins", record.coins > 0 ? record.coins + " coins" : ""], ["time", record.left > 0 ? record.left + " s left" : ""]] as const).filter(([, text]) => text) : [];
   return <div className="overlay center"><div className="sheet" role="dialog" aria-modal="true" aria-labelledby="rhRes">
     <span className="k">Rush · {run.level.special ? "Today's special" : "Level " + run.level.n} · {run.endReason === "time" ? "time's up" : "all guests done"}</span>
     <h3 id="rhRes">{head}</h3>
     <div className="bigstars" aria-label={res.stars + " of 3 stars"}>{[0, 1, 2].map(i => <span key={i} className={i < res.stars ? "lit" : ""} style={{ animationDelay: i * 0.18 + "s" }}>★</span>)}</div>
     <div className="stamps">{([["served", "Served"], ["rules", "Rules respected"], ["steady", "Steady heat"]] as const).map(([k, l]) =>
       <div key={k} className={res.stamps[k] ? "on" : "off"}><b>{res.stamps[k] ? "✓" : "○"}</b>{l}</div>)}</div>
-    {res.bonus && <div className={"bonus" + (res.bonus.done ? " on" : "")}><b>{res.bonus.done ? "✓" : "○"} Bonus goal · {res.bonus.name}</b><span>{res.bonus.text}</span></div>}
+    {res.bonus && <div className={"bonus" + (res.bonus.done ? " on" : "")}><b>{res.bonus.done ? "✓" : "○"} Bonus goal · {res.bonus.name}{reward?.bonus ? " · first time" : ""}</b><span>{res.bonus.text}</span></div>}
     <div className="rgrid"><span>Takings <b>{res.coins} / {res.max}</b></span><span>Served <b>{res.v} of {res.n}</b></span>
       <span>Steady heat <b>{Math.round(res.hq * 100)}%</b></span><span>Service score <b>{res.score}</b></span></div>
+    {record && <div className="remember pbest" role="group" aria-label="Personal best"><b>Personal best</b>
+      {marks.map(([k, text]) => <span key={k} className={beat.includes(k) ? "new" : ""}>{text}{beat.includes(k) ? " · new" : ""}</span>)}</div>}
     <div className="remember"><b>One thing to remember. </b>{dish?.remember}</div>
     {(onCook || onNearby) && <div className="bridges" role="group" aria-label={"Take " + (dish?.name ?? "it") + " further"}>
       {onCook && <button className="linkpill" onClick={onCook}><Pot />Cook it for real</button>}
@@ -93,30 +103,6 @@ export function Results({ run, res, reward, saveFailed, onRetrySave, onAgain, on
     <div className="row"><button className="btn ghost" autoFocus onClick={onCafe}>Back to café</button><button className="btn ghost" onClick={onAgain}>Play again</button></div>
     {res.cleared && !run.level.special && run.level.n < 20 && <button className="btn gold" onClick={onNext}>Next: Level {run.level.n + 1}</button>}
   </div></div>;
-}
-
-/** Text-only station list driven by the same simulation, for screen readers and switch access. */
-export function ListView({ run, L, act, onBack }: { run: sim.Run; L: Layout; onBack(): void; act: {
-  focus(id: string): void; add(id: string, k: StationKind): void; label(id: string): void; heat(k: StationKind): void;
-  plate(k: StationKind): void; restart(k: StationKind): void; lift(k: StationKind, uid: number): void; serve(slot: number, id: string): void; } }) {
-  const g = sim.focusGuest(run);
-  return <div className="list" role="region" aria-label="Station list" style={{ left: L.recipe.x, width: L.recipe.w, top: L.recipe.y, bottom: L.h - L.dialogue.y + 6 }}>
-    <button className="btn ghost" onClick={onBack}>Back to the scene</button>
-    <section><h4>Guests</h4>{run.guests.filter(x => x.state !== "queue" && x.state !== "gone").map(x => <div key={x.orderId}>
-      <div className="line">Seat {x.seat} · {GUESTS[x.guestId].name} · {DISHES[x.dishId].name} · {x.rules.length ? x.rules.map(r => RULES[r].chip).join(", ") : "No rules"} · {x.order === "served" ? "Served" : run.focus === x.orderId ? "Cooking for" : "Waiting"}{x.state === "waiting" ? " · patience " + Math.ceil(x.patience / x.maxPatience * 5) + " of 5" : ""}</div>
-      {x.state === "waiting" && run.focus !== x.orderId && <div className="acts"><button onClick={() => act.focus(x.orderId)}>Cook for {GUESTS[x.guestId].name}</button></div>}</div>)}</section>
-    {(Object.keys(run.stations) as StationKind[]).map(k => { const st = run.stations[k]!, pr = st.part, cfg = STATIONS[k], [lo, hi] = sim.bandOf(st, pr);
-      return <section key={k}><h4>{cfg.name}</h4>
-        <div className="line">{cfg.heat ? "Heat " + Math.round(st.H * 100) + "% (target " + Math.round(lo * 100) + "–" + Math.round(hi * 100) + "%) · " : ""}{pr ? sim.partOf(pr).name + ": " + pr.state + " " + Math.round(pr.progress * 100) + "% · step " + (pr.stage + 1) + " needs " + sim.stageOf(pr).hint : "Empty"}</div>
-        <div className="acts">{cfg.heat && <button onClick={() => act.heat(k)}>{st.heatOn ? "Turn heat off" : "Turn heat on"}</button>}
-          {pr?.state === "ready" && <button onClick={() => act.plate(k)}>Plate</button>}{pr && <button onClick={() => act.restart(k)}>Restart</button>}
-          {pr?.items.filter(i => i.stage === pr.stage).map(i => <button key={i.uid} onClick={() => act.lift(k, i.uid)}>Lift {itemName(i.id)}</button>)}</div></section>; })}
-    <section><h4>Shelves{g ? " for " + GUESTS[g.guestId].name : ""}</h4><div className="acts">{shelfItems(run).map(id => <span key={id} style={{ display: "contents" }}>
-      <button onClick={() => act.add(id, sim.targetStation(run, id))}>Add {itemName(id)}</button>{ITEMS[id].label && <button onClick={() => act.label(id)}>Read label {itemName(id)}</button>}</span>)}</div></section>
-    <section><h4>Plating board</h4>{run.board.map((p, i) => p ? <div key={i}><div className="line">Plate {i + 1}: {DISHES[p.dishId].name}{sim.plateComplete(p) ? "" : " (half)"} with {p.parts.flatMap(x => x.items).map(itemName).join(", ")}</div>
-      <div className="acts">{sim.plateComplete(p) && sim.waiting(run).map(x => <button key={x.orderId} onClick={() => act.serve(i, x.orderId)}>Serve {GUESTS[x.guestId].name}</button>)}</div></div> : null)}
-      {run.board.every(p => !p) && <div className="line">The board is empty.</div>}</section>
-  </div>;
 }
 
 const svg = { viewBox: "0 0 24 24", "aria-hidden": true, width: 16, height: 16 } as const;

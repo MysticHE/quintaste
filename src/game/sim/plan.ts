@@ -5,7 +5,7 @@
  * Pure TypeScript: the Node API loads this file directly.
  */
 import { DISHES, STATIONS, type StationKind } from "../content/dishes";
-import { GUESTS, conflicts, type Rule } from "../content/guests";
+import { GUESTS, conflicts, unionRules, type Rule } from "../content/guests";
 import { PAIRS, type Flip } from "../content/items";
 import type { Level, Order } from "../content/levels";
 
@@ -42,7 +42,8 @@ export const VIP_PATIENCE = 0.65;
 
 export function buildPlan(level: Level, base: Order[], seed: number): Plan {
   const rand = rng(seed), twist = (k: string) => level.twists?.find(t => t.kind === k);
-  const rulesOf = (o: Order): Rule[] => [...GUESTS[o.guest].rules, ...(level.allRules ?? [])];
+  // A guest who shares a pot is cooked for together with the rest of the party, so the dish must suit every one of them.
+  const rulesOf = (o: Order): Rule[] => unionRules(...base.filter(x => x.id === o.id || (!!o.party && x.party === o.party)).map(x => GUESTS[x.guest].rules), level.allRules ?? []);
   // Which look-alike jar hides the problem is decided per run, so nobody can learn "always take B".
   const flip: Flip = {};
   for (const [a, b] of PAIRS) if (rand() < 0.5) { flip[a] = b; flip[b] = a; }
@@ -52,8 +53,9 @@ export function buildPlan(level: Level, base: Order[], seed: number): Plan {
   // stations, so the level's pacing (which station is busy when) is kept, and each deal must be cookable for its guest.
   if (level.n >= 5 && !level.signature) {
     const kit = (dish: string) => [...new Set(DISHES[dish].parts.map(p => p.station))].sort().join("+");
-    for (const group of [...new Set(orders.map(o => kit(o.dish)))]) {
-      const at = orders.map((o, i) => (kit(o.dish) === group ? i : -1)).filter(i => i >= 0);
+    // Guests who share a pot keep the dish the level wrote for them.
+    for (const group of [...new Set(orders.filter(o => !o.party).map(o => kit(o.dish)))]) {
+      const at = orders.map((o, i) => (!o.party && kit(o.dish) === group ? i : -1)).filter(i => i >= 0);
       for (let attempt = 0; attempt < 8 && at.length > 1; attempt++) {
         const dishes = at.map(i => orders[i].dish);
         for (let i = dishes.length - 1; i > 0; i--) { const j = Math.floor(rand() * (i + 1)); [dishes[i], dishes[j]] = [dishes[j], dishes[i]]; }
@@ -62,13 +64,16 @@ export function buildPlan(level: Level, base: Order[], seed: number): Plan {
     }
   }
   // Arrivals keep the level's rhythm but not its exact timing: each gap between guests stretches or shrinks by up to a fifth
-  // (the first guest moves a second), so a tightly paced level is never bunched up. Level 1 and a wave stay as written.
-  const wave = twist("wave")?.n, sorted = [...orders].sort((a, b) => a.at - b.at);
+  // (the first guest moves a second), so a tightly paced level is never bunched up. Level 1 and a wave stay as written, and the
+  // guests of one party always arrive together.
+  const wave = twist("wave")?.n, sorted = [...orders].sort((a, b) => a.at - b.at), seated = new Map<string, number>();
   let prevOld = 0, prevNew = 0;
   orders = sorted.map((o, i) => {
+    const mate = o.party ? seated.get(o.party) : undefined;
+    if (mate !== undefined) return { ...o, at: mate };
     const gap = o.at - prevOld, near = wave != null && Math.abs(o.at - wave) <= 6;
     const at = level.n === 1 || near ? o.at : i === 0 ? Math.max(1, Math.round(o.at + (rand() * 2 - 1))) : Math.max(prevNew + 1, Math.round(prevNew + gap * (1 + (rand() * 2 - 1) * 0.2)));
-    prevOld = o.at; prevNew = at; return { ...o, at };
+    prevOld = o.at; prevNew = at; if (o.party) seated.set(o.party, at); return { ...o, at };
   });
 
   const round = level.round, heat = level.stations.filter(k => STATIONS[k].heat);
@@ -81,10 +86,11 @@ export function buildPlan(level: Level, base: Order[], seed: number): Plan {
     }
   }
   let change: Plan["change"] = null;
-  if (twist("change") && orders.length >= 2) {
-    const i = 1 + Math.floor(rand() * Math.min(2, orders.length - 1)), pool = [...new Set(orders.map(o => o.dish))].sort();
-    const to = pool.filter(d => d !== orders[i].dish && dishFeasible(d, rulesOf(orders[i]), flip));
-    if (to.length) change = { orderId: orders[i].id, at: orders[i].at + 5, to: to[Math.floor(rand() * to.length)] };
+  const solo = orders.filter(o => !o.party);
+  if (twist("change") && solo.length >= 2) {
+    const pick = solo[1 + Math.floor(rand() * Math.min(2, solo.length - 1))], pool = [...new Set(orders.map(o => o.dish))].sort();
+    const to = pool.filter(d => d !== pick.dish && dishFeasible(d, rulesOf(pick), flip));
+    if (to.length) change = { orderId: pick.id, at: pick.at + 5, to: to[Math.floor(rand() * to.length)] };
   }
   // An ingredient may run out only when every guest can still be served without it.
   let stock: Plan["stock"] = null;
@@ -96,6 +102,7 @@ export function buildPlan(level: Level, base: Order[], seed: number): Plan {
       !sl.accepts.includes(x) || sl.optional || sl.accepts.some(y => y !== x && !conflicts([y], rules, flip).length)))))));
     if (safe.length) stock = { item: safe[Math.floor(rand() * safe.length)], at: Math.round(round * (0.28 + 0.3 * rand())) };
   }
-  const vip = twist("vip") && orders.length >= 2 ? orders[1 + Math.floor(rand() * (orders.length - 1))].id : null;
+  // A VIP never shares a pot: one guest's short patience would spoil the other's dish.
+  const vip = twist("vip") && solo.length >= 2 ? solo[1 + Math.floor(rand() * (solo.length - 1))].id : null;
   return { orders, flip, flares, bell: wave != null ? Math.max(0, wave - 6) : null, stock, change, vip, neglect: twist("neglect")?.n ?? null };
 }

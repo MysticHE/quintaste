@@ -89,6 +89,7 @@ export function GamePlayScreen() {
     <StatusBar hidden />
     <RushHour key={(params.run ?? "first") + (day ?? "")} level={level} special={special?.level} pet={game.pet} petArt={petArt} chefArt="avatar-lian" art={art}
       signature={game.signature} reduceMotion={reducedMotion} settings={game.settings} textScale={textScale(game.settings, textMultiplier)} bridges={bridges}
+      best={special ? null : game.best[String(level)] ?? null}
       onStart={onStart} onFinish={onFinish} onExit={onExit} onHaptic={onHaptic} onBridge={onBridge} onSettings={onSettings}
       dom={{ style: { flex: 1 }, useExpoDOMWebView: false, ...(host ? { overrideUri: host + GAME_PAGE_PATH } : {}), injectedJavaScriptBeforeContentLoaded: "true;", scrollEnabled: false, bounces: false, overScrollMode: "never", mediaPlaybackRequiresUserAction: true, textZoom: 100 }} />
     {settingsOpen && <PlaySettingsSheet settings={game.settings} onChange={next => set(g => ({ ...g, settings: next }))} onClose={() => setSettingsOpen(false)} />}

@@ -5,7 +5,8 @@
 import { DISHES, type StationKind } from "./dishes";
 import type { Rule } from "./guests";
 
-export type Order = { id: string; guest: string; dish: string; at: number };
+/** `party` ties orders that share one pot: they arrive together and order the same dish (see SHARE). */
+export type Order = { id: string; guest: string; dish: string; at: number; party?: string };
 
 /** A twist changes how a service plays, not only how fast. `n` is kind-specific: flares per service, seconds before a ready dish burns, or when the wave sits. */
 export type TwistKind = "flare" | "wave" | "stockout" | "change" | "neglect" | "vip";
@@ -18,6 +19,9 @@ export const TWISTS: Record<TwistKind, { name: string; text: string }> = {
   neglect: { name: "Don't walk away", text: "A dish left on a hot burner once it is ready will burn. Plate it fast." },
   vip: { name: "VIP table", text: "One guest tips big but loses patience fast. Serve them first." },
 };
+/** Guests of one party sit together and share a single pot of the dish. */
+export const SHARE = { name: "Shared pot", text: "Two guests who sit together share one pot. Cook it once for both: it must suit them both, it takes longer, and you serve one guest at a time." };
+export const hasShare = (level: Pick<Level, "orders">) => level.orders.some(order => order.party);
 /** The optional fourth stamp: one extra thing to try on a replay. */
 export type BonusKind = "golden" | "clean" | "order" | "swift" | "steady";
 export const BONUS: Record<BonusKind, { name: string; text: string }> = {
@@ -50,6 +54,8 @@ export type Level = {
 
 let seq = 0;
 const o = (guest: string, dish: string, at: number): Order => ({ id: "o" + ++seq, guest, dish, at });
+/** Two guests who share one pot of `dish`. */
+const share = (a: string, b: string, dish: string, at: number): Order[] => { const first = o(a, dish, at), second = o(b, dish, at); return [{ ...first, party: first.id }, { ...second, party: first.id }]; };
 
 export const LEVELS: Level[] = [
   { n: 1, bonus: "golden", name: "First plate", brief: "Your first order: fried bee hoon for the office lunch crowd. Drag each ingredient onto the wok, keep the heat in the band, then drag the dish to the plates.", teach: "Drag, heat, plate and serve.",
@@ -80,8 +86,8 @@ export const LEVELS: Level[] = [
     stations: ["pan", "pot"], seats: 3, maxOpen: 3, round: 175, patience: 90, hints: "none", orders: [o("jia", "laksa", 1), o("mei", "abc-soup", 6), o("daniel", "laksa", 26), o("office", "bee-hoon", 48), o("mei", "laksa", 72)], distractors: [], unlocks: ["Mushroom cap"] },
   { n: 14, bonus: "clean", twists: [{ kind: "change" }], name: "Hidden in the paste", brief: "A new supplier's sambal lists belacan, a shrimp paste, and one yellow noodle lists egg.", teach: "Animal ingredients can hide in bought-in products.",
     stations: ["pan", "rice"], seats: 3, maxOpen: 3, round: 150, patience: 83, hints: "none", orders: [o("jia", "nasi-lemak", 1), o("daniel", "mee-goreng", 6), o("office", "nasi-lemak", 30), o("mei", "mee-goreng", 52), o("nurul", "nasi-lemak", 74)], distractors: [], unlocks: [] },
-  { n: 15, bonus: "order", twists: [{ kind: "vip" }], name: "A fourth table", brief: "Four seats now. Keep each guest's rules straight.", teach: "Match each plate to the right person.",
-    stations: ["pan", "pot", "rice"], seats: 4, maxOpen: 4, round: 160, patience: 82, hints: "none", orders: [o("mei", "sweet-sour", 1), o("lim", "abc-soup", 4), o("jia", "claypot", 8), o("daniel", "kangkung-split", 30), o("office", "abc-soup", 55), o("nurul", "sweet-sour", 78)], distractors: [], unlocks: [] },
+  { n: 15, bonus: "order", twists: [{ kind: "vip" }], name: "A fourth table", brief: "Four seats now, and friends who sit together share one pot. Cook it once, and make it suit them both.", teach: "One pot can feed two, if it suits both.",
+    stations: ["pan", "pot", "rice"], seats: 4, maxOpen: 4, round: 170, patience: 82, hints: "none", orders: [...share("mei", "nurul", "sweet-sour", 1), o("lim", "abc-soup", 14), o("jia", "claypot", 22), ...share("daniel", "office", "abc-soup", 52), ...share("lim", "jia", "claypot", 78), o("nurul", "sweet-sour", 104)], distractors: [], unlocks: [] },
   { n: 16, bonus: "steady", twists: [{ kind: "neglect", n: 7 }], name: "Finish together", brief: "Popiah is built in order on the assembly board, with a braised filling from the wok.", teach: "Layer order matters.",
     stations: ["pan", "board"], seats: 3, maxOpen: 3, round: 140, patience: 85, hints: "none", orders: [o("office", "popiah", 1), o("mei", "popiah", 2), o("daniel", "greens", 40), o("jia", "popiah", 62)], distractors: [], unlocks: ["Assembly board"] },
   { n: 17, bonus: "clean", twists: [{ kind: "stockout" }, { kind: "change" }], name: "A familiar twist", brief: "Asha keeps Jain food: no roots and no mushrooms either, so ginger is not the swap.", teach: "Ginger is a root.",

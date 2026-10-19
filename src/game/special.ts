@@ -10,7 +10,7 @@ import { CREDIT_REWARDS } from "./content/cosmetics";
 import { DISHES, type StationKind } from "./content/dishes";
 import { GUESTS, type Rule } from "./content/guests";
 import { LEVELS, type Level } from "./content/levels";
-import { applyResult, cleared, highestCleared, type GameProgress } from "./progress";
+import { applyResult, cleared, highestCleared, type Beat, type GameProgress } from "./progress";
 import { dishFeasible } from "./sim/engine";
 
 export type Special = { day: string; dish: string; lunar: string | null; level: Level };
@@ -50,7 +50,7 @@ export const todaysSpecial = (game: GameProgress, now = Date.now()) => specialFo
 /** A finished special: the normal replay grant on a clear, and nothing else is recorded. */
 export function applySpecial(game: GameProgress, res: { cleared: boolean }) {
   const credits = res.cleared ? CREDIT_REWARDS.replay : 0;
-  return { game: { ...game, credits: game.credits + credits }, reward: { credits, first: false, mastered: false, unlocks: [] as string[] } };
+  return { game: { ...game, credits: game.credits + credits }, reward: { credits, first: false, mastered: false, unlocks: [] as string[], beat: [] as Beat[], bonus: false } };
 }
 
 /** Applies a finished service on the device: a special pays the replay grant, a numbered level the full applyResult. */

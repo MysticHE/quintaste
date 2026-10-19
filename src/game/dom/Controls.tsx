@@ -23,12 +23,12 @@ function Meter({ name, H, lo, hi, scorch }: { name: string; H: number; lo: numbe
   </div>;
 }
 
-export function HeatPanel({ run, L, art, petArt, hold, nudge, tapOnly, onHeat, onHeatTo, onLift, onRestart, onPlate, onSkill }: {
-  run: sim.Run; L: Layout; art: Art; petArt: string; hold: boolean; nudge: boolean; tapOnly: boolean; onHeat(k: StationKind): void; onHeatTo(k: StationKind, on: boolean): void;
-  onLift(k: StationKind, uid: number): void; onRestart(k: StationKind): void; onPlate(k: StationKind): void; onSkill(): void;
+export function HeatPanel({ run, L, art, petArt, hold, nudge, onHeat, onHeatTo, onLift, onRestart, onSkill }: {
+  run: sim.Run; L: Layout; art: Art; petArt: string; hold: boolean; nudge: boolean; onHeat(k: StationKind): void; onHeatTo(k: StationKind, on: boolean): void;
+  onLift(k: StationKind, uid: number): void; onRestart(k: StationKind): void; onSkill(): void;
 }) {
   const kind = run.selected, st = run.stations[kind]!, cfg = STATIONS[kind], pr = st.part, [lo, hi] = sim.bandOf(st, pr), g = sim.focusGuest(run);
-  const bad = pr && g ? conflicts(pr.items.map(i => i.id), g.rules, run.flip) : [];
+  const bad = pr && g ? conflicts(pr.items.map(i => i.id), sim.tableRules(run, g), run.flip) : [];
   const state = !pr ? "Empty" : pr.state === "cooking" ? "Cooking " + Math.round(pr.progress * 100) + "%" : pr.state === "waiting" ? "Step " + (pr.stage + 1) + " next"
     : pr.state === "ready" ? "Ready" : pr.state === "scorched" ? "Scorched" : pr.state === "split" ? "Split" : "Loading";
   const pet = PETS[run.pet], skill = SKILLS[pet.skill], liftable = pr && pr.progress === 0 && pr.state !== "ready" ? pr.items.filter(i => i.stage === pr.stage) : [];
@@ -44,7 +44,6 @@ export function HeatPanel({ run, L, art, petArt, hold, nudge, tapOnly, onHeat, o
         <span className="line"><b>{cfg.name}:</b> {cfg.heat ? heatWord(st.H, lo, hi, cfg.scorch) + " · " : ""}{state}</span>
         <span className="chips">
           {liftable.map(i => <button key={i.uid} className={"hchip" + (bad.includes(i.id) ? " alert" : "")} onClick={() => onLift(kind, i.uid)} aria-label={"Lift " + itemName(i.id) + " out"}>{bad.includes(i.id) ? "! " : ""}{itemName(i.id)} ✕</button>)}
-          {tapOnly && pr?.state === "ready" && <button className="hchip act" onClick={() => onPlate(kind)}>Plate</button>}
           {pr && pr.state !== "ready" && pr.items.length > 0 && <button className="hchip" onClick={() => onRestart(kind)}>Restart</button>}
         </span>
       </div>
@@ -55,8 +54,8 @@ export function HeatPanel({ run, L, art, petArt, hold, nudge, tapOnly, onHeat, o
 }
 
 /**
- * Burner input. Toggle: a tap switches. Hold: heat stays on while a finger or mouse is down; a click without a pointer
- * (keyboard, switch access, screen reader) still toggles, so hold never locks anyone out (QT-050/051).
+ * Burner input. Toggle: a tap switches. Hold: heat stays on while a finger or mouse is down. The burner is a control, not
+ * food, so it keeps its tap (a click without a pointer still toggles it, which keeps Hold usable with a switch).
  */
 function burnerInput(hold: boolean, kind: StationKind, onHeat: (k: StationKind) => void, onHeatTo: (k: StationKind, on: boolean) => void) {
   if (!hold) return { onClick: () => onHeat(kind) };

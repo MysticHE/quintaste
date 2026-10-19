@@ -13,7 +13,7 @@ const IMPORT_REPLAYS = 5;
 export async function loadProgress(db, sim, userId) {
   const [profile, bests, owned, lotus] = await Promise.all([
     db.query('SELECT credits, cafe, imported_at FROM game.profile WHERE user_id=$1', [userId]),
-    db.query('SELECT level, stars, score, served, rules, steady, mastered, clears FROM game.level_best WHERE user_id=$1', [userId]),
+    db.query('SELECT level, stars, score, served, rules, steady, mastered, clears, bonus, coins, left_secs AS "left" FROM game.level_best WHERE user_id=$1', [userId]),
     db.query("SELECT item FROM game.owned WHERE user_id=$1 AND item LIKE 'decor:%'", [userId]),
     db.query('SELECT tier FROM lotus.account WHERE user_id=$1', [userId]),
   ]);
@@ -71,11 +71,12 @@ export async function importDevice(db, sim, userId, input, profile) {
     budget -= DECOR[id].unlock.price; bought.push(id);
   }
   for (const [level, b] of Object.entries(merged.best)) {
-    await db.query(`INSERT INTO game.level_best(user_id, level, stars, score, served, rules, steady, mastered, clears) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9)
+    await db.query(`INSERT INTO game.level_best(user_id, level, stars, score, served, rules, steady, mastered, clears, bonus, coins, left_secs) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12)
       ON CONFLICT (user_id, level) DO UPDATE SET stars=GREATEST(game.level_best.stars, $3), score=GREATEST(game.level_best.score, $4),
         served=game.level_best.served OR $5, rules=game.level_best.rules OR $6, steady=game.level_best.steady OR $7,
-        mastered=game.level_best.mastered OR $8, clears=GREATEST(game.level_best.clears, $9), updated_at=now()`,
-    [userId, Number(level), b.stars, b.score, b.served, b.rules, b.steady, b.mastered, b.clears]);
+        mastered=game.level_best.mastered OR $8, clears=GREATEST(game.level_best.clears, $9), bonus=game.level_best.bonus OR $10,
+        coins=GREATEST(game.level_best.coins, $11), left_secs=GREATEST(game.level_best.left_secs, $12), updated_at=now()`,
+    [userId, Number(level), b.stars, b.score, b.served, b.rules, b.steady, b.mastered, b.clears, b.bonus, b.coins, b.left]);
   }
   for (const id of bought) await db.query(`INSERT INTO game.owned(user_id, item, source) VALUES($1,$2,'import') ON CONFLICT DO NOTHING`, [userId, 'decor:' + id]);
   const credits = Math.min(device.credits, budget);

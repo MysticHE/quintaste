@@ -14,7 +14,9 @@ import { applyPending, applyServer, editQueue, markCafeChanged, requestGameSync,
 import { useLotus } from "./useLotus";
 
 export type RunStatus = "settled" | "pending" | "practice" | "rejected";
-export type RunReward = { credits: number; first: boolean; mastered: boolean; unlocks: string[]; status?: RunStatus; note?: string };
+export type RunReward = { credits: number; first: boolean; mastered: boolean; unlocks: string[]; status?: RunStatus; note?: string;
+  /** Personal bests this service beat ("score", "coins", "time") and whether it earned the level's bonus stamp for the first time. */
+  beat?: string[]; bonus?: boolean };
 /** A service as it starts: online attempts settle on the account; offline-started ones are local practice (PRD §17). */
 export type StartedRun = { id: string; online: boolean; note?: string };
 const none = { credits: 0, first: false, mastered: false, unlocks: [] as string[] };

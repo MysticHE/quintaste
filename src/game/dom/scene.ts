@@ -1,7 +1,7 @@
 /**
  * Phaser playfield: backdrop, guests behind the counter, plate mats, the plating board, stations with heat glow, steam,
  * smoke and what is cooking in them, and every flight between them. Visual state is derived from the simulation every
- * frame, so the scene never owns game rules; taps and drags are reported to the DOM root through `hooks`.
+ * frame, so the scene never owns game rules; station and guest taps and the drags are reported to the DOM root through `hooks`.
  */
 import * as Phaser from "phaser";
 import { DISHES, STATIONS, type StationKind } from "../content/dishes";
@@ -14,7 +14,7 @@ import { PanContents, type Tones } from "./pan";
 import { STATION_ART } from "./stationArt";
 
 export type SceneHooks = {
-  onStation(kind: StationKind): void; onPlate(slot: number): void; onGuest(orderId: string): void;
+  onStation(kind: StationKind): void; onGuest(orderId: string): void;
   onServeDrag(slot: number, orderId: string): void; onPlateDrag(kind: StationKind): void;
   /** The scene has built its first frame; it hands itself over, since Phaser creates scenes only after it boots. */
   ready(scene: Playfield): void;
@@ -44,10 +44,8 @@ type Img = Phaser.GameObjects.Image;
 const TAP = 10 * DPR;
 export class Playfield extends Phaser.Scene {
   run!: sim.Run; L!: Layout; art: Record<string, string> = {}; hooks!: SceneHooks; reduced = false; pal!: Palette;
-  /** Play your way: drags are ignored and any lift of the finger over a target counts as a tap. */
-  tapOnly = false;
-  /** The station a dragged ingredient is over (a drop target), and the plate picked to serve. */
-  hover: StationKind | null = null; plateSel: number | null = null;
+  /** The station a dragged ingredient is over (a drop target). */
+  hover: StationKind | null = null;
   /** A ready dish being carried from this station, and the board slot of a plate being carried to a guest (the DOM lights up its targets). */
   dragKind: StationKind | null = null; dragSlot: number | null = null;
   /** Item uids, board slots and seats whose food is still flying in; each shows only when it lands. */
@@ -61,8 +59,8 @@ export class Playfield extends Phaser.Scene {
   private flareUntil = new Map<StationKind, number>();
 
   constructor() { super("playfield"); }
-  init(data: { run: sim.Run; layout: Layout; art: Record<string, string>; hooks: SceneHooks; reduced: boolean; tapOnly?: boolean }) {
-    this.run = data.run; this.L = data.layout; this.art = data.art; this.hooks = data.hooks; this.reduced = data.reduced; this.tapOnly = !!data.tapOnly; this.pal = readPalette();
+  init(data: { run: sim.Run; layout: Layout; art: Record<string, string>; hooks: SceneHooks; reduced: boolean }) {
+    this.run = data.run; this.L = data.layout; this.art = data.art; this.hooks = data.hooks; this.reduced = data.reduced; this.pal = readPalette();
   }
   preload() {
     // Image elements instead of XHR, so file:// art in release builds loads and stays untainted for WebGL.
@@ -112,12 +110,10 @@ export class Playfield extends Phaser.Scene {
       const glow = this.add.ellipse(b.x + b.w / 2, b.y + b.h * 0.62, b.w * 1.25, b.h * 0.9, this.pal.focus, 0).setDepth(4.6);
       const base = this.place(this.add.image(0, 0, "plate").setDepth(5), b), dish = this.add.image(base.x, base.y - 2, "plate").setDepth(6).setVisible(false);
       const zone = this.zone({ x: b.x - 4, y: b.y - b.h * 0.7, w: b.w + 8, h: b.h * 2.2 }, 10, true);
-      zone.on("pointerup", (p: Phaser.Input.Pointer) => { if (this.tapOnly || p.getDistance() < TAP) this.hooks.onPlate(i); });
-      zone.on("dragstart", () => { if (this.run.board[i] && !this.tapOnly) this.dragSlot = i; });
+      zone.on("dragstart", () => { if (this.run.board[i]) this.dragSlot = i; });
       zone.on("drag", (_p: Phaser.Input.Pointer, x: number, y: number) => { if (this.dragSlot === i) dish.setPosition(x, y).setDepth(20); });
       zone.on("dragend", (p: Phaser.Input.Pointer) => {
         this.dragSlot = null; dish.setDepth(6); zone.setPosition(b.x + b.w / 2, b.y + b.h * 0.4);
-        if (this.tapOnly) return;
         // Pointer positions are in canvas pixels; worldX/worldY are in layout units, which the layout rectangles use.
         const seat = L.seats.findIndex(s => p.worldX >= s.guest.x - 10 && p.worldX <= s.guest.x + s.guest.w + 10 && p.worldY >= s.guest.y && p.worldY <= L.counter.y + L.counter.h);
         const gr = seat >= 0 ? this.guestAt(seat + 1) : undefined;
@@ -139,7 +135,7 @@ export class Playfield extends Phaser.Scene {
     const smoke = this.add.particles(r.bowl.x, r.bowl.y - r.bowl.ry, "puff", { speedY: { min: -50, max: -90 }, speedX: { min: -16, max: 16 }, scale: { start: 0.4, end: 1.2 },
       alpha: { start: 0.55, end: 0 }, tint: P.smoke, lifespan: 1200, frequency: 120, emitting: false }).setDepth(9);
     const zone = this.zone(r, 10, true);
-    zone.on("pointerup", (p: Phaser.Input.Pointer) => { if (this.tapOnly || p.getDistance() < TAP) this.hooks.onStation(kind); });
+    zone.on("pointerup", (p: Phaser.Input.Pointer) => { if (p.getDistance() < TAP) this.hooks.onStation(kind); });
     zone.on("dragstart", (p: Phaser.Input.Pointer) => this.startDishDrag(kind, p));
     zone.on("drag", (p: Phaser.Input.Pointer) => this.ghost?.setPosition(p.worldX, p.worldY - 14));
     zone.on("dragend", (p: Phaser.Input.Pointer) => {
@@ -152,7 +148,7 @@ export class Playfield extends Phaser.Scene {
   /** A ready dish lifts off its station and follows the finger to the plates; anything else is not carried. */
   private startDishDrag(kind: StationKind, p: Phaser.Input.Pointer) {
     const pr = this.run.stations[kind]?.part;
-    if (this.tapOnly || !pr || pr.state !== "ready") return;
+    if (!pr || pr.state !== "ready") return;
     this.dragKind = kind;
     const key = DISHES[pr.dishId].art;
     if (this.textures.exists(key)) this.ghost = this.fit(this.add.image(p.worldX, p.worldY - 14, key).setDepth(40), 70, 70);
@@ -227,13 +223,12 @@ export class Playfield extends Phaser.Scene {
   private updatePlates() {
     this.run.board.forEach((p, i) => {
       const v = this.plates[i], b = this.L.board[i]; if (!v) return;
-      const sel = this.plateSel === i && !!p, lift = sel ? -5 : 0;
-      v.glow.setFillStyle(this.pal.focus, sel ? 0.7 : this.dragKind !== null && !p ? 0.6 : 0);
-      v.base.setY(b.y + b.h / 2 + lift);
+      v.glow.setFillStyle(this.pal.focus, this.dragKind !== null && !p ? 0.6 : 0);
+      v.base.setY(b.y + b.h / 2);
       if (!p || this.incomingSlots.has(i)) { v.dish.setVisible(false); return; }
       const key = DISHES[p.dishId].art;
       if (this.textures.exists(key)) { if (v.dish.texture.key !== key) v.dish.setTexture(key); this.fit(v.dish, b.w * 1.05, b.h * 1.25); }
-      if (this.dragSlot !== i) v.dish.setPosition(b.x + b.w / 2, b.y + b.h * 0.42 + lift);
+      if (this.dragSlot !== i) v.dish.setPosition(b.x + b.w / 2, b.y + b.h * 0.42);
       v.dish.setVisible(true).setAlpha(sim.plateComplete(p) ? 1 : 0.55);
     });
   }

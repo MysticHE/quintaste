@@ -29,11 +29,6 @@ export const SHEETS_CSS = `
 .rh .stamps div.on { box-shadow:inset 0 0 0 2px var(--sage); } .rh .stamps b { font-size:18px; } .rh .stamps div.off b { color:var(--panel-edge); } .rh .stamps div.on b { color:var(--sage-deep); }
 .rh .rgrid { display:grid; grid-template-columns:1fr 1fr; gap:6px; font-size:12px; } .rh .rgrid span { background:var(--white); border-radius:10px; padding:6px 8px; display:flex; justify-content:space-between; gap:6px; }
 .rh .remember { background:var(--white); border-radius:14px; padding:10px 12px; font-size:12px; line-height:1.4; }
-.rh .list { position:absolute; overflow:auto; background:var(--cream); padding:12px; display:grid; gap:10px; align-content:start; z-index:20; border-radius:18px;
-  box-shadow:0 0 0 1.5px var(--panel-edge), 0 4px 12px var(--shadow); animation:rhfade .18s ease-out; }
-.rh .list section { background:var(--white); border-radius:14px; padding:10px; display:grid; gap:6px; } .rh .list h4 { margin:0; font-size:14px; }
-.rh .list .acts { display:flex; flex-wrap:wrap; gap:6px; } .rh .list .acts button { min-height:44px; padding:6px 12px; border-radius:12px; background:var(--cream-2); font-size:12px; }
-.rh .list .line { font-size:12px; font-family:"Nunito_700Bold","Nunito",ui-rounded,system-ui,sans-serif; font-weight:700; }
 .rh .sheethead { display:flex; align-items:center; justify-content:space-between; gap:8px; }
 .rh .bridges { display:flex; flex-wrap:wrap; gap:6px; }
 .rh .linkpill { min-height:40px; padding:6px 12px; border-radius:99px; background:var(--white); color:var(--ink); box-shadow:inset 0 0 0 2px var(--panel-edge); display:inline-flex; align-items:center; gap:6px; font-size:12px; }

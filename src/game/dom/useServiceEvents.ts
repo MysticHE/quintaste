@@ -9,8 +9,6 @@ import type { useFeedback } from "./useFeedback";
 type Options = {
   runRef: MutableRefObject<sim.Run>; sceneRef: MutableRefObject<Playfield | null>; rootRef: RefObject<HTMLDivElement | null>;
   fx: ReturnType<typeof useFeedback>; reduced: boolean;
-  /** A complete plate landed on the board in this slot, ready to serve. */
-  onPlated(slot: number): void;
   /** The service ended (time, every guest done, or quit). */
   onEnd(): void;
 };
@@ -44,7 +42,7 @@ export function useServiceEvents(options: Options) {
       return { x: a.left - b.left + a.width / 2, y: a.top - b.top + a.height / 2 };
     },
     banner(text: string) { setBanner({ text, key: Date.now() }); },
-    /** A pointer tap on a shelf card: play is a drag, so the card shakes and says so. */
+    /** A tap on a shelf card: play is a drag, so the card shakes and says so. */
     nudgeCard(id: string) { setNudge({ id, key: Date.now() }); setHint({ text: "Drag " + itemName(id) + " onto a station", key: Date.now() }); },
     reset() { setCoins(0); setResult(null); setShowResults(false); setBanner(null); setHint(null); setNudge(null); origin.current = null; },
     drain() {
@@ -59,7 +57,7 @@ export function useServiceEvents(options: Options) {
         if (e.type === "rejected") { setNudge({ id: e.item, key: Date.now() }); origin.current = null; fx.haptic("warning"); }
         if (e.type === "plated") {
           const p = r.board[e.slot]; fx.cue("plate");
-          if (p) { sc?.plateIn(e.station, e.slot, p.dishId); if (sim.plateComplete(p)) opt.current.onPlated(e.slot); }
+          if (p) sc?.plateIn(e.station, e.slot, p.dishId);
         }
         if (e.type === "served") a.pay(e.seat, e.slot, e.coins);
         if (e.type === "returned") { sc?.shake(e.seat); sc?.wobblePlate(e.slot); fx.cue("returned"); }

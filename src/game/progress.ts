@@ -7,7 +7,12 @@ import { defaultSettings, readSettings, type PlaySettings } from "./settings";
 import { LEVELS } from "./content/levels";
 import { DISHES } from "./content/dishes";
 
-export type LevelBest = { stars: number; score: number; served: boolean; rules: boolean; steady: boolean; mastered: boolean; clears: number };
+/**
+ * Best result per level. `bonus` is the level's optional fourth stamp, earned at least once. `coins` (takings) and `left`
+ * (whole seconds left on the clock) are the best of the cleared services; 0 means none recorded yet (levels cleared before
+ * these were stored), so a first record is never shown as a new best.
+ */
+export type LevelBest = { stars: number; score: number; served: boolean; rules: boolean; steady: boolean; mastered: boolean; clears: number; bonus: boolean; coins: number; left: number };
 export type GameProgress = {
   version: 1; best: Record<string, LevelBest>; credits: number; owned: string[];
   pet: string; equip: Record<string, string | null>; decor: Record<string, string | null>; skin: string; cafeName: string;
@@ -36,7 +41,7 @@ export function readGame(value: unknown): GameProgress {
     if (!/^([1-9]|1\d|20)$/.test(k)) continue;
     const b = rec(v);
     best[k] = { stars: num(b.stars, 0, 3, 0), score: num(b.score, 0, 100, 0), served: b.served === true, rules: b.rules === true, steady: b.steady === true,
-      mastered: b.mastered === true, clears: num(b.clears, 0, 100000, 0) };
+      mastered: b.mastered === true, clears: num(b.clears, 0, 100000, 0), bonus: b.bonus === true, coins: num(b.coins, 0, 1000, 0), left: num(b.left, 0, 600, 0) };
   }
   const equip: Record<string, string | null> = {};
   for (const [p, a] of Object.entries(rec(input.equip))) if (own(PETS, p)) equip[p] = typeof a === "string" && own(ACCESSORIES, a) ? a : null;
@@ -60,7 +65,8 @@ export function mergeGame(profile: GameProgress, guest: GameProgress): GameProgr
   for (const [k, b] of Object.entries(profile.best)) {
     const g = best[k];
     best[k] = !g ? b : { stars: Math.max(b.stars, g.stars), score: Math.max(b.score, g.score), served: b.served || g.served, rules: b.rules || g.rules,
-      steady: b.steady || g.steady, mastered: b.mastered || g.mastered, clears: Math.max(b.clears, g.clears) };
+      steady: b.steady || g.steady, mastered: b.mastered || g.mastered, clears: Math.max(b.clears, g.clears),
+      bonus: b.bonus || g.bonus, coins: Math.max(b.coins, g.coins), left: Math.max(b.left, g.left) };
   }
   const profileStarted = Object.keys(profile.best).length > 0;
   return { ...(profileStarted ? profile : guest), best, credits: Math.max(profile.credits, guest.credits), owned: [...new Set([...profile.owned, ...guest.owned])], seen: [...new Set([...profile.seen, ...guest.seen])] };
@@ -88,9 +94,14 @@ export function withTier(g: GameProgress, tier: Tier | null): GameProgress {
   return { ...view, equip, pet: isUnlocked(view, PETS[g.pet].unlock) ? g.pet : "sprout", skin: isUnlocked(view, SKINS[g.skin].unlock) ? g.skin : "sunny" };
 }
 
-/** Applies a finished service: best stamps, clears and earned credits. Returns the reward line to show. */
-export function applyResult(g: GameProgress, level: number, res: { stars: number; score: number; cleared: boolean; stamps: { served: boolean; rules: boolean; steady: boolean } }) {
-  const key = String(level), prev = g.best[key];
+/** What a finished service must tell the progress rules (the simulation's Result has all of it). */
+export type ServiceResult = { stars: number; score: number; cleared: boolean; coins: number; left: number; stamps: { served: boolean; rules: boolean; steady: boolean }; bonus: { done: boolean } | null };
+/** Which personal bests a clear improved: only against a record that exists, so a first clear is a first clear. */
+export type Beat = "score" | "coins" | "time";
+
+/** Applies a finished service: best stamps, personal bests, clears and earned credits. Returns the reward line to show. */
+export function applyResult(g: GameProgress, level: number, res: ServiceResult) {
+  const key = String(level), prev = g.best[key], left = res.left || 0;   // a result queued by an older build has no `left`
   const first = res.cleared && !(prev && prev.clears > 0);
   const masteredNow = res.stamps.served && res.stamps.rules && res.stamps.steady;
   const firstMastered = masteredNow && !prev?.mastered;
@@ -99,7 +110,15 @@ export function applyResult(g: GameProgress, level: number, res: { stars: number
     stars: Math.max(prev?.stars ?? 0, res.stars), score: Math.max(prev?.score ?? 0, res.score),
     served: !!prev?.served || res.stamps.served, rules: !!prev?.rules || res.stamps.rules, steady: !!prev?.steady || res.stamps.steady,
     mastered: !!prev?.mastered || masteredNow, clears: (prev?.clears ?? 0) + (res.cleared ? 1 : 0),
+    bonus: !!prev?.bonus || (res.cleared && !!res.bonus?.done), coins: Math.max(prev?.coins ?? 0, res.cleared ? res.coins : 0), left: Math.max(prev?.left ?? 0, res.cleared ? left : 0),
   };
+  const beat: Beat[] = [];
+  if (prev && prev.clears > 0 && res.cleared) {
+    if (res.score > prev.score) beat.push("score");
+    if (prev.coins > 0 && res.coins > prev.coins) beat.push("coins");
+    if (prev.left > 0 && left > prev.left) beat.push("time");
+  }
   const unlocks = first ? LEVELS[level - 1].unlocks : [];
-  return { game: { ...g, best: { ...g.best, [key]: next }, credits: g.credits + credits }, reward: { credits, first, mastered: firstMastered, unlocks } };
+  return { game: { ...g, best: { ...g.best, [key]: next }, credits: g.credits + credits },
+    reward: { credits, first, mastered: firstMastered, unlocks, beat, bonus: res.cleared && !!res.bonus?.done && !prev?.bonus } };
 }

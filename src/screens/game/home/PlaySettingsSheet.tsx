@@ -19,7 +19,6 @@ export function PlaySettingsSheet({ settings, onChange, onClose }: { settings: P
       <Row label="Sound captions" value={settings.captions} onToggle={v => put("captions", v)} />
     </Section>
     <Section title="Controls">
-      <Row label="Tap only" value={settings.tapOnly} onToggle={v => put("tapOnly", v)} />
       <Choice label="Burner"><Seg label="Burner" value={settings.burner} onChange={v => put("burner", v)} options={[["toggle", "Tap on and off"], ["hold", "Hold to heat"]]} /></Choice>
     </Section>
     <Section title="Help">

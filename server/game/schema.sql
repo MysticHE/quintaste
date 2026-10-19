@@ -34,6 +34,14 @@ CREATE TABLE IF NOT EXISTS game.level_best (
   updated_at timestamptz NOT NULL DEFAULT now(),
   PRIMARY KEY (user_id, level)
 );
+-- Personal bests (19 October 2026): `bonus` is the level's optional fourth stamp, earned at least once; `coins` is the best
+-- takings and `left_secs` the most whole seconds left on the clock among cleared services. 0 means none recorded yet
+-- (levels cleared before these existed), so a first record is never shown as a new best. Additive: older app images name
+-- their columns and ignore these.
+ALTER TABLE game.level_best
+  ADD COLUMN IF NOT EXISTS bonus boolean NOT NULL DEFAULT false,
+  ADD COLUMN IF NOT EXISTS coins smallint NOT NULL DEFAULT 0 CHECK (coins BETWEEN 0 AND 1000),
+  ADD COLUMN IF NOT EXISTS left_secs smallint NOT NULL DEFAULT 0 CHECK (left_secs BETWEEN 0 AND 600);
 
 -- A run is opened online when the service starts (offline-started games are local practice, PRD §17) and settled once
 -- from its replayed input log. The id comes from the app so a retried request finds the same attempt.

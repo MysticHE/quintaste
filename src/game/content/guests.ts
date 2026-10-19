@@ -35,6 +35,9 @@ export const GUESTS: Record<string, Guest> = Object.fromEntries(([
     hello: "{dish}, Jain please.", thanks: "Thank you for taking care.", notes: ["Keeps Jain food every day.", "Eats before sunset when she can.", "Shares recipes from her grandmother."] },
 ] as Guest[]).map(g => [g.id, g]));
 
+/** The rules of everyone who shares one pot (a party, plus any rules every guest keeps): a dish for them must respect all of them. */
+export const unionRules = (...lists: Rule[][]): Rule[] => [...new Set(lists.flat())];
+
 /** Items in a list that break a guest's rules. Hidden animal ingredients break every order in a vegetarian kitchen. */
 export function conflicts(itemIds: string[], rules: Rule[], flip?: Flip): string[] {
   const banned = new Set<ItemTag>(["animal", ...rules.flatMap(r => RULES[r].tags)]);
