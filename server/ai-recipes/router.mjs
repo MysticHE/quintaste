@@ -22,7 +22,8 @@ const view = row => ({ id: row.id, kind: row.kind, input: row.input, status: row
   finishedAt: row.finished_at, recipeId: row.recipe_id ? publicId(row.recipe_id) : null });
 
 aiRecipes.get('/status', async (_req, res) => {
-  res.json({ enabled: geminiConfig().enabled && await allowed('ai_recipes'), dailyPerMember: DAILY_PER_MEMBER });
+  // AI recipes publish into the member recipe feed, so the recipes control must be on as well.
+  res.json({ enabled: geminiConfig().enabled && await allowed('ai_recipes') && await allowed('recipes'), dailyPerMember: DAILY_PER_MEMBER });
 });
 
 aiRecipes.get('/mine', member, async (_req, res) => {
@@ -32,7 +33,7 @@ aiRecipes.get('/mine', member, async (_req, res) => {
 
 aiRecipes.post('/', member, async (req, res) => {
   const me = res.locals.user.id;
-  if (!geminiConfig().enabled || !await allowed('ai_recipes')) throw new CommunityError(503, 'AI recipes are not available right now.');
+  if (!geminiConfig().enabled || !await allowed('ai_recipes') || !await allowed('recipes')) throw new CommunityError(503, 'AI recipes are not available right now.');
   if (await restricted(me)) throw new CommunityError(403, 'Your account cannot use this right now.');
   const kind = req.body?.kind === 'video' ? 'video' : req.body?.kind === 'request' ? 'request' : null;
   if (!kind) throw new CommunityError(400, 'Choose a video link or a dish request.');
