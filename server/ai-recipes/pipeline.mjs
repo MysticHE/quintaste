@@ -2,12 +2,11 @@ import { pool, logger } from '../config.mjs';
 import { estimateNutrition } from '../nutrition/estimate.mjs';
 import { categories as recipeCategories, veganConflict } from '../recipes/rules.mjs';
 import { containsMeat } from '../market/rules.mjs';
-import { GeminiError, generate } from './gemini.mjs';
+import { GeminiError, generate, geminiConfig } from './gemini.mjs';
 import { recipeSchema, requestPrompt, searchSystem, structureSystem, videoPrompt, videoSystem } from './prompts.mjs';
 import { loadVideo, parseLink } from './video.mjs';
-import { deleteFile } from './files.mjs';
+import { deleteFile, waitForFile } from './files.mjs';
 import { downloadToGemini, downloaderAvailable } from './download.mjs';
-import { geminiConfig } from './gemini.mjs';
 
 /** Confidence below this goes to staff review instead of straight to the feed. */
 export const REVIEW_BELOW = 0.6;
@@ -59,7 +58,7 @@ export function toRecipe(draft, { source }) {
 
 /** An uploaded video's job input: "upload <files/id> <mime type> [original link]". */
 export function parseUpload(input) {
-  const match = /^upload (files\/[a-z0-9-]{1,64}) (video\/[a-z0-9.+-]{1,40})(?: (https:\/\/\S{1,400}))?$/.exec(String(input));
+  const match = /^upload (files\/[a-z0-9-]{1,64}) (video\/[a-z0-9.+-]{1,40})(?: (https:\/\/\S{1,300}))?$/.exec(String(input));
   return match ? { name: match[1], mimeType: match[2], link: match[3] ?? null } : null;
 }
 const fileUri = name => 'https://generativelanguage.googleapis.com/v1beta/' + name;
@@ -71,7 +70,8 @@ async function fromVideo(job, signal, usage) {
     let link = null, part, caption = '', creator = '';
     if (upload) {
       try { link = upload.link ? parseLink(upload.link) : null; } catch { link = null; }
-      part = { file_data: { file_uri: stored.uri, mime_type: stored.mimeType } };
+      const ready = await waitForFile(stored.name, signal);
+      part = { file_data: { file_uri: ready.uri ?? stored.uri, mime_type: ready.mimeType ?? stored.mimeType } };
     } else {
       link = parseLink(job.input);
       if (link.platform === 'youtube') {

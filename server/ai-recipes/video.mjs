@@ -8,6 +8,8 @@ import { GeminiError } from './gemini.mjs';
  * (20 MB cap). Any fetch is https-only, follows at most 5 redirects and refuses private addresses.
  */
 export const MAX_BYTES = 20 * 1024 * 1024;
+/** Fits recipes.ai_job.input (500) together with an upload prefix; parseUpload accepts the same length. */
+export const MAX_LINK = 300;
 const UA = 'Mozilla/5.0 (Linux; Android 14; Pixel 8) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0 Mobile Safari/537.36';
 const PAGE_HOSTS = /(^|\.)(tiktok\.com|instagram\.com|facebook\.com|fb\.watch|fb\.com)$/i;
 
@@ -27,8 +29,14 @@ export function parseLink(input) {
   }
   if (PAGE_HOSTS.test(host)) {
     const platform = /tiktok/.test(host) ? 'tiktok' : /instagram/.test(host) ? 'instagram' : 'facebook';
-    url.search = ''; url.hash = '';
-    return { platform, canonical: url.toString() };
+    // Facebook watch and story links carry the video id in the query; everything else there is tracking.
+    const keep = platform === 'facebook' ? ['v', 'story_fbid', 'fbid', 'id'] : [];
+    const params = new URLSearchParams();
+    for (const name of keep) { const value = url.searchParams.get(name); if (value && /^[\w.-]{1,64}$/.test(value)) params.set(name, value); }
+    url.search = params.toString(); url.hash = '';
+    const canonical = url.toString();
+    if (canonical.length > MAX_LINK) throw new GeminiError(400, 'That link is too long. Use the Share button in the app to copy a short link.');
+    return { platform, canonical };
   }
   if (/\.mp4(\?|$)/i.test(url.pathname + url.search)) return { platform: 'direct', canonical: url.toString(), media: url.toString() };
   throw new GeminiError(400, 'Paste a YouTube, TikTok, Instagram or Facebook video link.');

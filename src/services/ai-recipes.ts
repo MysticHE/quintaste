@@ -1,7 +1,7 @@
 import { Platform } from "react-native";
 import { File, UploadType } from "expo-file-system";
 import { apiUrl } from "../utils/api-url";
-import { ApiError, communityRequest as call, sessionHeaders } from "./community-api";
+import { ApiError, communityRequest as call, responseError, sessionHeaders } from "./community-api";
 
 export type AiJobKind = "video" | "request";
 export type AiJob = {
@@ -38,8 +38,8 @@ export async function uploadAiVideo(video: { uri: string; mimeType?: string | nu
     if (error instanceof ApiError) throw error;
     throw new ApiError("The upload did not finish. Check your connection and try again.", 0, "OFFLINE");
   }
-  let value: { error?: unknown } = {};
+  let value: { error?: unknown; code?: unknown } = {};
   try { value = JSON.parse(text); } catch { value = {}; }
-  if (status < 200 || status >= 300) throw new ApiError(typeof value.error === "string" ? value.error.slice(0, 200) : "The upload did not work. Try again.", status);
+  if (status < 200 || status >= 300) throw responseError(status, value, "The upload did not work. Try again.");
   return value as AiJob;
 }

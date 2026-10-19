@@ -22,7 +22,7 @@ const blocked = {
   facebook: 'Facebook would not open this video for our server. Save it on your phone, then tap Upload Video.',
 };
 function explain(stderr, platform) {
-  if (/is longer than|does not pass filter|duration/i.test(stderr)) return 'That video is longer than 20 minutes. Pick a shorter one.';
+  if (/does not pass filter/i.test(stderr)) return 'That video is longer than 20 minutes. Pick a shorter one.';
   if (/larger than max-filesize|File is larger/i.test(stderr)) return 'That video is too large to read. Try a shorter clip.';
   if (/private|removed|not available|unavailable|404/i.test(stderr)) return 'That video is private, removed or not available in Singapore.';
   return blocked[platform] ?? 'We could not open that video. Save it on your phone, then tap Upload Video.';
@@ -50,7 +50,7 @@ export async function downloadToGemini(link, signal) {
     // Downloads land on the 64 MB /tmp of the read-only app container, so they stay well under it; uploads stream straight through.
     const megabytes = 40;
     const { code, stderr } = await run(['--ignore-config', '--no-cache-dir', '--no-playlist', '--no-warnings', '--no-progress', '--no-part',
-      '--socket-timeout', '20', '--retries', '2', '--max-filesize', megabytes + 'M', '--match-filter', 'duration <= ' + MAX_SECONDS,
+      '--socket-timeout', '20', '--retries', '2', '--max-filesize', megabytes + 'M', '--match-filter', 'duration <=? ' + MAX_SECONDS,
       '-f', 'b[ext=mp4][height<=720]/b[ext=mp4]/b[height<=720]/b', '--write-info-json', '-o', path.join(dir, 'video.%(ext)s'), '--', link.canonical],
     signal, 180000);
     const files = await readdir(dir);

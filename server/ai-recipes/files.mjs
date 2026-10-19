@@ -16,8 +16,8 @@ async function keyHeaders() {
   return config.headers;
 }
 
-/** Uploads `body` (a stream or bytes of exactly `size` bytes) and waits until Google has processed the video. */
-export async function storeFile({ body, size, mimeType, displayName, signal = undefined }) {
+/** Uploads `body` (a stream or bytes of exactly `size` bytes); with `wait`, also waits until Google has processed the video. */
+export async function storeFile({ body, size, mimeType, displayName, signal = undefined, wait = true }) {
   if (!(size > 0) || size > MAX_FILE_BYTES) throw new GeminiError(413, 'Videos can be up to 60 MB. Trim it or pick a shorter clip.');
   if (!VIDEO_TYPES.includes(mimeType)) throw new GeminiError(415, 'That file is not a video QuinTaste can read.');
   const headers = await keyHeaders();
@@ -36,7 +36,13 @@ export async function storeFile({ body, size, mimeType, displayName, signal = un
     logger.warn({ event: 'ai_recipes_file_upload_failed', status: sent.status });
     throw new GeminiError(502, 'The video could not be sent to the model.');
   }
-  return waitActive(file, headers, signal);
+  return wait ? waitActive(file, headers, signal) : { name: file.name, uri: file.uri, mimeType: file.mimeType };
+}
+
+/** Waits until a stored file is ready to read (uploads are stored by the request and processed here, in the worker). */
+export async function waitForFile(name, signal = undefined) {
+  const headers = await keyHeaders();
+  return waitActive({ name, state: 'PROCESSING' }, headers, signal);
 }
 
 async function waitActive(file, headers, signal) {

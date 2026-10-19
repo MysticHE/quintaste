@@ -12,6 +12,10 @@ export async function sessionHeaders(): Promise<Record<string, string>> {
   const cookie = await authClient.getCookie();
   return { ...(cookie ? { Cookie: cookie } : {}), "expo-origin": "quintaste://" };
 }
+/** The ApiError for a failed response body, keeping the server's message and code. */
+export function responseError(status: number, value: { error?: unknown; code?: unknown }, fallback = "That did not work. Try again.") {
+  return new ApiError(typeof value.error === "string" ? value.error.slice(0, 200) : fallback, status, typeof value.code === "string" ? value.code : undefined);
+}
 /** JSON request to the community services with the account session, a 20-second timeout and readable errors. */
 export async function communityRequest<T>(path: string, { method = "GET", body, signal }: Options = {}): Promise<T> {
   if (!accountsEnabled) throw new ApiError("Sign-in isn't available in this build.", 503, "UNAVAILABLE");
@@ -24,7 +28,7 @@ export async function communityRequest<T>(path: string, { method = "GET", body, 
       headers: { "Content-Type": "application/json", ...await sessionHeaders() }, body: body === undefined ? undefined : JSON.stringify(body),
     });
     const value = await response.json().catch(() => ({}));
-    if (!response.ok) throw new ApiError(typeof value.error === "string" ? value.error.slice(0, 200) : "That did not work. Try again.", response.status, value.code);
+    if (!response.ok) throw responseError(response.status, value);
     return value as T;
   } catch (error) {
     if (error instanceof ApiError) throw error;
