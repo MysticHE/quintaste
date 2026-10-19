@@ -41,8 +41,7 @@ export function CookScreen() {
   return <Screen back={false}
     header={<BrowseHeader query={query} onChange={setQuery} placeholder={placeholders[tab]}
       filter={tab === "recipes" ? { label: "Recipe filters", count: filters, onPress: () => router.push("/cook/filters") } : undefined} />}
-    floatingAction={tab === "mine" && readable && doc.recipes.drafts.length ? <FloatingAddButton label="Create Recipe" onPress={() => void create()} />
-      : tab === "recipes" ? <FloatingAddButton label="Get A Recipe With AI" onPress={() => router.push("/cook/ai" as never)} /> : undefined}>
+    floatingAction={tab === "mine" && readable && doc.recipes.drafts.length ? <FloatingAddButton label="Create Recipe" onPress={() => void create()} /> : undefined}>
     <IconTabs tabs={tabs} value={tab} label="Cook sections" onChange={next => router.setParams({ tab: next === "recipes" ? undefined : next })} />
     {tab === "recipes" ? <Recipes ingredient={ingredient} /> : tab === "saved" ? <SavedRecipes query={query} /> : tab === "mine" ? <MyRecipesContent query={query} /> : <ShoppingContent query={query} />}
   </Screen>;

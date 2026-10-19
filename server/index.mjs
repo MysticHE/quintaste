@@ -24,8 +24,6 @@ import { placeReviews } from './place-reviews/router.mjs';
 import { game, purgeRunLogs } from './game/router.mjs';
 import { editorial, editorialAssets, editorialAssetRoot } from './editorial/router.mjs';
 import { startAvatarWorker } from './avatar/worker.mjs';
-import { aiRecipes } from './ai-recipes/router.mjs';
-import { startAiRecipeWorker } from './ai-recipes/worker.mjs';
 const { createRequestHandler } = createRequire(import.meta.url)('expo-server/adapter/express');
 
 const app = express();
@@ -104,8 +102,6 @@ app.use('/api/social', featureGate('social'), social);
 // Withdrawing stays available while the service is paused, so members can always take their recipes down.
 const recipesGate = featureGate('recipes');
 app.use('/api/recipes', (req, res, next) => req.method === 'DELETE' ? next() : recipesGate(req, res, next), recipes);
-// AI recipes (docs/AI_RECIPES_PLAN.md): the router checks the ai_recipes control itself so /status can say when it is off.
-app.use('/api/ai-recipes', aiRecipes);
 // Likes and shares cover every Cook recipe and Explore place, so they stay on while member submissions are paused.
 app.use('/api/reactions', reactions);
 app.use('/api/areas', featureGate('areas'), areas);
@@ -143,8 +139,6 @@ const internal = internalPort ? express().disable('x-powered-by').get('/api/staf
 server.requestTimeout = 30000;
 server.headersTimeout = 15000;
 const stopAvatars = process.env.AVATAR_WORKER_ENABLED === 'true' ? startAvatarWorker() : () => {};
-// On unless disabled: the worker idles until the ai_recipes control is on and the gateway is configured.
-const stopAiRecipes = process.env.AI_RECIPES_WORKER_ENABLED !== 'false' ? startAiRecipeWorker() : () => {};
 const purgeContacts = () => purgeOrderContacts().then(count => count && logger.info({ event: 'market_contacts_purged', count }))
   .catch(error => logger.warn({ event: 'market_contacts_purge_failed', code: error?.code }));
 const purgeTimer = setInterval(purgeContacts, 6 * 3600000).unref();
@@ -160,7 +154,6 @@ async function stop() {
   if (closing) return;
   closing = true;
   stopAvatars();
-  stopAiRecipes();
   clearInterval(purgeTimer);
   clearInterval(purgeLogsTimer);
   stopAreaSnapshots();

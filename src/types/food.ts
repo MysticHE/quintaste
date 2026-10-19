@@ -43,12 +43,6 @@ export type Ingredient = { id: string; name: string; amount: number | null; unit
 export type RecipeStep = {
   title: string; instruction: string; ingredientIds: string[];
   timer?: { label: string; seconds: number };
-  /** Second in the source video where this step starts (AI-imported recipes). */
-  at?: number;
-};
-/** Where an AI-written recipe came from: a member's video link or a dish request answered from recipe pages. */
-export type RecipeSource = {
-  kind: "video" | "request"; platform?: string; url?: string; creator?: string; request?: string; urls?: string[]; notes?: string; confidence?: number;
 };
 export type Recipe = {
   image?: { path: string; width: number; height: number; credit: string };
@@ -66,8 +60,6 @@ export type Recipe = {
   author: string; language: string; revision: number; updatedAt: string; withdrawal?: string;
   /** Present on recipes members shared and staff published; `shop` is the author's Market shop when buyers can see it. */
   member?: { sponsorship: string; own: boolean; shop: { id: string; name: string } | null };
-  /** Present on AI-written recipes; shown in Recipe info with the credit and links. */
-  source?: RecipeSource;
 };
 export type SavedKind = "place" | "dish" | "recipe";
 export type SavedItem = { kind: SavedKind; id: string; savedAt: number; list: string };

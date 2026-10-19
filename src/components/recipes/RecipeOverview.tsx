@@ -55,10 +55,7 @@ export function RecipeOverview({ recipe }: { recipe: Recipe }) {
     {!!result.unknown.length && <T variant="small" color={theme.warning}>Unconfirmed: {result.unknown.join(", ")}</T>}
     {info && recipe.member && <View style={{ gap: 6 }}>
       <T variant="small">{recipe.author} · {recipe.language} · v{recipe.revision}</T>
-      <T variant="small" muted>{recipe.source ? (recipe.source.kind === "video" ? "AI-written from a video · Not kitchen-tested" : "AI-written from recipe pages · Not kitchen-tested") : "Member recipe · Ingredient claims are the author’s"}{recipe.member.sponsorship !== "None" ? " · Sponsorship: " + recipe.member.sponsorship : ""}</T>
-      {recipe.source?.kind === "video" && !!recipe.source.url && <Button label={"Watch The Original" + (recipe.source.creator ? " By " + recipe.source.creator : "")} variant="link" onPress={() => { setFailedLink(""); void Linking.openURL(recipe.source!.url!).catch(() => setFailedLink(recipe.source!.url!)); }} />}
-      {recipe.source?.kind === "request" && recipe.source.urls?.map((url, index) => <Button key={url} label={"Recipe Source " + (index + 1)} variant="link" onPress={() => { setFailedLink(""); void Linking.openURL(url).catch(() => setFailedLink(url)); }} />)}
-      {!!recipe.source?.notes && <T variant="small" muted>{recipe.source.notes}</T>}
+      <T variant="small" muted>Member recipe · Ingredient claims are the author’s{recipe.member.sponsorship !== "None" ? " · Sponsorship: " + recipe.member.sponsorship : ""}</T>
       <T variant="small" muted>Updated {recipe.updatedAt}</T>
       {!!recipe.description && <T variant="small">{recipe.description}</T>}
       {!recipe.member.own && <Button label="Report Recipe" icon="flag-outline" variant="link" onPress={() => { if (ensureMember(member, "/cook/recipe/" + recipe.id)) setReport(true); }} />}

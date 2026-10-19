@@ -29,8 +29,8 @@ type LineResult = { line: Line; key?: string; grams?: number; status: "matched" 
 export type Estimate = { id: string; name: string; servings: number; coverage: number; lines: LineResult[]; perServing?: Figures; omitted: string[] };
 
 const here = dirname(fileURLToPath(import.meta.url)), root = join(here, "..");
-const table: Table = JSON.parse(readFileSync(join(root, "server-assets", "nutrition", "ingredient-table.json"), "utf8"));
-const subsetPath = join(root, "server-assets", "nutrition", "usda-subset.json");
+const table: Table = JSON.parse(readFileSync(join(here, "nutrition", "ingredient-table.json"), "utf8"));
+const subsetPath = join(here, "nutrition", "usda-subset.json");
 const nutrients: (keyof Figures)[] = ["kcal", "protein", "fat", "carbs", "fibre", "sugar", "sodium"];
 // A nutrient is left out when more than 10% of the nutritive weight comes from USDA rows that lack it (SR Legacy has no
 // sugar value for tempeh, fermented tofu, millet and some spices).
