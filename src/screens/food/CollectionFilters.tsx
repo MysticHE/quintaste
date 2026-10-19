@@ -11,6 +11,7 @@ import type { CookBrowse } from "../../types/recipe-workspace";
 import { DietIcon } from "../../components/food/DietIcon";
 import { FilterSection } from "../../components/BrowseControls";
 import { recipeCategories } from "../../types/food";
+import { nutritionChoices } from "../../types/recipe-workspace";
 import { fivePungentLabel } from "../../config/preferences";
 import { defaultCookBrowse } from "../../state/recipe-workspace";
 import { selectedRecipeDiets, sortLabels } from "../../utils/recipe-browse";
@@ -39,6 +40,10 @@ export function CookFiltersScreen() {
       <Chips label="Recipe category"><Chip compact label="All" role="radio" selected={browse.category === "All"} disabled={!readable} onPress={() => set({ category: "All" })} />
         {recipeCategories.map(category => <Chip compact key={category} label={category} role="radio"
           selected={browse.category === category} disabled={!readable} onPress={() => set({ category })} />)}</Chips>
+    </FilterSection>
+    <FilterSection title="Nutrition" icon="nutrition-outline">
+      <Chips multiple label="Nutrition per serving">{nutritionChoices.map(choice => <Chip compact key={choice} label={choice} role="checkbox" selected={(browse.nutrition ?? []).includes(choice)} disabled={!readable}
+        onPress={() => set({ nutrition: toggleFilter(browse.nutrition ?? [], choice) })} />)}</Chips>
     </FilterSection>
     <FilterSection title="Sort by" icon="swap-vertical-outline">
       <Chips label="Recipe sort">{(["Fit", "Time", "Recent"] as const).map(sort => <Chip compact key={sort} label={sortLabels[sort]} role="radio"

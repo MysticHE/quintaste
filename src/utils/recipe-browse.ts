@@ -2,6 +2,7 @@ import type { Diet, Exclusion } from "../config/preferences";
 import type { Recipe } from "../types/food";
 import type { CookBrowse, CookSort, CookedEntry } from "../types/recipe-workspace";
 import { evidenceRank } from "./dietary";
+import { matchesNutritionChoices } from "./nutrition";
 import { alliumFree, recipeFit } from "./recipe-dietary";
 
 export const sortLabels: Record<CookSort, string> = { Fit: "Best fit", Time: "Quickest", Recent: "Recently cooked" };
@@ -11,7 +12,7 @@ export function cookedStats(cooked: CookedEntry[], recipeId: string) {
   return { count: entries.length, last: entries.reduce((latest, entry) => Math.max(latest, entry.finishedAt), 0) };
 }
 export function activeFilterCount(browse: CookBrowse) {
-  return [selectedRecipeDiets(browse).length > 0, browse.alliumFree, browse.time !== "Any", browse.onePot].filter(Boolean).length;
+  return [selectedRecipeDiets(browse).length > 0, browse.alliumFree, browse.time !== "Any", browse.onePot, !!browse.nutrition?.length].filter(Boolean).length;
 }
 const words = (value: string) => value.toLowerCase().replace(/[^\p{L}\p{N}]+/gu, " ").trim();
 /** Whole-word match on ingredient names, singular or plural ("peanuts" finds "roasted peanuts, crushed"). */
@@ -33,6 +34,7 @@ export function browseRecipes(all: Recipe[], browse: CookBrowse, query: string, 
     && (!browse.alliumFree || alliumFree(recipe))
     && (browse.time === "Any" || recipe.minutes <= +browse.time)
     && (!browse.onePot || !!recipe.onePot)
+    && matchesNutritionChoices(recipe, browse.nutrition)
     && (!context.ingredient || usesIngredient(recipe, context.ingredient)));
   const rank = new Map(matches.map(recipe => [recipe.id, evidenceRank(recipeFit(recipe, context.diet, context.excluded))]));
   const last = new Map(matches.map(recipe => [recipe.id, cookedStats(context.cooked, recipe.id).last]));

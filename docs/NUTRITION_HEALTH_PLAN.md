@@ -10,6 +10,13 @@ Owner decision, 19 October 2026: free facts and badges for everyone; paid QuinTa
 - **UI**: the "Nutrition Per Serving" section on the recipe page opens by default when figures exist, with badges, value and percent-of-day columns, one benefit line with its HPB claim number, the basis line, a "to taste not included" note and "Not dietary advice"; recipes without figures show "Unavailable: the ingredients could not all be matched to a reviewed nutrition table." No card badges or filters yet (Phase B).
 - **Known limits**: micronutrients (iron, calcium, B12) are not in SR Legacy's macro extract and wait for Plus; ENCF is not used yet; analogues are named in the script report (hoisin for tim cheong and kecap manis, sriracha for chilli paste, miso for doubanjiang and fermented black beans, oyster sauce for the vegetarian version, egg noodles for yellow noodles, wonton wrappers for popiah skins); blanching or boiling salt is counted in full, so sodium can be overstated for blanched dishes.
 
+## 8. Phase B status (built 19 October 2026)
+
+- **Cards**: each Cook recipe card shows one white nutrition line with at most two HPB badges in claim order (`recipeBadges` in `src/utils/nutrition.ts`, rendered by `RecipeRow`); recipes without figures show no line. The card's accessible label includes the badges.
+- **Filters**: Recipe filters gains a "Nutrition" group with four multi-select choices that AND together: Under 500 kcal (also matches Light meal), Higher protein (Source of or High in protein), Higher fibre (Source of or High in fibre) and Under 300 mg sodium (`nutritionChoices` in `src/types/recipe-workspace.ts`, `matchesNutritionChoices`, applied in `browseRecipes`). Choices save immediately with the other Cook filters (`CookBrowse.nutrition`, validated on load, legacy records read as none), count in the active-filter total and reset with Reset filters. Recipes without figures drop out while any nutrition choice is on.
+- **Verified** in the local web preview: all 18 bundled cards carry badge lines; Under 500 kcal narrows the list from 18 to 8 and the choice survives a reload. Not verified on a physical device.
+- **Not built**: the free goal picker (age band, sex, one goal) planned as the Phase B take-up measure; it belongs with the Plus profile work and should be built only when the owner wants the beta measurement.
+
 Original question: does Cook show nutrient levels and health benefits per recipe, how are they measured and mapped to standards, how can AI add them, and should they be a US$9.99/month subscription?
 
 ## 1. What exists today

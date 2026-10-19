@@ -2,6 +2,7 @@ import type { Recipe } from "../../types/food";
 import { usePreferences } from "../../state/Preferences";
 import { fivePungentLabel } from "../../config/preferences";
 import { photos } from "../../data/photos";
+import { recipeBadges } from "../../utils/nutrition";
 import { alliumFree, recipeFit } from "../../utils/recipe-dietary";
 import { recipeShareMessage } from "../../utils/recipe-share";
 import { ReactionColumn, cookedBy } from "../ReactionBar";
@@ -18,8 +19,10 @@ export function RecipeRow({ recipe, onPress }: { recipe: Recipe; onPress: () => 
   const fit = recipeFit(recipe, draft.diet, draft.excluded);
   const diet = [recipe.dietary.diet !== "Unknown" ? recipe.dietary.diet : "", alliumFree(recipe) ? fivePungentLabel : ""].filter(Boolean).join(" · ");
   const facts = [recipe.categories[0] ?? "", recipe.onePot ? "One pot" : "", recipe.member ? "By " + recipe.author : ""].filter(Boolean).join(" · ");
+  // At most two HPB badges (first two in claim order); recipes without figures show no nutrition line.
+  const badges = recipeBadges(recipe).slice(0, 2).join(" · ");
   return <PhotoPostCard testID="recipe-card" photo={{ path: recipe.image?.path, source: recipe.image?.path ? undefined : recipe.photo ? photos[recipe.photo] : undefined, fallback: recipe.categories[0] ?? "Recipe" }}
-    title={recipe.name} label={[recipe.name, recipe.minutes + " min", facts, diet].filter(Boolean).join(". ")} hint="Opens the recipe" onPress={onPress}
+    title={recipe.name} label={[recipe.name, recipe.minutes + " min", facts, diet, badges].filter(Boolean).join(". ")} hint="Opens the recipe" onPress={onPress}
     topLeft={<PostChip icon="time-outline" label={recipe.minutes + " min"} />}
     side={<ReactionColumn kind="recipe" id={recipe.id} name={recipe.name} shareMessage={() => recipeShareMessage(recipe)}
       save={save} />}>
@@ -29,5 +32,6 @@ export function RecipeRow({ recipe, onPress }: { recipe: Recipe; onPress: () => 
       {fit.fit === "Conflicts" && <PostFact icon="alert-circle-outline" iconColor={theme.mediaRating} shrink>Contains {fit.conflicts.join(", ").toLowerCase()}</PostFact>}
       {cooks > 0 && <PostFact icon="flame-outline" shrink>{cookedBy(cooks)}</PostFact>}
     </PostFacts>
+    {!!badges && <PostFact icon="nutrition-outline">{badges}</PostFact>}
   </PhotoPostCard>;
 }

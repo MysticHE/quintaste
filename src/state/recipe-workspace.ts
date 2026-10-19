@@ -1,9 +1,9 @@
 import { recipeCategories } from "../types/food";
-import type { CookBrowse, CookedEntry, RecipeDraft, RecipeDraftIngredient, RecipeWorkspace } from "../types/recipe-workspace";
+import { nutritionChoices, type CookBrowse, type CookedEntry, type RecipeDraft, type RecipeDraftIngredient, type RecipeWorkspace } from "../types/recipe-workspace";
 const record = (value: unknown): Record<string, unknown> => value && typeof value === "object" && !Array.isArray(value) ? value as Record<string, unknown> : {};
 const text = (value: unknown, max: number) => typeof value === "string" ? value.slice(0, max) : "";
 const rows = (value: unknown) => Array.isArray(value) ? value.slice(0, 100).map(record) : [];
-export const defaultCookBrowse: CookBrowse = { category: "All", vegan: false, diets: [], alliumFree: false, time: "Any", onePot: false, sort: "Fit" };
+export const defaultCookBrowse: CookBrowse = { category: "All", vegan: false, diets: [], alliumFree: false, time: "Any", onePot: false, sort: "Fit", nutrition: [] };
 export const cookedLimit = 200;
 export const emptyRecipeWorkspace = (): RecipeWorkspace => ({ drafts: [], shopping: [], browse: defaultCookBrowse, cooked: [], shoppingView: "combined" });
 /** A blank amount means "to taste"; any amount given must be positive with a unit. */
@@ -18,8 +18,10 @@ function readBrowse(value: unknown, legacy: unknown): CookBrowse {
   if (!Object.keys(b).length) return { ...defaultCookBrowse, vegan: legacy === "Vegan", diets: legacy === "Vegan" ? ["Vegan"] : [], alliumFree: legacy === "No alliums" };
   const storedDiets = b.diets;
   const diets = Array.isArray(storedDiets) ? (["Vegan", "Vegetarian"] as const).filter(diet => storedDiets.includes(diet)) : b.vegan === true ? ["Vegan" as const] : [];
+  const storedNutrition = b.nutrition;
+  const nutrition = Array.isArray(storedNutrition) ? nutritionChoices.filter(item => storedNutrition.includes(item)) : [];
   return { category: choice(b.category, ["All", ...recipeCategories] as const, "All"), diets, vegan: diets.length === 1 && diets[0] === "Vegan", alliumFree: b.alliumFree === true,
-    time: choice(b.time, ["Any", "15", "30"] as const, "Any"), onePot: b.onePot === true, sort: choice(b.sort, ["Fit", "Time", "Recent"] as const, "Fit") };
+    time: choice(b.time, ["Any", "15", "30"] as const, "Any"), onePot: b.onePot === true, sort: choice(b.sort, ["Fit", "Time", "Recent"] as const, "Fit"), nutrition };
 }
 function readCooked(value: unknown): CookedEntry[] {
   return (Array.isArray(value) ? value.slice(0, cookedLimit).map(record) : []).filter(e => /^[a-z0-9-]{1,80}$/.test(String(e.recipeId)) && typeof e.finishedAt === "number" && Number.isFinite(e.finishedAt))

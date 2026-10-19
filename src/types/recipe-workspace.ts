@@ -10,9 +10,12 @@ export type RecipeDraft = {
 /** Recipe-added notes carry structured name/amount/unit so identical lines can merge; manual notes use text only. */
 export type ShoppingNote = { id: string; recipeId: string; text: string; checked: boolean; name?: string; amount?: number | null; unit?: string };
 export type CookSort = "Fit" | "Time" | "Recent";
+/** Nutrition filter choices, worded as the badges they match (config/nutrition-standards.ts); AND across choices. */
+export const nutritionChoices = ["Under 500 kcal", "Higher protein", "Higher fibre", "Under 300 mg sodium"] as const;
+export type NutritionChoice = (typeof nutritionChoices)[number];
 export type CookBrowse = {
   category: "All" | RecipeCategory; vegan: boolean; alliumFree: boolean; time: "Any" | "15" | "30";
-  onePot: boolean; sort: CookSort; diets?: ("Vegan" | "Vegetarian")[];
+  onePot: boolean; sort: CookSort; diets?: ("Vegan" | "Vegetarian")[]; nutrition?: NutritionChoice[];
 };
 export type CookedEntry = { recipeId: string; revision: number; servings: number; finishedAt: number };
 export type RecipeWorkspace = {
