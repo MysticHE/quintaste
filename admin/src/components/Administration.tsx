@@ -72,7 +72,7 @@ export function Integrations() {
       </ul>
       {!data.encryptionReady && <div className="notice warn"><Icon name="warning"/>The provider-secret-key file is not mounted, so keys cannot be stored yet.</div>}
       <Mutation endpoint="integrations" label={data.gemini.configured ? 'Replace key' : 'Save key'} reset onSaved={resource.reload} values={f => ({ provider: 'gemini', action: 'set', key: f.get('key') })}>
-        <div className="fields"><label>API key from Google AI Studio<input name="key" type="password" required minLength={39} maxLength={39} autoComplete="off" spellCheck={false} placeholder="AIza…"/></label></div>
+        <div className="fields"><label>API key from Google AI Studio<input name="key" type="password" required minLength={20} maxLength={256} autoComplete="off" spellCheck={false}/></label></div>
         <div className="notice"><Icon name="check"/>Checked with Google before it is saved (no generation, no cost); stored encrypted; shown only as its last four characters.</div>
       </Mutation>
       {data.gemini.configured && <Mutation endpoint="integrations" label="Remove key" tone="danger" onSaved={resource.reload} values={() => ({ provider: 'gemini', action: 'remove' })}/>}

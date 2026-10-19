@@ -12,7 +12,8 @@ import { HttpError, text, throttle } from './http';
  * (/run/secrets/quintaste/provider-secret-key here). The value is validated against Google before it is saved,
  * shown afterwards only as its last four characters, and never written to logs or the audit trail.
  */
-const PROVIDERS = { gemini: { label: 'Google AI Studio', pattern: /^AIza[0-9A-Za-z_-]{35}$/ } } as const;
+// Google issues more than one key format, so only the character set and length are checked here; Google decides validity.
+const PROVIDERS = { gemini: { label: 'Google AI Studio', pattern: /^[0-9A-Za-z._~+\/=-]{20,256}$/ } } as const;
 type Provider = keyof typeof PROVIDERS;
 
 function keyMaterial() {
@@ -67,8 +68,8 @@ export async function setProviderKey(member: Session, input: Record<string, unkn
   const name = provider(input.provider);
   const material = keyMaterial();
   if (!material) throw new HttpError(503, 'The provider-secret-key file is not configured on the server.');
-  const value = text(input.key, 'API key', 128, 20).trim();
-  if (!PROVIDERS[name].pattern.test(value)) throw new HttpError(400, 'That does not look like a Google AI Studio key (it starts with AIza and is 39 characters).');
+  const value = text(input.key, 'API key', 256, 20).trim();
+  if (!PROVIDERS[name].pattern.test(value)) throw new HttpError(400, 'That key contains spaces or characters a Google key never has. Copy it again from Google AI Studio.');
   await throttle('provider-key-probe:' + member.id, 10, 3600);
   const { status, httpStatus } = await probe(value);
   await transaction(async db => {

@@ -49,7 +49,7 @@ export async function generate({ parts, schema = null, system = null, tools = nu
   const text = await response.text();
   if (!response.ok) {
     // Status and a short, key-free excerpt only.
-    logger.warn({ event: 'ai_recipes_model_error', mode: config.mode, status: response.status, body: text.replace(/AIza[\w-]+/g, '[key]').slice(0, 300) });
+    logger.warn({ event: 'ai_recipes_model_error', mode: config.mode, status: response.status, body: (config.headers['x-goog-api-key'] ? text.split(config.headers['x-goog-api-key']).join('[key]') : text).replace(/AIza[\w-]+/g, '[key]').slice(0, 300) });
     throw new GeminiError(response.status === 429 ? 429 : 502, response.status === 429 ? 'The model is busy. Try again in a few minutes.'
       : response.status === 401 || response.status === 403 ? 'The AI key was refused. Staff need to check it in the console.' : 'The model returned an error.');
   }
