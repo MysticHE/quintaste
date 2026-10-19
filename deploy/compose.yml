@@ -13,7 +13,7 @@ services:
       - ./init-db.sh:/docker-entrypoint-initdb.d/10-quintaste-roles.sh:ro
     networks: [private]
     mem_limit: 512m
-    cpus: 0.5
+    cpus: 0.75
     security_opt: [no-new-privileges:true]
     healthcheck:
       test: [CMD-SHELL, 'pg_isready -U quintaste -d quintaste']
@@ -113,7 +113,7 @@ services:
     volumes:
       - ./preview-expo-state:/home/node/.expo
     mem_limit: 1800m
-    cpus: 0.75
+    cpus: 1.5
     pids_limit: 180
     read_only: false
     tmpfs:

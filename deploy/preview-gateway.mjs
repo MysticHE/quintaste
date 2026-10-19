@@ -4,16 +4,16 @@ import { spawn } from 'node:child_process';
 const webOrigin = new URL(process.env.EXPO_PUBLIC_API_URL);
 if (webOrigin.protocol !== 'https:') throw new Error('Preview requires an HTTPS app URL.');
 
-// One Metro worker keeps memory inside the container limit, but Metro then compiles in its main thread, so a cold
-// bundle (2-3 minutes) stalls its /status. While Metro is alive and answered within BUSY_LIMIT, /status reports it as
-// running (busy) instead of failing the healthcheck, which would make Traefik drop the preview route mid-build.
+// Two Metro workers keep transforms off Metro's main thread (peak about 770 MiB of the 1800m limit). If Metro still
+// misses a /status reply while alive and answered within BUSY_LIMIT, report it as running (busy) instead of failing
+// the healthcheck, which would make Traefik drop the preview route mid-build.
 const BUSY_LIMIT = 10 * 60 * 1000;
 const STATUS_TIMEOUT = 3000;
 const BUNDLE_TIMEOUT = 600000;
 const NATIVE = new Set(['android', 'ios']);
 let lastMetroReply = 0;
 
-const metro = spawn(process.execPath, ['node_modules/expo/bin/cli', 'start', '--go', '--lan', '--port', '8081', '--max-workers', '1'], {
+const metro = spawn(process.execPath, ['node_modules/expo/bin/cli', 'start', '--go', '--lan', '--port', '8081', '--max-workers', '2'], {
   stdio: ['ignore', 'inherit', 'inherit'], env: process.env,
 });
 metro.on('error', () => process.exit(1));
