@@ -99,12 +99,16 @@ function validatePlaceCommon(p) {
   if (p.hours !== undefined) validateHours(p.hours);
   if (p.photo !== undefined) validateCoverPhoto(p.photo);
 }
-/** One dish of a place menu: unique id and name, an explicit SGD price or supported range, and the caller's own rule for the V/VG label. */
+/** One dish of a place menu: unique id and name, an explicit SGD price or supported range, and the caller's own rule for the V/VG label.
+ * Owner, 20 Oct 2026: a dish the venue's own menu lists without a price is allowed as {amount: null, currency: 'unknown', type: 'displayed'},
+ * the shape packaged menus already use, so members see "Price unavailable" instead of the dish being dropped. */
+const unpriced = price => keys(price, ['amount', 'currency', 'type']) && price.amount === null && price.currency === 'unknown' && price.type === 'displayed';
 function validateDish(i, ids, names, dietRule) {
   const price = i?.price;
   requireValue(keys(i, ['id', 'name', 'category', 'price', 'diet']) && typeof i.id === 'string' && /^[a-z0-9][a-z0-9-]{2,80}$/.test(i.id) && !ids.has(i.id) && text(i.name, 120) && !names.has(i.name.trim().toLowerCase())
     && (i.category === undefined || text(i.category, 40, true)), 'Invalid or repeated dish'); ids.add(i.id); names.add(i.name.trim().toLowerCase());
   dietRule(i);
+  if (unpriced(price)) return;
   requireValue(keys(price, ['amount', 'currency', 'type', 'maxAmount']) && typeof price.amount === 'number' && Number.isFinite(price.amount) && price.amount >= 0 && price.amount <= 10000 && price.currency === 'SGD' && ['displayed', 'from'].includes(price.type)
     && (price.maxAmount === undefined || typeof price.maxAmount === 'number' && Number.isFinite(price.maxAmount) && price.maxAmount >= price.amount && price.maxAmount <= 10000), 'Price requires an explicit SGD amount or supported range');
 }
