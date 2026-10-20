@@ -329,7 +329,7 @@ def prepare(packages, live):
     cover_candidates(live, states, outcomes, candidates, held, image_assets)
     nutrition_candidates(live, states, outcomes, candidates, held)
     selected, used, place_keys, place_ids = [], set(), set(), set()
-    isolate = (ROOT/ISOLATE).exists() and time.time()-(ROOT/ISOLATE).stat().st_mtime < ISOLATE_SECONDS  # one item per batch after a rejection
+    candidates, isolate = isolation_order(candidates)  # one item per batch after a rejection
     for candidate in candidates:
         image = candidate['data'].get('image') or candidate['data'].get('photo')
         image_hash = Path(image['path']).stem if image else None
@@ -339,6 +339,19 @@ def prepare(packages, live):
         selected.append(candidate)
         if image_hash:used.add(image_hash)
     return selected,[asset for sha256,asset in image_assets.items() if sha256 in used],held
+
+def isolation_order(candidates):
+    """(candidates, isolate). After a server rejection, batches carry one item. 21 Oct 2026: the rejected batch's items (suspects) are
+    tried alone first, venue price changes before places, so the culprit is held within a round or two instead of rejoining every full
+    batch; with none of them left among the candidates, batches are full again."""
+    if not ((ROOT/ISOLATE).exists() and time.time()-(ROOT/ISOLATE).stat().st_mtime < ISOLATE_SECONDS):
+        return candidates, False
+    suspects = set(json.loads((ROOT/ISOLATE).read_text()).get('suspects') or [])
+    if not suspects:
+        return candidates, True  # an older marker: one item per batch, in the usual order
+    key = lambda c: c['kind']+':'+c['id']
+    return sorted(candidates, key=lambda c: (key(c) not in suspects, c['kind'] != 'venue')), any(key(c) in suspects for c in candidates)
+
 
 def batch_place_free(candidate, keys, google_ids, held):
     """False (and a hold) when an earlier place in this batch has the same name and postcode or the same Google place: the app
@@ -656,7 +669,8 @@ def run_publication(policy, folder=None, review_only=False, covers_only=False):
                 outcomes[record['proposalHash']]={'at':now(),'decision':'hold','reason':'Server rejected: '+reason}
                 write(ROOT/'state/publication-outcomes.json',outcomes)
             else:
-                write(ROOT/ISOLATE,{'at':now(),'reason':reason,'batchId':batch['id']})  # culprit unknown: one item per batch
+                write(ROOT/ISOLATE,{'at':now(),'reason':reason,'batchId':batch['id'],  # culprit unknown: one item per batch, suspects first
+                                    'suspects':[r['kind']+':'+r['id'] for r in batch['records']]})
             if pending_outcomes.exists():pending_outcomes.replace(folder/'rejected-by-server-outcomes.json')
             return {'status':'rejected-by-server','productionWrites':0,'reason':reason,'records':[r['kind']+':'+r['id'] for r in batch['records']]}
         if error.code != 409:
@@ -686,8 +700,13 @@ def run_publication(policy, folder=None, review_only=False, covers_only=False):
     write(ROOT/'state/publication-outcomes.json',read(ROOT/'state/pending-publication-outcomes.json',{}))
     write(ROOT/'state/publications'/(batch['id']+'.json'),receipt)
     pending.unlink()
-    if not covers_only:
-        (ROOT/ISOLATE).unlink(missing_ok=True)  # a covers-only batch never carried the rejected item, so isolation continues
+    if not covers_only and (ROOT/ISOLATE).exists():
+        # a covers-only batch never carried the rejected item, so isolation continues; otherwise the published items are cleared of
+        # suspicion and isolation ends once no suspect is left (or for an older marker without suspects)
+        marker=read(ROOT/ISOLATE,{})
+        left=[k for k in marker.get('suspects') or [] if k not in {r['kind']+':'+r['id'] for r in batch['records']}]
+        if left:write(ROOT/ISOLATE,dict(marker,suspects=left))
+        else:(ROOT/ISOLATE).unlink(missing_ok=True)
     result={'status':'published','productionWrites':len(batch['records']),'revision':receipt['revision'],'publishedAt':receipt.get('publishedAt',now()),'records':receipt['records'],'changes':receipt.get('changes',[])}
     write(ROOT/'state/latest-publication.json',result)
     # Wake the fixed reporter immediately; cron recovers if launch is unavailable.

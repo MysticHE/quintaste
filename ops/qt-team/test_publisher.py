@@ -107,6 +107,30 @@ class Publishing(unittest.TestCase):
             with patch.object(p,'ROOT',root),patch.object(w,'run_model',return_value=(missing,{'toolCalls':[]})),self.assertRaisesRegex(ValueError,'Image review incomplete'):
                 p.publication_review(candidates,images,[],root/'review2',{})
 
+    def test_after_a_rejection_the_rejected_items_are_tried_alone_first(self):
+        # 21 Oct 2026: a bad venue price change rejoined every full batch while innocent places were tried alone first.
+        with tempfile.TemporaryDirectory() as d, patch.object(p,'ROOT',Path(d)):
+            root=Path(d);(root/'state').mkdir()
+            cands=[{'kind':'place','id':'vk-new'},{'kind':'place','id':'vo-a'},{'kind':'venue','id':'research-yes'}]
+            self.assertEqual(p.isolation_order(cands),(cands,False))
+            w.write(root/p.ISOLATE,{'at':w.now(),'reason':'Price change','suspects':['place:vo-a','venue:research-yes']})
+            ordered,isolate=p.isolation_order(cands)
+            self.assertTrue(isolate)
+            self.assertEqual([c['id'] for c in ordered],['research-yes','vo-a','vk-new'])  # suspects first, venue first
+            self.assertEqual(p.isolation_order([cands[0]]),([cands[0]],False))  # no suspect left: full batches again
+            w.write(root/p.ISOLATE,{'at':w.now(),'reason':'old marker'})
+            self.assertTrue(p.isolation_order(cands)[1])  # an older marker keeps one-item batches
+            # publishing a suspect clears it of suspicion; the marker ends with the last one
+            w.write(root/p.ISOLATE,{'at':w.now(),'reason':'Price change','suspects':['place:vk-a','venue:research-yes']})
+            for item, left in ((('place','vk-a'),['venue:research-yes']),(('venue','research-yes'),None)):
+                batch={'id':'qt-test','parent':'r1','assets':[],'records':[{'kind':item[0],'id':item[1],'proposalHash':'h','data':{}}]}
+                w.write(root/'state/pending-publication.json',batch)
+                def request(method,path,body=None):
+                    return {'revision':'r1','removals':[],'changes':[]} if method=='GET' else {'id':'qt-test','revision':'r1','records':[],'changes':[]}
+                with patch.object(p,'request',side_effect=request):
+                    self.assertEqual(p.run_publication({'automaticProductionWrites':True},root/'run')['status'],'published')
+                self.assertEqual(w.read(root/p.ISOLATE,{}).get('suspects') if (root/p.ISOLATE).exists() else None,left)
+
     def test_a_covers_only_publication_keeps_one_item_batches_after_a_rejection(self):
         # 20 Oct 2026: covers published between rounds cleared the marker, so the rejected price change jammed batches again.
         for covers_only, kept in ((True, True), (False, False)):
@@ -176,6 +200,7 @@ class Publishing(unittest.TestCase):
                 self.assertEqual(result['status'],'rejected-by-server')
                 self.assertFalse((root/'state/pending-publication.json').exists())
                 self.assertEqual((root/p.ISOLATE).exists(),isolated)
+                if isolated:self.assertEqual(w.read(root/p.ISOLATE)['suspects'],['event:e0','event:e1'])
                 outcomes=w.read(root/'state/publication-outcomes.json',{})
                 self.assertEqual('h0' in outcomes and outcomes['h0']['decision']=='hold',held)
 
