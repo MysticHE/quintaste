@@ -92,6 +92,36 @@ class Publishing(unittest.TestCase):
             with patch.object(p,'ROOT',root),patch.object(w,'run_model',return_value=(review,receipt)),self.assertRaisesRegex(ValueError,'pixels'):
                 p.publication_review(candidates,images,[],root/'review',{})
 
+    def test_manager_review_of_a_photo_already_carried_does_not_fail_the_batch(self):
+        # 20 Oct 2026: Manager also reviewed Lazy Lizard's existing drawing (not a new upload) and every round failed.
+        with tempfile.TemporaryDirectory() as d:
+            root=Path(d);(root/'baseline.json').write_text(json.dumps({'recipeNames':[]}))
+            candidates=[{'kind':'recipe','id':'recipe-a','sources':[]}]
+            review={'decisions':[{'key':'recipe:recipe-a','decision':'hold','reason':'Drawing not inspected'}],
+                    'images':[{'sha256':'c'*64,'decision':'hold','reason':'Unavailable pixels'}],'summary':'x'}
+            with patch.object(p,'ROOT',root),patch.object(w,'run_model',return_value=(review,{'toolCalls':[]})):
+                result=p.publication_review(candidates,[],[],root/'review',{})
+            self.assertEqual(result['images'],[])
+            missing=dict(review,images=[])  # a new image Manager did not review still fails
+            images=[{'sha256':'b'*64,'file':str(root/'x.jpg'),'provenance':{'kind':'place-dish-illustration'}}]
+            with patch.object(p,'ROOT',root),patch.object(w,'run_model',return_value=(missing,{'toolCalls':[]})),self.assertRaisesRegex(ValueError,'Image review incomplete'):
+                p.publication_review(candidates,images,[],root/'review2',{})
+
+    def test_a_covers_only_publication_keeps_one_item_batches_after_a_rejection(self):
+        # 20 Oct 2026: covers published between rounds cleared the marker, so the rejected price change jammed batches again.
+        for covers_only, kept in ((True, True), (False, False)):
+            with tempfile.TemporaryDirectory() as d, patch.object(p,'ROOT',Path(d)):
+                root=Path(d);(root/'state').mkdir()
+                w.write(root/p.ISOLATE,{'at':w.now(),'reason':'Price change must match','batchId':'old'})
+                batch={'id':'qt-test','parent':'r1','assets':[],'records':[{'kind':'place','id':'vk-a','proposalHash':'h0','data':{}}]}
+                w.write(root/'state/pending-publication.json',batch)
+                def request(method,path,body=None):
+                    return {'revision':'r1','removals':[],'changes':[]} if method=='GET' else {'id':'qt-test','revision':'r1','records':['place:vk-a'],'changes':[]}
+                with patch.object(p,'request',side_effect=request):
+                    result=p.run_publication({'automaticProductionWrites':True},root/'run',covers_only=covers_only)
+                self.assertEqual(result['status'],'published')
+                self.assertEqual((root/p.ISOLATE).exists(),kept)
+
     def test_later_image_is_reviewable_without_reextracting_published_recipe(self):
         import hashlib
         row={'id':'recipe-a','status':'proposed'}

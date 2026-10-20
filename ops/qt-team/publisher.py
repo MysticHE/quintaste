@@ -555,7 +555,11 @@ def publication_review(candidates, images, held, folder, policy, acceptance=Fals
     expected={r['kind']+':'+r['id'] for r in candidates}
     if len(result.get('decisions',[]))!=len(expected) or {d.get('key') for d in result['decisions']}!=expected:raise ValueError('Manager publication decisions incomplete')
     if any(d.get('decision') not in ('approved','hold') or not isinstance(d.get('reason'),str) for d in result['decisions']+result.get('images',[])):raise ValueError('Invalid publication review')
-    if len(result.get('images',[]))!=len(images) or {d.get('sha256') for d in result['images']}!={i['sha256'] for i in images}:raise ValueError('Image review incomplete')
+    # 20 Oct 2026: Manager sometimes also reviews a photo a place already carries (not a new upload). That extra decision is
+    # dropped instead of failing the batch; every new image must still have exactly one decision.
+    wanted={i['sha256'] for i in images}
+    result['images']=[d for d in result.get('images',[]) if d.get('sha256') in wanted]
+    if len(result['images'])!=len(images) or {d.get('sha256') for d in result['images']}!=wanted:raise ValueError('Image review incomplete')
     inspected={t['input'].get('requestHash') for t in receipt['toolCalls'] if t['name']=='qt_review_image'}
     for i in images:
         if any(d['sha256']==i['sha256'] and d['decision']=='approved' for d in result['images']):
@@ -682,7 +686,8 @@ def run_publication(policy, folder=None, review_only=False, covers_only=False):
     write(ROOT/'state/publication-outcomes.json',read(ROOT/'state/pending-publication-outcomes.json',{}))
     write(ROOT/'state/publications'/(batch['id']+'.json'),receipt)
     pending.unlink()
-    (ROOT/ISOLATE).unlink(missing_ok=True)
+    if not covers_only:
+        (ROOT/ISOLATE).unlink(missing_ok=True)  # a covers-only batch never carried the rejected item, so isolation continues
     result={'status':'published','productionWrites':len(batch['records']),'revision':receipt['revision'],'publishedAt':receipt.get('publishedAt',now()),'records':receipt['records'],'changes':receipt.get('changes',[])}
     write(ROOT/'state/latest-publication.json',result)
     # Wake the fixed reporter immediately; cron recovers if launch is unavailable.

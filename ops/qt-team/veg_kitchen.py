@@ -205,9 +205,12 @@ REVIEW_RULES = (
     "Some packets have task 'veg-kitchen': each record proposes a NEW Explore place that is a fully vegetarian or vegan venue (Veg Kitchen). Owner rules: "
     "return ready-for-editorial-review only when the excerpts show the venue's OWN statement (its website, About or menu page, or official ordering page) "
     "that the whole venue or kitchen is vegetarian or vegan, in vegKitchen.place.dietProof.quote, or a dietProof with confirmedBy (the owner confirmed it on "
-    "Telegram; treat that as the proof and check only the branch, menu and hours). A Google category, a delivery app's category or "
-    "description, a review, a directory, 'vegetarian options' or 'vegetarian-friendly' is NOT proof; exclude a mixed kitchen (real meat or seafood sold, or "
-    "vegetarian dishes among meat dishes). Dish names such as chicken or fish are fine when the statement exists. The coordinator has already matched the "
+    "Telegram; treat that as the proof and check only the branch, menu and hours). Owner, 20 Oct 2026: the venue's own NAME saying vegetarian or vegan "
+    "(the quote is the name, e.g. 'Old Street Vegetarian') and its Google Maps category ('Listed on Google Maps as a vegetarian restaurant.' or 'Google "
+    "lists it as a vegetarian restaurant.') ARE whole-venue proof too: never hold a place because its proof is only its name or its Google category. "
+    "A delivery app's category or description, a review, a directory, 'vegetarian options' or 'vegetarian-friendly' is not proof; exclude a mixed kitchen "
+    "(real meat or seafood sold, or vegetarian dishes among meat dishes; a mock-meat dish named after meat is not real meat). Conflicting or unconfirmed "
+    "opening hours are never on their own a reason to hold. Dish names such as chicken or fish are fine when the statement exists. The coordinator has already matched the "
     "quote on the stored page, every listed item's exact name and SGD price on the menu capture (droppedCauses counts the items it dropped), the venue name "
     "and the OneMap postcode on stored pages. The menu is a partial sample: do not hold a place for being incomplete. The place must be this branch and not "
     "closed; no allium-free claim is allowed. Hold when evidence is doubtful; exclude when it does not qualify. Held and excluded worker records keep their "
@@ -217,8 +220,9 @@ REVIEW_RULES = (
 PUBLICATION_RULE = (
     "A candidate of kind place whose id starts with 'vk-' adds or updates a Veg Kitchen place in Explore (a fully vegetarian or vegan venue; its menu is a "
     "partial sample). Approve it when the captured excerpts show this exact branch (name and postcode), the venue's own statement that the whole venue is "
-    "vegetarian or vegan (dietProof.quote on the cited page, or dietProof.confirmedBy: the owner confirmed it on Telegram; never a Google or delivery-app category), and listed dishes with explicit SGD prices or 'Price unavailable' where the venue's menu shows none; hold it "
-    "when the proof is only a category or 'options', real meat or seafood is sold, or the branch differs. A candidate whose only change is a new photo is an "
+    "vegetarian or vegan (dietProof.quote on the cited page, dietProof.confirmedBy: the owner confirmed it on Telegram, or, owner 20 Oct 2026, the venue's own "
+    "name saying vegetarian or vegan or its Google Maps vegetarian/vegan restaurant category; never a delivery-app category), and listed dishes with explicit SGD prices or 'Price unavailable' where the venue's menu shows none; hold it "
+    "when the proof is only a delivery-app category or 'options', real meat or seafood is sold, or the branch differs (conflicting hours alone are not a reason). A candidate whose only change is a new photo is an "
     "owner-approved cover: approve it when the captured photo page shows the credited licence and this branch, and review its image like a venue cover. ")
 
 
