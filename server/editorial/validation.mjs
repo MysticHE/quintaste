@@ -75,7 +75,8 @@ const placeFields = ['id', 'kitchen', 'name', 'branch', 'address', 'postalCode',
 const optionalPlaceFields = ['hours', 'photo'];
 // A fully vegetarian place has no kitchen key: it is an ordinary Veg Kitchen place whose menu is published whole.
 const vegKitchenFields = ['id', 'name', 'branch', 'address', 'postalCode', 'point', 'googlePlaceId', 'venueDiet', 'alliumFreeClaim', 'hours', 'photo', 'sourceUrls', 'checkedAt', 'dietProof', 'menu'];
-const vegetarianWords = /vegetarian|vegan|plant[- ]based|meat[- ]free|meatless|素|斋|齋/i;
+// Every vegan proof is also vegetarian proof ("our desserts contain no animal products"), so the vegan phrases count here too.
+const vegetarianWords = /vegetarian|vegan|plant[- ]based|meat[- ]free|meatless|素|斋|齋|no animal products|animal[- ]free/i;
 const veganWords = /vegan|plant[- ]based|全素|纯素|純素|no animal products|animal[- ]free/i;
 // A quote that denies the diet ("not a vegetarian restaurant", "non-vegetarian", "not fully vegan") is no proof of it. A negation word
 // up to 25 characters (within one sentence) before a diet word rejects the quote; "no animal products" and "no onion, no garlic" are
