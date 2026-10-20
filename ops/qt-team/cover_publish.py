@@ -89,11 +89,16 @@ def maybe_start(root=ROOT):
     return True
 
 
+def waiting_covers(root, live):
+    """Venue ids of approved covers still waiting to go live (publishable rows carry the registry entry)."""
+    import cover_photos
+    return {row['entry']['venueId'] for row in cover_photos.publishable(root, live)}
+
+
 def drop_live(root, live):
     """Clear requests whose cover is no longer waiting (published, held or not publishable); counts no try. A round calls
     this after its own publish step, so a cover it already published starts no extra run."""
-    import cover_photos
-    waiting = {row['venueId'] for row in cover_photos.publishable(root, live)}
+    waiting = waiting_covers(root, live)
     with _locked(root):
         path = requests_file(root)
         data = _read(path)
@@ -105,9 +110,8 @@ def drop_live(root, live):
 
 def settle(root, result, live):
     """Drop requests whose cover is live or has a Manager decision; count a try for the rest."""
-    import cover_photos
     decided = result.get('status') in ('all-held', 'no-eligible-changes')  # QT Manager held it, or nothing is publishable yet
-    waiting = {row['venueId'] for row in cover_photos.publishable(root, live)} if live else None
+    waiting = waiting_covers(root, live) if live else None
     with _locked(root):
         path = requests_file(root)
         data = _read(path)

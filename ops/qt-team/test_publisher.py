@@ -436,7 +436,7 @@ class VegKitchenPublishing(unittest.TestCase):
         self.assertEqual(cover_publish.due(self.root), {})
         cover_publish.request(self.root, self.CID)
         live = {'records': [], 'venues': [], 'removals': [], 'reverts': []}
-        waiting = [{'venueId': self.CID}]
+        waiting = [{'entry': {'venueId': self.CID}, 'image': {}, 'source': {}}]  # the shape publishable() returns
         with patch.object(cover_photos, 'publishable', return_value=waiting):
             self.assertEqual(cover_publish.settle(self.root, {'status': 'failed'}, live)[self.CID]['attempts'], 1)
             self.assertEqual(cover_publish.due(self.root), {})  # retried only after RETRY_SECONDS

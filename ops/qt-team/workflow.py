@@ -750,6 +750,7 @@ def validate_stored_event(record):
 
 
 EVENT_DISCOVERY_EVERY = dt.timedelta(0)  # discover every round in the window (owner, 18 Oct 2026)
+KITCHEN_ROLES = ('qt-cooker', 'qt-event')  # take turns with Explorer: at most every other round (owner, 20 Oct 2026)
 ROUND_RESERVE = 1500  # seconds kept after Explorer for Manager review, photos and publication
 CAPTURE_ALLOWANCE = 300  # outlet browser capture before an Explorer worker
 ROLE_FAILURE_STREAK = 3
@@ -910,6 +911,7 @@ class Round:
         self.folder = ROOT / "runs" / self.run_id
         self.folder.mkdir(parents=True)
         self.state = read(ROOT / "state" / "checkpoint.json", {"explorerReviewed": {}, "cookCycle": None, "eventDiscoveryAt": None, "upcomingEvents": [], "pendingReview": []})
+        self.previous_run = self.state.get("lastRunId")  # the last round that finished (a stopped round never sets it)
         self.month = dt.datetime.now(SG).strftime("%Y-%m")
         self.day = dt.datetime.now(SG).date().isoformat()
         self.packets, self.errors, self.notes = [], [], []
@@ -933,7 +935,16 @@ class Round:
         if not self.nightly: return True
         import night_window
         return (time.time() < self.policy["_researchDeadline"] and self.state.get('roleCooldown', {}).get(role, {}).get('until', 0) <= time.time()
-                and night_window.role_open(role))
+                and night_window.role_open(role) and (role not in KITCHEN_ROLES or self.kitchen_turn()))
+
+    def kitchen_turn(self):
+        """Owner, 20 Oct 2026: Cooker and Event run at most every other round. When they worked in the last finished round, this
+        round is Explorer's: in the 6-10 pm window they used about 20 minutes of each round, leaving Explorer under its minimum,
+        so the Veg Kitchen and Mixed Kitchen queues stopped every evening."""
+        return not self.state.get("kitchenRunId") or self.state["kitchenRunId"] != self.previous_run
+
+    def kitchen_started(self):
+        self.state["kitchenRunId"] = self.run_id
 
     def succeeded(self, role):
         self.state.setdefault('roleCooldown', {}).pop(role, None)
@@ -1051,6 +1062,7 @@ class Round:
     def cooker(self):
         if not (self.research_due("qt-cooker") and (self.nightly or self.state.get("cookCycle") != self.month) and self.time_left(1500)):
             return
+        self.kitchen_started()
         import learning
         import recipe_quality
         state = self.state
@@ -1102,6 +1114,7 @@ class Round:
         self.discovery_due, self.upcoming = discovery_due, upcoming
         if not (self.research_due("qt-event") and (discovery_due or (upcoming and not self.trial)) and self.time_left(1500)):
             return
+        self.kitchen_started()
         try:
             held_retries = learning.due_retries(ROOT, 'qt-event') if discovery_due else []
             exclusions_path = ROOT / 'state/event-exclusions.json'

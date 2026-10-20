@@ -181,8 +181,9 @@ class NightControls(unittest.TestCase):
                 w.run(nightly=True)
             finally:
                 for lock in locks:lock.close()
-        # Owner rule (18 Oct 2026): no daily caps inside the window; each round runs Cooker, Event, then Explorer.
-        self.assertEqual(completed,['qt-cooker','qt-event','qt-explorer','qt-cooker','qt-event','qt-explorer','qt-cooker','qt-event'])
+        # Owner rules: no daily caps inside the window (18 Oct 2026); Cooker and Event run at most every other round and the
+        # round after theirs is Explorer's alone (20 Oct 2026), so round 2 is Explorer only and round 3 is Cooker and Event again.
+        self.assertEqual(completed,['qt-cooker','qt-event','qt-explorer','qt-explorer','qt-cooker','qt-event'])
         checkpoint=t.read(self.root/'state/checkpoint.json')
         self.assertEqual(set(checkpoint['explorerReviewed']),{'branch-one','branch-two'})
         self.assertEqual(checkpoint['pendingReview'],[])
