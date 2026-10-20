@@ -1,0 +1,57 @@
+{
+  "version": 1,
+  "timezone": "Asia/Singapore",
+  "managerSchedule": "*/15 * * * *",
+  "exploreCadence": "monthly-with-daily-checkpoint-continuation",
+  "cookCadence": "daily",
+  "eventCadence": "daily-known-events-weekly-discovery",
+  "exploreBatchSize": 4,
+  "maxExploreBatchesPerRun": 50,
+  "maxRecipesPerCycle": 2,
+  "maxEventsPerRun": 20,
+  "workerSeconds": 900,
+  "workerMaxTurns": 40,
+  "runSeconds": 3200,
+  "dailyModelInvocations": null,
+  "monthlyModelInvocations": null,
+  "monthlyImageAttempts": null,
+  "acceptanceReview": {
+    "date": "2026-10-17",
+    "maxInvocations": 1,
+    "reason": "Owner-authorised complete production E2E: one final review after correcting the asynchronous image-review tool registration. Normal scheduled limits and all prior usage remain unchanged."
+  },
+  "googleRequests": 0,
+  "googleExistingRemaining": 81,
+  "publicationMode": "manager-reviewed-atomic-batches",
+  "automaticProductionWrites": true,
+  "externalMessages": false,
+  "maxArtifactBytes": 2000000,
+  "minimumFreeBytes": 2147483648,
+  "maxRunStorageBytes": 536870912,
+  "sourceChecks": {
+    "avoidDuplicateMenuExtraction": true,
+    "blockedSourceRetryDays": 30,
+    "preservePriorVerificationOnFetchFailure": true
+  },
+  "workWindow": "Explorer 24 hours; Cooker and Event 18:00-22:00 Asia/Singapore",
+  "researchCutoff": "Last 15 minutes of each ~55-minute tick; Cooker/Event start no later than 21:45",
+  "monthlyModelAlertPercent": 80,
+  "googleFreeOnly": {
+    "requestedByOwner": true,
+    "enabled": false,
+    "hold": "Billing-account-wide usage and exact requested field SKUs have not been reconciled; preserve existing research ledger and app caps.",
+    "pricingCheckedAt": "2026-10-17",
+    "sourceUrl": "https://developers.google.com/maps/billing-and-pricing/pricing",
+    "monthlyFreeSkuCaps": {
+      "placeDetailsEssentials": 10000,
+      "placeDetailsPro": 5000,
+      "nearbySearchPro": 5000,
+      "textSearchPro": 5000,
+      "placeDetailsEnterprise": 1000,
+      "nearbySearchEnterprise": 1000,
+      "textSearchEnterprise": 1000,
+      "placeDetailsPhotos": 1000
+    }
+  },
+  "mixedKitchenParallel": 2
+}

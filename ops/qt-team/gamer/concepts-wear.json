@@ -1,0 +1,138 @@
+{
+  "version": 1,
+  "note": "Pets wearing each accessory (fitted renders) for the lotus prototype, 18 Oct 2026. Test folder only.",
+  "assets": [
+    {
+      "id": "wear-purple-hat",
+      "kind": "prop",
+      "chroma": "green",
+      "refs": [
+        "ref-mochi.png",
+        "ref-hat.png"
+      ],
+      "subject": "Mochi, the pet shown in the second reference image (a small round cream bunny with lavender ears and a violet lotus on its collar), wearing the white chef hat with a small purple lotus badge shown in the third reference image",
+      "details": "Keep Mochi exactly the same character: same body, colours, face, expression and pose as the second reference image. The accessory sits snugly on top of its head, sized to its head and tilted slightly, with a soft contact shadow where it touches; its ears or cap stay natural around it. It must look truly worn, with correct size, overlap and shading, not pasted on. Only one accessory on the pet.",
+      "status": "todo"
+    },
+    {
+      "id": "wear-purple-scarf",
+      "kind": "prop",
+      "chroma": "green",
+      "refs": [
+        "ref-mochi.png",
+        "ref-scarf.png"
+      ],
+      "subject": "Mochi, the pet shown in the second reference image (a small round cream bunny with lavender ears and a violet lotus on its collar), wearing the light-blue wave-pattern silk scarf with a tiny lotus charm shown in the third reference image",
+      "details": "Keep Mochi exactly the same character: same body, colours, face, expression and pose as the second reference image. The accessory is tied loosely around its neck just under its chin, wrapping around the body with soft folds. It must look truly worn, with correct size, overlap and shading, not pasted on. Only one accessory on the pet.",
+      "status": "todo"
+    },
+    {
+      "id": "wear-purple-crown",
+      "kind": "prop",
+      "chroma": "green",
+      "refs": [
+        "ref-mochi.png",
+        "ref-crown.png"
+      ],
+      "subject": "Mochi, the pet shown in the second reference image (a small round cream bunny with lavender ears and a violet lotus on its collar), wearing the delicate golden lotus crown shown in the third reference image",
+      "details": "Keep Mochi exactly the same character: same body, colours, face, expression and pose as the second reference image. The accessory rests on top of its head like a small tiara, sized to its head, with a soft golden glow. It must look truly worn, with correct size, overlap and shading, not pasted on. Only one accessory on the pet.",
+      "status": "todo"
+    },
+    {
+      "id": "wear-purple-clip",
+      "kind": "prop",
+      "chroma": "green",
+      "refs": [
+        "ref-mochi.png",
+        "ref-clip.png"
+      ],
+      "subject": "Mochi, the pet shown in the second reference image (a small round cream bunny with lavender ears and a violet lotus on its collar), wearing the small pink lotus hair clip shown in the third reference image",
+      "details": "Keep Mochi exactly the same character: same body, colours, face, expression and pose as the second reference image. The accessory is clipped at the side of its head near one ear, small and cute, clearly attached. It must look truly worn, with correct size, overlap and shading, not pasted on. Only one accessory on the pet.",
+      "status": "todo"
+    },
+    {
+      "id": "wear-blue-hat",
+      "kind": "prop",
+      "chroma": "green",
+      "refs": [
+        "ref-ripple.png",
+        "ref-hat.png"
+      ],
+      "subject": "Ripple, the pet shown in the second reference image (a sky-blue fluffy rabbit with long droplet-tipped ears and its own white wave-pattern scarf), wearing the white chef hat with a small purple lotus badge shown in the third reference image",
+      "details": "Keep Ripple exactly the same character: same body, colours, face, expression and pose as the second reference image. The accessory sits snugly on top of its head, sized to its head and tilted slightly, with a soft contact shadow where it touches; its ears or cap stay natural around it. It must look truly worn, with correct size, overlap and shading, not pasted on. Only one accessory on the pet.",
+      "status": "todo"
+    },
+    {
+      "id": "wear-blue-crown",
+      "kind": "prop",
+      "chroma": "green",
+      "refs": [
+        "ref-ripple.png",
+        "ref-crown.png"
+      ],
+      "subject": "Ripple, the pet shown in the second reference image (a sky-blue fluffy rabbit with long droplet-tipped ears and its own white wave-pattern scarf), wearing the delicate golden lotus crown shown in the third reference image",
+      "details": "Keep Ripple exactly the same character: same body, colours, face, expression and pose as the second reference image. The accessory rests on top of its head like a small tiara, sized to its head, with a soft golden glow. It must look truly worn, with correct size, overlap and shading, not pasted on. Only one accessory on the pet.",
+      "status": "todo"
+    },
+    {
+      "id": "wear-blue-clip",
+      "kind": "prop",
+      "chroma": "green",
+      "refs": [
+        "ref-ripple.png",
+        "ref-clip.png"
+      ],
+      "subject": "Ripple, the pet shown in the second reference image (a sky-blue fluffy rabbit with long droplet-tipped ears and its own white wave-pattern scarf), wearing the small pink lotus hair clip shown in the third reference image",
+      "details": "Keep Ripple exactly the same character: same body, colours, face, expression and pose as the second reference image. The accessory is clipped at the side of its head near one ear, small and cute, clearly attached. It must look truly worn, with correct size, overlap and shading, not pasted on. Only one accessory on the pet.",
+      "status": "todo"
+    },
+    {
+      "id": "wear-golden-hat",
+      "kind": "prop",
+      "chroma": "magenta",
+      "refs": [
+        "ref-dewdrop.png",
+        "ref-hat.png"
+      ],
+      "subject": "Golden Dewdrop, the pet shown in the second reference image (a shimmering golden droplet sprite with a happy face and a small lotus-petal cap), wearing the white chef hat with a small purple lotus badge shown in the third reference image",
+      "details": "Keep Golden Dewdrop exactly the same character: same body, colours, face, expression and pose as the second reference image. The accessory sits snugly on top of its head, sized to its head and tilted slightly, with a soft contact shadow where it touches; its ears or cap stay natural around it. It must look truly worn, with correct size, overlap and shading, not pasted on. Only one accessory on the pet.",
+      "status": "todo"
+    },
+    {
+      "id": "wear-golden-scarf",
+      "kind": "prop",
+      "chroma": "magenta",
+      "refs": [
+        "ref-dewdrop.png",
+        "ref-scarf.png"
+      ],
+      "subject": "Golden Dewdrop, the pet shown in the second reference image (a shimmering golden droplet sprite with a happy face and a small lotus-petal cap), wearing the light-blue wave-pattern silk scarf with a tiny lotus charm shown in the third reference image",
+      "details": "Keep Golden Dewdrop exactly the same character: same body, colours, face, expression and pose as the second reference image. The accessory is tied loosely around its neck just under its chin, wrapping around the body with soft folds. It must look truly worn, with correct size, overlap and shading, not pasted on. Only one accessory on the pet.",
+      "status": "todo"
+    },
+    {
+      "id": "wear-golden-crown",
+      "kind": "prop",
+      "chroma": "magenta",
+      "refs": [
+        "ref-dewdrop.png",
+        "ref-crown.png"
+      ],
+      "subject": "Golden Dewdrop, the pet shown in the second reference image (a shimmering golden droplet sprite with a happy face and a small lotus-petal cap), wearing the delicate golden lotus crown shown in the third reference image",
+      "details": "Keep Golden Dewdrop exactly the same character: same body, colours, face, expression and pose as the second reference image. The accessory rests on top of its head like a small tiara, sized to its head, with a soft golden glow. It must look truly worn, with correct size, overlap and shading, not pasted on. Only one accessory on the pet.",
+      "status": "todo"
+    },
+    {
+      "id": "wear-golden-clip",
+      "kind": "prop",
+      "chroma": "cyan",
+      "refs": [
+        "ref-dewdrop.png",
+        "ref-clip.png"
+      ],
+      "subject": "Golden Dewdrop, the pet shown in the second reference image (a shimmering golden droplet sprite with a happy face and a small lotus-petal cap), wearing the small pink lotus hair clip shown in the third reference image",
+      "details": "Keep Golden Dewdrop exactly the same character: same body, colours, face, expression and pose as the second reference image. The accessory is clipped at the side of its head near one ear, small and cute, clearly attached. It must look truly worn, with correct size, overlap and shading, not pasted on. Only one accessory on the pet.",
+      "status": "todo"
+    }
+  ]
+}

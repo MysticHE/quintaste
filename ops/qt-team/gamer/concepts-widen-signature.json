@@ -1,0 +1,19 @@
+{
+ "version": 1,
+ "note": "Wide (3:2) version of the Signature caf\u00e9 skin (style.json homeSkin), from widen.py prep on runs/growth/skin-signature/raw-2.png; results go through widen.py composite. Test folder only.",
+ "assets": [
+  {
+   "id": "skin-signature-wide",
+   "kind": "widen",
+   "aspect": "landscape",
+   "chroma": null,
+   "reference": false,
+   "refs": [
+    "widen-signature.png"
+   ],
+   "subject": "the Signature caf\u00e9 room at early evening: polished honey-walnut plank floor glowing in warm sunset light, terracotta wainscot with a thin gold trim, cream walls, a big window with a green gingham valance and a string of warm fairy lights, a peach-and-gold sunset sky outside, hanging pothos plants and brass pendant lamps, wooden bookshelves with recipe books, jars and fresh flowers, a chalkboard menu with a little golden star above it and an arched doorway",
+   "details": "On the left, continue the wall past the bookshelf with another tall shelf of recipe books, jars and small vases of flowers under a glowing brass pendant lamp. On the right, continue past the arched doorway with the terracotta wainscot, a warm wall lamp, a small wooden side table with a vase of flowers and a hanging plant.",
+   "status": "todo"
+  }
+ ]
+}

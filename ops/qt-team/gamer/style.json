@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "reference": "references/style-board.webp",
+  "referenceNote": "Match only the rendering style of the attached QuinTaste game style board: soft rounded toy-like 3D, smooth clay-like materials, warm peach, cream, coral, honey-wood and sage colours, gentle warm light and the same character proportions. Do not copy any object, character or layout from the board.",
+  "base": "Cosy mobile cooking-game art in the style of the reference image: a soft stylized 3D render with a hand-painted finish, chunky rounded toy-like shapes, smooth matte clay-like materials with subtle glossy highlights, warm soft key light from the upper left, gentle ambient occlusion, warm saturated but natural colours and a crisp clean silhouette.",
+  "kinds": {
+    "ingredient": "A single game ingredient sprite: {subject}. {details} Three-quarter view from slightly above, centred, the whole subject visible and filling about 70% of the frame with an even margin on every side.",
+    "packaged": "A single game ingredient sprite: {subject}. {details} Three-quarter view from slightly above, centred, the whole subject visible and filling about 70% of the frame with an even margin on every side. Any label text must be exactly as specified, bold and easy to read.",
+    "dish": "A single plated dish sprite for a cooking game: {subject}. {details} Three-quarter view from slightly above, centred, the whole bowl or plate visible and filling about 75% of the frame with an even margin on every side.",
+    "character": "A chibi café regular for a cosy cooking game: {subject}. {details} Big round head about 60% of the figure, soft rounded features, rosy cheeks, friendly adult customer with adult styling (not a child). Upper body only, cut straight across at mid-chest, facing the viewer, centred, the top of the hair fully visible with margin above it.",
+    "prop": "A single game prop sprite: {subject}. {details} Three-quarter view from slightly above, centred, the whole object visible and filling about 75% of the frame with an even margin on every side.",
+    "scene": "A full-frame scene image for a cosy cooking game: {subject}. {details} Fill the entire image edge to edge. Soft depth of field, gently blurred like a photo bokeh so the game's foreground sprites stand out. Front view, straight on, no people.",
+    "surface": "A full-frame surface texture for a cosy cooking game: {subject}. {details} Fill the entire image edge to edge with the surface, evenly lit, no objects on it, straight front view.",
+    "diorama": "A full-frame tall portrait game scene for a cosy cooking game: {subject}. {details} Fill the entire image edge to edge. Isometric three-quarter view from above, crisp focus everywhere, rich small details, soft global illumination. No people and no animals.",
+    "widen": "A wide landscape version of a finished full-frame game scene for a cosy cooking game: {subject}. The attached picture is a wide canvas: its middle holds the finished painting and the flat grey areas on the left and right are empty. Keep the middle painting exactly as it is, in the same place, size, perspective, lighting and colours, and paint the grey areas as the seamless continuation of the same room, so the whole picture reads as one wider painting of the same room from the same camera. {details} The floor continues with the same planks and light; keep the lower part of each side mostly open floor. Fill the entire image edge to edge with no grey left, no seam, no border and no frame."
+  },
+  "chroma": {
+    "magenta": "#FF00FF",
+    "cyan": "#00FFFF",
+    "green": "#00FF00"
+  },
+  "background": "Isolated on a perfectly flat, uniform, solid {chromaName} background ({chromaHex}) that fills the whole image edge to edge: no gradient, no vignette, no floor, no table, no cast shadow on the background and no {chromaName} reflections on the subject.",
+  "negatives": "No text, letters, numbers, logos or watermarks except label text specified above. No border or frame. No other objects. Never use {chromaName} anywhere on the subject.",
+  "output": {
+    "maxSide": 512,
+    "webpQuality": 88,
+    "sceneMaxSide": 1400
+  },
+  "checks": {
+    "borderStdMax": 14,
+    "coverageMin": 0.08,
+    "coverageMax": 0.72,
+    "edgeMarginMinPx": 6,
+    "spillMaxRatio": 0.004
+  },
+  "sceneNegatives": "No text, letters, numbers, logos or watermarks except any chalk doodle described above. No border or frame. No people or animals.",
+  "homeSkin": {
+    "note": "Café home skins ship in two sizes. Paint the portrait room first (it fixes the playable layout: hotspots, counter, decor spots), then widen it with widen.py and the 'widen' kind. The app shows the portrait room on phones and the wide room on tablets, desktops and landscape screens, with the portrait room pixel-exact in the middle.",
+    "portrait": [
+      1024,
+      1536
+    ],
+    "wide": [
+      2304,
+      1536
+    ],
+    "canvas": [
+      1536,
+      1024
+    ],
+    "canvasGrey": 128,
+    "feather": 48,
+    "portraitAspect": "portrait",
+    "wideAspect": "landscape",
+    "seamSoften": 3,
+    "maxSeamDifference": 18,
+    "seamBand": 300
+  }
+}

@@ -1,0 +1,361 @@
+"""Useful recipes only (owner, 18 Oct 2026): easy, well rated, naturally allium-free and made from ingredients
+that are easy to buy in Singapore, always from a referenced source page.
+
+The facts come from the recipe page's own schema.org Recipe data (rating, rating count, times, ingredient
+lines, steps), fetched through the egress guard, never from the model's description of the page. A Cooker
+proposal publishes only if its source passes these checks and the QuinTaste adaptation stays within them.
+"""
+from __future__ import annotations
+
+import datetime as dt
+import hashlib
+import html
+import json
+import math
+import os
+import re
+import time
+import unicodedata
+from pathlib import Path
+from urllib.parse import urlsplit
+
+ROOT = Path(os.environ.get('QT_TEAM_ROOT', '/opt/data/qt-team'))
+
+
+class NothingToCook(Exception):
+    """No shortlisted page met the bar this round: a valid outcome, not a failure."""
+BAR = {'rating': 4.5, 'ratings': 20, 'minutes': 30, 'ingredients': 12, 'steps': 8, 'outsidePantry': 1}
+CACHE_SECONDS = 7 * 86400
+CACHE_VERSION = 2  # 2: author @id references resolved
+MAX_PAGE = 3 * 1024 * 1024
+TRUSTED_BOOST = 3  # well-known creators rank first (trusted_creators.json); never a substitute for the bar
+# Chinese ingredient lines: meat and seafood, but not 素鸡/素肉 (vegetarian), 鸡蛋 (egg), 牛奶 (milk), 肉桂 (cinnamon) and the like.
+NOT_VEGETARIAN_ZH = re.compile(r'(?<!素)(?:鸡(?!蛋)|鸭(?!蛋)|鹅(?!蛋)|猪|牛(?!奶|油果)|羊(?!奶)|鱼(?!腥草)|虾|蟹|蚝油|鱼露|培根|火腿|明胶|鱿鱼|章鱼|海鲜|(?<!果)肉(?!桂|豆蔻|松))')
+CJK = re.compile(r'[㐀-鿿]')
+ANONYMOUS = {'admin', 'administrator', 'editor', 'editors', 'staff', 'team', 'author', 'guest', 'user', 'anonymous', 'unknown'}
+SOURCE_STEPS = 2 * BAR['steps']  # sites split easy recipes into many tiny steps; the QuinTaste version keeps to 8
+NOT_VEGETARIAN = re.compile(r'\b(chicken|pork|beef|mutton|lamb|bacon|ham|lard|anchov\w*|fish|bonito|katsuobushi|shrimp|prawns?|'
+                            r'octopus|squid|crab|oysters?|scallops?|clams?|sashimi|shirasu|gelatine?)\b', re.I)
+LD_JSON = re.compile(r'<script[^>]*type=["\']application/ld\+json["\'][^>]*>(.*?)</script>', re.I | re.S)
+DURATION = re.compile(r'^P(?:(\d+(?:\.\d+)?)D)?(?:T(?:(\d+(?:\.\d+)?)H)?(?:(\d+(?:\.\d+)?)M)?(?:(\d+(?:\.\d+)?)S)?)?$', re.I)
+QUANTITY = re.compile(r'^[\d\s/.,½¼¾⅓⅔⅛\-–~x×]+')
+UNITS = re.compile(r'^(?:cups?|tbsps?|tablespoons?|tsps?|teaspoons?|g|grams?|kg|ml|l|litres?|liters?|oz|ounces?|lbs?|pounds?|'
+                   r'pieces?|pcs|slices?|cloves?|sprigs?|stalks?|bunch(?:es)?|handfuls?|pinch(?:es)?|dash(?:es)?|cans?|tins?|packets?|'
+                   r'packs?|blocks?|sheets?|thumbs?|inch(?:es)?|cm|whole|large|medium|small|heaped|level|of)\b\.?\s*', re.I)
+
+
+def _read(path, default=None):
+    return json.loads(path.read_text(encoding='utf-8')) if path.is_file() else default
+
+
+def _write(path, value):
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temp = path.with_name(path.name + '.tmp')
+    temp.write_text(json.dumps(value, ensure_ascii=False, indent=1), encoding='utf-8')
+    temp.replace(path)
+
+
+def _norm(text):
+    text = re.sub(r'<[^>]*>', ' ', html.unescape(str(text)))  # some sites put HTML inside their recipe data
+    return re.sub(r'\s+', ' ', unicodedata.normalize('NFKC', text).casefold()).strip()
+
+
+def trusted(root):
+    return _read(root / 'trusted_creators.json', {'sites': {}})['sites']
+
+
+def pantry(root):
+    data = _read(root / 'pantry_sg.json', {'basics': [], 'items': {}})
+    names = set(data['basics'])
+    for name, aliases in data['items'].items():
+        names.update([name, *aliases])
+    # Longest first, so "sesame oil" is tried before "oil".
+    return sorted((_norm(n) for n in names), key=len, reverse=True)
+
+
+def core(line):
+    """'2 tbsp light soy sauce (or tamari), to taste' -> 'light soy sauce'."""
+    text = _norm(line)
+    text = re.sub(r'\([^)]*\)', ' ', text).split(',')[0].split(';')[0]
+    text = re.sub(r'\b(?:or|plus|for|to taste|optional)\b.*$', '', text)
+    for _ in range(3):
+        text = UNITS.sub('', QUANTITY.sub('', text).strip()).strip()
+    return text.strip(' -:.')
+
+
+def local(line, names):
+    text = ' ' + core(line) + ' '
+    return any(re.search(r'(?<![a-z])' + re.escape(n) + r'(?![a-z])', text) for n in names if n)
+
+
+def minutes(value):
+    match = DURATION.match(str(value or '').strip())
+    if not match or not any(match.groups()):
+        return None
+    d, h, m, s = (float(x or 0) for x in match.groups())
+    total = round(d * 1440 + h * 60 + m + s / 60)
+    return total or None  # PT0M means the page did not publish a time
+
+
+def _recipe(node):
+    if isinstance(node, list):
+        for item in node:
+            found = _recipe(item)
+            if found:
+                return found
+    elif isinstance(node, dict):
+        kind = node.get('@type')
+        if kind == 'Recipe' or (isinstance(kind, list) and 'Recipe' in kind):
+            return node
+        for key in ('@graph', 'mainEntity', 'itemListElement'):
+            if key in node:
+                found = _recipe(node[key])
+                if found:
+                    return found
+    return None
+
+
+def _steps(instructions):
+    if isinstance(instructions, str):
+        return max(1, len([s for s in re.split(r'\n+|<li', instructions) if s.strip()]))
+    count = 0
+    for item in instructions if isinstance(instructions, list) else [instructions]:
+        if isinstance(item, dict) and item.get('@type') == 'HowToSection':
+            count += _steps(item.get('itemListElement', []))
+        elif item:
+            count += 1
+    return count
+
+
+def _index(node, nodes):
+    if isinstance(node, list):
+        for item in node:
+            _index(item, nodes)
+    elif isinstance(node, dict):
+        if isinstance(node.get('@id'), str) and len(node) > 1:
+            nodes.setdefault(node['@id'], node)
+        for value in node.values():
+            _index(value, nodes)
+
+
+def parse(page):
+    """The page's schema.org Recipe, with an author given as an @id reference (Yoast, WP Recipe Maker) resolved."""
+    blocks = []
+    for block in LD_JSON.findall(page):
+        try:
+            blocks.append(json.loads(block.strip().removeprefix('<!--').removesuffix('-->')))
+        except ValueError:
+            continue
+    nodes = {}
+    _index(blocks, nodes)
+    found = _recipe(blocks)
+    if found:
+        authors = found.get('author')
+        resolve = lambda a: nodes.get(a['@id'], a) if isinstance(a, dict) and 'name' not in a and isinstance(a.get('@id'), str) else a
+        found = dict(found, author=[resolve(a) for a in authors] if isinstance(authors, list) else resolve(authors))
+    return found
+
+
+def fetch(root, url):
+    """The recipe page's structured data, cached for a week (one guarded fetch per page)."""
+    from cover_photos import GUARD, USER_AGENT
+    from workflow import public_url
+    if not public_url(url):
+        raise ValueError('not a public https URL')
+    cache = root / 'state/recipe-data' / (hashlib.sha256(url.encode()).hexdigest() + '.json')
+    stored = _read(cache)
+    if stored and stored.get('v') == CACHE_VERSION and time.time() - stored['fetchedEpoch'] < CACHE_SECONDS:
+        return stored
+    import urllib.request
+    opener = urllib.request.build_opener(urllib.request.ProxyHandler({'https': GUARD, 'http': GUARD}))
+    request = urllib.request.Request(url, headers={'User-Agent': USER_AGENT, 'Accept': 'text/html'})
+    with opener.open(request, timeout=30) as response:
+        page = response.read(MAX_PAGE + 1).decode('utf-8', 'replace')
+    recipe = parse(page[:MAX_PAGE])
+    stored = {'v': CACHE_VERSION, 'url': url, 'fetchedAt': dt.datetime.now(dt.timezone.utc).isoformat(), 'fetchedEpoch': time.time(), 'recipe': recipe}
+    _write(cache, stored)
+    return stored
+
+
+def _number(value):
+    try:
+        return float(str(value).replace(',', ''))
+    except (TypeError, ValueError):
+        return None
+
+
+def assess(root, url):
+    """Check a source recipe page against the owner's bar. Never raises; failures are reasons."""
+    try:
+        return _assess(root, url)
+    except Exception as exc:  # malformed page data is a failed check, not a crashed round
+        return {'url': url, 'passes': False, 'reasons': ['page recipe data unreadable: ' + type(exc).__name__]}
+
+
+def _assess(root, url):
+    from recipe_policy import PUNGENT
+    try:
+        stored = fetch(root, url)
+    except Exception as exc:
+        return {'url': url, 'passes': False, 'reasons': ['page could not be read: ' + type(exc).__name__]}
+    recipe = stored.get('recipe')
+    if not recipe:
+        return {'url': url, 'passes': False, 'reasons': ['page has no structured recipe data (rating, times, ingredients)']}
+    rating = recipe.get('aggregateRating') or {}
+    rating = rating[0] if isinstance(rating, list) and rating else rating
+    value = _number(rating.get('ratingValue')) if isinstance(rating, dict) else None
+    best = _number(rating.get('bestRating')) if isinstance(rating, dict) else None
+    if value is not None and best and best != 5:
+        value = value * 5 / best
+    count = _number((rating.get('ratingCount') or rating.get('reviewCount')) if isinstance(rating, dict) else None)
+    total = minutes(recipe.get('totalTime'))
+    if total is None and (minutes(recipe.get('prepTime')) is not None or minutes(recipe.get('cookTime')) is not None):
+        total = (minutes(recipe.get('prepTime')) or 0) + (minutes(recipe.get('cookTime')) or 0)
+    raw = [html.unescape(str(i)) for i in (recipe.get('recipeIngredient') or recipe.get('ingredients') or [])]
+    heading = re.compile(r'^\s*<(b|strong|h[1-6])>[^<]*</\1>\s*:?\s*$', re.I)  # e.g. "<b>Dressing</b>"
+    lines = [_norm(i) for i in raw if not heading.match(i)]
+    lines = [line for line in lines if line and not line.endswith(':')]  # drop empty lines and section headings
+    steps = _steps(recipe.get('recipeInstructions') or [])
+    names = pantry(root)
+    # Chinese-language lines are checked on the English QuinTaste version instead (gate), where the pantry names apply.
+    outside = [line for line in lines if not CJK.search(core(line)) and not local(line, names)]
+    pungent = sorted({m.group(0).lower() for line in lines for m in [PUNGENT.search(_norm(line))] if m})
+    reasons = []
+    if value is None or count is None:
+        reasons.append('no published rating')
+    elif value < BAR['rating'] or count < BAR['ratings']:
+        reasons.append(f'rated {value:.1f} from {count:,.0f} ratings (needs {BAR["rating"]}+ from {BAR["ratings"]}+)')
+    if total is None:
+        reasons.append('total time not published')
+    elif total > BAR['minutes']:
+        reasons.append(f'takes {total} min (max {BAR["minutes"]})')
+    if not lines:
+        reasons.append('ingredients not published')
+    elif len(lines) > BAR['ingredients']:
+        reasons.append(f'{len(lines)} ingredients (max {BAR["ingredients"]})')
+    if steps > SOURCE_STEPS:
+        reasons.append(f'{steps} steps on the source (max {SOURCE_STEPS}; the QuinTaste version keeps to {BAR["steps"]})')
+    meat = sorted({m.group(0).lower() for line in lines for m in [NOT_VEGETARIAN.search(_norm(line)) or NOT_VEGETARIAN_ZH.search(_norm(line))]
+                   if m and 'vegetarian' not in _norm(line) and 'vegan' not in _norm(line)})
+    if meat:
+        reasons.append('not vegetarian as written: ' + ', '.join(meat))
+    if pungent:
+        reasons.append('not naturally allium-free: ' + ', '.join(pungent))
+    if len(outside) > BAR['outsidePantry']:
+        reasons.append('hard-to-find ingredients: ' + '; '.join(core(x) for x in outside[:4]))
+    author = recipe.get('author')
+    author = (author[0] if isinstance(author, list) and author else author) or {}
+    author = re.sub(r'\s+', ' ', html.unescape(str((author.get('name') if isinstance(author, dict) else author) or ''))).strip()
+    site = (urlsplit(url).hostname or '').removeprefix('www.')
+    if not author or _norm(author) in ANONYMOUS or _norm(author) == site:
+        reasons.append('no named author or organisation')  # owner rule: every recipe is credited to a named creator
+    known = trusted(root).get(site)
+    score = (value or 0) * math.log10((count or 0) + 1) - (total or 60) / 30 + (TRUSTED_BOOST if known else 0)
+    return {'url': url, 'site': site, 'siteName': known or site, 'trusted': bool(known), 'name': _norm(recipe.get('name', ''))[:160], 'author': author[:160],
+            'rating': value, 'ratings': int(count or 0), 'minutes': total, 'ingredients': lines[:40], 'steps': steps,
+            'outsidePantry': [core(x) for x in outside], 'passes': not reasons, 'reasons': reasons, 'score': round(score, 3),
+            'checkedAt': stored['fetchedAt'][:10]}
+
+
+def gate(root, record):
+    """Hold a Cooker proposal unless its source passes the bar and the adaptation stays easy and local.
+    Passing proposals get the source's rating attached by the coordinator (shown in Recipe info)."""
+    recipe = record.get('recipe') or {}
+    if record.get('status') != 'proposed' or not recipe:
+        return record
+    urls = [s.get('url') for s in record.get('sources', []) if isinstance(s, dict)]
+    primary = assess(root, urls[0]) if urls else {'passes': False, 'reasons': ['no source page']}
+    source = primary if primary['passes'] else None
+    reasons = [] if source else ['primary source below the bar: ' + '; '.join(primary['reasons'][:3])]
+    if source:
+        names = pantry(root)
+        ingredients = recipe.get('ingredients') or []
+        outside = [i.get('name', '') for i in ingredients if not local(i.get('name', ''), names)]
+        if isinstance(recipe.get('minutes'), (int, float)) and recipe['minutes'] > BAR['minutes']:
+            reasons.append(f'adapted recipe takes {recipe["minutes"]} min')
+        if len(ingredients) > BAR['ingredients']:
+            reasons.append(f'adapted recipe has {len(ingredients)} ingredients')
+        if len(recipe.get('steps') or []) > BAR['steps']:
+            reasons.append(f'adapted recipe has {len(recipe["steps"])} steps')
+        if len(outside) > BAR['outsidePantry']:
+            reasons.append('hard-to-find ingredients: ' + ', '.join(outside[:4]))
+    if reasons:
+        record['status'] = 'held'
+        record['notes'] = (str(record.get('notes', '')) + ' Quality bar: ' + '; '.join(reasons)).strip()
+    else:
+        recipe['sourceRating'] = {'value': round(source['rating'], 1), 'count': source['ratings'], 'site': source['siteName'][:80],
+                                  'url': source['url'], 'checkedAt': source['checkedAt']}
+        recipe['author'] = source['author']  # the credit comes from the page's own data, not the model
+        try:  # optional: a recipe without reliable nutrition is still published, just without the section
+            import nutrition
+            nutrition.attach(root, recipe, fetch(root, source['url']).get('recipe'), source['siteName'])
+        except Exception:
+            recipe.pop('nutrition', None)
+    return record
+
+
+def shortlist_prompt(baseline, counts, rejected, creators=()):
+    return ('Current UTC: ' + dt.datetime.now(dt.timezone.utc).isoformat() + '. Task: SHORTLIST up to 8 recipe pages for QuinTaste. '
+            'Each must be a real, well-reviewed recipe page (shows a star rating from at least 20 cooks, ideally 4.5+), '
+            'naturally free of garlic, onion, shallot, spring onion, leek, chive and asafoetida (as written by the author, not adapted), '
+            'vegetarian or vegan, ready in 30 minutes or less, at most 12 ingredients and 8 steps, with everyday ingredients sold in '
+            'Singapore supermarkets or wet markets. Good fits: Chinese Buddhist vegetarian dishes, tofu and greens, soups, porridge, '
+            'noodles, kueh, desserts and drinks. Language is NOT a limit: look for Chinese recipes too (Chinese home, Buddhist '
+            'vegetarian (斋菜/素食), Cantonese, Teochew, Hokkien, Taiwanese dishes), on English or Chinese-language pages, as long as the page '
+            'shows its rating and author. Many Chinese apps (Xiachufang, Douguo) block automated reading; skip blocked pages. Start with these well-known creators (they rank first, but any named author or '
+            'organisation is allowed): ' + ', '.join(f'{name} ({site})' for site, name in creators) + '. The page must name its author. '
+            'Favour the least represented categories: ' + json.dumps(counts) + '. '
+            'Do not repeat existing recipes: ' + json.dumps([r['name'] for r in baseline.get('recipeNames', [])][-150:]) +
+            '. Previously rejected pages (skip): ' + json.dumps(rejected[-40:]) + '. Use web_search and open pages to confirm they exist. '
+            'Extracted page text usually hides the star rating, time and ingredient data; the coordinator reads that data from each page '
+            'itself and rejects pages that miss the bar. So do NOT filter candidates on ratings you cannot see: return up to 8 promising '
+            'pages (popular recipes from established creators) that look allium-free, quick and simple. An empty list is only right '
+            'when you found no plausible page at all. '
+            'Return ONLY JSON {"role":"qt-cooker","candidates":[{"url":"https recipe page","name":"","category":"one of the app categories"}],'
+            '"notes":""}. No Google Maps.')
+
+
+def shortlist(root, baseline, folder, policy, live=None):
+    """Stage 1: Cooker names candidate pages; the coordinator keeps those that pass, best first."""
+    from workflow import run_model, CATEGORIES
+    counts = {c: 0 for c in CATEGORIES}
+    try:
+        import publisher
+        for row in (live or publisher.request('GET', '/control/state'))['records']:
+            if row['kind'] == 'recipe':
+                for category in row['data'].get('categories', []):
+                    counts[category] = counts.get(category, 0) + 1
+    except Exception:
+        pass  # rotation is a preference; the shortlist still works without counts
+    log = root / 'state/recipe-shortlist.json'
+    history = _read(log, {'rejected': []})
+    result, _ = run_model('qt-cooker', shortlist_prompt(baseline, counts, history['rejected'], trusted(root).items()), folder, policy,
+                          seconds=min(600, policy.get('workerSeconds', 600)))
+    candidates = [c for c in result.get('candidates', []) if isinstance(c, dict) and isinstance(c.get('url'), str)][:8]
+    checked = [dict(assess(root, c['url']), category=c.get('category')) for c in candidates]
+    passed = sorted((c for c in checked if c['passes']), key=lambda c: -c['score'])
+    history['rejected'] = (history['rejected'] + [c['url'] for c in checked if not c['passes']])[-200:]
+    history['last'] = {'at': dt.datetime.now(dt.timezone.utc).isoformat(), 'checked': len(checked), 'passed': len(passed),
+                       'reasons': [{'url': c['url'], 'reasons': c['reasons']} for c in checked if not c['passes']]}
+    _write(log, history)
+    return {'passed': passed, 'checked': checked}
+
+
+def audit_published(root, live=None, limit=4):
+    """Check bot recipes already live against the bar once each; failures go to the owner (Telegram)."""
+    import publisher
+    log = root / 'state/recipe-audit.json'
+    done = _read(log, {})
+    todo = [r for r in (live or publisher.request('GET', '/control/state'))['records'] if r['kind'] == 'recipe' and r['id'] not in done][:limit]
+    for row in todo:
+        data = row['data']
+        probe = {'status': 'proposed', 'recipe': {'ingredients': data.get('ingredients', []), 'steps': data.get('steps', []), 'minutes': data.get('minutes')},
+                 'sources': [{'url': u} for u in data.get('provenance', {}).get('sources', [])]}
+        gate(root, probe)
+        if 'could not be read' in probe.get('notes', '') or 'unreadable' in probe.get('notes', ''):
+            continue  # a network or page glitch is not a verdict; try again next round
+        done[row['id']] = {'name': data.get('name', row['id']), 'passes': probe['status'] == 'proposed',
+                           'reasons': probe.get('notes', '').replace('Quality bar: ', ''), 'at': dt.datetime.now(dt.timezone.utc).isoformat()}
+    if todo:
+        _write(log, done)
+    return len(todo)

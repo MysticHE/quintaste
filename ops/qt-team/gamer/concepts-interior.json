@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "note": "Game home as a modern indoor café interior filling a portrait phone screen, 18 Oct 2026. Test folder only.",
+  "assets": [
+    {
+      "id": "cafe-modern",
+      "kind": "diorama",
+      "aspect": "portrait",
+      "chroma": null,
+      "reference": false,
+      "subject": "the inside of a modern, cosy vegetarian café, seen from a high corner looking down at about 45 degrees so the whole floor plan from the back wall to the entrance fills the tall frame",
+      "details": "We are inside the café: walls and floor fill the picture to every edge, with no sky, no garden, no outside view and no cutaway edges. Layout from top to bottom. (1) Top: the back wall with tall arched windows letting in soft daylight, white globe pendant lights, a blank light-oak name board high in the centre of the wall (no words), a tall built-in bookshelf full of colourful recipe books on the left, and a blank dark menu board on the right. (2) Middle: a long modern open-kitchen counter with a white stone top and a fluted light-oak front, running across the café with its front facing the viewer; a small induction stove with a black wok at its right end, a coffee machine and a glass pastry case; the space BEHIND the counter is empty, where the café owner will stand. (3) Lower middle: a seating area with two round tables and modern rounded chairs and a cushioned bench along the left wall; on the right a small dressing nook with a round standing mirror and a coat stand holding peach aprons. (4) Bottom: the front of the café near the entrance: an empty round peach pet bed cushion on the floor, one clear empty spot of floor on each side for a large potted plant, and a light terrazzo floor. Modern cosy palette: warm white, light oak, sage green, terracotta and soft peach accents, many potted and hanging plants, warm inviting light. No text anywhere.",
+      "status": "todo"
+    }
+  ]
+}

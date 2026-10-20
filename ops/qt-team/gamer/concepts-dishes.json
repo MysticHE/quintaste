@@ -1,0 +1,102 @@
+{
+  "version": 1,
+  "note": "QuinTaste Rush Hour full kit, 18 Oct 2026. Test folder only.",
+  "assets": [
+    {
+      "id": "dish-kaya-toast",
+      "kind": "dish",
+      "chroma": "magenta",
+      "subject": "pandan kaya toast on a small plate",
+      "details": "Golden toast squares spread with green pandan kaya and a pat of plant butter. No meat, no egg.",
+      "status": "todo"
+    },
+    {
+      "id": "dish-porridge",
+      "kind": "dish",
+      "chroma": "cyan",
+      "subject": "ginger mushroom oat porridge in a bowl",
+      "details": "Creamy oat porridge with sliced shiitake, silken tofu cubes, shredded ginger and coriander leaves. No meat, no egg.",
+      "status": "todo"
+    },
+    {
+      "id": "dish-popiah",
+      "kind": "dish",
+      "chroma": "magenta",
+      "subject": "fresh popiah rolls on a plate",
+      "details": "Two soft rolls cut to show jicama, carrot, tofu, bean sprouts and lettuce, with crushed peanuts. No meat, no egg.",
+      "status": "todo"
+    },
+    {
+      "id": "dish-laksa",
+      "kind": "dish",
+      "chroma": "cyan",
+      "subject": "plant-based coconut laksa in a deep bowl",
+      "details": "Orange coconut curry broth with rice noodles, tofu puffs and bean sprouts. No meat, no egg.",
+      "status": "todo"
+    },
+    {
+      "id": "dish-sweet-sour",
+      "kind": "dish",
+      "chroma": "cyan",
+      "subject": "sweet and sour tofu with pineapple on a plate",
+      "details": "Crisp tofu cubes in glossy red sauce with capsicum, pineapple and cucumber. No meat, no egg.",
+      "status": "todo"
+    },
+    {
+      "id": "dish-abc-soup",
+      "kind": "dish",
+      "chroma": "cyan",
+      "subject": "ABC vegetable soup in a bowl",
+      "details": "Clear golden broth with potato, carrot, corn and tomato chunks. No meat, no egg.",
+      "status": "todo"
+    },
+    {
+      "id": "dish-bubur",
+      "kind": "dish",
+      "chroma": "cyan",
+      "subject": "bubur cha cha in a bowl",
+      "details": "Coconut milk with orange and purple sweet potato, yam cubes and small sago pearls. No meat, no egg.",
+      "status": "todo"
+    },
+    {
+      "id": "dish-sago",
+      "kind": "dish",
+      "chroma": "magenta",
+      "subject": "sago gula melaka in a small glass",
+      "details": "Clear sago pudding with dark palm sugar syrup and a swirl of coconut milk. No meat, no egg.",
+      "status": "todo"
+    },
+    {
+      "id": "dish-mee-goreng",
+      "kind": "dish",
+      "chroma": "cyan",
+      "subject": "tempeh mee goreng on a plate",
+      "details": "Reddish stir-fried yellow noodles with tempeh, bok choy, tomato, bean sprouts and a lime wedge. No meat, no egg.",
+      "status": "todo"
+    },
+    {
+      "id": "dish-claypot",
+      "kind": "dish",
+      "chroma": "magenta",
+      "subject": "mushroom claypot rice in a small claypot",
+      "details": "Rice topped with shiitake, tofu and choy sum, glossy dark sauce. No meat, no egg.",
+      "status": "todo"
+    },
+    {
+      "id": "dish-nasi-lemak",
+      "kind": "dish",
+      "chroma": "magenta",
+      "subject": "nasi lemak with sambal tempeh on a banana leaf",
+      "details": "Coconut rice mound with sambal tempeh, roasted peanuts and cucumber slices. No meat, no egg.",
+      "status": "todo"
+    },
+    {
+      "id": "dish-tomato-tofu",
+      "kind": "dish",
+      "chroma": "cyan",
+      "subject": "tomato and tofu stir-fry on a plate",
+      "details": "Soft tofu cubes and tomato wedges in a glossy light tomato sauce with a few coriander leaves. No meat, no egg.",
+      "status": "todo"
+    }
+  ]
+}

@@ -1,0 +1,126 @@
+{
+  "version": 1,
+  "note": "QuinTaste Rush Hour full kit, 18 Oct 2026. Test folder only.",
+  "assets": [
+    {
+      "id": "guest-lim",
+      "kind": "character",
+      "chroma": "magenta",
+      "subject": "Uncle Lim, a friendly older man",
+      "details": "Short neat grey hair, round glasses, a crisp white short-sleeved shirt, closed happy upturned-arc eyes, a warm smile, one hand giving a little thumbs up.",
+      "status": "todo"
+    },
+    {
+      "id": "guest-nurul",
+      "kind": "character",
+      "chroma": "magenta",
+      "subject": "Nurul, a cheerful young woman",
+      "details": "A soft sage-green hijab, a peach blouse, closed happy upturned-arc eyes, a big smile, both hands holding a small cup.",
+      "status": "todo"
+    },
+    {
+      "id": "guest-asha",
+      "kind": "character",
+      "chroma": "magenta",
+      "subject": "Asha, a calm friendly woman",
+      "details": "Long dark hair in a low braid, a mustard yellow kurta top, closed happy upturned-arc eyes, a gentle smile, hands folded.",
+      "status": "todo"
+    },
+    {
+      "id": "pet-pip",
+      "kind": "prop",
+      "chroma": "magenta",
+      "subject": "Pip, a small fluffy golden puppy companion",
+      "details": "A round fluffy golden-cream puppy with floppy ears, big happy eyes and a tiny tail, sitting and smiling, in the same soft rounded toy-like style as the reference board.",
+      "status": "todo"
+    },
+    {
+      "id": "dessert-pot",
+      "kind": "prop",
+      "chroma": "magenta",
+      "subject": "a small enamel dessert pot on a round burner",
+      "details": "A cream enamel pot with a sage-green rim and a wooden spoon resting in it, gentle white steam, on a short black burner ring.",
+      "status": "todo"
+    },
+    {
+      "id": "assembly-board",
+      "kind": "prop",
+      "chroma": "magenta",
+      "subject": "a wooden assembly board for rolling popiah",
+      "details": "A light wooden board seen from slightly above with one soft round popiah skin laid on it.",
+      "status": "todo"
+    },
+    {
+      "id": "decor-windowplant",
+      "kind": "prop",
+      "chroma": "magenta",
+      "subject": "a leafy window plant in a terracotta pot",
+      "details": "A lush bushy green plant in a round terracotta pot with a little saucer.",
+      "status": "todo"
+    },
+    {
+      "id": "decor-herbs",
+      "kind": "prop",
+      "chroma": "magenta",
+      "subject": "a terracotta herb planter",
+      "details": "A long low terracotta trough with basil, mint and a small chilli plant.",
+      "status": "todo"
+    },
+    {
+      "id": "decor-rug",
+      "kind": "prop",
+      "chroma": "cyan",
+      "subject": "a round peach woven rug seen from slightly above",
+      "details": "A soft round rug in peach and cream with a simple woven pattern.",
+      "status": "todo"
+    },
+    {
+      "id": "decor-lamp",
+      "kind": "prop",
+      "chroma": "cyan",
+      "subject": "a hanging peach glass pendant lamp",
+      "details": "A round peach glass shade glowing warmly on a short cord.",
+      "status": "todo"
+    },
+    {
+      "id": "decor-teaset",
+      "kind": "prop",
+      "chroma": "magenta",
+      "subject": "a small teapot and two cups on a tray",
+      "details": "A round sage-green teapot with two little cups on a wooden tray.",
+      "status": "todo"
+    },
+    {
+      "id": "acc-coral",
+      "kind": "prop",
+      "chroma": "cyan",
+      "subject": "a small coral bandana scarf with little white flowers",
+      "details": "A soft coral-orange triangular bandana with a small white flower print, knotted, sized for a small pet.",
+      "status": "todo"
+    },
+    {
+      "id": "acc-lilac",
+      "kind": "prop",
+      "chroma": "green",
+      "subject": "a small lilac bandana scarf with one white flower",
+      "details": "A soft lilac triangular bandana with one white flower, knotted, sized for a small pet.",
+      "status": "todo"
+    },
+    {
+      "id": "acc-mushroom",
+      "kind": "prop",
+      "chroma": "cyan",
+      "subject": "a tiny red mushroom cap hat with white spots",
+      "details": "A round soft red mushroom-cap hat sized for a small pet.",
+      "status": "todo"
+    },
+    {
+      "id": "acc-lantern",
+      "kind": "prop",
+      "chroma": "cyan",
+      "subject": "a tiny red paper lantern charm on a ribbon",
+      "details": "A small glowing red paper lantern with a golden tassel on a short red ribbon, a pet collar charm.",
+      "status": "todo"
+    }
+  ]
+}

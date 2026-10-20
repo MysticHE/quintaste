@@ -1,0 +1,134 @@
+{
+  "version": 1,
+  "note": "Concept art for the lotus avatar plan (18 Oct 2026). Test-folder only; not part of the production asset list.",
+  "assets": [
+    {
+      "id": "lotus-bud-pink",
+      "kind": "prop",
+      "chroma": "cyan",
+      "subject": "a single closed pink lotus bud rising from a small round lily pad",
+      "details": "Plump teardrop bud with soft pink petals tipped in deeper rose, a faint inner glow as if something is sleeping inside, one dewdrop on a petal. Cute and magical.",
+      "status": "todo"
+    },
+    {
+      "id": "lotus-pink",
+      "kind": "prop",
+      "chroma": "cyan",
+      "subject": "a fully open pink lotus flower on a round lily pad",
+      "details": "Soft blush-pink petals in three layers around a golden seed pod, gentle glow, a few floating sparkles.",
+      "status": "todo"
+    },
+    {
+      "id": "lotus-purple",
+      "kind": "prop",
+      "chroma": "green",
+      "subject": "a fully open purple lotus flower on a round lily pad",
+      "details": "Lavender-to-violet petals in three layers around a golden seed pod, a soft violet glow and small star sparkles.",
+      "status": "todo"
+    },
+    {
+      "id": "lotus-blue",
+      "kind": "prop",
+      "chroma": "magenta",
+      "subject": "a fully open blue lotus flower on a round lily pad",
+      "details": "Sky-blue to deep sapphire petals in three layers around a golden seed pod, shimmering water-ripple light and small droplet sparkles.",
+      "status": "todo"
+    },
+    {
+      "id": "lotus-golden",
+      "kind": "prop",
+      "chroma": "magenta",
+      "subject": "a fully open golden lotus flower on a round lily pad",
+      "details": "Radiant gold petals with a warm metallic sheen in three layers around a glowing seed pod, light rays and gold sparkles, the rarest and most precious version.",
+      "status": "todo"
+    },
+    {
+      "id": "mascot-lian",
+      "kind": "prop",
+      "chroma": "magenta",
+      "subject": "Lian, QuinTaste's mascot: a friendly lotus-bud spirit (not a human)",
+      "details": "A round pink lotus-bud body with two small leaf arms, big closed happy upturned-arc eyes, rosy cheeks, a tiny peach chef apron and a small green leaf sprout on top. Full body, standing, waving one leaf arm.",
+      "status": "todo"
+    },
+    {
+      "id": "sample-adult",
+      "kind": "character",
+      "chroma": "green",
+      "subject": "Wen, a fictional adult QuinTaste member in Adult form",
+      "details": "Adult proportions (head about one third of the figure, not chibi), friendly smile, short wavy dark hair, warm skin, a cream knit top with a peach apron. Head and shoulders, plain pose, facing the viewer, centred. Leave clear space above the head for a hat.",
+      "status": "todo"
+    },
+    {
+      "id": "sample-mini",
+      "kind": "character",
+      "chroma": "green",
+      "subject": "the same fictional member Wen in Mini style (a cute chibi art style of the same adult)",
+      "details": "Same short wavy dark hair, warm skin, cream knit top and peach apron as the Adult form; big round head about 60% of the figure, closed happy upturned-arc eyes, small open smile. Head and shoulders, facing the viewer, centred, clear space above the head.",
+      "status": "todo"
+    },
+    {
+      "id": "acc-pink",
+      "kind": "prop",
+      "chroma": "cyan",
+      "subject": "a small pink lotus hair clip accessory",
+      "details": "A cute enamel-style pink lotus blossom clip with a tiny pearl centre.",
+      "status": "todo"
+    },
+    {
+      "id": "acc-purple",
+      "kind": "prop",
+      "chroma": "green",
+      "subject": "a white chef hat with a small purple lotus emblem",
+      "details": "Soft puffy toque, folded band with an embroidered violet lotus badge.",
+      "status": "todo"
+    },
+    {
+      "id": "acc-blue",
+      "kind": "prop",
+      "chroma": "magenta",
+      "subject": "a flowing light-blue silk scarf with a wave pattern",
+      "details": "Loosely knotted short scarf, sky-blue with white water-ripple pattern and a tiny lotus charm.",
+      "status": "todo"
+    },
+    {
+      "id": "acc-golden",
+      "kind": "prop",
+      "chroma": "magenta",
+      "subject": "a delicate golden lotus crown halo",
+      "details": "A small floating ring of golden lotus petals with warm glow and sparkles, worn just above the head.",
+      "status": "todo"
+    },
+    {
+      "id": "pet-pink",
+      "kind": "prop",
+      "chroma": "cyan",
+      "subject": "Dewdrop, a tiny round water-droplet sprite pet",
+      "details": "A clear pale-pink droplet creature with a happy face and a lotus-petal cap, bouncing.",
+      "status": "todo"
+    },
+    {
+      "id": "pet-purple",
+      "kind": "prop",
+      "chroma": "green",
+      "subject": "Mochi, a small round cream bunny pet with lavender ears",
+      "details": "Soft mochi-like body, lavender inner ears, tiny violet lotus on its collar, sitting and smiling.",
+      "status": "todo"
+    },
+    {
+      "id": "pet-blue",
+      "kind": "prop",
+      "chroma": "magenta",
+      "subject": "Ripple, a small sky-blue rabbit-like pet spirit",
+      "details": "A round fluffy bunny with soft sky-blue fur fading to white on the tummy, very long floppy ears tipped with tiny glossy water droplets, big happy closed eyes, rosy cheeks and a little white wave-pattern scarf. A few tiny bubbles float around it. Sitting and smiling. Clearly different from a plain cream bunny: blue, water-themed and fluffier.",
+      "status": "todo"
+    },
+    {
+      "id": "pet-golden",
+      "kind": "prop",
+      "chroma": "magenta",
+      "subject": "Golden Dewdrop, a tiny round water-droplet sprite pet made of shimmering liquid gold",
+      "details": "The same character as Dewdrop: a plump teardrop-shaped droplet with a big happy face, rosy cheeks and a small lotus-petal cap, but golden: warm translucent gold with a metallic sheen, a soft inner glow, a few gold sparkles floating around it. Bouncing happily. Not a fish.",
+      "status": "todo"
+    }
+  ]
+}

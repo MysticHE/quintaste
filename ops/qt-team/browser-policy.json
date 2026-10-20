@@ -1,0 +1,13 @@
+{
+  "ProxySettings": {
+    "ProxyMode": "fixed_servers",
+    "ProxyServer": "127.0.0.1:3128",
+    "ProxyBypassList": "<-loopback>"
+  },
+  "URLBlocklist": ["file://*", "chrome://*", "chrome-untrusted://*", "view-source:*"],
+  "DownloadRestrictions": 3,
+  "PasswordManagerEnabled": false,
+  "AutofillAddressEnabled": false,
+  "AutofillCreditCardEnabled": false,
+  "WebRtcIPHandling": "disable_non_proxied_udp"
+}

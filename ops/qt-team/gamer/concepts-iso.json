@@ -1,0 +1,110 @@
+{
+  "version": 1,
+  "note": "Isometric café home, avatars in a cooking pose and board-matched pets, 18 Oct 2026. Test folder only.",
+  "assets": [
+    {
+      "id": "room-peach",
+      "kind": "prop",
+      "aspect": "landscape",
+      "chroma": "cyan",
+      "reference": false,
+      "refs": ["ref-board-cafe.png"],
+      "subject": "an isometric 3D diorama of a small cosy café room, cut away to show the floor and two walls, in the same camera angle, layout, furniture, colours and soft 3D rendering style as the café in the attached picture",
+      "details": "Arched windows on the left wall; a pink booth bench and two small round wooden tables with pink chairs on the left; a long wooden service counter with a fluted front and a white top on the right, with a small stove and a black wok on it; three wooden bar stools in front of the counter; shelves with jars and a blank dark chalkboard on the back wall; a pastry display case at the right end of the counter; pendant lamps and many potted plants; peach-pink terracotta tiled floor. There are NO people and NO animals anywhere: the space behind the counter is empty, and a round pink floor cushion at the front of the floor is empty. The chalkboard is completely blank. Keep one clear empty spot of floor at the front-left corner. Ignore any words in the attached picture.",
+      "status": "todo"
+    },
+    {
+      "id": "avatar-adult",
+      "kind": "prop",
+      "aspect": "portrait",
+      "chroma": "green",
+      "reference": false,
+      "refs": ["ref-wen-adult.png", "ref-board-cafe.png"],
+      "subject": "Wen, the same woman as in the first attached picture (same face, wavy shoulder-length brown hair, cream jumper and coral apron), as a café owner cooking",
+      "details": "Drawn in the soft 3D rendering style and adult proportions of the café owner in the second attached picture. Waist-up figure cut straight across at the waist, body turned slightly towards the viewer's left as in an isometric game, smiling at the viewer, both hands in front at waist height holding a small black wok and a wooden spatula. Just the figure: no counter, no furniture, no other objects.",
+      "status": "todo"
+    },
+    {
+      "id": "avatar-mini",
+      "kind": "prop",
+      "aspect": "portrait",
+      "chroma": "green",
+      "reference": false,
+      "refs": ["ref-wen-mini.png", "ref-board-cafe.png"],
+      "subject": "Wen in Mini style: the same woman as in the first attached picture as a cute chibi figure with a big round head (clearly an adult woman in adult clothing, not a child), wavy brown hair, cream jumper and coral apron",
+      "details": "Drawn in the soft 3D rendering style of the second attached picture. Waist-up figure cut straight across at the waist, body turned slightly towards the viewer's left, smiling, both hands in front at waist height holding a small black wok and a wooden spatula. Just the figure: no counter, no furniture, no other objects.",
+      "status": "todo"
+    },
+    {
+      "id": "avatar-lian",
+      "kind": "prop",
+      "aspect": "portrait",
+      "chroma": "cyan",
+      "reference": false,
+      "refs": ["ref-lian.png", "ref-board-cafe.png"],
+      "subject": "Lian, the mascot in the first attached picture: a cheerful character whose head is a pink lotus bud, with leaf arms and a coral apron",
+      "details": "Drawn in the soft 3D rendering style of the second attached picture. Waist-up figure cut straight across at the waist, body turned slightly towards the viewer's left, smiling, both hands in front at waist height holding a small black wok and a wooden spatula. Just the figure: no counter, no furniture, no other objects.",
+      "status": "todo"
+    },
+    {
+      "id": "pet-purple",
+      "kind": "prop",
+      "chroma": "green",
+      "reference": false,
+      "refs": ["ref-board-mochi.png"],
+      "subject": "Mochi, the steamed bao bun companion in the attached picture",
+      "details": "Exactly the same character and rendering style: a round soft cream bao bun with a pleated top knot, tiny arms and feet, rosy cheeks and a big happy closed-eye smile, but WITHOUT any hat. Sitting, facing the viewer. Ignore any words in the picture.",
+      "status": "todo"
+    },
+    {
+      "id": "wear-purple-hat",
+      "kind": "prop",
+      "chroma": "green",
+      "reference": false,
+      "refs": ["ref-board-mochi.png"],
+      "subject": "Mochi, the steamed bao bun companion in the attached picture, wearing its white chef hat",
+      "details": "Exactly the same character, hat and rendering style as the picture. Sitting, facing the viewer, big happy smile. Ignore any words in the picture.",
+      "status": "todo"
+    },
+    {
+      "id": "wear-purple-scarf",
+      "kind": "prop",
+      "chroma": "green",
+      "reference": false,
+      "refs": ["ref-board-mochi.png", "ref-scarf.png"],
+      "subject": "Mochi, the steamed bao bun companion in the first attached picture, wearing the wave-pattern scarf from the second picture",
+      "details": "Same character and rendering style, WITHOUT a hat. The scarf is tied snugly around the base of its body like a bandana, with a small knot at the side, following the body's curve so it is clearly worn. Sitting, facing the viewer, big happy smile.",
+      "status": "todo"
+    },
+    {
+      "id": "wear-purple-crown",
+      "kind": "prop",
+      "chroma": "green",
+      "reference": false,
+      "refs": ["ref-board-mochi.png", "ref-crown.png"],
+      "subject": "Mochi, the steamed bao bun companion in the first attached picture, wearing the golden lotus crown from the second picture",
+      "details": "Same character and rendering style, WITHOUT a chef hat. The small crown sits snugly on top of its pleated top knot, sized to fit its head and slightly tilted, so it is clearly worn. Sitting, facing the viewer, big happy smile.",
+      "status": "todo"
+    },
+    {
+      "id": "wear-purple-clip",
+      "kind": "prop",
+      "chroma": "green",
+      "reference": false,
+      "refs": ["ref-board-mochi.png", "ref-clip.png"],
+      "subject": "Mochi, the steamed bao bun companion in the first attached picture, wearing the pink lotus hair clip from the second picture",
+      "details": "Same character and rendering style, WITHOUT a hat. The small clip is fastened to one side of its pleated top knot, sized to fit, so it is clearly worn. Sitting, facing the viewer, big happy smile.",
+      "status": "todo"
+    },
+    {
+      "id": "pet-sprout",
+      "kind": "prop",
+      "chroma": "magenta",
+      "reference": false,
+      "refs": ["ref-board-sprout.png"],
+      "subject": "Sprout, the companion in the attached picture",
+      "details": "Exactly the same character and rendering style: a round cream chick-like creature with two fresh green leaves sprouting from the top of its head, a small orange beak, rosy cheeks, tiny wings and small orange feet. Sitting, facing the viewer, happy closed-eye smile. Ignore any words in the picture.",
+      "status": "todo"
+    }
+  ]
+}

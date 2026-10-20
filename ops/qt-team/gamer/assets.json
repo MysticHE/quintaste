@@ -1,0 +1,204 @@
+{
+  "version": 1,
+  "note": "One entry per game sprite. QT Gamer generates entries whose status is 'todo' (two variants, automatic checks, QT Manager pixel review, then owner Approve/Reject on Telegram). 'done' entries were generated and owner-approved in the 18 Oct 2026 test run.",
+  "assets": [
+    {
+      "id": "ginger",
+      "kind": "ingredient",
+      "subject": "a knobbly piece of fresh ginger root",
+      "details": "Pale golden-tan skin with soft ring marks and two small green leaves tucked beside it.",
+      "chroma": "magenta",
+      "status": "done"
+    },
+    {
+      "id": "garlic",
+      "kind": "ingredient",
+      "subject": "two whole bulbs of garlic",
+      "details": "Creamy white papery skin with faint violet streaks, one bulb slightly behind the other.",
+      "chroma": "magenta",
+      "status": "done"
+    },
+    {
+      "id": "kangkung",
+      "kind": "ingredient",
+      "subject": "a small bunch of kangkung (water spinach)",
+      "details": "Glossy deep green arrow-shaped leaves on pale green hollow stems, loosely bundled.",
+      "chroma": "magenta",
+      "status": "done"
+    },
+    {
+      "id": "carrot",
+      "kind": "ingredient",
+      "subject": "two fresh carrots",
+      "details": "Bright orange with soft rings and short leafy green tops, one lying across the other.",
+      "chroma": "cyan",
+      "status": "done"
+    },
+    {
+      "id": "tofu",
+      "kind": "ingredient",
+      "subject": "soft tofu cubes on a small round wooden plate",
+      "details": "Four smooth white cubes stacked loosely, with two small bok choy leaves tucked beside them.",
+      "chroma": "magenta",
+      "status": "done"
+    },
+    {
+      "id": "shiitake",
+      "kind": "ingredient",
+      "subject": "three whole shiitake mushrooms",
+      "details": "Rich brown domed caps with a pale cross-shaped cut on top and short cream stems.",
+      "chroma": "magenta",
+      "status": "done"
+    },
+    {
+      "id": "pasteA",
+      "kind": "packaged",
+      "subject": "a short round glass jar of red chilli bean paste with a red lid",
+      "details": "Thick glossy red paste visible through the glass and heaped at the open top; a cream rounded label on the front shows a single large dark red letter 'A'.",
+      "chroma": "cyan",
+      "status": "done"
+    },
+    {
+      "id": "pasteB",
+      "kind": "packaged",
+      "subject": "a short round glass jar of dark brown bean paste with a brown lid",
+      "details": "Thick glossy dark brown paste visible through the glass and heaped at the open top; a cream rounded label on the front shows a single large dark brown letter 'B'.",
+      "chroma": "magenta",
+      "status": "done"
+    },
+    {
+      "id": "soy",
+      "kind": "packaged",
+      "subject": "a small classic soy sauce dispenser bottle",
+      "details": "Rounded glass bottle of very dark soy sauce with a bright red pointed cap. No label.",
+      "chroma": "magenta",
+      "status": "done"
+    },
+    {
+      "id": "sesame",
+      "kind": "packaged",
+      "subject": "a small glass jug of golden sesame oil",
+      "details": "Clear glass with a round body, a handle and a cork stopper, filled with warm amber oil. No label.",
+      "chroma": "magenta",
+      "status": "done"
+    },
+    {
+      "id": "kecap",
+      "kind": "packaged",
+      "subject": "a small bottle of kecap manis (sweet soy sauce)",
+      "details": "Slim dark glass bottle with a red cap and a plain golden-yellow band with no text.",
+      "chroma": "magenta",
+      "status": "done"
+    },
+    {
+      "id": "rice",
+      "kind": "ingredient",
+      "subject": "a round wooden bowl heaped with fluffy steamed white rice",
+      "details": "Plump glossy rice grains in a warm brown wooden bowl.",
+      "chroma": "magenta",
+      "status": "done"
+    },
+    {
+      "id": "dish-mapo",
+      "kind": "dish",
+      "subject": "vegetarian mapo tofu in a round white ceramic bowl",
+      "details": "Glossy red chilli bean sauce with soft white tofu cubes, small green peas and a few red chilli flecks. No meat.",
+      "chroma": "cyan",
+      "status": "done"
+    },
+    {
+      "id": "guest-office",
+      "kind": "character",
+      "subject": "Office lunch, a young working adult",
+      "details": "Short neat dark brown hair, a blue knit sweater over a white collar, closed happy upturned-arc eyes, small open smile, both hands resting on the cheeks.",
+      "chroma": "magenta",
+      "status": "done"
+    },
+    {
+      "id": "guest-mei",
+      "kind": "character",
+      "subject": "Auntie Mei, a cheerful middle-aged auntie",
+      "details": "Soft grey hair in a neat round bun on top, a coral knit sweater with a peach apron, closed happy upturned-arc eyes, small open smile, both hands resting on the cheeks.",
+      "chroma": "green",
+      "status": "done"
+    },
+    {
+      "id": "guest-mei-no",
+      "kind": "character",
+      "subject": "Auntie Mei, a cheerful middle-aged auntie, politely declining",
+      "details": "Same look as guest-mei: soft grey hair in a neat round bun, coral knit sweater with a peach apron. Eyebrows slightly raised in apology, small closed wavy mouth, one hand raised palm-out in a gentle 'no thank you' gesture.",
+      "chroma": "green",
+      "status": "done"
+    },
+    {
+      "id": "guest-jia",
+      "kind": "character",
+      "subject": "Jia Hui, a young adult regular",
+      "details": "Long dark brown hair in a high ponytail with a few side strands, a sage green knit sweater, closed happy upturned-arc eyes, small open smile, both hands resting on the cheeks.",
+      "chroma": "magenta",
+      "status": "done"
+    },
+    {
+      "id": "bg-cafe",
+      "kind": "scene",
+      "aspect": "landscape",
+      "chroma": null,
+      "subject": "the back wall of a small sunlit plant-based café, seen from behind the serving counter",
+      "details": "Only the back wall, from just below the ceiling down to a honey-wood shelf ledge that runs along the very bottom edge. A wide window with soft pale-blue sky, blurred city buildings and round green trees outside; two warm glowing pendant lamps hanging from the top; a dark green chalkboard on the right with a cute white chalk doodle of a smiling steamed bun (bao) and little sparkles; potted green plants, small jars and cups on the ledge. Warm cream walls and honey-wood window frames. Nothing in the foreground: no counter, no table, no stove, no pans, no plates, no food.",
+      "status": "done",
+      "reference": false
+    },
+    {
+      "id": "counter",
+      "kind": "surface",
+      "aspect": "landscape",
+      "chroma": null,
+      "subject": "the top and front edge of a warm honey-coloured wooden café bar counter",
+      "details": "Long smooth planks running horizontally across the whole width, soft natural grain, warm honey colour, seen straight on from slightly above; the lower fifth shows the rounded front edge catching a soft highlight. Seamless and evenly lit so it can be stretched horizontally.",
+      "status": "done",
+      "reference": false
+    },
+    {
+      "id": "plate",
+      "kind": "prop",
+      "chroma": "magenta",
+      "subject": "an empty round cream ceramic plate",
+      "details": "Wide gently raised rim, smooth glaze with a soft highlight, seen from slightly above so it reads as a flat ellipse.",
+      "status": "done"
+    },
+    {
+      "id": "board",
+      "kind": "prop",
+      "aspect": "landscape",
+      "chroma": "magenta",
+      "subject": "a wide wooden plating board made of two square chopping boards side by side",
+      "details": "Honey-coloured wood with soft grain and rounded corners, completely empty on top (no plates, no food). A folded white tea towel with thin pink stripes and a small sprig of green herbs tucked at the left end.",
+      "status": "done"
+    },
+    {
+      "id": "stove-wok",
+      "kind": "prop",
+      "aspect": "landscape",
+      "chroma": "cyan",
+      "subject": "a square terracotta-orange cooking hob with an empty black carbon-steel wok on it",
+      "details": "The hob has a softly glowing orange burner ring under the wok and rounded corners. The wok is deep, matte black inside with a soft sheen, completely empty, with a long wooden handle pointing to the right. A small white utensil pot holding wooden spatulas sits at the back right corner of the hob.",
+      "status": "done"
+    },
+    {
+      "id": "dish-beehoon",
+      "kind": "dish",
+      "chroma": "cyan",
+      "subject": "vegetarian fried bee hoon (thin rice vermicelli) on a round white plate",
+      "details": "Golden stir-fried rice vermicelli with shredded cabbage, carrot strips, bean sprouts and a few leafy greens; no egg, no meat, no seafood, no spring onion.",
+      "status": "todo"
+    },
+    {
+      "id": "dish-kangkung",
+      "kind": "dish",
+      "chroma": "magenta",
+      "subject": "stir-fried kangkung (water spinach) on a round white plate",
+      "details": "Glossy bright green leaves and tender hollow stems in a light savoury sauce with a few slices of red chilli and ginger; no garlic, no shrimp paste, no meat.",
+      "status": "todo"
+    }
+  ]
+}

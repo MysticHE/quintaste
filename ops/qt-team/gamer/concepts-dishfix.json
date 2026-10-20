@@ -1,0 +1,38 @@
+{
+  "version": 1,
+  "note": "Dish fixes: no allium garnish.",
+  "assets": [
+    {
+      "id": "dish-laksa",
+      "kind": "dish",
+      "chroma": "cyan",
+      "subject": "plant-based coconut laksa in a deep bowl",
+      "details": "Orange coconut curry broth with rice noodles, tofu puffs and bean sprouts. No meat, no egg. Absolutely no spring onion, scallions, chives, garlic or onion anywhere, including garnish; if any garnish, use a few coriander leaves.",
+      "status": "todo"
+    },
+    {
+      "id": "dish-porridge",
+      "kind": "dish",
+      "chroma": "magenta",
+      "subject": "ginger mushroom oat porridge in a bowl",
+      "details": "Creamy oat porridge with sliced shiitake, silken tofu cubes and shredded ginger. No meat, no egg. Absolutely no spring onion, scallions, chives, garlic or onion anywhere, including garnish; if any garnish, use a few coriander leaves.",
+      "status": "todo"
+    },
+    {
+      "id": "dish-mee-goreng",
+      "kind": "dish",
+      "chroma": "cyan",
+      "subject": "tempeh mee goreng on a plate",
+      "details": "Reddish stir-fried yellow noodles with tempeh, bok choy, tomato, bean sprouts and a lime wedge. No meat, no egg. Absolutely no spring onion, scallions, chives, garlic or onion anywhere, including garnish; if any garnish, use a few coriander leaves.",
+      "status": "todo"
+    },
+    {
+      "id": "dish-tomato-tofu",
+      "kind": "dish",
+      "chroma": "cyan",
+      "subject": "tomato and tofu stir-fry on a plate",
+      "details": "Soft tofu cubes and tomato wedges in a glossy light tomato sauce. No meat, no egg. Absolutely no spring onion, scallions, chives, garlic or onion anywhere, including garnish; if any garnish, use a few coriander leaves.",
+      "status": "todo"
+    }
+  ]
+}

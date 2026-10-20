@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "note": "Game home growth items and Sprout, the free pet, 18 Oct 2026. Test folder only.",
+  "assets": [
+    {
+      "id": "pet-sprout",
+      "kind": "prop",
+      "chroma": "magenta",
+      "subject": "Sprout, a small round cream companion pet with two leaf ears",
+      "details": "A plump cream-white bean-shaped little creature with two fresh green leaf ears on top of its head, big happy closed eyes, rosy cheeks, tiny stubby arms, sitting and smiling. Simple and friendly, clearly a plant-sprout spirit, not a bunny or a cat.",
+      "status": "todo"
+    },
+    {
+      "id": "soup-pot",
+      "kind": "prop",
+      "chroma": "magenta",
+      "subject": "a clay soup pot on a small round burner",
+      "details": "Glazed terracotta claypot with a lid slightly lifted, gentle white steam curling up, on a short black burner ring. Seen from the front at a slight angle.",
+      "status": "todo"
+    },
+    {
+      "id": "rice-cooker",
+      "kind": "prop",
+      "chroma": "magenta",
+      "subject": "a cute round cream electric rice cooker",
+      "details": "Rounded cream body with a sage-green lid and a small rice paddle resting on top, a soft steam wisp from the vent. Seen from the front at a slight angle. No words or letters.",
+      "status": "todo"
+    }
+  ]
+}

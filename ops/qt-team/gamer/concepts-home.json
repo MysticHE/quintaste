@@ -1,0 +1,77 @@
+{
+  "version": 1,
+  "note": "Game home (My little café) concept art, 18 Oct 2026. Test folder only.",
+  "assets": [
+    {
+      "id": "skin-sunny",
+      "kind": "scene",
+      "aspect": "portrait",
+      "chroma": null,
+      "reference": false,
+      "subject": "Sunny garden café, the default skin",
+      "details": "Front view into a small cosy café, seen from the customer side, 2.5D game scene in portrait orientation. Left wall: a wooden bookshelf full of recipe books with a little lotus plant. Back wall: a large window. Right wall: a chalkboard menu board with simple doodles (no words). Far right: an arched doorway with a round mirror and a coat hook holding a peach apron beside it. Plants hang from the ceiling. The lower third is an EMPTY wooden floor with nothing on it (no counter, no tables, no furniture there), because the game draws its own counter on top. Leave clear empty wall spaces and floor corners for decorations. No people, no animals, no words or letters anywhere. Palette: warm cream walls, honey wood, sage green accents, morning sunlight through the window onto the floor.",
+      "status": "todo"
+    },
+    {
+      "id": "skin-lotus",
+      "kind": "scene",
+      "aspect": "portrait",
+      "chroma": null,
+      "reference": false,
+      "subject": "Lotus pond café skin",
+      "details": "Front view into a small cosy café, seen from the customer side, 2.5D game scene in portrait orientation. Left wall: a wooden bookshelf full of recipe books with a little lotus plant. Back wall: a large window. Right wall: a chalkboard menu board with simple doodles (no words). Far right: an arched doorway with a round mirror and a coat hook holding a peach apron beside it. Plants hang from the ceiling. The lower third is an EMPTY wooden floor with nothing on it (no counter, no tables, no furniture there), because the game draws its own counter on top. Leave clear empty wall spaces and floor corners for decorations. No people, no animals, no words or letters anywhere. Palette: soft jade-green walls with pink lotus motifs and thin gold trims, a small indoor lotus pond tile pattern near the window, gentle shimmering light.",
+      "status": "todo"
+    },
+    {
+      "id": "skin-lantern",
+      "kind": "scene",
+      "aspect": "portrait",
+      "chroma": null,
+      "reference": false,
+      "subject": "Lantern night café skin for the lunar 15th",
+      "details": "Front view into a small cosy café, seen from the customer side, 2.5D game scene in portrait orientation. Left wall: a wooden bookshelf full of recipe books with a little lotus plant. Back wall: a large window. Right wall: a chalkboard menu board with simple doodles (no words). Far right: an arched doorway with a round mirror and a coat hook holding a peach apron beside it. Plants hang from the ceiling. The lower third is an EMPTY wooden floor with nothing on it (no counter, no tables, no furniture there), because the game draws its own counter on top. Leave clear empty wall spaces and floor corners for decorations. No people, no animals, no words or letters anywhere. Palette: evening, deep teal walls, warm glowing red paper lanterns, a full moon visible through the window, cosy golden light.",
+      "status": "todo"
+    },
+    {
+      "id": "counter",
+      "kind": "prop",
+      "aspect": "landscape",
+      "chroma": "magenta",
+      "subject": "a long wooden café service counter seen straight from the front",
+      "details": "Honey-wood front panel with rounded edges and a cream countertop; a small terracotta stove with a black wok at the right end, a little brass service bell and a small stack of plates at the left end. The counter fills the width of the frame. No people.",
+      "status": "todo"
+    },
+    {
+      "id": "decor-plant",
+      "kind": "prop",
+      "chroma": "magenta",
+      "subject": "a tall monstera plant in a round cream ceramic pot",
+      "details": "Glossy deep-green split leaves, a little pebble top.",
+      "status": "todo"
+    },
+    {
+      "id": "decor-lanterns",
+      "kind": "prop",
+      "chroma": "cyan",
+      "subject": "a pair of hanging red paper lanterns with golden tassels",
+      "details": "Two round lanterns on a short cord, warm inner glow.",
+      "status": "todo"
+    },
+    {
+      "id": "decor-lotusbowl",
+      "kind": "prop",
+      "chroma": "magenta",
+      "subject": "a wide glazed water bowl with floating pink lotus flowers and lily pads",
+      "details": "Celadon-green glaze, two pink lotus blooms, a tiny goldfish-free calm water surface with sparkles.",
+      "status": "todo"
+    },
+    {
+      "id": "decor-painting",
+      "kind": "prop",
+      "chroma": "cyan",
+      "subject": "a framed painting of a pink lotus",
+      "details": "Soft watercolour lotus on cream paper in a simple honey-wood frame, hanging cord on top.",
+      "status": "todo"
+    }
+  ]
+}

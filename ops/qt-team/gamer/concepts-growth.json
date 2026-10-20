@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "note": "My little café growth art still missing on 19 Oct 2026: the Level 16 assembly board for the café counter and the Level 20 Signature café skin (portrait first; the wide room comes from widen.py and concepts-widen-signature.json). Test folder only.",
+  "assets": [
+    {
+      "id": "assembly-counter",
+      "kind": "prop",
+      "chroma": "magenta",
+      "subject": "a small popiah assembly station for a café counter",
+      "details": "A light honey-wood board, wider than it is deep, with one soft round popiah skin laid flat on it and a finished popiah roll cut in half showing its jicama and carrot filling; three tiny cream bowls beside it hold shredded jicama and carrot, crushed peanuts and green lettuce. Seen from the front at a slight angle, compact and low. Vegetarian only: no meat, egg or seafood. No words or letters.",
+      "status": "todo"
+    },
+    {
+      "id": "skin-signature",
+      "kind": "scene",
+      "aspect": "portrait",
+      "chroma": null,
+      "reference": false,
+      "refs": ["signature-base.png"],
+      "subject": "the Signature café, the finest look of the same small café after its signature service",
+      "details": "The attached picture is this café's everyday look. Repaint exactly the same room from exactly the same camera, keeping every object in the same place and at the same size: the bookshelf on the left wall, the large window in the back wall, the chalkboard on the right wall (simple chalk doodles, no words), the arched doorway with the round mirror and the peach apron on its hook on the far right, the hanging plants and lamps, and the empty wooden floor filling the lower half with nothing on it. Change only the finish and the mood: early evening dinner service, warm golden pendant lamps glowing, polished deep honey-walnut wood, soft terracotta-and-cream walls with a thin gold trim, a string of warm fairy lights along the top of the window with a peach-and-gold sunset sky outside, small vases of fresh flowers on the shelves, and a little golden star medallion hanging above the chalkboard. Festive and proud but still cosy. No people, no animals, no words or letters anywhere.",
+      "status": "todo"
+    }
+  ]
+}

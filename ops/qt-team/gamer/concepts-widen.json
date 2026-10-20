@@ -1,0 +1,45 @@
+{
+ "version": 1,
+ "note": "Wide (3:2) versions of the three café home skins for tablets, desktops and landscape screens (style.json homeSkin). Canvases come from widen.py prep; results go through widen.py composite. Test folder only.",
+ "assets": [
+  {
+   "id": "skin-sunny-wide",
+   "kind": "widen",
+   "aspect": "landscape",
+   "chroma": null,
+   "reference": false,
+   "refs": [
+    "widen-sunny.png"
+   ],
+   "subject": "the sunny garden café room: honey-wood plank floor with warm sunlight patches, sage-green wainscot, cream walls, a big window with a green gingham valance, hanging pothos plants, wooden bookshelves with recipe books and jars, a chalkboard menu, a lotus painting and an arched doorway",
+   "details": "On the left, continue the wall past the bookshelf with another tall shelf of recipe books, jars and small potted plants and a hanging pendant lamp. On the right, continue past the arched doorway with a sage wall, a wall lamp, a small wooden side table with a potted plant and a coat hook.",
+   "status": "todo"
+  },
+  {
+   "id": "skin-lantern-wide",
+   "kind": "widen",
+   "aspect": "landscape",
+   "chroma": null,
+   "reference": false,
+   "refs": [
+    "widen-lantern.png"
+   ],
+   "subject": "the lantern-night café room: warm wood plank floor in lantern light, dark teal walls, red paper lanterns glowing from the ceiling, a big window with a moonlit night view of a village and a bridge, wooden shelves with teapots and books, a chalkboard and hanging plants",
+   "details": "On the left, continue with another wooden shelf of teapots, jars and books under more glowing red lanterns. On the right, continue the dark teal wall with a second smaller moonlit window, a hanging lantern and a potted plant.",
+   "status": "todo"
+  },
+  {
+   "id": "skin-lotus-wide",
+   "kind": "widen",
+   "aspect": "landscape",
+   "chroma": null,
+   "reference": false,
+   "refs": [
+    "widen-lotus.png"
+   ],
+   "subject": "the lotus-pond café room: honey-wood plank floor with soft daylight, sage-green walls painted with pink lotus flowers, a round window and a big window onto a lotus pond garden with a pavilion, a small indoor lotus pond, bookshelves and hanging plants",
+   "details": "On the left, continue with another bookshelf and a tall potted plant beside a painted lotus wall. On the right, continue past the arched doorway with more painted lotus wall, a small round window onto the pond and a plant stand.",
+   "status": "todo"
+  }
+ ]
+}

@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "note": "Skins of the chosen café house (house-peach variant 3): same layout, new theme. Test folder only.",
+  "assets": [
+    {
+      "id": "house-lotus",
+      "kind": "diorama",
+      "aspect": "portrait",
+      "chroma": null,
+      "reference": false,
+      "refs": ["ref-house.png"],
+      "subject": "the café house in the attached picture, redrawn as its Lotus pond skin",
+      "details": "Keep EXACTLY the same house, camera, framing and layout, with every piece of furniture, the counter, stove, staircase, tables, cushion, bookshelves, round window, mirror, coat rack, chalkboard, steps, path, planter beds and lamp posts in the same places and sizes. Change only the theme: soft jade-green and white walls with delicate pink lotus motifs and thin gold trims, celadon-glazed pots, pink lotus flowers in small bowls, lily pads and a lotus pond flowing around the front garden instead of the grass, gentle shimmering morning light. Keep the chalkboard blank and the roof sign blank. No people and no animals.",
+      "status": "todo"
+    },
+    {
+      "id": "house-lantern",
+      "kind": "diorama",
+      "aspect": "portrait",
+      "chroma": null,
+      "reference": false,
+      "refs": ["ref-house.png"],
+      "subject": "the café house in the attached picture, redrawn as its Lantern night skin for the lunar 15th",
+      "details": "Keep EXACTLY the same house, camera, framing and layout, with every piece of furniture, the counter, stove, staircase, tables, cushion, bookshelves, round window, mirror, coat rack, chalkboard, steps, path, planter beds and lamp posts in the same places and sizes. Change only the time and theme: a calm evening with a deep teal night sky, a big full moon and stars, warm glowing red paper lanterns hanging from the roof eaves and along the garden path, cosy golden light spilling from the windows and lamps. Keep the chalkboard blank and the roof sign blank. No people and no animals.",
+      "status": "todo"
+    }
+  ]
+}

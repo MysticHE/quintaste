@@ -1,0 +1,86 @@
+{
+  "version": 1,
+  "note": "Rush Hour Levels 1-4 kit in the QuinTaste game style, 18 Oct 2026. Test folder only.",
+  "assets": [
+    {
+      "id": "beehoon",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "a bundle of dry bee hoon (thin white rice vermicelli)",
+      "details": "A neat coiled nest of fine white noodles, loosely tied with a little paper band (no text).",
+      "status": "todo"
+    },
+    {
+      "id": "beansprouts",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "a small heap of fresh bean sprouts",
+      "details": "Crisp white sprouts with pale yellow tips in a little pile.",
+      "status": "todo"
+    },
+    {
+      "id": "choysum",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "a small bunch of choy sum greens",
+      "details": "Bright green leaves on pale stems with a few tiny yellow flowers, loosely bundled.",
+      "status": "todo"
+    },
+    {
+      "id": "egg",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "two brown hen's eggs",
+      "details": "Smooth brown eggs resting together, one slightly in front.",
+      "status": "todo"
+    },
+    {
+      "id": "kangkung-stems",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "a small heap of chopped kangkung (water spinach) stems",
+      "details": "Short hollow pale green stem pieces, no leaves.",
+      "status": "todo"
+    },
+    {
+      "id": "kangkung-leaves",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "a small heap of fresh kangkung (water spinach) leaves",
+      "details": "Glossy deep green arrow-shaped leaves, no stems.",
+      "status": "todo"
+    },
+    {
+      "id": "dish-beehoon",
+      "kind": "dish",
+      "chroma": "cyan",
+      "subject": "vegetarian fried bee hoon (thin rice vermicelli) on a round white plate",
+      "details": "Golden stir-fried rice vermicelli with carrot strips and bean sprouts; no egg, no meat, no seafood, no spring onion.",
+      "status": "todo"
+    },
+    {
+      "id": "dish-greens",
+      "kind": "dish",
+      "chroma": "magenta",
+      "subject": "sesame choy sum and tofu on a round white plate",
+      "details": "Glossy bright green choy sum with golden pan-fried tofu cubes and a sprinkle of toasted sesame seeds; no meat, no garlic.",
+      "status": "todo"
+    },
+    {
+      "id": "dish-kangkung",
+      "kind": "dish",
+      "chroma": "magenta",
+      "subject": "stir-fried kangkung (water spinach) on a round white plate",
+      "details": "Glossy bright green leaves and tender hollow stems in a light savoury sauce with thin ginger slices; no garlic, no chilli paste, no meat.",
+      "status": "todo"
+    },
+    {
+      "id": "guest-daniel",
+      "kind": "character",
+      "chroma": "magenta",
+      "subject": "Daniel, a friendly adult man",
+      "details": "Short curly dark hair, a neat short beard, an olive green t-shirt, closed happy upturned-arc eyes, small open smile, one hand raised in a little wave.",
+      "status": "todo"
+    }
+  ]
+}

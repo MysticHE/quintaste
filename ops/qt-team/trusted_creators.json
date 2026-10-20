@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "note": "Owner, 18 Oct 2026: well-known recipe creators rank first and are the Cooker's search starting points. A ranking boost, not a requirement; every recipe still needs a named author and must pass the recipe bar. Keys are site domains (without www.), values the display name used in the app credit. Chinese recipes (any language) are welcome; these creators publish ratings the bar can read.",
+  "sites": {
+    "rasamalaysia.com": "Rasa Malaysia",
+    "justonecookbook.com": "Just One Cookbook",
+    "thewoksoflife.com": "The Woks of Life",
+    "omnivorescookbook.com": "Omnivore's Cookbook",
+    "redhousespice.com": "Red House Spice",
+    "wokandkin.com": "Wok and Kin",
+    "huangkitchen.com": "Huang Kitchen",
+    "rotinrice.com": "Roti n Rice",
+    "dailycookingquest.com": "Daily Cooking Quest",
+    "noobcook.com": "Noob Cook",
+    "vegrecipesofindia.com": "Veg Recipes of India",
+    "hebbarskitchen.com": "Hebbar's Kitchen",
+    "indianhealthyrecipes.com": "Swasthi's Recipes",
+    "archanaskitchen.com": "Archana's Kitchen",
+    "woonheng.com": "Woon Heng",
+    "okonomikitchen.com": "Okonomi Kitchen",
+    "rainbowplantlife.com": "Rainbow Plant Life",
+    "minimalistbaker.com": "Minimalist Baker",
+    "cheaplazyvegan.com": "Cheap Lazy Vegan",
+    "tzuchi.org.sg": "Tzu Chi Singapore",
+    "healthhub.sg": "HealthHub (Health Promotion Board)",
+    "bbcgoodfood.com": "BBC Good Food",
+    "seriouseats.com": "Serious Eats",
+    "chinasichuanfood.com": "China Sichuan Food",
+    "madewithlau.com": "Made With Lau",
+    "tiffycooks.com": "Tiffy Cooks"
+  }
+}

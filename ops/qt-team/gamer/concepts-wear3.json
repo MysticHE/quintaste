@@ -1,0 +1,90 @@
+{
+  "version": 1,
+  "note": "Re-renders with margin.",
+  "assets": [
+    {
+      "id": "wear-pip-clip",
+      "kind": "prop",
+      "chroma": "magenta",
+      "reference": false,
+      "refs": [
+        "ref-pip.png",
+        "ref-clip.png",
+        "style-board.webp"
+      ],
+      "subject": "Pip, the fluffy golden puppy companion from the first attached picture, wearing the pink lotus hair clip from the second picture",
+      "details": "Exactly the same companion and the same soft rounded toy-like rendering style as the third picture. The accessory is fastened to one side of its head, sized to fit, so it is clearly worn, not pasted on. Sitting, facing the viewer, happy smile. Show the whole companion smaller in the frame, about 60% of the height, with a wide empty margin above the ears and on every side.",
+      "status": "todo"
+    },
+    {
+      "id": "wear-pip-coral",
+      "kind": "prop",
+      "chroma": "cyan",
+      "reference": false,
+      "refs": [
+        "ref-pip.png",
+        "ref-coral.png",
+        "style-board.webp"
+      ],
+      "subject": "Pip, the fluffy golden puppy companion from the first attached picture, wearing the coral flower bandana from the second picture",
+      "details": "Exactly the same companion and the same soft rounded toy-like rendering style as the third picture. The accessory is tied snugly around its neck like a bandana, following its body's curve, so it is clearly worn, not pasted on. Sitting, facing the viewer, happy smile. Show the whole companion smaller in the frame, about 60% of the height, with a wide empty margin above the ears and on every side.",
+      "status": "todo"
+    },
+    {
+      "id": "wear-pip-lilac",
+      "kind": "prop",
+      "chroma": "magenta",
+      "reference": false,
+      "refs": [
+        "ref-pip.png",
+        "ref-lilac.png",
+        "style-board.webp"
+      ],
+      "subject": "Pip, the fluffy golden puppy companion from the first attached picture, wearing the lilac bandana with a white flower from the second picture",
+      "details": "Exactly the same companion and the same soft rounded toy-like rendering style as the third picture. The accessory is tied snugly around its neck like a bandana, following its body's curve, so it is clearly worn, not pasted on. Sitting, facing the viewer, happy smile. Show the whole companion smaller in the frame, about 60% of the height, with a wide empty margin above the ears and on every side.",
+      "status": "todo"
+    },
+    {
+      "id": "wear-pip-lantern",
+      "kind": "prop",
+      "chroma": "cyan",
+      "reference": false,
+      "refs": [
+        "ref-pip.png",
+        "ref-lantern.png",
+        "style-board.webp"
+      ],
+      "subject": "Pip, the fluffy golden puppy companion from the first attached picture, wearing the little red paper lantern charm from the second picture",
+      "details": "Exactly the same companion and the same soft rounded toy-like rendering style as the third picture. The accessory is hanging from a short red ribbon collar at its neck, so it is clearly worn, not pasted on. Sitting, facing the viewer, happy smile. Show the whole companion smaller in the frame, about 60% of the height, with a wide empty margin above the ears and on every side.",
+      "status": "todo"
+    },
+    {
+      "id": "wear-pip-scarf",
+      "kind": "prop",
+      "chroma": "magenta",
+      "reference": false,
+      "refs": [
+        "ref-pip.png",
+        "ref-scarf.png",
+        "style-board.webp"
+      ],
+      "subject": "Pip, the fluffy golden puppy companion from the first attached picture, wearing the wave-pattern scarf from the second picture",
+      "details": "Exactly the same companion and the same soft rounded toy-like rendering style as the third picture. The accessory is tied snugly around its neck, following its body's curve, so it is clearly worn, not pasted on. Sitting, facing the viewer, happy smile. Show the whole companion smaller in the frame, about 60% of the height, with a wide empty margin above the ears and on every side.",
+      "status": "todo"
+    },
+    {
+      "id": "wear-purple-lantern",
+      "kind": "prop",
+      "chroma": "green",
+      "reference": false,
+      "refs": [
+        "ref-mochi2.png",
+        "ref-lantern.png",
+        "style-board.webp"
+      ],
+      "subject": "Mochi, the steamed bao bun companion from the first attached picture, wearing the little red paper lantern charm from the second picture",
+      "details": "Exactly the same companion and the same soft rounded toy-like rendering style as the third picture. The accessory is hanging from a short red ribbon collar at its neck, so it is clearly worn, not pasted on. Sitting, facing the viewer, happy smile. Show the whole companion smaller in the frame, about 60% of the height, with a wide empty margin above the ears and on every side.",
+      "status": "todo"
+    }
+  ]
+}

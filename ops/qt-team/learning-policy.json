@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "enabled": true,
+  "mode": "manager-reviewed-procedure-selection",
+  "extraModelCalls": 0,
+  "extraProviderCalls": 0,
+  "automaticCodeChanges": false,
+  "freeformTelegramLearning": false
+}

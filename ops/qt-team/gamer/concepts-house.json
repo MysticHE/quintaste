@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "note": "Full-height Game home: an original two-storey café house cutaway for a portrait phone screen, 18 Oct 2026. Test folder only.",
+  "assets": [
+    {
+      "id": "house-peach",
+      "kind": "diorama",
+      "aspect": "portrait",
+      "chroma": null,
+      "reference": false,
+      "subject": "a cosy two-storey vegetarian café house shown as a dollhouse cutaway with the front wall removed, filling a tall portrait frame from top to bottom",
+      "details": "Layout from top to bottom. (1) Top: soft morning sky with a few small clouds and the tops of leafy trees, then the café's rounded terracotta roof with a small blank wooden sign board (no words). (2) Upper floor, open to the viewer: on the left a reading loft with tall bookshelves full of colourful recipe books, a small armchair and a reading lamp; on the right a dressing corner with a round standing mirror, a wooden coat rack holding peach aprons and a small wardrobe; a round window between them looking out onto a pond with pink lotus flowers. (3) Ground floor, open to the viewer and the largest part of the picture, in the middle of the frame: a wooden service counter with a cream top across the centre, its front facing the viewer, with a small terracotta stove and a black wok at its right end and an EMPTY space behind the counter where the café owner will stand; behind it a back wall with open shelves of jars, potted herbs and a blank dark chalkboard; a wooden staircase on the left going up to the loft; two small round tables with chairs at the front left; an empty round peach floor cushion on the floor in front of the counter on the right. (4) Bottom: the café's front step, a curved stone path and a little front garden with soft grass and flowers, with one clear empty spot on each side of the path for a planter. Warm peach, cream, honey wood and sage green palette, warm golden light glowing from the windows and pendant lamps, many potted and hanging plants, cosy and inviting. Keep the café inside the central three quarters of the width and let the sky, trees and garden continue to the left and right edges.",
+      "status": "todo"
+    }
+  ]
+}

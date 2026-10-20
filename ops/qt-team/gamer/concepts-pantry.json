@@ -1,0 +1,494 @@
+{
+  "version": 1,
+  "note": "QuinTaste Rush Hour full kit, 18 Oct 2026. Test folder only.",
+  "assets": [
+    {
+      "id": "coconut-milk",
+      "kind": "packaged",
+      "chroma": "magenta",
+      "subject": "a small carton of coconut milk",
+      "details": "A short cream carton with a coconut picture. The label has no words or letters, just a simple coloured band.",
+      "status": "todo"
+    },
+    {
+      "id": "brown-sugar",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "a small bowl of brown sugar",
+      "details": "Soft light-brown sugar heaped in a little wooden bowl.",
+      "status": "todo"
+    },
+    {
+      "id": "pandan",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "a few pandan leaves tied in a knot",
+      "details": "Long glossy bright green leaves knotted together.",
+      "status": "todo"
+    },
+    {
+      "id": "salt",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "a small salt pot",
+      "details": "A little white ceramic pot of coarse salt with a tiny wooden spoon.",
+      "status": "todo"
+    },
+    {
+      "id": "cornflour",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "a small bowl of cornflour",
+      "details": "Fine white powder in a little bowl.",
+      "status": "todo"
+    },
+    {
+      "id": "bread",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "two slices of soft white bread",
+      "details": "Fluffy white sandwich bread slices with golden crusts.",
+      "status": "todo"
+    },
+    {
+      "id": "plant-butter",
+      "kind": "packaged",
+      "chroma": "magenta",
+      "subject": "a small tub of plant-based butter",
+      "details": "A pale yellow spread in an open green tub. The label has no words or letters, just a simple coloured band.",
+      "status": "todo"
+    },
+    {
+      "id": "oats",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "a small bowl of rolled oats",
+      "details": "Flat golden oat flakes in a little bowl.",
+      "status": "todo"
+    },
+    {
+      "id": "white-pepper",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "a small white pepper shaker",
+      "details": "A short ceramic shaker with a few pepper grains beside it.",
+      "status": "todo"
+    },
+    {
+      "id": "coriander",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "a small bunch of fresh coriander",
+      "details": "Bright green feathery leaves on thin stems.",
+      "status": "todo"
+    },
+    {
+      "id": "popiah-skins",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "a small stack of thin popiah skins",
+      "details": "Very thin round pale crepes stacked neatly.",
+      "status": "todo"
+    },
+    {
+      "id": "jicama",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "a jicama (bangkuang) with shredded strips",
+      "details": "A round light-brown root with a white cut face and a little pile of white shreds.",
+      "status": "todo"
+    },
+    {
+      "id": "lettuce",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "a few fresh lettuce leaves",
+      "details": "Crisp light green ruffled leaves.",
+      "status": "todo"
+    },
+    {
+      "id": "peanuts",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "a small bowl of roasted peanuts",
+      "details": "Golden roasted peanuts, a few crushed.",
+      "status": "todo"
+    },
+    {
+      "id": "sweet-sauce",
+      "kind": "packaged",
+      "chroma": "magenta",
+      "subject": "a small jar of thick sweet bean sauce",
+      "details": "A short glass jar of glossy dark brown sauce. The label has no words or letters, just a simple coloured band.",
+      "status": "todo"
+    },
+    {
+      "id": "red-chilli",
+      "kind": "ingredient",
+      "chroma": "cyan",
+      "subject": "two fresh red chillies",
+      "details": "Glossy bright red chillies with green stems, one sliced into rings.",
+      "status": "todo"
+    },
+    {
+      "id": "chilli-sauce",
+      "kind": "packaged",
+      "chroma": "cyan",
+      "subject": "a small squeeze bottle of chilli sauce",
+      "details": "Bright red chilli sauce. The label has no words or letters, just a simple coloured band.",
+      "status": "todo"
+    },
+    {
+      "id": "avocado",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "half an avocado",
+      "details": "Creamy green flesh with the round brown stone, dark green skin.",
+      "status": "todo"
+    },
+    {
+      "id": "cabbage",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "a small wedge of cabbage with some shreds",
+      "details": "Pale green and white crisp cabbage.",
+      "status": "todo"
+    },
+    {
+      "id": "edamame",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "a small bowl of shelled edamame",
+      "details": "Bright green soybeans.",
+      "status": "todo"
+    },
+    {
+      "id": "miso",
+      "kind": "packaged",
+      "chroma": "magenta",
+      "subject": "a small tub of miso paste",
+      "details": "A short tub with smooth golden-brown paste. The label has no words or letters, just a simple coloured band.",
+      "status": "todo"
+    },
+    {
+      "id": "rice-noodles",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "a bundle of flat dry rice noodles",
+      "details": "Wide translucent white noodles in a loose bundle.",
+      "status": "todo"
+    },
+    {
+      "id": "yellow-noodles",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "a nest of fresh yellow noodles",
+      "details": "Springy golden yellow noodles in a loose nest.",
+      "status": "todo"
+    },
+    {
+      "id": "veg-stock",
+      "kind": "packaged",
+      "chroma": "magenta",
+      "subject": "a small carton of vegetable stock",
+      "details": "A short sage-green carton with vegetables pictured. The label has no words or letters, just a simple coloured band.",
+      "status": "todo"
+    },
+    {
+      "id": "onion",
+      "kind": "ingredient",
+      "chroma": "green",
+      "subject": "a red onion with one half cut open",
+      "details": "Glossy purple-red skin, cut face showing the white rings.",
+      "status": "todo"
+    },
+    {
+      "id": "turmeric",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "a small bowl of ground turmeric",
+      "details": "Bright yellow-orange spice powder in a little bowl.",
+      "status": "todo"
+    },
+    {
+      "id": "broccoli",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "a small head of broccoli",
+      "details": "Bright green florets.",
+      "status": "todo"
+    },
+    {
+      "id": "bok-choy",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "two baby bok choy",
+      "details": "White stems and dark green leaves.",
+      "status": "todo"
+    },
+    {
+      "id": "sesame-seeds",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "a small dish of toasted sesame seeds",
+      "details": "Tiny golden seeds in a little dish.",
+      "status": "todo"
+    },
+    {
+      "id": "black-beans",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "a small dish of fermented black beans",
+      "details": "Shiny small black beans.",
+      "status": "todo"
+    },
+    {
+      "id": "sichuan-pepper",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "a small dish of Sichuan peppercorns",
+      "details": "Reddish-brown cracked husks.",
+      "status": "todo"
+    },
+    {
+      "id": "ketchup",
+      "kind": "packaged",
+      "chroma": "cyan",
+      "subject": "a squeeze bottle of tomato ketchup",
+      "details": "Bright red ketchup with a white cap. The label has no words or letters, just a simple coloured band.",
+      "status": "todo"
+    },
+    {
+      "id": "rice-vinegar",
+      "kind": "packaged",
+      "chroma": "magenta",
+      "subject": "a small bottle of rice vinegar",
+      "details": "A clear glass bottle of pale golden vinegar. The label has no words or letters, just a simple coloured band.",
+      "status": "todo"
+    },
+    {
+      "id": "capsicum",
+      "kind": "ingredient",
+      "chroma": "cyan",
+      "subject": "a red and a green capsicum",
+      "details": "Glossy bell peppers, one red and one green.",
+      "status": "todo"
+    },
+    {
+      "id": "pineapple",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "a few pineapple chunks",
+      "details": "Juicy golden yellow pineapple pieces.",
+      "status": "todo"
+    },
+    {
+      "id": "cucumber",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "a cucumber with a few slices",
+      "details": "Dark green skin and pale green slices.",
+      "status": "todo"
+    },
+    {
+      "id": "fu-ru",
+      "kind": "packaged",
+      "chroma": "magenta",
+      "subject": "a small jar of fermented beancurd",
+      "details": "A short glass jar with creamy beige cubes in liquid. The label has no words or letters, just a simple coloured band.",
+      "status": "todo"
+    },
+    {
+      "id": "potato",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "two potatoes with a few cubes",
+      "details": "Light brown potatoes and pale yellow cubes.",
+      "status": "todo"
+    },
+    {
+      "id": "corn",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "a corn cob in pieces",
+      "details": "Bright yellow corn on the cob cut into rounds.",
+      "status": "todo"
+    },
+    {
+      "id": "tomato",
+      "kind": "ingredient",
+      "chroma": "cyan",
+      "subject": "two tomatoes, one in wedges",
+      "details": "Glossy red tomatoes.",
+      "status": "todo"
+    },
+    {
+      "id": "sweet-potato",
+      "kind": "ingredient",
+      "chroma": "cyan",
+      "subject": "orange and purple sweet potato cubes",
+      "details": "Bright orange and deep purple cubes.",
+      "status": "todo"
+    },
+    {
+      "id": "yam",
+      "kind": "ingredient",
+      "chroma": "cyan",
+      "subject": "a few cubes of yam (taro)",
+      "details": "Pale lilac-flecked white cubes with brown skin on one piece.",
+      "status": "todo"
+    },
+    {
+      "id": "sago",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "a small bowl of small sago pearls",
+      "details": "Tiny white pearls.",
+      "status": "todo"
+    },
+    {
+      "id": "gula-melaka",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "a few cakes of gula melaka palm sugar",
+      "details": "Dark caramel-brown round palm sugar cakes, one chopped.",
+      "status": "todo"
+    },
+    {
+      "id": "dark-soy",
+      "kind": "packaged",
+      "chroma": "magenta",
+      "subject": "a small bottle of dark soy sauce",
+      "details": "A glass bottle of very dark, thick soy sauce. The label has no words or letters, just a simple coloured band.",
+      "status": "todo"
+    },
+    {
+      "id": "mushroom-sauce",
+      "kind": "packaged",
+      "chroma": "magenta",
+      "subject": "a small bottle of vegetarian mushroom sauce",
+      "details": "A glass bottle of dark brown sauce with a mushroom picture. The label has no words or letters, just a simple coloured band.",
+      "status": "todo"
+    },
+    {
+      "id": "tempeh",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "a block of tempeh with a few slices",
+      "details": "Firm pale tan cake of pressed soybeans.",
+      "status": "todo"
+    },
+    {
+      "id": "shallots",
+      "kind": "ingredient",
+      "chroma": "green",
+      "subject": "a few shallots",
+      "details": "Small pink-purple bulbs with papery skin, one sliced.",
+      "status": "todo"
+    },
+    {
+      "id": "chilli-paste",
+      "kind": "packaged",
+      "chroma": "cyan",
+      "subject": "a small jar of chilli paste",
+      "details": "A short jar of deep red chilli paste. The label has no words or letters, just a simple coloured band.",
+      "status": "todo"
+    },
+    {
+      "id": "lime",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "two small limes, one halved",
+      "details": "Bright green citrus.",
+      "status": "todo"
+    },
+    {
+      "id": "dried-chillies",
+      "kind": "ingredient",
+      "chroma": "cyan",
+      "subject": "a small heap of dried red chillies",
+      "details": "Deep red wrinkled dried chillies.",
+      "status": "todo"
+    },
+    {
+      "id": "tamarind",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "a small block of tamarind paste",
+      "details": "Sticky dark brown pulp on a little dish.",
+      "status": "todo"
+    },
+    {
+      "id": "cooking-oil",
+      "kind": "packaged",
+      "chroma": "magenta",
+      "subject": "a small bottle of cooking oil",
+      "details": "A clear bottle of golden oil. The label has no words or letters, just a simple coloured band.",
+      "status": "todo"
+    },
+    {
+      "id": "button-mushrooms",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "a few button mushrooms",
+      "details": "Smooth white mushrooms, one sliced.",
+      "status": "todo"
+    },
+    {
+      "id": "spring-onion",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "a small bunch of spring onions",
+      "details": "Long green tops and white ends, a few chopped rings.",
+      "status": "todo"
+    },
+    {
+      "id": "chives",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "a small bunch of garlic chives",
+      "details": "Long flat dark green leaves tied together.",
+      "status": "todo"
+    },
+    {
+      "id": "leek",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "a leek",
+      "details": "A long white and pale green stalk with dark green leaves.",
+      "status": "todo"
+    },
+    {
+      "id": "honey",
+      "kind": "packaged",
+      "chroma": "magenta",
+      "subject": "a small jar of honey with a wooden dipper",
+      "details": "Golden glossy honey.",
+      "status": "todo"
+    },
+    {
+      "id": "dairy-milk",
+      "kind": "packaged",
+      "chroma": "magenta",
+      "subject": "a small bottle of fresh milk",
+      "details": "A glass bottle of white milk with a blue cap. The label has no words or letters, just a simple coloured band.",
+      "status": "todo"
+    },
+    {
+      "id": "sambal",
+      "kind": "packaged",
+      "chroma": "cyan",
+      "subject": "a small jar of sambal chilli",
+      "details": "A short jar of red-brown chunky chilli sambal. The label has no words or letters, just a simple coloured band.",
+      "status": "todo"
+    },
+    {
+      "id": "radish",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "a white radish (daikon)",
+      "details": "A long white root with a green leafy top.",
+      "status": "todo"
+    }
+  ]
+}
