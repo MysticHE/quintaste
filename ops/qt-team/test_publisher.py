@@ -456,6 +456,20 @@ class VegKitchenPublishing(unittest.TestCase):
             self.assertEqual(p.run_publication({'automaticProductionWrites': True}, self.root / 'runs/c', covers_only=True)['status'], 'no-eligible-changes')
         self.assertEqual(prepare.call_args.args[0], [])
 
+    def test_dessert_and_drink_shops_draw_the_product_not_the_flavour_name(self):
+        # Owner, 20 Oct 2026: QT Manager held bread drawn for a "Banana Bread" gelato at an ice-cream shop.
+        import cover_photos
+        place = lambda name, category='': {'name': name, 'venueDiet': 'Vegan',
+                                           'menu': {'items': [{'name': 'Earl Grey Banana Bread', 'category': category}]}}
+        kinds = [(cover_photos.shop_kind(place(n, c)) or ('kitchen',))[0] for n, c in (
+            ('Kind Kones - Suntec', ''), ('Oat About', 'Gelato'), ('LiHO Bubble Tea', ''), ('Bread Garden Bakery', ''),
+            ('Pang Pang Kopi (Singpost Centre)', 'Noodles'), ('Ricehouse Vegetarian', 'Rice'))]
+        self.assertEqual(kinds, ['dessert', 'dessert', 'drinks', 'bakery', 'kitchen', 'kitchen'])
+        text = cover_photos.illustration_prompt(place('Kind Kones - Suntec'))
+        self.assertIn('scoop of plant-based ice cream', text)
+        self.assertIn('not a loaf of bread', text)
+        self.assertIn('Plates or bowls', cover_photos.illustration_prompt(place('Ricehouse Vegetarian', 'Rice')))
+
     def test_owner_approved_dish_illustration_becomes_a_credited_place_cover(self):
         # Owner, 20 Oct 2026: a place without a reusable photo gets an illustration of its own dishes, approved on Telegram.
         import hashlib

@@ -494,14 +494,40 @@ ILLUSTRATION_TRIES = 3          # owner rejections before a place keeps its plac
 ILLUSTRATION_STYLES = ('soft watercolour', 'warm gouache', 'clean flat vector-style')
 
 
+# Owner, 20 Oct 2026: at ice-cream, dessert, drink and bakery places the menu names are often flavours ("Earl Grey Banana Bread" is a
+# gelato), and a drawing of the namesake food was held by QT Manager. The place name or menu sections decide the kind of shop.
+SHOP_KINDS = (
+    ('dessert', re.compile(r'gelat|ice[- ]?cream|sorbet|soft[- ]?serve|\bscoops?\b|\bkones?\b|popsicle|frozen yog|froyo|\bdessert', re.I),
+     'This is an ice-cream and dessert shop, so the menu names are flavours, not dishes: show each as a scoop of plant-based ice cream '
+     'or gelato in a cup or cone, coloured and garnished to suggest its flavour. Never draw the food a flavour is named after (a flavour '
+     'called "Banana Bread" is ice cream, not a loaf of bread). Cups and cones on a plain wooden table seen from slightly above'),
+    ('drinks', re.compile(r'bubble tea|\bboba\b|milk tea|\bjuices?\b|smoothie|\bteas?\s+(?:bar|house|shop)', re.I),
+     'This is a drinks shop, so the menu names are drinks: show each as a drink in a clear glass or cup, coloured to suggest its '
+     'flavour. Never draw the food a drink is named after. Glasses on a plain wooden table seen from slightly above'),
+    ('bakery', re.compile(r'bakery|bakehouse|patisserie|boulangerie|\bpastr', re.I),
+     'This is a bakery, so show the items as baked goods on plates or a wooden board, seen from slightly above'),
+)
+
+
+def shop_kind(data):
+    """(kind, drawing guidance) from the place name or its menu sections; None for an ordinary kitchen."""
+    sections = ' '.join(str(i.get('category') or '') for i in (data.get('menu') or {}).get('items', []))
+    for kind, pattern, guidance in SHOP_KINDS:
+        if pattern.search(str(data.get('name') or '')) or pattern.search(sections):
+            return kind, guidance
+    return None
+
+
 def illustration_prompt(data, attempt=0):
     items = (data.get('menu') or {}).get('items', [])
     dishes = [i['name'] for i in items if i.get('name')][:3]
     vegan = data.get('venueDiet') == 'Vegan'
     style = ILLUSTRATION_STYLES[attempt % len(ILLUSTRATION_STYLES)]
+    kind = shop_kind(data)
     return ('A ' + style + ' illustration (clearly an illustration, not a photograph) for a food app cover, 4:3 landscape. '
-            'Show these dishes from one Singapore ' + ('vegan' if vegan else 'vegetarian') + ' menu: ' + '; '.join(dishes) + '. '
-            'Plates or bowls on a plain wooden table seen from slightly above, soft daylight, appetising colours, calm empty space '
+            'Show these items from one Singapore ' + ('vegan' if vegan else 'vegetarian') + ' menu: ' + '; '.join(dishes) + '. '
+            + (kind[1] if kind else 'Plates or bowls on a plain wooden table seen from slightly above') +
+            ', soft daylight, appetising colours, calm empty space '
             'along the bottom edge. Every item is plant-based' + (', with no egg, dairy or honey' if vegan else '') +
             '; dishes named after meat or seafood are plant-based versions. No meat, fish or seafood. No text, letters, numbers, '
             'menus, signs, logos, brand names, packaging, people, hands or shopfronts.'
