@@ -1,6 +1,6 @@
 import { router, useLocalSearchParams } from "expo-router";
 import { useState } from "react";
-import { View } from "react-native";
+import { Linking, View } from "react-native";
 import { Screen } from "../../components/Screen";
 import { useMinuteClock } from "../../components/food/Timers";
 import { Chip, Chips, HorizontalChips } from "../../components/food/Controls";
@@ -14,7 +14,7 @@ import { usePreferences } from "../../state/Preferences";
 import { order as loadOrder, orderAction, type OrderAction } from "../../services/market-api";
 import { ApiError } from "../../services/community-api";
 import { orderLabel, problemReasons } from "../../config/market";
-import { marketMoney, slotLabel } from "../../utils/market";
+import { itemsParam, marketMoney, slotLabel } from "../../utils/market";
 import { formatDay } from "../../utils/day";
 import { orderTone } from "./Orders";
 import type { Order } from "../../types/community";
@@ -43,6 +43,13 @@ function OrderView({ order: o, refresh }: { order: Order; refresh: () => void })
   const s = o.status, open = ["requested", "confirmed", "ready"].includes(s), started = Date.parse(o.starts.replace(" ", "T") + ":00+08:00") <= now;
   const withOther = () => o.conversationId && router.push({ pathname: "/market/chat/[id]", params: { id: o.conversationId } });
   const explanation = o.closed ? "The other person deleted their account." : o.statusReason;
+  // Buyers head to the meetup point; a delivering seller heads to the buyer's address.
+  const destination = o.mode === "meetup" ? o.place : seller ? o.address : "";
+  const directions = async () => {
+    try { await Linking.openURL("https://www.google.com/maps/dir/?api=1&destination=" + encodeURIComponent(destination + ", Singapore")); }
+    catch { setNotice({ text: "Maps couldn't open. Try again.", error: true }); }
+  };
+  const again = !seller && !open && !o.closed && o.items.some(item => item.listingId);
   return <>
     <View style={[common.spread, { gap: 8 }]}><T variant="subtitle" style={common.flex}>{seller ? o.buyer.name : o.seller.name}</T><StatusPill label={orderLabel(s, o.role)} tone={orderTone(s)} /></View>
     {!!explanation && <T muted>{explanation}</T>}
@@ -62,7 +69,9 @@ function OrderView({ order: o, refresh }: { order: Order; refresh: () => void })
     {seller && started && (s === "confirmed" || s === "ready") && <Action label="Handed Over And Paid" icon="checkmark-done-outline" secondary={s === "confirmed"} run={() => run({ action: "complete" })} />}
     {!seller && s === "completed" && !o.rating && <Button label="Leave A Review" icon="star-outline" onPress={() => setSheet("review")} />}
     <HorizontalChips bleed>
+      {open && destination.trim().length >= 3 && <Chip compact icon="navigate-outline" label="Directions" onPress={() => void directions()} />}
       {o.conversationId && <Chip compact icon="chatbubble-outline" label={seller ? "Message Buyer" : "Message Seller"} onPress={() => withOther()} />}
+      {again && <Chip compact icon="repeat-outline" label="Order Again" onPress={() => router.push({ pathname: "/market/checkout", params: { seller: o.seller.id, items: itemsParam(o.items) } })} />}
       {seller && started && (s === "confirmed" || s === "ready") && <ActionChip icon="alert-circle-outline" label="Not Collected" run={() => run({ action: "no-show" })} />}
       {open && (seller || s === "requested" || !o.cutoffPassed) && <Chip compact icon="close-outline" label="Cancel Order" onPress={() => setSheet("cancel")} />}
       {!seller && (s === "completed" || s === "no_show" || (open && started)) && <Chip compact icon="flag-outline" label="Report A Problem" onPress={() => setSheet("problem")} />}

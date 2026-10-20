@@ -8,6 +8,7 @@ import type { PlanReminder } from "../types/meet";
 import { planAlertsFor } from "../services/timer-alert-sync";
 import { canScheduleTimerAlerts } from "../services/timer-alert-policy";
 import { useAuth } from './Auth';
+import { loadOrderReminders, orderAlertsFor, saveOrderReminders, type OrderReminder } from "../services/market-reminders";
 
 const coordinator = createTimerAlertCoordinator(timerAlerts);
 
@@ -19,6 +20,20 @@ function useTimerAlertState() {
   const [error, setError] = useState(""), [busy, setBusy] = useState(false), [refresh, setRefresh] = useState(0);
   const lease = useRef<ReturnType<typeof coordinator.claim> | null>(null);
   const timerKey = JSON.stringify(doc.timers), planKey = JSON.stringify(doc.social.network.reminders);
+  // Market collection reminders belong to the signed-in account; null until the device copy has loaded, so nothing is cancelled early.
+  const userId = user?.id ?? null, [orders, setOrders] = useState<{ userId: string | null; list: OrderReminder[] } | null>(null);
+  useEffect(() => {
+    if (!userId) return;
+    let active = true;
+    void loadOrderReminders(userId).then(list => { if (active) setOrders({ userId, list }); });
+    return () => { active = false; };
+  }, [userId]);
+  const setOrderReminders = useCallback((list: OrderReminder[]) => {
+    if (!userId) return;
+    setOrders(current => current?.userId === userId && JSON.stringify(current.list) === JSON.stringify(list) ? current : { userId, list });
+    void saveOrderReminders(userId, list).catch(() => {});
+  }, [userId]);
+  const orderList = !userId ? [] : orders?.userId === userId ? orders.list : null, orderKey = orderList ? JSON.stringify(orderList) : null;
   useLayoutEffect(() => {
     const claimed = coordinator.claim(scope);
     lease.current = claimed;
@@ -29,16 +44,18 @@ function useTimerAlertState() {
     return () => listener.remove();
   }, []);
   useEffect(() => {
+    if (orderKey === null) return;
     let active = true;
     const claimed = lease.current;
-    const plans = ready && readable ? planAlertsFor(scope, JSON.parse(planKey) as PlanReminder[]) : [];
+    const plans = ready && readable ? [...planAlertsFor(scope, JSON.parse(planKey) as PlanReminder[]),
+      ...(doc.notifications.cooking ? orderAlertsFor(scope, JSON.parse(orderKey) as OrderReminder[]) : [])] : [];
     void claimed?.reconcile(ready && readable ? JSON.parse(timerKey) as CookingTimer[] : null, doc.notifications.cooking, plans).then(status => {
       if (active && lease.current === claimed && status) { setPermission(status); setError(''); }
     }).catch(() => {
       if (active && lease.current === claimed) setError('Timer alerts could not be updated. Check notification permission in device settings, then retry.');
     });
     return () => { active = false; };
-  }, [scope, ready, readable, timerKey, planKey, doc.notifications.cooking, refresh]);
+  }, [scope, ready, readable, timerKey, planKey, orderKey, doc.notifications.cooking, refresh]);
   const toggle = useCallback(async () => {
     if (busy || !readable || dirty) return;
     const captured = lease.current;
@@ -63,7 +80,7 @@ function useTimerAlertState() {
     }
     finally { if (lease.current === captured) setBusy(false); }
   }, [busy, readable, dirty, doc.notifications.cooking, permission, update]);
-  return { permission, error, busy, enabled: doc.notifications.cooking, toggle, retry: () => setRefresh(n => n + 1) };
+  return { permission, error, busy, enabled: doc.notifications.cooking, toggle, retry: () => setRefresh(n => n + 1), setOrderReminders };
 }
 const Context = createContext<ReturnType<typeof useTimerAlertState> | null>(null);
 export function TimerAlertsProvider({ children }: PropsWithChildren) {

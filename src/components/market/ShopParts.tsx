@@ -32,12 +32,15 @@ export function DietChoices({ value, onChange, disabled, warnings, error }: { va
 export function SlotOption({ slot, selected, disabled = false, onPress }: { slot: Slot; selected: boolean; disabled?: boolean; onPress: () => void }) {
   const { theme } = usePreferences(), { focused, focusProps } = useKeyboardFocus();
   const where = slot.mode === "delivery" ? "Delivery" + (slot.place ? " · " + slot.place : "") : "Meetup · " + slot.place;
-  return <Pressable accessibilityRole="radio" accessibilityState={{ checked: selected, disabled }} disabled={disabled} onPress={onPress} {...focusProps}
-    accessibilityLabel={[slotLabel(slot), where, slot.remaining !== undefined && slot.remaining + " left"].filter(Boolean).join(", ")}
-    style={({ pressed }) => [s.slot, { borderColor: selected || focused ? theme.accent : theme.border, backgroundColor: selected ? theme.accentSoft : theme.card, opacity: disabled ? 0.5 : pressed ? 0.8 : 1 }]}>
+  // An item page shows that item's units left in the slot; elsewhere, the order places left.
+  const soldOut = slot.itemLeft === 0, left = soldOut ? "Sold out" : slot.itemLeft != null ? slot.itemLeft + " left" : slot.remaining !== undefined ? slot.remaining + " left" : "";
+  const off = disabled || soldOut;
+  return <Pressable accessibilityRole="radio" accessibilityState={{ checked: selected, disabled: off }} disabled={off} onPress={onPress} {...focusProps}
+    accessibilityLabel={[slotLabel(slot), where, left].filter(Boolean).join(", ")}
+    style={({ pressed }) => [s.slot, { borderColor: selected || focused ? theme.accent : theme.border, backgroundColor: selected ? theme.accentSoft : theme.card, opacity: off ? 0.5 : pressed ? 0.8 : 1 }]}>
     <Icon name={slot.mode === "delivery" ? "bicycle-outline" : "location-outline"} color={selected ? theme.accent : theme.mutedForeground} />
     <View style={common.flex}><T style={common.bold}>{slotLabel(slot)}</T><T variant="small" muted numberOfLines={2}>{where}</T></View>
-    {slot.remaining !== undefined && <T variant="small" muted>{slot.remaining} left</T>}
+    {!!left && <T variant="small" muted>{left}</T>}
   </Pressable>;
 }
 const s = StyleSheet.create({

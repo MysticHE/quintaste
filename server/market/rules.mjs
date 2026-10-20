@@ -71,6 +71,7 @@ export function readSeller(body) {
     area: text(body.area, 60, { field: 'Area' }), meetup: body.meetup !== false, delivery: body.delivery === true,
     deliveryFeeCents: whole(body.deliveryFeeCents ?? 0, 0, 10000, 'Enter a delivery fee from S$0 to S$100.'),
     deliveryAreas: text(body.deliveryAreas, 160, { field: 'Delivery areas' }),
+    deliveryMinCents: whole(body.deliveryMinCents ?? 0, 0, 100000, 'Enter a delivery minimum from S$0 to S$1,000.'),
     payCash: body.payCash !== false, payPaynow: body.payPaynow === true,
   };
 }
@@ -98,6 +99,7 @@ export function readListing(body) {
     lot: kind === 'prepacked' ? text(body.lot, 40, { field: 'Lot' }) : '',
     leadDays: whole(body.leadDays ?? 1, 0, 30, 'Enter a lead time from 0 to 30 days.'),
     maxPerOrder: whole(body.maxPerOrder ?? 5, 1, limit, `Allow 1 to ${limit} per order.`),
+    perSlot: body.perSlot === null || body.perSlot === undefined || body.perSlot === '' ? null : whole(body.perSlot, 1, 200, 'Make 1 to 200 per collection, or leave it blank.'),
   };
 }
 /** The first reason a listing can't be published, or null. `photos` is the set of slots saved for it. */

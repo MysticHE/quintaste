@@ -1,5 +1,4 @@
 import { router } from "expo-router";
-import { useState } from "react";
 import { View } from "react-native";
 import { EmptyState, IconButton } from "../../components/food/Controls";
 import { common } from "../../components/ui";
@@ -7,15 +6,13 @@ import { FirstRunState } from "../../components/BrowseControls";
 import { ListGroup, ListItem, RowIcon, StatusPill, type Tone } from "../../components/GroupedList";
 import { SegmentedTabs } from "../../components/SegmentedTabs";
 import { FloatingAddButton } from "../../components/FloatingAddButton";
-import { Confirm } from "../../components/Actions";
 import { ListingThumb } from "../../components/market/ListingPhoto";
-import { MarketModal } from "../../components/market/MarketChrome";
 import { MemberPrompt, RemoteStatus, useMember } from "../../components/CommunityGate";
-import { invalidate, useRemote } from "../../hooks/useRemote";
-import { orders, ownListings, ownSlots, sellerState, setSlotStatus } from "../../services/market-api";
+import { useRemote } from "../../hooks/useRemote";
+import { orders, ownListings, ownSlots, sellerState } from "../../services/market-api";
 import { marketMoney, slotLabel } from "../../utils/market";
 import { OrderRow } from "./Orders";
-import type { SellerProfile, Slot } from "../../types/community";
+import type { SellerProfile } from "../../types/community";
 
 const statusText: Record<SellerProfile["status"], [string, Tone]> = {
   draft: ["Not open yet", "warning"], active: ["Open", "success"], suspended: ["Suspended", "warning"], removed: ["Removed", "muted"],
@@ -68,21 +65,14 @@ function SellerItems({ query }: { query: string }) {
   </>;
 }
 function SellerSlots() {
-  const remote = useRemote("/api/market/seller/slots", ownSlots), [selected, setSelected] = useState<Slot | null>(null);
-  const items = remote.data?.items ?? [];
-  const change = async (status: "open" | "closed" | "cancelled") => { if (!selected) return false; await setSlotStatus(selected.id, status); setSelected(null); remote.refresh(); invalidate("/api/market/"); return true; };
+  const remote = useRemote("/api/market/seller/slots", ownSlots), items = remote.data?.items ?? [];
   return <>
     <RemoteStatus remote={remote} icon="calendar-outline" returnTo="/market?tab=shop" />
     {remote.data && (items.length ? <ListGroup>{items.map(slot => <ListItem key={slot.id} title={slotLabel(slot)}
       subtitle={[slot.mode === "delivery" ? "Delivery" : "Meetup · " + slot.place, `${slot.booked ?? 0} of ${slot.capacity} orders`].join(" · ")} wrap
       leading={<RowIcon name={slot.mode === "delivery" ? "bicycle-outline" : "location-outline"} tone={slot.status === "open" ? "accent" : "muted"} />}
       trailing={slot.status === "open" ? undefined : <StatusPill label={slot.status === "closed" ? "Closed" : "Cancelled"} />}
-      onPress={() => slot.status !== "cancelled" && setSelected(slot)} />)}</ListGroup>
+      onPress={() => router.push({ pathname: "/market/slot/[id]", params: { id: slot.id } })} />)}</ListGroup>
       : <EmptyState title="No Collection Slots" text="" icon="calendar-outline" primary={{ label: "Open A Collection Slot", onPress: () => router.push("/market/slot") }} />)}
-    <MarketModal visible={!!selected} onClose={() => setSelected(null)} label={selected ? slotLabel(selected) : "Slot"}>
-      {selected?.status === "open" ? <Confirm label="Stop Taking Orders" text="Existing orders stay booked." action="Stop taking orders" run={() => change("closed")} />
-        : <Confirm label="Reopen For Orders" text="Buyers can book any places left." action="Reopen" run={() => change("open")} />}
-      <Confirm label="Cancel Slot" text="Every open order in this slot is cancelled and its buyer told." action="Cancel slot" run={() => change("cancelled")} />
-    </MarketModal>
   </>;
 }

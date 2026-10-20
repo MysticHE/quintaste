@@ -2,6 +2,10 @@ import { BlurView } from "expo-blur";
 import type { Tabs } from "expo-router";
 import { useEffect, useState, type ComponentProps } from "react";
 import { Keyboard, Platform, Pressable, StyleSheet, View } from "react-native";
+import { T, common } from "../ui";
+import { useMember } from "../CommunityGate";
+import { useRemote } from "../../hooks/useRemote";
+import { unread } from "../../services/market-api";
 import { usePreferences } from "../../state/Preferences";
 import { QuinTasteIcon, type QuinTasteTab } from "./QuinTasteIcon";
 import { useGlassNavigation } from "./GlassNavigation";
@@ -16,8 +20,13 @@ const tabs: Record<string, { label: string; icon: QuinTasteTab }> = {
   game: { label: "Game", icon: "game" },
 };
 
+/** New Market orders and unread Market messages, shown on the Market tab. Shares its cache with the Market screen. */
+function useMarketBadge() {
+  const { member } = useMember();
+  return useRemote(member ? "/api/market/unread" : null, unread, 60000).data?.count ?? 0;
+}
 export function TabDock({ state, descriptors, navigation, insets }: DockProps) {
-  const { theme } = usePreferences();
+  const { theme } = usePreferences(), marketBadge = useMarketBadge();
   const glass = useGlassNavigation(), setHeight = glass?.setHeight;
   const [keyboardVisible, setKeyboardVisible] = useState(false);
   useEffect(() => {
@@ -42,8 +51,9 @@ export function TabDock({ state, descriptors, navigation, insets }: DockProps) {
             const event = navigation.emit({ type: "tabPress", target: route.key, canPreventDefault: true });
             if (!selected && !event.defaultPrevented) navigation.navigate(route.name, route.params);
           };
-          return <DockTab key={route.key} icon={item.icon} selected={selected} onPress={press}
-            accessibilityLabel={options.tabBarAccessibilityLabel ?? item.label + ", tab " + (index + 1) + " of " + state.routes.length}
+          const badge = route.name === "market" ? marketBadge : 0;
+          return <DockTab key={route.key} icon={item.icon} selected={selected} onPress={press} badge={badge}
+            accessibilityLabel={options.tabBarAccessibilityLabel ?? item.label + (badge ? `, ${badge} new` : "") + ", tab " + (index + 1) + " of " + state.routes.length}
             testID={options.tabBarButtonTestID ?? "tab-" + item.icon} onLongPress={() => navigation.emit({ type: "tabLongPress", target: route.key })} />;
         })}
       </View>
@@ -51,9 +61,9 @@ export function TabDock({ state, descriptors, navigation, insets }: DockProps) {
   </View>;
 }
 
-function DockTab({ icon, selected, onPress, onLongPress, accessibilityLabel, testID }: {
+function DockTab({ icon, selected, onPress, onLongPress, accessibilityLabel, testID, badge = 0 }: {
   icon: QuinTasteTab; selected: boolean; onPress: () => void; onLongPress: () => void;
-  accessibilityLabel: string; testID?: string;
+  accessibilityLabel: string; testID?: string; badge?: number;
 }) {
   const { theme } = usePreferences();
   const { focused, focusProps } = useKeyboardFocus(), [hovered, setHovered] = useState(false);
@@ -69,6 +79,8 @@ function DockTab({ icon, selected, onPress, onLongPress, accessibilityLabel, tes
       backgroundColor: selected ? theme.navigation.selection : hovered ? theme.navigation.hover : theme.transparent,
       borderColor: selected ? theme.navigation.selectedForeground : theme.transparent,
     }]}><QuinTasteIcon name={icon} color={color} selected={selected} size={30} /></View>
+    {badge > 0 && <View pointerEvents="none" style={[s.badge, { backgroundColor: theme.accent }]}>
+      <T variant="caption" color={theme.actionForeground} style={common.bold}>{badge > 99 ? "99+" : badge}</T></View>}
   </Pressable>;
 }
 
@@ -78,5 +90,6 @@ const s = StyleSheet.create({
   tabs: { flexDirection: "row", gap: 6 },
   tab: { flex: 1, minWidth: 48, minHeight: 56, paddingHorizontal: 2,
     borderWidth: 2, borderRadius: 18, alignItems: "center", justifyContent: "center", overflow: "hidden" },
+  badge: { position: "absolute", top: 4, left: "55%", minWidth: 18, height: 18, borderRadius: 9, alignItems: "center", justifyContent: "center", paddingHorizontal: 4 },
   highlight: { width: "100%", maxWidth: 68, height: 44, borderRadius: 22, borderWidth: 1.5, alignItems: "center", justifyContent: "center" },
 });

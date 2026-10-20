@@ -10,12 +10,13 @@ import { SegmentedTabs } from "../../components/SegmentedTabs";
 import { DateField } from "../../components/DateField";
 import { Confirm } from "../../components/Actions";
 import { AllergenEditor } from "../../components/market/Ingredients";
+import { MarketModal } from "../../components/market/MarketChrome";
 import { ListingPhotos, photoBudgets } from "../../components/market/ListingPhotos";
 import { DietChoices, DietPills } from "../../components/market/ShopParts";
 import { MemberPrompt, RemoteStatus, useMember } from "../../components/CommunityGate";
 import { invalidate, useRemote } from "../../hooks/useRemote";
 import { usePreferences } from "../../state/Preferences";
-import { deleteListing, ownListing, saveListing, sellerState, setListingStatus, type PhotoChanges } from "../../services/market-api";
+import { deleteListing, ownListing, saveListing, sellerState, setListingStatus, withdrawListing, type PhotoChanges } from "../../services/market-api";
 import { ApiError } from "../../services/community-api";
 import { kindLabels, marketLimits, shopCategories } from "../../config/market";
 import { dietWarnings, draftFrom, draftLabels, listingErrors, listingInput, type ListingDraft } from "../../utils/market";
@@ -100,6 +101,7 @@ function ListingForm({ initial, seller }: { initial?: OwnListing; seller: Seller
       <View style={{ gap: 6 }}><FieldLabel>Order Ahead</FieldLabel><Chips label="Order ahead">{leadChoices.map(days => <Chip key={days} label={days ? days + (days === 1 ? " day" : " days") : "Same day"}
         role="radio" compact selected={d.leadDays === days} disabled={locked} onPress={() => set({ leadDays: days })} />)}</Chips></View>
       <Field label={`Most Per Order (Up To ${marketLimits.perOrder})`} value={d.maxPerOrder} onChangeText={maxPerOrder => set({ maxPerOrder })} keyboardType="number-pad" maxLength={2} error={errors.maxPerOrder} editable={!locked} />
+      <Field label="Most Per Collection (Optional)" placeholder="No limit" value={d.perSlot} onChangeText={perSlot => set({ perSlot })} keyboardType="number-pad" maxLength={3} error={errors.perSlot} editable={!locked} />
     </FormSection>
     {!!(failure || Object.keys(errors).length) && <T variant="small" color={theme.error} accessibilityLiveRegion="polite">{failure || "Complete the highlighted fields."}</T>}
     {canPublish && <Button label={live ? "Save Changes" : "Publish"} disabled={photoBusy} loading={busy} onPress={() => void save(true)} />}
@@ -107,7 +109,31 @@ function ListingForm({ initial, seller }: { initial?: OwnListing; seller: Seller
     {!canPublish && seller.status !== "active" && <T variant="small" muted style={common.center}>Open your shop to publish.</T>}
     {live && initial && <Confirm link label="Pause Item" text="Buyers won't see it until you publish it again." action="Pause item"
       run={async () => { await setListingStatus(initial.id, "paused"); invalidate("/api/market/"); router.dismissTo("/market?tab=shop"); return true; }} />}
+    {initial && initial.status !== "removed" && <Withdraw item={initial} />}
     {initial && <Confirm link label="Delete Item" text="Open orders keep their copy of this item." action="Delete item"
       run={async () => { await deleteListing(initial.id); invalidate("/api/market/"); router.dismissTo("/market?tab=shop"); return true; }} />}
   </>;
+}
+/** Safety withdrawal: the item leaves the Market, open orders with it are cancelled, and recent buyers get a notice. */
+function Withdraw({ item }: { item: OwnListing }) {
+  const { theme, setNotice } = usePreferences(), lot = item.kind === "prepacked";
+  const [open, setOpen] = useState(false), [reason, setReason] = useState(""), [busy, setBusy] = useState(false), [error, setError] = useState("");
+  const label = lot ? "Withdraw Lot" : "Withdraw Item";
+  const run = async () => {
+    setBusy(true); setError("");
+    try {
+      const { notified } = await withdrawListing(item.id, reason.trim());
+      invalidate("/api/market/"); setNotice({ text: notified ? `Withdrawn · ${notified} ${notified === 1 ? "buyer" : "buyers"} told` : "Withdrawn" });
+      router.dismissTo("/market?tab=shop");
+    } catch (problem) { setError(problem instanceof ApiError ? problem.message : "That didn't work. Try again."); }
+    finally { setBusy(false); }
+  };
+  return <><Button label={label} variant="link" onPress={() => setOpen(true)} />
+    <MarketModal visible={open} onClose={() => setOpen(false)} label={label}>
+      <T>{"Open orders with it are cancelled. Buyers from the last 30 days get a safety notice."}</T>
+      <Field label="Reason Shown To Buyers" placeholder={lot ? "Recalled by the maker" : "Wrong ingredient used"} value={reason} onChangeText={setReason} maxLength={200} editable={!busy} />
+      {!!error && <T variant="small" color={theme.error} accessibilityLiveRegion="polite">{error}</T>}
+      <Button label={label} loading={busy} disabled={reason.trim().length < 3} onPress={() => void run()} />
+      <Button label="Keep" variant="link" onPress={() => setOpen(false)} />
+    </MarketModal></>;
 }

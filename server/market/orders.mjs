@@ -29,7 +29,7 @@ orders.post('/orders', async (req, res) => {
   const wanted = readItems(b.items), note = noContactDetails(text(b.note, 300, { field: 'Note' }), 'Note');
   await throttle('market-order:' + me, 20, 3600);
   const result = await transaction(async db => {
-    const shop = (await db.query(`SELECT s.trading_name, s.meetup, s.delivery, s.delivery_fee_cents, s.pay_cash, s.pay_paynow FROM market.seller s WHERE s.user_id=$1 AND ${liveSeller('s')}
+    const shop = (await db.query(`SELECT s.trading_name, s.meetup, s.delivery, s.delivery_fee_cents, s.delivery_min_cents, s.pay_cash, s.pay_paynow FROM market.seller s WHERE s.user_id=$1 AND ${liveSeller('s')}
       AND ${notBlocked('s.user_id', '$2')} AND ${notRestricted('s.user_id')} FOR SHARE OF s`, [sellerId, me])).rows[0];
     if (!shop) throw new CommunityError(404, 'This shop is unavailable.');
     const slot = (await db.query(`SELECT * FROM market.slot WHERE id=$1 AND seller_id=$2 AND status='open' FOR UPDATE`, [slotId, sellerId])).rows[0];
@@ -41,12 +41,19 @@ orders.post('/orders', async (req, res) => {
     }
     const day = new Date(slot.starts.getTime() + 8 * 3600000).toISOString().slice(0, 10), lines = [];
     for (const want of wanted) {
-      const l = (await db.query(`SELECT id, name, price_cents, max_per_order, lead_days, date_mark::text AS date_mark, lot FROM market.listing
+      const l = (await db.query(`SELECT id, name, price_cents, max_per_order, per_slot, lead_days, date_mark::text AS date_mark, lot FROM market.listing
         WHERE id=$1 AND seller_id=$2 AND status='active'`, [want.listingId, sellerId])).rows[0];
       if (!l) throw new CommunityError(409, 'An item in your order is no longer available.');
       if (want.quantity > Math.min(l.max_per_order, limits.perOrder)) throw new CommunityError(409, `${l.name}: up to ${l.max_per_order} per order.`);
       if (slot.starts.getTime() < Date.now() + l.lead_days * 86400000) throw new CommunityError(409, `${l.name} needs ${l.lead_days} days' notice. Choose a later slot.`);
       if (l.date_mark && l.date_mark < day) throw new CommunityError(409, `${l.name} passes its date mark before this slot.`);
+      if (l.per_slot !== null) {
+        // The slot row is locked above, so two buyers can't both take the last units.
+        const used = Number((await db.query(`SELECT coalesce(sum(i.quantity), 0) AS used FROM market.order_item i JOIN market."order" o ON o.id=i.order_id
+          WHERE o.slot_id=$1 AND i.listing_id=$2 AND o.status IN ('requested','confirmed','ready','completed','disputed')`, [slotId, l.id])).rows[0].used);
+        const left = Math.max(0, l.per_slot - used);
+        if (want.quantity > left) throw new CommunityError(409, left ? `${l.name}: only ${left} left for this slot.` : `${l.name} is sold out for this slot. Choose another time.`);
+      }
       lines.push({ ...l, quantity: want.quantity });
     }
     const delivery = slot.mode === 'delivery';
@@ -57,6 +64,7 @@ orders.post('/orders', async (req, res) => {
     const payment = b.payment === 'paynow' ? 'paynow' : 'cash';
     if (!(payment === 'cash' ? shop.pay_cash : shop.pay_paynow)) throw new CommunityError(400, 'Choose a payment method this seller accepts.');
     const subtotal = lines.reduce((sum, l) => sum + l.price_cents * l.quantity, 0), fee = delivery ? shop.delivery_fee_cents : 0;
+    if (delivery && subtotal < shop.delivery_min_cents) throw new CommunityError(409, `Delivery needs at least ${money(shop.delivery_min_cents)} of items. Add more or choose meetup.`);
     // Names are kept on the order so either side still sees who it was with after the other deletes their account.
     const order = (await db.query(`INSERT INTO market."order"(buyer_id,seller_id,buyer_name,seller_name,slot_id,starts,ends,mode,place,address,contact,note,
         subtotal_cents,delivery_fee_cents,total_cents,payment) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16) RETURNING id`,

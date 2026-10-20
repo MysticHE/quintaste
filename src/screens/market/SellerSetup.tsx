@@ -5,6 +5,7 @@ import { Screen } from "../../components/Screen";
 import { Button, Field, T, common } from "../../components/ui";
 import { FormSection, ThemedSwitch } from "../../components/GroupedList";
 import { CheckRow } from "../../components/recipes/CheckRow";
+import { AreaField } from "../../components/market/AreaField";
 import { MemberPrompt, RemoteStatus, useMember } from "../../components/CommunityGate";
 import { invalidate, useRemote } from "../../hooks/useRemote";
 import { usePreferences } from "../../state/Preferences";
@@ -21,7 +22,7 @@ export default function SellerSetupScreen() {
       : <RemoteStatus remote={remote} icon="storefront-outline" returnTo="/market?tab=shop" />}
   </Screen>;
 }
-const empty: SellerInput = { tradingName: "", about: "", area: "", meetup: true, delivery: false, deliveryFeeCents: 0, deliveryAreas: "", payCash: true, payPaynow: false };
+const empty: SellerInput = { tradingName: "", about: "", area: "", meetup: true, delivery: false, deliveryFeeCents: 0, deliveryMinCents: 0, deliveryAreas: "", payCash: true, payPaynow: false };
 function Toggle({ label, value, onChange, disabled }: { label: string; value: boolean; onChange: (value: boolean) => void; disabled: boolean }) {
   return <View style={[common.spread, { minHeight: 48 }]}><T>{label}</T><ThemedSwitch label={label} value={value} onChange={onChange} disabled={disabled} /></View>;
 }
@@ -29,12 +30,16 @@ function Toggle({ label, value, onChange, disabled }: { label: string; value: bo
 function Setup({ state, refresh }: { state: SellerState; refresh: () => void }) {
   const { theme, setNotice } = usePreferences(), existing = state.seller, open = existing?.status === "active" && existing.declarationsVersion === declarationsVersion;
   const [form, setForm] = useState<SellerInput>(() => existing ? { ...empty, ...existing } : empty), [fee, setFee] = useState(existing?.deliveryFeeCents ? String(existing.deliveryFeeCents / 100) : "");
+  const [minimum, setMinimum] = useState(existing?.deliveryMinCents ? String(existing.deliveryMinCents / 100) : "");
   const [agreed, setAgreed] = useState<number[]>([]), [busy, setBusy] = useState(false), [error, setError] = useState("");
   const set = (patch: Partial<SellerInput>) => setForm(current => ({ ...current, ...patch }));
-  const feeInvalid = form.delivery && !!fee.trim() && !/^\d+(\.\d{1,2})?$/.test(fee.trim());
-  const input = (): SellerInput => ({ ...form, deliveryFeeCents: form.delivery && fee.trim() && !feeInvalid ? Math.round(Number(fee) * 100) : 0 });
+  const money = /^\d+(\.\d{1,2})?$/, feeInvalid = form.delivery && !!fee.trim() && !money.test(fee.trim());
+  const minimumInvalid = form.delivery && !!minimum.trim() && (!money.test(minimum.trim()) || Number(minimum) > 1000);
+  const input = (): SellerInput => ({ ...form, deliveryFeeCents: form.delivery && fee.trim() && !feeInvalid ? Math.round(Number(fee) * 100) : 0,
+    deliveryMinCents: form.delivery && minimum.trim() && !minimumInvalid ? Math.round(Number(minimum) * 100) : 0 });
   const run = async (task: () => Promise<unknown>, done: string) => {
     if (feeInvalid) { setError("Enter the delivery fee in dollars, for example 3.50."); return false; }
+    if (minimumInvalid) { setError("Enter the delivery minimum in dollars, up to 1000."); return false; }
     setBusy(true); setError("");
     try { await task(); invalidate("/api/market/"); refresh(); setNotice({ text: done }); return true; }
     catch (problem) { setError(problem instanceof ApiError ? problem.message : "That didn't save. Try again."); return false; }
@@ -45,13 +50,14 @@ function Setup({ state, refresh }: { state: SellerState; refresh: () => void }) 
   return <>
     <FormSection title="Shop">
       <Field label="Shop Name" value={form.tradingName} onChangeText={tradingName => set({ tradingName })} maxLength={60} editable={!busy} />
-      <Field label="Area" placeholder="e.g. Tampines" value={form.area} onChangeText={area => set({ area })} maxLength={60} editable={!busy} />
+      <AreaField label="Area" placeholder="e.g. Tampines" value={form.area} onChange={area => set({ area })} disabled={busy} />
       <Field label="About (Optional)" value={form.about} onChangeText={about => set({ about })} maxLength={300} multiline editable={!busy} />
     </FormSection>
     <FormSection title="Collection">
       <Toggle label="Meetup collection" value={form.meetup} onChange={meetup => set({ meetup })} disabled={busy} />
       <Toggle label="Delivery, paid at the door" value={form.delivery} onChange={delivery => set({ delivery })} disabled={busy} />
       {form.delivery && <><Field label="Delivery Fee (S$)" value={fee} onChangeText={setFee} error={feeInvalid ? "Use a number like 3.50" : undefined} keyboardType="decimal-pad" maxLength={6} editable={!busy} />
+        <Field label="Delivery Minimum (S$, Optional)" placeholder="No minimum" value={minimum} onChangeText={setMinimum} error={minimumInvalid ? "Use a number like 20" : undefined} keyboardType="decimal-pad" maxLength={7} editable={!busy} />
         <Field label="Delivery Areas" placeholder="e.g. Tampines, Pasir Ris" value={form.deliveryAreas} onChangeText={deliveryAreas => set({ deliveryAreas })} maxLength={160} editable={!busy} /></>}
     </FormSection>
     <FormSection title="Payment at collection">

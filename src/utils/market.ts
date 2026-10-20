@@ -10,7 +10,7 @@ export const marketMoney = (cents: number) => "S$" + (cents / 100).toFixed(cents
 /** Form state: text inputs stay as typed; photos are server paths or newly chosen data URIs. */
 export type ListingDraft = {
   kind: ListingKind; name: string; category: ShopCategory; price: string; portion: string; description: string; ingredients: string;
-  info: IngredientInfo; diets: MarketPractice[]; storage: string; dateMark: string; lot: string; leadDays: number; maxPerOrder: string;
+  info: IngredientInfo; diets: MarketPractice[]; storage: string; dateMark: string; lot: string; leadDays: number; maxPerOrder: string; perSlot: string;
   photos: Partial<Record<ShopPhotoSlot, string>>;
 };
 const tagged = (tags: readonly MarketIngredient[], list: readonly string[]) => tags.some(tag => list.includes(tag));
@@ -35,15 +35,16 @@ export function draftFrom(listing?: OwnListing): ListingDraft {
     kind: listing.kind, name: listing.name, category: listing.category, price: listing.priceCents ? String(listing.priceCents / 100) : "", portion: listing.portion,
     description: listing.description, ingredients: listing.ingredients, info: { contains: listing.contains, mayContain: listing.mayContain, reviewed: true },
     diets: practicesOf(listing.diets), storage: listing.storage, dateMark: listing.dateMark ?? "", lot: listing.lot, leadDays: listing.leadDays, maxPerOrder: String(listing.maxPerOrder),
-    photos: { ...listing.photos },
+    perSlot: listing.perSlot ? String(listing.perSlot) : "", photos: { ...listing.photos },
   } : { kind: "made", name: "", category: "Bakes", price: "", portion: "", description: "", ingredients: "", info: { contains: [], mayContain: [], reviewed: true },
-    diets: [], storage: "", dateMark: "", lot: "", leadDays: 1, maxPerOrder: "5", photos: {} };
+    diets: [], storage: "", dateMark: "", lot: "", leadDays: 1, maxPerOrder: "5", perSlot: "", photos: {} };
 }
 const cents = (text: string) => /^\d+(\.\d{1,2})?$/.test(text.trim()) ? Math.round(Number(text.trim()) * 100) : 0;
 export function listingInput(d: ListingDraft): ListingInput {
   return { kind: d.kind, name: d.name.trim(), category: d.category, priceCents: cents(d.price), portion: d.portion.trim(), description: d.description.trim(),
     ingredients: d.ingredients.trim(), contains: d.info.contains, mayContain: d.info.mayContain, diets: d.diets, storage: d.storage.trim(),
-    dateMark: d.kind === "prepacked" && d.dateMark ? d.dateMark : null, lot: d.kind === "prepacked" ? d.lot.trim() : "", leadDays: d.leadDays, maxPerOrder: Number(d.maxPerOrder) || 1 };
+    dateMark: d.kind === "prepacked" && d.dateMark ? d.dateMark : null, lot: d.kind === "prepacked" ? d.lot.trim() : "", leadDays: d.leadDays, maxPerOrder: Number(d.maxPerOrder) || 1,
+    perSlot: d.perSlot.trim() ? Number(d.perSlot) : null };
 }
 /** Inline errors before publishing; the server applies the same rules and more. */
 export function listingErrors(d: ListingDraft, publish: boolean, now: number): Record<string, string> {
@@ -51,6 +52,7 @@ export function listingErrors(d: ListingDraft, publish: boolean, now: number): R
   if (d.ingredients.length > ingredientTextLimit) errors.ingredients = `Keep the ingredient list within ${ingredientTextLimit} characters.`;
   if (!/^\d{1,2}$/.test(d.maxPerOrder) || max < 1 || max > limit) errors.maxPerOrder = `Allow 1 to ${limit} per order.`;
   if (d.price.trim() && (!price || price > 100000)) errors.price = "Enter a price up to S$1,000.";
+  if (d.perSlot.trim() && (!/^\d{1,3}$/.test(d.perSlot.trim()) || Number(d.perSlot) < 1 || Number(d.perSlot) > 200)) errors.perSlot = "Make 1 to 200 per collection, or leave it blank.";
   if (!publish) return errors;
   if (!d.name.trim()) errors.name = "Enter an item name.";
   if (!price) errors.price = "Enter a price.";
@@ -105,6 +107,24 @@ export function slotLabel(slot: Pick<Slot, "starts" | "ends">) {
   const starts = parseSgDateTime(slot.starts), ends = parseSgDateTime(slot.ends);
   if (starts === null || ends === null) return "";
   return `${dayName.format(starts)}, ${clock(starts)} – ${clock(ends)}`;
+}
+/** When a slot stops taking orders: "Fri 24 Oct, 2 pm". */
+export function slotCutoffLabel(slot: Pick<Slot, "starts" | "cutoffHours">) {
+  const starts = parseSgDateTime(slot.starts);
+  return starts === null ? "" : `${dayName.format(starts - slot.cutoffHours * 3600000)}, ${clock(starts - slot.cutoffHours * 3600000)}`;
+}
+/** True once a slot's order cut-off has passed. */
+export const slotCutoffPassed = (slot: Pick<Slot, "starts" | "cutoffHours">, now: number) => (parseSgDateTime(slot.starts) ?? 0) - slot.cutoffHours * 3600000 <= now;
+/** Checkout's `items` parameter: "listingId:quantity,listingId:quantity". */
+export const itemsParam = (items: readonly { listingId: string | null; quantity: number }[]) =>
+  items.filter(item => item.listingId).map(item => item.listingId + ":" + item.quantity).join(",");
+export function readItemsParam(value: string | undefined): Record<string, number> {
+  const out: Record<string, number> = {};
+  for (const part of (value ?? "").split(",")) {
+    const [id, quantity] = part.split(":"), n = Number(quantity);
+    if (id && Number.isInteger(n) && n > 0) out[id] = Math.min(n, marketLimits.perOrder);
+  }
+  return out;
 }
 /** "Sat 25 Oct" for list lines. */
 export const slotDay = (starts: string | null) => { const at = starts ? parseSgDateTime(starts) : null; return at === null ? "" : dayName.format(at); };

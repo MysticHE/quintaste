@@ -9,7 +9,7 @@ import { declarationsVersion, readSeller, sellerProblem } from './rules.mjs';
  */
 export const sellerProfile = express.Router();
 const columns = `trading_name AS "tradingName", about, area, meetup, delivery, delivery_fee_cents AS "deliveryFeeCents", delivery_areas AS "deliveryAreas",
-  pay_cash AS "payCash", pay_paynow AS "payPaynow", declarations_version AS "declarationsVersion", status, status_note AS "statusNote", opened_at AS "openedAt"`;
+  delivery_min_cents AS "deliveryMinCents", pay_cash AS "payCash", pay_paynow AS "payPaynow", declarations_version AS "declarationsVersion", status, status_note AS "statusNote", opened_at AS "openedAt"`;
 const blocked = status => ['suspended', 'removed'].includes(status);
 
 async function load(db, me, lock = false) {
@@ -27,10 +27,10 @@ sellerProfile.put('/', async (req, res) => {
     if (current && blocked(current.status)) throw new CommunityError(403, 'This shop is suspended. Contact QuinTaste support.');
     const problem = current?.status === 'active' && sellerProblem(s);
     if (problem) throw new CommunityError(400, problem);
-    await db.query(`INSERT INTO market.seller(user_id,trading_name,about,area,meetup,delivery,delivery_fee_cents,delivery_areas,pay_cash,pay_paynow)
-        VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)
+    await db.query(`INSERT INTO market.seller(user_id,trading_name,about,area,meetup,delivery,delivery_fee_cents,delivery_areas,pay_cash,pay_paynow,delivery_min_cents)
+        VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)
       ON CONFLICT(user_id) DO UPDATE SET trading_name=$2,about=$3,area=$4,meetup=$5,delivery=$6,delivery_fee_cents=$7,delivery_areas=$8,pay_cash=$9,pay_paynow=$10,
-        updated_at=now()`, [me, s.tradingName, s.about, s.area, s.meetup, s.delivery, s.deliveryFeeCents, s.deliveryAreas, s.payCash, s.payPaynow]);
+        delivery_min_cents=$11, updated_at=now()`, [me, s.tradingName, s.about, s.area, s.meetup, s.delivery, s.deliveryFeeCents, s.deliveryAreas, s.payCash, s.payPaynow, s.deliveryMinCents]);
     return load(db, me);
   }, 'market-seller:' + me);
   res.json({ seller });

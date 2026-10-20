@@ -41,7 +41,7 @@ export const timerAlerts: TimerAlertAdapter = {
     await channel();
     await Notifications.scheduleNotificationAsync({ identifier: alert.id,
       content: { title: alert.title ?? "Cooking timer finished", body: alert.label, sound: "default",
-        data: { kind: alert.kind === "plan" ? "plan-reminder" : "cooking-timer", owner: alert.owner, timerId: alert.timerId } },
+        data: { kind: alert.kind === "plan" ? "plan-reminder" : alert.kind === "order" ? "order-reminder" : "cooking-timer", owner: alert.owner, timerId: alert.timerId } },
       trigger: { type: Notifications.SchedulableTriggerInputTypes.DATE, date: new Date(alert.endsAt), channelId },
     });
   },

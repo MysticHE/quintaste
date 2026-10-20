@@ -25,21 +25,24 @@ export default function SlotFormScreen() {
   </Screen>;
 }
 const durations = [1, 2, 3, 4];
+const repeats = [{ weeks: 1, label: "Once" }, { weeks: 4, label: "4 weeks" }, { weeks: 8, label: "8 weeks" }];
+const week = 7 * 86400000;
 const cutoffs = [{ hours: 2, label: "2 hours" }, { hours: 12, label: "12 hours" }, { hours: 24, label: "1 day" }, { hours: 48, label: "2 days" }, { hours: 72, label: "3 days" }];
 /** A time window buyers can book; capacity caps how many orders it takes. */
 function SlotForm({ seller }: { seller: SellerProfile }) {
   const { theme, setNotice } = usePreferences(), limit = marketLimits.perSlot;
   const [starts, setStarts] = useState(""), [hours, setHours] = useState(2), [mode, setMode] = useState<"meetup" | "delivery">(seller.meetup ? "meetup" : "delivery");
-  const [place, setPlace] = useState(""), [capacity, setCapacity] = useState("10"), [cutoff, setCutoff] = useState(24), [busy, setBusy] = useState(false), [error, setError] = useState("");
+  const [place, setPlace] = useState(""), [capacity, setCapacity] = useState("10"), [cutoff, setCutoff] = useState(24), [weeks, setWeeks] = useState(1), [busy, setBusy] = useState(false), [error, setError] = useState("");
   const at = parseSgDateTime(starts), ends = at === null ? "" : sgDateTimeText(at + hours * 3600000);
   const suggestions = [...(seller.area ? [seller.area + " MRT station"] : []), ...publicVenues.slice(0, 3)];
   const save = async () => {
-    const issue = planDateIssue(starts, Date.now()) ?? (mode === "meetup" && place.trim().length < 3 ? "Add a public meetup point." : null);
+    const issue = planDateIssue(starts, Date.now()) ?? (mode === "meetup" && place.trim().length < 3 ? "Add a public meetup point." : null)
+      ?? (at !== null && at + (weeks - 1) * week - Date.now() > 60 * 86400000 ? "Open slots up to 60 days ahead. Repeat for fewer weeks." : null);
     if (issue) { setError(issue); return; }
     setBusy(true); setError("");
     try {
-      await createSlot({ starts, ends, mode, place, capacity: Number(capacity), cutoffHours: cutoff });
-      invalidate("/api/market/"); setNotice({ text: "Slot open for orders" }); router.dismissTo("/market?tab=shop");
+      await createSlot({ starts, ends, mode, place, capacity: Number(capacity), cutoffHours: cutoff, repeatWeeks: weeks });
+      invalidate("/api/market/"); setNotice({ text: weeks > 1 ? `${weeks} weekly slots open for orders` : "Slot open for orders" }); router.dismissTo("/market?tab=shop");
     } catch (problem) { setError(problem instanceof ApiError ? problem.message : "The slot wasn't saved. Try again."); }
     finally { setBusy(false); }
   };
@@ -47,6 +50,7 @@ function SlotForm({ seller }: { seller: SellerProfile }) {
     <FormSection title="When">
       <SgDateTimeField label="Starts" value={starts} onChange={setStarts} disabled={busy} />
       <View style={{ gap: 6 }}><FieldLabel>Length</FieldLabel><Chips label="Length">{durations.map(h => <Chip key={h} label={h + (h === 1 ? " hour" : " hours")} role="radio" compact selected={hours === h} onPress={() => setHours(h)} />)}</Chips></View>
+      <View style={{ gap: 6 }}><FieldLabel>Repeat Weekly</FieldLabel><Chips label="Repeat weekly">{repeats.map(r => <Chip key={r.weeks} label={r.label} role="radio" compact selected={weeks === r.weeks} onPress={() => setWeeks(r.weeks)} />)}</Chips></View>
       <View style={{ gap: 6 }}><FieldLabel>Stop Taking Orders</FieldLabel><Chips label="Cut-off">{cutoffs.map(c => <Chip key={c.hours} label={c.label + " before"} role="radio" compact selected={cutoff === c.hours} onPress={() => setCutoff(c.hours)} />)}</Chips></View>
     </FormSection>
     <FormSection title="Where">
@@ -61,6 +65,6 @@ function SlotForm({ seller }: { seller: SellerProfile }) {
       <Field label={`Most Orders (Up To ${limit})`} value={capacity} onChangeText={setCapacity} keyboardType="number-pad" maxLength={3} editable={!busy} />
     </FormSection>
     {!!error && <T variant="small" color={theme.error} accessibilityLiveRegion="polite">{error}</T>}
-    <Button label="Open For Orders" loading={busy} disabled={!starts || !/^\d{1,3}$/.test(capacity)} onPress={() => void save()} />
+    <Button label={weeks > 1 ? `Open ${weeks} Slots` : "Open For Orders"} loading={busy} disabled={!starts || !/^\d{1,3}$/.test(capacity)} onPress={() => void save()} />
   </>;
 }

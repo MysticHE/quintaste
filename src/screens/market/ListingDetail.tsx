@@ -28,7 +28,8 @@ export default function ListingDetailScreen() {
 function Detail({ item }: { item: ListingDetail }) {
   const member = useMember(), { theme, setNotice } = usePreferences();
   const [menu, setMenu] = useState(false), [report, setReport] = useState(false), [override, setOverride] = useState<{ value: boolean; base: ListingDetail }>();
-  const s = item.seller, ordered = !item.own && item.slots.length > 0;
+  const s = item.seller, open = item.slots.filter(slot => slot.itemLeft !== 0), ordered = !item.own && open.length > 0;
+  const soldOut = !item.own && item.slots.length > 0 && !open.length;
   const saving = useRef(false);
   const saved = override?.base === item ? override.value : item.saved;
   const save = async () => {
@@ -47,7 +48,8 @@ function Detail({ item }: { item: ListingDetail }) {
     try { await Share.share({ message: [item.name, marketMoney(item.priceCents), s.tradingName].join(" · ") }); }
     catch { setNotice({ text: "Sharing is unavailable. Try again.", error: true }); }
   };
-  const collection = [s.meetup && "Meetup", s.delivery && `Delivery${s.deliveryFeeCents ? " " + marketMoney(s.deliveryFeeCents) : ""} · ${s.deliveryAreas}`].filter(Boolean).join(" · ");
+  const collection = [s.meetup && "Meetup", s.delivery && [`Delivery${s.deliveryFeeCents ? " " + marketMoney(s.deliveryFeeCents) : ""}`,
+    s.deliveryMinCents ? "min " + marketMoney(s.deliveryMinCents) : "", s.deliveryAreas].filter(Boolean).join(" · ")].filter(Boolean).join(" · ");
   return <Screen fill hideTimers header={<MarketToolbar><View style={[common.row, { gap: 6, justifyContent: "flex-end" }]}>
     <IconButton label="Share Item" icon="share-outline" onPress={() => void share()} />
     {!item.own && <IconButton label="More Options" icon="ellipsis-horizontal" onPress={() => setMenu(true)} />}
@@ -77,7 +79,7 @@ function Detail({ item }: { item: ListingDetail }) {
       {item.own ? <View style={common.flex}><Button label="Edit Item" icon="create-outline" onPress={() => router.push({ pathname: "/market/edit", params: { id: item.id } })} /></View> : <>
         <IconButton label={saved ? "Unsave Item" : "Save Item"} icon={saved ? "bookmark" : "bookmark-outline"} selected={saved} onPress={() => void save()} />
         <IconButton label="Message Seller" icon="chatbubble-outline" onPress={() => void message()} />
-        <View style={common.flex}><Button label={ordered ? "Order" : "No Collections Open"} icon={ordered ? "bag-add-outline" : undefined} disabled={!ordered}
+        <View style={common.flex}><Button label={ordered ? "Order" : soldOut ? "Sold Out" : "No Collections Open"} icon={ordered ? "bag-add-outline" : undefined} disabled={!ordered}
           onPress={() => { if (ensureMember(member, "/market/listing/" + item.id)) router.push({ pathname: "/market/checkout", params: { seller: s.id, listing: item.id } }); }} /></View>
       </>}
     </View>

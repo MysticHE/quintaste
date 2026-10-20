@@ -1,4 +1,4 @@
--- Market v3: any signed-in member can open a shop and sell food they cook at home or sealed items bought in Singapore,
+-- Market v4 (v3 plus additive delivery minimum and per-slot item limits): any signed-in member can open a shop and sell food they cook at home or sealed items bought in Singapore,
 -- for meetup collection or seller delivery; buyers pay the seller at handover. QuinTaste never handles money and does not
 -- pre-check sellers: automatic listing rules apply, and staff suspend or remove shops and items after reports.
 -- Apply with the operations role after a backup, after community/schema.sql. Idempotent.
@@ -64,6 +64,8 @@ UPDATE market.seller SET status='draft' WHERE status NOT IN ('draft','active','s
 ALTER TABLE market.seller DROP CONSTRAINT IF EXISTS seller_status_check;
 ALTER TABLE market.seller ADD CONSTRAINT seller_status_check CHECK (status IN ('draft','active','suspended','removed'));
 CREATE INDEX IF NOT EXISTS market_seller_status ON market.seller(status, opened_at);
+-- v4 (additive): smallest item total a delivery order needs, in cents; 0 means no minimum.
+ALTER TABLE market.seller ADD COLUMN IF NOT EXISTS delivery_min_cents integer NOT NULL DEFAULT 0 CHECK (delivery_min_cents BETWEEN 0 AND 100000);
 
 CREATE TABLE IF NOT EXISTS market.listing (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -102,6 +104,8 @@ CREATE TABLE IF NOT EXISTS market.photo (
 UPDATE market.listing SET max_per_order=10 WHERE max_per_order > 10;
 ALTER TABLE market.listing DROP CONSTRAINT IF EXISTS listing_max_per_order_check;
 ALTER TABLE market.listing ADD CONSTRAINT listing_max_per_order_check CHECK (max_per_order BETWEEN 1 AND 10);
+-- v4 (additive): most units of an item one collection slot can take across all its orders; NULL means no item limit.
+ALTER TABLE market.listing ADD COLUMN IF NOT EXISTS per_slot integer CHECK (per_slot IS NULL OR per_slot BETWEEN 1 AND 200);
 CREATE TABLE IF NOT EXISTS market.saved (
   user_id text NOT NULL REFERENCES public."user"(id) ON DELETE CASCADE,
   listing_id uuid NOT NULL REFERENCES market.listing(id) ON DELETE CASCADE,

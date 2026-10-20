@@ -2,7 +2,8 @@ import { useState } from "react";
 import { ScrollView, View } from "react-native";
 import { Chip, Chips } from "../food/Controls";
 import { DietIcon } from "../food/DietIcon";
-import { Button, Field, T, common } from "../ui";
+import { Button, T, common } from "../ui";
+import { AreaField } from "./AreaField";
 import { ThemedSwitch } from "../GroupedList";
 import { FilterSection } from "../BrowseControls";
 import { IngredientChoices } from "./Ingredients";
@@ -35,7 +36,7 @@ export function MarketFilters({ value, onApply, onClose }: { value: ShopFilter; 
     <FilterSection title="Food type" icon="restaurant-outline"><Chips label="Type">{(["Any", "made", "prepacked"] as const).map(kind =>
       <Chip key={kind} label={kind === "Any" ? "All types" : kindLabels[kind]} role="radio" compact selected={draft.kind === kind} onPress={() => set({ kind })} />)}</Chips></FilterSection>
     <FilterSection title="Location & availability" icon="location-outline">
-      <Field label="Area" value={draft.area} onChangeText={area => set({ area })} placeholder="Any area" maxLength={60} />
+      <AreaField label="Area" value={draft.area} onChange={area => set({ area })} placeholder="Any area" near />
       <View style={common.spread}><T variant="small" style={[common.flex, { minWidth: 0 }]}>Open for orders now</T><ThemedSwitch label="Open for orders now" value={draft.available} onChange={available => set({ available })} /></View>
     </FilterSection>
   </ScrollView><View style={common.row}><View style={common.flex}><Button label="Reset" variant="secondary" onPress={() => setDraft(defaultShopFilter())} /></View>

@@ -46,8 +46,9 @@ export default function MarketScreen() {
   const tabs: IconTab<MarketTab>[] = [
     { id: "browse", label: "Browse", icon: "grid-outline", activeIcon: "grid" },
     { id: "saved", label: "Saved", icon: "bookmark-outline", activeIcon: "bookmark" },
-    { id: "orders", label: "Orders", icon: "receipt-outline", activeIcon: "receipt", badge: counts?.orders ?? 0 },
-    { id: "shop", label: "My shop", icon: "storefront-outline", activeIcon: "storefront" },
+    { id: "orders", label: "Orders", icon: "receipt-outline", activeIcon: "receipt" },
+    // New orders are the seller's to act on, in My shop.
+    { id: "shop", label: "My shop", icon: "storefront-outline", activeIcon: "storefront", badge: counts?.orders ?? 0 },
   ];
   return <Screen title="Market" back={false} hideTimers floatingAction={tab === "shop" ? add : undefined}
     header={<BrowseHeader query={query} onChange={setQuery} placeholder={placeholders[tab]}

@@ -15,29 +15,41 @@ export type SlotMode = "meetup" | "delivery";
 export type ListingCard = {
   id: string; name: string; priceCents: number; portion: string; category: ShopCategory; kind: ListingKind; diets: Diet[];
   sellerId: string; sellerName: string; area: string; nextSlot: string | null; leadDays: number; maxPerOrder: number; saved: boolean; photo: string | null;
+  /** Most units one collection slot takes (null: no item limit); `left` is what the next slot still has; `soldOut` when every open slot is full of it. */
+  perSlot: number | null; left: number | null; soldOut: boolean;
 };
-export type Slot = { id: string; starts: string; ends: string; mode: SlotMode; place: string; capacity: number; cutoffHours: number; status: "open" | "closed" | "cancelled"; remaining?: number; booked?: number };
+export type Slot = { id: string; starts: string; ends: string; mode: SlotMode; place: string; capacity: number; cutoffHours: number; status: "open" | "closed" | "cancelled"; remaining?: number; booked?: number;
+  /** On an item page: units of that item this slot still takes (null: no item limit). */
+  itemLeft?: number | null };
 /** What buyers see about a seller: their shop, how they hand over and their order history. QuinTaste doesn't pre-check sellers. */
 export type ShopTrust = {
-  id: string; tradingName: string; area: string; about: string; meetup: boolean; delivery: boolean; deliveryFeeCents: number; deliveryAreas: string; payCash: boolean; payPaynow: boolean;
+  id: string; tradingName: string; area: string; about: string; meetup: boolean; delivery: boolean; deliveryFeeCents: number; deliveryMinCents: number; deliveryAreas: string; payCash: boolean; payPaynow: boolean;
   since: string | null; completed: number; ratings: number; rating: number | null;
 };
 export type ListingDetail = ListingCard & {
   description: string; ingredients: string; contains: MarketIngredient[]; mayContain: MarketIngredient[]; storage: string; dateMark: string | null; lot: string;
   photos: Partial<Record<ShopPhotoSlot, string>>; seller: ShopTrust; own: boolean; slots: Slot[];
 };
-export type ShopPage = ShopTrust & { own: boolean; items: ListingCard[]; reviews: { rating: number; review: string; dietMatched: boolean | null; at: string }[]; slots: Slot[] };
+export type ShopPage = ShopTrust & { own: boolean; items: ListingCard[]; reviews: { rating: number; review: string; dietMatched: boolean | null; at: string }[]; slots: Slot[];
+  /** Units left of each limited item per slot: stock[slotId][listingId]. */
+  stock: Record<string, Record<string, number>> };
 export type SellerStatus = "draft" | "active" | "suspended" | "removed";
 export type SellerProfile = {
-  tradingName: string; about: string; area: string; meetup: boolean; delivery: boolean; deliveryFeeCents: number; deliveryAreas: string; payCash: boolean; payPaynow: boolean;
+  tradingName: string; about: string; area: string; meetup: boolean; delivery: boolean; deliveryFeeCents: number; deliveryMinCents: number; deliveryAreas: string; payCash: boolean; payPaynow: boolean;
   declarationsVersion: number; status: SellerStatus; statusNote: string; openedAt: string | null;
 };
 export type SellerState = { seller: SellerProfile | null; declarationsVersion: number };
 export type ListingInput = {
   kind: ListingKind; name: string; category: ShopCategory; priceCents: number; portion: string; description: string; ingredients: string;
   contains: MarketIngredient[]; mayContain: MarketIngredient[]; diets: Diet[]; storage: string; dateMark: string | null; lot: string; leadDays: number; maxPerOrder: number;
+  perSlot: number | null;
 };
 export type OwnListing = ListingInput & { id: string; status: "draft" | "active" | "paused" | "removed"; removedReason: string; updatedAt: string; photos: Partial<Record<ShopPhotoSlot, string>> };
+/** A seller's collection slot with what to make and every order in it. */
+export type SlotPack = {
+  slot: Slot; toMake: { name: string; quantity: number; perSlot: number | null }[];
+  orders: { id: string; status: OrderStatus; buyerName: string; totalCents: number; note: string; address: string; summary: string }[];
+};
 export type OrderStatus = "requested" | "confirmed" | "ready" | "completed" | "declined" | "cancelled" | "no_show" | "disputed";
 export type OrderSummary = { id: string; status: OrderStatus; totalCents: number; starts: string; mode: SlotMode; place: string; createdAt: string; summary: string; otherName: string; rating: number };
 export type Order = {

@@ -10,7 +10,7 @@ export const sellerShop = express.Router();
 const photoUrl = (id, slot, digest) => `/api/market/seller/photos/${id}/${slot}?v=${digest.slice(0, 12)}`;
 const listingColumns = `l.id, l.kind, l.name, l.category, l.price_cents AS "priceCents", l.portion, l.description, l.ingredients, l.contains,
   l.may_contain AS "mayContain", l.diets, l.storage, l.date_mark::text AS "dateMark", l.lot, l.lead_days AS "leadDays", l.max_per_order AS "maxPerOrder",
-  l.status, l.removed_reason AS "removedReason", l.updated_at AS "updatedAt"`;
+  l.per_slot AS "perSlot", l.status, l.removed_reason AS "removedReason", l.updated_at AS "updatedAt"`;
 async function seller(db, me, lock = false) {
   const row = (await db.query(`SELECT user_id AS id, status, meetup, delivery FROM market.seller WHERE user_id=$1 ${lock ? 'FOR UPDATE' : ''}`, [me])).rows[0];
   if (!row) throw new CommunityError(404, 'Set up your shop first.');
@@ -55,11 +55,11 @@ async function save(req, res, id) {
     } else if (Number((await db.query('SELECT count(*) FROM market.listing WHERE seller_id=$1', [me])).rows[0].count) >= 60) {
       throw new CommunityError(409, 'You have 60 items. Delete an old one first.');
     }
-    const values = [l.kind, l.name, l.category, l.priceCents, l.portion, l.description, l.ingredients, l.contains, l.mayContain, l.diets, l.storage, l.dateMark, l.lot, l.leadDays, l.maxPerOrder];
+    const values = [l.kind, l.name, l.category, l.priceCents, l.portion, l.description, l.ingredients, l.contains, l.mayContain, l.diets, l.storage, l.dateMark, l.lot, l.leadDays, l.maxPerOrder, l.perSlot];
     const row = id ? (await db.query(`UPDATE market.listing SET kind=$1,name=$2,category=$3,price_cents=$4,portion=$5,description=$6,ingredients=$7,contains=$8,
-        may_contain=$9,diets=$10,storage=$11,date_mark=$12,lot=$13,lead_days=$14,max_per_order=$15,updated_at=now() WHERE id=$16 RETURNING id`, [...values, id])).rows[0]
+        may_contain=$9,diets=$10,storage=$11,date_mark=$12,lot=$13,lead_days=$14,max_per_order=$15,per_slot=$16,updated_at=now() WHERE id=$17 RETURNING id`, [...values, id])).rows[0]
       : (await db.query(`INSERT INTO market.listing(seller_id,kind,name,category,price_cents,portion,description,ingredients,contains,may_contain,diets,storage,
-        date_mark,lot,lead_days,max_per_order) VALUES($16,$1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15) RETURNING id`, [...values, me])).rows[0];
+        date_mark,lot,lead_days,max_per_order,per_slot) VALUES($17,$1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16) RETURNING id`, [...values, me])).rows[0];
     for (const [slot, photo] of Object.entries(changes)) {
       if (!photo) await db.query('DELETE FROM market.photo WHERE listing_id=$1 AND slot=$2', [row.id, slot]);
       else await db.query(`INSERT INTO market.photo(listing_id,slot,bytes,digest) VALUES($1,$2,$3,$4)
@@ -92,6 +92,34 @@ sellerShop.post('/listings/:id/status', async (req, res) => {
   }, 'market-seller:' + me);
   res.json({ status });
 });
+/**
+ * Withdraws an item for a safety reason (a recall, a bad batch): it leaves the Market, open orders with it are cancelled,
+ * and every buyer who ordered it in the last 30 days gets a safety notice in their chat with the shop.
+ */
+sellerShop.post('/listings/:id/withdraw', async (req, res) => {
+  const me = res.locals.user.id, id = requireId(req.params.id);
+  const reason = noContactDetails(text(req.body?.reason, 200, { min: 3, field: 'Reason' }), 'Reason');
+  await throttle('market-withdraw:' + me, 20, 3600);
+  const notified = await transaction(async db => {
+    await seller(db, me, true);
+    const item = (await db.query('SELECT name, kind, lot, status FROM market.listing WHERE id=$1 AND seller_id=$2 FOR UPDATE', [id, me])).rows[0];
+    if (!item || item.status === 'removed') throw new CommunityError(404, 'This item is unavailable.');
+    await db.query("UPDATE market.listing SET status='paused', updated_at=now() WHERE id=$1", [id]);
+    const name = item.kind === 'prepacked' && item.lot ? `${item.name} (lot ${item.lot})` : item.name;
+    const cancelled = (await db.query(`UPDATE market."order" o SET status='cancelled', status_reason=$3, updated_at=now()
+      WHERE o.seller_id=$1 AND o.status IN ('requested','confirmed','ready') AND EXISTS (SELECT 1 FROM market.order_item i WHERE i.order_id=o.id AND i.listing_id=$2)
+      RETURNING o.id`, [me, id, ('The seller withdrew ' + name + '.').slice(0, 200)])).rows.map(row => row.id);
+    // One notice per buyer, on their latest order with the item.
+    const buyers = (await db.query(`SELECT DISTINCT ON (o.buyer_id) o.buyer_id, o.id FROM market."order" o JOIN market.order_item i ON i.order_id=o.id
+      WHERE o.seller_id=$1 AND i.listing_id=$2 AND o.buyer_id IS NOT NULL AND (o.id = ANY($3::uuid[]) OR (o.status IN ('completed','disputed','no_show') AND o.updated_at > now() - interval '30 days'))
+      ORDER BY o.buyer_id, o.created_at DESC`, [me, id, cancelled])).rows;
+    for (const buyer of buyers) {
+      await eventFor(db, buyer.buyer_id, me, buyer.id, `Safety notice: the seller withdrew ${name}. ${reason} Open orders with it are cancelled. Don't eat it if you still have it; ask the seller about a refund.`);
+    }
+    return buyers.length;
+  }, 'market-seller:' + me);
+  res.json({ status: 'paused', notified });
+});
 sellerShop.delete('/listings/:id', async (req, res) => {
   const result = await pool.query("DELETE FROM market.listing WHERE id=$1 AND seller_id=$2 AND status<>'removed'", [requireId(req.params.id), res.locals.user.id]);
   if (!result.rowCount) throw new CommunityError(404, 'This item is unavailable.');
@@ -113,6 +141,24 @@ sellerShop.get('/slots', async (_req, res) => {
     ORDER BY s.starts LIMIT 100`, [res.locals.user.id])).rows;
   res.json({ items: rows });
 });
+/** Orders that still need food made: everything booked except declined, cancelled, not collected or disputed. */
+const toMakeStatuses = ['requested', 'confirmed', 'ready', 'completed'];
+/** One slot's pack list: what to make in total, then each order with its lines, note and delivery address. */
+sellerShop.get('/slots/:id', async (req, res) => {
+  const me = res.locals.user.id, id = requireId(req.params.id);
+  const slot = (await pool.query(`SELECT ${slotColumns} FROM market.slot s WHERE s.id=$1 AND s.seller_id=$2`, [id, me])).rows[0];
+  if (!slot) throw new CommunityError(404, 'This slot is unavailable.');
+  const [toMake, orders] = await Promise.all([
+    pool.query(`SELECT i.name, sum(i.quantity)::int AS quantity, max(l.per_slot) AS "perSlot" FROM market.order_item i JOIN market."order" o ON o.id=i.order_id
+      LEFT JOIN market.listing l ON l.id=i.listing_id WHERE o.slot_id=$1 AND o.seller_id=$2 AND o.status = ANY($3) GROUP BY i.name ORDER BY i.name`, [id, me, toMakeStatuses]),
+    pool.query(`SELECT o.id, o.status, coalesce(u.name, o.buyer_name) AS "buyerName", o.total_cents AS "totalCents", o.note,
+        CASE WHEN o.mode='delivery' THEN o.address ELSE '' END AS address,
+        (SELECT string_agg(i.quantity || ' × ' || i.name, ', ' ORDER BY i.name) FROM market.order_item i WHERE i.order_id=o.id) AS summary
+      FROM market."order" o LEFT JOIN public."user" u ON u.id=o.buyer_id WHERE o.slot_id=$1 AND o.seller_id=$2
+      ORDER BY (o.status = ANY($3)) DESC, o.created_at`, [id, me, toMakeStatuses]),
+  ]);
+  res.json({ slot, toMake: toMake.rows, orders: orders.rows });
+});
 function readSlot(body) {
   body ??= {};
   const starts = readFuture(body.starts, 'Start time'), ends = readFuture(body.ends, 'End time');
@@ -124,17 +170,26 @@ function readSlot(body) {
   const place = noContactDetails(text(body.place, 120, { min: mode === 'meetup' ? 3 : 0, field: mode === 'meetup' ? 'Meetup point' : 'Delivery note' }), 'Meetup point');
   return { starts, ends, mode, place, capacity, cutoff };
 }
+const week = 7 * 86400000;
+/** Opens one slot, or the same slot each week for up to 12 weeks; every week passes the slot rules or none is opened. */
 sellerShop.post('/slots', async (req, res) => {
-  const me = res.locals.user.id;
+  const me = res.locals.user.id, weeks = req.body?.repeatWeeks ?? 1;
+  if (!Number.isInteger(weeks) || weeks < 1 || weeks > 12) throw new CommunityError(400, 'Repeat a slot for 1 to 12 weeks.');
   await throttle('market-slot:' + me, 60, 3600);
-  const id = await transaction(async db => {
+  const ids = await transaction(async db => {
     const shop = await seller(db, me, true), s = readSlot(req.body);
     if (!shop[s.mode]) throw new CommunityError(400, s.mode === 'delivery' ? 'Turn on delivery in your shop settings first.' : 'Turn on meetup collection in your shop settings first.');
-    if (Number((await db.query('SELECT count(*) FROM market.slot WHERE seller_id=$1 AND ends > now()', [me])).rows[0].count) >= 40) throw new CommunityError(409, 'You have 40 upcoming slots.');
-    return (await db.query(`INSERT INTO market.slot(seller_id,starts,ends,mode,place,capacity,cutoff_hours) VALUES($1,$2,$3,$4,$5,$6,$7) RETURNING id`,
-      [me, s.starts, s.ends, s.mode, s.place, s.capacity, s.cutoff])).rows[0].id;
+    if (s.starts.getTime() + (weeks - 1) * week - Date.now() > 60 * 86400000) throw new CommunityError(400, 'Open slots up to 60 days ahead. Repeat for fewer weeks.');
+    const upcoming = Number((await db.query('SELECT count(*) FROM market.slot WHERE seller_id=$1 AND ends > now()', [me])).rows[0].count);
+    if (upcoming + weeks > 40) throw new CommunityError(409, upcoming >= 40 ? 'You have 40 upcoming slots.' : `You can open ${40 - upcoming} more upcoming slots.`);
+    const created = [];
+    for (let n = 0; n < weeks; n++) {
+      created.push((await db.query(`INSERT INTO market.slot(seller_id,starts,ends,mode,place,capacity,cutoff_hours) VALUES($1,$2,$3,$4,$5,$6,$7) RETURNING id`,
+        [me, new Date(s.starts.getTime() + n * week), new Date(s.ends.getTime() + n * week), s.mode, s.place, s.capacity, s.cutoff])).rows[0].id);
+    }
+    return created;
   }, 'market-seller:' + me);
-  res.status(201).json({ id });
+  res.status(201).json({ id: ids[0], ids });
 });
 /** Close stops new orders; cancel also cancels the slot's open orders and tells each buyer. */
 sellerShop.post('/slots/:id/status', async (req, res) => {

@@ -13,13 +13,21 @@ const today = `(now() AT TIME ZONE 'Asia/Singapore')::date`;
 const visible = `l.status='active' AND ${liveSeller('s')} AND ${notRestricted('s.user_id')} AND (l.date_mark IS NULL OR l.date_mark > ${today})`;
 /** A slot is offered only while the shop still has that collection mode switched on. */
 const modeOn = (slot, seller) => `((${slot}.mode='meetup' AND ${seller}.meetup) OR (${slot}.mode='delivery' AND ${seller}.delivery))`;
-/** Listings with their earliest orderable slot (lead time, cut-off, capacity), computed once per row. */
-const fromListings = `market.listing l JOIN market.seller s ON s.user_id=l.seller_id LEFT JOIN LATERAL (SELECT min(x.starts) AS starts FROM market.slot x
-  WHERE x.seller_id=l.seller_id AND x.status='open' AND ${modeOn('x', 's')} AND x.starts - make_interval(hours => x.cutoff_hours) > now()
-    AND x.starts >= now() + make_interval(days => l.lead_days)
-    AND (SELECT count(*) FROM market."order" o WHERE o.slot_id=x.id AND o.status IN ('requested','confirmed','ready','completed','disputed')) < x.capacity) n ON true`;
+const live = `('requested','confirmed','ready','completed','disputed')`;
+/** Units of a listing already booked in a slot. */
+const usedIn = (slot, listing) => `(SELECT coalesce(sum(i.quantity), 0)::int FROM market.order_item i JOIN market."order" o ON o.id=i.order_id
+  WHERE o.slot_id=${slot}.id AND i.listing_id=${listing}.id AND o.status IN ${live})`;
+/** A slot of the listing's shop that still takes orders for it: open, mode on, before cut-off, after the lead time, with order places left. */
+const orderable = (x, seller, l) => `${x}.seller_id=${l}.seller_id AND ${x}.status='open' AND ${modeOn(x, seller)} AND ${x}.starts - make_interval(hours => ${x}.cutoff_hours) > now()
+  AND ${x}.starts >= now() + make_interval(days => ${l}.lead_days)
+  AND (SELECT count(*) FROM market."order" o WHERE o.slot_id=${x}.id AND o.status IN ${live}) < ${x}.capacity`;
+/** Listings with their earliest orderable slot that still has units of the item left, computed once per row. */
+const fromListings = `market.listing l JOIN market.seller s ON s.user_id=l.seller_id LEFT JOIN LATERAL (SELECT x.starts, l.per_slot - ${usedIn('x', 'l')} AS stock_left
+  FROM market.slot x WHERE ${orderable('x', 's', 'l')} AND (l.per_slot IS NULL OR ${usedIn('x', 'l')} < l.per_slot) ORDER BY x.starts LIMIT 1) n ON true`;
 const cardColumns = `l.id, l.name, l.price_cents AS "priceCents", l.portion, l.category, l.kind, l.diets, l.seller_id AS "sellerId",
   s.trading_name AS "sellerName", s.area, ${sgText('n.starts')} AS "nextSlot", l.lead_days AS "leadDays", l.max_per_order AS "maxPerOrder",
+  l.per_slot AS "perSlot", n.stock_left AS "left",
+  (n.starts IS NULL AND l.per_slot IS NOT NULL AND EXISTS (SELECT 1 FROM market.slot y WHERE ${orderable('y', 's', 'l')})) AS "soldOut",
   (SELECT digest FROM market.photo p WHERE p.listing_id=l.id AND p.slot='item') AS digest`;
 const card = ({ digest, ...row }, saved = false) => ({ ...row, saved, photo: photoUrl(row.id, 'item', digest) });
 export const like = value => '%' + value.trim().slice(0, 60).replace(/[\\%_]/g, '\\$&') + '%';
@@ -65,13 +73,23 @@ shop.get('/listings', async (req, res) => {
 async function bookable(sellerId, leadDays = 0) {
   return (await pool.query(`SELECT ${slotColumns} FROM market.slot s JOIN market.seller m ON m.user_id=s.seller_id
     WHERE s.seller_id=$1 AND s.status='open' AND ${modeOn('s', 'm')} AND s.starts - make_interval(hours => s.cutoff_hours) > now() AND s.starts >= now() + make_interval(days => $2::int)
-      AND (SELECT count(*) FROM market."order" o WHERE o.slot_id=s.id AND o.status IN ('requested','confirmed','ready','completed','disputed')) < s.capacity
+      AND (SELECT count(*) FROM market."order" o WHERE o.slot_id=s.id AND o.status IN ${live}) < s.capacity
     ORDER BY s.starts,s.id LIMIT 20`, [sellerId, leadDays]))
     .rows.map(({ booked, ...slot }) => ({ ...slot, remaining: slot.capacity - booked }));
 }
+/** Units left of each limited item in each slot: `{ [slotId]: { [listingId]: left } }`. Items without a per-slot limit are absent. */
+async function itemStock(slotList, items) {
+  const limited = items.filter(item => item.perSlot !== null && item.perSlot !== undefined);
+  if (!slotList.length || !limited.length) return {};
+  const used = (await pool.query(`SELECT o.slot_id AS "slotId", i.listing_id AS "listingId", sum(i.quantity)::int AS used FROM market.order_item i
+    JOIN market."order" o ON o.id=i.order_id WHERE o.slot_id = ANY($1::uuid[]) AND i.listing_id = ANY($2::uuid[]) AND o.status IN ${live} GROUP BY 1, 2`,
+  [slotList.map(slot => slot.id), limited.map(item => item.id)])).rows;
+  return Object.fromEntries(slotList.map(slot => [slot.id, Object.fromEntries(limited.map(item =>
+    [item.id, Math.max(0, item.perSlot - (used.find(row => row.slotId === slot.id && row.listingId === item.id)?.used ?? 0))]))]));
+}
 /** What a buyer sees about a seller: their shop, how they hand over, and their order history. QuinTaste does not pre-check sellers. */
 const trustColumns = `s.user_id AS id, s.trading_name AS "tradingName", s.area, s.about, s.meetup, s.delivery, s.delivery_fee_cents AS "deliveryFeeCents",
-  s.delivery_areas AS "deliveryAreas", s.pay_cash AS "payCash", s.pay_paynow AS "payPaynow", s.opened_at AS since,
+  s.delivery_min_cents AS "deliveryMinCents", s.delivery_areas AS "deliveryAreas", s.pay_cash AS "payCash", s.pay_paynow AS "payPaynow", s.opened_at AS since,
   (SELECT count(*)::int FROM market."order" o WHERE o.seller_id=s.user_id AND o.status='completed') AS completed,
   (SELECT count(*)::int FROM market."order" o WHERE o.seller_id=s.user_id AND o.rating > 0) AS ratings,
   (SELECT round(avg(rating), 1)::float FROM market."order" o WHERE o.seller_id=s.user_id AND o.rating > 0) AS rating`;
@@ -91,7 +109,8 @@ shop.get('/listings/:id', async (req, res) => {
   if (!row || !seller) throw new CommunityError(404, 'This item is unavailable.');
   const photos = Object.fromEntries((await pool.query('SELECT slot, digest FROM market.photo WHERE listing_id=$1', [id])).rows.map(p => [p.slot, photoUrl(id, p.slot, p.digest)]));
   const saved = viewer ? (await pool.query('SELECT 1 FROM market.saved WHERE user_id=$1 AND listing_id=$2', [viewer, id])).rowCount > 0 : false;
-  res.json({ ...card(row, saved), photos, seller, own: viewer === row.sellerId, slots: await bookable(row.sellerId, row.leadDays) });
+  const open = await bookable(row.sellerId, row.leadDays), stock = await itemStock(open, [row]);
+  res.json({ ...card(row, saved), photos, seller, own: viewer === row.sellerId, slots: open.map(slot => ({ ...slot, itemLeft: stock[slot.id]?.[id] ?? null })) });
 });
 shop.get('/shops/:id', async (req, res) => {
   const viewer = res.locals.user?.id ?? null, id = requireUser(req.params.id), seller = await liveShop(id, viewer);
@@ -101,7 +120,8 @@ shop.get('/shops/:id', async (req, res) => {
     seller.rating === null ? { rows: [] } : pool.query(`SELECT rating, CASE WHEN review_hidden THEN '' ELSE review END AS review, diet_matched AS "dietMatched", completed_at AS at FROM market."order"
       WHERE seller_id=$1 AND rating > 0 ORDER BY completed_at DESC LIMIT 20`, [id]),
   ]);
-  res.json({ ...seller, own: viewer === id, items: items.rows.map(row => card(row)), reviews: reviews.rows, slots: await bookable(id) });
+  const open = await bookable(id);
+  res.json({ ...seller, own: viewer === id, items: items.rows.map(row => card(row)), reviews: reviews.rows, slots: open, stock: await itemStock(open, items.rows) });
 });
 shop.get('/photos/:id/:slot', async (req, res) => {
   if (!slots.includes(req.params.slot)) throw new CommunityError(404, 'Photo unavailable.');

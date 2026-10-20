@@ -44,7 +44,7 @@ export default function MarketShopScreen() {
     </View>
     <ListGroup>
       {s.meetup && <ListItem title="Meetup collection" subtitle="At the point shown on each slot" leading={<RowIcon name="location-outline" />} />}
-      {s.delivery && <ListItem title={"Delivery" + (s.deliveryFeeCents ? " · " + marketMoney(s.deliveryFeeCents) : " · free")} subtitle={s.deliveryAreas} leading={<RowIcon name="bicycle-outline" />} wrap />}
+      {s.delivery && <ListItem title={"Delivery" + (s.deliveryFeeCents ? " · " + marketMoney(s.deliveryFeeCents) : " · free") + (s.deliveryMinCents ? " · min " + marketMoney(s.deliveryMinCents) : "")} subtitle={s.deliveryAreas} leading={<RowIcon name="bicycle-outline" />} wrap />}
       <ListItem title={"Pay at collection · " + handoverPayment(s)} subtitle="QuinTaste doesn't take payment or check sellers" leading={<RowIcon name="cash-outline" />} />
     </ListGroup>
     {s.slots.length > 0 && <ListGroup title="Open collections"><View style={{ padding: 8, gap: 8 }}>{s.slots.slice(0, 4).map(slot =>

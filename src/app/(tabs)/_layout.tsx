@@ -3,6 +3,7 @@ import { usePreferences } from "../../state/Preferences";
 import { useFood } from "../../state/Food";
 import { TabDock } from "../../components/navigation/TabDock";
 import { GlassNavigationProvider, TabBackdrop } from "../../components/navigation/GlassNavigation";
+import { MarketReminderSync } from "../../components/market/MarketReminderSync";
 
 export default function TabLayout() {
   const { theme } = usePreferences(), { owner } = useFood();
@@ -15,5 +16,5 @@ export default function TabLayout() {
     <Tabs.Screen name="social" options={{ title: "Social" }} />
     <Tabs.Screen name="market" options={{ title: "Market" }} />
     <Tabs.Screen name="game" options={{ title: "Game" }} />
-  </Tabs></GlassNavigationProvider>;
+  </Tabs><MarketReminderSync /></GlassNavigationProvider>;
 }
