@@ -8,8 +8,9 @@ import { orderRemindersFrom } from "../../services/market-reminders";
 
 /** Keeps the device's Market collection reminders in step with the buyer's orders while Notifications is on. */
 export function MarketReminderSync() {
-  const { member } = useMember(), { doc } = useFood(), { setOrderReminders } = useTimerAlerts();
-  const data = useRemote(member && doc.notifications.cooking ? "/api/market/orders?role=buy" : null, signal => orders("buy", signal)).data;
+  const { member, userId } = useMember(), { doc } = useFood(), { setOrderReminders } = useTimerAlerts();
+  // Keyed by account, so right after a switch the previous account's cached orders are never read as this account's.
+  const data = useRemote(member && userId && doc.notifications.cooking ? "/api/market/orders?role=buy&for=" + userId : null, signal => orders("buy", signal)).data;
   useEffect(() => { if (data) setOrderReminders(orderRemindersFrom(data.items)); }, [data, setOrderReminders]);
   return null;
 }

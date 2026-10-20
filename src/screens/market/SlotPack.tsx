@@ -36,7 +36,7 @@ function Pack({ pack, refresh }: { pack: SlotPack; refresh: () => void }) {
       <ListItem title={`${slot.booked ?? 0} of ${slot.capacity} orders`} subtitle={slot.status === "open" && !cutoff ? "Orders close " + slotCutoffLabel(slot) : undefined}
         leading={<RowIcon name="time-outline" />} />
     </ListGroup>
-    {pack.toMake.length > 0 && <ListGroup title="To make">{pack.toMake.map(item => <ListItem key={item.name} title={item.name} wrap
+    {pack.toMake.length > 0 && <ListGroup title="To make">{pack.toMake.map(item => <ListItem key={item.key} title={item.name} wrap
       trailing={<T style={common.bold}>{item.perSlot ? `${item.quantity} of ${item.perSlot}` : String(item.quantity)}</T>} />)}</ListGroup>}
     {pack.orders.length ? <ListGroup title="Orders">{pack.orders.map(o => <ListItem key={o.id} title={o.buyerName} wrap
       subtitle={[o.summary, o.address, o.note && "“" + o.note + "”"].filter(Boolean).join(" · ")}

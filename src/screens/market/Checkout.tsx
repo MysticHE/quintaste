@@ -75,7 +75,7 @@ function Checkout({ shop, listing, slot: initialSlot, items }: { shop: ShopPage;
     <FormSection title="Collection">
       {shop.slots.length ? shop.slots.map(item => <SlotOption key={item.id} slot={shown(item)} selected={slot?.id === item.id} disabled={!usable(item)} onPress={() => setSlotId(item.id)} />)
         : <T muted>No collection slots are open. Message the shop or check back soon.</T>}
-      {lead > 0 && <T variant="small" muted>{`Your items need ${lead} ${lead === 1 ? "day" : "days"}' notice.`}</T>}
+      {lead > 0 && <T variant="small" muted>{`Your items need ${lead} ${lead === 1 ? "day's" : "days'"} notice.`}</T>}
       {delivery && <><Field label="Delivery Address" value={address} onChangeText={setAddress} maxLength={200} multiline placeholder="Block, street, unit and postal code" />
         <Field label="Contact Number" value={contact} onChangeText={setContact} maxLength={40} keyboardType="phone-pad" />
         <T variant="small" muted>Shared only with this seller for your delivery.</T></>}

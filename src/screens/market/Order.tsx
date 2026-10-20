@@ -15,6 +15,7 @@ import { order as loadOrder, orderAction, type OrderAction } from "../../service
 import { ApiError } from "../../services/community-api";
 import { orderLabel, problemReasons } from "../../config/market";
 import { itemsParam, marketMoney, slotLabel } from "../../utils/market";
+import { directionsUrl } from "../../utils/directions";
 import { formatDay } from "../../utils/day";
 import { orderTone } from "./Orders";
 import type { Order } from "../../types/community";
@@ -46,7 +47,7 @@ function OrderView({ order: o, refresh }: { order: Order; refresh: () => void })
   // Buyers head to the meetup point; a delivering seller heads to the buyer's address.
   const destination = o.mode === "meetup" ? o.place : seller ? o.address : "";
   const directions = async () => {
-    try { await Linking.openURL("https://www.google.com/maps/dir/?api=1&destination=" + encodeURIComponent(destination + ", Singapore")); }
+    try { await Linking.openURL(directionsUrl(destination + ", Singapore")); }
     catch { setNotice({ text: "Maps couldn't open. Try again.", error: true }); }
   };
   const again = !seller && !open && !o.closed && o.items.some(item => item.listingId);

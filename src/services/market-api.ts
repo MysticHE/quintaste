@@ -52,7 +52,7 @@ export const saveListing = (id: string | null, body: { listing: ListingInput; ph
   call<{ id: string }>(id ? "/api/market/seller/listings/" + id : "/api/market/seller/listings", { method: id ? "PUT" : "POST", body });
 export const setListingStatus = (id: string, status: "active" | "paused") => call("/api/market/seller/listings/" + id + "/status", { method: "POST", body: { status } });
 export const deleteListing = (id: string) => call("/api/market/seller/listings/" + id, { method: "DELETE" });
-export const withdrawListing = (id: string, reason: string) => call<{ status: "paused"; notified: number }>("/api/market/seller/listings/" + id + "/withdraw", { method: "POST", body: { reason } });
+export const withdrawListing = (id: string, reason: string) => call<{ status: "draft" | "active" | "paused"; notified: number }>("/api/market/seller/listings/" + id + "/withdraw", { method: "POST", body: { reason } });
 export const ownSlots = (signal: AbortSignal) => call<{ items: Slot[] }>("/api/market/seller/slots", { signal });
 export type SlotInput = { starts: string; ends: string; mode: "meetup" | "delivery"; place: string; capacity: number; cutoffHours: number; repeatWeeks?: number };
 export const createSlot = (body: SlotInput) => call<{ id: string; ids: string[] }>("/api/market/seller/slots", { method: "POST", body });

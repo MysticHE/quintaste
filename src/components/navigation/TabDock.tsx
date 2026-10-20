@@ -3,9 +3,7 @@ import type { Tabs } from "expo-router";
 import { useEffect, useState, type ComponentProps } from "react";
 import { Keyboard, Platform, Pressable, StyleSheet, View } from "react-native";
 import { T, common } from "../ui";
-import { useMember } from "../CommunityGate";
-import { useRemote } from "../../hooks/useRemote";
-import { unread } from "../../services/market-api";
+import { useMarketUnread } from "../market/MarketUnread";
 import { usePreferences } from "../../state/Preferences";
 import { QuinTasteIcon, type QuinTasteTab } from "./QuinTasteIcon";
 import { useGlassNavigation } from "./GlassNavigation";
@@ -20,13 +18,8 @@ const tabs: Record<string, { label: string; icon: QuinTasteTab }> = {
   game: { label: "Game", icon: "game" },
 };
 
-/** New Market orders and unread Market messages, shown on the Market tab. Shares its cache with the Market screen. */
-function useMarketBadge() {
-  const { member } = useMember();
-  return useRemote(member ? "/api/market/unread" : null, unread, 60000).data?.count ?? 0;
-}
 export function TabDock({ state, descriptors, navigation, insets }: DockProps) {
-  const { theme } = usePreferences(), marketBadge = useMarketBadge();
+  const { theme } = usePreferences(), marketBadge = useMarketUnread()?.count ?? 0;
   const glass = useGlassNavigation(), setHeight = glass?.setHeight;
   const [keyboardVisible, setKeyboardVisible] = useState(false);
   useEffect(() => {

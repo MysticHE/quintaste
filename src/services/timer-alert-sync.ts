@@ -14,15 +14,21 @@ export function alertFor(owner: string, timer: CookingTimer): TimerAlert | null 
   return timer.endsAt === null ? null : { id: timerAlertPrefix + owner + "/" + timer.id + "/" + timer.endsAt,
     owner, timerId: timer.id, endsAt: timer.endsAt, label: timer.label };
 }
-const reminderOffsets = [{ key: "day", ms: 86400000, title: "Food plan tomorrow" }, { key: "hour", ms: 3600000, title: "Food plan in 1 hour" }];
-/** Reminders 1 day and 1 hour before each plan the user confirmed and opted into. */
-export function planAlertsFor(owner: string, reminders: PlanReminder[], now = Date.now()): TimerAlert[] {
-  return reminders.flatMap(g => {
-    const at = parseSgDateTime(g.starts);
-    return at === null ? [] : reminderOffsets.filter(o => at - o.ms > now).map(o => ({ id: timerAlertPrefix + owner + "/plan/" + g.groupId + "/" + o.key + "/" + at, owner, timerId: g.groupId,
-      endsAt: at - o.ms, kind: "plan" as const, title: o.title, label: g.venue + " · " + formatSgDateTime(at) + " · " + payLabels[g.pay] }));
+/** Reminder times before an event: a key for the alert id, how long before, and the alert title. */
+export type ReminderOffset = { key: string; ms: number; title: string };
+/** Alerts for upcoming events (Social plans, Market collections), one per offset that is still in the future. */
+export function reminderAlerts(owner: string, kind: "plan" | "order", events: { id: string; starts: string; label: (at: number) => string }[],
+  offsets: ReminderOffset[], now = Date.now()): TimerAlert[] {
+  return events.flatMap(event => {
+    const at = parseSgDateTime(event.starts);
+    return at === null ? [] : offsets.filter(o => at - o.ms > now).map(o => ({ id: timerAlertPrefix + owner + "/" + kind + "/" + event.id + "/" + o.key + "/" + at, owner,
+      timerId: event.id, endsAt: at - o.ms, kind, title: o.title, label: event.label(at) }));
   });
 }
+const planOffsets = [{ key: "day", ms: 86400000, title: "Food plan tomorrow" }, { key: "hour", ms: 3600000, title: "Food plan in 1 hour" }];
+/** Reminders 1 day and 1 hour before each plan the user confirmed and opted into. */
+export const planAlertsFor = (owner: string, reminders: PlanReminder[], now = Date.now()) => reminderAlerts(owner, "plan",
+  reminders.map(g => ({ id: g.groupId, starts: g.starts, label: (at: number) => g.venue + " · " + formatSgDateTime(at) + " · " + payLabels[g.pay] })), planOffsets, now);
 export async function syncTimerAlerts(adapter: TimerAlertAdapter, owner: string, timers: CookingTimer[], enabled: boolean, plans: TimerAlert[] = []) {
   const allowed = canScheduleTimerAlerts(await adapter.permission());
   const alerts = allowed ? [...(enabled ? timers.map(t => alertFor(owner, t)).filter((t): t is TimerAlert => !!t) : []), ...plans] : [];

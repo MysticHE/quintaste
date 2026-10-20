@@ -93,32 +93,38 @@ sellerShop.post('/listings/:id/status', async (req, res) => {
   res.json({ status });
 });
 /**
- * Withdraws an item for a safety reason (a recall, a bad batch): it leaves the Market, open orders with it are cancelled,
- * and every buyer who ordered it in the last 30 days gets a safety notice in their chat with the shop.
+ * Withdraws an item for a safety reason (a recall, a bad batch). A live item is paused; open orders with it are cancelled,
+ * and each buyer who still may have it gets one safety notice in their chat with the shop. A sealed pack with a lot number
+ * is withdrawn for that lot only: orders that carry a different lot are left alone. Buyers count as still having it when
+ * the order closed in the last 30 days, or when its date mark has not yet passed.
  */
 sellerShop.post('/listings/:id/withdraw', async (req, res) => {
   const me = res.locals.user.id, id = requireId(req.params.id);
   const reason = noContactDetails(text(req.body?.reason, 200, { min: 3, field: 'Reason' }), 'Reason');
   await throttle('market-withdraw:' + me, 20, 3600);
-  const notified = await transaction(async db => {
+  const result = await transaction(async db => {
     await seller(db, me, true);
     const item = (await db.query('SELECT name, kind, lot, status FROM market.listing WHERE id=$1 AND seller_id=$2 FOR UPDATE', [id, me])).rows[0];
     if (!item || item.status === 'removed') throw new CommunityError(404, 'This item is unavailable.');
-    await db.query("UPDATE market.listing SET status='paused', updated_at=now() WHERE id=$1", [id]);
-    const name = item.kind === 'prepacked' && item.lot ? `${item.name} (lot ${item.lot})` : item.name;
-    const cancelled = (await db.query(`UPDATE market."order" o SET status='cancelled', status_reason=$3, updated_at=now()
-      WHERE o.seller_id=$1 AND o.status IN ('requested','confirmed','ready') AND EXISTS (SELECT 1 FROM market.order_item i WHERE i.order_id=o.id AND i.listing_id=$2)
-      RETURNING o.id`, [me, id, ('The seller withdrew ' + name + '.').slice(0, 200)])).rows.map(row => row.id);
-    // One notice per buyer, on their latest order with the item.
-    const buyers = (await db.query(`SELECT DISTINCT ON (o.buyer_id) o.buyer_id, o.id FROM market."order" o JOIN market.order_item i ON i.order_id=o.id
-      WHERE o.seller_id=$1 AND i.listing_id=$2 AND o.buyer_id IS NOT NULL AND (o.id = ANY($3::uuid[]) OR (o.status IN ('completed','disputed','no_show') AND o.updated_at > now() - interval '30 days'))
-      ORDER BY o.buyer_id, o.created_at DESC`, [me, id, cancelled])).rows;
+    // A draft or paused item keeps its status; only a live item comes off sale.
+    const status = item.status === 'active' ? 'paused' : item.status;
+    if (status !== item.status) await db.query('UPDATE market.listing SET status=$2, updated_at=now() WHERE id=$1', [id, status]);
+    const lot = item.kind === 'prepacked' ? item.lot : '', name = lot ? `${item.name} (lot ${lot})` : item.name;
+    const matches = `i.order_id=o.id AND i.listing_id=$2 AND ($3 = '' OR i.lot = $3)`;
+    const cancelled = (await db.query(`UPDATE market."order" o SET status='cancelled', status_reason=$4, updated_at=now()
+      WHERE o.seller_id=$1 AND o.status IN ('requested','confirmed','ready') AND EXISTS (SELECT 1 FROM market.order_item i WHERE ${matches})
+      RETURNING o.id`, [me, id, lot, ('The seller withdrew ' + name + '.').slice(0, 200)])).rows.map(row => row.id);
+    // One notice per buyer, on their latest matching order.
+    const buyers = (await db.query(`SELECT DISTINCT ON (o.buyer_id) o.buyer_id, o.id FROM market."order" o JOIN market.order_item i ON ${matches}
+      WHERE o.seller_id=$1 AND o.buyer_id IS NOT NULL AND (o.id = ANY($4::uuid[]) OR (o.status IN ('completed','disputed','no_show')
+        AND (o.updated_at > now() - interval '30 days' OR i.date_mark >= (now() AT TIME ZONE 'Asia/Singapore')::date)))
+      ORDER BY o.buyer_id, o.created_at DESC`, [me, id, lot, cancelled])).rows;
     for (const buyer of buyers) {
       await eventFor(db, buyer.buyer_id, me, buyer.id, `Safety notice: the seller withdrew ${name}. ${reason} Open orders with it are cancelled. Don't eat it if you still have it; ask the seller about a refund.`);
     }
-    return buyers.length;
+    return { status, notified: buyers.length };
   }, 'market-seller:' + me);
-  res.json({ status: 'paused', notified });
+  res.json(result);
 });
 sellerShop.delete('/listings/:id', async (req, res) => {
   const result = await pool.query("DELETE FROM market.listing WHERE id=$1 AND seller_id=$2 AND status<>'removed'", [requireId(req.params.id), res.locals.user.id]);
@@ -149,8 +155,10 @@ sellerShop.get('/slots/:id', async (req, res) => {
   const slot = (await pool.query(`SELECT ${slotColumns} FROM market.slot s WHERE s.id=$1 AND s.seller_id=$2`, [id, me])).rows[0];
   if (!slot) throw new CommunityError(404, 'This slot is unavailable.');
   const [toMake, orders] = await Promise.all([
-    pool.query(`SELECT i.name, sum(i.quantity)::int AS quantity, max(l.per_slot) AS "perSlot" FROM market.order_item i JOIN market."order" o ON o.id=i.order_id
-      LEFT JOIN market.listing l ON l.id=i.listing_id WHERE o.slot_id=$1 AND o.seller_id=$2 AND o.status = ANY($3) GROUP BY i.name ORDER BY i.name`, [id, me, toMakeStatuses]),
+    // One row per item: grouped by listing (current name), or by the order's name copy when the listing was deleted.
+    pool.query(`SELECT coalesce(i.listing_id::text, 'name:' || i.name) AS key, coalesce(l.name, min(i.name)) AS name, sum(i.quantity)::int AS quantity, l.per_slot AS "perSlot"
+      FROM market.order_item i JOIN market."order" o ON o.id=i.order_id LEFT JOIN market.listing l ON l.id=i.listing_id
+      WHERE o.slot_id=$1 AND o.seller_id=$2 AND o.status = ANY($3) GROUP BY 1, l.name, l.per_slot ORDER BY 2`, [id, me, toMakeStatuses]),
     pool.query(`SELECT o.id, o.status, coalesce(u.name, o.buyer_name) AS "buyerName", o.total_cents AS "totalCents", o.note,
         CASE WHEN o.mode='delivery' THEN o.address ELSE '' END AS address,
         (SELECT string_agg(i.quantity || ' × ' || i.name, ', ' ORDER BY i.name) FROM market.order_item i WHERE i.order_id=o.id) AS summary

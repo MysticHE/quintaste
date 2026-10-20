@@ -22,16 +22,24 @@ function useTimerAlertState() {
   const timerKey = JSON.stringify(doc.timers), planKey = JSON.stringify(doc.social.network.reminders);
   // Market collection reminders belong to the signed-in account; null until the device copy has loaded, so nothing is cancelled early.
   const userId = user?.id ?? null, [orders, setOrders] = useState<{ userId: string | null; list: OrderReminder[] } | null>(null);
+  // What the device copy holds, so an unchanged list is not written again; a failed write leaves it stale and is retried next time.
+  const stored = useRef<{ userId: string; json: string } | null>(null);
   useEffect(() => {
     if (!userId) return;
     let active = true;
-    void loadOrderReminders(userId).then(list => { if (active) setOrders({ userId, list }); });
+    void loadOrderReminders(userId).then(list => {
+      if (!active) return;
+      stored.current = { userId, json: JSON.stringify(list) };
+      setOrders({ userId, list });
+    });
     return () => { active = false; };
   }, [userId]);
   const setOrderReminders = useCallback((list: OrderReminder[]) => {
     if (!userId) return;
-    setOrders(current => current?.userId === userId && JSON.stringify(current.list) === JSON.stringify(list) ? current : { userId, list });
-    void saveOrderReminders(userId, list).catch(() => {});
+    const json = JSON.stringify(list);
+    setOrders(current => current?.userId === userId && JSON.stringify(current.list) === json ? current : { userId, list });
+    if (stored.current?.userId === userId && stored.current.json === json) return;
+    void saveOrderReminders(userId, list).then(() => { stored.current = { userId, json }; }).catch(() => { stored.current = null; });
   }, [userId]);
   const orderList = !userId ? [] : orders?.userId === userId ? orders.list : null, orderKey = orderList ? JSON.stringify(orderList) : null;
   useLayoutEffect(() => {

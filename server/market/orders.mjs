@@ -45,7 +45,7 @@ orders.post('/orders', async (req, res) => {
         WHERE id=$1 AND seller_id=$2 AND status='active'`, [want.listingId, sellerId])).rows[0];
       if (!l) throw new CommunityError(409, 'An item in your order is no longer available.');
       if (want.quantity > Math.min(l.max_per_order, limits.perOrder)) throw new CommunityError(409, `${l.name}: up to ${l.max_per_order} per order.`);
-      if (slot.starts.getTime() < Date.now() + l.lead_days * 86400000) throw new CommunityError(409, `${l.name} needs ${l.lead_days} days' notice. Choose a later slot.`);
+      if (slot.starts.getTime() < Date.now() + l.lead_days * 86400000) throw new CommunityError(409, `${l.name} needs ${l.lead_days} ${l.lead_days === 1 ? "day's" : "days'"} notice. Choose a later slot.`);
       if (l.date_mark && l.date_mark < day) throw new CommunityError(409, `${l.name} passes its date mark before this slot.`);
       if (l.per_slot !== null) {
         // The slot row is locked above, so two buyers can't both take the last units.

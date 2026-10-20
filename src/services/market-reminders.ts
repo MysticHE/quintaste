@@ -1,8 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import type { OrderSummary } from "../types/community";
 import { formatSgDateTime, parseSgDateTime } from "../utils/sg-datetime";
-import type { TimerAlert } from "./timer-alerts";
-import { timerAlertPrefix } from "./timer-alert-sync";
+import { reminderAlerts } from "./timer-alert-sync";
 
 /** A buyer's confirmed Market order to collect; kept on the device so reminders survive going offline. */
 export type OrderReminder = { orderId: string; starts: string; shop: string; place: string; delivery: boolean };
@@ -28,10 +27,5 @@ export async function saveOrderReminders(userId: string, reminders: OrderReminde
 }
 const offsets = [{ key: "day", ms: 86400000, title: "Market collection tomorrow" }, { key: "hour", ms: 3600000, title: "Market collection in 1 hour" }];
 /** Reminders 1 day and 1 hour before each confirmed collection or delivery. */
-export function orderAlertsFor(owner: string, reminders: OrderReminder[], now = Date.now()): TimerAlert[] {
-  return reminders.flatMap(r => {
-    const at = parseSgDateTime(r.starts);
-    return at === null ? [] : offsets.filter(o => at - o.ms > now).map(o => ({ id: timerAlertPrefix + owner + "/order/" + r.orderId + "/" + o.key + "/" + at, owner, timerId: r.orderId,
-      endsAt: at - o.ms, kind: "order" as const, title: o.title, label: [r.shop, r.delivery ? "Delivery" : r.place, formatSgDateTime(at)].filter(Boolean).join(" · ") }));
-  });
-}
+export const orderAlertsFor = (owner: string, reminders: OrderReminder[], now = Date.now()) => reminderAlerts(owner, "order",
+  reminders.map(r => ({ id: r.orderId, starts: r.starts, label: (at: number) => [r.shop, r.delivery ? "Delivery" : r.place, formatSgDateTime(at)].filter(Boolean).join(" · ") })), offsets, now);

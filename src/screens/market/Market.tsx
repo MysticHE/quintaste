@@ -12,7 +12,8 @@ import { MyShopContent, useShopAdd, type ShopTab } from "./MyShop";
 import { useDebounced } from "../../hooks/useDebounced";
 import { invalidate, useRemote } from "../../hooks/useRemote";
 import { usePreferences } from "../../state/Preferences";
-import { browse, browseKey, toggleSaved, unread } from "../../services/market-api";
+import { browse, browseKey, toggleSaved } from "../../services/market-api";
+import { useMarketUnread } from "../../components/market/MarketUnread";
 import { ApiError } from "../../services/community-api";
 import { defaultShopFilter, type ListingCard, type ShopFilter } from "../../types/community";
 
@@ -38,7 +39,7 @@ const placeholders: Record<MarketTab, string> = { browse: "Search Market", saved
 export default function MarketScreen() {
   const { tab: param } = useLocalSearchParams<{ tab?: string }>();
   const tab: MarketTab = param === "saved" || param === "orders" || param === "shop" ? param : "browse";
-  const member = useMember(), counts = useRemote(member.member ? "/api/market/unread" : null, unread, 30000).data;
+  const member = useMember(), counts = useMarketUnread();
   const [queries, setQueries] = useState<Record<MarketTab, string>>({ browse: "", saved: "", orders: "", shop: "" });
   const [filters, setFilters] = useState(defaultShopFilter), [filterOpen, setFilterOpen] = useState(false), [shopTab, setShopTab] = useState<ShopTab>("orders");
   const query = queries[tab], setQuery = (value: string) => setQueries(current => ({ ...current, [tab]: value }));

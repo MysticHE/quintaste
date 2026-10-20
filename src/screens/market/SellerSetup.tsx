@@ -33,10 +33,11 @@ function Setup({ state, refresh }: { state: SellerState; refresh: () => void }) 
   const [minimum, setMinimum] = useState(existing?.deliveryMinCents ? String(existing.deliveryMinCents / 100) : "");
   const [agreed, setAgreed] = useState<number[]>([]), [busy, setBusy] = useState(false), [error, setError] = useState("");
   const set = (patch: Partial<SellerInput>) => setForm(current => ({ ...current, ...patch }));
-  const money = /^\d+(\.\d{1,2})?$/, feeInvalid = form.delivery && !!fee.trim() && !money.test(fee.trim());
-  const minimumInvalid = form.delivery && !!minimum.trim() && (!money.test(minimum.trim()) || Number(minimum) > 1000);
-  const input = (): SellerInput => ({ ...form, deliveryFeeCents: form.delivery && fee.trim() && !feeInvalid ? Math.round(Number(fee) * 100) : 0,
-    deliveryMinCents: form.delivery && minimum.trim() && !minimumInvalid ? Math.round(Number(minimum) * 100) : 0 });
+  // Fee and minimum are kept while delivery is switched off, so turning it back on restores them.
+  const money = /^\d+(\.\d{1,2})?$/, feeInvalid = !!fee.trim() && !money.test(fee.trim());
+  const minimumInvalid = !!minimum.trim() && (!money.test(minimum.trim()) || Number(minimum) > 1000);
+  const input = (): SellerInput => ({ ...form, deliveryFeeCents: fee.trim() && !feeInvalid ? Math.round(Number(fee) * 100) : 0,
+    deliveryMinCents: minimum.trim() && !minimumInvalid ? Math.round(Number(minimum) * 100) : 0 });
   const run = async (task: () => Promise<unknown>, done: string) => {
     if (feeInvalid) { setError("Enter the delivery fee in dollars, for example 3.50."); return false; }
     if (minimumInvalid) { setError("Enter the delivery minimum in dollars, up to 1000."); return false; }

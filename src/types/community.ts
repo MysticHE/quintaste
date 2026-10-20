@@ -47,7 +47,7 @@ export type ListingInput = {
 export type OwnListing = ListingInput & { id: string; status: "draft" | "active" | "paused" | "removed"; removedReason: string; updatedAt: string; photos: Partial<Record<ShopPhotoSlot, string>> };
 /** A seller's collection slot with what to make and every order in it. */
 export type SlotPack = {
-  slot: Slot; toMake: { name: string; quantity: number; perSlot: number | null }[];
+  slot: Slot; toMake: { key: string; name: string; quantity: number; perSlot: number | null }[];
   orders: { id: string; status: OrderStatus; buyerName: string; totalCents: number; note: string; address: string; summary: string }[];
 };
 export type OrderStatus = "requested" | "confirmed" | "ready" | "completed" | "declined" | "cancelled" | "no_show" | "disputed";

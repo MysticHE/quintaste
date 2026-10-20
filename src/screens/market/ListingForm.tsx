@@ -130,7 +130,7 @@ function Withdraw({ item }: { item: OwnListing }) {
   };
   return <><Button label={label} variant="link" onPress={() => setOpen(true)} />
     <MarketModal visible={open} onClose={() => setOpen(false)} label={label}>
-      <T>{"Open orders with it are cancelled. Buyers from the last 30 days get a safety notice."}</T>
+      <T>{lot ? "Open orders with this lot are cancelled. Its buyers get a safety notice." : "Open orders with it are cancelled. Recent buyers get a safety notice."}</T>
       <Field label="Reason Shown To Buyers" placeholder={lot ? "Recalled by the maker" : "Wrong ingredient used"} value={reason} onChangeText={setReason} maxLength={200} editable={!busy} />
       {!!error && <T variant="small" color={theme.error} accessibilityLiveRegion="polite">{error}</T>}
       <Button label={label} loading={busy} disabled={reason.trim().length < 3} onPress={() => void run()} />

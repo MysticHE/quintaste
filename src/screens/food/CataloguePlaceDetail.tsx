@@ -19,6 +19,7 @@ import { useCatalogueVenue } from "../../hooks/useCatalogueVenue";
 import { useFood } from "../../state/Food";
 import { usePreferences } from "../../state/Preferences";
 import { isVegOptions, mixedKitchenLabel, mixedKitchenSafety, placeLabels, placeTileIcon } from "../../utils/venue-kitchen";
+import { directionsUrl } from "../../utils/directions";
 
 export function CataloguePlaceDetailScreen({ id }: { id: string }) {
   const { venue, busy, error, offline, retry } = useCatalogueVenue(id);
@@ -35,8 +36,7 @@ export function CataloguePlaceDetailScreen({ id }: { id: string }) {
     setSaving(true);
     try { await toggleSave("place", savedId, venue.name); } finally { setSaving(false); }
   };
-  const directionsUrl = "https://www.google.com/maps/dir/?api=1&destination=" + encodeURIComponent(venue?.address ?? "")
-    + (venue?.googlePlaceId ? "&destination_place_id=" + encodeURIComponent(venue.googlePlaceId) : "");
+  const directions = directionsUrl(venue?.address ?? "", venue?.googlePlaceId);
   return <Screen title={venue?.name ?? "Place details"}>
     {busy && <ActivityIndicator color={theme.accent} accessibilityLabel="Loading place details" />}
     {offline && <T variant="caption" muted>Offline · {venue ? "saved place details" : "bookmark only"}</T>}
@@ -59,7 +59,7 @@ export function CataloguePlaceDetailScreen({ id }: { id: string }) {
         </PlaceDetailSection>
       </View>
       <View testID="place-primary-actions" style={[s.actions, { backgroundColor: theme.card, borderColor: theme.border }]}>
-        <PlaceDetailAction label="Directions" icon="navigate-outline" onPress={() => void open(directionsUrl)} />
+        <PlaceDetailAction label="Directions" icon="navigate-outline" onPress={() => void open(directions)} />
         <PlaceDetailAction label="Menu" icon="book-outline" accessibleLabel={"View menu for " + venue.name} onPress={() => router.push({ pathname: "/menu/[id]", params: { id: venue.id } } as never)} />
         <PlaceDetailAction label={saved ? "Saved" : "Save"} accessibleLabel={(saved ? "Remove saved " : "Save ") + venue.name} icon={saved ? "bookmark" : "bookmark-outline"}
           selected={saved} disabled={!readable || saving} onPress={() => void save()} />

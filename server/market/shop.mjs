@@ -21,13 +21,21 @@ const usedIn = (slot, listing) => `(SELECT coalesce(sum(i.quantity), 0)::int FRO
 const orderable = (x, seller, l) => `${x}.seller_id=${l}.seller_id AND ${x}.status='open' AND ${modeOn(x, seller)} AND ${x}.starts - make_interval(hours => ${x}.cutoff_hours) > now()
   AND ${x}.starts >= now() + make_interval(days => ${l}.lead_days)
   AND (SELECT count(*) FROM market."order" o WHERE o.slot_id=${x}.id AND o.status IN ${live}) < ${x}.capacity`;
-/** Listings with their earliest orderable slot that still has units of the item left, computed once per row. */
-const fromListings = `market.listing l JOIN market.seller s ON s.user_id=l.seller_id LEFT JOIN LATERAL (SELECT x.starts, l.per_slot - ${usedIn('x', 'l')} AS stock_left
-  FROM market.slot x WHERE ${orderable('x', 's', 'l')} AND (l.per_slot IS NULL OR ${usedIn('x', 'l')} < l.per_slot) ORDER BY x.starts LIMIT 1) n ON true`;
+/**
+ * Each listing's orderable slots, read once: the earliest slot that still has units of the item (and how many), and
+ * whether any orderable slot exists at all, so a listing with open slots but none with units left shows as sold out.
+ * Units are only counted for items with a per-slot limit.
+ */
+const fromListings = `market.listing l JOIN market.seller s ON s.user_id=l.seller_id LEFT JOIN LATERAL (
+  SELECT min(c.starts) FILTER (WHERE c.has_stock) AS starts, (array_agg(c.stock_left ORDER BY c.starts) FILTER (WHERE c.has_stock))[1] AS stock_left,
+    count(*) > 0 AS any_open
+  FROM (SELECT x.starts, l.per_slot - u.used AS stock_left, (l.per_slot IS NULL OR u.used < l.per_slot) AS has_stock
+    FROM market.slot x CROSS JOIN LATERAL (SELECT CASE WHEN l.per_slot IS NULL THEN 0 ELSE ${usedIn('x', 'l')} END AS used) u
+    WHERE ${orderable('x', 's', 'l')}) c) n ON true`;
 const cardColumns = `l.id, l.name, l.price_cents AS "priceCents", l.portion, l.category, l.kind, l.diets, l.seller_id AS "sellerId",
   s.trading_name AS "sellerName", s.area, ${sgText('n.starts')} AS "nextSlot", l.lead_days AS "leadDays", l.max_per_order AS "maxPerOrder",
   l.per_slot AS "perSlot", n.stock_left AS "left",
-  (n.starts IS NULL AND l.per_slot IS NOT NULL AND EXISTS (SELECT 1 FROM market.slot y WHERE ${orderable('y', 's', 'l')})) AS "soldOut",
+  (n.starts IS NULL AND n.any_open) AS "soldOut",
   (SELECT digest FROM market.photo p WHERE p.listing_id=l.id AND p.slot='item') AS digest`;
 const card = ({ digest, ...row }, saved = false) => ({ ...row, saved, photo: photoUrl(row.id, 'item', digest) });
 export const like = value => '%' + value.trim().slice(0, 60).replace(/[\\%_]/g, '\\$&') + '%';

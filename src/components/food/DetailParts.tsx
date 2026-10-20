@@ -7,6 +7,7 @@ import { usePreferences } from "../../state/Preferences";
 import { Button, Card, Field, T, common } from "../ui";
 import { Chip, Chips, InfoBox, IconButton } from "./Controls";
 import { useCompactUI } from "../ui-density";
+import { directionsUrl } from "../../utils/directions";
 
 export function HeroPhoto({ photo }: { photo: PhotoKey }) {
   const compact = useCompactUI();
@@ -33,7 +34,7 @@ export function DetailActions({ kind, id, venue, shareText }: { kind: SavedKind;
   };
   const directions = async () => {
     if (!venue?.address || !venue.googlePlaceId) { setNotice({ text: "This is a fictional preview venue. There is no real address to navigate to." }); return; }
-    try { await Linking.openURL("https://www.google.com/maps/dir/?api=1&destination=" + encodeURIComponent(venue.address) + "&destination_place_id=" + encodeURIComponent(venue.googlePlaceId)); }
+    try { await Linking.openURL(directionsUrl(venue.address, venue.googlePlaceId)); }
     catch { setNotice({ text: "Directions could not be opened. Please try again.", error: true }); }
   };
   const call = async () => {

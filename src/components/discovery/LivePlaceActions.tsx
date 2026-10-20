@@ -6,6 +6,7 @@ import { googlePlaceUrl } from "../../utils/place-directory";
 import { useFood } from "../../state/Food";
 import { usePreferences } from "../../state/Preferences";
 import { Button, Card, Icon, T, common, type IconName } from "../ui";
+import { directionsUrl } from "../../utils/directions";
 
 
 export function LivePlaceActions({ place }: { place: LivePlace }) {
@@ -18,8 +19,7 @@ export function LivePlaceActions({ place }: { place: LivePlace }) {
   const save = async () => { setBusy(true); try { await toggleSave("place", id); } finally { setBusy(false); } };
   const actions: { label: string; icon: IconName; disabled?: boolean; press: () => void }[] = [
     { label: saved ? "Saved" : "Save", icon: saved ? "bookmark" : "bookmark-outline", disabled: busy, press: () => void save() },
-    { label: "Directions", icon: "navigate-outline", press: () => void open("https://www.google.com/maps/dir/?api=1&destination="
-      + encodeURIComponent(place.latitude + "," + place.longitude) + "&destination_place_id=" + encodeURIComponent(place.placeId)) },
+    { label: "Directions", icon: "navigate-outline", press: () => void open(directionsUrl(place.latitude + "," + place.longitude, place.placeId)) },
     { label: "Share", icon: "share-outline", press: () => setSharing(!sharing) },
     { label: "Call", icon: "call-outline", disabled: !place.phone, press: () => void open("tel:" + place.phone!.replace(/[^+\d]/g, "")) },
   ];
