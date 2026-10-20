@@ -24,7 +24,7 @@ import setup
 
 HERE = Path(__file__).resolve().parent
 NAMES = ['veg_kitchen.py', 'veg_kitchen_check.py', 'veg_kitchen_queue.py', 'run_veg_kitchen_pilot.py', 'run_veg_options_pilot.py',
-         'veg_options.py', 'workflow.py', 'publisher.py', 'cover_photos.py', 'learning.py', 'telegram_reporter.py', 'telegram_controls.py',
+         'veg_options.py', 'workflow.py', 'publisher.py', 'cover_photos.py', 'cover_publish.py', 'learning.py', 'telegram_reporter.py', 'telegram_controls.py',
          'test_workflow.py', 'test_publisher.py', 'test_telegram_reporter.py', 'roles/qt-explorer.md', 'roles/qt-manager.md',
          # 20 Oct 2026: plain $ prices on the venue's own menu, bracketed prices and shop-grid layouts (shared price matcher).
          'menu_coverage.py', 'test_menu_coverage.py',

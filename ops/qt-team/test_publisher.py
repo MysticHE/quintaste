@@ -410,6 +410,47 @@ class VegKitchenPublishing(unittest.TestCase):
         self.assertIsNone(vk.place_problem(item['data']))
         self.assertTrue(cover_photos.caption(dict(entry, photo=self.photo())).startswith('Veg Kitchen cover photo'))
 
+    def test_approved_drawing_is_published_right_after_the_tap_and_never_loops(self):
+        # Owner, 20 Oct 2026: an approved drawing goes live within minutes, not after the next full round.
+        import time
+        import cover_photos
+        import cover_publish
+        with cover_photos.Registry(self.root) as reg:
+            reg.data['entries'] = [{'venueId': self.CID, 'sha256': 'd' * 64, 'status': 'pending-owner', 'basis': 'illustration',
+                                   'photo': {'sourceUrl': 'https://greenleaf.sg/menu'}},
+                                  {'venueId': 'vk-photo-place-000001', 'sha256': 'e' * 64, 'status': 'pending-owner',
+                                   'photo': {'sourceUrl': 'https://commons.wikimedia.org/wiki/File:X.jpg'}}]
+            reg.save()
+        self.assertEqual(cover_photos.decide(self.root, self.CID, 'd' * 64, True, 'a' * 24), 'approved')
+        self.assertEqual(cover_photos.decide(self.root, 'vk-photo-place-000001', 'e' * 64, True, 'b' * 24), 'approved')
+        self.assertEqual(list(cover_publish.due(self.root)), [self.CID])  # a photo still needs enhancement in a round
+        with patch.object(cover_publish.subprocess, 'Popen') as popen, patch.object(cover_publish, 'run_lock_free', return_value=False):
+            self.assertFalse(cover_publish.maybe_start(self.root))  # a running round publishes it itself
+        popen.assert_not_called()
+        with patch.object(cover_publish.subprocess, 'Popen') as popen, patch.object(cover_publish, 'run_lock_free', return_value=True):
+            self.assertTrue(cover_publish.maybe_start(self.root))
+        self.assertTrue(popen.call_args.args[0][1].endswith('cover_publish.py'))
+        live = {'records': [], 'venues': [], 'removals': [], 'reverts': []}
+        waiting = [{'venueId': self.CID}]
+        with patch.object(cover_photos, 'publishable', return_value=waiting):
+            self.assertEqual(cover_publish.settle(self.root, {'status': 'failed'}, live)[self.CID]['attempts'], 1)
+            self.assertEqual(cover_publish.due(self.root), {})  # retried only after RETRY_SECONDS
+            later = time.time() + cover_publish.RETRY_SECONDS + 1
+            self.assertEqual(list(cover_publish.due(self.root, at=later)), [self.CID])
+            cover_publish.settle(self.root, {'status': 'failed'}, None)  # status unknown: still counted
+            cover_publish.settle(self.root, {'status': 'failed'}, live)
+            self.assertEqual(cover_publish.due(self.root, at=later + 3600), {})  # at most MAX_ATTEMPTS tries
+            cover_publish.request(self.root, self.CID)
+            self.assertEqual(cover_publish.settle(self.root, {'status': 'all-held'}, live), {})  # a Manager hold is an answer
+        cover_publish.request(self.root, self.CID)
+        with patch.object(cover_photos, 'publishable', return_value=[]):
+            self.assertEqual(cover_publish.settle(self.root, {'status': 'published'}, live), {})  # live now
+        # the covers-only publication never reads research packets
+        w.write(self.root / 'outbox/20261020T010000Z.json', {'packets': [], 'manager': {'decisions': []}})
+        with patch.object(p, 'ROOT', self.root), patch.object(p, 'request', return_value={'revision': 'r', 'records': [], 'venues': []}),                 patch.object(p, 'prepare', return_value=([], {}, [])) as prepare:
+            self.assertEqual(p.run_publication({'automaticProductionWrites': True}, self.root / 'runs/c', covers_only=True)['status'], 'no-eligible-changes')
+        self.assertEqual(prepare.call_args.args[0], [])
+
     def test_owner_approved_dish_illustration_becomes_a_credited_place_cover(self):
         # Owner, 20 Oct 2026: a place without a reusable photo gets an illustration of its own dishes, approved on Telegram.
         import hashlib

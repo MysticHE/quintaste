@@ -584,7 +584,7 @@ def make_batch(candidates, images, review, parent, batch_id):
           'review':{'decision':'approved','reviewedBy':'QT Manager','sha256':image['sha256'],'reason':visual[image['sha256']]['reason']}})
     return {'version':1,'id':batch_id,'parent':parent,'records':records,'assets':assets}
 
-def run_publication(policy, folder=None, review_only=False):
+def run_publication(policy, folder=None, review_only=False, covers_only=False):
     from workflow import read,write,now
     if not policy.get('automaticProductionWrites'):return {'status':'disabled','productionWrites':0}
     folder=folder or ROOT/'runs'/('publish-'+dt.datetime.now(dt.timezone.utc).strftime('%Y%m%dT%H%M%SZ'))
@@ -599,7 +599,8 @@ def run_publication(policy, folder=None, review_only=False):
             return {'status':'owner-removal-requires-new-review','productionWrites':0}
     else:
         live=request('GET','/control/state')
-        packages=[read(p) for p in sorted((ROOT/'outbox').glob('*.json'))[-80:]]
+        # covers_only (owner, 20 Oct 2026): publish owner-approved covers right after the tap, without research packets
+        packages=[] if covers_only else [read(p) for p in sorted((ROOT/'outbox').glob('*.json'))[-80:]]
         candidates,images,held=prepare(packages,live)
         write(folder/'candidates.json',{'parent':live['revision'],'candidates':candidates,'images':images,'held':held})
         if not candidates:return {'status':'no-eligible-changes','productionWrites':0,'held':held}

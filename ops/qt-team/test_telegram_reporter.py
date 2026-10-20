@@ -28,6 +28,18 @@ class TelegramReportingTests(unittest.TestCase):
         self.assertEqual(self.state['deliveries']['control:22']['status'],'sent')
         self.assertEqual(self.state['deliveries']['publication:a']['status'],'pending')
 
+    def test_button_reply_appears_under_the_tapped_message(self):
+        import telegram_controls as c
+        t.write(self.root / 'private/telegram-chat.json', self.config)
+        update = {'update_id': 23, 'callback_query': {'id': 'callback', 'data': 'keep:opaque', 'from': {'id': 123, 'is_bot': False},
+                  'message': {'message_id': 55, 'chat': {'id': 123, 'type': 'private'}}}}
+        with patch.object(t, 'telegram', return_value={}), patch.object(c, 'callback', side_effect=lambda state, data, uid: t.enqueue(state, 'control:23', 'Kept')):
+            t.handle_updates(self.state, [update])
+        self.assertEqual(self.state['deliveries']['control:23']['replyTo'], 55)
+        with patch.object(t, 'telegram', return_value={'message_id': 56, 'chat': {'id': 123}}) as api, patch.object(t.time, 'sleep'):
+            t.deliver(self.state, self.config, interactive_only=True)
+        self.assertEqual(api.call_args.args[1]['reply_parameters'], {'message_id': 55, 'allow_sending_without_reply': True})
+
     def test_photo_delivery_includes_inline_controls(self):
         photo=t.STATE/'media'/'fixture'/'recipe.jpg';photo.parent.mkdir(parents=True);photo.write_bytes(b'fixture')
         buttons=[[{'text':'Delete recipe now','callback_data':'delete:opaque'}]]

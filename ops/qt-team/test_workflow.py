@@ -1124,6 +1124,17 @@ class VegKitchen(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'fresh captures'):
             vk.place_data(self.root, row, vk_evidence(VK_HOME), vk_live())  # the menu page has no attached capture
 
+    def test_places_the_owner_confirmed_are_researched_first(self):
+        import veg_kitchen as vk
+        ids = ['vk-first-place-000001', 'vk-second-place-00002', 'vk-owner-said-veg-0003']
+        w.write(self.root / 'state/veg-kitchen/queue.json', {'candidates': [vk_candidate(candidateId=c, googlePlaceId='ChIJ' + c[-8:].replace('-', 'x') + 'abcd') for c in ids]})
+        state = vk.progress(self.root)
+        state['candidates'][ids[2]] = {'status': 'pending', 'ownerDiet': 'Vegan', 'ownerConfirmedAt': w.now(), 'ownerApproval': 'owner-telegram-' + 'a' * 24}
+        vk.save_progress(self.root, state)
+        due = vk.due(self.root, 2)
+        self.assertEqual([c['candidateId'] for c in due], [ids[2], ids[0]])
+        self.assertEqual(due[0]['ownerDiet'], 'Vegan')
+
     def test_settle_follows_review_publication_and_owner_removal_in_its_own_files(self):
         import veg_kitchen as vk
         import veg_options as vo

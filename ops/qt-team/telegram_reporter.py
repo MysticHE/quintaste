@@ -245,6 +245,13 @@ def enqueue(state, key, text, photo=None, buttons=None):
                                 'attempts': 0, 'createdAt': stamp(), 'nextAt': 0, 'buttons': buttons}
 
 
+def thread_reply(state, key, callback):
+    """Show a button's reply under the message whose button was tapped (owner, 20 Oct 2026), not only at the end of the chat."""
+    item, message_id = state['deliveries'].get(key), callback.get('message', {}).get('message_id')
+    if item and item.get('status') == 'pending' and isinstance(message_id, int):
+        item['replyTo'] = message_id
+
+
 def authorized(message, config):
     return (message.get('chat', {}).get('type') == 'private'
             and message.get('chat', {}).get('id') == config.get('chatId')
@@ -280,6 +287,7 @@ def handle_updates(state, updates, acknowledge=True):
                 import telegram_controls
                 try:
                     telegram_controls.callback(state, callback.get('data', ''), uid)
+                    thread_reply(state, 'control:' + str(uid), callback)
                     action = state.get('moderation', {}).get(callback.get('data', '').split(':')[-1], {})
                     if action.get('stage') == 'done' and callback.get('message', {}).get('message_id'):
                         try:
@@ -295,6 +303,7 @@ def handle_updates(state, updates, acknowledge=True):
                                       'where': f'{Path(frame.filename).name}:{frame.lineno}' if frame else None}), flush=True)
                     enqueue(state, 'control-error:'+str(uid), 'That button did not go through (' + type(exc).__name__ + '). Nothing was changed. '
                             'Tap it again in a minute, or use /manage.')
+                    thread_reply(state, 'control-error:'+str(uid), callback)
             state['offset'] = uid + 1
             write(STATE / 'state.json', state)
             continue
@@ -693,12 +702,13 @@ def deliver(state, config, interactive_only=False):
             photo = Path(item['photo']) if item.get('photo') else None
             if photo and (not photo.is_relative_to(STATE / 'media') or photo.is_symlink()):
                 raise DeliveryError('invalid-photo-path')
+            reply = {'reply_parameters': {'message_id': item['replyTo'], 'allow_sending_without_reply': True}} if item.get('replyTo') else {}
             if photo:
-                payload = {'chat_id': config['chatId'], 'caption': item['text'][:1024]}
+                payload = {'chat_id': config['chatId'], 'caption': item['text'][:1024], **reply}
                 if item.get('buttons'): payload['reply_markup'] = {'inline_keyboard': item['buttons']}
                 result = telegram('sendPhoto', payload, photo)
             else:
-                result = telegram('sendMessage', {'chat_id': config['chatId'], 'text': item['text'],
+                result = telegram('sendMessage', {'chat_id': config['chatId'], 'text': item['text'], **reply,
                     'link_preview_options': {'is_disabled': True}, 'reply_markup': {'inline_keyboard': item.get('buttons') if item.get('buttons') is not None else [[
                     {'text': 'Explore', 'url': ORIGIN + '/explore'}, {'text': 'Cook', 'url': ORIGIN + '/cook'},
                     {'text': 'Events', 'url': ORIGIN + '/social?tab=events&eventType=Local%20events'}]]}})
@@ -789,6 +799,12 @@ def tick():
             telegram_controls.budget_alerts(state)
             try:
                 telegram_controls.cover_requests(state)
+                try:
+                    import cover_publish
+                    if cover_publish.maybe_start(ROOT):  # an approved drawing goes live now, not after the next round
+                        print(json.dumps({'at': stamp(), 'coverPublish': 'started'}), flush=True)
+                except Exception as exc:
+                    print(json.dumps({'at': stamp(), 'coverPublishError': type(exc).__name__}), flush=True)
                 try:
                     telegram_controls.owner_check_requests(state)
                 except Exception as exc:  # a question that cannot be built must not stop the cover requests or the digest

@@ -87,6 +87,10 @@ def save_progress(root, value):
 
 def due(root, limit, fresh_only=False, at=None, live=None):
     rows, state = vo.due(root, limit, fresh_only, at, live, task=this()), progress(root)['candidates']
+    # Places the owner confirmed on Telegram go first (20 Oct 2026), not behind thousands of never-tried ones
+    confirmed = [r for r in vo.due(root, 10 ** 6, True, at, live, task=this()) if (state.get(r['candidateId']) or {}).get('ownerDiet')]
+    first = {r['candidateId'] for r in confirmed}
+    rows = (confirmed + [r for r in rows if r['candidateId'] not in first])[:limit]
     # A place the owner confirmed on Telegram carries that answer, so Explorer only gathers identity, menu and hours.
     return [dict(r, ownerDiet=state[r['candidateId']]['ownerDiet']) if (state.get(r['candidateId']) or {}).get('ownerDiet') else r for r in rows]
 

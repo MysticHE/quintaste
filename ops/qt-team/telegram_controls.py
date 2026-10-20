@@ -142,7 +142,8 @@ def callback(state, data, uid):
             live_note = (f'When it goes live it is listed in the {kitchen} update message with a Revert button.' if action.get('target') == 'place'
                          else 'When it goes live you get the usual screenshot with a Revert button.')
             drawing = any(e['sha256'] == action['sha'] and e.get('basis') == 'illustration' for e in cover_photos.entries(t.ROOT))
-            text = {'approved': 'Approved cover for ' + action['name'] + '.\n' + ('QT Manager checks the drawing in the next bot round. ' if drawing else
+            text = {'approved': 'Approved cover for ' + action['name'] + '.\n' + ('QT Manager checks the drawing now and it goes live in a few minutes '
+                                '(if a bot round is running, right after it ends). ' if drawing else
                                 'The next bot round enhances it and QT Manager checks the result. ') + live_note,
                     'rejected': ('Rejected. QT draws a different illustration of ' + action['name'] + ' later (up to '
                                  + str(cover_photos.ILLUSTRATION_TRIES) + ' tries in all).' if drawing else

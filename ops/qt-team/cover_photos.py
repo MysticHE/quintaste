@@ -392,6 +392,9 @@ def decide(root, venue_id, sha, approved, token):
         else:
             entry.update(status='owner-rejected', closedAt=now())
         reg.save()
+    if approved and entry.get('basis') == 'illustration':
+        import cover_publish  # a drawing is final: QT Manager checks it and it goes live right away (owner, 20 Oct 2026)
+        cover_publish.request(root, venue_id)
     if not approved and entry.get('basis') != 'illustration':
         searches = read(searches_file(root), {})
         history = searches.setdefault(venue_id, {})
