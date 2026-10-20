@@ -111,7 +111,9 @@ def set_status(row, status, cause=None, reason=None, at=None):
     row.update(status=status, updatedAt=at, cause=cause, reason=(reason or '')[:600] or None)
     stamp = dt.datetime.fromisoformat(at).timestamp()
     if status == 'held':
-        if cause in vc.TOOLING:
+        if cause == 'owner-check':
+            row['retryAt'] = stamp + HOLD_RETRY  # waits for the owner's Telegram answer; researched again only if none comes
+        elif cause in vc.TOOLING:
             row['shortRetries'] = row.get('shortRetries', 0) + 1
             row['retryAt'] = stamp + (SHORT_RETRY if row['shortRetries'] <= SHORT_RETRY_LIMIT else WEEK_RETRY)
         else:

@@ -51,7 +51,7 @@ type PlaceItem = { id: string; name: string; category?: string; price: { amount:
 type PlaceData = {
   id: string; kitchen?: "options"; name: string; branch: string; address: string; postalCode: string; point: { latitude: number; longitude: number };
   googlePlaceId: string | null; venueDiet: "Vegetarian" | "Vegan"; alliumFreeClaim: false; hours?: CatalogueHours; photo?: CataloguePhoto; sourceUrls: string[]; checkedAt: string;
-  dietProof?: { sourceUrl: string; quote: string; checkedAt: string };
+  dietProof?: { sourceUrl: string; quote: string; checkedAt: string; confirmedBy?: string };
   menu: { sourceUrl: string; sourceLabel: string; checkedAt: string; items: PlaceItem[] };
 };
 export type EditorialPlace = { venue: CatalogueVenue; menu: PublishedMenu; fingerprint: string };

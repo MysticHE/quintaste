@@ -287,8 +287,14 @@ def handle_updates(state, updates, acknowledge=True):
                                 'message_id':callback['message']['message_id'], 'reply_markup':{'inline_keyboard':[]}})
                         except DeliveryError:
                             pass  # Removal is already verified; the durable reply still reports it.
-                except Exception:
-                    enqueue(state, 'control-error:'+str(uid), 'Management is temporarily unavailable. No deletion is being claimed. Try /manage again.')
+                except Exception as exc:
+                    # 20 Oct 2026: the owner's Approve cover taps failed with no trace. Log where (never the callback payload or token).
+                    import traceback
+                    frame = traceback.extract_tb(exc.__traceback__)[-1] if exc.__traceback__ else None
+                    print(json.dumps({'at': stamp(), 'callbackError': type(exc).__name__,
+                                      'where': f'{Path(frame.filename).name}:{frame.lineno}' if frame else None}), flush=True)
+                    enqueue(state, 'control-error:'+str(uid), 'That button did not go through (' + type(exc).__name__ + '). Nothing was changed. '
+                            'Tap it again in a minute, or use /manage.')
             state['offset'] = uid + 1
             write(STATE / 'state.json', state)
             continue
@@ -783,6 +789,10 @@ def tick():
             telegram_controls.budget_alerts(state)
             try:
                 telegram_controls.cover_requests(state)
+                try:
+                    telegram_controls.owner_check_requests(state)
+                except Exception as exc:  # a question that cannot be built must not stop the cover requests or the digest
+                    print(json.dumps({'at': stamp(), 'ownerCheckError': type(exc).__name__}), flush=True)
             except Exception as exc:  # a cover request must never stop reporting
                 state['coverRequestError'] = type(exc).__name__
             try:

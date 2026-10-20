@@ -86,7 +86,9 @@ def save_progress(root, value):
 
 
 def due(root, limit, fresh_only=False, at=None, live=None):
-    return vo.due(root, limit, fresh_only, at, live, task=this())
+    rows, state = vo.due(root, limit, fresh_only, at, live, task=this()), progress(root)['candidates']
+    # A place the owner confirmed on Telegram carries that answer, so Explorer only gathers identity, menu and hours.
+    return [dict(r, ownerDiet=state[r['candidateId']]['ownerDiet']) if (state.get(r['candidateId']) or {}).get('ownerDiet') else r for r in rows]
 
 
 def reserve_dispatch(root, ids):
@@ -102,6 +104,7 @@ def mark_dispatched(root, ids, packet_path=None, cause=None):
 
 
 def settle(root, live=None):
+    apply_owner_checks(root)
     return vo.settle(root, live, task=this())
 
 
@@ -137,7 +140,7 @@ def recheck_view(data):
 
 
 def worker_view(row):
-    keep = ('candidateId', 'nameHint', 'nameConfirmed', 'address', 'building', 'unit', 'postalCode', 'website', 'mapsUrl', 'source', 'leadNote')
+    keep = ('candidateId', 'nameHint', 'nameConfirmed', 'address', 'building', 'unit', 'postalCode', 'website', 'mapsUrl', 'source', 'leadNote', 'ownerDiet')
     view = {k: row.get(k) for k in keep if row.get(k) is not None}
     if row.get('recheck'):
         view['recheck'] = row['recheck']
@@ -148,16 +151,20 @@ CONTRACT = (
     "TASK veg-kitchen (owner rule, 20 Oct 2026). Each assigned candidate is a Singapore food place that Google lists as a vegetarian or vegan "
     "restaurant and that QuinTaste does not list yet. For each, decide whether the VENUE ITSELF says its whole kitchen is vegetarian or vegan, "
     "then return a sample of its menu. Rules: "
-    "(1) 'qualifies' ONLY when the venue's OWN page (its website, About or menu page, or its official ordering page) says the whole venue or "
-    "kitchen is vegetarian or vegan. Copy that statement as dietProof {sourceUrl, quote}: quote at most 25 words, copied exactly from that page "
+    "(1) 'qualifies' when the venue's OWN words say the whole venue or kitchen is vegetarian or vegan: its website, About or menu page, official "
+    "ordering page, or its own Facebook, Instagram or TikTok page (owner, 20 Oct 2026). Copy that statement as dietProof {sourceUrl, quote}: quote at most 25 words, copied exactly from that page "
     "(one line of plain text), saying the whole venue is vegetarian or vegan, for example '100% vegetarian', 'all our dishes are vegan' or 'a fully "
     "plant-based kitchen'. A Google Maps category such as 'Vegetarian restaurant' or 'Vegan restaurant' helps confirm identity but is NOT diet "
     "proof, and neither is a delivery app's category or description, a review, a directory, a blog or the venue's name alone. 'Vegetarian options', "
     "'vegetarian-friendly' or 'not vegetarian' are never proof. Dish names such as chicken, fish or char siew are fine when the venue states it is "
     "fully vegetarian or vegan (they are plant-based versions). "
     "(2) Any real meat or seafood on the venue's menu, or a mixed kitchen (vegetarian dishes among meat dishes), is decision 'not-qualified' with "
-    "reason 'mixed-kitchen'. A permanently or temporarily closed venue is 'not-qualified' with reason 'closed' (also return closure). When no readable "
-    "proof exists, or a page cannot be read, decision is 'held' (say which in reason). "
+    "reason 'mixed-kitchen'. A permanently or temporarily closed venue is 'not-qualified' with reason 'closed' (also return closure). "
+    "When the place looks fully vegetarian or vegan (its name, Google category, delivery listing or menu points that way and you saw no meat or "
+    "seafood) but you cannot find the venue's own words, decision is 'ask-owner': the owner confirms it on Telegram. Give the signals in reason "
+    "and still return name, nameSourceUrl, postalSourceUrl, hours and the menu so it can go live once confirmed. A candidate with ownerDiet was "
+    "already confirmed by the owner: no dietProof is needed, return 'qualifies' with the identity, menu and hours. Otherwise, when a page cannot be "
+    "read, decision is 'held' (say which in reason). "
     "(3) venueDiet is 'Vegan' only when the quote says vegan, plant-based, no animal products or animal-free; otherwise 'Vegetarian'. "
     "(4) menu: web_extract the venue's menu page or PDF (web_extract reads PDFs, including scanned ones) or an official ordering page for this "
     "branch, and return at least 3 dishes (up to about 150) with the name exactly as printed, an optional category (at most 40 characters) and an "
@@ -176,7 +183,7 @@ CONTRACT = (
     "recheck.publishedItems are shown now, so re-verify each with its current price (leave out any no longer listed) and add other dishes you read; "
     "every rule above applies unchanged. If the venue no longer says it is wholly vegetarian or vegan, return 'not-qualified' with reason 'mixed-kitchen'. "
     "Return ONLY a JSON object, no Markdown: {role:'qt-explorer', task:'veg-kitchen', summary:string, candidates:[{candidateId, decision:'qualifies'|"
-    "'not-qualified'|'held', reason, name, branch, nameSourceUrl, postalSourceUrl, venueDiet, dietProof:{sourceUrl, quote}, hours?, closure?, "
+    "'not-qualified'|'held'|'ask-owner', reason, name, branch, nameSourceUrl, postalSourceUrl, venueDiet, dietProof:{sourceUrl, quote}, hours?, closure?, "
     "menu:{sourceUrl, sourceLabel (at most 80 chars, e.g. 'Venue website menu'), items:[{name, category?, price}]}, sources:[{url: exact HTTPS page you "
     "opened, evidence: short paraphrase}]}], gaps:[string]}. Exactly one entry per assigned candidate, with its candidateId unchanged. Cite every page "
     "you rely on in sources (at most 12). Use as many web calls as the task needs (about 40), reusing shared pages. Never call googleapis.com, sign "
@@ -185,7 +192,8 @@ CONTRACT = (
 REVIEW_RULES = (
     "Some packets have task 'veg-kitchen': each record proposes a NEW Explore place that is a fully vegetarian or vegan venue (Veg Kitchen). Owner rules: "
     "return ready-for-editorial-review only when the excerpts show the venue's OWN statement (its website, About or menu page, or official ordering page) "
-    "that the whole venue or kitchen is vegetarian or vegan, in vegKitchen.place.dietProof.quote. A Google category, a delivery app's category or "
+    "that the whole venue or kitchen is vegetarian or vegan, in vegKitchen.place.dietProof.quote, or a dietProof with confirmedBy (the owner confirmed it on "
+    "Telegram; treat that as the proof and check only the branch, menu and hours). A Google category, a delivery app's category or "
     "description, a review, a directory, 'vegetarian options' or 'vegetarian-friendly' is NOT proof; exclude a mixed kitchen (real meat or seafood sold, or "
     "vegetarian dishes among meat dishes). Dish names such as chicken or fish are fine when the statement exists. The coordinator has already matched the "
     "quote on the stored page, every listed item's exact name and SGD price on the menu capture (droppedCauses counts the items it dropped), the venue name "
@@ -197,7 +205,7 @@ REVIEW_RULES = (
 PUBLICATION_RULE = (
     "A candidate of kind place whose id starts with 'vk-' adds or updates a Veg Kitchen place in Explore (a fully vegetarian or vegan venue; its menu is a "
     "partial sample). Approve it when the captured excerpts show this exact branch (name and postcode), the venue's own statement that the whole venue is "
-    "vegetarian or vegan (dietProof.quote on the cited page; never a Google or delivery-app category), and listed dishes with explicit SGD prices or 'Price unavailable' where the venue's menu shows none; hold it "
+    "vegetarian or vegan (dietProof.quote on the cited page, or dietProof.confirmedBy: the owner confirmed it on Telegram; never a Google or delivery-app category), and listed dishes with explicit SGD prices or 'Price unavailable' where the venue's menu shows none; hold it "
     "when the proof is only a category or 'options', real meat or seafood is sold, or the branch differs. A candidate whose only change is a new photo is an "
     "owner-approved cover: approve it when the captured photo page shows the credited licence and this branch, and review its image like a venue cover. ")
 
@@ -236,6 +244,12 @@ def check_candidate(root, candidate, finding, checked, extracted):
     if candidate.get('recheck'):
         block['recheck'] = True  # re-verifies a place already in Explore: settle and the publisher treat it as an update
     decision, closed = finding.get('decision'), kc.closure(root, finding, cited)
+    owner = owner_confirmation(root, cid)
+    if decision == 'ask-owner' and owner:
+        decision = 'qualifies'  # the owner already answered; the identity, menu and hours checks still run
+    if decision == 'ask-owner' and not closed:
+        block.update(cause='owner-check', ownerCheck={'signals': str(finding.get('reason', ''))[:400]})
+        return record
     if decision == 'not-qualified' or (decision == 'qualifies' and closed):
         record['status'] = 'excluded'
         block['cause'] = 'closed' if closed else 'mixed-kitchen' if kc.MIXED.match(str(finding.get('reason', ''))) else 'explorer-not-qualified'
@@ -246,23 +260,39 @@ def check_candidate(root, candidate, finding, checked, extracted):
     if not extracted:
         block['cause'] = 'no-successful-extract'
         return record
-    problem = prove(root, candidate, finding, cited, checked, record)
+    problem = prove(root, candidate, finding, cited, checked, record, owner)
+    quote = (finding.get('dietProof') or {}).get('quote') if isinstance(finding.get('dietProof'), dict) else None
+    clean = kc.clean_quote(quote) or ''
+    if (problem in ('diet-proof-unsuitable', 'diet-proof-not-on-page', 'diet-page-unrelated') and not owner and not candidate.get('recheck')
+            and not kc.negated(clean) and not kc.PARTIAL.search(clean) and not kc.blocked_host(__import__('urllib.parse').parse.urlsplit(
+                str((finding.get('dietProof') or {}).get('sourceUrl', ''))).hostname)):
+        # The quote did not hold up, but Explorer believes the place is fully vegetarian: the owner decides (20 Oct 2026). A quote that
+        # denies the diet, a partial claim or a Google/delivery-app page is evidence against, so those stay held as before.
+        block['ownerCheck'] = {'signals': ('Explorer quoted: "' + str(quote)[:200] + '". ' if quote else '') + str(finding.get('reason', ''))[:300]}
+        problem = 'owner-check'
     if problem:
         block['cause'] = problem
     return record
 
 
-def prove(root, candidate, finding, cited, checked, record):
-    """Runs the identity, proof, menu and hours checks and fills the record; returns a hold cause or None."""
+def prove(root, candidate, finding, cited, checked, record, owner=None):
+    """Runs the identity, proof, menu and hours checks and fills the record; returns a hold cause or None. With the owner's
+    Telegram confirmation, that answer is the whole-venue proof (cited on the venue's identity page)."""
     block = record[KEY]
     found, cause = vc.identity(root, candidate, finding, cited)
     if cause:
         return cause
     name, branch, notes = found
     record['name'] = name
-    proof, diet, proof_notes, cause = kc.check_proof(root, candidate, finding, cited, name)
-    if cause:
-        return cause
+    if owner:
+        diet = owner['diet']
+        proof = {'sourceUrl': finding['nameSourceUrl'], 'quote': 'Confirmed ' + ('fully vegan' if diet == 'Vegan' else 'fully vegetarian')
+                 + ' by the QuinTaste team on ' + owner['at'][:10] + '.', 'confirmedBy': owner['approval']}
+        proof_notes = ['Whole-venue diet confirmed by the owner on Telegram.']
+    else:
+        proof, diet, proof_notes, cause = kc.check_proof(root, candidate, finding, cited, name)
+        if cause:
+            return cause
     notes += proof_notes
     menu = finding.get('menu') if isinstance(finding.get('menu'), dict) else {}
     url = menu.get('sourceUrl')
@@ -396,7 +426,10 @@ def photo_problem(p):
 
 def proof_problem(p):
     d = p['dietProof']
-    if not (isinstance(d, dict) and set(d) == {'sourceUrl', 'quote', 'checkedAt'} and kc.app_url(d['sourceUrl']) and d['sourceUrl'] in p['sourceUrls']
+    confirmed = isinstance(d, dict) and 'confirmedBy' in d
+    if confirmed and not re.fullmatch(r'owner-telegram-[a-f0-9]{24}', str(d['confirmedBy'])):
+        return 'Invalid owner confirmation'
+    if not (isinstance(d, dict) and set(d) - {'confirmedBy'} == {'sourceUrl', 'quote', 'checkedAt'} and kc.app_url(d['sourceUrl']) and d['sourceUrl'] in p['sourceUrls']
             and isinstance(d['quote'], str) and 1 <= len(d['quote']) <= kc.QUOTE_MAX and not kc.has_control(d['quote']) and day_ok(d['checkedAt'])):
         return 'Invalid whole-venue proof'
     if not kc.DIET_RE.search(d['quote']) or (p['venueDiet'] == 'Vegan' and not kc.VEGAN_RE.search(d['quote'])):
@@ -570,3 +603,101 @@ def area(place, root=None):
             return vc.smart_title(match['building'])
     street = re.sub(r'(?i)\s*singapore\s+\d{6}\s*$', '', str(place.get('address', '')).split(', ')[-1])
     return re.sub(r'^\d+[A-Za-z]?\s+', '', street)[:60] or 'Singapore'
+
+
+# ---------------------------------------------------------------- owner checks on Telegram (owner, 20 Oct 2026)
+# When Explorer believes a place is fully vegetarian but finds no statement in the venue's own words, the owner decides on Telegram:
+# Veg Kitchen, Vegan Kitchen, Mixed Kitchen or Skip. The Telegram listener only records the tap (owner-checks.json); the round applies it
+# here under the run lock, so progress and the Mixed Kitchen queue are never written by two processes at once.
+OWNER_CHOICES = {'veg': 'Vegetarian', 'vegan': 'Vegan', 'mixed': None, 'skip': None}
+OWNER_CHECKS_OPEN = 5   # unanswered questions on Telegram at a time
+
+
+def _lock(handle):
+    try:
+        import fcntl
+    except ImportError:  # local Windows test runs; the VPS is Linux
+        return
+    fcntl.flock(handle, fcntl.LOCK_EX)
+
+
+def owner_checks_file(root):
+    return folder(root) / 'owner-checks.json'
+
+
+def record_owner_check(root, cid, choice, token):
+    """The owner's tap (from the Telegram listener). Returns 'recorded' or 'stale'."""
+    if choice not in OWNER_CHOICES or not re.fullmatch(r'[a-f0-9]{24}', str(token)):
+        return 'stale'
+    path = owner_checks_file(root)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with (path.parent / 'owner-checks.lock').open('a+') as lock:
+        _lock(lock)
+        data = vo.read(path, {})
+        if cid in data and not data[cid].get('applied'):
+            return 'stale'
+        data[cid] = {'choice': choice, 'at': now(), 'approval': 'owner-telegram-' + token}
+        vo.write(path, data)
+    return 'recorded'
+
+
+def owner_confirmation(root, cid):
+    """{'diet', 'at', 'approval'} when the owner confirmed this place as fully vegetarian or vegan."""
+    row = progress(root)['candidates'].get(cid) or {}
+    return {'diet': row['ownerDiet'], 'at': row['ownerConfirmedAt'], 'approval': row['ownerApproval']} if row.get('ownerDiet') else None
+
+
+def apply_owner_checks(root):
+    """Turn recorded taps into progress: confirmed places research again at once; Mixed Kitchen moves to that queue; Skip excludes."""
+    path = owner_checks_file(root)
+    if not path.is_file():
+        return 0
+    with (path.parent / 'owner-checks.lock').open('a+') as lock:
+        _lock(lock)
+        data = vo.read(path, {})
+        todo = {cid: d for cid, d in data.items() if not d.get('applied')}
+        if not todo:
+            return 0
+        state = progress(root)
+        rows = {r['candidateId']: r for r in queue(root)}
+        for cid, d in todo.items():
+            row = state['candidates'].setdefault(cid, {'status': 'pending', 'attempts': 0})
+            diet = OWNER_CHOICES.get(d['choice'])
+            if diet:
+                vo.set_status(row, 'pending', at=d['at'])
+                row.update(ownerDiet=diet, ownerConfirmedAt=d['at'], ownerApproval=d['approval'])
+            elif d['choice'] == 'mixed':
+                vo.set_status(row, 'not-qualified', 'owner-mixed', 'The owner says it is a Mixed Kitchen; moved to that queue.', at=d['at'])
+                if cid in rows:
+                    add_to_mixed_kitchen(root, rows[cid])
+            else:
+                vo.set_status(row, 'not-qualified', 'owner-skip', 'The owner chose Skip on Telegram.', at=d['at'])
+            d['applied'] = now()
+        save_progress(root, state)
+        vo.write(path, data)
+        return len(todo)
+
+
+def add_to_mixed_kitchen(root, row):
+    """Copy a Veg Kitchen candidate into the Mixed Kitchen queue (owner said: Mixed Kitchen), once."""
+    target = vo.folder(root) / 'queue.json'
+    data = vo.read(target, {})
+    rows = data.get('candidates') or []
+    cid = 'vo-' + row['candidateId'][3:]
+    if any(r.get('candidateId') == cid or r.get('googlePlaceId') == row.get('googlePlaceId') for r in rows):
+        return False
+    keep = {k: v for k, v in row.items() if k not in ('source', 'leadNote', 'ownerDiet')}
+    rows.append(dict(keep, candidateId=cid, source='owner-mixed'))
+    data['candidates'] = rows
+    vo.check_queue(data)
+    vo.write(target, data)
+    return True
+
+
+def owner_check_view(root, limit=OWNER_CHECKS_OPEN):
+    """Held places waiting for the owner's answer, oldest first, with what Explorer found."""
+    state = progress(root)['candidates']
+    rows = {r['candidateId']: r for r in queue(root)}
+    waiting = [(cid, r) for cid, r in state.items() if r.get('status') == 'held' and r.get('cause') == 'owner-check' and cid in rows]
+    waiting.sort(key=lambda x: str(x[1].get('updatedAt')))
+    return [dict(rows[cid], signals=r.get('reason') or '') for cid, r in waiting][:limit]

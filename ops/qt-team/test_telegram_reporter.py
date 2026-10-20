@@ -332,6 +332,35 @@ class VegKitchenDigest(unittest.TestCase):
         action = self.state['moderation'][button['callback_data'].split(':')[1]]
         self.assertEqual((button['text'], action['mode'], action['kind'], action['changeId']), ('Revert this update', 'revert', 'place', 'd' * 64))
 
+    def test_unclear_place_asks_veg_vegan_mixed_or_skip_once_and_records_the_tap(self):
+        import telegram_controls as c
+        import veg_kitchen as vk
+        import workflow as w
+        rid = 'vk-green-leaf-abc123'
+        row = {'candidateId': rid, 'googlePlaceId': 'ChIJvkgreenleaf123', 'nameHint': 'Green Leaf Kitchen', 'address': '12 BUGIS STREET SINGAPORE 188652',
+               'postalCode': '188652', 'point': {'latitude': 1.299, 'longitude': 103.855}, 'source': 'google-typed', 'triage': 'fully-veg-check',
+               'mapsUrl': 'https://www.google.com/maps/search/?api=1&query=Green&query_place_id=ChIJvkgreenleaf123'}
+        w.write(self.root / 'state/veg-kitchen/queue.json', {'candidates': [row]})
+        state = vk.progress(self.root)
+        vk.set_status(vk.entry(state, rid), 'held', 'owner-check', 'Menu is all mock meat; Google says vegetarian')
+        vk.save_progress(self.root, state)
+        with patch.object(vk, 'queue', return_value=[row]):
+            c.owner_check_requests(self.state)
+            c.owner_check_requests(self.state)
+        [(key, item)] = self.state['deliveries'].items()
+        self.assertEqual(key, 'vkcheck:' + rid)
+        self.assertTrue(item['text'].startswith('Is this place fully vegetarian?' + chr(10) + 'Green Leaf Kitchen'))
+        self.assertIn('Menu is all mock meat', item['text'])
+        labels = [b['text'] for line in item['buttons'] for b in line]
+        self.assertEqual(labels, ['Veg Kitchen', 'Vegan Kitchen', 'Mixed Kitchen', 'Skip', 'Open on Google Maps'])
+        veg = item['buttons'][0][0]['callback_data']
+        c.callback(self.state, veg, 7)
+        self.assertIn('is a Veg Kitchen (vegetarian)', self.state['deliveries']['control:7']['text'])
+        c.callback(self.state, veg, 8)  # a second tap changes nothing
+        self.assertNotIn('Thanks', self.state['deliveries'].get('control:8', {}).get('text', ''))
+        saved = w.read(vk.owner_checks_file(self.root), {})[rid]
+        self.assertEqual((saved['choice'], saved['approval']), ('veg', 'owner-telegram-' + veg.split(':')[1]))
+
     def test_veg_kitchen_check_asks_remove_or_keep_and_records_the_tap(self):
         import publisher
         import telegram_controls as c

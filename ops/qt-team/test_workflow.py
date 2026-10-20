@@ -993,14 +993,16 @@ class VegKitchen(unittest.TestCase):
                  ('We offer vegetarian options', 'diet-proof-unsuitable'), ('A vegetarian-friendly cafe', 'diet-proof-unsuitable'),
                  ('This is not a vegetarian restaurant', 'diet-proof-unsuitable'), ('Non-vegetarian dishes are available', 'diet-proof-unsuitable'),
                  ('Non vegetarian and vegetarian menus', 'diet-proof-unsuitable'), ("Sadly we aren't vegan", 'diet-proof-unsuitable'),
-                 ('Mostly vegetarian food', 'diet-proof-unsuitable'), ('Vegan', 'diet-proof-unsuitable'), ('Great noodles', 'diet-proof-unsuitable')]
+                 ('Mostly vegetarian food', 'diet-proof-unsuitable'),
+                 # 20 Oct 2026: a bare label or a quote with no diet claim is unclear, not a denial, so the owner is asked on Telegram
+                 ('Vegan', 'owner-check'), ('Great noodles', 'owner-check')]
         for quote, cause in cases:
             with self.subTest(quote=quote):
                 home = 'Green Leaf Kitchen\n' + quote + '\n12 Bugis Street, Singapore 188652\nOpen daily 11am to 9pm'
                 record = vk_packet(self.root, finding=vk_finding(dietProof={'sourceUrl': VK_HOME, 'quote': quote}), home=home)['records'][0]
                 self.assertEqual(record['vegKitchen']['cause'], cause)
         record = vk_packet(self.root, finding=vk_finding(dietProof={'sourceUrl': VK_HOME, 'quote': 'It is 100% vegetarian here'}))['records'][0]
-        self.assertEqual(record['vegKitchen']['cause'], 'diet-proof-not-on-page')  # not on the stored page
+        self.assertEqual(record['vegKitchen']['cause'], 'owner-check')  # not on the stored page: the owner is asked instead of a silent hold
         # Google and delivery-app pages describe a venue; they are never its own statement
         for url in ('https://food.grab.com/sg/en/restaurant/green-leaf-kitchen/SGDD1', VK_MAPS, 'https://www.foodpanda.sg/restaurant/abcd/green-leaf'):
             finding = vk_finding(dietProof={'sourceUrl': url, 'quote': 'We are a 100% vegetarian restaurant'},
@@ -1147,6 +1149,49 @@ class VegKitchen(unittest.TestCase):
         # Mixed Kitchen's owner-removal guard also knows the Google place of a removed Veg Kitchen place
         data = {'id': 'vo-x-000000', 'name': 'Other Name', 'postalCode': '188111', 'googlePlaceId': 'ChIJvkgreenleaf123'}
         self.assertTrue(vo.owner_blocked(self.root, data, gone))
+
+    def test_unclear_place_asks_the_owner_and_each_answer_is_applied_by_the_round(self):
+        import veg_kitchen as vk
+        import veg_options as vo
+        cid = 'vk-green-leaf-abc123'
+        w.write(self.root / 'state/veg-kitchen/queue.json', {'candidates': [vk_candidate()]})
+        w.write(self.root / 'state/veg-options/queue.json', {'candidates': []})
+
+        def round_(n, finding, decision, candidate=None):
+            packet = vk_packet(self.root, finding=finding, candidate=candidate)
+            vk.mark_dispatched(self.root, [cid], packet_path='x')
+            w.write(self.root / 'outbox' / ('20261020T0%d0000Z.json' % n), {'checkedAt': w.now(), 'packets': [packet],
+                    'manager': {'decisions': [{'id': cid, 'decision': decision, 'reason': 'Reviewed'}]}})
+            return packet['records'][0], vk.settle(self.root)['candidates'][cid]
+        # no statement in the venue's own words: held for the owner, and offered once as a Telegram question
+        record, row = round_(1, vk_finding(dietProof={'sourceUrl': VK_HOME, 'quote': 'Great noodles'}), 'hold')
+        self.assertEqual((record['vegKitchen']['cause'], row['status'], row['cause']), ('owner-check', 'held', 'owner-check'))
+        self.assertEqual([r['candidateId'] for r in vk.owner_check_view(self.root)], [cid])
+        self.assertEqual(vk.record_owner_check(self.root, cid, 'veg', 'a' * 24), 'recorded')
+        self.assertEqual(vk.record_owner_check(self.root, cid, 'mixed', 'b' * 24), 'stale')  # one answer per question
+        self.assertEqual(vk.record_owner_check(self.root, cid, 'meat', 'c' * 24), 'stale')
+        self.assertEqual(vk.settle(self.root)['candidates'][cid]['status'], 'pending')  # researched again at once
+        self.assertEqual(vk.owner_check_view(self.root), [])
+        self.assertEqual(vk.due(self.root, 5, fresh_only=True)[0]['ownerDiet'], 'Vegetarian')
+        # the next round needs no quote: the owner's answer is the whole-venue proof, the menu and identity checks still run
+        record, row = round_(2, vk_finding(dietProof=None, decision='qualifies'), 'ready-for-editorial-review')
+        self.assertEqual((record['status'], record['vegKitchen']['cause']), ('proposed', None))
+        place = vk.place_data(self.root, record, vk_evidence(), vk_live())
+        self.assertEqual((place['dietProof']['confirmedBy'], place['venueDiet']), ('owner-telegram-' + 'a' * 24, 'Vegetarian'))
+        self.assertIsNone(vk.place_problem(place))
+        self.assertEqual(row['status'], 'verified')
+        # Mixed Kitchen moves the place to that queue once; Skip excludes it
+        state = vk.progress(self.root)
+        vk.set_status(state['candidates'][cid], 'held', 'owner-check')
+        state['candidates'][cid].pop('ownerDiet')
+        vk.save_progress(self.root, state)
+        data = vo.read(vk.owner_checks_file(self.root), {})
+        self.assertTrue(data[cid]['applied'])
+        self.assertEqual(vk.record_owner_check(self.root, cid, 'mixed', 'd' * 24), 'recorded')
+        self.assertEqual(vk.settle(self.root)['candidates'][cid]['cause'], 'owner-mixed')
+        moved = vo.read(self.root / 'state/veg-options/queue.json', {})['candidates']
+        self.assertEqual([(r['candidateId'], r['source']) for r in moved], [('vo-green-leaf-abc123', 'owner-mixed')])
+        self.assertFalse(vk.add_to_mixed_kitchen(self.root, vk_candidate()))  # never twice
 
     def test_due_offers_pending_then_rechecks_with_the_published_statement_then_holds(self):
         import veg_kitchen as vk

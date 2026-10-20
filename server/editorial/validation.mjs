@@ -141,7 +141,9 @@ function validateVegKitchenPlace(p) {
   requireValue(['Vegetarian', 'Vegan'].includes(p.venueDiet), 'Invalid venue diet');
   requireValue(p.alliumFreeClaim === false, 'A bot-added place cannot claim allium-free food');
   const proof = p.dietProof;
-  requireValue(keys(proof, ['sourceUrl', 'quote', 'checkedAt']) && publicUrl(proof.sourceUrl) && text(proof.quote, 200) && !/[\u0000-\u001f\u007f]/.test(proof.quote) && date(proof.checkedAt), 'A vegetarian place needs a quote from the venue that says so');
+  // 20 Oct 2026: when the venue's own words are unclear the owner confirms the whole-venue diet on Telegram (confirmedBy = that approval)
+  requireValue(proof?.confirmedBy === undefined || /^owner-telegram-[a-f0-9]{24}$/.test(proof.confirmedBy), 'Invalid owner confirmation');
+  requireValue(keys(proof, ['sourceUrl', 'quote', 'checkedAt', 'confirmedBy']) && publicUrl(proof.sourceUrl) && text(proof.quote, 200) && !/[\u0000-\u001f\u007f]/.test(proof.quote) && date(proof.checkedAt), 'A vegetarian place needs a quote from the venue that says so');
   requireValue(vegetarianWords.test(proof.quote), 'The quote must say the venue is vegetarian or vegan');
   requireValue(!deniesDiet(proof.quote), 'The quote must not deny that the venue is vegetarian or vegan');
   requireValue(p.venueDiet !== 'Vegan' || veganWords.test(proof.quote), 'A Vegan place needs a quote that says vegan or plant-based');

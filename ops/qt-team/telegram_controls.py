@@ -110,7 +110,8 @@ def callback(state, data, uid):
     parts = data.split(':')
     if len(parts) == 3 and parts[0] == 'manage' and parts[1] in ('recipe','event') and parts[2].isdigit() and int(parts[2]) <= 2000:
         text, buttons = menu(state, parts[1], int(parts[2]))
-    elif len(parts) == 2 and parts[0] in ('select','confirm','cancel','delete','revert','cover-ok','cover-no','game-ok','game-no','keep'):
+    elif len(parts) == 2 and parts[0] in ('select','confirm','cancel','delete','revert','cover-ok','cover-no','game-ok','game-no','keep',
+                                          'vk-veg','vk-vegan','vk-mixed','vk-skip'):
         action = state.get('moderation', {}).get(parts[1])
         if not action or action['expires'] <= time.time():
             text, buttons = 'This action expired. Use /manage to select the item again.', []
@@ -121,6 +122,17 @@ def callback(state, data, uid):
             text = {'approved': 'Approved game art: ' + action['name'] + '.\nSaved to the QT Gamer approved set. It is not in the app until the game is built.',
                     'rejected': 'Rejected: ' + action['name'] + '. This version is dropped; request it again in the asset list for a new attempt.',
                     'stale': 'This game art is no longer waiting for approval. Nothing was changed.'}[outcome]
+            buttons = []
+        elif parts[0].startswith('vk-') and action.get('mode') == 'vkcheck' and action['stage'] == 'direct':
+            # Owner check (20 Oct 2026): the listener only records the answer; the next round applies it under the run lock.
+            import veg_kitchen
+            choice = parts[0][3:]
+            outcome = veg_kitchen.record_owner_check(t.ROOT, action['id'], choice, parts[1])
+            action.update(stage='done', outcome=outcome, choice=choice)
+            text = {'veg': 'Thanks: ' + action['name'] + ' is a Veg Kitchen (vegetarian). The next bot round finishes its menu and publishes it.',
+                    'vegan': 'Thanks: ' + action['name'] + ' is a Veg Kitchen (vegan). The next bot round finishes its menu and publishes it.',
+                    'mixed': 'Thanks: ' + action['name'] + ' moves to the Mixed Kitchen queue (only its labelled vegetarian dishes are listed).',
+                    'skip': 'Skipped: ' + action['name'] + ' will not be added.'}[choice] if outcome == 'recorded' else 'This question was already answered. Nothing was changed.'
             buttons = []
         elif parts[0] in ('cover-ok','cover-no') and action.get('mode') == 'cover' and action['stage'] == 'direct':
             import cover_photos
@@ -187,6 +199,35 @@ def callback(state, data, uid):
     else:
         return
     t.enqueue(state, 'control:'+str(uid), text, buttons=buttons)
+
+
+def owner_check_requests(state):
+    """Ask the owner about places Explorer believes are fully vegetarian but cannot prove from the venue's own words (20 Oct 2026),
+    at most veg_kitchen.OWNER_CHECKS_OPEN unanswered at a time."""
+    import telegram_reporter as t
+    import veg_kitchen
+    open_now = sum(1 for k, a in state.get('moderation', {}).items() if a.get('mode') == 'vkcheck' and a.get('stage') == 'direct' and a['expires'] > time.time())
+    for row in veg_kitchen.owner_check_view(t.ROOT, limit=50):
+        if open_now >= veg_kitchen.OWNER_CHECKS_OPEN:
+            break
+        key = 'vkcheck:' + row['candidateId']
+        if key in state['deliveries']:
+            continue
+        token = secrets.token_hex(12)
+        actions = {k: v for k, v in state.setdefault('moderation', {}).items() if v['expires'] > time.time()}
+        name = row.get('nameConfirmed') or row.get('nameHint') or row['candidateId']
+        actions[token] = {'mode': 'vkcheck', 'kind': 'vkcheck', 'id': row['candidateId'], 'name': name, 'expires': time.time() + 30 * 86400,
+                          'stage': 'direct', 'actionId': 'owner-vkcheck-' + token}
+        state['moderation'] = dict(list(actions.items())[-400:])
+        text = ('Is this place fully vegetarian?\n' + name + '\n' + str(row.get('address', ''))[:200] +
+                '\nQT Explorer found: ' + (str(row.get('signals')) or 'signs it is meat-free, but no statement in the venue\'s own words.')[:500] +
+                '\nVeg Kitchen or Vegan Kitchen: it is published once its menu checks pass. Mixed Kitchen: only its labelled vegetarian dishes are listed.')
+        buttons = [[{'text': 'Veg Kitchen', 'callback_data': 'vk-veg:' + token}, {'text': 'Vegan Kitchen', 'callback_data': 'vk-vegan:' + token}],
+                   [{'text': 'Mixed Kitchen', 'callback_data': 'vk-mixed:' + token}, {'text': 'Skip', 'callback_data': 'vk-skip:' + token}]]
+        if str(row.get('mapsUrl', '')).startswith('https://www.google.com/maps/'):
+            buttons.append([{'text': 'Open on Google Maps', 'url': row['mapsUrl']}])
+        t.enqueue(state, key, text[:4000], buttons=buttons)
+        open_now += 1
 
 
 def cover_requests(state):
