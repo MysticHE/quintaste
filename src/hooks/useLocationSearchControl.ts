@@ -3,24 +3,23 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import type { LocationSuggestion } from "../types/location-search";
 import { locationQuery } from "../utils/location-search";
 import { fetchLocationSuggestions, useLocationSuggestions } from "./useLocationSuggestions";
+import { useSuggestionKeys } from "./useSuggestionKeys";
 
 export function useLocationSearchControl(value: string, onChoose: (item: LocationSuggestion) => void,
   onSearch?: (query: string) => void, addressesOnly = false) {
-  const [open, setOpen] = useState(false), [index, setIndex] = useState(-1);
   const [resolving, setResolving] = useState(false), [submitError, setSubmitError] = useState("");
+  const nav = useSuggestionKeys(), { open, setOpen, index, setIndex, keepOpen } = nav;
   const result = useLocationSuggestions(value, open && !resolving);
   const suggestions = addressesOnly ? result.suggestions.filter(item => item.kind === "address") : result.suggestions;
-  const active = useRef<AbortController | null>(null), blurTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const active = useRef<AbortController | null>(null);
   const cancel = () => { active.current?.abort(); active.current = null; };
-  const keepOpen = () => { if (blurTimer.current) clearTimeout(blurTimer.current); };
-  useEffect(() => () => { active.current?.abort(); active.current = null; if (blurTimer.current) clearTimeout(blurTimer.current); }, []);
+  useEffect(() => () => { active.current?.abort(); active.current = null; }, []);
   useEffect(() => () => {
     if (active.current) { active.current.abort(); active.current = null; setResolving(false); }
   }, [value]);
   useFocusEffect(useCallback(() => () => {
-    active.current?.abort(); active.current = null; setResolving(false); setOpen(false);
-    if (blurTimer.current) clearTimeout(blurTimer.current);
-  }, []));
+    active.current?.abort(); active.current = null; setResolving(false); setOpen(false); keepOpen();
+  }, [setOpen, keepOpen]));
   const choose = (item: LocationSuggestion) => { cancel(); keepOpen(); setOpen(false); setResolving(false); onChoose(item); };
   const changed = () => { cancel(); setIndex(-1); setSubmitError(""); setResolving(false); setOpen(true); };
   const submit = async () => {
@@ -53,14 +52,5 @@ export function useLocationSearchControl(value: string, onChoose: (item: Locatio
   };
   return { ...result, suggestions, open, index, busy: result.busy || resolving, error: submitError || result.error,
     retry: () => { setIndex(-1); setSubmitError(""); result.retry(); },
-    changed, choose, submit, keepOpen, focus: () => { keepOpen(); setOpen(true); },
-    blur: () => { blurTimer.current = setTimeout(() => setOpen(false), 150); },
-    key: (key: string) => {
-      if (key === "Escape") { setOpen(false); return true; }
-      if (key !== "ArrowDown" && key !== "ArrowUp") return false;
-      setOpen(true);
-      setIndex(current => suggestions.length ? current < 0 ? (key === "ArrowDown" ? 0 : suggestions.length - 1)
-        : (current + (key === "ArrowDown" ? 1 : -1) + suggestions.length) % suggestions.length : -1);
-      return true;
-    } };
+    changed, choose, submit, keepOpen, focus: nav.focus, blur: nav.blur, key: (key: string) => nav.key(key, suggestions.length) };
 }

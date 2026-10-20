@@ -13,7 +13,8 @@ import { PhotoPostCard, PostChip, PostFact, PostFacts } from "../discovery/Photo
  * A recipe as the same photo post as an Explore place: cooking time top-left, like / save / share down the right edge,
  * the name and facts on the photo. The diet labels (Vegan, Vegetarian, Plant-Based) stay on the card because they decide a meal here.
  */
-export function RecipeRow({ recipe, onPress }: { recipe: Recipe; onPress: () => void }) {
+/** `when` names the meal on the first card when it suits the time of day ("Dinner · 25 min"). */
+export function RecipeRow({ recipe, onPress, when }: { recipe: Recipe; onPress: () => void; when?: string }) {
   const { draft, theme } = usePreferences(), save = useRecipeSave(recipe.id), cooks = useReaction("recipe", recipe.id).reaction.cooks;
   const fit = recipeFit(recipe, draft.diets, draft.excluded), diet = fit.labels.join(" · ");
   const facts = [recipe.categories[0] ?? "", recipe.onePot ? "One pot" : "", recipe.member ? "By " + recipe.author : ""].filter(Boolean).join(" · ");
@@ -21,7 +22,7 @@ export function RecipeRow({ recipe, onPress }: { recipe: Recipe; onPress: () => 
   const badges = recipeBadges(recipe).slice(0, 2).join(" · ");
   return <PhotoPostCard testID="recipe-card" photo={{ path: recipe.image?.path, source: recipe.image?.path ? undefined : recipe.photo ? photos[recipe.photo] : undefined, fallback: recipe.categories[0] ?? "Recipe" }}
     title={recipe.name} label={[recipe.name, recipe.minutes + " min", facts, diet, badges].filter(Boolean).join(". ")} hint="Opens the recipe" onPress={onPress}
-    topLeft={<PostChip icon="time-outline" label={recipe.minutes + " min"} />}
+    topLeft={<PostChip icon="time-outline" label={(when ? when + " · " : "") + recipe.minutes + " min"} />}
     side={<ReactionColumn kind="recipe" id={recipe.id} name={recipe.name} shareMessage={() => recipeShareMessage(recipe)}
       save={save} />}>
     {!!facts && <PostFact icon="restaurant-outline">{facts}</PostFact>}

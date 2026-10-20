@@ -8,7 +8,9 @@ export type AiJob = {
   id: string; kind: AiJobKind; input: string; status: "queued" | "working" | "published" | "review" | "failed"; message: string;
   createdAt: string; finishedAt: string | null; recipeId: string | null; retryable?: boolean;
 };
-export const aiRecipesStatus = (signal: AbortSignal) => call<{ enabled: boolean; dailyPerMember: number }>("/api/ai-recipes/status", { signal });
+/** `plan` stays null until payments are connected (src/config/ai-plans.ts); `usedThisMonth` counts recipes started this month. */
+export type AiRecipesStatus = { enabled: boolean; dailyPerMember: number; plan: null | { id: string; renewsAt: string }; usedThisMonth?: number };
+export const aiRecipesStatus = (signal: AbortSignal) => call<AiRecipesStatus>("/api/ai-recipes/status", { signal });
 export const myAiJobs = (signal: AbortSignal) => call<{ items: AiJob[] }>("/api/ai-recipes/mine", { signal });
 export const startAiJob = (kind: AiJobKind, input: string) => call<AiJob>("/api/ai-recipes", { method: "POST", body: { kind, input } });
 export const aiJobActive = (job: AiJob) => job.status === "queued" || job.status === "working";

@@ -64,12 +64,14 @@ Every action a cook must do is a step, including preparation the video skips but
 
 export const videoPrompt = 'Turn this video into a complete recipe. If it is not a cooking recipe, set isRecipe to false.';
 
-export const searchSystem = `You research vegetarian recipes for a Singapore cooking app. Use Google Search to find 2 to 4 well-rated recipe pages that match the request, prefer Singapore, Malaysian, Chinese, Indian and South-East Asian home cooking, and read the actual ingredient lists and steps. Report what you found: for each page its URL, title, author, rating if shown, servings, total time, ingredients with quantities and the method in brief. Then propose one QuinTaste version that stays faithful to those pages (no invented quantities), explaining which page each part follows. Vegetarian only; if the request needs meat, say so.`;
+export const searchSystem = `You research vegetarian recipes for a Singapore cooking app. Use Google Search to find 2 to 4 well-rated recipe pages that match the request, prefer Singapore, Malaysian, Chinese, Indian and South-East Asian home cooking, and read the actual ingredient lists and steps. Report what you found: for each page its URL, title, author, rating if shown, servings, total time, ingredients with quantities and the method in brief. Then propose one QuinTaste version that stays faithful to those pages (no invented quantities), explaining which page each part follows. Vegetarian only: when the dish is usually made with meat or seafood, find vegetarian versions of it (tofu, mushrooms, mock meat, jackfruit) and propose the meat-free home version under a name people recognise, such as "Vegetarian chicken rice".`;
 
 export const structureSystem = house + `
 You are given research notes about recipes found on the web plus a proposed version. Produce the final recipe JSON from the proposed version. Set creator to the author of the page the version mainly follows, and at to null for every step.`;
 
 export const requestPrompt = text => `Recipe request from a member: "${text}". Find matching vegetarian recipes and propose the QuinTaste version.`;
+/** A dish several members searched Cook for and could not find (server/cook-search/demand.mjs). */
+export const demandPrompt = text => `Several members searched a Singapore vegetarian cooking app for "${text}" and found no recipe. Find matching vegetarian recipes, or vegetarian versions if the dish usually has meat or seafood, and propose the QuinTaste home version.`;
 
 export const verifySystem = house + `
 You are checking a draft recipe against the cooking video it was written from. Watch the whole video again, start to end, frame by frame where needed, and listen to every spoken instruction and on-screen text.

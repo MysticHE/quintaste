@@ -26,6 +26,8 @@ import { editorial, editorialAssets, editorialAssetRoot } from './editorial/rout
 import { startAvatarWorker } from './avatar/worker.mjs';
 import { aiRecipes } from './ai-recipes/router.mjs';
 import { startAiRecipeWorker } from './ai-recipes/worker.mjs';
+import { cookSearch } from './cook-search/router.mjs';
+import { startDemandWorker } from './cook-search/demand.mjs';
 import { startNutritionRefresh } from './nutrition/service.mjs';
 const { createRequestHandler } = createRequire(import.meta.url)('expo-server/adapter/express');
 
@@ -107,6 +109,8 @@ const recipesGate = featureGate('recipes');
 app.use('/api/recipes', (req, res, next) => req.method === 'DELETE' ? next() : recipesGate(req, res, next), recipes);
 // AI recipes (docs/AI_RECIPES_PLAN.md): the router checks the ai_recipes control itself so /status can say when it is off.
 app.use('/api/ai-recipes', aiRecipes);
+// Cook search suggestions and the settled-search log for wanted recipes (docs/COOK_DISCOVERY_PLAN.md); not behind the recipes control.
+app.use('/api/cook-search', cookSearch);
 // Likes and shares cover every Cook recipe and Explore place, so they stay on while member submissions are paused.
 app.use('/api/reactions', reactions);
 app.use('/api/areas', featureGate('areas'), areas);
@@ -148,6 +152,8 @@ const stopAvatars = process.env.AVATAR_WORKER_ENABLED === 'true' ? startAvatarWo
 const stopAiRecipes = process.env.AI_RECIPES_WORKER_ENABLED !== 'false' ? startAiRecipeWorker() : () => {};
 // Hourly: recipe nutrition from the learned ingredient database (asks the AI only while ai_recipes is on).
 const stopNutrition = process.env.AI_RECIPES_WORKER_ENABLED !== 'false' ? startNutritionRefresh() : () => {};
+// Every minute: wanted recipes from Cook searches (idle until recipe_demand, ai_recipes and recipes are on).
+const stopDemand = process.env.AI_RECIPES_WORKER_ENABLED !== 'false' ? startDemandWorker() : () => {};
 const purgeContacts = () => purgeOrderContacts().then(count => count && logger.info({ event: 'market_contacts_purged', count }))
   .catch(error => logger.warn({ event: 'market_contacts_purge_failed', code: error?.code }));
 const purgeTimer = setInterval(purgeContacts, 6 * 3600000).unref();
@@ -165,6 +171,7 @@ async function stop() {
   stopAvatars();
   stopAiRecipes();
   stopNutrition();
+  stopDemand();
   clearInterval(purgeTimer);
   clearInterval(purgeLogsTimer);
   stopAreaSnapshots();

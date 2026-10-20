@@ -30,7 +30,7 @@ export async function accountAction(member: Session, input: Record<string, unkno
 }
 export async function changeControl(member: Session, input: Record<string, unknown>, reason: string) {
   authorize(member, 'operations');
-  const key = choice(input.key, ['registration','discovery','menus','avatars','ai_recipes','social','market','market_sellers','recipes','areas','games'] as const, 'feature');
+  const key = choice(input.key, ['registration','discovery','menus','avatars','ai_recipes','recipe_demand','social','market','market_sellers','recipes','areas','games'] as const, 'feature');
   if (typeof input.enabled !== 'boolean') throw new HttpError(400, 'Choose enabled or disabled.');
   const version = integer(input.version, 'control version', 1);
   const typed = text(input.notice || '', 'staff note', 300, 0).replace(/\s*daily=\d+\s*/g, ' ').trim();

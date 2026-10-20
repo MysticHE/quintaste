@@ -1,7 +1,7 @@
 import { useFood } from "../../state/Food";
 import { AvatarPortrait } from "../avatar/AvatarPortrait";
 import { router, usePathname } from "expo-router";
-import { ActivityIndicator, Pressable, StyleSheet, ScrollView, TextInput, View, type AccessibilityRole, type StyleProp, type ViewStyle } from "react-native";
+import { ActivityIndicator, Pressable, StyleSheet, ScrollView, TextInput, View, type AccessibilityRole, type StyleProp, type TextInputProps, type ViewStyle } from "react-native";
 import { useState, type PropsWithChildren, type ReactNode } from "react";
 import { useKeyboardFocus } from "../../hooks/useKeyboardFocus";
 import { usePreferences } from "../../state/Preferences";
@@ -56,8 +56,10 @@ export function MeButton() {
     <AvatarPortrait avatar={doc.avatar} size={46} />
   </Pressable>;
 }
-export function SearchField({ value, onChange, placeholder, onSubmit, context, trailing }: {
+/** `input` adds combobox behaviour (focus, blur, keys, ARIA) for a suggestion list; the box looks the same either way. */
+export function SearchField({ value, onChange, placeholder, onSubmit, context, trailing, input }: {
   value: string; onChange: (value: string) => void; placeholder: string; onSubmit?: () => void; context?: ReactNode; trailing?: ReactNode;
+  input?: Omit<TextInputProps, "value" | "onChangeText" | "placeholder" | "style">;
 }) {
   const { theme, textMultiplier } = usePreferences();
   const [focused, setFocused] = useState(false);
@@ -66,7 +68,7 @@ export function SearchField({ value, onChange, placeholder, onSubmit, context, t
     {onSubmit ? <Pressable accessibilityRole="button" accessibilityLabel={placeholder} onPress={onSubmit} style={s.searchAction}><Icon name="search-outline" /></Pressable>
       : <Icon name="search-outline" />}
     <View style={[common.flex, { minWidth: 0 }]}>{context}<TextInput value={value} onChangeText={onChange} placeholder={placeholder} accessibilityLabel={placeholder}
-      onFocus={() => setFocused(true)} onBlur={() => setFocused(false)} underlineColorAndroid={theme.transparent}
+      {...input} onFocus={event => { setFocused(true); input?.onFocus?.(event); }} onBlur={event => { setFocused(false); input?.onBlur?.(event); }} underlineColorAndroid={theme.transparent}
       autoCorrect={false} autoCapitalize="none" returnKeyType="search" onSubmitEditing={onSubmit} maxLength={100}
       placeholderTextColor={theme.mutedForeground} selectionColor={theme.accent}
       style={[s.searchInput, !!context && { paddingVertical: 5 }, { color: theme.foreground, fontFamily: fontNames.regular, fontSize: 16 * textMultiplier }]} /></View>

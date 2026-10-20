@@ -13,17 +13,12 @@ import { parseLink } from './video.mjs';
 import { MAX_FILE_BYTES, VIDEO_TYPES } from './files.mjs';
 import { UPLOAD_DIR } from './work.mjs';
 import { parseUpload } from './pipeline.mjs';
+import { normaliseTerm } from '../cook-search/terms.mjs';
+import { DAILY_PER_MEMBER, RAN, dailyCap, jobsLastDay } from './limits.mjs';
 
 /** Members queue AI recipe jobs here and watch them; guests see nothing. Three jobs a day per member for now. */
 export const aiRecipes = communityRouter({ guests: true, bodyLimit: '8kb' });
-export const DAILY_PER_MEMBER = 3;
 const sha = value => createHash('sha256').update(value).digest('hex');
-
-async function dailyCap() {
-  const row = (await pool.query("SELECT notice FROM ops.control WHERE key='ai_recipes'")).rows[0];
-  const cap = /daily=(\d+)/.exec(row?.notice ?? '')?.[1];
-  return cap ? Number(cap) : 500;
-}
 const view = row => {
   const upload = parseUpload(row.input);
   return { id: row.id, kind: row.kind, input: upload ? 'Uploaded video' : row.input, retryable: !upload && row.status === 'failed', status: row.status,
@@ -52,19 +47,28 @@ async function exclusive(me, work) {
 /** Daily and concurrent quota for a member, counting uploads still in flight; call inside exclusive(). */
 async function withinQuota(me) {
   const pending = uploading.get(me) ?? 0;
-  const [mine, all, open] = await Promise.all([
-    pool.query(`SELECT count(*)::int AS n FROM recipes.ai_job WHERE user_id=$1 AND created_at > now() - interval '1 day' AND status <> 'failed'`, [me]),
-    pool.query(`SELECT count(*)::int AS n FROM recipes.ai_job WHERE created_at > now() - interval '1 day'`),
+  const [mine, all, open, cap] = await Promise.all([
+    pool.query(`SELECT count(*)::int AS n FROM recipes.ai_job WHERE user_id=$1 AND created_at > now() - interval '1 day' AND status <> 'failed' AND ${RAN}`, [me]),
+    jobsLastDay(),
     pool.query(`SELECT count(*)::int AS n FROM recipes.ai_job WHERE user_id=$1 AND status IN ('queued','working')`, [me]),
+    dailyCap(),
   ]);
   if (mine.rows[0].n + pending >= DAILY_PER_MEMBER) throw new CommunityError(429, `You can start ${DAILY_PER_MEMBER} AI recipes a day. Try again tomorrow.`);
-  if (all.rows[0].n >= await dailyCap()) throw new CommunityError(503, 'AI recipes are fully booked for today. Try again tomorrow.');
+  if (all >= cap) throw new CommunityError(503, 'AI recipes are fully booked for today. Try again tomorrow.');
   if (open.rows[0].n + pending >= 2) throw new CommunityError(429, 'Wait for your current AI recipes to finish first.');
 }
 
+/** Recipes a member started this Singapore calendar month (failed jobs and reused recipes do not count); the plans screen shows it. */
+async function usedThisMonth(me) {
+  return (await pool.query(`SELECT count(*)::int AS n FROM recipes.ai_job WHERE user_id=$1 AND status <> 'failed' AND ${RAN}
+    AND created_at >= date_trunc('month', now() AT TIME ZONE 'Asia/Singapore') AT TIME ZONE 'Asia/Singapore'`, [me])).rows[0].n;
+}
 aiRecipes.get('/status', async (_req, res) => {
   // AI recipes publish into the member recipe feed, so the recipes control must be on as well.
-  res.json({ enabled: (await geminiConfig()).enabled && await allowed('ai_recipes') && await allowed('recipes'), dailyPerMember: DAILY_PER_MEMBER });
+  // `plan` is null for everyone until payments are connected (docs/COOK_DISCOVERY_PLAN.md §6); nothing is gated on it yet.
+  const me = res.locals.user?.id ?? null;
+  res.json({ enabled: (await geminiConfig()).enabled && await allowed('ai_recipes') && await allowed('recipes'), dailyPerMember: DAILY_PER_MEMBER,
+    plan: null, usedThisMonth: me ? await usedThisMonth(me) : 0 });
 });
 
 aiRecipes.get('/mine', member, async (_req, res) => {
@@ -80,13 +84,18 @@ aiRecipes.post('/', member, async (req, res) => {
   let input, hash;
   try {
     if (kind === 'video') { const link = parseLink(req.body?.input); input = link.canonical; hash = sha(input); }
-    else { input = text(req.body?.input, 300, { min: 3, field: 'Describe the dish' }); hash = sha(input.toLowerCase().replace(/\s+/g, ' ')); }
+    // "Laksa for 2!" and "laksa" are the same dish, and match the wanted recipes made from Cook searches.
+    else { input = text(req.body?.input, 300, { min: 3, field: 'Describe the dish' }); hash = sha(normaliseTerm(input) || input.toLowerCase().replace(/\s+/g, ' ')); }
   } catch (error) { if (error instanceof GeminiError) throw new CommunityError(error.status, error.message); throw error; }
+  // A live recipe from the same video, or from the same dish asked for in the last 90 days, is reused instead of written again.
+  // Reviewed jobs keep status "review" after staff publish, so a live recipe is what counts.
   const existing = (await pool.query(`SELECT j.recipe_id FROM recipes.ai_job j JOIN recipes.recipe r ON r.id=j.recipe_id
-    WHERE j.input_hash=$1 AND j.status='published' AND r.live IS NOT NULL AND r.hidden_at IS NULL ORDER BY j.finished_at DESC LIMIT 1`, [hash])).rows[0];
-  if (existing && kind === 'video') {
+    WHERE j.input_hash=$1 AND j.status IN ('published','review') AND r.live IS NOT NULL AND r.hidden_at IS NULL
+      AND ($2 = 'video' OR j.finished_at > now() - interval '90 days') ORDER BY j.finished_at DESC LIMIT 1`, [hash, kind])).rows[0];
+  if (existing) {
     const row = (await pool.query(`INSERT INTO recipes.ai_job (user_id, kind, input, input_hash, status, recipe_id, finished_at, message)
-      VALUES ($1, $2, $3, $4, 'published', $5, now(), 'Someone already imported this video.') RETURNING *`, [me, kind, input, hash, existing.recipe_id])).rows[0];
+      VALUES ($1, $2, $3, $4, 'published', $5, now(), $6) RETURNING *`,
+      [me, kind, input, hash, existing.recipe_id, kind === 'video' ? 'Someone already imported this video.' : 'We already have this recipe.'])).rows[0];
     return res.status(201).json(view(row));
   }
   const row = await exclusive(me, async () => {

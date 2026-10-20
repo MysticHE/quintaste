@@ -1,7 +1,7 @@
 import { createHash } from 'node:crypto';
 import { pool, logger } from '../config.mjs';
 import { GeminiError, generate } from './gemini.mjs';
-import { recipeSchema, requestPrompt, searchSystem, structureSystem } from './prompts.mjs';
+import { demandPrompt, recipeSchema, requestPrompt, searchSystem, structureSystem } from './prompts.mjs';
 import { clip, parseUpload, toRecipe } from './recipe.mjs';
 import { fromVideo } from './video-job.mjs';
 import { nutritionFor } from '../nutrition/service.mjs';
@@ -15,7 +15,8 @@ export const REVIEW_BELOW = 0.6;
 
 async function fromRequest(job, signal, usage, progress) {
   await progress('Finding rated recipes…');
-  const research = await generate({ parts: [{ text: requestPrompt(job.input) }], system: searchSystem, tools: [{ google_search: {} }], signal, maxOutputTokens: 6000 });
+  const prompt = job.kind === 'demand' ? demandPrompt(job.input) : requestPrompt(job.input);
+  const research = await generate({ parts: [{ text: prompt }], system: searchSystem, tools: [{ google_search: {} }], signal, maxOutputTokens: 6000 });
   usage.calls.push(research.usage);
   await progress('Writing the recipe…');
   const structured = await generate({ parts: [{ text: 'Research notes and proposed version:\n\n' + research.data }], schema: recipeSchema, system: structureSystem, signal });
@@ -61,11 +62,12 @@ export async function runJob(job, signal) {
     await progress('Working out the nutrition…');
     const { nutrition, complete } = await nutritionFor(recipe, { usage, signal });
     if (nutrition) recipe.nutrition = nutrition;
-    const review = recipe.source.confidence < REVIEW_BELOW;
+    // Nobody asked for a wanted recipe in these words, so staff always read it before it goes public.
+    const review = job.kind === 'demand' || recipe.source.confidence < REVIEW_BELOW;
     const saved = await save(job, recipe, photos, review, complete);
     const status = review ? 'review' : 'published';
     await pool.query(`UPDATE recipes.ai_job SET status=$2, recipe_id=$3, message=$4, usage=$5, finished_at=now() WHERE id=$1`,
-      [job.id, status, saved.id, review ? 'Some quantities or steps were unclear, so staff will check it before it goes public.' : '', { ...usage, photos: saved.photos }]);
+      [job.id, status, saved.id, job.kind === 'demand' ? 'Waiting for staff review.' : review ? 'Some quantities or steps were unclear, so staff will check it before it goes public.' : '', { ...usage, photos: saved.photos }]);
     logger.info({ event: 'ai_recipe_job_done', kind: job.kind, status, calls: usage.calls.length, photos: saved.photos });
     return status;
   } catch (error) {

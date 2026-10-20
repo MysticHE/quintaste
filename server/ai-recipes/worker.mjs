@@ -6,7 +6,7 @@ import { deleteFile } from './files.mjs';
 import { sweepWork, uploadPath } from './work.mjs';
 import { rm } from 'node:fs/promises';
 
-/** One job at a time in this process, claimed with SKIP LOCKED so several app replicas can share the queue. */
+/** One job at a time in this process, claimed with SKIP LOCKED so several app replicas can share the queue; members' jobs before wanted recipes. */
 export function startAiRecipeWorker() {
   const controller = new AbortController();
   let busy = false, stopped = false;
@@ -25,7 +25,7 @@ export function startAiRecipeWorker() {
         if (local) await rm(local, { force: true }).catch(() => {}); else await deleteFile(upload.name);
       }
       const job = (await pool.query(`UPDATE recipes.ai_job SET status='working', started_at=now(), attempts=attempts+1
-        WHERE id = (SELECT id FROM recipes.ai_job WHERE status='queued' ORDER BY created_at LIMIT 1 FOR UPDATE SKIP LOCKED) RETURNING *`)).rows[0];
+        WHERE id = (SELECT id FROM recipes.ai_job WHERE status='queued' ORDER BY kind = 'demand', created_at LIMIT 1 FOR UPDATE SKIP LOCKED) RETURNING *`)).rows[0];
       if (job) await runJob(job, controller.signal);
     } catch (error) {
       logger.warn({ event: 'ai_recipe_worker_error', detail: String(error?.message ?? error).slice(0, 200) });

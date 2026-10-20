@@ -1,6 +1,6 @@
 import type { PropsWithChildren } from "react";
 import { View } from "react-native";
 
-export function SuggestionList({ id, children }: PropsWithChildren<{ id: string }>) {
-  return <View nativeID={id} role="list" accessibilityLabel="Matching locations">{children}</View>;
+export function SuggestionList({ id, label = "Matching locations", children }: PropsWithChildren<{ id: string; label?: string }>) {
+  return <View nativeID={id} role="list" accessibilityLabel={label}>{children}</View>;
 }

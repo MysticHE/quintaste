@@ -53,12 +53,16 @@ export type RecipeStep = {
 export type RecipeSource = {
   kind: "video" | "request"; platform?: string; url?: string; creator?: string; request?: string; urls?: string[]; notes?: string; confidence?: number;
 };
+export const mealTimeNames = ["morning", "midday", "afternoon", "dinner", "late"] as const;
+export type MealTime = (typeof mealTimeNames)[number];
 export type Recipe = {
   image?: { path: string; width: number; height: number; credit: string };
   provenance?: { sources: string[]; checkedAt: string; kitchenTested: false; reviewedBy: "QT Manager" | "QuinTaste team" };
   id: string; name: string; description: string; photo?: PhotoKey;
   minutes: number; servings: number; cuisine: string; dietary: Dietary;
   categories: RecipeCategory[]; onePot?: boolean;
+  /** When in the day the recipe suits; absent means it follows its categories (src/utils/daypart.ts). */
+  mealTimes?: MealTime[];
   ingredients: Ingredient[]; steps: RecipeStep[]; dishId?: string; adaptationId?: string;
   adaptationNote?: string;
   /** The original recipe page's rating when the QT bot selected it (not a QuinTaste rating). */

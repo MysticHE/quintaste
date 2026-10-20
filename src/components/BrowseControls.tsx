@@ -11,14 +11,17 @@ export type BrowseFilter = { label: string; count: number; onPress: () => void }
 export const useOnAccent = () => { const { theme } = usePreferences(); return theme.dark ? theme.background : theme.actionForeground; };
 
 /** Shared browse chrome: one search box with its filter button inside, an optional action (Inbox) and Me. */
-export function BrowseHeader({ query, onChange, placeholder, filter, action }: {
-  query: string; onChange: (value: string) => void; placeholder: string; filter?: BrowseFilter; action?: ReactNode;
+/** `field` replaces the plain search box (Cook's has suggestions); `below` sits under the row, such as its suggestion list. */
+export function BrowseHeader({ query, onChange, placeholder, filter, action, field, below }: {
+  query: string; onChange: (value: string) => void; placeholder: string; filter?: BrowseFilter; action?: ReactNode; field?: ReactNode; below?: ReactNode;
 }) {
-  return <View testID="browse-search-row" style={s.search}>
-    <View style={[common.flex, { minWidth: 0 }]}><SearchField value={query} onChange={onChange} placeholder={placeholder}
-      trailing={filter ? <FilterButton {...filter} /> : undefined} /></View>
+  const row = <View testID="browse-search-row" style={s.search}>
+    <View style={[common.flex, { minWidth: 0 }]}>{field ?? <SearchField value={query} onChange={onChange} placeholder={placeholder}
+      trailing={filter ? <FilterButton {...filter} /> : undefined} />}</View>
     {action}<MeButton />
   </View>;
+  // Always the same wrapper: adding one only when the list appears would remount the search box and drop its focus.
+  return <View>{row}{below}</View>;
 }
 /** The filter button inside a search box: a plain icon at rest, solid accent while filters are on. Owner rule: never show a count on it. */
 export function FilterButton({ label, count, onPress }: BrowseFilter) {

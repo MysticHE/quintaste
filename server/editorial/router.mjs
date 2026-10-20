@@ -97,6 +97,12 @@ for (const kind of ['recipe', 'event']) editorial.get('/' + kind + 's', async (r
     conditional(req, res, { revision, items, total: rows.length, nextCursor: offset + 20 < rows.length ? Buffer.from(JSON.stringify({ revision, offset: offset + 20, q, category })).toString('base64url') : null });
   } catch (e) { next(e); }
 });
+/** Bot and staff-created recipes members can see now, with staff edits and hides applied (Cook suggestions index these). */
+export async function editorialRecipes() {
+  const [snapshot, staff] = await Promise.all([readSnapshot(root), staffContent()]);
+  return [...Object.values(snapshot.records).filter(r => r.kind === 'recipe').map(r => staffRecord(staff, 'recipe', r.id, r.data)), ...staffCreated(staff, 'recipe')]
+    .filter(r => r && !r.withdrawal);
+}
 /** Whether a bundled, bot or staff-created recipe is published and not hidden or withdrawn (likes and shares use this). */
 export async function publishedRecipe(id) {
   const [snapshot, staff] = await Promise.all([readSnapshot(root), staffContent()]), item = staff.items.get('recipe:' + id);

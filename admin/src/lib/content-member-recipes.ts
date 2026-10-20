@@ -18,10 +18,10 @@ export async function memberRecipeList(member: Session, status: string, q: strin
   const filter = choice(status || 'review', statuses, 'status'), term = search(q), from = choice(origin || 'all', ['all', 'ai', 'member'] as const, 'origin');
   const shown = filter === 'review' || filter === 'declined' ? 'pending' : 'live';
   const rows = (await query<{ id: string; recipe: Version; version: string; photos: string[]; [key: string]: unknown }>(`SELECT r.id, r.${shown} AS recipe, '${shown}' AS version,
-      r.pending_state, r.decision_note, r.live IS NOT NULL AS live, r.draft_key LIKE 'ai-%' AS ai, r.hidden_reason, r.submitted_at, r.published_at, u.username, u.name AS account_name,
+      r.pending_state, r.decision_note, r.live IS NOT NULL AS live, r.draft_key LIKE 'ai-%' AS ai, r.hidden_reason, r.submitted_at, r.published_at, coalesce(u.username, 'QuinTaste') AS username, coalesce(u.name, 'Wanted recipe from Cook searches') AS account_name,
       coalesce((SELECT json_agg(p.slot ORDER BY p.slot) FROM recipes.photo p WHERE p.recipe_id=r.id AND p.version='${shown}'), '[]') AS photos,
       (SELECT count(*)::int FROM ops.case_record c WHERE c.kind='report' AND c.status NOT IN ('resolved','dismissed') AND split_part(c.subject_id,'|',1)='recipe:member:'||r.id) AS reports
-    FROM recipes.recipe r JOIN public."user" u ON u.id=r.author_id
+    FROM recipes.recipe r LEFT JOIN public."user" u ON u.id=r.author_id
     WHERE ${where[filter]} AND ($1='' OR r.${shown}->>'title' ILIKE $1 OR u.username ILIKE $1)
       AND ${from === 'all' ? 'true' : from === 'ai' ? "r.draft_key LIKE 'ai-%'" : "r.draft_key NOT LIKE 'ai-%'"}
     ORDER BY reports DESC, ${filter === 'review' ? 'r.submitted_at ASC' : 'r.updated_at DESC'}, r.id LIMIT ${pageSize} OFFSET $2`, [term, skip])).rows;

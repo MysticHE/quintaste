@@ -125,7 +125,8 @@ recipes.get('/:id', async (req, res) => {
       (SELECT json_object_agg(p.slot, p.digest) FROM recipes.photo p WHERE p.recipe_id=mr.id AND p.version='live') AS photos
     FROM recipes.recipe mr WHERE mr.id=$1 AND ${live} ${viewer ? `AND ${notBlocked('mr.author_id', '$2')}` : ''}`, viewer ? [id, viewer] : [id])).rows[0];
   if (!row) throw new CommunityError(404, 'This recipe is unavailable.');
-  const r = row.live, own = viewer === row.author_id;
+  // Wanted recipes have no author, so a guest (no viewer) must not match an empty author.
+  const r = row.live, own = !!viewer && viewer === row.author_id;
   const [market, linked, author] = await Promise.all([allowed('market'), visibleListings(r.ingredients.map(i => i.listingId).filter(Boolean), row.author_id, viewer), visibleShop(row.author_id)]);
   const [items, shop] = market ? [linked, author] : [new Map(), null];
   const photos = row.photos ?? {};

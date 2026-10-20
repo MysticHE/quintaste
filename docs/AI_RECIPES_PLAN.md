@@ -14,7 +14,7 @@ Owner direction, 19 October 2026: members get recipes two new ways, both AI-powe
 | Nutrition | Server-side estimator (`server/nutrition/estimate.mjs`) from the reviewed table; unmatched lines go to a Gemini resolver that proposes a table key and gram weight | Every AI recipe gets figures and badges; numbers stay table-based and auditable |
 | Checks | Vegetarian only (meat or fish rejects the job), five-pungent and egg/dairy/honey tags from ingredients, 1–8 servings, 1–40 ingredients, 1–30 steps, step references resolve, confidence threshold, duplicate link reuse | Same bar as member recipes; nothing publishes that the app cannot render |
 | Credit | Video recipes name the creator and link the original; each step keeps a timestamp into the source ("watch at 1:23"); requested recipes list the pages used | Facts in our words plus credit and links; no re-hosting of video, frames or creator text |
-| Limits | Per member: 3 jobs a day free (Plus raises it); per job: 10-minute video, 20 MB inline; global: monthly spend ceiling in the gateway, plus a daily job cap in `ops.control` notice | Cost stays bounded at any user count |
+| Limits | Per member: 3 jobs a day while free; paid plans (owner, 21 Oct 2026: S$9.99/month for 5, higher tier for more; screens built, payments not connected, see `docs/COOK_DISCOVERY_PLAN.md` §6) replace it once payments open; per job: 10-minute video, 20 MB inline; global: monthly spend ceiling in the gateway, plus a daily job cap in `ops.control` notice | Cost stays bounded at any user count |
 
 Expected cost: about US$0.005 per minute of video with Flash, a few cents per requested recipe (search grounding plus page reading). 20,000 jobs a month is roughly US$100–300.
 

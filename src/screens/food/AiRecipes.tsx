@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { View } from "react-native";
-import { router } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import * as ImagePicker from "expo-image-picker";
 import { CookLayout } from "../../components/recipes/CookLayout";
 import { Button, Card, Field, T, common } from "../../components/ui";
@@ -9,6 +9,8 @@ import { useRemote, invalidate } from "../../hooks/useRemote";
 import { usePreferences } from "../../state/Preferences";
 import { ApiError } from "../../services/community-api";
 import { aiJobActive, aiRecipesStatus, myAiJobs, startAiJob, uploadAiVideo, type AiJob } from "../../services/ai-recipes";
+import { paymentsLive } from "../../config/ai-plans";
+import { SettingsRow } from "../../components/SettingsRow";
 
 const statusLabel: Record<AiJob["status"], string> = { queued: "Queued", working: "Reading", published: "Ready", review: "With staff", failed: "Not possible" };
 
@@ -17,7 +19,9 @@ export function AiRecipesScreen() {
   const member = useMember(), { theme, setNotice } = usePreferences();
   const status = useRemote("ai-recipes:status", aiRecipesStatus);
   const jobs = useRemote(member.member ? "ai-recipes:mine" : null, signal => myAiJobs(signal).then(r => r.items), 6000);
-  const [dish, setDish] = useState(""), [link, setLink] = useState(""), [busy, setBusy] = useState<"video" | "request" | "upload" | null>(null);
+  // Cook's "Get This Recipe With AI" opens this screen with the search filled in.
+  const { dish: asked } = useLocalSearchParams<{ dish?: string }>();
+  const [dish, setDish] = useState(() => typeof asked === "string" ? asked.slice(0, 300) : ""), [link, setLink] = useState(""), [busy, setBusy] = useState<"video" | "request" | "upload" | null>(null);
   const enabled = status.data?.enabled ?? false;
   const start = async (kind: "video" | "request", input: string) => {
     if (!ensureMember(member, "/cook/ai")) return;
@@ -49,6 +53,9 @@ export function AiRecipesScreen() {
   };
   return <CookLayout title="AI Recipes" backTo="/cook">
     {status.data && !enabled && <T variant="small" muted>AI recipes are off right now.</T>}
+    <Card style={{ paddingVertical: 0 }}><SettingsRow label="AI Recipes Plan" icon="sparkles-outline" last
+      value={paymentsLive ? undefined : "Free For Now"}
+      onPress={() => router.push("/cook/ai-plans" as never)} /></Card>
     <Card style={common.stack}>
       <T style={common.bold}>Get A Recipe</T>
       <Field label="Describe The Dish" value={dish} onChangeText={setDish} maxLength={300} placeholder="Vegan laksa for 2, no garlic" />
