@@ -213,8 +213,12 @@ def owner_check_requests(state):
     for k in [k for k, a in moderation.items() if a.get('mode') == 'vkcheck' and a.get('stage') == 'direct'
               and 'vkcheck:' + str(a.get('id')) not in state['deliveries']]:
         del moderation[k]
-    open_now = sum(1 for a in moderation.values() if a.get('mode') == 'vkcheck' and a.get('stage') == 'direct' and a['expires'] > time.time())
-    for row in veg_kitchen.owner_check_view(t.ROOT, limit=50):
+    rows = veg_kitchen.owner_check_view(t.ROOT, limit=10 ** 6)
+    waiting = {r['candidateId'] for r in rows}
+    # only questions about places still waiting count: one the bot has since decided itself (a veg name or Google listing) frees its slot
+    open_now = sum(1 for a in moderation.values() if a.get('mode') == 'vkcheck' and a.get('stage') == 'direct'
+                   and a['expires'] > time.time() and a.get('id') in waiting)
+    for row in rows[:50]:
         if open_now >= veg_kitchen.OWNER_CHECKS_OPEN:
             break
         key = 'vkcheck:' + row['candidateId']

@@ -996,18 +996,20 @@ class VegKitchen(unittest.TestCase):
                  ('Mostly vegetarian food', 'diet-proof-unsuitable'),
                  # 20 Oct 2026: a bare label or a quote with no diet claim is unclear, not a denial, so the owner is asked on Telegram
                  ('Vegan', 'owner-check'), ('Great noodles', 'owner-check')]
+        lead = vk_candidate(triage='lead', source='lead')  # not Google-typed and no veg word in its name: nothing decides it automatically
         for quote, cause in cases:
             with self.subTest(quote=quote):
                 home = 'Green Leaf Kitchen\n' + quote + '\n12 Bugis Street, Singapore 188652\nOpen daily 11am to 9pm'
-                record = vk_packet(self.root, finding=vk_finding(dietProof={'sourceUrl': VK_HOME, 'quote': quote}), home=home)['records'][0]
+                record = vk_packet(self.root, finding=vk_finding(dietProof={'sourceUrl': VK_HOME, 'quote': quote}), home=home, candidate=lead)['records'][0]
                 self.assertEqual(record['vegKitchen']['cause'], cause)
-        record = vk_packet(self.root, finding=vk_finding(dietProof={'sourceUrl': VK_HOME, 'quote': 'It is 100% vegetarian here'}))['records'][0]
+        record = vk_packet(self.root, finding=vk_finding(dietProof={'sourceUrl': VK_HOME, 'quote': 'It is 100% vegetarian here'}), candidate=lead)['records'][0]
         self.assertEqual(record['vegKitchen']['cause'], 'owner-check')  # not on the stored page: the owner is asked instead of a silent hold
         # Google and delivery-app pages describe a venue; they are never its own statement
         for url in ('https://food.grab.com/sg/en/restaurant/green-leaf-kitchen/SGDD1', VK_MAPS, 'https://www.foodpanda.sg/restaurant/abcd/green-leaf'):
             finding = vk_finding(dietProof={'sourceUrl': url, 'quote': 'We are a 100% vegetarian restaurant'},
                                  sources=[{'url': u, 'evidence': 'x'} for u in (VK_HOME, VK_MENU_URL, url)])
-            record = vk_packet(self.root, finding=finding, extra_pages=[(url, 'Green Leaf Kitchen We are a 100% vegetarian restaurant 188652')])['records'][0]
+            record = vk_packet(self.root, finding=finding, extra_pages=[(url, 'Green Leaf Kitchen We are a 100% vegetarian restaurant 188652')],
+                               candidate=lead)['records'][0]  # a Google-typed place would pass on its Google listing instead
             self.assertEqual(record['vegKitchen']['cause'], 'diet-proof-unsuitable')
         # a page that neither names the venue nor is on its website
         blog = 'https://blog.example.sg/best-vegetarian'
@@ -1165,10 +1167,11 @@ class VegKitchen(unittest.TestCase):
         import veg_kitchen as vk
         import veg_options as vo
         cid = 'vk-green-leaf-abc123'
-        w.write(self.root / 'state/veg-kitchen/queue.json', {'candidates': [vk_candidate()]})
+        lead = vk_candidate(triage='lead', source='lead')
+        w.write(self.root / 'state/veg-kitchen/queue.json', {'candidates': [lead]})
         w.write(self.root / 'state/veg-options/queue.json', {'candidates': []})
 
-        def round_(n, finding, decision, candidate=None):
+        def round_(n, finding, decision, candidate=lead):
             packet = vk_packet(self.root, finding=finding, candidate=candidate)
             vk.mark_dispatched(self.root, [cid], packet_path='x')
             w.write(self.root / 'outbox' / ('20261020T0%d0000Z.json' % n), {'checkedAt': w.now(), 'packets': [packet],
@@ -1204,6 +1207,70 @@ class VegKitchen(unittest.TestCase):
         self.assertEqual([(r['candidateId'], r['source']) for r in moved], [('vo-green-leaf-abc123', 'owner-mixed')])
         self.assertFalse(vk.add_to_mixed_kitchen(self.root, vk_candidate()))  # never twice
 
+    def test_a_veg_name_or_google_listing_decides_without_asking_the_owner(self):
+        # Owner, 20 Oct 2026: shop names say vegetarian or vegan, and Google lists them as vegetarian or vegan restaurants.
+        import veg_kitchen as vk
+        names = ('Kwan Im Vegetarian Restaurant', 'Loving Hut Vegan Cafe', '观音素食', 'Green Leaf Kitchen',
+                 'Vegetarian-friendly Cafe', 'Vegetarian & Non-Vegetarian Food', 'Vegetarian & Vegan Cafe', '纯素小厨')
+        self.assertEqual([vk.name_diet(n) for n in names], ['Vegetarian', 'Vegan', 'Vegetarian', None, None, None, 'Vegetarian', 'Vegan'])
+        unclear = vk_finding(decision='ask-owner', dietProof=None, reason='Menu is all mock meat; no statement in its own words')
+        record = vk_packet(self.root, finding=unclear)['records'][0]  # Google-typed (fully-veg-check)
+        self.assertEqual((record['status'], record['vegKitchen']['cause']), ('proposed', None))
+        place = vk.place_data(self.root, record, vk_evidence(), vk_live())
+        self.assertEqual((place['venueDiet'], place['dietProof']['quote']), ('Vegetarian', 'Google lists it as a vegetarian restaurant.'))
+        self.assertIsNone(vk.place_problem(place))  # no Maps page cited: the identity page, worded as Google's listing data
+        # Google's own type says vegan: Vegan Kitchen
+        vegan = vk_finding(decision='ask-owner', dietProof=None, sources=[{'url': u, 'evidence': 'x'} for u in (VK_HOME, VK_MENU_URL, VK_MAPS)])
+        record = vk_packet(self.root, finding=vegan, extra_pages=[(VK_MAPS, 'Green Leaf Kitchen Vegan restaurant 12 Bugis Street 188652')])['records'][0]
+        place = vk.place_data(self.root, record, vk_evidence(VK_HOME, VK_MENU_URL, VK_MAPS), vk_live())
+        self.assertEqual((place['venueDiet'], place['dietProof']['sourceUrl'], place['dietProof']['quote']),
+                         ('Vegan', VK_MAPS, 'Listed on Google Maps as a vegan restaurant.'))  # cites its own Maps listing
+        self.assertIsNone(vk.place_problem(place))
+        # 'vegan restaurant' further down a Maps page (nearby places) or on another place's listing is not this place's category
+        other = 'https://www.google.com/maps/search/?api=1&query=Somewhere&query_place_id=ChIJotherplace999'
+        for url, text in ((VK_MAPS, 'Green Leaf Kitchen Vegetarian restaurant 188652' + ' x' * 400 + ' Nearby: Leaf Vegan restaurant'),
+                          (other, 'Leaf Vegan restaurant')):
+            veg_capture(self.root, url, text)
+            self.assertEqual(vk.google_diet(self.root, vk_candidate(), {url}), 'Vegetarian')
+        # a quote that does not hold up falls back to the Google listing instead of a question
+        record = vk_packet(self.root, finding=vk_finding(dietProof={'sourceUrl': VK_HOME, 'quote': 'Great noodles'}))['records'][0]
+        self.assertIsNone(record['vegKitchen']['cause'])
+        # a quote that denies the diet still never passes
+        denied = vk_finding(dietProof={'sourceUrl': VK_HOME, 'quote': 'Sadly we are not vegetarian'})
+        home = 'Green Leaf Kitchen\nSadly we are not vegetarian\n12 Bugis Street, Singapore 188652'
+        self.assertEqual(vk_packet(self.root, finding=denied, home=home)['records'][0]['vegKitchen']['cause'], 'diet-proof-unsuitable')
+        # places already waiting for the owner are released when their name or Google listing decides them
+        rows = [vk_candidate(), vk_candidate(candidateId='vk-plain-lead-000002', googlePlaceId='ChIJplainlead0002', triage='lead', source='lead')]
+        w.write(self.root / 'state/veg-kitchen/queue.json', {'candidates': rows})
+        state = vk.progress(self.root)
+        for r in rows:
+            vk.set_status(vk.entry(state, r['candidateId']), 'held', 'owner-check', 'no statement')
+        vk.save_progress(self.root, state)
+        self.assertEqual([r['candidateId'] for r in vk.owner_check_view(self.root)], ['vk-plain-lead-000002'])
+        self.assertEqual(vk.release_named(self.root), 1)
+        row = vk.progress(self.root)['candidates']['vk-green-leaf-abc123']
+        self.assertEqual((row['status'], row['nameDiet']), ('pending', 'Vegetarian'))
+        self.assertEqual(vk.due(self.root, 1)[0]['candidateId'], 'vk-green-leaf-abc123')  # researched first
+
+    def test_a_changed_answer_never_resets_a_place_under_review_or_live(self):
+        import time
+        import veg_kitchen as vk
+        cid = 'vk-green-leaf-abc123'
+        w.write(self.root / 'state/veg-kitchen/queue.json', {'candidates': [vk_candidate()]})
+        state = vk.progress(self.root)
+        state['candidates'][cid] = {'status': 'in-review', 'ownerDiet': 'Vegetarian', 'updatedAt': w.now()}
+        vk.save_progress(self.root, state)
+        w.write(vk.owner_checks_file(self.root), {cid: {'choice': 'vegan', 'at': w.now(), 'approval': 'owner-telegram-' + 'b' * 24}})
+        self.assertEqual(vk.apply_owner_checks(self.root), 0)  # waits while the packet is under review
+        self.assertEqual(vk.progress(self.root)['candidates'][cid]['status'], 'in-review')
+        state = vk.progress(self.root)
+        state['candidates'][cid].update(status='published', publishedAt=w.now())
+        vk.save_progress(self.root, state)
+        self.assertEqual(vk.apply_owner_checks(self.root), 1)
+        row = vk.progress(self.root)['candidates'][cid]
+        self.assertEqual((row['status'], row['ownerDiet']), ('published', 'Vegan'))  # stays live, re-verified next round
+        self.assertTrue(vk.vo.recheck_due(row, time.time() + 1))
+
     def test_due_offers_pending_then_rechecks_with_the_published_statement_then_holds(self):
         import veg_kitchen as vk
         ids = ['vk-held-place-000001', 'vk-green-leaf-abc123', 'vk-fresh-place-00002', 'vk-gone-place-000003']
@@ -1235,7 +1302,7 @@ class VegKitchen(unittest.TestCase):
         outcomes = []
 
         def recheck(n, finding, decision):
-            packet = vk_packet(self.root, finding=finding, candidate=vk_candidate(recheck={'publishedItems': []}))
+            packet = vk_packet(self.root, finding=finding, candidate=vk_candidate(recheck={'publishedItems': []}, triage='lead', source='lead'))
             self.assertTrue(packet['records'][0]['vegKitchen']['recheck'])
             w.write(self.root / 'outbox' / ('20261020T0%d0000Z.json' % n), {'checkedAt': w.now(), 'packets': [packet],
                     'manager': {'decisions': [{'id': cid, 'decision': decision, 'reason': 'Reviewed'}]}})

@@ -20,6 +20,7 @@ import copy
 import datetime as dt
 import json
 import re
+import urllib.parse
 import sys
 import time
 
@@ -87,10 +88,13 @@ def save_progress(root, value):
 
 def due(root, limit, fresh_only=False, at=None, live=None):
     rows, state = vo.due(root, limit, fresh_only, at, live, task=this()), progress(root)['candidates']
-    # Places the owner confirmed on Telegram go first (20 Oct 2026), not behind thousands of never-tried ones
-    confirmed = [r for r in vo.due(root, 10 ** 6, True, at, live, task=this()) if (state.get(r['candidateId']) or {}).get('ownerDiet')]
-    first = {r['candidateId'] for r in confirmed}
-    rows = (confirmed + [r for r in rows if r['candidateId'] not in first])[:limit]
+    # Places the owner confirmed on Telegram, or released by their name or Google listing, go first (20 Oct 2026), not behind
+    # thousands of never-tried ones (pending and not handed to a worker within DISPATCH_HOLD, like vo.due)
+    at = at or time.time()
+    first = {cid for cid, r in state.items() if r.get('status') == 'pending' and (r.get('ownerDiet') or r.get('nameDiet'))
+             and r.get('dispatchedAt', 0) <= at - vo.DISPATCH_HOLD}
+    if first:
+        rows = ([r for r in queue(root) if r['candidateId'] in first] + [r for r in rows if r['candidateId'] not in first])[:limit]
     # A place the owner confirmed on Telegram carries that answer, so Explorer only gathers identity, menu and hours.
     return [dict(r, ownerDiet=state[r['candidateId']]['ownerDiet']) if (state.get(r['candidateId']) or {}).get('ownerDiet') else r for r in rows]
 
@@ -109,6 +113,7 @@ def mark_dispatched(root, ids, packet_path=None, cause=None):
 
 def settle(root, live=None):
     apply_owner_checks(root)
+    release_named(root)
     return vo.settle(root, live, task=this())
 
 
@@ -159,12 +164,15 @@ CONTRACT = (
     "ordering page, or its own Facebook, Instagram or TikTok page (owner, 20 Oct 2026). Copy that statement as dietProof {sourceUrl, quote}: quote at most 25 words, copied exactly from that page "
     "(one line of plain text), saying the whole venue is vegetarian or vegan, for example '100% vegetarian', 'all our dishes are vegan' or 'a fully "
     "plant-based kitchen'. A Google Maps category such as 'Vegetarian restaurant' or 'Vegan restaurant' helps confirm identity but is NOT diet "
-    "proof, and neither is a delivery app's category or description, a review, a directory, a blog or the venue's name alone. 'Vegetarian options', "
+    "proof, and neither is a delivery app's category or description, a review, a directory or a blog. Owner, 20 Oct 2026: the venue's OWN NAME "
+    "saying Vegetarian, Vegan, 素, 斋 or 纯素 (for example 'Kwan Im Vegetarian Restaurant'), or its Google Maps category 'Vegetarian restaurant' or "
+    "'Vegan restaurant', DOES decide it: return 'qualifies' with dietProof {sourceUrl: the page showing it, quote: the name or category exactly as "
+    "printed}, unless its menu shows real meat or seafood (then 'not-qualified', 'mixed-kitchen'). Never hold a place only for a missing statement. 'Vegetarian options', "
     "'vegetarian-friendly' or 'not vegetarian' are never proof. Dish names such as chicken, fish or char siew are fine when the venue states it is "
     "fully vegetarian or vegan (they are plant-based versions). "
     "(2) Any real meat or seafood on the venue's menu, or a mixed kitchen (vegetarian dishes among meat dishes), is decision 'not-qualified' with "
     "reason 'mixed-kitchen'. A permanently or temporarily closed venue is 'not-qualified' with reason 'closed' (also return closure). "
-    "When the place looks fully vegetarian or vegan (its name, Google category, delivery listing or menu points that way and you saw no meat or "
+    "When the place looks fully vegetarian or vegan (its Google category, delivery listing or menu points that way and you saw no meat or "
     "seafood) but you cannot find the venue's own words, decision is 'ask-owner': the owner confirms it on Telegram. Give the signals in reason "
     "and still return name, nameSourceUrl, postalSourceUrl, hours and the menu so it can go live once confirmed. A candidate with ownerDiet was "
     "already confirmed by the owner: no dietProof is needed, return 'qualifies' with the identity, menu and hours. Otherwise, when a page cannot be "
@@ -249,6 +257,11 @@ def check_candidate(root, candidate, finding, checked, extracted):
         block['recheck'] = True  # re-verifies a place already in Explore: settle and the publisher treat it as an update
     decision, closed = finding.get('decision'), kc.closure(root, finding, cited)
     owner = owner_confirmation(root, cid)
+    # Owner, 20 Oct 2026: a name that says vegetarian or vegan, or a Google listing as a vegetarian or vegan restaurant, decides it
+    # without asking; the owner is asked only when neither says so.
+    named = None if owner else auto_basis(root, candidate, finding, cited)
+    if decision == 'ask-owner' and named:
+        owner = named
     if decision == 'ask-owner' and owner:
         decision = 'qualifies'  # the owner already answered; the identity, menu and hours checks still run
     if decision == 'ask-owner' and not closed:
@@ -267,7 +280,13 @@ def check_candidate(root, candidate, finding, checked, extracted):
     problem = prove(root, candidate, finding, cited, checked, record, owner)
     quote = (finding.get('dietProof') or {}).get('quote') if isinstance(finding.get('dietProof'), dict) else None
     clean = kc.clean_quote(quote) or ''
-    if (problem in ('diet-proof-unsuitable', 'diet-proof-not-on-page', 'diet-page-unrelated') and not owner and not candidate.get('recheck')
+    if problem in PROOF_PROBLEMS and not owner and named and not kc.negated(clean) and not kc.PARTIAL.search(clean):
+        owner = named  # the quote did not hold up, but the name or the Google listing says it (owner, 20 Oct 2026)
+        problem = prove(root, candidate, finding, cited, checked, record, owner)
+    if problem in PROOF_PROBLEMS and owner and owner.get('kind') == 'name' and (google := google_diet(root, candidate, cited)):
+        owner = {'kind': 'google', 'diet': google, 'sourceUrl': own_listing(candidate, cited)}  # the confirmed name lacks the word
+        problem = prove(root, candidate, finding, cited, checked, record, owner)
+    if (problem in PROOF_PROBLEMS and (not owner or owner.get('kind') in ('name', 'google')) and not candidate.get('recheck')
             and not kc.negated(clean) and not kc.PARTIAL.search(clean) and not kc.blocked_host(__import__('urllib.parse').parse.urlsplit(
                 str((finding.get('dietProof') or {}).get('sourceUrl', ''))).hostname)):
         # The quote did not hold up, but Explorer believes the place is fully vegetarian: the owner decides (20 Oct 2026). A quote that
@@ -288,7 +307,20 @@ def prove(root, candidate, finding, cited, checked, record, owner=None):
         return cause
     name, branch, notes = found
     record['name'] = name
-    if owner:
+    if owner and owner.get('kind') == 'name':
+        diet = name_diet(name)  # the name as confirmed on the venue's identity page, not just the queue's hint
+        if not diet:
+            return 'diet-proof-unsuitable'
+        proof = {'sourceUrl': finding['nameSourceUrl'], 'quote': name}
+        proof_notes = ["Whole-venue diet taken from the venue's own name."]
+    elif owner and owner.get('kind') == 'google':
+        diet = owner['diet']
+        # cite the place's own Maps listing when Explorer stored it; otherwise the identity page, worded as Google's listing data
+        listing = owner.get('sourceUrl')
+        proof = {'sourceUrl': listing or finding['nameSourceUrl'],
+                 'quote': ('Listed on Google Maps as a ' if listing else 'Google lists it as a ') + diet.lower() + ' restaurant.'}
+        proof_notes = ['Whole-venue diet taken from its Google Maps category.']
+    elif owner:
         diet = owner['diet']
         proof = {'sourceUrl': finding['nameSourceUrl'], 'quote': 'Confirmed ' + ('fully vegan' if diet == 'Vegan' else 'fully vegetarian')
                  + ' by the QuinTaste team on ' + owner['at'][:10] + '.', 'confirmedBy': owner['approval']}
@@ -625,6 +657,68 @@ def _lock(handle):
     fcntl.flock(handle, fcntl.LOCK_EX)
 
 
+PROOF_PROBLEMS = ('diet-proof-unsuitable', 'diet-proof-not-on-page', 'diet-page-unrelated')
+
+
+def name_diet(name):
+    """'Vegan' or 'Vegetarian' when the venue's own name says so, else None (owner, 20 Oct 2026: shop names that say vegetarian or
+    vegan are classified without asking). A hedged name ('vegetarian-friendly', '& non-vegetarian') is not enough."""
+    text = kc.clean_quote(str(name or '')) or ''
+    if not kc.DIET_RE.search(text) or kc.PARTIAL.search(text) or kc.negated(text):
+        return None
+    # Vegan only when every diet word is a vegan one: 'Vegetarian & Vegan Cafe' serves vegetarian food too
+    return 'Vegan' if kc.VEGAN_RE.search(text) and not kc.DIET_RE.search(kc.VEGAN_RE.sub(' ', text)) else 'Vegetarian'
+
+
+def google_diet(root, candidate, cited=()):
+    """'Vegan' or 'Vegetarian' for a place queued because Google lists it as a vegetarian or vegan restaurant (triage fully-veg-check);
+    Vegan only when a stored Google Maps page of it says 'Vegan restaurant'."""
+    if candidate.get('triage') != 'fully-veg-check':
+        return None
+    url = own_listing(candidate, cited)
+    page = vc.capture(root, url) if url else None
+    # only the listing's own header (name, rating, price, category), never nearby places or search results further down
+    return 'Vegan' if page and re.search(r'\bvegan restaurant\b', page['text'][:600], re.I) else 'Vegetarian'
+
+
+def own_listing(candidate, cited):
+    """The cited Google Maps page of this very place (its stored mapsUrl or a link carrying its Google place ID), or None."""
+    for url in sorted(cited):
+        if ('google.' in str(urllib.parse.urlsplit(str(url)).hostname or '') and '/maps' in str(url)
+                and (url == candidate.get('mapsUrl') or str(candidate.get('googlePlaceId') or '-') in url)):
+            return url
+    return None
+
+
+def auto_basis(root, candidate, finding=None, cited=()):
+    """The automatic whole-venue basis: the venue's own name first, then its Google category; None means ask the owner."""
+    diet = name_diet((finding or {}).get('name') or candidate.get('nameHint'))
+    if diet:
+        return {'kind': 'name', 'diet': diet}
+    diet = google_diet(root, candidate, cited)
+    return {'kind': 'google', 'diet': diet, 'sourceUrl': own_listing(candidate, cited)} if diet else None
+
+
+def release_named(root):
+    """Places waiting for the owner whose own name says vegetarian or vegan are researched again instead (no question)."""
+    try:
+        rows = {r['candidateId']: r for r in queue(root)}
+    except (ValueError, OSError):
+        return 0  # no queue yet
+    state, released = progress(root), 0
+    for cid, row in state['candidates'].items():
+        if row.get('status') != 'held' or row.get('cause') != 'owner-check' or cid not in rows:
+            continue
+        basis = auto_basis(root, rows[cid])
+        if basis:
+            vo.set_status(row, 'pending')
+            row['nameDiet'] = basis['diet']
+            released += 1
+    if released:
+        save_progress(root, state)
+    return released
+
+
 def owner_checks_file(root):
     return folder(root) / 'owner-checks.json'
 
@@ -664,10 +758,16 @@ def apply_owner_checks(root):
             return 0
         state = progress(root)
         rows = {r['candidateId']: r for r in queue(root)}
+        applied = 0
         for cid, d in todo.items():
             row = state['candidates'].setdefault(cid, {'status': 'pending', 'attempts': 0})
             diet = OWNER_CHOICES.get(d['choice'])
-            if diet:
+            if row.get('status') in ('in-review', 'verified'):
+                continue  # a changed answer waits until the packet under review settles, so it never races that publication
+            if diet and row.get('status') == 'published':
+                # a live place keeps its listing; it is re-verified next round with the owner's answer as its whole-venue diet
+                row.update(ownerDiet=diet, ownerConfirmedAt=d['at'], ownerApproval=d['approval'], recheckAt=time.time())
+            elif diet:
                 vo.set_status(row, 'pending', at=d['at'])
                 row.update(ownerDiet=diet, ownerConfirmedAt=d['at'], ownerApproval=d['approval'])
             elif d['choice'] == 'mixed':
@@ -677,9 +777,10 @@ def apply_owner_checks(root):
             else:
                 vo.set_status(row, 'not-qualified', 'owner-skip', 'The owner chose Skip on Telegram.', at=d['at'])
             d['applied'] = now()
+            applied += 1
         save_progress(root, state)
         vo.write(path, data)
-        return len(todo)
+        return applied
 
 
 def add_to_mixed_kitchen(root, row):
@@ -702,6 +803,7 @@ def owner_check_view(root, limit=OWNER_CHECKS_OPEN):
     """Held places waiting for the owner's answer, oldest first, with what Explorer found."""
     state = progress(root)['candidates']
     rows = {r['candidateId']: r for r in queue(root)}
-    waiting = [(cid, r) for cid, r in state.items() if r.get('status') == 'held' and r.get('cause') == 'owner-check' and cid in rows]
+    waiting = [(cid, r) for cid, r in state.items() if r.get('status') == 'held' and r.get('cause') == 'owner-check' and cid in rows
+               and not auto_basis(root, rows[cid])]
     waiting.sort(key=lambda x: str(x[1].get('updatedAt')))
     return [dict(rows[cid], signals=r.get('reason') or '') for cid, r in waiting][:limit]

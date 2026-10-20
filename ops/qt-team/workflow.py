@@ -1552,6 +1552,13 @@ class Round:
                 self.failed('publisher')
                 self.publication = {'status': 'deferred-or-failed', 'productionWrites': 0, 'error': str(exc)}
                 self.error('publisher', str(exc))
+        try:
+            import cover_publish  # covers this round just published need no separate covers-only run afterwards
+            if cover_publish.due(ROOT):
+                from publisher import request
+                cover_publish.drop_live(ROOT, request('GET', '/control/state'))
+        except Exception as exc:
+            self.note('publisher', 'Cover request cleanup skipped: ' + type(exc).__name__)
 
     def report(self):
         import learning

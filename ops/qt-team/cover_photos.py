@@ -30,6 +30,10 @@ except ImportError:  # Windows development copies; the VPS always has fcntl
 
 ROOT = Path(os.environ.get('QT_TEAM_ROOT', '/opt/data/qt-team'))
 OWNER_APPROVAL = re.compile(r'^owner-telegram-[a-f0-9]{24}$')
+# Owner, 20 Oct 2026: "the image generated don't need my approval moving forward, just publish it live after [QT Manager's] approval".
+# Drawings carry this standing approval instead of a Telegram tap; QT Manager's visual review is still required before publication.
+STANDING_APPROVAL = 'owner-standing-illustrations-20261020'
+STANDING_BY = 'owner-standing-rule'
 SEARCH_EVERY = 86400
 OWNER_WAIT = 14 * 86400
 GUARD = 'http://127.0.0.1:3128'
@@ -98,7 +102,12 @@ def entries(root):
 
 
 def owner_entry(entry):
-    return OWNER_APPROVAL.match(entry.get('rightsApprovalId') or '') is not None
+    return OWNER_APPROVAL.match(entry.get('rightsApprovalId') or '') is not None or standing_entry(entry)
+
+
+def standing_entry(entry):
+    return (entry.get('basis') == 'illustration' and entry.get('rightsApprovalId') == STANDING_APPROVAL
+            and entry.get('approvedBy') == STANDING_BY)
 
 
 def proposal_hash(reference_sha, image_sha):
@@ -544,10 +553,11 @@ def illustrate(root, policy, live):
     refs(root).mkdir(parents=True, exist_ok=True)
     copy = refs(root) / (sha + '.jpg')
     if not copy.exists():
-        copy.write_bytes(file.read_bytes())  # the Telegram listener sends the owner the file it finds here
+        copy.write_bytes(file.read_bytes())  # the registry's copy of the drawing (approved by the owner's standing rule)
     dishes = [i['name'] for i in data['menu']['items'] if i.get('name')][:3]
     entry = {'venueId': target['venueId'], 'kind': 'place', 'name': target['name'], 'address': target['address'], 'sha256': sha,
-             'status': 'pending-owner', 'basis': 'illustration', 'requestHash': outcome['requestHash'], 'dishes': dishes,
+             'status': 'approved', 'rightsApprovalId': STANDING_APPROVAL, 'approvedBy': STANDING_BY, 'approvedAt': now(),
+             'basis': 'illustration', 'requestHash': outcome['requestHash'], 'dishes': dishes,
              'identityEvidence': "Illustration drawn from this place's published menu: " + '; '.join(dishes) + ' (' + data['menu']['sourceUrl'] + ')',
              'width': info.get('width'), 'height': info.get('height'), 'proposedAt': now(),
              'photo': {'author': ILLUSTRATION_CREDIT, 'sourceUrl': data['menu']['sourceUrl'], 'license': ILLUSTRATION_CREDIT,
@@ -556,4 +566,6 @@ def illustrate(root, policy, live):
         if not any(e['sha256'] == sha and e['venueId'] == entry['venueId'] for e in reg.data['entries']):
             reg.data['entries'].append(entry)
             reg.save()
-    return {'status': 'awaiting-owner-approval', 'venueId': target['venueId'], 'sha256': sha, 'kind': 'illustration'}
+    import cover_publish  # no owner tap needed (standing approval): QT Manager reviews it and it goes live
+    cover_publish.request(root, target['venueId'])
+    return {'status': 'approved-for-manager-review', 'venueId': target['venueId'], 'sha256': sha, 'kind': 'illustration'}

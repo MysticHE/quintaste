@@ -355,7 +355,11 @@ def batch_place_free(candidate, keys, google_ids, held):
 
 
 def owner_tapped(entry):
-    """The registry approval must match the Approve tap the Telegram listener recorded for that photo."""
+    """The registry approval must match the Approve tap the Telegram listener recorded for that photo. A drawing carries the
+    owner's standing approval instead (owner, 20 Oct 2026); QT Manager still reviews it."""
+    import cover_photos
+    if cover_photos.standing_entry(entry):
+        return True
     token = entry.get('rightsApprovalId', '').removeprefix('owner-telegram-')
     path = ROOT/'state/telegram/state.json'
     action = (json.loads(path.read_text()) if path.is_file() else {}).get('moderation', {}).get(token, {})

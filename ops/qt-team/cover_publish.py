@@ -89,6 +89,20 @@ def maybe_start(root=ROOT):
     return True
 
 
+def drop_live(root, live):
+    """Clear requests whose cover is no longer waiting (published, held or not publishable); counts no try. A round calls
+    this after its own publish step, so a cover it already published starts no extra run."""
+    import cover_photos
+    waiting = {row['venueId'] for row in cover_photos.publishable(root, live)}
+    with _locked(root):
+        path = requests_file(root)
+        data = _read(path)
+        kept = {v: r for v, r in data.items() if v in waiting}
+        if kept != data:
+            _write(path, kept)
+    return kept
+
+
 def settle(root, result, live):
     """Drop requests whose cover is live or has a Manager decision; count a try for the rest."""
     import cover_photos

@@ -430,6 +430,11 @@ class VegKitchenPublishing(unittest.TestCase):
         with patch.object(cover_publish.subprocess, 'Popen') as popen, patch.object(cover_publish, 'run_lock_free', return_value=True):
             self.assertTrue(cover_publish.maybe_start(self.root))
         self.assertTrue(popen.call_args.args[0][1].endswith('cover_publish.py'))
+        # a round that already published the cover clears the request without counting a try (no extra run)
+        with patch.object(cover_photos, 'publishable', return_value=[]):
+            self.assertEqual(cover_publish.drop_live(self.root, {'records': [], 'venues': []}), {})
+        self.assertEqual(cover_publish.due(self.root), {})
+        cover_publish.request(self.root, self.CID)
         live = {'records': [], 'venues': [], 'removals': [], 'reverts': []}
         waiting = [{'venueId': self.CID}]
         with patch.object(cover_photos, 'publishable', return_value=waiting):
@@ -477,21 +482,21 @@ class VegKitchenPublishing(unittest.TestCase):
             return {'status': 'generated-awaiting-visual-review', 'requestHash': 'c' * 64}
         with patch.object(venue_images, 'run_request', side_effect=fake_run):
             drawn = cover_photos.illustrate(self.root, {}, live)
-        self.assertEqual(drawn['status'], 'awaiting-owner-approval')
+        self.assertEqual(drawn['status'], 'approved-for-manager-review')  # owner, 20 Oct 2026: no Telegram approval for drawings
         [entry] = cover_photos.entries(self.root)
-        self.assertEqual((entry['basis'], entry['status'], entry['photo']['author']), ('illustration', 'pending-owner', 'QuinTaste illustration'))
+        self.assertEqual((entry['basis'], entry['status'], entry['photo']['author']), ('illustration', 'approved', 'QuinTaste illustration'))
+        self.assertEqual(entry['rightsApprovalId'], cover_photos.STANDING_APPROVAL)
+        import cover_publish
+        self.assertEqual(list(cover_publish.due(self.root)), [self.CID])  # published right away, not after the next round
         self.assertTrue((cover_photos.refs(self.root) / (sha + '.jpg')).is_file())  # what the Telegram listener sends the owner
         self.assertTrue(cover_photos.caption(entry).startswith('Veg Kitchen cover illustration'))
         self.assertIsNone(cover_photos.illustration_target(self.root, live))  # one open drawing per place
         with patch.object(venue_images, 'run_request', side_effect=AssertionError('no second drawing')):
             self.assertIsNone(cover_photos.illustrate(self.root, {}, live))
-        # the owner taps Approve: no enhancement step, the drawing itself is published with an illustration credit
-        with cover_photos.Registry(self.root) as reg:
-            reg.data['entries'][0].update(status='approved', rightsApprovalId='owner-telegram-' + 'a' * 24, approvedBy='telegram-owner', approvedAt=w.now())
-            reg.save()
+        # no enhancement step and no Telegram tap: the drawing itself goes to QT Manager with an illustration credit
         self.assertIsNone(cover_photos.enhance(self.root, {}))
         candidates, images, held = [], {}, []
-        with patch.object(p, 'ROOT', self.root), patch.object(p, 'owner_tapped', return_value=True):
+        with patch.object(p, 'ROOT', self.root):
             p.cover_candidates(live, {('place', record['id']): 'f' * 64}, {}, candidates, held, images)
         self.assertEqual(held, [])
         [item] = candidates
@@ -500,7 +505,8 @@ class VegKitchenPublishing(unittest.TestCase):
         self.assertIn('not a photo of the venue', photo['changes'])
         provenance = images[sha]['provenance']
         self.assertEqual((provenance['kind'], provenance['placeId'], provenance['requestHash']), ('place-dish-illustration', self.CID, 'c' * 64))
-        self.assertEqual(provenance['ownerApproval']['rightsApprovalId'], 'owner-telegram-' + 'a' * 24)
+        self.assertEqual((provenance['ownerApproval']['rightsApprovalId'], provenance['ownerApproval']['approvedBy']),
+                         (cover_photos.STANDING_APPROVAL, cover_photos.STANDING_BY))
         cited = {u for u in [*record['data']['sourceUrls'], record['data']['menu']['sourceUrl'], (record['data'].get('dietProof') or {}).get('sourceUrl')] if u}
         self.assertTrue(cited <= {s['url'] for s in item['sources']})  # every source the place cites travels with the cover
         # once QT Manager has reviewed the drawing and the place still has no photo, it was held: a new drawing may follow later

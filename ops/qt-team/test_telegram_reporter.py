@@ -350,24 +350,28 @@ class VegKitchenDigest(unittest.TestCase):
         import workflow as w
         rid = 'vk-green-leaf-abc123'
         row = {'candidateId': rid, 'googlePlaceId': 'ChIJvkgreenleaf123', 'nameHint': 'Green Leaf Kitchen', 'nameConfirmed': True, 'address': '12 BUGIS STREET SINGAPORE 188652',
-               'postalCode': '188652', 'point': {'latitude': 1.299, 'longitude': 103.855}, 'source': 'google-typed', 'triage': 'fully-veg-check',
+               'postalCode': '188652', 'point': {'latitude': 1.299, 'longitude': 103.855}, 'source': 'lead', 'triage': 'lead',
                'mapsUrl': 'https://www.google.com/maps/search/?api=1&query=Green&query_place_id=ChIJvkgreenleaf123'}
         w.write(self.root / 'state/veg-kitchen/queue.json', {'candidates': [row]})
         state = vk.progress(self.root)
         vk.set_status(vk.entry(state, rid), 'held', 'owner-check', 'Menu is all mock meat; Google says vegetarian')
         vk.save_progress(self.root, state)
-        # records of questions that were never sent (an earlier crash) must not block new ones
+        # records of questions that were never sent (an earlier crash), or about places the bot has since decided itself, must not block new ones
         self.state['moderation'] = {('%024x' % i): {'mode': 'vkcheck', 'kind': 'vkcheck', 'id': 'vk-other-%d' % i, 'name': 'x', 'stage': 'direct',
-                                    'expires': time.time() + 86400} for i in range(5)}
+                                    'expires': time.time() + 86400} for i in range(7)}
+        # five questions sent earlier about places the bot has since decided itself (a full set of open slots on the old count),
+        # and two never sent at all
+        sent_earlier = {'vkcheck:vk-other-%d' % i: {'status': 'sent'} for i in range(5)}
+        self.state['deliveries'].update(sent_earlier)
         with patch.object(vk, 'queue', return_value=[row]):
             c.owner_check_requests(self.state)
             c.owner_check_requests(self.state)
-        [(key, item)] = self.state['deliveries'].items()
+        [(key, item)] = [(k, v) for k, v in self.state['deliveries'].items() if k not in sent_earlier]
         self.assertEqual(key, 'vkcheck:' + rid)
         self.assertTrue(item['text'].startswith('Is this place fully vegetarian?' + chr(10) + 'Green Leaf Kitchen'))
         self.assertIn('Menu is all mock meat', item['text'])
         labels = [b['text'] for line in item['buttons'] for b in line]
-        self.assertEqual([a['id'] for a in self.state['moderation'].values()], [rid])  # the unsent records are gone
+        self.assertEqual([a['id'] for a in self.state['moderation'].values()], ['vk-other-%d' % i for i in range(5)] + [rid])  # unsent ones gone
         self.assertEqual(labels, ['Veg Kitchen', 'Vegan Kitchen', 'Mixed Kitchen', 'Skip', 'Open on Google Maps'])
         veg = item['buttons'][0][0]['callback_data']
         c.callback(self.state, veg, 7)

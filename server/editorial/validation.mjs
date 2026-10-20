@@ -31,8 +31,10 @@ export function ownerIllustration(p) {
   return Boolean(keys(p, ['kind', 'placeId', 'requestHash', 'provider', 'model', 'prompt', 'ownerApproval']) && p.kind === 'place-dish-illustration'
     && typeof p.placeId === 'string' && /^v[ko]-[a-z0-9-]{3,150}$/.test(p.placeId) && validHash(p.requestHash) && text(p.prompt, 4000)
     && (p.provider === undefined || p.provider === null || text(p.provider, 80)) && (p.model === undefined || p.model === null || text(p.model, 120))
-    && keys(a, ['rightsApprovalId', 'approvedBy', 'approvedAt']) && /^owner-telegram-[a-f0-9]{24}$/.test(a.rightsApprovalId)
-    && a.approvedBy === 'telegram-owner' && date(a.approvedAt));
+    && keys(a, ['rightsApprovalId', 'approvedBy', 'approvedAt']) && date(a.approvedAt)
+    // the owner's Telegram tap, or the owner's standing approval of drawings (20 Oct 2026); QT Manager's review is required either way
+    && ((/^owner-telegram-[a-f0-9]{24}$/.test(a.rightsApprovalId) && a.approvedBy === 'telegram-owner')
+      || (a.rightsApprovalId === 'owner-standing-illustrations-20261020' && a.approvedBy === 'owner-standing-rule')));
 }
 export function validateSources(sources) {
   requireValue(Array.isArray(sources) && sources.length > 0 && sources.length <= 12, 'Source evidence is required');
