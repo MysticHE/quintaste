@@ -57,7 +57,7 @@ export function RecipeDetailScreen() {
     <IngredientList ingredients={recipe.ingredients} scale={servings / recipe.servings} flagged={flagged} />
     <SectionTitle title="Steps" />
     {recipe.steps.map((step, index) => <View key={index} style={{ gap: 4, paddingVertical: 6 }}><T style={common.bold}>{/^step \d+$/i.test(step.title.trim()) ? "Step " + (index + 1) : index + 1 + ". " + step.title}</T><T muted>{step.instruction}</T>
-      {!!step.photo && <StepPhoto path={step.photo} kind={step.image} label={"Step " + (index + 1) + ": " + step.title} />}
+      {!!step.photo && <StepPhoto path={step.photo} label={"Step " + (index + 1) + ": " + step.title} />}
     </View>)}
     <NutritionFacts recipe={recipe} />
     {recipe.adaptationId && <Button label="No-Allium Version" variant="link" onPress={() => router.push(("/cook/recipe/" + recipe.adaptationId) as never)} />}

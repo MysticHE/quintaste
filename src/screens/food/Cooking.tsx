@@ -89,7 +89,7 @@ export function CookingScreen() {
     {gathering ? <><T variant="title">Gather your ingredients</T>{servingsControl}{gatherList}</> : step && <>
       <T variant="title">{step.title}</T><T style={{ fontSize: 20 * textMultiplier, lineHeight: 29 * textMultiplier }}>{step.instruction}</T>
       {privateDraft?.steps[session.step]?.photo ? <Image source={{ uri: privateDraft.steps[session.step].photo }} contentFit="contain" style={{ width: "100%", height: 160 }} accessibilityLabel={"Step " + (session.step + 1) + " photo"} />
-        : step.photo ? <StepPhoto path={step.photo} kind={step.image} height={220} label={"Step " + (session.step + 1) + " photo"} /> : null}
+        : step.photo ? <StepPhoto path={step.photo} height={220} label={"Step " + (session.step + 1) + " photo"} /> : null}
       <StepChecklist ingredients={recipe.ingredients} ids={step.ingredientIds} step={session.step} scale={scale} used={session.used ?? []} disabled={!readable} onToggle={key => toggle("used", key)} />
       {step.timer && <Button label={"Start " + Math.round(step.timer.seconds / 60) + " min timer"} icon="timer-outline" variant="secondary" disabled={!readable}
         onPress={() => void startTimer(id, step.timer!.label, step.timer!.seconds).then(okay => { if (okay) setOffer(true); })} />}
