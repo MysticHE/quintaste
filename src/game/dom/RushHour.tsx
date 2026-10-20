@@ -56,7 +56,8 @@ export default function RushHour(props: Props) {
   if (!runRef.current) runRef.current = newRun();
   const [, setVersion] = useState(0);
   const bump = useCallback(() => setVersion(v => v + 1), []);
-  const reduced = !!props.reduceMotion || settings.reduceMotion || (typeof matchMedia !== "undefined" && matchMedia("(prefers-reduced-motion: reduce)").matches);
+  // Already resolved by the app (Play your way over the app and phone setting), so a WebView's own media query never overrides it.
+  const reduced = !!props.reduceMotion;
   const fx = useFeedback(settings, props.onHaptic);
   const input = useRef<PlayfieldInput>({ onStation: noop, onGuest: noop, onServeDrag: noop, onPlateDrag: noop });
   const { rootRef, stageRef, sceneRef, L, reboot } = usePlayfield(runRef, runRef.current.level.seats, runRef.current.level.stations, art,

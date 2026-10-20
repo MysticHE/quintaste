@@ -1,7 +1,7 @@
 import { Redirect, router, useIsFocused } from "expo-router";
 import { useEffect, useMemo, useState } from "react";
 import { Alert, BackHandler, InteractionManager, Platform, StyleSheet, View, type LayoutChangeEvent } from "react-native";
-import Animated from "react-native-reanimated";
+import Animated, { useSharedValue } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { DestinationScreen } from "../../components/navigation/DestinationScreen";
 import { gameEnabled } from "../../config/game";
@@ -12,12 +12,15 @@ import { useGame } from "../../hooks/useGame";
 import { useLotus } from "../../hooks/useLotus";
 import { useGameSwitch } from "../../state/game-sync";
 import { usePreferences } from "../../state/Preferences";
-import { Scene, sceneSkin, wideSkinKey, type HotId } from "./home/Scene";
+import { REVEAL_ORDER, Scene, sceneSkin, wideSkinKey, type HotId } from "./home/Scene";
+import { startReveal } from "./home/SceneFx";
 import { stageFit, type SlotId } from "./home/sceneLayout";
 import { Stage } from "./home/Stage";
 import { useEnter } from "./home/Ambient";
 import { CreditsPill, DecorTray, Pill, PlayButton } from "./home/Controls";
 import { GameLobby } from "./Lobby";
+import { GamePreferences } from "./GamePreferences";
+import { useCafeFeedback } from "../../game/cafe-feedback";
 import { LevelsSheet } from "./home/LevelsSheet";
 import { BooksSheet } from "./home/BooksSheet";
 import { CompanionSheet } from "./home/CompanionSheet";
@@ -27,6 +30,8 @@ import { PlaySettingsSheet } from "./home/PlaySettingsSheet";
 import { FindReveal, type Find } from "./home/FindReveal";
 import { Art } from "./home/bits";
 
+/** Stored in `seen` once the chalkboard menu has been opened, so its steady "something new" sparkle stops. */
+const MENU_SEEN = "hot:menu";
 type SheetId = "levels" | "books" | "regulars" | "companion" | "cafe" | "menu" | "avatar" | "lotus" | "window" | "settings" | null;
 
 /** Unlocks earned by clears and not yet revealed, oldest first. */
@@ -41,18 +46,18 @@ function pendingFinds(g: GameProgress): Find[] {
 export function GameScreen() {
   const on = useGameSwitch();
   if (!gameEnabled || !on) return <DestinationScreen kind="game" title="Rush Hour is on its way" message="A quick cooking game: plate hawker favourites, read the labels and keep every guest's food rules." action="Cook Something" href="/cook" />;
-  return <GameLobby />;
+  return <GamePreferences><GameLobby /></GamePreferences>;
 }
 /** The café, full screen at /game/cafe: no app navigation, a Back button returns to the Game tab. */
 export function GameCafeScreen() {
   const on = useGameSwitch();
   if (!gameEnabled || !on) return <Redirect href="/game" />;
-  return <CafeHome />;
+  return <GamePreferences><CafeHome /></GamePreferences>;
 }
 const leave = () => { if (router.canGoBack()) router.back(); else router.replace("/game"); };
 
 function CafeHome() {
-  const { theme } = usePreferences();
+  const { theme, reducedMotion } = usePreferences();
   const insets = useSafeAreaInsets();
   const { game, set, save, buy } = useGame();
   const [size, setSize] = useState({ w: 0, h: 0 });
@@ -66,8 +71,19 @@ function CafeHome() {
   const fit = stageFit(size.w, size.h, deco ? trayH : bottom + 56 + 20, !!deco, insets.top + 90, !!wideSkinKey(sceneSkin(game)));
   const hudIn = useEnter(180, -14), barIn = useEnter(300, 18);
 
-  const open = (sh: SheetId) => { if (!game.introSeen) set(g => ({ ...g, introSeen: true })); setSheet(sh); };
-  const hot = (id: HotId) => open(({ books: "books", menu: "menu", window: "window", wardrobe: "avatar", stove: "levels", avatar: "avatar", pet: "companion" } as const)[id]);
+  const { sound, buzz } = useCafeFeedback(game.settings, focused);
+  const reveal = useSharedValue(0);
+  // "New" only right after Level 5 unlocks it: players already past Level 6 have used the menu before this marker existed.
+  const menuNew = cleared(game, 5) && !cleared(game, 6) && !game.seen.includes(MENU_SEEN);
+  const open = (sh: SheetId) => {
+    if (!game.introSeen || (sh === "menu" && menuNew)) set(g => ({ ...g, introSeen: true, seen: sh === "menu" && !g.seen.includes(MENU_SEEN) ? [...g.seen, MENU_SEEN] : g.seen }));
+    setSheet(sh);
+  };
+  // One way to each place: the mirror is the wardrobe and the stove the level list; tapping Lian only makes Lian cheer.
+  const hot = (id: HotId) => {
+    sound(id === "pet" || id === "avatar" ? "boing" : "tap"); buzz("tap");
+    if (id !== "avatar") open(({ books: "books", menu: "menu", window: "window", wardrobe: "avatar", stove: "levels", pet: "companion" } as const)[id]);
+  };
   // Navigate once the sheet's Modal has gone: on iOS a push during a Modal dismissal can be dropped.
   const play = (level: number, special?: string) => { setSheet(null);
     InteractionManager.runAfterInteractions(() => router.push({ pathname: "/game/play", params: { level: String(level), run: String(Date.now()), ...(special ? { special } : {}) } })); };
@@ -90,10 +106,12 @@ function CafeHome() {
   });
   const startDeco = () => { if (!game.introSeen) set(g => ({ ...g, introSeen: true })); setDeco({ draft: { ...game.decor }, history: [], slot: null }); };
   return <View style={[s.root, { backgroundColor: theme.mediaSurface }]} onLayout={(e: LayoutChangeEvent) => setSize({ w: e.nativeEvent.layout.width, h: e.nativeEvent.layout.height })}>
-    {size.w > 0 && <Stage skin={sceneSkin(game)} W={size.w} H={size.h} fit={fit} insetTop={insets.top}>
+    {/* A tap on empty space lights every tappable thing, one at a time, so a lost player finds them all. Touch handling only (not a focusable button): hotspots claim their own taps first, and on web a focused full-screen wrapper would scroll the room. */}
+    {size.w > 0 && <View style={StyleSheet.absoluteFill} onStartShouldSetResponder={() => !deco} onResponderRelease={() => startReveal(reveal, REVEAL_ORDER.length, reducedMotion)}>
+    <Stage skin={sceneSkin(game)} W={size.w} H={size.h} fit={fit} insetTop={insets.top}>
       <Scene game={game} width={fit.width} decor={deco?.draft ?? game.decor} decorating={!!deco} selectedSlot={deco?.slot ?? null}
-        hint={!game.introSeen} backdrop={!(wideSkinKey(sceneSkin(game)) && fit.width < size.w)} onHot={hot} onSlot={id => setDeco(d => d && { ...d, slot: id })} />
-    </Stage>}
+        hint={!game.introSeen} fresh={menuNew ? "menu" : null} backdrop={!(wideSkinKey(sceneSkin(game)) && fit.width < size.w)} onHot={hot} onSlot={id => setDeco(d => d && { ...d, slot: id })} reveal={reveal} />
+    </Stage></View>}
     <Animated.View style={[s.hud, { top: insets.top + 6, left: insets.left + 10, right: insets.right + 10 }, hudIn]}>
       {deco ? <DecoHud deco={deco} game={game} setDeco={setDeco} save={save} /> : <>
         <Pill icon="chevron-back" label="Back to Game" onPress={leave} />
@@ -105,7 +123,8 @@ function CafeHome() {
       </>}
     </Animated.View>
     {!deco && size.w > 0 && <Animated.View pointerEvents="box-none" style={[s.bar, { bottom }, barIn]}>
-      <PlayButton title={allDone ? "Play again" : "Play"} sub={allDone ? "Pick any level" : "Level " + n + " · " + lv.name} onPlay={() => open("levels")} />
+      <PlayButton title={allDone ? "Play again" : "Play"} sub={allDone ? "Pick any level" : "Level " + n + " · " + lv.name}
+        onPlay={() => { buzz("tap"); if (allDone) open("levels"); else play(n); }} />
     </Animated.View>}
     {deco && <View style={{ position: "absolute", left: 0, right: 0, bottom: 0, height: trayH }}>
       <DecorTray game={game} draft={deco.draft} slot={deco.slot} height={trayH} onPut={id => setDeco(d => putDecor(d, id))} /></View>}

@@ -49,7 +49,7 @@ US$9.99 Golden Lotus is a direct purchase of a known item (no chance), so it als
 | # | Moment | What the member sees | Why it pulls |
 |---|---|---|---|
 | 1 | Sign in | Avatar is **Lian**, the QuinTaste mascot (a lotus-bud spirit in a peach apron), everywhere a profile picture appears | Friendly default; nobody starts faceless |
-| 2 | Me → avatar card | Beside Lian, a **"Your own avatar"** slot sealed by an animated **pink lotus bud**: slow breathing glow, swaying petals, drifting sparkles, small lock badge, silhouettes of the Adult and Mini forms behind frosted glass | Curiosity; the slot is clearly *theirs* |
+| 2 | Me → avatar card | Beside Lian, a **"Your own avatar"** slot sealed by an animated **pink lotus bud**: pulsing glow, floating and swaying petals, sparkles and rising sparks, small lock badge (the Adult and Mini silhouettes behind frosted glass were removed on 20 Oct 2026: on phones they read as a grey backdrop). On the Lotus screen the motion follows the game's Play your way setting | Curiosity; the slot is clearly *theirs* |
 | 3 | First bloom (free, once) | "Tap to bloom your lotus." The bud spins, cycles pink → purple → blue → gold and slows, then **bursts open** into the result with petals and light rays. Odds sit on the same screen. | The thrill of the roll, at no cost |
 | 4 | Lock layer shows their lotus | The seal now holds *their* bloom: "Your **Golden Lotus** is waiting", plus the perks that tier unlocks (accessories, pet) shown as frosted previews | Ownership: the reward already feels theirs (endowment) |
 | 5 | Grow it or bloom it now | One screen with equal paths:

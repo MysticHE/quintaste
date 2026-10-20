@@ -37,8 +37,8 @@ export const slotBox = (id: SlotId, skin: string): Box => {
 /** Where steam leaves the wok on the stove. */
 export const WOK = { x: 73, y: 93 };
 
-/** Beacon points (scene units) marking what can be tapped; the companion's and the menu's are computed. */
-export const BEACONS: Record<"books" | "wardrobe" | "stove" | "avatar", [number, number]> = { books: [9, 44], wardrobe: [92, 46], stove: [83, 91], avatar: [57, 72] };
+/** Where the marker sparkle twinkles on backdrop objects (scene units); the chalkboard's follows its per-skin box. */
+export const SPARKLE_AT: Record<"books" | "wardrobe", [number, number]> = { books: [9, 44], wardrobe: [92, 46] };
 
 /**
  * Fits the 2:3 portrait room to the screen without ever cropping its sides. With a wide skin the room fits the height

@@ -124,6 +124,8 @@ export function themeFor(palette: Palette, dark: boolean) {
       frost: dark ? "rgba(48,39,52,0.55)" : "rgba(255,255,255,0.55)" },
     // Mochi Chef mascot colours: cheek blush, and the brown of its face for the "Quin" of the wordmark. The same in every palette.
     mascot: { blush: "#f4907a", ink: "#52271a" },
+    // Game scene effects (falling vine leaves, the companion's heart, window sunlight): part of the painted café, the same in every palette.
+    scene: { leaf: "#86b94f", leafDeep: "#5f8f3a", heart: "#ff7aa2", sun: "rgba(255,222,150,0.9)", sunSoft: "rgba(255,222,150,0)" },
     mediaDivider: "rgba(255,255,255,0.28)",
     photoBlend: ["rgba(23,29,25,0)", "rgba(23,29,25,0.58)", "rgba(23,29,25,0.76)"] as const,
     navigation: {

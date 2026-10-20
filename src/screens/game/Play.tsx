@@ -10,13 +10,13 @@ import { PETS, wearArt } from "../../game/content/cosmetics";
 import { LEVELS, levelDishes } from "../../game/content/levels";
 import { GAME_PAGE_PATH, gameArtUris, gameHost } from "../../game/artUris";
 import { highestCleared, levelOpen } from "../../game/progress";
-import { textScale } from "../../game/settings";
 import { specialFor } from "../../game/special";
 import type { BridgeKind, FinishPayload, RunInfo } from "../../game/dom/RushHour";
 import RushHour from "./RushHourHost";
 import type { HapticKind } from "../../game/dom/useFeedback";
 import { useGame, type RunReward, type StartedRun } from "../../hooks/useGame";
 import { useGameSwitch } from "../../state/game-sync";
+import { GamePreferences } from "./GamePreferences";
 import { useFood } from "../../state/Food";
 import { usePreferences } from "../../state/Preferences";
 import { PlaySettingsSheet } from "./home/PlaySettingsSheet";
@@ -31,6 +31,10 @@ const HAPTICS: Record<HapticKind, () => Promise<void>> = {
  * services open an attempt on the account when they start and settle by server replay when they finish.
  */
 export function GamePlayScreen() {
+  return <GamePreferences><PlayService /></GamePreferences>;
+}
+
+function PlayService() {
   const params = useLocalSearchParams<{ level?: string; run?: string; special?: string }>();
   const { game, set, startRun, finish } = useGame();
   const on = useGameSwitch();
@@ -88,7 +92,7 @@ export function GamePlayScreen() {
     <Stack.Screen options={{ gestureEnabled: false }} />
     <StatusBar hidden />
     <RushHour key={(params.run ?? "first") + (day ?? "")} level={level} special={special?.level} pet={game.pet} petArt={petArt} chefArt="avatar-lian" art={art}
-      signature={game.signature} reduceMotion={reducedMotion} settings={game.settings} textScale={textScale(game.settings, textMultiplier)} bridges={bridges}
+      signature={game.signature} reduceMotion={reducedMotion} settings={game.settings} textScale={textMultiplier} bridges={bridges}
       best={special ? null : game.best[String(level)] ?? null}
       onStart={onStart} onFinish={onFinish} onExit={onExit} onHaptic={onHaptic} onBridge={onBridge} onSettings={onSettings}
       dom={{ style: { flex: 1 }, useExpoDOMWebView: false, ...(host ? { overrideUri: host + GAME_PAGE_PATH } : {}), injectedJavaScriptBeforeContentLoaded: "true;", scrollEnabled: false, bounces: false, overScrollMode: "never", mediaPlaybackRequiresUserAction: true, textZoom: 100 }} />

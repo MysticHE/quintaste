@@ -2,14 +2,14 @@ import type { ReactNode } from "react";
 import { View } from "react-native";
 import { Row } from "../../../components/PreferenceControls";
 import { T } from "../../../components/ui";
-import type { PlaySettings } from "../../../game/settings";
+import { gameStill, type PlaySettings } from "../../../game/settings";
 import { usePreferences } from "../../../state/Preferences";
 import { GameSheet, Section } from "./GameSheet";
 import { Seg } from "./bits";
 
 /** Play your way (GAME_PLAN §12.2): one sheet from the café and from the game's pause menu. Changes apply at once. */
 export function PlaySettingsSheet({ settings, onChange, onClose }: { settings: PlaySettings; onChange(next: PlaySettings): void; onClose(): void }) {
-  const { reducedMotion: appStill } = usePreferences();
+  const { appReducedMotion } = usePreferences();
   const put = <K extends keyof PlaySettings>(key: K, value: PlaySettings[K]) => onChange({ ...settings, [key]: value });
   return <GameSheet title="Play your way" onClose={onClose}>
     <Section title="Sound">
@@ -28,7 +28,7 @@ export function PlaySettingsSheet({ settings, onChange, onClose }: { settings: P
     <Section title="Display">
       <Choice label="Text size"><Seg label="Text size" value={settings.text} onChange={v => put("text", v)}
         options={[["app", "App"], ["standard", "Standard"], ["large", "Large"], ["largest", "Largest"]]} /></Choice>
-      <Row label="Reduce motion" value={appStill || settings.reduceMotion} disabled={appStill} onToggle={v => put("reduceMotion", v)} />
+      <Row label="Reduce motion" value={gameStill(settings, appReducedMotion)} onToggle={v => put("motion", v ? "reduced" : "full")} />
     </Section>
   </GameSheet>;
 }

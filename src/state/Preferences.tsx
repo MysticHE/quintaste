@@ -4,6 +4,7 @@ import {
   useCallback,
   useContext,
   useEffect,
+  useMemo,
   useRef,
   useState,
   type PropsWithChildren,
@@ -172,6 +173,8 @@ function usePreferenceState() {
     setPreview,
     theme: themeFor(draft.palette, dark),
     reducedMotion: draft.reduceMotion || systemMotion,
+    /** The app and phone's own answer; a game screen may override `reducedMotion` (PreferencesOverride). */
+    appReducedMotion: draft.reduceMotion || systemMotion,
     textMultiplier:
       draft.textSize === "larger" ? 1.3 : draft.textSize === "large" ? 1.15 : 1,
     dirty: JSON.stringify(draft) !== JSON.stringify(state.saved),
@@ -184,6 +187,15 @@ export function PreferencesProvider({ children }: PropsWithChildren) {
   return (
     <Context.Provider value={usePreferenceState()}>{children}</Context.Provider>
   );
+}
+/**
+ * Lets one part of the app (the game, whose Play your way settings win inside it) change motion and text size for
+ * everything below it. Every other preference is inherited.
+ */
+export function PreferencesOverride({ reducedMotion, textMultiplier, children }: PropsWithChildren<{ reducedMotion: boolean; textMultiplier: number }>) {
+  const parent = usePreferences();
+  const value = useMemo(() => ({ ...parent, reducedMotion, textMultiplier }), [parent, reducedMotion, textMultiplier]);
+  return <Context.Provider value={value}>{children}</Context.Provider>;
 }
 export function usePreferences() {
   const value = useContext(Context);
