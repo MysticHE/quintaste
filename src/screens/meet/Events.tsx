@@ -11,8 +11,9 @@ import { formatSgShort, sgDateTile } from "../../utils/sg-datetime";
 import type { Gathering } from "../../types/community";
 import { dietSummary } from "../../config/preferences";
 import { ExternalEvents } from "../../components/social/ExternalEvents";
-export const eventTypes = ["Local events", "Gatherings", "Classes", "Home dining"] as const;
-export const eventTypeOptions = [{ id: "Local events", label: "Local events", icon: "megaphone-outline" }, { id: "Gatherings", label: "Gatherings", icon: "people-outline" },
+export const eventTypes = ["Tables", "Gatherings", "Local events", "Classes", "Home dining"] as const;
+export const eventTypeOptions = [{ id: "Tables", label: "Tables", icon: "restaurant-outline" }, { id: "Gatherings", label: "Gatherings", icon: "people-outline" },
+  { id: "Local events", label: "Local events", icon: "megaphone-outline" },
   { id: "Classes", label: "Classes", icon: "school-outline" }, { id: "Home dining", label: "Home dining", icon: "home-outline" }] as const;
 export function GatheringRow({ g, status }: { g: Gathering; status?: string }) {
   const tile = sgDateTile(g.starts ?? ""), going = g.going + " of " + g.seats + " going";
@@ -23,7 +24,7 @@ export function GatheringRow({ g, status }: { g: Gathering; status?: string }) {
     label={[g.title, badge, formatSgShort(g.starts ?? ""), g.area, going, dietSummary(g.diets), g.alcoholFree ? "Alcohol-free" : ""].filter(Boolean).join(", ")} onPress={() => openSocial("/gathering/" + g.id)} />;
 }
 /** Posted gatherings from everyone; classes and home dining open once hosts are approved. */
-export function Events({ query, type }: { query: string; type: typeof eventTypes[number] }) {
+export function Events({ query, type }: { query: string; type: Exclude<typeof eventTypes[number], "Tables"> }) {
   const search = useDebounced(query), remote = useRemote(type === "Gatherings" ? "/api/social/gatherings?q=" + search.trim() : null, signal => gatherings(search, signal));
   if (type === "Local events") return <ExternalEvents query={query} />;
   if (type !== "Gatherings") {

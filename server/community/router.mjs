@@ -75,9 +75,12 @@ community.post('/reports', async (req, res) => {
 async function leaveSharedGroups(db, me, other) {
   const left = (await db.query(`UPDATE social.member m SET status='left', confirmed=false, updated_at=now() WHERE m.user_id=$1 AND m.status IN ('invited','accepted')
     AND EXISTS (SELECT 1 FROM social.member o WHERE o.group_id=m.group_id AND o.user_id=$2) RETURNING m.group_id`, [me, other])).rows;
+  // Loaded here, not at the top, because Social's group helpers import this router's block checks.
+  const { afterLeave } = left.length ? await import('../social/group-core.mjs') : {};
   for (const row of left) {
     await db.query('UPDATE social.member SET confirmed=false WHERE group_id=$1', [row.group_id]);
     await db.query("INSERT INTO social.message(group_id,kind,body) VALUES($1,'event','A member left')", [row.group_id]);
+    await afterLeave(db, row.group_id, me);
   }
 }
 community.use(errors);

@@ -7,8 +7,12 @@ import { SegmentedTabs } from "../../components/SegmentedTabs";
 import { ListGroup, ListItem, RowIcon, StatusPill } from "../../components/GroupedList";
 import { RemoteStatus } from "../../components/CommunityGate";
 import { AreaMap, areaMapCredit } from "../../components/areas/AreaMap";
+import { Screen } from "../../components/Screen";
+import { MemberGate } from "../../components/social/MeetUI";
 import { useRemote } from "../../hooks/useRemote";
 import { areaSnapshot, myAreas } from "../../services/areas-api";
+import { tables, tablesKey } from "../../services/social-api";
+import { formatSgShort } from "../../utils/sg-datetime";
 import { planningAreaByCode } from "../../utils/planning-area";
 import type { AreaBand, AreaLayer } from "../../types/areas";
 
@@ -18,6 +22,17 @@ const rank: Record<AreaBand, number> = { "100+": 4, "50+": 3, "20+": 2, "10+": 1
 const weekLabel = (week: string) => "Week of " + new Date(week + "T00:00:00+08:00").toLocaleDateString("en-SG", { day: "numeric", month: "short", year: "numeric", timeZone: "Asia/Singapore" });
 const editPlace = (layer: AreaLayer) => router.push({ pathname: "/location-place", params: { kind: layer } });
 
+/** Open tables in this area this week, each opening its table page. */
+function AreaTables({ area }: { area: string }) {
+  const key = tablesKey("", { area, day: "week" }), remote = useRemote(key, signal => tables(key, signal)), items = remote.data?.items ?? [];
+  if (!items.length) return null;
+  return <ListGroup title={items.length + (items.length === 1 ? " table this week" : " tables this week")}>{items.slice(0, 3).map(t =>
+    <ListItem key={t.id} title={t.place?.name ?? t.venue} subtitle={formatSgShort(t.starts) + " · " + t.held + " of " + t.size} onPress={() => router.push(("/social/table/" + t.id) as never)} />)}</ListGroup>;
+}
+/** The Areas map, opened from Nearby. */
+export function MeetAreasScreen() {
+  return <Screen title="Areas" backTo="/social"><MemberGate returnTo="/social/areas"><AreasView query="" /></MemberGate></Screen>;
+}
 /** Where members live and work, by planning area. Only weekly bands of 10 or more are shown. */
 export function AreasView({ query }: { query: string }) {
   const [layer, setLayer] = useState<AreaLayer>("home"), [selected, setSelected] = useState<string | null>(null);
@@ -45,8 +60,9 @@ export function AreasView({ query }: { query: string }) {
         <StatusPill label={"Live here · " + ((layer === "home" ? bands : other).get(area.code) ?? "Not enough yet")} />
         <StatusPill label={"Work here · " + ((layer === "work" ? bands : other).get(area.code) ?? "Not enough yet")} />
       </View>
-      <Button label="Plan A Gathering Here" icon="people-outline" variant="secondary"
-        onPress={() => router.push({ pathname: "/social/gathering/[id]", params: { id: "new", area: area.name } })} />
+      <AreaTables area={area.code} />
+      <Button label="Start A Table Here" icon="restaurant-outline" variant="secondary"
+        onPress={() => router.push({ pathname: "/social/table/[id]", params: { id: "new", area: area.code } })} />
     </Card>}
     <ListGroup title="Your areas">
       {(["home", "work"] as const).map(kind => {

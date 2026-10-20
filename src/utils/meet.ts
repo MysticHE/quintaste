@@ -12,6 +12,7 @@ const active = (m: GroupMember) => m.status === "invited" || m.status === "accep
 const others = (g: Group) => g.members.filter(m => !m.isMe);
 /** Named after everyone else; people who declined or left keep the name so a group never collapses to "Your group". */
 export function groupName(g: Group) {
+  if (g.listed && g.place) return g.place.name;
   const names = (list: GroupMember[]) => list.map(m => m.name).join(", ");
   return names(others(g).filter(active)) || names(others(g)) || "Your group";
 }
@@ -25,7 +26,8 @@ export type GroupStatus = { label: string; section: "needs" | "upcoming" | "wait
 /** The single state machine behind Inbox, My plans and Chat; labels are short enough for a status pill. */
 export function groupStatus(g: Group, now: number): GroupStatus {
   if (g.myStatus === "left" || g.myStatus === "declined") return { label: "Closed", section: "closed", tone: "muted" };
-  if (g.myStatus === "invited") return { label: "Invitation", section: "needs", tone: "accent" };
+  if (g.myStatus === "invited") return g.expired ? { label: "Expired", section: "closed", tone: "muted" } : { label: "Invitation", section: "needs", tone: "accent" };
+  if (g.afterMeal) return { label: "How was it?", section: "needs", tone: "accent" };
   if (g.venue && isPast(g, now)) return { label: "Past", section: "past", tone: "muted" };
   if (!others(g).some(active)) return others(g).some(m => m.status === "left") ? { label: "Ended", section: "past", tone: "muted" } : { label: "Declined", section: "needs", tone: "warning" };
   if (acceptedCount(g) < 2) return { label: "Invited", section: "waiting", tone: "muted" };

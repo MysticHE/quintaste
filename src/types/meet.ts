@@ -1,5 +1,6 @@
 import type { MarketIngredient } from "../config/market-ingredients";
 import { readLabels, type DietLabel } from "../config/diet-labels";
+import type { AgeBand, HereFor } from "../config/social-profile";
 export const groupSizes = [2, 4, 6] as const;
 export type GroupSize = typeof groupSizes[number];
 export const meetTimes = ["Weekday lunch", "Weekday dinner", "Weekends"] as const;
@@ -37,13 +38,14 @@ export const hostDeclarations = [
   "No signage at the premises",
   "No alcohol is sold",
 ] as const;
-/** `diets`: people must keep every chosen label (Vegan and/or Vegetarian); none = everyone. */
-export type MeetFilters = { diets: Exclude<DietLabel, "Plant-Based">[]; time: string; prefers: "Any" | GroupSize };
+/** `diets`: people must keep every chosen label (Vegan and/or Vegetarian); none = everyone. Lists match any chosen value. */
+export type MeetFilters = { diets: Exclude<DietLabel, "Plant-Based">[]; time: string; prefers: "Any" | GroupSize;
+  hereFor: "Any" | HereFor; religions: string[]; languages: string[]; hobbies: string[]; ages: AgeBand[]; sameArea: boolean };
 /** A device reminder for a confirmed plan; refreshed from the group whenever it is opened. */
 export type PlanReminder = { groupId: string; venue: string; starts: string; pay: PayOption };
 /** What Social keeps on this device: browse filters, a dismissed observance chip and plan reminders. */
 export type MeetNetwork = { version: 3; profile: MeetProfile; filters: MeetFilters; dismissedMoment: string; reminders: PlanReminder[] };
 export const reminderLimit = 30;
 export const emptyMeetProfile = (): MeetProfile => ({ name: "", diets: ["Plant-Based"], area: "", about: "", interests: [], times: [], size: 4, excluded: [], practices: [] });
-export const defaultMeetFilters = (): MeetFilters => ({ diets: [], time: "Any", prefers: "Any" });
+export const defaultMeetFilters = (): MeetFilters => ({ diets: [], time: "Any", prefers: "Any", hereFor: "Any", religions: [], languages: [], hobbies: [], ages: [], sameArea: false });
 export const emptyMeet = (): MeetNetwork => ({ version: 3, profile: emptyMeetProfile(), filters: defaultMeetFilters(), dismissedMoment: "", reminders: [] });

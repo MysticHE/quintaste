@@ -1,6 +1,7 @@
 import type { DietLabel } from "../config/diet-labels";
 import type { MarketIngredient } from "../config/market-ingredients";
 import type { GroupSize, MeetPractice, PayOption } from "./meet";
+import type { Gender, HereFor, HideableField } from "../config/social-profile";
 
 export type ListingKind = "made" | "prepacked";
 /** Stored listing diets. "vegan" and "five-pungent-free" are derived from the ingredient tags (src/utils/market.ts listingLabels). */
@@ -68,17 +69,51 @@ export type ShopFilter = {
 };
 export const defaultShopFilter = (): ShopFilter => ({ category: "All", sort: "Newest", labels: [], practices: [], exclude: [], mode: "Any", kind: "Any", area: "", savedOnly: false, available: false });
 
+export type ProfilePrompt = { q: string; a: string };
 export type SocialProfile = {
   firstName: string; area: string; diets: DietLabel[]; practices: MeetPractice[]; times: string[]; size: GroupSize;
   about: string; interests: string[]; excluded: MarketIngredient[]; visible: boolean;
+  hereFor: HereFor; gender: Gender; birthYear: number | null; religion: string; ethnicity: string; why: string[]; hobbies: string[]; languages: string[];
+  education: string; work: string; grewUp: string; height: number | null; drinking: string; smoking: string; family: string; pets: string[];
+  /** Up to three catalogue place ids. */
+  spots: string[]; prompts: ProfilePrompt[]; opening: string; hidden: HideableField[];
+  /** Read-only, from the server. */
+  pausedUntil?: string | null; hasFace?: boolean; tables?: number; noShows?: number;
 };
-export type Person = SocialProfile & { id: string; groupId?: string | null };
+/** Another member as the server shares them: hidden fields come back empty and the birth year as `age`. */
+export type Person = Omit<SocialProfile, "birthYear" | "hidden" | "pausedUntil"> & {
+  id: string; age: number | null; hasFace: boolean; tables: number; noShows: number; cooked: number; groupId?: string | null; kakiSays?: { body: string; byName: string }[];
+};
 export type MemberStatus = "invited" | "accepted" | "declined" | "left";
-export type GroupMember = { id: string; name: string; status: MemberStatus; confirmed: boolean; isMe: boolean; diets: DietLabel[] | null; practices: string[] | null; excluded: string[] | null };
+export type GroupMember = { id: string; name: string; status: MemberStatus; confirmed: boolean; isMe: boolean; hasFace: boolean; kakiOf: string | null;
+  diets: DietLabel[] | null; practices: string[] | null; excluded: string[] | null; attended?: "yes" | "no" | "changed" | null; eatAgain?: string[];
+  /** Shared with accepted tablemates for table talk. */
+  prompts: ProfilePrompt[]; why: string[] };
+/** A catalogue place as Social shows it. */
+export type SocialPlace = { id: string; name: string; branch: string; address: string; photo: string | null; hours: string; point: { latitude: number; longitude: number } | null };
+export type Offer = { venue?: string; placeId?: string | null; starts?: string; pay?: PayOption; suggested?: string; place: SocialPlace | null };
 export type Group = {
   id: string; size: GroupSize; intro: string; venue: string; starts: string; food: string; pay: PayOption; createdAt: string; createdBy: string;
   myStatus: MemberStatus; members: GroupMember[]; last?: string | null; unread?: boolean; updatedAt?: string; messages?: ChatMessage[];
+  listed: boolean; origin: "invite" | "table"; place: SocialPlace | null; areaCode: string | null; diets: DietLabel[]; sameGender: Gender; alcoholFree: boolean; note: string;
+  offer: Offer | null; expiresAt: string | null; expired: boolean; afterMeal?: boolean;
 };
+export type SeatedPerson = { id: string; name: string; hasFace: boolean };
+/** An open table anyone may join; its chat and plan are the group's. */
+export type Table = {
+  id: string; size: 4 | 6; venue: string; starts: string; pay: PayOption; placeId: string | null; areaCode: string | null; diets: DietLabel[]; sameGender: Gender;
+  alcoholFree: boolean; note: string; hostId: string; held: number; seated: SeatedPerson[]; host: SeatedPerson & { tables: number; noShows: number };
+  myStatus: MemberStatus | null; place: SocialPlace | null; joinIssue: string | null;
+  /** Only a woman can take the last seat; `holdUntil` while the 24-hour hold runs; `canOpenSeat` for the one woman seated once it has passed. */
+  seatHeld: boolean; holdUntil: string | null; canOpenSeat: boolean; needsGender: boolean;
+};
+export type TableInput = { placeId: string; starts: string; size: 4 | 6; diets: DietLabel[]; pay: PayOption; sameGender: boolean; alcoholFree: boolean; note: string;
+  areaCode: string | null; listed: boolean; kakiId?: string | null; invite?: string[] };
+export type AreaBand = "10+" | "20+" | "50+" | "100+";
+export type NearbyArea = { layer: "home" | "work"; area: string; band: AreaBand | null; tables: number; diets: { label: "Vegan" | "Vegetarian"; band: AreaBand }[];
+  spots: { id: string; band: "10+" | null }[] };
+export type Kaki = { id: string; firstName: string; hasFace: boolean };
+export type KakiSay = { id: string; body: string; shown: boolean; byName: string };
 export type Gathering = {
   id: string; title: string; area: string; venue: string; starts: string | null; seats: number; diets: DietLabel[]; food: string; pay: PayOption;
   alcoholFree: boolean; state: "draft" | "posted" | "cancelled"; organiserId: string; organiserName: string; going: number; past: boolean; joined: boolean; mine: boolean;

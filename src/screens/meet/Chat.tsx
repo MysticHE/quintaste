@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ScrollView, View, type NativeScrollEvent, type NativeSyntheticEvent } from "react-native";
 import { useLocalSearchParams } from "expo-router";
 import { Screen } from "../../components/Screen";
@@ -6,16 +6,20 @@ import { useMinuteClock } from "../../components/food/Timers";
 import { T, common } from "../../components/ui";
 import { ChatBubble, ChatComposer } from "../../components/Chat";
 import { IconButton } from "../../components/food/Controls";
-import { Action, Confirm, goToPlans, openSocial } from "../../components/social/Shared";
+import { Confirm, goToPlans, openSocial } from "../../components/social/Shared";
 import { MemberGate } from "../../components/social/MeetUI";
 import { MemberRow } from "../../components/social/GroupTools";
+import { InvitationCard } from "../../components/social/InvitationCard";
+import { TableTalk } from "../../components/social/TableTalk";
+import { AfterMealSheet } from "../../components/social/AfterMealSheet";
+import { FaceStack } from "../../components/social/Face";
 import { SystemLine } from "../../components/social/PlanCard";
 import { ListGroup, ListItem, RowIcon, StatusPill } from "../../components/GroupedList";
 import { RemoteStatus, useMember } from "../../components/CommunityGate";
 import { invalidate, useRemote } from "../../hooks/useRemote";
 import { useReminderSync } from "../../hooks/useReminderSync";
 import { usePreferences } from "../../state/Preferences";
-import { group as loadGroup, leave, markRead, respond, sendMessage } from "../../services/social-api";
+import { group as loadGroup, leave, markRead, sendMessage } from "../../services/social-api";
 import { ApiError } from "../../services/community-api";
 import { chatOpen, groupName, groupStatus } from "../../utils/meet";
 import { formatSgDateTime, formatSgShort } from "../../utils/sg-datetime";
@@ -52,20 +56,23 @@ function Timeline({ group: g }: { group: Group }) {
 }
 function PlanBar({ group: g }: { group: Group }) {
   const now = useMinuteClock(), status = groupStatus(g, now), open = () => openSocial("/group/" + g.id);
+  const seated = g.members.filter(m => m.status === "accepted");
   return <ListGroup>{g.venue
-    ? <ListItem title={g.venue} subtitle={formatSgShort(g.starts)} leading={<RowIcon name="location-outline" />} trailing={<StatusPill label={status.label} tone={status.tone} />} onPress={open} />
+    ? <ListItem title={g.place?.name ?? g.venue} subtitle={formatSgShort(g.starts)} leading={<FaceStack people={seated} size={26} />} trailing={<StatusPill label={status.label} tone={status.tone} />} onPress={open} />
     : <ListItem title="Make A Plan" leading={<RowIcon name="add" />} onPress={open} />}</ListGroup>;
 }
-/** An invitation: who is in the group, then Accept or Decline. */
-function Invitation({ group: g, refresh }: { group: Group; refresh: () => void }) {
-  const answer = async (accept: boolean) => { await respond(g.id, accept); changed(refresh); if (!accept) goToPlans(); };
+/** After the meal, one row opens the three-question sheet. */
+function AfterMeal({ group: g, refresh }: { group: Group; refresh: () => void }) {
+  const [open, setOpen] = useState(false), title = "How was " + (g.place?.name ?? g.venue) + "?";
+  if (!g.afterMeal) return null;
   return <>
-    <ListGroup title={"Group of " + g.size}>{g.members.map(m => <MemberRow key={m.id} member={m} />)}</ListGroup>
-    <View style={common.row}>
-      <View style={common.flex}><Action label="Decline" secondary run={() => answer(false)} /></View>
-      <View style={common.flex}><Action label="Accept" run={() => answer(true)} /></View>
-    </View>
+    <ListGroup><ListItem title={title} leading={<RowIcon name="restaurant-outline" />} onPress={() => setOpen(true)} /></ListGroup>
+    <AfterMealSheet group={g} title={title} visible={open} onClose={() => { setOpen(false); refresh(); }} />
   </>;
+}
+/** An invitation: the plan at a glance, then Accept, Suggest another slot or Not this time. */
+function Invitation({ group: g, refresh }: { group: Group; refresh: () => void }) {
+  return <InvitationCard group={g} onAnswered={answer => { changed(refresh); if (answer === "declined") goToPlans(); }} />;
 }
 /** Before anyone accepts, who is invited; after everyone declines or you leave, a way forward. */
 function ChatState({ group: g, refresh }: { group: Group; refresh: () => void }) {
@@ -82,7 +89,7 @@ function ChatState({ group: g, refresh }: { group: Group; refresh: () => void })
   </>;
 }
 function Chat({ group: g, refresh }: { group: Group; refresh: () => void }) {
-  const { setNotice } = usePreferences(), last = g.messages?.[g.messages.length - 1]?.id, open = chatOpen(g);
+  const { setNotice } = usePreferences(), last = g.messages?.[g.messages.length - 1]?.id, open = chatOpen(g), [seed, setSeed] = useState<{ text: string; at: number }>();
   useReminderSync([g], false);
   useEffect(() => { void markRead(g.id).then(() => invalidate("/api/social/unread", "/api/social/groups")).catch(() => {}); }, [g.id, last]);
   const send = async (text: string) => {
@@ -90,10 +97,13 @@ function Chat({ group: g, refresh }: { group: Group; refresh: () => void }) {
     catch (error) { setNotice({ text: error instanceof ApiError ? error.message : "Your message was not sent. Try again.", error: true }); return false; }
   };
   return <>
-    {open && <PlanBar group={g} />}
+    {(open || g.myStatus === "accepted" && !!g.venue) && <PlanBar group={g} />}
+    {open && <AfterMeal group={g} refresh={refresh} />}
+    {g.myStatus === "invited" && <Invitation group={g} refresh={refresh} />}
     <Timeline group={g} />
-    {g.myStatus === "invited" ? <Invitation group={g} refresh={refresh} /> : open
-      ? <ChatComposer starters={g.messages?.some(m => m.mine && m.body !== g.intro) ? [] : conversationStarters} onSend={send} />
-      : <ChatState group={g} refresh={refresh} />}
+    {g.myStatus === "invited" ? null : open ? <>
+      <TableTalk group={g} onPick={text => setSeed({ text, at: Date.now() })} />
+      <ChatComposer seed={seed} starters={g.messages?.some(m => m.mine && m.body !== g.intro) ? [] : conversationStarters} onSend={send} />
+    </> : <ChatState group={g} refresh={refresh} />}
   </>;
 }

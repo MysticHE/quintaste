@@ -9,6 +9,8 @@ import { defaultMeetFilters, groupSizes, meetTimes, type MeetFilters } from "../
 import { activePeopleFilters } from "./Home";
 import { DietIcon } from "../../components/food/DietIcon";
 import { usePreferences } from "../../state/Preferences";
+import { ListGroup, ListItem, RowIcon, ThemedSwitch } from "../../components/GroupedList";
+import { ageBands, hereForOptions, hobbyOptions, languageOptions, religions } from "../../config/social-profile";
 export function MeetFiltersScreen() {
   return <Screen title="People filters" backTo="/social"
     headerAction={<Button label="Done" variant="link" onPress={() => goBack("/social")} />}><Filters /></Screen>;
@@ -25,7 +27,20 @@ function Filters() {
     locked.current = true; setBusy(true);
     try { await commit({ type: "filters", filters: { ...filters, ...patch } }); } finally { locked.current = false; setBusy(false); }
   };
+  const many = (key: "religions" | "languages" | "hobbies", value: string) => void change({ [key]: filters[key].includes(value) ? filters[key].filter(v => v !== value) : [...filters[key], value] });
   return <>
+    <Group label="Here for" icon="hand-left-outline">{(["Any", ...hereForOptions.map(o => o.id)] as const).map(id =>
+      <Chip compact key={id} label={id === "Any" ? "Anyone" : hereForOptions.find(o => o.id === id)!.label} role="radio" disabled={disabled} selected={filters.hereFor === id} onPress={() => void change({ hereFor: id })} />)}</Group>
+    <Group label="Age" icon="person-outline" checks>{ageBands.map(band => <Chip compact key={band} label={band} role="checkbox" disabled={disabled} selected={filters.ages.includes(band)}
+      onPress={() => void change({ ages: filters.ages.includes(band) ? filters.ages.filter(b => b !== band) : [...filters.ages, band] })} />)}</Group>
+    <Group label="Religion" icon="sunny-outline" checks>{religions.filter(r => r !== "Prefer not to say").map(r => <Chip compact key={r} label={r} role="checkbox" disabled={disabled}
+      selected={filters.religions.includes(r)} onPress={() => many("religions", r)} />)}</Group>
+    <Group label="Languages" icon="language-outline" checks>{languageOptions.filter(l => l !== "Other").map(l => <Chip compact key={l} label={l} role="checkbox" disabled={disabled}
+      selected={filters.languages.includes(l)} onPress={() => many("languages", l)} />)}</Group>
+    <Group label="Hobbies" icon="bicycle-outline" checks>{[...new Set([...hobbyOptions.slice(0, 16), ...filters.hobbies])].map(h => <Chip compact key={h} label={h} role="checkbox" disabled={disabled}
+      selected={filters.hobbies.includes(h)} onPress={() => many("hobbies", h)} />)}</Group>
+    <ListGroup><ListItem title="Same Area As Me" leading={<RowIcon name="location-outline" />}
+      trailing={<ThemedSwitch label="Same area as me" value={filters.sameArea} disabled={disabled} onChange={sameArea => void change({ sameArea })} />} /></ListGroup>
     <Group label="Group size" icon="people-outline">{(["Any", ...groupSizes] as const).map(size =>
       <Chip compact key={size} label={size === "Any" ? "Any size" : size + " people"} role="radio" disabled={disabled} selected={filters.prefers === size} onPress={() => void change({ prefers: size })} />)}</Group>
     <Group label="Diet" icon="leaf-outline" checks>{(["Vegan", "Vegetarian"] as const).map(label => {

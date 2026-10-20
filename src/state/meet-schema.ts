@@ -1,4 +1,5 @@
 import { marketIngredients } from "../config/market-ingredients";
+import { ageBands, hereForOptions, hobbyOptions, languageOptions, religions } from "../config/social-profile";
 import { defaultMeetFilters, emptyMeet, groupSizes, keptLabels, legacyLabels, meetPractices, meetTimes, payOptions, reminderLimit, type MeetFilters, type MeetNetwork, type MeetProfile, type PlanReminder } from "../types/meet";
 const record = (v: unknown): Record<string, unknown> => v && typeof v === "object" && !Array.isArray(v) ? v as Record<string, unknown> : {};
 const text = (v: unknown, max = 100) => typeof v === "string" ? v.trim().slice(0, max) : "";
@@ -28,7 +29,10 @@ export function readMeet(input: unknown): MeetNetwork {
   const v = record(input), f = record(v.filters);
   return { ...emptyMeet(), profile: readMeetProfile(v.profile), dismissedMoment: text(v.dismissedMoment, 10), reminders: readReminders(v.reminders),
     filters: { ...defaultMeetFilters(), diets: readFilterDiets(f), time: meetTimes.find(t => t === f.time) ?? "Any",
-      prefers: f.prefers === "Any" ? "Any" : groupSizes.find(n => n === f.prefers) ?? "Any" } };
+      prefers: f.prefers === "Any" ? "Any" : groupSizes.find(n => n === f.prefers) ?? "Any",
+      hereFor: hereForOptions.find(o => o.id === f.hereFor)?.id ?? "Any", religions: religions.filter(r => strings(f.religions).includes(r)),
+      languages: languageOptions.filter(l => strings(f.languages).includes(l)), hobbies: hobbyOptions.filter(h => strings(f.hobbies).includes(h)).slice(0, 12),
+      ages: ageBands.filter(a => strings(f.ages).includes(a)), sameArea: f.sameArea === true } };
 }
 export function mergeMeet(profile: MeetNetwork, guest: MeetNetwork): MeetNetwork {
   const reminders = [...profile.reminders, ...guest.reminders.filter(r => !profile.reminders.some(p => p.groupId === r.groupId))];

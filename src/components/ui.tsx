@@ -177,18 +177,21 @@ export function Field({
   icon,
   error,
   trailing,
+  showLabel = true,
   ...props
 }: TextInputProps & {
   label: string;
   icon?: IconName;
   error?: string;
   trailing?: ReactNode;
+  /** False when a heading above already names the field; the label is still read aloud. */
+  showLabel?: boolean;
 }) {
   const { theme, textMultiplier } = usePreferences();
   const [focused, setFocused] = useState(false);
   return (
     <View style={{ gap: 6 }}>
-      <T variant="small" style={s.bold}>{label}</T>
+      {showLabel && <T variant="small" style={s.bold}>{label}</T>}
       <View
         style={[
           s.field,

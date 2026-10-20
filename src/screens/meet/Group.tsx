@@ -27,10 +27,12 @@ function GroupDetails({ group: g, refresh }: { group: Group; refresh: () => void
   const [editing, setEditing] = useState(false), now = useMinuteClock();
   const open = chatOpen(g), past = !!g.venue && isPast(g, now), needs = tableNeeds(g), active = g.myStatus === "accepted" || g.myStatus === "invited";
   const update = () => { refresh(); invalidate("/api/social/groups"); };
+  // An open table's plan belongs to its host; everyone else sees the plan without editing it.
+  const editable = !g.listed || g.members.some(m => m.isMe && m.id === g.createdBy);
   useReminderSync([g], false);
   return <>
     <GroupMembers group={g} onChange={update} />
-    {open && (g.venue && !editing ? <PlanSummary group={g} now={now} onEdit={() => setEditing(true)} onChange={update} /> : !past && <>
+    {open && (g.venue && (!editing || !editable) ? <PlanSummary group={g} now={now} onEdit={editable ? () => setEditing(true) : undefined} onChange={update} /> : !past && editable && <>
       <ListGroup title="Plan"><ListItem title={needs.diet} subtitle={needs.detail || undefined} leading={<RowIcon name="leaf-outline" />} wrap /></ListGroup>
       <GroupPlanForm group={g} onDone={() => { setEditing(false); update(); }} />
     </>)}

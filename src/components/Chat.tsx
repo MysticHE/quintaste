@@ -12,12 +12,18 @@ export function ChatBubble({ text, mine, label }: { text: string; mine: boolean;
     <T>{text}</T>
   </View>;
 }
-/** One-line composer: optional starter suggestions, the message field and a send arrow. Returns true from onSend to clear the field. */
-export function ChatComposer({ onSend, starters = [], sendLabel = "Send message", disabled = false }: {
-  onSend: (text: string) => Promise<boolean>; starters?: readonly string[]; sendLabel?: string; disabled?: boolean;
+/**
+ * One-line composer: optional starter suggestions, the message field and a send arrow. Returns true from onSend to clear the field.
+ * `seed` places text in the field (for example a table-talk question) without sending it.
+ */
+export function ChatComposer({ onSend, starters = [], sendLabel = "Send message", disabled = false, seed }: {
+  onSend: (text: string) => Promise<boolean>; starters?: readonly string[]; sendLabel?: string; disabled?: boolean; seed?: { text: string; at: number };
 }) {
   const { theme, textMultiplier } = usePreferences();
   const [text, setText] = useState(""), [open, setOpen] = useState(false), [focused, setFocused] = useState(false), [busy, setBusy] = useState(false);
+  // A new seed replaces the draft once (state adjusted during render rather than in an effect).
+  const [placed, setPlaced] = useState(seed);
+  if (seed !== placed) { setPlaced(seed); if (seed) setText(seed.text); }
   const ready = !!text.trim() && !busy && !disabled;
   const send = async () => {
     if (!ready) return;

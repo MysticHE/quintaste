@@ -39,7 +39,8 @@ function ReminderRow({ group: g }: { group: Group }) {
     trailing={<ThemedSwitch label="Remind me 1 day and 1 hour before" value={on} onChange={() => void toggle().catch(() => setNotice({ text: "Reminders could not be changed. Try again.", error: true }))} />} />;
 }
 /** The agreed plan in one place: where, when, who pays, shared needs and who has confirmed. */
-export function PlanSummary({ group: g, onEdit, onChange, now }: { group: Group; onEdit: () => void; onChange: () => void; now: number }) {
+/** Without `onEdit` (an open table you do not host) the plan has no Edit action. */
+export function PlanSummary({ group: g, onEdit, onChange, now }: { group: Group; onEdit?: () => void; onChange: () => void; now: number }) {
   const { setNotice } = usePreferences(), needs = tableNeeds(g), past = isPast(g, now);
   const mine = !!g.members.find(m => m.isMe)?.confirmed, confirmed = g.members.filter(m => m.confirmed).map(m => m.isMe ? "You" : m.name);
   const share = async () => { try { await Share.share({ message: planShareText(g) }); } catch { setNotice({ text: "Sharing is unavailable here. Copy the place and time instead.", error: true }); } };
@@ -56,7 +57,7 @@ export function PlanSummary({ group: g, onEdit, onChange, now }: { group: Group;
     </ListGroup>
     {!past && !mine && <Action label={groupFull(g) ? "I'm In" : "Waiting For Everyone To Join"} disabled={!groupFull(g)} run={async () => { await confirm(g.id); onChange(); }} />}
     {!past && <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 8 }}>
-      <ActionChip label="Edit" icon="create-outline" run={async () => onEdit()} />
+      {onEdit && <ActionChip label="Edit" icon="create-outline" run={async () => onEdit()} />}
       <ActionChip label="Share" icon="share-outline" run={share} />
       <ActionChip label="Calendar" icon="calendar-outline" run={() => addToCalendar(g)} />
     </View>}
