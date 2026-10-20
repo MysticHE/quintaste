@@ -8,10 +8,12 @@ type Per100 = { kcal: number; protein: number; fat: number; carbs: number; fibre
 type Row = {
   id: string; name: string; status: string; usda: string | null; usda_name: string | null; negligible: boolean; g_per_ml: number | null; units: Record<string, number>;
   confidence: number | null; reason: string; staff_note: string; updated_at: string; version: string; reviewed_at: string | null;
-  food_id: string | null; food_name: string | null; per100: Per100 | null; sources: { url: string; title: string }[] | null; food_note: string | null; recipes: number;
+  food_id: string | null; food_name: string | null; per100: Per100 | null; sources: (string | { url: string; title: string })[] | null; food_note: string | null; recipes: number;
 };
 const FIELDS: [keyof Per100, string][] = [['kcal', 'kcal'], ['protein', 'Protein g'], ['fat', 'Fat g'], ['carbs', 'Carbs g'], ['fibre', 'Fibre g'], ['sugar', 'Sugar g'], ['sodium', 'Sodium mg']];
 const host = (url: string) => { try { return new URL(url).hostname.replace(/^www\./, ''); } catch { return 'source'; } };
+/** Sources are { url, title }; rows saved before 20 Oct 2026 hold plain links. */
+const page = (source: string | { url: string; title: string }) => typeof source === 'string' ? { url: source, title: '' } : source;
 
 /** The learned ingredient database: what the AI matched each recipe ingredient to, for staff to check. */
 export function Ingredients() {
@@ -27,7 +29,7 @@ function Card({ r }: { r: Row }) {
       : r.usda ? <div>USDA: <a href={`https://fdc.nal.usda.gov/food-details/${r.usda}/nutrients`} target="_blank" rel="noreferrer noopener">{r.usda_name ?? r.usda}</a></div>
       : r.food_id && r.per100 ? <div className="stack"><div>Not in USDA: {r.food_name}{r.food_note ? ` (${r.food_note})` : ''}</div>
         <small>Per 100 g: {FIELDS.map(([key, label]) => `${label.replace(' g', '').replace(' mg', '')} ${r.per100?.[key] ?? '—'}${key === 'kcal' ? '' : key === 'sodium' ? ' mg' : ' g'}`).join(' · ')}</small>
-        {!!r.sources?.length && <small>Sources: {r.sources.map((page, index) => <a key={index} href={page.url} target="_blank" rel="noreferrer noopener">{page.title || host(page.url)}</a>).reduce<React.ReactNode[]>((all, link, index) => index ? [...all, ', ', link] : [link], [])}</small>}</div>
+        {!!r.sources?.length && <small>Sources: {r.sources.map(page).map((source, index) => <a key={index} href={source.url} target="_blank" rel="noreferrer noopener">{source.title || host(source.url)}</a>).reduce<React.ReactNode[]>((all, link, index) => index ? [...all, ', ', link] : [link], [])}</small>}</div>
       : <div className="muted">No food matched</div>}
     {weights && <small>Weights: {weights}</small>}
     {r.reason && <small className="muted">AI: {r.reason}</small>}

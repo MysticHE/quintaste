@@ -9,26 +9,42 @@ import { resolveNames } from './resolve.mjs';
  * Recipe nutrition backed by the learned ingredient database. `nutritionFor` serves one recipe (the AI recipe worker);
  * `refreshNutrition` runs every hour: it checks live recipes not yet checked at their current revision (member recipes
  * included), teaches the database their unknown names in one batch, and recalculates every recipe whose names were
- * corrected by staff or newly learned since it was last checked. The AI is only asked while the ai_recipes control is on.
+ * corrected by staff or newly learned since it was last checked. The AI is only asked while the ai_recipes control is on;
+ * an AI failure never stops the figures that can be worked out without it, and the recipe is checked again later.
  */
-const NAMES_PER_RUN = 60, RECIPES_PER_RUN = 200, LOCK = 7302001;
+const NAMES_PER_RUN = 60, RECIPES_PER_RUN = 200, STALE_PER_RUN = 1000, LOCK = 7302001;
 
 const aiOn = async () => (await geminiConfig()).enabled && await allowed('ai_recipes');
 
-/** Nutrition for one recipe, teaching the database the names it does not know yet. Never throws. */
+/** Asks the AI about names; false when it failed (logged), so callers keep what is known and try again later. */
+async function learn(names, usage, signal = undefined) {
+  try {
+    await resolveNames(names, { usage, signal, unitKeyOf: unitKey });
+    return true;
+  } catch (error) {
+    logger.warn({ event: 'nutrition_learn_failed', names: names.length, detail: String(error?.message ?? error).slice(0, 160) });
+    return false;
+  }
+}
+
+/**
+ * Nutrition for one recipe, teaching the database the names it does not know yet. `complete` is false when names were
+ * left for later (AI off or failed), so the hourly refresh checks the recipe again. Never throws.
+ */
 export async function nutritionFor(recipe, { usage, signal = undefined }) {
   try {
     const keys = recipeKeys(recipe.ingredients);
     let learned = await learnedRows(keys);
     const names = namesToResolve(recipe.ingredients, learned);
-    if (names.length && await aiOn()) {
-      await resolveNames(names, { usage, signal, unitKeyOf: unitKey });
+    let complete = !names.length;
+    if (names.length && await aiOn() && await learn(names, usage, signal)) {
+      complete = true;
       learned = await learnedRows(keys);
     }
-    return estimateRecipe(recipe, learned);
+    return { nutrition: estimateRecipe(recipe, learned), complete };
   } catch (error) {
     logger.warn({ event: 'nutrition_estimate_failed', detail: String(error?.message ?? error).slice(0, 160) });
-    return null;
+    return { nutrition: null, complete: false };
   }
 }
 
@@ -49,11 +65,53 @@ async function store(row, nutrition, keys, complete) {
   } finally { client.release(); }
 }
 
+/** Names staff asked the AI to look at again. */
 async function staffRetries(usage) {
   const rows = (await pool.query(`SELECT name_key, name, staff_note FROM nutrition.ingredient WHERE status='retry' ORDER BY updated_at LIMIT 20`)).rows;
-  if (rows.length) await resolveNames(rows.map(r => ({ key: r.name_key, name: r.name, unit: '', amount: null, note: r.staff_note, known: false, staticUsda: null })),
-    { usage, unitKeyOf: unitKey });
+  if (rows.length) await learn(rows.map(r => ({ key: r.name_key, name: r.name, unit: '', amount: null, note: r.staff_note, known: false, staticUsda: null })), usage);
   return rows.length;
+}
+
+/** Live recipes not yet checked at their revision, or checked while names still waited for the AI. */
+async function checkUnchecked(ai, usage, counts) {
+  const unchecked = (await pool.query(`SELECT r.id, r.live, r.live_revision FROM recipes.recipe r LEFT JOIN nutrition.recipe_check c ON c.recipe_id = r.id
+    WHERE r.live IS NOT NULL AND (c.recipe_id IS NULL OR c.revision <> r.live_revision OR (NOT c.complete AND $1))
+    ORDER BY r.published_at DESC NULLS LAST LIMIT ${RECIPES_PER_RUN}`, [ai])).rows;
+  if (!unchecked.length) return;
+  const allKeys = unchecked.flatMap(row => recipeKeys(row.live.ingredients ?? []));
+  let learned = await learnedRows(allKeys);
+  const recipeNames = new Map(), asked = new Set(), wanted = [];
+  for (const row of unchecked) {
+    const names = namesToResolve(row.live.ingredients ?? [], learned);
+    recipeNames.set(row.id, names.map(n => n.key));
+    for (const name of names) if (!asked.has(name.key) && wanted.length < NAMES_PER_RUN) { asked.add(name.key); wanted.push(name); }
+  }
+  const learnedOk = ai && wanted.length ? await learn(wanted, usage) : false;
+  if (learnedOk) learned = await learnedRows(allKeys);
+  for (const row of unchecked) {
+    const ingredients = row.live.ingredients ?? [], waiting = recipeNames.get(row.id);
+    const complete = !waiting.length || (learnedOk && waiting.every(key => asked.has(key)));
+    if (await store(row, estimateRecipe({ servings: row.live.servings, ingredients }, learned), recipeKeys(ingredients), complete)) counts.changed++;
+    counts.checked++;
+  }
+}
+
+/** Recipes using names corrected or learned after they were last checked, found from the recently changed names. */
+async function recalculateStale(counts) {
+  const ids = (await pool.query(`SELECT DISTINCT ri.recipe_id FROM nutrition.ingredient i
+      JOIN nutrition.recipe_ingredient ri ON ri.name_key = i.name_key
+      JOIN nutrition.recipe_check c ON c.recipe_id = ri.recipe_id
+    WHERE i.updated_at > now() - interval '30 days' AND i.updated_at > c.checked_at LIMIT ${STALE_PER_RUN}`)).rows.map(row => row.recipe_id);
+  if (!ids.length) return;
+  const stale = (await pool.query(`SELECT r.id, r.live, r.live_revision FROM recipes.recipe r JOIN nutrition.recipe_check c ON c.recipe_id = r.id AND c.revision = r.live_revision
+    WHERE r.id = ANY($1::uuid[]) AND r.live IS NOT NULL`, [ids])).rows;
+  const learned = await learnedRows(stale.flatMap(row => recipeKeys(row.live.ingredients ?? [])));
+  for (const row of stale) {
+    const ingredients = row.live.ingredients ?? [];
+    const complete = !namesToResolve(ingredients, learned).length;
+    if (await store(row, estimateRecipe({ servings: row.live.servings, ingredients }, learned), recipeKeys(ingredients), complete)) counts.changed++;
+    counts.recalculated++;
+  }
 }
 
 /** One refresh run. Returns counts for the log. */
@@ -66,42 +124,8 @@ export async function refreshNutrition() {
     if (!held) return counts;
     const ai = await aiOn();
     if (ai) counts.retried = await staffRetries(usage);
-    // Recipes not yet checked at their live revision, or checked while names still waited for the AI.
-    const unchecked = (await pool.query(`SELECT r.id, r.live, r.live_revision FROM recipes.recipe r LEFT JOIN nutrition.recipe_check c ON c.recipe_id = r.id
-      WHERE r.live IS NOT NULL AND (c.recipe_id IS NULL OR c.revision <> r.live_revision OR (NOT c.complete AND $1))
-      ORDER BY r.published_at DESC NULLS LAST LIMIT ${RECIPES_PER_RUN}`, [ai])).rows;
-    const recipeNames = new Map();
-    let learned = await learnedRows(unchecked.flatMap(row => recipeKeys(row.live.ingredients ?? [])));
-    const asked = new Set(), wanted = [];
-    for (const row of unchecked) {
-      const names = namesToResolve(row.live.ingredients ?? [], learned);
-      recipeNames.set(row.id, names.map(n => n.key));
-      for (const name of names) if (!asked.has(name.key) && wanted.length < NAMES_PER_RUN) { asked.add(name.key); wanted.push(name); }
-    }
-    if (ai && wanted.length) {
-      await resolveNames(wanted, { usage, unitKeyOf: unitKey });
-      learned = await learnedRows(unchecked.flatMap(row => recipeKeys(row.live.ingredients ?? [])));
-    }
-    for (const row of unchecked) {
-      const ingredients = row.live.ingredients ?? [];
-      const complete = ai && recipeNames.get(row.id).every(key => asked.has(key)) || !recipeNames.get(row.id).length;
-      if (await store(row, estimateRecipe({ servings: row.live.servings, ingredients }, learned), recipeKeys(ingredients), complete)) counts.changed++;
-      counts.checked++;
-    }
-    // Recipes whose names were corrected or learned after they were last checked.
-    const stale = (await pool.query(`SELECT DISTINCT r.id, r.live, r.live_revision FROM nutrition.recipe_check c
-        JOIN nutrition.recipe_ingredient ri ON ri.recipe_id = c.recipe_id JOIN nutrition.ingredient i ON i.name_key = ri.name_key
-        JOIN recipes.recipe r ON r.id = c.recipe_id AND r.live_revision = c.revision
-      WHERE i.updated_at > c.checked_at LIMIT ${RECIPES_PER_RUN}`)).rows;
-    if (stale.length) {
-      learned = await learnedRows(stale.flatMap(row => recipeKeys(row.live.ingredients ?? [])));
-      for (const row of stale) {
-        const ingredients = row.live.ingredients ?? [];
-        const complete = !namesToResolve(ingredients, learned).length;
-        if (await store(row, estimateRecipe({ servings: row.live.servings, ingredients }, learned), recipeKeys(ingredients), complete)) counts.changed++;
-        counts.recalculated++;
-      }
-    }
+    await checkUnchecked(ai, usage, counts);
+    await recalculateStale(counts);
     return counts;
   } finally {
     if (held) await lock.query('SELECT pg_advisory_unlock($1)', [LOCK]).catch(() => {});

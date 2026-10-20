@@ -72,6 +72,8 @@ export async function ingredientAction(member: Session, input: Record<string, un
     } else {
       if (!sourced) throw new HttpError(409, 'There is no food to correct. Ask the AI again instead.');
       const negligible = input.negligible === true, density = optionalNumber(input.gPerMl, 'grams per ml', 0.05, 3), weights = unitWeights(input.units ?? {});
+      // Without a USDA or researched food, "No nutrients" is the only thing this row says; clearing it leaves nothing to approve.
+      if (!negligible && !row.usda && !row.food_id) throw new HttpError(409, 'This ingredient has no food to use. Ask the AI again instead.');
       if (row.food_id && input.per100 !== undefined) {
         await db.query('UPDATE nutrition.food SET per100=$2, updated_at=now() WHERE id=$1', [row.food_id, JSON.stringify(per100(input.per100))]);
       }

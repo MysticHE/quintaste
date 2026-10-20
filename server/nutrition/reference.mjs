@@ -6,20 +6,32 @@ import path from 'node:path';
  * scripts/nutrition/build_usda_reference.py): per-100 g figures and USDA's weighed household portions for 7,793 foods.
  * Loaded on first use. `searchUsda` gives the AI resolver a short list of candidates for an ingredient name.
  */
-const NUTRIENTS = ['kcal', 'protein', 'fat', 'carbs', 'fibre', 'sugar', 'sodium'];
-// Preparation and size words that do not change which food it is.
-const IGNORED = new Set(['fresh', 'freshly', 'chopped', 'finely', 'roughly', 'sliced', 'thinly', 'minced', 'diced', 'grated', 'crushed', 'peeled',
-  'large', 'small', 'medium', 'big', 'whole', 'cut', 'into', 'pieces', 'piece', 'and', 'or', 'of', 'the', 'a', 'for', 'to', 'taste', 'optional',
-  'about', 'some', 'extra', 'plus', 'more', 'cubed', 'halved', 'quartered', 'shredded', 'trimmed', 'washed', 'cleaned', 'soaked', 'deseeded',
-  'seeded', 'drained', 'rinsed', 'packed', 'heaped', 'level', 'room', 'temperature', 'cold', 'warm', 'hot', 'good', 'quality', 'organic', 'homemade', 'store', 'bought']);
+// Preparation and size words that do not change which food it is. Words that do (fresh, dried, whole, hot, extra) stay,
+// so 'fresh chillies' and 'dried chillies', or 'whole wheat flour' and 'wheat flour', are different names.
+const IGNORED = new Set(['freshly', 'chopped', 'finely', 'roughly', 'sliced', 'thinly', 'minced', 'diced', 'grated', 'crushed', 'peeled',
+  'large', 'small', 'medium', 'big', 'cut', 'into', 'pieces', 'piece', 'and', 'or', 'of', 'the', 'a', 'for', 'to', 'taste', 'optional',
+  'about', 'some', 'plus', 'more', 'cubed', 'halved', 'quartered', 'shredded', 'trimmed', 'washed', 'cleaned', 'soaked', 'deseeded',
+  'seeded', 'drained', 'rinsed', 'packed', 'heaped', 'level', 'room', 'temperature', 'good', 'quality', 'organic', 'homemade', 'store', 'bought']);
 const AVOID = /^(Baby Foods|Fast Foods|Restaurant Foods|Meals, Entrees, and Side Dishes|American Indian\/Alaska Native Foods)$/;
 
-let data = null, index = null;
+let data = null, index = null, fields = null;
 function load() {
-  if (!data) data = JSON.parse(readFileSync(path.resolve('server-assets/nutrition/usda-reference.json'), 'utf8')).foods;
+  if (!data) {
+    const document = JSON.parse(readFileSync(path.resolve('server-assets/nutrition/usda-reference.json'), 'utf8'));
+    data = document.foods;
+    // Nutrient names in file order (fields: name, category, nutrients..., portions).
+    fields = document.fields.slice(2, -1);
+  }
   return data;
 }
-const stem = word => word.length > 4 && word.endsWith('es') ? word.slice(0, -2) : word.length > 3 && word.endsWith('s') ? word.slice(0, -1) : word;
+/** Plural to singular for matching: berries -> berry, tomatoes -> tomato, peaches -> peach, apples -> apple, chillies -> chilli. */
+function stem(word) {
+  if (word.length < 4 || !word.endsWith('s') || word.endsWith('ss')) return word;
+  if (word.endsWith('llies')) return word.slice(0, -2);
+  if (word.endsWith('ies') && word.length > 4) return word.slice(0, -3) + 'y';
+  if (/(oes|ches|shes|sses|xes|zes)$/.test(word)) return word.slice(0, -2);
+  return word.slice(0, -1);
+}
 export const words = text => String(text ?? '').toLowerCase().replace(/\([^)]*\)/g, ' ').replace(/[^a-z\s-]/g, ' ').split(/[\s-]+/)
   .filter(word => word.length > 1 && !IGNORED.has(word)).map(stem);
 
@@ -27,12 +39,12 @@ export const words = text => String(text ?? '').toLowerCase().replace(/\([^)]*\)
 export function usdaFood(id) {
   const row = load()[String(id)];
   if (!row) return null;
-  return { id: String(id), name: row[0], category: row[1], per100: Object.fromEntries(NUTRIENTS.map((n, i) => [n, row[2 + i]])), portions: row[9] };
+  return { id: String(id), name: row[0], category: row[1], per100: Object.fromEntries(fields.map((n, i) => [n, row[2 + i]])), portions: row[2 + fields.length] };
 }
 
 // Singapore and British names to USDA wording; the AI can also suggest search terms when nothing fits.
 /** @type {Array<[RegExp, string]>} */
-const SYNONYMS = [[/lemongrass/, 'lemon grass'], [/\bchill?(i|ies|is|e|es)\b/, 'peppers hot chili'], [/\b(stock|broth)\b/, 'soup stock broth'],
+const SYNONYMS = [[/lemongrass/, 'lemon grass'], [/\bchill?(i|ies|is|e|es)\b/, 'peppers hot chili chile'], [/\b(stock|broth)\b/, 'soup stock broth'],
   [/(white|caster|granulated) sugar/, 'sugars granulated'], [/\b(capsicum|bell pepper)/, 'peppers sweet'], [/\b(aubergine|brinjal)/, 'eggplant'],
   [/(coriander leaves|cilantro)/, 'coriander leaves'], [/(spring onion|scallion)/, 'onions spring or scallions'], [/bean ?curd/, 'tofu'],
   [/\bcourgette/, 'squash zucchini'], [/(plain|all purpose) flour/, 'wheat flour white all-purpose'], [/\bcornflour|cornstarch|corn starch/, 'cornstarch'],

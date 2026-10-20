@@ -35,8 +35,12 @@ export async function saveLearned(row) {
       FROM nutrition.ingredient WHERE name_key=$1 FOR UPDATE`, [row.key])).rows[0];
     let changed = false;
     if (current && (current.status === 'auto' || current.status === 'approved')) {
-      changed = (await client.query(`UPDATE nutrition.ingredient SET units = $2::jsonb || units, g_per_ml = coalesce(g_per_ml, $3), updated_at = now()
-        WHERE name_key=$1 AND NOT (units @> $2::jsonb AND (g_per_ml IS NOT NULL OR $3::numeric IS NULL))`, [row.key, row.units ?? {}, row.gPerMl ?? null])).rowCount > 0;
+      // Only weights it lacks are added; an approved row that gains one goes back to To check, so staff see the new weight.
+      changed = (await client.query(`UPDATE nutrition.ingredient SET units = $2::jsonb || units, g_per_ml = coalesce(g_per_ml, $3), updated_at = now(),
+          status = 'auto', reason = CASE WHEN status = 'approved' THEN left('AI added a weight after approval: ' || $4, 500) ELSE reason END
+        WHERE name_key=$1 AND (EXISTS (SELECT 1 FROM jsonb_object_keys($2::jsonb) AS added(unit) WHERE NOT (nutrition.ingredient.units ? added.unit))
+          OR (g_per_ml IS NULL AND $3::numeric IS NOT NULL))`,
+        [row.key, row.units ?? {}, row.gPerMl ?? null, String(row.reason ?? '')])).rowCount > 0;
     } else if (!current || current.status === 'retry' || current.due) {
       const foodId = row.food ? (await client.query('INSERT INTO nutrition.food (name, per100, sources, note) VALUES ($1, $2, $3, $4) RETURNING id',
         [row.food.name, row.food.per100, JSON.stringify(row.food.sources), row.food.note ?? ''])).rows[0].id : null;

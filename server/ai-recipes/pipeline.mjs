@@ -25,7 +25,7 @@ async function fromRequest(job, signal, usage, progress) {
 }
 
 /** Saves the recipe and its photos together (live, or pending for staff review); steps with a photo are marked. */
-async function save(job, recipe, photos, review) {
+async function save(job, recipe, photos, review, nutritionComplete) {
   const steps = recipe.steps.map(({ shotAt, ...step }, index) => photos?.kinds.has(index) ? { ...step, image: photos.kinds.get(index) } : step);
   const saved = { ...recipe, steps };
   const cover = photos?.cover ?? (photos?.steps.size ? photos.steps.get(Math.max(...photos.steps.keys())) : null);
@@ -41,8 +41,9 @@ async function save(job, recipe, photos, review) {
       await client.query('INSERT INTO recipes.photo (recipe_id, version, slot, bytes, digest) VALUES ($1, $2, $3, $4, $5)',
         [row.id, version, slot, bytes, createHash('sha256').update(bytes).digest('hex')]);
     }
-    // A live recipe is linked to its ingredient names, so later corrections in the ingredient database reach it.
-    if (!review) await linkRecipe(client, row.id, 1, recipeKeys(saved.ingredients));
+    // A live recipe is linked to its ingredient names, so later corrections in the ingredient database reach it; when
+    // some names were left for later (AI off or failed) the hourly refresh checks it again.
+    if (!review) await linkRecipe(client, row.id, 1, recipeKeys(saved.ingredients), nutritionComplete);
     await client.query('COMMIT');
     return { id: row.id, photos: images.length };
   } catch (error) {
@@ -58,10 +59,10 @@ export async function runJob(job, signal) {
   try {
     const { recipe, photos } = job.kind === 'video' ? await fromVideo(job, signal, usage, progress) : await fromRequest(job, signal, usage, progress);
     await progress('Working out the nutrition…');
-    const nutrition = await nutritionFor(recipe, { usage, signal });
+    const { nutrition, complete } = await nutritionFor(recipe, { usage, signal });
     if (nutrition) recipe.nutrition = nutrition;
     const review = recipe.source.confidence < REVIEW_BELOW;
-    const saved = await save(job, recipe, photos, review);
+    const saved = await save(job, recipe, photos, review, complete);
     const status = review ? 'review' : 'published';
     await pool.query(`UPDATE recipes.ai_job SET status=$2, recipe_id=$3, message=$4, usage=$5, finished_at=now() WHERE id=$1`,
       [job.id, status, saved.id, review ? 'Some quantities or steps were unclear, so staff will check it before it goes public.' : '', { ...usage, photos: saved.photos }]);

@@ -42,7 +42,8 @@ const researchSchema = {
     sodium: { type: 'NUMBER', nullable: true, description: 'mg per 100 g' },
     gPerMl: { type: 'NUMBER', nullable: true }, eachGrams: { type: 'NUMBER', nullable: true },
     source: { type: 'STRING', description: 'name of the table or label the figures come from' },
-  }, required: ['key', 'found', 'name', 'kcal', 'protein', 'fat', 'carbs', 'fibre', 'sugar', 'sodium', 'gPerMl', 'eachGrams', 'source'] } } },
+    pages: { type: 'ARRAY', items: { type: 'INTEGER' }, description: 'numbers of the listed pages that give the figures for this food' },
+  }, required: ['key', 'found', 'name', 'kcal', 'protein', 'fat', 'carbs', 'fibre', 'sugar', 'sodium', 'gPerMl', 'eachGrams', 'source', 'pages'] } } },
   required: ['items'],
 };
 const researchSystem = `You look up nutrition figures for foods a nutrition database lacks, for a Singapore cooking app. Use Google Search. For each food find energy (kcal), protein, fat, carbohydrate, dietary fibre and total sugars in grams and sodium in mg, all per 100 g of the food in the form used for cooking, from a food composition table (USDA FoodData Central, Malaysian MyFCD, Singapore HPB, Australian AUSNUT/NUTTAB, Indian IFCT, ASEAN tables) or a manufacturer's label. Name the table or product and give the page. If you cannot find a reliable source for a food, say so; never estimate figures yourself.`;
@@ -74,15 +75,34 @@ async function match(items, candidates, usage, signal) {
   return new Map((result.data?.items ?? []).filter(row => items.some(item => item.key === row.key)).map(row => [row.key, row]));
 }
 
+/**
+ * The pages behind one food's figures: search results whose supporting sentence names the food (from the response's
+ * grounding), else the listed pages the structured answer cites for it. Kept within the column's size limit.
+ */
+function sourcesFor(item, row, pages, supports) {
+  const wanted = item.key.split(' ');
+  const cited = supports.filter(support => { const text = support.text.toLowerCase(); return wanted.every(word => text.includes(word)); }).flatMap(support => support.pages);
+  const indexes = cited.length ? cited : (row?.pages ?? []).filter(index => Number.isInteger(index) && pages[index]);
+  const out = [];
+  for (const index of [...new Set(indexes)]) {
+    if (JSON.stringify([...out, pages[index]]).length > 3800) break;
+    out.push(pages[index]);
+  }
+  return out;
+}
+
 async function research(items, usage, signal) {
   const list = items.map(item => `- ${item.key}: "${item.name}"`).join('\n');
   const notes = await generate({ parts: [{ text: 'Foods to look up:\n' + list }], system: researchSystem, tools: [{ google_search: {} }], signal, maxOutputTokens: 4000 });
   usage.calls.push(notes.usage);
-  const sources = [...new Map((notes.pages ?? []).map(page => [page.url, page])).values()].slice(0, 6);
-  const structured = await generate({ parts: [{ text: 'Keys: ' + items.map(item => item.key).join(', ') + '\n\nResearch notes:\n' + notes.data }], schema: researchSchema,
-    system: 'Turn the research notes into JSON, one item per key. Copy figures exactly; set found false when the notes give no sourced figures for that food.', signal });
+  const pages = notes.pages ?? [], supports = notes.supports ?? [];
+  const numbered = pages.map((page, index) => page ? `[${index}] ${page.title || 'page'}` : '').filter(Boolean).join('\n');
+  const structured = await generate({ parts: [{ text: 'Keys: ' + items.map(item => item.key).join(', ') + '\n\nPages searched:\n' + (numbered || '(none)')
+      + '\n\nResearch notes:\n' + notes.data }], schema: researchSchema, signal,
+    system: 'Turn the research notes into JSON, one item per key. Copy figures exactly; set found false when the notes give no sourced figures for that food. In pages, list only the numbers of pages the notes use for that food.' });
   usage.calls.push(structured.usage);
-  return { rows: new Map((structured.data?.items ?? []).map(row => [row.key, row])), sources };
+  const rows = new Map((structured.data?.items ?? []).map(row => [row.key, row]));
+  return { rows, sources: new Map(items.map(item => [item.key, sourcesFor(item, rows.get(item.key), pages, supports)])) };
 }
 
 /**
@@ -102,10 +122,11 @@ export async function resolveNames(names, { usage, unitKeyOf, signal = undefined
       for (const [key, row] of await match(again, more, usage, signal)) if (row.food || row.negligible) { answers.set(key, row); candidates.set(key, more.get(key)); }
     }
     const missing = items.filter(item => !item.known && !answers.get(item.key)?.food && !answers.get(item.key)?.negligible);
+    // A failed lookup stores nothing for those names, so they are asked again next time instead of marked not found.
     const found = missing.length ? await research(missing, usage, signal).catch(error => {
       logger.warn({ event: 'nutrition_research_failed', detail: String(error?.message ?? error).slice(0, 160) });
-      return { rows: new Map(), sources: [] };
-    }) : { rows: new Map(), sources: [] };
+      return null;
+    }) : { rows: new Map(), sources: new Map() };
     for (const item of items) {
       const answer = answers.get(item.key), confidence = num(answer?.confidence, 0, 1);
       const shared = { key: item.key, name: item.name, gPerMl: num(answer?.gPerMl, 0.05, 3), units: units({ ...answer, unit: item.unit }, unitKeyOf), confidence,
@@ -114,12 +135,13 @@ export async function resolveNames(names, { usage, unitKeyOf, signal = undefined
       if (answer?.negligible) row = { ...shared, status: 'auto', negligible: true };
       else if (answer?.food && (candidates.get(item.key) ?? []).some(f => f.id === answer.food)) row = { ...shared, status: 'auto', usda: answer.food, usdaName: usdaFood(answer.food)?.name };
       else if (item.known) row = { ...shared, status: 'auto', ...(item.staticUsda ? { usda: item.staticUsda, usdaName: usdaFood(item.staticUsda)?.name } : {}) };
+      else if (!found) continue;
       else {
-        const web = found.rows.get(item.key), per100 = web?.found ? checkedPer100(web) : null;
-        row = per100 && found.sources.length
+        const web = found.rows.get(item.key), per100 = web?.found ? checkedPer100(web) : null, sources = found.sources.get(item.key) ?? [];
+        row = per100 && sources.length
           ? { ...shared, status: 'auto', gPerMl: shared.gPerMl ?? num(web.gPerMl, 0.05, 3), units: { ...(num(web.eachGrams, 0.05, 5000) ? { each: num(web.eachGrams, 0.05, 5000) } : {}), ...shared.units },
-            food: { name: String(web.name || item.name).slice(0, 120), per100, sources: found.sources, note: String(web.source ?? '').slice(0, 500) }, reason: 'Not in USDA; figures from ' + String(web.source ?? 'the cited pages').slice(0, 200) }
-          : { ...shared, status: 'unknown', reason: web?.found ? 'Figures found did not pass the consistency checks.' : 'No food composition source found.' };
+            food: { name: String(web.name || item.name).slice(0, 120), per100, sources, note: String(web.source ?? '').slice(0, 500) }, reason: 'Not in USDA; figures from ' + String(web.source ?? 'the cited pages').slice(0, 200) }
+          : { ...shared, status: 'unknown', reason: !web?.found ? 'No food composition source found.' : per100 ? 'No page cited for these figures.' : 'Figures found did not pass the consistency checks.' };
       }
       try { if (await saveLearned(row)) changed++; } catch (error) {
         logger.warn({ event: 'nutrition_learn_save_failed', key: item.key, detail: String(error?.message ?? error).slice(0, 160) });

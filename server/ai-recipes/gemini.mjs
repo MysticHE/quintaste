@@ -78,11 +78,15 @@ async function call({ parts, schema = null, system = null, tools = null, model =
     try { parsed = JSON.parse(output); } catch { throw new GeminiError(502, 'The model returned invalid JSON.'); }
   }
   const usage = data.usageMetadata ?? {};
-  const chunks = candidate?.groundingMetadata?.groundingChunks?.filter(chunk => chunk.web?.uri) ?? [];
-  // Search results come as Google redirect links; `pages` keeps each page's title (its site) for people to read.
-  const pages = chunks.map(chunk => ({ url: String(chunk.web.uri).slice(0, 600), title: String(chunk.web.title ?? '').slice(0, 120) }));
+  // Search results come as Google redirect links; `pages` keeps each page's title (its site) for people to read, at the
+  // same index as the response's grounding chunks (null when unusable), and `supports` maps answer sentences to pages.
+  const grounding = candidate?.groundingMetadata ?? {};
+  const pages = (grounding.groundingChunks ?? []).map(chunk => typeof chunk.web?.uri === 'string' && chunk.web.uri.length <= 2000
+    ? { url: chunk.web.uri, title: String(chunk.web.title ?? '').slice(0, 120) } : null);
+  const supports = (grounding.groundingSupports ?? []).map(support => ({ text: String(support.segment?.text ?? ''),
+    pages: (support.groundingChunkIndices ?? []).filter(index => pages[index]) }));
   return { data: parsed, usage: { input: usage.promptTokenCount ?? 0, output: usage.candidatesTokenCount ?? 0, model: model ?? config.model },
-    sources: pages.map(page => page.url), pages };
+    sources: pages.filter(Boolean).map(page => page.url), pages, supports };
 }
 
 const IMAGE_MODELS = ['gemini-3.1-flash-image', 'gemini-2.5-flash-image'];
