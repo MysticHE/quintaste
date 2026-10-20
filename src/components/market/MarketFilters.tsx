@@ -1,18 +1,20 @@
 import { useState } from "react";
 import { ScrollView, View } from "react-native";
 import { Chip, Chips } from "../food/Controls";
+import { DietIcon } from "../food/DietIcon";
 import { Button, Field, T, common } from "../ui";
 import { ThemedSwitch } from "../GroupedList";
 import { FilterSection } from "../BrowseControls";
 import { IngredientChoices } from "./Ingredients";
 import { MarketModal } from "./MarketChrome";
-import { dietLabels, diets, kindLabels, shopCategories } from "../../config/market";
+import { kindLabels, marketLabels, practiceLabels, practices, shopCategories } from "../../config/market";
+import { usePreferences } from "../../state/Preferences";
 import { defaultShopFilter, type ShopFilter } from "../../types/community";
 
 const sorts: ShopFilter["sort"][] = ["Newest", "Soonest", "Lowest first", "Highest first"];
 const toggle = <T,>(list: T[], item: T) => list.includes(item) ? list.filter(x => x !== item) : [...list, item];
 export function MarketFilters({ value, onApply, onClose }: { value: ShopFilter; onApply: (next: ShopFilter) => void; onClose: () => void }) {
-  const [draft, setDraft] = useState(value), set = (patch: Partial<ShopFilter>) => setDraft(current => ({ ...current, ...patch }));
+  const { theme } = usePreferences(), [draft, setDraft] = useState(value), set = (patch: Partial<ShopFilter>) => setDraft(current => ({ ...current, ...patch }));
   return <MarketModal visible onClose={onClose} label="Market filters"><ScrollView contentContainerStyle={{ gap: 16, paddingBottom: 8 }} keyboardShouldPersistTaps="handled">
     <FilterSection title="Category" icon="grid-outline"><Chips label="Market category">
       <Chip compact label="All categories" icon="grid-outline" role="radio" selected={draft.category === "All"} onPress={() => set({ category: "All" })} />
@@ -21,12 +23,11 @@ export function MarketFilters({ value, onApply, onClose }: { value: ShopFilter; 
     <FilterSection title="Sort by" icon="swap-vertical-outline"><Chips label="Sort">{sorts.map(sort =>
       <Chip key={sort} label={sort === "Soonest" ? "Soonest collection" : sort === "Lowest first" ? "Price: low to high" : sort === "Highest first" ? "Price: high to low" : sort} role="radio" compact selected={draft.sort === sort} onPress={() => set({ sort })} />)}</Chips></FilterSection>
     <FilterSection title="Diet" icon="leaf-outline">
-      <Chips label="Market diet">
-        <Chip compact label="Vegetarian" role="radio" selected={!draft.diets.includes("vegan")} onPress={() => set({ diets: draft.diets.filter(diet => diet !== "vegan") })} />
-        <Chip compact label="Vegan" role="radio" selected={draft.diets.includes("vegan")} onPress={() => set({ diets: [...draft.diets.filter(diet => diet !== "vegan"), "vegan"] })} />
-      </Chips>
-      <Chips label="Additional diet requirements" multiple>{diets.filter(diet => diet !== "vegan" && diet !== "no-egg").map(diet =>
-        <Chip key={diet} label={dietLabels[diet]} role="checkbox" compact selected={draft.diets.includes(diet)} onPress={() => set({ diets: toggle(draft.diets, diet) })} />)}</Chips>
+      <Chips label="Diet labels" multiple>{marketLabels.map(label =>
+        <Chip key={label} label={label} role="checkbox" compact selected={draft.labels.includes(label)}
+          leading={<DietIcon diet={label} size={18} color={draft.labels.includes(label) ? theme.accent : theme.foreground} />} onPress={() => set({ labels: toggle(draft.labels, label) })} />)}</Chips>
+      <Chips label="Practices" multiple>{practices.filter(practice => practice !== "no-egg").map(practice =>
+        <Chip key={practice} label={practiceLabels[practice]} role="checkbox" compact selected={draft.practices.includes(practice)} onPress={() => set({ practices: toggle(draft.practices, practice) })} />)}</Chips>
     </FilterSection>
     <FilterSection title="Avoid ingredients" icon="nutrition-outline"><IngredientChoices value={draft.exclude} onChange={exclude => set({ exclude })} /></FilterSection>
     <FilterSection title="Collection" icon="bag-handle-outline"><Chips label="Collection">{(["Any", "meetup", "delivery"] as const).map(mode =>

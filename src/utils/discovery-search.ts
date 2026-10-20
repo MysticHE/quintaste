@@ -20,7 +20,7 @@ export function sameSearchContext(a: DiscoverySearch, b: DiscoverySearch) {
   return a.area === b.area && a.query === b.query && a.vegan === b.vegan && !!a.alliumFree === !!b.alliumFree && a.radius === b.radius
     && !!a.includeOptions === !!b.includeOptions && (a.kitchen ?? null) === (b.kitchen ?? null)
     && (a.cuisine ?? "All") === (b.cuisine ?? "All") && (a.priceLevel ?? null) === (b.priceLevel ?? null)
-    && JSON.stringify(a.diets ?? null) === JSON.stringify(b.diets ?? null)
+    && JSON.stringify(a.labels ?? null) === JSON.stringify(b.labels ?? null)
     && JSON.stringify(a.cuisines ?? null) === JSON.stringify(b.cuisines ?? null)
     && JSON.stringify(a.priceLevels ?? null) === JSON.stringify(b.priceLevels ?? null)
     && a.origin?.latitude === b.origin?.latitude && a.origin?.longitude === b.origin?.longitude

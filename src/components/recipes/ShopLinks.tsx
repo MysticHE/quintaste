@@ -28,18 +28,15 @@ export function useOwnShopItems() {
 export type OwnShopItems = ReturnType<typeof useOwnShopItems>;
 const words = (value: string) => value.toLowerCase().split(/[^a-z0-9]+/).filter(word => word.length > 2);
 const suggested = (ingredient: string, item: OwnListing) => { const a = words(ingredient), b = words(item.name); return a.some(word => b.includes(word)); };
-const veganConflict = (item: OwnListing, draft: RecipeDraft) => draft.diet === "Vegan" && !item.diets.includes("vegan");
 /** Why an item can't be linked to this line, or "". */
 function blocker(item: OwnListing, draft: RecipeDraft, ingredient: RecipeDraftIngredient) {
   if (draft.ingredients.some(i => i.id !== ingredient.id && i.listingId === item.id)) return "Linked to another ingredient";
-  if (veganConflict(item, draft)) return "Not declared vegan · Recipe is Vegan";
   return "";
 }
 /** Problem with an existing link, or "": shown on the card so the author can fix it before submitting. */
 function linkProblem(linked: OwnListing | undefined, draft: RecipeDraft, loaded: boolean) {
   if (!loaded) return "";
   if (!linked || linked.status === "removed" || linked.status === "draft") return "Unavailable · Remove the link";
-  if (veganConflict(linked, draft)) return "Not declared vegan · Recipe is Vegan";
   return linked.status === "paused" ? "Paused · Hidden from buyers" : "";
 }
 function Thumb({ item }: { item: OwnListing }) {

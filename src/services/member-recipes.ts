@@ -7,7 +7,7 @@ type MemberSummary = {
   id: string; name: string; description: string; minutes: number; servings: number; categories: RecipeCategory[]; diet: "Vegan" | "Vegetarian";
   author: string; language: string; sponsorship: string; revision: number; updatedAt: string; image: string | null; ingredientNames: string[];
   nutrition?: Recipe["nutrition"]; source?: Recipe["source"];
-  /** Diet tags the server read from the ingredient names (AI recipes). */
+  /** Exclusion tags the server read from the ingredient names; the diet labels come from these. */
   contains?: Exclusion[];
 };
 type MemberDetail = MemberSummary & {
@@ -16,11 +16,11 @@ type MemberDetail = MemberSummary & {
 };
 export type MyRecipeStatus = { id: string; draftKey: string; live: boolean; liveRevision: number | null; state: "review" | "declined" | null; pendingRevision: number | null; note: string; hidden: boolean };
 
-/** Shared recipe fields in the app's Recipe shape. Diet is the author's declaration; ingredient contents stay unconfirmed. */
+/** Shared recipe fields in the app's Recipe shape. Diet labels come from the ingredient tags the server reads. */
 function base(r: MemberSummary): Omit<Recipe, "ingredients" | "steps"> {
   return { id: r.id, name: r.name, description: r.description, minutes: r.minutes, servings: r.servings, cuisine: "", categories: r.categories,
-    dietary: r.contains ? { diet: r.diet, contains: r.contains, ingredientsKnown: true, evidence: { source: "Read from the video or recipe pages by AI", kind: "community" } }
-      : { diet: r.diet, contains: [], ingredientsKnown: false, evidence: { source: "Author declaration", kind: "community" } },
+    dietary: { diet: r.diet, contains: r.contains ?? [], ingredientsKnown: !!r.contains,
+      evidence: { source: r.source ? "Read from the video or recipe pages by AI" : "Read from the ingredient list", kind: "community" } },
     author: r.author, language: r.language, revision: r.revision, updatedAt: r.updatedAt,
     ...(r.image ? { image: { path: r.image, width: 1280, height: 960, credit: r.author } } : {}),
     ...(r.nutrition ? { nutrition: r.nutrition } : {}), ...(r.source ? { source: r.source } : {}),
@@ -52,7 +52,7 @@ export function submitRecipe(d: RecipeDraft) {
   const photos: Record<string, string> = {};
   if (d.photo) photos.cover = d.photo;
   d.steps.forEach((s, index) => { if (s.photo) photos["step-" + index] = s.photo; });
-  const recipe = { title: d.title, description: d.description, author: d.author, language: d.language, servings: d.servings, minutes: d.minutes, diet: d.diet,
+  const recipe = { title: d.title, description: d.description, author: d.author, language: d.language, servings: d.servings, minutes: d.minutes,
     categories: d.categories, sponsorship: d.sponsorship, rights: d.rights, policy: d.policy, revision: d.revision,
     ingredients: d.ingredients.map(i => ({ id: i.id, name: i.name, amount: i.amount, unit: i.unit, ...(i.listingId ? { listingId: i.listingId } : {}) })),
     steps: d.steps.map(s => ({ title: s.title, instruction: s.instruction, minutes: s.minutes, ingredientIds: s.ingredientIds ?? [] })) };

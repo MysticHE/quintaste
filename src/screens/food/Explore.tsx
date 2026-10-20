@@ -48,7 +48,7 @@ export function ExploreScreen() {
   }, [eligible, ensure, input]));
   const accepted = eligible && !!discovery.accepted && sameSearchContext(discovery.accepted, input);
   const currentRequest = !!discovery.requested && sameSearchContext(discovery.requested, input);
-  const venues = accepted ? discovery.venues : [], count = activeFilterCount(filters, draft.diet), total = discovery.catalogue?.total ?? 0;
+  const venues = accepted ? discovery.venues : [], count = activeFilterCount(filters, draft.diets), total = discovery.catalogue?.total ?? 0;
   // A short Veg Kitchen list points to Mixed Kitchen places for the same search; Saved already lists both kinds.
   const mixedCount = useMixedKitchenCount(input, accepted && !discovery.mixed && !input.savedIds && total < 5);
   const wider = point ? discoveryRadii.find(value => value > input.radius) : undefined;

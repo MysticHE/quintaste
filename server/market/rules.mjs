@@ -3,13 +3,31 @@ import { Buffer } from 'node:buffer';
 import sharp from 'sharp';
 import { CommunityError, list, pick, text } from '../community/http.mjs';
 import { maxInputPixels, withDecodeSlot } from '../community/images.mjs';
+import { alliums, animal, labelsFor } from '../diet-labels.mjs';
 
 // Mirrors src/config/market.ts and src/config/market-ingredients.ts; the server is the authority.
 export const categories = ['Bakes', 'Kueh & sweets', 'Savoury', 'Frozen', 'Sauces & pantry', 'Drinks'];
 export const ingredients = ['Eggs', 'Dairy', 'Honey', 'Peanuts', 'Tree nuts', 'Gluten', 'Mushrooms', 'Soy', 'Sesame', 'Mustard', 'Celery', 'Lupin', 'Sulphites',
   'Garlic', 'Onion', 'Leeks', 'Chives', 'Scallions', 'Shallots', 'Asafoetida'];
-export const alliums = ['Garlic', 'Onion', 'Leeks', 'Chives', 'Scallions', 'Shallots', 'Asafoetida'];
+export { alliums };
+/**
+ * Diet labels (owner rule, 20 Oct 2026) come from the ingredient tags, not a seller's choice: Vegan = no egg, dairy or
+ * honey; Vegetarian = none of the five pungent. "May contain" counts as present. Sellers may add the No egg and Jain
+ * practices. Stored `diets` also carry 'vegan' and 'five-pungent-free' as derived tags so older clients keep reading them.
+ */
+export const practices = ['no-egg', 'jain'];
 export const diets = ['vegan', 'no-egg', 'five-pungent-free', 'jain'];
+export const listingLabels = (contains = [], mayContain = []) => labelsFor([...contains, ...mayContain]);
+/** Older clients filtered by declared tags; they now mean the matching label. */
+export const legacyLabels = { 'vegan': 'Vegan', 'five-pungent-free': 'Vegetarian' };
+/** The stored diets: the seller's practices plus the tags derived from the labels. */
+function storedDiets(contains, mayContain, chosen) {
+  const labels = listingLabels(contains, mayContain);
+  return diets.filter(diet => chosen.includes(diet) || (labels.includes(legacyLabels[diet])));
+}
+/** SQL that keeps listings (alias l) proven free of `tags`, counting "may contain" as present. */
+export const freeOf = (tags, add) => `NOT ((l.contains || l.may_contain) && ${add(tags)}::text[])`;
+export const labelTags = { Vegan: animal, Vegetarian: alliums };
 export const slots = ['item', 'detail', 'label'];
 export const declarationsVersion = 3;
 /** Home cooking stays small-scale under SFA's home-based business rules. QuinTaste policy until SFA sets numbers. */
@@ -73,7 +91,8 @@ export function readListing(body) {
     kind, name: noContactDetails(text(body.name, 80, { field: 'Item name' }), 'Item name'), category: pick(body.category, categories, 'Bakes'),
     priceCents: whole(body.priceCents ?? 0, 0, 100000, 'Enter a price up to S$1,000.'), portion: text(body.portion, 40, { field: 'Portion' }),
     description: noContactDetails(text(body.description, 500, { field: 'Description' }), 'Description'),
-    ingredients: text(body.ingredients, 5000, { field: 'Ingredient list' }), contains, mayContain, diets: list(body.diets, diets),
+    ingredients: text(body.ingredients, 5000, { field: 'Ingredient list' }), contains, mayContain,
+    diets: storedDiets(contains, mayContain, list(body.diets, practices)),
     storage: text(body.storage, 200, { field: 'Storage' }), dateMark: kind === 'prepacked' ? readDate(body.dateMark) : null,
     lot: kind === 'prepacked' ? text(body.lot, 40, { field: 'Lot' }) : '',
     leadDays: whole(body.leadDays ?? 1, 0, 30, 'Enter a lead time from 0 to 30 days.'),
@@ -102,13 +121,11 @@ export function listingProblem(l, photos, today = new Date(Date.now() + 8 * 3600
   }
   return dietProblem(l);
 }
-/** Declared diets must agree with the declared allergens and ingredients. */
+/** Declared practices must agree with the declared allergens and ingredients; Vegan and Vegetarian are derived, so never contradict. */
 export function dietProblem(l) {
   const has = tag => l.contains.includes(tag);
-  if (l.diets.includes('vegan') && ['Eggs', 'Dairy', 'Honey'].some(has)) return 'A vegan item can’t contain egg, dairy or honey.';
   if (l.diets.includes('no-egg') && has('Eggs')) return 'An egg-free item can’t contain eggs.';
-  if ((l.diets.includes('five-pungent-free') || l.diets.includes('jain')) && alliums.some(has)) return 'Five-pungent-free and Jain items can’t contain onion, garlic, leek, chives, scallion, shallot or asafoetida.';
-  if (l.diets.includes('jain') && (has('Honey') || jainRoots.test(l.ingredients))) return 'Jain items can’t contain honey, root vegetables or alliums.';
+  if (l.diets.includes('jain') && (has('Honey') || alliums.some(has) || jainRoots.test(l.ingredients))) return 'Jain items can’t contain honey, root vegetables or alliums.';
   return null;
 }
 /** Re-encodes an uploaded data URI as a bounded JPEG: EXIF rotation applied, metadata stripped. */

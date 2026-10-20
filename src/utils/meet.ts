@@ -1,4 +1,5 @@
 import { hostDeclarations, payLabels } from "../types/meet";
+import { dietLabels } from "../config/diet-labels";
 import type { GatheringInput, Group, GroupMember, HostApplication, SocialProfile } from "../types/community";
 import { formatSgText, parseSgDateTime, planDateIssue } from "./sg-datetime";
 
@@ -42,7 +43,7 @@ export function tableNeeds(g: Group) {
     for (const m of members) for (const item of pick(m) ?? []) map.set(item, [...(map.get(item) ?? []), m.name]);
     return [...map].map(([item, who]) => item + " (" + who.join(", ") + ")");
   };
-  const diets = (["Vegan", "Vegetarian"] as const).map(d => [d, members.filter(m => m.diet === d).length] as const).filter(([, n]) => n).map(([d, n]) => d + " ×" + n);
+  const diets = dietLabels.map(d => [d, members.filter(m => m.diets?.includes(d)).length] as const).filter(([, n]) => n).map(([d, n]) => d + " ×" + n);
   const avoid = grouped(m => m.excluded);
   return { diet: diets.join(" · "), detail: [...grouped(m => m.practices), ...(avoid.length ? ["Avoid " + avoid.join(", ")] : [])].join(" · ") };
 }

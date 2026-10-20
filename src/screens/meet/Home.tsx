@@ -24,17 +24,17 @@ import { TypePills } from "../../components/social/EventCard";
 import { PersonalPlans } from "./Plans";
 import { AreasView } from "./Areas";
 
-export const activePeopleFilters = (f: MeetFilters) => f.diet !== "All" || f.time !== "Any" || f.prefers !== "Any" || f.fivePungentFree;
+export const activePeopleFilters = (f: MeetFilters) => f.diets.length > 0 || f.time !== "Any" || f.prefers !== "Any";
 /** A plant-based observance today becomes one filter chip, dismissible for the day. */
 function MomentChip() {
   const { network: n, commit } = useMeet(), now = useMinuteClock(), moment = lunarMoment(now), { theme } = usePreferences();
   if (!moment || n.dismissedMoment === moment.day) return null;
-  const on = n.filters.fivePungentFree;
+  const on = n.filters.diets.includes("Vegetarian"), others = n.filters.diets.filter(d => d !== "Vegetarian");
   // Observance days are the community's own calendar: a banner with a switch, not another filter chip.
   return <View style={[common.row, s.moment, { backgroundColor: theme.successSoft, borderColor: theme.border }]}>
     <Icon name="leaf" size={20} color={theme.success} />
     <View style={[common.flex, { minWidth: 0 }]}><T style={common.bold}>{moment.label}</T><T variant="small" muted>Show people who skip the five pungent today</T></View>
-    <ThemedSwitch label={"Only people with no five pungent, " + moment.label} value={on} onChange={value => void commit({ type: "filters", filters: { ...n.filters, fivePungentFree: value } })} />
+    <ThemedSwitch label={"Only people with no five pungent, " + moment.label} value={on} onChange={value => void commit({ type: "filters", filters: { ...n.filters, diets: value ? [...others, "Vegetarian"] : others } })} />
     <IconButton label={"Hide " + moment.label} icon="close" onPress={() => void commit({ type: "dismiss-moment", day: moment.day })} />
   </View>;
 }

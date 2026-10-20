@@ -14,6 +14,7 @@ import { acceptedCount, outdoorVenue, reservedCount } from "../../utils/meet";
 import { planDateIssue } from "../../utils/sg-datetime";
 import { publicVenues } from "../../data/meet";
 import { defaultMeetFilters, payLabels, payOptions, type PayOption } from "../../types/meet";
+import { dietSummary } from "../../config/preferences";
 import type { Group, GroupMember } from "../../types/community";
 
 const statusLabel: Record<GroupMember["status"], string> = { accepted: "Joined", invited: "Invited", declined: "Declined", left: "Left" };
@@ -36,7 +37,7 @@ export function GroupMembers({ group: g, onChange }: { group: Group; onChange: (
     </ListGroup>
     {room && invite && <ListGroup>
       {!visible ? <ListItem title="Turn On Open To Plans" leading={<RowIcon name="eye-outline" tone="warning" />} onPress={() => openSocial("/profile")} />
-        : open.length ? open.map(p => <ListItem key={p.id} title={p.firstName} subtitle={p.diet + " · " + p.area} leading={<Initial name={p.firstName} />}
+        : open.length ? open.map(p => <ListItem key={p.id} title={p.firstName} subtitle={dietSummary(p.diets) + " · " + p.area} leading={<Initial name={p.firstName} />}
           trailing={<ActionChip label="Invite" icon="add" run={async () => { await addPerson(g.id, p.id); onChange(); }} />} />)
         : <ListItem title={candidates.data ? "No One Else Open To Plans" : "Loading"} leading={<RowIcon name="people-outline" tone="muted" />} />}
     </ListGroup>}

@@ -10,9 +10,9 @@ type Answer = { icon: IconName; question: string; answer: string };
 /** Task questions members actually ask. Every answer states what QuinTaste does and does not check. */
 const answers: Answer[] = [
   { icon: "leaf-outline", question: "How do I find food with no five pungent (五辛)?",
-    answer: "In Explore or Cook, open the filter in the search box and turn on No five pungent. Places match on their menus and listings, so ask the stall when it matters: recipes and places can still use garlic or onion in sauces." },
-  { icon: "shield-checkmark-outline", question: "Are the vegetarian labels checked?",
-    answer: "Place details come from menus and sources shown on each place, with the date they were checked. Market sellers and recipe authors declare their own food. QuinTaste does not certify any food or seller." },
+    answer: "In QuinTaste, Vegetarian means no five pungent: garlic, onion, shallots, spring onion, leeks, chives and asafoetida. Vegan means no dairy, egg or honey. In Explore or Cook, open the filter in the search box and choose Vegetarian. Sauces can still hide garlic or onion, so ask the stall when it matters." },
+  { icon: "shield-checkmark-outline", question: "Are the diet labels checked?",
+    answer: "A place shows Vegan or Vegetarian only when the venue's own information says so; otherwise it shows no label. Each place lists its sources and the date they were checked. Market sellers and recipe authors declare their own food. QuinTaste does not certify any food or seller." },
   { icon: "bag-handle-outline", question: "How do I buy from Market?",
     answer: "Choose an item, pick a collection slot and send the order. The seller confirms it, and you pay them in cash or PayNow when you collect. QuinTaste does not take payment." },
   { icon: "people-outline", question: "How do I find people to eat with?",

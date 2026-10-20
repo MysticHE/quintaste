@@ -18,13 +18,13 @@ export function FitBadge({ fit }: { fit: Fit }) {
 /** uncertain carries recipe compound-ingredient exclusions so Saved cards match the fit shown in Cook. */
 export function EvidenceLine({ dietary, uncertain }: { dietary: Dietary; uncertain?: readonly Exclusion[] }) {
   const { draft } = usePreferences();
-  const result = dietaryResult(dietary, draft.diet, draft.excluded, undefined, uncertain);
+  const result = dietaryResult(dietary, draft.diets, draft.excluded, undefined, uncertain);
   return <View style={s.evidenceRow}><FitBadge fit={result.fit} /><T variant="small" muted>{result.evidence === "Current sample" ? dietary.evidence.kind === "menu" ? "Venue says · sample" : "Editorial · sample" : result.evidence}</T></View>;
 }
 export function EvidencePanel({ dietary }: { dietary: Dietary }) {
   const { draft, theme } = usePreferences();
   const compact = useCompactUI();
-  const result = dietaryResult(dietary, draft.diet, draft.excluded);
+  const result = dietaryResult(dietary, draft.diets, draft.excluded);
   if (compact) return <View style={{ gap: 6 }}><EvidenceLine dietary={dietary} />
     <T variant="small" muted>{dietary.evidence.source}{dietary.evidence.checkedAt ? " · " + dietary.evidence.checkedAt : " · Undated"}</T>
     {!!result.conflicts.length && <T variant="small" color={theme.warning}>Contains: {result.conflicts.join(", ")}</T>}
@@ -41,7 +41,7 @@ export function EvidencePanel({ dietary }: { dietary: Dietary }) {
         : "The listed sample ingredients fit your current choices."}</T>
     {!!result.conflicts.length && <T color={theme.warning}>Contains: {result.conflicts.join(", ")}</T>}
     {!!result.unknown.length && <T muted>Not confirmed: {result.unknown.join(", ")}</T>}
-    {!result.conflicts.length && draft.diet === "Vegan" && dietary.diet === "Vegetarian" && <T color={theme.warning}>Vegetarian information does not establish that a dish is vegan.</T>}
+    {!result.conflicts.length && draft.diets.includes("Vegan") && dietary.diet === "Vegetarian" && <T color={theme.warning}>Vegetarian information does not establish that a dish is vegan.</T>}
     {dietary.evidence.withdrawn && <T muted>Previous evidence was withdrawn. It is no longer a confirmation.</T>}
     <T variant="small" muted>Ask about sauces, stock and shared equipment. This is ingredient guidance, not an allergen guarantee.</T>
   </Card>;

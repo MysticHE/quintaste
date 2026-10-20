@@ -11,8 +11,8 @@ import { ApiError } from "../services/community-api";
 const reasons = {
   person: ["Harassment", "Spam or scam", "Inappropriate", "Safety concern", "Other"],
   listing: ["Prohibited item", "Misleading details", "Spam or scam", "Other"],
-  place: ["Hours", "Address or location", "Menu or prices", "Closed or moved", "Not vegetarian", "Other"],
-  recipe: ["Not vegetarian", "Unsafe instructions", "Not their recipe", "Spam or scam", "Other"],
+  place: ["Hours", "Address or location", "Menu or prices", "Closed or moved", "Not meat-free", "Other"],
+  recipe: ["Not meat-free", "Unsafe instructions", "Not their recipe", "Spam or scam", "Other"],
 } as const;
 /** Sends a report to the staff review queue; a person report can also block them, a place report suggests an update. */
 export function ReportSheet({ kind, targetId, name, visible, onClose, onBlocked, initialReason = "" }: {

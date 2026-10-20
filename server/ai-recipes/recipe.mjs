@@ -1,4 +1,5 @@
 import { categories as recipeCategories, veganConflict } from '../recipes/rules.mjs';
+import { containsFor } from '../diet-labels.mjs';
 import { containsMeat } from '../market/rules.mjs';
 import { GeminiError } from './gemini.mjs';
 
@@ -8,21 +9,7 @@ const slug = text => String(text).toLowerCase().replace(/[^a-z0-9]+/g, '-').repl
 const finiteSecond = value => Number.isInteger(value) && value >= 0 && value <= 6 * 3600;
 const COUNT_UNITS = /^(pieces?|pcs?\.?|whole|nos?\.?|units?)$/i;
 
-/** The app's exclusion names (src/config/preferences.ts), matched on ingredient names. */
-/** @type {Array<[string, RegExp]>} */
-const TAGS = [
-  ['Garlic', /\bgarlic\b/], ['Onion', /\bonions?\b/], ['Shallots', /\bshallots?\b/], ['Scallions', /\b(scallions?|spring onions?|green onions?)\b/],
-  ['Leeks', /\bleeks?\b/], ['Chives', /\bchives?\b/], ['Asafoetida', /\b(asafoetida|hing)\b/], ['Eggs', /\beggs?\b/],
-  ['Dairy', /(?<!\b(coconut|oat|soy|soya|almond|rice|cashew|peanut|plant-based|vegan|nut)\s)\b(milk|butter|cream|cheese|yogh?urt|ghee|paneer)\b/],
-  ['Honey', /\bhoney\b/], ['Peanuts', /\bpeanuts?\b/], ['Tree nuts', /\b(almonds?|cashews?|walnuts?|pecans?|pistachios?|hazelnuts?|macadamias?)\b/],
-  ['Gluten', /(?<!\b(rice|tapioca|corn|chickpea|potato|glutinous rice|buckwheat|mung bean)\s)\b(wheat|flour|soy sauce|bread|pasta|seitan|barley|rye|noodles?)\b/],
-  ['Mushrooms', /\b(mushrooms?|shiitake|enoki|shimeji|portobello)\b/],
-  ['Root vegetables', /\b(potato(es)?|carrots?|radish(es)?|turnips?|beet(root)?s?|yams?|taro|sweet potato(es)?|ginger|lotus root|onions?|garlic|shallots?)\b/],
-];
-export const containsFor = ingredients => {
-  const names = ingredients.map(i => i.name.toLowerCase()).join(' | ');
-  return TAGS.filter(([, pattern]) => pattern.test(names)).map(([tag]) => tag);
-};
+export { containsFor };
 
 export function toRecipe(draft, { source }) {
   if (draft.isRecipe === false) throw new GeminiError(422, 'That does not look like a cooking recipe.');

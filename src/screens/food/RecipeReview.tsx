@@ -38,7 +38,7 @@ export function RecipeReviewScreen() {
     <PrivateRecipeContent draft={d} />
     {!!links && <T variant="small" muted>Shop Links · {links}</T>}
     <IngredientCheck label="I Own This Recipe And Have Permission To Use Every Photo" checked={d.rights} disabled={locked} onPress={() => void state.consent(id, "rights", !d.rights)} />
-    <IngredientCheck label="I Agree To Vegetarian/Vegan Content Review And Will Disclose Sponsorship" checked={d.policy} disabled={locked} onPress={() => void state.consent(id, "policy", !d.policy)} />
+    <IngredientCheck label="I Agree To Content Review And Will Disclose Sponsorship" checked={d.policy} disabled={locked} onPress={() => void state.consent(id, "policy", !d.policy)} />
     {!!issue && <T accessibilityLiveRegion="polite">{issue}</T>}
     {sent ? <Button label={mine?.state === "review" ? "In Review" : "Published"} disabled onPress={() => {}} />
       : <Button label={label} icon="send-outline" loading={busy} disabled={locked || !!issue || !status.member.enabled} onPress={() => void submit()} />}

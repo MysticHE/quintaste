@@ -1,7 +1,8 @@
-import { ingredientTextLimit, type IngredientInfo } from "../config/market-ingredients";
-import { alliums } from "../config/preferences";
+import { ingredientTextLimit, type IngredientInfo, type MarketIngredient } from "../config/market-ingredients";
+import { alliums, exclusions, type Exclusion } from "../config/preferences";
+import { labelsFrom } from "../config/diet-labels";
 import { marketLimits } from "../config/market";
-import type { Diet, ListingInput, ListingKind, OwnListing, ShopCategory, ShopPhotoSlot, ShopTrust, Slot } from "../types/community";
+import type { Diet, ListingInput, MarketPractice, ListingKind, OwnListing, ShopCategory, ShopPhotoSlot, ShopTrust, Slot } from "../types/community";
 import { parseDay } from "./day";
 import { parseSgDateTime } from "./sg-datetime";
 
@@ -9,14 +10,21 @@ export const marketMoney = (cents: number) => "S$" + (cents / 100).toFixed(cents
 /** Form state: text inputs stay as typed; photos are server paths or newly chosen data URIs. */
 export type ListingDraft = {
   kind: ListingKind; name: string; category: ShopCategory; price: string; portion: string; description: string; ingredients: string;
-  info: IngredientInfo; diets: Diet[]; storage: string; dateMark: string; lot: string; leadDays: number; maxPerOrder: string;
+  info: IngredientInfo; diets: MarketPractice[]; storage: string; dateMark: string; lot: string; leadDays: number; maxPerOrder: string;
   photos: Partial<Record<ShopPhotoSlot, string>>;
 };
+/** Vegan, Vegetarian or Plant-Based from a listing's seller-declared tags; "may contain" counts as present and the tag list is complete. */
+export function listingLabels(listing: { contains: readonly MarketIngredient[]; mayContain: readonly MarketIngredient[] }) {
+  const tags = [...listing.contains, ...listing.mayContain].filter((tag): tag is MarketIngredient & Exclusion => (exclusions as readonly string[]).includes(tag));
+  return labelsFrom(tags, true);
+}
+/** The seller's own practices; stored "vegan" and "five-pungent-free" are derived and dropped here. */
+export const practicesOf = (diets: readonly Diet[]) => diets.filter((diet): diet is MarketPractice => diet === "no-egg" || diet === "jain");
 export function draftFrom(listing?: OwnListing): ListingDraft {
   return listing ? {
     kind: listing.kind, name: listing.name, category: listing.category, price: listing.priceCents ? String(listing.priceCents / 100) : "", portion: listing.portion,
     description: listing.description, ingredients: listing.ingredients, info: { contains: listing.contains, mayContain: listing.mayContain, reviewed: true },
-    diets: listing.diets, storage: listing.storage, dateMark: listing.dateMark ?? "", lot: listing.lot, leadDays: listing.leadDays, maxPerOrder: String(listing.maxPerOrder),
+    diets: practicesOf(listing.diets), storage: listing.storage, dateMark: listing.dateMark ?? "", lot: listing.lot, leadDays: listing.leadDays, maxPerOrder: String(listing.maxPerOrder),
     photos: { ...listing.photos },
   } : { kind: "made", name: "", category: "Bakes", price: "", portion: "", description: "", ingredients: "", info: { contains: [], mayContain: [], reviewed: true },
     diets: [], storage: "", dateMark: "", lot: "", leadDays: 1, maxPerOrder: "5", photos: {} };
@@ -57,21 +65,23 @@ const roots = /\b(potato(es)?|carrots?|beetroots?|radish(es)?|ginger|garlic|onio
 const pungent = /\b(garlic|onions?|leeks?|chives|scallions?|shallots?|spring onions?|asafoetida|hing)\b/i;
 const meat = /\b(chicken|beef|pork|mutton|lamb|fish|prawns?|shrimp|crab|squid|anchov(y|ies)|ikan bilis|belacan|bacon|ham|lard|gelatine?)\b/i;
 const qualified = /\b(vegetarian|vegan|mock|plant[- ]based|meatless)\b/i;
-/** A hard contradiction between declared diets and declared allergens; the server blocks the same. */
+/** A hard contradiction between declared practices and declared allergens; the server blocks the same. */
 export function dietConflict(d: Pick<ListingDraft, "diets" | "info">) {
   const has = (tag: string) => d.info.contains.includes(tag as never);
-  if (d.diets.includes("vegan") && ["Eggs", "Dairy", "Honey"].some(has)) return "A vegan item can't contain egg, dairy or honey.";
   if (d.diets.includes("no-egg") && has("Eggs")) return "An egg-free item can't contain eggs.";
-  if ((d.diets.includes("five-pungent-free") || d.diets.includes("jain")) && alliums.some(has)) return "Remove onion and garlic family items, or the No five pungent claim.";
+  if (d.diets.includes("jain") && alliums.some(has)) return "A Jain item can't contain onion or garlic family items.";
   if (d.diets.includes("jain") && has("Honey")) return "A Jain item can't contain honey.";
   return null;
 }
-/** Words in the ingredient text that seem to contradict a claim; the seller confirms or corrects. */
-export function dietWarnings(d: Pick<ListingDraft, "diets" | "ingredients">) {
-  const warnings: string[] = [], text = d.ingredients;
-  const animalWord = text.replace(plantDairy, " ").match(animal)?.[0];
-  if (d.diets.includes("vegan") && animalWord) warnings.push(`"${animalWord}" usually isn't vegan. If it's plant-based, say so in the ingredients (e.g. oat milk).`);
-  if ((d.diets.includes("five-pungent-free") || d.diets.includes("jain")) && pungent.test(text)) warnings.push(`"${text.match(pungent)?.[0]}" conflicts with No five pungent. Check spice mixes and sauces too.`);
+/**
+ * Words in the ingredient text that the tags or a practice seem to miss; the seller confirms or corrects. Labels come from
+ * the tags, so an untagged egg or garlic would show a wrong Vegan or Vegetarian label.
+ */
+export function dietWarnings(d: Pick<ListingDraft, "diets" | "ingredients" | "info">) {
+  const warnings: string[] = [], text = d.ingredients, tagged = [...d.info.contains, ...d.info.mayContain] as string[];
+  const animalWord = text.replace(plantDairy, " ").match(animal)?.[0], pungentWord = text.match(pungent)?.[0];
+  if (animalWord && !["Eggs", "Dairy", "Honey"].some(tag => tagged.includes(tag))) warnings.push(`"${animalWord}" is in the ingredients. Tag it under Allergens, or say it's plant-based (e.g. oat milk).`);
+  if (pungentWord && !alliums.some(tag => tagged.includes(tag))) warnings.push(`"${pungentWord}" is in the ingredients. Tag it under Allergens. Check spice mixes and sauces too.`);
   if (d.diets.includes("jain") && roots.test(text)) warnings.push(`"${text.match(roots)?.[0]}" is a root vegetable, which Jain diets avoid.`);
   const meatWord = text.match(meat)?.[0];
   if (meatWord && !qualified.test(text)) warnings.push(`Market is vegetarian. Write "mock ${meatWord.toLowerCase()}" or "plant-based" if it's a meat alternative.`);

@@ -2,33 +2,44 @@ import express from 'express';
 import { pool } from '../config.mjs';
 import { CommunityError, requireUser, throttle } from '../community/http.mjs';
 import { notBlocked, notRestricted } from '../community/router.mjs';
-import { profileColumns, profileIssue, readProfile, sizes, times } from './rules.mjs';
+import { keepStored, legacyDiet, profileColumns, profileIssue, readDiets, readProfile, sizes, storedPractices, times } from './rules.mjs';
 
 export const people = express.Router();
-const empty = { firstName: '', area: '', diet: 'Vegan', practices: [], times: [], size: 4, about: '', interests: [], excluded: [], visible: false };
+const empty = { firstName: '', area: '', diets: ['Plant-Based'], diet: 'Vegetarian', practices: [], times: [], size: 4, about: '', interests: [], excluded: [], visible: false };
 people.get('/me', async (_req, res) => {
   const me = res.locals.user;
   const row = (await pool.query(`SELECT ${profileColumns} FROM social.profile p WHERE p.user_id=$1`, [me.id])).rows[0];
   res.json({ id: me.id, accountName: me.name, profile: row ? { ...row, id: undefined } : empty });
 });
 people.put('/me', async (req, res) => {
-  const me = res.locals.user.id, p = readProfile(req.body?.profile);
+  const me = res.locals.user.id, { legacy, ...p } = readProfile(req.body?.profile);
   await throttle('social-profile:' + me, 120, 3600);
   if (p.visible && profileIssue(p)) p.visible = false;
-  await pool.query(`INSERT INTO social.profile(user_id,first_name,area,diet,practices,times,group_size,about,interests,excluded,visible)
-    VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11) ON CONFLICT(user_id) DO UPDATE SET first_name=$2,area=$3,diet=$4,practices=$5,times=$6,group_size=$7,about=$8,
-    interests=$9,excluded=$10,visible=$11,updated_at=now()`, [me, p.firstName, p.area, p.diet, p.practices, p.times, p.size, p.about, p.interests, p.excluded, p.visible]);
+  if (legacy) p.diets = keepStored(p.diets, (await pool.query('SELECT diets FROM social.profile WHERE user_id=$1', [me])).rows[0]?.diets, legacy);
+  p.diet = legacyDiet(p.diets);
+  await pool.query(`INSERT INTO social.profile(user_id,first_name,area,diet,practices,times,group_size,about,interests,excluded,visible,diets)
+    VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12) ON CONFLICT(user_id) DO UPDATE SET first_name=$2,area=$3,diet=$4,practices=$5,times=$6,group_size=$7,about=$8,
+    interests=$9,excluded=$10,visible=$11,diets=$12,updated_at=now()`,
+  [me, p.firstName, p.area, p.diet, storedPractices(p.practices, p.diets), p.times, p.size, p.about, p.interests, p.excluded, p.visible, p.diets]);
   res.json({ profile: p });
 });
 /** Other members who opted in, are adults, are not restricted and are not blocked either way. */
 const discoverable = `p.visible AND p.user_id <> $1 AND u."adultConfirmed" AND ${notRestricted('p.user_id')} AND ${notBlocked('p.user_id', '$1')}`;
+/**
+ * People who keep every chosen label (`diets=Vegan,Vegetarian`; none = everyone). For one release older apps send
+ * `diet=Vegan` and `fivePungentFree=1`; their old `diet=Vegetarian` (eggs and dairy) now matches everyone.
+ */
+function peopleDiets(q) {
+  const chosen = typeof q.diets === 'string' ? q.diets.split(',') : Array.isArray(q.diets) ? q.diets : [...(q.diet === 'Vegan' ? ['Vegan'] : []), ...(q.fivePungentFree === '1' ? ['Vegetarian'] : [])];
+  return readDiets(chosen).filter(label => label !== 'Plant-Based');
+}
 people.get('/people', async (req, res) => {
   const me = res.locals.user.id, q = req.query, params = [me], where = [discoverable];
   const add = value => { params.push(value); return '$' + params.length; };
-  if (q.diet === 'Vegan' || q.diet === 'Vegetarian') where.push(`p.diet = ${add(q.diet)}`);
+  const wanted = peopleDiets(q);
+  if (wanted.length) where.push(`p.diets @> ${add(wanted)}::text[]`);
   if (times.includes(q.time)) where.push(`${add(q.time)} = ANY(p.times)`);
   if (sizes.includes(Number(q.prefers))) where.push(`p.group_size = ${add(Number(q.prefers))}`);
-  if (q.fivePungentFree === '1') where.push(`'No five pungent' = ANY(p.practices)`);
   if (typeof q.q === 'string' && q.q.trim()) {
     where.push(`(p.first_name || ' ' || p.area || ' ' || p.about || ' ' || array_to_string(p.interests, ' ')) ILIKE ${add('%' + q.q.trim().slice(0, 60).replace(/[\\%_]/g, '\\$&') + '%')}`);
   }

@@ -1,6 +1,9 @@
 import type { SearchPoint } from "./location-search";
+import type { DietLabel } from "../config/diet-labels";
 
 export type PriceLevel = 1 | 2 | 3 | 4;
+/** The diet labels a place can prove: Vegan (venue declares vegan) and Vegetarian (venue states no five pungent). Never Plant-Based. */
+export type PlaceLabel = Exclude<DietLabel, "Plant-Based">;
 export type SearchBounds = { low: { latitude: number; longitude: number }; high: { latitude: number; longitude: number } };
 export type MapPlace = { placeId: string; name: string; latitude: number; longitude: number };
 
@@ -15,4 +18,5 @@ export type LivePlace = MapPlace & {
   rating?: number; reviewCount?: number; photos: LivePhoto[]; reviews?: LiveReview[];
   phone?: string; website?: string; priceLevel?: PriceLevel;
 };
-export type DiscoverySearch = { area: string; query: string; vegan: boolean; diets?: ("Vegetarian" | "Vegan")[]; alliumFree?: boolean; cuisine?: string; cuisines?: string[]; priceLevel?: PriceLevel; priceLevels?: PriceLevel[]; origin?: SearchOrigin; center?: SearchPoint; bounds?: SearchBounds; radius: number; savedIds?: string[]; includeOptions?: boolean; kitchen?: "mixed" };
+/** `labels` are the proven labels every place must carry; `vegan`/`alliumFree` mirror them for the live provider and older servers. */
+export type DiscoverySearch = { area: string; query: string; vegan: boolean; labels?: PlaceLabel[]; alliumFree?: boolean; cuisine?: string; cuisines?: string[]; priceLevel?: PriceLevel; priceLevels?: PriceLevel[]; origin?: SearchOrigin; center?: SearchPoint; bounds?: SearchBounds; radius: number; savedIds?: string[]; includeOptions?: boolean; kitchen?: "mixed" };

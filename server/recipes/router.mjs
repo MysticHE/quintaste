@@ -5,6 +5,7 @@ import { notBlocked, notRestricted } from '../community/router.mjs';
 import { encodePhoto } from '../market/rules.mjs';
 import { like, visibleListings, visibleShop } from '../market/shop.mjs';
 import { categories, draftKey, publicId, readRecipe, rowId } from './rules.mjs';
+import { animal, containsFor, labelsFor } from '../diet-labels.mjs';
 
 /**
  * Member recipes. Browsing and recipe pages are readable by guests; submitting needs a signed-in member.
@@ -20,7 +21,8 @@ function summary(row) {
   const r = row.live;
   return { id: publicId(row.id), name: r.title, description: r.description, minutes: r.minutes, servings: r.servings, categories: r.categories,
     diet: r.diet, author: r.author, language: r.language, sponsorship: r.sponsorship, revision: row.live_revision, updatedAt: day(row.published_at),
-    ...(r.nutrition ? { nutrition: r.nutrition } : {}), ...(r.source ? { source: r.source } : {}), ...(Array.isArray(r.contains) ? { contains: r.contains } : {}),
+    // Diet labels come from the ingredients (server/diet-labels.mjs); recipes saved before 20 Oct 2026 are read here.
+    ...(r.nutrition ? { nutrition: r.nutrition } : {}), ...(r.source ? { source: r.source } : {}), contains: Array.isArray(r.contains) ? r.contains : containsFor(r.ingredients),
     image: row.cover ? photoPath(row.id, 'cover', row.cover) : null, ingredientNames: r.ingredients.map(i => i.name) };
 }
 
@@ -46,15 +48,16 @@ recipes.get('/mine', member, async (_req, res) => {
   res.json({ items: rows.map(({ id, ...row }) => ({ ...row, id: publicId(id) })) });
 });
 
-/** Linked items must be the author's own, saved (on sale or paused), and agree with a vegan recipe's diet. */
+/** Linked items must be the author's own, saved (on sale or paused), and free of dairy, egg and honey when the recipe is Vegan. */
 async function checkLinks(db, me, recipe) {
   const ids = recipe.ingredients.map(i => i.listingId).filter(Boolean);
   if (!ids.length) return;
-  const rows = (await db.query(`SELECT id, name, diets, status FROM market.listing WHERE id = ANY($1::uuid[]) AND seller_id=$2`, [ids, me])).rows;
+  const rows = (await db.query(`SELECT id, name, contains, may_contain, status FROM market.listing WHERE id = ANY($1::uuid[]) AND seller_id=$2`, [ids, me])).rows;
+  const vegan = labelsFor(recipe.contains).includes('Vegan');
   for (const ingredient of recipe.ingredients.filter(i => i.listingId)) {
     const item = rows.find(row => row.id === ingredient.listingId);
     if (!item || !['active', 'paused'].includes(item.status)) throw new CommunityError(400, `The shop item linked to “${ingredient.name}” is no longer in your shop. Remove the link.`);
-    if (recipe.diet === 'Vegan' && !item.diets.includes('vegan')) throw new CommunityError(400, `“${item.name}” isn't declared vegan, so it can't be linked to a vegan recipe.`);
+    if (vegan && [...item.contains, ...item.may_contain].some(tag => animal.includes(tag))) throw new CommunityError(400, `“${item.name}” has dairy, egg or honey, so it can't be linked to a vegan recipe.`);
   }
 }
 async function readPhotos(body, steps) {

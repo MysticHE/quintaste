@@ -1,7 +1,8 @@
 import { isDiscoveryCuisine, isPriceLevel } from "../config/discovery-options";
 import type { SearchPoint } from "../types/location-search";
-import type { DiscoverySearch, SearchOrigin } from "../types/discovery";
+import type { DiscoverySearch, PlaceLabel, SearchOrigin } from "../types/discovery";
 import { inSingapore, validSearchArea } from "../utils/discovery-search";
+import { placeLabelsOf } from "../utils/discovery-filters";
 import { object } from "./google-provider";
 import { validatedSearch } from "./places-search";
 
@@ -15,10 +16,10 @@ export function discoveryInput(value: unknown): DiscoverySearch | undefined {
     || value.priceLevel !== undefined && value.priceLevel !== null && !isPriceLevel(value.priceLevel)) return;
   const cuisine = isDiscoveryCuisine(value.cuisine) ? value.cuisine : "All";
   const priceLevel = isPriceLevel(value.priceLevel) ? value.priceLevel : undefined;
-  if (value.diets !== undefined && (!Array.isArray(value.diets) || value.diets.length > 2 || value.diets.some(v => v !== "Vegan" && v !== "Vegetarian"))) return;
+  if (!validLabels(value.labels) || !validLabels(value.diets)) return;
   if (value.cuisines !== undefined && (!Array.isArray(value.cuisines) || value.cuisines.length > 10 || value.cuisines.some(v => !isDiscoveryCuisine(v) || v === "All"))) return;
   if (value.priceLevels !== undefined && (!Array.isArray(value.priceLevels) || value.priceLevels.length > 4 || value.priceLevels.some(v => !isPriceLevel(v)))) return;
-  const diets = value.diets === undefined ? undefined : [...new Set(value.diets as ("Vegetarian" | "Vegan")[])].sort();
+  const labels = searchLabels(value);
   const cuisines = value.cuisines === undefined ? undefined : [...new Set(value.cuisines as string[])].sort();
   const priceLevels = value.priceLevels === undefined ? undefined : [...new Set(value.priceLevels as (1 | 2 | 3 | 4)[])].sort();
   let origin: SearchOrigin | undefined;
@@ -38,6 +39,18 @@ export function discoveryInput(value: unknown): DiscoverySearch | undefined {
   }
   const radius = value.radius === undefined ? 5000 : value.radius;
   if (typeof radius !== "number" || ![1000, 3000, 5000, 10000].includes(radius)) return;
-  return { area: value.area.trim(), query: value.query.trim(), vegan: value.vegan, diets, alliumFree: value.alliumFree === true, cuisine, cuisines, priceLevel, priceLevels, origin, center, radius, bounds: validatedSearch(value)?.bounds,
+  return { area: value.area.trim(), query: value.query.trim(), vegan: labels.includes("Vegan"), labels, alliumFree: labels.includes("Vegetarian"), cuisine, cuisines, priceLevel, priceLevels, origin, center, radius, bounds: validatedSearch(value)?.bounds,
     ...(value.includeOptions === true ? { includeOptions: true } : {}), ...(value.kitchen === "mixed" ? { kitchen: "mixed" as const } : {}) };
+}
+const validLabels = (value: unknown) => value === undefined
+  || Array.isArray(value) && value.length <= 2 && value.every(label => label === "Vegan" || label === "Vegetarian");
+/**
+ * The labels every place must prove. Clients from before 20 Oct 2026 (remove after one release) send no labels: their
+ * Vegan choice (`diets` exactly Vegan, else `vegan`) is Vegan, and their No five pungent switch (`alliumFree`) is Vegetarian.
+ */
+function searchLabels(value: Record<string, unknown>): PlaceLabel[] {
+  if (Array.isArray(value.labels)) return placeLabelsOf(value.labels);
+  const diets = Array.isArray(value.diets) ? placeLabelsOf(value.diets) : null;
+  const vegan = diets ? diets.length === 1 && diets[0] === "Vegan" : value.vegan === true;
+  return placeLabelsOf([...(vegan ? ["Vegan"] : []), ...(value.alliumFree === true ? ["Vegetarian"] : [])]);
 }

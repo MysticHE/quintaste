@@ -15,7 +15,7 @@ import { invalidate, useRemote } from "../../hooks/useRemote";
 import { usePreferences } from "../../state/Preferences";
 import { listing as loadListing, openConversation, toggleSaved } from "../../services/market-api";
 import { ApiError } from "../../services/community-api";
-import { handoverPayment, marketMoney } from "../../utils/market";
+import { handoverPayment, listingLabels, marketMoney, practicesOf } from "../../utils/market";
 import { formatDay } from "../../utils/day";
 import type { ListingDetail } from "../../types/community";
 
@@ -59,7 +59,7 @@ function Detail({ item }: { item: ListingDetail }) {
         <T variant="subtitle">{item.name}</T>
         {!!item.description && <T>{item.description}</T>}
       </View>
-      <DietPills value={item.diets} />
+      <DietPills labels={listingLabels(item)} practices={practicesOf(item.diets)} />
       <ListGroup><ListItem title={s.tradingName} subtitle={[s.area, s.rating !== null ? "★ " + s.rating : ""].filter(Boolean).join(" · ") || undefined}
         leading={<Initial name={s.tradingName} />} onPress={() => router.push({ pathname: "/market/shop/[id]", params: { id: s.id } })} /></ListGroup>
       <ListGroup title="Ingredients"><View style={st.ingredients}><T>{item.ingredients}</T>

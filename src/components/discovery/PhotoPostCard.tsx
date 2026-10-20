@@ -47,9 +47,9 @@ export function PhotoPostCard({ photo, title, label, hint, onPress, topLeft, top
   </View>;
 }
 /** One white fact on the photo: an icon and its text. */
-export function PostFact({ icon, children, iconColor, shrink = false }: { icon: IconName; children: ReactNode; iconColor?: string; shrink?: boolean }) {
+export function PostFact({ icon, leading, children, iconColor, shrink = false }: { icon?: IconName; leading?: ReactNode; children: ReactNode; iconColor?: string; shrink?: boolean }) {
   const { theme } = usePreferences();
-  return <View style={[s.line, shrink && { flexShrink: 1 }]}><Icon name={icon} size={14} color={iconColor ?? theme.mediaForeground} />
+  return <View style={[s.line, shrink && { flexShrink: 1 }]}>{leading ?? (icon && <Icon name={icon} size={14} color={iconColor ?? theme.mediaForeground} />)}
     <T variant="caption" style={shrink ? { flexShrink: 1 } : common.flex} color={theme.mediaForeground}>{children}</T></View>;
 }
 /** Facts that share one wrapping row. */

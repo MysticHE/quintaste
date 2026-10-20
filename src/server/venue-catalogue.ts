@@ -117,15 +117,13 @@ export function searchCatalogue(search: DiscoverySearch, cursor: string | null, 
     if (search.savedIds && !search.savedIds.includes("catalogue-" + venue.id)
       && !savedAlias && !(venue.googlePlaceId && search.savedIds.includes("google-" + venue.googlePlaceId))) continue;
     // Veg Kitchen and Mixed Kitchen are separate lists; Saved and older clients sending includeOptions get both kinds.
-    // A Mixed Kitchen place never appears in an allium-free search.
-    const options = venue.kitchen === "options";
-    if (options && search.alliumFree) continue;
+    const options = venue.kitchen === "options", labels = search.labels ?? [];
     if (!search.savedIds && (search.kitchen === "mixed" ? !options : options && !search.includeOptions)) continue;
-    // An options place passes Vegan when at least one published dish is labelled VG.
-    const veganOptions = options && menuFacts(venue.id, staff, content).anyVegan;
-    const dietMatch = search.diets ? !search.diets.length || search.diets.includes(venue.venueDiet) || veganOptions && search.diets.includes("Vegan")
-      : !search.vegan || venue.venueDiet === "Vegan" || veganOptions;
-    if (withdrawn.has(venue.id) || !dietMatch || search.alliumFree && !venue.alliumFreeClaim) continue;
+    // Each chosen label must be proven: Vegan by the venue's vegan declaration (or, at a Mixed Kitchen, at least one
+    // VG dish); Vegetarian (no five pungent) by the venue's own claim, which a Mixed Kitchen never carries.
+    const vegan = venue.venueDiet === "Vegan" || options && menuFacts(venue.id, staff, content).anyVegan;
+    const vegetarian = venue.alliumFreeClaim && !options;
+    if (withdrawn.has(venue.id) || labels.includes("Vegan") && !vegan || labels.includes("Vegetarian") && !vegetarian) continue;
     // Unknown cuisine and Google price-band facts cannot pass those filters.
     if (search.priceLevels?.length || search.cuisines?.length || search.priceLevel || search.cuisine && search.cuisine !== "All") continue;
     // A keyword finds places by name, branch or address, or by a dish on the published menu (the game's Find it nearby).

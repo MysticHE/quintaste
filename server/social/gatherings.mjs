@@ -2,11 +2,11 @@ import express from 'express';
 import { pool, logger } from '../config.mjs';
 import { CommunityError, pick, requireId, text, throttle, transaction } from '../community/http.mjs';
 import { notBlocked, notRestricted } from '../community/router.mjs';
-import { diets, pays, profileIssue, readFuture, sgText } from './rules.mjs';
+import { dietsFrom, keepStored, legacyDiet, pays, profileIssue, readFuture, sgText } from './rules.mjs';
 
 export const gatherings = express.Router();
 const nameOf = `coalesce(nullif(p.first_name,''), u.name, 'Member')`;
-const columns = `g.id, g.title, g.area, g.venue, ${sgText('g.starts')} AS starts, g.seats, g.diet, g.food, g.pay, g.alcohol_free AS "alcoholFree", g.state,
+const columns = `g.id, g.title, g.area, g.venue, ${sgText('g.starts')} AS starts, g.seats, g.diets, g.diet, g.food, g.pay, g.alcohol_free AS "alcoholFree", g.state,
   g.organiser_id AS "organiserId", (SELECT ${nameOf} FROM public."user" u LEFT JOIN social.profile p ON p.user_id=u.id WHERE u.id=g.organiser_id) AS "organiserName",
   (SELECT count(*)::int FROM social.attendee a WHERE a.gathering_id=g.id) + 1 AS going, (g.starts IS NOT NULL AND g.starts <= now()) AS past`;
 function readGathering(body) {
@@ -14,7 +14,7 @@ function readGathering(body) {
   const seats = Number(body.seats);
   if (!Number.isInteger(seats) || seats < 2 || seats > 30) throw new CommunityError(400, 'Choose 2–30 people, including you.');
   return { title: text(body.title, 80, { min: 1, field: 'Name' }), area: text(body.area, 60, { field: 'Neighbourhood' }), venue: text(body.venue, 160, { field: 'Meeting place' }),
-    startsText: typeof body.starts === 'string' ? body.starts : '', seats, diet: pick(body.diet, diets, 'Vegan'), food: text(body.food, 1000, { field: 'Food' }),
+    startsText: typeof body.starts === 'string' ? body.starts : '', seats, ...dietsFrom(body), food: text(body.food, 1000, { field: 'Food' }),
     pay: pick(body.pay, pays, 'own'), alcoholFree: body.alcoholFree === true };
 }
 async function requireProfile(db, me) {
@@ -54,22 +54,23 @@ async function save(req, res, id) {
   await throttle('social-gathering:' + me, 60, 3600);
   const saved = await transaction(async db => {
     await requireProfile(db, me);
-    const values = [g.title, g.area, g.venue, starts, g.seats, g.diet, g.food, g.pay, g.alcoholFree];
+    const row = id ? (await db.query('SELECT organiser_id, state, diets FROM social.gathering WHERE id=$1 FOR UPDATE', [id])).rows[0] : null;
+    const labels = keepStored(g.diets, row?.diets, g.legacy);
+    const values = [g.title, g.area, g.venue, starts, g.seats, legacyDiet(labels), g.food, g.pay, g.alcoholFree, labels];
     if (id) {
-      const row = (await db.query('SELECT organiser_id, state FROM social.gathering WHERE id=$1 FOR UPDATE', [id])).rows[0];
       if (!row || row.organiser_id !== me) throw new CommunityError(404, 'This gathering is unavailable.');
       if (row.state === 'cancelled') throw new CommunityError(409, 'This gathering was cancelled.');
       // A posted gathering stays complete: an edit without `post` must still keep its place and a future time.
       if (row.state === 'posted' && (!starts || !g.area || !g.venue)) throw new CommunityError(400, 'A posted gathering needs a neighbourhood, a public meeting place and a future time.');
       const going = Number((await db.query('SELECT count(*) FROM social.attendee WHERE gathering_id=$1', [id])).rows[0].count) + 1;
       if (g.seats < going) throw new CommunityError(409, `${going} people are already going.`);
-      await db.query(`UPDATE social.gathering SET title=$1,area=$2,venue=$3,starts=$4,seats=$5,diet=$6,food=$7,pay=$8,alcohol_free=$9,
-        state=CASE WHEN $10 THEN 'posted' ELSE state END, updated_at=now() WHERE id=$11`, [...values, post, id]);
+      await db.query(`UPDATE social.gathering SET title=$1,area=$2,venue=$3,starts=$4,seats=$5,diet=$6,food=$7,pay=$8,alcohol_free=$9,diets=$10,
+        state=CASE WHEN $11 THEN 'posted' ELSE state END, updated_at=now() WHERE id=$12`, [...values, post, id]);
       return id;
     }
     if (Number((await db.query('SELECT count(*) FROM social.gathering WHERE organiser_id=$1', [me])).rows[0].count) >= 30) throw new CommunityError(409, 'You have 30 gatherings. Delete an old one first.');
-    return (await db.query(`INSERT INTO social.gathering(organiser_id,title,area,venue,starts,seats,diet,food,pay,alcohol_free,state)
-      VALUES($10,$1,$2,$3,$4,$5,$6,$7,$8,$9,$11) RETURNING id`, [...values, me, post ? 'posted' : 'draft'])).rows[0].id;
+    return (await db.query(`INSERT INTO social.gathering(organiser_id,title,area,venue,starts,seats,diet,food,pay,alcohol_free,diets,state)
+      VALUES($11,$1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$12) RETURNING id`, [...values, me, post ? 'posted' : 'draft'])).rows[0].id;
   }, 'social-gathering:' + me);
   res.status(id ? 200 : 201).json({ id: saved });
 }

@@ -11,14 +11,14 @@ import { DateField } from "../../components/DateField";
 import { Confirm } from "../../components/Actions";
 import { AllergenEditor } from "../../components/market/Ingredients";
 import { ListingPhotos, photoBudgets } from "../../components/market/ListingPhotos";
-import { DietChoices } from "../../components/market/ShopParts";
+import { DietChoices, DietPills } from "../../components/market/ShopParts";
 import { MemberPrompt, RemoteStatus, useMember } from "../../components/CommunityGate";
 import { invalidate, useRemote } from "../../hooks/useRemote";
 import { usePreferences } from "../../state/Preferences";
 import { deleteListing, ownListing, saveListing, sellerState, setListingStatus, type PhotoChanges } from "../../services/market-api";
 import { ApiError } from "../../services/community-api";
 import { kindLabels, marketLimits, shopCategories } from "../../config/market";
-import { dietWarnings, draftFrom, listingErrors, listingInput, type ListingDraft } from "../../utils/market";
+import { dietWarnings, draftFrom, listingErrors, listingInput, listingLabels, type ListingDraft } from "../../utils/market";
 import { dayAfter } from "../../utils/day";
 import type { OwnListing, SellerProfile, ShopPhotoSlot } from "../../types/community";
 
@@ -88,7 +88,8 @@ function ListingForm({ initial, seller }: { initial?: OwnListing; seller: Seller
       <Field label="Ingredients" placeholder="Every ingredient, including what's in sauces and spice mixes" value={d.ingredients} multiline error={errors.ingredients}
         editable={!locked} onChangeText={ingredients => set({ ingredients })} />
       <View style={{ gap: 6 }}><FieldLabel>Allergens</FieldLabel><AllergenEditor value={d.info} disabled={locked} onChange={info => set({ info })} /></View>
-      <View style={{ gap: 6 }}><FieldLabel>Diet (Vegetarian By Default)</FieldLabel><DietChoices value={d.diets} onChange={diets => set({ diets })} disabled={locked} warnings={warnings} error={errors.diets} /></View>
+      <View style={{ gap: 6 }}><FieldLabel>Diet Labels</FieldLabel><DietPills labels={listingLabels(d.info)} practices={d.diets} /></View>
+      <View style={{ gap: 6 }}><FieldLabel>Practices (Optional)</FieldLabel><DietChoices value={d.diets} onChange={diets => set({ diets })} disabled={locked} warnings={warnings} error={errors.diets} /></View>
       <Field label="Storage" placeholder="Keep chilled, best eaten within 2 days" value={d.storage} onChangeText={storage => set({ storage })} maxLength={200} error={errors.storage} editable={!locked} />
       {d.kind === "prepacked" && <>
         <DateField label="Date Mark" value={d.dateMark} minimum={dayAfter(now, 1)} error={errors.dateMark} disabled={locked} onChange={dateMark => set({ dateMark })} />

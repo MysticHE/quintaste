@@ -9,6 +9,7 @@ import { useRemote } from "../../hooks/useRemote";
 import { gatherings } from "../../services/social-api";
 import { formatSgShort, sgDateTile } from "../../utils/sg-datetime";
 import type { Gathering } from "../../types/community";
+import { dietSummary } from "../../config/preferences";
 import { ExternalEvents } from "../../components/social/ExternalEvents";
 export const eventTypes = ["Local events", "Gatherings", "Classes", "Home dining"] as const;
 export const eventTypeOptions = [{ id: "Local events", label: "Local events", icon: "megaphone-outline" }, { id: "Gatherings", label: "Gatherings", icon: "people-outline" },
@@ -18,8 +19,8 @@ export function GatheringRow({ g, status }: { g: Gathering; status?: string }) {
   const badge = status ?? (g.mine ? "Hosting" : g.joined ? "Going" : g.going >= g.seats ? "Full" : undefined);
   return <ListItem title={g.title} leading={tile ? <DateTile day={tile.day} month={tile.month} /> : undefined}
     badge={badge ? <StatusPill label={badge} tone={badge === "Full" || status ? "muted" : "accent"} /> : undefined}
-    subtitle={[tile && tile.weekday + " " + tile.time, g.area].filter(Boolean).join(" · ")} detail={[going, g.diet, g.alcoholFree ? "Alcohol-free" : ""].filter(Boolean).join(" · ")}
-    label={[g.title, badge, formatSgShort(g.starts ?? ""), g.area, going, g.diet, g.alcoholFree ? "Alcohol-free" : ""].filter(Boolean).join(", ")} onPress={() => openSocial("/gathering/" + g.id)} />;
+    subtitle={[tile && tile.weekday + " " + tile.time, g.area].filter(Boolean).join(" · ")} detail={[going, dietSummary(g.diets), g.alcoholFree ? "Alcohol-free" : ""].filter(Boolean).join(" · ")}
+    label={[g.title, badge, formatSgShort(g.starts ?? ""), g.area, going, dietSummary(g.diets), g.alcoholFree ? "Alcohol-free" : ""].filter(Boolean).join(", ")} onPress={() => openSocial("/gathering/" + g.id)} />;
 }
 /** Posted gatherings from everyone; classes and home dining open once hosts are approved. */
 export function Events({ query, type }: { query: string; type: typeof eventTypes[number] }) {
@@ -36,7 +37,7 @@ export function Events({ query, type }: { query: string; type: typeof eventTypes
       <WhenHeading title={group.title} />
       {group.items.map(g => { const tile = sgDateTile(g.starts ?? ""), badge = g.mine ? "Hosting" : g.joined ? "Going" : g.going >= g.seats ? "Full" : "";
         return <EventCard key={g.id} starts={g.starts ?? ""} title={g.title} time={tile?.time ?? ""} place={[g.venue, g.area].filter(Boolean).join(", ")}
-          tags={[...(badge ? [{ label: badge, tone: badge === "Full" ? "muted" as const : "accent" as const }] : []), { label: g.going + " of " + g.seats + " going", tone: "muted" as const }, { label: g.diet, tone: "success" as const }]}
+          tags={[...(badge ? [{ label: badge, tone: badge === "Full" ? "muted" as const : "accent" as const }] : []), { label: g.going + " of " + g.seats + " going", tone: "muted" as const }, { label: dietSummary(g.diets), tone: "success" as const }]}
           onPress={() => openSocial("/gathering/" + g.id)} />; })}
     </View>)
       : <EmptyState title={search.trim() ? "No Matching Gatherings" : "No Gatherings Yet"} text="" icon="people-outline"

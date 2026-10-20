@@ -33,7 +33,7 @@ async function main() {
     const eligibility = branch?.venueEligibility as { status?: string } | undefined;
     const vegan = branch?.eligibility === "vegan-confirmed" || eligibility?.status === "vegan-confirmed"
       || claims.some(claim => claim.kind === "vegan" && claim.wholeVenue === true);
-    const alliumFree = claims.some(claim => claim.kind === "no-alliums" || claim.kind === "no-onion-no-garlic");
+    const alliumFree = claims.some(claim => claim.kind === "no-alliums" || claim.kind === "no-onion-garlic" || claim.kind === "no-onion-no-garlic");
     const entry = points.get(summary.id), point = entry?.point;
     const valid = entry?.address === summary.address && entry?.postalCode === summary.postalCode && point && inSingapore(point);
     const photo = photos.entries.find(entry => entry.venueId === summary.id && entry.address === summary.address)?.photo;

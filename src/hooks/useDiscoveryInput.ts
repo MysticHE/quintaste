@@ -3,9 +3,10 @@ import { useFood } from "../state/Food";
 import { useDiscovery } from "../state/Discovery";
 import { usePreferences } from "../state/Preferences";
 import type { LocationSuggestion } from "../types/location-search";
+import type { PlaceLabel } from "../types/discovery";
 import { originIsFresh } from "../utils/discovery-search";
 import { defaultPrivatePlace, privateOrigin, privatePlaceKind } from "../utils/private-places";
-import { discoveryDiet, discoveryDiets, selectedCuisines, selectedPrices, withLocationMode } from "../utils/discovery-filters";
+import { discoveryLabels, selectedCuisines, selectedPrices, withLocationMode } from "../utils/discovery-filters";
 
 export function useDiscoveryInput(now: number) {
   const { doc, filters, setFilters, followDefault, setSearch } = useFood();
@@ -24,16 +25,19 @@ export function useDiscoveryInput(now: number) {
   const center = useMemo(() => privatePlace?.point ?? (selection?.kind === "address"
     ? { latitude: selection.latitude, longitude: selection.longitude } : undefined), [privatePlace?.point, selection]);
   const area = center || origin ? "Singapore" : selection?.name ?? "Singapore";
-  const vegan = discoveryDiet(filters, draft.diet) === "Vegan", radius = discovery.radius, query = discovery.query, alliumFree = filters.noAlliums;
-  const cuisine = filters.cuisine, priceLevel = filters.priceLevel ?? undefined;
-  const dietKey = JSON.stringify(discoveryDiets(filters, draft.diet)), cuisineKey = JSON.stringify(selectedCuisines(filters)), priceKey = JSON.stringify(selectedPrices(filters));
-  const choices = useMemo(() => ({ diets: JSON.parse(dietKey), cuisines: JSON.parse(cuisineKey), priceLevels: JSON.parse(priceKey) }), [dietKey, cuisineKey, priceKey]);
+  const radius = discovery.radius, query = discovery.query, cuisine = filters.cuisine, priceLevel = filters.priceLevel ?? undefined;
+  const labelKey = JSON.stringify(discoveryLabels(filters, draft.diets)), cuisineKey = JSON.stringify(selectedCuisines(filters)), priceKey = JSON.stringify(selectedPrices(filters));
+  // vegan/alliumFree mirror the labels for the live provider and servers from before the label change.
+  const choices = useMemo(() => {
+    const labels = JSON.parse(labelKey) as PlaceLabel[];
+    return { labels, vegan: labels.includes("Vegan"), alliumFree: labels.includes("Vegetarian"), cuisines: JSON.parse(cuisineKey), priceLevels: JSON.parse(priceKey) };
+  }, [labelKey, cuisineKey, priceKey]);
   const savedKey = filters.savedOnly ? JSON.stringify(doc.saves.filter(item => item.kind === "place").map(item => item.id).sort()) : "";
   const savedIds = useMemo(() => savedKey ? JSON.parse(savedKey) as string[] : undefined, [savedKey]);
   // Veg Kitchen sends no kitchen field; Mixed Kitchen lists only places that also serve meat or seafood.
   const kitchen = discovery.mixed ? "mixed" as const : undefined;
-  const input = useMemo(() => ({ area, query, vegan, alliumFree, cuisine, priceLevel, ...choices, origin, center, radius, savedIds, kitchen }),
-    [area, query, vegan, alliumFree, cuisine, priceLevel, choices, origin, center, radius, savedIds, kitchen]);
+  const input = useMemo(() => ({ area, query, cuisine, priceLevel, ...choices, origin, center, radius, savedIds, kitchen }),
+    [area, query, cuisine, priceLevel, choices, origin, center, radius, savedIds, kitchen]);
   const choose = (suggestion: LocationSuggestion) => {
     // Re-selecting the accepted location must not clear results when the search
     // input is unchanged: the focus effect would have no new input to reload.

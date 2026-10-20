@@ -7,10 +7,9 @@ export const saveProfile = (profile: SocialProfile) => call<{ profile: SocialPro
 export function peopleKey(q: string, f: MeetFilters) {
   const params = new URLSearchParams();
   if (q.trim()) params.set("q", q.trim());
-  if (f.diet !== "All") params.set("diet", f.diet);
+  if (f.diets.length) params.set("diets", f.diets.join(","));
   if (f.time !== "Any") params.set("time", f.time);
   if (f.prefers !== "Any") params.set("prefers", String(f.prefers));
-  if (f.fivePungentFree) params.set("fivePungentFree", "1");
   return "/api/social/people?" + params.toString();
 }
 export const people = (path: string, signal: AbortSignal) => call<{ items: Person[] }>(path, { signal });

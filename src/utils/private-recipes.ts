@@ -31,7 +31,7 @@ export function cookingRecipeById(id: string, workspace: RecipeWorkspace): Cooki
 export function recipeShareText(d: RecipeDraft) {
   return [d.title || "Untitled recipe", d.author ? "By " + d.author : "", "Private recipe · Not published or independently reviewed",
     d.description, d.servings + " servings" + (d.minutes ? " · " + d.minutes + " minutes" : ""),
-    "Diet: " + d.diet + " (author declaration)", "Sponsorship: " + (d.sponsorship || "Not declared"),
+    "Sponsorship: " + (d.sponsorship || "Not declared"),
     "Ingredients", ...d.ingredients.map(i => i.amount.trim() ? [i.amount, i.unit, i.name].filter(Boolean).join(" ") : i.name + ", to taste"),
     "Steps", ...d.steps.map((s, n) => (n + 1) + ". " + s.title + "\n" + s.instruction + (s.minutes ? "\nTimer: " + s.minutes + " min" : "")),
   ].filter(Boolean).join("\n\n");

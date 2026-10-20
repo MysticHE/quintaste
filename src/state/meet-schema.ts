@@ -1,12 +1,12 @@
 import { marketIngredients } from "../config/market-ingredients";
-import { defaultMeetFilters, emptyMeet, groupSizes, meetPractices, meetTimes, payOptions, reminderLimit, type MeetNetwork, type MeetProfile, type PlanReminder } from "../types/meet";
+import { defaultMeetFilters, emptyMeet, groupSizes, keptLabels, legacyLabels, meetPractices, meetTimes, payOptions, reminderLimit, type MeetFilters, type MeetNetwork, type MeetProfile, type PlanReminder } from "../types/meet";
 const record = (v: unknown): Record<string, unknown> => v && typeof v === "object" && !Array.isArray(v) ? v as Record<string, unknown> : {};
 const text = (v: unknown, max = 100) => typeof v === "string" ? v.trim().slice(0, max) : "";
 const strings = (v: unknown) => Array.isArray(v) ? [...new Set(v.filter((s): s is string => typeof s === "string"))] : [];
 export class MeetCapacityError extends Error {}
 export function readMeetProfile(input: unknown): MeetProfile {
   const p = record(input);
-  return { name: text(p.name, 40), diet: p.diet === "Vegetarian" ? "Vegetarian" : "Vegan", area: text(p.area, 60), about: text(p.about, 180),
+  return { name: text(p.name, 40), diets: Array.isArray(p.diets) ? keptLabels(p.diets) : legacyLabels(p.diet, p.practices), area: text(p.area, 60), about: text(p.about, 180),
     interests: strings(p.interests).map(s => s.trim().slice(0, 30)).filter(Boolean).slice(0, 5), times: meetTimes.filter(t => strings(p.times).includes(t)),
     size: groupSizes.find(n => n === p.size) ?? 4, excluded: marketIngredients.filter(t => strings(p.excluded).includes(t)),
     practices: meetPractices.filter(t => strings(p.practices).includes(t)) };
@@ -18,12 +18,17 @@ function readReminders(input: unknown): PlanReminder[] {
     pay: payOptions.find(option => option === r.pay) ?? "own" }]));
   return [...unique.values()].slice(-reminderLimit);
 }
+/** People filters; before 20 Oct 2026 a single `diet` and `fivePungentFree` (now Vegetarian). Old Vegetarian (eggs and dairy) matches everyone. */
+function readFilterDiets(f: Record<string, unknown>): MeetFilters["diets"] {
+  const chosen = Array.isArray(f.diets) ? f.diets : [...(f.diet === "Vegan" ? ["Vegan"] : []), ...(f.fivePungentFree === true ? ["Vegetarian"] : [])];
+  return (["Vegan", "Vegetarian"] as const).filter(label => chosen.includes(label));
+}
 /** Earlier local-only groups, gatherings and sample people are not carried forward; Social now lives on the account. */
 export function readMeet(input: unknown): MeetNetwork {
   const v = record(input), f = record(v.filters);
   return { ...emptyMeet(), profile: readMeetProfile(v.profile), dismissedMoment: text(v.dismissedMoment, 10), reminders: readReminders(v.reminders),
-    filters: { ...defaultMeetFilters(), diet: f.diet === "Vegan" || f.diet === "Vegetarian" ? f.diet : "All", time: meetTimes.find(t => t === f.time) ?? "Any",
-      prefers: f.prefers === "Any" ? "Any" : groupSizes.find(n => n === f.prefers) ?? "Any", fivePungentFree: f.fivePungentFree === true } };
+    filters: { ...defaultMeetFilters(), diets: readFilterDiets(f), time: meetTimes.find(t => t === f.time) ?? "Any",
+      prefers: f.prefers === "Any" ? "Any" : groupSizes.find(n => n === f.prefers) ?? "Any" } };
 }
 export function mergeMeet(profile: MeetNetwork, guest: MeetNetwork): MeetNetwork {
   const reminders = [...profile.reminders, ...guest.reminders.filter(r => !profile.reminders.some(p => p.groupId === r.groupId))];

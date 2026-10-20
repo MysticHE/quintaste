@@ -6,7 +6,8 @@ import { Chip, Chips, EmptyState, IconButton } from "../../components/food/Contr
 import { IngredientCheck } from "../../components/market/Ingredients";
 import { Field, T, common } from "../../components/ui";
 import { Action, Confirm, goToPlans, openSocial } from "../../components/social/Shared";
-import { MemberGate, profileState, useSocialMe } from "../../components/social/MeetUI";
+import { DietChoices, MemberGate, profileState, useSocialMe } from "../../components/social/MeetUI";
+import { dietSummary } from "../../config/preferences";
 import { FieldLabel, FormSection, Initial, ListGroup, ListItem, RowIcon, StatusPill } from "../../components/GroupedList";
 import { SgDateTimeField } from "../../components/social/SgDateTimeField";
 import { RemoteStatus, useMember } from "../../components/CommunityGate";
@@ -48,7 +49,7 @@ function GatheringView({ gathering: g, refresh }: { gathering: Gathering; refres
       <ListItem title={formatSgText(g.starts ?? "") || "Time to be set"} leading={<RowIcon name="calendar-outline" />} />
       <ListItem title={g.venue} subtitle={g.area} leading={<RowIcon name="location-outline" />} wrap />
       <ListItem title={payLabels[g.pay]} leading={<RowIcon name="wallet-outline" />} />
-      <ListItem title={[g.diet, g.alcoholFree ? "Alcohol-free" : ""].filter(Boolean).join(" · ")} leading={<RowIcon name="leaf-outline" />} />
+      <ListItem title={[dietSummary(g.diets), g.alcoholFree ? "Alcohol-free" : ""].filter(Boolean).join(" · ")} leading={<RowIcon name="leaf-outline" />} />
       {!!g.food && <ListItem title={g.food} leading={<RowIcon name="restaurant-outline" />} wrap />}
     </ListGroup>
     {!!g.attendees?.length && <ListGroup title="Going" aside={g.going + " of " + g.seats}>
@@ -72,12 +73,12 @@ function SeatStepper({ value, onChange }: { value: number; onChange: (value: num
       <IconButton label="More people" icon="add" onPress={() => onChange(value + 1)} disabled={value >= 30} />
     </View></View>;
 }
-const blank: GatheringInput = { title: "", area: "", venue: "", starts: "", seats: 4, diet: "Vegan", food: "", pay: "own", alcoholFree: false };
+const blank: GatheringInput = { title: "", area: "", venue: "", starts: "", seats: 4, diets: ["Plant-Based"], food: "", pay: "own", alcoholFree: false };
 /** Your gathering: drafts save privately; posting shows it in Events for everyone. */
 function GatheringForm({ initial, copy = false, onChange, area = "" }: { initial?: Gathering; copy?: boolean; onChange?: () => void; area?: string }) {
   const { theme } = usePreferences(), profile = useSocialMe().data?.profile;
   const [g, set] = useState<GatheringInput>(() => initial ? { title: initial.title, area: initial.area, venue: initial.venue, starts: copy ? "" : initial.starts ?? "",
-    seats: initial.seats, diet: initial.diet, food: initial.food, pay: initial.pay, alcoholFree: initial.alcoholFree } : { ...blank, area: area.slice(0, 60) });
+    seats: initial.seats, diets: initial.diets, food: initial.food, pay: initial.pay, alcoholFree: initial.alcoholFree } : { ...blank, area: area.slice(0, 60) });
   const [dirty, setDirty] = useState(false), id = copy ? null : initial?.id ?? null, posted = initial?.state === "posted" && !copy;
   if (profile && profileState(profile).label === "Finish profile") return <EmptyState title="Finish Your Profile First" text="" icon="person-circle-outline" action="Open Profile" onPress={() => openSocial("/profile")} />;
   const update = (patch: Partial<GatheringInput>) => { set({ ...g, ...patch }); setDirty(true); };
@@ -97,7 +98,7 @@ function GatheringForm({ initial, copy = false, onChange, area = "" }: { initial
     </FormSection>
     <FormSection title="People & food">
       <SeatStepper value={g.seats} onChange={seats => update({ seats })} />
-      <View style={{ gap: 6 }}><FieldLabel>Diet</FieldLabel><Chips label="Diet">{(["Vegan", "Vegetarian"] as const).map(diet => <Chip key={diet} label={diet} role="radio" selected={g.diet === diet} onPress={() => update({ diet })} />)}</Chips></View>
+      <View style={{ gap: 6 }}><FieldLabel>Diet</FieldLabel><DietChoices value={g.diets} onChange={diets => update({ diets })} /></View>
       <View style={{ gap: 6 }}><FieldLabel>Who Pays</FieldLabel><Chips label="Who pays">{payOptions.map(option => <Chip key={option} label={payLabels[option]} role="radio" compact selected={g.pay === option} onPress={() => update({ pay: option })} />)}</Chips></View>
       <IngredientCheck label="Alcohol-free" checked={g.alcoholFree} onPress={() => update({ alcoholFree: !g.alcoholFree })} />
       <Field label="Food" value={g.food} maxLength={1000} multiline placeholder="What everyone brings or orders, and what to avoid" onChangeText={food => update({ food })} />

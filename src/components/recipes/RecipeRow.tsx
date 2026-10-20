@@ -1,9 +1,8 @@
 import type { Recipe } from "../../types/food";
 import { usePreferences } from "../../state/Preferences";
-import { fivePungentLabel } from "../../config/preferences";
 import { photos } from "../../data/photos";
 import { recipeBadges } from "../../utils/nutrition";
-import { alliumFree, recipeFit } from "../../utils/recipe-dietary";
+import { recipeFit } from "../../utils/recipe-dietary";
 import { recipeShareMessage } from "../../utils/recipe-share";
 import { ReactionColumn, cookedBy } from "../ReactionBar";
 import { useRecipeSave } from "../../hooks/useRecipeSave";
@@ -12,12 +11,11 @@ import { PhotoPostCard, PostChip, PostFact, PostFacts } from "../discovery/Photo
 
 /**
  * A recipe as the same photo post as an Explore place: cooking time top-left, like / save / share down the right edge,
- * the name and facts on the photo. Diet and the five pungent stay on the card because they decide a meal here.
+ * the name and facts on the photo. The diet labels (Vegan, Vegetarian, Plant-Based) stay on the card because they decide a meal here.
  */
 export function RecipeRow({ recipe, onPress }: { recipe: Recipe; onPress: () => void }) {
   const { draft, theme } = usePreferences(), save = useRecipeSave(recipe.id), cooks = useReaction("recipe", recipe.id).reaction.cooks;
-  const fit = recipeFit(recipe, draft.diet, draft.excluded);
-  const diet = [recipe.dietary.diet !== "Unknown" ? recipe.dietary.diet : "", alliumFree(recipe) ? fivePungentLabel : ""].filter(Boolean).join(" · ");
+  const fit = recipeFit(recipe, draft.diets, draft.excluded), diet = fit.labels.join(" · ");
   const facts = [recipe.categories[0] ?? "", recipe.onePot ? "One pot" : "", recipe.member ? "By " + recipe.author : ""].filter(Boolean).join(" · ");
   // At most two HPB badges (first two in claim order); recipes without figures show no nutrition line.
   const badges = recipeBadges(recipe).slice(0, 2).join(" · ");

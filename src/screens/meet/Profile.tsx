@@ -1,10 +1,9 @@
 import { useEffect, useRef, useState } from "react";
-import { alliums, type Diet } from "../../config/preferences";
 import { View } from "react-native";
 import { Screen } from "../../components/Screen";
 import { Chip, Chips } from "../../components/food/Controls";
 import { IngredientChoices } from "../../components/market/Ingredients";
-import { MemberGate, SizeChoices, practiceLabel, useSocialMe } from "../../components/social/MeetUI";
+import { DietChoices, MemberGate, SizeChoices, useSocialMe } from "../../components/social/MeetUI";
 import { FieldLabel, FormSection, ListGroup, ListItem, RowIcon, ThemedSwitch } from "../../components/GroupedList";
 import { RemoteStatus } from "../../components/CommunityGate";
 import { Button, Field, common } from "../../components/ui";
@@ -16,7 +15,8 @@ import { usePreferences } from "../../state/Preferences";
 import { saveProfile } from "../../services/social-api";
 import { profileChecklist } from "../../utils/meet";
 import { marketIngredients, type MarketIngredient } from "../../config/market-ingredients";
-import { meetPractices, meetTimes, type MeetProfile } from "../../types/meet";
+import { keptLabels, meetPractices, meetTimes, type MeetProfile } from "../../types/meet";
+import type { DietLabel } from "../../config/diet-labels";
 import type { SocialProfile } from "../../types/community";
 
 export function MeetProfileScreen() {
@@ -30,15 +30,13 @@ const listText = (items: string[]) => items.length > 1 ? items.slice(0, -1).join
 const toggle = <T,>(list: T[], item: T) => list.includes(item) ? list.filter(x => x !== item) : [...list, item];
 /**
  * An empty account profile starts from the profile kept on this device, or else from the account's first name and
- * the member's Food Choices (diet, and the five pungent if they avoid them all), so the two never start out disagreeing.
+ * the diet labels in the member's Food Choices, so the two never start out disagreeing.
  */
-function starting(p: SocialProfile, local: MeetProfile, accountName: string, food: { diet: Diet; excluded: readonly string[] }): SocialProfile {
+function starting(p: SocialProfile, local: MeetProfile, accountName: string, food: { diets: readonly DietLabel[] }): SocialProfile {
   if (p.firstName || p.area || p.times.length) return p;
-  if (local.name) return { ...p, firstName: local.name, area: local.area, diet: local.diet, about: local.about, interests: local.interests, times: local.times,
+  if (local.name) return { ...p, firstName: local.name, area: local.area, diets: local.diets, about: local.about, interests: local.interests, times: local.times,
     size: local.size, excluded: local.excluded, practices: local.practices };
-  const fivePungent = alliums.every(item => food.excluded.includes(item));
-  return { ...p, firstName: accountName.split(/\s+/)[0]?.slice(0, 40) ?? "", diet: food.diet === "Vegan" ? "Vegan" : "Vegetarian",
-    practices: fivePungent && !p.practices.includes("No five pungent") ? [...p.practices, "No five pungent"] : p.practices };
+  return { ...p, firstName: accountName.split(/\s+/)[0]?.slice(0, 40) ?? "", diets: keptLabels(food.diets) };
 }
 /** The switch stays disabled until the profile has what others need. */
 function OpenToPlans({ p, set }: { p: SocialProfile; set: (next: SocialProfile) => void }) {
@@ -68,8 +66,8 @@ function Profile({ initial, accountName }: { initial: SocialProfile; accountName
       <Field label="Food Interests" value={interests} maxLength={160} placeholder="Coffee, noodles, brunch" onChangeText={value => { setInterests(value); set({ ...p, interests: parseInterests(value) }); }} />
     </FormSection>
     <FormSection title="Food">
-      <View style={{ gap: 6 }}><FieldLabel>Diet</FieldLabel><Chips label="Diet">{(["Vegan", "Vegetarian"] as const).map(diet => <Chip key={diet} label={diet} role="radio" selected={p.diet === diet} onPress={() => set({ ...p, diet })} />)}</Chips></View>
-      <View style={{ gap: 6 }}><FieldLabel>Practice</FieldLabel><Chips>{meetPractices.map(practice => <Chip key={practice} label={practiceLabel(practice)} role="checkbox" selected={p.practices.includes(practice)}
+      <View style={{ gap: 6 }}><FieldLabel>Diet</FieldLabel><DietChoices value={p.diets} onChange={diets => set({ ...p, diets })} /></View>
+      <View style={{ gap: 6 }}><FieldLabel>Practice</FieldLabel><Chips>{meetPractices.map(practice => <Chip key={practice} label={practice} role="checkbox" selected={p.practices.includes(practice)}
         onPress={() => set({ ...p, practices: toggle(p.practices, practice) })} />)}</Chips></View>
       <View style={{ gap: 6 }}><View style={common.spread}><FieldLabel>Avoid</FieldLabel>
         {!!fromFoodChoices.length && <Button label="Use My Food Choices" variant="link" onPress={() => set({ ...p, excluded: [...p.excluded, ...fromFoodChoices] })} />}</View>

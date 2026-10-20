@@ -57,7 +57,7 @@ function PlaceForm({ detail, onSaved }: { detail: Detail | null; onSaved: (id?: 
         <label>Name<input value={place.name} onChange={e => set({ name: e.target.value })} maxLength={300}/>{was('name')}</label>
         <label>Branch<input value={place.branch} onChange={e => set({ branch: e.target.value })} maxLength={300}/>{was('branch')}</label>
         <label>Postal code<input value={place.postalCode} onChange={e => set({ postalCode: e.target.value })} inputMode="numeric" maxLength={6}/>{was('postalCode')}</label>
-        <label>Diet<select value={place.venueDiet} onChange={e => set({ venueDiet: e.target.value as Place['venueDiet'] })}><option>Vegetarian</option><option>Vegan</option></select>{was('venueDiet')}</label>
+        <label>Vegan<select value={place.venueDiet} onChange={e => set({ venueDiet: e.target.value as Place['venueDiet'] })}><option value="Vegetarian">Not declared vegan</option><option value="Vegan">Vegan (venue declares)</option></select>{was('venueDiet')}</label>
         {/* Mixed Kitchen lists only the venue's V/VG-labelled dishes, so the server refuses it while any visible dish is unlabelled. */}
         <label>Kitchen<select value={place.kitchen ?? ''} onChange={e => set(e.target.value === 'options' ? { kitchen: 'options', alliumFreeClaim: false } : { kitchen: null, menuTotal: null })}>
           <option value="">Veg Kitchen</option><option value="options">Mixed Kitchen</option></select>{was('kitchen')}</label>
@@ -69,7 +69,7 @@ function PlaceForm({ detail, onSaved }: { detail: Detail | null; onSaved: (id?: 
       <div className="fields">
         <label>Latitude<input value={lat} onChange={e => setLat(e.target.value)} inputMode="decimal" placeholder="1.3521"/></label>
         <label>Longitude<input value={lng} onChange={e => setLng(e.target.value)} inputMode="decimal" placeholder="103.8198"/></label>
-        <label className="check"><input type="checkbox" checked={place.alliumFreeClaim} disabled={place.kitchen === 'options'} onChange={e => set({ alliumFreeClaim: e.target.checked })}/>Allium-free</label>
+        <label className="check"><input type="checkbox" checked={place.alliumFreeClaim} disabled={place.kitchen === 'options'} onChange={e => set({ alliumFreeClaim: e.target.checked })}/>No five pungent, shown as Vegetarian (venue declares)</label>
       </div>
       {staffMade && <label>Source<input value={place.sourceUrl ?? ''} onChange={e => set({ sourceUrl: e.target.value })} placeholder="https://"/></label>}
     </section>

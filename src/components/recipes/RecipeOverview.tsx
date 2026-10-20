@@ -1,11 +1,10 @@
 import { useState } from "react";
-import { Pressable, StyleSheet, View } from "react-native";
+import { Pressable, View } from "react-native";
 import type { Recipe } from "../../types/food";
 import { usePreferences } from "../../state/Preferences";
-import { alliumFree, recipeFit } from "../../utils/recipe-dietary";
-import { alliums, fivePungentLabel } from "../../config/preferences";
+import { recipeFit } from "../../utils/recipe-dietary";
 import { IconButton } from "../food/Controls";
-import { FitBadge } from "../food/Evidence";
+import { DietLabels } from "../food/DietLabels";
 import { Button, Icon, T, common } from "../ui";
 import { RecipeImage } from "./RecipeImage";
 import { Action, ReactionBar, cookedBy } from "../ReactionBar";
@@ -17,27 +16,12 @@ import { router } from "expo-router";
 import { ReportSheet } from "../ReportSheet";
 import { ensureMember, useMember } from "../CommunityGate";
 
-export function RecipeFit({ recipe }: { recipe: Recipe }) {
-  const { draft } = usePreferences();
-  return <View style={[common.row, { gap: 6, flexWrap: "wrap", alignSelf: "flex-start", maxWidth: "100%" }]}>
-    <FitBadge fit={recipeFit(recipe, draft.diet, draft.excluded).fit} /><FivePungentTag recipe={recipe} />
-  </View>;
-}
-/** The five pungent decide a meal for much of this audience, so every recipe says where it stands: free of them, or which it uses. */
-export function FivePungentTag({ recipe, detail = false }: { recipe: Recipe; detail?: boolean }) {
-  const { theme } = usePreferences(), used = alliums.filter(item => recipe.dietary.contains.includes(item));
-  if (alliumFree(recipe)) return <View style={[s.tag, { backgroundColor: theme.successSoft, borderColor: theme.success }]}>
-    <T variant="small" color={theme.success} style={common.bold}>{fivePungentLabel}</T></View>;
-  if (!detail || !used.length) return null;
-  return <View style={[s.tag, { backgroundColor: theme.warningSoft, borderColor: theme.warning }]}>
-    <T variant="small" color={theme.warning} style={common.bold}>Has {used.join(", ").toLowerCase()}</T></View>;
-}
 export function RecipeOverview({ recipe }: { recipe: Recipe }) {
   const save = useRecipeSave(recipe.id);
   const { draft, theme } = usePreferences();
   const [info, setInfo] = useState(false), [fallback, setFallback] = useState(""), [failedLink, setFailedLink] = useState("");
   const [report, setReport] = useState(false), member = useMember();
-  const result = recipeFit(recipe, draft.diet, draft.excluded), cooks = useReaction("recipe", recipe.id).reaction.cooks;
+  const result = recipeFit(recipe, draft.diets, draft.excluded), cooks = useReaction("recipe", recipe.id).reaction.cooks;
   useReactions("recipe", [recipe.id]);
   return <>
     <RecipeImage recipe={recipe} label style={{ width: "100%", aspectRatio: 2.4, borderRadius: 16 }} />
@@ -48,7 +32,7 @@ export function RecipeOverview({ recipe }: { recipe: Recipe }) {
     </>} />
     <View style={{ gap: 4, alignItems: "flex-start" }}>
       <T variant="small" muted>{[recipe.minutes + " min", recipe.onePot ? "One pot" : "", cooks ? cookedBy(cooks) : ""].filter(Boolean).join(" · ")}</T>
-      <View style={[common.row, { gap: 6, flexWrap: "wrap" }]}><FitBadge fit={result.fit} /><FivePungentTag recipe={recipe} detail /></View>
+      <DietLabels labels={result.labels} />
     </View>
     {recipe.member?.shop && <AuthorShop author={recipe.author} shop={recipe.member.shop} />}
     {!!result.conflicts.length && <T variant="small" color={theme.warning}>Contains: {result.conflicts.join(", ")}</T>}
@@ -86,4 +70,3 @@ function AuthorShop({ author, shop }: { author: string; shop: { id: string; name
     <T variant="small" numberOfLines={1} style={{ flexShrink: 1 }}>By {author} · <T variant="small" color={theme.accent} style={common.bold}>{shop.name}</T></T>
   </Pressable>;
 }
-const s = StyleSheet.create({ tag: { borderWidth: 1, borderRadius: 8, paddingHorizontal: 8, paddingVertical: 2, alignSelf: "flex-start" } });

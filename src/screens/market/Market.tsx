@@ -16,7 +16,7 @@ import { browse, browseKey, toggleSaved, unread } from "../../services/market-ap
 import { ApiError } from "../../services/community-api";
 import { defaultShopFilter, type ListingCard, type ShopFilter } from "../../types/community";
 
-const refined = (f: ShopFilter) => [f.category !== "All", f.diets.length > 0, f.exclude.length > 0, f.mode !== "Any", f.kind !== "Any", !!f.area.trim(), f.available, f.savedOnly, f.sort !== "Newest"].filter(Boolean).length;
+const refined = (f: ShopFilter) => [f.category !== "All", f.labels.length > 0, f.practices.length > 0, f.exclude.length > 0, f.mode !== "Any", f.kind !== "Any", !!f.area.trim(), f.available, f.savedOnly, f.sort !== "Newest"].filter(Boolean).length;
 /** Further pages of the current browse query; reset whenever the query changes. */
 function useMore(key: string) {
   const { setNotice } = usePreferences();

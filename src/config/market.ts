@@ -1,13 +1,14 @@
 import type { IconName } from "../components/ui";
-import type { Diet, ListingKind, OrderStatus, ShopCategory } from "../types/community";
+import type { ListingKind, MarketLabel, MarketPractice, OrderStatus, ShopCategory } from "../types/community";
 
 export const shopCategories: { id: ShopCategory; icon: IconName }[] = [
   { id: "Bakes", icon: "cafe-outline" }, { id: "Kueh & sweets", icon: "ice-cream-outline" }, { id: "Savoury", icon: "restaurant-outline" },
   { id: "Frozen", icon: "snow-outline" }, { id: "Sauces & pantry", icon: "basket-outline" }, { id: "Drinks", icon: "water-outline" },
 ];
-/** Every Market item is vegetarian; these are optional seller declarations on top. */
-export const dietLabels: Record<Diet, string> = { "vegan": "Vegan", "no-egg": "No egg", "five-pungent-free": "No five pungent (五辛)", "jain": "Jain" };
-export const diets = Object.keys(dietLabels) as Diet[];
+/** Vegan and Vegetarian come from the ingredient tags; these practices are optional seller declarations on top. */
+export const practiceLabels: Record<MarketPractice, string> = { "no-egg": "No egg", "jain": "Jain" };
+export const practices = Object.keys(practiceLabels) as MarketPractice[];
+export const marketLabels: MarketLabel[] = ["Vegan", "Vegetarian"];
 /** Food the seller cooks at home, or a sealed item bought from a shop in Singapore. */
 export const kindLabels: Record<ListingKind, string> = { made: "Home-cooked", prepacked: "Sealed pack" };
 export const orderLabels: Record<OrderStatus, string> = {

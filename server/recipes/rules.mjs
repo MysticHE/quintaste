@@ -1,5 +1,6 @@
 import { CommunityError, list, pick, text, uuid } from '../community/http.mjs';
 import { containsMeat, noContactDetails, whole } from '../market/rules.mjs';
+import { animal as animalTags, containsFor } from '../diet-labels.mjs';
 
 // Mirrors src/types/food.ts recipeCategories; the server is the authority.
 export const categories = ['Breakfast', 'Noodles', 'Rice meals', 'With rice', 'Soups', 'Snacks & kueh', 'Desserts & drinks'];
@@ -16,8 +17,6 @@ const field = (value, max, label, min = 1) => noContactDetails(text(value, max, 
 export function readRecipe(body) {
   body ??= {};
   if (body.rights !== true || body.policy !== true) throw new CommunityError(400, 'Confirm your content rights and the publication policy.');
-  const diet = pick(body.diet, ['Vegan', 'Vegetarian'], null);
-  if (!diet) throw new CommunityError(400, 'Choose Vegan or Vegetarian.');
   const recipeCategories = list(body.categories, categories, 2);
   if (!recipeCategories.length) throw new CommunityError(400, 'Choose a category.');
   const sponsorship = pick(body.sponsorship, sponsorships, null);
@@ -45,10 +44,10 @@ export function readRecipe(body) {
   if (linked.size > linkLimit) throw new CommunityError(400, `Link up to ${linkLimit} shop items.`);
   const names = ingredients.map(i => i.name).join(', ');
   if (containsMeat(names)) throw new CommunityError(400, 'QuinTaste recipes are vegetarian. Remove meat, fish or animal-derived ingredients such as gelatine or lard.');
-  if (diet === 'Vegan') {
-    const conflict = ingredients.find(i => veganConflict(i.name));
-    if (conflict) throw new CommunityError(400, `“${conflict.name}” isn't vegan. Choose Vegetarian or name the plant-based version.`);
-  }
+  // Diet labels come from the ingredients (server/diet-labels.mjs). `diet` stays for older app versions: Vegan when
+  // nothing animal-derived is listed.
+  const contains = containsFor(ingredients);
+  const diet = contains.some(tag => animalTags.includes(tag)) || ingredients.some(i => veganConflict(i.name)) ? 'Vegetarian' : 'Vegan';
   const rawSteps = Array.isArray(body.steps) ? body.steps : [];
   if (!rawSteps.length || rawSteps.length > 30) throw new CommunityError(400, 'Add 1 to 30 steps.');
   const steps = rawSteps.map((step, index) => {
@@ -64,7 +63,7 @@ export function readRecipe(body) {
     title: field(body.title, 100, 'Recipe name'), description: field(body.description, 2000, 'Description'),
     author: field(body.author, 80, 'Author'), language: text(body.language, 40, { min: 1, field: 'Language' }),
     servings: whole(body.servings, 1, 8, 'Choose 1 to 8 servings.'), minutes: whole(body.minutes, 1, 1440, 'Enter a total time from 1 to 1440 minutes.'),
-    diet, categories: recipeCategories, sponsorship, ingredients, steps,
+    diet, contains, categories: recipeCategories, sponsorship, ingredients, steps,
     revision: whole(body.revision, 1, 10000, 'Re-open the recipe and try again.'),
   };
 }

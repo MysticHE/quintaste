@@ -12,7 +12,6 @@ export function PrivateRecipeContent({ draft: d, servings, controls }: { draft: 
     <T variant="title">{d.title || "Untitled recipe"}</T>
     {!controls && <T>{servings ?? (d.servings || "?")} servings{d.minutes ? " · " + d.minutes + " min" : ""}</T>}
     {!!controls && !!d.minutes && <T variant="small" muted>{d.minutes} min</T>}
-    {d.diet !== "Unspecified" && <T variant="small">{d.diet}</T>}
     {d.sponsorship && d.sponsorship !== "None" && <T variant="small">{d.sponsorship}</T>}
     {controls}
     <View style={{ gap: 6 }}><T variant="subtitle">Ingredients</T>{!d.ingredients.length && <T muted>Add ingredients in Edit.</T>}{d.ingredients.map(i => <T key={i.id}>{!i.name.trim() ? "Incomplete ingredient" : !i.amount.trim() ? i.name + ", to taste"

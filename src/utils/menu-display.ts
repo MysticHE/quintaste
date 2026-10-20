@@ -26,8 +26,8 @@ export function menuDisplayItems(menu: PublishedMenu): MenuItem[] {
     for (const [id, items] of groups) {
       if (result.has(id)) continue;
       const first = items[0], prices = items.map(item => item.price);
-      // A merged dish is Vegan only when every listing of it is; an untagged listing leaves it untagged.
-      const diet = items.every(item => item.diet === "VG") ? "VG" : items.every(item => item.diet) ? "V" : undefined;
+      // A merged dish is Vegan only when every listing of it is VG; anything else proves no diet label, so it stays untagged.
+      const diet = items.every(item => item.diet === "VG") ? "VG" as const : undefined;
       const valid = prices.every(price => price.amount !== null && price.currency === first.price.currency);
       const amount = valid ? Math.min(...prices.map(price => price.amount!)) : first.price.amount;
       const bounded = valid && prices.every(price => price.type !== "from" || price.maxAmount !== undefined);

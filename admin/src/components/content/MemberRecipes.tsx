@@ -12,8 +12,15 @@ type Recipe = {
   submitted_at: string | null; published_at: string | null; username: string; photos: string[]; reports: number;
   recipe: { title: string; description: string; author: string; language: string; servings: number; minutes: number; diet: string; categories: string[]; sponsorship: string; revision: number;
     ingredients: { id: string; name: string; amount: number | null; unit: string; suggested?: boolean; listingId?: string; listing?: Listing }[];
-    steps: { title: string; instruction: string; minutes: number | null }[]; source?: Source; nutrition?: Nutrition };
+    steps: { title: string; instruction: string; minutes: number | null }[]; source?: Source; nutrition?: Nutrition; contains?: string[] };
 };
+/** The app's diet labels (src/config/diet-labels.ts) from the recipe's ingredient tags: Vegan, Vegetarian or Plant-Based. */
+const ANIMAL = ['Eggs', 'Dairy', 'Honey'], PUNGENT = ['Garlic', 'Onion', 'Leeks', 'Chives', 'Scallions', 'Shallots', 'Asafoetida'];
+function labels(contains?: string[]) {
+  if (!contains) return '';
+  const animal = contains.some(tag => ANIMAL.includes(tag)), pungent = contains.some(tag => PUNGENT.includes(tag));
+  return [!animal && 'Vegan', !pungent && 'Vegetarian', animal && pungent && 'Plant-Based'].filter(Boolean).join(' + ');
+}
 const photo = (r: Recipe, slot: string) => `/api/content/member-recipe-photo?id=${r.id}&version=${r.version}&slot=${slot}`;
 
 /** Staff review of recipes from Cook: written by members, or made by the AI recipe worker from a request or video (low confidence only).
@@ -29,7 +36,7 @@ function RecipeCard({ r }: { r: Recipe }) {
       {r.ai && <span className="badge">AI</span>}
       {r.live && r.version === 'pending' && <span className="badge">Update</span>}
       {!!r.reports && <span className="badge warn">{r.reports} {r.reports === 1 ? 'report' : 'reports'}</span>}</span></div>
-    <small>{d.author} ({r.username}) · {d.diet} · {d.categories.join(', ')} · {d.servings} servings · {d.minutes} min · v{d.revision} · {date(r.version === 'pending' ? r.submitted_at : r.published_at)}</small>
+    <small>{d.author} ({r.username}) · {labels(d.contains) || 'Labels on publish'} · {d.categories.join(', ')} · {d.servings} servings · {d.minutes} min · v{d.revision} · {date(r.version === 'pending' ? r.submitted_at : r.published_at)}</small>
     <small>Sponsorship: {d.sponsorship} · {d.language}</small>
     {/* eslint-disable-next-line @next/next/no-img-element -- staff view of member photos */}
     {r.photos.includes('cover') && <img src={photo(r, 'cover')} alt="Recipe photo" width={240} height={160} style={{ objectFit: 'cover' }}/>}

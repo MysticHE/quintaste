@@ -13,7 +13,6 @@ export function DraftBasics({ draft: d, edit, disabled, onBusy }: Props) {
   return <><RecipePhoto label="Recipe" value={d.photo} onChange={photo => edit({ photo })} disabled={disabled} onBusy={onBusy} />
     {field("title", "Recipe name", 100)}{field("description", "About this recipe", 2000, true)}
     <View style={[common.row, { alignItems: "flex-start" }]}><View style={common.flex}>{field("servings", "Servings", 2)}</View><View style={common.flex}>{field("minutes", "Total minutes", 4)}</View></View>
-    <Chips label="Recipe Diet">{(["Vegan", "Vegetarian"] as const).map(diet => <Chip key={diet} label={diet} role="radio" selected={d.diet === diet} disabled={disabled} onPress={() => edit({ diet })} />)}</Chips>
     <T variant="small" muted>Category</T>
     <Chips label="Category" multiple>{recipeCategories.map(category => { const selected = d.categories.includes(category);
       return <Chip key={category} label={category} role="checkbox" selected={selected} disabled={disabled || (!selected && d.categories.length >= 2)}

@@ -2,25 +2,27 @@ import { Pressable, StyleSheet, View } from "react-native";
 import { Chip, Chips } from "../food/Controls";
 import { Icon, T, common } from "../ui";
 import { StatusPill } from "../GroupedList";
+import { DietLabels } from "../food/DietLabels";
 import { usePreferences } from "../../state/Preferences";
 import { useKeyboardFocus } from "../../hooks/useKeyboardFocus";
-import { dietLabels, diets } from "../../config/market";
+import { practiceLabels, practices } from "../../config/market";
 import { slotLabel } from "../../utils/market";
-import type { Diet, Slot } from "../../types/community";
+import type { DietLabel } from "../../config/diet-labels";
+import type { MarketPractice, Slot } from "../../types/community";
 
-/** Diet claims are always the seller's own; every item is at least vegetarian. */
-export function DietPills({ value }: { value: Diet[] }) {
+/** Labels from the seller's ingredient tags, then any practice they declare; all of it is the seller's own declaration. */
+export function DietPills({ labels, practices: declared }: { labels: readonly DietLabel[]; practices: readonly MarketPractice[] }) {
   return <View style={s.wrap}>
-    <StatusPill label="Vegetarian" tone="accent" />
-    {value.map(diet => <StatusPill key={diet} label={dietLabels[diet]} tone="accent" />)}
+    <DietLabels labels={labels} />
+    {declared.map(practice => <StatusPill key={practice} label={practiceLabels[practice]} tone="accent" />)}
     <StatusPill label="Seller-declared" />
   </View>;
 }
-export function DietChoices({ value, onChange, disabled, warnings, error }: { value: Diet[]; onChange: (next: Diet[]) => void; disabled: boolean; warnings: string[]; error?: string }) {
+export function DietChoices({ value, onChange, disabled, warnings, error }: { value: MarketPractice[]; onChange: (next: MarketPractice[]) => void; disabled: boolean; warnings: string[]; error?: string }) {
   const { theme } = usePreferences();
   return <View style={{ gap: 6 }}>
-    <Chips>{diets.map(diet => <Chip key={diet} label={dietLabels[diet]} role="checkbox" compact selected={value.includes(diet)} disabled={disabled}
-      onPress={() => onChange(value.includes(diet) ? value.filter(d => d !== diet) : [...value, diet])} />)}</Chips>
+    <Chips label="Practices" multiple>{practices.map(practice => <Chip key={practice} label={practiceLabels[practice]} role="checkbox" compact selected={value.includes(practice)} disabled={disabled}
+      onPress={() => onChange(value.includes(practice) ? value.filter(d => d !== practice) : [...value, practice])} />)}</Chips>
     {warnings.map(warning => <View key={warning} style={[common.row, { gap: 6, alignItems: "flex-start" }]}><Icon name="alert-circle-outline" size={18} color={theme.warning} />
       <T variant="small" color={theme.warning} style={common.flex}>{warning}</T></View>)}
     {!!error && <T variant="small" color={theme.error} accessibilityLiveRegion="polite">{error}</T>}
@@ -39,6 +41,6 @@ export function SlotOption({ slot, selected, disabled = false, onPress }: { slot
   </Pressable>;
 }
 const s = StyleSheet.create({
-  wrap: { flexDirection: "row", flexWrap: "wrap", gap: 6 },
+  wrap: { flexDirection: "row", flexWrap: "wrap", alignItems: "center", gap: 6 },
   slot: { flexDirection: "row", alignItems: "center", gap: 12, minHeight: 56, paddingHorizontal: 14, paddingVertical: 10, borderWidth: 1, borderRadius: 14 },
 });

@@ -1,6 +1,6 @@
 import type { Avatar } from "./avatar";
 import type { RecipeWorkspace } from "./recipe-workspace";
-import type { PriceLevel } from "./discovery";
+import type { PlaceLabel, PriceLevel } from "./discovery";
 import type { ExploreLocalDocument } from "./explore-local";
 import type { SocialDocument } from "./social";
 import type { MarketDocument } from "./market";
@@ -107,10 +107,11 @@ export type FoodDocument = {
   cooking: CookingSession | null; timers: CookingTimer[];
   notifications: { cooking: boolean; cases: boolean; saved: boolean; marketing: boolean; quietStart: string; quietEnd: string };
 };
+/** `labels`: diet labels every place must prove; null follows the person's own diet choice. */
 export type ExploreFilters = {
-  confirmed: boolean; noAlliums: boolean; savedOnly: boolean; openNow: boolean;
-  near: boolean; home: boolean; work: boolean; diet: "Vegetarian" | "Vegan" | null; cuisine: string; maxPrice: number | null; priceLevel: PriceLevel | null;
-  diets?: ("Vegetarian" | "Vegan")[] | null; cuisines?: string[] | null; priceLevels?: PriceLevel[] | null;
+  confirmed: boolean; savedOnly: boolean; openNow: boolean;
+  near: boolean; home: boolean; work: boolean; labels: PlaceLabel[] | null; cuisine: string; maxPrice: number | null; priceLevel: PriceLevel | null;
+  cuisines?: string[] | null; priceLevels?: PriceLevel[] | null;
 };
 
 export type SavedSelection = { category: "All" | "Places" | "Dishes" | "Recipes" | "Notes"; list: string };

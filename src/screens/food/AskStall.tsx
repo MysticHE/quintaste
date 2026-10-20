@@ -18,7 +18,7 @@ export function AskStallScreen() {
   const item = kind === "place" ? venueById(id) : dishById(id);
   const now = useMinuteClock(), googleId = kind === "place" ? savedGoogleId(id) : null;
   const name = item?.name ?? (googleId ? recalledPlace(googleId, now)?.name : undefined);
-  const questions = stallQuestions(draft.diet, draft.excluded);
+  const questions = stallQuestions(draft.diets, draft.excluded);
   return <Screen title="Ask The Stall" subtitle={name ?? "Questions for your next meal"}>
     <InfoBox title="Ready To Show, Even Offline" icon="chatbubbles-outline" text="These questions follow your food choices. Staff answers can be saved privately; they do not automatically change public evidence." />
     <Chips>{["Both", "English", "中文"].map(value => <Chip key={value} label={value} selected={language === value} onPress={() => setLanguage(value)} />)}</Chips>

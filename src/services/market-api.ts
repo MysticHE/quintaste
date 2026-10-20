@@ -10,7 +10,8 @@ export function browseKey(q: string, f: ShopFilter) {
   if (q.trim()) params.set("q", q.trim());
   if (f.category !== "All") params.set("category", f.category);
   if (sorts[f.sort]) params.set("sort", sorts[f.sort]);
-  if (f.diets.length) params.set("diets", f.diets.join(","));
+  if (f.labels.length) params.set("labels", f.labels.join(","));
+  if (f.practices.length) params.set("diets", f.practices.join(","));
   if (f.exclude.length) params.set("exclude", f.exclude.join(","));
   if (f.mode !== "Any") params.set("mode", f.mode);
   if (f.kind !== "Any") params.set("kind", f.kind);

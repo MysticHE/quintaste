@@ -53,7 +53,7 @@ function Recipes({ ingredient }: { ingredient: string }) {
   const published = usePublishedRecipes(), members = useMemberRecipes();
   const hasMore = published.hasMore || members.hasMore, limited = published.limited || members.limited;
   const more = () => { if (published.hasMore) published.more(); if (members.hasMore) members.more(); };
-  const visible = browseRecipes([...published.recipes, ...members.recipes, ...bundledRecipes()], browse, query, { diet: draft.diet, excluded: draft.excluded, cooked: doc.recipes.cooked, ingredient: ingredient || undefined });
+  const visible = browseRecipes([...published.recipes, ...members.recipes, ...bundledRecipes()], browse, query, { diets: draft.diets, excluded: draft.excluded, cooked: doc.recipes.cooked, ingredient: ingredient || undefined });
   useReactions("recipe", visible.map(recipe => recipe.id));
   const narrowed = activeFilterCount(browse) > 0 || browse.category !== "All";
   return <>

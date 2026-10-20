@@ -14,9 +14,9 @@ import { ensureMember, useMember } from "../../components/CommunityGate";
 import { ReportSheet } from "../../components/ReportSheet";
 import { useCatalogueVenue } from "../../hooks/useCatalogueVenue";
 import { menuDisplayItems } from "../../utils/menu-display";
-import { menuKind } from "../../utils/venue-kitchen";
+import { dishCount, menuKind } from "../../utils/venue-kitchen";
 
-/** Vegetarian restaurants often name plant-based dishes after meat or seafood ("Assam Fish", "BLT"). */
+/** Meat-free restaurants often name mock-meat dishes after meat or seafood ("Assam Fish", "BLT"). */
 const MEAT_NAMED = /\b(chicken|pork|beef|mutton|lamb|bacon|ham|duck|fish\w*|prawns?|shrimp|crab|squid|abalone|blt|steak|sausage|meat\w*)\b|[鸡鸭猪牛羊鱼虾蟹肉]/i;
 
 export function MenuScreen() {
@@ -37,11 +37,11 @@ export function MenuScreen() {
   useFocusEffect(useCallback(() => { void loadIndex(); void load(); }, [loadIndex, load]));
   const retry = () => { void loadIndex(true); void load(true); if (!venue) retryVenue(); };
   const details = () => router.push({ pathname: "/place/[id]", params: { id: "catalogue-" + id } } as never);
-  // A veg options place lists only its venue-labelled dishes. The venue alone decides: staff can tag a dish of a fully vegetarian place.
+  // A Mixed Kitchen lists only its venue-labelled meat-free dishes. The venue alone decides: staff can tag a dish of a meat-free kitchen.
   const kind = menuKind(venue), options = kind === "mixed";
   const shown = options && menu ? menuDisplayItems(menu).length : 0;
-  // Owner, 19 Oct: show only the vegetarian count; "3 of 38" read as 38 vegetarian dishes.
-  const heading = !options ? "Menu" : shown + " vegetarian " + (shown === 1 ? "dish" : "dishes");
+  // Owner, 19 Oct: show only the listed count; "3 of 38" read as 38 listed dishes. 20 Oct: no "vegetarian" (now no five pungent).
+  const heading = !options ? "Menu" : dishCount(shown);
   const mockNamed = kind === "vegetarian" && !!menu?.sections.some(section => section.items.some(item => MEAT_NAMED.test(item.name)));
   const latestSource = menu?.sections.reduce<(typeof menu.sections)[number] | undefined>((latest, section) => !latest || Date.parse(section.checkedAt) > Date.parse(latest.checkedAt) ? section : latest, undefined);
   return <Screen title={menu?.name ?? "Menu"}
@@ -58,7 +58,7 @@ export function MenuScreen() {
           </Pressable>
         </View>
       </View>
-      {mockNamed && <T variant="small" muted>Every dish here is vegetarian. Names like fish or chicken are plant-based versions.</T>}
+      {mockNamed && <T variant="small" muted>Every dish here is meat-free. Names like fish or chicken are mock-meat versions.</T>}
       {cached && <View style={common.row}><T variant="caption" muted style={common.flex} accessibilityLiveRegion="polite">{offline ? "Offline · saved menu" : "Saved menu · may have changed"}</T>
         <Button label="Retry" variant="link" loading={busy} onPress={retry} /></View>}
       <MenuDishes key={menu.id} menu={menu} now={now} />
@@ -66,7 +66,7 @@ export function MenuScreen() {
         <MenuSourceLink url={latestSource.sourceUrl} publisher={latestSource.sourceLabel}
           label={"Last updated " + new Date(latestSource.checkedAt).toLocaleDateString("en-SG", { day: "numeric", month: "short", year: "numeric", timeZone: "Asia/Singapore" })} />
       </View>}
-      {options && <T testID="veg-options-footnote" variant="caption" muted>Labelled vegetarian by the venue</T>}
+      {options && <T testID="veg-options-footnote" variant="caption" muted>Labelled meat-free by the venue</T>}
       {storageError && <T variant="caption" muted>Offline copy could not be saved</T>}
     </> : !busy && (loaded && !error && !indexError
       // Loaded fine, nothing published: not an error, so no retry; point to what the member can do instead.

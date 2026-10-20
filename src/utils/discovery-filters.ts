@@ -1,5 +1,6 @@
 import type { ExploreFilters } from "../types/food";
-import type { Diet } from "../config/preferences";
+import type { PlaceLabel } from "../types/discovery";
+import type { DietLabel } from "../config/diet-labels";
 
 export type LocationMode = "singapore" | "selected" | "home" | "work";
 export function locationMode(filters: ExploreFilters): LocationMode {
@@ -8,13 +9,12 @@ export function locationMode(filters: ExploreFilters): LocationMode {
 export function withLocationMode(filters: ExploreFilters, mode: LocationMode): ExploreFilters {
   return { ...filters, near: mode === "selected", home: mode === "home", work: mode === "work" };
 }
-export function discoveryDiet(filters: ExploreFilters, preference: Diet) {
-  if (filters.diets) return filters.diets.length === 1 && filters.diets[0] === "Vegan" ? "Vegan" : "Vegetarian";
-  return filters.diet ?? (preference === "Vegan" ? "Vegan" : "Vegetarian");
-}
-/** Selected venue diets; empty means any diet, which is also the default unless the saved preference is Vegan. */
-export function discoveryDiets(filters: ExploreFilters, preference: Diet): ("Vegetarian" | "Vegan")[] {
-  return filters.diets ?? (discoveryDiet(filters, preference) === "Vegan" ? ["Vegan"] : []);
+export const placeLabelChoices = ["Vegan", "Vegetarian"] as const satisfies readonly PlaceLabel[];
+/** Keeps the labels a place can prove, in display order; Plant-Based asks nothing of a place. */
+export const placeLabelsOf = (labels: readonly unknown[]): PlaceLabel[] => placeLabelChoices.filter(label => labels.includes(label));
+/** Labels every place must prove; empty means any. Until chosen in Filters, follows the Vegan/Vegetarian the person keeps. */
+export function discoveryLabels(filters: ExploreFilters, preference: readonly DietLabel[]): PlaceLabel[] {
+  return filters.labels ?? placeLabelsOf(preference);
 }
 export const selectedCuisines = (filters: ExploreFilters) => filters.cuisines ?? (filters.cuisine === "All" ? [] : [filters.cuisine]);
 export const selectedPrices = (filters: ExploreFilters) => filters.priceLevels ?? (filters.priceLevel ? [filters.priceLevel] : []);

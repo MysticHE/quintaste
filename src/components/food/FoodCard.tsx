@@ -4,7 +4,7 @@ import { dishById } from "../../data/dishes";
 import { recipeById } from "../../data/recipes";
 import { usePublishedRecipe } from "../../hooks/useEditorial";
 import { RecipeImage } from "../recipes/RecipeImage";
-import { recipeUncertain } from "../../utils/recipe-dietary";
+import { recipeLabels } from "../../utils/recipe-dietary";
 import { venueById } from "../../data/venues";
 import { areaById } from "../../data/areas";
 import { photos } from "../../data/photos";
@@ -15,6 +15,7 @@ import { useFood } from "../../state/Food";
 import { usePreferences } from "../../state/Preferences";
 import { Card, Icon, T, common } from "../ui";
 import { EvidenceLine } from "./Evidence";
+import { DietLabels } from "./DietLabels";
 import { EmptyState } from "./Controls";
 
 export function FoodCard({ kind, id, onOpen, onMore, now = 0 }: { kind: SavedKind; id: string; onOpen: () => void; onMore?: () => void; now?: number }) {
@@ -39,7 +40,7 @@ export function FoodCard({ kind, id, onOpen, onMore, now = 0 }: { kind: SavedKin
       <View style={s.content}><T variant="subtitle">{item.name}</T><T variant="small" muted>{metadata}</T>{kind === "place" && venue && <T variant="small" color={openingState(venue, now) === "open" ? theme.success : theme.mutedForeground}>{openingLabel(venue, now)}</T>}</View>
     </Pressable>
     <View style={s.bottom}>
-      <View style={common.flex}><EvidenceLine dietary={item.dietary} uncertain={recipe ? recipeUncertain(recipe) : undefined} /></View>
+      <View style={common.flex}>{recipe ? <DietLabels labels={recipeLabels(recipe)} /> : <EvidenceLine dietary={item.dietary} />}</View>
       <Pressable accessibilityRole="button" accessibilityLabel={(saved ? "Unsave " : "Save ") + item.name}
         accessibilityState={{ selected: saved, disabled: busy || !readable, busy }}
         disabled={busy || !readable} onPress={() => void save()} style={s.save}>

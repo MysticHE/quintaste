@@ -1,5 +1,5 @@
 import { router, useLocalSearchParams } from "expo-router";
-import { dietLabel } from "../config/preferences";
+import { dietSummary } from "../config/preferences";
 import { useState } from "react";
 import { Platform, Pressable, StyleSheet, View } from "react-native";
 import { AvatarPortrait } from "../components/avatar/AvatarPortrait";
@@ -47,7 +47,7 @@ export function AccountScreen() {
     <LotusSlot />
     <Card style={s.group}>
       <SettingsRow label="Saved" leading={<QuinTasteIcon name="saved" color={theme.accent} size={26} />} value={String(doc.saves.length)} onPress={() => router.push("/saved")} />
-      <SettingsRow label="Food Choices" icon="leaf-outline" value={dietLabel(draft.diet)} onPress={() => router.push("/exclusions")} />
+      <SettingsRow label="Food Choices" icon="leaf-outline" value={dietSummary(draft.diets)} onPress={() => router.push("/exclusions")} />
       <SettingsRow label="Location" icon="location-outline" last={!__DEV__} onPress={() => router.push("/private-places")} />
       {__DEV__ && <SettingsRow label="My Cases" icon="file-tray-outline" last onPress={() => router.push("/cases")} />}
     </Card>

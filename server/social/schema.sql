@@ -85,3 +85,31 @@ CREATE INDEX IF NOT EXISTS social_application_user ON social.application(user_id
 INSERT INTO ops.control(key, enabled, notice) VALUES ('social', false, '') ON CONFLICT DO NOTHING;
 GRANT USAGE ON SCHEMA social TO quintaste_app;
 GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA social TO quintaste_app;
+
+-- Diet labels, 20 October 2026 (owner rule; src/config/diet-labels.ts). Additive and safe to apply twice; apply with the
+-- operations role after a backup, before the updated Social router. Vegan = no dairy, egg or honey; Vegetarian = none of
+-- the five pungent; Plant-Based = neither, and only on its own. The old `diet` column stays because older app images
+-- still read and write it: the new router keeps it in step (Vegan when diets has Vegan, else Vegetarian) and, on
+-- profiles, keeps 'No five pungent' in `practices` whenever diets has Vegetarian, so a rerun of the backfill finds
+-- nothing to change and a rollback still sees the practice.
+-- Rollback: restore the previous app image; leave the column (older images ignore it).
+BEGIN;
+SET LOCAL lock_timeout = '5s';
+ALTER TABLE social.profile ADD COLUMN IF NOT EXISTS diets text[] NOT NULL DEFAULT '{Plant-Based}' CONSTRAINT social_profile_diets CHECK (
+  cardinality(diets) BETWEEN 1 AND 2 AND diets <@ ARRAY['Vegan','Vegetarian','Plant-Based']::text[]
+  AND (NOT 'Plant-Based' = ANY(diets) OR diets = '{Plant-Based}'));
+ALTER TABLE social.gathering ADD COLUMN IF NOT EXISTS diets text[] NOT NULL DEFAULT '{Plant-Based}' CONSTRAINT social_gathering_diets CHECK (
+  cardinality(diets) BETWEEN 1 AND 2 AND diets <@ ARRAY['Vegan','Vegetarian','Plant-Based']::text[]
+  AND (NOT 'Plant-Based' = ANY(diets) OR diets = '{Plant-Based}'));
+-- Profiles: old Vegan stays Vegan; the old No five pungent practice adds Vegetarian; old Vegetarian (eggs and dairy
+-- allowed) without it is Plant-Based, which is already the default. Only rows still on the default are touched, and a
+-- row the new router wrote as Plant-Based always has diet 'Vegetarian' without the practice, so it never matches.
+UPDATE social.profile SET diets = CASE
+    WHEN diet = 'Vegan' AND 'No five pungent' = ANY(practices) THEN '{Vegan,Vegetarian}'::text[]
+    WHEN diet = 'Vegan' THEN '{Vegan}'::text[]
+    ELSE '{Vegetarian}'::text[] END
+  WHERE diets = '{Plant-Based}' AND (diet = 'Vegan' OR 'No five pungent' = ANY(practices));
+-- Gatherings: old Vegan stays Vegan; old Vegetarian is Plant-Based (the default). The router writes diet 'Vegan' only
+-- when diets has Vegan, so a Plant-Based gathering it saved never matches.
+UPDATE social.gathering SET diets = '{Vegan}' WHERE diets = '{Plant-Based}' AND diet = 'Vegan';
+COMMIT;

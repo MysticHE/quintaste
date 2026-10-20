@@ -40,7 +40,7 @@ export async function gatheringList(member: Session, status: string, q: string, 
   authorize(member, 'content');
   const filter = choice(status || 'upcoming', ['upcoming', 'past', 'hidden'] as const, 'status'), term = search(q);
   const where = { upcoming: "g.hidden_at IS NULL AND g.state='posted' AND g.starts > now()", past: "g.hidden_at IS NULL AND (g.state<>'posted' OR g.starts <= now())", hidden: 'g.hidden_at IS NOT NULL' }[filter];
-  return (await query(`SELECT g.id,g.title,g.area,g.venue,g.starts,g.seats,g.diet,g.food,g.pay,g.alcohol_free,g.state,g.hidden_at,g.hidden_reason,g.updated_at,
+  return (await query(`SELECT g.id,g.title,g.area,g.venue,g.starts,g.seats,g.diets,g.food,g.pay,g.alcohol_free,g.state,g.hidden_at,g.hidden_reason,g.updated_at,
       u.username AS organiser,(SELECT count(*)::int FROM social.attendee a WHERE a.gathering_id=g.id) AS joined, ${openReports("'community:user:'||g.organiser_id")} AS reports
     FROM social.gathering g JOIN public."user" u ON u.id=g.organiser_id
     WHERE ${where} AND g.state<>'draft' AND ($1='' OR g.title ILIKE $1 OR g.area ILIKE $1 OR g.venue ILIKE $1 OR u.username ILIKE $1)

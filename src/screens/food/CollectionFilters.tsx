@@ -12,7 +12,6 @@ import { DietIcon } from "../../components/food/DietIcon";
 import { FilterSection } from "../../components/BrowseControls";
 import { recipeCategories } from "../../types/food";
 import { nutritionChoices } from "../../types/recipe-workspace";
-import { fivePungentLabel } from "../../config/preferences";
 import { defaultCookBrowse } from "../../state/recipe-workspace";
 import { selectedRecipeDiets, sortLabels } from "../../utils/recipe-browse";
 import { toggleFilter } from "../../utils/discovery-filters";
@@ -22,16 +21,15 @@ export function CookFiltersScreen() {
   const set = (patch: Partial<CookBrowse>) => void setCookBrowse(patch);
   const times = [["Any", "Any time"], ["15", "15 min or less"], ["30", "30 min or less"]] as const;
   const diets = selectedRecipeDiets(browse);
-  // Order follows what decides a meal for this audience: diet (with the five pungent), time, then kind of dish.
+  // Order follows what decides a meal for this audience: diet labels, time, then kind of dish.
   return <CookLayout title="Recipe filters" backTo="/cook" headerAction={<Button label="Done" variant="link" onPress={() => goBack("/cook")} />}
     footer={<Button label="Reset filters" variant="link" disabled={!readable} onPress={() => void setCookBrowse({ ...defaultCookBrowse })} />}>
     <FilterSection title="Diet" icon="leaf-outline">
-      <Chips multiple label="Recipe diet"><Chip compact label="Any diet" selected={!diets.length} disabled={!readable} onPress={() => set({ diets: [], vegan: false })} />
-        {(["Vegetarian", "Vegan"] as const).map(diet => <Chip compact key={diet} label={diet} role="checkbox" selected={diets.includes(diet)} disabled={!readable}
+      <Chips multiple label="Recipe diet"><Chip compact label="Any diet" selected={!diets.length} disabled={!readable} onPress={() => set({ labels: [] })} />
+        {(["Vegan", "Vegetarian"] as const).map(diet => <Chip compact key={diet} label={diet} role="checkbox" selected={diets.includes(diet)} disabled={!readable}
           leading={<DietIcon diet={diet} color={diets.includes(diet) ? theme.accent : theme.foreground} />}
-          onPress={() => { const next = toggleFilter(diets, diet); set({ diets: next, vegan: next.length === 1 && next[0] === "Vegan" }); }} />)}
+          onPress={() => set({ labels: toggleFilter(diets, diet) })} />)}
       </Chips>
-      <Chips multiple label="Five pungent"><Chip compact label={fivePungentLabel} role="checkbox" selected={browse.alliumFree} disabled={!readable} onPress={() => set({ alliumFree: !browse.alliumFree })} /></Chips>
     </FilterSection>
     <FilterSection title="Cooking time" icon="time-outline">
       <Chips label="Time">{times.map(([value, label]) => <Chip compact key={value} label={label} role="radio" selected={browse.time === value} disabled={!readable} onPress={() => set({ time: value })} />)}</Chips>

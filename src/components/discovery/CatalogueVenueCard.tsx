@@ -9,7 +9,8 @@ import type { PlaceReviewSummary } from "../../types/place-reviews";
 import { IconButton } from "../food/Controls";
 import { ReactionColumn } from "../ReactionBar";
 import { placeShareMessage } from "../../utils/place-share";
-import { dishCount, isVegOptions, mixedKitchenLabel, mixedKitchenSpoken, placeTileIcon } from "../../utils/venue-kitchen";
+import { dishCount, isVegOptions, mixedKitchenLabel, mixedKitchenSpoken, placeLabels, placeTileIcon } from "../../utils/venue-kitchen";
+import { DietIcon } from "../food/DietIcon";
 import { MenuEntry } from "./MenuEntry";
 import { PhotoPostCard, PostFact, PostFacts } from "./PhotoPostCard";
 
@@ -18,10 +19,11 @@ export function CatalogueVenueCard({ venue, more, review }: { venue: CatalogueVe
   const id = "catalogue-" + venue.id, saved = isSaved("place", id), hours = venue.hours;
   const hoursSummary = hours?.summary || "Hours unconfirmed";
   const options = isVegOptions(venue), distance = venue.distanceKm !== undefined ? " · " + venue.distanceKm.toFixed(1) + " km" : "";
-  // A Mixed Kitchen place never reads as Vegetarian or Vegan: it is not a vegetarian kitchen.
-  const metadata = options ? mixedKitchenSpoken + " · " + dishCount(venue.itemCount) + distance : venue.venueDiet + distance;
+  // A Mixed Kitchen place never reads as Vegetarian or Vegan: it is not a vegetarian kitchen. Other places show only proven labels.
+  const labels = placeLabels(venue);
+  const metadata = options ? mixedKitchenSpoken + " · " + dishCount(venue.itemCount) + distance : [...labels, ...(distance ? [venue.distanceKm!.toFixed(1) + " km"] : [])].join(" · ");
   return <PhotoPostCard testID="catalogue-venue" titleTestID="catalogue-card-name" photo={{ path: venue.photo?.path, emptyIcon: placeTileIcon(venue) }} title={venue.name}
-    label={[venue.name, venue.address, metadata, hoursSummary].join(". ")} hint="Opens this branch's location and details"
+    label={[venue.name, venue.address, metadata, hoursSummary].filter(Boolean).join(". ")} hint="Opens this branch's location and details"
     onPress={() => router.push({ pathname: "/place/[id]", params: { id } } as never)}
     topLeft={<MenuEntry menu={venue} compact />}
     topRight={more && <IconButton label={"More options for " + venue.name} icon="ellipsis-horizontal" appearance="media" onPress={more} />}
@@ -36,7 +38,7 @@ export function CatalogueVenueCard({ venue, more, review }: { venue: CatalogueVe
     </PostFacts>
     <PostFacts>
       {options ? <><VegOptionsChip /><PostFact icon="book-outline" shrink>{dishCount(venue.itemCount)}</PostFact></>
-        : venue.venueDiet !== "Vegetarian" && <PostFact icon="leaf-outline" shrink>{venue.venueDiet}</PostFact>}
+        : labels.map(label => <PostFact key={label} leading={<DietIcon diet={label} size={14} color={theme.mediaForeground} />} shrink>{label}</PostFact>)}
       <PostFact icon="time-outline" shrink>{hoursSummary}</PostFact>
     </PostFacts>
   </PhotoPostCard>;

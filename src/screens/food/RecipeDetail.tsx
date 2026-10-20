@@ -26,7 +26,7 @@ export function RecipeDetailScreen() {
   const [replace, setReplace] = useState(false), [busy, setBusy] = useState(false);
   if (!recipe) return <Screen title={loading ? "Loading Recipe" : "Recipe Unavailable"}><EmptyState title={loading ? "Loading Recipe" : "This Recipe Is Unavailable"} text={error ?? "Your notes and saves remain on this device."} action={error ? "Retry" : undefined} onPress={refresh} /></Screen>;
   const current = doc.cooking?.recipeId === id && (doc.cooking.recipeVersion ?? 1) === recipe.revision;
-  const flagged = labelCheckIds(recipe, recipeFit(recipe, draft.diet, draft.excluded).unknown);
+  const flagged = labelCheckIds(recipe, recipeFit(recipe, draft.diets, draft.excluded).unknown);
   const start = async () => {
     if (recipe.withdrawal) return;
     if (doc.cooking && !current && !replace) { setReplace(true); return; }
