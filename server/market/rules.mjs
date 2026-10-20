@@ -3,7 +3,7 @@ import { Buffer } from 'node:buffer';
 import sharp from 'sharp';
 import { CommunityError, list, pick, text } from '../community/http.mjs';
 import { maxInputPixels, withDecodeSlot } from '../community/images.mjs';
-import { alliums, animal, labelsFor } from '../diet-labels.mjs';
+import { alliums, containsFor, labelsFor } from '../diet-labels.mjs';
 
 // Mirrors src/config/market.ts and src/config/market-ingredients.ts; the server is the authority.
 export const categories = ['Bakes', 'Kueh & sweets', 'Savoury', 'Frozen', 'Sauces & pantry', 'Drinks'];
@@ -11,23 +11,24 @@ export const ingredients = ['Eggs', 'Dairy', 'Honey', 'Peanuts', 'Tree nuts', 'G
   'Garlic', 'Onion', 'Leeks', 'Chives', 'Scallions', 'Shallots', 'Asafoetida'];
 export { alliums };
 /**
- * Diet labels (owner rule, 20 Oct 2026) come from the ingredient tags, not a seller's choice: Vegan = no egg, dairy or
- * honey; Vegetarian = none of the five pungent. "May contain" counts as present. Sellers may add the No egg and Jain
- * practices. Stored `diets` also carry 'vegan' and 'five-pungent-free' as derived tags so older clients keep reading them.
+ * Diet labels (owner rule, 20 Oct 2026) are worked out when a listing is saved, never chosen: Vegan = no egg, dairy or
+ * honey; Vegetarian = none of the five pungent. Both the seller's tags ("may contain" counts as present) and the
+ * ingredient text are read, so an untagged "garlic" or "butter" in the text still keeps the label off. The result is
+ * stored in `diets` as 'vegan' / 'five-pungent-free', which filters and screens read; listings saved earlier keep only
+ * what their seller declared then. Sellers may add the No egg and Jain practices.
  */
 export const practices = ['no-egg', 'jain'];
 export const diets = ['vegan', 'no-egg', 'five-pungent-free', 'jain'];
-export const listingLabels = (contains = [], mayContain = []) => labelsFor([...contains, ...mayContain]);
-/** Older clients filtered by declared tags; they now mean the matching label. */
-export const legacyLabels = { 'vegan': 'Vegan', 'five-pungent-free': 'Vegetarian' };
-/** The stored diets: the seller's practices plus the tags derived from the labels. */
-function storedDiets(contains, mayContain, chosen) {
-  const labels = listingLabels(contains, mayContain);
-  return diets.filter(diet => chosen.includes(diet) || (labels.includes(legacyLabels[diet])));
+/** Stored tag for each label, and the label an older client's `diets=` value asks for. */
+export const labelTag = new Map([['Vegan', 'vegan'], ['Vegetarian', 'five-pungent-free']]);
+export const tagLabel = new Map([...labelTag].map(([label, tag]) => [tag, label]));
+export const listingLabels = (contains = [], mayContain = [], ingredientText = '') =>
+  labelsFor([...new Set([...contains, ...mayContain, ...containsFor([{ name: ingredientText }])])]);
+/** The stored diets: the seller's practices plus the tags of the labels the listing proves. */
+function storedDiets(contains, mayContain, ingredientText, chosen) {
+  const labels = listingLabels(contains, mayContain, ingredientText);
+  return diets.filter(diet => chosen.includes(diet) || labels.includes(tagLabel.get(diet)));
 }
-/** SQL that keeps listings (alias l) proven free of `tags`, counting "may contain" as present. */
-export const freeOf = (tags, add) => `NOT ((l.contains || l.may_contain) && ${add(tags)}::text[])`;
-export const labelTags = { Vegan: animal, Vegetarian: alliums };
 export const slots = ['item', 'detail', 'label'];
 export const declarationsVersion = 3;
 /** Home cooking stays small-scale under SFA's home-based business rules. QuinTaste policy until SFA sets numbers. */
@@ -92,7 +93,7 @@ export function readListing(body) {
     priceCents: whole(body.priceCents ?? 0, 0, 100000, 'Enter a price up to S$1,000.'), portion: text(body.portion, 40, { field: 'Portion' }),
     description: noContactDetails(text(body.description, 500, { field: 'Description' }), 'Description'),
     ingredients: text(body.ingredients, 5000, { field: 'Ingredient list' }), contains, mayContain,
-    diets: storedDiets(contains, mayContain, list(body.diets, practices)),
+    diets: storedDiets(contains, mayContain, text(body.ingredients, 5000, { field: 'Ingredient list' }), list(body.diets, practices)),
     storage: text(body.storage, 200, { field: 'Storage' }), dateMark: kind === 'prepacked' ? readDate(body.dateMark) : null,
     lot: kind === 'prepacked' ? text(body.lot, 40, { field: 'Lot' }) : '',
     leadDays: whole(body.leadDays ?? 1, 0, 30, 'Enter a lead time from 0 to 30 days.'),

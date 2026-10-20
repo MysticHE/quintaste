@@ -4,7 +4,9 @@ import type { Ingredient, Recipe } from "../types/food";
 
 /** Prepared ingredients whose labels commonly hide exclusions. A label-checked line clears the rule. */
 const compoundRules: { pattern: RegExp; hides: readonly Exclusion[] }[] = [
-  { pattern: /\b(stock|bouillon|seasoning|curry (powder|paste)|laksa paste|rempah|sambal|chilli (bean )?paste|doubanjiang|ketchup|sweet sauce|tim cheong|hoisin|vegetarian (oyster|mushroom) sauce|mushroom sauce)\b/i, hides: [...alliums, "Gluten"] },
+  { pattern: /\b(stock|bouillon|broth|gravy|soup base|seasoning|curry (powder|paste|sauce)|laksa paste|rempah|sambal|chill?i (bean )?paste|chill?i (oil|crisp)|doubanjiang|ketchup|sweet sauce|tim cheong|hoisin|vegetarian (oyster|mushroom) sauce|mushroom sauce|pasta sauce|marinara|tomato sauce|salsa|spice (mix|blend))\b/i, hides: [...alliums, "Gluten"] },
+  { pattern: /\bpesto\b/i, hides: [...alliums, "Dairy"] },
+  { pattern: /\b(puff )?pastry\b/i, hides: ["Eggs", "Dairy"] },
   { pattern: /\b(curry paste|laksa paste|rempah|chilli paste)\b/i, hides: ["Root vegetables"] },
   { pattern: /\b(yellow noodles|egg-free noodles|vegan butter|plant-based butter|margarine|mock meat|plant-based mince)\b/i, hides: ["Eggs", "Dairy", "Gluten"] },
   { pattern: /\b(fermented beancurd|fu ru)\b/i, hides: ["Gluten"] },

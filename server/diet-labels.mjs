@@ -10,9 +10,12 @@ export const animal = ['Eggs', 'Dairy', 'Honey'];
 /** The app's exclusion names (src/config/preferences.ts), matched on ingredient names. */
 /** @type {Array<[string, RegExp]>} */
 const TAGS = [
-  ['Garlic', /\bgarlic\b/], ['Onion', /\bonions?\b/], ['Shallots', /\bshallots?\b/], ['Scallions', /\b(scallions?|spring onions?|green onions?)\b/],
-  ['Leeks', /\bleeks?\b/], ['Chives', /\bchives?\b/], ['Asafoetida', /\b(asafoetida|hing)\b/], ['Eggs', /\beggs?\b/],
-  ['Dairy', /(?<!\b(coconut|oat|soy|soya|almond|rice|cashew|peanut|plant-based|vegan|nut)\s)\b(milk|butter|cream|cheese|yogh?urt|ghee|paneer)\b/],
+  ['Garlic', /\bgarlic\b/], ['Onion', /\b(onions?|bawang)\b/], ['Shallots', /\bshallots?\b/], ['Scallions', /\b(scallions?|spring onions?|green onions?)\b/],
+  ['Leeks', /\bleeks?\b/], ['Chives', /\bchives?\b/], ['Asafoetida', /\b(asafoetida|hing)\b/],
+  // Egg-based foods count as egg (kaya, mayonnaise, custard, meringue, aioli, brioche) unless named vegan or plant-based;
+  // custard powder is cornflour, so it is not.
+  ['Eggs', /(?<!\b(vegan|plant-based|eggless)\s)\b(eggs?|kaya|mayo|mayonnaise|custard(?!\s+powder)|meringues?|aioli|brioche)\b/],
+  ['Dairy', /(?<!\b(coconut|oat|soy|soya|almond|rice|cashew|peanut|plant-based|vegan|nut|cocoa|shea)\s)\b(milk|butter|cream(?!\s+of\s+tartar)|cheese|yogh?urt|ghee|paneer|whey|casein|creamer|brioche)\b/],
   ['Honey', /\bhoney\b/], ['Peanuts', /\bpeanuts?\b/], ['Tree nuts', /\b(almonds?|cashews?|walnuts?|pecans?|pistachios?|hazelnuts?|macadamias?)\b/],
   ['Gluten', /(?<!\b(rice|tapioca|corn|chickpea|potato|glutinous rice|buckwheat|mung bean)\s)\b(wheat|flour|soy sauce|bread|pasta|seitan|barley|rye|noodles?)\b/],
   ['Mushrooms', /\b(mushrooms?|shiitake|enoki|shimeji|portobello)\b/],

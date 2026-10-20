@@ -18,7 +18,7 @@ import { usePreferences } from "../../state/Preferences";
 import { deleteListing, ownListing, saveListing, sellerState, setListingStatus, type PhotoChanges } from "../../services/market-api";
 import { ApiError } from "../../services/community-api";
 import { kindLabels, marketLimits, shopCategories } from "../../config/market";
-import { dietWarnings, draftFrom, listingErrors, listingInput, listingLabels, type ListingDraft } from "../../utils/market";
+import { dietWarnings, draftFrom, draftLabels, listingErrors, listingInput, type ListingDraft } from "../../utils/market";
 import { dayAfter } from "../../utils/day";
 import type { OwnListing, SellerProfile, ShopPhotoSlot } from "../../types/community";
 
@@ -88,7 +88,7 @@ function ListingForm({ initial, seller }: { initial?: OwnListing; seller: Seller
       <Field label="Ingredients" placeholder="Every ingredient, including what's in sauces and spice mixes" value={d.ingredients} multiline error={errors.ingredients}
         editable={!locked} onChangeText={ingredients => set({ ingredients })} />
       <View style={{ gap: 6 }}><FieldLabel>Allergens</FieldLabel><AllergenEditor value={d.info} disabled={locked} onChange={info => set({ info })} /></View>
-      <View style={{ gap: 6 }}><FieldLabel>Diet Labels</FieldLabel><DietPills labels={listingLabels(d.info)} practices={d.diets} /></View>
+      <View style={{ gap: 6 }}><FieldLabel>Diet Labels</FieldLabel><DietPills labels={draftLabels(d)} practices={d.diets} /></View>
       <View style={{ gap: 6 }}><FieldLabel>Practices (Optional)</FieldLabel><DietChoices value={d.diets} onChange={diets => set({ diets })} disabled={locked} warnings={warnings} error={errors.diets} /></View>
       <Field label="Storage" placeholder="Keep chilled, best eaten within 2 days" value={d.storage} onChangeText={storage => set({ storage })} maxLength={200} error={errors.storage} editable={!locked} />
       {d.kind === "prepacked" && <>

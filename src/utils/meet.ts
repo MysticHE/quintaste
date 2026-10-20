@@ -1,4 +1,4 @@
-import { hostDeclarations, payLabels } from "../types/meet";
+import { hostDeclarations, payLabels, shownPractices } from "../types/meet";
 import { dietLabels } from "../config/diet-labels";
 import type { GatheringInput, Group, GroupMember, HostApplication, SocialProfile } from "../types/community";
 import { formatSgText, parseSgDateTime, planDateIssue } from "./sg-datetime";
@@ -45,7 +45,7 @@ export function tableNeeds(g: Group) {
   };
   const diets = dietLabels.map(d => [d, members.filter(m => m.diets?.includes(d)).length] as const).filter(([, n]) => n).map(([d, n]) => d + " ×" + n);
   const avoid = grouped(m => m.excluded);
-  return { diet: diets.join(" · "), detail: [...grouped(m => m.practices), ...(avoid.length ? ["Avoid " + avoid.join(", ")] : [])].join(" · ") };
+  return { diet: diets.join(" · "), detail: [...grouped(m => m.practices ? shownPractices(m.practices) : m.practices), ...(avoid.length ? ["Avoid " + avoid.join(", ")] : [])].join(" · ") };
 }
 export const overlap = (mine: readonly string[], theirs: readonly string[]) => theirs.filter(time => mine.includes(time));
 export function planShareText(g: Group) {

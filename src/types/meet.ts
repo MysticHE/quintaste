@@ -6,8 +6,9 @@ export const meetTimes = ["Weekday lunch", "Weekday dinner", "Weekends"] as cons
 /** Self-declared dietary practice shown to tablemates; never verified. No five pungent is now the Vegetarian label. */
 export const meetPractices = ["No egg", "Lunar 1st & 15th"] as const;
 export type MeetPractice = typeof meetPractices[number];
-/** A practice before 20 Oct 2026, folded into the Vegetarian label. */
+/** A practice before 20 Oct 2026, folded into the Vegetarian label. The server still sends it for older apps; screens hide it. */
 export const legacyFivePungent = "No five pungent";
+export const shownPractices = (practices: readonly string[]) => practices.filter(practice => practice !== legacyFivePungent);
 /** Labels a person keeps: Plant-Based alone, or Vegan and/or Vegetarian (src/config/diet-labels.ts). */
 export const keptLabels = (value: unknown): DietLabel[] => {
   const strict = readLabels(value).filter(label => label !== "Plant-Based");

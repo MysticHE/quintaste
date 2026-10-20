@@ -4,6 +4,7 @@ import { date, useResource } from '../client';
 import { Empty, Feedback, Pager, SearchField, Segmented } from '../Primitives';
 import { Icon } from '../Icon';
 import { ActionBar } from './Parts';
+import { itemLabels } from '../../lib/diet-labels';
 
 type Review = { id: string; place: string; rating: number; body: string; created_at: string; hidden_reason: string | null; username: string; photos: string[]; reports: number };
 type Gathering = { id: string; title: string; area: string; venue: string; starts: string | null; seats: number; joined: number; diets: string[]; food: string; pay: string;
@@ -59,13 +60,6 @@ export function Listings() {
       <strong>{r.shop}</strong><div className="row"><Rating value={r.rating}/><small>{r.buyer_name} · {date(r.completed_at)}</small>{r.diet_matched === false && <span className="badge warn">Diet mismatch</span>}</div>
       <p className="detail">{r.review}</p></>} act={(r, status, done) => toggle('market-reviews', r.id, status === 'hidden', done, 'Hide review text')}/>}</>;
 }
-/** The app's diet labels (src/config/diet-labels.ts): Vegan = no egg, dairy or honey; Vegetarian = none of the five pungent; "may contain" counts. */
-const alliums = ['Garlic', 'Onion', 'Leeks', 'Chives', 'Scallions', 'Shallots', 'Asafoetida'], animal = ['Eggs', 'Dairy', 'Honey'];
-function itemLabels(i: Item) {
-  const tags = [...i.contains, ...i.may_contain], hasAnimal = animal.some(t => tags.includes(t)), hasPungent = alliums.some(t => tags.includes(t));
-  const practices = (i.diets ?? []).flatMap(d => d === 'jain' ? ['Jain'] : d === 'no-egg' ? ['No egg'] : []);
-  return [...(hasAnimal ? [] : ['Vegan']), ...(hasPungent ? [] : ['Vegetarian']), ...(hasAnimal && hasPungent ? ['Plant-Based'] : []), ...practices].join(' · ');
-}
 function MarketItems() {
   return <><Moderation<Item> path="/api/content/market" statuses={[['active', 'Active'], ['paused', 'Paused'], ['draft', 'Draft'], ['removed', 'Removed']]} render={i => <>
       <div className="row spread"><strong>{i.name || 'Untitled'}</strong><span>S${(i.price_cents / 100).toFixed(2)}{i.portion ? ' · ' + i.portion : ''}</span></div>
@@ -74,7 +68,7 @@ function MarketItems() {
       {!!i.photos.length && <div className="row thumbs">{i.photos.map(slot => <img key={slot} src={`/api/content/market-photo?id=${i.id}&slot=${slot}`} alt={slot + ' photo'} width={96} height={96}/>)}</div>}
       {i.description && <p className="detail">{i.description}</p>}
       <details><summary>Ingredients</summary><p className="detail">{i.ingredients || '—'}</p>
-        <small>Labels (seller-declared): {itemLabels(i)}</small><br/>
+        <small>Labels (seller-declared): {itemLabels(i.diets, i.contains, i.may_contain)}</small><br/>
         <small>Contains: {i.contains.join(', ') || '—'} · May contain: {i.may_contain.join(', ') || '—'}{i.date_mark ? ' · ' + i.date_mark : ''}</small></details>
       {!!i.reports && <span className="badge warn">{i.reports} {i.reports === 1 ? 'report' : 'reports'}</span>}
       {i.removed_reason && <p className="muted">Removed: {i.removed_reason}</p>}</>}

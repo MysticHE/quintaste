@@ -15,13 +15,14 @@ export function ingredientIssue(i: RecipeDraftIngredient) {
 }
 const choice = <T extends string>(value: unknown, values: readonly T[], fallback: T): T => values.includes(value as T) ? value as T : fallback;
 /**
- * Diet labels chosen in Cook filters. Before 20 Oct 2026 the filter stored `diets` (Vegetarian then meant eggs and dairy
- * allowed, which every recipe is) and a separate `alliumFree` toggle, now the Vegetarian label; `vegan` and a string
- * `filter` are older still.
+ * Diet labels chosen in Cook filters. Before 20 Oct 2026 the filter stored `diets`, matched as OR (Vegetarian then meant
+ * eggs and dairy allowed, which every recipe is, so only Vegan on its own narrowed anything), and a separate `alliumFree`
+ * toggle, now the Vegetarian label; `vegan` and a string `filter` are older still.
  */
 function readBrowseLabels(b: Record<string, unknown>, legacy: unknown): DietLabel[] {
   if (Array.isArray(b.labels)) return readLabels(b.labels).filter(label => label !== "Plant-Based");
-  const vegan = legacy === "Vegan" || b.vegan === true || (Array.isArray(b.diets) && b.diets.includes("Vegan"));
+  const old = Array.isArray(b.diets) ? b.diets.filter(diet => diet === "Vegan" || diet === "Vegetarian") : null;
+  const vegan = old ? old.length === 1 && old[0] === "Vegan" : legacy === "Vegan" || b.vegan === true;
   const vegetarian = legacy === "No alliums" || b.alliumFree === true;
   return [...(vegan ? ["Vegan" as const] : []), ...(vegetarian ? ["Vegetarian" as const] : [])];
 }

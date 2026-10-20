@@ -5,7 +5,7 @@ import { Initial, ListItem, StatusPill } from "../GroupedList";
 import { MemberPrompt, useMember } from "../CommunityGate";
 import { useRemote } from "../../hooks/useRemote";
 import { me } from "../../services/social-api";
-import { groupSizes, type GroupSize } from "../../types/meet";
+import { groupSizes, shownPractices, type GroupSize } from "../../types/meet";
 import { dietLabels, toggleLabel, type DietLabel } from "../../config/diet-labels";
 import { dietSummary } from "../../config/preferences";
 import { usePreferences } from "../../state/Preferences";
@@ -35,7 +35,7 @@ export function DietChoices({ value, onChange }: { value: readonly DietLabel[]; 
 export function DietTags({ person }: { person: Pick<SocialProfile, "diets" | "practices"> }) {
   return <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 6, justifyContent: "center" }}>
     {person.diets.map(label => <StatusPill key={label} label={label} tone="accent" />)}
-    {person.practices.map(p => <StatusPill key={p} label={p} />)}</View>;
+    {shownPractices(person.practices).map(p => <StatusPill key={p} label={p} />)}</View>;
 }
 export function PersonRow({ person }: { person: Person }) {
   const diet = dietSummary(person.diets);

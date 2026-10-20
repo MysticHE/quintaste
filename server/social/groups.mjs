@@ -2,14 +2,14 @@ import express from 'express';
 import { pool } from '../config.mjs';
 import { CommunityError, pick, requireId, requireUser, text, throttle, transaction } from '../community/http.mjs';
 import { notBlocked, notRestricted } from '../community/router.mjs';
-import { fivePungent, pays, profileIssue, readFuture, sgText, sizes } from './rules.mjs';
+import { pays, profileIssue, readFuture, sgText, sizes } from './rules.mjs';
 
 export const groups = express.Router();
 const active = ['invited', 'accepted'];
 const nameOf = `coalesce(nullif(p.first_name,''), u.name, 'Member')`;
 /** Members of several groups in one query, keyed by group id. */
 async function membersOf(db, groupIds) {
-  const rows = (await db.query(`SELECT m.group_id, m.user_id AS id, ${nameOf} AS name, m.status, m.confirmed, p.diets, p.diet, array_remove(p.practices, '${fivePungent}') AS practices, p.excluded
+  const rows = (await db.query(`SELECT m.group_id, m.user_id AS id, ${nameOf} AS name, m.status, m.confirmed, p.diets, p.diet, p.practices, p.excluded
     FROM social.member m JOIN public."user" u ON u.id=m.user_id LEFT JOIN social.profile p ON p.user_id=m.user_id WHERE m.group_id=ANY($1::uuid[]) ORDER BY m.updated_at`, [groupIds])).rows;
   const byGroup = new Map(groupIds.map(id => [id, []]));
   for (const { group_id: groupId, ...member } of rows) byGroup.get(groupId)?.push(member);

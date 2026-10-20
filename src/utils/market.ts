@@ -1,6 +1,6 @@
 import { ingredientTextLimit, type IngredientInfo, type MarketIngredient } from "../config/market-ingredients";
-import { alliums, exclusions, type Exclusion } from "../config/preferences";
-import { labelsFrom } from "../config/diet-labels";
+import { alliums, animalExclusions } from "../config/preferences";
+import { labelsFor } from "../config/diet-labels";
 import { marketLimits } from "../config/market";
 import type { Diet, ListingInput, MarketPractice, ListingKind, OwnListing, ShopCategory, ShopPhotoSlot, ShopTrust, Slot } from "../types/community";
 import { parseDay } from "./day";
@@ -13,10 +13,20 @@ export type ListingDraft = {
   info: IngredientInfo; diets: MarketPractice[]; storage: string; dateMark: string; lot: string; leadDays: number; maxPerOrder: string;
   photos: Partial<Record<ShopPhotoSlot, string>>;
 };
-/** Vegan, Vegetarian or Plant-Based from a listing's seller-declared tags; "may contain" counts as present and the tag list is complete. */
-export function listingLabels(listing: { contains: readonly MarketIngredient[]; mayContain: readonly MarketIngredient[] }) {
-  const tags = [...listing.contains, ...listing.mayContain].filter((tag): tag is MarketIngredient & Exclusion => (exclusions as readonly string[]).includes(tag));
-  return labelsFrom(tags, true);
+const tagged = (tags: readonly MarketIngredient[], list: readonly string[]) => tags.some(tag => list.includes(tag));
+/**
+ * A saved listing's labels, as the server worked them out from its tags and ingredient text (stored "vegan" and
+ * "five-pungent-free"). Plant-Based shows only when the tags show both an animal product and one of the five pungent.
+ */
+export function listingLabels(listing: { diets: readonly Diet[]; contains: readonly MarketIngredient[]; mayContain: readonly MarketIngredient[] }) {
+  const tags = [...listing.contains, ...listing.mayContain];
+  return labelsFor({ animal: listing.diets.includes("vegan") ? false : tagged(tags, animalExclusions) ? true : null,
+    pungent: listing.diets.includes("five-pungent-free") ? false : tagged(tags, alliums) ? true : null });
+}
+/** The labels a draft will get when saved: its tags ("may contain" counts) and words in its ingredient text. */
+export function draftLabels(d: Pick<ListingDraft, "info" | "ingredients">) {
+  const tags = [...d.info.contains, ...d.info.mayContain], text = d.ingredients.replace(plantDairy, " ");
+  return labelsFor({ animal: tagged(tags, animalExclusions) || animal.test(text), pungent: tagged(tags, alliums) || pungent.test(d.ingredients) });
 }
 /** The seller's own practices; stored "vegan" and "five-pungent-free" are derived and dropped here. */
 export const practicesOf = (diets: readonly Diet[]) => diets.filter((diet): diet is MarketPractice => diet === "no-egg" || diet === "jain");
@@ -58,7 +68,7 @@ export function listingErrors(d: ListingDraft, publish: boolean, now: number): R
   if (conflict) errors.diets = conflict;
   return errors;
 }
-const animal = /\b(egg|eggs|milk|butter|cream|cheese|ghee|whey|yogh?urt|honey|gelatine?|lard)\b/i;
+const animal = /\b(egg|eggs|milk|butter|cream|cheese|ghee|whey|yogh?urt|honey|gelatine?|lard|kaya|mayo|mayonnaise|meringue|aioli|casein|creamer|brioche)\b/i;
 /** Plant-based names that contain a dairy word, such as coconut milk or peanut butter. */
 const plantDairy = /\b(coconut|soy|soya|oat|almond|rice|cashew|nut|peanut|cocoa|shea|vegan|plant[- ]based)\s+(milk|butter|cream|cheese|yogh?urt)\b|\bcream of tartar\b/gi;
 const roots = /\b(potato(es)?|carrots?|beetroots?|radish(es)?|ginger|garlic|onions?|turnips?|yams?|cassava|tapioca|turmeric|leeks?|shallots?|scallions?)\b/i;

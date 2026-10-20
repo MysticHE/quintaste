@@ -2,7 +2,7 @@ import express from 'express';
 import { pool } from '../config.mjs';
 import { CommunityError, requireUser, throttle } from '../community/http.mjs';
 import { notBlocked, notRestricted } from '../community/router.mjs';
-import { keepStored, legacyDiet, profileColumns, profileIssue, readDiets, readProfile, sizes, storedPractices, times } from './rules.mjs';
+import { legacyDiet, profileColumns, profileIssue, readDiets, readProfile, sizes, storedPractices, times } from './rules.mjs';
 
 export const people = express.Router();
 const empty = { firstName: '', area: '', diets: ['Plant-Based'], diet: 'Vegetarian', practices: [], times: [], size: 4, about: '', interests: [], excluded: [], visible: false };
@@ -12,10 +12,10 @@ people.get('/me', async (_req, res) => {
   res.json({ id: me.id, accountName: me.name, profile: row ? { ...row, id: undefined } : empty });
 });
 people.put('/me', async (req, res) => {
-  const me = res.locals.user.id, { legacy, ...p } = readProfile(req.body?.profile);
+  // `legacy` (an older app sent only diet) needs nothing more for profiles: its practices carry Vegetarian.
+  const { legacy: _legacy, ...p } = readProfile(req.body?.profile), me = res.locals.user.id;
   await throttle('social-profile:' + me, 120, 3600);
   if (p.visible && profileIssue(p)) p.visible = false;
-  if (legacy) p.diets = keepStored(p.diets, (await pool.query('SELECT diets FROM social.profile WHERE user_id=$1', [me])).rows[0]?.diets, legacy);
   p.diet = legacyDiet(p.diets);
   await pool.query(`INSERT INTO social.profile(user_id,first_name,area,diet,practices,times,group_size,about,interests,excluded,visible,diets)
     VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12) ON CONFLICT(user_id) DO UPDATE SET first_name=$2,area=$3,diet=$4,practices=$5,times=$6,group_size=$7,about=$8,

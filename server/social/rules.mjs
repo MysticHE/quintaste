@@ -24,7 +24,10 @@ export function legacyDiets(diet, kept) {
 export const legacyDiet = labels => labels.includes('Vegan') ? 'Vegan' : 'Vegetarian';
 /** Labels from a request body; `legacy` is true when an older app sent only `diet`. */
 export const dietsFrom = (body, kept) => Array.isArray(body.diets) ? { diets: readDiets(body.diets), legacy: false } : { diets: legacyDiets(body.diet, kept), legacy: true };
-/** An older app cannot show Vegetarian: when it re-saves the same old diet, the labels already stored stay. */
+/**
+ * Gatherings only: an older app cannot show Vegetarian on a gathering, so when it re-saves the same old diet the labels
+ * already stored stay. Profiles need no such rule: older apps still see and send the No five pungent practice.
+ */
 export const keepStored = (next, stored, legacy) => legacy && stored && legacyDiet(stored) === legacyDiet(next) && !next.includes('Vegetarian') ? stored : next;
 /** Stored practices also carry the old No five pungent practice whenever Vegetarian is kept, for older app images. */
 export const storedPractices = (kept, labels) => labels.includes('Vegetarian') ? [...kept, fivePungent] : kept;
@@ -49,5 +52,6 @@ export function readFuture(value, field = 'Date and time') {
   if (at - Date.now() > 2 * 365 * 86400000) throw new CommunityError(400, 'Choose a date within the next two years.');
   return new Date(at);
 }
-// `diet` stays for one release for older apps; practices drop the old No five pungent, which is now the Vegetarian label.
-export const profileColumns = `p.user_id AS id, p.first_name AS "firstName", p.area, p.diets, p.diet, array_remove(p.practices, '${fivePungent}') AS practices, p.times, p.group_size AS size, p.about, p.interests, p.excluded, p.visible`;
+// `diet` and the No five pungent practice stay for one release so older apps show and can change Vegetarian; the new
+// app hides that practice because its Vegetarian label says the same.
+export const profileColumns = `p.user_id AS id, p.first_name AS "firstName", p.area, p.diets, p.diet, p.practices, p.times, p.group_size AS size, p.about, p.interests, p.excluded, p.visible`;

@@ -3,7 +3,7 @@ import { suits, type DietLabel } from "../config/diet-labels";
 import type { Recipe } from "../types/food";
 import type { CookBrowse, CookSort, CookedEntry } from "../types/recipe-workspace";
 import { matchesNutritionChoices } from "./nutrition";
-import { fitRank, recipeFit, recipeLabels } from "./recipe-dietary";
+import { fitRank, recipeFit } from "./recipe-dietary";
 
 export const sortLabels: Record<CookSort, string> = { Fit: "Best fit", Time: "Quickest", Recent: "Recently cooked" };
 /** Vegan and/or Vegetarian chosen in Cook filters; a recipe must prove every one (AND). */
@@ -28,15 +28,17 @@ type Context = { diets: readonly DietLabel[]; excluded: readonly Exclusion[]; co
 /** Category is OR within one chip row; every Filters choice narrows (AND) across facets. */
 export function browseRecipes(all: Recipe[], browse: CookBrowse, query: string, context: Context) {
   const text = query.trim().toLowerCase(), diets = selectedRecipeDiets(browse);
+  // One fit per recipe gives both its labels (for the diet filter) and its rank (for Best fit).
+  const fits = new Map(all.map(recipe => [recipe.id, recipeFit(recipe, context.diets, context.excluded)]));
   const matches = all.filter(recipe => !recipe.withdrawal
     && (!text || [recipe.name, recipe.cuisine, ...recipe.categories, ...recipe.ingredients.map(item => item.name)].join(" ").toLowerCase().includes(text))
     && (browse.category === "All" || recipe.categories.includes(browse.category))
-    && (!diets.length || suits(diets, recipeLabels(recipe)))
+    && (!diets.length || suits(diets, fits.get(recipe.id)!.labels))
     && (browse.time === "Any" || recipe.minutes <= +browse.time)
     && (!browse.onePot || !!recipe.onePot)
     && matchesNutritionChoices(recipe, browse.nutrition)
     && (!context.ingredient || usesIngredient(recipe, context.ingredient)));
-  const rank = new Map(matches.map(recipe => [recipe.id, fitRank(recipeFit(recipe, context.diets, context.excluded))]));
+  const rank = new Map(matches.map(recipe => [recipe.id, fitRank(fits.get(recipe.id)!)]));
   const last = new Map(matches.map(recipe => [recipe.id, cookedStats(context.cooked, recipe.id).last]));
   const byFit = (a: Recipe, b: Recipe) => rank.get(a.id)! - rank.get(b.id)!;
   return matches.sort((a, b) => browse.sort === "Time" ? a.minutes - b.minutes || byFit(a, b)

@@ -3,7 +3,7 @@ import { pool } from '../config.mjs';
 import { CommunityError, list, member, requireId, requireUser } from '../community/http.mjs';
 import { notBlocked, notRestricted } from '../community/router.mjs';
 import { sgText } from '../social/rules.mjs';
-import { categories, freeOf, ingredients, labelTags, legacyLabels, liveSeller, practices, slots } from './rules.mjs';
+import { categories, ingredients, labelTag, liveSeller, practices, slots, tagLabel } from './rules.mjs';
 import { slotColumns } from './seller-shop.mjs';
 
 /** Public browsing of live shops. Guests may read; saving needs a signed-in member. */
@@ -39,7 +39,7 @@ export async function visibleShop(sellerId) {
 }
 const split = value => typeof value === 'string' ? value.split(',') : [];
 /** Labels to filter by (AND): `labels=Vegan,Vegetarian`, or an older client's `diets=vegan,five-pungent-free` (kept for one release). */
-const wantedLabels = q => [...new Set([...list(split(q.labels), Object.keys(labelTags)), ...split(q.diets).map(diet => legacyLabels[diet]).filter(Boolean)])];
+const wantedLabels = q => [...new Set([...split(q.labels).filter(label => labelTag.has(label)), ...split(q.diets).filter(diet => tagLabel.has(diet)).map(diet => tagLabel.get(diet))])];
 shop.get('/listings', async (req, res) => {
   const viewer = res.locals.user?.id ?? null, q = req.query, params = [viewer], where = [visible];
   const add = value => { params.push(value); return '$' + params.length; };
@@ -49,9 +49,9 @@ shop.get('/listings', async (req, res) => {
   if (q.kind === 'made' || q.kind === 'prepacked') where.push(`l.kind = ${add(q.kind)}`);
   if (q.mode === 'meetup' || q.mode === 'delivery') where.push(`s.${q.mode}`);
   if (typeof q.area === 'string' && q.area.trim()) where.push(`(s.area || ' ' || s.delivery_areas) ILIKE ${add(like(q.area))}`);
-  for (const label of wantedLabels(q)) where.push(freeOf(labelTags[label], add));
-  const wanted = list(split(q.diets), practices);
-  if (wanted.length) where.push(`l.diets @> ${add(wanted)}::text[]`);
+  // A label shows only when the listing's saved tags and text prove it (stored in diets); practices are the seller's own.
+  const wanted = [...wantedLabels(q).map(label => labelTag.get(label)), ...list(split(q.diets), practices)];
+  if (wanted.length) where.push(`l.diets @> ${add([...new Set(wanted)])}::text[]`);
   const exclude = list(split(q.exclude), ingredients);
   if (exclude.length) { const tags = add(exclude); where.push(`NOT (l.contains && ${tags}::text[] OR l.may_contain && ${tags}::text[])`); }
   if (q.saved === '1') { if (!viewer) throw new CommunityError(401, 'Sign in to see saved items.', 'SIGN_IN'); where.push('EXISTS (SELECT 1 FROM market.saved v WHERE v.user_id=$1 AND v.listing_id=l.id)'); }
