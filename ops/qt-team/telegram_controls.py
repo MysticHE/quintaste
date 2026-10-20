@@ -206,7 +206,13 @@ def owner_check_requests(state):
     at most veg_kitchen.OWNER_CHECKS_OPEN unanswered at a time."""
     import telegram_reporter as t
     import veg_kitchen
-    open_now = sum(1 for k, a in state.get('moderation', {}).items() if a.get('mode') == 'vkcheck' and a.get('stage') == 'direct' and a['expires'] > time.time())
+    moderation = state.setdefault('moderation', {})
+    # A question counts as open only once it was queued for Telegram; drop records of questions that were never sent
+    # (20 Oct 2026: a crash after saving the record left five unsent questions that blocked every new one).
+    for k in [k for k, a in moderation.items() if a.get('mode') == 'vkcheck' and a.get('stage') == 'direct'
+              and 'vkcheck:' + str(a.get('id')) not in state['deliveries']]:
+        del moderation[k]
+    open_now = sum(1 for a in moderation.values() if a.get('mode') == 'vkcheck' and a.get('stage') == 'direct' and a['expires'] > time.time())
     for row in veg_kitchen.owner_check_view(t.ROOT, limit=50):
         if open_now >= veg_kitchen.OWNER_CHECKS_OPEN:
             break
@@ -214,11 +220,7 @@ def owner_check_requests(state):
         if key in state['deliveries']:
             continue
         token = secrets.token_hex(12)
-        actions = {k: v for k, v in state.setdefault('moderation', {}).items() if v['expires'] > time.time()}
         name = str(row.get('nameHint') or row['candidateId'])  # nameConfirmed is a flag, not a name
-        actions[token] = {'mode': 'vkcheck', 'kind': 'vkcheck', 'id': row['candidateId'], 'name': name, 'expires': time.time() + 30 * 86400,
-                          'stage': 'direct', 'actionId': 'owner-vkcheck-' + token}
-        state['moderation'] = dict(list(actions.items())[-400:])
         text = ('Is this place fully vegetarian?\n' + name + '\n' + str(row.get('address', ''))[:200] +
                 '\nQT Explorer found: ' + (str(row.get('signals')) or 'signs it is meat-free, but no statement in the venue\'s own words.')[:500] +
                 '\nVeg Kitchen or Vegan Kitchen: it is published once its menu checks pass. Mixed Kitchen: only its labelled vegetarian dishes are listed.')
@@ -226,6 +228,10 @@ def owner_check_requests(state):
                    [{'text': 'Mixed Kitchen', 'callback_data': 'vk-mixed:' + token}, {'text': 'Skip', 'callback_data': 'vk-skip:' + token}]]
         if str(row.get('mapsUrl', '')).startswith('https://www.google.com/maps/'):
             buttons.append([{'text': 'Open on Google Maps', 'url': row['mapsUrl']}])
+        actions = {k: v for k, v in state['moderation'].items() if v['expires'] > time.time()}
+        actions[token] = {'mode': 'vkcheck', 'kind': 'vkcheck', 'id': row['candidateId'], 'name': name, 'expires': time.time() + 30 * 86400,
+                          'stage': 'direct', 'actionId': 'owner-vkcheck-' + token}
+        state['moderation'] = dict(list(actions.items())[-400:])
         t.enqueue(state, key, text[:4000], buttons=buttons)
         open_now += 1
 

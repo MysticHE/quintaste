@@ -344,6 +344,9 @@ class VegKitchenDigest(unittest.TestCase):
         state = vk.progress(self.root)
         vk.set_status(vk.entry(state, rid), 'held', 'owner-check', 'Menu is all mock meat; Google says vegetarian')
         vk.save_progress(self.root, state)
+        # records of questions that were never sent (an earlier crash) must not block new ones
+        self.state['moderation'] = {('%024x' % i): {'mode': 'vkcheck', 'kind': 'vkcheck', 'id': 'vk-other-%d' % i, 'name': 'x', 'stage': 'direct',
+                                    'expires': time.time() + 86400} for i in range(5)}
         with patch.object(vk, 'queue', return_value=[row]):
             c.owner_check_requests(self.state)
             c.owner_check_requests(self.state)
@@ -352,6 +355,7 @@ class VegKitchenDigest(unittest.TestCase):
         self.assertTrue(item['text'].startswith('Is this place fully vegetarian?' + chr(10) + 'Green Leaf Kitchen'))
         self.assertIn('Menu is all mock meat', item['text'])
         labels = [b['text'] for line in item['buttons'] for b in line]
+        self.assertEqual([a['id'] for a in self.state['moderation'].values()], [rid])  # the unsent records are gone
         self.assertEqual(labels, ['Veg Kitchen', 'Vegan Kitchen', 'Mixed Kitchen', 'Skip', 'Open on Google Maps'])
         veg = item['buttons'][0][0]['callback_data']
         c.callback(self.state, veg, 7)
