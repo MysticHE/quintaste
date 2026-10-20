@@ -29,15 +29,18 @@ export function PlaceDetailAction({ label, accessibleLabel, icon, selected, disa
   </Pressable>;
 }
 export function PlaceSources({ venue, open }: { venue: CatalogueVenue; open: (url: string) => void }) {
+  const illustrated = venue.photo?.author === "QuinTaste illustration";
   return <View style={{ gap: 10 }}>
     {venue.hours && <View style={{ gap: 4 }}><T variant="small" style={common.bold}>Hours</T>
       <T variant="caption" muted>Checked {venue.hours.checkedAt} · Singapore time. Holiday hours may differ.</T>
       {!!venue.hours.notes && <T variant="caption" muted>{venue.hours.notes}</T>}
       <Button label="Hours Source" variant="link" icon="open-outline" onPress={() => open(venue.hours!.sourceUrl)} /></View>}
-    {venue.photo && <View style={{ gap: 4 }}><T variant="small" style={common.bold}>Photo</T>
-      <T variant="caption" muted>{venue.photo.provider ? venue.photo.provider + " · " : ""}Photograph by {venue.photo.author}. {venue.photo.license}.</T>
-      <T variant="caption" muted>{venue.photo.changes}</T>
-      <Button label="Photo Source" variant="link" icon="open-outline" onPress={() => open(venue.photo!.sourceUrl)} />
+    {venue.photo && <View style={{ gap: 4 }}><T variant="small" style={common.bold}>{illustrated ? "Cover" : "Photo"}</T>
+      {/* Owner, 20 Oct 2026: a place without a reusable photo may use an approved illustration of its own dishes; say so here, never as a photo. */}
+      <T variant="caption" muted>{illustrated ? "Illustration by QuinTaste, drawn from this place's menu."
+        : (venue.photo.provider ? venue.photo.provider + " · " : "") + "Photograph by " + venue.photo.author + ". " + venue.photo.license + "."}</T>
+      {!illustrated && <T variant="caption" muted>{venue.photo.changes}</T>}
+      <Button label={illustrated ? "Menu Source" : "Photo Source"} variant="link" icon="open-outline" onPress={() => open(venue.photo!.sourceUrl)} />
       {venue.photo.licenseUrl && <Button label="Photo Licence" variant="link" icon="open-outline" onPress={() => open(venue.photo!.licenseUrl!)} />}</View>}
     {venue.research && <View style={{ gap: 4 }}><T variant="small" style={common.bold}>Source updates</T>
       <T variant="caption" muted>Checked {venue.research.checkedAt}</T>

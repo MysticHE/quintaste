@@ -1,7 +1,7 @@
 import fs from 'node:fs/promises';
 import { Buffer } from 'node:buffer';
 import path from 'node:path';
-import { hash, ownerReference, requirePlaceDatesNotFuture, requireValue, validHash, validId, validateSources, validateRecipe, validateEvent, validatePlace, validateVenue } from './validation.mjs';
+import { hash, ownerReference, requirePlaceDatesNotFuture, requireValue, validHash, validId, validateSources, validateRecipe, validateEvent, validatePlace, validateVenue, ownerIllustration, ILLUSTRATION_CREDIT } from './validation.mjs';
 import { readFileSync } from 'node:fs';
 import sharp from 'sharp';
 
@@ -98,7 +98,8 @@ export async function publish(root, baseline, batch) {
       requireValue(bytes.length <= 512 * 1024 && hash(bytes) === a.sha256 && dimensions.width >= 320 && dimensions.width <= 1600 && dimensions.height >= 240 && dimensions.height <= 1600, 'Invalid image hash/size');
       try { await sharp(bytes, { limitInputPixels: 1600 * 1600, failOn: 'warning' }).raw().toBuffer(); }
       catch { requireValue(false, 'Image cannot be fully decoded'); }
-      requireValue(a.review?.decision === 'approved' && a.review.sha256 === a.sha256 && a.review.reviewedBy === 'QT Manager' && ['original-generated-recipe-illustration', 'approved-reference-enhancement'].includes(a.provenance?.kind), 'Image requires hash-bound visual review');
+      requireValue(a.review?.decision === 'approved' && a.review.sha256 === a.sha256 && a.review.reviewedBy === 'QT Manager' && ['original-generated-recipe-illustration', 'approved-reference-enhancement', 'place-dish-illustration'].includes(a.provenance?.kind), 'Image requires hash-bound visual review');
+      if (a.provenance.kind === 'place-dish-illustration') requireValue(ownerIllustration(a.provenance), 'An illustration needs the owner\'s approval');
       if (a.provenance.kind === 'approved-reference-enhancement') requireValue(references.some(r => r.status === 'approved' && r.venueId === a.provenance.venueId && r.sha256 === a.provenance.referenceSha256 && r.rightsApprovalId === a.provenance.rightsApprovalId) || ownerReference(a.provenance), 'Approved exact-branch reference required');
       assets.set(a.sha256, { bytes, dimensions, provenance: a.provenance, review: a.review });
     }
@@ -143,8 +144,13 @@ export async function publish(root, baseline, batch) {
         if (!asset) try { stored = JSON.parse(await fs.readFile(path.join(root, 'assets', sha + '.json'), 'utf8')); } catch { /* Fail closed. */ }
         const metadata = asset ?? stored;
         requireValue(metadata && metadata.dimensions.width === image.width && metadata.dimensions.height === image.height, 'Reviewed image is missing or dimensions differ');
-        // A place cover follows the venue cover rules: an approved exact-branch reference with its original credit and licence.
-        if (r.kind === 'venue' || r.kind === 'place') {
+        // A place cover follows the venue cover rules (an approved exact-branch reference with its original credit and licence), or is an
+        // owner-approved illustration of its own dishes credited as one (owner, 20 Oct 2026). Venue covers stay real photos only.
+        if (r.kind === 'place' && metadata.provenance.kind === 'place-dish-illustration') {
+          requireValue(metadata.provenance.placeId === r.id, 'Image belongs to another place');
+          requireValue(image.author === ILLUSTRATION_CREDIT && image.license === ILLUSTRATION_CREDIT && image.licenseUrl === null && image.capturedAt === null,
+            'An illustration is credited as a QuinTaste illustration');
+        } else if (r.kind === 'venue' || r.kind === 'place') {
           requireValue(metadata.provenance.kind === 'approved-reference-enhancement' && metadata.provenance.venueId === r.id, 'Image belongs to another venue');
           const reference = references.find(ref => ref.sha256 === metadata.provenance.referenceSha256 && ref.venueId === r.id) ?? ownerReference(metadata.provenance);
           requireValue(reference && ['author', 'sourceUrl', 'license', 'licenseUrl', 'capturedAt'].every(key => image[key] === reference.photo[key]), 'Original photo attribution/licence must be retained');

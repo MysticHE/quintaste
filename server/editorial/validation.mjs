@@ -23,6 +23,17 @@ export function ownerReference(p) {
     && text(photo.license, 80) && (photo.licenseUrl === null || publicUrl(photo.licenseUrl)) && (photo.capturedAt === null || date(photo.capturedAt));
   return valid ? { status: 'approved', venueId: ref.venueId, sha256: ref.sha256, rightsApprovalId: ref.rightsApprovalId, photo } : null;
 }
+/** Owner, 20 Oct 2026: a Veg Kitchen or Mixed Kitchen place with no reusable photo may get a generated illustration of dishes from its
+ * own menu as its cover. Never a venue's, never without the owner's Telegram approval, and always credited as an illustration. */
+export const ILLUSTRATION_CREDIT = 'QuinTaste illustration';
+export function ownerIllustration(p) {
+  const a = p?.ownerApproval;
+  return Boolean(keys(p, ['kind', 'placeId', 'requestHash', 'provider', 'model', 'prompt', 'ownerApproval']) && p.kind === 'place-dish-illustration'
+    && typeof p.placeId === 'string' && /^v[ko]-[a-z0-9-]{3,150}$/.test(p.placeId) && validHash(p.requestHash) && text(p.prompt, 4000)
+    && (p.provider === undefined || p.provider === null || text(p.provider, 80)) && (p.model === undefined || p.model === null || text(p.model, 120))
+    && keys(a, ['rightsApprovalId', 'approvedBy', 'approvedAt']) && /^owner-telegram-[a-f0-9]{24}$/.test(a.rightsApprovalId)
+    && a.approvedBy === 'telegram-owner' && date(a.approvedAt));
+}
 export function validateSources(sources) {
   requireValue(Array.isArray(sources) && sources.length > 0 && sources.length <= 12, 'Source evidence is required');
   for (const s of sources) requireValue(keys(s, ['url', 'checkedAt', 'fetchedAt', 'contentSha256', 'evidence']) && publicUrl(s.url) && date(s.checkedAt) && Number.isFinite(Date.parse(s.fetchedAt)) && Date.parse(s.fetchedAt) <= Date.now() + 60000 && Date.now() - Date.parse(s.fetchedAt) < 35 * 86400000 && validHash(s.contentSha256) && text(s.evidence, 1200), 'Missing or stale source capture');
