@@ -337,7 +337,7 @@ class VegKitchenDigest(unittest.TestCase):
         import veg_kitchen as vk
         import workflow as w
         rid = 'vk-green-leaf-abc123'
-        row = {'candidateId': rid, 'googlePlaceId': 'ChIJvkgreenleaf123', 'nameHint': 'Green Leaf Kitchen', 'address': '12 BUGIS STREET SINGAPORE 188652',
+        row = {'candidateId': rid, 'googlePlaceId': 'ChIJvkgreenleaf123', 'nameHint': 'Green Leaf Kitchen', 'nameConfirmed': True, 'address': '12 BUGIS STREET SINGAPORE 188652',
                'postalCode': '188652', 'point': {'latitude': 1.299, 'longitude': 103.855}, 'source': 'google-typed', 'triage': 'fully-veg-check',
                'mapsUrl': 'https://www.google.com/maps/search/?api=1&query=Green&query_place_id=ChIJvkgreenleaf123'}
         w.write(self.root / 'state/veg-kitchen/queue.json', {'candidates': [row]})

@@ -215,7 +215,7 @@ def owner_check_requests(state):
             continue
         token = secrets.token_hex(12)
         actions = {k: v for k, v in state.setdefault('moderation', {}).items() if v['expires'] > time.time()}
-        name = row.get('nameConfirmed') or row.get('nameHint') or row['candidateId']
+        name = str(row.get('nameHint') or row['candidateId'])  # nameConfirmed is a flag, not a name
         actions[token] = {'mode': 'vkcheck', 'kind': 'vkcheck', 'id': row['candidateId'], 'name': name, 'expires': time.time() + 30 * 86400,
                           'stage': 'direct', 'actionId': 'owner-vkcheck-' + token}
         state['moderation'] = dict(list(actions.items())[-400:])
