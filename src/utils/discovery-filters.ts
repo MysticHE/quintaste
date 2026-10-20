@@ -12,9 +12,12 @@ export function withLocationMode(filters: ExploreFilters, mode: LocationMode): E
 export const placeLabelChoices = ["Vegan", "Vegetarian"] as const satisfies readonly PlaceLabel[];
 /** Keeps the labels a place can prove, in display order; Plant-Based asks nothing of a place. */
 export const placeLabelsOf = (labels: readonly unknown[]): PlaceLabel[] => placeLabelChoices.filter(label => labels.includes(label));
-/** Labels every place must prove; empty means any. Until chosen in Filters, follows the Vegan/Vegetarian the person keeps. */
+/**
+ * Labels every place must prove; empty means any. Until chosen in Filters, follows Vegan if the person keeps it. Vegetarian
+ * is never preselected (owner, 20 Oct 2026): few places prove no five pungent yet, so it is a choice in Place filters.
+ */
 export function discoveryLabels(filters: ExploreFilters, preference: readonly DietLabel[]): PlaceLabel[] {
-  return filters.labels ?? placeLabelsOf(preference);
+  return filters.labels ?? (preference.includes("Vegan") ? ["Vegan"] : []);
 }
 export const selectedCuisines = (filters: ExploreFilters) => filters.cuisines ?? (filters.cuisine === "All" ? [] : [filters.cuisine]);
 export const selectedPrices = (filters: ExploreFilters) => filters.priceLevels ?? (filters.priceLevel ? [filters.priceLevel] : []);
