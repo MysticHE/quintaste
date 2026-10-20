@@ -22,7 +22,7 @@ import { isVegOptions, mixedKitchenLabel, mixedKitchenSafety, placeLabels, place
 import { directionsUrl } from "../../utils/directions";
 
 export function CataloguePlaceDetailScreen({ id }: { id: string }) {
-  const { venue, busy, error, offline, retry } = useCatalogueVenue(id);
+  const { venue, busy, error, gone, offline, retry } = useCatalogueVenue(id);
   useReactions("place", venue ? [venue.id] : []);
   const { theme, setNotice } = usePreferences(), { owner, isSaved, toggleSave, readable } = useFood();
   const [saving, setSaving] = useState(false);
@@ -40,7 +40,9 @@ export function CataloguePlaceDetailScreen({ id }: { id: string }) {
   return <Screen title={venue?.name ?? "Place details"}>
     {busy && <ActivityIndicator color={theme.accent} accessibilityLabel="Loading place details" />}
     {offline && <T variant="caption" muted>Offline · {venue ? "saved place details" : "bookmark only"}</T>}
-    {!!error && (venue ? <View style={common.row}><T variant="small" muted style={common.flex} accessibilityLiveRegion="polite">Showing saved details</T><Button label="Try Again" variant="link" onPress={retry} /></View>
+    {gone && <EmptyState icon="close-circle-outline" title="No longer in Explore" text="This place was removed or has closed."
+      primary={{ label: "Back To Explore", onPress: () => router.navigate("/") }} />}
+    {!!error && !gone && (venue ? <View style={common.row}><T variant="small" muted style={common.flex} accessibilityLiveRegion="polite">Showing saved details</T><Button label="Try Again" variant="link" onPress={retry} /></View>
       : <EmptyState icon="cloud-offline-outline" title="Couldn't load this place" text={offline ? "You're offline. Connect and try again." : "Check your connection and try again."} primary={{ label: "Try Again", onPress: retry }}
         action="Back To Explore" onPress={() => router.navigate("/")} />)}
     {venue && <>
