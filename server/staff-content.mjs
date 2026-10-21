@@ -23,8 +23,9 @@ export const staffEdited = item => Object.keys(item.data).some(key => key !== 'b
 export const staffCreated = (staff, kind) => [...staff.items.values()].filter(item => item.kind === kind && item.origin === 'staff' && !item.hidden)
   .map(item => staffRecord(staff, kind, item.id, null));
 export const placeHidden = (staff, id) => !!staff.items.get('place:' + id)?.hidden;
-/** Staff-created places (they still need at least one dish before Explore lists them). */
+/** Staff-created places as Explore lists them: a Mixed Kitchen one needs a labelled dish; a Veg Kitchen one may have none (owner, 21 Oct 2026). */
 export const staffPlace = (staff, id) => {
   const item = staff.items.get('place:' + id), menu = staff.items.get('menu:' + id);
-  return item?.origin === 'staff' && !item.hidden && menu && !menu.hidden && menu.data.added?.length ? item : null;
+  if (item?.origin !== 'staff' || item.hidden) return null;
+  return !item.data?.kitchen || (menu && !menu.hidden && menu.data.added?.length) ? item : null;
 };
