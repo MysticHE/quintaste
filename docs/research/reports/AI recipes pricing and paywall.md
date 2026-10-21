@@ -1,6 +1,6 @@
 # AI recipes pricing and paywall (research, 21 October 2026)
 
-Owner request, 21 October 2026: research how a successful price model should be designed and displayed for better conversion, and enhance the AI Recipes plans screens. Confirmed prices: AI Cook S$9.99/month for 5 AI recipes, AI Cook Pro S$24.99/month for 20. Payments are not connected (`paymentsLive = false`).
+Owner request, 21 October 2026: research how a successful price model should be designed and displayed for better conversion, and enhance the AI Recipes plans screens. Confirmed prices: Starter S$9.99/month for 5 AI recipes, Pro S$24.99/month for 20. Payments are not connected (`paymentsLive = false`).
 
 ## 1. What the evidence says
 

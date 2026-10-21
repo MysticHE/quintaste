@@ -11,9 +11,18 @@ const COUNT_UNITS = /^(pieces?|pcs?\.?|whole|nos?\.?|units?)$/i;
 
 export { containsFor };
 
+/** Answers about the source itself: trying the same request again gives the same answer, so members get no retry for them. */
+export const REFUSALS = Object.freeze({
+  notRecipe: 'That does not look like a cooking recipe.',
+  meat: 'QuinTaste recipes are vegetarian; this one uses meat or seafood.',
+  noIngredients: 'No ingredients could be read from this source.',
+  noSteps: 'No steps could be read from this source.',
+});
+export const isRefusal = message => Object.values(REFUSALS).includes(message);
+
 export function toRecipe(draft, { source }) {
-  if (draft.isRecipe === false) throw new GeminiError(422, 'That does not look like a cooking recipe.');
-  if (draft.diet === 'NotVegetarian') throw new GeminiError(422, 'QuinTaste recipes are vegetarian; this one uses meat or seafood.');
+  if (draft.isRecipe === false) throw new GeminiError(422, REFUSALS.notRecipe);
+  if (draft.diet === 'NotVegetarian') throw new GeminiError(422, REFUSALS.meat);
   const ids = new Map();
   const ingredients = (draft.ingredients ?? []).slice(0, 40).map(item => {
     const name = clip(item.name, 120);
@@ -26,8 +35,8 @@ export function toRecipe(draft, { source }) {
     // A suggested amount is the model's typical figure where the source gave none; the app labels it.
     return { id, name, amount, unit: COUNT_UNITS.test(unit) ? '' : unit, ...(amount !== null && item.suggested === true ? { suggested: true } : {}) };
   }).filter(Boolean);
-  if (!ingredients.length) throw new GeminiError(422, 'No ingredients could be read from this source.');
-  if (containsMeat(ingredients.map(i => i.name).join(', '))) throw new GeminiError(422, 'QuinTaste recipes are vegetarian; this one uses meat or seafood.');
+  if (!ingredients.length) throw new GeminiError(422, REFUSALS.noIngredients);
+  if (containsMeat(ingredients.map(i => i.name).join(', '))) throw new GeminiError(422, REFUSALS.meat);
   const contains = containsFor(ingredients);
   const diet = draft.diet === 'Vegan' && !ingredients.some(i => veganConflict(i.name)) && !contains.some(tag => ['Eggs', 'Dairy', 'Honey'].includes(tag)) ? 'Vegan' : 'Vegetarian';
   const byName = name => {
@@ -43,7 +52,7 @@ export function toRecipe(draft, { source }) {
     ...(video && finiteSecond(step.at) ? { at: step.at } : {}),
     ...(video && finiteSecond(step.shotAt) ? { shotAt: step.shotAt } : {}),
   })).filter(step => step.instruction);
-  if (!steps.length) throw new GeminiError(422, 'No steps could be read from this source.');
+  if (!steps.length) throw new GeminiError(422, REFUSALS.noSteps);
   const servings = Number.isInteger(draft.servings) ? Math.min(Math.max(draft.servings, 1), 8) : 2;
   const minutes = Number.isInteger(draft.minutes) ? Math.min(Math.max(draft.minutes, 1), 1440) : 30;
   const category = recipeCategories.includes(draft.category) ? draft.category : 'With rice';

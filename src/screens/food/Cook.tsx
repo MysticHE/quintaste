@@ -53,7 +53,7 @@ export function CookScreen() {
     header={<BrowseHeader query={query} onChange={setQuery} placeholder={placeholders[tab]} filter={filter}
       field={tab === "recipes" ? box.field : undefined} below={tab === "recipes" ? box.below : undefined} />}
     floatingAction={tab === "mine" && readable && doc.recipes.drafts.length ? <FloatingAddButton label="Create Recipe" onPress={() => void create()} />
-      : tab === "recipes" ? <FloatingAddButton label="Get A Recipe With AI" onPress={() => router.push("/cook/ai" as never)} /> : undefined}>
+      : tab === "recipes" ? <FloatingAddButton label="Get An AI Recipe" onPress={() => router.push("/cook/ai" as never)} /> : undefined}>
     <IconTabs tabs={tabs} value={tab} label="Cook sections" onChange={next => router.setParams({ tab: next === "recipes" ? undefined : next })} />
     {tab === "recipes" ? <Recipes ingredient={ingredient} remember={box.remember} /> : tab === "saved" ? <SavedRecipes query={query} /> : tab === "mine" ? <MyRecipesContent query={query} /> : <ShoppingContent query={query} />}
   </Screen>;
@@ -84,7 +84,7 @@ function Recipes({ ingredient, remember }: { ingredient: string; remember: (term
     </View>}
     {published.error && <><T variant="small" muted>{published.error}</T><Button label="Retry New Recipes" variant="link" onPress={published.refresh} /></>}
     {!visible.length && !loading && <EmptyState title="No Matching Recipes" text={typed.length >= 3 ? "We can write this one for you." : "Try another category, ingredient or filter."} icon="restaurant-outline"
-      primary={typed.length >= 3 ? { label: "Get This Recipe With AI", onPress: () => router.push({ pathname: "/cook/ai" as never, params: { dish: typed.slice(0, 300) } }) } : undefined}
+      primary={typed.length >= 3 ? { label: "Get An AI Recipe", onPress: () => router.push({ pathname: "/cook/ai" as never, params: { dish: typed.slice(0, 300) } }) } : undefined}
       action={narrowed || !!query || !!ingredient ? "Show All Recipes" : undefined} onPress={showAll} />}
     {visible.map((recipe, index) => <RecipeRow key={recipe.id} recipe={recipe} when={index === 0 ? when : undefined} onPress={() => router.push("/cook/recipe/" + recipe.id as never)} />)}
     {hasMore && !limited && <Button label="More Recipes" variant="secondary" disabled={published.loading || members.loading} onPress={more} />}

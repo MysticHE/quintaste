@@ -9,17 +9,18 @@ import { ensureMember, useMember } from "../../components/CommunityGate";
 import { useRemote, invalidate } from "../../hooks/useRemote";
 import { usePreferences } from "../../state/Preferences";
 import { ApiError } from "../../services/community-api";
-import { aiJobActive, aiRecipesStatus, myAiJobs, startAiJob, uploadAiVideo, type AiJob } from "../../services/ai-recipes";
+import { aiRecipesStatus, clearAiJobs, myAiJobs, startAiJob, uploadAiVideo } from "../../services/ai-recipes";
 import { Rise } from "../../components/recipes/AiShowcase";
+import { AiRequests } from "../../components/recipes/AiRequests";
+import { AiInfoTip, dishTip, videoTip, type TipPoint } from "../../components/recipes/AiInfoTip";
 
-const statusLabel: Record<AiJob["status"], string> = { queued: "Queued", working: "Reading", published: "Ready", review: "With staff", failed: "Not possible" };
 
 /** Ask for a dish or paste a video link; the server writes the recipe and it appears in the shared Cook feed. */
 export function AiRecipesScreen() {
   const member = useMember(), { theme, setNotice } = usePreferences();
   const status = useRemote("ai-recipes:status", aiRecipesStatus);
   const jobs = useRemote(member.member ? "ai-recipes:mine" : null, signal => myAiJobs(signal).then(r => r.items), 6000);
-  // Cook's "Get This Recipe With AI" opens this screen with the search filled in.
+  // Cook's "Get An AI Recipe" opens this screen with the search filled in.
   const { dish: asked } = useLocalSearchParams<{ dish?: string }>();
   const [dish, setDish] = useState(() => typeof asked === "string" ? asked.slice(0, 300) : ""), [link, setLink] = useState(""), [busy, setBusy] = useState<"video" | "request" | "upload" | null>(null);
   // The usage count changes when a job starts or fails, so follow the job list.
@@ -47,6 +48,13 @@ export function AiRecipesScreen() {
       failed(error, "Could not start that. Try again.");
     } finally { setBusy(null); }
   };
+  const [clearing, setClearing] = useState(false);
+  const clear = async () => {
+    setClearing(true);
+    try { await clearAiJobs(); invalidate("ai-recipes:mine"); jobs.refresh(); }
+    catch (error) { setNotice({ text: error instanceof ApiError ? error.message : "Could not clear the list. Try again.", error: true }); }
+    finally { setClearing(false); }
+  };
   const upload = async () => {
     if (needsPlan) { toPlans(); return; }
     if (!ensureMember(member, "/cook/ai")) return;
@@ -69,39 +77,29 @@ export function AiRecipesScreen() {
     {data?.enabled && full && <Notice icon="hourglass-outline" text="Fully booked today. Try again tomorrow." />}
     <Rise><PlanCard needsPlan={needsPlan} known={!!data} /></Rise>
     <Rise delay={80}><Card style={common.stack}>
-      <Heading icon="restaurant-outline" title="Describe A Dish" />
-      <Field label="Dish" value={dish} onChangeText={setDish} maxLength={300} placeholder="Vegan laksa for 2, no garlic" />
+      <Heading icon="restaurant-outline" title="Describe A Dish" tip={dishTip} />
+      <Field label="Dish" showLabel={false} value={dish} onChangeText={setDish} maxLength={300} placeholder="Vegan laksa for 2, no garlic" />
       <Button label="Find Recipe" icon="search-outline" loading={busy === "request"} disabled={!enabled || busy !== null || dish.trim().length < 3} onPress={() => void start("request", dish)} />
     </Card></Rise>
     <Rise delay={160}><Card style={common.stack}>
-      <Heading icon="videocam-outline" title="From A Video" />
-      <Field label="Video link" value={link} onChangeText={setLink} maxLength={500} placeholder="Paste a video link" autoCapitalize="none" keyboardType="url" />
+      <Heading icon="videocam-outline" title="From A Video" tip={videoTip} />
+      <Field label="Video link" showLabel={false} value={link} onChangeText={setLink} maxLength={500} placeholder="Paste a video link" autoCapitalize="none" keyboardType="url" />
       <Button label="Import Video" icon="link-outline" loading={busy === "video"} disabled={!enabled || busy !== null || !/^https:\/\//.test(link.trim())} onPress={() => void start("video", link)} />
       <Button label="Upload Video" icon="cloud-upload-outline" variant="secondary" loading={busy === "upload"} disabled={!enabled || busy !== null} onPress={() => void upload()} />
       {limits && <View style={[common.row, s.limits]}><Icon name="information-circle-outline" size={16} color={theme.mutedForeground} />
         <T variant="caption" muted>Up to {limits.videoMinutes} min · {limits.videoMb} MB · Public videos</T></View>}
     </Card></Rise>
-    <Rise delay={220}><T variant="caption" muted style={s.center}>AI-written · Not kitchen-tested</T></Rise>
-    {!!jobs.data?.length && <View style={{ gap: 8 }}>
-      <T variant="subtitle" accessibilityRole="header">Your Requests</T>
-      {jobs.data.map(job => <Card key={job.id} style={{ gap: 4 }}>
-        <View style={[common.row, { gap: 8 }]}>
-          <T style={[common.flex, common.bold]} numberOfLines={2}>{job.input}</T>
-          <T variant="small" color={job.status === "failed" ? theme.warning : job.status === "published" ? theme.success : theme.mutedForeground}>{statusLabel[job.status]}{aiJobActive(job) ? "…" : ""}</T>
-        </View>
-        {!!job.message && <T variant="small" muted>{job.message}</T>}
-        {job.recipeId && job.status === "published" && <Button label="Open Recipe" variant="link" onPress={() => router.push(("/cook/recipe/" + job.recipeId) as never)} />}
-        {job.retryable && <Button label="Try Again" variant="link" disabled={!enabled || busy !== null} onPress={() => void start(job.kind, job.input)} />}
-      </Card>)}
-    </View>}
+    {!!jobs.data?.length && <Rise delay={220}><AiRequests jobs={jobs.data} retryDisabled={!enabled || busy !== null} onRetry={job => void start(job.kind, job.input)}
+      clearing={clearing} onClear={() => void clear()} /></Rise>}
   </CookLayout>;
 }
 /** A card heading with its icon in a soft badge. */
-function Heading({ icon, title }: { icon: IconName; title: string }) {
+function Heading({ icon, title, tip }: { icon: IconName; title: string; tip: readonly TipPoint[] }) {
   const { theme } = usePreferences();
   return <View style={[common.row, s.heading]}>
     <View style={[s.badge, { backgroundColor: theme.accentSoft }]}><Icon name={icon} size={18} color={theme.accent} /></View>
-    <T style={common.bold}>{title}</T>
+    <T style={[common.bold, common.flex]}>{title}</T>
+    <AiInfoTip title={title} points={tip} />
   </View>;
 }
 /** The plan on a gradient card; opens the plans. Without a plan it asks the member to choose one. */
@@ -130,6 +128,5 @@ const s = StyleSheet.create({
   heading: { gap: 10 },
   badge: { width: 34, height: 34, borderRadius: 10, alignItems: "center", justifyContent: "center" },
   limits: { gap: 6, justifyContent: "center" },
-  center: { textAlign: "center" },
   notice: { gap: 8, padding: 12, borderRadius: 12, borderWidth: 1 },
 });

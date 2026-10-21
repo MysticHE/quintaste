@@ -10,7 +10,7 @@ import { MarketModal } from "../../components/market/MarketChrome";
 import { ensureMember, useMember } from "../../components/CommunityGate";
 import { useKeyboardFocus } from "../../hooks/useKeyboardFocus";
 import { usePreferences } from "../../state/Preferences";
-import { aiPlan, aiPlanBenefits, aiPlans, bestValue, cancelWhere, paymentChannel, paymentsLive, planPrice, termsUrl, type AiPlan, type AiPlanId } from "../../config/ai-plans";
+import { aiPlan, aiPlans, aiRecipeFeatures, bestValue, cancelWhere, paymentChannel, paymentsLive, planPrice, termsUrl, type AiPlan, type AiPlanId } from "../../config/ai-plans";
 
 const MOCHI = require("../../../assets/mochi/mochi-happy.webp");
 
@@ -29,18 +29,23 @@ export function AiPlansScreen() {
       <T variant="caption" muted style={s.center}>Cancel anytime</T>
       <Legal />
     </Rise>}>
-    <AiShowcase />
+    <AiShowcase height={196} />
     <Rise delay={120} style={s.hero}>
-      <T variant="title" accessibilityRole="header" style={s.center}>Any dish, ready to cook</T>
+      <T variant="title" accessibilityRole="header" style={s.center}>Turn any dish or video into a recipe</T>
     </Rise>
-    <Rise delay={200} style={s.chips}>
-      {aiPlanBenefits.map(item => <View key={item.label} style={[s.chip, { backgroundColor: theme.accentSoft }]}>
-        <Icon name={item.icon as IconName} size={16} color={theme.accent} /><T variant="small" style={common.bold}>{item.label}</T>
-      </View>)}
-    </Rise>
-    <Rise delay={280}>
+    <Rise delay={200}>
       <View accessibilityRole="radiogroup" accessibilityLabel="Choose a plan" style={s.tiles}>
         {aiPlans.map(item => <PlanTile key={item.id} plan={item} selected={item.id === chosen} onPress={() => setChosen(item.id)} />)}
+      </View>
+    </Rise>
+    <Rise delay={280} style={s.features}>
+      <T style={common.bold} accessibilityRole="header">What you get</T>
+      <View style={s.grid}>
+        {aiRecipeFeatures.map(item => <View key={item.label} style={[s.feature, { backgroundColor: theme.card, borderColor: theme.border }]}>
+          <View style={[s.featureIcon, { backgroundColor: theme.accentSoft }]}><Icon name={item.icon as IconName} size={18} color={theme.accent} /></View>
+          <T variant="small" style={common.bold} numberOfLines={1}>{item.label}</T>
+          <T variant="caption" muted numberOfLines={2}>{item.detail}</T>
+        </View>)}
       </View>
     </Rise>
   </CookLayout>;
@@ -55,7 +60,7 @@ function PlanTile({ plan, selected, onPress }: { plan: AiPlan; selected: boolean
   const onAccent = theme.dark ? theme.background : theme.actionForeground;
   return <Animated.View style={[s.tileWrap, moved]}>
     <Pressable accessibilityRole="radio" accessibilityState={{ checked: selected }} onPress={onPress} {...focusProps}
-      accessibilityLabel={`${plan.name}, ${planPrice(plan)} a month, ${plan.recipesPerMonth} recipes${best ? ", best value" : ""}`}
+      accessibilityLabel={`${plan.name}, ${planPrice(plan)} a month, ${plan.recipesPerMonth} AI recipes${best ? ", best value" : ""}`}
       style={({ pressed }) => [s.tile, { backgroundColor: selected ? theme.accentSoft : pressed ? theme.muted : theme.card,
         borderColor: selected || focused ? theme.accent : theme.border, shadowColor: theme.shadow, shadowOpacity: selected ? 0.18 : 0 }]}>
       <View style={common.spread}>
@@ -65,7 +70,7 @@ function PlanTile({ plan, selected, onPress }: { plan: AiPlan; selected: boolean
       <T variant="title" style={s.price}>{planPrice(plan)}</T>
       <T variant="caption" muted>a month</T>
       <View style={[s.count, { backgroundColor: selected ? theme.card : theme.accentSoft }]}>
-        <T variant="small" style={common.bold}>{plan.recipesPerMonth} recipes</T>
+        <T variant="small" style={common.bold}>{plan.recipesPerMonth} AI recipes</T>
       </View>
     </Pressable>
     {best && <View style={[s.ribbon, { backgroundColor: theme.accent }]}><T variant="caption" color={onAccent} style={common.bold}>Best Value</T></View>}
@@ -105,9 +110,9 @@ export function AiCheckoutScreen() {
     <Rise style={[s.ticket, { backgroundColor: theme.card, borderColor: theme.border, shadowColor: theme.shadow }]}>
       <LinearGradient colors={[...theme.gradient] as [string, string, ...string[]]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={s.ticketTop}>
         <View style={common.flex}>
-          <T style={common.bold}>{plan.name}</T>
+          <T style={common.bold}>AI Recipes {plan.name}</T>
           <T variant="display" accessibilityLabel={`${planPrice(plan)} a month`}>{planPrice(plan)}<T muted> /mo</T></T>
-          <T variant="small" muted>{plan.recipesPerMonth} recipes a month</T>
+          <T variant="small" muted>{plan.recipesPerMonth} AI recipes a month</T>
         </View>
         <Image source={MOCHI} style={s.ticketMochi} accessibilityIgnoresInvertColors />
       </LinearGradient>
@@ -130,8 +135,10 @@ function Line({ icon, label, value }: { icon: IconName; label: string; value: st
 const s = StyleSheet.create({
   hero: { paddingTop: 6 },
   center: { textAlign: "center" },
-  chips: { flexDirection: "row", flexWrap: "wrap", justifyContent: "center", gap: 8 },
-  chip: { flexDirection: "row", alignItems: "center", gap: 6, borderRadius: 999, paddingHorizontal: 12, minHeight: 34 },
+  features: { gap: 10, paddingTop: 4 },
+  grid: { flexDirection: "row", flexWrap: "wrap", gap: 10 },
+  feature: { flexBasis: "47%", flexGrow: 1, borderWidth: 1, borderRadius: 16, padding: 12, gap: 4 },
+  featureIcon: { width: 32, height: 32, borderRadius: 10, alignItems: "center", justifyContent: "center", marginBottom: 2 },
   tiles: { flexDirection: "row", gap: 12, paddingTop: 12 },
   tileWrap: { flex: 1 },
   tile: { borderWidth: 2, borderRadius: 20, padding: 14, gap: 2, minHeight: 156, shadowOffset: { width: 0, height: 8 }, shadowRadius: 16, elevation: 0 },

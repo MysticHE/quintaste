@@ -17,7 +17,7 @@ type Props = {
 
 /**
  * Cook's search box with a suggestion list under it: recent searches while empty, then recipes, searches and categories
- * from the recipes we have, and "Get … With AI" when no recipe matches. The list sits in the page flow (not floating), so
+ * from the recipes we have, and "Get … as an AI recipe" when nothing matches. The list sits in the page flow (not floating), so
  * every row stays tappable on Android. Returns the box and the list for BrowseHeader's `field` and `below`.
  */
 export function useRecipeSearchBox({ query, onChange, placeholder, filter, onRecipe, onCategory, onAi }: Props): { field: ReactNode; below: ReactNode; remember: (term: string) => void } {
@@ -41,7 +41,7 @@ export function useRecipeSearchBox({ query, onChange, placeholder, filter, onRec
       })),
       // Only when nothing matched at all: a category or ingredient match ("noodl", "tofu") means recipes exist.
       ...(!suggestions.busy && suggestions.settled && !suggestions.items.length
-        ? [{ key: "ai", icon: "sparkles-outline" as IconName, text: `Get “${typed.slice(0, 40)}” With AI`, label: "Get " + typed + " with AI", run: () => { close(); onAi(typed); } }] : [])];
+        ? [{ key: "ai", icon: "sparkles-outline" as IconName, text: `Get “${typed.slice(0, 40)}” as an AI recipe`, label: "Get " + typed + " as an AI recipe", run: () => { close(); onAi(typed); } }] : [])];
   const expanded = open && (rows.length > 0 || suggestions.busy);
   const field = <SearchField value={query} placeholder={placeholder}
     onChange={value => { setIndex(-1); setOpen(true); onChange(value); }}

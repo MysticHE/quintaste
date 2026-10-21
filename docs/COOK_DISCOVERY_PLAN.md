@@ -11,7 +11,7 @@ Owner thoughts, 21 October 2026: (1) track what members search for and, when not
 3. A term qualifies when at most 2 recipes match and at least 3 different members searched it in 14 days; at most 10 wanted recipes are written a day; two failures skip a term (`DEMAND` in `server/cook-search/demand.mjs`).
 4. Daypart windows as in §3, weekend brunch 06:00–12:00.
 5. The first card's time chip names the meal ("Dinner · 25 min"), and the search box keeps five recent searches on the device.
-6. AI Recipes plans: **AI Cook** S$9.99 a month for 5 AI recipes and **AI Cook Pro** S$24.99 a month for 20 (both confirmed by the owner, 21 October 2026). Payments not connected; nothing is gated. **No free tier** (owner, 21 Oct): no "free" wording anywhere; the daily limit of 3 stays until payments open.
+6. AI Recipes plans: **Starter** S$9.99 a month for 5 AI recipes and **Pro** S$24.99 a month for 20 (named Starter and Pro on 21 Oct so the only product term is "AI Recipes") (both confirmed by the owner, 21 October 2026). Payments not connected; nothing is gated. **No free tier** (owner, 21 Oct): no "free" wording anywhere; the daily limit of 3 stays until payments open.
 
 ## 0. What exists today (so the plan reuses it)
 
@@ -113,3 +113,8 @@ Checks run 21 October 2026: TypeScript (app and admin) and lint on changed files
 - The search box keeps focus when the suggestion list opens (BrowseHeader always uses one wrapper). "Get … With AI" appears only when nothing at all matches (a category or ingredient match means recipes exist).
 - One normaliser (`searchWords`) and one combobox keys hook (`useSuggestionKeys`, shared with Explore's location search); recent searches are saved once per settled term; suggestions read the block list only when a member recipe matched, cached for a minute per viewer.
 - Review screens: `node .local/cook-discovery/capture.mjs "<folder>"` writes light and dark phone captures (local server with a dead AI address; no model calls).
+
+### Screen revision 3 (owner, 21 October 2026)
+
+- AI Recipes: no "AI-written · Not kitchen-tested" line; the Dish and Video link labels are hidden (headings name them); an info button beside "Describe A Dish" and "From A Video" opens "how it works" (`src/components/recipes/AiInfoTip.tsx`); Your Requests is one compact list (`AiRequests.tsx`): the recipe's own title (server `/mine` now returns it), status pill, open or try again, three shown with Show all, and Clear hiding finished requests on the device (server rows stay, so usage is unchanged).
+- Plans: heading "Turn any dish or video into a recipe", plan tiles first, then "In every AI recipe" (step by step, nutrition per serving, nutrient highlights, diet labels, shopping list, video steps; no "healthy" or disease wording). Terms: the feature is "AI Recipes", what a plan gives is "AI recipes", plans are Starter and Pro; Cook entry points say "Get An AI Recipe".

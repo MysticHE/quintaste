@@ -7,6 +7,10 @@ export type AiJobKind = "video" | "request";
 export type AiJob = {
   id: string; kind: AiJobKind; input: string; status: "queued" | "working" | "published" | "review" | "failed"; message: string;
   createdAt: string; finishedAt: string | null; recipeId: string | null; retryable?: boolean;
+  /** The written recipe's title once there is one. */
+  title?: string | null;
+  /** False when the recipe was hidden or withdrawn after it was written. */
+  openable?: boolean;
 };
 /** `plan` stays null until payments are connected (src/config/ai-plans.ts); `usedThisMonth` counts recipes started this month. */
 /** `usedToday` covers the rolling 24 hours the daily limit uses; `fullToday` means everyone's daily total is used; `limits` come from the server. */
@@ -15,6 +19,8 @@ export type AiRecipesStatus = { enabled: boolean; dailyPerMember: number; plan: 
 export const aiRecipesStatus = (signal: AbortSignal) => call<AiRecipesStatus>("/api/ai-recipes/status", { signal });
 export const myAiJobs = (signal: AbortSignal) => call<{ items: AiJob[] }>("/api/ai-recipes/mine", { signal });
 export const startAiJob = (kind: AiJobKind, input: string) => call<AiJob>("/api/ai-recipes", { method: "POST", body: { kind, input } });
+/** Clears finished requests from the member's list on every device (requests in progress stay). */
+export const clearAiJobs = () => call<{ cleared: number }>("/api/ai-recipes/mine/clear", { method: "POST", body: {} });
 export const aiJobActive = (job: AiJob) => job.status === "queued" || job.status === "working";
 export const MAX_UPLOAD_BYTES = 60 * 1024 * 1024;
 const tooLarge = () => new ApiError("Videos can be up to 60 MB. Trim it or pick a shorter clip.", 413);

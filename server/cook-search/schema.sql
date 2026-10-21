@@ -57,6 +57,9 @@ ALTER TABLE recipes.recipe ADD CONSTRAINT recipe_system_author CHECK (author_id 
 -- On by default: it only makes recipes while ai_recipes and recipes are also on, and every one waits for staff review.
 INSERT INTO ops.control(key, enabled, notice) VALUES ('recipe_demand', true, '') ON CONFLICT DO NOTHING;
 
+-- Members clear finished requests from Your Requests on every device (21 Oct 2026); the rows stay for usage counts and staff.
+ALTER TABLE recipes.ai_job ADD COLUMN IF NOT EXISTS cleared_at timestamptz;
+
 GRANT SELECT, INSERT, UPDATE, DELETE ON recipes.search_term, recipes.search_member, recipes.demand TO quintaste_app;
 DO $$ BEGIN
   IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'quintaste_admin') THEN

@@ -14,6 +14,7 @@ import { parseLink } from './video.mjs';
 import { MAX_FILE_BYTES, VIDEO_TYPES } from './files.mjs';
 import { UPLOAD_DIR } from './work.mjs';
 import { parseUpload } from './pipeline.mjs';
+import { isRefusal } from './recipe.mjs';
 import { normaliseTerm } from '../cook-search/terms.mjs';
 import { AT_ONCE, DAILY_PER_MEMBER, MAX_VIDEO_SECONDS, RAN, dailyCap, jobsLastDay, planAccess, usedLastDay } from './limits.mjs';
 
@@ -22,8 +23,13 @@ export const aiRecipes = communityRouter({ guests: true, bodyLimit: '8kb' });
 const sha = value => createHash('sha256').update(value).digest('hex');
 const view = row => {
   const upload = parseUpload(row.input);
-  return { id: row.id, kind: row.kind, input: upload ? 'Uploaded video' : row.input, retryable: !upload && row.status === 'failed', status: row.status,
-    message: row.message, createdAt: row.created_at, finishedAt: row.finished_at, recipeId: row.recipe_id ? publicId(row.recipe_id) : null };
+  // No retry for uploads (the file is gone) or for answers about the source itself (a retry gets the same answer).
+  return { id: row.id, kind: row.kind, input: upload ? 'Uploaded video' : row.input, retryable: !upload && row.status === 'failed' && !isRefusal(row.message), status: row.status,
+    message: row.message, createdAt: row.created_at, finishedAt: row.finished_at, recipeId: row.recipe_id ? publicId(row.recipe_id) : null,
+    // The written recipe's own title, so the member's list reads "Vegan laksa" rather than a pasted link.
+    title: typeof row.title === 'string' ? row.title.slice(0, 120) : null,
+    // False when the recipe was hidden or withdrawn after it was written; absent (unknown) on a job just started.
+    ...(typeof row.openable === 'boolean' ? { openable: row.openable } : {}) };
 };
 /** Feature switches and account restriction; every job route runs this first, including the duplicate shortcut. */
 async function available(me) {
@@ -79,8 +85,17 @@ aiRecipes.get('/status', async (_req, res) => {
 });
 
 aiRecipes.get('/mine', member, async (_req, res) => {
-  const rows = (await pool.query(`SELECT * FROM recipes.ai_job WHERE user_id=$1 ORDER BY created_at DESC LIMIT 20`, [res.locals.user.id])).rows;
+  const rows = (await pool.query(`SELECT j.*, coalesce(r.live, r.pending)->>'title' AS title,
+      coalesce(r.live IS NOT NULL AND r.hidden_at IS NULL, false) AS openable FROM recipes.ai_job j
+    LEFT JOIN recipes.recipe r ON r.id = j.recipe_id WHERE j.user_id=$1 AND j.cleared_at IS NULL ORDER BY j.created_at DESC LIMIT 20`, [res.locals.user.id])).rows;
   res.json({ items: rows.map(view) });
+});
+
+/** Clears finished requests from the member's list on every device; jobs still in line or being written stay. */
+aiRecipes.post('/mine/clear', member, async (_req, res) => {
+  const cleared = (await pool.query(`UPDATE recipes.ai_job SET cleared_at=now()
+    WHERE user_id=$1 AND cleared_at IS NULL AND status NOT IN ('queued','working')`, [res.locals.user.id])).rowCount;
+  res.json({ cleared });
 });
 
 aiRecipes.post('/', member, async (req, res) => {

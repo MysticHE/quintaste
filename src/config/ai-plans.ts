@@ -1,22 +1,30 @@
 import { Platform } from "react-native";
 
 /**
- * AI Recipes plans (owner decision, 21 October 2026): the AI features on Cook (describe a dish, import a video link, upload a
- * video) are paid. Owner confirmed two tiers on 21 October 2026: AI Cook S$9.99 a month for 5 recipes and AI Cook Pro
- * S$24.99 a month for 20. Payments are not connected yet, so `paymentsLive` is false: the plans and checkout screens show
- * the flow, nothing is charged, and AI recipes stay usable under the existing 3-a-day limit.
+ * AI Recipes plans (owner decisions, 21 October 2026): AI recipes are paid only, no free tries. Two plans of the one feature,
+ * named by size so the terms stay simple: "AI Recipes" is the feature, "AI recipes" are what a plan gives each month.
+ * Starter S$9.99 a month for 5, Pro S$24.99 a month for 20. Payments are not connected yet (`paymentsLive` false): the plans
+ * and checkout screens show the flow and nothing is charged; the server lets only the master account start a job until then.
  */
 export type AiPlanId = "ai-cook" | "ai-cook-pro";
 export type AiPlan = { id: AiPlanId; name: string; priceCents: number; recipesPerMonth: number };
+// The ids stay as first released (links and future store products); only the names changed.
 export const aiPlans: readonly AiPlan[] = [
-  { id: "ai-cook", name: "AI Cook", priceCents: 999, recipesPerMonth: 5 },
-  { id: "ai-cook-pro", name: "AI Cook Pro", priceCents: 2499, recipesPerMonth: 20 },
+  { id: "ai-cook", name: "Starter", priceCents: 999, recipesPerMonth: 5 },
+  { id: "ai-cook-pro", name: "Pro", priceCents: 2499, recipesPerMonth: 20 },
 ];
-/** What every plan includes, in as few words as possible (owner: clean, no platform names). */
-export const aiPlanBenefits = [
-  { icon: "restaurant-outline", label: "Any dish" },
-  { icon: "videocam-outline", label: "From videos" },
-  { icon: "nutrition-outline", label: "Nutrition" },
+/**
+ * What AI recipes include, shown once below the plans (not promised for every recipe: nutrition needs the ingredients to
+ * be recognised, badges are earned, and photos need a video). Nutrition wording follows docs/NUTRITION_HEALTH_PLAN.md:
+ * figures per serving and HPB claim badges ("High in fibre"), never a score, "healthy" or disease wording.
+ */
+export const aiRecipeFeatures = [
+  { icon: "list-outline", label: "Step by step", detail: "A method you can follow" },
+  { icon: "nutrition-outline", label: "Nutrition", detail: "Per serving, when it can be worked out" },
+  { icon: "ribbon-outline", label: "Nutrient highlights", detail: "Badges like High in fibre, when earned" },
+  { icon: "leaf-outline", label: "Diet labels", detail: "Vegan or Vegetarian, from the ingredients" },
+  { icon: "cart-outline", label: "Shopping list", detail: "Every ingredient in one tap" },
+  { icon: "images-outline", label: "Video steps", detail: "Photos from the video, when possible" },
 ] as const;
 export const paymentsLive = false;
 export const aiPlan = (id: unknown) => aiPlans.find(plan => plan.id === id);
