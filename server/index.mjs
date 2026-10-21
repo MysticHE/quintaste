@@ -26,6 +26,7 @@ import { editorial, editorialAssets, editorialAssetRoot } from './editorial/rout
 import { startAvatarWorker } from './avatar/worker.mjs';
 import { aiRecipes } from './ai-recipes/router.mjs';
 import { aiRecipeBots } from './ai-recipes/bot-router.mjs';
+import { creatorBots } from './creators/bot-router.mjs';
 import { startAiRecipeWorker } from './ai-recipes/worker.mjs';
 import { cookSearch } from './cook-search/router.mjs';
 import { startDemandWorker } from './cook-search/demand.mjs';
@@ -110,6 +111,8 @@ const recipesGate = featureGate('recipes');
 app.use('/api/recipes', (req, res, next) => req.method === 'DELETE' ? next() : recipesGate(req, res, next), recipes);
 // AI recipes (docs/AI_RECIPES_PLAN.md): the router checks the ai_recipes control itself so /status can say when it is off.
 app.use('/api/ai-recipes/bot', aiRecipeBots);
+// Creator library (docs/COOKER_CREATOR_LIBRARY_PLAN.md): signed QT Cooker routes only; staff use the admin console.
+app.use('/api/creators/bot', creatorBots);
 app.use('/api/ai-recipes', aiRecipes);
 // Cook search suggestions and the settled-search log for wanted recipes (docs/COOK_DISCOVERY_PLAN.md); not behind the recipes control.
 app.use('/api/cook-search', cookSearch);

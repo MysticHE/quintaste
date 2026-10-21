@@ -9,6 +9,7 @@ import { memberRecipeAction, memberRecipeList, memberRecipePhoto } from '../../.
 import { aiJobs, aiSummary } from '../../../../lib/ai-recipes';
 import { demandAction, demandList } from '../../../../lib/recipe-demand';
 import { ingredientAction, ingredientList } from '../../../../lib/content-ingredients';
+import { creatorAction, creatorList } from '../../../../lib/creators';
 
 type Context = { params: Promise<{ resource: string }> };
 export const runtime = 'nodejs';
@@ -32,6 +33,7 @@ export function GET(request: Request, context: Context) { return route(async () 
   if (resource === 'ai-summary') return json(await aiSummary(member));
   if (resource === 'recipe-demand') return json(await demandList(member, status, q, skip));
   if (resource === 'ingredients') return json(await ingredientList(member, status, q, skip));
+  if (resource === 'creators') return json(await creatorList(member, status, q, skip));
   if (resource === 'review-photo') return image(await reviewPhoto(member, text(id, 'photo', 36)));
   if (resource === 'market-photo') return image(await marketPhoto(member, text(id, 'item', 36), text(params.get('slot'), 'photo', 10)));
   if (resource === 'photo') return image(await contentPhoto(member, text(id, 'photo', 64)));
@@ -59,5 +61,6 @@ export function POST(request: Request, context: Context) { return route(async ()
   if (resource === 'member-recipes') return json(await memberRecipeAction(member, input, reason));
   if (resource === 'recipe-demand') return json(await demandAction(member, input, reason));
   if (resource === 'ingredients') return json(await ingredientAction(member, input, reason));
+  if (resource === 'creators') return json(await creatorAction(member, input, reason));
   throw new HttpError(404, 'Not found.');
 }); }

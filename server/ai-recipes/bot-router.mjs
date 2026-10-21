@@ -1,11 +1,9 @@
 import express from 'express';
-import { Buffer } from 'node:buffer';
-import { createHash, createHmac, timingSafeEqual } from 'node:crypto';
 import { createReadStream } from 'node:fs';
 import { stat } from 'node:fs/promises';
 import { pipeline } from 'node:stream/promises';
 import { pool, logger } from '../config.mjs';
-import { botKey } from './engine.mjs';
+import { json, raw, signed } from '../bot-signature.mjs';
 import { publicTask } from './bots.mjs';
 
 /**
@@ -17,21 +15,6 @@ export const aiRecipeBots = express.Router();
 const ID = /^[a-f0-9-]{36}$/;
 /** Well under the 300,000-byte limit on ai_bot_task.result (jsonb text adds spaces), so an oversize answer gets 413 here, not a database error. */
 const RESULT_LIMIT = 240000;
-const sha = bytes => createHash('sha256').update(bytes).digest('hex');
-
-function signed(req, res, next) {
-  res.set('Cache-Control', 'no-store');
-  try {
-    const key = botKey(), time = req.get('X-QT-Time') ?? '', signature = req.get('X-QT-Signature') ?? '';
-    if (key.length < 48 || !/^\d{10}$/.test(time) || Math.abs(Date.now() / 1000 - Number(time)) > 300 || !/^[a-f0-9]{64}$/.test(signature)) return res.sendStatus(401);
-    const body = Buffer.isBuffer(req.body) ? req.body : Buffer.alloc(0);
-    const expected = createHmac('sha256', key).update(time + '\n' + req.method + '\n' + req.originalUrl.split('?')[0] + '\n' + sha(body)).digest();
-    if (!timingSafeEqual(expected, Buffer.from(signature, 'hex'))) return res.sendStatus(401);
-    next();
-  } catch { res.sendStatus(401); }
-}
-const raw = limit => express.raw({ type: 'application/json', limit });
-const json = req => { try { return JSON.parse(req.body.toString('utf8') || '{}'); } catch { return null; } };
 
 /** The oldest waiting task (members before wanted recipes), or { task: null }. */
 aiRecipeBots.post('/claim', raw('1kb'), signed, async (_req, res, next) => {

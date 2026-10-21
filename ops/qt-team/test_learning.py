@@ -189,6 +189,33 @@ class LearningTests(unittest.TestCase):
                                  drafted={rq.page_key('https://www.example.org/recipe'): {'id': 'a'}})
         self.assertEqual([c['url'] for c in picks['passed']], ['https://example.org/other'])
 
+    def test_shortlist_uses_library_creators_and_skips_blocked_hosts(self):
+        import recipe_quality as rq
+        found = {'candidates': [{'url': 'https://www.blocked.example/a', 'name': 'A'}, {'url': 'https://woonheng.com/b', 'name': 'B'},
+                                {'url': 'https://other.example/c', 'name': 'C'}]}
+        passes = lambda root, url: {'url': url, 'site': rq.page_key(url).split('/')[0], 'passes': True, 'score': 1.0, 'reasons': [], 'trusted': False}
+        with patch.object(w, 'run_model', return_value=(found, {})) as model, patch.object(rq, 'assess', side_effect=passes), patch.object(rq, 'trusted', return_value={}):
+            picks = rq.shortlist(self.root, {'recipeNames': []}, self.root / 'shortlist', {}, live={'records': []},
+                                 creators=[('woonheng.com', 'Woon Heng')], blocked=['www.blocked.example'])
+        self.assertIn('Woon Heng (woonheng.com)', model.call_args[0][1])  # the library leads the search
+        self.assertEqual([c['url'] for c in picks['passed']], ['https://woonheng.com/b', 'https://other.example/c'])  # boosted first, blocked gone
+
+    def test_creator_library_round_inputs(self):
+        import creators_client
+        lib = {'creators': [{'name': 'Woon Heng', 'website': 'https://www.woonheng.com'}],
+               'written': [{'page_key': 'rasamalaysia.com/fried-bananas', 'recipe_id': 'fried-bananas', 'name': 'Fried bananas', 'status': 'held'},
+                           {'page_key': 'example.org/live', 'recipe_id': 'live-one', 'name': 'Live', 'status': 'published'}], 'blocked': ['bad.example']}
+        live = {'records': [{'kind': 'recipe', 'id': 'live-one', 'data': {'name': 'Live', 'provenance': {'sources': ['https://example.org/live/']}}},
+                            {'kind': 'recipe', 'id': 'matcha-latte', 'data': {'name': 'Matcha latte', 'provenance': {'sources': ['https://www.justonecookbook.com/green-tea-latte/']}}}]}
+        with patch.object(creators_client, 'library', return_value=lib):
+            got = w.creator_library({'own.example/x': {'id': 'x', 'name': 'X'}}, live)
+        self.assertEqual(got['creators'], [('woonheng.com', 'Woon Heng')])
+        self.assertEqual(got['drafted'], {'own.example/x', 'rasamalaysia.com/fried-bananas', 'example.org/live'})
+        self.assertEqual(got['prior']['rasamalaysia.com/fried-bananas']['id'], 'fried-bananas')
+        self.assertEqual([r['recipeId'] for r in got['record']], ['matcha-latte'])  # only live recipes the library has not seen published
+        with patch.object(creators_client, 'library', return_value=None):
+            self.assertIsNone(w.creator_library({}, live))  # app unreachable: Cooker falls back to its checkpoint
+
     def test_corrupt_learning_state_does_not_grant_retry_permissions(self):
         (self.root / 'state/learning').mkdir(parents=True)
         (self.root / 'state/learning/state.json').write_text('broken')

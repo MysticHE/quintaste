@@ -321,13 +321,15 @@ def shortlist_prompt(baseline, counts, rejected, creators=()):
             '"notes":""}. No Google Maps.')
 
 
-def shortlist(root, baseline, folder, policy, live=None, drafted=()):
+def shortlist(root, baseline, folder, policy, live=None, drafted=(), creators=None, blocked=()):
     """Stage 1: Cooker names candidate pages; the coordinator keeps those that pass, best first. drafted: page keys Cooker has
     already written up (published or held). They are skipped, so a held page is not drafted again every round; a held recipe
-    comes back only through its retry (21 Oct 2026: the same two pages were redrafted in 7 of 8 rounds)."""
+    comes back only through its retry (21 Oct 2026: the same two pages were redrafted in 7 of 8 rounds). creators: (site, name)
+    pairs from the creator library, best first, replacing the trusted list; blocked: hosts staff blocked, never shortlisted."""
     from workflow import run_model, CATEGORIES
     counts = {c: 0 for c in CATEGORIES}
     skip = set(drafted)
+    blocked = {h.removeprefix('www.') for h in blocked}
     try:
         import publisher
         for row in (live or publisher.request('GET', '/control/state'))['records']:
@@ -339,11 +341,15 @@ def shortlist(root, baseline, folder, policy, live=None, drafted=()):
         pass  # rotation is a preference; the shortlist still works without counts
     log = root / 'state/recipe-shortlist.json'
     history = _read(log, {'rejected': []})
-    result, _ = run_model('qt-cooker', shortlist_prompt(baseline, counts, history['rejected'] + sorted(skip)[-40:], trusted(root).items()), folder, policy,
-                          seconds=min(600, policy.get('workerSeconds', 600)))
+    result, _ = run_model('qt-cooker', shortlist_prompt(baseline, counts, history['rejected'] + sorted(skip)[-40:], creators or trusted(root).items()),
+                          folder, policy, seconds=min(600, policy.get('workerSeconds', 600)))
     candidates = [c for c in result.get('candidates', []) if isinstance(c, dict) and isinstance(c.get('url'), str)
-                  and page_key(c['url']) not in skip][:8]
+                  and page_key(c['url']) not in skip and page_key(c['url']).split('/')[0] not in blocked][:8]
     checked = [dict(assess(root, c['url']), category=c.get('category')) for c in candidates]
+    library_sites = {site for site, _ in creators or ()}
+    for c in checked:  # library creators rank first like the trusted list does; never a substitute for the bar
+        if not c.get('trusted') and c.get('site') in library_sites and 'score' in c:
+            c.update(score=round(c['score'] + TRUSTED_BOOST, 3), trusted=True)
     passed = sorted((c for c in checked if c['passes']), key=lambda c: -c['score'])
     history['rejected'] = (history['rejected'] + [c['url'] for c in checked if not c['passes']])[-200:]
     history['last'] = {'at': dt.datetime.now(dt.timezone.utc).isoformat(), 'checked': len(checked), 'passed': len(passed),

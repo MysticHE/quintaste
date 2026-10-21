@@ -14,6 +14,7 @@ import { Gatherings, Listings, Reviews } from './content/MemberContent';
 import { MemberRecipes } from './content/MemberRecipes';
 import AiRecipes from './content/AiRecipes';
 import { Ingredients } from './content/Ingredients';
+import { Creators } from './content/Creators';
 import Sellers from './Sellers';
 import { Audit, Integrations, Staff } from './Administration';
 
@@ -25,7 +26,8 @@ const groups: { title?: string; sections: Section[] }[] = [
   { title: 'Catalogue', sections: [
     { id: 'places', title: 'Places', icon: 'pin', capability: 'content' },
     { id: 'recipes', title: 'Recipes', icon: 'book', capability: 'content' },
-    { id: 'events', title: 'Events', icon: 'calendar', capability: 'content' }] },
+    { id: 'events', title: 'Events', icon: 'calendar', capability: 'content' },
+    { id: 'creators', title: 'Creators', icon: 'person', capability: 'content' }] },
   { title: 'Community', sections: [
     { id: 'member-recipes', title: 'Member recipes', icon: 'chef', capability: 'content', count: d => d.memberRecipes },
     { id: 'ai-recipes', title: 'AI recipes', icon: 'wand', capability: 'content', count: d => d.ai?.installed ? d.ai.waiting : null },
@@ -78,7 +80,7 @@ export default function Console({ section }: { section: string }) {
       {signOutError && <div className="notice error" role="alert"><Icon name="warning"/>{signOutError}</div>}
       {!current ? <Empty icon="warning">Not available</Empty> : <>
         {section === 'overview' && <Overview resource={attention} role={member.role}/>}
-        {section === 'places' && <Places/>}{section === 'recipes' && <Recipes/>}{section === 'events' && <Events/>}
+        {section === 'places' && <Places/>}{section === 'recipes' && <Recipes/>}{section === 'events' && <Events/>}{section === 'creators' && <Creators/>}
         {section === 'member-recipes' && <MemberRecipes origin="member"/>}{section === 'ai-recipes' && <AiRecipes canLimit={can(member.role, 'operations')}/>}{section === 'ingredients' && <Ingredients/>}
         {section === 'reviews' && <Reviews/>}{section === 'gatherings' && <Gatherings/>}
         {section === 'shops' && <Sellers/>}{section === 'listings' && <Listings/>}

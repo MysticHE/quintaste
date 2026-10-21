@@ -1,0 +1,59 @@
+"""QT Cooker's client for the creator library (docs/COOKER_CREATOR_LIBRARY_PLAN.md, 21 Oct 2026): read the creators to search first
+and the pages already written up, and record the recipe pages Cooker looked at. Signed like the AI recipes bridge (same key, same
+message: time, method, path, sha256 of the body). Best effort: when the app is unreachable or the library is not installed yet,
+library() returns None and record() returns 0, and Cooker carries on with its checkpoint's page list."""
+from __future__ import annotations
+
+import hashlib
+import hmac
+import json
+import os
+import time
+import urllib.error
+import urllib.request
+from pathlib import Path
+
+ROOT = Path(os.environ.get('QT_TEAM_ROOT', '/opt/data/qt-team'))
+ORIGIN = os.environ.get('QT_APP_ORIGIN', 'https://quintaste.srv1902914.hstgr.cloud')
+ROUTES = ('/api/creators/bot/library', '/api/creators/bot/sources')
+BATCH = 50  # the app accepts at most 50 sources per call
+
+
+class NoRedirect(urllib.request.HTTPRedirectHandler):
+    def redirect_request(self, *args, **kwargs):
+        return None  # the signature must never follow a redirect
+
+
+def call(route: str, data: dict):
+    if route not in ROUTES:
+        raise ValueError('Unapproved app route')
+    raw = json.dumps(data, ensure_ascii=False, separators=(',', ':')).encode()
+    stamp = str(int(time.time()))
+    key = (ROOT / 'private/publisher.key').read_text().strip()
+    message = stamp + '\nPOST\n' + route + '\n' + hashlib.sha256(raw).hexdigest()
+    signature = hmac.new(key.encode(), message.encode(), hashlib.sha256).hexdigest()
+    request = urllib.request.Request(ORIGIN + route, data=raw, method='POST',
+                                     headers={'Content-Type': 'application/json', 'X-QT-Time': stamp, 'X-QT-Signature': signature})
+    with urllib.request.build_opener(NoRedirect).open(request, timeout=30) as response:
+        return json.loads(response.read(4_000_001))
+
+
+def library():
+    """{creators, written, blocked} or None when the library cannot be read."""
+    try:
+        result = call('/api/creators/bot/library', {})
+        return result if isinstance(result, dict) and isinstance(result.get('creators'), list) else None
+    except (OSError, ValueError, urllib.error.URLError):
+        return None
+
+
+def record(sources):
+    """Send recipe pages ({url, status, name?, recipeId?, reasons?, coverage?, platform?}); returns how many were recorded."""
+    sent = 0
+    rows = [s for s in sources if isinstance(s, dict) and str(s.get('url', '')).startswith('https://')]
+    for i in range(0, len(rows), BATCH):
+        try:
+            sent += int(call('/api/creators/bot/sources', {'sources': rows[i:i + BATCH]}).get('recorded', 0))
+        except (OSError, ValueError, urllib.error.URLError):
+            break  # the next round sends them again; statuses never move backwards on the app side
+    return sent

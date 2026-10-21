@@ -158,6 +158,33 @@ def validate(role, obj, assigned=None):
     return obj
 
 
+def creator_library(sources, live):
+    """The creator library for this Cooker round (docs/COOKER_CREATOR_LIBRARY_PLAN.md), or None when the app cannot serve it (then
+    Cooker uses its checkpoint's pages and the trusted list). drafted: page keys to skip; prior: page key -> {id, name}, so a page
+    keeps one recipe id; creators: (site, name) pairs, best first; blocked: hosts staff blocked; record: pages to report to the
+    library, starting with live recipes it has not yet seen as published."""
+    import creators_client
+    import recipe_quality
+    lib = creators_client.library()
+    if not lib:
+        return None
+    written = [w for w in lib.get('written', []) if isinstance(w, dict) and w.get('page_key')]
+    prior = dict(sources)
+    for w in written:
+        if w.get('recipe_id'):
+            prior.setdefault(w['page_key'], {'id': w['recipe_id'], 'name': w.get('name') or ''})
+    creators = [((urlsplit(c['website']).hostname or '').removeprefix('www.'), c['name']) for c in lib['creators']
+                if isinstance(c, dict) and c.get('website') and c.get('name')][:40]
+    published = {w['page_key'] for w in written if w.get('status') == 'published'}
+    record = []
+    for row in (live or {}).get('records', []):
+        urls = [u for u in ((row.get('data') or {}).get('provenance') or {}).get('sources', []) if isinstance(u, str) and u.startswith('https://')]
+        if row.get('kind') == 'recipe' and urls and recipe_quality.page_key(urls[0]) not in published:
+            record.append({'url': urls[0], 'status': 'published', 'recipeId': row['id'], 'name': str(row['data'].get('name') or '')[:160]})
+    return {'drafted': set(sources) | {w['page_key'] for w in written}, 'prior': prior, 'creators': creators,
+            'blocked': [h for h in lib.get('blocked', []) if isinstance(h, str)], 'record': record}
+
+
 def early_server_problem(record):
     """The app server's recipe rules, checked on Cooker's raw proposal (see publisher.server_recipe_problem)."""
     if record.get('status') != 'proposed' or not record.get('recipe'):
@@ -1078,6 +1105,7 @@ class Round:
         if not (self.research_due("qt-cooker") and (self.nightly or self.state.get("cookCycle") != self.month) and self.time_left(1500)):
             return
         self.kitchen_started()
+        import creators_client
         import learning
         import recipe_quality
         state = self.state
@@ -1087,19 +1115,33 @@ class Round:
             sources = state.setdefault("recipeSources", {})
             # Owner bar (18 Oct 2026): shortlist pages, keep only those whose own recipe data passes, then adapt the best two.
             strict = self.production() and not self.trial
-            picks = recipe_quality.shortlist(ROOT, self.baseline, self.folder / "cooker-shortlist", self.policy, self.live, drafted=sources) if strict else {'passed': [], 'checked': []}
+            # The creator library (owner, 21 Oct 2026): its best creators lead the search and its written pages are skipped.
+            library = creator_library(sources, self.live) if strict else None
+            picks = recipe_quality.shortlist(ROOT, self.baseline, self.folder / "cooker-shortlist", self.policy, self.live,
+                                             drafted=library['drafted'] if library else sources, creators=library and library['creators'],
+                                             blocked=library['blocked'] if library else ()) if strict else {'passed': [], 'checked': []}
+            if library:
+                library['record'] += [{'url': c['url'], 'status': 'shortlisted' if c.get('passes') else 'rejected', 'name': c.get('name') or '',
+                                       'reasons': [str(r) for r in c.get('reasons', [])][:8]} for c in picks['checked'] if c.get('url')]
             # two recipes a round: due retries first, new pages fill the rest
             approved = [{k: c.get(k) for k in ('url', 'name', 'site', 'author', 'rating', 'ratings', 'minutes', 'ingredients', 'steps', 'category')} for c in picks['passed'][:max(0, 2 - len(held_retries))]]
             self.note("qt-cooker", f"Recipe shortlist: {len(picks['passed'])}/{len(picks['checked'])} pages met the bar")
             if not approved and not held_retries and strict:
+                if library:
+                    creators_client.record(library['record'])
                 raise recipe_quality.NothingToCook()
-            packet = worker("qt-cooker", {"existingRecipeNames": self.baseline["recipeNames"], "priorCandidates": state.get("recipeCandidates", []), "heldRetries": held_retries, "approvedSources": approved, "target": "Write QuinTaste versions of approvedSources ONLY (one record each, citing its url as the first source; web_extract it). Keep the author's ingredients, quantities and method faithful in your own words, within 30 minutes, 12 ingredients and 8 steps. If heldRetries is supplied, recheck that exact ID/name and its missing evidence; do not duplicate it under another ID. Failed evidence remains held."}, self.folder / "cooker", self.policy, prior_sources=sources)
+            packet = worker("qt-cooker", {"existingRecipeNames": self.baseline["recipeNames"], "priorCandidates": state.get("recipeCandidates", []), "heldRetries": held_retries, "approvedSources": approved, "target": "Write QuinTaste versions of approvedSources ONLY (one record each, citing its url as the first source; web_extract it). Keep the author's ingredients, quantities and method faithful in your own words, within 30 minutes, 12 ingredients and 8 steps. If heldRetries is supplied, recheck that exact ID/name and its missing evidence; do not duplicate it under another ID. Failed evidence remains held."}, self.folder / "cooker", self.policy, prior_sources=library['prior'] if library else sources)
             learning.note_retry(ROOT, [r for r in held_retries if r['id'] in {x['id'] for x in packet['records']}])
             for record in packet["records"]:
                 first = next((s.get("url") for s in record.get("sources", []) if isinstance(s, dict) and s.get("url")), None)
                 if first and record.get("recipe", {}).get("name"):
                     sources[recipe_quality.page_key(first)] = {"id": record["id"], "name": record["recipe"]["name"]}
+                    if library:
+                        library['record'].append({'url': first, 'status': 'drafted' if record.get('status') == 'proposed' else 'held',
+                                                  'recipeId': record['id'], 'name': record['recipe']['name']})
             state["recipeSources"] = dict(list(sources.items())[-300:])
+            if library:
+                creators_client.record(library['record'])
             self.succeeded("qt-cooker")
             self.packets.append(packet)
             state["cookCycle"] = self.month
