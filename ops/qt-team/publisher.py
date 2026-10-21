@@ -668,6 +668,8 @@ def run_publication(policy, folder=None, review_only=False, covers_only=False):
                 record=batch['records'][0]
                 outcomes[record['proposalHash']]={'at':now(),'decision':'hold','reason':'Server rejected: '+reason}
                 write(ROOT/'state/publication-outcomes.json',outcomes)
+                if record['kind']+':'+record['id'] in (read(ROOT/ISOLATE,{}).get('suspects') or []):
+                    (ROOT/ISOLATE).unlink(missing_ok=True)  # the culprit is found and held: full batches again (21 Oct 2026)
             else:
                 write(ROOT/ISOLATE,{'at':now(),'reason':reason,'batchId':batch['id'],  # culprit unknown: one item per batch, suspects first
                                     'suspects':[r['kind']+':'+r['id'] for r in batch['records']]})

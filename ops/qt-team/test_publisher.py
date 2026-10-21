@@ -131,6 +131,20 @@ class Publishing(unittest.TestCase):
                     self.assertEqual(p.run_publication({'automaticProductionWrites':True},root/'run')['status'],'published')
                 self.assertEqual(w.read(root/p.ISOLATE,{}).get('suspects') if (root/p.ISOLATE).exists() else None,left)
 
+    def test_a_suspect_rejected_alone_is_held_and_ends_isolation(self):
+        import io, urllib.error
+        def rejected():
+            raise urllib.error.HTTPError('u', 422, 'x', {}, io.BytesIO(b'{"error":"Price change must match the exact dish and sales-channel source"}'))
+        with tempfile.TemporaryDirectory() as d, patch.object(p,'ROOT',Path(d)):
+            root=Path(d);(root/'state').mkdir()
+            w.write(root/p.ISOLATE,{'at':w.now(),'reason':'Price change','suspects':['venue:research-yes','place:vo-a']})
+            batch={'id':'qt-test','parent':'r1','assets':[],'records':[{'kind':'venue','id':'research-yes','proposalHash':'h0','data':{}}]}
+            w.write(root/'state/pending-publication.json',batch)
+            with patch.object(p,'request',side_effect=lambda method,path,body=None:{'revision':'r1','removals':[]} if method=='GET' else rejected()):
+                self.assertEqual(p.run_publication({'automaticProductionWrites':True},root/'run')['status'],'rejected-by-server')
+            self.assertEqual(w.read(root/'state/publication-outcomes.json')['h0']['decision'],'hold')
+            self.assertFalse((root/p.ISOLATE).exists())
+
     def test_a_covers_only_publication_keeps_one_item_batches_after_a_rejection(self):
         # 20 Oct 2026: covers published between rounds cleared the marker, so the rejected price change jammed batches again.
         for covers_only, kept in ((True, True), (False, False)):
