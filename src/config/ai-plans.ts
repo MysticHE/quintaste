@@ -2,9 +2,9 @@ import { Platform } from "react-native";
 
 /**
  * AI Recipes plans (owner decision, 21 October 2026): the AI features on Cook (describe a dish, import a video link, upload a
- * video) are paid at S$9.99 a month for 5 recipes, with a higher tier for more. Payments are not connected yet, so
- * `paymentsLive` is false: the plans and checkout screens show the flow, nothing is charged, and AI recipes stay usable
- * under the existing 3-a-day limit. The higher tier's price and allowance await the owner's confirmation.
+ * video) are paid. Owner confirmed two tiers on 21 October 2026: AI Cook S$9.99 a month for 5 recipes and AI Cook Pro
+ * S$24.99 a month for 20. Payments are not connected yet, so `paymentsLive` is false: the plans and checkout screens show
+ * the flow, nothing is charged, and AI recipes stay usable under the existing 3-a-day limit.
  */
 export type AiPlanId = "ai-cook" | "ai-cook-pro";
 export type AiPlan = { id: AiPlanId; name: string; priceCents: number; recipesPerMonth: number };

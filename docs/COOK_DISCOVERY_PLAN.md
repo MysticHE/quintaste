@@ -11,7 +11,7 @@ Owner thoughts, 21 October 2026: (1) track what members search for and, when not
 3. A term qualifies when at most 2 recipes match and at least 3 different members searched it in 14 days; at most 10 wanted recipes are written a day; two failures skip a term (`DEMAND` in `server/cook-search/demand.mjs`).
 4. Daypart windows as in §3, weekend brunch 06:00–12:00.
 5. The first card's time chip names the meal ("Dinner · 25 min"), and the search box keeps five recent searches on the device.
-6. AI Recipes plans: **AI Cook** S$9.99 a month for 5 AI recipes; higher tier shown as **AI Cook Pro** S$24.99 for 20 (placeholder price and allowance, awaiting the owner). Payments not connected; nothing is gated.
+6. AI Recipes plans: **AI Cook** S$9.99 a month for 5 AI recipes and **AI Cook Pro** S$24.99 a month for 20 (both confirmed by the owner, 21 October 2026). Payments not connected; nothing is gated.
 
 ## 0. What exists today (so the plan reuses it)
 
