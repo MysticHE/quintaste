@@ -20,6 +20,29 @@ and checked locally (21 Oct 2026); nothing deployed.**
   client was checked against the Node routes locally.
 - Release order: the schema file stops the CI deploy (schema gate), so it ships as a manual release: backup, apply the schema with
   the operations role, deploy the app, then `deploy_veg_kitchen.py` for the bots (the bots also run safely before the schema).
+- **Shipped 21 Oct 2026** as manual release `20261021-creators1` (then CI `20261021-ci108-e556e40`); bots deployed the same evening.
+
+## Phase 2 as built (22 Oct 2026, checked locally, not deployed)
+- `ops/qt-team/creator_scout.py`, a weekly round stage (`Round.creator_scout`, after Event): runs once every 7 days outside the 6-10 pm
+  Cooker window, retries the next day after a failure, and reports one line in the round notes.
+  - **Web**: QT Cooker (web_search, web_extract) returns up to 15 new creators with a diet quote from the creator's own page; a creator
+    is kept only when the quote is on the stored capture of a page on its own website or channel (a directory or review never
+    counts). Diets come from that quote ("vegetarian options" or a negation gives none; "Buddhist" alone is not a food claim).
+  - **YouTube**: the free Data API v3 with the key in `private/youtube-api.key` (restricted to that API and the VPS addresses). Six
+    channel searches a week (about 600 of the 10,000 daily units), Singapore and Asia first; a channel is kept only when its own title
+    or description claims vegetarian or vegan food. Library channels not checked for a week get fresh subscriber and video counts.
+    Only the `search` and `channels` endpoints are allowed; every other googleapis.com address stays blocked.
+  - **Instagram**: Instaloader reads public profiles signed out, at most 40 a week, 8-15 seconds apart, through the egress guard. Any
+    refusal pauses Instagram for 24 hours. Checked 22 Oct from a home connection: lookups worked, with occasional refusals, so
+    Instagram counts may arrive only some weeks. When Instaloader is missing the scout skips Instagram with a note.
+- App route `POST /api/creators/bot/creators` (signed): adds new creators as found by the scout, fills only empty fields of a creator
+  already in the library (matched by id, website host or channel link), never changes staff names, status, pins or invites, never
+  touches a blocked creator, refreshes counts of known channels only, and pauses scout finds with no passing recipe after 90 days.
+- Checks: 244 bot tests (7 for the scout, no network), 12 local route checks against the dev database, the Python client end to end,
+  server type check and lint.
+- **To deploy**: no schema change, so a normal push deploys the app; then place Instaloader 4.15.4 (MIT, pure Python, needs only
+  `requests`, which the Hermes venv has) in `/opt/data/qt-team/vendor` on the data volume (the venv has no pip, and image updates
+  would drop a venv install), then `deploy_veg_kitchen.py`. The first scout runs in the next daytime round.
 
 ## 0. Owner decisions (21 Oct 2026)
 

@@ -15,7 +15,7 @@ from pathlib import Path
 
 ROOT = Path(os.environ.get('QT_TEAM_ROOT', '/opt/data/qt-team'))
 ORIGIN = os.environ.get('QT_APP_ORIGIN', 'https://quintaste.srv1902914.hstgr.cloud')
-ROUTES = ('/api/creators/bot/library', '/api/creators/bot/sources')
+ROUTES = ('/api/creators/bot/library', '/api/creators/bot/sources', '/api/creators/bot/creators')
 BATCH = 50  # the app accepts at most 50 sources per call
 
 
@@ -45,6 +45,18 @@ def library():
         return result if isinstance(result, dict) and isinstance(result.get('creators'), list) else None
     except (OSError, ValueError, urllib.error.URLError):
         return None
+
+
+def scout(creators, channels):
+    """Send what the weekly creator scout found: new creators (with their channels) and refreshed counts for known channels
+    ({creatorId, platform, handle, url, followers?, posts?}). Returns the app's counts; raises when the app refuses the call."""
+    out = {'added': 0, 'updated': 0, 'refreshed': 0, 'paused': 0}
+    for i in range(0, max(len(creators), 1), 40):  # the app accepts 40 creators and 200 channels per call
+        part = {'creators': creators[i:i + 40], 'channels': channels if i == 0 else []}
+        for key, value in call('/api/creators/bot/creators', part).items():
+            if key in out:
+                out[key] += int(value)
+    return out
 
 
 def record(sources):

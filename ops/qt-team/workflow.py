@@ -969,8 +969,8 @@ class Round:
     def stages(self):
         # Cooker and Event go first each round; Explorer then audits whole menus, searches one missing cover, runs ONE wave of
         # the Veg Kitchen queue (new fully vegetarian places, owner 20 Oct 2026) and gives the rest of its time to the Mixed
-        # Kitchen queue (at least one worker when due and time allows).
-        return (self.cooker, self.recipe_audit, self.event, self.explorer, self.cover_search, self.veg_kitchen, self.mixed_kitchen,
+        # Kitchen queue (at least one worker when due and time allows). The creator scout runs once a week outside the Cooker window.
+        return (self.cooker, self.recipe_audit, self.event, self.creator_scout, self.explorer, self.cover_search, self.veg_kitchen, self.mixed_kitchen,
                 self.manager_review, self.images, self.gamer, self.publish, self.report)
 
     def research_due(self, role):
@@ -1156,6 +1156,24 @@ class Round:
         except Exception as exc:
             self.failed("qt-cooker")
             self.error("qt-cooker", str(exc))
+
+    def creator_scout(self):
+        """Weekly creator scout (owner, 21 Oct 2026; docs/COOKER_CREATOR_LIBRARY_PLAN.md phase 2), outside the 6-10 pm Cooker window
+        so it never takes Cooker's evening time; a failure tries again the next day."""
+        import creator_scout
+        import night_window
+        if not (self.production() and not self.trial and self.nightly and creator_scout.due(self.state) and not night_window.role_open('qt-cooker')
+                and self.state.get('roleCooldown', {}).get('qt-cooker', {}).get('until', 0) <= time.time() and self.time_left(1500)):
+            return
+        self.state['creatorScoutTriedAt'] = time.time()
+        try:
+            summary = creator_scout.run(ROOT, self.state, self.folder / 'creator-scout', self.policy)
+            self.state['creatorScoutAt'] = time.time()
+            self.note('qt-cooker', 'Creator scout: {found} found ({web} from the web), {added} added, {updated} filled in, {refreshed} channel counts '
+                      'refreshed, {paused} paused'.format(**summary) + ('; ' + '; '.join(summary['notes']) if summary['notes'] else ''))
+        except Exception as exc:
+            self.error('qt-cooker', 'Creator scout: ' + type(exc).__name__ + ': ' + str(exc)[:200])
+        self.save()
 
     def recipe_audit(self):
         try:

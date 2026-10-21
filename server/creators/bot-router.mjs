@@ -40,7 +40,7 @@ export function readSource(s) {
 creatorBots.post('/library', raw('1kb'), signed, async (_req, res, next) => {
   try {
     const creators = (await pool.query(`SELECT c.id, c.name, c.kind, c.region, c.diets, c.cuisines, c.website, c.pinned,
-        coalesce(json_agg(json_build_object('platform', ch.platform, 'handle', ch.handle, 'url', ch.url, 'followers', ch.followers))
+        coalesce(json_agg(json_build_object('platform', ch.platform, 'handle', ch.handle, 'url', ch.url, 'followers', ch.followers, 'checked_at', ch.checked_at))
           FILTER (WHERE ch.creator_id IS NOT NULL), '[]') AS channels,
         s.passed, s.published, s.held, s.rejected, s.coverage
       FROM creators.creator c LEFT JOIN creators.channel ch ON ch.creator_id = c.id JOIN creators.score s ON s.creator_id = c.id
@@ -58,6 +58,100 @@ creatorBots.post('/library', raw('1kb'), signed, async (_req, res, next) => {
     if (missing(error)) return res.status(503).json({ error: 'Creator library not installed' });
     next(error);
   }
+});
+
+const REGIONS = ['singapore', 'asia', 'world'];
+const DIETS = ['vegan', 'vegetarian', 'five-pungent-free', 'buddhist', 'jain'];
+const MAX_CREATORS = 40, MAX_CHANNELS = 200;
+const slug = name => name.toLowerCase().normalize('NFKD').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 60);
+const words = (value, max, allowed) => Array.isArray(value)
+  ? [...new Set(value.filter(v => typeof v === 'string').map(v => clean(v, 40).toLowerCase()).filter(v => v && (!allowed || allowed.includes(v))))].slice(0, max) : [];
+const count = value => Number.isSafeInteger(value) && value >= 0 && value <= 2_000_000_000 ? value : null;
+/** The host and path of a link without www or a trailing slash: how channels and pages are matched to a creator. */
+const linkKey = url => { try { const u = new URL(url); return u.hostname.toLowerCase().replace(/^www\./, '') + u.pathname.replace(/\/+$/, ''); } catch { return ''; } };
+
+/** A channel from the scout, or null when malformed. */
+export function readChannel(c) {
+  if (!c || typeof c !== 'object' || !PLATFORMS.includes(c.platform) || !httpsUrl(c.url, 300)) return null;
+  const handle = clean(c.handle, 120).replace(/^@/, '') || linkKey(c.url).split('/').filter(Boolean).pop() || '';
+  if (!handle) return null;
+  return { platform: c.platform, handle, url: c.url, followers: count(c.followers), posts: count(c.posts),
+    evidence: httpsUrl(c.evidenceUrl, 600) ? c.evidenceUrl : null };
+}
+/** A creator from the scout, or null when malformed. Diets are only what the creator's own words said (the bot checked the quote). */
+export function readCreator(c) {
+  if (!c || typeof c !== 'object') return null;
+  const name = clean(c.name, 120), id = slug(name);
+  const channels = Array.isArray(c.channels) ? c.channels.slice(0, 8).map(readChannel) : [];
+  if (id.length < 3 || channels.some(ch => !ch) || (c.website != null && !httpsUrl(c.website, 300))) return null;
+  if (!c.website && !channels.length) return null;
+  return { id, name, kind: c.kind === 'organisation' ? 'organisation' : 'person', country: /^[A-Z]{2}$/.test(c.country ?? '') ? c.country : null,
+    region: REGIONS.includes(c.region) ? c.region : 'world', languages: words(c.languages, 6), diets: words(c.diets, 5, DIETS),
+    cuisines: words(c.cuisines, 8), website: c.website ?? null, note: clean(c.note, 500), channels };
+}
+
+async function upsertChannel(db, creatorId, ch) {
+  await db.query(`INSERT INTO creators.channel (creator_id, platform, handle, url, followers, posts, checked_at, checked_by, evidence_url)
+    VALUES ($1,$2,$3,$4,$5,$6,now(),'scout',$7)
+    ON CONFLICT (creator_id, platform, handle) DO UPDATE SET followers = coalesce(EXCLUDED.followers, creators.channel.followers),
+      posts = coalesce(EXCLUDED.posts, creators.channel.posts), checked_at = now(), evidence_url = coalesce(EXCLUDED.evidence_url, creators.channel.evidence_url)`,
+    [creatorId, ch.platform, ch.handle, ch.url, ch.followers, ch.posts, ch.evidence]);
+}
+
+/** What the weekly creator scout found (docs/COOKER_CREATOR_LIBRARY_PLAN.md, phase 2). New creators are added as found_by 'scout'; a
+ * creator already in the library (same id, website host or channel link) only gets its empty fields filled and its channels added or
+ * refreshed: status, pin, invite and name stay as staff set them, and a blocked creator is never touched. `channels` refreshes counts of
+ * channels already in the library. Scout-found creators with no passing recipe after 90 days are paused (never pinned ones). */
+creatorBots.post('/creators', raw('128kb'), signed, async (req, res, next) => {
+  const body = json(req), found = Array.isArray(body?.creators) ? body.creators : [], refresh = Array.isArray(body?.channels) ? body.channels : [];
+  if (!body || found.length > MAX_CREATORS || refresh.length > MAX_CHANNELS) return res.status(400).json({ error: `Send at most ${MAX_CREATORS} creators and ${MAX_CHANNELS} channels` });
+  const creators = found.map(readCreator), channels = refresh.map(c => ({ creatorId: typeof c?.creatorId === 'string' ? c.creatorId : '', channel: readChannel(c) }));
+  if (creators.some(c => !c) || channels.some(c => !/^[a-z0-9][a-z0-9-]{2,79}$/.test(c.creatorId) || !c.channel)) return res.status(400).json({ error: 'Invalid creator or channel' });
+  const db = await pool.connect();
+  try {
+    await db.query('BEGIN');
+    let added = 0, updated = 0, refreshed = 0;
+    for (const c of creators) {
+      const keys = [c.website, ...c.channels.map(ch => ch.url)].filter(Boolean).map(linkKey).filter(Boolean);
+      const hosts = c.website ? [linkKey(c.website).split('/')[0]] : [];
+      const match = (await db.query(`SELECT c.id, c.status FROM creators.creator c
+        WHERE c.id = $1 OR split_part(lower(regexp_replace(regexp_replace(coalesce(c.website, ''), '^https://(www\\.)?', ''), '/+$', '')), '/', 1) = ANY($2::text[])
+          OR EXISTS (SELECT 1 FROM creators.channel ch WHERE ch.creator_id = c.id
+            AND lower(regexp_replace(regexp_replace(ch.url, '^https://(www\\.)?', ''), '/+$', '')) = ANY($3::text[]))
+        ORDER BY c.id = $1 DESC LIMIT 1 FOR UPDATE`, [c.id, hosts, keys])).rows[0];
+      if (match?.status === 'blocked') continue;
+      const id = match?.id ?? c.id;
+      if (!match) {
+        await db.query(`INSERT INTO creators.creator (id, name, kind, country, region, languages, diets, cuisines, website, note, found_by)
+          VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,'scout')`, [id, c.name, c.kind, c.country, c.region, c.languages, c.diets, c.cuisines, c.website, c.note]);
+        added++;
+      } else {
+        const filled = await db.query(`UPDATE creators.creator SET country = coalesce(country, $2), website = coalesce(website, $3),
+            languages = CASE WHEN cardinality(languages) = 0 THEN $4 ELSE languages END, diets = CASE WHEN cardinality(diets) = 0 THEN $5 ELSE diets END,
+            cuisines = CASE WHEN cardinality(cuisines) = 0 THEN $6 ELSE cuisines END, updated_at = now()
+          WHERE id = $1 AND (country IS NULL AND $2::text IS NOT NULL OR website IS NULL AND $3::text IS NOT NULL OR cardinality(languages) = 0 AND cardinality($4::text[]) > 0
+            OR cardinality(diets) = 0 AND cardinality($5::text[]) > 0 OR cardinality(cuisines) = 0 AND cardinality($6::text[]) > 0)`,
+          [id, c.country, c.website, c.languages, c.diets, c.cuisines]);
+        updated += filled.rowCount;
+      }
+      const all = [...c.channels, ...(c.website ? [{ platform: 'website', handle: linkKey(c.website), url: c.website, followers: null, posts: null, evidence: null }] : [])];
+      for (const ch of all) await upsertChannel(db, id, ch);
+    }
+    for (const { creatorId, channel } of channels) {
+      const known = await db.query(`SELECT 1 FROM creators.channel ch JOIN creators.creator c ON c.id = ch.creator_id
+        WHERE ch.creator_id = $1 AND ch.platform = $2 AND ch.handle = $3 AND c.status <> 'blocked'`, [creatorId, channel.platform, channel.handle]);
+      if (known.rowCount) { await upsertChannel(db, creatorId, channel); refreshed++; }
+    }
+    const paused = await db.query(`UPDATE creators.creator c SET status = 'paused', note = left(trim(note || ' No recipe passed the bar within 90 days of being found.'), 500), updated_at = now()
+      FROM creators.score s WHERE s.creator_id = c.id AND c.found_by = 'scout' AND c.status = 'active' AND NOT c.pinned
+        AND c.created_at < now() - interval '90 days' AND s.passed = 0`);
+    await db.query('COMMIT');
+    res.json({ added, updated, refreshed, paused: paused.rowCount });
+  } catch (error) {
+    await db.query('ROLLBACK').catch(() => {});
+    if (missing(error)) return res.status(503).json({ error: 'Creator library not installed' });
+    next(error);
+  } finally { db.release(); }
 });
 
 /** Record pages Cooker looked at. A status never moves backwards: a published page stays published unless withdrawn, and a
