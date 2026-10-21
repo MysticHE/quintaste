@@ -631,7 +631,7 @@ class MixedKitchen(unittest.TestCase):
         import learning
         venue = {'venueId': 'branch-one'}
         audits = []
-        def worker(role, context, folder, policy):
+        def worker(role, context, folder, policy, prior_sources=None):
             audits.append(policy['workerSeconds'])
             packet = {'role': role, 'records': [{'id': 'branch-one', 'status': 'held'}]}
             w.write(folder / 'validated.json', packet)

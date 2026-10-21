@@ -240,7 +240,7 @@ def due_retries(root, role, ids=None):
     rows = [r for r in saved.values() if r['role'] == role and r['status'] == 'held'
             and r['attempts'] < 3 and dt.datetime.fromisoformat(r['dueAt']) <= now()
             and (ids is None or r['id'] in ids)]
-    return sorted(rows, key=lambda r: r['dueAt'])[:1 if role == 'qt-cooker' else 4]
+    return sorted(rows, key=lambda r: r['dueAt'])[:2 if role == 'qt-cooker' else 4]  # Cooker writes 2 recipes a round
 
 
 def note_retry(root, rows):

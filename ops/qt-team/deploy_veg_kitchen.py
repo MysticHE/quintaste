@@ -33,7 +33,9 @@ NAMES = ['veg_kitchen.py', 'veg_kitchen_check.py', 'veg_kitchen_queue.py', 'run_
          # Dish illustration covers (owner, 20 Oct 2026): the image runner and worker record the new image kind.
          'venue_images.py', 'image_worker.py',
          # Cooker and Event take turns with Explorer (owner, 20 Oct 2026): the schedule test ships with workflow.py.
-         'test_night_controls.py']
+         'test_night_controls.py',
+         # Cooker drafts each page once and keeps one ID per page (21 Oct 2026): the shortlist and its tests ship too.
+         'recipe_quality.py', 'test_learning.py']
 TESTS = ['test_workflow', 'test_publisher', 'test_telegram_reporter', 'test_learning', 'test_night_controls', 'test_recipe_policy',
          'test_publication_delivery', 'test_menu_coverage', 'test_outlet_capture', 'test_gamer']
 

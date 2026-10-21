@@ -146,7 +146,7 @@ class LearningTests(unittest.TestCase):
         self.assertEqual(result['decisions'][0]['decision'], 'hold')
         self.assertEqual(l.status(self.root)['approvedLessons'], 0)
 
-    def retry_worker(self, record_id='basil-tofu', published=False):
+    def retry_worker(self, record_id='basil-tofu', published=False, retries=True, prior_sources=None):
         row = {'id': record_id, 'status': 'proposed', 'sources': [{'url': 'https://example.org/recipe', 'evidence': 'Ingredients verified'}],
                'recipe': {'name': 'Basil tofu', 'category': 'With rice', 'servings': 2, 'minutes': 20, 'diet': 'Vegan',
                           'cuisine': 'Thai', 'author': 'Fixture Author',
@@ -154,7 +154,7 @@ class LearningTests(unittest.TestCase):
                           'steps': [{'instruction': 'Cook tofu.', 'ingredientIds': ['tofu']}], 'kitchenTested': False}}
         packet = {'role': 'qt-cooker', 'summary': 'Rechecked held candidate', 'records': [row]}
         context = {'existingRecipeNames': [{'id': 'basil-tofu', 'name': 'Basil tofu'}] if published else [],
-                   'priorCandidates': ['Basil tofu'], 'heldRetries': [{'id': 'basil-tofu', 'name': 'Basil tofu'}]}
+                   'priorCandidates': ['Basil tofu'], 'heldRetries': [{'id': 'basil-tofu', 'name': 'Basil tofu'}] if retries else []}
         receipt = dict(self.receipt, role='qt-cooker', successfulExtractCalls=1, toolCalls=[{'name': 'web_extract'}])
         cache_key = w.hashlib.sha256(b'https://example.org/recipe').hexdigest()
         l.write(self.root / 'state/source-cache' / (cache_key + '.json'),
@@ -162,7 +162,7 @@ class LearningTests(unittest.TestCase):
         folder = self.root / 'runs/retry/cooker'
         folder.mkdir(parents=True, exist_ok=True)
         with patch.object(w, 'ROOT', self.root), patch.object(w, 'run_model', return_value=(packet, receipt)):
-            return w.worker('qt-cooker', context, folder, {})['records'][0]
+            return w.worker('qt-cooker', context, folder, {}, prior_sources=prior_sources)['records'][0]
 
     def test_held_recipe_can_be_rechecked_under_same_identity(self):
         self.assertEqual(self.retry_worker()['status'], 'proposed')
@@ -170,6 +170,24 @@ class LearningTests(unittest.TestCase):
     def test_retry_cannot_duplicate_published_recipe_or_change_id(self):
         self.assertEqual(self.retry_worker(published=True)['status'], 'held')
         self.assertEqual(self.retry_worker(record_id='new-duplicate-id')['status'], 'held')
+
+    def test_redraft_of_the_same_page_continues_its_id_and_is_not_its_own_duplicate(self):
+        import recipe_quality
+        # 21 Oct 2026: kuih kodok was redrafted 7 times and each redraft was held as a duplicate of the earlier draft.
+        prior = {recipe_quality.page_key('https://www.example.org/recipe/'): {'id': 'basil-tofu', 'name': 'Basil tofu'}}
+        record = self.retry_worker(record_id='thai-basil-tofu', retries=False, prior_sources=prior)
+        self.assertEqual((record['status'], record['id']), ('proposed', 'basil-tofu'))
+        self.assertEqual(self.retry_worker(record_id='thai-basil-tofu', retries=False)['status'], 'held')  # another page's draft
+        self.assertEqual(self.retry_worker(retries=False, published=True, prior_sources=prior)['status'], 'held')  # already live
+
+    def test_shortlist_skips_pages_already_drafted(self):
+        import recipe_quality as rq
+        found = {'candidates': [{'url': 'https://example.org/recipe/', 'name': 'A'}, {'url': 'https://example.org/other', 'name': 'B'}]}
+        passes = lambda root, url: {'url': url, 'passes': True, 'score': 1, 'reasons': []}
+        with patch.object(w, 'run_model', return_value=(found, {})), patch.object(rq, 'assess', side_effect=passes), patch.object(rq, 'trusted', return_value={}):
+            picks = rq.shortlist(self.root, {'recipeNames': []}, self.root / 'shortlist', {}, live={'records': []},
+                                 drafted={rq.page_key('https://www.example.org/recipe'): {'id': 'a'}})
+        self.assertEqual([c['url'] for c in picks['passed']], ['https://example.org/other'])
 
     def test_corrupt_learning_state_does_not_grant_retry_permissions(self):
         (self.root / 'state/learning').mkdir(parents=True)

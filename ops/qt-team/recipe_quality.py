@@ -24,6 +24,12 @@ ROOT = Path(os.environ.get('QT_TEAM_ROOT', '/opt/data/qt-team'))
 
 class NothingToCook(Exception):
     """No shortlisted page met the bar this round: a valid outcome, not a failure."""
+
+
+def page_key(url):
+    """One key per recipe page: host without www, path without a trailing slash; query and fragment dropped."""
+    parts = urlsplit(str(url or '').strip())
+    return (parts.hostname or '').lower().removeprefix('www.') + parts.path.rstrip('/')
 BAR = {'rating': 4.5, 'ratings': 20, 'minutes': 30, 'ingredients': 12, 'steps': 8, 'outsidePantry': 1}
 CACHE_SECONDS = 7 * 86400
 CACHE_VERSION = 2  # 2: author @id references resolved
@@ -315,23 +321,28 @@ def shortlist_prompt(baseline, counts, rejected, creators=()):
             '"notes":""}. No Google Maps.')
 
 
-def shortlist(root, baseline, folder, policy, live=None):
-    """Stage 1: Cooker names candidate pages; the coordinator keeps those that pass, best first."""
+def shortlist(root, baseline, folder, policy, live=None, drafted=()):
+    """Stage 1: Cooker names candidate pages; the coordinator keeps those that pass, best first. drafted: page keys Cooker has
+    already written up (published or held). They are skipped, so a held page is not drafted again every round; a held recipe
+    comes back only through its retry (21 Oct 2026: the same two pages were redrafted in 7 of 8 rounds)."""
     from workflow import run_model, CATEGORIES
     counts = {c: 0 for c in CATEGORIES}
+    skip = set(drafted)
     try:
         import publisher
         for row in (live or publisher.request('GET', '/control/state'))['records']:
             if row['kind'] == 'recipe':
                 for category in row['data'].get('categories', []):
                     counts[category] = counts.get(category, 0) + 1
+                skip.update(page_key(u) for u in (row['data'].get('provenance') or {}).get('sources', []) if isinstance(u, str))
     except Exception:
         pass  # rotation is a preference; the shortlist still works without counts
     log = root / 'state/recipe-shortlist.json'
     history = _read(log, {'rejected': []})
-    result, _ = run_model('qt-cooker', shortlist_prompt(baseline, counts, history['rejected'], trusted(root).items()), folder, policy,
+    result, _ = run_model('qt-cooker', shortlist_prompt(baseline, counts, history['rejected'] + sorted(skip)[-40:], trusted(root).items()), folder, policy,
                           seconds=min(600, policy.get('workerSeconds', 600)))
-    candidates = [c for c in result.get('candidates', []) if isinstance(c, dict) and isinstance(c.get('url'), str)][:8]
+    candidates = [c for c in result.get('candidates', []) if isinstance(c, dict) and isinstance(c.get('url'), str)
+                  and page_key(c['url']) not in skip][:8]
     checked = [dict(assess(root, c['url']), category=c.get('category')) for c in candidates]
     passed = sorted((c for c in checked if c['passes']), key=lambda c: -c['score'])
     history['rejected'] = (history['rejected'] + [c['url'] for c in checked if not c['passes']])[-200:]

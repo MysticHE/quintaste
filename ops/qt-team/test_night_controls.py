@@ -167,7 +167,7 @@ class NightControls(unittest.TestCase):
         t.write(self.root/'policy.json',policy)
         t.write(self.root/'baseline.json',{'venues':[{'venueId':'branch-one'},{'venueId':'branch-two'}],'holds':{},'recipeNames':[],'checkedAt':'2026-10-17','catalogueRevision':'fixture'})
         completed=[];locks=[]
-        def worker(role,context,folder,policy):
+        def worker(role,context,folder,policy,prior_sources=None):
             completed.append(role)
             records=[{'id':v['venueId'],'status':'held'} for v in context.get('venues',[])]
             packet={'role':role,'records':records}
