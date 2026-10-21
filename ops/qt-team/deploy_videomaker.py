@@ -18,8 +18,14 @@ payload = {n: base64.b64encode((HERE / n).read_bytes()).decode() for n in NAMES}
 CONTAINER = 'hermes-agent-yril-hermes-agent-1'
 
 code = r'''
-import pathlib,json,fcntl,hashlib,base64,os,subprocess,datetime,time,shutil,yaml
-r=pathlib.Path('/opt/data/qt-team');payload=PAYLOAD
+import pathlib,json,fcntl,hashlib,base64,os,subprocess,datetime,time,shutil,io
+# Hermes 0.22 ships ruamel.yaml, not PyYAML.
+from ruamel.yaml import YAML
+_y=YAML(typ='safe');_y.default_flow_style=False
+def yload(text):return _y.load(io.StringIO(text))
+def ydump(data):
+ buf=io.StringIO();_y.dump(data,buf);return buf.getvalue()
+r=pathlib.Path('/opt/data/qt-team');payload=PAYLOAD;PY='/opt/hermes/.venv/bin/python'
 for attempt in range(20):
  work=(r/'state/run.lock').open('a+')
  try:fcntl.flock(work,fcntl.LOCK_EX|fcntl.LOCK_NB);break
@@ -37,7 +43,7 @@ with work:
  from hermes_cli.profiles import create_profile,get_profile_dir,set_profile_display_name
  profile=get_profile_dir('qt-videomaker');made=False
  if profile.exists():
-  meta=yaml.safe_load((profile/'profile.yaml').read_text()) or {}
+  meta=yload((profile/'profile.yaml').read_text()) or {}
   assert meta.get('display_name')=='QT Videomaker','Unrelated existing qt-videomaker profile; refusing'
  try:
   for n,data in payload.items():
@@ -47,17 +53,17 @@ with work:
   if not profile.exists():
    profile=create_profile('qt-videomaker',no_alias=True,no_skills=True,description='QT Videomaker - members AI recipes from videos and dish requests');made=True
   set_profile_display_name('qt-videomaker','QT Videomaker')
-  cooker=yaml.safe_load((get_profile_dir('qt-cooker')/'config.yaml').read_text())
-  c=yaml.safe_load((profile/'config.yaml').read_text()) or {}
+  cooker=yload((get_profile_dir('qt-cooker')/'config.yaml').read_text())
+  c=yload((profile/'config.yaml').read_text()) or {}
   c['model']=cooker['model'];c['timezone']='Asia/Singapore'
   c['platform_toolsets']={k:[] for k in ['cli','cron','api_server','telegram','discord','homeassistant']}
   c.setdefault('approvals',{}).update(cron_mode='deny',single_query_mode='deny',unattended_mode='deny');c['command_allowlist']=[]
   c.setdefault('terminal',{})['cwd']=str(d)
-  (profile/'config.yaml').write_text(yaml.safe_dump(c,sort_keys=False),encoding='utf-8')
+  (profile/'config.yaml').write_text(ydump(c),encoding='utf-8')
   (profile/'SOUL.md').write_bytes((r/'roles/qt-videomaker.md').read_bytes())
   for f in [profile,*profile.rglob('*')]:os.chown(f,10000,10000)
   assert not (profile/'auth.json').exists(),'OAuth store unexpectedly present'
-  imported=subprocess.run(['python','-c','import ai_recipes_bridge;print("ok")'],cwd=r,capture_output=True,text=True,user=10000,group=10000)
+  imported=subprocess.run([PY,'-c','import ai_recipes_bridge;print("ok")'],cwd=r,capture_output=True,text=True,user=10000,group=10000)
   assert imported.stdout.strip()=='ok','Import check failed: '+imported.stderr[-300:]
   tools=subprocess.run(['hermes','-p','qt-videomaker','tools','list'],cwd=r,capture_output=True,text=True,user=10000,group=10000,env={**os.environ,'HERMES_HOME':'/opt/data'})
   (backup/'tools.txt').write_text(tools.stdout+tools.stderr)
@@ -83,7 +89,7 @@ Requires=docker.service
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/docker exec --user 10000 --workdir /opt/data/qt-team CONTAINER python -u ai_recipes_bridge.py
+ExecStart=/usr/bin/docker exec --user 10000 --workdir /opt/data/qt-team -e HERMES_HOME=/opt/data CONTAINER /opt/hermes/.venv/bin/python -u ai_recipes_bridge.py
 Restart=always
 RestartSec=15
 TimeoutStopSec=20
@@ -98,5 +104,5 @@ print(subprocess.check_output(['systemctl','is-active','qt-ai-recipes-bridge.ser
 '''.replace('CONTAINER', CONTAINER)
 
 if __name__ == '__main__':
-    print(setup.remote_container(code, 'root'))
+    print(setup.remote_container(code, 'root'))  # runs `python -` in the container; use /opt/hermes/.venv/bin/python when piping by hand
     print(setup.helper.remote(UNIT))

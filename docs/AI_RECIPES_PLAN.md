@@ -7,7 +7,7 @@ Current state, 21 October 2026. Members get a recipe two ways: describe a dish, 
 | Engine | Who writes the recipe | Status |
 |---|---|---|
 | **Gemini** | The app server calls Gemini itself (`server/ai-recipes/gemini.mjs`) | Built and deployed. Default. |
-| **QT bots** | QT Videomaker, a Hermes profile in the QT bot team, through `ops/qt-team/ai_recipes_bridge.py` | Built and checked locally, 21 Oct. Not deployed. |
+| **QT bots** | QT Videomaker, a Hermes profile in the QT bot team, through `ops/qt-team/ai_recipes_bridge.py` | Deployed 21 Oct (release 20261021-bots1, bridge service running). Switch off: the live test showed the bots cannot watch video yet (§4). |
 
 The switch is the **AI recipes by QT bots** control (`ai_recipes_bots`) in Admin > Operations. Off: Gemini writes new jobs. On: the QT bots do. Owner decision, 21 Oct: no automatic fallback between engines, so a bot failure fails the job and the result shows whether the bots work. Turning the switch off returns new jobs to Gemini. Jobs already with the bots are still finished when they answer.
 
@@ -32,7 +32,7 @@ Both engines feed the same checks and the same save step, so members see the sam
 - Key: Admin > Integrations > "Gemini · AI recipes". It is encrypted in `ops.provider_secret` under the provider-secret key file, the app role can only read it, and the console shows the last four characters. Without a stored key the app uses the Cloudflare AI Gateway. Video files and drawings need the stored key.
 - Residency: Google AI Studio does not guarantee Singapore processing (PRD QT-059).
 
-## 4. QT bots setup (not yet done)
+## 4. QT bots setup (done 21 Oct 2026) and live test
 
 Order matters:
 
@@ -43,14 +43,25 @@ Order matters:
 
 The bridge signs with the key the bots already use for editorial publishing. The signed path keeps the two uses apart. Each bridge handles one task at a time. More bridges can run together, because each task goes to exactly one.
 
-What to watch on the first tries:
-- `video_analyze` sends the whole video to the model. It only works if the bots' model accepts video and Hermes can reach that model for vision work. If not, video jobs fail with the reason in the job's usage (`botError`) and in `qt-team/ai-recipes/last.json`.
-- YouTube links have no file for the bots, so YouTube jobs fail on the bots engine.
-- A task nobody claims, or that is not answered within 30 minutes, fails as "Nothing answered in time".
+Live test, 21 Oct 2026, 03:34 to 03:38 UTC (switch on for four minutes, four videos under the owner's account, switch off after):
+
+| Video | Result | Where it stopped |
+|---|---|---|
+| TikTok (Tiffy Cooks) | Failed | Download: TikTok refused the server ("Unexpected response from webpage request"). |
+| Instagram (Tiffy Cooks reel) | Failed | Downloaded and handed to the bots. Hermes `video_analyze`: "Codex Responses does not support video_url input". |
+| Facebook (Xiao's Kitchen) | Failed | Same as Instagram. |
+| YouTube (vegan mapo tofu) | Failed | Download: YouTube asked the server to sign in ("confirm you're not a bot"). |
+
+What this shows:
+- The app side works end to end: handoff, signed claim, video download by the bridge, bot answer, job failure with the reason in `botError`, cleanup. Nothing reached Gemini.
+- The bots' model is reached through the ChatGPT Codex sign-in, and Codex does not accept video input in Hermes. The bots answered honestly and wrote no recipe. Making the bots read video needs either a video-capable provider for Hermes's vision work, or turning the video into still frames and a transcript first (Codex reads images).
+- TikTok and YouTube block the server's downloads; Instagram and Facebook downloaded. Member uploads avoid the download step.
+
+Other behaviour: a task nobody claims fails after 10 minutes when no bridge is polling, otherwise after 3 hours in line; a claimed task has 30 minutes to answer.
 
 ## 5. Open items
 
 - Owner: whether the bots engine becomes the default after testing, and whether Gemini code is then removed.
-- Bots engine gaps: YouTube, step drawings, frame review and nutrition name learning.
+- Bots engine: video reading (see §4), then step drawings, frame review and nutrition name learning.
 - Payments for the AI Cook plans are not connected (`paymentsLive = false`).
 - Not built: share sheet into QuinTaste, push notice when a recipe is ready, creator opt-out list.
