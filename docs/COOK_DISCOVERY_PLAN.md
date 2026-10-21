@@ -2,7 +2,7 @@
 
 Owner thoughts, 21 October 2026: (1) track what members search for and, when nothing matches a common search, have the system source and create the recipe; (2) a suggestions dropdown fed by the recipes we actually have; (3) decide how recipes are ordered on the Cook feed, for example by time of day. Same day the owner accepted every recommendation below and added (4): the AI features on Cook are paid, S$9.99 a month for 5 recipes with a higher tier, payment flow screens first and the feature not gated yet.
 
-**Status: built 21 October 2026, not deployed.** Schema `server/cook-search/schema.sql` needs the manual release step (backup, operations role, after the recipes and AI recipes schemas). See §7 for what was built and where it differs from the proposal.
+**Status: live 21 October 2026** as app/preview 20261021-ci99-b242e94 and admin 20261021-cook1; `server/cook-search/schema.sql` is applied in production (see the runbook entry). See §7 for what was built and where it differs from the proposal.
 
 ## Owner decisions (21 October 2026)
 
