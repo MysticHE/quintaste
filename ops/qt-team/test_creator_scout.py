@@ -135,6 +135,26 @@ class CreatorScoutTests(unittest.TestCase):
         with self.assertRaises(RuntimeError):
             cs.run(self.root, {}, self.root / 'scout', {}, client=FakeClient(library=None), run_model=model)
 
+    def test_reports_are_packed_under_the_proxy_body_limit(self):
+        import creators_client
+        from unittest.mock import patch
+        # 22 Oct 2026: the first scout's 15 creators were refused with 413 by the 16 KB proxy limit in front of the app.
+        creator = lambda n: {'name': 'Creator %d' % n, 'website': 'https://c%d.example' % n, 'note': 'x' * 900, 'diets': ['vegan'],
+                             'channels': [{'platform': 'instagram', 'url': 'https://www.instagram.com/c%d/' % n}]}
+        refresh = [{'creatorId': 'woon-heng', 'platform': 'instagram', 'handle': 'h%d' % n, 'url': 'https://www.instagram.com/h%d/' % n,
+                    'followers': n, 'posts': n} for n in range(150)]
+        bodies = []
+        def call(route, data):
+            bodies.append(creators_client.size(data))
+            return {'added': len(data['creators']), 'updated': 0, 'refreshed': len(data['channels']), 'paused': 0}
+        with patch.object(creators_client, 'call', side_effect=call):
+            counts = creators_client.scout([creator(n) for n in range(40)], refresh)
+        self.assertEqual((counts['added'], counts['refreshed']), (40, 150))
+        self.assertGreater(len(bodies), 2)
+        self.assertTrue(all(b < 16384 for b in bodies), bodies)
+        with patch.object(creators_client, 'call', side_effect=call):
+            self.assertEqual(creators_client.scout([], [])['added'], 0)  # one empty call still runs the app's 90-day pause
+
     def test_due_weekly_and_retries_the_next_day(self):
         now = time.time()
         self.assertTrue(cs.due({}, now))

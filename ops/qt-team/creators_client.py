@@ -17,6 +17,25 @@ ROOT = Path(os.environ.get('QT_TEAM_ROOT', '/opt/data/qt-team'))
 ORIGIN = os.environ.get('QT_APP_ORIGIN', 'https://quintaste.srv1902914.hstgr.cloud')
 ROUTES = ('/api/creators/bot/library', '/api/creators/bot/sources', '/api/creators/bot/creators')
 BATCH = 50  # the app accepts at most 50 sources per call
+# The proxy in front of the app (deploy/compose.yml, quintaste-body) refuses API bodies over 16 KB with 413 (first scout, 22 Oct
+# 2026), so every call is packed to stay under this many bytes.
+MAX_BODY = 12_000
+
+
+def size(value):
+    return len(json.dumps(value, ensure_ascii=False, separators=(',', ':')).encode())
+
+
+def packs(items, most):
+    """Consecutive slices of items, each at most `most` long and under MAX_BODY bytes once sent (an oversized single item goes alone)."""
+    pack = []
+    for item in items:
+        if pack and (len(pack) >= most or size(pack + [item]) > MAX_BODY):
+            yield pack
+            pack = []
+        pack.append(item)
+    if pack:
+        yield pack
 
 
 class NoRedirect(urllib.request.HTTPRedirectHandler):
@@ -51,8 +70,9 @@ def scout(creators, channels):
     """Send what the weekly creator scout found: new creators (with their channels) and refreshed counts for known channels
     ({creatorId, platform, handle, url, followers?, posts?}). Returns the app's counts; raises when the app refuses the call."""
     out = {'added': 0, 'updated': 0, 'refreshed': 0, 'paused': 0}
-    for i in range(0, max(len(creators), 1), 40):  # the app accepts 40 creators and 200 channels per call
-        part = {'creators': creators[i:i + 40], 'channels': channels if i == 0 else []}
+    # the app accepts 40 creators and 200 channels per call; creators go first, then channel refreshes, each packed under MAX_BODY
+    parts = [{'creators': p, 'channels': []} for p in packs(creators, 40)] + [{'creators': [], 'channels': p} for p in packs(channels, 200)]
+    for part in parts or [{'creators': [], 'channels': []}]:  # an empty call still runs the 90-day pause
         for key, value in call('/api/creators/bot/creators', part).items():
             if key in out:
                 out[key] += int(value)
@@ -63,9 +83,9 @@ def record(sources):
     """Send recipe pages ({url, status, name?, recipeId?, reasons?, coverage?, platform?}); returns how many were recorded."""
     sent = 0
     rows = [s for s in sources if isinstance(s, dict) and str(s.get('url', '')).startswith('https://')]
-    for i in range(0, len(rows), BATCH):
+    for pack in packs(rows, BATCH):
         try:
-            sent += int(call('/api/creators/bot/sources', {'sources': rows[i:i + BATCH]}).get('recorded', 0))
+            sent += int(call('/api/creators/bot/sources', {'sources': pack}).get('recorded', 0))
         except (OSError, ValueError, urllib.error.URLError):
             break  # the next round sends them again; statuses never move backwards on the app side
     return sent
