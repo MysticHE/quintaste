@@ -15,7 +15,6 @@ import { MarketModal } from "../components/market/MarketChrome";
 import { Action } from "../components/Actions";
 import { TimerAlertControl } from "../components/food/TimerAlertControl";
 import { LotusSlot } from "../components/lotus/LotusSlot";
-import { paymentsLive } from "../config/ai-plans";
 
 export function AccountScreen() {
   const { user, enabled } = useAuth();
@@ -49,7 +48,7 @@ export function AccountScreen() {
     <Card style={s.group}>
       <SettingsRow label="Saved" leading={<QuinTasteIcon name="saved" color={theme.accent} size={26} />} value={String(doc.saves.length)} onPress={() => router.push("/saved")} />
       <SettingsRow label="Food Choices" icon="leaf-outline" value={dietSummary(draft.diets)} onPress={() => router.push("/exclusions")} />
-      <SettingsRow label="AI Recipes Plan" icon="sparkles-outline" value={paymentsLive ? undefined : "Free For Now"} onPress={() => router.push("/cook/ai-plans" as never)} />
+      <SettingsRow label="AI Recipes Plan" icon="sparkles-outline" onPress={() => router.push("/cook/ai-plans" as never)} />
       <SettingsRow label="Location" icon="location-outline" last={!__DEV__} onPress={() => router.push("/private-places")} />
       {__DEV__ && <SettingsRow label="My Cases" icon="file-tray-outline" last onPress={() => router.push("/cases")} />}
     </Card>

@@ -15,7 +15,7 @@ import { MAX_FILE_BYTES, VIDEO_TYPES } from './files.mjs';
 import { UPLOAD_DIR } from './work.mjs';
 import { parseUpload } from './pipeline.mjs';
 import { normaliseTerm } from '../cook-search/terms.mjs';
-import { AT_ONCE, DAILY_PER_MEMBER, MAX_VIDEO_SECONDS, RAN, dailyCap, jobsLastDay, usedLastDay } from './limits.mjs';
+import { AT_ONCE, DAILY_PER_MEMBER, MAX_VIDEO_SECONDS, RAN, dailyCap, jobsLastDay, planAccess, usedLastDay } from './limits.mjs';
 
 /** Members queue AI recipe jobs here and watch them; guests see nothing. Three jobs a day per member for now. */
 export const aiRecipes = communityRouter({ guests: true, bodyLimit: '8kb' });
@@ -29,6 +29,7 @@ const view = row => {
 async function available(me) {
   if (!await engineReady() || !await allowed('ai_recipes') || !await allowed('recipes')) throw new CommunityError(503, 'AI recipes are not available right now.');
   if (await restricted(me)) throw new CommunityError(403, 'Your account cannot use this right now.');
+  if ((await planAccess(me)).needsPlan) throw new CommunityError(402, 'Choose a plan to get AI recipes.', 'PLAN_REQUIRED');
 }
 /** Uploads in flight per member: they hold a quota slot before their job row exists (one app process). */
 const uploading = new Map();
@@ -54,7 +55,8 @@ async function withinQuota(me) {
     pool.query(`SELECT count(*)::int AS n FROM recipes.ai_job WHERE user_id=$1 AND status IN ('queued','working')`, [me]),
     dailyCap(),
   ]);
-  if (mine + pending >= DAILY_PER_MEMBER) throw new CommunityError(429, `You can start ${DAILY_PER_MEMBER} AI recipes a day. Try again tomorrow.`);
+  // The master account bypasses the per-member count, as for avatars; the global cap and two-at-a-time still apply.
+  if (!(await planAccess(me)).unlimited && mine + pending >= DAILY_PER_MEMBER) throw new CommunityError(429, `You can start ${DAILY_PER_MEMBER} AI recipes a day. Try again tomorrow.`);
   if (all >= cap) throw new CommunityError(503, 'AI recipes are fully booked for today. Try again tomorrow.');
   if (open.rows[0].n + pending >= AT_ONCE) throw new CommunityError(429, 'Wait for your current AI recipes to finish first.');
 }
@@ -66,13 +68,13 @@ async function usedThisMonth(me) {
 }
 aiRecipes.get('/status', async (_req, res) => {
   // AI recipes publish into the member recipe feed, so the recipes control must be on as well.
-  // `plan` is null for everyone until payments are connected (docs/COOK_DISCOVERY_PLAN.md §6); nothing is gated on it yet.
-  // `usedToday` counts the rolling 24 hours the 3-a-day limit uses; `fullToday` means everyone's daily total is used.
+  // `plan` is null until payments are connected (docs/COOK_DISCOVERY_PLAN.md §6). `needsPlan`: AI recipes are paid only,
+  // so a member without a plan is sent to the plans screen. `fullToday` means everyone's daily total is used.
   const me = res.locals.user?.id ?? null;
-  const [enabled, month, today, all, cap] = await Promise.all([
+  const [enabled, month, today, all, cap, access] = await Promise.all([
     (async () => await engineReady() && await allowed('ai_recipes') && await allowed('recipes'))(),
-    me ? usedThisMonth(me) : 0, me ? usedLastDay(me) : 0, jobsLastDay(), dailyCap()]);
-  res.json({ enabled, dailyPerMember: DAILY_PER_MEMBER, plan: null, usedThisMonth: month, usedToday: today, fullToday: all >= cap,
+    me ? usedThisMonth(me) : 0, me ? usedLastDay(me) : 0, jobsLastDay(), dailyCap(), planAccess(me)]);
+  res.json({ enabled, dailyPerMember: DAILY_PER_MEMBER, plan: null, needsPlan: access.needsPlan, usedThisMonth: month, usedToday: today, fullToday: all >= cap,
     limits: { videoMinutes: MAX_VIDEO_SECONDS / 60, videoMb: Math.round(MAX_FILE_BYTES / 1048576), atOnce: AT_ONCE } });
 });
 

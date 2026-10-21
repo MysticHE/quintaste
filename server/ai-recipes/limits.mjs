@@ -1,4 +1,5 @@
 import { pool } from '../config.mjs';
+import { accountAccess } from '../account-access.mjs';
 
 /**
  * AI recipe limits shared by members' jobs (router.mjs) and wanted recipes (../cook-search/demand.mjs).
@@ -28,3 +29,15 @@ export async function usedLastDay(userId) {
   return (await pool.query(`SELECT count(*)::int AS n FROM recipes.ai_job WHERE user_id=$1 AND created_at > now() - interval '1 day'
     AND status <> 'failed' AND ${RAN}`, [userId])).rows[0].n;
 }
+/**
+ * AI recipes are paid only (owner, 21 October 2026: no free tries). A member needs an active plan to start a job; plans begin
+ * when payments are connected (docs/COOK_DISCOVERY_PLAN.md §6), so until then no member has one and only the master account
+ * (unlimited usage, server/account-access.mjs) can start jobs. Wanted recipes are written by the system and are not affected.
+ */
+export async function planAccess(userId) {
+  if (!userId) return { needsPlan: true, unlimited: false };
+  const { unlimitedUsage } = await accountAccess(userId);
+  return { needsPlan: !unlimitedUsage && !await hasActivePlan(userId), unlimited: unlimitedUsage };
+}
+/** Subscriptions are not stored yet: store receipts and a subscription table arrive with payments. */
+async function hasActivePlan(_userId) { return false; }

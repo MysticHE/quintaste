@@ -9,7 +9,9 @@ export type AiJob = {
   createdAt: string; finishedAt: string | null; recipeId: string | null; retryable?: boolean;
 };
 /** `plan` stays null until payments are connected (src/config/ai-plans.ts); `usedThisMonth` counts recipes started this month. */
-export type AiRecipesStatus = { enabled: boolean; dailyPerMember: number; plan: null | { id: string; renewsAt: string }; usedThisMonth?: number };
+/** `usedToday` covers the rolling 24 hours the daily limit uses; `fullToday` means everyone's daily total is used; `limits` come from the server. */
+export type AiRecipesStatus = { enabled: boolean; dailyPerMember: number; plan: null | { id: string; renewsAt: string }; needsPlan?: boolean; usedThisMonth?: number;
+  usedToday?: number; fullToday?: boolean; limits?: { videoMinutes: number; videoMb: number; atOnce: number } };
 export const aiRecipesStatus = (signal: AbortSignal) => call<AiRecipesStatus>("/api/ai-recipes/status", { signal });
 export const myAiJobs = (signal: AbortSignal) => call<{ items: AiJob[] }>("/api/ai-recipes/mine", { signal });
 export const startAiJob = (kind: AiJobKind, input: string) => call<AiJob>("/api/ai-recipes", { method: "POST", body: { kind, input } });
@@ -17,7 +19,7 @@ export const aiJobActive = (job: AiJob) => job.status === "queued" || job.status
 export const MAX_UPLOAD_BYTES = 60 * 1024 * 1024;
 const tooLarge = () => new ApiError("Videos can be up to 60 MB. Trim it or pick a shorter clip.", 413);
 
-/** Sends a video from the phone for TikTok and Instagram, which block servers; `source` is the optional original link for credit. */
+/** Sends a video from the phone when its site blocks our server; `source` is the optional original link for credit. */
 export async function uploadAiVideo(video: { uri: string; mimeType?: string | null; fileSize?: number | null }, source: string) {
   const type = video.mimeType?.startsWith("video/") ? video.mimeType : "video/mp4";
   if (video.fileSize && video.fileSize > MAX_UPLOAD_BYTES) throw tooLarge();

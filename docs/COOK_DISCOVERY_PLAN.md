@@ -11,7 +11,7 @@ Owner thoughts, 21 October 2026: (1) track what members search for and, when not
 3. A term qualifies when at most 2 recipes match and at least 3 different members searched it in 14 days; at most 10 wanted recipes are written a day; two failures skip a term (`DEMAND` in `server/cook-search/demand.mjs`).
 4. Daypart windows as in §3, weekend brunch 06:00–12:00.
 5. The first card's time chip names the meal ("Dinner · 25 min"), and the search box keeps five recent searches on the device.
-6. AI Recipes plans: **AI Cook** S$9.99 a month for 5 AI recipes and **AI Cook Pro** S$24.99 a month for 20 (both confirmed by the owner, 21 October 2026). Payments not connected; nothing is gated.
+6. AI Recipes plans: **AI Cook** S$9.99 a month for 5 AI recipes and **AI Cook Pro** S$24.99 a month for 20 (both confirmed by the owner, 21 October 2026). Payments not connected; nothing is gated. **No free tier** (owner, 21 Oct): no "free" wording anywhere; the daily limit of 3 stays until payments open.
 
 ## 0. What exists today (so the plan reuses it)
 
@@ -82,8 +82,11 @@ Every schema change follows the runbook: backup, apply with the operations role,
 
 ## 6. AI Recipes plans and payment flow (owner, 21 October 2026)
 
+Pricing and paywall research, the screen redesign and the recommended price model: [AI recipes pricing and paywall](research/reports/AI%20recipes%20pricing%20and%20paywall.md).
+
 - Plans live in `src/config/ai-plans.ts` (`aiPlans`, `paymentsLive = false`). Every AI generation on Cook counts as one: describe a dish, import a video link, upload a video.
-- Screens: `/cook/ai-plans` (Free For Now card with this month's count, two selectable plan cards, Continue) → `/cook/ai-checkout?plan=` (plan, recipes a month, billed monthly, pay with App Store / Google Play / Card by platform, renewal and cancel line, Subscribe). With payments off, Subscribe opens "Payments Aren't Open Yet · Nothing was charged" and returns to AI Recipes. Entry points: AI Recipes plan row on `/cook/ai`, AI Recipes Plan row in Me.
+- Screens: `/cook/ai-plans` (two selectable plan cards, Continue) → `/cook/ai-checkout?plan=` (plan, recipes a month, billed monthly, pay with App Store / Google Play / Card by platform, renewal and cancel line, Subscribe). With payments off, Subscribe opens "Payments Aren't Open Yet · Nothing was charged" and returns to AI Recipes. Entry points: AI Recipes plan row on `/cook/ai`, AI Recipes Plan row in Me.
+- Limits on `/cook/ai` (owner, 21 Oct): "N of 3 used in the last 24 hours · 2 at a time" under the plan row; under Import A Video: up to 20 minutes and 60 MB per video, private, removed or region-blocked videos cannot be read, and the TikTok/Instagram upload tip. At the member's daily limit or when everyone's daily total is used, a notice explains it and the buttons are off. The numbers come from the server (`usedToday`, `fullToday`, `limits` in the status response; constants in `server/ai-recipes/limits.mjs`).
 - Server: `GET /api/ai-recipes/status` now returns `plan: null` and `usedThisMonth` (jobs started this Singapore month, failed ones excluded). The existing 3-a-day limit still applies; no monthly limit is enforced.
 - To connect payments later: phone apps must sell this through App Store and Google Play subscriptions (digital goods), the web through a card processor; a subscription table keyed by account, store receipt validation on the server, then the monthly allowance check in `withinQuota` (`server/ai-recipes/router.mjs`) when a gate control is on. Lawyer and pricing questions stay with the owner.
 
