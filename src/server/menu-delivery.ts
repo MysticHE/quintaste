@@ -107,7 +107,7 @@ function servable(id: string, staff: StaffContent, current: Applied | undefined,
   if (unchanged) return current;
   return sections.length ? { menu: { ...current.menu, sections }, fingerprint: fingerprint({ base: current.fingerprint, sections }) } : undefined;
 }
-/** Staff-created places, published once they have at least one dish. */
+/** Staff-created places: Mixed Kitchen ones are published once they have a labelled dish; Veg Kitchen ones may have none. */
 export const staffPlaceIds = (staff: StaffContent) => [...staff.items.values()].filter(item => item.kind === "place" && item.origin === "staff").map(item => item.id);
 /** QT Explorer places (veg options and fully vegetarian) that do not reuse a packaged place id. */
 export const editorialPlaceIds = (content = editorialContent()) => [...editorialPlaces(content).keys()].filter(id => !details.has(id));

@@ -53,9 +53,13 @@ function staffVenue(id: string, base: CatalogueVenue | undefined, staff: StaffCo
   if (!place && !staff.items.has("menu:" + id)) return base;
   if (place?.hidden || !base && place?.origin !== "staff") return undefined;
   const applied = staffMenu(id, staff, content);
-  if (!applied) return undefined;
   const { base: _base, sourceUrl: _sourceUrl, photo, hours, kitchen, menuTotal, ...fields } = (place?.data ?? {}) as StaffPlaceData;
-  const venue = { ...(base ?? { point: null, venueDiet: "Vegetarian", alliumFreeClaim: false }), ...fields, ...menuSummary(applied) } as CatalogueVenue;
+  // A staff-created Veg Kitchen place may have no dishes (owner, 21 Oct 2026), like a bot place proven by its name: it lists without a menu.
+  const menuless = !applied && place?.origin === "staff" && !kitchen;
+  if (!applied && !menuless) return undefined;
+  const summary = applied ? menuSummary(applied) : { id, name: fields.name ?? "", branch: fields.branch ?? "", address: fields.address ?? "", postalCode: fields.postalCode ?? "",
+    aliases: fields.aliases ?? [], googlePlaceId: null, fingerprint: hash({ staffPlace: id, data: place!.data }), checkedAt: new Date(place!.updated_at).toISOString(), itemCount: 0, sectionCount: 0 };
+  const venue = { ...(base ?? { point: null, venueDiet: "Vegetarian", alliumFreeClaim: false }), ...fields, ...summary } as CatalogueVenue;
   if (photo === null) delete venue.photo; else if (photo) venue.photo = photo;
   if (hours === null) delete venue.hours; else if (hours) venue.hours = hours;
   if (kitchen === null) delete venue.kitchen; else if (kitchen) venue.kitchen = kitchen;
