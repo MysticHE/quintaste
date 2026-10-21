@@ -2,7 +2,8 @@
 
 A Veg Kitchen place is a venue whose OWN page says the whole kitchen is vegetarian or vegan. The coordinator checks that
 statement (dietProof) against the stored copy of the cited page, and every menu item's exact name and explicit SGD price
-against the stored copy of the menu page (menu_coverage.price_matches; the venue's own site may print bare prices). Unlike
+against the stored copy of the menu page (menu_coverage.price_matches; the venue's own site may print bare prices, and "$" is
+SGD on any page showing no other currency). Unlike
 Mixed Kitchen there are no per-dish labels: mock-meat names are fine once the whole-venue statement is proven. Items that
 fail are dropped with a counted cause (never stored by name); fewer than three survivors holds the place.
 """
@@ -194,8 +195,9 @@ def item_id(name, used):
 PRICE_LINES = 8
 
 
-def check_item(item, lines, has_sgd, own):
-    """(verified item, None) or (None, cause): the exact name and an explicit SGD price on the stored page."""
+def check_item(item, lines, has_sgd, own, dollar=False):
+    """(verified item, None) or (None, cause): the exact name and an explicit SGD price on the stored page.
+    dollar: the page shows no other currency, so "$8.00" is SGD for this Singapore branch (21 Oct 2026)."""
     if not isinstance(item, dict) or not vc.text_ok(item.get('name'), 120):
         return None, 'invalid-item'
     category = item.get('category')
@@ -224,7 +226,7 @@ def check_item(item, lines, has_sgd, own):
     for i in spots:
         # Shop-style menus (WooCommerce, Shopify) print the price a few lines under the item's title; price_matches
         # takes only the first amount after the name, so a later item's price is never borrowed.
-        if mc.price_matches('\n'.join(lines[i:i + PRICE_LINES]), name, price, bare=own):
+        if mc.price_matches('\n'.join(lines[i:i + PRICE_LINES]), name, price, bare=own, dollar=dollar):
             dish = {'name': name.strip(), 'price': price}
             if category and category.strip():
                 dish['category'] = category.strip()
@@ -234,11 +236,13 @@ def check_item(item, lines, has_sgd, own):
 
 def check_items(root, candidate, menu, page, url):
     """(items with ids, dropped-cause counts) from Explorer's menu against the stored capture of its page."""
-    own = vc.site(url) in vc.official_sites(root, candidate) and not mc.FOREIGN.search(page['text'])
-    lines, has_sgd = page['text'].splitlines(), bool(re.search(r'S\$|\bSGD\b', page['text']))
+    singapore = not mc.FOREIGN.search(page['text'])
+    own = singapore and vc.site(url) in vc.official_sites(root, candidate)
+    lines = page['text'].splitlines()
+    has_sgd = bool(re.search(r'S\$|\bSGD\b', page['text']) or singapore and re.search(r'(?<![a-z])\$\s?\d', page['text'], re.I))
     items, used, names, dropped = [], set(), set(), {}
     for raw in (menu.get('items') or [])[:MAX_ITEMS] if isinstance(menu.get('items'), list) else []:
-        dish, why = check_item(raw, lines, has_sgd, own)
+        dish, why = check_item(raw, lines, has_sgd, own, singapore)
         if dish and (vc.norm(dish['name']) in names or dish['name'].lower() in names):
             dish, why = None, 'duplicate-name'
         if not dish:

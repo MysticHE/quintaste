@@ -131,5 +131,6 @@ export function publishedMenuIndex(now = Date.now(), withdrawn: ReadonlySet<stri
 
 export function publishedMenuDetail(id: string, now = Date.now(), withdrawn: ReadonlySet<string> = new Set(), staff = noStaff): MenuDetail | undefined {
   const content = editorialContent(), current = withdrawn.has(id) ? undefined : servable(id, staff, staffMenu(id, staff, content), content);
-  return current ? { version: 1, generatedAt: now, fingerprint: current.fingerprint, venues: [current.menu] } : undefined;
+  // a place with no dishes (owner, 21 Oct 2026) serves no menu: the menu page shows "No menu for this place yet"
+  return current?.menu.sections.length ? { version: 1, generatedAt: now, fingerprint: current.fingerprint, venues: [current.menu] } : undefined;
 }

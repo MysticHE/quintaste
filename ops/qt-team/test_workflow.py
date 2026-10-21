@@ -426,6 +426,18 @@ class VegOptions(unittest.TestCase):
         self.assertEqual(kc.check_item({'name': 'Brownies', 'price': unpriced}, cakes, False, True)[1], None)
         self.assertTrue(vc.shows_price('Brownies 12.50'))
 
+    def test_dollar_prices_count_as_sgd_on_singapore_pages(self):
+        import menu_coverage as mc, veg_kitchen_check as kc
+        # 21 Oct 2026: Podi & Poriyal, Sakhi and others were held because a Singapore page printed "$8.90", not "S$8.90".
+        lines = ['Masala Dosa', '$8.90', 'Idli (2 pcs) 4.50']
+        sgd = {'amount': 8.9, 'currency': 'SGD', 'type': 'displayed'}
+        self.assertEqual(kc.check_item({'name': 'Masala Dosa', 'price': sgd}, lines, True, False, True)[0]['price'], sgd)
+        self.assertEqual(kc.check_item({'name': 'Masala Dosa', 'price': sgd}, lines, True, False, False)[1], 'price-not-in-capture')
+        idli = {'amount': 4.5, 'currency': 'SGD', 'type': 'displayed'}
+        self.assertEqual(kc.check_item({'name': 'Idli (2 pcs)', 'price': idli}, lines, True, False, True)[1], 'price-not-in-capture')  # bare numbers still need the venue's own menu
+        self.assertFalse(mc.price_matches('Masala Dosa $8.90', 'Masala Dosa', sgd))  # the catalogue menu audit is unchanged
+        self.assertTrue(mc.FOREIGN.search('Masala Dosa RM 8.90'))  # a Malaysian page never counts as Singapore
+
     def test_hours_match_as_times_of_day_not_as_text(self):
         import veg_options_check as vc
         # 20 Oct 2026: every proposed schedule failed because 3:00pm on the page never matched 15:00 in the schedule.
@@ -1054,6 +1066,27 @@ class VegKitchen(unittest.TestCase):
         self.assertEqual((record['status'], record['vegKitchen']['cause']), ('held', 'too-few-verified-items'))
         record = vk_packet(self.root, candidate=vk_candidate(website='https://elsewhere.sg'))['records'][0]
         self.assertEqual(record['vegKitchen']['cause'], 'too-few-verified-items')  # bare prices need the venue's own site
+
+    def test_name_proven_place_goes_live_without_a_menu(self):
+        import veg_kitchen as vk
+        # Owner, 21 Oct 2026: a stall whose own name says vegetarian is not held for having no menu online.
+        home = 'Green Leaf Vegetarian\n12 Bugis Street, Singapore 188652\nOpen daily 11am to 9pm'
+        nomenu = {'sourceUrl': VK_HOME, 'sourceLabel': 'Venue listing', 'items': []}
+        for decision in ('qualifies', 'held'):
+            with self.subTest(decision):
+                finding = vk_finding(decision=decision, name='Green Leaf Vegetarian', dietProof=None, menu=nomenu,
+                                     sources=[{'url': VK_HOME, 'evidence': 'Listing'}])
+                record = vk_packet(self.root, finding=finding, candidate=vk_candidate(nameHint='Green Leaf Vegetarian'), home=home)['records'][0]
+                self.assertEqual(record['status'], 'proposed', record['vegKitchen'].get('cause'))
+                place = record['vegKitchen']['place']
+                self.assertEqual((place['menu']['items'], place['dietProof']['quote']), ([], 'Green Leaf Vegetarian'))
+                self.assertIsNone(vk.menu_problem(dict(place, sourceUrls=[VK_HOME])))
+        # a place proven only by its Google category still needs its menu
+        held = vk_packet(self.root, finding=vk_finding(decision='held', dietProof=None, menu=nomenu, sources=[{'url': VK_HOME, 'evidence': 'Listing'}]),
+                         home=home.replace('Green Leaf Vegetarian', 'Green Leaf Kitchen'))['records'][0]
+        self.assertEqual((held['status'], held['vegKitchen']['cause']), ('held', 'explorer-held'))
+        place = dict(record['vegKitchen']['place'], sourceUrls=[VK_HOME], dietProof={'sourceUrl': VK_HOME, 'quote': 'Listed on Google Maps as a vegetarian restaurant.'})
+        self.assertTrue(vk.menu_problem(place))
 
     def test_place_contract_mirror_rejects_every_way_the_app_would(self):
         import veg_kitchen as vk

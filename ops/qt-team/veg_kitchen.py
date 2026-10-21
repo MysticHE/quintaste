@@ -163,8 +163,7 @@ CONTRACT = (
     "(1) 'qualifies' when the venue's OWN words say the whole venue or kitchen is vegetarian or vegan: its website, About or menu page, official "
     "ordering page, or its own Facebook, Instagram or TikTok page (owner, 20 Oct 2026). Copy that statement as dietProof {sourceUrl, quote}: quote at most 25 words, copied exactly from that page "
     "(one line of plain text), saying the whole venue is vegetarian or vegan, for example '100% vegetarian', 'all our dishes are vegan' or 'a fully "
-    "plant-based kitchen'. A Google Maps category such as 'Vegetarian restaurant' or 'Vegan restaurant' helps confirm identity but is NOT diet "
-    "proof, and neither is a delivery app's category or description, a review, a directory or a blog. Owner, 20 Oct 2026: the venue's OWN NAME "
+    "plant-based kitchen'. A delivery app's category or description, a review, a directory or a blog is not proof. Owner, 20 Oct 2026: the venue's OWN NAME "
     "saying Vegetarian, Vegan, 素, 斋 or 纯素 (for example 'Kwan Im Vegetarian Restaurant'), or its Google Maps category 'Vegetarian restaurant' or "
     "'Vegan restaurant', DOES decide it: return 'qualifies' with dietProof {sourceUrl: the page showing it, quote: the name or category exactly as "
     "printed}, unless its menu shows real meat or seafood (then 'not-qualified', 'mixed-kitchen'). Never hold a place only for a missing statement. 'Vegetarian options', "
@@ -178,10 +177,16 @@ CONTRACT = (
     "already confirmed by the owner: no dietProof is needed, return 'qualifies' with the identity, menu and hours. Otherwise, when a page cannot be "
     "read, decision is 'held' (say which in reason). "
     "(3) venueDiet is 'Vegan' only when the quote says vegan, plant-based, no animal products or animal-free; otherwise 'Vegetarian'. "
-    "(4) menu: web_extract the venue's menu page or PDF (web_extract reads PDFs, including scanned ones) or an official ordering page for this "
-    "branch, and return at least 3 dishes (up to about 150) with the name exactly as printed, an optional category (at most 40 characters) and an "
+    "(4) menu: web_extract the venue's menu page or PDF (web_extract reads PDFs, including scanned ones), an official ordering page for this "
+    "branch, or this branch's own listing on a delivery or ordering platform (Grab, foodpanda, Deliveroo, Oddle, WhyQ and the like; confirm the "
+    "listing's name and address or unit match this branch), and return at least 3 dishes (up to about 150) with the name exactly as printed, an optional category (at most 40 characters) and an "
     "explicit SGD price: price {amount, currency:'SGD', type:'displayed'|'from', maxAmount?}. Do not return a diet field. On the venue's own website "
-    "menu or PDF a bare price that ends the dish's line (e.g. 18.9) is SGD; on other pages the page must show S$ or SGD. When the venue's own menu lists a dish with no price at all, return price {amount:null, currency:'unknown', type:'displayed'} (shown as 'Price unavailable'); never guess, and never leave out a price the page shows. The menu is a partial "
+    "menu or PDF a bare price that ends the dish's line (e.g. 18.9) is SGD; on any other page of this Singapore branch a '$' price (e.g. $8.90) is SGD "
+    "unless the page shows another currency. A delivery platform's dish description that names real meat or seafood at a venue proven fully "
+    "vegetarian is usually the platform's template text: leave that dish out and note it in gaps; it is a mixed kitchen only when the venue's own "
+    "menu sells real meat or seafood. Owner, 21 Oct 2026: when the venue's own name says vegetarian or vegan, or the candidate has ownerDiet, "
+    "and no menu can be found online, still return 'qualifies' with the identity, hours and menu {sourceUrl: nameSourceUrl, sourceLabel: "
+    "'Venue listing', items: []}; never hold such a place only for a missing menu. When the venue's own menu lists a dish with no price at all, return price {amount:null, currency:'unknown', type:'displayed'} (shown as 'Price unavailable'); never guess, and never leave out a price the page shows. The menu is a partial "
     "sample: never claim it is complete. The coordinator checks every name and price against the stored copy of the page you cite and drops anything "
     "it cannot find, so do not guess prices. "
     "(5) Identity: web_extract the candidate's mapsUrl exactly as given (it counts toward the 2 Google Maps extracts per venue; never reuse Google "
@@ -212,7 +217,10 @@ REVIEW_RULES = (
     "(real meat or seafood sold, or vegetarian dishes among meat dishes; a mock-meat dish named after meat is not real meat). Conflicting or unconfirmed "
     "opening hours are never on their own a reason to hold. Dish names such as chicken or fish are fine when the statement exists. The coordinator has already matched the "
     "quote on the stored page, every listed item's exact name and SGD price on the menu capture (droppedCauses counts the items it dropped), the venue name "
-    "and the OneMap postcode on stored pages. The menu is a partial sample: do not hold a place for being incomplete. The place must be this branch and not "
+    "and the OneMap postcode on stored pages. A '$' price on a page of this Singapore branch that shows no other currency is SGD, and this branch's "
+    "own delivery or ordering-platform listing is an acceptable menu source (21 Oct 2026); a dish left out because a platform description names "
+    "meat is not a reason to hold. The menu is a partial sample: do not hold a place for being incomplete. Owner, 21 Oct 2026: a place whose "
+    "proof is its own name or the owner's confirmation may have fewer than 3 dishes or none (no menu online); never hold it for that. The place must be this branch and not "
     "closed; no allium-free claim is allowed. Hold when evidence is doubtful; exclude when it does not qualify. Held and excluded worker records keep their "
     "status. No menuReviewDecision is needed for these records. A record whose vegKitchen.recheck is true re-verifies a place already in Explore: review it "
     "the same way (ready when the excerpts still show the whole-venue statement; exclude when they no longer do). ")
@@ -221,7 +229,9 @@ PUBLICATION_RULE = (
     "A candidate of kind place whose id starts with 'vk-' adds or updates a Veg Kitchen place in Explore (a fully vegetarian or vegan venue; its menu is a "
     "partial sample). Approve it when the captured excerpts show this exact branch (name and postcode), the venue's own statement that the whole venue is "
     "vegetarian or vegan (dietProof.quote on the cited page, dietProof.confirmedBy: the owner confirmed it on Telegram, or, owner 20 Oct 2026, the venue's own "
-    "name saying vegetarian or vegan or its Google Maps vegetarian/vegan restaurant category; never a delivery-app category), and listed dishes with explicit SGD prices or 'Price unavailable' where the venue's menu shows none; hold it "
+    "name saying vegetarian or vegan or its Google Maps vegetarian/vegan restaurant category; never a delivery-app category), and listed dishes with explicit SGD prices "
+    "('$' on a page of this Singapore branch showing no other currency is SGD; the branch's own delivery listing is an acceptable menu source) or 'Price unavailable' where the venue's menu shows none; "
+    "owner, 21 Oct 2026: a place whose proof is its own name or the owner's confirmation may have fewer than 3 dishes or none; hold it "
     "when the proof is only a delivery-app category or 'options', real meat or seafood is sold, or the branch differs (conflicting hours alone are not a reason). A candidate whose only change is a new photo is an "
     "owner-approved cover: approve it when the captured photo page shows the credited licence and this branch, and review its image like a venue cover. ")
 
@@ -264,8 +274,8 @@ def check_candidate(root, candidate, finding, checked, extracted):
     # Owner, 20 Oct 2026: a name that says vegetarian or vegan, or a Google listing as a vegetarian or vegan restaurant, decides it
     # without asking; the owner is asked only when neither says so.
     named = None if owner else auto_basis(root, candidate, finding, cited)
-    if decision == 'ask-owner' and named:
-        owner = named
+    if decision == 'ask-owner' and named or decision == 'qualifies' and named and not isinstance(finding.get('dietProof'), dict):
+        owner = named  # no quote returned: the name or Google listing is the proof
     if decision == 'ask-owner' and owner:
         decision = 'qualifies'  # the owner already answered; the identity, menu and hours checks still run
     if decision == 'ask-owner' and not closed:
@@ -275,6 +285,10 @@ def check_candidate(root, candidate, finding, checked, extracted):
         record['status'] = 'excluded'
         block['cause'] = 'closed' if closed else 'mixed-kitchen' if kc.MIXED.match(str(finding.get('reason', ''))) else 'explorer-not-qualified'
         return record
+    if decision == 'held' and not closed and (owner or named and named['kind'] == 'name'):
+        # Owner, 21 Oct 2026: a place whose own name (or the owner) says vegetarian or vegan is not held for a missing menu; the
+        # identity, postcode and hours checks below still decide it.
+        owner, decision = owner or named, 'qualifies'
     if decision != 'qualifies':
         block['cause'] = 'explorer-held' if decision == 'held' else 'invalid-finding'
         return record
@@ -337,13 +351,21 @@ def prove(root, candidate, finding, cited, checked, record, owner=None):
     menu = finding.get('menu') if isinstance(finding.get('menu'), dict) else {}
     url = menu.get('sourceUrl')
     page = vc.capture(root, url) if url in cited else None
-    if not page:
+    # Owner, 21 Oct 2026: a place proven by its own name or by the owner's Telegram answer goes live with the dishes that pass,
+    # even none (many stalls have no menu online); a place proven only by its Google category still needs a menu.
+    optional = bool(owner) and owner.get('kind') != 'google'
+    items = []
+    if page:
+        items, block['droppedCauses'] = kc.check_items(root, candidate, menu, page, url)
+    elif not optional:
         return 'source-not-cited' if url not in cited else 'no-stored-capture'
-    items, dropped = kc.check_items(root, candidate, menu, page, url)
-    block['droppedCauses'] = dropped
     if len(items) < kc.MIN_ITEMS:
         record['notes'] = (record['notes'] + f' Only {len(items)} item(s) passed the name and price check.').strip()
-        return 'too-few-verified-items'
+        if not optional:
+            return 'too-few-verified-items'
+        notes.append('Listed with ' + (f'{len(items)} verified dish(es)' if items else 'no menu') + ': its whole-venue diet comes from its name or the owner.')
+    if not page:
+        url, menu = finding['nameSourceUrl'], {'sourceLabel': 'Venue listing'}
     day = kc.clamp_date(vc.sg_date(checked))
     hours = vc.check_hours(root, finding.get('hours'), cited)
     if finding.get('hours') and not hours:
@@ -489,11 +511,18 @@ def hours_problem(p):
     return None
 
 
+def menu_optional(p):
+    """A place whose whole-venue proof is its own name or the owner's Telegram answer may list fewer than 3 dishes, even none
+    (owner, 21 Oct 2026); the app applies the same test (server/editorial/validation.mjs)."""
+    proof = p.get('dietProof') or {}
+    return bool(proof.get('confirmedBy')) or str(proof.get('quote') or '').strip() == str(p.get('name') or '').strip()
+
+
 def menu_problem(p):
     m = p['menu']
     if not (isinstance(m, dict) and set(m) == {'sourceUrl', 'sourceLabel', 'checkedAt', 'items'} and kc.app_url(m['sourceUrl']) and m['sourceUrl'] in p['sourceUrls']
             and vc.text_ok(m['sourceLabel'], 80) and day_ok(m['checkedAt']) and isinstance(m['items'], list)
-            and kc.MIN_ITEMS <= len(m['items']) <= kc.MAX_ITEMS):
+            and (0 if menu_optional(p) else kc.MIN_ITEMS) <= len(m['items']) <= kc.MAX_ITEMS):
         return 'A Veg Kitchen place needs 3 to 400 menu items'
     ids, names = set(), set()
     for i in m['items']:

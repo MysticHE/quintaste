@@ -25,7 +25,7 @@ export function CatalogueVenueCard({ venue, more, review }: { venue: CatalogueVe
   return <PhotoPostCard testID="catalogue-venue" titleTestID="catalogue-card-name" photo={{ path: venue.photo?.path, emptyIcon: placeTileIcon(venue) }} title={venue.name}
     label={[venue.name, venue.address, metadata, hoursSummary].filter(Boolean).join(". ")} hint="Opens this branch's location and details"
     onPress={() => router.push({ pathname: "/place/[id]", params: { id } } as never)}
-    topLeft={<MenuEntry menu={venue} compact />}
+    topLeft={venue.itemCount > 0 && <MenuEntry menu={venue} compact />}
     topRight={more && <IconButton label={"More options for " + venue.name} icon="ellipsis-horizontal" appearance="media" onPress={more} />}
     side={<ReactionColumn kind="place" id={venue.id} name={venue.name} shareMessage={() => placeShareMessage(venue)}
       save={{ saved, busy: false, disabled: !readable, onPress: () => void toggleSave("place", id, venue.name) }} />}>

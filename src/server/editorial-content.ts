@@ -72,12 +72,14 @@ export function editorialPlaces(content = editorialContent()): ReadonlyMap<strin
     // A Mixed Kitchen place keeps the venue's V/VG label on each dish; a fully vegetarian place serves every dish unlabelled, like a packaged Veg Kitchen one.
     const options = data.kitchen === "options";
     const items: MenuItem[] = data.menu.items.map(item => ({ id: item.id, name: item.name, ...(item.category ? { category: item.category } : {}), price: { ...item.price }, qualifier: "", ...(options && item.diet ? { diet: item.diet } : {}) }));
-    const menu: PublishedMenu = { ...identity, sections: [{ id: options ? "veg-options" : "menu", title: options ? "Vegetarian dishes" : "Menu", scope: "branch-dine-in", coverage: "partial", checkedAt: dayStamp(data.menu.checkedAt),
-      sourceUrl: data.menu.sourceUrl, sourceLabel: data.menu.sourceLabel, notice: "", charges: "", items }] };
+    // A Veg Kitchen place proven by its name or the owner may have no dishes (owner, 21 Oct 2026): it serves no menu section.
+    const sections = items.length ? [{ id: options ? "veg-options" : "menu", title: options ? "Vegetarian dishes" : "Menu", scope: "branch-dine-in" as const, coverage: "partial" as const, checkedAt: dayStamp(data.menu.checkedAt),
+      sourceUrl: data.menu.sourceUrl, sourceLabel: data.menu.sourceLabel, notice: "", charges: "", items }] : [];
+    const menu: PublishedMenu = { ...identity, sections };
     // For a fully vegetarian place the quote's page and the menu page come first, so the 12-source limit can never drop the evidence for the diet.
     const sources = options ? [...data.sourceUrls, data.menu.sourceUrl] : [...(data.dietProof ? [data.dietProof.sourceUrl] : []), data.menu.sourceUrl, ...data.sourceUrls];
     const sourceUrls = [...new Set(sources)].slice(0, 12);
-    const venue: CatalogueVenue = { ...identity, fingerprint, checkedAt: dayStamp(data.menu.checkedAt), sectionCount: 1, itemCount: data.menu.items.length, point: { latitude: data.point.latitude, longitude: data.point.longitude },
+    const venue: CatalogueVenue = { ...identity, fingerprint, checkedAt: dayStamp(data.menu.checkedAt), sectionCount: sections.length, itemCount: items.length, point: { latitude: data.point.latitude, longitude: data.point.longitude },
       venueDiet: data.venueDiet, alliumFreeClaim: false, ...(options ? { kitchen: "options" as const } : {}), ...(data.hours ? { hours: data.hours } : {}), ...(data.photo ? { photo: data.photo } : {}),
       research: { sourceUrls, notes: [], checkedAt: data.checkedAt } };
     result.set(data.id, { venue, menu, fingerprint });

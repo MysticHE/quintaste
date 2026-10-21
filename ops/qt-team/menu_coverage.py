@@ -102,9 +102,10 @@ def money_matches(nearby,match,price):
     return bool(upper and float(upper[1])==price['maxAmount'])
 
 
-def price_matches(body,name,price,bare=False):
+def price_matches(body,name,price,bare=False,dollar=False):
     """Basic evidence guard; independent Manager still checks semantic pairing. bare: the capture is the
-    venue's own recorded menu, where Singapore menus often print prices without S$ (owner, 19 Oct 2026)."""
+    venue's own recorded menu, where Singapore menus often print prices without S$ (owner, 19 Oct 2026).
+    dollar: a page of a Singapore branch showing no other currency, where "$8.00" is SGD (21 Oct 2026)."""
     text=unicodedata.normalize('NFKC',body).casefold();positions=[n for n,c in enumerate(text) if c.isalnum()]
     slim=''.join(text[n] for n in positions);needle=normalize(name);start=0
     while (found:=slim.find(needle,start))>=0:
@@ -117,7 +118,7 @@ def price_matches(body,name,price,bare=False):
         if match and money_matches(nearby,match,price):return True
         # On the venue's own menu a plain "$8.00" is SGD; only the first amount after the name counts (the dish's own
         # price, often on the next line or under a shop-grid title), never a later dish's (20 Oct 2026).
-        if bare and (dollar:=re.search(r'(?<![a-z])\$\s*(\d+(?:\.\d{1,2})?)',nearby[:300])) and money_matches(nearby,dollar,price):return True
+        if (bare or dollar) and (sign:=re.search(r'(?<![a-z])\$\s*(\d+(?:\.\d{1,2})?)',nearby[:300])) and money_matches(nearby,sign,price):return True
         newline=text.find('\n',end)
         if bare and bare_price(text[end:newline if newline>=0 else len(text)],price):return True
     return False

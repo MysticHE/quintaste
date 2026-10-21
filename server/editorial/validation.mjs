@@ -150,7 +150,10 @@ function validateVegKitchenPlace(p) {
   requireValue(!deniesDiet(proof.quote), 'The quote must not deny that the venue is vegetarian or vegan');
   requireValue(p.venueDiet !== 'Vegan' || veganWords.test(proof.quote), 'A Vegan place needs a quote that says vegan or plant-based');
   const m = p.menu;
-  requireValue(keys(m, ['sourceUrl', 'sourceLabel', 'checkedAt', 'items']) && publicUrl(m.sourceUrl) && text(m.sourceLabel, 80) && date(m.checkedAt) && Array.isArray(m.items) && m.items.length >= 3 && m.items.length <= 400, 'A vegetarian place needs 3 to 400 dishes');
+  // Owner, 21 Oct 2026: a place proven by its own name (the quote is the name) or by the owner's Telegram confirmation may list fewer
+  // than 3 dishes, even none, since many stalls have no menu online. The bot applies the same test (veg_kitchen.menu_optional).
+  const fewer = proof.confirmedBy !== undefined || proof.quote.trim() === String(p.name).trim();
+  requireValue(keys(m, ['sourceUrl', 'sourceLabel', 'checkedAt', 'items']) && publicUrl(m.sourceUrl) && text(m.sourceLabel, 80) && date(m.checkedAt) && Array.isArray(m.items) && m.items.length >= (fewer ? 0 : 3) && m.items.length <= 400, 'A vegetarian place needs 3 to 400 dishes');
   const ids = new Set(), names = new Set();
   for (const i of m.items) validateDish(i, ids, names, dish => requireValue(dish.diet === undefined || dish.diet === 'VG' || dish.diet === 'V' && p.venueDiet !== 'Vegan', 'Invalid dish label for this venue diet'));
 }

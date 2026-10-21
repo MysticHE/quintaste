@@ -63,7 +63,7 @@ export function CataloguePlaceDetailScreen({ id }: { id: string }) {
       </View>
       <View testID="place-primary-actions" style={[s.actions, { backgroundColor: theme.card, borderColor: theme.border }]}>
         <PlaceDetailAction label="Directions" icon="navigate-outline" onPress={() => void open(directions)} />
-        <PlaceDetailAction label="Menu" icon="book-outline" accessibleLabel={"View menu for " + venue.name} onPress={() => router.push({ pathname: "/menu/[id]", params: { id: venue.id } } as never)} />
+        {venue.itemCount > 0 && <PlaceDetailAction label="Menu" icon="book-outline" accessibleLabel={"View menu for " + venue.name} onPress={() => router.push({ pathname: "/menu/[id]", params: { id: venue.id } } as never)} />}
         <PlaceDetailAction label={saved ? "Saved" : "Save"} accessibleLabel={(saved ? "Remove saved " : "Save ") + venue.name} icon={saved ? "bookmark" : "bookmark-outline"}
           selected={saved} disabled={!readable || saving} onPress={() => void save()} />
       </View>

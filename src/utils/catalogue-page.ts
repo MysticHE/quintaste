@@ -48,7 +48,8 @@ export function readCatalogueVenue(value: unknown): CatalogueVenue {
     || typeof v.name !== "string" || v.name.length > 300 || typeof v.address !== "string" || v.address.length > 600
     || typeof v.branch !== "string" || typeof v.fingerprint !== "string" || !/^[a-f0-9]{64}$/.test(v.fingerprint)
     || !["Vegetarian", "Vegan"].includes(v.venueDiet) || typeof v.alliumFreeClaim !== "boolean"
-    || !Number.isSafeInteger(v.itemCount) || v.itemCount < 1 || !Number.isSafeInteger(v.sectionCount) || v.sectionCount < 1
+    // 0 dishes: a Veg Kitchen place proven by its name or the owner, with no menu online (owner, 21 Oct 2026)
+    || !Number.isSafeInteger(v.itemCount) || v.itemCount < 0 || !Number.isSafeInteger(v.sectionCount) || v.sectionCount < 0
     || (v.point !== null && (!v.point || !inSingapore(v.point)))
     || (v.distanceKm !== undefined && (!Number.isFinite(v.distanceKm) || v.distanceKm < 0))
     // A veg options place is never fully vegetarian and never carries an allium-free claim.

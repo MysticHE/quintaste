@@ -103,7 +103,8 @@ rights. No venue photographs are invented to fill gaps.
 ## Veg Kitchen additions (20 October 2026)
 
 QT Explorer's `veg-kitchen` task finds places Explore does not list yet that are **fully** vegetarian or vegan: the venue's own
-page must say the whole kitchen is (a Google or delivery-app category is never proof). The coordinator checks that statement, the
+page, its own name or its Google Maps vegetarian/vegan restaurant category must say the whole kitchen is (owner, 20 Oct 2026; a
+delivery-app category is never proof). Menus may come from the branch's own delivery listing, where "$" is SGD. The coordinator checks that statement, the
 name, the postcode and every menu item's name and SGD price against stored captures (`veg_kitchen_check.py`), QT Manager reviews,
 and the publisher adds the place as kind `place` with an id `vk-...`. Telegram sends "Added to Explore (Veg Kitchen)" with Remove
 per place. The 24-hour Round runs one parallel wave of four-place workers per round (`Round.veg_kitchen`, before Mixed Kitchen,
