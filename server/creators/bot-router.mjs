@@ -1,5 +1,6 @@
 import express from 'express';
 import { pool } from '../config.mjs';
+import { createHash } from 'node:crypto';
 import { json, raw, signed } from '../bot-signature.mjs';
 
 /**
@@ -81,13 +82,16 @@ export function readChannel(c) {
 /** A creator from the scout, or null when malformed. Diets are only what the creator's own words said (the bot checked the quote). */
 export function readCreator(c) {
   if (!c || typeof c !== 'object') return null;
-  const name = clean(c.name, 120), id = slug(name);
-  const channels = Array.isArray(c.channels) ? c.channels.slice(0, 8).map(readChannel) : [];
-  if (id.length < 3 || channels.some(ch => !ch) || (c.website != null && !httpsUrl(c.website, 300))) return null;
-  if (!c.website && !channels.length) return null;
+  const name = clean(c.name, 120);
+  // A name without Latin letters (a Chinese channel, 22 Oct 2026) gets a stable id from its hash; the name itself is kept as written.
+  const id = slug(name).length >= 3 ? slug(name) : 'creator-' + createHash('sha256').update(name).digest('hex').slice(0, 10);
+  // A malformed channel is left out rather than losing the creator; one without any usable link is skipped.
+  const channels = Array.isArray(c.channels) ? c.channels.slice(0, 8).map(readChannel).filter(Boolean) : [];
+  const website = c.website != null && httpsUrl(c.website, 300) ? c.website : null;
+  if (!name || (!website && !channels.length)) return null;
   return { id, name, kind: c.kind === 'organisation' ? 'organisation' : 'person', country: /^[A-Z]{2}$/.test(c.country ?? '') ? c.country : null,
     region: REGIONS.includes(c.region) ? c.region : 'world', languages: words(c.languages, 6), diets: words(c.diets, 5, DIETS),
-    cuisines: words(c.cuisines, 8), website: c.website ?? null, note: clean(c.note, 500), channels };
+    cuisines: words(c.cuisines, 8), website, note: clean(c.note, 500), channels };
 }
 
 async function upsertChannel(db, creatorId, ch) {
@@ -105,8 +109,11 @@ async function upsertChannel(db, creatorId, ch) {
 creatorBots.post('/creators', raw('128kb'), signed, async (req, res, next) => {
   const body = json(req), found = Array.isArray(body?.creators) ? body.creators : [], refresh = Array.isArray(body?.channels) ? body.channels : [];
   if (!body || found.length > MAX_CREATORS || refresh.length > MAX_CHANNELS) return res.status(400).json({ error: `Send at most ${MAX_CREATORS} creators and ${MAX_CHANNELS} channels` });
-  const creators = found.map(readCreator), channels = refresh.map(c => ({ creatorId: typeof c?.creatorId === 'string' ? c.creatorId : '', channel: readChannel(c) }));
-  if (creators.some(c => !c) || channels.some(c => !/^[a-z0-9][a-z0-9-]{2,79}$/.test(c.creatorId) || !c.channel)) return res.status(400).json({ error: 'Invalid creator or channel' });
+  // One malformed entry is skipped and counted, never failing the rest of the week's finds.
+  const creators = found.map(readCreator).filter(Boolean);
+  const channels = refresh.map(c => ({ creatorId: typeof c?.creatorId === 'string' ? c.creatorId : '', channel: readChannel(c) }))
+    .filter(c => /^[a-z0-9][a-z0-9-]{2,79}$/.test(c.creatorId) && c.channel);
+  const skipped = found.length - creators.length + refresh.length - channels.length;
   const db = await pool.connect();
   try {
     await db.query('BEGIN');
@@ -146,7 +153,7 @@ creatorBots.post('/creators', raw('128kb'), signed, async (req, res, next) => {
       FROM creators.score s WHERE s.creator_id = c.id AND c.found_by = 'scout' AND c.status = 'active' AND NOT c.pinned
         AND c.created_at < now() - interval '90 days' AND s.passed = 0`);
     await db.query('COMMIT');
-    res.json({ added, updated, refreshed, paused: paused.rowCount });
+    res.json({ added, updated, refreshed, paused: paused.rowCount, skipped });
   } catch (error) {
     await db.query('ROLLBACK').catch(() => {});
     if (missing(error)) return res.status(503).json({ error: 'Creator library not installed' });

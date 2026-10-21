@@ -69,7 +69,7 @@ def library():
 def scout(creators, channels):
     """Send what the weekly creator scout found: new creators (with their channels) and refreshed counts for known channels
     ({creatorId, platform, handle, url, followers?, posts?}). Returns the app's counts; raises when the app refuses the call."""
-    out = {'added': 0, 'updated': 0, 'refreshed': 0, 'paused': 0}
+    out = {'added': 0, 'updated': 0, 'refreshed': 0, 'paused': 0, 'skipped': 0}
     # the app accepts 40 creators and 200 channels per call; creators go first, then channel refreshes, each packed under MAX_BODY
     parts = [{'creators': p, 'channels': []} for p in packs(creators, 40)] + [{'creators': [], 'channels': p} for p in packs(channels, 200)]
     for part in parts or [{'creators': [], 'channels': []}]:  # an empty call still runs the 90-day pause
