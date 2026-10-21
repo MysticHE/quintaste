@@ -57,6 +57,13 @@ What this shows:
 - The bots' model is reached through the ChatGPT Codex sign-in, and Codex does not accept video input in Hermes. The bots answered honestly and wrote no recipe. Making the bots read video needs either a video-capable provider for Hermes's vision work, or turning the video into still frames and a transcript first (Codex reads images).
 - TikTok and YouTube block the server's downloads; Instagram and Facebook downloaded. Member uploads avoid the download step.
 
+Retest, 21 Oct 2026, 04:21 to 04:30 UTC, with QT Videomaker's vision model set to `google/gemini-3.8-flash` through a Nous Portal Plus sign-in (profile `auxiliary.vision`; the other bots stay on Sol 6.1):
+- Instagram: watched in 24 seconds; the bot correctly answered that the reel is a taste test of packaged snacks, not a recipe. Measured: 4,599 input and 1,779 output tokens, about US$0.010, the same per-token price as Google's own Gemini rate. Sol 6.1 wrote the answer on the ChatGPT plan at no token cost.
+- Facebook (196 seconds): refused by Nous because one request may carry at most 10 MB. The app only shrinks videos over 30 MB.
+- For comparison, the app's Gemini engine used 55,406 / 4,071 and 94,295 / 5,452 input / output tokens on its two full video jobs (four calls each: draft, check against the video, frame reviews), about US$0.06 and US$0.09.
+
+Owner decision, 21 Oct: Nous charges the same per token as the Gemini API, so the bots engine stays off and Gemini keeps writing AI recipes. The bots engine, bridge service and Nous sign-in remain installed but unused.
+
 Other behaviour: a task nobody claims fails after 10 minutes when no bridge is polling, otherwise after 3 hours in line; a claimed task has 30 minutes to answer.
 
 ## 5. Open items
