@@ -76,7 +76,7 @@ export const DISHES: Record<string, Dish> = Object.fromEntries(([
   ], "Rice takes the longest, so start it first and cook other orders while it steams.", "claypot-rice"),
   dish({
     id: "nasi-lemak", name: "Nasi lemak", art: "dish-nasi-lemak", recipeId: "nasi-lemak",
-    remember: "Many sambals contain belacan, a shrimp paste. Check the label in a vegetarian kitchen.",
+    remember: "Many sambals contain belacan, a shrimp paste. Check the label in a plant-based kitchen.",
     parts: [
       { id: "coconut-rice", name: "Coconut rice", station: "rice", stages: [
         { slots: [slot("rice", "Rice", ["rice"]), slot("cream", "Coconut milk", ["coconut-milk"]), slot("leaf", "Pandan", ["pandan"], true)], secs: 12, hint: "rice and coconut milk" }] },

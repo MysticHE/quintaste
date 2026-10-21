@@ -3,10 +3,12 @@
  * player used, so the API settles credits from what actually happened rather than from what the client claims.
  * Pure TypeScript, no DOM: the Node API loads this file directly.
  */
-import { STATIONS, DISHES, type StationKind } from "../content/dishes";
+import { STATIONS, type StationKind } from "../content/dishes";
 import { GUESTS, RULES } from "../content/guests";
-import { ITEMS } from "../content/items";
 import { LEVELS, levelByNumber, type Level } from "../content/levels";
+import { BUILTIN, packByHash } from "../content/pack";
+import { missionFor, TIERS, type Tier } from "../mission";
+import { LUNAR_VERSION } from "../../data/lunar";
 import { CREDIT_REWARDS, PETS, SKILLS } from "../content/cosmetics";
 import * as sim from "./engine";
 import { emptyGame, type GameProgress } from "../progress";
@@ -19,6 +21,8 @@ const ENGINE_VERSION = 4;
  * cleared when it started (`top`); `hints` is the Play your way hint setting the run used.
  */
 export type RunSetup = { level: number; special?: { day: string; top: number } | null; hints?: Level["hints"] | null; pet: string; signature: string[];
+  /** A Recipe Kitchen mission: the level pack's hash and the tier (mission.ts). The pack must be registered first. */
+  mission?: { pack: string; tier: Tier } | null;
   /** The service's seed: arrivals, shuffled jars and twists. The app derives it from the run's id (`seedOf`), the server from the stored id. */
   seed: number };
 
@@ -33,6 +37,11 @@ export const progressAt = (top: number): GameProgress => {
 };
 /** The level a setup plays: a numbered level, or the special for its date. Throws ReplayError when it cannot exist. */
 export function setupLevel(setup: RunSetup): Level {
+  if (setup.mission) {
+    const pack = packByHash(String(setup.mission.pack));
+    if (!pack || !TIERS.includes(setup.mission.tier)) throw new ReplayError("unknown mission");
+    return missionFor(pack, setup.mission.tier);
+  }
   if (setup.special) {
     const top = int(setup.special.top, LEVELS.length), sp = specialFor(progressAt(top), String(setup.special.day));
     if (!sp) throw new ReplayError("no special");
@@ -45,9 +54,15 @@ export function setupLevel(setup: RunSetup): Level {
 const hintsOf = (setup: RunSetup) => setup.hints === "full" || setup.hints === "chip" || setup.hints === "none" ? setup.hints : undefined;
 export const MAX_ACTIONS = 6000;
 
-/** FNV-1a over the rules content and the engine version: client and server must agree before a run can settle. */
+/**
+ * FNV-1a over the built-in rules content and the engine version: client and server must agree before a run can settle.
+ * Level packs are left out (their dishes and items are added later, content/pack.ts) and carry their own hash, so a new
+ * recipe level never forces older apps to update.
+ */
 function computeRulesVersion() {
-  const text = JSON.stringify({ e: ENGINE_VERSION, LEVELS, DISHES, STATIONS, GUESTS, RULES, ITEMS, PETS, SKILLS, CREDIT_REWARDS });
+  // The lunar table decides Today's special on lunar days, so an app with an older table must update rather than play a special
+  // the server would rebuild differently.
+  const text = JSON.stringify({ e: ENGINE_VERSION, LEVELS, DISHES: BUILTIN.dishes, STATIONS, GUESTS, RULES, ITEMS: BUILTIN.items, PETS, SKILLS, CREDIT_REWARDS, L: LUNAR_VERSION });
   let h = 0x811c9dc5;
   for (let i = 0; i < text.length; i++) { h ^= text.charCodeAt(i); h = Math.imul(h, 0x01000193) >>> 0; }
   return h.toString(36);

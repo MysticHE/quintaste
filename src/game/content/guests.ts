@@ -1,6 +1,6 @@
 /**
  * Fictional adult regulars (GAME_PLAN §7). Reasons are self-stated, never inferred; allergies are never ticket rules.
- * The kitchen is vegetarian, so every guest refuses hidden animal ingredients.
+ * The kitchen is plant-based (meat-free; the app's label for it since 20 Oct 2026), so every guest refuses hidden animal ingredients.
  */
 import { factsOf, ITEMS, type Flip, type ItemTag } from "./items";
 
@@ -38,7 +38,7 @@ export const GUESTS: Record<string, Guest> = Object.fromEntries(([
 /** The rules of everyone who shares one pot (a party, plus any rules every guest keeps): a dish for them must respect all of them. */
 export const unionRules = (...lists: Rule[][]): Rule[] => [...new Set(lists.flat())];
 
-/** Items in a list that break a guest's rules. Hidden animal ingredients break every order in a vegetarian kitchen. */
+/** Items in a list that break a guest's rules. Hidden animal ingredients break every order in a plant-based kitchen. */
 export function conflicts(itemIds: string[], rules: Rule[], flip?: Flip): string[] {
   const banned = new Set<ItemTag>(["animal", ...rules.flatMap(r => RULES[r].tags)]);
   return itemIds.filter(id => (factsOf(id, flip)?.tags ?? []).some(t => banned.has(t)));
@@ -48,7 +48,7 @@ export function conflicts(itemIds: string[], rules: Rule[], flip?: Flip): string
 export function reason(itemId: string, rules: Rule[], flip?: Flip): string {
   const shown = ITEMS[itemId]; if (!shown) return "";
   const it = factsOf(itemId, flip), tags = it.tags ?? [], name = shown.name + (shown.variant ? " " + shown.variant : "");
-  if (tags.includes("animal")) return name + " lists " + (it.label?.flagged ?? "an animal ingredient") + ". This is a vegetarian kitchen.";
+  if (tags.includes("animal")) return name + " lists " + (it.label?.flagged ?? "an animal ingredient") + ". This is a plant-based kitchen.";
   if (tags.includes("allium") && (rules.includes("five") || rules.includes("jain")))
     return it.label ? name + " lists " + it.label.flagged + ", one of the five pungent." : name + " is one of the five pungent." + (rules.includes("jain") ? "" : " Ginger is a common swap.");
   if (tags.includes("root") && rules.includes("jain")) return name + " is a root vegetable, which Jain food avoids.";

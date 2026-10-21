@@ -66,7 +66,7 @@ function CafeHome() {
   const focused = useIsFocused();
   const finds = useMemo(() => pendingFinds(game), [game]);
   const find = focused && sheet === null && !deco ? finds[0] : undefined;
-  const n = nextLevel(game), lv = LEVELS[n - 1], allDone = cleared(game, 20);
+  const n = nextLevel(game), lv = LEVELS[n - 1], allDone = cleared(game, LEVELS.length);
   const bottom = insets.bottom + 16, trayH = 196 + insets.bottom;
   const fit = stageFit(size.w, size.h, deco ? trayH : bottom + 56 + 20, !!deco, insets.top + 90, !!wideSkinKey(sceneSkin(game)));
   const hudIn = useEnter(180, -14), barIn = useEnter(300, 18);

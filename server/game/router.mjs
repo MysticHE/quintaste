@@ -3,6 +3,7 @@ import { CommunityError, communityRouter, errors, throttle, transaction, uuid } 
 import { loadSim } from './sim.mjs';
 import { lockProfile, postCredits } from './ledger.mjs';
 import { importDevice, loadProgress, saveCafe } from './progress.mjs';
+import { picturesFor } from './art.mjs';
 
 /**
  * Rush Hour account progress (GAME_PLAN §12.3 and §14 Phase B; PRD QT-055/056), mounted at /api/game behind the `games`
@@ -56,11 +57,41 @@ game.post('/purchases', async (req, res) => {
   res.json({ ...await progressOf(sim, user.id), rules: sim.rulesVersion });
 });
 
+const PACK_HASH = /^p[a-z0-9]{1,14}$/;
+/**
+ * A level pack this member may play: ready, and public or their own. It is validated, its stored hash checked and it is
+ * registered with the simulation. Null when it is missing, withdrawn, someone else's, or no longer valid.
+ */
+async function playablePack(db, sim, hash, me) {
+  if (typeof hash !== 'string' || !PACK_HASH.test(hash)) return null;
+  const row = (await db.query(`SELECT hash, recipe_id, pack FROM game.recipe_level WHERE hash=$1 AND status='ready' AND (owner_id IS NULL OR owner_id=$2)`, [hash, me])).rows[0];
+  if (!row) return null;
+  try {
+    const pack = sim.readPack(row.pack);
+    if (sim.packHash(pack) !== row.hash) return null;
+    sim.registerPack(pack);
+    return { pack, recipeId: row.recipe_id };
+  } catch (error) {
+    if (!(error instanceof sim.PackError)) throw error;
+    logger.warn({ event: 'game_pack_invalid', pack: hash, message: String(error.message).slice(0, 120) });
+    return null;
+  }
+}
+
+// A Recipe Kitchen level pack, for the app to play, with its approved pictures. The pack itself is immutable.
+game.get('/packs/:hash', async (req, res) => {
+  const { sim, user } = res.locals, found = await playablePack(pool, sim, req.params.hash, user.id);
+  if (!found) throw new CommunityError(404, 'That level is unavailable.');
+  // Pictures are not part of the pack: an approved picture can arrive later, so this answer is cached briefly.
+  res.set('Cache-Control', 'private, max-age=600').json({ hash: req.params.hash, recipeId: found.recipeId, pack: found.pack, pictures: await picturesFor(pool, found.pack) });
+});
+
 /** Opens an attempt when the service starts. The same id again returns the same attempt. */
 game.post('/runs', async (req, res) => {
   const { sim, user } = res.locals, body = req.body ?? {};
   if (!uuid(body.id)) throw new CommunityError(400, 'Invalid run.');
   if (body.rules !== sim.rulesVersion) throw new CommunityError(409, 'Update QuinTaste to save game progress.', 'GAME_UPDATE');
+  if (body.pack != null) return openMission(req, res);
   // Today's special: a Singapore date within a day of now; otherwise a numbered level.
   const day = body.special == null ? null : String(body.special);
   if (day !== null && !nearDays().includes(day)) throw new CommunityError(400, 'Invalid run.');
@@ -69,7 +100,8 @@ game.post('/runs', async (req, res) => {
   if (!day && (!Number.isInteger(level) || !lv)) throw new CommunityError(400, 'Invalid run.');
   const hints = ['full', 'chip', 'none'].includes(body.hints) ? body.hints : null;
   const pet = typeof body.pet === 'string' && Object.hasOwn(sim.cosmetics.PETS, body.pet) ? body.pet : null;
-  const signature = lv?.signature && Array.isArray(body.signature) ? [...new Set(body.signature.filter(d => typeof d === 'string' && Object.hasOwn(sim.DISHES, d)))].slice(0, 3) : [];
+  // Signature dishes are built-in dishes only: a registered pack's dishes never join a numbered level.
+  const signature = lv?.signature && Array.isArray(body.signature) ? [...new Set(body.signature.filter(d => typeof d === 'string' && Object.hasOwn(sim.BUILTIN.dishes, d)))].slice(0, 3) : [];
   await throttle(`game-run:${user.id}`, 120, 3600);
   const run = await transaction(async db => {
     await lockProfile(db, user.id);
@@ -80,7 +112,7 @@ game.post('/runs', async (req, res) => {
     // A special is rebuilt later from its date and the highest clear it was built from. The device may be ahead of the
     // account (clears still queued offline), so its own `top` is used; a special always pays the same replay grant, so a
     // different `top` changes only which dish and regulars appear. The account must have opened the chalkboard.
-    const claimed = Number(body.top), top = day ? (Number.isInteger(claimed) && claimed >= 5 && claimed <= 20 ? claimed : sim.highestCleared(progress)) : null;
+    const claimed = Number(body.top), top = day ? (Number.isInteger(claimed) && claimed >= 5 && claimed <= sim.LEVELS.length ? claimed : sim.highestCleared(progress)) : null;
     if (day && !sim.specialFor(progress, day)) throw new CommunityError(409, "Today's special opens at Level 6.", 'SPECIAL_LOCKED');
     await db.query(`INSERT INTO game.run(id, user_id, level, mode, pet, signature, rules_version, special_day, special_top, hints) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)`,
       [body.id, user.id, level, mode, pet, signature, sim.rulesVersion, day, top, hints]);
@@ -88,6 +120,32 @@ game.post('/runs', async (req, res) => {
   });
   res.json(run);
 });
+
+/** Opens a Recipe Kitchen mission: a playable pack and a tier. Level stays 0; the pack hash and tier rebuild the service. */
+async function openMission(req, res) {
+  const { sim, user } = res.locals, body = req.body;
+  if (!sim.TIERS.includes(body.tier)) throw new CommunityError(400, 'Invalid run.');
+  const hints = ['full', 'chip', 'none'].includes(body.hints) ? body.hints : null;
+  const pet = typeof body.pet === 'string' && Object.hasOwn(sim.cosmetics.PETS, body.pet) ? body.pet : null;
+  await throttle(`game-run:${user.id}`, 120, 3600);
+  const run = await transaction(async db => {
+    await lockProfile(db, user.id);
+    const existing = (await db.query('SELECT user_id, status FROM game.run WHERE id=$1', [body.id])).rows[0];
+    if (existing) { if (existing.user_id !== user.id) throw new CommunityError(404, 'Invalid run.'); return { id: body.id, status: existing.status }; }
+    const found = await playablePack(db, sim, body.pack, user.id);
+    if (!found) throw new CommunityError(404, 'That level is unavailable.', 'LEVEL_UNAVAILABLE');
+    // Tiers open in order: Service after a Learn clear of this recipe, From memory after a Service clear.
+    const before = sim.TIERS[sim.TIERS.indexOf(body.tier) - 1];
+    if (before && !(await db.query('SELECT 1 FROM game.kitchen_best WHERE user_id=$1 AND recipe_id=$2 AND tier=$3 AND clears > 0', [user.id, found.recipeId, before])).rowCount)
+      throw new CommunityError(409, 'Clear the earlier tier first.', 'TIER_LOCKED');
+    const { game: progress } = await loadProgress(db, sim, user.id);
+    if (!pet || !sim.isUnlocked(progress, sim.cosmetics.PETS[pet].unlock)) throw new CommunityError(409, 'That companion is locked.', 'PET_LOCKED');
+    await db.query(`INSERT INTO game.run(id, user_id, level, mode, pet, signature, rules_version, hints, pack, tier) VALUES($1,$2,0,'rush',$3,'{}',$4,$5,$6,$7)`,
+      [body.id, user.id, pet, sim.rulesVersion, hints, body.pack, body.tier]);
+    return { id: body.id, status: 'open' };
+  });
+  res.json(run);
+}
 
 /** The parts of a result kept with a settled run (the full result is rebuilt from its input log when needed). */
 const resultOf = result => ({ stars: result.stars, score: result.score, cleared: result.cleared, coins: result.coins, left: result.left, bonus: !!result.bonus?.done, stamps: result.stamps });
@@ -121,8 +179,11 @@ game.post('/runs/:id/finish', async (req, res) => {
   if (run.rules_version !== sim.rulesVersion) { await refuse(id, user.id, 'game updated since the run started', actions); return reply(); }
   if (run.elapsed > RUN_DAYS * 86400) { await refuse(id, user.id, 'run expired', actions); return reply(); }
   const special = run.special_day ? { day: isoDay(run.special_day), top: run.special_top } : null;
+  // A mission settles only while its pack is still playable: a level withdrawn since the run started is refused.
+  const mission = run.pack ? await playablePack(pool, sim, run.pack, user.id) : null;
+  if (run.pack && !mission) { await refuse(id, user.id, 'level withdrawn', actions); return reply(); }
   // The service's seed comes from the run's id, which the app also used to play it.
-  const setup = { level: run.level, special, hints: run.hints, pet: run.pet, signature: run.signature, seed: sim.seedOf(run.id) };
+  const setup = { level: run.level, special, mission: run.pack ? { pack: run.pack, tier: run.tier } : null, hints: run.hints, pet: run.pet, signature: run.signature, seed: sim.seedOf(run.id) };
   let replayed;
   try { replayed = sim.replay(setup, actions); }
   catch (error) {
@@ -139,6 +200,7 @@ game.post('/runs/:id/finish', async (req, res) => {
     if (current.status !== 'open') return;
     const { game: progress } = await loadProgress(db, sim, user.id);
     if (special) { await settleSpecial(db, sim, user.id, id, replayed, result, actions); return; }
+    if (mission) { await settleMission(db, user.id, id, run, mission.recipeId, replayed, result, actions); return; }
     if (!sim.levelOpen(progress, run.level)) {
       await db.query(`UPDATE game.run SET status='rejected', reason='level locked', finished_at=now() WHERE id=$1`, [id]);
       await db.query('INSERT INTO game.run_log(run_id, actions) VALUES($1,$2) ON CONFLICT DO NOTHING', [id, JSON.stringify(actions)]);
@@ -172,6 +234,22 @@ async function settleSpecial(db, sim, me, id, replayed, result, actions) {
   if (credits) await postCredits(db, me, credits, 'replay', 'run:' + id);
   await db.query(`UPDATE game.run SET status='settled', finished_at=now(), ticks=$2, credits=$3, result=$4 WHERE id=$1`,
     [id, replayed.ticks, credits, { result: resultOf(result), reward }]);
+  await db.query('INSERT INTO game.run_log(run_id, actions) VALUES($1,$2) ON CONFLICT DO NOTHING', [id, JSON.stringify(actions)]);
+}
+
+/**
+ * A finished Recipe Kitchen mission records the best per recipe and tier. It pays no credits until the owner decides the
+ * kitchen rule (GAME_CONTENT_PLAN §14); the reward says so with credits 0.
+ */
+async function settleMission(db, me, id, run, recipeId, replayed, result, actions) {
+  const reward = { credits: 0, first: false, mastered: false, unlocks: [] };
+  const coins = Math.min(1000, Math.max(0, Math.round(result.coins))), left = result.cleared ? Math.min(600, Math.max(0, Math.floor(result.left))) : 0;
+  await db.query(`INSERT INTO game.kitchen_best(user_id, recipe_id, tier, pack, stars, score, clears, coins, left_secs) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9)
+    ON CONFLICT (user_id, recipe_id, tier) DO UPDATE SET pack=$4, stars=GREATEST(game.kitchen_best.stars, $5), score=GREATEST(game.kitchen_best.score, $6),
+      clears=game.kitchen_best.clears + $7, coins=GREATEST(game.kitchen_best.coins, $8), left_secs=GREATEST(game.kitchen_best.left_secs, $9), updated_at=now()`,
+  [me, recipeId, run.tier, run.pack, result.stars, result.score, result.cleared ? 1 : 0, result.cleared ? coins : 0, left]);
+  await db.query(`UPDATE game.run SET status='settled', finished_at=now(), ticks=$2, credits=0, result=$3 WHERE id=$1`,
+    [id, replayed.ticks, { result: resultOf(result), reward }]);
   await db.query('INSERT INTO game.run_log(run_id, actions) VALUES($1,$2) ON CONFLICT DO NOTHING', [id, JSON.stringify(actions)]);
 }
 

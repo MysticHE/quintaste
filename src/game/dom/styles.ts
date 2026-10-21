@@ -6,6 +6,8 @@
  */
 import { SHEETS_CSS } from "./styles-sheets";
 
+/** A token's value as written in the playfield's token list (sketch.ts draws Sketch cards with them). */
+export const token = (name: string) => new RegExp(`${name}:(#[0-9a-fA-F]{6})`).exec(TOKENS)?.[1] ?? "";
 const scaleText = (css: string) => css.replace(/font-size:(\d+(?:\.\d+)?)px/g, "font-size:calc($1px * var(--ts, 1))");
 const TOKENS = `
 .rh { --cream:#fff8ef; --cream-2:#fbefe2; --card:#fffdf8; --ink:#3a2a2c; --ink-2:#6f5a55; --white:#ffffff; --peach:#f7a98c; --coral:#d9573f;

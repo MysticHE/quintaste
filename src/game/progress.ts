@@ -5,7 +5,7 @@
 import { ACCESSORIES, CREDIT_REWARDS, DECOR, DECOR_SLOTS, PETS, SKINS, TIERS, type Tier, type Unlock } from "./content/cosmetics";
 import { defaultSettings, readSettings, type PlaySettings } from "./settings";
 import { LEVELS } from "./content/levels";
-import { DISHES } from "./content/dishes";
+import { BUILTIN } from "./content/pack";
 
 /**
  * Best result per level. `bonus` is the level's optional fourth stamp, earned at least once. `coins` (takings) and `left`
@@ -38,7 +38,8 @@ export function readGame(value: unknown): GameProgress {
   const input = rec(value), base = emptyGame();
   const best: Record<string, LevelBest> = {};
   for (const [k, v] of Object.entries(rec(input.best))) {
-    if (!/^([1-9]|1\d|20)$/.test(k)) continue;
+    // Only levels this app has: bests for levels that do not exist yet must never count (the device import caps credits by them).
+    if (!/^[1-9]\d{0,2}$/.test(k) || +k > LEVELS.length) continue;
     const b = rec(v);
     best[k] = { stars: num(b.stars, 0, 3, 0), score: num(b.score, 0, 100, 0), served: b.served === true, rules: b.rules === true, steady: b.steady === true,
       mastered: b.mastered === true, clears: num(b.clears, 0, 100000, 0), bonus: b.bonus === true, coins: num(b.coins, 0, 1000, 0), left: num(b.left, 0, 600, 0) };
@@ -54,7 +55,7 @@ export function readGame(value: unknown): GameProgress {
     pet: typeof input.pet === "string" && own(PETS, input.pet) ? input.pet : base.pet, equip, decor,
     skin: typeof input.skin === "string" && own(SKINS, input.skin) ? input.skin : base.skin, cafeName: name || base.cafeName,
     menu: input.menu === "malay" || input.menu === "peranakan" ? input.menu : "chinese", mode: "rush",
-    signature: Array.isArray(input.signature) ? input.signature.filter((x): x is string => typeof x === "string" && own(DISHES, x)).slice(0, 3) : [],
+    signature: Array.isArray(input.signature) ? input.signature.filter((x): x is string => typeof x === "string" && own(BUILTIN.dishes, x)).slice(0, 3) : [],
     introSeen: input.introSeen === true, seen: Array.isArray(input.seen) ? [...new Set(input.seen.filter((x): x is string => typeof x === "string" && x.length < 40))].slice(0, 200) : [],
     tier: null,
     settings: readSettings(input.settings),

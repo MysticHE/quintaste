@@ -234,6 +234,8 @@ details[open] > summary { margin-bottom: 12px; }
 .line-tools { flex-wrap: nowrap; gap: 2px; }
 .thumbs { gap: 6px; }
 .thumbs img { width: 88px; height: 88px; object-fit: cover; border-radius: 10px; background: var(--fill); }
+/* Game sprites are cut-outs: contain them on the fill so their transparent edges show (Game levels > Pictures). */
+.sprite { width: 160px; height: 160px; object-fit: contain; border-radius: 12px; background: var(--fill); }
 .preview { width: 100%; max-width: 420px; height: auto; border-radius: 12px; background: var(--fill); }
 .action-bar { gap: 12px; }
 .skip-link { position: absolute; left: 12px; top: -48px; padding: 8px 12px; border-radius: 8px; background: var(--card); z-index: 10; box-shadow: var(--raised); }

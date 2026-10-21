@@ -49,6 +49,19 @@ export function hostedUri(asset: Pick<Asset, "hash" | "name" | "type" | "uri">, 
   return host + folder.split("/").map(encodeURIComponent).join("/") + "/" + encodeURIComponent(asset.name) + "." + asset.hash + "." + asset.type;
 }
 
+/**
+ * The art map plus a recipe level's approved pictures (`/api/game-art/<sha256>.webp` from `GET /api/game/packs/:hash`),
+ * made absolute against the API. Built-in art always wins; anything still missing plays as a Sketch card (dom/sketch.ts).
+ */
+export function withPictures(art: Record<string, string>, pictures: Record<string, string>, api = process.env.EXPO_PUBLIC_API_URL ?? "") {
+  const out = { ...art };
+  for (const [key, path] of Object.entries(pictures)) {
+    if (out[key] || !/^\/api\/game-art\/[a-f0-9]{64}\.webp$/.test(path)) continue;
+    try { out[key] = new URL(path, api).href; } catch { /* no API address: the key stays a Sketch card */ }
+  }
+  return out;
+}
+
 let cache: Record<string, string> | null = null;
 /** Game art and fonts as URLs for the Phaser DOM component: the web app's copies in Expo Go, otherwise the app's own. */
 export function gameArtUris(): Record<string, string> {

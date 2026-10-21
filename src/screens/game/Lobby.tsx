@@ -37,7 +37,7 @@ export function GameLobby() {
   const zoom = useSharedValue(0);
   // Light and dust wait for the room, so they never draw over an empty screen while the art loads.
   const [roomReady, setRoomReady] = useState(false);
-  const n = nextLevel(game), allDone = cleared(game, 20), lv = LEVELS[n - 1];
+  const n = nextLevel(game), allDone = cleared(game, LEVELS.length), lv = LEVELS[n - 1];
   const stars = Object.values(game.best).reduce((a, b) => a + b.stars, 0);
   const skin = SKINS[game.skin]?.art && GAME_ART[SKINS[game.skin].art!] ? SKINS[game.skin] : SKINS.sunny;
   const petKey = GAME_ART[wearArt(game.pet, game.equip[game.pet] ?? null)] ? wearArt(game.pet, game.equip[game.pet] ?? null) : PETS[game.pet].art;

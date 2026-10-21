@@ -4,7 +4,7 @@
  * simulation (src/game/sim) owns the rules. The native screen passes art URLs, Play your way settings and bridges,
  * and receives the result, haptics and bridge taps (GAME_PLAN §12.2).
  */
-import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import type { DOMProps } from "expo/dom";
 import { STATIONS, type StationKind } from "../content/dishes";
 import { levelByNumber, levelDishes, type Level } from "../content/levels";
@@ -17,6 +17,7 @@ import { Hud, RecipeCard } from "./Hud";
 import type { Point } from "./layout";
 import { Brief, LabelSheet, PauseSheet, Results, TooShort, type Reward } from "./Overlays";
 import { Shelf } from "./Shelf";
+import { withSketches } from "./sketch";
 import { RUSH_CSS } from "./styles";
 import { useFeedback, type HapticKind } from "./useFeedback";
 import { usePlayfield, type PlayfieldInput } from "./usePlayfield";
@@ -46,7 +47,9 @@ const fontFaces = (art: Record<string, string>) => [["Nunito_800ExtraBold", "fon
   .filter(([, k]) => art[k]).map(([family, k]) => `@font-face{font-family:"${family}";src:url("${art[k]}") format("truetype");font-display:swap;}`).join("");
 
 export default function RushHour(props: Props) {
-  const { level, pet, petArt, chefArt, art, signature, settings } = props;
+  const { level, pet, petArt, chefArt, signature, settings } = props;
+  // A recipe level's ingredient or dish with no approved picture yet plays as a Sketch card.
+  const art = useMemo(() => withSketches(props.art), [props.art]);
   // The interval and Phaser callbacks outlive renders, so they read the latest props and handlers through refs.
   const latest = useRef(props); latest.current = props;
   const base = props.special ?? levelByNumber(level);

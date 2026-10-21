@@ -50,7 +50,7 @@ export function LabelSheet({ run, onClose }: { run: sim.Run; onClose(): void }) 
     <div className="label-card"><span className="k">Ingredients</span>
       <span>{lab.ingredients.map((x, i) => <span key={i}>{i ? ", " : ""}{flagged.includes(x) ? <mark>{x}</mark> : x}</span>)}</span>
       <span className="k">Contains: {lab.contains}</span></div>
-    {g && flagged.length > 0 && <p>{GUESTS[g.guestId].name} keeps {g.rules.length ? g.rules.map(r => RULES[r].spoken).join(" and ") : "a vegetarian order"}. Check whether the highlighted ingredient fits.</p>}
+    {g && flagged.length > 0 && <p>{GUESTS[g.guestId].name} keeps {g.rules.length ? g.rules.map(r => RULES[r].spoken).join(" and ") : "a plant-based order"}. Check whether the highlighted ingredient fits.</p>}
     <p>Game product. Real brands vary, so always read the actual label.</p>
     <button className="btn" autoFocus onClick={onClose}>Back to the kitchen</button>
   </div></div>;

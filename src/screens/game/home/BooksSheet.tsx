@@ -87,7 +87,7 @@ function PantryPage({ id, game, onBack, go }: { id: string; game: GameProgress; 
       <View style={{ flex: 1, gap: 2 }}><T variant="subtitle">{itemName(id)}</T>{!!aliases && <T variant="small" muted>{aliases}</T>}</View></View>
     {!!it.note && <T variant="small">{it.note}</T>}
     {it.label && <T variant="small">Game label: {it.label.ingredients.join(", ")}.{it.label.flagged ? " Watch for " + it.label.flagged + "." : ""}</T>}
-    <T variant="small" muted>{it.tags?.includes("animal") ? "Not vegetarian, so it fits no order in this kitchen"
+    <T variant="small" muted>{it.tags?.includes("animal") ? "Not plant-based, so it fits no order in this kitchen"
       : rules.length ? "Doesn't fit: " + rules.map(r => RULES[r].chip).join(", ") : "Fits every order in the game"}</T>
     {dishes.length > 0 && <T variant="small" muted>In {dishes.join(", ")}</T>}
     {(term || choicesRule(rules)) && <View style={s.links}>

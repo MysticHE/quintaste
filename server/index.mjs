@@ -27,6 +27,7 @@ import { startAvatarWorker } from './avatar/worker.mjs';
 import { aiRecipes } from './ai-recipes/router.mjs';
 import { aiRecipeBots } from './ai-recipes/bot-router.mjs';
 import { creatorBots } from './creators/bot-router.mjs';
+import { gameArt, gameArtBots } from './game/art.mjs';
 import { startAiRecipeWorker } from './ai-recipes/worker.mjs';
 import { cookSearch } from './cook-search/router.mjs';
 import { startDemandWorker } from './cook-search/demand.mjs';
@@ -122,6 +123,9 @@ app.use('/api/areas', featureGate('areas'), areas);
 // Public and outside the gate, so the app can show its placeholder when staff switch the game off.
 app.get('/api/game/status', async (_req, res) => { res.set('Cache-Control', 'no-store').json({ enabled: await allowed('games') }); });
 app.use('/api/game', featureGate('games'), game);
+// Game pictures (docs/game/RECIPE_LEVELS_PLAN.md §8.5): approved pictures are public and immutable; QT Gamer's routes are signed.
+app.use('/api/game-art/bot', gameArtBots);
+app.use('/api/game-art', gameArt);
 app.use('/api/local-explore', (_req, res) => res.status(503).json({ error: 'Local development services are unavailable on this deployment.' }));
 app.use('/api/staff-base', (_req, res) => res.sendStatus(404));
 // Rush Hour's exported game page for Expo Go (CI copies Expo's DOM export here): the page is always revalidated so it

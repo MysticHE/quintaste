@@ -1,5 +1,5 @@
 /**
- * Rush Hour ingredients. Every item is vegetarian; the traps are vegetarian items that break a particular guest's rule,
+ * Rush Hour ingredients. Every item is plant-based (meat-free); the traps are plant-based items that break a particular guest's rule,
  * plus bought-in products whose game label hides an allium, egg or animal ingredient (GAME_PLAN §5).
  * Labels are fictional game products, never real brands.
  */

@@ -10,6 +10,7 @@ import { aiJobs, aiSummary } from '../../../../lib/ai-recipes';
 import { demandAction, demandList } from '../../../../lib/recipe-demand';
 import { ingredientAction, ingredientList } from '../../../../lib/content-ingredients';
 import { creatorAction, creatorList } from '../../../../lib/creators';
+import { gameLevelAction, gameLevelList, gamePicture, gamePictureAction, gamePictureList } from '../../../../lib/game-content';
 
 type Context = { params: Promise<{ resource: string }> };
 export const runtime = 'nodejs';
@@ -34,6 +35,13 @@ export function GET(request: Request, context: Context) { return route(async () 
   if (resource === 'recipe-demand') return json(await demandList(member, status, q, skip));
   if (resource === 'ingredients') return json(await ingredientList(member, status, q, skip));
   if (resource === 'creators') return json(await creatorList(member, status, q, skip));
+  if (resource === 'game-levels') return json(await gameLevelList(member, status, q, skip));
+  if (resource === 'game-pictures') return json(await gamePictureList(member, status, skip));
+  if (resource === 'game-picture') {
+    const bytes = await gamePicture(member, text(id, 'picture', 64, 64));
+    if (!bytes) throw new HttpError(404, 'Picture not found.');
+    return new Response(new Uint8Array(bytes), { headers: { 'Content-Type': 'image/webp', 'Cache-Control': 'private, no-store', 'X-Content-Type-Options': 'nosniff' } });
+  }
   if (resource === 'review-photo') return image(await reviewPhoto(member, text(id, 'photo', 36)));
   if (resource === 'market-photo') return image(await marketPhoto(member, text(id, 'item', 36), text(params.get('slot'), 'photo', 10)));
   if (resource === 'photo') return image(await contentPhoto(member, text(id, 'photo', 64)));
@@ -62,5 +70,7 @@ export function POST(request: Request, context: Context) { return route(async ()
   if (resource === 'recipe-demand') return json(await demandAction(member, input, reason));
   if (resource === 'ingredients') return json(await ingredientAction(member, input, reason));
   if (resource === 'creators') return json(await creatorAction(member, input, reason));
+  if (resource === 'game-levels') return json(await gameLevelAction(member, input, reason));
+  if (resource === 'game-pictures') return json(await gamePictureAction(member, input, reason));
   throw new HttpError(404, 'Not found.');
 }); }

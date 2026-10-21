@@ -46,6 +46,15 @@
       "port": 18948
     },
     {
+      "name": "rh-harness",
+      "runtimeExecutable": "node",
+      "runtimeArgs": [
+        "serve.mjs"
+      ],
+      "cwd": ".local/rh-harness",
+      "port": 8099
+    },
+    {
       "name": "admin-dev",
       "runtimeExecutable": "node",
       "runtimeArgs": [
