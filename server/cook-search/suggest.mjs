@@ -69,7 +69,8 @@ async function blockedBy(viewer) {
 function score(e, q, qGrams) {
   if (e.key.startsWith(q)) return 3;
   if (e.words.some(word => word.startsWith(q))) return 2.5;
-  if (e.key.includes(q)) return 2;
+  // Inside a word only for recipe names: "lak" should find "Sago gula melaka", not the ingredient "rice flakes".
+  if (e.kind === 'recipe' && e.key.includes(q)) return 2;
   const sim = Math.max(similarity(qGrams, e.grams), ...e.wordGrams.map(grams => similarity(qGrams, grams)));
   return sim >= MIN_SIMILARITY ? 1 + sim : 0;
 }
