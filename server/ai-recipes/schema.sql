@@ -41,10 +41,39 @@ CREATE TABLE IF NOT EXISTS ops.provider_secret (
   updated_by uuid
 );
 GRANT SELECT ON ops.provider_secret TO quintaste_app;
+-- QT bots engine (v3, 21 Oct 2026): with the ai_recipes_bots control on, the worker prepares each job here and the
+-- QT bots (ops/qt-team/ai_recipes_bridge.py, HMAC routes /api/ai-recipes/bot/*) claim it, write the recipe and post it
+-- back; the worker then checks, photographs and saves it like a Gemini result. One row per job; removed with the job.
+CREATE TABLE IF NOT EXISTS recipes.ai_bot_task (
+  job_id uuid PRIMARY KEY REFERENCES recipes.ai_job(id) ON DELETE CASCADE,
+  -- queued -> claimed by a bridge -> done or failed (answered) -> settling (the worker is finishing the job) -> finished.
+  status text NOT NULL DEFAULT 'queued' CHECK (status IN ('queued','claimed','done','failed','settling','finished')),
+  -- What the bots need: kind, request text or link, caption, creator, whether a video file waits on the app's disk.
+  payload jsonb NOT NULL CHECK (octet_length(payload::text) <= 8000),
+  -- The bot's recipe JSON, sources and model usage; never media.
+  result jsonb CHECK (result IS NULL OR octet_length(result::text) <= 300000),
+  error text NOT NULL DEFAULT '' CHECK (length(error) <= 300),
+  attempts integer NOT NULL DEFAULT 0,
+  created_at timestamptz NOT NULL DEFAULT now(),
+  claimed_at timestamptz,
+  answered_at timestamptz,
+  settling_at timestamptz
+);
+CREATE INDEX IF NOT EXISTS recipes_ai_bot_task_open ON recipes.ai_bot_task(created_at) WHERE status IN ('queued','claimed','done','failed','settling');
+GRANT SELECT, INSERT, UPDATE, DELETE ON recipes.ai_bot_task TO quintaste_app;
+-- When a bridge last asked for work, so a queued task fails fast while the bots are down and waits while they are busy.
+CREATE TABLE IF NOT EXISTS recipes.ai_bot_bridge (
+  id text PRIMARY KEY CHECK (id ~ '^[a-z0-9-]{1,40}$'),
+  seen_at timestamptz NOT NULL DEFAULT now()
+);
+GRANT SELECT, INSERT, UPDATE ON recipes.ai_bot_bridge TO quintaste_app;
+-- Off: Gemini writes AI recipes. On: the QT bots do. Turning it off sends new jobs back to Gemini.
+INSERT INTO ops.control(key, enabled, notice) VALUES ('ai_recipes_bots', false, '') ON CONFLICT DO NOTHING;
 DO $$
 BEGIN
   IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'quintaste_admin') THEN
     GRANT SELECT ON recipes.ai_job TO quintaste_admin;
+    GRANT SELECT ON recipes.ai_bot_task TO quintaste_admin;
     GRANT SELECT, INSERT, UPDATE, DELETE ON ops.provider_secret TO quintaste_admin;
   END IF;
 END $$;

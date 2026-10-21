@@ -117,6 +117,16 @@ python -X utf8 deploy_veg_kitchen.py queue.json          # guarded; add --replac
 docker exec --user 10000 --workdir /opt/hermes hermes-agent-yril-hermes-agent-1 python /opt/data/qt-team/run_veg_kitchen_pilot.py --places 16 --hours 4
 ```
 
+## QT Videomaker: members' AI recipes (21 October 2026, built, not deployed)
+
+`ai_recipes_bridge.py` writes members' AI recipes for the app when Admin > Operations > **AI recipes by QT bots** is on.
+It claims one task at a time from the app's signed `/api/ai-recipes/bot/*` routes (same key as editorial publishing),
+downloads the task's video, runs Hermes as the `qt-videomaker` profile (`roles/qt-videomaker.md`; `-t video` for
+videos, `-t web` for dish requests) and posts the recipe JSON or `{"error"}` back. The app checks, photographs and
+saves it. There is no fallback to Gemini. Every call goes in `state/usage.jsonl`; the last task is in
+`ai-recipes/last.json`. Install with `deploy_videomaker.py` after the app's schema v3 and release
+(`docs/AI_RECIPES_PLAN.md` §4). It adds `qt-ai-recipes-bridge.service` on the host and touches no research schedule.
+
 ## Isolation and storage
 
 The existing Hermes container executes the QT workflows as UID 10000. The four

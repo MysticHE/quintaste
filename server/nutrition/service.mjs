@@ -29,15 +29,15 @@ async function learn(names, usage, signal = undefined) {
 
 /**
  * Nutrition for one recipe, teaching the database the names it does not know yet. `complete` is false when names were
- * left for later (AI off or failed), so the hourly refresh checks the recipe again. Never throws.
+ * left for later (AI off, `ai: false` or failed), so the hourly refresh checks the recipe again. Never throws.
  */
-export async function nutritionFor(recipe, { usage, signal = undefined }) {
+export async function nutritionFor(recipe, { usage, signal = undefined, ai = true }) {
   try {
     const keys = recipeKeys(recipe.ingredients);
     let learned = await learnedRows(keys);
     const names = namesToResolve(recipe.ingredients, learned);
     let complete = !names.length;
-    if (names.length && await aiOn() && await learn(names, usage, signal)) {
+    if (names.length && ai && await aiOn() && await learn(names, usage, signal)) {
       complete = true;
       learned = await learnedRows(keys);
     }

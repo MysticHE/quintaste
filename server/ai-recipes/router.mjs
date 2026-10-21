@@ -8,13 +8,14 @@ import { pool } from '../config.mjs';
 import { allowed, restricted } from '../operations.mjs';
 import { CommunityError, communityRouter, errors, member, text } from '../community/http.mjs';
 import { publicId } from '../recipes/rules.mjs';
-import { GeminiError, geminiConfig } from './gemini.mjs';
+import { GeminiError } from './gemini.mjs';
+import { engineReady } from './engine.mjs';
 import { parseLink } from './video.mjs';
 import { MAX_FILE_BYTES, VIDEO_TYPES } from './files.mjs';
 import { UPLOAD_DIR } from './work.mjs';
 import { parseUpload } from './pipeline.mjs';
 import { normaliseTerm } from '../cook-search/terms.mjs';
-import { DAILY_PER_MEMBER, RAN, dailyCap, jobsLastDay } from './limits.mjs';
+import { AT_ONCE, DAILY_PER_MEMBER, MAX_VIDEO_SECONDS, RAN, dailyCap, jobsLastDay, usedLastDay } from './limits.mjs';
 
 /** Members queue AI recipe jobs here and watch them; guests see nothing. Three jobs a day per member for now. */
 export const aiRecipes = communityRouter({ guests: true, bodyLimit: '8kb' });
@@ -26,7 +27,7 @@ const view = row => {
 };
 /** Feature switches and account restriction; every job route runs this first, including the duplicate shortcut. */
 async function available(me) {
-  if (!(await geminiConfig()).enabled || !await allowed('ai_recipes') || !await allowed('recipes')) throw new CommunityError(503, 'AI recipes are not available right now.');
+  if (!await engineReady() || !await allowed('ai_recipes') || !await allowed('recipes')) throw new CommunityError(503, 'AI recipes are not available right now.');
   if (await restricted(me)) throw new CommunityError(403, 'Your account cannot use this right now.');
 }
 /** Uploads in flight per member: they hold a quota slot before their job row exists (one app process). */
@@ -48,14 +49,14 @@ async function exclusive(me, work) {
 async function withinQuota(me) {
   const pending = uploading.get(me) ?? 0;
   const [mine, all, open, cap] = await Promise.all([
-    pool.query(`SELECT count(*)::int AS n FROM recipes.ai_job WHERE user_id=$1 AND created_at > now() - interval '1 day' AND status <> 'failed' AND ${RAN}`, [me]),
+    usedLastDay(me),
     jobsLastDay(),
     pool.query(`SELECT count(*)::int AS n FROM recipes.ai_job WHERE user_id=$1 AND status IN ('queued','working')`, [me]),
     dailyCap(),
   ]);
-  if (mine.rows[0].n + pending >= DAILY_PER_MEMBER) throw new CommunityError(429, `You can start ${DAILY_PER_MEMBER} AI recipes a day. Try again tomorrow.`);
+  if (mine + pending >= DAILY_PER_MEMBER) throw new CommunityError(429, `You can start ${DAILY_PER_MEMBER} AI recipes a day. Try again tomorrow.`);
   if (all >= cap) throw new CommunityError(503, 'AI recipes are fully booked for today. Try again tomorrow.');
-  if (open.rows[0].n + pending >= 2) throw new CommunityError(429, 'Wait for your current AI recipes to finish first.');
+  if (open.rows[0].n + pending >= AT_ONCE) throw new CommunityError(429, 'Wait for your current AI recipes to finish first.');
 }
 
 /** Recipes a member started this Singapore calendar month (failed jobs and reused recipes do not count); the plans screen shows it. */
@@ -66,9 +67,13 @@ async function usedThisMonth(me) {
 aiRecipes.get('/status', async (_req, res) => {
   // AI recipes publish into the member recipe feed, so the recipes control must be on as well.
   // `plan` is null for everyone until payments are connected (docs/COOK_DISCOVERY_PLAN.md §6); nothing is gated on it yet.
+  // `usedToday` counts the rolling 24 hours the 3-a-day limit uses; `fullToday` means everyone's daily total is used.
   const me = res.locals.user?.id ?? null;
-  res.json({ enabled: (await geminiConfig()).enabled && await allowed('ai_recipes') && await allowed('recipes'), dailyPerMember: DAILY_PER_MEMBER,
-    plan: null, usedThisMonth: me ? await usedThisMonth(me) : 0 });
+  const [enabled, month, today, all, cap] = await Promise.all([
+    (async () => await engineReady() && await allowed('ai_recipes') && await allowed('recipes'))(),
+    me ? usedThisMonth(me) : 0, me ? usedLastDay(me) : 0, jobsLastDay(), dailyCap()]);
+  res.json({ enabled, dailyPerMember: DAILY_PER_MEMBER, plan: null, usedThisMonth: month, usedToday: today, fullToday: all >= cap,
+    limits: { videoMinutes: MAX_VIDEO_SECONDS / 60, videoMb: Math.round(MAX_FILE_BYTES / 1048576), atOnce: AT_ONCE } });
 });
 
 aiRecipes.get('/mine', member, async (_req, res) => {

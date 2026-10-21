@@ -5,13 +5,13 @@ import path from 'node:path';
 import { createHmac, timingSafeEqual } from 'node:crypto';
 import { readSnapshot, publish, recordState, removeRecord, revertRecord } from './store.mjs';
 import { hash } from './validation.mjs';
+import { publisherKey } from './key.mjs';
 import { staffContent, staffCreated, staffEdited, staffRecord } from '../staff-content.mjs';
 
 export const editorial = express.Router();
 const root = process.env.QT_EDITORIAL_ROOT || path.resolve('.local/editorial');
 const baseline = JSON.parse(fs.readFileSync(path.resolve('server-assets/editorial-baseline.json'), 'utf8'));
 let lastWrite = 0;
-const publisherKey = () => fs.readFileSync(process.env.QT_EDITORIAL_KEY_FILE || path.resolve('.local/editorial-private/publisher.key'), 'utf8').trim();
 /** Header checks run before any body is read; only publication batches (which carry assets) get the large limit. */
 function precheck(req, res, next) {
   res.set('Cache-Control', 'no-store');

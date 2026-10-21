@@ -8,8 +8,10 @@ import path from 'node:path';
 export const WORK_DIR = path.resolve(process.env.AI_RECIPES_WORK_DIR || '.local/ai-work');
 export const UPLOAD_DIR = path.join(WORK_DIR, 'uploads');
 
+export const jobPath = id => path.join(WORK_DIR, 'jobs', String(id).replace(/[^a-f0-9-]/g, '').slice(0, 36) || 'job');
+
 export async function jobDir(id) {
-  const dir = path.join(WORK_DIR, 'jobs', String(id).replace(/[^a-f0-9-]/g, '').slice(0, 36) || 'job');
+  const dir = jobPath(id);
   await rm(dir, { recursive: true, force: true });
   await mkdir(dir, { recursive: true });
   return dir;

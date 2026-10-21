@@ -6,6 +6,7 @@ import path from 'node:path';
 import { logger } from '../config.mjs';
 import { GeminiError } from './gemini.mjs';
 import { VIDEO_TYPES } from './files.mjs';
+import { MAX_VIDEO_SECONDS } from './limits.mjs';
 
 /**
  * Downloads a public TikTok, Instagram or Facebook video with yt-dlp (pinned release in the app image, run without
@@ -13,13 +14,13 @@ import { VIDEO_TYPES } from './files.mjs';
  * captions often hold the written recipe and the credit.
  */
 const BIN = process.env.YT_DLP_BIN || '/usr/local/bin/yt-dlp';
-const MAX_SECONDS = 20 * 60;
+const MAX_SECONDS = MAX_VIDEO_SECONDS;
 export const downloaderAvailable = () => existsSync(BIN);
 
 const blocked = {
-  tiktok: 'TikTok does not let our server open its videos. Save the video on your phone, then tap Upload Video.',
-  instagram: 'Instagram needs a signed-in account to open this video. Save it on your phone, then tap Upload Video.',
-  facebook: 'Facebook would not open this video for our server. Save it on your phone, then tap Upload Video.',
+  tiktok: 'This site does not let our server open the video. Save it on your phone, then tap Upload Video.',
+  instagram: 'This video needs a signed-in account. Save it on your phone, then tap Upload Video.',
+  facebook: 'This site did not open the video for our server. Save it on your phone, then tap Upload Video.',
 };
 function explain(stderr, platform) {
   if (/does not pass filter/i.test(stderr)) return 'That video is longer than 20 minutes. Pick a shorter one.';

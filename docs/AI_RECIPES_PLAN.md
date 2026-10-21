@@ -1,45 +1,56 @@
-# AI recipes: request a dish, import a video — setup and phases (19 October 2026)
+# AI Recipes
 
-Owner direction, 19 October 2026: members get recipes two new ways, both AI-powered, both published to the same public Cook feed: (1) describe the dish they want and the app sources real recipes and writes the QuinTaste version; (2) paste a video link (YouTube, TikTok, Instagram, Facebook) and the app reads the video itself, not just the caption, and drafts the recipe in the app's structure. Runs on the current VPS with Gemini through the Cloudflare AI Gateway; the Gemini key lives only in Cloudflare.
+Current state, 21 October 2026. Members get a recipe two ways: describe a dish, or give a video (a link or a file from their phone). The recipe is written in QuinTaste's structure, checked, credited to its source and published to the Cook feed, or sent to staff review when it is unclear. Wanted recipes (`docs/COOK_DISCOVERY_PLAN.md`) use the same worker and always wait for staff review.
 
-## 1. Recommended setup
+## 1. Two engines, one switch
 
-| Part | Choice | Why |
+| Engine | Who writes the recipe | Status |
 |---|---|---|
-| Model | Gemini 3.8 Flash (video, audio and text in one call, JSON schema output, Google Search grounding), falling back to `gemini-flash-latest` when Google retires a model name; `gemini-pro-latest` reserved for low-confidence retries. Gemini 2.5 Flash was closed to new accounts by Oct 2026 | Reads the video frames and speech directly; cheapest capable model; one provider for both features |
-| Model access | Cloudflare AI Gateway, Google AI Studio provider, BYOK: the Gemini key is stored in the gateway, the VPS sends only the existing gateway token | No new secret on the VPS; per-request logs, caching, rate limits and a spend ceiling in one dashboard |
-| Video intake | YouTube by URL (Gemini fetches it, nothing downloaded); TikTok, Instagram, Facebook by fetching the public MP4 and sending it inline (≤ 20 MB); member file upload as the fallback when a platform blocks fetching | No ffmpeg or yt-dlp needed in Phase 1, so no Compose change; the upload path cannot be blocked by platforms |
-| Jobs | Postgres table `recipes.ai_job`, in-process worker in the app server (same pattern as the avatar worker), one job at a time per process, idempotent by link | Fits the VPS today; the same table and worker move to separate containers when volume needs it |
-| Publication | Jobs that pass checks publish straight into `recipes.recipe` as live member recipes with origin and credit; low-confidence results go to staff review in Admin > Content > Member recipes | Reuses the feed, recipe pages, reactions, hide/restore, reports and the nutrition section; no new content store |
-| Nutrition | Server-side estimator (`server/nutrition/estimate.mjs`) from the reviewed table; unmatched lines go to a Gemini resolver that proposes a table key and gram weight | Every AI recipe gets figures and badges; numbers stay table-based and auditable |
-| Checks | Vegetarian only (meat or fish rejects the job), five-pungent and egg/dairy/honey tags from ingredients, 1–8 servings, 1–40 ingredients, 1–30 steps, step references resolve, confidence threshold, duplicate link reuse | Same bar as member recipes; nothing publishes that the app cannot render |
-| Credit | Video recipes name the creator and link the original; each step keeps a timestamp into the source ("watch at 1:23"); requested recipes list the pages used | Facts in our words plus credit and links; no re-hosting of video, frames or creator text |
-| Limits | Per member: 3 jobs a day while free; paid plans (owner, 21 Oct 2026: S$9.99/month for 5, higher tier for more; screens built, payments not connected, see `docs/COOK_DISCOVERY_PLAN.md` §6) replace it once payments open; per job: 10-minute video, 20 MB inline; global: monthly spend ceiling in the gateway, plus a daily job cap in `ops.control` notice | Cost stays bounded at any user count |
+| **Gemini** | The app server calls Gemini itself (`server/ai-recipes/gemini.mjs`) | Built and deployed. Default. |
+| **QT bots** | QT Videomaker, a Hermes profile in the QT bot team, through `ops/qt-team/ai_recipes_bridge.py` | Built and checked locally, 21 Oct. Not deployed. |
 
-Expected cost: about US$0.005 per minute of video with Flash, a few cents per requested recipe (search grounding plus page reading). 20,000 jobs a month is roughly US$100–300.
+The switch is the **AI recipes by QT bots** control (`ai_recipes_bots`) in Admin > Operations. Off: Gemini writes new jobs. On: the QT bots do. Owner decision, 21 Oct: no automatic fallback between engines, so a bot failure fails the job and the result shows whether the bots work. Turning the switch off returns new jobs to Gemini. Jobs already with the bots are still finished when they answer.
 
-## 2. Phases to production
+Both engines feed the same checks and the same save step, so members see the same recipe page either way.
 
-**Phase 1 — Working feature (this build).** Schema, job API, in-process worker, Gemini client through the gateway, video import (YouTube by URL; TikTok, Instagram, Facebook by public MP4 fetch), request-a-dish with Google Search grounding, validators, nutrition estimate, publication into the feed with origin and credit, Cook tab entry ("Get a recipe"), job status list, quotas, feature control `ai_recipes`.
+## 2. How a job runs
 
-**Phase 2 — Trust and quality.** Second-pass verification against the video (corrections and confidence per field), Gemini ingredient resolver feeding the nutrition table with owner approval on Telegram, creator takedown and opt-out list, member reports into the case queue, staff console list of AI recipes with origin and cost, dedup across members by video id and content hash, long videos (chunking) and member file upload for blocked platforms.
+1. The member's request is queued in `recipes.ai_job`. Limits: 3 a day per member, 2 at once, a daily total across everyone in the `ai_recipes` control note (`daily=N`, 500 when unset).
+2. The worker in the app server claims it. Several app replicas can share the queue.
+3. **Video:** an upload is used as is. A link is downloaded with yt-dlp (pinned in the app image, no cookies or accounts), up to 20 minutes and 60 MB. YouTube blocks server downloads, so Gemini reads YouTube by its link.
+4. **Writing:**
+   - Gemini watches the video twice (draft, then a check against the video), or researches the dish with Google Search grounding.
+   - QT bots: the app keeps the video on its disk and queues a task in `recipes.ai_bot_task`. The bridge claims it through signed routes, downloads the video and runs Hermes. Video tasks use the `video` toolset (`video_analyze`). Dish requests use the `web` toolset. The bridge posts the recipe JSON back. Videos over 30 MB, or in a format Hermes cannot read, are shrunk to 480p MP4 first.
+5. **Checks (both engines):** vegetarian only, Vegan and five-pungent tags from the ingredients, 1–8 servings, up to 40 ingredients and 30 steps, step ingredients must exist, confidence below 0.6 goes to staff review.
+6. **Photos:** real frames from the video file at each step. Gemini also reviews each frame and draws missing steps. The bots engine takes frames at the seconds the bots name, without a review or drawings. A YouTube video's own thumbnail becomes the cover.
+7. **Nutrition** from the ingredient table. Gemini teaches the table unknown ingredient names. The bots engine leaves unknown names for the hourly nutrition refresh.
+8. Saved to `recipes.recipe` as a live member recipe with origin and credit, or as pending for staff review.
 
-**Phase 3 — Reach and scale.** Native share sheet (share a TikTok or Instagram post straight into QuinTaste), remote push notifications when a recipe is ready, Plus quotas and billing, worker moved to its own container with ffmpeg and yt-dlp for 20 MB+ videos, then to a Singapore cloud region when daily jobs pass a few thousand.
+## 3. Gemini setup (current)
 
-Phase 1 is production-usable behind the feature control; Phases 2 and 3 are what make it trustworthy at scale and marketable as Plus.
+- Model `gemini-3.8-flash` (`AI_RECIPES_MODEL`), falling back to `gemini-flash-latest` when Google retires a name. Step drawings use `gemini-3.1-flash-lite-image`.
+- Key: Admin > Integrations > "Gemini · AI recipes". It is encrypted in `ops.provider_secret` under the provider-secret key file, the app role can only read it, and the console shows the last four characters. Without a stored key the app uses the Cloudflare AI Gateway. Video files and drawings need the stored key.
+- Residency: Google AI Studio does not guarantee Singapore processing (PRD QT-059).
 
-## 3. Storing the Gemini key (owner step)
+## 4. QT bots setup (not yet done)
 
-Owner decision, 19 October 2026: the key is entered in the staff console, not in Cloudflare (Cloudflare's BYOK rejected both the AI Studio key and the Vertex service account).
+Order matters:
 
-1. Admin console → **Integrations** → "Gemini · AI recipes" → paste the Google AI Studio key (from https://aistudio.google.com/app/apikey) → reason → **Save key**. The console first asks Google for the model list with that key (no generation, no cost); a key Google rejects is not stored, and the message says why (invalid, project restricted or billing not linked, quota).
-2. Then **Operations** → enable `recipes` (the member recipe feed the AI recipes publish into) and `ai_recipes`. Both can be turned off at any time; running jobs stop at their next check.
+1. Back up, then apply `server/ai-recipes/schema.sql` with the operations role. It is additive and idempotent: it adds `recipes.ai_bot_task` and the `ai_recipes_bots` control, off.
+2. Deploy the app and admin.
+3. Run `python ops/qt-team/deploy_videomaker.py`. It creates the `qt-videomaker` Hermes profile with the same model as QT Cooker. It installs `qt-ai-recipes-bridge.service`, which runs the bridge in the Hermes container. Its output says whether Hermes lists `video_analyze` for the profile.
+4. Turn on **AI recipes by QT bots** in Admin > Operations and try one dish request and one video.
 
-How it is protected: the key is encrypted with AES-256-GCM under `/docker/quintaste/admin-secrets/provider-secret-key` (32 random bytes, mode 0400, mounted read-only into the app and admin containers only), stored in `ops.provider_secret` with the provider name as associated data; the app role can only read the row, staff roles write it; the console shows only the last four characters; saving, replacing and removing are audited without the value; the app never logs it and redacts `AIza…` from any provider error it records. A database copy alone does not reveal the key. The Cloudflare gateway path remains as a fallback when no key is stored.
+The bridge signs with the key the bots already use for editorial publishing. The signed path keeps the two uses apart. Each bridge handles one task at a time. More bridges can run together, because each task goes to exactly one.
 
-## 4. Known limits in Phase 1
+What to watch on the first tries:
+- `video_analyze` sends the whole video to the model. It only works if the bots' model accepts video and Hermes can reach that model for vision work. If not, video jobs fail with the reason in the job's usage (`botError`) and in `qt-team/ai-recipes/last.json`.
+- YouTube links have no file for the bots, so YouTube jobs fail on the bots engine.
+- A task nobody claims, or that is not answered within 30 minutes, fails as "Nothing answered in time".
 
-- Residency: Google AI Studio processes requests in Google regions, not guaranteed Singapore (PRD QT-059 asks for Singapore processing); the owner chose the AI Studio key. Moving to Vertex AI in `asia-southeast1` later is a config change plus a service-account token in the gateway.
-- Platform fetching for TikTok, Instagram and Facebook depends on their public pages and can fail; the job then asks the member to upload the saved video (Phase 2 UI) or try YouTube.
-- Videos without speech and with fast cuts produce lower-confidence recipes; those go to staff review rather than straight to the feed.
-- No cover photo: AI recipes show the category tile until a photo path is decided (creator thumbnails are not reused).
+## 5. Open items
+
+- Owner: whether the bots engine becomes the default after testing, and whether Gemini code is then removed.
+- Bots engine gaps: YouTube, step drawings, frame review and nutrition name learning.
+- Payments for the AI Cook plans are not connected (`paymentsLive = false`).
+- Not built: share sheet into QuinTaste, push notice when a recipe is ready, creator opt-out list.

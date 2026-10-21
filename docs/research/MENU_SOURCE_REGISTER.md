@@ -6,7 +6,7 @@ two held, none unprocessed or removed. Full-menu context no longer truncates at
 approval, venue/publication holds and monthly completion. Historical 22/174
 counts were checklist visits, not fully verified menus; preserve those visits.
 Telegram message 43 shows the unfiltered 68-dish menu and corrected counts.
-98 bot checks pass, 29/2,000 model calls used, no Google calls; schedule and
+98 bot checks pass, 29 model calls used, no Google calls; schedule and
 budgets preserved. Bot-only deployment leaves concurrent app/preview releases
 untouched. See `docs/research/qt-full-menu-audit-2026-10-17.md` (repository-root-relative).
 <!-- end-qt-full-menu-audit-20261017 -->
@@ -24,7 +24,7 @@ Older seven-pending/fresh-review statements below are historical and superseded.
 
 <!-- qt-final-acceptance-20261017 -->
 One-hour QT test finished at 6:39 pm SGT: all four roles ran live; final delivery
-checks passed. 22/174 locations reviewed, 26/2,000 monthly model invocations.
+checks passed. 22/174 locations reviewed, 26 monthly model invocations.
 Seven venue updates still await fresh review. Three owner-directed recipe
 removals are suppressed; zero bot recipes and two events remain live. Preserve
 historical failures and unresolved holds. See
@@ -60,8 +60,8 @@ App **20261017-qt-management2** is live, based on **20261017-menu-reviews3**;
 preview remains menu-reviews3. Only the editorial router/store changed; preserve
 owner-removal suppression and the concurrent place/menu review/photo features.
 Hermes now resumes checkpoints **1?5 am SGT daily**, stops new research at 4:15,
-and uses **2,000 shared agent invocations/month** with Telegram alerts at **1,600**
-and at the limit. `/manage` provides paired-owner, two-step recipe/event deletion.
+and has no monthly model-call cap (removed 18 October 2026; every call is still ledgered in `state/usage.jsonl`).
+`/manage` provides paired-owner, two-step recipe/event deletion.
 No real content was deleted for verification. Google ledger, source holds and
 production revision are unchanged. First full overnight window is still pending
 (18 October, 1 am). See [deployment and acceptance](docs/research/qt-night-management-2026-10-17.md)

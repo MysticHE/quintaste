@@ -24,7 +24,7 @@ export function parseLink(input) {
     id = url.searchParams.get('v') || url.pathname.match(/^\/(?:shorts|embed|live)\/([A-Za-z0-9_-]{11})/)?.[1] || null;
   }
   if (id !== null) {
-    if (!/^[A-Za-z0-9_-]{11}$/.test(id)) throw new GeminiError(400, 'That YouTube link has no video id.');
+    if (!/^[A-Za-z0-9_-]{11}$/.test(id)) throw new GeminiError(400, 'That link has no video id.');
     return { platform: 'youtube', canonical: 'https://www.youtube.com/watch?v=' + id, fileUri: 'https://www.youtube.com/watch?v=' + id };
   }
   if (PAGE_HOSTS.test(host)) {
@@ -39,7 +39,7 @@ export function parseLink(input) {
     return { platform, canonical };
   }
   if (/\.mp4(\?|$)/i.test(url.pathname + url.search)) return { platform: 'direct', canonical: url.toString(), media: url.toString() };
-  throw new GeminiError(400, 'Paste a YouTube, TikTok, Instagram or Facebook video link.');
+  throw new GeminiError(400, 'Paste a link to a public video.');
 }
 
 async function publicAddress(hostname) {
@@ -66,11 +66,11 @@ async function fetchPublic(url, { accept, limit, signal, referer = null }) {
     }
     if (!response.ok) throw new GeminiError(502, `The platform answered ${response.status}; the post may be private or removed.`);
     const length = Number(response.headers.get('content-length') || 0);
-    if (length > limit) throw new GeminiError(413, 'That video is larger than 20 MB. Try a shorter clip or YouTube.');
+    if (length > limit) throw new GeminiError(413, 'That video is larger than 20 MB. Try a shorter clip.');
     const chunks = []; let total = 0;
     for await (const chunk of response.body) {
       total += chunk.length;
-      if (total > limit) throw new GeminiError(413, 'That video is larger than 20 MB. Try a shorter clip or YouTube.');
+      if (total > limit) throw new GeminiError(413, 'That video is larger than 20 MB. Try a shorter clip.');
       chunks.push(chunk);
     }
     return { url: target.toString(), type: response.headers.get('content-type') || '', bytes: Buffer.concat(chunks) };
@@ -100,7 +100,7 @@ export async function loadVideo(link, signal) {
   if (!media) {
     const page = await fetchPublic(link.canonical, { accept: 'text/html,application/xhtml+xml', limit: 6 * 1024 * 1024, signal });
     media = mediaFromPage(page.bytes.toString('utf8'), link.platform);
-    if (!media) throw new GeminiError(422, 'The platform did not expose this video publicly. Save the video and share the file instead, or use a YouTube link.');
+    if (!media) throw new GeminiError(422, 'This video is not public. Save it on your phone, then tap Upload Video.');
   }
   const file = await fetchPublic(media, { accept: 'video/mp4,video/*;q=0.9,*/*;q=0.5', limit: MAX_BYTES, signal, referer: link.canonical });
   const type = /video\/(mp4|quicktime|webm)/.exec(file.type)?.[0] ?? (file.bytes.subarray(4, 8).toString() === 'ftyp' ? 'video/mp4' : null);

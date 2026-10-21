@@ -1,7 +1,7 @@
 import { createHash } from 'node:crypto';
 import { pool, logger } from '../config.mjs';
 import { allowed } from '../operations.mjs';
-import { geminiConfig } from '../ai-recipes/gemini.mjs';
+import { engineReady } from '../ai-recipes/engine.mjs';
 import { serverMatches } from './suggest.mjs';
 import { dailyCap, jobsLastDay } from '../ai-recipes/limits.mjs';
 
@@ -58,7 +58,7 @@ export async function demandJobsToday() {
  * daily cap for everyone (so a cap of 0 pauses these too). Terms that now find recipes are skipped and the next one is tried.
  */
 async function start({ includeOpen }) {
-  if (!await allowed('recipe_demand') || !await allowed('ai_recipes') || !await allowed('recipes') || !(await geminiConfig()).enabled) return;
+  if (!await allowed('recipe_demand') || !await allowed('ai_recipes') || !await allowed('recipes') || !await engineReady()) return;
   const [today, cap, all] = await Promise.all([demandJobsToday(), dailyCap(), jobsLastDay()]);
   const room = Math.min(DEMAND.daily - today, cap - all);
   if (room <= 0) return;

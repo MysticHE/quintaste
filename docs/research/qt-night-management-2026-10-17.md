@@ -1,3 +1,5 @@
+> Superseded 18 October 2026: the 2,000 monthly model cap and its 1,600 alert were removed (`monthlyModelInvocations: null`); calls are still ledgered. See `QT_BOTS_REMAINING_GAPS_2026-10-18-limits.md`.
+
 # QT nightly work and owner moderation
 
 Deployed and checked **17 October 2026, 5:24 pm SGT**. This supersedes the older

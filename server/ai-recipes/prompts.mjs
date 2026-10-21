@@ -48,7 +48,7 @@ export const recipeSchema = {
   required: ['isRecipe', 'title', 'description', 'creator', 'language', 'servings', 'minutes', 'category', 'diet', 'ingredients', 'steps', 'confidence', 'notes'],
 };
 
-const house = `You write recipes for QuinTaste, a Singapore vegetarian cooking app. Rules:
+export const house = `You write recipes for QuinTaste, a Singapore vegetarian cooking app. Rules:
 - Use only the ingredients, steps and times the source shows or states; never add an ingredient that is not there.
 - Every ingredient needs an amount a home cook can follow. Use the amount the source states or shows (read measuring spoons, cups, packets and scale readings in the video). When it gives none, suggest a typical amount for the servings, consistent with what the video shows (a generous pour, a pinch, a whole packet), and set suggested true. Keep amount null only for salt, pepper or garnish that is clearly added to taste at the end.
 - Write every sentence in your own words. Never copy the creator's wording or captions.

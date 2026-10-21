@@ -117,7 +117,7 @@ end-of-run reporting. Starting a run is not completion evidence.
 
 Fresh image generation was excluded from the latest test because the separate
 three-attempt monthly image allowance was exhausted. Preserve that limit; the
-2,000 model allowance does not increase it. Do not claim a fresh image E2E pass
+model-call allowance (uncapped since 18 October 2026) does not increase it. Do not claim a fresh image E2E pass
 without actually validating it. Use existing approved image evidence where
 applicable; document any quota-dependent outstanding check rather than bypassing
 the quota. AI enhancement does not remove reference-image rights requirements.
@@ -126,7 +126,7 @@ the quota. AI enhancement does not remove reference-image rights requirements.
 
 - Nightly window 01:00-05:00 SGT, research cutoff 04:15; existing scheduler.
 - Shared monthly model cap 2,000, with Telegram alert at 80%. Last verified use
-  29/2,000; re-read the append-only ledger before dispatching more calls.
+  29 in October; re-read the append-only ledger before dispatching more calls.
 - Google disabled. Preserve the existing 2,419/2,500 request ledger and its hash;
   no new paid/provider browsing calls in the consumer app.
 - Owned /api/catalogue, pagination, bounded caches, conditional revalidation,

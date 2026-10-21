@@ -23,6 +23,16 @@ function run(bin, args, timeoutMs = 30000) {
   });
 }
 
+/**
+ * An MP4 copy the QT bots can send to their model (Hermes reads mp4, webm and mov and caps a video at about 37 MB):
+ * 480 pixels high, 24 frames a second, mono audio. Returns the output path, or null when ffmpeg failed.
+ */
+export async function shrinkVideo(input, output) {
+  const { code } = await run(FFMPEG, ['-hide_banner', '-loglevel', 'error', '-y', '-i', input, '-vf', 'scale=-2:min(480\\,ih),fps=24',
+    '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '30', '-c:a', 'aac', '-ac', '1', '-b:a', '64k', '-movflags', '+faststart', output], 300000);
+  return code === 0 ? output : null;
+}
+
 /** Length of the video in seconds, or 0 when unknown. */
 export async function videoSeconds(file) {
   const { out } = await run(FFPROBE, ['-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', file]);

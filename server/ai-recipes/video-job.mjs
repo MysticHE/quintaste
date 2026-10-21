@@ -26,7 +26,7 @@ async function youtubeDetails(link) {
   } catch { return { creator: '', caption: '' }; }
 }
 /** The video's own cover image, used as the recipe cover with the creator credited. */
-async function youtubeThumbnail(link) {
+export async function youtubeThumbnail(link) {
   const id = youtubeId(link.canonical);
   for (const name of ['maxresdefault', 'hqdefault']) {
     try {
@@ -37,7 +37,8 @@ async function youtubeThumbnail(link) {
   return null;
 }
 
-async function obtain(job, dir, signal, progress) {
+/** The job's video: a member upload, a download into `dir`, or (YouTube, or no downloader) the link alone. */
+export async function obtain(job, dir, signal, progress) {
   const upload = parseUpload(job.input);
   if (upload) {
     let link = null;

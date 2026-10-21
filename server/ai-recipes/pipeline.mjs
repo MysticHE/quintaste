@@ -53,27 +53,41 @@ async function save(job, recipe, photos, review, nutritionComplete) {
   } finally { client.release(); }
 }
 
-/** Runs one job end to end and stores the result; returns the new job status. */
+/**
+ * The shared end of every job, whichever engine wrote the recipe: nutrition, staff review or live, saved with photos.
+ * `aiNutrition: false` keeps the nutrition step to the ingredient table (the bots engine makes no Gemini calls).
+ */
+export async function finishJob(job, recipe, photos, usage, { aiNutrition = true, signal = undefined } = {}) {
+  await progress(job)('Working out the nutrition…');
+  const { nutrition, complete } = await nutritionFor(recipe, { usage, signal, ai: aiNutrition });
+  if (nutrition) recipe.nutrition = nutrition;
+  // Nobody asked for a wanted recipe in these words, so staff always read it before it goes public.
+  const review = job.kind === 'demand' || recipe.source.confidence < REVIEW_BELOW;
+  const saved = await save(job, recipe, photos, review, complete);
+  const status = review ? 'review' : 'published';
+  await pool.query(`UPDATE recipes.ai_job SET status=$2, recipe_id=$3, message=$4, usage=$5, finished_at=now() WHERE id=$1`,
+    [job.id, status, saved.id, job.kind === 'demand' ? 'Waiting for staff review.' : review ? 'Some quantities or steps were unclear, so staff will check it before it goes public.' : '', { ...usage, photos: saved.photos }]);
+  logger.info({ event: 'ai_recipe_job_done', kind: job.kind, engine: usage.engine ?? 'gemini', status, calls: usage.calls.length, photos: saved.photos });
+  return status;
+}
+
+/** Marks a job failed with a member-readable message (GeminiError messages are written for members). */
+export async function failJob(job, error, usage) {
+  const message = error instanceof GeminiError ? error.message : 'Something went wrong reading this. Try again later.';
+  await pool.query(`UPDATE recipes.ai_job SET status='failed', message=$2, usage=$3, finished_at=now() WHERE id=$1`, [job.id, message.slice(0, 500), usage]);
+  logger.warn({ event: 'ai_recipe_job_failed', kind: job.kind, engine: usage.engine ?? 'gemini', status: error instanceof GeminiError ? error.status : 'internal', detail: error instanceof GeminiError ? undefined : String(error?.message ?? error).slice(0, 200) });
+  return 'failed';
+}
+
+export const progress = job => message => pool.query("UPDATE recipes.ai_job SET message=$2 WHERE id=$1 AND status='working'", [job.id, message]).catch(() => {});
+
+/** Runs one job end to end with Gemini and stores the result; returns the new job status. */
 export async function runJob(job, signal) {
   const usage = { calls: [], bytes: 0 };
-  const progress = message => pool.query("UPDATE recipes.ai_job SET message=$2 WHERE id=$1 AND status='working'", [job.id, message]).catch(() => {});
   try {
-    const { recipe, photos } = job.kind === 'video' ? await fromVideo(job, signal, usage, progress) : await fromRequest(job, signal, usage, progress);
-    await progress('Working out the nutrition…');
-    const { nutrition, complete } = await nutritionFor(recipe, { usage, signal });
-    if (nutrition) recipe.nutrition = nutrition;
-    // Nobody asked for a wanted recipe in these words, so staff always read it before it goes public.
-    const review = job.kind === 'demand' || recipe.source.confidence < REVIEW_BELOW;
-    const saved = await save(job, recipe, photos, review, complete);
-    const status = review ? 'review' : 'published';
-    await pool.query(`UPDATE recipes.ai_job SET status=$2, recipe_id=$3, message=$4, usage=$5, finished_at=now() WHERE id=$1`,
-      [job.id, status, saved.id, job.kind === 'demand' ? 'Waiting for staff review.' : review ? 'Some quantities or steps were unclear, so staff will check it before it goes public.' : '', { ...usage, photos: saved.photos }]);
-    logger.info({ event: 'ai_recipe_job_done', kind: job.kind, status, calls: usage.calls.length, photos: saved.photos });
-    return status;
+    const { recipe, photos } = job.kind === 'video' ? await fromVideo(job, signal, usage, progress(job)) : await fromRequest(job, signal, usage, progress(job));
+    return await finishJob(job, recipe, photos, usage, { signal });
   } catch (error) {
-    const message = error instanceof GeminiError ? error.message : 'Something went wrong reading this. Try again later.';
-    await pool.query(`UPDATE recipes.ai_job SET status='failed', message=$2, usage=$3, finished_at=now() WHERE id=$1`, [job.id, message.slice(0, 500), usage]);
-    logger.warn({ event: 'ai_recipe_job_failed', kind: job.kind, status: error instanceof GeminiError ? error.status : 'internal', detail: error instanceof GeminiError ? undefined : String(error?.message ?? error).slice(0, 200) });
-    return 'failed';
+    return failJob(job, error, usage);
   }
 }
