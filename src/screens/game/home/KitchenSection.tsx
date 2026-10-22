@@ -1,7 +1,9 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { Image, Pressable, StyleSheet, View } from "react-native";
 import { RemoteStatus } from "../../../components/CommunityGate";
 import { Button, Icon, T } from "../../../components/ui";
+import { ReportSheet } from "../../../components/ReportSheet";
+import { useGameMemberId } from "../../../hooks/useGame";
 import { TIER_NAMES } from "../../../game/content/levels";
 import { missingTechnique } from "../../../game/kitchen";
 import { TIERS, type Tier } from "../../../game/mission";
@@ -76,6 +78,8 @@ const useFresh = (pick: KitchenPick | null) => { const levels = useKitchen().dat
 function Tiers({ game, pick: picked, onPick }: { game: GameProgress; pick: KitchenPick; onPick(p: KitchenPick): void }) {
   const level = useFresh(picked)!, pick = { ...picked, level };
   const { theme } = usePreferences(), locked = missingTechnique(game, pick.level.techniques);
+  // A public level made from another member's recipe can be reported to staff (RECIPE_LEVELS_PLAN §10).
+  const [report, setReport] = useState(false), canReport = !!useGameMemberId() && level.recipeId.startsWith("member-") && !level.mine;
   return <Section title={pick.level.name}>
     {TIERS.map(t => { const open = !locked && tierOpen(pick.level, t), best = pick.level.best[t];
       return <Pressable key={t} disabled={!open} onPress={() => onPick({ level: pick.level, tier: t })} accessibilityRole="radio"
@@ -84,6 +88,8 @@ function Tiers({ game, pick: picked, onPick }: { game: GameProgress; pick: Kitch
         <View style={{ flex: 1 }}><T style={{ fontWeight: "800" }}>{TIER_NAMES[t]}</T></View>
         {open ? <Stars stars={best?.clears ? best.stars : null} /> : <Icon name="lock-closed" size={16} color={theme.mutedForeground} />}
       </Pressable>; })}
+    {canReport && <Button label="Report Level" icon="flag-outline" variant="link" onPress={() => setReport(true)} />}
+    {canReport && <ReportSheet kind="level" targetId={level.hash} name={level.name} visible={report} onClose={() => setReport(false)} />}
   </Section>;
 }
 /** The sheet footer for the Recipe Kitchen tab: start the picked tier when it is open. */

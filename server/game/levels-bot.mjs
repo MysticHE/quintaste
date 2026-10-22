@@ -15,7 +15,7 @@ const brief = draft => JSON.stringify({ recipe: { name: draft.recipe.name, categ
 export const gameLevelBots = express.Router();
 gameLevelBots.post('/claim', raw('1kb'), signed, async (_req, res, next) => {
   try {
-    const job = (await pool.query(`WITH next AS (SELECT id FROM game.level_job WHERE status='waiting' ORDER BY created_at LIMIT 1 FOR UPDATE SKIP LOCKED)
+    const job = (await pool.query(`WITH next AS (SELECT id FROM game.level_job WHERE status='waiting' ORDER BY priority DESC, created_at LIMIT 1 FOR UPDATE SKIP LOCKED)
       UPDATE game.level_job j SET status='claimed', claimed_at=now(), started_at=coalesce(started_at, now()), attempts=attempts+1 FROM next WHERE j.id = next.id
       RETURNING j.id, j.draft`)).rows[0];
     res.json({ job: job ? { id: job.id, system: SHAPE_SYSTEM, context: brief(job.draft), schema: SHAPE_SCHEMA } : null });

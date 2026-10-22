@@ -16,6 +16,7 @@ import { router } from "expo-router";
 import { ReportSheet } from "../ReportSheet";
 import { ensureMember, useMember } from "../CommunityGate";
 import { nextTier, useKitchen } from "../../hooks/useKitchen";
+import { MakeLevelAction } from "./MakeLevel";
 
 export function RecipeOverview({ recipe }: { recipe: Recipe }) {
   const save = useRecipeSave(recipe.id);
@@ -24,7 +25,7 @@ export function RecipeOverview({ recipe }: { recipe: Recipe }) {
   const [report, setReport] = useState(false), member = useMember();
   const result = recipeFit(recipe, draft.diets, draft.excluded), cooks = useReaction("recipe", recipe.id).reaction.cooks;
   // Play it in Rush Hour when this recipe has a live Recipe Kitchen level (members only for now).
-  const level = useKitchen().data?.levels.find(l => l.recipeId === recipe.id);
+  const kitchen = useKitchen(), level = kitchen.data?.levels.find(l => l.recipeId === recipe.id);
   useReactions("recipe", [recipe.id]);
   return <>
     <RecipeImage recipe={recipe} label style={{ width: "100%", aspectRatio: 2.4, borderRadius: 16 }} />
@@ -33,6 +34,7 @@ export function RecipeOverview({ recipe }: { recipe: Recipe }) {
         label={(save.saved ? "Remove saved " : "Save ") + recipe.name} selected={save.saved} onPress={save.onPress} />
       {level && <Action icon="game-controller-outline" color={theme.foreground} label={"Play " + recipe.name}
         onPress={() => router.push({ pathname: "/game/play", params: { pack: level.hash, tier: nextTier(level), run: String(Date.now()) } })} />}
+      {!level && recipe.member?.own && <MakeLevelAction recipeId={recipe.id} onReady={kitchen.refresh} />}
       <Action icon={info ? "information-circle" : "information-circle-outline"} color={info ? theme.accent : theme.foreground} label="Recipe Info" selected={info} onPress={() => setInfo(!info)} />
     </>} />
     <View style={{ gap: 4, alignItems: "flex-start" }}>

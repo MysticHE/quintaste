@@ -30,6 +30,12 @@ export const fetchKitchen = (signal?: AbortSignal) => communityRequest<KitchenSh
 /** Liked, disliked, or cleared (null): only after finishing a service of the level. */
 export const reactLevel = (hash: string, liked: boolean | null) =>
   communityRequest<{ liked: boolean | null }>("/api/game/levels/" + encodeURIComponent(hash) + "/reaction", { method: "POST", body: { liked } });
+/** A member's request for a private level from their own recipe (Phase 4): the level when already made, or the job in line. */
+export type LevelRequest = { status: "ready" | "waiting"; hash?: string; job?: string };
+export const requestLevel = (recipeId: string) => communityRequest<LevelRequest>("/api/game/levels", { method: "POST", body: { recipeId } });
+/** The member's recent level requests: in line, done (with the level) or failed (with the reason). */
+export type MyLevel = { id: string; recipeId: string; status: "waiting" | "done" | "failed"; message: string; hash: string | null; createdAt: string };
+export const fetchMyLevels = (signal?: AbortSignal) => communityRequest<{ levels: MyLevel[] }>("/api/game/levels/mine", { signal });
 export const fetchPack = (hash: string) => communityRequest<PackResponse>("/api/game/packs/" + encodeURIComponent(hash));
 /** Signed-out players: public live levels only, played as practice on the device. */
 async function publicGet<T>(path: string, signal?: AbortSignal): Promise<T> {

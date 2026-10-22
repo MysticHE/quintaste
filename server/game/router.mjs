@@ -7,6 +7,9 @@ import { lockProfile, postCredits } from './ledger.mjs';
 import { importDevice, loadProgress, saveCafe } from './progress.mjs';
 import { pictureUrl, picturesFor } from './art.mjs';
 import { allowed } from '../operations.mjs';
+import { notBlocked, notRestricted } from '../community/router.mjs';
+import { planAccess } from '../ai-recipes/limits.mjs';
+import { myLevels, requestLevel } from './levels-members.mjs';
 
 /**
  * Rush Hour account progress (GAME_PLAN §12.3 and §14 Phase B; PRD QT-055/056), mounted at /api/game behind the `games`
@@ -62,12 +65,19 @@ game.post('/purchases', async (req, res) => {
 
 const PACK_HASH = /^p[a-z0-9]{1,14}$/;
 /**
+ * A level from a member's recipe is shown only while that recipe is live and shown, its author is not restricted, and neither side
+ * has blocked the other (blocking is mutual, RECIPE_LEVELS_PLAN §10). `level` is the recipe_level alias; `viewer` the viewer's id param.
+ */
+const authorVisible = (level, viewer) => `(${level}.recipe_id NOT LIKE 'member-%' OR EXISTS (SELECT 1 FROM recipes.recipe mr_ WHERE 'member-' || mr_.id::text = ${level}.recipe_id
+  AND mr_.live IS NOT NULL AND mr_.hidden_at IS NULL AND ${notRestricted('mr_.author_id')} AND ${notBlocked('mr_.author_id', viewer)}))`;
+/**
  * A level pack this member may play: ready, and public or their own. It is validated, its stored hash checked and it is
  * registered with the simulation. Null when it is missing, withdrawn, someone else's, or no longer valid.
  */
 async function playablePack(db, sim, hash, me) {
   if (typeof hash !== 'string' || !PACK_HASH.test(hash)) return null;
-  const row = (await db.query(`SELECT hash, recipe_id, pack, owner_id IS NOT NULL AS private FROM game.recipe_level WHERE hash=$1 AND status='ready' AND (owner_id IS NULL OR owner_id=$2)`, [hash, me])).rows[0];
+  const row = (await db.query(`SELECT l.hash, l.recipe_id, l.pack, l.owner_id IS NOT NULL AS private FROM game.recipe_level l WHERE l.hash=$1 AND l.status='ready'
+    AND (l.owner_id IS NULL OR l.owner_id=$2) AND ${authorVisible('l', '$2')}`, [hash, me])).rows[0];
   if (!row) return null;
   try {
     const pack = sim.readPack(row.pack);
@@ -89,11 +99,25 @@ async function playablePack(db, sim, hash, me) {
 game.get('/kitchen', async (_req, res) => {
   res.set('Cache-Control', 'private, no-store').json(await kitchenShelf(res.locals.user.id));
 });
+/**
+ * Member levels (Phase 4): a member asks for a private level from their own published recipe. Making one is an AI feature, so it
+ * needs an AI Recipes plan (no free tries); an unlimited account skips the daily limit but not the two in line.
+ */
+game.post('/levels', async (req, res) => {
+  const me = res.locals.user.id;
+  await throttle(`game-level:${me}`, 20, 3600);
+  const plan = await planAccess(me);
+  if (plan.needsPlan) throw new CommunityError(402, 'Choose a plan to make levels from your recipes.', 'PLAN_REQUIRED');
+  res.status(202).json(await transaction(db => requestLevel(db, me, req.body?.recipeId, { daily: !plan.unlimited })));
+});
+game.get('/levels/mine', async (_req, res) => {
+  res.set('Cache-Control', 'private, no-store').json({ levels: await myLevels(pool, res.locals.user.id) });
+});
 /** The shelf for a member, or for a signed-out player (`me` null: public levels only, no bests). */
 async function kitchenShelf(me) {
   const levels = (await pool.query(`SELECT DISTINCT ON (l.recipe_id) l.hash, l.recipe_id, l.cuisine, l.owner_id IS NOT NULL AS mine, l.created_at,
       l.pack->'techniques' AS techniques, l.pack->'dishes'->0->>'name' AS name, l.pack->'dishes'->0->>'art' AS art
-    FROM game.recipe_level l WHERE l.status = 'ready' AND (l.owner_id IS NULL OR l.owner_id = $1)
+    FROM game.recipe_level l WHERE l.status = 'ready' AND (l.owner_id IS NULL OR l.owner_id = $1) AND ${authorVisible('l', '$1')}
     ORDER BY l.recipe_id, l.recipe_revision DESC, l.created_at DESC LIMIT 300`, [me])).rows;
   const hashes = levels.map(l => l.hash);
   const [bests, pictures, ratings, stats, mine] = await Promise.all([

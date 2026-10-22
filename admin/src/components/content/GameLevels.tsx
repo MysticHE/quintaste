@@ -23,7 +23,8 @@ const JOB: Record<string, string> = { queued: 'Compiling', waiting: 'Waiting for
 type Job = { id: string; art_key: string; kind: string; subject: string; details: string; status: string; attempts: number; error: string; created_at: string; drafts: number };
 /** A built-in game item id as words ("cooking-oil" → "Cooking oil"); look-alike pairs drop their A/B letter. */
 const words = (id: string) => { const s = id.replace(/-[ab]$/, '').replace(/-/g, ' '); return s[0].toUpperCase() + s.slice(1); };
-const STATION: Record<string, string> = { pan: 'Wok', pot: 'Soup pot', rice: 'Rice cooker', board: 'Assembly board', dessert: 'Dessert pot' };
+const STATION: Record<string, string> = { pan: 'Wok', pot: 'Soup pot', rice: 'Rice cooker', board: 'Assembly board', dessert: 'Dessert pot', blender: 'Blender',
+  steamer: 'Steamer', oven: 'Oven', griddle: 'Griddle', fryer: 'Fryer', dough: 'Dough board', fridge: 'Fridge' };
 
 /** Recipe levels waiting for review, making new ones, QT Gamer's pictures waiting for the artist, and the picture jobs themselves. */
 export function GameLevels() {
@@ -91,7 +92,8 @@ function Levels() {
       </>; }}
     act={(l, _status, done) => <ActionBar resource="game-levels" payload={() => ({ id: l.id })} onDone={done}
       actions={l.status === 'review' ? [{ action: 'approve', label: 'Approve' }, { action: 'hide', label: 'Hide', tone: 'danger' }]
-        : l.status === 'ready' ? [{ action: 'hide', label: 'Hide', tone: 'danger' }] : [{ action: 'restore', label: 'Show again' }]}/>}/>;
+        : l.status === 'ready' ? [...(l.owner ? [{ action: 'public', label: 'Make public' }] : []), { action: 'hide', label: 'Hide', tone: 'danger' as const }]
+        : [{ action: 'restore', label: 'Show again' }]}/>}/>;
 }
 
 function Pictures() {

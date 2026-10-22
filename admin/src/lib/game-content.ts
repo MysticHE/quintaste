@@ -35,19 +35,24 @@ export async function gameLevelList(member: Session, status: string, q: string, 
     ORDER BY l.created_at DESC, l.hash LIMIT ${pageSize} OFFSET $3`, [view, term, skip])).rows);
 }
 
-/** approve (review → live), hide (members can no longer start or settle it) or restore (hidden → live). Audited. */
+/**
+ * approve (review → live), hide (members can no longer start or settle it), restore (hidden → live) or public (a member's private
+ * level, after review, opens to everyone; it stays playable for its author throughout). Audited.
+ */
 export async function gameLevelAction(member: Session, input: Record<string, unknown>, reason: string) {
-  const act = choice(input.action, ['approve', 'hide', 'restore'] as const, 'action'), id = text(input.id, 'level', 15, 2);
+  const act = choice(input.action, ['approve', 'hide', 'restore', 'public'] as const, 'action'), id = text(input.id, 'level', 15, 2);
   if (!HASH.test(id)) throw new HttpError(400, 'Check the level.');
   authorize(member, 'content');
   return guard(() => transaction(async db => {
     await lockPermission(db, member, 'content');
-    const from = { approve: "status = 'review'", hide: "status <> 'hidden'", restore: "status = 'hidden'" }[act];
-    const changed = await db.query(`UPDATE game.recipe_level SET status = $2, reviewed_at = now(), reviewed_by = $3 WHERE hash = $1 AND ${from}`,
-      [id, act === 'hide' ? 'hidden' : 'ready', member.email.slice(0, 120)]);
+    const from = { approve: "status = 'review'", hide: "status <> 'hidden'", restore: "status = 'hidden'", public: "status = 'ready' AND owner_id IS NOT NULL" }[act];
+    const changed = act === 'public'
+      ? await db.query(`UPDATE game.recipe_level SET owner_id = NULL, reviewed_at = now(), reviewed_by = $2 WHERE hash = $1 AND ${from}`, [id, member.email.slice(0, 120)])
+      : await db.query(`UPDATE game.recipe_level SET status = $2, reviewed_at = now(), reviewed_by = $3 WHERE hash = $1 AND ${from}`,
+        [id, act === 'hide' ? 'hidden' : 'ready', member.email.slice(0, 120)]);
     if (!changed.rowCount) throw new HttpError(409, 'This level changed since you opened it. Refresh the list.');
     await audit(db, member.id, 'content.game_level.' + act, 'game-level:' + id, reason, {});
-    return { saved: true, note: { approve: 'Live: members can play it', hide: 'Hidden: no new plays, open ones are refused', restore: 'Live again' }[act] };
+    return { saved: true, note: { approve: 'Live: members can play it', hide: 'Hidden: no new plays, open ones are refused', restore: 'Live again', public: 'Public: everyone can play it' }[act] };
   }));
 }
 

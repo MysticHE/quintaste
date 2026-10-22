@@ -217,8 +217,17 @@ CREATE TABLE IF NOT EXISTS game.player_rating (
 );
 
 
+-- Member levels (GAME_CONTENT_PLAN Phase 4, RECIPE_LEVELS_PLAN §5 and §7): a member asks for a private level from their own published
+-- recipe (an AI feature, so it needs an AI Recipes plan). `owner_id` is the member (null for staff requests); their jobs go first
+-- (`priority`) and make a level only they can play until staff make it public. One open job per recipe and owner.
+ALTER TABLE game.level_job ADD COLUMN IF NOT EXISTS owner_id text REFERENCES public."user"(id) ON DELETE CASCADE;
+ALTER TABLE game.level_job ADD COLUMN IF NOT EXISTS priority smallint NOT NULL DEFAULT 0 CHECK (priority BETWEEN 0 AND 9);
+CREATE UNIQUE INDEX IF NOT EXISTS game_level_job_open_owner ON game.level_job(recipe_id, coalesce(owner_id, '')) WHERE status IN ('queued','waiting','claimed','answered');
+DROP INDEX IF EXISTS game.game_level_job_open;
+CREATE INDEX IF NOT EXISTS game_level_job_owner ON game.level_job(owner_id, created_at) WHERE owner_id IS NOT NULL;
+
 GRANT SELECT, INSERT ON game.item TO quintaste_app;
-GRANT SELECT, UPDATE ON game.level_job TO quintaste_app;
+GRANT SELECT, INSERT, UPDATE ON game.level_job TO quintaste_app;
 GRANT INSERT ON game.recipe_level TO quintaste_app;
 GRANT SELECT, INSERT ON game.asset TO quintaste_app;
 GRANT SELECT, INSERT ON game.art TO quintaste_app;
