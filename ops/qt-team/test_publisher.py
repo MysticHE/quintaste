@@ -262,6 +262,11 @@ class Publishing(unittest.TestCase):
         self.assertEqual(p.integral(4.0),4)
         self.assertIn('1 to 8',p.server_recipe_problem(dict(ok,servings=10)))
         self.assertIn('Dairy',p.server_recipe_problem(dict(ok,ingredients=[{'id':'butter','name':'butter','unit':'g'}])))
+        # 22 Oct: golden milk's coconut and almond milk read as dairy, so its vegan claim was refused.
+        plant=dict(ok,ingredients=[{'id':'coconut-milk','name':'light coconut milk','unit':'ml'},{'id':'almond-milk','name':'unsweetened almond milk','unit':'ml'}])
+        self.assertIsNone(p.server_recipe_problem(plant))
+        self.assertEqual(p.recipe_contains({'ingredients':plant['ingredients']}),[])
+        self.assertEqual(p.recipe_contains({'ingredients':[{'name':'coconut milk'},{'name':'milk'}]}),['Dairy'])
 
     def test_server_rejection_never_leaves_a_batch_stuck(self):
         import io, urllib.error

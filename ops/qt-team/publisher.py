@@ -117,6 +117,15 @@ def _text(v, limit, empty=False):
 def integral(v):
     """4.0 -> 4 (JSON numbers the server reads as integers); anything else unchanged."""
     return int(v) if isinstance(v, float) and v.is_integer() else v
+# Plant milks, creams and butters are not dairy (server/editorial/validation.mjs strips the same words).
+PLANT_DAIRY = re.compile(r'\b(?:coconut|almond|soy|soya|oat|rice|cashew|peanut|hemp|cocoa|plant-based|non-dairy|dairy-free|vegan) (?:milk|cream|butter|cheese)\b', re.ASCII)
+
+
+def diet_names(ingredients):
+    """Ingredient names joined for the diet word rules, with plant milks taken out."""
+    return PLANT_DAIRY.sub(' ', ' '.join(str(i.get('name', '')).lower() for i in ingredients))
+
+
 SERVER_TAGS = ((r'\beggs?\b', 'Eggs'), (r'\b(milk|cream|butter|cheese)\b', 'Dairy'), (r'\bhoney\b', 'Honey'),
                (r'\bgarlic\b', 'Garlic'), (r'\bonions?\b', 'Onion'), (r'\bsoy sauce|\bwheat\b', 'Gluten'))
 EVENT_FIELDS = ('id','title','organiser','startsAt','endsAt','location','address','feeAmount','currency','feeNote','registrationUrl',
@@ -161,7 +170,7 @@ ISOLATE = 'state/publish-isolate.json'
 
 
 def server_recipe_problem(d):
-    names = ' '.join(str(i.get('name', '')).lower() for i in d.get('ingredients', []))
+    names = diet_names(d.get('ingredients', []))
     contains = d.get('dietary', {}).get('contains', [])
     if not (type(d.get('servings')) is int and 1 <= d['servings'] <= 8):
         return 'Servings must be a whole number from 1 to 8'
@@ -200,9 +209,9 @@ def recipe_contains(r):
     """Exclusion tags recipe_data publishes: declared tags plus those implied by ingredient names."""
     aliases = {'egg': 'Eggs', 'eggs': 'Eggs', 'dairy': 'Dairy', 'honey': 'Honey', 'gluten': 'Gluten', 'wheat': 'Gluten', 'garlic': 'Garlic', 'onion': 'Onion', 'peanuts': 'Peanuts', 'tree nuts': 'Tree nuts', 'mushrooms': 'Mushrooms'}
     contains = {aliases[t.lower()] for t in r.get('contains', []) if isinstance(t, str) and t.lower() in aliases}
-    names = ' '.join(str(i.get('name', '')).lower() for i in r.get('ingredients', []))
-    for pattern, tag in [(r'\beggs?\b','Eggs'),(r'\bgarlic\b','Garlic'),(r'\bonions?\b','Onion'),(r'\b(milk|cream|butter|cheese)\b','Dairy'),(r'\bhoney\b','Honey'),(r'\bsoy sauce|\bwheat\b','Gluten')]:
-        if re.search(pattern, names): contains.add(tag)
+    names = diet_names(r.get('ingredients', []))
+    for pattern, tag in SERVER_TAGS:
+        if re.search(pattern, names, re.ASCII): contains.add(tag)
     return sorted(contains)
 
 
@@ -224,9 +233,6 @@ def recipe_data(row, evidence):
     for tag in r.get('contains', []):
         if tag.lower() in aliases:
             contains.add(aliases[tag.lower()])
-    names = ' '.join(i['name'].lower() for i in r['ingredients'])
-    for pattern, tag in [(r'\beggs?\b','Eggs'),(r'\bgarlic\b','Garlic'),(r'\bonions?\b','Onion'),(r'\b(milk|cream|butter|cheese)\b','Dairy'),(r'\bhoney\b','Honey'),(r'\bsoy sauce|\bwheat\b','Gluten')]:
-        if re.search(pattern, names): contains.add(tag)
     checked = max(s['checkedAt'] for s in evidence)
     author = r['author']['name'] if isinstance(r['author'], dict) else r['author']
     rating = {'sourceRating': r['sourceRating']} if isinstance(r.get('sourceRating'), dict) else {}  # attached by recipe_quality.gate, never by the model
