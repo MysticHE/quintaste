@@ -155,7 +155,7 @@ Every asset is QT Gamer draft output in the QuinTaste game style, pointed at a s
 
 **Import:** `python -I scripts/import-game-art.py --source <gamer folder>` copies the chosen variants to `assets/game/` (177 images, 3.3 MB) and writes `assets/game/provenance.json` and `src/game/art.ts`.
 
-**Approval:** an artist approves the art before members see it.
+**Approval:** an artist approves the art before members see it. On 22 October 2026 the owner, acting as the artist, approved all 214 bundled pictures (`assets/game/provenance.json`: `status`, `approvedBy`, `approvedAt`). A re-import keeps an approval only while a picture's bytes are unchanged; a new or redrawn picture starts as a draft.
 
 ## Play your way, sound and bridges (19 October 2026)
 

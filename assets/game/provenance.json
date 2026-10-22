@@ -12,7 +12,9 @@
    220,
    193
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "acc-coral": {
   "source": "runs/cast/acc-coral",
@@ -27,7 +29,9 @@
    220,
    178
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "acc-golden": {
   "source": "runs/lotus/acc-golden",
@@ -42,7 +46,9 @@
    220,
    132
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "acc-lantern": {
   "source": "runs/cast/acc-lantern",
@@ -57,7 +63,9 @@
    177,
    220
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "acc-lilac": {
   "source": "runs/cast/acc-lilac",
@@ -72,7 +80,9 @@
    220,
    187
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "acc-mushroom": {
   "source": "runs/cast/acc-mushroom",
@@ -87,7 +97,9 @@
    220,
    171
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "acc-pink": {
   "source": "runs/lotus/acc-pink",
@@ -102,7 +114,9 @@
    220,
    161
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "acc-purple": {
   "source": "runs/lotus/acc-purple",
@@ -117,7 +131,9 @@
    220,
    189
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "assembly-board": {
   "source": "runs/cast/assembly-board",
@@ -132,7 +148,9 @@
    320,
    212
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "assembly-counter": {
   "source": "runs/growth/assembly-counter",
@@ -147,7 +165,9 @@
    320,
    192
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "avatar-adult": {
   "source": "runs/iso/avatar-adult",
@@ -162,7 +182,9 @@
    352,
    480
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "avatar-lian": {
   "source": "runs/iso/avatar-lian",
@@ -177,7 +199,9 @@
    363,
    480
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "avatar-mini": {
   "source": "runs/iso/avatar-mini",
@@ -192,7 +216,9 @@
    360,
    480
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "beansprouts": {
   "source": "runs/kit/beansprouts",
@@ -207,7 +233,9 @@
    256,
    164
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "beehoon": {
   "source": "runs/kit/beehoon",
@@ -222,7 +250,9 @@
    256,
    181
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "black-beans": {
   "source": "runs/pantry/black-beans",
@@ -237,7 +267,9 @@
    256,
    207
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "board": {
   "source": "runs/scene/board",
@@ -252,7 +284,9 @@
    320,
    143
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "bok-choy": {
   "source": "runs/pantry/bok-choy",
@@ -267,7 +301,9 @@
    256,
    244
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "broccoli": {
   "source": "runs/pantry/broccoli",
@@ -282,7 +318,9 @@
    248,
    256
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "brown-sugar": {
   "source": "runs/pantry/brown-sugar",
@@ -297,7 +335,9 @@
    256,
    209
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "button-mushrooms": {
   "source": "runs/pantry/button-mushrooms",
@@ -312,7 +352,9 @@
    256,
    199
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "cabbage": {
   "source": "runs/pantry/cabbage",
@@ -327,7 +369,9 @@
    256,
    231
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "cafe-counter": {
   "source": "runs/home/counter",
@@ -342,7 +386,9 @@
    512,
    181
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "capsicum": {
   "source": "runs/pantry/capsicum",
@@ -357,7 +403,9 @@
    256,
    188
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "carrot": {
   "source": "runs/level5/carrot",
@@ -372,7 +420,9 @@
    256,
    193
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "chilli-paste": {
   "source": "runs/pantry/chilli-paste",
@@ -387,7 +437,9 @@
    212,
    256
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "chilli-sauce": {
   "source": "runs/pantry/chilli-sauce",
@@ -402,7 +454,9 @@
    134,
    256
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "chives": {
   "source": "runs/pantry/chives",
@@ -417,7 +471,9 @@
    256,
    194
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "choysum": {
   "source": "runs/kit/choysum",
@@ -432,7 +488,9 @@
    256,
    234
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "coconut-milk": {
   "source": "runs/pantry/coconut-milk",
@@ -447,7 +505,9 @@
    200,
    256
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "cooking-oil": {
   "source": "runs/pantry/cooking-oil",
@@ -462,7 +522,9 @@
    168,
    256
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "coriander": {
   "source": "runs/pantry/coriander",
@@ -477,7 +539,9 @@
    256,
    216
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "corn": {
   "source": "runs/pantry/corn",
@@ -492,7 +556,9 @@
    256,
    197
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "cornflour": {
   "source": "runs/pantry/cornflour",
@@ -507,7 +573,9 @@
    256,
    213
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "cucumber": {
   "source": "runs/pantry/cucumber",
@@ -522,7 +590,9 @@
    256,
    204
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "dairy-milk": {
   "source": "runs/pantry/dairy-milk",
@@ -537,7 +607,9 @@
    118,
    256
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "dark-soy": {
   "source": "runs/pantry/dark-soy",
@@ -552,7 +624,9 @@
    155,
    256
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "decor-herbs": {
   "source": "runs/cast/decor-herbs",
@@ -567,7 +641,9 @@
    360,
    240
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "decor-lamp": {
   "source": "runs/cast/decor-lamp",
@@ -582,7 +658,9 @@
    281,
    360
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "decor-lanterns": {
   "source": "runs/home/decor-lanterns",
@@ -597,7 +675,9 @@
    344,
    360
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "decor-lotusbowl": {
   "source": "runs/home/decor-lotusbowl",
@@ -612,7 +692,9 @@
    360,
    252
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "decor-painting": {
   "source": "runs/home/decor-painting",
@@ -627,7 +709,9 @@
    291,
    360
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "decor-plant": {
   "source": "runs/home/decor-plant",
@@ -642,7 +726,9 @@
    309,
    360
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "decor-rug": {
   "source": "runs/cast/decor-rug",
@@ -657,7 +743,9 @@
    360,
    239
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "decor-teaset": {
   "source": "runs/cast/decor-teaset",
@@ -672,7 +760,9 @@
    360,
    271
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "decor-windowplant": {
   "source": "runs/cast/decor-windowplant",
@@ -687,7 +777,9 @@
    360,
    338
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "dessert-pot": {
   "source": "runs/cast/dessert-pot",
@@ -702,7 +794,9 @@
    320,
    293
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "dish-abc-soup": {
   "source": "runs/dishes/dish-abc-soup",
@@ -717,7 +811,9 @@
    360,
    243
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "dish-beehoon": {
   "source": "runs/kit/dish-beehoon",
@@ -732,7 +828,9 @@
    360,
    244
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "dish-bubur": {
   "source": "runs/dishes/dish-bubur",
@@ -747,7 +845,9 @@
    360,
    291
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "dish-claypot": {
   "source": "runs/dishes/dish-claypot",
@@ -762,7 +862,9 @@
    360,
    251
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "dish-greens": {
   "source": "runs/kit/dish-greens",
@@ -777,7 +879,9 @@
    360,
    250
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "dish-kangkung": {
   "source": "runs/kit/dish-kangkung",
@@ -792,7 +896,9 @@
    360,
    238
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "dish-laksa": {
   "source": "runs/dishfix/dish-laksa",
@@ -807,7 +913,9 @@
    360,
    281
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "dish-mapo": {
   "source": "runs/level5/dish-mapo",
@@ -822,7 +930,9 @@
    360,
    276
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "dish-mee-goreng": {
   "source": "runs/dishfix/dish-mee-goreng",
@@ -837,7 +947,9 @@
    360,
    238
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "dish-nasi-lemak": {
   "source": "runs/dishes/dish-nasi-lemak",
@@ -852,7 +964,9 @@
    360,
    246
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "dish-popiah": {
   "source": "runs/dishes/dish-popiah",
@@ -867,7 +981,9 @@
    360,
    255
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "dish-porridge": {
   "source": "runs/dishfix/dish-porridge",
@@ -882,7 +998,9 @@
    360,
    294
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "dish-sago": {
   "source": "runs/dishes/dish-sago",
@@ -897,7 +1015,9 @@
    354,
    360
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "dish-sweet-sour": {
   "source": "runs/dishes/dish-sweet-sour",
@@ -912,7 +1032,9 @@
    360,
    233
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "dish-tomato-tofu": {
   "source": "runs/dishfix/dish-tomato-tofu",
@@ -927,7 +1049,9 @@
    360,
    245
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "dried-chillies": {
   "source": "runs/pantry/dried-chillies",
@@ -942,7 +1066,9 @@
    256,
    156
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "egg": {
   "source": "runs/kit/egg",
@@ -957,7 +1083,9 @@
    256,
    212
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "fu-ru": {
   "source": "runs/pantry/fu-ru",
@@ -972,7 +1100,9 @@
    203,
    256
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "garlic": {
   "source": "runs/level5/garlic",
@@ -987,7 +1117,9 @@
    256,
    199
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "ginger": {
   "source": "runs/level5/ginger",
@@ -1002,7 +1134,9 @@
    256,
    208
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "guest-asha": {
   "source": "runs/cast/guest-asha",
@@ -1017,7 +1151,9 @@
    252,
    360
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "guest-daniel": {
   "source": "runs/kit/guest-daniel",
@@ -1032,7 +1168,9 @@
    325,
    360
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "guest-jia": {
   "source": "runs/level5/guest-jia",
@@ -1047,7 +1185,9 @@
    342,
    360
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "guest-lim": {
   "source": "runs/cast/guest-lim",
@@ -1062,7 +1202,9 @@
    297,
    360
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "guest-mei": {
   "source": "runs/level5/guest-mei",
@@ -1077,7 +1219,9 @@
    306,
    360
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "guest-mei-no": {
   "source": "runs/level5/guest-mei-no",
@@ -1092,7 +1236,9 @@
    281,
    360
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "guest-nurul": {
   "source": "runs/cast/guest-nurul",
@@ -1107,7 +1253,9 @@
    301,
    360
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "guest-office": {
   "source": "runs/level5/guest-office",
@@ -1122,7 +1270,9 @@
    290,
    360
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "gula-melaka": {
   "source": "runs/pantry/gula-melaka",
@@ -1137,7 +1287,9 @@
    256,
    188
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "honey": {
   "source": "runs/pantry/honey",
@@ -1152,7 +1304,9 @@
    218,
    256
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "jicama": {
   "source": "runs/pantry/jicama",
@@ -1167,7 +1321,9 @@
    256,
    212
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "kangkung": {
   "source": "runs/level5/kangkung",
@@ -1182,7 +1338,9 @@
    256,
    242
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "kangkung-leaves": {
   "source": "runs/kit/kangkung-leaves",
@@ -1197,7 +1355,9 @@
    256,
    170
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "kangkung-stems": {
   "source": "runs/kit/kangkung-stems",
@@ -1212,7 +1372,9 @@
    256,
    178
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "kecap": {
   "source": "runs/level5/kecap",
@@ -1227,7 +1389,9 @@
    134,
    256
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "ketchup": {
   "source": "runs/pantry/ketchup",
@@ -1242,7 +1406,9 @@
    150,
    256
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "leek": {
   "source": "runs/pantry/leek",
@@ -1257,7 +1423,9 @@
    256,
    194
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "lettuce": {
   "source": "runs/pantry/lettuce",
@@ -1272,7 +1440,9 @@
    256,
    217
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "lime": {
   "source": "runs/pantry/lime",
@@ -1287,7 +1457,9 @@
    256,
    229
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "lotus-blue": {
   "source": "runs/lotus/lotus-blue",
@@ -1302,7 +1474,9 @@
    160,
    133
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "lotus-bud-pink": {
   "source": "runs/lotus/lotus-bud-pink",
@@ -1317,7 +1491,9 @@
    160,
    157
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "lotus-golden": {
   "source": "runs/lotus/lotus-golden",
@@ -1332,7 +1508,9 @@
    160,
    137
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "lotus-pink": {
   "source": "runs/lotus/lotus-pink",
@@ -1347,7 +1525,9 @@
    160,
    130
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "lotus-purple": {
   "source": "runs/lotus/lotus-purple",
@@ -1362,7 +1542,9 @@
    160,
    141
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "oats": {
   "source": "runs/pantry/oats",
@@ -1377,7 +1559,9 @@
    256,
    212
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "onion": {
   "source": "runs/pantry/onion",
@@ -1392,7 +1576,9 @@
    256,
    224
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "pandan": {
   "source": "runs/pantry/pandan",
@@ -1407,7 +1593,9 @@
    256,
    197
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "pasteA": {
   "source": "runs/level5/pasteA",
@@ -1422,7 +1610,9 @@
    244,
    256
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "pasteB": {
   "source": "runs/level5/pasteB",
@@ -1437,7 +1627,9 @@
    253,
    256
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "peanuts": {
   "source": "runs/pantry/peanuts",
@@ -1452,7 +1644,9 @@
    256,
    220
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "pet-blue": {
   "source": "runs/lotus/pet-blue",
@@ -1467,7 +1661,9 @@
    360,
    297
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "pet-golden": {
   "source": "runs/lotus/pet-golden",
@@ -1482,7 +1678,9 @@
    329,
    360
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "pet-pip": {
   "source": "runs/cast/pet-pip",
@@ -1497,7 +1695,9 @@
    326,
    360
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "pet-purple": {
   "source": "runs/iso/pet-purple",
@@ -1512,7 +1712,9 @@
    360,
    292
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "pet-sprout": {
   "source": "runs/iso/pet-sprout",
@@ -1527,7 +1729,9 @@
    326,
    360
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "pineapple": {
   "source": "runs/pantry/pineapple",
@@ -1542,7 +1746,9 @@
    256,
    213
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "plate": {
   "source": "runs/scene/plate",
@@ -1557,7 +1763,9 @@
    256,
    152
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "popiah-skins": {
   "source": "runs/pantry/popiah-skins",
@@ -1572,7 +1780,9 @@
    256,
    198
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "potato": {
   "source": "runs/pantry/potato",
@@ -1587,7 +1797,9 @@
    256,
    210
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "radish": {
   "source": "runs/pantry/radish",
@@ -1602,7 +1814,9 @@
    256,
    205
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "red-chilli": {
   "source": "runs/pantry/red-chilli",
@@ -1617,7 +1831,9 @@
    256,
    188
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "rh-bg": {
   "source": "runs/scene2/bg-cafe",
@@ -1632,7 +1848,9 @@
    1280,
    720
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "rh-counter": {
   "source": "runs/scene2/counter",
@@ -1647,7 +1865,9 @@
    1024,
    512
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "rice": {
   "source": "runs/level5/rice",
@@ -1662,7 +1882,9 @@
    320,
    264
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "rice-cooker": {
   "source": "runs/home2/rice-cooker",
@@ -1677,7 +1899,9 @@
    318,
    320
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "rice-noodles": {
   "source": "runs/pantry/rice-noodles",
@@ -1692,7 +1916,9 @@
    320,
    236
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "rice-vinegar": {
   "source": "runs/pantry/rice-vinegar",
@@ -1707,7 +1933,9 @@
    194,
    320
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "sago": {
   "source": "runs/pantry/sago",
@@ -1722,7 +1950,9 @@
    256,
    216
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "salt": {
   "source": "runs/pantry/salt",
@@ -1737,7 +1967,9 @@
    236,
    256
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "sambal": {
   "source": "runs/pantry/sambal",
@@ -1752,7 +1984,9 @@
    220,
    256
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "sesame": {
   "source": "runs/level5/sesame",
@@ -1767,7 +2001,9 @@
    200,
    256
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "sesame-seeds": {
   "source": "runs/pantry/sesame-seeds",
@@ -1782,7 +2018,9 @@
    256,
    204
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "shallots": {
   "source": "runs/pantry/shallots",
@@ -1797,7 +2035,9 @@
    256,
    182
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "shiitake": {
   "source": "runs/level5/shiitake",
@@ -1812,7 +2052,9 @@
    256,
    206
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "sichuan-pepper": {
   "source": "runs/pantry/sichuan-pepper",
@@ -1827,7 +2069,9 @@
    256,
    197
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "skin-lantern": {
   "source": "runs/home/skin-lantern",
@@ -1842,7 +2086,9 @@
    853,
    1280
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "skin-lantern-wide": {
   "source": "runs/widen/skin-lantern-wide",
@@ -1857,7 +2103,9 @@
    1920,
    1280
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "skin-lotus": {
   "source": "runs/home/skin-lotus",
@@ -1872,7 +2120,9 @@
    853,
    1280
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "skin-lotus-wide": {
   "source": "runs/widen/skin-lotus-wide",
@@ -1887,7 +2137,9 @@
    1920,
    1280
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "skin-signature": {
   "source": "runs/growth/skin-signature",
@@ -1902,7 +2154,9 @@
    853,
    1280
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "skin-signature-wide": {
   "source": "runs/widen-signature/skin-signature-wide",
@@ -1917,7 +2171,9 @@
    1920,
    1280
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "skin-sunny": {
   "source": "runs/home/skin-sunny",
@@ -1932,7 +2188,9 @@
    853,
    1280
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "skin-sunny-wide": {
   "source": "runs/widen/skin-sunny-wide",
@@ -1947,7 +2205,9 @@
    1920,
    1280
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "soup-pot": {
   "source": "runs/home2/soup-pot",
@@ -1962,7 +2222,9 @@
    320,
    314
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "soy": {
   "source": "runs/level5/soy",
@@ -1977,7 +2239,9 @@
    160,
    256
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "spring-onion": {
   "source": "runs/pantry/spring-onion",
@@ -1992,7 +2256,9 @@
    256,
    190
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "stove-wok": {
   "source": "runs/scene/stove-wok",
@@ -2007,7 +2273,9 @@
    320,
    232
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "sweet-potato": {
   "source": "runs/pantry/sweet-potato",
@@ -2022,7 +2290,9 @@
    256,
    170
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "sweet-sauce": {
   "source": "runs/pantry/sweet-sauce",
@@ -2037,7 +2307,9 @@
    225,
    256
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "tempeh": {
   "source": "runs/pantry/tempeh",
@@ -2052,7 +2324,9 @@
    256,
    198
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "tofu": {
   "source": "runs/level5/tofu",
@@ -2067,7 +2341,9 @@
    256,
    194
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "tomato": {
   "source": "runs/pantry/tomato",
@@ -2082,7 +2358,9 @@
    256,
    211
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "turmeric": {
   "source": "runs/pantry/turmeric",
@@ -2097,7 +2375,9 @@
    256,
    216
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "veg-stock": {
   "source": "runs/pantry/veg-stock",
@@ -2112,7 +2392,9 @@
    172,
    256
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "wear-blue-clip": {
   "source": "runs/lotus/wear-blue-clip",
@@ -2127,7 +2409,9 @@
    360,
    309
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "wear-blue-coral": {
   "source": "runs/wear2/wear-blue-coral",
@@ -2142,7 +2426,9 @@
    360,
    323
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "wear-blue-crown": {
   "source": "runs/lotus/wear-blue-crown",
@@ -2157,7 +2443,9 @@
    360,
    320
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "wear-blue-hat": {
   "source": "runs/lotus/wear-blue-hat",
@@ -2172,7 +2460,9 @@
    351,
    360
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "wear-blue-lantern": {
   "source": "runs/wear2/wear-blue-lantern",
@@ -2187,7 +2477,9 @@
    360,
    310
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "wear-blue-lilac": {
   "source": "runs/wear2/wear-blue-lilac",
@@ -2202,7 +2494,9 @@
    360,
    310
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "wear-blue-mushroom": {
   "source": "runs/wear2/wear-blue-mushroom",
@@ -2217,7 +2511,9 @@
    353,
    360
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "wear-golden-clip": {
   "source": "runs/lotus/wear-golden-clip",
@@ -2232,7 +2528,9 @@
    333,
    360
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "wear-golden-coral": {
   "source": "runs/wear2/wear-golden-coral",
@@ -2247,7 +2545,9 @@
    326,
    360
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "wear-golden-crown": {
   "source": "runs/lotus/wear-golden-crown",
@@ -2262,7 +2562,9 @@
    327,
    360
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "wear-golden-hat": {
   "source": "runs/lotus/wear-golden-hat",
@@ -2277,7 +2579,9 @@
    307,
    360
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "wear-golden-lantern": {
   "source": "runs/wear2/wear-golden-lantern",
@@ -2292,7 +2596,9 @@
    299,
    360
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "wear-golden-lilac": {
   "source": "runs/wear2/wear-golden-lilac",
@@ -2307,7 +2613,9 @@
    338,
    360
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "wear-golden-mushroom": {
   "source": "runs/wear2/wear-golden-mushroom",
@@ -2322,7 +2630,9 @@
    309,
    360
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "wear-golden-scarf": {
   "source": "runs/lotus/wear-golden-scarf",
@@ -2337,7 +2647,9 @@
    322,
    360
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "wear-pip-clip": {
   "source": "runs/wear3/wear-pip-clip",
@@ -2352,7 +2664,9 @@
    335,
    360
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "wear-pip-coral": {
   "source": "runs/wear3/wear-pip-coral",
@@ -2367,7 +2681,9 @@
    307,
    360
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "wear-pip-crown": {
   "source": "runs/wear2/wear-pip-crown",
@@ -2382,7 +2698,9 @@
    319,
    360
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "wear-pip-hat": {
   "source": "runs/wear2/wear-pip-hat",
@@ -2397,7 +2715,9 @@
    279,
    360
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "wear-pip-lantern": {
   "source": "runs/wear3/wear-pip-lantern",
@@ -2412,7 +2732,9 @@
    321,
    360
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "wear-pip-lilac": {
   "source": "runs/wear3/wear-pip-lilac",
@@ -2427,7 +2749,9 @@
    319,
    360
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "wear-pip-mushroom": {
   "source": "runs/wear2/wear-pip-mushroom",
@@ -2442,7 +2766,9 @@
    304,
    360
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "wear-pip-scarf": {
   "source": "runs/wear3/wear-pip-scarf",
@@ -2457,7 +2783,9 @@
    316,
    360
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "wear-purple-clip": {
   "source": "runs/iso/wear-purple-clip",
@@ -2472,7 +2800,9 @@
    360,
    330
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "wear-purple-coral": {
   "source": "runs/wear2/wear-purple-coral",
@@ -2487,7 +2817,9 @@
    360,
    300
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "wear-purple-crown": {
   "source": "runs/iso/wear-purple-crown",
@@ -2502,7 +2834,9 @@
    360,
    349
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "wear-purple-hat": {
   "source": "runs/iso/wear-purple-hat",
@@ -2517,7 +2851,9 @@
    352,
    360
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "wear-purple-lantern": {
   "source": "runs/wear3/wear-purple-lantern",
@@ -2532,7 +2868,9 @@
    360,
    338
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "wear-purple-lilac": {
   "source": "runs/wear2/wear-purple-lilac",
@@ -2547,7 +2885,9 @@
    360,
    302
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "wear-purple-mushroom": {
   "source": "runs/wear2/wear-purple-mushroom",
@@ -2562,7 +2902,9 @@
    360,
    352
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "wear-purple-scarf": {
   "source": "runs/iso/wear-purple-scarf",
@@ -2577,7 +2919,9 @@
    360,
    307
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "wear-sprout-clip": {
   "source": "runs/wear2/wear-sprout-clip",
@@ -2592,7 +2936,9 @@
    334,
    360
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "wear-sprout-coral": {
   "source": "runs/wear2/wear-sprout-coral",
@@ -2607,7 +2953,9 @@
    326,
    360
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "wear-sprout-crown": {
   "source": "runs/wear2/wear-sprout-crown",
@@ -2622,7 +2970,9 @@
    332,
    360
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "wear-sprout-hat": {
   "source": "runs/wear2/wear-sprout-hat",
@@ -2637,7 +2987,9 @@
    331,
    360
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "wear-sprout-lantern": {
   "source": "runs/wear2/wear-sprout-lantern",
@@ -2652,7 +3004,9 @@
    333,
    360
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "wear-sprout-lilac": {
   "source": "runs/wear2/wear-sprout-lilac",
@@ -2667,7 +3021,9 @@
    330,
    360
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "wear-sprout-mushroom": {
   "source": "runs/wear2/wear-sprout-mushroom",
@@ -2682,7 +3038,9 @@
    344,
    360
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "wear-sprout-scarf": {
   "source": "runs/wear2/wear-sprout-scarf",
@@ -2697,7 +3055,9 @@
    324,
    360
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "white-pepper": {
   "source": "runs/pantry/white-pepper",
@@ -2712,7 +3072,9 @@
    210,
    256
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "yam": {
   "source": "runs/pantry/yam",
@@ -2727,7 +3089,9 @@
    256,
    200
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "yellow-noodles": {
   "source": "runs/pantry/yellow-noodles",
@@ -2742,7 +3106,9 @@
    256,
    205
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "candlenuts": {
   "source": "runs/ch3-fix/candlenuts",
@@ -2757,7 +3123,9 @@
    256,
    210
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "grated-coconut": {
   "source": "runs/ch3-fix/grated-coconut",
@@ -2772,7 +3140,9 @@
    256,
    218
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "lemongrass": {
   "source": "runs/ch3-fix/lemongrass",
@@ -2787,7 +3157,9 @@
    256,
    158
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "dish-mock-char-siew-rice": {
   "source": "runs/zhai-fix/dish-mock-char-siew-rice",
@@ -2802,7 +3174,9 @@
    360,
    240
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "blender": {
   "source": "runs/ch3-art/blender",
@@ -2817,7 +3191,9 @@
    192,
    320
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "curry-paste": {
   "source": "runs/ch3-art/curry-paste",
@@ -2832,7 +3208,9 @@
    256,
    238
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "dish-coconut-chutney": {
   "source": "runs/ch3-art/dish-coconut-chutney",
@@ -2847,7 +3225,9 @@
    360,
    288
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "dish-green-curry": {
   "source": "runs/ch3-art/dish-green-curry",
@@ -2862,7 +3242,9 @@
    360,
    288
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "dish-mint-chutney": {
   "source": "runs/ch3-art/dish-mint-chutney",
@@ -2877,7 +3259,9 @@
    360,
    288
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "dish-sambal-tempeh": {
   "source": "runs/ch3-art/dish-sambal-tempeh",
@@ -2892,7 +3276,9 @@
    360,
    258
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "eggplant": {
   "source": "runs/ch3-art/eggplant",
@@ -2907,7 +3293,9 @@
    256,
    254
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "galangal": {
   "source": "runs/ch3-art/galangal",
@@ -2922,7 +3310,9 @@
    256,
    192
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "green-chilli": {
   "source": "runs/ch3-art/green-chilli",
@@ -2937,7 +3327,9 @@
    256,
    176
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "lime-leaves": {
   "source": "runs/ch3-art/lime-leaves",
@@ -2952,7 +3344,9 @@
    256,
    242
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "mint": {
   "source": "runs/ch3-art/mint",
@@ -2967,7 +3361,9 @@
    256,
    246
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "rempah": {
   "source": "runs/ch3-art/rempah",
@@ -2982,7 +3378,9 @@
    198,
    256
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "tamarind": {
   "source": "runs/ch3-art/tamarind",
@@ -2997,7 +3395,9 @@
    256,
    192
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "thai-basil": {
   "source": "runs/ch3-art/thai-basil",
@@ -3012,7 +3412,9 @@
    256,
    246
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "yoghurt": {
   "source": "runs/ch3-art/yoghurt",
@@ -3027,7 +3429,9 @@
    249,
    256
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "baby-corn": {
   "source": "runs/zhai-art/baby-corn",
@@ -3042,7 +3446,9 @@
    256,
    165
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "black-fungus": {
   "source": "runs/zhai-art/black-fungus",
@@ -3057,7 +3463,9 @@
    256,
    191
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "char-siew-sauce": {
   "source": "runs/zhai-art/char-siew-sauce",
@@ -3072,7 +3480,9 @@
    126,
    256
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "curry-powder": {
   "source": "runs/zhai-art/curry-powder",
@@ -3087,7 +3497,9 @@
    256,
    242
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "dish-buddhas-delight": {
   "source": "runs/zhai-art/dish-buddhas-delight",
@@ -3102,7 +3514,9 @@
    360,
    266
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "dish-zhai-curry": {
   "source": "runs/zhai-art/dish-zhai-curry",
@@ -3117,7 +3531,9 @@
    360,
    268
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "long-beans": {
   "source": "runs/zhai-art/long-beans",
@@ -3132,7 +3548,9 @@
    256,
    203
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "mock-char-siew": {
   "source": "runs/zhai-art/mock-char-siew",
@@ -3147,7 +3565,9 @@
    256,
    188
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "tofu-skin": {
   "source": "runs/zhai-art/tofu-skin",
@@ -3162,7 +3582,9 @@
    256,
    178
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "fresh-sambal": {
   "source": "runs/blend-art/fresh-sambal",
@@ -3177,7 +3599,9 @@
    256,
    199
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "green-curry-paste": {
   "source": "runs/blend-art/green-curry-paste",
@@ -3192,7 +3616,9 @@
    256,
    210
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  },
  "laksa-rempah": {
   "source": "runs/blend-art/laksa-rempah",
@@ -3207,6 +3633,8 @@
    256,
    208
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-22"
  }
 }
