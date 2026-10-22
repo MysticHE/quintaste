@@ -156,6 +156,35 @@ CREATE TABLE IF NOT EXISTS game.level_job (
 CREATE UNIQUE INDEX IF NOT EXISTS game_level_job_open ON game.level_job(recipe_id) WHERE status IN ('queued','waiting','claimed','answered');
 CREATE INDEX IF NOT EXISTS game_level_job_queue ON game.level_job(status, created_at) WHERE status IN ('queued','waiting','answered');
 INSERT INTO ops.control(key, enabled, notice) VALUES ('game_levels', false, '') ON CONFLICT DO NOTHING;
+-- Difficulty (GAME_CONTENT_PLAN §5): Glicko-2, a player against a recipe level and tier. A level starts from the test player's
+-- clear rates (start_from) and moves with players' first attempts until `players` reaches the lock, then stays until the
+-- recipe is edited (a new revision is a new hash). `rated` marks the runs that counted; `pace` is the run's Play your way pace.
+ALTER TABLE game.run ADD COLUMN IF NOT EXISTS pace text CHECK (pace IN ('normal','relaxed','slow'));
+ALTER TABLE game.run ADD COLUMN IF NOT EXISTS rated boolean NOT NULL DEFAULT false;
+CREATE TABLE IF NOT EXISTS game.level_rating (
+  hash text NOT NULL REFERENCES game.recipe_level(hash) ON DELETE CASCADE,
+  tier text NOT NULL CHECK (tier IN ('learn','service','memory')),
+  rating double precision NOT NULL CHECK (rating BETWEEN 0 AND 4000),
+  rd double precision NOT NULL CHECK (rd BETWEEN 0 AND 500),
+  vol double precision NOT NULL CHECK (vol > 0 AND vol < 1),
+  start_rating double precision CHECK (start_rating IS NULL OR start_rating BETWEEN 0 AND 4000),
+  start_from jsonb CHECK (start_from IS NULL OR (jsonb_typeof(start_from) = 'array' AND octet_length(start_from::text) <= 512)),
+  players integer NOT NULL DEFAULT 0 CHECK (players >= 0),
+  clears integer NOT NULL DEFAULT 0 CHECK (clears >= 0 AND clears <= players),
+  locked_at timestamptz,
+  updated_at timestamptz NOT NULL DEFAULT now(),
+  PRIMARY KEY (hash, tier)
+);
+CREATE TABLE IF NOT EXISTS game.player_rating (
+  user_id text PRIMARY KEY REFERENCES game.profile(user_id) ON DELETE CASCADE,
+  rating double precision NOT NULL CHECK (rating BETWEEN 0 AND 4000),
+  rd double precision NOT NULL CHECK (rd BETWEEN 0 AND 500),
+  vol double precision NOT NULL CHECK (vol > 0 AND vol < 1),
+  day date NOT NULL,
+  rated_today integer NOT NULL DEFAULT 0 CHECK (rated_today >= 0),
+  updated_at timestamptz NOT NULL DEFAULT now()
+);
+
 
 GRANT SELECT, INSERT ON game.item TO quintaste_app;
 GRANT SELECT, UPDATE ON game.level_job TO quintaste_app;
@@ -165,11 +194,14 @@ GRANT SELECT, INSERT ON game.art TO quintaste_app;
 GRANT SELECT, INSERT, UPDATE ON game.art_job TO quintaste_app;
 GRANT SELECT ON game.recipe_level TO quintaste_app;
 GRANT SELECT, INSERT, UPDATE ON game.kitchen_best TO quintaste_app;
+GRANT SELECT, INSERT, UPDATE ON game.level_rating TO quintaste_app;
+GRANT SELECT, INSERT, UPDATE ON game.player_rating TO quintaste_app;
 DO $$
 BEGIN
   IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'quintaste_admin') THEN
     GRANT SELECT, INSERT, UPDATE ON game.recipe_level TO quintaste_admin;
     GRANT SELECT ON game.kitchen_best TO quintaste_admin;
+    GRANT SELECT ON game.level_rating TO quintaste_admin;
     -- Staff approve or reject pictures and point art keys at approved ones (the Admin picture grid).
     GRANT SELECT, UPDATE ON game.asset TO quintaste_admin;
     GRANT SELECT, INSERT, UPDATE ON game.art TO quintaste_admin;

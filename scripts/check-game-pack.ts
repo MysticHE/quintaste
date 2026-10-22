@@ -76,6 +76,19 @@ if (pack) {
       else console.log(`info ${tier}: ${clears}/6 seeds cleared at 3.2 s`);
     }
   }
+  // The Gather round (From memory only): the recipe's ingredients fill the basket, look-alikes are refused, and guests wait for it.
+  const mem = missionFor(pack, "memory"), g = sim.createRun(mem, "sprout", [], undefined, 3);
+  check(!missionFor(pack, "service").gather && !!mem.gather && mem.gather.need.length >= 4 && mem.gather.decoys.length > 0 && mem.gather.decoys.every(d => !mem.gather!.need.flat().includes(d)),
+    `From memory alone has a Gather round (${mem.gather?.need.length} ingredients, look-alikes ${mem.gather?.decoys.join(", ")})`);
+  sim.start(g);
+  check(!sim.place(g, mem.gather!.need[0][0], "pan"), "nothing goes on a station while gathering");
+  check(!sim.gatherItem(g, mem.gather!.decoys[0]) && g.stats.mistakes === 1, "a look-alike is refused and counts as a mistake");
+  check(!sim.gatherItem(g, "green-chilli") && g.stats.mistakes === 1 && /optional/.test(g.say.text), "an optional ingredient isn't needed and isn't a mistake");
+  for (let i = 0; i < 40; i++) sim.tick(g);
+  check(g.t === 0 && g.timeLeft < mem.round && g.guests.every(x => x.state === "queue"), "the clock runs while gathering and guests wait");
+  mem.gather!.need.forEach(group => sim.gatherItem(g, group[0]));
+  sim.tick(g);
+  check(!sim.gathering(g) && g.t > 0, "a full basket starts the service");
   const one = sim.createRun(missionFor(pack, "service"), "sprout", [], undefined, 7), res = play(one, 0.7);
   const setup: RunSetup = { level: 0, mission: { pack: hash, tier: "service" }, pet: "sprout", signature: [], seed: 7 };
   check(!sameResult(sim.results(replay(setup, one.actions)), { ...res, stars: res.stars === 3 ? 2 : res.stars + 1 }), "a claimed extra star does not match the replay");

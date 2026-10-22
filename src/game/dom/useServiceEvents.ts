@@ -71,6 +71,8 @@ export function useServiceEvents(options: Options) {
         }
         if (e.type === "stock") a.banner(e.phase === "low" ? itemName(e.item) + " running low" : itemName(e.item) + " is out!");
         if (e.type === "changed") { a.banner("Order changed!"); fx.cue("ticket"); }
+        if (e.type === "gathered") { origin.current = null; fx.cue("place"); }
+        if (e.type === "gatherDone") { a.banner("Service!"); fx.cue("ticket"); }
         if (e.type === "end") a.end(r, reduced);
       }
     },

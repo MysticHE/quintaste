@@ -1,6 +1,7 @@
 import { pool, logger } from '../config.mjs';
 import { allowed } from '../operations.mjs';
 import { editorialRecipes } from '../editorial/router.mjs';
+import { notRestricted } from '../community/router.mjs';
 import { loadSim } from './sim.mjs';
 import { queueMissingArt } from './art.mjs';
 
@@ -31,8 +32,10 @@ async function loadRecipe(id) {
   if (bundled) return { ...bundled, revision: bundled.revision ?? 1 };
   const editorial = (await editorialRecipes()).find(r => r.id === id);
   if (editorial) return { ...editorial, revision: editorial.revision ?? 1 };
-  const row = id.startsWith('member-') ? (await pool.query('SELECT live, live_revision FROM recipes.recipe WHERE id::text = $1 AND live IS NOT NULL AND hidden_at IS NULL', [id.slice(7)])).rows[0] : null;
-  return row ? { ...row.live, id, revision: row.live_revision ?? 1 } : null;
+  // Members' recipes keep their name as `title` (server/recipes/rules.mjs); only live, shown recipes of unrestricted authors count.
+  const row = /^member-[0-9a-f-]{36}$/.test(id) ? (await pool.query(`SELECT mr.live, mr.live_revision FROM recipes.recipe mr
+    WHERE mr.id::text = $1 AND mr.live IS NOT NULL AND mr.hidden_at IS NULL AND ${notRestricted('mr.author_id')}`, [id.slice(7)])).rows[0] : null;
+  return row ? { ...row.live, name: row.live.title, id, revision: row.live_revision ?? 1 } : null;
 }
 
 /** Each ingredient name → a built-in item, nothing, or its entry on the shared list (added when new, unreviewed). */
@@ -62,6 +65,21 @@ async function startJob(sim, job) {
   return { recipe: { id: recipe.id, name: recipe.name, categories: recipe.categories ?? [], revision: recipe.revision, cuisine: recipe.cuisine ?? null }, resolved, stages, tries: 0, problem: null };
 }
 
+const SEEDS = [1, 2, 3, 4, 5, 6];
+/** Clear rate at each test speed (rating.ts TEST_SPEEDS), yielding between plays so the API keeps answering. */
+async function clearRates(sim, mission) {
+  const rates = [];
+  for (const [secs] of sim.rating.TEST_SPEEDS) {
+    let clears = 0;
+    for (const seed of SEEDS) {
+      if (sim.play(sim.createRun(mission, 'sprout', [], undefined, seed), secs).cleared) clears++;
+      await new Promise(resolve => setImmediate(resolve));
+    }
+    rates.push(clears / SEEDS.length);
+  }
+  return rates;
+}
+
 /** Settle step: the bots' shape is checked; a refused shape goes back to them once with the reason, then the job fails. */
 async function settleJob(sim, job) {
   const recipe = await loadRecipe(job.recipe_id);
@@ -74,13 +92,22 @@ async function settleJob(sim, job) {
   }
   const pack = sim.compile.buildPack(recipe, compiled, shape);
   sim.registerPack(pack);
-  for (const tier of ['learn', 'service']) {
-    const mission = sim.missionFor(pack, tier), clears = [1, 2, 3, 4, 5, 6].filter(seed => sim.play(sim.createRun(mission, 'sprout', [], undefined, seed), 2.2).cleared).length;
-    if (clears < 5) throw new Error(`The test player cleared ${tier} on only ${clears} of 6 tries.`);
+  // The test player at each speed and tier: Learn and Service must clear at the average speed, and every tier's clear rates set
+  // its starting difficulty (GAME_CONTENT_PLAN §5).
+  const rates = {};
+  for (const tier of sim.TIERS) {
+    rates[tier] = await clearRates(sim, sim.missionFor(pack, tier));
+    const average = rates[tier][sim.rating.TEST_SPEEDS.findIndex(([secs]) => secs === 2.2)] * SEEDS.length;
+    if (tier !== 'memory' && average < 5) throw new Error(`The test player cleared ${tier} on only ${Math.round(average)} of 6 tries.`);
   }
   const hash = sim.packHash(pack);
   await pool.query(`INSERT INTO game.recipe_level(hash, recipe_id, recipe_revision, status, pack, cuisine) VALUES($1,$2,$3,'review',$4,$5) ON CONFLICT (hash) DO NOTHING`,
     [hash, recipe.id, job.draft.recipe.revision, pack, job.cuisine ?? job.draft.recipe.cuisine?.slice(0, 40) ?? null]);
+  for (const tier of sim.TIERS) {
+    const start = sim.rating.startRating(rates[tier]);
+    await pool.query(`INSERT INTO game.level_rating(hash, tier, rating, rd, vol, start_rating, start_from) VALUES($1,$2,$3,$4,$5,$3,$6) ON CONFLICT DO NOTHING`,
+      [hash, tier, start.rating, start.rd, start.vol, JSON.stringify(rates[tier])]);
+  }
   const pictures = await queueMissingArt(pool, sim, pack);
   return { hash, pictures: pictures.length };
 }

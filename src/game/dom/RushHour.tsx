@@ -16,7 +16,8 @@ import * as sim from "../sim/engine";
 import { Dialogue, HeatPanel } from "./Controls";
 import { Bubbles, PlateTags, SeatTags, StationTags } from "./Counter";
 import { Hud, RecipeCard } from "./Hud";
-import type { Point } from "./layout";
+import { stationsBox, type Point } from "./layout";
+import { Basket } from "./Basket";
 import { Brief, LabelSheet, PauseSheet, Results, TooShort, type Reward } from "./Overlays";
 import { Shelf } from "./Shelf";
 import { withSketches } from "./sketch";
@@ -26,7 +27,7 @@ import { usePlayfield, type PlayfieldInput } from "./usePlayfield";
 import { useServiceEvents } from "./useServiceEvents";
 
 /** What the native screen needs to save a run: the setup and input log let the server replay it (sim/replay.ts). */
-export type RunInfo = { id: string; level: number; special: string | null; top: number | null; hints: Level["hints"]; pet: string; signature: string[]; pack: string | null; tier: Tier | null };
+export type RunInfo = { id: string; level: number; special: string | null; top: number | null; hints: Level["hints"]; pet: string; signature: string[]; pack: string | null; tier: Tier | null; pace: PlaySettings["pace"] };
 export type FinishPayload = RunInfo & { result: sim.Result; actions: sim.Action[] };
 export type BridgeKind = "cook" | "nearby";
 type Props = {
@@ -80,7 +81,7 @@ export default function RushHour(props: Props) {
   const [paused, setPaused] = useState(false);
   const [leaving, setLeaving] = useState(false);
   const ev = useServiceEvents({ runRef, sceneRef, rootRef, fx, reduced, onEnd: () => void save() });
-  const [reward, setReward] = useState<Reward | null>(null), [saveFailed, setSaveFailed] = useState(false);
+  const [reward, setReward] = useState<Reward | null>(null), [saveFailed, setSaveFailed] = useState(false), [basketOver, setBasketOver] = useState(false);
   const run = runRef.current;
 
   // Simulation at 20 Hz of game time; Play your way pace stretches real time, so scores mean the same at every pace.
@@ -114,7 +115,7 @@ export default function RushHour(props: Props) {
     catch { setReward(null); setSaveFailed(true); }
   }
   const info = (r: sim.Run): RunInfo => ({ id: runId.current, level: r.level.n, special: r.level.special?.day ?? null, top: r.level.special?.top ?? null, hints: r.level.hints, pet: r.pet,
-    signature: r.level.signature ? signature ?? [] : [], pack: r.level.mission?.pack ?? null, tier: r.level.mission?.tier ?? null });
+    signature: r.level.signature ? signature ?? [] : [], pack: r.level.mission?.pack ?? null, tier: r.level.mission?.tier ?? null, pace: settings.pace });
   function doPause(on: boolean) { const r = runRef.current; if (!r.started || r.ended) return; sim.pause(r, on); setPaused(on); fx.audio.pause(on); bump(); }
   const exit = (to: "cafe" | "next" | "again") => latest.current.onExit(to);
 
@@ -132,11 +133,18 @@ export default function RushHour(props: Props) {
   const shelf = useRef({
     hint: (id: string) => ev.nudgeCard(id),
     drop: (id: string, at: Point, from: Point) => {
-      const lay = latestLayout.current, k = lay && (Object.keys(lay.stations) as StationKind[]).find(s => { const r = lay.stations[s]!; return at.x >= r.x && at.x <= r.x + r.w && at.y >= r.y - 12 && at.y <= r.y + r.h; });
+      const lay = latestLayout.current, r = runRef.current;
+      // While gathering, the basket covers the counter: anything dropped on it goes into the basket.
+      if (lay && sim.gathering(r)) {
+        const c = stationsBox(lay); setBasketOver(false);
+        if (at.x < c.x || at.x > c.x + c.w || at.y < c.y - 12 || at.y > c.y + c.h) return false;
+        sim.gatherItem(r, id); ev.drain(); bump(); return true;
+      }
+      const k = lay && (Object.keys(lay.stations) as StationKind[]).find(s => { const st = lay.stations[s]!; return at.x >= st.x && at.x <= st.x + st.w && at.y >= st.y - 12 && at.y <= st.y + st.h; });
       if (!k) return false;
-      ev.origin.current = from; sim.place(runRef.current, id, k); ev.drain(); bump(); return true;
+      ev.origin.current = from; sim.place(r, id, k); ev.drain(); bump(); return true;
     },
-    hover: (k: StationKind | null) => { if (sceneRef.current) sceneRef.current.hover = k; },
+    hover: (k: StationKind | null) => { if (sim.gathering(runRef.current)) setBasketOver(k !== null); else if (sceneRef.current) sceneRef.current.hover = k; },
     label: (id: string) => { sim.openLabel(runRef.current, id); bump(); },
   }).current;
   const act = {
@@ -150,7 +158,7 @@ export default function RushHour(props: Props) {
   /** The brief slides away, then the service starts with a banner. */
   function begin() {
     setLeaving(true);
-    setTimeout(() => { sim.start(runRef.current); void latest.current.onStart?.(info(runRef.current)); setLeaving(false); ev.banner("Service!"); bump(); }, reduced ? 0 : 220);
+    setTimeout(() => { sim.start(runRef.current); void latest.current.onStart?.(info(runRef.current)); setLeaving(false); ev.banner(sim.gathering(runRef.current) ? "Gather!" : "Service!"); bump(); }, reduced ? 0 : 220);
   }
 
   // Results bridges (GAME_PLAN §11) for the dish the results remember, with the allium-free recipe when a guest kept no five pungent.
@@ -172,6 +180,7 @@ export default function RushHour(props: Props) {
       <Bubbles run={run} L={L} art={art} plateSel={sceneRef.current?.dragSlot ?? null} onGuest={id => input.current.onGuest(id)} />
       <StationTags run={run} L={L} plateSel={sceneRef.current?.dragSlot ?? null} dragging={sceneRef.current?.dragKind ?? null} onSelect={k => input.current.onStation(k)} onRestart={act.restart} />
       <PlateTags run={run} L={L} incoming={sceneRef.current?.incomingSlots} />
+      <Basket run={run} L={L} art={art} over={basketOver} />
       <Shelf run={run} L={L} art={art} nudge={ev.nudge} stock={shortStock} onHint={shelf.hint} onDrop={shelf.drop} onHover={shelf.hover} onLabel={shelf.label} />
       <HeatPanel run={run} L={L} art={art} petArt={petArt} hold={settings.burner === "hold"} nudge={nudgeHeat} onHeat={act.heat} onHeatTo={heatTo} onLift={act.lift}
         onRestart={act.restart} onSkill={() => { sim.useSkill(run); after(); }} />

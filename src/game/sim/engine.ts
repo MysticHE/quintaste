@@ -37,7 +37,7 @@ export type GameEvent =
   | { type: "returned"; seat: number; slot: number } | { type: "arrived"; seat: number } | { type: "left"; seat: number; expired: boolean }
   | { type: "skill"; skill: string } | { type: "stage"; station: StationKind } | { type: "end" }
   | { type: "bell" } | { type: "flare"; station: StationKind; phase: "warn" | "hit" } | { type: "stock"; item: string; phase: "low" | "out" }
-  | { type: "changed"; seat: number; to: string };
+  | { type: "changed"; seat: number; to: string } | { type: "gathered"; item: string } | { type: "gatherDone" };
 /** One player input: the tick it happened on, the action and its arguments. The server replays these (sim/replay.ts). */
 export type Action = [tick: number, op: string, ...args: (string | number | boolean | null)[]];
 /** Which scheduled twist events have already fired. */
@@ -52,6 +52,8 @@ export type Run = {
   say: { who: string | null; text: string; tone: "info" | "warn" | "good" }; seen: Set<string>; events: GameEvent[]; log: string[];
   /** Simulated ticks so far (time only moves while playing) and every input in order, for server replay. */
   ticks: number; actions: Action[];
+  /** The Gather round, when the level has one: the shelf it shows (shuffled by the seed) and the item put in for each needed group. */
+  gather: { need: string[][]; shelf: string[]; got: (string | null)[]; order: string[] } | null;
 };
 
 /** Signature level: each guest gets a chosen dish they can eat (round-robin); ABC soup fits every rule as a fallback. */
@@ -83,8 +85,19 @@ export function createRun(which: number | Level, pet: string, signature: string[
     ended: false, endReason: "", focus: null, selected: level.stations[0], stations, board: Array(BOARD_SLOTS).fill(null), guests, coins: 0, uid: 1,
     skill: { used: false, freezeUntil: 0, halfUntil: 0, steadyUntil: 0, steadyStation: null },
     stats: { inBand: 0, prog: 0, returned: 0, servedBad: 0, labels: 0, served: 0, expired: 0, mistakes: 0, bestHq: 0, inOrder: true, lastAt: 0, minLeft: 1 },
-    say: { who: null, text: level.brief, tone: "info" }, seen: new Set(), events: [], log: [], ticks: 0, actions: [] };
+    say: { who: null, text: level.brief, tone: "info" }, seen: new Set(), events: [], log: [], ticks: 0, actions: [], gather: gatherFor(level, seed) };
 }
+
+/** The Gather round's shelf: one card per needed group plus the look-alikes, in an order the seed decides. */
+function gatherFor(level: Level, seed: number): Run["gather"] {
+  if (!level.gather?.need.length) return null;
+  const cards = [...new Set([...level.gather.need.map(g => g[0]), ...level.gather.decoys])];
+  let h = seed >>> 0;
+  for (let i = cards.length - 1; i > 0; i--) { h = Math.imul(h ^ (h >>> 15), 0x2c1b3c6d) >>> 0; const j = h % (i + 1); [cards[i], cards[j]] = [cards[j], cards[i]]; }
+  return { need: level.gather.need, shelf: cards, got: level.gather.need.map(() => null), order: [] };
+}
+/** Still gathering: the basket is missing at least one ingredient. Guests wait, and the clock runs. */
+export const gathering = (r: Run) => !!r.gather && r.gather.got.some(x => x === null);
 
 // ---------- helpers ----------
 const guestByOrder = (r: Run, id: string | null) => (id ? r.guests.find(g => g.orderId === id) : undefined);
@@ -111,7 +124,27 @@ const record = (r: Run, line: string) => { r.log.push(r.t.toFixed(2) + " " + lin
 /** Logs every input before it runs, accepted or not, so replaying the same calls on the same ticks rebuilds the run exactly. */
 const input = (r: Run, op: string, ...args: (string | number | boolean | null)[]) => { r.actions.push([r.ticks, op, ...args]); };
 
-export function start(r: Run) { input(r, "start"); r.started = true; record(r, "start"); }
+export function start(r: Run) { input(r, "start"); r.started = true; record(r, "start"); if (gathering(r)) say(r, "Gather the ingredients first: drag each one the recipe needs into the basket."); }
+/** Puts an ingredient in the Gather basket: it fills the first group still empty that accepts it, or is refused as not in the recipe. */
+export function gatherItem(r: Run, itemId: string) {
+  input(r, "gather", itemId);
+  if (idle(r) || !gathering(r)) return false;
+  const g = r.gather!, slot = g.need.findIndex((group, i) => g.got[i] === null && group.includes(itemId));
+  if (slot < 0) {
+    const dish = r.guests[0] ? dishName(r.guests[0].dishId).toLowerCase() : "this dish";
+    // An optional ingredient is in the recipe but not needed in the basket: no mistake.
+    const optional = r.guests.some(x => DISHES[x.dishId].parts.some(p => p.stages.some(st => st.slots.some(sl => sl.optional && sl.accepts.includes(itemId)))));
+    const already = g.need.some((group, i) => g.got[i] !== null && group.includes(itemId));
+    say(r, already ? "That's already in the basket." : optional ? itemName(itemId) + " is optional. Leave it for now." : itemName(itemId) + " isn't in " + dish + ".", "warn");
+    if (!already && !optional) r.stats.mistakes++;
+    r.events.push({ type: "rejected", item: itemId }); return false;
+  }
+  g.got[slot] = itemId; g.order.push(itemId); record(r, "gather " + itemId); r.events.push({ type: "gathered", item: itemId });
+  const left = g.got.filter(x => x === null).length;
+  if (left) say(r, left + " more to gather.");
+  else { say(r, "Everything's in the basket. Here come the guests!", "good"); r.events.push({ type: "gatherDone" }); }
+  return true;
+}
 export function setFocus(r: Run, orderId: string) {
   input(r, "focus", orderId);
   if (idle(r)) return;
@@ -154,6 +187,7 @@ const idle = (r: Run) => !r.started || r.paused || r.ended || !!r.label;
 export function place(r: Run, itemId: string, kind: StationKind): boolean {
   input(r, "place", itemId, kind);
   if (idle(r)) return false;
+  if (gathering(r)) { say(r, "Gather the ingredients first: drag them into the basket.", "warn"); r.events.push({ type: "rejected", item: itemId }); return false; }
   if (stockOf(r, itemId) === "out") {
     const who = focusGuest(r); say(r, itemName(itemId) + " has run out. Swap in another one" + (who ? " that suits " + GUESTS[who.guestId].name : "") + ".", "warn");
     r.events.push({ type: "rejected", item: itemId }); return false;
@@ -322,9 +356,13 @@ function schedule(r: Run) {
 
 export function tick(r: Run) {
   if (!r.started || r.paused || r.label || r.ended) return;
-  r.t += DT; r.ticks++;
+  // While gathering only the clock moves: guests, twists and burners wait for the basket.
+  const basket = gathering(r);
+  if (!basket) r.t += DT;
+  r.ticks++;
   r.timeLeft = Math.max(0, r.timeLeft - DT);
   if (r.timeLeft <= 0) { say(r, "Time. The kitchen closes for this service."); finish(r, "time"); return; }
+  if (basket) return;
   const open = () => r.guests.filter(g => g.state === "walking" || g.state === "waiting").length;
   const frozen = r.t < r.skill.freezeUntil, half = r.t < r.skill.halfUntil;
   for (const g of r.guests) {

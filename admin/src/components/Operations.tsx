@@ -6,13 +6,14 @@ import { Icon } from './Icon';
 
 type Control = { key: string; enabled: boolean; notice: string; version: number; updated_at: string };
 const names: Record<string, string> = { registration: 'Registration', discovery: 'Live Google search', menus: 'Places and menus', avatars: 'Avatars', ai_recipes: 'AI recipes', ai_recipes_bots: 'AI recipes by QT bots', recipe_demand: 'Wanted recipes', social: 'Social',
-  market: 'Market buying', market_sellers: 'Market selling', recipes: 'Member recipes', areas: 'Area counts', games: 'Game progress' };
+  market: 'Market buying', market_sellers: 'Market selling', recipes: 'Member recipes', areas: 'Area counts', games: 'Game progress', game_levels: 'Recipe levels' };
 /** What members lose when a feature is off (server/index.mjs featureGate and the routes that check it). */
 const effects: Record<string, string> = { registration: 'New accounts', discovery: 'Google search, place photos and address lookup in Explore',
   menus: 'Explore places, menus and place reviews', avatars: 'Avatar portraits', ai_recipes: 'Asking for a recipe or reading one from a video', ai_recipes_bots: 'On: the QT bots write AI recipes. Off: Gemini does',
   recipe_demand: 'Writing recipes members search Cook for and cannot find (up to 10 a day, each waits for review; needs AI recipes)',
   social: 'Profiles, invitations, chats and gatherings', market: 'Browsing and ordering in Market', market_sellers: 'Opening and running a shop',
-  recipes: 'Sharing recipes from Cook (AI recipes need this too)', areas: 'Home and Work area counts', games: 'Saving Rush Hour progress and café credits (the game still plays)' };
+  recipes: 'Sharing recipes from Cook (AI recipes need this too)', areas: 'Home and Work area counts', games: 'Saving Rush Hour progress and café credits (the game still plays)',
+  game_levels: 'QT Gamer turning recipes staff choose into game levels (each waits for review; needs Game progress)' };
 /** The AI recipes daily limit lives in that control's note as "daily=N"; the AI recipes page edits it. */
 const noteOf = (row: { notice: string }) => row.notice.replace(/\s*daily=\d+\s*/g, ' ').trim();
 /** Retired controls (owner, 19 Oct 2026): "AI features" and "Identity review" were Phase 4 placeholders that gated nothing. */

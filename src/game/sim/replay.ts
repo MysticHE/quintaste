@@ -29,7 +29,9 @@ export type RunSetup = { level: number; special?: { day: string; top: number } |
 /** What the app sends when a service starts; the server turns `special` (a date) into its stored setup. */
 export type RunStart = { id: string; level: number; special: string | null; top?: number | null; hints: Level["hints"] | null; pet: string; signature: string[];
   /** A Recipe Kitchen mission: the level pack's hash and tier (the server opens it as a pack run). */
-  pack?: string | null; tier?: Tier | null };
+  pack?: string | null; tier?: Tier | null;
+  /** Play your way pace when the service started; a slower pace still plays and saves, but a Recipe Kitchen run is then not rated. */
+  pace?: "normal" | "relaxed" | "slow" | null };
 
 /** A player who has cleared Levels 1..top: enough to rebuild the same special the player saw. */
 export const progressAt = (top: number): GameProgress => {
@@ -83,6 +85,7 @@ function apply(r: sim.Run, [, op, a, b]: sim.Action) {
     case "focus": return sim.setFocus(r, word(a));
     case "select": return sim.select(r, station(a));
     case "place": return void sim.place(r, word(a), station(b));
+    case "gather": return void sim.gatherItem(r, word(a));
     case "lift": return sim.lift(r, station(a), int(b, 1_000_000));
     case "restart": return sim.restart(r, station(a));
     case "heat": return sim.toggleHeat(r, station(a));

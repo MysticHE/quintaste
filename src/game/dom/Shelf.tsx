@@ -14,7 +14,8 @@ import type { Layout, Point } from "./layout";
 import { useShelfGesture } from "./shelfGesture";
 
 export function shelfItems(run: sim.Run): string[] {
-  const ids = new Set<string>();
+  // A Gather round's shelf (the recipe's ingredients and its look-alikes, in the seed's order) comes first.
+  const ids = new Set<string>(run.gather?.shelf ?? []);
   run.guests.forEach(g => DISHES[g.dishId].parts.forEach(p => p.stages.forEach(s => s.slots.forEach(sl => sl.accepts.forEach(a => ids.add(a))))));
   run.level.distractors.forEach(d => ids.add(d));
   return [...ids].filter(id => ITEMS[id]);

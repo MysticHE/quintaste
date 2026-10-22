@@ -22,6 +22,13 @@ export type Layout = {
   heat: Rect; dialogue: Rect;
 };
 
+/** The area every station of the level covers together (the Gather basket sits over it). */
+export function stationsBox(L: Layout): Rect {
+  const rs = Object.values(L.stations).filter((r): r is Station => !!r);
+  const x = Math.min(...rs.map(r => r.x)), y = Math.min(...rs.map(r => r.y)), x2 = Math.max(...rs.map(r => r.x + r.w)), y2 = Math.max(...rs.map(r => r.y + r.h));
+  return { x, y, w: x2 - x, h: y2 - y };
+}
+
 const clamp = (v: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, v));
 const round = (r: Rect): Rect => ({ x: Math.round(r.x), y: Math.round(r.y), w: Math.round(r.w), h: Math.round(r.h) });
 /** Fits an image of `size` inside `box`, centred horizontally and resting on the box's bottom edge. */

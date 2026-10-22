@@ -12,6 +12,8 @@ import * as sim from "./engine";
 const safeItem = (r: sim.Run, accepts: string[], rules: sim.GuestRun["rules"]) => accepts.find(id => ITEMS[id] && sim.stockOf(r, id) !== "out" && !sim.runConflicts(r, [id], rules).length);
 
 export function botStep(r: sim.Run) {
+  // Gather round: one needed ingredient into the basket per action.
+  if (sim.gathering(r)) { const g = r.gather!, i = g.got.findIndex(x => x === null); sim.gatherItem(r, g.need[i][0]); return; }
   // Heat: aim for the middle of the band, easing off early on slow-cooling stations.
   for (const st of Object.values(r.stations)) {
     if (!st || !STATIONS[st.kind].heat) continue;
@@ -68,10 +70,12 @@ export function botStep(r: sim.Run) {
 /** Plays a whole service; `react` is the seconds the bot takes between actions. */
 export function play(r: sim.Run, react: number) {
   sim.start(r);
-  let next = 0, guard = 0;
+  // The bot keeps its own clock: the service clock (r.t) waits during a Gather round. It adds up the same way, so a level without
+  // one plays exactly as before.
+  let next = 0, guard = 0, clock = 0;
   while (!r.ended && guard++ < 20000) {
-    if (r.t >= next) { botStep(r); next = r.t + react; }
-    sim.tick(r);
+    if (clock >= next) { botStep(r); next = clock + react; }
+    sim.tick(r); clock += sim.DT;
     r.events.length = 0;
   }
   return sim.results(r);

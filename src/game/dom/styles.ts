@@ -177,5 +177,11 @@ const TWISTS_CSS = `
 .rh .bonus.on { box-shadow:inset 0 0 0 2px var(--gold); }
 .rh .bonus span { font-family:"Nunito_700Bold","Nunito",ui-rounded,system-ui,sans-serif; font-weight:700; color:var(--ink-2); font-size:11px; }
 .rh .stag.ready.plating { animation:rhtag 0.8s ease-in-out infinite; }
+.rh .basket { display:grid; align-content:center; justify-items:center; gap:8px; padding:10px; }
+.rh .basket.over { box-shadow:0 0 0 3px var(--target), 0 4px 12px var(--shadow); }
+.rh .bhead { display:flex; align-items:baseline; gap:8px; font-size:15px; } .rh .bhead small { font-size:12px; color:var(--ink-2); }
+.rh .bslots { display:flex; flex-wrap:wrap; justify-content:center; gap:6px; max-width:100%; }
+.rh .bslot { width:44px; height:44px; border-radius:12px; display:grid; place-items:center; background:var(--cream); border:1.5px dashed var(--panel-edge); color:var(--ink-2); font-size:16px; }
+.rh .bslot.in { background:var(--card); border:1.5px solid var(--sage); } .rh .bslot img { width:36px; height:36px; object-fit:contain; }
 `;
 export const RUSH_CSS = scaleText(TOKENS + TOP + SCENE + SHELF + BOTTOM + TWISTS_CSS + SHEETS_CSS);

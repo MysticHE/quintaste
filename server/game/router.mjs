@@ -173,6 +173,7 @@ async function openMission(req, res) {
   const { sim, user } = res.locals, body = req.body;
   if (!sim.TIERS.includes(body.tier)) throw new CommunityError(400, 'Invalid run.');
   const hints = ['full', 'chip', 'none'].includes(body.hints) ? body.hints : null;
+  const pace = ['normal', 'relaxed', 'slow'].includes(body.pace) ? body.pace : null;
   const pet = typeof body.pet === 'string' && Object.hasOwn(sim.cosmetics.PETS, body.pet) ? body.pet : null;
   await throttle(`game-run:${user.id}`, 120, 3600);
   const run = await transaction(async db => {
@@ -190,8 +191,8 @@ async function openMission(req, res) {
     const missing = sim.missingTechnique(progress, found.pack.techniques);
     if (missing) throw new CommunityError(409, missing.level ? `Learn the ${missing.name.toLowerCase()} in Level ${missing.level} first.` : 'Update QuinTaste to play this level.', 'TECHNIQUE_LOCKED');
     if (!pet || !sim.isUnlocked(progress, sim.cosmetics.PETS[pet].unlock)) throw new CommunityError(409, 'That companion is locked.', 'PET_LOCKED');
-    await db.query(`INSERT INTO game.run(id, user_id, level, mode, pet, signature, rules_version, hints, pack, tier) VALUES($1,$2,0,'rush',$3,'{}',$4,$5,$6,$7)`,
-      [body.id, user.id, pet, sim.rulesVersion, hints, body.pack, body.tier]);
+    await db.query(`INSERT INTO game.run(id, user_id, level, mode, pet, signature, rules_version, hints, pack, tier, pace) VALUES($1,$2,0,'rush',$3,'{}',$4,$5,$6,$7,$8)`,
+      [body.id, user.id, pet, sim.rulesVersion, hints, body.pack, body.tier, pace]);
     return { id: body.id, status: 'open' };
   });
   res.json(run);
@@ -250,7 +251,7 @@ game.post('/runs/:id/finish', async (req, res) => {
     if (current.status !== 'open') return;
     const { game: progress } = await loadProgress(db, sim, user.id);
     if (special) { await settleSpecial(db, sim, user.id, id, replayed, result, actions); return; }
-    if (mission) { await settleMission(db, user.id, id, run, mission.recipeId, replayed, result, actions); return; }
+    if (mission) { await settleMission(db, sim, user.id, id, run, mission.recipeId, replayed, result, actions); return; }
     if (!sim.levelOpen(progress, run.level)) {
       await db.query(`UPDATE game.run SET status='rejected', reason='level locked', finished_at=now() WHERE id=$1`, [id]);
       await db.query('INSERT INTO game.run_log(run_id, actions) VALUES($1,$2) ON CONFLICT DO NOTHING', [id, JSON.stringify(actions)]);
@@ -291,16 +292,43 @@ async function settleSpecial(db, sim, me, id, replayed, result, actions) {
  * A finished Recipe Kitchen mission records the best per recipe and tier. It pays no credits until the owner decides the
  * kitchen rule (GAME_CONTENT_PLAN §14); the reward says so with credits 0.
  */
-async function settleMission(db, me, id, run, recipeId, replayed, result, actions) {
+async function settleMission(db, sim, me, id, run, recipeId, replayed, result, actions) {
   const reward = { credits: 0, first: false, mastered: false, unlocks: [] };
   const coins = Math.min(1000, Math.max(0, Math.round(result.coins))), left = result.cleared ? Math.min(600, Math.max(0, Math.floor(result.left))) : 0;
   await db.query(`INSERT INTO game.kitchen_best(user_id, recipe_id, tier, pack, stars, score, clears, coins, left_secs) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9)
     ON CONFLICT (user_id, recipe_id, tier) DO UPDATE SET pack=$4, stars=GREATEST(game.kitchen_best.stars, $5), score=GREATEST(game.kitchen_best.score, $6),
       clears=game.kitchen_best.clears + $7, coins=GREATEST(game.kitchen_best.coins, $8), left_secs=GREATEST(game.kitchen_best.left_secs, $9), updated_at=now()`,
   [me, recipeId, run.tier, run.pack, result.stars, result.score, result.cleared ? 1 : 0, result.cleared ? coins : 0, left]);
-  await db.query(`UPDATE game.run SET status='settled', finished_at=now(), ticks=$2, credits=0, result=$3 WHERE id=$1`,
-    [id, replayed.ticks, { result: resultOf(result), reward }]);
+  const rated = await rateRun(db, sim, me, id, run, result.cleared);
+  await db.query(`UPDATE game.run SET status='settled', finished_at=now(), ticks=$2, credits=0, result=$3, rated=$4 WHERE id=$1`,
+    [id, replayed.ticks, { result: resultOf(result), reward }, rated]);
   await db.query('INSERT INTO game.run_log(run_id, actions) VALUES($1,$2) ON CONFLICT DO NOTHING', [id, JSON.stringify(actions)]);
+}
+
+const HELP = { none: 0, chip: 1, full: 2 };
+/**
+ * Glicko-2 for a recipe level (GAME_CONTENT_PLAN §5): only a player's first settled attempt at a level and tier counts, at most
+ * RATED_PER_DAY a Singapore day, and not with more help than the tier gives or at a slower Pace. The level's rating stops moving
+ * once LOCK_PLAYERS have counted; the player's keeps moving. Returns whether the run counted.
+ */
+async function rateRun(db, sim, me, id, run, cleared) {
+  const R = sim.rating;
+  if (run.pace && run.pace !== 'normal') return false;
+  if (run.hints && HELP[run.hints] > HELP[sim.tierHints(run.tier)]) return false;
+  if ((await db.query(`SELECT 1 FROM game.run WHERE user_id=$1 AND pack=$2 AND tier=$3 AND status='settled' AND id<>$4 LIMIT 1`, [me, run.pack, run.tier, id])).rowCount) return false;
+  const today = nearDays()[1], player = (await db.query('SELECT rating, rd, vol, day, rated_today FROM game.player_rating WHERE user_id=$1 FOR UPDATE', [me])).rows[0];
+  const count = player && isoDay(player.day) === today ? player.rated_today : 0;
+  if (count >= R.RATED_PER_DAY) return false;
+  await db.query(`INSERT INTO game.level_rating(hash, tier, rating, rd, vol) VALUES($1, $2, 1500, $3, 0.06) ON CONFLICT DO NOTHING`, [run.pack, run.tier, R.START_RD]);
+  const level = (await db.query('SELECT rating, rd, vol, players, locked_at FROM game.level_rating WHERE hash=$1 AND tier=$2 FOR UPDATE', [run.pack, run.tier])).rows[0];
+  const before = player ?? R.PLAYER_START, score = cleared ? 1 : 0, mine = R.rate(before, level, score);
+  await db.query(`INSERT INTO game.player_rating(user_id, rating, rd, vol, day, rated_today) VALUES($1, $2, $3, $4, $5, $6)
+    ON CONFLICT (user_id) DO UPDATE SET rating=$2, rd=$3, vol=$4, day=$5, rated_today=$6, updated_at=now()`, [me, mine.rating, mine.rd, mine.vol, today, count + 1]);
+  const theirs = level.locked_at ? level : R.rate(level, before, 1 - score), players = level.players + 1;
+  await db.query(`UPDATE game.level_rating SET rating=$3, rd=$4, vol=$5, players=$6::int, clears=clears+$7::int,
+      locked_at=coalesce(locked_at, CASE WHEN $6::int >= $8::int THEN now() END), updated_at=now() WHERE hash=$1 AND tier=$2`,
+  [run.pack, run.tier, theirs.rating, theirs.rd, theirs.vol, players, score, R.LOCK_PLAYERS]);
+  return true;
 }
 
 /** Deletes input logs older than 30 days; settled results and the ledger stay. */

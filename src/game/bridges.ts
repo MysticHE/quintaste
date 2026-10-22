@@ -6,6 +6,7 @@ import { router } from "expo-router";
 import { bundledRecipes, recipeById } from "../data/recipes";
 import { usesIngredient } from "../utils/recipe-browse";
 import { DISHES } from "./content/dishes";
+import { BUILTIN } from "./content/pack";
 import { ITEMS } from "./content/items";
 
 /** Explore keyword for each game dish: the words menus use, so the search finds places that serve it. */
@@ -17,10 +18,11 @@ const NEARBY: Record<string, string> = {
 /** Cook ingredient words where the game name differs; null where a match would mislead (egg-free noodles are not "with egg"). */
 const COOK_TERMS: Record<string, string | null> = { "kangkung-stems": "kangkung", "kangkung-leaves": "kangkung", "button-mushrooms": "mushrooms", egg: null, "dairy-milk": null };
 
-/** The Cook recipe for a game dish: its allium-free adaptation when the guest kept no five pungent. */
+/** The Cook recipe for a game dish: its allium-free adaptation when the guest kept no five pungent. A recipe level's dish opens its own
+ *  recipe page (QuinTaste's or a member's), which the bundled list doesn't hold. */
 export function cookRecipeId(dishId: string, alliumFree = false): string | null {
   const id = DISHES[dishId]?.recipeId, recipe = id ? recipeById(id) : undefined;
-  if (!recipe) return null;
+  if (!recipe) return id && !(dishId in BUILTIN.dishes) ? id : null;
   return alliumFree && recipe.adaptationId && recipeById(recipe.adaptationId) ? recipe.adaptationId : recipe.id;
 }
 export const nearbyTerm = (dishId: string): string | null => NEARBY[dishId] ?? null;

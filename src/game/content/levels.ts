@@ -52,6 +52,9 @@ export type Level = {
   special?: { day: string; dish: string; lunar: string | null; top: number };
   /** A Recipe Kitchen mission (src/game/mission.ts): the level pack's hash and the tier, for the run and its server replay. */
   mission?: { pack: string; tier: "learn" | "service" | "memory" };
+  /** A Gather round before the first guest (Recipe Kitchen From memory): each `need` group is one ingredient the recipe needs (any
+   *  item in the group fills it); `decoys` are look-alikes on the same shelf that the basket refuses. The clock runs while gathering. */
+  gather?: { need: string[][]; decoys: string[] };
 };
 
 let seq = 0;

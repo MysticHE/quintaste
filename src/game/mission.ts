@@ -6,7 +6,7 @@
 import { DISHES, STATIONS, type StationKind } from "./content/dishes";
 import { GUESTS } from "./content/guests";
 import type { Level, Order } from "./content/levels";
-import { packByHash, packHash, type LevelPack } from "./content/pack";
+import { BUILTIN, packByHash, packHash, type LevelPack } from "./content/pack";
 import { dishFeasible } from "./sim/plan";
 
 export type Tier = "learn" | "service" | "memory";
@@ -24,8 +24,30 @@ const TIER: Record<Tier, { n: number; orders: number; seats: number; hints: Leve
   // n picks how the seeded plan treats the level (sim/plan.ts): 1 keeps arrivals as written, 5 also deals dishes to new guests.
   learn: { n: 1, orders: 1, seats: 1, hints: "full", gap: 1.3, patience: 3, brief: "Cook it once with the whole recipe card in front of you." },
   service: { n: 2, orders: 4, seats: 2, hints: "chip", gap: 0.8, patience: 2.4, brief: "Four orders, two at a time. The card shows the next step only." },
-  memory: { n: 5, orders: 5, seats: 3, hints: "none", gap: 0.65, patience: 2.1, brief: "No recipe card, and some guests keep diet rules. Cook it from memory." },
+  memory: { n: 5, orders: 5, seats: 3, hints: "none", gap: 0.65, patience: 2.1, brief: "Gather the ingredients, then cook with no recipe card. Some guests keep diet rules." },
 };
+
+/** How much the recipe card helps at a tier; a run with more help than this is not rated (GAME_CONTENT_PLAN §5). */
+export const tierHints = (tier: Tier): Level["hints"] => TIER[tier].hints;
+
+/**
+ * From memory starts with a Gather round (RECIPE_LEVELS_PLAN §4): one group per required slot (any item the slot accepts fills it),
+ * and look-alikes the basket refuses: built-in ingredients the recipe doesn't use, the kinds a guest's rule turns away first (alliums,
+ * egg, dairy) and one plain fresh one, picked by the pack's hash so every player gets the same.
+ */
+function gatherOf(pack: LevelPack): NonNullable<Level["gather"]> {
+  const need: string[][] = [], seen = new Set<string>();
+  for (const d of pack.dishes) for (const p of d.parts) for (const st of p.stages) for (const sl of st.slots) {
+    const key = [...sl.accepts].sort().join("|");
+    if (sl.optional || seen.has(key)) continue;
+    seen.add(key); need.push(sl.accepts);
+  }
+  const used = new Set(need.flat()), spare = Object.values(BUILTIN.items).filter(i => !used.has(i.id) && !i.variant && !i.label);
+  const tagged = spare.filter(i => i.tags?.some(t => t === "allium" || t === "egg" || t === "dairy")), plain = spare.filter(i => !i.tags?.length && i.tray === "fresh");
+  const h = parseInt(packHash(pack).slice(1), 36) || 1;
+  const pick = (list: typeof spare, n: number, k: number) => list.length ? Array.from({ length: Math.min(n, list.length) }, (_, i) => list[(h + k + i * 7) % list.length].id) : [];
+  return { need, decoys: [...new Set([...pick(tagged, 2, 0), ...pick(plain, 1, 3)])] };
+}
 
 /** The service a pack plays at a tier. Throws when the pack is not registered. */
 export function missionFor(pack: LevelPack, tier: Tier): Level {
@@ -47,11 +69,13 @@ export function missionFor(pack: LevelPack, tier: Tier): Level {
   }
   const slowest = Math.max(...dishes.map(dishSecs));
   const stations = (Object.keys(STATIONS) as StationKind[]).filter(k => pack.dishes.some(d => d.parts.some(p => p.station === k)));
-  const first = pack.dishes[0];
+  const first = pack.dishes[0], gather = tier === "memory" ? gatherOf(pack) : undefined;
   return {
     n: t.n, name: first.name, brief: t.brief, teach: first.remember, stations, mission: { pack: packHash(pack), tier },
     seats: t.seats, maxOpen: t.seats, hints: t.hints, distractors: [], unlocks: [], orders,
     patience: Math.round(Math.max(55, slowest * t.patience)),
-    round: Math.round(at + slowest * 1.5 + 20),
+    // The Gather round runs on the same clock: about a second and a half per ingredient on top of the service.
+    round: Math.round(at + slowest * 1.5 + 20 + (gather ? gather.need.length * 1.5 + 6 : 0)),
+    ...(gather ? { gather } : {}),
   };
 }

@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
-import { date } from '../client';
-import { Segmented } from '../Primitives';
+import { date, useResource } from '../client';
+import { Empty, Feedback, SearchField, Segmented } from '../Primitives';
 import { Moderation } from './MemberContent';
 import { ActionBar } from './Parts';
 
@@ -10,21 +10,64 @@ type Stage = { slots: Slot[]; secs: number; hint: string; band?: [number, number
 type Pack = { techniques: string[]; items: { id: string; name: string; tags?: string[] }[];
   dishes: { id: string; name: string; remember: string; parts: { id: string; name: string; station: string; stages: Stage[] }[] }[] };
 type Level = { id: string; recipe_id: string; recipe_revision: number; status: string; created_at: string; reviewed_at: string | null; reviewed_by: string | null;
-  owner: string | null; pack: Pack; unpictured: number; plays: number };
+  owner: string | null; pack: Pack; unpictured: number; plays: number;
+  ratings: { tier: string; rating: number; rd: number; start: number | null; players: number; clears: number; locked: boolean }[] };
+const TIER: Record<string, string> = { learn: 'Learn', service: 'Service', memory: 'From memory' };
 type Picture = { id: string; width: number; height: number; status: string; created_at: string; reviewed_by: string | null; prompt: string | null; model: string | null;
   checks: Record<string, unknown> | null; art_key: string | null; kind: string | null; subject: string | null; current: boolean };
+type MakeRecipe = { id: string; title: string; source: string; level: string | null; job: string | null };
+type LevelJob = { id: string; recipe_id: string; title: string | null; cuisine: string | null; requested_by: string; status: string; attempts: number; message: string; pack: string | null;
+  usage: { input?: number; output?: number }; created_at: string; finished_at: string | null };
+const LEVEL: Record<string, string> = { review: 'Level waiting for review', ready: 'Level live', hidden: 'Level hidden' };
+const JOB: Record<string, string> = { queued: 'Compiling', waiting: 'Waiting for QT Gamer', claimed: 'QT Gamer is shaping it', answered: 'Checking', done: 'Made', failed: 'Failed' };
 type Job = { id: string; art_key: string; kind: string; subject: string; details: string; status: string; attempts: number; error: string; created_at: string; drafts: number };
 /** A built-in game item id as words ("cooking-oil" → "Cooking oil"); look-alike pairs drop their A/B letter. */
 const words = (id: string) => { const s = id.replace(/-[ab]$/, '').replace(/-/g, ' '); return s[0].toUpperCase() + s.slice(1); };
 const STATION: Record<string, string> = { pan: 'Wok', pot: 'Soup pot', rice: 'Rice cooker', board: 'Assembly board', dessert: 'Dessert pot' };
 
-/** Recipe levels waiting for review, QT Gamer's pictures waiting for the artist, and the picture jobs themselves. */
+/** Recipe levels waiting for review, making new ones, QT Gamer's pictures waiting for the artist, and the picture jobs themselves. */
 export function GameLevels() {
-  const [view, setView] = useState<'levels' | 'pictures' | 'jobs'>('levels');
+  const [view, setView] = useState<'levels' | 'make' | 'pictures' | 'jobs'>('levels');
   return <div className="stack">
-    <Segmented label="Game levels" value={view} onChange={v => setView(v as typeof view)} options={[['levels', 'Levels'], ['pictures', 'Pictures'], ['jobs', 'Picture jobs']]}/>
-    {view === 'levels' ? <Levels/> : view === 'pictures' ? <Pictures/> : <Jobs/>}
+    <Segmented label="Game levels" value={view} onChange={v => setView(v as typeof view)} options={[['levels', 'Levels'], ['make', 'Make levels'], ['pictures', 'Pictures'], ['jobs', 'Picture jobs']]}/>
+    {view === 'levels' ? <Levels/> : view === 'make' ? <Make/> : view === 'pictures' ? <Pictures/> : <Jobs/>}
   </div>;
+}
+
+/** Find a published recipe and ask QT Gamer to turn it into a level; below, the latest level jobs and why any failed. */
+function Make() {
+  const [draft, setDraft] = useState(''), [q, setQ] = useState('');
+  const resource = useResource<{ recipes: MakeRecipe[]; jobs: LevelJob[]; ownMissing: boolean; running: boolean }>('/api/content/game-level-jobs?q=' + encodeURIComponent(q));
+  return <section className="panel stack">
+    <form className="row grow" onSubmit={e => { e.preventDefault(); setQ(draft.trim()); }}>
+      <SearchField label="Find a recipe" value={draft} onChange={setDraft} maxLength={60}/><button>Search</button></form>
+    <Feedback {...resource} retry={resource.reload}/>
+    {resource.data && <>
+      {!resource.data.running && <p className="notice">Jobs wait until Game progress and Recipe levels are both on in Features.</p>}
+      {resource.data.ownMissing && <p className="notice">QuinTaste recipes are unavailable right now. Members&rsquo; recipes are below.</p>}
+      {resource.data.recipes.length ? <ul className="cards">{resource.data.recipes.map(r => <li key={r.id} className="card stack">
+        <div className="row spread"><strong>{r.title}</strong><span className="row"><span className="badge">{r.source}</span>
+          {r.level && <span className={'badge ' + (r.level === 'ready' ? 'good' : '')}>{LEVEL[r.level] ?? r.level}</span>}</span></div>
+        <small>{r.id}</small>
+        {r.job ? <p className="muted">{JOB[r.job] ?? r.job}</p> : <MakeOne id={r.id} done={resource.reload}/>}
+      </li>)}</ul> : <Empty icon="content">No recipes match</Empty>}
+      <h3>Level jobs</h3>
+      {resource.data.jobs.length ? <ul className="cards">{resource.data.jobs.map(j => <li key={j.id} className="card stack">
+        <div className="row spread"><strong>{j.title ?? j.recipe_id}</strong><span className={'badge ' + (j.status === 'failed' ? 'danger' : j.status === 'done' ? 'good' : '')}>{JOB[j.status] ?? j.status}</span></div>
+        <small>{j.title ? j.recipe_id + ' · ' : ''}{date(j.created_at)} · {j.requested_by}{j.cuisine ? ' · ' + j.cuisine : ''}{j.attempts > 1 ? ' · ' + j.attempts + ' claims' : ''}
+          {j.usage?.input ? ' · ' + (j.usage.input + (j.usage.output ?? 0)).toLocaleString() + ' tokens' : ''}</small>
+        {j.message && <p className={j.status === 'failed' ? 'notice error' : 'muted'}>{j.message}</p>}
+        {j.status === 'failed' && <MakeOne id={j.recipe_id} cuisine={j.cuisine ?? ''} label="Try again" done={resource.reload}/>}
+      </li>)}</ul> : <Empty icon="content">No level jobs yet</Empty>}
+    </>}
+  </section>;
+}
+
+function MakeOne({ id, cuisine: start = '', label = 'Make a level', done }: { id: string; cuisine?: string; label?: string; done: () => void }) {
+  const [cuisine, setCuisine] = useState(start);
+  return <ActionBar resource="game-level-jobs" payload={() => ({ action: 'make', recipeId: id, cuisine: cuisine.trim() })} onDone={done} actions={[{ action: 'make', label }]}>
+    <label>Shelf<input value={cuisine} maxLength={40} onChange={e => setCuisine(e.target.value)} placeholder="Cuisine, such as Malay"/></label>
+  </ActionBar>;
 }
 
 function Levels() {
@@ -37,6 +80,8 @@ function Levels() {
         <small>{l.recipe_id} · revision {l.recipe_revision} · {l.pack.techniques.map(t => STATION[t] ?? t).join(', ')} · {l.plays} {l.plays === 1 ? 'play' : 'plays'}
           {' · '}{date(l.created_at)}{l.reviewed_by ? ' · reviewed by ' + l.reviewed_by : ''}</small>
         {dish && <p className="detail">{dish.remember}</p>}
+        {!!l.ratings.length && <small>Difficulty: {l.ratings.map(r => TIER[r.tier] + ' ' + r.rating + ' ±' + r.rd + (r.players ? ' · ' + r.clears + '/' + r.players + ' cleared'
+          : r.start !== null ? ' (test player)' : '') + (r.locked ? ' · settled' : '')).join('; ')}</small>}
         <details><summary>Stages</summary>{l.pack.dishes.map(d => d.parts.map(p => <div key={d.id + p.id} className="stack compact">
           <strong>{p.name} · {STATION[p.station] ?? p.station}</strong>
           <ol>{p.stages.map((s, n) => <li key={n}>{s.slots.map(x => x.label + (x.optional ? ' (optional)' : '') + ': ' + x.accepts.map(name).join(' or ')).join(' · ')}
