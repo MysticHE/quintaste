@@ -190,7 +190,7 @@
       "chroma": "cyan",
       "subject": "vegetarian fried bee hoon (thin rice vermicelli) on a round white plate",
       "details": "Golden stir-fried rice vermicelli with shredded cabbage, carrot strips, bean sprouts and a few leafy greens; no egg, no meat, no seafood, no spring onion.",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "dish-kangkung",
@@ -198,7 +198,7 @@
       "chroma": "magenta",
       "subject": "stir-fried kangkung (water spinach) on a round white plate",
       "details": "Glossy bright green leaves and tender hollow stems in a light savoury sauce with a few slices of red chilli and ginger; no garlic, no shrimp paste, no meat.",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "blender",
@@ -454,6 +454,1118 @@
       "chroma": "magenta",
       "subject": "a small pile of shelled candlenuts",
       "details": "Five round, smooth, waxy cream-yellow nuts, some broken in half to show a solid oily inside, like macadamia nuts. No points, no papery skin, no cloves, no root ends: they must not look like garlic or shallots.",
+      "status": "done"
+    },
+    {
+      "id": "silken-tofu",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "a block of silken tofu",
+      "details": "Smooth glossy white block, very soft, on a little dish.",
+      "status": "done"
+    },
+    {
+      "id": "banana",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "two ripe bananas",
+      "details": "Bright yellow with tiny brown freckles.",
+      "status": "done"
+    },
+    {
+      "id": "bread",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "two slices of white bread",
+      "details": "Soft white sandwich bread with golden crusts.",
+      "status": "done"
+    },
+    {
+      "id": "green-peas",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "a small bowl of green peas",
+      "details": "Bright green round peas, a few pods beside the bowl.",
+      "status": "done"
+    },
+    {
+      "id": "mango",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "a ripe mango and two mango cubes",
+      "details": "Golden yellow mango, one half cut in a hedgehog pattern.",
+      "status": "done"
+    },
+    {
+      "id": "rice-flour",
+      "kind": "packaged",
+      "chroma": "magenta",
+      "subject": "a paper bag of rice flour",
+      "details": "Fine white flour, a plain label reading 'Rice flour'.",
+      "status": "done"
+    },
+    {
+      "id": "semolina",
+      "kind": "packaged",
+      "chroma": "magenta",
+      "subject": "a paper bag of semolina",
+      "details": "Pale yellow grainy flour, plain label reading 'Semolina'.",
+      "status": "done"
+    },
+    {
+      "id": "plain-flour",
+      "kind": "packaged",
+      "chroma": "magenta",
+      "subject": "a paper bag of plain flour",
+      "details": "White flour, plain label reading 'Plain flour'.",
+      "status": "done"
+    },
+    {
+      "id": "butter",
+      "kind": "packaged",
+      "chroma": "magenta",
+      "subject": "a block of butter on a dish",
+      "details": "A pale yellow block, partly unwrapped, a plain label reading 'Butter'.",
+      "status": "done"
+    },
+    {
+      "id": "margarine",
+      "kind": "packaged",
+      "chroma": "magenta",
+      "subject": "a tub of plant margarine",
+      "details": "Round tub, lid off, pale yellow spread, plain label reading 'Margarine'.",
+      "status": "done"
+    },
+    {
+      "id": "flaxseed",
+      "kind": "packaged",
+      "chroma": "magenta",
+      "subject": "a small jar of ground flaxseed",
+      "details": "Brown speckled powder, plain label reading 'Flaxseed'.",
+      "status": "done"
+    },
+    {
+      "id": "ghee",
+      "kind": "packaged",
+      "chroma": "magenta",
+      "subject": "a small jar of ghee",
+      "details": "Golden clarified butter in a glass jar, plain label reading 'Ghee'.",
+      "status": "done"
+    },
+    {
+      "id": "puff-pastry",
+      "kind": "packaged",
+      "chroma": "magenta",
+      "subject": "a box of puff pastry sheets",
+      "details": "A folded golden pastry sheet peeking out, plain label reading 'Puff pastry'.",
+      "status": "done"
+    },
+    {
+      "id": "wholemeal-flour",
+      "kind": "packaged",
+      "chroma": "magenta",
+      "subject": "a paper bag of wholemeal flour",
+      "details": "Light brown flour, plain label reading 'Wholemeal flour'.",
+      "status": "done"
+    },
+    {
+      "id": "kaya",
+      "kind": "packaged",
+      "chroma": "cyan",
+      "subject": "a jar of kaya coconut jam",
+      "details": "Glossy green-brown jam in a glass jar, plain label reading 'Kaya'.",
+      "status": "done"
+    },
+    {
+      "id": "oat-milk",
+      "kind": "packaged",
+      "chroma": "magenta",
+      "subject": "a carton of oat milk",
+      "details": "Cream carton with an oat illustration, plain label reading 'Oat milk'.",
+      "status": "done"
+    },
+    {
+      "id": "spring-rolls",
+      "kind": "packaged",
+      "chroma": "magenta",
+      "subject": "a box of frozen spring rolls",
+      "details": "Pale uncooked spring rolls in a tray, plain label reading 'Spring rolls'.",
+      "status": "done"
+    },
+    {
+      "id": "samosa-pastry",
+      "kind": "packaged",
+      "chroma": "magenta",
+      "subject": "a pack of samosa pastry strips",
+      "details": "Thin pale pastry strips, plain label reading 'Samosa pastry'.",
+      "status": "done"
+    },
+    {
+      "id": "glutinous-flour",
+      "kind": "packaged",
+      "chroma": "magenta",
+      "subject": "a bag of glutinous rice flour",
+      "details": "Bright white flour, plain label reading 'Glutinous rice flour'.",
+      "status": "done"
+    },
+    {
+      "id": "black-sesame",
+      "kind": "packaged",
+      "chroma": "magenta",
+      "subject": "a small jar of black sesame paste",
+      "details": "Glossy black paste, plain label reading 'Black sesame'.",
+      "status": "done"
+    },
+    {
+      "id": "jelly-powder",
+      "kind": "packaged",
+      "chroma": "magenta",
+      "subject": "a sachet of jelly powder",
+      "details": "A small paper sachet with a jelly cube illustration, plain label reading 'Jelly powder'.",
+      "status": "done"
+    },
+    {
+      "id": "soy-milk",
+      "kind": "packaged",
+      "chroma": "magenta",
+      "subject": "a bottle of soy milk",
+      "details": "Cream-white milk in a clear bottle, plain label reading 'Soy milk'.",
+      "status": "done"
+    },
+    {
+      "id": "coagulant",
+      "kind": "packaged",
+      "chroma": "magenta",
+      "subject": "a small tub of tofu coagulant powder",
+      "details": "White powder in a tub, plain label reading 'Coagulant'.",
+      "status": "done"
+    },
+    {
+      "id": "peanut-sauce",
+      "kind": "packaged",
+      "chroma": "magenta",
+      "subject": "a jar of peanut sauce",
+      "details": "Thick golden-brown sauce, plain label reading 'Peanut sauce'.",
+      "status": "done"
+    },
+    {
+      "id": "rojak-sauce",
+      "kind": "packaged",
+      "chroma": "magenta",
+      "subject": "a jar of rojak sauce",
+      "details": "Thick dark brown sauce, plain label reading 'Rojak sauce'.",
+      "status": "done"
+    },
+    {
+      "id": "toor-dal",
+      "kind": "packaged",
+      "chroma": "magenta",
+      "subject": "a small bag of toor dal",
+      "details": "Yellow split lentils, plain label reading 'Toor dal'.",
+      "status": "done"
+    },
+    {
+      "id": "idli-batter",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "a small open bowl of thick white idli batter",
+      "details": "Cream ceramic bowl, no label, no spoon. Freshly made, so in an open bowl, never in a jar or pack.",
+      "status": "done"
+    },
+    {
+      "id": "bao-filling",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "a small open bowl of cooked cabbage and mushroom bun filling",
+      "details": "Cream ceramic bowl, no label, no spoon. Freshly made, so in an open bowl, never in a jar or pack.",
+      "status": "done"
+    },
+    {
+      "id": "sugee-batter",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "a small open bowl of thick pale yellow cake batter",
+      "details": "Cream ceramic bowl, no label, no spoon. Freshly made, so in an open bowl, never in a jar or pack.",
+      "status": "done"
+    },
+    {
+      "id": "banana-batter",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "a small open bowl of light brown banana bread batter",
+      "details": "Cream ceramic bowl, no label, no spoon. Freshly made, so in an open bowl, never in a jar or pack.",
+      "status": "done"
+    },
+    {
+      "id": "pie-filling",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "a small open bowl of yellow curry potato pie filling",
+      "details": "Cream ceramic bowl, no label, no spoon. Freshly made, so in an open bowl, never in a jar or pack.",
+      "status": "done"
+    },
+    {
+      "id": "thosai-batter",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "a small open bowl of smooth white thosai batter",
+      "details": "Cream ceramic bowl, no label, no spoon. Freshly made, so in an open bowl, never in a jar or pack.",
+      "status": "done"
+    },
+    {
+      "id": "pancake-batter",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "a small open bowl of smooth pale pancake batter",
+      "details": "Cream ceramic bowl, no label, no spoon. Freshly made, so in an open bowl, never in a jar or pack.",
+      "status": "done"
+    },
+    {
+      "id": "vadai-batter",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "a small open bowl of thick coarse lentil batter with green chilli flecks",
+      "details": "Cream ceramic bowl, no label, no spoon. Freshly made, so in an open bowl, never in a jar or pack.",
+      "status": "done"
+    },
+    {
+      "id": "pisang-batter",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "a small open bowl of smooth white fritter batter",
+      "details": "Cream ceramic bowl, no label, no spoon. Freshly made, so in an open bowl, never in a jar or pack.",
+      "status": "done"
+    },
+    {
+      "id": "tempura-batter",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "a small open bowl of thin pale tempura batter",
+      "details": "Cream ceramic bowl, no label, no spoon. Freshly made, so in an open bowl, never in a jar or pack.",
+      "status": "done"
+    },
+    {
+      "id": "dumpling-filling",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "a small open bowl of minced cabbage and tofu dumpling filling",
+      "details": "Cream ceramic bowl, no label, no spoon. Freshly made, so in an open bowl, never in a jar or pack.",
+      "status": "done"
+    },
+    {
+      "id": "samosa-filling",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "a small open bowl of yellow spiced potato and pea filling",
+      "details": "Cream ceramic bowl, no label, no spoon. Freshly made, so in an open bowl, never in a jar or pack.",
+      "status": "done"
+    },
+    {
+      "id": "agar-mix",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "a small open bowl of warm white coconut jelly mix",
+      "details": "Cream ceramic bowl, no label, no spoon. Freshly made, so in an open bowl, never in a jar or pack.",
+      "status": "done"
+    },
+    {
+      "id": "soy-pudding",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "a small open bowl of just-set soft white soy pudding",
+      "details": "Cream ceramic bowl, no label, no spoon. Freshly made, so in an open bowl, never in a jar or pack.",
+      "status": "done"
+    },
+    {
+      "id": "cooked-sago",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "a small open bowl of cooked clear sago pearls",
+      "details": "Cream ceramic bowl, no label, no spoon. Freshly made, so in an open bowl, never in a jar or pack.",
+      "status": "done"
+    },
+    {
+      "id": "raw-dumplings",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "four uncooked pleated dumplings on a floured tray",
+      "details": "Pale uncooked dough, neatly folded, on a small wooden tray dusted with flour.",
+      "status": "done"
+    },
+    {
+      "id": "raw-gyoza",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "four uncooked crescent gyoza on a floured tray",
+      "details": "Pale uncooked dough, neatly folded, on a small wooden tray dusted with flour.",
+      "status": "done"
+    },
+    {
+      "id": "raw-samosas",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "three uncooked triangular samosas on a floured tray",
+      "details": "Pale uncooked dough, neatly folded, on a small wooden tray dusted with flour.",
+      "status": "done"
+    },
+    {
+      "id": "raw-tang-yuan",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "five uncooked white glutinous rice balls on a floured tray",
+      "details": "Pale uncooked dough, neatly folded, on a small wooden tray dusted with flour.",
+      "status": "done"
+    },
+    {
+      "id": "raw-mandu",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "three uncooked half-moon mandu on a floured tray",
+      "details": "Pale uncooked dough, neatly folded, on a small wooden tray dusted with flour.",
+      "status": "done"
+    },
+    {
+      "id": "oven",
+      "kind": "prop",
+      "chroma": "magenta",
+      "subject": "a small cream countertop oven with a glass door and two dials",
+      "details": "A cooking game station. Rounded retro shape, warm orange glow inside the window, a wire rack visible through the glass.",
+      "status": "done"
+    },
+    {
+      "id": "griddle",
+      "kind": "prop",
+      "chroma": "magenta",
+      "subject": "a flat round iron griddle (tawa) on a small terracotta stove",
+      "details": "A cooking game station. Dark seasoned iron plate seen from slightly above, empty, with a soft glow of the flame under it.",
+      "status": "done"
+    },
+    {
+      "id": "fryer",
+      "kind": "prop",
+      "chroma": "magenta",
+      "subject": "a small deep pot of golden frying oil on a terracotta stove",
+      "details": "A cooking game station. Wide sturdy pot, glossy golden oil with a few tiny bubbles, a wire skimmer resting on the rim.",
+      "status": "done"
+    },
+    {
+      "id": "dough-board",
+      "kind": "prop",
+      "chroma": "magenta",
+      "subject": "a wooden dough board dusted with flour, with a small rolling pin",
+      "details": "A cooking game station. Thick light wooden board, a light dusting of flour, a short rolling pin resting on one corner. Empty in the middle.",
+      "status": "done"
+    },
+    {
+      "id": "fridge",
+      "kind": "prop",
+      "chroma": "magenta",
+      "subject": "a small cream under-counter fridge with its door shut",
+      "details": "A cooking game station. Rounded retro fridge, soft mint-green handle, a faint cool frost at the top edge.",
+      "status": "done"
+    },
+    {
+      "id": "tool-spatula",
+      "kind": "prop",
+      "chroma": "magenta",
+      "subject": "a flat metal griddle spatula with a wooden handle",
+      "details": "A single kitchen tool, angled diagonally, wide flat blade.",
+      "status": "done"
+    },
+    {
+      "id": "tool-fold",
+      "kind": "prop",
+      "chroma": "magenta",
+      "subject": "a small wooden dumpling folding paddle with one half-folded dumpling beside it",
+      "details": "A single kitchen tool for folding dough, simple and readable at a small size.",
+      "status": "done"
+    },
+    {
+      "id": "dish-steamed-tofu",
+      "kind": "dish",
+      "chroma": "magenta",
+      "subject": "silken tofu steamed in a shallow plate with soy and sesame oil",
+      "details": "A soft white block of tofu glistening with dark soy, a few ginger slivers. No spring onion.",
+      "status": "done"
+    },
+    {
+      "id": "dish-idli",
+      "kind": "dish",
+      "chroma": "magenta",
+      "subject": "three soft white idli on a small steel plate",
+      "details": "Round fluffy steamed rice cakes, a small bowl of coconut chutney beside them.",
+      "status": "done"
+    },
+    {
+      "id": "dish-chee-cheong-fun",
+      "kind": "dish",
+      "chroma": "magenta",
+      "subject": "chee cheong fun rice rolls on a plate",
+      "details": "Silky white rolled rice noodle sheets drizzled with sweet brown sauce and sesame seeds. No spring onion.",
+      "status": "done"
+    },
+    {
+      "id": "dish-chwee-kueh",
+      "kind": "dish",
+      "chroma": "magenta",
+      "subject": "four chwee kueh rice cakes topped with chye poh",
+      "details": "Small round white steamed rice cakes in tiny cups, topped with brown preserved radish and a little red chilli.",
+      "status": "done"
+    },
+    {
+      "id": "dish-veg-bao",
+      "kind": "dish",
+      "chroma": "magenta",
+      "subject": "two fluffy white vegetable steamed buns in a small bamboo basket",
+      "details": "Pleated white buns, one split open to show a cabbage and mushroom filling.",
+      "status": "done"
+    },
+    {
+      "id": "dish-steamed-egg",
+      "kind": "dish",
+      "chroma": "magenta",
+      "subject": "silky steamed egg custard in a small bowl",
+      "details": "Smooth pale yellow custard with a drizzle of soy and sesame oil. No spring onion.",
+      "status": "done"
+    },
+    {
+      "id": "dish-yam-cake",
+      "kind": "dish",
+      "chroma": "magenta",
+      "subject": "slices of steamed yam cake on a plate",
+      "details": "Lilac-grey squares of yam cake topped with crushed peanuts and a little sliced red chilli. No spring onion, no dried shrimp.",
+      "status": "done"
+    },
+    {
+      "id": "dish-roast-veg",
+      "kind": "dish",
+      "chroma": "cyan",
+      "subject": "a tray of roast vegetables",
+      "details": "Golden roasted potato chunks, broccoli and red capsicum on a small baking tray.",
+      "status": "done"
+    },
+    {
+      "id": "dish-sugee-cake",
+      "kind": "dish",
+      "chroma": "magenta",
+      "subject": "a slice of golden sugee cake on a plate",
+      "details": "Dense buttery yellow semolina cake with a golden crust.",
+      "status": "done"
+    },
+    {
+      "id": "dish-veg-pie",
+      "kind": "dish",
+      "chroma": "magenta",
+      "subject": "a golden curry vegetable pie",
+      "details": "A small round puff pastry pie, flaky golden top, one wedge cut to show a yellow curry potato filling.",
+      "status": "done"
+    },
+    {
+      "id": "dish-banana-bread",
+      "kind": "dish",
+      "chroma": "magenta",
+      "subject": "two slices of banana bread on a plate",
+      "details": "Moist brown loaf slices with banana pieces.",
+      "status": "done"
+    },
+    {
+      "id": "dish-thosai",
+      "kind": "dish",
+      "chroma": "magenta",
+      "subject": "a thin crispy thosai folded on a steel plate",
+      "details": "A large golden crisp rice crepe with small bowls of coconut chutney and dal.",
+      "status": "done"
+    },
+    {
+      "id": "dish-prata",
+      "kind": "dish",
+      "chroma": "magenta",
+      "subject": "two roti prata on a plate with a small bowl of curry",
+      "details": "Flaky golden layered flatbreads with a bowl of orange vegetable curry.",
+      "status": "done"
+    },
+    {
+      "id": "dish-chapati",
+      "kind": "dish",
+      "chroma": "magenta",
+      "subject": "a stack of three chapati on a plate",
+      "details": "Soft round wholemeal flatbreads with light brown spots.",
+      "status": "done"
+    },
+    {
+      "id": "dish-kaya-toast",
+      "kind": "dish",
+      "chroma": "magenta",
+      "subject": "kaya toast cut into triangles on a plate",
+      "details": "Toasted bread sandwiches with green kaya jam and a thin slab of butter.",
+      "status": "done"
+    },
+    {
+      "id": "dish-carrot-cake",
+      "kind": "dish",
+      "chroma": "magenta",
+      "subject": "fried radish carrot cake on a plate",
+      "details": "Golden fried cubes of radish cake with dark soy and preserved radish. No spring onion.",
+      "status": "done"
+    },
+    {
+      "id": "dish-pancakes",
+      "kind": "dish",
+      "chroma": "magenta",
+      "subject": "a short stack of pancakes with syrup",
+      "details": "Three fluffy golden pancakes with dark palm sugar syrup dripping down.",
+      "status": "done"
+    },
+    {
+      "id": "dish-vadai",
+      "kind": "dish",
+      "chroma": "magenta",
+      "subject": "three golden vadai on a small plate",
+      "details": "Crisp doughnut-shaped lentil fritters with a small bowl of coconut chutney.",
+      "status": "done"
+    },
+    {
+      "id": "dish-goreng-pisang",
+      "kind": "dish",
+      "chroma": "magenta",
+      "subject": "goreng pisang banana fritters on a plate",
+      "details": "Crisp golden battered banana fritters, piled up.",
+      "status": "done"
+    },
+    {
+      "id": "dish-spring-rolls",
+      "kind": "dish",
+      "chroma": "magenta",
+      "subject": "four crisp spring rolls on a plate",
+      "details": "Golden fried spring rolls with a small dish of chilli sauce.",
+      "status": "done"
+    },
+    {
+      "id": "dish-tempura",
+      "kind": "dish",
+      "chroma": "magenta",
+      "subject": "vegetable tempura on a plate",
+      "details": "Light crisp battered sweet potato slices and broccoli florets.",
+      "status": "done"
+    },
+    {
+      "id": "dish-gyoza",
+      "kind": "dish",
+      "chroma": "magenta",
+      "subject": "pan-fried gyoza on a plate",
+      "details": "Five gyoza with crisp golden bottoms in a neat row, a small dish of dipping sauce.",
+      "status": "done"
+    },
+    {
+      "id": "dish-mango-sago",
+      "kind": "dish",
+      "chroma": "magenta",
+      "subject": "mango sago dessert in a glass",
+      "details": "Chilled mango cubes and small white sago pearls in creamy coconut milk.",
+      "status": "done"
+    },
+    {
+      "id": "dish-gado-gado",
+      "kind": "dish",
+      "chroma": "magenta",
+      "subject": "gado-gado salad on a plate",
+      "details": "Blanched long beans, potato, bean sprouts, lettuce and tempeh with peanut sauce poured over.",
+      "status": "done"
+    },
+    {
+      "id": "dish-rojak",
+      "kind": "dish",
+      "chroma": "magenta",
+      "subject": "fruit rojak in a bowl",
+      "details": "Pineapple, cucumber and jicama chunks tossed in dark sweet rojak sauce with crushed peanuts.",
+      "status": "done"
+    },
+    {
+      "id": "dish-thali",
+      "kind": "dish",
+      "chroma": "magenta",
+      "subject": "a vegetable thali on a round steel tray",
+      "details": "Small steel bowls of yellow dal and cabbage poriyal around a mound of rice.",
+      "status": "done"
+    },
+    {
+      "id": "dish-economy-rice",
+      "kind": "dish",
+      "chroma": "magenta",
+      "subject": "an economy rice plate",
+      "details": "A mound of white rice with stir-fried greens and a yellow vegetable curry beside it.",
+      "status": "done"
+    },
+    {
+      "id": "dish-reunion-set",
+      "kind": "dish",
+      "chroma": "cyan",
+      "subject": "a reunion meal set on a red lacquer tray",
+      "details": "Steamed tofu, braised vegetables with black fungus and baby corn, and a bowl of rice. No spring onion.",
+      "status": "done"
+    },
+    {
+      "id": "dish-western-set",
+      "kind": "dish",
+      "chroma": "magenta",
+      "subject": "a Western set meal on a wooden tray",
+      "details": "Roast potatoes and broccoli, a small bowl of tomato soup and a slice of buttered toast.",
+      "status": "done"
+    },
+    {
+      "id": "dish-yusheng",
+      "kind": "dish",
+      "chroma": "magenta",
+      "subject": "vegetarian yusheng on a large round plate",
+      "details": "Neat mounds of shredded carrot, white radish and cucumber, pomelo pieces, plum sauce, crushed peanuts and sesame. No raw fish.",
+      "status": "done"
+    },
+    {
+      "id": "dish-longevity-noodles",
+      "kind": "dish",
+      "chroma": "magenta",
+      "subject": "a bowl of long uncut stir-fried noodles",
+      "details": "Glossy yellow noodles with shiitake slices and ginger. No spring onion.",
+      "status": "done"
+    },
+    {
+      "id": "dish-nian-gao",
+      "kind": "dish",
+      "chroma": "magenta",
+      "subject": "fried nian gao slices on a plate",
+      "details": "Golden crisp slices of brown sticky rice cake sandwiched between orange sweet potato and lilac yam.",
+      "status": "done"
+    },
+    {
+      "id": "dish-pineapple-tarts",
+      "kind": "dish",
+      "chroma": "magenta",
+      "subject": "pineapple tarts on a small plate",
+      "details": "Round buttery golden tarts topped with a dome of amber pineapple jam.",
+      "status": "done"
+    },
+    {
+      "id": "dish-sayur-lodeh",
+      "kind": "dish",
+      "chroma": "magenta",
+      "subject": "sayur lodeh in a bowl with lontong rice cakes",
+      "details": "Pale yellow coconut stew with cabbage, carrot, long beans and tofu, cubes of white lontong.",
+      "status": "done"
+    },
+    {
+      "id": "dish-jackfruit-rendang",
+      "kind": "dish",
+      "chroma": "cyan",
+      "subject": "jackfruit rendang in a dish",
+      "details": "Dark caramelised red-brown dry curry with chunks of young jackfruit.",
+      "status": "done"
+    },
+    {
+      "id": "dish-kuih-lapis",
+      "kind": "dish",
+      "chroma": "cyan",
+      "subject": "slices of kuih lapis on a plate",
+      "details": "Neat diamond slices of soft steamed layer cake in alternating pink and white layers.",
+      "status": "done"
+    },
+    {
+      "id": "dish-sundal",
+      "kind": "dish",
+      "chroma": "magenta",
+      "subject": "chickpea sundal in a small steel bowl",
+      "details": "Golden chickpeas tossed with grated coconut and green chilli. No onion.",
+      "status": "done"
+    },
+    {
+      "id": "dish-payasam",
+      "kind": "dish",
+      "chroma": "magenta",
+      "subject": "a bowl of vermicelli payasam",
+      "details": "Creamy pale milk pudding with thin vermicelli strands, a few cashews and raisins.",
+      "status": "done"
+    },
+    {
+      "id": "dish-murukku",
+      "kind": "dish",
+      "chroma": "magenta",
+      "subject": "crisp murukku spirals on a plate",
+      "details": "Golden spiral rice crackers, a small stack.",
+      "status": "done"
+    },
+    {
+      "id": "dish-laddu",
+      "kind": "dish",
+      "chroma": "magenta",
+      "subject": "three besan laddu on a small plate",
+      "details": "Round golden-yellow sweet balls, slightly grainy.",
+      "status": "done"
+    },
+    {
+      "id": "dish-baked-mooncake",
+      "kind": "dish",
+      "chroma": "magenta",
+      "subject": "a baked mooncake, one cut to show the lotus paste",
+      "details": "Golden brown patterned mooncake with a smooth lotus paste filling, no egg yolk.",
+      "status": "done"
+    },
+    {
+      "id": "dish-snowskin-mooncake",
+      "kind": "dish",
+      "chroma": "cyan",
+      "subject": "two snowskin mooncakes on a plate",
+      "details": "Soft pale pastel mooncakes with a pressed flower pattern, one cut to show lotus paste.",
+      "status": "done"
+    },
+    {
+      "id": "dish-orh-nee",
+      "kind": "dish",
+      "chroma": "magenta",
+      "subject": "a bowl of orh nee yam paste",
+      "details": "Smooth lilac-grey yam paste with a drizzle of coconut cream.",
+      "status": "done"
+    },
+    {
+      "id": "dish-zongzi",
+      "kind": "dish",
+      "chroma": "magenta",
+      "subject": "an unwrapped vegetarian zongzi on its bamboo leaves",
+      "details": "Pyramid of sticky rice with peanuts, chestnut and mushroom, the green leaves opened out.",
+      "status": "done"
+    },
+    {
+      "id": "dish-kee-chang",
+      "kind": "dish",
+      "chroma": "magenta",
+      "subject": "two kee chang with palm sugar syrup",
+      "details": "Small translucent golden rice dumplings on their bamboo leaves, dark palm sugar syrup poured over.",
+      "status": "done"
+    },
+    {
+      "id": "pomelo",
+      "kind": "ingredient",
+      "chroma": "cyan",
+      "subject": "a pomelo, one segment peeled",
+      "details": "Large pale green-yellow citrus with juicy pink-white flesh showing.",
+      "status": "done"
+    },
+    {
+      "id": "jackfruit",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "chunks of young green jackfruit",
+      "details": "Pale fibrous unripe jackfruit pieces, a wedge of the spiky green skin.",
+      "status": "done"
+    },
+    {
+      "id": "glutinous-rice",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "a small bowl of uncooked glutinous rice",
+      "details": "Opaque white round grains.",
+      "status": "done"
+    },
+    {
+      "id": "bamboo-leaves",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "a small bundle of dried bamboo leaves",
+      "details": "Long flat green-tan leaves tied loosely.",
+      "status": "done"
+    },
+    {
+      "id": "plum-sauce",
+      "kind": "packaged",
+      "chroma": "cyan",
+      "subject": "a small bottle of plum sauce",
+      "details": "Thick amber-red sauce, plain label reading 'Plum sauce'.",
+      "status": "done"
+    },
+    {
+      "id": "pineapple-jam",
+      "kind": "packaged",
+      "chroma": "magenta",
+      "subject": "a jar of pineapple jam",
+      "details": "Golden amber jam, plain label reading 'Pineapple jam'.",
+      "status": "done"
+    },
+    {
+      "id": "lontong",
+      "kind": "packaged",
+      "chroma": "magenta",
+      "subject": "a pack of lontong rice cakes",
+      "details": "Compressed white rice cake cubes in a clear pack, plain label reading 'Lontong'.",
+      "status": "done"
+    },
+    {
+      "id": "chickpeas",
+      "kind": "packaged",
+      "chroma": "magenta",
+      "subject": "a bag of dried chickpeas",
+      "details": "Round beige chickpeas, plain label reading 'Chickpeas'.",
+      "status": "done"
+    },
+    {
+      "id": "vermicelli",
+      "kind": "packaged",
+      "chroma": "magenta",
+      "subject": "a pack of fine vermicelli",
+      "details": "Thin golden wheat vermicelli nests, plain label reading 'Vermicelli'.",
+      "status": "done"
+    },
+    {
+      "id": "besan",
+      "kind": "packaged",
+      "chroma": "magenta",
+      "subject": "a bag of besan (chickpea flour)",
+      "details": "Pale yellow flour, plain label reading 'Besan'.",
+      "status": "done"
+    },
+    {
+      "id": "lotus-paste",
+      "kind": "packaged",
+      "chroma": "magenta",
+      "subject": "a tub of lotus seed paste",
+      "details": "Smooth golden-brown paste, plain label reading 'Lotus paste'.",
+      "status": "done"
+    },
+    {
+      "id": "steamed-nian-gao",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "a small plate of steamed brown nian gao slices",
+      "details": "Cream ceramic bowl or plate, no label, no spoon. Freshly made, never in a jar or pack.",
+      "status": "done"
+    },
+    {
+      "id": "rendang-paste",
+      "kind": "ingredient",
+      "chroma": "cyan",
+      "subject": "a small open bowl of red rendang spice paste",
+      "details": "Cream ceramic bowl or plate, no label, no spoon. Freshly made, never in a jar or pack.",
+      "status": "done"
+    },
+    {
+      "id": "devil-paste",
+      "kind": "ingredient",
+      "chroma": "cyan",
+      "subject": "a small open bowl of bright red chilli curry paste",
+      "details": "Cream ceramic bowl or plate, no label, no spoon. Freshly made, never in a jar or pack.",
+      "status": "done"
+    },
+    {
+      "id": "yam-paste",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "a small open bowl of smooth lilac yam paste",
+      "details": "Cream ceramic bowl or plate, no label, no spoon. Freshly made, never in a jar or pack.",
+      "status": "done"
+    },
+    {
+      "id": "raw-mooncakes",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "two unbaked pale mooncakes with a pressed pattern on a floured tray",
+      "details": "Neatly made, before cooking, on a small wooden tray.",
+      "status": "done"
+    },
+    {
+      "id": "raw-snowskin",
+      "kind": "ingredient",
+      "chroma": "cyan",
+      "subject": "two unchilled soft pastel snowskin mooncakes on a floured tray",
+      "details": "Neatly made, before cooking, on a small wooden tray.",
+      "status": "done"
+    },
+    {
+      "id": "raw-zongzi",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "two tied uncooked zongzi in green bamboo leaves",
+      "details": "Neatly made, before cooking, on a small wooden tray.",
+      "status": "done"
+    },
+    {
+      "id": "raw-kee-chang",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "three small tied uncooked kee chang in bamboo leaves",
+      "details": "Neatly made, before cooking, on a small wooden tray.",
+      "status": "done"
+    },
+    {
+      "id": "dish-naan",
+      "kind": "dish",
+      "chroma": "magenta",
+      "subject": "a soft naan bread on a plate",
+      "details": "Plain puffy flatbread with golden charred spots, brushed shiny. No herbs, no garlic, no green flecks on top.",
+      "status": "done"
+    },
+    {
+      "id": "dish-tofu-puffs",
+      "kind": "dish",
+      "chroma": "magenta",
+      "subject": "fried tofu puffs in a small bowl",
+      "details": "Golden crisp cubes of fried tofu, soft inside, with a small dish of chilli sauce. No spring onion, no peas, no green garnish.",
+      "status": "done"
+    },
+    {
+      "id": "dish-dumplings",
+      "kind": "dish",
+      "chroma": "magenta",
+      "subject": "boiled vegetable dumplings in a bowl",
+      "details": "Plump pleated white dumplings in a little clear broth with a few bok choy leaves. No spring onion, no chopped green garnish on top.",
+      "status": "done"
+    },
+    {
+      "id": "dish-samosa",
+      "kind": "dish",
+      "chroma": "magenta",
+      "subject": "three golden samosas on a plate",
+      "details": "Crisp triangular pastries with a small bowl of mint chutney.",
+      "status": "done"
+    },
+    {
+      "id": "dish-tang-yuan",
+      "kind": "dish",
+      "chroma": "magenta",
+      "subject": "tang yuan in sweet ginger soup",
+      "details": "White glutinous rice balls in a bowl of clear golden syrup.",
+      "status": "done"
+    },
+    {
+      "id": "dish-agar-agar",
+      "kind": "dish",
+      "chroma": "cyan",
+      "subject": "slices of coconut agar-agar jelly on a plate",
+      "details": "Neat squares of two-layer jelly, white coconut layer over a clear green pandan layer.",
+      "status": "done"
+    },
+    {
+      "id": "dish-tau-huay",
+      "kind": "dish",
+      "chroma": "magenta",
+      "subject": "silky tau huay in a bowl",
+      "details": "Soft white beancurd pudding in a bowl with dark palm sugar syrup.",
+      "status": "done"
+    },
+    {
+      "id": "steamer",
+      "kind": "prop",
+      "chroma": "magenta",
+      "subject": "a two-tier round bamboo steamer with its lid on, sitting on a small pot over a stove ring",
+      "details": "A cooking game station. Woven bamboo with the lid on, sitting on a small pot over a stove ring. No steam or vapour drawn at all (the game adds it). Warm terracotta and cream like the other stations.",
+      "status": "done"
+    },
+    {
+      "id": "dish-mandu",
+      "kind": "dish",
+      "chroma": "magenta",
+      "subject": "steamed mandu dumplings in a bamboo basket",
+      "details": "Plump half-moon dumplings, one cut to show tofu and cabbage. Plain tops: no spring onion, no green specks or garnish.",
+      "status": "done"
+    },
+    {
+      "id": "urad-dal",
+      "kind": "packaged",
+      "chroma": "cyan",
+      "subject": "a small bag of urad dal",
+      "details": "Clear bag of small white split lentils with a plain label reading 'Urad dal'. Clear, colourless plastic with no pink or purple tint.",
+      "status": "done"
+    },
+    {
+      "id": "chye-poh",
+      "kind": "packaged",
+      "chroma": "cyan",
+      "subject": "a small pack of chye poh (preserved radish)",
+      "details": "Chopped brown preserved radish in a clear pack, plain label reading 'Chye poh'. Clear, colourless plastic with no pink or purple tint.",
+      "status": "done"
+    },
+    {
+      "id": "bao-dough",
+      "kind": "packaged",
+      "chroma": "cyan",
+      "subject": "a pack of bun dough",
+      "details": "A soft white dough ball in a clear wrapper with a plain label reading 'Bao dough'. Clear, colourless plastic with no pink or purple tint.",
+      "status": "done"
+    },
+    {
+      "id": "prata-dough",
+      "kind": "packaged",
+      "chroma": "cyan",
+      "subject": "a pack of frozen prata dough",
+      "details": "Round flat dough discs in a clear pack, plain label reading 'Prata dough'. Clear, colourless plastic with no pink or purple tint.",
+      "status": "done"
+    },
+    {
+      "id": "radish-cake",
+      "kind": "packaged",
+      "chroma": "magenta",
+      "subject": "a block of steamed radish cake",
+      "details": "A plain pale grey-white rectangular steamed radish cake on a plate, a plain tag reading 'Radish cake'. Nothing on top: no spring onion or garnish.",
+      "status": "done"
+    },
+    {
+      "id": "dumpling-wrappers",
+      "kind": "packaged",
+      "chroma": "cyan",
+      "subject": "a stack of round dumpling wrappers",
+      "details": "Thin pale round wrappers in a clear pack, plain label reading 'Wrappers'. Clear, colourless plastic with no pink or purple tint.",
+      "status": "done"
+    },
+    {
+      "id": "dish-braised-mushrooms",
+      "kind": "dish",
+      "chroma": "magenta",
+      "subject": "braised shiitake and button mushrooms in a dark glossy sauce",
+      "details": "A small claypot dish of whole braised mushrooms. No green garnish, no herbs, no spring onion, no chopped green bits anywhere.",
+      "status": "done"
+    },
+    {
+      "id": "dish-devils-curry",
+      "kind": "dish",
+      "chroma": "cyan",
+      "subject": "vegetable devil's curry in a bowl",
+      "details": "Bright red tangy curry with potato chunks and pale cabbage leaves. No meat, no onion pieces. No green garnish, no herbs, no spring onion, no chopped green bits anywhere.",
+      "status": "done"
+    },
+    {
+      "id": "dish-pomelo-salad",
+      "kind": "dish",
+      "chroma": "magenta",
+      "subject": "pomelo salad in a bowl",
+      "details": "Juicy pink-white pomelo segments with a few whole mint leaves, crushed peanuts and a lime wedge. No onion, no shallot, no red rings, no chilli slices.",
+      "status": "done"
+    },
+    {
+      "id": "chestnuts",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "a few shelled chestnuts",
+      "details": "Glossy dark brown chestnuts with a pale flat base and a small point on top, a few roasted ones split open showing yellow flesh. Clearly nuts, never bulbs, no papery skin, no cloves.",
+      "status": "done"
+    },
+    {
+      "id": "murukku-dough",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "a small open bowl of soft cream murukku dough",
+      "details": "Cream ceramic bowl or plate, no label, no spoon. Smooth pale dough flecked only with tiny black sesame seeds. Freshly made, never in a jar or pack. No green garnish, no herbs, no spring onion, no chopped green bits anywhere.",
+      "status": "done"
+    },
+    {
+      "id": "laddu-mix",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "a small open bowl of golden roasted besan mix",
+      "details": "Cream ceramic bowl or plate, no label, no spoon. A sweet mix: fine golden roasted gram flour crumbs with ghee, a few cashews and raisins. Freshly made, never in a jar or pack. No peanuts, no chilli. No green garnish, no herbs, no spring onion, no chopped green bits anywhere.",
+      "status": "done"
+    },
+    {
+      "id": "zongzi-filling",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "a small open bowl of mushroom, chestnut and peanut filling",
+      "details": "Cream ceramic bowl or plate, no label, no spoon. Sliced shiitake mushrooms, whole chestnuts and peanuts. Freshly made, never in a jar or pack. No green garnish, no herbs, no spring onion, no chopped green bits anywhere.",
       "status": "done"
     }
   ]

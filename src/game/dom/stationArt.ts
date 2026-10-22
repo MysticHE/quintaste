@@ -13,13 +13,13 @@ export const STATION_ART: Record<StationKind, { size: [number, number]; bowl: Ar
   board: { size: [320, 212], bowl: { x: 0.49, y: 0.44, rx: 0.3, ry: 0.2 }, flame: { x: 0.5, y: 0.9, rx: 0.1, ry: 0.02 } },
   // A lidded jug (handle on the right): like the rice cooker, what is blending stays out of sight; the glow sits on the motor base.
   blender: { size: [192, 320], bowl: { x: 0.43, y: 0.38, rx: 0.24, ry: 0.07 }, flame: { x: 0.43, y: 0.85, rx: 0.16, ry: 0.03 }, closed: true },
-  // Chapters 4–10: sized for the station sketch (240 × 320) until QT Gamer's art is imported; set from the picture then.
-  steamer: { size: [240, 320], bowl: { x: 0.5, y: 0.45, rx: 0.3, ry: 0.08 }, flame: { x: 0.5, y: 0.9, rx: 0.2, ry: 0.03 }, closed: true },
-  oven: { size: [240, 320], bowl: { x: 0.5, y: 0.5, rx: 0.3, ry: 0.1 }, flame: { x: 0.5, y: 0.75, rx: 0.3, ry: 0.04 }, closed: true },
-  griddle: { size: [240, 320], bowl: { x: 0.5, y: 0.5, rx: 0.34, ry: 0.12 }, flame: { x: 0.5, y: 0.85, rx: 0.25, ry: 0.03 } },
-  fryer: { size: [240, 320], bowl: { x: 0.5, y: 0.45, rx: 0.28, ry: 0.09 }, flame: { x: 0.5, y: 0.88, rx: 0.2, ry: 0.03 } },
-  dough: { size: [240, 320], bowl: { x: 0.5, y: 0.5, rx: 0.34, ry: 0.16 }, flame: { x: 0.5, y: 0.9, rx: 0.1, ry: 0.02 } },
-  fridge: { size: [240, 320], bowl: { x: 0.5, y: 0.45, rx: 0.3, ry: 0.1 }, flame: { x: 0.5, y: 0.9, rx: 0.1, ry: 0.02 }, closed: true },
+  // Chapters 4–10, from QT Gamer's station art (22 Oct 2026). Closed stations (steamer, oven, fridge) keep their food out of sight.
+  steamer: { size: [291, 320], bowl: { x: 0.45, y: 0.2, rx: 0.3, ry: 0.07 }, flame: { x: 0.45, y: 0.78, rx: 0.3, ry: 0.04 }, closed: true },
+  oven: { size: [320, 237], bowl: { x: 0.4, y: 0.5, rx: 0.28, ry: 0.12 }, flame: { x: 0.4, y: 0.62, rx: 0.28, ry: 0.05 }, closed: true },
+  griddle: { size: [320, 269], bowl: { x: 0.47, y: 0.2, rx: 0.36, ry: 0.14 }, flame: { x: 0.47, y: 0.58, rx: 0.25, ry: 0.04 } },
+  fryer: { size: [320, 278], bowl: { x: 0.45, y: 0.32, rx: 0.27, ry: 0.1 }, flame: { x: 0.45, y: 0.68, rx: 0.22, ry: 0.04 } },
+  dough: { size: [320, 189], bowl: { x: 0.47, y: 0.45, rx: 0.3, ry: 0.2 }, flame: { x: 0.5, y: 0.9, rx: 0.1, ry: 0.02 } },
+  fridge: { size: [277, 320], bowl: { x: 0.5, y: 0.45, rx: 0.3, ry: 0.1 }, flame: { x: 0.5, y: 0.92, rx: 0.1, ry: 0.02 }, closed: true },
 };
 /** The wooden plating board ("board" art) and the plate art laid on it. */
 export const PLATING_ART: [number, number] = [320, 143];
