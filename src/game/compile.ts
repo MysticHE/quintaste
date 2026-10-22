@@ -152,11 +152,18 @@ const stageSecs = (station: StationKind, k: number) => station === "rice" && k =
   : station === "fridge" ? 8 : station === "oven" ? 6 : station === "steamer" ? 5 : 3;
 const TURNS: Partial<Record<StationKind, "flip" | "fold">> = { griddle: "flip", dough: "fold" };
 
+/** A blended paste is named for what goes into it ("Chilli paste", "Coriander paste"), never after the whole recipe. */
+function pasteName(c: Compiled, s: Shape): string {
+  const names = s.parts.filter(p => p.station === "blender").flatMap(p => p.stages.flatMap(st => st.items)).map(it => nameOf(c, it));
+  if (names.some(n => /chil+i|chili|sambal/i.test(n))) return "Chilli paste";
+  return names.length === 1 ? names[0].slice(0, 40) + " paste" : "Spice paste";
+}
+
 /** Step 3's input: the level pack from a recipe, its draft and a checked shape. Throws PackError when the pack is not valid. */
 export function buildPack(r: RecipeInput, c: Compiled, s: Shape): LevelPack {
   const id = "t-" + slug(r.id), used = new Set(s.parts.flatMap(p => p.stages.flatMap(st => st.items)));
   // Transfer (§8.7): a blender part followed by another station makes a paste that part's first step takes; a blender part alone is the dish.
-  const paste = s.parts.some((p, n) => p.station === "blender" && n < s.parts.length - 1) ? { id: (id + "-paste").slice(0, 40), name: (r.name.slice(0, 50) + " paste") } : null;
+  const paste = s.parts.some((p, n) => p.station === "blender" && n < s.parts.length - 1) ? { id: (id + "-paste").slice(0, 40), name: pasteName(c, s) } : null;
   const pasteAt = paste ? s.parts.findIndex(p => p.station === "blender") : -1;
   return readPack({
     format: 1, id: "recipe-" + slug(r.id),
