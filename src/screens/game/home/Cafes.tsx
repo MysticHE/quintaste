@@ -37,20 +37,20 @@ export function OpenMyCafe({ game }: { game: GameProgress }) {
 
 type Choice = { hash: string; recipeId: string; name: string };
 /**
- * The dishes a café menu can hold: reviewed (public) levels on the shelf, the host's own recipes first. A saved dish whose recipe the
- * shelf now shows as the host's private level stays offered, since the shelf lists only each recipe's newest level; any other saved
- * dish that left the shelf is dropped, so a withdrawn level is never sent again.
+ * The dishes a café menu can hold: reviewed (public) levels on the shelf, the host's own recipes first. Where the shelf shows the host's
+ * newer private level of a recipe, its public level (`publicHash`) is offered instead. A saved dish no longer offered is dropped, so a
+ * withdrawn level is never sent again.
  */
-function menuChoices(shelf: KitchenLevel[], saved: MyCafe["menu"], own: Set<string>): Choice[] {
-  const onShelf = new Set(shelf.map(l => l.hash)), privateRecipe = new Set(shelf.filter(l => l.mine).map(l => l.recipeId));
-  const list: Choice[] = [...shelf.filter(l => !l.mine), ...saved.filter(m => !onShelf.has(m.hash) && privateRecipe.has(m.recipeId))];
+function menuChoices(shelf: KitchenLevel[], own: Set<string>): Choice[] {
+  const privateRecipe = new Set(shelf.filter(l => l.mine).map(l => l.recipeId));
+  const list: Choice[] = shelf.flatMap(l => !l.mine ? [l] : l.publicHash ? [{ ...l, hash: l.publicHash }] : []);
   const mineFirst = (c: Choice) => own.has(c.recipeId) || privateRecipe.has(c.recipeId) ? 0 : 1;
   return list.map((c, i) => ({ c, i })).sort((a, b) => mineFirst(a.c) - mineFirst(b.c) || a.i - b.i).map(({ c }) => ({ hash: c.hash, recipeId: c.recipeId, name: c.name }));
 }
 
 function CafeForm({ saved, shelf, own, fallbackName, onSaved }: { saved: MyCafe; shelf: KitchenLevel[]; own: Set<string>; fallbackName: string; onSaved(): void }) {
   const { theme, setNotice } = usePreferences();
-  const choices = menuChoices(shelf, saved.menu, own), offered = new Set(choices.map(c => c.hash));
+  const choices = menuChoices(shelf, own), offered = new Set(choices.map(c => c.hash));
   const [name, setName] = useState(saved.cafe?.name ?? fallbackName), [chosen, setChosen] = useState(saved.menu.map(m => m.hash));
   const [open, setOpen] = useState(!!saved.cafe?.open), [agree, setAgree] = useState(false), [busy, setBusy] = useState(false), [error, setError] = useState("");
   // Only dishes still offered count and are sent, so one that left the shelf can't block every save.

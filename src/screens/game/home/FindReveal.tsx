@@ -8,7 +8,8 @@ import { ACCESSORIES, DECOR, PETS, SKINS, wearArt } from "../../../game/content/
 import { usePreferences } from "../../../state/Preferences";
 import { Art } from "./bits";
 
-export type Find = { kind: "accessory" | "pet" | "decor" | "skin"; id: string; level: number };
+/** `level` orders the finds; `from` names what earned it ("Cleared Level 30", "Cleared Reunion kitchen 6"). */
+export type Find = { kind: "accessory" | "pet" | "decor" | "skin"; id: string; level: number; from: string };
 /** One reveal for every new cosmetic (owner's "Your new find" board): what it is, who it is for, then Equip or Keep. */
 export function FindReveal({ find, pet, onEquip, onKeep }: { find: Find; pet: string; onEquip(): void; onKeep(): void }) {
   const { theme, reducedMotion } = usePreferences();
@@ -21,7 +22,7 @@ export function FindReveal({ find, pet, onEquip, onKeep }: { find: Find; pet: st
     <LinearGradient colors={[theme.mediaSurface, theme.shadow]} style={s.wrap}>
       <View style={s.body} accessibilityViewIsModal>
         <T variant="display" color={theme.mediaForeground} accessibilityRole="header">Your new find</T>
-        <View style={[s.pill, { backgroundColor: theme.accentSoft }]}><T variant="small" color={theme.accent} style={{ fontWeight: "800" }}>Cleared Level {find.level}</T></View>
+        <View style={[s.pill, { backgroundColor: theme.accentSoft }]}><T variant="small" color={theme.accent} style={{ fontWeight: "800" }}>{find.from}</T></View>
         <Pedestal art={art} size={find.kind === "skin" ? 150 : 130} still={reducedMotion} />
         <T variant="title" color={theme.mediaForeground}>{name}</T>
         <T color={theme.mediaMutedForeground}>{forWho}</T>

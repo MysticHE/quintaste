@@ -109,6 +109,7 @@ export const levelOpen = (g: GameProgress, n: number) => n <= nextLevel(g);
 export function isUnlocked(g: GameProgress, u: Unlock, id?: string) {
   if (u.kind === "free") return true;
   if (u.kind === "level") return cleared(g, u.level);
+  if (u.kind === "season") return (g.seasons[seasonKey(u.season, u.n)]?.clears ?? 0) > 0;
   if (u.kind === "tier") return !!g.tier && TIERS.indexOf(g.tier) >= TIERS.indexOf(u.tier);
   return !!id && g.owned.includes(id);
 }

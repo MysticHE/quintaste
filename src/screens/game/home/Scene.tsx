@@ -7,7 +7,7 @@ import { cleared, type GameProgress } from "../../../game/progress";
 import { usePreferences } from "../../../state/Preferences";
 import { useKeyboardFocus } from "../../../hooks/useKeyboardFocus";
 import { Icon } from "../../../components/ui";
-import { AVATAR, BACK, COUNTER, PET, SLOTS, STATIONS_ON_COUNTER, STOVE, WOK, SPARKLE_AT, slotBox, type Box, type SlotId } from "./sceneLayout";
+import { AVATAR, backBox, COUNTER, PET, SLOTS, STATIONS_ON_COUNTER, STOVE, WOK, SPARKLE_AT, slotBox, type Box, type SlotId } from "./sceneLayout";
 import { Glint, Hop, HoverGlow, Motes, PressGlow, Steam, Sway } from "./Ambient";
 import { HeartPop, Leaves, RevealGlow, SparkleCycle, SunRays, popOnce } from "./SceneFx";
 
@@ -47,14 +47,14 @@ export function Scene({ game, width, decor, decorating, selectedSlot, hint, fres
     timers.forEach(clearTimeout); timers.clear();
     timers.add(setTimeout(() => onHot(id), 280));
   };
-  const [mx, my, mw, mh] = BACK.menu[skin];
+  const [mx, my, mw, mh] = backBox("menu", skin);
   // Lian, the companion and the stove need no marker: they move, steam and react. Backdrop objects get a sparkle.
   const sparkles: [number, number][] = [SPARKLE_AT.books, [mx + mw * 0.82, my + mh * 0.18], SPARKLE_AT.wardrobe].map(([x, y]) => [x * u, y * u]);
   const hots: { id: HotId; box: Box; name: string; core?: boolean }[] = [
-    { id: "window", box: BACK.window[skin], name: "Window: out and about" },
-    { id: "books", box: BACK.books[skin], name: "Bookshelf: recipe, pantry and regulars books", core: true },
-    { id: "menu", box: BACK.menu[skin], name: menuOpen ? "Chalkboard menu" : "Chalkboard menu, opens at Level 6" },
-    { id: "wardrobe", box: BACK.wardrobe[skin], name: "Mirror and aprons: wardrobe", core: true },
+    { id: "window", box: backBox("window", skin), name: "Window: out and about" },
+    { id: "books", box: backBox("books", skin), name: "Bookshelf: recipe, pantry and regulars books", core: true },
+    { id: "menu", box: backBox("menu", skin), name: menuOpen ? "Chalkboard menu" : "Chalkboard menu, opens at Level 6" },
+    { id: "wardrobe", box: backBox("wardrobe", skin), name: "Mirror and aprons: wardrobe", core: true },
     { id: "avatar", box: [AVATAR.cx - AVATAR.w / 2, 66, AVATAR.w, 32], name: "Lian, the QuinTaste mascot, cooking. Say hello" },
     { id: "stove", box: STOVE, name: "Stove: play Rush Hour", core: true },
     { id: "pet", box: [PET.x, petTop, petW, petW * artRatio(petKey)], name: "Your companion, " + PETS[game.pet].name, core: true },
@@ -71,8 +71,8 @@ export function Scene({ game, width, decor, decorating, selectedSlot, hint, fres
   };
   return <View style={{ width, height: width * 1.5 }} accessibilityLabel={"My café, " + game.cafeName}>
     {backdrop && <Image source={art(SKINS[skin].art!)} style={[s.abs, { left: 0, top: 0, width, height: width * 1.5 }]} resizeMode="cover" />}
-    <SunRays box={BACK.window[skin]} u={u} />
-    <Glint box={BACK.window[skin]} u={u} />
+    <SunRays box={backBox("window", skin)} u={u} />
+    <Glint box={backBox("window", skin)} u={u} />
     {decorImg("ceiling")}{decorImg("wall")}
     <Sway style={[s.abs, bottomAt("avatar-lian", AVATAR.cx - AVATAR.w / 2, AVATAR.w, AVATAR.bottom)]} deg={0.9} origin="bottom" duration={1900} poke={cookPoke}>
       <Image source={art("avatar-lian")} style={s.fill} resizeMode="contain" />

@@ -26,6 +26,8 @@ RENAME = {"rh-bg": ("scene2", "bg-cafe"), "rh-counter": ("scene2", "counter"), "
 # Pinned by eye: the signature room variant that keeps the hotspot layout, and the more compact assembly board.
 VARIANT = {"avatar-adult": 2, "avatar-mini": 2, "skin-signature": 2, "assembly-counter": 2}
 SCENES = {"skin-sunny", "skin-lotus", "skin-lantern", "skin-signature", "rh-bg"}
+# Every café skin is a full scene (no cut-out), including the chapter and season rewards.
+is_scene = lambda key: key in SCENES or (key.startswith("skin-") and not key.endswith("-wide"))
 # Wide home skins (QT Gamer style.json homeSkin): widen.py composites, imported at 1280 px high with the portrait room in the middle.
 WIDE = {"skin-sunny-wide", "skin-lotus-wide", "skin-lantern-wide", "skin-signature-wide"}
 SCENES |= WIDE
@@ -69,7 +71,7 @@ def find(src, key):
             continue
         report = src / "runs" / run / "report.json"
         fallback = (run, key)
-        if report.is_file() and key not in SCENES:
+        if report.is_file() and not is_scene(key):
             entries = json.loads(report.read_text(encoding="utf-8")).get(key, [])
             if entries and not any(e.get("ok") for e in entries):
                 continue
@@ -91,7 +93,7 @@ def despill(im):
 
 def encode(key, path):
     im = Image.open(path)
-    im = im.convert("RGB") if key in SCENES else im.convert("RGBA")
+    im = im.convert("RGB") if is_scene(key) else im.convert("RGBA")
     if key in STEAM:
         im = despill(im)
     side = size_for(key)
@@ -101,7 +103,7 @@ def encode(key, path):
         s = side / max(im.size)
         im = im.resize((round(im.width * s), round(im.height * s)), Image.LANCZOS)
     dest = OUT / f"{key}.webp"
-    im.save(dest, "WEBP", quality=76 if key in SCENES else 82, method=4)
+    im.save(dest, "WEBP", quality=76 if is_scene(key) else 82, method=4)
     return im.size, dest
 
 
@@ -144,7 +146,7 @@ def add_runs(runs, picks):
                 continue
             ok = sorted(int(r.stem.split("-")[1]) for r in d.glob("report-*.json") if json.loads(r.read_text(encoding="utf-8")).get("ok"))
             v = picks.get(key, ok[0] if ok else None)
-            path = d / f"sprite-{v}.webp"
+            path = d / (f"raw-{v}.png" if is_scene(key) else f"sprite-{v}.webp")
             if v is None or not path.is_file():
                 sys.exit(f"{key}: no passing sprite in {d}")
             size, dest = encode(key, path)
@@ -180,7 +182,7 @@ def main():
         d = src / "runs" / run / folder
         v = VARIANT.get(key, 1)
         report = src / "runs" / run / "report.json"
-        if key not in VARIANT and key not in SCENES and report.is_file():
+        if key not in VARIANT and not is_scene(key) and report.is_file():
             entries = json.loads(report.read_text(encoding="utf-8")).get(folder, [])
             ok = [e["variant"] for e in entries if e.get("ok")]
             if ok:
@@ -189,7 +191,7 @@ def main():
         if key in WIDE and key not in VARIANT and wide_report.is_file():
             ok = sorted((e for e in json.loads(wide_report.read_text(encoding="utf-8")) if e.get("ok")), key=lambda e: e.get("seamDifference", 99))
             v = ok[0]["variant"] if ok else v
-        path = d / (f"wide-{v}.png" if key in WIDE else f"raw-{v}.png" if key in SCENES else f"sprite-{v}.webp")
+        path = d / (f"wide-{v}.png" if key in WIDE else f"raw-{v}.png" if is_scene(key) else f"sprite-{v}.webp")
         if not path.is_file():
             missing.append(key + " (" + str(path.relative_to(src)) + ")")
             continue

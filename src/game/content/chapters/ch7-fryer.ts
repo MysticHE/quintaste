@@ -70,5 +70,5 @@ export const LEVELS: Level[] = [
     stations: ["blender", "fryer", "griddle"], seats: 3, maxOpen: 3, round: 147, patience: 104, hints: "none", orders: [o("daniel", "tempura", 1), o("office", "spring-rolls", 8), o("asha", "vadai", 40), o("mei", "prata", 70)], distractors: [], unlocks: [] },
   { n: 70, bonus: "steady", twists: [{ kind: "vip" }, { kind: "flare", n: 1 }], name: "Night market", brief: "Fryer, griddle, oven, blender and wok: the night market's busiest hour.", teach: "Everything this chapter taught.",
     stations: ["blender", "fryer", "griddle", "oven", "pan"], seats: 4, maxOpen: 4, round: 179, patience: 102, hints: "none",
-    orders: [o("asha", "vadai", 1), o("jia", "goreng-pisang", 4), o("office", "prata", 12), o("daniel", "tempura", 36), o("mei", "roast-veg", 58), o("lim", "spring-rolls", 82), o("nurul", "kaya-toast", 104)], distractors: [], unlocks: [] },
+    orders: [o("asha", "vadai", 1), o("jia", "goreng-pisang", 4), o("office", "prata", 12), o("daniel", "tempura", 36), o("mei", "roast-veg", 58), o("lim", "spring-rolls", 82), o("nurul", "kaya-toast", 104)], distractors: [], unlocks: ["Night stall skin"] },
 ];

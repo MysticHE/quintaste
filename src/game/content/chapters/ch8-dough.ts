@@ -90,5 +90,5 @@ export const LEVELS: Level[] = [
     stations: ["dough", "pan", "steamer", "dessert"], seats: 3, maxOpen: 3, round: 152, patience: 104, hints: "none", orders: [o("daniel", "mandu", 1), o("mei", "gyoza", 8), o("asha", "tang-yuan", 40), o("office", "gyoza", 70)], distractors: [], unlocks: [] },
   { n: 80, bonus: "steady", twists: [{ kind: "vip" }, { kind: "flare", n: 1 }], name: "Dumpling house night", brief: "Dough board, wok, pot, fryer and steamer: the dumpling house is full.", teach: "Everything this chapter taught.",
     stations: ["dough", "pan", "pot", "fryer", "steamer"], seats: 4, maxOpen: 4, round: 193, patience: 108, hints: "none",
-    orders: [o("office", "dumplings", 1), o("jia", "samosa", 4), o("lim", "mandu", 12), o("daniel", "gyoza", 36), o("mei", "steamed-tofu", 58), o("asha", "samosa", 82), o("nurul", "spring-rolls", 104)], distractors: [], unlocks: [] },
+    orders: [o("office", "dumplings", 1), o("jia", "samosa", 4), o("lim", "mandu", 12), o("daniel", "gyoza", 36), o("mei", "steamed-tofu", 58), o("asha", "samosa", 82), o("nurul", "spring-rolls", 104)], distractors: [], unlocks: ["Dumpling house skin"] },
 ];

@@ -84,5 +84,5 @@ export const LEVELS: Level[] = [
     stations: ["pan", "steamer"], seats: 3, maxOpen: 3, round: 155, patience: 100, hints: "none", orders: [o("jia", "yam-cake", 1), o("daniel", "veg-bao", 8), o("office", "steamed-egg", 42), o("mei", "yam-cake", 68), o("lim", "veg-bao", 92)], distractors: [], unlocks: [] },
   { n: 40, bonus: "steady", twists: [{ kind: "vip" }, { kind: "flare", n: 1 }], name: "Steam kitchen night", brief: "Every station at once: steamer, wok, pot, blender and rice. The steam kitchen's busiest night.", teach: "Everything this chapter taught.",
     stations: ["blender", "steamer", "pan", "pot", "rice"], seats: 4, maxOpen: 4, round: 180, patience: 100, hints: "none",
-    orders: [o("asha", "idli", 1), o("jia", "veg-bao", 4), o("office", "chwee-kueh", 12), o("mei", "laksa-scratch", 36), o("daniel", "chee-cheong-fun", 58), o("lim", "claypot", 82), o("nurul", "yam-cake", 104)], distractors: [], unlocks: [] },
+    orders: [o("asha", "idli", 1), o("jia", "veg-bao", 4), o("office", "chwee-kueh", 12), o("mei", "laksa-scratch", 36), o("daniel", "chee-cheong-fun", 58), o("lim", "claypot", 82), o("nurul", "yam-cake", 104)], distractors: [], unlocks: ["Bamboo steamer skin"] },
 ];

@@ -186,7 +186,7 @@ export default function RushHour(props: Props) {
   const overlay = !run.started || !!run.label || (paused && !run.ended) || showResults || cramped;
   const shortStock = run.sched.low && run.plan.stock ? { item: run.plan.stock.item, state: run.sched.out ? "out" as const : "low" as const } : null;
   const st = run.stations[run.selected], nudgeHeat = run.level.hints !== "none" && run.started && !!st?.part && st.part.state === "cooking" && !st.heatOn && STATIONS[run.selected].heat;
-  return <div ref={rootRef} className={"rh" + (reduced ? " still" : "")} style={{ position: "fixed", inset: 0, "--ts": props.textScale } as CSSProperties}
+  return <div ref={rootRef} lang="en" className={"rh" + (reduced ? " still" : "")} style={{ position: "fixed", inset: 0, "--ts": props.textScale } as CSSProperties}
     onPointerDownCapture={() => fx.audio.unlock()} onKeyDownCapture={() => fx.audio.unlock()}>
     <style dangerouslySetInnerHTML={{ __html: fontFaces(art) + RUSH_CSS }} />
     <div ref={stageRef} style={{ position: "absolute", inset: 0 }} aria-hidden="true" />

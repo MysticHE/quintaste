@@ -1567,6 +1567,358 @@
       "subject": "a small open bowl of mushroom, chestnut and peanut filling",
       "details": "Cream ceramic bowl or plate, no label, no spoon. Sliced shiitake mushrooms, whole chestnuts and peanuts. Freshly made, never in a jar or pack. No green garnish, no herbs, no spring onion, no chopped green bits anywhere.",
       "status": "done"
+    },
+    {
+      "id": "decor-jadevase",
+      "kind": "prop",
+      "chroma": "cyan",
+      "subject": "a pale jade vase with white lotus flowers",
+      "details": "A short rounded celadon vase holding two white lotus blooms and a lotus leaf.",
+      "status": "done"
+    },
+    {
+      "id": "decor-lotuslamp",
+      "kind": "prop",
+      "chroma": "magenta",
+      "subject": "a hanging white lotus-shaped paper lamp",
+      "details": "A soft white and pale pink lotus-shaped lamp glowing warmly on a short cord.",
+      "status": "done"
+    },
+    {
+      "id": "decor-mandarins",
+      "kind": "prop",
+      "chroma": "cyan",
+      "subject": "a potted mandarin orange tree",
+      "details": "A small round mandarin orange tree with glossy leaves and bright orange fruit in a red-glazed pot with a gold rim.",
+      "status": "done"
+    },
+    {
+      "id": "decor-plumblossom",
+      "kind": "prop",
+      "chroma": "cyan",
+      "subject": "a hanging branch of pink plum blossom",
+      "details": "A short dark branch covered with small pink blossoms, hung on a red cord.",
+      "status": "done"
+    },
+    {
+      "id": "decor-pelita",
+      "kind": "prop",
+      "chroma": "cyan",
+      "subject": "three small brass pelita oil lamps on a low wooden stand",
+      "details": "Each lamp has a tiny warm flame; simple round brass lamps in a row.",
+      "status": "done"
+    },
+    {
+      "id": "decor-ketupat",
+      "kind": "prop",
+      "chroma": "magenta",
+      "subject": "a hanging cluster of woven palm-leaf ketupat",
+      "details": "Four green-and-yellow woven diamond-shaped ketupat on short strings from one cord.",
+      "status": "done"
+    },
+    {
+      "id": "decor-whiteflowers",
+      "kind": "prop",
+      "chroma": "cyan",
+      "subject": "a white ceramic pot of white chrysanthemums",
+      "details": "A small round pot full of white chrysanthemum flowers with green leaves.",
+      "status": "done"
+    },
+    {
+      "id": "decor-diya",
+      "kind": "prop",
+      "chroma": "cyan",
+      "subject": "a brass stand holding five small lit clay oil lamps",
+      "details": "Little clay oil lamps with warm flames on a round brass tray stand.",
+      "status": "done"
+    },
+    {
+      "id": "decor-marigold",
+      "kind": "prop",
+      "chroma": "cyan",
+      "subject": "a marigold flower garland for a wall",
+      "details": "A draped string of orange and yellow marigold flowers with green mango leaves, hung from two small hooks.",
+      "status": "done"
+    },
+    {
+      "id": "decor-pinegarland",
+      "kind": "prop",
+      "chroma": "magenta",
+      "subject": "a pine garland with warm fairy lights for a wall",
+      "details": "A short draped evergreen garland with tiny warm lights and a few pine cones.",
+      "status": "done"
+    },
+    {
+      "id": "decor-gifts",
+      "kind": "prop",
+      "chroma": "cyan",
+      "subject": "a small stack of three wrapped gift boxes",
+      "details": "Boxes wrapped in sage-green, peach and cream paper with simple ribbon bows.",
+      "status": "done"
+    },
+    {
+      "id": "decor-mooncaketins",
+      "kind": "prop",
+      "chroma": "cyan",
+      "subject": "a stack of three round decorated mooncake tins",
+      "details": "Red, gold and teal round tins with simple flower patterns, no writing.",
+      "status": "done"
+    },
+    {
+      "id": "decor-zongzibunch",
+      "kind": "prop",
+      "chroma": "magenta",
+      "subject": "a hanging bunch of leaf-wrapped rice dumplings",
+      "details": "Five green bamboo-leaf pyramid dumplings tied with string, hung from one cord.",
+      "status": "done"
+    },
+    {
+      "id": "decor-dragonboat",
+      "kind": "prop",
+      "chroma": "magenta",
+      "subject": "a framed painting of a dragon boat race on a river",
+      "details": "A simple soft watercolour of a long colourful dragon boat with rowers as small shapes, in a honey-wood frame with a hanging cord, no writing.",
+      "status": "done"
+    },
+    {
+      "id": "decor-trays",
+      "kind": "prop",
+      "chroma": "cyan",
+      "subject": "a stack of round red lacquer banquet trays",
+      "details": "Three round glossy red lacquer serving trays with gold rims stacked on a low wooden stand.",
+      "status": "done"
+    },
+    {
+      "id": "acc-headchef",
+      "kind": "prop",
+      "chroma": "cyan",
+      "subject": "a tiny golden head chef badge on a ribbon",
+      "details": "A small round gold medal with an embossed whisk on a short peach ribbon, a pet collar charm, no writing.",
+      "status": "done"
+    },
+    {
+      "id": "decor-yellowlamp",
+      "kind": "prop",
+      "chroma": "cyan",
+      "subject": "a hanging pale yellow round paper lantern with a white tassel",
+      "details": "A small plain pale yellow round paper lantern with a white tassel, glowing softly, hanging from a short thin cord, no writing. Keep the whole cord and lantern well inside the frame with clear empty space above the cord.",
+      "status": "done"
+    },
+    {
+      "id": "decor-rabbitlantern",
+      "kind": "prop",
+      "chroma": "cyan",
+      "subject": "a hanging white rabbit-shaped paper lantern",
+      "details": "A small cute round white rabbit lantern with pink ears glowing softly, hanging from a short thin cord. Keep the whole cord and lantern well inside the frame with clear empty space above the cord.",
+      "status": "done"
+    },
+    {
+      "id": "skin-spice",
+      "kind": "scene",
+      "aspect": "portrait",
+      "chroma": null,
+      "reference": false,
+      "refs": [
+        "signature-base.png"
+      ],
+      "subject": "the Spice market café, a new look of the same small café",
+      "details": "A tall portrait picture, 2 wide by 3 high, exactly the shape of the attached picture. The attached picture is this café's everyday look. Repaint exactly the same room from exactly the same camera, keeping every object in the same place and at the same size: the bookshelf on the left wall, the large window in the back wall, the chalkboard on the right wall (simple chalk doodles, no words), the arched doorway with the round mirror and the peach apron on its hook on the far right, the hanging plants and lamps, and the empty wooden floor filling the lower half with nothing on it. Change only the finish and the mood: warm terracotta and saffron walls, strings of dried red chillies and bay leaves, brass spice tins and small burlap spice sacks on the shelves, a mortar and pestle, late-afternoon golden light. Cosy and warm. No people, no animals, no religious figures or symbols, no altars, no words, letters or numbers anywhere, no onions, garlic or spring onions.",
+      "status": "done"
+    },
+    {
+      "id": "skin-steamer",
+      "kind": "scene",
+      "aspect": "portrait",
+      "chroma": null,
+      "reference": false,
+      "refs": [
+        "signature-base.png"
+      ],
+      "subject": "the Bamboo steamer café, a new look of the same small café",
+      "details": "A tall portrait picture, 2 wide by 3 high, exactly the shape of the attached picture. The attached picture is this café's everyday look. Repaint exactly the same room from exactly the same camera, keeping every object in the same place and at the same size: the bookshelf on the left wall, the large window in the back wall, the chalkboard on the right wall (simple chalk doodles, no words), the arched doorway with the round mirror and the peach apron on its hook on the far right, the hanging plants and lamps, and the empty wooden floor filling the lower half with nothing on it. Change only the finish and the mood: jade-green walls with bamboo panelling, stacks of round bamboo steamer baskets on the shelves, soft white steam drifting near the ceiling, paper lamps, gentle morning light. Cosy and warm. No people, no animals, no religious figures or symbols, no altars, no words, letters or numbers anywhere, no onions, garlic or spring onions.",
+      "status": "done"
+    },
+    {
+      "id": "skin-bakery",
+      "kind": "scene",
+      "aspect": "portrait",
+      "chroma": null,
+      "reference": false,
+      "refs": [
+        "signature-base.png"
+      ],
+      "subject": "the Bakery café, a new look of the same small café",
+      "details": "A tall portrait picture, 2 wide by 3 high, exactly the shape of the attached picture. The attached picture is this café's everyday look. Repaint exactly the same room from exactly the same camera, keeping every object in the same place and at the same size: the bookshelf on the left wall, the large window in the back wall, the chalkboard on the right wall (simple chalk doodles, no words), the arched doorway with the round mirror and the peach apron on its hook on the far right, the hanging plants and lamps, and the empty wooden floor filling the lower half with nothing on it. Change only the finish and the mood: cream and butter-yellow walls, loaves, buns and cake stands on the shelves, a glass cake dome, flour-dusted wooden trim, soft pastel morning light. Cosy and warm. No people, no animals, no religious figures or symbols, no altars, no words, letters or numbers anywhere, no onions, garlic or spring onions.",
+      "status": "done"
+    },
+    {
+      "id": "skin-kopitiam",
+      "kind": "scene",
+      "aspect": "portrait",
+      "chroma": null,
+      "reference": false,
+      "refs": [
+        "signature-base.png"
+      ],
+      "subject": "the Kopitiam café, a new look of the same small café",
+      "details": "A tall portrait picture, 2 wide by 3 high, exactly the shape of the attached picture. The attached picture is this café's everyday look. Repaint exactly the same room from exactly the same camera, keeping every object in the same place and at the same size: the bookshelf on the left wall, the large window in the back wall, the chalkboard on the right wall (simple chalk doodles, no words), the arched doorway with the round mirror and the peach apron on its hook on the far right, the hanging plants and lamps, and the empty wooden floor filling the lower half with nothing on it. Change only the finish and the mood: old-school Singapore coffee shop finish: green-and-white mosaic wall tiles, a slow ceiling fan, enamel coffee cups and saucers on the shelves, wooden shutters on the window, bright tropical daylight. Cosy and warm. No people, no animals, no religious figures or symbols, no altars, no words, letters or numbers anywhere, no onions, garlic or spring onions.",
+      "status": "done"
+    },
+    {
+      "id": "skin-nightstall",
+      "kind": "scene",
+      "aspect": "portrait",
+      "chroma": null,
+      "reference": false,
+      "refs": [
+        "signature-base.png"
+      ],
+      "subject": "the Night stall café, a new look of the same small café",
+      "details": "A tall portrait picture, 2 wide by 3 high, exactly the shape of the attached picture. The attached picture is this café's everyday look. Repaint exactly the same room from exactly the same camera, keeping every object in the same place and at the same size: the bookshelf on the left wall, the large window in the back wall, the chalkboard on the right wall (simple chalk doodles, no words), the arched doorway with the round mirror and the peach apron on its hook on the far right, the hanging plants and lamps, and the empty wooden floor filling the lower half with nothing on it. Change only the finish and the mood: dusk at a night market: deep indigo walls, warm string lights zigzagging under the ceiling, a striped stall awning above the window, glowing paper lamps, a purple evening sky outside. Cosy and warm. No people, no animals, no religious figures or symbols, no altars, no words, letters or numbers anywhere, no onions, garlic or spring onions.",
+      "status": "done"
+    },
+    {
+      "id": "skin-dumpling",
+      "kind": "scene",
+      "aspect": "portrait",
+      "chroma": null,
+      "reference": false,
+      "refs": [
+        "signature-base.png"
+      ],
+      "subject": "the Dumpling house café, a new look of the same small café",
+      "details": "A tall portrait picture, 2 wide by 3 high, exactly the shape of the attached picture. The attached picture is this café's everyday look. Repaint exactly the same room from exactly the same camera, keeping every object in the same place and at the same size: the bookshelf on the left wall, the large window in the back wall, the chalkboard on the right wall (simple chalk doodles, no words), the arched doorway with the round mirror and the peach apron on its hook on the far right, the hanging plants and lamps, and the empty wooden floor filling the lower half with nothing on it. Change only the finish and the mood: dark lacquered red wood with lattice screens, steaming bamboo baskets and blue-and-white bowls on the shelves, round red silk lamps, a calm night outside. Cosy and warm. No people, no animals, no religious figures or symbols, no altars, no words, letters or numbers anywhere, no onions, garlic or spring onions.",
+      "status": "done"
+    },
+    {
+      "id": "skin-garden",
+      "kind": "scene",
+      "aspect": "portrait",
+      "chroma": null,
+      "reference": false,
+      "refs": [
+        "signature-base.png"
+      ],
+      "subject": "the Garden terrace café, a new look of the same small café",
+      "details": "A tall portrait picture, 2 wide by 3 high, exactly the shape of the attached picture. The attached picture is this café's everyday look. Repaint exactly the same room from exactly the same camera, keeping every object in the same place and at the same size: the bookshelf on the left wall, the large window in the back wall, the chalkboard on the right wall (simple chalk doodles, no words), the arched doorway with the round mirror and the peach apron on its hook on the far right, the hanging plants and lamps, and the empty wooden floor filling the lower half with nothing on it. Change only the finish and the mood: a bright glass conservatory finish: white-painted frames, lush potted ferns and flowering vines, terracotta pots, dappled sunlight, a garden view through the window. Cosy and warm. No people, no animals, no religious figures or symbols, no altars, no words, letters or numbers anywhere, no onions, garlic or spring onions.",
+      "status": "done"
+    },
+    {
+      "id": "skin-headchef",
+      "kind": "scene",
+      "aspect": "portrait",
+      "chroma": null,
+      "reference": false,
+      "refs": [
+        "signature-base.png"
+      ],
+      "subject": "the Head chef café, a new look of the same small café",
+      "details": "A tall portrait picture, 2 wide by 3 high, exactly the shape of the attached picture. The attached picture is this café's everyday look. Repaint exactly the same room from exactly the same camera, keeping every object in the same place and at the same size: the bookshelf on the left wall, the large window in the back wall, the chalkboard on the right wall (simple chalk doodles, no words), the arched doorway with the round mirror and the peach apron on its hook on the far right, the hanging plants and lamps, and the empty wooden floor filling the lower half with nothing on it. Change only the finish and the mood: a grand banquet finish: cream walls with gold trim, a small crystal chandelier, polished copper pots on the shelves, a gold laurel wreath above the chalkboard, warm evening light. Cosy and warm. No people, no animals, no religious figures or symbols, no altars, no words, letters or numbers anywhere, no onions, garlic or spring onions.",
+      "status": "done"
+    },
+    {
+      "id": "skin-zhai",
+      "kind": "scene",
+      "aspect": "portrait",
+      "chroma": null,
+      "reference": false,
+      "refs": [
+        "signature-base.png"
+      ],
+      "subject": "the Zhai days café, a new look of the same small café",
+      "details": "A tall portrait picture, 2 wide by 3 high, exactly the shape of the attached picture. The attached picture is this café's everyday look. Repaint exactly the same room from exactly the same camera, keeping every object in the same place and at the same size: the bookshelf on the left wall, the large window in the back wall, the chalkboard on the right wall (simple chalk doodles, no words), the arched doorway with the round mirror and the peach apron on its hook on the far right, the hanging plants and lamps, and the empty wooden floor filling the lower half with nothing on it. Change only the finish and the mood: a calm pale jade and cream finish, white and pink lotus flowers in bowls on the shelves, soft round paper lamps, a full moon in a quiet evening sky outside. Cosy and warm. No people, no animals, no religious figures or symbols, no altars, no words, letters or numbers anywhere, no onions, garlic or spring onions.",
+      "status": "done"
+    },
+    {
+      "id": "skin-reunion",
+      "kind": "scene",
+      "aspect": "portrait",
+      "chroma": null,
+      "reference": false,
+      "refs": [
+        "signature-base.png"
+      ],
+      "subject": "the Reunion kitchen café, a new look of the same small café",
+      "details": "A tall portrait picture, 2 wide by 3 high, exactly the shape of the attached picture. The attached picture is this café's everyday look. Repaint exactly the same room from exactly the same camera, keeping every object in the same place and at the same size: the bookshelf on the left wall, the large window in the back wall, the chalkboard on the right wall (simple chalk doodles, no words), the arched doorway with the round mirror and the peach apron on its hook on the far right, the hanging plants and lamps, and the empty wooden floor filling the lower half with nothing on it. Change only the finish and the mood: Lunar New Year cheer: warm red and gold trim, potted mandarin orange trees, sprigs of pink plum blossom, round red paper lanterns, a bowl of mandarin oranges on the shelf, a festive evening outside. Cosy and warm. No people, no animals, no religious figures or symbols, no altars, no words, letters or numbers anywhere, no onions, garlic or spring onions.",
+      "status": "done"
+    },
+    {
+      "id": "skin-bazaar",
+      "kind": "scene",
+      "aspect": "portrait",
+      "chroma": null,
+      "reference": false,
+      "refs": [
+        "signature-base.png"
+      ],
+      "subject": "the Sunset bazaar café, a new look of the same small café",
+      "details": "A tall portrait picture, 2 wide by 3 high, exactly the shape of the attached picture. The attached picture is this café's everyday look. Repaint exactly the same room from exactly the same camera, keeping every object in the same place and at the same size: the bookshelf on the left wall, the large window in the back wall, the chalkboard on the right wall (simple chalk doodles, no words), the arched doorway with the round mirror and the peach apron on its hook on the far right, the hanging plants and lamps, and the empty wooden floor filling the lower half with nothing on it. Change only the finish and the mood: Hari Raya evening: teal and gold walls, woven palm-leaf ketupat hanging along the window, small glowing pelita oil lamps on the shelves, a warm sunset sky outside. Cosy and warm. No people, no animals, no religious figures or symbols, no altars, no words, letters or numbers anywhere, no onions, garlic or spring onions.",
+      "status": "done"
+    },
+    {
+      "id": "skin-ninedays",
+      "kind": "scene",
+      "aspect": "portrait",
+      "chroma": null,
+      "reference": false,
+      "refs": [
+        "signature-base.png"
+      ],
+      "subject": "the Nine days café, a new look of the same small café",
+      "details": "A tall portrait picture, 2 wide by 3 high, exactly the shape of the attached picture. The attached picture is this café's everyday look. Repaint exactly the same room from exactly the same camera, keeping every object in the same place and at the same size: the bookshelf on the left wall, the large window in the back wall, the chalkboard on the right wall (simple chalk doodles, no words), the arched doorway with the round mirror and the peach apron on its hook on the far right, the hanging plants and lamps, and the empty wooden floor filling the lower half with nothing on it. Change only the finish and the mood: a clean white and soft yellow festive finish: white and pale yellow cloth bunting, small yellow paper lamps, white flowers in vases, a clear night sky outside. Cosy and warm. No people, no animals, no religious figures or symbols, no altars, no words, letters or numbers anywhere, no onions, garlic or spring onions.",
+      "status": "done"
+    },
+    {
+      "id": "skin-lights",
+      "kind": "scene",
+      "aspect": "portrait",
+      "chroma": null,
+      "reference": false,
+      "refs": [
+        "signature-base.png"
+      ],
+      "subject": "the Festival of lights café, a new look of the same small café",
+      "details": "A tall portrait picture, 2 wide by 3 high, exactly the shape of the attached picture. The attached picture is this café's everyday look. Repaint exactly the same room from exactly the same camera, keeping every object in the same place and at the same size: the bookshelf on the left wall, the large window in the back wall, the chalkboard on the right wall (simple chalk doodles, no words), the arched doorway with the round mirror and the peach apron on its hook on the far right, the hanging plants and lamps, and the empty wooden floor filling the lower half with nothing on it. Change only the finish and the mood: Deepavali glow: deep magenta and gold walls, rows of small lit clay oil lamps on the shelves, orange and yellow marigold garlands along the window, a colourful flower-petal pattern on the wall, a warm night outside. Cosy and warm. No people, no animals, no religious figures or symbols, no altars, no words, letters or numbers anywhere, no onions, garlic or spring onions.",
+      "status": "done"
+    },
+    {
+      "id": "skin-yearend",
+      "kind": "scene",
+      "aspect": "portrait",
+      "chroma": null,
+      "reference": false,
+      "refs": [
+        "signature-base.png"
+      ],
+      "subject": "the Year-end table café, a new look of the same small café",
+      "details": "A tall portrait picture, 2 wide by 3 high, exactly the shape of the attached picture. The attached picture is this café's everyday look. Repaint exactly the same room from exactly the same camera, keeping every object in the same place and at the same size: the bookshelf on the left wall, the large window in the back wall, the chalkboard on the right wall (simple chalk doodles, no words), the arched doorway with the round mirror and the peach apron on its hook on the far right, the hanging plants and lamps, and the empty wooden floor filling the lower half with nothing on it. Change only the finish and the mood: a cosy year-end finish: deep green and cream walls, a pine garland with warm fairy lights along the window, candles in glass jars on the shelves, frost on the window, warm golden light. Cosy and warm. No people, no animals, no religious figures or symbols, no altars, no words, letters or numbers anywhere, no onions, garlic or spring onions.",
+      "status": "done"
+    },
+    {
+      "id": "skin-lanternbakery",
+      "kind": "scene",
+      "aspect": "portrait",
+      "chroma": null,
+      "reference": false,
+      "refs": [
+        "signature-base.png"
+      ],
+      "subject": "the Lantern bakery café, a new look of the same small café",
+      "details": "A tall portrait picture, 2 wide by 3 high, exactly the shape of the attached picture. The attached picture is this café's everyday look. Repaint exactly the same room from exactly the same camera, keeping every object in the same place and at the same size: the bookshelf on the left wall, the large window in the back wall, the chalkboard on the right wall (simple chalk doodles, no words), the arched doorway with the round mirror and the peach apron on its hook on the far right, the hanging plants and lamps, and the empty wooden floor filling the lower half with nothing on it. Change only the finish and the mood: Mid-Autumn bakery: warm amber walls, round mooncake tins and tea sets on the shelves, rabbit-shaped and round paper lanterns glowing, a huge full moon in a deep blue sky outside. Cosy and warm. No people, no animals, no religious figures or symbols, no altars, no words, letters or numbers anywhere, no onions, garlic or spring onions.",
+      "status": "done"
+    },
+    {
+      "id": "skin-dumplingday",
+      "kind": "scene",
+      "aspect": "portrait",
+      "chroma": null,
+      "reference": false,
+      "refs": [
+        "signature-base.png"
+      ],
+      "subject": "the Dumpling day café, a new look of the same small café",
+      "details": "A tall portrait picture, 2 wide by 3 high, exactly the shape of the attached picture. The attached picture is this café's everyday look. Repaint exactly the same room from exactly the same camera, keeping every object in the same place and at the same size: the bookshelf on the left wall, the large window in the back wall, the chalkboard on the right wall (simple chalk doodles, no words), the arched doorway with the round mirror and the peach apron on its hook on the far right, the hanging plants and lamps, and the empty wooden floor filling the lower half with nothing on it. Change only the finish and the mood: Dragon Boat festival: fresh green bamboo walls, bunches of leaf-wrapped rice dumplings hanging along the window, a small wooden dragon boat model on the shelf, soft river light outside. Cosy and warm. No people, no animals, no religious figures or symbols, no altars, no words, letters or numbers anywhere, no onions, garlic or spring onions.",
+      "status": "done"
     }
   ]
 }

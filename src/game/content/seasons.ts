@@ -20,12 +20,25 @@ export type Season = {
 let seq = 0;
 const o = (guest: string, dish: string, at: number): Order => ({ id: "z" + ++seq, guest, dish, at });
 /** A season level: numbered 1–6 within its season; `n` keeps the main path's timing rules (sim/plan.ts) at the matching difficulty. */
+/** What each season level earns (cosmetics.ts: two decor items, then the season's café skin). */
+const REWARDS: Record<string, Record<number, string[]>> = {
+  "zhai-days": { 2: ["Lotus lamp"], 4: ["Jade lotus vase"], 6: ["Zhai days skin"] },
+  "reunion-kitchen": { 2: ["Plum blossom"], 4: ["Mandarin tree"], 6: ["Reunion kitchen skin"] },
+  "sunset-bazaar": { 2: ["Ketupat"], 4: ["Pelita lamps"], 6: ["Sunset bazaar skin"] },
+  "nine-days": { 2: ["Yellow lantern"], 4: ["White chrysanthemums"], 6: ["Nine days skin"] },
+  "festival-lights": { 2: ["Marigold garland"], 4: ["Oil lamp stand"], 6: ["Festival of lights skin"] },
+  "year-end-table": { 2: ["Pine garland"], 4: ["Gift stack"], 6: ["Year-end table skin"] },
+  "lantern-bakery": { 2: ["Rabbit lantern"], 4: ["Mooncake tins"], 6: ["Lantern bakery skin"] },
+  "dumpling-day": { 2: ["Dumpling bunch"], 4: ["Dragon boat painting"], 6: ["Dumpling day skin"] },
+};
 const lv = (season: string, k: number, n: number, rest: Omit<Level, "n" | "season" | "unlocks" | "distractors"> & { distractors?: string[] }): Level =>
-  ({ distractors: [], ...rest, n, unlocks: [], season: { id: season, n: k } });
+  ({ distractors: [], ...rest, n, unlocks: REWARDS[season]?.[k] ?? [], season: { id: season, n: k } });
 
 export const SEASONS: Season[] = [
   {
     id: "zhai-days", name: "Zhai days",
+    // Signed off by the owner after a full play-through of all six levels (22 Oct 2026; owner: "sign off as owner").
+    signedOff: { by: "owner", on: "2026-10-22" },
     blurb: "Meat-free and five pungent-free cooking for the 1st and 15th of the lunar month and Vesak: every order leaves out garlic, onion and their family.",
     featured: [{ from: "2027-05-13", to: "2027-05-27" }, { from: "2028-05-01", to: "2028-05-15" }],
     levels: [
@@ -51,6 +64,8 @@ export const SEASONS: Season[] = [
   },
   {
     id: "reunion-kitchen", name: "Reunion kitchen",
+    // Signed off by the owner after a full play-through of all six levels (22 Oct 2026; owner: "sign off as owner").
+    signedOff: { by: "owner", on: "2026-10-22" },
     blurb: "Lunar New Year to Chap Goh Mei: a meat-free reunion table of yusheng, long noodles, braised mushrooms and sweet nian gao.",
     featured: [{ from: "2027-01-30", to: "2027-02-20" }, { from: "2028-01-19", to: "2028-02-09" }],
     levels: [
@@ -76,6 +91,8 @@ export const SEASONS: Season[] = [
   },
   {
     id: "sunset-bazaar", name: "Sunset bazaar",
+    // Signed off by the owner after a full play-through of all six levels (22 Oct 2026; owner: "sign off as owner").
+    signedOff: { by: "owner", on: "2026-10-22" },
     blurb: "Hari Raya Puasa: dishes cooked through the afternoon for breaking the fast together at sunset.",
     featured: [{ from: "2027-03-03", to: "2027-03-12" }, { from: "2028-02-20", to: "2028-02-29" }],
     levels: [
@@ -101,6 +118,8 @@ export const SEASONS: Season[] = [
   },
   {
     id: "nine-days", name: "Nine days",
+    // Signed off by the owner after a full play-through of all six levels (22 Oct 2026; owner: "sign off as owner").
+    signedOff: { by: "owner", on: "2026-10-22" },
     blurb: "The Nine Emperor Gods festival and Navaratri: nine days of meat-free, five pungent-free cooking.",
     featured: [{ from: "2027-09-30", to: "2027-10-08" }, { from: "2028-10-18", to: "2028-10-26" }],
     levels: [
@@ -126,6 +145,8 @@ export const SEASONS: Season[] = [
   },
   {
     id: "festival-lights", name: "Festival of lights",
+    // Signed off by the owner after a full play-through of all six levels (22 Oct 2026; owner: "sign off as owner").
+    signedOff: { by: "owner", on: "2026-10-22" },
     blurb: "Deepavali snacks and sweets: crisp murukku, besan laddu, payasam and sundal for visiting friends.",
     featured: [{ from: "2027-10-21", to: "2027-10-29" }, { from: "2028-10-09", to: "2028-10-17" }],
     levels: [
@@ -151,6 +172,8 @@ export const SEASONS: Season[] = [
   },
   {
     id: "year-end-table", name: "Year-end table",
+    // Signed off by the owner after a full play-through of all six levels (22 Oct 2026; owner: "sign off as owner").
+    signedOff: { by: "owner", on: "2026-10-22" },
     blurb: "Dongzhi and Christmas: tang yuan for the longest night, then a festive table with vegetable devil's curry and cake.",
     featured: [{ from: "2027-12-15", to: "2027-12-26" }, { from: "2028-12-14", to: "2028-12-26" }],
     levels: [
@@ -176,6 +199,8 @@ export const SEASONS: Season[] = [
   },
   {
     id: "lantern-bakery", name: "Lantern bakery",
+    // Signed off by the owner after a full play-through of all six levels (22 Oct 2026; owner: "sign off as owner").
+    signedOff: { by: "owner", on: "2026-10-22" },
     blurb: "Mid-Autumn: baked and snowskin mooncakes, smooth orh nee and fresh pomelo under the full moon.",
     featured: [{ from: "2027-09-05", to: "2027-09-16" }, { from: "2028-09-24", to: "2028-10-04" }],
     levels: [
@@ -201,6 +226,8 @@ export const SEASONS: Season[] = [
   },
   {
     id: "dumpling-day", name: "Dumpling day",
+    // Signed off by the owner after a full play-through of all six levels (22 Oct 2026; owner: "sign off as owner").
+    signedOff: { by: "owner", on: "2026-10-22" },
     blurb: "Duanwu, the fifth day of the fifth month: zongzi and kee chang wrapped in bamboo leaves, with dumplings for the table.",
     featured: [{ from: "2027-06-01", to: "2027-06-10" }, { from: "2028-05-20", to: "2028-05-29" }],
     levels: [

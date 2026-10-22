@@ -137,7 +137,10 @@ game.get('/levels/mine', async (_req, res) => {
 /** The shelf for a member, or for a signed-out player (`me` null: public levels only, no bests). */
 async function kitchenShelf(me) {
   const levels = (await pool.query(`SELECT DISTINCT ON (l.recipe_id) l.hash, l.recipe_id, l.cuisine, l.owner_id IS NOT NULL AS mine, l.created_at,
-      l.pack->'techniques' AS techniques, l.pack->'dishes'->0->>'name' AS name, l.pack->'dishes'->0->>'art' AS art
+      l.pack->'techniques' AS techniques, l.pack->'dishes'->0->>'name' AS name, l.pack->'dishes'->0->>'art' AS art,
+      -- A member's own private level hides their recipe's public one on the shelf; its hash still goes with it, for a café menu.
+      CASE WHEN l.owner_id IS NOT NULL THEN (SELECT p.hash FROM game.recipe_level p WHERE p.recipe_id = l.recipe_id AND p.status = 'ready' AND p.owner_id IS NULL
+        ORDER BY p.recipe_revision DESC, p.created_at DESC LIMIT 1) END AS public_hash
     FROM game.recipe_level l WHERE l.status = 'ready' AND (l.owner_id IS NULL OR l.owner_id = $1) AND ${authorVisible('l', '$1')}
     ORDER BY l.recipe_id, l.recipe_revision DESC, l.created_at DESC LIMIT 300`, [me])).rows;
   const hashes = levels.map(l => l.hash);
@@ -153,7 +156,7 @@ async function kitchenShelf(me) {
   for (const b of bests.rows) best.set(b.recipe_id, { ...best.get(b.recipe_id), [b.tier]: { stars: b.stars, score: b.score, clears: b.clears } });
   for (const r of ratings.rows) rated.set(r.hash, { ...rated.get(r.hash), [r.tier]: { rating: r.rating, players: r.players } });
   const me0 = mine.rows[0];
-  return { player: me0.rating, levels: levels.map(l => ({ hash: l.hash, recipeId: l.recipe_id, name: l.name, cuisine: l.cuisine, mine: l.mine,
+  return { player: me0.rating, levels: levels.map(l => ({ hash: l.hash, recipeId: l.recipe_id, name: l.name, cuisine: l.cuisine, mine: l.mine, publicHash: l.public_hash ?? null,
     techniques: l.techniques, art: l.art, picture: picture.get(l.art) ?? null, best: best.get(l.recipe_id) ?? {}, added: l.created_at,
     ratings: rated.get(l.hash) ?? {}, held: heldBack(stats.get(l.hash)), liked: me0.liked[l.hash] ?? null })) };
 }
@@ -428,7 +431,12 @@ game.post('/runs/:id/finish', async (req, res) => {
     if (special) { await settleSpecial(db, sim, user.id, id, replayed, result, actions); return; }
     if (mission) { await settleMission(db, sim, user.id, id, run, mission.recipeId, replayed, result, actions); return; }
     if (run.season_id) { await settleSeason(db, sim, user.id, id, run, progress, replayed, result, actions); return; }
-    if (run.cafe_host) { await settleCafe(db, sim, user.id, id, run, cafeMenu.map(p => p.recipeId), replayed, result, actions); return; }
+    if (run.cafe_host) {
+      // Only recipes dealt in this service can pay (cafeFor leaves out a pack that would need more than five stations).
+      const dealt = new Set(sim.cafeFor(cafeMenu.map(p => p.pack), run.cafe_host).orders.map(o => o.dish));
+      const recipeIds = cafeMenu.filter(p => p.pack.dishes.some(d => dealt.has(d.id))).map(p => p.recipeId);
+      await settleCafe(db, sim, user.id, id, run, recipeIds, replayed, result, actions); return;
+    }
     if (!sim.levelOpen(progress, run.level)) {
       await db.query(`UPDATE game.run SET status='rejected', reason='level locked', finished_at=now() WHERE id=$1`, [id]);
       await db.query('INSERT INTO game.run_log(run_id, actions) VALUES($1,$2) ON CONFLICT DO NOTHING', [id, JSON.stringify(actions)]);

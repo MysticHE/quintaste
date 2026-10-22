@@ -74,6 +74,9 @@ function nextStep(run: sim.Run, g: sim.GuestRun): string {
 }
 
 /** Slots for the focused guest's dish: done, filled, wanted next, or empty; then the next step (or the rules once hints fade). */
+/** A long dish and guest name steps the title down a size or two rather than cutting it off. */
+const titleFit = (text: string) => text.length > 25 ? " longer" : text.length > 19 ? " long" : "";
+
 export function RecipeCard({ run, L, art }: { run: sim.Run; L: Layout; art: Art }) {
   const g = sim.focusGuest(run);
   if (!g) return <div className="layer recipe panel" style={box(L.recipe)}><span className="idle">{run.started ? "Waiting for the next guest" : "Orders show here"}</span></div>;
@@ -92,10 +95,12 @@ export function RecipeCard({ run, L, art }: { run: sim.Run; L: Layout; art: Art 
         {key && <img src={art[key]} alt="" />}{done && <span className="tick">{found?.warn ? "!" : "✓"}</span>}</span>);
     }));
   });
-  const rules = table.map(r => <span key={r} className="rule">{RULES[r].chip}</span>), hints = run.level.hints !== "none";
-  return <div className="layer recipe panel" style={box(L.recipe)} aria-label={dish.name + " for " + who}>
+  // With hints the guest's bubble shows their rules; without, they sit at the side of the card.
+  const hints = run.level.hints !== "none", rules = table.map(r => <span key={r} className="rule">{RULES[r].chip}</span>);
+  // Keyed by order, so the card slides in fresh when the cook switches guests.
+  return <div key={g.orderId} className="layer recipe panel" style={box(L.recipe)} aria-label={dish.name + " for " + who}>
     <img className="bowl" src={art[dish.art]} alt="" />
-    <div className="mid"><div className="t"><b>{dish.name}</b><small> for {GUESTS[g.guestId].name}{pot.length > 0 ? " +" + pot.length : ""}</small>{hints && rules}</div><div className="steps">{chips}</div></div>
+    <div className="mid"><div className={"t" + titleFit(dish.name + GUESTS[g.guestId].name)}><b>{dish.name}</b><small> for {GUESTS[g.guestId].name}{pot.length > 0 ? " +" + pot.length : ""}</small></div><div className="steps">{chips}</div></div>
     {hints ? <span className="hint">{nextStep(run, g)}</span> : rules.length > 0 && <span className="hint rules">{rules}</span>}
   </div>;
 }

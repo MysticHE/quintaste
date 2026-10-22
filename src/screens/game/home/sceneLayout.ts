@@ -13,6 +13,8 @@ export const BACK: Record<"books" | "menu" | "window" | "wardrobe", Record<strin
   window: { sunny: sc(19, 9, 43, 26), lotus: sc(21, 11, 40, 26), lantern: sc(22, 12, 43, 24), signature: sc(19, 9, 43, 26) },
   wardrobe: { sunny: sc(86, 17, 14, 32), lotus: sc(87, 20, 13, 30), lantern: sc(88, 20, 12, 33), signature: sc(86, 17, 14, 32) },
 };
+/** A backdrop object's tap area in a skin. Skins repainted from the sunny room's layout (signature, the chapter and season skins) share its areas. */
+export const backBox = (k: keyof typeof BACK, skin: string): Box => BACK[k][skin] ?? BACK[k].sunny;
 export const COUNTER = { x: 6, y: 94, w: 88 };
 export const STOVE: Box = [60, 88, 29, 21];
 /** The avatar cooks behind the counter: centre x, bottom y (hidden by the counter) and width. */

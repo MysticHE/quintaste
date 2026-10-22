@@ -5,9 +5,10 @@ import Animated, { useSharedValue } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { DestinationScreen } from "../../components/navigation/DestinationScreen";
 import { gameEnabled } from "../../config/game";
-import { ACCESSORIES, DECOR, PETS, SKINS } from "../../game/content/cosmetics";
+import { ACCESSORIES, DECOR, PETS, SKINS, unlockText, type Unlock } from "../../game/content/cosmetics";
+import { SEASONS } from "../../game/content/seasons";
 import { LEVELS } from "../../game/content/levels";
-import { cleared, nextLevel, type GameProgress } from "../../game/progress";
+import { cleared, isUnlocked, nextLevel, type GameProgress } from "../../game/progress";
 import { useGame } from "../../hooks/useGame";
 import { useLotus } from "../../hooks/useLotus";
 import { useGameSwitch } from "../../state/game-sync";
@@ -38,7 +39,12 @@ type SheetId = "levels" | "books" | "regulars" | "companion" | "cafe" | "menu" |
 /** Unlocks earned by clears and not yet revealed, oldest first. */
 function pendingFinds(g: GameProgress): Find[] {
   const out: Find[] = [];
-  const add = (kind: Find["kind"], id: string, u: { kind: string; level?: number }) => { if (u.kind === "level" && cleared(g, u.level!) && !g.seen.includes(kind + ":" + id)) out.push({ kind, id, level: u.level! }); };
+  const add = (kind: Find["kind"], id: string, u: Unlock) => {
+    if (g.seen.includes(kind + ":" + id) || (u.kind !== "level" && u.kind !== "season") || !isUnlocked(g, u)) return;
+    // Season finds sort after the main path's, in season order.
+    out.push(u.kind === "level" ? { kind, id, level: u.level, from: "Cleared Level " + u.level }
+      : { kind, id, level: 1000 + SEASONS.findIndex(s => s.id === u.season) * 10 + u.n, from: unlockText(u).replace(/^Clear/, "Cleared") });
+  };
   Object.values(PETS).forEach(p => add("pet", p.id, p.unlock)); Object.values(ACCESSORIES).forEach(a => add("accessory", a.id, a.unlock));
   Object.values(DECOR).forEach(d => add("decor", d.id, d.unlock)); Object.values(SKINS).forEach(s => add("skin", s.id, s.unlock));
   return out.sort((a, b) => a.level - b.level);

@@ -71,5 +71,5 @@ export const LEVELS: Level[] = [
     stations: ["oven", "pot", "griddle", "rice", "pan"], seats: 4, maxOpen: 4, round: 184, patience: 120, hints: "none", orders: [o("daniel", "western-set", 1), o("asha", "thali", 6), o("mei", "economy-rice", 30), o("lim", "thali", 60), o("nurul", "western-set", 92)], distractors: [], unlocks: [] },
   { n: 100, bonus: "steady", twists: [{ kind: "vip" }, { kind: "flare", n: 1 }], name: "Head chef", brief: "The banquet hall's biggest night: every meal, every regular, five stations. You are the head chef now.", teach: "Everything the café taught.",
     stations: ["rice", "pot", "pan", "steamer", "oven"], seats: 4, maxOpen: 4, round: 225, patience: 122, hints: "none",
-    orders: [o("mei", "reunion-set", 1), o("asha", "thali", 6), o("office", "economy-rice", 20), o("daniel", "roast-veg", 48), o("jia", "reunion-set", 76), o("lim", "thali", 110), o("nurul", "economy-rice", 140)], distractors: [], unlocks: ["Head chef badge"] },
+    orders: [o("mei", "reunion-set", 1), o("asha", "thali", 6), o("office", "economy-rice", 20), o("daniel", "roast-veg", 48), o("jia", "reunion-set", 76), o("lim", "thali", 110), o("nurul", "economy-rice", 140)], distractors: [], unlocks: ["Head chef skin", "Head chef medal"] },
 ];

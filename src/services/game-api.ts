@@ -20,7 +20,8 @@ export const openRun = (id: string, setup: RunStart, rules: string) =>
 export type PackResponse = { hash: string; recipeId: string; pack: unknown; pictures: Record<string, string>; private?: boolean };
 /** One recipe on the Recipe Kitchen shelf: its newest live level, techniques, approved dish picture and this member's best per tier. */
 export type TierBest = { stars: number; score: number; clears: number };
-export type KitchenLevel = { hash: string; recipeId: string; name: string; cuisine: string | null; mine: boolean; techniques: string[]; art: string;
+/** `publicHash`: on the member's own private level, their recipe's public level (a café menu takes only public levels). */
+export type KitchenLevel = { hash: string; recipeId: string; name: string; cuisine: string | null; mine: boolean; publicHash?: string | null; techniques: string[]; art: string;
   picture: string | null; best: Partial<Record<"learn" | "service" | "memory", TierBest>>;
   /** When it went live, each tier's difficulty and player count, whether quits or dislikes keep it out of the rows, and this member's reaction. */
   added?: string; ratings?: Partial<Record<"learn" | "service" | "memory", { rating: number; players: number }>>; held?: boolean; liked?: boolean | null };

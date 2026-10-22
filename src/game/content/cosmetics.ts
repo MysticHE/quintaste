@@ -2,9 +2,12 @@
  * Companions, accessories, decor and skins. Everything is cosmetic or a sidegrade skill of equal value
  * (AVATAR_LOTUS_PLAN §3b); credits are earned only (QT-056); nothing is time-limited (QT-057).
  */
+import { SEASONS } from "./seasons";
+
 export type Tier = "pink" | "purple" | "blue" | "golden";
 export const TIERS: Tier[] = ["pink", "purple", "blue", "golden"];
-export type Unlock = { kind: "free" } | { kind: "level"; level: number } | { kind: "tier"; tier: Tier } | { kind: "credits"; price: number };
+/** `season`: earned by clearing that season level (content/seasons.ts), in any year. */
+export type Unlock = { kind: "free" } | { kind: "level"; level: number } | { kind: "season"; season: string; n: number } | { kind: "tier"; tier: Tier } | { kind: "credits"; price: number };
 
 export type SkillId = "breath" | "steady" | "cheer" | "bubbles" | "minute";
 export type Pet = { id: string; name: string; art: string; skill: SkillId; unlock: Unlock; builtIn?: string; scale: number };
@@ -52,8 +55,27 @@ export const DECOR: Record<string, Decor> = {
   teaset: { id: "teaset", name: "Tea set", art: "decor-teaset", fits: "floor", unlock: { kind: "credits", price: 80 } },
   lamp: { id: "lamp", name: "Peach lamp", art: "decor-lamp", fits: "hanging", unlock: { kind: "credits", price: 80 } },
   lanterns: { id: "lanterns", name: "Paper lanterns", art: "decor-lanterns", fits: "hanging", unlock: { kind: "level", level: 18 } },
+  // Chapter finale and season rewards (22 Oct 2026): earned by clears, never bought.
+  trays: { id: "trays", name: "Banquet trays", art: "decor-trays", fits: "floor", unlock: { kind: "level", level: 91 } },
+  medal: { id: "medal", name: "Head chef medal", art: "decor-medal", fits: "wall", unlock: { kind: "level", level: 100 } },
+  lotuslamp: { id: "lotuslamp", name: "Lotus lamp", art: "decor-lotuslamp", fits: "hanging", unlock: { kind: "season", season: "zhai-days", n: 2 } },
+  jadevase: { id: "jadevase", name: "Jade lotus vase", art: "decor-jadevase", fits: "floor", unlock: { kind: "season", season: "zhai-days", n: 4 } },
+  plumblossom: { id: "plumblossom", name: "Plum blossom", art: "decor-plumblossom", fits: "hanging", unlock: { kind: "season", season: "reunion-kitchen", n: 2 } },
+  mandarins: { id: "mandarins", name: "Mandarin tree", art: "decor-mandarins", fits: "floor", unlock: { kind: "season", season: "reunion-kitchen", n: 4 } },
+  ketupat: { id: "ketupat", name: "Ketupat", art: "decor-ketupat", fits: "hanging", unlock: { kind: "season", season: "sunset-bazaar", n: 2 } },
+  pelita: { id: "pelita", name: "Pelita lamps", art: "decor-pelita", fits: "floor", unlock: { kind: "season", season: "sunset-bazaar", n: 4 } },
+  yellowlamp: { id: "yellowlamp", name: "Yellow lantern", art: "decor-yellowlamp", fits: "hanging", unlock: { kind: "season", season: "nine-days", n: 2 } },
+  whiteflowers: { id: "whiteflowers", name: "White chrysanthemums", art: "decor-whiteflowers", fits: "floor", unlock: { kind: "season", season: "nine-days", n: 4 } },
+  marigold: { id: "marigold", name: "Marigold garland", art: "decor-marigold", fits: "wall", unlock: { kind: "season", season: "festival-lights", n: 2 } },
+  diya: { id: "diya", name: "Oil lamp stand", art: "decor-diya", fits: "floor", unlock: { kind: "season", season: "festival-lights", n: 4 } },
+  pinegarland: { id: "pinegarland", name: "Pine garland", art: "decor-pinegarland", fits: "wall", unlock: { kind: "season", season: "year-end-table", n: 2 } },
+  gifts: { id: "gifts", name: "Gift stack", art: "decor-gifts", fits: "floor", unlock: { kind: "season", season: "year-end-table", n: 4 } },
+  rabbitlantern: { id: "rabbitlantern", name: "Rabbit lantern", art: "decor-rabbitlantern", fits: "hanging", unlock: { kind: "season", season: "lantern-bakery", n: 2 } },
+  mooncaketins: { id: "mooncaketins", name: "Mooncake tins", art: "decor-mooncaketins", fits: "floor", unlock: { kind: "season", season: "lantern-bakery", n: 4 } },
+  zongzibunch: { id: "zongzibunch", name: "Dumpling bunch", art: "decor-zongzibunch", fits: "hanging", unlock: { kind: "season", season: "dumpling-day", n: 2 } },
+  dragonboat: { id: "dragonboat", name: "Dragon boat painting", art: "decor-dragonboat", fits: "wall", unlock: { kind: "season", season: "dumpling-day", n: 4 } },
 };
-export const DECOR_ORDER = ["plant", "painting", "bowl", "herbs", "windowplant", "teaset", "lamp", "lanterns"];
+export const DECOR_ORDER = ["plant", "painting", "bowl", "herbs", "windowplant", "teaset", "lamp", "lanterns", "trays", "medal", "lotuslamp", "jadevase", "plumblossom", "mandarins", "ketupat", "pelita", "yellowlamp", "whiteflowers", "marigold", "diya", "pinegarland", "gifts", "rabbitlantern", "mooncaketins", "zongzibunch", "dragonboat"];
 
 export type Skin = { id: string; name: string; art: string | null; unlock: Unlock };
 export const SKINS: Record<string, Skin> = {
@@ -61,8 +83,25 @@ export const SKINS: Record<string, Skin> = {
   lantern: { id: "lantern", name: "Lantern night", art: "skin-lantern", unlock: { kind: "level", level: 18 } },
   lotus: { id: "lotus", name: "Lotus pond", art: "skin-lotus", unlock: { kind: "tier", tier: "golden" } },
   signature: { id: "signature", name: "Signature café", art: "skin-signature", unlock: { kind: "level", level: 20 } },
+  // Chapter finales (Levels 30 to 100) and seasons; painted from the sunny room, so they share its tap areas.
+  spice: { id: "spice", name: "Spice market", art: "skin-spice", unlock: { kind: "level", level: 30 } },
+  steamer: { id: "steamer", name: "Bamboo steamer", art: "skin-steamer", unlock: { kind: "level", level: 40 } },
+  bakery: { id: "bakery", name: "Bakery", art: "skin-bakery", unlock: { kind: "level", level: 50 } },
+  kopitiam: { id: "kopitiam", name: "Kopitiam", art: "skin-kopitiam", unlock: { kind: "level", level: 60 } },
+  nightstall: { id: "nightstall", name: "Night stall", art: "skin-nightstall", unlock: { kind: "level", level: 70 } },
+  dumpling: { id: "dumpling", name: "Dumpling house", art: "skin-dumpling", unlock: { kind: "level", level: 80 } },
+  garden: { id: "garden", name: "Garden terrace", art: "skin-garden", unlock: { kind: "level", level: 90 } },
+  headchef: { id: "headchef", name: "Head chef", art: "skin-headchef", unlock: { kind: "level", level: 100 } },
+  zhai: { id: "zhai", name: "Zhai days", art: "skin-zhai", unlock: { kind: "season", season: "zhai-days", n: 6 } },
+  reunion: { id: "reunion", name: "Reunion kitchen", art: "skin-reunion", unlock: { kind: "season", season: "reunion-kitchen", n: 6 } },
+  bazaar: { id: "bazaar", name: "Sunset bazaar", art: "skin-bazaar", unlock: { kind: "season", season: "sunset-bazaar", n: 6 } },
+  ninedays: { id: "ninedays", name: "Nine days", art: "skin-ninedays", unlock: { kind: "season", season: "nine-days", n: 6 } },
+  lights: { id: "lights", name: "Festival of lights", art: "skin-lights", unlock: { kind: "season", season: "festival-lights", n: 6 } },
+  yearend: { id: "yearend", name: "Year-end table", art: "skin-yearend", unlock: { kind: "season", season: "year-end-table", n: 6 } },
+  lanternbakery: { id: "lanternbakery", name: "Lantern bakery", art: "skin-lanternbakery", unlock: { kind: "season", season: "lantern-bakery", n: 6 } },
+  dumplingday: { id: "dumplingday", name: "Dumpling day", art: "skin-dumplingday", unlock: { kind: "season", season: "dumpling-day", n: 6 } },
 };
-export const SKIN_ORDER = ["sunny", "lantern", "lotus", "signature"];
+export const SKIN_ORDER = ["sunny", "lantern", "lotus", "signature", "spice", "steamer", "bakery", "kopitiam", "nightstall", "dumpling", "garden", "headchef", "zhai", "reunion", "bazaar", "ninedays", "lights", "yearend", "lanternbakery", "dumplingday"];
 
 export const CREDIT_REWARDS = { firstClear: 30, replay: 8, mastered: 20 };
 /**
@@ -76,6 +115,7 @@ export const DAILY_CREDITS = { replays: 5, kitchen: 3, kitchenClear: 8 };
 export function unlockText(u: Unlock): string {
   if (u.kind === "free") return "Free";
   if (u.kind === "level") return "Clear Level " + u.level;
+  if (u.kind === "season") return "Clear " + (SEASONS.find(s => s.id === u.season)?.name ?? "the season") + " " + u.n;
   if (u.kind === "tier") return u.tier[0].toUpperCase() + u.tier.slice(1) + " lotus";
   return u.price + " credits";
 }

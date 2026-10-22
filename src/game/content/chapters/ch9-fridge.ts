@@ -85,5 +85,5 @@ export const LEVELS: Level[] = [
     stations: ["dessert", "fridge", "board", "pot"], seats: 3, maxOpen: 3, round: 151, patience: 104, hints: "none", orders: [o("daniel", "agar-agar", 1), o("office", "rojak", 8), o("asha", "tau-huay", 40), o("lim", "gado-gado", 70)], distractors: [], unlocks: [] },
   { n: 90, bonus: "steady", twists: [{ kind: "vip" }, { kind: "flare", n: 1 }], name: "Garden terrace", brief: "Fridge, dessert pot, board, pot and oven: the garden terrace is full.", teach: "Everything this chapter taught.",
     stations: ["fridge", "dessert", "board", "pot", "oven"], seats: 4, maxOpen: 4, round: 189, patience: 104, hints: "none",
-    orders: [o("office", "mango-sago", 1), o("jia", "gado-gado", 4), o("asha", "tau-huay", 12), o("daniel", "agar-agar", 36), o("mei", "rojak", 58), o("lim", "roast-veg", 82), o("nurul", "mango-sago", 104)], distractors: [], unlocks: [] },
+    orders: [o("office", "mango-sago", 1), o("jia", "gado-gado", 4), o("asha", "tau-huay", 12), o("daniel", "agar-agar", 36), o("mei", "rojak", 58), o("lim", "roast-veg", 82), o("nurul", "mango-sago", 104)], distractors: [], unlocks: ["Garden terrace skin"] },
 ];

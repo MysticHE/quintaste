@@ -16,7 +16,7 @@ import { cleared, nextLevel } from "../../game/progress";
 import { useGame } from "../../hooks/useGame";
 import { usePreferences } from "../../state/Preferences";
 import { Glint, Motes, useEnter } from "./home/Ambient";
-import { BACK, WIDE_SCALE } from "./home/sceneLayout";
+import { backBox, WIDE_SCALE } from "./home/sceneLayout";
 import { wideSkinKey } from "./home/Scene";
 import { Leaves, SunRays } from "./home/SceneFx";
 import { SlideToEnter } from "./home/SlideToEnter";
@@ -78,8 +78,8 @@ export function GameLobby() {
         <Image source={GAME_ART[wide ?? skin.art!]} resizeMode="cover" accessibilityIgnoresInvertColors onLoad={() => setRoomReady(true)}
           style={{ position: "absolute", top: imgTop, left: (box.w - imgW) / 2, width: imgW, height: imgH }} />
         {roomReady && <View pointerEvents="none" style={{ position: "absolute", left: roomLeft, top: imgTop, width: roomW, height: roomW * 1.5 }}>
-          <SunRays box={BACK.window[skin.id] ?? BACK.window.sunny} u={u} />
-          <Glint box={BACK.window[skin.id] ?? BACK.window.sunny} u={u} />
+          <SunRays box={backBox("window", skin.id)} u={u} />
+          <Glint box={backBox("window", skin.id)} u={u} />
           <Motes u={u} />
           <Leaves u={u} />
         </View>}
