@@ -31,7 +31,7 @@ export function HeatPanel({ run, L, art, petArt, hold, nudge, onHeat, onHeatTo, 
   const bad = pr && g ? conflicts(pr.items.map(i => i.id), sim.tableRules(run, g), run.flip) : [];
   const state = !pr ? "Empty" : pr.state === "cooking" ? "Cooking " + Math.round(pr.progress * 100) + "%" : pr.state === "waiting" ? "Step " + (pr.stage + 1) + " next"
     : pr.state === "ready" ? "Ready" : pr.state === "scorched" ? "Scorched" : pr.state === "split" ? "Split" : "Loading";
-  const pet = PETS[run.pet], skill = SKILLS[pet.skill], liftable = pr && pr.progress === 0 && pr.state !== "ready" ? pr.items.filter(i => i.stage === pr.stage) : [];
+  const pet = PETS[run.pet], skill = SKILLS[pet.skill], liftable = pr && pr.progress === 0 && pr.state !== "ready" ? pr.items.filter(i => i.stage === pr.stage && !i.inside) : [];
   return <div className="layer heat panel" style={box(L.heat)}>
     {cfg.heat ? <Meter name={cfg.name} H={st.H} lo={lo} hi={hi} scorch={cfg.scorch} /> : <div className="noheat">{cfg.name}: no heat to manage</div>}
     <div className="hrow">

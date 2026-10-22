@@ -18,7 +18,9 @@ const FLARE_HEAT = 0.22, VIP_TIP = 4;
 /** A pot cooked for two guests takes this much longer at every step. */
 const BATCH_SLOW = 1.5;
 
-export type PlacedItem = { uid: number; id: string; stage: number; warn: boolean };
+export type PlacedItem = { uid: number; id: string; stage: number; warn: boolean;
+  /** A poured paste (Part.makes): the ingredients blended into it, which count for every guest rule. */
+  inside?: string[] };
 export type PartRun = { dishId: string; partId: string; stage: number; items: PlacedItem[]; progress: number;
   state: "loading" | "cooking" | "waiting" | "ready" | "scorched" | "split"; exposure: number; inBand: number; prog: number;
   /** Guests this pot feeds: 2 when it was started for a party that shares it. */
@@ -37,7 +39,8 @@ export type GameEvent =
   | { type: "returned"; seat: number; slot: number } | { type: "arrived"; seat: number } | { type: "left"; seat: number; expired: boolean }
   | { type: "skill"; skill: string } | { type: "stage"; station: StationKind } | { type: "end" }
   | { type: "bell" } | { type: "flare"; station: StationKind; phase: "warn" | "hit" } | { type: "stock"; item: string; phase: "low" | "out" }
-  | { type: "changed"; seat: number; to: string } | { type: "gathered"; item: string } | { type: "gatherDone" };
+  | { type: "changed"; seat: number; to: string } | { type: "gathered"; item: string } | { type: "gatherDone" }
+  | { type: "poured"; from: StationKind; station: StationKind; item: string; warn: boolean; uid: number };
 /** One player input: the tick it happened on, the action and its arguments. The server replays these (sim/replay.ts). */
 export type Action = [tick: number, op: string, ...args: (string | number | boolean | null)[]];
 /** Which scheduled twist events have already fired. */
@@ -111,6 +114,12 @@ export const partOf = (pr: PartRun): Part => DISHES[pr.dishId].parts.find(p => p
 export const stageOf = (pr: PartRun): Stage => partOf(pr).stages[Math.min(pr.stage, partOf(pr).stages.length - 1)];
 export const bandOf = (s: StationRun, pr: PartRun | null) => (pr && stageOf(pr).band) || STATIONS[s.kind].band;
 export const dishName = (id: string) => DISHES[id]?.name ?? id;
+/** Items a part makes (Part.makes): they come from a station by transfer, never from the shelf. */
+export const madeItems = () => new Set(Object.values(DISHES).flatMap(d => d.parts.map(p => p.makes).filter((x): x is string => !!x)));
+/** The parts that end on a plate: a part that makes a paste is poured into another station instead. */
+export const platedParts = (dishId: string) => DISHES[dishId].parts.filter(p => !p.makes);
+/** Everything in a station's dish, with what was blended into any paste poured in. */
+const contents = (pr: PartRun) => pr.items.flatMap(i => [i.id, ...(i.inside ?? [])]);
 export const maxCoins = (r: Run) => r.guests.reduce((n, g) => n + 16 + (g.vip ? VIP_TIP : 0), 0);
 /** Whether an ingredient is plentiful, running low (a warning), or gone for the rest of the service. */
 export const stockOf = (r: Run, id: string): "ok" | "low" | "out" => r.plan.stock?.item !== id ? "ok" : r.sched.out ? "out" : r.sched.low ? "low" : "ok";
@@ -188,6 +197,7 @@ export function place(r: Run, itemId: string, kind: StationKind): boolean {
   input(r, "place", itemId, kind);
   if (idle(r)) return false;
   if (gathering(r)) { say(r, "Gather the ingredients first: drag them into the basket.", "warn"); r.events.push({ type: "rejected", item: itemId }); return false; }
+  if (madeItems().has(itemId)) { say(r, itemName(itemId) + " comes from the blender.", "warn"); r.events.push({ type: "rejected", item: itemId }); return false; }
   if (stockOf(r, itemId) === "out") {
     const who = focusGuest(r); say(r, itemName(itemId) + " has run out. Swap in another one" + (who ? " that suits " + GUESTS[who.guestId].name : "") + ".", "warn");
     r.events.push({ type: "rejected", item: itemId }); return false;
@@ -196,13 +206,44 @@ export function place(r: Run, itemId: string, kind: StationKind): boolean {
   if (why) { say(r, why, "warn"); r.events.push({ type: "rejected", item: itemId }); return false; }
   const st = r.stations[kind]!, g = focusGuest(r);
   if (!st.part && g) { const part = dishPart(g.dishId, kind)!; st.part = { dishId: g.dishId, partId: part.id, stage: 0, items: [], progress: 0, state: "loading", exposure: 0, inBand: 0, prog: 0, portions: mates(r, g).length ? 2 : 1 }; }
-  const pr = st.part!, stage = stageOf(pr), band = bandOf(st, pr);
-  const rules = g ? tableRules(r, g) : [], warn = !!g && conflicts([itemId], rules, r.flip).length > 0 && pr.dishId === g.dishId;
+  const pr = st.part!, rules = g ? tableRules(r, g) : [], warn = !!g && conflicts([itemId], rules, r.flip).length > 0 && pr.dishId === g.dishId;
   const uid = r.uid++;
   pr.items.push({ uid, id: itemId, stage: pr.stage, warn });
   r.selected = kind; record(r, "place " + itemId + " " + kind);
   r.events.push({ type: "placed", station: kind, item: itemId, warn, uid });
   if (warn && g) { r.stats.mistakes++; say(r, reason(itemId, rules, r.flip) + " Tap it in the pan chips to lift it out.", "warn"); }
+  return added(r, st, kind, itemId, warn);
+}
+
+/**
+ * Transfer: a ready paste (Part.makes) is poured from its station onto another one whose dish part takes it, carrying what was
+ * blended in. It starts that part when the station is free, the way a first ingredient does.
+ */
+export function transfer(r: Run, from: StationKind, to: StationKind): boolean {
+  input(r, "transfer", from, to);
+  if (idle(r) || gathering(r)) return false;
+  const src = r.stations[from], pr = src?.part, made = pr && pr.state === "ready" ? partOf(pr).makes : undefined;
+  if (!src || !pr || !made) return false;
+  const st = r.stations[to], part = st ? dishPart(pr.dishId, to) : undefined, name = itemName(made);
+  if (!st || from === to || !part?.stages.some(sg => sg.slots.some(sl => sl.accepts.includes(made)))) { say(r, name + " doesn't go there.", "warn"); return false; }
+  if (st.part && st.part.dishId !== pr.dishId) { say(r, "The " + STATIONS[to].name.toLowerCase() + " has another dish in it.", "warn"); return false; }
+  if (st.part && (st.part.state === "ready" || st.part.state === "scorched" || st.part.state === "split")) { say(r, "Clear the " + STATIONS[to].name.toLowerCase() + " first.", "warn"); return false; }
+  const target = st.part ? stageOf(st.part) : part.stages[0], slot = target.slots.find(sl => sl.accepts.includes(made));
+  if (!slot) { say(r, "Not yet. This step needs " + target.hint + ".", "warn"); return false; }
+  if (st.part?.items.some(x => x.stage === st.part!.stage && slot.accepts.includes(x.id))) { say(r, "The " + STATIONS[to].name.toLowerCase() + " already has " + slot.label.toLowerCase() + ".", "warn"); return false; }
+  st.part ??= { dishId: pr.dishId, partId: part.id, stage: 0, items: [], progress: 0, state: "loading", exposure: 0, inBand: 0, prog: 0, portions: pr.portions };
+  const inside = contents(pr), g = focusGuest(r), rules = g ? tableRules(r, g) : [];
+  const warn = !!g && g.dishId === pr.dishId && conflicts([made, ...inside], rules, r.flip).length > 0, uid = r.uid++;
+  st.part.items.push({ uid, id: made, stage: st.part.stage, warn, inside });
+  src.part = null; r.selected = to; record(r, "transfer " + from + " " + to);
+  r.events.push({ type: "poured", from, station: to, item: made, warn, uid });
+  if (warn && g) { r.stats.mistakes++; say(r, reason(conflicts([made, ...inside], rules, r.flip)[0], rules, r.flip) + " Restart the dish; it's free.", "warn"); }
+  return added(r, st, to, made, warn);
+}
+
+/** After an item goes in: a coconut milk splits if too hot, a filled stage starts cooking, and the hints say what is next. */
+function added(r: Run, st: StationRun, kind: StationKind, itemId: string, warn: boolean): boolean {
+  const pr = st.part!, stage = stageOf(pr), band = bandOf(st, pr);
   if (stage.splitIfHot?.includes(itemId) && STATIONS[kind].heat && st.H > band[1]) {
     pr.state = "split"; say(r, "Too hot: the " + itemName(itemId).toLowerCase() + " split. Restart the dish; it's free. Turn the heat down before adding it.", "warn");
     r.events.push({ type: "split", station: kind }); return true;
@@ -223,6 +264,7 @@ export function lift(r: Run, kind: StationKind, uid: number) {
   const st = r.stations[kind], pr = st?.part; if (!st || !pr) return;
   const item = pr.items.find(i => i.uid === uid); if (!item) return;
   if (item.stage !== pr.stage || pr.progress > 0 || pr.state === "ready") { say(r, "That is already cooking. Restart the dish if you need to; it's free.", "warn"); return; }
+  if (item.inside) { say(r, "A poured paste can't go back. Restart the dish if you need to; it's free.", "warn"); return; }
   pr.items.splice(pr.items.indexOf(item), 1); record(r, "lift " + item.id);
   const req = stageOf(pr).slots.filter(s => !s.optional);
   if (pr.state === "cooking" && !req.every(s => pr.items.some(x => x.stage === pr.stage && s.accepts.includes(x.id)))) pr.state = pr.stage === 0 ? "loading" : "waiting";
@@ -247,7 +289,8 @@ function advance(r: Run, st: StationRun) {
     hintSay(r, "stage-" + st.kind + pr.stage, "Step " + pr.stage + " done. Add " + part.stages[pr.stage].hint + ".");
   } else {
     pr.state = "ready"; r.events.push({ type: "ready", station: st.kind });
-    hintSay(r, "ready-" + st.kind, "Ready! Drag it to the plates, then to the guest it suits.");
+    const made = part.makes, next = made ? DISHES[pr.dishId].parts.find(p => p.stages.some(sg => sg.slots.some(sl => sl.accepts.includes(made)))) : undefined;
+    hintSay(r, "ready-" + st.kind, next ? "Ready! Drag it onto the " + STATIONS[next.station].name.toLowerCase() + "." : "Ready! Drag it to the plates, then to the guest it suits.");
   }
 }
 
@@ -256,10 +299,12 @@ export function plate(r: Run, kind: StationKind): boolean {
   if (idle(r)) return false;
   const st = r.stations[kind], pr = st?.part;
   if (!st || !pr || pr.state !== "ready") { say(r, !pr ? "Nothing to plate yet." : "Not ready yet.", "warn"); return false; }
+  const made = partOf(pr).makes;
+  if (made) { const next = DISHES[pr.dishId].parts.find(p => p.stages.some(sg => sg.slots.some(sl => sl.accepts.includes(made)))); say(r, "Pour the " + itemName(made).toLowerCase() + " into the " + (next ? STATIONS[next.station].name.toLowerCase() : "next station") + ".", "warn"); return false; }
   const hq = pr.prog ? pr.inBand / pr.prog : STATIONS[kind].heat ? 0 : 1;
-  const piece: PlatePart = { partId: pr.partId, items: pr.items.map(i => i.id), hq };
-  const dish = DISHES[pr.dishId];
-  let slot = r.board.findIndex(p => p && p.dishId === pr.dishId && p.parts.length < dish.parts.length && !p.parts.some(x => x.partId === pr.partId));
+  const piece: PlatePart = { partId: pr.partId, items: contents(pr), hq };
+  const dish = DISHES[pr.dishId], plated = platedParts(pr.dishId);
+  let slot = r.board.findIndex(p => p && p.dishId === pr.dishId && p.parts.length < plated.length && !p.parts.some(x => x.partId === pr.partId));
   if (slot >= 0) { const joined = r.board[slot]!; joined.parts.push(piece); joined.portions = Math.min(joined.portions, pr.portions); joined.shared ||= pr.portions > 1; }
   else {
     slot = r.board.indexOf(null);
@@ -269,10 +314,10 @@ export function plate(r: Run, kind: StationKind): boolean {
   st.part = null; record(r, "plate " + kind + " " + slot);
   r.events.push({ type: "plated", station: kind, slot });
   const p = r.board[slot]!;
-  say(r, p.parts.length < dish.parts.length ? "Half a " + dish.name.toLowerCase() + ". Cook the " + dish.parts.find(x => !p.parts.some(y => y.partId === x.id))!.name.toLowerCase() + " too." : p.shared ? "Plated for two. Drag it to one guest, then the other." : "Plated. Drag it to the guest it suits.");
+  say(r, p.parts.length < plated.length ? "Half a " + dish.name.toLowerCase() + ". Cook the " + plated.find(x => !p.parts.some(y => y.partId === x.id))!.name.toLowerCase() + " too." : p.shared ? "Plated for two. Drag it to one guest, then the other." : "Plated. Drag it to the guest it suits.");
   return true;
 }
-export const plateComplete = (p: Plate) => p.parts.length === DISHES[p.dishId].parts.length;
+export const plateComplete = (p: Plate) => p.parts.length === platedParts(p.dishId).length;
 
 export function serve(r: Run, slot: number, orderId: string) {
   input(r, "serve", slot, orderId);

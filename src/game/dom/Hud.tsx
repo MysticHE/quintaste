@@ -1,6 +1,6 @@
 /** Top panels over the café (GAME_PLAN §13): the HUD and the recipe card for the guest being cooked for. */
 import type { ReactElement, Ref } from "react";
-import { DISHES } from "../content/dishes";
+import { DISHES, STATIONS } from "../content/dishes";
 import { GUESTS, RULES, conflicts } from "../content/guests";
 import { ITEMS } from "../content/items";
 import { levelTitle } from "../content/levels";
@@ -36,12 +36,17 @@ export function Hud({ run, L, coins, eatKey, coinRef, onPause }: {
 }
 
 /** What to do next for the focused dish, from the first part that is not finished. */
+/** A paste of this dish already poured into the next station, or on its way to the plates in it. */
+const poured = (run: sim.Run, dishId: string, made?: string) => !!made && (Object.values(run.stations).some(s => s?.part?.dishId === dishId && s.part.items.some(i => i.id === made))
+  || run.board.some(p => p && p.dishId === dishId && p.parts.some(x => x.items.includes(made))));
 function nextStep(run: sim.Run, dishId: string): string {
   const dish = DISHES[dishId];
   for (const part of dish.parts) {
     if (run.board.some(p => p && p.dishId === dishId && p.parts.some(x => x.partId === part.id))) continue;
+    if (poured(run, dishId, part.makes)) continue;
     const pr = run.stations[part.station]?.part;
     if (pr && pr.partId === part.id) {
+      if (pr.state === "ready" && part.makes) { const to = dish.parts.find(p => p !== part && p.stages.some(sg => sg.slots.some(sl => sl.accepts.includes(part.makes!)))); return "Ready: pour it onto the " + (to ? STATIONS[to.station].name.toLowerCase() : "next station"); }
       if (pr.state === "ready") return "Ready: drag to the plates";
       if (pr.state === "scorched" || pr.state === "split") return "Restart it, it's free";
       if (pr.state === "cooking") return "Keep it in the heat band";
@@ -59,7 +64,7 @@ export function RecipeCard({ run, L, art }: { run: sim.Run; L: Layout; art: Art 
   const dish = DISHES[g.dishId], chips: ReactElement[] = [], table = sim.tableRules(run, g), pot = sim.mates(run, g), who = [g, ...pot].map(x => GUESTS[x.guestId].name).join(" + ");
   dish.parts.forEach((part, pi) => {
     const st = run.stations[part.station], pr = st?.part && st.part.partId === part.id ? st.part : null;
-    const onBoard = run.board.some(p => p && p.dishId === dish.id && p.parts.some(x => x.partId === part.id));
+    const onBoard = run.board.some(p => p && p.dishId === dish.id && p.parts.some(x => x.partId === part.id)) || poured(run, dish.id, part.makes);
     if (pi) chips.push(<span key={"s" + pi} className="sep" />);
     part.stages.forEach((stage, si) => stage.slots.forEach(slot => {
       const found = pr?.items.find(x => x.stage === si && slot.accepts.includes(x.id));

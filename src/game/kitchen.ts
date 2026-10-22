@@ -6,7 +6,7 @@ import { STATIONS, type StationKind } from "./content/dishes";
 import { cleared, type GameProgress } from "./progress";
 
 /** The main-path level that introduces each built station (§3); each later chapter adds its technique here at its first level. */
-export const TECHNIQUE_LEVEL: Record<StationKind, number> = { pan: 1, pot: 9, rice: 12, board: 16, dessert: 18 };
+export const TECHNIQUE_LEVEL: Record<StationKind, number> = { pan: 1, pot: 9, rice: 12, board: 16, dessert: 18, blender: 21 };
 
 /** The first technique a recipe level needs that this player has not learned, or null when it is open. */
 export function missingTechnique(game: GameProgress, techniques: readonly string[]): { station: StationKind; name: string; level: number } | null {

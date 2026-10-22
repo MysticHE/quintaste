@@ -1,5 +1,5 @@
 /**
- * Levels 1–20 (GAME_PLAN §8, revised 18 October 2026). Each level adds one decision; difficulty rises through
+ * Levels 1–30 (GAME_PLAN §8, revised 18 October 2026; Chapter 3 added 22 October 2026, GAME_CONTENT_PLAN §3). Each level adds one decision; difficulty rises through
  * orders, open tickets, round time, patience, stations, mixed rules and fading hints. Unlock rewards are cosmetic.
  */
 import { DISHES, type StationKind } from "./dishes";
@@ -104,6 +104,28 @@ export const LEVELS: Level[] = [
   { n: 20, bonus: "order", twists: [{ kind: "flare", n: 1 }, { kind: "vip" }, { kind: "change" }], name: "Your signature service", brief: "Choose three dishes you have mastered. Your regulars come for your signature menu.", teach: "Everything you have learned.",
     stations: ["pan", "pot", "rice", "dessert", "board"], seats: 4, maxOpen: 4, round: 170, patience: 90, hints: "none", signature: true,
     orders: [o("mei", "*", 1), o("daniel", "*", 4), o("jia", "*", 10), o("asha", "*", 32), o("lim", "*", 56), o("nurul", "*", 80)], distractors: [], unlocks: ["Signature badge", "Signature café skin"] },
+  // Chapter 3: the spice stall (GAME_CONTENT_PLAN §3). The blender, and transfer: a blended paste is poured onto the wok or pot.
+  { n: 21, bonus: "clean", name: "The blender", brief: "The spice stall's blender: drag the ingredients in and it blends by itself. Then drag the chutney to the plates.", teach: "A blender works on its own: fill it, then do something else.",
+    stations: ["blender"], seats: 2, maxOpen: 2, round: 80, patience: 80, hints: "full", orders: [o("office", "coconut-chutney", 1), o("daniel", "coconut-chutney", 14)], distractors: ["garlic"], unlocks: ["Blender"] },
+  { n: 22, bonus: "golden", name: "Blend, then fry", brief: "Blend the sambal, then drag the jug onto the wok: the paste fries before the tempeh goes in.", teach: "What one station makes can go into another.",
+    stations: ["blender", "pan"], seats: 2, maxOpen: 2, round: 110, patience: 90, hints: "full", orders: [o("office", "sambal-tempeh", 1), o("jia", "sambal-tempeh", 22)], distractors: [], unlocks: [] },
+  { n: 23, bonus: "clean", name: "What went in", brief: "Daniel is vegan: his mint chutney needs coconut milk, not yoghurt. Auntie Mei keeps no five pungent: blend ginger, not shallots.", teach: "A paste carries everything you blended into it.",
+    stations: ["blender", "pan"], seats: 3, maxOpen: 3, round: 150, patience: 105, hints: "chip", orders: [o("daniel", "mint-chutney", 1), o("office", "sambal-tempeh", 6), o("mei", "sambal-tempeh", 34), o("asha", "mint-chutney", 60)], distractors: [], unlocks: [] },
+  { n: 24, bonus: "steady", name: "Laksa from scratch", brief: "Blend the rempah, fry it hot in the pot, then lower the heat before the coconut milk.", teach: "Your own rempah, then the laksa you know.",
+    stations: ["blender", "pot", "pan"], seats: 3, maxOpen: 3, round: 160, patience: 95, hints: "chip", orders: [o("jia", "laksa-scratch", 1), o("office", "kangkung-split", 8), o("mei", "laksa-scratch", 40), o("nurul", "kangkung-split", 64)], distractors: [], unlocks: [] },
+  { n: 25, bonus: "clean", name: "Read the paste", brief: "The stall sells ready pastes too. One curry paste lists fish sauce and one sambal lists belacan. Blend your own, or read the label.", teach: "Fish sauce and belacan hide in bought pastes.",
+    stations: ["blender", "pot", "pan"], seats: 3, maxOpen: 3, round: 165, patience: 95, hints: "chip", orders: [o("office", "green-curry", 1), o("daniel", "sambal-tempeh", 8), o("jia", "green-curry", 42), o("mei", "sambal-tempeh", 70)], distractors: [], unlocks: [] },
+  { n: 26, bonus: "swift", name: "Chutney morning", brief: "A quiet morning of chutneys. Asha keeps Jain food: leave the ginger out.", teach: "Optional ingredients make a dish easy to adapt.",
+    stations: ["blender"], seats: 3, maxOpen: 3, round: 130, patience: 85, hints: "chip", orders: [o("office", "coconut-chutney", 1), o("asha", "coconut-chutney", 10), o("daniel", "mint-chutney", 34), o("mei", "mint-chutney", 56)], distractors: [], unlocks: [] },
+  { n: 27, bonus: "swift", twists: [{ kind: "wave", n: 24 }], name: "Sambal rush", brief: "One early order, then three at once when the bell rings. Keep the blender busy while the wok fries.", teach: "Start the next blend before the wok is free.",
+    stations: ["blender", "pan"], seats: 3, maxOpen: 3, round: 150, patience: 100, hints: "none", orders: [o("office", "sambal-tempeh", 1), o("jia", "sambal-tempeh", 24), o("daniel", "sambal-tempeh", 25), o("mei", "sambal-tempeh", 27)], distractors: [], unlocks: [] },
+  { n: 28, bonus: "golden", twists: [{ kind: "flare", n: 1 }, { kind: "stockout" }], name: "Curry night", brief: "Green curry and laksa share the pot tonight, and an ingredient runs low.", teach: "Coconut milk splits if the pot is too hot.",
+    stations: ["blender", "pot", "pan"], seats: 3, maxOpen: 3, round: 175, patience: 92, hints: "none", orders: [o("jia", "green-curry", 1), o("mei", "laksa-scratch", 8), o("office", "sambal-tempeh", 42), o("daniel", "green-curry", 72)], distractors: [], unlocks: [] },
+  { n: 29, bonus: "order", twists: [{ kind: "vip" }], name: "The whole stall", brief: "Rice, curry, sambal and chutney, with no hints. Start the slow dishes first.", teach: "Triage with a blender in the mix.",
+    stations: ["blender", "pan", "pot", "rice"], seats: 4, maxOpen: 4, round: 180, patience: 100, hints: "none", orders: [o("jia", "nasi-lemak", 1), o("asha", "mint-chutney", 6), o("office", "green-curry", 14), o("mei", "sambal-tempeh", 44), o("daniel", "claypot", 66), o("lim", "coconut-chutney", 90)], distractors: [], unlocks: [] },
+  { n: 30, bonus: "steady", twists: [{ kind: "flare", n: 1 }, { kind: "change" }], name: "Spice market night", brief: "Every station at once: pastes, curries, rice and dessert. The spice stall's busiest night.", teach: "Everything this chapter taught.",
+    stations: ["blender", "pan", "pot", "rice", "dessert"], seats: 4, maxOpen: 4, round: 200, patience: 102, hints: "none",
+    orders: [o("mei", "laksa-scratch", 1), o("jia", "nasi-lemak", 4), o("daniel", "green-curry", 12), o("asha", "coconut-chutney", 36), o("office", "sambal-tempeh", 58), o("nurul", "sago", 80), o("lim", "green-curry", 102)], distractors: [], unlocks: [] },
 ];
 
 export const levelByNumber = (n: number) => LEVELS[n - 1];

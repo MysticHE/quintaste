@@ -86,6 +86,7 @@ function apply(r: sim.Run, [, op, a, b]: sim.Action) {
     case "select": return sim.select(r, station(a));
     case "place": return void sim.place(r, word(a), station(b));
     case "gather": return void sim.gatherItem(r, word(a));
+    case "transfer": return void sim.transfer(r, station(a), station(b));
     case "lift": return sim.lift(r, station(a), int(b, 1_000_000));
     case "restart": return sim.restart(r, station(a));
     case "heat": return sim.toggleHeat(r, station(a));

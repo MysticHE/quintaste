@@ -3,7 +3,7 @@
  * Each recipe was checked against how the dish is really cooked; accepted swaps mirror real substitutions
  * (ginger for garlic and shallots, black beans or tempeh for shiitake). Game portions and times are not recipe amounts.
  */
-export type StationKind = "pan" | "pot" | "rice" | "board" | "dessert";
+export type StationKind = "pan" | "pot" | "rice" | "board" | "dessert" | "blender";
 export type Slot = { key: string; label: string; accepts: string[]; optional?: boolean };
 export type Stage = {
   slots: Slot[]; secs: number; hint: string;
@@ -14,7 +14,10 @@ export type Stage = {
   /** Items that curdle or split when added while the station is hotter than the band. */
   splitIfHot?: string[];
 };
-export type Part = { id: string; name: string; station: StationKind; stages: Stage[] };
+export type Part = { id: string; name: string; station: StationKind; stages: Stage[];
+  /** Transfer (RECIPE_LEVELS_PLAN §8.7): this part is never plated; once ready it is dragged onto the station of the part whose slot
+   *  accepts this item, carrying what went into it (a blended paste poured into the wok). */
+  makes?: string };
 export type Dish = { id: string; name: string; art: string; recipeId?: string; parts: Part[]; remember: string };
 
 const slot = (key: string, label: string, accepts: string[], optional = false): Slot => ({ key, label, accepts, optional });
@@ -103,6 +106,52 @@ export const DISHES: Record<string, Dish> = Object.fromEntries(([
     { slots: [slot("sago", "Sago", ["sago"])], secs: 4, hint: "sago pearls" },
     { slots: [slot("cream", "Coconut milk", ["coconut-milk"]), slot("leaf", "Pandan", ["pandan"])], secs: 3, hint: "coconut milk and pandan", splitIfHot: ["coconut-milk"] },
   ], "Coconut milk splits if it boils hard; keep a dessert at a gentle heat.", "bubur-cha-cha"),
+  // Chapter 3 (GAME_CONTENT_PLAN §3): the blender, and transfer. Pastes made at home show what went in; bought ones can hide belacan or fish sauce.
+  one("coconut-chutney", "Coconut chutney", "dish-coconut-chutney", "blender", [
+    { slots: [slot("coconut", "Grated coconut", ["grated-coconut"]), slot("chilli", "Green chilli", ["green-chilli"]), slot("aroma", "Ginger", ["ginger"], true)], secs: 3, hint: "coconut and green chilli" },
+    { slots: [slot("tang", "Tamarind", ["tamarind", "lime"]), slot("salt", "Salt", ["salt"])], secs: 2, hint: "tamarind and salt" },
+  ], "A blender only needs the lid on and a little time. Ginger is optional, so leave it out for a Jain guest."),
+  one("mint-chutney", "Mint chutney", "dish-mint-chutney", "blender", [
+    { slots: [slot("herb", "Mint", ["mint"]), slot("green", "Coriander", ["coriander"]), slot("chilli", "Green chilli", ["green-chilli"])], secs: 3, hint: "mint, coriander and green chilli" },
+    { slots: [slot("tang", "Lime", ["lime"]), slot("creamy", "Yoghurt", ["yoghurt", "coconut-milk"])], secs: 2, hint: "lime and something creamy" },
+  ], "Yoghurt is dairy, so it is not vegan. Coconut milk makes the chutney creamy for a vegan guest."),
+  dish({
+    id: "sambal-tempeh", name: "Sambal tempeh", art: "dish-sambal-tempeh",
+    remember: "Blend your own sambal and you know what is in it. Bought sambal often hides belacan, a shrimp paste.",
+    parts: [
+      { id: "sambal-blend", name: "Sambal", station: "blender", makes: "fresh-sambal", stages: [
+        { slots: [slot("chilli", "Chillies", ["red-chilli", "dried-chillies"]), slot("aroma", "Aromatic", ["shallots", "ginger"]), slot("sour", "Tamarind", ["tamarind"])], secs: 3, hint: "chillies, an aromatic and tamarind" }] },
+      { id: "sambal-tempeh", name: "Sambal tempeh", station: "pan", stages: [
+        { slots: [slot("oil", "Oil", ["cooking-oil"]), slot("sambal", "Sambal", ["fresh-sambal", "sambal-a", "sambal-b"])], secs: 3, hint: "oil and the sambal", band: [0.45, 0.75] },
+        { slots: [slot("tempeh", "Tempeh", ["tempeh"]), slot("sweet", "Sugar", ["gula-melaka", "brown-sugar"])], secs: 4, hint: "tempeh and sugar" }] },
+    ],
+  }),
+  dish({
+    id: "laksa-scratch", name: "Laksa from scratch", art: "dish-laksa",
+    remember: "Rempah is the spice paste behind laksa. Fry it hot until fragrant, then lower the heat for the coconut milk.",
+    parts: [
+      { id: "laksa-rempah", name: "Rempah", station: "blender", makes: "laksa-rempah", stages: [
+        { slots: [slot("grass", "Lemongrass", ["lemongrass"]), slot("root", "Galangal or ginger", ["galangal", "ginger"]), slot("chilli", "Chillies", ["dried-chillies", "red-chilli"])], secs: 3, hint: "lemongrass, galangal and chillies" },
+        { slots: [slot("nut", "Candlenuts", ["candlenuts"]), slot("spice", "Turmeric", ["turmeric"])], secs: 2, hint: "candlenuts and turmeric" }] },
+      { id: "laksa-scratch", name: "Laksa", station: "pot", stages: [
+        { slots: [slot("oil", "Oil", ["cooking-oil"]), slot("rempah", "Rempah", ["laksa-rempah", "rempah-a", "rempah-b"])], secs: 4, hint: "oil and the rempah", band: [0.5, 0.78] },
+        { slots: [slot("stock", "Stock", ["stock-a", "stock-b"]), slot("cream", "Coconut milk", ["coconut-milk"])], secs: 5, hint: "stock and coconut milk", band: [0.25, 0.48], splitIfHot: ["coconut-milk"] },
+        { slots: [slot("noodles", "Rice noodles", ["rice-noodles"]), slot("tofu", "Tofu puffs", ["tofu"])], secs: 3, hint: "noodles and tofu", band: [0.25, 0.48] }] },
+    ],
+  }),
+  dish({
+    id: "green-curry", name: "Green curry", art: "dish-green-curry",
+    remember: "Bought curry pastes often contain fish sauce or shrimp. Blend your own, or read the label.",
+    parts: [
+      { id: "green-paste", name: "Green paste", station: "blender", makes: "green-curry-paste", stages: [
+        { slots: [slot("chilli", "Green chilli", ["green-chilli"]), slot("grass", "Lemongrass", ["lemongrass"]), slot("root", "Galangal or ginger", ["galangal", "ginger"])], secs: 3, hint: "green chilli, lemongrass and galangal" },
+        { slots: [slot("herb", "Coriander", ["coriander"]), slot("leaf", "Lime leaves", ["lime-leaves"], true)], secs: 2, hint: "coriander" }] },
+      { id: "green-curry", name: "Green curry", station: "pot", stages: [
+        { slots: [slot("paste", "Curry paste", ["green-curry-paste", "curry-paste-a", "curry-paste-b"]), slot("cream", "Coconut milk", ["coconut-milk"])], secs: 4, hint: "curry paste and coconut milk", band: [0.25, 0.5], splitIfHot: ["coconut-milk"] },
+        { slots: [slot("veg", "Eggplant", ["eggplant"]), slot("protein", "Tofu or tempeh", ["tofu", "tempeh"])], secs: 4, hint: "eggplant and tofu", band: [0.25, 0.5] },
+        { slots: [slot("sweet", "Palm sugar", ["gula-melaka", "brown-sugar"]), slot("basil", "Thai basil", ["thai-basil"], true)], secs: 2, hint: "palm sugar", band: [0.25, 0.5] }] },
+    ],
+  }),
   one("sago", "Sago gula melaka", "dish-sago", "dessert", [
     { slots: [slot("sago", "Sago", ["sago"])], secs: 5, hint: "sago pearls" },
     { slots: [slot("syrup", "Gula melaka", ["gula-melaka"]), slot("cream", "Coconut milk", ["coconut-milk"])], secs: 3, hint: "gula melaka and coconut milk", scorchSecs: 1, splitIfHot: ["coconut-milk"] },
@@ -115,4 +164,5 @@ export const STATIONS: Record<StationKind, { name: string; art: string; heat: bo
   dessert: { name: "Dessert pot", art: "dessert-pot", heat: true, onRate: 0.8, offRate: 0.45, gain: 0.3, loss: 0.34, band: [0.22, 0.44], scorch: 0.6, scorchSecs: 1.5 },
   rice: { name: "Rice cooker", art: "rice-cooker", heat: false, onRate: 0, offRate: 0, gain: 0, loss: 0, band: [0, 1], scorch: 2, scorchSecs: 99 },
   board: { name: "Assembly board", art: "assembly-board", heat: false, onRate: 0, offRate: 0, gain: 0, loss: 0, band: [0, 1], scorch: 2, scorchSecs: 99 },
+  blender: { name: "Blender", art: "blender", heat: false, onRate: 0, offRate: 0, gain: 0, loss: 0, band: [0, 1], scorch: 2, scorchSecs: 99 },
 };

@@ -43,8 +43,8 @@ const TECH: [string, RegExp][] = [
   ["pan", /\b(stir.?fry|stir.?fried|saut[ée]|fry|fried|temper|wok|pan.?fr(y|ied)|sear|toss|heat the oil|heat oil)\b/i],
   ["board", /\b(assemble|layer|roll up|top with|spoon over|arrange|serve with|mix|combine|dress)\b/i],
 ];
-const BUILT: Record<string, StationKind> = { pan: "pan", pot: "pot", rice: "rice", board: "board" };
-const SIDE = new Set(["blend", "chill"]);
+const BUILT: Record<string, StationKind> = { pan: "pan", pot: "pot", rice: "rice", board: "board", blend: "blender", blender: "blender" };
+const SIDE = new Set(["chill"]);
 const PREP = /^(rinse|wash|drain|soak|peel|chop|cut|slice|dice|shred|grate|mince|prepare|pat|set aside|measure|knot|crush)/i;
 
 export const ingredientKey = (name: string) => name.toLowerCase().replace(/\(.*?\)/g, "").split(",")[0].trim();
@@ -124,14 +124,19 @@ export function shapeProblem(c: Compiled, s: Shape): string | null {
 /** Step 3's input: the level pack from a recipe, its draft and a checked shape. Throws PackError when the pack is not valid. */
 export function buildPack(r: RecipeInput, c: Compiled, s: Shape): LevelPack {
   const id = "t-" + slug(r.id), used = new Set(s.parts.flatMap(p => p.stages.flatMap(st => st.items)));
+  // Transfer (§8.7): a blender part followed by another station makes a paste that part's first step takes; a blender part alone is the dish.
+  const paste = s.parts.some((p, n) => p.station === "blender" && n < s.parts.length - 1) ? { id: (id + "-paste").slice(0, 40), name: (r.name.slice(0, 50) + " paste") } : null;
+  const pasteAt = paste ? s.parts.findIndex(p => p.station === "blender") : -1;
   return readPack({
     format: 1, id: "recipe-" + slug(r.id),
-    techniques: s.parts.map(p => p.station),
-    items: [...c.items.values()].filter(i => used.has(i.id)),
+    techniques: [...new Set(s.parts.map(p => p.station))],
+    items: [...[...c.items.values()].filter(i => used.has(i.id)), ...(paste ? [{ id: paste.id, name: paste.name, art: "card-" + paste.id, tray: "pantry" }] : [])],
+    ...(paste ? { forms: { [paste.id]: { form: "pour", tone: "red" } } } : {}),
     ...(c.unreviewed.size ? { unreviewed: [...c.unreviewed].filter(i => used.has(i)) } : {}),
     dishes: [{ id, name: r.name.slice(0, 60), art: "dish-" + slug(r.id), recipeId: r.id, remember: s.remember.trim(),
-      parts: s.parts.map((p, n) => ({ id: id + "-" + n, name: r.name.slice(0, 60), station: p.station,
-        stages: p.stages.map((st, k) => ({ slots: st.items.map((it, j) => ({ key: "s" + j, label: nameOf(c, it).slice(0, 40), accepts: [it] })),
-          secs: p.station === "rice" && k === 0 ? 10 : p.station === "board" ? 0 : 3, hint: st.hint.trim() })) })) }],
+      parts: s.parts.map((p, n) => ({ id: id + "-" + n, name: r.name.slice(0, 60), station: p.station, ...(n === pasteAt ? { makes: paste!.id } : {}),
+        stages: [...(paste && n === pasteAt + 1 ? [{ slots: [{ key: "paste", label: "Blended paste", accepts: [paste.id] }], secs: 2, hint: "the blended paste" }] : []),
+          ...p.stages.map((st, k) => ({ slots: st.items.map((it, j) => ({ key: "s" + j, label: nameOf(c, it).slice(0, 40), accepts: [it] })),
+            secs: p.station === "rice" && k === 0 ? 10 : p.station === "board" ? 0 : 3, hint: st.hint.trim() }))] })) }],
   });
 }

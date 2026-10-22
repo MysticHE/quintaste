@@ -77,7 +77,7 @@ export default function RushHour(props: Props) {
   // Already resolved by the app (Play your way over the app and phone setting), so a WebView's own media query never overrides it.
   const reduced = !!props.reduceMotion;
   const fx = useFeedback(settings, props.onHaptic);
-  const input = useRef<PlayfieldInput>({ onStation: noop, onGuest: noop, onServeDrag: noop, onPlateDrag: noop });
+  const input = useRef<PlayfieldInput>({ onStation: noop, onGuest: noop, onServeDrag: noop, onPlateDrag: noop, onTransfer: noop });
   const { rootRef, stageRef, sceneRef, L, reboot } = usePlayfield(runRef, runRef.current.level.seats, runRef.current.level.stations, art,
     { reduced }, input, bump);
   const [paused, setPaused] = useState(false);
@@ -134,6 +134,7 @@ export default function RushHour(props: Props) {
     onGuest: id => { sim.setFocus(runRef.current, id); after(); },
     onServeDrag: (i, id) => { sim.serve(runRef.current, i, id); after(); },
     onPlateDrag: k => { sim.plate(runRef.current, k); after(); },
+    onTransfer: (from, to) => { sim.transfer(runRef.current, from, to); after(); },
   };
   // Shelf handlers are stable (the shelf is memoised) and read the current run and layout through refs.
   const latestLayout = useRef(L); latestLayout.current = L;
@@ -185,7 +186,7 @@ export default function RushHour(props: Props) {
       <RecipeCard run={run} L={L} art={art} />
       <SeatTags L={L} />
       <Bubbles run={run} L={L} art={art} plateSel={sceneRef.current?.dragSlot ?? null} onGuest={id => input.current.onGuest(id)} />
-      <StationTags run={run} L={L} plateSel={sceneRef.current?.dragSlot ?? null} dragging={sceneRef.current?.dragKind ?? null} onSelect={k => input.current.onStation(k)} onRestart={act.restart} />
+      <StationTags run={run} L={L} plateSel={sceneRef.current?.dragSlot ?? null} dragging={sceneRef.current?.dragPaste ? null : sceneRef.current?.dragKind ?? null} onSelect={k => input.current.onStation(k)} onRestart={act.restart} />
       <PlateTags run={run} L={L} incoming={sceneRef.current?.incomingSlots} />
       <Basket run={run} L={L} art={art} over={basketOver} />
       <Shelf run={run} L={L} art={art} nudge={ev.nudge} stock={shortStock} onHint={shelf.hint} onDrop={shelf.drop} onHover={shelf.hover} onLabel={shelf.label} />

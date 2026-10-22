@@ -16,6 +16,8 @@ import { STATION_ART } from "./stationArt";
 export type SceneHooks = {
   onStation(kind: StationKind): void; onGuest(orderId: string): void;
   onServeDrag(slot: number, orderId: string): void; onPlateDrag(kind: StationKind): void;
+  /** A ready paste dragged from one station onto another (transfer). */
+  onTransfer(from: StationKind, to: StationKind): void;
   /** The scene has built its first frame; it hands itself over, since Phaser creates scenes only after it boots. */
   ready(scene: Playfield): void;
 };
@@ -48,6 +50,8 @@ export class Playfield extends Phaser.Scene {
   hover: StationKind | null = null;
   /** A ready dish being carried from this station, and the board slot of a plate being carried to a guest (the DOM lights up its targets). */
   dragKind: StationKind | null = null; dragSlot: number | null = null;
+  /** The dish being carried is a paste: it goes onto another station, not the plates. */
+  dragPaste = false;
   /** Item uids, board slots and seats whose food is still flying in; each shows only when it lands. */
   readonly landing = new Set<number>(); readonly incomingSlots = new Set<number>(); readonly incomingSeats = new Set<number>();
   private guests = new Map<string, Img>();
@@ -137,23 +141,33 @@ export class Playfield extends Phaser.Scene {
     const zone = this.zone(r, 10, true);
     zone.on("pointerup", (p: Phaser.Input.Pointer) => { if (p.getDistance() < TAP) this.hooks.onStation(kind); });
     zone.on("dragstart", (p: Phaser.Input.Pointer) => this.startDishDrag(kind, p));
-    zone.on("drag", (p: Phaser.Input.Pointer) => this.ghost?.setPosition(p.worldX, p.worldY - 14));
+    zone.on("drag", (p: Phaser.Input.Pointer) => {
+      this.ghost?.setPosition(p.worldX, p.worldY - 14);
+      if (this.dragPaste && this.dragKind === kind) { const over = this.stationAt(p.worldX, p.worldY); this.hover = over !== kind ? over : null; }
+    });
     zone.on("dragend", (p: Phaser.Input.Pointer) => {
-      const b = this.L.plating, moved = p.getDistance() >= TAP, carrying = this.dragKind === kind;
+      const b = this.L.plating, moved = p.getDistance() >= TAP, carrying = this.dragKind === kind, paste = this.dragPaste, to = this.stationAt(p.worldX, p.worldY);
       this.endDishDrag(); zone.setPosition(r.x + r.w / 2, r.y + r.h / 2);
-      if (carrying && moved && p.worldX >= b.x - 8 && p.worldX <= b.x + b.w + 8 && p.worldY >= b.y - 8 && p.worldY <= b.y + b.h + 8) this.hooks.onPlateDrag(kind);
+      if (!carrying || !moved) return;
+      if (paste) { if (to && to !== kind) this.hooks.onTransfer(kind, to); return; }
+      if (p.worldX >= b.x - 8 && p.worldX <= b.x + b.w + 8 && p.worldY >= b.y - 8 && p.worldY <= b.y + b.h + 8) this.hooks.onPlateDrag(kind);
     });
     this.stations.set(kind, { glow, hi, ring, pan, steam, smoke });
   }
-  /** A ready dish lifts off its station and follows the finger to the plates; anything else is not carried. */
+  /** A ready dish lifts off its station and follows the finger to the plates (a paste, to another station); anything else is not carried. */
   private startDishDrag(kind: StationKind, p: Phaser.Input.Pointer) {
     const pr = this.run.stations[kind]?.part;
     if (!pr || pr.state !== "ready") return;
-    this.dragKind = kind;
-    const key = DISHES[pr.dishId].art;
+    const made = sim.partOf(pr).makes;
+    this.dragKind = kind; this.dragPaste = !!made;
+    const key = made ? ITEMS[made]?.art ?? DISHES[pr.dishId].art : DISHES[pr.dishId].art;
     if (this.textures.exists(key)) this.ghost = this.fit(this.add.image(p.worldX, p.worldY - 14, key).setDepth(40), 70, 70);
   }
-  private endDishDrag() { this.ghost?.destroy(); this.ghost = null; this.dragKind = null; }
+  private endDishDrag() { this.ghost?.destroy(); this.ghost = null; this.dragKind = null; if (this.dragPaste) this.hover = null; this.dragPaste = false; }
+  /** The station under a point, if any (its art and the tag below it). */
+  private stationAt(x: number, y: number) {
+    return (Object.keys(this.L.stations) as StationKind[]).find(k => { const s = this.L.stations[k]!; return x >= s.x && x <= s.x + s.w && y >= s.y - 12 && y <= s.y + s.h; }) ?? null;
+  }
   private tones(): Tones { const P = this.pal; return { soy: P.soy, oil: P.oil, cream: P.cream, red: P.red, white: P.white, gold: P.gold, dark: P.dark, cooked: P.cooked, char: P.char, light: P.light }; }
   private zone(r: Rect, depth: number, draggable = false) {
     return this.add.zone(r.x + r.w / 2, r.y + r.h / 2, r.w, r.h).setInteractive({ useHandCursor: true, draggable }).setDepth(depth);
@@ -223,7 +237,7 @@ export class Playfield extends Phaser.Scene {
   private updatePlates() {
     this.run.board.forEach((p, i) => {
       const v = this.plates[i], b = this.L.board[i]; if (!v) return;
-      v.glow.setFillStyle(this.pal.focus, this.dragKind !== null && !p ? 0.6 : 0);
+      v.glow.setFillStyle(this.pal.focus, this.dragKind !== null && !this.dragPaste && !p ? 0.6 : 0);
       v.base.setY(b.y + b.h / 2);
       if (!p || this.incomingSlots.has(i)) { v.dish.setVisible(false); return; }
       const key = DISHES[p.dishId].art;

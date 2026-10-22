@@ -28,12 +28,11 @@ check(registerPack(builtin) === packHash(builtin) && Object.keys(DISHES).length 
 const expect = arg("expect");
 if (expect) check(rulesVersion === expect, `rules version ${rulesVersion} matches ${expect}`);
 
-// 2. A real recipe as a pack: Cabbage, pea and coconut poriyal (live QuinTaste recipe), wok only, six new ingredients.
+// 2. A real recipe as a pack: Cabbage, pea and coconut poriyal (live QuinTaste recipe), wok only, four new ingredients (green chilli and grated coconut are built in).
 const fresh = (id: string, name: string, extra: object = {}) => ({ id, name, art: "card-" + id, tray: "fresh", ...extra });
 const poriyal = {
   format: 1, id: "recipe-cabbage-peas-coconut-poriyal-r1", techniques: ["pan"],
-  items: [fresh("mustard-seeds", "Mustard seeds"), fresh("urad-dal", "Urad dal"), fresh("curry-leaves", "Curry leaves"),
-    fresh("green-chilli", "Green chilli", { tags: ["hot"] }), fresh("green-peas", "Green peas"), fresh("grated-coconut", "Grated coconut")],
+  items: [fresh("mustard-seeds", "Mustard seeds"), fresh("urad-dal", "Urad dal"), fresh("curry-leaves", "Curry leaves"), fresh("green-peas", "Green peas")],
   forms: { "mustard-seeds": { form: "sprinkle", tone: "dark" }, "urad-dal": { form: "sprinkle", tone: "white" } },
   dishes: [{
     id: "poriyal", name: "Cabbage poriyal", art: "dish-poriyal", recipeId: "cabbage-peas-coconut-poriyal",

@@ -222,6 +222,45 @@ Content, not code, sets the pace. Each chapter needs about 10 reviewed staff rec
 - **Release needs** `levels.sql` applied again (additive) with the operations role after a backup.
 - **Still to build:** For you, quits and reactions, and the revocation list.
 
+**Phase 1 finished, and Chapter 3 (22 October 2026, after commit d91944f; owner decisions the same day: kitchen credits 8 a recipe, three a day; five paid replays a day; Chapter 3 next; commit only):**
+- **Credits** (`DAILY_CREDITS` in `cosmetics.ts`, kept out of the rules version so no app is asked to update; enforced on the server):
+  - A Recipe Kitchen recipe pays 8 credits once, on its first clear at any tier (ledger kind `kitchen`, source `recipe:<id>`).
+  - The first three such recipes a Singapore day pay, and never a member's own recipe.
+  - Main-path and Today's special replays pay for the first five a day; later ones say so and still count for stars and bests.
+  - Guests' device credits stay as they were (the account import already caps them by bests).
+- **For you and New** (`src/game/kitchen-rows.ts`):
+  - For you holds playable levels whose next tier this player should clear 60 to 80 percent of the time, with saved recipes first. When none fall in the band, the closest still show.
+  - New holds levels fewer than ten players have tried, newest first.
+  - Both leave out locked, finished and held levels.
+  - The Kitchen list now carries the player's rating, each tier's difficulty, when the level went live, whether it is held, and the member's reaction.
+- **Quits and reactions:**
+  - Quitting a recipe level now reports the run: it settles as a quit and counts as a rated attempt.
+  - After a saved finish, two icon buttons say liked or not (`game.level_reaction`, only from finishers).
+  - A level leaves For you and New once at least 10 plays have more than 40 percent quits, or at least 10 reactions have more than 40 percent dislikes. It stays on its shelf.
+- **Revocation list:**
+  - The phone keeps the last 20 public recipe levels it played (`src/services/game-packs.ts`), so one can be played offline as practice. Private levels are never kept.
+  - Whenever the shelf or a level loads online, levels on `GET /api/game-public/revoked` (hidden by staff) are dropped.
+  - A server answer such as a hidden level is final; only an unreachable server falls back to the kept copy.
+- **Chapter 3, the spice stall (Levels 21 to 30):**
+  - **Blender:** a timed appliance (`StationKind` `blender`, opens at Level 21 in the Recipe Kitchen too).
+  - **Transfer:**
+    - A part with `makes` is never plated. Once ready it is dragged onto the station whose part takes that paste (`transfer` in the engine, replayed by the server).
+    - The paste carries what was blended into it, so every guest rule sees it (blended shallots still break a no five pungent order).
+    - A poured paste can't be lifted out, and is never on the shelf.
+  - **Dishes:** coconut chutney, mint chutney (yoghurt is the vegan trap), sambal tempeh, laksa from scratch, green curry. Bought rempah and curry-paste jars hide belacan or fish sauce on their labels.
+  - **Levels:** follow the chapter pattern (introduce, practise twice, mixed review, the rule, breather, rush, twist, review, finale).
+  - **Test player:** blends what suits everyone waiting for the dish and counts a poured paste as made. Every level clears 4 of 4 at 0.7 and 2.2 s per action. At 3.5 s, Levels 21 to 26 clear and the rush, twist, review and finale do not, as in Chapter 2.
+  - **Rules version:** changes with this content, so older apps are asked to update. New look-alike jars change every level's seeded jar shuffle; Levels 1 to 19 still clear at every speed, and Level 20 drops one seed at 2.2 s, as before.
+  - **Recipe compiler:** "blend" steps now compile to the blender, with the paste poured into the next station. "Nasi lemak with sambal tempeh" plays as rice cooker, blender and wok, 6 of 6 at 2.2 s.
+  - **Art:** the blender, four new dishes and 14 ingredients play as Sketch cards. QT Gamer's list for them is `ops/qt-team/gamer/concepts-chapter3.json`, not run yet. The chapter reward (Spice market skin) waits for that art, so Level 30 unlocks nothing yet.
+- **Checked locally:**
+  - Validator: every level and all 1,354 specials at 0.7 s.
+  - Pack checks, including the new row and Gather checks.
+  - API suites: missions 46, level making 21, pictures 13, level limits (now counting from the real number of levels).
+  - The playfield harness at phone width: blend, pour onto the wok, card and chef wording.
+  - TypeScript, server typecheck and lint.
+- **Still to build:** member levels (Phase 4), Chapters 4 to 10, seasons, cafés.
+
 **"Everything covered"** = Chapter 10 shipped, all eight seasons live, cafés open. Phases 1, 2 and 3 can run side by side once Phase 0 is done.
 
 ## 12. How we'll know it works

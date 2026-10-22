@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "note": "Rush Hour Chapter 3, the spice stall (GAME_CONTENT_PLAN §3), 22 Oct 2026. The game plays these as Sketch cards until each is approved and imported with scripts/import-game-art.py. Fictional labels only, never real brands.",
+  "assets": [
+    { "id": "blender", "kind": "prop", "chroma": "magenta", "subject": "a countertop blender for a cooking game station", "details": "A sturdy cream-coloured blender base with a tall clear jug and a coral lid, about two-thirds of the image tall. Empty jug, front three-quarter view, soft rounded shapes.", "status": "todo" },
+    { "id": "dish-sambal-tempeh", "kind": "dish", "chroma": "cyan", "subject": "sambal tempeh in a small bowl", "details": "Crisp golden tempeh cubes glossy with deep red chilli sambal, a few curry leaves on top. No meat, no seafood, no egg.", "status": "todo" },
+    { "id": "dish-coconut-chutney", "kind": "dish", "chroma": "magenta", "subject": "coconut chutney in a small steel bowl", "details": "Thick pale white coconut chutney flecked with green chilli, a spoonful of tempered mustard seeds and curry leaves on top. No dairy.", "status": "todo" },
+    { "id": "dish-mint-chutney", "kind": "dish", "chroma": "magenta", "subject": "mint chutney in a small bowl", "details": "Bright green smooth mint and coriander chutney with a lime wedge beside it.", "status": "todo" },
+    { "id": "dish-green-curry", "kind": "dish", "chroma": "magenta", "subject": "vegetarian green curry in a bowl", "details": "Pale green coconut curry with eggplant pieces, tofu cubes and Thai basil leaves. No meat, no seafood, no egg.", "status": "todo" },
+    { "id": "lemongrass", "kind": "ingredient", "chroma": "magenta", "subject": "two stalks of fresh lemongrass", "details": "Pale green and cream stalks with trimmed ends, tied loosely.", "status": "todo" },
+    { "id": "galangal", "kind": "ingredient", "chroma": "magenta", "subject": "a knob of fresh galangal root", "details": "Cream skin with faint pink rings, firmer and paler than ginger.", "status": "todo" },
+    { "id": "green-chilli", "kind": "ingredient", "chroma": "magenta", "subject": "two fresh green chillies", "details": "Long glossy bright green chillies with short stems.", "status": "todo" },
+    { "id": "lime-leaves", "kind": "ingredient", "chroma": "magenta", "subject": "a sprig of kaffir lime leaves", "details": "Glossy dark green double leaves on a small stem.", "status": "todo" },
+    { "id": "thai-basil", "kind": "ingredient", "chroma": "magenta", "subject": "a bunch of Thai basil", "details": "Green leaves with purple stems and a small purple flower spike.", "status": "todo" },
+    { "id": "eggplant", "kind": "ingredient", "chroma": "cyan", "subject": "a long purple eggplant", "details": "Slim glossy purple eggplant with a green cap.", "status": "todo" },
+    { "id": "mint", "kind": "ingredient", "chroma": "magenta", "subject": "a bunch of fresh mint", "details": "Bright green crinkled mint leaves on stems.", "status": "todo" },
+    { "id": "lime", "kind": "ingredient", "chroma": "magenta", "subject": "two small limes, one cut in half", "details": "Bright green limes; the cut half shows pale green flesh.", "status": "todo" },
+    { "id": "grated-coconut", "kind": "ingredient", "chroma": "magenta", "subject": "a small bowl of freshly grated coconut", "details": "Snowy white grated coconut heaped in a wooden bowl.", "status": "todo" },
+    { "id": "yoghurt", "kind": "packaged", "chroma": "magenta", "subject": "a small tub of plain yoghurt", "details": "White tub with a simple label reading 'Plain yoghurt'.", "status": "todo" },
+    { "id": "candlenuts", "kind": "ingredient", "chroma": "magenta", "subject": "a small pile of candlenuts", "details": "Round creamy-white nuts with a waxy look.", "status": "todo" },
+    { "id": "tamarind", "kind": "packaged", "chroma": "magenta", "subject": "a block of tamarind pulp", "details": "Dark brown sticky tamarind block in clear wrap with a small label reading 'Tamarind'.", "status": "todo" },
+    { "id": "rempah", "kind": "packaged", "chroma": "cyan", "subject": "a glass jar of laksa paste", "details": "Jar of orange-red spice paste with a plain label reading 'Laksa paste'. The two look-alike jars share this picture; only the label text in the game tells them apart.", "status": "todo" },
+    { "id": "curry-paste", "kind": "packaged", "chroma": "magenta", "subject": "a small tub of green curry paste", "details": "Tub of thick green paste with a plain label reading 'Green curry paste'. Both look-alike tubs share this picture.", "status": "todo" }
+  ]
+}

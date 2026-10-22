@@ -54,6 +54,11 @@ export function useServiceEvents(options: Options) {
           const st = r.stations[e.station];
           if (st && STATIONS[e.station].heat && st.H >= sim.bandOf(st, st.part)[0]) fx.cue("sizzle");
         }
+        if (e.type === "poured") {
+          // The paste flies from its station's bowl into the next one.
+          const L = sc?.L, b = L?.stations[e.from]?.bowl;
+          sc?.itemIn(e.item, e.uid, e.station, b ? { x: b.x, y: b.y } : origin.current ?? { x: 0, y: 0 }); origin.current = null; fx.cue("place");
+        }
         if (e.type === "rejected") { setNudge({ id: e.item, key: Date.now() }); origin.current = null; fx.haptic("warning"); }
         if (e.type === "plated") {
           const p = r.board[e.slot]; fx.cue("plate");

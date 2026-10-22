@@ -8,7 +8,7 @@
 import { memo, useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import { DISHES, type StationKind } from "../content/dishes";
 import { ITEMS, itemName } from "../content/items";
-import type * as sim from "../sim/engine";
+import * as sim from "../sim/engine";
 import { box, type Art } from "./Hud";
 import type { Layout, Point } from "./layout";
 import { useShelfGesture } from "./shelfGesture";
@@ -18,7 +18,9 @@ export function shelfItems(run: sim.Run): string[] {
   const ids = new Set<string>(run.gather?.shelf ?? []);
   run.guests.forEach(g => DISHES[g.dishId].parts.forEach(p => p.stages.forEach(s => s.slots.forEach(sl => sl.accepts.forEach(a => ids.add(a))))));
   run.level.distractors.forEach(d => ids.add(d));
-  return [...ids].filter(id => ITEMS[id]);
+  // A blended paste comes from the blender, never the shelf.
+  const made = sim.madeItems();
+  return [...ids].filter(id => ITEMS[id] && !made.has(id));
 }
 
 type Props = {

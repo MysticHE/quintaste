@@ -11,6 +11,8 @@ export const STATION_ART: Record<StationKind, { size: [number, number]; bowl: Ar
   dessert: { size: [320, 293], bowl: { x: 0.47, y: 0.37, rx: 0.27, ry: 0.1 }, flame: { x: 0.47, y: 0.8, rx: 0.22, ry: 0.04 } },
   rice: { size: [318, 320], bowl: { x: 0.5, y: 0.2, rx: 0.2, ry: 0.07 }, flame: { x: 0.5, y: 0.9, rx: 0.1, ry: 0.02 }, closed: true },
   board: { size: [320, 212], bowl: { x: 0.49, y: 0.44, rx: 0.3, ry: 0.2 }, flame: { x: 0.5, y: 0.9, rx: 0.1, ry: 0.02 } },
+  // A lidded jug: like the rice cooker, what is blending stays out of sight. Sized for QT Gamer's station art (a Sketch until approved).
+  blender: { size: [240, 320], bowl: { x: 0.5, y: 0.45, rx: 0.22, ry: 0.08 }, flame: { x: 0.5, y: 0.92, rx: 0.1, ry: 0.02 }, closed: true },
 };
 /** The wooden plating board ("board" art) and the plate art laid on it. */
 export const PLATING_ART: [number, number] = [320, 143];

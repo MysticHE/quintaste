@@ -40,6 +40,7 @@ export function usePlayfield(runRef: MutableRefObject<sim.Run>, seats: number, s
       ready: (sc: Playfield) => { sceneRef.current = sc; const now = layoutRef.current; if (now && sc.L !== now) sc.setLayout(now); onReady(); },
       onStation: (k: StationKind) => input.current.onStation(k), onGuest: (id: string) => input.current.onGuest(id),
       onServeDrag: (i: number, id: string) => input.current.onServeDrag(i, id), onPlateDrag: (k: StationKind) => input.current.onPlateDrag(k),
+      onTransfer: (from: StationKind, to: StationKind) => input.current.onTransfer(from, to),
     };
     const game = new Phaser.Game({ type: Phaser.AUTO, parent: stageRef.current, width: lay.w * DPR, height: lay.h * DPR, transparent: true, banner: false,
       scale: { mode: Phaser.Scale.NONE, zoom: 1 / DPR }, render: { antialias: true }, input: { activePointers: 2, windowEvents: false } });

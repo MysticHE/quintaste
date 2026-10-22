@@ -135,7 +135,7 @@ The 16 built-in dishes are already data: `src/game/content/dishes.ts` lists each
 | Bake, roast | Oven | Not built |
 | Steam | Steamer | Not built |
 | Deep-fry | Oil pot with temperature | Not built |
-| Blend, whisk | Blender (play is drag only, so no holding a button) | Not built |
+| Blend, whisk | Blender (play is drag only, so no holding a button), with transfer into the next station | Built 22 Oct (Chapter 3) |
 | Rest, set, chill (agar, overnight oats) | Waiting stage | Not built |
 | Knead, roll, fold dough | Dough board | Not built |
 | Wash, cut, soak | Prep | Shown on the recipe card, not played |

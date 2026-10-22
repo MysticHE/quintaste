@@ -71,9 +71,10 @@ function readStage(v: unknown, where: string, known: (item: string) => boolean):
 function readDish(v: unknown, i: number, techniques: Set<string>, known: (item: string) => boolean): Dish {
   const where = "dish " + i, o = obj(v, where, ["id", "name", "art", "recipeId", "parts", "remember"]);
   const parts = list(o.parts, where, 1, LIMITS.parts).map((p, k): Part => {
-    const pw = where + " part " + k, po = obj(p, pw, ["id", "name", "station", "stages"]);
+    const pw = where + " part " + k, po = obj(p, pw, ["id", "name", "station", "stages", "makes"]);
     const station = typeof po.station === "string" && techniques.has(po.station) ? po.station as StationKind : fail(pw + ": station not in techniques");
-    return { id: id(po.id, pw), name: text(po.name, pw, 60), station, stages: list(po.stages, pw, 1, LIMITS.stages).map((s, n) => readStage(s, pw + " stage " + n, known)) };
+    const part: Part = { id: id(po.id, pw), name: text(po.name, pw, 60), station, stages: list(po.stages, pw, 1, LIMITS.stages).map((s, n) => readStage(s, pw + " stage " + n, known)) };
+    return put(part, "makes", po.makes === undefined ? undefined : known(id(po.makes, pw)) ? po.makes : fail(pw + ": unknown item " + String(po.makes)));
   });
   const dish: Dish = { id: id(o.id, where), name: text(o.name, where, 60), art: art(o.art, where), parts, remember: text(o.remember, where, 240) };
   return put(dish, "recipeId", o.recipeId === undefined ? undefined : text(o.recipeId, where, 151));

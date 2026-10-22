@@ -29,7 +29,7 @@ export function SeatTags({ L }: { L: Layout }) {
     <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" /><path d="M4 21a8 8 0 0 1 16 0z" /></svg>{i + 1}</span>)}</>;
 }
 
-const SHORT: Record<StationKind, string> = { pan: "Wok", pot: "Pot", rice: "Rice", dessert: "Sweet", board: "Board" };
+const SHORT: Record<StationKind, string> = { pan: "Wok", pot: "Pot", rice: "Rice", dessert: "Sweet", board: "Board", blender: "Blend" };
 /** A station's state in two or three words (`short` for a narrow station), and how it reads. */
 export function stationState(run: sim.Run, kind: StationKind): { text: string; short: string; tone: "idle" | "cook" | "ready" | "warn" } {
   const st = run.stations[kind]!, pr = st.part, cfg = STATIONS[kind], [lo, hi] = sim.bandOf(st, pr), many = Object.keys(run.stations).length > 1;
@@ -37,6 +37,8 @@ export function stationState(run: sim.Run, kind: StationKind): { text: string; s
   // A pot cooked for two says so while it cooks (not once it is ready, scorched or split).
   const two = pr?.portions === 2 ? "×2 " : "", cook = (text: string, short: string, tone: "idle" | "cook" | "warn") => ({ text: two + text, short: two + short, tone });
   if (!pr) return { text: many ? cfg.name : "Empty", short: many ? SHORT[kind] : "Empty", tone: "idle" };
+  // A blended paste is poured onto the station that takes it, not plated.
+  if (pr.state === "ready" && sim.partOf(pr).makes) return { text: "Ready · Pour it", short: "Pour it", tone: "ready" };
   if (pr.state === "ready") {
     if (pr.exposure > 0 && run.plan.neglect !== null) return { text: "Burning! Drag it out", short: "Burning!", tone: "warn" };
     return { text: "Ready · Drag it", short: "Drag it", tone: "ready" };
