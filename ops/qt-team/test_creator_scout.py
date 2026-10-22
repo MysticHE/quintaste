@@ -1,5 +1,5 @@
 """Weekly creator scout (creator_scout.py): diet claims from the creator's own words only, the YouTube endpoint allowlist, quotes
-checked on stored pages, Instagram pacing and the 24-hour stop, and the hand-off to the app. No network."""
+checked on stored pages, public profile links from the creator's own pages only, no duplicates, and the hand-off to the app. No network."""
 import tempfile
 import time
 import unittest
@@ -79,23 +79,36 @@ class CreatorScoutTests(unittest.TestCase):
         other = dict(raw, dietQuoteUrl='https://happycow.net/lotus')  # a directory, not the creator's own page
         self.assertEqual(cs.web_creator(self.root, other)[1], 'quote-not-from-own-page')
 
-    def test_instagram_is_paced_and_stops_for_a_day_on_refusal(self):
-        state, sleeps, users = {}, [], []
-        found = [{'name': 'A', 'channels': [{'platform': 'instagram', 'handle': '', 'url': 'https://www.instagram.com/a_kitchen/'}]},
-                 {'name': 'B', 'channels': [{'platform': 'instagram', 'handle': '', 'url': 'https://www.instagram.com/b_kitchen/'}]}]
-        def profile(user):
-            users.append(user)
-            if user == 'b_kitchen':
-                raise cs.Blocked('Instagram refused the request: TooManyRequestsException')
-            return {'followers': 900, 'posts': 12, 'bio': '', 'external': None}
-        refreshed, note = cs.instagram_pass(state, found, LIBRARY, profile, sleeps.append, now=1000)
-        self.assertEqual(users, ['a_kitchen', 'b_kitchen'])  # stopped at the refusal: the library's Instagram profile was not tried
-        self.assertEqual(found[0]['channels'][0]['followers'], 900)
-        self.assertEqual(len(sleeps), 1)
-        self.assertTrue(cs.PACE[0] <= sleeps[0] <= cs.PACE[1])
-        self.assertEqual(state['instagramPausedUntil'], 1000 + cs.INSTAGRAM_PAUSE)
-        self.assertIn('paused for 24 hours', note)
-        self.assertEqual(cs.instagram_pass(state, found, LIBRARY, profile, sleeps.append, now=2000)[0], [])  # still paused
+    def test_profile_links_come_only_from_the_creators_own_pages(self):
+        site = """<footer><a href="https://www.instagram.com/lotuskitchen/">IG</a> <a href="https://www.instagram.com/p/Cx1/">a post</a>
+            <a href="https://www.tiktok.com/@lotus.kitchen">TikTok</a> <a href="https://www.tiktok.com/@other/video/123">video</a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=x">share</a> <a href="https://www.facebook.com/LotusKitchenSG/">FB</a>
+            <a href="https://www.instagram.com/lotuskitchen">IG again</a> <a href="https://www.instagram.com/featuredfriend/">a friend</a>
+            <a href="https://linktr.ee/lotuskitchen">all links</a></footer>"""
+        bio = '<a href="https:\\/\\/www.xiaohongshu.com\\/user\\/profile\\/5f1b2c3d4e5f60718293a4b5">RED</a> <a href="https://www.pinterest.com/lotuskitchen/">Pins</a>'
+        pages = {'https://lotuskitchen.sg': site, 'https://linktr.ee/lotuskitchen': bio}
+        fetched = []
+        fetch = lambda url: fetched.append(url) or pages.get(url, '')
+        links = {c['platform']: c for c in cs.collect_links('https://lotuskitchen.sg', [], fetch)}
+        self.assertEqual(fetched, ['https://lotuskitchen.sg', 'https://linktr.ee/lotuskitchen'])  # never an Instagram or TikTok page
+        self.assertEqual({p: c['url'] for p, c in links.items()}, {
+            'instagram': 'https://www.instagram.com/lotuskitchen/', 'tiktok': 'https://www.tiktok.com/@lotus.kitchen',
+            'facebook': 'https://www.facebook.com/LotusKitchenSG', 'xiaohongshu': 'https://www.xiaohongshu.com/user/profile/5f1b2c3d4e5f60718293a4b5',
+            'pinterest': 'https://www.pinterest.com/lotuskitchen/'})  # the most-named Instagram account wins; posts, videos and share links ignored
+        self.assertEqual((links['instagram']['evidenceUrl'], links['pinterest']['evidenceUrl']), ('https://lotuskitchen.sg', 'https://linktr.ee/lotuskitchen'))
+        described = cs.collect_links(None, ['Recipes weekly! Instagram: https://instagram.com/vegantw TikTok https://www.tiktok.com/@vegantw'], fetch)
+        self.assertEqual(sorted(c['platform'] for c in described), ['instagram', 'tiktok'])  # from a YouTube description, nothing fetched
+
+    def test_links_pass_covers_new_finds_and_library_creators_monthly(self):
+        pages = {'https://woonheng.com': '<a href="https://www.tiktok.com/@woonheng">TikTok</a> <a href="https://www.instagram.com/woonheng/">IG</a>'}
+        state, sleeps = {}, []
+        found = [{'name': 'Lotus TV', 'website': None, 'region': 'asia', 'diets': ['vegan'], 'channels': [],
+                  '_links': ['https://www.instagram.com/lotustv/']}]
+        updates = cs.links_pass(state, found, LIBRARY, {}, lambda url: pages.get(url, ''), sleeps.append, now=10**9)
+        self.assertEqual([c['platform'] for c in found[0]['channels']], ['instagram'])
+        self.assertEqual([(u['name'], [c['platform'] for c in u['channels']]) for u in updates], [('Woon Heng', ['tiktok'])])  # Instagram already known
+        self.assertEqual(state['linksCheckedAt'], {'woon-heng': 10**9})
+        self.assertEqual(cs.links_pass(state, [], LIBRARY, {}, lambda url: pages[url], sleeps.append, now=10**9 + 86400), [])  # not again for a month
 
     def test_weekly_run_hands_new_creators_and_fresh_counts_to_the_app(self):
         (self.root / 'private').mkdir()
@@ -112,26 +125,23 @@ class CreatorScoutTests(unittest.TestCase):
                 return {'items': []}
             return {'items': [channel_item('UC9', 'Vegan Taiwan Home', 'Taiwanese vegan recipes', country='TW', custom='@vegantw')]}
         client, state = FakeClient(), {}
+        pages = {'https://lotuskitchen.sg': '<a href="https://www.instagram.com/lotus_kitchen_sg/">IG</a>',
+                 'https://woonheng.com': '<a href="https://www.tiktok.com/@woonheng">TikTok</a>'}
         summary = cs.run(self.root, state, self.root / 'scout', {'workerSeconds': 100}, client=client, run_model=model, youtube_get=get,
-                         instagram_profile=lambda user: {'followers': 51000, 'posts': 800, 'bio': '', 'external': None}, sleep=lambda s: None)
+                         fetch_page=lambda url: pages.get(url, ''), sleep=lambda s: None)
         creators, channels = client.sent
-        self.assertEqual([c['name'] for c in creators], ['Lotus Kitchen', 'Vegan Taiwan Home'])  # Singapore first; the unverified one dropped
-        self.assertEqual(channels, [{'creatorId': 'woon-heng', 'platform': 'instagram', 'handle': 'woonheng',
-                                     'url': 'https://www.instagram.com/woonheng/', 'followers': 51000, 'posts': 800}])
-        self.assertEqual((summary['found'], summary['web']), (2, 1))
+        self.assertEqual([c['name'] for c in creators], ['Lotus Kitchen', 'Vegan Taiwan Home', 'Woon Heng'])  # Singapore first; unverified dropped
+        self.assertEqual([c['url'] for c in creators[0]['channels']], ['https://www.instagram.com/lotus_kitchen_sg/'])
+        self.assertEqual([c['platform'] for c in creators[2]['channels']], ['tiktok'])  # attached to the library creator through its website
+        self.assertEqual(channels, [])
+        self.assertEqual((summary['found'], summary['web'], summary['links']), (2, 1, 2))
         self.assertIn('web candidates dropped: quote-not-on-page 1', summary['notes'])
 
     def test_run_without_a_key_or_library(self):
         model = lambda *a, **k: ({'creators': []}, {})
         client = FakeClient()
-        summary = cs.run(self.root, {}, self.root / 'scout', {}, client=client, run_model=model,
-                         instagram_profile=lambda user: None, sleep=lambda s: None)
+        summary = cs.run(self.root, {}, self.root / 'scout', {}, client=client, run_model=model, fetch_page=lambda url: '', sleep=lambda s: None)
         self.assertIn('no YouTube key installed', summary['notes'])
-        from unittest.mock import patch
-        import importlib.util
-        with patch.object(importlib.util, 'find_spec', return_value=None):  # the VPS venv may lack instaloader: skip, never crash
-            summary = cs.run(self.root, {}, self.root / 'scout', {}, client=FakeClient(), run_model=model)
-        self.assertIn('Instagram skipped: instaloader is not installed', summary['notes'])
         with self.assertRaises(RuntimeError):
             cs.run(self.root, {}, self.root / 'scout', {}, client=FakeClient(library=None), run_model=model)
 

@@ -1,23 +1,20 @@
 """Weekly creator scout (owner, 21 Oct 2026; docs/COOKER_CREATOR_LIBRARY_PLAN.md phase 2). Finds vegetarian and vegan recipe creators
-for the creator library, Singapore first, then Asia, then worldwide, and keeps their public channel counts fresh.
+for the creator library, Singapore first, then Asia, then worldwide, with their public profile links.
 
-Three sources, none signed in:
+Nothing is signed in and no social platform is read (owner, 22 Oct 2026: public links only):
 - the web: QT Cooker searches and returns creators with a diet quote from the creator's OWN page; a creator is kept only when that
   quote is on the stored capture of that page (so a model's guess never becomes a library entry);
 - YouTube: the free YouTube Data API v3 (key in private/youtube-api.key, restricted to this API and the VPS). Only its `search` and
   `channels` endpoints are called; every other googleapis.com address stays blocked (the paid Places API above all);
-- Instagram: Instaloader reads public profiles without logging in, at most MAX_INSTAGRAM a week, 8-15 seconds apart. Any refusal
-  stops Instagram for 24 hours (the same rule as Google Maps); it is never worked around.
-TikTok, Facebook and Xiaohongshu are recorded as links only (no maintained tool works without an account; owner, 21 Oct 2026).
+- profile links: Instagram, TikTok, Facebook, Xiaohongshu, Pinterest and YouTube links are taken from pages the creator publishes
+  (its website, its link-in-bio page, its YouTube description); the platforms themselves are never opened.
 Diets come only from the creator's own words. Results go to the app through creators_client.scout; staff edits are never overwritten.
 """
 from __future__ import annotations
 
 import json
-import os
 import random
 import re
-import sys
 import time
 import urllib.error
 import urllib.parse
@@ -26,11 +23,6 @@ from pathlib import Path
 
 import veg_kitchen_check as kc
 import veg_options_check as vc
-
-# Instaloader (MIT, pure Python, needs only requests) lives on the data volume, so it survives image updates; appended, never shadowing.
-VENDOR = Path(os.environ.get('QT_TEAM_ROOT', '/opt/data/qt-team')) / 'vendor'
-if VENDOR.is_dir() and str(VENDOR) not in sys.path:
-    sys.path.append(str(VENDOR))
 
 EVERY = 7 * 86400          # one scout a week
 RETRY = 86400              # a failed scout tries again the next day
@@ -43,10 +35,7 @@ ASIA = {'SG', 'MY', 'ID', 'TH', 'VN', 'PH', 'MM', 'KH', 'LA', 'BN', 'TL', 'CN', 
         'PK', 'BT', 'MV'}
 PLATFORMS = ('website', 'youtube', 'instagram', 'tiktok', 'facebook', 'xiaohongshu', 'pinterest', 'other')
 MAX_WEB = 15
-MAX_INSTAGRAM = 40
-INSTAGRAM_PAUSE = 86400
-PACE = (8, 15)
-STALE = 7 * 86400          # channel counts older than this are refreshed
+STALE = 7 * 86400          # YouTube counts older than this are refreshed
 MAX_REFRESH = 200
 GUARD = 'http://127.0.0.1:3128'
 USER_AGENT = 'QuinTasteBot/1.0 (+https://quintaste.srv1902914.hstgr.cloud)'
@@ -174,16 +163,19 @@ def youtube_creators(key, known, get=youtube_get):
     return found
 
 
-def youtube_refresh(key, library, get=youtube_get, now=None):
-    """Fresh subscriber and video counts for library YouTube channels not checked in a week (1 quota unit each)."""
+def youtube_refresh(key, library, get=youtube_get, now=None, descriptions=None):
+    """Fresh subscriber and video counts for library YouTube channels not checked in a week (1 quota unit each). The channel's own
+    description is kept in `descriptions` (creator id -> text) so its profile links can be read without opening any platform."""
     stale = [(c['id'], ch) for c in library.get('creators', []) for ch in c.get('channels', [])
              if ch.get('platform') == 'youtube' and is_stale(ch, now)][:50]
     out = []
     for creator_id, ch in stale:
         handle = str(ch.get('handle') or '')
-        params = {'part': 'statistics', **({'id': handle} if handle.startswith('UC') else {'forHandle': handle.removeprefix('@')})}
+        params = {'part': 'snippet,statistics', **({'id': handle} if handle.startswith('UC') else {'forHandle': handle.removeprefix('@')})}
         items = get('channels', params, key).get('items', [])
         if items:
+            if descriptions is not None:
+                descriptions[creator_id] = str((items[0].get('snippet') or {}).get('description') or '')[:5000]
             stats = items[0].get('statistics') or {}
             number = lambda v: int(v) if str(v or '').isdigit() else None
             out.append({'creatorId': creator_id, 'platform': 'youtube', 'handle': handle, 'url': ch['url'],
@@ -192,62 +184,112 @@ def youtube_refresh(key, library, get=youtube_get, now=None):
     return out
 
 
-# --- Instagram (Instaloader, public profiles, no login) -----------------------------------------------------------------------------
+# --- Public profile links (owner, 22 Oct 2026: public links only) ---------------------------------------------------------------------
+# A creator's profile links come from pages the creator publishes itself: its own website, its link-in-bio page and its YouTube
+# description. Instagram, TikTok, Facebook and Xiaohongshu are never opened (they need a login or turn bots away), so a link is
+# recorded because the creator lists it, never by reading the platform.
+PROFILE = {
+    'instagram': re.compile(r'https?://(?:www\.)?instagram\.com/(?!(?:p|reel|reels|explore|stories|accounts|tv|direct|about|developer|legal)(?:/|$))'
+                            r'([A-Za-z0-9._]{2,30})/?(?![A-Za-z0-9._/])', re.I),
+    'tiktok': re.compile(r'https?://(?:www\.)?tiktok\.com/@([A-Za-z0-9._]{2,24})/?(?![A-Za-z0-9._/])', re.I),
+    'facebook': re.compile(r'https?://(?:www\.|m\.|web\.)?facebook\.com/(?!(?:sharer|share|dialog|plugins|tr|login|groups|events|watch|hashtag|people|pages|profile\.php)(?:[/.?]|$))'
+                           r'([A-Za-z0-9.\-]{3,80})/?(?![A-Za-z0-9.\-/])', re.I),
+    'youtube': re.compile(r'https?://(?:www\.|m\.)?youtube\.com/(@[A-Za-z0-9._-]{3,30}|channel/UC[A-Za-z0-9_-]{22}|c/[A-Za-z0-9._-]{2,60}|user/[A-Za-z0-9._-]{2,60})'
+                          r'/?(?![A-Za-z0-9._/-])', re.I),
+    'xiaohongshu': re.compile(r'https?://(?:www\.)?xiaohongshu\.com/user/profile/([0-9a-f]{24})', re.I),
+    'pinterest': re.compile(r'https?://(?:[a-z]{2,3}\.)?pinterest\.(?:com|co\.uk|ca|com\.au|de|fr|jp|com\.sg)/(?!(?:pin|search|ideas|_|today|business)(?:/|$))'
+                            r'([A-Za-z0-9_]{3,30})/?(?![A-Za-z0-9_/])', re.I),
+}
+PROFILE_URL = {'instagram': 'https://www.instagram.com/{}/', 'tiktok': 'https://www.tiktok.com/@{}', 'facebook': 'https://www.facebook.com/{}',
+               'youtube': 'https://www.youtube.com/{}', 'xiaohongshu': 'https://www.xiaohongshu.com/user/profile/{}', 'pinterest': 'https://www.pinterest.com/{}/'}
+LINK_PAGES = ('linktr.ee', 'beacons.ai', 'lnk.bio', 'bio.link', 'campsite.bio', 'linkin.bio', 'taplink.cc', 'msha.ke', 'link.me', 'solo.to')
+MAX_LINK_SITES = 80        # creators whose pages are read for links per scout
+LINKS_EVERY = 30 * 86400   # a creator's links are looked for again after a month
+PAGE_PACE = (1, 3)
 
-def instagram_user(url):
-    parts = [p for p in urllib.parse.urlsplit(str(url or '')).path.split('/') if p]
-    return parts[0].lstrip('@') if 'instagram.com' in str(url) and parts and re.fullmatch(r'[A-Za-z0-9._]{1,30}', parts[0].lstrip('@')) else None
 
-
-def instagram_profile(username):
-    """Public profile counts, None when the profile does not exist or is private. Raises Blocked on any refusal or rate limit."""
-    import instaloader
-    from instaloader import exceptions as ie
-    loader = instaloader.Instaloader(quiet=True, download_pictures=False, download_videos=False, download_video_thumbnails=False,
-                                     download_geotags=False, download_comments=False, save_metadata=False, max_connection_attempts=1,
-                                     request_timeout=20)
-    session = getattr(loader.context, '_session', None)
-    if session is not None:
-        session.proxies = {'https': GUARD, 'http': GUARD}  # through the egress guard like every other fetch
+def fetch_page(url, open_url=None):
+    """A creator's own page (or link-in-bio page) through the egress guard; '' when it cannot be read."""
+    if not str(url or '').startswith('https://'):
+        return ''
+    request = urllib.request.Request(url, headers={'User-Agent': USER_AGENT, 'Accept': 'text/html'})
     try:
-        profile = instaloader.Profile.from_username(loader.context, username)
-        if profile.is_private:
-            return None
-        return {'followers': profile.followers, 'posts': profile.mediacount, 'bio': profile.biography or '', 'external': profile.external_url}
-    except ie.ProfileNotExistsException:
-        return None
-    except (ie.LoginRequiredException, ie.ConnectionException, ie.QueryReturnedBadRequestException, ie.TooManyRequestsException) as exc:
-        raise Blocked('Instagram refused the request: ' + type(exc).__name__) from None
+        with (open_url or opener().open)(request, timeout=20) as response:
+            return response.read(2_000_000).decode('utf-8', 'replace')
+    except (OSError, ValueError):
+        return ''
 
 
-def instagram_pass(state, found, library, profile=instagram_profile, sleep=time.sleep, now=None):
-    """Counts for new creators' Instagram channels, then stale library ones; at most MAX_INSTAGRAM, paced; stops on a refusal."""
+def profile_links(text, evidence=None):
+    """{platform: channel} for the profile links in a page or description; the link named most often wins per platform."""
+    out = {}
+    for platform, pattern in PROFILE.items():
+        names = [m.group(1) for m in pattern.finditer(str(text or '').replace('\\/', '/'))]  # JSON-escaped links in page data
+        if names:
+            name = max(dict.fromkeys(names), key=lambda n: sum(x.lower() == n.lower() for x in names))
+            out[platform] = {'platform': platform, 'handle': name.lstrip('@'), 'url': PROFILE_URL[platform].format(name),
+                             'followers': None, 'posts': None, 'evidenceUrl': evidence}
+    return out
+
+
+def link_page(text):
+    """The first link-in-bio page (Linktree and similar) a page or description points to, or None."""
+    for url in re.findall(r'''https://[^\s"'<>)]+''', str(text or '')):
+        if (urllib.parse.urlsplit(url).hostname or '').lower().removeprefix('www.') in LINK_PAGES:
+            return url
+    return None
+
+
+def collect_links(website, texts=(), fetch=fetch_page):
+    """Profile links a creator publishes: its website, then its link-in-bio page, then extra texts (a YouTube description)."""
+    found, sources = {}, []
+    page = fetch(website) if website else ''
+    if page:
+        sources.append((page, website))
+    for text in texts:
+        sources.append((text, None))
+    bio = next((link_page(text) for text, _ in sources if link_page(text)), None)
+    if bio:
+        sources.append((fetch(bio), bio))
+    for text, evidence in sources:
+        for platform, channel in profile_links(text, evidence).items():
+            found.setdefault(platform, channel)
+    return list(found.values())
+
+
+def links_pass(state, found, library, descriptions=None, fetch=fetch_page, sleep=time.sleep, now=None):
+    """Adds public profile links to this week's finds and to library creators not looked at for a month. Returns payloads that
+    attach the new links to library creators (matched by the app through the creator's website or a channel it already has)."""
     now = now or time.time()
-    if state.get('instagramPausedUntil', 0) > now:
-        return [], 'Instagram paused until a refusal clears'
-    todo = [(None, ch) for c in found for ch in c['channels'] if ch['platform'] == 'instagram']
-    todo += [(c['id'], ch) for c in library.get('creators', []) for ch in c.get('channels', []) if ch.get('platform') == 'instagram' and is_stale(ch, now)]
-    refreshed, note = [], ''
-    for n, (creator_id, ch) in enumerate(todo[:MAX_INSTAGRAM]):
-        user = instagram_user(ch['url'])
-        if not user:
-            continue
-        if n:
-            sleep(random.uniform(*PACE))
-        try:
-            info = profile(user)
-        except Blocked as exc:
-            state['instagramPausedUntil'] = now + INSTAGRAM_PAUSE
-            note = str(exc) + '; Instagram paused for 24 hours'
+    checked = state.setdefault('linksCheckedAt', {})
+    descriptions = descriptions or {}
+    reads = 0
+    for creator in found:
+        have = {ch['platform'] for ch in creator['channels']}
+        if creator.get('website'):
+            reads += 1
+            if reads > 1:
+                sleep(random.uniform(*PAGE_PACE))
+        new = collect_links(creator.get('website'), [' '.join(creator.get('_links', []))], fetch)
+        creator['channels'] += [ch for ch in new if ch['platform'] not in have]
+    updates = []
+    for c in library.get('creators', []):
+        if reads >= MAX_LINK_SITES:
             break
-        if not info:
+        if now - checked.get(c['id'], 0) < LINKS_EVERY or not (c.get('website') or c['id'] in descriptions):
             continue
-        if creator_id is None:
-            ch.update(followers=info['followers'], posts=info['posts'], handle=user)
-        else:
-            refreshed.append({'creatorId': creator_id, 'platform': 'instagram', 'handle': ch.get('handle') or user, 'url': ch['url'],
-                              'followers': info['followers'], 'posts': info['posts']})
-    return refreshed, note
+        if c.get('website'):
+            reads += 1
+            if reads > 1:
+                sleep(random.uniform(*PAGE_PACE))
+        have = {ch.get('platform') for ch in c.get('channels', [])}
+        new = [ch for ch in collect_links(c.get('website'), [descriptions.get(c['id'], '')], fetch) if ch['platform'] not in have]
+        checked[c['id']] = now
+        if new:
+            anchor = [] if c.get('website') else [{**ch, 'evidenceUrl': None} for ch in c.get('channels', [])[:1]]
+            updates.append({'name': c['name'], 'website': c.get('website'), 'region': c.get('region', 'world'), 'diets': [], 'channels': new + anchor})
+    state['linksCheckedAt'] = dict(sorted(checked.items(), key=lambda kv: kv[1])[-1000:])
+    return updates
 
 
 # --- The web (QT Cooker with web_search and web_extract) -----------------------------------------------------------------------------
@@ -430,32 +472,28 @@ def run(root, state, folder, policy, client=None, **seams):
         found += web
         if dropped:
             notes.append('web candidates dropped: ' + ', '.join(f'{k} {v}' for k, v in sorted(dropped.items())))
-    except Exception as exc:  # the YouTube and Instagram passes still run
+    except Exception as exc:  # YouTube and the profile links still run
         notes.append('web search failed: ' + type(exc).__name__)
-    key = youtube_key(root)
+    key, descriptions = youtube_key(root), {}
     if key:
         get = seams.get('youtube_get', youtube_get)
         try:
             for creator in youtube_creators(key, known, get):
                 if not any(creator['name'].lower() == f['name'].lower() for f in found):
                     found.append(creator)
-            refresh += youtube_refresh(key, library, get)
+            refresh += youtube_refresh(key, library, get, descriptions=descriptions)
         except (Blocked, OSError, ValueError) as exc:
             notes.append('YouTube: ' + str(exc)[:160])
     else:
         notes.append('no YouTube key installed')
     found = [attach_known_channel(c, known) for c in merge_found(found)]
     found.sort(key=lambda c: ['singapore', 'asia', 'world'].index(c['region']))
-    import importlib.util
-    if 'instagram_profile' in seams or importlib.util.find_spec('instaloader'):
-        instagram, note = instagram_pass(state, found, library, seams.get('instagram_profile', instagram_profile), seams.get('sleep', time.sleep))
-        refresh += instagram
-        if note:
-            notes.append(note)
-    else:
-        notes.append('Instagram skipped: instaloader is not installed')
+    updates = links_pass(state, found, library, descriptions, seams.get('fetch_page', fetch_page), seams.get('sleep', time.sleep))
+    social = lambda creators: sum(ch['platform'] not in ('website', 'youtube') for c in creators for ch in c['channels'])
+    if updates:
+        notes.append('%d profile links added to %d library creators' % (social(updates), len(updates)))
     ready = [c for c in map(sendable, found) if c]
     if len(ready) < len(found):
         notes.append('%d held back (name without Latin letters or no usable link)' % (len(found) - len(ready)))
-    counts = client.scout(ready[:40], refresh[:MAX_REFRESH])
-    return {'found': len(found), 'web': len(web), **counts, 'notes': notes}
+    counts = client.scout(ready[:40] + [c for c in map(sendable, updates) if c], refresh[:MAX_REFRESH])
+    return {'found': len(found), 'web': len(web), 'links': social(ready[:40]) + social(updates), **counts, 'notes': notes}

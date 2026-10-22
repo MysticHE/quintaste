@@ -1169,8 +1169,8 @@ class Round:
         try:
             summary = creator_scout.run(ROOT, self.state, self.folder / 'creator-scout', self.policy)
             self.state['creatorScoutAt'] = time.time()
-            self.note('qt-cooker', 'Creator scout: {found} found ({web} from the web), {added} added, {updated} filled in, {refreshed} channel counts '
-                      'refreshed, {paused} paused, {skipped} skipped as malformed'.format(**{'skipped': 0, **summary}) + ('; ' + '; '.join(summary['notes']) if summary['notes'] else ''))
+            self.note('qt-cooker', 'Creator scout: {found} found ({web} from the web), {added} added, {links} profile links, {updated} filled in, '
+                      '{refreshed} YouTube counts refreshed, {paused} paused, {skipped} skipped as malformed'.format(**{'skipped': 0, 'links': 0, **summary}) + ('; ' + '; '.join(summary['notes']) if summary['notes'] else ''))
         except Exception as exc:
             self.error('qt-cooker', 'Creator scout: ' + type(exc).__name__ + ': ' + str(exc)[:200])
         self.save()
