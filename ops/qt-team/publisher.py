@@ -121,7 +121,42 @@ SERVER_TAGS = ((r'\beggs?\b', 'Eggs'), (r'\b(milk|cream|butter|cheese)\b', 'Dair
                (r'\bgarlic\b', 'Garlic'), (r'\bonions?\b', 'Onion'), (r'\bsoy sauce|\bwheat\b', 'Gluten'))
 EVENT_FIELDS = ('id','title','organiser','startsAt','endsAt','location','address','feeAmount','currency','feeNote','registrationUrl',
                 'registrationDeadline','dietEvidence','status','checkedAt','sources')  # server/editorial/validation.mjs validateEvent
-BATCH_ASSETS = 2  # server: batch.assets.length <= 2
+BATCH_ASSETS = 10  # server: batch.assets.length <= MAX_ASSETS (a cover and up to 8 step photos, 22 Oct 2026)
+BATCH_IMAGE_BYTES = 1_300_000  # base64 adds a third: stays under the 2 MB publication body limit (router and proxy)
+STEP_PHOTOS = 'state/step-photos.json'  # {"enabled": true} once the app accepts step photos (owner, 22 Oct 2026)
+
+
+def step_photos_on():
+    """Every new recipe needs a reviewed photo per step (owner, 22 Oct 2026); switched on once the live app accepts them."""
+    try:
+        return bool(json.loads((ROOT/STEP_PHOTOS).read_text()).get('enabled'))
+    except (OSError, ValueError, AttributeError):
+        return False
+
+
+def step_key(instruction):
+    """Binds a step photo to the step's exact wording, so a rewritten step gets a new photo."""
+    return hashlib.sha256(' '.join(str(instruction).split()).encode()).hexdigest()[:16]
+
+
+def image_results(recipe_id):
+    """(cover result or None, {step key: step result}) of the generated images of one recipe whose files are intact."""
+    cover, steps = None, {}
+    for result in sorted((ROOT/'images').glob('*/result.json')):
+        if '.held-' in result.parent.name:
+            continue  # set aside after QT Manager held it
+        info = json.loads(result.read_text())
+        if info.get('recipeId') != recipe_id or info.get('status', 'generated-awaiting-visual-review') != 'generated-awaiting-visual-review':
+            continue
+        file = result.parent/'candidate.jpg'
+        if not file.is_file() or hashlib.sha256(file.read_bytes()).hexdigest() != info['sha256']:
+            raise ValueError('Image hash mismatch')
+        info['file'] = str(file)
+        if info.get('step'):
+            steps.setdefault(info.get('stepKey'), info)
+        elif cover is None:
+            cover = info
+    return cover, steps
 ISOLATE = 'state/publish-isolate.json'
 
 
@@ -140,6 +175,8 @@ def server_recipe_problem(d):
         return 'Ingredient ID, name or unit is not in the published format'
     if any(not (_text(s.get('title'), 120) and _text(s.get('instruction'), 1400)) for s in d.get('steps', []) if s):
         return 'Step title or instruction is too long or empty'
+    if any(s.get('photo') is not None and not re.fullmatch(r'/api/editorial/assets/[a-f0-9]{64}\.jpg', str(s['photo'])) for s in d.get('steps', []) if s):
+        return 'Step photo is not an editorial asset path'
     if any(len(str(u)) > 600 for u in d.get('provenance', {}).get('sources', [])):
         return 'Source URL is too long for publication'
     image = d.get('image')
@@ -254,7 +291,7 @@ def prepare(packages, live):
                     # repeat the original extraction.
                     previous = existing_records.get(key)
                     if kind == 'recipe' and outcomes[proposal_hash].get('decision') == 'approved' and previous and not previous.get('image'):
-                        image_info = next((json.loads(f.read_text()) for f in sorted((ROOT/'images').glob('*/result.json')) if json.loads(f.read_text()).get('recipeId')==row['id']),None)
+                        image_info = image_results(row['id'])[0]  # the cover, never a step photo
                         if image_info:proposal_hash=sha({'record':row,'imageSha256':image_info['sha256']})
                     if proposal_hash in outcomes:continue
                 cancellation = kind == 'event' and key in states and row.get('event', {}).get('status') == 'cancelled' and decisions.get(row['id'], {}).get('decision') in ('exclude', 'ready-for-editorial-review')
@@ -271,14 +308,22 @@ def prepare(packages, live):
                         if previous:
                             if previous['name'].casefold()!=data['name'].casefold():raise ValueError('Recipe identity change requires operator review')
                             data['revision']=previous['revision']+1
-                        for result in sorted((ROOT/'images').glob('*/result.json')):
-                            info=json.loads(result.read_text())
-                            if info.get('recipeId') != row['id']:continue
-                            file=result.parent/'candidate.jpg'
-                            if not file.is_file() or hashlib.sha256(file.read_bytes()).hexdigest()!=info['sha256']:raise ValueError('Image hash mismatch')
-                            data['image']={'path':'/api/editorial/assets/'+info['sha256']+'.jpg','width':info['width'],'height':info['height'],'credit':'AI-generated recipe illustration'}
-                            image_assets[info['sha256']]={'sha256':info['sha256'],'file':str(file),'provenance':{'kind':'original-generated-recipe-illustration','recipeId':row['id'],'provider':info['provider'],'model':info['model'],'prompt':info['prompt'],'originalSha256':info['originalSha256']}}
-                            break
+                        cover, step_images = image_results(row['id'])
+                        if cover:
+                            data['image']={'path':'/api/editorial/assets/'+cover['sha256']+'.jpg','width':cover['width'],'height':cover['height'],'credit':'AI-generated recipe illustration'}
+                            image_assets[cover['sha256']]={'sha256':cover['sha256'],'file':cover['file'],'provenance':{'kind':'original-generated-recipe-illustration','recipeId':row['id'],'provider':cover['provider'],'model':cover['model'],'prompt':cover['prompt'],'originalSha256':cover['originalSha256']}}
+                        if step_photos_on() and previous is None:
+                            # Owner, 22 Oct 2026: a new recipe goes live only with a reviewed photo for every step.
+                            missing = 0
+                            for n, step in enumerate(data['steps'], 1):
+                                info = step_images.get(step_key(step['instruction']))
+                                if not info:
+                                    missing += 1
+                                    continue
+                                step['photo'] = '/api/editorial/assets/'+info['sha256']+'.jpg'
+                                image_assets[info['sha256']]={'sha256':info['sha256'],'file':info['file'],'provenance':{'kind':'original-generated-recipe-step-illustration','recipeId':row['id'],'step':n,'provider':info['provider'],'model':info['model'],'prompt':info['prompt'],'originalSha256':info['originalSha256']}}
+                            if missing:
+                                raise ValueError(f'Awaiting step photos: {missing} of {len(data["steps"])} steps have none yet')
                         if previous is None and 'sourceRating' not in data and (ROOT/'pantry_sg.json').is_file():
                             # Owner recipe bar (18 Oct 2026): only recipe_quality.gate attaches sourceRating, so a new recipe
                             # without it was proposed before the bar or never passed it. (pantry_sg.json marks the bar as live.)
@@ -330,15 +375,38 @@ def prepare(packages, live):
     nutrition_candidates(live, states, outcomes, candidates, held)
     selected, used, place_keys, place_ids = [], set(), set(), set()
     candidates, isolate = isolation_order(candidates)  # one item per batch after a rejection
+    size = lambda hashes: sum(Path(image_assets[h]['file']).stat().st_size for h in hashes)
     for candidate in candidates:
-        image = candidate['data'].get('image') or candidate['data'].get('photo')
-        image_hash = Path(image['path']).stem if image else None
-        if image_hash not in image_assets:image_hash=None  # an already-published photo carried in full data is no new upload
-        if len(selected)>=(1 if isolate else 12) or image_hash and image_hash not in used and len(used)>=BATCH_ASSETS:continue
+        # an already-published photo carried in full data is no new upload; a recipe brings its cover and step photos together
+        hashes = [h for h in record_images(candidate['data']) if h in image_assets and h not in used]
+        if len(selected)>=(1 if isolate else 12) or hashes and (len(used)+len(hashes)>BATCH_ASSETS or size(used)+size(hashes)>BATCH_IMAGE_BYTES and used):continue
         if candidate['kind']=='place' and not batch_place_free(candidate, place_keys, place_ids, held):continue
         selected.append(candidate)
-        if image_hash:used.add(image_hash)
+        used.update(hashes)
     return selected,[asset for sha256,asset in image_assets.items() if sha256 in used],held
+
+
+def set_aside_held_images(review):
+    """A recipe image QT Manager held is moved aside (images/<key>.held-<time>, with the reason), so Cooker draws a new one next round
+    instead of the same image being reviewed again for ever (22 Oct 2026, step photos). Venue and place images are left as they are."""
+    for d in review.get('images', []):
+        if d.get('decision') != 'hold':
+            continue
+        for result in (ROOT/'images').glob('*/result.json'):
+            if '.held-' in result.parent.name:
+                continue
+            info = json.loads(result.read_text())
+            if info.get('sha256') != d.get('sha256') or not info.get('recipeId'):
+                continue
+            (result.parent/'held.json').write_text(json.dumps({'reason': str(d.get('reason', ''))[:600], 'at': dt.datetime.now(dt.timezone.utc).isoformat()}))
+            result.parent.rename(result.parent.with_name(result.parent.name + '.held-' + str(int(time.time()))))
+            break
+
+
+def record_images(data):
+    """The image hashes a record carries: its cover (image or photo) and, for a recipe, one per step photo."""
+    cover = data.get('image') or data.get('photo')
+    return [Path(p).stem for p in ([cover['path']] if cover else []) + [s['photo'] for s in data.get('steps') or [] if isinstance(s, dict) and s.get('photo')]]
 
 def isolation_order(candidates):
     """(candidates, isolate). After a server rejection, batches carry one item. 21 Oct 2026: the rejected batch's items (suspects) are
@@ -591,11 +659,10 @@ def make_batch(candidates, images, review, parent, batch_id):
     for r in candidates:
         d=decision[r['kind']+':'+r['id']]
         if d['decision']!='approved':continue
-        image=r['data'].get('image') or r['data'].get('photo')
-        if image and Path(image['path']).stem in uploads:  # a new upload needs its own approved pixel review
-            image_hash=Path(image['path']).stem
-            if visual.get(image_hash,{}).get('decision')!='approved':continue
-            used.add(image_hash)
+        # every new upload of the record (cover and step photos) needs its own approved pixel review, or the record waits
+        new = [h for h in record_images(r['data']) if h in uploads]
+        if any(visual.get(h,{}).get('decision')!='approved' for h in new):continue
+        used.update(new)
         reason=d['reason'].strip() if len(d['reason'].strip())>=10 else 'Approved by QT Manager: '+d['reason'].strip()  # server: 10-1800 chars
         data=js_numbers(r['data'])  # sent and hashed exactly as the server will see it
         records.append(dict(r,data=data,review={'decision':'approved','reviewedBy':'QT Manager','dataHash':sha(data),'reason':reason[:1800]}))
@@ -628,6 +695,7 @@ def run_publication(policy, folder=None, review_only=False, covers_only=False):
         write(folder/'candidates.json',{'parent':live['revision'],'candidates':candidates,'images':images,'held':held})
         if not candidates:return {'status':'no-eligible-changes','productionWrites':0,'held':held}
         review=publication_review(candidates,images,held,folder/'manager-publication',policy)
+        set_aside_held_images(review)
         batch=make_batch(candidates,images,review,live['revision'],'qt-'+dt.datetime.now(dt.timezone.utc).strftime('%Y%m%d-%H%M%S'))
         write(folder/'batch.json',batch)
         outcomes=read(ROOT/'state/publication-outcomes.json',{})

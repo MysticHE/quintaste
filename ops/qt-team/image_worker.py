@@ -44,9 +44,10 @@ with Image.open(source) as image:
         raise SystemExit('Unexpected image format')
     image.load()
     image = image.convert('RGB')
-    image.thumbnail((960, 960))
+    step = request.get('step')  # a recipe step photo (owner, 22 Oct 2026): smaller, so a cover and 8 steps fit one publication
+    image.thumbnail((640, 640) if step else (960, 960))
     output = request_path.parent / 'candidate.jpg'
-    image.save(output, format='JPEG', quality=86, optimize=True)
+    image.save(output, format='JPEG', quality=80 if step else 86, optimize=True)
     dimensions = image.size
 if output.stat().st_size > 512 * 1024:
     raise SystemExit('Image exceeds application asset limit')
@@ -54,7 +55,8 @@ metadata = {'status': 'generated-awaiting-visual-review', 'recipeId': request.ge
             'provider': result.get('provider'), 'model': result.get('model'),
             'prompt': request['prompt'], 'placeId': request.get('placeId'),
             'sourceKind': 'approved-reference-enhancement' if reference else 'place-dish-illustration' if request.get('kind') == 'place-illustration'
-            else 'original-generated-recipe-illustration',
+            else 'original-generated-recipe-step-illustration' if step else 'original-generated-recipe-illustration',
+            'step': step, 'stepKey': request.get('stepKey'),
             'recipeSources': request.get('sources', []), 'originalSha256': original_hash,
             'sha256': hashlib.sha256(output.read_bytes()).hexdigest(), 'bytes': output.stat().st_size,
             'width': dimensions[0], 'height': dimensions[1], 'publication': 'not-published',

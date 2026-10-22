@@ -160,6 +160,70 @@ class Publishing(unittest.TestCase):
                 self.assertEqual(result['status'],'published')
                 self.assertEqual((root/p.ISOLATE).exists(),kept)
 
+    def step_photo_fixture(self, root, steps, drawn, size=60_000):
+        """A new recipe with `steps` steps; images for the cover and the 1-based steps in `drawn`."""
+        import hashlib
+        (root/'state').mkdir(exist_ok=True)
+        data={'name':'Sweet potato balls','revision':1,'steps':[{'title':'Step %d'%n,'instruction':'Do thing %d'%n,'ingredientIds':[]} for n in range(1,steps+1)]}
+        def image(name, **extra):
+            folder=root/'images'/name;folder.mkdir(parents=True)
+            raw=(name.encode()*size)[:size];digest=hashlib.sha256(raw).hexdigest();(folder/'candidate.jpg').write_bytes(raw)
+            (folder/'result.json').write_text(json.dumps({'recipeId':'recipe-b','sha256':digest,'width':640,'height':480,'provider':'f','model':'f','prompt':'f',
+                                                          'originalSha256':digest,'status':'generated-awaiting-visual-review',**extra}))
+            return digest
+        hashes={'cover':image('cover')}
+        for n in drawn:
+            hashes[n]=image('step%d'%n,step=n,stepKey=p.step_key('Do thing %d'%n))
+        return data,hashes
+
+    def prepare_recipe(self, root, data, live=None):
+        row={'id':'recipe-b','status':'proposed'}
+        with patch.object(p,'ROOT',root),patch.object(p,'sources',return_value=[{'checkedAt':'2026-10-22'}]),patch.object(p,'server_recipe_problem',return_value=None),\
+                patch.object(p,'recipe_data',return_value=json.loads(json.dumps(data))):
+            return p.prepare([self.package('qt-cooker',row)],live or self.live())
+
+    def test_new_recipe_publishes_only_with_a_photo_for_every_step(self):
+        # Owner, 22 Oct 2026: step photos are the crucial missing part of Cooker's recipes.
+        with tempfile.TemporaryDirectory() as d:
+            root=Path(d)
+            data,hashes=self.step_photo_fixture(root,3,[1,3])
+            (root/'state/step-photos.json').write_text(json.dumps({'enabled':True}))
+            candidates,images,held=self.prepare_recipe(root,data)
+            self.assertEqual(candidates,[])
+            self.assertIn('Awaiting step photos: 1 of 3 steps have none yet',held[0]['reason'])
+        with tempfile.TemporaryDirectory() as d:
+            root=Path(d)
+            data,hashes=self.step_photo_fixture(root,3,[1,2,3])
+            (root/'state/step-photos.json').write_text(json.dumps({'enabled':True}))
+            candidates,images,_=self.prepare_recipe(root,data)
+            steps=candidates[0]['data']['steps']
+            self.assertEqual([s['photo'] for s in steps],['/api/editorial/assets/%s.jpg'%hashes[n] for n in (1,2,3)])
+            self.assertEqual(candidates[0]['data']['image']['path'],'/api/editorial/assets/%s.jpg'%hashes['cover'])  # a step photo is never the cover
+            self.assertEqual({i['provenance']['kind'] for i in images},{'original-generated-recipe-illustration','original-generated-recipe-step-illustration'})
+            self.assertEqual(len(images),4)
+        with tempfile.TemporaryDirectory() as d:  # switched off: the cover alone, as before
+            root=Path(d)
+            data,_=self.step_photo_fixture(root,3,[])
+            candidates,images,_=self.prepare_recipe(root,data)
+            self.assertEqual((len(images),any('photo' in s for s in candidates[0]['data']['steps'])),(1,False))
+
+    def test_step_photos_fit_one_publication_and_held_ones_are_redrawn(self):
+        with tempfile.TemporaryDirectory() as d:
+            root=Path(d)
+            data,hashes=self.step_photo_fixture(root,8,range(1,9),size=150_000)  # 9 images, 1.35 MB: more than one publication carries
+            (root/'state/step-photos.json').write_text(json.dumps({'enabled':True}))
+            candidates,images,_=self.prepare_recipe(root,data)
+            self.assertEqual((len(candidates),len(images)),(1,9))  # a single recipe still goes, alone
+            review={'decisions':[{'key':'recipe:recipe-b','decision':'approved','reason':'Approved by QT Manager after review.'}],
+                    'images':[{'sha256':i['sha256'],'decision':'hold' if i['sha256']==hashes[4] else 'approved','reason':'Step 4 shows a different pan.'} for i in images]}
+            batch=p.make_batch(candidates,images,review,'a'*64,'qt-test')
+            self.assertEqual((batch['records'],batch['assets']),([],[]))  # one held step photo: the recipe waits
+            with patch.object(p,'ROOT',root):
+                p.set_aside_held_images(review)
+            self.assertEqual([x.name.split('.held-')[0] for x in (root/'images').glob('*.held-*')],['step4'])
+            candidates,_,held=self.prepare_recipe(root,data)
+            self.assertIn('1 of 8 steps have none yet',held[0]['reason'])  # step 4 is drawn again next round
+
     def test_later_image_is_reviewable_without_reextracting_published_recipe(self):
         import hashlib
         row={'id':'recipe-a','status':'proposed'}

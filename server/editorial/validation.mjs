@@ -66,7 +66,9 @@ export function validateRecipe(r) {
   }
   requireValue(r.dietary.diet !== 'Vegan' || !r.dietary.contains.some(x => ['Eggs', 'Dairy', 'Honey'].includes(x)), 'Conflicting vegan claim');
   requireValue(!/\b(dark soy|stock|bouillon|seasoning|curry paste|laksa paste|mock meat)\b/.test(names), 'Compound ingredient requires composition review');
-  for (const s of r.steps) requireValue(keys(s, ['title', 'instruction', 'ingredientIds', 'timer']) && text(s.title, 120) && text(s.instruction, 1400) && Array.isArray(s.ingredientIds) && s.ingredientIds.length <= 30 && s.ingredientIds.every(id => ids.has(id)) && (!s.timer || keys(s.timer, ['label', 'seconds']) && text(s.timer.label, 80) && Number.isInteger(s.timer.seconds) && s.timer.seconds > 0 && s.timer.seconds <= 10800), 'Invalid recipe step');
+  // A step may carry its own reviewed photo (owner, 22 Oct 2026: every step needs one); the publisher checks its review and recipe.
+  for (const s of r.steps) requireValue(keys(s, ['title', 'instruction', 'ingredientIds', 'timer', 'photo']) && text(s.title, 120) && text(s.instruction, 1400) && Array.isArray(s.ingredientIds) && s.ingredientIds.length <= 30 && s.ingredientIds.every(id => ids.has(id)) && (!s.timer || keys(s.timer, ['label', 'seconds']) && text(s.timer.label, 80) && Number.isInteger(s.timer.seconds) && s.timer.seconds > 0 && s.timer.seconds <= 10800)
+    && (s.photo === undefined || typeof s.photo === 'string' && /^\/api\/editorial\/assets\/[a-f0-9]{64}\.jpg$/.test(s.photo)), 'Invalid recipe step');
   requireValue(keys(r.provenance, ['sources', 'checkedAt', 'kitchenTested', 'reviewedBy']) && r.provenance.kitchenTested === false && r.provenance.reviewedBy === 'QT Manager' && date(r.provenance.checkedAt) && Array.isArray(r.provenance.sources) && r.provenance.sources.length > 0 && r.provenance.sources.length <= 12 && r.provenance.sources.every(publicUrl), 'Recipe provenance required');
   if (r.adaptationNote !== undefined) requireValue(text(r.adaptationNote, 700), 'Invalid adaptation');
   if (r.withdrawal !== undefined) requireValue(text(r.withdrawal, 300), 'Invalid withdrawal');

@@ -25,6 +25,9 @@ export async function readSnapshot(root) {
   catch (error) { if (error.code === 'ENOENT') return emptySnapshot(); throw error; }
 }
 const staleLockMs = 10 * 60000;
+// A recipe publishes with its cover and one photo per step (owner, 22 Oct 2026); Cooker recipes have at most 8 steps.
+const MAX_ASSETS = 10;
+const IMAGE_KINDS = ['original-generated-recipe-illustration', 'original-generated-recipe-step-illustration', 'approved-reference-enhancement', 'place-dish-illustration'];
 /** Takes the publication lock. A lock older than any real publication was left by a crashed process and is reclaimed. */
 async function acquire(lock) {
   for (let attempt = 0; attempt < 2; attempt += 1) {
@@ -65,7 +68,7 @@ function jpegDimensions(bytes) {
   throw Object.assign(new Error('JPEG dimensions missing'), { status: 422 });
 }
 export async function publish(root, baseline, batch) {
-  requireValue(batch && batch.version === 1 && validId(batch.id) && validHash(batch.parent) && Array.isArray(batch.records) && batch.records.length >= 1 && batch.records.length <= 12 && Array.isArray(batch.assets) && batch.assets.length <= 2, 'Invalid publication batch');
+  requireValue(batch && batch.version === 1 && validId(batch.id) && validHash(batch.parent) && Array.isArray(batch.records) && batch.records.length >= 1 && batch.records.length <= 12 && Array.isArray(batch.assets) && batch.assets.length <= MAX_ASSETS, 'Invalid publication batch');
   await fs.mkdir(root, { recursive: true, mode: 0o700 });
   const lock = path.join(root, 'publish.lock');
   await acquire(lock);
@@ -98,7 +101,7 @@ export async function publish(root, baseline, batch) {
       requireValue(bytes.length <= 512 * 1024 && hash(bytes) === a.sha256 && dimensions.width >= 320 && dimensions.width <= 1600 && dimensions.height >= 240 && dimensions.height <= 1600, 'Invalid image hash/size');
       try { await sharp(bytes, { limitInputPixels: 1600 * 1600, failOn: 'warning' }).raw().toBuffer(); }
       catch { requireValue(false, 'Image cannot be fully decoded'); }
-      requireValue(a.review?.decision === 'approved' && a.review.sha256 === a.sha256 && a.review.reviewedBy === 'QT Manager' && ['original-generated-recipe-illustration', 'approved-reference-enhancement', 'place-dish-illustration'].includes(a.provenance?.kind), 'Image requires hash-bound visual review');
+      requireValue(a.review?.decision === 'approved' && a.review.sha256 === a.sha256 && a.review.reviewedBy === 'QT Manager' && IMAGE_KINDS.includes(a.provenance?.kind), 'Image requires hash-bound visual review');
       if (a.provenance.kind === 'place-dish-illustration') requireValue(ownerIllustration(a.provenance), 'An illustration needs the owner\'s approval');
       if (a.provenance.kind === 'approved-reference-enhancement') requireValue(references.some(r => r.status === 'approved' && r.venueId === a.provenance.venueId && r.sha256 === a.provenance.referenceSha256 && r.rightsApprovalId === a.provenance.rightsApprovalId) || ownerReference(a.provenance), 'Approved exact-branch reference required');
       assets.set(a.sha256, { bytes, dimensions, provenance: a.provenance, review: a.review });
@@ -156,6 +159,14 @@ export async function publish(root, baseline, batch) {
           requireValue(reference && ['author', 'sourceUrl', 'license', 'licenseUrl', 'capturedAt'].every(key => image[key] === reference.photo[key]), 'Original photo attribution/licence must be retained');
         }
         if (r.kind === 'recipe') requireValue(metadata.provenance.kind === 'original-generated-recipe-illustration' && metadata.provenance.recipeId === r.id, 'Image belongs to another recipe');
+      }
+      // Step photos (owner, 22 Oct 2026): each one reviewed by QT Manager like the cover and drawn for this recipe.
+      if (r.kind === 'recipe') for (const step of r.data.steps ?? []) {
+        if (!step.photo) continue;
+        const sha = step.photo.match(/([a-f0-9]{64})\.jpg$/)?.[1];
+        let metadata = assets.get(sha);
+        if (!metadata) try { metadata = JSON.parse(await fs.readFile(path.join(root, 'assets', sha + '.json'), 'utf8')); } catch { /* Fail closed. */ }
+        requireValue(metadata?.provenance?.kind === 'original-generated-recipe-step-illustration' && metadata.provenance.recipeId === r.id, 'Step photo is missing or belongs to another recipe');
       }
       const existing = current.records[r.kind + ':' + r.id];
       let data = r.data;

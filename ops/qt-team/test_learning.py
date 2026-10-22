@@ -241,6 +241,21 @@ class LearningTests(unittest.TestCase):
         self.assertIsNone(publisher.SERVER_COMPOUND.search(' '.join(names[:3]).lower()))
         self.assertIsNotNone(publisher.SERVER_COMPOUND.search(names[3].lower()))  # real compounds still need review
 
+    def test_cooker_asks_for_a_photo_of_every_step_when_switched_on(self):
+        import publisher
+        row = {'id': 'sweet-potato-balls', 'recipe': {'name': 'Sweet potato balls', 'imageBrief': 'golden balls',
+               'ingredients': [{'id': 'potato', 'name': 'Sweet potato'}, {'id': 'flour', 'name': 'Glutinous rice flour'}],
+               'steps': [{'instruction': 'Steam the sweet potato.', 'ingredientIds': ['potato']},
+                         {'instruction': 'Knead with the flour and roll into balls.', 'ingredientIds': ['potato', 'flour']}]}}
+        with patch.object(publisher, 'step_photos_on', return_value=False):
+            self.assertEqual(len(w.recipe_image_jobs(row)), 1)  # cover only
+        with patch.object(publisher, 'step_photos_on', return_value=True):
+            jobs = w.recipe_image_jobs(row)
+        self.assertEqual([j.get('step') for j in jobs], [None, 1, 2])
+        self.assertEqual(jobs[2]['stepKey'], publisher.step_key('Knead with the flour and roll into balls.'))
+        self.assertIn('Draw step 2 only: Knead with the flour and roll into balls. Ingredients in this step: Sweet potato, Glutinous rice flour.', jobs[2]['prompt'])
+        self.assertEqual(len({j['key'] for j in jobs}), 3)
+
     def test_corrupt_learning_state_does_not_grant_retry_permissions(self):
         (self.root / 'state/learning').mkdir(parents=True)
         (self.root / 'state/learning/state.json').write_text('broken')
