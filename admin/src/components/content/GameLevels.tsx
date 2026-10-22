@@ -28,11 +28,26 @@ const STATION: Record<string, string> = { pan: 'Wok', pot: 'Soup pot', rice: 'Ri
 
 /** Recipe levels waiting for review, making new ones, QT Gamer's pictures waiting for the artist, and the picture jobs themselves. */
 export function GameLevels() {
-  const [view, setView] = useState<'levels' | 'make' | 'pictures' | 'jobs'>('levels');
+  const [view, setView] = useState<'levels' | 'make' | 'pictures' | 'jobs' | 'cafes'>('levels');
   return <div className="stack">
-    <Segmented label="Game levels" value={view} onChange={v => setView(v as typeof view)} options={[['levels', 'Levels'], ['make', 'Make levels'], ['pictures', 'Pictures'], ['jobs', 'Picture jobs']]}/>
-    {view === 'levels' ? <Levels/> : view === 'make' ? <Make/> : view === 'pictures' ? <Pictures/> : <Jobs/>}
+    <Segmented label="Game levels" value={view} onChange={v => setView(v as typeof view)} options={[['levels', 'Levels'], ['make', 'Make levels'], ['pictures', 'Pictures'], ['jobs', 'Picture jobs'], ['cafes', 'Cafés']]}/>
+    {view === 'levels' ? <Levels/> : view === 'make' ? <Make/> : view === 'pictures' ? <Pictures/> : view === 'cafes' ? <Cafes/> : <Jobs/>}
   </div>;
+}
+
+type Cafe = { id: string; name: string; host: string; open: boolean; hidden_at: string | null; hidden_reason: string | null; opened_at: string | null;
+  dishes: string[]; week: number; reports: number };
+/** Members' cafés: open, hidden or closed by their host, reported ones first; staff hide a café from a report or restore it. */
+function Cafes() {
+  return <Moderation<Cafe> path="/api/content/game-cafes" statuses={[['open', 'Open'], ['hidden', 'Hidden'], ['closed', 'Closed']]}
+    render={c => <>
+      <div className="row spread"><strong>{c.name}</strong>
+        <span className="row"><span className="badge">{c.host}</span>{c.reports > 0 && <span className="badge warn">{c.reports} open {c.reports === 1 ? 'report' : 'reports'}</span>}</span></div>
+      <small>{c.dishes.length ? c.dishes.join(', ') : 'No dishes on the menu'} · {c.week} {c.week === 1 ? 'visit' : 'visits'} this week{c.opened_at ? ' · opened ' + date(c.opened_at) : ''}</small>
+      {c.hidden_reason && <p className="detail">Hidden: {c.hidden_reason}</p>}
+    </>}
+    act={(c, _status, done) => <ActionBar resource="game-cafes" payload={() => ({ id: c.id })} onDone={done}
+      actions={c.hidden_at ? [{ action: 'restore', label: 'Restore' }] : [{ action: 'hide', label: 'Hide', tone: 'danger' as const }]}/>}/>;
 }
 
 /** Find a published recipe and ask QT Gamer to turn it into a level; below, the latest level jobs and why any failed. */

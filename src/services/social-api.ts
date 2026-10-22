@@ -74,5 +74,5 @@ export const deleteApplication = (id: string) => call("/api/social/applications/
 export const blocks = (signal: AbortSignal) => call<{ items: { id: string; name: string; createdAt: string }[] }>("/api/community/blocks", { signal });
 export const block = (userId: string) => call("/api/community/blocks", { method: "POST", body: { userId } });
 export const unblock = (userId: string) => call("/api/community/blocks/" + userId, { method: "DELETE" });
-export const report = (body: { kind: "person" | "listing" | "place" | "recipe" | "level"; targetId: string; reason: string; details: string; block?: boolean }) =>
+export const report = (body: { kind: "person" | "listing" | "place" | "recipe" | "level" | "cafe"; targetId: string; reason: string; details: string; block?: boolean }) =>
   call<{ reference: string }>("/api/community/reports", { method: "POST", body });

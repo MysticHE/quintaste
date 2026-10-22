@@ -55,6 +55,8 @@ export type Level = {
   mission?: { pack: string; tier: "learn" | "service" | "memory" };
   /** A season level (content/seasons.ts): the season and its number, 1–6; `n` then only sets the timing rules. */
   season?: { id: string; n: number };
+  /** A visit to a member's café (GAME_CONTENT_PLAN §9): the host and the snapshot of their menu (level pack hashes) it was built from. */
+  cafe?: { host: string; menu: string[] };
   /** A Gather round before the first guest (Recipe Kitchen From memory): each `need` group is one ingredient the recipe needs (any
    *  item in the group fills it); `decoys` are look-alikes on the same shelf that the basket refuses. The clock runs while gathering. */
   gather?: { need: string[][]; decoys: string[] };
@@ -136,11 +138,11 @@ export const levelByNumber = (n: number) => LEVELS[n - 1];
 export const TIER_NAMES = { learn: "Learn", service: "Service", memory: "From memory" } as const;
 /** How the playfield names a service: its level number, Today's special, or the Recipe Kitchen tier. */
 /** What "Next" leads to after a clear: the next level, the next Recipe Kitchen tier, or nothing (Today's special, the last level). */
-export const nextService = (level: Level): string | null => level.special ? null
+export const nextService = (level: Level): string | null => level.special || level.cafe ? null
   : level.season ? (level.season.n < SEASON_LEVELS ? "Level " + (level.season.n + 1) : null)
   : level.mission ? ({ learn: TIER_NAMES.service, service: TIER_NAMES.memory, memory: null } as const)[level.mission.tier]
   : level.n < LEVELS.length ? "Level " + (level.n + 1) : null;
-export const levelTitle = (level: Level) => level.special ? "Today's special" : level.mission ? "Recipe Kitchen · " + TIER_NAMES[level.mission.tier]
+export const levelTitle = (level: Level) => level.special ? "Today's special" : level.cafe ? "Café visit" : level.mission ? "Recipe Kitchen · " + TIER_NAMES[level.mission.tier]
   : level.season ? "Season · Level " + level.season.n : "Level " + level.n;
 /** Levels in every season (GAME_CONTENT_PLAN §6). */
 export const SEASON_LEVELS = 6;

@@ -6,9 +6,9 @@
 import { STATIONS, type StationKind } from "../content/dishes";
 import { GUESTS, RULES } from "../content/guests";
 import { LEVELS, levelByNumber, type Level } from "../content/levels";
-import { BUILTIN, packByHash } from "../content/pack";
+import { BUILTIN, packByHash, type LevelPack } from "../content/pack";
 import { SEASONS, seasonLevel } from "../content/seasons";
-import { missionFor, TIERS, type Tier } from "../mission";
+import { cafeFor, missionFor, TIERS, type Tier } from "../mission";
 import { LUNAR_VERSION } from "../../data/lunar";
 import { CREDIT_REWARDS, PETS, SKILLS } from "../content/cosmetics";
 import * as sim from "./engine";
@@ -26,6 +26,8 @@ export type RunSetup = { level: number; special?: { day: string; top: number } |
   mission?: { pack: string; tier: Tier } | null;
   /** A season level (content/seasons.ts): the season's id and the level's number, 1–6. */
   season?: { id: string; n: number } | null;
+  /** A café visit: the host and the menu snapshot (pack hashes, all registered first). */
+  cafe?: { host: string; menu: string[] } | null;
   /** The service's seed: arrivals, shuffled jars and twists. The app derives it from the run's id (`seedOf`), the server from the stored id. */
   seed: number };
 
@@ -35,6 +37,8 @@ export type RunStart = { id: string; level: number; special: string | null; top?
   pack?: string | null; tier?: Tier | null;
   /** A season level: the season's id and number (the server opens it as a season run). */
   season?: { id: string; n: number } | null;
+  /** A café visit: the host (the server takes the menu snapshot when it opens the run). */
+  cafe?: { host: string; menu: string[] } | null;
   /** Play your way pace when the service started; a slower pace still plays and saves, but a Recipe Kitchen run is then not rated. */
   pace?: "normal" | "relaxed" | "slow" | null };
 
@@ -50,6 +54,11 @@ export function setupLevel(setup: RunSetup): Level {
     const level = seasonLevel(String(setup.season.id), Number(setup.season.n));
     if (!level) throw new ReplayError("unknown season level");
     return level;
+  }
+  if (setup.cafe) {
+    const menu = Array.isArray(setup.cafe.menu) ? setup.cafe.menu.map(h => packByHash(String(h))) : [];
+    if (!menu.length || menu.length > 6 || menu.some(p => !p)) throw new ReplayError("unknown cafe menu");
+    return cafeFor(menu as LevelPack[], String(setup.cafe.host));
   }
   if (setup.mission) {
     const pack = packByHash(String(setup.mission.pack));

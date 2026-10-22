@@ -49,6 +49,42 @@ function gatherOf(pack: LevelPack): NonNullable<Level["gather"]> {
   return { need, decoys: [...new Set([...pick(tagged, 2, 0), ...pick(plain, 1, 3)])] };
 }
 
+/** Most stations a café service uses, as many as the phone layout fits; menu dishes past them are left out of the service. */
+const CAFE_STATIONS = 5;
+/**
+ * A visit to a member's café (GAME_CONTENT_PLAN §9): a service of the host's menu (up to six reviewed recipe levels, in menu order),
+ * paced like a Service tier with three seats and regulars who keep their rules. Pure, so the server rebuilds it from the host and the
+ * menu snapshot stored with the run. Every pack must already be registered.
+ */
+export function cafeFor(packs: LevelPack[], host: string): Level {
+  if (!packs.length || packs.some(p => !packByHash(packHash(p)) || p.dishes.some(d => !DISHES[d.id]))) throw new Error("pack not registered");
+  const stations: StationKind[] = [], dishes: string[] = [];
+  for (const pack of packs) {
+    const uses = (Object.keys(STATIONS) as StationKind[]).filter(k => pack.dishes.some(d => d.parts.some(p => p.station === k)));
+    const merged = [...new Set([...stations, ...uses])];
+    if (merged.length > CAFE_STATIONS) continue;
+    stations.splice(0, stations.length, ...merged);
+    dishes.push(...pack.dishes.map(d => d.id));
+  }
+  const unchecked = new Set(packs.flatMap(p => p.unreviewed ?? []));
+  const needsUnchecked = (dish: string) => DISHES[dish].parts.some(p => p.stages.some(s => s.slots.some(sl => !sl.optional && sl.accepts.every(a => unchecked.has(a)))));
+  const canEat = (dish: string, g: string) => dishFeasible(dish, GUESTS[g].rules) && (!GUESTS[g].rules.length || !needsUnchecked(dish));
+  const orders: Order[] = [], count = Math.min(6, Math.max(4, dishes.length));
+  let at = 1;
+  for (let i = 0; i < count; i++) {
+    const dish = dishes[i % dishes.length];
+    const guest = [...MEMORY_GUESTS.slice(i % MEMORY_GUESTS.length), ...MEMORY_GUESTS].find(g => canEat(dish, g)) ?? "office";
+    orders.push({ id: "c" + i, guest, dish, at: Math.round(at) });
+    at += dishSecs(dish) * 0.75;
+  }
+  const slowest = Math.max(...dishes.map(dishSecs)), first = DISHES[dishes[0]];
+  return {
+    n: 5, name: first.name, brief: "Regulars came to try this café's menu. Every dish is on the recipe card.", teach: first.remember, stations,
+    cafe: { host, menu: packs.map(packHash) }, seats: 3, maxOpen: 3, hints: "chip", distractors: [], unlocks: [], orders,
+    patience: Math.round(Math.max(60, slowest * 2.3)), round: Math.round(at + slowest * 1.5 + 25),
+  };
+}
+
 /** The service a pack plays at a tier. Throws when the pack is not registered. */
 export function missionFor(pack: LevelPack, tier: Tier): Level {
   const dishes = pack.dishes.map(d => d.id);

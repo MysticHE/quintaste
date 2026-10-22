@@ -25,7 +25,8 @@ import { LevelsSheet } from "./home/LevelsSheet";
 import { BooksSheet } from "./home/BooksSheet";
 import { CompanionSheet } from "./home/CompanionSheet";
 import { CafeSheet } from "./home/CafeSheet";
-import { AvatarSheet, LaterSheet, LotusSheet, MenuSheet } from "./home/InfoSheets";
+import { AvatarSheet, LotusSheet, MenuSheet } from "./home/InfoSheets";
+import { OutAndAboutSheet } from "./home/Cafes";
 import { PlaySettingsSheet } from "./home/PlaySettingsSheet";
 import { FindReveal, type Find } from "./home/FindReveal";
 import { Art } from "./home/bits";
@@ -153,7 +154,7 @@ function HomeSheets({ sheet, setSheet, game, set, buy, play, playMission, playSe
   if (sheet === "settings") return <PlaySettingsSheet settings={game.settings} onChange={next => set(g => ({ ...g, settings: next }))} onClose={close} />;
   if (sheet === "avatar") return <AvatarSheet onClose={close} onCompanion={() => setSheet("companion")} />;
   if (sheet === "lotus") return <LotusSheet tier={game.tier} member={member} onClose={close} />;
-  if (sheet === "window") return <LaterSheet title="Stall visits" onClose={close} text="Visit someone else's hawker stall as the customer and choose which questions to ask. It ends on your own Ask-the-stall card." />;
+  if (sheet === "window") return <OutAndAboutSheet onClose={close} onVisit={host => { close(); InteractionManager.runAfterInteractions(() => router.push({ pathname: "/game/play", params: { cafe: host, run: String(Date.now()) } })); }} />;
   return null;
 }
 

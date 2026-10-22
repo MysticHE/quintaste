@@ -25,7 +25,7 @@ export function loadSim() {
       applyResult: progress.applyResult, readGame: progress.readGame, mergeGame: progress.mergeGame, emptyGame: progress.emptyGame,
       isUnlocked: progress.isUnlocked, levelOpen: progress.levelOpen, highestCleared: progress.highestCleared, specialFor: special.specialFor, cosmetics, LEVELS: levels.LEVELS, DISHES: dishes.DISHES,
       BUILTIN: pack.BUILTIN, readPack: pack.readPack, registerPack: pack.registerPack, packHash: pack.packHash, PackError: pack.PackError, TIERS: mission.TIERS,
-      missingTechnique: kitchen.missingTechnique, compile, missionFor: mission.missionFor, tierHints: mission.tierHints, play: bot.play, createRun: engine.createRun, ITEMS: items.ITEMS, rating,
+      missingTechnique: kitchen.missingTechnique, compile, missionFor: mission.missionFor, cafeFor: mission.cafeFor, tierHints: mission.tierHints, play: bot.play, createRun: engine.createRun, ITEMS: items.ITEMS, rating,
       seasons, applySeason: progress.applySeason };
   })().catch(error => {
     logger.error({ event: 'game_sim_unavailable', message: String(error?.message ?? error).slice(0, 200) });

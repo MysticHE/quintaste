@@ -7,6 +7,7 @@ import { isUnlocked, type GameProgress } from "../../../game/progress";
 import { usePreferences } from "../../../state/Preferences";
 import { GameSheet, Section } from "./GameSheet";
 import { Grid, Tile } from "./bits";
+import { OpenMyCafe } from "./Cafes";
 
 /** Café details (board A10): private name, skins, and decor bought with earned credits (never money, QT-056). */
 export function CafeSheet({ game, onClose, onName, onSkin, onBuy, onDecorate }: {
@@ -23,7 +24,7 @@ export function CafeSheet({ game, onClose, onName, onSkin, onBuy, onDecorate }: 
   }
   return <GameSheet title="Café details" subtitle={game.cafeName + " · " + game.credits + " credits"} art="decor-plant" onClose={onClose}>
     <Field label="Café name" value={name} maxLength={18} onChangeText={setName} onBlur={() => onName(name)} onSubmitEditing={() => onName(name)} />
-    <T variant="small" muted>It goes on your café sign. Only you can see your café.</T>
+    <T variant="small" muted>It goes on your café sign. Your café stays private unless you open it to visitors.</T>
     <Section title="Skin"><View style={s.skins}>{SKIN_ORDER.map(id => {
       const sk = SKINS[id], ok = isUnlocked(game, sk.unlock), src = sk.art ? GAME_ART[sk.art] : undefined;
       return <Pressable key={id} disabled={!ok || !src} onPress={() => onSkin(id)} accessibilityRole="button" accessibilityState={{ selected: game.skin === id, disabled: !ok }}
@@ -47,6 +48,7 @@ export function CafeSheet({ game, onClose, onName, onSkin, onBuy, onDecorate }: 
       })}</Grid>
       <Button label="Arrange decor" icon="color-palette-outline" variant="secondary" onPress={onDecorate} />
     </Section>
+    <OpenMyCafe game={game} />
   </GameSheet>;
 }
 const s = StyleSheet.create({

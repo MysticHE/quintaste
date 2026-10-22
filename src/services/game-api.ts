@@ -36,6 +36,15 @@ export const requestLevel = (recipeId: string) => communityRequest<LevelRequest>
 /** The member's recent level requests: in line, done (with the level) or failed (with the reason). */
 export type MyLevel = { id: string; recipeId: string; status: "waiting" | "done" | "failed"; message: string; hash: string | null; createdAt: string };
 export const fetchMyLevels = (signal?: AbortSignal) => communityRequest<{ levels: MyLevel[] }>("/api/game/levels/mine", { signal });
+/** Member cafés (GAME_CONTENT_PLAN §9): the member's own café with private weekly counts, saving it, open cafés, and one café's menu packs. */
+export type MyCafe = { cafe: { name: string; open: boolean; hidden: boolean; termsAccepted: boolean } | null;
+  menu: { hash: string; recipeId: string; name: string }[]; week: { visits: number; served: number }; terms: number };
+export const fetchMyCafe = (signal?: AbortSignal) => communityRequest<MyCafe>("/api/game/my-cafe", { signal });
+export const saveMyCafe = (body: { name: string; open: boolean; menu: string[]; terms?: number }) => communityRequest<MyCafe>("/api/game/my-cafe", { method: "PUT", body });
+export type CafeListing = { host: string; name: string; dishes: string[] };
+export const fetchCafes = (q: string, signal?: AbortSignal) => communityRequest<{ cafes: CafeListing[] }>("/api/game/cafes?q=" + encodeURIComponent(q), { signal });
+export type CafeVisit = { host: string; name: string; packs: unknown[]; pictures: Record<string, string> };
+export const fetchCafe = (host: string) => communityRequest<CafeVisit>("/api/game/cafes/" + encodeURIComponent(host));
 export const fetchPack = (hash: string) => communityRequest<PackResponse>("/api/game/packs/" + encodeURIComponent(hash));
 /** Signed-out players: public live levels only, played as practice on the device. */
 async function publicGet<T>(path: string, signal?: AbortSignal): Promise<T> {
@@ -47,6 +56,8 @@ export const fetchPublicKitchen = (signal?: AbortSignal) => publicGet<KitchenShe
 export const fetchPublicPack = (hash: string) => publicGet<PackResponse>("/api/game-public/packs/" + encodeURIComponent(hash));
 /** Whether the Seasons shelf is open (staff switch). Anything but a clear yes keeps it closed. */
 export const fetchSeasonsOn = (signal?: AbortSignal) => publicGet<{ on: boolean }>("/api/game-public/seasons", signal);
+/** Whether member cafés are open (staff switch). Anything but a clear yes keeps them hidden. */
+export const fetchCafesOn = (signal?: AbortSignal) => publicGet<{ on: boolean }>("/api/game-public/cafes", signal);
 /** Recipe levels staff hid, so the phone can drop them from the levels it keeps for offline play. */
 export const fetchRevoked = () => publicGet<{ hashes: string[] }>("/api/game-public/revoked");
 export const finishRun = (id: string, actions: Action[], result: Result) =>

@@ -15,7 +15,7 @@ const subjects: [RegExp, string, (id: string) => string][] = [
   [/^place:catalogue:(.+)$/, 'Open place', id => '/console/places?id=' + encodeURIComponent(id)],
   [/^place:review:/, 'Place reviews', () => '/console/reviews'], [/^recipe:member:/, 'Member recipes', () => '/console/member-recipes'],
   [/^market:listing:/, 'Listings', () => '/console/listings'], [/^market:order:/, 'Shops', () => '/console/shops'], [/^community:user:/, 'Accounts', () => '/console/accounts'],
-  [/^game:level:/, 'Game levels', () => '/console/game-levels']];
+  [/^game:level:/, 'Game levels', () => '/console/game-levels'], [/^game:cafe:/, 'Game cafés', () => '/console/game-levels']];
 function Subject({ value }: { value: string }) {
   const [subject, by] = value.split('|by:'), match = subjects.map(([re, label, href]) => { const m = re.exec(subject); return m && { label, href: href(m[1] ?? '') }; }).find(Boolean);
   return <span className="row">{match ? <Link className="row" href={match.href}>{match.label}<Icon name="forward" size={14}/></Link> : null}

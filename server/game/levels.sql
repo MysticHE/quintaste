@@ -32,18 +32,25 @@ ALTER TABLE game.run
   ADD COLUMN IF NOT EXISTS season_id text CHECK (season_id ~ '^[a-z0-9][a-z0-9-]{1,39}$'),
   ADD COLUMN IF NOT EXISTS season_n smallint CHECK (season_n BETWEEN 1 AND 12);
 ALTER TABLE game.run DROP CONSTRAINT IF EXISTS run_check, DROP CONSTRAINT IF EXISTS run_shape;
+-- A café visit (GAME_CONTENT_PLAN §9): the host, and the snapshot of their menu (level pack hashes) the service was built from.
+ALTER TABLE game.run ADD COLUMN IF NOT EXISTS cafe_host text CHECK (cafe_host IS NULL OR char_length(cafe_host) BETWEEN 1 AND 120);
+ALTER TABLE game.run ADD COLUMN IF NOT EXISTS cafe_menu text[] CHECK (cafe_menu IS NULL OR cardinality(cafe_menu) BETWEEN 1 AND 6);
+-- One kind per run: a numbered level, or (level 0) Today's special, a Recipe Kitchen pack, a season level or a café visit. run_kind2
+-- replaces the earlier run_kind (which had no café runs) once; checked NOT VALID first, then validated.
 DO $$
 BEGIN
-  IF NOT EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'run_kind' AND conrelid = 'game.run'::regclass) THEN
-    ALTER TABLE game.run ADD CONSTRAINT run_kind CHECK (
-      (level = 0) = (special_day IS NOT NULL OR pack IS NOT NULL OR season_id IS NOT NULL)
+  IF NOT EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'run_kind2' AND conrelid = 'game.run'::regclass) THEN
+    ALTER TABLE game.run DROP CONSTRAINT IF EXISTS run_kind;
+    ALTER TABLE game.run ADD CONSTRAINT run_kind2 CHECK (
+      (level = 0) = (special_day IS NOT NULL OR pack IS NOT NULL OR season_id IS NOT NULL OR cafe_host IS NOT NULL)
       AND (special_day IS NULL) = (special_top IS NULL)
       AND (pack IS NULL) = (tier IS NULL)
       AND (season_id IS NULL) = (season_n IS NULL)
-      AND num_nonnulls(special_day, pack, season_id) <= 1) NOT VALID;
+      AND (cafe_host IS NULL) = (cafe_menu IS NULL)
+      AND num_nonnulls(special_day, pack, season_id, cafe_host) <= 1) NOT VALID;
   END IF;
 END $$;
-ALTER TABLE game.run VALIDATE CONSTRAINT run_kind;
+ALTER TABLE game.run VALIDATE CONSTRAINT run_kind2;
 CREATE INDEX IF NOT EXISTS game_run_pack ON game.run(pack) WHERE pack IS NOT NULL;
 
 -- Best result per recipe and tier from settled mission runs. Credits for missions wait for the owner's decision
@@ -226,6 +233,41 @@ CREATE UNIQUE INDEX IF NOT EXISTS game_level_job_open_owner ON game.level_job(re
 DROP INDEX IF EXISTS game.game_level_job_open;
 CREATE INDEX IF NOT EXISTS game_level_job_owner ON game.level_job(owner_id, created_at) WHERE owner_id IS NOT NULL;
 
+-- Member cafés (GAME_CONTENT_PLAN §9, Phase 5; QT-048 updated 22 Oct 2026): opt-in, off behind `game_cafes` until the owner sets the
+-- terms wording and contact details. A café shows its name and a menu of up to six reviewed (public) recipe levels; visitors play a
+-- service of it; the host sees private weekly counts only. Staff hide a café (hidden_at) from reports.
+CREATE TABLE IF NOT EXISTS game.cafe (
+  user_id text PRIMARY KEY REFERENCES game.profile(user_id) ON DELETE CASCADE,
+  name text NOT NULL CHECK (char_length(name) BETWEEN 1 AND 30),
+  open boolean NOT NULL DEFAULT false,
+  terms_version smallint CHECK (terms_version IS NULL OR terms_version >= 1),
+  terms_at timestamptz,
+  opened_at timestamptz,
+  hidden_at timestamptz,
+  hidden_reason text CHECK (hidden_reason IS NULL OR char_length(hidden_reason) <= 300),
+  updated_at timestamptz NOT NULL DEFAULT now(),
+  CHECK (NOT open OR terms_version IS NOT NULL)
+);
+CREATE TABLE IF NOT EXISTS game.cafe_menu (
+  user_id text NOT NULL REFERENCES game.cafe(user_id) ON DELETE CASCADE,
+  position smallint NOT NULL CHECK (position BETWEEN 1 AND 6),
+  hash text NOT NULL REFERENCES game.recipe_level(hash) ON DELETE CASCADE,
+  PRIMARY KEY (user_id, position),
+  UNIQUE (user_id, hash)
+);
+CREATE TABLE IF NOT EXISTS game.cafe_visit (
+  run_id uuid PRIMARY KEY REFERENCES game.run(id) ON DELETE CASCADE,
+  host_id text NOT NULL REFERENCES game.cafe(user_id) ON DELETE CASCADE,
+  visitor_id text NOT NULL CHECK (char_length(visitor_id) BETWEEN 1 AND 120),
+  served boolean NOT NULL DEFAULT false,
+  created_at timestamptz NOT NULL DEFAULT now()
+);
+CREATE INDEX IF NOT EXISTS game_cafe_visit_host ON game.cafe_visit(host_id, created_at);
+INSERT INTO ops.control(key, enabled, notice) VALUES ('game_cafes', false, '') ON CONFLICT DO NOTHING;
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON game.cafe TO quintaste_app;
+GRANT SELECT, INSERT, UPDATE, DELETE ON game.cafe_menu TO quintaste_app;
+GRANT SELECT, INSERT, UPDATE ON game.cafe_visit TO quintaste_app;
 GRANT SELECT, INSERT ON game.item TO quintaste_app;
 GRANT SELECT, INSERT, UPDATE ON game.level_job TO quintaste_app;
 GRANT INSERT ON game.recipe_level TO quintaste_app;
@@ -252,6 +294,10 @@ BEGIN
     GRANT SELECT, INSERT, UPDATE ON game.art_job TO quintaste_admin;
     GRANT SELECT, UPDATE ON game.item TO quintaste_admin;
     GRANT SELECT, INSERT ON game.level_job TO quintaste_admin;
+    -- Staff hide or restore a café from reports (Admin > Content > Game cafés).
+    GRANT SELECT, UPDATE ON game.cafe TO quintaste_admin;
+    GRANT SELECT ON game.cafe_menu TO quintaste_admin;
+    GRANT SELECT ON game.cafe_visit TO quintaste_admin;
   END IF;
 END $$;
 COMMIT;

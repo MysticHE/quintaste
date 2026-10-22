@@ -51,7 +51,7 @@ export function Scene({ game, width, decor, decorating, selectedSlot, hint, fres
   // Lian, the companion and the stove need no marker: they move, steam and react. Backdrop objects get a sparkle.
   const sparkles: [number, number][] = [SPARKLE_AT.books, [mx + mw * 0.82, my + mh * 0.18], SPARKLE_AT.wardrobe].map(([x, y]) => [x * u, y * u]);
   const hots: { id: HotId; box: Box; name: string; core?: boolean }[] = [
-    { id: "window", box: BACK.window[skin], name: "Window: stall visits, coming in a later update" },
+    { id: "window", box: BACK.window[skin], name: "Window: out and about" },
     { id: "books", box: BACK.books[skin], name: "Bookshelf: recipe, pantry and regulars books", core: true },
     { id: "menu", box: BACK.menu[skin], name: menuOpen ? "Chalkboard menu" : "Chalkboard menu, opens at Level 6" },
     { id: "wardrobe", box: BACK.wardrobe[skin], name: "Mirror and aprons: wardrobe", core: true },

@@ -56,6 +56,38 @@ export async function gameLevelAction(member: Session, input: Record<string, unk
   }));
 }
 
+/**
+ * Member cafés (GAME_CONTENT_PLAN §9): open, hidden by staff, or closed by their host; reported ones first. Each shows its name, host,
+ * menu and this week's visits, so staff can act on a report.
+ */
+export async function gameCafeList(member: Session, status: string, q: string, skip = 0) {
+  authorize(member, 'content');
+  const view = choice(status || 'open', ['open', 'hidden', 'closed'] as const, 'status'), term = search(q);
+  const where = { open: 'c.open AND c.hidden_at IS NULL', hidden: 'c.hidden_at IS NOT NULL', closed: 'NOT c.open AND c.hidden_at IS NULL' }[view];
+  return guard(async () => (await query(`SELECT c.user_id AS id, c.name, c.open, c.hidden_at, c.hidden_reason, c.opened_at, u.username AS host,
+      (SELECT coalesce(json_agg(l.pack->'dishes'->0->>'name' ORDER BY m.position), '[]') FROM game.cafe_menu m JOIN game.recipe_level l ON l.hash = m.hash WHERE m.user_id = c.user_id) AS dishes,
+      (SELECT count(*)::int FROM game.cafe_visit v WHERE v.host_id = c.user_id AND v.created_at > now() - interval '7 days') AS week,
+      (SELECT count(*)::int FROM ops.case_record r WHERE r.subject_id LIKE 'game:cafe:' || c.user_id || '|%' AND r.status NOT IN ('resolved','closed')) AS reports
+    FROM game.cafe c JOIN public."user" u ON u.id = c.user_id
+    WHERE ${where} AND ($1 = '' OR c.name ILIKE $1 OR u.username ILIKE $1)
+    ORDER BY reports DESC, c.updated_at DESC LIMIT ${pageSize} OFFSET $2`, [term, skip])).rows);
+}
+
+/** hide (the café closes and drops out of every list; its host cannot reopen it) or restore. Audited. */
+export async function gameCafeAction(member: Session, input: Record<string, unknown>, reason: string) {
+  const act = choice(input.action, ['hide', 'restore'] as const, 'action'), id = text(input.id, 'café', 120, 1);
+  authorize(member, 'content');
+  return guard(() => transaction(async db => {
+    await lockPermission(db, member, 'content');
+    const changed = act === 'hide'
+      ? await db.query(`UPDATE game.cafe SET hidden_at = now(), hidden_reason = $2, open = false, updated_at = now() WHERE user_id = $1 AND hidden_at IS NULL`, [id, reason.slice(0, 300)])
+      : await db.query(`UPDATE game.cafe SET hidden_at = NULL, hidden_reason = NULL, updated_at = now() WHERE user_id = $1 AND hidden_at IS NOT NULL`, [id]);
+    if (!changed.rowCount) throw new HttpError(409, 'This café changed since you opened it. Refresh the list.');
+    await audit(db, member.id, 'content.game_cafe.' + act, 'game-cafe:' + id, reason, {});
+    return { saved: true, note: act === 'hide' ? 'Hidden: closed and out of every list' : 'Restored: the host can open it again' };
+  }));
+}
+
 /** Drafts waiting for the artist, approved or rejected pictures (with the art key each was drawn for), or the picture jobs themselves. */
 export async function gamePictureList(member: Session, status: string, skip = 0) {
   authorize(member, 'content');

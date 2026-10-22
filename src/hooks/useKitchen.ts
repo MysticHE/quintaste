@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { useMember } from "../components/CommunityGate";
-import { fetchKitchen, fetchPublicKitchen, fetchSeasonsOn } from "../services/game-api";
+import { fetchCafesOn, fetchKitchen, fetchPublicKitchen, fetchSeasonsOn } from "../services/game-api";
 import { pruneRevoked } from "../services/game-packs";
 import { useFood } from "../state/Food";
 import { useGameMemberId } from "./useGame";
@@ -23,4 +23,8 @@ export { chanceFor, forYou, newest, nextTier, tierOpen } from "../game/kitchen-r
 /** The Seasons shelf shows only when staff have it on; offline or unsure, it stays hidden (GAME_CONTENT_PLAN §10a: fail closed). */
 export function useSeasonsOn() {
   return useRemote("game-seasons", signal => fetchSeasonsOn(signal)).data?.on === true;
+}
+/** Member cafés show only when staff have them on; offline or unsure, they stay hidden. */
+export function useCafesOn() {
+  return useRemote("game-cafes-on", signal => fetchCafesOn(signal)).data?.on === true;
 }

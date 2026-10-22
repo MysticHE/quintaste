@@ -14,6 +14,7 @@ const reasons = {
   place: ["Hours", "Address or location", "Menu or prices", "Closed or moved", "Not meat-free", "Other"],
   recipe: ["Not meat-free", "Unsafe instructions", "Not their recipe", "Spam or scam", "Other"],
   level: ["Not meat-free", "Wrong ingredients", "Inappropriate", "Spam or scam", "Other"],
+  cafe: ["Inappropriate name", "Spam or scam", "Harassment", "Other"],
 } as const;
 /** Sends a report to the staff review queue; a person report can also block them, a place report suggests an update. */
 export function ReportSheet({ kind, targetId, name, visible, onClose, onBlocked, initialReason = "" }: {

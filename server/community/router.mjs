@@ -54,16 +54,16 @@ community.delete('/blocks/:id', async (req, res) => {
 });
 community.post('/reports', async (req, res) => {
   const me = res.locals.user.id, kind = req.body?.kind;
-  if (!['person', 'listing', 'place', 'recipe', 'level'].includes(kind)) throw new CommunityError(400, 'Choose what you are reporting.');
+  if (!['person', 'listing', 'place', 'recipe', 'level', 'cafe'].includes(kind)) throw new CommunityError(400, 'Choose what you are reporting.');
   // Place reports (wrong hours, menu, location, closure or diet) go to the same staff case queue as other reports; so do reports on a
   // public Rush Hour level made from a member's recipe (RECIPE_LEVELS_PLAN §10).
   const target = kind === 'place' ? await publishedPlaceId(req.body?.targetId) : kind === 'recipe' ? await publishedRecipeId(req.body?.targetId)
-    : kind === 'level' ? await publicLevel(req.body?.targetId) : requireUser(req.body?.targetId);
-  if (!target) throw new CommunityError(404, kind === 'recipe' ? 'That recipe is unavailable.' : kind === 'level' ? 'That level is unavailable.' : 'That place is unavailable.');
+    : kind === 'level' ? await publicLevel(req.body?.targetId) : kind === 'cafe' ? await openCafe(req.body?.targetId) : requireUser(req.body?.targetId);
+  if (!target) throw new CommunityError(404, kind === 'recipe' ? 'That recipe is unavailable.' : kind === 'level' ? 'That level is unavailable.' : kind === 'cafe' ? 'That café is closed.' : 'That place is unavailable.');
   const reason = text(req.body?.reason, 60), details = text(req.body?.details, 1000);
-  const subject = { listing: 'market:listing:', person: 'community:user:', place: 'place:catalogue:', recipe: 'recipe:member:', level: 'game:level:' }[kind] + target;
+  const subject = { listing: 'market:listing:', person: 'community:user:', place: 'place:catalogue:', recipe: 'recipe:member:', level: 'game:level:', cafe: 'game:cafe:' }[kind] + target;
   const reference = await fileReport(me, { subject,
-    title: { listing: 'Market listing report', person: 'Member report', place: 'Place update', recipe: 'Member recipe report', level: 'Game level report' }[kind] + (reason ? ' · ' + reason : ''),
+    title: { listing: 'Market listing report', person: 'Member report', place: 'Place update', recipe: 'Member recipe report', level: 'Game level report', cafe: 'Game café report' }[kind] + (reason ? ' · ' + reason : ''),
     description: [reason && 'Reason: ' + reason, details || 'No details given.'].filter(Boolean).join('\n\n') });
   if (req.body?.block === true && kind === 'person' && target !== me) {
     await transaction(async db => {
@@ -77,6 +77,11 @@ community.post('/reports', async (req, res) => {
 async function publicLevel(hash) {
   if (typeof hash !== 'string' || !/^p[a-z0-9]{1,14}$/.test(hash)) return null;
   return (await pool.query(`SELECT hash FROM game.recipe_level WHERE hash = $1 AND status = 'ready' AND owner_id IS NULL`, [hash])).rows[0]?.hash ?? null;
+}
+/** An open member café by its host's id, or null. */
+async function openCafe(host) {
+  if (typeof host !== 'string' || !host || host.length > 120) return null;
+  return (await pool.query(`SELECT user_id FROM game.cafe WHERE user_id = $1 AND open AND hidden_at IS NULL`, [host])).rows[0]?.user_id ?? null;
 }
 /** Blocking someone leaves any open Social group you share with them. */
 async function leaveSharedGroups(db, me, other) {

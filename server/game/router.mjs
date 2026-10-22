@@ -7,9 +7,10 @@ import { lockProfile, postCredits } from './ledger.mjs';
 import { importDevice, loadProgress, saveCafe } from './progress.mjs';
 import { pictureUrl, picturesFor } from './art.mjs';
 import { allowed } from '../operations.mjs';
-import { notBlocked, notRestricted } from '../community/router.mjs';
 import { planAccess } from '../ai-recipes/limits.mjs';
 import { myLevels, requestLevel } from './levels-members.mjs';
+import { authorVisible } from './visibility.mjs';
+import { cafesOn, listCafes, myCafe, requireCafes, saveCafe as saveOpenCafe, visitableCafe } from './cafes.mjs';
 
 /**
  * Rush Hour account progress (GAME_PLAN §12.3 and §14 Phase B; PRD QT-055/056), mounted at /api/game behind the `games`
@@ -64,12 +65,7 @@ game.post('/purchases', async (req, res) => {
 });
 
 const PACK_HASH = /^p[a-z0-9]{1,14}$/;
-/**
- * A level from a member's recipe is shown only while that recipe is live and shown, its author is not restricted, and neither side
- * has blocked the other (blocking is mutual, RECIPE_LEVELS_PLAN §10). `level` is the recipe_level alias; `viewer` the viewer's id param.
- */
-const authorVisible = (level, viewer) => `(${level}.recipe_id NOT LIKE 'member-%' OR EXISTS (SELECT 1 FROM recipes.recipe mr_ WHERE 'member-' || mr_.id::text = ${level}.recipe_id
-  AND mr_.live IS NOT NULL AND mr_.hidden_at IS NULL AND ${notRestricted('mr_.author_id')} AND ${notBlocked('mr_.author_id', viewer)}))`;
+
 /**
  * A level pack this member may play: ready, and public or their own. It is validated, its stored hash checked and it is
  * registered with the simulation. Null when it is missing, withdrawn, someone else's, or no longer valid.
@@ -109,6 +105,31 @@ game.post('/levels', async (req, res) => {
   const plan = await planAccess(me);
   if (plan.needsPlan) throw new CommunityError(402, 'Choose a plan to make levels from your recipes.', 'PLAN_REQUIRED');
   res.status(202).json(await transaction(db => requestLevel(db, me, req.body?.recipeId, { daily: !plan.unlimited })));
+});
+/**
+ * Member cafés (GAME_CONTENT_PLAN §9, cafes.mjs): the member's own café (with private weekly counts), saving it, open cafés to visit,
+ * and one café's menu packs to play. All behind the `game_cafes` control.
+ */
+game.get('/my-cafe', async (_req, res) => {
+  await requireCafes();
+  res.set('Cache-Control', 'private, no-store').json(await myCafe(pool, res.locals.user.id));
+});
+game.put('/my-cafe', async (req, res) => {
+  await requireCafes();
+  await throttle(`game-cafe:${res.locals.user.id}`, 30, 3600);
+  res.json(await transaction(db => saveOpenCafe(db, res.locals.user.id, req.body)));
+});
+game.get('/cafes', async (req, res) => {
+  await requireCafes();
+  res.set('Cache-Control', 'private, no-store').json({ cafes: await listCafes(pool, res.locals.user.id, req.query.q) });
+});
+game.get('/cafes/:host', async (req, res) => {
+  await requireCafes();
+  const cafe = await visitableCafe(pool, res.locals.sim, req.params.host, res.locals.user.id);
+  if (!cafe) throw new CommunityError(404, 'That café is closed.', 'CAFE_CLOSED');
+  const pictures = {};
+  for (const p of cafe.packs) Object.assign(pictures, await picturesFor(pool, p.pack));
+  res.set('Cache-Control', 'private, no-store').json({ host: cafe.host, name: cafe.name, packs: cafe.packs.map(p => p.pack), pictures });
 });
 game.get('/levels/mine', async (_req, res) => {
   res.set('Cache-Control', 'private, no-store').json({ levels: await myLevels(pool, res.locals.user.id) });
@@ -199,6 +220,7 @@ gamePublic.get('/kitchen', async (_req, res, next) => {
  * it is online, so a hidden level can't be played offline either; credited runs of one are already refused here.
  */
 /** Whether the Seasons shelf is open (`game_seasons`). The app shows the shelf only on a clear yes: it fails closed. */
+gamePublic.get('/cafes', async (_req, res) => { res.set('Cache-Control', 'public, max-age=60').json({ on: await cafesOn() }); });
 gamePublic.get('/seasons', async (_req, res, next) => {
   try { res.set('Cache-Control', 'public, max-age=60').json({ on: await allowed('game_seasons') }); } catch (error) { next(error); }
 });
@@ -224,6 +246,7 @@ game.post('/runs', async (req, res) => {
   if (body.rules !== sim.rulesVersion) throw new CommunityError(409, 'Update QuinTaste to save game progress.', 'GAME_UPDATE');
   if (body.pack != null) return openMission(req, res);
   if (body.season != null) return openSeason(req, res);
+  if (body.cafe != null) return openCafe(req, res);
   // Today's special: a Singapore date within a day of now; otherwise a numbered level.
   const day = body.special == null ? null : String(body.special);
   if (day !== null && !nearDays().includes(day)) throw new CommunityError(400, 'Invalid run.');
@@ -279,6 +302,34 @@ async function openMission(req, res) {
     await db.query(`INSERT INTO game.run(id, user_id, level, mode, pet, signature, rules_version, hints, pack, tier, pace) VALUES($1,$2,0,'rush',$3,'{}',$4,$5,$6,$7,$8)`,
       [body.id, user.id, pet, sim.rulesVersion, hints, body.pack, body.tier, pace]);
     return { id: body.id, status: 'open' };
+  });
+  res.json(run);
+}
+
+/**
+ * Opens a café visit (GAME_CONTENT_PLAN §9): the café must be open and visitable, and the run keeps a snapshot of its menu so a menu
+ * change while the run is open cannot change what replays. The visitor must have learned the menu's techniques.
+ */
+async function openCafe(req, res) {
+  const { sim, user } = res.locals, body = req.body;
+  await requireCafes();
+  const hints = ['full', 'chip', 'none'].includes(body.hints) ? body.hints : null;
+  const pace = ['normal', 'relaxed', 'slow'].includes(body.pace) ? body.pace : null;
+  const pet = typeof body.pet === 'string' && Object.hasOwn(sim.cosmetics.PETS, body.pet) ? body.pet : null;
+  await throttle(`game-run:${user.id}`, 120, 3600);
+  const run = await transaction(async db => {
+    await lockProfile(db, user.id);
+    const existing = (await db.query('SELECT user_id, status FROM game.run WHERE id=$1', [body.id])).rows[0];
+    if (existing) { if (existing.user_id !== user.id) throw new CommunityError(404, 'Invalid run.'); return { id: body.id, status: existing.status }; }
+    const cafe = await visitableCafe(db, sim, body.cafe?.host, user.id);
+    if (!cafe) throw new CommunityError(404, 'That café is closed.', 'CAFE_CLOSED');
+    const { game: progress } = await loadProgress(db, sim, user.id);
+    const missing = sim.missingTechnique(progress, [...new Set(cafe.packs.flatMap(p => p.techniques))]);
+    if (missing) throw new CommunityError(409, missing.level ? `Learn the ${missing.name.toLowerCase()} in Level ${missing.level} first.` : 'Update QuinTaste to play this café.', 'TECHNIQUE_LOCKED');
+    if (!pet || !sim.isUnlocked(progress, sim.cosmetics.PETS[pet].unlock)) throw new CommunityError(409, 'That companion is locked.', 'PET_LOCKED');
+    await db.query(`INSERT INTO game.run(id, user_id, level, mode, pet, signature, rules_version, hints, pace, cafe_host, cafe_menu) VALUES($1,$2,0,'rush',$3,'{}',$4,$5,$6,$7,$8)`,
+      [body.id, user.id, pet, sim.rulesVersion, hints, pace, cafe.host, cafe.packs.map(p => p.hash)]);
+    return { id: body.id, status: 'open', menu: cafe.packs.map(p => p.hash) };
   });
   res.json(run);
 }
@@ -349,9 +400,14 @@ game.post('/runs/:id/finish', async (req, res) => {
   // A mission settles only while its pack is still playable: a level withdrawn since the run started is refused.
   const mission = run.pack ? await playablePack(pool, sim, run.pack, user.id) : null;
   if (run.pack && !mission) { await refuse(id, user.id, 'level withdrawn', actions); return reply(); }
+  // A café visit replays its menu snapshot; every pack in it must still be playable and is registered for the replay.
+  if (run.cafe_host) {
+    const packs = await Promise.all(run.cafe_menu.map(hash => playablePack(pool, sim, hash, user.id)));
+    if (packs.some(p => !p)) { await refuse(id, user.id, 'level withdrawn', actions); return reply(); }
+  }
   // The service's seed comes from the run's id, which the app also used to play it.
   const setup = { level: run.level, special, mission: run.pack ? { pack: run.pack, tier: run.tier } : null, season: run.season_id ? { id: run.season_id, n: run.season_n } : null,
-    hints: run.hints, pet: run.pet, signature: run.signature, seed: sim.seedOf(run.id) };
+    cafe: run.cafe_host ? { host: run.cafe_host, menu: run.cafe_menu } : null, hints: run.hints, pet: run.pet, signature: run.signature, seed: sim.seedOf(run.id) };
   let replayed;
   try { replayed = sim.replay(setup, actions); }
   catch (error) {
@@ -370,6 +426,7 @@ game.post('/runs/:id/finish', async (req, res) => {
     if (special) { await settleSpecial(db, sim, user.id, id, replayed, result, actions); return; }
     if (mission) { await settleMission(db, sim, user.id, id, run, mission.recipeId, replayed, result, actions); return; }
     if (run.season_id) { await settleSeason(db, sim, user.id, id, run, progress, replayed, result, actions); return; }
+    if (run.cafe_host) { await settleCafe(db, sim, user.id, id, run, replayed, result, actions); return; }
     if (!sim.levelOpen(progress, run.level)) {
       await db.query(`UPDATE game.run SET status='rejected', reason='level locked', finished_at=now() WHERE id=$1`, [id]);
       await db.query('INSERT INTO game.run_log(run_id, actions) VALUES($1,$2) ON CONFLICT DO NOTHING', [id, JSON.stringify(actions)]);
@@ -434,6 +491,26 @@ async function settleSeason(db, sim, me, id, run, progress, replayed, result, ac
   await db.query(`UPDATE game.run SET status='settled', finished_at=now(), ticks=$2, credits=$3, result=$4 WHERE id=$1`,
     [id, replayed.ticks, Math.max(0, reward.credits), { result: resultOf(result, replayed.endReason === 'quit'), reward }]);
   await db.query('INSERT INTO game.run_log(run_id, actions) VALUES($1,$2) ON CONFLICT DO NOTHING', [id, JSON.stringify(actions)]);
+}
+
+/**
+ * A finished café visit: the visit counts for the host's private weekly numbers, and a clear pays the kitchen credits once per café
+ * ever (ledger source cafe:<host>, within the day's three kitchen rewards). Hosts are never paid for visitors (QT-056).
+ */
+async function settleCafe(db, sim, me, id, run, replayed, result, actions) {
+  const reward = { credits: 0, first: false, mastered: false, unlocks: [] };
+  if (result.cleared) Object.assign(reward, await payCafe(db, sim, me, run.cafe_host));
+  await db.query(`INSERT INTO game.cafe_visit(run_id, host_id, visitor_id, served) VALUES($1,$2,$3,$4) ON CONFLICT DO NOTHING`, [id, run.cafe_host, me, result.cleared]);
+  await db.query(`UPDATE game.run SET status='settled', finished_at=now(), ticks=$2, credits=$4, result=$3 WHERE id=$1`,
+    [id, replayed.ticks, { result: resultOf(result, replayed.endReason === 'quit'), reward }, reward.credits]);
+  await db.query('INSERT INTO game.run_log(run_id, actions) VALUES($1,$2) ON CONFLICT DO NOTHING', [id, JSON.stringify(actions)]);
+}
+async function payCafe(db, sim, me, host) {
+  const source = 'cafe:' + createHash('sha256').update(host).digest('hex').slice(0, 40);
+  if ((await db.query(`SELECT 1 FROM game.ledger WHERE user_id=$1 AND kind='kitchen' AND source=$2`, [me, source])).rowCount) return {};
+  if (await paidToday(db, me, 'kitchen') >= sim.cosmetics.DAILY_CREDITS.kitchen) return { note: "Today's three kitchen rewards are used. Visit again tomorrow for this café's credits." };
+  const credits = sim.cosmetics.DAILY_CREDITS.kitchenClear;
+  return await postCredits(db, me, credits, 'kitchen', source) ? { credits, first: true } : {};
 }
 
 /**

@@ -10,7 +10,7 @@ import { aiJobs, aiSummary } from '../../../../lib/ai-recipes';
 import { demandAction, demandList } from '../../../../lib/recipe-demand';
 import { ingredientAction, ingredientList } from '../../../../lib/content-ingredients';
 import { creatorAction, creatorList } from '../../../../lib/creators';
-import { gameLevelAction, gameLevelList, gameLevelMake, gameLevelRecipes, gamePicture, gamePictureAction, gamePictureList } from '../../../../lib/game-content';
+import { gameLevelAction, gameCafeList, gameCafeAction, gameLevelList, gameLevelMake, gameLevelRecipes, gamePicture, gamePictureAction, gamePictureList } from '../../../../lib/game-content';
 
 type Context = { params: Promise<{ resource: string }> };
 export const runtime = 'nodejs';
@@ -36,6 +36,7 @@ export function GET(request: Request, context: Context) { return route(async () 
   if (resource === 'ingredients') return json(await ingredientList(member, status, q, skip));
   if (resource === 'creators') return json(await creatorList(member, status, q, skip));
   if (resource === 'game-levels') return json(await gameLevelList(member, status, q, skip));
+  if (resource === 'game-cafes') return json(await gameCafeList(member, status, q, skip));
   if (resource === 'game-pictures') return json(await gamePictureList(member, status, skip));
   if (resource === 'game-level-jobs') return json(await gameLevelRecipes(member, q));
   if (resource === 'game-picture') {
@@ -72,6 +73,7 @@ export function POST(request: Request, context: Context) { return route(async ()
   if (resource === 'ingredients') return json(await ingredientAction(member, input, reason));
   if (resource === 'creators') return json(await creatorAction(member, input, reason));
   if (resource === 'game-levels') return json(await gameLevelAction(member, input, reason));
+  if (resource === 'game-cafes') return json(await gameCafeAction(member, input, reason));
   if (resource === 'game-pictures') return json(await gamePictureAction(member, input, reason));
   if (resource === 'game-level-jobs') return json(await gameLevelMake(member, input, reason));
   throw new HttpError(404, 'Not found.');

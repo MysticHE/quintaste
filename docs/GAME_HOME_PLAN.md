@@ -38,7 +38,7 @@ Builds on:
 | Avatar behind the counter | Avatar card: switch Adult or Mini style, re-breed through the lotus, report | Lian, the mascot, until the member breeds their own |
 | Pet on the counter | Pet card: its Rush Hour skill, which pet joins the next service, accessories | Sprout for everyone; more pets from Purple lotus |
 | Menu board | Choose your menu: cuisine collection, Today's special (changes only when the member picks) | Level 6, when the café gains its menu board |
-| Window | Stall visits, a planned feature: "Coming in a later update" until it ships | Later update |
+| Window | Out and about (22 Oct 2026): members' cafés to visit (behind `game_cafes`), and Stall visits, still "Coming in a later update" | Cafés built, off; Stall visits later |
 | Lotus (HUD chip) | Lotus: your tier, re-bloom, breed, Golden | Always |
 | Café name (HUD) | Café details: name and skin; the café stays private | Always |
 | Decorate (dock) | Decorate mode | Level 1 |

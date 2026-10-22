@@ -56,7 +56,9 @@ export function applySpecial(game: GameProgress, res: { cleared: boolean }) {
 }
 
 /** Applies a finished service on the device: a special pays the replay grant, a numbered level the full applyResult. */
-export function applyRun(game: GameProgress, start: { level: number; special?: string | null; pack?: string | null; tier?: string | null; season?: { id: string; n: number } | null }, res: Parameters<typeof applyResult>[2]) {
+export function applyRun(game: GameProgress, start: { level: number; special?: string | null; pack?: string | null; tier?: string | null; season?: { id: string; n: number } | null; cafe?: { host: string; menu: string[] } | null }, res: Parameters<typeof applyResult>[2]) {
+  // A café visit is members only: its credits settle on the account (server/game/router.mjs settleCafe), never on the device.
+  if (start.cafe) return { game, reward: { credits: 0, first: false, mastered: false, unlocks: [] as string[], beat: [] as Beat[], bonus: false } };
   if (start.season) return applySeason(game, seasonKey(start.season.id, start.season.n), res);
   // A guest's Recipe Kitchen tier is kept on the device by recipe id (members' bests and kitchen credits are the account's).
   if (start.pack) {
