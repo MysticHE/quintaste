@@ -46,20 +46,43 @@ export async function picturesFor(db, pack) {
 }
 
 /**
+ * What QT Gamer must draw beyond the name: the game is a vegetarian café, so a dish shows only its own ingredients (never meat,
+ * fish, seafood or an egg the recipe does not use, whatever the dish usually holds elsewhere), and a made item (a blended paste or
+ * a folded parcel) shows just itself, made from its ingredients.
+ */
+function artDetails(sim, pack) {
+  const name = id => pack.items.find(i => i.id === id)?.name ?? sim.BUILTIN.items[id]?.name ?? id;
+  const used = slots => [...new Set(slots.map(sl => sl.accepts[0]))].map(name);
+  const out = new Map(), plain = 'Vegetarian: no meat, poultry, fish, seafood or egg unless named here.';
+  for (const d of pack.dishes) {
+    const all = used(d.parts.flatMap(p => p.stages.flatMap(st => st.slots)).filter(sl => !sl.optional));
+    out.set(d.art, `A plated serving made only from ${all.join(', ')}. ${plain} No other food on the plate.`);
+    for (const p of d.parts) {
+      if (!p.makes) continue;
+      const item = pack.items.find(i => i.id === p.makes);
+      if (item) out.set(item.art, `Just this one thing, in a small cream bowl: ${item.name.toLowerCase()} made from ${used(p.stages.flatMap(st => st.slots)).join(', ')}. ${plain} No plate of other food.`);
+    }
+  }
+  for (const i of pack.items) if (!out.has(i.art)) out.set(i.art, `Just this one ingredient, ${i.name.toLowerCase()}, on its own. ${plain}`);
+  return out;
+}
+
+/**
  * Queues one picture job per art key the pack uses that has neither a built-in picture nor an approved one, and no job
  * already open. Called when a pack is stored for review. Returns the keys queued.
  */
 export async function queueMissingArt(db, sim, pack) {
   const builtin = new Set([...Object.values(sim.BUILTIN.items).map(i => i.art), ...Object.values(sim.BUILTIN.dishes).map(d => d.art)]);
   const names = new Map([...pack.items.map(i => [i.art, i.name]), ...pack.dishes.map(d => [d.art, d.name])]);
+  const details = artDetails(sim, pack);
   const queued = [];
   for (const [key, kind] of artOf(pack)) {
     if (builtin.has(key) || queued.includes(key)) continue;
     await db.query(`INSERT INTO game.art(art_key, kind) VALUES($1,$2) ON CONFLICT DO NOTHING`, [key, kind]);
-    const made = await db.query(`INSERT INTO game.art_job(art_key, kind, subject) SELECT $1, $2, $3
+    const made = await db.query(`INSERT INTO game.art_job(art_key, kind, subject, details) SELECT $1, $2, $3, $4
       WHERE NOT EXISTS (SELECT 1 FROM game.art a JOIN game.asset s ON s.sha256 = a.asset AND s.status = 'approved' WHERE a.art_key = $1)
         AND NOT EXISTS (SELECT 1 FROM game.art_job WHERE art_key = $1 AND status IN ('queued','claimed'))
-      ON CONFLICT DO NOTHING RETURNING id`, [key, kind, String(names.get(key)).slice(0, 120)]);
+      ON CONFLICT DO NOTHING RETURNING id`, [key, kind, String(names.get(key)).slice(0, 120), (details.get(key) ?? '').slice(0, 500)]);
     if (made.rowCount) queued.push(key);
   }
   return queued;
