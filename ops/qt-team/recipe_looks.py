@@ -21,9 +21,11 @@ import image_capture
 import pdf_capture
 
 PROMPT = ('Describe only how the food in this photo looks, in at most 70 words of plain English: its colours, textures, '
-          'the shape and size of the pieces, how cooked or browned it is, what it sits in or on (pan, pot, plate, bowl) '
-          'and any garnish. Say what stage the food is at (for example raw batter, frying in oil, plated). Do not mention '
+          'the shape and size of the pieces, how cooked or browned it is and what it sits in or on (pan, pot, plate, bowl)'
+          '. Describe the main food only: leave out garnishes, wedges, herb sprigs, side dishes, dips and props. Say what '
+          'stage the food is at (for example raw batter, frying in oil, plated). Do not mention '
           'people, hands, text, logos, watermarks, brands, the photographer or the website. Output only the description.')
+VERSION = 2  # in the cache key: v1 descriptions named garnishes (22 Oct 2026: a lime wedge on the chipotle rice cover)
 MAX_STEP_PHOTOS = 8
 MAX_WORDS = 90
 MATCH = 0.3  # share of a step's words that must appear in the creator's step for its photo to apply
@@ -78,7 +80,7 @@ def match(instruction, steps, position=None):
 
 def describe(root, url, clock=time.time):
     """The vision model's description of one photo, cached by URL; None when it cannot be read."""
-    cache = root / 'state/recipe-looks' / (hashlib.sha256(url.encode()).hexdigest() + '.json')
+    cache = root / 'state/recipe-looks' / (hashlib.sha256(f'v{VERSION} {url}'.encode()).hexdigest() + '.json')
     try:
         stored = json.loads(cache.read_text(encoding='utf-8'))
         if stored.get('text'):

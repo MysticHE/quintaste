@@ -750,7 +750,7 @@ def step_prompt(recipe, number, step, look=None):
             + ' Show exactly what is in the pan or on the board at this moment: what earlier steps put there plus this step, nothing the method'
             ' adds later and nothing it cooks or serves separately. Right cookware, natural kitchen light, seen from above or at a slight angle.'
             ' No faces, no readable text or labels on packaging, no logos, no meat or seafood.'
-            + (f'\nHow this stage looks in the recipe author\'s own photo (match how the food looks, compose your own picture): {look}' if look else ''))
+            + (f'\nHow this stage looks in the recipe author\'s own photo (match only how the listed food looks and compose your own picture; draw nothing it mentions that the ingredients and method do not list, such as a garnish, wedge, sprig, side or dip): {look}' if look else ''))
 
 
 def recipe_image_jobs(row, looks=None):
@@ -769,8 +769,8 @@ def recipe_image_jobs(row, looks=None):
              ". Ingredients: " + ', '.join(i['name'] for i in recipe['ingredients']) +
              ". Presentation brief: " + str(recipe.get('imageBrief', ''))[:1600])
     jobs = [{'key': digest({'recipeId': row['id'], 'ingredients': recipe['ingredients'], 'prompt': cover}),
-             'prompt': cover + (". How the finished dish looks in the recipe author's own photo (match how the food looks: colour, "
-                                "texture, shape; use your own angle, plate and setting): " + dish if dish else '')}]
+             'prompt': cover + (". How the finished dish looks in the recipe author's own photo (match only how the listed food looks: colour, "
+                                "texture, shape; use your own angle, plate and setting; draw nothing it mentions that the ingredients and method do not list, such as a garnish, wedge, sprig, side or dip): " + dish if dish else '')}]
     if publisher.step_photos_on():
         for number, step in enumerate(recipe.get('steps') or [], 1):
             jobs.append({'key': digest({'recipeId': row['id'], 'step': number, 'prompt': step_prompt(recipe, number, step)}),

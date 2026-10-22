@@ -258,7 +258,7 @@ class LearningTests(unittest.TestCase):
         # 22 Oct: the author's photos, described in words, steer how the food looks; the composition stays our own.
         with patch.object(publisher, 'step_photos_on', return_value=True):
             seen = w.recipe_image_jobs(row, {'dish': 'Round orange balls, crisp outside.', 'steps': {2: 'Pale orange dough rolled into balls on a tray.'}})
-        self.assertIn("author's own photo (match how the food looks", seen[0]['prompt'])
+        self.assertIn("author's own photo (match only how the listed food looks", seen[0]['prompt'])
         self.assertIn('Round orange balls, crisp outside.', seen[0]['prompt'])
         self.assertNotIn('author', seen[1]['prompt'])
         self.assertIn('Pale orange dough rolled into balls on a tray.', seen[2]['prompt'])
