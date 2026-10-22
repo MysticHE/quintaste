@@ -82,8 +82,9 @@ class Estimates(unittest.TestCase):
         self.assertEqual(found['perServing']['sodium'], 400.0)
         recipe['servings'] = 2
         self.assertEqual(n.attach(self.root, recipe, page, 'example.org')['basis'], 'estimate')
-        adapted = {'servings': 4, 'adaptationNote': 'Keeps the optional coconut oil.', 'ingredients': [{'name': 'Firm tofu', 'amount': 300, 'unit': 'g'}]}
-        self.assertEqual(n.attach(self.root, adapted, page, 'example.org')['basis'], 'estimate')
+        # 22 Oct: the Cooker notes even unchanged recipes ("source quantities retained"), so a note alone keeps the page's figures.
+        noted = {'servings': 4, 'adaptationNote': 'Original wording; source quantities retained.', 'ingredients': [{'name': 'Firm tofu', 'amount': 300, 'unit': 'g'}]}
+        self.assertEqual(n.attach(self.root, noted, page, 'example.org')['basis'], 'source')
 
     def test_old_table_format_is_refused(self):
         (self.root / 'nutrition_sg.json').write_text(json.dumps({'version': 1, 'items': {}}), encoding='utf-8')

@@ -117,8 +117,11 @@ def _text(v, limit, empty=False):
 def integral(v):
     """4.0 -> 4 (JSON numbers the server reads as integers); anything else unchanged."""
     return int(v) if isinstance(v, float) and v.is_integer() else v
-# Plant milks, creams and butters are not dairy (server/editorial/validation.mjs strips the same words).
-PLANT_DAIRY = re.compile(r'\b(?:coconut|almond|soy|soya|oat|rice|cashew|peanut|hemp|cocoa|plant-based|non-dairy|dairy-free|vegan) (?:milk|cream|butter|cheese)\b', re.ASCII)
+# The app's Dairy rule (server/diet-labels.mjs `dairy`, which server/editorial/validation.mjs uses): these words are dairy
+# unless a plant word comes right before them (coconut milk, almond milk). Keep both lists identical to that file.
+PLANT_WORDS = 'coconut|oat|soy|soya|almond|rice|cashew|peanut|plant-based|vegan|nut|cocoa|shea'
+DAIRY_WORDS = r'milk|butter|cream(?!\s+of\s+tartar)|cheese|yogh?urt|ghee|paneer|whey|casein|creamer|brioche'
+PLANT_DAIRY = re.compile(r'\b(?:' + PLANT_WORDS + r')\s(?:' + DAIRY_WORDS + r')\b', re.ASCII)
 
 
 def diet_names(ingredients):
@@ -126,7 +129,7 @@ def diet_names(ingredients):
     return PLANT_DAIRY.sub(' ', ' '.join(str(i.get('name', '')).lower() for i in ingredients))
 
 
-SERVER_TAGS = ((r'\beggs?\b', 'Eggs'), (r'\b(milk|cream|butter|cheese)\b', 'Dairy'), (r'\bhoney\b', 'Honey'),
+SERVER_TAGS = ((r'\beggs?\b', 'Eggs'), (r'\b(' + DAIRY_WORDS + r')\b', 'Dairy'), (r'\bhoney\b', 'Honey'),
                (r'\bgarlic\b', 'Garlic'), (r'\bonions?\b', 'Onion'), (r'\bsoy sauce|\bwheat\b', 'Gluten'))
 EVENT_FIELDS = ('id','title','organiser','startsAt','endsAt','location','address','feeAmount','currency','feeNote','registrationUrl',
                 'registrationDeadline','dietEvidence','status','checkedAt','sources')  # server/editorial/validation.mjs validateEvent
@@ -151,14 +154,24 @@ def step_key(instruction):
 def image_results(recipe_id):
     """(cover result or None, {step key: step result}) of the generated images of one recipe whose files are intact."""
     cover, steps = None, {}
-    # Newest first, so a redrawn cover or step (for example one steered by the author's photo) wins over an older one.
-    for result in sorted((ROOT/'images').glob('*/result.json'), key=lambda f: (f.stat().st_mtime, f.parent.name), reverse=True):
+    def newest(f):
+        try:
+            return (f.stat().st_mtime, f.parent.name)
+        except OSError:
+            return (0, f.parent.name)  # set aside (renamed) while listing; skipped below
+    # Newest first, so a redrawn cover (a held one set aside, or an earlier draft's) wins over an older one.
+    for result in sorted((ROOT/'images').glob('*/result.json'), key=newest, reverse=True):
         if '.held-' in result.parent.name:
             continue  # set aside after QT Manager held it
-        info = json.loads(result.read_text())
+        try:
+            info = json.loads(result.read_text())
+        except FileNotFoundError:
+            continue  # set aside after QT Manager held it, while this list was being read
         if info.get('recipeId') != recipe_id or info.get('status', 'generated-awaiting-visual-review') != 'generated-awaiting-visual-review':
             continue
         file = result.parent/'candidate.jpg'
+        if not file.is_file() and not result.exists():
+            continue  # its folder was set aside between reading result.json and here
         if not file.is_file() or hashlib.sha256(file.read_bytes()).hexdigest() != info['sha256']:
             raise ValueError('Image hash mismatch')
         info['file'] = str(file)

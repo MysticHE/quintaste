@@ -755,24 +755,26 @@ def step_prompt(recipe, number, step, look=None):
 
 def recipe_image_jobs(row, looks=None):
     """The images a recipe needs: its cover, then (once step photos are on) one photo per step bound to the step's wording.
-    looks (recipe_looks.looks) describes the author's own photos; it steers the food's appearance, never the composition."""
+    looks (recipe_looks.looks) describes the author's own photos; it steers the food's appearance, never the composition.
+    Keys come from the prompt without that description, so a description arriving (or failing) later never redraws a
+    picture that exists or resets a step's held-try count."""
     import publisher
     recipe, looks = row['recipe'], looks or {}
     dish = looks.get('dish')
-    prompt = ("Original natural food-photography-style recipe illustration for QuinTaste, 4:3 composition. "
-              "Show only the finished dish described here, in a simple ceramic bowl, warm natural side light, "
-              "realistic food textures, appetising but faithful presentation, uncluttered neutral table. "
-              "Do not imitate a source photograph's composition. No text, logos, people, extra dishes or ingredients. "
-              "Leave breathing room around the food for a mobile gallery crop. Dish: " + recipe['name'] +
-              ". Ingredients: " + ', '.join(i['name'] for i in recipe['ingredients']) +
-              ". Presentation brief: " + str(recipe.get('imageBrief', ''))[:1600]
-              + (". How the finished dish looks in the recipe author's own photo (match how the food looks: colour, "
-                 "texture, shape; use your own angle, plate and setting): " + dish if dish else ''))
-    jobs = [{'key': digest({'recipeId': row['id'], 'ingredients': recipe['ingredients'], 'prompt': prompt}), 'prompt': prompt}]
+    cover = ("Original natural food-photography-style recipe illustration for QuinTaste, 4:3 composition. "
+             "Show only the finished dish described here, in a simple ceramic bowl, warm natural side light, "
+             "realistic food textures, appetising but faithful presentation, uncluttered neutral table. "
+             "Do not imitate a source photograph's composition. No text, logos, people, extra dishes or ingredients. "
+             "Leave breathing room around the food for a mobile gallery crop. Dish: " + recipe['name'] +
+             ". Ingredients: " + ', '.join(i['name'] for i in recipe['ingredients']) +
+             ". Presentation brief: " + str(recipe.get('imageBrief', ''))[:1600])
+    jobs = [{'key': digest({'recipeId': row['id'], 'ingredients': recipe['ingredients'], 'prompt': cover}),
+             'prompt': cover + (". How the finished dish looks in the recipe author's own photo (match how the food looks: colour, "
+                                "texture, shape; use your own angle, plate and setting): " + dish if dish else '')}]
     if publisher.step_photos_on():
         for number, step in enumerate(recipe.get('steps') or [], 1):
-            text = step_prompt(recipe, number, step, looks.get('steps', {}).get(number))
-            jobs.append({'key': digest({'recipeId': row['id'], 'step': number, 'prompt': text}), 'prompt': text, 'step': number,
+            jobs.append({'key': digest({'recipeId': row['id'], 'step': number, 'prompt': step_prompt(recipe, number, step)}),
+                         'prompt': step_prompt(recipe, number, step, looks.get('steps', {}).get(number)), 'step': number,
                          'stepKey': publisher.step_key(step['instruction'])})
     return jobs
 
@@ -784,28 +786,35 @@ def source_looks(row):
     return recipe_looks.looks(ROOT, url, row['recipe']) if url else {}
 
 
+def image_jobs_to_draw(row):
+    """The recipe's image jobs still to draw: no result under the key, no reviewed photo for that step's wording, and
+    fewer than STEP_IMAGE_TRIES held drawings of the step. The author's photos are read only when something is left."""
+    import publisher
+    def left(jobs, drawn):
+        return [j for j in jobs if not (ROOT / 'images' / j['key'] / 'result.json').exists()
+                and not (j.get('step') and j['stepKey'] in drawn)
+                and not (j.get('step') and len(list((ROOT / 'images').glob(j['key'] + '.held-*'))) >= STEP_IMAGE_TRIES)]
+    jobs = left(recipe_image_jobs(row), {})
+    if any(j.get('step') for j in jobs):
+        try:
+            jobs = left(jobs, publisher.image_results(row['id'])[1])  # a step drawn before its method was reworded elsewhere
+        except ValueError:
+            pass  # a damaged file: draw again rather than stop the round
+    if not jobs:
+        return []
+    keys = {j['key'] for j in jobs}
+    return [j for j in recipe_image_jobs(row, source_looks(row)) if j['key'] in keys]
+
+
 def recipe_image(packets, reviewed, policy):
     from recipe_policy import problem
     accepted = {d['id'] for d in reviewed.get('decisions', []) if d['decision'] == 'ready-for-editorial-review'}
     candidates = [r for p in packets if p['role'] == 'qt-cooker' for r in p['records'] if r['id'] in accepted and r.get('status') == 'proposed' and r.get('recipe') and not problem(r['recipe'])]
     outcomes = []
-    import publisher
-    jobs, drawn = [], {}
-    for row in candidates:
-        jobs += [(row, job) for job in recipe_image_jobs(row, source_looks(row))]
-        try:
-            drawn[row['id']] = publisher.image_results(row['id'])[1]
-        except ValueError:
-            drawn[row['id']] = {}  # a damaged file: draw again rather than stop the round
+    jobs = [(row, job) for row in candidates for job in image_jobs_to_draw(row)]
     for row, job in jobs:
         key, prompt = job['key'], job['prompt']
         destination = ROOT / 'images' / key
-        if (destination / 'result.json').exists():
-            continue
-        if job.get('step') and job['stepKey'] in drawn[row['id']]:
-            continue  # this step already has a photo awaiting or past review (drawn before its prompt changed)
-        if job.get('step') and len(list((ROOT / 'images').glob(key + '.held-*'))) >= STEP_IMAGE_TRIES:
-            continue  # QT Manager held every drawing of this step; the recipe waits (its hold says which step)
         prior = read(destination / 'request.json', None)
         attempts = (prior or {}).get('attempts', 1)
         if prior:

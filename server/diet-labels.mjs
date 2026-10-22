@@ -7,6 +7,9 @@ export const dietLabels = ['Vegan', 'Vegetarian', 'Plant-Based'];
 export const alliums = ['Garlic', 'Onion', 'Leeks', 'Chives', 'Scallions', 'Shallots', 'Asafoetida'];
 export const animal = ['Eggs', 'Dairy', 'Honey'];
 
+/** Dairy words, unless a plant word comes right before (coconut milk, almond milk). Shared with server/editorial/validation.mjs;
+ * the QT bot mirrors both word lists in ops/qt-team/publisher.py (PLANT_WORDS, DAIRY_WORDS). */
+export const dairy = /(?<!\b(coconut|oat|soy|soya|almond|rice|cashew|peanut|plant-based|vegan|nut|cocoa|shea)\s)\b(milk|butter|cream(?!\s+of\s+tartar)|cheese|yogh?urt|ghee|paneer|whey|casein|creamer|brioche)\b/;
 /** The app's exclusion names (src/config/preferences.ts), matched on ingredient names. */
 /** @type {Array<[string, RegExp]>} */
 const TAGS = [
@@ -15,7 +18,7 @@ const TAGS = [
   // Egg-based foods count as egg (kaya, mayonnaise, custard, meringue, aioli, brioche) unless named vegan or plant-based;
   // custard powder is cornflour, so it is not.
   ['Eggs', /(?<!\b(vegan|plant-based|eggless)\s)\b(eggs?|kaya|mayo|mayonnaise|custard(?!\s+powder)|meringues?|aioli|brioche)\b/],
-  ['Dairy', /(?<!\b(coconut|oat|soy|soya|almond|rice|cashew|peanut|plant-based|vegan|nut|cocoa|shea)\s)\b(milk|butter|cream(?!\s+of\s+tartar)|cheese|yogh?urt|ghee|paneer|whey|casein|creamer|brioche)\b/],
+  ['Dairy', dairy],
   ['Honey', /\bhoney\b/], ['Peanuts', /\bpeanuts?\b/], ['Tree nuts', /\b(almonds?|cashews?|walnuts?|pecans?|pistachios?|hazelnuts?|macadamias?)\b/],
   ['Gluten', /(?<!\b(rice|tapioca|corn|chickpea|potato|glutinous rice|buckwheat|mung bean)\s)\b(wheat|flour|soy sauce|bread|pasta|seitan|barley|rye|noodles?)\b/],
   ['Mushrooms', /\b(mushrooms?|shiitake|enoki|shimeji|portobello)\b/],

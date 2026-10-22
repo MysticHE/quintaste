@@ -1,5 +1,6 @@
 import { createHash } from 'node:crypto';
 import { Buffer } from 'node:buffer';
+import { dairy } from '../diet-labels.mjs';
 
 export const hash = value => createHash('sha256').update(typeof value === 'string' || Buffer.isBuffer(value) ? value : JSON.stringify(value)).digest('hex');
 const categories = ['Breakfast', 'Noodles', 'Rice meals', 'With rice', 'Soups', 'Snacks & kueh', 'Desserts & drinks'];
@@ -59,11 +60,9 @@ export function validateRecipe(r) {
   for (const i of r.ingredients) {
     requireValue(keys(i, ['id', 'name', 'amount', 'unit']) && validId(i.id) && !ids.has(i.id) && text(i.name, 160) && text(i.unit, 40, true) && (i.amount === null || typeof i.amount === 'number' && Number.isFinite(i.amount) && i.amount > 0 && i.amount <= 10000), 'Invalid ingredient'); ids.add(i.id);
   }
-  // Plant milks, creams and butters are not dairy (coconut milk, almond milk); the bot mirrors this as publisher.PLANT_DAIRY.
-  const names = r.ingredients.map(i => i.name.toLowerCase()).join(' ')
-    .replace(/\b(?:coconut|almond|soy|soya|oat|rice|cashew|peanut|hemp|cocoa|plant-based|non-dairy|dairy-free|vegan) (?:milk|cream|butter|cheese)\b/g, ' ');
+  const names = r.ingredients.map(i => i.name.toLowerCase()).join(' ');
   requireValue(!/\b(chicken|pork|beef|lard|shrimp|prawn|fish sauce|oyster sauce|gelatin|gelatine)\b/.test(names), 'Ingredient requires vegetarian review');
-  for (const [pattern, tag] of /** @type {[RegExp, string][]} */ ([[/\beggs?\b/, 'Eggs'], [/\b(milk|cream|butter|cheese)\b/, 'Dairy'], [/\bhoney\b/, 'Honey'], [/\bgarlic\b/, 'Garlic'], [/\bonions?\b/, 'Onion'], [/\bsoy sauce|\bwheat\b/, 'Gluten']])) {
+  for (const [pattern, tag] of /** @type {[RegExp, string][]} */ ([[/\beggs?\b/, 'Eggs'], [dairy, 'Dairy'], [/\bhoney\b/, 'Honey'], [/\bgarlic\b/, 'Garlic'], [/\bonions?\b/, 'Onion'], [/\bsoy sauce|\bwheat\b/, 'Gluten']])) {
     if (pattern.test(names)) requireValue(r.dietary.contains.includes(tag), 'Missing ingredient exclusion');
   }
   requireValue(r.dietary.diet !== 'Vegan' || !r.dietary.contains.some(x => ['Eggs', 'Dairy', 'Honey'].includes(x)), 'Conflicting vegan claim');

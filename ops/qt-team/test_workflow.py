@@ -249,6 +249,19 @@ class Boundaries(unittest.TestCase):
             launched = [json.loads(Path(call.args[0][2]).read_text()) for call in launch.call_args_list]
         self.assertEqual([r.get('step') for r in launched], [None, 2])
 
+    def test_author_photos_are_read_only_when_a_picture_is_left_to_draw(self):
+        import publisher
+        row = {'id': 'kuih', 'recipe': {'name': 'Kuih', 'ingredients': [{'id': 'b', 'name': 'Banana'}], 'steps': [{'instruction': 'Fry the batter.', 'ingredientIds': []}]},
+               'sources': [{'url': 'https://example.org/kuih'}]}
+        with tempfile.TemporaryDirectory() as d, patch.object(w, 'ROOT', Path(d)), patch.object(publisher, 'step_photos_on', return_value=True),                 patch.object(publisher, 'image_results', return_value=(None, {})),                 patch.object(w, 'source_looks', return_value={'dish': 'Golden fritters.', 'steps': {}}) as looks:
+            todo = w.image_jobs_to_draw(row)
+            self.assertEqual(looks.call_count, 1)
+            self.assertIn('Golden fritters.', todo[0]['prompt'])
+            for job in todo:
+                (Path(d) / 'images' / job['key']).mkdir(parents=True); (Path(d) / 'images' / job['key'] / 'result.json').write_text('{}')
+            self.assertEqual(w.image_jobs_to_draw(row), [])
+            self.assertEqual(looks.call_count, 1)  # everything drawn: no page fetch, no vision call
+
     def test_image_recovery_reuses_existing_directory(self):
         packets = [{'role':'qt-cooker','records':[{'id':'recipe-a','status':'proposed','recipe':{'name':'Tofu','ingredients':[{'name':'Tofu'}]},'sources':[]}]}]
         reviewed = {'decisions':[{'id':'recipe-a','decision':'ready-for-editorial-review'}]}

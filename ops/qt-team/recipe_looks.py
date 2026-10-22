@@ -27,6 +27,8 @@ PROMPT = ('Describe only how the food in this photo looks, in at most 70 words o
 MAX_STEP_PHOTOS = 8
 MAX_WORDS = 90
 MATCH = 0.3  # share of a step's words that must appear in the creator's step for its photo to apply
+SHARED = 2   # and at least this many words in common, so "Serve warm." never borrows another step's photo
+RETRY_SECONDS = 86400  # a photo that could not be read is tried again after a day, not every round
 WORD = re.compile(r'[a-z]{3,}')
 COMMON = frozenset('the and add with into until then for from over about each all your are its this that them they '
                    'out off use using well minutes minute large small medium little more some together'.split())
@@ -59,16 +61,19 @@ def words(text):
     return {w for w in WORD.findall(str(text).lower()) if w not in COMMON}
 
 
-def match(instruction, steps):
-    """The creator's step photo that shows this step: the step sharing most of its words, else None."""
+def match(instruction, steps, position=None):
+    """The creator's step photo that shows this step: the step sharing most of its words (at least MATCH of them and
+    SHARED in all), ties going to the creator step at the same point of the method (position 0-1), else None."""
     mine = words(instruction)
-    best, score = None, 0.0
-    for text, photo in steps:
-        if photo and mine:
-            share = len(mine & words(text)) / len(mine)
-            if share > score:
-                best, score = photo, share
-    return best if score >= MATCH else None
+    best, rank = None, None
+    for index, (text, photo) in enumerate(steps):
+        shared = len(mine & words(text))
+        if not photo or not mine or shared < SHARED or shared / len(mine) < MATCH:
+            continue
+        distance = abs(position - index / max(1, len(steps) - 1)) if position is not None else 0
+        if rank is None or (shared / len(mine), -distance) > rank:
+            best, rank = photo, (shared / len(mine), -distance)
+    return best
 
 
 def describe(root, url, clock=time.time):
@@ -78,19 +83,27 @@ def describe(root, url, clock=time.time):
         stored = json.loads(cache.read_text(encoding='utf-8'))
         if stored.get('text'):
             return stored['text']
-    except (OSError, ValueError):
+        if stored.get('failed') and clock() - stored.get('at', 0) < RETRY_SECONDS:
+            return None
+    except (OSError, ValueError, TypeError):
         pass
+    def failed(reason):
+        cache.parent.mkdir(parents=True, exist_ok=True)
+        cache.write_text(json.dumps({'url': url, 'failed': reason[:160], 'at': clock()}), encoding='utf-8')
     try:
         got = image_capture._fetch(url, image_capture.IMAGE_ACCEPT, image_capture.MAX_IMAGE_BYTES, clock)
         if got['type'] not in image_capture.IMAGE_TYPES and got['type'] not in image_capture.OCTET_TYPES:
+            failed('not an image')
             return None
         jpeg, _, _ = image_capture._prepare(got['body'])
         raw = pdf_capture._transcribe(jpeg, 'look-' + hashlib.sha256(got['body']).hexdigest(), PROMPT)
-    except Exception:
-        return None  # an unreadable photo, robots.txt, a spent budget: the drawing uses the recipe text alone
+    except Exception as exc:  # an unreadable photo, robots.txt, a spent budget: the drawing uses the recipe text alone
+        failed(type(exc).__name__ + ': ' + str(exc))
+        return None
     text, _ = image_capture.sanitize(raw)
     text = ' '.join(text.replace(image_capture.REMOVED, ' ').split()[:MAX_WORDS])
     if not text or text == image_capture.NO_TEXT:
+        failed('no description')
         return None
     cache.parent.mkdir(parents=True, exist_ok=True)
     cache.write_text(json.dumps({'url': url, 'text': text, 'describedAt': dt.datetime.now(dt.timezone.utc).isoformat()}), encoding='utf-8')
@@ -108,8 +121,9 @@ def looks(root, source_url, recipe, read=describe):
     found = {'dish': read(root, dish[0]) if dish else None, 'steps': {}}
     creator = source_steps(page.get('recipeInstructions') or [])
     seen = {}
-    for number, step in enumerate(recipe.get('steps') or [], 1):
-        photo = match(step.get('instruction', ''), creator)
+    ours = recipe.get('steps') or []
+    for number, step in enumerate(ours, 1):
+        photo = match(step.get('instruction', ''), creator, (number - 1) / max(1, len(ours) - 1))
         if not photo or (photo not in seen and len(seen) >= MAX_STEP_PHOTOS):
             continue
         if photo not in seen:

@@ -262,7 +262,7 @@ class LearningTests(unittest.TestCase):
         self.assertIn('Round orange balls, crisp outside.', seen[0]['prompt'])
         self.assertNotIn('author', seen[1]['prompt'])
         self.assertIn('Pale orange dough rolled into balls on a tray.', seen[2]['prompt'])
-        self.assertNotEqual(seen[2]['key'], jobs[2]['key'])
+        self.assertEqual([j['key'] for j in seen], [j['key'] for j in jobs])  # a description never redraws or resets held tries
         self.assertEqual(seen[2]['stepKey'], jobs[2]['stepKey'])
 
     def test_author_photos_are_read_as_words_and_matched_to_steps(self):
@@ -284,6 +284,9 @@ class LearningTests(unittest.TestCase):
         self.assertEqual(found, {'dish': 'described dish.jpg', 'steps': {1: 'described mash.jpg'}})
         self.assertEqual(asked, ['https://example.org/dish.jpg', 'https://example.org/mash.jpg'])  # the step without a photo costs nothing
         self.assertIsNone(rl.match('Toast the sesame seeds.', rl.source_steps(page['recipeInstructions'])))
+        self.assertIsNone(rl.match('Serve the bananas.', rl.source_steps(page['recipeInstructions'])))  # one shared word is not enough
+        twins = [('Fry half the batter in oil.', 'https://example.org/a.jpg'), ('Fry the rest of the batter in oil.', 'https://example.org/b.jpg')]
+        self.assertEqual(rl.match('Fry batter in oil.', twins, 1.0), 'https://example.org/b.jpg')  # a tie goes to the same point of the method
         with patch('recipe_quality.fetch', side_effect=OSError('down')):
             self.assertEqual(rl.looks(self.root, 'https://example.org/recipe', recipe, read=read), {'dish': None, 'steps': {}})
 
@@ -301,8 +304,14 @@ class LearningTests(unittest.TestCase):
         self.assertNotIn('removed', first)
         self.assertEqual((fetch.call_count, vision.call_count), (1, 1))
         self.assertEqual([p.suffix for p in (self.root / 'state/recipe-looks').iterdir()], ['.json'])
-        with patch.object(rl.image_capture, '_fetch', side_effect=rl.image_capture.ImageError('disallowed by the site robots.txt')):
-            self.assertIsNone(rl.describe(self.root, 'https://example.org/other.jpg'))
+        clock = [1000.0]
+        with patch.object(rl.image_capture, '_fetch', side_effect=rl.image_capture.ImageError('disallowed by the site robots.txt')) as refused:
+            self.assertIsNone(rl.describe(self.root, 'https://example.org/other.jpg', clock=lambda: clock[0]))
+            self.assertIsNone(rl.describe(self.root, 'https://example.org/other.jpg', clock=lambda: clock[0] + 3600))
+            self.assertEqual(refused.call_count, 1)  # a failed photo is not re-fetched (or re-paid) every round
+            clock[0] += rl.RETRY_SECONDS + 1
+            rl.describe(self.root, 'https://example.org/other.jpg', clock=lambda: clock[0])
+            self.assertEqual(refused.call_count, 2)  # but is tried again after a day
 
     def test_corrupt_learning_state_does_not_grant_retry_permissions(self):
         (self.root / 'state/learning').mkdir(parents=True)

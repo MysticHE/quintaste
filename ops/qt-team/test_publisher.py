@@ -267,6 +267,12 @@ class Publishing(unittest.TestCase):
         self.assertIsNone(p.server_recipe_problem(plant))
         self.assertEqual(p.recipe_contains({'ingredients':plant['ingredients']}),[])
         self.assertEqual(p.recipe_contains({'ingredients':[{'name':'coconut milk'},{'name':'milk'}]}),['Dairy'])
+        self.assertEqual(p.recipe_contains({'ingredients':[{'name':'ghee'}]}),['Dairy'])  # the app's fuller dairy list
+        self.assertEqual(p.recipe_contains({'ingredients':[{'name':'cream of tartar'}]}),[])
+        labels = Path(__file__).resolve().parents[2] / 'server/diet-labels.mjs'  # in the app repo only, not on the VPS
+        if labels.exists():
+            text = labels.read_text(encoding='utf-8')
+            self.assertIn(r'(?<!\b(' + p.PLANT_WORDS + r')\s)\b(' + p.DAIRY_WORDS + r')\b', text)  # same words as the app
 
     def test_server_rejection_never_leaves_a_batch_stuck(self):
         import io, urllib.error
