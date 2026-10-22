@@ -60,6 +60,8 @@ export type Level = {
   /** A Gather round before the first guest (Recipe Kitchen From memory): each `need` group is one ingredient the recipe needs (any
    *  item in the group fills it); `decoys` are look-alikes on the same shelf that the basket refuses. The clock runs while gathering. */
   gather?: { need: string[][]; decoys: string[] };
+  /** Pack ingredients nobody has checked yet (Recipe Kitchen and cafés): a dish that needs one is never dealt to a guest who keeps a rule. */
+  unchecked?: string[];
 };
 
 let seq = 0;

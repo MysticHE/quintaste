@@ -13,10 +13,12 @@ import { usePreferences } from "../../state/Preferences";
  */
 export function MakeLevelAction({ recipeId, onReady }: { recipeId: string; onReady(): void }) {
   const { theme, setNotice } = usePreferences(), memberId = useGameMemberId(), [busy, setBusy] = useState(false);
-  const previous = useRef<string | null>(null);
-  // Only the author of a recipe sees this, on that recipe's page, so a steady poll is cheap and needs no extra state.
-  const mine = useRemote(memberId ? "game-levels-mine" : null, signal => fetchMyLevels(signal), 8000);
+  const previous = useRef<string | null>(null), [waiting, setWaiting] = useState(false);
+  // Only the author of a recipe sees this, on that recipe's page; it checks again every few seconds only while a level is in line.
+  const mine = useRemote(memberId ? "game-levels-mine" : null, signal => fetchMyLevels(signal), waiting ? 8000 : undefined);
   const job = mine.data?.levels.find(l => l.recipeId === recipeId);
+  // The poll follows the job (React's adjust-state-while-rendering pattern: the hook needs it before the job is known).
+  if ((job?.status === "waiting") !== waiting) setWaiting(job?.status === "waiting");
   // A level that finished while the recipe was open: the shelf reloads so Play appears; a failure says why, once.
   useEffect(() => {
     const key = job ? job.id + job.status : null;
@@ -26,7 +28,8 @@ export function MakeLevelAction({ recipeId, onReady }: { recipeId: string; onRea
     if (job.status === "done") onReady();
     if (job.status === "failed" && job.message) setNotice({ text: job.message });
   }, [job, onReady, setNotice]);
-  if (!memberId) return null;
+  // Nothing shows until the member's requests have loaded, so a level already in line never flashes the Make action.
+  if (!memberId || !mine.data) return null;
   const make = async () => {
     setBusy(true);
     try {

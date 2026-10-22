@@ -12,6 +12,9 @@ import { queueMissingArt } from './art.mjs';
  * jobs for anything missing. The QT bots are the only AI engine: a job they cannot finish fails with the reason (no fallback).
  */
 const CLAIM_MINUTES = 30, WAIT_HOURS = 6, MAX_CLAIMS = 3, MAX_SHAPES = 2, MEMBER_WAIT_MINUTES = 10;
+/** A reason a level cannot be made that the member may read as it is; anything else fails with MEMBER_FAILED and keeps the detail for staff. */
+class LevelError extends Error {}
+export const MEMBER_FAILED = 'Something went wrong making this level. Try again later.', MEMBER_BUSY = 'The level maker is busy. Try again later.';
 export const SHAPE_SCHEMA = { type: 'object', required: ['remember', 'parts'], properties: {
   remember: { type: 'string', description: 'One sentence a cook should remember about this dish, under 200 characters.' },
   parts: { type: 'array', minItems: 1, maxItems: 3, items: { type: 'object', required: ['station', 'stages'], properties: {
@@ -58,10 +61,10 @@ const compiledFrom = (sim, recipe, resolved) => sim.compile.compileRecipe(recipe
 /** Compile step: recipe → draft for the bots, or the reason it can't be a level yet. */
 async function startJob(sim, job) {
   const recipe = await loadRecipe(job.recipe_id);
-  if (!recipe) throw new Error('That recipe is not published.');
+  if (!recipe) throw new LevelError('That recipe is not published.');
   const resolved = await resolveAll(sim, recipe), compiled = compiledFrom(sim, recipe, resolved);
-  if (compiled.needs.length) throw new Error('Needs ' + compiled.needs.join(', ') + ', which the game does not have yet.');
-  if (!compiled.stages.length) throw new Error('No cooking steps to play.');
+  if (compiled.needs.length) throw new LevelError('Needs ' + compiled.needs.join(', ') + ', which the game does not have yet.');
+  if (!compiled.stages.length) throw new LevelError('No cooking steps to play.');
   const name = id => compiled.items.get(id)?.name ?? sim.ITEMS[id]?.name ?? id;
   const stages = compiled.stages.map(s => ({ step: s.step + 1, station: s.station, items: s.items.map(id => ({ id, name: name(id) })), text: String(recipe.steps[s.step]?.instruction ?? '').slice(0, 300) }));
   return { recipe: { id: recipe.id, name: recipe.name, categories: recipe.categories ?? [], revision: recipe.revision, cuisine: recipe.cuisine ?? null }, resolved, stages, tries: 0, problem: null };
@@ -85,11 +88,11 @@ async function clearRates(sim, mission) {
 /** Settle step: the bots' shape is checked; a refused shape goes back to them once with the reason, then the job fails. */
 async function settleJob(sim, job) {
   const recipe = await loadRecipe(job.recipe_id);
-  if (!recipe) throw new Error('That recipe is no longer published.');
+  if (!recipe) throw new LevelError('That recipe is no longer published.');
   const compiled = compiledFrom(sim, recipe, job.draft.resolved), shape = job.answer?.shape;
   const problem = sim.compile.shapeProblem(compiled, shape);
   if (problem) {
-    if (job.draft.tries + 1 >= MAX_SHAPES) throw new Error('The QT bots’ shape failed the checks twice (' + problem + ').');
+    if (job.draft.tries + 1 >= MAX_SHAPES) throw new LevelError('The QT bots’ shape failed the checks twice (' + problem + ').');
     return { retry: { ...job.draft, tries: job.draft.tries + 1, problem } };
   }
   const pack = sim.compile.buildPack(recipe, compiled, shape);
@@ -100,12 +103,18 @@ async function settleJob(sim, job) {
   for (const tier of sim.TIERS) {
     rates[tier] = await clearRates(sim, sim.missionFor(pack, tier));
     const average = rates[tier][sim.rating.TEST_SPEEDS.findIndex(([secs]) => secs === 2.2)] * SEEDS.length;
-    if (tier !== 'memory' && average < 5) throw new Error(`The test player cleared ${tier} on only ${Math.round(average)} of 6 tries.`);
+    if (tier !== 'memory' && average < 5) throw new LevelError(`The test player cleared ${tier} on only ${Math.round(average)} of 6 tries.`);
   }
   const hash = sim.packHash(pack);
   // A member's level is theirs to play at once (private, ready); staff make it public after review. A staff level waits for review.
-  await pool.query(`INSERT INTO game.recipe_level(hash, recipe_id, recipe_revision, status, pack, cuisine, owner_id) VALUES($1,$2,$3,$6,$4,$5,$7) ON CONFLICT (hash) DO NOTHING`,
+  const added = await pool.query(`INSERT INTO game.recipe_level(hash, recipe_id, recipe_revision, status, pack, cuisine, owner_id) VALUES($1,$2,$3,$6,$4,$5,$7) ON CONFLICT (hash) DO NOTHING`,
     [hash, recipe.id, job.draft.recipe.revision, pack, job.cuisine ?? job.draft.recipe.cuisine?.slice(0, 40) ?? null, job.owner_id ? 'ready' : 'review', job.owner_id ?? null]);
+  // The same level may already exist (a staff level of this revision). A member's job is done only if they can play it.
+  if (!added.rowCount && job.owner_id) {
+    const existing = (await pool.query('SELECT status, owner_id FROM game.recipe_level WHERE hash = $1', [hash])).rows[0];
+    if (existing?.status === 'review') throw new LevelError('This recipe already has a level waiting for staff review. Try again once it is live.');
+    if (existing?.status !== 'ready' || (existing.owner_id !== null && existing.owner_id !== job.owner_id)) throw new LevelError('This recipe’s level is not available to play.');
+  }
   for (const tier of sim.TIERS) {
     const start = sim.rating.startRating(rates[tier]);
     await pool.query(`INSERT INTO game.level_rating(hash, tier, rating, rd, vol, start_rating, start_from) VALUES($1,$2,$3,$4,$5,$3,$6) ON CONFLICT DO NOTHING`,
@@ -115,30 +124,41 @@ async function settleJob(sim, job) {
   return { hash, pictures: pictures.length };
 }
 
-const fail = (id, message) => pool.query(`UPDATE game.level_job SET status='failed', finished_at=now(), message=$2 WHERE id=$1`, [id, String(message).slice(0, 300)]);
+/**
+ * Fails a job. A LevelError's reason is shown as it is; any other error shows members MEMBER_FAILED (staff jobs keep the text) and its
+ * detail is kept in `detail` for staff and logged.
+ */
+async function fail(job, error) {
+  const detail = String(error?.message ?? error).slice(0, 300), plain = error instanceof LevelError;
+  if (!plain) logger.warn({ event: 'game_level_failed', job: job.id, detail: detail.slice(0, 200) });
+  const message = plain || !job.owner_id ? detail : MEMBER_FAILED;
+  await pool.query(`UPDATE game.level_job SET status='failed', finished_at=now(), message=$2, detail=$3 WHERE id=$1`, [job.id, message, plain ? '' : detail]);
+}
 
 export async function levelTick(sim) {
   // Claims the bots never answered go back in line, three times at most; work nobody picked up in six hours fails, visibly.
   await pool.query(`UPDATE game.level_job SET status = CASE WHEN attempts >= $2 THEN 'failed' ELSE 'waiting' END,
       message = CASE WHEN attempts >= $2 THEN 'The QT bots did not answer.' ELSE message END, finished_at = CASE WHEN attempts >= $2 THEN now() ELSE NULL END
     WHERE status='claimed' AND claimed_at < now() - make_interval(mins => $1)`, [CLAIM_MINUTES, MAX_CLAIMS]);
-  await pool.query(`UPDATE game.level_job SET status='failed', finished_at=now(), message='The QT bots did not pick this up. Check that the level bridge is running.'
-    WHERE status IN ('queued','waiting') AND created_at < now() - make_interval(hours => $1)`, [WAIT_HOURS]);
-  // A member waits in the app, so their job fails visibly after ten minutes in line rather than six hours (RECIPE_LEVELS_PLAN §7).
-  await pool.query(`UPDATE game.level_job SET status='failed', finished_at=now(), message='The level maker is busy. Try again later.'
-    WHERE owner_id IS NOT NULL AND status IN ('queued','waiting') AND created_at < now() - make_interval(mins => $1)`, [MEMBER_WAIT_MINUTES]);
+  await pool.query(`UPDATE game.level_job SET status='failed', finished_at=now(),
+      message = CASE WHEN owner_id IS NULL THEN 'The QT bots did not pick this up. Check that the level bridge is running.' ELSE $2 END
+    WHERE status IN ('queued','waiting') AND created_at < now() - make_interval(hours => $1)`, [WAIT_HOURS, MEMBER_BUSY]);
+  // A member waits in the app, so a job the bots never picked up fails visibly after ten minutes in line rather than six hours
+  // (RECIPE_LEVELS_PLAN §7). Jobs back in line after a claim or a refused shape (attempts > 0) are being worked on and wait as staff jobs do.
+  await pool.query(`UPDATE game.level_job SET status='failed', finished_at=now(), message=$2
+    WHERE owner_id IS NOT NULL AND attempts = 0 AND status IN ('queued','waiting') AND created_at < now() - make_interval(mins => $1)`, [MEMBER_WAIT_MINUTES, MEMBER_BUSY]);
   const answered = (await pool.query(`SELECT * FROM game.level_job WHERE id = (SELECT id FROM game.level_job WHERE status='answered' ORDER BY priority DESC, answered_at LIMIT 1 FOR UPDATE SKIP LOCKED)`)).rows[0];
   if (answered) {
     try {
       const out = await settleJob(sim, answered);
       if (out.retry) await pool.query(`UPDATE game.level_job SET status='waiting', draft=$2, answer=NULL, message=$3 WHERE id=$1`, [answered.id, out.retry, 'Sent back to the QT bots: ' + out.retry.problem]);
       else { await pool.query(`UPDATE game.level_job SET status='done', finished_at=now(), pack=$2, message='' WHERE id=$1`, [answered.id, out.hash]); logger.info({ event: 'game_level_made', job: answered.id, pictures: out.pictures }); }
-    } catch (error) { await fail(answered.id, error?.message ?? error); }
+    } catch (error) { await fail(answered, error); }
   }
   const queued = (await pool.query(`SELECT * FROM game.level_job WHERE id = (SELECT id FROM game.level_job WHERE status='queued' ORDER BY priority DESC, created_at LIMIT 1 FOR UPDATE SKIP LOCKED)`)).rows[0];
   if (queued) {
     try { await pool.query(`UPDATE game.level_job SET status='waiting', draft=$2, message='' WHERE id=$1 AND status='queued'`, [queued.id, await startJob(sim, queued)]); }
-    catch (error) { await fail(queued.id, error?.message ?? error); }
+    catch (error) { await fail(queued, error); }
   }
 }
 

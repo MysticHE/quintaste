@@ -214,7 +214,10 @@ export function place(r: Run, itemId: string, kind: StationKind): boolean {
   input(r, "place", itemId, kind);
   if (idle(r)) return false;
   if (gathering(r)) { say(r, "Gather the ingredients first: drag them into the basket.", "warn"); r.events.push({ type: "rejected", item: itemId }); return false; }
-  if (madeItems().has(itemId)) { say(r, itemName(itemId) + " comes from the blender.", "warn"); r.events.push({ type: "rejected", item: itemId }); return false; }
+  if (madeItems().has(itemId)) {
+    const at = Object.values(DISHES).flatMap(d => d.parts).find(p => p.makes === itemId)?.station;
+    say(r, itemName(itemId) + " is made " + (at ? "in the " + STATIONS[at].name.toLowerCase() : "at a station") + ", not taken from the shelf.", "warn"); r.events.push({ type: "rejected", item: itemId }); return false;
+  }
   if (stockOf(r, itemId) === "out") {
     const who = focusGuest(r); say(r, itemName(itemId) + " has run out. Swap in another one" + (who ? " that suits " + GUESTS[who.guestId].name : "") + ".", "warn");
     r.events.push({ type: "rejected", item: itemId }); return false;
@@ -293,7 +296,7 @@ export function lift(r: Run, kind: StationKind, uid: number) {
   if (item.inside) { say(r, "A poured paste can't go back. Restart the dish if you need to; it's free.", "warn"); return; }
   pr.items.splice(pr.items.indexOf(item), 1); record(r, "lift " + item.id);
   const req = stageOf(pr).slots.filter(s => !s.optional);
-  if (pr.state === "cooking" && !req.every(s => pr.items.some(x => x.stage === pr.stage && s.accepts.includes(x.id)))) pr.state = pr.stage === 0 ? "loading" : "waiting";
+  if (pr.state === "cooking" && !req.every(s => pr.items.some(x => x.stage === pr.stage && s.accepts.includes(x.id)))) { pr.state = pr.stage === 0 ? "loading" : "waiting"; pr.turned = false; pr.wait = 0; }
   if (!pr.items.length && pr.stage === 0) st.part = null;
   say(r, itemName(item.id) + " is back on the shelf.");
 }
@@ -487,8 +490,12 @@ function heatStation(r: Run, st: StationRun) {
     return;
   }
   const steady = r.t < r.skill.steadyUntil && r.skill.steadyStation === st.kind;
-  // A thermostat (the oven) climbs to the middle of its band while on and holds it; off, it cools slowly.
-  if (cfg.thermostat) { const [a, b] = cfg.band, mid = (a + b) / 2; st.H = st.heatOn ? Math.min(mid, st.H + cfg.gain * DT) : Math.max(0.15, st.H - cfg.loss * DT); }
+  // A thermostat (the oven) settles at the middle of the band of the step in it (empty, the first step of the focused guest's dish
+  // there) while on and holds it; off, it cools slowly.
+  if (cfg.thermostat) {
+    const [a, b] = pr ? bandOf(st, pr) : dishPart(focusGuest(r)?.dishId ?? "", st.kind)?.stages[0].band ?? cfg.band, mid = (a + b) / 2;
+    st.H = !st.heatOn ? Math.max(0.15, st.H - cfg.loss * DT) : st.H > mid ? Math.max(mid, st.H - cfg.loss * DT) : Math.min(mid, st.H + cfg.gain * DT);
+  }
   else if (!steady) {
     st.F = st.heatOn ? Math.min(1, st.F + cfg.onRate * DT) : Math.max(0.1, st.F - cfg.offRate * DT);
     st.H = Math.min(1, Math.max(0, st.H + (cfg.gain * st.F - cfg.loss * st.H) * DT));

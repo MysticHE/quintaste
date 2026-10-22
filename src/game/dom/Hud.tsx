@@ -55,6 +55,7 @@ function nextStep(run: sim.Run, g: sim.GuestRun): string {
     if (poured(run, g, part.makes)) continue;
     const pr = run.stations[part.station]?.part;
     if (pr && pr.partId === part.id) {
+      if (pr.state === "ready" && STATIONS[part.station].burnAfter && pr.exposure > 1.5) return "Take it out now, before it spoils";
       if (pr.state === "ready" && part.makes) { const to = dish.parts.find(p => p !== part && p.stages.some(sg => sg.slots.some(sl => sl.accepts.includes(part.makes!)))); return "Ready: pour it onto the " + (to ? STATIONS[to.station].name.toLowerCase() : "next station"); }
       if (pr.state === "ready") return "Ready: drag to the plates";
       if (pr.state === "scorched" || pr.state === "split") return "Restart it, it's free";

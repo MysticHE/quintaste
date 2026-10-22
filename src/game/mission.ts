@@ -7,7 +7,7 @@ import { DISHES, STATIONS, type StationKind } from "./content/dishes";
 import { GUESTS } from "./content/guests";
 import type { Level, Order } from "./content/levels";
 import { BUILTIN, packByHash, packHash, type LevelPack } from "./content/pack";
-import { dishFeasible } from "./sim/plan";
+import { dishFeasible, needsUnchecked } from "./sim/plan";
 
 export type Tier = "learn" | "service" | "memory";
 export const TIERS: readonly Tier[] = ["learn", "service", "memory"];
@@ -67,8 +67,7 @@ export function cafeFor(packs: LevelPack[], host: string): Level {
     dishes.push(...pack.dishes.map(d => d.id));
   }
   const unchecked = new Set(packs.flatMap(p => p.unreviewed ?? []));
-  const needsUnchecked = (dish: string) => DISHES[dish].parts.some(p => p.stages.some(s => s.slots.some(sl => !sl.optional && sl.accepts.every(a => unchecked.has(a)))));
-  const canEat = (dish: string, g: string) => dishFeasible(dish, GUESTS[g].rules) && (!GUESTS[g].rules.length || !needsUnchecked(dish));
+  const canEat = (dish: string, g: string) => dishFeasible(dish, GUESTS[g].rules) && (!GUESTS[g].rules.length || !needsUnchecked(dish, unchecked));
   const orders: Order[] = [], count = Math.min(6, Math.max(4, dishes.length));
   let at = 1;
   for (let i = 0; i < count; i++) {
@@ -80,7 +79,7 @@ export function cafeFor(packs: LevelPack[], host: string): Level {
   const slowest = Math.max(...dishes.map(dishSecs)), first = DISHES[dishes[0]];
   return {
     n: 5, name: first.name, brief: "Regulars came to try this café's menu. Every dish is on the recipe card.", teach: first.remember, stations,
-    cafe: { host, menu: packs.map(packHash) }, seats: 3, maxOpen: 3, hints: "chip", distractors: [], unlocks: [], orders,
+    cafe: { host, menu: packs.map(packHash) }, seats: 3, maxOpen: 3, hints: "chip", distractors: [], unlocks: [], orders, ...(unchecked.size ? { unchecked: [...unchecked].sort() } : {}),
     patience: Math.round(Math.max(60, slowest * 2.3)), round: Math.round(at + slowest * 1.5 + 25),
   };
 }
@@ -92,8 +91,7 @@ export function missionFor(pack: LevelPack, tier: Tier): Level {
   const t = TIER[tier], pool = tier === "memory" ? MEMORY_GUESTS : SERVICE_GUESTS;
   // A dish with an ingredient nobody has checked yet goes only to guests who keep no rule (a check that cannot be proven shows nothing).
   const unchecked = new Set(pack.unreviewed ?? []);
-  const needsUnchecked = (dish: string) => DISHES[dish].parts.some(p => p.stages.some(s => s.slots.some(sl => !sl.optional && sl.accepts.every(a => unchecked.has(a)))));
-  const canEat = (dish: string, g: string) => dishFeasible(dish, GUESTS[g].rules) && (!GUESTS[g].rules.length || !needsUnchecked(dish));
+  const canEat = (dish: string, g: string) => dishFeasible(dish, GUESTS[g].rules) && (!GUESTS[g].rules.length || !needsUnchecked(dish, unchecked));
   const orders: Order[] = [];
   let at = 1;
   for (let i = 0; i < Math.max(t.orders, tier === "learn" ? dishes.length : 0); i++) {
@@ -112,6 +110,6 @@ export function missionFor(pack: LevelPack, tier: Tier): Level {
     patience: Math.round(Math.max(55, slowest * t.patience)),
     // The Gather round runs on the same clock: about a second and a half per ingredient on top of the service.
     round: Math.round(at + slowest * 1.5 + 20 + (gather ? gather.need.length * 1.5 + 6 : 0)),
-    ...(gather ? { gather } : {}),
+    ...(gather ? { gather } : {}), ...(unchecked.size ? { unchecked: [...unchecked].sort() } : {}),
   };
 }

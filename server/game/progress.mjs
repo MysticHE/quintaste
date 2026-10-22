@@ -1,4 +1,5 @@
 import { postCredits } from './ledger.mjs';
+import { authorVisible } from './visibility.mjs';
 
 /**
  * Account progress in the app's GameProgress shape, built from the server tables with the app's own readGame, and the
@@ -48,6 +49,16 @@ export async function saveCafe(db, sim, userId, input) {
   await db.query('UPDATE game.profile SET cafe=$2, updated_at=now() WHERE user_id=$1', [userId, cafeOf(cleanCafe(sim, chosen))]);
 }
 
+const SEASON_KEY = /^([a-z0-9][a-z0-9-]{1,39})-(\d{1,2})$/;
+/** Device season bests for season levels that exist and are open to members (seasonOpen: signed off, or any season on a development server). */
+function openSeasons(sim, seasons) {
+  const S = sim.seasons, dev = process.env.NODE_ENV !== 'production';
+  return Object.fromEntries(Object.entries(seasons).filter(([key]) => {
+    const m = SEASON_KEY.exec(key), season = m && S.seasonById(m[1]);
+    return !!season && !!S.seasonLevel(m[1], Number(m[2])) && S.seasonOpen(season, dev);
+  }));
+}
+
 /** Highest credits the imported clears could have earned: first clear, first mastered and a few replays per level. */
 function importCap(sim, best) {
   const { CREDIT_REWARDS } = sim.cosmetics;
@@ -63,10 +74,11 @@ function importCap(sim, best) {
 export async function importDevice(db, sim, userId, input, profile) {
   if (profile.imported_at) return false;
   const device = sim.readGame(input), server = (await loadProgress(db, sim, userId)).game;
-  const merged = sim.mergeGame(server, device);
+  const merged = sim.mergeGame(server, device), seasons = openSeasons(sim, device.seasons);
   const { DECOR } = sim.cosmetics;
   // Season first clears earned credits on the device too (they are not ledgered there, so they count toward the cap like levels).
-  let budget = importCap(sim, device.best) + importCap(sim, device.seasons);
+  // Only seasons members can play count: a season not yet signed off pays nothing and keeps no imported best.
+  let budget = importCap(sim, device.best) + importCap(sim, seasons);
   const bought = [];
   for (const id of device.owned.filter(id => DECOR[id]?.unlock.kind === 'credits' && !server.owned.includes(id))
     .sort((a, b) => DECOR[a].unlock.price - DECOR[b].unlock.price)) {
@@ -82,8 +94,8 @@ export async function importDevice(db, sim, userId, input, profile) {
     [userId, Number(level), b.stars, b.score, b.served, b.rules, b.steady, b.mastered, b.clears, b.bonus, b.coins, b.left]);
   }
   // Season bests come along, so a later server clear of an imported level is not paid as a first clear again (settleSeason reads them).
-  for (const [key, b] of Object.entries(device.seasons)) {
-    const m = /^([a-z0-9][a-z0-9-]{1,39})-(\d{1,2})$/.exec(key); if (!m) continue;
+  for (const [key, b] of Object.entries(seasons)) {
+    const m = SEASON_KEY.exec(key);
     await db.query(`INSERT INTO game.season_best(user_id, season_id, n, stars, score, served, rules, steady, mastered, clears, bonus, coins, left_secs) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)
       ON CONFLICT (user_id, season_id, n) DO UPDATE SET stars=GREATEST(game.season_best.stars, $4), score=GREATEST(game.season_best.score, $5),
         served=game.season_best.served OR $6, rules=game.season_best.rules OR $7, steady=game.season_best.steady OR $8, mastered=game.season_best.mastered OR $9,
@@ -91,11 +103,14 @@ export async function importDevice(db, sim, userId, input, profile) {
         left_secs=GREATEST(game.season_best.left_secs, $13), updated_at=now()`,
     [userId, m[1], Number(m[2]), b.stars, b.score, b.served, b.rules, b.steady, b.mastered, b.clears, b.bonus, b.coins, b.left]);
   }
-  // A guest's Recipe Kitchen tiers (no credits were paid for them), against the recipe's newest public level that is still live.
+  // A guest's Recipe Kitchen tiers (no credits were paid for them), against the recipe's newest level this member may play (public, or
+  // their own private one) that is still live and shown to them.
   for (const [recipe, tiers] of Object.entries(device.kitchen)) {
-    const pack = (await db.query(`SELECT hash FROM game.recipe_level WHERE recipe_id=$1 AND owner_id IS NULL AND status='ready' ORDER BY recipe_revision DESC, created_at DESC LIMIT 1`, [recipe])).rows[0]?.hash;
+    const pack = (await db.query(`SELECT l.hash FROM game.recipe_level l WHERE l.recipe_id=$1 AND l.status='ready' AND (l.owner_id IS NULL OR l.owner_id=$2)
+      AND ${authorVisible('l', '$2')} ORDER BY l.recipe_revision DESC, l.created_at DESC LIMIT 1`, [recipe, userId])).rows[0]?.hash;
     if (!pack) continue;
     for (const [tier, b] of Object.entries(tiers)) {
+      if (!sim.TIERS.includes(tier)) continue;
       await db.query(`INSERT INTO game.kitchen_best(user_id, recipe_id, tier, pack, stars, score, clears, coins, left_secs) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9)
         ON CONFLICT (user_id, recipe_id, tier) DO UPDATE SET stars=GREATEST(game.kitchen_best.stars, $5), score=GREATEST(game.kitchen_best.score, $6),
           clears=GREATEST(game.kitchen_best.clears, $7), coins=GREATEST(game.kitchen_best.coins, $8), left_secs=GREATEST(game.kitchen_best.left_secs, $9), updated_at=now()`,

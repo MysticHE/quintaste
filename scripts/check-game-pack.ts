@@ -4,7 +4,7 @@
  * packs that would change built-in content or need a missing technique are refused.
  * Usage: npx tsx scripts/check-game-pack.ts [--expect <rulesVersion>]
  */
-import { shapeProblem, type Shape } from "../src/game/compile";
+import { builtinFor, compileRecipe, shapeProblem, type Shape } from "../src/game/compile";
 import { chanceFor, forYou, newest, type ShelfLevel } from "../src/game/kitchen-rows";
 import { readGame } from "../src/game/progress";
 import { DISHES } from "../src/game/content/dishes";
@@ -13,7 +13,7 @@ import type { Level } from "../src/game/content/levels";
 import { BUILTIN, builtinPack, packHash, PackError, readPack, registerPack, sameContent, type LevelPack } from "../src/game/content/pack";
 import * as sim from "../src/game/sim/engine";
 import { replay, ReplayError, rulesVersion, sameResult, type RunSetup } from "../src/game/sim/replay";
-import { missionFor, TIERS, type Tier } from "../src/game/mission";
+import { cafeFor, missionFor, TIERS, type Tier } from "../src/game/mission";
 import { play } from "./game-bot";
 
 const arg = (k: string) => { const i = process.argv.indexOf("--" + k); return i > 0 ? process.argv[i + 1] : ""; };
@@ -136,6 +136,27 @@ check(refusedWith(wrongStation, /station not in techniques/), "a part on a stati
   r.stations.blender!.part = { dishId: "sambal-tempeh", partId: "sambal-blend", stage: 0, items: [{ uid: 900, id: "red-chilli", stage: 0, warn: false }], progress: 1, state: "ready", exposure: 0, inBand: 0, prog: 0, portions: 1, turned: false, wait: 0 };
   r.stations.pan!.part = { dishId: "sambal-tempeh", partId: "sambal-tempeh", stage: 0, items: [{ uid: 901, id: "cooking-oil", stage: 0, warn: false }], progress: 0, state: "loading", exposure: 0, inBand: 0, prog: 0, portions: 2, turned: false, wait: 0 };
   check(sim.transfer(r, "blender", "pan") && r.stations.pan!.part!.portions === 1 && /makes one portion/.test(r.say.text), "a paste for one poured into a wok started for two makes one portion, and says so");
+}
+
+// 7. Review fixes: prep steps and loose words don't pick a station, packs can't misplace a turn or make a shelf item, and a café's
+// reshuffle never deals a dish with an unchecked ingredient to a guest who keeps a rule.
+{
+  const steps = ["Soak the urad dal overnight", "Toast mustard seeds and the dal", "Stir-fry the cabbage, then fold in the coconut"];
+  const c = compileRecipe({ id: "p", name: "Poriyal", categories: ["mains"], ingredients: [{ id: "c", name: "cabbage" }],
+    steps: steps.map(instruction => ({ instruction, ingredientIds: ["c"] })) }, n => ({ id: builtinFor(n)! }));
+  check(c.stages.length === 1 && c.stages[0].station === "pan" && c.stages[0].step === 1, `a poriyal's soak drops out and its toast and fold stay in the wok (${c.stages.map(s => s.station + "@" + s.step).join(", ")})`);
+  check(["soy milk", "oat milk", "rice flour", "glutinous rice flour"].map(builtinFor).join() === "soy-milk,oat-milk,rice-flour,glutinous-flour", "plant milks and rice flours map to their own items");
+  const one = (station: string, turn: string, secs: number, makes?: string) => ({ format: 1, id: "x-turn-" + station, techniques: [station], items: [], forms: {},
+    dishes: [{ id: "x-turn", name: "Turn", art: "dish-x", remember: "Turn it.", parts: [{ id: "x-turn", name: "Turn", station, ...(makes ? { makes } : {}), stages: [{ slots: [{ key: "a", label: "Tofu", accepts: ["tofu"] }], secs, hint: "tofu", ...(turn ? { turn } : {}) }] }] }] });
+  check(refusedWith(one("oven", "flip", 4), /bad turn/) && refusedWith(one("pan", "fold", 0), /bad turn/) && refusedWith(one("dough", "fold", 3), /bad turn/), "a flip off a burner and a fold that isn't one move on a cold board are refused");
+  check(refusedWith(one("pan", "", 3, "tofu"), /shelf item/), "a pack can't make a built-in shelf item");
+  const dish = (id: string, accepts: string) => ({ id, name: id, art: "dish-" + id, recipeId: id, remember: "Cook it.", parts: [{ id, name: id, station: "pan",
+    stages: [{ slots: [{ key: "a", label: "Oil", accepts: ["cooking-oil"] }, { key: "b", label: "Main", accepts: [accepts] }], secs: 3, hint: "oil" }] }] });
+  const a = readPack({ format: 1, id: "x-cafe-a", techniques: ["pan"], items: [fresh("x-mystery", "Mystery")], forms: {}, unreviewed: ["x-mystery"], dishes: [dish("x-cafe-a", "x-mystery")] });
+  const b = readPack({ format: 1, id: "x-cafe-b", techniques: ["pan"], items: [], forms: {}, dishes: [dish("x-cafe-b", "cabbage")] });
+  registerPack(a); registerPack(b);
+  const cafe = cafeFor([a, b], "host"), dealt = [...Array(60).keys()].filter(s => sim.createRun(cafe, "sprout", [], undefined, s + 1).guests.some(g => g.dishId === "x-cafe-a" && g.rules.length)).length;
+  check(dealt === 0, `a café never deals the unchecked dish to a guest with a rule (${dealt}/60 seeds)`);
 }
 
 console.log(failures ? `\n${failures} check(s) failed` : "\nAll pack checks passed");

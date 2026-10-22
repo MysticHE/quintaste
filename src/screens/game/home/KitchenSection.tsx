@@ -8,7 +8,8 @@ import { TIER_NAMES } from "../../../game/content/levels";
 import { missingTechnique } from "../../../game/kitchen";
 import { TIERS, type Tier } from "../../../game/mission";
 import type { GameProgress } from "../../../game/progress";
-import { forYou, newest, nextTier, tierOpen, useKitchen } from "../../../hooks/useKitchen";
+import { forYou, newest, nextTier, tierOpen, type KitchenRemote } from "../../../hooks/useKitchen";
+import { useMyRecipeStatus } from "../../../hooks/useMemberRecipes";
 import type { KitchenLevel } from "../../../services/game-api";
 import { useFood } from "../../../state/Food";
 import { usePreferences } from "../../../state/Preferences";
@@ -17,9 +18,9 @@ import { Section } from "./GameSheet";
 
 export type KitchenPick = { level: KitchenLevel; tier: Tier };
 
-/** Recipe levels grouped by cuisine, with tier progress and what to learn first; picking one shows its tiers. */
-export function Kitchen({ game, pick, onPick }: { game: GameProgress; pick: KitchenPick | null; onPick(p: KitchenPick): void }) {
-  const remote = useKitchen(), saves = useFood().doc.saves;
+/** Recipe levels grouped by cuisine, with tier progress and what to learn first; picking one shows its tiers. The parent loads the shelf once. */
+export function Kitchen({ game, remote, pick, onPick }: { game: GameProgress; remote: KitchenRemote; pick: KitchenPick | null; onPick(p: KitchenPick): void }) {
+  const saves = useFood().doc.saves;
   const levels = useMemo(() => remote.data?.levels ?? [], [remote.data]);
   // For you and New lead the tab (GAME_CONTENT_PLAN §5); the cuisine shelves below still list every level.
   const rows = useMemo(() => {
@@ -32,7 +33,7 @@ export function Kitchen({ game, pick, onPick }: { game: GameProgress; pick: Kitc
   return <>
     <RemoteStatus remote={remote} icon="restaurant-outline" returnTo="/game/cafe" />
     {remote.data && !levels.length && <Section><T muted>No recipe levels yet.</T></Section>}
-    {pick && <Tiers game={game} pick={pick} onPick={onPick} />}
+    {pick && <Tiers game={game} levels={remote.data?.levels} pick={pick} onPick={onPick} />}
     {row("For you", rows.mine)}
     {row("New", rows.fresh)}
     {shelves.map(shelf => <Section key={shelf} title={shelf}>
@@ -72,14 +73,16 @@ function Stars({ stars }: { stars: number | null }) {
 }
 
 /** The picked level as the shelf has it now, so a tier cleared since it was picked shows (and opens the next). */
-const useFresh = (pick: KitchenPick | null) => { const levels = useKitchen().data?.levels; return pick && (levels?.find(l => l.hash === pick.level.hash) ?? pick.level); };
+const fresh = (pick: KitchenPick | null, levels: KitchenLevel[] | undefined) => pick && (levels?.find(l => l.hash === pick.level.hash) ?? pick.level);
 
 /** The picked recipe's three tiers: Learn, Service and From memory, each opening after the one before. */
-function Tiers({ game, pick: picked, onPick }: { game: GameProgress; pick: KitchenPick; onPick(p: KitchenPick): void }) {
-  const level = useFresh(picked)!, pick = { ...picked, level };
+function Tiers({ game, levels, pick: picked, onPick }: { game: GameProgress; levels: KitchenLevel[] | undefined; pick: KitchenPick; onPick(p: KitchenPick): void }) {
+  const level = fresh(picked, levels)!, pick = { ...picked, level };
   const { theme } = usePreferences(), locked = missingTechnique(game, pick.level.techniques);
-  // A public level made from another member's recipe can be reported to staff (RECIPE_LEVELS_PLAN §10).
-  const [report, setReport] = useState(false), canReport = !!useGameMemberId() && level.recipeId.startsWith("member-") && !level.mine;
+  // A public level made from another member's recipe can be reported to staff (RECIPE_LEVELS_PLAN §10); never the viewer's own recipe.
+  const [report, setReport] = useState(false), memberId = useGameMemberId(), authored = useMyRecipeStatus();
+  const own = authored.data ? authored.data.items.some(r => r.id === level.recipeId) : !authored.error;
+  const canReport = !!memberId && level.recipeId.startsWith("member-") && !level.mine && !own;
   return <Section title={pick.level.name}>
     {TIERS.map(t => { const open = !locked && tierOpen(pick.level, t), best = pick.level.best[t];
       return <Pressable key={t} disabled={!open} onPress={() => onPick({ level: pick.level, tier: t })} accessibilityRole="radio"
@@ -93,8 +96,8 @@ function Tiers({ game, pick: picked, onPick }: { game: GameProgress; pick: Kitch
   </Section>;
 }
 /** The sheet footer for the Recipe Kitchen tab: start the picked tier when it is open. */
-export function KitchenStart({ game, pick: picked, onPlay }: { game: GameProgress; pick: KitchenPick | null; onPlay(hash: string, tier: Tier): void }) {
-  const level = useFresh(picked), pick = picked && level ? { ...picked, level } : null;
+export function KitchenStart({ game, levels, pick: picked, onPlay }: { game: GameProgress; levels: KitchenLevel[] | undefined; pick: KitchenPick | null; onPlay(hash: string, tier: Tier): void }) {
+  const level = fresh(picked, levels), pick = picked && level ? { ...picked, level } : null;
   if (!pick || missingTechnique(game, pick.level.techniques) || !tierOpen(pick.level, pick.tier)) return null;
   return <Button label={"Start " + TIER_NAMES[pick.tier]} onPress={() => onPlay(pick.level.hash, pick.tier)} />;
 }

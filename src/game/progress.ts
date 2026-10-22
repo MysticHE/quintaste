@@ -31,8 +31,9 @@ export type GameProgress = {
 };
 export const KITCHEN_TIERS = ["learn", "service", "memory"] as const;
 export type KitchenTier = (typeof KITCHEN_TIERS)[number];
-/** How many recipes' Kitchen bests a device keeps. */
+/** How many recipes' Kitchen bests a device keeps: the most recently updated, which are the last keys (applyKitchen moves a recipe to the end). */
 const KITCHEN_KEEP = 300;
+const recentKitchen = (k: GameProgress["kitchen"]): GameProgress["kitchen"] => Object.fromEntries(Object.entries(k).slice(-KITCHEN_KEEP));
 export const emptyGame = (): GameProgress => ({
   version: 1, best: {}, credits: 0, owned: [], pet: "sprout", equip: {}, decor: { ceiling: null, wall: "painting", floorL: "plant", floorR: null },
   skin: "sunny", cafeName: "My Café", menu: "chinese", mode: "rush", signature: [], introSeen: false, seen: [], tier: null, settings: { ...defaultSettings }, seasons: {}, kitchen: {},
@@ -55,8 +56,7 @@ export function readGame(value: unknown): GameProgress {
   }
   for (const [k, v] of Object.entries(rec(input.seasons))) if (SEASON_KEYS.has(k)) seasons[k] = readBest(v);
   const kitchen: GameProgress["kitchen"] = {};
-  for (const [k, v] of Object.entries(rec(input.kitchen)).slice(0, KITCHEN_KEEP)) {
-    if (!/^[a-z0-9][a-z0-9-]{2,150}$/.test(k)) continue;
+  for (const [k, v] of Object.entries(rec(input.kitchen)).filter(([k]) => /^[a-z0-9][a-z0-9-]{2,150}$/.test(k)).slice(-KITCHEN_KEEP)) {
     const tiers: Partial<Record<KitchenTier, LevelBest>> = {};
     for (const t of KITCHEN_TIERS) if (own(rec(v), t)) tiers[t] = readBest(rec(v)[t]);
     kitchen[k] = tiers;
@@ -97,7 +97,7 @@ export function mergeGame(profile: GameProgress, guest: GameProgress): GameProgr
   const kitchen: GameProgress["kitchen"] = { ...guest.kitchen };
   for (const [k, tiers] of Object.entries(profile.kitchen)) kitchen[k] = mergeBests(tiers as Record<string, LevelBest>, (kitchen[k] ?? {}) as Record<string, LevelBest>);
   const profileStarted = Object.keys(profile.best).length > 0;
-  return { ...(profileStarted ? profile : guest), best, seasons, kitchen, credits: Math.max(profile.credits, guest.credits),
+  return { ...(profileStarted ? profile : guest), best, seasons, kitchen: recentKitchen(kitchen), credits: Math.max(profile.credits, guest.credits),
     owned: [...new Set([...profile.owned, ...guest.owned])], seen: [...new Set([...profile.seen, ...guest.seen])] };
 }
 
@@ -148,7 +148,7 @@ export function applySeason(g: GameProgress, key: string, res: ServiceResult) {
  */
 export function applyKitchen(g: GameProgress, recipeId: string, tier: KitchenTier, res: ServiceResult) {
   const { next, reward } = scored(g.kitchen[recipeId]?.[tier], res);
-  const kitchen = { ...g.kitchen, [recipeId]: { ...g.kitchen[recipeId], [tier]: next } };
+  const { [recipeId]: before, ...rest } = g.kitchen, kitchen = recentKitchen({ ...rest, [recipeId]: { ...before, [tier]: next } });
   return { game: { ...g, kitchen }, reward: { ...reward, credits: 0, mastered: false, unlocks: [] as string[] } };
 }
 /** One service against the best before it: the new best, and the reward line (credits, first clear, Mastered, bests beaten, bonus). */

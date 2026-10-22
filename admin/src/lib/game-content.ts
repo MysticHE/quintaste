@@ -3,7 +3,7 @@ import { query, transaction } from './db';
 import { audit } from './audit';
 import { authorize, lockPermission, type Session } from './session';
 import { choice, HttpError, pageSize, text } from './http';
-import { search } from './content-members';
+import { openReports, search } from './content-members';
 import { recipeList } from './content-recipes';
 
 // Rush Hour recipe levels and pictures (server/game/levels.sql, docs/game/RECIPE_LEVELS_PLAN.md §8.5-8.6). Staff review a level before
@@ -67,7 +67,7 @@ export async function gameCafeList(member: Session, status: string, q: string, s
   return guard(async () => (await query(`SELECT c.user_id AS id, c.name, c.open, c.hidden_at, c.hidden_reason, c.opened_at, u.username AS host,
       (SELECT coalesce(json_agg(l.pack->'dishes'->0->>'name' ORDER BY m.position), '[]') FROM game.cafe_menu m JOIN game.recipe_level l ON l.hash = m.hash WHERE m.user_id = c.user_id) AS dishes,
       (SELECT count(*)::int FROM game.cafe_visit v WHERE v.host_id = c.user_id AND v.created_at > now() - interval '7 days') AS week,
-      (SELECT count(*)::int FROM ops.case_record r WHERE r.subject_id LIKE 'game:cafe:' || c.user_id || '|%' AND r.status NOT IN ('resolved','closed')) AS reports
+      ${openReports("'game:cafe:'||c.user_id")} AS reports
     FROM game.cafe c JOIN public."user" u ON u.id = c.user_id
     WHERE ${where} AND ($1 = '' OR c.name ILIKE $1 OR u.username ILIKE $1)
     ORDER BY reports DESC, c.updated_at DESC LIMIT ${pageSize} OFFSET $2`, [term, skip])).rows);
@@ -167,7 +167,7 @@ export async function gameLevelRecipes(member: Session, q: string) {
       FROM unnest($1::text[]) AS x(id)`, [ids])).rows;
     const byId = new Map(state.map(r => [r.recipe_id, r]));
     const titles = new Map((listed ?? []).map(r => [r.id, r.title]));
-    const jobs = (await query<{ recipe_id: string; [key: string]: unknown }>(`SELECT j.id, j.recipe_id, j.cuisine, j.requested_by, j.status, j.attempts, j.message, j.pack, j.usage,
+    const jobs = (await query<{ recipe_id: string; [key: string]: unknown }>(`SELECT j.id, j.recipe_id, j.cuisine, j.requested_by, j.status, j.attempts, coalesce(nullif(j.detail, ''), j.message) AS message, j.pack, j.usage,
         j.created_at, j.finished_at, m.live->>'title' AS member_title
       FROM game.level_job j LEFT JOIN recipes.recipe m ON j.recipe_id = 'member-' || m.id ORDER BY j.created_at DESC LIMIT 30`)).rows
       .map(({ member_title, ...j }) => ({ ...j, title: (member_title as string | null) ?? titles.get(j.recipe_id) ?? null }));

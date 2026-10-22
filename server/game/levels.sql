@@ -164,7 +164,7 @@ CREATE TABLE IF NOT EXISTS game.level_job (
   started_at timestamptz,
   finished_at timestamptz
 );
-CREATE UNIQUE INDEX IF NOT EXISTS game_level_job_open ON game.level_job(recipe_id) WHERE status IN ('queued','waiting','claimed','answered');
+-- One open job per recipe and owner: game_level_job_open_owner below (the first version's game_level_job_open is dropped there).
 CREATE INDEX IF NOT EXISTS game_level_job_queue ON game.level_job(status, created_at) WHERE status IN ('queued','waiting','answered');
 INSERT INTO ops.control(key, enabled, notice) VALUES ('game_levels', false, '') ON CONFLICT DO NOTHING;
 -- Difficulty (GAME_CONTENT_PLAN §5): Glicko-2, a player against a recipe level and tier. A level starts from the test player's
@@ -232,12 +232,16 @@ ALTER TABLE game.level_job ADD COLUMN IF NOT EXISTS priority smallint NOT NULL D
 CREATE UNIQUE INDEX IF NOT EXISTS game_level_job_open_owner ON game.level_job(recipe_id, coalesce(owner_id, '')) WHERE status IN ('queued','waiting','claimed','answered');
 DROP INDEX IF EXISTS game.game_level_job_open;
 CREATE INDEX IF NOT EXISTS game_level_job_owner ON game.level_job(owner_id, created_at) WHERE owner_id IS NOT NULL;
+-- Members see `message` only; the detail of an unexpected failure is kept here for staff (Admin > Game levels).
+ALTER TABLE game.level_job ADD COLUMN IF NOT EXISTS detail text NOT NULL DEFAULT '' CHECK (char_length(detail) <= 300);
 
 -- Member cafés (GAME_CONTENT_PLAN §9, Phase 5; QT-048 updated 22 Oct 2026): opt-in, off behind `game_cafes` until the owner sets the
 -- terms wording and contact details. A café shows its name and a menu of up to six reviewed (public) recipe levels; visitors play a
 -- service of it; the host sees private weekly counts only. Staff hide a café (hidden_at) from reports.
 CREATE TABLE IF NOT EXISTS game.cafe (
   user_id text PRIMARY KEY REFERENCES game.profile(user_id) ON DELETE CASCADE,
+  -- The id the app sees: a host's account id is never sent to visitors (it would link the café to their Market shop and Social profile).
+  public_id uuid NOT NULL DEFAULT gen_random_uuid(),
   name text NOT NULL CHECK (char_length(name) BETWEEN 1 AND 30),
   open boolean NOT NULL DEFAULT false,
   terms_version smallint CHECK (terms_version IS NULL OR terms_version >= 1),
@@ -248,6 +252,8 @@ CREATE TABLE IF NOT EXISTS game.cafe (
   updated_at timestamptz NOT NULL DEFAULT now(),
   CHECK (NOT open OR terms_version IS NOT NULL)
 );
+ALTER TABLE game.cafe ADD COLUMN IF NOT EXISTS public_id uuid NOT NULL DEFAULT gen_random_uuid();
+CREATE UNIQUE INDEX IF NOT EXISTS game_cafe_public ON game.cafe(public_id);
 CREATE TABLE IF NOT EXISTS game.cafe_menu (
   user_id text NOT NULL REFERENCES game.cafe(user_id) ON DELETE CASCADE,
   position smallint NOT NULL CHECK (position BETWEEN 1 AND 6),

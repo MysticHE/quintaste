@@ -11,7 +11,7 @@ import { GameSheet, Section } from "./GameSheet";
 import { Art, Seg, useHover } from "./bits";
 import { Kitchen, KitchenStart, type KitchenPick } from "./KitchenSection";
 import { Seasons, SeasonStart, type SeasonPick } from "./SeasonsSection";
-import { useSeasonsOn } from "../../../hooks/useKitchen";
+import { useKitchen, useSeasonsOn } from "../../../hooks/useKitchen";
 import type { Tier } from "../../../game/mission";
 
 /** Rush Hour: the next level, its twist, the companion joining and the path; beside it, the Recipe Kitchen (recipe levels). */
@@ -21,6 +21,8 @@ export function LevelsSheet({ game, onClose, onPlay, onPlayMission, onPlaySeason
   const { theme } = usePreferences();
   const [pick, setPick] = useState(nextLevel(game)), seasonsOn = useSeasonsOn();
   const [tab, setTab] = useState<"levels" | "kitchen" | "seasons">("levels"), [recipe, setRecipe] = useState<KitchenPick | null>(null), [seasonPick, setSeasonPick] = useState<SeasonPick | null>(null);
+  // One shelf request for the Recipe Kitchen list and its Start footer, made only while that tab is showing.
+  const kitchen = useKitchen(tab === "kitchen");
   const tabs = <Seg<"levels" | "kitchen" | "seasons"> label="Rush Hour" value={tab} onChange={setTab}
     options={[["levels", "Levels"], ["kitchen", "Recipe Kitchen"], ...(seasonsOn ? [["seasons", "Seasons"] as ["seasons", string]] : [])]} />;
   if (tab === "seasons" && seasonsOn) return <GameSheet title="Rush Hour" subtitle="Seasons" onClose={onClose}
@@ -28,8 +30,8 @@ export function LevelsSheet({ game, onClose, onPlay, onPlayMission, onPlaySeason
     {tabs}<Seasons game={game} pick={seasonPick} onPick={setSeasonPick} />
   </GameSheet>;
   if (tab === "kitchen") return <GameSheet title="Rush Hour" subtitle="Recipe Kitchen" onClose={onClose}
-    footer={<KitchenStart game={game} pick={recipe} onPlay={onPlayMission} />}>
-    {tabs}<Kitchen game={game} pick={recipe} onPick={setRecipe} />
+    footer={<KitchenStart game={game} levels={kitchen.data?.levels} pick={recipe} onPlay={onPlayMission} />}>
+    {tabs}<Kitchen game={game} remote={kitchen} pick={recipe} onPick={setRecipe} />
   </GameSheet>;
   const lv = LEVELS[pick - 1], pet = PETS[game.pet], skill = SKILLS[pet.skill], best = game.best[pick], record = best?.clears ? best : null;
   const guests = [...new Set(lv.orders.map(o => o.guest))];

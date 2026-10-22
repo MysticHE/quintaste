@@ -56,9 +56,10 @@ export const cafeOf = (g: GameProgress) => Object.fromEntries(CAFE_KEYS.map(k =>
  */
 export function reconcile(server: GameProgress, local: GameProgress, pending: PendingRun[], keepLocalCafe: boolean): GameProgress {
   // Play your way settings are per device and never on the server, so the device's own always win.
-  // A server older than this app sends no season bests; the account then simply has none yet.
-  let game: GameProgress = { ...server, seasons: server.seasons ?? {}, ...(keepLocalCafe ? cafeOf(local) : {}), tier: local.tier, settings: local.settings };
-  for (const run of pending) game = applyRun(game, run.setup, run.result).game;
+  // A server older than this app sends no season bests; the account then simply has none yet. Members' Recipe Kitchen bests are the
+  // account's (the kitchen shelf), never applied on the device, so a pending kitchen run changes nothing here.
+  let game: GameProgress = { ...server, seasons: server.seasons ?? {}, kitchen: server.kitchen ?? {}, ...(keepLocalCafe ? cafeOf(local) : {}), tier: local.tier, settings: local.settings };
+  for (const run of pending) game = applyRun(game, run.setup, run.result, true).game;
   return game;
 }
 type GameUpdate = (change: (game: GameProgress) => GameProgress) => Promise<boolean>;
@@ -78,7 +79,7 @@ export async function applyPending(userId: string, run: PendingRun, update: Game
   let reward: ReturnType<typeof applyResult>["reward"] | null = null;
   const ok = await update(local => {
     const others = queue.runs.filter(r => r.id !== run.id), base = lastServer?.userId === userId ? reconcile(lastServer.game, local, others, queue.cafeDirty) : local;
-    const next = applyRun(base, run.setup, run.result);
+    const next = applyRun(base, run.setup, run.result, true);
     reward = next.reward;
     return next.game;
   });

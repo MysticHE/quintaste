@@ -42,12 +42,12 @@ export function stationState(run: sim.Run, kind: StationKind): { text: string; s
     if (cfg.preheat && st.heatOn) return { text: "Preheating", short: "Heating", tone: "cook" };
     return { text: many ? cfg.name : "Empty", short: many ? SHORT[kind] : "Empty", tone: "idle" };
   }
-  // A blended paste is poured onto the station that takes it, not plated.
-  if (pr.state === "ready" && sim.partOf(pr).makes) return { text: "Ready · Pour it", short: "Pour it", tone: "ready" };
   if (pr.state === "ready") {
     if (pr.exposure > 0 && run.plan.neglect !== null) return { text: "Burning! Drag it out", short: "Burning!", tone: "warn" };
-    // A steamer or oven spoils a ready dish left in: say so once it has started.
+    // A steamer or oven spoils a ready dish left in, a made one too: say so once it has started.
     if (cfg.burnAfter && pr.exposure > 1.5) return { text: "Take it out!", short: "Out!", tone: "warn" };
+    // A blended paste is poured onto the station that takes it, not plated.
+    if (sim.partOf(pr).makes) return { text: "Ready · Pour it", short: "Pour it", tone: "ready" };
     return { text: "Ready · Drag it", short: "Drag it", tone: "ready" };
   }
   if (pr.state === "scorched") return { text: "Scorched · Restart", short: "Restart", tone: "warn" };

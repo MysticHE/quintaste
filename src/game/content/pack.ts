@@ -19,6 +19,7 @@ export class PackError extends Error {}
 
 /** The built-in content as it was when the game loaded, before any pack: what the rules version covers. */
 export const BUILTIN = { dishes: { ...DISHES }, items: { ...ITEMS }, forms: { ...ITEM_FORM } } as const;
+const BUILTIN_MADE = new Set(Object.values(BUILTIN.dishes).flatMap(d => d.parts.map(p => p.makes).filter((x): x is string => !!x)));
 
 const ID = /^[a-z0-9][a-z0-9-]{0,39}$/, PACK_ID = /^[a-z0-9][a-z0-9-]{2,63}$/, ART = /^[A-Za-z0-9][A-Za-z0-9-]{0,59}$/;
 const TAGS = new Set<ItemTag>(["allium", "egg", "dairy", "honey", "root", "mushroom", "hot", "animal"]);
@@ -52,7 +53,7 @@ function readItem(v: unknown, i: number): GameItem {
   put(item, "variant", o.variant === undefined ? undefined : o.variant === "A" || o.variant === "B" ? o.variant : fail(where + ": bad variant"));
   return put(item, "note", o.note === undefined ? undefined : text(o.note, where, 200));
 }
-function readStage(v: unknown, where: string, known: (item: string) => boolean): Stage {
+function readStage(v: unknown, where: string, known: (item: string) => boolean, station: StationKind): Stage {
   const o = obj(v, where, ["slots", "secs", "hint", "band", "scorchSecs", "splitIfHot", "turn"]);
   const slots = list(o.slots, where, 1, LIMITS.slots).map((s, k): Slot => {
     const so = obj(s, where + " slot " + k, ["key", "label", "accepts", "optional"]);
@@ -66,7 +67,9 @@ function readStage(v: unknown, where: string, known: (item: string) => boolean):
     put(stage, "band", lo < hi ? [lo, hi] : fail(where + ": bad band"));
   }
   put(stage, "scorchSecs", o.scorchSecs === undefined ? undefined : num(o.scorchSecs, where, 0.1, 99));
-  put(stage, "turn", o.turn === undefined ? undefined : o.turn === "flip" || o.turn === "fold" ? o.turn : fail(where + ": bad turn"));
+  // A flip turns food over on a burner the player controls (the griddle); a fold closes it by hand on a cold board, as one move.
+  const cfg = STATIONS[station], flips = cfg.heat && !cfg.thermostat, folds = !cfg.heat && stage.secs === 0;
+  put(stage, "turn", o.turn === undefined ? undefined : (o.turn === "flip" && flips) || (o.turn === "fold" && folds) ? o.turn : fail(where + ": bad turn"));
   return put(stage, "splitIfHot", o.splitIfHot === undefined ? undefined : list(o.splitIfHot, where, 1, LIMITS.accepts).map(a => known(id(a, where)) ? a as string : fail(where + ": unknown item")));
 }
 function readDish(v: unknown, i: number, techniques: Set<string>, known: (item: string) => boolean): Dish {
@@ -74,8 +77,11 @@ function readDish(v: unknown, i: number, techniques: Set<string>, known: (item: 
   const parts = list(o.parts, where, 1, LIMITS.parts).map((p, k): Part => {
     const pw = where + " part " + k, po = obj(p, pw, ["id", "name", "station", "stages", "makes"]);
     const station = typeof po.station === "string" && techniques.has(po.station) ? po.station as StationKind : fail(pw + ": station not in techniques");
-    const part: Part = { id: id(po.id, pw), name: text(po.name, pw, 60), station, stages: list(po.stages, pw, 1, LIMITS.stages).map((s, n) => readStage(s, pw + " stage " + n, known)) };
-    return put(part, "makes", po.makes === undefined ? undefined : known(id(po.makes, pw)) ? po.makes : fail(pw + ": unknown item " + String(po.makes)));
+    const part: Part = { id: id(po.id, pw), name: text(po.name, pw, 60), station, stages: list(po.stages, pw, 1, LIMITS.stages).map((s, n) => readStage(s, pw + " stage " + n, known, station)) };
+    // A made item never comes from the shelf (sim madeItems), so a pack may not make one the built-in levels take from it.
+    const makes = po.makes === undefined ? undefined : known(id(po.makes, pw)) ? po.makes as string : fail(pw + ": unknown item " + String(po.makes));
+    if (makes && makes in BUILTIN.items && !BUILTIN_MADE.has(makes)) fail(pw + ": " + makes + " is a shelf item and cannot be made");
+    return put(part, "makes", makes);
   });
   const dish: Dish = { id: id(o.id, where), name: text(o.name, where, 60), art: art(o.art, where), parts, remember: text(o.remember, where, 240) };
   return put(dish, "recipeId", o.recipeId === undefined ? undefined : text(o.recipeId, where, 151));

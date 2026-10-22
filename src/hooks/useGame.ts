@@ -81,7 +81,7 @@ export function useGame() {
       const code = error instanceof ApiError ? error.code : undefined;
       return { id, online: false, note: code === "GAME_UPDATE" ? "Update QuinTaste to save game progress to your account."
         : code === "PET_LOCKED" ? "This companion isn't unlocked on your account yet."
-        : code === "TECHNIQUE_LOCKED" || code === "TIER_LOCKED" || code === "LEVEL_UNAVAILABLE" || code === "SEASON_LOCKED" || code === "SEASONS_OFF" || code === "CAFE_CLOSED"
+        : code === "TECHNIQUE_LOCKED" || code === "TIER_LOCKED" || code === "LEVEL_UNAVAILABLE" || code === "SEASON_LOCKED" || code === "SEASONS_OFF" || code === "CAFE_CLOSED" || code === "CAFE_CHANGED"
           || code === "SERVICE_PAUSED" ? (error as Error).message + " This service is practice."
         : "You were offline when this service started, so it's practice and isn't saved to your account." };
     }

@@ -20,7 +20,8 @@ export function ToolChips({ run, L, art, onTurn }: { run: sim.Run; L: Layout; ar
 
 function Tool({ kind, how, station: r, art, onTurn }: { kind: StationKind; how: "flip" | "fold"; station: Station; art: Record<string, string>; onTurn(kind: StationKind): void }) {
   const [drag, setDrag] = useState<Point | null>(null), start = useRef<Point | null>(null), tool = TURN_TOOL[how];
-  const home = { x: r.art.x + r.art.w - 8, y: r.art.y + 10 };
+  // Just above its station, so a drag onto even a narrow station travels past MIN_DRAG.
+  const home = { x: r.art.x + r.art.w / 2, y: r.art.y - 26 };
   const end = () => { start.current = null; setDrag(null); };
   const up = (e: PointerEvent<HTMLSpanElement>) => {
     const s = start.current; end(); if (!s) return;

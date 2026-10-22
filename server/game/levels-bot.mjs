@@ -1,7 +1,7 @@
 import express from 'express';
 import { pool, logger } from '../config.mjs';
 import { json, raw, signed } from '../bot-signature.mjs';
-import { SHAPE_SCHEMA, SHAPE_SYSTEM } from './levels-worker.mjs';
+import { MEMBER_FAILED, SHAPE_SCHEMA, SHAPE_SYSTEM } from './levels-worker.mjs';
 
 /**
  * Level shaping by QT Gamer (ops/qt-team/game_level_bridge.py, on the ChatGPT plan): the bridge claims a compiled draft, asks
@@ -29,8 +29,10 @@ gameLevelBots.post('/jobs/:id/answer', raw('30kb'), signed, async (req, res, nex
     const usage = body.usage && typeof body.usage === 'object' && !Array.isArray(body.usage) ? JSON.stringify(body.usage).slice(0, 2000) : '{}';
     const safeUsage = usage.endsWith('}') ? usage : '{}';
     if (typeof body.error === 'string') {
-      const done = await pool.query(`UPDATE game.level_job SET status='failed', message=$2, usage=$3::jsonb, answered_at=now(), finished_at=now() WHERE id=$1 AND status='claimed'`,
-        [id, ('QT Gamer: ' + body.error).slice(0, 300), safeUsage]);
+      // Members see a fixed reason; the bot's own text is kept for staff (`detail`).
+      const done = await pool.query(`UPDATE game.level_job SET status='failed', message = CASE WHEN owner_id IS NULL THEN $2 ELSE $4 END,
+          detail = CASE WHEN owner_id IS NULL THEN '' ELSE $2 END, usage=$3::jsonb, answered_at=now(), finished_at=now() WHERE id=$1 AND status='claimed'`,
+        [id, ('QT Gamer: ' + body.error).slice(0, 300), safeUsage, MEMBER_FAILED]);
       return done.rowCount ? res.json({ status: 'failed' }) : res.status(409).json({ error: 'job not claimed' });
     }
     if (!body.shape || typeof body.shape !== 'object' || Array.isArray(body.shape)) return res.status(422).json({ error: 'shape missing' });

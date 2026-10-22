@@ -34,7 +34,7 @@ export function RecipeOverview({ recipe }: { recipe: Recipe }) {
         label={(save.saved ? "Remove saved " : "Save ") + recipe.name} selected={save.saved} onPress={save.onPress} />
       {level && <Action icon="game-controller-outline" color={theme.foreground} label={"Play " + recipe.name}
         onPress={() => router.push({ pathname: "/game/play", params: { pack: level.hash, tier: nextTier(level), run: String(Date.now()) } })} />}
-      {!level && recipe.member?.own && <MakeLevelAction recipeId={recipe.id} onReady={kitchen.refresh} />}
+      {kitchen.data && !level && recipe.member?.own && <MakeLevelAction recipeId={recipe.id} onReady={kitchen.refresh} />}
       <Action icon={info ? "information-circle" : "information-circle-outline"} color={info ? theme.accent : theme.foreground} label="Recipe Info" selected={info} onPress={() => setInfo(!info)} />
     </>} />
     <View style={{ gap: 4, alignItems: "flex-start" }}>

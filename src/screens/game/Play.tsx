@@ -22,6 +22,7 @@ import { specialFor } from "../../game/special";
 import type { BridgeKind, FinishPayload, RunInfo } from "../../game/dom/RushHour";
 import RushHour from "./RushHourHost";
 import type { HapticKind } from "../../game/dom/useFeedback";
+import { useMember } from "../../components/CommunityGate";
 import { useGame, type RunReward, type StartedRun } from "../../hooks/useGame";
 import { useGameSwitch } from "../../state/game-sync";
 import { GamePreferences } from "./GamePreferences";
@@ -70,30 +71,34 @@ function PlayService() {
   // A café visit (GAME_CONTENT_PLAN §9, members only): the host's menu packs, registered, then one service of them.
   const cafeHost = typeof params.cafe === "string" && params.cafe ? params.cafe : null;
   const [cafeLoaded, setCafeLoaded] = useState<{ host: string; json: unknown[]; packs: LevelPack[]; pictures: Record<string, string> } | null>(null);
-  const [cafeError, setCafeError] = useState(false);
+  const [cafeError, setCafeError] = useState<string | null>(null);
   useEffect(() => {
     if (!cafeHost || !member) return;
     let live = true;
     fetchCafe(cafeHost).then(res => {
       const packs = res.packs.map(json => { const pack = readPack(json); registerPack(pack); return packByHash(packHash(pack))!; });
       if (live) setCafeLoaded({ host: res.host, json: res.packs, packs, pictures: res.pictures });
-    }).catch(() => { if (live) setCafeError(true); });
+    }).catch(error => { if (live) setCafeError(error instanceof ApiError ? error.message : "That café didn't load. Try again."); });
     return () => { live = false; };
   }, [cafeHost, member]);
   const cafeLevel = useMemo(() => (cafeLoaded ? cafeFor(cafeLoaded.packs, cafeLoaded.host) : null), [cafeLoaded]);
   // A level that needs a technique this player hasn't learned says where to learn it, then goes back. A guest's tiers open in order
-  // from the device's bests, as the server holds members to (TIER_LOCKED).
-  const missing = loaded ? missingTechnique(game, loaded.pack.techniques) : cafeLevel ? missingTechnique(game, cafeLevel.stations) : null;
-  const tierShut = !!loaded && !!tier && !member && !tierOpen({ best: game.kitchen[loaded.recipeId] ?? {} }, tier);
+  // from the device's bests, as the server holds members to (TIER_LOCKED). Both wait for the sign-in state and the saved progress, so
+  // a member, or a guest who cleared the tier before, isn't turned away while they load.
+  const { ready } = useFood(), auth = useMember(), known = ready && !auth.pending;
+  const missing = !known ? null : loaded ? missingTechnique(game, loaded.pack.techniques) : cafeLevel ? missingTechnique(game, cafeLevel.stations) : null;
+  const tierShut = known && !!loaded && !!tier && !member && !tierOpen({ best: game.kitchen[loaded.recipeId] ?? {} }, tier);
   const locked = missing ? (missing.level ? "Learn the " + missing.name.toLowerCase() + " in Level " + missing.level + " first." : "Update QuinTaste to play this level.")
     : tierShut ? "Clear " + TIER_NAMES[TIERS[TIERS.indexOf(tier!) - 1]] + " first." : null;
+  // A café that can't be visited (closed, cafés off, offline, signed out) says why, then goes back.
+  const cafeGone = !cafeHost || !known ? null : !member ? "Sign in to visit cafés." : cafeError;
+  const [leaveTitle, leaveText] = locked ? ["Not open yet", locked] : cafeGone ? ["Café unavailable", cafeGone] : ["", null];
   useEffect(() => {
-    if (!locked) return;
-    Alert.alert("Not open yet", locked);
+    if (!leaveText) return;
+    Alert.alert(leaveTitle, leaveText);
     if (router.canGoBack()) router.back(); else router.replace("/game");
-  }, [locked]);
+  }, [leaveTitle, leaveText]);
   const on = useGameSwitch();
-  const { ready } = useFood();
   const { reducedMotion, textMultiplier, theme } = usePreferences();
   const insets = useSafeAreaInsets();
   const level = Math.max(1, Math.min(LEVELS.length, Math.floor(Number(params.level)) || 1));
@@ -158,9 +163,8 @@ function PlayService() {
   if (!gameEnabled || !on) return <Redirect href="/game" />;
   if (!ready) return <View style={{ flex: 1 }} />;
   if (cafeHost) {
-    // A café is for signed-in members; a closed or unavailable one goes back to the game.
-    if (!member || cafeError) return <Redirect href="/game" />;
-    if (!cafeLoaded || locked) return <View style={{ flex: 1 }} />;
+    // A café is for signed-in members; a closed or unavailable one says why and goes back to the game (the effect above).
+    if (!cafeLoaded || leaveText) return <View style={{ flex: 1 }} />;
   } else if (packId) {
     // A level that is unavailable to this account (not signed in, withdrawn, someone else's) goes back to the game.
     if (packError) return <Redirect href="/game" />;

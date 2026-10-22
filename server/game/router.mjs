@@ -10,7 +10,7 @@ import { allowed } from '../operations.mjs';
 import { planAccess } from '../ai-recipes/limits.mjs';
 import { myLevels, requestLevel } from './levels-members.mjs';
 import { authorVisible } from './visibility.mjs';
-import { cafesOn, listCafes, myCafe, requireCafes, saveCafe as saveOpenCafe, visitableCafe } from './cafes.mjs';
+import { cafeNow, cafesOn, listCafes, myCafe, requireCafes, saveCafe as saveOpenCafe, visitableCafe } from './cafes.mjs';
 
 /**
  * Rush Hour account progress (GAME_PLAN §12.3 and §14 Phase B; PRD QT-055/056), mounted at /api/game behind the `games`
@@ -323,13 +323,17 @@ async function openCafe(req, res) {
     if (existing) { if (existing.user_id !== user.id) throw new CommunityError(404, 'Invalid run.'); return { id: body.id, status: existing.status }; }
     const cafe = await visitableCafe(db, sim, body.cafe?.host, user.id);
     if (!cafe) throw new CommunityError(404, 'That café is closed.', 'CAFE_CLOSED');
+    // The app plays the menu it loaded; if the host changed it since (or a dish was withdrawn), that service would never settle.
+    const menu = cafe.packs.map(p => p.hash), played = Array.isArray(body.cafe?.menu) ? body.cafe.menu : [];
+    if (played.length !== menu.length || played.some((hash, i) => hash !== menu[i]))
+      throw new CommunityError(409, "This café's menu changed. Open it again.", 'CAFE_CHANGED');
     const { game: progress } = await loadProgress(db, sim, user.id);
     const missing = sim.missingTechnique(progress, [...new Set(cafe.packs.flatMap(p => p.techniques))]);
     if (missing) throw new CommunityError(409, missing.level ? `Learn the ${missing.name.toLowerCase()} in Level ${missing.level} first.` : 'Update QuinTaste to play this café.', 'TECHNIQUE_LOCKED');
     if (!pet || !sim.isUnlocked(progress, sim.cosmetics.PETS[pet].unlock)) throw new CommunityError(409, 'That companion is locked.', 'PET_LOCKED');
     await db.query(`INSERT INTO game.run(id, user_id, level, mode, pet, signature, rules_version, hints, pace, cafe_host, cafe_menu) VALUES($1,$2,0,'rush',$3,'{}',$4,$5,$6,$7,$8)`,
-      [body.id, user.id, pet, sim.rulesVersion, hints, pace, cafe.host, cafe.packs.map(p => p.hash)]);
-    return { id: body.id, status: 'open', menu: cafe.packs.map(p => p.hash) };
+      [body.id, user.id, pet, sim.rulesVersion, hints, pace, cafe.hostId, menu]);
+    return { id: body.id, status: 'open', menu };
   });
   res.json(run);
 }
@@ -401,10 +405,8 @@ game.post('/runs/:id/finish', async (req, res) => {
   const mission = run.pack ? await playablePack(pool, sim, run.pack, user.id) : null;
   if (run.pack && !mission) { await refuse(id, user.id, 'level withdrawn', actions); return reply(); }
   // A café visit replays its menu snapshot; every pack in it must still be playable and is registered for the replay.
-  if (run.cafe_host) {
-    const packs = await Promise.all(run.cafe_menu.map(hash => playablePack(pool, sim, hash, user.id)));
-    if (packs.some(p => !p)) { await refuse(id, user.id, 'level withdrawn', actions); return reply(); }
-  }
+  const cafeMenu = run.cafe_host ? await Promise.all(run.cafe_menu.map(hash => playablePack(pool, sim, hash, user.id))) : null;
+  if (cafeMenu?.some(p => !p)) { await refuse(id, user.id, 'level withdrawn', actions); return reply(); }
   // The service's seed comes from the run's id, which the app also used to play it.
   const setup = { level: run.level, special, mission: run.pack ? { pack: run.pack, tier: run.tier } : null, season: run.season_id ? { id: run.season_id, n: run.season_n } : null,
     cafe: run.cafe_host ? { host: run.cafe_host, menu: run.cafe_menu } : null, hints: run.hints, pet: run.pet, signature: run.signature, seed: sim.seedOf(run.id) };
@@ -426,7 +428,7 @@ game.post('/runs/:id/finish', async (req, res) => {
     if (special) { await settleSpecial(db, sim, user.id, id, replayed, result, actions); return; }
     if (mission) { await settleMission(db, sim, user.id, id, run, mission.recipeId, replayed, result, actions); return; }
     if (run.season_id) { await settleSeason(db, sim, user.id, id, run, progress, replayed, result, actions); return; }
-    if (run.cafe_host) { await settleCafe(db, sim, user.id, id, run, replayed, result, actions); return; }
+    if (run.cafe_host) { await settleCafe(db, sim, user.id, id, run, cafeMenu.map(p => p.recipeId), replayed, result, actions); return; }
     if (!sim.levelOpen(progress, run.level)) {
       await db.query(`UPDATE game.run SET status='rejected', reason='level locked', finished_at=now() WHERE id=$1`, [id]);
       await db.query('INSERT INTO game.run_log(run_id, actions) VALUES($1,$2) ON CONFLICT DO NOTHING', [id, JSON.stringify(actions)]);
@@ -494,23 +496,18 @@ async function settleSeason(db, sim, me, id, run, progress, replayed, result, ac
 }
 
 /**
- * A finished café visit: the visit counts for the host's private weekly numbers, and a clear pays the kitchen credits once per café
- * ever (ledger source cafe:<host>, within the day's three kitchen rewards). Hosts are never paid for visitors (QT-056).
+ * A finished café visit: the visit counts for the host's private weekly numbers, and a clear pays kitchen credits for the first recipe
+ * on the menu this player has never been paid for (payKitchen: once per recipe ever, across the Recipe Kitchen and every café, never
+ * their own, within the day's three kitchen rewards). Nothing is paid if the café closed, was hidden or a block came in since the run
+ * opened; if the host deleted their account the run settles without the visit. Hosts are never paid for visitors (QT-056).
  */
-async function settleCafe(db, sim, me, id, run, replayed, result, actions) {
-  const reward = { credits: 0, first: false, mastered: false, unlocks: [] };
-  if (result.cleared) Object.assign(reward, await payCafe(db, sim, me, run.cafe_host));
-  await db.query(`INSERT INTO game.cafe_visit(run_id, host_id, visitor_id, served) VALUES($1,$2,$3,$4) ON CONFLICT DO NOTHING`, [id, run.cafe_host, me, result.cleared]);
+async function settleCafe(db, sim, me, id, run, recipeIds, replayed, result, actions) {
+  const reward = { credits: 0, first: false, mastered: false, unlocks: [] }, cafe = await cafeNow(db, run.cafe_host, me);
+  if (result.cleared && cafe?.visitable) Object.assign(reward, await payKitchen(db, sim, me, recipeIds, "Today's three kitchen rewards are used. Visit again tomorrow for this café's credits."));
+  if (cafe) await db.query(`INSERT INTO game.cafe_visit(run_id, host_id, visitor_id, served) VALUES($1,$2,$3,$4) ON CONFLICT DO NOTHING`, [id, run.cafe_host, me, result.cleared]);
   await db.query(`UPDATE game.run SET status='settled', finished_at=now(), ticks=$2, credits=$4, result=$3 WHERE id=$1`,
     [id, replayed.ticks, { result: resultOf(result, replayed.endReason === 'quit'), reward }, reward.credits]);
   await db.query('INSERT INTO game.run_log(run_id, actions) VALUES($1,$2) ON CONFLICT DO NOTHING', [id, JSON.stringify(actions)]);
-}
-async function payCafe(db, sim, me, host) {
-  const source = 'cafe:' + createHash('sha256').update(host).digest('hex').slice(0, 40);
-  if ((await db.query(`SELECT 1 FROM game.ledger WHERE user_id=$1 AND kind='kitchen' AND source=$2`, [me, source])).rowCount) return {};
-  if (await paidToday(db, me, 'kitchen') >= sim.cosmetics.DAILY_CREDITS.kitchen) return { note: "Today's three kitchen rewards are used. Visit again tomorrow for this café's credits." };
-  const credits = sim.cosmetics.DAILY_CREDITS.kitchenClear;
-  return await postCredits(db, me, credits, 'kitchen', source) ? { credits, first: true } : {};
 }
 
 /**
@@ -519,7 +516,7 @@ async function payCafe(db, sim, me, host) {
  */
 async function settleMission(db, sim, me, id, run, recipeId, replayed, result, actions) {
   const reward = { credits: 0, first: false, mastered: false, unlocks: [] };
-  if (result.cleared) Object.assign(reward, await payKitchen(db, sim, me, recipeId));
+  if (result.cleared) Object.assign(reward, await payKitchen(db, sim, me, [recipeId], "Today's three kitchen rewards are used. Clear it again tomorrow for its credits."));
   const coins = Math.min(1000, Math.max(0, Math.round(result.coins))), left = result.cleared ? Math.min(600, Math.max(0, Math.floor(result.left))) : 0;
   await db.query(`INSERT INTO game.kitchen_best(user_id, recipe_id, tier, pack, stars, score, clears, coins, left_secs) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9)
     ON CONFLICT (user_id, recipe_id, tier) DO UPDATE SET pack=$4, stars=GREATEST(game.kitchen_best.stars, $5), score=GREATEST(game.kitchen_best.score, $6),
@@ -532,18 +529,22 @@ async function settleMission(db, sim, me, id, run, recipeId, replayed, result, a
 }
 
 /**
- * Kitchen credits (DAILY_CREDITS): a recipe pays once ever, on its first clear at any tier, for the first three recipes a Singapore
- * day, and never for the member's own recipe (a private level of theirs, or a member recipe they wrote).
+ * Kitchen credits (DAILY_CREDITS): a recipe pays once ever (ledger source recipe:<id>), on its first clear at any tier in the Recipe
+ * Kitchen or in a café, for the first three recipes a Singapore day, and never for the member's own recipe (a private level of theirs,
+ * or a member recipe they wrote). Pays for the first of `recipeIds` still unpaid; `full` is the note when the day's rewards are used.
  */
-async function payKitchen(db, sim, me, recipeId) {
-  const memberId = /^member-([0-9a-f-]{36})$/.exec(recipeId)?.[1] ?? null;
-  const own = (await db.query(`SELECT 1 FROM game.recipe_level WHERE recipe_id=$1 AND owner_id=$2
-    UNION ALL SELECT 1 FROM recipes.recipe WHERE $3::uuid IS NOT NULL AND id = $3::uuid AND author_id=$2 LIMIT 1`, [recipeId, me, memberId])).rowCount;
-  const source = 'recipe:' + (recipeId.length <= 57 ? recipeId : recipeId.slice(0, 48) + '-' + createHash('sha256').update(recipeId).digest('hex').slice(0, 8));
-  if (own || (await db.query(`SELECT 1 FROM game.ledger WHERE user_id=$1 AND kind='kitchen' AND source=$2`, [me, source])).rowCount) return {};
-  if (await paidToday(db, me, 'kitchen') >= sim.cosmetics.DAILY_CREDITS.kitchen) return { note: "Today's three kitchen rewards are used. Clear it again tomorrow for its credits." };
-  const credits = sim.cosmetics.DAILY_CREDITS.kitchenClear;
-  return await postCredits(db, me, credits, 'kitchen', source) ? { credits, first: true } : {};
+async function payKitchen(db, sim, me, recipeIds, full) {
+  for (const recipeId of new Set(recipeIds)) {
+    const memberId = /^member-([0-9a-f-]{36})$/.exec(recipeId)?.[1] ?? null;
+    const own = (await db.query(`SELECT 1 FROM game.recipe_level WHERE recipe_id=$1 AND owner_id=$2
+      UNION ALL SELECT 1 FROM recipes.recipe WHERE $3::uuid IS NOT NULL AND id = $3::uuid AND author_id=$2 LIMIT 1`, [recipeId, me, memberId])).rowCount;
+    const source = 'recipe:' + (recipeId.length <= 57 ? recipeId : recipeId.slice(0, 48) + '-' + createHash('sha256').update(recipeId).digest('hex').slice(0, 8));
+    if (own || (await db.query(`SELECT 1 FROM game.ledger WHERE user_id=$1 AND kind='kitchen' AND source=$2`, [me, source])).rowCount) continue;
+    if (await paidToday(db, me, 'kitchen') >= sim.cosmetics.DAILY_CREDITS.kitchen) return { note: full };
+    const credits = sim.cosmetics.DAILY_CREDITS.kitchenClear;
+    return await postCredits(db, me, credits, 'kitchen', source) ? { credits, first: true } : {};
+  }
+  return {};
 }
 
 const HELP = { none: 0, chip: 1, full: 2 };

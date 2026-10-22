@@ -25,8 +25,10 @@ const ALIASES: [RegExp, string][] = [
   [/lettuce/, "lettuce"], [/peanut/, "peanuts"], [/popiah skin|skins/, "popiah-skins"], [/sweet sauce|tim cheong/, "sweet-sauce-b"], [/chilli bean|doubanjiang|bean paste/, "paste-b"],
   [/chilli paste|sambal oelek/, "chilli-paste-b"], [/sambal/, "sambal-b"], [/stock|broth/, "stock-b"], [/fermented beancurd|fu ru/, "fu-ru"], [/black bean/, "black-beans"],
   [/cornflour|cornstarch|corn starch/, "cornflour"], [/rice vinegar|vinegar/, "rice-vinegar"], [/gula melaka|palm sugar/, "gula-melaka"], [/sugar/, "brown-sugar"],
-  [/white pepper|^pepper$/, "white-pepper"], [/\bsalt\b/, "salt"], [/turmeric/, "turmeric"], [/pandan/, "pandan"], [/sago/, "sago"], [/\boats?\b/, "oats"], [/coriander/, "coriander"],
-  [/\brice\b/, "rice"], [/ginger/, "ginger"], [/garlic/, "garlic"], [/shallot/, "shallots"], [/spring onion|scallion/, "spring-onion"], [/onion/, "onion"],
+  [/white pepper|^pepper$/, "white-pepper"], [/\bsalt\b/, "salt"], [/turmeric/, "turmeric"], [/pandan/, "pandan"], [/sago/, "sago"],
+  [/soy ?milk|soya milk/, "soy-milk"], [/oat ?milk/, "oat-milk"], [/\boats?\b/, "oats"], [/coriander/, "coriander"],
+  [/glutinous rice flour|sticky rice flour/, "glutinous-flour"], [/glutinous rice|sticky rice/, "glutinous-rice"], [/rice flour/, "rice-flour"],
+  [/(grated|shredded|desiccated|fresh) coconut|^coconut$/, "grated-coconut"], [/\brice\b/, "rice"], [/ginger/, "ginger"], [/garlic/, "garlic"], [/shallot/, "shallots"], [/spring onion|scallion/, "spring-onion"], [/onion/, "onion"],
   [/dried chill/, "dried-chillies"], [/chilli sauce/, "chilli-sauce"], [/chilli|chili/, "red-chilli"], [/\byam\b|taro/, "yam"], [/\begg\b|eggs/, "egg"], [/honey/, "honey"],
   [/\bmilk\b/, "dairy-milk"], [/lime/, "lime"], [/radish/, "radish"],
 ];
@@ -35,20 +37,34 @@ const SKIP = /^(water|ice|hot water|cold water|water for .*)$/;
 /** First-pass tags for a new ingredient from its name; it stays unreviewed until staff check it (§6, the diet module decides for real). */
 const TAG_WORDS: [RegExp, ItemTag][] = [[/garlic|onion|shallot|leek|chive|scallion|asafoetida|hing/, "allium"], [/\begg/, "egg"], [/milk|butter|cheese|cream|ghee|yogh?urt|paneer/, "dairy"],
   [/honey/, "honey"], [/mushroom|shiitake|enoki|oyster/, "mushroom"], [/potato|carrot|radish|beet|ginger|turmeric|yam|taro|galangal/, "root"], [/chilli|chili|pepper flakes/, "hot"]];
+/** Verbs that name a technique outright. First match wins. */
 const TECH: [string, RegExp][] = [
-  ["oven", /\b(oven|bake|baking|roast|air.?fr(y|ier))\b/i], ["steam", /\b(steam|steamer|steaming)\b/i], ["deep-fry", /\b(deep.?fr(y|ied)|oil for frying)\b/i],
-  ["griddle", /\b(flip|griddle|toast)\b/i], ["blend", /\b(blend|blender|whisk|purée|puree|grind|pound|froth|beat)\b/i],
-  ["chill", /\b(chill|refrigerat|fridge|until set|leave to set|overnight)\b/i], ["dough", /\b(knead|dough|roll out|fold|wrap|pleat)\b/i],
+  ["oven", /\b(oven|bake|baking|air.?fr(y|ier))\b/i], ["steam", /\b(steam|steamer|steaming)\b/i], ["deep-fry", /\b(deep.?fr(y|ied)|oil for frying)\b/i],
+  ["griddle", /\b(flip|griddle)\b/i], ["blend", /\b(blend|blender|whisk|purée|puree|grind|pound|froth|beat)\b/i],
+  ["chill", /\b(chill|refrigerat\w*|fridge|leave to set)\b/i], ["dough", /\b(knead|dough|roll out|pleat)\b/i],
   ["rice", /\brice cooker\b/i], ["pot", /\b(simmer|boil|blanch|braise|stew|poach|pot|saucepan|cover and cook)\b/i],
   ["pan", /\b(stir.?fry|stir.?fried|saut[ée]|fry|fried|temper|wok|pan.?fr(y|ied)|sear|toss|heat the oil|heat oil)\b/i],
   ["board", /\b(assemble|layer|roll up|top with|spoon over|arrange|serve with|mix|combine|dress)\b/i],
 ];
+/** Words that name a technique only when no verb above does: "fold in" the coconut, "toast" seeds in the wok, "roast" vegetables. */
+const LOOSE: [string, RegExp][] = [
+  ["pan", /\b(toast|dry.?roast|roast)\w*\s+(the\s+)?([a-z-]+\s+){0,2}(seeds?|spices?|mustard|cumin|fennel|fenugreek|sesame|peanuts?|nuts|cashews?|coconut|curry leaves|dal|lentils)\b/i],
+  ["griddle", /\btoast\w*\b/i], ["oven", /\broast\w*\b/i], ["dough", /\b(fold|wrap|wrapped|wrapping)\b/i],
+];
+/** "Until set" and "overnight" mean the fridge only in a chilled dessert, never while it cooks. */
+const SET = /\b(until set|overnight)\b/i, HOT = /\b(cook|heat|stir)\w*\b/i;
 /** Recipe verbs (TECH) whose station the game has. */
 const BUILT: Record<string, StationKind> = { pan: "pan", pot: "pot", rice: "rice", board: "board", blend: "blender", steam: "steamer", oven: "oven", griddle: "griddle",
   "deep-fry": "fryer", dough: "dough", chill: "fridge" };
 /** Side steps a level may shortcut with a ready item (RECIPE_LEVELS_PLAN §8.7); none since the fridge (Chapter 9) is built. */
 const SIDE = new Set<string>();
-const PREP = /^(rinse|wash|drain|soak|peel|chop|cut|slice|dice|shred|grate|mince|prepare|pat|set aside|measure|knot|crush)/i;
+const PREP = /^(rinse|wash|drain|soak|peel|chop|cut|slice|dice|shred|grate|mince|prepare|pat|set aside|measure|knot|crush|marinate|rest|thaw|defrost|trim|halve)/i;
+/** A step's technique, or "prep" when the step drops out: a prep step stays only when it also names a cooking verb (the fridge does not count). */
+function techOf(text: string, dessert: boolean): string | null {
+  const named = TECH.find(([, re]) => re.test(text))?.[0];
+  if (PREP.test(text.trim()) && (!named || named === "chill")) return "prep";
+  return named ?? LOOSE.find(([, re]) => re.test(text))?.[0] ?? (dessert && SET.test(text) && !HOT.test(text) ? "chill" : null);
+}
 
 export const ingredientKey = (name: string) => name.toLowerCase().replace(/\(.*?\)/g, "").split(",")[0].trim();
 export const slug = (s: string) => s.toLowerCase().replace(/\(.*?\)/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 30) || "item";
@@ -77,9 +93,11 @@ export function compileRecipe(r: RecipeInput, resolve: (name: string) => Resolve
     return found.id;
   };
   r.steps.forEach((step, n) => {
-    const text = step.instruction, found = TECH.find(([, re]) => re.test(text))?.[0] ?? null, tech = found === "pot" && dessert ? "dessert" : found;
+    const found = techOf(step.instruction, dessert);
+    if (found === "prep") return;
+    const tech = found === "pot" && dessert ? "dessert" : found;
     const ids = [...new Set(step.ingredientIds.map(id => byId.get(id)?.name).filter((x): x is string => !!x).map(itemFor).filter((x): x is string => !!x))];
-    if (!ids.length || (!tech && PREP.test(text.trim()))) return;
+    if (!ids.length) return;
     if (tech && SIDE.has(tech)) { shortcuts.push(tech); return; }
     if (tech && !BUILT[tech] && tech !== "dessert") { needs.push(tech); return; }
     const station: StationKind = tech === "dessert" ? "dessert" : tech ? BUILT[tech] : stages.at(-1)?.station ?? (dessert ? "dessert" : "board");

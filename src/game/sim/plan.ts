@@ -26,6 +26,10 @@ export function dishFeasible(dishId: string, rules: Rule[], flip?: Flip) {
   return DISHES[dishId].parts.every(p => p.stages.every(s => s.slots.every(sl => sl.optional || sl.accepts.some(a => !conflicts([a], rules, flip).length))));
 }
 
+/** True when a required slot can only be filled with an ingredient nobody has checked yet (LevelPack.unreviewed). */
+export const needsUnchecked = (dishId: string, unchecked: ReadonlySet<string>) =>
+  unchecked.size > 0 && DISHES[dishId].parts.some(p => p.stages.some(s => s.slots.some(sl => !sl.optional && sl.accepts.every(a => unchecked.has(a)))));
+
 export type Flare = { at: number; station: StationKind };
 export type Plan = {
   orders: Order[]; flip: Flip; flares: Flare[];
@@ -44,6 +48,9 @@ export function buildPlan(level: Level, base: Order[], seed: number): Plan {
   const rand = rng(seed), twist = (k: string) => level.twists?.find(t => t.kind === k);
   // A guest who shares a pot is cooked for together with the rest of the party, so the dish must suit every one of them.
   const rulesOf = (o: Order): Rule[] => unionRules(...base.filter(x => x.id === o.id || (!!o.party && x.party === o.party)).map(x => GUESTS[x.guest].rules), level.allRules ?? []);
+  // A dish with an unchecked ingredient goes only to guests who keep no rule (mission.ts deals it that way; a reshuffle must too).
+  const unchecked = new Set(level.unchecked ?? []);
+  const fits = (dish: string, o: Order, flip: Flip) => { const rules = rulesOf(o); return dishFeasible(dish, rules, flip) && (!rules.length || !needsUnchecked(dish, unchecked)); };
   // Which look-alike jar hides the problem is decided per run, so nobody can learn "always take B".
   const flip: Flip = {};
   // Pairs added later roll on a second stream, so adding one never changes the deal of a level that came before it.
@@ -61,7 +68,7 @@ export function buildPlan(level: Level, base: Order[], seed: number): Plan {
       for (let attempt = 0; attempt < 8 && at.length > 1; attempt++) {
         const dishes = at.map(i => orders[i].dish);
         for (let i = dishes.length - 1; i > 0; i--) { const j = Math.floor(rand() * (i + 1)); [dishes[i], dishes[j]] = [dishes[j], dishes[i]]; }
-        if (at.every((oi, k) => dishFeasible(dishes[k], rulesOf(orders[oi]), flip))) { at.forEach((oi, k) => { orders[oi] = { ...orders[oi], dish: dishes[k] }; }); break; }
+        if (at.every((oi, k) => fits(dishes[k], orders[oi], flip))) { at.forEach((oi, k) => { orders[oi] = { ...orders[oi], dish: dishes[k] }; }); break; }
       }
     }
   }
@@ -78,7 +85,7 @@ export function buildPlan(level: Level, base: Order[], seed: number): Plan {
     prevOld = o.at; prevNew = at; if (o.party) seated.set(o.party, at); return { ...o, at };
   });
 
-  const round = level.round, heat = level.stations.filter(k => STATIONS[k].heat);
+  const round = level.round, heat = level.stations.filter(k => STATIONS[k].heat && !STATIONS[k].thermostat);
   const flares: Flare[] = [], flare = twist("flare");
   if (flare && heat.length) {
     const n = flare.n ?? 1;
@@ -91,7 +98,7 @@ export function buildPlan(level: Level, base: Order[], seed: number): Plan {
   const solo = orders.filter(o => !o.party);
   if (twist("change") && solo.length >= 2) {
     const pick = solo[1 + Math.floor(rand() * Math.min(2, solo.length - 1))], pool = [...new Set(orders.map(o => o.dish))].sort();
-    const to = pool.filter(d => d !== pick.dish && dishFeasible(d, rulesOf(pick), flip));
+    const to = pool.filter(d => d !== pick.dish && fits(d, pick, flip));
     if (to.length) change = { orderId: pick.id, at: pick.at + 5, to: to[Math.floor(rand() * to.length)] };
   }
   // An ingredient may run out only when every guest can still be served without it.

@@ -78,10 +78,10 @@ async function publicLevel(hash) {
   if (typeof hash !== 'string' || !/^p[a-z0-9]{1,14}$/.test(hash)) return null;
   return (await pool.query(`SELECT hash FROM game.recipe_level WHERE hash = $1 AND status = 'ready' AND owner_id IS NULL`, [hash])).rows[0]?.hash ?? null;
 }
-/** An open member café by its host's id, or null. */
-async function openCafe(host) {
-  if (typeof host !== 'string' || !host || host.length > 120) return null;
-  return (await pool.query(`SELECT user_id FROM game.cafe WHERE user_id = $1 AND open AND hidden_at IS NULL`, [host])).rows[0]?.user_id ?? null;
+/** An open member café by its public id (the only id the app has), as its host's account id for the staff case, or null. */
+async function openCafe(publicId) {
+  if (typeof publicId !== 'string' || !/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(publicId)) return null;
+  return (await pool.query(`SELECT user_id FROM game.cafe WHERE public_id = $1::uuid AND open AND hidden_at IS NULL`, [publicId])).rows[0]?.user_id ?? null;
 }
 /** Blocking someone leaves any open Social group you share with them. */
 async function leaveSharedGroups(db, me, other) {
