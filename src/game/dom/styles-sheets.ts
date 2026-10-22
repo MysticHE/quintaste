@@ -33,6 +33,7 @@ export const SHEETS_CSS = `
 .rh .bridges { display:flex; flex-wrap:wrap; gap:6px; }
 .rh .linkpill { min-height:40px; padding:6px 12px; border-radius:99px; background:var(--white); color:var(--ink); box-shadow:inset 0 0 0 2px var(--panel-edge); display:inline-flex; align-items:center; gap:6px; font-size:12px; }
 .rh .linkpill svg { color:var(--coral); flex:none; }
+.rh .linkpill[aria-pressed=true] { background:var(--sage); color:var(--white); box-shadow:inset 0 0 0 2px var(--sage-deep); } .rh .linkpill[aria-pressed=true] svg { color:var(--white); }
 @media (prefers-reduced-motion: reduce) { .rh *, .rh *::before, .rh *::after { animation:none !important; transition:none !important; } }
 .rh.still *, .rh.still *::before, .rh.still *::after { animation:none !important; transition:none !important; }
 `;

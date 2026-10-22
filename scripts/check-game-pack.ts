@@ -4,6 +4,8 @@
  * packs that would change built-in content or need a missing technique are refused.
  * Usage: npx tsx scripts/check-game-pack.ts [--expect <rulesVersion>]
  */
+import { chanceFor, forYou, newest, type ShelfLevel } from "../src/game/kitchen-rows";
+import { readGame } from "../src/game/progress";
 import { DISHES } from "../src/game/content/dishes";
 import { ITEMS } from "../src/game/content/items";
 import type { Level } from "../src/game/content/levels";
@@ -107,6 +109,21 @@ check(refusedWith(ghost, /unknown item lard/), "a slot naming an unknown item is
 check(refusedWith({ ...base(), id: "x-extra", script: "alert(1)" }, /unknown field script/), "unknown fields are refused");
 const wrongStation = base(); wrongStation.id = "x-station"; wrongStation.dishes[0].parts[0].station = "pot";
 check(refusedWith(wrongStation, /station not in techniques/), "a part on a station the pack doesn't declare is refused");
+
+// 5. Recipe Kitchen rows (kitchen-rows.ts): For you sits in the 60-80% band, saved recipes first; New covers what few have played.
+{
+  const game = readGame({ best: { "1": { stars: 1, clears: 1 } } });
+  const lv = (hash: string, rating: number, extra: Partial<ShelfLevel> = {}): ShelfLevel => ({ hash, recipeId: "r-" + hash, techniques: ["pan"], best: {},
+    ratings: { learn: { rating, players: 0 } }, added: "2026-10-0" + hash.length, ...extra });
+  const shelf = [lv("a", 1500), lv("bb", 1350), lv("ccc", 1330), lv("dddd", 1100), lv("e", 1340, { techniques: ["pot"] }), lv("f", 1340, { held: true }),
+    lv("g", 1340, { best: { learn: { clears: 1 }, service: { clears: 1 }, memory: { clears: 1 } } })];
+  const mine = forYou(shelf, 1500, game, new Set(["r-ccc"])).map(l => l.hash);
+  check(mine.join() === "ccc,bb", `For you keeps the 60-80% band with saved recipes first, and leaves out locked, held and finished levels (${mine.join()})`);
+  check(forYou([lv("a", 1500), lv("dddd", 1100)], 1500, game, new Set()).map(l => l.hash).join() === "a,dddd", "with nothing in the band, the closest levels still show");
+  check(Math.abs(chanceFor(lv("x", 1500), null) - 0.5) < 1e-9, "a player with no rating yet counts as average");
+  const fresh = newest([...shelf, lv("hhhhh", 1500, { ratings: { learn: { rating: 1500, players: 12 } } })], game, new Set(mine)).map(l => l.hash);
+  check(fresh.join() === "dddd,a", `New lists levels few have played, newest first, without the For you picks (${fresh.join()})`);
+}
 
 console.log(failures ? `\n${failures} check(s) failed` : "\nAll pack checks passed");
 process.exit(failures ? 1 : 0);

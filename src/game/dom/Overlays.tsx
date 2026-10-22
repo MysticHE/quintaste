@@ -1,4 +1,5 @@
 /** Sheets over the playfield: brief, game label, pause and results (GAME_PLAN §12.4). */
+import { useState } from "react";
 import { DISHES } from "../content/dishes";
 import { GUESTS, RULES } from "../content/guests";
 import { factsOf, ITEMS, itemName } from "../content/items";
@@ -70,11 +71,15 @@ export function PauseSheet({ onResume, onRestart, onQuit, onSettings }: { onResu
 export type Reward = { credits: number; first: boolean; mastered: boolean; unlocks: string[]; status?: "settled" | "pending" | "practice" | "rejected"; note?: string;
   /** Which personal bests this service beat ("score", "coins", "time") and whether it earned the bonus stamp for the first time. */
   beat?: string[]; bonus?: boolean };
-export function Results({ run, res, reward, best, saveFailed, onRetrySave, onAgain, onCafe, onNext, onCook, onNearby }: {
+export function Results({ run, res, reward, best, saveFailed, onRetrySave, onAgain, onCafe, onNext, onCook, onNearby, onReact }: {
   run: sim.Run; res: sim.Result; reward: Reward | null; best?: LevelBest | null; saveFailed: boolean; onRetrySave(): void; onAgain(): void; onCafe(): void; onNext(): void;
   /** Bridges into the app (GAME_PLAN §11), when the app has somewhere to send them. */
   onCook?(): void; onNearby?(): void;
+  /** A Recipe Kitchen level finished on the account: whether the player liked it (null clears it). */
+  onReact?(liked: boolean | null): void;
 }) {
+  const [liked, setLiked] = useState<boolean | null>(null);
+  const react = (v: boolean) => { const next = liked === v ? null : v; setLiked(next); onReact?.(next); };
   const head = res.cleared ? (res.stars === 3 ? "Perfect service" : "Level cleared") : res.completed ? "Nearly there" : "Service over";
   const dish = levelDishes(run.level)[0] ?? DISHES[run.guests[0].dishId], record = run.level.special ? null : cleared(best), beat = reward?.beat ?? [];
   const marks = record ? ([["score", record.score + " pts"], ["coins", record.coins > 0 ? record.coins + " coins" : ""], ["time", record.left > 0 ? record.left + " s left" : ""]] as const).filter(([, text]) => text) : [];
@@ -94,6 +99,10 @@ export function Results({ run, res, reward, best, saveFailed, onRetrySave, onAga
       {onCook && <button className="linkpill" onClick={onCook}><Pot />Cook it for real</button>}
       {onNearby && <button className="linkpill" onClick={onNearby}><Pin />Find it nearby</button>}
     </div>}
+    {onReact && reward?.status === "settled" && <div className="bridges" role="group" aria-label="Did you like this recipe level?">
+      <button className="linkpill" aria-pressed={liked === true} aria-label="Liked it" onClick={() => react(true)}><Thumb /></button>
+      <button className="linkpill" aria-pressed={liked === false} aria-label="Didn't like it" onClick={() => react(false)}><Thumb down /></button>
+    </div>}
     {reward && (reward.credits > 0 || reward.unlocks.length > 0) && <div className="remember">
       {reward.credits > 0 && <><b>+{reward.credits} café credits{reward.status === "pending" ? " pending" : ""}</b>{reward.first ? " · first clear" : reward.mastered ? " · mastered" : " · replay"}<br /></>}
       {reward.unlocks.length > 0 && <>Unlocked: {reward.unlocks.join(", ")}</>}</div>}
@@ -108,4 +117,5 @@ export function Results({ run, res, reward, best, saveFailed, onRetrySave, onAga
 const svg = { viewBox: "0 0 24 24", "aria-hidden": true, width: 16, height: 16 } as const;
 function Gear() { return <svg {...svg}><path fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" d="M4 7h16M4 12h16M4 17h16" /><circle cx="9" cy="7" r="2.6" fill="currentColor" /><circle cx="15" cy="12" r="2.6" fill="currentColor" /><circle cx="8" cy="17" r="2.6" fill="currentColor" /></svg>; }
 function Pot() { return <svg {...svg}><path fill="currentColor" d="M3 11h18a8 8 0 0 1-8 8h-2a8 8 0 0 1-8-8z" /><path fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" d="M9 3.5c1 1.2-1 2.3 0 3.5M12.5 3c1 1.2-1 2.3 0 3.5M16 3.5c1 1.2-1 2.3 0 3.5" /></svg>; }
+function Thumb({ down = false }: { down?: boolean }) { return <svg {...svg} style={down ? { transform: "rotate(180deg)" } : undefined}><path fill="currentColor" d="M2 10h4v11H2zM8 21h9.2a2 2 0 0 0 2-1.6l1.5-7A2 2 0 0 0 18.7 10H14l.8-4.3A1.8 1.8 0 0 0 13 3.6L8 9.5z" /></svg>; }
 function Pin() { return <svg {...svg}><path fill="currentColor" d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z" /></svg>; }

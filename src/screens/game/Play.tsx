@@ -12,7 +12,9 @@ import { GAME_PAGE_PATH, gameArtUris, gameHost, withPictures } from "../../game/
 import { packByHash, packHash, readPack, registerPack, type LevelPack } from "../../game/content/pack";
 import { missionFor, TIERS, type Tier } from "../../game/mission";
 import { missingTechnique } from "../../game/kitchen";
-import { fetchPack, fetchPublicPack } from "../../services/game-api";
+import { ApiError } from "../../services/community-api";
+import { fetchPack, fetchPublicPack, reactLevel } from "../../services/game-api";
+import { keptPack, pruneRevoked, rememberPack } from "../../services/game-packs";
 import { highestCleared, levelOpen } from "../../game/progress";
 import { specialFor } from "../../game/special";
 import type { BridgeKind, FinishPayload, RunInfo } from "../../game/dom/RushHour";
@@ -48,7 +50,13 @@ function PlayService() {
   useEffect(() => {
     if (!packId) return;
     let live = true;
-    (member ? fetchPack(packId) : fetchPublicPack(packId)).then(res => {
+    // Online the level loads fresh and is kept for offline play; offline a kept level plays (as practice) unless staff hid it since.
+    const online = (member ? fetchPack(packId) : fetchPublicPack(packId)).then(res => { void rememberPack(res); void pruneRevoked(); return res; });
+    // An answer from the server (a hidden or unknown level) is final; only an unreachable server falls back to the kept copy.
+    online.catch(error => {
+      if (error instanceof ApiError && error.status > 0) throw error;
+      return keptPack(packId).then(kept => { if (!kept) throw new Error("not kept"); return kept; });
+    }).then(res => {
       const pack = readPack(res.pack);
       if (packHash(pack) !== packId) throw new Error("pack changed");
       registerPack(pack);
@@ -107,6 +115,8 @@ function PlayService() {
     if (target) (kind === "cook" ? openRecipe : openNearby)(target);
   }, []);
   const onSettings = useCallback(async () => setSettingsOpen(true), []);
+  // A reaction is a small extra: if it doesn't reach the account, the service itself is still saved.
+  const onReact = useCallback(async (hash: string, liked: boolean | null) => { await reactLevel(hash, liked).catch(() => {}); }, []);
 
   // Android Back during a service asks first, so a stray press never throws the round away (iOS swipe-back is off below).
   useEffect(() => {
@@ -131,7 +141,7 @@ function PlayService() {
     <RushHour key={(params.run ?? "first") + (day ?? "") + (packId ?? "") + (tier ?? "")} level={level} special={special?.level} mission={loaded && tier ? { pack: loaded.json, tier } : undefined} pet={game.pet} petArt={petArt} chefArt="avatar-lian" art={art}
       signature={game.signature} reduceMotion={reducedMotion} settings={game.settings} textScale={textMultiplier} bridges={bridges}
       best={special || packId ? null : game.best[String(level)] ?? null}
-      onStart={onStart} onFinish={onFinish} onExit={onExit} onHaptic={onHaptic} onBridge={onBridge} onSettings={onSettings}
+      onStart={onStart} onFinish={onFinish} onExit={onExit} onHaptic={onHaptic} onBridge={onBridge} onSettings={onSettings} onReact={member ? onReact : undefined}
       dom={{ style: { flex: 1 }, useExpoDOMWebView: false, ...(host ? { overrideUri: host + GAME_PAGE_PATH } : {}), injectedJavaScriptBeforeContentLoaded: "true;", scrollEnabled: false, bounces: false, overScrollMode: "never", mediaPlaybackRequiresUserAction: true, textZoom: 100 }} />
     {settingsOpen && <PlaySettingsSheet settings={game.settings} onChange={next => set(g => ({ ...g, settings: next }))} onClose={() => setSettingsOpen(false)} />}
   </View>;

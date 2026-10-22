@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { Image, Pressable, StyleSheet, View } from "react-native";
 import { RemoteStatus, useMember } from "../../../components/CommunityGate";
 import { Button, Icon, T } from "../../../components/ui";
@@ -5,8 +6,9 @@ import { TIER_NAMES } from "../../../game/content/levels";
 import { missingTechnique } from "../../../game/kitchen";
 import { TIERS, type Tier } from "../../../game/mission";
 import type { GameProgress } from "../../../game/progress";
-import { nextTier, tierOpen, useKitchen } from "../../../hooks/useKitchen";
+import { forYou, newest, nextTier, tierOpen, useKitchen } from "../../../hooks/useKitchen";
 import type { KitchenLevel } from "../../../services/game-api";
+import { useFood } from "../../../state/Food";
 import { usePreferences } from "../../../state/Preferences";
 import { apiUrl } from "../../../utils/api-url";
 import { Section } from "./GameSheet";
@@ -15,14 +17,23 @@ export type KitchenPick = { level: KitchenLevel; tier: Tier };
 
 /** Recipe levels grouped by cuisine, with tier progress and what to learn first; picking one shows its tiers. */
 export function Kitchen({ game, pick, onPick }: { game: GameProgress; pick: KitchenPick | null; onPick(p: KitchenPick): void }) {
-  const remote = useKitchen(), member = useMember();
-  const levels = remote.data?.levels ?? [];
+  const remote = useKitchen(), member = useMember(), saves = useFood().doc.saves;
+  const levels = useMemo(() => remote.data?.levels ?? [], [remote.data]);
+  // For you and New lead the tab (GAME_CONTENT_PLAN §5); the cuisine shelves below still list every level.
+  const rows = useMemo(() => {
+    const saved = new Set(saves.filter(x => x.kind === "recipe").map(x => x.id)), mine = forYou(levels, remote.data?.player, game, saved);
+    return { mine, fresh: newest(levels, game, new Set(mine.map(l => l.hash))) };
+  }, [levels, remote.data?.player, game, saves]);
+  const row = (title: string, list: KitchenLevel[]) => !!list.length && <Section title={title}>
+    {list.map(l => <Recipe key={l.hash} level={l} game={game} selected={pick?.level.hash === l.hash} onPress={() => onPick({ level: l, tier: nextTier(l) })} />)}</Section>;
   const shelves = [...new Set(levels.map(l => l.cuisine ?? "More recipes"))].sort((a, b) => (a === "More recipes" ? 1 : b === "More recipes" ? -1 : a.localeCompare(b)));
   return <>
     <RemoteStatus remote={remote} icon="restaurant-outline" returnTo="/game/cafe" />
     {remote.data && !levels.length && <Section><T muted>No recipe levels yet.</T></Section>}
     {remote.data && !member.member && !!levels.length && <T variant="small" muted>Sign in to keep your Recipe Kitchen progress.</T>}
     {pick && <Tiers game={game} pick={pick} onPick={onPick} />}
+    {row("For you", rows.mine)}
+    {row("New", rows.fresh)}
     {shelves.map(shelf => <Section key={shelf} title={shelf}>
       {levels.filter(l => (l.cuisine ?? "More recipes") === shelf).map(l =>
         <Recipe key={l.hash} level={l} game={game} selected={pick?.level.hash === l.hash} onPress={() => onPick({ level: l, tier: nextTier(l) })} />)}

@@ -175,6 +175,17 @@ CREATE TABLE IF NOT EXISTS game.level_rating (
   updated_at timestamptz NOT NULL DEFAULT now(),
   PRIMARY KEY (hash, tier)
 );
+-- Reactions to a recipe level (GAME_CONTENT_PLAN §5 Quality): only from members who finished a service of it, one per member and
+-- level. Dislikes and quits (game.run result `quit`) take a level out of the For you and New rows; it stays on its shelf.
+CREATE TABLE IF NOT EXISTS game.level_reaction (
+  user_id text NOT NULL REFERENCES game.profile(user_id) ON DELETE CASCADE,
+  hash text NOT NULL REFERENCES game.recipe_level(hash) ON DELETE CASCADE,
+  liked boolean NOT NULL,
+  updated_at timestamptz NOT NULL DEFAULT now(),
+  PRIMARY KEY (user_id, hash)
+);
+CREATE INDEX IF NOT EXISTS game_level_reaction_hash ON game.level_reaction(hash);
+CREATE INDEX IF NOT EXISTS game_run_pack ON game.run(pack, tier) WHERE pack IS NOT NULL;
 CREATE TABLE IF NOT EXISTS game.player_rating (
   user_id text PRIMARY KEY REFERENCES game.profile(user_id) ON DELETE CASCADE,
   rating double precision NOT NULL CHECK (rating BETWEEN 0 AND 4000),
@@ -196,12 +207,14 @@ GRANT SELECT ON game.recipe_level TO quintaste_app;
 GRANT SELECT, INSERT, UPDATE ON game.kitchen_best TO quintaste_app;
 GRANT SELECT, INSERT, UPDATE ON game.level_rating TO quintaste_app;
 GRANT SELECT, INSERT, UPDATE ON game.player_rating TO quintaste_app;
+GRANT SELECT, INSERT, UPDATE, DELETE ON game.level_reaction TO quintaste_app;
 DO $$
 BEGIN
   IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'quintaste_admin') THEN
     GRANT SELECT, INSERT, UPDATE ON game.recipe_level TO quintaste_admin;
     GRANT SELECT ON game.kitchen_best TO quintaste_admin;
     GRANT SELECT ON game.level_rating TO quintaste_admin;
+    GRANT SELECT ON game.level_reaction TO quintaste_admin;
     -- Staff approve or reject pictures and point art keys at approved ones (the Admin picture grid).
     GRANT SELECT, UPDATE ON game.asset TO quintaste_admin;
     GRANT SELECT, INSERT, UPDATE ON game.art TO quintaste_admin;

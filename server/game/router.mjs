@@ -1,3 +1,4 @@
+import { createHash } from 'node:crypto';
 import express from 'express';
 import { pool, logger } from '../config.mjs';
 import { CommunityError, communityRouter, errors, throttle, transaction, uuid } from '../community/http.mjs';
@@ -65,13 +66,13 @@ const PACK_HASH = /^p[a-z0-9]{1,14}$/;
  */
 async function playablePack(db, sim, hash, me) {
   if (typeof hash !== 'string' || !PACK_HASH.test(hash)) return null;
-  const row = (await db.query(`SELECT hash, recipe_id, pack FROM game.recipe_level WHERE hash=$1 AND status='ready' AND (owner_id IS NULL OR owner_id=$2)`, [hash, me])).rows[0];
+  const row = (await db.query(`SELECT hash, recipe_id, pack, owner_id IS NOT NULL AS private FROM game.recipe_level WHERE hash=$1 AND status='ready' AND (owner_id IS NULL OR owner_id=$2)`, [hash, me])).rows[0];
   if (!row) return null;
   try {
     const pack = sim.readPack(row.pack);
     if (sim.packHash(pack) !== row.hash) return null;
     sim.registerPack(pack);
-    return { pack, recipeId: row.recipe_id };
+    return { pack, recipeId: row.recipe_id, private: row.private };
   } catch (error) {
     if (!(error instanceof sim.PackError)) throw error;
     logger.warn({ event: 'game_pack_invalid', pack: hash, message: String(error.message).slice(0, 120) });
@@ -89,26 +90,59 @@ game.get('/kitchen', async (_req, res) => {
 });
 /** The shelf for a member, or for a signed-out player (`me` null: public levels only, no bests). */
 async function kitchenShelf(me) {
-  const levels = (await pool.query(`SELECT DISTINCT ON (l.recipe_id) l.hash, l.recipe_id, l.cuisine, l.owner_id IS NOT NULL AS mine,
+  const levels = (await pool.query(`SELECT DISTINCT ON (l.recipe_id) l.hash, l.recipe_id, l.cuisine, l.owner_id IS NOT NULL AS mine, l.created_at,
       l.pack->'techniques' AS techniques, l.pack->'dishes'->0->>'name' AS name, l.pack->'dishes'->0->>'art' AS art
     FROM game.recipe_level l WHERE l.status = 'ready' AND (l.owner_id IS NULL OR l.owner_id = $1)
     ORDER BY l.recipe_id, l.recipe_revision DESC, l.created_at DESC LIMIT 300`, [me])).rows;
-  const [bests, pictures] = await Promise.all([
+  const hashes = levels.map(l => l.hash);
+  const [bests, pictures, ratings, quality, mine] = await Promise.all([
     me ? pool.query('SELECT recipe_id, tier, stars, score, clears FROM game.kitchen_best WHERE user_id = $1', [me]) : { rows: [] },
-    pool.query(`SELECT a.art_key, a.asset FROM game.art a JOIN game.asset s ON s.sha256 = a.asset AND s.status = 'approved' WHERE a.art_key = ANY($1)`, [levels.map(l => l.art)])]);
+    pool.query(`SELECT a.art_key, a.asset FROM game.art a JOIN game.asset s ON s.sha256 = a.asset AND s.status = 'approved' WHERE a.art_key = ANY($1)`, [levels.map(l => l.art)]),
+    pool.query('SELECT hash, tier, round(rating)::int AS rating, players FROM game.level_rating WHERE hash = ANY($1)', [hashes]),
+    pool.query(`SELECT h.hash,
+        (SELECT count(*)::int FROM game.run r WHERE r.pack = h.hash AND r.status = 'settled') AS plays,
+        (SELECT count(*)::int FROM game.run r WHERE r.pack = h.hash AND r.status = 'settled' AND r.result->'result'->>'quit' = 'true') AS quits,
+        (SELECT count(*)::int FROM game.level_reaction x WHERE x.hash = h.hash) AS reactions,
+        (SELECT count(*)::int FROM game.level_reaction x WHERE x.hash = h.hash AND NOT x.liked) AS dislikes
+      FROM unnest($1::text[]) AS h(hash)`, [hashes]),
+    me ? pool.query(`SELECT (SELECT round(rating)::int FROM game.player_rating WHERE user_id = $1) AS rating,
+        (SELECT coalesce(json_object_agg(hash, liked), '{}') FROM game.level_reaction WHERE user_id = $1 AND hash = ANY($2)) AS liked`, [me, hashes]) : { rows: [{ rating: null, liked: {} }] }]);
   const picture = new Map(pictures.rows.map(r => [r.art_key, pictureUrl(r.asset)]));
-  const best = new Map();
+  const best = new Map(), rated = new Map(), stats = new Map(quality.rows.map(q => [q.hash, q]));
   for (const b of bests.rows) best.set(b.recipe_id, { ...best.get(b.recipe_id), [b.tier]: { stars: b.stars, score: b.score, clears: b.clears } });
-  return { levels: levels.map(l => ({ hash: l.hash, recipeId: l.recipe_id, name: l.name, cuisine: l.cuisine, mine: l.mine,
-    techniques: l.techniques, art: l.art, picture: picture.get(l.art) ?? null, best: best.get(l.recipe_id) ?? {} })) };
+  for (const r of ratings.rows) rated.set(r.hash, { ...rated.get(r.hash), [r.tier]: { rating: r.rating, players: r.players } });
+  const me0 = mine.rows[0];
+  return { player: me0.rating, levels: levels.map(l => ({ hash: l.hash, recipeId: l.recipe_id, name: l.name, cuisine: l.cuisine, mine: l.mine,
+    techniques: l.techniques, art: l.art, picture: picture.get(l.art) ?? null, best: best.get(l.recipe_id) ?? {}, added: l.created_at,
+    ratings: rated.get(l.hash) ?? {}, held: heldBack(stats.get(l.hash)), liked: me0.liked[l.hash] ?? null })) };
 }
+
+/**
+ * A level players keep quitting or dislike leaves the For you and New rows (GAME_CONTENT_PLAN §5 Quality); it stays on its shelf
+ * and its recipe page. Shares count only once enough people have played or reacted.
+ */
+const QUALITY = { count: 10, share: 0.4 };
+const heldBack = q => !!q && ((q.plays >= QUALITY.count && q.quits / q.plays > QUALITY.share) || (q.reactions >= QUALITY.count && q.dislikes / q.reactions > QUALITY.share));
+
+/** A member who finished a service of a level (not quitting) says whether they liked it; null clears it. */
+game.post('/levels/:hash/reaction', async (req, res) => {
+  const { user } = res.locals, hash = req.params.hash, liked = req.body?.liked;
+  if (!PACK_HASH.test(hash) || !(liked === true || liked === false || liked === null)) throw new CommunityError(400, 'Invalid reaction.');
+  await throttle(`game-react:${user.id}`, 60, 3600);
+  const finished = await pool.query(`SELECT 1 FROM game.run WHERE user_id=$1 AND pack=$2 AND status='settled' AND coalesce(result->'result'->>'quit', 'false') <> 'true' LIMIT 1`, [user.id, hash]);
+  if (!finished.rowCount) throw new CommunityError(409, 'Finish a service of this level first.', 'NOT_FINISHED');
+  if (liked === null) await pool.query('DELETE FROM game.level_reaction WHERE user_id=$1 AND hash=$2', [user.id, hash]);
+  else await pool.query(`INSERT INTO game.level_reaction(user_id, hash, liked) VALUES($1,$2,$3)
+    ON CONFLICT (user_id, hash) DO UPDATE SET liked=$3, updated_at=now()`, [user.id, hash, liked]);
+  res.set('Cache-Control', 'no-store').json({ liked });
+});
 
 // A Recipe Kitchen level pack, for the app to play, with its approved pictures. The pack itself is immutable.
 game.get('/packs/:hash', async (req, res) => {
   const { sim, user } = res.locals, found = await playablePack(pool, sim, req.params.hash, user.id);
   if (!found) throw new CommunityError(404, 'That level is unavailable.');
   // Pictures are not part of the pack: an approved picture can arrive later, so this answer is cached briefly.
-  res.set('Cache-Control', 'private, max-age=600').json({ hash: req.params.hash, recipeId: found.recipeId, pack: found.pack, pictures: await picturesFor(pool, found.pack) });
+  res.set('Cache-Control', 'private, max-age=600').json({ hash: req.params.hash, recipeId: found.recipeId, pack: found.pack, private: found.private, pictures: await picturesFor(pool, found.pack) });
 });
 
 /**
@@ -124,6 +158,16 @@ gamePublic.use(async (_req, res, next) => {
 });
 gamePublic.get('/kitchen', async (_req, res, next) => {
   try { res.set('Cache-Control', 'public, max-age=300').json(await kitchenShelf(null)); } catch (error) { next(error); }
+});
+/**
+ * The revocation list (GAME_CONTENT_PLAN §8 Offline): levels staff hid. The app drops them from its cache of played levels whenever
+ * it is online, so a hidden level can't be played offline either; credited runs of one are already refused here.
+ */
+gamePublic.get('/revoked', async (_req, res, next) => {
+  try {
+    const rows = (await pool.query(`SELECT hash FROM game.recipe_level WHERE status = 'hidden' ORDER BY reviewed_at DESC NULLS LAST LIMIT 2000`)).rows;
+    res.set('Cache-Control', 'public, max-age=300').json({ hashes: rows.map(r => r.hash) });
+  } catch (error) { next(error); }
 });
 gamePublic.get('/packs/:hash', async (req, res, next) => {
   try {
@@ -199,7 +243,8 @@ async function openMission(req, res) {
 }
 
 /** The parts of a result kept with a settled run (the full result is rebuilt from its input log when needed). */
-const resultOf = result => ({ stars: result.stars, score: result.score, cleared: result.cleared, coins: result.coins, left: result.left, bonus: !!result.bonus?.done, stamps: result.stamps });
+const resultOf = (result, quit = false) => ({ stars: result.stars, score: result.score, cleared: result.cleared, coins: result.coins, left: result.left, bonus: !!result.bonus?.done, stamps: result.stamps,
+  ...(quit ? { quit: true } : {}) });
 
 /** The stored outcome of a run that was already settled or refused, so retries return the same answer. */
 const outcome = row => ({ status: row.status, reason: row.reason, reward: row.result?.reward ?? { credits: 0, first: false, mastered: false, unlocks: [] } });
@@ -258,7 +303,8 @@ game.post('/runs/:id/finish', async (req, res) => {
       return;
     }
     const { game: next, reward } = sim.applyResult(progress, run.level, result), pay = sim.cosmetics.CREDIT_REWARDS;
-    if (result.cleared) await postCredits(db, user.id, reward.first ? pay.firstClear : pay.replay, reward.first ? 'first_clear' : 'replay', reward.first ? 'level:' + run.level : 'run:' + id);
+    if (result.cleared && reward.first) await postCredits(db, user.id, pay.firstClear, 'first_clear', 'level:' + run.level);
+    else if (result.cleared && !await payReplay(db, sim, user.id, id)) { reward.credits -= pay.replay; reward.note = REPLAYS_USED; }
     if (reward.mastered) await postCredits(db, user.id, pay.mastered, 'mastered', 'level:' + run.level);
     const b = next.best[String(run.level)];
     await db.query(`INSERT INTO game.level_best(user_id, level, stars, score, served, rules, steady, mastered, clears, bonus, coins, left_secs) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12)
@@ -271,6 +317,16 @@ game.post('/runs/:id/finish', async (req, res) => {
   return reply();
 });
 
+/** Credits of one kind posted since midnight in Singapore. */
+const SG_TODAY = `(date_trunc('day', now() AT TIME ZONE 'Asia/Singapore') AT TIME ZONE 'Asia/Singapore')`;
+const paidToday = async (db, me, kind) => (await db.query(`SELECT count(*)::int AS n FROM game.ledger WHERE user_id=$1 AND kind=$2 AND created_at >= ${SG_TODAY}`, [me, kind])).rows[0].n;
+const REPLAYS_USED = "Today's paid replays are used. Stars and bests still count.";
+/** Pays a replay's credits while the day's limit allows (DAILY_CREDITS); returns whether it paid. */
+async function payReplay(db, sim, me, id) {
+  if (await paidToday(db, me, 'replay') >= sim.cosmetics.DAILY_CREDITS.replays) return false;
+  return postCredits(db, me, sim.cosmetics.CREDIT_REWARDS.replay, 'replay', 'run:' + id);
+}
+
 /** Singapore dates (YYYY-MM-DD) for yesterday, today and tomorrow: a special may start around midnight. */
 function nearDays(now = Date.now()) {
   return [-1, 0, 1].map(d => new Date(now + 8 * 3600000 + d * 86400000).toISOString().slice(0, 10));
@@ -281,28 +337,43 @@ const isoDay = value => value instanceof Date
 
 /** A finished Today's special pays the normal replay grant on a clear and records nothing per level (GAME_PLAN §10). */
 async function settleSpecial(db, sim, me, id, replayed, result, actions) {
-  const credits = result.cleared ? sim.cosmetics.CREDIT_REWARDS.replay : 0, reward = { credits, first: false, mastered: false, unlocks: [] };
-  if (credits) await postCredits(db, me, credits, 'replay', 'run:' + id);
+  const paid = result.cleared && await payReplay(db, sim, me, id), credits = paid ? sim.cosmetics.CREDIT_REWARDS.replay : 0;
+  const reward = { credits, first: false, mastered: false, unlocks: [], ...(result.cleared && !paid ? { note: REPLAYS_USED } : {}) };
   await db.query(`UPDATE game.run SET status='settled', finished_at=now(), ticks=$2, credits=$3, result=$4 WHERE id=$1`,
     [id, replayed.ticks, credits, { result: resultOf(result), reward }]);
   await db.query('INSERT INTO game.run_log(run_id, actions) VALUES($1,$2) ON CONFLICT DO NOTHING', [id, JSON.stringify(actions)]);
 }
 
 /**
- * A finished Recipe Kitchen mission records the best per recipe and tier. It pays no credits until the owner decides the
- * kitchen rule (GAME_CONTENT_PLAN §14); the reward says so with credits 0.
+ * A finished Recipe Kitchen mission records the best per recipe and tier, pays kitchen credits (payKitchen) and counts toward the
+ * level's rating (rateRun).
  */
 async function settleMission(db, sim, me, id, run, recipeId, replayed, result, actions) {
   const reward = { credits: 0, first: false, mastered: false, unlocks: [] };
+  if (result.cleared) Object.assign(reward, await payKitchen(db, sim, me, recipeId));
   const coins = Math.min(1000, Math.max(0, Math.round(result.coins))), left = result.cleared ? Math.min(600, Math.max(0, Math.floor(result.left))) : 0;
   await db.query(`INSERT INTO game.kitchen_best(user_id, recipe_id, tier, pack, stars, score, clears, coins, left_secs) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9)
     ON CONFLICT (user_id, recipe_id, tier) DO UPDATE SET pack=$4, stars=GREATEST(game.kitchen_best.stars, $5), score=GREATEST(game.kitchen_best.score, $6),
       clears=game.kitchen_best.clears + $7, coins=GREATEST(game.kitchen_best.coins, $8), left_secs=GREATEST(game.kitchen_best.left_secs, $9), updated_at=now()`,
   [me, recipeId, run.tier, run.pack, result.stars, result.score, result.cleared ? 1 : 0, result.cleared ? coins : 0, left]);
   const rated = await rateRun(db, sim, me, id, run, result.cleared);
-  await db.query(`UPDATE game.run SET status='settled', finished_at=now(), ticks=$2, credits=0, result=$3, rated=$4 WHERE id=$1`,
-    [id, replayed.ticks, { result: resultOf(result), reward }, rated]);
+  await db.query(`UPDATE game.run SET status='settled', finished_at=now(), ticks=$2, credits=$5, result=$3, rated=$4 WHERE id=$1`,
+    [id, replayed.ticks, { result: resultOf(result, replayed.endReason === 'quit'), reward }, rated, reward.credits]);
   await db.query('INSERT INTO game.run_log(run_id, actions) VALUES($1,$2) ON CONFLICT DO NOTHING', [id, JSON.stringify(actions)]);
+}
+
+/**
+ * Kitchen credits (DAILY_CREDITS): a recipe pays once ever, on its first clear at any tier, for the first three recipes a Singapore
+ * day, and never for the member's own recipe (a private level of theirs, or a member recipe they wrote).
+ */
+async function payKitchen(db, sim, me, recipeId) {
+  const own = (await db.query(`SELECT 1 FROM game.recipe_level WHERE recipe_id=$1 AND owner_id=$2
+    UNION ALL SELECT 1 FROM recipes.recipe WHERE 'member-' || id = $1 AND author_id=$2 LIMIT 1`, [recipeId, me])).rowCount;
+  const source = 'recipe:' + (recipeId.length <= 57 ? recipeId : recipeId.slice(0, 48) + '-' + createHash('sha256').update(recipeId).digest('hex').slice(0, 8));
+  if (own || (await db.query(`SELECT 1 FROM game.ledger WHERE user_id=$1 AND kind='kitchen' AND source=$2`, [me, source])).rowCount) return {};
+  if (await paidToday(db, me, 'kitchen') >= sim.cosmetics.DAILY_CREDITS.kitchen) return { note: "Today's three kitchen rewards are used. Clear it again tomorrow for its credits." };
+  const credits = sim.cosmetics.DAILY_CREDITS.kitchenClear;
+  return await postCredits(db, me, credits, 'kitchen', source) ? { credits, first: true } : {};
 }
 
 const HELP = { none: 0, chip: 1, full: 2 };

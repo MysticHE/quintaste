@@ -55,7 +55,7 @@ export function applySpecial(game: GameProgress, res: { cleared: boolean }) {
 
 /** Applies a finished service on the device: a special pays the replay grant, a numbered level the full applyResult. */
 export function applyRun(game: GameProgress, start: { level: number; special?: string | null; pack?: string | null }, res: Parameters<typeof applyResult>[2]) {
-  // A Recipe Kitchen mission changes nothing on the device and pays nothing until the kitchen credit rule is decided; its best is kept on the account.
+  // A Recipe Kitchen mission changes nothing on the device: its best and any kitchen credits are kept on the account (server/game/router.mjs).
   if (start.pack) return { game, reward: { credits: 0, first: false, mastered: false, unlocks: [] as string[], beat: [] as Beat[], bonus: false } };
   return start.special ? applySpecial(game, res) : applyResult(game, start.level, res);
 }

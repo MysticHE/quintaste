@@ -42,6 +42,8 @@ type Props = {
   bridges?: Record<string, { cook: boolean; nearby: boolean }>;
   onStart?: (run: RunInfo) => Promise<void>; onFinish: (payload: FinishPayload) => Promise<Reward>; onExit: (to: "cafe" | "next" | "again") => Promise<void>;
   onHaptic?: (kind: HapticKind) => Promise<void>; onBridge?: (kind: BridgeKind, dish: string, alliumFree: boolean) => Promise<void>; onSettings?: () => Promise<void>;
+  /** A member's reaction to the Recipe Kitchen level just finished (the pack hash; null clears it). */
+  onReact?: (pack: string, liked: boolean | null) => Promise<void>;
   dom?: DOMProps;
 };
 const noop = () => {};
@@ -113,6 +115,11 @@ export default function RushHour(props: Props) {
     if (r.endReason === "quit") return;
     try { setSaveFailed(false); setReward(await latest.current.onFinish({ ...info(r), result: sim.results(r), actions: r.actions })); }
     catch { setReward(null); setSaveFailed(true); }
+  }
+  /** A Recipe Kitchen service the player quits still reaches the account: quits count toward a level's quality and rating. */
+  function reportQuit() {
+    const r = runRef.current;
+    if (r.level.mission && r.started) void latest.current.onFinish({ ...info(r), result: sim.results(r), actions: r.actions }).catch(() => {});
   }
   const info = (r: sim.Run): RunInfo => ({ id: runId.current, level: r.level.n, special: r.level.special?.day ?? null, top: r.level.special?.top ?? null, hints: r.level.hints, pet: r.pet,
     signature: r.level.signature ? signature ?? [] : [], pack: r.level.mission?.pack ?? null, tier: r.level.mission?.tier ?? null, pace: settings.pace });
@@ -191,11 +198,12 @@ export default function RushHour(props: Props) {
     {L && ev.bannerText && <div key={ev.bannerText.key} className="banner" style={{ left: L.col.x + L.col.w / 2, top: L.recipe.y + L.recipe.h + 24 }} role="status">{ev.bannerText.text}</div>}
     {!run.started && <Brief run={run} art={art} petArt={petArt} best={props.best} leaving={leaving} onStart={begin} onExit={() => exit("cafe")} />}
     {run.label && <LabelSheet run={run} onClose={() => { sim.closeLabel(run); bump(); }} />}
-    {paused && !run.ended && !cramped && <PauseSheet onResume={() => doPause(false)} onRestart={again} onQuit={() => { sim.quit(run); void exit("cafe"); }}
+    {paused && !run.ended && !cramped && <PauseSheet onResume={() => doPause(false)} onRestart={again} onQuit={() => { sim.quit(run); reportQuit(); void exit("cafe"); }}
       onSettings={props.onSettings ? () => void props.onSettings?.() : undefined} />}
     {cramped && <TooShort />}
     {showResults && result && <Results run={run} res={result} reward={reward} best={props.best} saveFailed={saveFailed} onRetrySave={() => void save()}
       onAgain={() => exit("again")} onCafe={() => exit("cafe")} onNext={() => exit("next")}
-      onCook={offer?.cook ? bridge("cook") : undefined} onNearby={offer?.nearby ? bridge("nearby") : undefined} />}
+      onCook={offer?.cook ? bridge("cook") : undefined} onNearby={offer?.nearby ? bridge("nearby") : undefined}
+      onReact={run.level.mission && props.onReact ? liked => void props.onReact!(run.level.mission!.pack, liked) : undefined} />}
   </div>;
 }

@@ -65,6 +65,13 @@ export const SKINS: Record<string, Skin> = {
 export const SKIN_ORDER = ["sunny", "lantern", "lotus", "signature"];
 
 export const CREDIT_REWARDS = { firstClear: 30, replay: 8, mastered: 20 };
+/**
+ * Daily limits the server applies (owner, 22 Oct 2026; GAME_CONTENT_PLAN §14). Replays (the main path and Today's special) pay on
+ * the first five clears of a Singapore day; later ones still count for stars and bests. A Recipe Kitchen recipe pays once, on its
+ * first clear, for the first three such recipes a day, and never for a member's own recipe. Kept apart from CREDIT_REWARDS so a
+ * change here never asks older apps to update.
+ */
+export const DAILY_CREDITS = { replays: 5, kitchen: 3, kitchenClear: 8 };
 
 export function unlockText(u: Unlock): string {
   if (u.kind === "free") return "Free";
