@@ -8,18 +8,27 @@ import { GUESTS, RULES } from "../../../game/content/guests";
 import { levelOpen, nextLevel, type GameProgress } from "../../../game/progress";
 import { usePreferences } from "../../../state/Preferences";
 import { GameSheet, Section } from "./GameSheet";
-import { Art, useHover } from "./bits";
+import { Art, Seg, useHover } from "./bits";
+import { Kitchen, KitchenStart, type KitchenPick } from "./KitchenSection";
+import type { Tier } from "../../../game/mission";
 
-/** Rush Hour: the next level, its twist, the companion joining, and the twenty-level path. */
-export function LevelsSheet({ game, onClose, onPlay, onCompanion }: {
-  game: GameProgress; onClose(): void; onPlay(level: number): void; onCompanion(): void;
+/** Rush Hour: the next level, its twist, the companion joining and the path; beside it, the Recipe Kitchen (recipe levels). */
+export function LevelsSheet({ game, onClose, onPlay, onPlayMission, onCompanion }: {
+  game: GameProgress; onClose(): void; onPlay(level: number): void; onPlayMission(hash: string, tier: Tier): void; onCompanion(): void;
 }) {
   const { theme } = usePreferences();
   const [pick, setPick] = useState(nextLevel(game));
+  const [tab, setTab] = useState<"levels" | "kitchen">("levels"), [recipe, setRecipe] = useState<KitchenPick | null>(null);
+  const tabs = <Seg<"levels" | "kitchen"> label="Rush Hour" value={tab} onChange={setTab} options={[["levels", "Levels"], ["kitchen", "Recipe Kitchen"]]} />;
+  if (tab === "kitchen") return <GameSheet title="Rush Hour" subtitle="Recipe Kitchen" onClose={onClose}
+    footer={<KitchenStart game={game} pick={recipe} onPlay={onPlayMission} />}>
+    {tabs}<Kitchen game={game} pick={recipe} onPick={setRecipe} />
+  </GameSheet>;
   const lv = LEVELS[pick - 1], pet = PETS[game.pet], skill = SKILLS[pet.skill], best = game.best[pick], record = best?.clears ? best : null;
   const guests = [...new Set(lv.orders.map(o => o.guest))];
   return <GameSheet title="Rush Hour" subtitle={"Level " + pick + " · " + lv.name} art={levelDishes(lv)[0]?.art} onClose={onClose}
     footer={<Button label={"Start Level " + pick} onPress={() => onPlay(pick)} />}>
+    {tabs}
     <Section>
       <T variant="small" muted>Level {pick}{record ? " · best " + "★".repeat(record.stars) + " · " + record.score + " pts" + (record.coins ? " · " + record.coins + " coins" : "") + (record.left ? " · " + record.left + " s left" : "") : ""}</T>
       <T variant="subtitle">{lv.name}</T>

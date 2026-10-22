@@ -85,6 +85,8 @@ function CafeHome() {
     if (id !== "avatar") open(({ books: "books", menu: "menu", window: "window", wardrobe: "avatar", stove: "levels", pet: "companion" } as const)[id]);
   };
   // Navigate once the sheet's Modal has gone: on iOS a push during a Modal dismissal can be dropped.
+  const playMission = (pack: string, tier: string) => { setSheet(null);
+    InteractionManager.runAfterInteractions(() => router.push({ pathname: "/game/play", params: { pack, tier, run: String(Date.now()) } })); };
   const play = (level: number, special?: string) => { setSheet(null);
     InteractionManager.runAfterInteractions(() => router.push({ pathname: "/game/play", params: { level: String(level), run: String(Date.now()), ...(special ? { special } : {}) } })); };
   // Android Back leaves decorate mode, asking first when there are unsaved changes.
@@ -128,18 +130,19 @@ function CafeHome() {
     </Animated.View>}
     {deco && <View style={{ position: "absolute", left: 0, right: 0, bottom: 0, height: trayH }}>
       <DecorTray game={game} draft={deco.draft} slot={deco.slot} height={trayH} onPut={id => setDeco(d => putDecor(d, id))} /></View>}
-    <HomeSheets sheet={sheet} setSheet={setSheet} game={game} set={set} buy={buy} play={play} onDecorate={startDeco} />
+    <HomeSheets sheet={sheet} setSheet={setSheet} game={game} set={set} buy={buy} play={play} playMission={playMission} onDecorate={startDeco} />
     {find && <FindReveal find={find} pet={game.pet} onEquip={() => seeFind(find, true)} onKeep={() => seeFind(find, false)} />}
   </View>;
 }
 
 type GameApi = ReturnType<typeof useGame>;
-function HomeSheets({ sheet, setSheet, game, set, buy, play, onDecorate }: {
-  sheet: SheetId; setSheet(s: SheetId): void; game: GameProgress; set: GameApi["set"]; buy: GameApi["buy"]; play(level: number, special?: string): void; onDecorate(): void;
+function HomeSheets({ sheet, setSheet, game, set, buy, play, playMission, onDecorate }: {
+  sheet: SheetId; setSheet(s: SheetId): void; game: GameProgress; set: GameApi["set"]; buy: GameApi["buy"]; play(level: number, special?: string): void;
+  playMission(pack: string, tier: string): void; onDecorate(): void;
 }) {
   const { member } = useLotus();
   const close = () => setSheet(null);
-  if (sheet === "levels") return <LevelsSheet game={game} onClose={close} onPlay={play} onCompanion={() => setSheet("companion")} />;
+  if (sheet === "levels") return <LevelsSheet game={game} onClose={close} onPlay={play} onPlayMission={playMission} onCompanion={() => setSheet("companion")} />;
   if (sheet === "books" || sheet === "regulars") return <BooksSheet game={game} initial={sheet === "regulars" ? "regulars" : "recipes"} onClose={close} />;
   if (sheet === "companion") return <CompanionSheet game={game} onClose={close} onChoose={p => set(g => ({ ...g, pet: p }))} onWear={(p, a) => set(g => ({ ...g, equip: { ...g.equip, [p]: a } }))} />;
   if (sheet === "cafe") return <CafeSheet game={game} onClose={close} onDecorate={() => { close(); onDecorate(); }} onName={nm => set(g => ({ ...g, cafeName: nm.trim().slice(0, 18) || "My Café" }))}

@@ -11,6 +11,7 @@ import { LEVELS, levelDishes } from "../../game/content/levels";
 import { GAME_PAGE_PATH, gameArtUris, gameHost, withPictures } from "../../game/artUris";
 import { packByHash, packHash, readPack, registerPack, type LevelPack } from "../../game/content/pack";
 import { missionFor, TIERS, type Tier } from "../../game/mission";
+import { missingTechnique } from "../../game/kitchen";
 import { fetchPack } from "../../services/game-api";
 import { highestCleared, levelOpen } from "../../game/progress";
 import { specialFor } from "../../game/special";
@@ -39,6 +40,7 @@ export function GamePlayScreen() {
 
 function PlayService() {
   const params = useLocalSearchParams<{ level?: string; run?: string; special?: string; pack?: string; tier?: string }>();
+  const { game, set, startRun, finish } = useGame();
   // A Recipe Kitchen mission: the pack and its pictures come from the account (members only for now).
   const tier: Tier | null = TIERS.includes(params.tier as Tier) ? params.tier as Tier : null, packId = typeof params.pack === "string" && tier ? params.pack : null;
   const [loaded, setLoaded] = useState<{ pack: LevelPack; json: unknown; pictures: Record<string, string> } | null>(null);
@@ -55,7 +57,13 @@ function PlayService() {
     return () => { live = false; };
   }, [packId]);
   const mission = useMemo(() => (loaded && tier ? missionFor(loaded.pack, tier) : null), [loaded, tier]);
-  const { game, set, startRun, finish } = useGame();
+  // A level that needs a technique this player hasn't learned says where to learn it, then goes back.
+  const locked = loaded ? missingTechnique(game, loaded.pack.techniques) : null;
+  useEffect(() => {
+    if (!locked) return;
+    Alert.alert("Not open yet", locked.level ? "Learn the " + locked.name.toLowerCase() + " in Level " + locked.level + " first." : "Update QuinTaste to play this level.");
+    if (router.canGoBack()) router.back(); else router.replace("/game");
+  }, [locked?.station]); // eslint-disable-line react-hooks/exhaustive-deps
   const on = useGameSwitch();
   const { ready } = useFood();
   const { reducedMotion, textMultiplier, theme } = usePreferences();
@@ -114,7 +122,7 @@ function PlayService() {
   if (packId) {
     // A level that is unavailable to this account (not signed in, withdrawn, someone else's) goes back to the game.
     if (packError) return <Redirect href="/game" />;
-    if (!mission || !loaded) return <View style={{ flex: 1 }} />;
+    if (!mission || !loaded || locked) return <View style={{ flex: 1 }} />;
   } else if (params.pack || params.tier) return <Redirect href="/game" />;
   else if (day ? !special : !levelOpen(game, level)) return <Redirect href="/game" />;
   return <View style={{ flex: 1, backgroundColor: theme.background, paddingTop: insets.top, paddingBottom: insets.bottom, paddingLeft: insets.left, paddingRight: insets.right }}>

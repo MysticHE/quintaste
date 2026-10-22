@@ -15,6 +15,7 @@ import * as Linking from "expo-linking";
 import { router } from "expo-router";
 import { ReportSheet } from "../ReportSheet";
 import { ensureMember, useMember } from "../CommunityGate";
+import { nextTier, useKitchen } from "../../hooks/useKitchen";
 
 export function RecipeOverview({ recipe }: { recipe: Recipe }) {
   const save = useRecipeSave(recipe.id);
@@ -22,12 +23,16 @@ export function RecipeOverview({ recipe }: { recipe: Recipe }) {
   const [info, setInfo] = useState(false), [fallback, setFallback] = useState(""), [failedLink, setFailedLink] = useState("");
   const [report, setReport] = useState(false), member = useMember();
   const result = recipeFit(recipe, draft.diets, draft.excluded), cooks = useReaction("recipe", recipe.id).reaction.cooks;
+  // Play it in Rush Hour when this recipe has a live Recipe Kitchen level (members only for now).
+  const level = useKitchen().data?.levels.find(l => l.recipeId === recipe.id);
   useReactions("recipe", [recipe.id]);
   return <>
     <RecipeImage recipe={recipe} label style={{ width: "100%", aspectRatio: 2.4, borderRadius: 16 }} />
     <ReactionBar kind="recipe" id={recipe.id} name={recipe.name} shareMessage={() => recipeShareMessage(recipe)} onShareFailed={setFallback} trailing={<>
       <Action icon={save.saved ? "bookmark" : "bookmark-outline"} color={save.saved ? theme.accent : theme.foreground} busy={save.busy} disabled={save.disabled}
         label={(save.saved ? "Remove saved " : "Save ") + recipe.name} selected={save.saved} onPress={save.onPress} />
+      {level && <Action icon="game-controller-outline" color={theme.foreground} label={"Play " + recipe.name}
+        onPress={() => router.push({ pathname: "/game/play", params: { pack: level.hash, tier: nextTier(level), run: String(Date.now()) } })} />}
       <Action icon={info ? "information-circle" : "information-circle-outline"} color={info ? theme.accent : theme.foreground} label="Recipe Info" selected={info} onPress={() => setInfo(!info)} />
     </>} />
     <View style={{ gap: 4, alignItems: "flex-start" }}>

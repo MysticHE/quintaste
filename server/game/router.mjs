@@ -3,7 +3,7 @@ import { CommunityError, communityRouter, errors, throttle, transaction, uuid } 
 import { loadSim } from './sim.mjs';
 import { lockProfile, postCredits } from './ledger.mjs';
 import { importDevice, loadProgress, saveCafe } from './progress.mjs';
-import { picturesFor } from './art.mjs';
+import { pictureUrl, picturesFor } from './art.mjs';
 
 /**
  * Rush Hour account progress (GAME_PLAN §12.3 and §14 Phase B; PRD QT-055/056), mounted at /api/game behind the `games`
@@ -78,6 +78,27 @@ async function playablePack(db, sim, hash, me) {
   }
 }
 
+/**
+ * The Recipe Kitchen shelf for this member: the newest live revision of each recipe level they may play (public, or their own),
+ * with its cuisine, techniques, dish picture when approved, and their best per tier. Locks are worked out by the app from its
+ * progress with the same rule the server enforces when a run opens (src/game/kitchen.ts).
+ */
+game.get('/kitchen', async (_req, res) => {
+  const { user } = res.locals;
+  const levels = (await pool.query(`SELECT DISTINCT ON (l.recipe_id) l.hash, l.recipe_id, l.cuisine, l.owner_id IS NOT NULL AS mine,
+      l.pack->'techniques' AS techniques, l.pack->'dishes'->0->>'name' AS name, l.pack->'dishes'->0->>'art' AS art
+    FROM game.recipe_level l WHERE l.status = 'ready' AND (l.owner_id IS NULL OR l.owner_id = $1)
+    ORDER BY l.recipe_id, l.recipe_revision DESC, l.created_at DESC LIMIT 300`, [user.id])).rows;
+  const [bests, pictures] = await Promise.all([
+    pool.query('SELECT recipe_id, tier, stars, score, clears FROM game.kitchen_best WHERE user_id = $1', [user.id]),
+    pool.query(`SELECT a.art_key, a.asset FROM game.art a JOIN game.asset s ON s.sha256 = a.asset AND s.status = 'approved' WHERE a.art_key = ANY($1)`, [levels.map(l => l.art)])]);
+  const picture = new Map(pictures.rows.map(r => [r.art_key, pictureUrl(r.asset)]));
+  const best = new Map();
+  for (const b of bests.rows) best.set(b.recipe_id, { ...best.get(b.recipe_id), [b.tier]: { stars: b.stars, score: b.score, clears: b.clears } });
+  res.set('Cache-Control', 'private, no-store').json({ levels: levels.map(l => ({ hash: l.hash, recipeId: l.recipe_id, name: l.name, cuisine: l.cuisine, mine: l.mine,
+    techniques: l.techniques, art: l.art, picture: picture.get(l.art) ?? null, best: best.get(l.recipe_id) ?? {} })) });
+});
+
 // A Recipe Kitchen level pack, for the app to play, with its approved pictures. The pack itself is immutable.
 game.get('/packs/:hash', async (req, res) => {
   const { sim, user } = res.locals, found = await playablePack(pool, sim, req.params.hash, user.id);
@@ -139,6 +160,9 @@ async function openMission(req, res) {
     if (before && !(await db.query('SELECT 1 FROM game.kitchen_best WHERE user_id=$1 AND recipe_id=$2 AND tier=$3 AND clears > 0', [user.id, found.recipeId, before])).rowCount)
       throw new CommunityError(409, 'Clear the earlier tier first.', 'TIER_LOCKED');
     const { game: progress } = await loadProgress(db, sim, user.id);
+    // A recipe level opens once the player has learned every technique it uses on the main path (GAME_CONTENT_PLAN §5).
+    const missing = sim.missingTechnique(progress, found.pack.techniques);
+    if (missing) throw new CommunityError(409, missing.level ? `Learn the ${missing.name.toLowerCase()} in Level ${missing.level} first.` : 'Update QuinTaste to play this level.', 'TECHNIQUE_LOCKED');
     if (!pet || !sim.isUnlocked(progress, sim.cosmetics.PETS[pet].unlock)) throw new CommunityError(409, 'That companion is locked.', 'PET_LOCKED');
     await db.query(`INSERT INTO game.run(id, user_id, level, mode, pet, signature, rules_version, hints, pack, tier) VALUES($1,$2,0,'rush',$3,'{}',$4,$5,$6,$7)`,
       [body.id, user.id, pet, sim.rulesVersion, hints, body.pack, body.tier]);

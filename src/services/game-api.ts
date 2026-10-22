@@ -18,6 +18,11 @@ export const openRun = (id: string, setup: RunStart, rules: string) =>
   communityRequest<{ id: string; status: string }>("/api/game/runs", { method: "POST", body: { ...setup, id, rules } });
 /** A Recipe Kitchen level pack and its approved pictures (`/api/game-art/<sha256>.webp`). Members only for now. */
 export type PackResponse = { hash: string; recipeId: string; pack: unknown; pictures: Record<string, string> };
+/** One recipe on the Recipe Kitchen shelf: its newest live level, techniques, approved dish picture and this member's best per tier. */
+export type TierBest = { stars: number; score: number; clears: number };
+export type KitchenLevel = { hash: string; recipeId: string; name: string; cuisine: string | null; mine: boolean; techniques: string[]; art: string;
+  picture: string | null; best: Partial<Record<"learn" | "service" | "memory", TierBest>> };
+export const fetchKitchen = (signal?: AbortSignal) => communityRequest<{ levels: KitchenLevel[] }>("/api/game/kitchen", { signal });
 export const fetchPack = (hash: string) => communityRequest<PackResponse>("/api/game/packs/" + encodeURIComponent(hash));
 export const finishRun = (id: string, actions: Action[], result: Result) =>
   communityRequest<RunOutcome>("/api/game/runs/" + id + "/finish", { method: "POST", body: { actions, result } });

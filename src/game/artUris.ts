@@ -2,6 +2,7 @@ import { Asset } from "expo-asset";
 import Constants, { ExecutionEnvironment } from "expo-constants";
 import { Platform } from "react-native";
 import { GAME_ART } from "./art";
+import { apiUrl } from "../utils/api-url";
 
 /** The app's Nunito weights, passed into the game webview, which cannot see fonts loaded by expo-font. */
 const FONTS: Record<string, number> = {
@@ -53,11 +54,11 @@ export function hostedUri(asset: Pick<Asset, "hash" | "name" | "type" | "uri">, 
  * The art map plus a recipe level's approved pictures (`/api/game-art/<sha256>.webp` from `GET /api/game/packs/:hash`),
  * made absolute against the API. Built-in art always wins; anything still missing plays as a Sketch card (dom/sketch.ts).
  */
-export function withPictures(art: Record<string, string>, pictures: Record<string, string>, api = process.env.EXPO_PUBLIC_API_URL ?? "") {
+export function withPictures(art: Record<string, string>, pictures: Record<string, string>) {
   const out = { ...art };
   for (const [key, path] of Object.entries(pictures)) {
     if (out[key] || !/^\/api\/game-art\/[a-f0-9]{64}\.webp$/.test(path)) continue;
-    try { out[key] = new URL(path, api).href; } catch { /* no API address: the key stays a Sketch card */ }
+    try { out[key] = apiUrl(path); } catch { /* no API address: the key stays a Sketch card */ }
   }
   return out;
 }

@@ -20,6 +20,8 @@ CREATE TABLE IF NOT EXISTS game.recipe_level (
   reviewed_by text CHECK (char_length(reviewed_by) <= 120)
 );
 CREATE INDEX IF NOT EXISTS game_recipe_level_recipe ON game.recipe_level(recipe_id, recipe_revision DESC);
+-- The Recipe Kitchen shelf a level sits on (the recipe's cuisine, set when the level is made); null shows under More recipes.
+ALTER TABLE game.recipe_level ADD COLUMN IF NOT EXISTS cuisine text CHECK (cuisine IS NULL OR char_length(cuisine) BETWEEN 1 AND 40);
 
 -- A run is a numbered level, Today's special (special_day) or a pack mission (pack and tier); level stays 0 for both of
 -- the latter. Replaces the unnamed check from schema.sql, added NOT VALID and then validated so existing rows never block.
