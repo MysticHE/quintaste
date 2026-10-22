@@ -7,12 +7,13 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { gameEnabled } from "../../config/game";
 import { cookRecipeId, nearbyTerm, openNearby, openRecipe } from "../../game/bridges";
 import { PETS, wearArt } from "../../game/content/cosmetics";
-import { LEVELS, levelDishes, SEASON_LEVELS } from "../../game/content/levels";
+import { LEVELS, levelDishes, SEASON_LEVELS, TIER_NAMES } from "../../game/content/levels";
 import { GAME_PAGE_PATH, gameArtUris, gameHost, withPictures } from "../../game/artUris";
 import { packByHash, packHash, readPack, registerPack, type LevelPack } from "../../game/content/pack";
 import { missionFor, TIERS, type Tier } from "../../game/mission";
 import { seasonById, seasonKey, seasonLevel, seasonOpen, SEASONS_AFTER_LEVEL } from "../../game/content/seasons";
 import { missingTechnique } from "../../game/kitchen";
+import { tierOpen } from "../../game/kitchen-rows";
 import { ApiError } from "../../services/community-api";
 import { fetchPack, fetchPublicPack, reactLevel } from "../../services/game-api";
 import { keptPack, pruneRevoked, rememberPack } from "../../services/game-packs";
@@ -46,7 +47,7 @@ function PlayService() {
   const { game, set, startRun, finish, member } = useGame();
   // A Recipe Kitchen mission: the pack and its pictures come from the account, or the public route for signed-out players.
   const tier: Tier | null = TIERS.includes(params.tier as Tier) ? params.tier as Tier : null, packId = typeof params.pack === "string" && tier ? params.pack : null;
-  const [loaded, setLoaded] = useState<{ pack: LevelPack; json: unknown; pictures: Record<string, string> } | null>(null);
+  const [loaded, setLoaded] = useState<{ pack: LevelPack; json: unknown; pictures: Record<string, string>; recipeId: string } | null>(null);
   const [packError, setPackError] = useState(false);
   useEffect(() => {
     if (!packId) return;
@@ -61,18 +62,22 @@ function PlayService() {
       const pack = readPack(res.pack);
       if (packHash(pack) !== packId) throw new Error("pack changed");
       registerPack(pack);
-      if (live) setLoaded({ pack: packByHash(packId)!, json: res.pack, pictures: res.pictures });
+      if (live) setLoaded({ pack: packByHash(packId)!, json: res.pack, pictures: res.pictures, recipeId: res.recipeId });
     }).catch(() => { if (live) setPackError(true); });
     return () => { live = false; };
   }, [packId, member]);
   const mission = useMemo(() => (loaded && tier ? missionFor(loaded.pack, tier) : null), [loaded, tier]);
-  // A level that needs a technique this player hasn't learned says where to learn it, then goes back.
-  const locked = loaded ? missingTechnique(game, loaded.pack.techniques) : null;
+  // A level that needs a technique this player hasn't learned says where to learn it, then goes back. A guest's tiers open in order
+  // from the device's bests, as the server holds members to (TIER_LOCKED).
+  const missing = loaded ? missingTechnique(game, loaded.pack.techniques) : null;
+  const tierShut = !!loaded && !!tier && !member && !tierOpen({ best: game.kitchen[loaded.recipeId] ?? {} }, tier);
+  const locked = missing ? (missing.level ? "Learn the " + missing.name.toLowerCase() + " in Level " + missing.level + " first." : "Update QuinTaste to play this level.")
+    : tierShut ? "Clear " + TIER_NAMES[TIERS[TIERS.indexOf(tier!) - 1]] + " first." : null;
   useEffect(() => {
     if (!locked) return;
-    Alert.alert("Not open yet", locked.level ? "Learn the " + locked.name.toLowerCase() + " in Level " + locked.level + " first." : "Update QuinTaste to play this level.");
+    Alert.alert("Not open yet", locked);
     if (router.canGoBack()) router.back(); else router.replace("/game");
-  }, [locked?.station]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [locked]);
   const on = useGameSwitch();
   const { ready } = useFood();
   const { reducedMotion, textMultiplier, theme } = usePreferences();
@@ -143,7 +148,7 @@ function PlayService() {
     if (packError) return <Redirect href="/game" />;
     if (!mission || !loaded || locked) return <View style={{ flex: 1 }} />;
   } else if (params.pack || params.tier) return <Redirect href="/game" />;
-  else if (seasonId) { if (!seasonLv || highestCleared(game) < SEASONS_AFTER_LEVEL) return <Redirect href="/game" />; }
+  else if (seasonId) { if (!seasonLv || highestCleared(game) < SEASONS_AFTER_LEVEL || missingTechnique(game, seasonLv.stations)) return <Redirect href="/game" />; }
   else if (day ? !special : !levelOpen(game, level)) return <Redirect href="/game" />;
   return <View style={{ flex: 1, backgroundColor: theme.background, paddingTop: insets.top, paddingBottom: insets.bottom, paddingLeft: insets.left, paddingRight: insets.right }}>
     <Stack.Screen options={{ gestureEnabled: false }} />

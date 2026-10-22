@@ -29,11 +29,16 @@ const final = (error: unknown) => error instanceof ApiError && [400, 404, 413].i
  * ledger, and café changes save to the account in the background (components/game/GameSync). The lotus tier comes
  * from the account's lotus record (useLotus): reads and changes see it, and it is stripped before anything is saved.
  */
+/** The account whose game this is: a signed-in, age-checked member playing on their profile. Guests (null) keep progress on the device. */
+export function useGameMemberId() {
+  const { owner } = useFood(), { user } = useAuth();
+  return accountsEnabled && owner === "profile" && user?.adultConfirmed ? user.id : null;
+}
+
 export function useGame() {
-  const { doc, update, commit, owner } = useFood();
-  const { user } = useAuth();
+  const { doc, update, commit } = useFood();
   const { setNotice } = usePreferences();
-  const memberId = accountsEnabled && owner === "profile" && user?.adultConfirmed ? user.id : null;
+  const memberId = useGameMemberId();
   const { tier } = useLotus();
   const stored = doc.game;
   const game = useMemo(() => withTier(stored, tier), [stored, tier]);

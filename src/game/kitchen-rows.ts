@@ -11,8 +11,8 @@ import { passChance, PLAYER_START } from "./rating";
 export type ShelfLevel = { hash: string; recipeId: string; techniques: string[]; best: Partial<Record<Tier, { clears: number }>>; added?: string;
   ratings?: Partial<Record<Tier, { rating: number; players: number }>>; held?: boolean };
 
-/** A tier opens once the one before it is cleared (Learn is always open). Signed-out players practise any tier (`practice`). */
-export const tierOpen = (level: ShelfLevel, tier: Tier, practice = false) => { const i = TIERS.indexOf(tier); return practice || i === 0 || (level.best[TIERS[i - 1]]?.clears ?? 0) > 0; };
+/** A tier opens once the one before it is cleared (Learn is always open), for members and guests alike. */
+export const tierOpen = (level: Pick<ShelfLevel, "best">, tier: Tier) => { const i = TIERS.indexOf(tier); return i === 0 || (level.best[TIERS[i - 1]]?.clears ?? 0) > 0; };
 /** The tier to play next: the first open one not cleared yet, or From memory once all are cleared. */
 export const nextTier = (level: ShelfLevel): Tier => TIERS.find(t => tierOpen(level, t) && !(level.best[t]?.clears ?? 0)) ?? "memory";
 

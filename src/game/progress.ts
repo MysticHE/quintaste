@@ -26,10 +26,16 @@ export type GameProgress = {
   settings: PlaySettings;
   /** Season level bests by `seasonKey` ("zhai-days-1"). Guests keep them on the device only; members' come from the account. */
   seasons: Record<string, LevelBest>;
+  /** Recipe Kitchen tier bests by recipe id. Guests keep them on the device (tiers open in order, no kitchen credits); members' are the account's. */
+  kitchen: Record<string, Partial<Record<KitchenTier, LevelBest>>>;
 };
+export const KITCHEN_TIERS = ["learn", "service", "memory"] as const;
+export type KitchenTier = (typeof KITCHEN_TIERS)[number];
+/** How many recipes' Kitchen bests a device keeps. */
+const KITCHEN_KEEP = 300;
 export const emptyGame = (): GameProgress => ({
   version: 1, best: {}, credits: 0, owned: [], pet: "sprout", equip: {}, decor: { ceiling: null, wall: "painting", floorL: "plant", floorR: null },
-  skin: "sunny", cafeName: "My Café", menu: "chinese", mode: "rush", signature: [], introSeen: false, seen: [], tier: null, settings: { ...defaultSettings }, seasons: {},
+  skin: "sunny", cafeName: "My Café", menu: "chinese", mode: "rush", signature: [], introSeen: false, seen: [], tier: null, settings: { ...defaultSettings }, seasons: {}, kitchen: {},
 });
 /** Every season level the app has, so a stored best for anything else is dropped. */
 const SEASON_KEYS = new Set(SEASONS.flatMap(s => s.levels.map(l => seasonKey(s.id, l.season!.n))));
@@ -48,6 +54,13 @@ export function readGame(value: unknown): GameProgress {
     best[k] = readBest(v);
   }
   for (const [k, v] of Object.entries(rec(input.seasons))) if (SEASON_KEYS.has(k)) seasons[k] = readBest(v);
+  const kitchen: GameProgress["kitchen"] = {};
+  for (const [k, v] of Object.entries(rec(input.kitchen)).slice(0, KITCHEN_KEEP)) {
+    if (!/^[a-z0-9][a-z0-9-]{2,150}$/.test(k)) continue;
+    const tiers: Partial<Record<KitchenTier, LevelBest>> = {};
+    for (const t of KITCHEN_TIERS) if (own(rec(v), t)) tiers[t] = readBest(rec(v)[t]);
+    kitchen[k] = tiers;
+  }
   const equip: Record<string, string | null> = {};
   for (const [p, a] of Object.entries(rec(input.equip))) if (own(PETS, p)) equip[p] = typeof a === "string" && own(ACCESSORIES, a) ? a : null;
   const decor = { ...base.decor };
@@ -62,7 +75,7 @@ export function readGame(value: unknown): GameProgress {
     signature: Array.isArray(input.signature) ? input.signature.filter((x): x is string => typeof x === "string" && own(BUILTIN.dishes, x)).slice(0, 3) : [],
     introSeen: input.introSeen === true, seen: Array.isArray(input.seen) ? [...new Set(input.seen.filter((x): x is string => typeof x === "string" && x.length < 40))].slice(0, 200) : [],
     tier: null,
-    settings: readSettings(input.settings), seasons,
+    settings: readSettings(input.settings), seasons, kitchen,
   };
 }
 function readBest(v: unknown): LevelBest {
@@ -70,16 +83,22 @@ function readBest(v: unknown): LevelBest {
   return { stars: num(b.stars, 0, 3, 0), score: num(b.score, 0, 100, 0), served: b.served === true, rules: b.rules === true, steady: b.steady === true,
     mastered: b.mastered === true, clears: num(b.clears, 0, 100000, 0), bonus: b.bonus === true, coins: num(b.coins, 0, 1000, 0), left: num(b.left, 0, 600, 0) };
 }
+const bestOf = (b: LevelBest, g: LevelBest | undefined): LevelBest => !g ? b : { stars: Math.max(b.stars, g.stars), score: Math.max(b.score, g.score),
+  served: b.served || g.served, rules: b.rules || g.rules, steady: b.steady || g.steady, mastered: b.mastered || g.mastered, clears: Math.max(b.clears, g.clears),
+  bonus: b.bonus || g.bonus, coins: Math.max(b.coins, g.coins), left: Math.max(b.left, g.left) };
+/** Merges two tables of bests: the better of each stamp and record, key by key. */
+const mergeBests = (a: Record<string, LevelBest>, b: Record<string, LevelBest>) => {
+  const out = { ...b };
+  for (const [k, x] of Object.entries(a)) out[k] = bestOf(x, out[k]);
+  return out;
+};
 export function mergeGame(profile: GameProgress, guest: GameProgress): GameProgress {
-  const best = { ...guest.best };
-  for (const [k, b] of Object.entries(profile.best)) {
-    const g = best[k];
-    best[k] = !g ? b : { stars: Math.max(b.stars, g.stars), score: Math.max(b.score, g.score), served: b.served || g.served, rules: b.rules || g.rules,
-      steady: b.steady || g.steady, mastered: b.mastered || g.mastered, clears: Math.max(b.clears, g.clears),
-      bonus: b.bonus || g.bonus, coins: Math.max(b.coins, g.coins), left: Math.max(b.left, g.left) };
-  }
+  const best = mergeBests(profile.best, guest.best), seasons = mergeBests(profile.seasons, guest.seasons);
+  const kitchen: GameProgress["kitchen"] = { ...guest.kitchen };
+  for (const [k, tiers] of Object.entries(profile.kitchen)) kitchen[k] = mergeBests(tiers as Record<string, LevelBest>, (kitchen[k] ?? {}) as Record<string, LevelBest>);
   const profileStarted = Object.keys(profile.best).length > 0;
-  return { ...(profileStarted ? profile : guest), best, credits: Math.max(profile.credits, guest.credits), owned: [...new Set([...profile.owned, ...guest.owned])], seen: [...new Set([...profile.seen, ...guest.seen])] };
+  return { ...(profileStarted ? profile : guest), best, seasons, kitchen, credits: Math.max(profile.credits, guest.credits),
+    owned: [...new Set([...profile.owned, ...guest.owned])], seen: [...new Set([...profile.seen, ...guest.seen])] };
 }
 
 // ---------- derived ----------
@@ -122,6 +141,15 @@ export function applyResult(g: GameProgress, level: number, res: ServiceResult) 
 export function applySeason(g: GameProgress, key: string, res: ServiceResult) {
   const { next, reward } = scored(g.seasons[key], res);
   return { game: { ...g, seasons: { ...g.seasons, [key]: next }, credits: g.credits + reward.credits }, reward: { ...reward, unlocks: [] as string[] } };
+}
+/**
+ * A guest's finished Recipe Kitchen tier: the same stamps and personal bests, kept by recipe id on the device. It pays no credits
+ * (kitchen credits are the account's, server/game/router.mjs) and unlocks nothing.
+ */
+export function applyKitchen(g: GameProgress, recipeId: string, tier: KitchenTier, res: ServiceResult) {
+  const { next, reward } = scored(g.kitchen[recipeId]?.[tier], res);
+  const kitchen = { ...g.kitchen, [recipeId]: { ...g.kitchen[recipeId], [tier]: next } };
+  return { game: { ...g, kitchen }, reward: { ...reward, credits: 0, mastered: false, unlocks: [] as string[] } };
 }
 /** One service against the best before it: the new best, and the reward line (credits, first clear, Mastered, bests beaten, bonus). */
 function scored(prev: LevelBest | undefined, res: ServiceResult) {

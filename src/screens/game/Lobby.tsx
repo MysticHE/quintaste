@@ -92,10 +92,10 @@ export function GameLobby() {
       <Animated.View pointerEvents="none" style={[StyleSheet.absoluteFill, { backgroundColor: theme.lotus.ray }, flash]} />
     </Animated.View>}
     {box.w > 0 && <Animated.View style={[s.info, { top: insets.top + 10, left: insets.left + 20, right: insets.right + 84 }, infoIn]}>
-      <T variant="small" color={theme.mediaRating} style={s.eyebrow} numberOfLines={1}>{allDone ? "All 20 levels cleared" : "Level " + n + " · " + lv.name}</T>
+      <T variant="small" color={theme.mediaRating} style={s.eyebrow} numberOfLines={1}>{allDone ? "All " + LEVELS.length + " levels cleared" : "Level " + n + " · " + lv.name}</T>
       <T variant="title" color={theme.mediaForeground} numberOfLines={1} accessibilityRole="header" style={s.name}>{game.cafeName}</T>
       <View style={s.stats}>
-        <Stat icon="star" text={stars + " / 60"} label={stars + " of 60 stars"} />
+        <Stat icon="star" text={stars + " / " + LEVELS.length * 3} label={stars + " of " + LEVELS.length * 3 + " stars"} />
         <View style={[s.dot, { backgroundColor: theme.mediaDivider }]} />
         <Stat icon="sparkles" text={game.credits + " credits"} label={game.credits + " café credits"} />
       </View>
