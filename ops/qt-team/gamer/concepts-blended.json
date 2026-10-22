@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "note": "Rush Hour Chapter 3: the three pastes the blender makes (Part.makes), shown while a player drags one from the blender to the next station. Fresh, so in an open bowl, never in a jar or tub like the shelf pastes. 22 Oct 2026.",
+  "assets": [
+    {
+      "id": "fresh-sambal",
+      "kind": "ingredient",
+      "chroma": "cyan",
+      "subject": "a small open bowl of freshly blended red sambal paste",
+      "details": "Coarse, glossy red chilli paste heaped in a small cream ceramic bowl, a few chilli flecks visible. No label, no spoon.",
+      "status": "todo"
+    },
+    {
+      "id": "laksa-rempah",
+      "kind": "ingredient",
+      "chroma": "cyan",
+      "subject": "a small open bowl of freshly blended orange laksa spice paste",
+      "details": "Thick orange-red spice paste with flecks of lemongrass, heaped in a small cream ceramic bowl. No label, no spoon.",
+      "status": "todo"
+    },
+    {
+      "id": "green-curry-paste",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "a small open bowl of freshly blended green curry paste",
+      "details": "Thick bright green herb and chilli paste heaped in a small cream ceramic bowl. No label, no spoon.",
+      "status": "todo"
+    }
+  ]
+}

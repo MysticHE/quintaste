@@ -252,7 +252,7 @@ Content, not code, sets the pace. Each chapter needs about 10 reviewed staff rec
   - **Test player:** blends what suits everyone waiting for the dish and counts a poured paste as made. Every level clears 4 of 4 at 0.7 and 2.2 s per action. At 3.5 s, Levels 21 to 26 clear and the rush, twist, review and finale do not, as in Chapter 2.
   - **Rules version:** changes with this content, so older apps are asked to update. New look-alike jars change every level's seeded jar shuffle; Levels 1 to 19 still clear at every speed, and Level 20 drops one seed at 2.2 s, as before.
   - **Recipe compiler:** "blend" steps now compile to the blender, with the paste poured into the next station. "Nasi lemak with sambal tempeh" plays as rice cooker, blender and wok, 6 of 6 at 2.2 s.
-  - **Art:** the blender, four new dishes and 14 ingredients play as Sketch cards. QT Gamer's list for them is `ops/qt-team/gamer/concepts-chapter3.json`, not run yet. The chapter reward (Spice market skin) waits for that art, so Level 30 unlocks nothing yet.
+  - **Art (22 October 2026):** QT Gamer drew the blender, the four dishes, the 14 ingredients (`concepts-chapter3.json`) and the three blended pastes carried from the blender (`concepts-blended.json`), two or three variants each; every variant passed QT Gamer's checks and was reviewed by eye against the house art. Three were redrawn because they looked like an allium or another ingredient: lemongrass (like spring onion), candlenuts (like garlic) and grated coconut (like a bowl of rice). Imported with `scripts/import-game-art.py --add` (merges new runs into the imported art); the blender's geometry follows its picture (`stationArt.ts`). Levels 21, 24, 27 and 30 cook, pour and serve in the harness. Still drafts for the artist's approval. The chapter reward (Spice market skin) still waits for art, so Level 30 unlocks nothing yet.
 - **Checked locally:**
   - Validator: every level and all 1,354 specials at 0.7 s.
   - Pack checks, including the new row and Gather checks.
@@ -291,7 +291,8 @@ Content, not code, sets the pace. Each chapter needs about 10 reviewed staff rec
   - A Seasons tab on the Rush Hour sheet, shown only when `GET /api/game-public/seasons` says on (fail closed).
   - Each season shelf has "Featured now", a "Not reviewed" mark in development, and six levels with stars or what to learn first.
   - Play opens `/game/play?season=…&n=…`, and "Next" moves through the season.
-- **Rewards:** the café skin and decor wait for art. QT Gamer's list for the season's pictures is `ops/qt-team/gamer/concepts-zhai-days.json`.
+- **Art (22 October 2026):** QT Gamer drew the season's three dishes and seven ingredients (`concepts-zhai-days.json`), reviewed by eye; the char siew rice was redrawn because both first variants had spring onion on top. Levels 1, 4 and 6 cook and serve in the harness. Still drafts for the artist's approval.
+- **Rewards:** the café skin and decor wait for art.
 - **Checked locally:**
   - Full validator: all 30 levels, 6 season levels and 1,354 specials at 0.7 and 2.2 s.
   - Pack checks (now with the review-fix checks).

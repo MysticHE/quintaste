@@ -199,6 +199,262 @@
       "subject": "stir-fried kangkung (water spinach) on a round white plate",
       "details": "Glossy bright green leaves and tender hollow stems in a light savoury sauce with a few slices of red chilli and ginger; no garlic, no shrimp paste, no meat.",
       "status": "todo"
+    },
+    {
+      "id": "blender",
+      "kind": "prop",
+      "chroma": "magenta",
+      "subject": "a countertop blender for a cooking game station",
+      "details": "A sturdy cream-coloured blender base with a tall clear jug and a coral lid, about two-thirds of the image tall. Empty jug, front three-quarter view, soft rounded shapes.",
+      "status": "done"
+    },
+    {
+      "id": "dish-sambal-tempeh",
+      "kind": "dish",
+      "chroma": "cyan",
+      "subject": "sambal tempeh in a small bowl",
+      "details": "Crisp golden tempeh cubes glossy with deep red chilli sambal, a few curry leaves on top. No meat, no seafood, no egg.",
+      "status": "done"
+    },
+    {
+      "id": "dish-coconut-chutney",
+      "kind": "dish",
+      "chroma": "magenta",
+      "subject": "coconut chutney in a small steel bowl",
+      "details": "Thick pale white coconut chutney flecked with green chilli, a spoonful of tempered mustard seeds and curry leaves on top. No dairy.",
+      "status": "done"
+    },
+    {
+      "id": "dish-mint-chutney",
+      "kind": "dish",
+      "chroma": "magenta",
+      "subject": "mint chutney in a small bowl",
+      "details": "Bright green smooth mint and coriander chutney with a lime wedge beside it.",
+      "status": "done"
+    },
+    {
+      "id": "dish-green-curry",
+      "kind": "dish",
+      "chroma": "magenta",
+      "subject": "vegetarian green curry in a bowl",
+      "details": "Pale green coconut curry with eggplant pieces, tofu cubes and Thai basil leaves. No meat, no seafood, no egg.",
+      "status": "done"
+    },
+    {
+      "id": "galangal",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "a knob of fresh galangal root",
+      "details": "Cream skin with faint pink rings, firmer and paler than ginger.",
+      "status": "done"
+    },
+    {
+      "id": "green-chilli",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "two fresh green chillies",
+      "details": "Long glossy bright green chillies with short stems.",
+      "status": "done"
+    },
+    {
+      "id": "lime-leaves",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "a sprig of kaffir lime leaves",
+      "details": "Glossy dark green double leaves on a small stem.",
+      "status": "done"
+    },
+    {
+      "id": "thai-basil",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "a bunch of Thai basil",
+      "details": "Green leaves with purple stems and a small purple flower spike.",
+      "status": "done"
+    },
+    {
+      "id": "eggplant",
+      "kind": "ingredient",
+      "chroma": "cyan",
+      "subject": "a long purple eggplant",
+      "details": "Slim glossy purple eggplant with a green cap.",
+      "status": "done"
+    },
+    {
+      "id": "mint",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "a bunch of fresh mint",
+      "details": "Bright green crinkled mint leaves on stems.",
+      "status": "done"
+    },
+    {
+      "id": "lime",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "two small limes, one cut in half",
+      "details": "Bright green limes; the cut half shows pale green flesh.",
+      "status": "done"
+    },
+    {
+      "id": "yoghurt",
+      "kind": "packaged",
+      "chroma": "magenta",
+      "subject": "a small tub of plain yoghurt",
+      "details": "White tub with a simple label reading 'Plain yoghurt'.",
+      "status": "done"
+    },
+    {
+      "id": "tamarind",
+      "kind": "packaged",
+      "chroma": "magenta",
+      "subject": "a block of tamarind pulp",
+      "details": "Dark brown sticky tamarind block in clear wrap with a small label reading 'Tamarind'.",
+      "status": "done"
+    },
+    {
+      "id": "rempah",
+      "kind": "packaged",
+      "chroma": "cyan",
+      "subject": "a glass jar of laksa paste",
+      "details": "Jar of orange-red spice paste with a plain label reading 'Laksa paste'. The two look-alike jars share this picture; only the label text in the game tells them apart.",
+      "status": "done"
+    },
+    {
+      "id": "curry-paste",
+      "kind": "packaged",
+      "chroma": "magenta",
+      "subject": "a small tub of green curry paste",
+      "details": "Tub of thick green paste with a plain label reading 'Green curry paste'. Both look-alike tubs share this picture.",
+      "status": "done"
+    },
+    {
+      "id": "dish-buddhas-delight",
+      "kind": "dish",
+      "chroma": "magenta",
+      "subject": "lo han jai (Buddha's delight) in a bowl",
+      "details": "Braised napa cabbage, baby corn, black fungus, carrot slices and golden tofu skin in a light glossy sauce. No meat, no egg, no garlic or onion.",
+      "status": "done"
+    },
+    {
+      "id": "dish-zhai-curry",
+      "kind": "dish",
+      "chroma": "magenta",
+      "subject": "zhai vegetable curry in a bowl",
+      "details": "Golden coconut curry with potato chunks, long beans and tofu puffs. No meat, no onion, no garlic.",
+      "status": "done"
+    },
+    {
+      "id": "black-fungus",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "a few pieces of soaked black fungus (wood ear)",
+      "details": "Glossy dark brown-black ruffled pieces.",
+      "status": "done"
+    },
+    {
+      "id": "baby-corn",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "three baby corn cobs",
+      "details": "Small pale yellow cobs with neat kernels.",
+      "status": "done"
+    },
+    {
+      "id": "tofu-skin",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "a folded sheet of dried tofu skin",
+      "details": "Wrinkled golden-cream sheet folded loosely.",
+      "status": "done"
+    },
+    {
+      "id": "long-beans",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "a small bundle of long beans",
+      "details": "Slender bright green beans tied in a loose bundle.",
+      "status": "done"
+    },
+    {
+      "id": "mock-char-siew",
+      "kind": "packaged",
+      "chroma": "cyan",
+      "subject": "a pack of vegetarian char siew",
+      "details": "Clear tray of red-edged sliced wheat-gluten char siew with a label reading 'Vegetarian char siew'.",
+      "status": "done"
+    },
+    {
+      "id": "curry-powder",
+      "kind": "packaged",
+      "chroma": "magenta",
+      "subject": "a small tin of curry powder",
+      "details": "Open tin of golden-orange curry powder with a plain label reading 'Curry powder'.",
+      "status": "done"
+    },
+    {
+      "id": "char-siew-sauce",
+      "kind": "packaged",
+      "chroma": "cyan",
+      "subject": "a bottle of char siew sauce",
+      "details": "Glass bottle of dark red glossy sauce with a plain label reading 'Char siew sauce'. Both look-alike bottles share this picture.",
+      "status": "done"
+    },
+    {
+      "id": "fresh-sambal",
+      "kind": "ingredient",
+      "chroma": "cyan",
+      "subject": "a small open bowl of freshly blended red sambal paste",
+      "details": "Coarse, glossy red chilli paste heaped in a small cream ceramic bowl, a few chilli flecks visible. No label, no spoon.",
+      "status": "done"
+    },
+    {
+      "id": "laksa-rempah",
+      "kind": "ingredient",
+      "chroma": "cyan",
+      "subject": "a small open bowl of freshly blended orange laksa spice paste",
+      "details": "Thick orange-red spice paste with flecks of lemongrass, heaped in a small cream ceramic bowl. No label, no spoon.",
+      "status": "done"
+    },
+    {
+      "id": "green-curry-paste",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "a small open bowl of freshly blended green curry paste",
+      "details": "Thick bright green herb and chilli paste heaped in a small cream ceramic bowl. No label, no spoon.",
+      "status": "done"
+    },
+    {
+      "id": "dish-mock-char-siew-rice",
+      "kind": "dish",
+      "chroma": "cyan",
+      "subject": "vegetarian char siew rice on a plate",
+      "details": "Slices of glossy red-edged mock char siew (wheat gluten) on white rice with cucumber slices. No meat. Zhai: no spring onion, chives, garlic or onion anywhere, and no green garnish or sprinkles on top.",
+      "status": "done"
+    },
+    {
+      "id": "lemongrass",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "three long stalks of fresh lemongrass lying flat",
+      "details": "Long, stiff, woody pale yellow-green stalks, as thick as a finger and the same width from end to end, with a slightly swollen pale base cut flat (no roots) and dry, fibrous grass-like tops cut off square. Never a bulb, never hollow green leaves, never tied in a bundle: it must not look like spring onion or leek.",
+      "status": "done"
+    },
+    {
+      "id": "grated-coconut",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "freshly grated coconut in half a coconut shell",
+      "details": "Fluffy snowy white coconut shreds heaped in a half coconut shell with a hairy brown outside, a small curved piece of white coconut flesh beside it. No wooden bowl: it must not look like a bowl of rice.",
+      "status": "done"
+    },
+    {
+      "id": "candlenuts",
+      "kind": "ingredient",
+      "chroma": "magenta",
+      "subject": "a small pile of shelled candlenuts",
+      "details": "Five round, smooth, waxy cream-yellow nuts, some broken in half to show a solid oily inside, like macadamia nuts. No points, no papery skin, no cloves, no root ends: they must not look like garlic or shallots.",
+      "status": "done"
     }
   ]
 }
