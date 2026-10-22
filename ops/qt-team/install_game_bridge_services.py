@@ -20,7 +20,10 @@ Requires=docker.service
 
 [Service]
 Type=simple
+# Stopping the docker exec client leaves the process inside the container running, so clear any copy before start and on stop.
+ExecStartPre=-/usr/bin/docker exec CONTAINER pkill -f {script}
 ExecStart=/usr/bin/docker exec --user 10000 --workdir /opt/data/qt-team -e HERMES_HOME=/opt/data -e HERMES_SRC=/opt/hermes CONTAINER /opt/hermes/.venv/bin/python -u {script}
+ExecStop=-/usr/bin/docker exec CONTAINER pkill -f {script}
 Restart=always
 RestartSec=15
 TimeoutStopSec=20
@@ -30,10 +33,16 @@ WantedBy=multi-user.target
 """);unit.chmod(0o644)
  subprocess.run(['systemd-analyze','verify',str(unit)],check=True,capture_output=True)
 subprocess.run(['systemctl','daemon-reload'],check=True)
+import sys
+start=[a for a in sys.argv[1:]] or ['qt-game-level-bridge','qt-game-art-bridge']
 for name in ('qt-game-level-bridge','qt-game-art-bridge'):
- subprocess.run(['systemctl','enable','--now',name+'.service'],check=True,capture_output=True)
- print(name,subprocess.check_output(['systemctl','is-active',name+'.service'],text=True).strip())
+ subprocess.run(['systemctl','enable',name+'.service'],check=True,capture_output=True)
+ if name in start:subprocess.run(['systemctl','restart',name+'.service'],check=True,capture_output=True)
+ else:subprocess.run(['systemctl','stop',name+'.service'],check=True,capture_output=True)
+ print(name,subprocess.run(['systemctl','is-active',name+'.service'],capture_output=True,text=True).stdout.strip())
 '''.replace('CONTAINER', CONTAINER)
 
 if __name__ == '__main__':
-    print(setup.helper.remote(UNIT))
+    # Optional arguments name the services to (re)start; the others are installed and stopped.
+    import sys
+    print(setup.helper.remote('import sys\nsys.argv = ["unit"] + ' + repr(sys.argv[1:]) + '\n' + UNIT))

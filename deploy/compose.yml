@@ -96,6 +96,17 @@ services:
       traefik.http.middlewares.quintaste-game-finish-body.buffering.memRequestBodyBytes: '262144'
       traefik.http.middlewares.quintaste-game-finish-rate.ratelimit.average: '5'
       traefik.http.middlewares.quintaste-game-finish-rate.ratelimit.burst: '20'
+      # QT Gamer's signed answers: a recipe level's shape (router allows 30 KB) and a picture job's sprites (two variants, 1600 KB).
+      traefik.http.routers.quintaste-game-bots.rule: Host(`${APP_HOST}`) && Method(`POST`) && PathRegexp(`^/api/game-(art|levels)/bot/jobs/[0-9a-f-]{36}/answer$`)
+      traefik.http.routers.quintaste-game-bots.priority: '106'
+      traefik.http.routers.quintaste-game-bots.entrypoints: websecure
+      traefik.http.routers.quintaste-game-bots.tls.certresolver: letsencrypt
+      traefik.http.routers.quintaste-game-bots.service: quintaste
+      traefik.http.routers.quintaste-game-bots.middlewares: quintaste-game-bots-body,quintaste-game-bots-rate
+      traefik.http.middlewares.quintaste-game-bots-body.buffering.maxRequestBodyBytes: '1700000'
+      traefik.http.middlewares.quintaste-game-bots-body.buffering.memRequestBodyBytes: '1700000'
+      traefik.http.middlewares.quintaste-game-bots-rate.ratelimit.average: '1'
+      traefik.http.middlewares.quintaste-game-bots-rate.ratelimit.burst: '5'
     logging: *logging
   preview:
     image: ${PREVIEW_IMAGE:?Set PREVIEW_IMAGE}
