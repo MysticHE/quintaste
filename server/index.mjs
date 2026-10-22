@@ -21,7 +21,7 @@ import { reactions } from './reactions/router.mjs';
 import { areas } from './areas/router.mjs';
 import { startAreaSnapshots } from './areas/snapshot.mjs';
 import { placeReviews } from './place-reviews/router.mjs';
-import { game, purgeRunLogs } from './game/router.mjs';
+import { game, gamePublic, purgeRunLogs } from './game/router.mjs';
 import { editorial, editorialAssets, editorialAssetRoot } from './editorial/router.mjs';
 import { startAvatarWorker } from './avatar/worker.mjs';
 import { aiRecipes } from './ai-recipes/router.mjs';
@@ -124,6 +124,7 @@ app.use('/api/areas', featureGate('areas'), areas);
 app.get('/api/game/status', async (_req, res) => { res.set('Cache-Control', 'no-store').json({ enabled: await allowed('games') }); });
 app.use('/api/game', featureGate('games'), game);
 // Game pictures (docs/game/RECIPE_LEVELS_PLAN.md §8.5): approved pictures are public and immutable; QT Gamer's routes are signed.
+app.use('/api/game-public', featureGate('games'), gamePublic);
 app.use('/api/game-art/bot', gameArtBots);
 app.use('/api/game-art', gameArt);
 app.use('/api/local-explore', (_req, res) => res.status(503).json({ error: 'Local development services are unavailable on this deployment.' }));

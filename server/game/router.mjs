@@ -1,3 +1,4 @@
+import express from 'express';
 import { pool, logger } from '../config.mjs';
 import { CommunityError, communityRouter, errors, throttle, transaction, uuid } from '../community/http.mjs';
 import { loadSim } from './sim.mjs';
@@ -84,20 +85,23 @@ async function playablePack(db, sim, hash, me) {
  * progress with the same rule the server enforces when a run opens (src/game/kitchen.ts).
  */
 game.get('/kitchen', async (_req, res) => {
-  const { user } = res.locals;
+  res.set('Cache-Control', 'private, no-store').json(await kitchenShelf(res.locals.user.id));
+});
+/** The shelf for a member, or for a signed-out player (`me` null: public levels only, no bests). */
+async function kitchenShelf(me) {
   const levels = (await pool.query(`SELECT DISTINCT ON (l.recipe_id) l.hash, l.recipe_id, l.cuisine, l.owner_id IS NOT NULL AS mine,
       l.pack->'techniques' AS techniques, l.pack->'dishes'->0->>'name' AS name, l.pack->'dishes'->0->>'art' AS art
     FROM game.recipe_level l WHERE l.status = 'ready' AND (l.owner_id IS NULL OR l.owner_id = $1)
-    ORDER BY l.recipe_id, l.recipe_revision DESC, l.created_at DESC LIMIT 300`, [user.id])).rows;
+    ORDER BY l.recipe_id, l.recipe_revision DESC, l.created_at DESC LIMIT 300`, [me])).rows;
   const [bests, pictures] = await Promise.all([
-    pool.query('SELECT recipe_id, tier, stars, score, clears FROM game.kitchen_best WHERE user_id = $1', [user.id]),
+    me ? pool.query('SELECT recipe_id, tier, stars, score, clears FROM game.kitchen_best WHERE user_id = $1', [me]) : { rows: [] },
     pool.query(`SELECT a.art_key, a.asset FROM game.art a JOIN game.asset s ON s.sha256 = a.asset AND s.status = 'approved' WHERE a.art_key = ANY($1)`, [levels.map(l => l.art)])]);
   const picture = new Map(pictures.rows.map(r => [r.art_key, pictureUrl(r.asset)]));
   const best = new Map();
   for (const b of bests.rows) best.set(b.recipe_id, { ...best.get(b.recipe_id), [b.tier]: { stars: b.stars, score: b.score, clears: b.clears } });
-  res.set('Cache-Control', 'private, no-store').json({ levels: levels.map(l => ({ hash: l.hash, recipeId: l.recipe_id, name: l.name, cuisine: l.cuisine, mine: l.mine,
-    techniques: l.techniques, art: l.art, picture: picture.get(l.art) ?? null, best: best.get(l.recipe_id) ?? {} })) });
-});
+  return { levels: levels.map(l => ({ hash: l.hash, recipeId: l.recipe_id, name: l.name, cuisine: l.cuisine, mine: l.mine,
+    techniques: l.techniques, art: l.art, picture: picture.get(l.art) ?? null, best: best.get(l.recipe_id) ?? {} })) };
+}
 
 // A Recipe Kitchen level pack, for the app to play, with its approved pictures. The pack itself is immutable.
 game.get('/packs/:hash', async (req, res) => {
@@ -105,6 +109,28 @@ game.get('/packs/:hash', async (req, res) => {
   if (!found) throw new CommunityError(404, 'That level is unavailable.');
   // Pictures are not part of the pack: an approved picture can arrive later, so this answer is cached briefly.
   res.set('Cache-Control', 'private, max-age=600').json({ hash: req.params.hash, recipeId: found.recipeId, pack: found.pack, pictures: await picturesFor(pool, found.pack) });
+});
+
+/**
+ * Signed-out players (RECIPE_LEVELS_PLAN §10): public live levels only, played as practice on the device (nothing settles on an
+ * account). Read-only, behind the `games` control like the member routes.
+ */
+export const gamePublic = express.Router();
+gamePublic.use(async (_req, res, next) => {
+  const sim = await loadSim();
+  if (!sim) return res.status(503).json({ error: 'The game is temporarily unavailable.', code: 'SERVICE_PAUSED' });
+  res.locals.sim = sim;
+  next();
+});
+gamePublic.get('/kitchen', async (_req, res, next) => {
+  try { res.set('Cache-Control', 'public, max-age=300').json(await kitchenShelf(null)); } catch (error) { next(error); }
+});
+gamePublic.get('/packs/:hash', async (req, res, next) => {
+  try {
+    const found = await playablePack(pool, res.locals.sim, req.params.hash, null);
+    if (!found) return res.status(404).json({ error: 'That level is unavailable.' });
+    res.set('Cache-Control', 'public, max-age=600').json({ hash: req.params.hash, recipeId: found.recipeId, pack: found.pack, pictures: await picturesFor(pool, found.pack) });
+  } catch (error) { next(error); }
 });
 
 /** Opens an attempt when the service starts. The same id again returns the same attempt. */

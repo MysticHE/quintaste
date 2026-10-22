@@ -3,7 +3,7 @@ import type { GameProgress } from "../game/progress";
 import type { Action, Result } from "../game/sim/engine";
 import type { RunStart } from "../game/sim/replay";
 import { apiUrl } from "../utils/api-url";
-import { communityRequest } from "./community-api";
+import { ApiError, communityRequest } from "./community-api";
 
 /** Rush Hour account progress (server/game). Signed-in, age-checked members only; guests never call these. */
 export type ServerProgress = { game: GameProgress; imported: boolean; rules: string };
@@ -24,6 +24,14 @@ export type KitchenLevel = { hash: string; recipeId: string; name: string; cuisi
   picture: string | null; best: Partial<Record<"learn" | "service" | "memory", TierBest>> };
 export const fetchKitchen = (signal?: AbortSignal) => communityRequest<{ levels: KitchenLevel[] }>("/api/game/kitchen", { signal });
 export const fetchPack = (hash: string) => communityRequest<PackResponse>("/api/game/packs/" + encodeURIComponent(hash));
+/** Signed-out players: public live levels only, played as practice on the device. */
+async function publicGet<T>(path: string, signal?: AbortSignal): Promise<T> {
+  const response = await fetch(apiUrl(path), { signal, credentials: "omit" });
+  if (!response.ok) throw new ApiError(response.status === 404 ? "That level is unavailable." : "That did not load. Try again.", response.status);
+  return await response.json() as T;
+}
+export const fetchPublicKitchen = (signal?: AbortSignal) => publicGet<{ levels: KitchenLevel[] }>("/api/game-public/kitchen", signal);
+export const fetchPublicPack = (hash: string) => publicGet<PackResponse>("/api/game-public/packs/" + encodeURIComponent(hash));
 export const finishRun = (id: string, actions: Action[], result: Result) =>
   communityRequest<RunOutcome>("/api/game/runs/" + id + "/finish", { method: "POST", body: { actions, result } });
 

@@ -16,12 +16,12 @@ export type KitchenPick = { level: KitchenLevel; tier: Tier };
 /** Recipe levels grouped by cuisine, with tier progress and what to learn first; picking one shows its tiers. */
 export function Kitchen({ game, pick, onPick }: { game: GameProgress; pick: KitchenPick | null; onPick(p: KitchenPick): void }) {
   const remote = useKitchen(), member = useMember();
-  if (!member.member) return <RemoteStatus remote={remote} icon="restaurant-outline" returnTo="/game/cafe" />;
   const levels = remote.data?.levels ?? [];
   const shelves = [...new Set(levels.map(l => l.cuisine ?? "More recipes"))].sort((a, b) => (a === "More recipes" ? 1 : b === "More recipes" ? -1 : a.localeCompare(b)));
   return <>
     <RemoteStatus remote={remote} icon="restaurant-outline" returnTo="/game/cafe" />
     {remote.data && !levels.length && <Section><T muted>No recipe levels yet.</T></Section>}
+    {remote.data && !member.member && !!levels.length && <T variant="small" muted>Sign in to keep your Recipe Kitchen progress.</T>}
     {pick && <Tiers game={game} pick={pick} onPick={onPick} />}
     {shelves.map(shelf => <Section key={shelf} title={shelf}>
       {levels.filter(l => (l.cuisine ?? "More recipes") === shelf).map(l =>
@@ -61,9 +61,9 @@ function Stars({ stars }: { stars: number | null }) {
 
 /** The picked recipe's three tiers: Learn, Service and From memory, each opening after the one before. */
 function Tiers({ game, pick, onPick }: { game: GameProgress; pick: KitchenPick; onPick(p: KitchenPick): void }) {
-  const { theme } = usePreferences(), locked = missingTechnique(game, pick.level.techniques);
+  const { theme } = usePreferences(), locked = missingTechnique(game, pick.level.techniques), practice = !useMember().member;
   return <Section title={pick.level.name}>
-    {TIERS.map(t => { const open = !locked && tierOpen(pick.level, t), best = pick.level.best[t];
+    {TIERS.map(t => { const open = !locked && tierOpen(pick.level, t, practice), best = pick.level.best[t];
       return <Pressable key={t} disabled={!open} onPress={() => onPick({ level: pick.level, tier: t })} accessibilityRole="radio"
         accessibilityState={{ selected: pick.tier === t, disabled: !open }} accessibilityLabel={TIER_NAMES[t] + (best?.clears ? ", " + best.stars + " stars" : open ? ", open" : ", locked")}
         style={({ pressed }) => [s.row, { borderColor: pick.tier === t && open ? theme.accent : theme.transparent, opacity: open ? (pressed ? 0.85 : 1) : 0.55 }]}>
@@ -74,7 +74,8 @@ function Tiers({ game, pick, onPick }: { game: GameProgress; pick: KitchenPick; 
 }
 /** The sheet footer for the Recipe Kitchen tab: start the picked tier when it is open. */
 export function KitchenStart({ game, pick, onPlay }: { game: GameProgress; pick: KitchenPick | null; onPlay(hash: string, tier: Tier): void }) {
-  if (!pick || missingTechnique(game, pick.level.techniques) || !tierOpen(pick.level, pick.tier)) return null;
+  const practice = !useMember().member;
+  if (!pick || missingTechnique(game, pick.level.techniques) || !tierOpen(pick.level, pick.tier, practice)) return null;
   return <Button label={"Start " + TIER_NAMES[pick.tier]} onPress={() => onPlay(pick.level.hash, pick.tier)} />;
 }
 const s = StyleSheet.create({

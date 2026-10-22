@@ -12,7 +12,7 @@ import { GAME_PAGE_PATH, gameArtUris, gameHost, withPictures } from "../../game/
 import { packByHash, packHash, readPack, registerPack, type LevelPack } from "../../game/content/pack";
 import { missionFor, TIERS, type Tier } from "../../game/mission";
 import { missingTechnique } from "../../game/kitchen";
-import { fetchPack } from "../../services/game-api";
+import { fetchPack, fetchPublicPack } from "../../services/game-api";
 import { highestCleared, levelOpen } from "../../game/progress";
 import { specialFor } from "../../game/special";
 import type { BridgeKind, FinishPayload, RunInfo } from "../../game/dom/RushHour";
@@ -40,22 +40,22 @@ export function GamePlayScreen() {
 
 function PlayService() {
   const params = useLocalSearchParams<{ level?: string; run?: string; special?: string; pack?: string; tier?: string }>();
-  const { game, set, startRun, finish } = useGame();
-  // A Recipe Kitchen mission: the pack and its pictures come from the account (members only for now).
+  const { game, set, startRun, finish, member } = useGame();
+  // A Recipe Kitchen mission: the pack and its pictures come from the account, or the public route for signed-out players.
   const tier: Tier | null = TIERS.includes(params.tier as Tier) ? params.tier as Tier : null, packId = typeof params.pack === "string" && tier ? params.pack : null;
   const [loaded, setLoaded] = useState<{ pack: LevelPack; json: unknown; pictures: Record<string, string> } | null>(null);
   const [packError, setPackError] = useState(false);
   useEffect(() => {
     if (!packId) return;
     let live = true;
-    fetchPack(packId).then(res => {
+    (member ? fetchPack(packId) : fetchPublicPack(packId)).then(res => {
       const pack = readPack(res.pack);
       if (packHash(pack) !== packId) throw new Error("pack changed");
       registerPack(pack);
       if (live) setLoaded({ pack: packByHash(packId)!, json: res.pack, pictures: res.pictures });
     }).catch(() => { if (live) setPackError(true); });
     return () => { live = false; };
-  }, [packId]);
+  }, [packId, member]);
   const mission = useMemo(() => (loaded && tier ? missionFor(loaded.pack, tier) : null), [loaded, tier]);
   // A level that needs a technique this player hasn't learned says where to learn it, then goes back.
   const locked = loaded ? missingTechnique(game, loaded.pack.techniques) : null;
