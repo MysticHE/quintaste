@@ -6,6 +6,7 @@ import { ACCESSORIES, CREDIT_REWARDS, DECOR, DECOR_SLOTS, PETS, SKINS, TIERS, ty
 import { defaultSettings, readSettings, type PlaySettings } from "./settings";
 import { LEVELS } from "./content/levels";
 import { BUILTIN } from "./content/pack";
+import { SEASONS, seasonKey } from "./content/seasons";
 
 /**
  * Best result per level. `bonus` is the level's optional fourth stamp, earned at least once. `coins` (takings) and `left`
@@ -23,11 +24,15 @@ export type GameProgress = {
   tier: Tier | null;
   /** Play your way. */
   settings: PlaySettings;
+  /** Season level bests by `seasonKey` ("zhai-days-1"). Guests keep them on the device only; members' come from the account. */
+  seasons: Record<string, LevelBest>;
 };
 export const emptyGame = (): GameProgress => ({
   version: 1, best: {}, credits: 0, owned: [], pet: "sprout", equip: {}, decor: { ceiling: null, wall: "painting", floorL: "plant", floorR: null },
-  skin: "sunny", cafeName: "My Café", menu: "chinese", mode: "rush", signature: [], introSeen: false, seen: [], tier: null, settings: { ...defaultSettings },
+  skin: "sunny", cafeName: "My Café", menu: "chinese", mode: "rush", signature: [], introSeen: false, seen: [], tier: null, settings: { ...defaultSettings }, seasons: {},
 });
+/** Every season level the app has, so a stored best for anything else is dropped. */
+const SEASON_KEYS = new Set(SEASONS.flatMap(s => s.levels.map(l => seasonKey(s.id, l.season!.n))));
 
 const num = (v: unknown, lo: number, hi: number, d: number) => (typeof v === "number" && Number.isFinite(v) ? Math.max(lo, Math.min(hi, Math.round(v))) : d);
 const rec = (v: unknown): Record<string, unknown> => (v && typeof v === "object" && !Array.isArray(v) ? v as Record<string, unknown> : {});
@@ -36,14 +41,13 @@ const rec = (v: unknown): Record<string, unknown> => (v && typeof v === "object"
 const own = (table: object, key: string) => Object.prototype.hasOwnProperty.call(table, key);
 export function readGame(value: unknown): GameProgress {
   const input = rec(value), base = emptyGame();
-  const best: Record<string, LevelBest> = {};
+  const best: Record<string, LevelBest> = {}, seasons: Record<string, LevelBest> = {};
   for (const [k, v] of Object.entries(rec(input.best))) {
     // Only levels this app has: bests for levels that do not exist yet must never count (the device import caps credits by them).
     if (!/^[1-9]\d{0,2}$/.test(k) || +k > LEVELS.length) continue;
-    const b = rec(v);
-    best[k] = { stars: num(b.stars, 0, 3, 0), score: num(b.score, 0, 100, 0), served: b.served === true, rules: b.rules === true, steady: b.steady === true,
-      mastered: b.mastered === true, clears: num(b.clears, 0, 100000, 0), bonus: b.bonus === true, coins: num(b.coins, 0, 1000, 0), left: num(b.left, 0, 600, 0) };
+    best[k] = readBest(v);
   }
+  for (const [k, v] of Object.entries(rec(input.seasons))) if (SEASON_KEYS.has(k)) seasons[k] = readBest(v);
   const equip: Record<string, string | null> = {};
   for (const [p, a] of Object.entries(rec(input.equip))) if (own(PETS, p)) equip[p] = typeof a === "string" && own(ACCESSORIES, a) ? a : null;
   const decor = { ...base.decor };
@@ -58,8 +62,13 @@ export function readGame(value: unknown): GameProgress {
     signature: Array.isArray(input.signature) ? input.signature.filter((x): x is string => typeof x === "string" && own(BUILTIN.dishes, x)).slice(0, 3) : [],
     introSeen: input.introSeen === true, seen: Array.isArray(input.seen) ? [...new Set(input.seen.filter((x): x is string => typeof x === "string" && x.length < 40))].slice(0, 200) : [],
     tier: null,
-    settings: readSettings(input.settings),
+    settings: readSettings(input.settings), seasons,
   };
+}
+function readBest(v: unknown): LevelBest {
+  const b = rec(v);
+  return { stars: num(b.stars, 0, 3, 0), score: num(b.score, 0, 100, 0), served: b.served === true, rules: b.rules === true, steady: b.steady === true,
+    mastered: b.mastered === true, clears: num(b.clears, 0, 100000, 0), bonus: b.bonus === true, coins: num(b.coins, 0, 1000, 0), left: num(b.left, 0, 600, 0) };
 }
 export function mergeGame(profile: GameProgress, guest: GameProgress): GameProgress {
   const best = { ...guest.best };
@@ -102,7 +111,21 @@ export type Beat = "score" | "coins" | "time";
 
 /** Applies a finished service: best stamps, personal bests, clears and earned credits. Returns the reward line to show. */
 export function applyResult(g: GameProgress, level: number, res: ServiceResult) {
-  const key = String(level), prev = g.best[key], left = res.left || 0;   // a result queued by an older build has no `left`
+  const key = String(level), { next, reward } = scored(g.best[key], res);
+  const unlocks = reward.first ? LEVELS[level - 1].unlocks : [];
+  return { game: { ...g, best: { ...g.best, [key]: next }, credits: g.credits + reward.credits }, reward: { ...reward, unlocks } };
+}
+/**
+ * A finished season level (GAME_CONTENT_PLAN §6): the same stamps and grants as a numbered level (first clear and Mastered once ever,
+ * replays the normal grant), kept by season key. Season levels unlock nothing yet; their rewards wait for their art.
+ */
+export function applySeason(g: GameProgress, key: string, res: ServiceResult) {
+  const { next, reward } = scored(g.seasons[key], res);
+  return { game: { ...g, seasons: { ...g.seasons, [key]: next }, credits: g.credits + reward.credits }, reward: { ...reward, unlocks: [] as string[] } };
+}
+/** One service against the best before it: the new best, and the reward line (credits, first clear, Mastered, bests beaten, bonus). */
+function scored(prev: LevelBest | undefined, res: ServiceResult) {
+  const left = res.left || 0;   // a result queued by an older build has no `left`
   const first = res.cleared && !(prev && prev.clears > 0);
   const masteredNow = res.stamps.served && res.stamps.rules && res.stamps.steady;
   const firstMastered = masteredNow && !prev?.mastered;
@@ -119,7 +142,5 @@ export function applyResult(g: GameProgress, level: number, res: ServiceResult) 
     if (prev.coins > 0 && res.coins > prev.coins) beat.push("coins");
     if (prev.left > 0 && left > prev.left) beat.push("time");
   }
-  const unlocks = first ? LEVELS[level - 1].unlocks : [];
-  return { game: { ...g, best: { ...g.best, [key]: next }, credits: g.credits + credits },
-    reward: { credits, first, mastered: firstMastered, unlocks, beat, bonus: res.cleared && !!res.bonus?.done && !prev?.bonus } };
+  return { next, reward: { credits, first, mastered: firstMastered, beat, bonus: res.cleared && !!res.bonus?.done && !prev?.bonus } };
 }

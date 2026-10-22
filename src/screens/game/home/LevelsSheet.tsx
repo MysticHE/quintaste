@@ -10,16 +10,23 @@ import { usePreferences } from "../../../state/Preferences";
 import { GameSheet, Section } from "./GameSheet";
 import { Art, Seg, useHover } from "./bits";
 import { Kitchen, KitchenStart, type KitchenPick } from "./KitchenSection";
+import { Seasons, SeasonStart, type SeasonPick } from "./SeasonsSection";
+import { useSeasonsOn } from "../../../hooks/useKitchen";
 import type { Tier } from "../../../game/mission";
 
 /** Rush Hour: the next level, its twist, the companion joining and the path; beside it, the Recipe Kitchen (recipe levels). */
-export function LevelsSheet({ game, onClose, onPlay, onPlayMission, onCompanion }: {
-  game: GameProgress; onClose(): void; onPlay(level: number): void; onPlayMission(hash: string, tier: Tier): void; onCompanion(): void;
+export function LevelsSheet({ game, onClose, onPlay, onPlayMission, onPlaySeason, onCompanion }: {
+  game: GameProgress; onClose(): void; onPlay(level: number): void; onPlayMission(hash: string, tier: Tier): void; onPlaySeason(season: string, n: number): void; onCompanion(): void;
 }) {
   const { theme } = usePreferences();
-  const [pick, setPick] = useState(nextLevel(game));
-  const [tab, setTab] = useState<"levels" | "kitchen">("levels"), [recipe, setRecipe] = useState<KitchenPick | null>(null);
-  const tabs = <Seg<"levels" | "kitchen"> label="Rush Hour" value={tab} onChange={setTab} options={[["levels", "Levels"], ["kitchen", "Recipe Kitchen"]]} />;
+  const [pick, setPick] = useState(nextLevel(game)), seasonsOn = useSeasonsOn();
+  const [tab, setTab] = useState<"levels" | "kitchen" | "seasons">("levels"), [recipe, setRecipe] = useState<KitchenPick | null>(null), [seasonPick, setSeasonPick] = useState<SeasonPick | null>(null);
+  const tabs = <Seg<"levels" | "kitchen" | "seasons"> label="Rush Hour" value={tab} onChange={setTab}
+    options={[["levels", "Levels"], ["kitchen", "Recipe Kitchen"], ...(seasonsOn ? [["seasons", "Seasons"] as ["seasons", string]] : [])]} />;
+  if (tab === "seasons" && seasonsOn) return <GameSheet title="Rush Hour" subtitle="Seasons" onClose={onClose}
+    footer={<SeasonStart game={game} pick={seasonPick} onPlay={onPlaySeason} />}>
+    {tabs}<Seasons game={game} pick={seasonPick} onPick={setSeasonPick} />
+  </GameSheet>;
   if (tab === "kitchen") return <GameSheet title="Rush Hour" subtitle="Recipe Kitchen" onClose={onClose}
     footer={<KitchenStart game={game} pick={recipe} onPlay={onPlayMission} />}>
     {tabs}<Kitchen game={game} pick={recipe} onPick={setRecipe} />

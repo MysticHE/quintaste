@@ -10,7 +10,8 @@ import { CREDIT_REWARDS } from "./content/cosmetics";
 import { DISHES, type StationKind } from "./content/dishes";
 import { GUESTS, type Rule } from "./content/guests";
 import { LEVELS, type Level } from "./content/levels";
-import { applyResult, cleared, highestCleared, type Beat, type GameProgress } from "./progress";
+import { applyResult, applySeason, cleared, highestCleared, type Beat, type GameProgress } from "./progress";
+import { seasonKey } from "./content/seasons";
 import { dishFeasible } from "./sim/engine";
 
 export type Special = { day: string; dish: string; lunar: string | null; level: Level };
@@ -54,7 +55,8 @@ export function applySpecial(game: GameProgress, res: { cleared: boolean }) {
 }
 
 /** Applies a finished service on the device: a special pays the replay grant, a numbered level the full applyResult. */
-export function applyRun(game: GameProgress, start: { level: number; special?: string | null; pack?: string | null }, res: Parameters<typeof applyResult>[2]) {
+export function applyRun(game: GameProgress, start: { level: number; special?: string | null; pack?: string | null; season?: { id: string; n: number } | null }, res: Parameters<typeof applyResult>[2]) {
+  if (start.season) return applySeason(game, seasonKey(start.season.id, start.season.n), res);
   // A Recipe Kitchen mission changes nothing on the device: its best and any kitchen credits are kept on the account (server/game/router.mjs).
   if (start.pack) return { game, reward: { credits: 0, first: false, mastered: false, unlocks: [] as string[], beat: [] as Beat[], bonus: false } };
   return start.special ? applySpecial(game, res) : applyResult(game, start.level, res);

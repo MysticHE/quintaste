@@ -1,5 +1,5 @@
 import { useMember } from "../components/CommunityGate";
-import { fetchKitchen, fetchPublicKitchen } from "../services/game-api";
+import { fetchKitchen, fetchPublicKitchen, fetchSeasonsOn } from "../services/game-api";
 import { pruneRevoked } from "../services/game-packs";
 import { useRemote } from "./useRemote";
 
@@ -11,3 +11,7 @@ export function useKitchen() {
     signal => (member.member ? fetchKitchen(signal) : fetchPublicKitchen(signal)).then(shelf => { void pruneRevoked(); return shelf; }));
 }
 export { chanceFor, forYou, newest, nextTier, tierOpen } from "../game/kitchen-rows";
+/** The Seasons shelf shows only when staff have it on; offline or unsure, it stays hidden (GAME_CONTENT_PLAN §10a: fail closed). */
+export function useSeasonsOn() {
+  return useRemote("game-seasons", signal => fetchSeasonsOn(signal)).data?.on === true;
+}

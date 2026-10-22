@@ -23,23 +23,27 @@ CREATE INDEX IF NOT EXISTS game_recipe_level_recipe ON game.recipe_level(recipe_
 -- The Recipe Kitchen shelf a level sits on (the recipe's cuisine, set when the level is made); null shows under More recipes.
 ALTER TABLE game.recipe_level ADD COLUMN IF NOT EXISTS cuisine text CHECK (cuisine IS NULL OR char_length(cuisine) BETWEEN 1 AND 40);
 
--- A run is a numbered level, Today's special (special_day) or a pack mission (pack and tier); level stays 0 for both of
--- the latter. Replaces the unnamed check from schema.sql, added NOT VALID and then validated so existing rows never block.
+-- A run is a numbered level, Today's special (special_day), a pack mission (pack and tier) or a season level (season_id and
+-- season_n); level stays 0 for all but the first. Replaces the unnamed check from schema.sql (and the earlier local run_shape),
+-- added NOT VALID and then validated so existing rows never block.
 ALTER TABLE game.run
   ADD COLUMN IF NOT EXISTS pack text REFERENCES game.recipe_level(hash),
-  ADD COLUMN IF NOT EXISTS tier text CHECK (tier IN ('learn','service','memory'));
-ALTER TABLE game.run DROP CONSTRAINT IF EXISTS run_check;
+  ADD COLUMN IF NOT EXISTS tier text CHECK (tier IN ('learn','service','memory')),
+  ADD COLUMN IF NOT EXISTS season_id text CHECK (season_id ~ '^[a-z0-9][a-z0-9-]{1,39}$'),
+  ADD COLUMN IF NOT EXISTS season_n smallint CHECK (season_n BETWEEN 1 AND 12);
+ALTER TABLE game.run DROP CONSTRAINT IF EXISTS run_check, DROP CONSTRAINT IF EXISTS run_shape;
 DO $$
 BEGIN
-  IF NOT EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'run_shape' AND conrelid = 'game.run'::regclass) THEN
-    ALTER TABLE game.run ADD CONSTRAINT run_shape CHECK (
-      (level = 0) = (special_day IS NOT NULL OR pack IS NOT NULL)
+  IF NOT EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'run_kind' AND conrelid = 'game.run'::regclass) THEN
+    ALTER TABLE game.run ADD CONSTRAINT run_kind CHECK (
+      (level = 0) = (special_day IS NOT NULL OR pack IS NOT NULL OR season_id IS NOT NULL)
       AND (special_day IS NULL) = (special_top IS NULL)
       AND (pack IS NULL) = (tier IS NULL)
-      AND (special_day IS NULL OR pack IS NULL)) NOT VALID;
+      AND (season_id IS NULL) = (season_n IS NULL)
+      AND num_nonnulls(special_day, pack, season_id) <= 1) NOT VALID;
   END IF;
 END $$;
-ALTER TABLE game.run VALIDATE CONSTRAINT run_shape;
+ALTER TABLE game.run VALIDATE CONSTRAINT run_kind;
 CREATE INDEX IF NOT EXISTS game_run_pack ON game.run(pack) WHERE pack IS NOT NULL;
 
 -- Best result per recipe and tier from settled mission runs. Credits for missions wait for the owner's decision
@@ -185,6 +189,23 @@ CREATE TABLE IF NOT EXISTS game.level_reaction (
   PRIMARY KEY (user_id, hash)
 );
 CREATE INDEX IF NOT EXISTS game_level_reaction_hash ON game.level_reaction(hash);
+-- Season levels (GAME_CONTENT_PLAN §6): best per member, season and level number, as game.level_best is per numbered level.
+-- Credits use ledger kinds season_clear and season_mastered with source season:<id>-<n>, once ever per level.
+CREATE TABLE IF NOT EXISTS game.season_best (
+  user_id text NOT NULL REFERENCES game.profile(user_id) ON DELETE CASCADE,
+  season_id text NOT NULL CHECK (season_id ~ '^[a-z0-9][a-z0-9-]{1,39}$'),
+  n smallint NOT NULL CHECK (n BETWEEN 1 AND 12),
+  stars smallint NOT NULL CHECK (stars BETWEEN 0 AND 3),
+  score smallint NOT NULL CHECK (score BETWEEN 0 AND 100),
+  served boolean NOT NULL DEFAULT false, rules boolean NOT NULL DEFAULT false, steady boolean NOT NULL DEFAULT false,
+  mastered boolean NOT NULL DEFAULT false, bonus boolean NOT NULL DEFAULT false,
+  clears integer NOT NULL DEFAULT 0 CHECK (clears >= 0),
+  coins smallint NOT NULL DEFAULT 0 CHECK (coins BETWEEN 0 AND 1000),
+  left_secs smallint NOT NULL DEFAULT 0 CHECK (left_secs BETWEEN 0 AND 600),
+  updated_at timestamptz NOT NULL DEFAULT now(),
+  PRIMARY KEY (user_id, season_id, n)
+);
+INSERT INTO ops.control(key, enabled, notice) VALUES ('game_seasons', false, '') ON CONFLICT DO NOTHING;
 CREATE TABLE IF NOT EXISTS game.player_rating (
   user_id text PRIMARY KEY REFERENCES game.profile(user_id) ON DELETE CASCADE,
   rating double precision NOT NULL CHECK (rating BETWEEN 0 AND 4000),
@@ -207,6 +228,7 @@ GRANT SELECT, INSERT, UPDATE ON game.kitchen_best TO quintaste_app;
 GRANT SELECT, INSERT, UPDATE ON game.level_rating TO quintaste_app;
 GRANT SELECT, INSERT, UPDATE ON game.player_rating TO quintaste_app;
 GRANT SELECT, INSERT, UPDATE, DELETE ON game.level_reaction TO quintaste_app;
+GRANT SELECT, INSERT, UPDATE ON game.season_best TO quintaste_app;
 DO $$
 BEGIN
   IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'quintaste_admin') THEN
@@ -214,6 +236,7 @@ BEGIN
     GRANT SELECT ON game.kitchen_best TO quintaste_admin;
     GRANT SELECT ON game.level_rating TO quintaste_admin;
     GRANT SELECT ON game.level_reaction TO quintaste_admin;
+    GRANT SELECT ON game.season_best TO quintaste_admin;
     -- Staff approve or reject pictures and point art keys at approved ones (the Admin picture grid).
     GRANT SELECT, UPDATE ON game.asset TO quintaste_admin;
     GRANT SELECT, INSERT, UPDATE ON game.art TO quintaste_admin;

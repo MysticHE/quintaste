@@ -39,6 +39,8 @@ async function publicGet<T>(path: string, signal?: AbortSignal): Promise<T> {
 }
 export const fetchPublicKitchen = (signal?: AbortSignal) => publicGet<KitchenShelf>("/api/game-public/kitchen", signal);
 export const fetchPublicPack = (hash: string) => publicGet<PackResponse>("/api/game-public/packs/" + encodeURIComponent(hash));
+/** Whether the Seasons shelf is open (staff switch). Anything but a clear yes keeps it closed. */
+export const fetchSeasonsOn = (signal?: AbortSignal) => publicGet<{ on: boolean }>("/api/game-public/seasons", signal);
 /** Recipe levels staff hid, so the phone can drop them from the levels it keeps for offline play. */
 export const fetchRevoked = () => publicGet<{ hashes: string[] }>("/api/game-public/revoked");
 export const finishRun = (id: string, actions: Action[], result: Result) =>

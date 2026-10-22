@@ -259,7 +259,46 @@ Content, not code, sets the pace. Each chapter needs about 10 reviewed staff rec
   - API suites: missions 46, level making 21, pictures 13, level limits (now counting from the real number of levels).
   - The playfield harness at phone width: blend, pour onto the wok, card and chef wording.
   - TypeScript, server typecheck and lint.
-- **Still to build:** member levels (Phase 4), Chapters 4 to 10, seasons, cafés.
+- **Still to build:** member levels (Phase 4), Chapters 4 to 10, more seasons, cafés.
+
+**Review fixes and Phase 3, Seasons (22 October 2026, after commit ee4b433; commit only):**
+- **Review fixes** (`a0cb69e`):
+  - Shapes are checked against real stations.
+  - Kept levels change in one queue.
+  - Kitchen quality counts are two grouped queries, kept a minute.
+  - The own-recipe check uses the recipe's id index.
+  - Made items are cached until a pack adds dishes.
+  - The recipe card counts poured pastes per guest in queue order.
+  - The revocation list holds public levels only, uncapped.
+  - The run index is built `CONCURRENTLY` after the transaction.
+  - A pour feeds only as many guests as both halves were made for, and says so.
+  - The test player prints nothing on the server.
+- **Seasons** (`src/game/content/seasons.ts`):
+  - **Content:** seasons are built-in content (the rules version covers them). Each has featured windows by Singapore date, a community reviewer's sign-off and six levels (`Level.season`).
+  - **Featured, never expiring:** `featuredSeason` picks the one around its festival, shown as "Featured now". Every season stays on the shelf and plays any year: no countdown, no expiry, nothing paid.
+  - **First season, Zhai days:** every order is five pungent-free. Its dishes are fried bee hoon, lo han jai (black fungus or baby corn for Uncle Lim; ginger optional for Asha), mock char siew rice (one char siew sauce hides honey and garlic) and zhai curry.
+  - **Not live yet:** Zhai days has no sign-off yet, so production shows and serves nothing of it. Development builds and servers play it so it can be reviewed. The sign-off goes in `signedOff` in the release that turns it on.
+  - **Test player:** all six levels clear 4 of 4 at 0.7 and 2.2 s per action; at 3.5 s every level but the finale clears.
+- **Server:**
+  - Season runs open behind the new `game_seasons` control (off by default; Admin Features "Seasons").
+  - A season opens after Level 10, and a level needing an unlearned station says where to learn it.
+  - Runs replay by season id and number (`game.run` `season_id`, `season_n`; the run check is now `run_kind`, added `NOT VALID` then validated).
+  - The first clear and Mastered pay once ever (ledger `season_clear` / `season_mastered`, source `season:<id>-<n>`). Replays pay under the daily cap.
+  - Bests go in `game.season_best` and come back in account progress (`GameProgress.seasons`).
+  - A run started before the switch goes off still settles.
+  - Guests keep season bests on the device; they are never imported.
+- **App:**
+  - A Seasons tab on the Rush Hour sheet, shown only when `GET /api/game-public/seasons` says on (fail closed).
+  - Each season shelf has "Featured now", a "Not reviewed" mark in development, and six levels with stars or what to learn first.
+  - Play opens `/game/play?season=…&n=…`, and "Next" moves through the season.
+- **Rewards:** the café skin and decor wait for art. QT Gamer's list for the season's pictures is `ops/qt-team/gamer/concepts-zhai-days.json`.
+- **Checked locally:**
+  - Full validator: all 30 levels, 6 season levels and 1,354 specials at 0.7 and 2.2 s.
+  - Pack checks (now with the review-fix checks).
+  - API suites: seasons 14, missions 46, level making 21, pictures 13, level limits.
+  - TypeScript, server typecheck, lint.
+  - The Seasons tab itself is not checked in a browser or on a device.
+- **Gate to finish Phase 3:** a reviewer's sign-off, the season art, and the live release.
 
 **"Everything covered"** = Chapter 10 shipped, all eight seasons live, cafés open. Phases 1, 2 and 3 can run side by side once Phase 0 is done.
 

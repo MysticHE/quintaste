@@ -52,6 +52,8 @@ export type Level = {
   special?: { day: string; dish: string; lunar: string | null; top: number };
   /** A Recipe Kitchen mission (src/game/mission.ts): the level pack's hash and the tier, for the run and its server replay. */
   mission?: { pack: string; tier: "learn" | "service" | "memory" };
+  /** A season level (content/seasons.ts): the season and its number, 1–6; `n` then only sets the timing rules. */
+  season?: { id: string; n: number };
   /** A Gather round before the first guest (Recipe Kitchen From memory): each `need` group is one ingredient the recipe needs (any
    *  item in the group fills it); `decoys` are look-alikes on the same shelf that the basket refuses. The clock runs while gathering. */
   gather?: { need: string[][]; decoys: string[] };
@@ -133,8 +135,12 @@ export const TIER_NAMES = { learn: "Learn", service: "Service", memory: "From me
 /** How the playfield names a service: its level number, Today's special, or the Recipe Kitchen tier. */
 /** What "Next" leads to after a clear: the next level, the next Recipe Kitchen tier, or nothing (Today's special, the last level). */
 export const nextService = (level: Level): string | null => level.special ? null
+  : level.season ? (level.season.n < SEASON_LEVELS ? "Level " + (level.season.n + 1) : null)
   : level.mission ? ({ learn: TIER_NAMES.service, service: TIER_NAMES.memory, memory: null } as const)[level.mission.tier]
   : level.n < LEVELS.length ? "Level " + (level.n + 1) : null;
-export const levelTitle = (level: Level) => level.special ? "Today's special" : level.mission ? "Recipe Kitchen · " + TIER_NAMES[level.mission.tier] : "Level " + level.n;
+export const levelTitle = (level: Level) => level.special ? "Today's special" : level.mission ? "Recipe Kitchen · " + TIER_NAMES[level.mission.tier]
+  : level.season ? "Season · Level " + level.season.n : "Level " + level.n;
+/** Levels in every season (GAME_CONTENT_PLAN §6). */
+export const SEASON_LEVELS = 6;
 /** Dishes a level needs, for the brief and the book. */
 export const levelDishes = (level: Level) => [...new Set(level.orders.map(x => x.dish).filter(d => d !== "*"))].map(id => DISHES[id]);

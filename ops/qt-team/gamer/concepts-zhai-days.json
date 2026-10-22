@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "note": "Rush Hour season Zhai days (GAME_CONTENT_PLAN §6), 22 Oct 2026. Played as Sketch cards until approved and imported with scripts/import-game-art.py. No Buddha images, temples or religious objects anywhere; fictional labels only.",
+  "assets": [
+    { "id": "dish-buddhas-delight", "kind": "dish", "chroma": "magenta", "subject": "lo han jai (Buddha's delight) in a bowl", "details": "Braised napa cabbage, baby corn, black fungus, carrot slices and golden tofu skin in a light glossy sauce. No meat, no egg, no garlic or onion.", "status": "todo" },
+    { "id": "dish-mock-char-siew-rice", "kind": "dish", "chroma": "cyan", "subject": "vegetarian char siew rice on a plate", "details": "Slices of glossy red-edged mock char siew (wheat gluten) on white rice with cucumber slices. No meat.", "status": "todo" },
+    { "id": "dish-zhai-curry", "kind": "dish", "chroma": "magenta", "subject": "zhai vegetable curry in a bowl", "details": "Golden coconut curry with potato chunks, long beans and tofu puffs. No meat, no onion, no garlic.", "status": "todo" },
+    { "id": "black-fungus", "kind": "ingredient", "chroma": "magenta", "subject": "a few pieces of soaked black fungus (wood ear)", "details": "Glossy dark brown-black ruffled pieces.", "status": "todo" },
+    { "id": "baby-corn", "kind": "ingredient", "chroma": "magenta", "subject": "three baby corn cobs", "details": "Small pale yellow cobs with neat kernels.", "status": "todo" },
+    { "id": "tofu-skin", "kind": "ingredient", "chroma": "magenta", "subject": "a folded sheet of dried tofu skin", "details": "Wrinkled golden-cream sheet folded loosely.", "status": "todo" },
+    { "id": "long-beans", "kind": "ingredient", "chroma": "magenta", "subject": "a small bundle of long beans", "details": "Slender bright green beans tied in a loose bundle.", "status": "todo" },
+    { "id": "mock-char-siew", "kind": "packaged", "chroma": "cyan", "subject": "a pack of vegetarian char siew", "details": "Clear tray of red-edged sliced wheat-gluten char siew with a label reading 'Vegetarian char siew'.", "status": "todo" },
+    { "id": "curry-powder", "kind": "packaged", "chroma": "magenta", "subject": "a small tin of curry powder", "details": "Open tin of golden-orange curry powder with a plain label reading 'Curry powder'.", "status": "todo" },
+    { "id": "char-siew-sauce", "kind": "packaged", "chroma": "cyan", "subject": "a bottle of char siew sauce", "details": "Glass bottle of dark red glossy sauce with a plain label reading 'Char siew sauce'. Both look-alike bottles share this picture.", "status": "todo" }
+  ]
+}

@@ -11,16 +11,18 @@ const SLOT_FITS = { ceiling: 'hanging', wall: 'wall', floorL: 'floor', floorR: '
 const IMPORT_REPLAYS = 5;
 
 export async function loadProgress(db, sim, userId) {
-  const [profile, bests, owned, lotus] = await Promise.all([
+  const [profile, bests, owned, lotus, seasonBests] = await Promise.all([
     db.query('SELECT credits, cafe, imported_at FROM game.profile WHERE user_id=$1', [userId]),
     db.query('SELECT level, stars, score, served, rules, steady, mastered, clears, bonus, coins, left_secs AS "left" FROM game.level_best WHERE user_id=$1', [userId]),
     db.query("SELECT item FROM game.owned WHERE user_id=$1 AND item LIKE 'decor:%'", [userId]),
     db.query('SELECT tier FROM lotus.account WHERE user_id=$1', [userId]),
+    db.query('SELECT season_id, n, stars, score, served, rules, steady, mastered, clears, bonus, coins, left_secs AS "left" FROM game.season_best WHERE user_id=$1', [userId]),
   ]);
   const row = profile.rows[0];
   const best = Object.fromEntries(bests.rows.map(({ level, ...b }) => [String(level), b]));
+  const seasons = Object.fromEntries(seasonBests.rows.map(({ season_id, n, ...b }) => [season_id + '-' + n, b]));
   const tier = lotus.rows[0]?.tier ?? null;
-  const game = { ...sim.readGame({ ...(row?.cafe ?? {}), best, credits: row?.credits ?? 0, owned: owned.rows.map(o => o.item.slice(6)) }), tier };
+  const game = { ...sim.readGame({ ...(row?.cafe ?? {}), best, seasons, credits: row?.credits ?? 0, owned: owned.rows.map(o => o.item.slice(6)) }), tier };
   return { game: cleanCafe(sim, game), imported: !!row?.imported_at };
 }
 

@@ -155,6 +155,27 @@ export const DISHES: Record<string, Dish> = Object.fromEntries(([
         { slots: [slot("sweet", "Palm sugar", ["gula-melaka", "brown-sugar"]), slot("basil", "Thai basil", ["thai-basil"], true)], secs: 2, hint: "palm sugar", band: [0.25, 0.5] }] },
     ],
   }),
+  // Zhai days season (content/seasons.ts): every order is five pungent-free; zhai bee hoon is the bee hoon above with ginger.
+  one("buddhas-delight", "Lo han jai", "dish-buddhas-delight", "pan", [
+    { slots: [slot("aroma", "Ginger", ["ginger"], true), slot("sauce", "Fermented beancurd", ["fu-ru"])], secs: 3, hint: "fermented beancurd" },
+    { slots: [slot("veg", "Cabbage", ["cabbage"]), slot("crunch", "Black fungus or baby corn", ["black-fungus", "baby-corn"])], secs: 4, hint: "cabbage and something crunchy" },
+    { slots: [slot("skin", "Tofu skin", ["tofu-skin"]), slot("season", "Soy", ["soy"])], secs: 3, hint: "tofu skin and soy" },
+  ], "Lo han jai braises hard vegetables first and tofu skin last. Ginger is optional, so a Jain guest can have it."),
+  dish({
+    id: "mock-char-siew-rice", name: "Mock char siew rice", art: "dish-mock-char-siew-rice",
+    remember: "Many char siew sauces contain honey and garlic. Read the label for a vegan or five pungent-free order.",
+    parts: [
+      { id: "plain-rice", name: "Rice", station: "rice", stages: [{ slots: [slot("rice", "Rice", ["rice"])], secs: 10, hint: "rice" }] },
+      { id: "mock-char-siew", name: "Mock char siew", station: "pan", stages: [
+        { slots: [slot("gluten", "Mock char siew", ["mock-char-siew"]), slot("oil", "Oil", ["cooking-oil"])], secs: 3, hint: "mock char siew and oil" },
+        { slots: [slot("sauce", "Char siew sauce", ["char-siew-sauce-a", "char-siew-sauce-b"]), slot("green", "Cucumber", ["cucumber"], true)], secs: 3, hint: "char siew sauce", scorchSecs: 1.5 }] },
+    ],
+  }),
+  one("zhai-curry", "Zhai curry", "dish-zhai-curry", "pot", [
+    { slots: [slot("spice", "Curry powder", ["curry-powder"]), slot("oil", "Oil", ["cooking-oil"])], secs: 3, hint: "curry powder and oil", band: [0.45, 0.72] },
+    { slots: [slot("veg", "Potato", ["potato"]), slot("beans", "Long beans", ["long-beans"])], secs: 5, hint: "potato and long beans", band: [0.3, 0.55] },
+    { slots: [slot("cream", "Coconut milk", ["coconut-milk"]), slot("tofu", "Tofu puffs", ["tofu"])], secs: 3, hint: "coconut milk and tofu puffs", band: [0.25, 0.48], splitIfHot: ["coconut-milk"] },
+  ], "Zhai curry gets its depth from curry powder and coconut, with no onion or garlic. Potato is a root, so a Jain guest has another dish."),
   one("sago", "Sago gula melaka", "dish-sago", "dessert", [
     { slots: [slot("sago", "Sago", ["sago"])], secs: 5, hint: "sago pearls" },
     { slots: [slot("syrup", "Gula melaka", ["gula-melaka"]), slot("cream", "Coconut milk", ["coconut-milk"])], secs: 3, hint: "gula melaka and coconut milk", scorchSecs: 1, splitIfHot: ["coconut-milk"] },

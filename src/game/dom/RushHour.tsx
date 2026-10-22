@@ -27,7 +27,8 @@ import { usePlayfield, type PlayfieldInput } from "./usePlayfield";
 import { useServiceEvents } from "./useServiceEvents";
 
 /** What the native screen needs to save a run: the setup and input log let the server replay it (sim/replay.ts). */
-export type RunInfo = { id: string; level: number; special: string | null; top: number | null; hints: Level["hints"]; pet: string; signature: string[]; pack: string | null; tier: Tier | null; pace: PlaySettings["pace"] };
+export type RunInfo = { id: string; level: number; special: string | null; top: number | null; hints: Level["hints"]; pet: string; signature: string[]; pack: string | null; tier: Tier | null;
+  season: { id: string; n: number } | null; pace: PlaySettings["pace"] };
 export type FinishPayload = RunInfo & { result: sim.Result; actions: sim.Action[] };
 export type BridgeKind = "cook" | "nearby";
 type Props = {
@@ -122,7 +123,7 @@ export default function RushHour(props: Props) {
     if (r.level.mission && r.started) void latest.current.onFinish({ ...info(r), result: sim.results(r), actions: r.actions }).catch(() => {});
   }
   const info = (r: sim.Run): RunInfo => ({ id: runId.current, level: r.level.n, special: r.level.special?.day ?? null, top: r.level.special?.top ?? null, hints: r.level.hints, pet: r.pet,
-    signature: r.level.signature ? signature ?? [] : [], pack: r.level.mission?.pack ?? null, tier: r.level.mission?.tier ?? null, pace: settings.pace });
+    signature: r.level.signature ? signature ?? [] : [], pack: r.level.mission?.pack ?? null, tier: r.level.mission?.tier ?? null, season: r.level.season ?? null, pace: settings.pace });
   function doPause(on: boolean) { const r = runRef.current; if (!r.started || r.ended) return; sim.pause(r, on); setPaused(on); fx.audio.pause(on); bump(); }
   const exit = (to: "cafe" | "next" | "again") => latest.current.onExit(to);
 

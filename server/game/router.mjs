@@ -6,6 +6,7 @@ import { loadSim } from './sim.mjs';
 import { lockProfile, postCredits } from './ledger.mjs';
 import { importDevice, loadProgress, saveCafe } from './progress.mjs';
 import { pictureUrl, picturesFor } from './art.mjs';
+import { allowed } from '../operations.mjs';
 
 /**
  * Rush Hour account progress (GAME_PLAN §12.3 and §14 Phase B; PRD QT-055/056), mounted at /api/game behind the `games`
@@ -173,6 +174,10 @@ gamePublic.get('/kitchen', async (_req, res, next) => {
  * The revocation list (GAME_CONTENT_PLAN §8 Offline): levels staff hid. The app drops them from its cache of played levels whenever
  * it is online, so a hidden level can't be played offline either; credited runs of one are already refused here.
  */
+/** Whether the Seasons shelf is open (`game_seasons`). The app shows the shelf only on a clear yes: it fails closed. */
+gamePublic.get('/seasons', async (_req, res, next) => {
+  try { res.set('Cache-Control', 'public, max-age=60').json({ on: await allowed('game_seasons') }); } catch (error) { next(error); }
+});
 gamePublic.get('/revoked', async (_req, res, next) => {
   try {
     // Public levels only: the phone never keeps a private one, and a private level's hash is nobody else's business.
@@ -194,6 +199,7 @@ game.post('/runs', async (req, res) => {
   if (!uuid(body.id)) throw new CommunityError(400, 'Invalid run.');
   if (body.rules !== sim.rulesVersion) throw new CommunityError(409, 'Update QuinTaste to save game progress.', 'GAME_UPDATE');
   if (body.pack != null) return openMission(req, res);
+  if (body.season != null) return openSeason(req, res);
   // Today's special: a Singapore date within a day of now; otherwise a numbered level.
   const day = body.special == null ? null : String(body.special);
   if (day !== null && !nearDays().includes(day)) throw new CommunityError(400, 'Invalid run.');
@@ -253,6 +259,36 @@ async function openMission(req, res) {
   res.json(run);
 }
 
+/**
+ * Opens a season level (GAME_CONTENT_PLAN §6): the `game_seasons` control must be on (fail closed), the season signed off by its
+ * community reviewer (development servers play every season so it can be reviewed), Chapter 1 cleared and the level's stations learned.
+ */
+async function openSeason(req, res) {
+  const { sim, user } = res.locals, body = req.body, S = sim.seasons;
+  const id = typeof body.season?.id === 'string' ? body.season.id : '', n = Number(body.season?.n), season = S.seasonById(id), level = S.seasonLevel(id, n);
+  if (!level || !Number.isInteger(n)) throw new CommunityError(400, 'Invalid run.');
+  if (!season.signedOff && process.env.NODE_ENV === 'production') throw new CommunityError(404, 'That season is unavailable.', 'LEVEL_UNAVAILABLE');
+  if (!await allowed('game_seasons')) throw new CommunityError(409, 'Seasons are closed right now.', 'SEASONS_OFF');
+  const hints = ['full', 'chip', 'none'].includes(body.hints) ? body.hints : null;
+  const pace = ['normal', 'relaxed', 'slow'].includes(body.pace) ? body.pace : null;
+  const pet = typeof body.pet === 'string' && Object.hasOwn(sim.cosmetics.PETS, body.pet) ? body.pet : null;
+  await throttle(`game-run:${user.id}`, 120, 3600);
+  const run = await transaction(async db => {
+    await lockProfile(db, user.id);
+    const existing = (await db.query('SELECT user_id, status FROM game.run WHERE id=$1', [body.id])).rows[0];
+    if (existing) { if (existing.user_id !== user.id) throw new CommunityError(404, 'Invalid run.'); return { id: body.id, status: existing.status }; }
+    const { game: progress } = await loadProgress(db, sim, user.id);
+    if (sim.highestCleared(progress) < S.SEASONS_AFTER_LEVEL) throw new CommunityError(409, `Seasons open after Level ${S.SEASONS_AFTER_LEVEL}.`, 'SEASON_LOCKED');
+    const missing = sim.missingTechnique(progress, level.stations);
+    if (missing) throw new CommunityError(409, missing.level ? `Learn the ${missing.name.toLowerCase()} in Level ${missing.level} first.` : 'Update QuinTaste to play this level.', 'TECHNIQUE_LOCKED');
+    if (!pet || !sim.isUnlocked(progress, sim.cosmetics.PETS[pet].unlock)) throw new CommunityError(409, 'That companion is locked.', 'PET_LOCKED');
+    await db.query(`INSERT INTO game.run(id, user_id, level, mode, pet, signature, rules_version, hints, season_id, season_n, pace) VALUES($1,$2,0,'rush',$3,'{}',$4,$5,$6,$7,$8)`,
+      [body.id, user.id, pet, sim.rulesVersion, hints, id, n, pace]);
+    return { id: body.id, status: 'open' };
+  });
+  res.json(run);
+}
+
 /** The parts of a result kept with a settled run (the full result is rebuilt from its input log when needed). */
 const resultOf = (result, quit = false) => ({ stars: result.stars, score: result.score, cleared: result.cleared, coins: result.coins, left: result.left, bonus: !!result.bonus?.done, stamps: result.stamps,
   ...(quit ? { quit: true } : {}) });
@@ -290,7 +326,8 @@ game.post('/runs/:id/finish', async (req, res) => {
   const mission = run.pack ? await playablePack(pool, sim, run.pack, user.id) : null;
   if (run.pack && !mission) { await refuse(id, user.id, 'level withdrawn', actions); return reply(); }
   // The service's seed comes from the run's id, which the app also used to play it.
-  const setup = { level: run.level, special, mission: run.pack ? { pack: run.pack, tier: run.tier } : null, hints: run.hints, pet: run.pet, signature: run.signature, seed: sim.seedOf(run.id) };
+  const setup = { level: run.level, special, mission: run.pack ? { pack: run.pack, tier: run.tier } : null, season: run.season_id ? { id: run.season_id, n: run.season_n } : null,
+    hints: run.hints, pet: run.pet, signature: run.signature, seed: sim.seedOf(run.id) };
   let replayed;
   try { replayed = sim.replay(setup, actions); }
   catch (error) {
@@ -308,6 +345,7 @@ game.post('/runs/:id/finish', async (req, res) => {
     const { game: progress } = await loadProgress(db, sim, user.id);
     if (special) { await settleSpecial(db, sim, user.id, id, replayed, result, actions); return; }
     if (mission) { await settleMission(db, sim, user.id, id, run, mission.recipeId, replayed, result, actions); return; }
+    if (run.season_id) { await settleSeason(db, sim, user.id, id, run, progress, replayed, result, actions); return; }
     if (!sim.levelOpen(progress, run.level)) {
       await db.query(`UPDATE game.run SET status='rejected', reason='level locked', finished_at=now() WHERE id=$1`, [id]);
       await db.query('INSERT INTO game.run_log(run_id, actions) VALUES($1,$2) ON CONFLICT DO NOTHING', [id, JSON.stringify(actions)]);
@@ -352,6 +390,25 @@ async function settleSpecial(db, sim, me, id, replayed, result, actions) {
   const reward = { credits, first: false, mastered: false, unlocks: [], ...(result.cleared && !paid ? { note: REPLAYS_USED } : {}) };
   await db.query(`UPDATE game.run SET status='settled', finished_at=now(), ticks=$2, credits=$3, result=$4 WHERE id=$1`,
     [id, replayed.ticks, credits, { result: resultOf(result), reward }]);
+  await db.query('INSERT INTO game.run_log(run_id, actions) VALUES($1,$2) ON CONFLICT DO NOTHING', [id, JSON.stringify(actions)]);
+}
+
+/**
+ * A finished season level (GAME_CONTENT_PLAN §6): the same grants as a numbered level, once ever per level (first clear and Mastered,
+ * ledger source season:<id>-<n>), replays under the daily cap, and the best kept per season level. It settles even if seasons were
+ * switched off after it started (no loss).
+ */
+async function settleSeason(db, sim, me, id, run, progress, replayed, result, actions) {
+  const key = run.season_id + '-' + run.season_n, { game: next, reward } = sim.applySeason(progress, key, result), pay = sim.cosmetics.CREDIT_REWARDS;
+  if (result.cleared && reward.first) await postCredits(db, me, pay.firstClear, 'season_clear', 'season:' + key);
+  else if (result.cleared && !await payReplay(db, sim, me, id)) { reward.credits -= pay.replay; reward.note = REPLAYS_USED; }
+  if (reward.mastered) await postCredits(db, me, pay.mastered, 'season_mastered', 'season:' + key);
+  const b = next.seasons[key];
+  await db.query(`INSERT INTO game.season_best(user_id, season_id, n, stars, score, served, rules, steady, mastered, clears, bonus, coins, left_secs) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)
+    ON CONFLICT (user_id, season_id, n) DO UPDATE SET stars=$4, score=$5, served=$6, rules=$7, steady=$8, mastered=$9, clears=$10, bonus=$11, coins=$12, left_secs=$13, updated_at=now()`,
+  [me, run.season_id, run.season_n, b.stars, b.score, b.served, b.rules, b.steady, b.mastered, b.clears, b.bonus, b.coins, b.left]);
+  await db.query(`UPDATE game.run SET status='settled', finished_at=now(), ticks=$2, credits=$3, result=$4 WHERE id=$1`,
+    [id, replayed.ticks, Math.max(0, reward.credits), { result: resultOf(result, replayed.endReason === 'quit'), reward }]);
   await db.query('INSERT INTO game.run_log(run_id, actions) VALUES($1,$2) ON CONFLICT DO NOTHING', [id, JSON.stringify(actions)]);
 }
 

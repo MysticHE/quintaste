@@ -7,6 +7,7 @@ import { STATIONS, type StationKind } from "../content/dishes";
 import { GUESTS, RULES } from "../content/guests";
 import { LEVELS, levelByNumber, type Level } from "../content/levels";
 import { BUILTIN, packByHash } from "../content/pack";
+import { SEASONS, seasonLevel } from "../content/seasons";
 import { missionFor, TIERS, type Tier } from "../mission";
 import { LUNAR_VERSION } from "../../data/lunar";
 import { CREDIT_REWARDS, PETS, SKILLS } from "../content/cosmetics";
@@ -23,6 +24,8 @@ const ENGINE_VERSION = 4;
 export type RunSetup = { level: number; special?: { day: string; top: number } | null; hints?: Level["hints"] | null; pet: string; signature: string[];
   /** A Recipe Kitchen mission: the level pack's hash and the tier (mission.ts). The pack must be registered first. */
   mission?: { pack: string; tier: Tier } | null;
+  /** A season level (content/seasons.ts): the season's id and the level's number, 1–6. */
+  season?: { id: string; n: number } | null;
   /** The service's seed: arrivals, shuffled jars and twists. The app derives it from the run's id (`seedOf`), the server from the stored id. */
   seed: number };
 
@@ -30,6 +33,8 @@ export type RunSetup = { level: number; special?: { day: string; top: number } |
 export type RunStart = { id: string; level: number; special: string | null; top?: number | null; hints: Level["hints"] | null; pet: string; signature: string[];
   /** A Recipe Kitchen mission: the level pack's hash and tier (the server opens it as a pack run). */
   pack?: string | null; tier?: Tier | null;
+  /** A season level: the season's id and number (the server opens it as a season run). */
+  season?: { id: string; n: number } | null;
   /** Play your way pace when the service started; a slower pace still plays and saves, but a Recipe Kitchen run is then not rated. */
   pace?: "normal" | "relaxed" | "slow" | null };
 
@@ -41,6 +46,11 @@ export const progressAt = (top: number): GameProgress => {
 };
 /** The level a setup plays: a numbered level, or the special for its date. Throws ReplayError when it cannot exist. */
 export function setupLevel(setup: RunSetup): Level {
+  if (setup.season) {
+    const level = seasonLevel(String(setup.season.id), Number(setup.season.n));
+    if (!level) throw new ReplayError("unknown season level");
+    return level;
+  }
   if (setup.mission) {
     const pack = packByHash(String(setup.mission.pack));
     if (!pack || !TIERS.includes(setup.mission.tier)) throw new ReplayError("unknown mission");
@@ -66,7 +76,7 @@ export const MAX_ACTIONS = 6000;
 function computeRulesVersion() {
   // The lunar table decides Today's special on lunar days, so an app with an older table must update rather than play a special
   // the server would rebuild differently.
-  const text = JSON.stringify({ e: ENGINE_VERSION, LEVELS, DISHES: BUILTIN.dishes, STATIONS, GUESTS, RULES, ITEMS: BUILTIN.items, PETS, SKILLS, CREDIT_REWARDS, L: LUNAR_VERSION });
+  const text = JSON.stringify({ e: ENGINE_VERSION, LEVELS, DISHES: BUILTIN.dishes, STATIONS, GUESTS, RULES, ITEMS: BUILTIN.items, PETS, SKILLS, CREDIT_REWARDS, L: LUNAR_VERSION, SEASONS });
   let h = 0x811c9dc5;
   for (let i = 0; i < text.length; i++) { h ^= text.charCodeAt(i); h = Math.imul(h, 0x01000193) >>> 0; }
   return h.toString(36);

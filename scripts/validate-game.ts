@@ -4,13 +4,14 @@
  * played on several seeds (arrivals, shuffled jars and twists change with the seed) and the clear rate is reported.
  * Every trace is then replayed the way the server settles it (sim/replay.ts): the replay must reach the same result,
  * and tampered logs (a claimed extra star, inputs out of order, a cut-off log, an input while paused) must be refused.
- * Usage: npx tsx scripts/validate-game.ts [--level N] [--react 0.7] [--seeds 4] [--traces out.json]
+ * Usage: npx tsx scripts/validate-game.ts [--level N] [--season ID] [--react 0.7] [--seeds 4] [--traces out.json]
  * (or without tsx: node --import ./server/game/register-ts.mjs scripts/validate-game.ts ...). --traces writes each
  * level's setup, input log and result, for the API settlement tests. Also plays (and replays) every Today's special the
  * date seed can produce for players at several points on the path.
  */
 import { DISHES } from "../src/game/content/dishes";
 import { LEVELS } from "../src/game/content/levels";
+import { SEASONS } from "../src/game/content/seasons";
 import { writeFileSync } from "node:fs";
 import * as sim from "../src/game/sim/engine";
 import { progressAt, replay, ReplayError, sameResult, type RunSetup } from "../src/game/sim/replay";
@@ -48,12 +49,17 @@ function replayChecks(setup: RunSetup, r: sim.Run, res: sim.Result) {
   return bad;
 }
 
-for (const level of LEVELS) {
-  if ((only && level.n !== only) || specialDay) continue;
+// Numbered levels, then every season's levels (--season id plays one season only; --level then picks its number).
+const seasonOnly = arg("season", "");
+const plays = [...(seasonOnly ? [] : LEVELS.map(level => ({ level, label: "L" + String(level.n).padStart(2) }))),
+  ...SEASONS.filter(s => !seasonOnly || s.id === seasonOnly).flatMap(s => s.levels.map(level => ({ level, label: "S " + s.id + " " + level.season!.n })))];
+for (const { level, label } of plays) {
+  const number = level.season?.n ?? level.n;
+  if ((only && number !== only) || specialDay) continue;
   const sig = level.signature ? ["mapo-tofu", "laksa", "claypot"] : [];
   const rows: string[] = []; let cleared = 0, bonus = 0, minLeft = Infinity, lastBad = "", used = 0;
   for (let seed = 1; seed <= seeds; seed++) {
-    const r = sim.createRun(level.n, "sprout", sig, undefined, seed), unfit = r.guests.filter(g => !sim.dishFeasible(g.dishId, sim.tableRules(r, g), r.flip)).map(g => g.guestId + ":" + g.dishId);
+    const r = sim.createRun(level.season ? level : level.n, "sprout", sig, undefined, seed), unfit = r.guests.filter(g => !sim.dishFeasible(g.dishId, sim.tableRules(r, g), r.flip)).map(g => g.guestId + ":" + g.dishId);
     // A level whose dish no table can eat under this seed's jars cannot be cleared: fail it before playing.
     if (unfit.length) { rows.push("✗unfit"); lastBad = "no dish can suit " + unfit.join(", "); continue; }
     const res = playBot(r, react);
@@ -62,7 +68,7 @@ for (const level of LEVELS) {
       console.log(r.guests.map(g => g.guestId + ":" + g.dishId + ":" + g.order).join(" "), JSON.stringify(r.board));
       console.log(Object.values(r.stations).map(s => s!.kind + ":" + (s!.part ? s!.part.partId + "/" + s!.part.state + "/" + s!.part.stage : "-")).join(" "));
     }
-    const setup: RunSetup = { level: level.n, pet: "sprout", signature: sig, seed };
+    const setup: RunSetup = level.season ? { level: 0, season: level.season, pet: "sprout", signature: sig, seed } : { level: level.n, pet: "sprout", signature: sig, seed };
     const bad = replayChecks(setup, r, res);
     traces.push({ setup, actions: r.actions, result: res, ticks: r.ticks });
     if (res.cleared && res.stamps.rules && !bad.length) { cleared++; used += r.t; if (res.bonus?.done) bonus++; minLeft = Math.min(minLeft, r.timeLeft); }
@@ -72,7 +78,7 @@ for (const level of LEVELS) {
   }
   if (cleared < seeds) failures++;
   const twists = (level.twists ?? []).map(t => t.kind).join("+") || "none";
-  console.log((cleared === seeds ? "PASS" : "FAIL") + " L" + String(level.n).padStart(2) + " " + level.name.padEnd(24) + " clear " + cleared + "/" + seeds + " [" + rows.join(" ") + "]" +
+  console.log((cleared === seeds ? "PASS" : "FAIL") + " " + label + " " + level.name.padEnd(24) + " clear " + cleared + "/" + seeds + " [" + rows.join(" ") + "]" +
     (cleared ? " bonus " + bonus + "/" + cleared + " min " + minLeft.toFixed(0) + "s left, used " + (used / cleared).toFixed(0) + "s of " + level.round : "") + " twists " + twists + (lastBad ? "  last fail: " + lastBad : ""));
 }
 // Mechanics that the level playthroughs only touch indirectly.

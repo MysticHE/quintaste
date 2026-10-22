@@ -56,7 +56,8 @@ export const cafeOf = (g: GameProgress) => Object.fromEntries(CAFE_KEYS.map(k =>
  */
 export function reconcile(server: GameProgress, local: GameProgress, pending: PendingRun[], keepLocalCafe: boolean): GameProgress {
   // Play your way settings are per device and never on the server, so the device's own always win.
-  let game: GameProgress = { ...server, ...(keepLocalCafe ? cafeOf(local) : {}), tier: local.tier, settings: local.settings };
+  // A server older than this app sends no season bests; the account then simply has none yet.
+  let game: GameProgress = { ...server, seasons: server.seasons ?? {}, ...(keepLocalCafe ? cafeOf(local) : {}), tier: local.tier, settings: local.settings };
   for (const run of pending) game = applyRun(game, run.setup, run.result).game;
   return game;
 }
