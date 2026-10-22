@@ -916,6 +916,7 @@ def validate_stored_event(record):
 EVENT_DISCOVERY_EVERY = dt.timedelta(0)  # discover every round in the window (owner, 18 Oct 2026)
 KITCHEN_ROLES = ('qt-cooker', 'qt-event')  # take turns with Explorer: at most every other round (owner, 20 Oct 2026)
 ROUND_RESERVE = 1500  # seconds kept after Explorer for Manager review, photos and publication
+EVENT_SECONDS = 1500  # Event rechecks upcoming and held events before discovering: 10-15 minutes, and one round lost all at 16.5 (22 Oct 2026)
 CAPTURE_ALLOWANCE = 300  # outlet browser capture before an Explorer worker
 ROLE_FAILURE_STREAK = 3
 MIN_EXPLORER_SECONDS = 600  # an 80-dish audit cannot finish in less; also one Mixed Kitchen worker (5 places)
@@ -1329,7 +1330,7 @@ class Round:
             except Exception as exc:  # the live list is optional context; never cost Event its round
                 refresh = []
                 self.note("qt-event", "Published-event refresh list unavailable: " + type(exc).__name__)
-            packet = worker("qt-event", {"mode": "discover" if self.trial or discovery_due else "recheck-upcoming", "upcoming": upcoming, "refreshPublished": refresh, "incompleteSavedEvents": incomplete_events, "heldRetries": held_retries, "recentHeldLeads": recent_event_holds({r["id"] for r in upcoming}), "seedOrganisers": ["Tzu Chi Foundation Singapore", "Tzu Chi Humanistic Youth Centre", "Vegetarian Society Singapore", "Animal Allies Singapore", "Kampung Senang"], "searchScope": "Any upcoming Singapore event centred on vegetarian or vegan food: cooking classes, food fairs and markets where all food is vegetarian, community meals, temple or community vegetarian festivals, plant-based workshops where food is cooked or served. Not general celebrations where vegetarian is one meal option, and not talks without food. Seed organisers are starting points, not limits.", "sourceSeeds": ["https://www.tzuchi.org.sg/en/", "https://www.tzuchi.org.sg/en/events/"]}, self.folder / "event", self.policy)
+            packet = worker("qt-event", {"mode": "discover" if self.trial or discovery_due else "recheck-upcoming", "upcoming": upcoming, "refreshPublished": refresh, "incompleteSavedEvents": incomplete_events, "heldRetries": held_retries, "recentHeldLeads": recent_event_holds({r["id"] for r in upcoming}), "seedOrganisers": ["Tzu Chi Foundation Singapore", "Tzu Chi Humanistic Youth Centre", "Vegetarian Society Singapore", "Animal Allies Singapore", "Kampung Senang"], "searchScope": "Any upcoming Singapore event centred on vegetarian or vegan food: cooking classes, food fairs and markets where all food is vegetarian, community meals, temple or community vegetarian festivals, plant-based workshops where food is cooked or served. Not general celebrations where vegetarian is one meal option, and not talks without food. Seed organisers are starting points, not limits.", "sourceSeeds": ["https://www.tzuchi.org.sg/en/", "https://www.tzuchi.org.sg/en/events/"]}, self.folder / "event", dict(self.policy, workerSeconds=max(self.policy.get("workerSeconds", 0), EVENT_SECONDS)))
             learning.note_retry(ROOT, [r for r in held_retries if r['id'] in {x['id'] for x in packet['records']}])
             self.succeeded("qt-event")
             returned = {r["id"]: r for r in packet["records"]}

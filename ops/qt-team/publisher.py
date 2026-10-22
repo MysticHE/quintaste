@@ -121,16 +121,20 @@ def integral(v):
 # unless a plant word comes right before them (coconut milk, almond milk). Keep both lists identical to that file.
 PLANT_WORDS = 'coconut|oat|soy|soya|almond|rice|cashew|peanut|plant-based|vegan|nut|cocoa|shea'
 DAIRY_WORDS = r'milk|butter|cream(?!\s+of\s+tartar)|cheese|yogh?urt|ghee|paneer|whey|casein|creamer|brioche'
-PLANT_DAIRY = re.compile(r'\b(?:' + PLANT_WORDS + r')\s(?:' + DAIRY_WORDS + r')\b', re.ASCII)
+PLANT_DAIRY = re.compile(r'\b(' + PLANT_WORDS + r')\s(?:' + DAIRY_WORDS + r')\b', re.ASCII)
 
 
 def diet_names(ingredients):
-    """Ingredient names joined for the diet word rules, with plant milks taken out."""
-    return PLANT_DAIRY.sub(' ', ' '.join(str(i.get('name', '')).lower() for i in ingredients))
+    """Ingredient names joined for the diet word rules. A plant milk loses only its dairy word: almond milk still holds
+    tree nuts (22 Oct 2026: golden milk went to review without its Tree nuts tag)."""
+    return PLANT_DAIRY.sub(r'\1', ' '.join(str(i.get('name', '')).lower() for i in ingredients))
 
 
 SERVER_TAGS = ((r'\beggs?\b', 'Eggs'), (r'\b(' + DAIRY_WORDS + r')\b', 'Dairy'), (r'\bhoney\b', 'Honey'),
                (r'\bgarlic\b', 'Garlic'), (r'\bonions?\b', 'Onion'), (r'\bsoy sauce|\bwheat\b', 'Gluten'))
+# Allergen tags the app finds in ingredient names (server/diet-labels.mjs TAGS) but the server does not require: QT Manager
+# holds a recipe whose almond milk is not tagged Tree nuts (22 Oct 2026, golden milk).
+NUT_TAGS = ((r'\bpeanuts?\b', 'Peanuts'), (r'\b(almonds?|cashews?|walnuts?|pecans?|pistachios?|hazelnuts?|macadamias?)\b', 'Tree nuts'))
 EVENT_FIELDS = ('id','title','organiser','startsAt','endsAt','location','address','feeAmount','currency','feeNote','registrationUrl',
                 'registrationDeadline','dietEvidence','status','checkedAt','sources')  # server/editorial/validation.mjs validateEvent
 BATCH_ASSETS = 10  # server: batch.assets.length <= MAX_ASSETS (a cover and up to 8 step photos, 22 Oct 2026)
@@ -224,7 +228,7 @@ def recipe_contains(r):
     aliases = {'egg': 'Eggs', 'eggs': 'Eggs', 'dairy': 'Dairy', 'honey': 'Honey', 'gluten': 'Gluten', 'wheat': 'Gluten', 'garlic': 'Garlic', 'onion': 'Onion', 'peanuts': 'Peanuts', 'tree nuts': 'Tree nuts', 'mushrooms': 'Mushrooms'}
     contains = {aliases[t.lower()] for t in r.get('contains', []) if isinstance(t, str) and t.lower() in aliases}
     names = diet_names(r.get('ingredients', []))
-    for pattern, tag in SERVER_TAGS:
+    for pattern, tag in SERVER_TAGS + NUT_TAGS:
         if re.search(pattern, names, re.ASCII): contains.add(tag)
     return sorted(contains)
 

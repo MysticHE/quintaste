@@ -294,7 +294,8 @@ class Publishing(unittest.TestCase):
         # 22 Oct: golden milk's coconut and almond milk read as dairy, so its vegan claim was refused.
         plant=dict(ok,ingredients=[{'id':'coconut-milk','name':'light coconut milk','unit':'ml'},{'id':'almond-milk','name':'unsweetened almond milk','unit':'ml'}])
         self.assertIsNone(p.server_recipe_problem(plant))
-        self.assertEqual(p.recipe_contains({'ingredients':plant['ingredients']}),[])
+        self.assertEqual(p.recipe_contains({'ingredients':plant['ingredients']}),['Tree nuts'])  # almond milk is not dairy, but is a tree nut
+        self.assertEqual(p.recipe_contains({'ingredients':[{'name':'peanut butter'}]}),['Peanuts'])
         self.assertEqual(p.recipe_contains({'ingredients':[{'name':'coconut milk'},{'name':'milk'}]}),['Dairy'])
         self.assertEqual(p.recipe_contains({'ingredients':[{'name':'ghee'}]}),['Dairy'])  # the app's fuller dairy list
         self.assertEqual(p.recipe_contains({'ingredients':[{'name':'cream of tartar'}]}),[])
