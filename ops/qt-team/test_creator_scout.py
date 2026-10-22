@@ -164,6 +164,35 @@ class CreatorScoutTests(unittest.TestCase):
         self.assertIsNone(cs.sendable({'name': '素食小厨房', 'website': None, 'channels': [{'platform': 'youtube', 'handle': '@s', 'url': 'https://www.youtube.com/@s'}]}))
         self.assertIsNone(cs.sendable({'name': 'No Links', 'website': 'http://insecure.example', 'channels': []}))
 
+    def test_no_duplicates_across_sources_or_against_the_library(self):
+        # 22 Oct 2026: "ChefDave VeganJourney" (YouTube) and Chef Dave's website were added as two creators.
+        web = {'name': "Kalidevan Murugaya (Chef Dave's Vegan Journey)", 'website': 'https://chefdaveveganjourney.com/', 'region': 'asia',
+               'country': 'MY', 'diets': ['vegan'], 'channels': []}
+        tube = cs.youtube_channel(channel_item('UC5', 'ChefDave VeganJourney', 'Vegan recipes', country=None, custom='@chefdaveveganjourney'))
+        merged = cs.merge_found([tube, web])
+        self.assertEqual(len(merged), 1)
+        self.assertEqual((merged[0]['website'], [c['platform'] for c in merged[0]['channels']]), ('https://chefdaveveganjourney.com/', ['youtube']))
+        self.assertEqual(merged[0]['region'], 'asia')
+        linked = cs.youtube_channel(channel_item('UC6', 'Lotus TV', 'Vegan recipes. Full recipes: https://lotuskitchen.sg/recipes', custom='@lotustv'))
+        site = {'name': 'Lotus Kitchen', 'website': 'https://lotuskitchen.sg', 'region': 'singapore', 'diets': ['vegetarian'], 'channels': []}
+        self.assertEqual(len(cs.merge_found([linked, site])), 1)  # a channel that links the site is the same creator
+        other = cs.youtube_channel(channel_item('UC7', 'Jain Recipes', 'Jain recipes', custom='@jainrecipes123'))
+        self.assertEqual(len(cs.merge_found([other, cs.youtube_channel(channel_item('UC8', 'My Jain Recipes', 'Jain recipes', custom='@myjainrecipes'))])), 2)
+        # against the library: the channel of a known creator is sent with that creator's website, so the app attaches it
+        library = {'creators': [{'id': 'kalidevan', 'name': 'Kalidevan Murugaya', 'website': 'https://chefdaveveganjourney.com/',
+                                 'channels': [{'platform': 'website', 'url': 'https://chefdaveveganjourney.com/'}]}]}
+        def get(path, params, key):
+            return {'items': [{'id': {'channelId': 'UC5'}}]} if path == 'search' else \
+                {'items': [channel_item('UC5', 'ChefDave VeganJourney', 'Vegan recipes', country=None, custom='@chefdaveveganjourney')]}
+        found = cs.youtube_creators('k', cs.known_keys(library), get)
+        self.assertEqual(found[0]['website'], 'https://chefdaveveganjourney.com/')
+        self.assertNotIn('_links', cs.sendable(found[0]))
+        # the other way round: a YouTube-only library creator found again through its website carries its known channel
+        youtube_only = {'creators': [{'id': 'chefdave', 'name': 'ChefDave VeganJourney', 'website': None, 'channels': [
+            {'platform': 'youtube', 'handle': '@chefdaveveganjourney', 'url': 'https://www.youtube.com/@chefdaveveganjourney'}]}]}
+        sent = cs.attach_known_channel(dict(web, channels=[]), cs.known_keys(youtube_only))
+        self.assertEqual([c['url'] for c in sent['channels']], ['https://www.youtube.com/@chefdaveveganjourney'])
+
     def test_due_weekly_and_retries_the_next_day(self):
         now = time.time()
         self.assertTrue(cs.due({}, now))

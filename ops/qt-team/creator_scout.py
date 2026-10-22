@@ -147,8 +147,9 @@ def youtube_channel(item):
     country = snippet.get('country') if re.fullmatch(r'[A-Z]{2}', str(snippet.get('country') or '')) else None
     number = lambda v: int(v) if str(v or '').isdigit() else None
     language = str(snippet.get('defaultLanguage') or '')[:2].lower()
+    links = re.findall(r'https?://[^\s<>"\')]+', str(snippet.get('description') or ''))[:20]
     return {'name': title, 'kind': 'person', 'country': country, 'region': region_for(country), 'languages': [language] if language else [],
-            'diets': diets, 'cuisines': [], 'website': None, 'note': 'Found by the creator scout on YouTube.',
+            'diets': diets, 'cuisines': [], 'website': None, 'note': 'Found by the creator scout on YouTube.', '_links': links,
             'channels': [{'platform': 'youtube', 'handle': custom or item['id'], 'url': url,
                           'followers': None if stats.get('hiddenSubscriberCount') else number(stats.get('subscriberCount')),
                           'posts': number(stats.get('videoCount')), 'evidenceUrl': url}]}
@@ -164,8 +165,12 @@ def youtube_creators(key, known, get=youtube_get):
     for i in range(0, len(ids), 50):
         for item in get('channels', {'part': 'snippet,statistics', 'id': ','.join(ids[i:i + 50])}, key).get('items', []):
             creator = youtube_channel(item)
-            if creator and not is_known(creator, known):
-                found.append(creator)
+            if not creator or is_known(creator, known):
+                continue
+            # the channel of a creator already in the library (its handle is the creator's site name, or it links the site): sent with
+            # that website, so the app adds the channel to that creator instead of creating a second one (Chef Dave, 22 Oct 2026)
+            creator['website'] = creator['website'] or owner_site(creator, known)
+            found.append(creator)
     return found
 
 
@@ -300,12 +305,85 @@ def web_creator(root, raw):
 
 # --- The weekly run ---------------------------------------------------------------------------------------------------------------
 
+def core(text):
+    """Lowercase letters and digits only: '@ChefDaveVeganJourney' and 'chefdaveveganjourney.com' share 'chefdaveveganjourney'."""
+    return re.sub(r'[^a-z0-9]', '', str(text or '').lower())
+
+
+def site_label(url):
+    """The site's name without www and the domain ending: 'https://www.chefdaveveganjourney.com/' gives 'chefdaveveganjourney'."""
+    host = (urllib.parse.urlsplit(str(url or '')).hostname or '').lower().removeprefix('www.')
+    return core(host.split('.')[0]) if '.' in host else ''
+
+
+def handles(creator):
+    return {core(ch.get('handle') or link_key(ch.get('url')).split('/')[-1]) for ch in creator.get('channels', [])
+            if ch.get('platform') not in ('website', 'other')} - {''}
+
+
 def known_keys(library):
-    names, links = set(), set()
+    names, links, labels, social = set(), set(), {}, {}
     for c in library.get('creators', []):
         names.add(str(c.get('name', '')).strip().lower())
         links.update(link_key(u) for u in [c.get('website')] + [ch.get('url') for ch in c.get('channels', [])] if u)
-    return {'names': names, 'links': links, 'hosts': {k.split('/')[0] for k in links if '/' not in k}}
+        for url in [c.get('website')] + [ch.get('url') for ch in c.get('channels', []) if ch.get('platform') == 'website']:
+            if url and len(site_label(url)) >= 5:
+                labels.setdefault(site_label(url), url)
+        for ch in c.get('channels', []):
+            handle = handles({'channels': [ch]})
+            if handle and len(next(iter(handle))) >= 5:
+                social.setdefault(next(iter(handle)), ch)
+    return {'names': names, 'links': links, 'hosts': {k.split('/')[0] for k in links if '/' not in k}, 'labels': labels, 'social': social}
+
+
+def attach_known_channel(creator, known):
+    """A web find whose site name is the handle of a library channel (a YouTube-only creator found again through its website) carries
+    that channel, so the app matches it to that creator instead of adding a second one."""
+    channel = known.get('social', {}).get(site_label(creator.get('website')))
+    if channel and link_key(channel['url']) not in {link_key(ch['url']) for ch in creator['channels']}:
+        creator['channels'].append({'platform': channel['platform'], 'handle': channel.get('handle') or '', 'url': channel['url'],
+                                    'followers': None, 'posts': None, 'evidenceUrl': None})
+    return creator
+
+
+def owner_site(creator, known):
+    """The website of the library creator this find belongs to (a handle equal to the site's name, or a link to the site), or None."""
+    for handle in handles(creator):
+        if handle in known.get('labels', {}):
+            return known['labels'][handle]
+    for url in creator.get('_links', []):
+        if site_label(url) in known.get('labels', {}) and link_key(url).split('/')[0] in known['hosts']:
+            return known['labels'][site_label(url)]
+    return None
+
+
+def same_creator(a, b):
+    """Two finds of the same week that are one creator: a shared link, a handle equal to the other's site name, or a link to it."""
+    links = lambda c: {link_key(u) for u in [c.get('website')] + [ch['url'] for ch in c['channels']] if u}
+    if links(a) & links(b):
+        return True
+    for x, y in ((a, b), (b, a)):
+        label = site_label(y.get('website'))
+        if len(label) >= 5 and (label in handles(x) or any(site_label(u) == label for u in x.get('_links', []))):
+            return True
+    return False
+
+
+def merge_found(found):
+    """One entry per creator: same-creator finds are merged (the one with a website first; channels, diets and links combined)."""
+    merged = []
+    for creator in sorted(found, key=lambda c: not c.get('website')):
+        twin = next((m for m in merged if same_creator(m, creator)), None)
+        if twin is None:
+            merged.append(creator)
+            continue
+        seen = {link_key(ch['url']) for ch in twin['channels']}
+        twin['channels'] += [ch for ch in creator['channels'] if link_key(ch['url']) not in seen]
+        twin['diets'] = list(dict.fromkeys(twin['diets'] + creator['diets']))
+        twin['_links'] = twin.get('_links', []) + creator.get('_links', [])
+        if twin['region'] == 'world' and creator['region'] != 'world':
+            twin['region'], twin['country'] = creator['region'], twin.get('country') or creator.get('country')
+    return merged
 
 
 def is_known(creator, known):
@@ -336,7 +414,7 @@ def sendable(creator):
     website = creator.get('website') if str(creator.get('website') or '').startswith('https://') and len(creator['website']) <= 300 else None
     if len(slug(creator['name'])) < 3 or not (website or channels):
         return None
-    return {**creator, 'website': website, 'channels': channels}
+    return {**{k: v for k, v in creator.items() if not k.startswith('_')}, 'website': website, 'channels': channels}
 
 
 def run(root, state, folder, policy, client=None, **seams):
@@ -366,6 +444,7 @@ def run(root, state, folder, policy, client=None, **seams):
             notes.append('YouTube: ' + str(exc)[:160])
     else:
         notes.append('no YouTube key installed')
+    found = [attach_known_channel(c, known) for c in merge_found(found)]
     found.sort(key=lambda c: ['singapore', 'asia', 'world'].index(c['region']))
     import importlib.util
     if 'instagram_profile' in seams or importlib.util.find_spec('instaloader'):
