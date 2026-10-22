@@ -63,7 +63,7 @@ recipe revision ─► 1 Compile (code) ─► 2 Shape (AI, one call) ─► 3 C
 ```
 
 1. **Compile (code, free).** Recipes are already structured: ingredients with ids and steps that list their `ingredientIds` and timers. Code maps ingredient names to game items (the 78-item table plus aliases), drops steps with no ingredients (washing, chopping), and guesses each step's station from its verbs and the recipe category.
-2. **Shape (AI).** One Gemini call with a fixed JSON schema turns that draft into 2–4 stages of 1–3 slots, picks stations and heat bands, and writes short hints and the one thing to remember.
+2. **Shape (QT bots).** QT Gamer (the `qt-gamer` Hermes profile, `gpt-6.1-sol` on the team's ChatGPT plan, owner 22 Oct: never Gemini) turns that draft into up to four stages of 1–3 ingredients per station with a fixed JSON schema, and writes short hints and the one thing to remember. It runs with no tools: `ops/qt-team/game_level_bridge.py` claims the draft over signed routes (`/api/game-levels/bot/*`, `server/game/levels-bot.mjs`) and posts back one JSON shape; an answer that used a tool is refused. Heat bands and timing stay the code's.
 3. **Check (code).** The same rules the built-in dishes pass (`dishFeasible` and the test player in `scripts/validate-game.ts` and `game-bot.ts`), run on the server for every new level. The server image copies only `src/game`, so Phase 0 moves the check and the test player into `src/game`; the test player learns each new technique as it ships. A level that fails is never published.
 
 | AI may | AI may not |
@@ -76,7 +76,7 @@ recipe revision ─► 1 Compile (code) ─► 2 Shape (AI, one call) ─► 3 C
 
 **Checks:** valid shape; every slot item exists; every essential ingredient appears; 2–4 stages; the level never accepts an item that breaks the recipe's own diet label, except as a refused look-alike; a guest with a rule only orders the dish when the simulation proves a suitable path; an ingredient with unknown tags (a generic card) keeps the dish away from guests with rules, matching the app rule that a check that cannot be proven shows nothing; a test player clears it at 2.2 s per action; text checks.
 
-**Failure is shown, never hidden** (owner rule, no silent fallback): "Couldn't make a level from this recipe", with a reason such as "Needs an oven". Try again once does not count against the limit. One engine (Gemini, as deployed); no automatic switch to another.
+**Failure is shown, never hidden** (owner rule, no silent fallback): "Couldn't make a level from this recipe", with a reason such as "Needs an oven". A shape that fails the checks goes back to QT Gamer once with the reason, then the job fails. A claim with no answer in 30 minutes goes back in line (three claims at most), and work nobody picks up in six hours fails with "check that the level bridge is running". One engine, the QT bots; no automatic switch to another.
 
 ## 7. Handling 1,000+ players
 
@@ -88,13 +88,13 @@ recipe revision ─► 1 Compile (code) ─► 2 Shape (AI, one call) ─► 3 C
 | Dedupe | Key = hash(recipe id, revision, compiler version, item table version); a match returns the stored level at once and costs nothing |
 | Priority | A member waiting > staff-chosen public recipes |
 | Limits | 5 a day and 2 at once per member; daily total across everyone in a `game_levels` control note; Operations switch to turn it off |
-| Workers | 4 concurrent per replica, capped by the provider's per-minute limit |
+| Workers | The app compiles and checks; QT Gamer's bridge on the VPS shapes one job at a time, within the team's own model caps (`reserve()`, `policy.json`) |
 | Waiting | "In line · about 2 min", polled with backoff; the level appears in My recipes when ready |
 | Timeouts | One retry; a job nobody finishes in 10 minutes fails visibly |
 
 **Estimates to measure in Phase 0 (assumptions, not results):**
-- Time: if one call takes 10–20 s, 4 workers make 12–24 levels a minute. A launch burst of 1,000 new recipes clears in about 40–80 minutes; a normal day (10% of 1,000 players converting one recipe) takes minutes.
-- Cost: about US$0.01 per level, borrowing the per-token rate of a similar-sized call in `docs/AI_RECIPES_PLAN.md` (4,599 in / 1,779 out ≈ US$0.010; that was a video test, not a text call), so 1,000 levels ≈ US$10–20. Measure the real text call in Phase 0.
+- Time: if one Hermes run takes 30–60 s, one bridge makes 60–120 levels an hour. A launch burst of 1,000 new recipes takes a day or so unless more bridges run; a normal day (10% of 1,000 players converting one recipe) takes about an hour. ChatGPT plan usage limits, not money, set the pace.
+- Cost: shaping runs within the team's existing ChatGPT plan, so there is no per-level charge; the limit is the plan's usage allowance, shared with the other QT bots. Every run is ledgered in `state/usage.jsonl` and its tokens kept on the job.
 
 **Pictures scale the same way:** an art job is per missing dish or ingredient, never per player or per recipe, and the count falls as the library grows (§8.5).
 
@@ -283,7 +283,7 @@ New constraints are added `NOT VALID`, then validated, so existing rows never bl
 - **Kitchen and café levels:** 8 credits for a first clear, the first three a day, nothing for your own recipes (GAME_CONTENT_PLAN §8). Coins stay in-service only; credits stay earned-only and cosmetic.
 - **Hosts** get no rewards for visitors: credits never pay creators (QT-056), and rewarding reach invites farming and breaks Google Play's member-content rules. Hosts see private counts only.
 - No streaks, energy, countdowns, loss for absence, leaderboards or "Beat the chef" (GAME_PLAN principle 6, GP:245).
-- **Pricing (recommended):** levels that staff make are free to play; QuinTaste pays their AI cost. A member asking the AI to turn their own recipe into a level uses an AI feature, and AI features are paid with no free tries (owner, 21 Oct), so it comes with an AI Recipes plan (Starter S$9.99, Pro S$24.99). An AI recipe a member requested gets its private level as part of that request (public after staff review), which gives the plans one more reason.
+- **Pricing (recommended):** levels that staff make are free to play; QuinTaste covers their bot usage. A member asking the AI to turn their own recipe into a level uses an AI feature, and AI features are paid with no free tries (owner, 21 Oct), so it comes with an AI Recipes plan (Starter S$9.99, Pro S$24.99). An AI recipe a member requested gets its private level as part of that request (public after staff review), which gives the plans one more reason.
 - **Marketing lines:** "Play it, then cook it." "Your recipes, your café." Keep "AI" in the explanation (AI shapes the level, QuinTaste's rules check it), not the headline.
 
 ## 12. Phases

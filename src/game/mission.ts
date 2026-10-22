@@ -32,12 +32,16 @@ export function missionFor(pack: LevelPack, tier: Tier): Level {
   const dishes = pack.dishes.map(d => d.id);
   if (!dishes.length || !packByHash(packHash(pack)) || dishes.some(d => !DISHES[d])) throw new Error("pack not registered");
   const t = TIER[tier], pool = tier === "memory" ? MEMORY_GUESTS : SERVICE_GUESTS;
+  // A dish with an ingredient nobody has checked yet goes only to guests who keep no rule (a check that cannot be proven shows nothing).
+  const unchecked = new Set(pack.unreviewed ?? []);
+  const needsUnchecked = (dish: string) => DISHES[dish].parts.some(p => p.stages.some(s => s.slots.some(sl => !sl.optional && sl.accepts.every(a => unchecked.has(a)))));
+  const canEat = (dish: string, g: string) => dishFeasible(dish, GUESTS[g].rules) && (!GUESTS[g].rules.length || !needsUnchecked(dish));
   const orders: Order[] = [];
   let at = 1;
   for (let i = 0; i < Math.max(t.orders, tier === "learn" ? dishes.length : 0); i++) {
     const dish = dishes[i % dishes.length];
     // Each order goes to the next guest in the pool who can eat the dish; the office crowd keeps no rules, so someone always can.
-    const guest = tier === "learn" ? "office" : [...pool.slice(i % pool.length), ...pool].find(g => dishFeasible(dish, GUESTS[g].rules)) ?? "office";
+    const guest = tier === "learn" ? "office" : [...pool.slice(i % pool.length), ...pool].find(g => canEat(dish, g)) ?? "office";
     orders.push({ id: tier[0] + i, guest, dish, at: Math.round(at) });
     at += dishSecs(dish) * t.gap;
   }

@@ -116,6 +116,50 @@ CREATE TABLE IF NOT EXISTS game.art_job (
 CREATE UNIQUE INDEX IF NOT EXISTS game_art_job_open ON game.art_job(art_key) WHERE status IN ('queued','claimed');
 CREATE INDEX IF NOT EXISTS game_art_job_queue ON game.art_job(created_at) WHERE status = 'queued';
 
+-- The shared ingredient list (RECIPE_LEVELS_PLAN §9): every recipe level reuses the same entry for the same ingredient, so two
+-- recipes never define it differently. New entries start unreviewed (tags from their name only); staff mark them reviewed.
+CREATE TABLE IF NOT EXISTS game.item (
+  id text PRIMARY KEY CHECK (id ~ '^x-[a-z0-9][a-z0-9-]{0,37}$'),
+  name text NOT NULL CHECK (char_length(name) BETWEEN 1 AND 60),
+  aliases text[] NOT NULL DEFAULT '{}' CHECK (cardinality(aliases) <= 20),
+  tags text[] NOT NULL DEFAULT '{}' CHECK (tags <@ ARRAY['allium','egg','dairy','honey','root','mushroom','hot','animal']),
+  reviewed boolean NOT NULL DEFAULT false,
+  reviewed_by text CHECK (char_length(reviewed_by) <= 120),
+  created_at timestamptz NOT NULL DEFAULT now()
+);
+CREATE INDEX IF NOT EXISTS game_item_aliases ON game.item USING gin (aliases);
+
+-- Level-making jobs (RECIPE_LEVELS_PLAN §6-§7): staff choose a recipe; the app's worker compiles it with code and hands the draft to
+-- the QT bots (ops/qt-team/game_level_bridge.py, on the ChatGPT plan), which answer with the shape; the worker checks the shape and
+-- the level with code and stores it for review. No other AI engine: a job the bots cannot finish fails with the reason. One open job
+-- per recipe. Switched by the `game_levels` control (off until staff turn it on).
+CREATE TABLE IF NOT EXISTS game.level_job (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  recipe_id text NOT NULL CHECK (recipe_id ~ '^[a-z0-9][a-z0-9-]{2,150}$'),
+  cuisine text CHECK (cuisine IS NULL OR char_length(cuisine) BETWEEN 1 AND 40),
+  requested_by text NOT NULL CHECK (char_length(requested_by) BETWEEN 1 AND 120),
+  -- queued → waiting (draft ready for the bots) → claimed → answered → done, or failed with the reason.
+  status text NOT NULL DEFAULT 'queued' CHECK (status IN ('queued','waiting','claimed','answered','done','failed')),
+  attempts integer NOT NULL DEFAULT 0 CHECK (attempts BETWEEN 0 AND 10),
+  message text NOT NULL DEFAULT '' CHECK (char_length(message) <= 300),
+  -- The compiled draft and recipe facts the bots see, and their answer (the shape), kept for review.
+  draft jsonb CHECK (draft IS NULL OR (jsonb_typeof(draft) = 'object' AND octet_length(draft::text) <= 65536)),
+  answer jsonb CHECK (answer IS NULL OR (jsonb_typeof(answer) = 'object' AND octet_length(answer::text) <= 32768)),
+  claimed_at timestamptz,
+  answered_at timestamptz,
+  pack text REFERENCES game.recipe_level(hash),
+  usage jsonb NOT NULL DEFAULT '{}'::jsonb CHECK (jsonb_typeof(usage) = 'object' AND octet_length(usage::text) <= 4096),
+  created_at timestamptz NOT NULL DEFAULT now(),
+  started_at timestamptz,
+  finished_at timestamptz
+);
+CREATE UNIQUE INDEX IF NOT EXISTS game_level_job_open ON game.level_job(recipe_id) WHERE status IN ('queued','waiting','claimed','answered');
+CREATE INDEX IF NOT EXISTS game_level_job_queue ON game.level_job(status, created_at) WHERE status IN ('queued','waiting','answered');
+INSERT INTO ops.control(key, enabled, notice) VALUES ('game_levels', false, '') ON CONFLICT DO NOTHING;
+
+GRANT SELECT, INSERT ON game.item TO quintaste_app;
+GRANT SELECT, UPDATE ON game.level_job TO quintaste_app;
+GRANT INSERT ON game.recipe_level TO quintaste_app;
 GRANT SELECT, INSERT ON game.asset TO quintaste_app;
 GRANT SELECT, INSERT ON game.art TO quintaste_app;
 GRANT SELECT, INSERT, UPDATE ON game.art_job TO quintaste_app;
@@ -130,6 +174,8 @@ BEGIN
     GRANT SELECT, UPDATE ON game.asset TO quintaste_admin;
     GRANT SELECT, INSERT, UPDATE ON game.art TO quintaste_admin;
     GRANT SELECT, INSERT, UPDATE ON game.art_job TO quintaste_admin;
+    GRANT SELECT, UPDATE ON game.item TO quintaste_admin;
+    GRANT SELECT, INSERT ON game.level_job TO quintaste_admin;
   END IF;
 END $$;
 COMMIT;

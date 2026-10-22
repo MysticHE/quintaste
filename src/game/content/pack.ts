@@ -12,6 +12,8 @@ export type LevelPack = {
   /** The stations (techniques) the pack needs; an app that lacks one cannot play it. */
   techniques: StationKind[];
   dishes: Dish[]; items: GameItem[]; forms: Record<string, ItemForm>;
+  /** Ingredients whose diet tags nobody has checked yet: a dish that needs one is never ordered by a guest who keeps a rule. */
+  unreviewed?: string[];
 };
 export class PackError extends Error {}
 
@@ -79,7 +81,7 @@ function readDish(v: unknown, i: number, techniques: Set<string>, known: (item: 
 
 /** Validates untrusted pack JSON. Throws PackError naming the first problem; a station this app lacks says so. */
 export function readPack(v: unknown): LevelPack {
-  const o = obj(v, "pack", ["format", "id", "techniques", "dishes", "items", "forms"]);
+  const o = obj(v, "pack", ["format", "id", "techniques", "dishes", "items", "forms", "unreviewed"]);
   if (o.format !== PACK_FORMAT) fail("pack: unsupported format " + String(o.format));
   const packId = typeof o.id === "string" && PACK_ID.test(o.id) ? o.id : fail("pack: bad id");
   const techniques = list(o.techniques, "pack", 1, 16).map(t => typeof t === "string" && t in STATIONS ? t as StationKind : fail("needs " + String(t)));
@@ -95,7 +97,8 @@ export function readPack(v: unknown): LevelPack {
     const ff = obj(f, "form " + k, ["form", "tone"]);
     forms[k] = { form: ff.form === "pour" || ff.form === "sprinkle" ? ff.form : fail("form " + k + ": bad form"), tone: TONES.has(ff.tone as ItemTone) ? ff.tone as ItemTone : fail("form " + k + ": bad tone") };
   }
-  return { format: PACK_FORMAT, id: packId, techniques, dishes, items, forms };
+  const unreviewed = o.unreviewed === undefined ? undefined : list(o.unreviewed, "pack", 0, LIMITS.items).map(x => own.has(id(x, "unreviewed")) ? x as string : fail("unreviewed: not one of this pack's items"));
+  return put({ format: PACK_FORMAT, id: packId, techniques, dishes, items, forms } as LevelPack, "unreviewed", unreviewed?.length ? unreviewed : undefined);
 }
 
 /** Same key order at every depth, so equal content always hashes and compares the same. */

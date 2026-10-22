@@ -29,6 +29,8 @@ import { aiRecipeBots } from './ai-recipes/bot-router.mjs';
 import { creatorBots } from './creators/bot-router.mjs';
 import { gameArt, gameArtBots } from './game/art.mjs';
 import { startAiRecipeWorker } from './ai-recipes/worker.mjs';
+import { startLevelWorker } from './game/levels-worker.mjs';
+import { gameLevelBots } from './game/levels-bot.mjs';
 import { cookSearch } from './cook-search/router.mjs';
 import { startDemandWorker } from './cook-search/demand.mjs';
 import { startNutritionRefresh } from './nutrition/service.mjs';
@@ -123,9 +125,10 @@ app.use('/api/areas', featureGate('areas'), areas);
 // Public and outside the gate, so the app can show its placeholder when staff switch the game off.
 app.get('/api/game/status', async (_req, res) => { res.set('Cache-Control', 'no-store').json({ enabled: await allowed('games') }); });
 app.use('/api/game', featureGate('games'), game);
-// Game pictures (docs/game/RECIPE_LEVELS_PLAN.md §8.5): approved pictures are public and immutable; QT Gamer's routes are signed.
+// Game pictures (docs/game/RECIPE_LEVELS_PLAN.md §8.5): approved pictures are public and immutable; QT Gamer's picture and level routes are signed.
 app.use('/api/game-public', featureGate('games'), gamePublic);
 app.use('/api/game-art/bot', gameArtBots);
+app.use('/api/game-levels/bot', gameLevelBots);
 app.use('/api/game-art', gameArt);
 app.use('/api/local-explore', (_req, res) => res.status(503).json({ error: 'Local development services are unavailable on this deployment.' }));
 app.use('/api/staff-base', (_req, res) => res.sendStatus(404));
@@ -164,6 +167,7 @@ const stopAiRecipes = process.env.AI_RECIPES_WORKER_ENABLED !== 'false' ? startA
 const stopNutrition = process.env.AI_RECIPES_WORKER_ENABLED !== 'false' ? startNutritionRefresh() : () => {};
 // Every minute: wanted recipes from Cook searches (idle until recipe_demand, ai_recipes and recipes are on).
 const stopDemand = process.env.AI_RECIPES_WORKER_ENABLED !== 'false' ? startDemandWorker() : () => {};
+const stopLevels = process.env.AI_RECIPES_WORKER_ENABLED !== 'false' ? startLevelWorker() : () => {};
 const purgeContacts = () => purgeOrderContacts().then(count => count && logger.info({ event: 'market_contacts_purged', count }))
   .catch(error => logger.warn({ event: 'market_contacts_purge_failed', code: error?.code }));
 const purgeTimer = setInterval(purgeContacts, 6 * 3600000).unref();
@@ -182,6 +186,7 @@ async function stop() {
   stopAiRecipes();
   stopNutrition();
   stopDemand();
+  stopLevels();
   clearInterval(purgeTimer);
   clearInterval(purgeLogsTimer);
   stopAreaSnapshots();
