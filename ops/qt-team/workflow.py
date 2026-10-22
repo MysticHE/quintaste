@@ -158,6 +158,28 @@ def validate(role, obj, assigned=None):
     return obj
 
 
+SOURCE_FIELDS = ('url', 'name', 'site', 'author', 'rating', 'ratings', 'minutes', 'ingredients', 'steps', 'category')
+
+
+def cooker_sources(held_retries, passed, candidates, prior, assess=None):
+    """(approvedSources, priorCandidates) for a Cooker round: two recipes a round, due retries first, new pages fill the rest.
+    A due retry is re-approved with its own source page, because Cooker writes approved pages only, and the names of the recipes
+    being reworked are kept out of priorCandidates (22 Oct 2026: the four retried recipes were held as "approvedSources is empty"
+    and as duplicates of their own earlier drafts)."""
+    import recipe_quality
+    approved = []
+    for retry in held_retries:
+        url = next((u for u in retry.get('sources') or [] if isinstance(u, str) and u.startswith('https://')), None)
+        if url:
+            page = assess(ROOT, url) if assess else {}
+            approved.append({**{k: page.get(k) for k in SOURCE_FIELDS}, 'url': url, 'name': retry.get('name') or page.get('name'), 'retryId': retry['id']})
+    approved += [{k: c.get(k) for k in SOURCE_FIELDS} for c in passed[:max(0, 2 - len(held_retries))]]
+    pages = {recipe_quality.page_key(a['url']) for a in approved}
+    own = {str(r.get('name') or '').strip().casefold() for r in held_retries}
+    own |= {str(v.get('name') or '').strip().casefold() for k, v in prior.items() if k in pages}
+    return approved, [n for n in candidates if isinstance(n, str) and n.strip().casefold() not in own]
+
+
 def creator_library(sources, live):
     """The creator library for this Cooker round (docs/COOKER_CREATOR_LIBRARY_PLAN.md), or None when the app cannot serve it (then
     Cooker uses its checkpoint's pages and the trusted list). drafted: page keys to skip; prior: page key -> {id, name}, so a page
@@ -1123,14 +1145,14 @@ class Round:
             if library:
                 library['record'] += [{'url': c['url'], 'status': 'shortlisted' if c.get('passes') else 'rejected', 'name': c.get('name') or '',
                                        'reasons': [str(r) for r in c.get('reasons', [])][:8]} for c in picks['checked'] if c.get('url')]
-            # two recipes a round: due retries first, new pages fill the rest
-            approved = [{k: c.get(k) for k in ('url', 'name', 'site', 'author', 'rating', 'ratings', 'minutes', 'ingredients', 'steps', 'category')} for c in picks['passed'][:max(0, 2 - len(held_retries))]]
+            approved, prior_names = cooker_sources(held_retries, picks['passed'], state.get("recipeCandidates", []),
+                                                   library['prior'] if library else sources, recipe_quality.assess if strict else None)
             self.note("qt-cooker", f"Recipe shortlist: {len(picks['passed'])}/{len(picks['checked'])} pages met the bar")
             if not approved and not held_retries and strict:
                 if library:
                     creators_client.record(library['record'])
                 raise recipe_quality.NothingToCook()
-            packet = worker("qt-cooker", {"existingRecipeNames": self.baseline["recipeNames"], "priorCandidates": state.get("recipeCandidates", []), "heldRetries": held_retries, "approvedSources": approved, "target": "Write QuinTaste versions of approvedSources ONLY (one record each, citing its url as the first source; web_extract it). Keep the author's ingredients, quantities and method faithful in your own words, within 30 minutes, 12 ingredients and 8 steps. If heldRetries is supplied, recheck that exact ID/name and its missing evidence; do not duplicate it under another ID. Failed evidence remains held."}, self.folder / "cooker", self.policy, prior_sources=library['prior'] if library else sources)
+            packet = worker("qt-cooker", {"existingRecipeNames": self.baseline["recipeNames"], "priorCandidates": prior_names, "heldRetries": held_retries, "approvedSources": approved, "target": "Write QuinTaste versions of approvedSources ONLY (one record each, citing its url as the first source; web_extract it). Keep the author's ingredients, quantities and method faithful in your own words, within 30 minutes, 12 ingredients and 8 steps. An approvedSources entry with retryId is a held recipe approved for rework: write it under exactly that id, fix the hold reason given in heldRetries, and never treat its own earlier drafts as duplicates. Optional toppings or serving sauces may be left out when the adaptationNote says so. Failed evidence remains held."}, self.folder / "cooker", self.policy, prior_sources=library['prior'] if library else sources)
             learning.note_retry(ROOT, [r for r in held_retries if r['id'] in {x['id'] for x in packet['records']}])
             for record in packet["records"]:
                 first = next((s.get("url") for s in record.get("sources", []) if isinstance(s, dict) and s.get("url")), None)

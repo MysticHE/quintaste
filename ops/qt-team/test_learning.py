@@ -216,6 +216,20 @@ class LearningTests(unittest.TestCase):
         with patch.object(creators_client, 'library', return_value=None):
             self.assertIsNone(w.creator_library({}, live))  # app unreachable: Cooker falls back to its checkpoint
 
+    def test_due_retries_are_re_approved_with_their_own_page(self):
+        import recipe_quality
+        # 22 Oct 2026: retried recipes were held as "approvedSources is empty" and as duplicates of their own earlier drafts.
+        retries = [{'id': 'kuih-kodok', 'name': 'Kuih kodok — banana fritters', 'sources': ['https://rasamalaysia.com/kuih-kodok-recipe-malaysian-fried-banana-fritters/']}]
+        passed = [{'url': 'https://woonheng.com/a/', 'name': 'A', 'rating': 4.8}, {'url': 'https://woonheng.com/b/', 'name': 'B'}]
+        prior = {recipe_quality.page_key(retries[0]['sources'][0]): {'id': 'kuih-kodok', 'name': 'Kuih kodok'}}
+        candidates = ['Kuih kodok — banana fritters', 'Kuih kodok', 'Matcha latte']
+        approved, names = w.cooker_sources(retries, passed, candidates, prior, lambda root, url: {'rating': 4.7, 'ratings': 120, 'name': 'from page'})
+        self.assertEqual([(a['url'], a.get('retryId')) for a in approved],
+                         [(retries[0]['sources'][0], 'kuih-kodok'), ('https://woonheng.com/a/', None)])  # still two a round
+        self.assertEqual((approved[0]['name'], approved[0]['rating']), ('Kuih kodok — banana fritters', 4.7))
+        self.assertEqual(names, ['Matcha latte'])  # its own earlier names are no longer "prior candidates"
+        self.assertEqual(w.cooker_sources([], passed, candidates, {}, None)[1], candidates)  # no retry: nothing changes
+
     def test_corrupt_learning_state_does_not_grant_retry_permissions(self):
         (self.root / 'state/learning').mkdir(parents=True)
         (self.root / 'state/learning/state.json').write_text('broken')
