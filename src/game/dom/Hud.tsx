@@ -47,6 +47,10 @@ function poured(run: sim.Run, g: sim.GuestRun, made?: string) {
     + run.board.reduce((n, p) => n + (p && p.dishId === g.dishId && p.parts.some(x => has(x.items)) ? p.portions : 0), 0);
   return ready >= sim.waiting(run).filter(x => x.dishId === g.dishId).indexOf(g) + 1;
 }
+/** "Add the ginger" from a hint that names ingredients; a hint that already gives the move ("soften onion in warm oil") reads as it is. */
+const addHint = (hint: string) => /^(add|soften|fry|stir|toss|cook|warm|heat|simmer|steam|bake|blend|fold|chill|mix|spread|toast|pour|drain|blanch|brown|sear)/i.test(hint.trim())
+  ? hint.trim()[0].toUpperCase() + hint.trim().slice(1) : "Add " + hint;
+
 function nextStep(run: sim.Run, g: sim.GuestRun): string {
   const dishId = g.dishId;
   const dish = DISHES[dishId];
@@ -63,12 +67,12 @@ function nextStep(run: sim.Run, g: sim.GuestRun): string {
       if (pr.state === "cooking" && turn === "fold") return "Fold it: drag the fold onto the board";
       if (pr.state === "cooking" && turn === "flip") return pr.progress >= 0.5 ? "Flip it: drag the spatula on" : "Flip it at halfway";
       if (pr.state === "cooking") return cfg.heat ? "Keep it in the heat band" : cfg.name + " is cooking";
-      return "Add " + sim.stageOf(pr).hint;
+      return addHint(sim.stageOf(pr).hint);
     }
     // An oven or fryer must be hot before the first ingredient goes in.
     const st = run.stations[part.station], cfg = STATIONS[part.station];
     if (cfg.preheat && st && !st.part && st.H < (part.stages[0].band ?? cfg.band)[0]) return "Preheat the " + cfg.name.toLowerCase() + " first";
-    return "Add " + part.stages[0].hint;
+    return addHint(part.stages[0].hint);
   }
   return run.board.some(p => p && p.dishId === dishId && p.shared) ? "Plated for two: drag it to each guest" : "Plated: drag it to the guest";
 }

@@ -15,12 +15,13 @@ import { useShelfGesture } from "./shelfGesture";
 
 const VOWEL = /[aeiouy]/i;
 /**
- * A card name with a soft hyphen in each word longer than six letters, so a narrow card wraps "Dump-ling" rather than
- * cutting it off: between two consonants nearest the middle (Cab-bage, Lemon-grass), else after the vowel nearest it.
+ * A card name with a soft hyphen in each word too wide for the card (`fits` letters a line), so a narrow card wraps "Dump-ling"
+ * rather than cutting it off: between two consonants nearest the middle (Cab-bage, Lemon-grass), else after the vowel nearest it.
+ * A word that fits stays whole: a soft hyphen breaks greedily, so "Bean sprouts" would otherwise read "Bean spro-uts".
  */
-export function breakable(name: string): string {
+export function breakable(name: string, fits = 6): string {
   return name.split(" ").map(w => {
-    if (w.length <= 6) return w;
+    if (w.length <= fits) return w;
     let at = -1;
     for (let d = 0; d < w.length / 2 && at < 0; d++) for (const i of [Math.ceil(w.length / 2) + d, Math.ceil(w.length / 2) - d]) {
       if (i > 2 && i < w.length - 2 && !VOWEL.test(w[i - 1]) && !VOWEL.test(w[i]) && /[a-z]/i.test(w[i - 1] + w[i])) { at = i; break; }
@@ -60,6 +61,8 @@ export const Shelf = memo(function Shelf({ run, L, art, nudge, stock, onHint, on
   const wide = (avail - 5 * L.card.gap) / 5.5;
   const cw = cols <= 6 ? Math.max(L.card.w, Math.min(fill, Math.round(L.card.w * 1.5))) : Math.floor(wide >= 56 ? wide : (avail - 4 * L.card.gap) / 4.5);
   const vars = { "--cw": cw + "px", "--ch": L.card.h + "px", "--gap": L.card.gap + "px" } as CSSProperties;
+  // Letters that fit a card's line: the name is 11 px Nunito ExtraBold (about 7 px a letter at the largest text size) in 3 px padding.
+  const fits = Math.max(5, Math.floor((cw - 8) / 7.2));
   const trayRef = useRef<HTMLDivElement>(null), [more, setMore] = useState(false);
   useEffect(() => {
     const el = trayRef.current; if (!el) return;
@@ -75,7 +78,7 @@ export const Shelf = memo(function Shelf({ run, L, art, nudge, stock, onHint, on
         return <div key={id} className="cardwrap">
           <button key={nope ? nudge!.key : 0} className={"card" + (nope ? " nope" : "") + (short ? " " + short : "")} onPointerDown={e => down(e, id)} onClick={() => click(id)}
             aria-label={"Drag " + itemName(id)}>
-            <img src={art[it.art]} alt="" draggable={false} /><span className="nm">{breakable(it.name)}</span>{it.variant && <span className="ab">{it.variant}</span>}{short && <span className="stk">{short === "out" ? "Out" : "Low"}</span>}
+            <img src={art[it.art]} alt="" draggable={false} /><span className="nm">{breakable(it.name, fits)}</span>{it.variant && <span className="ab">{it.variant}</span>}{short && <span className="stk">{short === "out" ? "Out" : "Low"}</span>}
           </button>
           {it.label && <button className="lab" onClick={() => onLabel(id)} aria-label={"Read the label of " + itemName(id)}>Label</button>}
         </div>;
