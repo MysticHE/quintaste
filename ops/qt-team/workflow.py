@@ -861,13 +861,23 @@ def recipe_image(packets, reviewed, policy):
 
 def pending_recipe_images(month):
     """Resume accepted candidates on following days without research repetition."""
-    packets, decisions = [], []
-    for path in sorted((ROOT / 'outbox').glob('*.json'), reverse=True)[:40]:
+    """A recipe is drawn from its newest draft only, and only when QT Manager approved that draft in its own round (22 Oct
+    2026: an approval in one round redrew covers for every older draft with that id, 14 drawings for one recipe)."""
+    packets, decisions, seen = [], [], set()
+    for path in sorted((ROOT / 'outbox').glob('*.json'), reverse=True)[:40]:  # newest first
         package = read(path)
         if dt.datetime.fromisoformat(package['checkedAt']).astimezone(SG).strftime('%Y-%m') != month:
             continue
-        packets.extend(p for p in package['packets'] if p['role'] in ('qt-cooker', 'qt-explorer'))
-        decisions.extend(package['manager'].get('decisions', []))
+        mine = package['manager'].get('decisions', [])
+        approved = {d.get('id') for d in mine if d.get('decision') == 'ready-for-editorial-review'}
+        for p in package['packets']:
+            if p['role'] == 'qt-cooker':
+                records = [r for r in p['records'] if r.get('id') not in seen]
+                seen |= {r.get('id') for r in records}
+                p = dict(p, records=[r for r in records if r.get('id') in approved])
+            if p['role'] in ('qt-cooker', 'qt-explorer'):
+                packets.append(p)
+        decisions.extend(mine)
     return packets, {'decisions': decisions}
 
 
@@ -1688,6 +1698,14 @@ class Round:
             image_allowed = not self.nightly or (time.time() < policy["_researchDeadline"] and time.time() + 900 < policy["_deadline"])
             image_packets, image_decisions = pending_recipe_images(self.month)
             removed = {(r['kind'], r['id']) for r in self.baseline.get('removedRecords', [])}
+            if self.live is None:
+                try:
+                    import publisher
+                    self.live = publisher.request('GET', '/control/state')
+                except Exception:
+                    pass  # the app is unreachable: publication will say so; drawing still uses the outbox drafts
+            # A recipe already live is never redrawn here (its pictures were published with it).
+            removed |= {('recipe', r['id']) for r in (self.live or {}).get('records', []) if r.get('kind') == 'recipe'}
             image_packets = [dict(packet, records=[r for r in packet['records'] if
                 ({'qt-cooker': 'recipe', 'qt-explorer': 'venue'}[packet['role']], r['id']) not in removed])
                 for packet in image_packets]

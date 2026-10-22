@@ -249,6 +249,19 @@ class Boundaries(unittest.TestCase):
             launched = [json.loads(Path(call.args[0][2]).read_text()) for call in launch.call_args_list]
         self.assertEqual([r.get('step') for r in launched], [None, 2])
 
+    def test_only_the_newest_draft_approved_in_its_own_round_is_drawn(self):
+        # 22 Oct: one approval redrew covers for every older draft with that id (14 drawings for one recipe).
+        def package(stamp, records, approved):
+            return {'checkedAt': f'2026-10-22T0{stamp}:00:00+00:00', 'packets': [{'role': 'qt-cooker', 'records': [{'id': r, 'v': stamp} for r in records]}],
+                    'manager': {'decisions': [{'id': r, 'decision': 'ready-for-editorial-review'} for r in approved]}}
+        with tempfile.TemporaryDirectory() as d, patch.object(w, 'ROOT', Path(d)):
+            (Path(d) / 'outbox').mkdir()
+            w.write(Path(d) / 'outbox/1.json', package(1, ['kuih', 'rice'], ['kuih', 'rice']))
+            w.write(Path(d) / 'outbox/2.json', package(2, ['kuih', 'milk'], ['milk']))
+            packets, _ = w.pending_recipe_images('2026-10')
+        drawn = [(r['id'], r['v']) for p in packets for r in p['records']]
+        self.assertEqual(sorted(drawn), [('milk', 2), ('rice', 1)])  # kuih's newest draft was held, its older approval does not count
+
     def test_author_photos_are_read_only_when_a_picture_is_left_to_draw(self):
         import publisher
         row = {'id': 'kuih', 'recipe': {'name': 'Kuih', 'ingredients': [{'id': 'b', 'name': 'Banana'}], 'steps': [{'instruction': 'Fry the batter.', 'ingredientIds': []}]},
