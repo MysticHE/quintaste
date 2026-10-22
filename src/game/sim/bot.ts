@@ -84,9 +84,8 @@ export function botStep(r: sim.Run) {
         if (st.part?.items.some(x => x.stage === stageIdx && slot.accepts.includes(x.id))) continue;
         // A paste is made for the dish, not one guest: blend what suits everyone waiting for it.
         const rules = part.makes ? [...new Set(sim.waiting(r).filter(x => x.dishId === g.dishId).flatMap(x => sim.tableRules(r, x)))] : sim.tableRules(r, g);
-        const item = safeItem(r, slot.accepts, rules);
-        // A slot a paste fills waits for the pour; any other empty slot is worth a note in the trace.
-        if (!item) { if (!slot.accepts.some(a => sim.madeItems().has(a))) console.log("  no safe item for", g.guestId, slot.key); continue; }
+        // No safe item (or a slot a paste fills, waiting for the pour): try the next slot.
+        const item = safeItem(r, slot.accepts, rules); if (!item) continue;
         if (ITEMS[item].label) { sim.openLabel(r, item); sim.closeLabel(r); }
         sim.setFocus(r, g.orderId);
         if (sim.place(r, item, st.kind)) return;

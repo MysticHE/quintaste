@@ -4,6 +4,7 @@
  * packs that would change built-in content or need a missing technique are refused.
  * Usage: npx tsx scripts/check-game-pack.ts [--expect <rulesVersion>]
  */
+import { shapeProblem, type Shape } from "../src/game/compile";
 import { chanceFor, forYou, newest, type ShelfLevel } from "../src/game/kitchen-rows";
 import { readGame } from "../src/game/progress";
 import { DISHES } from "../src/game/content/dishes";
@@ -122,6 +123,19 @@ check(refusedWith(wrongStation, /station not in techniques/), "a part on a stati
   check(Math.abs(chanceFor(lv("x", 1500), null) - 0.5) < 1e-9, "a player with no rating yet counts as average");
   const fresh = newest([...shelf, lv("hhhhh", 1500, { ratings: { learn: { rating: 1500, players: 12 } } })], game, new Set(mine)).map(l => l.hash);
   check(fresh.join() === "dddd,a", `New lists levels few have played, newest first, without the For you picks (${fresh.join()})`);
+}
+
+// 6. Review fixes: shapes name real stations, and a pour feeds only as many guests as both halves were made for.
+{
+  const c = { needs: [], shortcuts: [], stages: [{ station: "pan" as const, items: ["tofu"], step: 0 }], items: new Map(), unreviewed: new Set<string>() };
+  const shape = (station: string) => ({ remember: "Fry it hot.", parts: [{ station, stages: [{ items: ["tofu"], hint: "the tofu" }] }] }) as unknown as Shape;
+  check(/not one the game has/.test(shapeProblem(c, shape("blend")) ?? "") && shapeProblem(c, shape("pan")) === null, "a shape naming the word blend, not a station, is refused");
+  const r = sim.createRun(22, "sprout", [], undefined, 1); sim.start(r);
+  for (let i = 0; i < 80 && !sim.waiting(r).length; i++) sim.tick(r);
+  const g = sim.waiting(r)[0]; sim.setFocus(r, g.orderId);
+  r.stations.blender!.part = { dishId: "sambal-tempeh", partId: "sambal-blend", stage: 0, items: [{ uid: 900, id: "red-chilli", stage: 0, warn: false }], progress: 1, state: "ready", exposure: 0, inBand: 0, prog: 0, portions: 1 };
+  r.stations.pan!.part = { dishId: "sambal-tempeh", partId: "sambal-tempeh", stage: 0, items: [{ uid: 901, id: "cooking-oil", stage: 0, warn: false }], progress: 0, state: "loading", exposure: 0, inBand: 0, prog: 0, portions: 2 };
+  check(sim.transfer(r, "blender", "pan") && r.stations.pan!.part!.portions === 1 && /makes one portion/.test(r.say.text), "a paste for one poured into a wok started for two makes one portion, and says so");
 }
 
 console.log(failures ? `\n${failures} check(s) failed` : "\nAll pack checks passed");

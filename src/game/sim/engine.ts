@@ -3,7 +3,7 @@
  * then drains `run.events` for animation. Every service is a Rush (a clock and guests' patience); a seed decides the
  * shuffled jars, arrivals and twists (sim/plan.ts), so a run replays exactly from its inputs and its seed.
  */
-import { DISHES, STATIONS, type Part, type Stage, type StationKind } from "../content/dishes";
+import { DISHES, dishesVersion, STATIONS, type Part, type Stage, type StationKind } from "../content/dishes";
 import { GUESTS, conflicts, reason, RULES, unionRules, type Rule } from "../content/guests";
 import { ITEMS, itemName, type Flip } from "../content/items";
 import { BONUS, levelByNumber, type BonusKind, type Level } from "../content/levels";
@@ -114,8 +114,12 @@ export const partOf = (pr: PartRun): Part => DISHES[pr.dishId].parts.find(p => p
 export const stageOf = (pr: PartRun): Stage => partOf(pr).stages[Math.min(pr.stage, partOf(pr).stages.length - 1)];
 export const bandOf = (s: StationRun, pr: PartRun | null) => (pr && stageOf(pr).band) || STATIONS[s.kind].band;
 export const dishName = (id: string) => DISHES[id]?.name ?? id;
-/** Items a part makes (Part.makes): they come from a station by transfer, never from the shelf. */
-export const madeItems = () => new Set(Object.values(DISHES).flatMap(d => d.parts.map(p => p.makes).filter((x): x is string => !!x)));
+/** Items a part makes (Part.makes): they come from a station by transfer, never from the shelf. Rebuilt only when a pack adds dishes. */
+let made = { version: -1, items: new Set<string>() };
+export function madeItems(): ReadonlySet<string> {
+  if (made.version !== dishesVersion) made = { version: dishesVersion, items: new Set(Object.values(DISHES).flatMap(d => d.parts.map(p => p.makes).filter((x): x is string => !!x))) };
+  return made.items;
+}
 /** The parts that end on a plate: a part that makes a paste is poured into another station instead. */
 export const platedParts = (dishId: string) => DISHES[dishId].parts.filter(p => !p.makes);
 /** Everything in a station's dish, with what was blended into any paste poured in. */
@@ -232,13 +236,19 @@ export function transfer(r: Run, from: StationKind, to: StationKind): boolean {
   if (!slot) { say(r, "Not yet. This step needs " + target.hint + ".", "warn"); return false; }
   if (st.part?.items.some(x => x.stage === st.part!.stage && slot.accepts.includes(x.id))) { say(r, "The " + STATIONS[to].name.toLowerCase() + " already has " + slot.label.toLowerCase() + ".", "warn"); return false; }
   st.part ??= { dishId: pr.dishId, partId: part.id, stage: 0, items: [], progress: 0, state: "loading", exposure: 0, inBand: 0, prog: 0, portions: pr.portions };
+  // A dish feeds only as many guests as both halves were made for: a paste for one poured into a pot started for two makes one portion.
+  const short = st.part.portions !== pr.portions;
+  st.part.portions = Math.min(st.part.portions, pr.portions);
   const inside = contents(pr), g = focusGuest(r), rules = g ? tableRules(r, g) : [];
   const warn = !!g && g.dishId === pr.dishId && conflicts([made, ...inside], rules, r.flip).length > 0, uid = r.uid++;
   st.part.items.push({ uid, id: made, stage: st.part.stage, warn, inside });
   src.part = null; r.selected = to; record(r, "transfer " + from + " " + to);
   r.events.push({ type: "poured", from, station: to, item: made, warn, uid });
   if (warn && g) { r.stats.mistakes++; say(r, reason(conflicts([made, ...inside], rules, r.flip)[0], rules, r.flip) + " Restart the dish; it's free.", "warn"); }
-  return added(r, st, to, made, warn);
+  const ok = added(r, st, to, made, warn);
+  // Said after the cooking hint, so the player sees why only one guest will be fed.
+  if (!warn && short) say(r, "The " + (pr.portions < 2 ? "paste" : STATIONS[to].name.toLowerCase()) + " was made for one, so this makes one portion.", "warn");
+  return ok;
 }
 
 /** After an item goes in: a coconut milk splits if too hot, a filled stage starts cooking, and the hints say what is next. */

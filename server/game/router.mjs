@@ -95,20 +95,15 @@ async function kitchenShelf(me) {
     FROM game.recipe_level l WHERE l.status = 'ready' AND (l.owner_id IS NULL OR l.owner_id = $1)
     ORDER BY l.recipe_id, l.recipe_revision DESC, l.created_at DESC LIMIT 300`, [me])).rows;
   const hashes = levels.map(l => l.hash);
-  const [bests, pictures, ratings, quality, mine] = await Promise.all([
+  const [bests, pictures, ratings, stats, mine] = await Promise.all([
     me ? pool.query('SELECT recipe_id, tier, stars, score, clears FROM game.kitchen_best WHERE user_id = $1', [me]) : { rows: [] },
     pool.query(`SELECT a.art_key, a.asset FROM game.art a JOIN game.asset s ON s.sha256 = a.asset AND s.status = 'approved' WHERE a.art_key = ANY($1)`, [levels.map(l => l.art)]),
     pool.query('SELECT hash, tier, round(rating)::int AS rating, players FROM game.level_rating WHERE hash = ANY($1)', [hashes]),
-    pool.query(`SELECT h.hash,
-        (SELECT count(*)::int FROM game.run r WHERE r.pack = h.hash AND r.status = 'settled') AS plays,
-        (SELECT count(*)::int FROM game.run r WHERE r.pack = h.hash AND r.status = 'settled' AND r.result->'result'->>'quit' = 'true') AS quits,
-        (SELECT count(*)::int FROM game.level_reaction x WHERE x.hash = h.hash) AS reactions,
-        (SELECT count(*)::int FROM game.level_reaction x WHERE x.hash = h.hash AND NOT x.liked) AS dislikes
-      FROM unnest($1::text[]) AS h(hash)`, [hashes]),
+    levelQuality(hashes),
     me ? pool.query(`SELECT (SELECT round(rating)::int FROM game.player_rating WHERE user_id = $1) AS rating,
         (SELECT coalesce(json_object_agg(hash, liked), '{}') FROM game.level_reaction WHERE user_id = $1 AND hash = ANY($2)) AS liked`, [me, hashes]) : { rows: [{ rating: null, liked: {} }] }]);
   const picture = new Map(pictures.rows.map(r => [r.art_key, pictureUrl(r.asset)]));
-  const best = new Map(), rated = new Map(), stats = new Map(quality.rows.map(q => [q.hash, q]));
+  const best = new Map(), rated = new Map();
   for (const b of bests.rows) best.set(b.recipe_id, { ...best.get(b.recipe_id), [b.tier]: { stars: b.stars, score: b.score, clears: b.clears } });
   for (const r of ratings.rows) rated.set(r.hash, { ...rated.get(r.hash), [r.tier]: { rating: r.rating, players: r.players } });
   const me0 = mine.rows[0];
@@ -121,8 +116,23 @@ async function kitchenShelf(me) {
  * A level players keep quitting or dislike leaves the For you and New rows (GAME_CONTENT_PLAN §5 Quality); it stays on its shelf
  * and its recipe page. Shares count only once enough people have played or reacted.
  */
-const QUALITY = { count: 10, share: 0.4 };
+const QUALITY = { count: 10, share: 0.4, seconds: 60 };
 const heldBack = q => !!q && ((q.plays >= QUALITY.count && q.quits / q.plays > QUALITY.share) || (q.reactions >= QUALITY.count && q.dislikes / q.reactions > QUALITY.share));
+/** Plays, quits, reactions and dislikes per live level: one grouped pass over runs and one over reactions, kept a minute for every Kitchen open. */
+let quality = { at: 0, key: '', stats: new Map() };
+async function levelQuality(hashes) {
+  const key = hashes.join(',');
+  if (quality.key === key && Date.now() - quality.at < QUALITY.seconds * 1000) return quality.stats;
+  const [runs, reactions] = await Promise.all([
+    pool.query(`SELECT pack AS hash, count(*)::int AS plays, count(*) FILTER (WHERE result->'result'->>'quit' = 'true')::int AS quits
+      FROM game.run WHERE pack = ANY($1) AND status = 'settled' GROUP BY pack`, [hashes]),
+    pool.query(`SELECT hash, count(*)::int AS reactions, count(*) FILTER (WHERE NOT liked)::int AS dislikes FROM game.level_reaction WHERE hash = ANY($1) GROUP BY hash`, [hashes])]);
+  const stats = new Map(hashes.map(h => [h, { plays: 0, quits: 0, reactions: 0, dislikes: 0 }]));
+  for (const r of runs.rows) Object.assign(stats.get(r.hash), { plays: r.plays, quits: r.quits });
+  for (const r of reactions.rows) Object.assign(stats.get(r.hash), { reactions: r.reactions, dislikes: r.dislikes });
+  quality = { at: Date.now(), key, stats };
+  return stats;
+}
 
 /** A member who finished a service of a level (not quitting) says whether they liked it; null clears it. */
 game.post('/levels/:hash/reaction', async (req, res) => {
@@ -165,7 +175,8 @@ gamePublic.get('/kitchen', async (_req, res, next) => {
  */
 gamePublic.get('/revoked', async (_req, res, next) => {
   try {
-    const rows = (await pool.query(`SELECT hash FROM game.recipe_level WHERE status = 'hidden' ORDER BY reviewed_at DESC NULLS LAST LIMIT 2000`)).rows;
+    // Public levels only: the phone never keeps a private one, and a private level's hash is nobody else's business.
+    const rows = (await pool.query(`SELECT hash FROM game.recipe_level WHERE status = 'hidden' AND owner_id IS NULL`)).rows;
     res.set('Cache-Control', 'public, max-age=300').json({ hashes: rows.map(r => r.hash) });
   } catch (error) { next(error); }
 });
@@ -367,8 +378,9 @@ async function settleMission(db, sim, me, id, run, recipeId, replayed, result, a
  * day, and never for the member's own recipe (a private level of theirs, or a member recipe they wrote).
  */
 async function payKitchen(db, sim, me, recipeId) {
+  const memberId = /^member-([0-9a-f-]{36})$/.exec(recipeId)?.[1] ?? null;
   const own = (await db.query(`SELECT 1 FROM game.recipe_level WHERE recipe_id=$1 AND owner_id=$2
-    UNION ALL SELECT 1 FROM recipes.recipe WHERE 'member-' || id = $1 AND author_id=$2 LIMIT 1`, [recipeId, me])).rowCount;
+    UNION ALL SELECT 1 FROM recipes.recipe WHERE $3::uuid IS NOT NULL AND id = $3::uuid AND author_id=$2 LIMIT 1`, [recipeId, me, memberId])).rowCount;
   const source = 'recipe:' + (recipeId.length <= 57 ? recipeId : recipeId.slice(0, 48) + '-' + createHash('sha256').update(recipeId).digest('hex').slice(0, 8));
   if (own || (await db.query(`SELECT 1 FROM game.ledger WHERE user_id=$1 AND kind='kitchen' AND source=$2`, [me, source])).rowCount) return {};
   if (await paidToday(db, me, 'kitchen') >= sim.cosmetics.DAILY_CREDITS.kitchen) return { note: "Today's three kitchen rewards are used. Clear it again tomorrow for its credits." };

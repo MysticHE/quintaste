@@ -4,7 +4,7 @@
  * chill) is taken as a ready item; an unbuilt main step (steam, bake, fry, griddle, dough) makes the recipe wait for that technique.
  * Shaping (AI, step 2) then picks stages from this draft, and the checks (step 3) decide whether the level is kept.
  */
-import type { StationKind } from "./content/dishes";
+import { STATIONS, type StationKind } from "./content/dishes";
 import { ITEMS, type GameItem, type ItemTag } from "./content/items";
 import { readPack, type LevelPack } from "./content/pack";
 
@@ -43,7 +43,8 @@ const TECH: [string, RegExp][] = [
   ["pan", /\b(stir.?fry|stir.?fried|saut[ée]|fry|fried|temper|wok|pan.?fr(y|ied)|sear|toss|heat the oil|heat oil)\b/i],
   ["board", /\b(assemble|layer|roll up|top with|spoon over|arrange|serve with|mix|combine|dress)\b/i],
 ];
-const BUILT: Record<string, StationKind> = { pan: "pan", pot: "pot", rice: "rice", board: "board", blend: "blender", blender: "blender" };
+/** Recipe verbs (TECH) whose station the game has. */
+const BUILT: Record<string, StationKind> = { pan: "pan", pot: "pot", rice: "rice", board: "board", blend: "blender" };
 const SIDE = new Set(["chill"]);
 const PREP = /^(rinse|wash|drain|soak|peel|chop|cut|slice|dice|shred|grate|mince|prepare|pat|set aside|measure|knot|crush)/i;
 
@@ -107,7 +108,7 @@ export function shapeProblem(c: Compiled, s: Shape): string | null {
   if (!s || !Array.isArray(s.parts) || !s.parts.length || s.parts.length > 3) return "give one to three parts";
   if (!text(s.remember, 240) || /https?:|www\.|tiktok|instagram|youtube|facebook/i.test(s.remember)) return "remember must be one short sentence with no links or platform names";
   for (const p of s.parts) {
-    if (!BUILT[p.station] && p.station !== "dessert") return "station " + String(p.station) + " is not one the game has";
+    if (typeof p.station !== "string" || !Object.hasOwn(STATIONS, p.station)) return "station " + String(p.station) + " is not one the game has";
     if (!Array.isArray(p.stages) || p.stages.length < 1 || p.stages.length > 4) return "each part needs one to four stages";
     for (const st of p.stages) {
       if (!Array.isArray(st.items) || st.items.length < 1 || st.items.length > 3 || st.items.some(i => !allowed.has(i))) return "each stage needs one to three of the given ingredient ids, and no others";

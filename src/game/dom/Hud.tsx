@@ -36,14 +36,23 @@ export function Hud({ run, L, coins, eatKey, coinRef, onPause }: {
 }
 
 /** What to do next for the focused dish, from the first part that is not finished. */
-/** A paste of this dish already poured into the next station, or on its way to the plates in it. */
-const poured = (run: sim.Run, dishId: string, made?: string) => !!made && (Object.values(run.stations).some(s => s?.part?.dishId === dishId && s.part.items.some(i => i.id === made))
-  || run.board.some(p => p && p.dishId === dishId && p.parts.some(x => x.items.includes(made))));
-function nextStep(run: sim.Run, dishId: string): string {
+/**
+ * Whether this guest's paste is already poured: pastes of the dish in a station or on a plate, by portions, cover the guests waiting for
+ * it in queue order (as the test player counts them), so a second order of the same dish still shows its own blend.
+ */
+function poured(run: sim.Run, g: sim.GuestRun, made?: string) {
+  if (!made) return false;
+  const has = (items: string[]) => items.includes(made);
+  const ready = Object.values(run.stations).reduce((n, s) => n + (s?.part?.dishId === g.dishId && has(s.part.items.map(i => i.id)) ? s.part.portions : 0), 0)
+    + run.board.reduce((n, p) => n + (p && p.dishId === g.dishId && p.parts.some(x => has(x.items)) ? p.portions : 0), 0);
+  return ready >= sim.waiting(run).filter(x => x.dishId === g.dishId).indexOf(g) + 1;
+}
+function nextStep(run: sim.Run, g: sim.GuestRun): string {
+  const dishId = g.dishId;
   const dish = DISHES[dishId];
   for (const part of dish.parts) {
     if (run.board.some(p => p && p.dishId === dishId && p.parts.some(x => x.partId === part.id))) continue;
-    if (poured(run, dishId, part.makes)) continue;
+    if (poured(run, g, part.makes)) continue;
     const pr = run.stations[part.station]?.part;
     if (pr && pr.partId === part.id) {
       if (pr.state === "ready" && part.makes) { const to = dish.parts.find(p => p !== part && p.stages.some(sg => sg.slots.some(sl => sl.accepts.includes(part.makes!)))); return "Ready: pour it onto the " + (to ? STATIONS[to.station].name.toLowerCase() : "next station"); }
@@ -64,7 +73,7 @@ export function RecipeCard({ run, L, art }: { run: sim.Run; L: Layout; art: Art 
   const dish = DISHES[g.dishId], chips: ReactElement[] = [], table = sim.tableRules(run, g), pot = sim.mates(run, g), who = [g, ...pot].map(x => GUESTS[x.guestId].name).join(" + ");
   dish.parts.forEach((part, pi) => {
     const st = run.stations[part.station], pr = st?.part && st.part.partId === part.id ? st.part : null;
-    const onBoard = run.board.some(p => p && p.dishId === dish.id && p.parts.some(x => x.partId === part.id)) || poured(run, dish.id, part.makes);
+    const onBoard = run.board.some(p => p && p.dishId === dish.id && p.parts.some(x => x.partId === part.id)) || poured(run, g, part.makes);
     if (pi) chips.push(<span key={"s" + pi} className="sep" />);
     part.stages.forEach((stage, si) => stage.slots.forEach(slot => {
       const found = pr?.items.find(x => x.stage === si && slot.accepts.includes(x.id));
@@ -80,6 +89,6 @@ export function RecipeCard({ run, L, art }: { run: sim.Run; L: Layout; art: Art 
   return <div className="layer recipe panel" style={box(L.recipe)} aria-label={dish.name + " for " + who}>
     <img className="bowl" src={art[dish.art]} alt="" />
     <div className="mid"><div className="t"><b>{dish.name}</b><small> for {GUESTS[g.guestId].name}{pot.length > 0 ? " +" + pot.length : ""}</small>{hints && rules}</div><div className="steps">{chips}</div></div>
-    {hints ? <span className="hint">{nextStep(run, g.dishId)}</span> : rules.length > 0 && <span className="hint rules">{rules}</span>}
+    {hints ? <span className="hint">{nextStep(run, g)}</span> : rules.length > 0 && <span className="hint rules">{rules}</span>}
   </div>;
 }

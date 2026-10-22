@@ -25,6 +25,9 @@ const one = (id: string, name: string, art: string, station: StationKind, stages
   ({ id, name, art, recipeId, remember, parts: [{ id, name, station, stages }] });
 
 const dish = (d: Dish) => d;
+/** Bumped whenever a level pack adds dishes (content/pack.ts), so caches derived from DISHES know to rebuild. */
+export let dishesVersion = 0;
+export const dishesChanged = () => { dishesVersion++; };
 export const DISHES: Record<string, Dish> = Object.fromEntries(([
   one("bee-hoon", "Fried bee hoon", "dish-beehoon", "pan", [
     { slots: [slot("aroma", "Aromatic", ["ginger", "garlic", "shallots"]), slot("veg", "Vegetable", ["shiitake", "cabbage", "carrot"])], secs: 4, hint: "an aromatic and a vegetable" },

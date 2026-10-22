@@ -18,12 +18,19 @@ async function write(packs: Stored) {
   const kept = Object.entries(packs).sort(([, a], [, b]) => b.at - a.at).slice(0, LIMIT);
   await AsyncStorage.setItem(KEY, JSON.stringify(Object.fromEntries(kept)));
 }
+/** Changes to the kept levels run one after another, so keeping a level and pruning revoked ones never overwrite each other. */
+let queue: Promise<unknown> = Promise.resolve();
+const change = (fn: (packs: Stored) => Stored | null) => {
+  const next = queue.then(async () => { const packs = await read(), out = fn(packs); if (out) await write(out); });
+  queue = next.catch(() => {});
+  return next;
+};
 
 /** Keeps a public level after it loaded online. */
 export async function rememberPack(res: PackResponse) {
   if (res.private) return;
   // A full or failing store only means this level can't be played offline later.
-  try { await write({ ...await read(), [res.hash]: { ...res, at: Date.now() } }); } catch { /* not kept */ }
+  try { await change(packs => ({ ...packs, [res.hash]: { ...res, at: Date.now() } })); } catch { /* not kept */ }
 }
 /** A kept level, when it was not revoked since. */
 export async function keptPack(hash: string): Promise<PackResponse | null> {
@@ -31,10 +38,9 @@ export async function keptPack(hash: string): Promise<PackResponse | null> {
 }
 /** Drops every kept level on the revocation list. Offline, nothing changes. */
 export async function pruneRevoked() {
-  const packs = await read();
-  if (!Object.keys(packs).length) return;
+  if (!Object.keys(await read()).length) return;
   try {
     const revoked = new Set((await fetchRevoked()).hashes);
-    if (Object.keys(packs).some(h => revoked.has(h))) await write(Object.fromEntries(Object.entries(packs).filter(([h]) => !revoked.has(h))));
+    await change(packs => Object.keys(packs).some(h => revoked.has(h)) ? Object.fromEntries(Object.entries(packs).filter(([h]) => !revoked.has(h))) : null);
   } catch { /* offline: try again next time */ }
 }

@@ -185,7 +185,6 @@ CREATE TABLE IF NOT EXISTS game.level_reaction (
   PRIMARY KEY (user_id, hash)
 );
 CREATE INDEX IF NOT EXISTS game_level_reaction_hash ON game.level_reaction(hash);
-CREATE INDEX IF NOT EXISTS game_run_pack ON game.run(pack, tier) WHERE pack IS NOT NULL;
 CREATE TABLE IF NOT EXISTS game.player_rating (
   user_id text PRIMARY KEY REFERENCES game.profile(user_id) ON DELETE CASCADE,
   rating double precision NOT NULL CHECK (rating BETWEEN 0 AND 4000),
@@ -224,3 +223,7 @@ BEGIN
   END IF;
 END $$;
 COMMIT;
+
+-- Kitchen quality counts read runs by pack. Built outside the transaction and CONCURRENTLY, so starting and settling runs never wait
+-- for it (psql runs this after COMMIT; a build that was interrupted leaves an invalid index: drop it and run this line again).
+CREATE INDEX CONCURRENTLY IF NOT EXISTS game_run_pack ON game.run(pack, tier) WHERE pack IS NOT NULL;

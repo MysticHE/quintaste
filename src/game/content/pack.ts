@@ -3,7 +3,7 @@
  * the items they need on top of the built-in content; it can never change a built-in dish, item or rule, so the rules
  * version (sim/replay.ts) stays the built-in content's and a pack is identified by its own hash instead.
  */
-import { DISHES, STATIONS, type Dish, type Part, type Slot, type Stage, type StationKind } from "./dishes";
+import { DISHES, dishesChanged, STATIONS, type Dish, type Part, type Slot, type Stage, type StationKind } from "./dishes";
 import { ITEM_FORM, ITEMS, type GameItem, type GameLabel, type ItemForm, type ItemTag, type ItemTone } from "./items";
 
 export const PACK_FORMAT = 1;
@@ -130,6 +130,7 @@ export function registerPack(pack: LevelPack) {
   for (const [k, f] of Object.entries(pack.forms)) clash(ITEM_FORM[k], f, "form " + k);
   for (const it of pack.items) ITEMS[it.id] ??= it;
   for (const d of pack.dishes) DISHES[d.id] ??= d;
+  dishesChanged();
   for (const [k, f] of Object.entries(pack.forms)) ITEM_FORM[k] ??= f;
   registered.set(pack.id, hash);
   byHash.set(hash, pack);
