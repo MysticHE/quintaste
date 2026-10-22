@@ -325,6 +325,20 @@ def is_stale(channel, now=None):
         return True
 
 
+def slug(name):
+    return re.sub(r'^-+|-+$', '', re.sub(r'[^a-z0-9]+', '-', str(name).lower()))[:60]
+
+
+def sendable(creator):
+    """The creator as every live app version accepts it, or None. Channels with a long or non-https link are left out; a name without
+    three Latin letters or digits is held back, because app releases before 2f32b0b refuse the whole batch for one (22 Oct 2026)."""
+    channels = [ch for ch in creator['channels'] if str(ch.get('url', '')).startswith('https://') and len(ch['url']) <= 300 and (ch.get('handle') or link_key(ch['url']))]
+    website = creator.get('website') if str(creator.get('website') or '').startswith('https://') and len(creator['website']) <= 300 else None
+    if len(slug(creator['name'])) < 3 or not (website or channels):
+        return None
+    return {**creator, 'website': website, 'channels': channels}
+
+
 def run(root, state, folder, policy, client=None, **seams):
     """One scout. Returns a summary for the round report; raises only when the library cannot be read or written."""
     import creators_client
@@ -361,5 +375,8 @@ def run(root, state, folder, policy, client=None, **seams):
             notes.append(note)
     else:
         notes.append('Instagram skipped: instaloader is not installed')
-    counts = client.scout(found[:40], refresh[:MAX_REFRESH])
+    ready = [c for c in map(sendable, found) if c]
+    if len(ready) < len(found):
+        notes.append('%d held back (name without Latin letters or no usable link)' % (len(found) - len(ready)))
+    counts = client.scout(ready[:40], refresh[:MAX_REFRESH])
     return {'found': len(found), 'web': len(web), **counts, 'notes': notes}

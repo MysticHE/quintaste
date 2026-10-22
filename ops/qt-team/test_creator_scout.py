@@ -155,6 +155,15 @@ class CreatorScoutTests(unittest.TestCase):
         with patch.object(creators_client, 'call', side_effect=call):
             self.assertEqual(creators_client.scout([], [])['added'], 0)  # one empty call still runs the app's 90-day pause
 
+    def test_finds_are_screened_so_one_never_fails_the_batch(self):
+        ok = {'name': 'Green Kitchen SG', 'website': 'https://green.example', 'channels': [
+            {'platform': 'youtube', 'handle': '@green', 'url': 'https://www.youtube.com/@green'},
+            {'platform': 'tiktok', 'handle': 'x', 'url': 'http://tiktok.example/x'}, {'platform': 'other', 'handle': 'y', 'url': 'https://e.example/' + 'y' * 400}]}
+        kept = cs.sendable(ok)
+        self.assertEqual([ch['platform'] for ch in kept['channels']], ['youtube'])
+        self.assertIsNone(cs.sendable({'name': '素食小厨房', 'website': None, 'channels': [{'platform': 'youtube', 'handle': '@s', 'url': 'https://www.youtube.com/@s'}]}))
+        self.assertIsNone(cs.sendable({'name': 'No Links', 'website': 'http://insecure.example', 'channels': []}))
+
     def test_due_weekly_and_retries_the_next_day(self):
         now = time.time()
         self.assertTrue(cs.due({}, now))
