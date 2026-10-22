@@ -59,7 +59,7 @@ export const Shelf = memo(function Shelf({ run, L, art, nudge, stock, onHint, on
   // Five columns fit; a shorter shelf widens its cards into the spare room (up to half again, so long names fit) and a longer
   // one keeps five a page and pages with its arrows.
   // A paged shelf keeps a gutter at each side for its arrows (as in the mockup), so an arrow never covers a card.
-  const cols = groups.reduce((n, g) => n + Math.ceil(g.ids.length / 2), 0), paged = cols > 5, avail = L.shelves.w - 16 - (paged ? 28 : 0);
+  const cols = groups.reduce((n, g) => n + Math.ceil(g.ids.length / 2), 0), paged = cols > 5, avail = L.shelves.w - 16 - 8 - (paged ? 28 : 0);
   const fill = Math.floor((avail - (cols - 1) * L.card.gap - (groups.length - 1) * (6 + L.card.gap)) / Math.max(1, cols));
   const cw = !paged ? Math.max(L.card.w, Math.min(fill, Math.round(L.card.w * 1.5))) : Math.floor((avail - 4 * L.card.gap) / 5);
   // Names are 12 px on a roomy card and 11 px on a narrow one (a paged shelf), so a long name still wraps whole.

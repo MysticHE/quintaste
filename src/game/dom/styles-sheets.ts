@@ -16,7 +16,8 @@ export const SHEETS_CSS = `
 .rh .btn.ghost { background:var(--cream-2); color:var(--ink); box-shadow:0 0 0 1.5px var(--panel-edge); } .rh .row { display:flex; gap:8px; } .rh .row .btn { flex:1 1 0; min-width:0; }
 .rh .seg { display:grid; grid-auto-flow:column; grid-auto-columns:1fr; gap:4px; padding:4px; border-radius:99px; background:var(--cream-2); }
 .rh .seg button { min-height:40px; border-radius:99px; font-size:13px; transition:background .15s; } .rh .seg button[aria-pressed=true] { background:var(--ink); color:var(--white); }
-.rh .guestrow { display:flex; gap:8px; overflow-x:auto; scrollbar-width:none; }
+/* The row scrolls sideways, which clips: padding keeps the cards' borders inside it. */
+.rh .guestrow { display:flex; gap:8px; overflow-x:auto; scrollbar-width:none; padding:4px 3px 5px; margin:-4px -3px -5px; }
 .rh .guestrow div { display:grid; justify-items:center; align-content:start; gap:3px; font-size:10px; min-width:78px; padding:6px 4px; text-align:center; border-radius:14px; background:var(--white); box-shadow:0 0 0 1px var(--panel-edge); }
 .rh .guestrow b { font-size:11px; } .rh .guestrow img { width:52px; height:52px; object-fit:contain; }
 .rh .label-card { background:var(--white); border-radius:14px; padding:12px; display:grid; gap:6px; box-shadow:inset 0 0 0 2px var(--panel-edge); font-size:13px; }

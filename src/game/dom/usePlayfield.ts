@@ -11,7 +11,7 @@ export type PlayfieldInput = Omit<SceneHooks, "ready">;
  * with resizes (including ones during asset loading) and destroys the game on unmount or reboot.
  */
 export function usePlayfield(runRef: MutableRefObject<sim.Run>, seats: number, stations: StationKind[], art: Record<string, string>,
-  look: { reduced: boolean; knob: boolean }, input: MutableRefObject<PlayfieldInput>, onReady: () => void) {
+  look: { reduced: boolean; knob: boolean; ts: number; pet: string }, input: MutableRefObject<PlayfieldInput>, onReady: () => void) {
   const rootRef = useRef<HTMLDivElement>(null), stageRef = useRef<HTMLDivElement>(null);
   const sceneRef = useRef<Playfield | null>(null), gameRef = useRef<{ destroy(b: boolean): void } | null>(null);
   const [L, setL] = useState<Layout | null>(null);
@@ -26,9 +26,9 @@ export function usePlayfield(runRef: MutableRefObject<sim.Run>, seats: number, s
   useEffect(() => {
     const el = rootRef.current; if (!el) return;
     // A webview can report 0×0 before its first layout; wait for a real size before booting Phaser.
-    const measure = () => { if (el.clientWidth > 0 && el.clientHeight > 0) setL(computeLayout(el.clientWidth, el.clientHeight, seats, stations, look.knob)); };
+    const measure = () => { if (el.clientWidth > 0 && el.clientHeight > 0) setL(computeLayout(el.clientWidth, el.clientHeight, seats, stations, look.knob, look.ts)); };
     measure(); const ro = new ResizeObserver(measure); ro.observe(el); return () => ro.disconnect();
-  }, [seats, key, look.knob]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [seats, key, look.knob, look.ts]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     const lay = layoutRef.current;
@@ -44,7 +44,7 @@ export function usePlayfield(runRef: MutableRefObject<sim.Run>, seats: number, s
     };
     const game = new Phaser.Game({ type: Phaser.AUTO, parent: stageRef.current, width: lay.w * DPR, height: lay.h * DPR, transparent: true, banner: false,
       scale: { mode: Phaser.Scale.NONE, zoom: 1 / DPR }, render: { antialias: true }, input: { activePointers: 2, windowEvents: false } });
-    game.scene.add("playfield", Playfield, true, { run: runRef.current, layout: lay, art, hooks, reduced: lookRef.current.reduced });
+    game.scene.add("playfield", Playfield, true, { run: runRef.current, layout: lay, art, hooks, reduced: lookRef.current.reduced, pet: lookRef.current.pet });
     gameRef.current = game;
     if (process.env.NODE_ENV !== "production") (globalThis as { __rushHour?: unknown }).__rushHour = { game, run: () => runRef.current, layout: () => layoutRef.current };
   }, [L !== null, boot]); // eslint-disable-line react-hooks/exhaustive-deps

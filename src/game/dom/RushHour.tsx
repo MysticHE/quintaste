@@ -13,6 +13,7 @@ import { cafeFor, missionFor, type Tier } from "../mission";
 import type { LevelBest } from "../progress";
 import { hintsFor, knobFor, PACE_SPEED, type PlaySettings } from "../settings";
 import * as sim from "../sim/engine";
+import { PETS } from "../content/cosmetics";
 import { HeatPanel, SayToast } from "./Controls";
 import { Bubbles, PlateTags, SeatTags, StationTags } from "./Counter";
 import { Hud, RecipeCard } from "./Hud";
@@ -88,7 +89,7 @@ export default function RushHour(props: Props) {
   const fx = useFeedback(settings, props.onHaptic);
   const input = useRef<PlayfieldInput>({ onStation: noop, onGuest: noop, onServeDrag: noop, onPlateDrag: noop, onTransfer: noop });
   const { rootRef, stageRef, sceneRef, L, reboot } = usePlayfield(runRef, runRef.current.level.seats, runRef.current.level.stations, art,
-    { reduced, knob: runRef.current.knob }, input, bump);
+    { reduced, knob: runRef.current.knob, ts: props.textScale, pet: art[petArt] ? petArt : PETS[pet]?.art ?? "" }, input, bump);
   const [paused, setPaused] = useState(false);
   const [leaving, setLeaving] = useState(false);
   const ev = useServiceEvents({ runRef, sceneRef, rootRef, fx, reduced, onEnd: () => void save() });

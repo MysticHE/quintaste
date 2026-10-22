@@ -6244,5 +6244,20 @@
    1280
   ],
   "status": "draft: needs artist approval before members see it"
+ },
+ "serving-tray": {
+  "source": "runs/serving1/serving-tray",
+  "variant": 2,
+  "tool": "QT Gamer (ChatGPT image generation via Hermes openai-codex)",
+  "model": "gpt-image-2-high",
+  "tier": "gpt-image-2-high",
+  "requestedAt": "2026-10-22T22:54:55+00:00",
+  "prompt": "Cosy mobile cooking-game art in the style of the reference image: a soft stylized 3D render with a hand-painted finish, rounded chunky shapes, smooth matte clay-like materials with subtle glossy highlights, warm soft key light from the upper left, gentle ambient occlusion, warm saturated but natural colours and a crisp clean silhouette. A single game prop sprite: a round woven rattan serving tray with a fresh green banana leaf on it and one empty white ceramic plate in the middle. Seen from slightly above, the same angle as a café counter. The plate is plain, glossy and empty, with a soft rim, sitting on the banana leaf so the leaf peeks out around it; the tray is warm honey rattan with a neat woven rim. Nothing on the plate, no food, no cutlery, no words. Three-quarter view from slightly above, centred, the whole object visible and filling about 75% of the frame with an even margin on every side. Isolated on a perfectly flat, uniform, solid magenta background (#FF00FF) that fills the whole image edge to edge: no gradient, no vignette, no floor, no table, no cast shadow on the background and no magenta reflections on the subject. No text, letters, numbers, logos or watermarks except label text specified above. No border or frame. No other objects. Never use magenta anywhere on the subject. Match only the rendering style of the reference image (a cosy cooking-game screen). Do not copy its layout, panels, text or any other object from it.",
+  "sha256": "80cf5e1ae7fa782daeb75cb42d79124ee6bcf2d699d026a03da5baf53d0ae568",
+  "size": [
+   256,
+   180
+  ],
+  "status": "draft: needs artist approval before members see it"
  }
 }

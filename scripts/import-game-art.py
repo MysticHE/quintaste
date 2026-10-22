@@ -55,7 +55,7 @@ def required_keys():
     accs = ["clip", "coral", "lilac", "mushroom", "lantern", "hat", "scarf", "crown"]
     keys |= {f"wear-{p}-{a}" for p in pets for a in accs if not (p == "blue" and a == "scarf")}
     keys |= WIDE
-    keys |= {"rh-bg", "rh-kitchen", "rh-counter", "plate", "board", "cafe-counter", "avatar-adult", "avatar-mini", "avatar-lian", "lotus-bud-pink",
+    keys |= {"rh-bg", "rh-kitchen", "serving-tray", "rh-counter", "plate", "board", "cafe-counter", "avatar-adult", "avatar-mini", "avatar-lian", "lotus-bud-pink",
              "lotus-pink", "lotus-purple", "lotus-blue", "lotus-golden", "decor-rug", "assembly-counter"}
     keys.discard("")
     return sorted(k for k in keys if k)

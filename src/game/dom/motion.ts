@@ -67,23 +67,6 @@ export function puff(scene: Scene, at: Point, tint: number) {
   e.explode(10); scene.time.delayedCall(1000, () => e.destroy());
 }
 
-/**
- * Five-step coin pickup (GAME_PLAN §13): the coins pop out with a sparkle, hang a moment, then a magnet pulls each one in on a
- * curve that speeds up as it nears the takings, where the counter eats it (flash and bump in the HUD); sound and haptics run outside.
- */
-export function coins(scene: Scene, from: Point, to: Point, count: number, eat: () => void) {
-  burst(scene, from, 9);
-  for (let i = 0; i < count; i++) {
-    const a = -Math.PI / 2 + (Math.random() - 0.5) * 2.2, d = 22 + Math.random() * 26, p0 = { x: from.x + Math.cos(a) * d, y: from.y + Math.sin(a) * d };
-    const ctl = { x: p0.x + (p0.x - from.x) * 1.2, y: p0.y - 24 }, c = { t: 0 };
-    const img = scene.add.image(from.x, from.y, "coin").setDepth(32).setScale(0.3);
-    scene.tweens.add({ targets: img, x: p0.x, y: p0.y, scale: 0.85, duration: 160, ease: "Back.easeOut", onComplete: () => scene.tweens.add({
-      targets: c, t: 1, duration: 520, delay: 40 + i * 45, ease: "Cubic.easeIn",
-      onUpdate: () => { const t = c.t, u = 1 - t; img.setPosition(u * u * p0.x + 2 * u * t * ctl.x + t * t * to.x, u * u * p0.y + 2 * u * t * ctl.y + t * t * to.y).setScale(0.85 - 0.4 * t).setAngle(360 * t); },
-      onComplete: () => { img.destroy(); eat(); } }) });
-  }
-}
-
 /** Hearts pop up over a happy guest and drift away. */
 export function hearts(scene: Scene, at: Point, count = 3) {
   for (let i = 0; i < count; i++) {

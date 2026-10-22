@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, type MutableRefObject, type RefObject } fr
 import { STATIONS, type StationKind } from "../content/dishes";
 import { itemName } from "../content/items";
 import * as sim from "../sim/engine";
+import { flyCoins } from "./coinsFx";
 import type { Point } from "./layout";
 import type { Playfield } from "./scene";
 import type { useFeedback } from "./useFeedback";
@@ -103,7 +104,9 @@ export function useServiceEvents(options: Options) {
       fx.cue("serve", run - 1);
       const coinsOut = () => {
         let k = (run - 1) * 2;
-        if (sc) sc.coins(seat, n, a.coinTarget(), () => { setCoins(c => Math.min(runRef.current.coins, c + 2)); setEat(x => x + 1); fx.cue("coin", k++); });
+        const root = opt.current.rootRef.current, s = sc?.L.seats[seat - 1];
+        if (root && s && !reduced) flyCoins(root, { x: s.mat.x + s.mat.w / 2, y: s.mat.y }, a.coinTarget(), Math.min(10, n),
+          () => { setCoins(c => Math.min(runRef.current.coins, c + 2)); setEat(x => x + 1); fx.cue("coin", k++); }, total);
         else { setCoins(r.coins); fx.cue("coin"); }
       };
       if (sc && g) sc.serveTo(slot, seat, g.dishId, coinsOut); else coinsOut();

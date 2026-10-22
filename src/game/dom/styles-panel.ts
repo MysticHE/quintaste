@@ -46,19 +46,19 @@ export const PANEL_CSS = `
 .rh .take.now { animation:rhtakenow .42s ease-in-out infinite alternate; box-shadow:inset 0 -3px 0 var(--gold-deep), 0 0 0 3px var(--white), 0 0 18px 6px var(--gold-hi); }
 .rh .take.over { background:linear-gradient(var(--peach),var(--hot)); color:var(--white); box-shadow:inset 0 -3px 0 var(--burner); }
 @keyframes rhtakenow { to { transform:scale(1.09); } }
-.rh .status { flex:1; min-width:0; height:50px; display:flex; align-items:center; gap:4px; padding:3px 4px 3px 9px; border-radius:14px; background:var(--white); box-shadow:0 0 0 1.5px var(--panel-edge); }
-.rh .status .line { flex:1; min-width:0; display:grid; gap:1px; font-size:14px; line-height:1.15; }
-.rh .status .line b, .rh .status .line .how { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; } .rh .status .line .how { font-size:12px; color:var(--ink-2); }
-.rh .status .chips { display:flex; gap:4px; overflow-x:auto; scrollbar-width:none; }
-.rh .hchip { flex:none; font-size:12px; padding:0 10px; min-height:26px; border-radius:99px; background:var(--cream-2); box-shadow:0 0 0 1px var(--panel-edge); transition:transform .12s ease-out; }
-.rh .hchip:active { transform:scale(.92); } .rh .hchip.alert { background:var(--warn-soft); color:var(--warn); }
-.rh .skill { flex:none; width:42px; height:42px; border-radius:12px; background:var(--cream); position:relative; box-shadow:0 0 0 1.5px var(--panel-edge); display:grid; place-items:center; }
+/* The companion's Skill card: its picture, "Skill" and the skill's name (or Used). */
+.rh .skill { flex:1; min-width:0; height:50px; display:flex; align-items:center; gap:8px; padding:3px 10px 3px 4px; border-radius:14px; background:var(--white); text-align:left;
+  box-shadow:0 0 0 1.5px var(--panel-edge), 0 2px 5px var(--shadow); transition:transform .12s; }
+.rh .skill:active { transform:scale(.96); }
+.rh .skill .pic { position:relative; flex:none; width:42px; height:42px; border-radius:11px; background:var(--cream); display:grid; place-items:center; box-shadow:0 0 0 1.5px var(--panel-edge); }
 .rh .skill img { width:34px; height:34px; object-fit:contain; }
-/* The skill's pill grows leftward from the tile's right edge, so a long name or large text never leaves the screen. */
-.rh .skill span { position:absolute; bottom:-6px; right:-3px; font-size:11px; padding:0 6px; border-radius:99px; background:var(--gold); color:var(--gold-ink); white-space:nowrap; }
+.rh .skill .line { flex:1; min-width:0; display:grid; gap:1px; line-height:1.15; }
+.rh .skill .line b { font-size:11px; color:var(--ink-2); }
+.rh .skill .line .how { font-size:13px; line-height:1.1; color:var(--gold-deep); overflow:hidden; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; }
 .rh .skill .ok { position:absolute; top:-6px; right:-6px; width:18px; height:18px; border-radius:50%; background:var(--sage-deep); color:var(--white); font-size:11px; font-style:normal; display:grid; place-items:center; box-shadow:0 0 0 2px var(--white); }
-.rh .skill.used span { background:var(--cream-2); color:var(--ink-2); box-shadow:0 0 0 1px var(--panel-edge); }
-.rh .skill:disabled { cursor:default; } .rh .skill:disabled:not(.used) { opacity:.5; }
+.rh .skill.used .line .how { color:var(--ink-2); }
+.rh .skill:disabled { cursor:default; } .rh .skill:disabled:not(.used) { opacity:.55; }
+.rh .restart.alert { background:var(--warn-soft); color:var(--warn); box-shadow:0 0 0 1.5px var(--warn); max-width:132px; } .rh .restart .tx { min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 /* Knob mode's cook timer (C): the step cooks along the bar to the gold window, which is done to the second; past it, overcooked. */
 .rh .cooktimer { display:flex; align-items:center; gap:6px; height:24px; padding:0 4px; transition:opacity .2s; }
 .rh .cooktimer .watch { width:18px; height:18px; flex:none; color:var(--ink-2); }
@@ -74,7 +74,7 @@ export const PANEL_CSS = `
 .rh .cooktimer.over .cmark { box-shadow:0 0 0 3px var(--warn), 0 2px 5px var(--shadow); animation:rhnope .4s ease-in-out infinite; }
 @keyframes rhwin { to { box-shadow:0 0 0 2px var(--white), 0 0 14px 5px var(--gold-hi); } }
 /* Messages from the chef or a guest, under the order card, gone on their own. */
-.rh .saytoast { position:absolute; z-index:45; transform:translate(-50%,-100%); display:flex; align-items:center; gap:8px; width:max-content; padding:5px 14px 5px 5px; border-radius:20px;
+.rh .saytoast { position:absolute; z-index:45; transform:translateX(-50%); display:flex; align-items:center; gap:8px; width:max-content; padding:5px 14px 5px 5px; border-radius:20px;
   background:var(--glass); box-shadow:0 0 0 1.5px var(--panel-edge), 0 4px 12px var(--shadow); pointer-events:none; animation:rhtoast 3.2s ease-out forwards; }
 .rh .saytoast.warn { box-shadow:0 0 0 2px var(--warn), 0 4px 12px var(--shadow); animation-duration:4.5s; }
 .rh .saytoast img { width:32px; height:32px; flex:none; border-radius:50%; object-fit:cover; object-position:50% 10%; background:var(--cream-2); }
@@ -82,7 +82,15 @@ export const PANEL_CSS = `
   font-family:"Nunito_700Bold","Nunito",ui-rounded,system-ui,sans-serif; font-weight:700; }
 .rh .saytoast b { margin-right:5px; font-family:"Nunito_800ExtraBold","Nunito",ui-rounded,system-ui,sans-serif; font-weight:800; color:var(--coral); }
 .rh .saytoast.warn b { color:var(--warn); } .rh .saytoast.good b { color:var(--sage-deep); }
-@keyframes rhtoast { 0% { opacity:0; transform:translate(-50%,-80%) scale(.9); } 7% { opacity:1; transform:translate(-50%,-100%); } 88% { opacity:1; } 100% { opacity:0; transform:translate(-50%,-100%); } }
+@keyframes rhtoast { 0% { opacity:0; transform:translate(-50%,-8px) scale(.9); } 7% { opacity:1; transform:translateX(-50%); } 88% { opacity:1; } 100% { opacity:0; transform:translateX(-50%); } }
+/* The coin pickup (coinsFx.ts), over every panel: coins, sparks and the takings won. */
+.rh .flycoin { position:absolute; left:0; top:0; z-index:47; width:26px; height:26px; margin:-13px 0 0 -13px; border-radius:50%; pointer-events:none; will-change:transform;
+  background:radial-gradient(circle at 35% 30%, var(--gold-hi), var(--gold) 62%); box-shadow:inset 0 0 0 3px var(--gold-deep), 0 0 10px 2px var(--gold-hi); }
+.rh .flyspark { position:absolute; left:0; top:0; z-index:46; width:8px; height:8px; margin:-4px 0 0 -4px; border-radius:50%; pointer-events:none; background:var(--gold-hi); box-shadow:0 0 6px 2px var(--gold-hi); }
+.rh .coinpop { position:absolute; z-index:47; transform:translate(-50%,-50%); font-size:30px; white-space:nowrap; pointer-events:none; color:var(--gold-hi);
+  text-shadow:0 3px 0 var(--gold-deep), 0 0 3px var(--gold-ink), 0 0 16px var(--gold-hi); animation:rhcoinpop 1.6s cubic-bezier(.2,1.4,.4,1) forwards; }
+@keyframes rhcoinpop { 0% { transform:translate(-50%,-30%) scale(.3); opacity:0; } 12% { transform:translate(-50%,-50%) scale(1.3); opacity:1; } 22% { transform:translate(-50%,-50%) scale(1); }
+  72% { opacity:1; transform:translate(-50%,-85%); } 100% { opacity:0; transform:translate(-50%,-150%); } }
 /* How a step came off (C), stamped over its station. */
 .rh .stamp { position:absolute; z-index:44; transform:translate(-50%,-100%); white-space:nowrap; pointer-events:none; font-size:17px; color:var(--white);
   text-shadow:0 2px 0 var(--cook), 0 0 8px var(--shadow); animation:rhstampin 1.1s cubic-bezier(.2,1.4,.4,1) forwards; }

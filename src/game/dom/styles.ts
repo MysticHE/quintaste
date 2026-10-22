@@ -50,9 +50,9 @@ const TOP = `
 .rh .coins .ico { width:22px; height:22px; flex:none; border-radius:50%; background:radial-gradient(circle at 35% 30%, var(--gold-hi), var(--gold) 62%); box-shadow:inset 0 0 0 2px var(--gold-deep); }
 .rh .coins .ico { position:relative; } .rh .coins .ico.eat { animation:rheat .16s ease-out; } @keyframes rheat { 50% { transform:scale(1.4, .78); } }
 /* Each coin the counter eats flashes a ring and bumps the number (reel step 4 and 5); a combo chip counts quick serves. */
-.rh .coins .ico.eat::after { content:""; position:absolute; inset:-2px; border-radius:50%; box-shadow:0 0 0 2px var(--gold-hi), 0 0 10px 2px var(--gold-hi); animation:rhring .32s ease-out forwards; }
+.rh .coins .ico.eat::after { content:""; position:absolute; inset:-2px; border-radius:50%; box-shadow:0 0 0 3px var(--gold-hi), 0 0 16px 5px var(--gold-hi); animation:rhring .36s ease-out forwards; }
 @keyframes rhring { from { transform:scale(.6); opacity:1; } to { transform:scale(1.7); opacity:0; } }
-.rh .coins b { display:inline-block; } .rh .coins b.bump { animation:rhbump .24s cubic-bezier(.2,1.6,.4,1); } @keyframes rhbump { 40% { transform:scale(1.32) translateY(-2px); color:var(--gold-deep); } }
+.rh .coins b { display:inline-block; } .rh .coins b.bump { animation:rhbump .28s cubic-bezier(.2,1.6,.4,1); } @keyframes rhbump { 40% { transform:scale(1.55) translateY(-3px); color:var(--gold-deep); } }
 .rh .combo { flex:none; font-size:12px; line-height:1; padding:3px 7px; border-radius:99px; background:var(--gold-hi); color:var(--gold-ink); box-shadow:0 0 0 1.5px var(--gold); animation:rhcombo .32s cubic-bezier(.2,1.7,.4,1); }
 @keyframes rhcombo { from { transform:scale(.4) rotate(-12deg); opacity:0; } }
 .rh .bar { position:relative; height:12px; border-radius:99px; background:var(--cream-2); box-shadow:inset 0 0 0 1.5px var(--panel-edge), inset 0 2px 3px var(--press); }
@@ -87,19 +87,19 @@ const TOP = `
 .rh .hint { flex:none; max-width:28%; font-size:11px; line-height:1.2; padding:5px 8px; border-radius:12px; background:var(--hint-bg); color:var(--hint-ink); text-align:center; }
 `;
 const SCENE = `
-.rh .bubble { position:absolute; transform:translate(-50%,-100%); margin-top:-8px; background:var(--white); border-radius:16px; padding:5px 7px 6px; display:grid; justify-items:center; gap:3px;
-  box-shadow:0 0 0 2.5px var(--gold-hi), 0 0 10px 1px var(--gold-hi), 0 3px 8px var(--shadow); font-size:11px; min-width:68px; max-width:132px; text-align:center; animation:rhpop .35s cubic-bezier(.2,1.6,.4,1); }
+.rh .bubble { position:absolute; transform:translate(-50%,-100%); margin-top:-8px; background:var(--white); border-radius:14px; padding:3px 6px 4px; display:grid; justify-items:center; gap:2px;
+  box-shadow:0 0 0 2.5px var(--gold-hi), 0 0 10px 1px var(--gold-hi), 0 3px 8px var(--shadow); font-size:11px; min-width:58px; max-width:112px; text-align:center; animation:rhpop .35s cubic-bezier(.2,1.6,.4,1); }
 .rh .bubble::after { content:""; position:absolute; bottom:-6px; left:50%; margin-left:-6px; border:6px solid transparent; border-top-color:var(--white); border-bottom-width:0; }
 .rh .bubble:disabled { cursor:default; }
 .rh .bubble.focus { box-shadow:0 0 0 3.5px var(--gold), 0 0 16px 4px var(--gold-hi), 0 3px 8px var(--shadow); } .rh .bubble.low { animation:rhwobble .5s ease-in-out infinite; }
 .rh .bubble.target { box-shadow:0 0 0 3px var(--target), 0 3px 8px var(--shadow); animation:rhbeat 1s ease-in-out infinite; }
 @keyframes rhpop { from { transform:translate(-50%,-80%) scale(.4); opacity:0; } } @keyframes rhwobble { 50% { transform:translate(-50%,-100%) rotate(3deg); } }
 @keyframes rhbeat { 50% { transform:translate(-50%,-100%) scale(1.06); } }
-.rh .bubble .row { display:flex; align-items:center; gap:3px; } .rh .bubble img { width:46px; height:34px; object-fit:contain; }
+.rh .bubble .row { display:flex; align-items:center; gap:3px; } .rh .bubble img { width:36px; height:26px; object-fit:contain; }
 .rh .chip { max-width:100%; overflow:hidden; text-overflow:ellipsis; font-size:11px; padding:1px 7px; border-radius:99px; background:var(--cream-2); line-height:1.4; white-space:nowrap; }
-.rh .chip.rule { background:var(--coral); color:var(--white); padding:2px 9px; font-size:12px; } .rh .chip.rule.vegan { background:var(--vegan); } .rh .chip.rule.jain { background:var(--jain); }
+.rh .chip.rule { background:var(--coral); color:var(--white); padding:1px 8px; font-size:11px; } .rh .chip.rule.vegan { background:var(--vegan); } .rh .chip.rule.jain { background:var(--jain); }
 .rh .chip.rule.nomeat { background:var(--cook); } .rh .chip.rule.nomush, .rh .chip.rule.mild { background:var(--hint-bg); color:var(--hint-ink); } .rh .chip.serve { background:var(--sage-deep); color:var(--white); } .rh .chip.yum { background:var(--hint-bg); color:var(--hint-ink); }
-.rh .hearts { letter-spacing:-1px; font-size:15px; line-height:1; color:var(--fx-heart); } .rh .hearts .off { color:var(--panel-edge); }
+.rh .hearts { letter-spacing:-1px; font-size:12px; line-height:1; color:var(--fx-heart); } .rh .hearts .off { color:var(--panel-edge); }
 .rh .seattag { position:absolute; transform:translateY(-50%); display:inline-flex; align-items:center; gap:3px; font-size:14px; padding:3px 9px 3px 6px; border-radius:99px; background:var(--cream); box-shadow:0 0 0 1.5px var(--panel-edge); }
 .rh .seattag svg { width:14px; height:14px; fill:var(--ink); }
 .rh .stag { position:absolute; transform:translate(-50%,-50%); font-size:13px; padding:0 13px 0 9px; min-height:38px; gap:6px; border-radius:99px; background:var(--pill); color:var(--white); white-space:nowrap;
@@ -127,8 +127,9 @@ const SCENE = `
 @keyframes rhcap { 0% { opacity:0; transform:translateY(-4px); } 12%, 75% { opacity:1; transform:none; } 100% { opacity:0; } }
 `;
 const SHELF = `
-.rh .shelf { padding:8px 8px 18px; }
-.rh .tray { display:flex; gap:var(--gap); height:100%; overflow-x:auto; overflow-y:hidden; scroll-snap-type:x proximity; scrollbar-width:none; overscroll-behavior-x:contain; }
+.rh .shelf { padding:4px 8px 16px; }
+/* The tray scrolls sideways, which clips anything outside it: padding keeps the cards' borders and glows inside. */
+.rh .tray { display:flex; gap:var(--gap); height:100%; padding:6px 4px; scroll-padding-inline:4px; overflow-x:auto; overflow-y:hidden; scroll-snap-type:x proximity; scrollbar-width:none; overscroll-behavior-x:contain; }
 .rh .tray::-webkit-scrollbar { display:none; }
 /* More cards past the edge: the shelf peeks left once when it appears, so it reads as scrollable. */
 .rh .tray[data-more] .group, .rh .tray[data-more] .divider { animation:rhpeek 1.1s .7s ease-in-out 1; }

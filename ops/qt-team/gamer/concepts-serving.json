@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "note": "One serving plate instead of the three-plate board (owner, 23 Oct 2026).",
+  "assets": [
+    {
+      "id": "serving-tray",
+      "kind": "prop",
+      "chroma": "magenta",
+      "subject": "a round woven rattan serving tray with a fresh green banana leaf on it and one empty white ceramic plate in the middle",
+      "details": "Seen from slightly above, the same angle as a café counter. The plate is plain, glossy and empty, with a soft rim, sitting on the banana leaf so the leaf peeks out around it; the tray is warm honey rattan with a neat woven rim. Nothing on the plate, no food, no cutlery, no words.",
+      "status": "todo"
+    }
+  ]
+}

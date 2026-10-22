@@ -45,11 +45,6 @@ export function HeatPanel({ run, L, art, petArt, hold, nudge, onHeat, onHeatTo, 
 }) {
   const kind = run.selected, st = run.stations[kind]!, cfg = STATIONS[kind], pr = st.part, [lo, hi] = sim.bandOf(st, pr), g = sim.focusGuest(run);
   const bad = pr && g ? conflicts(pr.items.map(i => i.id), sim.tableRules(run, g), run.flip) : [];
-  const steps = pr ? sim.partOf(pr).stages.length : 0, step = pr && steps > 1 ? "Step " + Math.min(pr.stage + 1, steps) + "/" + steps : "";
-  const state = !pr ? "Empty" : pr.state === "cooking" ? "Cooking " + Math.round(pr.progress * 100) + "%" : pr.state === "waiting" ? step || "Loading"
-    : pr.state === "ready" ? "Ready" : pr.state === "scorched" ? "Scorched" : pr.state === "split" ? "Split" : "Loading";
-  // The station's name on one line and its step on the next: the heat bar shows the heat and the station's own tag how far it has cooked.
-  const how = step || (cfg.heat && pr ? heatWord(st.H, lo, hi, cfg.scorch) : state);
   const knobbed = run.knob && !!cfg.heat && !cfg.thermostat;
   const [grade, setGrade] = useState<Grade | null>(null);
   useEffect(() => { if (!grade) return; const t = setTimeout(() => setGrade(null), 1300); return () => clearTimeout(t); }, [grade]);
@@ -72,14 +67,14 @@ export function HeatPanel({ run, L, art, petArt, hold, nudge, onHeat, onHeatTo, 
       </button>
       {phase === "near" || phase === "now" || phase === "over"
         ? <button className={"take " + phase} onClick={() => onTake(kind)} aria-label={"Take the " + cfg.name.toLowerCase() + " off the heat"}><Spatula />Take off</button>
+        : liftable.length > 0 ? <button className="restart alert" onClick={() => onLift(kind, liftable[0].uid)} aria-label={"Lift " + itemName(liftable[0].id) + " out"}>
+          <span className="tx">{itemName(liftable[0].id)}</span> ✕</button>
         : restartable && <button className="restart" onClick={() => onRestart(kind)}><Refresh />Restart</button>}
-      <div className="status" aria-live="polite">
-        <span className="line"><b>{cfg.name}</b>
-          {liftable.length > 0 ? <span className="chips">{liftable.map(i => <button key={i.uid} className={"hchip" + (bad.includes(i.id) ? " alert" : "")} onClick={() => onLift(kind, i.uid)}
-            aria-label={"Lift " + itemName(i.id) + " out"}>{bad.includes(i.id) ? "! " : ""}{itemName(i.id)} ✕</button>)}</span> : <span className="how">{how}</span>}</span>
-        <button className={"skill" + (run.skill.used ? " used" : "")} onClick={onSkill} disabled={run.skill.used || !run.started} aria-label={pet.name + ": " + skill.name + ". " + skill.effect + (run.skill.used ? " Used." : "")}>
-          <img src={art[petArt] ?? art[pet.art]} alt="" />{run.skill.used && <i className="ok">✓</i>}<span>{run.skill.used ? "Used" : skill.name}</span></button>
-      </div>
+      <button className={"skill" + (run.skill.used ? " used" : "")} onClick={onSkill} disabled={run.skill.used || !run.started}
+        aria-label={pet.name + ": " + skill.name + ". " + skill.effect + (run.skill.used ? " Used." : "")}>
+        <span className="pic"><img src={art[petArt] ?? art[pet.art]} alt="" />{run.skill.used && <i className="ok">✓</i>}</span>
+        <span className="line"><b>Skill</b><span className="how">{run.skill.used ? "Used" : skill.name}</span></span>
+      </button>
     </div>
   </div>;
 }
@@ -104,17 +99,17 @@ function burnerInput(hold: boolean, kind: StationKind, onHeat: (k: StationKind) 
 }
 
 /**
- * A mistake or a win the chef or a guest calls out, as a short toast over the counter (no chat panel, owner 22 Oct); it fades on its
- * own. Routine lines (orders, next steps, heat) are already shown by the bubbles, the order card and the heat bar, so they stay quiet.
+ * A mistake the chef or a guest calls out, as a short toast just under the shelf, over the worktop (no chat panel, owner 22 Oct; never
+ * over a guest's face, 23 Oct); it fades on its own. Routine lines and thanks are already shown by the bubbles, order card and heat bar.
  */
 export function SayToast({ run, L, art, chefArt }: { run: sim.Run; L: Layout; art: Art; chefArt: string }) {
   // The line shows until its time is up; `gone` remembers which line has faded, so a new one shows at once.
   const { text, who, tone } = run.say, [gone, setGone] = useState<string | null>(null);
-  const shown = run.started && !!text && tone !== "info" && gone !== text ? text : null;
-  useEffect(() => { if (!shown) return; const t = setTimeout(() => setGone(shown), tone === "warn" ? 4500 : 3200); return () => clearTimeout(t); }, [shown, tone]);
+  const shown = run.started && !!text && tone === "warn" && gone !== text ? text : null;
+  useEffect(() => { if (!shown) return; const t = setTimeout(() => setGone(shown), 4500); return () => clearTimeout(t); }, [shown]);
   if (!shown) return null;
   const guest = who ? GUESTS[who] : null;
-  return <div key={shown} className={"saytoast " + tone} role="status" style={{ left: L.col.x + L.col.w / 2, top: L.counter.y - 6, maxWidth: L.col.w - 40 }}>
+  return <div key={shown} className={"saytoast " + tone} role="status" style={{ left: L.col.x + L.col.w / 2, top: L.shelves.y + L.shelves.h + 6, maxWidth: L.col.w - 40 }}>
     <img src={art[guest ? guest.art : chefArt]} alt="" /><p><b>{guest ? guest.name : "Chef"}</b>{shown}</p></div>;
 }
 

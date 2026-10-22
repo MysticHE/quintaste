@@ -21,8 +21,9 @@ export const STATION_ART: Record<StationKind, { size: [number, number]; bowl: Ar
   dough: { size: [320, 189], bowl: { x: 0.47, y: 0.45, rx: 0.3, ry: 0.2 }, flame: { x: 0.5, y: 0.9, rx: 0.1, ry: 0.02 } },
   fridge: { size: [277, 320], bowl: { x: 0.5, y: 0.45, rx: 0.3, ry: 0.1 }, flame: { x: 0.5, y: 0.92, rx: 0.1, ry: 0.02 }, closed: true },
 };
-/** The wooden plating board ("board" art) and the plate art laid on it. */
-export const PLATING_ART: [number, number] = [320, 143];
+/** The serving tray ("serving-tray" art, owner 23 Oct 2026): a rattan tray with a banana leaf and one plate, at this fraction of the art. */
+export const SERVING_ART: [number, number] = [256, 180];
+export const SERVING_PLATE = { x: 0.18, y: 0.156, w: 0.636, h: 0.572 };
 export const PLATE_ART: [number, number] = [256, 152];
 /** Guest portraits are about this wide for their height. */
 export const GUEST_ASPECT = 0.86;

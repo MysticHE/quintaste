@@ -5,8 +5,8 @@
  * slightly sideways as a shelf scroll and cancelled the pointer, so on phones no ingredient ever reached a station.
  * - One pointer at a time: while a card is held, other fingers (a thumb on the burner) never end or move the drag. A new
  *   first finger means every earlier one has lifted, so it replaces a gesture whose release the page never heard.
- * - A press becomes a gesture after SLOP pixels. Stations sit below the shelf, so any press that heads down (DOWN_SLOPE)
- *   or steeply up (LIFT_SLOPE), or any press on a shelf that fits, lifts the card; only a flat one swipes the shelf. A swipe
+ * - A press becomes a gesture after SLOP pixels. Steeper than about 30 degrees down (DOWN_SLOPE) or 35 up (LIFT_SLOPE), or on a
+ *   shelf that fits, it lifts the card; a flatter one swipes the shelf (a thumb's swipe curves a little, owner 23 Oct). A swipe
  *   that drifts down or leaves the shelf turns into a drag of that card after all, and the shelf goes back to where it was.
  * - The Label tab passes its presses here too: a press that moves drags its card's ingredient, a tap reads the label.
  * - The swipe follows the finger with snapping off and ends in a fling that slows down, then the shelf snaps as usual.
@@ -17,7 +17,7 @@ import type { StationKind } from "../content/dishes";
 import { ITEMS } from "../content/items";
 import type { Point } from "./layout";
 
-const SLOP = 10, LIFT_SLOPE = 0.7, DOWN_SLOPE = 0.35, SWIPE_DRIFT = 16;
+const SLOP = 10, LIFT_SLOPE = 0.7, DOWN_SLOPE = 0.58, SWIPE_DRIFT = 18;
 const CLICK_GRACE = 400;
 /** Fling: only the movement of the last FLING_WINDOW ms counts; slower than FLING_MIN px/ms does not fling. */
 const FLING_WINDOW = 100, FLING_MIN = 0.3, FLING_DECAY = 0.94;

@@ -9,6 +9,7 @@ import { GUESTS } from "../content/guests";
 import { ITEM_FORM, ITEMS, type ItemTone } from "../content/items";
 import * as sim from "../sim/engine";
 import { takePhase } from "./Knob";
+import { CounterPet } from "./pet";
 import { nearestStation, type Layout, type Point, type Rect } from "./layout";
 import * as motion from "./motion";
 import { PanContents, type Tones } from "./pan";
@@ -66,8 +67,10 @@ export class Playfield extends Phaser.Scene {
   private flareUntil = new Map<StationKind, number>();
 
   constructor() { super("playfield"); }
-  init(data: { run: sim.Run; layout: Layout; art: Record<string, string>; hooks: SceneHooks; reduced: boolean }) {
+  private pet!: CounterPet;
+  init(data: { run: sim.Run; layout: Layout; art: Record<string, string>; hooks: SceneHooks; reduced: boolean; pet: string }) {
     this.run = data.run; this.L = data.layout; this.art = data.art; this.hooks = data.hooks; this.reduced = data.reduced; this.pal = readPalette();
+    this.pet = new CounterPet(this, data.pet, () => this.reduced);
   }
   preload() {
     // Image elements instead of XHR, so file:// art in release builds loads and stays untainted for WebGL.
@@ -76,7 +79,7 @@ export class Playfield extends Phaser.Scene {
     const r = this.run, dishes = [...new Set(r.guests.map(g => g.dishId))].map(id => DISHES[id]);
     const items = new Set<string>([...r.level.distractors]);
     dishes.forEach(d => d.parts.forEach(p => p.stages.forEach(st => st.slots.forEach(sl => sl.accepts.forEach(a => items.add(a))))));
-    const keys = new Set(["rh-bg", "rh-kitchen", "rh-counter", "plate", "board", ...Object.keys(r.stations).map(k => STATIONS[k as StationKind].art),
+    const keys = new Set([this.pet.key, "rh-bg", "rh-kitchen", "rh-counter", "plate", "serving-tray", ...Object.keys(r.stations).map(k => STATIONS[k as StationKind].art),
       ...r.guests.flatMap(g => [GUESTS[g.guestId].art, GUESTS[g.guestId].artNo ?? GUESTS[g.guestId].art]), ...dishes.map(d => d.art),
       ...[...items].map(i => ITEMS[i]?.art).filter((k): k is string => !!k)]);
     keys.forEach(k => { if (this.art[k]) this.load.image(k, this.art[k]); });
@@ -105,6 +108,7 @@ export class Playfield extends Phaser.Scene {
     if (this.textures.exists("rh-kitchen")) this.cover(this.add.image(0, 0, "rh-kitchen"), { x: 0, y: below, w: L.w, h: L.h - below });
     this.run.guests.forEach(gr => this.guests.set(gr.orderId, this.add.image(-200, -200, GUESTS[gr.guestId].art).setOrigin(0.5, 1).setVisible(false).setDepth(2)));
     if (this.textures.exists("rh-counter")) this.cover(this.add.image(0, 0, "rh-counter").setDepth(3), L.counter);
+    this.pet.build(L);
     L.seats.forEach((s, i) => {
       this.place(this.add.image(0, 0, "plate").setDepth(4), s.mat);
       this.mats.push(this.add.image(s.mat.x + s.mat.w / 2, s.mat.y + s.mat.h * 0.42, "plate").setDepth(4.5).setVisible(false));
@@ -116,10 +120,11 @@ export class Playfield extends Phaser.Scene {
   }
   private buildBoard() {
     const L = this.L;
-    if (this.textures.exists("board")) this.place(this.add.image(0, 0, "board").setDepth(4), L.plating.art);
+    if (this.textures.exists("serving-tray")) this.place(this.add.image(0, 0, "serving-tray").setDepth(4), L.plating.art);
     L.board.forEach((b, i) => {
       const glow = this.add.ellipse(b.x + b.w / 2, b.y + b.h * 0.62, b.w * 1.25, b.h * 0.9, this.pal.focus, 0).setDepth(4.6);
-      const base = this.place(this.add.image(0, 0, "plate").setDepth(5), b), dish = this.add.image(base.x, base.y - 2, "plate").setDepth(6).setVisible(false);
+      // The tray's own plate is slot 0; the corner plates appear only while they hold a dish (updatePlates).
+      const base = this.place(this.add.image(0, 0, "plate").setDepth(5), b).setVisible(false), dish = this.add.image(base.x, base.y - 2, "plate").setDepth(6).setVisible(false);
       const zone = this.zone({ x: b.x - 4, y: b.y - b.h * 0.7, w: b.w + 8, h: b.h * 2.2 }, 10, true);
       zone.on("dragstart", () => { if (this.run.board[i]) this.dragSlot = i; });
       zone.on("drag", (_p: Phaser.Input.Pointer, x: number, y: number) => { if (this.dragSlot === i) dish.setPosition(x, y).setDepth(20); });
@@ -249,9 +254,12 @@ export class Playfield extends Phaser.Scene {
 
   }
   private updatePlates() {
+    const free = this.run.board.findIndex(p => !p);
     this.run.board.forEach((p, i) => {
       const v = this.plates[i], b = this.L.board[i]; if (!v) return;
-      v.glow.setFillStyle(this.pal.focus, this.dragKind !== null && !this.dragPaste && !p ? 0.6 : 0);
+      // While a dish is carried, the plate it will land on glows: the tray's plate, or the next corner plate when that one is taken.
+      v.glow.setFillStyle(this.pal.focus, this.dragKind !== null && !this.dragPaste && i === free ? 0.6 : 0);
+      v.base.setVisible(i > 0 && (!!p || (this.dragKind !== null && !this.dragPaste && i === free)));
       v.base.setY(b.y + b.h / 2);
       if (!p || this.incomingSlots.has(i)) { v.dish.setVisible(false); return; }
       const key = DISHES[p.dishId].art;
@@ -285,18 +293,13 @@ export class Playfield extends Phaser.Scene {
     if (!b || !s || this.reduced) { then(); return; }
     this.incomingSeats.add(seat);
     motion.arc(this, DISHES[dishId].art, { x: b.x + b.w / 2, y: b.y + b.h / 2 }, { x: s.mat.x + s.mat.w / 2, y: s.mat.y + s.mat.h * 0.42 }, b.w * 1.05, 380,
-      () => { this.incomingSeats.delete(seat); motion.hearts(this, { x: s.guest.x + s.guest.w / 2, y: s.guest.y + s.guest.h * 0.18 }); then(); }, s.mat.w * 1.05);
+      () => { this.incomingSeats.delete(seat); motion.hearts(this, { x: s.guest.x + s.guest.w / 2, y: s.guest.y + s.guest.h * 0.18 }); this.pet.cheer(s.mat.x + s.mat.w / 2); then(); }, s.mat.w * 1.05);
   }
   /** The station gives a little squash as an ingredient lands in it. */
   private squash(kind: StationKind) {
     const v = this.stations.get(kind); if (!v) return;
     this.tweens.killTweensOf(v.art); v.art.setScale(v.scale.x, v.scale.y);
     this.tweens.add({ targets: v.art, scaleX: v.scale.x * 1.05, scaleY: v.scale.y * 0.94, duration: 70, yoyo: true, ease: "Quad.easeOut", onComplete: () => v.art.setScale(v.scale.x, v.scale.y) });
-  }
-  coins(seat: number, count: number, to: Point, eat: () => void) {
-    const s = this.L.seats[seat - 1]; if (!s) return;
-    if (this.reduced) { for (let i = 0; i < count; i++) eat(); return; }
-    motion.coins(this, { x: s.mat.x + s.mat.w / 2, y: s.mat.y }, to, Math.min(8, count), eat);
   }
   shake(seat: number) { this.shakeUntil.set(seat, this.time.now / 1000 + 0.9); }
   wobblePlate(slot: number) {
