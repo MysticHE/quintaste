@@ -32,9 +32,17 @@ and checked locally (21 Oct 2026); nothing deployed.**
     channel searches a week (about 600 of the 10,000 daily units), Singapore and Asia first; a channel is kept only when its own title
     or description claims vegetarian or vegan food. Library channels not checked for a week get fresh subscriber and video counts.
     Only the `search` and `channels` endpoints are allowed; every other googleapis.com address stays blocked.
-  - **Instagram**: Instaloader reads public profiles signed out, at most 40 a week, 8-15 seconds apart, through the egress guard. Any
-    refusal pauses Instagram for 24 hours. Checked 22 Oct from a home connection: lookups worked, with occasional refusals, so
-    Instagram counts may arrive only some weeks. When Instaloader is missing the scout skips Instagram with a note.
+  - **Public profile links (owner, 22 Oct 2026: public links only)**: Instagram, TikTok, Facebook, Xiaohongshu, Pinterest and
+    YouTube links are taken only from pages the creator publishes (its website, its link-in-bio page such as Linktree, its YouTube
+    description); the platforms themselves are never opened. Each creator's pages are read again after 30 days, at most 80 a week,
+    1-3 seconds apart. Instaloader was tried and dropped: Instagram sends signed-out reads from the VPS to its login page, and TikTok
+    serves a bot check to plain requests; the open-source crawlers that get past these use logins, residential proxies or
+    bot-detection workarounds, which are ruled out.
+  - **No duplicates**: finds of one week are merged when they share a link, when a handle equals another find's site name, or when a
+    YouTube description links the site; a find belonging to a library creator is sent with that creator's website or channel so the
+    app attaches it instead of adding a second creator.
+  - **Status 22 Oct 2026 (live)**: 65 creators (26 seeded, 39 found; the Chef Dave duplicate merged), 54 YouTube channels, 32 websites,
+    26 Instagram, 25 Facebook, 21 Pinterest and 8 TikTok links, no shared links.
 - App route `POST /api/creators/bot/creators` (signed): adds new creators as found by the scout, fills only empty fields of a creator
   already in the library (matched by id, website host or channel link), never changes staff names, status, pins or invites, never
   touches a blocked creator, refreshes counts of known channels only, and pauses scout finds with no passing recipe after 90 days.
