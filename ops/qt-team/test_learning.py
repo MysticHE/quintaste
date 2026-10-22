@@ -230,6 +230,17 @@ class LearningTests(unittest.TestCase):
         self.assertEqual(names, ['Matcha latte'])  # its own earlier names are no longer "prior candidates"
         self.assertEqual(w.cooker_sources([], passed, candidates, {}, None)[1], candidates)  # no retry: nothing changes
 
+    def test_negated_compound_wording_is_not_a_compound(self):
+        # 22 Oct 2026: kuih kodok and fried bananas were held for "Plain unflavoured vegetable oil, without seasoning".
+        packet = {'records': [{'status': 'proposed', 'recipe': {'minutes': 20, 'ingredients': [
+            {'name': 'Plain unflavoured vegetable oil, without seasoning'}, {'name': 'Unseasoned rice vinegar'}, {'name': 'Water, no added stock'},
+            {'name': 'Vegetable stock'}, {'name': 'Mushroom seasoning'}]}}]}
+        names = [i['name'] for i in w.normalize_recipe_packet(packet)['records'][0]['recipe']['ingredients']]
+        self.assertEqual(names, ['Plain unflavoured vegetable oil', 'rice vinegar', 'Water', 'Vegetable stock', 'Mushroom seasoning'])
+        import publisher
+        self.assertIsNone(publisher.SERVER_COMPOUND.search(' '.join(names[:3]).lower()))
+        self.assertIsNotNone(publisher.SERVER_COMPOUND.search(names[3].lower()))  # real compounds still need review
+
     def test_corrupt_learning_state_does_not_grant_retry_permissions(self):
         (self.root / 'state/learning').mkdir(parents=True)
         (self.root / 'state/learning/state.json').write_text('broken')

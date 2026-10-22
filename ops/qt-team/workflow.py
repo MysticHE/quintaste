@@ -222,6 +222,11 @@ def early_server_problem(record):
     return ('Held before review (the app would reject it): ' + reason) if reason else None
 
 
+# "Plain vegetable oil, without seasoning" or "unseasoned oil": wording that says a compound is ABSENT. The app's compound check
+# (server/editorial/validation.mjs) matches the bare word, so these words are dropped from the name; the ingredient itself stays.
+NEGATED_COMPOUND = re.compile(r',?\s*\b(?:without|no|free of)\s+(?:added\s+|any\s+)?(?:seasoning|stock|bouillon)s?\b|\bunseasoned\s+', re.I)
+
+
 def normalize_recipe_packet(obj):
     """Normalize the explicit total, preserving the author's prep/cook/rest split
     and Cooker's estimated-timing label.
@@ -232,6 +237,9 @@ def normalize_recipe_packet(obj):
     obj = copy.deepcopy(obj)
     for row in obj.get("records", []):
         recipe = row.get("recipe", {})
+        for item in recipe.get("ingredients", []) if isinstance(recipe.get("ingredients"), list) else []:
+            if isinstance(item, dict) and isinstance(item.get("name"), str) and NEGATED_COMPOUND.search(item["name"]):
+                item["name"] = re.sub(r'\s{2,}', ' ', NEGATED_COMPOUND.sub('', item["name"])).strip(' ,')  # 22 Oct 2026: two recipes held for this
         timing = recipe.get("minutes")
         # Any named stage (prep, cook, rest, soak, marinate...) is kept as the author's split.
         if (isinstance(timing, dict) and "total" in timing and isinstance(timing.get("estimated", False), bool)
@@ -496,7 +504,8 @@ def contract(role):
                          "diet:Vegetarian|Vegan,contains:[string],compoundIngredientsUnconfirmed:[string],author,adaptationNote,kitchenTested:false," 
                          "imageBrief}. Categories: " + ", ".join(CATEGORIES) + ". Use original wording; source and attribution remain required. Do not copy entire recipes verbatim. "
                          "servings is 1 to 8 (the app's limit): when the source makes more than 8, scale every amount and gram estimate by one "
-                         "factor to 8 or fewer servings (for example 12 servings halved to 6) and say so in adaptationNote (21 Oct 2026).")
+                         "factor to 8 or fewer servings (for example 12 servings halved to 6) and say so in adaptationNote (21 Oct 2026). "
+                         "Name plain ingredients plainly ('vegetable oil', 'rice vinegar'); put 'unseasoned' or 'without seasoning' in notes, not in the name.")
     return common + ("Propose at most 12 events within 90 days. Each proposed record has event: {title,organiser,startsAt:ISO8601 with +08:00,"
                      "endsAt:ISO8601|null,location,address,feeAmount:number|null,currency:string|null,feeNote:string,registrationUrl:HTTPS|null,"
                      "registrationDeadline:ISO8601|null,dietEvidence,vegetarianFocus,status:scheduled|cancelled|rescheduled}. "
