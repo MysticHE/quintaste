@@ -14,7 +14,9 @@ from pathlib import Path
 import setup
 
 HERE = Path(__file__).resolve().parent
-NAMES = ['game_level_bridge.py', 'game_art_bridge.py', 'roles/qt-gamer.md']
+# gamer/generate.py: the art bridge runs it with --manifest (one picture per job) and extra reference images; QT Gamer's own runs
+# keep working unchanged (the manifest defaults to assets.json).
+NAMES = ['game_level_bridge.py', 'game_art_bridge.py', 'roles/qt-gamer.md', 'gamer/generate.py']
 payload = {n: base64.b64encode((HERE / n).read_bytes()).decode() for n in NAMES}
 
 code = r'''
@@ -23,7 +25,7 @@ from ruamel.yaml import YAML
 _y=YAML(typ='safe')
 def yload(text):return _y.load(io.StringIO(text))
 r=pathlib.Path('/opt/data/qt-team');payload=PAYLOAD;PY='/opt/hermes/.venv/bin/python'
-for attempt in range(150):  # the team's 15-minute cycle holds this lock for minutes at a time
+for attempt in range(600):  # the team's 15-minute cycle can hold this lock for most of each cycle; wait up to 40 minutes
  work=(r/'state/run.lock').open('a+')
  try:fcntl.flock(work,fcntl.LOCK_EX|fcntl.LOCK_NB);break
  except BlockingIOError:work.close();time.sleep(4)
@@ -49,6 +51,8 @@ with work:
    p=r/n;p.parent.mkdir(parents=True,exist_ok=True)
    tmp=p.with_suffix(p.suffix+'.gb-new');tmp.write_bytes(base64.b64decode(data));tmp.chmod(0o444);os.replace(tmp,p)
   tmp=soul.with_suffix('.gb-new');tmp.write_bytes((r/'roles/qt-gamer.md').read_bytes());os.chown(tmp,10000,10000);os.replace(tmp,soul)
+  gen=subprocess.run([PY,'gamer/generate.py','--help'],cwd=r,capture_output=True,text=True,user=10000,group=10000,env={**os.environ,'HERMES_SRC':'/opt/hermes','HERMES_HOME':'/opt/data'})
+  assert '--manifest' in gen.stdout,'generate.py check failed: '+gen.stderr[-300:]
   for mod in ('game_level_bridge','game_art_bridge'):
    imported=subprocess.run([PY,'-c','import '+mod+';print("ok")'],cwd=r,capture_output=True,text=True,user=10000,group=10000)
    assert imported.stdout.strip()=='ok','Import check failed for '+mod+': '+imported.stderr[-300:]

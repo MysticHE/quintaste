@@ -40,7 +40,7 @@ const TAG_WORDS: [RegExp, ItemTag][] = [[/garlic|onion|shallot|leek|chive|scalli
 /** Verbs that name a technique outright. First match wins. */
 const TECH: [string, RegExp][] = [
   ["oven", /\b(oven|bake|baking|air.?fr(y|ier))\b/i], ["steam", /\b(steam|steamer|steaming)\b/i], ["deep-fry", /\b(deep.?fr(y|ied)|oil for frying)\b/i],
-  ["griddle", /\b(flip|griddle)\b/i], ["blend", /\b(blend|blender|whisk|purée|puree|grind|pound|froth|beat)\b/i],
+  ["griddle", /\b(flip|griddle)\b/i], ["blend", /\b(blend|blender|purée|puree|grind|pound|froth)\b/i],
   ["chill", /\b(chill|refrigerat\w*|fridge|leave to set)\b/i], ["dough", /\b(knead|dough|roll out|pleat)\b/i],
   ["rice", /\brice cooker\b/i], ["pot", /\b(simmer|boil|blanch|braise|stew|poach|pot|saucepan|cover and cook)\b/i],
   ["pan", /\b(stir.?fry|stir.?fried|saut[ée]|fry|fried|temper|wok|pan.?fr(y|ied)|sear|toss|heat the oil|heat oil)\b/i],
@@ -51,6 +51,10 @@ const LOOSE: [string, RegExp][] = [
   ["pan", /\b(toast|dry.?roast|roast)\w*\s+(the\s+)?([a-z-]+\s+){0,2}(seeds?|spices?|mustard|cumin|fennel|fenugreek|sesame|peanuts?|nuts|cashews?|coconut|curry leaves|dal|lentils)\b/i],
   ["griddle", /\btoast\w*\b/i], ["oven", /\broast\w*\b/i], ["dough", /\b(fold|wrap|wrapped|wrapping)\b/i],
 ];
+/** A step that names no technique but cooks ("Warm oil, soften the onion", "whisk it into the pan") stays on the heat it was on, or the wok,
+ * never on the cold board. */
+const HEAT = /\b(heat\w*|warm\w*|cook\w*|soften\w*|fragrant|golden|thicken\w*|pan|skillet|non.?stick)\b/i;
+const HEATED = new Set<StationKind>(["pan", "pot", "dessert", "rice", "steamer", "oven", "griddle", "fryer"]);
 /** "Until set" and "overnight" mean the fridge only in a chilled dessert, never while it cooks. */
 const SET = /\b(until set|overnight)\b/i, HOT = /\b(cook|heat|stir)\w*\b/i;
 /** Recipe verbs (TECH) whose station the game has. */
@@ -100,7 +104,8 @@ export function compileRecipe(r: RecipeInput, resolve: (name: string) => Resolve
     if (!ids.length) return;
     if (tech && SIDE.has(tech)) { shortcuts.push(tech); return; }
     if (tech && !BUILT[tech] && tech !== "dessert") { needs.push(tech); return; }
-    const station: StationKind = tech === "dessert" ? "dessert" : tech ? BUILT[tech] : stages.at(-1)?.station ?? (dessert ? "dessert" : "board");
+    const hot = !tech && HEAT.test(step.instruction) ? [...stages].reverse().find(s => HEATED.has(s.station))?.station ?? (dessert ? "dessert" : "pan") : null;
+    const station: StationKind = tech === "dessert" ? "dessert" : tech ? BUILT[tech] : hot ?? stages.at(-1)?.station ?? (dessert ? "dessert" : "board");
     const last = stages.at(-1);
     if (last && last.station === station && new Set([...last.items, ...ids]).size <= 3) last.items = [...new Set([...last.items, ...ids])];
     else stages.push({ station, items: ids, step: n });
