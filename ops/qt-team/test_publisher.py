@@ -63,6 +63,35 @@ class Publishing(unittest.TestCase):
         self.assertEqual(candidates[0]['data']['title'],'Class')
         self.assertEqual(candidates[0]['expectedHash'],'a'*64)
 
+    def test_event_without_a_price_carries_no_currency(self):
+        # 22 Oct 2026: a "$" price is SGD; with no price the app needs feeAmount and currency both empty.
+        start=(dt.datetime.now(dt.timezone.utc)+dt.timedelta(days=3)).isoformat()
+        for fee,currency,expected in ((None,'SGD',(None,None)),(148,'SGD',(148,'SGD')),(148,'USD',(None,None))):
+            row={'id':'event-a','status':'proposed','event':{'title':'Class','startsAt':start,'status':'scheduled','feeAmount':fee,'currency':currency}}
+            with tempfile.TemporaryDirectory() as d, patch.object(p,'ROOT',Path(d)), patch.object(p,'sources',return_value=[{'checkedAt':'2026-10-22','url':'https://example.org/event'}]):
+                candidates,_,_=p.prepare([self.package('qt-event',row)],self.live())
+            self.assertEqual((candidates[0]['data']['feeAmount'],candidates[0]['data']['currency']),expected)
+
+    def test_a_recipe_held_for_its_picture_is_offered_again(self):
+        # 22 Oct 2026: chipotle rice was held for a lime wedge in its cover, and the hold was kept as final, so the redrawn
+        # cover was never reviewed. A hold for the recipe itself still stands.
+        for held_picture in (True, False):
+            with tempfile.TemporaryDirectory() as d:
+                root=Path(d)
+                data,hashes=self.step_photo_fixture(root,1,[])
+                candidates,images,_=self.prepare_recipe(root,data)
+                review={'decisions':[{'key':'recipe:recipe-b','decision':'hold','reason':'Cover shows a lime wedge.'}],
+                        'images':[{'sha256':hashes['cover'],'decision':'hold' if held_picture else 'approved','reason':'Lime wedge.'}]}
+                with patch.object(p,'ROOT',root),patch.object(p,'request',return_value=dict(self.live(),revision='r1',removals=[])),\
+                        patch.object(p,'prepare',return_value=(candidates,images,[])),patch.object(p,'publication_review',return_value=review):
+                    self.assertEqual(p.run_publication({'automaticProductionWrites':True},root/'run')['status'],'all-held')
+                outcomes=w.read(root/'state/publication-outcomes.json',{})
+                if held_picture:
+                    self.assertEqual(outcomes,{})
+                    self.assertEqual(len(list((root/'images').glob('cover.held-*'))),1)  # set aside, so a new cover is drawn
+                else:
+                    self.assertEqual(outcomes[candidates[0]['proposalHash']]['decision'],'hold')
+
     def test_unpublished_excluded_event_stays_out(self):
         row={'id':'event-a','status':'excluded','event':{'status':'cancelled'}}
         with tempfile.TemporaryDirectory() as d, patch.object(p,'ROOT',Path(d)):

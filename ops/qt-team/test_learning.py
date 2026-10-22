@@ -180,6 +180,31 @@ class LearningTests(unittest.TestCase):
         self.assertEqual(self.retry_worker(record_id='thai-basil-tofu', retries=False)['status'], 'held')  # another page's draft
         self.assertEqual(self.retry_worker(retries=False, published=True, prior_sources=prior)['status'], 'held')  # already live
 
+    def test_drafts_from_before_the_page_map_are_known_by_their_page(self):
+        import recipe_quality
+        # 22 Oct 2026: green bean gomaae (drafted 18 Oct) was held as a duplicate of its own earlier draft.
+        l.write(self.root / 'runs/20261018T013235Z/cooker/validated.json', {'records': [
+            {'id': 'basil-tofu', 'recipe': {'name': 'Basil tofu'}, 'sources': [{'url': 'https://www.example.org/recipe/'}]},
+            {'id': 'no-source', 'recipe': {'name': 'X'}, 'sources': []}]})
+        l.write(self.root / 'runs/20261019T013235Z/cooker/validated.json', {'records': [
+            {'id': 'thai-basil-tofu', 'recipe': {'name': 'Thai basil tofu'}, 'sources': [{'url': 'https://example.org/recipe'}]}]})
+        (self.root / 'runs/20261020T000000Z/cooker').mkdir(parents=True)
+        (self.root / 'runs/20261020T000000Z/cooker/validated.json').write_text('{broken')
+        with patch.object(w, 'ROOT', self.root):
+            history = w.drafted_history()
+        key = recipe_quality.page_key('https://example.org/recipe')
+        self.assertEqual(history, {key: {'id': 'basil-tofu', 'name': 'Basil tofu'}})  # the first draft keeps the page's id
+        record = self.retry_worker(record_id='basil-tofu', retries=False, prior_sources=history)
+        self.assertEqual((record['status'], record['id']), ('proposed', 'basil-tofu'))
+
+    def test_retry_keeps_the_whole_hold_reason(self):
+        # 22 Oct 2026: golden milk's reason was cut at 650 characters and Manager held it again for the cut.
+        reason = 'Hold for the optional coconut oil nutrition. ' * 30
+        self.packet['manager']['decisions'][0]['reason'] = reason
+        l.write(self.root / 'outbox/one.json', self.packet)
+        l.ingest(self.root)
+        self.assertEqual(l.load(self.root)['retryQueue']['qt-cooker:basil-tofu']['reason'], reason[:1600])
+
     def test_shortlist_skips_pages_already_drafted(self):
         import recipe_quality as rq
         found = {'candidates': [{'url': 'https://example.org/recipe/', 'name': 'A'}, {'url': 'https://example.org/other', 'name': 'B'}]}

@@ -180,6 +180,24 @@ def cooker_sources(held_retries, passed, candidates, prior, assess=None):
     return approved, [n for n in candidates if isinstance(n, str) and n.strip().casefold() not in own]
 
 
+def drafted_history():
+    """Page key -> {id, name} of the first recipe Cooker drafted from each page, read from past runs. Drafts from before
+    recipeSources (21 Oct 2026) were otherwise held as duplicates of themselves when their page came round again (22 Oct 2026)."""
+    import recipe_quality
+    pages = {}
+    for path in sorted((ROOT / 'runs').glob('2*/cooker/validated.json')):
+        try:
+            records = (read(path) or {}).get('records', [])
+        except (OSError, ValueError):
+            continue
+        for record in records:
+            first = next((s.get('url') for s in record.get('sources', []) if isinstance(s, dict) and s.get('url')), None)
+            name = (record.get('recipe') or {}).get('name')
+            if first and isinstance(name, str) and name and record.get('id'):
+                pages.setdefault(recipe_quality.page_key(first), {'id': record['id'], 'name': name})
+    return pages
+
+
 def creator_library(sources, live):
     """The creator library for this Cooker round (docs/COOKER_CREATOR_LIBRARY_PLAN.md), or None when the app cannot serve it (then
     Cooker uses its checkpoint's pages and the trusted list). drafted: page keys to skip; prior: page key -> {id, name}, so a page
@@ -516,8 +534,9 @@ def contract(role):
                      "cooked, are NOT eligible: exclude them (vegetarianFocus 'option-only' or 'no-food'). "
                      "dietEvidence is shown to app users: ONE plain sentence of at most 160 characters saying what vegetarian food is involved "
                      "(e.g. 'Vegetarian Chinese cooking demo with five dishes, taught in Mandarin.'). No reviewer wording such as 'explicitly', "
-                     "'established', 'announcement' or 'not verified'; keep caveats in notes. feeAmount is the lowest SGD price (0 if free, null "
-                     "if unknown) with currency 'SGD'; feeNote is a short user-facing fee line (at most 120 characters, e.g. 'S$40-50; ingredients "
+                     "'established', 'announcement' or 'not verified'; keep caveats in notes. feeAmount is the lowest SGD price (0 if free) with "
+                     "currency 'SGD': a '$' price that a Singapore organiser prints for a Singapore session is SGD (owner, 22 Oct 2026). "
+                     "When no price is shown, feeAmount and currency are both null. feeNote is a short user-facing fee line (at most 120 characters, e.g. 'S$40-50; ingredients "
                      "paid to the trainer on the day.') or ''. Exclude past events and unrelated charity programmes. If context lists "
                      "refreshPublished events, recheck each source and re-propose it with the same id, corrected dietEvidence, fee and feeNote "
                      "(or exclude it if it fails the vegetarian-focus rule). No upcoming verified events is a valid result.")
@@ -1215,7 +1234,7 @@ class Round:
         try:
             held_retries = learning.due_retries(ROOT, 'qt-cooker')
             # Pages already written up (page key -> the recipe's ID and name), so a page is drafted once and keeps one ID.
-            sources = state.setdefault("recipeSources", {})
+            sources = state["recipeSources"] = {**drafted_history(), **state.get("recipeSources", {})}
             # Owner bar (18 Oct 2026): shortlist pages, keep only those whose own recipe data passes, then adapt the best two.
             strict = self.production() and not self.trial
             # The creator library (owner, 21 Oct 2026): its best creators lead the search and its written pages are skipped.

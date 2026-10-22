@@ -356,7 +356,7 @@ def prepare(packages, live):
                         data={k:v for k,v in dict(existing_records.get(key,{}),**row['event']).items() if k in EVENT_FIELDS}
                         fee_note=row['event'].get('feeNote', data.get('feeNote',''))
                         data.update(id=row['id'],checkedAt=max(s['checkedAt'] for s in evidence),sources=[s['url'] for s in evidence],feeNote=fee_note.strip()[:300] if isinstance(fee_note,str) else '')
-                        if data['currency'] != 'SGD': data['feeAmount']=None;data['currency']=None
+                        if data['currency'] != 'SGD' or data.get('feeAmount') is None: data['feeAmount']=None;data['currency']=None
                         if dt.datetime.fromisoformat(data['startsAt']) <= dt.datetime.now(dt.timezone.utc): raise ValueError('Event is no longer upcoming')
                     elif kind == 'place':
                         if packet.get('task') == 'veg-kitchen':
@@ -719,7 +719,10 @@ def run_publication(policy, folder=None, review_only=False, covers_only=False):
         batch=make_batch(candidates,images,review,live['revision'],'qt-'+dt.datetime.now(dt.timezone.utc).strftime('%Y%m%d-%H%M%S'))
         write(folder/'batch.json',batch)
         outcomes=read(ROOT/'state/publication-outcomes.json',{})
+        held_images={d.get('sha256') for d in review.get('images',[]) if d.get('decision')=='hold'}
         for candidate,decision in zip(candidates, [next(d for d in review['decisions'] if d['key']==r['kind']+':'+r['id']) for r in candidates]):
+            if candidate['kind']=='recipe' and decision['decision']=='hold' and held_images.intersection(record_images(candidate['data'])):
+                continue  # its picture is set aside and redrawn, so the recipe is offered again with the new one (22 Oct 2026)
             outcomes[candidate['proposalHash']]={'at':now(),'decision':decision['decision'],'reason':decision['reason']}
         if not batch['records']:
             write(ROOT/'state/publication-outcomes.json',outcomes)

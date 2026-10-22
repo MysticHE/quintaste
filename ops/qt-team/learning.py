@@ -142,7 +142,7 @@ def ingest(root):
                     if not old or old.get('evidenceHash') != obs_id:
                         due = (dt.datetime.fromisoformat(checked) + dt.timedelta(days=30)).isoformat()
                         state['retryQueue'][key] = {'role': role, 'id': record['id'], 'name': record.get('recipe', {}).get('name'),
-                            'reason': reason[:650], 'sources': [s['url'] for s in record.get('sources', [])][:3],
+                            'reason': reason, 'sources': [s['url'] for s in record.get('sources', [])][:3],  # whole: a cut reason was held for being cut (22 Oct 2026)
                             'dueAt': max(due, old.get('dueAt', due)), 'attempts': old.get('attempts', 0),
                             'status': 'held', 'evidenceHash': obs_id}
                 else:
