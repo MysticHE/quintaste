@@ -3,6 +3,7 @@ import type { ReactElement, Ref } from "react";
 import { DISHES } from "../content/dishes";
 import { GUESTS, RULES, conflicts } from "../content/guests";
 import { ITEMS } from "../content/items";
+import { levelTitle } from "../content/levels";
 import * as sim from "../sim/engine";
 import type { Layout, Rect } from "./layout";
 
@@ -25,7 +26,7 @@ export function Hud({ run, L, coins, eatKey, coinRef, onPause }: {
     </div>
     <div className="takings" aria-label={"Takings " + coins + " of " + max}>
       <div className="coins"><span ref={coinRef} key={eatKey} className={"ico" + (eatKey ? " eat" : "")} /><b>{coins}</b>
-        <small>{run.level.special ? "Today's special" : "Level " + run.level.n}</small></div>
+        <small>{levelTitle(run.level)}</small></div>
       <div className="bar"><i style={{ width: Math.min(100, coins / max * 100) + "%" }} />
         {[[0, 25], [0.75, 75], [0.9, 90]].map(([f, at], i) => <span key={i} className={"star" + (allServed && coins >= Math.ceil(f * max) ? " lit" : "")} style={{ left: at + "%" }}>★</span>)}
       </div>

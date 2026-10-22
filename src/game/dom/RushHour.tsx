@@ -8,6 +8,8 @@ import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties }
 import type { DOMProps } from "expo/dom";
 import { STATIONS, type StationKind } from "../content/dishes";
 import { levelByNumber, levelDishes, type Level } from "../content/levels";
+import { packByHash, packHash, readPack, registerPack } from "../content/pack";
+import { missionFor, type Tier } from "../mission";
 import type { LevelBest } from "../progress";
 import { hintsFor, PACE_SPEED, type PlaySettings } from "../settings";
 import * as sim from "../sim/engine";
@@ -24,11 +26,14 @@ import { usePlayfield, type PlayfieldInput } from "./usePlayfield";
 import { useServiceEvents } from "./useServiceEvents";
 
 /** What the native screen needs to save a run: the setup and input log let the server replay it (sim/replay.ts). */
-export type RunInfo = { id: string; level: number; special: string | null; top: number | null; hints: Level["hints"]; pet: string; signature: string[] };
+export type RunInfo = { id: string; level: number; special: string | null; top: number | null; hints: Level["hints"]; pet: string; signature: string[]; pack: string | null; tier: Tier | null };
 export type FinishPayload = RunInfo & { result: sim.Result; actions: sim.Action[] };
 export type BridgeKind = "cook" | "nearby";
 type Props = {
   level: number; special?: Level; pet: string; petArt: string; chefArt: string; art: Record<string, string>;
+  /** A Recipe Kitchen mission: the level pack (plain JSON) and the tier. The game's web view keeps its own copy of the content, so the
+   *  pack is registered here as well as in the app. */
+  mission?: { pack: unknown; tier: Tier };
   signature?: string[]; reduceMotion?: boolean; settings: PlaySettings; textScale: number;
   /** The player's record on this level (not for Today's special), shown on the brief and the results. */
   best?: LevelBest | null;
@@ -48,13 +53,20 @@ const fontFaces = (art: Record<string, string>) => [["Nunito_800ExtraBold", "fon
 
 export default function RushHour(props: Props) {
   const { level, pet, petArt, chefArt, signature, settings } = props;
+  // A mission's pack is registered before anything reads the content, so its dishes and ingredients exist in this web view.
+  const mission = useMemo(() => {
+    if (!props.mission) return undefined;
+    const pack = readPack(props.mission.pack);
+    registerPack(pack);
+    return missionFor(packByHash(packHash(pack))!, props.mission.tier);
+  }, [props.mission]);
   // A recipe level's ingredient or dish with no approved picture yet plays as a Sketch card.
-  const art = useMemo(() => withSketches(props.art), [props.art]);
+  const art = useMemo(() => withSketches(props.art), [props.art, mission]); // eslint-disable-line react-hooks/exhaustive-deps
   // The interval and Phaser callbacks outlive renders, so they read the latest props and handlers through refs.
   const latest = useRef(props); latest.current = props;
-  const base = props.special ?? levelByNumber(level);
+  const base = mission ?? props.special ?? levelByNumber(level);
   const runId = useRef("");
-  const newRun = () => { runId.current = newRunId(); return sim.createRun(props.special ?? level, pet, signature, hintsFor(settings, base.hints), sim.seedOf(runId.current)); };
+  const newRun = () => { runId.current = newRunId(); return sim.createRun(mission ?? props.special ?? level, pet, signature, hintsFor(settings, base.hints), sim.seedOf(runId.current)); };
   const runRef = useRef<sim.Run>(null as unknown as sim.Run);
   if (!runRef.current) runRef.current = newRun();
   const [, setVersion] = useState(0);
@@ -102,7 +114,7 @@ export default function RushHour(props: Props) {
     catch { setReward(null); setSaveFailed(true); }
   }
   const info = (r: sim.Run): RunInfo => ({ id: runId.current, level: r.level.n, special: r.level.special?.day ?? null, top: r.level.special?.top ?? null, hints: r.level.hints, pet: r.pet,
-    signature: r.level.signature ? signature ?? [] : [] });
+    signature: r.level.signature ? signature ?? [] : [], pack: r.level.mission?.pack ?? null, tier: r.level.mission?.tier ?? null });
   function doPause(on: boolean) { const r = runRef.current; if (!r.started || r.ended) return; sim.pause(r, on); setPaused(on); fx.audio.pause(on); bump(); }
   const exit = (to: "cafe" | "next" | "again") => latest.current.onExit(to);
 

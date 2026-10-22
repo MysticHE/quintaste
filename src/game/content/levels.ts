@@ -50,6 +50,8 @@ export type Level = {
   /** Today's special (src/game/special.ts): built per date, never part of the level path. */
   /** Today's special: its date, dish, lunar day and the highest level cleared it was built from (for server replay). */
   special?: { day: string; dish: string; lunar: string | null; top: number };
+  /** A Recipe Kitchen mission (src/game/mission.ts): the level pack's hash and the tier, for the run and its server replay. */
+  mission?: { pack: string; tier: "learn" | "service" | "memory" };
 };
 
 let seq = 0;
@@ -102,5 +104,12 @@ export const LEVELS: Level[] = [
 ];
 
 export const levelByNumber = (n: number) => LEVELS[n - 1];
+export const TIER_NAMES = { learn: "Learn", service: "Service", memory: "From memory" } as const;
+/** How the playfield names a service: its level number, Today's special, or the Recipe Kitchen tier. */
+/** What "Next" leads to after a clear: the next level, the next Recipe Kitchen tier, or nothing (Today's special, the last level). */
+export const nextService = (level: Level): string | null => level.special ? null
+  : level.mission ? ({ learn: TIER_NAMES.service, service: TIER_NAMES.memory, memory: null } as const)[level.mission.tier]
+  : level.n < LEVELS.length ? "Level " + (level.n + 1) : null;
+export const levelTitle = (level: Level) => level.special ? "Today's special" : level.mission ? "Recipe Kitchen · " + TIER_NAMES[level.mission.tier] : "Level " + level.n;
 /** Dishes a level needs, for the brief and the book. */
 export const levelDishes = (level: Level) => [...new Set(level.orders.map(x => x.dish).filter(d => d !== "*"))].map(id => DISHES[id]);

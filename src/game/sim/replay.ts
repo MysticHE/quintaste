@@ -27,7 +27,9 @@ export type RunSetup = { level: number; special?: { day: string; top: number } |
   seed: number };
 
 /** What the app sends when a service starts; the server turns `special` (a date) into its stored setup. */
-export type RunStart = { id: string; level: number; special: string | null; top?: number | null; hints: Level["hints"] | null; pet: string; signature: string[] };
+export type RunStart = { id: string; level: number; special: string | null; top?: number | null; hints: Level["hints"] | null; pet: string; signature: string[];
+  /** A Recipe Kitchen mission: the level pack's hash and tier (the server opens it as a pack run). */
+  pack?: string | null; tier?: Tier | null };
 
 /** A player who has cleared Levels 1..top: enough to rebuild the same special the player saw. */
 export const progressAt = (top: number): GameProgress => {

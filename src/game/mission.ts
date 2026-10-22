@@ -6,7 +6,7 @@
 import { DISHES, STATIONS, type StationKind } from "./content/dishes";
 import { GUESTS } from "./content/guests";
 import type { Level, Order } from "./content/levels";
-import type { LevelPack } from "./content/pack";
+import { packByHash, packHash, type LevelPack } from "./content/pack";
 import { dishFeasible } from "./sim/plan";
 
 export type Tier = "learn" | "service" | "memory";
@@ -20,17 +20,17 @@ function dishSecs(dishId: string) {
 /** Guests who take each tier's orders, in a fixed order so the mission is the same everywhere. */
 const SERVICE_GUESTS = ["office", "daniel", "nurul", "lim", "jia"];
 const MEMORY_GUESTS = ["mei", "daniel", "asha", "lim", "nurul", "jia", "office"];
-const TIER: Record<Tier, { n: number; orders: number; seats: number; hints: Level["hints"]; gap: number; patience: number }> = {
+const TIER: Record<Tier, { n: number; orders: number; seats: number; hints: Level["hints"]; gap: number; patience: number; brief: string }> = {
   // n picks how the seeded plan treats the level (sim/plan.ts): 1 keeps arrivals as written, 5 also deals dishes to new guests.
-  learn: { n: 1, orders: 1, seats: 1, hints: "full", gap: 1.3, patience: 3 },
-  service: { n: 2, orders: 4, seats: 2, hints: "chip", gap: 0.8, patience: 2.4 },
-  memory: { n: 5, orders: 5, seats: 3, hints: "none", gap: 0.65, patience: 2.1 },
+  learn: { n: 1, orders: 1, seats: 1, hints: "full", gap: 1.3, patience: 3, brief: "Cook it once with the whole recipe card in front of you." },
+  service: { n: 2, orders: 4, seats: 2, hints: "chip", gap: 0.8, patience: 2.4, brief: "Four orders, two at a time. The card shows the next step only." },
+  memory: { n: 5, orders: 5, seats: 3, hints: "none", gap: 0.65, patience: 2.1, brief: "No recipe card, and some guests keep diet rules. Cook it from memory." },
 };
 
 /** The service a pack plays at a tier. Throws when the pack is not registered. */
 export function missionFor(pack: LevelPack, tier: Tier): Level {
   const dishes = pack.dishes.map(d => d.id);
-  if (!dishes.length || dishes.some(d => DISHES[d] !== pack.dishes.find(x => x.id === d))) throw new Error("pack not registered");
+  if (!dishes.length || !packByHash(packHash(pack)) || dishes.some(d => !DISHES[d])) throw new Error("pack not registered");
   const t = TIER[tier], pool = tier === "memory" ? MEMORY_GUESTS : SERVICE_GUESTS;
   const orders: Order[] = [];
   let at = 1;
@@ -45,7 +45,7 @@ export function missionFor(pack: LevelPack, tier: Tier): Level {
   const stations = (Object.keys(STATIONS) as StationKind[]).filter(k => pack.dishes.some(d => d.parts.some(p => p.station === k)));
   const first = pack.dishes[0];
   return {
-    n: t.n, name: first.name, brief: first.remember, teach: first.remember, stations,
+    n: t.n, name: first.name, brief: t.brief, teach: first.remember, stations, mission: { pack: packHash(pack), tier },
     seats: t.seats, maxOpen: t.seats, hints: t.hints, distractors: [], unlocks: [], orders,
     patience: Math.round(Math.max(55, slowest * t.patience)),
     round: Math.round(at + slowest * 1.5 + 20),

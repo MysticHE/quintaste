@@ -14,6 +14,8 @@ type Level = { id: string; recipe_id: string; recipe_revision: number; status: s
 type Picture = { id: string; width: number; height: number; status: string; created_at: string; reviewed_by: string | null; prompt: string | null; model: string | null;
   checks: Record<string, unknown> | null; art_key: string | null; kind: string | null; subject: string | null; current: boolean };
 type Job = { id: string; art_key: string; kind: string; subject: string; details: string; status: string; attempts: number; error: string; created_at: string; drafts: number };
+/** A built-in game item id as words ("cooking-oil" → "Cooking oil"); look-alike pairs drop their A/B letter. */
+const words = (id: string) => { const s = id.replace(/-[ab]$/, '').replace(/-/g, ' '); return s[0].toUpperCase() + s.slice(1); };
 const STATION: Record<string, string> = { pan: 'Wok', pot: 'Soup pot', rice: 'Rice cooker', board: 'Assembly board', dessert: 'Dessert pot' };
 
 /** Recipe levels waiting for review, QT Gamer's pictures waiting for the artist, and the picture jobs themselves. */
@@ -27,7 +29,7 @@ export function GameLevels() {
 
 function Levels() {
   return <Moderation<Level> path="/api/content/game-levels" statuses={[['review', 'Needs review'], ['ready', 'Live'], ['hidden', 'Hidden']]}
-    render={l => { const dish = l.pack.dishes[0];
+    render={l => { const dish = l.pack.dishes[0], name = (id: string) => l.pack.items.find(i => i.id === id)?.name ?? words(id);
       return <>
         <div className="row spread"><strong>{dish?.name ?? l.recipe_id}</strong>
           <span className="row">{l.owner ? <span className="badge">Private · {l.owner}</span> : <span className="badge">Public</span>}
@@ -37,7 +39,7 @@ function Levels() {
         {dish && <p className="detail">{dish.remember}</p>}
         <details><summary>Stages</summary>{l.pack.dishes.map(d => d.parts.map(p => <div key={d.id + p.id} className="stack compact">
           <strong>{p.name} · {STATION[p.station] ?? p.station}</strong>
-          <ol>{p.stages.map((s, n) => <li key={n}>{s.slots.map(x => x.label + (x.optional ? ' (optional)' : '') + ': ' + x.accepts.join(' or ')).join(' · ')}
+          <ol>{p.stages.map((s, n) => <li key={n}>{s.slots.map(x => x.label + (x.optional ? ' (optional)' : '') + ': ' + x.accepts.map(name).join(' or ')).join(' · ')}
             <small className="muted"> · {s.secs} s{s.band ? ' · heat ' + Math.round(s.band[0] * 100) + '–' + Math.round(s.band[1] * 100) + '%' : ''}{s.scorchSecs ? ' · burns fast' : ''}</small></li>)}</ol>
         </div>))}</details>
         {!!l.pack.items.length && <small>New ingredients: {l.pack.items.map(i => i.name + (i.tags?.length ? ' (' + i.tags.join(', ') + ')' : '')).join(', ')}</small>}

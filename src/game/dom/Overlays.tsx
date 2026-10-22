@@ -3,7 +3,7 @@ import { DISHES } from "../content/dishes";
 import { GUESTS, RULES } from "../content/guests";
 import { factsOf, ITEMS, itemName } from "../content/items";
 import { PETS, SKILLS } from "../content/cosmetics";
-import { BONUS, hasShare, levelDishes, SHARE, TWISTS } from "../content/levels";
+import { BONUS, hasShare, levelDishes, levelTitle, nextService, SHARE, TWISTS } from "../content/levels";
 import type { LevelBest } from "../progress";
 import * as sim from "../sim/engine";
 import type { Art } from "./Hud";
@@ -15,7 +15,7 @@ const cleared = (best?: LevelBest | null) => (best && best.clears > 0 ? best : n
 export function Brief({ run, art, petArt, best, leaving, onStart, onExit }: { run: sim.Run; art: Art; petArt: string; best?: LevelBest | null; leaving: boolean; onStart(): void; onExit(): void }) {
   const lv = run.level, record = cleared(best), guests = [...new Set(run.guests.map(g => g.guestId))], pet = PETS[run.pet], skill = SKILLS[pet.skill];
   return <div className={"overlay center" + (leaving ? " out" : "")}><div className="sheet" role="dialog" aria-modal="true" aria-labelledby="rhBrief">
-    <span className="k">Rush · {Math.floor(lv.round / 60)}:{String(lv.round % 60).padStart(2, "0")} · {lv.special ? "Today's special" : "Level " + lv.n}</span><h3 id="rhBrief">{lv.special ? DISHES[lv.special.dish].name : lv.name}</h3><p>{lv.brief}</p>
+    <span className="k">Rush · {Math.floor(lv.round / 60)}:{String(lv.round % 60).padStart(2, "0")} · {levelTitle(lv)}</span><h3 id="rhBrief">{lv.special ? DISHES[lv.special.dish].name : lv.name}</h3><p>{lv.brief}</p>
     {lv.special?.lunar && <span className="chip rule" style={{ justifySelf: "start", fontSize: 11 }}>{lv.special.lunar} · {RULES.five.chip}</span>}
     <span className="k">Regulars</span>
     <div className="guestrow">{guests.map(id => { const g = GUESTS[id], rules = [...new Set([...g.rules, ...(lv.allRules ?? [])])];
@@ -79,7 +79,7 @@ export function Results({ run, res, reward, best, saveFailed, onRetrySave, onAga
   const dish = levelDishes(run.level)[0] ?? DISHES[run.guests[0].dishId], record = run.level.special ? null : cleared(best), beat = reward?.beat ?? [];
   const marks = record ? ([["score", record.score + " pts"], ["coins", record.coins > 0 ? record.coins + " coins" : ""], ["time", record.left > 0 ? record.left + " s left" : ""]] as const).filter(([, text]) => text) : [];
   return <div className="overlay center"><div className="sheet" role="dialog" aria-modal="true" aria-labelledby="rhRes">
-    <span className="k">Rush · {run.level.special ? "Today's special" : "Level " + run.level.n} · {run.endReason === "time" ? "time's up" : "all guests done"}</span>
+    <span className="k">Rush · {levelTitle(run.level)} · {run.endReason === "time" ? "time's up" : "all guests done"}</span>
     <h3 id="rhRes">{head}</h3>
     <div className="bigstars" aria-label={res.stars + " of 3 stars"}>{[0, 1, 2].map(i => <span key={i} className={i < res.stars ? "lit" : ""} style={{ animationDelay: i * 0.18 + "s" }}>★</span>)}</div>
     <div className="stamps">{([["served", "Served"], ["rules", "Rules respected"], ["steady", "Steady heat"]] as const).map(([k, l]) =>
@@ -101,7 +101,7 @@ export function Results({ run, res, reward, best, saveFailed, onRetrySave, onAga
     {saveFailed && <div className="remember" role="alert"><b>Progress not saved yet.</b> <button className="btn ghost" onClick={onRetrySave} style={{ marginTop: 6, width: "100%" }}>Try saving again</button></div>}
     <p>Coins reset every service. Play again any time; nothing is lost.</p>
     <div className="row"><button className="btn ghost" autoFocus onClick={onCafe}>Back to café</button><button className="btn ghost" onClick={onAgain}>Play again</button></div>
-    {res.cleared && !run.level.special && run.level.n < 20 && <button className="btn gold" onClick={onNext}>Next: Level {run.level.n + 1}</button>}
+    {res.cleared && nextService(run.level) && <button className="btn gold" onClick={onNext}>Next: {nextService(run.level)}</button>}
   </div></div>;
 }
 

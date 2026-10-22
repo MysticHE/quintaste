@@ -16,6 +16,9 @@ export const saveCafe = (cafe: Partial<GameProgress>) => communityRequest<Server
 export const buyItem = (item: string) => communityRequest<ServerProgress>("/api/game/purchases", { method: "POST", body: { item } });
 export const openRun = (id: string, setup: RunStart, rules: string) =>
   communityRequest<{ id: string; status: string }>("/api/game/runs", { method: "POST", body: { ...setup, id, rules } });
+/** A Recipe Kitchen level pack and its approved pictures (`/api/game-art/<sha256>.webp`). Members only for now. */
+export type PackResponse = { hash: string; recipeId: string; pack: unknown; pictures: Record<string, string> };
+export const fetchPack = (hash: string) => communityRequest<PackResponse>("/api/game/packs/" + encodeURIComponent(hash));
 export const finishRun = (id: string, actions: Action[], result: Result) =>
   communityRequest<RunOutcome>("/api/game/runs/" + id + "/finish", { method: "POST", body: { actions, result } });
 
