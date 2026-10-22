@@ -39,7 +39,7 @@ NAMES = ['veg_kitchen.py', 'veg_kitchen_check.py', 'veg_kitchen_queue.py', 'run_
          # Creator library client (owner, 21 Oct 2026): Cooker reads and records pages through the signed /api/creators/bot routes.
          'creators_client.py',
          # Weekly creator scout (owner, 21 Oct 2026; plan phase 2): web, YouTube API and public profile links (owner, 22 Oct 2026).
-         'creator_scout.py', 'test_creator_scout.py']
+         'creator_scout.py', 'recipe_looks.py', 'test_creator_scout.py']
 TESTS = ['test_workflow', 'test_creator_scout', 'test_publisher', 'test_telegram_reporter', 'test_learning', 'test_night_controls', 'test_recipe_policy',
          'test_publication_delivery', 'test_menu_coverage', 'test_outlet_capture', 'test_gamer']
 

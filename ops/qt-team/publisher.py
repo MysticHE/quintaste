@@ -151,7 +151,8 @@ def step_key(instruction):
 def image_results(recipe_id):
     """(cover result or None, {step key: step result}) of the generated images of one recipe whose files are intact."""
     cover, steps = None, {}
-    for result in sorted((ROOT/'images').glob('*/result.json')):
+    # Newest first, so a redrawn cover or step (for example one steered by the author's photo) wins over an older one.
+    for result in sorted((ROOT/'images').glob('*/result.json'), key=lambda f: (f.stat().st_mtime, f.parent.name), reverse=True):
         if '.held-' in result.parent.name:
             continue  # set aside after QT Manager held it
         info = json.loads(result.read_text())

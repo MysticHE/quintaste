@@ -234,6 +234,21 @@ class Boundaries(unittest.TestCase):
             self.assertEqual(result['recipeId'], 'recipe-b')
             reserve.assert_called_once()
 
+    def test_step_with_a_photo_is_not_redrawn_when_its_prompt_changes(self):
+        # 22 Oct: adding the author's photo description changes every prompt; steps QT Manager already approved stay.
+        import publisher
+        steps = [{'instruction': 'Mash the bananas.', 'ingredientIds': []}, {'instruction': 'Fry the batter.', 'ingredientIds': []}]
+        packets = [{'role': 'qt-cooker', 'records': [{'id': 'kuih', 'status': 'proposed', 'recipe': {'name': 'Kuih', 'ingredients': [{'id': 'b', 'name': 'Banana'}], 'steps': steps}, 'sources': []}]}]
+        reviewed = {'decisions': [{'id': 'kuih', 'decision': 'ready-for-editorial-review'}]}
+        drawn = {publisher.step_key('Mash the bananas.'): {'step': 1}}
+        with tempfile.TemporaryDirectory() as d, patch.object(w, 'ROOT', Path(d)), patch.object(w, 'reserve'), \
+                patch.object(publisher, 'step_photos_on', return_value=True), patch.object(publisher, 'image_results', return_value=(None, drawn)), \
+                patch.object(w.subprocess, 'Popen') as launch:
+            launch.return_value.wait.return_value = 1
+            w.recipe_image(packets, reviewed, {})
+            launched = [json.loads(Path(call.args[0][2]).read_text()) for call in launch.call_args_list]
+        self.assertEqual([r.get('step') for r in launched], [None, 2])
+
     def test_image_recovery_reuses_existing_directory(self):
         packets = [{'role':'qt-cooker','records':[{'id':'recipe-a','status':'proposed','recipe':{'name':'Tofu','ingredients':[{'name':'Tofu'}]},'sources':[]}]}]
         reviewed = {'decisions':[{'id':'recipe-a','decision':'ready-for-editorial-review'}]}
