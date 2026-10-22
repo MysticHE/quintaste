@@ -82,6 +82,8 @@ class Estimates(unittest.TestCase):
         self.assertEqual(found['perServing']['sodium'], 400.0)
         recipe['servings'] = 2
         self.assertEqual(n.attach(self.root, recipe, page, 'example.org')['basis'], 'estimate')
+        adapted = {'servings': 4, 'adaptationNote': 'Keeps the optional coconut oil.', 'ingredients': [{'name': 'Firm tofu', 'amount': 300, 'unit': 'g'}]}
+        self.assertEqual(n.attach(self.root, adapted, page, 'example.org')['basis'], 'estimate')
 
     def test_old_table_format_is_refused(self):
         (self.root / 'nutrition_sg.json').write_text(json.dumps({'version': 1, 'items': {}}), encoding='utf-8')

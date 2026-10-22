@@ -505,7 +505,8 @@ def contract(role):
                          "imageBrief}. Categories: " + ", ".join(CATEGORIES) + ". Use original wording; source and attribution remain required. Do not copy entire recipes verbatim. "
                          "servings is 1 to 8 (the app's limit): when the source makes more than 8, scale every amount and gram estimate by one "
                          "factor to 8 or fewer servings (for example 12 servings halved to 6) and say so in adaptationNote (21 Oct 2026). "
-                         "Name plain ingredients plainly ('vegetable oil', 'rice vinegar'); put 'unseasoned' or 'without seasoning' in notes, not in the name.")
+                         "Name plain ingredients plainly ('vegetable oil', 'rice vinegar'); put 'unseasoned' or 'without seasoning' in notes, not in the name. "
+                         "Do not write nutrition figures or say nutrition is omitted; QuinTaste adds nutrition itself.")
     return common + ("Propose at most 12 events within 90 days. Each proposed record has event: {title,organiser,startsAt:ISO8601 with +08:00,"
                      "endsAt:ISO8601|null,location,address,feeAmount:number|null,currency:string|null,feeNote:string,registrationUrl:HTTPS|null,"
                      "registrationDeadline:ISO8601|null,dietEvidence,vegetarianFocus,status:scheduled|cancelled|rescheduled}. "

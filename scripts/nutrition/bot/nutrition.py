@@ -181,7 +181,10 @@ def estimate(root, recipe):
 
 def attach(root, recipe, page_recipe, site):
     """Set recipe['nutrition'] when reliable figures exist; otherwise leave the recipe without one."""
-    found = from_page(page_recipe, site, recipe.get('servings')) or estimate(root, recipe)
+    # An adapted recipe (oil kept that the page's figures leave out, a scaled batch) no longer matches the page's figures,
+    # so it gets the table estimate of what it actually lists (22 Oct 2026: golden milk held for the page's oil-free figures).
+    page = None if str(recipe.get('adaptationNote') or '').strip() else page_recipe
+    found = from_page(page, site, recipe.get('servings')) or estimate(root, recipe)
     if found:
         recipe['nutrition'] = found
     else:
