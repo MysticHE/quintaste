@@ -19,7 +19,7 @@ export type Layout = {
   hud: Rect; recipe: Rect; backdrop: Rect; counter: Rect; seats: Seat[];
   shelves: Rect; card: { w: number; h: number; gap: number };
   stations: Partial<Record<StationKind, Station>>; plating: Rect & { art: Rect; tag: Point }; board: Rect[];
-  heat: Rect; dialogue: Rect;
+  heat: Rect;
 };
 
 /** The area every station of the level covers together (the Gather basket sits over it). */
@@ -37,20 +37,22 @@ function fitBottom(size: [number, number], box: Rect): Rect {
   return { x: box.x + (box.w - w) / 2, y: box.y + box.h - h, w, h };
 }
 
-export function computeLayout(w: number, h: number, seats: number, stations: StationKind[]): Layout {
+export function computeLayout(w: number, h: number, seats: number, stations: StationKind[], knob = false): Layout {
   const cw = Math.round(Math.min(w, h * 0.62, 560)), x0 = Math.round((w - cw) / 2);
   const s = clamp((h - 250) / 486, 0.72, 1), m = Math.round(8 * s), px = x0 + 8, pw = cw - 16;
   const hud = { x: px, y: Math.round(6 * s), w: pw, h: Math.round(54 * s) };
-  const recipe = { x: px, y: hud.y + hud.h + Math.round(6 * s), w: pw, h: Math.round(64 * s) };
+  const recipe = { x: px, y: hud.y + hud.h + Math.round(6 * s), w: pw, h: Math.round(70 * s) };
   const top = recipe.y + recipe.h;
   // Bottom panels keep the height their content needs; the rest is shared: the café scene gets a floor (a guest, their bubble and the counter),
   // then the shelf cards take what they want up to a comfortable size, and the station row only what its art needs.
-  const dialogue = { x: px, y: h - m - Math.max(66, Math.round(72 * s)), w: pw, h: Math.max(66, Math.round(72 * s)) };
-  const heat = { x: px, y: dialogue.y - Math.round(6 * s) - 90, w: pw, h: 90 };
+  // No chat panel (owner, 22 Oct 2026): messages are short toasts, and the heat panel sits at the bottom, taller with the knob's cook timer.
+  const heatH = knob ? 146 : 116, heat = { x: px, y: h - m - heatH, w: pw, h: heatH };
   const flex = heat.y - top - 3 * m, minScene = 140, minStation = 78;
-  const gap = Math.round(6 * s), cardW = Math.floor((pw - 16 - 5 * gap - 14) / 6);
-  const cardMax = Math.floor((flex - minScene - minStation - 16 - gap) / 2);
-  const cardH = Math.round(clamp(Math.min(cardW * 1.34, cardMax), 50, 92)), shelfH = cardH * 2 + gap + 16;
+  // Five cards a row, as in the owner's mockup: a longer shelf pages with its arrows (or a swipe).
+  const gap = Math.round(6 * s), cardW = Math.floor((pw - 16 - 4 * gap) / 5);
+  const cardMax = Math.floor((flex - minScene - minStation - 26 - gap) / 2);
+  // The shelf keeps a strip under the cards for its page dots (a long shelf).
+  const cardH = Math.round(clamp(Math.min(cardW * 1.2, cardMax), 50, 96)), shelfH = cardH * 2 + gap + 26;
   const left = flex - shelfH;
   // The station row is only as tall as its art needs (the art is width-limited on crowded levels); the café scene takes the rest.
   const stationH = Math.round(clamp(Math.min(left - minScene, neededRow(stations, pw, s)), minStation, 150)), sceneH = left - stationH;
@@ -60,21 +62,34 @@ export function computeLayout(w: number, h: number, seats: number, stations: Sta
   const shelves = { x: px, y: counter.y + counterH + m, w: pw, h: shelfH };
   const row = { y: shelves.y + shelfH + m, h: stationH };
   return {
-    w, h, s, col: { x: x0, y: 0, w: cw, h }, seatW: Math.floor((pw - 8) / (seats <= 2 ? 3 : 4)), hud, recipe, backdrop, counter, seats: seatBoxes(seats, px, pw, top, counter, s, x0 + cw),
-    shelves, card: { w: cardW, h: cardH, gap }, ...stationRow(stations, px, pw, row, s), heat, dialogue,
+    w, h, s, col: { x: x0, y: 0, w: cw, h }, seatW: Math.floor((pw - 8) / (seats <= 3 ? 3 : 4)), hud, recipe, backdrop, counter, seats: seatBoxes(seats, px, pw, top, counter, s, x0 + cw),
+    shelves, card: { w: cardW, h: cardH, gap }, ...stationRow(stations, px, pw, row, s), heat,
   };
+}
+
+/** A drop (or hover) counts on a station when it lands within a finger's width of it; between two, the nearer one takes it. */
+const REACH = 16;
+export function nearestStation(L: Layout, p: Point): StationKind | null {
+  let best: StationKind | null = null, bestD = Infinity;
+  for (const k of Object.keys(L.stations) as StationKind[]) {
+    const r = L.stations[k]!;
+    if (p.x < r.x - REACH || p.x > r.x + r.w + REACH || p.y < r.y - REACH || p.y > r.y + r.h + REACH) continue;
+    const d = Math.hypot(p.x - (r.x + r.w / 2), p.y - (r.y + r.h / 2));
+    if (d < bestD) { best = k; bestD = d; }
+  }
+  return best;
 }
 
 /** Seats share three or four columns across the counter (fewer seats sit centred); guests stand behind it, head and shoulders up. */
 function seatBoxes(n: number, px: number, pw: number, top: number, counter: Rect, s: number, right: number): Seat[] {
-  const cols = n <= 2 ? 3 : 4, seatW = (pw - 8) / cols, offset = (cols - n) * seatW / 2, bubbleH = 70;
+  const cols = n <= 3 ? 3 : 4, seatW = (pw - 8) / cols, offset = (cols - n) * seatW / 2, bubbleH = 70;
   const bottom = counter.y + counter.h * 0.45, gh = Math.min(seatW * (cols === 3 ? 1.1 : 1.22), (bottom - top - bubbleH) / 0.94), gw = gh * GUEST_ASPECT;
   return Array.from({ length: n }, (_, i) => {
     const cx = px + 4 + offset + seatW * (i + 0.5);
     const matW = Math.min(seatW * 0.66, counter.h * 1.9), matH = matW * PLATE_ART[1] / PLATE_ART[0];
     const mat = round({ x: cx - matW / 2, y: counter.y + counter.h * 0.5 - matH / 2, w: matW, h: matH });
     return { guest: round({ x: cx - gw / 2, y: bottom - gh, w: gw, h: gh }), mat, bubble: { x: Math.round(cx), y: Math.round(Math.max(bottom - gh + gh * 0.06, top + bubbleH + 6)) },
-      tag: { x: Math.round(Math.min(mat.x + mat.w - 4, right - 36)), y: Math.round(mat.y + mat.h * 0.62) } };
+      tag: { x: Math.round(Math.min(mat.x + mat.w - 4, right - 52)), y: Math.round(mat.y + mat.h * 0.62) } };
   });
 }
 

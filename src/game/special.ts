@@ -1,6 +1,6 @@
 /**
  * Today's special on the chalkboard (GAME_PLAN §10): one dish the member has learned, cooked for regulars they have met,
- * picked by the Singapore date. On lunar 1st and 15th and Nine Emperor Gods days every order is five pungent-free.
+ * picked by the Singapore date. On lunar 1st and 15th and Nine Emperor Gods days every order is vegetarian.
  * Optional and replayable: a clear earns the normal replay grant, nothing is recorded per day, so there is no streak
  * and nothing to miss.
  */
@@ -41,7 +41,7 @@ export function specialFor(game: GameProgress, day: string): Special | null {
   const d = DISHES[dish], stations = [...new Set(d.parts.map(p => p.station))] as StationKind[];
   const level: Level = {
     n: 0, name: "Today's special", teach: d.remember, stations, seats: 3, maxOpen: 3, round: 150, patience: 90, hints: "none", distractors: [], unlocks: [],
-    brief: "Four orders from your regulars today." + (moment ? " It's the " + moment.label + (moment.label === "Nine Emperor Gods" ? " festival" : "") + ", so every order is five pungent-free." : ""),
+    brief: "Four orders from your regulars today." + (moment ? " It's the " + moment.label + (moment.label === "Nine Emperor Gods" ? " festival" : "") + ", so every order is vegetarian." : ""),
     orders: [1, 8, 34, 58].map((at, i) => ({ id: "s" + (i + 1), guest: guests[i % guests.length].id, dish, at })),
     ...(moment ? { allRules: ["five"] as Rule[] } : {}), special: { day, dish, lunar: moment?.label ?? null, top },
   };

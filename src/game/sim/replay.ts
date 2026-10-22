@@ -29,7 +29,9 @@ export type RunSetup = { level: number; special?: { day: string; top: number } |
   /** A café visit: the host and the menu snapshot (pack hashes, all registered first). */
   cafe?: { host: string; menu: string[] } | null;
   /** The service's seed: arrivals, shuffled jars and twists. The app derives it from the run's id (`seedOf`), the server from the stored id. */
-  seed: number };
+  seed: number;
+  /** Knob and ring heat (prototype; the app keeps these services as practice, so the server never opens one yet). */
+  knob?: boolean };
 
 /** What the app sends when a service starts; the server turns `special` (a date) into its stored setup. */
 export type RunStart = { id: string; level: number; special: string | null; top?: number | null; hints: Level["hints"] | null; pet: string; signature: string[];
@@ -96,6 +98,7 @@ export class ReplayError extends Error {}
 const kinds = new Set(Object.keys(STATIONS));
 const station = (v: unknown) => { if (typeof v !== "string" || !kinds.has(v)) throw new ReplayError("bad station"); return v as StationKind; };
 const word = (v: unknown) => { if (typeof v !== "string" || !/^[a-z0-9-]{1,40}$/.test(v)) throw new ReplayError("bad id"); return v; };
+const unit = (v: unknown) => { if (typeof v !== "number" || !(v >= 0 && v <= 1)) throw new ReplayError("bad number"); return v; };
 const int = (v: unknown, max: number) => { if (!Number.isInteger(v) || (v as number) < 0 || (v as number) > max) throw new ReplayError("bad number"); return v as number; };
 
 function apply(r: sim.Run, [, op, a, b]: sim.Action) {
@@ -110,6 +113,8 @@ function apply(r: sim.Run, [, op, a, b]: sim.Action) {
     case "lift": return sim.lift(r, station(a), int(b, 1_000_000));
     case "restart": return sim.restart(r, station(a));
     case "heat": return sim.toggleHeat(r, station(a));
+    case "knob": return sim.setKnob(r, station(a), unit(b));
+    case "take": return sim.take(r, station(a));
     case "label": return sim.openLabel(r, word(a));
     case "close": return sim.closeLabel(r);
     case "pause": if (typeof a !== "boolean") throw new ReplayError("bad pause"); return sim.pause(r, a);
@@ -132,7 +137,7 @@ export function tickLimit(setup: RunSetup) {
  */
 export function replay(setup: RunSetup, actions: unknown): sim.Run {
   if (!Array.isArray(actions) || actions.length > MAX_ACTIONS) throw new ReplayError("bad log");
-  const limit = tickLimit(setup), r = sim.createRun(setupLevel(setup), setup.pet, setup.signature, hintsOf(setup), int(setup.seed, 0xffffffff));
+  const limit = tickLimit(setup), r = sim.createRun(setupLevel(setup), setup.pet, setup.signature, hintsOf(setup), int(setup.seed, 0xffffffff), setup.knob === true);
   const advanceTo = (tick: number) => {
     while (r.ticks < tick) {
       const before = r.ticks;

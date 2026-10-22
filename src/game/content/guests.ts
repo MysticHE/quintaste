@@ -11,7 +11,7 @@ export type Guest = { id: string; name: string; art: string; artNo?: string; rul
 /** `chip` is the full label; `short` fits an order bubble over a narrow seat. */
 export const RULES: Record<Rule, { chip: string; short: string; spoken: string; tags: ItemTag[] }> = {
   vegan: { chip: "Vegan", short: "Vegan", spoken: "vegan", tags: ["egg", "dairy", "honey"] },
-  five: { chip: "No five pungent 五辛", short: "No pungent", spoken: "no five pungent", tags: ["allium"] },
+  five: { chip: "Vegetarian", short: "Vegetarian", spoken: "vegetarian", tags: ["allium"] },
   jain: { chip: "Jain", short: "Jain", spoken: "Jain", tags: ["allium", "root", "mushroom", "egg", "honey"] },
   nomeat: { chip: "No meat or seafood", short: "No meat", spoken: "no meat or seafood", tags: [] },
   nomush: { chip: "No mushrooms", short: "No mushroom", spoken: "no mushrooms", tags: ["mushroom"] },
@@ -24,7 +24,7 @@ export const GUESTS: Record<string, Guest> = Object.fromEntries(([
   { id: "daniel", name: "Daniel", art: "guest-daniel", rules: ["vegan"], first: 2, quote: "Started for the planet, stayed for the food.",
     hello: "{dish}, please. I'm vegan, so no egg, dairy or honey.", thanks: "Perfect, thank you!", notes: ["Went vegan after a climate talk.", "Bakes egg-free cakes for friends.", "Asks for the recipe every time."] },
   { id: "mei", name: "Auntie Mei", art: "guest-mei", artNo: "guest-mei-no", rules: ["five"], first: 5, quote: "My mother kept the lunar days. Now I do.",
-    hello: "{dish}. Today no five pungent, ah.", thanks: "Smells right. Thank you, ah.", notes: ["Keeps no five pungent on the 1st and 15th.", "Brings her own tea some days.", "Taught her grandson to read labels."] },
+    hello: "{dish}. Today I eat vegetarian, ah.", thanks: "Smells right. Thank you, ah.", notes: ["Eats vegetarian on the 1st and 15th.", "Brings her own tea some days.", "Taught her grandson to read labels."] },
   { id: "jia", name: "Jia Hui", art: "guest-jia", rules: ["nomeat"], first: 7, quote: "Trying one new dish a week.",
     hello: "One {dish}, please! Meat-free weekdays for me.", thanks: "So good, thanks!", notes: ["Started meat-free weekdays in January.", "Keeps a list of every new dish.", "Now cooks one of them at home."] },
   { id: "lim", name: "Uncle Lim", art: "guest-lim", rules: ["nomush"], first: 8, quote: "Since young, cannot.",
@@ -50,7 +50,7 @@ export function reason(itemId: string, rules: Rule[], flip?: Flip): string {
   const it = factsOf(itemId, flip), tags = it.tags ?? [], name = shown.name + (shown.variant ? " " + shown.variant : "");
   if (tags.includes("animal")) return name + " lists " + (it.label?.flagged ?? "an animal ingredient") + ". This is a plant-based kitchen.";
   if (tags.includes("allium") && (rules.includes("five") || rules.includes("jain")))
-    return it.label ? name + " lists " + it.label.flagged + ", one of the five pungent." : name + " is one of the five pungent." + (rules.includes("jain") ? "" : " Ginger is a common swap.");
+    return it.label ? name + " lists " + it.label.flagged + ": one of the five pungent, so not vegetarian." : name + " is one of the five pungent, so not vegetarian." + (rules.includes("jain") ? "" : " Ginger is a common swap.");
   if (tags.includes("root") && rules.includes("jain")) return name + " is a root vegetable, which Jain food avoids.";
   if (tags.includes("mushroom") && (rules.includes("nomush") || rules.includes("jain"))) return name + " is a mushroom." + (rules.includes("nomush") ? " Black beans or tempeh give the same savoury bite." : "");
   if (tags.includes("egg")) return it.label ? name + " lists egg, so it isn't vegan." : "Egg is vegetarian, but not vegan.";

@@ -8,7 +8,8 @@ import { DISHES, STATIONS, type StationKind } from "../content/dishes";
 import { GUESTS } from "../content/guests";
 import { ITEM_FORM, ITEMS, type ItemTone } from "../content/items";
 import * as sim from "../sim/engine";
-import type { Layout, Point, Rect } from "./layout";
+import { takePhase } from "./Knob";
+import { nearestStation, type Layout, type Point, type Rect } from "./layout";
 import * as motion from "./motion";
 import { PanContents, type Tones } from "./pan";
 import { STATION_ART } from "./stationArt";
@@ -28,7 +29,7 @@ export const DPR = typeof window !== "undefined" ? Math.min(2.5, Math.max(1, win
 const TOKENS = { light: "--fx-light", spark: "--fx-spark", flame: "--fx-flame", flameHot: "--fx-flame-hot", smoke: "--fx-smoke", char: "--fx-char",
   track: "--fx-ring-track", ready: "--fx-ready", warn: "--fx-warn", progress: "--fx-progress", coin: "--fx-coin", coinEdge: "--fx-coin-edge",
   cooked: "--fx-cooked", focus: "--fx-focus", soy: "--fx-soy", oil: "--fx-oil", cream: "--fx-cream", red: "--fx-red",
-  white: "--fx-grain-white", gold: "--fx-grain-gold", dark: "--fx-grain-dark" } as const;
+  white: "--fx-grain-white", gold: "--fx-grain-gold", dark: "--fx-grain-dark", heart: "--fx-heart" } as const;
 type Palette = Record<keyof typeof TOKENS, number>;
 function readPalette(): Palette {
   const el = typeof document !== "undefined" ? document.querySelector(".rh") : null, css = el ? getComputedStyle(el) : null, out = {} as Palette;
@@ -37,7 +38,7 @@ function readPalette(): Palette {
   });
   return out;
 }
-type StationView = { glow: Phaser.GameObjects.Ellipse; hi: Phaser.GameObjects.Graphics; ring: Phaser.GameObjects.Graphics; pan: PanContents;
+type StationView = { art: Img; scale: Point; glow: Phaser.GameObjects.Ellipse; hi: Phaser.GameObjects.Graphics; ring: Phaser.GameObjects.Graphics; pan: PanContents;
   steam: Phaser.GameObjects.Particles.ParticleEmitter; smoke: Phaser.GameObjects.Particles.ParticleEmitter };
 type PlateView = { base: Phaser.GameObjects.Image; dish: Phaser.GameObjects.Image; glow: Phaser.GameObjects.Ellipse };
 type Img = Phaser.GameObjects.Image;
@@ -46,6 +47,8 @@ type Img = Phaser.GameObjects.Image;
 const TAP = 10 * DPR;
 export class Playfield extends Phaser.Scene {
   run!: sim.Run; L!: Layout; art: Record<string, string> = {}; hooks!: SceneHooks; reduced = false; pal!: Palette;
+  /** Knob mode: the heat the knob is held at, so the stove's flame follows the needle before it is let go. */
+  heatPreview: { kind: StationKind; v: number } | null = null;
   /** The station a dragged ingredient is over (a drop target). */
   hover: StationKind | null = null;
   /** A ready dish being carried from this station, and the board slot of a plate being carried to a guest (the DOM lights up its targets). */
@@ -73,7 +76,7 @@ export class Playfield extends Phaser.Scene {
     const r = this.run, dishes = [...new Set(r.guests.map(g => g.dishId))].map(id => DISHES[id]);
     const items = new Set<string>([...r.level.distractors]);
     dishes.forEach(d => d.parts.forEach(p => p.stages.forEach(st => st.slots.forEach(sl => sl.accepts.forEach(a => items.add(a))))));
-    const keys = new Set(["rh-bg", "rh-counter", "plate", "board", ...Object.keys(r.stations).map(k => STATIONS[k as StationKind].art),
+    const keys = new Set(["rh-bg", "rh-kitchen", "rh-counter", "plate", "board", ...Object.keys(r.stations).map(k => STATIONS[k as StationKind].art),
       ...r.guests.flatMap(g => [GUESTS[g.guestId].art, GUESTS[g.guestId].artNo ?? GUESTS[g.guestId].art]), ...dishes.map(d => d.art),
       ...[...items].map(i => ITEMS[i]?.art).filter((k): k is string => !!k)]);
     keys.forEach(k => { if (this.art[k]) this.load.image(k, this.art[k]); });
@@ -85,7 +88,8 @@ export class Playfield extends Phaser.Scene {
     g.fillStyle(P.coin).fillCircle(16, 16, 15).lineStyle(3, P.coinEdge).strokeCircle(16, 16, 13); g.generateTexture("coin", 32, 32); g.clear();
     g.fillStyle(P.light).fillCircle(16, 16, 16); g.generateTexture("puff", 32, 32); g.clear();
     g.fillStyle(P.light).fillCircle(5, 5, 5); g.generateTexture("drop", 10, 10); g.clear();
-    g.fillStyle(P.spark).fillCircle(6, 6, 6); g.generateTexture("spark", 12, 12); g.destroy();
+    g.fillStyle(P.spark).fillCircle(6, 6, 6); g.generateTexture("spark", 12, 12); g.clear();
+    g.fillStyle(P.heart).fillCircle(7, 7, 6).fillCircle(17, 7, 6).fillTriangle(1.4, 9, 22.6, 9, 12, 21); g.generateTexture("heart", 24, 22); g.destroy();
     this.build(); this.hooks.ready(this);
   }
 
@@ -96,6 +100,9 @@ export class Playfield extends Phaser.Scene {
     this.landing.clear(); this.incomingSlots.clear(); this.incomingSeats.clear();
     const L = this.L;
     if (this.textures.exists("rh-bg")) this.cover(this.add.image(0, 0, "rh-bg"), L.backdrop);
+    // The cook's side under the counter (owner mockup): a wooden worktop the stations stand on, the kitchen shelves soft behind the ingredient shelf.
+    const below = L.counter.y + L.counter.h - 2;
+    if (this.textures.exists("rh-kitchen")) this.cover(this.add.image(0, 0, "rh-kitchen"), { x: 0, y: below, w: L.w, h: L.h - below });
     this.run.guests.forEach(gr => this.guests.set(gr.orderId, this.add.image(-200, -200, GUESTS[gr.guestId].art).setOrigin(0.5, 1).setVisible(false).setDepth(2)));
     if (this.textures.exists("rh-counter")) this.cover(this.add.image(0, 0, "rh-counter").setDepth(3), L.counter);
     L.seats.forEach((s, i) => {
@@ -129,7 +136,7 @@ export class Playfield extends Phaser.Scene {
   private buildStation(kind: StationKind) {
     const r = this.L.stations[kind]!, cfg = STATIONS[kind], P = this.pal;
     const hi = this.add.graphics().setDepth(4);
-    this.place(this.add.image(0, 0, cfg.art).setDepth(5), r.art);
+    const art = this.place(this.add.image(0, 0, cfg.art).setDepth(5), r.art), scale = { x: art.scaleX, y: art.scaleY };
     const f = STATION_ART[kind].flame;
     const glow = this.add.ellipse(r.art.x + r.art.w * f.x, r.art.y + r.art.h * f.y, r.art.w * f.rx * 2, r.art.h * f.ry * 2, P.flame, 0).setDepth(5.5).setBlendMode(Phaser.BlendModes.ADD);
     const pan = new PanContents(this, r.bowl, 6, this.tones(), !!STATION_ART[kind].closed);
@@ -152,7 +159,7 @@ export class Playfield extends Phaser.Scene {
       if (paste) { if (to && to !== kind) this.hooks.onTransfer(kind, to); return; }
       if (p.worldX >= b.x - 8 && p.worldX <= b.x + b.w + 8 && p.worldY >= b.y - 8 && p.worldY <= b.y + b.h + 8) this.hooks.onPlateDrag(kind);
     });
-    this.stations.set(kind, { glow, hi, ring, pan, steam, smoke });
+    this.stations.set(kind, { art, scale, glow, hi, ring, pan, steam, smoke });
   }
   /** A ready dish lifts off its station and follows the finger to the plates (a paste, to another station); anything else is not carried. */
   private startDishDrag(kind: StationKind, p: Phaser.Input.Pointer) {
@@ -164,10 +171,8 @@ export class Playfield extends Phaser.Scene {
     if (this.textures.exists(key)) this.ghost = this.fit(this.add.image(p.worldX, p.worldY - 14, key).setDepth(40), 70, 70);
   }
   private endDishDrag() { this.ghost?.destroy(); this.ghost = null; this.dragKind = null; if (this.dragPaste) this.hover = null; this.dragPaste = false; }
-  /** The station under a point, if any (its art and the tag below it). */
-  private stationAt(x: number, y: number) {
-    return (Object.keys(this.L.stations) as StationKind[]).find(k => { const s = this.L.stations[k]!; return x >= s.x && x <= s.x + s.w && y >= s.y - 12 && y <= s.y + s.h; }) ?? null;
-  }
+  /** The station under a point, if any (its art and the tag below it, with a finger's width to spare). */
+  private stationAt(x: number, y: number) { return nearestStation(this.L, { x, y }); }
   private tones(): Tones { const P = this.pal; return { soy: P.soy, oil: P.oil, cream: P.cream, red: P.red, white: P.white, gold: P.gold, dark: P.dark, cooked: P.cooked, char: P.char, light: P.light }; }
   private zone(r: Rect, depth: number, draggable = false) {
     return this.add.zone(r.x + r.w / 2, r.y + r.h / 2, r.w, r.h).setInteractive({ useHandCursor: true, draggable }).setDepth(depth);
@@ -226,7 +231,10 @@ export class Playfield extends Phaser.Scene {
     if (this.hover === kind) hl(0.7); else if (many && this.run.selected === kind) hl(0.5);
     const flaring = (this.flareUntil.get(kind) ?? 0) > t;
     if (flaring) v.glow.setFillStyle(P.flameHot, 0.55 + 0.3 * Math.sin(t * 16));
+    else if (this.heatPreview?.kind === kind) { const h = this.heatPreview.v; v.glow.setFillStyle(h >= cfg.scorch ? P.flameHot : P.flame, Math.min(0.7, 0.12 + h * 0.6)); }
     else v.glow.setFillStyle(st.H >= cfg.scorch ? P.flameHot : P.flame, cfg.heat && st.heatOn || st.H > 0.3 ? Math.min(0.55, st.H * 0.65) : 0);
+    // Knob mode: a step on the ring stands in a pulsing pool of gold light, the cue to take it off.
+    if (this.run.knob && cfg.heat && !this.reduced && takePhase(pr) === "now") hl(0.55 + 0.35 * Math.sin(t * 14));
     const toss = !cooking || this.reduced || !cfg.heat ? 0 : st.H >= lo && st.H <= hi ? 1 : st.H >= lo - 0.1 ? 0.4 : 0;
     v.pan.draw(pr, t, this.landing, toss);
     v.steam.emitting = !this.reduced && cooking && pr!.progress > 0.35;
@@ -238,6 +246,7 @@ export class Playfield extends Phaser.Scene {
     v.ring.fillStyle(P.light, 0.95).fillCircle(cx, cy, rad + 3).lineStyle(4, P.track).strokeCircle(cx, cy, rad);
     v.ring.lineStyle(4, pr.state === "ready" ? P.ready : pr.state === "scorched" || pr.state === "split" ? P.warn : P.progress)
       .beginPath().arc(cx, cy, rad, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * Math.min(1, done)).strokePath();
+
   }
   private updatePlates() {
     this.run.board.forEach((p, i) => {
@@ -258,7 +267,7 @@ export class Playfield extends Phaser.Scene {
     const r = this.L.stations[kind], key = ITEMS[itemId]?.art, form = ITEM_FORM[itemId], st = this.run.stations[kind];
     if (!r || !key || this.reduced) return;
     this.landing.add(uid);
-    const land = () => { this.landing.delete(uid); if (!STATION_ART[kind].closed) motion.burst(this, { x: r.bowl.x, y: r.bowl.y - r.bowl.ry * 0.4 }, 6); };
+    const land = () => { this.landing.delete(uid); this.squash(kind); if (!STATION_ART[kind].closed) motion.burst(this, { x: r.bowl.x, y: r.bowl.y - r.bowl.ry * 0.4 }, 6); };
     const tone = form ? this.pal[form.tone as ItemTone] : 0;
     if (form?.form === "pour") motion.pour(this, key, from, r.bowl, tone, land);
     else if (form?.form === "sprinkle") motion.sprinkle(this, key, from, r.bowl, tone, land);
@@ -276,7 +285,13 @@ export class Playfield extends Phaser.Scene {
     if (!b || !s || this.reduced) { then(); return; }
     this.incomingSeats.add(seat);
     motion.arc(this, DISHES[dishId].art, { x: b.x + b.w / 2, y: b.y + b.h / 2 }, { x: s.mat.x + s.mat.w / 2, y: s.mat.y + s.mat.h * 0.42 }, b.w * 1.05, 380,
-      () => { this.incomingSeats.delete(seat); then(); }, s.mat.w * 1.05);
+      () => { this.incomingSeats.delete(seat); motion.hearts(this, { x: s.guest.x + s.guest.w / 2, y: s.guest.y + s.guest.h * 0.18 }); then(); }, s.mat.w * 1.05);
+  }
+  /** The station gives a little squash as an ingredient lands in it. */
+  private squash(kind: StationKind) {
+    const v = this.stations.get(kind); if (!v) return;
+    this.tweens.killTweensOf(v.art); v.art.setScale(v.scale.x, v.scale.y);
+    this.tweens.add({ targets: v.art, scaleX: v.scale.x * 1.05, scaleY: v.scale.y * 0.94, duration: 70, yoyo: true, ease: "Quad.easeOut", onComplete: () => v.art.setScale(v.scale.x, v.scale.y) });
   }
   coins(seat: number, count: number, to: Point, eat: () => void) {
     const s = this.L.seats[seat - 1]; if (!s) return;
@@ -295,6 +310,13 @@ export class Playfield extends Phaser.Scene {
     this.flareUntil.delete(kind);
     motion.burst(this, { x: r.bowl.x, y: r.bowl.y + r.bowl.ry * 0.6 }, 18, this.pal.flameHot);
     this.cameras.main.shake(220, 0.004);
+  }
+  /** Knob mode: a step came off the heat (the stamp itself is in the DOM layer). On the ring, a gold burst and a squash; early or late, a puff. */
+  took(kind: StationKind, grade: "perfect" | "early" | "late") {
+    const r = this.L.stations[kind]; if (!r || this.reduced) return;
+    const b = r.bowl;
+    if (grade !== "perfect") { motion.puff(this, { x: b.x, y: b.y - b.ry }, this.pal.light); return; }
+    motion.burst(this, { x: b.x, y: b.y - b.ry }, 16); motion.burst(this, { x: b.x, y: b.y - b.ry * 1.6 }, 8, this.pal.focus); this.squash(kind);
   }
   puff(kind: StationKind) { const r = this.L.stations[kind]; if (r && !this.reduced) motion.puff(this, { x: r.bowl.x, y: r.bowl.y - r.bowl.ry }, this.pal.char); }
   sparkleReady(kind: StationKind) { const r = this.L.stations[kind]; if (r && !this.reduced) motion.burst(this, { x: r.bowl.x, y: r.bowl.y - r.bowl.ry }, 14); }

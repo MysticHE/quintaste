@@ -18,12 +18,12 @@ const pantry = (id: string, name: string, art = id, tags?: ItemTag[], label?: Ga
 export const ITEMS: Record<string, GameItem> = Object.fromEntries([
   // Aromatics and alliums
   fresh("ginger", "Ginger", "ginger", ["root"], "A common swap for garlic and shallots, but it is a root, which Jain guests avoid."),
-  fresh("garlic", "Garlic", "garlic", ["allium"], "One of the five pungent."),
-  fresh("shallots", "Shallots", "shallots", ["allium"], "One of the five pungent."),
-  fresh("onion", "Onion", "onion", ["allium", "root"], "One of the five pungent."),
-  fresh("spring-onion", "Spring onion", "spring-onion", ["allium"], "Scallions are one of the five pungent."),
-  fresh("chives", "Garlic chives", "chives", ["allium"], "One of the five pungent."),
-  fresh("leek", "Leek", "leek", ["allium"], "One of the five pungent."),
+  fresh("garlic", "Garlic", "garlic", ["allium"], "One of the five pungent, so not vegetarian."),
+  fresh("shallots", "Shallots", "shallots", ["allium"], "One of the five pungent, so not vegetarian."),
+  fresh("onion", "Onion", "onion", ["allium", "root"], "One of the five pungent, so not vegetarian."),
+  fresh("spring-onion", "Spring onion", "spring-onion", ["allium"], "Scallions are one of the five pungent, so not vegetarian."),
+  fresh("chives", "Garlic chives", "chives", ["allium"], "One of the five pungent, so not vegetarian."),
+  fresh("leek", "Leek", "leek", ["allium"], "One of the five pungent, so not vegetarian."),
   fresh("sichuan-pepper", "Sichuan pepper", "sichuan-pepper", [], "Numbing and fragrant; no allium and no root."),
   fresh("red-chilli", "Red chilli", "red-chilli", ["hot"]),
   fresh("dried-chillies", "Dried chillies", "dried-chillies", ["hot"]),

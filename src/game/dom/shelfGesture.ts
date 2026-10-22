@@ -3,10 +3,12 @@
  *
  * Cards take every touch themselves (`touch-action: none`). With `pan-x` the browser claimed any finger drag that began even
  * slightly sideways as a shelf scroll and cancelled the pointer, so on phones no ingredient ever reached a station.
- * - One pointer at a time: while a card is held, other fingers (a thumb on the burner) never end or move the drag.
- * - A press becomes a gesture after SLOP pixels. Steeper than LIFT_SLOPE (or on a shelf that fits) it lifts the card; a
- *   flatter one swipes the shelf. A swipe that drifts down or leaves the shelf turns into a drag of that card after all,
- *   and the shelf goes back to where it was.
+ * - One pointer at a time: while a card is held, other fingers (a thumb on the burner) never end or move the drag. A new
+ *   first finger means every earlier one has lifted, so it replaces a gesture whose release the page never heard.
+ * - A press becomes a gesture after SLOP pixels. Stations sit below the shelf, so any press that heads down (DOWN_SLOPE)
+ *   or steeply up (LIFT_SLOPE), or any press on a shelf that fits, lifts the card; only a flat one swipes the shelf. A swipe
+ *   that drifts down or leaves the shelf turns into a drag of that card after all, and the shelf goes back to where it was.
+ * - The Label tab passes its presses here too: a press that moves drags its card's ingredient, a tap reads the label.
  * - The swipe follows the finger with snapping off and ends in a fling that slows down, then the shelf snaps as usual.
  * - The click a drag or swipe may still fire on the card is ignored for a short grace period (no stray "drag me" hint).
  */
@@ -15,7 +17,7 @@ import type { StationKind } from "../content/dishes";
 import { ITEMS } from "../content/items";
 import type { Point } from "./layout";
 
-const SLOP = 10, LIFT_SLOPE = 0.7, SWIPE_DRIFT = 24;
+const SLOP = 10, LIFT_SLOPE = 0.7, DOWN_SLOPE = 0.35, SWIPE_DRIFT = 16;
 const CLICK_GRACE = 400;
 /** Fling: only the movement of the last FLING_WINDOW ms counts; slower than FLING_MIN px/ms does not fling. */
 const FLING_WINDOW = 100, FLING_MIN = 0.3, FLING_DECAY = 0.94;
@@ -27,7 +29,7 @@ type Gesture = {
 };
 export type ShelfGestureOptions = {
   art: Record<string, string>; stationAt(p: Point): StationKind | null;
-  onDrop(id: string, at: Point, from: Point): boolean; onHover(k: StationKind | null): void; onHint(id: string): void;
+  onDrop(id: string, at: Point, from: Point): boolean; onHover(k: StationKind | null): void; onHint(id: string): void; onLabel(id: string): void;
 };
 
 const rel = (e: { clientX: number; clientY: number }, root: HTMLElement): Point => { const b = root.getBoundingClientRect(); return { x: e.clientX - b.left, y: e.clientY - b.top }; };
@@ -67,12 +69,13 @@ export function useShelfGesture(options: ShelfGestureOptions) {
   function down(e: RPointerEvent<HTMLButtonElement>, id: string) {
     if (e.button) return;
     const held = active.current;
-    // A second finger never takes over; a mouse can only be pressed once, so a leftover mouse gesture is simply replaced.
-    if (held && !(held.mouse && e.pointerType === "mouse")) return;
+    // A second finger never takes over. A mouse can only be pressed once and a new first finger means the old one lifted,
+    // so either replaces a leftover gesture.
+    if (held && !e.isPrimary && !(held.mouse && e.pointerType === "mouse")) return;
     cleanup.current?.(); stopFling();
     const root = e.currentTarget.closest(".rh") as HTMLElement | null; if (!root) return;
-    const tray = e.currentTarget.closest(".tray") as HTMLElement | null;
-    const g: Gesture = { pointerId: e.pointerId, mouse: e.pointerType === "mouse", id, x0: e.clientX, y0: e.clientY, from: centre(e.currentTarget, root),
+    const tray = e.currentTarget.closest(".tray") as HTMLElement | null, card = e.currentTarget.closest(".cardwrap") ?? e.currentTarget;
+    const g: Gesture = { pointerId: e.pointerId, mouse: e.pointerType === "mouse", id, x0: e.clientX, y0: e.clientY, from: centre(card, root),
       mode: "wait", ghost: null, root, over: null, tray, scroll0: tray?.scrollLeft ?? 0, band: null, samples: [] };
     active.current = g;
     const mine = (ev: PointerEvent) => ev.pointerId === g.pointerId && active.current === g;
@@ -83,7 +86,7 @@ export function useShelfGesture(options: ShelfGestureOptions) {
       if (g.mode === "wait") {
         if (Math.hypot(dx, dy) < SLOP) return;
         const scrolls = !!tray && tray.scrollWidth > tray.clientWidth + 2;
-        if (!scrolls || Math.abs(dy) >= Math.abs(dx) * LIFT_SLOPE) lift(g);
+        if (!scrolls || dy >= Math.abs(dx) * DOWN_SLOPE || -dy >= Math.abs(dx) * LIFT_SLOPE) lift(g);
         else { g.mode = "scroll"; const b = tray!.getBoundingClientRect(); g.band = { top: b.top - 4, bottom: b.bottom + 4 }; tray!.style.scrollSnapType = "none"; }
       }
       if (g.mode === "scroll") {
@@ -127,10 +130,10 @@ export function useShelfGesture(options: ShelfGestureOptions) {
     cleanup.current = abandon;
     window.addEventListener("pointermove", move); window.addEventListener("pointerup", up); window.addEventListener("pointercancel", cancel);
   }
-  /** A tap (no gesture) shows the "drag me" hint; the click left over from a drag or swipe does not. */
-  function click(id: string) {
+  /** A tap (no gesture) shows the "drag me" hint, or the label on the Label tab; the click left over from a drag or swipe does neither. */
+  function click(id: string, label = false) {
     if (performance.now() < quietUntil.current) return;
-    opts.current.onHint(id);
+    if (label) opts.current.onLabel(id); else opts.current.onHint(id);
   }
   return { down, click };
 }

@@ -11,12 +11,12 @@ import { levelByNumber, levelDishes, type Level } from "../content/levels";
 import { packByHash, packHash, readPack, registerPack } from "../content/pack";
 import { cafeFor, missionFor, type Tier } from "../mission";
 import type { LevelBest } from "../progress";
-import { hintsFor, PACE_SPEED, type PlaySettings } from "../settings";
+import { hintsFor, knobFor, PACE_SPEED, type PlaySettings } from "../settings";
 import * as sim from "../sim/engine";
-import { Dialogue, HeatPanel } from "./Controls";
+import { HeatPanel, SayToast } from "./Controls";
 import { Bubbles, PlateTags, SeatTags, StationTags } from "./Counter";
 import { Hud, RecipeCard } from "./Hud";
-import { stationsBox, type Point } from "./layout";
+import { nearestStation, stationsBox, type Point } from "./layout";
 import { Basket } from "./Basket";
 import { ToolChips } from "./Tools";
 import { Brief, LabelSheet, PauseSheet, Results, TooShort, type Reward } from "./Overlays";
@@ -78,7 +78,7 @@ export default function RushHour(props: Props) {
   const latest = useRef(props); latest.current = props;
   const base = mission ?? cafe ?? props.special ?? levelByNumber(level);
   const runId = useRef("");
-  const newRun = () => { runId.current = newRunId(); return sim.createRun(mission ?? cafe ?? props.special ?? level, pet, signature, hintsFor(settings, base.hints), sim.seedOf(runId.current)); };
+  const newRun = () => { runId.current = newRunId(); return sim.createRun(mission ?? cafe ?? props.special ?? level, pet, signature, hintsFor(settings, base.hints), sim.seedOf(runId.current), knobFor(settings, base)); };
   const runRef = useRef<sim.Run>(null as unknown as sim.Run);
   if (!runRef.current) runRef.current = newRun();
   const [, setVersion] = useState(0);
@@ -88,7 +88,7 @@ export default function RushHour(props: Props) {
   const fx = useFeedback(settings, props.onHaptic);
   const input = useRef<PlayfieldInput>({ onStation: noop, onGuest: noop, onServeDrag: noop, onPlateDrag: noop, onTransfer: noop });
   const { rootRef, stageRef, sceneRef, L, reboot } = usePlayfield(runRef, runRef.current.level.seats, runRef.current.level.stations, art,
-    { reduced }, input, bump);
+    { reduced, knob: runRef.current.knob }, input, bump);
   const [paused, setPaused] = useState(false);
   const [leaving, setLeaving] = useState(false);
   const ev = useServiceEvents({ runRef, sceneRef, rootRef, fx, reduced, onEnd: () => void save() });
@@ -122,6 +122,8 @@ export default function RushHour(props: Props) {
   async function save() {
     const r = runRef.current; fx.audio.setSizzle(0);
     if (r.endReason === "quit") return;
+    // The knob and ring prototype is practice: the server's game doesn't have it yet, so nothing is sent.
+    if (r.knob) { setReward({ credits: 0, first: false, mastered: false, unlocks: [], status: "practice", note: "Prototype heat controls: practice, not saved." }); return; }
     try { setSaveFailed(false); setReward(await latest.current.onFinish({ ...info(r), result: sim.results(r), actions: r.actions })); }
     catch { setReward(null); setSaveFailed(true); }
   }
@@ -139,7 +141,8 @@ export default function RushHour(props: Props) {
   // never moves food: on a station it selects it (to see its heat), on a guest it picks who to cook for, and the state tag under
   // a scorched or split dish restarts it.
   input.current = {
-    onStation: k => { sim.select(runRef.current, k); after(); },
+    // With the knob, a tap on a step that is nearly done takes it off the heat (the cook timer); otherwise it selects the station.
+    onStation: k => { const r = runRef.current, pr = r.stations[k]?.part; if (r.knob && pr?.state === "cooking" && pr.progress >= sim.KNOB.early) sim.take(r, k); else sim.select(r, k); after(); },
     onGuest: id => { sim.setFocus(runRef.current, id); after(); },
     onServeDrag: (i, id) => { sim.serve(runRef.current, i, id); after(); },
     onPlateDrag: k => { sim.plate(runRef.current, k); after(); },
@@ -157,7 +160,7 @@ export default function RushHour(props: Props) {
         if (at.x < c.x || at.x > c.x + c.w || at.y < c.y - 12 || at.y > c.y + c.h) return false;
         sim.gatherItem(r, id); ev.drain(); bump(); return true;
       }
-      const k = lay && (Object.keys(lay.stations) as StationKind[]).find(s => { const st = lay.stations[s]!; return at.x >= st.x && at.x <= st.x + st.w && at.y >= st.y - 12 && at.y <= st.y + st.h; });
+      const k = lay && nearestStation(lay, at);
       if (!k) return false;
       ev.origin.current = from; sim.place(r, id, k); ev.drain(); bump(); return true;
     },
@@ -175,7 +178,7 @@ export default function RushHour(props: Props) {
   /** The brief slides away, then the service starts with a banner. */
   function begin() {
     setLeaving(true);
-    setTimeout(() => { sim.start(runRef.current); void latest.current.onStart?.(info(runRef.current)); setLeaving(false); ev.banner(sim.gathering(runRef.current) ? "Gather!" : "Service!"); bump(); }, reduced ? 0 : 220);
+    setTimeout(() => { sim.start(runRef.current); if (!runRef.current.knob) void latest.current.onStart?.(info(runRef.current)); setLeaving(false); ev.banner(sim.gathering(runRef.current) ? "Gather!" : "Service!"); bump(); }, reduced ? 0 : 220);
   }
 
   // Results bridges (GAME_PLAN §11) for the dish the results remember, with the allium-free recipe when a guest kept no five pungent.
@@ -186,12 +189,12 @@ export default function RushHour(props: Props) {
   const overlay = !run.started || !!run.label || (paused && !run.ended) || showResults || cramped;
   const shortStock = run.sched.low && run.plan.stock ? { item: run.plan.stock.item, state: run.sched.out ? "out" as const : "low" as const } : null;
   const st = run.stations[run.selected], nudgeHeat = run.level.hints !== "none" && run.started && !!st?.part && st.part.state === "cooking" && !st.heatOn && STATIONS[run.selected].heat;
-  return <div ref={rootRef} lang="en" className={"rh" + (reduced ? " still" : "")} style={{ position: "fixed", inset: 0, "--ts": props.textScale } as CSSProperties}
+  return <div ref={rootRef} lang="en" className={"rh" + (reduced ? " still" : settings.motion === "full" ? " full" : "")} style={{ position: "fixed", inset: 0, "--ts": props.textScale } as CSSProperties}
     onPointerDownCapture={() => fx.audio.unlock()} onKeyDownCapture={() => fx.audio.unlock()}>
     <style dangerouslySetInnerHTML={{ __html: fontFaces(art) + RUSH_CSS }} />
     <div ref={stageRef} style={{ position: "absolute", inset: 0 }} aria-hidden="true" />
     {L && <div className="panels" inert={overlay || undefined} style={{ position: "absolute", inset: 0 }}>
-      <Hud run={run} L={L} coins={ev.coins} eatKey={ev.eatKey} coinRef={ev.coinRef} onPause={() => doPause(true)} />
+      <Hud run={run} L={L} coins={ev.coins} eatKey={ev.eatKey} combo={ev.combo} coinRef={ev.coinRef} onPause={() => doPause(true)} />
       <RecipeCard run={run} L={L} art={art} />
       <SeatTags L={L} />
       <Bubbles run={run} L={L} art={art} plateSel={sceneRef.current?.dragSlot ?? null} onGuest={id => input.current.onGuest(id)} />
@@ -201,8 +204,14 @@ export default function RushHour(props: Props) {
       <Basket run={run} L={L} art={art} over={basketOver} />
       <Shelf run={run} L={L} art={art} nudge={ev.nudge} stock={shortStock} onHint={shelf.hint} onDrop={shelf.drop} onHover={shelf.hover} onLabel={shelf.label} />
       <HeatPanel run={run} L={L} art={art} petArt={petArt} hold={settings.burner === "hold"} nudge={nudgeHeat} onHeat={act.heat} onHeatTo={heatTo} onLift={act.lift}
+        onKnob={(k, v, perfect) => { sim.setKnob(runRef.current, k, v); fx.cue(perfect ? "perfect" : "click"); after(); }} onTick={() => fx.haptic("select")}
+        onPreview={(k, v) => { const sc = sceneRef.current; if (sc) sc.heatPreview = v === null ? null : { kind: k, v }; }}
+        onTake={k => { sim.take(runRef.current, k); after(); }}
         onRestart={act.restart} onSkill={() => { sim.useSkill(run); after(); }} />
-      <Dialogue run={run} L={L} art={art} chefArt={chefArt} />
+      <SayToast run={run} L={L} art={art} chefArt={chefArt} />
+      {ev.took && L.stations[ev.took.station] && <div key={ev.took.key} className={"stamp " + ev.took.grade} aria-hidden="true"
+        style={{ left: L.stations[ev.took.station]!.art.x + L.stations[ev.took.station]!.art.w / 2, top: L.stations[ev.took.station]!.art.y + 4 }}>
+        {ev.took.grade === "perfect" ? "Perfect!" : ev.took.grade === "early" ? "A bit early" : "Overcooked"}</div>}
       {ev.hint && <div key={ev.hint.key} className="toast" style={{ left: L.col.x + L.col.w / 2, top: L.shelves.y - 30 }}>{ev.hint.text}</div>}
     </div>}
     {L && fx.caption && <div key={fx.caption.key} className="caption" style={{ top: L.recipe.y + L.recipe.h + 6, right: L.col.x + 12 }} aria-hidden="true">{fx.caption.text}</div>}
@@ -212,7 +221,7 @@ export default function RushHour(props: Props) {
     {paused && !run.ended && !cramped && <PauseSheet onResume={() => doPause(false)} onRestart={again} onQuit={() => { sim.quit(run); reportQuit(); void exit("cafe"); }}
       onSettings={props.onSettings ? () => void props.onSettings?.() : undefined} />}
     {cramped && <TooShort />}
-    {showResults && result && <Results run={run} res={result} reward={reward} best={props.best} saveFailed={saveFailed} onRetrySave={() => void save()}
+    {showResults && result && <Results run={run} res={result} reward={reward} best={props.best} saveFailed={saveFailed} still={reduced} cue={fx.cue} onRetrySave={() => void save()}
       onAgain={() => exit("again")} onCafe={() => exit("cafe")} onNext={() => exit("next")}
       onCook={offer?.cook ? bridge("cook") : undefined} onNearby={offer?.nearby ? bridge("nearby") : undefined}
       onReact={run.level.mission && props.onReact ? liked => void props.onReact!(run.level.mission!.pack, liked) : undefined} />}

@@ -38,7 +38,7 @@ export const DISHES: Dish[] = [
   one("chee-cheong-fun", "Chee cheong fun", "dish-chee-cheong-fun", "steamer", [
     { slots: [slot("flour", "Rice flour", ["rice-flour"]), slot("oil", "Oil", ["cooking-oil"])], secs: 5, hint: "rice flour and oil" },
     { slots: [slot("sauce", "Sweet sauce", ["sweet-sauce-a", "sweet-sauce-b"]), slot("top", "Sesame seeds", ["sesame-seeds"])], secs: 1, hint: "sweet sauce and sesame" },
-  ], "Sweet sauce can list garlic. Read the label for a no five pungent order."),
+  ], "Sweet sauce can list garlic. Read the label for a vegetarian order."),
   { id: "chwee-kueh", name: "Chwee kueh", art: "dish-chwee-kueh", remember: "Chye poh is preserved radish, a root, so chwee kueh is not for a Jain guest.",
     parts: [
       { id: "chwee-cakes", name: "Rice cakes", station: "steamer", stages: [{ slots: [slot("flour", "Rice flour", ["rice-flour"])], secs: 6, hint: "rice flour" }] },
@@ -68,7 +68,7 @@ export const LEVELS: Level[] = [
     stations: ["steamer"], seats: 2, maxOpen: 2, round: 78, patience: 85, hints: "full", orders: [o("office", "steamed-tofu", 1), o("daniel", "steamed-tofu", 16)], distractors: ["garlic"], unlocks: ["Steamer"] },
   { n: 32, bonus: "clean", name: "Grind, then steam", brief: "Idli batter is ground in the blender, then poured into the steamer.", teach: "A batter can be made, then steamed.",
     stations: ["blender", "steamer"], seats: 2, maxOpen: 2, round: 95, patience: 92, hints: "full", orders: [o("office", "idli", 1), o("asha", "idli", 20)], distractors: [], unlocks: [] },
-  { n: 33, bonus: "clean", name: "Rice rolls", brief: "Chee cheong fun steams first, then gets its sauce. One sweet sauce lists garlic, and Auntie Mei keeps no five pungent.", teach: "Read the sauce label.",
+  { n: 33, bonus: "clean", name: "Rice rolls", brief: "Chee cheong fun steams first, then gets its sauce. One sweet sauce lists garlic, and Auntie Mei is vegetarian.", teach: "Read the sauce label.",
     stations: ["steamer"], seats: 3, maxOpen: 3, round: 105, patience: 88, hints: "chip", orders: [o("office", "chee-cheong-fun", 1), o("mei", "chee-cheong-fun", 10), o("daniel", "steamed-tofu", 38)], distractors: [], unlocks: [] },
   { n: 34, bonus: "golden", name: "Fill the bun", brief: "Fry the bao filling in the wok, then pour it into the steamer with the dough.", teach: "The wok and the steamer work together.",
     stations: ["pan", "steamer"], seats: 3, maxOpen: 3, round: 122, patience: 96, hints: "chip", orders: [o("jia", "veg-bao", 1), o("office", "kangkung-split", 8), o("lim", "veg-bao", 40), o("nurul", "steamed-tofu", 62)], distractors: [], unlocks: [] },

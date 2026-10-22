@@ -3,10 +3,13 @@
  * Nothing is created until sound or music is switched on and the player taps (browsers need a gesture), nothing plays
  * while a switch is off, and pausing suspends everything. Every effect has a caption (GAME_PLAN §12.4).
  */
-export type Sfx = "place" | "sizzle" | "plate" | "coin" | "serve" | "returned" | "ticket" | "scorch";
+export type Sfx = "place" | "sizzle" | "plate" | "coin" | "serve" | "returned" | "ticket" | "scorch" | "ready" | "fill" | "star" | "slam" | "reward" | "click" | "perfect" | "take";
 export const CAPTIONS: Record<Sfx, string> = {
   place: "Plop", sizzle: "Sizzle", plate: "Plate clinks", coin: "Coins chime", serve: "Serve chime", returned: "Plate comes back", ticket: "New order bell", scorch: "Smoke hisses",
+  ready: "Ready ding", fill: "Takings count up", star: "Star chime", slam: "Fanfare", reward: "Reward pops", click: "Knob clicks", perfect: "Perfect chime", take: "Off the heat",
 };
+/** Semitones up from a base pitch: each coin, combo serve, takings tick and star climbs, capped so it never squeals. */
+const up = (f: number, n: number, cap: number) => f * Math.pow(2, Math.min(n, cap) / 12);
 
 type Tone = { type?: OscillatorType; f: number; to?: number; at?: number; dur: number; gain: number };
 type Noise = { at?: number; dur: number; gain: number; freq: number; filter?: BiquadFilterType; q?: number };
@@ -47,15 +50,23 @@ export class GameAudio {
   }
   dispose() { this.set(false, false); }
 
-  /** One effect; `n` raises each coin's pitch. Returns false when nothing was played. */
+  /** One effect; `n` climbs the pitch (coins, combo serves, takings ticks, stars). Returns false when nothing was played. */
   play(kind: Sfx, n = 0) {
     const c = this.live(); if (!c || !this.sound) return false;
     const t = c.currentTime + 0.01;
     if (kind === "place") { this.tone({ f: 260, to: 120, dur: 0.13, gain: 0.3, at: t }); this.noise({ at: t, dur: 0.05, gain: 0.08, freq: 1200 }); }
     if (kind === "sizzle") this.noise({ at: t, dur: 0.38, gain: 0.16, freq: 3200, filter: "highpass" });
     if (kind === "plate") { this.tone({ f: 1760, dur: 0.22, gain: 0.1, at: t }); this.tone({ f: 2640, dur: 0.16, gain: 0.06, at: t }); this.noise({ at: t, dur: 0.03, gain: 0.05, freq: 4000 }); }
-    if (kind === "coin") { const f = 1320 * Math.pow(2, Math.min(n, 10) / 12); this.tone({ type: "triangle", f, dur: 0.24, gain: 0.1, at: t }); this.tone({ f: f * 2, dur: 0.14, gain: 0.04, at: t }); }
-    if (kind === "serve") { this.tone({ f: 784, dur: 0.25, gain: 0.14, at: t }); this.tone({ f: 1047, dur: 0.38, gain: 0.14, at: t + 0.12 }); }
+    if (kind === "coin") { const f = up(1320, n, 14); this.tone({ type: "triangle", f, dur: 0.24, gain: 0.1, at: t }); this.tone({ f: f * 2, dur: 0.14, gain: 0.04, at: t }); }
+    if (kind === "serve") { this.tone({ f: up(784, n, 7), dur: 0.25, gain: 0.14, at: t }); this.tone({ f: up(1047, n, 7), dur: 0.38, gain: 0.14, at: t + 0.12 }); }
+    if (kind === "ready") { this.tone({ type: "triangle", f: 1568, dur: 0.14, gain: 0.09, at: t }); this.tone({ type: "triangle", f: 2093, dur: 0.24, gain: 0.09, at: t + 0.09 }); }
+    if (kind === "fill") this.tone({ f: up(660, n, 16), dur: 0.05, gain: 0.05, at: t });
+    if (kind === "star") { const f = up(880, [0, 4, 7][Math.min(n, 2)], 7); this.tone({ type: "triangle", f, dur: 0.5, gain: 0.12, at: t }); this.tone({ f: f * 2, dur: 0.3, gain: 0.05, at: t + 0.02 }); this.noise({ at: t, dur: 0.12, gain: 0.05, freq: 6000, filter: "highpass" }); }
+    if (kind === "slam") { this.tone({ f: 150, to: 55, dur: 0.28, gain: 0.32, at: t }); this.noise({ at: t, dur: 0.14, gain: 0.12, freq: 420, filter: "lowpass" }); [523.3, 659.3, 784, 1046.5].forEach((f, i) => this.tone({ type: "triangle", f, dur: 0.7, gain: 0.05, at: t + 0.06 + i * 0.03 })); }
+    if (kind === "reward") this.tone({ f: 520, to: 1040, dur: 0.12, gain: 0.1, at: t });
+    if (kind === "click") { this.noise({ at: t, dur: 0.03, gain: 0.12, freq: 2500, filter: "highpass" }); this.tone({ type: "triangle", f: 900, dur: 0.04, gain: 0.05, at: t }); }
+    if (kind === "perfect") { [1760, 2349, 3136].forEach((f, i) => this.tone({ type: "triangle", f, dur: 0.22, gain: 0.08, at: t + i * 0.06 })); this.noise({ at: t, dur: 0.1, gain: 0.05, freq: 7000, filter: "highpass" }); }
+    if (kind === "take") this.tone({ f: 330, to: 220, dur: 0.1, gain: 0.14, at: t });
     if (kind === "returned") { this.tone({ type: "triangle", f: 523, dur: 0.2, gain: 0.11, at: t }); this.tone({ type: "triangle", f: 392, dur: 0.32, gain: 0.11, at: t + 0.14 }); }
     if (kind === "ticket") { this.tone({ f: 1318, dur: 0.7, gain: 0.1, at: t }); this.tone({ f: 1318 * 2.76, dur: 0.3, gain: 0.025, at: t }); }
     if (kind === "scorch") this.noise({ at: t, dur: 0.6, gain: 0.14, freq: 900, filter: "lowpass" });

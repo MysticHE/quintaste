@@ -25,13 +25,13 @@ RUNS = ["scene", "scene2", "level5", "lotus", "home", "home2", "iso", "kit", "ca
 RENAME = {"rh-bg": ("scene2", "bg-cafe"), "rh-counter": ("scene2", "counter"), "cafe-counter": ("home", "counter")}
 # Pinned by eye: the signature room variant that keeps the hotspot layout, and the more compact assembly board.
 VARIANT = {"avatar-adult": 2, "avatar-mini": 2, "skin-signature": 2, "assembly-counter": 2}
-SCENES = {"skin-sunny", "skin-lotus", "skin-lantern", "skin-signature", "rh-bg"}
+SCENES = {"skin-sunny", "skin-lotus", "skin-lantern", "skin-signature", "rh-bg", "rh-kitchen"}
 # Every café skin is a full scene (no cut-out), including the chapter and season rewards.
 is_scene = lambda key: key in SCENES or (key.startswith("skin-") and not key.endswith("-wide"))
 # Wide home skins (QT Gamer style.json homeSkin): widen.py composites, imported at 1280 px high with the portrait room in the middle.
 WIDE = {"skin-sunny-wide", "skin-lotus-wide", "skin-lantern-wide", "skin-signature-wide"}
 SCENES |= WIDE
-SIZES = {"skin": 1280, "rh-bg": 1280, "rh-counter": 1024, "cafe-counter": 768, "avatar": 480, "guest": 360, "dish": 360, "pet": 360, "wear": 360,
+SIZES = {"skin": 1280, "rh-bg": 1280, "rh-kitchen": 1280, "rh-counter": 1024, "cafe-counter": 768, "avatar": 480, "guest": 360, "dish": 360, "pet": 360, "wear": 360,
          "decor": 360, "stove": 320, "blender": 320, "steamer": 320, "oven": 320, "griddle": 320, "fryer": 320, "dough-board": 320, "fridge": 320, "tool": 160, "soup": 320, "rice": 320, "dessert": 320, "assembly": 320, "board": 320, "plate": 256, "acc": 220, "lotus": 160}
 STEAM = {"soup-pot", "rice-cooker"}
 
@@ -55,7 +55,7 @@ def required_keys():
     accs = ["clip", "coral", "lilac", "mushroom", "lantern", "hat", "scarf", "crown"]
     keys |= {f"wear-{p}-{a}" for p in pets for a in accs if not (p == "blue" and a == "scarf")}
     keys |= WIDE
-    keys |= {"rh-bg", "rh-counter", "plate", "board", "cafe-counter", "avatar-adult", "avatar-mini", "avatar-lian", "lotus-bud-pink",
+    keys |= {"rh-bg", "rh-kitchen", "rh-counter", "plate", "board", "cafe-counter", "avatar-adult", "avatar-mini", "avatar-lian", "lotus-bud-pink",
              "lotus-pink", "lotus-purple", "lotus-blue", "lotus-golden", "decor-rug", "assembly-counter"}
     keys.discard("")
     return sorted(k for k in keys if k)

@@ -1,7 +1,7 @@
 /** Top panels over the café (GAME_PLAN §13): the HUD and the recipe card for the guest being cooked for. */
 import type { ReactElement, Ref } from "react";
 import { DISHES, STATIONS } from "../content/dishes";
-import { GUESTS, RULES, conflicts } from "../content/guests";
+import { GUESTS, conflicts } from "../content/guests";
 import { ITEMS } from "../content/items";
 import { levelTitle } from "../content/levels";
 import * as sim from "../sim/engine";
@@ -10,30 +10,38 @@ import type { Layout, Rect } from "./layout";
 export type Art = Record<string, string>;
 export const box = (r: Rect) => ({ left: r.x, top: r.y, width: r.w, height: r.h });
 
-export function Hud({ run, L, coins, eatKey, coinRef, onPause }: {
+export function Hud({ run, L, coins, eatKey, combo, coinRef, onPause }: {
   run: sim.Run; L: Layout; coins: number; eatKey: number; coinRef: Ref<HTMLSpanElement>; onPause(): void;
+  /** Good serves in a row (two or more), keyed so each one pops the chip again. */
+  combo: { n: number; key: number } | null;
 }) {
   const max = sim.maxCoins(run), secs = Math.ceil(run.timeLeft);
   const frac = Math.min(1, run.timeLeft / run.level.round);
   const allServed = run.guests.every(g => g.order === "served") && coins >= run.coins, left = run.guests.filter(g => g.order === "open").length;
   const live = run.started && !run.ended, late = secs <= 10 && live;
-  return <div className="layer hud panel" style={box(L.hud)}>
-    <button className="round" onClick={onPause} aria-label="Pause"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1.5" /><rect x="14" y="5" width="4" height="14" rx="1.5" /></svg></button>
+  // As in the owner's mockup: a round gear (pause and Play your way), the clock and takings in one panel, and orders left in a card of its own.
+  return <div className="layer hud" style={box(L.hud)}>
+    <button className="round gear" onClick={onPause} aria-label="Pause and settings"><svg viewBox="0 0 24 24" aria-hidden="true"><path fillRule="evenodd" d={GEAR} /></svg></button>
+    <div className="hudmain panel">
     <div className={"timer" + (late ? " late" : secs <= 30 && live ? " warm" : "")} role="timer" aria-label={secs + " seconds left"}>
       <svg viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="19" className="track" />
         <circle className="arc" cx="22" cy="22" r="19" strokeDasharray="119.4" strokeDashoffset={(119.4 * (1 - frac)).toFixed(1)} /></svg>
       <b>{Math.floor(secs / 60) + ":" + String(secs % 60).padStart(2, "0")}</b>
     </div>
     <div className="takings" aria-label={"Takings " + coins + " of " + max}>
-      <div className="coins"><span ref={coinRef} key={eatKey} className={"ico" + (eatKey ? " eat" : "")} /><b>{coins}</b>
+      <div className="coins"><span ref={coinRef} key={eatKey} className={"ico" + (eatKey ? " eat" : "")} /><b key={"b" + eatKey} className={eatKey ? "bump" : undefined}>{coins}</b>
+        {combo && <span key={combo.key} className="combo" aria-label={combo.n + " good serves in a row"}>×{combo.n}</span>}
         <small>{levelTitle(run.level)}</small></div>
       <div className="bar"><i style={{ width: Math.min(100, coins / max * 100) + "%" }} />
         {[[0, 25], [0.75, 75], [0.9, 90]].map(([f, at], i) => <span key={i} className={"star" + (allServed && coins >= Math.ceil(f * max) ? " lit" : "")} style={{ left: at + "%" }}>★</span>)}
       </div>
     </div>
-    <div className="left" aria-label={left + " orders left"}><b>{left}</b><small>left</small></div>
+    </div>
+    <div className="left panel" aria-label={left + " orders left"}><b>{left}</b><small>left</small></div>
   </div>;
 }
+
+const GEAR = "M10.3 2h3.4l.5 2.6a7.6 7.6 0 0 1 1.9 1.1l2.5-.9 1.7 2.9-2 1.7a7.7 7.7 0 0 1 0 2.2l2 1.7-1.7 2.9-2.5-.9a7.6 7.6 0 0 1-1.9 1.1l-.5 2.6h-3.4l-.5-2.6a7.6 7.6 0 0 1-1.9-1.1l-2.5.9-1.7-2.9 2-1.7a7.7 7.7 0 0 1 0-2.2l-2-1.7 1.7-2.9 2.5.9a7.6 7.6 0 0 1 1.9-1.1zM12 8.6a3.4 3.4 0 1 0 0 6.8 3.4 3.4 0 0 0 0-6.8z";
 
 /** What to do next for the focused dish, from the first part that is not finished. */
 /**
@@ -66,6 +74,8 @@ function nextStep(run: sim.Run, g: sim.GuestRun): string {
       const turn = !pr.turned ? sim.stageOf(pr).turn : undefined, cfg = STATIONS[part.station];
       if (pr.state === "cooking" && turn === "fold") return "Fold it: drag the fold onto the board";
       if (pr.state === "cooking" && turn === "flip") return pr.progress >= 0.5 ? "Flip it: drag the spatula on" : "Flip it at halfway";
+      if (pr.state === "cooking" && run.knob && cfg.heat && !cfg.thermostat) return pr.progress >= sim.KNOB.early ? "Take it off on the gold star"
+        : run.stations[part.station]!.heatOn ? "Cooking: hold Heat to change the flame" : "Hold Heat, let go in the band";
       if (pr.state === "cooking") return cfg.heat ? "Keep it in the heat band" : cfg.name + " is cooking";
       return addHint(sim.stageOf(pr).hint);
     }
@@ -77,10 +87,10 @@ function nextStep(run: sim.Run, g: sim.GuestRun): string {
   return run.board.some(p => p && p.dishId === dishId && p.shared) ? "Plated for two: drag it to each guest" : "Plated: drag it to the guest";
 }
 
-/** Slots for the focused guest's dish: done, filled, wanted next, or empty; then the next step (or the rules once hints fade). */
 /** A long dish and guest name steps the title down a size or two rather than cutting it off. */
 const titleFit = (text: string) => text.length > 25 ? " longer" : text.length > 19 ? " long" : "";
 
+/** Slots for the focused guest's dish: done, filled, wanted next, or empty; then the next step while hints are on. */
 export function RecipeCard({ run, L, art }: { run: sim.Run; L: Layout; art: Art }) {
   const g = sim.focusGuest(run);
   if (!g) return <div className="layer recipe panel" style={box(L.recipe)}><span className="idle">{run.started ? "Waiting for the next guest" : "Orders show here"}</span></div>;
@@ -99,12 +109,12 @@ export function RecipeCard({ run, L, art }: { run: sim.Run; L: Layout; art: Art 
         {key && <img src={art[key]} alt="" />}{done && <span className="tick">{found?.warn ? "!" : "✓"}</span>}</span>);
     }));
   });
-  // With hints the guest's bubble shows their rules; without, they sit at the side of the card.
-  const hints = run.level.hints !== "none", rules = table.map(r => <span key={r} className="rule">{RULES[r].chip}</span>);
+  // The guest's bubble shows their rules, so the card never repeats them (owner, 22 Oct).
+  const hints = run.level.hints !== "none";
   // Keyed by order, so the card slides in fresh when the cook switches guests.
   return <div key={g.orderId} className="layer recipe panel" style={box(L.recipe)} aria-label={dish.name + " for " + who}>
     <img className="bowl" src={art[dish.art]} alt="" />
     <div className="mid"><div className={"t" + titleFit(dish.name + GUESTS[g.guestId].name)}><b>{dish.name}</b><small> for {GUESTS[g.guestId].name}{pot.length > 0 ? " +" + pot.length : ""}</small></div><div className="steps">{chips}</div></div>
-    {hints ? <span className="hint">{nextStep(run, g)}</span> : rules.length > 0 && <span className="hint rules">{rules}</span>}
+    {hints && <span className="hint">{nextStep(run, g)}</span>}
   </div>;
 }

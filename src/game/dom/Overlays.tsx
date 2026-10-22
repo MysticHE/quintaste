@@ -1,5 +1,5 @@
 /** Sheets over the playfield: brief, game label, pause and results (GAME_PLAN §12.4). */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { DISHES } from "../content/dishes";
 import { GUESTS, RULES } from "../content/guests";
 import { factsOf, ITEMS, itemName } from "../content/items";
@@ -7,6 +7,7 @@ import { PETS, SKILLS } from "../content/cosmetics";
 import { BONUS, hasShare, levelDishes, levelTitle, nextService, SHARE, TWISTS } from "../content/levels";
 import type { LevelBest } from "../progress";
 import * as sim from "../sim/engine";
+import { Confetti, FillBar, useCelebrate, type Cue } from "./Celebrate";
 import type { Art } from "./Hud";
 
 const stars = (n: number) => "★".repeat(n) + "☆".repeat(3 - n);
@@ -71,8 +72,10 @@ export function PauseSheet({ onResume, onRestart, onQuit, onSettings }: { onResu
 export type Reward = { credits: number; first: boolean; mastered: boolean; unlocks: string[]; status?: "settled" | "pending" | "practice" | "rejected"; note?: string;
   /** Which personal bests this service beat ("score", "coins", "time") and whether it earned the bonus stamp for the first time. */
   beat?: string[]; bonus?: boolean };
-export function Results({ run, res, reward, best, saveFailed, onRetrySave, onAgain, onCafe, onNext, onCook, onNearby, onReact }: {
+export function Results({ run, res, reward, best, saveFailed, still, cue, onRetrySave, onAgain, onCafe, onNext, onCook, onNearby, onReact }: {
   run: sim.Run; res: sim.Result; reward: Reward | null; best?: LevelBest | null; saveFailed: boolean; onRetrySave(): void; onAgain(): void; onCafe(): void; onNext(): void;
+  /** Motion is reduced (the sheet appears whole), and the sound cue for the fill, stars, fanfare and rewards. */
+  still: boolean; cue: Cue;
   /** Bridges into the app (GAME_PLAN §11), when the app has somewhere to send them. */
   onCook?(): void; onNearby?(): void;
   /** A Recipe Kitchen level finished on the account: whether the player liked it (null clears it). */
@@ -82,16 +85,19 @@ export function Results({ run, res, reward, best, saveFailed, onRetrySave, onAga
   const react = (v: boolean) => { const next = liked === v ? null : v; setLiked(next); onReact?.(next); };
   const head = res.cleared ? (res.stars === 3 ? "Perfect service" : "Level cleared") : res.completed ? "Nearly there" : "Service over";
   const dish = levelDishes(run.level)[0] ?? DISHES[run.guests[0].dishId], record = run.level.special ? null : cleared(best), beat = reward?.beat ?? [];
+  const c = useCelebrate(res, still, cue), rewarded = !!reward && (reward.credits > 0 || reward.unlocks.length > 0);
+  useEffect(() => { if (c.done && !c.skipped && rewarded) { const t = setTimeout(() => cue("reward"), 520); return () => clearTimeout(t); } }, [c.done]); // eslint-disable-line react-hooks/exhaustive-deps
   const marks = record ? ([["score", record.score + " pts"], ["coins", record.coins > 0 ? record.coins + " coins" : ""], ["time", record.left > 0 ? record.left + " s left" : ""]] as const).filter(([, text]) => text) : [];
-  return <div className="overlay center"><div className="sheet" role="dialog" aria-modal="true" aria-labelledby="rhRes">
+  return <div className="overlay center results" onPointerDown={c.skip}>{c.done && !c.skipped && res.cleared && <Confetti />}<div className="sheet" role="dialog" aria-modal="true" aria-labelledby="rhRes">
     <span className="k">Rush · {levelTitle(run.level)} · {run.endReason === "time" ? "time's up" : "all guests done"}</span>
-    <h3 id="rhRes">{head}</h3>
-    <div className="bigstars" aria-label={res.stars + " of 3 stars"}>{[0, 1, 2].map(i => <span key={i} className={i < res.stars ? "lit" : ""} style={{ animationDelay: i * 0.18 + "s" }}>★</span>)}</div>
+    <h3 id="rhRes" className={!c.done ? "wait" : c.skipped ? undefined : res.cleared ? "slam" : "soft"}>{head}</h3>
+    <div role="img" aria-label={res.stars + " of 3 stars, takings " + res.coins + " of " + res.max}><FillBar fill={c.fill} lit={c.lit} hold={c.hold} max={res.max} /></div>
+    <div className={"after" + (c.done ? " in" : "") + (c.skipped ? " now" : "")}>
     <div className="stamps">{([["served", "Served"], ["rules", "Rules respected"], ["steady", "Steady heat"]] as const).map(([k, l]) =>
       <div key={k} className={res.stamps[k] ? "on" : "off"}><b>{res.stamps[k] ? "✓" : "○"}</b>{l}</div>)}</div>
     {res.bonus && <div className={"bonus" + (res.bonus.done ? " on" : "")}><b>{res.bonus.done ? "✓" : "○"} Bonus goal · {res.bonus.name}{reward?.bonus ? " · first time" : ""}</b><span>{res.bonus.text}</span></div>}
-    <div className="rgrid"><span>Takings <b>{res.coins} / {res.max}</b></span><span>Served <b>{res.v} of {res.n}</b></span>
-      <span>Steady heat <b>{Math.round(res.hq * 100)}%</b></span><span>Service score <b>{res.score}</b></span></div>
+    <div className="rgrid"><span>Served <b>{res.v} of {res.n}</b></span><span>Steady heat <b>{Math.round(res.hq * 100)}%</b></span>
+      <span>Service score <b>{res.score}</b></span></div>
     {record && <div className="remember pbest" role="group" aria-label="Personal best"><b>Personal best</b>
       {marks.map(([k, text]) => <span key={k} className={beat.includes(k) ? "new" : ""}>{text}{beat.includes(k) ? " · new" : ""}</span>)}</div>}
     <div className="remember"><b>One thing to remember. </b>{dish?.remember}</div>
@@ -103,7 +109,7 @@ export function Results({ run, res, reward, best, saveFailed, onRetrySave, onAga
       <button className="linkpill" aria-pressed={liked === true} aria-label="Liked it" onClick={() => react(true)}><Thumb /></button>
       <button className="linkpill" aria-pressed={liked === false} aria-label="Didn't like it" onClick={() => react(false)}><Thumb down /></button>
     </div>}
-    {reward && (reward.credits > 0 || reward.unlocks.length > 0) && <div className="remember">
+    {reward && rewarded && <div className="remember reward">
       {reward.credits > 0 && <><b>+{reward.credits} café credits{reward.status === "pending" ? " pending" : ""}</b>{reward.first ? " · first clear" : reward.mastered ? " · mastered" : " · replay"}<br /></>}
       {reward.unlocks.length > 0 && <>Unlocked: {reward.unlocks.join(", ")}</>}</div>}
     {reward?.note && <div className="remember" role="status">{reward.note}</div>}
@@ -111,6 +117,7 @@ export function Results({ run, res, reward, best, saveFailed, onRetrySave, onAga
     <p>Coins reset every service. Play again any time; nothing is lost.</p>
     <div className="row"><button className="btn ghost" autoFocus onClick={onCafe}>Back to café</button><button className="btn ghost" onClick={onAgain}>Play again</button></div>
     {res.cleared && nextService(run.level) && <button className="btn gold" onClick={onNext}>Next: {nextService(run.level)}</button>}
+    </div>
   </div></div>;
 }
 

@@ -16,9 +16,16 @@ const BOARD_SLOTS = 3, WALK = 1, EAT = 1.4, LEAVE = 1;
 /** Heat a flare adds to a burner that is on, and the extra a VIP pays. */
 const FLARE_HEAT = 0.22, VIP_TIP = 4;
 /** A pot cooked for two guests takes this much longer at every step. */
-const BATCH_SLOW = 1.5;
+export const BATCH_SLOW = 1.5;
 /** Seconds a dish on the griddle can wait at halfway for its flip before the underside burns. */
 export const FLIP_GRACE = 4;
+/**
+ * Knob and ring (prototype, Chapter 1, owner 22 Oct 2026): the flame holds where the player lets go of the heat button, and a
+ * heated step ends on the player's tap as a ring closes on the pan. rate: how fast the heat settles on the knob (per second);
+ * early: progress from which a step can come off; perfect: seconds either side of done that count as on the ring;
+ * grace: seconds past done before the step comes off by itself, overcooked.
+ */
+export const KNOB = { rate: 3, early: 0.8, perfect: 0.3, grace: 2 } as const;
 
 export type PlacedItem = { uid: number; id: string; stage: number; warn: boolean;
   /** A poured paste (Part.makes): the ingredients blended into it, which count for every guest rule. */
@@ -28,8 +35,12 @@ export type PartRun = { dishId: string; partId: string; stage: number; items: Pl
   /** Guests this pot feeds: 2 when it was started for a party that shares it. */
   portions: number;
   /** This stage's turn (Stage.turn) is done, and how long it has waited for one. */
-  turned: boolean; wait: number };
-export type StationRun = { kind: StationKind; heatOn: boolean; F: number; H: number; part: PartRun | null; hotWarned: boolean };
+  turned: boolean; wait: number;
+  /** Knob mode: seconds the step has stood done, waiting to come off. */
+  over: number };
+export type StationRun = { kind: StationKind; heatOn: boolean; F: number; H: number; part: PartRun | null; hotWarned: boolean;
+  /** Knob mode: where the knob was let go (0 is off). */
+  set: number };
 export type PlatePart = { partId: string; items: string[]; hq: number };
 /** `portions` is how many guests the plate can still feed; `shared` marks one that was cooked for two. */
 export type Plate = { uid: number; dishId: string; parts: PlatePart[]; portions: number; shared: boolean };
@@ -45,7 +56,8 @@ export type GameEvent =
   | { type: "bell" } | { type: "flare"; station: StationKind; phase: "warn" | "hit" } | { type: "stock"; item: string; phase: "low" | "out" }
   | { type: "changed"; seat: number; to: string } | { type: "gathered"; item: string } | { type: "gatherDone" }
   | { type: "poured"; from: StationKind; station: StationKind; item: string; warn: boolean; uid: number }
-  | { type: "turnDue"; station: StationKind } | { type: "turned"; station: StationKind };
+  | { type: "turnDue"; station: StationKind } | { type: "turned"; station: StationKind }
+  | { type: "took"; station: StationKind; grade: "perfect" | "early" | "late" };
 /** One player input: the tick it happened on, the action and its arguments. The server replays these (sim/replay.ts). */
 export type Action = [tick: number, op: string, ...args: (string | number | boolean | null)[]];
 /** Which scheduled twist events have already fired. */
@@ -62,6 +74,8 @@ export type Run = {
   ticks: number; actions: Action[];
   /** The Gather round, when the level has one: the shelf it shows (shuffled by the seed) and the item put in for each needed group. */
   gather: { need: string[][]; shelf: string[]; got: (string | null)[]; order: string[] } | null;
+  /** Knob and ring heat (KNOB) instead of the burner switch. */
+  knob: boolean;
 };
 
 /** Signature level: each guest gets a chosen dish they can eat (round-robin); ABC soup fits every rule as a fallback. */
@@ -78,11 +92,11 @@ function resolveOrders(level: Level, signature: string[]) {
  * A run of a numbered level, or of a built level such as Today's special. `hints` overrides the level's hint plan (Play your
  * way); `seed` picks this service's arrivals, jars and twists (the app derives it from the run's id).
  */
-export function createRun(which: number | Level, pet: string, signature: string[] = [], hints?: Level["hints"], seed = 1): Run {
+export function createRun(which: number | Level, pet: string, signature: string[] = [], hints?: Level["hints"], seed = 1, knob = false): Run {
   const base = typeof which === "number" ? levelByNumber(which) : which, level = hints && hints !== base.hints ? { ...base, hints } : base;
   const plan = buildPlan(level, resolveOrders(level, signature), seed);
   const stations: Run["stations"] = {};
-  level.stations.forEach(kind => { stations[kind] = { kind, heatOn: false, F: 0.1, H: 0.15, part: null, hotWarned: false }; });
+  level.stations.forEach(kind => { stations[kind] = { kind, heatOn: false, F: 0.1, H: 0.15, part: null, hotWarned: false, set: 0 }; });
   const guests: GuestRun[] = plan.orders.map(o => {
     const vip = o.id === plan.vip, patience = level.patience * (vip ? VIP_PATIENCE : 1);
     return { orderId: o.id, guestId: o.guest, dishId: o.dish, seat: 0, at: o.at, rules: [...new Set([...GUESTS[o.guest].rules, ...(level.allRules ?? [])])],
@@ -93,7 +107,7 @@ export function createRun(which: number | Level, pet: string, signature: string[
     ended: false, endReason: "", focus: null, selected: level.stations[0], stations, board: Array(BOARD_SLOTS).fill(null), guests, coins: 0, uid: 1,
     skill: { used: false, freezeUntil: 0, halfUntil: 0, steadyUntil: 0, steadyStation: null },
     stats: { inBand: 0, prog: 0, returned: 0, servedBad: 0, labels: 0, served: 0, expired: 0, mistakes: 0, bestHq: 0, inOrder: true, lastAt: 0, minLeft: 1 },
-    say: { who: null, text: level.brief, tone: "info" }, seen: new Set(), events: [], log: [], ticks: 0, actions: [], gather: gatherFor(level, seed) };
+    say: { who: null, text: level.brief, tone: "info" }, seen: new Set(), events: [], log: [], ticks: 0, actions: [], gather: gatherFor(level, seed), knob };
 }
 
 /** The Gather round's shelf: one card per needed group plus the look-alikes, in an order the seed decides. */
@@ -208,7 +222,7 @@ function preheating(st: StationRun, first: Stage): string | null {
   return "Preheat the " + cfg.name.toLowerCase() + " first: " + (st.heatOn ? "wait" : "turn it on and wait") + " until the needle reaches the band.";
 }
 const newPart = (dishId: string, partId: string, portions: number): PartRun =>
-  ({ dishId, partId, stage: 0, items: [], progress: 0, state: "loading", exposure: 0, inBand: 0, prog: 0, portions, turned: false, wait: 0 });
+  ({ dishId, partId, stage: 0, items: [], progress: 0, state: "loading", exposure: 0, inBand: 0, prog: 0, portions, turned: false, wait: 0, over: 0 });
 /** Puts an ingredient on a station: play is a drag, so the player always chooses the station. */
 export function place(r: Run, itemId: string, kind: StationKind): boolean {
   input(r, "place", itemId, kind);
@@ -282,7 +296,9 @@ function added(r: Run, st: StationRun, kind: StationKind, itemId: string, warn: 
     pr.state = "cooking";
     if (stage.turn === "fold") hintSay(r, "fold-" + kind, "Now fold it: drag the fold onto the " + STATIONS[kind].name.toLowerCase() + ".");
     else if (!STATIONS[kind].heat && stage.secs === 0) advance(r, st);
-    else if (!warn) hintSay(r, "cook-" + kind, STATIONS[kind].heat ? (st.heatOn ? "Cooking. Keep the needle in the striped band." : "Turn the heat on and keep the needle in the striped band.") : STATIONS[kind].name + " is cooking. Work on another order meanwhile.");
+    else if (!warn) hintSay(r, "cook-" + kind, !STATIONS[kind].heat ? STATIONS[kind].name + " is cooking. Work on another order meanwhile."
+      : r.knob ? (st.heatOn ? "Cooking. Hold Heat again to change the flame." : "Hold Heat and let go when the needle is in the green band.")
+      : st.heatOn ? "Cooking. Keep the needle in the green band." : "Turn the heat on and keep the needle in the green band.");
   } else if (!warn && !filled) hintSay(r, "half-" + pr.stage, "Good. Now " + stage.hint + ".");
   return true;
 }
@@ -306,9 +322,29 @@ export function toggleHeat(r: Run, kind: StationKind) {
   const st = r.stations[kind]; if (!st || !STATIONS[kind].heat || idle(r)) return;
   st.heatOn = !st.heatOn; r.selected = kind; record(r, "heat " + kind + " " + st.heatOn);
 }
+/** Knob mode: the flame is set where the player let go of the heat button (0 is off) and holds there. */
+export function setKnob(r: Run, kind: StationKind, level: number) {
+  input(r, "knob", kind, level);
+  const st = r.stations[kind]; if (!r.knob || !st || !STATIONS[kind].heat || STATIONS[kind].thermostat || idle(r)) return;
+  st.set = Math.min(1, Math.max(0, level)); st.heatOn = st.set > 0; r.selected = kind; record(r, "knob " + kind + " " + st.set.toFixed(2));
+}
+/** Knob mode: the step comes off the heat. On the ring (within KNOB.perfect s of done) is perfect; early counts the missing cooking as off the band. */
+export function take(r: Run, kind: StationKind) {
+  input(r, "take", kind);
+  const st = r.stations[kind], pr = st?.part; if (!r.knob || !st || !pr || pr.state !== "cooking" || pr.progress < KNOB.early || idle(r)) return;
+  const early = (1 - pr.progress) * stageOf(pr).secs * (pr.portions > 1 ? BATCH_SLOW : 1);
+  const grade = early > KNOB.perfect ? "early" : pr.over > KNOB.perfect ? "late" : "perfect";
+  if (grade === "early") { const miss = Math.round(early / DT); pr.prog += miss; r.stats.prog += miss; }
+  r.events.push({ type: "took", station: kind, grade }); record(r, "take " + kind + " " + grade);
+  pr.over = 0; r.selected = kind; advance(r, st);
+}
 export function openLabel(r: Run, itemId: string) { input(r, "label", itemId); if (ITEMS[itemId]?.label && r.started && !r.paused && !r.ended) { r.label = itemId; r.stats.labels++; record(r, "label " + itemId); } }
 export function closeLabel(r: Run) { input(r, "close"); r.label = null; }
-export function pause(r: Run, on: boolean) { input(r, "pause", on); r.paused = on; if (on) Object.values(r.stations).forEach(s => { if (s) s.heatOn = false; }); }
+export function pause(r: Run, on: boolean) {
+  input(r, "pause", on); r.paused = on;
+  // Pausing turns every burner off; with the knob, resuming lights each one again where its knob was left.
+  Object.values(r.stations).forEach(s => { if (s) s.heatOn = on ? false : r.knob ? s.set > 0 : s.heatOn; });
+}
 
 /**
  * A turn with a tool (Stage.turn): the spatula flips a griddle dish once it is half done, and the fold closes a filled dumpling or
@@ -496,6 +532,10 @@ function heatStation(r: Run, st: StationRun) {
     const [a, b] = pr ? bandOf(st, pr) : dishPart(focusGuest(r)?.dishId ?? "", st.kind)?.stages[0].band ?? cfg.band, mid = (a + b) / 2;
     st.H = !st.heatOn ? Math.max(0.15, st.H - cfg.loss * DT) : st.H > mid ? Math.max(mid, st.H - cfg.loss * DT) : Math.min(mid, st.H + cfg.gain * DT);
   }
+  else if (r.knob) {
+    // The heat settles quickly on the knob (fast mode) and holds there; off, it falls back to the cold floor.
+    st.H += ((st.heatOn ? Math.max(0.15, st.set) : 0.15) - st.H) * Math.min(1, KNOB.rate * DT); st.F = st.heatOn ? st.set : 0.1;
+  }
   else if (!steady) {
     st.F = st.heatOn ? Math.min(1, st.F + cfg.onRate * DT) : Math.max(0.1, st.F - cfg.offRate * DT);
     st.H = Math.min(1, Math.max(0, st.H + (cfg.gain * st.F - cfg.loss * st.H) * DT));
@@ -525,12 +565,21 @@ function heatStation(r: Run, st: StationRun) {
     if (pr.wait >= FLIP_GRACE) { pr.state = "scorched"; say(r, "The underside burnt. Flip it as soon as it's half done.", "warn"); r.events.push({ type: "scorched", station: st.kind }); }
     return;
   }
+  // Knob mode: a done step waits for the player's tap; standing past the ring overcooks it (time off the band), and after
+  // KNOB.grace it comes off by itself.
+  if (r.knob && pr.progress >= 1) {
+    pr.over += DT;
+    if (pr.over > KNOB.perfect) { pr.prog++; r.stats.prog++; }
+    if (pr.over >= KNOB.grace) { r.events.push({ type: "took", station: st.kind, grade: "late" }); pr.over = 0; advance(r, st); }
+    return;
+  }
   const rate = st.H >= lo ? 1 : !cfg.thermostat && st.H >= lo - 0.1 ? 0.5 : 0;
   if (rate > 0) {
     pr.progress = Math.min(stage.turn === "flip" && !pr.turned ? 0.5 : 1, pr.progress + rate * DT / (stage.secs * (pr.portions > 1 ? BATCH_SLOW : 1))); pr.prog++; r.stats.prog++;
     if (st.H >= lo && st.H <= hi) { pr.inBand++; r.stats.inBand++; }
+    if (r.knob && pr.progress >= KNOB.early) hintSay(r, "take-" + st.kind, "Take the " + cfg.name.toLowerCase() + " off as the timer reaches the gold star.");
   }
-  if (pr.progress >= 1) advance(r, st);
+  if (pr.progress >= 1 && !r.knob) advance(r, st);
 }
 
 /** A ready dish left in a station that spoils it (STATIONS burnAfter): it keeps for that long, then is lost. `hot` counts the time. */

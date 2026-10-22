@@ -133,8 +133,8 @@ check(refusedWith(wrongStation, /station not in techniques/), "a part on a stati
   const r = sim.createRun(22, "sprout", [], undefined, 1); sim.start(r);
   for (let i = 0; i < 80 && !sim.waiting(r).length; i++) sim.tick(r);
   const g = sim.waiting(r)[0]; sim.setFocus(r, g.orderId);
-  r.stations.blender!.part = { dishId: "sambal-tempeh", partId: "sambal-blend", stage: 0, items: [{ uid: 900, id: "red-chilli", stage: 0, warn: false }], progress: 1, state: "ready", exposure: 0, inBand: 0, prog: 0, portions: 1, turned: false, wait: 0 };
-  r.stations.pan!.part = { dishId: "sambal-tempeh", partId: "sambal-tempeh", stage: 0, items: [{ uid: 901, id: "cooking-oil", stage: 0, warn: false }], progress: 0, state: "loading", exposure: 0, inBand: 0, prog: 0, portions: 2, turned: false, wait: 0 };
+  r.stations.blender!.part = { dishId: "sambal-tempeh", partId: "sambal-blend", stage: 0, items: [{ uid: 900, id: "red-chilli", stage: 0, warn: false }], progress: 1, state: "ready", exposure: 0, inBand: 0, prog: 0, portions: 1, turned: false, wait: 0, over: 0 };
+  r.stations.pan!.part = { dishId: "sambal-tempeh", partId: "sambal-tempeh", stage: 0, items: [{ uid: 901, id: "cooking-oil", stage: 0, warn: false }], progress: 0, state: "loading", exposure: 0, inBand: 0, prog: 0, portions: 2, turned: false, wait: 0, over: 0 };
   check(sim.transfer(r, "blender", "pan") && r.stations.pan!.part!.portions === 1 && /makes one portion/.test(r.say.text), "a paste for one poured into a wok started for two makes one portion, and says so");
 }
 

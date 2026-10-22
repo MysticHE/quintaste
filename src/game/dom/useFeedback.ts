@@ -5,7 +5,10 @@ import type { PlaySettings } from "../settings";
 import { CAPTIONS, GameAudio, type Sfx } from "./audio";
 
 export type HapticKind = "light" | "select" | "success" | "warning";
-const HAPTIC: Partial<Record<Sfx, HapticKind>> = { place: "light", plate: "light", coin: "light", serve: "success", returned: "warning", scorch: "warning" };
+const HAPTIC: Partial<Record<Sfx, HapticKind>> = { place: "light", plate: "light", coin: "light", serve: "success", returned: "warning", scorch: "warning",
+  ready: "select", star: "success", slam: "success", reward: "light", click: "light", perfect: "success", take: "light" };
+/** Effects that come in runs show their caption once, on the first of the run. */
+const RUNS: Sfx[] = ["coin", "fill"];
 
 /**
  * Sound, captions and haptics for a service (GAME_PLAN §13): an effect per simulation event, a sizzle that follows the
@@ -31,7 +34,7 @@ export function useFeedback(settings: PlaySettings, onHaptic: ((kind: HapticKind
   /** Plays one effect with its caption and haptic. */
   function cue(kind: Sfx, n = 0) {
     audio.play(kind, n);
-    if (latest.current.settings.captions && (kind !== "coin" || n === 0)) setCaption({ text: CAPTIONS[kind], key: Date.now() });
+    if (latest.current.settings.captions && (!RUNS.includes(kind) || n === 0)) setCaption({ text: CAPTIONS[kind], key: Date.now() });
     const h = HAPTIC[kind]; if (h) haptic(h);
   }
   /** After each tick: sizzle follows the hottest pan with food in it; band changes give a light tick. */

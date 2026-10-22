@@ -16,10 +16,12 @@ export type PlaySettings = {
   burner: "toggle" | "hold";
   pace: Pace; hints: HintLevel; text: TextChoice;
   motion: MotionChoice;
+  /** Heat controls: the burner switch, or the knob and ring (prototype, Chapter 1 only, development builds only). */
+  heat: "classic" | "knob";
 };
 
 export const defaultSettings: PlaySettings = {
-  sound: false, music: false, haptics: false, captions: false, burner: "toggle", pace: "normal", hints: "level", text: "app", motion: "auto",
+  sound: false, music: false, haptics: false, captions: false, burner: "toggle", pace: "normal", hints: "level", text: "app", motion: "auto", heat: "classic",
 };
 
 /** Simulation speed per real second. The simulation itself is unchanged, so scores mean the same at every pace. */
@@ -44,5 +46,10 @@ export function readSettings(value: unknown): PlaySettings {
     motion: pick(v.motion, ["auto", "reduced", "full"], v.reduceMotion === true ? "reduced" : "auto"),
     burner: pick(v.burner, ["toggle", "hold"], "toggle"), pace: pick(v.pace, ["normal", "relaxed", "slow"], "normal"),
     hints: pick(v.hints, ["level", "always", "off"], "level"), text: pick(v.text, ["app", "standard", "large", "largest"], "app"),
+    heat: pick(v.heat, ["classic", "knob"], "classic"),
   };
+}
+/** The knob and ring prototype plays on Chapter 1's own levels only, and only in development builds. */
+export function knobFor(s: PlaySettings, level: { n: number; special?: unknown; mission?: unknown; cafe?: unknown; season?: unknown }) {
+  return process.env.NODE_ENV !== "production" && s.heat === "knob" && level.n >= 1 && level.n <= 10 && !level.special && !level.mission && !level.cafe && !level.season;
 }

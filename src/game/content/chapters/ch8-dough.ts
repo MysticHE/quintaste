@@ -30,7 +30,7 @@ export const FORMS: Record<string, ItemForm> = {
 };
 
 export const DISHES: Dish[] = [
-  { id: "dumplings", name: "Vegetable dumplings", art: "dish-dumplings", remember: "Garlic chives are an allium. Ginger fills a dumpling for a no five pungent guest.",
+  { id: "dumplings", name: "Vegetable dumplings", art: "dish-dumplings", remember: "Garlic chives are an allium. Ginger fills a dumpling for a vegetarian guest.",
     parts: [
       { id: "dumpling-fill", name: "Filling", station: "pan", makes: "dumpling-filling", stages: [
         { slots: [slot("veg", "Cabbage", ["cabbage"]), slot("bite", "Savoury bite", ["shiitake", "black-beans", "tofu"]), slot("aroma", "Chives or ginger", ["chives", "ginger"])], secs: 3, hint: "cabbage, something savoury and chives" }] },
@@ -78,7 +78,7 @@ export const LEVELS: Level[] = [
     stations: ["pan", "dough", "pot"], seats: 3, maxOpen: 3, round: 131, patience: 100, hints: "chip", orders: [o("office", "dumplings", 1), o("jia", "dumplings", 14), o("lim", "gyoza", 46)], distractors: [], unlocks: [] },
   { n: 74, bonus: "steady", name: "Samosa stall", brief: "Spice the filling in the wok, fold the samosas, then fry them in hot oil.", teach: "Fold, then fry.",
     stations: ["pan", "dough", "fryer"], seats: 3, maxOpen: 3, round: 128, patience: 100, hints: "chip", orders: [o("office", "samosa", 1), o("asha", "samosa", 12), o("jia", "samosa", 46)], distractors: [], unlocks: [] },
-  { n: 75, bonus: "clean", twists: [{ kind: "change" }], name: "Read the wrapper", brief: "Daniel is vegan: one wrapper lists egg. Auntie Mei keeps no five pungent: garlic chives are out, ginger is in.", teach: "Egg hides in wrappers; chives are an allium.",
+  { n: 75, bonus: "clean", twists: [{ kind: "change" }], name: "Read the wrapper", brief: "Daniel is vegan: one wrapper lists egg. Auntie Mei is vegetarian: garlic chives are out, ginger is in.", teach: "Egg hides in wrappers; chives are an allium.",
     stations: ["dough", "pan", "steamer"], seats: 3, maxOpen: 3, round: 141, patience: 100, hints: "chip", orders: [o("daniel", "gyoza", 1), o("mei", "gyoza", 8), o("daniel", "mandu", 40), o("office", "mandu", 66)], distractors: [], unlocks: [] },
   { n: 76, bonus: "swift", name: "Sweet soup", brief: "A gentle evening: tang yuan in sweet ginger soup. Asha keeps Jain food: leave the ginger out.", teach: "A dough board and a dessert pot.",
     stations: ["dough", "dessert"], seats: 3, maxOpen: 3, round: 119, patience: 100, hints: "chip", orders: [o("office", "tang-yuan", 1), o("asha", "tang-yuan", 12), o("mei", "tang-yuan", 44)], distractors: [], unlocks: [] },

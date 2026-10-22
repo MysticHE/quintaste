@@ -11,7 +11,7 @@ export type PlayfieldInput = Omit<SceneHooks, "ready">;
  * with resizes (including ones during asset loading) and destroys the game on unmount or reboot.
  */
 export function usePlayfield(runRef: MutableRefObject<sim.Run>, seats: number, stations: StationKind[], art: Record<string, string>,
-  look: { reduced: boolean }, input: MutableRefObject<PlayfieldInput>, onReady: () => void) {
+  look: { reduced: boolean; knob: boolean }, input: MutableRefObject<PlayfieldInput>, onReady: () => void) {
   const rootRef = useRef<HTMLDivElement>(null), stageRef = useRef<HTMLDivElement>(null);
   const sceneRef = useRef<Playfield | null>(null), gameRef = useRef<{ destroy(b: boolean): void } | null>(null);
   const [L, setL] = useState<Layout | null>(null);
@@ -26,9 +26,9 @@ export function usePlayfield(runRef: MutableRefObject<sim.Run>, seats: number, s
   useEffect(() => {
     const el = rootRef.current; if (!el) return;
     // A webview can report 0×0 before its first layout; wait for a real size before booting Phaser.
-    const measure = () => { if (el.clientWidth > 0 && el.clientHeight > 0) setL(computeLayout(el.clientWidth, el.clientHeight, seats, stations)); };
+    const measure = () => { if (el.clientWidth > 0 && el.clientHeight > 0) setL(computeLayout(el.clientWidth, el.clientHeight, seats, stations, look.knob)); };
     measure(); const ro = new ResizeObserver(measure); ro.observe(el); return () => ro.disconnect();
-  }, [seats, key]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [seats, key, look.knob]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     const lay = layoutRef.current;

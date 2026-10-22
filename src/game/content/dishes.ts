@@ -53,16 +53,16 @@ export const DISHES: Record<string, Dish> = Object.fromEntries(([
   one("mapo-tofu", "Mapo tofu", "dish-mapo", "pan", [
     { slots: [slot("aroma", "Aromatic", ["ginger", "garlic", "sichuan-pepper"]), slot("paste", "Bean paste", ["paste-a", "paste-b"])], secs: 4, hint: "an aromatic and a bean paste" },
     { slots: [slot("tofu", "Tofu", ["tofu"]), slot("extra", "Savoury bite", ["shiitake", "black-beans", "tempeh"])], secs: 4, hint: "tofu and something savoury" },
-  ], "Garlic can hide in chilli bean paste. For a no five pungent order, read the label and use ginger.", "mapo-tofu"),
+  ], "Garlic can hide in chilli bean paste. For a vegetarian order, read the label and use ginger.", "mapo-tofu"),
   one("tomato-tofu", "Tomato tofu", "dish-tomato-tofu", "pan", [
     { slots: [slot("aroma", "Aromatic", ["ginger", "spring-onion", "garlic"]), slot("tomato", "Tomato", ["tomato"])], secs: 4, hint: "an aromatic and tomato" },
     { slots: [slot("tofu", "Tofu", ["tofu"]), slot("season", "Seasoning", ["soy", "brown-sugar"])], secs: 3, hint: "tofu and seasoning" },
-  ], "Spring onion is a scallion, one of the five pungent, even though it looks like a green vegetable."),
+  ], "Spring onion is a scallion, one of the five pungent, so not vegetarian, even though it looks like a green vegetable."),
   one("sweet-sour", "Sweet & sour tofu", "dish-sweet-sour", "pan", [
     { slots: [slot("tofu", "Tofu", ["tofu"]), slot("coat", "Cornflour", ["cornflour"])], secs: 4, hint: "tofu and cornflour" },
     { slots: [slot("veg", "Capsicum", ["capsicum"]), slot("fruit", "Pineapple", ["pineapple"])], secs: 3, hint: "capsicum and pineapple" },
     { slots: [slot("sauce", "Ketchup", ["ketchup-a", "ketchup-b"]), slot("sour", "Vinegar", ["rice-vinegar"])], secs: 3, hint: "ketchup and vinegar" },
-  ], "Ketchup often lists onion and garlic powder. Read the label for a no five pungent guest.", "sweet-sour-tofu"),
+  ], "Ketchup often lists onion and garlic powder. Read the label for a vegetarian guest.", "sweet-sour-tofu"),
   one("mee-goreng", "Mee goreng", "dish-mee-goreng", "pan", [
     { slots: [slot("aroma", "Aromatic", ["shallots", "garlic", "ginger"]), slot("paste", "Chilli paste", ["chilli-paste-a", "chilli-paste-b"])], secs: 4, hint: "an aromatic and chilli paste" },
     { slots: [slot("noodles", "Yellow noodles", ["yellow-noodles-a", "yellow-noodles-b"]), slot("protein", "Tempeh or tofu", ["tempeh", "tofu"])], secs: 4, hint: "noodles and tempeh" },
@@ -160,7 +160,7 @@ export const DISHES: Record<string, Dish> = Object.fromEntries(([
         { slots: [slot("sweet", "Palm sugar", ["gula-melaka", "brown-sugar"]), slot("basil", "Thai basil", ["thai-basil"], true)], secs: 2, hint: "palm sugar", band: [0.25, 0.5] }] },
     ],
   }),
-  // Zhai days season (content/seasons.ts): every order is five pungent-free; zhai bee hoon is the bee hoon above with ginger.
+  // Zhai days season (content/seasons.ts): every order is vegetarian; zhai bee hoon is the bee hoon above with ginger.
   one("buddhas-delight", "Lo han jai", "dish-buddhas-delight", "pan", [
     { slots: [slot("aroma", "Ginger", ["ginger"], true), slot("sauce", "Fermented beancurd", ["fu-ru"])], secs: 3, hint: "fermented beancurd" },
     { slots: [slot("veg", "Cabbage", ["cabbage"]), slot("crunch", "Black fungus or baby corn", ["black-fungus", "baby-corn"])], secs: 4, hint: "cabbage and something crunchy" },
@@ -168,7 +168,7 @@ export const DISHES: Record<string, Dish> = Object.fromEntries(([
   ], "Lo han jai braises hard vegetables first and tofu skin last. Ginger is optional, so a Jain guest can have it."),
   dish({
     id: "mock-char-siew-rice", name: "Mock char siew rice", art: "dish-mock-char-siew-rice",
-    remember: "Many char siew sauces contain honey and garlic. Read the label for a vegan or five pungent-free order.",
+    remember: "Many char siew sauces contain honey and garlic. Read the label for a vegan or vegetarian order.",
     parts: [
       { id: "plain-rice", name: "Rice", station: "rice", stages: [{ slots: [slot("rice", "Rice", ["rice"])], secs: 10, hint: "rice" }] },
       { id: "mock-char-siew", name: "Mock char siew", station: "pan", stages: [

@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "note": "Playfield redesign from the owner's Level 13 mockup, 22 Oct 2026: café room behind the guests and the cook's worktop below the counter, no words.",
+  "assets": [
+    {
+      "id": "bg-cafe2",
+      "kind": "scene",
+      "aspect": "landscape",
+      "chroma": null,
+      "reference": false,
+      "refs": [
+        "playfield-mockup.webp"
+      ],
+      "subject": "the cosy café room seen behind the guests, from behind the serving counter",
+      "details": "The attached picture is a mobile game screen. Repaint only the café room you see behind its panels in the upper half, behind the three smiling guests, as a clean full-frame background with every panel, button, card, bubble, heart, number, guest, plate and word removed. A cosy sunlit plant-based café: a wide multi-pane window in the middle with soft green trees and warm daylight outside, warm glowing pendant lamps, trailing ivy and potted plants along the top and both sides, honey-wood beams and window frames, a few small wooden café tables and chairs far back, softly blurred. On the left wall and on the right wall, a small dark green chalkboard with only a simple chalk doodle of a leaf and a little heart, no writing at all. Keep the middle calm and softly lit so characters stand out in front of it. The bottom edge ends at a honey-wood ledge. Nothing in the foreground: no counter top, no plates, no food, no stove.",
+      "status": "todo"
+    },
+    {
+      "id": "kitchen-worktop",
+      "kind": "scene",
+      "aspect": "portrait",
+      "chroma": null,
+      "reference": false,
+      "refs": [
+        "playfield-mockup.webp"
+      ],
+      "subject": "the cook's side of the café: a warm wooden kitchen worktop with the kitchen softly blurred behind",
+      "details": "The attached picture is a mobile game screen. Its lower half shows the cook's side of the café: cooking stations resting on a warm wooden worktop with the café softly blurred behind. Repaint only that setting as a clean full-frame background, with every panel, card, button, label, bar, character, word, stove, pot, wok, plate and food removed. Upper third: the kitchen's back wall, softly blurred, with open honey-wood shelves holding a few plain jars and bowls, small potted herbs, trailing ivy and warm glowing light. Lower two thirds: a long warm honey-wood worktop seen from slightly above, wide smooth planks with soft grain running left to right, empty and evenly lit so game stations can stand anywhere on it; a few leafy plants peek in at the two bottom corners. Warm and soft, a little darker than the cream panels that will sit over it.",
+      "status": "todo"
+    }
+  ]
+}

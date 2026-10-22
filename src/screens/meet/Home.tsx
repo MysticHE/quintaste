@@ -41,7 +41,7 @@ function MomentChip() {
   return <View style={[common.row, s.moment, { backgroundColor: theme.successSoft, borderColor: theme.border }]}>
     <Icon name="leaf" size={20} color={theme.success} />
     <View style={[common.flex, { minWidth: 0 }]}><T style={common.bold}>{moment.label}</T><T variant="small" muted>Show people who skip the five pungent today</T></View>
-    <ThemedSwitch label={"Only people with no five pungent, " + moment.label} value={on} onChange={value => void commit({ type: "filters", filters: { ...n.filters, diets: value ? [...others, "Vegetarian"] : others } })} />
+    <ThemedSwitch label={"Only vegetarians, " + moment.label} value={on} onChange={value => void commit({ type: "filters", filters: { ...n.filters, diets: value ? [...others, "Vegetarian"] : others } })} />
     <IconButton label={"Hide " + moment.label} icon="close" onPress={() => void commit({ type: "dismiss-moment", day: moment.day })} />
   </View>;
 }

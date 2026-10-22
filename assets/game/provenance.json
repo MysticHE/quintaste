@@ -1836,21 +1836,19 @@
   "approvedAt": "2026-10-22"
  },
  "rh-bg": {
-  "source": "runs/scene2/bg-cafe",
-  "variant": 1,
+  "source": "runs/playfield2-pick/rh-bg",
+  "variant": 2,
   "tool": "QT Gamer (ChatGPT image generation via Hermes openai-codex)",
   "model": "gpt-image-2-high",
   "tier": "gpt-image-2-high",
-  "requestedAt": "2026-10-18T11:11:22+00:00",
-  "prompt": "Cosy mobile cooking-game art: a soft stylized 3D render with a hand-painted finish, rounded chunky shapes, smooth matte clay-like materials with subtle glossy highlights, warm soft key light from the upper left, gentle ambient occlusion, warm saturated but natural colours and a crisp clean silhouette. A full-frame scene image for a cosy cooking game: the back wall of a small sunlit plant-based café, seen from behind the serving counter. Only the back wall, from just below the ceiling down to a honey-wood shelf ledge that runs along the very bottom edge. A wide window with soft pale-blue sky, blurred city buildings and round green trees outside; two warm glowing pendant lamps hanging from the top; a dark green chalkboard on the right with a cute white chalk doodle of a smiling steamed bun (bao) and little sparkles; potted green plants, small jars and cups on the ledge. Warm cream walls and honey-wood window frames. Nothing in the foreground: no counter, no table, no stove, no pans, no plates, no food. Fill the entire image edge to edge. Soft depth of field, gently blurred like a photo bokeh so the game's foreground sprites stand out. Front view, straight on, no people. No text, letters, numbers, logos or watermarks except any chalk doodle described above. No border or frame. No people or animals.",
-  "sha256": "9794570245cb6bc45b81d7f85ce5121ebb9223d3d86e4f81848bd0452fa3ad05",
+  "requestedAt": "2026-10-22T14:52:49+00:00",
+  "prompt": "Cosy mobile cooking-game art: a soft stylized 3D render with a hand-painted finish, rounded chunky shapes, smooth matte clay-like materials with subtle glossy highlights, warm soft key light from the upper left, gentle ambient occlusion, warm saturated but natural colours and a crisp clean silhouette. A full-frame scene image for a cosy cooking game: the cosy café room seen behind the guests, from behind the serving counter. The attached picture is a mobile game screen. Repaint only the café room you see behind its panels in the upper half, behind the three smiling guests, as a clean full-frame background with every panel, button, card, bubble, heart, number, guest, plate and word removed. A cosy sunlit plant-based café: a wide multi-pane window in the middle with soft green trees and warm daylight outside, warm glowing pendant lamps, trailing ivy and potted plants along the top and both sides, honey-wood beams and window frames, a few small wooden café tables and chairs far back, softly blurred. On the left wall and on the right wall, a small dark green chalkboard with only a simple chalk doodle of a leaf and a little heart, no writing at all. Keep the middle calm and softly lit so characters stand out in front of it. The bottom edge ends at a honey-wood ledge. Nothing in the foreground: no counter top, no plates, no food, no stove. Fill the entire image edge to edge. Soft depth of field, gently blurred like a photo bokeh so the game's foreground sprites stand out. Front view, straight on, no people. No text, letters, numbers, logos or watermarks except any chalk doodle described above. No border or frame. No people or animals.",
+  "sha256": "7769abaea326ee026f5206fb749279616c75eef15eae12933cb591bbeee73333",
   "size": [
-   1280,
-   720
+   941,
+   987
   ],
-  "status": "approved",
-  "approvedBy": "owner (as artist)",
-  "approvedAt": "2026-10-22"
+  "status": "draft: needs artist approval before members see it"
  },
  "rh-counter": {
   "source": "runs/scene2/counter",
@@ -6228,6 +6226,21 @@
   "sha256": "f19354f1f1d78e81692796c0d0efc239fc2448214d2c6bf27065a24364958795",
   "size": [
    853,
+   1280
+  ],
+  "status": "draft: needs artist approval before members see it"
+ },
+ "rh-kitchen": {
+  "source": "runs/playfield2-pick/rh-kitchen",
+  "variant": 2,
+  "tool": "QT Gamer (ChatGPT image generation via Hermes openai-codex)",
+  "model": "gpt-image-2-high",
+  "tier": "gpt-image-2-high",
+  "requestedAt": "2026-10-22T14:54:00+00:00",
+  "prompt": "Cosy mobile cooking-game art: a soft stylized 3D render with a hand-painted finish, rounded chunky shapes, smooth matte clay-like materials with subtle glossy highlights, warm soft key light from the upper left, gentle ambient occlusion, warm saturated but natural colours and a crisp clean silhouette. A full-frame scene image for a cosy cooking game: the cook's side of the café: a warm wooden kitchen worktop with the kitchen softly blurred behind. The attached picture is a mobile game screen. Its lower half shows the cook's side of the café: cooking stations resting on a warm wooden worktop with the café softly blurred behind. Repaint only that setting as a clean full-frame background, with every panel, card, button, label, bar, character, word, stove, pot, wok, plate and food removed. Upper third: the kitchen's back wall, softly blurred, with open honey-wood shelves holding a few plain jars and bowls, small potted herbs, trailing ivy and warm glowing light. Lower two thirds: a long warm honey-wood worktop seen from slightly above, wide smooth planks with soft grain running left to right, empty and evenly lit so game stations can stand anywhere on it; a few leafy plants peek in at the two bottom corners. Warm and soft, a little darker than the cream panels that will sit over it. Fill the entire image edge to edge. Soft depth of field, gently blurred like a photo bokeh so the game's foreground sprites stand out. Front view, straight on, no people. No text, letters, numbers, logos or watermarks except any chalk doodle described above. No border or frame. No people or animals.",
+  "sha256": "420bbda74331364d8a3c57d01a32c4fef246c29333c9cec47572757665d433dd",
+  "size": [
+   720,
    1280
   ],
   "status": "draft: needs artist approval before members see it"
