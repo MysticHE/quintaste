@@ -17,6 +17,9 @@ COPY src/game ./src/game
 COPY src/config/game.ts ./src/config/game.ts
 # Today's special (src/game/special.ts) needs the lunar calendar and the Singapore date helper.
 COPY src/data/lunar.ts ./src/data/lunar.ts
+# Recipe Kitchen levels (server/game/levels-worker.mjs) are made from the bundled recipes too.
+COPY src/data/recipes.ts ./src/data/recipes.ts
+COPY src/data/recipe-library ./src/data/recipe-library
 COPY src/utils/sg-datetime.ts ./src/utils/sg-datetime.ts
 COPY dist ./dist
 COPY server-assets ./server-assets

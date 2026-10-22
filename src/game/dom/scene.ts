@@ -217,8 +217,13 @@ export class Playfield extends Phaser.Scene {
     const st = this.run.stations[kind]!, r = this.L.stations[kind]!, cfg = STATIONS[kind], pr = st.part, P = this.pal;
     const [lo, hi] = sim.bandOf(st, pr), cooking = !!pr && pr.state === "cooking", many = Object.keys(this.L.stations).length > 1;
     v.hi.clear();
-    const a = r.art, hl = (alpha: number, color: number) => v.hi.fillStyle(color, alpha).fillRoundedRect(a.x - 5, a.y - 4, a.w + 10, a.h + 8, 16);
-    if (this.hover === kind) hl(0.55, P.spark); else if (many && this.run.selected === kind) hl(0.5, P.light);
+    // The selected (or hovered) station stands in a soft pool of warm light on the counter, never a panel behind its picture.
+    const a = r.art, hl = (alpha: number) => {
+      const cx = a.x + a.w / 2, cy = a.y + a.h * 0.9;
+      v.hi.fillStyle(P.spark, alpha * 0.45).fillEllipse(cx, cy, a.w * 1.05, a.h * 0.3);
+      v.hi.fillStyle(P.spark, alpha).fillEllipse(cx, cy, a.w * 0.8, a.h * 0.17);
+    };
+    if (this.hover === kind) hl(0.7); else if (many && this.run.selected === kind) hl(0.5);
     const flaring = (this.flareUntil.get(kind) ?? 0) > t;
     if (flaring) v.glow.setFillStyle(P.flameHot, 0.55 + 0.3 * Math.sin(t * 16));
     else v.glow.setFillStyle(st.H >= cfg.scorch ? P.flameHot : P.flame, cfg.heat && st.heatOn || st.H > 0.3 ? Math.min(0.55, st.H * 0.65) : 0);
