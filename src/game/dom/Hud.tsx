@@ -58,9 +58,15 @@ function nextStep(run: sim.Run, g: sim.GuestRun): string {
       if (pr.state === "ready" && part.makes) { const to = dish.parts.find(p => p !== part && p.stages.some(sg => sg.slots.some(sl => sl.accepts.includes(part.makes!)))); return "Ready: pour it onto the " + (to ? STATIONS[to.station].name.toLowerCase() : "next station"); }
       if (pr.state === "ready") return "Ready: drag to the plates";
       if (pr.state === "scorched" || pr.state === "split") return "Restart it, it's free";
-      if (pr.state === "cooking") return "Keep it in the heat band";
+      const turn = !pr.turned ? sim.stageOf(pr).turn : undefined, cfg = STATIONS[part.station];
+      if (pr.state === "cooking" && turn === "fold") return "Fold it: drag the fold onto the board";
+      if (pr.state === "cooking" && turn === "flip") return pr.progress >= 0.5 ? "Flip it: drag the spatula on" : "Flip it at halfway";
+      if (pr.state === "cooking") return cfg.heat ? "Keep it in the heat band" : cfg.name + " is cooking";
       return "Add " + sim.stageOf(pr).hint;
     }
+    // An oven or fryer must be hot before the first ingredient goes in.
+    const st = run.stations[part.station], cfg = STATIONS[part.station];
+    if (cfg.preheat && st && !st.part && st.H < (part.stages[0].band ?? cfg.band)[0]) return "Preheat the " + cfg.name.toLowerCase() + " first";
     return "Add " + part.stages[0].hint;
   }
   return run.board.some(p => p && p.dishId === dishId && p.shared) ? "Plated for two: drag it to each guest" : "Plated: drag it to the guest";

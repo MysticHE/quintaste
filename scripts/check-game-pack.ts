@@ -33,8 +33,8 @@ if (expect) check(rulesVersion === expect, `rules version ${rulesVersion} matche
 const fresh = (id: string, name: string, extra: object = {}) => ({ id, name, art: "card-" + id, tray: "fresh", ...extra });
 const poriyal = {
   format: 1, id: "recipe-cabbage-peas-coconut-poriyal-r1", techniques: ["pan"],
-  items: [fresh("mustard-seeds", "Mustard seeds"), fresh("urad-dal", "Urad dal"), fresh("curry-leaves", "Curry leaves"), fresh("green-peas", "Green peas")],
-  forms: { "mustard-seeds": { form: "sprinkle", tone: "dark" }, "urad-dal": { form: "sprinkle", tone: "white" } },
+  items: [fresh("mustard-seeds", "Mustard seeds"), fresh("curry-leaves", "Curry leaves")],
+  forms: { "mustard-seeds": { form: "sprinkle", tone: "dark" } },
   dishes: [{
     id: "poriyal", name: "Cabbage poriyal", art: "dish-poriyal", recipeId: "cabbage-peas-coconut-poriyal",
     remember: "Let the mustard seeds pop before the dal goes in; fold the coconut in off the heat.",
@@ -103,7 +103,7 @@ check(rulesVersion === before, "registering packs leaves the rules version uncha
 // 4. Packs that must be refused.
 const base = () => JSON.parse(JSON.stringify(poriyal));
 check(refusedWith({ ...base(), id: "x-garlic", items: [...base().items, { id: "garlic", name: "Garlic", art: "garlic", tray: "fresh" }] }, /already exists/), "a pack cannot redefine a built-in item (garlic without its allium tag)");
-check(refusedWith({ ...base(), id: "x-oven", techniques: ["pan", "oven"] }, /needs oven/), "a pack needing an unbuilt technique says what it needs");
+check(refusedWith({ ...base(), id: "x-pressure", techniques: ["pan", "pressure-cooker"] }, /needs pressure-cooker/), "a pack needing an unbuilt technique says what it needs");
 const ghost = base(); ghost.id = "x-ghost"; ghost.dishes[0].parts[0].stages[0].slots[0].accepts = ["lard"];
 check(refusedWith(ghost, /unknown item lard/), "a slot naming an unknown item is refused");
 check(refusedWith({ ...base(), id: "x-extra", script: "alert(1)" }, /unknown field script/), "unknown fields are refused");
@@ -133,8 +133,8 @@ check(refusedWith(wrongStation, /station not in techniques/), "a part on a stati
   const r = sim.createRun(22, "sprout", [], undefined, 1); sim.start(r);
   for (let i = 0; i < 80 && !sim.waiting(r).length; i++) sim.tick(r);
   const g = sim.waiting(r)[0]; sim.setFocus(r, g.orderId);
-  r.stations.blender!.part = { dishId: "sambal-tempeh", partId: "sambal-blend", stage: 0, items: [{ uid: 900, id: "red-chilli", stage: 0, warn: false }], progress: 1, state: "ready", exposure: 0, inBand: 0, prog: 0, portions: 1 };
-  r.stations.pan!.part = { dishId: "sambal-tempeh", partId: "sambal-tempeh", stage: 0, items: [{ uid: 901, id: "cooking-oil", stage: 0, warn: false }], progress: 0, state: "loading", exposure: 0, inBand: 0, prog: 0, portions: 2 };
+  r.stations.blender!.part = { dishId: "sambal-tempeh", partId: "sambal-blend", stage: 0, items: [{ uid: 900, id: "red-chilli", stage: 0, warn: false }], progress: 1, state: "ready", exposure: 0, inBand: 0, prog: 0, portions: 1, turned: false, wait: 0 };
+  r.stations.pan!.part = { dishId: "sambal-tempeh", partId: "sambal-tempeh", stage: 0, items: [{ uid: 901, id: "cooking-oil", stage: 0, warn: false }], progress: 0, state: "loading", exposure: 0, inBand: 0, prog: 0, portions: 2, turned: false, wait: 0 };
   check(sim.transfer(r, "blender", "pan") && r.stations.pan!.part!.portions === 1 && /makes one portion/.test(r.say.text), "a paste for one poured into a wok started for two makes one portion, and says so");
 }
 

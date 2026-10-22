@@ -30,7 +30,7 @@ SCENES = {"skin-sunny", "skin-lotus", "skin-lantern", "skin-signature", "rh-bg"}
 WIDE = {"skin-sunny-wide", "skin-lotus-wide", "skin-lantern-wide", "skin-signature-wide"}
 SCENES |= WIDE
 SIZES = {"skin": 1280, "rh-bg": 1280, "rh-counter": 1024, "cafe-counter": 768, "avatar": 480, "guest": 360, "dish": 360, "pet": 360, "wear": 360,
-         "decor": 360, "stove": 320, "blender": 320, "soup": 320, "rice": 320, "dessert": 320, "assembly": 320, "board": 320, "plate": 256, "acc": 220, "lotus": 160}
+         "decor": 360, "stove": 320, "blender": 320, "steamer": 320, "oven": 320, "griddle": 320, "fryer": 320, "dough-board": 320, "fridge": 320, "tool": 160, "soup": 320, "rice": 320, "dessert": 320, "assembly": 320, "board": 320, "plate": 256, "acc": 220, "lotus": 160}
 STEAM = {"soup-pot", "rice-cooker"}
 
 
@@ -42,7 +42,9 @@ def size_for(key):
 
 
 def required_keys():
-    text = "".join((ROOT / "src" / "game" / "content" / f).read_text(encoding="utf-8") for f in ("items.ts", "dishes.ts", "guests.ts", "cosmetics.ts"))
+    content = ROOT / "src" / "game" / "content"
+    files = [content / f for f in ("items.ts", "dishes.ts", "guests.ts", "cosmetics.ts")] + sorted((content / "chapters").glob("*.ts"))
+    text = "".join(f.read_text(encoding="utf-8") for f in files)
     keys = set(re.findall(r'\bart: "([a-z0-9-]+)"', text)) | set(re.findall(r'\bartNo: "([a-z0-9-]+)"', text))
     # fresh(id, name) and pantry(id, name) default the art key to the id.
     keys |= {m.group(2) or m.group(1) for m in re.finditer(r'\b(?:fresh|pantry)\("([a-z0-9-]+)", "[^"]+"(?:, "([a-zA-Z0-9-]+)")?', text)}

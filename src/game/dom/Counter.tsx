@@ -29,23 +29,33 @@ export function SeatTags({ L }: { L: Layout }) {
     <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" /><path d="M4 21a8 8 0 0 1 16 0z" /></svg>{i + 1}</span>)}</>;
 }
 
-const SHORT: Record<StationKind, string> = { pan: "Wok", pot: "Pot", rice: "Rice", dessert: "Sweet", board: "Board", blender: "Blend" };
+const SHORT: Record<StationKind, string> = { pan: "Wok", pot: "Pot", rice: "Rice", dessert: "Sweet", board: "Board", blender: "Blend", steamer: "Steam", oven: "Oven", griddle: "Griddle", fryer: "Fry", dough: "Dough", fridge: "Fridge" };
 /** A station's state in two or three words (`short` for a narrow station), and how it reads. */
 export function stationState(run: sim.Run, kind: StationKind): { text: string; short: string; tone: "idle" | "cook" | "ready" | "warn" } {
   const st = run.stations[kind]!, pr = st.part, cfg = STATIONS[kind], [lo, hi] = sim.bandOf(st, pr), many = Object.keys(run.stations).length > 1;
   const pct = pr ? Math.round(pr.progress * 100) + "%" : "";
   // A pot cooked for two says so while it cooks (not once it is ready, scorched or split).
   const two = pr?.portions === 2 ? "×2 " : "", cook = (text: string, short: string, tone: "idle" | "cook" | "warn") => ({ text: two + text, short: two + short, tone });
-  if (!pr) return { text: many ? cfg.name : "Empty", short: many ? SHORT[kind] : "Empty", tone: "idle" };
+  if (!pr) {
+    // An oven or fryer says when it is hot enough for food.
+    if (cfg.preheat && st.H >= lo) return { text: "Hot · Add food", short: "Hot", tone: "ready" };
+    if (cfg.preheat && st.heatOn) return { text: "Preheating", short: "Heating", tone: "cook" };
+    return { text: many ? cfg.name : "Empty", short: many ? SHORT[kind] : "Empty", tone: "idle" };
+  }
   // A blended paste is poured onto the station that takes it, not plated.
   if (pr.state === "ready" && sim.partOf(pr).makes) return { text: "Ready · Pour it", short: "Pour it", tone: "ready" };
   if (pr.state === "ready") {
     if (pr.exposure > 0 && run.plan.neglect !== null) return { text: "Burning! Drag it out", short: "Burning!", tone: "warn" };
+    // A steamer or oven spoils a ready dish left in: say so once it has started.
+    if (cfg.burnAfter && pr.exposure > 1.5) return { text: "Take it out!", short: "Out!", tone: "warn" };
     return { text: "Ready · Drag it", short: "Drag it", tone: "ready" };
   }
   if (pr.state === "scorched") return { text: "Scorched · Restart", short: "Restart", tone: "warn" };
   if (pr.state === "split") return { text: "Split · Restart", short: "Restart", tone: "warn" };
   if (pr.state === "loading" || pr.state === "waiting") return cook("Add more", "Add", "idle");
+  const turn = !pr.turned ? sim.stageOf(pr).turn : undefined;
+  if (turn === "fold") return cook("Fold it", "Fold", "warn");
+  if (turn === "flip" && pr.progress >= 0.5) return cook("Flip it!", "Flip!", "warn");
   if (!cfg.heat) return cook("Cooking " + pct, pct, "cook");
   if (!st.heatOn && st.H < lo) return cook("Heat off", "Heat off", "warn");
   if (st.H >= cfg.scorch) return cook("Too hot!", "Hot!", "warn");

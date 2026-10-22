@@ -3,7 +3,9 @@
  * Each recipe was checked against how the dish is really cooked; accepted swaps mirror real substitutions
  * (ginger for garlic and shallots, black beans or tempeh for shiitake). Game portions and times are not recipe amounts.
  */
-export type StationKind = "pan" | "pot" | "rice" | "board" | "dessert" | "blender";
+import { CHAPTER_DISHES } from "./chapters/index";
+
+export type StationKind = "pan" | "pot" | "rice" | "board" | "dessert" | "blender" | "steamer" | "oven" | "griddle" | "fryer" | "dough" | "fridge";
 export type Slot = { key: string; label: string; accepts: string[]; optional?: boolean };
 export type Stage = {
   slots: Slot[]; secs: number; hint: string;
@@ -13,6 +15,9 @@ export type Stage = {
   scorchSecs?: number;
   /** Items that curdle or split when added while the station is hotter than the band. */
   splitIfHot?: string[];
+  /** A move the player makes with a tool before the stage can finish (RECIPE_LEVELS_PLAN §8.7): drag the spatula onto the griddle at
+   *  halfway (`flip`; too late and the underside burns), or drag the fold onto the dough board once the filling is in (`fold`). */
+  turn?: "flip" | "fold";
 };
 export type Part = { id: string; name: string; station: StationKind; stages: Stage[];
   /** Transfer (RECIPE_LEVELS_PLAN §8.7): this part is never plated; once ready it is dragged onto the station of the part whose slot
@@ -180,13 +185,35 @@ export const DISHES: Record<string, Dish> = Object.fromEntries(([
     { slots: [slot("sago", "Sago", ["sago"])], secs: 5, hint: "sago pearls" },
     { slots: [slot("syrup", "Gula melaka", ["gula-melaka"]), slot("cream", "Coconut milk", ["coconut-milk"])], secs: 3, hint: "gula melaka and coconut milk", scorchSecs: 1, splitIfHot: ["coconut-milk"] },
   ], "Palm sugar scorches quickly. Melt it gently, never on high heat.", "sago-gula-melaka"),
+  ...CHAPTER_DISHES,
 ] as Dish[]).map(d => [d.id, d]));
 
-export const STATIONS: Record<StationKind, { name: string; art: string; heat: boolean; onRate: number; offRate: number; gain: number; loss: number; band: [number, number]; scorch: number; scorchSecs: number }> = {
+/**
+ * Station settings. Heated stations have a burner and a band; `thermostat` stations (the oven) hold the middle of their band by
+ * themselves once on, and never scorch; `preheat` stations refuse food until they reach their band; `burnAfter` is how long a
+ * ready dish can stay in before it spoils (`spoil` says why), on any station.
+ */
+export type StationConfig = { name: string; art: string; heat: boolean; onRate: number; offRate: number; gain: number; loss: number; band: [number, number]; scorch: number; scorchSecs: number;
+  thermostat?: boolean; preheat?: boolean; burnAfter?: number; spoil?: string };
+export const STATIONS: Record<StationKind, StationConfig> = {
   pan: { name: "Wok", art: "stove-wok", heat: true, onRate: 1.2, offRate: 1.2, gain: 0.35, loss: 0.38, band: [0.4, 0.7], scorch: 0.85, scorchSecs: 2 },
   pot: { name: "Soup pot", art: "soup-pot", heat: true, onRate: 0.7, offRate: 0.22, gain: 0.32, loss: 0.3, band: [0.3, 0.55], scorch: 0.82, scorchSecs: 3 },
   dessert: { name: "Dessert pot", art: "dessert-pot", heat: true, onRate: 0.8, offRate: 0.45, gain: 0.3, loss: 0.34, band: [0.22, 0.44], scorch: 0.6, scorchSecs: 1.5 },
   rice: { name: "Rice cooker", art: "rice-cooker", heat: false, onRate: 0, offRate: 0, gain: 0, loss: 0, band: [0, 1], scorch: 2, scorchSecs: 99 },
   board: { name: "Assembly board", art: "assembly-board", heat: false, onRate: 0, offRate: 0, gain: 0, loss: 0, band: [0, 1], scorch: 2, scorchSecs: 99 },
   blender: { name: "Blender", art: "blender", heat: false, onRate: 0, offRate: 0, gain: 0, loss: 0, band: [0, 1], scorch: 2, scorchSecs: 99 },
+  // Chapters 4–10 (GAME_CONTENT_PLAN §3): one technique each.
+  steamer: { name: "Steamer", art: "steamer", heat: false, onRate: 0, offRate: 0, gain: 0, loss: 0, band: [0, 1], scorch: 2, scorchSecs: 99,
+    burnAfter: 7, spoil: "It steamed too long and went soggy. Take dishes out of the steamer as soon as they're ready." },
+  oven: { name: "Oven", art: "oven", heat: true, thermostat: true, preheat: true, onRate: 0, offRate: 0, gain: 0.09, loss: 0.035, band: [0.55, 0.8], scorch: 2, scorchSecs: 99,
+    burnAfter: 6, spoil: "It stayed in the hot oven and burnt. Take bakes out as soon as they're ready." },
+  griddle: { name: "Griddle", art: "griddle", heat: true, onRate: 1, offRate: 0.9, gain: 0.33, loss: 0.36, band: [0.4, 0.68], scorch: 0.86, scorchSecs: 2.2 },
+  fryer: { name: "Fryer", art: "fryer", heat: true, preheat: true, onRate: 0.6, offRate: 0.22, gain: 0.32, loss: 0.3, band: [0.55, 0.8], scorch: 0.9, scorchSecs: 1.6 },
+  dough: { name: "Dough board", art: "dough-board", heat: false, onRate: 0, offRate: 0, gain: 0, loss: 0, band: [0, 1], scorch: 2, scorchSecs: 99 },
+  fridge: { name: "Fridge", art: "fridge", heat: false, onRate: 0, offRate: 0, gain: 0, loss: 0, band: [0, 1], scorch: 2, scorchSecs: 99 },
+};
+/** The tool a turn is made with, for the playfield and messages. */
+export const TURN_TOOL: Record<NonNullable<Stage["turn"]>, { name: string; art: string; verb: string }> = {
+  flip: { name: "Spatula", art: "tool-spatula", verb: "Flip" },
+  fold: { name: "Fold", art: "tool-fold", verb: "Fold" },
 };

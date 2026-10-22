@@ -59,6 +59,8 @@ export function useServiceEvents(options: Options) {
           const L = sc?.L, b = L?.stations[e.from]?.bowl;
           sc?.itemIn(e.item, e.uid, e.station, b ? { x: b.x, y: b.y } : origin.current ?? { x: 0, y: 0 }); origin.current = null; fx.cue("place");
         }
+        if (e.type === "turnDue") fx.haptic("warning");
+        if (e.type === "turned") fx.haptic("success");
         if (e.type === "rejected") { setNudge({ id: e.item, key: Date.now() }); origin.current = null; fx.haptic("warning"); }
         if (e.type === "plated") {
           const p = r.board[e.slot]; fx.cue("plate");

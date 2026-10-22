@@ -18,6 +18,7 @@ import { Bubbles, PlateTags, SeatTags, StationTags } from "./Counter";
 import { Hud, RecipeCard } from "./Hud";
 import { stationsBox, type Point } from "./layout";
 import { Basket } from "./Basket";
+import { ToolChips } from "./Tools";
 import { Brief, LabelSheet, PauseSheet, Results, TooShort, type Reward } from "./Overlays";
 import { Shelf } from "./Shelf";
 import { withSketches } from "./sketch";
@@ -187,6 +188,7 @@ export default function RushHour(props: Props) {
       <RecipeCard run={run} L={L} art={art} />
       <SeatTags L={L} />
       <Bubbles run={run} L={L} art={art} plateSel={sceneRef.current?.dragSlot ?? null} onGuest={id => input.current.onGuest(id)} />
+      <ToolChips run={run} L={L} art={art} onTurn={k => { sim.turn(runRef.current, k); after(); }} />
       <StationTags run={run} L={L} plateSel={sceneRef.current?.dragSlot ?? null} dragging={sceneRef.current?.dragPaste ? null : sceneRef.current?.dragKind ?? null} onSelect={k => input.current.onStation(k)} onRestart={act.restart} />
       <PlateTags run={run} L={L} incoming={sceneRef.current?.incomingSlots} />
       <Basket run={run} L={L} art={art} over={basketOver} />

@@ -38,14 +38,16 @@ const TAG_WORDS: [RegExp, ItemTag][] = [[/garlic|onion|shallot|leek|chive|scalli
 const TECH: [string, RegExp][] = [
   ["oven", /\b(oven|bake|baking|roast|air.?fr(y|ier))\b/i], ["steam", /\b(steam|steamer|steaming)\b/i], ["deep-fry", /\b(deep.?fr(y|ied)|oil for frying)\b/i],
   ["griddle", /\b(flip|griddle|toast)\b/i], ["blend", /\b(blend|blender|whisk|purée|puree|grind|pound|froth|beat)\b/i],
-  ["chill", /\b(chill|refrigerat|fridge|until set|leave to set|overnight)\b/i], ["dough", /\b(knead|dough|roll out)\b/i],
+  ["chill", /\b(chill|refrigerat|fridge|until set|leave to set|overnight)\b/i], ["dough", /\b(knead|dough|roll out|fold|wrap|pleat)\b/i],
   ["rice", /\brice cooker\b/i], ["pot", /\b(simmer|boil|blanch|braise|stew|poach|pot|saucepan|cover and cook)\b/i],
   ["pan", /\b(stir.?fry|stir.?fried|saut[ée]|fry|fried|temper|wok|pan.?fr(y|ied)|sear|toss|heat the oil|heat oil)\b/i],
   ["board", /\b(assemble|layer|roll up|top with|spoon over|arrange|serve with|mix|combine|dress)\b/i],
 ];
 /** Recipe verbs (TECH) whose station the game has. */
-const BUILT: Record<string, StationKind> = { pan: "pan", pot: "pot", rice: "rice", board: "board", blend: "blender" };
-const SIDE = new Set(["chill"]);
+const BUILT: Record<string, StationKind> = { pan: "pan", pot: "pot", rice: "rice", board: "board", blend: "blender", steam: "steamer", oven: "oven", griddle: "griddle",
+  "deep-fry": "fryer", dough: "dough", chill: "fridge" };
+/** Side steps a level may shortcut with a ready item (RECIPE_LEVELS_PLAN §8.7); none since the fridge (Chapter 9) is built. */
+const SIDE = new Set<string>();
 const PREP = /^(rinse|wash|drain|soak|peel|chop|cut|slice|dice|shred|grate|mince|prepare|pat|set aside|measure|knot|crush)/i;
 
 export const ingredientKey = (name: string) => name.toLowerCase().replace(/\(.*?\)/g, "").split(",")[0].trim();
@@ -122,6 +124,11 @@ export function shapeProblem(c: Compiled, s: Shape): string | null {
   return null;
 }
 
+/** Seconds per stage by station: rice's first stage is long, boards and dough assemble at once, slow appliances take a while. */
+const stageSecs = (station: StationKind, k: number) => station === "rice" && k === 0 ? 10 : station === "board" || station === "dough" ? 0
+  : station === "fridge" ? 8 : station === "oven" ? 6 : station === "steamer" ? 5 : 3;
+const TURNS: Partial<Record<StationKind, "flip" | "fold">> = { griddle: "flip", dough: "fold" };
+
 /** Step 3's input: the level pack from a recipe, its draft and a checked shape. Throws PackError when the pack is not valid. */
 export function buildPack(r: RecipeInput, c: Compiled, s: Shape): LevelPack {
   const id = "t-" + slug(r.id), used = new Set(s.parts.flatMap(p => p.stages.flatMap(st => st.items)));
@@ -138,6 +145,8 @@ export function buildPack(r: RecipeInput, c: Compiled, s: Shape): LevelPack {
       parts: s.parts.map((p, n) => ({ id: id + "-" + n, name: r.name.slice(0, 60), station: p.station, ...(n === pasteAt ? { makes: paste!.id } : {}),
         stages: [...(paste && n === pasteAt + 1 ? [{ slots: [{ key: "paste", label: "Blended paste", accepts: [paste.id] }], secs: 2, hint: "the blended paste" }] : []),
           ...p.stages.map((st, k) => ({ slots: st.items.map((it, j) => ({ key: "s" + j, label: nameOf(c, it).slice(0, 40), accepts: [it] })),
-            secs: p.station === "rice" && k === 0 ? 10 : p.station === "board" ? 0 : 3, hint: st.hint.trim() }))] })) }],
+            secs: stageSecs(p.station, k), hint: st.hint.trim(),
+            // The technique's move comes with the station, never from the AI: the griddle's last stage is flipped, the dough's folded.
+            ...(k === p.stages.length - 1 && TURNS[p.station] ? { turn: TURNS[p.station] } : {}) }))] })) }],
   });
 }

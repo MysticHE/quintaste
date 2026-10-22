@@ -53,7 +53,7 @@ function readItem(v: unknown, i: number): GameItem {
   return put(item, "note", o.note === undefined ? undefined : text(o.note, where, 200));
 }
 function readStage(v: unknown, where: string, known: (item: string) => boolean): Stage {
-  const o = obj(v, where, ["slots", "secs", "hint", "band", "scorchSecs", "splitIfHot"]);
+  const o = obj(v, where, ["slots", "secs", "hint", "band", "scorchSecs", "splitIfHot", "turn"]);
   const slots = list(o.slots, where, 1, LIMITS.slots).map((s, k): Slot => {
     const so = obj(s, where + " slot " + k, ["key", "label", "accepts", "optional"]);
     const accepts = list(so.accepts, where, 1, LIMITS.accepts).map(a => known(id(a, where)) ? a as string : fail(where + ": unknown item " + String(a)));
@@ -66,6 +66,7 @@ function readStage(v: unknown, where: string, known: (item: string) => boolean):
     put(stage, "band", lo < hi ? [lo, hi] : fail(where + ": bad band"));
   }
   put(stage, "scorchSecs", o.scorchSecs === undefined ? undefined : num(o.scorchSecs, where, 0.1, 99));
+  put(stage, "turn", o.turn === undefined ? undefined : o.turn === "flip" || o.turn === "fold" ? o.turn : fail(where + ": bad turn"));
   return put(stage, "splitIfHot", o.splitIfHot === undefined ? undefined : list(o.splitIfHot, where, 1, LIMITS.accepts).map(a => known(id(a, where)) ? a as string : fail(where + ": unknown item")));
 }
 function readDish(v: unknown, i: number, techniques: Set<string>, known: (item: string) => boolean): Dish {
@@ -81,16 +82,17 @@ function readDish(v: unknown, i: number, techniques: Set<string>, known: (item: 
 }
 
 /** Validates untrusted pack JSON. Throws PackError naming the first problem; a station this app lacks says so. */
-export function readPack(v: unknown): LevelPack {
+/** `size` caps a pack's dishes and items: a member or staff pack keeps the defaults; only the built-in content (builtinPack) is larger. */
+export function readPack(v: unknown, size: { dishes: number; items: number } = LIMITS): LevelPack {
   const o = obj(v, "pack", ["format", "id", "techniques", "dishes", "items", "forms", "unreviewed"]);
   if (o.format !== PACK_FORMAT) fail("pack: unsupported format " + String(o.format));
   const packId = typeof o.id === "string" && PACK_ID.test(o.id) ? o.id : fail("pack: bad id");
   const techniques = list(o.techniques, "pack", 1, 16).map(t => typeof t === "string" && t in STATIONS ? t as StationKind : fail("needs " + String(t)));
-  const items = list(o.items, "pack", 0, LIMITS.items).map(readItem);
+  const items = list(o.items, "pack", 0, size.items).map(readItem);
   const own = new Set(items.map(i => i.id));
   if (own.size !== items.length) fail("pack: duplicate item");
   const known = (item: string) => own.has(item) || item in BUILTIN.items;
-  const dishes = list(o.dishes, "pack", 1, LIMITS.dishes).map((d, i) => readDish(d, i, new Set(techniques), known));
+  const dishes = list(o.dishes, "pack", 1, size.dishes).map((d, i) => readDish(d, i, new Set(techniques), known));
   if (new Set(dishes.map(d => d.id)).size !== dishes.length) fail("pack: duplicate dish");
   const fo = o.forms === undefined ? {} : obj(o.forms, "forms", [...own, ...Object.keys(BUILTIN.items)]);
   const forms: Record<string, ItemForm> = {};
@@ -98,7 +100,7 @@ export function readPack(v: unknown): LevelPack {
     const ff = obj(f, "form " + k, ["form", "tone"]);
     forms[k] = { form: ff.form === "pour" || ff.form === "sprinkle" ? ff.form : fail("form " + k + ": bad form"), tone: TONES.has(ff.tone as ItemTone) ? ff.tone as ItemTone : fail("form " + k + ": bad tone") };
   }
-  const unreviewed = o.unreviewed === undefined ? undefined : list(o.unreviewed, "pack", 0, LIMITS.items).map(x => own.has(id(x, "unreviewed")) ? x as string : fail("unreviewed: not one of this pack's items"));
+  const unreviewed = o.unreviewed === undefined ? undefined : list(o.unreviewed, "pack", 0, size.items).map(x => own.has(id(x, "unreviewed")) ? x as string : fail("unreviewed: not one of this pack's items"));
   return put({ format: PACK_FORMAT, id: packId, techniques, dishes, items, forms } as LevelPack, "unreviewed", unreviewed?.length ? unreviewed : undefined);
 }
 
@@ -143,7 +145,7 @@ export const packByHash = (hash: string) => byHash.get(hash);
 /** The built-in content written as a pack: proves the format can express every built dish, item and pan form. */
 export function builtinPack(): LevelPack {
   return readPack(JSON.parse(JSON.stringify({ format: PACK_FORMAT, id: "builtin", techniques: Object.keys(STATIONS),
-    dishes: Object.values(BUILTIN.dishes), items: Object.values(BUILTIN.items), forms: BUILTIN.forms })));
+    dishes: Object.values(BUILTIN.dishes), items: Object.values(BUILTIN.items), forms: BUILTIN.forms })), { dishes: 4096, items: 4096 });
 }
 /** Canonical JSON equality, for checks and tests. */
 export const sameContent = (a: unknown, b: unknown) => canonical(a) === canonical(b);

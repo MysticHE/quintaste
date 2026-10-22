@@ -3,6 +3,7 @@
  * plus bought-in products whose game label hides an allium, egg or animal ingredient (GAME_PLAN §5).
  * Labels are fictional game products, never real brands.
  */
+import { CHAPTER_FORMS, CHAPTER_ITEMS } from "./chapters/index";
 export type ItemTag = "allium" | "egg" | "dairy" | "honey" | "root" | "mushroom" | "hot" | "animal";
 export type GameLabel = { title: string; ingredients: string[]; contains: string; flagged?: string };
 export type GameItem = {
@@ -127,6 +128,7 @@ export const ITEMS: Record<string, GameItem> = Object.fromEntries([
   pantry("fresh-sambal", "Fresh sambal"),
   pantry("laksa-rempah", "Fresh rempah"),
   pantry("green-curry-paste", "Fresh green paste"),
+  ...CHAPTER_ITEMS,
 ].map(item => [item.id, item]));
 
 export const itemName = (id: string) => { const it = ITEMS[id]; return it ? it.name + (it.variant ? " " + it.variant : "") : id; };
@@ -152,10 +154,13 @@ export const ITEM_FORM: Record<string, ItemForm> = Object.fromEntries([
   ...forms("sprinkle", "white", ["salt", "cornflour", "sesame-seeds", "rice", "sago", "oats"]),
   ...forms("sprinkle", "gold", ["turmeric", "brown-sugar", "peanuts"]),
   ...forms("sprinkle", "dark", ["white-pepper", "black-beans"]),
+  ...Object.entries(CHAPTER_FORMS),
 ]);
 
 /** Look-alike pairs (A and B) where one label hides a problem, e.g. ["paste-a", "paste-b"]. */
 export const PAIRS: [string, string][] = Object.values(ITEMS).filter(i => i.variant === "A").map(a => [a.id, a.id.replace(/-a$/, "-b")] as [string, string]).filter(([, b]) => !!ITEMS[b]);
+/** Look-alike pairs added with Chapters 4–10: the planner rolls them on their own stream, so earlier levels deal exactly as before. */
+export const LATER_PAIRS = new Set(CHAPTER_ITEMS.map(i => i.id));
 /** A run's shuffle: which look-alike hides the problem is decided per run, so no jar is "always the bad one". */
 export type Flip = Record<string, string>;
 /**

@@ -89,6 +89,11 @@ const SCENE = `
   overflow:hidden; text-overflow:ellipsis; display:inline-flex; align-items:center; justify-content:center; box-shadow:0 2px 4px var(--shadow); transition:background .2s; }
 .rh .stag.cook { background:var(--cook); } .rh .stag.warn { background:var(--warn); } .rh .stag.ready { background:var(--sage-deep); animation:rhtag 1.1s ease-in-out infinite; }
 @keyframes rhtag { 50% { transform:translate(-50%,-50%) scale(1.08); } }
+.rh .tool { position:absolute; width:46px; height:46px; transform:translate(-50%,-50%); border-radius:50%; background:var(--cream); display:grid; place-items:center;
+  box-shadow:0 0 0 2px var(--gold), 0 3px 8px var(--shadow); touch-action:none; cursor:grab; z-index:6; animation:rhtag 1s ease-in-out infinite; }
+.rh .tool img { width:36px; height:36px; object-fit:contain; pointer-events:none; } .rh .tool b { font-size:11px; color:var(--ink); }
+.rh .tool.drag { cursor:grabbing; animation:none; z-index:30; box-shadow:0 0 0 2px var(--gold), 0 8px 16px var(--shadow); }
+.rh.still .tool { animation:none; }
 .rh .toast { position:absolute; transform:translateX(-50%); font-size:12px; padding:5px 12px; border-radius:99px; background:var(--pill); color:var(--white); white-space:nowrap; animation:rhin .2s ease-out; }
 @keyframes rhin { from { opacity:0; transform:translate(-50%,6px); } }
 .rh .banner { position:absolute; transform:translate(-50%,-50%); z-index:48; font-size:30px; color:var(--white); white-space:nowrap; pointer-events:none;

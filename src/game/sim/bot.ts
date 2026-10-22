@@ -30,14 +30,26 @@ function pour(r: sim.Run) {
   return false;
 }
 
+/** Where a station's ready made item (a paste, filling or fold) has to go, when it has one. */
+function target(st: sim.StationRun) {
+  const pr = st.part, made = pr?.state === "ready" ? sim.partOf(pr).makes : undefined;
+  return made ? DISHES[pr!.dishId].parts.find(p => p.stages.some(sg => sg.slots.some(sl => sl.accepts.includes(made))))?.station : undefined;
+}
+/** Whether a station is making one of these items for this dish (started, cooking or ready). */
+const madeUnderway = (r: sim.Run, dishId: string, accepts: string[]) => Object.values(r.stations).some(st => !!st?.part && st.part.dishId === dishId
+  && st.part.state !== "scorched" && st.part.state !== "split" && accepts.includes(sim.partOf(st.part).makes ?? ""));
+
 export function botStep(r: sim.Run) {
   // Gather round: one needed ingredient into the basket per action.
   if (sim.gathering(r)) { const g = r.gather!, i = g.got.findIndex(x => x === null); sim.gatherItem(r, g.need[i][0]); return; }
-  // Heat: aim for the middle of the band, easing off early on slow-cooling stations.
+  // Heat: aim for the middle of the band, easing off early on slow-cooling stations. An oven or fryer is preheated as soon as a
+  // waiting guest's dish needs it; an oven holds its own heat, so it simply stays on while it is needed.
   for (const st of Object.values(r.stations)) {
     if (!st || !STATIONS[st.kind].heat) continue;
-    const pr = st.part, [lo, hi] = sim.bandOf(st, pr), mid = (lo + hi) / 2;
-    const cooking = pr && (pr.state === "cooking" || pr.state === "loading" || pr.state === "waiting");
+    const pr = st.part, [lo, hi] = sim.bandOf(st, pr), mid = (lo + hi) / 2, cfg = STATIONS[st.kind];
+    const needed = sim.waiting(r).some(g => DISHES[g.dishId].parts.some(p => p.station === st.kind));
+    if (cfg.thermostat) { const want = needed && pr?.state !== "ready"; if (want !== st.heatOn) sim.toggleHeat(r, st.kind); continue; }
+    const cooking = (pr && (pr.state === "cooking" || pr.state === "loading" || pr.state === "waiting")) || (!pr && cfg.preheat && needed);
     const next = pr && sim.stageOf(pr), cool = next?.splitIfHot && pr!.state !== "cooking";
     const lead = st.kind === "pot" ? 0.12 : st.kind === "dessert" ? 0.06 : 0.03;
     // A flare warning: a player who reads it turns the burner off to ride it out.
@@ -53,13 +65,26 @@ export function botStep(r: sim.Run) {
     const g = urgent().find(x => x.dishId === p.dishId && !sim.runConflicts(r, items, x.rules).length);
     if (g) { sim.serve(r, i, g.orderId); return; }
   }
+  // A turn that is due: flip at halfway, fold once the filling is in.
+  for (const st of Object.values(r.stations)) {
+    const pr = st?.part; if (!st || !pr || pr.state !== "cooking" || pr.turned) continue;
+    const how = sim.stageOf(pr).turn;
+    if ((how === "flip" && pr.progress >= 0.5) || how === "fold") { if (sim.turn(r, st.kind)) return; }
+  }
   // Pour a ready paste, then plate anything ready.
   if (pour(r)) return;
+  // Two stations each holding something ready for the other (a fold for the wok, a filling for the board) can never pour: a player
+  // restarts one, which is free.
+  for (const st of Object.values(r.stations)) {
+    const to = st && target(st), back = to ? r.stations[to] : undefined;
+    if (st && back && target(back) === st.kind) { sim.restart(r, st.kind); return; }
+  }
   for (const st of Object.values(r.stations)) if (st?.part?.state === "ready" && !sim.partOf(st.part).makes) { if (sim.plate(r, st.kind)) return; }
   for (const st of Object.values(r.stations)) if (st?.part && (st.part.state === "scorched" || st.part.state === "split")) { sim.restart(r, st.kind); return; }
   // A dish nobody is waiting for any more (the guest changed their mind or left) is cleared so the station is free.
   for (const st of Object.values(r.stations)) {
-    if (st?.part && st.part.state !== "ready" && !sim.waiting(r).some(g => g.dishId === st.part!.dishId)) { sim.restart(r, st.kind); return; }
+    // A ready paste, filling or fold can't be plated, so one nobody wants any more is cleared too.
+    if (st?.part && (st.part.state !== "ready" || sim.partOf(st.part).makes) && !sim.waiting(r).some(g => g.dishId === st.part!.dishId)) { sim.restart(r, st.kind); return; }
   }
   // Cook: for each waiting guest (most urgent first), add the next safe item to a free or matching station.
   // How many of each part already exist (cooking or on the board), so each waiting guest gets exactly one.
@@ -67,7 +92,9 @@ export function botStep(r: sim.Run) {
   const have = (part: { id: string; makes?: string }) => {
     const mine = (partId: string, items: string[]) => partId === part.id || (!!part.makes && items.includes(part.makes));
     return Object.values(r.stations).reduce((n, s) => n + (s?.part && mine(s.part.partId, s.part.items.map(i => i.id)) ? s.part.portions : 0), 0) +
-      r.board.reduce((n, p) => n + (p && p.parts.some(x => mine(x.partId, x.items)) ? p.portions : 0), 0);
+      // A plate counts only while some waiting guest of that dish can eat it: one made with a root no Jain guest takes is not theirs.
+      r.board.reduce((n, p) => n + (p && p.parts.some(x => mine(x.partId, x.items)) && sim.waiting(r).some(x => x.dishId === p.dishId
+        && !sim.runConflicts(r, p.parts.flatMap(y => y.items), x.rules).length) ? p.portions : 0), 0);
   };
   for (const g of urgent()) {
     const dish = DISHES[g.dishId];
@@ -77,6 +104,10 @@ export function botStep(r: sim.Run) {
       if (!st.part && have(part) >= rank) continue;
       if (st.part && st.part.dishId !== g.dishId) continue;
       if (st.part && st.part.state !== "loading" && st.part.state !== "waiting" && st.part.state !== "cooking") continue;
+      // A part whose first step takes something another station makes (a filling, a paste) starts only once that is under way for
+      // this dish: started before, it holds the station while the one it waits on may be busy with another dish (a dough board and a
+      // wok each waiting for the other).
+      if (!st.part && part.stages[0].slots.some(sl => sl.accepts.some(id => sim.madeItems().has(id)) && !madeUnderway(r, g.dishId, sl.accepts))) continue;
       const stage = st.part ? sim.stageOf(st.part) : part.stages[0], stageIdx = st.part ? st.part.stage : 0;
       if (stage.splitIfHot && st.H > (stage.band ?? STATIONS[st.kind].band)[1] - 0.04) continue;
       for (const slot of stage.slots) {

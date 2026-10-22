@@ -6,7 +6,7 @@
  */
 import { DISHES, STATIONS, type StationKind } from "../content/dishes";
 import { GUESTS, conflicts, unionRules, type Rule } from "../content/guests";
-import { PAIRS, type Flip } from "../content/items";
+import { LATER_PAIRS, PAIRS, type Flip } from "../content/items";
 import type { Level, Order } from "../content/levels";
 
 /** FNV-1a over text, as an unsigned 32-bit seed. A run's id (a UUID) becomes its seed. */
@@ -46,7 +46,9 @@ export function buildPlan(level: Level, base: Order[], seed: number): Plan {
   const rulesOf = (o: Order): Rule[] => unionRules(...base.filter(x => x.id === o.id || (!!o.party && x.party === o.party)).map(x => GUESTS[x.guest].rules), level.allRules ?? []);
   // Which look-alike jar hides the problem is decided per run, so nobody can learn "always take B".
   const flip: Flip = {};
-  for (const [a, b] of PAIRS) if (rand() < 0.5) { flip[a] = b; flip[b] = a; }
+  // Pairs added later roll on a second stream, so adding one never changes the deal of a level that came before it.
+  const later = rng(seed ^ 0x5bd1e995);
+  for (const [a, b] of PAIRS) if ((LATER_PAIRS.has(a) ? later : rand)() < 0.5) { flip[a] = b; flip[b] = a; }
 
   let orders = base.map(o => ({ ...o }));
   // From Level 5 the same dishes are dealt to different guests. Dishes are swapped only between orders that use the same
