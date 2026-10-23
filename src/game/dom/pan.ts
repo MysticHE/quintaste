@@ -59,24 +59,34 @@ export class PanContents {
     this.drawPool(live);
     solids.forEach((it, i) => this.drawSolid(pr, it, i, solids.length, t, toss));
     this.drawSpeckles(live);
-    this.drawWrong(live, t, still);
+    this.drawWrong(pr, landing, t, still);
   }
 
   /**
    * An ingredient that breaks a guest's rule (the mistake toast says why) wears a pulsing red ring and a small cross until it is
-   * lifted out or the dish restarted; one poured or sprinkled in rings the whole bowl.
+   * lifted out or the dish restarted. One poured or sprinkled in, or any in a closed station (the rice cooker, whose food is hidden),
+   * rings the whole bowl, once however many there are.
    */
-  private drawWrong(live: sim.PlacedItem[], t: number, still: boolean) {
-    const bad = live.filter(i => i.warn); if (!bad.length) return;
+  private drawWrong(pr: sim.PartRun | null, landing: Set<number>, t: number, still: boolean) {
+    const bad = pr ? pr.items.filter(i => i.warn && !landing.has(i.uid)) : []; if (!bad.length) return;
     const pulse = still ? 1 : 0.6 + 0.4 * Math.sin(t * 7), W = this.tones.warn, B = this.bowl;
+    let bowl = false;
     for (const it of bad) {
-      const im = this.sprites.get(it.uid);
-      if (!im) { this.over.lineStyle(7, W, 0.25 * pulse).strokeEllipse(B.x, B.y - B.ry * 0.15, B.rx * 1.7, B.ry * 1.5).lineStyle(3, W, 0.9 * pulse).strokeEllipse(B.x, B.y - B.ry * 0.15, B.rx * 1.7, B.ry * 1.5); continue; }
-      const r = Math.max(im.displayWidth, im.displayHeight) * 0.58, bx = im.x + r * 0.72, by = im.y - r * 0.72, k = Math.max(5, r * 0.28);
+      const im = this.closed ? undefined : this.sprites.get(it.uid);
+      if (!im) { bowl = true; continue; }
+      const r = Math.max(im.displayWidth, im.displayHeight) * 0.58;
       this.over.lineStyle(7, W, 0.25 * pulse).strokeCircle(im.x, im.y, r).lineStyle(3, W, 0.9 * pulse).strokeCircle(im.x, im.y, r);
-      this.over.fillStyle(W, 1).fillCircle(bx, by, k).lineStyle(2, this.tones.light, 1)
-        .lineBetween(bx - k * 0.45, by - k * 0.45, bx + k * 0.45, by + k * 0.45).lineBetween(bx - k * 0.45, by + k * 0.45, bx + k * 0.45, by - k * 0.45);
+      this.cross(im.x + r * 0.72, im.y - r * 0.72, Math.max(5, r * 0.28));
     }
+    if (!bowl) return;
+    const cy = B.y - B.ry * 0.15, rw = B.rx * 1.7, rh = B.ry * 1.5;
+    this.over.lineStyle(7, W, 0.25 * pulse).strokeEllipse(B.x, cy, rw, rh).lineStyle(3, W, 0.9 * pulse).strokeEllipse(B.x, cy, rw, rh);
+    this.cross(B.x + rw * 0.4, cy - rh * 0.4, Math.max(6, B.rx * 0.2));
+  }
+  /** The small red badge with a light cross that marks a wrong ingredient. */
+  private cross(x: number, y: number, k: number) {
+    this.over.fillStyle(this.tones.warn, 1).fillCircle(x, y, k).lineStyle(2, this.tones.light, 1)
+      .lineBetween(x - k * 0.45, y - k * 0.45, x + k * 0.45, y + k * 0.45).lineBetween(x - k * 0.45, y + k * 0.45, x + k * 0.45, y - k * 0.45);
   }
 
   private drawPool(live: sim.PlacedItem[]) {

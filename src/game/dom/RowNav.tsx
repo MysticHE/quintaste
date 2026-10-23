@@ -7,7 +7,7 @@ import { useEffect, useMemo, useRef, useState, type MutableRefObject } from "rea
 import { STATIONS, type StationKind } from "../content/dishes";
 import * as sim from "../sim/engine";
 import { SHORT, TagIcon, stationState } from "./Counter";
-import { ROW_GUTTER, rowEdge, rowStarts, startFor, viewLayout, type Layout, type Point } from "./layout";
+import { clampStart, ROW_GUTTER, rowEdge, rowStarts, startFor, viewLayout, type Layout, type Point } from "./layout";
 import type { Playfield } from "./scene";
 
 /** How long a drag held at the row's edge waits before the row slides. */
@@ -17,11 +17,13 @@ type Dir = "back" | "next";
 /** `selected` is the run's selected station, which the row follows. */
 export function useStationRow(L: Layout | null, selected: StationKind, runRef: MutableRefObject<sim.Run>, sceneRef: MutableRefObject<Playfield | null>, bump: () => void) {
   const [start, setStart] = useState(0), at = useRef(0), full = useRef(L);
-  useEffect(() => { full.current = L; }, [L]);
-  const view = useMemo(() => (L ? viewLayout(L, start) : null), [L, start]);
+  const rest = (s: number) => { at.current = s; setStart(s); sceneRef.current?.setRow(s); };
+  // A layout that shows more stations than before (a fold opened, a window widened) has fewer resting places: keep the row on one,
+  // so the screen and the playfield agree on which stations are in view.
+  useEffect(() => { full.current = L; if (L) { const s = clampStart(L, at.current); if (s !== at.current) rest(s); } }, [L]); // eslint-disable-line react-hooks/exhaustive-deps
+  const view = useMemo(() => (L ? viewLayout(L, clampStart(L, start)) : null), [L, start]);
   // Development builds and the test harness read the stations where the screen shows them.
   useEffect(() => { if (process.env.NODE_ENV !== "production") (globalThis as { __rushView?: () => Layout | null }).__rushView = () => view; }, [view]);
-  const rest = (s: number) => { at.current = s; setStart(s); sceneRef.current?.setRow(s); };
   /** Slides the row to rest at `s`; a selected station that leaves the view hands over to the first one in view. */
   const slide = (s: number) => {
     const lay = full.current; if (!lay || s === at.current) return;
@@ -44,7 +46,7 @@ export function useStationRow(L: Layout | null, selected: StationKind, runRef: M
   // The row follows the selected station; a new run starts at the first station.
   useEffect(() => { const lay = full.current; if (lay) { const want = startFor(lay, selected, at.current); if (want !== at.current) rest(want); } }, [selected]); // eslint-disable-line react-hooks/exhaustive-deps
   const reset = () => rest(0);
-  return { start, view, slide, swipe, edgeAt, edge, reset };
+  return { start: L ? clampStart(L, start) : start, view, slide, swipe, edgeAt, edge, reset };
 }
 
 const URGENT = { warn: 3, take: 2, ready: 1, cook: 0, idle: 0 } as const;

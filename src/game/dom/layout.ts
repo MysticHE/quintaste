@@ -38,6 +38,17 @@ export type Layout = {
 
 /** Where a row of `n` with `shown` in view can rest: the first station in view (two in view: a row of three shows 1–2 then 2–3, of four 1–2 then 3–4). */
 export const rowStarts = (n: number, shown = 2) => (n <= shown ? [0] : [0, n - shown]);
+/** `start` kept inside the row's last resting place, for when the layout shows more stations than before (a fold opened, a window widened). */
+export const clampStart = (L: Layout, start: number) => { const starts = rowStarts(L.row.kinds.length, L.row.shown); return Math.min(start, starts[starts.length - 1]); };
+/**
+ * Where a hint toast sits (its top centre). One column: just above the shelf, under the counter. Two panes: between the shelf and the
+ * stations, below the guest's line under the shelf (SayToast), when the kitchen has that room; else above the café's counter.
+ */
+export function hintAt(L: Layout): Point {
+  if (L.kit.x === L.col.x) return { x: L.kit.x + L.kit.w / 2, y: Math.max(4, L.shelves.y - 30) };
+  const y = L.row.y - 30;
+  return y >= L.shelves.y + L.shelves.h + 64 ? { x: L.kit.x + L.kit.w / 2, y } : { x: L.col.x + L.col.w / 2, y: L.counter.y - 30 };
+}
 /** A station moved along the row by `dx`. */
 export const shiftStation = (r: Station, dx: number): Station =>
   ({ ...r, x: r.x + dx, art: { ...r.art, x: r.art.x + dx }, bowl: { ...r.bowl, x: r.bowl.x + dx }, tag: { ...r.tag, x: r.tag.x + dx } });
@@ -184,11 +195,14 @@ function seatBoxes(n: number, px: number, pw: number, top: number, counter: Rect
 
 /** The serving tray's share of the row, by how many stations are in view beside it. */
 const boardShare = (shown: number) => (shown <= 1 ? 0.44 : shown === 2 ? 0.34 : shown === 3 ? 0.28 : 0.24);
-/** Stations in view: as many as get a slot of MIN_SLOT px or more, two at least (a phone shows two, a tablet up to four). */
+/**
+ * Stations in view: as many as get a slot of MIN_SLOT px or more, two at least (a phone shows two, a tablet up to four). A row
+ * that slides (more stations than in view) loses a gutter at each side for its arrows, as stationRow lays it out.
+ */
 const MIN_SLOT = 104;
 function rowShown(n: number, pw: number) {
   let k = n;
-  while (k > 2 && (pw * (1 - boardShare(k)) - 4) / k < MIN_SLOT) k--;
+  while (k > 2 && (pw * (1 - boardShare(k)) - 4 - (n > k ? 2 * ROW_GUTTER : 0)) / k < MIN_SLOT) k--;
   return Math.max(1, k);
 }
 /** Row height that fits the tallest station's art at the width each station in view gets, plus its tag. */

@@ -1,4 +1,4 @@
-import { Modal, Pressable, StyleSheet, useWindowDimensions, View } from "react-native";
+import { Modal, Pressable, ScrollView, StyleSheet, useWindowDimensions, View } from "react-native";
 import Animated, { FadeIn, FadeInDown } from "react-native-reanimated";
 import Svg, { Defs, RadialGradient, Rect, Stop } from "react-native-svg";
 import { T } from "../../../components/ui";
@@ -16,27 +16,31 @@ export type Find = { kind: "accessory" | "pet" | "decor" | "skin"; id: string; l
  * dimmed café, what it is for, then the gold pill (Equip, Choose, Use, or Done) and Keep current look.
  */
 export function FindReveal({ find, pet, onEquip, onKeep }: { find: Find; pet: string; onEquip(): void; onKeep(): void }) {
-  const { theme, reducedMotion } = usePreferences(), { width, height } = useWindowDimensions();
+  const { theme, reducedMotion } = usePreferences(), { height } = useWindowDimensions();
   const item = find.kind === "accessory" ? ACCESSORIES[find.id] : find.kind === "pet" ? PETS[find.id] : find.kind === "decor" ? DECOR[find.id] : SKINS[find.id];
   const name = item.name, wearer = find.kind === "accessory" && GAME_ART[wearArt(pet, find.id)] ? wearArt(pet, find.id) : null;
   const art = find.kind === "skin" ? SKINS[find.id].art! : (item as { art: string }).art;
   const forWho = find.kind === "accessory" ? "For your companion" : find.kind === "pet" ? "A new companion" : find.kind === "decor" ? "For your café" : "A new café skin";
   const action = find.kind === "accessory" ? (wearer ? "Equip on " + PETS[pet].name : null) : find.kind === "pet" ? "Choose " + name : find.kind === "skin" ? "Use this skin" : null;
+  // The spotlight shrinks (to 60%) on a short screen so everything fits; the page still scrolls if it cannot.
+  const fit = Math.max(0.6, Math.min(1, (height - (wearer ? 470 : 360)) / 300));
   const enter = (i: number) => reducedMotion ? undefined : FadeInDown.delay(80 + i * 110).springify().damping(16).stiffness(150);
   return <Modal transparent visible animationType={reducedMotion ? "none" : "fade"} onRequestClose={onKeep} statusBarTranslucent>
-    <Svg width={width} height={height} style={StyleSheet.absoluteFill}>
+    {/* Sized by the modal itself: on Android the window leaves out the status and navigation bars the modal covers. */}
+    <Svg width="100%" height="100%" style={StyleSheet.absoluteFill}>
       <Defs><RadialGradient id="findScrim" cx="50%" cy="44%" r="75%">
         <Stop offset="0" stopColor={theme.mediaSurface} stopOpacity={0.72} /><Stop offset="1" stopColor={theme.mediaSurface} stopOpacity={0.95} />
       </RadialGradient></Defs>
-      <Rect width={width} height={height} fill="url(#findScrim)" />
+      <Rect width="100%" height="100%" fill="url(#findScrim)" />
     </Svg>
-    <View style={s.body} accessibilityViewIsModal>
+    {/* Scrolls when a short screen or a large text size cannot fit it all, so the buttons are always reachable. */}
+    <ScrollView contentContainerStyle={s.body} accessibilityViewIsModal bounces={false} showsVerticalScrollIndicator={false}>
       <Animated.View entering={enter(0)} style={s.head}>
         <View style={s.from}><Spark color={theme.mediaRating} /><T variant="small" color={theme.mediaRating} style={s.fromText}>{find.from}</T><Spark color={theme.mediaRating} /></View>
         <T variant="display" color={theme.mediaForeground} accessibilityRole="header" style={s.center}>Your new find</T>
       </Animated.View>
       <Animated.View entering={reducedMotion ? undefined : FadeIn.duration(260)}>
-        <FindLight art={art} size={find.kind === "skin" ? 176 : 136} still={reducedMotion} card={find.kind === "skin"} />
+        <FindLight art={art} size={find.kind === "skin" ? 176 : 136} still={reducedMotion} card={find.kind === "skin"} fit={fit} />
       </Animated.View>
       <Animated.View entering={enter(3)} style={s.head}>
         <T variant="title" color={theme.mediaForeground} style={s.center}>{name}</T>
@@ -50,7 +54,7 @@ export function FindReveal({ find, pet, onEquip, onKeep }: { find: Find; pet: st
         </Pressable>}
         <T variant="small" color={theme.mediaMutedForeground} style={[s.center, s.free]}>Free · cosmetic only</T>
       </Animated.View>
-    </View>
+    </ScrollView>
   </Modal>;
 }
 
@@ -60,7 +64,7 @@ function Spark({ color }: { color: string }) {
 }
 
 const s = StyleSheet.create({
-  body: { flex: 1, alignItems: "center", justifyContent: "center", paddingHorizontal: 24, gap: 4 },
+  body: { flexGrow: 1, alignItems: "center", justifyContent: "center", paddingHorizontal: 24, paddingVertical: 32, gap: 4 },
   head: { alignItems: "center", gap: 6 },
   center: { textAlign: "center" },
   from: { flexDirection: "row", alignItems: "center", gap: 8 },

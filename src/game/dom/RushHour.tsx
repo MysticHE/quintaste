@@ -18,7 +18,7 @@ import { HeatPanel, SayToast } from "./Controls";
 import { takePhase } from "./Knob";
 import { Bubbles, PlateTags, SeatTags, StationTags } from "./Counter";
 import { Hud, RecipeCard } from "./Hud";
-import { nearestStation, stationsBox, type Point } from "./layout";
+import { hintAt, nearestStation, stationsBox, type Point } from "./layout";
 import { Basket } from "./Basket";
 import { ToolChips } from "./Tools";
 import { Brief, LabelSheet, PauseSheet, Results, TooShort, type Reward } from "./Overlays";
@@ -97,6 +97,7 @@ export default function RushHour(props: Props) {
     { reduced, knob: !!runRef.current.knob, ts: props.textScale, pet: art[petArt] ? petArt : PETS[pet]?.art ?? "" }, input, bump);
   // The station row: two stations in view, sliding to the rest (RowNav.tsx). `Lv` is the layout as the screen shows it.
   const row = useStationRow(L, runRef.current.selected, runRef, sceneRef, bump), Lv = row.view, rowNow = useRef(row); rowNow.current = row;
+  const hint = L ? hintAt(L) : null;
   const [paused, setPaused] = useState(false);
   const [leaving, setLeaving] = useState(false);
   const ev = useServiceEvents({ runRef, sceneRef, rootRef, fx, reduced, onEnd: () => void save() });
@@ -225,9 +226,9 @@ export default function RushHour(props: Props) {
       {ev.took && Lv?.stations[ev.took.station] && <div key={ev.took.key} className={"stamp " + ev.took.grade} aria-hidden="true"
         style={{ left: Lv.stations[ev.took.station]!.art.x + Lv.stations[ev.took.station]!.art.w / 2, top: Lv.stations[ev.took.station]!.art.y + 4 }}>
         {STAMP[ev.took.what][ev.took.grade]}</div>}
-      {ev.hint && <div key={ev.hint.key} className="toast" style={{ left: L.kit.x + L.kit.w / 2, top: Math.max(4, L.shelves.y - 30) }}>{ev.hint.text}</div>}
+      {ev.hint && hint && <div key={ev.hint.key} className="toast" style={{ left: hint.x, top: hint.y }}>{ev.hint.text}</div>}
     </div>}
-    {L && fx.caption && <div key={fx.caption.key} className="caption" style={{ top: L.recipe.y + L.recipe.h + 6, right: L.col.x + 12 }} aria-hidden="true">{fx.caption.text}</div>}
+    {L && fx.caption && <div key={fx.caption.key} className="caption" style={{ top: L.recipe.y + L.recipe.h + 6, right: L.w - L.col.x - L.col.w + 12 }} aria-hidden="true">{fx.caption.text}</div>}
     {L && ev.bannerText && <div key={ev.bannerText.key} className="banner" style={{ left: L.col.x + L.col.w / 2, top: L.recipe.y + L.recipe.h + 24 }} role="status">{ev.bannerText.text}</div>}
     {!run.started && <Brief run={run} art={art} petArt={petArt} best={props.best} leaving={leaving} onStart={begin} onExit={() => exit("cafe")} />}
     {run.label && <LabelSheet run={run} onClose={() => { sim.closeLabel(run); bump(); }} />}

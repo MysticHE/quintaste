@@ -21,8 +21,11 @@ async function syncAccount(ctx: SyncContext): Promise<void> {
     if (!await refreshGameStatus()) return;
     let queue = await readQueue(memberId), server: ServerProgress | null = null;
     if (!queue.imported) {
+      const before = ctx.game().credits;
       server = await importDeviceProgress(ctx.game());
       queue = await editQueue(memberId, q => ({ ...q, imported: true, cafeDirty: false }));
+      // Credits earned on this phone before signing in stay off the account (owner, 23 Oct 2026); say so rather than let them vanish.
+      if (before > server.game.credits) ctx.notify("Café credits from this phone don't move to your account.");
     } else if (queue.cafeDirty) {
       const rev = cafeRev();
       server = await saveCafe(cafeOf(ctx.game()));

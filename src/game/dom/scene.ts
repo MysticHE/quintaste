@@ -11,7 +11,7 @@ import * as sim from "../sim/engine";
 import { takePhase } from "./Knob";
 import { SERVE_GLIDE } from "./coinsFx";
 import { CounterPet } from "./pet";
-import { nearestStation, shiftStation, viewLayout, type Layout, type Point, type Rect } from "./layout";
+import { clampStart, nearestStation, shiftStation, viewLayout, type Layout, type Point, type Rect } from "./layout";
 import * as motion from "./motion";
 import { PanContents, type Tones } from "./pan";
 import { STATION_ART } from "./stationArt";
@@ -136,7 +136,8 @@ export class Playfield extends Phaser.Scene {
     });
     this.buildBoard();
     (Object.keys(L.stations) as StationKind[]).forEach(kind => this.buildStation(kind));
-    this.rowStart = Math.min(this.rowStart, Math.max(0, L.row.kinds.length - L.row.shown)); this.slide.x = -this.rowStart * L.row.slot;
+    // The row's resting place is the React side's (useStationRow), which clamps it the same way when the layout changes.
+    this.rowStart = clampStart(L, this.rowStart); this.slide.x = -this.rowStart * L.row.slot;
   }
   /** Rests the station row at `start` (layout rowStarts), sliding there unless motion is reduced. */
   setRow(start: number) {

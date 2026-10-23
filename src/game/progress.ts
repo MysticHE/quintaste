@@ -50,7 +50,7 @@ export function readGame(value: unknown): GameProgress {
   const input = rec(value), base = emptyGame();
   const best: Record<string, LevelBest> = {}, seasons: Record<string, LevelBest> = {};
   for (const [k, v] of Object.entries(rec(input.best))) {
-    // Only levels this app has: bests for levels that do not exist yet must never count (the device import caps credits by them).
+    // Only levels this app has: bests for levels that do not exist yet must never count (the device import caps bought decor by them).
     if (!/^[1-9]\d{0,2}$/.test(k) || +k > LEVELS.length) continue;
     best[k] = readBest(v);
   }
