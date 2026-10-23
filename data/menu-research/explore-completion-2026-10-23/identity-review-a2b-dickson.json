@@ -1,0 +1,24 @@
+{
+  "id": "staff-a2b-veg-restaurant-adyar-ananda-bhavan-upper-dickson-rd-sing-bbd4d024",
+  "reviewKind": "merchant-address-correction",
+  "previousAddress": "9 UPPER DICKSON ROAD LITTLE INDIA CONSERVATION AREA SINGAPORE 207469",
+  "previousPostalCode": "207469",
+  "newAddress": "3-5 Upper Dickson Road, Singapore 207463",
+  "newPostalCode": "207463",
+  "evidence": [
+    {
+      "url": "https://aabsweets.com.sg/contact",
+      "fact": "Merchant explicitly lists Upper Dickson outlet at 3-5 Upper Dickson Road 207463."
+    },
+    {
+      "url": "https://www.findglocal.com/SG/Singapore/112854550352742/a2b_singapore",
+      "fact": "Dated merchant posts of 24 and 10 August 2026 explicitly name Poori and Athirasam and list all four participating premises including 3-5 Upper Dickson Road; these are not inferred from another branch menu."
+    },
+    {
+      "url": "https://www.google.com/maps/place/A2B+Veg+Restaurant+(Adyar+Ananda+Bhavan),+Upper+Dickson+Rd,+Singapore/@1.3066945,103.85231,17z/data=!3m1!4b1!4m6!3m5!1s0x31da1909d1482c2b:0x9c42c6006d989930!8m2!3d1.3066945!4d103.85231!16s%2Fg%2F11x_k2q4w7?entry=ttu&g_ep=EgoyMDI2MTAxOS4wIKXMDSoASAFQAw%3D%3D",
+      "fact": "Retained guarded signed-out Maps capture 23 October 2026 resolves the exact catalogue name/search to 3 Upper Dickson Rd, links aabsweets.com.sg, has no hours. It disagrees with catalogue 9 and with merchant postcode; primary merchant address/postcode wins."
+    }
+  ],
+  "inference": "Catalogue street number/postcode are erroneous for its named Upper Dickson A2B outlet. Independent current same-brand listing, merchant contact and dated branch-explicit posts agree on 3/3-5. Nearby Kumar Mess at 7/9 is separate; no mixed-kitchen menu is transferred.",
+  "hoursBoundary": "No hours in exact retained Maps listing. Generic site footer beside 462 Serangoon and ordering windows are not exact walk-in hours."
+}

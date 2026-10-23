@@ -1,3 +1,7 @@
+<!-- explore-menu-release-20261023 -->
+Owner explicitly authorized pushing, deploying and publishing all prepared Explore data on23October, superseding the earlier staging hold. Release preparation is in progress from current main, preserving committed game updates. Batches01-20 are live; reviewed batches21-39 have65patches,21covers,20newmenus,9existing-menu minimum-price corrections and26hours reviews. Publication must use `scripts/publish-explore-content.py` (default dry-run, `--apply` commits) against the exact versioned bundle in `data/menu-research/explore-completion-2026-10-23/`, with optimistic versions and protected rollback backup. Do not deploy the old isolated app-fix export. Include the menu availability/admin2000-item correction dd9785e with current game code. Last verified live app/preview before this release:20261023-ci139-5e00e2c; admin20261023-ci137-af66178. See `docs/research/explore-completion-2026-10-23.md` for final publication status. Owner accepts omitting unavailable menus:44records are **Verified - research checked** in the Excel/verificationCSV, routine recheck=false. Research outcome is not certification of unavailable dishes, disputed identity or full weekly hours;18hours fields remain absent. Reopen only on new exact-outlet evidence or an explicit owner request.
+<!-- /explore-menu-release-20261023 -->
+
 <!-- qt-next-session-gaps-20261017 -->
 QT bot continuation: read `docs/research/QT_BOTS_REMAINING_GAPS_2026-10-17.md`
 and `.codex/qt-bots-next-session-prompt.md` (repository-root-relative). They

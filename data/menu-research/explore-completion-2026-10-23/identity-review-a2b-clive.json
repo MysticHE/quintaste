@@ -1,0 +1,25 @@
+{
+  "id": "staff-adayar-ananda-bhavan-9abd19aa",
+  "reviewKind": "merchant-address-correction",
+  "previousAddress": "16 CLIVE STREET SINGAPORE 209776",
+  "previousPostalCode": "209776",
+  "newAddress": "1 Dalhousie Lane, Singapore 209664",
+  "newPostalCode": "209664",
+  "pinDistanceMetres": 8.63,
+  "evidence": [
+    {
+      "url": "https://aabsweets.com.sg/contact",
+      "fact": "Current merchant lists 1 Dalhousie Lane, Singapore 209664 among its outlets."
+    },
+    {
+      "url": "https://www.flickr.com/photos/25802865@N08/54106683593",
+      "fact": "Original photograph by Choo Yut Shing, taken 16 October 2024, explicitly locates A2B at Dalhousie Lane viewed from Clive Street. Inspected sign reads 1 Dalhousie Lane. Photograph used only to review identity, never reused as an app asset."
+    },
+    {
+      "url": "https://www.foodpanda.sg/restaurant/jpfm/a2b-veg-restaurant-1-dalhousie-lane",
+      "fact": "Outlet-specific merchant delivery page has matching brand, exact address/postcode, current named products and a pin within 10 metres of retained catalogue pin."
+    }
+  ],
+  "inference": "The catalogue street/postcode are erroneous for this A2B pin; the matched corner outlet uses the merchant address 1 Dalhousie Lane. No transfer from Serangoon or Upper Dickson outlets.",
+  "hoursBoundary": "Existing Friday-only observation retained; generic official site footer hours beside 462 Serangoon and delivery service hours are not dine-in proof."
+}

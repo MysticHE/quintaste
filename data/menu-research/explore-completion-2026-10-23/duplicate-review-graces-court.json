@@ -1,0 +1,18 @@
+{
+  "checkedAt": "2026-10-23",
+  "id": "staff-graces-court-cuisine-fbf5c6fd",
+  "currentId": "research-supreme-vege-queen-street",
+  "finding": "Duplicate under former restaurant name; exact same unit and phone, explicit merchant takeover/rename history",
+  "evidence": [
+    {"url":"https://www.supremevege.sg/about-us/","fact":"Merchant states it took over the 22-year-old 鴻閣素食馆 and renamed it Supreme Vege on 1 September 2016."},
+    {"url":"https://www.supremevege.sg/contact-us/","fact":"Merchant publishes 12 Queen Street, Hotel Royal @ Queens #02-03, Singapore 188553, phone 6238 5085."},
+    {"url":"https://www.foryou.sg/qql/slot/u401/ForYouPDF/336P1.pdf","fact":"Indexed original advertisement names Graces Court Cuisine/鸿阁素食馆 at 12 Queen Street #02-03 Hotel Royal @ Queens 188553 and phone62385085."},
+    {"url":"https://www.happycow.net/reviews/supreme-vege-central-singapore-64052","fact":"Original diner review dated20September2022 explicitly calls Supreme Vege formerly Graces Court Vegetarian; corroborates merchant history. Facts only, no review prose copied."}
+  ],
+  "retainedCurrentRecord": {"name":"Supreme Vege","menuItems":126,"hasCover":true,"hasHoursField":true},
+  "proposedResolution":"Retain current Supreme Vege record, preserve former-name discovery, and suppress the duplicate Graces Court record in a reviewed catalogue cleanup. Do not generate duplicate food assets or count this as a new completed menu.",
+  "boundaries":"No closure of current Supreme Vege inferred. Hotel Grand Pacific in the duplicate is erroneous. Merchant meal periods lack weekdays; landlord and directory schedules conflict. Existing current-record hours remain qualified.",
+  "status":"identity reviewed; catalogue cleanup not applied or included in content gap reductions",
+  "productionApplied":false,
+  "sourceSnapshots":["continuation-web-366.json","continuation-web-368.json","continuation-web-369.json","continuation-web-371.json"]
+}

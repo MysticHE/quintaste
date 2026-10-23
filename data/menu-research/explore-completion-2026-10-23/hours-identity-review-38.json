@@ -1,0 +1,64 @@
+{
+  "checkedAt": "2026-10-23T09:03:44.922597+00:00",
+  "records": [
+    {
+      "id": "staff-kiat-lim-vegetarian-676e43a0",
+      "originalGooglePlaceId": "ChIJpcUWLM0X2jERYfNt9rAEg4w",
+      "decodedOriginalFeatureId": "0x31da17cd2c16c5a5:0x8c8304b0f66df361",
+      "renderedFeatureId": "0x31da17cd2c16c5a5:0x8c8304b0f66df361",
+      "sourceSnapshot": "hours/staff-kiat-lim-vegetarian-676e43a0.json",
+      "catalogueAddress": "222 UPPER THOMSON ROAD THOMSON GARDEN ESTATE SINGAPORE 574354",
+      "newHours": {
+        "summary": "Published: Mon-Wed/Fri-Sun 05:15-13:30; Thu closed",
+        "schedule": [
+          "Monday-Wednesday and Friday-Sunday 05:15-13:30",
+          "Thursday Closed"
+        ],
+        "notes": "Exact original place ID matches the saved 23 October listing at 222A Upper Thomson Road; catalogue says 222. Friday 05:15-13:30 independently agrees with the published directory week. Thursday closure is explicit directory text, not inferred from an omitted day. Other days, unit details and holiday exceptions lack current merchant confirmation.",
+        "sourceUrl": "https://www.onehungryhippo.com/restaurants/kiat-lim-vegetarian",
+        "timezone": "Asia/Singapore",
+        "checkedAt": "2026-10-23"
+      },
+      "addressChanged": false
+    },
+    {
+      "id": "staff-gowrisankar-vegetarian-restaurant-4b7dbb32",
+      "originalGooglePlaceId": "ChIJCTUZPQAZ2jERo87x_cvKTf0",
+      "decodedOriginalFeatureId": "0x31da19003d193509:0xfd4dcacbfdf1cea3",
+      "renderedFeatureId": "0x31da19003d193509:0xfd4dcacbfdf1cea3",
+      "sourceSnapshot": "hours/staff-gowrisankar-vegetarian-restaurant-4b7dbb32.json",
+      "catalogueAddress": "79A DESKER ROAD DESKER ROAD CONSERVATION AREA SINGAPORE 209602",
+      "newHours": {
+        "summary": "Friday 9 am–9 pm; other days unconfirmed",
+        "schedule": [
+          "Friday 9 am–9 pm"
+        ],
+        "notes": "Partial schedule: only Friday was observed in the saved signed-out listing on 23 October 2026. The rendered listing exactly matches the original source Google place ID, name and postcode. The saved listing says 79 Desker Road; catalogue says 79A. Confirm the unit before visiting. Other weekdays and holiday exceptions remain unconfirmed; do not assume Friday hours apply to them.",
+        "sourceUrl": "https://www.google.com/maps/place/Gowrisankar+Vegetarian+Restaurant/@1.308832,103.8557721,17z/data=!3m1!4b1!4m6!3m5!1s0x31da19003d193509:0xfd4dcacbfdf1cea3!8m2!3d1.308832!4d103.8557721!16s%2Fg%2F11wh31ywmd?entry=ttu&g_ep=EgoyMDI2MTAxOS4wIKXMDSoASAFQAw%3D%3D",
+        "timezone": "Asia/Singapore",
+        "checkedAt": "2026-10-23"
+      },
+      "addressChanged": false
+    },
+    {
+      "id": "staff-ji-xiang-vegetarian-af3046d8",
+      "originalGooglePlaceId": "ChIJx46HetMF2jEROF_4KBTbA1A",
+      "decodedOriginalFeatureId": "0x31da05d37a878ec7:0x5003db1428f85f38",
+      "renderedFeatureId": "0x31da05d37a878ec7:0x5003db1428f85f38",
+      "sourceSnapshot": "hours/staff-ji-xiang-vegetarian-af3046d8.json",
+      "catalogueAddress": "3 THIRD LOK YANG ROAD SINGAPORE 627998",
+      "newHours": {
+        "summary": "Friday 8 am–2 pm; other days unconfirmed",
+        "schedule": [
+          "Friday 8 am–2 pm"
+        ],
+        "notes": "Partial schedule: only Friday was observed in the saved signed-out listing on 23 October 2026. The rendered listing exactly matches the original source Google place ID, name and postcode. The saved listing says 1-3 Third Lok Yang Road, which includes catalogue number 3. Other weekdays and holiday exceptions remain unconfirmed; do not assume Friday hours apply to them.",
+        "sourceUrl": "https://www.google.com/maps/place/Ji+Xiang+Vegetarian/@1.3249184,103.6900266,17z/data=!3m1!4b1!4m6!3m5!1s0x31da05d37a878ec7:0x5003db1428f85f38!8m2!3d1.3249184!4d103.6900266!16s%2Fg%2F11hzj1ddx2?entry=ttu&g_ep=EgoyMDI2MTAxOS4wIKXMDSoASAFQAw%3D%3D",
+        "timezone": "Asia/Singapore",
+        "checkedAt": "2026-10-23"
+      },
+      "addressChanged": false
+    }
+  ],
+  "productionApplied": false
+}

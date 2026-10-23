@@ -1,0 +1,24 @@
+{
+  "id": "staff-item-22e46594",
+  "reviewKind": "merchant-address-correction",
+  "previousAddress": "190 MIDDLE ROAD FORTUNE CENTRE SINGAPORE 188979",
+  "previousPostalCode": "188979",
+  "newAddress": "190 Middle Road #04-22 Fortune Centre, Singapore 188979",
+  "newPostalCode": "188979",
+  "evidence": [
+    {
+      "url": "https://take.app/newgreenpasture",
+      "fact": "Merchant primary storefront names New Green Pasture Cafe, phone63368755, and explicitly links its HappyCow profile10358. It publishes dine-in Tue-Sun11-20 and says honey is offered, so no whole-venue Vegan claim is inferred."
+    },
+    {
+      "url": "https://www.happycow.net/reviews/new-green-pasture-cafe-central-singapore-10358/1462312",
+      "fact": "Search-cached title explicitly pairs New Green Pasture Cafe with Chinese brand新绿园; exact190MiddleRoad#04-22/188979 and phone63368755 agree. Primary merchant self-link establishes the profile identity. No captcha page or alternate host fetched."
+    },
+    {
+      "url": "https://www.foodpanda.sg/restaurant/f1n1/new-green-pasture-cafe-fortune-centre",
+      "fact": "Current merchant delivery page matches brand, exact unit#04-22, postcode and named products."
+    }
+  ],
+  "inference": "Chinese catalogue name新绿园餐厅 at190MiddleRoad identifies the same merchant as self-linked New Green Pasture Cafe新绿园. Correct missing unit to current merchant#04-22; legacy third-party#04-01 does not override matched merchant evidence. Keep both existing catalogue records visible pending a separate duplicate review.",
+  "hoursBoundary": "Monday and holiday exceptions are unconfirmed. Delivery hours and stale2022 price list not used as dine-in hours/current prices."
+}

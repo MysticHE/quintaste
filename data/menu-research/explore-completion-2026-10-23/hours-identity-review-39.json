@@ -1,0 +1,106 @@
+{
+  "checkedAt": "2026-10-23T09:16:01.125865+00:00",
+  "records": [
+    {
+      "id": "research-ur04-mani-iyer",
+      "sourceSnapshot": "hours/research-ur04-mani-iyer.json",
+      "snapshotCheckedAt": "2026-10-23T00:29:15.018465+00:00",
+      "requiredExactListingText": [
+        "215 Ang Mo Kio Ave 1",
+        "560215"
+      ],
+      "observedFridayText": "Friday 9 am–9 pm",
+      "originalGooglePlaceId": null,
+      "decodedOriginalFeatureId": null,
+      "renderedFeatureId": null,
+      "catalogueAddress": "215 Ang Mo Kio Avenue 1, Singapore 560215",
+      "newHours": {
+        "summary": "Friday 09:00-21:00; other days unconfirmed",
+        "schedule": [
+          "Friday 09:00-21:00"
+        ],
+        "notes": "Partial schedule: Friday only, observed in the saved signed-out listing on 23 October 2026. Exact name and 215 Ang Mo Kio address match the merchant menu. Delivery ordering windows are not asserted as walk-in hours. Other weekdays and holiday exceptions remain unconfirmed; do not extend Friday hours to them.",
+        "sourceUrl": "https://www.google.com/maps/place/Mani+Iyer+Vegetarian+Cuisune/@1.3664997,103.8415977,17z/data=!3m1!4b1!4m6!3m5!1s0x31da170014a169e1:0x841e8758b2943b9a!8m2!3d1.3664997!4d103.8415977!16s%2Fg%2F11zcv83xm6?entry=ttu&g_ep=EgoyMDI2MTAxOS4wIKXMDSoASAFQAw%3D%3D",
+        "timezone": "Asia/Singapore",
+        "checkedAt": "2026-10-23"
+      },
+      "addressChanged": false
+    },
+    {
+      "id": "research-verimix-le-quest-01-17",
+      "sourceSnapshot": "hours/research-verimix-le-quest-01-17.json",
+      "snapshotCheckedAt": "2026-10-23T00:54:54.054511+00:00",
+      "requiredExactListingText": [
+        "Verimix Vegetarian",
+        "4 Bukit Batok Street 41, #01-17"
+      ],
+      "observedFridayText": "Friday 10:30 am–2:30 pm 5–8 pm",
+      "originalGooglePlaceId": null,
+      "decodedOriginalFeatureId": null,
+      "renderedFeatureId": null,
+      "catalogueAddress": "4 Bukit Batok Street 41 #01-17 Le Quest Mall, Singapore 657991",
+      "newHours": {
+        "summary": "Friday 10:30-14:30, 17:00-20:00; other days unconfirmed",
+        "schedule": [
+          "Friday 10:30-14:30, 17:00-20:00"
+        ],
+        "notes": "Partial schedule: Friday only, observed in the saved signed-out listing on 23 October 2026. Exact outlet unit agrees with the landlord listing. Mall footer hours and differing delivery slots are not restaurant hours. Other weekdays and holiday exceptions remain unconfirmed; do not extend Friday hours to them.",
+        "sourceUrl": "https://www.google.com/maps/place/Verimix+Vegetarian/@1.3554405,103.7414614,17z/data=!3m1!4b1!4m6!3m5!1s0x31da110053680e09:0x1a24e8ddbcd00610!8m2!3d1.3554405!4d103.7414614!16s%2Fg%2F11x6mb5s9p?entry=ttu&g_ep=EgoyMDI2MTAxOS4wIKXMDSoASAFQAw%3D%3D",
+        "timezone": "Asia/Singapore",
+        "checkedAt": "2026-10-23"
+      },
+      "addressChanged": false
+    },
+    {
+      "id": "staff-su-man-yuan-vegetarian-4cf4cdc4",
+      "sourceSnapshot": "hours/staff-su-man-yuan-vegetarian-4cf4cdc4.json",
+      "snapshotCheckedAt": "2026-10-23T00:41:16.757515+00:00",
+      "requiredExactListingText": [
+        "Su Man Yuan Vegetarian",
+        "101 Upper Cross St"
+      ],
+      "observedFridayText": "Friday 8:30 am–7 pm",
+      "originalGooglePlaceId": "ChIJo29donIZ2jERLnx2bSf54Zc",
+      "decodedOriginalFeatureId": "0x31da1972a25d6fa3:0x97e1f9276d767c2e",
+      "renderedFeatureId": "0x31da1972a25d6fa3:0x97e1f9276d767c2e",
+      "catalogueAddress": "101B UPPER CROSS STREET PEOPLE'S PARK CENTRE SINGAPORE 058359",
+      "newHours": {
+        "summary": "Friday 08:30-19:00; other days unconfirmed",
+        "schedule": [
+          "Friday 08:30-19:00"
+        ],
+        "notes": "Partial schedule: Friday only, observed in the saved signed-out listing on 23 October 2026. Original place ID matches. Sources disagree on basement unit B1-77/78 versus B1-02; confirm the unit before visiting. Other weekdays and holiday exceptions remain unconfirmed; do not extend Friday hours to them.",
+        "sourceUrl": "https://www.google.com/maps/place/Su+Man+Yuan+Vegetarian/@1.2858597,103.8441611,17z/data=!3m1!4b1!4m6!3m5!1s0x31da1972a25d6fa3:0x97e1f9276d767c2e!8m2!3d1.2858597!4d103.8441611!16s%2Fg%2F11sls2t6g1?entry=ttu&g_ep=EgoyMDI2MTAxOS4wIKXMDSoASAFQAw%3D%3D",
+        "timezone": "Asia/Singapore",
+        "checkedAt": "2026-10-23"
+      },
+      "addressChanged": false
+    },
+    {
+      "id": "staff-soon-lai-vegetarian-05b833a6",
+      "sourceSnapshot": "hours/staff-soon-lai-vegetarian-05b833a6.json",
+      "snapshotCheckedAt": "2026-10-23T00:41:01.156272+00:00",
+      "requiredExactListingText": [
+        "Soon Lai Vegetarian",
+        "532 Choa Chu Kang Street 51"
+      ],
+      "observedFridayText": "Friday 7:30 am–2 pm",
+      "originalGooglePlaceId": "ChIJh3FwcpsR2jERwSesW6Xfvsg",
+      "decodedOriginalFeatureId": "0x31da119b72707187:0xc8bedfa55bac27c1",
+      "renderedFeatureId": "0x31da119b72707187:0xc8bedfa55bac27c1",
+      "catalogueAddress": "533 CHOA CHU KANG STREET 51 LIMBANG SHOPPING CENTRE SINGAPORE 680533",
+      "newHours": {
+        "summary": "Friday 07:30-14:00; other days unconfirmed",
+        "schedule": [
+          "Friday 07:30-14:00"
+        ],
+        "notes": "Partial schedule: Friday only, observed in the saved signed-out listing on 23 October 2026. Original place ID matches. Listing says 532, Yi Jia Food Court, while catalogue says 533 Limbang. Address remains unchanged; verify before visiting. Shun Lai alias is unproved. Other weekdays and holiday exceptions remain unconfirmed; do not extend Friday hours to them.",
+        "sourceUrl": "https://www.google.com/maps/place/Soon+Lai+Vegetarian/@1.3922956,103.7436973,17z/data=!3m1!4b1!4m6!3m5!1s0x31da119b72707187:0xc8bedfa55bac27c1!8m2!3d1.3922956!4d103.7436973!16s%2Fg%2F11s8d4cc0g?entry=ttu&g_ep=EgoyMDI2MTAxOS4wIKXMDSoASAFQAw%3D%3D",
+        "timezone": "Asia/Singapore",
+        "checkedAt": "2026-10-23"
+      },
+      "addressChanged": false
+    }
+  ],
+  "productionApplied": false
+}

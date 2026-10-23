@@ -1,0 +1,161 @@
+﻿id,name,address,postalCode,missingCover,missingMenu,missingHours,partialHours
+staff-foodpark-chuan-tong-xiao-chi-0b0e3ee1,(Foodpark) Chuan Tong Xiao Chi,143 TECK WHYE LANE SINGAPORE 680143,680143,True,True,False,True
+research-ur03-99-pioneer-mall,99 Vegetarian,"638A Jurong West Street 61 #01-22 Stall 10, Pioneer Mall, Singapore 641638",641638,False,False,False,True
+staff-a2b-veg-restaurant-adyar-ananda-bhavan-upper-dickson-rd-sing-bbd4d024,"A2B Veg Restaurant (Adyar Ananda Bhavan), Upper Dickson Rd, Singapore",9 UPPER DICKSON ROAD LITTLE INDIA CONSERVATION AREA SINGAPORE 207469,207469,True,True,True,False
+staff-abc-vegetarian-food-pte-ltd-87fc3b63,ABC Vegetarian Food Pte Ltd,510 LORONG 6 TOA PAYOH TOA PAYOH MRT STATION (NS19) SINGAPORE 319398,319398,True,True,False,True
+staff-adayar-ananda-bhavan-9abd19aa,Adayar Ananda bhavan,16 CLIVE STREET SINGAPORE 209776,209776,True,True,False,True
+staff-amirtham-87d845e1,Amirtham,51 CHANGI BUSINESS PARK CENTRAL 2 THE SIGNATURE SINGAPORE 486066,486066,True,True,False,True
+staff-ani-yong-tau-foo-3c31e449,Ani Yong Tau Foo,187C MARSILING ROAD MARSILING GROVE SINGAPORE 733187,733187,True,True,False,True
+staff-annalakshmi-restaurant-e97d48aa,Annalakshmi Restaurant,6A SHENTON WAY OUE DOWNTOWN SINGAPORE 068815,068815,True,False,False,False
+staff-b-friend-vegetarian-26c0b7ff,B Friend Vegetarian,131 JALAN BUKIT MERAH KIM TIAN VISTA SINGAPORE 160131,160131,True,True,False,True
+vk-b-friend-vegetarian-f87558,B Friend Vegetarian 佛友缘,431 Clementi Avenue 3 Singapore 120431,120431,False,False,False,True
+staff-ballaji-bhawan-4505a827,Ballaji Bhawan,103 SYED ALWI ROAD SINGAPORE 207679,207679,False,False,False,True
+staff-ban-chuan-heng-vegetarian-1e97e1ac,Ban Chuan Heng Vegetarian,475 TAMPINES STREET 44 SINGAPORE 520475,520475,True,True,False,True
+research-ur04-bao-su-zhai,Bao Su Zhai,"1 Sengkang Square #04-11 Stall 23, Compass One, Singapore 545078",545078,False,False,False,True
+research-baomaker-ang-mo-kio-447,Baomaker,"447 Ang Mo Kio Avenue 10 #01-1675, Singapore 560447",560447,False,False,False,True
+staff-bo-e-vegetarian-healthy-veggies-delights-17923656,Bồ Đề Vegetarian - Healthy Veggies Delights,16 HAMILTON ROAD PETAIN ROAD/TYRWHITT ROAD CONSERVATION AREA SINGAPORE 209186,209186,False,False,False,True
+bodhi-deli-fortune-centre,Bodhi Deli,"190 Middle Road #03-26, Fortune Centre, Singapore 188979",188979,False,False,False,True
+staff-cafe-la-tendo-75df28f9,Café @ La Tendo,3 TEMASEK BOULEVARD SUNTEC CITY MALL SINGAPORE 038983,038983,True,True,False,True
+research-dlife-jurong-west,D'Life,"428 Jurong West Ave 1 #01-256, 640428, Singapore",640428,False,False,False,True
+research-dlife-orchard-gateway,D'Life,"277 Orchard Road #B2-04A/05 Singapore,, 238858, Singapore",238858,False,False,False,True
+research-dlife-tengah,D'Life (Tengah Drive),"126B TENGAH DRIVE #01-319, PLANTATION VILLAGE S(692126)",692126,False,False,True,False
+dlife-signature-chinatown-point,D'Life Signature,"133 New Bridge Road #02-37, Chinatown Point, Singapore 059413",059413,False,False,False,True
+vk-daily-green-721-ang-mo-kio-df94d7,Daily Green (721 Ang Mo Kio),721 Ang Mo Kio Avenue 8 Singapore 560721,560721,False,False,False,True
+staff-dan-lin-vegetarian-food-4d48ebc7,Dan-Lin Vegetarian Food,51 OLD AIRPORT ROAD 51 OLD AIRPORT ROAD FOOD CENTRE AND SHOPPING MALL SINGAPORE 390051,390051,True,True,False,True
+staff-dianshu-vegetarian-74e4f120,DianShu Vegetarian,86 MARKET STREET CAPITASPRING SINGAPORE 048947,048947,True,True,True,False
+staff-e-veg-vegetarian-aef48075,E veg vegetarian,1 HARBOURFRONT WALK VIVOCITY SINGAPORE 098585,098585,True,True,False,True
+staff-eat-healthy-2d0f2680,Eat Healthy,30 SEMBAWANG DRIVE SUN PLAZA SINGAPORE 757713,757713,True,True,False,False
+research-ur03-eco-sen-toa-payoh66,Eco Sen Vegetarian Food 缘森素食,"66 Lorong 4 Toa Payoh, Singapore 310066",310066,False,False,False,True
+staff-edith-patisserie-i12-katong-12f7f943,Edith Patisserie - i12 Katong,112 EAST COAST ROAD 112 KATONG SINGAPORE 428802,428802,False,False,False,True
+research-sl08-fire-flies,Fire Flies Vegetarian,"101 Upper Cross Street B1-06 Stall 10, People's Park Centre, Singapore 058357",058357,False,False,True,False
+staff-fo-you-yuan-vegetarian-949d0cda,Fo You Yuan Vegetarian,50 JURONG WEST STREET 61 JURONG WEST HAWKER CENTRE SINGAPORE 648202,648202,True,True,False,True
+staff-gopal-s-the-holy-cow-24a74585,Gopal’s The Holy Cow,50 KAKI BUKIT PLACE JEAN YIP BUILDING SINGAPORE 415926,415926,False,False,False,True
+staff-gowrisankar-vegetarian-restaurant-4b7dbb32,Gowrisankar Vegetarian Restaurant,79A DESKER ROAD DESKER ROAD CONSERVATION AREA SINGAPORE 209602,209602,True,True,True,False
+staff-graces-court-cuisine-fbf5c6fd,Graces Court Cuisine,12 QUEEN STREET HOTEL GRAND PACIFIC SINGAPORE 188553,188553,True,True,True,False
+staff-guang-yuan-vegetarian-55b29fca,Guang yuan vegetarian 广缘素食,681 HOUGANG AVENUE 8 SINGAPORE 530681,530681,True,True,True,False
+staff-heaven-s-grace-vegetarian-point-49bc4036,"Heaven's Grace Vegetarian Point, 天恩素坊",132 JURONG GATEWAY ROAD J CONNECT SINGAPORE 600132,600132,True,True,False,False
+staff-hong-cook-food-vegetarian-f78bbf9a,Hong Cook Food (Vegetarian) - 鳳煮食(素食）,"4 Woodlands Street 12 #01-28, Marsiling Mall, Singapore 738620",738620,False,False,False,True
+staff-ji-xiang-vegetarian-af3046d8,Ji Xiang Vegetarian,3 THIRD LOK YANG ROAD SINGAPORE 627998,627998,True,True,True,False
+staff-jia-jia-vegetarian-9e0e3ed0,Jia Jia Vegetarian,132 JURONG GATEWAY ROAD J CONNECT SINGAPORE 600132,600132,True,True,False,True
+staff-jia-jia-vegetarian-17bc8289,JIa Jia Vegetarian,703 HOUGANG AVENUE 2 SINGAPORE 530703,530703,True,True,False,False
+staff-jia-jia-vegetarian-amk-d68ad612,Jia Jia Vegetarian (AMK) 佳佳素食 (宏茂桥）,408 ANG MO KIO AVENUE 10 TECK GHEE SQUARE SINGAPORE 560408,560408,True,True,False,False
+staff-jia-jia-vegetarian-f77e89eb,jia jia vegetarian 佳佳素食,21 HOUGANG STREET 51 HOUGANG GREEN SHOPPING MALL SINGAPORE 538719,538719,True,True,True,False
+staff-jin-shun-zhai-944831d9,Jin Shun Zhai 金顺斋,209 HOUGANG STREET 21 KOVAN HOUGANG MARKET AND FOOD CENTRE SINGAPORE 530209,530209,True,True,False,False
+research-ur06-ju-fu-yuan-serangoon,Ju Fu Yuan Vegetarian,"262 Serangoon Central Drive #01-91, Singapore550262",550262,False,False,False,True
+staff-just-greens-vegetarian-simei-770a234e,Just Greens Vegetarian - Simei,248 SIMEI STREET 3 SINGAPORE 520248,520248,True,True,False,False
+staff-k-veggie-4584d323,K.Veggie,48A TANGLIN HALT ROAD TANGLIN HALT MARKET SINGAPORE 148813,148813,False,False,False,True
+research-ur01-kale-adelphi,Kale by Kang Su (The Adelphi),"1 Coleman Street #02-20 The Adelphi, Singapore 179803",179803,False,False,False,True
+research-kang-su-far-east-plaza,Kang Su Vegetarian,"14 Scotts Road #05-98 Far East Plaza, Singapore 228213",228213,False,False,False,True
+staff-kaveri-express-indian-vegetarian-terminal-1-airside-83135b00,Kaveri Express Indian Vegetarian - Terminal 1 (AIRSIDE),80 AIRPORT BOULEVARD CHANGI AIRPORT TERMINAL 1 BUILDING SINGAPORE 819642,819642,True,True,True,False
+staff-kaveri-indian-vegetarian-terminal-2-airside-436a1ce4,Kaveri Indian Vegetarian - Terminal 2 (AIRSIDE),60 AIRPORT BOULEVARD CHANGI AIRPORT TERMINAL 2 BUILDING SINGAPORE 819643,819643,False,False,False,True
+staff-keat-lim-vegetarian-ee1feb58,Keat lim vegetarian,846 YISHUN RING ROAD KHATIB CENTRAL SINGAPORE 760846,760846,True,True,False,True
+research-kisu-tras-street,Ki Su Shoujin Omakase,"60 Tras Street #01-01, Singapore 078999",078999,False,False,False,True
+staff-kiat-lim-vegetarian-676e43a0,Kiat Lim Vegetarian 吉林,222 UPPER THOMSON ROAD THOMSON GARDEN ESTATE SINGAPORE 574354,574354,True,True,True,False
+research-kind-kones-forum,Kind Kones,"583 Orchard Road #B1-27 & K1, Forum Shopping Mall, Singapore 238884",238884,False,False,False,True
+research-ur01-kind-sprout-sengkang,Kind Sprout SG,Singapore 793461,793461,False,False,True,False
+staff-komalas-changivillage-94100558,Komalas@changivillage,5 CHANGI VILLAGE ROAD SINGAPORE 500005,500005,False,False,False,True
+research-leafcorner-sembawang,Leaf Corner,"5 Jalan Legundi, Sembawang Garden Arcade, Singapore 759269",759269,False,False,False,True
+research-leafcorner-taiseng,Leaf Corner,"11 Irving Place #02-01, Singapore 369551",369551,False,False,False,True
+research-ur06-li-wei,Li Wei Vegetarian,"151 Serangoon North Avenue2 #01-41, Singapore550151",550151,False,False,False,True
+research-linlin-bedok-north,Lin Lin Vegetarian Delight,"412 Bedok North Avenue 2, inside SinFoodie Coffeeshop, Singapore 460412",460412,False,False,False,True
+staff-loving-nature-fortunate-coffee-cafe-sg-9287cc18,Loving Nature Fortunate Coffee Cafe SG,844 SIMS AVENUE SINGAPORE 400844,400844,False,False,False,True
+staff-madras-woodlands-ganga-447b736e,Madras Woodlands Ganga,1 CUFF ROAD LITTLE INDIA CONSERVATION AREA SINGAPORE 209712,209712,False,False,False,True
+staff-mani-iyer-mess-catering-cda6b888,Mani Iyer Mess & Catering,5 HINDOO ROAD LITTLE INDIA CONSERVATION AREA SINGAPORE 209107,209107,False,False,False,True
+research-ur04-mani-iyer,Mani Iyer Vegetarian Cuisine,"215 Ang Mo Kio Avenue 1, Singapore 560215",560215,False,False,True,False
+staff-miao-lian-vegetarian-e165b1da,MIAO LIAN VEGETARIAN,21 WOODLANDS CLOSE PRIMZ BIZHUB SINGAPORE 737854,737854,True,True,True,False
+research-mod-cafe-kuo-chuan,MOD Cafe,"1A Kuo Chuan Avenue, Singapore 426888",426888,False,False,False,True
+staff-mother-earth-vegetarian-solaris-0414dd14,Mother Earth Vegetarian (Solaris),164 KALLANG WAY SOLARIS @KALLANG 164 SINGAPORE 349248,349248,True,True,False,True
+research-mother-earth-jurong,Mother Earth Vegetarian Restaurant,"511 Upper Jurong Road #01-04, 638366, Singapore",638366,False,False,False,True
+staff-mummy-yummy-fd73e1f3,Mummy Yummy,20 JALAN PARI BURONG PICARDY GARDENS SINGAPORE 488686,488686,True,True,False,True
+staff-murugan-idli-shop-4cd62894,Murugan Idli Shop,"76 Syed Alwi Road, Singapore 207655",207655,False,False,False,True
+research-ur01-new-green-pasture-fortune,New Green Pasture Cafe,"190 Middle Road #04-22 Fortune Centre, Singapore 188979",188979,False,False,False,True
+staff-onn-vegetarian-1230d37f,Onn Vegetarian,5 UPPER BOON KENG ROAD KALLANG HEIGHTS SINGAPORE 380005,380005,True,True,False,False
+research-originalgreens-shaw-plaza,Original Greens,"360 Balestier Road #04-07/K2 Shaw Plaza, Singapore 329783",329783,False,False,False,True
+research-ur06-original-sin,Original Sin,"43 Jalan Merah Saga #01-62, Singapore278115",278115,False,False,False,True
+vk-pang-pang-kopi-singpost-centre-969954,Pang Pang Kopi (Singpost Centre),10 Eunos Road 8 Singapore Post Centre Singapore 408600,408600,False,False,False,True
+research-ur04-peace-vegetarian,Peace Vegetarian,"18 Tai Seng Street #B1-02, Singapore 539775",539775,False,False,False,True
+staff-pure-vegetarian-options-a-khansama-enterprise-61c7262a,Pure Vegetarian Options - a Khansama enterprise,"13 Norris Road, Singapore 208255",208255,True,True,False,True
+staff-qiao-tanaka-vegetarian-pin-bukit-batok-00051d22,Qiao Tanaka Vegetarian Pin @ Bukit Batok 巧田中素品,347 BUKIT BATOK STREET 34 SINGAPORE 650347,650347,True,True,False,True
+research-ur07-red-apple-tampines,Red Apple Vegetarian,"835 Tampines Street 83 #01-02, Singapore 520835",520835,False,False,False,True
+research-renyi-tampines820,Ren Yi Vegetarian,"Block 820 Tampines Street 81, Singapore 520820",520820,False,False,False,True
+staff-ren-yi-vegetarian-1acd9597,Ren Yi Vegetarian,53 ANG MO KIO AVENUE 3 AMK HUB SINGAPORE 569933,569933,True,True,False,True
+vk-rice-house-vegetarian-ba62e5,Ricehouse Vegetarian,129 Geylang East Avenue 2 Geylang East Grove Singapore 380129,380129,False,False,False,True
+staff-ru-yi-zhai-vegetarian-27545a2e,Ru Yi Zhai Vegetarian,134 GEYLANG EAST AVENUE 1 GEYLANG EAST GROVE SINGAPORE 380134,380134,False,False,False,True
+staff-rulai-vegetarian-food-cc0574f9,Rulai Vegetarian Food,226D ANG MO KIO AVENUE 1 KEBUN BARU MALL SINGAPORE 564226,564226,False,False,False,True
+staff-safidon-bc3a09a1,Safidon,2 SERANGOON ROAD CITADINES ROCHOR SINGAPORE SINGAPORE 218227,218227,True,True,False,True
+staff-shan-yuan-vegetarian-3e43033a,Shan Yuan Vegetarian,105 HOUGANG AVENUE 1 HOUGANG 105 HAINANESE VILLAGE CENTRE SINGAPORE 530105,530105,False,False,False,True
+staff-shang-de-vegetarian-stall-a6b26aa2,Shang De Vegetarian Stall,560 MACPHERSON ROAD SINGAPORE 368233,368233,True,True,True,False
+staff-shi-man-lou-cf15ad57,Shi Man Lou,768 WOODLANDS AVENUE 6 WOODLANDS MART SINGAPORE 730768,730768,True,True,False,False
+staff-shivam-pure-indian-vegetarian-restaurant-cec63a27,Shivam – Pure Indian Vegetarian Restaurant,87 SYED ALWI ROAD SINGAPORE 207666,207666,False,False,False,True
+research-shu-jalan-kayu,SHU Vegetarian,"259 Jalan Kayu, Singapore 799488",799488,False,False,False,True
+shu-woodlands-avenue-1,SHU Vegetarian,"354A Woodlands Avenue 1 #01-01, Singapore 731354",731354,False,False,False,True
+research-shu-amk,SHU Vegetarian 蔬方斋 (Ang Mo Kio Avenue 10),"554 Ang Mo Kio Ave 10, #01-2040",560554,False,False,False,True
+research-shu-hq,SHU Vegetarian 蔬方斋 (Chang Cheng HQ),"27 Woodlands Link #01-01, Chang Cheng HQ (Chang Cheng Mee Wah Coffeeshop), Singapore 738732",738732,False,False,False,True
+research-shu-clementi,SHU Vegetarian 蔬方斋 (Clementi West Street 2),"722 Clementi West Street 2 #01-150 (Wan Fu Eating House), Singapore 120722",120722,False,False,False,True
+research-shu-jurong,SHU Vegetarian 蔬方斋 (Jurong West Street 41),"498 Jurong West Street 41 #01-462, Singapore 640498",640498,False,False,False,True
+research-shu-loyang,SHU Vegetarian 蔬方斋 (Loyang Point),"259 Pasir Ris Street 21 #02-30, Loyang Point, Singapore 510259",510259,False,False,False,True
+research-shu-margaret,SHU Vegetarian 蔬方斋 (Margaret Drive),"40 Margaret Drive #01-05, Singapore 140040",140040,False,False,False,True
+research-shu-yishun,SHU Vegetarian 蔬方斋 (Yishun Ring Road),"239 Yishun Ring Road #01-1150, Singapore 760239",760239,False,False,False,True
+staff-simple-food-147fc16e,Simple Food,537 BEDOK NORTH STREET 3 SINGAPORE 460537,460537,True,True,True,False
+staff-soon-lai-vegetarian-05b833a6,Soon Lai Vegetarian,533 CHOA CHU KANG STREET 51 LIMBANG SHOPPING CENTRE SINGAPORE 680533,680533,True,True,True,False
+vk-place-9066af,Su Jing Xiang Vegetarian 素景香,72 Lorong 25A Geylang Singapore 388256,388256,False,False,False,True
+staff-su-man-yuan-vegetarian-4cf4cdc4,Su Man Yuan Vegetarian,101B UPPER CROSS STREET PEOPLE'S PARK CENTRE SINGAPORE 058359,058359,False,False,True,False
+research-ur13-suyuan-bedok,Suyuan Vegetarian,"208B New Upper Changi Road #01-07, Singapore462208",462208,False,False,False,True
+staff-tanglin-halt-market-food-centre-05ff07ce,Tanglin Halt Market/Food Centre,48A TANGLIN HALT ROAD TANGLIN HALT MARKET SINGAPORE 148813,148813,True,True,True,False
+research-teenoy-hougang-foodpanda-932,Teenoy Thai Vegetarian,"932 Hougang Avenue 9 #01-04, Singapore 530932",530932,False,False,True,False
+staff-teo-kian-chye-3a2c7f29,Teo Kian Chye,362 UPPER PAYA LEBAR ROAD DA JIN FACTORY BUILDING SINGAPORE 534963,534963,True,True,True,False
+research-ur11-crowded-sp,The Crowded Bowl,"500 Dover Road, Singapore Polytechnic Food Court 2, Stall 13, Singapore 139651",139651,False,False,False,True
+research-crowded-bowl-ntu-north-spine,The Crowded Bowl - NTU North Spine,"76 Nanyang Drive, North Spine Plaza NS3-1-18, Singapore 637331",637331,False,False,True,False
+staff-the-summer-ac-ai-124ad4d6,The Summer Açaí,170 UPPER BUKIT TIMAH ROAD BUKIT TIMAH SHOPPING CENTRE SINGAPORE 588179,588179,False,False,False,True
+staff-the-summer-ac-ai-choa-chu-kang-546db6b0,The Summer Açaí - Choa Chu Kang,475 CHOA CHU KANG AVENUE 3 SUNSHINE PLACE SINGAPORE 680475,680475,False,False,False,True
+staff-the-summer-acai-heartland-mall-9f5e6474,The Summer Acai - Heartland Mall,205 HOUGANG STREET 21 HEARTLAND MALL-KOVAN SINGAPORE 530205,530205,False,False,False,True
+staff-the-summer-ac-ai-jurong-east-jem-3849f5a4,The Summer Açaí - Jurong East (JEM),50 JURONG GATEWAY ROAD JEM SINGAPORE 608549,608549,False,False,False,True
+staff-the-summer-ac-ai-sengkang-b747c774,The Summer Açaí - Sengkang,118 RIVERVALE DRIVE RIVERVALE PLAZA SINGAPORE 540118,540118,False,False,False,True
+staff-the-summer-ac-ai-tengah-7a236480,The Summer Açaí - Tengah,127 PLANTATION CRESCENT PLANTATION PLAZA SINGAPORE 690127,690127,False,False,False,True
+staff-the-summer-acai-woodlands-cc-5935fff2,The Summer Acai - Woodlands CC,1 WOODLANDS STREET 81 WOODLANDS COMMUNITY CLUB SINGAPORE 738526,738526,False,False,True,False
+staff-tian-de-vegetarian-6cfca595,Tian De Vegetarian 天德素食,301 UBI AVENUE 1 SINGAPORE 400301,400301,True,True,False,True
+research-tian-yuan-fortune-centre-01-16,Tian Yuan Healthy Vegetarian Food Paradise,"190 Middle Road #01-16, Fortune Centre, Singapore 188979",188979,False,False,False,True
+research-times-vege-bukit-batok,Time’s Vege,"643 Bukit Batok Central #01-44, Singapore 650643",650643,False,False,False,True
+staff-tong-xin-vegetarian-food-2eab67c7,Tong Xin Vegetarian Food,2 YISHUN INDUSTRIAL STREET 1 NORTH POINT BIZHUB SINGAPORE 768159,768159,False,False,False,True
+research-true-veggie-geylang,True Veggie,"47 Lorong 27 Geylang, Singapore 388179",388179,False,False,False,True
+vk-udipi-ganesh-vilas-tanjong-pagar-96bf35,Udipi Ganesh Vilas @ Tanjong Pagar,4 Lim Teck Kim Road Singapore 088935,088935,False,False,False,True
+staff-udipi-ganesh-vilas-restaurant-1772b78f,Udipi Ganesh Vilas Restaurant,50 EAST COAST ROAD GRAND MERCURE ROXY HOTEL SINGAPORE 428769,428769,False,False,True,False
+research-ur08-vege-bear-bidadari,Vege Bear Vegetarian,"212 Bidadari Park Drive #03-01, Singapore 360212",360212,False,False,True,False
+staff-vege-country-enterprise-2c65cfde,Vege Country Enterprise,67 SUNGEI TENGAH ROAD FARMART CENTRE SINGAPORE 699008,699008,True,True,True,False
+staff-vege-story-e780fe80,Vege Story,435A HOUGANG AVENUE 8 MULTI STOREY CAR PARK SINGAPORE 531435,531435,True,True,True,False
+staff-vegetarian-30a747b9,Vegetarian,111 NORTH BRIDGE ROAD PENINSULA PLAZA SINGAPORE 179098,179098,True,True,False,False
+staff-vegetarian-koufu-23a62a43,Vegetarian @ Koufu,768 WOODLANDS AVENUE 6 WOODLANDS MART SINGAPORE 730768,730768,True,True,False,True
+staff-vegetarian-sims-place-d63670ed,Vegetarian @ Sims Place,49 SIMS PLACE SIMS VISTA MARKET AND FOOD CENTRE SINGAPORE 380049,380049,True,True,False,True
+staff-vegetarian-food-559c325d,Vegetarian Food,51 UPPER BUKIT TIMAH ROAD BUKIT TIMAH MARKET SINGAPORE 588215,588215,True,True,False,True
+staff-vegetarian-kampong-taste-95f7322c,Vegetarian Kampong Taste 素食家鄉味,79A CIRCUIT ROAD HAWKER CENTRE (BLKS 79/79A CIRCUIT ROAD) SINGAPORE 371079,371079,False,False,False,True
+staff-vegetarian-salad-49d00b69,Vegetarian salad,3A INTERNATIONAL BUSINESS PARK ICON @ IBP SINGAPORE 609935,609935,True,True,False,True
+staff-vegetarian-stall-cd1e51a9,vegetarian stall,36 CHAI CHEE AVENUE ANSAR GARDEN SINGAPORE 461036,461036,True,True,False,True
+staff-vegetarian-stall-d7c8e6fe,Vegetarian Stall,848 YISHUN STREET 81 KHATIB CENTRAL SINGAPORE 760848,760848,True,True,True,False
+staff-veggie-121-0ee713c1,Veggie 121,121 TELOK AYER STREET SINGAPORE 068590,068590,False,False,False,True
+staff-veggie-house-simei-091a421f,Veggie House Simei 一芳素食 @ 四美,3 SIMEI STREET 6 EASTPOINT MALL SINGAPORE 528833,528833,True,True,False,False
+staff-veggius-singapore-2fc19341,Veggius Singapore,138 ROBINSON ROAD OXLEY TOWER SINGAPORE 068906,068906,True,True,False,True
+staff-verimix-vegetarian-f4fcb0d7,Verimix Vegetarian,4 BUKIT BATOK STREET 41 LE QUEST SINGAPORE 657991,657991,False,False,False,True
+research-verimix-le-quest-01-17,Verimix Vegetarian - Le Quest Mall,"4 Bukit Batok Street 41 #01-17 Le Quest Mall, Singapore 657991",657991,False,False,True,False
+research-sl08-xi-shi-fu,Xi Shi Fu Vegetarian,"115 Bukit Merah View #01-25, Singapore 151115",151115,False,False,False,True
+staff-xiang-yang-vegetarian-9d8dd5e2,Xiang Yang Vegetarian向陽素食,45 QUALITY ROAD QUALITY ROAD FOOD CENTRE SINGAPORE 618824,618824,True,True,False,False
+research-xiang-yuan-circuit-source,Xiang Yuan Vegetarian Food - Circuit Road,"80 Circuit Road #02-03, Singapore 370080",370080,False,False,True,False
+staff-xin-ci-ming-vegetarian-8b1a57c3,Xin Ci Ming Vegetarian,216 BEDOK NORTH STREET 1 MARKET & HAWKER CENTRE (BLK 216 BEDOK NORTH STREET 1) SINGAPORE 460216,460216,True,True,False,False
+research-ur06-xin-yi,Xin Yi Vegetarian,"442 Jurong West Avenue1 #01-758, Singapore640442",640442,False,False,False,True
+research-ur06-xing-hua,Xing Hua Vegetarian,"190 Middle Road #01-11, Fortune Centre, Singapore188979",188979,False,False,True,False
+staff-xing-hua-vegetarian-restaurant-c97885e6,Xing Hua Vegetarian Restaurant,60 ALBERT STREET OG ALBERT COMPLEX SINGAPORE 189969,189969,True,True,False,True
+research-yi-ding-xuan-tampines-201,Yi Ding Xuan Vegetarian,"201 Tampines Street 21 #01-201, Singapore 520201",520201,False,False,False,True
+staff-yuan-yuan-vegetarian-cuisine-d6d6bb73,Yuan Yuan Vegetarian Cuisine,335 SMITH STREET CHINATOWN COMPLEX SINGAPORE 050335,050335,True,True,False,True
+zhen-xiang-woodlands-street-32,Zhen Xiang Vegetarian,"325 Woodlands Street 32 #01-131, Singapore 730325",730325,False,False,False,True
+research-zhenyi-ang-mo-kio-128,Zhen Yi Vegetarian,"128 Ang Mo Kio Ave 3 #01-1853, Singapore 560128",560128,False,False,True,False
+research-zzv-tampines,Zi Zai Vegetarian (Tampines),"801 Tampines Ave 4 #01-281, Tampines Polyview, Singapore 520801",520801,False,False,False,True
+research-zzv-yishun,Zi Zai Vegetarian (Yishun),"Blk 236 Yishun Ring Road #01-1000, Singapore 760236",760236,False,False,False,True
+staff-zuya-vegetarian-tiong-bahru-plaza-6482f7d3,Zuya Vegetarian Tiong Bahru Plaza,302 TIONG BAHRU ROAD TIONG BAHRU PLAZA SINGAPORE 168732,168732,False,False,False,True
+staff-san-de-vegetarian-c7357bfd,三德 San De Vegetarian,100 BUKIT TIMAH ROAD KK WOMEN'S AND CHILDREN'S HOSPITAL SINGAPORE 229899,229899,True,True,True,False
+staff-san-de-vegetarian-yishun-747-251d858e,三德 San De Vegetarian@ Yishun 747,747 YISHUN STREET 72 NEE SOON CENTRAL GREEN SINGAPORE 760747,760747,False,False,False,True
+staff-kang-su-vegetarian-macpherson-94c75fee,康素 Kang Su Vegetarian @ Macpherson,472 MACPHERSON ROAD SINGAPORE 368189,368189,False,False,False,True
+staff-item-22e46594,新绿园餐厅,190 MIDDLE ROAD FORTUNE CENTRE SINGAPORE 188979,188979,True,True,True,False
+staff-yi-xiang-vegetarian-b0600a7e,異香素食 Yi Xiang Vegetarian,89 CIRCUIT ROAD MARKET & HAWKER CENTRE (BLK 89 CIRCUIT ROAD) SINGAPORE 370089,370089,True,True,False,False
+staff-econ-vegetariandelight-21c13262,益康斋素食苑 Econ VegetarianDelight,144 TAMPINES STREET 12 SINGAPORE 521144,521144,True,True,False,True
+staff-evergreen-vegetarian-cuisine-dc4438b7,長素 Evergreen Vegetarian Cuisine,90 LORONG 25A GEYLANG SINGAPORE 388265,388265,True,True,True,False
+staff-vegetarian-f4a34146,阁食素妙缘佛 vegetarian,254 JURONG EAST STREET 24 YUHUA VILLAGE MARKET AND FOOD CENTRE SINGAPORE 600254,600254,False,False,False,True
+staff-item-8e516949,香品斋,341 ANG MO KIO AVENUE 1 TECK GHEE COURT SINGAPORE 560341,560341,True,True,True,False

@@ -1,0 +1,949 @@
+{
+  "checkedAt": "2026-10-23T09:23:12.223297+00:00",
+  "complete": false,
+  "publicSourceResearchChecked": true,
+  "unavailableMenusMayBeOmitted": true,
+  "routineRecheckRequired": false,
+  "verificationScope": "Research dispositions checked; unknown content and identities remain unknown. Publication not performed.",
+  "locations": [
+    {
+      "id": "staff-foodpark-chuan-tong-xiao-chi-0b0e3ee1",
+      "name": "(Foodpark) Chuan Tong Xiao Chi",
+      "address": "143 TECK WHYE LANE SINGAPORE 680143",
+      "missing": [
+        "cover",
+        "menu"
+      ],
+      "issue": "dish-proof",
+      "reason": "Only location/category directory results; no exact-stall dish-level evidence. Do not substitute Le Le at the same block.",
+      "nextEvidenceNeeded": "No routine repeat research. Reopen only when new exact-outlet merchant/source evidence is supplied.",
+      "status": "Verified - research checked",
+      "researchCheckedAt": "2026-10-23",
+      "verificationScope": "Public-source research checked; unavailable content, identity, kitchen claims and full-week hours are not certified.",
+      "menuStatus": "No verified public menu found",
+      "hoursStatus": "Existing or qualified partial schedule retained",
+      "routineRecheckRequired": false,
+      "productionApplied": false
+    },
+    {
+      "id": "staff-a2b-veg-restaurant-adyar-ananda-bhavan-upper-dickson-rd-sing-bbd4d024",
+      "name": "A2B Veg Restaurant (Adyar Ananda Bhavan), Upper Dickson Rd, Singapore",
+      "address": "3-5 Upper Dickson Road, Singapore 207463",
+      "missing": [
+        "hours"
+      ],
+      "issue": "channel-hours",
+      "reason": "Address corrected locally to merchant3-5UpperDickson; saved exact-name Maps independently says3, but supplies no hours. Generic8-23:30footer beside462Serangoon and chain ordering windows do not prove this outlet weekday/holiday schedule.",
+      "nextEvidenceNeeded": "No routine repeat research. Reopen only when new exact-outlet merchant/source evidence is supplied.",
+      "status": "Verified - research checked",
+      "researchCheckedAt": "2026-10-23",
+      "verificationScope": "Public-source research checked; unavailable content, identity, kitchen claims and full-week hours are not certified.",
+      "menuStatus": "Existing menu retained",
+      "hoursStatus": "No verified public service schedule found",
+      "routineRecheckRequired": false,
+      "productionApplied": false
+    },
+    {
+      "id": "staff-abc-vegetarian-food-pte-ltd-87fc3b63",
+      "name": "ABC Vegetarian Food Pte Ltd",
+      "address": "510 LORONG 6 TOA PAYOH TOA PAYOH MRT STATION (NS19) SINGAPORE 319398",
+      "missing": [
+        "cover",
+        "menu"
+      ],
+      "issue": "premise-conflict",
+      "reason": "510 Lorong 6 Toa Payoh MRT listing differs from ABC at HDB Hub 500 #02-30 and Lorong 2. Caterer descriptions do not establish this stall menu.",
+      "nextEvidenceNeeded": "No routine repeat research. Reopen only when new exact-outlet merchant/source evidence is supplied.",
+      "status": "Verified - research checked",
+      "researchCheckedAt": "2026-10-23",
+      "verificationScope": "Public-source research checked; unavailable content, identity, kitchen claims and full-week hours are not certified.",
+      "menuStatus": "Menu withheld - identity, operation or business-type evidence unresolved",
+      "hoursStatus": "Existing or qualified partial schedule retained",
+      "routineRecheckRequired": false,
+      "productionApplied": false
+    },
+    {
+      "id": "staff-amirtham-87d845e1",
+      "name": "Amirtham",
+      "address": "51 CHANGI BUSINESS PARK CENTRAL 2 THE SIGNATURE SINGAPORE 486066",
+      "missing": [
+        "cover",
+        "menu"
+      ],
+      "issue": "dish-proof",
+      "reason": "Exact The Signature basement stall at 51 Changi Business Park Central 2 lacks a verified menu. India Nithya Amirtham and Singapore travel agency results are unrelated.",
+      "nextEvidenceNeeded": "No routine repeat research. Reopen only when new exact-outlet merchant/source evidence is supplied.",
+      "status": "Verified - research checked",
+      "researchCheckedAt": "2026-10-23",
+      "verificationScope": "Public-source research checked; unavailable content, identity, kitchen claims and full-week hours are not certified.",
+      "menuStatus": "No verified public menu found",
+      "hoursStatus": "Existing or qualified partial schedule retained",
+      "routineRecheckRequired": false,
+      "productionApplied": false
+    },
+    {
+      "id": "staff-ani-yong-tau-foo-3c31e449",
+      "name": "Ani Yong Tau Foo",
+      "address": "187C MARSILING ROAD MARSILING GROVE SINGAPORE 733187",
+      "missing": [
+        "cover",
+        "menu"
+      ],
+      "issue": "kitchen-proof",
+      "reason": "Marsiling stall needs its own meat-free evidence. Ani Northpoint delivery menu includes fish/chicken; do not transfer either its menu or its classification here.",
+      "nextEvidenceNeeded": "No routine repeat research. Reopen only when new exact-outlet merchant/source evidence is supplied.",
+      "status": "Verified - research checked",
+      "researchCheckedAt": "2026-10-23",
+      "verificationScope": "Public-source research checked; unavailable content, identity, kitchen claims and full-week hours are not certified.",
+      "menuStatus": "Menu withheld - identity, operation or business-type evidence unresolved",
+      "hoursStatus": "Existing or qualified partial schedule retained",
+      "routineRecheckRequired": false,
+      "productionApplied": false
+    },
+    {
+      "id": "staff-b-friend-vegetarian-26c0b7ff",
+      "name": "B Friend Vegetarian",
+      "address": "131 JALAN BUKIT MERAH KIM TIAN VISTA SINGAPORE 160131",
+      "missing": [
+        "cover",
+        "menu"
+      ],
+      "issue": "dish-proof",
+      "reason": "131 Jalan Bukit Merah #01-1599 identity and partial hours are listed, but no verified named dish. Bfriend Clementi is a different premise.",
+      "nextEvidenceNeeded": "No routine repeat research. Reopen only when new exact-outlet merchant/source evidence is supplied.",
+      "status": "Verified - research checked",
+      "researchCheckedAt": "2026-10-23",
+      "verificationScope": "Public-source research checked; unavailable content, identity, kitchen claims and full-week hours are not certified.",
+      "menuStatus": "No verified public menu found",
+      "hoursStatus": "Existing or qualified partial schedule retained",
+      "routineRecheckRequired": false,
+      "productionApplied": false
+    },
+    {
+      "id": "staff-ban-chuan-heng-vegetarian-1e97e1ac",
+      "name": "Ban Chuan Heng Vegetarian",
+      "address": "475 TAMPINES STREET 44 SINGAPORE 520475",
+      "missing": [
+        "cover",
+        "menu"
+      ],
+      "issue": "business-type",
+      "reason": "475 Tampines Street 44 may be a retail food supplier; no cooked-dish proof. A ceased registration alone does not prove venue closure.",
+      "nextEvidenceNeeded": "No routine repeat research. Reopen only when new exact-outlet merchant/source evidence is supplied.",
+      "status": "Verified - research checked",
+      "researchCheckedAt": "2026-10-23",
+      "verificationScope": "Public-source research checked; unavailable content, identity, kitchen claims and full-week hours are not certified.",
+      "menuStatus": "Menu withheld - identity, operation or business-type evidence unresolved",
+      "hoursStatus": "Existing or qualified partial schedule retained",
+      "routineRecheckRequired": false,
+      "productionApplied": false
+    },
+    {
+      "id": "staff-cafe-la-tendo-75df28f9",
+      "name": "Café @ La Tendo",
+      "address": "3 TEMASEK BOULEVARD SUNTEC CITY MALL SINGAPORE 038983",
+      "missing": [
+        "cover",
+        "menu"
+      ],
+      "issue": "changing-menu",
+      "reason": "Current primary host changed to the La Tendo merchandise site. Cached cafe booking text says vegetarian/allium-free, but the route now returns404. Pop-up menus are time-limited; current menu and dates not established.",
+      "nextEvidenceNeeded": "No routine repeat research. Reopen only when new exact-outlet merchant/source evidence is supplied.",
+      "status": "Verified - research checked",
+      "researchCheckedAt": "2026-10-23",
+      "verificationScope": "Public-source research checked; unavailable content, identity, kitchen claims and full-week hours are not certified.",
+      "menuStatus": "Menu withheld - identity, operation or business-type evidence unresolved",
+      "hoursStatus": "Existing or qualified partial schedule retained",
+      "routineRecheckRequired": false,
+      "productionApplied": false
+    },
+    {
+      "id": "staff-dan-lin-vegetarian-food-4d48ebc7",
+      "name": "Dan-Lin Vegetarian Food",
+      "address": "51 OLD AIRPORT ROAD 51 OLD AIRPORT ROAD FOOD CENTRE AND SHOPPING MALL SINGAPORE 390051",
+      "missing": [
+        "cover",
+        "menu"
+      ],
+      "issue": "replacement-conflict",
+      "reason": "Old Airport Road #01-58 has conflicting named tenants in current sources. Do not import a neighbouring stall menu or infer a replacement without exact evidence.",
+      "nextEvidenceNeeded": "No routine repeat research. Reopen only when new exact-outlet merchant/source evidence is supplied.",
+      "status": "Verified - research checked",
+      "researchCheckedAt": "2026-10-23",
+      "verificationScope": "Public-source research checked; unavailable content, identity, kitchen claims and full-week hours are not certified.",
+      "menuStatus": "Menu withheld - identity, operation or business-type evidence unresolved",
+      "hoursStatus": "Existing or qualified partial schedule retained",
+      "routineRecheckRequired": false,
+      "productionApplied": false
+    },
+    {
+      "id": "staff-dianshu-vegetarian-74e4f120",
+      "name": "DianShu Vegetarian",
+      "address": "86 MARKET STREET CAPITASPRING SINGAPORE 048947",
+      "missing": [
+        "cover",
+        "menu",
+        "hours"
+      ],
+      "issue": "identity-proof",
+      "reason": "Exact retained DianShu listing matches the original place ID at86MarketStreet, but provides no menu or opening hours. No original named-dish source found; ShunJi elsewhere is unrelated.",
+      "nextEvidenceNeeded": "No routine repeat research. Reopen only when new exact-outlet merchant/source evidence is supplied.",
+      "status": "Verified - research checked",
+      "researchCheckedAt": "2026-10-23",
+      "verificationScope": "Public-source research checked; unavailable content, identity, kitchen claims and full-week hours are not certified.",
+      "menuStatus": "No verified public menu found",
+      "hoursStatus": "No verified public service schedule found",
+      "routineRecheckRequired": false,
+      "productionApplied": false
+    },
+    {
+      "id": "staff-eat-healthy-2d0f2680",
+      "name": "Eat Healthy",
+      "address": "30 SEMBAWANG DRIVE SUN PLAZA SINGAPORE 757713",
+      "missing": [
+        "cover",
+        "menu"
+      ],
+      "issue": "dish-proof",
+      "reason": "Sun Plaza Koufu Eat Healthy is not matched to a named dish source. Search results for similarly worded Trinidad venues and generic hotel descriptions are unrelated.",
+      "nextEvidenceNeeded": "No routine repeat research. Reopen only when new exact-outlet merchant/source evidence is supplied.",
+      "status": "Verified - research checked",
+      "researchCheckedAt": "2026-10-23",
+      "verificationScope": "Public-source research checked; unavailable content, identity, kitchen claims and full-week hours are not certified.",
+      "menuStatus": "No verified public menu found",
+      "hoursStatus": "Existing or qualified partial schedule retained",
+      "routineRecheckRequired": false,
+      "productionApplied": false
+    },
+    {
+      "id": "staff-gowrisankar-vegetarian-restaurant-4b7dbb32",
+      "name": "Gowrisankar Vegetarian Restaurant",
+      "address": "79A DESKER ROAD DESKER ROAD CONSERVATION AREA SINGAPORE 209602",
+      "missing": [
+        "cover",
+        "menu"
+      ],
+      "issue": "dish-proof",
+      "reason": "Retained listing exactly matches original place ID and supplies Friday09-21, staged with79/79Aaddress discrepancy. No verified exact-outlet named dishes; IndiaGowrisankar menus excluded.",
+      "nextEvidenceNeeded": "No routine repeat research. Reopen only when new exact-outlet merchant/source evidence is supplied.",
+      "status": "Verified - research checked",
+      "researchCheckedAt": "2026-10-23",
+      "verificationScope": "Public-source research checked; unavailable content, identity, kitchen claims and full-week hours are not certified.",
+      "menuStatus": "No verified public menu found",
+      "hoursStatus": "Existing or qualified partial schedule retained",
+      "routineRecheckRequired": false,
+      "productionApplied": false
+    },
+    {
+      "id": "staff-graces-court-cuisine-fbf5c6fd",
+      "name": "Graces Court Cuisine",
+      "address": "12 QUEEN STREET HOTEL GRAND PACIFIC SINGAPORE 188553",
+      "missing": [
+        "cover",
+        "menu",
+        "hours"
+      ],
+      "issue": "verified-former-name-duplicate",
+      "reason": "Merchant history explicitly confirms GracesCourt/鸿阁 renamedSupremeVege1Sep2016; same12Queen#02-03 and62385085. CurrentSupremeVege already has126menuitems,cover andqualifiedhours. Prepare catalogue deduplication preserving former-name discovery; do not create a second menu or asset. Evidence staged/duplicate-review-graces-court.json. Duplicate not suppressed or subtracted from gaps.",
+      "nextEvidenceNeeded": "No routine repeat research. Reopen only when new exact-outlet merchant/source evidence is supplied.",
+      "status": "Verified - research checked",
+      "researchCheckedAt": "2026-10-23",
+      "verificationScope": "Public-source research checked; unavailable content, identity, kitchen claims and full-week hours are not certified.",
+      "menuStatus": "Menu withheld - identity, operation or business-type evidence unresolved",
+      "hoursStatus": "No verified public service schedule found",
+      "routineRecheckRequired": false,
+      "productionApplied": false
+    },
+    {
+      "id": "staff-guang-yuan-vegetarian-55b29fca",
+      "name": "Guang yuan vegetarian 广缘素食",
+      "address": "681 HOUGANG AVENUE 8 SINGAPORE 530681",
+      "missing": [
+        "cover",
+        "menu",
+        "hours"
+      ],
+      "issue": "premise-conflict",
+      "reason": "681 Hougang Avenue 8 is not 681 Punggol Drive #04-01. Punggol menus/hours cannot be transferred.",
+      "nextEvidenceNeeded": "No routine repeat research. Reopen only when new exact-outlet merchant/source evidence is supplied.",
+      "status": "Verified - research checked",
+      "researchCheckedAt": "2026-10-23",
+      "verificationScope": "Public-source research checked; unavailable content, identity, kitchen claims and full-week hours are not certified.",
+      "menuStatus": "Menu withheld - identity, operation or business-type evidence unresolved",
+      "hoursStatus": "No verified public service schedule found",
+      "routineRecheckRequired": false,
+      "productionApplied": false
+    },
+    {
+      "id": "staff-ji-xiang-vegetarian-af3046d8",
+      "name": "Ji Xiang Vegetarian",
+      "address": "3 THIRD LOK YANG ROAD SINGAPORE 627998",
+      "missing": [
+        "cover",
+        "menu"
+      ],
+      "issue": "identity-proof",
+      "reason": "Exact original place ID matches1-3ThirdLokYang and retainedFriday08-14, staged with other days unknown. No original exact-outlet cooked-dish menu found; do not borrow anotherJiXiang menu.",
+      "nextEvidenceNeeded": "No routine repeat research. Reopen only when new exact-outlet merchant/source evidence is supplied.",
+      "status": "Verified - research checked",
+      "researchCheckedAt": "2026-10-23",
+      "verificationScope": "Public-source research checked; unavailable content, identity, kitchen claims and full-week hours are not certified.",
+      "menuStatus": "No verified public menu found",
+      "hoursStatus": "Existing or qualified partial schedule retained",
+      "routineRecheckRequired": false,
+      "productionApplied": false
+    },
+    {
+      "id": "staff-jia-jia-vegetarian-9e0e3ed0",
+      "name": "Jia Jia Vegetarian",
+      "address": "132 JURONG GATEWAY ROAD J CONNECT SINGAPORE 600132",
+      "missing": [
+        "cover",
+        "menu"
+      ],
+      "issue": "unit-conflict",
+      "reason": "Jia Jia #01-273 at 132 Jurong is separate from Heaven’s Grace #01-271; no exact-stall dish proof.",
+      "nextEvidenceNeeded": "No routine repeat research. Reopen only when new exact-outlet merchant/source evidence is supplied.",
+      "status": "Verified - research checked",
+      "researchCheckedAt": "2026-10-23",
+      "verificationScope": "Public-source research checked; unavailable content, identity, kitchen claims and full-week hours are not certified.",
+      "menuStatus": "Menu withheld - identity, operation or business-type evidence unresolved",
+      "hoursStatus": "Existing or qualified partial schedule retained",
+      "routineRecheckRequired": false,
+      "productionApplied": false
+    },
+    {
+      "id": "staff-jia-jia-vegetarian-17bc8289",
+      "name": "JIa Jia Vegetarian",
+      "address": "703 HOUGANG AVENUE 2 SINGAPORE 530703",
+      "missing": [
+        "cover",
+        "menu"
+      ],
+      "issue": "source-provenance",
+      "reason": "703 Hougang dish mentions found only in Google-derived summaries; no reusable original/merchant named-dish source was verified.",
+      "nextEvidenceNeeded": "No routine repeat research. Reopen only when new exact-outlet merchant/source evidence is supplied.",
+      "status": "Verified - research checked",
+      "researchCheckedAt": "2026-10-23",
+      "verificationScope": "Public-source research checked; unavailable content, identity, kitchen claims and full-week hours are not certified.",
+      "menuStatus": "No verified public menu found",
+      "hoursStatus": "Existing or qualified partial schedule retained",
+      "routineRecheckRequired": false,
+      "productionApplied": false
+    },
+    {
+      "id": "staff-jia-jia-vegetarian-amk-d68ad612",
+      "name": "Jia Jia Vegetarian (AMK) 佳佳素食 (宏茂桥）",
+      "address": "408 ANG MO KIO AVENUE 10 TECK GHEE SQUARE SINGAPORE 560408",
+      "missing": [
+        "cover",
+        "menu"
+      ],
+      "issue": "source-provenance",
+      "reason": "408 AMK exact identity/hours found, but menu mentions are Google-derived. Do not transfer AMK339, Sengkang or Bangkit menus.",
+      "nextEvidenceNeeded": "No routine repeat research. Reopen only when new exact-outlet merchant/source evidence is supplied.",
+      "status": "Verified - research checked",
+      "researchCheckedAt": "2026-10-23",
+      "verificationScope": "Public-source research checked; unavailable content, identity, kitchen claims and full-week hours are not certified.",
+      "menuStatus": "No verified public menu found",
+      "hoursStatus": "Existing or qualified partial schedule retained",
+      "routineRecheckRequired": false,
+      "productionApplied": false
+    },
+    {
+      "id": "staff-just-greens-vegetarian-simei-770a234e",
+      "name": "Just Greens Vegetarian - Simei",
+      "address": "248 SIMEI STREET 3 SINGAPORE 520248",
+      "missing": [
+        "cover",
+        "menu"
+      ],
+      "issue": "premise-conflict",
+      "reason": "Just Greens at 248 Simei Street3 is separate from Veggie House Eastpoint at3SimeiStreet6. Only the latter has a prepared menu.",
+      "nextEvidenceNeeded": "No routine repeat research. Reopen only when new exact-outlet merchant/source evidence is supplied.",
+      "status": "Verified - research checked",
+      "researchCheckedAt": "2026-10-23",
+      "verificationScope": "Public-source research checked; unavailable content, identity, kitchen claims and full-week hours are not certified.",
+      "menuStatus": "Menu withheld - identity, operation or business-type evidence unresolved",
+      "hoursStatus": "Existing or qualified partial schedule retained",
+      "routineRecheckRequired": false,
+      "productionApplied": false
+    },
+    {
+      "id": "staff-keat-lim-vegetarian-ee1feb58",
+      "name": "Keat lim vegetarian",
+      "address": "846 YISHUN RING ROAD KHATIB CENTRAL SINGAPORE 760846",
+      "missing": [
+        "cover",
+        "menu"
+      ],
+      "issue": "operation-conflict",
+      "reason": "Keat Lim846Yishun has a reported2023 closure conflicting with a retained current listing. AMK347/728 menus and UpperThomson menus do not establish this location.",
+      "nextEvidenceNeeded": "No routine repeat research. Reopen only when new exact-outlet merchant/source evidence is supplied.",
+      "status": "Verified - research checked",
+      "researchCheckedAt": "2026-10-23",
+      "verificationScope": "Public-source research checked; unavailable content, identity, kitchen claims and full-week hours are not certified.",
+      "menuStatus": "Menu withheld - identity, operation or business-type evidence unresolved",
+      "hoursStatus": "Existing or qualified partial schedule retained",
+      "routineRecheckRequired": false,
+      "productionApplied": false
+    },
+    {
+      "id": "staff-kiat-lim-vegetarian-676e43a0",
+      "name": "Kiat Lim Vegetarian 吉林",
+      "address": "222 UPPER THOMSON ROAD THOMSON GARDEN ESTATE SINGAPORE 574354",
+      "missing": [
+        "cover",
+        "menu"
+      ],
+      "issue": "premise-conflict",
+      "reason": "Original place ID matches222AUpperThomson rather than catalogue222. Published directory week and retainedFriday agree; qualified hours staged. No verified exact-outlet named dishes; AMK/Yishun menus excluded.",
+      "nextEvidenceNeeded": "No routine repeat research. Reopen only when new exact-outlet merchant/source evidence is supplied.",
+      "status": "Verified - research checked",
+      "researchCheckedAt": "2026-10-23",
+      "verificationScope": "Public-source research checked; unavailable content, identity, kitchen claims and full-week hours are not certified.",
+      "menuStatus": "Menu withheld - identity, operation or business-type evidence unresolved",
+      "hoursStatus": "Existing or qualified partial schedule retained",
+      "routineRecheckRequired": false,
+      "productionApplied": false
+    },
+    {
+      "id": "research-ur01-kind-sprout-sengkang",
+      "name": "Kind Sprout SG",
+      "address": "Singapore 793461",
+      "missing": [
+        "hours"
+      ],
+      "issue": "preorder-service",
+      "reason": "Published as pre-order only; no regular public weekly opening schedule verified. Do not turn collection/ordering slots into walk-in hours.",
+      "nextEvidenceNeeded": "No routine repeat research. Reopen only when new exact-outlet merchant/source evidence is supplied.",
+      "status": "Verified - research checked",
+      "researchCheckedAt": "2026-10-23",
+      "verificationScope": "Public-source research checked; unavailable content, identity, kitchen claims and full-week hours are not certified.",
+      "menuStatus": "Existing menu retained",
+      "hoursStatus": "No verified public service schedule found",
+      "routineRecheckRequired": false,
+      "productionApplied": false
+    },
+    {
+      "id": "staff-miao-lian-vegetarian-e165b1da",
+      "name": "MIAO LIAN VEGETARIAN",
+      "address": "21 WOODLANDS CLOSE PRIMZ BIZHUB SINGAPORE 737854",
+      "missing": [
+        "cover",
+        "menu",
+        "hours"
+      ],
+      "issue": "premise-conflict",
+      "reason": "Exact retainedMiaoLian listing matches original place ID atPrimzBizhub21WoodlandsClose but supplies no hours or menu. OldMarsiling10/35menus cannot be transferred.",
+      "nextEvidenceNeeded": "No routine repeat research. Reopen only when new exact-outlet merchant/source evidence is supplied.",
+      "status": "Verified - research checked",
+      "researchCheckedAt": "2026-10-23",
+      "verificationScope": "Public-source research checked; unavailable content, identity, kitchen claims and full-week hours are not certified.",
+      "menuStatus": "Menu withheld - identity, operation or business-type evidence unresolved",
+      "hoursStatus": "No verified public service schedule found",
+      "routineRecheckRequired": false,
+      "productionApplied": false
+    },
+    {
+      "id": "staff-mother-earth-vegetarian-solaris-0414dd14",
+      "name": "Mother Earth Vegetarian (Solaris)",
+      "address": "164 KALLANG WAY SOLARIS @KALLANG 164 SINGAPORE 349248",
+      "missing": [
+        "cover",
+        "menu"
+      ],
+      "issue": "replacement-conflict",
+      "reason": "Merchant outlet source at164KallangWay now names Peace Vegetarian, while catalogue says MotherEarthSolaris. Verify replacement/closure explicitly; Balestier and HongLeong statements do not resolve Solaris.",
+      "nextEvidenceNeeded": "No routine repeat research. Reopen only when new exact-outlet merchant/source evidence is supplied.",
+      "status": "Verified - research checked",
+      "researchCheckedAt": "2026-10-23",
+      "verificationScope": "Public-source research checked; unavailable content, identity, kitchen claims and full-week hours are not certified.",
+      "menuStatus": "Menu withheld - identity, operation or business-type evidence unresolved",
+      "hoursStatus": "Existing or qualified partial schedule retained",
+      "routineRecheckRequired": false,
+      "productionApplied": false
+    },
+    {
+      "id": "staff-pure-vegetarian-options-a-khansama-enterprise-61c7262a",
+      "name": "Pure Vegetarian Options - a Khansama enterprise",
+      "address": "13 Norris Road, Singapore 208255",
+      "missing": [
+        "cover",
+        "menu"
+      ],
+      "issue": "identity-proof",
+      "reason": "Khansama13Norris may be an office/old branch; postcode conflicts. Main mixed kitchen166Serangoon and closedSciencePark menu are not proof for this record.",
+      "nextEvidenceNeeded": "No routine repeat research. Reopen only when new exact-outlet merchant/source evidence is supplied.",
+      "status": "Verified - research checked",
+      "researchCheckedAt": "2026-10-23",
+      "verificationScope": "Public-source research checked; unavailable content, identity, kitchen claims and full-week hours are not certified.",
+      "menuStatus": "No verified public menu found",
+      "hoursStatus": "Existing or qualified partial schedule retained",
+      "routineRecheckRequired": false,
+      "productionApplied": false
+    },
+    {
+      "id": "staff-ren-yi-vegetarian-1acd9597",
+      "name": "Ren Yi Vegetarian",
+      "address": "53 ANG MO KIO AVENUE 3 AMK HUB SINGAPORE 569933",
+      "missing": [
+        "cover",
+        "menu"
+      ],
+      "issue": "dish-proof",
+      "reason": "RenYi appears in AMKHub directories, but no reusable original/merchant named-dish source was verified. Do not infer rice/noodles from the category.",
+      "nextEvidenceNeeded": "No routine repeat research. Reopen only when new exact-outlet merchant/source evidence is supplied.",
+      "status": "Verified - research checked",
+      "researchCheckedAt": "2026-10-23",
+      "verificationScope": "Public-source research checked; unavailable content, identity, kitchen claims and full-week hours are not certified.",
+      "menuStatus": "No verified public menu found",
+      "hoursStatus": "Existing or qualified partial schedule retained",
+      "routineRecheckRequired": false,
+      "productionApplied": false
+    },
+    {
+      "id": "staff-safidon-bc3a09a1",
+      "name": "Safidon",
+      "address": "2 SERANGOON ROAD CITADINES ROCHOR SINGAPORE SINGAPORE 218227",
+      "missing": [
+        "cover",
+        "menu"
+      ],
+      "issue": "kitchen-proof",
+      "reason": "SafidonGroup at TekkaPlace B1 advertises NorthIndian food; exact dish-level and full meat-free-kitchen proof remain unverified.",
+      "nextEvidenceNeeded": "No routine repeat research. Reopen only when new exact-outlet merchant/source evidence is supplied.",
+      "status": "Verified - research checked",
+      "researchCheckedAt": "2026-10-23",
+      "verificationScope": "Public-source research checked; unavailable content, identity, kitchen claims and full-week hours are not certified.",
+      "menuStatus": "Menu withheld - identity, operation or business-type evidence unresolved",
+      "hoursStatus": "Existing or qualified partial schedule retained",
+      "routineRecheckRequired": false,
+      "productionApplied": false
+    },
+    {
+      "id": "staff-shang-de-vegetarian-stall-a6b26aa2",
+      "name": "Shang De Vegetarian Stall",
+      "address": "560 MACPHERSON ROAD SINGAPORE 368233",
+      "missing": [
+        "cover",
+        "menu",
+        "hours"
+      ],
+      "issue": "premise-conflict",
+      "reason": "ShangDe560Macpherson is not566Serangoon. Serangoon meal reviews/2025 closure and later568Serangoon registration cannot be transferred.",
+      "nextEvidenceNeeded": "No routine repeat research. Reopen only when new exact-outlet merchant/source evidence is supplied.",
+      "status": "Verified - research checked",
+      "researchCheckedAt": "2026-10-23",
+      "verificationScope": "Public-source research checked; unavailable content, identity, kitchen claims and full-week hours are not certified.",
+      "menuStatus": "Menu withheld - identity, operation or business-type evidence unresolved",
+      "hoursStatus": "No verified public service schedule found",
+      "routineRecheckRequired": false,
+      "productionApplied": false
+    },
+    {
+      "id": "staff-shi-man-lou-cf15ad57",
+      "name": "Shi Man Lou",
+      "address": "768 WOODLANDS AVENUE 6 WOODLANDS MART SINGAPORE 730768",
+      "missing": [
+        "cover",
+        "menu"
+      ],
+      "issue": "source-provenance",
+      "reason": "Google-derived dish summaries excluded. Menuweb separately attributes a named mee-tai-mak meal to HappyCow Cqveggiefinds, but duplicates it under different dates/authors; original profile could not be verified. Merchant SuShiLou Foodpanda c9tt has20namedproducts at same whole-coffeeshop unit; alias to ShiManLou remains unproven, vendorlogo404. Do not transfer without identity/provenance proof.",
+      "nextEvidenceNeeded": "No routine repeat research. Reopen only when new exact-outlet merchant/source evidence is supplied.",
+      "status": "Verified - research checked",
+      "researchCheckedAt": "2026-10-23",
+      "verificationScope": "Public-source research checked; unavailable content, identity, kitchen claims and full-week hours are not certified.",
+      "menuStatus": "No verified public menu found",
+      "hoursStatus": "Existing or qualified partial schedule retained",
+      "routineRecheckRequired": false,
+      "productionApplied": false
+    },
+    {
+      "id": "staff-simple-food-147fc16e",
+      "name": "Simple Food",
+      "address": "537 BEDOK NORTH STREET 3 SINGAPORE 460537",
+      "missing": [
+        "cover",
+        "menu",
+        "hours"
+      ],
+      "issue": "operation-conflict",
+      "reason": "2010 YummyGreen/SimpleFood account at537Bedok is16yearsold. Present identity/operation and hours are unresolved; no current menu transfer.",
+      "nextEvidenceNeeded": "No routine repeat research. Reopen only when new exact-outlet merchant/source evidence is supplied.",
+      "status": "Verified - research checked",
+      "researchCheckedAt": "2026-10-23",
+      "verificationScope": "Public-source research checked; unavailable content, identity, kitchen claims and full-week hours are not certified.",
+      "menuStatus": "Menu withheld - identity, operation or business-type evidence unresolved",
+      "hoursStatus": "No verified public service schedule found",
+      "routineRecheckRequired": false,
+      "productionApplied": false
+    },
+    {
+      "id": "staff-soon-lai-vegetarian-05b833a6",
+      "name": "Soon Lai Vegetarian",
+      "address": "533 CHOA CHU KANG STREET 51 LIMBANG SHOPPING CENTRE SINGAPORE 680533",
+      "missing": [
+        "cover",
+        "menu"
+      ],
+      "issue": "premise-conflict",
+      "reason": "Original Google place ID matches retainedSoonLai at532CCKSt51YiJiaFoodCourt rather than catalogue533Limbang. Friday07:30-14 staged with address warning. ShunLai532#01-32alias remains unproved; no menu transfer. Cancelled registry alone does not prove closure.",
+      "nextEvidenceNeeded": "No routine repeat research. Reopen only when new exact-outlet merchant/source evidence is supplied.",
+      "status": "Verified - research checked",
+      "researchCheckedAt": "2026-10-23",
+      "verificationScope": "Public-source research checked; unavailable content, identity, kitchen claims and full-week hours are not certified.",
+      "menuStatus": "Menu withheld - identity, operation or business-type evidence unresolved",
+      "hoursStatus": "Existing or qualified partial schedule retained",
+      "routineRecheckRequired": false,
+      "productionApplied": false
+    },
+    {
+      "id": "staff-tanglin-halt-market-food-centre-05ff07ce",
+      "name": "Tanglin Halt Market/Food Centre",
+      "address": "48A TANGLIN HALT ROAD TANGLIN HALT MARKET SINGAPORE 148813",
+      "missing": [
+        "cover",
+        "menu",
+        "hours"
+      ],
+      "issue": "vendor-identity",
+      "reason": "Record identifies the whole TanglinHalt market, not a single verified vegetarian kitchen. Identify the actual vendor before assigning dishes or restaurant hours.",
+      "nextEvidenceNeeded": "No routine repeat research. Reopen only when new exact-outlet merchant/source evidence is supplied.",
+      "status": "Verified - research checked",
+      "researchCheckedAt": "2026-10-23",
+      "verificationScope": "Public-source research checked; unavailable content, identity, kitchen claims and full-week hours are not certified.",
+      "menuStatus": "Menu withheld - identity, operation or business-type evidence unresolved",
+      "hoursStatus": "No verified public service schedule found",
+      "routineRecheckRequired": false,
+      "productionApplied": false
+    },
+    {
+      "id": "staff-teo-kian-chye-3a2c7f29",
+      "name": "Teo Kian Chye",
+      "address": "362 UPPER PAYA LEBAR ROAD DA JIN FACTORY BUILDING SINGAPORE 534963",
+      "missing": [
+        "cover",
+        "menu",
+        "hours"
+      ],
+      "issue": "business-type",
+      "reason": "362UpperPayaLebar listing mixes retail and restaurant categories. No cooked-dish or weekly-hours source; same-name businesses elsewhere are not proof.",
+      "nextEvidenceNeeded": "No routine repeat research. Reopen only when new exact-outlet merchant/source evidence is supplied.",
+      "status": "Verified - research checked",
+      "researchCheckedAt": "2026-10-23",
+      "verificationScope": "Public-source research checked; unavailable content, identity, kitchen claims and full-week hours are not certified.",
+      "menuStatus": "Menu withheld - identity, operation or business-type evidence unresolved",
+      "hoursStatus": "No verified public service schedule found",
+      "routineRecheckRequired": false,
+      "productionApplied": false
+    },
+    {
+      "id": "staff-tian-de-vegetarian-6cfca595",
+      "name": "Tian De Vegetarian 天德素食",
+      "address": "301 UBI AVENUE 1 SINGAPORE 400301",
+      "missing": [
+        "cover",
+        "menu"
+      ],
+      "issue": "dish-proof",
+      "reason": "TianDe301Ubi#01-305 appears in stall lists but no original named-dish source. Hougang TianDe and Malaysia restaurant are different places.",
+      "nextEvidenceNeeded": "No routine repeat research. Reopen only when new exact-outlet merchant/source evidence is supplied.",
+      "status": "Verified - research checked",
+      "researchCheckedAt": "2026-10-23",
+      "verificationScope": "Public-source research checked; unavailable content, identity, kitchen claims and full-week hours are not certified.",
+      "menuStatus": "No verified public menu found",
+      "hoursStatus": "Existing or qualified partial schedule retained",
+      "routineRecheckRequired": false,
+      "productionApplied": false
+    },
+    {
+      "id": "research-ur08-vege-bear-bidadari",
+      "name": "Vege Bear Vegetarian",
+      "address": "212 Bidadari Park Drive #03-01, Singapore 360212",
+      "missing": [
+        "hours"
+      ],
+      "issue": "channel-hours",
+      "reason": "Exact212Bidadari#03-01 menu verified, but no outlet-specific dine-in schedule. Do not transfer666Tampines or wholeTamChiakKopitiam hours.",
+      "nextEvidenceNeeded": "No routine repeat research. Reopen only when new exact-outlet merchant/source evidence is supplied.",
+      "status": "Verified - research checked",
+      "researchCheckedAt": "2026-10-23",
+      "verificationScope": "Public-source research checked; unavailable content, identity, kitchen claims and full-week hours are not certified.",
+      "menuStatus": "Existing menu retained",
+      "hoursStatus": "No verified public service schedule found",
+      "routineRecheckRequired": false,
+      "productionApplied": false
+    },
+    {
+      "id": "staff-vege-country-enterprise-2c65cfde",
+      "name": "Vege Country Enterprise",
+      "address": "67 SUNGEI TENGAH ROAD FARMART CENTRE SINGAPORE 699008",
+      "missing": [
+        "cover",
+        "menu",
+        "hours"
+      ],
+      "issue": "business-type",
+      "reason": "Farmart67SungeiTengah#01-32 is listed as grocery/wholesale with ceased registration. No verified prepared-food menu or current public service hours; do not invent a restaurant menu.",
+      "nextEvidenceNeeded": "No routine repeat research. Reopen only when new exact-outlet merchant/source evidence is supplied.",
+      "status": "Verified - research checked",
+      "researchCheckedAt": "2026-10-23",
+      "verificationScope": "Public-source research checked; unavailable content, identity, kitchen claims and full-week hours are not certified.",
+      "menuStatus": "Menu withheld - identity, operation or business-type evidence unresolved",
+      "hoursStatus": "No verified public service schedule found",
+      "routineRecheckRequired": false,
+      "productionApplied": false
+    },
+    {
+      "id": "staff-vege-story-e780fe80",
+      "name": "Vege Story",
+      "address": "435A HOUGANG AVENUE 8 MULTI STOREY CAR PARK SINGAPORE 531435",
+      "missing": [
+        "cover",
+        "menu",
+        "hours"
+      ],
+      "issue": "operation-conflict",
+      "reason": "Exact435AHougang HappyCow106432 (Zhai/VegeStory) reports closedAugust2019. Historical2018meal and older tenant lists do not prove current reopening. No exact current operation confirmation; Woodlands892C menu is a different premise. Closure is a lead, not an applied removal.",
+      "nextEvidenceNeeded": "No routine repeat research. Reopen only when new exact-outlet merchant/source evidence is supplied.",
+      "status": "Verified - research checked",
+      "researchCheckedAt": "2026-10-23",
+      "verificationScope": "Public-source research checked; unavailable content, identity, kitchen claims and full-week hours are not certified.",
+      "menuStatus": "Menu withheld - identity, operation or business-type evidence unresolved",
+      "hoursStatus": "No verified public service schedule found",
+      "routineRecheckRequired": false,
+      "productionApplied": false
+    },
+    {
+      "id": "staff-vegetarian-30a747b9",
+      "name": "Vegetarian",
+      "address": "111 NORTH BRIDGE ROAD PENINSULA PLAZA SINGAPORE 179098",
+      "missing": [
+        "cover",
+        "menu"
+      ],
+      "issue": "vendor-identity",
+      "reason": "Generic Vegetarian at111NorthBridgePeninsula basement has no uniquely identified merchant/menu. Do not borrow a nearby restaurant menu.",
+      "nextEvidenceNeeded": "No routine repeat research. Reopen only when new exact-outlet merchant/source evidence is supplied.",
+      "status": "Verified - research checked",
+      "researchCheckedAt": "2026-10-23",
+      "verificationScope": "Public-source research checked; unavailable content, identity, kitchen claims and full-week hours are not certified.",
+      "menuStatus": "Menu withheld - identity, operation or business-type evidence unresolved",
+      "hoursStatus": "Existing or qualified partial schedule retained",
+      "routineRecheckRequired": false,
+      "productionApplied": false
+    },
+    {
+      "id": "staff-vegetarian-koufu-23a62a43",
+      "name": "Vegetarian @ Koufu",
+      "address": "768 WOODLANDS AVENUE 6 WOODLANDS MART SINGAPORE 730768",
+      "missing": [
+        "cover",
+        "menu"
+      ],
+      "issue": "vendor-identity",
+      "reason": "Exact genericVegetarian@Koufu listing768Woodlands is distinct fromShiManLou place ID; same whole-coffeeshop location does not prove operator identity. No verified original menu; do not transferSuShiLouFoodpanda products.",
+      "nextEvidenceNeeded": "No routine repeat research. Reopen only when new exact-outlet merchant/source evidence is supplied.",
+      "status": "Verified - research checked",
+      "researchCheckedAt": "2026-10-23",
+      "verificationScope": "Public-source research checked; unavailable content, identity, kitchen claims and full-week hours are not certified.",
+      "menuStatus": "Menu withheld - identity, operation or business-type evidence unresolved",
+      "hoursStatus": "Existing or qualified partial schedule retained",
+      "routineRecheckRequired": false,
+      "productionApplied": false
+    },
+    {
+      "id": "staff-vegetarian-sims-place-d63670ed",
+      "name": "Vegetarian @ Sims Place",
+      "address": "49 SIMS PLACE SIMS VISTA MARKET AND FOOD CENTRE SINGAPORE 380049",
+      "missing": [
+        "cover",
+        "menu"
+      ],
+      "issue": "unit-conflict",
+      "reason": "Generic SimsPlace listing says#01-45, while government listings name a banmian business there and LuShunVegetarian at#01-38. No exact alias/replacement proof.",
+      "nextEvidenceNeeded": "No routine repeat research. Reopen only when new exact-outlet merchant/source evidence is supplied.",
+      "status": "Verified - research checked",
+      "researchCheckedAt": "2026-10-23",
+      "verificationScope": "Public-source research checked; unavailable content, identity, kitchen claims and full-week hours are not certified.",
+      "menuStatus": "Menu withheld - identity, operation or business-type evidence unresolved",
+      "hoursStatus": "Existing or qualified partial schedule retained",
+      "routineRecheckRequired": false,
+      "productionApplied": false
+    },
+    {
+      "id": "staff-vegetarian-food-559c325d",
+      "name": "Vegetarian Food",
+      "address": "51 UPPER BUKIT TIMAH ROAD BUKIT TIMAH MARKET SINGAPORE 588215",
+      "missing": [
+        "cover",
+        "menu"
+      ],
+      "issue": "vendor-identity",
+      "reason": "Generic VegetarianFood at old51UpperBukitTimah market lacks a vendor/unit identity and current relocation proof. Do not assign another stall menu.",
+      "nextEvidenceNeeded": "No routine repeat research. Reopen only when new exact-outlet merchant/source evidence is supplied.",
+      "status": "Verified - research checked",
+      "researchCheckedAt": "2026-10-23",
+      "verificationScope": "Public-source research checked; unavailable content, identity, kitchen claims and full-week hours are not certified.",
+      "menuStatus": "Menu withheld - identity, operation or business-type evidence unresolved",
+      "hoursStatus": "Existing or qualified partial schedule retained",
+      "routineRecheckRequired": false,
+      "productionApplied": false
+    },
+    {
+      "id": "staff-vegetarian-salad-49d00b69",
+      "name": "Vegetarian salad",
+      "address": "3A INTERNATIONAL BUSINESS PARK ICON @ IBP SINGAPORE 609935",
+      "missing": [
+        "cover",
+        "menu"
+      ],
+      "issue": "vendor-identity",
+      "reason": "Generic VegetarianSalad at3AInternationalBusinessPark lacks a verified merchant/unit and dish-level source.",
+      "nextEvidenceNeeded": "No routine repeat research. Reopen only when new exact-outlet merchant/source evidence is supplied.",
+      "status": "Verified - research checked",
+      "researchCheckedAt": "2026-10-23",
+      "verificationScope": "Public-source research checked; unavailable content, identity, kitchen claims and full-week hours are not certified.",
+      "menuStatus": "Menu withheld - identity, operation or business-type evidence unresolved",
+      "hoursStatus": "Existing or qualified partial schedule retained",
+      "routineRecheckRequired": false,
+      "productionApplied": false
+    },
+    {
+      "id": "staff-vegetarian-stall-cd1e51a9",
+      "name": "vegetarian stall",
+      "address": "36 CHAI CHEE AVENUE ANSAR GARDEN SINGAPORE 461036",
+      "missing": [
+        "cover",
+        "menu"
+      ],
+      "issue": "vendor-identity",
+      "reason": "Generic vegetarianstall36ChaiChee needs an exact operator/unit and named-dish source. Category alone is not dish evidence.",
+      "nextEvidenceNeeded": "No routine repeat research. Reopen only when new exact-outlet merchant/source evidence is supplied.",
+      "status": "Verified - research checked",
+      "researchCheckedAt": "2026-10-23",
+      "verificationScope": "Public-source research checked; unavailable content, identity, kitchen claims and full-week hours are not certified.",
+      "menuStatus": "Menu withheld - identity, operation or business-type evidence unresolved",
+      "hoursStatus": "Existing or qualified partial schedule retained",
+      "routineRecheckRequired": false,
+      "productionApplied": false
+    },
+    {
+      "id": "staff-vegetarian-stall-d7c8e6fe",
+      "name": "Vegetarian Stall",
+      "address": "848 YISHUN STREET 81 KHATIB CENTRAL SINGAPORE 760848",
+      "missing": [
+        "cover",
+        "menu",
+        "hours"
+      ],
+      "issue": "vendor-identity",
+      "reason": "Generic848Yishun stall may be a known vegetarian vendor, but equivalence to FuKang24h or another operator is unproven. No schedule/menu transfer.",
+      "nextEvidenceNeeded": "No routine repeat research. Reopen only when new exact-outlet merchant/source evidence is supplied.",
+      "status": "Verified - research checked",
+      "researchCheckedAt": "2026-10-23",
+      "verificationScope": "Public-source research checked; unavailable content, identity, kitchen claims and full-week hours are not certified.",
+      "menuStatus": "Menu withheld - identity, operation or business-type evidence unresolved",
+      "hoursStatus": "No verified public service schedule found",
+      "routineRecheckRequired": false,
+      "productionApplied": false
+    },
+    {
+      "id": "research-ur06-xing-hua",
+      "name": "Xing Hua Vegetarian",
+      "address": "190 Middle Road #01-11, Fortune Centre, Singapore188979",
+      "missing": [
+        "hours"
+      ],
+      "issue": "channel-hours",
+      "reason": "Current merchant Oddle ordinaryHTML actually names FortuneCentre#01-11,+6597322733 anddaily11-20pickup/delivery. Earlier assumptionmerchant#01-07 corrected; HappyCow directory names#01-07 anddifferentlongerhours. Fulfilment hours not asserted as walk-in. Need exactcurrentdine-inweek; Somerset and60Albert are separate premises.",
+      "nextEvidenceNeeded": "No routine repeat research. Reopen only when new exact-outlet merchant/source evidence is supplied.",
+      "status": "Verified - research checked",
+      "researchCheckedAt": "2026-10-23",
+      "verificationScope": "Public-source research checked; unavailable content, identity, kitchen claims and full-week hours are not certified.",
+      "menuStatus": "Existing menu retained",
+      "hoursStatus": "No verified public service schedule found",
+      "routineRecheckRequired": false,
+      "productionApplied": false
+    },
+    {
+      "id": "staff-san-de-vegetarian-c7357bfd",
+      "name": "三德 San De Vegetarian",
+      "address": "100 BUKIT TIMAH ROAD KK WOMEN'S AND CHILDREN'S HOSPITAL SINGAPORE 229899",
+      "missing": [
+        "cover",
+        "menu",
+        "hours"
+      ],
+      "issue": "source-provenance",
+      "reason": "KKHospital SanDe100BukitTimah menu/hour mentions are Google-derived; hospital/food-court hours do not prove stall hours. SanDeSembawang/Yishun are different premises.",
+      "nextEvidenceNeeded": "No routine repeat research. Reopen only when new exact-outlet merchant/source evidence is supplied.",
+      "status": "Verified - research checked",
+      "researchCheckedAt": "2026-10-23",
+      "verificationScope": "Public-source research checked; unavailable content, identity, kitchen claims and full-week hours are not certified.",
+      "menuStatus": "No verified public menu found",
+      "hoursStatus": "No verified public service schedule found",
+      "routineRecheckRequired": false,
+      "productionApplied": false
+    },
+    {
+      "id": "staff-econ-vegetariandelight-21c13262",
+      "name": "益康斋素食苑 Econ VegetarianDelight",
+      "address": "144 TAMPINES STREET 12 SINGAPORE 521144",
+      "missing": [
+        "cover",
+        "menu"
+      ],
+      "issue": "dish-proof",
+      "reason": "Original2025/2026 Liyenz visit matches144Tampines and says rice/noodles, but names no specific dish. OriginalInstagram unavailable; Telegram searches add no exact match. Do not invent ingredients or borrowBlock419 dishes.",
+      "nextEvidenceNeeded": "No routine repeat research. Reopen only when new exact-outlet merchant/source evidence is supplied.",
+      "status": "Verified - research checked",
+      "researchCheckedAt": "2026-10-23",
+      "verificationScope": "Public-source research checked; unavailable content, identity, kitchen claims and full-week hours are not certified.",
+      "menuStatus": "No verified public menu found",
+      "hoursStatus": "Existing or qualified partial schedule retained",
+      "routineRecheckRequired": false,
+      "productionApplied": false
+    },
+    {
+      "id": "staff-evergreen-vegetarian-cuisine-dc4438b7",
+      "name": "長素 Evergreen Vegetarian Cuisine",
+      "address": "90 LORONG 25A GEYLANG SINGAPORE 388265",
+      "missing": [
+        "hours"
+      ],
+      "issue": "channel-hours",
+      "reason": "Exact merchant gnch menu and brand/address88/90Lor25A verified and staged, replacing unmatchedhappylifevege source. Remaining hours hold:11-18:30are delivery fulfilment; directory11-20Wedclosed and newerclosing20information do not establish a verified full walk-in week. Do not transfer134GeylangEast hours.",
+      "nextEvidenceNeeded": "No routine repeat research. Reopen only when new exact-outlet merchant/source evidence is supplied.",
+      "status": "Verified - research checked",
+      "researchCheckedAt": "2026-10-23",
+      "verificationScope": "Public-source research checked; unavailable content, identity, kitchen claims and full-week hours are not certified.",
+      "menuStatus": "Existing menu retained",
+      "hoursStatus": "No verified public service schedule found",
+      "routineRecheckRequired": false,
+      "productionApplied": false
+    },
+    {
+      "id": "staff-item-8e516949",
+      "name": "香品斋",
+      "address": "341 ANG MO KIO AVENUE 1 TECK GHEE COURT SINGAPORE 560341",
+      "missing": [
+        "cover",
+        "menu",
+        "hours"
+      ],
+      "issue": "vendor-identity",
+      "reason": "香品斋341AMK has a name/location listing only. MingRi#01-05 and OmManiPadMeHom at the same block are separate candidates; no dishes/hours transfer.",
+      "nextEvidenceNeeded": "No routine repeat research. Reopen only when new exact-outlet merchant/source evidence is supplied.",
+      "status": "Verified - research checked",
+      "researchCheckedAt": "2026-10-23",
+      "verificationScope": "Public-source research checked; unavailable content, identity, kitchen claims and full-week hours are not certified.",
+      "menuStatus": "Menu withheld - identity, operation or business-type evidence unresolved",
+      "hoursStatus": "No verified public service schedule found",
+      "routineRecheckRequired": false,
+      "productionApplied": false
+    }
+  ]
+}
