@@ -104,6 +104,7 @@ const SCENE = `
 .rh .seattag svg { width:14px; height:14px; fill:var(--ink); }
 .rh .stag { position:absolute; transform:translate(-50%,-50%); font-size:13px; padding:0 13px 0 9px; min-height:38px; gap:6px; border-radius:99px; background:var(--pill); color:var(--white); white-space:nowrap;
   overflow:hidden; text-overflow:ellipsis; display:inline-flex; align-items:center; justify-content:center; box-shadow:0 0 0 2px var(--glass), 0 3px 6px var(--shadow); transition:background .2s; }
+.rh .stag.quiet { opacity:0; pointer-events:none; animation:none; } .rh .stag.quiet:focus-visible { opacity:1; }
 .rh .stag .tx { min-width:0; overflow:hidden; text-overflow:ellipsis; } .rh .stag.narrow { font-size:12px; padding:0 9px 0 6px; gap:4px; } .rh .stag.narrow .ti { width:14px; height:14px; }
 .rh .stag .ti { width:17px; height:17px; flex:none; fill:currentColor; } .rh .stag .ti-flame { fill:var(--amber); } .rh .stag .ti-warn { fill:var(--white); }
 .rh .stag.take { background:linear-gradient(var(--gold-hi),var(--gold)); color:var(--gold-ink); animation:rhtagin .26s cubic-bezier(.2,1.6,.4,1), rhtag .5s .26s ease-in-out infinite; }

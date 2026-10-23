@@ -89,9 +89,10 @@ export function StationTags({ run, L, plateSel, dragging, onSelect, onRestart }:
     {(Object.keys(L.stations) as StationKind[]).map(k => {
       // The full words when they fit the tag (about 8 px a letter beside the icon), else the short ones, never cut off.
       const r = L.stations[k]!, s = stationState(run, k), cfg = STATIONS[k], long = !narrow && s.text.length * 8 + 46 <= r.w - 2;
-      // Idle tags (the station's name, Add more, Empty) stay away unless the pot is cooking for two; cooking shows how far it has got.
-      if (s.tone === "idle" && run.stations[k]?.part?.portions !== 2) return null;
-      return <button key={k} className={"stag " + s.tone + (narrow ? " narrow" : "")} style={{ left: r.tag.x, top: r.tag.y, maxWidth: r.w - 2 }}
+      // Idle tags (the station's name, Add more, Empty) are not shown unless the pot is cooking for two; they stay in the page, invisible,
+      // so a screen reader or keyboard can still reach the station, and show while focused. Cooking shows how far it has got.
+      const quiet = s.tone === "idle" && run.stations[k]?.part?.portions !== 2;
+      return <button key={k} className={"stag " + s.tone + (narrow ? " narrow" : "") + (quiet ? " quiet" : "")} style={{ left: r.tag.x, top: r.tag.y, maxWidth: r.w - 2 }}
         onClick={() => { const state = run.stations[k]?.part?.state; if (state === "scorched" || state === "split") onRestart(k); else onSelect(k); }}
         aria-label={cfg.name + ": " + s.text}><TagIcon tone={s.tone === "cook" && cfg.heat ? "flame" : s.tone} /><span className="tx">{long ? s.text : s.short}</span></button>;
     })}
