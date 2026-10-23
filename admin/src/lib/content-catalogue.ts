@@ -2,9 +2,10 @@ import 'server-only';
 import { query } from './db';
 import { authorize, type Session } from './session';
 import { choice, HttpError, text } from './http';
-import { packagedMenu, packagedPlaces, type Menu, type MenuItem, type Place } from './content-base';
+import { closedPlaces, packagedMenu, packagedPlaces, type Menu, type MenuItem, type Place } from './content-base';
 import { action, contentId, expectedVersion, history, newerBelow, newId, staffRow, staffRows, staffState, visibility, writeItem, type StaffRow } from './content-store';
 import { asRecord, checkOptionsMenu, hours, menuItem, menuTotal, photo, point, url } from './content-validate';
+import { samePlace } from './place-identity';
 
 // null clears the veg options kitchen or the full-menu count set by an earlier staff edit.
 type Patch = Omit<Partial<Place>, 'kitchen' | 'menuTotal'> & { kitchen?: 'options' | null; menuTotal?: number | null; sourceUrl?: string; base?: string };
@@ -67,12 +68,32 @@ async function placeFields(input: Record<string, unknown>, base: Place | null) {
     point: f.point === undefined ? base?.point ?? null : point(f.point), venueDiet: f.venueDiet === 'Vegan' ? 'Vegan' as const : 'Vegetarian' as const,
     alliumFreeClaim: f.alliumFreeClaim === true, kitchen, menuTotal: menuTotal(f.menuTotal), ...(f.hours !== undefined ? { hours: hours(f.hours) } : {}), ...(pictured !== undefined ? { photo: pictured } : {}) };
 }
+/** Owner, 24 Oct 2026: a new place that Explore already lists (samePlace: same postal code and unit, or same name) is refused
+ * unless staff confirm it is a different place, so the same branch is not listed twice under a staff id. Hidden and closed places
+ * are not listed, matching the bots (live_places in ops/qt-team/veg_options.py). */
+async function refuseListed(fields: { name: string; address: string; postalCode: string }) {
+  const [base, closed, rows] = await Promise.all([packagedPlaces(), closedPlaces(), staffRows('place')]);
+  const staff = new Map(rows.map(row => [row.id, row]));
+  const listed = [...base.flatMap(({ data }) => {
+    const row = staff.get(data.id), patch = (row?.data ?? {}) as Patch;
+    return row?.hidden || closed.has(data.id) ? [] : [{ id: data.id, name: patch.name ?? data.name, address: patch.address ?? data.address, postalCode: patch.postalCode ?? data.postalCode }];
+  }), ...rows.filter(row => row.origin === 'staff' && !row.hidden).map(row => {
+    const data = row.data as Patch;
+    return { id: row.id, name: data.name ?? '', address: data.address ?? '', postalCode: data.postalCode ?? '' };
+  })];
+  for (const place of listed) {
+    const why = samePlace(fields, place);
+    if (why) throw new HttpError(409, `${place.name} (${place.address}) is already listed with the ${why === 'same unit' ? 'same unit' : 'same name'} at this postal code. `
+      + 'Edit that place instead, or tick "Different place at this address" to add this one.');
+  }
+}
 /** Save keeps only the fields that differ from the packaged place, so bot updates to untouched fields still reach members. */
 export async function placeAction(member: Session, input: Record<string, unknown>, reason: string) {
   const act = action(input.action, ['create', 'save', 'hide', 'restore', 'clear', 'delete'] as const), expected = expectedVersion(input.version);
   authorize(member, 'content');
   if (act === 'create') {
     const fields = await placeFields(input, null), id = newId(fields.name + ' ' + fields.branch);
+    if (input.allowDuplicate !== true) await refuseListed(fields);
     const sourceUrl = url(asRecord(input.fields, 'place details').sourceUrl, 'the place source');
     await writeItem(member, 'place', id, 0, act, reason, () => ({ origin: 'staff', hidden: false, data: { ...fields, sourceUrl } }));
     return { saved: true, id, note: 'Place created. Add at least one dish so it appears in Explore.' };

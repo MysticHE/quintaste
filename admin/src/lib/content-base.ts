@@ -47,6 +47,8 @@ async function read<T>(path: string, list = false): Promise<T | null> {
   return value;
 }
 export const packagedPlaces = async () => (await read<{ items: Packaged<Place>[] }>('kind=places', true))?.items ?? [];
+/** Ids of venues QT Explorer found permanently closed (withdrawn from Explore); an older app image sends none. */
+export const closedPlaces = async () => new Set((await read<{ closed?: string[] }>('kind=places', true))?.closed ?? []);
 export const packagedMenu = (id: string) => read<Packaged<Menu>>('kind=menu&id=' + encodeURIComponent(id));
 export const packagedRecipes = async () => (await read<{ items: Packaged<Recipe>[] }>('kind=recipes', true))?.items ?? [];
 export const packagedEvents = async () => (await read<{ items: Packaged<Event>[] }>('kind=events', true))?.items ?? [];

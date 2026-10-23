@@ -1,7 +1,7 @@
 import { createHash } from "node:crypto";
 import index from "../../../data/menus/catalogue-index.json";
 import { bundledRecipes } from "../../data/recipes";
-import { editorialContent, editorialPlaces, editorialVenue } from "../../server/editorial-content";
+import { closedVenues, editorialContent, editorialPlaces, editorialVenue } from "../../server/editorial-content";
 import { baseMenu } from "../../server/menu-delivery";
 import type { CatalogueVenue } from "../../types/catalogue";
 
@@ -23,7 +23,9 @@ export function GET(request: Request) {
   ...[...editorialPlaces(content).values()].map(place => {
     const proof = (content.records as unknown as Record<string, Row>)["place:" + place.venue.id]?.data.dietProof;
     return { source: "bot", hash: place.fingerprint, data: { ...place.venue, ...(proof ? { dietProof: proof } : {}) } };
-  })] }, { headers });
+  })],
+  // Venues QT Explorer found permanently closed (Explore withdraws them); kept out of the items so their hashes stay the same.
+  closed: closedVenues(content) }, { headers });
   if (kind === "menu" && /^[a-z0-9][a-z0-9-]{2,119}$/.test(id)) {
     const menu = baseMenu(id, content);
     return menu ? Response.json({ hash: menu.fingerprint, data: menu.menu }, { headers }) : Response.json({ error: "No packaged menu" }, { status: 404, headers });

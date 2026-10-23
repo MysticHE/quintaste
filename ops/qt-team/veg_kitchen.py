@@ -427,13 +427,16 @@ def skip_main_catalogue(root, live):
         if data.get('postalCode') and data.get('name'):
             keys.add(vo.identity_key(data['name'], data['postalCode']))
     ids.discard(None)
+    places = vo.live_places(live)
     state = progress(root)
     changed = False
     for row in queue(root):
         saved = state['candidates'].get(row['candidateId'], {'status': 'pending'})
         if saved['status'] != 'pending':
             continue
-        if row['googlePlaceId'] in ids or (row.get('nameHint') and vo.identity_key(row['nameHint'], row['postalCode']) in keys):
+        identity = vo.candidate_identity(row)
+        if (row['googlePlaceId'] in ids or (row.get('nameHint') and vo.identity_key(row['nameHint'], row['postalCode']) in keys)
+                or any(p['id'] != row['candidateId'] and vo.same_place(identity, p) for p in places)):
             target = entry(state, row['candidateId'])
             set_status(target, 'not-qualified', 'already-listed', 'Already listed in Explore.')
             target['retryAt'] = time.time() + 365 * 86400
@@ -590,6 +593,7 @@ def place_data(root, row, evidence, live):
         if other.get('kind') == 'place' and other['id'] != data['id'] and (
                 vo.identity_key(o.get('name', ''), o.get('postalCode')) == key or (data['googlePlaceId'] and o.get('googlePlaceId') == data['googlePlaceId'])):
             raise ValueError('Another place already has this name and postcode')
+    vo.refuse_listed(data, live)
     if vo.owner_blocked(root, data, live):
         raise ValueError('Owner removed this place; automatic republication blocked')
     return data

@@ -33,14 +33,15 @@ function PlaceForm({ detail, onSaved }: { detail: Detail | null; onSaved: (id?: 
   const start = detail ? current(detail) : blank, base = detail?.base, staffMade = !detail || detail.staff?.origin === 'staff';
   const [place, setPlace] = useState<Place>(start), set = (patch: Partial<Place>) => setPlace(p => ({ ...p, ...patch }));
   const [lat, setLat] = useState(start.point ? String(start.point.latitude) : ''), [lng, setLng] = useState(start.point ? String(start.point.longitude) : '');
-  const [aliases, setAliases] = useState(start.aliases.join(', '));
+  const [aliases, setAliases] = useState(start.aliases.join(', ')), [different, setDifferent] = useState(false);
   const hours = place.hours, photo = place.photo, edited = detail?.staff?.origin === 'edit' && Object.keys(detail.staff.data).some(k => k !== 'base');
   const was = (key: keyof Place) => base && JSON.stringify(base[key] ?? null) !== JSON.stringify(place[key] ?? null)
     ? <small>Original: {Array.isArray(base[key]) ? (base[key] as string[]).join(', ') || '—' : String(base[key] ?? '—')}</small> : null;
   function payload() {
     if ((lat || lng) && !(Number.isFinite(Number(lat)) && Number(lat) && Number.isFinite(Number(lng)) && Number(lng))) throw new Error('Check latitude and longitude.');
     const hours = place.hours ? { ...place.hours, schedule: place.hours.schedule.filter(line => line.trim()) } : null;
-    return { id: detail?.id, version: detail?.staff?.version ?? 0, fields: { ...place, hours, aliases, point: lat && lng ? { latitude: Number(lat), longitude: Number(lng) } : null } };
+    return { id: detail?.id, version: detail?.staff?.version ?? 0, ...(!detail && different ? { allowDuplicate: true } : {}),
+      fields: { ...place, hours, aliases, point: lat && lng ? { latitude: Number(lat), longitude: Number(lng) } : null } };
   }
   const actions = !detail ? [{ action: 'create', label: 'Create place', tone: 'primary' as const }] : [
     { action: 'save', label: 'Save', tone: 'primary' as const },
@@ -72,6 +73,8 @@ function PlaceForm({ detail, onSaved }: { detail: Detail | null; onSaved: (id?: 
         <label className="check"><input type="checkbox" checked={place.alliumFreeClaim} disabled={place.kitchen === 'options'} onChange={e => set({ alliumFreeClaim: e.target.checked })}/>No five pungent, shown as Vegetarian (venue declares)</label>
       </div>
       {staffMade && <label>Source<input value={place.sourceUrl ?? ''} onChange={e => set({ sourceUrl: e.target.value })} placeholder="https://"/></label>}
+      {/* A new place with the same postal code and unit, or the same name, as a listed place is refused unless staff tick this. */}
+      {!detail && <label className="check"><input type="checkbox" checked={different} onChange={e => setDifferent(e.target.checked)}/>Different place at this address</label>}
     </section>
     <section className="panel stack"><div className="row spread"><h3>Opening hours</h3>
       {hours ? <button type="button" className="danger" onClick={() => set({ hours: null })}><Icon name="trash" size={16}/>Remove</button>

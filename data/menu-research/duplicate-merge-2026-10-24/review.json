@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "reviewedAt": "2026-10-24",
+  "ownerRequest": "Merge duplicate Explore places; where a record is really a duplicate, clean it up and remove it (owner, 24 Oct 2026).",
+  "method": "Every pair was read from the live public APIs on 24 Oct 2026 (/api/catalogue, /api/menus, /api/place-reviews/summaries, /api/reactions/place). Both records share the map point to five decimals and the postcode; every pair has zero reviews, likes and shares on both ids, so no member data moves. The kept record is the packaged one: it has at least as many dishes, the venue's own cover where the duplicate has an illustration, and the original research sources. The duplicate is hidden (reversible in Admin > Content > Places), never deleted.",
+  "notDuplicates": [
+    {
+      "ids": ["research-annalakshmi-cafe-downtown", "staff-annalakshmi-restaurant-e97d48aa"],
+      "reason": "Separate outlets: the merchant lists Annalakshmi CAFE at 6A Shenton Way #03-26 (Mon-Sat 8 am-4:30 pm) and Annalakshmi Restaurant at #01-03 (lunch and dinner buffets).",
+      "sourceUrl": "https://www.annalakshmi.sg/"
+    },
+    {
+      "ids": ["research-ur04-peace-vegetarian", "staff-veggie-house-vegetarian-18-tai-seng-18-f5e"],
+      "reason": "Different brands in the same building (Peace Vegetarian #B1-02 and Veggie House 一芳素食); no evidence that one replaced the other."
+    }
+  ],
+  "merges": [
+    { "keep": "research-verimix-le-quest-01-17", "retire": "staff-verimix-vegetarian-f4fcb0d7", "source": "staff",
+      "reason": "Same Verimix Vegetarian branch at 4 Bukit Batok Street 41 Le Quest (657991): same point, same foodpanda branch menu (4 dishes) and cover; the 23 Oct research recorded it as the same physical branch." },
+    { "keep": "research-shu-clementi", "retire": "staff-shu-vegetarian-ae5ebb56", "source": "staff",
+      "reason": "Same SHU Vegetarian at 722 Clementi West Street 2 (120722): same point, same 54-dish foodpanda branch menu and cover. Kept record keeps its merchant-listed hours." },
+    { "keep": "research-swaad-desker70", "retire": "staff-swaad-art-of-saatvik-food-957be299", "source": "staff",
+      "reason": "Same Swaad at 70 Desker Road (209593): same point, same 103-dish merchant menu, cover and hours." },
+    { "keep": "research-ur09-eco-harmony-aljunied", "retire": "staff-eco-harmony-retail-cafe-62bddcbc", "source": "staff",
+      "reason": "Same Eco-Harmony cafe at 106 Aljunied Crescent (380106): same point, same 50-dish merchant menu and cover. Kept record keeps its Vegan label and 09:00-19:00 hours." },
+    { "keep": "research-ascend-cross-lead", "retire": "staff-ascend-vegetarian-18-cross-585e3f59", "source": "staff",
+      "reason": "Same Ascend Vegetarian at 18 Cross Street (048423): same point and hours; kept record has the venue's own cover and 2 dishes (duplicate: illustration, 1 dish)." },
+    { "keep": "research-ur01-new-green-pasture-fortune", "retire": "staff-item-22e46594", "source": "staff",
+      "reason": "新绿园餐厅 is New Green Pasture Cafe at 190 Middle Road #04-22 Fortune Centre (188979): same unit and point; the 23 Oct identity review (identity-review-newgreen-chinese.json) matched the merchant. Kept record has the 41-dish merchant storefront menu." },
+    { "keep": "research-lnbv-vegan-branch", "retire": "staff-veg-an-a6b3912f", "source": "staff",
+      "reason": "Veg-An便當 is Veg-An at 11 Sam Leong Road Trio Mall #04-03 (207903): same unit and point; kept record has 32 dishes and the venue's cover (duplicate: 16, illustration)." },
+    { "keep": "research-fo-you-yuan-jalan-besar", "retire": "staff-item-b2c06555", "source": "staff",
+      "reason": "佛有缘素食馆 is Fo You Yuan Vegetarian Restaurant at 369 Jalan Besar (208997): same address, same 67-dish merchant menu and hours; kept record has the venue's cover." },
+    { "keep": "research-zhenyi-ang-mo-kio-128", "retire": "staff-zhenyi-veggie-place-d060addb", "source": "staff",
+      "reason": "真一素食坊 Zhenyi Veggie Place is Zhen Yi Vegetarian at 128 Ang Mo Kio Ave 3 (560128): same point, cover and hours; kept record has the 152-dish merchant store menu (duplicate: 122 from a directory)." },
+    { "keep": "research-ananda-serangoon-58", "retire": "vk-ananda-bhavan-restauarnt-355624", "source": "bot",
+      "reason": "Same Ananda Bhavan at 58 Serangoon Road (217964): same point and foodpanda branch menu; kept record has 120 dishes and the venue's cover (bot place: 6, illustration)." },
+    { "keep": "research-nalan-cityhall", "retire": "vk-nalan-restaurant-city-hall-43b0c8", "source": "bot",
+      "reason": "Same Nalan at 13 Stamford Road #B2-54 Capitol (178905): same unit and point; kept record has 442 dishes and the venue's cover (bot place: 20, illustration)." },
+    { "keep": "zhen-xiang-woodlands-street-32", "retire": "vk-zhen-xiang-vegetarian-325-woodlands-5c08ff", "source": "bot",
+      "reason": "Same Zhen Xiang Vegetarian at 325 Woodlands Street 32 (730325): same point and foodpanda branch menu; kept record has all 68 dishes and the venue's cover (bot place: 10, illustration)." }
+  ]
+}

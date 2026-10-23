@@ -6,7 +6,8 @@ import { createHmac, timingSafeEqual } from 'node:crypto';
 import { readSnapshot, publish, recordState, removeRecord, revertRecord } from './store.mjs';
 import { hash } from './validation.mjs';
 import { publisherKey } from './key.mjs';
-import { staffContent, staffCreated, staffEdited, staffRecord } from '../staff-content.mjs';
+import { staffContent, staffCreated, staffEdited, staffPlace, staffRecord } from '../staff-content.mjs';
+import { logger } from '../config.mjs';
 
 export const editorial = express.Router();
 const root = process.env.QT_EDITORIAL_ROOT || path.resolve('.local/editorial');
@@ -34,8 +35,18 @@ function authenticate(req, res, next) {
 editorial.use('/control', precheck, (req, res, next) => (req.path === '/publish' ? batchBody : smallBody)(req, res, next), authenticate);
 editorial.get('/control/state', async (_req, res, next) => {
   try {
-    const snapshot = await readSnapshot(root);
-    res.json({ revision: snapshot.revision, removals: Object.values(snapshot.removals ?? {}), reverts: Object.values(snapshot.reverts ?? {}), changes: Object.values(snapshot.records).map(r => r.change).filter(Boolean), venues: baseline.venues.map(v => ({ id: v.id, ...recordState(snapshot, baseline, 'venue', v.id) })), records: Object.values(snapshot.records).filter(r => r.kind !== 'venue').map(r => ({ kind: r.kind, id: r.id, hash: hash(r.data), data: r.data })), recipeIdentities: baseline.recipes });
+    const [snapshot, staff] = await Promise.all([readSnapshot(root), staffContent().catch(error => {
+      logger.warn({ event: 'editorial_state_staff_places_unavailable', error: error instanceof Error ? error.message : String(error) });
+      return null;
+    })]);
+    // Owner, 24 Oct 2026: the bots skip a place Explore already lists under a staff- id (staffPlaces, identity only, the places
+    // Explore shows) and treat places staff hid as not listed (staffHidden). Unreadable staff content leaves both empty: the bots
+    // then check packaged and bot places only, as before.
+    const places = staff ? [...staff.items.values()].filter(item => item.kind === 'place') : [];
+    const staffPlaces = places.filter(item => staffPlace(staff, item.id)).map(({ id, data }) => ({ id, name: data?.name ?? '', branch: data?.branch ?? '',
+      address: data?.address ?? '', postalCode: data?.postalCode ?? '', kitchen: data?.kitchen ?? null, googlePlaceId: null }));
+    const staffHidden = places.filter(item => item.hidden).map(item => item.id);
+    res.json({ revision: snapshot.revision, removals: Object.values(snapshot.removals ?? {}), reverts: Object.values(snapshot.reverts ?? {}), changes: Object.values(snapshot.records).map(r => r.change).filter(Boolean), venues: baseline.venues.map(v => ({ id: v.id, ...recordState(snapshot, baseline, 'venue', v.id) })), records: Object.values(snapshot.records).filter(r => r.kind !== 'venue').map(r => ({ kind: r.kind, id: r.id, hash: hash(r.data), data: r.data })), recipeIdentities: baseline.recipes, staffPlaces, staffHidden });
   } catch (e) { next(e); }
 });
 editorial.post('/control/publish', async (req, res) => {

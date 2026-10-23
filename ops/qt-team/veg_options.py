@@ -146,7 +146,9 @@ def due(root, limit, fresh_only=False, at=None, live=None, task=None):
     t = _task(task)
     at = at or time.time()
     state = t.progress(root)['candidates']
-    places = {r['id']: r.get('data') or {} for r in (live or {}).get('records', []) if r.get('kind') == 'place'}
+    # A place staff hid in Admin (for example a duplicate of a packaged place) is not rechecked: members cannot see it.
+    hidden = set((live or {}).get('staffHidden') or [])
+    places = {r['id']: r.get('data') or {} for r in (live or {}).get('records', []) if r.get('kind') == 'place' and r['id'] not in hidden}
     pending, rechecks, retry = [], [], []
     for row in t.queue(root):
         saved = state.get(row['candidateId'], {'status': 'pending'})
@@ -484,15 +486,19 @@ def owner_prompts(root, task=None):
 
 def skip_main_catalogue(root, live):
     """A pending candidate already listed in Explore as a vegetarian catalogue venue is never a Mixed Kitchen place.
-    A place now listed in Veg Kitchen (a fully vegetarian venue) leaves this queue the same way."""
+    A place now listed in Veg Kitchen (a fully vegetarian venue) leaves this queue the same way, by Google place or same_place."""
     listed = {(v.get('data') or {}).get('googlePlaceId') for v in live.get('venues', [])}
     listed |= {(r.get('data') or {}).get('googlePlaceId') for r in live.get('records', [])
                if r.get('kind') == 'place' and str(r.get('id', '')).startswith('vk-')}
     listed -= {None}
+    vegetarian = [p for p in live_places(live) if not str(p['id']).startswith(PREFIX) and p.get('kitchen') != 'options']
     state = progress(root)
     changed = False
     for row in queue(root):
-        if row['googlePlaceId'] in listed and state['candidates'].get(row['candidateId'], {'status': 'pending'})['status'] == 'pending':
+        if state['candidates'].get(row['candidateId'], {'status': 'pending'})['status'] != 'pending':
+            continue
+        identity = candidate_identity(row)
+        if row['googlePlaceId'] in listed or any(same_place(identity, p) for p in vegetarian):
             set_status(entry(state, row['candidateId']), 'not-qualified', 'in-main-catalogue', 'Already listed in Explore as a vegetarian place.')
             changed = True
     if changed:
@@ -664,6 +670,102 @@ def identity_key(name, postal):
     return 'place:' + ''.join(c for c in text if c.isalnum() or c == '|')
 
 
+# Owner, 24 Oct 2026: an exact name and postcode missed "Verimix Vegetarian" beside "Verimix Vegetarian - Le Quest Mall", so a place
+# is one listing when it shares the postcode and the unit, or (a unit missing) the name once branch text and generic words are set
+# aside. Twin of samePlace in admin/src/lib/place-identity.ts: keep both identical. identity_key stays the owner-removal key.
+GENERIC_NAME_WORDS = frozenset({'vegetarian', 'vegan', 'veggie', 'veg', 'food', 'foods', 'stall', 'the', 'and', 'singapore', 'pte', 'ltd'})
+UNIT = re.compile(r'#\s*(B?\d{1,2})\s*-\s*(\d{1,4}[A-Z]?)', re.I)
+BRACKETED = re.compile(r'[(\[\uff08\u3010][^)\]\uff09\u3011]*[)\]\uff09\u3011]')
+BRANCH = re.compile(r'\s+[-\u2013\u2014|]\s+|\s*@\s*')
+WORD = re.compile(r'[a-z0-9]+|[\u3400-\u9fff\uf900-\ufaff]+')
+
+
+def _plain(text):
+    """Compatibility forms folded and accents dropped (Café = Cafe, Đ = D), as in the app's search words."""
+    import unicodedata
+    return re.sub(r'[\u0300-\u036f]', '', unicodedata.normalize('NFKD', str(text or ''))).replace('\u0111', 'd').replace('\u0110', 'D')
+
+
+def place_unit(address):
+    """'#01-017' and '# 1-17' are the same unit: '1-17'; basements keep their B."""
+    m = UNIT.search(_plain(address))
+    return re.sub(r'^(B?)0+(?=\d)', r'\1', m.group(1).upper()) + '-' + re.sub(r'^0+(?=\d)', '', m.group(2).upper()) if m else None
+
+
+def name_tokens(name):
+    """Words of the name before any branch text ('- Le Quest Mall', '@ 325 Woodlands', '(Clementi)'), without generic words."""
+    core = BRANCH.split(BRACKETED.sub(' ', _plain(name).lower()))[0]
+    return [w for w in WORD.findall(core) if w not in GENERIC_NAME_WORDS]
+
+
+def _contains(large, small):
+    """Every word of `small` in `large`, counting repeats ('Yuan Yuan' is not inside 'De Yuan'); one word only as `large`'s first."""
+    left = list(large)
+    for word in small:
+        if word not in left:
+            return False
+        left.remove(word)
+    return len(small) > 1 or small[0] == large[0]
+
+
+def _same_name(a, b):
+    ta, tb = name_tokens(a), name_tokens(b)
+    if not ta or not tb:
+        return False
+    if _contains(ta, tb) or _contains(tb, ta):
+        return True
+    # 'Zhen Yi' and 'Zhenyi Veggie Place': the Latin letters of one name run on into the other's
+    short, long = sorted((''.join(w for w in t if w.isascii()) for t in (ta, tb)), key=len)
+    return len(short) >= 5 and long.startswith(short)
+
+
+def same_place(a, b):
+    """'same unit' or 'same name' when two places (dicts with name, address, postalCode) are one Explore listing, else None."""
+    postal = str(a.get('postalCode') or '')
+    if not re.fullmatch(r'\d{6}', postal) or postal != str(b.get('postalCode') or ''):
+        return None
+    ua, ub = place_unit(a.get('address')), place_unit(b.get('address'))
+    if ua and ub:
+        return 'same unit' if ua == ub else None
+    return 'same name' if _same_name(a.get('name'), b.get('name')) else None
+
+
+def candidate_identity(row):
+    """A queue row as a place for same_place: Google's unverified name and the address with its unit."""
+    return {'name': row.get('nameHint'), 'address': ' '.join(x for x in (row.get('address'), row.get('unit')) if x), 'postalCode': row.get('postalCode')}
+
+
+def live_places(live):
+    """Every place Explore lists in the live state: packaged venues (not closed), QT Explorer places and staff-created places,
+    without the places staff hid (`staffHidden`). The live dicts are reused (copied only when one lacks its id): never modify them."""
+    hidden = set(live.get('staffHidden') or [])
+    own = lambda row, data: data if data.get('id') == row['id'] else dict(data, id=row['id'])
+    rows = [own(v, v['data']) for v in live.get('venues', []) if v.get('data') and not v['data'].get('closed')]
+    rows += [own(r, r.get('data') or {}) for r in live.get('records', []) if r.get('kind') == 'place']
+    rows += [p for p in live.get('staffPlaces', []) if isinstance(p, dict) and p.get('id')]
+    return [r for r in rows if r['id'] not in hidden]
+
+
+def listed_as(data, live):
+    """The live place this one duplicates, with the reason, or (None, None)."""
+    for other in live_places(live):
+        if other['id'] == data.get('id'):
+            continue
+        if data.get('googlePlaceId') and other.get('googlePlaceId') == data['googlePlaceId']:
+            return other, 'same Google place'
+        why = same_place(data, other)
+        if why:
+            return other, why
+    return None, None
+
+
+def refuse_listed(data, live):
+    """Raises when Explore already lists this place under another id (both kitchens' place_data)."""
+    other, why = listed_as(data, live)
+    if other:
+        raise ValueError(f"Already listed in Explore as {other.get('name') or other['id']} ({why})")
+
+
 def place_data(root, row, evidence, live):
     """The app's place payload for an approved record; raises ValueError when it cannot be published as is."""
     vo = row.get('vegOptions') or {}
@@ -696,6 +798,7 @@ def place_data(root, row, evidence, live):
         if other.get('kind') == 'place' and other['id'] != data['id'] and (
                 identity_key(o.get('name', ''), o.get('postalCode')) == key or (data['googlePlaceId'] and o.get('googlePlaceId') == data['googlePlaceId'])):
             raise ValueError('Another place already has this name and postcode')
+    refuse_listed(data, live)
     if owner_blocked(root, data, live):
         raise ValueError('Owner removed this place; automatic republication blocked')
     return data

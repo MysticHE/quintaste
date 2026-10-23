@@ -397,14 +397,14 @@ def prepare(packages, live):
     closure_candidates(live, states, outcomes, candidates, held)
     cover_candidates(live, states, outcomes, candidates, held, image_assets)
     nutrition_candidates(live, states, outcomes, candidates, held)
-    selected, used, place_keys, place_ids = [], set(), set(), set()
+    selected, used, place_keys, place_ids, batch_places = [], set(), set(), set(), []
     candidates, isolate = isolation_order(candidates)  # one item per batch after a rejection
     size = lambda hashes: sum(Path(image_assets[h]['file']).stat().st_size for h in hashes)
     for candidate in candidates:
         # an already-published photo carried in full data is no new upload; a recipe brings its cover and step photos together
         hashes = [h for h in record_images(candidate['data']) if h in image_assets and h not in used]
         if len(selected)>=(1 if isolate else 12) or hashes and (len(used)+len(hashes)>BATCH_ASSETS or size(used)+size(hashes)>BATCH_IMAGE_BYTES and used):continue
-        if candidate['kind']=='place' and not batch_place_free(candidate, place_keys, place_ids, held):continue
+        if candidate['kind']=='place' and not batch_place_free(candidate, place_keys, place_ids, held, batch_places):continue
         selected.append(candidate)
         used.update(hashes)
     return selected,[asset for sha256,asset in image_assets.items() if sha256 in used],held
@@ -445,17 +445,20 @@ def isolation_order(candidates):
     return sorted(candidates, key=lambda c: (key(c) not in suspects, c['kind'] != 'venue')), any(key(c) in suspects for c in candidates)
 
 
-def batch_place_free(candidate, keys, google_ids, held):
+def batch_place_free(candidate, keys, google_ids, held, places=None):
     """False (and a hold) when an earlier place in this batch has the same name and postcode or the same Google place: the app
-    server refuses both inside ONE batch, so the second waits for a later batch (then it is held as a duplicate of the live place)."""
+    server refuses both inside ONE batch, so the second waits for a later batch (then it is held as a duplicate of the live place).
+    With `places` (owner, 24 Oct 2026) the same unit or branch-free name at the postcode (veg_options.same_place) also waits."""
     import veg_options
-    key=veg_options.identity_key(candidate['data'].get('name'),candidate['data'].get('postalCode'))
-    google_id=candidate['data'].get('googlePlaceId')
-    if key in keys or (google_id and google_id in google_ids):
-        held.append({'kind':'place','id':candidate['id'],'reason':'Same name and postcode, or Google place, as another place in this batch; it waits for a later batch'})
+    data=candidate['data']
+    key=veg_options.identity_key(data.get('name'),data.get('postalCode'))
+    google_id=data.get('googlePlaceId')
+    if key in keys or (google_id and google_id in google_ids) or any(veg_options.same_place(data,p) for p in places or ()):
+        held.append({'kind':'place','id':candidate['id'],'reason':'Same name and postcode, unit, or Google place as another place in this batch; it waits for a later batch'})
         return False
     keys.add(key)
     if google_id:google_ids.add(google_id)
+    if places is not None:places.append(data)
     return True
 
 
