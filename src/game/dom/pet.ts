@@ -27,10 +27,12 @@ export class CounterPet {
     this.stop();
     if (!this.key || !this.scene.textures.exists(this.key)) { this.img = null; return; }
     const c = L.counter, tex = this.scene.textures.get(this.key).getSourceImage() as { width: number; height: number };
-    // A little smaller at a full counter of four, where it peeks out from between the plates.
-    this.size = L.seats.length >= 4 ? 44 : Math.max(40, Math.min(56, c.h * 1.2)); this.floor = c.y + c.h * 0.42;
-    // The middle of every gap between two plates, and of the counter's ends when there is room for it there.
-    const mats = L.seats.map(s => s.mat).sort((a, b) => a.x - b.x), left = L.col.x + 8, right = L.col.x + L.col.w - 8;
+    // The middle of every gap between two plates, and of the counter's ends when there is room for it there. At a full counter of
+    // four (owner, 23 Oct 2026: it was mostly hidden behind the seat numbers) it is a little smaller and stands on the plates' back
+    // edge, above them and their numbers, between two guests.
+    const mats = L.seats.map(s => s.mat).sort((a, b) => a.x - b.x), left = L.col.x + 8, right = L.col.x + L.col.w - 8, full = L.seats.length >= 4;
+    this.size = full ? 44 : Math.max(40, Math.min(56, c.h * 1.2));
+    this.floor = full ? Math.min(c.y + c.h * 0.42, Math.min(...mats.map(m => m.y)) + 3) : c.y + c.h * 0.42;
     const edges = [left, ...mats.flatMap(m => [m.x, m.x + m.w]), right];
     this.spots = [];
     for (let i = 0; i + 1 < edges.length; i += 2) {

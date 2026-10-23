@@ -225,7 +225,7 @@ export default function RushHour(props: Props) {
       {ev.took && Lv?.stations[ev.took.station] && <div key={ev.took.key} className={"stamp " + ev.took.grade} aria-hidden="true"
         style={{ left: Lv.stations[ev.took.station]!.art.x + Lv.stations[ev.took.station]!.art.w / 2, top: Lv.stations[ev.took.station]!.art.y + 4 }}>
         {STAMP[ev.took.what][ev.took.grade]}</div>}
-      {ev.hint && <div key={ev.hint.key} className="toast" style={{ left: L.col.x + L.col.w / 2, top: L.shelves.y - 30 }}>{ev.hint.text}</div>}
+      {ev.hint && <div key={ev.hint.key} className="toast" style={{ left: L.kit.x + L.kit.w / 2, top: Math.max(4, L.shelves.y - 30) }}>{ev.hint.text}</div>}
     </div>}
     {L && fx.caption && <div key={fx.caption.key} className="caption" style={{ top: L.recipe.y + L.recipe.h + 6, right: L.col.x + 12 }} aria-hidden="true">{fx.caption.text}</div>}
     {L && ev.bannerText && <div key={ev.bannerText.key} className="banner" style={{ left: L.col.x + L.col.w / 2, top: L.recipe.y + L.recipe.h + 24 }} role="status">{ev.bannerText.text}</div>}

@@ -105,7 +105,7 @@ export class Playfield extends Phaser.Scene {
     // A sideways swipe on the station row slides it (a press that lifts a ready dish carries the dish instead).
     this.input.on("pointerdown", (p: Phaser.Input.Pointer) => {
       const r = this.L.row; this.carried = false;
-      this.swipe = r.kinds.length > 2 && p.worldX >= r.x && p.worldX <= r.x + r.w && p.worldY >= r.y && p.worldY <= r.y + r.h ? { x: p.worldX, y: p.worldY } : null;
+      this.swipe = r.kinds.length > r.shown && p.worldX >= r.x && p.worldX <= r.x + r.w && p.worldY >= r.y && p.worldY <= r.y + r.h ? { x: p.worldX, y: p.worldY } : null;
     });
     this.input.on("pointerup", (p: Phaser.Input.Pointer) => {
       const s = this.swipe; this.swipe = null; if (!s || this.carried) return;
@@ -122,9 +122,9 @@ export class Playfield extends Phaser.Scene {
     this.landing.clear(); this.incomingSlots.clear(); this.incomingSeats.clear();
     const L = this.L;
     if (this.textures.exists("rh-bg")) this.cover(this.add.image(0, 0, "rh-bg"), L.backdrop);
-    // The cook's side under the counter (owner mockup): a wooden worktop the stations stand on, the kitchen shelves soft behind the ingredient shelf.
-    const below = L.counter.y + L.counter.h - 2;
-    if (this.textures.exists("rh-kitchen")) this.cover(this.add.image(0, 0, "rh-kitchen"), { x: 0, y: below, w: L.w, h: L.h - below });
+    // The cook's side (owner mockup): a wooden worktop the stations stand on, the kitchen shelves soft behind the ingredient shelf; under the
+    // counter on a phone, the whole right pane on a landscape tablet (layout `kitchen`).
+    if (this.textures.exists("rh-kitchen")) this.cover(this.add.image(0, 0, "rh-kitchen"), L.kitchen);
     this.run.guests.forEach(gr => this.guests.set(gr.orderId, this.add.image(-200, -200, GUESTS[gr.guestId].art).setOrigin(0.5, 1).setVisible(false).setDepth(2)));
     if (this.textures.exists("rh-counter")) this.cover(this.add.image(0, 0, "rh-counter").setDepth(3), L.counter);
     this.pet.build(L);
@@ -136,7 +136,7 @@ export class Playfield extends Phaser.Scene {
     });
     this.buildBoard();
     (Object.keys(L.stations) as StationKind[]).forEach(kind => this.buildStation(kind));
-    this.rowStart = Math.min(this.rowStart, Math.max(0, L.row.kinds.length - 2)); this.slide.x = -this.rowStart * L.row.slot;
+    this.rowStart = Math.min(this.rowStart, Math.max(0, L.row.kinds.length - L.row.shown)); this.slide.x = -this.rowStart * L.row.slot;
   }
   /** Rests the station row at `start` (layout rowStarts), sliding there unless motion is reduced. */
   setRow(start: number) {
@@ -152,7 +152,7 @@ export class Playfield extends Phaser.Scene {
   }
   /** Slides every station with the row; one leaving the view fades out (so it never passes over the tray) and takes no taps. */
   private updateRow() {
-    const row = this.L.row; if (row.kinds.length <= 2) return;
+    const row = this.L.row; if (row.kinds.length <= row.shown) return;
     for (const [kind, v] of this.stations) {
       const r = this.L.stations[kind]!, x = r.x + this.slide.x, seen = Math.max(0, Math.min(x + r.w, row.x + row.w) - Math.max(x, row.x)) / r.w;
       v.box.setX(this.slide.x).setAlpha(seen >= 0.999 ? 1 : seen * seen).setVisible(seen > 0);
@@ -226,7 +226,7 @@ export class Playfield extends Phaser.Scene {
   private endDishDrag() { this.ghost?.destroy(); this.ghost = null; this.dragKind = null; if (this.dragPaste) this.hover = null; this.dragPaste = false; }
   /** The station under a point, if any (its art and the tag below it, with a finger's width to spare), of those in view. */
   private stationAt(x: number, y: number) { return nearestStation(viewLayout(this.L, this.rowStart), { x, y }); }
-  private tones(): Tones { const P = this.pal; return { soy: P.soy, oil: P.oil, cream: P.cream, red: P.red, white: P.white, gold: P.gold, dark: P.dark, cooked: P.cooked, char: P.char, light: P.light }; }
+  private tones(): Tones { const P = this.pal; return { soy: P.soy, oil: P.oil, cream: P.cream, red: P.red, white: P.white, gold: P.gold, dark: P.dark, cooked: P.cooked, char: P.char, light: P.light, warn: P.warn }; }
   private zone(r: Rect, depth: number, draggable = false) {
     return this.add.zone(r.x + r.w / 2, r.y + r.h / 2, r.w, r.h).setInteractive({ useHandCursor: true, draggable }).setDepth(depth);
   }
@@ -262,7 +262,8 @@ export class Playfield extends Phaser.Scene {
       const tex = shaking && guest.artNo && gr.state !== "leaving" ? guest.artNo : guest.art;
       if (img.texture.key !== tex && this.textures.exists(tex)) img.setTexture(tex);
       const g = seat.guest, s = Math.min(g.h / img.height, (g.w * 1.25) / img.width), homeX = g.x + g.w / 2, homeY = g.y + g.h;
-      const edge = gr.seat <= L.seats.length / 2 ? L.col.x - g.w : L.col.x + L.col.w + g.w;
+      // With the kitchen pane beside the café (a tablet), every guest walks in from the café's own side.
+      const edge = L.kit.x !== L.col.x || gr.seat <= L.seats.length / 2 ? L.col.x - g.w : L.col.x + L.col.w + g.w;
       let x = homeX, y = homeY, alpha = 1, rot = 0, sy = s;
       if (gr.state === "walking") { const k = Math.min(1, gr.st); x = edge + (homeX - edge) * (1 - (1 - k) * (1 - k)); alpha = Math.min(1, k * 2); y = homeY - (this.reduced ? 0 : Math.abs(Math.sin(k * Math.PI * 3)) * 7); }
       else if (gr.state === "leaving") { const k = Math.min(1, gr.st); x = homeX + (edge - homeX) * k * k; alpha = 1 - k * 0.7; }
@@ -291,12 +292,13 @@ export class Playfield extends Phaser.Scene {
     const ph = this.run.knob && !this.reduced ? takePhase(pr, this.run.knob) : "idle";
     if ((ph === "now" && cfg.heat) || ph === "turn") hl(0.55 + 0.35 * Math.sin(t * 14));
     const toss = !cooking || this.reduced || !cfg.heat ? 0 : st.H >= lo && st.H <= hi ? 1 : st.H >= lo - 0.1 ? 0.4 : 0;
-    v.pan.draw(pr, t, this.landing, toss);
+    v.pan.draw(pr, t, this.landing, toss, this.reduced);
     v.steam.emitting = !this.reduced && cooking && pr!.progress > 0.35;
     v.smoke.emitting = !this.reduced && cfg.heat && st.H >= cfg.scorch && !!pr;
     v.ring.clear();
     if (!pr) return;
-    const rad = Math.max(9, Math.min(14, r.w * 0.08)), cx = r.x + r.w - rad - 6, cy = r.y + rad + 6;
+    // The progress ring sits at the art's top corner, so a tall row (a tablet) never leaves it floating above the station.
+    const rad = Math.max(9, Math.min(14, r.w * 0.08)), cx = Math.min(r.x + r.w - rad - 6, r.art.x + r.art.w - rad), cy = Math.max(r.y + rad + 6, r.art.y + rad);
     const done = (pr.stage + (pr.state === "ready" ? 1 : pr.progress)) / sim.partOf(pr).stages.length;
     v.ring.fillStyle(P.light, 0.95).fillCircle(cx, cy, rad + 3).lineStyle(4, P.track).strokeCircle(cx, cy, rad);
     v.ring.lineStyle(4, pr.state === "ready" ? P.ready : pr.state === "scorched" || pr.state === "split" ? P.warn : P.progress)

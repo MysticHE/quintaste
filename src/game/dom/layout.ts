@@ -15,40 +15,49 @@ export type Seat = { guest: Rect; mat: Rect; bubble: Point; tag: Point };
 /** A station's tap area, its fitted art, where food sits (bowl) and the state tag under it. */
 export type Station = Rect & { art: Rect; bowl: Oval; tag: Point };
 /**
- * The station row's view (owner, 23 Oct 2026): two stations show at a time beside the serving tray, and a row of three or four slides
- * to the rest. `stations` in a Layout sit on the slid-out strip (slot `slot` wide, in `kinds` order); viewLayout gives what is on screen.
+ * The station row's view (owner, 23 Oct 2026): beside the serving tray a phone shows two stations at a time and a row of three or
+ * four slides to the rest; a tablet's wider row shows up to four (`shown`). `stations` in a Layout sit on the slid-out strip (slot
+ * `slot` wide, in `kinds` order); viewLayout gives what is on screen.
  */
-export type Row = Rect & { slot: number; kinds: StationKind[] };
+export type Row = Rect & { slot: number; kinds: StationKind[]; shown: number };
 export type Layout = {
   /** `ts` is the player's text size (Play your way), which every font size in the DOM panels is multiplied by. */
-  w: number; h: number; s: number; ts: number; col: Rect; seatW: number;
-  hud: Rect; recipe: Rect; backdrop: Rect; counter: Rect; seats: Seat[];
-  shelves: Rect; card: { w: number; h: number; gap: number };
+  w: number; h: number; s: number; ts: number;
+  /**
+   * `col` holds the café (HUD, order card, guests, counter) and `kit` the kitchen (shelf, stations, heat panel): one column on a phone
+   * or a portrait tablet, two side by side on a landscape tablet or desktop. `backdrop` and `kitchen` are what the room and the
+   * worktop pictures cover.
+   */
+  col: Rect; kit: Rect; seatW: number;
+  hud: Rect; recipe: Rect; backdrop: Rect; kitchen: Rect; counter: Rect; seats: Seat[];
+  /** `cols` cards a row on a shelf page (five on a phone, up to seven on a wider shelf) and `rows` rows (two, three in a tall kitchen pane). */
+  shelves: Rect; card: { w: number; h: number; gap: number; cols: number; rows: number };
   stations: Partial<Record<StationKind, Station>>; plating: Rect & { art: Rect; tag: Point }; board: Rect[]; row: Row;
   heat: Rect;
 };
 
-/** Where the row can rest: the first station in view (a row of three shows 1–2 then 2–3; a row of four, 1–2 then 3–4). */
-export const rowStarts = (n: number) => (n <= 2 ? [0] : [0, n - 2]);
+/** Where a row of `n` with `shown` in view can rest: the first station in view (two in view: a row of three shows 1–2 then 2–3, of four 1–2 then 3–4). */
+export const rowStarts = (n: number, shown = 2) => (n <= shown ? [0] : [0, n - shown]);
 /** A station moved along the row by `dx`. */
 export const shiftStation = (r: Station, dx: number): Station =>
   ({ ...r, x: r.x + dx, art: { ...r.art, x: r.art.x + dx }, bowl: { ...r.bowl, x: r.bowl.x + dx }, tag: { ...r.tag, x: r.tag.x + dx } });
 /** The layout as the screen shows it with the row resting at `start`: only the stations in view, where they are on screen. */
 export function viewLayout(L: Layout, start: number): Layout {
-  if (L.row.kinds.length <= 2) return L;
+  const { kinds, shown } = L.row;
+  if (kinds.length <= shown) return L;
   const stations: Layout["stations"] = {};
-  L.row.kinds.forEach((k, i) => { if (i >= start && i < start + 2) stations[k] = shiftStation(L.stations[k]!, -start * L.row.slot); });
+  kinds.forEach((k, i) => { if (i >= start && i < start + shown) stations[k] = shiftStation(L.stations[k]!, -start * L.row.slot); });
   return { ...L, stations };
 }
 /** Where the row rests to show `kind`: where it is now if `kind` is in view, else the end of the row it is at. */
 export function startFor(L: Layout, kind: StationKind, start: number) {
-  const i = L.row.kinds.indexOf(kind), starts = rowStarts(L.row.kinds.length);
-  if (i < 0 || (i >= start && i < start + 2)) return start;
+  const { kinds, shown } = L.row, i = kinds.indexOf(kind), starts = rowStarts(kinds.length, shown);
+  if (i < 0 || (i >= start && i < start + shown)) return start;
   return i < start ? starts[0] : starts[starts.length - 1];
 }
 /** The row's edge a point is over (a drag held there slides the row), or null; a row of one or two never slides. */
 export function rowEdge(L: Layout, p: Point, start: number): "back" | "next" | null {
-  const r = L.row, starts = rowStarts(r.kinds.length);
+  const r = L.row, starts = rowStarts(r.kinds.length, r.shown);
   if (starts.length < 2 || p.y < r.y - 8 || p.y > r.y + r.h + 8) return null;
   if (p.x >= r.x - EDGE_OUT && p.x <= r.x + ROW_GUTTER + EDGE_IN && start > starts[0]) return "back";
   if (p.x >= r.x + r.w - ROW_GUTTER - EDGE_IN && p.x <= r.x + r.w + EDGE_OUT && start < starts[starts.length - 1]) return "next";
@@ -76,8 +85,19 @@ function fitBottom(size: [number, number], box: Rect): Rect {
   return { x: box.x + (box.w - w) / 2, y: box.y + box.h - h, w, h };
 }
 
+/**
+ * A landscape screen with room for two phone columns side by side (a tablet or desktop) shows the café and the kitchen in two panes;
+ * anything else is one column, phone width on a phone and wider on a portrait tablet.
+ */
 export function computeLayout(w: number, h: number, seats: number, stations: StationKind[], knob = false, ts = 1): Layout {
-  const cw = Math.round(Math.min(w, h * 0.62, 560)), x0 = Math.round((w - cw) / 2);
+  return w >= 900 && h >= 560 && w >= h * 1.15 ? twoPanes(w, h, seats, stations, knob, ts) : oneColumn(w, h, seats, stations, knob, ts);
+}
+/** Cards a row on a shelf page: five on a phone, up to seven on a wider shelf, never narrower than about 110 px. */
+const cardCols = (pw: number) => clamp(Math.floor((pw - 16) / 112), 5, 7);
+
+function oneColumn(w: number, h: number, seats: number, stations: StationKind[], knob: boolean, ts: number): Layout {
+  // A phone column, up to 560 px wide; a portrait tablet's column is wider (up to 780 px), with more cards a row and more stations in view.
+  const cw = Math.round(Math.min(w, h * 0.62, w >= 700 ? 780 : 560)), x0 = Math.round((w - cw) / 2);
   const s = clamp((h - 250) / 486, 0.72, 1), m = Math.round(8 * s), px = x0 + 8, pw = cw - 16;
   const hud = { x: px, y: Math.round(6 * s), w: pw, h: Math.round(54 * s) };
   const recipe = { x: px, y: hud.y + hud.h + Math.round(6 * s), w: pw, h: Math.round(70 * s) };
@@ -87,8 +107,8 @@ export function computeLayout(w: number, h: number, seats: number, stations: Sta
   // No chat panel (owner, 22 Oct 2026): messages are short toasts, and the heat panel sits at the bottom, taller with the knob's cook timer.
   const heatH = knob ? 146 : 116, heat = { x: px, y: h - m - heatH, w: pw, h: heatH };
   const flex = heat.y - top - 3 * m, minScene = 140, minStation = 78;
-  // Five cards a row, as in the owner's mockup: a longer shelf pages with its arrows (or a swipe).
-  const gap = Math.round(6 * s), cardW = Math.floor((pw - 16 - 4 * gap) / 5);
+  // Five cards a row on a phone, as in the owner's mockup (more on a wider shelf): a longer shelf pages with its arrows (or a swipe).
+  const cols = cardCols(pw), gap = Math.round(6 * s), cardW = Math.floor((pw - 16 - (cols - 1) * gap) / cols);
   const cardMax = Math.floor((flex - minScene - minStation - 32 - gap) / 2);
   // The shelf keeps a strip under the cards for its page dots (a long shelf).
   // Room above and below the cards inside the shelf, so their borders and glows are never clipped.
@@ -98,12 +118,39 @@ export function computeLayout(w: number, h: number, seats: number, stations: Sta
   const stationH = Math.round(clamp(Math.min(left - minScene, neededRow(stations, pw, s)), minStation, 150)), sceneH = left - stationH;
   const counterH = Math.round(clamp(sceneH * 0.2, 34 * s, 52));
   const counter = { x: 0, y: top + sceneH - counterH, w, h: counterH };
-  const backdrop = { x: 0, y: 0, w, h: counter.y + 4 };
+  const backdrop = { x: 0, y: 0, w, h: counter.y + 4 }, below = counter.y + counterH - 2, kitchen = { x: 0, y: below, w, h: h - below };
   const shelves = { x: px, y: counter.y + counterH + m, w: pw, h: shelfH };
-  const row = { y: shelves.y + shelfH + m, h: stationH };
+  const row = { y: shelves.y + shelfH + m, h: stationH }, col = { x: x0, y: 0, w: cw, h };
   return {
-    w, h, s, ts, col: { x: x0, y: 0, w: cw, h }, seatW: Math.floor((pw - 8) / (seats <= 3 ? 3 : 4)), hud, recipe, backdrop, counter, seats: seatBoxes(seats, px, pw, top, counter, s, x0 + cw, ts),
-    shelves, card: { w: cardW, h: cardH, gap }, ...stationRow(stations, px, pw, row, s), heat,
+    w, h, s, ts, col, kit: col, seatW: Math.floor((pw - 8) / (seats <= 3 ? 3 : 4)), hud, recipe, backdrop, kitchen, counter, seats: seatBoxes(seats, px, pw, top, counter, s, x0 + cw, ts),
+    shelves, card: { w: cardW, h: cardH, gap, cols, rows: 2 }, ...stationRow(stations, px, pw, row, s), heat,
+  };
+}
+
+/**
+ * Two panes (owner, 23 Oct 2026: "a proper tablet layout"): the café room on the left, with the HUD and order card above the guests
+ * and the counter at its foot; the kitchen on the right, with the shelf at the top and the stations and heat panel at the bottom.
+ */
+function twoPanes(w: number, h: number, seats: number, stations: StationKind[], knob: boolean, ts: number): Layout {
+  const s = clamp((h - 250) / 486, 0.72, 1), m = Math.round(8 * s), between = 12;
+  const paneW = Math.round(Math.min(640, (w - 3 * between) / 2)), x0 = Math.round((w - 2 * paneW - between) / 2), x1 = x0 + paneW + between;
+  const split = Math.round(x0 + paneW + between / 2), px = x0 + 8, pw = paneW - 16, kx = x1 + 8, kw = paneW - 16;
+  const hud = { x: px, y: Math.round(6 * s), w: pw, h: Math.round(54 * s) };
+  const recipe = { x: px, y: hud.y + hud.h + Math.round(6 * s), w: pw, h: Math.round(70 * s) };
+  const top = recipe.y + recipe.h, counterH = Math.round(clamp((h - top) * 0.12, 34 * s, 56));
+  const counter = { x: 0, y: h - m - counterH, w: split, h: counterH };
+  // The kitchen: the heat panel at the bottom, the station row just above it, the shelf at the top with the cards it wants.
+  const heatH = knob ? 146 : 116, heat = { x: kx, y: h - m - heatH, w: kw, h: heatH }, room = heat.y - 3 * m;
+  const need = Math.round(clamp(neededRow(stations, kw, s), 78, 190));
+  // A tall pane gives the shelf a third row of cards (fewer pages to swipe) when each can still be 84 px tall.
+  const cols = cardCols(kw), gap = Math.round(6 * s), cardW = Math.floor((kw - 16 - (cols - 1) * gap) / cols);
+  const fit = (rows: number) => Math.floor((room - need - 32 - (rows - 1) * gap) / rows), rows = fit(3) >= 84 ? 3 : 2;
+  const cardH = Math.round(clamp(Math.min(cardW * 1.2, fit(rows)), 50, 120)), shelfH = cardH * rows + (rows - 1) * gap + 32;
+  const stationH = Math.round(clamp(room - shelfH, 78, need)), row = { y: heat.y - m - stationH, h: stationH };
+  return {
+    w, h, s, ts, col: { x: x0, y: 0, w: paneW, h }, kit: { x: x1, y: 0, w: paneW, h }, seatW: Math.floor((pw - 8) / (seats <= 3 ? 3 : 4)), hud, recipe,
+    backdrop: { x: 0, y: 0, w: split, h }, kitchen: { x: split, y: 0, w: w - split, h }, counter, seats: seatBoxes(seats, px, pw, top, counter, s, x0 + paneW, ts),
+    shelves: { x: kx, y: m, w: kw, h: shelfH }, card: { w: cardW, h: cardH, gap, cols, rows }, ...stationRow(stations, kx, kw, row, s), heat,
   };
 }
 
@@ -135,18 +182,25 @@ function seatBoxes(n: number, px: number, pw: number, top: number, counter: Rect
   });
 }
 
-/** The serving tray's share of the row: wider beside one station than beside two (never more than two are in view). */
-const boardShare = (shown: number) => (shown <= 1 ? 0.44 : 0.34);
-/** Row height that fits the tallest station's art at the width each station gets (two show at a time), plus its tag. */
+/** The serving tray's share of the row, by how many stations are in view beside it. */
+const boardShare = (shown: number) => (shown <= 1 ? 0.44 : shown === 2 ? 0.34 : shown === 3 ? 0.28 : 0.24);
+/** Stations in view: as many as get a slot of MIN_SLOT px or more, two at least (a phone shows two, a tablet up to four). */
+const MIN_SLOT = 104;
+function rowShown(n: number, pw: number) {
+  let k = n;
+  while (k > 2 && (pw * (1 - boardShare(k)) - 4) / k < MIN_SLOT) k--;
+  return Math.max(1, k);
+}
+/** Row height that fits the tallest station's art at the width each station in view gets, plus its tag. */
 function neededRow(kinds: StationKind[], pw: number, s: number) {
-  const shown = Math.min(2, Math.max(1, kinds.length)), each = (pw * (1 - boardShare(shown)) - 4) / shown - 4;
+  const shown = rowShown(kinds.length, pw), each = (pw * (1 - boardShare(shown)) - 4) / shown - 4;
   return Math.max(...kinds.map(k => each * STATION_ART[k].size[1] / STATION_ART[k].size[0])) + 8;
 }
 
-/** Plating board on the left, then the stations two at a time; every piece of art rests on the row's floor above its state tag. */
+/** Plating board on the left, then the stations in view (rowShown); every piece of art rests on the row's floor above its state tag. */
 function stationRow(kinds: StationKind[], px: number, pw: number, row: { y: number; h: number }, s: number) {
   // Station art stands on the row's floor; a state tag, shown only when it asks for something, floats over the art's foot.
-  const n = kinds.length, shown = Math.min(2, Math.max(1, n)), floor = row.y + row.h - 4, tagY = Math.round(row.y + row.h - 22 * s);
+  const n = kinds.length, shown = rowShown(n, pw), floor = row.y + row.h - 4, tagY = Math.round(row.y + row.h - 22 * s);
   const pwBoard = pw * boardShare(shown);
   // One serving plate on a rattan tray (owner, 23 Oct 2026): the first plated dish sits on the tray's plate; a second or third (two
   // stations finishing together) waits on a small plate at the tray's front corners, drawn only while it holds a dish.
@@ -156,7 +210,7 @@ function stationRow(kinds: StationKind[], px: number, pw: number, row: { y: numb
   const board = [round({ x: boardArt.x + boardArt.w * sp.x, y: boardArt.y + boardArt.h * sp.y, w: boardArt.w * sp.w, h: boardArt.h * sp.h }),
     round({ x: Math.max(px, boardArt.x - sideW * 0.12), y: sideY, w: sideW, h: sideH }), round({ x: boardArt.x + boardArt.w - sideW * 0.88, y: sideY, w: sideW, h: sideH })];
   const plating = { ...round({ x: px, y: row.y, w: pwBoard, h: row.h }), art: boardArt, tag: { x: Math.round(px + pwBoard / 2), y: tagY } };
-  // A row that slides keeps a gutter at each side for its arrows; every station has a slot of the view's width over two.
+  // A row that slides keeps a gutter at each side for its arrows; every station has a slot of the view's width over those in view.
   const gut = n > shown ? ROW_GUTTER : 0, view = { x: px + pwBoard + 4, y: row.y, w: pw - pwBoard - 4, h: row.h };
   const each = (view.w - 2 * gut) / shown, stations: Partial<Record<StationKind, Station>> = {};
   kinds.forEach((k, i) => {
@@ -165,5 +219,5 @@ function stationRow(kinds: StationKind[], px: number, pw: number, row: { y: numb
     const bowl = { x: art.x + art.w * spec.bowl.x, y: art.y + art.h * spec.bowl.y, rx: art.w * spec.bowl.rx, ry: art.h * spec.bowl.ry };
     stations[k] = { ...round({ x, y: row.y, w: each, h: row.h }), art, bowl, tag: { x: Math.round(x + each / 2), y: tagY } };
   });
-  return { stations, plating, board, row: { ...round(view), slot: each, kinds } };
+  return { stations, plating, board, row: { ...round(view), slot: each, kinds, shown } };
 }

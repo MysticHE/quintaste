@@ -25,11 +25,11 @@ export function useStationRow(L: Layout | null, selected: StationKind, runRef: M
   /** Slides the row to rest at `s`; a selected station that leaves the view hands over to the first one in view. */
   const slide = (s: number) => {
     const lay = full.current; if (!lay || s === at.current) return;
-    const r = runRef.current, shown = lay.row.kinds.slice(s, s + 2);
+    const r = runRef.current, shown = lay.row.kinds.slice(s, s + lay.row.shown);
     if (r.started && !r.ended && shown[0] && !shown.includes(r.selected)) sim.select(r, shown[0]);
     rest(s); bump();
   };
-  const ends = () => { const starts = rowStarts(full.current?.row.kinds.length ?? 0); return { first: starts[0], last: starts[starts.length - 1] }; };
+  const ends = () => { const starts = rowStarts(full.current?.row.kinds.length ?? 0, full.current?.row.shown); return { first: starts[0], last: starts[starts.length - 1] }; };
   const swipe = (dir: 1 | -1) => { const e = ends(); slide(dir > 0 ? e.last : e.first); };
   // A drag held at the row's edge (an ingredient from the shelf or a paste from a station) slides the row after a moment.
   const [edge, setEdge] = useState<Dir | null>(null), dwell = useRef<{ dir: Dir; t: ReturnType<typeof setTimeout> } | null>(null);
@@ -50,16 +50,16 @@ export function useStationRow(L: Layout | null, selected: StationKind, runRef: M
 const URGENT = { warn: 3, take: 2, ready: 1, cook: 0, idle: 0 } as const;
 /** The row's arrows and dots (a row of three or four). An arrow names the most urgent station beyond it that needs you. */
 export function RowNav({ run, L, start, edge, onSlide }: { run: sim.Run; L: Layout; start: number; edge: Dir | null; onSlide(start: number): void }) {
-  const r = L.row, kinds = r.kinds, starts = rowStarts(kinds.length);
+  const r = L.row, kinds = r.kinds, starts = rowStarts(kinds.length, r.shown);
   if (starts.length < 2) return null;
   const side = (dir: Dir) => {
-    const hidden = dir === "back" ? kinds.slice(0, start) : kinds.slice(start + 2);
+    const hidden = dir === "back" ? kinds.slice(0, start) : kinds.slice(start + r.shown);
     if (!hidden.length) return null;
     const calls = hidden.map(k => ({ k, s: stationState(run, k) })).filter(c => URGENT[c.s.tone] > 0).sort((a, b) => URGENT[b.s.tone] - URGENT[a.s.tone]);
     const c = calls[0] as { k: StationKind; s: ReturnType<typeof stationState> } | undefined;
     // Each arrow's face sits on its gutter (the next one's button kept on screen); a chip naming a station grows inward from there.
     return <button key={dir} className={"rarrow " + dir + (c ? " call " + c.s.tone : "") + (edge === dir ? " dwell" : "")}
-      style={{ left: dir === "back" ? r.x + ROW_GUTTER / 2 - 22 : Math.min(r.x + r.w - ROW_GUTTER / 2 + 22, L.col.x + L.col.w), top: r.y + r.h * 0.42 }}
+      style={{ left: dir === "back" ? r.x + ROW_GUTTER / 2 - 22 : Math.min(r.x + r.w - ROW_GUTTER / 2 + 22, L.kit.x + L.kit.w), top: r.y + r.h * 0.42 }}
       onClick={() => onSlide(dir === "back" ? starts[0] : starts[starts.length - 1])}
       aria-label={c ? STATIONS[c.k].name + ": " + c.s.text + ". Show it" : dir === "back" ? "Show the first stations" : "Show the other stations"}>
       <span className="face">{dir === "back" && <Chevron back />}{c && <><TagIcon tone={c.s.tone} /><span className="tx">{SHORT[c.k]}</span></>}{dir === "next" && <Chevron />}</span>

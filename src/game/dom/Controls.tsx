@@ -112,7 +112,7 @@ export function SayToast({ run, L, art, chefArt }: { run: sim.Run; L: Layout; ar
   useEffect(() => { if (!shown) return; const t = setTimeout(() => setGone(shown), 4500); return () => clearTimeout(t); }, [shown]);
   if (!shown) return null;
   const guest = shown.who ? GUESTS[shown.who] : null;
-  return <div key={lineKey(shown)} className={"saytoast " + shown.tone} role="status" style={{ left: L.col.x + L.col.w / 2, top: L.shelves.y + L.shelves.h + 6, maxWidth: L.col.w - 40 }}>
+  return <div key={lineKey(shown)} className={"saytoast " + shown.tone} role="status" style={{ left: L.kit.x + L.kit.w / 2, top: L.shelves.y + L.shelves.h + 6, maxWidth: L.kit.w - 40 }}>
     <img src={art[guest ? guest.art : chefArt]} alt="" /><p><b>{guest ? guest.name : "Chef"}</b>{shown.text}</p></div>;
 }
 /** A number for each line said, so the toast starts over (and is announced again) when the same words are said again. */

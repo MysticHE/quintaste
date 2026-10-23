@@ -84,7 +84,7 @@ export const PANEL_CSS = `
   background:var(--glass); box-shadow:0 0 0 1.5px var(--panel-edge), 0 4px 12px var(--shadow); pointer-events:none; animation:rhtoast 3.2s ease-out forwards; }
 .rh .saytoast.warn { box-shadow:0 0 0 2px var(--warn), 0 4px 12px var(--shadow); animation-duration:4.5s; }
 .rh .saytoast img { width:32px; height:32px; flex:none; border-radius:50%; object-fit:cover; object-position:50% 10%; background:var(--cream-2); }
-.rh .saytoast p { margin:0; font-size:13px; line-height:1.25; overflow:hidden; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical;
+.rh .saytoast p { margin:0; font-size:13px; line-height:1.25; overflow:hidden; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical;
   font-family:"Nunito_700Bold","Nunito",ui-rounded,system-ui,sans-serif; font-weight:700; }
 .rh .saytoast b { margin-right:5px; font-family:"Nunito_800ExtraBold","Nunito",ui-rounded,system-ui,sans-serif; font-weight:800; color:var(--coral); }
 .rh .saytoast.warn b { color:var(--warn); } .rh .saytoast.good b { color:var(--sage-deep); }

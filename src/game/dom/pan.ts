@@ -8,7 +8,7 @@ import { ITEM_FORM, ITEMS, type ItemTone } from "../content/items";
 import type * as sim from "../sim/engine";
 import type { Oval } from "./layout";
 
-export type Tones = Record<ItemTone, number> & { cooked: number; char: number; light: number };
+export type Tones = Record<ItemTone, number> & { cooked: number; char: number; light: number; warn: number };
 type Spot = { x: number; y: number; size: number };
 
 const hash = (n: number) => { const x = Math.sin(n * 12.9898) * 43758.5453; return x - Math.floor(x); };
@@ -49,8 +49,8 @@ export class PanContents {
     return i >= 0 ? this.spot(i, solids.length) : { x: this.bowl.x, y: this.bowl.y, size: this.bowl.rx * 1.1 };
   }
 
-  /** `toss` (0–1) is how hard the pile bounces: full in the heat band, a little near it, none off the heat. */
-  draw(pr: sim.PartRun | null, t: number, landing: Set<number>, toss: number) {
+  /** `toss` (0–1) is how hard the pile bounces: full in the heat band, a little near it, none off the heat; `still` stops the pulses. */
+  draw(pr: sim.PartRun | null, t: number, landing: Set<number>, toss: number, still = false) {
     this.under.clear(); this.over.clear();
     const live = pr && !this.closed ? pr.items.filter(i => !landing.has(i.uid)) : [];
     const solids = live.filter(i => isSolid(i.id));
@@ -59,6 +59,24 @@ export class PanContents {
     this.drawPool(live);
     solids.forEach((it, i) => this.drawSolid(pr, it, i, solids.length, t, toss));
     this.drawSpeckles(live);
+    this.drawWrong(live, t, still);
+  }
+
+  /**
+   * An ingredient that breaks a guest's rule (the mistake toast says why) wears a pulsing red ring and a small cross until it is
+   * lifted out or the dish restarted; one poured or sprinkled in rings the whole bowl.
+   */
+  private drawWrong(live: sim.PlacedItem[], t: number, still: boolean) {
+    const bad = live.filter(i => i.warn); if (!bad.length) return;
+    const pulse = still ? 1 : 0.6 + 0.4 * Math.sin(t * 7), W = this.tones.warn, B = this.bowl;
+    for (const it of bad) {
+      const im = this.sprites.get(it.uid);
+      if (!im) { this.over.lineStyle(7, W, 0.25 * pulse).strokeEllipse(B.x, B.y - B.ry * 0.15, B.rx * 1.7, B.ry * 1.5).lineStyle(3, W, 0.9 * pulse).strokeEllipse(B.x, B.y - B.ry * 0.15, B.rx * 1.7, B.ry * 1.5); continue; }
+      const r = Math.max(im.displayWidth, im.displayHeight) * 0.58, bx = im.x + r * 0.72, by = im.y - r * 0.72, k = Math.max(5, r * 0.28);
+      this.over.lineStyle(7, W, 0.25 * pulse).strokeCircle(im.x, im.y, r).lineStyle(3, W, 0.9 * pulse).strokeCircle(im.x, im.y, r);
+      this.over.fillStyle(W, 1).fillCircle(bx, by, k).lineStyle(2, this.tones.light, 1)
+        .lineBetween(bx - k * 0.45, by - k * 0.45, bx + k * 0.45, by + k * 0.45).lineBetween(bx - k * 0.45, by + k * 0.45, bx + k * 0.45, by - k * 0.45);
+    }
   }
 
   private drawPool(live: sim.PlacedItem[]) {

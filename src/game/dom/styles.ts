@@ -158,7 +158,7 @@ const SHELF = `
 .rh .rdots i { width:6px; height:6px; border-radius:50%; background:var(--panel-edge); transition:transform .2s, background .2s; } .rh .rdots i.on { background:var(--gold); transform:scale(1.25); }
 .rh .sdots { position:absolute; left:0; right:0; bottom:5px; display:flex; justify-content:center; gap:6px; pointer-events:none; }
 .rh .sdots i { width:7px; height:7px; border-radius:50%; background:var(--panel-edge); transition:transform .2s, background .2s; } .rh .sdots i.on { background:var(--gold); transform:scale(1.25); }
-.rh .group { flex:none; display:grid; grid-auto-flow:column; grid-template-rows:repeat(2, var(--ch)); grid-auto-columns:var(--cw); gap:var(--gap); }
+.rh .group { flex:none; display:grid; grid-auto-flow:column; grid-template-rows:repeat(var(--rows, 2), var(--ch)); grid-auto-columns:var(--cw); gap:var(--gap); }
 .rh .divider { flex:none; width:2px; margin:6px 2px; border-radius:2px; background:var(--panel-edge); }
 .rh .cardwrap { position:relative; scroll-snap-align:start; min-width:0; }
 .rh .card { position:relative; width:100%; height:100%; border-radius:12px; background:var(--card); box-shadow:0 0 0 1.5px var(--panel-edge), 0 2px 0 var(--panel-edge);
