@@ -13,7 +13,7 @@ import { useMenuDetail } from "../../hooks/useMenuDetail";
 import { ensureMember, useMember } from "../../components/CommunityGate";
 import { ReportSheet } from "../../components/ReportSheet";
 import { useCatalogueVenue } from "../../hooks/useCatalogueVenue";
-import { menuDisplayItems } from "../../utils/menu-display";
+import { menuAvailabilityNote, menuDisplayItems } from "../../utils/menu-display";
 import { dishCount, menuKind } from "../../utils/venue-kitchen";
 
 /** Meat-free restaurants often name mock-meat dishes after meat or seafood ("Assam Fish", "BLT"). */
@@ -42,6 +42,7 @@ export function MenuScreen() {
   const shown = options && menu ? menuDisplayItems(menu).length : 0;
   // Owner, 19 Oct: show only the listed count; "3 of 38" read as 38 listed dishes. 20 Oct: no "vegetarian" (now no five pungent).
   const heading = !options ? "Menu" : dishCount(shown);
+  const availabilityNote = menu ? menuAvailabilityNote(menu) : undefined;
   const mockNamed = kind === "vegetarian" && !!menu?.sections.some(section => section.items.some(item => MEAT_NAMED.test(item.name)));
   const latestSource = menu?.sections.reduce<(typeof menu.sections)[number] | undefined>((latest, section) => !latest || Date.parse(section.checkedAt) > Date.parse(latest.checkedAt) ? section : latest, undefined);
   return <Screen title={menu?.name ?? "Menu"}
@@ -59,6 +60,7 @@ export function MenuScreen() {
         </View>
       </View>
       {mockNamed && <T variant="small" muted>Every dish here is meat-free. Names like fish or chicken are mock-meat versions.</T>}
+      {availabilityNote && <T testID="menu-availability-note" variant="small" muted>{availabilityNote}</T>}
       {cached && <View style={common.row}><T variant="caption" muted style={common.flex} accessibilityLiveRegion="polite">{offline ? "Offline · saved menu" : "Saved menu · may have changed"}</T>
         <Button label="Retry" variant="link" loading={busy} onPress={retry} /></View>}
       <MenuDishes key={menu.id} menu={menu} now={now} />

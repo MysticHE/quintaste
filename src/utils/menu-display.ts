@@ -4,6 +4,16 @@ const key = (value: string) => value.normalize("NFKC").replace(/\s+/g, " ").trim
 const portion = /\s+(?:—|–|-)\s*(?:small|medium|large|regular|s|m|l)$/i;
 const rank = { "branch-ordering": 0, "branch-delivery": 1, "branch-dine-in": 2, "brand-menu": 3 };
 
+// One short availability qualification for a wholly imported menu. Never apply
+// an addition's note to other sources, or expose packaged research audit prose.
+export function menuAvailabilityNote(menu: PublishedMenu): string | undefined {
+  const sections = menu.sections.filter(section => section.items.length > 0);
+  if (!sections.length || sections.some(section => section.id !== "quintaste-additions")) return;
+  const items = sections.flatMap(section => section.items);
+  const note = items[0].qualifier.trim();
+  if (note && note.length <= 400 && items.every(item => item.qualifier.trim() === note)) return note;
+}
+
 // Select one source per dish; different channels are not add-on price ranges.
 export function menuDisplayItems(menu: PublishedMenu): MenuItem[] {
   const result = new Map<string, MenuItem>();

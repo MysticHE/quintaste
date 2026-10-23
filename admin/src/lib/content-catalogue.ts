@@ -129,7 +129,7 @@ export async function menuAction(member: Session, input: Record<string, unknown>
       delete rest.hidden;
       if (act === 'hide') items[key] = { ...rest, hidden: true }; else if (Object.keys(rest).length) items[key] = rest; else delete items[key];
     } else if (act === 'add') {
-      if (added.length >= 200) throw new HttpError(409, 'A place can have up to 200 added dishes.');
+      if (added.length >= 2000) throw new HttpError(409, 'A place can have up to 2000 added dishes.');
       if (!base && !(place?.data as Patch)?.sourceUrl) throw new HttpError(409, 'Add a source link to the place first.');
       added.push(menuItem(input.item, 'staff-' + crypto.randomUUID().slice(0, 12)));
     } else {
