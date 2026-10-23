@@ -199,8 +199,9 @@ export const SEASONS: Season[] = [
   },
   {
     id: "lantern-bakery", name: "Lantern bakery",
-    // Signed off by the owner on 22 Oct 2026, then reopened on 24 Oct 2026 (levels 3 and 5 changed: orh nee became snow fungus pear soup): it needs a fresh owner play-through
-    // before members see it again.
+    // Signed off by the owner on 22 Oct 2026; reopened on 24 Oct 2026 (levels 3 and 5 changed: orh nee became snow fungus pear soup) and signed off again
+    // the same day (owner: "Sign off Lantern bakery and Dumpling day as owner").
+    signedOff: { by: "owner", on: "2026-10-24" },
     blurb: "Mid-Autumn: baked and snowskin mooncakes, snow fungus pear soup and fresh pomelo under the full moon.",
     featured: [{ from: "2027-09-05", to: "2027-09-16" }, { from: "2028-09-24", to: "2028-10-04" }],
     levels: [
@@ -226,8 +227,9 @@ export const SEASONS: Season[] = [
   },
   {
     id: "dumpling-day", name: "Dumpling day",
-    // Signed off by the owner on 22 Oct 2026, then reopened on 24 Oct 2026 (levels 1, 2, 4, 5 and 6 changed: kee chang became bean zongzi): it needs a fresh owner play-through
-    // before members see it again.
+    // Signed off by the owner on 22 Oct 2026; reopened on 24 Oct 2026 (levels 1, 2, 4, 5 and 6 changed: kee chang became bean zongzi) and signed off again
+    // the same day (owner: "Sign off Lantern bakery and Dumpling day as owner").
+    signedOff: { by: "owner", on: "2026-10-24" },
     blurb: "Duanwu, the fifth day of the fifth month: zongzi and bean zongzi wrapped in bamboo leaves, with dumplings for the table.",
     featured: [{ from: "2027-06-01", to: "2027-06-10" }, { from: "2028-05-20", to: "2028-05-29" }],
     levels: [
