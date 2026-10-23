@@ -43,7 +43,7 @@ export const DISHES: Dish[] = [
       { id: "tempura", name: "Tempura", station: "fryer", stages: [
         { slots: [slot("veg", "Sweet potato or broccoli", ["sweet-potato", "broccoli"]), slot("batter", "Tempura batter", ["tempura-batter"])], secs: 4, hint: "a vegetable and the batter" }] },
     ] },
-  one("tofu-puffs", "Fried tofu puffs", "dish-tofu-puffs", "fryer", [
+  one("tofu-puffs", "Crispy fried tofu", "dish-tofu-puffs", "fryer", [
     { slots: [slot("tofu", "Tofu", ["tofu"]), slot("coat", "Cornflour", ["cornflour"]), slot("salt", "Salt", ["salt"])], secs: 4, hint: "tofu, cornflour and salt" },
   ], "A cornflour coat keeps fried tofu crisp outside and soft inside."),
 ];

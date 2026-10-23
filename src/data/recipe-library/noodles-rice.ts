@@ -3,7 +3,7 @@ import { minutes, sampleMeta, vegan } from "./shared";
 
 const meta = sampleMeta("2026-10-17");
 const meeGoreng: Recipe = {
-  ...meta, id: "mee-goreng", name: "Tempeh mee goreng", minutes: 25, servings: 2, cuisine: "Malay",
+  ...meta, id: "mee-goreng", name: "Tempeh mee goreng", photo: "mee-goreng", minutes: 25, servings: 2, cuisine: "Malay",
   categories: ["Noodles"], adaptationId: "mee-goreng-gentle",
   description: "Wok-fried yellow noodles in a sweet, tangy chilli-tomato sauce with crisp tempeh and greens.",
   dietary: vegan(["Garlic", "Shallots", "Gluten"]),
@@ -31,7 +31,7 @@ const meeGoreng: Recipe = {
 };
 export const noodlesRice: Recipe[] = [
   {
-    ...meta, id: "fried-bee-hoon", name: "Vegetarian fried bee hoon", minutes: 20, servings: 2, cuisine: "Local", onePot: true,
+    ...meta, id: "fried-bee-hoon", name: "Vegetarian fried bee hoon", photo: "fried-bee-hoon", minutes: 20, servings: 2, cuisine: "Local", onePot: true,
     categories: ["Noodles", "Breakfast"],
     description: "The coffee-shop breakfast staple: springy rice vermicelli fried with cabbage, carrot and shiitake.",
     dietary: vegan(["Gluten", "Mushrooms", "Root vegetables"]),
@@ -101,7 +101,7 @@ export const noodlesRice: Recipe[] = [
     ],
   },
   {
-    ...meta, id: "nasi-lemak", name: "Nasi lemak with sambal tempeh", minutes: 40, servings: 2, cuisine: "Malay",
+    ...meta, id: "nasi-lemak", name: "Nasi lemak with sambal tempeh", photo: "nasi-lemak", minutes: 40, servings: 2, cuisine: "Malay",
     categories: ["Rice meals", "Breakfast"],
     description: "Pandan coconut rice with a sweet-spicy homemade sambal, crisp tempeh, peanuts and cucumber.",
     dietary: vegan(["Garlic", "Shallots", "Peanuts", "Root vegetables"]),

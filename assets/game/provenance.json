@@ -918,21 +918,19 @@
   "approvedAt": "2026-10-22"
  },
  "dish-mapo": {
-  "source": "runs/level5/dish-mapo",
-  "variant": 1,
+  "source": "runs/recipefix/dish-mapo",
+  "variant": 2,
   "tool": "QT Gamer (ChatGPT image generation via Hermes openai-codex)",
   "model": "gpt-image-2-high",
   "tier": "gpt-image-2-high",
-  "requestedAt": "2026-10-18T10:56:03+00:00",
-  "prompt": "Cosy mobile cooking-game art in the style of the reference image: a soft stylized 3D render with a hand-painted finish, rounded chunky shapes, smooth matte clay-like materials with subtle glossy highlights, warm soft key light from the upper left, gentle ambient occlusion, warm saturated but natural colours and a crisp clean silhouette. A single plated dish sprite for a cooking game: vegetarian mapo tofu in a round white ceramic bowl. Glossy red chilli bean sauce with soft white tofu cubes, small green peas and a few red chilli flecks. No meat. Three-quarter view from slightly above, centred, the whole bowl or plate visible and filling about 75% of the frame with an even margin on every side. Isolated on a perfectly flat, uniform, solid cyan background (#00FFFF) that fills the whole image edge to edge: no gradient, no vignette, no floor, no table, no cast shadow on the background and no cyan reflections on the subject. No text, letters, numbers, logos or watermarks except label text specified above. No border or frame. No other objects. Never use cyan anywhere on the subject. Match only the rendering style of the reference image (a cosy cooking-game screen). Do not copy its layout, panels, text or any other object from it.",
-  "sha256": "5d636b293e147785b07e144616147166c954fd95c3546dae18fef5b754ad1bd4",
+  "requestedAt": "2026-10-23T20:40:30+00:00",
+  "prompt": "Cosy mobile cooking-game art in the style of the reference image: a soft stylized 3D render with a hand-painted finish, chunky rounded toy-like shapes, smooth matte clay-like materials with subtle glossy highlights, warm soft key light from the upper left, gentle ambient occlusion, warm saturated but natural colours and a crisp clean silhouette. A single plated dish sprite for a cooking game: a bowl of vegetarian mapo tofu. Soft white tofu cubes in a glossy deep-red chilli bean sauce with finely minced brown shiitake, dusted with reddish-brown ground Sichuan pepper. No peas, no spring onion, no meat. Three-quarter view from slightly above, centred, the whole bowl or plate visible and filling about 75% of the frame with an even margin on every side. Isolated on a perfectly flat, uniform, solid cyan background (#00FFFF) that fills the whole image edge to edge: no gradient, no vignette, no floor, no table, no cast shadow on the background and no cyan reflections on the subject. No text, letters, numbers, logos or watermarks except label text specified above. No border or frame. No other objects. Never use cyan anywhere on the subject. Match only the rendering style of the attached QuinTaste game style board: soft rounded toy-like 3D, smooth clay-like materials, warm peach, cream, coral, honey-wood and sage colours, gentle warm light and the same character proportions. Do not copy any object, character or layout from the board.",
+  "sha256": "dc4161fab7edfaae7b6bfeab1ccbb6fac708f648bbbfba2e1fdd698b3a1d3808",
   "size": [
    360,
-   276
+   281
   ],
-  "status": "approved",
-  "approvedBy": "owner (as artist)",
-  "approvedAt": "2026-10-22"
+  "status": "draft: needs artist approval before members see it"
  },
  "dish-mee-goreng": {
   "source": "runs/dishfix/dish-mee-goreng",
@@ -5287,21 +5285,6 @@
   ],
   "status": "draft: needs artist approval before members see it"
  },
- "dish-kee-chang": {
-  "source": "runs/season-art/dish-kee-chang",
-  "variant": 1,
-  "tool": "QT Gamer (ChatGPT image generation via Hermes openai-codex)",
-  "model": "gpt-image-2-high",
-  "tier": "gpt-image-2-high",
-  "requestedAt": "2026-10-22T06:55:24+00:00",
-  "prompt": "Cosy mobile cooking-game art in the style of the reference image: a soft stylized 3D render with a hand-painted finish, rounded chunky shapes, smooth matte clay-like materials with subtle glossy highlights, warm soft key light from the upper left, gentle ambient occlusion, warm saturated but natural colours and a crisp clean silhouette. A single plated dish sprite for a cooking game: two kee chang with palm sugar syrup. Small translucent golden rice dumplings on their bamboo leaves, dark palm sugar syrup poured over. Three-quarter view from slightly above, centred, the whole bowl or plate visible and filling about 75% of the frame with an even margin on every side. Isolated on a perfectly flat, uniform, solid magenta background (#FF00FF) that fills the whole image edge to edge: no gradient, no vignette, no floor, no table, no cast shadow on the background and no magenta reflections on the subject. No text, letters, numbers, logos or watermarks except label text specified above. No border or frame. No other objects. Never use magenta anywhere on the subject. Match only the rendering style of the reference image (a cosy cooking-game screen). Do not copy its layout, panels, text or any other object from it.",
-  "sha256": "7b580c226935b88ac7ee390af1a71ed97f32b323dfb8fac758a34d21af8208a1",
-  "size": [
-   360,
-   262
-  ],
-  "status": "draft: needs artist approval before members see it"
- },
  "dish-kuih-lapis": {
   "source": "runs/season-art/dish-kuih-lapis",
   "variant": 1,
@@ -5374,21 +5357,6 @@
   "size": [
    360,
    235
-  ],
-  "status": "draft: needs artist approval before members see it"
- },
- "dish-orh-nee": {
-  "source": "runs/season-art/dish-orh-nee",
-  "variant": 1,
-  "tool": "QT Gamer (ChatGPT image generation via Hermes openai-codex)",
-  "model": "gpt-image-2-high",
-  "tier": "gpt-image-2-high",
-  "requestedAt": "2026-10-22T06:53:16+00:00",
-  "prompt": "Cosy mobile cooking-game art in the style of the reference image: a soft stylized 3D render with a hand-painted finish, rounded chunky shapes, smooth matte clay-like materials with subtle glossy highlights, warm soft key light from the upper left, gentle ambient occlusion, warm saturated but natural colours and a crisp clean silhouette. A single plated dish sprite for a cooking game: a bowl of orh nee yam paste. Smooth lilac-grey yam paste with a drizzle of coconut cream. Three-quarter view from slightly above, centred, the whole bowl or plate visible and filling about 75% of the frame with an even margin on every side. Isolated on a perfectly flat, uniform, solid magenta background (#FF00FF) that fills the whole image edge to edge: no gradient, no vignette, no floor, no table, no cast shadow on the background and no magenta reflections on the subject. No text, letters, numbers, logos or watermarks except label text specified above. No border or frame. No other objects. Never use magenta anywhere on the subject. Match only the rendering style of the reference image (a cosy cooking-game screen). Do not copy its layout, panels, text or any other object from it.",
-  "sha256": "2aafc6bc481d9fbcbefc6fc6d8cf364552936827d09ad798f3399fe51d98967a",
-  "size": [
-   360,
-   287
   ],
   "status": "draft: needs artist approval before members see it"
  },
@@ -5602,21 +5570,6 @@
   ],
   "status": "draft: needs artist approval before members see it"
  },
- "raw-kee-chang": {
-  "source": "runs/season-art/raw-kee-chang",
-  "variant": 1,
-  "tool": "QT Gamer (ChatGPT image generation via Hermes openai-codex)",
-  "model": "gpt-image-2-high",
-  "tier": "gpt-image-2-high",
-  "requestedAt": "2026-10-22T07:11:46+00:00",
-  "prompt": "Cosy mobile cooking-game art in the style of the reference image: a soft stylized 3D render with a hand-painted finish, rounded chunky shapes, smooth matte clay-like materials with subtle glossy highlights, warm soft key light from the upper left, gentle ambient occlusion, warm saturated but natural colours and a crisp clean silhouette. A single game ingredient sprite: three small tied uncooked kee chang in bamboo leaves. Neatly made, before cooking, on a small wooden tray. Three-quarter view from slightly above, centred, the whole subject visible and filling about 70% of the frame with an even margin on every side. Isolated on a perfectly flat, uniform, solid magenta background (#FF00FF) that fills the whole image edge to edge: no gradient, no vignette, no floor, no table, no cast shadow on the background and no magenta reflections on the subject. No text, letters, numbers, logos or watermarks except label text specified above. No border or frame. No other objects. Never use magenta anywhere on the subject. Match only the rendering style of the reference image (a cosy cooking-game screen). Do not copy its layout, panels, text or any other object from it.",
-  "sha256": "a142dcd417577219ac07646966aa584c98e634ba49ae00d8823a4f73e3bd9107",
-  "size": [
-   256,
-   188
-  ],
-  "status": "draft: needs artist approval before members see it"
- },
  "raw-mooncakes": {
   "source": "runs/season-art/raw-mooncakes",
   "variant": 1,
@@ -5704,21 +5657,6 @@
   "size": [
    202,
    256
-  ],
-  "status": "draft: needs artist approval before members see it"
- },
- "yam-paste": {
-  "source": "runs/season-art/yam-paste",
-  "variant": 1,
-  "tool": "QT Gamer (ChatGPT image generation via Hermes openai-codex)",
-  "model": "gpt-image-2-high",
-  "tier": "gpt-image-2-high",
-  "requestedAt": "2026-10-22T07:08:16+00:00",
-  "prompt": "Cosy mobile cooking-game art in the style of the reference image: a soft stylized 3D render with a hand-painted finish, rounded chunky shapes, smooth matte clay-like materials with subtle glossy highlights, warm soft key light from the upper left, gentle ambient occlusion, warm saturated but natural colours and a crisp clean silhouette. A single game ingredient sprite: a small open bowl of smooth lilac yam paste. Cream ceramic bowl or plate, no label, no spoon. Freshly made, never in a jar or pack. Three-quarter view from slightly above, centred, the whole subject visible and filling about 70% of the frame with an even margin on every side. Isolated on a perfectly flat, uniform, solid magenta background (#FF00FF) that fills the whole image edge to edge: no gradient, no vignette, no floor, no table, no cast shadow on the background and no magenta reflections on the subject. No text, letters, numbers, logos or watermarks except label text specified above. No border or frame. No other objects. Never use magenta anywhere on the subject. Match only the rendering style of the reference image (a cosy cooking-game screen). Do not copy its layout, panels, text or any other object from it.",
-  "sha256": "9a2301c4cbf046d0838a940edf29c789d59249b416f97f3d196086398595e0aa",
-  "size": [
-   256,
-   204
   ],
   "status": "draft: needs artist approval before members see it"
  },
@@ -6537,5 +6475,230 @@
   "status": "approved",
   "approvedBy": "owner (as artist)",
   "approvedAt": "2026-10-23"
+ },
+ "baking-powder": {
+  "source": "runs/recipefix/baking-powder",
+  "variant": 1,
+  "tool": "QT Gamer (ChatGPT image generation via Hermes openai-codex)",
+  "model": "gpt-image-2-high",
+  "tier": "gpt-image-2-high",
+  "requestedAt": "2026-10-23T20:34:13+00:00",
+  "prompt": "Cosy mobile cooking-game art in the style of the reference image: a soft stylized 3D render with a hand-painted finish, chunky rounded toy-like shapes, smooth matte clay-like materials with subtle glossy highlights, warm soft key light from the upper left, gentle ambient occlusion, warm saturated but natural colours and a crisp clean silhouette. A single game ingredient sprite: a small round tin of baking powder. A short white tin with its lid off showing fine white powder. The label has no words or letters, just a simple coloured band. Three-quarter view from slightly above, centred, the whole subject visible and filling about 70% of the frame with an even margin on every side. Any label text must be exactly as specified, bold and easy to read. Isolated on a perfectly flat, uniform, solid magenta background (#FF00FF) that fills the whole image edge to edge: no gradient, no vignette, no floor, no table, no cast shadow on the background and no magenta reflections on the subject. No text, letters, numbers, logos or watermarks except label text specified above. No border or frame. No other objects. Never use magenta anywhere on the subject. Match only the rendering style of the attached QuinTaste game style board: soft rounded toy-like 3D, smooth clay-like materials, warm peach, cream, coral, honey-wood and sage colours, gentle warm light and the same character proportions. Do not copy any object, character or layout from the board.",
+  "sha256": "d3308ac40f6ea15984341319ea08336a5e6aa578274d0dc8a6a84176e9c3e479",
+  "size": [
+   256,
+   198
+  ],
+  "status": "draft: needs artist approval before members see it"
+ },
+ "curry-leaves": {
+  "source": "runs/recipefix/curry-leaves",
+  "variant": 1,
+  "tool": "QT Gamer (ChatGPT image generation via Hermes openai-codex)",
+  "model": "gpt-image-2-high",
+  "tier": "gpt-image-2-high",
+  "requestedAt": "2026-10-23T20:35:47+00:00",
+  "prompt": "Cosy mobile cooking-game art in the style of the reference image: a soft stylized 3D render with a hand-painted finish, chunky rounded toy-like shapes, smooth matte clay-like materials with subtle glossy highlights, warm soft key light from the upper left, gentle ambient occlusion, warm saturated but natural colours and a crisp clean silhouette. A single game ingredient sprite: a sprig of fresh curry leaves. Glossy dark green small oval leaves in pairs along one thin stem. Three-quarter view from slightly above, centred, the whole subject visible and filling about 70% of the frame with an even margin on every side. Isolated on a perfectly flat, uniform, solid magenta background (#FF00FF) that fills the whole image edge to edge: no gradient, no vignette, no floor, no table, no cast shadow on the background and no magenta reflections on the subject. No text, letters, numbers, logos or watermarks except label text specified above. No border or frame. No other objects. Never use magenta anywhere on the subject. Match only the rendering style of the attached QuinTaste game style board: soft rounded toy-like 3D, smooth clay-like materials, warm peach, cream, coral, honey-wood and sage colours, gentle warm light and the same character proportions. Do not copy any object, character or layout from the board.",
+  "sha256": "c7916fa2b1421cc6f8ee42d6105c16d281eefdbb13f2501dd3a3a280cf6263a7",
+  "size": [
+   256,
+   230
+  ],
+  "status": "draft: needs artist approval before members see it"
+ },
+ "dish-bean-zongzi": {
+  "source": "runs/recipefix/dish-bean-zongzi",
+  "variant": 1,
+  "tool": "QT Gamer (ChatGPT image generation via Hermes openai-codex)",
+  "model": "gpt-image-2-high",
+  "tier": "gpt-image-2-high",
+  "requestedAt": "2026-10-23T20:39:36+00:00",
+  "prompt": "Cosy mobile cooking-game art in the style of the reference image: a soft stylized 3D render with a hand-painted finish, chunky rounded toy-like shapes, smooth matte clay-like materials with subtle glossy highlights, warm soft key light from the upper left, gentle ambient occlusion, warm saturated but natural colours and a crisp clean silhouette. A single plated dish sprite for a cooking game: an unwrapped bean zongzi on its bamboo leaves. A pyramid of white sticky rice dotted all through with yellow split mung beans and dark red beans, the green bamboo leaves opened out beneath it. No meat, no egg yolk. Three-quarter view from slightly above, centred, the whole bowl or plate visible and filling about 75% of the frame with an even margin on every side. Isolated on a perfectly flat, uniform, solid magenta background (#FF00FF) that fills the whole image edge to edge: no gradient, no vignette, no floor, no table, no cast shadow on the background and no magenta reflections on the subject. No text, letters, numbers, logos or watermarks except label text specified above. No border or frame. No other objects. Never use magenta anywhere on the subject. Match only the rendering style of the attached QuinTaste game style board: soft rounded toy-like 3D, smooth clay-like materials, warm peach, cream, coral, honey-wood and sage colours, gentle warm light and the same character proportions. Do not copy any object, character or layout from the board.",
+  "sha256": "5b1d1dddd983613ca8d05323ac8f9b825094a54e53440a424d00cea47b271d23",
+  "size": [
+   360,
+   256
+  ],
+  "status": "draft: needs artist approval before members see it"
+ },
+ "dish-pear-soup": {
+  "source": "runs/recipefix/dish-pear-soup",
+  "variant": 1,
+  "tool": "QT Gamer (ChatGPT image generation via Hermes openai-codex)",
+  "model": "gpt-image-2-high",
+  "tier": "gpt-image-2-high",
+  "requestedAt": "2026-10-23T20:39:02+00:00",
+  "prompt": "Cosy mobile cooking-game art in the style of the reference image: a soft stylized 3D render with a hand-painted finish, chunky rounded toy-like shapes, smooth matte clay-like materials with subtle glossy highlights, warm soft key light from the upper left, gentle ambient occlusion, warm saturated but natural colours and a crisp clean silhouette. A single plated dish sprite for a cooking game: a bowl of snow fungus pear soup. Clear light golden sweet soup in a white porcelain bowl with soft translucent white snow fungus, chunks of peeled pear and a few red goji berries floating on top. Three-quarter view from slightly above, centred, the whole bowl or plate visible and filling about 75% of the frame with an even margin on every side. Isolated on a perfectly flat, uniform, solid magenta background (#FF00FF) that fills the whole image edge to edge: no gradient, no vignette, no floor, no table, no cast shadow on the background and no magenta reflections on the subject. No text, letters, numbers, logos or watermarks except label text specified above. No border or frame. No other objects. Never use magenta anywhere on the subject. Match only the rendering style of the attached QuinTaste game style board: soft rounded toy-like 3D, smooth clay-like materials, warm peach, cream, coral, honey-wood and sage colours, gentle warm light and the same character proportions. Do not copy any object, character or layout from the board.",
+  "sha256": "d640ca44c412ba47e50967bb612bf37c1f78f2a9a7881ede7027b5d8faa4ba63",
+  "size": [
+   360,
+   293
+  ],
+  "status": "draft: needs artist approval before members see it"
+ },
+ "goji": {
+  "source": "runs/recipefix/goji",
+  "variant": 1,
+  "tool": "QT Gamer (ChatGPT image generation via Hermes openai-codex)",
+  "model": "gpt-image-2-high",
+  "tier": "gpt-image-2-high",
+  "requestedAt": "2026-10-23T20:37:23+00:00",
+  "prompt": "Cosy mobile cooking-game art in the style of the reference image: a soft stylized 3D render with a hand-painted finish, chunky rounded toy-like shapes, smooth matte clay-like materials with subtle glossy highlights, warm soft key light from the upper left, gentle ambient occlusion, warm saturated but natural colours and a crisp clean silhouette. A single game ingredient sprite: a small bowl of dried goji berries. Small elongated bright red-orange berries in a cream ceramic bowl. Three-quarter view from slightly above, centred, the whole subject visible and filling about 70% of the frame with an even margin on every side. Isolated on a perfectly flat, uniform, solid cyan background (#00FFFF) that fills the whole image edge to edge: no gradient, no vignette, no floor, no table, no cast shadow on the background and no cyan reflections on the subject. No text, letters, numbers, logos or watermarks except label text specified above. No border or frame. No other objects. Never use cyan anywhere on the subject. Match only the rendering style of the attached QuinTaste game style board: soft rounded toy-like 3D, smooth clay-like materials, warm peach, cream, coral, honey-wood and sage colours, gentle warm light and the same character proportions. Do not copy any object, character or layout from the board.",
+  "sha256": "510744a0fb7e5046533227459fdcc34b5d644ca1c1fb75a3d8303826d01857c9",
+  "size": [
+   256,
+   204
+  ],
+  "status": "draft: needs artist approval before members see it"
+ },
+ "ground-almonds": {
+  "source": "runs/recipefix/ground-almonds",
+  "variant": 1,
+  "tool": "QT Gamer (ChatGPT image generation via Hermes openai-codex)",
+  "model": "gpt-image-2-high",
+  "tier": "gpt-image-2-high",
+  "requestedAt": "2026-10-23T20:33:42+00:00",
+  "prompt": "Cosy mobile cooking-game art in the style of the reference image: a soft stylized 3D render with a hand-painted finish, chunky rounded toy-like shapes, smooth matte clay-like materials with subtle glossy highlights, warm soft key light from the upper left, gentle ambient occlusion, warm saturated but natural colours and a crisp clean silhouette. A single game ingredient sprite: a small bowl of ground almonds. Fine pale beige almond meal with two whole almonds beside the bowl. Three-quarter view from slightly above, centred, the whole subject visible and filling about 70% of the frame with an even margin on every side. Isolated on a perfectly flat, uniform, solid magenta background (#FF00FF) that fills the whole image edge to edge: no gradient, no vignette, no floor, no table, no cast shadow on the background and no magenta reflections on the subject. No text, letters, numbers, logos or watermarks except label text specified above. No border or frame. No other objects. Never use magenta anywhere on the subject. Match only the rendering style of the attached QuinTaste game style board: soft rounded toy-like 3D, smooth clay-like materials, warm peach, cream, coral, honey-wood and sage colours, gentle warm light and the same character proportions. Do not copy any object, character or layout from the board.",
+  "sha256": "0614f78a99144dc4b8783d0721abf31ea27fd18fdf3f8153521e6cb5edc725ca",
+  "size": [
+   256,
+   214
+  ],
+  "status": "draft: needs artist approval before members see it"
+ },
+ "laksa-leaves": {
+  "source": "runs/recipefix/laksa-leaves",
+  "variant": 1,
+  "tool": "QT Gamer (ChatGPT image generation via Hermes openai-codex)",
+  "model": "gpt-image-2-high",
+  "tier": "gpt-image-2-high",
+  "requestedAt": "2026-10-23T20:32:04+00:00",
+  "prompt": "Cosy mobile cooking-game art in the style of the reference image: a soft stylized 3D render with a hand-painted finish, chunky rounded toy-like shapes, smooth matte clay-like materials with subtle glossy highlights, warm soft key light from the upper left, gentle ambient occlusion, warm saturated but natural colours and a crisp clean silhouette. A single game ingredient sprite: a small sprig of fresh laksa leaves (daun kesum). Narrow pointed bright green leaves on thin reddish stems, a faint darker band across each leaf. Three-quarter view from slightly above, centred, the whole subject visible and filling about 70% of the frame with an even margin on every side. Isolated on a perfectly flat, uniform, solid magenta background (#FF00FF) that fills the whole image edge to edge: no gradient, no vignette, no floor, no table, no cast shadow on the background and no magenta reflections on the subject. No text, letters, numbers, logos or watermarks except label text specified above. No border or frame. No other objects. Never use magenta anywhere on the subject. Match only the rendering style of the attached QuinTaste game style board: soft rounded toy-like 3D, smooth clay-like materials, warm peach, cream, coral, honey-wood and sage colours, gentle warm light and the same character proportions. Do not copy any object, character or layout from the board.",
+  "sha256": "5bd672b71103a10ecce32fa64bd0e734ff140bad91c30ca88a1228e7db1e9898",
+  "size": [
+   256,
+   222
+  ],
+  "status": "draft: needs artist approval before members see it"
+ },
+ "mung-beans": {
+  "source": "runs/recipefix/mung-beans",
+  "variant": 1,
+  "tool": "QT Gamer (ChatGPT image generation via Hermes openai-codex)",
+  "model": "gpt-image-2-high",
+  "tier": "gpt-image-2-high",
+  "requestedAt": "2026-10-23T20:37:56+00:00",
+  "prompt": "Cosy mobile cooking-game art in the style of the reference image: a soft stylized 3D render with a hand-painted finish, chunky rounded toy-like shapes, smooth matte clay-like materials with subtle glossy highlights, warm soft key light from the upper left, gentle ambient occlusion, warm saturated but natural colours and a crisp clean silhouette. A single game ingredient sprite: a small bowl of split mung beans. Small pale yellow hulled split mung beans in a cream ceramic bowl. Three-quarter view from slightly above, centred, the whole subject visible and filling about 70% of the frame with an even margin on every side. Isolated on a perfectly flat, uniform, solid magenta background (#FF00FF) that fills the whole image edge to edge: no gradient, no vignette, no floor, no table, no cast shadow on the background and no magenta reflections on the subject. No text, letters, numbers, logos or watermarks except label text specified above. No border or frame. No other objects. Never use magenta anywhere on the subject. Match only the rendering style of the attached QuinTaste game style board: soft rounded toy-like 3D, smooth clay-like materials, warm peach, cream, coral, honey-wood and sage colours, gentle warm light and the same character proportions. Do not copy any object, character or layout from the board.",
+  "sha256": "ada58c34009ebb32be57b92bb7c0470b1391d04fe9c5116ba4654a2f8f6d0816",
+  "size": [
+   256,
+   204
+  ],
+  "status": "draft: needs artist approval before members see it"
+ },
+ "mustard-seeds": {
+  "source": "runs/recipefix/mustard-seeds",
+  "variant": 1,
+  "tool": "QT Gamer (ChatGPT image generation via Hermes openai-codex)",
+  "model": "gpt-image-2-high",
+  "tier": "gpt-image-2-high",
+  "requestedAt": "2026-10-23T20:35:17+00:00",
+  "prompt": "Cosy mobile cooking-game art in the style of the reference image: a soft stylized 3D render with a hand-painted finish, chunky rounded toy-like shapes, smooth matte clay-like materials with subtle glossy highlights, warm soft key light from the upper left, gentle ambient occlusion, warm saturated but natural colours and a crisp clean silhouette. A single game ingredient sprite: a small bowl of black mustard seeds. Tiny round dark brown-black seeds in a small cream ceramic bowl. Three-quarter view from slightly above, centred, the whole subject visible and filling about 70% of the frame with an even margin on every side. Isolated on a perfectly flat, uniform, solid magenta background (#FF00FF) that fills the whole image edge to edge: no gradient, no vignette, no floor, no table, no cast shadow on the background and no magenta reflections on the subject. No text, letters, numbers, logos or watermarks except label text specified above. No border or frame. No other objects. Never use magenta anywhere on the subject. Match only the rendering style of the attached QuinTaste game style board: soft rounded toy-like 3D, smooth clay-like materials, warm peach, cream, coral, honey-wood and sage colours, gentle warm light and the same character proportions. Do not copy any object, character or layout from the board.",
+  "sha256": "27c3a6670316158bc74cecc70d37bf71b4b9a4a37bd3c50eaa20cf59883492f0",
+  "size": [
+   256,
+   206
+  ],
+  "status": "draft: needs artist approval before members see it"
+ },
+ "pear": {
+  "source": "runs/recipefix/pear",
+  "variant": 1,
+  "tool": "QT Gamer (ChatGPT image generation via Hermes openai-codex)",
+  "model": "gpt-image-2-high",
+  "tier": "gpt-image-2-high",
+  "requestedAt": "2026-10-23T20:36:52+00:00",
+  "prompt": "Cosy mobile cooking-game art in the style of the reference image: a soft stylized 3D render with a hand-painted finish, chunky rounded toy-like shapes, smooth matte clay-like materials with subtle glossy highlights, warm soft key light from the upper left, gentle ambient occlusion, warm saturated but natural colours and a crisp clean silhouette. A single game ingredient sprite: a Chinese snow pear. A round pale golden-yellow pear with tiny freckles and a short stem, one wedge cut away showing crisp white flesh. Three-quarter view from slightly above, centred, the whole subject visible and filling about 70% of the frame with an even margin on every side. Isolated on a perfectly flat, uniform, solid magenta background (#FF00FF) that fills the whole image edge to edge: no gradient, no vignette, no floor, no table, no cast shadow on the background and no magenta reflections on the subject. No text, letters, numbers, logos or watermarks except label text specified above. No border or frame. No other objects. Never use magenta anywhere on the subject. Match only the rendering style of the attached QuinTaste game style board: soft rounded toy-like 3D, smooth clay-like materials, warm peach, cream, coral, honey-wood and sage colours, gentle warm light and the same character proportions. Do not copy any object, character or layout from the board.",
+  "sha256": "94fc479a54750a63c7eaa16019c020aaaa0dc8252f871fadad2f04b2157c2894",
+  "size": [
+   256,
+   228
+  ],
+  "status": "draft: needs artist approval before members see it"
+ },
+ "popiah-filling": {
+  "source": "runs/recipefix/popiah-filling",
+  "variant": 1,
+  "tool": "QT Gamer (ChatGPT image generation via Hermes openai-codex)",
+  "model": "gpt-image-2-high",
+  "tier": "gpt-image-2-high",
+  "requestedAt": "2026-10-23T20:33:06+00:00",
+  "prompt": "Cosy mobile cooking-game art in the style of the reference image: a soft stylized 3D render with a hand-painted finish, chunky rounded toy-like shapes, smooth matte clay-like materials with subtle glossy highlights, warm soft key light from the upper left, gentle ambient occlusion, warm saturated but natural colours and a crisp clean silhouette. A single game ingredient sprite: a small bowl of braised popiah filling. Soft shredded jicama and carrot with thin strips of golden tofu, moist and glossy in a light brown braise. Cream ceramic bowl, no spoon. Freshly cooked, never in a jar or pack. Three-quarter view from slightly above, centred, the whole subject visible and filling about 70% of the frame with an even margin on every side. Isolated on a perfectly flat, uniform, solid magenta background (#FF00FF) that fills the whole image edge to edge: no gradient, no vignette, no floor, no table, no cast shadow on the background and no magenta reflections on the subject. No text, letters, numbers, logos or watermarks except label text specified above. No border or frame. No other objects. Never use magenta anywhere on the subject. Match only the rendering style of the attached QuinTaste game style board: soft rounded toy-like 3D, smooth clay-like materials, warm peach, cream, coral, honey-wood and sage colours, gentle warm light and the same character proportions. Do not copy any object, character or layout from the board.",
+  "sha256": "6520d4b88ad5502a5d53658c456d8d5b9e6457fca3ffc68b932fe1b0dcbeee27",
+  "size": [
+   256,
+   208
+  ],
+  "status": "draft: needs artist approval before members see it"
+ },
+ "red-beans": {
+  "source": "runs/recipefix/red-beans",
+  "variant": 1,
+  "tool": "QT Gamer (ChatGPT image generation via Hermes openai-codex)",
+  "model": "gpt-image-2-high",
+  "tier": "gpt-image-2-high",
+  "requestedAt": "2026-10-23T20:38:29+00:00",
+  "prompt": "Cosy mobile cooking-game art in the style of the reference image: a soft stylized 3D render with a hand-painted finish, chunky rounded toy-like shapes, smooth matte clay-like materials with subtle glossy highlights, warm soft key light from the upper left, gentle ambient occlusion, warm saturated but natural colours and a crisp clean silhouette. A single game ingredient sprite: a small bowl of dried red beans (adzuki). Small glossy dark red beans, each with a thin white line, in a cream ceramic bowl. Three-quarter view from slightly above, centred, the whole subject visible and filling about 70% of the frame with an even margin on every side. Isolated on a perfectly flat, uniform, solid cyan background (#00FFFF) that fills the whole image edge to edge: no gradient, no vignette, no floor, no table, no cast shadow on the background and no cyan reflections on the subject. No text, letters, numbers, logos or watermarks except label text specified above. No border or frame. No other objects. Never use cyan anywhere on the subject. Match only the rendering style of the attached QuinTaste game style board: soft rounded toy-like 3D, smooth clay-like materials, warm peach, cream, coral, honey-wood and sage colours, gentle warm light and the same character proportions. Do not copy any object, character or layout from the board.",
+  "sha256": "bb2dffe411ed5a35b521399569f9472723627a8455579428099096666e526496",
+  "size": [
+   256,
+   218
+  ],
+  "status": "draft: needs artist approval before members see it"
+ },
+ "rock-sugar": {
+  "source": "runs/recipefix/rock-sugar",
+  "variant": 1,
+  "tool": "QT Gamer (ChatGPT image generation via Hermes openai-codex)",
+  "model": "gpt-image-2-high",
+  "tier": "gpt-image-2-high",
+  "requestedAt": "2026-10-23T20:32:34+00:00",
+  "prompt": "Cosy mobile cooking-game art in the style of the reference image: a soft stylized 3D render with a hand-painted finish, chunky rounded toy-like shapes, smooth matte clay-like materials with subtle glossy highlights, warm soft key light from the upper left, gentle ambient occlusion, warm saturated but natural colours and a crisp clean silhouette. A single game ingredient sprite: a small bowl of rock sugar. Irregular clear pale amber crystal chunks in a cream ceramic bowl. Three-quarter view from slightly above, centred, the whole subject visible and filling about 70% of the frame with an even margin on every side. Isolated on a perfectly flat, uniform, solid magenta background (#FF00FF) that fills the whole image edge to edge: no gradient, no vignette, no floor, no table, no cast shadow on the background and no magenta reflections on the subject. No text, letters, numbers, logos or watermarks except label text specified above. No border or frame. No other objects. Never use magenta anywhere on the subject. Match only the rendering style of the attached QuinTaste game style board: soft rounded toy-like 3D, smooth clay-like materials, warm peach, cream, coral, honey-wood and sage colours, gentle warm light and the same character proportions. Do not copy any object, character or layout from the board.",
+  "sha256": "a33272ecb39c7c5c887140959ad6f7b60537660ac5439f4bb64f6e70278bf270",
+  "size": [
+   256,
+   210
+  ],
+  "status": "draft: needs artist approval before members see it"
+ },
+ "snow-fungus": {
+  "source": "runs/recipefix/snow-fungus",
+  "variant": 2,
+  "tool": "QT Gamer (ChatGPT image generation via Hermes openai-codex)",
+  "model": "gpt-image-2-high",
+  "tier": "gpt-image-2-high",
+  "requestedAt": "2026-10-23T20:36:37+00:00",
+  "prompt": "Cosy mobile cooking-game art in the style of the reference image: a soft stylized 3D render with a hand-painted finish, chunky rounded toy-like shapes, smooth matte clay-like materials with subtle glossy highlights, warm soft key light from the upper left, gentle ambient occlusion, warm saturated but natural colours and a crisp clean silhouette. A single game ingredient sprite: a piece of dried snow fungus (white fungus). A pale cream-white frilly ruffled fungus like a small cloud of crinkled petals, with a small golden base. Three-quarter view from slightly above, centred, the whole subject visible and filling about 70% of the frame with an even margin on every side. Isolated on a perfectly flat, uniform, solid magenta background (#FF00FF) that fills the whole image edge to edge: no gradient, no vignette, no floor, no table, no cast shadow on the background and no magenta reflections on the subject. No text, letters, numbers, logos or watermarks except label text specified above. No border or frame. No other objects. Never use magenta anywhere on the subject. Match only the rendering style of the attached QuinTaste game style board: soft rounded toy-like 3D, smooth clay-like materials, warm peach, cream, coral, honey-wood and sage colours, gentle warm light and the same character proportions. Do not copy any object, character or layout from the board.",
+  "sha256": "51bc9d39fd663b62e2b75093a7ad66a2da64395cb9383f34e9a34078678fb93d",
+  "size": [
+   256,
+   202
+  ],
+  "status": "draft: needs artist approval before members see it"
+ },
+ "water": {
+  "source": "runs/recipefix/water",
+  "variant": 1,
+  "tool": "QT Gamer (ChatGPT image generation via Hermes openai-codex)",
+  "model": "gpt-image-2-high",
+  "tier": "gpt-image-2-high",
+  "requestedAt": "2026-10-23T20:34:45+00:00",
+  "prompt": "Cosy mobile cooking-game art in the style of the reference image: a soft stylized 3D render with a hand-painted finish, chunky rounded toy-like shapes, smooth matte clay-like materials with subtle glossy highlights, warm soft key light from the upper left, gentle ambient occlusion, warm saturated but natural colours and a crisp clean silhouette. A single game ingredient sprite: a small glass jug of clear water. A simple clear glass jug, half full of water with a soft blue tint and light reflections. Three-quarter view from slightly above, centred, the whole subject visible and filling about 70% of the frame with an even margin on every side. Isolated on a perfectly flat, uniform, solid magenta background (#FF00FF) that fills the whole image edge to edge: no gradient, no vignette, no floor, no table, no cast shadow on the background and no magenta reflections on the subject. No text, letters, numbers, logos or watermarks except label text specified above. No border or frame. No other objects. Never use magenta anywhere on the subject. Match only the rendering style of the attached QuinTaste game style board: soft rounded toy-like 3D, smooth clay-like materials, warm peach, cream, coral, honey-wood and sage colours, gentle warm light and the same character proportions. Do not copy any object, character or layout from the board.",
+  "sha256": "020e59d2469f897ddb8ca5c95d65d4ebb7b6f3207a301fb5a1c3dac1f8b70ee6",
+  "size": [
+   253,
+   256
+  ],
+  "status": "draft: needs artist approval before members see it"
  }
 }

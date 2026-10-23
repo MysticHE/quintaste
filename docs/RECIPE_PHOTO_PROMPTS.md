@@ -1,13 +1,8 @@
-# Pending recipe photos
+# Recipe photos (delivered 24 October 2026)
 
-Eight bundled recipes show a category tile because the 17 October 2026 Higgsfield batch hit the account's daily grace-period limit after five images. Generate each with the exact prompt below (landscape 3:2, any photorealistic image model), then:
+Every bundled Cook recipe now has an illustrative photo. The eight recipes that showed a category tile after the 17 October 2026 Higgsfield batch hit its daily limit, plus the ginger coconut laksa, were generated on 24 October 2026 through QT Gamer's Hermes image provider (ChatGPT plan, gpt-image-2-high, landscape 1536x1024, two variants each, picked by eye) from the prompts below. Each was re-encoded as JPEG quality 80 at 1024x683 into `assets/food/<file>` (82-126 KB), wired through `PhotoKey` (`src/types/food.ts`), `src/data/photos.ts` and `photo:` on the recipe, and recorded in `assets/food/provenance.json`; the original PNGs are in `.local/original-photos`. Recipe Info reads "Illustrative image".
 
-1. Re-encode as JPEG quality 80 at about 1024×688 into `assets/food/<file>` (the five delivered photos are 83–109 KB; the original PNGs are 2.3–2.6 MB).
-2. Add the key to `PhotoKey` in `src/types/food.ts` and to `src/data/photos.ts`.
-3. Set `photo: "<key>"` on the recipe in `src/data/recipe-library/` (the allium-free mee goreng inherits from mee goreng).
-4. Append a provenance entry (file, source/model, exact prompt, use, generated date) to `assets/food/provenance.json`.
-
-Recipe Info then reads "Illustrative image" instead of "No photo yet" automatically.
+To add a photo for a new bundled recipe, follow the same steps with a prompt in this format.
 
 ## oat-porridge
 
@@ -71,4 +66,12 @@ File: `assets/food/sago-gula-melaka.jpg`
 
 ```text
 Use case: photorealistic-natural. Asset type: editorial food photograph for the QuinTaste mobile recipe preview. Primary request: sago gula melaka dessert, a small dome of chilled white sago pudding drizzled with dark glossy gula melaka palm sugar syrup and a pool of coconut milk, on a small white plate with a pandan leaf beside it. Composition: one dish in a landscape 3:2 photograph, close three-quarter overhead view, dish fully visible and centered with a little room at its edges, shallow natural depth of field, light peach-beige tabletop, restrained professional food styling. Lighting: warm soft morning window light, real food textures, natural Singapore food editorial photography. No meat, seafood, egg, onion, garlic, spring onion or fried shallot garnish. No people, hands, writing, logos, watermark, UI, borders or collage. Illustrative recipe imagery, not a photograph documenting a real restaurant.
+```
+
+## gentle-laksa
+
+File: `assets/food/gentle-laksa.jpg`
+
+```text
+Use case: photorealistic-natural. Asset type: editorial food photograph for the QuinTaste mobile recipe preview. Primary request: ginger coconut laksa, thick round rice noodles in a golden turmeric coconut broth with golden tofu puffs, a small heap of blanched bean sprouts and fine shreds of fresh ginger on top, in a cream ceramic bowl with a ceramic spoon. Composition: one dish in a landscape 3:2 photograph, close three-quarter overhead view, dish fully visible and centered with a little room at its edges, shallow natural depth of field, light peach-beige tabletop, restrained professional food styling. Lighting: warm soft morning window light, real food textures, natural Singapore food editorial photography. No meat, seafood, egg, onion, garlic, spring onion or fried shallot garnish. No people, hands, writing, logos, watermark, UI, borders or collage. Illustrative recipe imagery, not a photograph documenting a real restaurant.
 ```

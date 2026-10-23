@@ -54,5 +54,68 @@
     "prompt": "Use case: photorealistic-natural. Asset type: editorial food photograph for the QuinTaste mobile recipe preview. Primary request: vegan ABC soup, a clear golden vegetable broth with chunks of potato, carrot, tomato wedges and short pieces of corn on the cob, in a cream ceramic bowl with a ceramic spoon. Composition: one dish in a landscape 3:2 photograph, close three-quarter overhead view, dish fully visible and centered with a little room at its edges, shallow natural depth of field, light peach-beige tabletop, restrained professional food styling. Lighting: warm soft morning window light, real food textures, natural Singapore food editorial photography. No meat, bones, seafood, egg, onion, garlic, spring onion or fried shallot garnish. No people, hands, writing, logos, watermark, UI, borders or collage. Illustrative recipe imagery, not a photograph documenting a real restaurant.",
     "use": "Illustrative preview food/recipe imagery; not venue documentation",
     "generated": "2026-10-17"
+  },
+  {
+    "file": "bubur-cha-cha.jpg",
+    "source": "QT Gamer (Hermes openai-codex, gpt-image-2-high) run recipe-photos/bubur-cha-cha variant 1, 1536x1024 PNG re-encoded to 1024x683 JPEG quality 80; original kept in .local/original-photos",
+    "prompt": "Use case: photorealistic-natural. Asset type: editorial food photograph for the QuinTaste mobile recipe preview. Primary request: bubur cha cha dessert, creamy pale coconut milk with cubes of orange and purple sweet potato and yam, small clear sago pearls and a few colourful chewy tapioca cubes, in a white ceramic bowl with a knotted pandan leaf beside it. Composition: one dish in a landscape 3:2 photograph, close three-quarter overhead view, dish fully visible and centered with a little room at its edges, shallow natural depth of field, light peach-beige tabletop, restrained professional food styling. Lighting: warm soft morning window light, real food textures, natural Singapore food editorial photography. No meat, seafood, egg, onion, garlic, spring onion or fried shallot garnish. No people, hands, writing, logos, watermark, UI, borders or collage. Illustrative recipe imagery, not a photograph documenting a real restaurant.",
+    "use": "Illustrative preview food/recipe imagery; not venue documentation",
+    "generated": "2026-10-23"
+  },
+  {
+    "file": "fried-bee-hoon.jpg",
+    "source": "QT Gamer (Hermes openai-codex, gpt-image-2-high) run recipe-photos/fried-bee-hoon variant 1, 1536x1024 PNG re-encoded to 1024x683 JPEG quality 80; original kept in .local/original-photos",
+    "prompt": "Use case: photorealistic-natural. Asset type: editorial food photograph for the QuinTaste mobile recipe preview. Primary request: Singapore vegetarian fried bee hoon, thin rice vermicelli stir-fried light golden with shredded cabbage, julienned carrot, sliced shiitake mushrooms and bean sprouts, topped with a few slices of fresh red chilli, served on a white oval plate. Composition: one dish in a landscape 3:2 photograph, close three-quarter overhead view, dish fully visible and centered with a little room at its edges, shallow natural depth of field, light peach-beige tabletop, restrained professional food styling. Lighting: warm soft morning window light, real food textures, natural Singapore food editorial photography. No meat, seafood, egg, onion, garlic, spring onion or fried shallot garnish. No people, hands, writing, logos, watermark, UI, borders or collage. Illustrative recipe imagery, not a photograph documenting a real restaurant.",
+    "use": "Illustrative preview food/recipe imagery; not venue documentation",
+    "generated": "2026-10-23"
+  },
+  {
+    "file": "gentle-laksa.jpg",
+    "source": "QT Gamer (Hermes openai-codex, gpt-image-2-high) run recipe-photos/gentle-laksa variant 1, 1536x1024 PNG re-encoded to 1024x683 JPEG quality 80; original kept in .local/original-photos",
+    "prompt": "Use case: photorealistic-natural. Asset type: editorial food photograph for the QuinTaste mobile recipe preview. Primary request: ginger coconut laksa, thick round rice noodles in a golden turmeric coconut broth with golden tofu puffs, a small heap of blanched bean sprouts and fine shreds of fresh ginger on top, in a cream ceramic bowl with a ceramic spoon. Composition: one dish in a landscape 3:2 photograph, close three-quarter overhead view, dish fully visible and centered with a little room at its edges, shallow natural depth of field, light peach-beige tabletop, restrained professional food styling. Lighting: warm soft morning window light, real food textures, natural Singapore food editorial photography. No meat, seafood, egg, onion, garlic, spring onion or fried shallot garnish. No people, hands, writing, logos, watermark, UI, borders or collage. Illustrative recipe imagery, not a photograph documenting a real restaurant.",
+    "use": "Illustrative preview food/recipe imagery; not venue documentation",
+    "generated": "2026-10-23"
+  },
+  {
+    "file": "mapo-tofu.jpg",
+    "source": "QT Gamer (Hermes openai-codex, gpt-image-2-high) run recipe-photos/mapo-tofu variant 1, 1536x1024 PNG re-encoded to 1024x683 JPEG quality 80; original kept in .local/original-photos",
+    "prompt": "Use case: photorealistic-natural. Asset type: editorial food photograph for the QuinTaste mobile recipe preview. Primary request: Sichuan-style vegan mapo tofu, soft silken tofu cubes in a glossy deep-red chilli bean sauce with finely minced shiitake mushrooms, sprinkled with ground Sichuan pepper, in a shallow cream bowl, a small bowl of white rice beside it. Composition: one dish in a landscape 3:2 photograph, close three-quarter overhead view, dish fully visible and centered with a little room at its edges, shallow natural depth of field, light peach-beige tabletop, restrained professional food styling. Lighting: warm soft morning window light, real food textures, natural Singapore food editorial photography. No meat, seafood, egg, onion, garlic, spring onion or fried shallot garnish. No people, hands, writing, logos, watermark, UI, borders or collage. Illustrative recipe imagery, not a photograph documenting a real restaurant.",
+    "use": "Illustrative preview food/recipe imagery; not venue documentation",
+    "generated": "2026-10-23"
+  },
+  {
+    "file": "mee-goreng.jpg",
+    "source": "QT Gamer (Hermes openai-codex, gpt-image-2-high) run recipe-photos/mee-goreng variant 2, 1536x1024 PNG re-encoded to 1024x683 JPEG quality 80; original kept in .local/original-photos",
+    "prompt": "Use case: photorealistic-natural. Asset type: editorial food photograph for the QuinTaste mobile recipe preview. Primary request: vegan mee goreng, yellow wheat noodles wok-fried in a glossy red-brown sweet tomato chilli sauce with cubes of golden tempeh, bok choy, bean sprouts and tomato wedges, a lime half on the side, on a white oval plate. Composition: one dish in a landscape 3:2 photograph, close three-quarter overhead view, dish fully visible and centered with a little room at its edges, shallow natural depth of field, light peach-beige tabletop, restrained professional food styling. Lighting: warm soft morning window light, real food textures, natural Singapore food editorial photography. No meat, seafood, egg, onion, garlic, spring onion or fried shallot garnish. No people, hands, writing, logos, watermark, UI, borders or collage. Illustrative recipe imagery, not a photograph documenting a real restaurant.",
+    "use": "Illustrative preview food/recipe imagery; not venue documentation",
+    "generated": "2026-10-23"
+  },
+  {
+    "file": "nasi-lemak.jpg",
+    "source": "QT Gamer (Hermes openai-codex, gpt-image-2-high) run recipe-photos/nasi-lemak variant 1, 1536x1024 PNG re-encoded to 1024x683 JPEG quality 80; original kept in .local/original-photos",
+    "prompt": "Use case: photorealistic-natural. Asset type: editorial food photograph for the QuinTaste mobile recipe preview. Primary request: vegan nasi lemak on a banana-leaf lined round plate, a neat mound of fragrant coconut rice, glossy red sambal tempeh, roasted peanuts, sliced cucumber and a few crisp golden tofu pieces. Composition: one dish in a landscape 3:2 photograph, close three-quarter overhead view, dish fully visible and centered with a little room at its edges, shallow natural depth of field, light peach-beige tabletop, restrained professional food styling. Lighting: warm soft morning window light, real food textures, natural Singapore food editorial photography. No meat, anchovies, fish, seafood, egg, onion, garlic, spring onion or fried shallot garnish. No people, hands, writing, logos, watermark, UI, borders or collage. Illustrative recipe imagery, not a photograph documenting a real restaurant.",
+    "use": "Illustrative preview food/recipe imagery; not venue documentation",
+    "generated": "2026-10-23"
+  },
+  {
+    "file": "oat-porridge.jpg",
+    "source": "QT Gamer (Hermes openai-codex, gpt-image-2-high) run recipe-photos/oat-porridge variant 1, 1536x1024 PNG re-encoded to 1024x683 JPEG quality 80; original kept in .local/original-photos",
+    "prompt": "Use case: photorealistic-natural. Asset type: editorial food photograph for the QuinTaste mobile recipe preview. Primary request: a bowl of creamy savoury ginger mushroom oat porridge, topped with sliced shiitake mushrooms, fine julienned ginger, small cubes of silken tofu, a drizzle of sesame oil and a few coriander leaves, in a cream ceramic bowl with a ceramic spoon. Composition: one dish in a landscape 3:2 photograph, close three-quarter overhead view, dish fully visible and centered with a little room at its edges, shallow natural depth of field, light peach-beige tabletop, restrained professional food styling. Lighting: warm soft morning window light, real food textures, natural Singapore food editorial photography. No meat, seafood, egg, onion, garlic, spring onion or fried shallot garnish. No people, hands, writing, logos, watermark, UI, borders or collage. Illustrative recipe imagery, not a photograph documenting a real restaurant.",
+    "use": "Illustrative preview food/recipe imagery; not venue documentation",
+    "generated": "2026-10-23"
+  },
+  {
+    "file": "popiah.jpg",
+    "source": "QT Gamer (Hermes openai-codex, gpt-image-2-high) run recipe-photos/popiah variant 1, 1536x1024 PNG re-encoded to 1024x683 JPEG quality 80; original kept in .local/original-photos",
+    "prompt": "Use case: photorealistic-natural. Asset type: editorial food photograph for the QuinTaste mobile recipe preview. Primary request: fresh Singapore popiah rolls, soft thin wheat crepes wrapped around braised shredded jicama and carrot, lettuce, bean sprouts and crushed peanuts, cut in half to show the filling, three rolls on a white plate with a small dish of dark sweet sauce and a small dish of chilli. Composition: one dish in a landscape 3:2 photograph, close three-quarter overhead view, dish fully visible and centered with a little room at its edges, shallow natural depth of field, light peach-beige tabletop, restrained professional food styling. Lighting: warm soft morning window light, real food textures, natural Singapore food editorial photography. No meat, shrimp, seafood, egg, onion, garlic, spring onion or fried shallot garnish. No people, hands, writing, logos, watermark, UI, borders or collage. Illustrative recipe imagery, not a photograph documenting a real restaurant.",
+    "use": "Illustrative preview food/recipe imagery; not venue documentation",
+    "generated": "2026-10-23"
+  },
+  {
+    "file": "sago-gula-melaka.jpg",
+    "source": "QT Gamer (Hermes openai-codex, gpt-image-2-high) run recipe-photos/sago-gula-melaka variant 1, 1536x1024 PNG re-encoded to 1024x683 JPEG quality 80; original kept in .local/original-photos",
+    "prompt": "Use case: photorealistic-natural. Asset type: editorial food photograph for the QuinTaste mobile recipe preview. Primary request: sago gula melaka dessert, a small dome of chilled white sago pudding drizzled with dark glossy gula melaka palm sugar syrup and a pool of coconut milk, on a small white plate with a pandan leaf beside it. Composition: one dish in a landscape 3:2 photograph, close three-quarter overhead view, dish fully visible and centered with a little room at its edges, shallow natural depth of field, light peach-beige tabletop, restrained professional food styling. Lighting: warm soft morning window light, real food textures, natural Singapore food editorial photography. No meat, seafood, egg, onion, garlic, spring onion or fried shallot garnish. No people, hands, writing, logos, watermark, UI, borders or collage. Illustrative recipe imagery, not a photograph documenting a real restaurant.",
+    "use": "Illustrative preview food/recipe imagery; not venue documentation",
+    "generated": "2026-10-23"
   }
 ]

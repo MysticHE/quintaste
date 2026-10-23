@@ -35,10 +35,11 @@ export const DISHES: Dish[] = [
         { slots: [slot("cream", "Coconut milk", ["coconut-milk"]), slot("leaf", "Pandan", ["pandan"], true)], secs: 2, hint: "coconut milk", splitIfHot: ["coconut-milk"] }] },
       { id: "agar-agar", name: "Agar-agar", station: "fridge", stages: [{ slots: [slot("mix", "Jelly mix", ["agar-mix"])], secs: 7, hint: "the jelly mix" }] },
     ] },
-  { id: "tau-huay", name: "Tau huay", art: "dish-tau-huay", remember: "Tau huay is soy milk set with a coagulant, cooled until silky, then sweetened.",
+  { id: "tau-huay", name: "Tau huay", art: "dish-tau-huay", remember: "A coagulant sets hot soy milk into a silky pudding. Tau huay is eaten warm or chilled, with a syrup.",
     parts: [
       { id: "tau-huay-cook", name: "Soy pudding", station: "dessert", makes: "soy-pudding", stages: [
-        { slots: [slot("milk", "Soy milk", ["soy-milk"]), slot("set", "Coagulant", ["coagulant"])], secs: 3, hint: "soy milk and coagulant" }] },
+        { slots: [slot("milk", "Soy milk", ["soy-milk"])], secs: 2, hint: "soy milk" },
+        { slots: [slot("set", "Coagulant", ["coagulant"])], secs: 2, hint: "the coagulant" }] },
       { id: "tau-huay", name: "Tau huay", station: "fridge", stages: [
         { slots: [slot("pudding", "Soy pudding", ["soy-pudding"])], secs: 5, hint: "the soy pudding" },
         { slots: [slot("syrup", "Syrup", ["gula-melaka", "brown-sugar"])], secs: 0, hint: "a syrup" }] },
@@ -67,7 +68,7 @@ const { o } = orders("c");
 export const LEVELS: Level[] = [
   { n: 81, bonus: "golden", name: "The fridge", brief: "Cook the sago in the dessert pot, then pour it into the fridge with mango and coconut milk to chill.", teach: "Cook, then chill.",
     stations: ["dessert", "fridge"], seats: 2, maxOpen: 2, round: 100, patience: 98, hints: "full", orders: [o("office", "mango-sago", 1), o("daniel", "mango-sago", 18)], distractors: [], unlocks: ["Fridge"] },
-  { n: 82, bonus: "clean", name: "Silky tau huay", brief: "Set the soy milk in the dessert pot, cool it in the fridge, then add a syrup.", teach: "A dessert can set as it cools.",
+  { n: 82, bonus: "clean", name: "Silky tau huay", brief: "Heat the soy milk, set it with the coagulant, chill it in the fridge, then add a syrup.", teach: "A coagulant sets hot soy milk.",
     stations: ["dessert", "fridge"], seats: 2, maxOpen: 2, round: 97, patience: 98, hints: "full", orders: [o("office", "tau-huay", 1), o("asha", "tau-huay", 20)], distractors: [], unlocks: [] },
   { n: 83, bonus: "golden", name: "Agar-agar", brief: "Cook the jelly mix, lower the heat before the coconut milk, then set it in the fridge.", teach: "Gentle heat, then set.",
     stations: ["dessert", "fridge"], seats: 3, maxOpen: 3, round: 125, patience: 100, hints: "chip", orders: [o("office", "agar-agar", 1), o("jia", "agar-agar", 14), o("mei", "mango-sago", 44)], distractors: [], unlocks: [] },

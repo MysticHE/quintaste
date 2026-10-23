@@ -16,23 +16,23 @@ The owner warned that the app's sample recipes may not be reliable, so every gam
 | Dish | Station | How it really cooks, in game steps | Lesson |
 |---|---|---|---|
 | Fried bee hoon | Wok | Aromatic and vegetable first, then soaked bee hoon and soy | Order of a stir-fry |
-| Sesame greens and tofu | Wok | Tofu in oil, then greens and a topping (sesame seeds or egg) | Vegetarian is not always vegan |
-| Kangkung with fermented beancurd | Wok | Fu ru and optional chilli, then kangkung; leaves scorch fast | Hold the heat band |
+| Sesame greens and tofu | Wok | Tofu in oil, then greens, a topping (sesame seeds or egg) and optional sesame oil to finish | Vegetarian is not always vegan |
+| Kangkung with fermented beancurd | Wok | Fu ru and optional chilli, then kangkung on a hot wok, tossed fast | Hot and fast for leafy greens |
 | Kangkung, stems first | Wok | Fu ru and stems, then leaves and optional chilli | Stems before leaves |
-| Mapo tofu | Wok | Aromatic (ginger, garlic or Sichuan pepper) with bean paste, then tofu and a savoury bite (shiitake, black beans or tempeh) | Garlic hides in pastes |
+| Mapo tofu | Wok | Minced shiitake or tempeh (ginger or garlic optional), then bean paste and optional black beans, then tofu and cornflour, Sichuan pepper on top | Garlic hides in pastes |
 | Tomato tofu | Wok | Aromatic and tomato, then tofu and seasoning | Spring onion is an allium |
-| Sweet and sour tofu | Wok | Tofu in cornflour, capsicum and pineapple, then ketchup and vinegar | Ketchup can list onion and garlic |
+| Sweet and sour tofu | Wok | Tofu in cornflour, then ketchup and vinegar, then capsicum and pineapple so they stay crunchy | Ketchup can list onion and garlic |
 | Mee goreng | Wok | Aromatic and chilli paste, yellow noodles and tempeh, bok choy and kecap | Some yellow noodles contain egg |
 | ABC soup | Soup pot | Potato or corn with carrot or cabbage, then tomato and seasoning | Simmer, not boil; root-free swaps |
-| Coconut laksa | Soup pot | Hot spice base, then stock and coconut milk at low heat, then noodles and tofu | Coconut milk splits when too hot |
+| Coconut laksa | Soup pot | Hot spice base, then stock and coconut milk at low heat, then noodles, tofu and optional laksa leaves | Coconut milk splits when too hot |
 | Ginger oat porridge | Soup pot | Oats (ginger optional), then a topping | Optional roots make Jain swaps easy |
 | Claypot rice | Rice cooker | Rice steams (no heat to manage), then toppings and dark soy | Start the slowest dish first |
 | Nasi lemak | Rice cooker and wok | Coconut rice, and sambal tempeh in the wok, put together on one plate | Many sambals contain belacan |
-| Popiah | Wok and assembly board | Braised jicama and carrot filling, then skin, sauce, lettuce and peanuts in order | Layer order |
-| Bubur cha cha | Dessert pot | Sweet potato and yam, sago, then coconut milk and pandan gently | Gentle heat for coconut |
-| Sago gula melaka | Dessert pot | Sago, then palm sugar and coconut milk | Palm sugar scorches fast |
+| Popiah | Wok and assembly board | Braised jicama, carrot and tofu filling, then skin, sauce, lettuce, the filling and peanuts in order | Layer order |
+| Bubur cha cha | Dessert pot | Sweet potato and yam, sago, then coconut milk, pandan and sugar gently | Gentle heat for coconut |
+| Sago gula melaka | Dessert pot and soup pot | Sago, then coconut milk; palm sugar syrup melted gently apart and poured over | Palm sugar scorches fast |
 
-Kaya toast was left out: too many steps for one service.
+Kaya toast joined later (Chapter 6): the bread toasts dry, then kaya and a cold slab of butter go in.
 
 ## Rules (match the app's food choices)
 
@@ -225,6 +225,15 @@ Owner requests from a Level 13 screenshot, a redesign mockup and two reference r
 - **Two-part dishes on the tray** (owner, 23 October 2026: a nasi lemak "came out as a dish before it even finished"). A plate missing a part shows faded on the tray with a tag naming what it needs ("Needs sambal tempeh", or "1 of 2 ready" where that does not fit). An ingredient dropped on the wrong station of a two-part dish names the right one ("Tempeh goes in the wok.") instead of saying it isn't in the dish. Plating half a dish moves the selection to the station that cooks the rest (a recorded input, so replays match), and serving a half plate names the missing part. A rule-breaking ingredient that completes a step advises Restart (it can no longer be lifted out once cooking) instead of Lift it out. Check: `.local/rh-harness/tests/half-plate.mjs`.
 - **No cut-off names** (owner, 23 October 2026). The order title spans the card (the next-step hint sits beside the ingredient strip) and is sized by measured width, 18 down to 11 px, so the dish and "for <guest>" both show. A guest bubble carrying a chip takes the seat's width (up to 84 px), chips in bubbles wrap rather than cut off, and a narrow bubble says "Yum ♥" and "⇄ Shared". Check: `.local/rh-harness/tests/clip-titles.mjs` (every level and season at 390 px).
 - **No credits from a guest's phone** (owner, 23 October 2026). The sign-in import no longer moves device credits to the account (`server/game/progress.mjs`); bests, finds and decor bought on the device still come, decor capped by what the device's clears could have earned.
+
+## Recipe accuracy pass (24 October 2026)
+
+The owner asked for every level's dish to be checked against the real recipe (and the app's own Cook recipes). Fixes:
+
+- **Taught a wrong step:** popiah's braised filling now goes into the roll (`makes: "popiah-filling"`); thosai crisps on one side and is never flipped (Level 53 now contrasts it with prata); kaya toast toasts dry, then takes kaya and a cold slab of butter; mapo tofu fries the mince first, then the bean paste and black beans, then tofu with cornflour and Sichuan pepper on top (ginger is optional, so a Jain guest has tempeh mapo); tau huay sets hot with a coagulant, then chills (Level 82); idli and thosai name the overnight ferment; the cornflour-coated fryer dish is "Crispy fried tofu", not tofu puffs; sago gula melaka cooks the sago and the palm sugar syrup apart (dessert pot and soup pot); kangkung is a hot, fast toss (Level 3).
+- **Missing ingredients or steps:** sugar in bubur cha cha; baking powder in pancakes, banana bread (wet first, then flour) and naan; ground almonds in sugee cake; optional laksa leaves on both laksas; gyoza fry, then steam with a splash of water; sesame oil finishes the sesame greens instead of frying the tofu; sweet and sour sauce simmers before the capsicum and pineapple; the thali's cabbage starts with mustard seeds and curry leaves; the reunion set's steamed tofu takes optional ginger.
+- **Season dishes replaced** (owner: exclude orh nee and kee chang, use healthier recipes): Lantern bakery's orh nee (yam with lard or coconut milk) became **snow fungus pear soup** (snow fungus and pear simmered gently, rock sugar and goji at the end; no added fat; snow fungus is a fungus, so Jain and no-mushroom guests have another dish). Dumpling day's kee chang (plain glutinous rice in syrup) became **bean zongzi** (glutinous rice with mung or red beans, wrapped and boiled; more fibre and protein, no fried filling). Their art left the bundle (`import-game-art.py --add` drops keys the game no longer uses).
+- **Checks:** `scripts/validate-game.ts` clears every level, season and special on four seeds with server replay; new art from QT Gamer run `recipefix` (`ops/qt-team/gamer/concepts-recipefix.json`).
 
 ## Not done yet
 

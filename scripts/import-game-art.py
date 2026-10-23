@@ -5,6 +5,7 @@ Usage: python -I scripts/import-game-art.py --source <qt-team gamer folder> [--c
 Each key is taken from the first run that has it (later runs override earlier ones), using variant 1 unless chosen below.
 --add merges downloaded runs (asset folders with sprite-N.webp and report-N.json) into the art already imported, without the
 older runs: only keys the game uses and does not have yet, or keys named with --pick, are added, each from the first run given that has it.
+Keys the game no longer uses are dropped, with their files.
 Art is QT Gamer draft output (ChatGPT image generation); an artist approves everything that ships to members. A re-import keeps an
 approval (status, approvedBy, approvedAt) only while the picture's bytes are unchanged; a new or changed picture starts as a draft.
 """
@@ -157,8 +158,14 @@ def add_runs(runs, picks):
             size, dest = encode(key, path)
             prov[key] = keep_approval(prov, key, record(f"runs/{run.name}/{key}", v, path, size, dest))
             added[key] = v
+    # Art for content that was removed (a retired dish or ingredient) leaves the bundle with it.
+    dropped = sorted(k for k in prov if k not in wanted)
+    for key in dropped:
+        del prov[key]
+        (OUT / f"{key}.webp").unlink(missing_ok=True)
     write_outputs(prov)
     print("added", len(added), " ".join(f"{k}:{v}" for k, v in added.items()))
+    print("dropped:", ", ".join(dropped) if dropped else "none")
     missing = sorted(k for k in wanted if k not in prov)
     print("still missing:", ", ".join(missing) if missing else "none")
 

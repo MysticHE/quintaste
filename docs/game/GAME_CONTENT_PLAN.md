@@ -114,8 +114,8 @@ Main-path and season levels are placed by staff. Kitchen levels are placed autom
 | Nine days (Nine Emperor Gods, Navaratri) | 30 Sep–8 Oct 2027 | 18–26 Oct 2028 | Zhai stir-fries, sundal, payasam, vegetable curry | — | No deities, palanquins or fire-walking |
 | Festival of lights snacks (Deepavali) | 28 Oct 2027 | ~17 Oct 2028 (est.) | Payasam, sundal (two dishes: a smaller season) | Murukku (Ch 7), laddu (Ch 8) | Lamps and kolam fine; no deities; ghee swaps for Vegan |
 | Year-end table (Dongzhi, Christmas) | 22–25 Dec 2027 | 21–25 Dec 2028 | Vegetable devil's curry | Tang yuan (Ch 8), sugee cake (Ch 5) | Fruit cake usually contains alcohol |
-| Lantern bakery (Mid-Autumn) | 15 Sep 2027 | 3 Oct 2028 | — | Mooncakes (Ch 5), snowskin and orh nee (Ch 3, 4, 9) | Traditional fillings use lard and yolk; yam fails Jain |
-| Dumpling day (Duanwu) | 9 Jun 2027 | 28 May 2028 | — | Zongzi and kee chang (Ch 8) | Low |
+| Lantern bakery (Mid-Autumn) | 15 Sep 2027 | 3 Oct 2028 | — | Mooncakes (Ch 5), snowskin and snow fungus pear soup (Ch 4, 9) | Traditional fillings use lard and yolk; snow fungus fails Jain and no-mushroom guests |
+| Dumpling day (Duanwu) | 9 Jun 2027 | 28 May 2028 | — | Zongzi and bean zongzi (Ch 8) | Low |
 
 - **Ready with today's techniques:** Reunion kitchen, Sunset bazaar, Zhai days and Nine days. The others start the year their chapters ship.
 - **First season:** whichever of Lunar New Year, Hari Raya Puasa or Vesak 2027 is ready first; plan for Zhai days (Vesak, 20 May 2027), which needs no new technique and has the lowest risk. Deepavali 2026 (8 Nov) is too close.

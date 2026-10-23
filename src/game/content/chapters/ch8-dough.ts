@@ -15,6 +15,7 @@ export const ITEMS: GameItem[] = [
   pantry("glutinous-flour", "Glutinous rice flour"),
   pantry("black-sesame", "Black sesame paste"),
   fresh("green-peas", "Green peas"),
+  pantry("water", "Water"),
   // Made in a station, never on the shelf (Part.makes).
   pantry("dumpling-filling", "Dumpling filling"),
   pantry("samosa-filling", "Samosa filling"),
@@ -25,7 +26,7 @@ export const ITEMS: GameItem[] = [
   pantry("raw-mandu", "Mandu"),
 ];
 export const FORMS: Record<string, ItemForm> = {
-  "glutinous-flour": { form: "sprinkle", tone: "white" }, "black-sesame": { form: "pour", tone: "soy" },
+  "glutinous-flour": { form: "sprinkle", tone: "white" }, "black-sesame": { form: "pour", tone: "soy" }, water: { form: "pour", tone: "white" },
   "dumpling-filling": { form: "pour", tone: "soy" }, "samosa-filling": { form: "pour", tone: "gold" },
 };
 
@@ -38,12 +39,13 @@ export const DISHES: Dish[] = [
         { slots: [slot("wrap", "Wrappers", ["wrappers-a", "wrappers-b"]), slot("fill", "Filling", ["dumpling-filling"])], secs: 0, hint: "wrappers and the filling", turn: "fold" }] },
       { id: "dumplings", name: "Dumplings", station: "pot", stages: [{ slots: [slot("dumplings", "Dumplings", ["raw-dumplings"])], secs: 4, hint: "the dumplings" }] },
     ] },
-  { id: "gyoza", name: "Pan-fried gyoza", art: "dish-gyoza", remember: "Many dumpling wrappers contain egg. Read the label for a vegan guest.",
+  { id: "gyoza", name: "Pan-fried gyoza", art: "dish-gyoza", remember: "Fry the gyoza until the bottoms brown, then add a splash of water and cover them to steam. Many dumpling wrappers contain egg: read the label for a vegan guest.",
     parts: [
       { id: "gyoza-fold", name: "Gyoza", station: "dough", makes: "raw-gyoza", stages: [
         { slots: [slot("wrap", "Wrappers", ["wrappers-a", "wrappers-b"]), slot("veg", "Cabbage", ["cabbage"]), slot("aroma", "Chives or ginger", ["chives", "ginger"])], secs: 0, hint: "wrappers, cabbage and chives", turn: "fold" }] },
       { id: "gyoza", name: "Gyoza", station: "pan", stages: [
-        { slots: [slot("gyoza", "Gyoza", ["raw-gyoza"]), slot("oil", "Oil", ["cooking-oil"])], secs: 4, hint: "the gyoza and oil" }] },
+        { slots: [slot("gyoza", "Gyoza", ["raw-gyoza"]), slot("oil", "Oil", ["cooking-oil"])], secs: 2, hint: "the gyoza and oil" },
+        { slots: [slot("water", "Water", ["water"])], secs: 2, hint: "a splash of water" }] },
     ] },
   { id: "samosa", name: "Samosa", art: "dish-samosa", remember: "Potato samosas suit most guests; peas fill them for a Jain guest who skips roots.",
     parts: [
@@ -70,7 +72,7 @@ export const DISHES: Dish[] = [
 
 const { o } = orders("d");
 export const LEVELS: Level[] = [
-  { n: 71, bonus: "golden", name: "The dough board", brief: "Put the wrappers and filling on the dough board, drag the fold onto it to close the gyoza, then fry them in the wok.", teach: "Fill, fold, cook.",
+  { n: 71, bonus: "golden", name: "The dough board", brief: "Put the wrappers and filling on the dough board, drag the fold onto it to close the gyoza, then fry them in the wok and steam them with a splash of water.", teach: "Fill, fold, cook.",
     stations: ["dough", "pan"], seats: 2, maxOpen: 2, round: 95, patience: 95, hints: "full", orders: [o("office", "gyoza", 1), o("jia", "gyoza", 20)], distractors: [], unlocks: ["Dough board"] },
   { n: 72, bonus: "clean", name: "Steamed mandu", brief: "Fold the mandu, then steam them. Take them out on time.", teach: "Fold, then steam.",
     stations: ["dough", "steamer"], seats: 2, maxOpen: 2, round: 96, patience: 95, hints: "full", orders: [o("office", "mandu", 1), o("lim", "mandu", 20)], distractors: [], unlocks: [] },

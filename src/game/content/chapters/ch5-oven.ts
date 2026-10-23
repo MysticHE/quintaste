@@ -13,6 +13,8 @@ export const ITEMS: GameItem[] = [
   pantry("butter", "Butter", "butter", ["dairy"], undefined),
   pantry("margarine", "Margarine", "margarine", [], { title: "Plant margarine", ingredients: ["Palm oil", "Sunflower oil", "Water", "Salt"], contains: "—" }),
   pantry("flaxseed", "Ground flaxseed"),
+  pantry("ground-almonds", "Ground almonds"),
+  pantry("baking-powder", "Baking powder"),
   fresh("banana", "Banana"),
   pantry("ghee", "Ghee", "ghee", ["dairy"]),
   pantry("puff-pastry-a", "Puff pastry", "puff-pastry", ["animal"], { title: "Puff pastry sheets", ingredients: ["Wheat flour", "Lard", "Water", "Salt"], contains: "Wheat", flagged: "Lard" }, "A"),
@@ -23,7 +25,7 @@ export const ITEMS: GameItem[] = [
   pantry("pie-filling", "Pie filling"),
 ];
 export const FORMS: Record<string, ItemForm> = {
-  semolina: { form: "sprinkle", tone: "gold" }, "plain-flour": { form: "sprinkle", tone: "white" }, flaxseed: { form: "sprinkle", tone: "dark" },
+  semolina: { form: "sprinkle", tone: "gold" }, "plain-flour": { form: "sprinkle", tone: "white" }, flaxseed: { form: "sprinkle", tone: "dark" }, "ground-almonds": { form: "sprinkle", tone: "gold" }, "baking-powder": { form: "sprinkle", tone: "white" },
   butter: { form: "pour", tone: "cream" }, margarine: { form: "pour", tone: "cream" }, ghee: { form: "pour", tone: "oil" },
   "sugee-batter": { form: "pour", tone: "gold" }, "banana-batter": { form: "pour", tone: "gold" }, "pie-filling": { form: "pour", tone: "gold" },
 };
@@ -33,11 +35,11 @@ export const DISHES: Dish[] = [
     { slots: [slot("base", "Potato or corn", ["potato", "sweet-potato", "corn"]), slot("green", "Broccoli or capsicum", ["broccoli", "capsicum"]), slot("oil", "Oil", ["cooking-oil"])], secs: 6, hint: "vegetables and oil" },
     { slots: [slot("salt", "Salt", ["salt"]), slot("pepper", "Pepper", ["white-pepper"], true)], secs: 2, hint: "salt" },
   ], "Preheat first: food that goes into a cold oven bakes unevenly. Corn keeps it root-free for a Jain guest."),
-  { id: "sugee-cake", name: "Sugee cake", art: "dish-sugee-cake", remember: "Sugee cake is rich with butter and egg. Margarine and flaxseed make it vegan.",
+  { id: "sugee-cake", name: "Sugee cake", art: "dish-sugee-cake", remember: "Sugee cake is semolina soaked in butter, with ground almonds and plenty of egg. Margarine and flaxseed make it vegan.",
     parts: [
       { id: "sugee-mix", name: "Sugee batter", station: "blender", makes: "sugee-batter", stages: [
         { slots: [slot("grain", "Semolina", ["semolina"]), slot("fat", "Butter or margarine", ["butter", "margarine"])], secs: 3, hint: "semolina and butter" },
-        { slots: [slot("bind", "Egg or flaxseed", ["egg", "flaxseed"]), slot("sweet", "Sugar", ["brown-sugar"])], secs: 2, hint: "egg and sugar" }] },
+        { slots: [slot("bind", "Egg or flaxseed", ["egg", "flaxseed"]), slot("sweet", "Sugar", ["brown-sugar"]), slot("nut", "Ground almonds", ["ground-almonds"])], secs: 2, hint: "egg, sugar and almonds" }] },
       { id: "sugee-cake", name: "Sugee cake", station: "oven", stages: [{ slots: [slot("batter", "Sugee batter", ["sugee-batter"])], secs: 7, hint: "the batter" }] },
     ] },
   { id: "veg-pie", name: "Curry vegetable pie", art: "dish-veg-pie", remember: "Some bought puff pastry is made with lard. Read the label in a plant-based kitchen.",
@@ -47,15 +49,15 @@ export const DISHES: Dish[] = [
       { id: "veg-pie", name: "Pie", station: "oven", stages: [
         { slots: [slot("pastry", "Puff pastry", ["puff-pastry-a", "puff-pastry-b"]), slot("fill", "Filling", ["pie-filling"])], secs: 6, hint: "pastry and the filling" }] },
     ] },
-  { id: "banana-bread", name: "Banana bread", art: "dish-banana-bread", remember: "Honey and butter are not vegan. Brown sugar and oil bake just as well.",
+  { id: "banana-bread", name: "Banana bread", art: "dish-banana-bread", remember: "Mix the wet ingredients first, then fold in the flour and baking powder. Honey and butter are not vegan; brown sugar and oil bake just as well.",
     parts: [
       { id: "banana-mix", name: "Banana batter", station: "blender", makes: "banana-batter", stages: [
-        { slots: [slot("fruit", "Banana", ["banana"]), slot("flour", "Plain flour", ["plain-flour"])], secs: 2, hint: "banana and flour" },
-        { slots: [slot("sweet", "Honey or sugar", ["honey", "brown-sugar"]), slot("fat", "Butter or oil", ["butter", "cooking-oil"])], secs: 2, hint: "something sweet and some fat" }] },
+        { slots: [slot("fruit", "Banana", ["banana"]), slot("sweet", "Honey or sugar", ["honey", "brown-sugar"]), slot("fat", "Butter or oil", ["butter", "cooking-oil"])], secs: 2, hint: "banana, something sweet and some fat" },
+        { slots: [slot("flour", "Plain flour", ["plain-flour"]), slot("rise", "Baking powder", ["baking-powder"])], secs: 2, hint: "flour and baking powder" }] },
       { id: "banana-bread", name: "Banana bread", station: "oven", stages: [{ slots: [slot("batter", "Banana batter", ["banana-batter"])], secs: 7, hint: "the batter" }] },
     ] },
   one("naan", "Naan", "dish-naan", "oven", [
-    { slots: [slot("flour", "Plain flour", ["plain-flour"]), slot("soft", "Yoghurt or coconut milk", ["yoghurt", "coconut-milk"])], secs: 5, hint: "flour and yoghurt" },
+    { slots: [slot("flour", "Plain flour", ["plain-flour"]), slot("soft", "Yoghurt or coconut milk", ["yoghurt", "coconut-milk"]), slot("rise", "Baking powder", ["baking-powder"])], secs: 5, hint: "flour, yoghurt and baking powder" },
     { slots: [slot("brush", "Ghee or oil", ["ghee", "cooking-oil"])], secs: 1, hint: "ghee to brush" },
   ], "Naan is soft with yoghurt and brushed with ghee, both dairy. Coconut milk and oil make it vegan."),
 ];

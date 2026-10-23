@@ -26,12 +26,12 @@ export const FORMS: Record<string, ItemForm> = {
 };
 
 export const DISHES: Dish[] = [
-  { id: "thosai", name: "Thosai", art: "dish-thosai", remember: "Thosai batter is rice and urad dal, like idli, spread thin on a hot griddle and flipped once.",
+  { id: "thosai", name: "Thosai", art: "dish-thosai", remember: "Thosai batter is fermented rice and urad dal, like idli. It is spread thin on a hot griddle and crisped on one side only, then folded.",
     parts: [
       { id: "thosai-grind", name: "Thosai batter", station: "blender", makes: "thosai-batter", stages: [
         { slots: [slot("rice", "Rice", ["rice"]), slot("dal", "Urad dal", ["urad-dal"])], secs: 3, hint: "rice and urad dal" }] },
       { id: "thosai", name: "Thosai", station: "griddle", stages: [
-        { slots: [slot("batter", "Thosai batter", ["thosai-batter"]), slot("oil", "Oil", ["cooking-oil"])], secs: 5, hint: "the batter and oil", turn: "flip" }] },
+        { slots: [slot("batter", "Thosai batter", ["thosai-batter"]), slot("oil", "Oil", ["cooking-oil"])], secs: 5, hint: "the batter and oil" }] },
     ] },
   one("prata", "Roti prata", "dish-prata", "griddle", [
     { slots: [slot("dough", "Prata dough", ["prata-dough-a", "prata-dough-b"]), slot("oil", "Oil", ["cooking-oil"])], secs: 5, hint: "prata dough and oil", turn: "flip" },
@@ -41,17 +41,17 @@ export const DISHES: Dish[] = [
     { slots: [slot("brush", "Ghee or oil", ["ghee", "cooking-oil"])], secs: 1, hint: "ghee or oil to brush" },
   ], "Chapati is often brushed with ghee. Oil keeps it vegan."),
   one("kaya-toast", "Kaya toast", "dish-kaya-toast", "griddle", [
-    { slots: [slot("bread", "Bread", ["bread"]), slot("fat", "Butter or margarine", ["butter", "margarine"])], secs: 3, hint: "bread and butter", turn: "flip" },
-    { slots: [slot("jam", "Kaya", ["kaya-a", "kaya-b"])], secs: 1, hint: "kaya" },
-  ], "Kaya is made with egg. An egg-free kaya and margarine make kaya toast vegan."),
+    { slots: [slot("bread", "Bread", ["bread"])], secs: 3, hint: "bread", turn: "flip" },
+    { slots: [slot("jam", "Kaya", ["kaya-a", "kaya-b"]), slot("fat", "Butter or margarine", ["butter", "margarine"])], secs: 1, hint: "kaya and a slab of butter" },
+  ], "Toast the bread dry, then fill it with kaya and a cold slab of butter. Kaya is made with egg: an egg-free kaya and margarine make it vegan."),
   one("carrot-cake", "Fried carrot cake", "dish-carrot-cake", "griddle", [
     { slots: [slot("cake", "Radish cake", ["radish-cake"]), slot("oil", "Oil", ["cooking-oil"])], secs: 4, hint: "radish cake and oil", turn: "flip" },
     { slots: [slot("radish", "Chye poh", ["chye-poh"]), slot("sauce", "Dark soy", ["dark-soy"]), slot("egg", "Egg", ["egg"], true)], secs: 2, hint: "chye poh and dark soy" },
   ], "Carrot cake is really radish cake, a root, so it is not for a Jain guest. Egg is optional for a vegan one."),
-  { id: "pancakes", name: "Pancakes", art: "dish-pancakes", remember: "Pancakes need no egg: oat milk, margarine and palm sugar make them vegan.",
+  { id: "pancakes", name: "Pancakes", art: "dish-pancakes", remember: "Baking powder makes pancakes rise, so they need no egg: oat milk, margarine and palm sugar make them vegan.",
     parts: [
       { id: "pancake-mix", name: "Pancake batter", station: "blender", makes: "pancake-batter", stages: [
-        { slots: [slot("flour", "Plain flour", ["plain-flour"]), slot("milk", "Milk", ["dairy-milk", "oat-milk"])], secs: 2, hint: "flour and milk" }] },
+        { slots: [slot("flour", "Plain flour", ["plain-flour"]), slot("milk", "Milk", ["dairy-milk", "oat-milk"]), slot("rise", "Baking powder", ["baking-powder"])], secs: 2, hint: "flour, milk and baking powder" }] },
       { id: "pancakes", name: "Pancakes", station: "griddle", stages: [
         { slots: [slot("batter", "Pancake batter", ["pancake-batter"]), slot("fat", "Butter or margarine", ["butter", "margarine"])], secs: 4, hint: "the batter and butter", turn: "flip" },
         { slots: [slot("syrup", "Honey or palm sugar", ["honey", "gula-melaka"])], secs: 1, hint: "something sweet" }] },
@@ -64,7 +64,7 @@ export const LEVELS: Level[] = [
     stations: ["griddle"], seats: 2, maxOpen: 2, round: 80, patience: 90, hints: "full", orders: [o("office", "prata", 1), o("jia", "prata", 16)], distractors: [], unlocks: ["Griddle"] },
   { n: 52, bonus: "clean", name: "Chapati", brief: "Flip the chapati, then brush it. Daniel is vegan: oil, not ghee.", teach: "Ghee is dairy.",
     stations: ["griddle"], seats: 2, maxOpen: 2, round: 90, patience: 92, hints: "full", orders: [o("office", "chapati", 1), o("daniel", "chapati", 18)], distractors: [], unlocks: [] },
-  { n: 53, bonus: "golden", name: "Thosai", brief: "Grind the thosai batter, pour it onto the griddle, and flip it once.", teach: "Blend, pour, flip.",
+  { n: 53, bonus: "golden", name: "Thosai", brief: "Grind the thosai batter and spread it on the griddle. Unlike prata, a crisp thosai is never flipped.", teach: "Some things cook on one side.",
     stations: ["blender", "griddle"], seats: 3, maxOpen: 3, round: 114, patience: 98, hints: "chip", orders: [o("asha", "thosai", 1), o("office", "thosai", 12), o("jia", "chapati", 42)], distractors: [], unlocks: [] },
   { n: 54, bonus: "steady", name: "Breakfast for all", brief: "Prata and thosai on the griddle, and a quick order from the wok.", teach: "The griddle and the wok at once.",
     stations: ["blender", "griddle", "pan"], seats: 3, maxOpen: 3, round: 136, patience: 100, hints: "chip", orders: [o("office", "prata", 1), o("nurul", "bee-hoon", 8), o("asha", "thosai", 40), o("lim", "prata", 66)], distractors: [], unlocks: [] },

@@ -22,6 +22,11 @@ export const ITEMS: GameItem[] = [
   fresh("glutinous-rice", "Glutinous rice"),
   fresh("bamboo-leaves", "Bamboo leaves"),
   fresh("chestnuts", "Chestnuts"),
+  fresh("snow-fungus", "Snow fungus", "snow-fungus", ["mushroom"], "A white fungus: guests who skip mushrooms skip this too."),
+  fresh("pear", "Pear"),
+  pantry("goji", "Goji berries"),
+  pantry("mung-beans", "Mung beans"),
+  pantry("red-beans", "Red beans"),
   // Made in a station, never on the shelf (Part.makes).
   pantry("steamed-nian-gao", "Steamed nian gao"),
   pantry("rendang-paste", "Rendang paste"),
@@ -30,15 +35,15 @@ export const ITEMS: GameItem[] = [
   pantry("devil-paste", "Devil's curry paste"),
   pantry("raw-mooncakes", "Mooncakes"),
   pantry("raw-snowskin", "Snowskin mooncakes"),
-  pantry("yam-paste", "Yam paste"),
   pantry("zongzi-filling", "Zongzi filling"),
   pantry("raw-zongzi", "Zongzi"),
-  pantry("raw-kee-chang", "Kee chang"),
+  pantry("raw-bean-zongzi", "Bean zongzi", "raw-zongzi"),
 ];
 export const FORMS: Record<string, ItemForm> = {
   "plum-sauce": { form: "pour", tone: "red" }, "pineapple-jam": { form: "pour", tone: "gold" }, chickpeas: { form: "sprinkle", tone: "gold" },
   besan: { form: "sprinkle", tone: "gold" }, "rendang-paste": { form: "pour", tone: "red" }, "murukku-dough": { form: "pour", tone: "cream" },
-  "laddu-mix": { form: "pour", tone: "gold" }, "devil-paste": { form: "pour", tone: "red" }, "yam-paste": { form: "pour", tone: "cream" },
+  "laddu-mix": { form: "pour", tone: "gold" }, "devil-paste": { form: "pour", tone: "red" }, goji: { form: "sprinkle", tone: "red" },
+  "mung-beans": { form: "sprinkle", tone: "gold" }, "red-beans": { form: "sprinkle", tone: "red" },
   "zongzi-filling": { form: "pour", tone: "soy" }, "lotus-paste-a": { form: "pour", tone: "soy" }, "lotus-paste-b": { form: "pour", tone: "soy" },
 };
 
@@ -129,13 +134,10 @@ export const DISHES: Dish[] = [
         { slots: [slot("flour", "Glutinous rice flour", ["glutinous-flour"]), slot("paste", "Lotus paste", ["lotus-paste-a", "lotus-paste-b"])], secs: 0, hint: "rice flour and lotus paste", turn: "fold" }] },
       { id: "snowskin-mooncake", name: "Snowskin mooncake", station: "fridge", stages: [{ slots: [slot("cakes", "Snowskin", ["raw-snowskin"])], secs: 6, hint: "the snowskin mooncakes" }] },
     ] },
-  { id: "orh-nee", name: "Orh nee", art: "dish-orh-nee", remember: "Orh nee is blended yam, cooked smooth. Coconut milk replaces the usual lard. Yam is a root.",
-    parts: [
-      { id: "orh-nee-blend", name: "Yam paste", station: "blender", makes: "yam-paste", stages: [
-        { slots: [slot("yam", "Yam", ["yam"]), slot("sweet", "Sugar", ["brown-sugar"])], secs: 3, hint: "yam and sugar" }] },
-      { id: "orh-nee", name: "Orh nee", station: "dessert", stages: [
-        { slots: [slot("paste", "Yam paste", ["yam-paste"]), slot("cream", "Coconut milk", ["coconut-milk"])], secs: 4, hint: "the yam paste and coconut milk", splitIfHot: ["coconut-milk"] }] },
-    ] },
+  one("pear-soup", "Snow fungus pear soup", "dish-pear-soup", "dessert", [
+    { slots: [slot("fungus", "Snow fungus", ["snow-fungus"]), slot("fruit", "Pear", ["pear"])], secs: 6, hint: "snow fungus and pear" },
+    { slots: [slot("sweet", "Rock sugar", ["rock-sugar"]), slot("berry", "Goji berries", ["goji"])], secs: 2, hint: "rock sugar and goji" },
+  ], "Snow fungus and pear simmer gently into a light autumn soup; goji goes in at the end so it stays plump. Snow fungus is a fungus, so a guest who skips mushrooms has another dish."),
   one("pomelo-salad", "Pomelo salad", "dish-pomelo-salad", "board", [
     { slots: [slot("fruit", "Pomelo", ["pomelo"]), slot("herb", "Mint", ["mint"])], secs: 0, hint: "pomelo and mint" },
     { slots: [slot("crunch", "Peanuts", ["peanuts"]), slot("tang", "Lime", ["lime"])], secs: 0, hint: "peanuts and lime" },
@@ -149,13 +151,12 @@ export const DISHES: Dish[] = [
         { slots: [slot("rice", "Glutinous rice", ["glutinous-rice"]), slot("leaf", "Bamboo leaves", ["bamboo-leaves"]), slot("fill", "Filling", ["zongzi-filling"])], secs: 0, hint: "rice, leaves and the filling", turn: "fold" }] },
       { id: "zongzi", name: "Zongzi", station: "pot", stages: [{ slots: [slot("zongzi", "Zongzi", ["raw-zongzi"])], secs: 5, hint: "the zongzi" }] },
     ] },
-  { id: "kee-chang", name: "Kee chang", art: "dish-kee-chang", remember: "Kee chang is plain glutinous rice wrapped and boiled, eaten with palm sugar syrup.",
+  { id: "bean-zongzi", name: "Bean zongzi", art: "dish-bean-zongzi", remember: "Bean zongzi fill the rice with mung or red beans instead of a fried filling. Wrap them tightly and boil them long, until the rice is soft.",
     parts: [
-      { id: "kee-chang-wrap", name: "Kee chang", station: "dough", makes: "raw-kee-chang", stages: [
-        { slots: [slot("rice", "Glutinous rice", ["glutinous-rice"]), slot("leaf", "Bamboo leaves", ["bamboo-leaves"])], secs: 0, hint: "rice and leaves", turn: "fold" }] },
-      { id: "kee-chang", name: "Kee chang", station: "pot", stages: [
-        { slots: [slot("dumplings", "Kee chang", ["raw-kee-chang"])], secs: 4, hint: "the kee chang" },
-        { slots: [slot("syrup", "Palm sugar", ["gula-melaka"])], secs: 1, hint: "palm sugar syrup" }] },
+      { id: "bean-zongzi-wrap", name: "Bean zongzi", station: "dough", makes: "raw-bean-zongzi", stages: [
+        { slots: [slot("rice", "Glutinous rice", ["glutinous-rice"]), slot("beans", "Mung or red beans", ["mung-beans", "red-beans"]), slot("leaf", "Bamboo leaves", ["bamboo-leaves"])], secs: 0, hint: "rice, beans and leaves", turn: "fold" }] },
+      { id: "bean-zongzi", name: "Bean zongzi", station: "pot", stages: [
+        { slots: [slot("zongzi", "Bean zongzi", ["raw-bean-zongzi"])], secs: 5, hint: "the bean zongzi" }] },
     ] },
 ];
 /** Season levels live in content/seasons.ts, by season. */

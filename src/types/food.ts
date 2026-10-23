@@ -8,7 +8,8 @@ import type { Exclusion } from "../config/preferences";
 import type { SearchPoint } from "./location-search";
 import type { GameProgress } from "../game/progress";
 
-export type PhotoKey = "bowl" | "laksa" | "greens" | "kaya-toast" | "claypot-rice" | "sweet-sour-tofu" | "kangkung" | "abc-soup";
+export type PhotoKey = "bowl" | "laksa" | "greens" | "kaya-toast" | "claypot-rice" | "sweet-sour-tofu" | "kangkung" | "abc-soup"
+  | "oat-porridge" | "popiah" | "gentle-laksa" | "mapo-tofu" | "bubur-cha-cha" | "sago-gula-melaka" | "mee-goreng" | "fried-bee-hoon" | "nasi-lemak";
 /** Singapore meal structure: rice meals and noodles are one-dish meals; "With rice" dishes share a rice table. */
 export const recipeCategories = ["Breakfast", "Noodles", "Rice meals", "With rice", "Soups", "Snacks & kueh", "Desserts & drinks"] as const;
 export type RecipeCategory = (typeof recipeCategories)[number];

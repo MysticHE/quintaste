@@ -39,29 +39,30 @@ export const DISHES: Record<string, Dish> = Object.fromEntries(([
     { slots: [slot("noodle", "Bee hoon", ["bee-hoon"]), slot("sauce", "Soy", ["soy", "dark-soy"]), slot("extra", "Bean sprouts", ["bean-sprouts"], true)], secs: 4, hint: "bee hoon and soy" },
   ], "Fry the aromatics and vegetables first; soaked bee hoon goes in last so it stays whole.", "fried-bee-hoon"),
   one("greens", "Sesame greens & tofu", "dish-greens", "pan", [
-    { slots: [slot("tofu", "Tofu", ["tofu"]), slot("oil", "Oil", ["cooking-oil", "sesame-oil"])], secs: 4, hint: "tofu and oil" },
-    { slots: [slot("greens", "Greens", ["choy-sum", "bok-choy", "broccoli"]), slot("top", "Topping", ["sesame-seeds", "egg"])], secs: 3, hint: "greens and a topping" },
+    { slots: [slot("tofu", "Tofu", ["tofu"]), slot("oil", "Oil", ["cooking-oil"])], secs: 4, hint: "tofu and oil" },
+    { slots: [slot("greens", "Greens", ["choy-sum", "bok-choy", "broccoli"]), slot("top", "Topping", ["sesame-seeds", "egg"]), slot("finish", "Sesame oil", ["sesame-oil"], true)], secs: 3, hint: "greens and a topping" },
   ], "Vegetarian is not always vegan: eggs, dairy and honey are not vegan.", "sesame-greens"),
   one("kangkung", "Kangkung with fu ru", "dish-kangkung", "pan", [
     { slots: [slot("sauce", "Fermented beancurd", ["fu-ru"]), slot("heat", "Chilli", ["red-chilli"], true)], secs: 3, hint: "fermented beancurd" },
-    { slots: [slot("green", "Kangkung", ["kangkung"])], secs: 3, hint: "the kangkung", scorchSecs: 1.2 },
-  ], "Leafy greens cook in seconds; a hot wok scorches them fast, so ease the heat once they go in.", "kangkung"),
+    { slots: [slot("green", "Kangkung", ["kangkung"])], secs: 3, hint: "the kangkung", band: [0.55, 0.78], scorchSecs: 1.2 },
+  ], "Kangkung wants a hot wok and a fast toss: it wilts in seconds, so plate it the moment it is done.", "kangkung"),
   one("kangkung-split", "Kangkung, stems first", "dish-kangkung", "pan", [
     { slots: [slot("sauce", "Fermented beancurd", ["fu-ru"]), slot("stems", "Stems", ["kangkung-stems"])], secs: 4, hint: "fermented beancurd and the stems" },
-    { slots: [slot("leaves", "Leaves", ["kangkung-leaves"]), slot("heat", "Chilli", ["red-chilli"], true)], secs: 2, hint: "the leaves", scorchSecs: 1.2 },
+    { slots: [slot("leaves", "Leaves", ["kangkung-leaves"]), slot("heat", "Chilli", ["red-chilli"], true)], secs: 2, hint: "the leaves", band: [0.55, 0.78], scorchSecs: 1.2 },
   ], "Kangkung stems go in before the leaves: stems need longer, leaves wilt in seconds.", "kangkung"),
   one("mapo-tofu", "Mapo tofu", "dish-mapo", "pan", [
-    { slots: [slot("aroma", "Aromatic", ["ginger", "garlic", "sichuan-pepper"]), slot("paste", "Bean paste", ["paste-a", "paste-b"])], secs: 4, hint: "an aromatic and a bean paste" },
-    { slots: [slot("tofu", "Tofu", ["tofu"]), slot("extra", "Savoury bite", ["shiitake", "black-beans", "tempeh"])], secs: 4, hint: "tofu and something savoury" },
-  ], "Garlic can hide in chilli bean paste. For a vegetarian order, read the label and use ginger.", "mapo-tofu"),
+    { slots: [slot("mince", "Mince", ["shiitake", "tempeh"]), slot("aroma", "Aromatic", ["ginger", "garlic"], true)], secs: 2, hint: "minced shiitake or tempeh" },
+    { slots: [slot("paste", "Bean paste", ["paste-a", "paste-b"]), slot("beans", "Black beans", ["black-beans"], true)], secs: 2, hint: "a bean paste" },
+    { slots: [slot("tofu", "Tofu", ["tofu"]), slot("thick", "Cornflour", ["cornflour"]), slot("pepper", "Sichuan pepper", ["sichuan-pepper"], true)], secs: 3, hint: "tofu and cornflour" },
+  ], "Fry the mince first, then the bean paste until the oil turns red. Garlic can hide in chilli bean paste: for a vegetarian order, read the label.", "mapo-tofu"),
   one("tomato-tofu", "Tomato tofu", "dish-tomato-tofu", "pan", [
     { slots: [slot("aroma", "Aromatic", ["ginger", "spring-onion", "garlic"]), slot("tomato", "Tomato", ["tomato"])], secs: 4, hint: "an aromatic and tomato" },
     { slots: [slot("tofu", "Tofu", ["tofu"]), slot("season", "Seasoning", ["soy", "brown-sugar"])], secs: 3, hint: "tofu and seasoning" },
   ], "Spring onion is a scallion, one of the five pungent, so not vegetarian, even though it looks like a green vegetable."),
   one("sweet-sour", "Sweet & sour tofu", "dish-sweet-sour", "pan", [
     { slots: [slot("tofu", "Tofu", ["tofu"]), slot("coat", "Cornflour", ["cornflour"])], secs: 4, hint: "tofu and cornflour" },
-    { slots: [slot("veg", "Capsicum", ["capsicum"]), slot("fruit", "Pineapple", ["pineapple"])], secs: 3, hint: "capsicum and pineapple" },
     { slots: [slot("sauce", "Ketchup", ["ketchup-a", "ketchup-b"]), slot("sour", "Vinegar", ["rice-vinegar"])], secs: 3, hint: "ketchup and vinegar" },
+    { slots: [slot("veg", "Capsicum", ["capsicum"]), slot("fruit", "Pineapple", ["pineapple"])], secs: 2, hint: "capsicum and pineapple" },
   ], "Ketchup often lists onion and garlic powder. Read the label for a vegetarian guest.", "sweet-sour-tofu"),
   one("mee-goreng", "Mee goreng", "dish-mee-goreng", "pan", [
     { slots: [slot("aroma", "Aromatic", ["shallots", "garlic", "ginger"]), slot("paste", "Chilli paste", ["chilli-paste-a", "chilli-paste-b"])], secs: 4, hint: "an aromatic and chilli paste" },
@@ -75,7 +76,7 @@ export const DISHES: Record<string, Dish> = Object.fromEntries(([
   one("laksa", "Coconut laksa", "dish-laksa", "pot", [
     { slots: [slot("spice", "Turmeric", ["turmeric"]), slot("paste", "Chilli paste", ["chilli-paste-a", "chilli-paste-b"])], secs: 4, hint: "turmeric and chilli paste", band: [0.5, 0.78] },
     { slots: [slot("stock", "Stock", ["stock-a", "stock-b"]), slot("cream", "Coconut milk", ["coconut-milk"])], secs: 5, hint: "stock and coconut milk", band: [0.25, 0.48], splitIfHot: ["coconut-milk"] },
-    { slots: [slot("noodles", "Rice noodles", ["rice-noodles"]), slot("tofu", "Tofu puffs", ["tofu"]), slot("extra", "Bean sprouts", ["bean-sprouts"], true)], secs: 3, hint: "noodles and tofu", band: [0.25, 0.48] },
+    { slots: [slot("noodles", "Rice noodles", ["rice-noodles"]), slot("tofu", "Tofu puffs", ["tofu"]), slot("leaf", "Laksa leaves", ["laksa-leaves"], true)], secs: 3, hint: "noodles and tofu", band: [0.25, 0.48] },
   ], "Fry the spice base hot, then lower the heat before the coconut milk so it doesn't split.", "gentle-laksa"),
   one("porridge", "Ginger oat porridge", "dish-porridge", "pot", [
     { slots: [slot("oats", "Oats", ["oats"]), slot("aroma", "Ginger", ["ginger"], true)], secs: 6, hint: "oats" },
@@ -99,20 +100,20 @@ export const DISHES: Record<string, Dish> = Object.fromEntries(([
     id: "popiah", name: "Popiah", art: "dish-popiah", recipeId: "popiah",
     remember: "Build popiah in order: skin, sauce, lettuce, then the filling and peanuts, so it rolls without tearing.",
     parts: [
-      { id: "popiah-filling", name: "Braised filling", station: "pan", stages: [
+      { id: "popiah-filling", name: "Braised filling", station: "pan", makes: "popiah-filling", stages: [
         { slots: [slot("root", "Jicama", ["jicama"]), slot("veg", "Carrot", ["carrot"])], secs: 4, hint: "jicama and carrot", band: [0.3, 0.6] },
         { slots: [slot("tofu", "Tofu", ["tofu"]), slot("sauce", "Soy", ["soy"])], secs: 3, hint: "tofu and soy", band: [0.3, 0.6] }] },
       { id: "popiah-roll", name: "Roll", station: "board", stages: [
         { slots: [slot("skin", "Skin", ["popiah-skins"])], secs: 0, hint: "a popiah skin" },
         { slots: [slot("sauce", "Sweet sauce", ["sweet-sauce-a", "sweet-sauce-b"])], secs: 0, hint: "sweet sauce" },
         { slots: [slot("leaf", "Lettuce", ["lettuce"])], secs: 0, hint: "lettuce" },
-        { slots: [slot("crunch", "Peanuts", ["peanuts"]), slot("sprouts", "Bean sprouts", ["bean-sprouts"], true)], secs: 0, hint: "peanuts" }] },
+        { slots: [slot("filling", "Filling", ["popiah-filling"]), slot("crunch", "Peanuts", ["peanuts"]), slot("sprouts", "Bean sprouts", ["bean-sprouts"], true)], secs: 0, hint: "the filling and peanuts" }] },
     ],
   }),
   one("bubur", "Bubur cha cha", "dish-bubur", "dessert", [
     { slots: [slot("orange", "Sweet potato", ["sweet-potato"]), slot("yam", "Yam", ["yam"])], secs: 5, hint: "sweet potato and yam" },
     { slots: [slot("sago", "Sago", ["sago"])], secs: 4, hint: "sago pearls" },
-    { slots: [slot("cream", "Coconut milk", ["coconut-milk"]), slot("leaf", "Pandan", ["pandan"])], secs: 3, hint: "coconut milk and pandan", splitIfHot: ["coconut-milk"] },
+    { slots: [slot("cream", "Coconut milk", ["coconut-milk"]), slot("leaf", "Pandan", ["pandan"]), slot("sweet", "Sugar", ["rock-sugar", "brown-sugar"])], secs: 3, hint: "coconut milk, pandan and sugar", splitIfHot: ["coconut-milk"] },
   ], "Coconut milk splits if it boils hard; keep a dessert at a gentle heat.", "bubur-cha-cha"),
   // Chapter 3 (GAME_CONTENT_PLAN §3): the blender, and transfer. Pastes made at home show what went in; bought ones can hide belacan or fish sauce.
   one("coconut-chutney", "Coconut chutney", "dish-coconut-chutney", "blender", [
@@ -144,7 +145,7 @@ export const DISHES: Record<string, Dish> = Object.fromEntries(([
       { id: "laksa-scratch", name: "Laksa", station: "pot", stages: [
         { slots: [slot("oil", "Oil", ["cooking-oil"]), slot("rempah", "Rempah", ["laksa-rempah", "rempah-a", "rempah-b"])], secs: 4, hint: "oil and the rempah", band: [0.5, 0.78] },
         { slots: [slot("stock", "Stock", ["stock-a", "stock-b"]), slot("cream", "Coconut milk", ["coconut-milk"])], secs: 5, hint: "stock and coconut milk", band: [0.25, 0.48], splitIfHot: ["coconut-milk"] },
-        { slots: [slot("noodles", "Rice noodles", ["rice-noodles"]), slot("tofu", "Tofu puffs", ["tofu"])], secs: 3, hint: "noodles and tofu", band: [0.25, 0.48] }] },
+        { slots: [slot("noodles", "Rice noodles", ["rice-noodles"]), slot("tofu", "Tofu puffs", ["tofu"]), slot("leaf", "Laksa leaves", ["laksa-leaves"], true)], secs: 3, hint: "noodles and tofu", band: [0.25, 0.48] }] },
     ],
   }),
   dish({
@@ -181,10 +182,17 @@ export const DISHES: Record<string, Dish> = Object.fromEntries(([
     { slots: [slot("veg", "Potato", ["potato"]), slot("beans", "Long beans", ["long-beans"])], secs: 5, hint: "potato and long beans", band: [0.3, 0.55] },
     { slots: [slot("cream", "Coconut milk", ["coconut-milk"]), slot("tofu", "Tofu puffs", ["tofu"])], secs: 3, hint: "coconut milk and tofu puffs", band: [0.25, 0.48], splitIfHot: ["coconut-milk"] },
   ], "Zhai curry gets its depth from curry powder and coconut, with no onion or garlic. Potato is a root, so a Jain guest has another dish."),
-  one("sago", "Sago gula melaka", "dish-sago", "dessert", [
-    { slots: [slot("sago", "Sago", ["sago"])], secs: 5, hint: "sago pearls" },
-    { slots: [slot("syrup", "Gula melaka", ["gula-melaka"]), slot("cream", "Coconut milk", ["coconut-milk"])], secs: 3, hint: "gula melaka and coconut milk", scorchSecs: 1, splitIfHot: ["coconut-milk"] },
-  ], "Palm sugar scorches quickly. Melt it gently, never on high heat.", "sago-gula-melaka"),
+  dish({
+    id: "sago", name: "Sago gula melaka", art: "dish-sago", recipeId: "sago-gula-melaka",
+    remember: "Cook the sago and the palm sugar syrup apart, then pour the syrup and coconut milk over the sago. Palm sugar scorches quickly: melt it gently.",
+    parts: [
+      { id: "sago-pearls", name: "Sago", station: "dessert", stages: [
+        { slots: [slot("sago", "Sago", ["sago"])], secs: 5, hint: "sago pearls" },
+        { slots: [slot("cream", "Coconut milk", ["coconut-milk"])], secs: 1, hint: "coconut milk", splitIfHot: ["coconut-milk"] }] },
+      { id: "sago-syrup", name: "Palm sugar syrup", station: "pot", stages: [
+        { slots: [slot("syrup", "Gula melaka", ["gula-melaka"]), slot("leaf", "Pandan", ["pandan"], true)], secs: 3, hint: "gula melaka", band: [0.25, 0.5], scorchSecs: 1 }] },
+    ],
+  }),
   ...CHAPTER_DISHES,
 ] as Dish[]).map(d => [d.id, d]));
 

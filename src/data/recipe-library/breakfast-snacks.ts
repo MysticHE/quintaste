@@ -26,7 +26,7 @@ export const breakfastSnacks: Recipe[] = [
     ],
   },
   {
-    ...meta, id: "oat-porridge", name: "Ginger mushroom oat porridge", minutes: 15, servings: 2, cuisine: "Chinese", onePot: true,
+    ...meta, id: "oat-porridge", name: "Ginger mushroom oat porridge", photo: "oat-porridge", minutes: 15, servings: 2, cuisine: "Chinese", onePot: true,
     categories: ["Breakfast"],
     description: "A quick congee-style breakfast: oats simmered soft with ginger, shiitake and silken tofu.",
     dietary: vegan(["Gluten", "Mushrooms", "Root vegetables"]),
@@ -48,7 +48,7 @@ export const breakfastSnacks: Recipe[] = [
     ],
   },
   {
-    ...meta, id: "popiah", name: "Fresh popiah rolls", minutes: 30, servings: 2, cuisine: "Peranakan",
+    ...meta, id: "popiah", name: "Fresh popiah rolls", photo: "popiah", minutes: 30, servings: 2, cuisine: "Peranakan",
     categories: ["Snacks & kueh"],
     description: "Soft wheat skins rolled around braised jicama and carrot, crunchy sprouts and peanuts.",
     dietary: vegan(["Gluten", "Peanuts", "Root vegetables"]),

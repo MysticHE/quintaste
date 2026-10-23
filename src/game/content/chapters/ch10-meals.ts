@@ -5,21 +5,24 @@
 import type { Dish } from "../dishes";
 import type { GameItem, ItemForm } from "../items";
 import type { Level } from "../levels";
-import { orders, pantry, slot } from "../make";
+import { fresh, orders, pantry, slot } from "../make";
 
 export const ITEMS: GameItem[] = [
   pantry("toor-dal", "Toor dal"),
+  pantry("mustard-seeds", "Mustard seeds"),
+  fresh("curry-leaves", "Curry leaves"),
 ];
-export const FORMS: Record<string, ItemForm> = { "toor-dal": { form: "sprinkle", tone: "gold" } };
+export const FORMS: Record<string, ItemForm> = { "toor-dal": { form: "sprinkle", tone: "gold" }, "mustard-seeds": { form: "sprinkle", tone: "dark" } };
 
 export const DISHES: Dish[] = [
-  { id: "thali", name: "Vegetable thali", art: "dish-thali", remember: "A thali is a whole meal: rice, dal and a vegetable, ready together.",
+  { id: "thali", name: "Vegetable thali", art: "dish-thali", remember: "A thali is a whole meal: rice, dal and a vegetable, ready together. The cabbage starts with mustard seeds and curry leaves popped in hot oil.",
     parts: [
       { id: "thali-rice", name: "Rice", station: "rice", stages: [{ slots: [slot("rice", "Rice", ["rice"])], secs: 9, hint: "rice" }] },
       { id: "thali-dal", name: "Dal", station: "pot", stages: [
         { slots: [slot("dal", "Toor dal", ["toor-dal"]), slot("spice", "Turmeric", ["turmeric"]), slot("tang", "Tomato", ["tomato"])], secs: 5, hint: "dal, turmeric and tomato" }] },
       { id: "thali-veg", name: "Vegetable", station: "pan", stages: [
-        { slots: [slot("veg", "Cabbage", ["cabbage"]), slot("coconut", "Grated coconut", ["grated-coconut"]), slot("spice", "Curry powder", ["curry-powder"])], secs: 3, hint: "cabbage, coconut and curry powder" }] },
+        { slots: [slot("seeds", "Mustard seeds", ["mustard-seeds"]), slot("leaves", "Curry leaves", ["curry-leaves"])], secs: 1, hint: "mustard seeds and curry leaves" },
+        { slots: [slot("veg", "Cabbage", ["cabbage"]), slot("coconut", "Grated coconut", ["grated-coconut"])], secs: 3, hint: "cabbage and coconut" }] },
     ] },
   { id: "economy-rice", name: "Economy rice", art: "dish-economy-rice", remember: "Economy rice is one plate, many dishes: start the rice and the curry first.",
     parts: [
@@ -33,7 +36,7 @@ export const DISHES: Dish[] = [
   { id: "reunion-set", name: "Reunion set", art: "dish-reunion-set", remember: "A reunion meal for a vegetarian table: ginger, fermented beancurd and soy carry the flavour.",
     parts: [
       { id: "reunion-tofu", name: "Steamed tofu", station: "steamer", stages: [
-        { slots: [slot("tofu", "Silken tofu", ["silken-tofu"]), slot("sauce", "Soy", ["soy"])], secs: 5, hint: "silken tofu and soy" }] },
+        { slots: [slot("tofu", "Silken tofu", ["silken-tofu"]), slot("sauce", "Soy", ["soy"]), slot("aroma", "Ginger", ["ginger"], true)], secs: 5, hint: "silken tofu and soy" }] },
       { id: "reunion-veg", name: "Braised vegetables", station: "pan", stages: [
         { slots: [slot("sauce", "Fermented beancurd", ["fu-ru"]), slot("crunch", "Black fungus or baby corn", ["black-fungus", "baby-corn"]), slot("veg", "Cabbage", ["cabbage"])], secs: 4, hint: "fermented beancurd and vegetables" }] },
       { id: "reunion-rice", name: "Rice", station: "rice", stages: [{ slots: [slot("rice", "Rice", ["rice"])], secs: 9, hint: "rice" }] },

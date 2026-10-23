@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "note": "Recipe accuracy pass (24 Oct 2026): ingredients the corrected dishes now use, the popiah filling that goes into the roll, the two healthier season dishes that replace orh nee and kee chang, and a redrawn mapo tofu without peas.",
+  "assets": [
+    {"id": "laksa-leaves", "kind": "ingredient", "chroma": "magenta", "subject": "a small sprig of fresh laksa leaves (daun kesum)", "details": "Narrow pointed bright green leaves on thin reddish stems, a faint darker band across each leaf.", "status": "todo"},
+    {"id": "rock-sugar", "kind": "ingredient", "chroma": "magenta", "subject": "a small bowl of rock sugar", "details": "Irregular clear pale amber crystal chunks in a cream ceramic bowl.", "status": "todo"},
+    {"id": "popiah-filling", "kind": "ingredient", "chroma": "magenta", "subject": "a small bowl of braised popiah filling", "details": "Soft shredded jicama and carrot with thin strips of golden tofu, moist and glossy in a light brown braise. Cream ceramic bowl, no spoon. Freshly cooked, never in a jar or pack.", "status": "todo"},
+    {"id": "ground-almonds", "kind": "ingredient", "chroma": "magenta", "subject": "a small bowl of ground almonds", "details": "Fine pale beige almond meal with two whole almonds beside the bowl.", "status": "todo"},
+    {"id": "baking-powder", "kind": "packaged", "chroma": "magenta", "subject": "a small round tin of baking powder", "details": "A short white tin with its lid off showing fine white powder. The label has no words or letters, just a simple coloured band.", "status": "todo"},
+    {"id": "water", "kind": "ingredient", "chroma": "magenta", "subject": "a small glass jug of clear water", "details": "A simple clear glass jug, half full of water with a soft blue tint and light reflections.", "status": "todo"},
+    {"id": "mustard-seeds", "kind": "ingredient", "chroma": "magenta", "subject": "a small bowl of black mustard seeds", "details": "Tiny round dark brown-black seeds in a small cream ceramic bowl.", "status": "todo"},
+    {"id": "curry-leaves", "kind": "ingredient", "chroma": "magenta", "subject": "a sprig of fresh curry leaves", "details": "Glossy dark green small oval leaves in pairs along one thin stem.", "status": "todo"},
+    {"id": "snow-fungus", "kind": "ingredient", "chroma": "magenta", "subject": "a piece of dried snow fungus (white fungus)", "details": "A pale cream-white frilly ruffled fungus like a small cloud of crinkled petals, with a small golden base.", "status": "todo"},
+    {"id": "pear", "kind": "ingredient", "chroma": "magenta", "subject": "a Chinese snow pear", "details": "A round pale golden-yellow pear with tiny freckles and a short stem, one wedge cut away showing crisp white flesh.", "status": "todo"},
+    {"id": "goji", "kind": "ingredient", "chroma": "cyan", "subject": "a small bowl of dried goji berries", "details": "Small elongated bright red-orange berries in a cream ceramic bowl.", "status": "todo"},
+    {"id": "mung-beans", "kind": "ingredient", "chroma": "magenta", "subject": "a small bowl of split mung beans", "details": "Small pale yellow hulled split mung beans in a cream ceramic bowl.", "status": "todo"},
+    {"id": "red-beans", "kind": "ingredient", "chroma": "cyan", "subject": "a small bowl of dried red beans (adzuki)", "details": "Small glossy dark red beans, each with a thin white line, in a cream ceramic bowl.", "status": "todo"},
+    {"id": "dish-pear-soup", "kind": "dish", "chroma": "magenta", "subject": "a bowl of snow fungus pear soup", "details": "Clear light golden sweet soup in a white porcelain bowl with soft translucent white snow fungus, chunks of peeled pear and a few red goji berries floating on top.", "status": "todo"},
+    {"id": "dish-bean-zongzi", "kind": "dish", "chroma": "magenta", "subject": "an unwrapped bean zongzi on its bamboo leaves", "details": "A pyramid of white sticky rice dotted all through with yellow split mung beans and dark red beans, the green bamboo leaves opened out beneath it. No meat, no egg yolk.", "status": "todo"},
+    {"id": "dish-mapo", "kind": "dish", "chroma": "cyan", "subject": "a bowl of vegetarian mapo tofu", "details": "Soft white tofu cubes in a glossy deep-red chilli bean sauce with finely minced brown shiitake, dusted with reddish-brown ground Sichuan pepper. No peas, no spring onion, no meat.", "status": "todo"}
+  ]
+}

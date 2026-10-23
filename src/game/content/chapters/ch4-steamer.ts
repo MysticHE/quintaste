@@ -28,7 +28,7 @@ export const DISHES: Dish[] = [
     { slots: [slot("tofu", "Silken tofu", ["silken-tofu", "tofu"]), slot("aroma", "Ginger", ["ginger"], true)], secs: 5, hint: "silken tofu" },
     { slots: [slot("sauce", "Soy", ["soy"]), slot("oil", "Sesame oil", ["sesame-oil"])], secs: 2, hint: "soy and sesame oil" },
   ], "A steamer cooks by itself, but a dish left in once it is ready goes soggy. Take it out on time."),
-  { id: "idli", name: "Idli", art: "dish-idli", remember: "Idli batter is rice and urad dal ground together, then steamed until soft and springy.",
+  { id: "idli", name: "Idli", art: "dish-idli", remember: "Idli batter is soaked rice and urad dal ground together and left overnight to ferment, which makes it light and a little sour. Then it is steamed until soft and springy.",
     parts: [
       { id: "idli-grind", name: "Idli batter", station: "blender", makes: "idli-batter", stages: [
         { slots: [slot("rice", "Rice", ["rice"]), slot("dal", "Urad dal", ["urad-dal"])], secs: 3, hint: "rice and urad dal" }] },
@@ -66,7 +66,7 @@ const { o } = orders("s");
 export const LEVELS: Level[] = [
   { n: 31, bonus: "golden", name: "The steamer", brief: "The steam kitchen opens. Drag the tofu into the steamer: it cooks by itself. Take it out as soon as it's ready, or it goes soggy.", teach: "Fill the steamer, then take it out on time.",
     stations: ["steamer"], seats: 2, maxOpen: 2, round: 78, patience: 85, hints: "full", orders: [o("office", "steamed-tofu", 1), o("daniel", "steamed-tofu", 16)], distractors: ["garlic"], unlocks: ["Steamer"] },
-  { n: 32, bonus: "clean", name: "Grind, then steam", brief: "Idli batter is ground in the blender, then poured into the steamer.", teach: "A batter can be made, then steamed.",
+  { n: 32, bonus: "clean", name: "Grind, then steam", brief: "Grind soaked rice and urad dal into batter, then steam it. At home the batter ferments overnight before it is steamed.", teach: "A batter can be made, then steamed.",
     stations: ["blender", "steamer"], seats: 2, maxOpen: 2, round: 95, patience: 92, hints: "full", orders: [o("office", "idli", 1), o("asha", "idli", 20)], distractors: [], unlocks: [] },
   { n: 33, bonus: "clean", name: "Rice rolls", brief: "Chee cheong fun steams first, then gets its sauce. One sweet sauce lists garlic, and Auntie Mei is vegetarian.", teach: "Read the sauce label.",
     stations: ["steamer"], seats: 3, maxOpen: 3, round: 105, patience: 88, hints: "chip", orders: [o("office", "chee-cheong-fun", 1), o("mei", "chee-cheong-fun", 10), o("daniel", "steamed-tofu", 38)], distractors: [], unlocks: [] },

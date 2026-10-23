@@ -4,7 +4,7 @@ import { minutes, sampleMeta, vegan } from "./shared";
 const meta = sampleMeta("2026-10-17");
 export const dishesSoups: Recipe[] = [
   {
-    ...meta, id: "mapo-tofu", name: "Allium-free mapo tofu", minutes: 20, servings: 2, cuisine: "Sichuan",
+    ...meta, id: "mapo-tofu", name: "Allium-free mapo tofu", photo: "mapo-tofu", minutes: 20, servings: 2, cuisine: "Sichuan",
     categories: ["With rice"],
     description: "Silky tofu in a numbing, spicy bean sauce, with minced shiitake in place of meat and no spring onion.",
     dietary: vegan(["Gluten", "Mushrooms", "Root vegetables"]),
@@ -95,7 +95,7 @@ export const dishesSoups: Recipe[] = [
     ],
   },
   {
-    ...meta, id: "bubur-cha-cha", name: "Bubur cha cha", minutes: 30, servings: 2, cuisine: "Peranakan",
+    ...meta, id: "bubur-cha-cha", name: "Bubur cha cha", photo: "bubur-cha-cha", minutes: 30, servings: 2, cuisine: "Peranakan",
     categories: ["Desserts & drinks"],
     description: "Sweet potato, yam and sago in warm pandan coconut milk. Good warm or chilled.",
     dietary: vegan(["Root vegetables"]),
@@ -117,7 +117,7 @@ export const dishesSoups: Recipe[] = [
     ],
   },
   {
-    ...meta, id: "sago-gula-melaka", name: "Sago gula melaka", minutes: 25, servings: 2, cuisine: "Local",
+    ...meta, id: "sago-gula-melaka", name: "Sago gula melaka", photo: "sago-gula-melaka", minutes: 25, servings: 2, cuisine: "Local",
     categories: ["Desserts & drinks"],
     description: "Chilled sago pudding with dark palm-sugar syrup and salted coconut milk. Allow extra time to set.",
     dietary: vegan([]),
