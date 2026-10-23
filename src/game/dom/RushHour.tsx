@@ -27,6 +27,7 @@ import { withSketches } from "./sketch";
 import { RUSH_CSS } from "./styles";
 import { useFeedback, type HapticKind } from "./useFeedback";
 import { usePlayfield, type PlayfieldInput } from "./usePlayfield";
+import { RowNav, useStationRow } from "./RowNav";
 import { useServiceEvents } from "./useServiceEvents";
 
 /** What the native screen needs to save a run: the setup and input log let the server replay it (sim/replay.ts). */
@@ -91,9 +92,11 @@ export default function RushHour(props: Props) {
   // Already resolved by the app (Play your way over the app and phone setting), so a WebView's own media query never overrides it.
   const reduced = !!props.reduceMotion;
   const fx = useFeedback(settings, props.onHaptic);
-  const input = useRef<PlayfieldInput>({ onStation: noop, onGuest: noop, onServeDrag: noop, onPlateDrag: noop, onTransfer: noop });
+  const input = useRef<PlayfieldInput>({ onStation: noop, onGuest: noop, onServeDrag: noop, onPlateDrag: noop, onTransfer: noop, onRowSwipe: noop, onRowEdge: noop });
   const { rootRef, stageRef, sceneRef, L, reboot } = usePlayfield(runRef, runRef.current.level.seats, runRef.current.level.stations, art,
     { reduced, knob: !!runRef.current.knob, ts: props.textScale, pet: art[petArt] ? petArt : PETS[pet]?.art ?? "" }, input, bump);
+  // The station row: two stations in view, sliding to the rest (RowNav.tsx). `Lv` is the layout as the screen shows it.
+  const row = useStationRow(L, runRef.current.selected, runRef, sceneRef, bump), Lv = row.view;
   const [paused, setPaused] = useState(false);
   const [leaving, setLeaving] = useState(false);
   const ev = useServiceEvents({ runRef, sceneRef, rootRef, fx, reduced, onEnd: () => void save() });
@@ -154,9 +157,10 @@ export default function RushHour(props: Props) {
     onServeDrag: (i, id) => { sim.serve(runRef.current, i, id); after(); },
     onPlateDrag: k => { sim.plate(runRef.current, k); after(); },
     onTransfer: (from, to) => { sim.transfer(runRef.current, from, to); after(); },
+    onRowSwipe: dir => row.swipe(dir), onRowEdge: at => row.edgeAt(at),
   };
   // Shelf handlers are stable (the shelf is memoised) and read the current run and layout through refs.
-  const latestLayout = useRef(L); latestLayout.current = L;
+  const latestLayout = useRef(Lv); latestLayout.current = Lv;
   const shelf = useRef({
     hint: (id: string) => ev.nudgeCard(id),
     drop: (id: string, at: Point, from: Point) => {
@@ -180,7 +184,7 @@ export default function RushHour(props: Props) {
   };
   /** Hold to heat: only switches when the burner is not already in the wanted state. */
   const heatTo = (k: StationKind, on: boolean) => { const r = runRef.current; if (!!r.stations[k]?.heatOn !== on) { sim.toggleHeat(r, k); bump(); } };
-  function again() { runRef.current = newRun(); reboot(); fx.audio.pause(false); ev.reset();
+  function again() { runRef.current = newRun(); reboot(); fx.audio.pause(false); ev.reset(); row.reset();
     setReward(null); setPaused(false); }
   /** The brief slides away, then the service starts with a banner. */
   function begin() {
@@ -205,19 +209,20 @@ export default function RushHour(props: Props) {
       <RecipeCard run={run} L={L} art={art} />
       <SeatTags L={L} />
       <Bubbles run={run} L={L} art={art} plateSel={sceneRef.current?.dragSlot ?? null} onGuest={id => input.current.onGuest(id)} />
-      <ToolChips run={run} L={L} art={art} onTurn={k => { sim.turn(runRef.current, k); after(); }} />
-      <StationTags run={run} L={L} plateSel={sceneRef.current?.dragSlot ?? null} dragging={sceneRef.current?.dragPaste ? null : sceneRef.current?.dragKind ?? null} onSelect={k => input.current.onStation(k)} onRestart={act.restart} />
+      <ToolChips run={run} L={Lv!} art={art} onTurn={k => { sim.turn(runRef.current, k); after(); }} />
+      <StationTags run={run} L={Lv!} plateSel={sceneRef.current?.dragSlot ?? null} dragging={sceneRef.current?.dragPaste ? null : sceneRef.current?.dragKind ?? null} onSelect={k => input.current.onStation(k)} onRestart={act.restart} />
+      <RowNav run={run} L={L} start={row.start} edge={row.edge} onSlide={row.slide} />
       <PlateTags run={run} L={L} incoming={sceneRef.current?.incomingSlots} />
-      <Basket run={run} L={L} art={art} over={basketOver} />
-      <Shelf run={run} L={L} art={art} nudge={ev.nudge} stock={shortStock} onHint={shelf.hint} onDrop={shelf.drop} onHover={shelf.hover} onLabel={shelf.label} />
+      <Basket run={run} L={Lv!} art={art} over={basketOver} />
+      <Shelf run={run} L={Lv!} art={art} nudge={ev.nudge} stock={shortStock} onHint={shelf.hint} onDrop={shelf.drop} onHover={shelf.hover} onLabel={shelf.label} onMove={row.edgeAt} />
       <HeatPanel run={run} L={L} art={art} petArt={petArt} hold={settings.burner === "hold"} nudge={nudgeHeat} onHeat={act.heat} onHeatTo={heatTo} onLift={act.lift}
         onKnob={(k, v, perfect) => { sim.setKnob(runRef.current, k, v); fx.cue(perfect ? "perfect" : "click"); after(); }} onTick={() => fx.haptic("select")}
         onPreview={(k, v) => { const sc = sceneRef.current; if (sc) sc.heatPreview = v === null ? null : { kind: k, v }; }}
         onTake={k => { sim.take(runRef.current, k); after(); }}
         onRestart={act.restart} onSkill={() => { sim.useSkill(run); after(); }} />
       <SayToast run={run} L={L} art={art} chefArt={chefArt} />
-      {ev.took && L.stations[ev.took.station] && <div key={ev.took.key} className={"stamp " + ev.took.grade} aria-hidden="true"
-        style={{ left: L.stations[ev.took.station]!.art.x + L.stations[ev.took.station]!.art.w / 2, top: L.stations[ev.took.station]!.art.y + 4 }}>
+      {ev.took && Lv?.stations[ev.took.station] && <div key={ev.took.key} className={"stamp " + ev.took.grade} aria-hidden="true"
+        style={{ left: Lv.stations[ev.took.station]!.art.x + Lv.stations[ev.took.station]!.art.w / 2, top: Lv.stations[ev.took.station]!.art.y + 4 }}>
         {STAMP[ev.took.what][ev.took.grade]}</div>}
       {ev.hint && <div key={ev.hint.key} className="toast" style={{ left: L.col.x + L.col.w / 2, top: L.shelves.y - 30 }}>{ev.hint.text}</div>}
     </div>}

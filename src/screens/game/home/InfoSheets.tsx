@@ -4,7 +4,8 @@ import { Chip } from "../../../components/food/Controls";
 import { Button, T } from "../../../components/ui";
 import { DISHES } from "../../../game/content/dishes";
 import { PETS, type Tier } from "../../../game/content/cosmetics";
-import { LEVELS } from "../../../game/content/levels";
+import { LEVELS, MAX_STATIONS } from "../../../game/content/levels";
+import { signatureStations } from "../../../game/sim/engine";
 import { cleared, type GameProgress } from "../../../game/progress";
 import { RULES } from "../../../game/content/guests";
 import { todaysSpecial } from "../../../game/special";
@@ -19,8 +20,10 @@ export function MenuSheet({ game, onClose, onSignature, onSpecial }: { game: Gam
   const { theme } = usePreferences();
   if (!cleared(game, 5)) return <GameSheet title="Chalkboard" onClose={onClose}><Section title="Opens at Level 6">
     <T muted>Clear the first lunch rush and the chalkboard becomes your menu: every dish you have learned, and your signature menu for Level 20.</T></Section></GameSheet>;
-  const dishes = learnedDishes(game), sig = game.signature;
-  const toggle = (id: string) => onSignature(sig.includes(id) ? sig.filter(x => x !== id) : sig.length < 3 ? [...sig, id] : sig);
+  // A dish is added only while the three still fit the four stations a service uses.
+  const dishes = learnedDishes(game), sig = game.signature, sigLevel = LEVELS.find(l => l.signature);
+  const canAdd = (id: string) => sig.length < 3 && (!sigLevel || signatureStations(sigLevel, [...sig, id]).length <= MAX_STATIONS);
+  const toggle = (id: string) => onSignature(sig.includes(id) ? sig.filter(x => x !== id) : canAdd(id) ? [...sig, id] : sig);
   const special = todaysSpecial(game);
   return <GameSheet title="Your menu" subtitle={sig.length + " of 3 signature dishes"} onClose={onClose}>
     {special && <Section><View style={s.special}>
@@ -34,7 +37,7 @@ export function MenuSheet({ game, onClose, onSignature, onSpecial }: { game: Gam
     </View></Section>}
     <T muted>Pick three dishes for your signature service (Level 20). Your regulars order from them.</T>
     <Grid>{dishes.map(id => <Tile key={id} art={DISHES[id].art} label={DISHES[id].name} selected={sig.includes(id)} worn={sig.includes(id)}
-      status={sig.includes(id) ? "Signature" : sig.length < 3 ? "Add" : undefined} onPress={() => toggle(id)} />)}</Grid>
+      status={sig.includes(id) ? "Signature" : canAdd(id) ? "Add" : undefined} onPress={() => toggle(id)} />)}</Grid>
     <T variant="small" muted>{sig.length}/3 chosen. Each regular orders a signature dish that fits their rules; anyone who can&apos;t eat any of them gets ABC soup. The menu never changes on a timer.</T>
   </GameSheet>;
 }

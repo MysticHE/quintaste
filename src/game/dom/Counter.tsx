@@ -38,7 +38,7 @@ export function SeatTags({ L }: { L: Layout }) {
     <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" /><path d="M4 21a8 8 0 0 1 16 0z" /></svg>{i + 1}</span>)}</>;
 }
 
-const SHORT: Record<StationKind, string> = { pan: "Wok", pot: "Pot", rice: "Rice", dessert: "Sweet", board: "Board", blender: "Blend", steamer: "Steam", oven: "Oven", griddle: "Griddle", fryer: "Fry", dough: "Dough", fridge: "Fridge" };
+export const SHORT: Record<StationKind, string> = { pan: "Wok", pot: "Pot", rice: "Rice", dessert: "Sweet", board: "Board", blender: "Blend", steamer: "Steam", oven: "Oven", griddle: "Griddle", fryer: "Fry", dough: "Dough", fridge: "Fridge" };
 /** A station's state in two or three words (`short` for a narrow station), and how it reads. */
 type Tone = "idle" | "cook" | "ready" | "warn" | "take";
 export function stationState(run: sim.Run, kind: StationKind): { text: string; short: string; tone: Tone } {
@@ -135,7 +135,7 @@ function fitTag(s: { text: string; short: string }, room: number, narrow: boolea
 }
 
 /** The small icon at the front of a state tag: a plate (carrying a dish), a tick (ready), a warning, or the turner (take it off). */
-function TagIcon({ tone }: { tone: Tone | "plate" | "flame" }) {
+export function TagIcon({ tone }: { tone: Tone | "plate" | "flame" }) {
   const p = { viewBox: "0 0 24 24", "aria-hidden": true, className: "ti ti-" + tone } as const;
   if (tone === "plate") return <svg {...p}><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" strokeWidth="2.2" /><circle cx="12" cy="12" r="5" fill="none" stroke="currentColor" strokeWidth="1.6" /></svg>;
   if (tone === "flame") return <svg {...p}><path d="M12.6 2.4c.5 3.2 4.1 5 4.1 9.6a4.7 4.7 0 0 1-9.4 0c0-2.2 1.1-3.7 2.5-4.9-.1 2 .6 3.4 1.9 3.8.2-3.2 1.7-5.4.9-8.5z" /></svg>;

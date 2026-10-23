@@ -140,7 +140,7 @@ The 16 built-in dishes are already data: `src/game/content/dishes.ts` lists each
 | Knead, roll, fold dough | Dough board | Not built |
 | Wash, cut, soak | Prep | Shown on the recipe card, not played |
 
-A recipe that needs an unbuilt technique shows "Needs an oven" and is counted. The team builds the most-wanted technique next; every waiting recipe that needed it then becomes playable with no further work. Each level pack states its format version and the techniques it uses: an app too old for a technique shows "Update the app to play this", and the server replays a run with the engine version that played it (after the Phase 0 version split in §8.1). A level uses at most five stations, as many as the phone layout fits today.
+A recipe that needs an unbuilt technique shows "Needs an oven" and is counted. The team builds the most-wanted technique next; every waiting recipe that needed it then becomes playable with no further work. Each level pack states its format version and the techniques it uses: an app too old for a technique shows "Update the app to play this", and the server replays a run with the engine version that played it (after the Phase 0 version split in §8.1). A level uses at most four stations (`MAX_STATIONS`, owner 23 October 2026); two show at a time and the row slides to the rest.
 
 ### 8.4 Worked example: Cabbage, pea and coconut poriyal (live QuinTaste recipe)
 

@@ -29,9 +29,11 @@ export class PanContents {
   private under: Phaser.GameObjects.Graphics;
   private over: Phaser.GameObjects.Graphics;
 
-  constructor(private scene: Phaser.Scene, private bowl: Oval, private depth: number, private tones: Tones, private closed: boolean) {
+  /** `parent` is the station's container (the row slides it), kept in depth order as food arrives. */
+  constructor(private scene: Phaser.Scene, private bowl: Oval, private depth: number, private tones: Tones, private closed: boolean, private parent?: Phaser.GameObjects.Container) {
     this.under = scene.add.graphics().setDepth(depth);
     this.over = scene.add.graphics().setDepth(depth + 0.9);
+    parent?.add([this.under, this.over]);
   }
 
   /** Where the i-th of n solid items sits: a sunflower spiral inside the bowl, smaller as the pile grows. */
@@ -70,7 +72,7 @@ export class PanContents {
     const key = ITEMS[it.id]?.art; if (!key || !this.scene.textures.exists(key)) return;
     const p = this.spot(i, n), lift = toss ? Math.abs(Math.sin(t * 5 + i * 1.7)) * this.bowl.ry * 0.6 * toss : 0;
     let im = this.sprites.get(it.uid);
-    if (!im) { im = this.scene.add.image(p.x, p.y, key); this.sprites.set(it.uid, im); }
+    if (!im) { im = this.scene.add.image(p.x, p.y, key).setDepth(this.depth + 0.1); this.sprites.set(it.uid, im); this.parent?.add(im).sort("depth"); }
     const k = Math.min(p.size / im.width, p.size * 0.82 / im.height);
     // Settle smoothly into the new spot when the pile regroups.
     const x = im.x + (p.x - im.x) * 0.3, y = im.y + (p.y - lift - im.y) * 0.35;

@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, type MutableRefObject } from "react";
 import * as Phaser from "phaser";
 import type { StationKind } from "../content/dishes";
 import type * as sim from "../sim/engine";
-import { computeLayout, type Layout } from "./layout";
+import { computeLayout, type Layout, type Point } from "./layout";
 import { DPR, Playfield, type SceneHooks } from "./scene";
 
 export type PlayfieldInput = Omit<SceneHooks, "ready">;
@@ -41,6 +41,7 @@ export function usePlayfield(runRef: MutableRefObject<sim.Run>, seats: number, s
       onStation: (k: StationKind) => input.current.onStation(k), onGuest: (id: string) => input.current.onGuest(id),
       onServeDrag: (i: number, id: string) => input.current.onServeDrag(i, id), onPlateDrag: (k: StationKind) => input.current.onPlateDrag(k),
       onTransfer: (from: StationKind, to: StationKind) => input.current.onTransfer(from, to),
+      onRowSwipe: (dir: 1 | -1) => input.current.onRowSwipe(dir), onRowEdge: (at: Point | null) => input.current.onRowEdge(at),
     };
     const game = new Phaser.Game({ type: Phaser.AUTO, parent: stageRef.current, width: lay.w * DPR, height: lay.h * DPR, transparent: true, banner: false,
       scale: { mode: Phaser.Scale.NONE, zoom: 1 / DPR }, render: { antialias: true }, input: { activePointers: 2, windowEvents: false } });

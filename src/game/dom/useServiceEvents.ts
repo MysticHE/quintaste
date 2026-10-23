@@ -69,7 +69,7 @@ export function useServiceEvents(options: Options) {
         }
         if (e.type === "poured") {
           // The paste flies from its station's bowl into the next one.
-          const L = sc?.L, b = L?.stations[e.from]?.bowl;
+          const b = sc?.stationOnScreen(e.from)?.bowl;
           sc?.itemIn(e.item, e.uid, e.station, b ? { x: b.x, y: b.y } : origin.current ?? { x: 0, y: 0 }); origin.current = null; fx.cue("place");
         }
         if (e.type === "turnDue") fx.haptic("warning");

@@ -5,7 +5,7 @@
  */
 import { DISHES, STATIONS, type StationKind } from "./content/dishes";
 import { GUESTS } from "./content/guests";
-import type { Level, Order } from "./content/levels";
+import { MAX_STATIONS, type Level, type Order } from "./content/levels";
 import { BUILTIN, packByHash, packHash, type LevelPack } from "./content/pack";
 import { dishFeasible, needsUnchecked } from "./sim/plan";
 
@@ -49,8 +49,6 @@ function gatherOf(pack: LevelPack): NonNullable<Level["gather"]> {
   return { need, decoys: [...new Set([...pick(tagged, 2, 0), ...pick(plain, 1, 3)])] };
 }
 
-/** Most stations a café service uses, as many as the phone layout fits; menu dishes past them are left out of the service. */
-const CAFE_STATIONS = 5;
 /**
  * A visit to a member's café (GAME_CONTENT_PLAN §9): a service of the host's menu (up to six reviewed recipe levels, in menu order),
  * paced like a Service tier with three seats and regulars who keep their rules. Pure, so the server rebuilds it from the host and the
@@ -62,7 +60,8 @@ export function cafeFor(packs: LevelPack[], host: string): Level {
   for (const pack of packs) {
     const uses = (Object.keys(STATIONS) as StationKind[]).filter(k => pack.dishes.some(d => d.parts.some(p => p.station === k)));
     const merged = [...new Set([...stations, ...uses])];
-    if (merged.length > CAFE_STATIONS) continue;
+    // As many stations as any level uses; menu dishes past them are left out of the service.
+    if (merged.length > MAX_STATIONS) continue;
     stations.splice(0, stations.length, ...merged);
     dishes.push(...pack.dishes.map(d => d.id));
   }

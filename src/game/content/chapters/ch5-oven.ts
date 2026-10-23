@@ -80,7 +80,7 @@ export const LEVELS: Level[] = [
     stations: ["pan", "oven"], seats: 3, maxOpen: 3, round: 143, patience: 100, hints: "none", orders: [o("office", "veg-pie", 1), o("lim", "mapo-tofu", 6), o("jia", "veg-pie", 40), o("nurul", "roast-veg", 68)], distractors: [], unlocks: [] },
   { n: 49, bonus: "clean", twists: [{ kind: "stockout" }], name: "Tea party", brief: "Sugee cake, banana bread and steamed buns, with no hints. Read every label.", teach: "Every rule, at teatime.",
     stations: ["blender", "oven", "pan", "steamer"], seats: 3, maxOpen: 3, round: 154, patience: 105, hints: "none", orders: [o("jia", "sugee-cake", 1), o("daniel", "banana-bread", 8), o("office", "veg-bao", 40), o("mei", "banana-bread", 70)], distractors: [], unlocks: [] },
-  { n: 50, bonus: "steady", twists: [{ kind: "vip" }, { kind: "flare", n: 1 }], name: "Bakery night", brief: "The whole bakery: oven, blender, wok, steamer and pot. The busiest night yet.", teach: "Everything this chapter taught.",
-    stations: ["blender", "oven", "pan", "steamer", "pot"], seats: 4, maxOpen: 4, round: 183, patience: 102, hints: "none",
-    orders: [o("asha", "naan", 1), o("jia", "veg-pie", 4), o("office", "sugee-cake", 12), o("daniel", "idli", 36), o("mei", "abc-soup", 58), o("lim", "banana-bread", 82), o("nurul", "roast-veg", 104)], distractors: [], unlocks: ["Bakery skin"] },
+  { n: 50, bonus: "steady", twists: [{ kind: "vip" }, { kind: "flare", n: 1 }], name: "Bakery night", brief: "The whole bakery: oven, blender, wok and pot. The busiest night yet.", teach: "Everything this chapter taught.",
+    stations: ["blender", "oven", "pan", "pot"], seats: 4, maxOpen: 4, round: 183, patience: 102, hints: "none",
+    orders: [o("asha", "naan", 1), o("jia", "veg-pie", 4), o("office", "sugee-cake", 12), o("daniel", "naan", 36), o("mei", "abc-soup", 58), o("lim", "banana-bread", 82), o("nurul", "roast-veg", 104)], distractors: [], unlocks: ["Bakery skin"] },
 ];

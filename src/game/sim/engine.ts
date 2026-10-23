@@ -6,7 +6,7 @@
 import { DISHES, dishesVersion, STATIONS, TURN_TOOL, type Part, type Stage, type StationKind } from "../content/dishes";
 import { GUESTS, conflicts, reason, RULES, unionRules, type Rule } from "../content/guests";
 import { ITEMS, itemName, type Flip } from "../content/items";
-import { BONUS, levelByNumber, type BonusKind, type Level } from "../content/levels";
+import { BONUS, levelByNumber, MAX_STATIONS, type BonusKind, type Level } from "../content/levels";
 import { PETS, SKILLS } from "../content/cosmetics";
 import { buildPlan, dishFeasible, FLARE_WARN, VIP_PATIENCE, type Plan } from "./plan";
 
@@ -95,6 +95,7 @@ export type Run = {
 
 /** Signature level: each guest gets a chosen dish they can eat (round-robin); ABC soup fits every rule as a fallback. */
 function resolveOrders(level: Level, signature: string[]) {
+  if (!level.signature) return level.orders;
   return level.orders.map((o, i) => {
     if (o.dish !== "*") return o;
     const rules = [...GUESTS[o.guest].rules, ...(level.allRules ?? [])];
@@ -107,9 +108,23 @@ function resolveOrders(level: Level, signature: string[]) {
  * A run of a numbered level, or of a built level such as Today's special. `hints` overrides the level's hint plan (Play your
  * way); `seed` picks this service's arrivals, jars and twists (the app derives it from the run's id).
  */
+/** The stations a signature service needs: those its dishes use, with ABC soup's pot when a guest can eat none of them. */
+export function signatureStations(level: Level, signature: string[]) {
+  const used = new Set(resolveOrders(level, signature).flatMap(o => DISHES[o.dish]?.parts.map(p => p.station) ?? []));
+  return level.stations.filter(k => used.has(k));
+}
+/** A signature menu that fits a level's stations (MAX_STATIONS): a menu chosen before the limit loses dishes from the end until it fits. */
+export function signatureFit(level: Level, signature: string[]) {
+  let sig = signature;
+  while (sig.length && signatureStations(level, sig).length > MAX_STATIONS) sig = sig.slice(0, -1);
+  return sig;
+}
+
 export function createRun(which: number | Level, pet: string, signature: string[] = [], hints?: Level["hints"], seed = 1, knob = false, assist = false): Run {
-  const base = typeof which === "number" ? levelByNumber(which) : which, level = hints && hints !== base.hints ? { ...base, hints } : base;
-  const plan = buildPlan(level, resolveOrders(level, signature), seed);
+  const base = typeof which === "number" ? levelByNumber(which) : which, sig = base.signature ? signatureFit(base, signature) : signature;
+  const sized = base.signature ? { ...base, stations: signatureStations(base, sig) } : base;
+  const level = hints && hints !== sized.hints ? { ...sized, hints } : sized;
+  const plan = buildPlan(level, resolveOrders(level, sig), seed);
   const stations: Run["stations"] = {};
   level.stations.forEach(kind => { stations[kind] = { kind, heatOn: false, F: 0.1, H: 0.15, part: null, hotWarned: false, set: 0 }; });
   const guests: GuestRun[] = plan.orders.map(o => {

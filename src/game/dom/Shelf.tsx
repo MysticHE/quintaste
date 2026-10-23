@@ -50,12 +50,13 @@ type Props = {
   /** The ingredient that is running low or out this service, if any. */
   stock: { item: string; state: "low" | "out" } | null;
   onHint(id: string): void; onDrop(id: string, at: Point, from: Point): boolean; onHover(k: StationKind | null): void; onLabel(id: string): void;
+  onMove?(at: Point | null): void;
 };
-export const Shelf = memo(function Shelf({ run, L, art, nudge, stock, onHint, onDrop, onHover, onLabel }: Props) {
+export const Shelf = memo(function Shelf({ run, L, art, nudge, stock, onHint, onDrop, onHover, onLabel, onMove }: Props) {
   const all = useMemo(() => shelfItems(run), [run]);
   const groups = useMemo(() => (["fresh", "pantry"] as const).map(t => ({ tray: t, ids: all.filter(id => ITEMS[id].tray === t) })).filter(g => g.ids.length), [all]);
   const stationAt = (p: Point) => nearestStation(L, p);
-  const { down, click } = useShelfGesture({ art, stationAt, onDrop, onHover, onHint, onLabel });
+  const { down, click } = useShelfGesture({ art, stationAt, onDrop, onHover, onHint, onLabel, onMove });
   // Five columns fit; a shorter shelf widens its cards into the spare room (up to half again, so long names fit) and a longer
   // one keeps five a page and pages with its arrows.
   // A paged shelf keeps a gutter at each side for its arrows (as in the mockup), so an arrow never covers a card.

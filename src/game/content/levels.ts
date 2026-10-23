@@ -32,6 +32,8 @@ export const BONUS: Record<BonusKind, { name: string; text: string }> = {
   swift: { name: "Swift service", text: "Serve every guest with at least half their patience left." },
   steady: { name: "Steady hands", text: "Spend at least 90% of your cooking time in the heat band." },
 };
+/** The most cooking stations a level uses (owner, 23 Oct 2026): two show at a time and the row slides to the rest. */
+export const MAX_STATIONS = 4;
 export type Level = {
   n: number; name: string; brief: string; teach: string;
   stations: StationKind[]; seats: number; maxOpen: number;
@@ -130,9 +132,9 @@ export const LEVELS: Level[] = [
     stations: ["blender", "pot", "pan"], seats: 3, maxOpen: 3, round: 175, patience: 92, hints: "none", orders: [o("jia", "green-curry", 1), o("mei", "laksa-scratch", 8), o("office", "sambal-tempeh", 42), o("daniel", "green-curry", 72)], distractors: [], unlocks: [] },
   { n: 29, bonus: "order", twists: [{ kind: "vip" }], name: "The whole stall", brief: "Rice, curry, sambal and chutney, with no hints. Start the slow dishes first.", teach: "Triage with a blender in the mix.",
     stations: ["blender", "pan", "pot", "rice"], seats: 4, maxOpen: 4, round: 180, patience: 100, hints: "none", orders: [o("jia", "nasi-lemak", 1), o("asha", "mint-chutney", 6), o("office", "green-curry", 14), o("mei", "sambal-tempeh", 44), o("daniel", "claypot", 66), o("lim", "coconut-chutney", 90)], distractors: [], unlocks: [] },
-  { n: 30, bonus: "steady", twists: [{ kind: "flare", n: 1 }, { kind: "change" }], name: "Spice market night", brief: "Every station at once: pastes, curries, rice and dessert. The spice stall's busiest night.", teach: "Everything this chapter taught.",
-    stations: ["blender", "pan", "pot", "rice", "dessert"], seats: 4, maxOpen: 4, round: 200, patience: 102, hints: "none",
-    orders: [o("mei", "laksa-scratch", 1), o("jia", "nasi-lemak", 4), o("daniel", "green-curry", 12), o("asha", "coconut-chutney", 36), o("office", "sambal-tempeh", 58), o("nurul", "sago", 80), o("lim", "green-curry", 102)], distractors: [], unlocks: ["Spice market skin"] },  // Chapters 4–10 (content/chapters).
+  { n: 30, bonus: "steady", twists: [{ kind: "flare", n: 1 }, { kind: "change" }], name: "Spice market night", brief: "Every station at once: pastes, curries and rice. The spice stall's busiest night.", teach: "Everything this chapter taught.",
+    stations: ["blender", "pan", "pot", "rice"], seats: 4, maxOpen: 4, round: 200, patience: 102, hints: "none",
+    orders: [o("mei", "laksa-scratch", 1), o("jia", "nasi-lemak", 4), o("daniel", "green-curry", 12), o("asha", "coconut-chutney", 36), o("office", "sambal-tempeh", 58), o("nurul", "nasi-lemak", 80), o("lim", "green-curry", 102)], distractors: [], unlocks: ["Spice market skin"] },  // Chapters 4–10 (content/chapters).
   ...CHAPTER_LEVELS,
 ];
 

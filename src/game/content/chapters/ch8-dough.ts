@@ -88,7 +88,7 @@ export const LEVELS: Level[] = [
     stations: ["pan", "dough", "fryer", "pot"], seats: 3, maxOpen: 3, round: 173, patience: 108, hints: "none", orders: [o("office", "samosa", 1), o("jia", "dumplings", 8), o("asha", "samosa", 44), o("lim", "dumplings", 74)], distractors: [], unlocks: [] },
   { n: 79, bonus: "clean", twists: [{ kind: "stockout" }], name: "Folding feast", brief: "Every fold, with no hints. Read every label.", teach: "Every rule, at the dumpling house.",
     stations: ["dough", "pan", "steamer", "dessert"], seats: 3, maxOpen: 3, round: 152, patience: 104, hints: "none", orders: [o("daniel", "mandu", 1), o("mei", "gyoza", 8), o("asha", "tang-yuan", 40), o("office", "gyoza", 70)], distractors: [], unlocks: [] },
-  { n: 80, bonus: "steady", twists: [{ kind: "vip" }, { kind: "flare", n: 1 }], name: "Dumpling house night", brief: "Dough board, wok, pot, fryer and steamer: the dumpling house is full.", teach: "Everything this chapter taught.",
-    stations: ["dough", "pan", "pot", "fryer", "steamer"], seats: 4, maxOpen: 4, round: 193, patience: 108, hints: "none",
-    orders: [o("office", "dumplings", 1), o("jia", "samosa", 4), o("lim", "mandu", 12), o("daniel", "gyoza", 36), o("mei", "steamed-tofu", 58), o("asha", "samosa", 82), o("nurul", "spring-rolls", 104)], distractors: [], unlocks: ["Dumpling house skin"] },
+  { n: 80, bonus: "steady", twists: [{ kind: "vip" }, { kind: "flare", n: 1 }], name: "Dumpling house night", brief: "Dough board, wok, fryer and steamer: the dumpling house is full.", teach: "Everything this chapter taught.",
+    stations: ["dough", "pan", "fryer", "steamer"], seats: 4, maxOpen: 4, round: 193, patience: 108, hints: "none",
+    orders: [o("office", "mandu", 1), o("jia", "samosa", 4), o("lim", "mandu", 12), o("daniel", "gyoza", 36), o("mei", "steamed-tofu", 58), o("asha", "samosa", 82), o("nurul", "spring-rolls", 104)], distractors: [], unlocks: ["Dumpling house skin"] },
 ];

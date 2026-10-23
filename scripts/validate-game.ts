@@ -10,7 +10,7 @@
  * date seed can produce for players at several points on the path.
  */
 import { DISHES } from "../src/game/content/dishes";
-import { LEVELS } from "../src/game/content/levels";
+import { LEVELS, MAX_STATIONS } from "../src/game/content/levels";
 import { SEASONS } from "../src/game/content/seasons";
 import { writeFileSync } from "node:fs";
 import * as sim from "../src/game/sim/engine";
@@ -84,6 +84,16 @@ for (const { level, label } of plays) {
 // Mechanics that the level playthroughs only touch indirectly.
 if (!only && !specialDay) {
   const check = (name: string, ok: boolean, detail = "") => { if (!ok) failures++; console.log((ok ? "PASS " : "FAIL ") + name + (detail ? " " + detail : "")); };
+  // At most four cooking stations a level (two show at a time; the row slides to the rest), a signature service included.
+  const crowded = plays.filter(p => !p.level.signature && p.level.stations.length > MAX_STATIONS).map(p => p.label.trim());
+  check("every level uses at most " + MAX_STATIONS + " stations", !crowded.length, crowded.join(", "));
+  const sigLevel = LEVELS.find(l => l.signature)!, learned = [...new Set(LEVELS.filter(l => l.n < sigLevel.n).flatMap(l => l.orders.map(o => o.dish)))];
+  const menus = learned.flatMap((a, i) => learned.slice(i + 1).flatMap((b, j) => learned.slice(i + j + 2).map(c => [a, b, c])));
+  const wide = menus.filter(m => sim.createRun(sigLevel.n, "sprout", m).level.stations.length > MAX_STATIONS);
+  check("every signature menu plays on at most " + MAX_STATIONS + " stations", menus.length > 0 && !wide.length, menus.length + " menus" + (wide.length ? ", too wide: " + wide[0].join(",") : ""));
+  // A menu that would need five (on a wider kitchen) loses dishes from the end until it fits.
+  const wider = { ...sigLevel, stations: [...sigLevel.stations, "blender", "oven"] as typeof sigLevel.stations }, five = ["green-curry", "sugee-cake", "nasi-lemak"];
+  check("a signature menu needing five stations is trimmed to fit", sim.signatureStations(wider, five).length > MAX_STATIONS && sim.signatureFit(wider, five).length === 2);
   // A shared pot: one cook feeds both guests, takes longer, must suit them both, and the plate stays until the second serve.
   const r = sim.createRun(15, "sprout", [], undefined, 1), pair = r.guests.filter(g => g.party).slice(0, 2);
   check("a party arrives together", pair.length === 2 && pair[0].party === pair[1].party && pair[0].at === pair[1].at && pair[0].dishId === pair[1].dishId);

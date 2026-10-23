@@ -143,6 +143,19 @@ const SHELF = `
 .rh .sarrow::after { content:""; position:absolute; top:-10px; bottom:-10px; } .rh .sarrow svg { width:15px; height:15px; } .rh .sarrow:active { transform:scale(.9); }
 .rh .sarrow.l { left:-1px; } .rh .sarrow.l::after { left:-8px; right:0; } .rh .sarrow.l svg { transform:scaleX(-1); }
 .rh .sarrow.r { right:-1px; } .rh .sarrow.r::after { left:0; right:-8px; }
+/* The station row's arrows (a row of three or four, RowNav.tsx): a small round arrow, or a chip naming a station beyond it that needs you. */
+.rh .rarrow { position:absolute; z-index:4; transform:translateY(-50%); min-width:44px; height:44px; padding:0; display:flex; align-items:center; justify-content:flex-start; background:none; }
+.rh .rarrow.next { transform:translate(-100%,-50%); justify-content:flex-end; }
+.rh .rarrow .face { min-width:30px; height:30px; padding:0 6px; border-radius:99px; display:inline-flex; align-items:center; justify-content:center; gap:3px; font-size:12px;
+  color:var(--ink-2); background:var(--white); box-shadow:0 0 0 1.5px var(--panel-edge), 0 3px 8px var(--shadow); transition:box-shadow .2s; }
+.rh .rarrow .chev { width:15px; height:15px; flex:none; } .rh .rarrow .ti { width:14px; height:14px; flex:none; fill:currentColor; } .rh .rarrow:active .face { scale:.92; }
+.rh .rarrow.call .face { color:var(--white); animation:rhrowpop .26s cubic-bezier(.2,1.6,.4,1); } .rh .rarrow.call.ready .face { background:var(--sage-deep); }
+.rh .rarrow.call.warn .face { background:var(--warn); } .rh .rarrow.call.warn .ti-warn { fill:var(--white); }
+.rh .rarrow.call.take .face { background:linear-gradient(var(--gold-hi),var(--gold)); color:var(--gold-ink); animation:rhrowpop .26s cubic-bezier(.2,1.6,.4,1), rhrowbeat .5s .26s ease-in-out infinite; }
+@keyframes rhrowpop { from { scale:.7; } } @keyframes rhrowbeat { 50% { scale:1.08; } }
+.rh .rarrow.dwell .face { box-shadow:0 0 0 3px var(--gold-hi), 0 0 14px 5px var(--gold-hi); }
+.rh .rdots { position:absolute; z-index:3; transform:translate(-50%,-50%); display:flex; gap:5px; pointer-events:none; }
+.rh .rdots i { width:6px; height:6px; border-radius:50%; background:var(--panel-edge); transition:transform .2s, background .2s; } .rh .rdots i.on { background:var(--gold); transform:scale(1.25); }
 .rh .sdots { position:absolute; left:0; right:0; bottom:5px; display:flex; justify-content:center; gap:6px; pointer-events:none; }
 .rh .sdots i { width:7px; height:7px; border-radius:50%; background:var(--panel-edge); transition:transform .2s, background .2s; } .rh .sdots i.on { background:var(--gold); transform:scale(1.25); }
 .rh .group { flex:none; display:grid; grid-auto-flow:column; grid-template-rows:repeat(2, var(--ch)); grid-auto-columns:var(--cw); gap:var(--gap); }

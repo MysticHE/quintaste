@@ -1,8 +1,8 @@
 /**
- * The companion pet on the counter (owner, 23 Oct 2026: "have the pet hopping around freely"). It stands in front of the empty
- * plates (a served dish stays on top) and hops from spot to spot before the guests, turning the way it goes and squashing as it
- * lands; now and then it bounces where it is, and it hops over to cheer when a guest is served. With motion reduced it sits still
- * at the counter's end.
+ * The companion pet on the counter (owner, 23 Oct 2026: "have the pet hopping around freely"). It lives on the counter's back edge,
+ * behind the plates (owner, 23 Oct: it was blocking them), and rests only in the gaps between them, hopping from gap to gap, turning
+ * the way it goes and squashing as it lands; now and then it bounces where it is, and it pops up in the gap beside a guest who is
+ * served to cheer. With motion reduced it sits still at the counter's end.
  */
 import type * as Phaser from "phaser";
 import type { Layout } from "./layout";
@@ -16,7 +16,9 @@ export class CounterPet {
   /** Bumped whenever the pet's motion is taken over (a rebuild, a cheer): a chain from an earlier one stops instead of looping on. */
   private gen = 0;
   private busy = false;
-  private size = 0; private floor = 0; private lo = 0; private hi = 0;
+  private size = 0; private floor = 0;
+  /** Where it may rest: the middle of each gap between the plates (and at the counter's ends) wide enough for it. */
+  private spots: number[] = [];
 
   constructor(private scene: Scene, readonly key: string, private still: () => boolean) {}
 
@@ -25,10 +27,20 @@ export class CounterPet {
     this.stop();
     if (!this.key || !this.scene.textures.exists(this.key)) { this.img = null; return; }
     const c = L.counter, tex = this.scene.textures.get(this.key).getSourceImage() as { width: number; height: number };
-    this.size = Math.max(48, Math.min(76, c.h * 1.65)); this.floor = c.y + c.h * 0.9;
-    this.lo = L.col.x + this.size * 0.6; this.hi = L.col.x + L.col.w - this.size * 0.6;
-    const scale = this.size / Math.max(tex.width, tex.height);
-    this.img = this.scene.add.image(this.still() ? this.hi - this.size * 0.3 : (this.lo + this.hi) / 2, this.floor, this.key).setOrigin(0.5, 1).setScale(scale).setDepth(4.2);
+    // A little smaller at a full counter of four, where it peeks out from between the plates.
+    this.size = L.seats.length >= 4 ? 44 : Math.max(40, Math.min(56, c.h * 1.2)); this.floor = c.y + c.h * 0.42;
+    // The middle of every gap between two plates, and of the counter's ends when there is room for it there.
+    const mats = L.seats.map(s => s.mat).sort((a, b) => a.x - b.x), left = L.col.x + 8, right = L.col.x + L.col.w - 8;
+    const edges = [left, ...mats.flatMap(m => [m.x, m.x + m.w]), right];
+    this.spots = [];
+    for (let i = 0; i + 1 < edges.length; i += 2) {
+      const a = edges[i], b = edges[i + 1], end = i === 0 || i + 2 === edges.length;
+      if (b - a >= (end ? this.size * 0.5 : 8)) this.spots.push(Math.min(right - this.size / 2 + 8, Math.max(left + this.size / 2 - 8, (a + b) / 2)));
+    }
+    if (!this.spots.length) this.spots = [right - this.size / 2];
+    const scale = this.size / Math.max(tex.width, tex.height), home = this.spots[this.spots.length - 1];
+    // Over the counter and the guests, under the plates and what is served on them.
+    this.img = this.scene.add.image(this.still() ? home : this.spots[Math.floor(this.spots.length / 2)], this.floor, this.key).setOrigin(0.5, 1).setScale(scale).setDepth(3.5);
     this.img.setData("scale", scale);
     this.next();
   }
@@ -46,11 +58,13 @@ export class CounterPet {
     const gen = this.gen;
     this.timer = this.scene.time.delayedCall(wait, () => { if (gen !== this.gen) return; if (this.busy) this.next(); else if (Math.random() < 0.22) this.bounce(); else this.hopTo(this.pick()); });
   }
+  /** Another gap to hop to (or a little shuffle where it is, when there is only one). */
   private pick() {
-    const img = this.img!, step = (40 + Math.random() * 80) * (Math.random() < 0.5 ? -1 : 1);
-    let x = img.x + step; if (x < this.lo || x > this.hi) x = img.x - step;
-    return Math.min(this.hi, Math.max(this.lo, x));
+    const x = this.img!.x, others = this.spots.filter(s => Math.abs(s - x) > 4);
+    return others.length ? others[Math.floor(Math.random() * others.length)] : x + (Math.random() < 0.5 ? -8 : 8);
   }
+  /** The gap nearest a point on the counter. */
+  private near(x: number) { return this.spots.reduce((a, b) => (Math.abs(b - x) < Math.abs(a - x) ? b : a), this.spots[0] ?? x); }
   /** One hop (or a short run of them) to x: up on an arc, a squash on landing. */
   private hopTo(x: number, after?: () => void) {
     const img = this.img; if (!img?.active) return;
@@ -84,8 +98,7 @@ export class CounterPet {
     const img = this.img; if (!img?.active || this.still()) return;
     this.stop();
     const s = img.getData("scale") as number; img.setScale(s).setY(this.floor).setAngle(0);
-    const to = Math.min(this.hi, Math.max(this.lo, x + (img.x < x ? -1 : 1) * this.size * 0.9));
-    this.hopTo(to, () => {
+    this.hopTo(this.near(x), () => {
       this.busy = true;
       const gen = this.gen;
       this.scene.tweens.chain({ targets: img, tweens: [

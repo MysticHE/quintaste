@@ -14,14 +14,48 @@ export type Point = { x: number; y: number };
 export type Seat = { guest: Rect; mat: Rect; bubble: Point; tag: Point };
 /** A station's tap area, its fitted art, where food sits (bowl) and the state tag under it. */
 export type Station = Rect & { art: Rect; bowl: Oval; tag: Point };
+/**
+ * The station row's view (owner, 23 Oct 2026): two stations show at a time beside the serving tray, and a row of three or four slides
+ * to the rest. `stations` in a Layout sit on the slid-out strip (slot `slot` wide, in `kinds` order); viewLayout gives what is on screen.
+ */
+export type Row = Rect & { slot: number; kinds: StationKind[] };
 export type Layout = {
   /** `ts` is the player's text size (Play your way), which every font size in the DOM panels is multiplied by. */
   w: number; h: number; s: number; ts: number; col: Rect; seatW: number;
   hud: Rect; recipe: Rect; backdrop: Rect; counter: Rect; seats: Seat[];
   shelves: Rect; card: { w: number; h: number; gap: number };
-  stations: Partial<Record<StationKind, Station>>; plating: Rect & { art: Rect; tag: Point }; board: Rect[];
+  stations: Partial<Record<StationKind, Station>>; plating: Rect & { art: Rect; tag: Point }; board: Rect[]; row: Row;
   heat: Rect;
 };
+
+/** Where the row can rest: the first station in view (a row of three shows 1–2 then 2–3; a row of four, 1–2 then 3–4). */
+export const rowStarts = (n: number) => (n <= 2 ? [0] : [0, n - 2]);
+/** A station moved along the row by `dx`. */
+export const shiftStation = (r: Station, dx: number): Station =>
+  ({ ...r, x: r.x + dx, art: { ...r.art, x: r.art.x + dx }, bowl: { ...r.bowl, x: r.bowl.x + dx }, tag: { ...r.tag, x: r.tag.x + dx } });
+/** The layout as the screen shows it with the row resting at `start`: only the stations in view, where they are on screen. */
+export function viewLayout(L: Layout, start: number): Layout {
+  if (L.row.kinds.length <= 2) return L;
+  const stations: Layout["stations"] = {};
+  L.row.kinds.forEach((k, i) => { if (i >= start && i < start + 2) stations[k] = shiftStation(L.stations[k]!, -start * L.row.slot); });
+  return { ...L, stations };
+}
+/** Where the row rests to show `kind`: where it is now if `kind` is in view, else the end of the row it is at. */
+export function startFor(L: Layout, kind: StationKind, start: number) {
+  const i = L.row.kinds.indexOf(kind), starts = rowStarts(L.row.kinds.length);
+  if (i < 0 || (i >= start && i < start + 2)) return start;
+  return i < start ? starts[0] : starts[starts.length - 1];
+}
+/** The row's edge a point is over (a drag held there slides the row), or null; a row of one or two never slides. */
+export function rowEdge(L: Layout, p: Point, start: number): "back" | "next" | null {
+  const r = L.row, starts = rowStarts(r.kinds.length);
+  if (starts.length < 2 || p.y < r.y - 8 || p.y > r.y + r.h + 8) return null;
+  if (p.x <= r.x + ROW_EDGE && p.x >= r.x - 6 && start > starts[0]) return "back";
+  if (p.x >= r.x + r.w - ROW_EDGE && start < starts[starts.length - 1]) return "next";
+  return null;
+}
+/** How much of a sliding row's edge holds its arrows (and slides it when a drag is held there). */
+const ROW_EDGE = 30, ROW_GUTTER = 10;
 
 /** The area every station of the level covers together (the Gather basket sits over it). */
 export function stationsBox(L: Layout): Rect {
@@ -98,17 +132,17 @@ function seatBoxes(n: number, px: number, pw: number, top: number, counter: Rect
 }
 
 const boardShare = (n: number) => (n <= 1 ? 0.44 : n === 2 ? 0.34 : n === 3 ? 0.28 : 0.24);
-/** Row height that fits the tallest station's art at the width each station gets, plus its tag. */
+/** Row height that fits the tallest station's art at the width each station gets (two show at a time), plus its tag. */
 function neededRow(kinds: StationKind[], pw: number, s: number) {
-  const each = (pw * (1 - boardShare(kinds.length)) - 4) / Math.max(1, kinds.length) - 4;
+  const shown = Math.min(2, Math.max(1, kinds.length)), each = (pw * (1 - boardShare(shown)) - 4) / shown - 4;
   return Math.max(...kinds.map(k => each * STATION_ART[k].size[1] / STATION_ART[k].size[0])) + 8;
 }
 
-/** Plating board on the left, then each station; every piece of art rests on the row's floor above its state tag. */
+/** Plating board on the left, then the stations two at a time; every piece of art rests on the row's floor above its state tag. */
 function stationRow(kinds: StationKind[], px: number, pw: number, row: { y: number; h: number }, s: number) {
   // Station art stands on the row's floor; a state tag, shown only when it asks for something, floats over the art's foot.
-  const n = kinds.length, floor = row.y + row.h - 4, tagY = Math.round(row.y + row.h - 22 * s);
-  const pwBoard = pw * boardShare(n);
+  const n = kinds.length, shown = Math.min(2, Math.max(1, n)), floor = row.y + row.h - 4, tagY = Math.round(row.y + row.h - 22 * s);
+  const pwBoard = pw * boardShare(shown);
   // One serving plate on a rattan tray (owner, 23 Oct 2026): the first plated dish sits on the tray's plate; a second or third (two
   // stations finishing together) waits on a small plate at the tray's front corners, drawn only while it holds a dish.
   const boardArt = round(fitBottom(SERVING_ART, { x: px, y: row.y, w: pwBoard, h: floor - row.y })), sp = SERVING_PLATE;
@@ -117,12 +151,14 @@ function stationRow(kinds: StationKind[], px: number, pw: number, row: { y: numb
   const board = [round({ x: boardArt.x + boardArt.w * sp.x, y: boardArt.y + boardArt.h * sp.y, w: boardArt.w * sp.w, h: boardArt.h * sp.h }),
     round({ x: Math.max(px, boardArt.x - sideW * 0.12), y: sideY, w: sideW, h: sideH }), round({ x: boardArt.x + boardArt.w - sideW * 0.88, y: sideY, w: sideW, h: sideH })];
   const plating = { ...round({ x: px, y: row.y, w: pwBoard, h: row.h }), art: boardArt, tag: { x: Math.round(px + pwBoard / 2), y: tagY } };
-  const each = (pw - pwBoard - 4) / Math.max(1, n), stations: Partial<Record<StationKind, Station>> = {};
+  // A row that slides keeps a narrow gutter at each side for its arrows; every station has a slot of the view's width over two.
+  const gut = n > shown ? ROW_GUTTER : 0, view = { x: px + pwBoard + 4, y: row.y, w: pw - pwBoard - 4, h: row.h };
+  const each = (view.w - 2 * gut) / shown, stations: Partial<Record<StationKind, Station>> = {};
   kinds.forEach((k, i) => {
-    const x = px + pwBoard + 4 + i * each, spec = STATION_ART[k];
+    const x = view.x + gut + i * each, spec = STATION_ART[k];
     const art = round(fitBottom(spec.size, { x: x + 2, y: row.y, w: each - 4, h: floor - row.y }));
     const bowl = { x: art.x + art.w * spec.bowl.x, y: art.y + art.h * spec.bowl.y, rx: art.w * spec.bowl.rx, ry: art.h * spec.bowl.ry };
     stations[k] = { ...round({ x, y: row.y, w: each, h: row.h }), art, bowl, tag: { x: Math.round(x + each / 2), y: tagY } };
   });
-  return { stations, plating, board };
+  return { stations, plating, board, row: { ...round(view), slot: each, kinds } };
 }

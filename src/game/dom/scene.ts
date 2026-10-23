@@ -11,7 +11,7 @@ import * as sim from "../sim/engine";
 import { takePhase } from "./Knob";
 import { SERVE_GLIDE } from "./coinsFx";
 import { CounterPet } from "./pet";
-import { nearestStation, type Layout, type Point, type Rect } from "./layout";
+import { nearestStation, shiftStation, viewLayout, type Layout, type Point, type Rect } from "./layout";
 import * as motion from "./motion";
 import { PanContents, type Tones } from "./pan";
 import { STATION_ART } from "./stationArt";
@@ -21,6 +21,8 @@ export type SceneHooks = {
   onServeDrag(slot: number, orderId: string): void; onPlateDrag(kind: StationKind): void;
   /** A ready paste dragged from one station onto another (transfer). */
   onTransfer(from: StationKind, to: StationKind): void;
+  /** A sideways swipe on a row of three or four stations (1 shows the next ones), and a paste carried over the row's edge (null when let go). */
+  onRowSwipe(dir: 1 | -1): void; onRowEdge(at: Point | null): void;
   /** The scene has built its first frame; it hands itself over, since Phaser creates scenes only after it boots. */
   ready(scene: Playfield): void;
 };
@@ -41,7 +43,7 @@ function readPalette(): Palette {
   return out;
 }
 type StationView = { art: Img; scale: Point; glow: Phaser.GameObjects.Ellipse; hi: Phaser.GameObjects.Graphics; ring: Phaser.GameObjects.Graphics; pan: PanContents;
-  steam: Phaser.GameObjects.Particles.ParticleEmitter; smoke: Phaser.GameObjects.Particles.ParticleEmitter };
+  steam: Phaser.GameObjects.Particles.ParticleEmitter; smoke: Phaser.GameObjects.Particles.ParticleEmitter; box: Phaser.GameObjects.Container; zone: Phaser.GameObjects.Zone };
 type PlateView = { base: Phaser.GameObjects.Image; dish: Phaser.GameObjects.Image; glow: Phaser.GameObjects.Ellipse };
 type Img = Phaser.GameObjects.Image;
 
@@ -66,6 +68,10 @@ export class Playfield extends Phaser.Scene {
   private shakeUntil = new Map<number, number>();
   private ghost: Img | null = null;
   private flareUntil = new Map<StationKind, number>();
+  /** The station row: where it rests (the first station in view) and how far it is slid now (layout px, negative is left). */
+  private rowStart = 0; private slide = { x: 0 };
+  /** A press on the station row that may become a swipe, and whether it lifted a dish instead. */
+  private swipe: Point | null = null; private carried = false;
 
   constructor() { super("playfield"); }
   private pet!: CounterPet;
@@ -94,6 +100,16 @@ export class Playfield extends Phaser.Scene {
     g.fillStyle(P.light).fillCircle(5, 5, 5); g.generateTexture("drop", 10, 10); g.clear();
     g.fillStyle(P.spark).fillCircle(6, 6, 6); g.generateTexture("spark", 12, 12); g.clear();
     g.fillStyle(P.heart).fillCircle(7, 7, 6).fillCircle(17, 7, 6).fillTriangle(1.4, 9, 22.6, 9, 12, 21); g.generateTexture("heart", 24, 22); g.destroy();
+    // A sideways swipe on the station row slides it (a press that lifts a ready dish carries the dish instead).
+    this.input.on("pointerdown", (p: Phaser.Input.Pointer) => {
+      const r = this.L.row; this.carried = false;
+      this.swipe = r.kinds.length > 2 && p.worldX >= r.x && p.worldX <= r.x + r.w && p.worldY >= r.y && p.worldY <= r.y + r.h ? { x: p.worldX, y: p.worldY } : null;
+    });
+    this.input.on("pointerup", (p: Phaser.Input.Pointer) => {
+      const s = this.swipe; this.swipe = null; if (!s || this.carried) return;
+      const dx = p.worldX - s.x, dy = p.worldY - s.y;
+      if (Math.abs(dx) > 36 && Math.abs(dx) > Math.abs(dy) * 1.5) this.hooks.onRowSwipe(dx < 0 ? 1 : -1);
+    });
     this.build(); this.hooks.ready(this);
   }
 
@@ -118,6 +134,29 @@ export class Playfield extends Phaser.Scene {
     });
     this.buildBoard();
     (Object.keys(L.stations) as StationKind[]).forEach(kind => this.buildStation(kind));
+    this.rowStart = Math.min(this.rowStart, Math.max(0, L.row.kinds.length - 2)); this.slide.x = -this.rowStart * L.row.slot;
+  }
+  /** Rests the station row at `start` (layout rowStarts), sliding there unless motion is reduced. */
+  setRow(start: number) {
+    this.rowStart = start; const to = -start * this.L.row.slot;
+    this.tweens.killTweensOf(this.slide);
+    if (this.reduced) this.slide.x = to; else this.tweens.add({ targets: this.slide, x: to, duration: 280, ease: "Cubic.easeOut" });
+  }
+  /** A station where it is on screen now, or null while it is out of view (its effects are skipped). */
+  stationOnScreen(kind: StationKind) {
+    const r = this.L.stations[kind]; if (!r) return null;
+    const s = shiftStation(r, this.slide.x), row = this.L.row;
+    return s.x + s.w > row.x + 4 && s.x < row.x + row.w - 4 ? s : null;
+  }
+  /** Slides every station with the row; one leaving the view fades out (so it never passes over the tray) and takes no taps. */
+  private updateRow() {
+    const row = this.L.row; if (row.kinds.length <= 2) return;
+    for (const [kind, v] of this.stations) {
+      const r = this.L.stations[kind]!, x = r.x + this.slide.x, seen = Math.max(0, Math.min(x + r.w, row.x + row.w) - Math.max(x, row.x)) / r.w;
+      v.box.setX(this.slide.x).setAlpha(seen >= 0.999 ? 1 : seen * seen).setVisible(seen > 0);
+      const on = seen > 0.98 || this.dragKind === kind;
+      if (v.zone.input && v.zone.input.enabled !== on) v.zone.input.enabled = on;
+    }
   }
   private buildBoard() {
     const L = this.L;
@@ -141,11 +180,14 @@ export class Playfield extends Phaser.Scene {
   }
   private buildStation(kind: StationKind) {
     const r = this.L.stations[kind]!, cfg = STATIONS[kind], P = this.pal;
+    // Each station's pieces share one container, so the row slides them together.
+    const box = this.add.container(0, 0).setDepth(5);
     const hi = this.add.graphics().setDepth(4);
     const art = this.place(this.add.image(0, 0, cfg.art).setDepth(5), r.art), scale = { x: art.scaleX, y: art.scaleY };
     const f = STATION_ART[kind].flame;
     const glow = this.add.ellipse(r.art.x + r.art.w * f.x, r.art.y + r.art.h * f.y, r.art.w * f.rx * 2, r.art.h * f.ry * 2, P.flame, 0).setDepth(5.5).setBlendMode(Phaser.BlendModes.ADD);
-    const pan = new PanContents(this, r.bowl, 6, this.tones(), !!STATION_ART[kind].closed);
+    box.add([hi, art, glow]);
+    const pan = new PanContents(this, r.bowl, 6, this.tones(), !!STATION_ART[kind].closed, box);
     const ring = this.add.graphics().setDepth(8);
     const steam = this.add.particles(r.bowl.x, r.bowl.y - r.bowl.ry, "puff", { speedY: { min: -40, max: -70 }, speedX: { min: -10, max: 10 }, scale: { start: 0.3, end: 0.85 },
       alpha: { start: 0.45, end: 0 }, lifespan: 1200, frequency: 240, emitting: false }).setDepth(9);
@@ -156,29 +198,32 @@ export class Playfield extends Phaser.Scene {
     zone.on("dragstart", (p: Phaser.Input.Pointer) => this.startDishDrag(kind, p));
     zone.on("drag", (p: Phaser.Input.Pointer) => {
       this.ghost?.setPosition(p.worldX, p.worldY - 14);
-      if (this.dragPaste && this.dragKind === kind) { const over = this.stationAt(p.worldX, p.worldY); this.hover = over !== kind ? over : null; }
+      // A paste held at the row's edge slides the row to the stations beyond it.
+      if (this.dragPaste && this.dragKind === kind) { const over = this.stationAt(p.worldX, p.worldY); this.hover = over !== kind ? over : null; this.hooks.onRowEdge({ x: p.worldX, y: p.worldY }); }
     });
     zone.on("dragend", (p: Phaser.Input.Pointer) => {
       const b = this.L.plating, moved = p.getDistance() >= TAP, carrying = this.dragKind === kind, paste = this.dragPaste, to = this.stationAt(p.worldX, p.worldY);
+      if (paste) this.hooks.onRowEdge(null);
       this.endDishDrag(); zone.setPosition(r.x + r.w / 2, r.y + r.h / 2);
       if (!carrying || !moved) return;
       if (paste) { if (to && to !== kind) this.hooks.onTransfer(kind, to); return; }
       if (p.worldX >= b.x - 8 && p.worldX <= b.x + b.w + 8 && p.worldY >= b.y - 8 && p.worldY <= b.y + b.h + 8) this.hooks.onPlateDrag(kind);
     });
-    this.stations.set(kind, { art, scale, glow, hi, ring, pan, steam, smoke });
+    box.add([ring, steam, smoke, zone]).sort("depth");
+    this.stations.set(kind, { art, scale, glow, hi, ring, pan, steam, smoke, box, zone });
   }
   /** A ready dish lifts off its station and follows the finger to the plates (a paste, to another station); anything else is not carried. */
   private startDishDrag(kind: StationKind, p: Phaser.Input.Pointer) {
     const pr = this.run.stations[kind]?.part;
     if (!pr || pr.state !== "ready") return;
     const made = sim.partOf(pr).makes;
-    this.dragKind = kind; this.dragPaste = !!made;
+    this.dragKind = kind; this.dragPaste = !!made; this.carried = true;
     const key = made ? ITEMS[made]?.art ?? DISHES[pr.dishId].art : DISHES[pr.dishId].art;
     if (this.textures.exists(key)) this.ghost = this.fit(this.add.image(p.worldX, p.worldY - 14, key).setDepth(40), 70, 70);
   }
   private endDishDrag() { this.ghost?.destroy(); this.ghost = null; this.dragKind = null; if (this.dragPaste) this.hover = null; this.dragPaste = false; }
-  /** The station under a point, if any (its art and the tag below it, with a finger's width to spare). */
-  private stationAt(x: number, y: number) { return nearestStation(this.L, { x, y }); }
+  /** The station under a point, if any (its art and the tag below it, with a finger's width to spare), of those in view. */
+  private stationAt(x: number, y: number) { return nearestStation(viewLayout(this.L, this.rowStart), { x, y }); }
   private tones(): Tones { const P = this.pal; return { soy: P.soy, oil: P.oil, cream: P.cream, red: P.red, white: P.white, gold: P.gold, dark: P.dark, cooked: P.cooked, char: P.char, light: P.light }; }
   private zone(r: Rect, depth: number, draggable = false) {
     return this.add.zone(r.x + r.w / 2, r.y + r.h / 2, r.w, r.h).setInteractive({ useHandCursor: true, draggable }).setDepth(depth);
@@ -203,6 +248,7 @@ export class Playfield extends Phaser.Scene {
       else img.setVisible(false);
     });
     for (const [kind, v] of this.stations) this.updateStation(kind, v, t);
+    this.updateRow();
     this.updatePlates();
   }
   private updateGuests(t: number) {
@@ -274,18 +320,18 @@ export class Playfield extends Phaser.Scene {
   // ---------- one-shot motion, called by the DOM root as simulation events drain ----------
   /** An ingredient flies from `from` (a shelf card) into a station: solids land in the pile, sauces pour, powders sprinkle. */
   itemIn(itemId: string, uid: number, kind: StationKind, from: Point) {
-    const r = this.L.stations[kind], key = ITEMS[itemId]?.art, form = ITEM_FORM[itemId], st = this.run.stations[kind];
+    const r = this.stationOnScreen(kind), key = ITEMS[itemId]?.art, form = ITEM_FORM[itemId], st = this.run.stations[kind];
     if (!r || !key || this.reduced) return;
     this.landing.add(uid);
     const land = () => { this.landing.delete(uid); this.squash(kind); if (!STATION_ART[kind].closed) motion.burst(this, { x: r.bowl.x, y: r.bowl.y - r.bowl.ry * 0.4 }, 6); };
     const tone = form ? this.pal[form.tone as ItemTone] : 0;
     if (form?.form === "pour") motion.pour(this, key, from, r.bowl, tone, land);
     else if (form?.form === "sprinkle") motion.sprinkle(this, key, from, r.bowl, tone, land);
-    else { const spot = this.stations.get(kind)?.pan.landingFor(st?.part ?? null, uid) ?? { x: r.bowl.x, y: r.bowl.y, size: 40 }; motion.arc(this, key, from, spot, Math.max(44, spot.size * 1.3), 300, land, spot.size); }
+    else { const pile = this.stations.get(kind)?.pan.landingFor(st?.part ?? null, uid), spot = pile ? { ...pile, x: pile.x + this.slide.x } : { x: r.bowl.x, y: r.bowl.y, size: 40 }; motion.arc(this, key, from, spot, Math.max(44, spot.size * 1.3), 300, land, spot.size); }
   }
   /** A finished dish slides from its station onto the board. */
   plateIn(kind: StationKind, slot: number, dishId: string) {
-    const r = this.L.stations[kind], b = this.L.board[slot]; if (!r || !b || this.reduced) return;
+    const r = this.stationOnScreen(kind), b = this.L.board[slot]; if (!r || !b || this.reduced) return;
     this.incomingSlots.add(slot);
     motion.arc(this, DISHES[dishId].art, { x: r.bowl.x, y: r.bowl.y }, { x: b.x + b.w / 2, y: b.y + b.h * 0.42 }, r.bowl.rx * 1.8, 320, () => this.incomingSlots.delete(slot), b.w * 1.05);
   }
@@ -311,18 +357,19 @@ export class Playfield extends Phaser.Scene {
   /** The warning flickers the burner's glow; the hit is a burst of flame and a small shake. */
   flare(kind: StationKind, phase: "warn" | "hit") {
     const r = this.L.stations[kind]; if (!r || this.reduced) return;
+    const seen = this.stationOnScreen(kind);
     if (phase === "warn") { this.flareUntil.set(kind, this.time.now / 1000 + 2.5); return; }
-    this.flareUntil.delete(kind);
-    motion.burst(this, { x: r.bowl.x, y: r.bowl.y + r.bowl.ry * 0.6 }, 18, this.pal.flameHot);
+    this.flareUntil.delete(kind); if (!seen) return;
+    motion.burst(this, { x: seen.bowl.x, y: seen.bowl.y + seen.bowl.ry * 0.6 }, 18, this.pal.flameHot);
     this.cameras.main.shake(220, 0.004);
   }
   /** Knob mode: a step came off the heat (the stamp itself is in the DOM layer). On the ring, a gold burst and a squash; early or late, a puff. */
   took(kind: StationKind, grade: "perfect" | "early" | "late") {
-    const r = this.L.stations[kind]; if (!r || this.reduced) return;
+    const r = this.stationOnScreen(kind); if (!r || this.reduced) return;
     const b = r.bowl;
     if (grade !== "perfect") { motion.puff(this, { x: b.x, y: b.y - b.ry }, this.pal.light); return; }
     motion.burst(this, { x: b.x, y: b.y - b.ry }, 16); motion.burst(this, { x: b.x, y: b.y - b.ry * 1.6 }, 8, this.pal.focus); this.squash(kind);
   }
-  puff(kind: StationKind) { const r = this.L.stations[kind]; if (r && !this.reduced) motion.puff(this, { x: r.bowl.x, y: r.bowl.y - r.bowl.ry }, this.pal.char); }
-  sparkleReady(kind: StationKind) { const r = this.L.stations[kind]; if (r && !this.reduced) motion.burst(this, { x: r.bowl.x, y: r.bowl.y - r.bowl.ry }, 14); }
+  puff(kind: StationKind) { const r = this.stationOnScreen(kind); if (r && !this.reduced) motion.puff(this, { x: r.bowl.x, y: r.bowl.y - r.bowl.ry }, this.pal.char); }
+  sparkleReady(kind: StationKind) { const r = this.stationOnScreen(kind); if (r && !this.reduced) motion.burst(this, { x: r.bowl.x, y: r.bowl.y - r.bowl.ry }, 14); }
 }

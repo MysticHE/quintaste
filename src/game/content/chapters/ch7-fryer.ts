@@ -68,7 +68,7 @@ export const LEVELS: Level[] = [
     stations: ["blender", "fryer", "pan"], seats: 3, maxOpen: 3, round: 143, patience: 100, hints: "none", orders: [o("office", "tempura", 1), o("nurul", "kangkung-split", 8), o("jia", "tempura", 42), o("lim", "goreng-pisang", 70)], distractors: [], unlocks: [] },
   { n: 69, bonus: "clean", twists: [{ kind: "stockout" }], name: "Fritter feast", brief: "Every fritter, with no hints. Read every label.", teach: "Every rule, at the stall.",
     stations: ["blender", "fryer", "griddle"], seats: 3, maxOpen: 3, round: 147, patience: 104, hints: "none", orders: [o("daniel", "tempura", 1), o("office", "spring-rolls", 8), o("asha", "vadai", 40), o("mei", "prata", 70)], distractors: [], unlocks: [] },
-  { n: 70, bonus: "steady", twists: [{ kind: "vip" }, { kind: "flare", n: 1 }], name: "Night market", brief: "Fryer, griddle, oven, blender and wok: the night market's busiest hour.", teach: "Everything this chapter taught.",
-    stations: ["blender", "fryer", "griddle", "oven", "pan"], seats: 4, maxOpen: 4, round: 179, patience: 102, hints: "none",
+  { n: 70, bonus: "steady", twists: [{ kind: "vip" }, { kind: "flare", n: 1 }], name: "Night market", brief: "Fryer, griddle, oven and blender: the night market's busiest hour.", teach: "Everything this chapter taught.",
+    stations: ["blender", "fryer", "griddle", "oven"], seats: 4, maxOpen: 4, round: 179, patience: 102, hints: "none",
     orders: [o("asha", "vadai", 1), o("jia", "goreng-pisang", 4), o("office", "prata", 12), o("daniel", "tempura", 36), o("mei", "roast-veg", 58), o("lim", "spring-rolls", 82), o("nurul", "kaya-toast", 104)], distractors: [], unlocks: ["Night stall skin"] },
 ];

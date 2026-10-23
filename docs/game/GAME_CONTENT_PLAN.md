@@ -41,7 +41,7 @@ The main path teaches; the Recipe Kitchen and seasons give variety without bendi
 | 9 | Mixed review with no hints |
 | 10 | Finale: several stations at once; unlocks the chapter reward |
 
-Chapters 1–2 are built and keep their existing levels and unlocks. The next chapter opens when the finale is cleared; play only, never coins or credits. Every level passes the test player at 0.7, 2.2, 2.8 and 3.2 s per action against pass thresholds per level role (breather, rush, finale), set in Phase 0 from the built levels' results (RHD:91-100). A level uses at most five stations, as many as the phone layout fits.
+Chapters 1–2 are built and keep their existing levels and unlocks. The next chapter opens when the finale is cleared; play only, never coins or credits. Every level passes the test player at 0.7, 2.2, 2.8 and 3.2 s per action against pass thresholds per level role (breather, rush, finale), set in Phase 0 from the built levels' results (RHD:91-100). A level uses at most four stations (`MAX_STATIONS`; owner, 23 October 2026): two show at a time and the row slides to the rest.
 
 **Chapter map** (one technique per chapter, the order in RECIPE_LEVELS_PLAN §8.7; dishes are proposals for the content team and cultural reviewers, all made vegetarian or vegan):
 

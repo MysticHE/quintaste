@@ -78,7 +78,7 @@ export const LEVELS: Level[] = [
     stations: ["blender", "griddle", "pan"], seats: 3, maxOpen: 3, round: 143, patience: 100, hints: "none", orders: [o("office", "carrot-cake", 1), o("asha", "thosai", 8), o("jia", "carrot-cake", 42), o("lim", "carrot-cake", 70)], distractors: [], unlocks: [] },
   { n: 59, bonus: "clean", twists: [{ kind: "stockout" }], name: "Brunch", brief: "Pancakes, kaya toast and naan, with no hints. Read every label.", teach: "Every rule, at brunch.",
     stations: ["blender", "griddle", "oven"], seats: 3, maxOpen: 3, round: 146, patience: 104, hints: "none", orders: [o("daniel", "pancakes", 1), o("office", "kaya-toast", 8), o("asha", "naan", 40), o("mei", "kaya-toast", 70)], distractors: [], unlocks: [] },
-  { n: 60, bonus: "steady", twists: [{ kind: "vip" }, { kind: "flare", n: 1 }], name: "Kopitiam morning", brief: "Griddle, oven, steamer, blender and wok: the breakfast counter's busiest morning.", teach: "Everything this chapter taught.",
-    stations: ["blender", "griddle", "oven", "steamer", "pan"], seats: 4, maxOpen: 4, round: 184, patience: 102, hints: "none",
+  { n: 60, bonus: "steady", twists: [{ kind: "vip" }, { kind: "flare", n: 1 }], name: "Kopitiam morning", brief: "Griddle, oven, steamer and blender: the breakfast counter's busiest morning.", teach: "Everything this chapter taught.",
+    stations: ["blender", "griddle", "oven", "steamer"], seats: 4, maxOpen: 4, round: 184, patience: 102, hints: "none",
     orders: [o("asha", "thosai", 1), o("jia", "kaya-toast", 4), o("office", "carrot-cake", 12), o("daniel", "chee-cheong-fun", 36), o("mei", "prata", 58), o("lim", "roast-veg", 82), o("nurul", "pancakes", 104)], distractors: [], unlocks: ["Kopitiam skin"] },
 ];

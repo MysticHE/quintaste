@@ -30,6 +30,8 @@ type Gesture = {
 export type ShelfGestureOptions = {
   art: Record<string, string>; stationAt(p: Point): StationKind | null;
   onDrop(id: string, at: Point, from: Point): boolean; onHover(k: StationKind | null): void; onHint(id: string): void; onLabel(id: string): void;
+  /** Where a carried card is (null once it is let go), so a card held at the station row's edge can slide the row. */
+  onMove?(at: Point | null): void;
 };
 
 const rel = (e: { clientX: number; clientY: number }, root: HTMLElement): Point => { const b = root.getBoundingClientRect(); return { x: e.clientX - b.left, y: e.clientY - b.top }; };
@@ -100,8 +102,10 @@ export function useShelfGesture(options: ShelfGestureOptions) {
       const p = rel(ev, g.root), over = opts.current.stationAt(p);
       g.ghost!.style.left = p.x + "px"; g.ghost!.style.top = p.y + "px";
       if (over !== g.over) { g.over = over; opts.current.onHover(over); }
+      opts.current.onMove?.(p);
     };
     const finish = () => {
+      opts.current.onMove?.(null);
       window.removeEventListener("pointermove", move); window.removeEventListener("pointerup", up); window.removeEventListener("pointercancel", cancel);
       if (cleanup.current === abandon) cleanup.current = null;
       if (active.current === g) active.current = null;
