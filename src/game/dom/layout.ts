@@ -50,12 +50,16 @@ export function startFor(L: Layout, kind: StationKind, start: number) {
 export function rowEdge(L: Layout, p: Point, start: number): "back" | "next" | null {
   const r = L.row, starts = rowStarts(r.kinds.length);
   if (starts.length < 2 || p.y < r.y - 8 || p.y > r.y + r.h + 8) return null;
-  if (p.x <= r.x + ROW_EDGE && p.x >= r.x - 6 && start > starts[0]) return "back";
-  if (p.x >= r.x + r.w - ROW_EDGE && start < starts[starts.length - 1]) return "next";
+  if (p.x >= r.x - EDGE_OUT && p.x <= r.x + ROW_GUTTER + EDGE_IN && start > starts[0]) return "back";
+  if (p.x >= r.x + r.w - ROW_GUTTER - EDGE_IN && p.x <= r.x + r.w + EDGE_OUT && start < starts[starts.length - 1]) return "next";
   return null;
 }
-/** How much of a sliding row's edge holds its arrows (and slides it when a drag is held there). */
-const ROW_EDGE = 30, ROW_GUTTER = 10;
+/**
+ * A sliding row keeps a gutter at each side for its arrows, off the stations in view; a drag held over a gutter (reaching a little past
+ * it, and a few px onto the station beside it) slides the row, so pausing over a station to aim never does.
+ */
+export const ROW_GUTTER = 14;
+const EDGE_IN = 4, EDGE_OUT = 12;
 
 /** The area every station of the level covers together (the Gather basket sits over it). */
 export function stationsBox(L: Layout): Rect {
@@ -131,7 +135,8 @@ function seatBoxes(n: number, px: number, pw: number, top: number, counter: Rect
   });
 }
 
-const boardShare = (n: number) => (n <= 1 ? 0.44 : n === 2 ? 0.34 : n === 3 ? 0.28 : 0.24);
+/** The serving tray's share of the row: wider beside one station than beside two (never more than two are in view). */
+const boardShare = (shown: number) => (shown <= 1 ? 0.44 : 0.34);
 /** Row height that fits the tallest station's art at the width each station gets (two show at a time), plus its tag. */
 function neededRow(kinds: StationKind[], pw: number, s: number) {
   const shown = Math.min(2, Math.max(1, kinds.length)), each = (pw * (1 - boardShare(shown)) - 4) / shown - 4;
@@ -151,7 +156,7 @@ function stationRow(kinds: StationKind[], px: number, pw: number, row: { y: numb
   const board = [round({ x: boardArt.x + boardArt.w * sp.x, y: boardArt.y + boardArt.h * sp.y, w: boardArt.w * sp.w, h: boardArt.h * sp.h }),
     round({ x: Math.max(px, boardArt.x - sideW * 0.12), y: sideY, w: sideW, h: sideH }), round({ x: boardArt.x + boardArt.w - sideW * 0.88, y: sideY, w: sideW, h: sideH })];
   const plating = { ...round({ x: px, y: row.y, w: pwBoard, h: row.h }), art: boardArt, tag: { x: Math.round(px + pwBoard / 2), y: tagY } };
-  // A row that slides keeps a narrow gutter at each side for its arrows; every station has a slot of the view's width over two.
+  // A row that slides keeps a gutter at each side for its arrows; every station has a slot of the view's width over two.
   const gut = n > shown ? ROW_GUTTER : 0, view = { x: px + pwBoard + 4, y: row.y, w: pw - pwBoard - 4, h: row.h };
   const each = (view.w - 2 * gut) / shown, stations: Partial<Record<StationKind, Station>> = {};
   kinds.forEach((k, i) => {

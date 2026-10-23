@@ -68,9 +68,10 @@ export function useServiceEvents(options: Options) {
           if (st && STATIONS[e.station].heat && st.H >= sim.bandOf(st, st.part)[0]) fx.cue("sizzle");
         }
         if (e.type === "poured") {
-          // The paste flies from its station's bowl into the next one.
-          const b = sc?.stationOnScreen(e.from)?.bowl;
-          sc?.itemIn(e.item, e.uid, e.station, b ? { x: b.x, y: b.y } : origin.current ?? { x: 0, y: 0 }); origin.current = null; fx.cue("place");
+          // The paste flies from its station's bowl into the next one, or from where it was let go when its station slid out of view.
+          const b = sc?.stationOnScreen(e.from)?.bowl, to = sc?.stationOnScreen(e.station)?.bowl;
+          const from = b ? { x: b.x, y: b.y } : sc?.pasteFrom ?? origin.current ?? (to ? { x: to.x, y: to.y - 60 } : { x: 0, y: 0 });
+          sc?.itemIn(e.item, e.uid, e.station, from); if (sc) sc.pasteFrom = null; origin.current = null; fx.cue("place");
         }
         if (e.type === "turnDue") fx.haptic("warning");
         if (e.type === "took") { sc?.took(e.station, e.grade); setTook({ station: e.station, what: "take", grade: e.grade, key: Date.now() }); fx.cue(e.grade === "perfect" ? "perfect" : "take"); }

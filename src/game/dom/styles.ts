@@ -105,7 +105,7 @@ const SCENE = `
 .rh .stag { position:absolute; transform:translate(-50%,-50%); font-size:13px; padding:0 13px 0 9px; min-height:38px; gap:6px; border-radius:99px; background:var(--pill); color:var(--white); white-space:nowrap;
   overflow:hidden; text-overflow:ellipsis; display:inline-flex; align-items:center; justify-content:center; box-shadow:0 0 0 2px var(--glass), 0 3px 6px var(--shadow); transition:background .2s; }
 .rh .stag.quiet { opacity:0; pointer-events:none; animation:none; } .rh .stag.quiet:focus-visible { opacity:1; }
-.rh .stag .tx { min-width:0; overflow:hidden; text-overflow:ellipsis; } .rh .stag.narrow { font-size:calc(12px * min(var(--ts, 1), 1.1)); padding:0 8px 0 6px; gap:3px; } .rh .stag.narrow .ti { width:13px; height:13px; }
+.rh .stag .tx { min-width:0; overflow:hidden; text-overflow:ellipsis; }
 /* Too little room for the icon: the words alone (the colour still says the state), on two lines if they must (Counter.tsx fitTag). */
 .rh .stag.bare { padding:0 8px; } .rh .stag.bare .ti { display:none; } .rh .stag.wrap { white-space:normal; line-height:1.05; text-align:center; }
 .rh .stag .ti { width:17px; height:17px; flex:none; fill:currentColor; } .rh .stag .ti-flame { fill:var(--amber); } .rh .stag .ti-warn { fill:var(--white); }
@@ -144,7 +144,7 @@ const SHELF = `
 .rh .sarrow.l { left:-1px; } .rh .sarrow.l::after { left:-8px; right:0; } .rh .sarrow.l svg { transform:scaleX(-1); }
 .rh .sarrow.r { right:-1px; } .rh .sarrow.r::after { left:0; right:-8px; }
 /* The station row's arrows (a row of three or four, RowNav.tsx): a small round arrow, or a chip naming a station beyond it that needs you. */
-.rh .rarrow { position:absolute; z-index:4; transform:translateY(-50%); min-width:44px; height:44px; padding:0; display:flex; align-items:center; justify-content:flex-start; background:none; }
+.rh .rarrow { position:absolute; z-index:4; transform:translateY(-50%); min-width:44px; height:44px; padding:0 7px; display:flex; align-items:center; justify-content:flex-start; background:none; }
 .rh .rarrow.next { transform:translate(-100%,-50%); justify-content:flex-end; }
 .rh .rarrow .face { min-width:30px; height:30px; padding:0 6px; border-radius:99px; display:inline-flex; align-items:center; justify-content:center; gap:3px; font-size:12px;
   color:var(--ink-2); background:var(--white); box-shadow:0 0 0 1.5px var(--panel-edge), 0 3px 8px var(--shadow); transition:box-shadow .2s; }

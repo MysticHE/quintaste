@@ -96,7 +96,7 @@ export default function RushHour(props: Props) {
   const { rootRef, stageRef, sceneRef, L, reboot } = usePlayfield(runRef, runRef.current.level.seats, runRef.current.level.stations, art,
     { reduced, knob: !!runRef.current.knob, ts: props.textScale, pet: art[petArt] ? petArt : PETS[pet]?.art ?? "" }, input, bump);
   // The station row: two stations in view, sliding to the rest (RowNav.tsx). `Lv` is the layout as the screen shows it.
-  const row = useStationRow(L, runRef.current.selected, runRef, sceneRef, bump), Lv = row.view;
+  const row = useStationRow(L, runRef.current.selected, runRef, sceneRef, bump), Lv = row.view, rowNow = useRef(row); rowNow.current = row;
   const [paused, setPaused] = useState(false);
   const [leaving, setLeaving] = useState(false);
   const ev = useServiceEvents({ runRef, sceneRef, rootRef, fx, reduced, onEnd: () => void save() });
@@ -177,6 +177,7 @@ export default function RushHour(props: Props) {
     },
     hover: (k: StationKind | null) => { if (sim.gathering(runRef.current)) setBasketOver(k !== null); else if (sceneRef.current) sceneRef.current.hover = k; },
     label: (id: string) => { sim.openLabel(runRef.current, id); bump(); },
+    move: (at: Point | null) => rowNow.current.edgeAt(at),
   }).current;
   const act = {
     heat: (k: StationKind) => { sim.toggleHeat(run, k); bump(); }, restart: (k: StationKind) => { sim.restart(run, k); bump(); },
@@ -214,7 +215,7 @@ export default function RushHour(props: Props) {
       <RowNav run={run} L={L} start={row.start} edge={row.edge} onSlide={row.slide} />
       <PlateTags run={run} L={L} incoming={sceneRef.current?.incomingSlots} />
       <Basket run={run} L={Lv!} art={art} over={basketOver} />
-      <Shelf run={run} L={Lv!} art={art} nudge={ev.nudge} stock={shortStock} onHint={shelf.hint} onDrop={shelf.drop} onHover={shelf.hover} onLabel={shelf.label} onMove={row.edgeAt} />
+      <Shelf run={run} L={Lv!} art={art} nudge={ev.nudge} stock={shortStock} onHint={shelf.hint} onDrop={shelf.drop} onHover={shelf.hover} onLabel={shelf.label} onMove={shelf.move} />
       <HeatPanel run={run} L={L} art={art} petArt={petArt} hold={settings.burner === "hold"} nudge={nudgeHeat} onHeat={act.heat} onHeatTo={heatTo} onLift={act.lift}
         onKnob={(k, v, perfect) => { sim.setKnob(runRef.current, k, v); fx.cue(perfect ? "perfect" : "click"); after(); }} onTick={() => fx.haptic("select")}
         onPreview={(k, v) => { const sc = sceneRef.current; if (sc) sc.heatPreview = v === null ? null : { kind: k, v }; }}

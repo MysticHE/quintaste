@@ -7,7 +7,7 @@ import { useEffect, useMemo, useRef, useState, type MutableRefObject } from "rea
 import { STATIONS, type StationKind } from "../content/dishes";
 import * as sim from "../sim/engine";
 import { SHORT, TagIcon, stationState } from "./Counter";
-import { rowEdge, rowStarts, startFor, viewLayout, type Layout, type Point } from "./layout";
+import { ROW_GUTTER, rowEdge, rowStarts, startFor, viewLayout, type Layout, type Point } from "./layout";
 import type { Playfield } from "./scene";
 
 /** How long a drag held at the row's edge waits before the row slides. */
@@ -35,7 +35,7 @@ export function useStationRow(L: Layout | null, selected: StationKind, runRef: M
   const [edge, setEdge] = useState<Dir | null>(null), dwell = useRef<{ dir: Dir; t: ReturnType<typeof setTimeout> } | null>(null);
   const edgeAt = (p: Point | null) => {
     const lay = full.current, dir = p && lay ? rowEdge(lay, p, at.current) : null;
-    if (dwell.current?.dir === dir) return;
+    if ((dwell.current?.dir ?? null) === dir) return;
     if (dwell.current) clearTimeout(dwell.current.t);
     dwell.current = null; setEdge(dir);
     if (dir) dwell.current = { dir, t: setTimeout(() => { dwell.current = null; setEdge(null); const e = ends(); slide(dir === "next" ? e.last : e.first); }, EDGE_MS) };
@@ -57,7 +57,9 @@ export function RowNav({ run, L, start, edge, onSlide }: { run: sim.Run; L: Layo
     if (!hidden.length) return null;
     const calls = hidden.map(k => ({ k, s: stationState(run, k) })).filter(c => URGENT[c.s.tone] > 0).sort((a, b) => URGENT[b.s.tone] - URGENT[a.s.tone]);
     const c = calls[0] as { k: StationKind; s: ReturnType<typeof stationState> } | undefined;
-    return <button key={dir} className={"rarrow " + dir + (c ? " call " + c.s.tone : "") + (edge === dir ? " dwell" : "")} style={{ left: dir === "back" ? r.x : r.x + r.w, top: r.y + r.h * 0.42 }}
+    // Each arrow's face sits on its gutter (the next one's button kept on screen); a chip naming a station grows inward from there.
+    return <button key={dir} className={"rarrow " + dir + (c ? " call " + c.s.tone : "") + (edge === dir ? " dwell" : "")}
+      style={{ left: dir === "back" ? r.x + ROW_GUTTER / 2 - 22 : Math.min(r.x + r.w - ROW_GUTTER / 2 + 22, L.col.x + L.col.w), top: r.y + r.h * 0.42 }}
       onClick={() => onSlide(dir === "back" ? starts[0] : starts[starts.length - 1])}
       aria-label={c ? STATIONS[c.k].name + ": " + c.s.text + ". Show it" : dir === "back" ? "Show the first stations" : "Show the other stations"}>
       <span className="face">{dir === "back" && <Chevron back />}{c && <><TagIcon tone={c.s.tone} /><span className="tx">{SHORT[c.k]}</span></>}{dir === "next" && <Chevron />}</span>

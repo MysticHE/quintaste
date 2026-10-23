@@ -72,6 +72,8 @@ export class Playfield extends Phaser.Scene {
   private rowStart = 0; private slide = { x: 0 };
   /** A press on the station row that may become a swipe, and whether it lifted a dish instead. */
   private swipe: Point | null = null; private carried = false;
+  /** Where a carried paste was let go: its pour starts there when the station it came from has slid out of view. */
+  pasteFrom: Point | null = null;
 
   constructor() { super("playfield"); }
   private pet!: CounterPet;
@@ -203,7 +205,7 @@ export class Playfield extends Phaser.Scene {
     });
     zone.on("dragend", (p: Phaser.Input.Pointer) => {
       const b = this.L.plating, moved = p.getDistance() >= TAP, carrying = this.dragKind === kind, paste = this.dragPaste, to = this.stationAt(p.worldX, p.worldY);
-      if (paste) this.hooks.onRowEdge(null);
+      if (paste) { this.hooks.onRowEdge(null); this.pasteFrom = { x: p.worldX, y: p.worldY - 14 }; }
       this.endDishDrag(); zone.setPosition(r.x + r.w / 2, r.y + r.h / 2);
       if (!carrying || !moved) return;
       if (paste) { if (to && to !== kind) this.hooks.onTransfer(kind, to); return; }
@@ -359,9 +361,9 @@ export class Playfield extends Phaser.Scene {
     const r = this.L.stations[kind]; if (!r || this.reduced) return;
     const seen = this.stationOnScreen(kind);
     if (phase === "warn") { this.flareUntil.set(kind, this.time.now / 1000 + 2.5); return; }
-    this.flareUntil.delete(kind); if (!seen) return;
-    motion.burst(this, { x: seen.bowl.x, y: seen.bowl.y + seen.bowl.ry * 0.6 }, 18, this.pal.flameHot);
-    this.cameras.main.shake(220, 0.004);
+    // The shake tells of a hit even on a station out of view (its arrow then names it); the burst shows only on screen.
+    this.flareUntil.delete(kind); this.cameras.main.shake(220, 0.004);
+    if (seen) motion.burst(this, { x: seen.bowl.x, y: seen.bowl.y + seen.bowl.ry * 0.6 }, 18, this.pal.flameHot);
   }
   /** Knob mode: a step came off the heat (the stamp itself is in the DOM layer). On the ring, a gold burst and a squash; early or late, a puff. */
   took(kind: StationKind, grade: "perfect" | "early" | "late") {
