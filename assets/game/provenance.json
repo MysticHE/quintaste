@@ -930,7 +930,9 @@
    360,
    281
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-24"
  },
  "dish-mee-goreng": {
   "source": "runs/dishfix/dish-mee-goreng",
@@ -6489,7 +6491,9 @@
    256,
    198
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-24"
  },
  "curry-leaves": {
   "source": "runs/recipefix/curry-leaves",
@@ -6504,7 +6508,9 @@
    256,
    230
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-24"
  },
  "dish-bean-zongzi": {
   "source": "runs/recipefix/dish-bean-zongzi",
@@ -6519,7 +6525,9 @@
    360,
    256
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-24"
  },
  "dish-pear-soup": {
   "source": "runs/recipefix/dish-pear-soup",
@@ -6534,7 +6542,9 @@
    360,
    293
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-24"
  },
  "goji": {
   "source": "runs/recipefix/goji",
@@ -6549,7 +6559,9 @@
    256,
    204
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-24"
  },
  "ground-almonds": {
   "source": "runs/recipefix/ground-almonds",
@@ -6564,7 +6576,9 @@
    256,
    214
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-24"
  },
  "laksa-leaves": {
   "source": "runs/recipefix/laksa-leaves",
@@ -6579,7 +6593,9 @@
    256,
    222
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-24"
  },
  "mung-beans": {
   "source": "runs/recipefix/mung-beans",
@@ -6594,7 +6610,9 @@
    256,
    204
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-24"
  },
  "mustard-seeds": {
   "source": "runs/recipefix/mustard-seeds",
@@ -6609,7 +6627,9 @@
    256,
    206
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-24"
  },
  "pear": {
   "source": "runs/recipefix/pear",
@@ -6624,7 +6644,9 @@
    256,
    228
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-24"
  },
  "popiah-filling": {
   "source": "runs/recipefix/popiah-filling",
@@ -6639,7 +6661,9 @@
    256,
    208
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-24"
  },
  "red-beans": {
   "source": "runs/recipefix/red-beans",
@@ -6654,7 +6678,9 @@
    256,
    218
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-24"
  },
  "rock-sugar": {
   "source": "runs/recipefix/rock-sugar",
@@ -6669,7 +6695,9 @@
    256,
    210
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-24"
  },
  "snow-fungus": {
   "source": "runs/recipefix/snow-fungus",
@@ -6684,7 +6712,9 @@
    256,
    202
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-24"
  },
  "water": {
   "source": "runs/recipefix/water",
@@ -6699,7 +6729,9 @@
    253,
    256
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-24"
  },
  "raw-bean-zongzi": {
   "source": "runs/recipefix2/raw-bean-zongzi",
@@ -6714,6 +6746,8 @@
    256,
    206
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-24"
  }
 }
