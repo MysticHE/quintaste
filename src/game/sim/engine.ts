@@ -219,15 +219,21 @@ export function setFocus(r: Run, orderId: string) {
 }
 export function select(r: Run, station: StationKind) { input(r, "select", station); if (r.stations[station]) { r.selected = station; record(r, "select " + station); } }
 
+/** Where another part of the dish cooks this item, when that is not `kind` ("Tempeh goes in the wok."), or null. */
+function goesElsewhere(dishId: string, itemId: string, kind: StationKind): string | null {
+  const home = DISHES[dishId]?.parts.find(p => p.station !== kind && p.stages.some(s => s.slots.some(sl => sl.accepts.includes(itemId))));
+  return home ? itemName(itemId) + " goes in the " + STATIONS[home.station].name.toLowerCase() + "." : null;
+}
 function check(r: Run, itemId: string, kind: StationKind): string | null {
   const st = r.stations[kind]; if (!st) return "That station isn't in this kitchen yet.";
   const g = focusGuest(r);
   if (!st.part) {
     if (!g) return "Tap a guest first to choose who you are cooking for.";
     const part = dishPart(g.dishId, kind);
-    if (!part) return dishName(g.dishId) + " doesn't use the " + STATIONS[kind].name.toLowerCase() + ".";
+    if (!part) return goesElsewhere(g.dishId, itemId, kind) ?? dishName(g.dishId) + " doesn't use the " + STATIONS[kind].name.toLowerCase() + ".";
     if (!part.stages[0].slots.some(s => s.accepts.includes(itemId)))
-      return part.stages.some(s => s.slots.some(sl => sl.accepts.includes(itemId))) ? "Not yet. Start with " + part.stages[0].hint + "." : itemName(itemId) + " isn't in " + dishName(g.dishId) + ". The recipe strip shows what goes in.";
+      return part.stages.some(s => s.slots.some(sl => sl.accepts.includes(itemId))) ? "Not yet. Start with " + part.stages[0].hint + "."
+        : goesElsewhere(g.dishId, itemId, kind) ?? itemName(itemId) + " isn't in " + dishName(g.dishId) + ". The recipe strip shows what goes in.";
     return preheating(st, part.stages[0]);
   }
   const pr = st.part, part = partOf(pr);
@@ -239,7 +245,7 @@ function check(r: Run, itemId: string, kind: StationKind): string | null {
     const later = part.stages.findIndex(s => s.slots.some(sl => sl.accepts.includes(itemId)));
     if (later > pr.stage) return "Not yet. This step needs " + stage.hint + ".";
     if (later >= 0) return "That step is done. Add " + stage.hint + ".";
-    return itemName(itemId) + " isn't in " + part.name.toLowerCase() + ".";
+    return goesElsewhere(pr.dishId, itemId, kind) ?? itemName(itemId) + " isn't in " + part.name.toLowerCase() + ".";
   }
   if (pr.items.some(x => x.stage === pr.stage && slot.accepts.includes(x.id))) return "The " + STATIONS[kind].name.toLowerCase() + " already has " + slot.label.toLowerCase() + ".";
   return null;

@@ -85,9 +85,14 @@ export function StationTags({ run, L, plateSel, dragging, onSelect, onRestart }:
   run: sim.Run; L: Layout; plateSel: number | null; dragging: StationKind | null; onSelect(k: StationKind): void; onRestart(k: StationKind): void;
 }) {
   const serving = plateSel !== null && !!run.board[plateSel], roomy = wordsWidth("Drop on a guest", 13 * L.ts) + TAG_ICON + TAG_PAD <= L.plating.w;
+  // A dish of two parts waits on the tray, faded, until the other part is plated: the tag names what it still needs.
+  const half = run.board.find(p => p && !sim.plateComplete(p)), need = half && sim.platedParts(half.dishId).find(pt => !half.parts.some(x => x.partId === pt.id));
+  const needText = need && ("Needs " + need.name.toLowerCase()), needFits = !!needText && wordsWidth(needText, 13 * L.ts) + TAG_ICON + TAG_PAD <= L.plating.w;
   return <>
     {(serving || dragging) && <span className="stag plating ready" style={{ left: L.plating.tag.x, top: L.plating.tag.y, maxWidth: L.plating.w }} aria-hidden="true">
       <TagIcon tone="plate" /><span className="tx">{serving ? (roomy ? "Drop on a guest" : "Drop") : "Drop here"}</span></span>}
+    {!serving && !dragging && need && <span className="stag plating cook" role="status" style={{ left: L.plating.tag.x, top: L.plating.tag.y, maxWidth: L.plating.w }}>
+      <TagIcon tone="plate" /><span className="tx">{needFits ? needText : "1 of " + sim.platedParts(half!.dishId).length + " ready"}</span></span>}
     {(Object.keys(L.stations) as StationKind[]).map(k => {
       const r = L.stations[k]!, s = stationState(run, k), cfg = STATIONS[k], room = r.w - 2 + 2 * TAG_LEAN, fit = fitTag(s, room, L.ts);
       // Idle tags (the station's name, Add more, Empty) are not shown unless the pot is cooking for two; they stay in the page, invisible,

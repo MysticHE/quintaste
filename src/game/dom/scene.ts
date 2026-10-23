@@ -318,7 +318,8 @@ export class Playfield extends Phaser.Scene {
       const key = DISHES[p.dishId].art;
       if (this.textures.exists(key)) { if (v.dish.texture.key !== key) v.dish.setTexture(key); this.fit(v.dish, b.w * 1.05, b.h * 1.25); }
       if (this.dragSlot !== i) v.dish.setPosition(b.x + b.w / 2, b.y + b.h * 0.42);
-      v.dish.setVisible(true).setAlpha(sim.plateComplete(p) ? 1 : 0.55);
+      // A dish still missing a part shows faded (the tray's tag names what it needs), so it never reads as ready to serve.
+      v.dish.setVisible(true).setAlpha(sim.plateComplete(p) ? 1 : 0.4);
     });
   }
 
