@@ -195,6 +195,8 @@ export const DISHES: Record<string, Dish> = Object.fromEntries(([
  */
 export type StationConfig = { name: string; art: string; heat: boolean; onRate: number; offRate: number; gain: number; loss: number; band: [number, number]; scorch: number; scorchSecs: number;
   thermostat?: boolean; preheat?: boolean; burnAfter?: number; spoil?: string };
+/** The most cooking stations a level or a recipe level's dish uses (owner, 23 Oct 2026): a phone shows two at a time and the row slides to the rest. */
+export const MAX_STATIONS = 4;
 export const STATIONS: Record<StationKind, StationConfig> = {
   pan: { name: "Wok", art: "stove-wok", heat: true, onRate: 1.2, offRate: 1.2, gain: 0.35, loss: 0.38, band: [0.4, 0.7], scorch: 0.85, scorchSecs: 2 },
   pot: { name: "Soup pot", art: "soup-pot", heat: true, onRate: 0.7, offRate: 0.22, gain: 0.32, loss: 0.3, band: [0.3, 0.55], scorch: 0.82, scorchSecs: 3 },

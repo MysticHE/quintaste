@@ -3,7 +3,7 @@
  * the items they need on top of the built-in content; it can never change a built-in dish, item or rule, so the rules
  * version (sim/replay.ts) stays the built-in content's and a pack is identified by its own hash instead.
  */
-import { DISHES, dishesChanged, STATIONS, type Dish, type Part, type Slot, type Stage, type StationKind } from "./dishes";
+import { DISHES, dishesChanged, MAX_STATIONS, STATIONS, type Dish, type Part, type Slot, type Stage, type StationKind } from "./dishes";
 import { ITEM_FORM, ITEMS, type GameItem, type GameLabel, type ItemForm, type ItemTag, type ItemTone } from "./items";
 
 export const PACK_FORMAT = 1;
@@ -24,7 +24,7 @@ const BUILTIN_MADE = new Set(Object.values(BUILTIN.dishes).flatMap(d => d.parts.
 const ID = /^[a-z0-9][a-z0-9-]{0,39}$/, PACK_ID = /^[a-z0-9][a-z0-9-]{2,63}$/, ART = /^[A-Za-z0-9][A-Za-z0-9-]{0,59}$/;
 const TAGS = new Set<ItemTag>(["allium", "egg", "dairy", "honey", "root", "mushroom", "hot", "animal"]);
 const TONES = new Set<ItemTone>(["soy", "oil", "cream", "red", "white", "gold", "dark"]);
-const LIMITS = { dishes: 32, items: 128, parts: 3, stages: 6, slots: 3, accepts: 8 };
+const LIMITS = { dishes: 32, items: 128, parts: MAX_STATIONS, stages: 6, slots: 3, accepts: 8 };
 
 const fail = (why: string): never => { throw new PackError(why); };
 const obj = (v: unknown, where: string, keys: string[]) => {

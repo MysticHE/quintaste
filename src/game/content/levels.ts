@@ -32,8 +32,7 @@ export const BONUS: Record<BonusKind, { name: string; text: string }> = {
   swift: { name: "Swift service", text: "Serve every guest with at least half their patience left." },
   steady: { name: "Steady hands", text: "Spend at least 90% of your cooking time in the heat band." },
 };
-/** The most cooking stations a level uses (owner, 23 Oct 2026): two show at a time and the row slides to the rest. */
-export const MAX_STATIONS = 4;
+export { MAX_STATIONS } from "./dishes";
 export type Level = {
   n: number; name: string; brief: string; teach: string;
   stations: StationKind[]; seats: number; maxOpen: number;

@@ -17,7 +17,8 @@ class LevelError extends Error {}
 export const MEMBER_FAILED = 'Something went wrong making this level. Try again later.', MEMBER_BUSY = 'The level maker is busy. Try again later.';
 export const SHAPE_SCHEMA = { type: 'object', required: ['remember', 'parts'], properties: {
   remember: { type: 'string', description: 'One sentence a cook should remember about this dish, under 200 characters.' },
-  parts: { type: 'array', minItems: 1, maxItems: 3, items: { type: 'object', required: ['station', 'stages'], properties: {
+  // One part a station, up to the four stations a level may use (src/game/content/dishes.ts MAX_STATIONS; claypot rice needs four).
+  parts: { type: 'array', minItems: 1, maxItems: 4, items: { type: 'object', required: ['station', 'stages'], properties: {
     station: { type: 'string', enum: ['pan', 'pot', 'rice', 'board', 'dessert', 'blender', 'steamer', 'oven', 'griddle', 'fryer', 'dough', 'fridge'] },
     stages: { type: 'array', minItems: 1, maxItems: 4, items: { type: 'object', required: ['items', 'hint'], properties: {
       items: { type: 'array', minItems: 1, maxItems: 3, items: { type: 'string' } },

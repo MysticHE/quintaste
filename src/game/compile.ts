@@ -4,7 +4,7 @@
  * chill) is taken as a ready item; an unbuilt main step (steam, bake, fry, griddle, dough) makes the recipe wait for that technique.
  * Shaping (AI, step 2) then picks stages from this draft, and the checks (step 3) decide whether the level is kept.
  */
-import { STATIONS, type StationKind } from "./content/dishes";
+import { MAX_STATIONS, STATIONS, type StationKind } from "./content/dishes";
 import { ITEMS, type GameItem, type ItemTag } from "./content/items";
 import { readPack, type LevelPack } from "./content/pack";
 
@@ -119,7 +119,7 @@ const nameOf = (c: Compiled, id: string) => ITEMS[id]?.name ?? c.items.get(id)?.
 
 /** A shape from code alone: adjacent stages merge until there are four per station, extra items drop. For trials and tests, never a silent stand-in for the AI. */
 export function codeShape(c: Compiled): Shape {
-  const parts = [...new Set(c.stages.map(s => s.station))].slice(0, 3).map(station => {
+  const parts = [...new Set(c.stages.map(s => s.station))].slice(0, MAX_STATIONS).map(station => {
     let list = c.stages.filter(s => s.station === station).map(s => [...s.items]);
     while (list.length > 4) { const a = list.shift()!, b = list.shift()!; list = [[...new Set([...a, ...b])], ...list]; }
     return { station, stages: list.map(items => ({ items: items.slice(0, 3), hint: items.slice(0, 3).map(id => nameOf(c, id).toLowerCase()).join(", ") })) };
@@ -130,7 +130,7 @@ export function codeShape(c: Compiled): Shape {
 /** Checks a shape against its draft: only the draft's items, built stations, 1–4 stages of 1–3 items, short text. Returns the problem or null. */
 export function shapeProblem(c: Compiled, s: Shape): string | null {
   const allowed = new Set(c.stages.flatMap(x => x.items)), text = (t: unknown, max: number) => typeof t === "string" && t.trim().length > 0 && t.length <= max;
-  if (!s || !Array.isArray(s.parts) || !s.parts.length || s.parts.length > 3) return "give one to three parts";
+  if (!s || !Array.isArray(s.parts) || !s.parts.length || s.parts.length > MAX_STATIONS) return "give one to " + MAX_STATIONS + " parts";
   if (!text(s.remember, 240) || /https?:|www\.|tiktok|instagram|youtube|facebook/i.test(s.remember)) return "remember must be one short sentence with no links or platform names";
   for (const p of s.parts) {
     if (typeof p.station !== "string" || !Object.hasOwn(STATIONS, p.station)) return "station " + String(p.station) + " is not one the game has";
