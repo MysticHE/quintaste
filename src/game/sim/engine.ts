@@ -282,7 +282,9 @@ export function place(r: Run, itemId: string, kind: StationKind): boolean {
   pr.items.push({ uid, id: itemId, stage: pr.stage, warn });
   r.selected = kind; record(r, "place " + itemId + " " + kind);
   r.events.push({ type: "placed", station: kind, item: itemId, warn, uid });
-  if (warn && g) { r.stats.mistakes++; say(r, reason(itemId, rules, r.flip) + " Lift it out with its ✕ under the heat bar.", "warn"); }
+  // A wrong ingredient that completes the step starts it cooking, after which it can't be lifted out (the panel shows Restart instead).
+  const fills = stageOf(pr).slots.filter(s => !s.optional).every(s => pr.items.some(x => x.stage === pr.stage && s.accepts.includes(x.id)));
+  if (warn && g) { r.stats.mistakes++; say(r, reason(itemId, rules, r.flip) + (fills ? " Restart the dish; it's free." : " Lift it out with its ✕ under the heat bar."), "warn"); }
   return added(r, st, kind, itemId, warn);
 }
 
@@ -448,7 +450,7 @@ export function serve(r: Run, slot: number, orderId: string) {
   if (idle(r)) return;
   const p = r.board[slot], g = guestByOrder(r, orderId);
   if (!p || !g || g.state !== "waiting") return;
-  if (!plateComplete(p)) { say(r, "That plate is missing part of the dish.", "warn"); return; }
+  if (!plateComplete(p)) { const need = platedParts(p.dishId).find(x => !p.parts.some(y => y.partId === x.id))!; say(r, "This " + dishName(p.dishId).toLowerCase() + " still needs its " + need.name.toLowerCase() + ".", "warn"); return; }
   if (p.dishId !== g.dishId) { say(r, GUESTS[g.guestId].name + " ordered " + dishName(g.dishId) + ".", "warn", g.guestId); r.events.push({ type: "returned", seat: g.seat, slot }); return; }
   const items = p.parts.flatMap(x => x.items), bad = conflicts(items, g.rules, r.flip);
   if (bad.length) {

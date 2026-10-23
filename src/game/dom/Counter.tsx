@@ -20,14 +20,19 @@ function Bubble({ g, run, L, art, serving, onGuest }: { g: sim.GuestRun; run: si
     [s, floor, waiting, g.rules.length, paired]);
   if (!s) return null;
   const hearts = Math.ceil(g.patience / g.maxPatience * 5), guest = GUESTS[g.guestId];
+  // A narrow bubble (a full counter, large text) says the short form rather than cut the words off.
+  const room = L.seatW - 2 - 12 - 16, fits = (text: string) => wordsWidth(text, 11 * L.ts) <= room;
+  const yum = fits("Enjoying it ♥") ? "Enjoying it ♥" : "Yum ♥", shared = fits("⇄ Shared pot") ? "⇄ Shared pot" : "⇄ Shared";
   const cls = "bubble" + (run.focus === g.orderId && !serving ? " focus" : "") + (serving && waiting ? " target" : "") + (g.vip ? " vip" : "") + (hearts <= 1 && waiting ? " low" : "");
-  return <button ref={ref} className={cls} style={{ left: s.bubble.x, top: s.bubble.y, maxWidth: L.seatW - 2 }} onClick={() => onGuest(g.orderId)} disabled={!waiting}
+  // A bubble with a chip takes the seat's width (up to 84 px) instead of shrinking round the dish picture, so the chip's words fit.
+  const wide = g.rules.length > 0 || paired || !waiting;
+  return <button ref={ref} className={cls} style={{ left: s.bubble.x, top: s.bubble.y, maxWidth: L.seatW - 2, minWidth: wide ? Math.min(L.seatW - 2, 84) : undefined }} onClick={() => onGuest(g.orderId)} disabled={!waiting}
     aria-label={guest.name + ", seat " + g.seat + ", " + DISHES[g.dishId].name + (g.rules.length ? ", " + g.rules.map(r => RULES[r].spoken).join(", ") : "")
       + (g.vip ? ", VIP" : "") + (mates.length ? ", shares the pot with " + mates.map(m => GUESTS[m.guestId].name).join(" and ") : "") + (serving && waiting ? ". Drop the plate here" : "")}>
-    {!waiting ? <span className="chip yum">Enjoying it ♥</span> : <>
+    {!waiting ? <span className="chip yum">{yum}</span> : <>
       <span className="row"><img src={art[DISHES[g.dishId].art]} alt="" />{serving && <span className="chip serve">Drop</span>}{g.vip && <span className="chip crown">♛ VIP</span>}</span>
       {g.rules.map(r => <span key={r} className={"chip rule " + r}>{RULES[r].short}</span>)}
-      {paired && <span className="chip pair">⇄ Shared pot</span>}
+      {paired && <span className="chip pair">{shared}</span>}
       <span className="hearts" aria-hidden>{[0, 1, 2, 3, 4].map(i => <span key={i} className={i < hearts ? "" : "off"}>♥</span>)}</span>
     </>}
   </button>;

@@ -84,6 +84,10 @@ export function useServiceEvents(options: Options) {
         if (e.type === "plated") {
           const p = r.board[e.slot]; fx.cue("plate");
           if (p) sc?.plateIn(e.station, e.slot, p.dishId);
+          // Half a dish plated (the coconut rice of a nasi lemak): the selection moves on to the station that cooks the rest, so the heat
+          // panel shows the station you need next instead of the empty one. Selecting is a recorded input, so a replay matches.
+          const rest = p && !sim.plateComplete(p) ? sim.platedParts(p.dishId).find(pt => !p.parts.some(x => x.partId === pt.id))?.station : undefined;
+          if (rest && r.selected === e.station && rest !== e.station && r.stations[rest]) sim.select(r, rest);
         }
         if (e.type === "served") a.pay(e.seat, e.slot, e.coins);
         if (e.type === "returned") { sc?.shake(e.seat); sc?.wobblePlate(e.slot); fx.cue("returned"); streak.current = 0; setCombo(null); }

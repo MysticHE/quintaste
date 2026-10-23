@@ -68,7 +68,7 @@ const TOP = `
 @keyframes rhbowl { from { transform:scale(.5) rotate(-18deg); opacity:0; } } @keyframes rhcard { from { transform:translateX(14px); opacity:0; } }
 .rh .recipe .mid { flex:1; min-width:0; display:grid; gap:4px; }
 .rh .recipe .t { display:flex; align-items:baseline; gap:5px; font-size:18px; white-space:nowrap; overflow:hidden; }
-.rh .recipe .t b { flex:0 1 auto; min-width:0; overflow:hidden; text-overflow:ellipsis; } .rh .recipe .t small { flex:0 1 auto; } .rh .recipe .t.long { font-size:15px; } .rh .recipe .t.longer { font-size:13px; }
+.rh .recipe .t b { flex:0 1 auto; min-width:0; overflow:hidden; text-overflow:ellipsis; } .rh .recipe .t small { flex:0 1 auto; }
 .rh .recipe .t small { font-size:12px; color:var(--ink-2); overflow:hidden; text-overflow:ellipsis; flex:1 1 0; min-width:26px; }
 .rh .rule { flex:none; font-size:11px; padding:1px 7px; border-radius:99px; background:var(--coral); color:var(--white); white-space:nowrap; }
 .rh .steps { display:flex; gap:3px; align-items:center; min-width:0; }
@@ -84,7 +84,8 @@ const TOP = `
 @keyframes rhstamp { from { transform:scale(0) rotate(-35deg); } }
 .rh .step.bad .tick { background:var(--warn); } .rh .sep { width:2px; height:20px; background:var(--panel-edge); border-radius:2px; flex:none; }
 @keyframes rhpop2 { from { transform:scale(.6); } }
-.rh .hint { flex:none; max-width:28%; font-size:11px; line-height:1.2; padding:5px 8px; border-radius:12px; background:var(--hint-bg); color:var(--hint-ink); text-align:center; }
+.rh .recipe .row2 { display:flex; align-items:center; gap:6px; min-width:0; } .rh .recipe .row2 .steps { flex:1 1 auto; }
+.rh .hint { flex:none; max-width:46%; font-size:11px; line-height:1.15; padding:3px 8px; border-radius:12px; background:var(--hint-bg); color:var(--hint-ink); text-align:center; }
 `;
 const SCENE = `
 .rh .bubble { position:absolute; transform:translate(-50%,-100%); margin-top:-8px; background:var(--white); border-radius:14px; padding:3px 6px 4px; display:grid; justify-items:center; gap:2px;
@@ -97,6 +98,8 @@ const SCENE = `
 @keyframes rhbeat { 50% { transform:translate(-50%,-100%) scale(1.06); } }
 .rh .bubble .row { display:flex; align-items:center; gap:3px; } .rh .bubble img { width:36px; height:26px; object-fit:contain; }
 .rh .chip { max-width:100%; overflow:hidden; text-overflow:ellipsis; font-size:11px; padding:1px 7px; border-radius:99px; background:var(--cream-2); line-height:1.4; white-space:nowrap; }
+/* In a guest's bubble (narrow at a full counter) a chip keeps its words: tighter sides, and two words wrap rather than cut off. */
+.rh .bubble .chip { white-space:normal; text-align:center; line-height:1.2; padding:2px 5px; } .rh .bubble .chip.rule { padding:2px 5px; }
 .rh .chip.rule { background:var(--coral); color:var(--white); padding:1px 8px; font-size:11px; } .rh .chip.rule.vegan { background:var(--vegan); } .rh .chip.rule.jain { background:var(--jain); }
 .rh .chip.rule.nomeat { background:var(--cook); } .rh .chip.rule.nomush, .rh .chip.rule.mild { background:var(--hint-bg); color:var(--hint-ink); } .rh .chip.serve { background:var(--sage-deep); color:var(--white); } .rh .chip.yum { background:var(--hint-bg); color:var(--hint-ink); }
 .rh .hearts { letter-spacing:-1px; font-size:12px; line-height:1; color:var(--fx-heart); } .rh .hearts .off { color:var(--panel-edge); }

@@ -1,5 +1,5 @@
 /** Top panels over the café (GAME_PLAN §13): the HUD and the recipe card for the guest being cooked for. */
-import type { ReactElement, Ref } from "react";
+import { useLayoutEffect, useRef, type ReactElement, type Ref } from "react";
 import { DISHES, STATIONS } from "../content/dishes";
 import { GUESTS, conflicts } from "../content/guests";
 import { ITEMS } from "../content/items";
@@ -88,11 +88,32 @@ function nextStep(run: sim.Run, g: sim.GuestRun): string {
 }
 
 /** A long dish and guest name steps the title down a size or two rather than cutting it off. */
-const titleFit = (text: string) => text.length > 25 ? " longer" : text.length > 19 ? " long" : "";
+/**
+ * Sizes the order title to the card: the largest of 18, 15, 13, 12 and 11 px (times the text size) at which the dish name and
+ * "for <guest>" both show in full, measured on the page after the fonts load. The guest line keeps at most 12 px.
+ */
+function useTitleFit(key: string) {
+  const ref = useRef<HTMLDivElement>(null);
+  useLayoutEffect(() => {
+    const el = ref.current; if (!el) return;
+    const fit = () => {
+      const [b, small] = [el.querySelector("b"), el.querySelector("small")] as (HTMLElement | null)[];
+      for (const px of [18, 15, 13, 12, 11]) {
+        el.style.fontSize = `calc(${px}px * var(--ts, 1))`; if (small) small.style.fontSize = `calc(${Math.min(12, px - 1)}px * var(--ts, 1))`;
+        if ((!b || b.scrollWidth <= b.clientWidth + 1) && (!small || small.scrollWidth <= small.clientWidth + 1)) break;
+      }
+    };
+    fit(); let live = true; document.fonts?.ready.then(() => { if (live) fit(); });
+    return () => { live = false; };
+  }, [key]);
+  return ref;
+}
 
 /** Slots for the focused guest's dish: done, filled, wanted next, or empty; then the next step while hints are on. */
 export function RecipeCard({ run, L, art }: { run: sim.Run; L: Layout; art: Art }) {
   const g = sim.focusGuest(run);
+  // Measured whenever what the title says or its room changes (called before the empty card returns, as hooks must be).
+  const title = useTitleFit(g ? [g.orderId, g.dishId, sim.mates(run, g).length, L.recipe.w, L.ts, run.level.hints].join("|") : "");
   if (!g) return <div className="layer recipe panel" style={box(L.recipe)}><span className="idle">{run.started ? "Waiting for the next guest" : "Orders show here"}</span></div>;
   const dish = DISHES[g.dishId], chips: ReactElement[] = [], table = sim.tableRules(run, g), pot = sim.mates(run, g), who = [g, ...pot].map(x => GUESTS[x.guestId].name).join(" + ");
   dish.parts.forEach((part, pi) => {
@@ -110,11 +131,12 @@ export function RecipeCard({ run, L, art }: { run: sim.Run; L: Layout; art: Art 
     }));
   });
   // The guest's bubble shows their rules, so the card never repeats them (owner, 22 Oct).
-  const hints = run.level.hints !== "none";
+  const hints = run.level.hints !== "none", forWho = GUESTS[g.guestId].name + (pot.length > 0 ? " +" + pot.length : "");
   // Keyed by order, so the card slides in fresh when the cook switches guests.
   return <div key={g.orderId} className="layer recipe panel" style={box(L.recipe)} aria-label={dish.name + " for " + who}>
     <img className="bowl" src={art[dish.art]} alt="" />
-    <div className="mid"><div className={"t" + titleFit(dish.name + GUESTS[g.guestId].name)}><b>{dish.name}</b><small> for {GUESTS[g.guestId].name}{pot.length > 0 ? " +" + pot.length : ""}</small></div><div className="steps">{chips}</div></div>
-    {hints && <span className="hint">{nextStep(run, g)}</span>}
+    {/* The title spans the card; the next-step hint sits beside the ingredient strip, so a long dish and guest name both fit. */}
+    <div className="mid"><div ref={title} className="t"><b>{dish.name}</b><small> for {forWho}</small></div>
+      <div className="row2"><div className="steps">{chips}</div>{hints && <span className="hint">{nextStep(run, g)}</span>}</div></div>
   </div>;
 }
