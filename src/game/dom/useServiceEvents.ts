@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, type MutableRefObject, type RefObject } fr
 import { STATIONS, type StationKind } from "../content/dishes";
 import { itemName } from "../content/items";
 import * as sim from "../sim/engine";
-import { flyCoins } from "./coinsFx";
+import { coinFlight, flyCoins, SERVE_GLIDE } from "./coinsFx";
 import type { Point } from "./layout";
 import type { Playfield } from "./scene";
 import type { useFeedback } from "./useFeedback";
@@ -28,13 +28,16 @@ export function useServiceEvents(options: Options) {
   const [bannerText, setBanner] = useState<{ text: string; key: number } | null>(null);
   const [hint, setHint] = useState<{ text: string; key: number } | null>(null);
   // Knob mode: how the last step came off (C), stamped over its station for a moment.
-  const [took, setTook] = useState<{ station: StationKind; grade: "perfect" | "early" | "late"; key: number } | null>(null);
+  // Knob mode: how the last step came off, or a flip or fold was timed, stamped over its station for a moment.
+  const [took, setTook] = useState<{ station: StationKind; what: "take" | "flip" | "fold"; grade: "perfect" | "early" | "late"; key: number } | null>(null);
   useEffect(() => { if (!took) return; const t = setTimeout(() => setTook(null), 1100); return () => clearTimeout(t); }, [took]);
   const [result, setResult] = useState<sim.Result | null>(null), [showResults, setShowResults] = useState(false);
   // Good serves in a row build a combo; a returned plate or a spoilt dish ends it. Feedback only: it never changes the coins.
   const [combo, setCombo] = useState<{ n: number; key: number } | null>(null), streak = useRef(0);
   useEffect(() => { if (!combo) return; const t = setTimeout(() => setCombo(null), COMBO_SHOW); return () => clearTimeout(t); }, [combo]);
   const coinRef = useRef<HTMLSpanElement>(null), origin = useRef<Point | null>(null);
+  // When the last coins in the air will have landed (Date.now), so the results wait for the last serve's takings to count up.
+  const landsBy = useRef(0);
   const opt = useRef(options);
   useEffect(() => { opt.current = options; });
   const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
@@ -70,8 +73,12 @@ export function useServiceEvents(options: Options) {
           sc?.itemIn(e.item, e.uid, e.station, b ? { x: b.x, y: b.y } : origin.current ?? { x: 0, y: 0 }); origin.current = null; fx.cue("place");
         }
         if (e.type === "turnDue") fx.haptic("warning");
-        if (e.type === "took") { sc?.took(e.station, e.grade); setTook({ station: e.station, grade: e.grade, key: Date.now() }); fx.cue(e.grade === "perfect" ? "perfect" : "take"); }
-        if (e.type === "turned") fx.haptic("success");
+        if (e.type === "took") { sc?.took(e.station, e.grade); setTook({ station: e.station, what: "take", grade: e.grade, key: Date.now() }); fx.cue(e.grade === "perfect" ? "perfect" : "take"); }
+        if (e.type === "turned") {
+          fx.haptic("success");
+          // A late fold costs nothing, so it gets no stamp.
+          if (e.grade && (e.grade === "perfect" || e.how === "flip")) { sc?.took(e.station, e.grade); setTook({ station: e.station, what: e.how, grade: e.grade, key: Date.now() }); if (e.grade === "perfect") fx.cue("perfect"); }
+        }
         if (e.type === "rejected") { setNudge({ id: e.item, key: Date.now() }); origin.current = null; fx.haptic("warning"); }
         if (e.type === "plated") {
           const p = r.board[e.slot]; fx.cue("plate");
@@ -94,29 +101,44 @@ export function useServiceEvents(options: Options) {
         if (e.type === "end") a.end(r, reduced);
       }
     },
-    /** The plate glides to the guest, then the coins fly to the takings; the count always settles on the run's total. */
+    /**
+     * The plate glides to the guest, then the coins fly to the takings, each landing adding its share: the last one brings the count
+     * to the takings after this serve (`after`), never before it lands. A serve still on its way when the next one pays never jumps ahead,
+     * and coins still landing after Play again leave the new service's count alone.
+     */
     pay(seat: number, slot: number, total: number) {
-      const { runRef, sceneRef, fx, reduced } = opt.current, r = runRef.current, sc = sceneRef.current;
-      const g = r.guests.find(x => x.seat === seat && x.state === "eating"), n = Math.ceil(total / 2);
+      const { runRef, sceneRef, fx, reduced } = opt.current, r = runRef.current, sc = sceneRef.current, after = r.coins;
+      const g = r.guests.find(x => x.seat === seat && x.state === "eating"), count = Math.min(10, Math.ceil(total / 2)), each = count ? Math.ceil(total / count) : 0;
+      if (!reduced) landsBy.current = Math.max(landsBy.current, Date.now() + SERVE_GLIDE + coinFlight(count));
       const run = ++streak.current;
       if (run >= 2) setCombo({ n: run, key: Date.now() });
       // A combo raises the serve chime, and the coins climb on from higher up.
       fx.cue("serve", run - 1);
+      const mine = () => opt.current.runRef.current === r, settle = () => { if (mine()) setCoins(c => Math.max(c, after)); };
+      let out = false;
       const coinsOut = () => {
-        let k = (run - 1) * 2;
+        out = true;
+        let k = (run - 1) * 2, landed = 0;
         const root = opt.current.rootRef.current, s = sc?.L.seats[seat - 1];
-        if (root && s && !reduced) flyCoins(root, { x: s.mat.x + s.mat.w / 2, y: s.mat.y }, a.coinTarget(), Math.min(10, n),
-          () => { setCoins(c => Math.min(runRef.current.coins, c + 2)); setEat(x => x + 1); fx.cue("coin", k++); }, total);
-        else { setCoins(r.coins); fx.cue("coin"); }
+        if (root && s && !reduced) {
+          const ms = flyCoins(root, { x: s.mat.x + s.mat.w / 2, y: s.mat.y }, a.coinTarget(), count, () => {
+            const last = ++landed >= count;
+            if (!mine()) return;
+            setCoins(c => (last ? Math.max(c, after) : Math.min(after, c + each))); setEat(x => x + 1); fx.cue("coin", k++);
+          }, total);
+          // In case the page was hidden and a landing never fired.
+          a.later(settle, ms + 400);
+        } else { settle(); fx.cue("coin"); }
       };
       if (sc && g) sc.serveTo(slot, seat, g.dishId, coinsOut); else coinsOut();
-      a.later(() => setCoins(runRef.current.coins), reduced ? 50 : 2200);
+      // In case the plate never reached the guest (the scene was rebuilt mid-flight), so its coins never set off.
+      a.later(() => { if (!out) settle(); }, reduced ? 50 : 1500);
     },
     end(r: sim.Run, reduced: boolean) {
       setResult(sim.results(r));
       if (r.endReason !== "quit") {
         setBanner({ text: r.endReason === "time" ? "Time's up!" : "Service done!", key: Date.now() });
-        a.later(() => { setCoins(r.coins); setShowResults(true); }, reduced ? 300 : 1400);
+        a.later(() => { setCoins(c => Math.max(c, r.coins)); setShowResults(true); }, reduced ? 300 : Math.max(1400, landsBy.current - Date.now() + 250));
       }
       opt.current.onEnd();
     },

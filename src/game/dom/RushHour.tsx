@@ -15,6 +15,7 @@ import { hintsFor, knobFor, PACE_SPEED, type PlaySettings } from "../settings";
 import * as sim from "../sim/engine";
 import { PETS } from "../content/cosmetics";
 import { HeatPanel, SayToast } from "./Controls";
+import { takePhase } from "./Knob";
 import { Bubbles, PlateTags, SeatTags, StationTags } from "./Counter";
 import { Hud, RecipeCard } from "./Hud";
 import { nearestStation, stationsBox, type Point } from "./layout";
@@ -52,6 +53,9 @@ type Props = {
   dom?: DOMProps;
 };
 const noop = () => {};
+/** Knob mode's stamp over a station: how a step came off, or how a flip or fold was timed (a late fold gets none). */
+const STAMP = { take: { perfect: "Perfect!", early: "A bit early", late: "Overcooked" }, flip: { perfect: "Perfect flip!", early: "Perfect flip!", late: "Late flip" },
+  fold: { perfect: "Neat fold!", early: "Neat fold!", late: "Folded" } } as const;
 /** A new run's id. It names the attempt on the account and, through `seedOf`, decides this service's arrivals, jars and twists. */
 const newRunId = () => globalThis.crypto?.randomUUID?.() ??
   "10000000-1000-4000-8000-100000000000".replace(/[018]/g, c => (+c ^ Math.floor(Math.random() * 16) >> +c / 4).toString(16));
@@ -79,7 +83,7 @@ export default function RushHour(props: Props) {
   const latest = useRef(props); latest.current = props;
   const base = mission ?? cafe ?? props.special ?? levelByNumber(level);
   const runId = useRef("");
-  const newRun = () => { runId.current = newRunId(); return sim.createRun(mission ?? cafe ?? props.special ?? level, pet, signature, hintsFor(settings, base.hints), sim.seedOf(runId.current), knobFor(settings, base)); };
+  const newRun = () => { runId.current = newRunId(); return sim.createRun(mission ?? cafe ?? props.special ?? level, pet, signature, hintsFor(settings, base.hints), sim.seedOf(runId.current), knobFor(settings, base), settings.knobAssist); };
   const runRef = useRef<sim.Run>(null as unknown as sim.Run);
   if (!runRef.current) runRef.current = newRun();
   const [, setVersion] = useState(0);
@@ -89,7 +93,7 @@ export default function RushHour(props: Props) {
   const fx = useFeedback(settings, props.onHaptic);
   const input = useRef<PlayfieldInput>({ onStation: noop, onGuest: noop, onServeDrag: noop, onPlateDrag: noop, onTransfer: noop });
   const { rootRef, stageRef, sceneRef, L, reboot } = usePlayfield(runRef, runRef.current.level.seats, runRef.current.level.stations, art,
-    { reduced, knob: runRef.current.knob, ts: props.textScale, pet: art[petArt] ? petArt : PETS[pet]?.art ?? "" }, input, bump);
+    { reduced, knob: !!runRef.current.knob, ts: props.textScale, pet: art[petArt] ? petArt : PETS[pet]?.art ?? "" }, input, bump);
   const [paused, setPaused] = useState(false);
   const [leaving, setLeaving] = useState(false);
   const ev = useServiceEvents({ runRef, sceneRef, rootRef, fx, reduced, onEnd: () => void save() });
@@ -143,7 +147,9 @@ export default function RushHour(props: Props) {
   // a scorched or split dish restarts it.
   input.current = {
     // With the knob, a tap on a step that is nearly done takes it off the heat (the cook timer); otherwise it selects the station.
-    onStation: k => { const r = runRef.current, pr = r.stations[k]?.part; if (r.knob && pr?.state === "cooking" && pr.progress >= sim.KNOB.early) sim.take(r, k); else sim.select(r, k); after(); },
+    // Knob mode: a tap on a heated station that can come off takes it off; any other tap selects the station.
+    onStation: k => { const r = runRef.current, ph = takePhase(r.stations[k]?.part ?? null, r.knob), cfg = STATIONS[k];
+      if (cfg.heat && !cfg.thermostat && (ph === "near" || ph === "now" || ph === "over")) sim.take(r, k); else sim.select(r, k); after(); },
     onGuest: id => { sim.setFocus(runRef.current, id); after(); },
     onServeDrag: (i, id) => { sim.serve(runRef.current, i, id); after(); },
     onPlateDrag: k => { sim.plate(runRef.current, k); after(); },
@@ -212,7 +218,7 @@ export default function RushHour(props: Props) {
       <SayToast run={run} L={L} art={art} chefArt={chefArt} />
       {ev.took && L.stations[ev.took.station] && <div key={ev.took.key} className={"stamp " + ev.took.grade} aria-hidden="true"
         style={{ left: L.stations[ev.took.station]!.art.x + L.stations[ev.took.station]!.art.w / 2, top: L.stations[ev.took.station]!.art.y + 4 }}>
-        {ev.took.grade === "perfect" ? "Perfect!" : ev.took.grade === "early" ? "A bit early" : "Overcooked"}</div>}
+        {STAMP[ev.took.what][ev.took.grade]}</div>}
       {ev.hint && <div key={ev.hint.key} className="toast" style={{ left: L.col.x + L.col.w / 2, top: L.shelves.y - 30 }}>{ev.hint.text}</div>}
     </div>}
     {L && fx.caption && <div key={fx.caption.key} className="caption" style={{ top: L.recipe.y + L.recipe.h + 6, right: L.col.x + 12 }} aria-hidden="true">{fx.caption.text}</div>}

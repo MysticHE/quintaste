@@ -165,22 +165,29 @@ async function kitchenShelf(me) {
  * A level players keep quitting or dislike leaves the For you and New rows (GAME_CONTENT_PLAN §5 Quality); it stays on its shelf
  * and its recipe page. Shares count only once enough people have played or reacted.
  */
-const QUALITY = { count: 10, share: 0.4, seconds: 60 };
+const QUALITY = { count: 10, share: 0.4, seconds: 60, keep: 5000 };
 const heldBack = q => !!q && ((q.plays >= QUALITY.count && q.quits / q.plays > QUALITY.share) || (q.reactions >= QUALITY.count && q.dislikes / q.reactions > QUALITY.share));
-/** Plays, quits, reactions and dislikes per live level: one grouped pass over runs and one over reactions, kept a minute for every Kitchen open. */
-let quality = { at: 0, key: '', stats: new Map() };
+/**
+ * Plays, quits, reactions and dislikes per live level, kept a minute for every Kitchen open. Kept per level, not per shelf: each
+ * member's shelf holds their own private levels too, so one cache for the whole list would miss whenever members took turns.
+ * Only levels not counted in the last minute are counted again: one grouped pass over runs and one over reactions.
+ */
+const quality = new Map();
 async function levelQuality(hashes) {
-  const key = hashes.join(',');
-  if (quality.key === key && Date.now() - quality.at < QUALITY.seconds * 1000) return quality.stats;
-  const [runs, reactions] = await Promise.all([
-    pool.query(`SELECT pack AS hash, count(*)::int AS plays, count(*) FILTER (WHERE result->'result'->>'quit' = 'true')::int AS quits
-      FROM game.run WHERE pack = ANY($1) AND status = 'settled' GROUP BY pack`, [hashes]),
-    pool.query(`SELECT hash, count(*)::int AS reactions, count(*) FILTER (WHERE NOT liked)::int AS dislikes FROM game.level_reaction WHERE hash = ANY($1) GROUP BY hash`, [hashes])]);
-  const stats = new Map(hashes.map(h => [h, { plays: 0, quits: 0, reactions: 0, dislikes: 0 }]));
-  for (const r of runs.rows) Object.assign(stats.get(r.hash), { plays: r.plays, quits: r.quits });
-  for (const r of reactions.rows) Object.assign(stats.get(r.hash), { reactions: r.reactions, dislikes: r.dislikes });
-  quality = { at: Date.now(), key, stats };
-  return stats;
+  const now = Date.now(), fresh = h => now - (quality.get(h)?.at ?? 0) < QUALITY.seconds * 1000;
+  const stale = [...new Set(hashes)].filter(h => !fresh(h));
+  if (stale.length) {
+    const [runs, reactions] = await Promise.all([
+      pool.query(`SELECT pack AS hash, count(*)::int AS plays, count(*) FILTER (WHERE result->'result'->>'quit' = 'true')::int AS quits
+        FROM game.run WHERE pack = ANY($1) AND status = 'settled' GROUP BY pack`, [stale]),
+      pool.query(`SELECT hash, count(*)::int AS reactions, count(*) FILTER (WHERE NOT liked)::int AS dislikes FROM game.level_reaction WHERE hash = ANY($1) GROUP BY hash`, [stale])]);
+    const counted = new Map(stale.map(h => [h, { plays: 0, quits: 0, reactions: 0, dislikes: 0 }]));
+    for (const r of runs.rows) Object.assign(counted.get(r.hash), { plays: r.plays, quits: r.quits });
+    for (const r of reactions.rows) Object.assign(counted.get(r.hash), { reactions: r.reactions, dislikes: r.dislikes });
+    if (quality.size + stale.length > QUALITY.keep) for (const h of [...quality.keys()]) if (!fresh(h)) quality.delete(h);
+    for (const [h, stats] of counted) quality.set(h, { at: now, stats });
+  }
+  return new Map(hashes.map(h => [h, quality.get(h).stats]));
 }
 
 /** A member who finished a service of a level (not quitting) says whether they liked it; null clears it. */

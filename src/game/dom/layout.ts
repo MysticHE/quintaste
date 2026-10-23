@@ -15,7 +15,8 @@ export type Seat = { guest: Rect; mat: Rect; bubble: Point; tag: Point };
 /** A station's tap area, its fitted art, where food sits (bowl) and the state tag under it. */
 export type Station = Rect & { art: Rect; bowl: Oval; tag: Point };
 export type Layout = {
-  w: number; h: number; s: number; col: Rect; seatW: number;
+  /** `ts` is the player's text size (Play your way), which every font size in the DOM panels is multiplied by. */
+  w: number; h: number; s: number; ts: number; col: Rect; seatW: number;
   hud: Rect; recipe: Rect; backdrop: Rect; counter: Rect; seats: Seat[];
   shelves: Rect; card: { w: number; h: number; gap: number };
   stations: Partial<Record<StationKind, Station>>; plating: Rect & { art: Rect; tag: Point }; board: Rect[];
@@ -63,7 +64,7 @@ export function computeLayout(w: number, h: number, seats: number, stations: Sta
   const shelves = { x: px, y: counter.y + counterH + m, w: pw, h: shelfH };
   const row = { y: shelves.y + shelfH + m, h: stationH };
   return {
-    w, h, s, col: { x: x0, y: 0, w: cw, h }, seatW: Math.floor((pw - 8) / (seats <= 3 ? 3 : 4)), hud, recipe, backdrop, counter, seats: seatBoxes(seats, px, pw, top, counter, s, x0 + cw, ts),
+    w, h, s, ts, col: { x: x0, y: 0, w: cw, h }, seatW: Math.floor((pw - 8) / (seats <= 3 ? 3 : 4)), hud, recipe, backdrop, counter, seats: seatBoxes(seats, px, pw, top, counter, s, x0 + cw, ts),
     shelves, card: { w: cardW, h: cardH, gap }, ...stationRow(stations, px, pw, row, s), heat,
   };
 }
@@ -112,8 +113,9 @@ function stationRow(kinds: StationKind[], px: number, pw: number, row: { y: numb
   // stations finishing together) waits on a small plate at the tray's front corners, drawn only while it holds a dish.
   const boardArt = round(fitBottom(SERVING_ART, { x: px, y: row.y, w: pwBoard, h: floor - row.y })), sp = SERVING_PLATE;
   const sideW = boardArt.w * 0.38, sideH = sideW * PLATE_ART[1] / PLATE_ART[0], sideY = boardArt.y + boardArt.h - sideH * 0.95;
+  // The left corner plate leans past the tray, but never past the column's side margin.
   const board = [round({ x: boardArt.x + boardArt.w * sp.x, y: boardArt.y + boardArt.h * sp.y, w: boardArt.w * sp.w, h: boardArt.h * sp.h }),
-    round({ x: boardArt.x - sideW * 0.12, y: sideY, w: sideW, h: sideH }), round({ x: boardArt.x + boardArt.w - sideW * 0.88, y: sideY, w: sideW, h: sideH })];
+    round({ x: Math.max(px, boardArt.x - sideW * 0.12), y: sideY, w: sideW, h: sideH }), round({ x: boardArt.x + boardArt.w - sideW * 0.88, y: sideY, w: sideW, h: sideH })];
   const plating = { ...round({ x: px, y: row.y, w: pwBoard, h: row.h }), art: boardArt, tag: { x: Math.round(px + pwBoard / 2), y: tagY } };
   const each = (pw - pwBoard - 4) / Math.max(1, n), stations: Partial<Record<StationKind, Station>> = {};
   kinds.forEach((k, i) => {

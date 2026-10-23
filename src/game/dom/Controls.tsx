@@ -10,7 +10,7 @@ import { itemName } from "../content/items";
 import { PETS, SKILLS } from "../content/cosmetics";
 import * as sim from "../sim/engine";
 import { box, type Art } from "./Hud";
-import { CookTimer, knobGrade, takePhase, useKnob, type Grade } from "./Knob";
+import { CookTimer, knobGrade, takePhase, turnDue, useKnob, type Grade } from "./Knob";
 import type { Layout } from "./layout";
 
 const heatWord = (h: number, lo: number, hi: number, scorch: number) => (h >= scorch ? "Too hot" : h > hi ? "Hot" : h >= lo ? "Target" : "Cool");
@@ -46,17 +46,19 @@ export function HeatPanel({ run, L, art, petArt, hold, nudge, onHeat, onHeatTo, 
   const kind = run.selected, st = run.stations[kind]!, cfg = STATIONS[kind], pr = st.part, [lo, hi] = sim.bandOf(st, pr), g = sim.focusGuest(run);
   const bad = pr && g ? conflicts(pr.items.map(i => i.id), sim.tableRules(run, g), run.flip) : [];
   const knobbed = run.knob && !!cfg.heat && !cfg.thermostat;
-  const [grade, setGrade] = useState<Grade | null>(null);
+  // The grade belongs to the station it was set on, so it never shows over another station's bar.
+  const [grade, setGrade] = useState<(Grade & { kind: StationKind }) | null>(null);
   useEffect(() => { if (!grade) return; const t = setTimeout(() => setGrade(null), 1300); return () => clearTimeout(t); }, [grade]);
-  const knob = useKnob({ from: st.set, band: [lo, hi], onTick, onMove: v => onPreview(kind, v),
-    onSet: v => { const gr = knobGrade(v, lo, hi, cfg.scorch); setGrade(v > 0 ? gr : null); onPreview(kind, null); onKnob(kind, v, gr.tone === "gold"); } });
-  const held = knob.needle !== null, phase = knobbed ? takePhase(pr) : "idle";
+  const knob = useKnob({ key: kind, tune: run.knob, from: st.set, band: [lo, hi], onTick, onMove: v => onPreview(kind, v),
+    onSet: v => { const gr = knobGrade(v, lo, hi, cfg.scorch); setGrade(v > 0 ? { ...gr, kind } : null); onPreview(kind, null); onKnob(kind, v, gr.tone === "gold"); } });
+  // The cook timer follows a heated step, and a fold on a board without heat.
+  const timed = !!run.knob && !!pr && (knobbed || turnDue(pr) === "fold"), held = knob.needle !== null, phase = timed ? takePhase(pr, run.knob) : "idle";
   const pet = PETS[run.pet], skill = SKILLS[pet.skill], liftable = pr && pr.progress === 0 && pr.state !== "ready" ? pr.items.filter(i => i.stage === pr.stage && !i.inside && (i.warn || bad.includes(i.id))) : [];
   const restartable = !!pr && pr.state !== "ready" && pr.items.length > 0;
   return <div className={"layer heat panel" + (knobbed ? " knobbed" : "")} style={box(L.heat)}>
-    {cfg.heat ? <Meter name={cfg.name} H={st.H} lo={lo} hi={hi} scorch={cfg.scorch} needle={knobbed ? knob.needle : null} set={knobbed && st.heatOn ? st.set : 0} grade={grade} />
+    {cfg.heat ? <Meter name={cfg.name} H={st.H} lo={lo} hi={hi} scorch={cfg.scorch} needle={knobbed ? knob.needle : null} set={knobbed && st.heatOn ? st.set : 0} grade={grade?.kind === kind ? grade : null} />
       : <div className="noheat">{cfg.name}: no heat to manage</div>}
-    {run.knob && <CookTimer pr={knobbed ? pr : null} phase={phase} />}
+    {run.knob && <CookTimer pr={timed ? pr : null} phase={phase} tune={run.knob} />}
     <div className="hrow">
       <button className={"burner" + (nudge ? " nudge" : "") + (held ? " held" : "") + (st.heatOn ? " on" : "")} aria-pressed={st.heatOn} disabled={!cfg.heat}
         {...(knobbed ? knob.handlers : burnerInput(hold, kind, onHeat, onHeatTo))}
@@ -103,15 +105,20 @@ function burnerInput(hold: boolean, kind: StationKind, onHeat: (k: StationKind) 
  * over a guest's face, 23 Oct); it fades on its own. Routine lines and thanks are already shown by the bubbles, order card and heat bar.
  */
 export function SayToast({ run, L, art, chefArt }: { run: sim.Run; L: Layout; art: Art; chefArt: string }) {
-  // The line shows until its time is up; `gone` remembers which line has faded, so a new one shows at once.
-  const { text, who, tone } = run.say, [gone, setGone] = useState<string | null>(null);
-  const shown = run.started && !!text && tone === "warn" && gone !== text ? text : null;
+  // The line shows until its time is up; `gone` remembers which line has faded. Every line said is a new one (the engine replaces
+  // run.say), so the same warning said again, as when a mistake is repeated, shows again.
+  const said = run.say, [gone, setGone] = useState<sim.Run["say"] | null>(null);
+  const shown = run.started && !!said.text && said.tone === "warn" && gone !== said ? said : null;
   useEffect(() => { if (!shown) return; const t = setTimeout(() => setGone(shown), 4500); return () => clearTimeout(t); }, [shown]);
   if (!shown) return null;
-  const guest = who ? GUESTS[who] : null;
-  return <div key={shown} className={"saytoast " + tone} role="status" style={{ left: L.col.x + L.col.w / 2, top: L.shelves.y + L.shelves.h + 6, maxWidth: L.col.w - 40 }}>
-    <img src={art[guest ? guest.art : chefArt]} alt="" /><p><b>{guest ? guest.name : "Chef"}</b>{shown}</p></div>;
+  const guest = shown.who ? GUESTS[shown.who] : null;
+  return <div key={lineKey(shown)} className={"saytoast " + shown.tone} role="status" style={{ left: L.col.x + L.col.w / 2, top: L.shelves.y + L.shelves.h + 6, maxWidth: L.col.w - 40 }}>
+    <img src={art[guest ? guest.art : chefArt]} alt="" /><p><b>{guest ? guest.name : "Chef"}</b>{shown.text}</p></div>;
 }
+/** A number for each line said, so the toast starts over (and is announced again) when the same words are said again. */
+const lines = new WeakMap<object, number>();
+let saidCount = 0;
+function lineKey(line: object) { let n = lines.get(line); if (n === undefined) lines.set(line, n = ++saidCount); return n; }
 
 const svg = { viewBox: "0 0 24 24", "aria-hidden": true } as const;
 function Flame() { return <svg {...svg}><path d="M12.6 2.4c.5 3.2 4.1 5 4.1 9.6a4.7 4.7 0 0 1-9.4 0c0-2.2 1.1-3.7 2.5-4.9-.1 2 .6 3.4 1.9 3.8.2-3.2 1.7-5.4.9-8.5z" /></svg>; }

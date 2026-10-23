@@ -20,12 +20,25 @@ export const BATCH_SLOW = 1.5;
 /** Seconds a dish on the griddle can wait at halfway for its flip before the underside burns. */
 export const FLIP_GRACE = 4;
 /**
- * Knob and ring (prototype, Chapter 1, owner 22 Oct 2026): the flame holds where the player lets go of the heat button, and a
- * heated step ends on the player's tap as a ring closes on the pan. rate: how fast the heat settles on the knob (per second);
- * early: progress from which a step can come off; perfect: seconds either side of done that count as on the ring;
- * grace: seconds past done before the step comes off by itself, overcooked.
+ * Knob and cook timer (prototype, development builds, owner 22 Oct 2026): the flame holds where the player lets go of the heat
+ * button, and a heated step ends on the player's Take off as the timer reaches its gold star. rate: how fast the heat settles on
+ * the knob (per second); early: progress from which a step can come off. The rest is tuned per service (KnobTune).
  */
-export const KNOB = { rate: 3, early: 0.8, perfect: 0.3, grace: 2 } as const;
+export const KNOB = { rate: 3, early: 0.8 } as const;
+/**
+ * How a knob service is tuned (owner, 23 Oct 2026: harder by chapter, an Assist option, flips and folds on the timer).
+ * perfect: seconds either side of done that count as on the star; grace: seconds past done before the step comes off by itself,
+ * overcooked; turn: seconds after a flip or fold is due in which it is on time (seeing the call and dragging the tool on takes a second or more); speed and wobble: how fast the held needle climbs
+ * (heat a second) and how much it wavers (1 is the first prototype's); snap: how near the band a let-go still lands inside it.
+ * Speed, wobble and snap belong to the heat panel (dom/Knob.tsx): the simulation only ever sees where the knob was let go.
+ */
+export type KnobTune = { chapter: number; assist: boolean; perfect: number; grace: number; turn: number; speed: number; wobble: number; snap: number };
+/** Chapter 1 is gentle and Chapter 10 tight; Assist slows and steadies the needle, catches near misses and widens every window. */
+export function knobTune(n: number, assist: boolean): KnobTune {
+  const chapter = Math.min(10, Math.max(1, Math.ceil(n / 10))), k = (chapter - 1) / 9;
+  const t = { chapter, assist, perfect: 0.35 - 0.15 * k, grace: 2.5 - k, turn: 2 - 0.6 * k, speed: 0.75 + 0.35 * k, wobble: 0.8 + 0.8 * k, snap: 0 };
+  return assist ? { ...t, perfect: t.perfect * 1.6, grace: t.grace + 1, turn: t.turn * 1.6, speed: t.speed * 0.6, wobble: t.wobble * 0.4, snap: 0.06 } : t;
+}
 
 export type PlacedItem = { uid: number; id: string; stage: number; warn: boolean;
   /** A poured paste (Part.makes): the ingredients blended into it, which count for every guest rule. */
@@ -56,7 +69,9 @@ export type GameEvent =
   | { type: "bell" } | { type: "flare"; station: StationKind; phase: "warn" | "hit" } | { type: "stock"; item: string; phase: "low" | "out" }
   | { type: "changed"; seat: number; to: string } | { type: "gathered"; item: string } | { type: "gatherDone" }
   | { type: "poured"; from: StationKind; station: StationKind; item: string; warn: boolean; uid: number }
-  | { type: "turnDue"; station: StationKind } | { type: "turned"; station: StationKind }
+  | { type: "turnDue"; station: StationKind }
+  /** In knob mode a turn is graded: on time, or late (a late flip has cooked the underside off the band; a late fold costs nothing). */
+  | { type: "turned"; station: StationKind; how: "flip" | "fold"; grade?: "perfect" | "late" }
   | { type: "took"; station: StationKind; grade: "perfect" | "early" | "late" };
 /** One player input: the tick it happened on, the action and its arguments. The server replays these (sim/replay.ts). */
 export type Action = [tick: number, op: string, ...args: (string | number | boolean | null)[]];
@@ -74,8 +89,8 @@ export type Run = {
   ticks: number; actions: Action[];
   /** The Gather round, when the level has one: the shelf it shows (shuffled by the seed) and the item put in for each needed group. */
   gather: { need: string[][]; shelf: string[]; got: (string | null)[]; order: string[] } | null;
-  /** Knob and ring heat (KNOB) instead of the burner switch. */
-  knob: boolean;
+  /** Knob and cook timer (KNOB) instead of the burner switch, with its tuning; null with the switch. */
+  knob: KnobTune | null;
 };
 
 /** Signature level: each guest gets a chosen dish they can eat (round-robin); ABC soup fits every rule as a fallback. */
@@ -92,7 +107,7 @@ function resolveOrders(level: Level, signature: string[]) {
  * A run of a numbered level, or of a built level such as Today's special. `hints` overrides the level's hint plan (Play your
  * way); `seed` picks this service's arrivals, jars and twists (the app derives it from the run's id).
  */
-export function createRun(which: number | Level, pet: string, signature: string[] = [], hints?: Level["hints"], seed = 1, knob = false): Run {
+export function createRun(which: number | Level, pet: string, signature: string[] = [], hints?: Level["hints"], seed = 1, knob = false, assist = false): Run {
   const base = typeof which === "number" ? levelByNumber(which) : which, level = hints && hints !== base.hints ? { ...base, hints } : base;
   const plan = buildPlan(level, resolveOrders(level, signature), seed);
   const stations: Run["stations"] = {};
@@ -107,7 +122,8 @@ export function createRun(which: number | Level, pet: string, signature: string[
     ended: false, endReason: "", focus: null, selected: level.stations[0], stations, board: Array(BOARD_SLOTS).fill(null), guests, coins: 0, uid: 1,
     skill: { used: false, freezeUntil: 0, halfUntil: 0, steadyUntil: 0, steadyStation: null },
     stats: { inBand: 0, prog: 0, returned: 0, servedBad: 0, labels: 0, served: 0, expired: 0, mistakes: 0, bestHq: 0, inOrder: true, lastAt: 0, minLeft: 1 },
-    say: { who: null, text: level.brief, tone: "info" }, seen: new Set(), events: [], log: [], ticks: 0, actions: [], gather: gatherFor(level, seed), knob };
+    say: { who: null, text: level.brief, tone: "info" }, seen: new Set(), events: [], log: [], ticks: 0, actions: [], gather: gatherFor(level, seed),
+    knob: knob ? knobTune(level.n, assist) : null };
 }
 
 /** The Gather round's shelf: one card per needed group plus the look-alikes, in an order the seed decides. */
@@ -245,7 +261,7 @@ export function place(r: Run, itemId: string, kind: StationKind): boolean {
   pr.items.push({ uid, id: itemId, stage: pr.stage, warn });
   r.selected = kind; record(r, "place " + itemId + " " + kind);
   r.events.push({ type: "placed", station: kind, item: itemId, warn, uid });
-  if (warn && g) { r.stats.mistakes++; say(r, reason(itemId, rules, r.flip) + " Tap it in the pan chips to lift it out.", "warn"); }
+  if (warn && g) { r.stats.mistakes++; say(r, reason(itemId, rules, r.flip) + " Lift it out with its ✕ under the heat bar.", "warn"); }
   return added(r, st, kind, itemId, warn);
 }
 
@@ -328,12 +344,14 @@ export function setKnob(r: Run, kind: StationKind, level: number) {
   const st = r.stations[kind]; if (!r.knob || !st || !STATIONS[kind].heat || STATIONS[kind].thermostat || idle(r)) return;
   st.set = Math.min(1, Math.max(0, level)); st.heatOn = st.set > 0; r.selected = kind; record(r, "knob " + kind + " " + st.set.toFixed(2));
 }
-/** Knob mode: the step comes off the heat. On the ring (within KNOB.perfect s of done) is perfect; early counts the missing cooking as off the band. */
+/** Knob mode: the step comes off the heat. On the star (within the tune's perfect seconds of done) is perfect; early counts the missing cooking as off the band. */
 export function take(r: Run, kind: StationKind) {
   input(r, "take", kind);
-  const st = r.stations[kind], pr = st?.part; if (!r.knob || !st || !pr || pr.state !== "cooking" || pr.progress < KNOB.early || idle(r)) return;
+  // Only a knob's heat comes off this way: a board or blender (no heat) and the oven (thermostat) finish by themselves.
+  const st = r.stations[kind], pr = st?.part, cfg = STATIONS[kind];
+  if (!r.knob || !st || !pr || !cfg.heat || cfg.thermostat || pr.state !== "cooking" || pr.progress < KNOB.early || idle(r)) return;
   const early = (1 - pr.progress) * stageOf(pr).secs * (pr.portions > 1 ? BATCH_SLOW : 1);
-  const grade = early > KNOB.perfect ? "early" : pr.over > KNOB.perfect ? "late" : "perfect";
+  const grade = early > r.knob.perfect ? "early" : pr.over > r.knob.perfect ? "late" : "perfect";
   if (grade === "early") { const miss = Math.round(early / DT); pr.prog += miss; r.stats.prog += miss; }
   r.events.push({ type: "took", station: kind, grade }); record(r, "take " + kind + " " + grade);
   pr.over = 0; r.selected = kind; advance(r, st);
@@ -357,8 +375,10 @@ export function turn(r: Run, kind: StationKind): boolean {
   const stage = stageOf(pr), how = stage.turn;
   if (!how || pr.turned || pr.state !== "cooking") { say(r, how && pr.turned ? "That's done. Let it finish." : "Nothing to " + (how ? TURN_TOOL[how].verb.toLowerCase() : "turn") + " yet.", "warn"); return false; }
   if (how === "flip" && pr.progress < 0.45) { say(r, "Not yet. Flip it once it's half done.", "warn"); return false; }
+  // Knob mode: a turn within the tune's window of it falling due (a flip before halfway has not waited at all) is on time.
+  const grade = !r.knob ? undefined : pr.wait <= r.knob.turn ? "perfect" as const : "late" as const;
   pr.turned = true; pr.wait = 0; r.selected = kind; record(r, "turn " + kind);
-  r.events.push({ type: "turned", station: kind });
+  r.events.push({ type: "turned", station: kind, how, grade });
   if (how === "fold" && stage.secs === 0) advance(r, st);
   else say(r, how === "flip" ? "Flipped. Let the other side cook." : "Folded.", "good");
   return true;
@@ -519,7 +539,8 @@ function heatStation(r: Run, st: StationRun) {
   const cfg = STATIONS[st.kind], pr = st.part;
   if (!cfg.heat) {
     if (pr && pr.state === "ready") { leftIn(r, st, true); return; }
-    // A fold waits for the player; nothing cooks until it is done.
+    // A fold waits for the player; nothing cooks until it is done. With the knob, the cook timer counts how long it has waited.
+    if (r.knob && pr && pr.state === "cooking" && stageOf(pr).turn === "fold" && !pr.turned) pr.wait += DT;
     if (pr && pr.state === "cooking" && !(stageOf(pr).turn === "fold" && !pr.turned)) {
       const secs = (stageOf(pr).secs || 0.001) * (pr.portions > 1 ? BATCH_SLOW : 1); pr.progress = Math.min(1, pr.progress + DT / secs); if (pr.progress >= 1) advance(r, st);
     }
@@ -562,24 +583,27 @@ function heatStation(r: Run, st: StationRun) {
   if (stage.turn === "flip" && !pr.turned && pr.progress >= 0.5) {
     if (pr.wait === 0) { r.events.push({ type: "turnDue", station: st.kind }); hintSay(r, "flip-" + st.kind, "Flip it! Drag the spatula onto the " + cfg.name.toLowerCase() + "."); }
     pr.wait += DT; pr.progress = 0.5;
+    // Knob mode: waiting past the flip's window cooks the underside off the band.
+    if (r.knob && pr.wait > r.knob.turn) { pr.prog++; r.stats.prog++; }
     if (pr.wait >= FLIP_GRACE) { pr.state = "scorched"; say(r, "The underside burnt. Flip it as soon as it's half done.", "warn"); r.events.push({ type: "scorched", station: st.kind }); }
     return;
   }
-  // Knob mode: a done step waits for the player's tap; standing past the ring overcooks it (time off the band), and after
-  // KNOB.grace it comes off by itself.
-  if (r.knob && pr.progress >= 1) {
+  // Knob mode: a done step waits for the player's Take off; standing past the star overcooks it (time off the band), and after
+  // the tune's grace it comes off by itself. An oven holds its own heat (no knob), so its steps finish by themselves as with the switch.
+  const tune = cfg.thermostat ? null : r.knob;
+  if (tune && pr.progress >= 1) {
     pr.over += DT;
-    if (pr.over > KNOB.perfect) { pr.prog++; r.stats.prog++; }
-    if (pr.over >= KNOB.grace) { r.events.push({ type: "took", station: st.kind, grade: "late" }); pr.over = 0; advance(r, st); }
+    if (pr.over > tune.perfect) { pr.prog++; r.stats.prog++; }
+    if (pr.over >= tune.grace) { r.events.push({ type: "took", station: st.kind, grade: "late" }); pr.over = 0; advance(r, st); }
     return;
   }
   const rate = st.H >= lo ? 1 : !cfg.thermostat && st.H >= lo - 0.1 ? 0.5 : 0;
   if (rate > 0) {
     pr.progress = Math.min(stage.turn === "flip" && !pr.turned ? 0.5 : 1, pr.progress + rate * DT / (stage.secs * (pr.portions > 1 ? BATCH_SLOW : 1))); pr.prog++; r.stats.prog++;
     if (st.H >= lo && st.H <= hi) { pr.inBand++; r.stats.inBand++; }
-    if (r.knob && pr.progress >= KNOB.early) hintSay(r, "take-" + st.kind, "Take the " + cfg.name.toLowerCase() + " off as the timer reaches the gold star.");
+    if (tune && pr.progress >= KNOB.early) hintSay(r, "take-" + st.kind, "Take the " + cfg.name.toLowerCase() + " off as the timer reaches the gold star.");
   }
-  if (pr.progress >= 1 && !r.knob) advance(r, st);
+  if (pr.progress >= 1 && !tune) advance(r, st);
 }
 
 /** A ready dish left in a station that spoils it (STATIONS burnAfter): it keeps for that long, then is lost. `hot` counts the time. */

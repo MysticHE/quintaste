@@ -14,10 +14,12 @@ export function Bubbles({ run, L, art, plateSel, onGuest }: { run: sim.Run; L: L
 
 /** One guest's order bubble. A tall one (two diet rules, large text) moves down over the guest rather than up over the order card. */
 function Bubble({ g, run, L, art, serving, onGuest }: { g: sim.GuestRun; run: sim.Run; L: Layout; art: Art; serving: boolean; onGuest(id: string): void }) {
-  const ref = useRef<HTMLButtonElement>(null), s = L.seats[g.seat - 1], floor = L.recipe.y + L.recipe.h + 6;
-  useLayoutEffect(() => { const el = ref.current; if (el && s) el.style.top = Math.max(s.bubble.y, floor + el.offsetHeight + 8) + "px"; });
+  const ref = useRef<HTMLButtonElement>(null), s = L.seats[g.seat - 1], floor = L.recipe.y + L.recipe.h + 6, waiting = g.state === "waiting", mates = sim.mates(run, g), paired = mates.length > 0;
+  // Measured only when the bubble's height can change (its lines, the layout and text size), not on every frame of service.
+  useLayoutEffect(() => { const el = ref.current; if (el && s) el.style.top = Math.max(s.bubble.y, floor + el.offsetHeight + 8) + "px"; },
+    [s, floor, waiting, g.rules.length, paired]);
   if (!s) return null;
-  const hearts = Math.ceil(g.patience / g.maxPatience * 5), guest = GUESTS[g.guestId], waiting = g.state === "waiting", mates = sim.mates(run, g);
+  const hearts = Math.ceil(g.patience / g.maxPatience * 5), guest = GUESTS[g.guestId];
   const cls = "bubble" + (run.focus === g.orderId && !serving ? " focus" : "") + (serving && waiting ? " target" : "") + (g.vip ? " vip" : "") + (hearts <= 1 && waiting ? " low" : "");
   return <button ref={ref} className={cls} style={{ left: s.bubble.x, top: s.bubble.y, maxWidth: L.seatW - 2 }} onClick={() => onGuest(g.orderId)} disabled={!waiting}
     aria-label={guest.name + ", seat " + g.seat + ", " + DISHES[g.dishId].name + (g.rules.length ? ", " + g.rules.map(r => RULES[r].spoken).join(", ") : "")
@@ -25,7 +27,7 @@ function Bubble({ g, run, L, art, serving, onGuest }: { g: sim.GuestRun; run: si
     {!waiting ? <span className="chip yum">Enjoying it ♥</span> : <>
       <span className="row"><img src={art[DISHES[g.dishId].art]} alt="" />{serving && <span className="chip serve">Drop</span>}{g.vip && <span className="chip crown">♛ VIP</span>}</span>
       {g.rules.map(r => <span key={r} className={"chip rule " + r}>{RULES[r].short}</span>)}
-      {mates.length > 0 && <span className="chip pair">⇄ Shared pot</span>}
+      {paired && <span className="chip pair">⇄ Shared pot</span>}
       <span className="hearts" aria-hidden>{[0, 1, 2, 3, 4].map(i => <span key={i} className={i < hearts ? "" : "off"}>♥</span>)}</span>
     </>}
   </button>;
@@ -61,12 +63,13 @@ export function stationState(run: sim.Run, kind: StationKind): { text: string; s
   if (pr.state === "scorched") return { text: "Scorched · Restart", short: "Restart", tone: "warn" };
   if (pr.state === "split") return { text: "Split · Restart", short: "Restart", tone: "warn" };
   if (pr.state === "loading" || pr.state === "waiting") return cook("Add more", "Add", "idle");
+  // Knob mode: the tag calls the take window and the turns on every station, so a step nearly done is never missed while cooking
+  // elsewhere; a turn on time is gold, a late one a warning.
+  const phase = run.knob && !cfg.thermostat ? takePhase(pr, run.knob) : "idle";
   const turn = !pr.turned ? sim.stageOf(pr).turn : undefined;
-  if (turn === "fold") return cook("Fold it", "Fold", "warn");
-  if (turn === "flip" && pr.progress >= 0.5) return cook("Flip it!", "Flip!", "warn");
+  if (turn === "fold") return phase === "turn" ? cook("Fold now!", "Fold!", "take") : cook("Fold it", "Fold", "warn");
+  if (turn === "flip" && pr.progress >= 0.5) return phase === "turn" ? cook("Flip now!", "Flip!", "take") : cook("Flip it!", "Flip!", "warn");
   if (!cfg.heat) return cook("Cooking " + pct, pct, "cook");
-  // Knob mode: the tag calls the take window (C) on every station, so a step nearly done is never missed while cooking elsewhere.
-  const phase = run.knob && !cfg.thermostat ? takePhase(pr) : "idle";
   if (phase === "now") return cook("Take off!", "Now!", "take");
   if (phase === "over") return cook("Overcooking!", "Over!", "warn");
   if (phase === "near") return cook("Almost · " + pct, pct, "take");
@@ -82,21 +85,53 @@ export function StationTags({ run, L, plateSel, dragging, onSelect, onRestart }:
   run: sim.Run; L: Layout; plateSel: number | null; dragging: StationKind | null; onSelect(k: StationKind): void; onRestart(k: StationKind): void;
 }) {
   // Three or more stations share the row with the plating board, so their tags use short words in a compact size.
-  const serving = plateSel !== null && !!run.board[plateSel], narrow = Object.keys(L.stations).length >= 3, roomy = !narrow && 13 * 8 + 46 <= L.plating.w;
+  const serving = plateSel !== null && !!run.board[plateSel], narrow = Object.keys(L.stations).length >= 3;
+  const roomy = !narrow && wordsWidth("Drop on a guest", tagPx(false, L.ts)) + TAG_ICON.wide + TAG_PAD.wide <= L.plating.w;
   return <>
     {(serving || dragging) && <span className={"stag plating ready" + (narrow ? " narrow" : "")} style={{ left: L.plating.tag.x, top: L.plating.tag.y, maxWidth: L.plating.w }} aria-hidden="true">
       <TagIcon tone="plate" /><span className="tx">{serving ? (roomy ? "Drop on a guest" : "Drop") : "Drop here"}</span></span>}
     {(Object.keys(L.stations) as StationKind[]).map(k => {
-      // The full words when they fit the tag (about 8 px a letter beside the icon), else the short ones, never cut off.
-      const r = L.stations[k]!, s = stationState(run, k), cfg = STATIONS[k], long = !narrow && s.text.length * 8 + 46 <= r.w - 2;
+      const r = L.stations[k]!, s = stationState(run, k), cfg = STATIONS[k], room = r.w - 2 + 2 * TAG_LEAN, fit = fitTag(s, room, narrow, L.ts);
       // Idle tags (the station's name, Add more, Empty) are not shown unless the pot is cooking for two; they stay in the page, invisible,
       // so a screen reader or keyboard can still reach the station, and show while focused. Cooking shows how far it has got.
       const quiet = s.tone === "idle" && run.stations[k]?.part?.portions !== 2;
-      return <button key={k} className={"stag " + s.tone + (narrow ? " narrow" : "") + (quiet ? " quiet" : "")} style={{ left: r.tag.x, top: r.tag.y, maxWidth: r.w - 2 }}
+      return <button key={k} className={"stag " + s.tone + (narrow ? " narrow" : "") + fit.cls + (quiet ? " quiet" : "")} style={{ left: r.tag.x, top: r.tag.y, maxWidth: room, fontSize: fit.px }}
         onClick={() => { const state = run.stations[k]?.part?.state; if (state === "scorched" || state === "split") onRestart(k); else onSelect(k); }}
-        aria-label={cfg.name + ": " + s.text}><TagIcon tone={s.tone === "cook" && cfg.heat ? "flame" : s.tone} /><span className="tx">{long ? s.text : s.short}</span></button>;
+        aria-label={cfg.name + ": " + s.text}><TagIcon tone={s.tone === "cook" && cfg.heat ? "flame" : s.tone} /><span className="tx">{fit.text}</span></button>;
     })}
   </>;
+}
+
+/** A tag's font size: 13 px times the text size, or 12 px on a crowded row, where it grows to 1.1 times at most (styles.ts). */
+const tagPx = (narrow: boolean, ts: number) => (narrow ? 12 * Math.min(ts, 1.1) : 13 * ts);
+/** Room a tag's icon (with its gap) and padding take, and how far a tag may lean past its station on each side (stations stand 4 px apart). */
+const TAG_ICON = { wide: 23, narrow: 16 }, TAG_PAD = { wide: 22, narrow: 14, bare: 16 }, TAG_LEAN = 4;
+/** Tag words in the tags' own font, measured (and kept once the font has loaded), so a tag never chooses words it must cut off. */
+const measured = new Map<string, number>();
+let pen: CanvasRenderingContext2D | null | undefined;
+function wordsWidth(text: string, px: number) {
+  const font = "800 " + px.toFixed(2) + "px Nunito_800ExtraBold, Nunito, ui-rounded, 'Segoe UI', system-ui, sans-serif", key = font + "|" + text;
+  const known = measured.get(key); if (known !== undefined) return known;
+  if (pen === undefined) pen = typeof document === "undefined" ? null : document.createElement("canvas").getContext("2d");
+  if (!pen) return text.length * px * 0.62;
+  pen.font = font; const w = pen.measureText(text).width;
+  if (document.fonts?.check(font)) measured.set(key, w);
+  return w;
+}
+/**
+ * The words a tag shows, the first that fits its room: the full words with the icon (a row of one or two stations), the short
+ * words with the icon, the short words alone (the tag's colour still says its state), without the "×2", or on two lines; a word
+ * still too long steps down a size, never under 11 px.
+ */
+function fitTag(s: { text: string; short: string }, room: number, narrow: boolean, ts: number): { text: string; cls: string; px?: number } {
+  const px = tagPx(narrow, ts), icon = TAG_ICON[narrow ? "narrow" : "wide"], pad = TAG_PAD[narrow ? "narrow" : "wide"];
+  const fits = (text: string, extra: number) => wordsWidth(text, px) + extra <= room, plain = s.short.replace(/^×2 /, "");
+  if (!narrow && fits(s.text, icon + pad)) return { text: s.text, cls: "" };
+  if (fits(s.short, icon + pad)) return { text: s.short, cls: "" };
+  if (fits(s.short, TAG_PAD.bare)) return { text: s.short, cls: " bare" };
+  if (fits(plain, TAG_PAD.bare)) return { text: plain, cls: " bare" };
+  const wrap = plain.includes(" "), need = wrap ? Math.max(...plain.split(" ").map(w => wordsWidth(w, px))) : wordsWidth(plain, px);
+  return { text: plain, cls: " bare" + (wrap ? " wrap" : ""), px: need + TAG_PAD.bare <= room ? undefined : Math.max(11, px * (room - TAG_PAD.bare) / need) };
 }
 
 /** The small icon at the front of a state tag: a plate (carrying a dish), a tick (ready), a warning, or the turner (take it off). */

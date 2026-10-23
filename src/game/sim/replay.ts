@@ -30,8 +30,8 @@ export type RunSetup = { level: number; special?: { day: string; top: number } |
   cafe?: { host: string; menu: string[] } | null;
   /** The service's seed: arrivals, shuffled jars and twists. The app derives it from the run's id (`seedOf`), the server from the stored id. */
   seed: number;
-  /** Knob and ring heat (prototype; the app keeps these services as practice, so the server never opens one yet). */
-  knob?: boolean };
+  /** Knob and cook timer heat, and its Assist (prototype; the app keeps these services as practice, so the server never opens one yet). */
+  knob?: boolean; assist?: boolean };
 
 /** What the app sends when a service starts; the server turns `special` (a date) into its stored setup. */
 export type RunStart = { id: string; level: number; special: string | null; top?: number | null; hints: Level["hints"] | null; pet: string; signature: string[];
@@ -137,7 +137,7 @@ export function tickLimit(setup: RunSetup) {
  */
 export function replay(setup: RunSetup, actions: unknown): sim.Run {
   if (!Array.isArray(actions) || actions.length > MAX_ACTIONS) throw new ReplayError("bad log");
-  const limit = tickLimit(setup), r = sim.createRun(setupLevel(setup), setup.pet, setup.signature, hintsOf(setup), int(setup.seed, 0xffffffff), setup.knob === true);
+  const limit = tickLimit(setup), r = sim.createRun(setupLevel(setup), setup.pet, setup.signature, hintsOf(setup), int(setup.seed, 0xffffffff), setup.knob === true, setup.assist === true);
   const advanceTo = (tick: number) => {
     while (r.ticks < tick) {
       const before = r.ticks;

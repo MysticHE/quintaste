@@ -9,6 +9,7 @@ import { GUESTS } from "../content/guests";
 import { ITEM_FORM, ITEMS, type ItemTone } from "../content/items";
 import * as sim from "../sim/engine";
 import { takePhase } from "./Knob";
+import { SERVE_GLIDE } from "./coinsFx";
 import { CounterPet } from "./pet";
 import { nearestStation, type Layout, type Point, type Rect } from "./layout";
 import * as motion from "./motion";
@@ -238,8 +239,9 @@ export class Playfield extends Phaser.Scene {
     if (flaring) v.glow.setFillStyle(P.flameHot, 0.55 + 0.3 * Math.sin(t * 16));
     else if (this.heatPreview?.kind === kind) { const h = this.heatPreview.v; v.glow.setFillStyle(h >= cfg.scorch ? P.flameHot : P.flame, Math.min(0.7, 0.12 + h * 0.6)); }
     else v.glow.setFillStyle(st.H >= cfg.scorch ? P.flameHot : P.flame, cfg.heat && st.heatOn || st.H > 0.3 ? Math.min(0.55, st.H * 0.65) : 0);
-    // Knob mode: a step on the ring stands in a pulsing pool of gold light, the cue to take it off.
-    if (this.run.knob && cfg.heat && !this.reduced && takePhase(pr) === "now") hl(0.55 + 0.35 * Math.sin(t * 14));
+    // Knob mode: a step on the star, or a turn on time, stands in a pulsing pool of gold light, the cue to act now.
+    const ph = this.run.knob && !this.reduced ? takePhase(pr, this.run.knob) : "idle";
+    if ((ph === "now" && cfg.heat) || ph === "turn") hl(0.55 + 0.35 * Math.sin(t * 14));
     const toss = !cooking || this.reduced || !cfg.heat ? 0 : st.H >= lo && st.H <= hi ? 1 : st.H >= lo - 0.1 ? 0.4 : 0;
     v.pan.draw(pr, t, this.landing, toss);
     v.steam.emitting = !this.reduced && cooking && pr!.progress > 0.35;
@@ -292,7 +294,7 @@ export class Playfield extends Phaser.Scene {
     const b = this.L.board[slot], s = this.L.seats[seat - 1];
     if (!b || !s || this.reduced) { then(); return; }
     this.incomingSeats.add(seat);
-    motion.arc(this, DISHES[dishId].art, { x: b.x + b.w / 2, y: b.y + b.h / 2 }, { x: s.mat.x + s.mat.w / 2, y: s.mat.y + s.mat.h * 0.42 }, b.w * 1.05, 380,
+    motion.arc(this, DISHES[dishId].art, { x: b.x + b.w / 2, y: b.y + b.h / 2 }, { x: s.mat.x + s.mat.w / 2, y: s.mat.y + s.mat.h * 0.42 }, b.w * 1.05, SERVE_GLIDE,
       () => { this.incomingSeats.delete(seat); motion.hearts(this, { x: s.guest.x + s.guest.w / 2, y: s.guest.y + s.guest.h * 0.18 }); this.pet.cheer(s.mat.x + s.mat.w / 2); then(); }, s.mat.w * 1.05);
   }
   /** The station gives a little squash as an ingredient lands in it. */

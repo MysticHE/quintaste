@@ -3,7 +3,7 @@
  * then that star bursts; the heading slams in (with confetti on a clear) and the rest of the results rise one by one. A tap
  * anywhere skips to the end. With motion reduced, everything is simply there.
  */
-import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
+import { useEffect, useMemo, useRef, useState, useSyncExternalStore, type CSSProperties } from "react";
 import type { Sfx } from "./audio";
 
 /** Where the three stars sit on the bar, as in the HUD: all served, then 75% and 90% of the takings. */
@@ -11,12 +11,19 @@ const MARKS = [0.25, 0.75, 0.9];
 const FILL_MS = 1100, HOLD_MS = 240, TICK = 0.08;
 export type Cue = (kind: Sfx, n?: number) => void;
 
-type Beat = { fill: number; lit: number; hold: boolean; done: boolean; skipped: boolean };
+type Beat = { lit: number; hold: boolean; done: boolean; skipped: boolean };
+/** How full the bar is, read by FillBar alone: the fill changes every frame, the rest of the results sheet only at its beats. */
+export type Fill = { get(): number; subscribe(cb: () => void): () => void };
+function fillStore(start: number) {
+  let v = start; const subs = new Set<() => void>();
+  return { get: () => v, set(n: number) { if (n !== v) { v = n; subs.forEach(cb => cb()); } }, subscribe(cb: () => void) { subs.add(cb); return () => { subs.delete(cb); }; } };
+}
 
 export function useCelebrate(res: { coins: number; max: number; stars: number; cleared: boolean }, still: boolean, cue: Cue) {
   const final = Math.min(1, res.coins / Math.max(1, res.max));
-  const end: Beat = { fill: final, lit: res.stars, hold: false, done: true, skipped: still };
-  const [beat, setBeat] = useState<Beat>(still ? end : { fill: 0, lit: 0, hold: false, done: false, skipped: false });
+  const end: Beat = { lit: res.stars, hold: false, done: true, skipped: still };
+  const [beat, setBeat] = useState<Beat>(still ? end : { lit: 0, hold: false, done: false, skipped: false });
+  const [bar] = useState(() => fillStore(still ? final : 0));
   const frame = useRef(0), cueRef = useRef(cue);
   useEffect(() => { cueRef.current = cue; });
 
@@ -30,9 +37,9 @@ export function useCelebrate(res: { coins: number; max: number; stars: number; c
       if (now < holdUntil) { frame.current = requestAnimationFrame(step); return; }
       if (holdUntil) { holdUntil = 0; cueRef.current("star", lit); lit++; setBeat(b => ({ ...b, lit, hold: false })); }
       fill = Math.min(final, fill + dt / FILL_MS);
-      if (lit < at.length && fill >= at[lit]) { fill = at[lit]; holdUntil = now + HOLD_MS; setBeat(b => ({ ...b, fill, hold: true })); frame.current = requestAnimationFrame(step); return; }
+      if (lit < at.length && fill >= at[lit]) { fill = at[lit]; holdUntil = now + HOLD_MS; bar.set(fill); setBeat(b => ({ ...b, hold: true })); frame.current = requestAnimationFrame(step); return; }
       if (fill >= (ticks + 1) * TICK) { ticks++; cueRef.current("fill", ticks - 1); }
-      setBeat(b => ({ ...b, fill }));
+      bar.set(fill);
       if (fill < final || lit < at.length) { frame.current = requestAnimationFrame(step); return; }
       if (res.cleared) cueRef.current("slam");
       setBeat({ ...end, skipped: false });
@@ -42,12 +49,13 @@ export function useCelebrate(res: { coins: number; max: number; stars: number; c
   }, []); // eslint-disable-line react-hooks/exhaustive-deps -- runs once per results sheet
 
   /** A tap during the sequence jumps to the end. */
-  const skip = () => { if (beat.done) return; cancelAnimationFrame(frame.current); setBeat({ ...end, skipped: true }); };
-  return { ...beat, skip };
+  const skip = () => { if (beat.done) return; cancelAnimationFrame(frame.current); bar.set(final); setBeat({ ...end, skipped: true }); };
+  return { ...beat, fill: bar, skip };
 }
 
 /** The takings bar with its three stars and a count that runs up with the fill. */
-export function FillBar({ fill, lit, hold, max }: { fill: number; lit: number; hold: boolean; max: number }) {
+export function FillBar({ fill: bar, lit, hold, max }: { fill: Fill; lit: number; hold: boolean; max: number }) {
+  const fill = useSyncExternalStore(bar.subscribe, bar.get);
   return <div className="rfill">
     <div className={"rbar" + (hold ? " hold" : "")}><i style={{ width: fill * 100 + "%" }} />
       {MARKS.map((m, i) => <span key={i} className={"star" + (i < lit ? " lit" : i === lit && hold ? " next" : "")} style={{ left: m * 100 + "%" }}>★</span>)}</div>

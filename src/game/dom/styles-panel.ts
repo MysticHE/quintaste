@@ -72,6 +72,12 @@ export const PANEL_CSS = `
 .rh .cooktimer.now .cwin { transform:scale(1.18); box-shadow:0 0 0 2.5px var(--white), 0 0 18px 7px var(--gold-hi); }
 .rh .cooktimer.now .cmark { box-shadow:0 0 0 3px var(--gold-deep), 0 0 12px 4px var(--gold-hi); }
 .rh .cooktimer.over .cmark { box-shadow:0 0 0 3px var(--warn), 0 2px 5px var(--shadow); animation:rhnope .4s ease-in-out infinite; }
+/* A flip (at halfway) or a fold (at the start) on the cook timer: gold while it is on time, red once it is late. */
+.rh .cturn { position:absolute; top:50%; z-index:2; width:24px; height:24px; margin:-12px 0 0 -12px; border-radius:50%; display:grid; place-items:center;
+  background:var(--white); color:var(--ink-2); box-shadow:0 0 0 2px var(--panel-edge), 0 2px 4px var(--shadow); }
+.rh .cturn svg { width:15px; height:15px; fill:currentColor; }
+.rh .cturn.due { background:linear-gradient(var(--gold-hi),var(--gold)); color:var(--gold-ink); box-shadow:0 0 0 2.5px var(--white), 0 0 16px 6px var(--gold-hi); animation:rhwin .45s ease-in-out infinite alternate; }
+.rh .cturn.late { background:var(--warn); color:var(--white); box-shadow:0 0 0 2.5px var(--white), 0 2px 5px var(--shadow); animation:rhnope .4s ease-in-out infinite; }
 @keyframes rhwin { to { box-shadow:0 0 0 2px var(--white), 0 0 14px 5px var(--gold-hi); } }
 /* Messages from the chef or a guest, under the order card, gone on their own. */
 .rh .saytoast { position:absolute; z-index:45; transform:translateX(-50%); display:flex; align-items:center; gap:8px; width:max-content; padding:5px 14px 5px 5px; border-radius:20px;

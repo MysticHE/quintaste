@@ -16,12 +16,14 @@ export type PlaySettings = {
   burner: "toggle" | "hold";
   pace: Pace; hints: HintLevel; text: TextChoice;
   motion: MotionChoice;
-  /** Heat controls: the burner switch, or the knob and ring (prototype, Chapter 1 only, development builds only). */
+  /** Heat controls: the burner switch, or the knob and cook timer (prototype, the numbered levels, development builds only). */
   heat: "classic" | "knob";
+  /** The knob's Assist: a slower, steadier needle, near misses caught by the band, and wider windows to take off, flip and fold. */
+  knobAssist: boolean;
 };
 
 export const defaultSettings: PlaySettings = {
-  sound: false, music: false, haptics: false, captions: false, burner: "toggle", pace: "normal", hints: "level", text: "app", motion: "auto", heat: "classic",
+  sound: false, music: false, haptics: false, captions: false, burner: "toggle", pace: "normal", hints: "level", text: "app", motion: "auto", heat: "classic", knobAssist: false,
 };
 
 /** Simulation speed per real second. The simulation itself is unchanged, so scores mean the same at every pace. */
@@ -46,10 +48,13 @@ export function readSettings(value: unknown): PlaySettings {
     motion: pick(v.motion, ["auto", "reduced", "full"], v.reduceMotion === true ? "reduced" : "auto"),
     burner: pick(v.burner, ["toggle", "hold"], "toggle"), pace: pick(v.pace, ["normal", "relaxed", "slow"], "normal"),
     hints: pick(v.hints, ["level", "always", "off"], "level"), text: pick(v.text, ["app", "standard", "large", "largest"], "app"),
-    heat: pick(v.heat, ["classic", "knob"], "classic"),
+    heat: pick(v.heat, ["classic", "knob"], "classic"), knobAssist: flag("knobAssist"),
   };
 }
-/** The knob and ring prototype plays on Chapter 1's own levels only, and only in development builds. */
+/**
+ * The knob prototype plays on the numbered levels (tuned harder chapter by chapter, sim knobTune), only in development builds:
+ * the server cannot replay it yet, so its services are practice. Specials, seasons, Kitchen levels and café visits keep the switch.
+ */
 export function knobFor(s: PlaySettings, level: { n: number; special?: unknown; mission?: unknown; cafe?: unknown; season?: unknown }) {
-  return process.env.NODE_ENV !== "production" && s.heat === "knob" && level.n >= 1 && level.n <= 10 && !level.special && !level.mission && !level.cafe && !level.season;
+  return process.env.NODE_ENV !== "production" && s.heat === "knob" && level.n >= 1 && !level.special && !level.mission && !level.cafe && !level.season;
 }

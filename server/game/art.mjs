@@ -146,9 +146,11 @@ gameArtBots.post('/jobs/:id/answer', raw('1600kb'), signed, async (req, res, nex
     for (const v of variants) {
       try {
         const picture = await normalizePicture(typeof v === 'string' && v.length < VARIANT_BYTES * 1.4 ? Buffer.from(v, 'base64') : null);
-        const meta = JSON.stringify({ ...provenance, normalized: { width: picture.width, height: picture.height } }).slice(0, 8000);
+        // Provenance is kept whole up to 8,000 characters; a longer one is not cut (a cut-off JSON text would not parse), the picture
+        // keeps its size and a note instead.
+        const normalized = { width: picture.width, height: picture.height }, full = JSON.stringify({ ...provenance, normalized });
         await pool.query(`INSERT INTO game.asset(sha256, bytes, width, height, provenance) VALUES($1,$2,$3,$4,$5::jsonb) ON CONFLICT DO NOTHING`,
-          [picture.sha256, picture.bytes, picture.width, picture.height, JSON.parse(meta.endsWith('}') ? meta : '{}')]);
+          [picture.sha256, picture.bytes, picture.width, picture.height, full.length <= 8000 ? full : JSON.stringify({ normalized, truncated: true })]);
         kept.push(picture.sha256);
       } catch (error) { refused.push(String(error.message).slice(0, 80)); }
     }

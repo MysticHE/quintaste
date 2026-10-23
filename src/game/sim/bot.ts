@@ -49,9 +49,12 @@ export function botStep(r: sim.Run) {
     const pr = st.part, [lo, hi] = sim.bandOf(st, pr), mid = (lo + hi) / 2, cfg = STATIONS[st.kind];
     const needed = sim.waiting(r).some(g => DISHES[g.dishId].parts.some(p => p.station === st.kind));
     if (cfg.thermostat) { const want = needed && pr?.state !== "ready"; if (want !== st.heatOn) sim.toggleHeat(r, st.kind); continue; }
-    // Knob mode: set the flame to the band's middle once per step, and take each step off on the ring.
+    // Knob mode: set the flame to the band's middle once per step (an oven or fryer from when a waiting guest's dish needs it; the
+    // band's low end before a step that splits when hot), turn it off to ride out a flare, and take each step off on the star.
     if (r.knob) {
-      const busy = pr && (pr.state === "cooking" || pr.state === "loading" || pr.state === "waiting"), set = busy ? Math.round(mid * 100) / 100 : 0;
+      const busy = (pr && (pr.state === "cooking" || pr.state === "loading" || pr.state === "waiting")) || (!pr && cfg.preheat && needed);
+      const cool = pr && sim.stageOf(pr).splitIfHot && pr.state !== "cooking", bracing = r.sched.flares.some(f => f.station === st.kind && f.warned && !f.hit);
+      const set = busy && !bracing ? Math.round((cool ? lo + 0.02 : mid) * 100) / 100 : 0;
       if (Math.abs(st.set - set) > 0.02) sim.setKnob(r, st.kind, set);
       if (pr?.state === "cooking" && pr.progress >= 1 - 0.7 / sim.stageOf(pr).secs) sim.take(r, st.kind);
       continue;

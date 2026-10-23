@@ -20,7 +20,8 @@ export function PlaySettingsSheet({ settings, onChange, onClose }: { settings: P
     </Section>
     <Section title="Controls">
       <Choice label="Burner"><Seg label="Burner" value={settings.burner} onChange={v => put("burner", v)} options={[["toggle", "Tap on and off"], ["hold", "Hold to heat"]]} /></Choice>
-      {__DEV__ && <Choice label="Heat (prototype, Chapter 1)"><Seg label="Heat" value={settings.heat} onChange={v => put("heat", v)} options={[["classic", "Classic"], ["knob", "Knob and ring"]]} /></Choice>}
+      {__DEV__ && <Choice label="Heat (prototype)"><Seg label="Heat" value={settings.heat} onChange={v => put("heat", v)} options={[["classic", "Classic"], ["knob", "Knob and timer"]]} /></Choice>}
+      {__DEV__ && settings.heat === "knob" && <Row label="Knob assist" value={settings.knobAssist} onToggle={v => put("knobAssist", v)} />}
     </Section>
     <Section title="Help">
       <Choice label="Pace"><Seg label="Pace" value={settings.pace} onChange={v => put("pace", v)} options={[["normal", "Normal"], ["relaxed", "Relaxed"], ["slow", "Slow"]]} /></Choice>
