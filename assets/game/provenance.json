@@ -1848,7 +1848,9 @@
    941,
    987
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-23"
  },
  "rh-counter": {
   "source": "runs/scene2/counter",
@@ -6243,7 +6245,9 @@
    720,
    1280
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-23"
  },
  "serving-tray": {
   "source": "runs/serving1/serving-tray",
@@ -6258,6 +6262,8 @@
    256,
    180
   ],
-  "status": "draft: needs artist approval before members see it"
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-23"
  }
 }
