@@ -1,0 +1,63 @@
+{
+  "checkedAt": "2026-10-23T10:04:40.560089+00:00",
+  "publicationComplete": true,
+  "sourceCoverageComplete": false,
+  "ownerAcceptedUnavailableMenus": true,
+  "productionApplied": true,
+  "release": "20261023-ci141-79de684",
+  "sourceCommit": "79de684597f844bacd8e7ec2684ce144d06ab89a",
+  "workflow": "https://github.com/MysticHE/quintaste/actions/runs/39933550006",
+  "patchesPublished": 65,
+  "newCovers": 21,
+  "newMenus": 20,
+  "newMenuEntries": 308,
+  "existingMenusCorrected": 9,
+  "minimumPricesCorrected": 77,
+  "hoursReviewsPublished": 26,
+  "liveApiChecks": 86,
+  "liveBrowserChecks": 146,
+  "vegKitchenLocations": 374,
+  "remaining": {
+    "missingCovers": 44,
+    "missingMenus": 44,
+    "missingHoursFields": 18
+  },
+  "backup": "/docker/quintaste/state/content-backups/explore-batches21-39-20261023T095328Z-apply",
+  "guardedForwardRecoverySql": "/docker/quintaste/state/content-backups/explore-batches21-39-20261023T095328Z-apply/rollback-reviewed.sql",
+  "workbook": {
+    "checkedAt": "2026-10-23T10:04:40.560089+00:00",
+    "passed": true,
+    "workbook": "docs/research/explore-completion-2026-10-23.xlsx",
+    "sha256": "c299da59ca5c4c161f5fb9de3d0353fcb716013df2d16d8cb3d62507f53fa9af",
+    "locationRows": 374,
+    "unavailableMenusResearchChecked": 44,
+    "unavailableMenusLeftEmpty": true,
+    "publishedLocationRows": 44,
+    "allCellsReadBack": true,
+    "productionApplied": true
+  },
+  "limitations": [
+    "44locations still lack verified menus and covers; accepted research dispositions, no routine recheck.",
+    "18hours fields absent; partial weeks remain explicitly partial.",
+    "No whole-catalogue kitchen-claim or complete current menu/week certification.",
+    "Physical-device appearance untested."
+  ],
+  "deploymentSecretAudit": {
+    "passed": true,
+    "archiveSha256": "48971a58dbbca4f4f65a6006f1089815230f73c9becb5e1a102c39b09b0aebbc",
+    "archiveBytes": 64285730,
+    "archiveFiles": 2110,
+    "forbiddenPrivateFiles": false,
+    "builtInImageSecretEnvNames": {
+      "app": [],
+      "preview": [],
+      "admin": []
+    },
+    "findingCount": 0
+  },
+  "verificationNotes": [
+    "The public catalogue intentionally omits internal merchant sourceUrl; all four were verified in the content store.",
+    "The initial parallel browser attempt reached the guest request quota. The complete rerun was paced and sequential; production rate limits were unchanged.",
+    "Secret scan flags on public image identifiers were resolved by naming the field imageId. The commit scan and actual deployment archive scan passed."
+  ]
+}
