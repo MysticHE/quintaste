@@ -1,0 +1,214 @@
+{
+ "version": 1,
+ "note": "Wide (3:2) versions of the 16 chapter and season reward cafe skins (style.json homeSkin), from widen.py prep on the imported portrait variant (runs/skin-portrait/<skin>/raw-<n>.png); results go through widen.py composite.",
+ "assets": [
+  {
+   "id": "skin-spice-wide",
+   "kind": "widen",
+   "aspect": "landscape",
+   "chroma": null,
+   "reference": false,
+   "refs": [
+    "widen-spice.png"
+   ],
+   "subject": "the Spice market caf\u00e9 room, in its own finish: warm terracotta and saffron walls, strings of dried red chillies and bay leaves, brass spice tins and small burlap spice sacks on the shelves, a mortar and pestle, late-afternoon golden light",
+   "details": "On the left, continue the wall past the bookshelf with another tall shelf in the same finish and decorations, under a hanging lamp. On the right, continue past the arched doorway with the same wall finish, a wall lamp, a small side table with a decoration in the same theme and a hanging plant. Keep the floor, ceiling and light continuous with the middle. No people, no animals, no religious figures or symbols, no altars, no words, letters or numbers anywhere, no onions, garlic or spring onions.",
+   "status": "todo"
+  },
+  {
+   "id": "skin-steamer-wide",
+   "kind": "widen",
+   "aspect": "landscape",
+   "chroma": null,
+   "reference": false,
+   "refs": [
+    "widen-steamer.png"
+   ],
+   "subject": "the Bamboo steamer caf\u00e9 room, in its own finish: jade-green walls with bamboo panelling, stacks of round bamboo steamer baskets on the shelves, soft white steam drifting near the ceiling, paper lamps, gentle morning light",
+   "details": "On the left, continue the wall past the bookshelf with another tall shelf in the same finish and decorations, under a hanging lamp. On the right, continue past the arched doorway with the same wall finish, a wall lamp, a small side table with a decoration in the same theme and a hanging plant. Keep the floor, ceiling and light continuous with the middle. No people, no animals, no religious figures or symbols, no altars, no words, letters or numbers anywhere, no onions, garlic or spring onions.",
+   "status": "todo"
+  },
+  {
+   "id": "skin-bakery-wide",
+   "kind": "widen",
+   "aspect": "landscape",
+   "chroma": null,
+   "reference": false,
+   "refs": [
+    "widen-bakery.png"
+   ],
+   "subject": "the Bakery caf\u00e9 room, in its own finish: cream and butter-yellow walls, loaves, buns and cake stands on the shelves, a glass cake dome, flour-dusted wooden trim, soft pastel morning light",
+   "details": "On the left, continue the wall past the bookshelf with another tall shelf in the same finish and decorations, under a hanging lamp. On the right, continue past the arched doorway with the same wall finish, a wall lamp, a small side table with a decoration in the same theme and a hanging plant. Keep the floor, ceiling and light continuous with the middle. No people, no animals, no religious figures or symbols, no altars, no words, letters or numbers anywhere, no onions, garlic or spring onions.",
+   "status": "todo"
+  },
+  {
+   "id": "skin-kopitiam-wide",
+   "kind": "widen",
+   "aspect": "landscape",
+   "chroma": null,
+   "reference": false,
+   "refs": [
+    "widen-kopitiam.png"
+   ],
+   "subject": "the Kopitiam caf\u00e9 room, in its own finish: old-school Singapore coffee shop finish: green-and-white mosaic wall tiles, a slow ceiling fan, enamel coffee cups and saucers on the shelves, wooden shutters on the window, bright tropical daylight",
+   "details": "On the left, continue the wall past the bookshelf with another tall shelf in the same finish and decorations, under a hanging lamp. On the right, continue past the arched doorway with the same wall finish, a wall lamp, a small side table with a decoration in the same theme and a hanging plant. Keep the floor, ceiling and light continuous with the middle. No people, no animals, no religious figures or symbols, no altars, no words, letters or numbers anywhere, no onions, garlic or spring onions.",
+   "status": "todo"
+  },
+  {
+   "id": "skin-nightstall-wide",
+   "kind": "widen",
+   "aspect": "landscape",
+   "chroma": null,
+   "reference": false,
+   "refs": [
+    "widen-nightstall.png"
+   ],
+   "subject": "the Night stall caf\u00e9 room, in its own finish: dusk at a night market: deep indigo walls, warm string lights zigzagging under the ceiling, a striped stall awning above the window, glowing paper lamps, a purple evening sky outside",
+   "details": "On the left, continue the wall past the bookshelf with another tall shelf in the same finish and decorations, under a hanging lamp. On the right, continue past the arched doorway with the same wall finish, a wall lamp, a small side table with a decoration in the same theme and a hanging plant. Keep the floor, ceiling and light continuous with the middle. No people, no animals, no religious figures or symbols, no altars, no words, letters or numbers anywhere, no onions, garlic or spring onions.",
+   "status": "todo"
+  },
+  {
+   "id": "skin-dumpling-wide",
+   "kind": "widen",
+   "aspect": "landscape",
+   "chroma": null,
+   "reference": false,
+   "refs": [
+    "widen-dumpling.png"
+   ],
+   "subject": "the Dumpling house caf\u00e9 room, in its own finish: dark lacquered red wood with lattice screens, steaming bamboo baskets and blue-and-white bowls on the shelves, round red silk lamps, a calm night outside",
+   "details": "On the left, continue the wall past the bookshelf with another tall shelf in the same finish and decorations, under a hanging lamp. On the right, continue past the arched doorway with the same wall finish, a wall lamp, a small side table with a decoration in the same theme and a hanging plant. Keep the floor, ceiling and light continuous with the middle. No people, no animals, no religious figures or symbols, no altars, no words, letters or numbers anywhere, no onions, garlic or spring onions.",
+   "status": "todo"
+  },
+  {
+   "id": "skin-garden-wide",
+   "kind": "widen",
+   "aspect": "landscape",
+   "chroma": null,
+   "reference": false,
+   "refs": [
+    "widen-garden.png"
+   ],
+   "subject": "the Garden terrace caf\u00e9 room, in its own finish: a bright glass conservatory finish: white-painted frames, lush potted ferns and flowering vines, terracotta pots, dappled sunlight, a garden view through the window",
+   "details": "On the left, continue the wall past the bookshelf with another tall shelf in the same finish and decorations, under a hanging lamp. On the right, continue past the arched doorway with the same wall finish, a wall lamp, a small side table with a decoration in the same theme and a hanging plant. Keep the floor, ceiling and light continuous with the middle. No people, no animals, no religious figures or symbols, no altars, no words, letters or numbers anywhere, no onions, garlic or spring onions.",
+   "status": "todo"
+  },
+  {
+   "id": "skin-headchef-wide",
+   "kind": "widen",
+   "aspect": "landscape",
+   "chroma": null,
+   "reference": false,
+   "refs": [
+    "widen-headchef.png"
+   ],
+   "subject": "the Head chef caf\u00e9 room, in its own finish: a grand banquet finish: cream walls with gold trim, a small crystal chandelier, polished copper pots on the shelves, a gold laurel wreath above the chalkboard, warm evening light",
+   "details": "On the left, continue the wall past the bookshelf with another tall shelf in the same finish and decorations, under a hanging lamp. On the right, continue past the arched doorway with the same wall finish, a wall lamp, a small side table with a decoration in the same theme and a hanging plant. Keep the floor, ceiling and light continuous with the middle. No people, no animals, no religious figures or symbols, no altars, no words, letters or numbers anywhere, no onions, garlic or spring onions.",
+   "status": "todo"
+  },
+  {
+   "id": "skin-zhai-wide",
+   "kind": "widen",
+   "aspect": "landscape",
+   "chroma": null,
+   "reference": false,
+   "refs": [
+    "widen-zhai.png"
+   ],
+   "subject": "the Zhai days caf\u00e9 room, in its own finish: a calm pale jade and cream finish, white and pink lotus flowers in bowls on the shelves, soft round paper lamps, a full moon in a quiet evening sky outside",
+   "details": "On the left, continue the wall past the bookshelf with another tall shelf in the same finish and decorations, under a hanging lamp. On the right, continue past the arched doorway with the same wall finish, a wall lamp, a small side table with a decoration in the same theme and a hanging plant. Keep the floor, ceiling and light continuous with the middle. No people, no animals, no religious figures or symbols, no altars, no words, letters or numbers anywhere, no onions, garlic or spring onions.",
+   "status": "todo"
+  },
+  {
+   "id": "skin-reunion-wide",
+   "kind": "widen",
+   "aspect": "landscape",
+   "chroma": null,
+   "reference": false,
+   "refs": [
+    "widen-reunion.png"
+   ],
+   "subject": "the Reunion kitchen caf\u00e9 room, in its own finish: Lunar New Year cheer: warm red and gold trim, potted mandarin orange trees, sprigs of pink plum blossom, round red paper lanterns, a bowl of mandarin oranges on the shelf, a festive evening outside",
+   "details": "On the left, continue the wall past the bookshelf with another tall shelf in the same finish and decorations, under a hanging lamp. On the right, continue past the arched doorway with the same wall finish, a wall lamp, a small side table with a decoration in the same theme and a hanging plant. Keep the floor, ceiling and light continuous with the middle. No people, no animals, no religious figures or symbols, no altars, no words, letters or numbers anywhere, no onions, garlic or spring onions.",
+   "status": "todo"
+  },
+  {
+   "id": "skin-bazaar-wide",
+   "kind": "widen",
+   "aspect": "landscape",
+   "chroma": null,
+   "reference": false,
+   "refs": [
+    "widen-bazaar.png"
+   ],
+   "subject": "the Sunset bazaar caf\u00e9 room, in its own finish: Hari Raya evening: teal and gold walls, woven palm-leaf ketupat hanging along the window, small glowing pelita oil lamps on the shelves, a warm sunset sky outside",
+   "details": "On the left, continue the wall past the bookshelf with another tall shelf in the same finish and decorations, under a hanging lamp. On the right, continue past the arched doorway with the same wall finish, a wall lamp, a small side table with a decoration in the same theme and a hanging plant. Keep the floor, ceiling and light continuous with the middle. No people, no animals, no religious figures or symbols, no altars, no words, letters or numbers anywhere, no onions, garlic or spring onions.",
+   "status": "todo"
+  },
+  {
+   "id": "skin-ninedays-wide",
+   "kind": "widen",
+   "aspect": "landscape",
+   "chroma": null,
+   "reference": false,
+   "refs": [
+    "widen-ninedays.png"
+   ],
+   "subject": "the Nine days caf\u00e9 room, in its own finish: a clean white and soft yellow festive finish: white and pale yellow cloth bunting, small yellow paper lamps, white flowers in vases, a clear night sky outside",
+   "details": "On the left, continue the wall past the bookshelf with another tall shelf in the same finish and decorations, under a hanging lamp. On the right, continue past the arched doorway with the same wall finish, a wall lamp, a small side table with a decoration in the same theme and a hanging plant. Keep the floor, ceiling and light continuous with the middle. No people, no animals, no religious figures or symbols, no altars, no words, letters or numbers anywhere, no onions, garlic or spring onions.",
+   "status": "todo"
+  },
+  {
+   "id": "skin-lights-wide",
+   "kind": "widen",
+   "aspect": "landscape",
+   "chroma": null,
+   "reference": false,
+   "refs": [
+    "widen-lights.png"
+   ],
+   "subject": "the Festival of lights caf\u00e9 room, in its own finish: Deepavali glow: deep magenta and gold walls, rows of small lit clay oil lamps on the shelves, orange and yellow marigold garlands along the window, a colourful flower-petal pattern on the wall, a warm night outside",
+   "details": "On the left, continue the wall past the bookshelf with another tall shelf in the same finish and decorations, under a hanging lamp. On the right, continue past the arched doorway with the same wall finish, a wall lamp, a small side table with a decoration in the same theme and a hanging plant. Keep the floor, ceiling and light continuous with the middle. No people, no animals, no religious figures or symbols, no altars, no words, letters or numbers anywhere, no onions, garlic or spring onions.",
+   "status": "todo"
+  },
+  {
+   "id": "skin-yearend-wide",
+   "kind": "widen",
+   "aspect": "landscape",
+   "chroma": null,
+   "reference": false,
+   "refs": [
+    "widen-yearend.png"
+   ],
+   "subject": "the Year-end table caf\u00e9 room, in its own finish: a cosy year-end finish: deep green and cream walls, a pine garland with warm fairy lights along the window, candles in glass jars on the shelves, frost on the window, warm golden light",
+   "details": "On the left, continue the wall past the bookshelf with another tall shelf in the same finish and decorations, under a hanging lamp. On the right, continue past the arched doorway with the same wall finish, a wall lamp, a small side table with a decoration in the same theme and a hanging plant. Keep the floor, ceiling and light continuous with the middle. No people, no animals, no religious figures or symbols, no altars, no words, letters or numbers anywhere, no onions, garlic or spring onions.",
+   "status": "todo"
+  },
+  {
+   "id": "skin-lanternbakery-wide",
+   "kind": "widen",
+   "aspect": "landscape",
+   "chroma": null,
+   "reference": false,
+   "refs": [
+    "widen-lanternbakery.png"
+   ],
+   "subject": "the Lantern bakery caf\u00e9 room, in its own finish: Mid-Autumn bakery: warm amber walls, round mooncake tins and tea sets on the shelves, rabbit-shaped and round paper lanterns glowing, a huge full moon in a deep blue sky outside",
+   "details": "On the left, continue the wall past the bookshelf with another tall shelf in the same finish and decorations, under a hanging lamp. On the right, continue past the arched doorway with the same wall finish, a wall lamp, a small side table with a decoration in the same theme and a hanging plant. Keep the floor, ceiling and light continuous with the middle. No people, no animals, no religious figures or symbols, no altars, no words, letters or numbers anywhere, no onions, garlic or spring onions.",
+   "status": "todo"
+  },
+  {
+   "id": "skin-dumplingday-wide",
+   "kind": "widen",
+   "aspect": "landscape",
+   "chroma": null,
+   "reference": false,
+   "refs": [
+    "widen-dumplingday.png"
+   ],
+   "subject": "the Dumpling day caf\u00e9 room, in its own finish: Dragon Boat festival: fresh green bamboo walls, bunches of leaf-wrapped rice dumplings hanging along the window, a small wooden dragon boat model on the shelf, soft river light outside",
+   "details": "On the left, continue the wall past the bookshelf with another tall shelf in the same finish and decorations, under a hanging lamp. On the right, continue past the arched doorway with the same wall finish, a wall lamp, a small side table with a decoration in the same theme and a hanging plant. Keep the floor, ceiling and light continuous with the middle. No people, no animals, no religious figures or symbols, no altars, no words, letters or numbers anywhere, no onions, garlic or spring onions.",
+   "status": "todo"
+  }
+ ]
+}

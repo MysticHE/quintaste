@@ -21,7 +21,7 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 OUT = ROOT / "assets" / "game"
 # Later runs win. Scenes come from raw PNGs; sprites from processed sprite-N.webp files.
 RUNS = ["scene", "scene2", "level5", "lotus", "home", "home2", "iso", "kit", "cast", "dishes", "pantry", "dishfix", "wear2", "wear3", "widen",
-        "growth", "widen-signature"]
+        "growth", "widen-signature", "widen-rewards", "widen-retry"]
 RENAME = {"rh-bg": ("scene2", "bg-cafe"), "rh-counter": ("scene2", "counter"), "cafe-counter": ("home", "counter")}
 # Pinned by eye: the signature room variant that keeps the hotspot layout, and the more compact assembly board.
 VARIANT = {"avatar-adult": 2, "avatar-mini": 2, "skin-signature": 2, "assembly-counter": 2}
@@ -29,7 +29,8 @@ SCENES = {"skin-sunny", "skin-lotus", "skin-lantern", "skin-signature", "rh-bg",
 # Every café skin is a full scene (no cut-out), including the chapter and season rewards.
 is_scene = lambda key: key in SCENES or (key.startswith("skin-") and not key.endswith("-wide"))
 # Wide home skins (QT Gamer style.json homeSkin): widen.py composites, imported at 1280 px high with the portrait room in the middle.
-WIDE = {"skin-sunny-wide", "skin-lotus-wide", "skin-lantern-wide", "skin-signature-wide"}
+# Every café skin has one (the four home skins, then the chapter and season rewards on 23 October 2026).
+WIDE = {k + "-wide" for k in re.findall(r'art: "(skin-[a-z0-9]+)"', (ROOT / "src" / "game" / "content" / "cosmetics.ts").read_text(encoding="utf-8"))}
 SCENES |= WIDE
 SIZES = {"skin": 1280, "rh-bg": 1280, "rh-kitchen": 1280, "rh-counter": 1024, "cafe-counter": 768, "avatar": 480, "guest": 360, "dish": 360, "pet": 360, "wear": 360,
          "decor": 360, "stove": 320, "blender": 320, "steamer": 320, "oven": 320, "griddle": 320, "fryer": 320, "dough-board": 320, "fridge": 320, "tool": 160, "soup": 320, "rice": 320, "dessert": 320, "assembly": 320, "board": 320, "plate": 256, "acc": 220, "lotus": 160}
@@ -144,9 +145,13 @@ def add_runs(runs, picks):
             key = d.name
             if key not in wanted or key in added or (key in prov and key not in picks):
                 continue
-            ok = sorted(int(r.stem.split("-")[1]) for r in d.glob("report-*.json") if json.loads(r.read_text(encoding="utf-8")).get("ok"))
+            if key in WIDE:
+                wide = d / "wide-report.json"
+                ok = [e["variant"] for e in sorted(json.loads(wide.read_text(encoding="utf-8")) if wide.is_file() else [], key=lambda e: e.get("seamDifference", 99)) if e.get("ok")]
+            else:
+                ok = sorted(int(r.stem.split("-")[1]) for r in d.glob("report-*.json") if json.loads(r.read_text(encoding="utf-8")).get("ok"))
             v = picks.get(key, ok[0] if ok else None)
-            path = d / (f"raw-{v}.png" if is_scene(key) else f"sprite-{v}.webp")
+            path = d / (f"wide-{v}.png" if key in WIDE else f"raw-{v}.png" if is_scene(key) else f"sprite-{v}.webp")
             if v is None or not path.is_file():
                 sys.exit(f"{key}: no passing sprite in {d}")
             size, dest = encode(key, path)

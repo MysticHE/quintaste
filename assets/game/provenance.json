@@ -6265,5 +6265,277 @@
   "status": "approved",
   "approvedBy": "owner (as artist)",
   "approvedAt": "2026-10-23"
+ },
+ "skin-kopitiam-wide": {
+  "source": "runs/widen-retry/skin-kopitiam-wide",
+  "variant": 3,
+  "tool": "QT Gamer (ChatGPT image generation via Hermes openai-codex)",
+  "model": "gpt-image-2-high",
+  "tier": "gpt-image-2-high",
+  "requestedAt": "2026-10-23T06:54:20+00:00",
+  "prompt": "Cosy mobile cooking-game art: a soft stylized 3D render with a hand-painted finish, chunky rounded toy-like shapes, smooth matte clay-like materials with subtle glossy highlights, warm soft key light from the upper left, gentle ambient occlusion, warm saturated but natural colours and a crisp clean silhouette. A wide landscape version of a finished full-frame game scene for a cosy cooking game: the Kopitiam café room, in its own finish: old-school Singapore coffee shop finish: green-and-white mosaic wall tiles, a slow ceiling fan, enamel coffee cups and saucers on the shelves, wooden shutters on the window, bright tropical daylight. The attached picture is a wide canvas: its middle holds the finished painting and the flat grey areas on the left and right are empty. Keep the middle painting exactly as it is, in the same place, size, perspective, lighting and colours, and paint the grey areas as the seamless continuation of the same room, so the whole picture reads as one wider painting of the same room from the same camera. On the left, continue the wall past the bookshelf with another tall shelf in the same finish and decorations, under a hanging lamp. On the right, continue past the arched doorway with the same wall finish, a wall lamp, a small side table with a decoration in the same theme and a hanging plant. Keep the floor, ceiling and light continuous with the middle. No people, no animals, no religious figures or symbols, no altars, no words, letters or numbers anywhere, no onions, garlic or spring onions. The floor continues with the same planks and light; keep the lower part of each side mostly open floor. Fill the entire image edge to edge with no grey left, no seam, no border and no frame. No text, letters, numbers, logos or watermarks except any chalk doodle described above. No border or frame. No people or animals.",
+  "sha256": "4450cb46aa8350d4f91815492e353e208ec7dbea74a5abc9764f61559cbbc4e7",
+  "size": [
+   1920,
+   1280
+  ],
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-23"
+ },
+ "skin-zhai-wide": {
+  "source": "runs/widen-retry/skin-zhai-wide",
+  "variant": 3,
+  "tool": "QT Gamer (ChatGPT image generation via Hermes openai-codex)",
+  "model": "gpt-image-2-high",
+  "tier": "gpt-image-2-high",
+  "requestedAt": "2026-10-23T06:55:27+00:00",
+  "prompt": "Cosy mobile cooking-game art: a soft stylized 3D render with a hand-painted finish, chunky rounded toy-like shapes, smooth matte clay-like materials with subtle glossy highlights, warm soft key light from the upper left, gentle ambient occlusion, warm saturated but natural colours and a crisp clean silhouette. A wide landscape version of a finished full-frame game scene for a cosy cooking game: the Zhai days café room, in its own finish: a calm pale jade and cream finish, white and pink lotus flowers in bowls on the shelves, soft round paper lamps, a full moon in a quiet evening sky outside. The attached picture is a wide canvas: its middle holds the finished painting and the flat grey areas on the left and right are empty. Keep the middle painting exactly as it is, in the same place, size, perspective, lighting and colours, and paint the grey areas as the seamless continuation of the same room, so the whole picture reads as one wider painting of the same room from the same camera. On the left, continue the wall past the bookshelf with another tall shelf in the same finish and decorations, under a hanging lamp. On the right, continue past the arched doorway with the same wall finish, a wall lamp, a small side table with a decoration in the same theme and a hanging plant. Keep the floor, ceiling and light continuous with the middle. No people, no animals, no religious figures or symbols, no altars, no words, letters or numbers anywhere, no onions, garlic or spring onions. The floor continues with the same planks and light; keep the lower part of each side mostly open floor. Fill the entire image edge to edge with no grey left, no seam, no border and no frame. No text, letters, numbers, logos or watermarks except any chalk doodle described above. No border or frame. No people or animals.",
+  "sha256": "6f01c2473d38b29233e601d81068ab4ee12668d628f4f6ea102606dde045099b",
+  "size": [
+   1920,
+   1280
+  ],
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-23"
+ },
+ "skin-bakery-wide": {
+  "source": "runs/widen-rewards/skin-bakery-wide",
+  "variant": 1,
+  "tool": "QT Gamer (ChatGPT image generation via Hermes openai-codex)",
+  "model": "gpt-image-2-high",
+  "tier": "gpt-image-2-high",
+  "requestedAt": "2026-10-23T06:21:27+00:00",
+  "prompt": "Cosy mobile cooking-game art: a soft stylized 3D render with a hand-painted finish, chunky rounded toy-like shapes, smooth matte clay-like materials with subtle glossy highlights, warm soft key light from the upper left, gentle ambient occlusion, warm saturated but natural colours and a crisp clean silhouette. A wide landscape version of a finished full-frame game scene for a cosy cooking game: the Bakery café room, in its own finish: cream and butter-yellow walls, loaves, buns and cake stands on the shelves, a glass cake dome, flour-dusted wooden trim, soft pastel morning light. The attached picture is a wide canvas: its middle holds the finished painting and the flat grey areas on the left and right are empty. Keep the middle painting exactly as it is, in the same place, size, perspective, lighting and colours, and paint the grey areas as the seamless continuation of the same room, so the whole picture reads as one wider painting of the same room from the same camera. On the left, continue the wall past the bookshelf with another tall shelf in the same finish and decorations, under a hanging lamp. On the right, continue past the arched doorway with the same wall finish, a wall lamp, a small side table with a decoration in the same theme and a hanging plant. Keep the floor, ceiling and light continuous with the middle. No people, no animals, no religious figures or symbols, no altars, no words, letters or numbers anywhere, no onions, garlic or spring onions. The floor continues with the same planks and light; keep the lower part of each side mostly open floor. Fill the entire image edge to edge with no grey left, no seam, no border and no frame. No text, letters, numbers, logos or watermarks except any chalk doodle described above. No border or frame. No people or animals.",
+  "sha256": "37a811f3940e14d31b1cc91a9304ae2dea639ed0b457a2dca2fd6195f26f052e",
+  "size": [
+   1920,
+   1280
+  ],
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-23"
+ },
+ "skin-bazaar-wide": {
+  "source": "runs/widen-rewards/skin-bazaar-wide",
+  "variant": 1,
+  "tool": "QT Gamer (ChatGPT image generation via Hermes openai-codex)",
+  "model": "gpt-image-2-high",
+  "tier": "gpt-image-2-high",
+  "requestedAt": "2026-10-23T06:27:24+00:00",
+  "prompt": "Cosy mobile cooking-game art: a soft stylized 3D render with a hand-painted finish, chunky rounded toy-like shapes, smooth matte clay-like materials with subtle glossy highlights, warm soft key light from the upper left, gentle ambient occlusion, warm saturated but natural colours and a crisp clean silhouette. A wide landscape version of a finished full-frame game scene for a cosy cooking game: the Sunset bazaar café room, in its own finish: Hari Raya evening: teal and gold walls, woven palm-leaf ketupat hanging along the window, small glowing pelita oil lamps on the shelves, a warm sunset sky outside. The attached picture is a wide canvas: its middle holds the finished painting and the flat grey areas on the left and right are empty. Keep the middle painting exactly as it is, in the same place, size, perspective, lighting and colours, and paint the grey areas as the seamless continuation of the same room, so the whole picture reads as one wider painting of the same room from the same camera. On the left, continue the wall past the bookshelf with another tall shelf in the same finish and decorations, under a hanging lamp. On the right, continue past the arched doorway with the same wall finish, a wall lamp, a small side table with a decoration in the same theme and a hanging plant. Keep the floor, ceiling and light continuous with the middle. No people, no animals, no religious figures or symbols, no altars, no words, letters or numbers anywhere, no onions, garlic or spring onions. The floor continues with the same planks and light; keep the lower part of each side mostly open floor. Fill the entire image edge to edge with no grey left, no seam, no border and no frame. No text, letters, numbers, logos or watermarks except any chalk doodle described above. No border or frame. No people or animals.",
+  "sha256": "f8961990d3d8fe509ef3b2e856451c99a0f839616e7c439538e36ae3c865a834",
+  "size": [
+   1920,
+   1280
+  ],
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-23"
+ },
+ "skin-dumpling-wide": {
+  "source": "runs/widen-rewards/skin-dumpling-wide",
+  "variant": 2,
+  "tool": "QT Gamer (ChatGPT image generation via Hermes openai-codex)",
+  "model": "gpt-image-2-high",
+  "tier": "gpt-image-2-high",
+  "requestedAt": "2026-10-23T06:24:03+00:00",
+  "prompt": "Cosy mobile cooking-game art: a soft stylized 3D render with a hand-painted finish, chunky rounded toy-like shapes, smooth matte clay-like materials with subtle glossy highlights, warm soft key light from the upper left, gentle ambient occlusion, warm saturated but natural colours and a crisp clean silhouette. A wide landscape version of a finished full-frame game scene for a cosy cooking game: the Dumpling house café room, in its own finish: dark lacquered red wood with lattice screens, steaming bamboo baskets and blue-and-white bowls on the shelves, round red silk lamps, a calm night outside. The attached picture is a wide canvas: its middle holds the finished painting and the flat grey areas on the left and right are empty. Keep the middle painting exactly as it is, in the same place, size, perspective, lighting and colours, and paint the grey areas as the seamless continuation of the same room, so the whole picture reads as one wider painting of the same room from the same camera. On the left, continue the wall past the bookshelf with another tall shelf in the same finish and decorations, under a hanging lamp. On the right, continue past the arched doorway with the same wall finish, a wall lamp, a small side table with a decoration in the same theme and a hanging plant. Keep the floor, ceiling and light continuous with the middle. No people, no animals, no religious figures or symbols, no altars, no words, letters or numbers anywhere, no onions, garlic or spring onions. The floor continues with the same planks and light; keep the lower part of each side mostly open floor. Fill the entire image edge to edge with no grey left, no seam, no border and no frame. No text, letters, numbers, logos or watermarks except any chalk doodle described above. No border or frame. No people or animals.",
+  "sha256": "cdd037d949455f776bc74ad17ac0b357eeb4787cdc5e91ab7e4bf0409e2ec420",
+  "size": [
+   1920,
+   1280
+  ],
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-23"
+ },
+ "skin-dumplingday-wide": {
+  "source": "runs/widen-rewards/skin-dumplingday-wide",
+  "variant": 2,
+  "tool": "QT Gamer (ChatGPT image generation via Hermes openai-codex)",
+  "model": "gpt-image-2-high",
+  "tier": "gpt-image-2-high",
+  "requestedAt": "2026-10-23T06:31:59+00:00",
+  "prompt": "Cosy mobile cooking-game art: a soft stylized 3D render with a hand-painted finish, chunky rounded toy-like shapes, smooth matte clay-like materials with subtle glossy highlights, warm soft key light from the upper left, gentle ambient occlusion, warm saturated but natural colours and a crisp clean silhouette. A wide landscape version of a finished full-frame game scene for a cosy cooking game: the Dumpling day café room, in its own finish: Dragon Boat festival: fresh green bamboo walls, bunches of leaf-wrapped rice dumplings hanging along the window, a small wooden dragon boat model on the shelf, soft river light outside. The attached picture is a wide canvas: its middle holds the finished painting and the flat grey areas on the left and right are empty. Keep the middle painting exactly as it is, in the same place, size, perspective, lighting and colours, and paint the grey areas as the seamless continuation of the same room, so the whole picture reads as one wider painting of the same room from the same camera. On the left, continue the wall past the bookshelf with another tall shelf in the same finish and decorations, under a hanging lamp. On the right, continue past the arched doorway with the same wall finish, a wall lamp, a small side table with a decoration in the same theme and a hanging plant. Keep the floor, ceiling and light continuous with the middle. No people, no animals, no religious figures or symbols, no altars, no words, letters or numbers anywhere, no onions, garlic or spring onions. The floor continues with the same planks and light; keep the lower part of each side mostly open floor. Fill the entire image edge to edge with no grey left, no seam, no border and no frame. No text, letters, numbers, logos or watermarks except any chalk doodle described above. No border or frame. No people or animals.",
+  "sha256": "6d35fd15033b7bcb5ad0f8106333b049f1282b31f0204c2f3f3da045c0ea8edb",
+  "size": [
+   1920,
+   1280
+  ],
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-23"
+ },
+ "skin-garden-wide": {
+  "source": "runs/widen-rewards/skin-garden-wide",
+  "variant": 1,
+  "tool": "QT Gamer (ChatGPT image generation via Hermes openai-codex)",
+  "model": "gpt-image-2-high",
+  "tier": "gpt-image-2-high",
+  "requestedAt": "2026-10-23T06:24:25+00:00",
+  "prompt": "Cosy mobile cooking-game art: a soft stylized 3D render with a hand-painted finish, chunky rounded toy-like shapes, smooth matte clay-like materials with subtle glossy highlights, warm soft key light from the upper left, gentle ambient occlusion, warm saturated but natural colours and a crisp clean silhouette. A wide landscape version of a finished full-frame game scene for a cosy cooking game: the Garden terrace café room, in its own finish: a bright glass conservatory finish: white-painted frames, lush potted ferns and flowering vines, terracotta pots, dappled sunlight, a garden view through the window. The attached picture is a wide canvas: its middle holds the finished painting and the flat grey areas on the left and right are empty. Keep the middle painting exactly as it is, in the same place, size, perspective, lighting and colours, and paint the grey areas as the seamless continuation of the same room, so the whole picture reads as one wider painting of the same room from the same camera. On the left, continue the wall past the bookshelf with another tall shelf in the same finish and decorations, under a hanging lamp. On the right, continue past the arched doorway with the same wall finish, a wall lamp, a small side table with a decoration in the same theme and a hanging plant. Keep the floor, ceiling and light continuous with the middle. No people, no animals, no religious figures or symbols, no altars, no words, letters or numbers anywhere, no onions, garlic or spring onions. The floor continues with the same planks and light; keep the lower part of each side mostly open floor. Fill the entire image edge to edge with no grey left, no seam, no border and no frame. No text, letters, numbers, logos or watermarks except any chalk doodle described above. No border or frame. No people or animals.",
+  "sha256": "7ca181ec9a8876982e34166c97c627baa89b1bb4a1d895771ad6c85d9d7257ff",
+  "size": [
+   1920,
+   1280
+  ],
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-23"
+ },
+ "skin-headchef-wide": {
+  "source": "runs/widen-rewards/skin-headchef-wide",
+  "variant": 1,
+  "tool": "QT Gamer (ChatGPT image generation via Hermes openai-codex)",
+  "model": "gpt-image-2-high",
+  "tier": "gpt-image-2-high",
+  "requestedAt": "2026-10-23T06:25:12+00:00",
+  "prompt": "Cosy mobile cooking-game art: a soft stylized 3D render with a hand-painted finish, chunky rounded toy-like shapes, smooth matte clay-like materials with subtle glossy highlights, warm soft key light from the upper left, gentle ambient occlusion, warm saturated but natural colours and a crisp clean silhouette. A wide landscape version of a finished full-frame game scene for a cosy cooking game: the Head chef café room, in its own finish: a grand banquet finish: cream walls with gold trim, a small crystal chandelier, polished copper pots on the shelves, a gold laurel wreath above the chalkboard, warm evening light. The attached picture is a wide canvas: its middle holds the finished painting and the flat grey areas on the left and right are empty. Keep the middle painting exactly as it is, in the same place, size, perspective, lighting and colours, and paint the grey areas as the seamless continuation of the same room, so the whole picture reads as one wider painting of the same room from the same camera. On the left, continue the wall past the bookshelf with another tall shelf in the same finish and decorations, under a hanging lamp. On the right, continue past the arched doorway with the same wall finish, a wall lamp, a small side table with a decoration in the same theme and a hanging plant. Keep the floor, ceiling and light continuous with the middle. No people, no animals, no religious figures or symbols, no altars, no words, letters or numbers anywhere, no onions, garlic or spring onions. The floor continues with the same planks and light; keep the lower part of each side mostly open floor. Fill the entire image edge to edge with no grey left, no seam, no border and no frame. No text, letters, numbers, logos or watermarks except any chalk doodle described above. No border or frame. No people or animals.",
+  "sha256": "fee00c8f64b3b27771d3378dcd2587fb0b50fb7d5b27bdc8a5ba93bca0b45b6b",
+  "size": [
+   1920,
+   1280
+  ],
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-23"
+ },
+ "skin-lanternbakery-wide": {
+  "source": "runs/widen-rewards/skin-lanternbakery-wide",
+  "variant": 2,
+  "tool": "QT Gamer (ChatGPT image generation via Hermes openai-codex)",
+  "model": "gpt-image-2-high",
+  "tier": "gpt-image-2-high",
+  "requestedAt": "2026-10-23T06:31:12+00:00",
+  "prompt": "Cosy mobile cooking-game art: a soft stylized 3D render with a hand-painted finish, chunky rounded toy-like shapes, smooth matte clay-like materials with subtle glossy highlights, warm soft key light from the upper left, gentle ambient occlusion, warm saturated but natural colours and a crisp clean silhouette. A wide landscape version of a finished full-frame game scene for a cosy cooking game: the Lantern bakery café room, in its own finish: Mid-Autumn bakery: warm amber walls, round mooncake tins and tea sets on the shelves, rabbit-shaped and round paper lanterns glowing, a huge full moon in a deep blue sky outside. The attached picture is a wide canvas: its middle holds the finished painting and the flat grey areas on the left and right are empty. Keep the middle painting exactly as it is, in the same place, size, perspective, lighting and colours, and paint the grey areas as the seamless continuation of the same room, so the whole picture reads as one wider painting of the same room from the same camera. On the left, continue the wall past the bookshelf with another tall shelf in the same finish and decorations, under a hanging lamp. On the right, continue past the arched doorway with the same wall finish, a wall lamp, a small side table with a decoration in the same theme and a hanging plant. Keep the floor, ceiling and light continuous with the middle. No people, no animals, no religious figures or symbols, no altars, no words, letters or numbers anywhere, no onions, garlic or spring onions. The floor continues with the same planks and light; keep the lower part of each side mostly open floor. Fill the entire image edge to edge with no grey left, no seam, no border and no frame. No text, letters, numbers, logos or watermarks except any chalk doodle described above. No border or frame. No people or animals.",
+  "sha256": "baa328a6faa5c4511c11e3d071575dea275664efcda109efdef0c11e54f5a781",
+  "size": [
+   1920,
+   1280
+  ],
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-23"
+ },
+ "skin-lights-wide": {
+  "source": "runs/widen-rewards/skin-lights-wide",
+  "variant": 2,
+  "tool": "QT Gamer (ChatGPT image generation via Hermes openai-codex)",
+  "model": "gpt-image-2-high",
+  "tier": "gpt-image-2-high",
+  "requestedAt": "2026-10-23T06:29:13+00:00",
+  "prompt": "Cosy mobile cooking-game art: a soft stylized 3D render with a hand-painted finish, chunky rounded toy-like shapes, smooth matte clay-like materials with subtle glossy highlights, warm soft key light from the upper left, gentle ambient occlusion, warm saturated but natural colours and a crisp clean silhouette. A wide landscape version of a finished full-frame game scene for a cosy cooking game: the Festival of lights café room, in its own finish: Deepavali glow: deep magenta and gold walls, rows of small lit clay oil lamps on the shelves, orange and yellow marigold garlands along the window, a colourful flower-petal pattern on the wall, a warm night outside. The attached picture is a wide canvas: its middle holds the finished painting and the flat grey areas on the left and right are empty. Keep the middle painting exactly as it is, in the same place, size, perspective, lighting and colours, and paint the grey areas as the seamless continuation of the same room, so the whole picture reads as one wider painting of the same room from the same camera. On the left, continue the wall past the bookshelf with another tall shelf in the same finish and decorations, under a hanging lamp. On the right, continue past the arched doorway with the same wall finish, a wall lamp, a small side table with a decoration in the same theme and a hanging plant. Keep the floor, ceiling and light continuous with the middle. No people, no animals, no religious figures or symbols, no altars, no words, letters or numbers anywhere, no onions, garlic or spring onions. The floor continues with the same planks and light; keep the lower part of each side mostly open floor. Fill the entire image edge to edge with no grey left, no seam, no border and no frame. No text, letters, numbers, logos or watermarks except any chalk doodle described above. No border or frame. No people or animals.",
+  "sha256": "72b53c77a3f77438f7b72653add5afb380c274dd314795bb313aa42fb4d3ef0d",
+  "size": [
+   1920,
+   1280
+  ],
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-23"
+ },
+ "skin-nightstall-wide": {
+  "source": "runs/widen-rewards/skin-nightstall-wide",
+  "variant": 2,
+  "tool": "QT Gamer (ChatGPT image generation via Hermes openai-codex)",
+  "model": "gpt-image-2-high",
+  "tier": "gpt-image-2-high",
+  "requestedAt": "2026-10-23T06:23:20+00:00",
+  "prompt": "Cosy mobile cooking-game art: a soft stylized 3D render with a hand-painted finish, chunky rounded toy-like shapes, smooth matte clay-like materials with subtle glossy highlights, warm soft key light from the upper left, gentle ambient occlusion, warm saturated but natural colours and a crisp clean silhouette. A wide landscape version of a finished full-frame game scene for a cosy cooking game: the Night stall café room, in its own finish: dusk at a night market: deep indigo walls, warm string lights zigzagging under the ceiling, a striped stall awning above the window, glowing paper lamps, a purple evening sky outside. The attached picture is a wide canvas: its middle holds the finished painting and the flat grey areas on the left and right are empty. Keep the middle painting exactly as it is, in the same place, size, perspective, lighting and colours, and paint the grey areas as the seamless continuation of the same room, so the whole picture reads as one wider painting of the same room from the same camera. On the left, continue the wall past the bookshelf with another tall shelf in the same finish and decorations, under a hanging lamp. On the right, continue past the arched doorway with the same wall finish, a wall lamp, a small side table with a decoration in the same theme and a hanging plant. Keep the floor, ceiling and light continuous with the middle. No people, no animals, no religious figures or symbols, no altars, no words, letters or numbers anywhere, no onions, garlic or spring onions. The floor continues with the same planks and light; keep the lower part of each side mostly open floor. Fill the entire image edge to edge with no grey left, no seam, no border and no frame. No text, letters, numbers, logos or watermarks except any chalk doodle described above. No border or frame. No people or animals.",
+  "sha256": "17c81250f07361a13cfc604522773e7380dece984af995e5ed9bf840a9428586",
+  "size": [
+   1920,
+   1280
+  ],
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-23"
+ },
+ "skin-ninedays-wide": {
+  "source": "runs/widen-rewards/skin-ninedays-wide",
+  "variant": 1,
+  "tool": "QT Gamer (ChatGPT image generation via Hermes openai-codex)",
+  "model": "gpt-image-2-high",
+  "tier": "gpt-image-2-high",
+  "requestedAt": "2026-10-23T06:28:10+00:00",
+  "prompt": "Cosy mobile cooking-game art: a soft stylized 3D render with a hand-painted finish, chunky rounded toy-like shapes, smooth matte clay-like materials with subtle glossy highlights, warm soft key light from the upper left, gentle ambient occlusion, warm saturated but natural colours and a crisp clean silhouette. A wide landscape version of a finished full-frame game scene for a cosy cooking game: the Nine days café room, in its own finish: a clean white and soft yellow festive finish: white and pale yellow cloth bunting, small yellow paper lamps, white flowers in vases, a clear night sky outside. The attached picture is a wide canvas: its middle holds the finished painting and the flat grey areas on the left and right are empty. Keep the middle painting exactly as it is, in the same place, size, perspective, lighting and colours, and paint the grey areas as the seamless continuation of the same room, so the whole picture reads as one wider painting of the same room from the same camera. On the left, continue the wall past the bookshelf with another tall shelf in the same finish and decorations, under a hanging lamp. On the right, continue past the arched doorway with the same wall finish, a wall lamp, a small side table with a decoration in the same theme and a hanging plant. Keep the floor, ceiling and light continuous with the middle. No people, no animals, no religious figures or symbols, no altars, no words, letters or numbers anywhere, no onions, garlic or spring onions. The floor continues with the same planks and light; keep the lower part of each side mostly open floor. Fill the entire image edge to edge with no grey left, no seam, no border and no frame. No text, letters, numbers, logos or watermarks except any chalk doodle described above. No border or frame. No people or animals.",
+  "sha256": "4e87a34e26e2fb2998f69f65d87b24d610b1cae2a1955247082e27b96976ced6",
+  "size": [
+   1920,
+   1280
+  ],
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-23"
+ },
+ "skin-reunion-wide": {
+  "source": "runs/widen-rewards/skin-reunion-wide",
+  "variant": 2,
+  "tool": "QT Gamer (ChatGPT image generation via Hermes openai-codex)",
+  "model": "gpt-image-2-high",
+  "tier": "gpt-image-2-high",
+  "requestedAt": "2026-10-23T06:27:01+00:00",
+  "prompt": "Cosy mobile cooking-game art: a soft stylized 3D render with a hand-painted finish, chunky rounded toy-like shapes, smooth matte clay-like materials with subtle glossy highlights, warm soft key light from the upper left, gentle ambient occlusion, warm saturated but natural colours and a crisp clean silhouette. A wide landscape version of a finished full-frame game scene for a cosy cooking game: the Reunion kitchen café room, in its own finish: Lunar New Year cheer: warm red and gold trim, potted mandarin orange trees, sprigs of pink plum blossom, round red paper lanterns, a bowl of mandarin oranges on the shelf, a festive evening outside. The attached picture is a wide canvas: its middle holds the finished painting and the flat grey areas on the left and right are empty. Keep the middle painting exactly as it is, in the same place, size, perspective, lighting and colours, and paint the grey areas as the seamless continuation of the same room, so the whole picture reads as one wider painting of the same room from the same camera. On the left, continue the wall past the bookshelf with another tall shelf in the same finish and decorations, under a hanging lamp. On the right, continue past the arched doorway with the same wall finish, a wall lamp, a small side table with a decoration in the same theme and a hanging plant. Keep the floor, ceiling and light continuous with the middle. No people, no animals, no religious figures or symbols, no altars, no words, letters or numbers anywhere, no onions, garlic or spring onions. The floor continues with the same planks and light; keep the lower part of each side mostly open floor. Fill the entire image edge to edge with no grey left, no seam, no border and no frame. No text, letters, numbers, logos or watermarks except any chalk doodle described above. No border or frame. No people or animals.",
+  "sha256": "375213decebb241b43937bfe91f0f37c25896c9560ce332060230112b57f1c72",
+  "size": [
+   1920,
+   1280
+  ],
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-23"
+ },
+ "skin-spice-wide": {
+  "source": "runs/widen-rewards/skin-spice-wide",
+  "variant": 2,
+  "tool": "QT Gamer (ChatGPT image generation via Hermes openai-codex)",
+  "model": "gpt-image-2-high",
+  "tier": "gpt-image-2-high",
+  "requestedAt": "2026-10-23T06:20:05+00:00",
+  "prompt": "Cosy mobile cooking-game art: a soft stylized 3D render with a hand-painted finish, chunky rounded toy-like shapes, smooth matte clay-like materials with subtle glossy highlights, warm soft key light from the upper left, gentle ambient occlusion, warm saturated but natural colours and a crisp clean silhouette. A wide landscape version of a finished full-frame game scene for a cosy cooking game: the Spice market café room, in its own finish: warm terracotta and saffron walls, strings of dried red chillies and bay leaves, brass spice tins and small burlap spice sacks on the shelves, a mortar and pestle, late-afternoon golden light. The attached picture is a wide canvas: its middle holds the finished painting and the flat grey areas on the left and right are empty. Keep the middle painting exactly as it is, in the same place, size, perspective, lighting and colours, and paint the grey areas as the seamless continuation of the same room, so the whole picture reads as one wider painting of the same room from the same camera. On the left, continue the wall past the bookshelf with another tall shelf in the same finish and decorations, under a hanging lamp. On the right, continue past the arched doorway with the same wall finish, a wall lamp, a small side table with a decoration in the same theme and a hanging plant. Keep the floor, ceiling and light continuous with the middle. No people, no animals, no religious figures or symbols, no altars, no words, letters or numbers anywhere, no onions, garlic or spring onions. The floor continues with the same planks and light; keep the lower part of each side mostly open floor. Fill the entire image edge to edge with no grey left, no seam, no border and no frame. No text, letters, numbers, logos or watermarks except any chalk doodle described above. No border or frame. No people or animals.",
+  "sha256": "8e4c23ddd79080baba7359e5d016b328c97a0b6082e830ad79aee492f4079dd7",
+  "size": [
+   1920,
+   1280
+  ],
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-23"
+ },
+ "skin-steamer-wide": {
+  "source": "runs/widen-rewards/skin-steamer-wide",
+  "variant": 1,
+  "tool": "QT Gamer (ChatGPT image generation via Hermes openai-codex)",
+  "model": "gpt-image-2-high",
+  "tier": "gpt-image-2-high",
+  "requestedAt": "2026-10-23T06:20:26+00:00",
+  "prompt": "Cosy mobile cooking-game art: a soft stylized 3D render with a hand-painted finish, chunky rounded toy-like shapes, smooth matte clay-like materials with subtle glossy highlights, warm soft key light from the upper left, gentle ambient occlusion, warm saturated but natural colours and a crisp clean silhouette. A wide landscape version of a finished full-frame game scene for a cosy cooking game: the Bamboo steamer café room, in its own finish: jade-green walls with bamboo panelling, stacks of round bamboo steamer baskets on the shelves, soft white steam drifting near the ceiling, paper lamps, gentle morning light. The attached picture is a wide canvas: its middle holds the finished painting and the flat grey areas on the left and right are empty. Keep the middle painting exactly as it is, in the same place, size, perspective, lighting and colours, and paint the grey areas as the seamless continuation of the same room, so the whole picture reads as one wider painting of the same room from the same camera. On the left, continue the wall past the bookshelf with another tall shelf in the same finish and decorations, under a hanging lamp. On the right, continue past the arched doorway with the same wall finish, a wall lamp, a small side table with a decoration in the same theme and a hanging plant. Keep the floor, ceiling and light continuous with the middle. No people, no animals, no religious figures or symbols, no altars, no words, letters or numbers anywhere, no onions, garlic or spring onions. The floor continues with the same planks and light; keep the lower part of each side mostly open floor. Fill the entire image edge to edge with no grey left, no seam, no border and no frame. No text, letters, numbers, logos or watermarks except any chalk doodle described above. No border or frame. No people or animals.",
+  "sha256": "f73f5ae7971efe6543d52005eb8872720fe321cc1287a2ffd37516daeb1d7325",
+  "size": [
+   1920,
+   1280
+  ],
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-23"
+ },
+ "skin-yearend-wide": {
+  "source": "runs/widen-rewards/skin-yearend-wide",
+  "variant": 1,
+  "tool": "QT Gamer (ChatGPT image generation via Hermes openai-codex)",
+  "model": "gpt-image-2-high",
+  "tier": "gpt-image-2-high",
+  "requestedAt": "2026-10-23T06:29:34+00:00",
+  "prompt": "Cosy mobile cooking-game art: a soft stylized 3D render with a hand-painted finish, chunky rounded toy-like shapes, smooth matte clay-like materials with subtle glossy highlights, warm soft key light from the upper left, gentle ambient occlusion, warm saturated but natural colours and a crisp clean silhouette. A wide landscape version of a finished full-frame game scene for a cosy cooking game: the Year-end table café room, in its own finish: a cosy year-end finish: deep green and cream walls, a pine garland with warm fairy lights along the window, candles in glass jars on the shelves, frost on the window, warm golden light. The attached picture is a wide canvas: its middle holds the finished painting and the flat grey areas on the left and right are empty. Keep the middle painting exactly as it is, in the same place, size, perspective, lighting and colours, and paint the grey areas as the seamless continuation of the same room, so the whole picture reads as one wider painting of the same room from the same camera. On the left, continue the wall past the bookshelf with another tall shelf in the same finish and decorations, under a hanging lamp. On the right, continue past the arched doorway with the same wall finish, a wall lamp, a small side table with a decoration in the same theme and a hanging plant. Keep the floor, ceiling and light continuous with the middle. No people, no animals, no religious figures or symbols, no altars, no words, letters or numbers anywhere, no onions, garlic or spring onions. The floor continues with the same planks and light; keep the lower part of each side mostly open floor. Fill the entire image edge to edge with no grey left, no seam, no border and no frame. No text, letters, numbers, logos or watermarks except any chalk doodle described above. No border or frame. No people or animals.",
+  "sha256": "48175e42f33d69866ef8b9879ad12b5518a3e3c9a0401d2a828bc7026f9b0171",
+  "size": [
+   1920,
+   1280
+  ],
+  "status": "approved",
+  "approvedBy": "owner (as artist)",
+  "approvedAt": "2026-10-23"
  }
 }
