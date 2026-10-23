@@ -50,7 +50,7 @@ Guests are unchanged: their progress stays on the device and is never sent.
 ## One-time device merge
 
 On a member's first sync on a device, the app sends that device's earlier progress (`POST /api/game/import`). The server merges it once per account with `mergeGame` rules.
-- **Credits and bought decor:** count only up to what the device's clears could have earned: first clear, first mastered and at most 5 replays per level.
+- **Credits and bought decor:** device credits never move to the account (owner, 23 October 2026: a device's record cannot be checked, so credits are only earned on the account). Decor bought on the device counts only up to what the device's clears could have earned: first clear, first mastered and at most 5 replays per level.
 - **Locked looks and tiers:** a lotus tier and any locked look are dropped.
 - **Later devices:** adopt the account's progress instead.
 

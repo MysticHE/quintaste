@@ -1,4 +1,3 @@
-import { postCredits } from './ledger.mjs';
 import { authorVisible } from './visibility.mjs';
 
 /**
@@ -68,7 +67,8 @@ function importCap(sim, best) {
 
 /**
  * One-time merge of the progress this device kept before Phase B (the app's mergeGame rules for bests, finds and decor).
- * Device credits and bought decor count only up to what the device's clears could have earned. Returns false when this
+ * Device credits never move to the account (owner, 23 Oct 2026: a device's record cannot be checked, so credits are only earned
+ * on the account); decor bought on the device counts only up to what its clears could have earned. Returns false when this
  * account already imported, so later devices adopt the account's progress instead. The caller holds the profile lock.
  */
 export async function importDevice(db, sim, userId, input, profile) {
@@ -118,8 +118,6 @@ export async function importDevice(db, sim, userId, input, profile) {
     }
   }
   for (const id of bought) await db.query(`INSERT INTO game.owned(user_id, item, source) VALUES($1,$2,'import') ON CONFLICT DO NOTHING`, [userId, 'decor:' + id]);
-  const credits = Math.min(device.credits, budget);
-  if (credits > 0) await postCredits(db, userId, credits, 'import', 'device');
   const started = Object.keys(server.best).length > 0 || Object.keys(profile.cafe ?? {}).length > 0;
   const look = cleanCafe(sim, { ...merged, owned: [...server.owned, ...bought] });
   await db.query('UPDATE game.profile SET imported_at=now(), cafe=$2, updated_at=now() WHERE user_id=$1',
