@@ -23,7 +23,7 @@ const BUILTIN_MADE = new Set(Object.values(BUILTIN.dishes).flatMap(d => d.parts.
 
 const ID = /^[a-z0-9][a-z0-9-]{0,39}$/, PACK_ID = /^[a-z0-9][a-z0-9-]{2,63}$/, ART = /^[A-Za-z0-9][A-Za-z0-9-]{0,59}$/;
 const TAGS = new Set<ItemTag>(["allium", "egg", "dairy", "honey", "root", "mushroom", "hot", "animal"]);
-const TONES = new Set<ItemTone>(["soy", "oil", "cream", "red", "white", "gold", "dark"]);
+const TONES = new Set<ItemTone>(["soy", "oil", "cream", "red", "white", "gold", "dark", "clear"]);
 const LIMITS = { dishes: 32, items: 128, parts: MAX_STATIONS, stages: 6, slots: 3, accepts: 8 };
 
 const fail = (why: string): never => { throw new PackError(why); };

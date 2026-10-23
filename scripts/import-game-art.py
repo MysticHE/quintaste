@@ -1,11 +1,12 @@
 """Import QT Gamer art into the app: assets/game/<key>.webp, assets/game/provenance.json and src/game/art.ts.
 
 Usage: python -I scripts/import-game-art.py --source <qt-team gamer folder> [--check]
-       python -I scripts/import-game-art.py --add <run folder> [--add <run folder>] [--pick key=variant]
+       python -I scripts/import-game-art.py --add <run folder> [--add <run folder>] [--pick key=variant] [--prune key]
 Each key is taken from the first run that has it (later runs override earlier ones), using variant 1 unless chosen below.
 --add merges downloaded runs (asset folders with sprite-N.webp and report-N.json) into the art already imported, without the
 older runs: only keys the game uses and does not have yet, or keys named with --pick, are added, each from the first run given that has it.
-Keys the game no longer uses are dropped, with their files.
+Keys the game no longer uses are listed, never removed on a guess: name each one with --prune to drop it and its file (the scan only
+sees content `art:` fields and fresh()/pantry() ids, so art used another way would look unused).
 Art is QT Gamer draft output (ChatGPT image generation); an artist approves everything that ships to members. A re-import keeps an
 approval (status, approvedBy, approvedAt) only while the picture's bytes are unchanged; a new or changed picture starts as a draft.
 """
@@ -138,7 +139,7 @@ def write_outputs(prov):
     (ROOT / "src" / "game" / "art.ts").write_text("\n".join(lines), encoding="utf-8")
 
 
-def add_runs(runs, picks):
+def add_runs(runs, picks, prune=()):
     prov = json.loads((OUT / "provenance.json").read_text(encoding="utf-8"))
     wanted, added = set(required_keys()), {}
     for run in map(pathlib.Path, runs):
@@ -158,14 +159,21 @@ def add_runs(runs, picks):
             size, dest = encode(key, path)
             prov[key] = keep_approval(prov, key, record(f"runs/{run.name}/{key}", v, path, size, dest))
             added[key] = v
-    # Art for content that was removed (a retired dish or ingredient) leaves the bundle with it.
-    dropped = sorted(k for k in prov if k not in wanted)
+    # Art for a retired dish or ingredient leaves the bundle only when named: a key still in use is refused.
+    unused = sorted(k for k in prov if k not in wanted)
+    in_use = sorted(k for k in prune if k in wanted)
+    if in_use:
+        sys.exit("--prune refused, still used by the game: " + ", ".join(in_use))
+    dropped = sorted(k for k in prune if k in prov)
     for key in dropped:
         del prov[key]
         (OUT / f"{key}.webp").unlink(missing_ok=True)
     write_outputs(prov)
     print("added", len(added), " ".join(f"{k}:{v}" for k, v in added.items()))
     print("dropped:", ", ".join(dropped) if dropped else "none")
+    left = [k for k in unused if k not in dropped]
+    if left:
+        print("unused (kept; --prune to drop):", ", ".join(left))
     missing = sorted(k for k in wanted if k not in prov)
     print("still missing:", ", ".join(missing) if missing else "none")
 
@@ -176,9 +184,12 @@ def main():
     ap.add_argument("--check", action="store_true")
     ap.add_argument("--add", action="append", default=[])
     ap.add_argument("--pick", action="append", default=[])
+    ap.add_argument("--prune", action="append", default=[])
     args = ap.parse_args()
+    if args.prune and not args.add:
+        ap.error("--prune works with --add")
     if args.add:
-        add_runs(args.add, {k: int(v) for k, v in (p.split("=") for p in args.pick)})
+        add_runs(args.add, {k: int(v) for k, v in (p.split("=") for p in args.pick)}, args.prune)
         return
     if not args.source:
         ap.error("--source or --add is required")

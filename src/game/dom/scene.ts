@@ -32,7 +32,7 @@ export const DPR = typeof window !== "undefined" ? Math.min(2.5, Math.max(1, win
 /** Canvas colours come from the DOM layer's CSS tokens (styles.ts), so the game keeps one palette. */
 const TOKENS = { light: "--fx-light", spark: "--fx-spark", flame: "--fx-flame", flameHot: "--fx-flame-hot", smoke: "--fx-smoke", char: "--fx-char",
   track: "--fx-ring-track", ready: "--fx-ready", warn: "--fx-warn", progress: "--fx-progress", coin: "--fx-coin", coinEdge: "--fx-coin-edge",
-  cooked: "--fx-cooked", focus: "--fx-focus", soy: "--fx-soy", oil: "--fx-oil", cream: "--fx-cream", red: "--fx-red",
+  cooked: "--fx-cooked", focus: "--fx-focus", soy: "--fx-soy", oil: "--fx-oil", cream: "--fx-cream", red: "--fx-red", clear: "--fx-clear",
   white: "--fx-grain-white", gold: "--fx-grain-gold", dark: "--fx-grain-dark", heart: "--fx-heart" } as const;
 type Palette = Record<keyof typeof TOKENS, number>;
 function readPalette(): Palette {
@@ -227,7 +227,7 @@ export class Playfield extends Phaser.Scene {
   private endDishDrag() { this.ghost?.destroy(); this.ghost = null; this.dragKind = null; if (this.dragPaste) this.hover = null; this.dragPaste = false; }
   /** The station under a point, if any (its art and the tag below it, with a finger's width to spare), of those in view. */
   private stationAt(x: number, y: number) { return nearestStation(viewLayout(this.L, this.rowStart), { x, y }); }
-  private tones(): Tones { const P = this.pal; return { soy: P.soy, oil: P.oil, cream: P.cream, red: P.red, white: P.white, gold: P.gold, dark: P.dark, cooked: P.cooked, char: P.char, light: P.light, warn: P.warn }; }
+  private tones(): Tones { const P = this.pal; return { soy: P.soy, oil: P.oil, cream: P.cream, red: P.red, clear: P.clear, white: P.white, gold: P.gold, dark: P.dark, cooked: P.cooked, char: P.char, light: P.light, warn: P.warn }; }
   private zone(r: Rect, depth: number, draggable = false) {
     return this.add.zone(r.x + r.w / 2, r.y + r.h / 2, r.w, r.h).setInteractive({ useHandCursor: true, draggable }).setDepth(depth);
   }

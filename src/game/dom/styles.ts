@@ -18,7 +18,7 @@ const TOKENS = `
   --glass:rgba(255,248,239,0.94); --scrim:rgba(38,30,32,0.55); --shadow:rgba(60,30,10,0.22); --panel:#f3e3cf; --panel-edge:#e6cfb4;
   --fx-light:#ffffff; --fx-spark:#ffe08a; --fx-flame:#ff8a3d; --fx-flame-hot:#ff3b1f; --fx-smoke:#5b4a44; --fx-char:#6b5a50;
   --fx-ring-track:#e8dccf; --fx-ready:#3f9d6b; --fx-warn:#c0392b; --fx-progress:#f2a13a; --fx-coin:#f2c14e; --fx-coin-edge:#b98516;
-  --fx-cooked:#e9b77e; --fx-focus:#ffd977; --fx-soy:#5a3418; --fx-oil:#e8b54a; --fx-cream:#fbf1dc; --fx-red:#c8381f;
+  --fx-cooked:#e9b77e; --fx-focus:#ffd977; --fx-soy:#5a3418; --fx-oil:#e8b54a; --fx-cream:#fbf1dc; --fx-red:#c8381f; --fx-clear:#cfe6ee;
   --fx-grain-white:#fbf7ee; --fx-grain-gold:#e3a43a; --fx-grain-dark:#3b2a22; --fx-heart:#e0614a;
   --gear:#2f63b8; --gear-hi:#76a6ee; --vegan:#3c9f55; --jain:#8657c0; --star-off:#ecd9a6; --bar-from:#f29a3a;
   position:absolute; inset:0; overflow:hidden; color:var(--ink); background:var(--panel); user-select:none; -webkit-user-select:none; touch-action:none;

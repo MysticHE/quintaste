@@ -37,7 +37,7 @@ export const ITEMS: GameItem[] = [
   pantry("raw-snowskin", "Snowskin mooncakes"),
   pantry("zongzi-filling", "Zongzi filling"),
   pantry("raw-zongzi", "Zongzi"),
-  pantry("raw-bean-zongzi", "Bean zongzi", "raw-zongzi"),
+  pantry("raw-bean-zongzi", "Bean zongzi"),
 ];
 export const FORMS: Record<string, ItemForm> = {
   "plum-sauce": { form: "pour", tone: "red" }, "pineapple-jam": { form: "pour", tone: "gold" }, chickpeas: { form: "sprinkle", tone: "gold" },

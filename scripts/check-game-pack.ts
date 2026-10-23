@@ -33,14 +33,14 @@ if (expect) check(rulesVersion === expect, `rules version ${rulesVersion} matche
 const fresh = (id: string, name: string, extra: object = {}) => ({ id, name, art: "card-" + id, tray: "fresh", ...extra });
 const poriyal = {
   format: 1, id: "recipe-cabbage-peas-coconut-poriyal-r1", techniques: ["pan"],
-  items: [fresh("mustard-seeds", "Mustard seeds"), fresh("curry-leaves", "Curry leaves")],
-  forms: { "mustard-seeds": { form: "sprinkle", tone: "dark" } },
+  items: [fresh("x-mustard-seeds", "Mustard seeds"), fresh("x-curry-leaves", "Curry leaves")],
+  forms: { "x-mustard-seeds": { form: "sprinkle", tone: "dark" } },
   dishes: [{
     id: "poriyal", name: "Cabbage poriyal", art: "dish-poriyal", recipeId: "cabbage-peas-coconut-poriyal",
     remember: "Let the mustard seeds pop before the dal goes in; fold the coconut in off the heat.",
     parts: [{ id: "poriyal", name: "Cabbage poriyal", station: "pan", stages: [
-      { slots: [{ key: "oil", label: "Oil", accepts: ["cooking-oil"] }, { key: "seeds", label: "Mustard seeds", accepts: ["mustard-seeds"] }, { key: "dal", label: "Urad dal", accepts: ["urad-dal"] }], secs: 3, hint: "oil, mustard seeds and dal", scorchSecs: 1.5 },
-      { slots: [{ key: "leaves", label: "Curry leaves", accepts: ["curry-leaves"] }, { key: "heat", label: "Chilli", accepts: ["green-chilli"], optional: true }], secs: 2, hint: "the curry leaves" },
+      { slots: [{ key: "oil", label: "Oil", accepts: ["cooking-oil"] }, { key: "seeds", label: "Mustard seeds", accepts: ["x-mustard-seeds"] }, { key: "dal", label: "Urad dal", accepts: ["urad-dal"] }], secs: 3, hint: "oil, mustard seeds and dal", scorchSecs: 1.5 },
+      { slots: [{ key: "leaves", label: "Curry leaves", accepts: ["x-curry-leaves"] }, { key: "heat", label: "Chilli", accepts: ["green-chilli"], optional: true }], secs: 2, hint: "the curry leaves" },
       { slots: [{ key: "veg", label: "Cabbage", accepts: ["cabbage"] }, { key: "peas", label: "Peas", accepts: ["green-peas"] }, { key: "salt", label: "Salt", accepts: ["salt"] }], secs: 4, hint: "cabbage, peas and salt" },
       { slots: [{ key: "coconut", label: "Coconut", accepts: ["grated-coconut"] }], secs: 2, hint: "the coconut", band: [0.2, 0.45] },
     ] }],
@@ -52,7 +52,7 @@ catch (e) { check(false, "poriyal pack is valid: " + (e as Error).message); }
 if (pack) {
   check(packHash(readPack(JSON.parse(JSON.stringify(pack)))) === packHash(pack), "a pack hashes the same after a JSON round trip");
   registerPack(pack);
-  check(!!DISHES.poriyal && !!ITEMS["curry-leaves"] && !BUILTIN.dishes.poriyal, "registering adds the dish and items, not to the built-in set");
+  check(!!DISHES.poriyal && !!ITEMS["x-curry-leaves"] && !BUILTIN.dishes.poriyal, "registering adds the dish and items, not to the built-in set");
   const level: Level = { n: 0, name: "Cabbage poriyal", brief: "Practice the poriyal.", teach: "Pop the seeds first.", stations: ["pan"], seats: 2, maxOpen: 2,
     round: 150, patience: 95, hints: "full", distractors: ["garlic"], unlocks: [],
     orders: [{ id: "a", guest: "office", dish: "poriyal", at: 1 }, { id: "b", guest: "daniel", dish: "poriyal", at: 14 }, { id: "c", guest: "nurul", dish: "poriyal", at: 40 }] };

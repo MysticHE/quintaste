@@ -6700,5 +6700,20 @@
    256
   ],
   "status": "draft: needs artist approval before members see it"
+ },
+ "raw-bean-zongzi": {
+  "source": "runs/recipefix2/raw-bean-zongzi",
+  "variant": 1,
+  "tool": "QT Gamer (ChatGPT image generation via Hermes openai-codex)",
+  "model": "gpt-image-2-high",
+  "tier": "gpt-image-2-high",
+  "requestedAt": "2026-10-23T21:37:43+00:00",
+  "prompt": "Cosy mobile cooking-game art in the style of the reference image: a soft stylized 3D render with a hand-painted finish, chunky rounded toy-like shapes, smooth matte clay-like materials with subtle glossy highlights, warm soft key light from the upper left, gentle ambient occlusion, warm saturated but natural colours and a crisp clean silhouette. A single game ingredient sprite: two small raw bean zongzi parcels on a small bamboo tray. Pyramid parcels wrapped in green bamboo leaves and tied with bright red string (plain zongzi use pale string), so they are easy to tell apart. Unopened; a few yellow mung beans and red beans peek from one corner. Three-quarter view from slightly above, centred, the whole subject visible and filling about 70% of the frame with an even margin on every side. Isolated on a perfectly flat, uniform, solid magenta background (#FF00FF) that fills the whole image edge to edge: no gradient, no vignette, no floor, no table, no cast shadow on the background and no magenta reflections on the subject. No text, letters, numbers, logos or watermarks except label text specified above. No border or frame. No other objects. Never use magenta anywhere on the subject. Match only the rendering style of the attached QuinTaste game style board: soft rounded toy-like 3D, smooth clay-like materials, warm peach, cream, coral, honey-wood and sage colours, gentle warm light and the same character proportions. Do not copy any object, character or layout from the board.",
+  "sha256": "7c139171c478098f62764c7e3c96af118abe58ddb4a81c81e80f3e8d0178ee30",
+  "size": [
+   256,
+   206
+  ],
+  "status": "draft: needs artist approval before members see it"
  }
 }

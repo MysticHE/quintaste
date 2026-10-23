@@ -75,8 +75,8 @@ export const DISHES: Record<string, Dish> = Object.fromEntries(([
   ], "Soup wants a gentle simmer, not a boil. Corn and cabbage make it root-free for a Jain guest.", "abc-soup"),
   one("laksa", "Coconut laksa", "dish-laksa", "pot", [
     { slots: [slot("spice", "Turmeric", ["turmeric"]), slot("paste", "Chilli paste", ["chilli-paste-a", "chilli-paste-b"])], secs: 4, hint: "turmeric and chilli paste", band: [0.5, 0.78] },
-    { slots: [slot("stock", "Stock", ["stock-a", "stock-b"]), slot("cream", "Coconut milk", ["coconut-milk"])], secs: 5, hint: "stock and coconut milk", band: [0.25, 0.48], splitIfHot: ["coconut-milk"] },
-    { slots: [slot("noodles", "Rice noodles", ["rice-noodles"]), slot("tofu", "Tofu puffs", ["tofu"]), slot("leaf", "Laksa leaves", ["laksa-leaves"], true)], secs: 3, hint: "noodles and tofu", band: [0.25, 0.48] },
+    { slots: [slot("stock", "Stock", ["stock-a", "stock-b"]), slot("cream", "Coconut milk", ["coconut-milk"]), slot("leaf", "Laksa leaves", ["laksa-leaves"], true)], secs: 5, hint: "stock and coconut milk", band: [0.25, 0.48], splitIfHot: ["coconut-milk"] },
+    { slots: [slot("noodles", "Rice noodles", ["rice-noodles"]), slot("tofu", "Tofu puffs", ["tofu"]), slot("extra", "Bean sprouts", ["bean-sprouts"], true)], secs: 3, hint: "noodles and tofu", band: [0.25, 0.48] },
   ], "Fry the spice base hot, then lower the heat before the coconut milk so it doesn't split.", "gentle-laksa"),
   one("porridge", "Ginger oat porridge", "dish-porridge", "pot", [
     { slots: [slot("oats", "Oats", ["oats"]), slot("aroma", "Ginger", ["ginger"], true)], secs: 6, hint: "oats" },
@@ -184,11 +184,11 @@ export const DISHES: Record<string, Dish> = Object.fromEntries(([
   ], "Zhai curry gets its depth from curry powder and coconut, with no onion or garlic. Potato is a root, so a Jain guest has another dish."),
   dish({
     id: "sago", name: "Sago gula melaka", art: "dish-sago", recipeId: "sago-gula-melaka",
-    remember: "Cook the sago and the palm sugar syrup apart, then pour the syrup and coconut milk over the sago. Palm sugar scorches quickly: melt it gently.",
+    remember: "Cook the sago, then warm it gently in coconut milk with a pinch of salt; it splits if it boils. Melt the palm sugar syrup apart and pour it over: palm sugar scorches quickly.",
     parts: [
       { id: "sago-pearls", name: "Sago", station: "dessert", stages: [
         { slots: [slot("sago", "Sago", ["sago"])], secs: 5, hint: "sago pearls" },
-        { slots: [slot("cream", "Coconut milk", ["coconut-milk"])], secs: 1, hint: "coconut milk", splitIfHot: ["coconut-milk"] }] },
+        { slots: [slot("cream", "Coconut milk", ["coconut-milk"]), slot("salt", "Salt", ["salt"])], secs: 1, hint: "coconut milk and salt", splitIfHot: ["coconut-milk"] }] },
       { id: "sago-syrup", name: "Palm sugar syrup", station: "pot", stages: [
         { slots: [slot("syrup", "Gula melaka", ["gula-melaka"]), slot("leaf", "Pandan", ["pandan"], true)], secs: 3, hint: "gula melaka", band: [0.25, 0.5], scorchSecs: 1 }] },
     ],

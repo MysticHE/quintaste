@@ -138,7 +138,7 @@ export const ITEMS: Record<string, GameItem> = Object.fromEntries([
 export const itemName = (id: string) => { const it = ITEMS[id]; return it ? it.name + (it.variant ? " " + it.variant : "") : id; };
 
 /** Colour family of what a poured or sprinkled item leaves in the pan (the playfield maps each to a CSS token). */
-export type ItemTone = "soy" | "oil" | "cream" | "red" | "white" | "gold" | "dark";
+export type ItemTone = "soy" | "oil" | "cream" | "red" | "white" | "gold" | "dark" | "clear";
 /**
  * Items that go in from a container: poured (sauces, oils, milks, pastes) or sprinkled (powders, seeds, grains from a bowl).
  * The container never stays in the pan; the pan keeps a pool or speckles in the item's tone. Display only, not a rule.

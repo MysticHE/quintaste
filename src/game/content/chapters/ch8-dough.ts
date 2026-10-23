@@ -26,7 +26,7 @@ export const ITEMS: GameItem[] = [
   pantry("raw-mandu", "Mandu"),
 ];
 export const FORMS: Record<string, ItemForm> = {
-  "glutinous-flour": { form: "sprinkle", tone: "white" }, "black-sesame": { form: "pour", tone: "soy" }, water: { form: "pour", tone: "white" },
+  "glutinous-flour": { form: "sprinkle", tone: "white" }, "black-sesame": { form: "pour", tone: "soy" }, water: { form: "pour", tone: "clear" },
   "dumpling-filling": { form: "pour", tone: "soy" }, "samosa-filling": { form: "pour", tone: "gold" },
 };
 

@@ -16,6 +16,12 @@ export type Compiled = { needs: string[]; shortcuts: string[]; stages: DraftStag
 
 /** Recipe ingredient words → a built-in game item (the reviewed equivalents table). First match wins. */
 const ALIASES: [RegExp, string][] = [
+  // Ahead of the broad words below ("lime", "coriander", "sugar", "bean paste", "sprouts") that would otherwise claim them.
+  [/rock sugar/, "rock-sugar"], [/mustard seeds?/, "mustard-seeds"], [/curry lea(f|ves)/, "curry-leaves"], [/curry powder/, "curry-powder"],
+  [/laksa lea(f|ves)|daun kesum|vietnamese coriander/, "laksa-leaves"], [/lime lea(f|ves)|kaffir lime|makrut/, "lime-leaves"],
+  [/goji|wolfberr/, "goji"], [/\bpears?\b/, "pear"], [/mung beans?\b(?! sprout)/, "mung-beans"], [/\bred beans?\b(?! paste)|adzuki|azuki/, "red-beans"],
+  [/baking powder|baking soda|bicarbonate of soda|\bbicarb\b/, "baking-powder"], [/ground almonds?|almond (flour|meal)/, "ground-almonds"],
+  [/snow fungus|white fungus|silver ear|tremella/, "snow-fungus"],
   [/dark soy/, "dark-soy"], [/soy sauce|light soy|^soy$/, "soy"], [/kecap/, "kecap"], [/sesame oil/, "sesame-oil"], [/sesame seed|^sesame$/, "sesame-seeds"],
   [/\boil\b/, "cooking-oil"], [/coconut milk|santan/, "coconut-milk"], [/bee hoon|vermicelli/, "bee-hoon"], [/rice noodle/, "rice-noodles"],
   [/yellow noodle|egg-free yellow/, "yellow-noodles-b"], [/tofu/, "tofu"], [/tempeh/, "tempeh"], [/shiitake/, "shiitake"], [/button mushroom/, "button-mushrooms"],
@@ -32,7 +38,7 @@ const ALIASES: [RegExp, string][] = [
   [/dried chill/, "dried-chillies"], [/chilli sauce/, "chilli-sauce"], [/chilli|chili/, "red-chilli"], [/\byam\b|taro/, "yam"], [/\begg\b|eggs/, "egg"], [/honey/, "honey"],
   [/\bmilk\b/, "dairy-milk"], [/lime/, "lime"], [/radish/, "radish"],
 ];
-/** Left out of play, as the built-in dishes do. */
+/** Left out of play: nearly every recipe uses it and a step of plain water teaches nothing (gyoza's splash to steam is the one built-in exception). */
 const SKIP = /^(water|ice|hot water|cold water|water for .*)$/;
 /** First-pass tags for a new ingredient from its name; it stays unreviewed until staff check it (§6, the diet module decides for real). */
 const TAG_WORDS: [RegExp, ItemTag][] = [[/garlic|onion|shallot|leek|chive|scallion|asafoetida|hing/, "allium"], [/\begg/, "egg"], [/milk|butter|cheese|cream|ghee|yogh?urt|paneer/, "dairy"],
