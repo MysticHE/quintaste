@@ -6,6 +6,8 @@
 
 **19 October 2026 (gap closure):** Play your way opens from a compact sliders pill in the café HUD and from the game's pause menu (one shared sheet). The chalkboard shows Today's special. The Level 16 assembly board and the Signature café skin (2:3 portrait plus 3:2 wide, QT Gamer runs `growth` and `widen-signature` in the VPS test folder) are in the app; both are drafts awaiting artist approval.
 
+**23 October 2026 (owner: "redesign the background ... be a professional game designer"):** the new-find reveal (`home/FindReveal.tsx`, `home/FindLight.tsx`) keeps the café visible under a dark radial scrim instead of a flat panel; the find stands in a warm spotlight with two layers of tapered light beams that fade out along their length and turn slowly in opposite directions, six twinkling sparkles and a soft pool of light it floats over; it arrives with a flash and a springy pop. What earned it is a gold eyebrow line between two small diamonds; the action is the game's compact gold pill (Done for decor), with Keep current look as plain text beside an Equip, Choose or Use. A café skin shows as a rounded picture card with a soft shadow. Reduced motion (Play your way) keeps one still layer of beams and dim sparkles. The gold pill's keyboard focus is a steady glow, never the browser's outline.
+
 **Prototype:** [My Little Café](https://claude.ai/artifact/1b2ZNGxVgTvPEDvfQe4Jcr), a playable web prototype with QT Gamer concept art (private artifact, 18 October 2026). It is a design sketch, not app code.
 
 **Owner direction (18 October 2026):**

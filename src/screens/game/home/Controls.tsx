@@ -1,9 +1,10 @@
 import { useEffect, useRef } from "react";
-import { Pressable, ScrollView, StyleSheet, View } from "react-native";
+import { Platform, Pressable, ScrollView, StyleSheet, View } from "react-native";
 import Animated, { cancelAnimation, Easing, useAnimatedStyle, useSharedValue, withDelay, withRepeat, withSequence, withSpring, withTiming } from "react-native-reanimated";
 import { Icon, T, type IconName } from "../../../components/ui";
 import { DECOR, DECOR_ORDER, unlockText } from "../../../game/content/cosmetics";
 import { isUnlocked, type GameProgress } from "../../../game/progress";
+import { useKeyboardFocus } from "../../../hooks/useKeyboardFocus";
 import { usePreferences } from "../../../state/Preferences";
 import { Art } from "./bits";
 import { SLOTS, type SlotId } from "./sceneLayout";
@@ -33,9 +34,9 @@ export function CreditsPill({ credits }: { credits: number }) {
   return <Animated.View style={st}><Pill text={String(credits)} icon="sparkles" label={credits + " café credits"} /></Animated.View>;
 }
 
-/** The game's primary action (Play, Enter café): one compact gold pill with a soft breathing halo. */
+/** The game's primary action (Play, Enter café): one compact gold pill with a soft breathing halo; keyboard focus holds the halo lit instead of an outline. */
 export function PlayButton({ title, sub, onPlay, icon = "play", label }: { title: string; sub?: string; onPlay(): void; icon?: IconName; label?: string }) {
-  const { theme, reducedMotion } = usePreferences(), t = useSharedValue(0);
+  const { theme, reducedMotion } = usePreferences(), t = useSharedValue(0), { focused, focusProps } = useKeyboardFocus();
   useEffect(() => {
     if (reducedMotion) { cancelAnimation(t); t.value = 0; return; }
     t.value = withRepeat(withDelay(1200, withTiming(1, { duration: 1600, easing: Easing.out(Easing.quad) })), -1);
@@ -44,8 +45,9 @@ export function PlayButton({ title, sub, onPlay, icon = "play", label }: { title
   const halo = useAnimatedStyle(() => ({ opacity: (1 - t.value) * 0.45, transform: [{ scaleX: 1 + t.value * 0.08 }, { scaleY: 1 + t.value * 0.3 }] }));
   return <View>
     <Animated.View pointerEvents="none" style={[StyleSheet.absoluteFill, s.halo, { backgroundColor: theme.mediaRating }, halo]} />
-    <Pressable accessibilityRole="button" accessibilityLabel={label ?? (sub ? title + ", " + sub : title)} onPress={onPlay}
-      style={({ pressed }) => [s.play, { backgroundColor: theme.mediaRating, transform: [{ scale: pressed ? 0.96 : 1 }] }]}>
+    {focused && <View pointerEvents="none" style={[StyleSheet.absoluteFill, s.halo, s.focusHalo, { backgroundColor: theme.mediaRating }]} />}
+    <Pressable accessibilityRole="button" accessibilityLabel={label ?? (sub ? title + ", " + sub : title)} onPress={onPlay} {...focusProps}
+      style={({ pressed }) => [s.play, { backgroundColor: theme.mediaRating, transform: [{ scale: pressed ? 0.96 : 1 }] }, Platform.OS === "web" && s.noOutline]}>
       <View style={[s.playDot, { backgroundColor: theme.mediaSurface }]}><Icon name={icon} size={15} color={theme.mediaRating} /></View>
       <View style={s.playText}><T color={theme.mediaSurface} style={s.playTitle}>{title}</T>
         {!!sub && <T variant="small" color={theme.mediaSurface} numberOfLines={1} style={s.playSub}>{sub}</T>}</View>
@@ -85,6 +87,8 @@ const s = StyleSheet.create({
   shrink: { flexShrink: 1, minWidth: 0 },
   shrinkPill: { flexShrink: 1 },
   halo: { borderRadius: 26 },
+  focusHalo: { opacity: 0.5, transform: [{ scaleX: 1.06 }, { scaleY: 1.24 }] },
+  noOutline: { outlineStyle: "solid", outlineWidth: 0 },
   play: { minHeight: 52, borderRadius: 26, flexDirection: "row", alignItems: "center", gap: 10, paddingLeft: 7, paddingRight: 20, maxWidth: 300 },
   playDot: { width: 38, height: 38, borderRadius: 19, alignItems: "center", justifyContent: "center" },
   playText: { flexShrink: 1 },
